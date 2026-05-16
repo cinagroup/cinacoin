@@ -1,0 +1,86 @@
+{
+  "theme": {
+    "name": "default",
+    "mode": "dark",
+    "colors": {
+      "--ocx-color-accent-100": "#DBEAFE",
+      "--ocx-color-accent-500": "#3B82F6",
+      "--ocx-color-accent-600": "#2563EB",
+      "--ocx-color-accent-glow": "rgba(59, 130, 246, 0.3)",
+      "--ocx-color-bg-primary": "#0F172A",
+      "--ocx-color-bg-secondary": "#111827",
+      "--ocx-color-bg-tertiary": "#1F2937",
+      "--ocx-color-bg-overlay": "rgba(0, 0, 0, 0.7)",
+      "--ocx-color-bg-card": "#1E293B",
+      "--ocx-color-bg-card-hover": "#334155",
+      "--ocx-color-bg-input": "#111827",
+      "--ocx-color-text-primary": "#F8FAFC",
+      "--ocx-color-text-secondary": "#94A3B8",
+      "--ocx-color-text-tertiary": "#64748B",
+      "--ocx-color-text-inverse": "#FFFFFF",
+      "--ocx-color-text-brand": "#60A5FA",
+      "--ocx-color-success": "#22C55E",
+      "--ocx-color-success-bg": "rgba(34, 197, 94, 0.15)",
+      "--ocx-color-warning": "#EAB308",
+      "--ocx-color-warning-bg": "rgba(234, 179, 8, 0.15)",
+      "--ocx-color-error": "#EF4444",
+      "--ocx-color-error-bg": "rgba(239, 68, 68, 0.15)",
+      "--ocx-color-info": "#3B82F6",
+      "--ocx-color-info-bg": "rgba(59, 130, 246, 0.15)",
+      "--ocx-color-border": "#334155",
+      "--ocx-color-border-hover": "#4B5563",
+      "--ocx-color-border-focus": "#3B82F6"
+    },
+    "radii": {
+      "--ocx-radius-sm": "0.25rem",
+      "--ocx-radius-md": "0.5rem",
+      "--ocx-radius-lg": "0.75rem",
+      "--ocx-radius-xl": "1.5rem",
+      "--ocx-radius-full": "9999px"
+    },
+    "shadows": {
+      "--ocx-shadow-sm": "0 1px 2px 0 rgba(0, 0, 0, 0.3)",
+      "--ocx-shadow-md": "0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.3)",
+      "--ocx-shadow-lg": "0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.3)",
+      "--ocx-shadow-glow": "0 0 20px rgba(59, 130, 246, 0.3)"
+    },
+    "typography": {
+      "--ocx-font-family": "'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+      "--ocx-font-family-mono": "'JetBrains Mono', 'Fira Code', ui-monospace, monospace",
+      "--ocx-font-size-xs": "0.75rem",
+      "--ocx-font-size-sm": "0.875rem",
+      "--ocx-font-size-md": "1rem",
+      "--ocx-font-size-lg": "1.125rem",
+      "--ocx-font-size-xl": "1.25rem",
+      "--ocx-font-size-2xl": "1.5rem",
+      "--ocx-font-weight-normal": "400",
+      "--ocx-font-weight-medium": "500",
+      "--ocx-font-weight-semibold": "600",
+      "--ocx-font-weight-bold": "700"
+    },
+    "spacing": {
+      "--ocx-space-1": "0.25rem",
+      "--ocx-space-2": "0.5rem",
+      "--ocx-space-3": "0.75rem",
+      "--ocx-space-4": "1rem",
+      "--ocx-space-6": "1.5rem",
+      "--ocx-space-8": "2rem",
+      "--ocx-space-10": "2.5rem",
+      "--ocx-space-12": "3rem"
+    },
+    "animations": {
+      "--ocx-duration-fast": "150ms",
+      "--ocx-duration-normal": "250ms",
+      "--ocx-duration-slow": "400ms",
+      "--ocx-easing-default": "cubic-bezier(0.4, 0, 0.2, 1)",
+      "--ocx-easing-spring": "cubic-bezier(0.175, 0.885, 0.32, 1.275)"
+    },
+    "z-index": {
+      "--ocx-z-dropdown": "1000",
+      "--ocx-z-modal-backdrop": "2000",
+      "--ocx-z-modal": "2100",
+      "--ocx-z-toast": "3000",
+      "--ocx-z-tooltip": "4000"
+    }
+  }
+}

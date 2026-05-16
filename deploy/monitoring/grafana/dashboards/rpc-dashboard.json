@@ -1,0 +1,173 @@
+{
+  "dashboard": {
+    "id": null,
+    "uid": "rpc-metrics",
+    "title": "RPC Proxy Metrics — OnChainUX",
+    "tags": ["onchainux", "rpc-proxy"],
+    "timezone": "browser",
+    "refresh": "10s",
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    },
+    "panels": [
+      {
+        "id": 1,
+        "title": "RPC Requests Rate",
+        "type": "timeseries",
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
+        "targets": [
+          {
+            "expr": "sum(rate(rpc_requests_total[5m])) by (method)",
+            "legendFormat": "{{method}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "reqps"
+          }
+        }
+      },
+      {
+        "id": 2,
+        "title": "RPC Response Latency P95",
+        "type": "timeseries",
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0},
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, sum(rate(rpc_request_duration_seconds_bucket[5m])) by (le, provider))",
+            "legendFormat": "{{provider}}"
+          }
+        ],
+        "thresholds": [
+          {"value": 1, "color": "yellow"},
+          {"value": 2, "color": "red"}
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "s"
+          }
+        }
+      },
+      {
+        "id": 3,
+        "title": "Cache Hit Rate",
+        "type": "gauge",
+        "gridPos": {"h": 8, "w": 8, "x": 0, "y": 8},
+        "targets": [
+          {
+            "expr": "sum(rate(rpc_cache_hit_total[5m])) / sum(rate(rpc_requests_total[5m])) * 100"
+          }
+        ],
+        "thresholds": [
+          {"value": 60, "color": "red"},
+          {"value": 80, "color": "yellow"},
+          {"value": 90, "color": "green"}
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "percent",
+            "min": 0,
+            "max": 100
+          }
+        }
+      },
+      {
+        "id": 4,
+        "title": "Provider Availability",
+        "type": "stat",
+        "gridPos": {"h": 8, "w": 8, "x": 8, "y": 8},
+        "targets": [
+          {
+            "expr": "sum(rate(rpc_requests_total{status=\"success\"}[5m])) by (provider) / sum(rate(rpc_requests_total[5m])) by (provider) * 100",
+            "legendFormat": "{{provider}}"
+          }
+        ],
+        "thresholds": [
+          {"value": 99, "color": "green"},
+          {"value": 99.9, "color": "blue"}
+        ]
+      },
+      {
+        "id": 5,
+        "title": "Provider Failover Events",
+        "type": "timeseries",
+        "gridPos": {"h": 8, "w": 8, "x": 16, "y": 8},
+        "targets": [
+          {
+            "expr": "rate(rpc_provider_failover_total[5m])",
+            "legendFormat": "{{from_provider}} → {{to_provider}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short"
+          }
+        }
+      },
+      {
+        "id": 6,
+        "title": "Error Rate by Method",
+        "type": "timeseries",
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 16},
+        "targets": [
+          {
+            "expr": "sum(rate(rpc_requests_total{status=\"error\"}[5m])) by (method) / sum(rate(rpc_requests_total[5m])) by (method) * 100",
+            "legendFormat": "{{method}}"
+          }
+        ],
+        "thresholds": [
+          {"value": 1, "color": "yellow"},
+          {"value": 5, "color": "red"}
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "percent"
+          }
+        }
+      },
+      {
+        "id": 7,
+        "title": "External RPC Cost (est.)",
+        "type": "timeseries",
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 16},
+        "targets": [
+          {
+            "expr": "sum(rate(rpc_requests_total{provider!=\"local\"}[1h])) by (provider)",
+            "legendFormat": "{{provider}} /h"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short"
+          }
+        }
+      },
+      {
+        "id": 8,
+        "title": "Pod Restarts",
+        "type": "stat",
+        "gridPos": {"h": 4, "w": 6, "x": 0, "y": 24},
+        "targets": [
+          {
+            "expr": "increase(kube_pod_container_status_restarts_total{container=\"rpc-proxy\"}[15m])",
+            "legendFormat": "{{pod}}"
+          }
+        ]
+      }
+    ],
+    "templating": {
+      "list": [
+        {
+          "name": "provider",
+          "type": "query",
+          "query": "label_values(rpc_requests_total, provider)",
+          "refresh": 1,
+          "multi": true,
+          "includeAll": true
+        }
+      ]
+    }
+  },
+  "overwrite": true
+}

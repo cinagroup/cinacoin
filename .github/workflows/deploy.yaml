@@ -1,0 +1,182 @@
+name: Deploy
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Target environment"
+        required: true
+        default: staging
+        type: choice
+        options:
+          - staging
+          - production
+
+env:
+  HELM_VERSION: "3.14.0"
+
+jobs:
+  # ── Build & Push Images ──────────────────────────────────────
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract version
+        id: version
+        run: |
+          if [[ "${{ github.ref_type }}" == "tag" ]]; then
+            echo "version=${GITHUB_REF#refs/tags/v}" >> "$GITHUB_OUTPUT"
+          else
+            echo "version=latest" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build and push relay-server
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: deploy/docker/relay-server/Dockerfile
+          push: true
+          tags: |
+            ghcr.io/onchainux/relay-server:${{ steps.version.outputs.version }}
+            ghcr.io/onchainux/relay-server:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Build and push rpc-proxy
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: deploy/docker/rpc-proxy/Dockerfile
+          push: true
+          tags: |
+            ghcr.io/onchainux/rpc-proxy:${{ steps.version.outputs.version }}
+            ghcr.io/onchainux/rpc-proxy:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  # ── Staging Deploy ───────────────────────────────────────────
+  deploy-staging:
+    needs: build
+    if: github.ref_type == 'tag' || github.event.inputs.environment == 'staging'
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Extract version
+        id: version
+        run: |
+          if [[ "${{ github.ref_type }}" == "tag" ]]; then
+            echo "version=${GITHUB_REF#refs/tags/v}" >> "$GITHUB_OUTPUT"
+          else
+            echo "version=latest" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v3
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: v${{ env.HELM_VERSION }}
+
+      - name: Deploy to staging
+        run: |
+          helm upgrade --install onchainux ./deploy/helm/onchainux \
+            --namespace staging \
+            --create-namespace \
+            --set global.environment=staging \
+            --set global.region=${{ secrets.STAGING_REGION }} \
+            --set relay.image.tag=${{ steps.version.outputs.version }} \
+            --set rpcProxy.image.tag=${{ steps.version.outputs.version }} \
+            --wait --timeout 10m
+
+      - name: Smoke test
+        run: |
+          # Wait for rollout
+          kubectl rollout status deployment/relay-server -n staging --timeout=300s
+          kubectl rollout status deployment/rpc-proxy -n staging --timeout=300s
+
+          # Basic health check
+          curl -sf http://$(kubectl get svc relay-server -n staging -o jsonpath='{.spec.clusterIP}'):8080/v1/health
+
+  # ── Production Deploy (Canary) ───────────────────────────────
+  deploy-production:
+    needs: deploy-staging
+    if: github.ref_type == 'tag'
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Extract version
+        id: version
+        run: |
+          echo "version=${GITHUB_REF#refs/tags/v}" >> "$GITHUB_OUTPUT"
+
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v3
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: v${{ env.HELM_VERSION }}
+
+      - name: Canary deployment (10% traffic)
+        run: |
+          helm upgrade --install onchainux-canary ./deploy/helm/onchainux \
+            --namespace production \
+            --set global.environment=production \
+            --set global.region=${{ secrets.PRODUCTION_REGION }} \
+            --set relay.image.tag=${{ steps.version.outputs.version }} \
+            --set rpcProxy.image.tag=${{ steps.version.outputs.version }} \
+            --set relay.replicaCount=1 \
+            --set rpcProxy.replicaCount=1 \
+            --wait --timeout 10m
+
+      - name: Canary verification
+        run: |
+          echo "Waiting 15 minutes to observe canary metrics..."
+          sleep 900
+
+          ERROR_RATE=$(curl -s "http://${{ secrets.GRAFANA_URL }}/api/ds/query" \
+            -d '{"queries":[{"datasourceId":1,"rawSql":"sum(rate(rpc_requests_total{status=\"error\"}[5m])) / sum(rate(rpc_requests_total[5m]))"}]}')
+
+          echo "Error rate: $ERROR_RATE"
+
+          if echo "$ERROR_RATE" | python3 -c "import sys,json; d=json.load(sys.stdin); assert float(d['results']['A']['frames'][0]['data']['values'][1]) < 0.01"; then
+            echo "Canary passed: error rate within threshold"
+          else
+            echo "Canary failed: error rate too high, rolling back"
+            helm rollback onchainux --namespace production
+            exit 1
+          fi
+
+      - name: Full production rollout
+        run: |
+          helm upgrade --install onchainux ./deploy/helm/onchainux \
+            --namespace production \
+            --set global.environment=production \
+            --set global.region=${{ secrets.PRODUCTION_REGION }} \
+            --set relay.image.tag=${{ steps.version.outputs.version }} \
+            --set rpcProxy.image.tag=${{ steps.version.outputs.version }} \
+            --wait --timeout 15m
+
+      - name: Verify production rollout
+        run: |
+          kubectl rollout status deployment/relay-server -n production --timeout=600s
+          kubectl rollout status deployment/rpc-proxy -n production --timeout=600s

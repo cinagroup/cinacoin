@@ -1,0 +1,210 @@
+# OnChainUX Chain Registry
+# Priority matrix and configuration for all supported chains
+
+chains:
+  # ── Ethereum Mainnet (P0) ─────────────────────────────────────
+  - id: 1
+    name: Ethereum
+    symbol: ETH
+    type: evm
+    rpc_url: "https://rpc.onchainux.com/eth"
+    ws_url: "wss://rpc.onchainux.com/eth/ws"
+    explorer: "https://etherscan.io"
+    explorer_tx: "https://etherscan.io/tx/{hash}"
+    native_currency:
+      name: Ether
+      symbol: ETH
+      decimals: 18
+    block_time_ms: 12000
+    gas_config:
+      type: eip1559
+      default_priority_fee: "1500000000"  # 1.5 gwei
+      max_fee_multiplier: 1.5
+    supported: true
+    priority: P0
+
+  # ── Polygon (P0) ──────────────────────────────────────────────
+  - id: 137
+    name: Polygon
+    symbol: POL
+    type: evm
+    rpc_url: "https://rpc.onchainux.com/polygon"
+    ws_url: "wss://rpc.onchainux.com/polygon/ws"
+    explorer: "https://polygonscan.com"
+    explorer_tx: "https://polygonscan.com/tx/{hash}"
+    native_currency:
+      name: Polygon
+      symbol: POL
+      decimals: 18
+    block_time_ms: 2000
+    gas_config:
+      type: legacy
+      default_gas_price: "30000000000"  # 30 gwei
+    supported: true
+    priority: P0
+
+  # ── Arbitrum One (P0) ─────────────────────────────────────────
+  - id: 42161
+    name: Arbitrum One
+    symbol: ETH
+    type: evm
+    rpc_url: "https://rpc.onchainux.com/arbitrum"
+    ws_url: "wss://rpc.onchainux.com/arbitrum/ws"
+    explorer: "https://arbiscan.io"
+    explorer_tx: "https://arbiscan.io/tx/{hash}"
+    native_currency:
+      name: Ether
+      symbol: ETH
+      decimals: 18
+    block_time_ms: 250
+    gas_config:
+      type: eip1559
+      default_priority_fee: "100000"  # 0.0001 gwei
+      max_fee_multiplier: 1.2
+    supported: true
+    priority: P0
+
+  # ── BSC (P0) ──────────────────────────────────────────────────
+  - id: 56
+    name: BNB Smart Chain
+    symbol: BNB
+    type: evm
+    rpc_url: "https://rpc.onchainux.com/bsc"
+    ws_url: "wss://rpc.onchainux.com/bsc/ws"
+    explorer: "https://bscscan.com"
+    explorer_tx: "https://bscscan.com/tx/{hash}"
+    native_currency:
+      name: BNB
+      symbol: BNB
+      decimals: 18
+    block_time_ms: 3000
+    gas_config:
+      type: legacy
+      default_gas_price: "3000000000"  # 3 gwei
+    supported: true
+    priority: P0
+
+  # ── Base (P1) ─────────────────────────────────────────────────
+  - id: 8453
+    name: Base
+    symbol: ETH
+    type: evm
+    rpc_url: "https://rpc.onchainux.com/base"
+    ws_url: "wss://rpc.onchainux.com/base/ws"
+    explorer: "https://basescan.org"
+    explorer_tx: "https://basescan.org/tx/{hash}"
+    native_currency:
+      name: Ether
+      symbol: ETH
+      decimals: 18
+    block_time_ms: 2000
+    gas_config:
+      type: eip1559
+      default_priority_fee: "1000000"  # 0.001 gwei
+      max_fee_multiplier: 1.3
+    supported: true
+    priority: P1
+
+  # ── Optimism (P1) ─────────────────────────────────────────────
+  - id: 10
+    name: Optimism
+    symbol: ETH
+    type: evm
+    rpc_url: "https://rpc.onchainux.com/optimism"
+    ws_url: "wss://rpc.onchainux.com/optimism/ws"
+    explorer: "https://optimistic.etherscan.io"
+    explorer_tx: "https://optimistic.etherscan.io/tx/{hash}"
+    native_currency:
+      name: Ether
+      symbol: ETH
+      decimals: 18
+    block_time_ms: 2000
+    gas_config:
+      type: eip1559
+      default_priority_fee: "1000000"  # 0.001 gwei
+      max_fee_multiplier: 1.3
+    supported: true
+    priority: P1
+
+  # ── Solana (P1, Phase 5) ──────────────────────────────────────
+  - id: 101
+    name: Solana
+    symbol: SOL
+    type: solana
+    rpc_url: "https://rpc.onchainux.com/solana"
+    ws_url: "wss://rpc.onchainux.com/solana/ws"
+    explorer: "https://solscan.io"
+    explorer_tx: "https://solscan.io/tx/{hash}"
+    native_currency:
+      name: Solana
+      symbol: SOL
+      decimals: 9
+    block_time_ms: 400
+    gas_config:
+      type: fixed
+      default_compute_units: 200000
+      default_priority_fee: "5000"  # 5000 micro-lamports
+    supported: false
+    priority: P1
+
+  # ── Avalanche (P3) ────────────────────────────────────────────
+  - id: 43114
+    name: Avalanche C-Chain
+    symbol: AVAX
+    type: evm
+    rpc_url: "https://rpc.onchainux.com/avalanche"
+    ws_url: "wss://rpc.onchainux.com/avalanche/ws"
+    explorer: "https://snowtrace.io"
+    explorer_tx: "https://snowtrace.io/tx/{hash}"
+    native_currency:
+      name: Avalanche
+      symbol: AVAX
+      decimals: 18
+    block_time_ms: 2000
+    gas_config:
+      type: legacy
+      default_gas_price: "25000000000"  # 25 gwei
+    supported: false
+    priority: P3
+
+  # ── zkSync Era (P3) ───────────────────────────────────────────
+  - id: 324
+    name: zkSync Era
+    symbol: ETH
+    type: evm
+    rpc_url: "https://rpc.onchainux.com/zksync"
+    ws_url: "wss://rpc.onchainux.com/zksync/ws"
+    explorer: "https://explorer.zksync.io"
+    explorer_tx: "https://explorer.zksync.io/tx/{hash}"
+    native_currency:
+      name: Ether
+      symbol: ETH
+      decimals: 18
+    block_time_ms: 1000
+    gas_config:
+      type: eip1559
+      default_priority_fee: "100000"
+      max_fee_multiplier: 1.5
+    supported: false
+    priority: P3
+
+  # ── Linea (P3) ────────────────────────────────────────────────
+  - id: 59144
+    name: Linea
+    symbol: ETH
+    type: evm
+    rpc_url: "https://rpc.onchainux.com/linea"
+    ws_url: "wss://rpc.onchainux.com/linea/ws"
+    explorer: "https://lineascan.build"
+    explorer_tx: "https://lineascan.build/tx/{hash}"
+    native_currency:
+      name: Ether
+      symbol: ETH
+      decimals: 18
+    block_time_ms: 3000
+    gas_config:
+      type: eip1559
+      default_priority_fee: "100000"
+      max_fee_multiplier: 1.3
+    supported: false
+    priority: P3

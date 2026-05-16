@@ -1,0 +1,114 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: solana-validator
+  namespace: onchainux
+  labels:
+    app: solana-validator
+    chain: solana
+    component: blockchain-node
+spec:
+  serviceName: solana-validator
+  replicas: 1
+  selector:
+    matchLabels:
+      app: solana-validator
+  template:
+    metadata:
+      labels:
+        app: solana-validator
+        chain: solana
+        component: blockchain-node
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8899"
+    spec:
+      securityContext:
+        runAsNonRoot: false
+      terminationGracePeriodSeconds: 120
+      containers:
+        - name: solana
+          image: solanalabs/solana:v1.18
+          args:
+            - solana-validator
+            - --ledger
+            - /data/solana
+            - --rpc-port
+            - "8899"
+            - --dynamic-port-range
+            - 8000-8020
+            - --entrypoint
+            - entrypoint.mainnet-beta.solana.com:8001
+            - --entrypoint
+            - entrypoint2.mainnet-beta.solana.com:8001
+            - --entrypoint
+            - entrypoint3.mainnet-beta.solana.com:8001
+            - --expected-genesis-hash
+            - 5eykt4UsFv8P8NJdTREpY1vzqKqZKvdpKuc147dw2N9d
+            - --log
+            - -
+            - --limit-ledger-size
+            - "50000000"
+            - --no-voting
+            - --wal-recovery-mode
+            - skip_any_corrupted_record
+          ports:
+            - name: rpc
+              containerPort: 8899
+              protocol: TCP
+            - name: ws
+              containerPort: 8900
+              protocol: TCP
+            - name: geyser
+              containerPort: 8899
+              protocol: TCP
+          resources:
+            requests:
+              cpu: "8000m"
+              memory: "32Gi"
+            limits:
+              cpu: "16000m"
+              memory: "64Gi"
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - solana cluster-version --url http://localhost:8899
+            initialDelaySeconds: 300
+            periodSeconds: 30
+            failureThreshold: 10
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - solana health --url http://localhost:8899
+            initialDelaySeconds: 120
+            periodSeconds: 15
+            failureThreshold: 5
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false
+          volumeMounts:
+            - name: data
+              mountPath: /data
+            - name: accounts
+              mountPath: /accounts
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: local-ssd
+        resources:
+          requests:
+            storage: 2Ti
+    - metadata:
+        name: accounts
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: local-ssd
+        resources:
+          requests:
+            storage: 2Ti

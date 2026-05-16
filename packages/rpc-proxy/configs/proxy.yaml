@@ -1,0 +1,65 @@
+# OnChainUX RPC Proxy Configuration
+#
+# Main proxy config. Provider definitions are embedded below.
+# Override with environment variables:
+#   PROXY_LISTEN_ADDR, PROXY_REDIS_URL, PROXY_REGION
+
+listen_addr: ":8545"
+region: "local"
+redis_url: "redis://127.0.0.1:6379"
+
+# Multi-level cache configuration
+cache:
+  # Cache TTL per read method (seconds)
+  read_method_ttls:
+    eth_blockNumber: 2
+    eth_getBlockByNumber: 12
+    eth_call: 12
+    eth_getBalance: 30
+    eth_getTransactionReceipt: 300
+    eth_getLogs: 600
+    eth_getCode: 120
+    eth_getStorageAt: 300
+    eth_gasPrice: 5
+    eth_estimateGas: 10
+  max_local_cache_mb: 2048
+  key_strategy: "sha256"  # sha256 or simple
+
+# Request deduplication
+dedup:
+  window_ms: 5000  # 5-second dedup window
+
+# Rate limiting
+rate_limit:
+  global:
+    requests_per_second: 10000
+    burst_size: 20000
+  per_key:
+    requests_per_minute: 100000
+    burst_size: 200000
+  per_ip:
+    requests_per_second: 100
+    burst_size: 500
+
+# Provider chain per network
+providers:
+  "1":
+    chain_id: 1
+    local_node:
+      url: "http://localhost:8545"
+    primary:
+      url: "https://eth-mainnet.g.alchemy.com/v2/YOUR_API_KEY"
+    fallbacks:
+      - url: "https://rpc.ankr.com/eth"
+  "137":
+    chain_id: 137
+    primary:
+      url: "https://polygon-mainnet.g.alchemy.com/v2/YOUR_API_KEY"
+    fallbacks:
+      - url: "https://polygon-rpc.com"
+  "56":
+    chain_id: 56
+    primary:
+      url: "https://bsc-dataseed.binance.org"
+    fallbacks:
+      - url: "https://rpc.ankr.com/bsc"

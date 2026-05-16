@@ -1,0 +1,116 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: erigon-ethereum
+  namespace: onchainux
+  labels:
+    app: erigon-ethereum
+    chain: ethereum
+    component: blockchain-node
+spec:
+  serviceName: erigon-ethereum
+  replicas: 2
+  selector:
+    matchLabels:
+      app: erigon-ethereum
+  template:
+    metadata:
+      labels:
+        app: erigon-ethereum
+        chain: ethereum
+        component: blockchain-node
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "6060"
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      terminationGracePeriodSeconds: 120
+      containers:
+        - name: erigon
+          image: thorax/erigon:latest
+          args:
+            - "--chain=mainnet"
+            - "--http"
+            - "--http.addr=0.0.0.0"
+            - "--http.port=8545"
+            - "--http.api=eth,net,web3,txpool,debug"
+            - "--ws"
+            - "--ws.addr=0.0.0.0"
+            - "--ws.port=8546"
+            - "--metrics"
+            - "--metrics.addr=0.0.0.0"
+            - "--metrics.port=6060"
+            - "--txpool.globalslots=50000"
+            - "--batchsize=128mb"
+            - "--db.pagesize=4096"
+          ports:
+            - name: rpc
+              containerPort: 8545
+              protocol: TCP
+            - name: ws
+              containerPort: 8546
+              protocol: TCP
+            - name: metrics
+              containerPort: 6060
+              protocol: TCP
+            - name: p2p
+              containerPort: 30303
+              protocol: TCP
+            - name: p2p-udp
+              containerPort: 30303
+              protocol: UDP
+          resources:
+            requests:
+              cpu: "4000m"
+              memory: "16Gi"
+            limits:
+              cpu: "8000m"
+              memory: "32Gi"
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - |
+                  RESULT=$(curl -s -X POST http://localhost:8545 \
+                    -H "Content-Type: application/json" \
+                    -d '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}')
+                  echo "$RESULT" | grep -q result
+            initialDelaySeconds: 300
+            periodSeconds: 30
+            failureThreshold: 10
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - |
+                  RESULT=$(curl -s -X POST http://localhost:8545 \
+                    -H "Content-Type: application/json" \
+                    -d '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}')
+                  echo "$RESULT" | grep -q result
+            initialDelaySeconds: 60
+            periodSeconds: 15
+            failureThreshold: 5
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false
+            capabilities:
+              drop:
+                - ALL
+          volumeMounts:
+            - name: data
+              mountPath: /data
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: gp3-io2
+        resources:
+          requests:
+            storage: 2Ti

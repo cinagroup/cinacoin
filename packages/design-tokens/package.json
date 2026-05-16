@@ -1,0 +1,31 @@
+{
+  "name": "@onchainux/design-tokens",
+  "version": "0.1.0",
+  "description": "Design tokens for OnChainUX white-label UI toolkit",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./tokens/*": "./tokens/*",
+    "./css/*": "./dist/css/*"
+  },
+  "files": [
+    "dist",
+    "tokens"
+  ],
+  "scripts": {
+    "build": "tsx scripts/build.ts",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "tsx": "^4.19.0"
+  },
+  "license": "MIT"
+}

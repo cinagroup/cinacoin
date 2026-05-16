@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: erigon-ethereum-config
+  namespace: onchainux
+  labels:
+    app: erigon-ethereum
+    chain: ethereum
+    component: blockchain-node
+data:
+  erigon.conf: |
+    chain=mainnet
+    http=true
+    http.addr=0.0.0.0
+    http.port=8545
+    http.api=eth,net,web3,txpool,debug
+    ws=true
+    ws.addr=0.0.0.0
+    ws.port=8546
+    metrics=true
+    metrics.addr=0.0.0.0
+    metrics.port=6060
+    txpool.globalslots=50000
+    batchsize=128mb
+    db.pagesize=4096
+    p2p.maxpeers=100
+    sync.loop.block.limit=5000
