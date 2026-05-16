@@ -20,38 +20,38 @@ export type {
   PairingData,
   SessionProposal,
   RequiredNamespace,
-} from './types';
+} from './types.js';
 
 // Connector
-export { Connector } from './connector';
+export { Connector } from './connector.js';
 
 // Session
-export { SessionManager } from './session';
-export type { SessionState } from './session';
+export { SessionManager } from './session.js';
+export type { SessionState } from './session.js';
 
 // State management
-export { createOnChainUXStore, initializeStore } from './store';
-export type { OnChainUXState, ConnectionStatus, StoreConfig } from './store';
+export { createOnChainUXStore, initializeStore } from './store.js';
+export type { OnChainUXState, ConnectionStatus, StoreConfig } from './store.js';
 
 // Events
-export { EventEmitter } from './events';
+export { EventEmitter } from './events.js';
 
 // EIP-6963
-export { discoverWallets, watchWallets, findWalletByRdns } from './eip6963';
-export type { EIP6963ProviderInfo, EIP1193Provider, EIP6963ProviderDetail } from './eip6963';
+export { discoverWallets, watchWallets, findWalletByRdns } from './eip6963.js';
+export type { EIP6963ProviderInfo, EIP1193Provider, EIP6963ProviderDetail } from './eip6963.js';
 
 // Transports
-export { RelayTransport } from './transports/relay';
-export type { RelayTransportConfig } from './transports/relay';
+export { RelayTransport } from './transports/relay.js';
+export type { RelayTransportConfig } from './transports/relay.js';
 
-export { InjectedProvider } from './transports/injected';
+export { InjectedProvider } from './transports/injected.js';
 
-export { QRTransport } from './transports/qr';
-export type { QRTransportConfig } from './transports/qr';
+export { QRTransport } from './transports/qr.js';
+export type { QRTransportConfig } from './transports/qr.js';
 
 // EVM Adapter
-export { EvmAdapter } from './adapters/evm';
-export type { EthCallParams } from './adapters/evm';
+export { EvmAdapter } from './adapters/evm.js';
+export type { EthCallParams } from './adapters/evm.js';
 
 // Solana Adapter
 export {
@@ -60,8 +60,8 @@ export {
   SOLANA_WALLETS,
   isValidSolanaAddress,
   base58Decode,
-} from './adapters/solana';
-export type { SolanaWalletInfo } from './adapters/solana';
+} from './adapters/solana.js';
+export type { SolanaWalletInfo } from './adapters/solana.js';
 
 // Bitcoin Adapter
 export {
@@ -69,8 +69,8 @@ export {
   BITCOIN_CHAINS,
   BITCOIN_WALLETS,
   validateBitcoinAddress,
-} from './adapters/bitcoin';
-export type { UTXO, AddressFormat, BitcoinWalletInfo } from './adapters/bitcoin';
+} from './adapters/bitcoin.js';
+export type { UTXO, AddressFormat, BitcoinWalletInfo } from './adapters/bitcoin.js';
 
 // Crypto
 export {
@@ -80,14 +80,14 @@ export {
   deserializeKeypair,
   bytesToHex,
   hexToBytes,
-} from './crypto/keypair';
-export type { X25519Keypair } from './crypto/keypair';
+} from './crypto/keypair.js';
+export type { X25519Keypair } from './crypto/keypair.js';
 
-export { encrypt, decrypt, deriveSymmetricKey, deriveTopic, generateNonce } from './crypto/encrypt';
+export { encrypt, decrypt, deriveSymmetricKey, deriveTopic, generateNonce } from './crypto/encrypt.js';
 
 // SIWE Authentication
-export { SIWEAuth } from './auth/siwe';
-export type { SIWEAuthConfig, SIWESignInResult } from './auth/siwe';
+export { SIWEAuth } from './auth/siwe.js';
+export type { SIWEAuthConfig, SIWESignInResult } from './auth/siwe.js';
 
 // Deep Linking
 export {
@@ -99,7 +99,7 @@ export {
   generateWalletConnectUniversalLink,
   smartRedirect,
   detectPlatform,
-} from './links';
+} from './links.js';
 export type {
   DeepLinkParams,
   Platform as DeepLinkPlatform,
@@ -107,7 +107,7 @@ export type {
   RedirectOptions,
   WalletDeepLinkConfig,
   UniversalLinkParams,
-} from './links';
+} from './links.js';
 
 /**
  * SDK version.

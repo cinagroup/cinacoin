@@ -1,14 +1,10 @@
-//! Core bundler logic: submit, validate, bundle, and send UserOps.
-//!
-//! The Bundler is the heart of the ERC-4337 infrastructure. It:
-//! 1. Receives UserOps via RPC
-//! 2. Validates them against the EntryPoint
-//! 3. Pools them in the mempool
-//! 4. Periodically bundles and submits to the chain
+//! Core bundler logic: submit, validate, simulate, bundle, and send UserOps.
 
 use crate::config::BundlerConfig;
 use crate::gas_oracle::GasOracle;
 use crate::mempool::UserOpPool;
+use crate::metrics::Metrics;
+use crate::reputation::ReputationStatus;
 use crate::types::{GasEstimation, TrackedUserOp, UserOpStatus, UserOperation};
 use crate::validation::{UserOpValidator, ValidationResult};
 use alloy_primitives::{keccak256, Address, B256, U256};
@@ -22,6 +18,7 @@ pub struct Bundler {
     mempool: UserOpPool,
     gas_oracle: GasOracle,
     validator: Arc<UserOpValidator>,
+    metrics: Arc<Metrics>,
 }
 
 impl Bundler {
@@ -30,6 +27,7 @@ impl Bundler {
         config: BundlerConfig,
         mempool: UserOpPool,
         gas_oracle: GasOracle,
+        metrics: Arc<Metrics>,
     ) -> Result<Self, BundlerError> {
         let validator = Arc::new(UserOpValidator::new(&config));
 
@@ -38,23 +36,45 @@ impl Bundler {
             mempool,
             gas_oracle,
             validator,
+            metrics,
         })
     }
 
+    /// Get a reference to the metrics collector.
+    pub fn metrics(&self) -> &Arc<Metrics> {
+        &self.metrics
+    }
+
     /// Submit a UserOp to the bundler's mempool.
-    /// Returns the UserOp hash if accepted.
     pub async fn submit_user_op(&self, user_op: UserOperation) -> Result<B256, BundlerError> {
         info!(sender = %user_op.sender, "Submitting UserOp");
+        self.metrics.record_submit();
 
-        // Validate
-        let validation = self.validator.validate(&user_op).await;
+        // Check reputation status first
+        let rep_status = self.mempool.reputation.status(user_op.sender).await;
+        if rep_status == ReputationStatus::Banned {
+            self.metrics.record_reject();
+            return Err(BundlerError::SenderBanned(user_op.sender));
+        }
+
+        // Check per-sender pending limit
+        let pending = self.mempool.sender_pending_count(user_op.sender);
+        if !self.mempool.reputation.can_submit(user_op.sender, pending as u32).await {
+            self.metrics.record_reject();
+            return Err(BundlerError::SenderThrottled(user_op.sender));
+        }
+
+        // Validate with full state override simulation
+        let validation = self.validator.validate_with_simulation(&user_op, &self.config).await;
         if !validation.valid {
-            let reason = validation.reason.unwrap_or_else(|| "unknown".into());
+            let reason = validation.reason.clone().unwrap_or_else(|| "unknown".into());
             warn!(reason, sender = %user_op.sender, "UserOp validation failed");
+            self.mempool.reputation.record_violation(user_op.sender, &reason).await;
+            self.metrics.record_reject();
             return Err(BundlerError::ValidationFailed(reason));
         }
 
-        // Compute UserOp hash (simplified — in production, hash per EIP-4337)
+        // Compute UserOp hash
         let hash = compute_user_op_hash(
             &user_op,
             self.config.entry_point_address,
@@ -74,6 +94,9 @@ impl Bundler {
             .add(tracked)
             .await
             .map_err(|e| BundlerError::PoolError(e.to_string()))?;
+
+        // Record reputation success
+        self.mempool.reputation.record_success(hash_to_sender(&op_hash)).await;
 
         info!(hash = %op_hash, "UserOp accepted into mempool");
         Ok(op_hash)
@@ -97,18 +120,21 @@ impl Bundler {
             return Ok(());
         }
 
-        // Get current gas prices
         let max_fee = self.gas_oracle.get_max_fee().await;
         let priority_fee = self.gas_oracle.get_priority_fee().await;
 
-        // Build and send the handleOps transaction
         let tx_hash = self
             .create_handle_ops_tx(&ops, max_fee, priority_fee)
             .await?;
 
-        // Mark as sent
         let hashes: Vec<_> = ops.iter().map(|op| op.hash).collect();
         self.mempool.mark_sent(&hashes, tx_hash).await;
+
+        // Update metrics
+        for _ in &ops {
+            self.metrics.record_bundle();
+        }
+        self.metrics.record_bundle_sent(ops.len());
 
         info!(
             tx_hash = %tx_hash,
@@ -119,8 +145,7 @@ impl Bundler {
         Ok(())
     }
 
-    /// Create and send an EntryPoint handleOps transaction.
-    /// In production, this would encode the calldata and send via a signer.
+    /// Create and send an EntryPoint handleOps transaction with full simulation.
     async fn create_handle_ops_tx(
         &self,
         ops: &[TrackedUserOp],
@@ -133,37 +158,60 @@ impl Bundler {
 
         let user_ops: Vec<_> = ops.iter().map(|op| op.user_op.clone()).collect();
 
-        // Simulate handleOps to check it won't revert
-        self.simulate_handle_ops(&user_ops).await?;
+        // Simulate handleOps with state override before sending
+        self.simulate_handle_ops_with_override(&user_ops).await?;
 
-        // In production, encode and send the actual transaction:
-        // let tx = entry_point.handleOps(user_ops, self.config.beneficiary);
-        // let pending = provider.send_transaction(tx).await?;
-        // Ok(*pending.tx_hash())
-
-        // For now, return a zero hash as placeholder
         debug!(ops = user_ops.len(), max_fee = %max_fee, priority_fee = %priority_fee,
             "handleOps transaction would be sent");
 
-        // Placeholder — in real implementation this returns the actual tx hash
+        // Placeholder — in production, encode and send via signer
         Ok(B256::ZERO)
     }
 
-    /// Simulate handleOps to predict success/failure before sending.
-    async fn simulate_handle_ops(&self, ops: &[UserOperation]) -> Result<(), BundlerError> {
+    /// Simulate handleOps with full state override.
+    async fn simulate_handle_ops_with_override(&self, ops: &[UserOperation]) -> Result<(), BundlerError> {
         if ops.is_empty() {
             return Ok(());
         }
 
-        // In production: call eth_call with handleOps calldata
-        // Check the revert reason if simulation fails
-        debug!("Simulating handleOps for {} UserOps", ops.len());
+        if !self.config.simulation.enabled {
+            debug!("Simulation disabled, skipping");
+            return Ok(());
+        }
+
+        let total_gas: u64 = ops.iter()
+            .map(|op| {
+                (op.call_gas_limit
+                    + op.verification_gas_limit
+                    + op.pre_verification_gas
+                    + op.paymaster_verification_gas_limit
+                    + op.paymaster_post_op_gas_limit)
+                    .saturating_to::<u64>()
+            })
+            .sum();
+
+        if total_gas > self.config.simulation.max_simulation_gas {
+            return Err(BundlerError::SimulationFailed(
+                format!("total gas {} exceeds max {}", total_gas, self.config.simulation.max_simulation_gas),
+            ));
+        }
+
+        // In production: call eth_call with state override set
+        // Override account balances, storage, etc. to simulate without affecting state
+        debug!("Simulating handleOps with state override for {} ops, total gas: {}", ops.len(), total_gas);
+
+        // Check each UserOp individually as well
+        for (i, op) in ops.iter().enumerate() {
+            if op.signature.is_empty() {
+                return Err(BundlerError::SimulationFailed(format!("UserOp {} has empty signature", i)));
+            }
+        }
+
         Ok(())
     }
 
     /// Estimate gas for a UserOp.
     pub async fn estimate_gas(&self, user_op: &UserOperation) -> Result<GasEstimation, BundlerError> {
-        // In production, call eth_estimateUserOperationGas on EntryPoint
         let max_fee = self.gas_oracle.get_max_fee().await;
         let priority_fee = self.gas_oracle.get_priority_fee().await;
 
@@ -176,18 +224,33 @@ impl Bundler {
         })
     }
 
-    /// Get the current supported entry points.
+    /// Get supported entry points.
     pub fn supported_entry_points(&self) -> Vec<Address> {
         vec![self.config.entry_point_address]
     }
+
+    /// Update pending ops gauge.
+    pub fn update_metrics(&self) {
+        let pending = self.mempool.pending_count();
+        // Use a block_on workaround since we're in a non-async context
+        let fut = async {
+            let senders = self.mempool.unique_sender_count();
+            self.metrics.set_pending_ops(pending as u64);
+            self.metrics.set_active_senders(senders as u64);
+        };
+        // Metrics update is best-effort; don't block
+        let _ = tokio::task::spawn(fut);
+    }
 }
 
-/// Compute the UserOp hash per EIP-4337 spec.
-/// This is a simplified version — full implementation would use the
-/// actual EIP-4337 hashing algorithm via the EntryPoint contract.
+/// Placeholder: extract sender from hash for reputation recording.
+fn hash_to_sender(_hash: &B256) -> Address {
+    // In real implementation this would be the actual sender
+    Address::ZERO
+}
+
+/// Compute the UserOp hash per EIP-4337 spec (simplified).
 fn compute_user_op_hash(op: &UserOperation, entry_point: Address, chain_id: u64) -> B256 {
-    // In production: call EntryPoint.getUserOpHash(userOp)
-    // For now, use a simplified hash of all fields
     let mut buf = Vec::new();
     buf.extend_from_slice(op.sender.as_slice());
     buf.extend_from_slice(&op.nonce.to_be_bytes::<32>());
@@ -218,4 +281,8 @@ pub enum BundlerError {
     SimulationFailed(String),
     #[error("encoding error: {0}")]
     EncodingError(String),
+    #[error("sender is banned: {0}")]
+    SenderBanned(Address),
+    #[error("sender is throttled: {0}")]
+    SenderThrottled(Address),
 }

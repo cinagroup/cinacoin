@@ -87,7 +87,7 @@ pub enum UserOpStatus {
 }
 
 /// A tracked UserOp with metadata.
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, serde::Serialize)]
 pub struct TrackedUserOp {
     pub user_op: UserOperation,
     pub hash: B256,

@@ -1,6 +1,6 @@
 [package]
 name = "onchainux-bundler"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 description = "OnChainUX ERC-4337 Bundler — production UserOp bundling service"
 license = "MIT"
@@ -9,6 +9,7 @@ license = "MIT"
 tokio = { version = "1", features = ["full"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
+serde_yaml = "0.9"
 alloy-primitives = { version = "0.8", features = ["serde"] }
 alloy-sol-types = "0.8"
 alloy-rpc-types = "0.11"
@@ -22,6 +23,7 @@ tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 redis = { version = "0.27", features = ["tokio-comp", "connection-manager"] }
 axum = "0.7"
+tower-http = { version = "0.5", features = ["cors", "trace"] }
 thiserror = "2"
 chrono = { version = "0.4", features = ["serde"] }
 priority-queue = "2"
@@ -31,3 +33,6 @@ async-trait = "0.1"
 hex = "0.4"
 url = "2"
 jsonrpsee = { version = "0.24", features = ["server", "http-client"] }
+dotenv = "0.15"
+prometheus-client = "0.22"
+dashmap = "6"

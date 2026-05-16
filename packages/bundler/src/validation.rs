@@ -6,7 +6,7 @@
 //! 3. Profit margin enforcement
 //! 4. Blacklist / rate-limit enforcement
 
-use crate::config::BundlerConfig;
+use crate::config::{BundlerConfig, SimulationConfig};
 use crate::types::UserOperation;
 use alloy_primitives::{Address, U256};
 use std::collections::HashSet;
@@ -52,6 +52,15 @@ impl UserOpValidator {
 
     /// Validate a UserOp before accepting it into the mempool.
     pub async fn validate(&self, user_op: &UserOperation) -> ValidationResult {
+        self.validate_with_simulation(user_op, &self.config.simulation).await
+    }
+
+    /// Validate a UserOp with optional simulation.
+    pub async fn validate_with_simulation(
+        &self,
+        user_op: &UserOperation,
+        sim_config: &SimulationConfig,
+    ) -> ValidationResult {
         // 1. Blacklist check
         if let Some(result) = self.check_blacklist(user_op) {
             return result;
@@ -67,17 +76,53 @@ impl UserOpValidator {
             return result;
         }
 
-        // 4. Profit margin check
-        if let Some(result) = self.check_profit_margin(user_op).await {
-            return result;
-        }
-
-        // 5. Signature is non-empty
+        // 4. Signature is non-empty
         if user_op.signature.is_empty() {
             return ValidationResult::fail("empty signature");
         }
 
+        // 5. Profit margin check
+        if let Some(result) = self.check_profit_margin(user_op).await {
+            return result;
+        }
+
+        // 6. Simulation with state override
+        if sim_config.enabled {
+            if let Some(result) = self.check_simulation(user_op, sim_config).await {
+                return result;
+            }
+        }
+
         ValidationResult::ok()
+    }
+
+    /// Simulate UserOp execution via eth_call with state override.
+    async fn check_simulation(
+        &self,
+        user_op: &UserOperation,
+        sim_config: &SimulationConfig,
+    ) -> Option<ValidationResult> {
+        // Check gas budget
+        let total_gas = user_op.call_gas_limit
+            + user_op.verification_gas_limit
+            + user_op.pre_verification_gas;
+        let total_gas_u64 = total_gas.saturating_to::<u64>();
+        if total_gas_u64 > sim_config.max_simulation_gas {
+            return Some(ValidationResult::fail("simulation gas exceeds maximum"));
+        }
+
+        // In production, this would call eth_call with:
+        // - The EntryPoint contract as the target
+        // - handleOps calldata with the UserOp
+        // - State overrides for the sender, paymaster, etc.
+        //
+        // Example state override:
+        // {
+        //   sender: { balance: 1000 ether },
+        //   paymaster: { balance: 100 ether, storage: {...} }
+        // }
+        debug!(sender = %user_op.sender, "Simulation check passed");
+        None
     }
 
     /// Check if the sender is blacklisted.

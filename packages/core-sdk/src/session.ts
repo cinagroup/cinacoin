@@ -2,10 +2,10 @@
  * Session state machine for managing wallet connection lifecycle.
  */
 
-import type { ConnectParams, ConnectionResult } from './types';
-import type { Connector } from './connector';
-import type { EventHandler } from './types';
-import { EventEmitter } from './events';
+import type { ConnectParams, ConnectionResult } from './types.js';
+import type { Connector } from './connector.js';
+import type { EventHandler } from './types.js';
+import { EventEmitter } from './events.js';
 
 /** Session state discriminator. */
 export type SessionState =

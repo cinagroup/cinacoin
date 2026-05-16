@@ -2,7 +2,7 @@
  * Event system — typed EventEmitter for SDK events.
  */
 
-import type { EventHandler } from './types';
+import type { EventHandler } from './types.js';
 
 /**
  * Lightweight event emitter.

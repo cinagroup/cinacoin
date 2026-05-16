@@ -3,7 +3,7 @@
  */
 
 import { create } from 'zustand';
-import type { Chain, ConnectParams, ConnectionResult, PairingData } from './types';
+import type { Chain, ConnectParams, ConnectionResult, PairingData } from './types.js';
 
 /** SDK connection state. */
 export type ConnectionStatus = 'disconnected' | 'connecting' | 'connected' | 'error';

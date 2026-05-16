@@ -3,9 +3,9 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { SessionManager } from '../../src/session';
-import { Connector } from '../../src/connector';
-import type { ConnectParams, ConnectionResult, TransactionRequest, EventHandler } from '../../src/types';
+import { SessionManager } from '../src/session.js';
+import { Connector } from '../src/connector.js';
+import type { ConnectParams, ConnectionResult, TransactionRequest, EventHandler } from '../src/types.js';
 
 class TestConnector extends Connector {
   readonly id = 'test-connector';
@@ -14,12 +14,20 @@ class TestConnector extends Connector {
   readonly installed = true;
   readonly type = 'injected';
   private shouldFail = false;
+  private connectDelay = 0;
 
   setFail(fail: boolean): void {
     this.shouldFail = fail;
   }
 
+  setDelay(ms: number): void {
+    this.connectDelay = ms;
+  }
+
   async connect(params?: ConnectParams): Promise<ConnectionResult> {
+    if (this.connectDelay > 0) {
+      await new Promise((r) => setTimeout(r, this.connectDelay));
+    }
     if (this.shouldFail) throw new Error('Connection failed');
     return {
       sessionId: 'session-001',
@@ -58,17 +66,23 @@ describe('SessionManager state transitions', () => {
   });
 
   it('should transition from disconnected to connecting on initiate', async () => {
-    await manager.initiate(connector);
+    connector.setDelay(50);
+    const promise = manager.initiate(connector);
+    // Give the initiate call a tick to transition to connecting
+    await vi.advanceTimersByTimeAsync(10);
     const state = manager.getState();
     expect(state.status).toBe('connecting');
     if (state.status === 'connecting') {
       expect(state.connectorId).toBe('test-connector');
     }
+    await promise;
+    await vi.advanceTimersByTimeAsync(10);
   });
 
   it('should transition from connecting to connected on successful connect', async () => {
+    connector.setDelay(50);
     await manager.initiate(connector);
-    await vi.runAllTimersAsync();
+    await vi.advanceTimersByTimeAsync(60);
     const state = manager.getState();
     expect(state.status).toBe('connected');
     if (state.status === 'connected') {

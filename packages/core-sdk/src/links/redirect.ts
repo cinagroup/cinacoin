@@ -5,9 +5,9 @@
  * falls back to universal link after timeout, then to QR code.
  */
 
-import type { DeepLinkParams, Platform, RedirectOptions, RedirectResult } from './types';
-import { generateDeepLink } from './deep-link';
-import { generateUniversalLink, generateWalletConnectUniversalLink } from './universal-link';
+import type { DeepLinkParams, Platform, RedirectOptions, RedirectResult } from './types.js';
+import { generateDeepLink } from './deep-link.js';
+import { generateUniversalLink, generateWalletConnectUniversalLink } from './universal-link.js';
 
 /**
  * Detect the current platform.

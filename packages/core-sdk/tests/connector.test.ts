@@ -3,8 +3,8 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import { Connector } from '../../src/connector';
-import type { ConnectParams, ConnectionResult, TransactionRequest } from '../../src/types';
+import { Connector } from '../src/connector.js';
+import type { ConnectParams, ConnectionResult, TransactionRequest } from '../src/types.js';
 
 class MockConnector extends Connector {
   readonly id = 'mock-connector';

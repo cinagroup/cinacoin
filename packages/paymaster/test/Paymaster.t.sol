@@ -138,9 +138,103 @@ contract PaymasterTest is Test {
             0
         );
 
-        // Day 0, user has 0 ops used
         uint256 day0 = block.timestamp / ONE_DAY;
         assertEq(paymaster.userDailyOps(day0, user1), 0);
+    }
+
+    // ==================== Emergency Shutdown / Pausable Tests ====================
+
+    function test_PauseAndUnpause() public {
+        assertTrue(paymaster.isActive());
+
+        paymaster.pause();
+        assertFalse(paymaster.isActive());
+        assertTrue(paymaster.paused());
+
+        paymaster.unpause();
+        assertTrue(paymaster.isActive());
+        assertFalse(paymaster.paused());
+    }
+
+    function test_OnlyOwnerCanPause() public {
+        vm.prank(user1);
+        vm.expectRevert();
+        paymaster.pause();
+    }
+
+    function test_OnlyOwnerCanUnpause() public {
+        paymaster.pause();
+        vm.prank(user1);
+        vm.expectRevert();
+        paymaster.unpause();
+    }
+
+    function test_EmergencyShutdownEmitsEvent() public {
+        vm.expectEmit(true, true, true, true);
+        emit OnChainUXPaymaster.EmergencyShutdown();
+        paymaster.pause();
+    }
+
+    // ==================== Time Window Tests ====================
+
+    function test_SetTimeWindow() public {
+        uint48 start = uint48(block.timestamp);
+        uint48 end = uint48(block.timestamp + 24 hours);
+
+        vm.expectEmit(true, true, true, true);
+        emit OnChainUXPaymaster.TimeWindowSet(start, end);
+        paymaster.setTimeWindow(start, end);
+
+        assertEq(paymaster.windowStart(), start);
+        assertEq(paymaster.windowEnd(), end);
+    }
+
+    function test_TimeWindowInvalid() public {
+        uint48 start = uint48(block.timestamp + 100);
+        uint48 end = uint48(block.timestamp);
+        vm.expectRevert("invalid time window");
+        paymaster.setTimeWindow(start, end);
+    }
+
+    function test_IsWithinTimeWindowAlwaysActive() public view {
+        // Default: no window set, should always be active
+        assertTrue(paymaster.isActive());
+    }
+
+    function test_IsActiveWithFutureStart() public {
+        uint48 futureStart = uint48(block.timestamp + 1 hours);
+        paymaster.setTimeWindow(futureStart, 0);
+
+        // Should be inactive because we haven't reached start yet
+        assertFalse(paymaster.isActive());
+
+        // Fast forward
+        vm.warp(futureStart + 1);
+        assertTrue(paymaster.isActive());
+    }
+
+    function test_IsActiveWithExpiredEnd() public {
+        uint48 pastEnd = uint48(block.timestamp - 1);
+        paymaster.setTimeWindow(0, pastEnd);
+
+        assertFalse(paymaster.isActive());
+    }
+
+    // ==================== Global Budget Tests ====================
+
+    function test_SetGlobalDailyBudget() public {
+        vm.expectEmit(true, true, true, true);
+        emit OnChainUXPaymaster.GlobalBudgetSet(10 ether);
+        paymaster.setGlobalDailyBudget(10 ether);
+
+        assertEq(paymaster.globalDailyBudget(), 10 ether);
+    }
+
+    function test_ResetGlobalDailySpent() public {
+        paymaster.setGlobalDailyBudget(10 ether);
+        // Manually set some spending by warping and calling internal
+        // In a real test, this would happen via actual UserOps
+        paymaster.resetGlobalDailySpent();
     }
 
     // ==================== VerifyingPaymaster Tests ====================
@@ -163,6 +257,21 @@ contract PaymasterTest is Test {
         vm.prank(user1);
         vm.expectRevert();
         verifyingPaymaster.setTrustedSigner(makeAddr("attacker"));
+    }
+
+    function test_VerifyingPaymasterDeposit() public {
+        vm.mockCall(
+            entryPoint,
+            abi.encodeWithSelector(
+                bytes4(keccak256("depositTo(address)")),
+                address(verifyingPaymaster)
+            ),
+            abi.encode(true)
+        );
+
+        vm.deal(trustedSigner, 1 ether);
+        vm.prank(trustedSigner);
+        verifyingPaymaster.deposit{value: 0.5 ether}();
     }
 
     // ==================== TokenPaymaster Tests ====================
@@ -205,6 +314,31 @@ contract PaymasterTest is Test {
         assertFalse(tokenPaymaster.active());
     }
 
+    function test_TokenPaymasterPause() public {
+        assertTrue(tokenPaymaster.isActive());
+        tokenPaymaster.pause();
+        assertFalse(tokenPaymaster.isActive());
+    }
+
+    function test_TokenPaymasterTimeWindow() public {
+        uint48 futureStart = uint48(block.timestamp + 1 hours);
+        tokenPaymaster.setTimeWindow(futureStart, 0);
+        assertFalse(tokenPaymaster.isActive());
+    }
+
+    function test_TokenPaymasterGlobalBudget() public {
+        vm.expectEmit(true, true, true, true);
+        emit TokenPaymaster.GlobalBudgetSet(5 ether);
+        tokenPaymaster.setGlobalDailyBudget(5 ether);
+        assertEq(tokenPaymaster.globalDailyBudget(), 5 ether);
+    }
+
+    function test_TokenWithdrawLimit() public {
+        address mockToken = makeAddr("mockToken");
+        tokenPaymaster.setTokenDailyWithdrawLimit(IERC20(mockToken), 1 ether);
+        assertEq(tokenPaymaster.tokenDailyWithdrawLimit(IERC20(mockToken)), 1 ether);
+    }
+
     function test_OnlyOwnerCanManage() public {
         vm.prank(user1);
         vm.expectRevert();
@@ -213,6 +347,12 @@ contract PaymasterTest is Test {
         vm.prank(user1);
         vm.expectRevert();
         tokenPaymaster.setUserConfig(user1, true, 0);
+    }
+
+    function test_TokenPaymasterEmergencyShutdownEmitsEvent() public {
+        vm.expectEmit(true, true, true, true);
+        emit TokenPaymaster.EmergencyShutdown();
+        tokenPaymaster.pause();
     }
 
     // ==================== PaymasterLib Tests ====================
@@ -268,5 +408,41 @@ contract PaymasterTest is Test {
     function test_CurrentDay() public {
         uint256 day = PaymasterLib.currentDay();
         assertEq(day, block.timestamp / ONE_DAY);
+    }
+
+    // ==================== Integration Tests ====================
+
+    function test_IsSponsoredWhitelistedUser() public {
+        paymaster.setWhitelistedUser(user1, true);
+        bytes32 fakeHash = bytes32(uint256(uint160(user1)));
+        assertTrue(paymaster.isSponsored(fakeHash));
+    }
+
+    function test_IsSponsoredConfiguredUser() public {
+        paymaster.setSponsorConfig(
+            user1,
+            OnChainUXPaymaster.SponsorMode.Fixed,
+            1e16,
+            10,
+            1e18
+        );
+        bytes32 fakeHash = bytes32(uint256(uint160(user1)));
+        assertTrue(paymaster.isSponsored(fakeHash));
+    }
+
+    function test_IsSponsoredNonUser() public {
+        bytes32 fakeHash = bytes32(uint256(uint160(user2)));
+        assertFalse(paymaster.isSponsored(fakeHash));
+    }
+
+    function test_VerifyingPaymasterIsSponsored() public {
+        bytes32 userOpHash = keccak256("test");
+        assertFalse(verifyingPaymaster.isSponsored(userOpHash));
+    }
+
+    function test_TokenPaymasterIsActiveCombined() public {
+        assertTrue(tokenPaymaster.isActive());
+        tokenPaymaster.setActive(false);
+        assertFalse(tokenPaymaster.isActive());
     }
 }

@@ -38,6 +38,8 @@ pub struct PushRequest {
     pub mutable_content: Option<bool>,
     /// Custom category identifier for APNs action buttons.
     pub category: Option<String>,
+    /// Application identifier for rate limiting.
+    pub app_id: Option<String>,
 }
 
 /// Unified push notification response.
@@ -51,6 +53,51 @@ pub struct PushResponse {
     pub error: Option<String>,
     /// Platform that handled the push.
     pub platform: String,
+    /// Number of retry attempts made (0 on first attempt).
+    pub retry_attempts: u32,
+    /// Delivery receipt ID for tracking.
+    pub receipt_id: Option<String>,
+}
+
+/// Delivery receipt stored in Redis for tracking.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct DeliveryReceipt {
+    /// Unique receipt identifier.
+    pub receipt_id: String,
+    /// Device token the notification was sent to.
+    pub token: String,
+    /// Platform used (apns / fcm).
+    pub platform: String,
+    /// Whether delivery succeeded.
+    pub success: bool,
+    /// Provider message ID.
+    pub message_id: Option<String>,
+    /// Error if delivery failed.
+    pub error: Option<String>,
+    /// Timestamp of delivery attempt (RFC3339).
+    pub timestamp: String,
+    /// Number of retry attempts.
+    pub retry_attempts: u32,
+}
+
+/// Batch push request for sending to multiple devices.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct BatchPushRequest {
+    /// Individual push requests.
+    pub pushes: Vec<PushRequest>,
+}
+
+/// Batch push response.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct BatchPushResponse {
+    /// Total number of pushes in the request.
+    pub total: usize,
+    /// Number of successful pushes.
+    pub success: usize,
+    /// Number of failed pushes.
+    pub failed: usize,
+    /// Individual results.
+    pub results: Vec<PushResponse>,
 }
 
 /// Device token registration request.
@@ -66,6 +113,8 @@ pub struct RegisterRequest {
     pub app_version: Option<String>,
     /// Device model identifier.
     pub device_model: Option<String>,
+    /// Application identifier.
+    pub app_id: Option<String>,
 }
 
 /// Device token registration response.
@@ -79,15 +128,36 @@ pub struct RegisterResponse {
     pub error: Option<String>,
 }
 
-/// Health check response.
+/// Health check response with dependency status.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct HealthResponse {
     pub status: String,
     pub version: String,
-    pub apns_configured: bool,
-    pub fcm_configured: bool,
-    pub redis_connected: bool,
+    pub uptime_secs: u64,
+    pub dependencies: DependencyStatus,
     pub timestamp: String,
+}
+
+/// Status of each dependency.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct DependencyStatus {
+    pub redis: DependencyHealth,
+    pub apns: DependencyHealth,
+    pub fcm: DependencyHealth,
+}
+
+/// Health of a single dependency.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct DependencyHealth {
+    pub status: String, // "healthy" | "degraded" | "unhealthy"
+    pub details: Option<String>,
+}
+
+/// Rate limit exceeded response.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct RateLimitResponse {
+    pub error: String,
+    pub retry_after_secs: u64,
 }
 
 /// Internal device record for Redis storage.
@@ -98,5 +168,6 @@ pub struct DeviceRecord {
     pub user_id: Option<String>,
     pub app_version: Option<String>,
     pub device_model: Option<String>,
+    pub app_id: Option<String>,
     pub registered_at: chrono::DateTime<chrono::Utc>,
 }

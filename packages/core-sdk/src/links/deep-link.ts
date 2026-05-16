@@ -4,7 +4,7 @@
  * Supports MetaMask, WalletConnect, Rainbow, Coinbase Wallet, and custom schemes.
  */
 
-import type { DeepLinkParams, WalletDeepLinkConfig } from './types';
+import type { DeepLinkParams, WalletDeepLinkConfig } from './types.js';
 
 /** Built-in wallet deep link configurations. */
 export const WALLET_DEEP_LINKS: Record<string, WalletDeepLinkConfig> = {

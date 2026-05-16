@@ -3,7 +3,7 @@
  */
 
 import { describe, it, expect, vi } from 'vitest';
-import { EventEmitter } from '../../src/events';
+import { EventEmitter } from '../src/events.js';
 
 describe('EventEmitter', () => {
   it('should register and emit events', () => {

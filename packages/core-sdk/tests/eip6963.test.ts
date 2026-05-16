@@ -3,7 +3,7 @@
  */
 
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
-import { discoverWallets, watchWallets, findWalletByRdns } from '../../src/eip6963';
+import { discoverWallets, watchWallets, findWalletByRdns } from '../src/eip6963.js';
 
 describe('discoverWallets', () => {
   beforeEach(() => {

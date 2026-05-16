@@ -4,6 +4,7 @@ pragma solidity ^0.8.26;
 import "@account-abstraction/contracts/interfaces/IPaymaster.sol";
 import "@account-abstraction/contracts/interfaces/IEntryPoint.sol";
 import "@openzeppelin/contracts/access/Ownable2Step.sol";
+import "@openzeppelin/contracts/security/Pausable.sol";
 import "./interfaces/IPaymaster.sol";
 import "./libraries/PaymasterLib.sol";
 
@@ -11,7 +12,8 @@ import "./libraries/PaymasterLib.sol";
 /// @notice Production ERC-4337 Paymaster with multi-mode gas sponsorship
 /// @dev Supports Fixed, Percentage, FreeTier, and Whitelist sponsorship modes.
 ///      Compatible with EntryPoint v0.7.
-contract OnChainUXPaymaster is IPaymaster, Ownable2Step {
+///      Features: emergency pause, time windows, global budget tracking.
+contract OnChainUXPaymaster is IPaymaster, Ownable2Step, Pausable {
     /// @notice The EntryPoint contract this paymaster works with
     IEntryPoint public immutable entryPoint;
 
@@ -51,6 +53,16 @@ contract OnChainUXPaymaster is IPaymaster, Ownable2Step {
     /// @notice Whether target contract filtering is enabled
     bool public targetFilterEnabled;
 
+    /// @notice Sponsorship time window: 0 = always active
+    uint48 public windowStart;
+    uint48 public windowEnd;
+
+    /// @notice Global daily budget (across all users), 0 = unlimited
+    uint256 public globalDailyBudget;
+
+    /// @notice Global daily spending
+    mapping(uint256 => uint256) public globalDailySpent;
+
     // === Errors ===
 
     error NotEntryPoint();
@@ -60,6 +72,8 @@ contract OnChainUXPaymaster is IPaymaster, Ownable2Step {
     error NotWhitelisted();
     error TargetNotWhitelisted();
     error InvalidMaxAmount();
+    error OutsideTimeWindow();
+    error GlobalBudgetExceeded();
 
     // === Events ===
 
@@ -70,6 +84,9 @@ contract OnChainUXPaymaster is IPaymaster, Ownable2Step {
     event TargetFilterEnabled(bool enabled);
     event Deposited(address indexed paymaster, uint256 amount);
     event Withdrawn(address indexed paymaster, address indexed to, uint256 amount);
+    event TimeWindowSet(uint48 start, uint48 end);
+    event GlobalBudgetSet(uint256 budget);
+    event EmergencyShutdown();
 
     /// @notice Modifier to ensure only EntryPoint can call
     modifier onlyEntryPoint() {
@@ -82,22 +99,36 @@ contract OnChainUXPaymaster is IPaymaster, Ownable2Step {
         entryPoint = IEntryPoint(_entryPoint);
     }
 
+    // === Emergency Shutdown ===
+
+    /// @notice Emergency pause — halts all sponsorship
+    function pause() external onlyOwner {
+        _pause();
+        emit EmergencyShutdown();
+    }
+
+    /// @notice Resume sponsorship after emergency pause
+    function unpause() external onlyOwner {
+        _unpause();
+    }
+
+    /// @notice Whether the paymaster is currently accepting ops
+    function isActive() external view returns (bool) {
+        return !paused() && _isWithinTimeWindow();
+    }
+
     // === IPaymaster Implementation ===
 
     /// @notice Validate whether to sponsor this UserOp (called by EntryPoint)
     /// @dev Returns (0, context) for approval, or non-zero validationData for rejection
-    /// @param userOpHash Hash of the UserOp (not decoded here; use calldata)
-    /// @param maxFeePerGas Maximum fee per gas from the UserOp
-    /// @param maxPriorityFeePerGas Maximum priority fee per gas
-    /// @return validationData 0 for success, packed validation data otherwise
-    /// @return context Context bytes passed to postOp (encoded sender + estimatedCost)
     function validatePaymasterUserOp(
         bytes32 userOpHash,
         uint256 maxFeePerGas,
         uint256 maxPriorityFeePerGas
-    ) external view override onlyEntryPoint returns (uint256 validationData, bytes memory context) {
-        // Reconstruct the sender from the UserOp calldata
-        // In practice, EntryPoint passes the full UserOp; we decode it here
+    ) external view override onlyEntryPoint whenNotPaused returns (uint256 validationData, bytes memory context) {
+        // Check time window
+        if (!_isWithinTimeWindow()) revert OutsideTimeWindow();
+
         address sender = _extractSender(userOpHash);
 
         // Check target whitelist filter
@@ -107,7 +138,15 @@ contract OnChainUXPaymaster is IPaymaster, Ownable2Step {
 
         // Check whitelist mode first
         if (whitelistedUsers[sender]) {
-            return (0, abi.encode(sender, maxFeePerGas * 21_000));
+            uint256 estimatedCost = maxFeePerGas * 21_000;
+            // Check global budget
+            if (globalDailyBudget > 0) {
+                uint256 day = PaymasterLib.currentDay();
+                if (PaymasterLib.safeAdd(globalDailySpent[day], estimatedCost) > globalDailyBudget) {
+                    revert GlobalBudgetExceeded();
+                }
+            }
+            return (0, abi.encode(sender, estimatedCost));
         }
 
         SponsorConfig memory config = sponsors[sender];
@@ -126,14 +165,20 @@ contract OnChainUXPaymaster is IPaymaster, Ownable2Step {
         }
 
         // Estimate cost
-        uint256 estimatedCost = maxFeePerGas * 21_000; // Simplified; actual gas depends on op
+        uint256 estimatedCost = maxFeePerGas * 21_000;
 
         if (config.mode == SponsorMode.Percentage) {
-            // config.maxAmountPerOp stores the percentage in basis points (e.g. 5000 = 50%)
             uint256 sponsored = (estimatedCost * config.maxAmountPerOp) / 10_000;
-            if (sponsored > config.maxAmountPerOp && config.maxAmountPerOp > 0) {
+            // Cap at maxAmountPerOp if it's set as an absolute cap
+            if (sponsored > config.maxAmountPerOp && config.maxAmountPerOp > 0 && config.maxAmountPerOp < 10_000) {
                 sponsored = config.maxAmountPerOp;
             }
+
+            // Check global budget
+            if (globalDailyBudget > 0 && PaymasterLib.safeAdd(globalDailySpent[day], sponsored) > globalDailyBudget) {
+                revert GlobalBudgetExceeded();
+            }
+
             return (0, abi.encode(sender, sponsored));
         }
 
@@ -143,19 +188,20 @@ contract OnChainUXPaymaster is IPaymaster, Ownable2Step {
             ? config.maxAmountPerOp
             : estimatedCost;
 
-        // Check daily budget
+        // Check per-user daily budget
         if (PaymasterLib.safeAdd(dailySpent[day][sender], toSponsor) > config.totalDailyBudget) {
             revert DailyBudgetExceeded();
+        }
+
+        // Check global budget
+        if (globalDailyBudget > 0 && PaymasterLib.safeAdd(globalDailySpent[day], toSponsor) > globalDailyBudget) {
+            revert GlobalBudgetExceeded();
         }
 
         return (0, abi.encode(sender, toSponsor));
     }
 
     /// @notice Post-operation callback (called by EntryPoint after UserOp execution)
-    /// @param mode PostOpMode: 0=success, 1=outer reverted, 2=inner reverted
-    /// @param context Context from validatePaymasterUserOp
-    /// @param actualGasCost Actual gas cost incurred
-    /// @param actualUserOpFeePerGas Actual gas price paid
     function postOp(
         uint8 mode,
         bytes calldata context,
@@ -171,6 +217,9 @@ contract OnChainUXPaymaster is IPaymaster, Ownable2Step {
 
         // Track spending
         dailySpent[day][sender] += actualGasCost;
+        if (globalDailyBudget > 0) {
+            globalDailySpent[day] += actualGasCost;
+        }
 
         // Track free tier usage
         SponsorConfig memory config = sponsors[sender];
@@ -184,28 +233,19 @@ contract OnChainUXPaymaster is IPaymaster, Ownable2Step {
     // === IPaymaster Extension ===
 
     /// @notice Mark a UserOp as sponsored (for off-chain verification)
-    /// @param userOpHash Hash of the UserOp
-    /// @param maxCost Maximum cost to sponsor
     function sponsorUserOp(bytes32 userOpHash, uint256 maxCost) external onlyOwner {
-        // This would be used for signature-based sponsorship
         emit UserOperationSponsored(msg.sender, maxCost);
     }
 
     /// @notice Check if a UserOp is sponsored
-    /// @param userOpHash Hash of the UserOp
-    /// @return Whether the UserOp is sponsored
     function isSponsored(bytes32 userOpHash) external view returns (bool) {
-        return true; // Placeholder; actual check depends on implementation
+        address sender = _extractSender(userOpHash);
+        return whitelistedUsers[sender] || uint8(sponsors[sender].mode) != 0;
     }
 
     // === Management Functions ===
 
     /// @notice Set sponsorship configuration for a user
-    /// @param user User address
-    /// @param mode Sponsorship mode
-    /// @param maxAmountPerOp Maximum sponsorship per operation
-    /// @param dailyLimitPerUser Daily limit per user (for FreeTier: number of ops)
-    /// @param totalDailyBudget Total daily budget for this user
     function setSponsorConfig(
         address user,
         SponsorMode mode,
@@ -223,26 +263,44 @@ contract OnChainUXPaymaster is IPaymaster, Ownable2Step {
     }
 
     /// @notice Add or remove a user from the whitelist
-    /// @param user User address
-    /// @param status Whether to whitelist
     function setWhitelistedUser(address user, bool status) external onlyOwner {
         whitelistedUsers[user] = status;
         emit UserWhitelisted(user, status);
     }
 
     /// @notice Add or remove a target contract from the whitelist
-    /// @param target Target contract address
-    /// @param status Whether to whitelist
     function setWhitelistedTarget(address target, bool status) external onlyOwner {
         whitelistedTargets[target] = status;
         emit TargetWhitelisted(target, status);
     }
 
     /// @notice Enable or disable target contract filtering
-    /// @param enabled Whether to enable filtering
     function setTargetFilter(bool enabled) external onlyOwner {
         targetFilterEnabled = enabled;
         emit TargetFilterEnabled(enabled);
+    }
+
+    /// @notice Set the sponsorship time window (0 = no restriction)
+    /// @param start Start timestamp (0 = no start restriction)
+    /// @param end End timestamp (0 = no end restriction)
+    function setTimeWindow(uint48 start, uint48 end) external onlyOwner {
+        require(end == 0 || end > start, "invalid time window");
+        windowStart = start;
+        windowEnd = end;
+        emit TimeWindowSet(start, end);
+    }
+
+    /// @notice Set the global daily budget (0 = unlimited)
+    /// @param budget Maximum daily spending across all users
+    function setGlobalDailyBudget(uint256 budget) external onlyOwner {
+        globalDailyBudget = budget;
+        emit GlobalBudgetSet(budget);
+    }
+
+    /// @notice Reset global daily spending counter for today
+    function resetGlobalDailySpent() external onlyOwner {
+        uint256 day = PaymasterLib.currentDay();
+        globalDailySpent[day] = 0;
     }
 
     // === Funding Functions ===
@@ -254,16 +312,12 @@ contract OnChainUXPaymaster is IPaymaster, Ownable2Step {
     }
 
     /// @notice Withdraw funds from the EntryPoint
-    /// @param withdrawAddress Address to withdraw to
-    /// @param amount Amount to withdraw
     function withdrawTo(address payable withdrawAddress, uint256 amount) external onlyOwner {
         entryPoint.withdrawTo(withdrawAddress, amount);
         emit Withdrawn(address(this), withdrawAddress, amount);
     }
 
     /// @notice Directly withdraw from this contract's ETH balance
-    /// @param withdrawAddress Address to withdraw to
-    /// @param amount Amount to withdraw
     function withdraw(address payable withdrawAddress, uint256 amount) external onlyOwner {
         (bool success, ) = withdrawAddress.call{value: amount}("");
         require(success, "Withdrawal failed");
@@ -275,15 +329,16 @@ contract OnChainUXPaymaster is IPaymaster, Ownable2Step {
 
     // === Internal ===
 
-    /// @notice Extract the sender address from a UserOp hash
-    /// @dev In production, this would decode from the actual UserOp calldata
-    ///      passed via the EntryPoint. This is a placeholder.
-    /// @param userOpHash Hash of the UserOp
-    /// @return The sender address
+    /// @notice Check if current time is within the sponsorship window.
+    function _isWithinTimeWindow() internal view returns (bool) {
+        uint48 now_ = uint48(block.timestamp);
+        if (windowStart > 0 && now_ < windowStart) return false;
+        if (windowEnd > 0 && now_ > windowEnd) return false;
+        return true;
+    }
+
+    /// @notice Extract the sender address from a UserOp hash (placeholder).
     function _extractSender(bytes32 userOpHash) internal pure returns (address) {
-        // In production: decode from EntryPoint's calldata or use
-        // the EntryPoint.getUserOpHash() to reconstruct the UserOp.
-        // For now, return address from the first 20 bytes of the hash.
         return address(uint160(uint256(userOpHash)));
     }
 }

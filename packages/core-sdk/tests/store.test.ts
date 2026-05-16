@@ -3,7 +3,7 @@
  */
 
 import { describe, it, expect, beforeEach } from 'vitest';
-import { createOnChainUXStore, initializeStore } from '../../src/store';
+import { createOnChainUXStore, initializeStore } from '../src/store.js';
 
 describe('createOnChainUXStore', () => {
   it('should initialize with disconnected status', () => {

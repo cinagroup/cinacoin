@@ -23,6 +23,38 @@ pub struct Config {
     pub tls_cert_path: Option<String>,
     /// TLS private key path.
     pub tls_key_path: Option<String>,
+
+    // --- Rate Limiting ---
+    /// Max new connections per IP per minute.
+    pub connection_rate_limit: u32,
+    /// Rate limit window in seconds.
+    pub connection_rate_window_secs: u64,
+
+    // --- Message Size Limits ---
+    /// Maximum incoming message size in bytes.
+    pub max_message_size_bytes: usize,
+    /// Maximum outgoing message size in bytes.
+    pub max_outgoing_size_bytes: usize,
+
+    // --- Topic Expiration ---
+    /// Default topic TTL in seconds (0 = no expiration).
+    pub topic_ttl_secs: u64,
+    /// Topic cleanup interval in seconds.
+    pub topic_cleanup_interval_secs: u64,
+
+    // --- Persistent Storage ---
+    /// Whether to persist sessions to PostgreSQL.
+    pub session_persistence_enabled: bool,
+    /// PostgreSQL connection string for session persistence.
+    pub database_url: Option<String>,
+
+    // --- Graceful Shutdown ---
+    /// Timeout in seconds for graceful shutdown.
+    pub shutdown_timeout_secs: u64,
+
+    // --- Metrics ---
+    /// Prometheus metrics scrape port (0 = same as listen_addr).
+    pub metrics_port: u16,
 }
 
 impl Default for Config {
@@ -39,6 +71,49 @@ impl Default for Config {
             project_id: std::env::var("RELAY_PROJECT_ID").unwrap_or_else(|_| "default".to_string()),
             tls_cert_path: std::env::var("RELAY_TLS_CERT").ok(),
             tls_key_path: std::env::var("RELAY_TLS_KEY").ok(),
+
+            connection_rate_limit: std::env::var("RELAY_CONNECTION_RATE_LIMIT")
+                .ok()
+                .and_then(|s| s.parse().ok())
+                .unwrap_or(100),
+            connection_rate_window_secs: std::env::var("RELAY_CONNECTION_RATE_WINDOW_SECS")
+                .ok()
+                .and_then(|s| s.parse().ok())
+                .unwrap_or(60),
+
+            max_message_size_bytes: std::env::var("RELAY_MAX_MESSAGE_SIZE")
+                .ok()
+                .and_then(|s| s.parse().ok())
+                .unwrap_or(256 * 1024), // 256 KB
+            max_outgoing_size_bytes: std::env::var("RELAY_MAX_OUTGOING_SIZE")
+                .ok()
+                .and_then(|s| s.parse().ok())
+                .unwrap_or(512 * 1024), // 512 KB
+
+            topic_ttl_secs: std::env::var("RELAY_TOPIC_TTL_SECS")
+                .ok()
+                .and_then(|s| s.parse().ok())
+                .unwrap_or(86400), // 24 hours
+            topic_cleanup_interval_secs: std::env::var("RELAY_TOPIC_CLEANUP_INTERVAL")
+                .ok()
+                .and_then(|s| s.parse().ok())
+                .unwrap_or(300), // 5 minutes
+
+            session_persistence_enabled: std::env::var("RELAY_SESSION_PERSISTENCE")
+                .ok()
+                .map(|s| s.parse().unwrap_or(false))
+                .unwrap_or(false),
+            database_url: std::env::var("RELAY_DATABASE_URL").ok(),
+
+            shutdown_timeout_secs: std::env::var("RELAY_SHUTDOWN_TIMEOUT_SECS")
+                .ok()
+                .and_then(|s| s.parse().ok())
+                .unwrap_or(30),
+
+            metrics_port: std::env::var("RELAY_METRICS_PORT")
+                .ok()
+                .and_then(|s| s.parse().ok())
+                .unwrap_or(0),
         }
     }
 }

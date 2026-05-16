@@ -10,7 +10,7 @@ import {
   generateNonce,
   deriveSymmetricKey,
   deriveTopic,
-} from '../../src/crypto/encrypt';
+} from '../../src/crypto/encrypt.js';
 
 describe('encrypt / decrypt roundtrip', () => {
   it('should encrypt and decrypt back to original plaintext', () => {
@@ -21,7 +21,7 @@ describe('encrypt / decrypt roundtrip', () => {
     expect(typeof encrypted).toBe('string');
     expect(encrypted.length).toBeGreaterThan(0);
     const decrypted = decrypt(key, encrypted);
-    expect(decrypted).toEqual(plaintext);
+    expect(Array.from(decrypted)).toEqual(Array.from(plaintext));
   });
 
   it('should produce different ciphertexts for same plaintext (random nonce)', () => {
@@ -33,8 +33,8 @@ describe('encrypt / decrypt roundtrip', () => {
     // Different nonce means different ciphertext
     expect(e1).not.toBe(e2);
     // Both should decrypt to the same plaintext
-    expect(decrypt(key, e1)).toEqual(plaintext);
-    expect(decrypt(key, e2)).toEqual(plaintext);
+    expect(Array.from(decrypt(key, e1))).toEqual(Array.from(plaintext));
+    expect(Array.from(decrypt(key, e2))).toEqual(Array.from(plaintext));
   });
 
   it('should produce longer output for longer plaintext', () => {

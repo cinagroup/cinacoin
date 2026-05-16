@@ -7,7 +7,7 @@
  * @see https://eips.ethereum.org/EIPS/eip-6963
  */
 
-import type { EventHandler } from './types';
+import type { EventHandler } from './types.js';
 
 /** EIP-6963 provider info. */
 export interface EIP6963ProviderInfo {

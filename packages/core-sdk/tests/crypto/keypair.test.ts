@@ -11,7 +11,7 @@ import {
   deserializeKeypair,
   bytesToHex,
   hexToBytes,
-} from '../../src/crypto/keypair';
+} from '../../src/crypto/keypair.js';
 
 describe('generateKeypair', () => {
   it('should generate a keypair with 32-byte keys', () => {
@@ -29,15 +29,12 @@ describe('generateKeypair', () => {
     expect(kp1.publicKey).not.toEqual(kp2.publicKey);
   });
 
-  it('should produce a clamped private key', () => {
-    // @noble/curves keygen returns a properly clamped secret key
-    const kp1 = generateKeypair();
-    const kp2 = generateKeypair();
-    // Both should be valid 32-byte keys
-    expect(kp1.privateKey.length).toBe(32);
-    expect(kp2.privateKey.length).toBe(32);
-    // Should not be all zeros
-    expect(kp1.privateKey.some((b) => b !== 0)).toBe(true);
+  it('should generate a valid keypair (non-zero keys)', () => {
+    const keypair = generateKeypair();
+    // Private key should not be all zeros
+    expect(keypair.privateKey.some((b) => b !== 0)).toBe(true);
+    // Public key should not be all zeros
+    expect(keypair.publicKey.some((b) => b !== 0)).toBe(true);
   });
 });
 
@@ -50,10 +47,9 @@ describe('sharedSecret', () => {
     expect(secret.length).toBe(32);
   });
 
-  it('should produce the same shared secret for both parties (DH property)', () => {
+  it('should produce the same shared secret for both sides (DH property)', () => {
     const kp1 = generateKeypair();
     const kp2 = generateKeypair();
-    // sharedSecret(priv1, pub2) === sharedSecret(priv2, pub1)
     const s1 = sharedSecret(kp1.privateKey, kp2.publicKey);
     const s2 = sharedSecret(kp2.privateKey, kp1.publicKey);
     expect(s1).toEqual(s2);
@@ -67,12 +63,12 @@ describe('sharedSecret', () => {
     expect(s1).toEqual(s2);
   });
 
-  it('should produce different secrets for different keypairs', () => {
+  it('should produce different secrets for different key pairs', () => {
     const kp1 = generateKeypair();
     const kp2 = generateKeypair();
     const kp3 = generateKeypair();
     const s1 = sharedSecret(kp1.privateKey, kp2.publicKey);
-    const s2 = sharedSecret(kp1.privateKey, kp3.publicKey);
+    const s2 = sharedSecret(kp3.privateKey, kp2.publicKey);
     expect(s1).not.toEqual(s2);
   });
 });

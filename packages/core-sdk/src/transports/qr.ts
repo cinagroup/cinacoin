@@ -8,7 +8,7 @@
 import { Connector } from '../connector';
 import { EventEmitter } from '../events';
 import type { ConnectParams, ConnectionResult, TransactionRequest } from '../types';
-import { RelayTransport } from './relay';
+import { RelayTransport } from './relay.js';
 
 /** QR transport configuration. */
 export interface QRTransportConfig {

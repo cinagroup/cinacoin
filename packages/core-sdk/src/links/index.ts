@@ -5,9 +5,9 @@
  * logic for wallet connections across iOS, Android, and web platforms.
  */
 
-export { generateDeepLink, registerWalletDeepLink, getAppStoreUrl, WALLET_DEEP_LINKS } from './deep-link';
-export { generateUniversalLink, generateWalletConnectUniversalLink } from './universal-link';
-export { smartRedirect, detectPlatform } from './redirect';
+export { generateDeepLink, registerWalletDeepLink, getAppStoreUrl, WALLET_DEEP_LINKS } from './deep-link.js';
+export { generateUniversalLink, generateWalletConnectUniversalLink } from './universal-link.js';
+export { smartRedirect, detectPlatform } from './redirect.js';
 export type {
   DeepLinkParams,
   Platform,
@@ -15,4 +15,4 @@ export type {
   RedirectOptions,
   WalletDeepLinkConfig,
   UniversalLinkParams,
-} from './types';
+} from './types.js';

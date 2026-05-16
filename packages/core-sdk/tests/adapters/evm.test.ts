@@ -3,9 +3,9 @@
  */
 
 import { describe, it, expect, beforeEach } from 'vitest';
-import { EvmAdapter } from '../../src/adapters/evm';
-import { Connector } from '../../src/connector';
-import type { ConnectParams, ConnectionResult, TransactionRequest } from '../../src/types';
+import { EvmAdapter } from '../../src/adapters/evm.js';
+import { Connector } from '../../src/connector.js';
+import type { ConnectParams, ConnectionResult, TransactionRequest } from '../../src/types.js';
 
 class MockConnector extends Connector {
   readonly id = 'evm-test';
