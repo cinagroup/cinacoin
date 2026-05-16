@@ -1,13 +1,14 @@
 /**
  * Pairing protocol for WalletConnect v2.
  *
- * Handles pairing URI generation, parsing, and the pairing lifecycle.
- * A pairing is the first step before session establishment — it creates
- * a secure, encrypted channel for exchanging session proposals.
+ * Handles pairing URI generation, parsing, and the full pairing lifecycle:
+ * create, approve, reject, delete, ping. A pairing is the first step before
+ * session establishment — it creates a secure, encrypted channel for
+ * exchanging session proposals.
  */
 
 import { generateSymKey, generateTopic, bytesToHex, hexToBytes, encrypt, decrypt } from './crypto.js';
-import type { Pairing, ParsedWcUri, RelayConfig } from './types.js';
+import type { Pairing, ParsedWcUri, RelayConfig, JsonRpcRequest, JsonRpcResponse } from './types.js';
 import { WcRelay } from './relay.js';
 
 /** Configuration for creating a pairing. */
@@ -19,6 +20,10 @@ export interface PairingConfig {
   /** Pairing expiry in seconds (default: 300 = 5 minutes). */
   expiry?: number;
 }
+
+// ============================================================
+// URI parsing/formatting
+// ============================================================
 
 /**
  * Parse a WalletConnect v2 URI into its components.
@@ -81,6 +86,10 @@ export function formatWcUri(params: ParsedWcUri): string {
   return `wc:${params.topic}@${params.version}?${query.toString()}`;
 }
 
+// ============================================================
+// Pairing lifecycle
+// ============================================================
+
 /**
  * Create a new pairing and generate a WC v2 URI.
  *
@@ -117,10 +126,172 @@ export async function createPairing(config: PairingConfig): Promise<{
     uri,
     active: true,
     expiry,
+    symKey,
   };
 
   return { pairing, relay };
 }
+
+/**
+ * Approve a pairing by scanning/connecting to a WC URI.
+ *
+ * This parses the URI, connects to the relay, and subscribes to the
+ * pairing topic to receive session proposals.
+ *
+ * @param uri - WalletConnect v2 URI.
+ * @param config - Optional relay configuration override.
+ * @returns The approved pairing.
+ */
+export async function approvePairing(
+  uri: string,
+  config?: Pick<PairingConfig, 'relayUrl' | 'relay'>,
+): Promise<{
+  pairing: Pairing;
+  relay: WcRelay;
+}> {
+  const parsed = parseWcUri(uri);
+
+  const relay = config?.relay ?? new WcRelay({ url: parsed.relayUrl || config?.relayUrl ?? '' });
+  await relay.connect();
+
+  relay.subscribe(parsed.topic);
+
+  const pairing: Pairing = {
+    topic: parsed.topic,
+    uri,
+    active: true,
+    expiry: Date.now() + (config?.expiry ?? 300) * 1000,
+    symKey: parsed.symKey,
+  };
+
+  return { pairing, relay };
+}
+
+/**
+ * Reject a pairing by sending a delete notification.
+ *
+ * @param relay - Connected relay.
+ * @param topic - Pairing topic.
+ * @param symKey - Symmetric key for the pairing channel.
+ * @param reason - Human-readable rejection reason.
+ */
+export async function rejectPairing(
+  relay: WcRelay,
+  topic: string,
+  symKey: string,
+  reason: string = 'User rejected',
+): Promise<void> {
+  await sendPairingDelete(relay, topic, symKey, 1000, reason);
+}
+
+/**
+ * Delete a pairing and notify the peer.
+ *
+ * Sends a `wc_pairingDelete` notification and unsubscribes from the topic.
+ *
+ * @param relay - Connected relay.
+ * @param topic - Pairing topic.
+ * @param symKey - Symmetric key for the pairing channel.
+ * @param code - WC error code (default: 6000 = user disconnected).
+ * @param message - Human-readable reason.
+ */
+export async function deletePairing(
+  relay: WcRelay,
+  topic: string,
+  symKey: string,
+  code: number = 6000,
+  message: string = 'User disconnected',
+): Promise<void> {
+  await sendPairingDelete(relay, topic, symKey, code, message);
+  relay.unsubscribe(topic);
+}
+
+/**
+ * Send a pairing delete notification.
+ */
+async function sendPairingDelete(
+  relay: WcRelay,
+  topic: string,
+  symKey: string,
+  code: number,
+  message: string,
+): Promise<void> {
+  const notification = {
+    jsonrpc: '2.0',
+    method: 'wc_pairingDelete',
+    params: { code, message },
+  };
+
+  const encrypted = encryptPairingMessage(symKey, notification);
+  await relay.publish(topic, encrypted);
+}
+
+/**
+ * Send a pairing ping and wait for pong.
+ *
+ * @param relay - Connected relay.
+ * @param topic - Pairing topic.
+ * @param symKey - Symmetric key for the pairing channel.
+ * @param timeoutMs - Timeout in milliseconds (default: 5000).
+ * @returns Whether the peer responded with a pong.
+ */
+export async function pairingPing(
+  relay: WcRelay,
+  topic: string,
+  symKey: string,
+  timeoutMs: number = 5000,
+): Promise<boolean> {
+  return new Promise((resolve) => {
+    const id = Date.now();
+    const request: JsonRpcRequest = {
+      id,
+      jsonrpc: '2.0',
+      method: 'wc_pairingPing',
+      params: {},
+    };
+
+    const handler = (payload: string) => {
+      try {
+        const decrypted = decryptPairingMessage(symKey, payload);
+        const msg = decrypted as Record<string, unknown>;
+        // Check for response to our ping
+        if (msg.id === id && msg.result !== undefined) {
+          relay.unsubscribe(topic, handler);
+          resolve(true);
+        }
+        // Or check for incoming ping from peer
+        if (msg.method === 'wc_pairingPing' && msg.id !== id) {
+          // Respond with pong
+          const pong: JsonRpcResponse = {
+            id: msg.id as number,
+            jsonrpc: '2.0',
+            result: {},
+          };
+          const pongEncrypted = encryptPairingMessage(symKey, pong);
+          relay.publish(topic, pongEncrypted).catch(() => {});
+        }
+      } catch {
+        // Ignore decryption failures
+      }
+    };
+
+    relay.subscribe(topic, handler);
+
+    // Send ping
+    const encrypted = encryptPairingMessage(symKey, request);
+    relay.publish(topic, encrypted).catch(() => {});
+
+    // Timeout
+    setTimeout(() => {
+      relay.unsubscribe(topic, handler);
+      resolve(false);
+    }, timeoutMs);
+  });
+}
+
+// ============================================================
+// Encryption helpers
+// ============================================================
 
 /**
  * Encrypt a JSON payload for the pairing channel using the symmetric key.
@@ -148,6 +319,10 @@ export function decryptPairingMessage(symKey: string, encrypted: string): unknow
   return JSON.parse(new TextDecoder().decode(plaintext));
 }
 
+// ============================================================
+// Validation
+// ============================================================
+
 /**
  * Validate a WC v2 URI string.
  *
@@ -166,4 +341,24 @@ export function isValidWcUri(uri: string): boolean {
   } catch {
     return false;
   }
+}
+
+/**
+ * Check if a pairing has expired.
+ *
+ * @param pairing - Pairing to check.
+ * @returns Whether the pairing is expired.
+ */
+export function isPairingExpired(pairing: Pairing): boolean {
+  return Date.now() > pairing.expiry;
+}
+
+/**
+ * Check if a pairing is still valid (active and not expired).
+ *
+ * @param pairing - Pairing to check.
+ * @returns Whether the pairing is valid.
+ */
+export function isPairingValid(pairing: Pairing): boolean {
+  return pairing.active && !isPairingExpired(pairing);
 }

@@ -1,27 +1,29 @@
 /**
  * Session management for WalletConnect v2.
  *
- * Handles the full session lifecycle: proposal, approval,
- * session events, and disconnection. Uses X25519 key exchange
- * for establishing an encrypted session channel on top of pairing.
+ * Handles the full session lifecycle: propose, approve, reject, update,
+ * extend, delete, emit (notifications). Uses X25519 key exchange for
+ * establishing an encrypted session channel on top of pairing.
  */
 
 import { EventEmitter } from '@onchainux/core';
 import { generateKeypair, sharedSecret, bytesToHex, hexToBytes, encrypt, decrypt } from './crypto.js';
+import { sha256 } from '@noble/hashes/sha2.js';
 import type {
   Session,
   SessionProposal,
   SessionProposalResponse,
+  SessionNotification,
   AppMetadata,
   RequiredNamespace,
-  RelayConfig,
   JsonRpcRequest,
   JsonRpcResponse,
   WcClientEvent,
+  SessionNamespace,
 } from './types.js';
 import { WcRelay } from './relay.js';
-import { createPairing, parseWcUri, encryptPairingMessage, decryptPairingMessage } from './pairing.js';
-import { WcMethods, getDefaultRequiredNamespaces, WC_METHODS, WC_EVENTS } from './methods.js';
+import { createPairing, parseWcUri, encryptPairingMessage, decryptPairingMessage, deletePairing, pairingPing } from './pairing.js';
+import { getDefaultRequiredNamespaces, WC_METHODS, WC_EVENTS } from './methods.js';
 
 /** Session manager configuration. */
 export interface SessionManagerConfig {
@@ -35,8 +37,17 @@ export interface SessionManagerConfig {
   requiredMethods?: string[];
   /** Required events. */
   requiredEvents?: string[];
+  /** Session TTL in seconds (default: 7 days). */
+  sessionTtl?: number;
   /** JSON-RPC ID counter (optional). */
   nextId?: number;
+}
+
+/** Pending request entry. */
+interface PendingRequest {
+  resolve: (result: unknown) => void;
+  reject: (error: Error) => void;
+  timeout: ReturnType<typeof setTimeout>;
 }
 
 /**
@@ -51,19 +62,19 @@ export interface SessionManagerConfig {
  * 6. Subscribe to session topic for ongoing communication
  */
 export class WcSessionManager extends EventEmitter {
-  private config: Required<Pick<SessionManagerConfig, 'metadata'>> &
+  private config: Required<Pick<SessionManagerConfig, 'metadata' | 'sessionTtl'>> &
     Pick<SessionManagerConfig, 'requiredChains' | 'requiredMethods' | 'requiredEvents' | 'relayUrl'>;
   private relay: WcRelay | null = null;
   private activeSession: Session | null = null;
   private pairingTopic: string | null = null;
   private pairingSymKey: string | null = null;
   private sessionKeypair = generateKeypair();
+  /** Peer's session public key (hex), set after proposal response. */
+  private peerSessionPublicKey: string | null = null;
+  /** Cached session shared secret. */
+  private sessionSharedSecret: Uint8Array | null = null;
   private nextRpcId: number;
-  private pendingRequests: Map<number, {
-    resolve: (result: unknown) => void;
-    reject: (error: Error) => void;
-    timeout: ReturnType<typeof setTimeout>;
-  }> = new Map();
+  private pendingRequests: Map<number, PendingRequest> = new Map();
 
   constructor(config: SessionManagerConfig) {
     super();
@@ -73,6 +84,7 @@ export class WcSessionManager extends EventEmitter {
       requiredChains: config.requiredChains,
       requiredMethods: config.requiredMethods,
       requiredEvents: config.requiredEvents,
+      sessionTtl: config.sessionTtl ?? 7 * 24 * 60 * 60,
     };
     this.nextRpcId = config.nextId ?? 1;
   }
@@ -84,8 +96,12 @@ export class WcSessionManager extends EventEmitter {
 
   /** Whether there's an active session. */
   isConnected(): boolean {
-    return this.activeSession !== null;
+    return this.activeSession !== null && Date.now() < (this.activeSession?.expiry ?? 0);
   }
+
+  // ============================================================
+  // Pairing
+  // ============================================================
 
   /**
    * Initiate a new pairing and return the URI to display.
@@ -100,10 +116,7 @@ export class WcSessionManager extends EventEmitter {
 
     this.relay = relay;
     this.pairingTopic = pairing.topic;
-    this.pairingSymKey = this.generatePairingSymKey();
-
-    // Store symKey in the pairing for later use
-    // (in production, this would be persisted securely)
+    this.pairingSymKey = pairing.symKey ?? this.generatePairingSymKey();
 
     // Listen for messages on the pairing topic
     relay.subscribe(pairing.topic, (payload: string) => {
@@ -123,14 +136,12 @@ export class WcSessionManager extends EventEmitter {
   async connectWithUri(uri: string): Promise<Session> {
     const parsed = parseWcUri(uri);
 
-    // Connect to relay
     this.relay = new WcRelay({ url: parsed.relayUrl || this.config.relayUrl });
     await this.relay.connect();
 
     this.pairingTopic = parsed.topic;
     this.pairingSymKey = parsed.symKey;
 
-    // Subscribe to pairing topic
     this.relay.subscribe(parsed.topic, (payload: string) => {
       this.handlePairingMessage(payload);
     });
@@ -138,7 +149,6 @@ export class WcSessionManager extends EventEmitter {
     // Send session proposal over pairing channel
     await this.sendSessionProposal();
 
-    // Wait for session establishment
     return new Promise((resolve, reject) => {
       const handler = (event: WcClientEvent) => {
         if (event.type === 'connected') {
@@ -161,11 +171,25 @@ export class WcSessionManager extends EventEmitter {
 
   /**
    * Disconnect the current session.
+   *
+   * Sends wc_sessionDelete notification, unsubscribes, and cleans up state.
    */
   async disconnect(): Promise<void> {
-    if (this.activeSession) {
-      await this.sendSessionDelete(this.activeSession.topic);
-      this.activeSession = null;
+    if (this.activeSession && this.relay) {
+      try {
+        await this.sendSessionDelete(this.activeSession.topic, 6000, 'User disconnected');
+      } catch {
+        // Best effort
+      }
+      this.relay.unsubscribe(this.activeSession.topic);
+    }
+
+    if (this.pairingTopic && this.relay && this.pairingSymKey) {
+      try {
+        await deletePairing(this.relay, this.pairingTopic, this.pairingSymKey);
+      } catch {
+        // Best effort
+      }
     }
 
     if (this.relay) {
@@ -173,11 +197,157 @@ export class WcSessionManager extends EventEmitter {
       this.relay = null;
     }
 
+    this.activeSession = null;
     this.pairingTopic = null;
     this.pairingSymKey = null;
+    this.peerSessionPublicKey = null;
+    this.sessionSharedSecret = null;
+
+    // Reject all pending requests
+    for (const [id, pending] of this.pendingRequests) {
+      clearTimeout(pending.timeout);
+      pending.reject(new Error('Session disconnected'));
+      this.pendingRequests.delete(id);
+    }
 
     this.emitEvent({ type: 'disconnected', reason: 'User disconnected' });
   }
+
+  // ============================================================
+  // Session operations
+  // ============================================================
+
+  /**
+   * Extend the session TTL.
+   *
+   * @param newExpiry - New expiry timestamp (seconds from epoch).
+   */
+  async extendSession(newExpiry: number): Promise<void> {
+    if (!this.activeSession || !this.relay) return;
+
+    const id = this.nextRpcId++;
+    const notification = {
+      jsonrpc: '2.0',
+      method: 'wc_sessionExtend',
+      params: {
+        expiry: newExpiry,
+      },
+    };
+
+    const encrypted = this.encryptSessionMessage(id, notification);
+    await this.relay.publish(this.activeSession.topic, encrypted);
+
+    this.activeSession.expiry = newExpiry * 1000;
+    this.emitEvent({ type: 'session_extend', topic: this.activeSession.topic, newExpiry: this.activeSession.expiry });
+  }
+
+  /**
+   * Update session namespaces (add/remove methods, events, accounts).
+   *
+   * @param namespaces - Updated namespaces.
+   */
+  async updateSession(namespaces: Record<string, SessionNamespace>): Promise<void> {
+    if (!this.activeSession || !this.relay) return;
+
+    const id = this.nextRpcId++;
+    const notification = {
+      jsonrpc: '2.0',
+      method: 'wc_sessionUpdate',
+      params: { namespaces },
+    };
+
+    const encrypted = this.encryptSessionMessage(id, notification);
+    await this.relay.publish(this.activeSession.topic, encrypted);
+
+    this.activeSession.namespaces = namespaces;
+    this.emitEvent({ type: 'session_update', session: this.activeSession });
+  }
+
+  /**
+   * Emit a session notification (wallet → dApp event).
+   *
+   * @param chainId - CAIP-2 chain ID.
+   * @param name - Event name.
+   * @param data - Event data.
+   */
+  async emitSessionEvent(chainId: string, name: string, data: unknown): Promise<void> {
+    if (!this.activeSession || !this.relay) return;
+
+    const id = this.nextRpcId++;
+    const notification: JsonRpcRequest<SessionNotification> = {
+      id,
+      jsonrpc: '2.0',
+      method: 'wc_sessionEmit',
+      params: { chainId, name, data },
+    };
+
+    const encrypted = this.encryptSessionMessage(id, notification);
+    await this.relay.publish(this.activeSession.topic, encrypted);
+
+    this.emitEvent({
+      type: 'session_notification',
+      notification: { chainId, name, data },
+    });
+  }
+
+  /**
+   * Send a session ping and wait for pong.
+   *
+   * @param timeoutMs - Timeout in milliseconds (default: 5000).
+   * @returns Whether the peer responded.
+   */
+  async sessionPing(timeoutMs: number = 5000): Promise<boolean> {
+    if (!this.activeSession || !this.relay || !this.sessionSharedSecret) {
+      return false;
+    }
+
+    return new Promise((resolve) => {
+      const id = this.nextRpcId++;
+      const request: JsonRpcRequest = {
+        id,
+        jsonrpc: '2.0',
+        method: 'wc_sessionPing',
+        params: {},
+      };
+
+      const handler = (payload: string) => {
+        try {
+          const decrypted = decrypt(this.sessionSharedSecret!, payload);
+          const msg = JSON.parse(new TextDecoder().decode(decrypted)) as Record<string, unknown>;
+          if (msg.id === id && msg.result !== undefined) {
+            this.relay!.unsubscribe(this.activeSession!.topic, handler);
+            resolve(true);
+          }
+          // Handle incoming ping from peer
+          if (msg.method === 'wc_sessionPing' && msg.id !== id) {
+            const pong: JsonRpcResponse = {
+              id: msg.id as number,
+              jsonrpc: '2.0',
+              result: {},
+            };
+            const pongEncrypted = encrypt(this.sessionSharedSecret!, new TextEncoder().encode(JSON.stringify(pong)));
+            this.relay!.publish(this.activeSession!.topic, pongEncrypted).catch(() => {});
+          }
+        } catch {
+          // Ignore
+        }
+      };
+
+      this.relay!.subscribe(this.activeSession!.topic, handler);
+
+      const encrypted = encrypt(this.sessionSharedSecret!, new TextEncoder().encode(JSON.stringify(request)));
+      this.relay!.publish(this.activeSession!.topic, encrypted).catch(() => {});
+
+      setTimeout(() => {
+        this.relay!.unsubscribe(this.activeSession!.topic, handler);
+        resolve(false);
+      }, timeoutMs);
+    });
+  }
+
+  // ============================================================
+  // JSON-RPC requests
+  // ============================================================
 
   /**
    * Send a JSON-RPC request to the connected wallet.
@@ -207,8 +377,7 @@ export class WcSessionManager extends EventEmitter {
 
       this.pendingRequests.set(id, { resolve, reject, timeout });
 
-      // Encrypt and publish to session topic
-      this.publishToSession(id, request).catch(reject);
+      this.publishToSession(request).catch(reject);
     });
   }
 
@@ -222,6 +391,10 @@ export class WcSessionManager extends EventEmitter {
   protected async handleRequest(_request: JsonRpcRequest): Promise<unknown> {
     throw new Error('Unhandled request');
   }
+
+  // ============================================================
+  // Internal: session proposal
+  // ============================================================
 
   /** Send a session proposal over the pairing channel. */
   private async sendSessionProposal(): Promise<void> {
@@ -261,6 +434,10 @@ export class WcSessionManager extends EventEmitter {
     await this.relay.publish(this.pairingTopic, encrypted);
   }
 
+  // ============================================================
+  // Internal: message handlers
+  // ============================================================
+
   /** Handle a decrypted message from the pairing channel. */
   private async handlePairingMessage(encryptedPayload: string): Promise<void> {
     if (!this.pairingSymKey) return;
@@ -269,20 +446,23 @@ export class WcSessionManager extends EventEmitter {
       const decrypted = decryptPairingMessage(this.pairingSymKey, encryptedPayload);
       const msg = decrypted as Record<string, unknown>;
 
-      if (msg.method === 'wc_sessionProposeResp' || msg.result) {
-        // Wallet responded to our proposal
-        await this.handleSessionProposalResponse(msg as Record<string, unknown>);
+      if (msg.method === 'wc_sessionProposeResp' || (msg.result && typeof msg.result === 'object')) {
+        const result = msg.result as Record<string, unknown>;
+        if (result && 'responderPublicKey' in result) {
+          await this.handleSessionProposalResponse(result);
+        }
       } else if (msg.method === 'wc_sessionPropose') {
-        // Wallet sent a proposal (shouldn't happen for dApp, but handle it)
         this.emitEvent({
           type: 'session_proposal',
           proposal: msg as unknown as SessionProposal,
         });
       } else if (msg.method === 'wc_sessionEvent') {
         this.emitEvent({
-          type: 'session_update',
-          session: msg as unknown as Session,
+          type: 'session_notification',
+          notification: msg.params as SessionNotification,
         });
+      } else if (msg.method === 'wc_pairingDelete') {
+        this.emitEvent({ type: 'pairing_delete', topic: this.pairingTopic ?? '' });
       }
     } catch (error) {
       console.warn('[WcSessionManager] Failed to handle pairing message:', error);
@@ -290,11 +470,8 @@ export class WcSessionManager extends EventEmitter {
   }
 
   /** Handle the wallet's response to our session proposal. */
-  private async handleSessionProposalResponse(response: Record<string, unknown>): Promise<void> {
+  private async handleSessionProposalResponse(result: Record<string, unknown>): Promise<void> {
     if (!this.relay) return;
-
-    const result = response.result as Record<string, unknown> | undefined;
-    if (!result) return;
 
     const responderPublicKey = (result.responderPublicKey as string) ?? '';
     if (!responderPublicKey) {
@@ -302,32 +479,37 @@ export class WcSessionManager extends EventEmitter {
       return;
     }
 
+    // Store peer public key for later encryption
+    this.peerSessionPublicKey = responderPublicKey;
+
     // Derive the session topic from our public key and the wallet's public key
+    const peerPub = hexToBytes(responderPublicKey);
     const sessionTopic = this.deriveSessionTopicFromKeys(responderPublicKey);
 
-    // Derive the session shared secret
-    const peerPub = hexToBytes(responderPublicKey);
-    const sessionKey = sharedSecret(this.sessionKeypair.privateKey, peerPub);
+    // Derive and store the session shared secret
+    this.sessionSharedSecret = sharedSecret(this.sessionKeypair.privateKey, peerPub);
 
     // Subscribe to the session topic
     this.relay.subscribe(sessionTopic, (payload: string) => {
-      this.handleSessionMessage(payload, sessionKey);
+      this.handleSessionMessage(payload);
     });
 
-    // Store session
+    // Build session object
     const accounts = (result.accounts as string[]) ?? [];
+    const sessionExpiry = (result.expiry as number) ?? Date.now() + this.config.sessionTtl * 1000;
+
     this.activeSession = {
       topic: sessionTopic,
-      peerMetadata: result.peerMetadata as AppMetadata ?? {
+      peerMetadata: (result.peerMetadata as AppMetadata) ?? {
         name: 'Unknown Wallet',
         description: '',
         url: '',
         icons: [],
       },
       accounts,
-      namespaces: result.namespaces as Record<string, import('./types.js').SessionNamespace> ?? {},
+      namespaces: (result.namespaces as Record<string, SessionNamespace>) ?? {},
       requiredNamespaces: this.buildRequiredNamespaces(),
-      expiry: Date.now() + 7 * 24 * 60 * 60 * 1000, // 7 days
+      expiry: sessionExpiry,
       relay: { protocol: 'waku' },
     };
 
@@ -335,9 +517,11 @@ export class WcSessionManager extends EventEmitter {
   }
 
   /** Handle messages on the session topic. */
-  private async handleSessionMessage(encryptedPayload: string, sessionKey: Uint8Array): Promise<void> {
+  private async handleSessionMessage(encryptedPayload: string): Promise<void> {
+    if (!this.sessionSharedSecret) return;
+
     try {
-      const plaintext = decrypt(sessionKey, encryptedPayload);
+      const plaintext = decrypt(this.sessionSharedSecret, encryptedPayload);
       const msg = JSON.parse(new TextDecoder().decode(plaintext)) as JsonRpcRequest | JsonRpcResponse;
 
       if ('result' in msg || 'error' in msg) {
@@ -347,34 +531,76 @@ export class WcSessionManager extends EventEmitter {
           clearTimeout(pending.timeout);
           this.pendingRequests.delete(msg.id);
           if ('error' in msg && msg.error) {
-            pending.reject(new Error(msg.error.message));
+            pending.reject(new Error((msg.error as { message: string }).message));
           } else {
             pending.resolve(msg.result);
           }
         }
       } else if ('method' in msg) {
-        // This is a request from the wallet
-        try {
-          const result = await this.handleRequest(msg as JsonRpcRequest);
-          // Send response
-          const response: JsonRpcResponse = {
-            id: (msg as JsonRpcRequest).id,
-            jsonrpc: '2.0',
-            result,
-          };
-          const encrypted = encrypt(sessionKey, new TextEncoder().encode(JSON.stringify(response)));
-          await this.relay?.publish((this.activeSession?.topic) ?? '', encrypted);
-        } catch (error) {
-          const errorResponse: JsonRpcResponse = {
-            id: (msg as JsonRpcRequest).id,
-            jsonrpc: '2.0',
-            error: {
-              code: -32603,
-              message: error instanceof Error ? error.message : String(error),
-            },
-          };
-          const encrypted = encrypt(sessionKey, new TextEncoder().encode(JSON.stringify(errorResponse)));
-          await this.relay?.publish((this.activeSession?.topic) ?? '', encrypted);
+        // This is a request or notification from the wallet
+        const request = msg as JsonRpcRequest;
+
+        switch (request.method) {
+          case 'wc_sessionUpdate':
+            if (this.activeSession) {
+              this.activeSession.namespaces = (request.params as { namespaces: Record<string, SessionNamespace> }).namespaces;
+              this.emitEvent({ type: 'session_update', session: this.activeSession });
+            }
+            break;
+          case 'wc_sessionDelete':
+            if (this.activeSession) {
+              this.emitEvent({ type: 'session_delete', topic: this.activeSession.topic });
+              this.activeSession = null;
+              this.sessionSharedSecret = null;
+              this.peerSessionPublicKey = null;
+            }
+            break;
+          case 'wc_sessionExtend':
+            if (this.activeSession) {
+              const expiry = (request.params as { expiry: number }).expiry;
+              this.activeSession.expiry = expiry * 1000;
+              this.emitEvent({ type: 'session_extend', topic: this.activeSession.topic, newExpiry: this.activeSession.expiry });
+            }
+            break;
+          case 'wc_sessionEmit':
+            this.emitEvent({
+              type: 'session_notification',
+              notification: request.params as SessionNotification,
+            });
+            break;
+          case 'wc_sessionPing': {
+            const pong: JsonRpcResponse = {
+              id: request.id,
+              jsonrpc: '2.0',
+              result: {},
+            };
+            const encrypted = encrypt(this.sessionSharedSecret, new TextEncoder().encode(JSON.stringify(pong)));
+            await this.relay?.publish(this.activeSession?.topic ?? '', encrypted);
+            break;
+          }
+          default:
+            // Forward to subclass handler
+            try {
+              const result = await this.handleRequest(request);
+              const response: JsonRpcResponse = {
+                id: request.id,
+                jsonrpc: '2.0',
+                result,
+              };
+              const encrypted = encrypt(this.sessionSharedSecret, new TextEncoder().encode(JSON.stringify(response)));
+              await this.relay?.publish(this.activeSession?.topic ?? '', encrypted);
+            } catch (error) {
+              const errorResponse: JsonRpcResponse = {
+                id: request.id,
+                jsonrpc: '2.0',
+                error: {
+                  code: -32603,
+                  message: error instanceof Error ? error.message : String(error),
+                },
+              };
+              const encrypted = encrypt(this.sessionSharedSecret, new TextEncoder().encode(JSON.stringify(errorResponse)));
+              await this.relay?.publish(this.activeSession?.topic ?? '', encrypted);
+            }
         }
       }
     } catch (error) {
@@ -382,33 +608,37 @@ export class WcSessionManager extends EventEmitter {
     }
   }
 
+  // ============================================================
+  // Internal: helpers
+  // ============================================================
+
   /** Publish a JSON-RPC message to the session topic. */
-  private async publishToSession(id: number, request: JsonRpcRequest): Promise<void> {
-    if (!this.activeSession || !this.relay) return;
+  private async publishToSession(request: JsonRpcRequest): Promise<void> {
+    if (!this.activeSession || !this.relay || !this.sessionSharedSecret) return;
 
-    // We need the session shared secret to encrypt
-    // In a real implementation, this would be stored from the proposal response
-    const sessionKey = this.getSessionKey();
-    if (!sessionKey) return;
-
-    const encrypted = encrypt(sessionKey, new TextEncoder().encode(JSON.stringify(request)));
+    const encrypted = encrypt(this.sessionSharedSecret, new TextEncoder().encode(JSON.stringify(request)));
     await this.relay.publish(this.activeSession.topic, encrypted);
   }
 
-  /** Send a session delete notification. */
-  private async sendSessionDelete(topic: string): Promise<void> {
-    if (!this.relay) return;
+  /** Encrypt a message for the session topic. */
+  private encryptSessionMessage(id: number, message: unknown): string {
+    if (!this.sessionSharedSecret) {
+      throw new Error('No session shared secret');
+    }
+    return encrypt(this.sessionSharedSecret, new TextEncoder().encode(JSON.stringify({ id, jsonrpc: '2.0', ...message })));
+  }
 
-    const sessionKey = this.getSessionKey();
-    if (!sessionKey) return;
+  /** Send a session delete notification. */
+  private async sendSessionDelete(topic: string, code: number, message: string): Promise<void> {
+    if (!this.relay || !this.sessionSharedSecret) return;
 
     const notification = {
       jsonrpc: '2.0',
       method: 'wc_sessionDelete',
-      params: { code: 6000, message: 'User disconnected' },
+      params: { code, message },
     };
 
-    const encrypted = encrypt(sessionKey, new TextEncoder().encode(JSON.stringify(notification)));
+    const encrypted = encrypt(this.sessionSharedSecret, new TextEncoder().encode(JSON.stringify(notification)));
     await this.relay.publish(topic, encrypted);
   }
 
@@ -421,15 +651,7 @@ export class WcSessionManager extends EventEmitter {
     combined.set(myPub);
     combined.set(peerPub);
 
-    // Simple SHA-256-based topic derivation
     return this.hashToHex(combined);
-  }
-
-  /** Get the current session shared secret. */
-  private getSessionKey(): Uint8Array | null {
-    // In a real implementation, this would be stored when the session is established
-    // For now, derive from the stored keypair
-    return null;
   }
 
   /** Build required namespaces from config. */
@@ -454,9 +676,8 @@ export class WcSessionManager extends EventEmitter {
   }
 
   /** Hash bytes to hex string. */
-  private async hashToHex(data: Uint8Array): Promise<string> {
-    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-    const hashArray = new Uint8Array(hashBuffer);
-    return Array.from(hashArray, (b) => b.toString(16).padStart(2, '0')).join('');
+  private hashToHex(data: Uint8Array): string {
+    const hash = sha256(data);
+    return Array.from(hash, (b) => b.toString(16).padStart(2, '0')).join('');
   }
 }

@@ -445,4 +445,246 @@ contract PaymasterTest is Test {
         tokenPaymaster.setActive(false);
         assertFalse(tokenPaymaster.isActive());
     }
+
+    // ==================== Expanded: Budget Enforcement ====================
+
+    function test_GlobalDailyBudgetEmitsEvent() public {
+        vm.expectEmit(true, true, true, true);
+        emit OnChainUXPaymaster.GlobalBudgetSet(25 ether);
+        paymaster.setGlobalDailyBudget(25 ether);
+    }
+
+    function test_ZeroGlobalBudgetMeansUnlimited() public {
+        paymaster.setGlobalDailyBudget(0);
+        assertEq(paymaster.globalDailyBudget(), 0);
+    }
+
+    function test_ResetDailySpentAfterOwnerCall() public {
+        paymaster.resetGlobalDailySpent();
+        assertEq(paymaster.globalDailySpent(PaymasterLib.currentDay()), 0);
+    }
+
+    // ==================== Expanded: Time Window ====================
+
+    function test_TimeWindowEmitsEvent() public {
+        uint48 start = uint48(block.timestamp);
+        uint48 end = uint48(block.timestamp + 24 hours);
+        vm.expectEmit(true, true, true, true);
+        emit OnChainUXPaymaster.TimeWindowSet(start, end);
+        paymaster.setTimeWindow(start, end);
+    }
+
+    function test_TimeWindowClearing() public {
+        paymaster.setTimeWindow(uint48(block.timestamp + 1 hours), 0);
+        paymaster.setTimeWindow(0, 0);
+        assertTrue(paymaster.isActive());
+    }
+
+    function test_IsActiveDuringTimeWindow() public {
+        uint48 now = uint48(block.timestamp);
+        paymaster.setTimeWindow(now - 1 hours, now + 1 hours);
+        assertTrue(paymaster.isActive());
+    }
+
+    // ==================== Expanded: Target Filter ====================
+
+    function test_SetTargetFilterEmitsEvent() public {
+        vm.expectEmit(true, true, true, true);
+        emit OnChainUXPaymaster.TargetFilterEnabled(true);
+        paymaster.setTargetFilter(true);
+    }
+
+    function test_WhitelistUserEmitsEvent() public {
+        vm.expectEmit(true, true, true, true);
+        emit OnChainUXPaymaster.UserWhitelisted(user1, true);
+        paymaster.setWhitelistedUser(user1, true);
+    }
+
+    function test_WhitelistTargetEmitsEvent() public {
+        address target = makeAddr("target");
+        vm.expectEmit(true, true, true, true);
+        emit OnChainUXPaymaster.TargetWhitelisted(target, true);
+        paymaster.setWhitelistedTarget(target, true);
+    }
+
+    // ==================== Expanded: Config Validation ====================
+
+    function test_SponsorConfigEmitsEvent() public {
+        vm.expectEmit(true, true, true, true);
+        emit OnChainUXPaymaster.SponsorConfigSet(
+            user1,
+            OnChainUXPaymaster.SponsorMode.FreeTier,
+            1e16
+        );
+        paymaster.setSponsorConfig(
+            user1,
+            OnChainUXPaymaster.SponsorMode.FreeTier,
+            1e16,
+            10,
+            1e18
+        );
+    }
+
+    // ==================== Expanded: Pausable Security ====================
+
+    function test_PausedBlocksOperations() public {
+        paymaster.setWhitelistedUser(user1, true);
+        paymaster.pause();
+        bytes32 fakeHash = bytes32(uint256(uint160(user1)));
+        // After pause, sponsorship should be blocked
+        assertFalse(paymaster.isSponsored(fakeHash));
+    }
+
+    // ==================== Expanded: Edge Cases ====================
+
+    function test_MultipleUsersWithDifferentModes() public {
+        paymaster.setSponsorConfig(user1, OnChainUXPaymaster.SponsorMode.FreeTier, 0, 5, 0);
+        paymaster.setSponsorConfig(user2, OnChainUXPaymaster.SponsorMode.Fixed, 1e16, 10, 1e18);
+
+        (OnChainUXPaymaster.SponsorMode mode1,,, ) = paymaster.sponsors(user1);
+        (OnChainUXPaymaster.SponsorMode mode2,,, ) = paymaster.sponsors(user2);
+
+        assertEq(uint8(mode1), uint8(OnChainUXPaymaster.SponsorMode.FreeTier));
+        assertEq(uint8(mode2), uint8(OnChainUXPaymaster.SponsorMode.Fixed));
+    }
+
+    // ==================== Expanded: Deposit Events ====================
+
+    function test_DepositEmitsEvent() public {
+        vm.mockCall(
+            entryPoint,
+            abi.encodeWithSelector(
+                bytes4(keccak256("depositTo(address)")),
+                address(paymaster)
+            ),
+            abi.encode(true)
+        );
+
+        vm.expectEmit(true, true, true, true);
+        emit OnChainUXPaymaster.Deposited(address(paymaster), 1 ether);
+        paymaster.deposit{value: 1 ether}();
+    }
+
+    function test_WithdrawEmitsEvent() public {
+        vm.mockCall(
+            entryPoint,
+            abi.encodeWithSelector(
+                bytes4(keccak256("depositTo(address)")),
+                address(paymaster)
+            ),
+            abi.encode(true)
+        );
+        paymaster.deposit{value: 1 ether}();
+
+        vm.mockCall(
+            entryPoint,
+            abi.encodeWithSelector(
+                bytes4(keccak256("withdrawTo(address,uint256)")),
+                user1,
+                0.5 ether
+            ),
+            abi.encode(true)
+        );
+
+        vm.expectEmit(true, true, true, true);
+        emit OnChainUXPaymaster.Withdrawn(address(paymaster), user1, 0.5 ether);
+        paymaster.withdrawTo(payable(user1), 0.5 ether);
+    }
+
+    // ==================== Expanded: Only Owner Security ====================
+
+    function test_OnlyOwnerCanSetWhitelist() public {
+        vm.prank(user1);
+        vm.expectRevert();
+        paymaster.setWhitelistedUser(user1, true);
+    }
+
+    function test_OnlyOwnerCanSetTargetFilter() public {
+        vm.prank(user1);
+        vm.expectRevert();
+        paymaster.setTargetFilter(true);
+    }
+
+    function test_OnlyOwnerCanSetTimeWindow() public {
+        vm.prank(user1);
+        vm.expectRevert();
+        paymaster.setTimeWindow(uint48(block.timestamp), 0);
+    }
+
+    function test_OnlyOwnerCanSetGlobalBudget() public {
+        vm.prank(user1);
+        vm.expectRevert();
+        paymaster.setGlobalDailyBudget(1 ether);
+    }
+
+    function test_OnlyOwnerCanWithdraw() public {
+        vm.prank(user1);
+        vm.mockCall(
+            entryPoint,
+            abi.encodeWithSelector(
+                bytes4(keccak256("withdrawTo(address,uint256)")),
+                user1,
+                0.5 ether
+            ),
+            abi.encode(true)
+        );
+        vm.expectRevert();
+        paymaster.withdrawTo(payable(user1), 0.5 ether);
+    }
+
+    // ==================== Expanded: Free Tier Limits ====================
+
+    function test_FreeTierConfig() public {
+        paymaster.setSponsorConfig(
+            user1,
+            OnChainUXPaymaster.SponsorMode.FreeTier,
+            0,    // no max per op
+            3,    // 3 free ops per day
+            0     // no total budget
+        );
+
+        uint256 today = block.timestamp / 1 days;
+        assertEq(paymaster.userDailyOps(today, user1), 0);
+    }
+
+    // ==================== Expanded: Percentage Mode ====================
+
+    function test_PercentageModeConfig() public {
+        paymaster.setSponsorConfig(
+            user1,
+            OnChainUXPaymaster.SponsorMode.Percentage,
+            5e15,   // 0.005 ETH max
+            100,
+            1e18
+        );
+
+        (OnChainUXPaymaster.SponsorMode mode, uint256 maxAmount,,) =
+            paymaster.sponsors(user1);
+
+        assertEq(uint8(mode), uint8(OnChainUXPaymaster.SponsorMode.Percentage));
+        assertEq(maxAmount, 5e15);
+    }
+
+    // ==================== Expanded: Contract Receive ====================
+
+    function test_ReceiveViaFallback() public {
+        vm.deal(user1, 1 ether);
+        vm.prank(user1);
+        (bool success,) = address(paymaster).call{value: 0.05 ether}("");
+        assertTrue(success);
+        assertEq(address(paymaster).balance, 0.05 ether);
+    }
+
+    function test_ContractBalanceAfterMultipleDeposits() public {
+        vm.deal(user1, 2 ether);
+        vm.prank(user1);
+        (bool s1,) = address(paymaster).call{value: 0.3 ether}("");
+        assertTrue(s1);
+
+        vm.prank(user1);
+        (bool s2,) = address(paymaster).call{value: 0.7 ether}("");
+        assertTrue(s2);
+
+        assertEq(address(paymaster).balance, 1 ether);
+    }
 }

@@ -12,11 +12,13 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAMESPACE: onchainux
+  CARGO_INCREMENTAL: "0"
+  RUSTFLAGS: "-D warnings"
 
 jobs:
-  # ── Rust (Relay Server, Bundler) ──────────────────────────────
-  rust-check:
-    name: Rust Check
+  # ── Rust: Relay Server ───────────────────────────────────────
+  rust-relay:
+    name: Rust — Relay Server
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -32,9 +34,14 @@ jobs:
           path: |
             ~/.cargo/registry
             ~/.cargo/git
-            target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: ${{ runner.os }}-cargo-
+          key: ${{ runner.os }}-cargo-relay-${{ hashFiles('relay-server/Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-cargo-relay-
+
+      - name: Cache build target
+        uses: actions/cache@v4
+        with:
+          path: relay-server/target
+          key: ${{ runner.os }}-target-relay-${{ hashFiles('relay-server/Cargo.lock') }}
 
       - name: Check formatting
         working-directory: ./relay-server
@@ -42,7 +49,7 @@ jobs:
 
       - name: Clippy
         working-directory: ./relay-server
-        run: cargo clippy -- -D warnings
+        run: cargo clippy --all-targets --all-features -- -D warnings
 
       - name: Run tests
         working-directory: ./relay-server
@@ -52,9 +59,181 @@ jobs:
         working-directory: ./relay-server
         run: cargo build --release
 
-  # ── Go (RPC Proxy) ───────────────────────────────────────────
+  # ── Rust: Bundler ────────────────────────────────────────────
+  rust-bundler:
+    name: Rust — Bundler
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy, rustfmt
+
+      - name: Cache cargo registry
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+          key: ${{ runner.os }}-cargo-bundler-${{ hashFiles('packages/bundler/Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-cargo-bundler-
+
+      - name: Cache build target
+        uses: actions/cache@v4
+        with:
+          path: packages/bundler/target
+          key: ${{ runner.os }}-target-bundler-${{ hashFiles('packages/bundler/Cargo.lock') }}
+
+      - name: Check formatting
+        working-directory: ./packages/bundler
+        run: cargo fmt -- --check
+
+      - name: Clippy
+        working-directory: ./packages/bundler
+        run: cargo clippy --all-targets --all-features -- -D warnings
+
+      - name: Run tests
+        working-directory: ./packages/bundler
+        run: cargo test --workspace --all-features
+
+      - name: Build
+        working-directory: ./packages/bundler
+        run: cargo build --release
+
+  # ── Rust: Push Server ────────────────────────────────────────
+  rust-push-server:
+    name: Rust — Push Server
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy, rustfmt
+
+      - name: Cache cargo registry
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+          key: ${{ runner.os }}-cargo-push-${{ hashFiles('packages/push-server/Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-cargo-push-
+
+      - name: Cache build target
+        uses: actions/cache@v4
+        with:
+          path: packages/push-server/target
+          key: ${{ runner.os }}-target-push-${{ hashFiles('packages/push-server/Cargo.lock') }}
+
+      - name: Check formatting
+        working-directory: ./packages/push-server
+        run: cargo fmt -- --check
+
+      - name: Clippy
+        working-directory: ./packages/push-server
+        run: cargo clippy --all-targets --all-features -- -D warnings
+
+      - name: Run tests
+        working-directory: ./packages/push-server
+        run: cargo test --workspace --all-features
+
+      - name: Build
+        working-directory: ./packages/push-server
+        run: cargo build --release
+
+  # ── Rust: Keys Server ────────────────────────────────────────
+  rust-keys-server:
+    name: Rust — Keys Server
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy, rustfmt
+
+      - name: Cache cargo registry
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+          key: ${{ runner.os }}-cargo-keys-${{ hashFiles('packages/keys-server/Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-cargo-keys-
+
+      - name: Cache build target
+        uses: actions/cache@v4
+        with:
+          path: packages/keys-server/target
+          key: ${{ runner.os }}-target-keys-${{ hashFiles('packages/keys-server/Cargo.lock') }}
+
+      - name: Check formatting
+        working-directory: ./packages/keys-server
+        run: cargo fmt -- --check
+
+      - name: Clippy
+        working-directory: ./packages/keys-server
+        run: cargo clippy --all-targets --all-features -- -D warnings
+
+      - name: Run tests
+        working-directory: ./packages/keys-server
+        run: cargo test --workspace --all-features
+
+      - name: Build
+        working-directory: ./packages/keys-server
+        run: cargo build --release
+
+  # ── Rust: ERC-6492 ───────────────────────────────────────────
+  rust-erc6492:
+    name: Rust — ERC-6492
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy, rustfmt
+
+      - name: Cache cargo registry
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+          key: ${{ runner.os }}-cargo-erc6492-${{ hashFiles('packages/erc6492/Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-cargo-erc6492-
+
+      - name: Cache build target
+        uses: actions/cache@v4
+        with:
+          path: packages/erc6492/target
+          key: ${{ runner.os }}-target-erc6492-${{ hashFiles('packages/erc6492/Cargo.lock') }}
+
+      - name: Check formatting
+        working-directory: ./packages/erc6492
+        run: cargo fmt -- --check
+
+      - name: Clippy
+        working-directory: ./packages/erc6492
+        run: cargo clippy --all-targets --all-features -- -D warnings
+
+      - name: Run tests
+        working-directory: ./packages/erc6492
+        run: cargo test --workspace --all-features
+
+      - name: Build
+        working-directory: ./packages/erc6492
+        run: cargo build --release
+
+  # ── Go: RPC Proxy ────────────────────────────────────────────
   go-build:
-    name: Go Build
+    name: Go — RPC Proxy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -86,9 +265,9 @@ jobs:
         working-directory: ./rpc-proxy
         run: go build -ldflags="-s -w" -o bin/rpc-proxy ./cmd/rpc-proxy
 
-  # ── TypeScript (SDK, UI) ─────────────────────────────────────
+  # ── TypeScript: SDK + UI ─────────────────────────────────────
   ts-compile:
-    name: TypeScript Compile
+    name: TypeScript — SDK + UI
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -97,24 +276,56 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: npm
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+          run_install: false
+
+      - name: Get pnpm store path
+        id: pnpm-cache
+        shell: bash
+        run: echo "STORE_PATH=$(pnpm store path)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: ${{ runner.os }}-pnpm-
+
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            **/node_modules
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
-      - name: Type check
-        run: npx tsc --noEmit
+      - name: Type check (all packages)
+        run: pnpm -r --parallel exec tsc --noEmit
 
       - name: Lint
-        run: npm run lint
+        run: pnpm lint
 
       - name: Unit tests
-        run: npm test
+        run: pnpm test
+
+      - name: Run vitest
+        run: pnpm vitest run --coverage
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v4
+        with:
+          files: coverage/lcov.info
 
   # ── Docker Build & Push ──────────────────────────────────────
   docker-build:
     name: Docker Build & Push
-    needs: [rust-check, go-build, ts-compile]
+    needs: [rust-relay, rust-bundler, rust-push-server, rust-keys-server, rust-erc6492, go-build, ts-compile]
     runs-on: ubuntu-latest
     strategy:
       matrix:

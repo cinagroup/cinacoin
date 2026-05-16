@@ -1,9 +1,9 @@
 /**
- * ConnectModal — Native React Native modal with WalletConnect v2 deep linking support.
+ * ConnectModal — Native React Native modal with real WalletConnect v2 deep linking.
  *
- * Uses native RN components (Modal, View, Text, TouchableOpacity, FlatList, ScrollView)
- * instead of Web Components. Integrates real WC v2 pairing, deep linking via react-native
- * Linking API, and the OnChainUX wallet registry.
+ * Integrates real WC v2 pairing via WalletConnectProvider, deep linking via
+ * react-native Linking API, and the OnChainUX wallet registry for a real
+ * connection flow with actual wallet apps.
  */
 
 import React, { useState, useCallback, useRef, useEffect } from 'react';
@@ -21,6 +21,7 @@ import {
   Platform,
 } from 'react-native';
 import { useOnChainUXContext } from './OnChainUXProvider';
+import { useWalletConnect, WALLET_DEEP_LINKS } from './WalletConnectProvider';
 import { WALLET_REGISTRY, getWalletById, buildWalletDeepLink, buildWalletUniversalLink } from '@onchainux/walletconnect-v2';
 
 /** Wallet info for modal display. */
@@ -32,35 +33,22 @@ export interface WalletInfo {
   description?: string;
   downloadUrl?: string;
   rdns?: string;
-  /** Deep link scheme for the wallet app (e.g., 'metamask://'). */
   deepLink?: string;
-  /** Universal link domain for iOS/Android fallback. */
   universalLink?: string;
-  /** App store URL if wallet is not installed. */
   appStoreUrl?: string;
-  /** Play store URL for Android. */
   playStoreUrl?: string;
-  /** Whether this wallet supports WalletConnect URI deep links. */
-  supportsWalletConnect?: boolean;
+  supportsWalletConnect: boolean;
 }
 
 /** Props for the native ConnectModal. */
 export interface ConnectModalProps {
-  /** Whether the modal is visible. */
   visible: boolean;
-  /** Close callback. */
   onClose: () => void;
-  /** Available views. */
   views?: Array<'wallets' | 'social' | 'email' | 'scan'>;
-  /** Default view. */
   defaultView?: string;
-  /** Recommended wallet IDs. */
   recommendedWalletIds?: string[];
-  /** Custom wallet list. */
   wallets?: WalletInfo[];
-  /** WalletConnect URI to pass when opening wallets. */
   wcUri?: string;
-  /** Timeout before falling back to universal link (ms). */
   fallbackTimeoutMs?: number;
 }
 
@@ -80,8 +68,6 @@ const DEFAULT_WALLETS: WalletInfo[] = [
     appStoreUrl: 'https://apps.apple.com/app/coinbase-wallet/id1278383455',
     playStoreUrl: 'https://play.google.com/store/apps/details?id=org.toshi',
     supportsWalletConnect: true },
-  { id: 'rabby', name: 'Rabby', description: 'Multi-chain wallet',
-    deepLink: 'rabby://', supportsWalletConnect: false },
   { id: 'rainbow', name: 'Rainbow', description: 'Ethereum wallet',
     deepLink: 'rainbow://', universalLink: 'https://rnbwapp.com',
     appStoreUrl: 'https://apps.apple.com/app/rainbow-ethereum-wallet/id1457119021',
@@ -92,10 +78,28 @@ const DEFAULT_WALLETS: WalletInfo[] = [
     appStoreUrl: 'https://apps.apple.com/app/trust-crypto-bitcoin-wallet/id1288339409',
     playStoreUrl: 'https://play.google.com/store/apps/details?id=com.wallet.crypto.trustapp',
     supportsWalletConnect: true },
+  { id: 'phantom', name: 'Phantom', description: 'Multi-chain wallet',
+    deepLink: 'phantom://', universalLink: 'https://phantom.app',
+    appStoreUrl: 'https://apps.apple.com/app/phantom-crypto-wallet/id1598432977',
+    playStoreUrl: 'https://play.google.com/store/apps/details?id=com.phantom.app',
+    supportsWalletConnect: true },
+  { id: 'zerion', name: 'Zerion', description: 'DeFi wallet',
+    deepLink: 'zerion://', universalLink: 'https://zerion.io',
+    appStoreUrl: 'https://apps.apple.com/app/zerion-defi-wallet/id1456732032',
+    playStoreUrl: 'https://play.google.com/store/apps/details?id=io.zerion.android',
+    supportsWalletConnect: true },
+  { id: 'rabby', name: 'Rabby', description: 'Multi-chain wallet',
+    deepLink: 'rabby://', supportsWalletConnect: false },
 ];
 
 /**
- * Native ConnectModal for React Native with real deep linking.
+ * Native ConnectModal with real WC v2 deep linking.
+ *
+ * Flow:
+ * 1. User selects a wallet
+ * 2. Create pairing URI via WalletConnectProvider
+ * 3. Open wallet app via deep link with WC URI
+ * 4. Wait for session establishment via relay
  */
 export function ConnectModal({
   visible,
@@ -103,16 +107,33 @@ export function ConnectModal({
   defaultView = 'wallets',
   recommendedWalletIds = [],
   wallets = DEFAULT_WALLETS,
-  wcUri,
   fallbackTimeoutMs = 1500,
 }: ConnectModalProps): JSX.Element {
   const [currentView, setCurrentView] = useState<ModalView>(defaultView as ModalView);
-  const { connect, connectWithUri, createPairing, openWallet, themeColors, wcUri } = useOnChainUXContext();
+  const { connect, themeColors, wcUri: ctxWcUri } = useOnChainUXContext();
+
+  // Real WC v2 provider (may not be available)
+  let createPairingUri: (() => Promise<string>) | null = null;
+  let connectWithUri: ((uri: string) => Promise<void>) | null = null;
+  let openWalletDeepLink: ((walletId: string) => Promise<void>) | null = null;
+  let activePairingUri: string | null = null;
+  let wcConnecting = false;
+
+  try {
+    const wc = useWalletConnect();
+    createPairingUri = wc.createPairingUri;
+    connectWithUri = wc.connectWithUri;
+    openWalletDeepLink = wc.openWalletDeepLink;
+    activePairingUri = wc.pairingUri;
+    wcConnecting = wc.connecting;
+  } catch {
+    // WalletConnectProvider not in tree — use OnChainUXProvider fallback
+  }
+
   const [email, setEmail] = useState('');
   const [deepLinkStatus, setDeepLinkStatus] = useState<Record<string, 'loading' | 'error' | 'success'>>({});
   const fallbackTimers = useRef<Map<string, ReturnType<typeof setTimeout>>>(new Map());
 
-  // Cleanup timers on unmount.
   useEffect(() => {
     return () => {
       fallbackTimers.current.forEach(timer => clearTimeout(timer));
@@ -121,48 +142,13 @@ export function ConnectModal({
   }, []);
 
   /**
-   * Check if a wallet app is installed by attempting to open its deep link scheme.
-   */
-  const checkAppInstalled = useCallback(async (wallet: WalletInfo): Promise<boolean> => {
-    if (!wallet.deepLink) return false;
-    try {
-      return await Linking.canOpenURL(wallet.deepLink);
-    } catch {
-      return false;
-    }
-  }, []);
-
-  /**
-   * Build the deep link URL for a wallet.
-   */
-  const buildDeepLinkUrl = useCallback((wallet: WalletInfo): string => {
-    if (wallet.supportsWalletConnect && wcUri) {
-      // Use WalletConnect URI format.
-      if (wallet.deepLink) {
-        return `${wallet.deepLink}wc?uri=${encodeURIComponent(wcUri)}`;
-      }
-    }
-    // Fallback: use the deep link scheme with WC URI.
-    if (wallet.deepLink && wcUri) {
-      return `${wallet.deepLink}wc?uri=${encodeURIComponent(wcUri)}`;
-    }
-    return wallet.deepLink ?? wallet.universalLink ?? '';
-  }, [wcUri]);
-
-  /**
    * Handle wallet selection with real WC v2 deep linking.
-   *
-   * Flow:
-   * 1. Create pairing URI (if not already created)
-   * 2. Build deep link with WC URI for the selected wallet
-   * 3. Open wallet app via deep link / universal link
-   * 4. Wait for session establishment via relay
    */
   const handleWalletSelect = useCallback(
     async (wallet: WalletInfo) => {
       setDeepLinkStatus(prev => ({ ...prev, [wallet.id]: 'loading' }));
 
-      // Clear any existing fallback timer.
+      // Clear existing fallback timer
       const existingTimer = fallbackTimers.current.get(wallet.id);
       if (existingTimer) {
         clearTimeout(existingTimer);
@@ -170,18 +156,46 @@ export function ConnectModal({
       }
 
       try {
-        // Step 1: Ensure we have a WC v2 pairing URI
-        let uri = wcUri;
-        if (!uri) {
-          uri = await createPairing();
-        }
+        if (wallet.supportsWalletConnect && createPairingUri && openWalletDeepLink) {
+          // Real WC v2 flow: create pairing → deep link → wait for session
+          const uri = await createPairingUri();
+          await openWalletDeepLink(wallet.id);
 
-        // Step 2: Open wallet with real WC v2 deep link from registry
-        if (wallet.supportsWalletConnect) {
-          await openWallet(wallet.id, uri);
+          // Set fallback timer: if no session after timeout, try universal link
+          const timer = setTimeout(async () => {
+            try {
+              const universalLink = buildWalletUniversalLink(wallet.id, uri);
+              if (universalLink) {
+                await Linking.openURL(universalLink);
+              }
+            } catch {
+              // Fallback failed — suggest app store
+              const storeUrl = Platform.OS === 'ios' ? wallet.appStoreUrl : wallet.playStoreUrl;
+              if (storeUrl) {
+                Alert.alert('App Not Found', `${wallet.name} doesn't appear to be installed. Download it?`, [
+                  { text: 'Cancel', style: 'cancel' },
+                  { text: 'Download', onPress: () => Linking.openURL(storeUrl) },
+                ]);
+              }
+            }
+          }, fallbackTimeoutMs);
+          fallbackTimers.current.set(wallet.id, timer);
+
           setDeepLinkStatus(prev => ({ ...prev, [wallet.id]: 'success' }));
+        } else if (wallet.supportsWalletConnect && ctxWcUri) {
+          // Fallback to OnChainUXProvider wcUri
+          const deepLink = buildWalletDeepLink(wallet.id, ctxWcUri);
+          if (deepLink) {
+            const canOpen = await Linking.canOpenURL(deepLink);
+            if (canOpen) {
+              await Linking.openURL(deepLink);
+              setDeepLinkStatus(prev => ({ ...prev, [wallet.id]: 'success' }));
+            } else {
+              throw new Error('Cannot open wallet');
+            }
+          }
         } else {
-          // Fallback: try standard connect for non-WC wallets
+          // Non-WC wallets: use standard connect
           await connect(wallet.id);
           setDeepLinkStatus(prev => ({ ...prev, [wallet.id]: 'success' }));
           onClose();
@@ -201,8 +215,21 @@ export function ConnectModal({
         setDeepLinkStatus(prev => ({ ...prev, [wallet.id]: 'error' }));
       }
     },
-    [connect, connectWithUri, createPairing, openWallet, onClose, wcUri],
+    [connect, createPairingUri, openWalletDeepLink, onClose, ctxWcUri, fallbackTimeoutMs],
   );
+
+  /** Check if wallet app is installed via deep link scheme. */
+  const checkInstalled = useCallback(async (walletId: string): Promise<boolean> => {
+    const link = WALLET_DEEP_LINKS[walletId];
+    if (link?.scheme) {
+      try {
+        return await Linking.canOpenURL(link.scheme);
+      } catch {
+        return false;
+      }
+    }
+    return false;
+  }, []);
 
   const handleEmailSubmit = useCallback(() => {
     if (email) {
@@ -222,7 +249,7 @@ export function ConnectModal({
   );
 
   const views: ModalView[] = ['wallets', 'social', 'email', 'scan'];
-  const availableViews = views.filter(v => true); // All views available by default
+  const availableViews = views.filter(v => true);
 
   const getStatusBadge = (walletId: string) => {
     const status = deepLinkStatus[walletId];
@@ -238,7 +265,6 @@ export function ConnectModal({
     <View style={styles.walletGrid}>
       {wallets.map(wallet => {
         const isRecommended = recommendedWalletIds.includes(wallet.id);
-        const isInstalled = wallet.supportsWalletConnect; // Simplified check
         return (
           <TouchableOpacity
             key={wallet.id}
@@ -273,9 +299,9 @@ export function ConnectModal({
                 Recommended
               </Text>
             )}
-            {isInstalled && wallet.deepLink && (
+            {wallet.supportsWalletConnect && (
               <Text style={[styles.installedBadge, { color: themeColors.textTertiary }]}>
-                Deep link ready
+                WC v2
               </Text>
             )}
           </TouchableOpacity>
@@ -348,9 +374,14 @@ export function ConnectModal({
       >
         <Text style={{ fontSize: 48 }}>📱</Text>
       </View>
-      {wcUri && (
+      {activePairingUri && (
         <Text style={[styles.wcUri, { color: themeColors.textTertiary }]}>
-          {wcUri.substring(0, 60)}...
+          {activePairingUri.substring(0, 60)}...
+        </Text>
+      )}
+      {wcConnecting && (
+        <Text style={[styles.statusLoading, { marginTop: 8 }]}>
+          Waiting for wallet connection...
         </Text>
       )}
     </View>
@@ -358,33 +389,18 @@ export function ConnectModal({
 
   const renderView = () => {
     switch (currentView) {
-      case 'wallets':
-        return renderWallets();
-      case 'social':
-        return renderSocial();
-      case 'email':
-        return renderEmail();
-      case 'scan':
-        return renderScan();
-      default:
-        return renderWallets();
+      case 'wallets': return renderWallets();
+      case 'social': return renderSocial();
+      case 'email': return renderEmail();
+      case 'scan': return renderScan();
+      default: return renderWallets();
     }
   };
 
   return (
-    <Modal
-      visible={visible}
-      transparent
-      animationType="fade"
-      onRequestClose={onClose}
-    >
+    <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
       <View style={styles.overlay}>
-        <View
-          style={[
-            styles.modal,
-            { backgroundColor: themeColors.bgPrimary, borderColor: themeColors.border },
-          ]}
-        >
+        <View style={[styles.modal, { backgroundColor: themeColors.bgPrimary, borderColor: themeColors.border }]}>
           {/* Header */}
           <View style={styles.header}>
             <Text style={[styles.headerTitle, { color: themeColors.textPrimary }]}>
@@ -409,14 +425,7 @@ export function ConnectModal({
                 ]}
                 onPress={() => setCurrentView(view)}
               >
-                <Text
-                  style={[
-                    styles.tabText,
-                    {
-                      color: currentView === view ? themeColors.textPrimary : themeColors.textSecondary,
-                    },
-                  ]}
-                >
+                <Text style={[styles.tabText, { color: currentView === view ? themeColors.textPrimary : themeColors.textSecondary }]}>
                   {view.charAt(0).toUpperCase() + view.slice(1)}
                 </Text>
               </TouchableOpacity>
@@ -461,37 +470,13 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#334155',
   },
-  headerTitle: {
-    fontSize: 20,
-    fontWeight: '600',
-  },
-  closeBtn: {
-    padding: 8,
-  },
-  tabs: {
-    flexDirection: 'row',
-    gap: 8,
-    padding: 16,
-  },
-  tab: {
-    flex: 1,
-    padding: 8,
-    borderWidth: 1,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  tabText: {
-    fontSize: 14,
-    fontWeight: '500',
-  },
-  content: {
-    padding: 16,
-  },
-  walletGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 12,
-  },
+  headerTitle: { fontSize: 20, fontWeight: '600' },
+  closeBtn: { padding: 8 },
+  tabs: { flexDirection: 'row', gap: 8, padding: 16 },
+  tab: { flex: 1, padding: 8, borderWidth: 1, borderRadius: 8, alignItems: 'center' },
+  tabText: { fontSize: 14, fontWeight: '500' },
+  content: { padding: 16 },
+  walletGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 12 },
   walletCard: {
     flex: 1,
     minWidth: '45%',
@@ -502,93 +487,28 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   walletIcon: {
-    width: 40,
-    height: 40,
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: 40, height: 40, borderRadius: 8,
+    justifyContent: 'center', alignItems: 'center',
   },
-  walletIconImage: {
-    width: 24,
-    height: 24,
-  },
-  walletIconFallback: {
-    fontSize: 20,
-  },
-  walletName: {
-    fontSize: 14,
-    fontWeight: '500',
-    textAlign: 'center',
-  },
-  walletDesc: {
-    fontSize: 12,
-    textAlign: 'center',
-  },
-  recommendedBadge: {
-    fontSize: 12,
-    fontWeight: '500',
-  },
-  altActions: {
-    gap: 12,
-  },
-  altBtn: {
-    padding: 12,
-    borderWidth: 1,
-    borderRadius: 12,
-    alignItems: 'center',
-  },
-  altBtnText: {
-    fontSize: 14,
-    fontWeight: '500',
-  },
-  emailInput: {
-    padding: 12,
-    borderWidth: 1,
-    borderRadius: 12,
-    fontSize: 14,
-  },
-  scanContainer: {
-    alignItems: 'center',
-    padding: 32,
-  },
-  scanTitle: {
-    fontSize: 18,
-    marginBottom: 16,
-  },
-  scanQR: {
-    width: 200,
-    height: 200,
-    borderRadius: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  footer: {
-    padding: 16,
-    alignItems: 'center',
-    borderTopWidth: 1,
-    borderTopColor: '#334155',
-  },
-  footerText: {
-    fontSize: 12,
-  },
-  wcUri: {
-    fontSize: 10,
-    marginTop: 8,
-    textAlign: 'center',
-  },
-  statusLoading: {
-    fontSize: 11,
-    color: '#60a5fa',
-  },
-  statusSuccess: {
-    fontSize: 11,
-    color: '#34d399',
-  },
-  statusError: {
-    fontSize: 11,
-    color: '#f87171',
-  },
-  installedBadge: {
-    fontSize: 10,
-  },
+  walletIconImage: { width: 24, height: 24 },
+  walletIconFallback: { fontSize: 20 },
+  walletName: { fontSize: 14, fontWeight: '500', textAlign: 'center' },
+  walletDesc: { fontSize: 12, textAlign: 'center' },
+  recommendedBadge: { fontSize: 12, fontWeight: '500' },
+  altActions: { gap: 12 },
+  altBtn: { padding: 12, borderWidth: 1, borderRadius: 12, alignItems: 'center' },
+  altBtnText: { fontSize: 14, fontWeight: '500' },
+  emailInput: { padding: 12, borderWidth: 1, borderRadius: 12, fontSize: 14 },
+  scanContainer: { alignItems: 'center', padding: 32 },
+  scanTitle: { fontSize: 18, marginBottom: 16 },
+  scanQR: { width: 200, height: 200, borderRadius: 12, justifyContent: 'center', alignItems: 'center' },
+  footer: { padding: 16, alignItems: 'center', borderTopWidth: 1, borderTopColor: '#334155' },
+  footerText: { fontSize: 12 },
+  wcUri: { fontSize: 10, marginTop: 8, textAlign: 'center' },
+  statusLoading: { fontSize: 11, color: '#60a5fa' },
+  statusSuccess: { fontSize: 11, color: '#34d399' },
+  statusError: { fontSize: 11, color: '#f87171' },
+  installedBadge: { fontSize: 10 },
 });
+
+export default ConnectModal;

@@ -1,0 +1,59 @@
+name: Bundle Size Check
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'packages/**/*.ts'
+      - 'packages/**/*.js'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+
+jobs:
+  size-check:
+    name: Check Bundle Size
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package:
+          - packages/core-sdk
+          - packages/core-ui
+          - packages/social-login
+          - packages/siwe
+          - packages/design-tokens
+          - packages/erc6492
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build package
+        working-directory: ${{ matrix.package }}
+        run: pnpm build
+
+      - name: Check bundle size
+        id: size-check
+        uses: preactjs/compressed-size-action@v2
+        with:
+          pattern: '${{ matrix.package }}/dist/**/*.{js,cjs}'
+          cwd: ${{ matrix.package }}
+          minimum-change-threshold: 100
+          compression: 'gzip'
+
+      - name: Report size changes
+        if: steps.size-check.outputs.size-change
+        run: |
+          echo "## Bundle Size Report for ${{ matrix.package }}" >> $GITHUB_STEP_SUMMARY
+          echo "${{ steps.size-check.outputs.size-change }}" >> $GITHUB_STEP_SUMMARY

@@ -1,11 +1,12 @@
 /**
- * ConnectButton — Native React Native button.
+ * ConnectButton — Native React Native button with real WC v2 connection state.
  *
- * Uses native RN components (View, Text, TouchableOpacity, ActivityIndicator)
- * instead of Web Components.
+ * Uses native RN components and reads real connection state from
+ * both OnChainUXProvider and WalletConnectProvider for accurate
+ * account display, balance fetching, and disconnect handling.
  */
 
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   TouchableOpacity,
   Text,
@@ -16,6 +17,7 @@ import {
   type TextStyle,
 } from 'react-native';
 import { useOnChainUXContext } from './OnChainUXProvider';
+import { useWalletConnect, type BalanceState } from './WalletConnectProvider';
 
 /** Props for the native ConnectButton. */
 export interface ConnectButtonProps {
@@ -51,8 +53,25 @@ function truncateAddress(address: string, prefix = 4, suffix = 4): string {
   return `${address.slice(0, prefix + 2)}...${address.slice(-suffix)}`;
 }
 
+/** Derive a chain short name from a chain ID. */
+function chainName(chainId: number): string {
+  switch (chainId) {
+    case 1: return 'ETH';
+    case 137: return 'POLY';
+    case 42161: return 'ARB';
+    case 56: return 'BSC';
+    case 10: return 'OP';
+    case 8453: return 'BASE';
+    default: return String(chainId);
+  }
+}
+
 /**
- * Native ConnectButton for React Native.
+ * Native ConnectButton for React Native with real WC v2 state.
+ *
+ * Reads connection state from WalletConnectProvider (if available) and
+ * OnChainUXProvider. Supports balance fetching, network badge, avatar,
+ * and real disconnect via WC session cleanup.
  */
 export function ConnectButton({
   label = 'Connect Wallet',
@@ -68,21 +87,70 @@ export function ConnectButton({
 }: ConnectButtonProps): JSX.Element {
   const { account, status, connect, disconnect, themeColors } = useOnChainUXContext();
 
-  const handlePress = useCallback(() => {
-    if (status === 'connecting') return;
+  // Try to get real WC v2 state (may not be available if not wrapped)
+  let wcBalance: BalanceState | null = null;
+  let wcSession = null;
+  let wcDisconnect: (() => Promise<void>) | null = null;
+  let wcFetching = false;
 
-    if (status === 'connected') {
-      // Toggle: simple disconnect for now
-      disconnect().then(() => onDisconnect?.()).catch(() => {});
+  try {
+    const wc = useWalletConnect();
+    wcBalance = wc.balance;
+    wcSession = wc.session;
+    wcDisconnect = wc.disconnect;
+    wcFetching = wc.connecting;
+  } catch {
+    // WalletConnectProvider not in tree — use OnChainUXProvider only
+  }
+
+  const [fetchingBalance, setFetchingBalance] = useState(false);
+
+  // Derive effective connected state
+  const isConnected = status === 'connected' || wcSession !== null;
+  const isConnecting = status === 'connecting' || wcFetching;
+  const isError = status === 'error';
+
+  const handlePress = useCallback(() => {
+    if (isConnecting) return;
+
+    if (isConnected) {
+      // Toggle: disconnect via WC or OnChainUX
+      if (wcDisconnect) {
+        wcDisconnect().then(() => onDisconnect?.()).catch(() => {});
+      } else {
+        disconnect().then(() => onDisconnect?.()).catch(() => {});
+      }
       return;
     }
 
-    connect('metamask')
+    // Open connect flow — delegate to ConnectModal
+    connect('walletconnect')
       .then(() => onPress?.())
       .catch(() => {});
-  }, [status, connect, disconnect, onPress, onDisconnect]);
+  }, [isConnected, isConnecting, connect, disconnect, wcDisconnect, onPress, onDisconnect]);
 
-  const buttonStyle = getButtonStyle(variant, status, themeColors);
+  // Fetch balance on connect
+  React.useEffect(() => {
+    if (isConnected && showBalance && !wcBalance && !fetchingBalance) {
+      setFetchingBalance(true);
+      try {
+        const wc = useWalletConnect();
+        wc.fetchBalance()
+          .catch(() => {})
+          .finally(() => setFetchingBalance(false));
+      } catch {
+        setFetchingBalance(false);
+      }
+    }
+  }, [isConnected, showBalance, wcBalance, fetchingBalance]);
+
+  // Use real balance from WC if available
+  const displayBalance = wcBalance?.balance ?? account?.balance;
+  const displaySymbol = wcBalance?.symbol ?? account?.chainSymbol ?? '';
+  const displayAddress = account?.address ?? '';
+  const displayChainId = account?.chainId ?? 1;
+
+  const buttonStyle = getButtonStyle(variant, isConnected, isError, themeColors);
   const height = SIZE_HEIGHT[size] ?? 44;
   const padding = SIZE_PADDING[size] ?? 24;
   const fontSize = SIZE_FONT[size] ?? 14;
@@ -97,19 +165,21 @@ export function ConnectButton({
       ]}
       onPress={handlePress}
       activeOpacity={0.7}
-      disabled={status === 'connecting'}
+      disabled={isConnecting}
       accessibilityRole="button"
       accessibilityLabel={
-        status === 'connected'
-          ? `Connected as ${truncateAddress(account.address ?? '')}`
+        isConnected
+          ? `Connected as ${truncateAddress(displayAddress)}`
           : label
       }
     >
-      {status === 'connecting' ? (
+      {isConnecting ? (
         <ActivityIndicator color={buttonStyle.color ?? '#fff'} size="small" />
-      ) : status === 'connected' ? (
+      ) : isConnected ? (
         <View style={styles.connectedContent}>
-          {showAvatar && <View style={[styles.avatar, { width: fontSize, height: fontSize }]} />}
+          {showAvatar && (
+            <View style={[styles.avatar, { width: fontSize, height: fontSize }]} />
+          )}
           <Text
             style={[
               styles.addressText,
@@ -117,16 +187,25 @@ export function ConnectButton({
               textStyle,
             ]}
           >
-            {truncateAddress(account.address ?? '')}
+            {truncateAddress(displayAddress)}
           </Text>
           {showBalance && (
             <Text style={[styles.balanceText, { color: themeColors.textSecondary }]}>
-              {account.balance} {account.chainSymbol}
+              {displayBalance} {displaySymbol}
             </Text>
           )}
+          {showNetwork && (
+            <View style={[styles.networkBadge, { borderColor: themeColors.accent500 }]}>
+              <Text style={[styles.networkBadgeText, { color: themeColors.accent500 }]}>
+                {chainName(displayChainId)}
+              </Text>
+            </View>
+          )}
         </View>
-      ) : status === 'error' ? (
-        <Text style={[styles.text, { fontSize, color: themeColors.error }, textStyle]}>❌ Error</Text>
+      ) : isError ? (
+        <Text style={[styles.text, { fontSize, color: themeColors.error }, textStyle]}>
+          ❌ Error
+        </Text>
       ) : (
         <Text style={[styles.text, { fontSize, color: buttonStyle.color ?? '#fff' }, textStyle]}>
           {label}
@@ -145,8 +224,13 @@ interface ButtonColors {
   accent500: string;
 }
 
-function getButtonStyle(variant: string, status: string, colors: ButtonColors) {
-  if (status === 'connected' || variant === 'secondary') {
+function getButtonStyle(
+  variant: string,
+  isConnected: boolean,
+  isError: boolean,
+  colors: ButtonColors,
+) {
+  if (isConnected || variant === 'secondary') {
     return {
       backgroundColor: colors.bgCard,
       borderWidth: 1,
@@ -154,7 +238,7 @@ function getButtonStyle(variant: string, status: string, colors: ButtonColors) {
       color: colors.textPrimary,
     };
   }
-  if (status === 'error') {
+  if (isError) {
     return {
       backgroundColor: colors.error + '26',
       color: colors.error,
@@ -199,4 +283,16 @@ const styles = StyleSheet.create({
   balanceText: {
     fontSize: 12,
   },
+  networkBadge: {
+    borderWidth: 1,
+    borderRadius: 4,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+  },
+  networkBadgeText: {
+    fontSize: 10,
+    fontWeight: '600',
+  },
 });
+
+export default ConnectButton;

@@ -3,7 +3,7 @@
  */
 
 /** Supported blockchain network types. */
-export type ChainNamespace = 'eip155' | 'solana' | 'bip121' | 'tron';
+export type ChainNamespace = 'eip155' | 'solana' | 'bip121' | 'bip122' | 'tron' | 'ton' | 'polkadot';
 
 /** Chain reference (CAIP-2 format: namespace:reference). */
 export interface ChainReference {

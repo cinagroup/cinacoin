@@ -31,8 +31,26 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+          run_install: false
+
+      - name: Get pnpm store path
+        id: pnpm-cache
+        shell: bash
+        run: echo "STORE_PATH=$(pnpm store path)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-docs-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: ${{ runner.os }}-pnpm-docs-
+
       - name: Install deps
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Generate TypeDoc
         run: npx typedoc
@@ -56,8 +74,26 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+          run_install: false
+
+      - name: Get pnpm store path
+        id: pnpm-cache
+        shell: bash
+        run: echo "STORE_PATH=$(pnpm store path)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-docs-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: ${{ runner.os }}-pnpm-docs-
+
       - name: Install deps
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Restore TypeDoc output
         uses: actions/download-artifact@v4
@@ -69,6 +105,10 @@ jobs:
         run: npx vitepress build docs
         env:
           NODE_ENV: production
+
+      - name: Add custom domain (CNAME)
+        if: ${{ vars.DOCS_CUSTOM_DOMAIN != '' }}
+        run: echo "${{ vars.DOCS_CUSTOM_DOMAIN }}" > docs/.vitepress/dist/CNAME
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
@@ -86,3 +126,12 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Verify deployment
+        run: |
+          echo "Docs deployed to: ${{ steps.deployment.outputs.page_url }}"
+          if [ -n "${{ vars.DOCS_CUSTOM_DOMAIN }}" ]; then
+            echo "Custom domain: ${{ vars.DOCS_CUSTOM_DOMAIN }}"
+            # Verify DNS is resolving
+            curl -sI --max-time 10 "https://${{ vars.DOCS_CUSTOM_DOMAIN }}" || echo "⚠ Custom domain not yet resolving"
+          fi

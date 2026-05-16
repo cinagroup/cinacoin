@@ -103,6 +103,58 @@ pub async fn serve(
     axum::serve(listener, app).await
 }
 
+/// Testable entry point: handle a single RPC request (used in tests).
+pub async fn handle_rpc_request(state: &AppState, request: RpcRequest) -> RpcResponse {
+    let start = std::time::Instant::now();
+    let method = request.method.clone();
+
+    let result = match request.method.as_str() {
+        "eth_sendUserOperation" => rpc_send_user_op(state, request.params).await,
+        "eth_estimateUserOperationGas" => rpc_estimate_gas(state, request.params).await,
+        "eth_getUserOperationByHash" => rpc_get_user_op_by_hash(state, request.params).await,
+        "eth_getUserOperationReceipt" => rpc_get_receipt(state, request.params).await,
+        "eth_supportedEntryPoints" => rpc_supported_entry_points(state),
+        "onchainux_getBundlerConfig" => rpc_get_config(state),
+        "onchainux_getReputationStats" => rpc_reputation_stats(state).await,
+        "web3_clientVersion" => rpc_client_version(),
+        _ => {
+            state.metrics.record_rpc(&method, "error", start.elapsed().as_secs_f64());
+            return RpcResponse {
+                jsonrpc: "2.0".into(),
+                id: request.id,
+                result: None,
+                error: Some(RpcError {
+                    code: -32601,
+                    message: "Method not found".into(),
+                    data: None,
+                }),
+            };
+        }
+    };
+
+    let status = if result.is_ok() { "ok" } else { "error" };
+    state.metrics.record_rpc(&method, status, start.elapsed().as_secs_f64());
+
+    match result {
+        Ok(value) => RpcResponse {
+            jsonrpc: "2.0".into(),
+            id: request.id,
+            result: Some(value),
+            error: None,
+        },
+        Err(e) => RpcResponse {
+            jsonrpc: "2.0".into(),
+            id: request.id,
+            result: None,
+            error: Some(RpcError {
+                code: -32603,
+                message: e.to_string(),
+                data: None,
+            }),
+        },
+    }
+}
+
 /// Health check handler.
 async fn health_check(
     State(state): State<Arc<AppState>>,

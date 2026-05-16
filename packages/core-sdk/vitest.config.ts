@@ -35,6 +35,11 @@ function tsResolver(): Plugin {
 
 export default defineConfig({
   plugins: [tsResolver()],
+  resolve: {
+    alias: {
+      '@onchainux/siwe': path.resolve(__dirname, '../siwe/src/index.ts'),
+    },
+  },
   test: {
     globals: true,
     environment: 'jsdom',

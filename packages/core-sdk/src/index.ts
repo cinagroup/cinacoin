@@ -125,6 +125,55 @@ export {
 } from './adapters/bitcoin.js';
 export type { UTXO, AddressFormat, BitcoinWalletInfo } from './adapters/bitcoin.js';
 
+// TON Adapter
+export {
+  TONChainAdapter,
+  TON_CHAINS,
+  TON_WALLETS,
+  isValidTONAddress,
+  parseTONAddress,
+  hexToBase64url,
+  base64urlToHex,
+} from './adapters/ton.js';
+export type {
+  TONAddress,
+  TONTransaction,
+  TONJettonTransfer,
+  TONConnectParams,
+  TONWalletInfo as TONWalletInfoType,
+} from './adapters/ton.js';
+
+// TRON Adapter
+export {
+  TRONChainAdapter,
+  TRON_CHAINS,
+  TRON_WALLETS,
+  isValidTRONAddress,
+  base58ToHex,
+  hexToBase58,
+} from './adapters/tron.js';
+export type {
+  TRONTransaction,
+  TRC20Transfer,
+  TRONTransactionRaw,
+  TRONWalletInfo as TRONWalletInfoType,
+} from './adapters/tron.js';
+
+// Polkadot Adapter
+export {
+  PolkadotChainAdapter,
+  POLKADOT_CHAINS,
+  POLKADOT_WALLETS,
+  decodeSS58,
+  isValidSS58Address,
+} from './adapters/polkadot.js';
+export type {
+  PolkadotTransaction,
+  PolkadotAssetTransfer,
+  SS58AddressInfo,
+  PolkadotWalletInfo as PolkadotWalletInfoType,
+} from './adapters/polkadot.js';
+
 // Crypto
 export {
   generateKeypair,
@@ -149,8 +198,8 @@ export type { SIWEAuthConfig, SIWESignInResult } from './auth/siwe.js';
  * @returns ChainAdapter instance.
  */
 export async function createAdapter(
-  config: AdapterFactoryConfig,
-): Promise<import('./adapters/types.js').ChainAdapter> {
+  config: import('./adapters/types.js').AdapterFactoryConfig | NewChainAdapterFactoryConfig,
+): Promise<unknown> {
   switch (config.type) {
     case 'viem': {
       const mod = await import('./adapters/viem.js');
@@ -168,9 +217,37 @@ export async function createAdapter(
       const mod = await import('./adapters/ethers6.js');
       return new mod.Ethers6Adapter(config.client as any);
     }
+    case 'ton': {
+      const mod = await import('./adapters/ton.js');
+      const adapter = new mod.TONChainAdapter();
+      if (config.chains) adapter.registerChains(config.chains);
+      return adapter;
+    }
+    case 'tron': {
+      const mod = await import('./adapters/tron.js');
+      const adapter = new mod.TRONChainAdapter();
+      if (config.chains) adapter.registerChains(config.chains);
+      return adapter;
+    }
+    case 'polkadot': {
+      const mod = await import('./adapters/polkadot.js');
+      const adapter = new mod.PolkadotChainAdapter();
+      if (config.chains) adapter.registerChains(config.chains);
+      return adapter;
+    }
     default:
       throw new Error(`Unknown adapter type: ${(config as any).type}`);
   }
+}
+
+/**
+ * Factory configuration for new chain adapters (TON, TRON, Polkadot).
+ */
+export interface NewChainAdapterFactoryConfig {
+  type: 'ton' | 'tron' | 'polkadot';
+  client?: unknown;
+  connector?: import('./connector.js').Connector;
+  chains?: import('./types.js').Chain[];
 }
 
 // Deep Linking

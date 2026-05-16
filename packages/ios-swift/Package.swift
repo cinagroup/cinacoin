@@ -14,11 +14,16 @@ let package = Package(
             name: "OnChainUX",
             targets: ["OnChainUX"]),
     ],
-    dependencies: [],
+    dependencies: [
+        .package(url: "https://github.com/WalletConnect/WalletConnectSwiftV2.git", exact: "1.13.0"),
+    ],
     targets: [
         .target(
             name: "OnChainUX",
-            dependencies: [],
+            dependencies: [
+                .product(name: "WalletConnect", package: "WalletConnectSwiftV2"),
+                .product(name: "WalletConnectNetworking", package: "WalletConnectSwiftV2"),
+            ],
             path: "Sources/OnChainUX",
             // Include WalletConnect v2 module files
             sources: [

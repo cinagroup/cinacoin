@@ -305,6 +305,35 @@ public final class SIWEAuth {
         )
     }
     
+    /// Build a SIWE message string for signing (static helper for WC integration).
+    public static func buildMessage(
+        domain: String,
+        address: String,
+        statement: String?,
+        uri: String,
+        chainId: Int?,
+        nonce: String,
+        issuedAt: String,
+        expirationTime: String? = nil
+    ) -> String {
+        var message = "\(domain) wants you to sign in with your Ethereum account:\n"
+        message += "\(address)\n\n"
+        if let statement = statement {
+            message += "\(statement)\n\n"
+        }
+        message += "URI: \(uri)\n"
+        message += "Version: 1\n"
+        if let chainId = chainId {
+            message += "Chain ID: \(chainId)\n"
+        }
+        message += "Nonce: \(nonce)\n"
+        message += "Issued At: \(issuedAt)\n"
+        if let expirationTime = expirationTime {
+            message += "Expiration Time: \(expirationTime)\n"
+        }
+        return message
+    }
+
     private func buildSIWEMessage(
         domain: String,
         address: String,

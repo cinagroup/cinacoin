@@ -1,0 +1,80 @@
+# OnChainUX — Ingress Security Rules
+# Nginx Ingress Controller configuration with security hardening
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: onchainux-ingress
+  namespace: onchainux
+  annotations:
+    # SSL/TLS
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    # Rate limiting
+    nginx.ingress.kubernetes.io/limit-rps: "100"
+    nginx.ingress.kubernetes.io/limit-connections: "50"
+    # Security headers
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      more_set_headers "X-Content-Type-Options: nosniff";
+      more_set_headers "X-Frame-Options: DENY";
+      more_set_headers "X-XSS-Protection: 1; mode=block";
+      more_set_headers "Referrer-Policy: strict-origin-when-cross-origin";
+      more_set_headers "Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'";
+    # Body size limits
+    nginx.ingress.kubernetes.io/proxy-body-size: "1m"
+    # Timeouts
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+    # CORS (if needed for public APIs)
+    nginx.ingress.kubernetes.io/cors-allow-origin: "https://onchainux.com"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, OPTIONS"
+    # IP allowlist for admin endpoints
+    nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8, 172.16.0.0/12"
+    # Block common attack patterns
+    nginx.ingress.kubernetes.io/server-snippet: |
+      location ~* \.(git|svn|env|bak|swp)$ {
+        deny all;
+        return 404;
+      }
+      location /admin {
+        allow 10.0.0.0/8;
+        deny all;
+      }
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - relay.onchainux.com
+        - rpc.onchainux.com
+        - api.onchainux.com
+      secretName: onchainux-tls
+  rules:
+    - host: relay.onchainux.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: relay-server
+                port:
+                  number: 8080
+    - host: rpc.onchainux.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: rpc-proxy
+                port:
+                  number: 8545
+    - host: api.onchainux.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: keys-server
+                port:
+                  number: 3001

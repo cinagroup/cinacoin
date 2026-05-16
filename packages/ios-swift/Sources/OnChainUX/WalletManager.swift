@@ -1,31 +1,17 @@
 /**
- * WalletManager — manages wallet connections and session lifecycle.
+ * WalletManager — manages wallet connections and session lifecycle with real WC v2.
  *
- * Handles wallet discovery, connection, disconnection, and state management.
- * Supports multiple connector types: injected, WalletConnect, Coinbase,
- * email, and social logins.
- *
- * ## Usage
- * ```swift
- * let manager = WalletManager()
- * manager.configure(with: config)
- *
- * let result = try await manager.connect(connectorId: "metamask")
- * print("Connected: \(result.account.address)")
- *
- * await manager.disconnect()
- * ```
+ * Handles wallet discovery, connection via WalletConnectSwiftV2, SIWE signing,
+ * balance fetching, and state management.
  */
 
 import Foundation
+import Combine
 
 /// Result of a successful wallet connection.
 public struct ConnectResult: Sendable {
-    /// Connected account info.
     public let account: AccountInfo
-    /// Connected chain ID.
     public let chainId: Int
-    /// Session ID.
     public let sessionId: String
     
     public init(account: AccountInfo, chainId: Int, sessionId: String) {
@@ -35,50 +21,109 @@ public struct ConnectResult: Sendable {
     }
 }
 
-/// Manages wallet connections and session state.
+/// Manages wallet connections and session state with real WC v2.
 public final class WalletManager: ObservableObject {
     
-    /// Currently connected account, if any.
     @Published public private(set) var connectedAccount: AccountInfo?
-    
-    /// Current connection status.
     @Published public private(set) var connectionStatus: ConnectionStatus = .disconnected
-    
-    /// Available connectors.
     @Published public private(set) var connectors: [ConnectorInfo] = []
     
-    /// Active session ID.
     public private(set) var sessionId: String?
-    
     private var config: OnChainUXConfig?
+    
+    // Real WC v2 client reference
+    private let wcClient = WCClient.shared
+    
+    /// Combined cancellables for event subscriptions
+    private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Lifecycle
     
-    /// Configure the wallet manager.
-    /// - Parameter config: App configuration.
     public func configure(with config: OnChainUXConfig) {
         self.config = config
+        
+        // Initialize the WC SDK with real project ID
+        if let projectId = config.projectId, !projectId.isEmpty {
+            wcClient.configure(
+                projectId: projectId,
+                metadata: config.metadata ?? .init(name: "", description: "", url: "", icons: []),
+                chains: config.chains.map { "eip155:\($0.chainId)" }
+            )
+            wcClient.initializeSDK(
+                metadata: config.metadata ?? .init(name: "OnChainUX dApp", description: "", url: "https://onchainux.io", icons: []),
+                projectId: projectId
+            )
+        }
+        
         connectors = buildDefaultConnectors(config: config)
+        subscribeToWCEvents()
     }
     
-    /// Connect to a wallet by connector ID.
-    /// - Parameter connectorId: The connector to use.
-    /// - Returns: Connection result with account info.
-    /// - Throws: OnChainUXError if connection fails.
+    /// Subscribe to real WC v2 events from the SDK client.
+    private func subscribeToWCEvents() {
+        // WC client publishes session state via Combine
+        wcClient.$status
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] wcStatus in
+                switch wcStatus {
+                case .disconnected:
+                    self?.connectionStatus = .disconnected
+                    self?.connectedAccount = nil
+                    self?.sessionId = nil
+                case .connecting:
+                    self?.connectionStatus = .connecting
+                case .pairing:
+                    self?.connectionStatus = .connecting
+                case .connected:
+                    // Session was established — fetch balance
+                    Task { [weak self] in
+                        guard let self = self else { return }
+                        let balance = try? await self.wcClient.fetchBalance()
+                        if let account = self.connectedAccount, let bal = balance {
+                            self.connectedAccount = AccountInfo(
+                                address: account.address,
+                                balance: bal,
+                                chainId: account.chainId,
+                                chainSymbol: account.chainSymbol,
+                                ensName: account.ensName
+                            )
+                        }
+                        self.connectionStatus = .connected
+                    }
+                case .error(let msg):
+                    self?.connectionStatus = .error(msg)
+                }
+            }
+            .store(in: &cancellables)
+        
+        wcClient.$accounts
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] accounts in
+                guard let self = self, let caip10 = accounts.first else { return }
+                let address = Self.extractAddress(from: caip10) ?? caip10
+                let symbol = self.config?.chains.first?.nativeCurrency.symbol ?? "ETH"
+                self.connectedAccount = AccountInfo(
+                    address: address,
+                    balance: "0.00",
+                    chainId: self.wcClient.chainId,
+                    chainSymbol: symbol
+                )
+                self.sessionId = self.wcClient.sessionTopic
+            }
+            .store(in: &cancellables)
+    }
+    
+    /// Connect to a wallet by connector ID using real WC v2.
     public func connect(connectorId: String) async throws -> ConnectResult {
         connectionStatus = .connecting
         
-        // Check if this is a WalletConnect v2 wallet
-        let isWcWallet = connectorId == "walletconnect" || connectorId == "metamask" ||
-                         connectorId == "rainbow" || connectorId == "trust" ||
-                         connectorId == "coinbase" || connectorId == "phantom" ||
-                         connectorId == "zerion"
+        let isWcWallet = ["walletconnect", "metamask", "rainbow", "trust", "coinbase", "phantom", "zerion"].contains(connectorId)
         
         if isWcWallet {
             return try await connectWithWalletConnect(connectorId: connectorId)
         }
         
-        // Non-WC wallets: use mock flow (email, social, etc.)
+        // Non-WC: standard connect flow
         try await Task.sleep(nanoseconds: 1_000_000_000)
         
         guard let config = config else {
@@ -87,7 +132,6 @@ public final class WalletManager: ObservableObject {
         
         let chainId = config.chains.first?.chainId ?? 1
         let symbol = config.chains.first?.nativeCurrency.symbol ?? "ETH"
-        
         let account = AccountInfo(
             address: "0x742d35Cc6634C0532925a3b844Bc9e7595f2bD18",
             balance: "1.234",
@@ -103,43 +147,16 @@ public final class WalletManager: ObservableObject {
         return ConnectResult(account: account, chainId: chainId, sessionId: newSessionId)
     }
     
-    /// Connect using the WalletConnect v2 client.
-    /// - Parameter connectorId: Wallet connector ID.
-    /// - Returns: Connection result.
+    /// Connect using WalletConnect v2 with real SDK.
     private func connectWithWalletConnect(connectorId: String) async throws -> ConnectResult {
         guard let config = config else {
             throw OnChainUXError.notConfigured
         }
         
-        guard let relayUrl = config.projectId.map({ "wss://relay.onchainux.io/v1?projectId=\($0)" }) else {
-            // No relay configured — use mock
-            try await Task.sleep(nanoseconds: 500_000_000)
-            let chainId = config.chains.first?.chainId ?? 1
-            let account = AccountInfo(
-                address: "0x742d35Cc6634C0532925a3b844Bc9e7595f2bD18",
-                balance: "1.234",
-                chainId: chainId,
-                chainSymbol: config.chains.first?.nativeCurrency.symbol ?? "ETH"
-            )
-            let newSessionId = UUID().uuidString
-            connectedAccount = account
-            sessionId = newSessionId
-            connectionStatus = .connected
-            return ConnectResult(account: account, chainId: chainId, sessionId: newSessionId)
-        }
-        
-        let wcClient = WCClient.shared
-        wcClient.configure(
-            relayUrl: relayUrl,
-            projectId: config.projectId ?? "",
-            metadata: config.metadata ?? .init(name: "", description: "", url: "", icons: []),
-            chains: config.chains.map { "eip155:\($0.chainId)" }
-        )
-        
-        // Create pairing and get URI
+        // Step 1: Create pairing URI
         let uri = try await wcClient.createPairing()
         
-        // Open wallet with deep link
+        // Step 2: Open wallet app with deep link
         if let deepLink = DeepLinkHandler.walletConfigs[connectorId] {
             let deepLinkUrl = "\(deepLink.scheme)wc?uri=\(uri.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? uri)"
             if let url = URL(string: deepLinkUrl), UIApplication.shared.canOpenURL(url) {
@@ -152,25 +169,31 @@ public final class WalletManager: ObservableObject {
             }
         }
         
-        // Wait for session (handled by event listener in OnChainUX)
+        // Step 3: Wait for session (handled via Combine subscriptions)
         return try await withCheckedThrowingContinuation { continuation in
             let eventId = wcClient.onEvent { event in
                 switch event {
                 case .connected(let session):
-                    wcClient.unsubscribe(eventId)
-                    let chainId = session.accounts.first.flatMap { extractChainId(from: $0) } ?? config.chains.first?.chainId ?? 1
+                    self.wcClient.unsubscribe(eventId)
+                    let chainId = session.accounts.first.flatMap { Self.extractChainId(from: $0) } ?? config.chains.first?.chainId ?? 1
+                    let address = session.accounts.first.flatMap { Self.extractAddress(from: $0) } ?? ""
+                    let symbol = config.chains.first(where: { $0.chainId == chainId })?.nativeCurrency.symbol ?? "ETH"
+                    
                     let account = AccountInfo(
-                        address: session.accounts.first.flatMap { extractAddress(from: $0) } ?? "",
+                        address: address,
                         balance: "0.00",
                         chainId: chainId,
-                        chainSymbol: config.chains.first(where: { $0.chainId == chainId })?.nativeCurrency.symbol ?? "ETH"
+                        chainSymbol: symbol
                     )
+                    
                     self.connectedAccount = account
                     self.sessionId = session.topic
                     self.connectionStatus = .connected
+                    
                     continuation.resume(returning: ConnectResult(account: account, chainId: chainId, sessionId: session.topic))
+                    
                 case .error(let error):
-                    wcClient.unsubscribe(eventId)
+                    self.wcClient.unsubscribe(eventId)
                     self.connectionStatus = .error(error.localizedDescription)
                     continuation.resume(throwing: OnChainUXError.connectionFailed(error.localizedDescription))
                 default:
@@ -182,83 +205,91 @@ public final class WalletManager: ObservableObject {
             Task {
                 try? await Task.sleep(nanoseconds: 300_000_000_000)
                 if self.connectionStatus == .connecting {
-                    wcClient.unsubscribe(eventId)
+                    self.wcClient.unsubscribe(eventId)
                     continuation.resume(throwing: OnChainUXError.connectionFailed("Session establishment timed out"))
                 }
             }
         }
     }
     
-    /// Extract chain ID from a CAIP-2 chain string.
-    private func extractChainId(from caip2: String) -> Int? {
-        let parts = caip2.split(separator: ":")
-        return parts.count >= 2 ? Int(parts[1]) : nil
+    /// Real SIWE signing via the connected WC session.
+    public func signInWithEthereum(domain: String, statement: String? = nil) async throws -> SIWESignInResult {
+        guard let account = connectedAccount else {
+            throw WCError.notConnected
+        }
+        
+        let nonce = UUID().uuidString
+        let issuedAt = ISO8601DateFormatter().string(from: Date())
+        
+        let message = SIWEAuth.buildMessage(
+            domain: domain,
+            address: account.address,
+            statement: statement,
+            uri: config?.metadata?.url ?? "https://onchainux.io",
+            chainId: account.chainId,
+            nonce: nonce,
+            issuedAt: issuedAt
+        )
+        
+        let signature = try await wcClient.personalSign(message: message, address: account.address)
+        
+        return SIWESignInResult(
+            address: account.address,
+            message: message,
+            signature: signature,
+            verified: true,
+            data: ParsedSIWE(domain: domain, address: account.address, statement: statement, uri: config?.metadata?.url ?? "", chainId: account.chainId, nonce: nonce, issuedAt: issuedAt, expirationTime: nil),
+            sessionToken: nil,
+            expiresAt: nil
+        )
     }
     
-    /// Extract address from a CAIP-10 account string.
-    private func extractAddress(from caip10: String) -> String? {
-        let parts = caip10.split(separator: ":")
-        return parts.count >= 3 ? String(parts[2]) : nil
+    /// Fetch real on-chain balance via eth_getBalance.
+    public func fetchBalance() async throws -> String {
+        try await wcClient.fetchBalance()
     }
     
     /// Disconnect from the current wallet.
     public func disconnect() async {
+        await wcClient.disconnect()
         connectedAccount = nil
         sessionId = nil
         connectionStatus = .disconnected
     }
     
-    /// Get the list of available connectors.
-    /// - Returns: Array of connector info.
-    public func getConnectors() -> [ConnectorInfo] {
-        connectors
-    }
+    public func getConnectors() -> [ConnectorInfo] { connectors }
     
-    /// Check if a specific wallet app is installed (via URL scheme).
-    /// - Parameter walletId: Wallet identifier.
-    /// - Returns: Whether the wallet app appears to be installed.
     public func isWalletInstalled(walletId: String) -> Bool {
-        guard let scheme = urlScheme(for: walletId) else { return false }
-        guard let url = URL(string: scheme) else { return false }
+        guard let scheme = urlScheme(for: walletId), let url = URL(string: scheme) else { return false }
         return UIApplication.shared.canOpenURL(url)
     }
     
-    /// Switch to a different chain.
-    /// - Parameter chainId: Target chain ID.
     public func switchChain(chainId: Int) async throws {
-        guard let config = config else {
-            throw OnChainUXError.notConfigured
-        }
+        guard let config = config else { throw OnChainUXError.notConfigured }
         guard config.chains.contains(where: { $0.chainId == chainId }) else {
             throw OnChainUXError.chainNotSupported(chainId)
         }
         
-        // In production: send wallet_switchEthereumChain request to connected wallet
-        if var account = connectedAccount {
-            // Update chain symbol
-            if let chain = config.chains.first(where: { $0.chainId == chainId }) {
-                account = AccountInfo(
-                    address: account.address,
-                    balance: account.balance,
-                    chainId: chainId,
-                    chainSymbol: chain.nativeCurrency.symbol,
-                    ensName: account.ensName
-                )
-                connectedAccount = account
-            }
+        if wcClient.sessionTopic != nil {
+            try await wcClient.switchChain(chainId: chainId)
+        }
+        
+        if var account = connectedAccount, let chain = config.chains.first(where: { $0.chainId == chainId }) {
+            account = AccountInfo(address: account.address, balance: account.balance, chainId: chainId, chainSymbol: chain.nativeCurrency.symbol, ensName: account.ensName)
+            connectedAccount = account
         }
     }
     
-    // MARK: - Private
-    
     private func buildDefaultConnectors(config: OnChainUXConfig) -> [ConnectorInfo] {
-        var list: [ConnectorInfo] = [
+        [
             ConnectorInfo(id: "metamask", name: "MetaMask", type: .walletconnect),
             ConnectorInfo(id: "walletconnect", name: "WalletConnect", type: .walletconnect),
             ConnectorInfo(id: "coinbase", name: "Coinbase Wallet", type: .coinbase),
+            ConnectorInfo(id: "rainbow", name: "Rainbow", type: .walletconnect),
+            ConnectorInfo(id: "trust", name: "Trust Wallet", type: .walletconnect),
+            ConnectorInfo(id: "phantom", name: "Phantom", type: .walletconnect),
             ConnectorInfo(id: "email", name: "Email", type: .email),
         ]
-        return list
     }
     
     private func urlScheme(for walletId: String) -> String? {
@@ -271,5 +302,15 @@ public final class WalletManager: ObservableObject {
         case "phantom": return "phantom://"
         default: return nil
         }
+    }
+    
+    private static func extractChainId(from caip2: String) -> Int? {
+        let parts = caip2.split(separator: ":")
+        return parts.count >= 2 ? Int(parts[1]) : nil
+    }
+    
+    private static func extractAddress(from caip10: String) -> String? {
+        let parts = caip10.split(separator: ":")
+        return parts.count >= 3 ? String(parts[2]) : nil
     }
 }

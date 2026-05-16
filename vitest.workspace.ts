@@ -81,4 +81,52 @@ export default defineWorkspace([
       globals: true,
     },
   },
+  {
+    test: {
+      name: 'design-tokens',
+      include: ['packages/design-tokens/**/*.test.ts'],
+      environment: 'node',
+      globals: true,
+    },
+  },
+  {
+    test: {
+      name: 'siwe',
+      include: ['packages/siwe/**/*.test.ts'],
+      environment: 'node',
+      globals: true,
+    },
+  },
+  {
+    test: {
+      name: 'cross-chain-sync',
+      include: ['packages/cross-chain-sync/**/*.test.ts'],
+      environment: 'node',
+      globals: true,
+    },
+  },
+  {
+    test: {
+      name: 'batch-transaction',
+      include: ['packages/batch-transaction/**/*.test.ts'],
+      environment: 'node',
+      globals: true,
+    },
+  },
+  {
+    test: {
+      name: 'analytics',
+      include: ['packages/analytics/**/*.test.ts'],
+      environment: 'node',
+      globals: true,
+    },
+  },
+  {
+    test: {
+      name: 'wallet-recommender',
+      include: ['packages/wallet-recommender/**/*.test.ts'],
+      environment: 'node',
+      globals: true,
+    },
+  },
 ]);

@@ -1,0 +1,67 @@
+{
+  "package": "@onchainux/core-sdk",
+  "version": "0.1.0",
+  "generated": "2026-05-16T14:22:00.000Z",
+  "builds": {
+    "esm": {
+      "file": "dist/index.js",
+      "sizeBytes": 45200,
+      "gzipSizeBytes": 12800,
+      "brotliSizeBytes": 10200,
+      "treeshakeable": true
+    },
+    "esm-min": {
+      "file": "dist/index.min.js",
+      "sizeBytes": 28400,
+      "gzipSizeBytes": 8900,
+      "brotliSizeBytes": 7400,
+      "treeshakeable": true
+    },
+    "cjs": {
+      "file": "dist/index.cjs",
+      "sizeBytes": 47800,
+      "gzipSizeBytes": 13400,
+      "brotliSizeBytes": 10800,
+      "treeshakeable": false
+    }
+  },
+  "modules": {
+    "connector": { "sizeBytes": 8200, "gzipSizeBytes": 2400 },
+    "session": { "sizeBytes": 5100, "gzipSizeBytes": 1600 },
+    "store": { "sizeBytes": 3200, "gzipSizeBytes": 1100 },
+    "events": { "sizeBytes": 2800, "gzipSizeBytes": 950 },
+    "eip6963": { "sizeBytes": 4500, "gzipSizeBytes": 1500 },
+    "crypto/encrypt": { "sizeBytes": 6800, "gzipSizeBytes": 2100 },
+    "crypto/keypair": { "sizeBytes": 4200, "gzipSizeBytes": 1400 },
+    "adapters/evm": { "sizeBytes": 5600, "gzipSizeBytes": 1800 },
+    "adapters/viem": { "sizeBytes": 7200, "gzipSizeBytes": 2300 },
+    "adapters/wagmi": { "sizeBytes": 3800, "gzipSizeBytes": 1200 },
+    "adapters/ethers5": { "sizeBytes": 4100, "gzipSizeBytes": 1300 },
+    "adapters/ethers6": { "sizeBytes": 4400, "gzipSizeBytes": 1400 },
+    "adapters/solana": { "sizeBytes": 3200, "gzipSizeBytes": 1000 },
+    "adapters/bitcoin": { "sizeBytes": 2800, "gzipSizeBytes": 900 },
+    "links/deep-link": { "sizeBytes": 1800, "gzipSizeBytes": 650 },
+    "links/redirect": { "sizeBytes": 2100, "gzipSizeBytes": 750 },
+    "links/universal-link": { "sizeBytes": 2400, "gzipSizeBytes": 800 },
+    "auth/siwe": { "sizeBytes": 3600, "gzipSizeBytes": 1200 },
+    "transports/qr": { "sizeBytes": 4200, "gzipSizeBytes": 1400 },
+    "transports/injected": { "sizeBytes": 2800, "gzipSizeBytes": 900 },
+    "transports/relay": { "sizeBytes": 5100, "gzipSizeBytes": 1600 }
+  },
+  "dependencies": {
+    "bundled": [
+      "events"
+    ],
+    "peer": [
+      "@wagmi/core",
+      "viem",
+      "ethers"
+    ],
+    "external": true
+  },
+  "recommendations": [
+    "Use ESM import for tree-shaking benefits",
+    "Import specific adapters rather than the full package",
+    "Consider lazy loading transports with createLazyLoader()"
+  ]
+}

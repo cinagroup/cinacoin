@@ -1,28 +1,30 @@
 /**
- * WCClient — WalletConnect v2 client for Android.
+ * WCClient — WalletConnect v2 client for Android using WalletConnectKotlin SDK.
  *
  * Provides native Kotlin implementation of the WalletConnect v2 protocol:
  * - Pairing URI generation and QR code display
- * - Session proposal and establishment
- * - X25519 key exchange for encrypted communication
- * - Relay WebSocket connection (to OnChainUX self-hosted relay)
+ * - Session proposal and establishment via WalletConnectKotlin SDK
+ * - X25519 key exchange (handled by SDK)
+ * - Relay connection (Waku, handled by SDK)
  * - JSON-RPC method dispatch (eth_sendTransaction, personal_sign, etc.)
+ * - Balance fetching via eth_getBalance
+ * - SIWE signing via personal_sign
  *
- * Uses the OnChainUX relay server, not Reown's infrastructure.
+ * Uses the official WalletConnectKotlin SDK (com.walletconnect:sign).
  */
 package com.onchainux.walletconnect
 
-import android.util.Base64
+import android.content.Context
 import com.onchainux.core.AppMetadata
+import com.walletconnect.android.Core
+import com.walletconnect.android.CoreClient
+import com.walletconnect.android.internal.common.model.Server
+import com.walletconnect.sign.Sign
+import com.walletconnect.sign.SignClient
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.*
-import java.net.URI
-import java.security.SecureRandom
 import java.util.UUID
-import javax.crypto.Cipher
-import javax.crypto.spec.GCMParameterSpec
-import javax.crypto.spec.SecretKeySpec
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -30,7 +32,6 @@ import org.json.JSONObject
 // Status
 // ============================================================
 
-/** WC client connection status. */
 sealed class WCStatus {
     object Disconnected : WCStatus()
     object Connecting : WCStatus()
@@ -43,20 +44,18 @@ sealed class WCStatus {
 // Session
 // ============================================================
 
-/** WC v2 session data. */
 data class WCSession(
     val topic: String,
-    val peerMetadata: JSONObject = JSONObject(),
+    val peerMetadata: Map<String, String> = emptyMap(),
     val accounts: List<String> = emptyList(),
-    val namespaces: JSONObject = JSONObject(),
-    val relay: JSONObject = JSONObject()
+    val namespaces: Map<String, Any> = emptyMap(),
+    val relayProtocol: String = "waku"
 )
 
 // ============================================================
 // Transaction Request
 // ============================================================
 
-/** Transaction request for eth_sendTransaction. */
 data class WCTransactionRequest(
     val from: String,
     val to: String,
@@ -79,7 +78,7 @@ data class WCTransactionRequest(
         maxFeePerGas?.let { put("maxFeePerGas", it) }
         maxPriorityFeePerGas?.let { put("maxPriorityFeePerGas", it) }
         nonce?.let { put("nonce", it) }
-        chainId?.let { put("chainId", it) }
+        chainId?.let { put("chainId", chainId) }
     }
 }
 
@@ -87,7 +86,6 @@ data class WCTransactionRequest(
 // Events
 // ============================================================
 
-/** WC client events. */
 sealed class WCEvent {
     object Disconnected : WCEvent()
     data class Connected(val session: WCSession) : WCEvent()
@@ -99,7 +97,6 @@ sealed class WCEvent {
 // Methods & Events Constants
 // ============================================================
 
-/** Standard WC v2 methods for EVM. */
 object WCMethods {
     const val ETH_SEND_TRANSACTION = "eth_sendTransaction"
     const val ETH_SIGN_TRANSACTION = "eth_signTransaction"
@@ -110,6 +107,7 @@ object WCMethods {
     const val WALLET_ADD_ETHEREUM_CHAIN = "wallet_addEthereumChain"
     const val ETH_ACCOUNTS = "eth_accounts"
     const val ETH_CHAIN_ID = "eth_chainId"
+    const val ETH_GET_BALANCE = "eth_getBalance"
 
     val standardEvmMethods = listOf(
         ETH_SEND_TRANSACTION, ETH_SIGN_TRANSACTION, PERSONAL_SIGN,
@@ -119,11 +117,9 @@ object WCMethods {
     )
 }
 
-/** Standard WC v2 events for EVM. */
 object WCEvents {
     const val CHAIN_CHANGED = "chainChanged"
     const val ACCOUNTS_CHANGED = "accountsChanged"
-
     val standardEvmEvents = listOf(CHAIN_CHANGED, ACCOUNTS_CHANGED)
 }
 
@@ -131,7 +127,6 @@ object WCEvents {
 // Errors
 // ============================================================
 
-/** WC-specific errors. */
 sealed class WCError(message: String) : Exception(message) {
     object NotConnected : WCError("Not connected to a wallet")
     object NotConfigured : WCError("WCClient has not been configured")
@@ -148,7 +143,6 @@ sealed class WCError(message: String) : Exception(message) {
 // Parsed WC URI
 // ============================================================
 
-/** Parsed WalletConnect v2 URI components. */
 data class ParsedWcUri(
     val topic: String,
     val relayProtocol: String,
@@ -157,14 +151,14 @@ data class ParsedWcUri(
 )
 
 // ============================================================
-// WC Client
+// WC Client — real WalletConnectKotlin SDK integration
 // ============================================================
 
 /**
  * WalletConnect v2 client for Android native integration.
  *
- * Manages the full lifecycle: pairing, session establishment,
- * JSON-RPC requests, and encrypted relay communication.
+ * Wraps the official WalletConnectKotlin SDK (com.walletconnect:sign)
+ * for real session management, pairing, and JSON-RPC communication.
  */
 class WCClient {
 
@@ -195,7 +189,7 @@ class WCClient {
     val events: Flow<WCEvent> = _events.asSharedFlow()
 
     // Configuration
-    var relayUrl: String = "wss://relay.onchainux.io/v1"
+    var relayUrl: String = "wss://relay.walletconnect.com"
     var projectId: String = ""
     var metadata: AppMetadata? = null
     var requiredChains: List<String> = listOf("eip155:1")
@@ -204,15 +198,99 @@ class WCClient {
 
     // Internal state
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
-    private var webSocket: java.net.WebSocket? = null
-    private var pairingTopic: String? = null
-    private var pairingSymKey: String? = null
-    private var sessionKeypair: X25519Keypair? = null
-    private var nextRequestId: Int = 1
-    private val pendingRequests = mutableMapOf<Int, CompletableDeferred<JSONObject>>()
+    private var isInitialized = false
 
-    // WebSocket listener (simplified — use OkHttp or similar in production)
-    private var wsListener: WebSocketListener? = null
+    // WalletConnectKotlin SDK clients
+    private var coreClient: CoreClient? = null
+    private var signClient: SignClient? = null
+
+    // Pending request tracking
+    private var nextRequestId: Long = 1
+    private val pendingRequests = mutableMapOf<Long, CompletableDeferred<JSONObject>>()
+
+    // Event listener IDs from SDK
+    private var sessionProposalListenerId: Long? = null
+    private var sessionRequestListenerId: Long? = null
+    private var sessionDeleteListenerId: Long? = null
+    private var sessionSettleListenerId: Long? = null
+
+    /**
+     * Initialize the WalletConnectKotlin SDK.
+     * Call this once at app startup before any WC operations.
+     */
+    fun initialize(
+        context: Context,
+        projectId: String,
+        metadata: AppMetadata,
+        server: Server = Server("relay.walletconnect.com")
+    ) {
+        if (isInitialized) return
+
+        this.projectId = projectId
+        this.metadata = metadata
+
+        // Initialize the Core SDK
+        val core = CoreClient(
+            context = context,
+            projectId = projectId,
+            server = server
+        )
+        coreClient = core
+        core.initialize()
+
+        // Initialize the Sign SDK
+        val sign = SignClient(
+            core = core,
+            metaData = Sign.Model.AppMetaData(
+                name = metadata.name,
+                description = metadata.description,
+                url = metadata.url,
+                icons = metadata.icons
+            )
+        )
+        signClient = sign
+        sign.initialize()
+
+        // Subscribe to SDK events
+        subscribeToSdkEvents(sign)
+
+        isInitialized = true
+    }
+
+    /**
+     * Subscribe to WalletConnectKotlin SDK events.
+     */
+    private fun subscribeToSdkEvents(sign: SignClient) {
+        // Session settle (established)
+        sessionSettleListenerId = sign.setSessionSettleListener { session ->
+            val wcSession = session.toWCSession()
+            scope.launch {
+                _session.value = wcSession
+                _accounts.value = wcSession.accounts
+                _status.value = WCStatus.Connected
+                _events.emit(WCEvent.Connected(wcSession))
+            }
+        }
+
+        // Session delete (disconnect)
+        sessionDeleteListenerId = sign.setSessionDeleteListener { topic ->
+            scope.launch {
+                _session.value = null
+                _accounts.value = emptyList()
+                _pairingUri.value = null
+                _status.value = WCStatus.Disconnected
+                _events.emit(WCEvent.Disconnected)
+            }
+        }
+
+        // Session request (wallet-initiated RPC — rare for dApp)
+        sessionRequestListenerId = sign.setSessionRequestListener { request ->
+            // Handle wallet-initiated requests if needed
+            scope.launch {
+                _events.emit(WCEvent.SessionUpdate(session = _session.value))
+            }
+        }
+    }
 
     /**
      * Configure the WC client.
@@ -231,43 +309,44 @@ class WCClient {
 
     /**
      * Create a new pairing and generate a WC v2 URI.
+     * Returns a WalletConnect URI string for QR display or deep linking.
      */
     suspend fun createPairing(): String = withContext(Dispatchers.IO) {
-        val topic = WCUtils.generateTopic()
-        val symKey = WCUtils.generateSymKey()
+        val sign = signClient ?: throw WCError.NotConfigured
 
-        pairingTopic = topic
-        pairingSymKey = symKey
-        sessionKeypair = X25519Keypair.generate()
+        // Build required namespaces for the session proposal
+        val namespaces = buildRequiredNamespaces()
 
-        // Connect to relay (simplified — use OkHttp WebSocket in production)
-        connectToRelay()
-        subscribe(topic)
+        // Create pairing via the SDK
+        val pairingUri = sign.pair(
+            requiredNamespaces = namespaces,
+            optionalNamespaces = emptyMap(),
+            sessionProperties = emptyMap(),
+            topic = null,
+            relay = Sign.Model.Relay("waku")
+        )
 
-        val uri = "wc:${topic}@2?relay-protocol=waku&relay-url=${relayUrl.encodeUri()}&symKey=$symKey"
-        _pairingUri.value = uri
+        _pairingUri.value = pairingUri
         _status.value = WCStatus.Pairing
 
-        uri
+        pairingUri
     }
 
     /**
-     * Connect using an existing WC v2 URI.
+     * Connect using an existing WC v2 URI (e.g., from QR scan).
      */
     suspend fun connect(uri: String): WCSession = withContext(Dispatchers.IO) {
+        val sign = signClient ?: throw WCError.NotConfigured
+
+        // Parse URI to validate
         val parsed = parseWcUri(uri)
 
-        pairingTopic = parsed.topic
-        pairingSymKey = parsed.symKey
-        relayUrl = parsed.relayUrl
+        _status.value = WCStatus.Connecting
 
-        sessionKeypair = X25519Keypair.generate()
+        // Approve the pairing (SDK handles the session establishment)
+        sign.pair(uri = uri)
 
-        connectToRelay()
-        subscribe(parsed.topic)
-        sendSessionProposal()
-
-        // Wait for session
+        // Wait for session to settle
         waitForSession()
     }
 
@@ -275,15 +354,18 @@ class WCClient {
      * Disconnect the current session.
      */
     suspend fun disconnect() {
-        _session.value?.let { session ->
-            sendSessionDelete(session.topic)
+        val sign = signClient ?: return
+        val sessionVal = _session.value ?: return
+
+        try {
+            sign.disconnectSession(sessionVal.topic)
+        } catch (_: Exception) {
+            // Session may already be gone
         }
+
         _session.value = null
         _accounts.value = emptyList()
-        pairingTopic = null
-        pairingSymKey = null
         _pairingUri.value = null
-        webSocket = null
         _status.value = WCStatus.Disconnected
         _events.emit(WCEvent.Disconnected)
     }
@@ -292,29 +374,26 @@ class WCClient {
      * Send a JSON-RPC request to the connected wallet.
      */
     suspend fun request(method: String, params: JSONArray): JSONObject = withContext(Dispatchers.IO) {
+        val sign = signClient ?: throw WCError.NotConnected
         val sessionVal = _session.value ?: throw WCError.NotConnected
 
         val id = nextRequestId++
-        val request = JSONObject().apply {
-            put("id", id)
-            put("jsonrpc", "2.0")
-            put("method", method)
-            put("params", params)
-        }
-
         val deferred = CompletableDeferred<JSONObject>()
         pendingRequests[id] = deferred
 
         // Timeout
         scope.launch {
             delay(60_000)
-            if (pendingRequests.containsKey(id)) {
-                pendingRequests.remove(id)
-                deferred.completeExceptionally(WCError.RequestTimeout(method))
-            }
+            pendingRequests.remove(id)?.completeExceptionally(WCError.RequestTimeout(method))
         }
 
-        publishToSession(request, sessionVal.topic)
+        // Use the SDK's request method
+        sign.request(
+            topic = sessionVal.topic,
+            method = method,
+            params = params.toString(),
+            chainId = sessionVal.accounts.firstOrNull()?.substringBefore(":")?.replace("eip155:", "eip155:") ?: "eip155:1"
+        )
 
         deferred.await()
     }
@@ -342,6 +421,32 @@ class WCClient {
     }
 
     /**
+     * Fetch the connected account's native balance via eth_getBalance.
+     */
+    suspend fun fetchBalance(): String = withContext(Dispatchers.IO) {
+        val accountsVal = _accounts.value
+        if (accountsVal.isEmpty()) throw WCError.NotConnected
+
+        // Extract address from CAIP-10 account string
+        val caip10 = accountsVal.first()
+        val address = caip10.substringAfterLast(":")
+
+        // eth_getBalance via WC session request
+        val params = JSONArray().apply {
+            put(address)
+            put("latest")
+        }
+
+        val result = request(WCMethods.ETH_GET_BALANCE, params)
+        val balanceHex = result.getString("result")
+
+        // Convert hex wei to decimal ETH
+        val wei = balanceHex.hexToBigInteger()
+        val eth = wei.toBigDecimal().divide(BigDecimal("1000000000000000000"), 4, java.math.RoundingMode.HALF_UP)
+        eth.toPlainString()
+    }
+
+    /**
      * Switch chain.
      */
     suspend fun switchChain(chainId: Int) {
@@ -354,179 +459,22 @@ class WCClient {
 
     // --- Private methods ---
 
-    private suspend fun connectToRelay() {
-        // In production: use OkHttp WebSocket
-        // This is a simplified placeholder
-        _status.value = WCStatus.Connecting
-        // WebSocket connection setup would go here
-        _status.value = WCStatus.Connected
-    }
-
-    private suspend fun subscribe(topic: String) {
-        val msg = JSONObject().apply {
-            put("type", "subscribe")
-            put("topic", topic)
-            put("payload", "")
-            put("timestamp", System.currentTimeMillis())
-        }
-        sendRelayMessage(msg)
-    }
-
-    private fun sendRelayMessage(message: JSONObject) {
-        // In production: send via WebSocket
-    }
-
-    private suspend fun sendSessionProposal() {
-        val keypair = sessionKeypair ?: throw WCError.NotConfigured
-
-        val proposal = JSONObject().apply {
-            put("id", nextRequestId)
-            put("jsonrpc", "2.0")
-            put("method", "wc_sessionPropose")
-            put("params", JSONObject().apply {
-                put("requiredNamespaces", JSONObject().apply {
-                    put("eip155", JSONObject().apply {
-                        put("chains", JSONArray(requiredChains))
-                        put("methods", JSONArray(requiredMethods))
-                        put("events", JSONArray(requiredEvents))
-                    })
-                })
-                put("optionalNamespaces", JSONObject())
-                put("relays", JSONArray().apply {
-                    put(JSONObject().apply { put("protocol", "waku") })
-                })
-                put("proposer", JSONObject().apply {
-                    put("publicKey", keypair.publicKeyHex)
-                    metadata?.let { m ->
-                        put("metadata", JSONObject().apply {
-                            put("name", m.name)
-                            put("description", m.description)
-                            put("url", m.url)
-                            put("icons", JSONArray(m.icons))
-                        })
-                    }
-                })
-            })
-        }
-
-        val symKey = pairingSymKey ?: return
-        val encrypted = WCUtils.encrypt(symKey, proposal)
-
-        val msg = JSONObject().apply {
-            put("type", "publish")
-            put("topic", pairingTopic)
-            put("payload", encrypted)
-            put("timestamp", System.currentTimeMillis())
-        }
-
-        sendRelayMessage(msg)
-    }
-
-    private fun handleRelayMessage(json: JSONObject) {
-        val type = json.optString("type", "")
-
-        when (type) {
-            "message" -> {
-                val payload = json.optString("payload", "")
-                val topic = json.optString("topic", "")
-                val symKey = pairingSymKey ?: return
-
-                val decrypted = WCUtils.decrypt(symKey, payload)
-                val decoded = JSONObject(decrypted)
-
-                val method = decoded.optString("method", "")
-                when {
-                    method == "wc_sessionProposeResp" || decoded.has("result") -> {
-                        handleSessionProposalResponse(decoded)
-                    }
-                    decoded.has("id") -> {
-                        // Response to pending request
-                        val id = decoded.getInt("id")
-                        pendingRequests.remove(id)?.let { deferred ->
-                            if (decoded.has("error")) {
-                                val error = decoded.getJSONObject("error")
-                                deferred.completeExceptionally(
-                                    WCError.RpcError(
-                                        error.optInt("code", 0),
-                                        error.optString("message", "Unknown error")
-                                    )
-                                )
-                            } else {
-                                deferred.complete(decoded)
-                            }
-                        }
-                    }
-                }
-            }
-            "ack" -> {}
-            "error" -> {
-                val msg = json.optString("message", "Unknown relay error")
-                scope.launch { _events.emit(WCEvent.Error(WCError.RelayError(msg))) }
-            }
-            "pong" -> {}
-        }
-    }
-
-    private fun handleSessionProposalResponse(response: JSONObject) {
-        val result = response.optJSONObject("result") ?: return
-        val responderPublicKey = result.optString("responderPublicKey", "")
-        val keypair = sessionKeypair ?: return
-
-        if (responderPublicKey.isEmpty()) {
-            scope.launch {
-                _events.emit(WCEvent.Error(WCError.InvalidProposalResponse))
-            }
-            return
-        }
-
-        // Derive session topic
-        val sessionTopic = WCUtils.deriveSessionTopic(
-            keypair.publicKeyHex,
-            responderPublicKey
+    /**
+     * Build the required namespaces map for session proposal.
+     */
+    private fun buildRequiredNamespaces(): Map<String, Sign.Model.Namespace> {
+        return mapOf(
+            "eip155" to Sign.Model.Namespace(
+                chains = requiredChains,
+                methods = requiredMethods,
+                events = requiredEvents
+            )
         )
-
-        subscribe(sessionTopic)
-
-        val accounts = mutableListOf<String>()
-        result.optJSONArray("accounts")?.let { arr ->
-            for (i in 0 until arr.length()) {
-                accounts.add(arr.getString(i))
-            }
-        }
-
-        val session = WCSession(
-            topic = sessionTopic,
-            peerMetadata = result.optJSONObject("peerMetadata") ?: JSONObject(),
-            accounts = accounts,
-            namespaces = result.optJSONObject("namespaces") ?: JSONObject(),
-            relay = result.optJSONObject("relay") ?: JSONObject().apply { put("protocol", "waku") }
-        )
-
-        scope.launch {
-            _session.value = session
-            _accounts.value = accounts
-            _status.value = WCStatus.Connected
-            _events.emit(WCEvent.Connected(session))
-        }
     }
 
-    private fun publishToSession(request: JSONObject, sessionTopic: String) {
-        // In production: encrypt with session shared secret
-        // and publish to session topic via relay
-    }
-
-    private suspend fun sendSessionDelete(topic: String) {
-        val notification = JSONObject().apply {
-            put("jsonrpc", "2.0")
-            put("method", "wc_sessionDelete")
-            put("params", JSONObject().apply {
-                put("code", 6000)
-                put("message", "User disconnected")
-            })
-        }
-        // Encrypt and publish
-    }
-
+    /**
+     * Wait for session establishment via the SDK event flow.
+     */
     private suspend fun waitForSession(): WCSession = suspendCancellableCoroutine { continuation ->
         val job = scope.launch {
             events.collect { event ->
@@ -542,7 +490,7 @@ class WCClient {
             }
         }
 
-        // Timeout
+        // 5-minute timeout
         scope.launch {
             delay(300_000) // 5 minutes
             if (!continuation.isCompleted) {
@@ -552,26 +500,32 @@ class WCClient {
 
         continuation.invokeOnCancellation { job.cancel() }
     }
+
+    /**
+     * Convert SDK Session model to our WCSession.
+     */
+    private fun Sign.Model.Session.toWCSession(): WCSession {
+        val accountsList = namespaces.values.flatMap { namespace ->
+            namespace.chains.flatMap { chain ->
+                namespace.accounts.filter { it.startsWith(chain) }
+            }
+        }
+
+        return WCSession(
+            topic = topic,
+            peerMetadata = peerMetadata?.let { mapOf("name" to it.name, "url" to it.url, "description" to it.description) } ?: emptyMap(),
+            accounts = accountsList,
+            namespaces = namespaces.mapValues { it.value },
+            relayProtocol = relay.protocol
+        )
+    }
 }
 
 // ============================================================
-// WC Utils — Crypto and URI helpers
+// WC Utils — Crypto and URI helpers (for SDK-agnostic operations)
 // ============================================================
 
-/** Utility functions for WC v2 crypto and URI handling. */
 object WCUtils {
-
-    private val secureRandom = SecureRandom()
-
-    /** Generate a random 32-byte topic (64 hex chars). */
-    fun generateTopic(): String {
-        val bytes = ByteArray(32)
-        secureRandom.nextBytes(bytes)
-        return bytes.toHexString()
-    }
-
-    /** Generate a random 32-byte symmetric key (64 hex chars). */
-    fun generateSymKey(): String = generateTopic()
 
     /**
      * Parse a WalletConnect v2 URI.
@@ -599,97 +553,16 @@ object WCUtils {
             symKey = params["symKey"] ?: throw IllegalArgumentException("Missing symKey")
         )
     }
-
-    /**
-     * Encrypt a JSON object using AES-GCM (simplified — production uses ChaCha20-Poly1305).
-     */
-    fun encrypt(symKey: String, json: JSONObject): String {
-        val keyBytes = symKey.hexToByteArray()
-        val plaintext = json.toString().toByteArray(Charsets.UTF_8)
-
-        // For production: use libsodium or BouncyCastle for ChaCha20-Poly1305
-        // This is a simplified AES-GCM implementation for demonstration
-        val nonce = ByteArray(12)
-        secureRandom.nextBytes(nonce)
-
-        val spec = SecretKeySpec(keyBytes, "AES")
-        val cipher = Cipher.getInstance("AES/GCM/NoPadding")
-        cipher.init(Cipher.ENCRYPT_MODE, spec, javax.crypto.spec.GCMParameterSpec(128, nonce))
-        val ciphertext = cipher.doFinal(plaintext)
-
-        val combined = nonce + ciphertext
-        return Base64.encodeToString(combined, Base64.NO_WRAP)
-    }
-
-    /**
-     * Decrypt an AES-GCM encrypted message.
-     */
-    fun decrypt(symKey: String, encrypted: String): String {
-        val keyBytes = symKey.hexToByteArray()
-        val combined = Base64.decode(encrypted, Base64.NO_WRAP)
-
-        val nonce = combined.sliceArray(0..11)
-        val ciphertext = combined.sliceArray(12 until combined.size)
-
-        val spec = SecretKeySpec(keyBytes, "AES")
-        val cipher = Cipher.getInstance("AES/GCM/NoPadding")
-        cipher.init(Cipher.DECRYPT_MODE, spec, GCMParameterSpec(128, nonce))
-        val plaintext = cipher.doFinal(ciphertext)
-
-        return String(plaintext, Charsets.UTF_8)
-    }
-
-    /**
-     * Derive a session topic from two public keys.
-     */
-    fun deriveSessionTopic(myPublicKey: String, peerPublicKey: String): String {
-        val combined = (myPublicKey + peerPublicKey).hexToByteArray()
-        return sha256(combined).toHexString()
-    }
-}
-
-// ============================================================
-// X25519 Keypair (placeholder — use BouncyCastle in production)
-// ============================================================
-
-/** X25519 keypair for Diffie-Hellman key exchange. */
-data class X25519Keypair(
-    val publicKey: ByteArray,
-    val privateKey: ByteArray
-) {
-    val publicKeyHex: String get() = publicKey.toHexString()
-
-    companion object {
-        fun generate(): X25519Keypair {
-            // In production: use BouncyCastle's X25519
-            // This is a placeholder
-            val random = SecureRandom()
-            val publicKey = ByteArray(32)
-            val privateKey = ByteArray(32)
-            random.nextBytes(publicKey)
-            random.nextBytes(privateKey)
-            return X25519Keypair(publicKey, privateKey)
-        }
-    }
 }
 
 // ============================================================
 // Extensions
 // ============================================================
 
-private fun ByteArray.toHexString(): String =
-    joinToString("") { "%02x".format(it) }
-
-private fun String.hexToByteArray(): ByteArray =
-    chunked(2).map { it.toInt(16).toByte() }.toByteArray()
-
-private fun String.encodeUri(): String =
-    java.net.URLEncoder.encode(this, "UTF-8")
-
 private fun String.toHex(): String =
     "0x" + this.toByteArray(Charsets.UTF_8).joinToString("") { "%02x".format(it) }
 
-private fun sha256(data: ByteArray): ByteArray {
-    val md = java.security.MessageDigest.getInstance("SHA-256")
-    return md.digest(data)
+private fun String.hexToBigInteger(): BigInteger {
+    val cleaned = if (startsWith("0x")) substring(2) else this
+    return BigInteger(cleaned, 16)
 }
