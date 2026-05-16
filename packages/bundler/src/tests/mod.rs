@@ -1,13 +1,12 @@
 //! Unit tests for the bundler: mempool prioritization, UserOp validation,
 //! gas oracle, reputation scoring, and bundle creation.
 
-use crate::config::{ReputationConfig, SimulationConfig};
+use crate::config::{BundlerConfig, ReputationConfig, SimulationConfig};
 use crate::mempool::{UserOpPool, PoolError, compute_priority};
 use crate::reputation::{ReputationTracker, ReputationStatus};
 use crate::types::{UserOperation, UserOpStatus, TrackedUserOp, GasEstimation};
 use crate::validation::{UserOpValidator, ValidationResult};
 use crate::bundler::{Bundler, BundlerError, compute_user_op_hash};
-use crate::config::BundlerConfig;
 use crate::metrics::Metrics;
 use alloy_primitives::{Address, B256, U256, Bytes};
 

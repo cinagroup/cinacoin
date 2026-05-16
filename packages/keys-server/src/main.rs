@@ -5,6 +5,9 @@ mod metrics;
 mod middleware;
 mod redis;
 
+#[cfg(test)]
+mod tests;
+
 use axum::Router;
 use std::sync::Arc;
 use tokio::signal;

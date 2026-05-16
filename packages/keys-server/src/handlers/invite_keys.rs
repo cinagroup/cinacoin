@@ -173,7 +173,7 @@ pub async fn revoke_invite(
 // Helpers
 // ---------------------------------------------------------------------------
 
-fn generate_invite_code() -> String {
+pub(crate) fn generate_invite_code() -> String {
     let uuid = Uuid::new_v4();
     let hex = uuid.to_string().replace('-', "");
     // Take first 8 chars and uppercase for a short code like "A1B2C3D4"

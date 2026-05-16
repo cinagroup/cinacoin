@@ -190,7 +190,7 @@ impl std::fmt::Display for ApnsError {
 }
 
 /// Build the APNs JSON payload.
-fn build_apns_payload(
+pub(crate) fn build_apns_payload(
     title: Option<&str>,
     body: &str,
     data: &std::collections::HashMap<String, String>,

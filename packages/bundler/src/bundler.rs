@@ -250,7 +250,7 @@ fn hash_to_sender(_hash: &B256) -> Address {
 }
 
 /// Compute the UserOp hash per EIP-4337 spec (simplified).
-fn compute_user_op_hash(op: &UserOperation, entry_point: Address, chain_id: u64) -> B256 {
+pub(crate) fn compute_user_op_hash(op: &UserOperation, entry_point: Address, chain_id: u64) -> B256 {
     let mut buf = Vec::new();
     buf.extend_from_slice(op.sender.as_slice());
     buf.extend_from_slice(&op.nonce.to_be_bytes::<32>());

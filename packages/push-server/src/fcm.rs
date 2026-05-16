@@ -236,8 +236,8 @@ impl FcmClient {
 
 /// FCM v1 API message request body.
 #[derive(Debug, Serialize)]
-struct FcmMessageRequest {
-    message: FcmMessage,
+pub(crate) struct FcmMessageRequest {
+    pub message: FcmMessage,
 }
 
 impl FcmMessageRequest {
@@ -281,20 +281,20 @@ impl FcmMessageRequest {
 
 /// FCM notification payload (title + body).
 #[derive(Debug, Serialize)]
-struct FcmNotification {
-    title: String,
-    body: String,
+pub(crate) struct FcmNotification {
+    pub title: String,
+    pub body: String,
 }
 
 #[derive(Debug, Serialize)]
-struct FcmMessage {
-    token: String,
+pub(crate) struct FcmMessage {
+    pub token: String,
     #[serde(skip_serializing_if = "Option::is_none")]
-    notification: Option<FcmNotification>,
+    pub notification: Option<FcmNotification>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    data: Option<std::collections::HashMap<String, String>>,
+    pub data: Option<std::collections::HashMap<String, String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    android: Option<serde_json::Map<String, serde_json::Value>>,
+    pub android: Option<serde_json::Map<String, serde_json::Value>>,
 }
 
 /// FCM v1 API message response.

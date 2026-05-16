@@ -15,7 +15,7 @@ use tokio::sync::RwLock;
 use tracing::debug;
 
 /// Priority score = gas_price (gwei) × reputation_multiplier × 1000
-fn compute_priority(
+pub(crate) fn compute_priority(
     max_priority_fee_per_gas: U256,
     reputation_multiplier: f64,
 ) -> u64 {

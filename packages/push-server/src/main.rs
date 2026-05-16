@@ -9,6 +9,9 @@ mod retry;
 mod router;
 mod types;
 
+#[cfg(test)]
+mod tests;
+
 use axum::Router;
 use std::sync::Arc;
 use tokio::signal;
