@@ -23,7 +23,10 @@ export default defineConfig({
       { text: '指南', link: '/guide/quick-start' },
       { text: '快速开始 (图文)', link: '/guide/quick-start-visual' },
       { text: 'API', link: '/api/core-sdk' },
+      { text: '迁移指南', link: '/guide/migrate-from-reown' },
+      { text: '故障排除', link: '/guide/troubleshooting' },
       { text: '示例', link: '/examples/web' },
+      { text: '部署', link: '/deployment/environment-variables' },
       { text: '安全', link: '/security/best-practices' },
       { text: 'FAQ', link: '/faq' },
     ],
@@ -39,6 +42,18 @@ export default defineConfig({
             { text: '配置', link: '/guide/configuration' },
           ],
         },
+        {
+          text: '迁移',
+          items: [
+            { text: '从 Reown/WalletConnect 迁移', link: '/guide/migrate-from-reown' },
+          ],
+        },
+        {
+          text: '故障排除',
+          items: [
+            { text: '常见问题与解决方案', link: '/guide/troubleshooting' },
+          ],
+        },
       ],
       '/api/': [
         {
@@ -48,7 +63,23 @@ export default defineConfig({
             { text: 'UI 组件', link: '/api/ui-components' },
             { text: 'SIWE 认证', link: '/api/siwe' },
             { text: 'Mobile SDK', link: '/api/mobile' },
-            { text: 'Auto-Generated API (TypeDoc)', link: '/api/typedoc/' },
+            { text: 'Swap SDK', link: '/api/swap-sdk' },
+            { text: 'On-Ramp SDK', link: '/api/onramp-sdk' },
+            { text: 'Session Keys', link: '/api/session-keys' },
+          ],
+        },
+        {
+          text: '基础设施 API',
+          items: [
+            { text: 'Bundler (ERC-4337)', link: '/api/bundler' },
+            { text: 'Paymaster 合约', link: '/api/paymaster' },
+          ],
+        },
+        {
+          text: '自动生成文档',
+          items: [
+            { text: 'TypeDoc API 参考', link: '/api/typedoc/' },
+            { text: '生成文档说明', link: '/api/generated/README' },
           ],
         },
       ],
@@ -87,6 +118,17 @@ export default defineConfig({
       pattern: 'https://github.com/onchainux/onchainux/edit/main/docs/:path',
       text: '在 GitHub 上编辑此页',
     },
+
+    docFooter: {
+      prev: '上一页',
+      next: '下一页',
+    },
+
+    lastUpdatedText: '最后更新',
+
+    sidebarMenuLabel: '菜单',
+
+    returnToTopLabel: '返回顶部',
 
     outline: {
       level: [2, 3],

@@ -16,6 +16,9 @@ mod metrics;
 mod models;
 mod relay;
 
+#[cfg(test)]
+mod tests;
+
 use std::io;
 use std::time::{SystemTime, UNIX_EPOCH};
 

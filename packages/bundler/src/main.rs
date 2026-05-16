@@ -32,6 +32,9 @@ mod rpc;
 mod types;
 mod validation;
 
+#[cfg(test)]
+mod tests;
+
 use config::BundlerConfig;
 use metrics::Metrics;
 use tracing::{info, Level};
