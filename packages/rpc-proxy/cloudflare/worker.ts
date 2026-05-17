@@ -3,11 +3,11 @@
 // Caches read-only JSON-RPC calls in KV with configurable TTL.
 
 const CHAIN_RPC_URLS: Record<string, string> = {
-  "1": "https://eth.llamarpc.com",
-  "42161": "https://arb1.arbitrum.io/rpc",
-  "8453": "https://mainnet.base.org",
-  "137": "https://rpc.ankr.com/polygon",
-  "10": "https://mainnet.optimism.io",
+  "1": "https://rpc.mevblocker.io",
+  "42161": "https://arbitrum.llamarpc.com",
+  "8453": "https://base.llamarpc.com",
+  "137": "https://polygon.llamarpc.com",
+  "10": "https://optimism.llamarpc.com",
   "56": "https://bsc-dataseed.binance.org",
 };
 

@@ -1,12 +1,12 @@
 name = "cinaconnect-keys-server"
-main = "cloudflare/worker.ts"
+main = "worker.ts"
 compatibility_date = "2024-01-01"
 
 [[d1_databases]]
 binding = "DB"
 database_name = "cinaconnect-keys"
-database_id = "PLACEHOLDER_REPLACE_AFTER_CREATE"
+database_id = "1f24922a-19d9-451f-9125-11736d54ec3c"
 
 [[kv_namespaces]]
 binding = "SESSIONS"
-id = "PLACEHOLDER_REPLACE_AFTER_CREATE"
+id = "b60edcfb4052452780701cbf7a06aeb9"
