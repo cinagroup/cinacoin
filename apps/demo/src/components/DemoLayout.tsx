@@ -8,6 +8,7 @@ const NAV_ITEMS = [
   { href: '/', label: 'Home' },
   { href: '/swap', label: 'Swap' },
   { href: '/multi-chain', label: 'Multi-Chain' },
+  { href: '/auth', label: 'Auth' },
 ];
 
 export default function DemoLayout({ children }: { children: ReactNode }) {
