@@ -4,267 +4,364 @@
 
 ---
 
-## 🔗 Connection Issues
+## 🔗 Wallet Not Connecting
 
-### QR Code Not Scanning
+### Checklist
 
-**Symptoms**: Wallet app fails to scan the QR code or connection times out after scanning.
+| Step | Check | How to Verify |
+|------|-------|---------------|
+| 1 | `projectId` is configured | `console.log(config.projectId)` — must be non-empty string |
+| 2 | Relay URL is reachable | `wscat -c wss://relay.yourdomain.com/v1` |
+| 3 | Chains are configured | `config.chains.length > 0` |
+| 4 | Metadata is set | `config.metadata.name` and `config.metadata.url` |
+| 5 | No CORS issues | Check browser DevTools Network tab |
 
-**Possible causes and solutions**:
-
-1. **QR code format invalid**
-   - Verify the URI follows the WalletConnect v2 format: `wc:<topic>@<version>?relay-protocol=irn&relay-data=<data>`
-   - Check the relay URL is accessible: `curl wss://relay.yourdomain.com/v1`
-
-2. **Relay Server unreachable**
-   ```bash
-   # Test WebSocket connectivity
-   wscat -c wss://relay.yourdomain.com/v1
-   ```
-   - If connection fails, check:
-     - Relay Server is running: `kubectl get pods -n cinaconnect | grep relay`
-     - Ingress/LoadBalancer is properly configured
-     - SSL certificate is valid
-     - Firewall rules allow WebSocket (port 443)
-
-3. **Wallet doesn't support the relay protocol**
-   - CinaConnect uses the Iridium relay protocol, compatible with WalletConnect v2
-   - Check wallet's supported relay protocols in their documentation
-
-4. **QR code expired**
-   - QR codes have a TTL (default: 300 seconds)
-   - Increase TTL in relay config if needed
-
-### Deep Links Failing (Mobile)
-
-**Symptoms**: Tapping a wallet link doesn't open the wallet app or returns to the dApp without connecting.
-
-**Solutions**:
-
-1. **URL scheme not registered**
-   - Verify the wallet's URL scheme in your redirect config:
-   ```typescript
-   // React Native
-   <CinaConnectProvider config={{
-     // ...
-     redirect: {
-       native: 'myapp://',      // Your app's URL scheme
-       universal: 'https://myapp.com',  // Universal link
-     }
-   }}>
-   ```
-
-2. **Universal Links not configured**
-   - Ensure `apple-app-site-association` is served from your domain
-   - Ensure `assetlinks.json` is served for Android
-   - Test with: `curl https://yourdomain.com/.well-known/apple-app-site-association`
-
-3. **Intent filter missing (Android)**
-   ```xml
-   <!-- AndroidManifest.xml -->
-   <intent-filter android:autoVerify="true">
-     <action android:name="android.intent.action.VIEW" />
-     <category android:name="android.intent.category.DEFAULT" />
-     <category android:name="android.intent.category.BROWSABLE" />
-     <data android:scheme="https" android:host="myapp.com" />
-   </intent-filter>
-   ```
-
-4. **Deep link not handled in app**
-   ```typescript
-   // React Native - ensure handleDeepLink is called
-   useEffect(() => {
-     const handleUrl = (url: string) => {
-       handleDeepLink(url)
-     }
-     Linking.addEventListener('url', ({ url }) => handleUrl(url))
-     Linking.getInitialURL().then((url) => {
-       if (url) handleUrl(url)
-     })
-     return () => Linking.removeEventListener('url', handleUrl)
-   }, [handleDeepLink])
-   ```
-
-### Connection Drops After Inactivity
-
-**Symptoms**: Wallet connects fine but disconnects after a few minutes.
-
-**Solutions**:
-
-1. **WebSocket keepalive not configured**
-   ```typescript
-   const transport = new RelayTransport({
-     url: 'wss://relay.yourdomain.com/v1',
-     reconnectInterval: 5000,
-     pingInterval: 30000,       // Send ping every 30s
-   })
-   ```
-
-2. **Reverse proxy timeout too short**
-   - Nginx: `proxy_read_timeout 86400s;`
-   - HAProxy: `timeout tunnel 3600000ms`
-
-3. **Mobile OS suspends background WebSocket**
-   - Use Push Notifications to wake the app when a message arrives
-   - Implement Push Server (see Phase 4 docs)
-
----
-
-## 🔐 Authentication Issues
-
-### SIWE (Sign-In with Ethereum) Failing
-
-**Symptoms**: User signs the message but authentication fails.
-
-**Solutions**:
-
-1. **Domain mismatch**
-   - The `domain` field in the SIWE message must match the requesting origin
-   - Server must validate: `parsedMessage.domain === request.headers.origin`
-
-2. **Nonce reuse (replay attack protection)**
-   - Each SIWE message must use a unique nonce
-   - Server should track used nonces:
-   ```typescript
-   // Store nonce in Redis with TTL
-   await redis.setex(`siwe:nonce:${nonce}`, 3600, 'used')
-
-   // Verify before processing
-   const exists = await redis.get(`siwe:nonce:${nonce}`)
-   if (exists) throw new Error('Nonce already used')
-   ```
-
-3. **Message expired**
-   - Check `expirationTime` in the SIWE message
-   - Default TTL is 1 hour; adjust if needed:
-   ```typescript
-   const siweMessage = generateMessage({
-     // ...
-     expirationTime: new Date(Date.now() + 3600000).toISOString(),
-   })
-   ```
-
-4. **Signature verification fails**
-   - Verify the address matches the signer:
-   ```typescript
-   const result = await verifyMessage(message, signature)
-   console.log(result.address)  // Should match expected address
-   ```
-
-5. **Chain ID mismatch**
-   - Ensure the message was signed on the expected chain
-   - Check `chainId` in the SIWE message
-
-### Session Expiry
-
-**Symptoms**: User is connected but session expires unexpectedly.
-
-**Solutions**:
-
-1. **Session TTL too short**
-   ```typescript
-   const sessionManager = new SessionManager({
-     storage: localStorage,
-     ttl: 30 * 24 * 60 * 60 * 1000,  // 30 days
-   })
-   ```
-
-2. **Session not persisted**
-   - Ensure `storage` is configured (localStorage for web, AsyncStorage for React Native)
-   - Check browser privacy settings aren't blocking storage
-
-3. **Relay session expired**
-   - Relay sessions have a separate TTL
-   - Implement session refresh logic:
-   ```typescript
-   cinaconnect.on('sessionExpired', async () => {
-     await cinaconnect.reconnect()
-   })
-   ```
-
----
-
-## 🏗️ Build Issues
-
-### TypeScript Errors
-
-#### `Cannot find module '@cinaconnect/core'`
-
-**Solution**: Ensure the package is built and linked correctly.
-
-```bash
-# Build all packages
-pnpm install
-pnpm build
-
-# Or for a specific package
-cd packages/core-sdk
-pnpm build
-```
-
-#### `Property 'X' does not exist on type 'Y'`
-
-**Solution**: Check your `@cinaconnect` package version. Newer APIs may require updating:
-
-```bash
-# Check installed version
-npm ls @cinaconnect/core
-
-# Update to latest
-npm update @cinaconnect/core
-```
-
-#### Type mismatch with viem/ethers
-
-**Solution**: CinaConnect uses `viem` internally. If you're using `ethers`, convert types:
+### Debug Mode
 
 ```typescript
-import { getAddress } from 'viem'
-
-// ethers Address → viem Address
-const viemAddress = getAddress(ethersAddress) as `0x${string}`
+const config = {
+  projectId: 'your-project-id',
+  relayUrl: 'wss://relay.cinaconnect.com/v1',
+  chains: [mainnet],
+  debug: true, // verbose console logging
+  logger: {
+    level: 'debug',
+  },
+}
 ```
 
-### Missing Dependencies
+### Connection Timeout
 
-**Symptoms**: Build fails with `Module not found` errors.
+If the connection takes more than 10 seconds:
 
-**Solution**: Install all required peer dependencies.
+```typescript
+// Test relay latency
+const start = performance.now()
+try {
+  await cinaconnect.connect({ timeout: 10000 })
+} catch (error) {
+  const latency = performance.now() - start
+  console.log(`Connection took ${latency}ms`)
+}
+```
+
+**Fixes:**
+- Deploy relay closer to users (multi-region)
+- Use DNS preconnect: `<link rel="preconnect" href="https://relay.yourdomain.com">`
+- Check for network firewall blocking WebSocket connections
+
+---
+
+## 📷 QR Code Not Showing
+
+### Browser Compatibility
+
+QR code rendering requires canvas or SVG support. Test in:
+
+- ✅ Chrome 88+
+- ✅ Firefox 85+
+- ✅ Safari 14+
+- ✅ Edge 88+
+
+### Common Issues
+
+**1. QR code component not rendering:**
+
+```tsx
+// Ensure the QR code container has dimensions
+<div style={{ width: 256, height: 256 }}>
+  <QRCode value={pairingUri} />
+</div>
+```
+
+**2. URI is empty or undefined:**
+
+```typescript
+const uri = await cinaconnect.core.pairing.create()
+if (!uri) {
+  console.error('Failed to generate pairing URI')
+  // Check relay connection
+}
+```
+
+**3. QR code expired:**
+
+```tsx
+import { useState, useEffect } from 'react'
+
+function QRDisplay() {
+  const [uri, setUri] = useState('')
+
+  useEffect(() => {
+    const refresh = async () => {
+      const newUri = await cinaconnect.core.pairing.create()
+      setUri(newUri)
+    }
+
+    refresh()
+
+    // Refresh every 4 minutes (before 5-min TTL)
+    const interval = setInterval(refresh, 240_000)
+    return () => clearInterval(interval)
+  }, [])
+
+  if (!uri) return <p>Loading...</p>
+  return <QRCode value={uri} />
+}
+```
+
+---
+
+## ❌ Transaction Failing
+
+### Debug Steps
+
+**1. Check gas estimation:**
+
+```typescript
+import { estimateGas, parseEther } from 'viem'
+
+try {
+  const gas = await estimateGas(publicClient, {
+    account: userAddress,
+    to: contractAddress,
+    value: parseEther('0.1'),
+    data: encodedFunctionData,
+  })
+  console.log('Estimated gas:', gas)
+} catch (error) {
+  // Gas estimation failed — likely a revert
+  console.error('Gas estimation failed:', error)
+}
+```
+
+**2. Check chain alignment:**
+
+```typescript
+const walletChain = await provider.request({ method: 'eth_chainId' })
+const dappChain = config.chains[0].id
+
+if (parseInt(walletChain, 16) !== dappChain) {
+  console.warn(`Wallet on ${walletChain}, dApp expects ${dappChain}`)
+  await switchNetwork(config.chains[0])
+}
+```
+
+**3. Check token approvals:**
+
+```typescript
+import { readContract } from 'viem'
+
+const allowance = await readContract(publicClient, {
+  address: tokenAddress,
+  abi: erc20Abi,
+  functionName: 'allowance',
+  args: [userAddress, spenderAddress],
+})
+
+if (allowance < requiredAmount) {
+  console.log('Approval needed. Requesting approve transaction...')
+}
+```
+
+**4. Simulate transaction before sending:**
+
+```typescript
+// Use eth_call to simulate
+try {
+  await publicClient.call({
+    account: userAddress,
+    to: contractAddress,
+    data: encodedFunctionData,
+  })
+  console.log('Transaction would succeed')
+} catch (error) {
+  console.error('Transaction would revert:', error.message)
+}
+```
+
+---
+
+## 🔐 Social Login Not Working
+
+### Magic.link API Key Issues
+
+**1. Verify API key is set:**
+
+```typescript
+const socialLogin = new SocialLogin({
+  apiKey: process.env.NEXT_PUBLIC_MAGIC_API_KEY,
+  network: 'mainnet',
+})
+
+// Test initialization
+if (!socialLogin.isInitialized) {
+  console.error('Magic SDK failed to initialize')
+}
+```
+
+**2. Check environment variables:**
 
 ```bash
-# Core SDK
-npm install @cinaconnect/core viem
-
-# React integration
-npm install @cinaconnect/react react react-dom
-
-# React Native
-npm install @cinaconnect/react-native react-native
-
-# SIWE
-npm install @cinaconnect/siwe
-
-# Swap SDK
-npm install @cinaconnect/swap-sdk viem
-
-# On-Ramp SDK
-npm install @cinaconnect/onramp-sdk
-
-# Session Keys
-npm install @cinaconnect/session-keys viem
+# .env.local
+NEXT_PUBLIC_MAGIC_API_KEY=pk_live_XXXXXXXXXXXX
 ```
 
-### Monorepo Build Errors
+**3. Popup blocked:**
+
+```typescript
+try {
+  const user = await socialLogin.login('google')
+} catch (error) {
+  if (error.message.includes('popup')) {
+    showNotification('Please allow popups for this site to use social login.')
+  }
+}
+```
+
+### OAuth Configuration
+
+Ensure OAuth credentials are correctly configured in the Magic.link dashboard:
+
+| Provider | Required Config |
+|----------|----------------|
+| Google | OAuth 2.0 Client ID + Client Secret |
+| X (Twitter) | API Key + API Secret + Bearer Token |
+| GitHub | OAuth App Client ID + Client Secret |
+| Discord | Client ID + Client Secret |
+| Apple | Services ID + Key ID + Team ID |
+
+---
+
+## 💧 Memory Leaks in React
+
+### Proper Cleanup in useEffect
+
+**❌ Wrong — no cleanup:**
+
+```typescript
+useEffect(() => {
+  cinaconnect.on('accountsChanged', (accounts) => {
+    setAccounts(accounts)
+  })
+  // Missing cleanup! Listener persists after unmount
+}, [])
+```
+
+**✅ Correct — with cleanup:**
+
+```typescript
+useEffect(() => {
+  const handleAccountsChanged = (accounts: string[]) => {
+    setAccounts(accounts)
+  }
+
+  cinaconnect.on('accountsChanged', handleAccountsChanged)
+
+  return () => {
+    cinaconnect.off('accountsChanged', handleAccountsChanged)
+  }
+}, [])
+```
+
+### Multiple Listeners
+
+```typescript
+useEffect(() => {
+  const handlers = {
+    accountsChanged: (accounts: string[]) => setAccounts(accounts),
+    chainChanged: (chainId: string) => setChain(parseInt(chainId, 16)),
+    disconnect: (error: Error) => setConnected(false),
+  }
+
+  // Register all listeners
+  Object.entries(handlers).forEach(([event, handler]) => {
+    cinaconnect.on(event, handler)
+  })
+
+  // Cleanup all listeners
+  return () => {
+    Object.entries(handlers).forEach(([event, handler]) => {
+      cinaconnect.off(event, handler)
+    })
+  }
+}, [])
+```
+
+### React StrictMode Double-Render
+
+In development, React 18+ StrictMode renders components twice. Ensure your provider initialization is idempotent:
+
+```typescript
+// Use useRef to prevent double initialization
+const providerRef = useRef<CinaConnect | null>(null)
+
+if (!providerRef.current) {
+  providerRef.current = new CinaConnect(config)
+}
+```
+
+---
+
+## ⚡ Performance Issues
+
+### Lazy Loading
+
+Only load CinaConnect when needed:
+
+```tsx
+import dynamic from 'next/dynamic'
+
+// Lazy load the connect button — not rendered on first paint
+const ConnectButton = dynamic(
+  () => import('./ConnectButton'),
+  { ssr: false, loading: () => <Skeleton /> }
+)
+
+function Header() {
+  return (
+    <header>
+      <Logo />
+      <nav>...</nav>
+      <ConnectButton />
+    </header>
+  )
+}
+```
+
+### Code Splitting
+
+Split CinaConnect into its own chunk:
+
+```typescript
+// vite.config.ts
+export default defineConfig({
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          cinaconnect: ['@cinaconnect/react', '@cinaconnect/core'],
+        },
+      },
+    },
+  },
+})
+```
+
+### Reduce Bundle Size
 
 ```bash
-# Clean and rebuild everything
-pnpm clean
-pnpm install
-pnpm build
+# Analyze bundle
+npx vite-bundle-visualizer
 
-# Or use Turbo for parallel build
-pnpm turbo run build
+# Check which CinaConnect packages are pulling in dependencies
+npm ls @cinaconnect/core
 ```
+
+**Tips:**
+- Only import what you need: `import { useOnux } from '@cinaconnect/react'` not `import * as CinaConnect from '@cinaconnect/react'`
+- Use tree-shaking friendly imports
+- Consider using the lightweight `@cinaconnect/core` without UI components if building custom UI
 
 ---
 
@@ -272,230 +369,130 @@ pnpm turbo run build
 
 ### Helm Installation Failing
 
-**Symptoms**: `helm install` fails with various errors.
+```bash
+# Lint the chart before installing
+helm lint ./deploy/helm/cinaconnect
 
-**Solutions**:
+# Dry-run to see what would be deployed
+helm install cinaconnect ./deploy/helm/cinaconnect \
+  --namespace cinaconnect \
+  --create-namespace \
+  --dry-run
 
-1. **Namespace doesn't exist**
-   ```bash
-   kubectl create namespace cinaconnect
-   # Or use --create-namespace
-   helm install cinaconnect ./deploy/helm/cinaconnect \
-     --namespace cinaconnect --create-namespace
-   ```
-
-2. **Missing values**
-   - Check required values in `values.yaml`:
-   ```bash
-   helm lint ./deploy/helm/cinaconnect
-   helm template ./deploy/helm/cinaconnect \
-     --values ./deploy/helm/cinaconnect/values.yaml
-   ```
-
-3. **Resource quotas exceeded**
-   ```bash
-   kubectl describe quota -n cinaconnect
-   # Adjust resource requests in values.yaml
-   ```
+# Check required values
+helm show values ./deploy/helm/cinaconnect
+```
 
 ### Pods Not Starting
-
-**Symptoms**: Pods stuck in `Pending` or `CrashLoopBackOff`.
-
-**Diagnose**:
 
 ```bash
 # Check pod status
 kubectl get pods -n cinaconnect
 
-# Check events
+# Describe for events
 kubectl describe pod <pod-name> -n cinaconnect
 
-# Check logs
-kubectl logs <pod-name> -n cinaconnect
+# View logs
+kubectl logs <pod-name> -n cinaconnect --tail=100
 
-# Check previous pod logs (for crash loops)
+# View previous container logs (CrashLoopBackOff)
 kubectl logs <pod-name> -n cinaconnect --previous
 ```
 
-**Common causes**:
-
-| Pod Status | Likely Cause | Fix |
-|-----------|-------------|-----|
-| `Pending` | Insufficient resources | Scale cluster or reduce requests |
-| `Pending` | PVC not bound | Check StorageClass |
+| Status | Cause | Fix |
+|--------|-------|-----|
+| `Pending` | Insufficient resources | Scale cluster or reduce resource requests |
+| `Pending` | PVC not bound | Check StorageClass exists |
 | `CrashLoopBackOff` | Config error | Check logs, fix config |
-| `CrashLoopBackOff` | Missing env vars | Check Secret/ConfigMap |
-| `ImagePullBackOff` | Image not found | Check image name/tag |
-| `ErrImagePull` | Auth issue | Check imagePullSecrets |
+| `ImagePullBackOff` | Invalid image | Verify image name and tag |
+| `OOMKilled` | Memory limit too low | Increase memory limit in values.yaml |
 
 ### Relay Server Won't Start
 
 ```bash
-# Check relay-specific logs
+# Check relay pods
 kubectl logs -l app=relay -n cinaconnect --tail=100
 
-# Common issues:
-# 1. NATS not reachable
-kubectl get pods -l app=nats -n cinaconnect
+# Verify NATS connectivity
+kubectl exec -it <nats-pod> -n cinaconnect -- nats-server --version
 
-# 2. Invalid config
-# Check ConfigMap
+# Check relay config
 kubectl get configmap relay-config -n cinaconnect -o yaml
-
-# 3. Port conflict
-kubectl get svc -n cinaconnect
 ```
 
 ---
 
-## ⚡ Performance Issues
+## 📊 Monitoring & Observability
 
-### Slow Connection Time
+### Enable Analytics
 
-**Symptoms**: Wallet connection takes >5 seconds.
+```typescript
+const config = {
+  projectId: 'your-project-id',
+  relayUrl: 'wss://relay.cinaconnect.com/v1',
+  chains: [mainnet],
+  analytics: {
+    enabled: true,
+    endpoint: 'https://analytics.cinaconnect.com/v1',
+  },
+}
+```
 
-**Solutions**:
+### Error Tracking Integration
 
-1. **High latency to Relay Server**
-   ```bash
-   # Measure latency
-   curl -o /dev/null -w '%{time_total}\n' https://relay.yourdomain.com/health
-   ```
-   - Deploy Relay Server closer to users (multi-region)
-   - Use CDN for static assets
+**Sentry:**
 
-2. **DNS resolution slow**
-   - Use `preconnect` in HTML:
-   ```html
-   <link rel="preconnect" href="https://relay.yourdomain.com">
-   <link rel="dns-prefetch" href="https://relay.yourdomain.com">
-   ```
+```typescript
+import * as Sentry from '@sentry/react'
+import { CinaConnect } from '@cinaconnect/core'
 
-3. **Too many wallet connectors**
-   - Limit the number of wallets shown in ConnectModal
-   - Use `recommendedWallets` to prioritize
+cinaconnect.on('error', (error) => {
+  Sentry.captureException(error, {
+    tags: {
+      error_code: error.code,
+      component: 'cinaconnect',
+    },
+  })
+})
+```
 
-### High Latency on Swap Quotes
+**Custom Event Tracking:**
 
-**Symptoms**: `getBestQuote()` takes >3 seconds.
-
-**Solutions**:
-
-1. **Slow DEX providers**
-   - The quoter has a default 5s timeout per provider
-   - Remove slow providers:
-   ```typescript
-   quoter.removeExecutor('SlowProvider')
-   ```
-
-2. **Network latency to DEX APIs**
-   - Cache token lists and price data
-   - Use regional API endpoints
-
-3. **Increase parallelism**
-   - Quotes are fetched in parallel via `Promise.allSettled`
-   - Ensure your Node.js event loop isn't blocked
-
-### RPC Proxy High Latency
-
-**Symptoms**: `eth_call` or `eth_getBalance` takes >1 second.
-
-**Solutions**:
-
-1. **Cache not working**
-   - Check Redis connectivity:
-   ```bash
-   kubectl exec -it <redis-pod> -n cinaconnect -- redis-cli ping
-   ```
-
-2. **Provider routing suboptimal**
-   - Check provider health scores in the RPC Proxy config
-   - Adjust weights in `providers.yaml`
-
-3. **Too many concurrent requests**
-   - Scale RPC Proxy horizontally:
-   ```bash
-   helm upgrade cinaconnect ./deploy/helm/cinaconnect \
-     --set rpcProxy.replicas=5
-   ```
-
----
-
-## 📋 Error Code Reference
-
-### Client-Side Errors
-
-| Code | Message | Cause | Solution |
-|------|---------|-------|----------|
-| `CONN_001` | No connectors available | No wallets installed or configured | Install wallet extension or add more connectors |
-| `CONN_002` | Connection rejected by user | User cancelled in wallet | Retry connection |
-| `CONN_003` | Connection timeout | Network issue or relay down | Check relay connectivity |
-| `CONN_004` | Session expired | Session TTL exceeded | Reconnect or refresh session |
-| `CONN_005` | Chain not supported | Requested chain not configured | Add chain to config |
-| `CONN_006` | Invalid relay URL | Relay URL malformed | Verify WebSocket URL format |
-| `AUTH_001` | SIWE signature invalid | Wrong message or tampered | Regenerate message |
-| `AUTH_002` | SIWE nonce used | Replay attack protection | Generate new nonce |
-| `AUTH_003` | SIWE message expired | Past expirationTime | Regenerate message |
-| `AUTH_004` | Domain mismatch | Phishing protection | Fix domain config |
-
-### Build Errors
-
-| Code | Message | Cause | Solution |
-|------|---------|-------|----------|
-| `BUILD_001` | Missing peer dependency | viem/react not installed | Install required peer deps |
-| `BUILD_002` | Type mismatch | Version incompatibility | Align package versions |
-| `BUILD_003` | Module not found | Package not built | Run `pnpm build` |
-| `BUILD_004` | Duplicate React | Multiple React copies | Dedupe: `pnpm dedupe` |
-
-### Deployment Errors
-
-| Code | Message | Cause | Solution |
-|------|---------|-------|----------|
-| `DEPLOY_001` | Helm install failed | Invalid values | Run `helm lint` |
-| `DEPLOY_002` | Pod CrashLoopBackOff | Config error | Check pod logs |
-| `DEPLOY_003` | PVC not bound | No StorageClass | Create StorageClass |
-| `DEPLOY_004` | ImagePullBackOff | Invalid image | Check image name/tag |
-| `DEPLOY_005` | OOMKilled | Insufficient memory | Increase memory limit |
-| `DEPLOY_006` | NATS connection failed | NATS not running | Check NATS pods |
-| `DEPLOY_007` | Redis connection failed | Redis not running | Check Redis pods |
-| `DEPLOY_008` | Ingress not ready | Ingress controller missing | Install ingress controller |
-
-### Swap SDK Errors
-
-| Code | Message | Cause | Solution |
-|------|---------|-------|----------|
-| `SWAP_001` | No valid quotes | All providers failed | Check provider APIs |
-| `SWAP_002` | Quote expired | TTL exceeded before execution | Request new quote |
-| `SWAP_003` | Execution disabled | `setExecutionEnabled(false)` | Enable execution |
-| `SWAP_004` | Price impact too high | Large trade / low liquidity | Reduce trade size or accept higher slippage |
-| `SWAP_005` | Insufficient balance | Not enough tokens | Check token balance |
-
-### On-Ramp Errors
-
-| Code | Message | Cause | Solution |
-|------|---------|-------|----------|
-| `ONRAMP_001` | No providers available | Region not supported | Check region support |
-| `ONRAMP_002` | Amount below minimum | Below provider min | Increase amount |
-| `ONRAMP_003` | Amount above maximum | Above provider max | Decrease amount |
-| `ONRAMP_004` | KYC required | User region needs KYC | Guide user through KYC |
-| `ONRAMP_005` | Widget failed to load | Network issue | Check connectivity |
+```typescript
+cinaconnect.on('connect', (session) => {
+  analytics.track('wallet_connected', {
+    wallet: session.wallet.name,
+    chain: session.chain.id,
+    method: session.connectionType,
+  })
+})
+```
 
 ---
 
 ## 📞 Getting Help
 
-If you're still stuck after checking this guide:
+If you're still stuck:
 
-1. **Check the logs** — Most issues leave traces in logs
-2. **Search GitHub Issues** — Someone may have reported the same problem
-3. **Enable debug mode** — Set `debug: true` in your config for verbose logging
-4. **Community** — Join the CinaConnect community channels for help
+1. **Check logs** — Enable `debug: true` for verbose output
+2. **Search GitHub Issues** — [cinaconnect/cinaconnect/issues](https://github.com/cinaconnect/cinaconnect/issues)
+3. **Error codes** — See [Error Code Reference](./error-codes.md)
+4. **Community** — Join CinaConnect community channels
 
 ```typescript
-// Enable debug logging
-const cinaconnect = new CinaConnect({
-  // ...
-  debug: true,  // Verbose console output
-})
+// Maximum debug configuration
+const config = {
+  projectId: 'your-project-id',
+  relayUrl: 'wss://relay.cinaconnect.com/v1',
+  chains: [mainnet],
+  debug: true,
+  logger: {
+    level: 'trace', // most verbose
+    output: 'console',
+  },
+}
 ```
+
+---
+
+*Troubleshooting Guide — CinaConnect Documentation*
