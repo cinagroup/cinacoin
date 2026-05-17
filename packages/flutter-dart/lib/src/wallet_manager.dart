@@ -1,18 +1,27 @@
-/// Wallet connection manager with WalletConnect v2 support.
+/// Wallet connection manager with encrypted session persistence.
 ///
 /// Manages the full wallet connection lifecycle:
 /// connect → session → sign → disconnect
 ///
+/// Session state is encrypted via flutter_secure_storage and
+/// auto-restored on app resume with expiry validation.
+///
 /// Mirrors the core-sdk Connector + SessionManager API surface.
 import 'dart:async';
+import 'dart:convert';
 import 'package:walletconnect_flutter_v2/walletconnect_flutter_v2.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'types.dart';
 import 'wallet_registry.dart';
 import 'deep_link_handler.dart';
 
-/// Session storage key for persistence.
-const String _sessionStorageKey = 'onchainux_session';
+/// Session storage key for encrypted persistence.
+const String _sessionStorageKey = 'onchainux_encrypted_session';
+const String _sessionExpiryKey = 'onchainux_session_expiry';
+
+/// Default session TTL: 7 days.
+const Duration _defaultSessionTtl = Duration(days: 7);
 
 /// Wallet connection manager.
 ///
@@ -35,6 +44,13 @@ class WalletManager {
   // Dependencies
   final DeepLinkHandler? _deepLinkHandler;
   Map<String, RequiredNamespace>? _requiredNamespaces;
+
+  // Encrypted storage
+  final FlutterSecureStorage _secureStorage;
+  final Duration _sessionTtl;
+
+  // Auto-reconnect timer
+  Timer? _expiryCheckTimer;
 
   /// Stream of session state changes.
   Stream<SessionState> get stateChanges => _stateController.stream;
@@ -59,14 +75,26 @@ class WalletManager {
     required AppMetadata metadata,
     Map<String, RequiredNamespace>? requiredNamespaces,
     DeepLinkHandler? deepLinkHandler,
+    FlutterSecureStorage? secureStorage,
+    Duration sessionTtl = _defaultSessionTtl,
   })  : _projectId = projectId,
         _metadata = metadata,
         _requiredNamespaces = requiredNamespaces,
-        _deepLinkHandler = deepLinkHandler;
+        _deepLinkHandler = deepLinkHandler,
+        _secureStorage = secureStorage ?? const FlutterSecureStorage(
+          aOptions: AndroidOptions(
+            encryptedSharedPreferences: true,
+          ),
+          iOptions: IOSOptions(
+            accessibility: KeychainAccessibility.first_unlock_this_device,
+          ),
+        ),
+        _sessionTtl = sessionTtl;
 
   /// Initialize the WalletConnect client.
   ///
   /// Must be called before any connection operations.
+  /// Attempts to restore a persisted session after initialization.
   Future<void> init() async {
     if (_initialized) return;
 
@@ -86,6 +114,9 @@ class WalletManager {
     _wcClient.onSessionDelete.subscribe(_handleSessionDelete);
 
     _initialized = true;
+
+    // Auto-restore persisted session
+    await _restoreSession();
   }
 
   /// Connect to a wallet using WalletConnect v2.
@@ -144,8 +175,11 @@ class WalletManager {
       _status = ConnectionStatus.connected;
       _emitState();
 
-      // Persist session
-      await _persistSession();
+      // Persist session with encryption
+      await _persistSecureSession(session, accounts, chainId);
+
+      // Start expiry monitoring
+      _startExpiryCheck();
 
       return ConnectionResult(
         sessionId: session.topic,
@@ -169,6 +203,10 @@ class WalletManager {
 
   /// Disconnect the current session.
   Future<void> disconnect() async {
+    // Cancel expiry check
+    _expiryCheckTimer?.cancel();
+    _expiryCheckTimer = null;
+
     if (_currentSessionId != null && _initialized) {
       try {
         await _wcClient.disconnect(
@@ -190,8 +228,8 @@ class WalletManager {
     _status = ConnectionStatus.disconnected;
     _emitState();
 
-    // Clear persisted session
-    await _clearSession();
+    // Clear persisted session from encrypted storage
+    await _clearSecureSession();
   }
 
   /// Get the connected account addresses.
@@ -225,6 +263,9 @@ class WalletManager {
       );
       _currentChainId = chainId;
       _emitState();
+
+      // Update persisted session
+      await _updateSecureSession();
     } catch (e) {
       throw Exception('Failed to switch chain: $e');
     }
@@ -326,29 +367,155 @@ class WalletManager {
     }
   }
 
-  /// Restore a persisted session from storage.
-  Future<SessionState> restore() async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      final raw = prefs.getString(_sessionStorageKey);
-      if (raw == null) return SessionState.disconnected;
+  /// Handle app resume event — attempt auto-reconnect.
+  ///
+  /// Call this from your app's onResume / WidgetsBindingObserver
+  /// when the app returns from background.
+  Future<void> onAppResume() async {
+    if (_initialized) {
+      await _restoreSession();
+    }
+  }
 
-      final data = _parseSession(raw);
-      if (data['status'] == 'connected') {
+  // ─── Private: Encrypted Session Persistence ───────────────────────────
+
+  /// Restore a previously persisted session from encrypted storage.
+  ///
+  /// Validates session expiry and attempts to reconnect if still valid.
+  Future<void> _restoreSession() async {
+    try {
+      final raw = await _secureStorage.read(key: _sessionStorageKey);
+      final expiryStr = await _secureStorage.read(key: _sessionExpiryKey);
+
+      if (raw == null || expiryStr == null) {
+        return;
+      }
+
+      final data = _parseSecureSession(raw);
+      if (data == null) return;
+
+      // Check session expiry
+      final expiry = DateTime.parse(expiryStr);
+      if (DateTime.now().isAfter(expiry)) {
+        // Session expired — clear storage
+        await _clearSecureSession();
+        return;
+      }
+
+      final status = data['status'];
+      if (status == 'connected') {
         _status = ConnectionStatus.connected;
         _currentSessionId = data['sessionId'];
         _currentAccounts = List<String>.from(data['accounts'] ?? []);
         _currentChainId = data['chainId'] ?? 1;
         _currentConnectorId = data['connectorId'];
+
         _emitState();
+        _startExpiryCheck();
       }
-    } catch (_) {
-      // Corrupted storage — ignore
+    } catch (e) {
+      // Corrupted or inaccessible storage — ignore and continue
+      await _clearSecureSession();
     }
-    return _buildState();
   }
 
-  // --- Private helpers ---
+  /// Persist the current session to encrypted storage.
+  Future<void> _persistSecureSession(
+    SessionStruct session,
+    List<String> accounts,
+    int chainId,
+  ) async {
+    try {
+      final data = {
+        'status': 'connected',
+        'sessionId': session.topic,
+        'accounts': accounts,
+        'chainId': chainId,
+        'connectorId': _currentConnectorId,
+        'createdAt': DateTime.now().toIso8601String(),
+      };
+
+      final serialized = jsonEncode(data);
+      await _secureStorage.write(key: _sessionStorageKey, value: serialized);
+
+      // Set expiry time
+      final expiry = DateTime.now().add(_sessionTtl);
+      await _secureStorage.write(key: _sessionExpiryKey, value: expiry.toIso8601String());
+    } catch (e) {
+      // Storage failure — log but don't crash
+      // In production, add proper logging here
+    }
+  }
+
+  /// Update the persisted session in encrypted storage.
+  Future<void> _updateSecureSession() async {
+    if (_currentSessionId == null) return;
+
+    try {
+      final data = {
+        'status': 'connected',
+        'sessionId': _currentSessionId,
+        'accounts': _currentAccounts,
+        'chainId': _currentChainId,
+        'connectorId': _currentConnectorId,
+      };
+
+      final serialized = jsonEncode(data);
+      await _secureStorage.write(key: _sessionStorageKey, value: serialized);
+    } catch (e) {
+      // Storage failure — log but don't crash
+    }
+  }
+
+  /// Clear the persisted session from encrypted storage.
+  Future<void> _clearSecureSession() async {
+    try {
+      await _secureStorage.delete(key: _sessionStorageKey);
+      await _secureStorage.delete(key: _sessionExpiryKey);
+    } catch (e) {
+      // Ignore — storage might be empty
+    }
+  }
+
+  /// Parse the encrypted session data.
+  Map<String, dynamic>? _parseSecureSession(String raw) {
+    try {
+      return jsonDecode(raw) as Map<String, dynamic>;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  /// Start periodic session expiry checking.
+  void _startExpiryCheck() {
+    _expiryCheckTimer?.cancel();
+
+    // Check every 5 minutes
+    _expiryCheckTimer = Timer.periodic(const Duration(minutes: 5), (_) {
+      _checkSessionExpiry();
+    });
+
+    // Also check immediately
+    _checkSessionExpiry();
+  }
+
+  /// Check if the current session has expired.
+  Future<void> _checkSessionExpiry() async {
+    try {
+      final expiryStr = await _secureStorage.read(key: _sessionExpiryKey);
+      if (expiryStr == null) return;
+
+      final expiry = DateTime.parse(expiryStr);
+      if (DateTime.now().isAfter(expiry)) {
+        // Session expired — disconnect
+        await disconnect();
+      }
+    } catch (e) {
+      // Ignore — might happen during shutdown
+    }
+  }
+
+  // ─── Private: WalletConnect Helpers ───────────────────────────────────
 
   Map<String, RequiredNamespace> _buildRequiredNamespaces(List<String> chains) {
     return {
@@ -445,7 +612,7 @@ class WalletManager {
     _currentSessionId = null;
     _currentAccounts = [];
     _emitState();
-    _clearSession();
+    _clearSecureSession();
   }
 
   void _emitState() {
@@ -471,39 +638,10 @@ class WalletManager {
     }
   }
 
-  Future<void> _persistSession() async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      final data = {
-        'status': 'connected',
-        'sessionId': _currentSessionId,
-        'accounts': _currentAccounts,
-        'chainId': _currentChainId,
-        'connectorId': _currentConnectorId,
-      };
-      await prefs.setString(_sessionStorageKey, _serializeSession(data));
-    } catch (_) {}
-  }
-
-  Future<void> _clearSession() async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.remove(_sessionStorageKey);
-    } catch (_) {}
-  }
-
-  String _serializeSession(Map<String, dynamic> data) {
-    // Simple JSON-like serialization
-    return data.toString();
-  }
-
-  Map<String, dynamic> _parseSession(String raw) {
-    // Simple parsing — in production use a proper JSON library
-    return {};
-  }
-
   /// Clean up resources.
   Future<void> dispose() async {
+    _expiryCheckTimer?.cancel();
+    _expiryCheckTimer = null;
     await _stateController.close();
     if (_initialized) {
       try {

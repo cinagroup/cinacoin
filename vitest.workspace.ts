@@ -129,4 +129,20 @@ export default defineWorkspace([
       globals: true,
     },
   },
+  {
+    test: {
+      name: 'pay-ui',
+      include: ['packages/pay-ui/**/*.test.ts', 'packages/pay-ui/**/*.test.tsx'],
+      environment: 'jsdom',
+      globals: true,
+    },
+  },
+  {
+    test: {
+      name: 'cdn',
+      include: ['packages/cdn/**/*.test.ts'],
+      environment: 'jsdom',
+      globals: true,
+    },
+  },
 ]);

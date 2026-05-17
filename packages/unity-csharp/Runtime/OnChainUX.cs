@@ -3,7 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using OnChainUX;
+using OnChainUX.WalletConnect;
+using OnChainUX.Chain;
 
 namespace OnChainUX
 {
@@ -120,6 +121,10 @@ namespace OnChainUX
 
             // Connect wallet manager events to OnChainUX events
             _walletManager.OnStatusChange += HandleWalletStatusChange;
+            _walletManager.OnSessionConnected += HandleSessionConnected;
+            _walletManager.OnSessionDisconnected += HandleSessionDisconnected;
+            _walletManager.OnError += HandleWalletError;
+            _walletManager.OnQRCodeGenerated += HandleQRCodeGenerated;
 
             Log($"OnChainUX initialized (v{OnChainUXVersion.Value})");
         }
@@ -151,6 +156,13 @@ namespace OnChainUX
 
                 EmitState(SessionState.Connected(result.Accounts, result.ChainId, result.SessionId, result.ConnectorId));
                 OnWalletConnected?.Invoke(result);
+
+                // Initialize EVM adapter with the connected chain
+                var chain = GetChainById(result.ChainId);
+                if (chain != null)
+                {
+                    _evmAdapter.Init(chain.RpcUrl, result.ChainId);
+                }
 
                 SaveSession();
                 return result;
@@ -203,6 +215,13 @@ namespace OnChainUX
             await _walletManager.SwitchChainAsync(_currentSessionId, chainId);
             _currentChainId = chainId;
 
+            // Update EVM adapter
+            var chain = GetChainById(chainId);
+            if (chain != null)
+            {
+                _evmAdapter.Init(chain.RpcUrl, chainId);
+            }
+
             EmitState(SessionState.Connected(_currentAccounts, _currentChainId, _currentSessionId, _currentConnectorId));
             OnChainChangedEvent?.Invoke(_currentChainId);
         }
@@ -225,6 +244,16 @@ namespace OnChainUX
             return await _walletManager.SendTransactionAsync(_currentSessionId, tx);
         }
 
+        /// Get the balance of the connected account.
+        public async Task<string> GetBalanceAsync()
+        {
+            if (_status != ConnectionStatus.Connected)
+                throw new InvalidOperationException("Not connected");
+
+            var address = _currentAccounts[0];
+            return await _evmAdapter.GetBalanceFormattedAsync(address);
+        }
+
         /// Restore a persisted session.
         public async Task<SessionState> RestoreAsync()
         {
@@ -236,15 +265,31 @@ namespace OnChainUX
                     var data = JsonConvert.DeserializeObject<SessionData>(json);
                     if (data.Status == "connected")
                     {
-                        _currentSessionId = data.SessionId;
-                        _currentConnectorId = data.ConnectorId;
-                        _currentAccounts = data.Accounts;
-                        _currentChainId = data.ChainId;
-                        _status = ConnectionStatus.Connected;
+                        // Try to restore WC session
+                        if (_walletManager != null)
+                        {
+                            await _walletManager.InitializeAsync();
 
-                        var state = SessionState.Connected(data.Accounts, data.ChainId, data.SessionId, data.ConnectorId);
-                        EmitState(state);
-                        return state;
+                            var sessions = _walletManager.GetSessionInfo();
+                            if (sessions != null && !sessions.IsExpired)
+                            {
+                                _currentSessionId = data.SessionId;
+                                _currentConnectorId = data.ConnectorId;
+                                _currentAccounts = data.Accounts;
+                                _currentChainId = data.ChainId;
+                                _status = ConnectionStatus.Connected;
+
+                                var chain = GetChainById(data.ChainId);
+                                if (chain != null)
+                                {
+                                    _evmAdapter.Init(chain.RpcUrl, data.ChainId);
+                                }
+
+                                var state = SessionState.Connected(data.Accounts, data.ChainId, data.SessionId, data.ConnectorId);
+                                EmitState(state);
+                                return state;
+                            }
+                        }
                     }
                 }
                 catch
@@ -255,11 +300,45 @@ namespace OnChainUX
             return SessionState.Disconnected;
         }
 
+        // ─── Event Handlers ─────────────────────────────────────────────
+
         private void HandleWalletStatusChange(ConnectionStatus newStatus)
         {
             if (newStatus == ConnectionStatus.Error)
             {
                 OnErrorEvent?.Invoke("Wallet connection error");
+            }
+        }
+
+        private void HandleSessionConnected(SessionInfo session)
+        {
+            Log($"Session connected: {session.Topic}");
+        }
+
+        private void HandleSessionDisconnected(string topic)
+        {
+            if (_currentSessionId == topic)
+            {
+                _currentSessionId = null;
+                _status = ConnectionStatus.Disconnected;
+                OnWalletDisconnected?.Invoke();
+            }
+        }
+
+        private void HandleWalletError(Exception ex)
+        {
+            OnErrorEvent?.Invoke($"Wallet error: {ex.Message}");
+            Log($"Wallet error: {ex.Message}");
+        }
+
+        private void HandleQRCodeGenerated(string uri, string walletName)
+        {
+            Log($"QR code generated for {walletName}");
+            // Find ConnectModal and show QR
+            var modal = FindObjectOfType<OnChainUX.UI.ConnectModal>();
+            if (modal != null)
+            {
+                modal.ShowQR(uri, walletName);
             }
         }
 
@@ -308,6 +387,25 @@ namespace OnChainUX
         private void OnApplicationQuit()
         {
             _applicationIsQuitting = true;
+        }
+
+        private Chain GetChainById(int chainId)
+        {
+            return chainId switch
+            {
+                1 => Chain.Ethereum,
+                137 => Chain.Polygon,
+                42161 => Chain.Arbitrum,
+                10 => Chain.Optimism,
+                56 => new Chain {
+                    Id = "eip155:56",
+                    Name = "BNB Smart Chain",
+                    RpcUrl = "https://bsc-dataseed.binance.org",
+                    NativeCurrency = new NativeCurrency { Name = "BNB", Symbol = "BNB", Decimals = 18 },
+                    ExplorerUrl = "https://bscscan.com"
+                },
+                _ => null
+            };
         }
     }
 

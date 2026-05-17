@@ -10,6 +10,7 @@ namespace OnChainUX.UI
     /// 
     /// Attach to a GameObject with a Button and Text components.
     /// Automatically updates button text and color based on connection state.
+    /// Handles real wallet connection flow when OnChainUXManager is available.
     /// </summary>
     [RequireComponent(typeof(Button))]
     public class ConnectButton : MonoBehaviour
@@ -31,9 +32,14 @@ namespace OnChainUX.UI
         [SerializeField] private Image _buttonImage;
         [SerializeField] private GameObject _loadingIndicator;
 
+        [Header("Behavior")]
+        [SerializeField] private bool _autoConnect = false;
+        [SerializeField] private string[] _supportedWalletIds = { "metamask", "walletconnect", "rainbow", "trust", "coinbase" };
+
         private Button _button;
         private ConnectionStatus _currentStatus = ConnectionStatus.Disconnected;
         private string _currentAddress;
+        private ConnectModal _connectModal;
 
         private void Awake()
         {
@@ -48,11 +54,37 @@ namespace OnChainUX.UI
             _button.onClick.AddListener(HandleButtonClick);
         }
 
+        private void Start()
+        {
+            // Find ConnectModal in scene
+            _connectModal = FindObjectOfType<ConnectModal>();
+
+            // Attempt to restore session
+            if (_autoConnect && OnChainUXManager.Instance != null)
+            {
+                OnChainUXManager.Instance.RestoreAsync().ContinueWith(task =>
+                {
+                    if (task.Result.Status == ConnectionStatus.Connected)
+                    {
+                        UpdateUI(task.Result.Status,
+                            task.Result.Accounts != null && task.Result.Accounts.Length > 0
+                                ? FormatAddress(task.Result.Accounts[0])
+                                : null);
+                    }
+                });
+            }
+        }
+
         private void OnEnable()
         {
             if (OnChainUXManager.Instance != null)
             {
                 OnChainUXManager.Instance.OnStateChanged += HandleStateChange;
+                OnChainUXManager.Instance.OnWalletConnected += HandleWalletConnected;
+                OnChainUXManager.Instance.OnWalletDisconnected += HandleWalletDisconnected;
+                OnChainUXManager.Instance.OnErrorEvent += HandleError;
+
+                // Sync with current state
                 UpdateUI(OnChainUXManager.Instance.Status,
                     OnChainUXManager.Instance.IsConnected && OnChainUXManager.Instance.Accounts.Length > 0
                         ? FormatAddress(OnChainUXManager.Instance.Accounts[0])
@@ -65,12 +97,38 @@ namespace OnChainUX.UI
             if (OnChainUXManager.Instance != null)
             {
                 OnChainUXManager.Instance.OnStateChanged -= HandleStateChange;
+                OnChainUXManager.Instance.OnWalletConnected -= HandleWalletConnected;
+                OnChainUXManager.Instance.OnWalletDisconnected -= HandleWalletDisconnected;
+                OnChainUXManager.Instance.OnErrorEvent -= HandleError;
             }
         }
 
         private void HandleStateChange(SessionState state)
         {
-            UpdateUI(state.Status, state.Accounts != null && state.Accounts.Length > 0 ? FormatAddress(state.Accounts[0]) : null);
+            UpdateUI(state.Status,
+                state.Accounts != null && state.Accounts.Length > 0
+                    ? FormatAddress(state.Accounts[0])
+                    : null);
+        }
+
+        private void HandleWalletConnected(ConnectionResult result)
+        {
+            _currentAddress = result.Accounts != null && result.Accounts.Length > 0
+                ? FormatAddress(result.Accounts[0])
+                : "Connected";
+            UpdateUI(ConnectionStatus.Connected, _currentAddress);
+        }
+
+        private void HandleWalletDisconnected()
+        {
+            _currentAddress = null;
+            UpdateUI(ConnectionStatus.Disconnected, null);
+        }
+
+        private void HandleError(string error)
+        {
+            UpdateUI(ConnectionStatus.Error, _currentAddress);
+            Debug.LogWarning($"[OnChainUX:ConnectButton] Error: {error}");
         }
 
         private void HandleButtonClick()
@@ -79,11 +137,29 @@ namespace OnChainUX.UI
             {
                 case ConnectionStatus.Disconnected:
                 case ConnectionStatus.Error:
+                    // Reset error state and show wallet selection
                     OnConnectRequested?.Invoke();
+                    ShowWalletSelection();
                     break;
                 case ConnectionStatus.Connected:
+                    // Show account menu or disconnect option
                     OnConnectedClick?.Invoke();
                     break;
+            }
+        }
+
+        /// Show the wallet selection modal.
+        private void ShowWalletSelection()
+        {
+            if (_connectModal != null)
+            {
+                var wallets = WalletRegistry.GetAll();
+                _connectModal.Show(wallets, _supportedWalletIds);
+            }
+            else
+            {
+                Debug.LogWarning("[OnChainUX:ConnectButton] ConnectModal not found in scene. " +
+                    "Add a ConnectModal component or wire up OnConnectRequested event.");
             }
         }
 
@@ -98,24 +174,28 @@ namespace OnChainUX.UI
                     SetLabel(disconnectedLabel);
                     SetColor(disconnectedColor);
                     SetLoading(false);
+                    _button.interactable = true;
                     break;
 
                 case ConnectionStatus.Connecting:
                     SetLabel(connectingLabel);
                     SetColor(connectingColor);
                     SetLoading(true);
+                    _button.interactable = false;
                     break;
 
                 case ConnectionStatus.Connected:
                     SetLabel(string.Format(connectedFormat, address ?? "Connected"));
                     SetColor(connectedColor);
                     SetLoading(false);
+                    _button.interactable = true;
                     break;
 
                 case ConnectionStatus.Error:
                     SetLabel(errorLabel);
                     SetColor(errorColor);
                     SetLoading(false);
+                    _button.interactable = true;
                     break;
             }
         }

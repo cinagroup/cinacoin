@@ -15,6 +15,7 @@
  */
 
 import Foundation
+import UIKit
 
 /// Solana wallet information.
 public struct SolanaWalletInfo: Sendable {
@@ -23,13 +24,20 @@ public struct SolanaWalletInfo: Sendable {
     public let rdns: String
     public let icon: String
     public let downloadUrl: String
+    public let deepLinkScheme: String
+    public let appStoreId: String?
     
-    public init(id: String, name: String, rdns: String, icon: String, downloadUrl: String) {
+    public init(
+        id: String, name: String, rdns: String, icon: String,
+        downloadUrl: String, deepLinkScheme: String, appStoreId: String? = nil
+    ) {
         self.id = id
         self.name = name
         self.rdns = rdns
         self.icon = icon
         self.downloadUrl = downloadUrl
+        self.deepLinkScheme = deepLinkScheme
+        self.appStoreId = appStoreId
     }
 }
 
@@ -47,15 +55,27 @@ public final class SolanaChainAdapter: ObservableObject {
     
     /// Solana wallet presets.
     public static let wallets: [SolanaWalletInfo] = [
-        SolanaWalletInfo(id: "phantom", name: "Phantom", rdns: "app.phantom",
-                         icon: "https://phantom.app/img/phantom-icon.png",
-                         downloadUrl: "https://phantom.app/download"),
-        SolanaWalletInfo(id: "solflare", name: "Solflare", rdns: "app.solflare",
-                         icon: "https://solflare.com/icon.png",
-                         downloadUrl: "https://solflare.com/download"),
-        SolanaWalletInfo(id: "backpack", name: "Backpack", rdns: "app.backpack",
-                         icon: "https://backpack.app/icon.png",
-                         downloadUrl: "https://backpack.app/download"),
+        SolanaWalletInfo(
+            id: "phantom", name: "Phantom", rdns: "app.phantom",
+            icon: "https://phantom.app/img/phantom-icon.png",
+            downloadUrl: "https://phantom.app/download",
+            deepLinkScheme: "phantom://",
+            appStoreId: "1598431551"
+        ),
+        SolanaWalletInfo(
+            id: "solflare", name: "Solflare", rdns: "app.solflare",
+            icon: "https://solflare.com/icon.png",
+            downloadUrl: "https://solflare.com/download",
+            deepLinkScheme: "solflare://",
+            appStoreId: "1582870183"
+        ),
+        SolanaWalletInfo(
+            id: "backpack", name: "Backpack", rdns: "app.backpack",
+            icon: "https://backpack.app/icon.png",
+            downloadUrl: "https://backpack.app/download",
+            deepLinkScheme: "backpack://",
+            appStoreId: nil
+        ),
     ]
     
     /// Solana chain presets.
@@ -76,6 +96,9 @@ public final class SolanaChainAdapter: ObservableObject {
                     testnet: true),
     ]
     
+    /// Callback URL scheme for wallet deep link responses.
+    public var callbackUrlScheme: String?
+    
     public init() {}
     
     // MARK: - Configuration
@@ -90,13 +113,20 @@ public final class SolanaChainAdapter: ObservableObject {
         self.rpcUrl = url
     }
     
+    /// Set the connected wallet address.
+    public func setConnectedAddress(_ address: String) throws {
+        guard Self.isValidAddress(address) else {
+            throw SolanaError.invalidAddress(address)
+        }
+        connectedAddress = address
+    }
+    
     // MARK: - Address Validation
     
     /// Validate a Solana base58 address.
     /// - Parameter address: Address to validate.
     /// - Returns: Whether the address is valid.
     public static func isValidAddress(_ address: String) -> Bool {
-        // Base58 alphabet (no 0, O, I, l)
         let base58 = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
         guard address.count >= 32 && address.count <= 44 else { return false }
         return address.allSatisfy { base58.contains($0) }
@@ -189,22 +219,188 @@ public final class SolanaChainAdapter: ObservableObject {
         return signature
     }
     
-    // MARK: - Message Signing
+    /// Send a transaction with skipPreflight option.
+    /// - Parameters:
+    ///   - base64Tx: Base64-encoded serialized transaction.
+    ///   - skipPreflight: Skip preflight checks for faster submission.
+    /// - Returns: Transaction signature.
+    public func sendTransaction(_ base64Tx: String, skipPreflight: Bool) async throws -> String {
+        let response = try await rpcCall(
+            method: "sendTransaction",
+            params: [
+                base64Tx,
+                [
+                    "encoding": "base64",
+                    "skipPreflight": skipPreflight
+                ]
+            ]
+        )
+        guard let signature = response as? String else {
+            throw SolanaError.rpcError("Invalid sendTransaction response")
+        }
+        return signature
+    }
     
-    /// Sign a message with the connected wallet.
-    /// - Parameter message: Message to sign.
-    /// - Returns: Signature as a base58-encoded string.
-    public func signMessage(_ message: String) async throws -> String {
-        guard connectedAddress != nil else {
+    // MARK: - Message Signing (Real Wallet Deep Link)
+    
+    /// Sign a message with the connected wallet via deep link.
+    ///
+    /// Opens the wallet app (Phantom/Solflare) with the message for signing.
+    /// The wallet will callback to your app's URL scheme with the signature.
+    ///
+    /// - Parameters:
+    ///   - message: The message to sign (will be UTF-8 encoded).
+    ///   - walletId: Wallet identifier ("phantom", "solflare", etc.).
+    ///   - completion: Called with the base58-encoded signature or error.
+    /// - Note: Requires `connectedAddress` to be set.
+    public func signMessage(
+        _ message: String,
+        walletId: String = "phantom",
+        completion: @escaping (Result<String, Error>) -> Void
+    ) {
+        guard let address = connectedAddress else {
+            completion(.failure(SolanaError.notConnected))
+            return
+        }
+        
+        // Encode message as base64 (Solana wallet standard)
+        let messageData = message.data(using: .utf8) ?? Data()
+        let encodedMessage = messageData.base64EncodedString()
+        
+        // Build deep link URL
+        guard let url = buildSignMessageDeepLink(
+            walletId: walletId,
+            address: address,
+            message: encodedMessage
+        ) else {
+            completion(.failure(SolanaError.invalidParams))
+            return
+        }
+        
+        // Open the wallet app
+        DispatchQueue.main.async {
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url, options: [:]) { success in
+                    if !success {
+                        completion(.failure(
+                            SolanaError.rpcError("Failed to open wallet app")
+                        ))
+                    }
+                    // Signature will be delivered via URL callback
+                }
+            } else {
+                // Wallet not installed — redirect to App Store
+                self.openWalletStore(walletId: walletId)
+                completion(.failure(
+                    SolanaError.rpcError("Wallet app not installed. Redirecting to store.")
+                ))
+            }
+        }
+    }
+    
+    /// Sign a message with the connected wallet (async/await variant).
+    ///
+    /// This variant uses a URL callback to receive the signature.
+    /// The caller must handle the callback URL in their app delegate.
+    ///
+    /// - Parameters:
+    ///   - message: The message to sign.
+    ///   - walletId: Wallet identifier.
+    /// - Returns: URL to the wallet app (caller handles callback).
+    public func signMessageAsync(
+        _ message: String,
+        walletId: String = "phantom"
+    ) async throws -> URL {
+        guard let address = connectedAddress else {
             throw SolanaError.notConnected
         }
         
-        let bytes = [UInt8](message.utf8)
-        let encodedMessage = Data(bytes).base64EncodedString()
+        let messageData = message.data(using: .utf8) ?? Data()
+        let encodedMessage = messageData.base64EncodedString()
         
-        // In production: send to wallet for signing
-        // This is a placeholder for the actual wallet integration
-        throw SolanaError.notImplemented("Message signing requires wallet integration")
+        guard let url = buildSignMessageDeepLink(
+            walletId: walletId,
+            address: address,
+            message: encodedMessage
+        ) else {
+            throw SolanaError.invalidParams
+        }
+        
+        guard UIApplication.shared.canOpenURL(url) else {
+            throw SolanaError.rpcError("Wallet app not installed")
+        }
+        
+        return url
+    }
+    
+    /// Sign a transaction via wallet deep link.
+    ///
+    /// - Parameters:
+    ///   - base64Tx: Base64-encoded transaction.
+    ///   - walletId: Wallet identifier.
+    /// - Returns: URL to the wallet app.
+    public func signTransactionAsync(
+        _ base64Tx: String,
+        walletId: String = "phantom"
+    ) async throws -> URL {
+        guard let address = connectedAddress else {
+            throw SolanaError.notConnected
+        }
+        
+        guard let url = buildSignTransactionDeepLink(
+            walletId: walletId,
+            address: address,
+            transaction: base64Tx
+        ) else {
+            throw SolanaError.invalidParams
+        }
+        
+        guard UIApplication.shared.canOpenURL(url) else {
+            throw SolanaError.rpcError("Wallet app not installed")
+        }
+        
+        return url
+    }
+    
+    // MARK: - Wallet Deep Linking
+    
+    /// Connect to a Solana wallet via deep link.
+    ///
+    /// Opens the wallet app to initiate a connection flow.
+    /// - Parameters:
+    ///   - walletId: Wallet identifier ("phantom", "solflare", etc.).
+    /// - Returns: Whether the wallet was opened successfully.
+    @discardableResult
+    public func connectWallet(walletId: String) -> Bool {
+        guard let wallet = Self.wallets.first(where: { $0.id == walletId }) else {
+            return false
+        }
+        
+        let deepLink = "\(wallet.deepLinkScheme)connect"
+        guard let url = URL(string: deepLink) else { return false }
+        
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:])
+            return true
+        } else {
+            // Open App Store
+            openWalletStore(walletId: walletId)
+            return false
+        }
+    }
+    
+    /// Check if a Solana wallet is installed.
+    public func isWalletInstalled(walletId: String) -> Bool {
+        guard let wallet = Self.wallets.first(where: { $0.id == walletId }) else {
+            return false
+        }
+        let url = URL(string: wallet.deepLinkScheme)!
+        return UIApplication.shared.canOpenURL(url)
+    }
+    
+    /// Disconnect the current wallet.
+    public func disconnect() {
+        connectedAddress = nil
     }
     
     // MARK: - SPL Tokens
@@ -254,9 +450,20 @@ public final class SolanaChainAdapter: ObservableObject {
             guard let msg = params.first as? String else {
                 throw SolanaError.invalidParams
             }
-            return try await signMessage(msg)
+            throw SolanaError.notImplemented(
+                "Message signing requires wallet deep link. Use signMessage(_:walletId:completion:)"
+            )
         case "solana_getLatestBlockhash":
             return try await getLatestBlockhash()
+        case "solana_getAccountInfo":
+            guard let address = params.first as? String else {
+                throw SolanaError.invalidParams
+            }
+            return try await getAccountInfo(address)
+        case "solana_getVersion":
+            return try await getVersion()
+        case "solana_getEpochInfo":
+            return try await getEpochInfo()
         default:
             throw SolanaError.unsupportedMethod(method)
         }
@@ -279,9 +486,8 @@ public final class SolanaChainAdapter: ObservableObject {
         String(format: "%.6f", Double(lamports) / 1e9)
     }
     
-    // MARK: - Private
-    
-    private func getLatestBlockhash() async throws -> [String: Any] {
+    /// Get recent blockhash.
+    public func getLatestBlockhash() async throws -> [String: Any] {
         let response = try await rpcCall(method: "getLatestBlockhash")
         guard let result = response as? [String: Any],
               let value = result["value"] as? [String: Any] else {
@@ -289,6 +495,105 @@ public final class SolanaChainAdapter: ObservableObject {
         }
         return value
     }
+    
+    /// Get account info.
+    public func getAccountInfo(_ address: String) async throws -> Any {
+        guard Self.isValidAddress(address) else {
+            throw SolanaError.invalidAddress(address)
+        }
+        return try await rpcCall(
+            method: "getAccountInfo",
+            params: [address, ["encoding": "base64"]]
+        )
+    }
+    
+    /// Get cluster version.
+    public func getVersion() async throws -> String {
+        let response = try await rpcCall(method: "getVersion")
+        guard let result = response as? [String: Any],
+              let version = result["solana-core"] as? String else {
+            throw SolanaError.rpcError("Invalid version response")
+        }
+        return version
+    }
+    
+    /// Get epoch info.
+    public func getEpochInfo() async throws -> Any {
+        try await rpcCall(method: "getEpochInfo")
+    }
+    
+    // MARK: - Private: Deep Link Building
+    
+    /// Build a deep link URL for message signing.
+    private func buildSignMessageDeepLink(
+        walletId: String,
+        address: String,
+        message: String
+    ) -> URL? {
+        guard let wallet = Self.wallets.first(where: { $0.id == walletId }) else {
+            return nil
+        }
+        
+        var components = URLComponents()
+        components.scheme = wallet.deepLinkScheme.replacingOccurrences(
+            of: "://", with: ""
+        )
+        components.host = "signMessage"
+        components.queryItems = [
+            URLQueryItem(name: "address", value: address),
+            URLQueryItem(name: "message", value: message),
+        ]
+        
+        if let callbackScheme = callbackUrlScheme {
+            components.queryItems?.append(
+                URLQueryItem(name: "callback", value: "\(callbackScheme)://sign-callback")
+            )
+        }
+        
+        return components.url
+    }
+    
+    /// Build a deep link URL for transaction signing.
+    private func buildSignTransactionDeepLink(
+        walletId: String,
+        address: String,
+        transaction: String
+    ) -> URL? {
+        guard let wallet = Self.wallets.first(where: { $0.id == walletId }) else {
+            return nil
+        }
+        
+        var components = URLComponents()
+        components.scheme = wallet.deepLinkScheme.replacingOccurrences(
+            of: "://", with: ""
+        )
+        components.host = "signTransaction"
+        components.queryItems = [
+            URLQueryItem(name: "address", value: address),
+            URLQueryItem(name: "transaction", value: transaction),
+        ]
+        
+        if let callbackScheme = callbackUrlScheme {
+            components.queryItems?.append(
+                URLQueryItem(name: "callback", value: "\(callbackScheme)://sign-callback")
+            )
+        }
+        
+        return components.url
+    }
+    
+    /// Open the App Store page for a wallet.
+    private func openWalletStore(walletId: String) {
+        if let wallet = Self.wallets.first(where: { $0.id == walletId }),
+           let appStoreId = wallet.appStoreId {
+            let appStoreUrl = "https://apps.apple.com/app/id\(appStoreId)"
+            if let url = URL(string: appStoreUrl) {
+                UIApplication.shared.open(url)
+            }
+        }
+    }
+    
+    // MARK: - Private: RPC
     
     private func rpcCall(method: String, params: [Any] = []) async throws -> Any {
         let body: [String: Any] = [

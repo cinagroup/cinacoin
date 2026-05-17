@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OnChainUX CDN Demo</title>
+  <style>
+    body {
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 0 20px;
+      background: #F8FAFC;
+      color: #0F172A;
+    }
+    h1 { font-size: 24px; margin-bottom: 8px; }
+    p { color: #64748B; margin-bottom: 24px; }
+    .demo-section {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+    .demo-section h2 { font-size: 16px; margin: 0 0 16px; }
+    code { background: #F1F5F9; padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+    pre { background: #0F172A; color: #E2E8F0; padding: 16px; border-radius: 8px; overflow-x: auto; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <h1>OnChainUX CDN Demo</h1>
+  <p>Script-tag usage for ConnectButton and ConnectModal components.</p>
+
+  <!-- Demo: ConnectButton -->
+  <div class="demo-section">
+    <h2>ConnectButton</h2>
+    <div id="connect-button"></div>
+  </div>
+
+  <!-- Demo: ConnectModal -->
+  <div class="demo-section">
+    <h2>ConnectModal</h2>
+    <div id="connect-modal"></div>
+    <div style="margin-top: 12px;">
+      <button onclick="OnChainUX.showModal()" style="padding: 8px 16px; background: #6366F1; color: white; border: none; border-radius: 8px; cursor: pointer; margin-right: 8px;">
+        Show Modal
+      </button>
+      <button onclick="OnChainUX.hideModal()" style="padding: 8px 16px; background: #E2E8F0; border: none; border-radius: 8px; cursor: pointer;">
+        Hide Modal
+      </button>
+    </div>
+  </div>
+
+  <!-- Demo: API Info -->
+  <div class="demo-section">
+    <h2>API Status</h2>
+    <p>Version: <code id="version">—</code></p>
+    <p>Button State: <code id="btn-state">—</code></p>
+    <p>Button Address: <code id="btn-address">—</code></p>
+    <p>Modal View: <code id="modal-view">—</code></p>
+    <button onclick="updateStatus()" style="padding: 8px 16px; background: #E2E8F0; border: none; border-radius: 8px; cursor: pointer;">
+      Refresh Status
+    </button>
+  </div>
+
+  <!-- Demo: Code Example -->
+  <div class="demo-section">
+    <h2>Usage Example</h2>
+    <pre>
+&lt;script&gt;
+  window.OnChainUX = {
+    projectId: 'YOUR_PROJECT_ID',
+    theme: 'dark',
+    primaryColor: '#6366F1',
+    chains: [1, 10, 137],
+  };
+&lt;/script&gt;
+&lt;script src="https://cdn.onchainux.dev/connect.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  OnChainUX.renderConnectButton('#my-button', {
+    size: 'lg',
+    onConnect: (addr) => console.log(addr),
+  });
+&lt;/script&gt;</pre>
+  </div>
+
+  <!-- CDN script (use local build for demo) -->
+  <script src="../dist/cdn.js"></script>
+
+  <!-- Demo logic -->
+  <script>
+    // Configure OnChainUX before rendering
+    window.OnChainUXConfig = {
+      projectId: 'demo-project-id',
+      theme: 'light',
+      primaryColor: '#6366F1',
+      chains: [1, 10, 137],
+    };
+
+    // Render ConnectButton
+    OnChainUX.renderConnectButton('#connect-button', {
+      size: 'lg',
+      variant: 'primary',
+      label: 'Connect Wallet',
+      onConnect: function(address) {
+        console.log('Connected:', address);
+        updateStatus();
+      },
+      onDisconnect: function() {
+        console.log('Disconnected');
+        updateStatus();
+      },
+    });
+
+    // Render ConnectModal
+    OnChainUX.renderConnectModal('#connect-modal', {
+      wallets: [
+        { id: 'metamask', name: 'MetaMask', installed: true },
+        { id: 'walletconnect', name: 'WalletConnect' },
+        { id: 'coinbase', name: 'Coinbase Wallet' },
+        { id: 'rainbow', name: 'Rainbow' },
+      ],
+      onConnect: function(address) {
+        console.log('Modal connected:', address);
+        updateStatus();
+      },
+    });
+
+    function updateStatus() {
+      document.getElementById('version').textContent = OnChainUX.version;
+      document.getElementById('btn-state').textContent = OnChainUX.getButtonState();
+      document.getElementById('btn-address').textContent = OnChainUX.getButtonAddress() || '—';
+      document.getElementById('modal-view').textContent = OnChainUX.getModalView();
+    }
+
+    updateStatus();
+  </script>
+</body>
+</html>
