@@ -1,0 +1,6 @@
+appId: com.onchainux.demo
+---
+- runFlow: subflows/launch.yaml
+- tapOn: { id: "chain_selector" }
+- tapOn: { text: "Polygon" }
+- assertVisible: { id: "chain_badge", text: "POL" }
