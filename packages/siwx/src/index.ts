@@ -2,7 +2,7 @@
  * @cinaconnect/siwx — Sign-In with Cross-chain (SIWX)
  *
  * Unified authentication across EVM (EIP-4361), Solana (ed25519),
- * and Bitcoin (BIP-322) chains.
+ * Bitcoin (BIP-322), TON, Tron, and custom chains.
  *
  * @packageDocumentation
  */
@@ -28,6 +28,32 @@ export {
   verifyBitcoinSignature,
   parseBitcoinMessage,
 } from './chains/bitcoin.js';
+
+// Verifier Registry
+export {
+  VerifierRegistry,
+  defaultVerifierRegistry,
+} from './verifier-registry.js';
+
+export type {
+  VerifierFn,
+  VerifierDescriptor,
+  RegisterVerifierOptions,
+} from './verifier-registry.js';
+
+// Cloud Authentication (Reown Dashboard compatible)
+export { CloudAuth, useCloudAuth } from './cloud-auth.js';
+
+export type {
+  CloudSession,
+  VerifyResult,
+  CloudAuthConfig,
+  CloudAuthEvent,
+  CloudAuthEventHandler,
+} from './cloud-auth.js';
+
+// React Hooks for Cloud Auth
+export { useCloudSession, useCloudAuthEvents } from './cloud-hooks.js';
 
 // Types
 export type {

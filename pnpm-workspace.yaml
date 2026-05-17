@@ -1,4 +1,4 @@
 packages:
-  - 'packages/*'
-  - 'apps/*'
-  - '!packages/unity-csharp'
+  - "packages/*"
+  - "apps/*"
+  - "examples/*"

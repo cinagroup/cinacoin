@@ -66,6 +66,16 @@ export default defineConfig({
             { text: '常见问题与解决方案', link: '/guide/troubleshooting' },
           ],
         },
+        {
+          text: 'Reference',
+          items: [
+            { text: 'Error Code Reference', link: '/guide/error-codes' },
+            { text: 'FAQ', link: '/guide/faq' },
+            { text: 'Security Best Practices', link: '/guide/security' },
+            { text: 'Go-To-Market Checklist', link: '/guide/gtm-checklist' },
+            { text: 'AI Skills Integration', link: '/guide/ai-skills' },
+          ],
+        },
       ],
       '/api/': [
         {

@@ -1,0 +1,43 @@
+{
+  "name": "@cinaconnect/nuxt",
+  "version": "0.1.0",
+  "description": "Nuxt 3 module for CinaConnect wallet connection",
+  "license": "MIT",
+  "main": "./dist/module.mjs",
+  "types": "./dist/types.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/types.d.ts",
+      "import": "./dist/module.mjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "nuxt-module-build build",
+    "dev": "nuxi dev playground",
+    "dev:build": "nuxi build playground",
+    "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
+    "lint": "eslint .",
+    "typecheck": "nuxi typecheck"
+  },
+  "dependencies": {
+    "@cinaconnect/core-sdk": "workspace:*",
+    "@cinaconnect/vue": "workspace:*",
+    "@nuxt/kit": "^3.15.0",
+    "nuxt": "^3.15.0"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "^2.0.0",
+    "@nuxt/module-builder": "^0.8.0",
+    "nuxi": "^3.20.0",
+    "typescript": "^5.7.0"
+  },
+  "peerDependencies": {
+    "@cinaconnect/core-sdk": "workspace:*",
+    "nuxt": "^3.15.0"
+  },
+  "packageManager": "pnpm@9.15.0"
+}
