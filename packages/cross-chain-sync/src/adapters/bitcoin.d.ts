@@ -1,0 +1,23 @@
+/**
+ * Bitcoin State Sync Adapter
+ *
+ * Syncs state for Bitcoin accounts (including Taproot and legacy).
+ */
+import type { ChainAccount, SessionState, StateStorage } from "./types.js.js";
+/** Bitcoin-specific account info */
+export interface BitcoinAccount extends ChainAccount {
+    chain: "bitcoin";
+    /** Address type (legacy, segwit, taproot) */
+    addressType: "legacy" | "segwit" | "taproot";
+    /** UTXO count */
+    utxoCount?: number;
+}
+/**
+ * Sync Bitcoin chain state.
+ */
+export declare function syncBitcoinState(account: BitcoinAccount, storage: StateStorage): Promise<boolean>;
+/**
+ * Fetch Bitcoin session from storage.
+ */
+export declare function getBitcoinSession(address: string, storage: StateStorage): Promise<SessionState | null>;
+//# sourceMappingURL=bitcoin.d.ts.map

@@ -1,0 +1,24 @@
+import type { Meta, StoryObj } from '@storybook/react';
+declare function MockWalletButton({ walletId, variant, size, isLoading, disabled, label, showConnectedBadge, isConnected, onClick, className, }: any): JSX.Element | null;
+declare const meta: Meta<typeof MockWalletButton>;
+export default meta;
+type Story = StoryObj<typeof MockWalletButton>;
+export declare const MetaMask: Story;
+export declare const WalletConnect: Story;
+export declare const Coinbase: Story;
+export declare const Rainbow: Story;
+export declare const Phantom: Story;
+export declare const DefaultVariant: Story;
+export declare const BrandVariant: Story;
+export declare const MinimalVariant: Story;
+export declare const RoundVariant: Story;
+export declare const WithConnectedBadge: Story;
+export declare const Loading: Story;
+export declare const Disabled: Story;
+export declare const Small: Story;
+export declare const Medium: Story;
+export declare const Large: Story;
+export declare const AllWallets: Story;
+export declare const AllWalletsBrand: Story;
+export declare const AllWalletsRound: Story;
+//# sourceMappingURL=WalletButton.stories.d.ts.map

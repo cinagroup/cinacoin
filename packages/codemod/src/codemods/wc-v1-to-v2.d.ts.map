@@ -1,0 +1,1 @@
+{"version":3,"file":"wc-v1-to-v2.d.ts","sourceRoot":"","sources":["wc-v1-to-v2.ts"],"names":[],"mappings":"AAAA;;;;;;;;GAQG;AAEH,MAAM,WAAW,aAAa;IAC5B,WAAW,EAAE,OAAO,CAAC;IACrB,QAAQ,EAAE,MAAM,CAAC;IACjB,MAAM,EAAE,MAAM,CAAC;IACf,OAAO,EAAE,MAAM,EAAE,CAAC;CACnB;AAwID;;GAEG;AACH,wBAAgB,iBAAiB,CAAC,MAAM,EAAE,MAAM,GAAG,aAAa,CA0B/D"}

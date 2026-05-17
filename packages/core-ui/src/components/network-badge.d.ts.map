@@ -1,0 +1,1 @@
+{"version":3,"file":"network-badge.d.ts","sourceRoot":"","sources":["network-badge.ts"],"names":[],"mappings":"AAAA;;;;;;;;;;GAUG;AAIH,OAAO,EAAE,cAAc,EAAE,MAAM,+BAA+B,CAAC;AAE/D,qBACa,YAAa,SAAQ,cAAc;IAC9C,WAAoB,MAAM,8BAuCzB;IAEW,IAAI,SAAM;IACV,OAAO,SAAM;IAEhB,MAAM;CAWhB;AAED,OAAO,CAAC,MAAM,CAAC;IACb,UAAU,qBAAqB;QAC7B,mBAAmB,EAAE,YAAY,CAAC;KACnC;CACF"}

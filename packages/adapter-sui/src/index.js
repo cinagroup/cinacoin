@@ -1,0 +1,47 @@
+/**
+ * CinaConnect Sui Adapter — Sui chain adapter package.
+ *
+ * Provides a {@link SuiChainAdapter} that implements the
+ * {@link ChainAdapter} interface from @cinaconnect/core-sdk,
+ * plus wallet connectors for Sui Wallet, Suiet, Ethos, and Martian.
+ *
+ * @packageDocumentation
+ * @example
+ * ```ts
+ * import { SuiChainAdapter, SUI_CHAINS, SUI_WALLETS } from '@cinaconnect/adapter-sui';
+ *
+ * const adapter = new SuiChainAdapter();
+ * adapter.registerChains(SUI_CHAINS);
+ *
+ * // Connect to the first available wallet
+ * const address = await adapter.connect();
+ * console.log('Connected:', address);
+ *
+ * // Query balance
+ * const balance = await adapter.getBalance(address);
+ * console.log(`${balance} SUI`);
+ *
+ * // Query a Sui object
+ * const obj = await adapter.getObject('0x2::sui::SUI');
+ * ```
+ */
+/* ------------------------------------------------------------------ */
+/*  Adapter                                                            */
+/* ------------------------------------------------------------------ */
+export { SuiChainAdapter, SUI_CHAINS, SUI_WALLETS, mistToSui, suiToMist, } from './SuiAdapter.js';
+/* ------------------------------------------------------------------ */
+/*  Connectors                                                         */
+/* ------------------------------------------------------------------ */
+export { SuiWalletConnector } from './connectors/sui-wallet.js';
+export { SuietConnector } from './connectors/suiet.js';
+export { EthosConnector } from './connectors/ethos.js';
+export { MartianConnector } from './connectors/martian.js';
+/* ------------------------------------------------------------------ */
+/*  Types                                                              */
+/* ------------------------------------------------------------------ */
+export { isValidSuiAddress } from './types.js';
+/**
+ * Package version.
+ */
+export const VERSION = '0.1.0';
+//# sourceMappingURL=index.js.map

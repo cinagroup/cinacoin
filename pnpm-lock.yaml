@@ -455,6 +455,9 @@ importers:
 
   packages/core-sdk:
     dependencies:
+      '@cinaconnect/siwe':
+        specifier: workspace:*
+        version: link:../siwe
       '@noble/ciphers':
         specifier: ^2.2.0
         version: 2.2.0
@@ -944,7 +947,7 @@ importers:
     dependencies:
       '@cinaconnect/core-sdk':
         specifier: file:../core-sdk
-        version: link:../core-sdk
+        version: file:packages/core-sdk(@types/react@19.2.14)(react@19.2.6)(typescript@5.9.3)
     devDependencies:
       '@sveltejs/kit':
         specifier: ^2.0.0
@@ -11761,11 +11764,29 @@ snapshots:
 
   '@cinaconnect/core-sdk@file:packages/core-sdk(@types/react@18.3.28)(react@18.3.1)(typescript@5.9.3)':
     dependencies:
+      '@cinaconnect/siwe': link:packages/siwe
       '@noble/ciphers': 2.2.0
       '@noble/curves': 2.2.0
       '@noble/hashes': 2.2.0
       viem: 2.49.3(typescript@5.9.3)
       zustand: 4.5.7(@types/react@18.3.28)(react@18.3.1)
+    transitivePeerDependencies:
+      - '@types/react'
+      - bufferutil
+      - immer
+      - react
+      - typescript
+      - utf-8-validate
+      - zod
+
+  '@cinaconnect/core-sdk@file:packages/core-sdk(@types/react@19.2.14)(react@19.2.6)(typescript@5.9.3)':
+    dependencies:
+      '@cinaconnect/siwe': link:packages/siwe
+      '@noble/ciphers': 2.2.0
+      '@noble/curves': 2.2.0
+      '@noble/hashes': 2.2.0
+      viem: 2.49.3(typescript@5.9.3)
+      zustand: 4.5.7(@types/react@19.2.14)(react@19.2.6)
     transitivePeerDependencies:
       - '@types/react'
       - bufferutil
@@ -19107,8 +19128,8 @@ snapshots:
   ox@0.4.4(typescript@5.9.3):
     dependencies:
       '@adraffy/ens-normalize': 1.11.1
-      '@noble/curves': 1.7.0
-      '@noble/hashes': 1.6.1
+      '@noble/curves': 1.9.7
+      '@noble/hashes': 1.8.0
       '@scure/bip32': 1.7.0
       '@scure/bip39': 1.6.0
       abitype: 1.2.4(typescript@5.9.3)

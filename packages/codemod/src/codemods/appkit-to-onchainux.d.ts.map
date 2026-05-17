@@ -1,0 +1,1 @@
+{"version":3,"file":"appkit-to-onchainux.d.ts","sourceRoot":"","sources":["appkit-to-onchainux.ts"],"names":[],"mappings":"AAAA;;;;;;;;;;;;;GAaG;AAEH,MAAM,WAAW,aAAa;IAC5B,WAAW,EAAE,OAAO,CAAC;IACrB,QAAQ,EAAE,MAAM,CAAC;IACjB,MAAM,EAAE,MAAM,CAAC;IACf,OAAO,EAAE,MAAM,EAAE,CAAC;CACnB;AAsED;;GAEG;AACH,wBAAgB,4BAA4B,CAAC,MAAM,EAAE,MAAM,GAAG,aAAa,CAuC1E"}
