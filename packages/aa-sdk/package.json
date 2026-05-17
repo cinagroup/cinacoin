@@ -1,7 +1,7 @@
 {
-  "name": "@onchainux/aa-sdk",
+  "name": "@cinaconnect/aa-sdk",
   "version": "0.1.0",
-  "description": "OnChainUX Account Abstraction SDK — Smart accounts, paymaster, and bundler client",
+  "description": "CinaConnect Account Abstraction SDK — Smart accounts, paymaster, and bundler client",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",

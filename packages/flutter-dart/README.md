@@ -1,4 +1,4 @@
-# OnChainUX Flutter SDK
+# CinaConnect Flutter SDK
 
 Self-hosted wallet connection toolkit for Flutter apps. A complete replacement for Reown/WalletConnect infrastructure.
 
@@ -8,9 +8,9 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  onchainux:
+  cinaconnect:
     git:
-      url: https://github.com/hainai/onchainux.git
+      url: https://github.com/hainai/cinaconnect.git
       path: packages/flutter-dart
 ```
 
@@ -18,13 +18,13 @@ Or from pub.dev (when published):
 
 ```yaml
 dependencies:
-  onchainux: ^0.1.0
+  cinaconnect: ^0.1.0
 ```
 
 ## Quick Start
 
 ```dart
-import 'package:onchainux/onchainux.dart';
+import 'package:cinaconnect/cinaconnect.dart';
 
 // 1. Initialize
 final walletManager = WalletManager(
@@ -61,12 +61,12 @@ await manager.signMessage('message');
 await manager.disconnect();
 ```
 
-### OnChainUXConnectButton
+### CinaConnectConnectButton
 
 Material Design connect button widget.
 
 ```dart
-OnChainUXConnectButton(
+CinaConnectConnectButton(
   status: ConnectionStatus.connected,
   account: '0x1234...abcd',
   showAvatar: true,
@@ -75,14 +75,14 @@ OnChainUXConnectButton(
 )
 ```
 
-### OnChainUXConnectModal
+### CinaConnectConnectModal
 
 Bottom sheet modal with wallet list.
 
 ```dart
 showModalBottomSheet(
   context: context,
-  builder: (_) => OnChainUXConnectModal(
+  builder: (_) => CinaConnectConnectModal(
     wallets: WalletRegistry.getAll(),
     onWalletSelect: (wallet) => connect(wallet.id),
   ),

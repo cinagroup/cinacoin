@@ -1,5 +1,5 @@
 /**
- * Passkey authentication types for @onchainux/passkey-auth
+ * Passkey authentication types for @cinaconnect/passkey-auth
  */
 
 export interface PublicKeyCredentialCreationOptionsJSON {

@@ -1,7 +1,7 @@
 /**
- * @onchainux/core-ui
+ * @cinaconnect/core-ui
  *
- * Main exports for OnChainUX Web Components.
+ * Main exports for CinaConnect Web Components.
  * Import this module to register all custom elements.
  */
 

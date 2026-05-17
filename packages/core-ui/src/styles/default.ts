@@ -1,8 +1,8 @@
 /**
- * Default CSS styles for OnChainUX components.
+ * Default CSS styles for CinaConnect components.
  *
  * Provides CSS custom property defaults and global resets that are applied
- * when the @onchainux/design-tokens package is loaded.
+ * when the @cinaconnect/design-tokens package is loaded.
  */
 
 import { css } from 'lit';

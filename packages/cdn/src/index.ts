@@ -1,12 +1,12 @@
 /**
- * @onchainux/cdn
+ * @cinaconnect/cdn
  *
  * CDN bundle entry point.
- * Exposes global window.OnChainUX namespace for script-tag usage.
+ * Exposes global window.CinaConnect namespace for script-tag usage.
  */
 
 import { getConfig, validateConfig } from "./config.js.js";
-import type { OnChainUXConfig } from "./config.js.js";
+import type { CinaConnectConfig } from "./config.js.js";
 import {
   renderConnectButton,
   getConnectButtonState,
@@ -27,12 +27,12 @@ import { loadModule, isLoaded, getModule, clearCache, preloadModules } from "./l
 import type { LoadState, LoadResult } from "./loader.js.js";
 
 // ============================================================
-// Global API — mounted on window.OnChainUX
+// Global API — mounted on window.CinaConnect
 // ============================================================
 
-export interface OnChainUXAPI {
+export interface CinaConnectAPI {
   // Config
-  config: () => OnChainUXConfig;
+  config: () => CinaConnectConfig;
   validate: () => string[];
 
   // ConnectButton
@@ -63,11 +63,11 @@ export interface OnChainUXAPI {
 // Attach to window if in browser
 declare global {
   interface Window {
-    OnChainUX: OnChainUXAPI;
+    CinaConnect: CinaConnectAPI;
   }
 }
 
-const api: OnChainUXAPI = {
+const api: CinaConnectAPI = {
   config: getConfig,
   validate: () => validateConfig(getConfig()),
   renderConnectButton,
@@ -89,12 +89,12 @@ const api: OnChainUXAPI = {
 };
 
 if (typeof window !== "undefined") {
-  window.OnChainUX = api;
+  window.CinaConnect = api;
 }
 
 export { getConfig, validateConfig };
 export { renderConnectButton, getConnectButtonState, disconnect };
 export { renderConnectModal, showModal, hideModal, toggleModal, getCurrentView };
 export { loadModule, isLoaded, getModule, clearCache, preloadModules };
-export type { OnChainUXConfig, ConnectButtonOptions, ConnectModalOptions, LoadState, LoadResult };
+export type { CinaConnectConfig, ConnectButtonOptions, ConnectModalOptions, LoadState, LoadResult };
 export default api;

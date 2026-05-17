@@ -4,14 +4,14 @@
  * Handles wallet discovery, connection via WalletConnectKotlin SDK,
  * SIWE signing, balance fetching, deep linking, and state management.
  */
-package com.onchainux.wallet
+package com.cinaconnect.wallet
 
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import com.onchainux.core.*
-import com.onchainux.deeplink.DeepLinkHandler
-import com.onchainux.walletconnect.*
+import com.cinaconnect.core.*
+import com.cinaconnect.deeplink.DeepLinkHandler
+import com.cinaconnect.walletconnect.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -36,7 +36,7 @@ class WalletManager {
     var sessionId: String? = null
         private set
 
-    private var config: OnChainUXConfig? = null
+    private var config: CinaConnectConfig? = null
     private var context: Context? = null
 
     // Real WC v2 client
@@ -45,7 +45,7 @@ class WalletManager {
     /**
      * Configure the wallet manager.
      */
-    fun configure(context: Context, config: OnChainUXConfig) {
+    fun configure(context: Context, config: CinaConnectConfig) {
         this.context = context.applicationContext
         this.config = config
 
@@ -55,10 +55,10 @@ class WalletManager {
                 context = context,
                 projectId = config.projectId,
                 metadata = config.metadata ?: AppMetadata(
-                    name = "OnChainUX dApp",
+                    name = "CinaConnect dApp",
                     description = "",
-                    url = "https://onchainux.io",
-                    icons = listOf("https://onchainux.io/icon.png")
+                    url = "https://cinaconnect.io",
+                    icons = listOf("https://cinaconnect.io/icon.png")
                 ),
                 chains = config.chains.map { "eip155:${it.chainId}" }
             )
@@ -258,7 +258,7 @@ class WalletManager {
             domain = domain,
             address = account.address,
             statement = statement,
-            uri = uri ?: cfg.metadata?.url ?: "https://onchainux.io",
+            uri = uri ?: cfg.metadata?.url ?: "https://cinaconnect.io",
             chainId = chainId ?: account.chainId,
             nonce = nonce,
             issuedAt = issuedAt
@@ -351,7 +351,7 @@ class WalletManager {
         }
     }
 
-    private fun buildDefaultConnectors(config: OnChainUXConfig): List<ConnectorInfo> {
+    private fun buildDefaultConnectors(config: CinaConnectConfig): List<ConnectorInfo> {
         return listOf(
             ConnectorInfo("metamask", "MetaMask", type = ConnectorType.WALLETCONNECT),
             ConnectorInfo("walletconnect", "WalletConnect", type = ConnectorType.WALLETCONNECT),

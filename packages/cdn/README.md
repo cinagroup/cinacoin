@@ -1,6 +1,6 @@
-# @onchainux/cdn
+# @cinaconnect/cdn
 
-CDN bundle for OnChainUX — use ConnectButton and ConnectModal via `<script>` tag. No build tools required.
+CDN bundle for CinaConnect — use ConnectButton and ConnectModal via `<script>` tag. No build tools required.
 
 ## Quick Start
 
@@ -16,7 +16,7 @@ CDN bundle for OnChainUX — use ConnectButton and ConnectModal via `<script>` t
 
   <!-- Configure before loading -->
   <script>
-    window.OnChainUX = {
+    window.CinaConnect = {
       projectId: 'YOUR_WALLETCONNECT_PROJECT_ID',
       theme: 'dark',
       primaryColor: '#6366F1',
@@ -25,12 +25,12 @@ CDN bundle for OnChainUX — use ConnectButton and ConnectModal via `<script>` t
   </script>
 
   <!-- Load CDN bundle -->
-  <script src="https://cdn.onchainux.dev/connect.js"></script>
+  <script src="https://cdn.cinaconnect.dev/connect.js"></script>
 
   <!-- Render components -->
   <script>
     // Render a ConnectButton
-    OnChainUX.renderConnectButton('#connect-button', {
+    CinaConnect.renderConnectButton('#connect-button', {
       size: 'lg',
       label: 'Connect',
       onConnect: (address) => console.log('Connected:', address),
@@ -38,7 +38,7 @@ CDN bundle for OnChainUX — use ConnectButton and ConnectModal via `<script>` t
     });
 
     // Render a ConnectModal
-    OnChainUX.renderConnectModal('#connect-modal', {
+    CinaConnect.renderConnectModal('#connect-modal', {
       wallets: [
         { id: 'metamask', name: 'MetaMask', installed: true },
         { id: 'walletconnect', name: 'WalletConnect' },
@@ -47,9 +47,9 @@ CDN bundle for OnChainUX — use ConnectButton and ConnectModal via `<script>` t
     });
 
     // Control modal programmatically
-    OnChainUX.showModal();
-    OnChainUX.hideModal();
-    OnChainUX.toggleModal();
+    CinaConnect.showModal();
+    CinaConnect.hideModal();
+    CinaConnect.toggleModal();
   </script>
 </body>
 </html>
@@ -57,7 +57,7 @@ CDN bundle for OnChainUX — use ConnectButton and ConnectModal via `<script>` t
 
 ## Configuration
 
-Set `window.OnChainUX` before loading the script:
+Set `window.CinaConnect` before loading the script:
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
@@ -72,7 +72,7 @@ Set `window.OnChainUX` before loading the script:
 ### ConnectButton
 
 ```ts
-OnChainUX.renderConnectButton(selector: string, options?: ConnectButtonOptions): void
+CinaConnect.renderConnectButton(selector: string, options?: ConnectButtonOptions): void
 ```
 
 Options:
@@ -88,7 +88,7 @@ Options:
 ### ConnectModal
 
 ```ts
-OnChainUX.renderConnectModal(selector: string, options?: ConnectModalOptions): void
+CinaConnect.renderConnectModal(selector: string, options?: ConnectModalOptions): void
 ```
 
 Options:
@@ -104,29 +104,29 @@ Options:
 ### Modal Controls
 
 ```ts
-OnChainUX.showModal(): void
-OnChainUX.hideModal(): void
-OnChainUX.toggleModal(): void
-OnChainUX.getModalView(): string
+CinaConnect.showModal(): void
+CinaConnect.hideModal(): void
+CinaConnect.toggleModal(): void
+CinaConnect.getModalView(): string
 ```
 
 ### State
 
 ```ts
-OnChainUX.getButtonState(): string        // 'disconnected' | 'connecting' | 'connected'
-OnChainUX.getButtonAddress(): string|null // Connected wallet address
-OnChainUX.disconnect(): void              // Disconnect wallet
+CinaConnect.getButtonState(): string        // 'disconnected' | 'connecting' | 'connected'
+CinaConnect.getButtonAddress(): string|null // Connected wallet address
+CinaConnect.disconnect(): void              // Disconnect wallet
 ```
 
 ### Module Loader (Advanced)
 
-For lazy-loading additional OnChainUX modules:
+For lazy-loading additional CinaConnect modules:
 
 ```ts
-OnChainUX.loadModule('pay-ui', () => import('/pay-ui.js'))
-OnChainUX.isLoaded('pay-ui')
-OnChainUX.getModule('pay-ui')
-OnChainUX.clearCache()
+CinaConnect.loadModule('pay-ui', () => import('/pay-ui.js'))
+CinaConnect.isLoaded('pay-ui')
+CinaConnect.getModule('pay-ui')
+CinaConnect.clearCache()
 ```
 
 ## CDN URLs

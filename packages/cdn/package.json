@@ -1,7 +1,7 @@
 {
-  "name": "@onchainux/cdn",
+  "name": "@cinaconnect/cdn",
   "version": "0.1.0",
-  "description": "OnChainUX CDN package — script-tag usage for ConnectButton, ConnectModal",
+  "description": "CinaConnect CDN package — script-tag usage for ConnectButton, ConnectModal",
   "type": "module",
   "main": "dist/cdn.js",
   "module": "dist/cdn.mjs",

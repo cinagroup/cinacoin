@@ -1,7 +1,7 @@
 /**
  * Swap SDK Type Definitions
  *
- * Defines the core types for the OnChainUX Swap Aggregator SDK.
+ * Defines the core types for the CinaConnect Swap Aggregator SDK.
  */
 
 import type { Address } from "viem";

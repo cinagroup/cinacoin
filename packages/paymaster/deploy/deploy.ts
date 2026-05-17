@@ -1,7 +1,7 @@
 /**
- * OnChainUX Paymaster Deployment Script
+ * CinaConnect Paymaster Deployment Script
  *
- * Deploys OnChainUXPaymaster, VerifyingPaymaster, and TokenPaymaster
+ * Deploys CinaConnectPaymaster, VerifyingPaymaster, and TokenPaymaster
  * to the configured network using viem.
  *
  * Usage:
@@ -84,7 +84,7 @@ const ENTRY_POINTS: Record<number, Address> = {
 
 async function deploy(config: DeployConfig) {
   console.log("=".repeat(60));
-  console.log("OnChainUX Paymaster Deployment");
+  console.log("CinaConnect Paymaster Deployment");
   console.log("=".repeat(60));
 
   const chain = config.chain || sepolia;
@@ -117,10 +117,10 @@ async function deploy(config: DeployConfig) {
   console.log(`Balance: ${balance} wei\n`);
 
   // Read compiled bytecode
-  const bytecode = readBytecode("OnChainUXPaymaster");
+  const bytecode = readBytecode("CinaConnectPaymaster");
 
-  // Deploy OnChainUXPaymaster
-  console.log("Deploying OnChainUXPaymaster...");
+  // Deploy CinaConnectPaymaster
+  console.log("Deploying CinaConnectPaymaster...");
   const paymasterHash = await walletClient.deployContract({
     abi: paymasterAbi,
     bytecode: bytecode as `0x${string}`,
@@ -132,7 +132,7 @@ async function deploy(config: DeployConfig) {
   });
 
   const paymasterAddress = paymasterReceipt.contractAddress as Address;
-  console.log(`✅ OnChainUXPaymaster deployed at: ${paymasterAddress}`);
+  console.log(`✅ CinaConnectPaymaster deployed at: ${paymasterAddress}`);
 
   // Deploy VerifyingPaymaster
   console.log("\nDeploying VerifyingPaymaster...");
@@ -175,7 +175,7 @@ async function deploy(config: DeployConfig) {
     chainId: chain.id,
     entryPoint,
     contracts: {
-      onchainuxPaymaster: paymasterAddress,
+      cinaconnectPaymaster: paymasterAddress,
       verifyingPaymaster: verifyingAddress,
       tokenPaymaster: tokenAddress,
     },

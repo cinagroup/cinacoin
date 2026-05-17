@@ -12,11 +12,11 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
 
-	"github.com/onchainux/rpc-proxy/internal/cache"
-	"github.com/onchainux/rpc-proxy/internal/config"
-	"github.com/onchainux/rpc-proxy/internal/dedup"
-	"github.com/onchainux/rpc-proxy/internal/proxy"
-	"github.com/onchainux/rpc-proxy/internal/ratelimit"
+	"github.com/cinaconnect/rpc-proxy/internal/cache"
+	"github.com/cinaconnect/rpc-proxy/internal/config"
+	"github.com/cinaconnect/rpc-proxy/internal/dedup"
+	"github.com/cinaconnect/rpc-proxy/internal/proxy"
+	"github.com/cinaconnect/rpc-proxy/internal/ratelimit"
 )
 
 // RPCRouter holds all middleware and routing state.
@@ -112,7 +112,7 @@ func (r *RPCRouter) handleHealth(w http.ResponseWriter, req *http.Request) {
 
 func (r *RPCRouter) handleMetrics(w http.ResponseWriter, req *http.Request) {
 	w.Header().Set("Content-Type", "text/plain")
-	fmt.Fprintf(w, "# OnChainUX RPC Proxy Metrics\n")
+	fmt.Fprintf(w, "# CinaConnect RPC Proxy Metrics\n")
 	fmt.Fprintf(w, "# (Prometheus metrics placeholder)\n")
 	fmt.Fprintf(w, "proxy_uptime_seconds %d\n", int64(time.Since(startTime).Seconds()))
 	fmt.Fprintf(w, "proxy_region \"%s\"\n", r.cfg.Region)

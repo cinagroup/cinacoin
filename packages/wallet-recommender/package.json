@@ -1,7 +1,7 @@
 {
-  "name": "@onchainux/wallet-recommender",
+  "name": "@cinaconnect/wallet-recommender",
   "version": "0.1.0",
-  "description": "OnChainUX Wallet Recommender Engine — intelligent wallet suggestions based on chain, platform, and user behavior",
+  "description": "CinaConnect Wallet Recommender Engine — intelligent wallet suggestions based on chain, platform, and user behavior",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",

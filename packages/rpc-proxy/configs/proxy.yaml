@@ -1,4 +1,4 @@
-# OnChainUX RPC Proxy Configuration
+# CinaConnect RPC Proxy Configuration
 #
 # Main proxy config. Provider definitions are embedded below.
 # Override with environment variables:

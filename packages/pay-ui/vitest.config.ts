@@ -10,8 +10,8 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@onchainux/swap-sdk': path.resolve(__dirname, '../../packages/swap-sdk/src/index.ts'),
-      '@onchainux/onramp-sdk': path.resolve(__dirname, '../../packages/onramp-sdk/src/index.ts'),
+      '@cinaconnect/swap-sdk': path.resolve(__dirname, '../../packages/swap-sdk/src/index.ts'),
+      '@cinaconnect/onramp-sdk': path.resolve(__dirname, '../../packages/onramp-sdk/src/index.ts'),
     },
   },
 });

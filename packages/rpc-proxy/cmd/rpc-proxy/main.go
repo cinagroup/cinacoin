@@ -10,8 +10,8 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/onchainux/rpc-proxy/internal/config"
-	"github.com/onchainux/rpc-proxy/internal/router"
+	"github.com/cinaconnect/rpc-proxy/internal/config"
+	"github.com/cinaconnect/rpc-proxy/internal/router"
 )
 
 func main() {
@@ -26,7 +26,7 @@ func main() {
 		log.Fatalf("failed to load config: %v", err)
 	}
 
-	log.Printf("starting OnChainUX RPC proxy on %s (region: %s)", cfg.ListenAddr, cfg.Region)
+	log.Printf("starting CinaConnect RPC proxy on %s (region: %s)", cfg.ListenAddr, cfg.Region)
 
 	// Initialize the router with all providers
 	r, err := router.New(cfg)

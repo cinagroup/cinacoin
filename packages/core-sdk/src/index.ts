@@ -1,5 +1,5 @@
 /**
- * OnChainUX Core SDK — Self-hosted wallet connection toolkit.
+ * CinaConnect Core SDK — Self-hosted wallet connection toolkit.
  *
  * A complete replacement for Reown/WalletConnect infrastructure,
  * providing self-hosted relay, RPC proxy, and client-side SDK.
@@ -30,8 +30,8 @@ export { SessionManager } from './session.js';
 export type { SessionState } from './session.js';
 
 // State management
-export { createOnChainUXStore, initializeStore } from './store.js';
-export type { OnChainUXState, ConnectionStatus, StoreConfig } from './store.js';
+export { createCinaConnectStore, initializeStore } from './store.js';
+export type { CinaConnectState, ConnectionStatus, StoreConfig } from './store.js';
 
 // Events
 export { EventEmitter } from './events.js';

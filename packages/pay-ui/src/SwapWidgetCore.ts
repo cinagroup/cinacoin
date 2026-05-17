@@ -11,11 +11,11 @@ import type {
   SwapTransaction,
   SwapReceipt,
   TokenInfo,
-} from "@onchainux/swap-sdk";
+} from "@cinaconnect/swap-sdk";
 import {
   calculateMinimumReceived,
   calculatePriceImpact,
-} from "@onchainux/swap-sdk";
+} from "@cinaconnect/swap-sdk";
 import type {
   SwapWidgetCoreConfig,
   SwapWidgetCoreState,

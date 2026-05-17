@@ -1,4 +1,4 @@
-// @onchainux/token-list
+// @cinaconnect/token-list
 // Token discovery, metadata, and validation
 
 export { TokenList } from './tokenList.js';

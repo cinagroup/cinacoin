@@ -3,11 +3,11 @@
  */
 
 import { describe, it, expect, beforeEach } from 'vitest';
-import { createOnChainUXStore, initializeStore } from '../src/store.js';
+import { createCinaConnectStore, initializeStore } from '../src/store.js';
 
-describe('createOnChainUXStore', () => {
+describe('createCinaConnectStore', () => {
   it('should initialize with disconnected status', () => {
-    const store = createOnChainUXStore();
+    const store = createCinaConnectStore();
     const state = store.getState();
     expect(state.status).toBe('disconnected');
     expect(state.accounts).toEqual([]);
@@ -18,7 +18,7 @@ describe('createOnChainUXStore', () => {
   });
 
   it('should set connection state', () => {
-    const store = createOnChainUXStore();
+    const store = createCinaConnectStore();
     store.getState().setConnection({
       accounts: ['0xabc'],
       chainId: 1,
@@ -35,7 +35,7 @@ describe('createOnChainUXStore', () => {
   });
 
   it('should set error state', () => {
-    const store = createOnChainUXStore();
+    const store = createCinaConnectStore();
     const err = new Error('Test error');
     store.getState().setError(err);
     const state = store.getState();
@@ -44,7 +44,7 @@ describe('createOnChainUXStore', () => {
   });
 
   it('should set status and clear error', () => {
-    const store = createOnChainUXStore();
+    const store = createCinaConnectStore();
     store.getState().setError(new Error('Test'));
     store.getState().setStatus('disconnected');
     const state = store.getState();
@@ -53,7 +53,7 @@ describe('createOnChainUXStore', () => {
   });
 
   it('should set and retrieve chains', () => {
-    const store = createOnChainUXStore();
+    const store = createCinaConnectStore();
     const chains = [
       { id: '1', name: 'Ethereum', rpcUrl: 'https://eth.rpc' },
       { id: '137', name: 'Polygon', rpcUrl: 'https://polygon.rpc' },
@@ -63,14 +63,14 @@ describe('createOnChainUXStore', () => {
   });
 
   it('should set active chain', () => {
-    const store = createOnChainUXStore();
+    const store = createCinaConnectStore();
     const chain = { id: '1', name: 'Ethereum', rpcUrl: 'https://eth.rpc' };
     store.getState().setActiveChain(chain);
     expect(store.getState().activeChain).toEqual(chain);
   });
 
   it('should add pairings and set active pairing', () => {
-    const store = createOnChainUXStore();
+    const store = createCinaConnectStore();
     const pairing = {
       topic: 'topic-1',
       uri: 'wc:uri',
@@ -84,7 +84,7 @@ describe('createOnChainUXStore', () => {
   });
 
   it('should set relay URL and project ID', () => {
-    const store = createOnChainUXStore();
+    const store = createCinaConnectStore();
     store.getState().setRelayUrl('wss://relay.example.com');
     store.getState().setProjectId('project-123');
     const state = store.getState();
@@ -93,7 +93,7 @@ describe('createOnChainUXStore', () => {
   });
 
   it('should disconnect and reset all fields', () => {
-    const store = createOnChainUXStore();
+    const store = createCinaConnectStore();
     // Set some state
     store.getState().setConnection({
       accounts: ['0xabc'],

@@ -36,8 +36,8 @@ export interface AccountState {
   ensName?: string;
 }
 
-/** OnChainUX configuration passed to the provider. */
-export interface OnChainUXConfig {
+/** CinaConnect configuration passed to the provider. */
+export interface CinaConnectConfig {
   /** Project ID (for analytics / relay). */
   projectId?: string;
 
@@ -63,10 +63,10 @@ export interface OnChainUXConfig {
   recommendedWallets?: string[];
 }
 
-/** Context value exposed by OnChainUXProvider. */
-export interface OnChainUXContextValue {
+/** Context value exposed by CinaConnectProvider. */
+export interface CinaConnectContextValue {
   /** Current configuration. */
-  config: OnChainUXConfig;
+  config: CinaConnectConfig;
 
   /** Available connectors. */
   connectors: Connector[];
@@ -90,35 +90,35 @@ export interface OnChainUXContextValue {
   isSwitchingChain: boolean;
 }
 
-const OnChainUXContext = createContext<OnChainUXContextValue | null>(null);
+const CinaConnectContext = createContext<CinaConnectContextValue | null>(null);
 
-/** Hook to access the OnChainUX context. Throws if used outside provider. */
-export function useOnChainUXContext(): OnChainUXContextValue {
-  const ctx = useContext(OnChainUXContext);
+/** Hook to access the CinaConnect context. Throws if used outside provider. */
+export function useCinaConnectContext(): CinaConnectContextValue {
+  const ctx = useContext(CinaConnectContext);
   if (!ctx) {
-    throw new Error('useOnChainUXContext must be used within <OnChainUXProvider>');
+    throw new Error('useCinaConnectContext must be used within <CinaConnectProvider>');
   }
   return ctx;
 }
 
 /** Provider props. */
-export interface OnChainUXProviderProps {
-  config: OnChainUXConfig;
+export interface CinaConnectProviderProps {
+  config: CinaConnectConfig;
   children: ReactNode;
 }
 
 /**
- * OnChainUXProvider — React context provider for OnChainUX.
+ * CinaConnectProvider — React context provider for CinaConnect.
  *
  * Wraps the app and provides chain state, connection methods, and theming.
  *
  * ```tsx
- * <OnChainUXProvider config={{ chains: [...], theme: { mode: 'dark' } }}>
+ * <CinaConnectProvider config={{ chains: [...], theme: { mode: 'dark' } }}>
  *   <App />
- * </OnChainUXProvider>
+ * </CinaConnectProvider>
  * ```
  */
-export function OnChainUXProvider({ config, children }: OnChainUXProviderProps): JSX.Element {
+export function CinaConnectProvider({ config, children }: CinaConnectProviderProps): JSX.Element {
   const [status, setStatus] = useState<'disconnected' | 'connecting' | 'connected' | 'error'>('disconnected');
   const [account, setAccount] = useState<AccountState>({
     address: null,
@@ -192,7 +192,7 @@ export function OnChainUXProvider({ config, children }: OnChainUXProviderProps):
     }
   }, [config.chains]);
 
-  const value = useMemo<OnChainUXContextValue>(
+  const value = useMemo<CinaConnectContextValue>(
     () => ({
       config,
       connectors,
@@ -218,10 +218,10 @@ export function OnChainUXProvider({ config, children }: OnChainUXProviderProps):
   }, [config.theme?.variables]);
 
   return (
-    <OnChainUXContext.Provider value={value}>
+    <CinaConnectContext.Provider value={value}>
       <div className={`ocx-root ocx-theme-${config.theme?.mode ?? 'dark'}`} style={themeStyle}>
         {children}
       </div>
-    </OnChainUXContext.Provider>
+    </CinaConnectContext.Provider>
   );
 }

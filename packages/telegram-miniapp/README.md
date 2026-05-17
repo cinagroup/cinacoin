@@ -1,6 +1,6 @@
-# @onchainux/telegram-miniapp
+# @cinaconnect/telegram-miniapp
 
-Telegram Mini Apps integration for OnChainUX SDK.
+Telegram Mini Apps integration for CinaConnect SDK.
 
 ## Features
 
@@ -11,13 +11,13 @@ Telegram Mini Apps integration for OnChainUX SDK.
 ## Install
 
 ```bash
-npm install @onchainux/telegram-miniapp
+npm install @cinaconnect/telegram-miniapp
 ```
 
 ## Usage
 
 ```ts
-import { TelegramProvider, TelegramModal, TelegramAuth } from '@onchainux/telegram-miniapp';
+import { TelegramProvider, TelegramModal, TelegramAuth } from '@cinaconnect/telegram-miniapp';
 
 // Initialize provider
 const provider = new TelegramProvider({

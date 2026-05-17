@@ -1,5 +1,5 @@
 /**
- * Rollup configuration for @onchainux/core-ui
+ * Rollup configuration for @cinaconnect/core-ui
  *
  * Component-level tree shaking optimized build with:
  * - Separate bundles per component for granular imports

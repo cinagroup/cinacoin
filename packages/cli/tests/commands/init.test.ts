@@ -1,5 +1,5 @@
 /**
- * Tests for @onchainux/cli init command.
+ * Tests for @cinaconnect/cli init command.
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
@@ -66,7 +66,7 @@ describe('initCommand', () => {
     expect(mockCommand.argument).toHaveBeenCalledWith(
       '[directory]',
       'Project directory name',
-      'my-onchainux-app'
+      'my-cinaconnect-app'
     );
   });
 

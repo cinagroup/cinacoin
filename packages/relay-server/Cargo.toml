@@ -2,7 +2,7 @@
 name = "relay-server"
 version = "0.1.0"
 edition = "2021"
-description = "OnChainUX self-hosted relay server — WebSocket message routing with E2E encryption"
+description = "CinaConnect self-hosted relay server — WebSocket message routing with E2E encryption"
 license = "MIT"
 
 [dependencies]

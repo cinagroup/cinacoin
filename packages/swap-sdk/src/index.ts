@@ -1,11 +1,11 @@
 /**
- * @onchainux/swap-sdk
+ * @cinaconnect/swap-sdk
  *
- * OnChainUX Swap Aggregator SDK — multi-DEX swap routing with slippage protection.
+ * CinaConnect Swap Aggregator SDK — multi-DEX swap routing with slippage protection.
  *
  * @example
  * ```ts
- * import { SwapQuoter, SwapRouter, UniswapExecutor, OneInchExecutor, ZeroxExecutor } from '@onchainux/swap-sdk';
+ * import { SwapQuoter, SwapRouter, UniswapExecutor, OneInchExecutor, ZeroxExecutor } from '@cinaconnect/swap-sdk';
  *
  * const executors = [
  *   new UniswapExecutor({ rpcUrl: 'https://eth-rpc.example.com' }),

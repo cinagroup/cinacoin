@@ -1,4 +1,4 @@
-module github.com/onchainux/rpc-proxy
+module github.com/cinaconnect/rpc-proxy
 
 go 1.21
 

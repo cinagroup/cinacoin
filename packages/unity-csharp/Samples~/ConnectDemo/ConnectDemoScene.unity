@@ -5,7 +5,7 @@ OcclusionCullingSettings:
   m_ObjectHideFlags: 0
 --- !u!1 &100000
 GameObject:
-  m_Name: "[OnChainUX]"
+  m_Name: "[CinaConnect]"
   m_TagString: Untagged
   m_Component:
   - component: {fileID: 100001}
@@ -14,8 +14,8 @@ GameObject:
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_Component: {fileID: 100000}
-  m_Script: {fileID: 11500000, guid: OnChainUXManager, type: 3}
-  m_Name: OnChainUXManager
+  m_Script: {fileID: 11500000, guid: CinaConnectManager, type: 3}
+  m_Name: CinaConnectManager
 --- !u!1 &100002
 GameObject:
   m_Name: ConnectButton

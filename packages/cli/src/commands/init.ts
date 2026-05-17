@@ -5,14 +5,14 @@ import { spinner } from '../utils/logger.js';
 import { copyTemplate } from '../utils/fs.js';
 
 // ============================================================
-// ocx init — Scaffold a new OnChainUX project
+// ocx init — Scaffold a new CinaConnect project
 // ============================================================
 
 export function initCommand(cli: Command): void {
   cli
     .command('init')
-    .description('Initialize a new OnChainUX project')
-    .argument('[directory]', 'Project directory name', 'my-onchainux-app')
+    .description('Initialize a new CinaConnect project')
+    .argument('[directory]', 'Project directory name', 'my-cinaconnect-app')
     .option('--template <name>', 'Template to use (web | react | vue | next)', 'web')
     .option('--package-manager <pm>', 'Package manager (npm | yarn | pnpm)', 'pnpm')
     .option('--dry-run', 'Show what would be created without writing files')
@@ -21,7 +21,7 @@ export function initCommand(cli: Command): void {
       const targetDir = join(process.cwd(), directory);
 
       if (dryRun) {
-        console.log(`\n  [dry-run] Would create OnChainUX project in ${targetDir}`);
+        console.log(`\n  [dry-run] Would create CinaConnect project in ${targetDir}`);
         console.log(`  Template:   ${template}`);
         console.log(`  Package mgr: ${packageManager}\n`);
         return;
@@ -32,7 +32,7 @@ export function initCommand(cli: Command): void {
         process.exit(1);
       }
 
-      const s = spinner('Scaffolding OnChainUX project...');
+      const s = spinner('Scaffolding CinaConnect project...');
 
       try {
         // Create directory structure
@@ -86,9 +86,9 @@ function generatePackageJson(name: string, pm: string) {
       typecheck: 'tsc --noEmit',
     },
     dependencies: {
-      '@onchainux/core-sdk': '^0.1.0',
-      '@onchainux/react': '^0.1.0',
-      '@onchainux/ui': '^0.1.0',
+      '@cinaconnect/core-sdk': '^0.1.0',
+      '@cinaconnect/react': '^0.1.0',
+      '@cinaconnect/ui': '^0.1.0',
     },
     devDependencies: {
       typescript: '^5.7.0',
@@ -118,7 +118,7 @@ function generateMainFile(template: string): string {
   if (template === 'react' || template === 'next') {
     return `import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { OnChainUXProvider } from '@onchainux/react';
+import { CinaConnectProvider } from '@cinaconnect/react';
 import App from './App.js';
 
 const config = {
@@ -132,24 +132,24 @@ const config = {
   ],
   theme: { mode: 'dark' },
   metadata: {
-    name: '${template === 'next' ? 'Next.js App' : 'OnChainUX App'}',
-    description: 'Built with OnChainUX',
+    name: '${template === 'next' ? 'Next.js App' : 'CinaConnect App'}',
+    description: 'Built with CinaConnect',
     url: 'https://example.com',
   },
 };
 
 const root = createRoot(document.getElementById('root')!);
 root.render(
-  <OnChainUXProvider config={config}>
+  <CinaConnectProvider config={config}>
     <App />
-  </OnChainUXProvider>
+  </CinaConnectProvider>
 );
 `;
   }
 
-  return `import { OnChainUX } from '@onchainux/core-sdk';
+  return `import { CinaConnect } from '@cinaconnect/core-sdk';
 
-const onchainux = new OnChainUX({
+const cinaconnect = new CinaConnect({
   chains: [
     {
       id: 1,
@@ -160,19 +160,19 @@ const onchainux = new OnChainUX({
   ],
 });
 
-console.log('OnChainUX initialized:', onchainux);
+console.log('CinaConnect initialized:', cinaconnect);
 `;
 }
 
 function generateComponent(template: string): string {
   if (template === 'react' || template === 'next') {
     return `import React from 'react';
-import { ConnectButton } from '@onchainux/react';
+import { ConnectButton } from '@cinaconnect/react';
 
 export default function App() {
   return (
     <div>
-      <h1>OnChainUX App</h1>
+      <h1>CinaConnect App</h1>
       <ConnectButton />
     </div>
   );
@@ -180,7 +180,7 @@ export default function App() {
 `;
   }
 
-  return `// OnChainUX vanilla JS app
-// See docs: https://onchainux.dev/guide/quick-start
+  return `// CinaConnect vanilla JS app
+// See docs: https://cinaconnect.dev/guide/quick-start
 `;
 }

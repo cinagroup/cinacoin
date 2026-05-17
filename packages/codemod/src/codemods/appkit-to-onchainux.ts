@@ -1,16 +1,16 @@
 /**
- * appkit-to-onchainux codemod
+ * appkit-to-cinaconnect codemod
  *
  * Transforms:
- *   - @reown/appkit*     → @onchainux/*
- *   - @web3modal/*       → @onchainux/*
- *   - Web3Modal           → OnChainUX
- *   - createWeb3Modal     → createOnChainUX
- *   - AppKit              → OnChainUX
- *   - useWeb3Modal        → useOnChainUX
- *   - W3mButton           → OnChainUXButton
- *   - W3mNetworkSelect    → OnChainUXNetworkSelect
- *   - Config object keys  → OnChainUXConfig keys
+ *   - @reown/appkit*     → @cinaconnect/*
+ *   - @web3modal/*       → @cinaconnect/*
+ *   - Web3Modal           → CinaConnect
+ *   - createWeb3Modal     → createCinaConnect
+ *   - AppKit              → CinaConnect
+ *   - useWeb3Modal        → useCinaConnect
+ *   - W3mButton           → CinaConnectButton
+ *   - W3mNetworkSelect    → CinaConnectNetworkSelect
+ *   - Config object keys  → CinaConnectConfig keys
  */
 
 export interface CodemodResult {
@@ -23,51 +23,51 @@ export interface CodemodResult {
 // ── Import / require path rewrites ──────────────────────────────────────────
 
 const PACKAGE_RENAMES: [RegExp, string][] = [
-  [/@reown\/appkit-([a-z0-9-]+)/g, "@onchainux/$1"],
-  [/@reown\/appkit/g, "@onchainux/core-sdk"],
-  [/@web3modal\/([a-z0-9-]+)/g, "@onchainux/$1"],
-  [/@web3modal\/ethereum/g, "@onchainux/ethereum"],
-  [/@web3modal\/wagmi/g, "@onchainux/wagmi"],
-  [/@web3modal\/react/g, "@onchainux/react"],
-  [/@web3modal\/ui/g, "@onchainux/ui"],
-  [/@web3modal\/core/g, "@onchainux/core-sdk"],
-  [/@web3modal\/html/g, "@onchainux/html"],
+  [/@reown\/appkit-([a-z0-9-]+)/g, "@cinaconnect/$1"],
+  [/@reown\/appkit/g, "@cinaconnect/core-sdk"],
+  [/@web3modal\/([a-z0-9-]+)/g, "@cinaconnect/$1"],
+  [/@web3modal\/ethereum/g, "@cinaconnect/ethereum"],
+  [/@web3modal\/wagmi/g, "@cinaconnect/wagmi"],
+  [/@web3modal\/react/g, "@cinaconnect/react"],
+  [/@web3modal\/ui/g, "@cinaconnect/ui"],
+  [/@web3modal\/core/g, "@cinaconnect/core-sdk"],
+  [/@web3modal\/html/g, "@cinaconnect/html"],
 ];
 
 // ── Component / function name rewrites ──────────────────────────────────────
 
 const IDENTIFIER_RENAMES: [RegExp, string][] = [
   // Core classes / factories
-  [/Web3Modal\b/g, "OnChainUX"],
-  [/createWeb3Modal\b/g, "createOnChainUX"],
-  [/createAppKit\b/g, "createOnChainUX"],
-  [/AppKit\b/g, "OnChainUX"],
+  [/Web3Modal\b/g, "CinaConnect"],
+  [/createWeb3Modal\b/g, "createCinaConnect"],
+  [/createAppKit\b/g, "createCinaConnect"],
+  [/AppKit\b/g, "CinaConnect"],
 
   // Hooks
-  [/useWeb3Modal\b/g, "useOnChainUX"],
-  [/useWeb3ModalState\b/g, "useOnChainUXState"],
-  [/useWeb3ModalTheme\b/g, "useOnChainUXTheme"],
-  [/useAppKit\b/g, "useOnChainUX"],
-  [/useAppKitState\b/g, "useOnChainUXState"],
-  [/useAppKitTheme\b/g, "useOnChainUXTheme"],
-  [/useAppKitAccount\b/g, "useOnChainUXAccount"],
-  [/useAppKitNetwork\b/g, "useOnChainUXNetwork"],
+  [/useWeb3Modal\b/g, "useCinaConnect"],
+  [/useWeb3ModalState\b/g, "useCinaConnectState"],
+  [/useWeb3ModalTheme\b/g, "useCinaConnectTheme"],
+  [/useAppKit\b/g, "useCinaConnect"],
+  [/useAppKitState\b/g, "useCinaConnectState"],
+  [/useAppKitTheme\b/g, "useCinaConnectTheme"],
+  [/useAppKitAccount\b/g, "useCinaConnectAccount"],
+  [/useAppKitNetwork\b/g, "useCinaConnectNetwork"],
 
   // Components
-  [/w3m-button\b/gi, "onchainux-button"],
-  [/W3mButton\b/g, "OnChainUXButton"],
-  [/w3m-network-select\b/gi, "onchainux-network-select"],
-  [/W3mNetworkSelect\b/g, "OnChainUXNetworkSelect"],
-  [/w3m-modal\b/gi, "onchainux-modal"],
-  [/W3mModal\b/g, "OnChainUXModal"],
-  [/app-kit-button\b/gi, "onchainux-button"],
-  [/AppKitButton\b/g, "OnChainUXButton"],
+  [/w3m-button\b/gi, "cinaconnect-button"],
+  [/W3mButton\b/g, "CinaConnectButton"],
+  [/w3m-network-select\b/gi, "cinaconnect-network-select"],
+  [/W3mNetworkSelect\b/g, "CinaConnectNetworkSelect"],
+  [/w3m-modal\b/gi, "cinaconnect-modal"],
+  [/W3mModal\b/g, "CinaConnectModal"],
+  [/app-kit-button\b/gi, "cinaconnect-button"],
+  [/AppKitButton\b/g, "CinaConnectButton"],
 
   // Type names
-  [/Web3ModalConfig\b/g, "OnChainUXConfig"],
-  [/AppKitConfig\b/g, "OnChainUXConfig"],
-  [/Web3ModalTheme\b/g, "OnChainUXTheme"],
-  [/AppKitTheme\b/g, "OnChainUXTheme"],
+  [/Web3ModalConfig\b/g, "CinaConnectConfig"],
+  [/AppKitConfig\b/g, "CinaConnectConfig"],
+  [/Web3ModalTheme\b/g, "CinaConnectTheme"],
+  [/AppKitTheme\b/g, "CinaConnectTheme"],
 ];
 
 // ── Config key rewrites ────────────────────────────────────────────────────
@@ -89,9 +89,9 @@ const CONFIG_KEY_RENAMES: [RegExp, string][] = [
 // ── Main transform ──────────────────────────────────────────────────────────
 
 /**
- * Apply the AppKit/Web3Modal → OnChainUX transformation to source text.
+ * Apply the AppKit/Web3Modal → CinaConnect transformation to source text.
  */
-export function transformAppKitToOnChainUX(source: string): CodemodResult {
+export function transformAppKitToCinaConnect(source: string): CodemodResult {
   let output = source;
   const changes: string[] = [];
 

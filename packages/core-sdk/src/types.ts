@@ -1,5 +1,5 @@
 /**
- * Core type definitions for the OnChainUX SDK.
+ * Core type definitions for the CinaConnect SDK.
  */
 
 /** Supported blockchain network types. */

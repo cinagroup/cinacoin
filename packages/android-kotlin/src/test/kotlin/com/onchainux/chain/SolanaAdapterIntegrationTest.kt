@@ -1,4 +1,4 @@
-package com.onchainux.chain
+package com.cinaconnect.chain
 
 import kotlinx.coroutines.runBlocking
 import org.junit.Test

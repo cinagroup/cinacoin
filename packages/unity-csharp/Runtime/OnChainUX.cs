@@ -3,24 +3,24 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using OnChainUX.WalletConnect;
-using OnChainUX.Chain;
+using CinaConnect.WalletConnect;
+using CinaConnect.Chain;
 
-namespace OnChainUX
+namespace CinaConnect
 {
     /// <summary>
-    /// OnChainUX Main Singleton Runtime Class.
+    /// CinaConnect Main Singleton Runtime Class.
     /// 
     /// Unity singleton that manages wallet connections, chain switching,
     /// and signing operations. Matches the core-sdk API surface.
     /// 
     /// Usage:
-    ///   OnChainUXManager.Instance.Initialize(projectId, metadata);
-    ///   var result = await OnChainUXManager.Instance.ConnectAsync("metamask");
+    ///   CinaConnectManager.Instance.Initialize(projectId, metadata);
+    ///   var result = await CinaConnectManager.Instance.ConnectAsync("metamask");
     /// </summary>
-    public class OnChainUXManager : MonoBehaviour
+    public class CinaConnectManager : MonoBehaviour
     {
-        private static OnChainUXManager _instance;
+        private static CinaConnectManager _instance;
         private static readonly object _lock = new object();
         private static bool _applicationIsQuitting;
 
@@ -60,7 +60,7 @@ namespace OnChainUX
         public delegate void OnError(string error);
         public event OnError OnErrorEvent;
 
-        public static OnChainUXManager Instance
+        public static CinaConnectManager Instance
         {
             get
             {
@@ -70,12 +70,12 @@ namespace OnChainUX
                 {
                     if (_instance == null)
                     {
-                        _instance = FindObjectOfType<OnChainUXManager>();
+                        _instance = FindObjectOfType<CinaConnectManager>();
 
                         if (_instance == null)
                         {
-                            var go = new GameObject("[OnChainUX]");
-                            _instance = go.AddComponent<OnChainUXManager>();
+                            var go = new GameObject("[CinaConnect]");
+                            _instance = go.AddComponent<CinaConnectManager>();
                             DontDestroyOnLoad(go);
                         }
                     }
@@ -108,7 +108,7 @@ namespace OnChainUX
         /// Deep link handler.
         public DeepLinkHandler DeepLinks => _deepLinkHandler;
 
-        /// Initialize OnChainUX with project configuration.
+        /// Initialize CinaConnect with project configuration.
         public void Initialize(string projectId, AppMetadata metadata)
         {
             _projectId = projectId;
@@ -119,20 +119,20 @@ namespace OnChainUX
             _walletManager = new WalletManager(projectId, metadata, _relayUrl);
             _evmAdapter = new EvmAdapter();
 
-            // Connect wallet manager events to OnChainUX events
+            // Connect wallet manager events to CinaConnect events
             _walletManager.OnStatusChange += HandleWalletStatusChange;
             _walletManager.OnSessionConnected += HandleSessionConnected;
             _walletManager.OnSessionDisconnected += HandleSessionDisconnected;
             _walletManager.OnError += HandleWalletError;
             _walletManager.OnQRCodeGenerated += HandleQRCodeGenerated;
 
-            Log($"OnChainUX initialized (v{OnChainUXVersion.Value})");
+            Log($"CinaConnect initialized (v{CinaConnectVersion.Value})");
         }
 
         /// Initialize from serialized configuration.
         public void InitializeFromConfig(string configJson)
         {
-            var config = JsonConvert.DeserializeObject<OnChainUXConfig>(configJson);
+            var config = JsonConvert.DeserializeObject<CinaConnectConfig>(configJson);
             Initialize(config.ProjectId, config.Metadata);
         }
 
@@ -257,9 +257,9 @@ namespace OnChainUX
         /// Restore a persisted session.
         public async Task<SessionState> RestoreAsync()
         {
-            if (PlayerPrefs.HasKey("OnChainUX_Session"))
+            if (PlayerPrefs.HasKey("CinaConnect_Session"))
             {
-                var json = PlayerPrefs.GetString("OnChainUX_Session");
+                var json = PlayerPrefs.GetString("CinaConnect_Session");
                 try
                 {
                     var data = JsonConvert.DeserializeObject<SessionData>(json);
@@ -335,7 +335,7 @@ namespace OnChainUX
         {
             Log($"QR code generated for {walletName}");
             // Find ConnectModal and show QR
-            var modal = FindObjectOfType<OnChainUX.UI.ConnectModal>();
+            var modal = FindObjectOfType<CinaConnect.UI.ConnectModal>();
             if (modal != null)
             {
                 modal.ShowQR(uri, walletName);
@@ -368,20 +368,20 @@ namespace OnChainUX
                     Accounts = _currentAccounts,
                     ChainId = _currentChainId
                 };
-                PlayerPrefs.SetString("OnChainUX_Session", JsonConvert.SerializeObject(data));
+                PlayerPrefs.SetString("CinaConnect_Session", JsonConvert.SerializeObject(data));
                 PlayerPrefs.Save();
             }
         }
 
         private void ClearSession()
         {
-            PlayerPrefs.DeleteKey("OnChainUX_Session");
+            PlayerPrefs.DeleteKey("CinaConnect_Session");
         }
 
         private void Log(string message)
         {
             if (_enableDebugLogs)
-                Debug.Log($"[OnChainUX] {message}");
+                Debug.Log($"[CinaConnect] {message}");
         }
 
         private void OnApplicationQuit()
@@ -409,9 +409,9 @@ namespace OnChainUX
         }
     }
 
-    /// Configuration for OnChainUX initialization.
+    /// Configuration for CinaConnect initialization.
     [System.Serializable]
-    public class OnChainUXConfig
+    public class CinaConnectConfig
     {
         [JsonProperty("projectId")]
         public string ProjectId;

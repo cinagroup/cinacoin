@@ -1,11 +1,11 @@
 /**
- * @onchainux/react-native
+ * @cinaconnect/react-native
  *
- * React Native adapter for OnChainUX — native UI components, not Web Components.
+ * React Native adapter for CinaConnect — native UI components, not Web Components.
  */
 
-export { OnChainUXProvider, useOnChainUXContext } from './OnChainUXProvider.js';
-export type { OnChainUXConfig, OnChainUXContextValue, ThemeMode, ChainConfig } from './OnChainUXProvider.js';
+export { CinaConnectProvider, useCinaConnectContext } from './CinaConnectProvider.js';
+export type { CinaConnectConfig, CinaConnectContextValue, ThemeMode, ChainConfig } from './CinaConnectProvider.js';
 
 export { ConnectButton } from './ConnectButton.js';
 export type { ConnectButtonProps } from './ConnectButton.js';

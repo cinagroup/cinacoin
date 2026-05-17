@@ -1,5 +1,5 @@
 /**
- * Error handling integration tests for the OnChainUX Core SDK.
+ * Error handling integration tests for the CinaConnect Core SDK.
  *
  * Tests network errors, wallet rejection, and various failure scenarios.
  */

@@ -1,5 +1,5 @@
 import XCTest
-@testable import OnChainUX
+@testable import CinaConnect
 
 final class DeepLinkHandlerTests: XCTestCase {
 

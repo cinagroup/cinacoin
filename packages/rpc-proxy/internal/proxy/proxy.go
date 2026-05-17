@@ -10,8 +10,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/onchainux/rpc-proxy/internal/cache"
-	"github.com/onchainux/rpc-proxy/internal/config"
+	"github.com/cinaconnect/rpc-proxy/internal/cache"
+	"github.com/cinaconnect/rpc-proxy/internal/config"
 )
 
 // RPCProxy routes JSON-RPC requests through a prioritized provider chain:

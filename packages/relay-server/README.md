@@ -1,6 +1,6 @@
 # Relay Server
 
-> OnChainUX 中继服务器 — WebSocket 连接桥接，处理 WalletConnect 协议消息。
+> CinaConnect 中继服务器 — WebSocket 连接桥接，处理 WalletConnect 协议消息。
 
 ## 架构
 
@@ -14,7 +14,7 @@
                               (JetStream)
 ```
 
-Relay Server 是 OnChainUX 的核心消息路由层。它处理来自钱包和 DApp 的 WebSocket 连接，使用 NATS JetStream 进行可靠的消息路由，并通过 X25519 + ChaCha20-Poly1305 实现端到端加密。
+Relay Server 是 CinaConnect 的核心消息路由层。它处理来自钱包和 DApp 的 WebSocket 连接，使用 NATS JetStream 进行可靠的消息路由，并通过 X25519 + ChaCha20-Poly1305 实现端到端加密。
 
 ## 技术栈
 
@@ -61,19 +61,19 @@ DApp ──[wss]──▶ Relay ──[nats]──▶ Wallet
 ### Docker
 
 ```bash
-docker build -t onchainux/relay-server:latest .
+docker build -t cinaconnect/relay-server:latest .
 docker run -p 8080:8080 -p 8081:8081 \
   -e NATS_URL=nats://nats-cluster:4222 \
-  onchainux/relay-server:latest
+  cinaconnect/relay-server:latest
 ```
 
 ### Kubernetes
 
 ```bash
-helm install relay ./deploy/helm/onchainux \
+helm install relay ./deploy/helm/cinaconnect \
   --set relay.replicaCount=3 \
   --set relay.autoscaling.enabled=true \
-  --set global.imageRegistry=ghcr.io/onchainux
+  --set global.imageRegistry=ghcr.io/cinaconnect
 ```
 
 ### Ingress

@@ -13,7 +13,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { Connector } from '../../src/connector.js';
 import { SessionManager } from '../../src/session.js';
-import { createOnChainUXStore } from '../../src/store.js';
+import { createCinaConnectStore } from '../../src/store.js';
 import type { ConnectParams, ConnectionResult, TransactionRequest } from '../../src/types.js';
 
 /**

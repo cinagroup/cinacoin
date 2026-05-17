@@ -1,5 +1,5 @@
 /**
- * Tests for @onchainux/cli test command.
+ * Tests for @cinaconnect/cli test command.
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';

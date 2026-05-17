@@ -1,7 +1,7 @@
 {
-  "name": "@onchainux/core-sdk",
+  "name": "@cinaconnect/core-sdk",
   "version": "0.1.0",
-  "description": "OnChainUX Core SDK — Self-hosted wallet connection toolkit",
+  "description": "CinaConnect Core SDK — Self-hosted wallet connection toolkit",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",

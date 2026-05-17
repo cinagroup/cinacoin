@@ -1,5 +1,5 @@
 /**
- * BaseLitElement — base class for all OnChainUX Web Components.
+ * BaseLitElement — base class for all CinaConnect Web Components.
  *
  * Provides:
  * - Automatic CSS variable injection from design tokens

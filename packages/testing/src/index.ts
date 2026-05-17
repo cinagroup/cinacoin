@@ -1,5 +1,5 @@
 /**
- * @onchainux/testing — Testing utilities for OnChainUX
+ * @cinaconnect/testing — Testing utilities for CinaConnect
  *
  * Export all testing utilities from a single entry point.
  */

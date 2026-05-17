@@ -1,7 +1,7 @@
 {
-  "name": "@onchainux/passkey-auth",
+  "name": "@cinaconnect/passkey-auth",
   "version": "0.1.0",
-  "description": "OnChainUX Passkey Auth — WebAuthn-based authentication for blockchain apps",
+  "description": "CinaConnect Passkey Auth — WebAuthn-based authentication for blockchain apps",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",

@@ -15,7 +15,7 @@
  * val signature = adapter.sendTransaction(serializedTx)
  * ```
  */
-package com.onchainux.chain
+package com.cinaconnect.chain
 
 import android.content.Context
 import android.content.Intent

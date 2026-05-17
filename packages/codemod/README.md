@@ -1,11 +1,11 @@
-# @onchainux/codemod
+# @cinaconnect/codemod
 
-Automated codemods for migrating from **Web3Modal/AppKit** and **WalletConnect v1** to **OnChainUX**.
+Automated codemods for migrating from **Web3Modal/AppKit** and **WalletConnect v1** to **CinaConnect**.
 
 ## Installation
 
 ```bash
-npm install -D @onchainux/codemod
+npm install -D @cinaconnect/codemod
 ```
 
 ## Usage
@@ -14,22 +14,22 @@ npm install -D @onchainux/codemod
 
 ```bash
 # See available transforms
-npx onchainux-codemod --list
+npx cinaconnect-codemod --list
 
 # Run a transform
-npx onchainux/codemod --src-dir ./src --transform appkit-to-onchainux
+npx cinaconnect/codemod --src-dir ./src --transform appkit-to-cinaconnect
 
 # Dry run (no files modified)
-npx onchainux/codemod --src-dir ./src --transform appkit-to-onchainux --dry-run
+npx cinaconnect/codemod --src-dir ./src --transform appkit-to-cinaconnect --dry-run
 
 # Run multiple transforms
-npx onchainux/codemod --src-dir ./src --transform appkit-to-onchainux --transform wc-v1-to-v2
+npx cinaconnect/codemod --src-dir ./src --transform appkit-to-cinaconnect --transform wc-v1-to-v2
 
 # Verbose output
-npx onchainux/codemod --src-dir ./src --transform appkit-to-onchainux --verbose
+npx cinaconnect/codemod --src-dir ./src --transform appkit-to-cinaconnect --verbose
 
 # Custom glob pattern
-npx onchainux/codemod --src-dir ./src --transform appkit-to-onchainux --pattern "**/*.{ts,tsx}"
+npx cinaconnect/codemod --src-dir ./src --transform appkit-to-cinaconnect --pattern "**/*.{ts,tsx}"
 ```
 
 ### Options
@@ -46,34 +46,34 @@ npx onchainux/codemod --src-dir ./src --transform appkit-to-onchainux --pattern 
 ### Programmatic API
 
 ```ts
-import { transformAppKitToOnChainUX, transformWcV1ToV2 } from "@onchainux/codemod";
+import { transformAppKitToCinaConnect, transformWcV1ToV2 } from "@cinaconnect/codemod";
 
 const source = `import { Web3Modal } from "@web3modal/react";`;
 
-const result = transformAppKitToOnChainUX(source);
+const result = transformAppKitToCinaConnect(source);
 console.log(result.output);
-// import { OnChainUX } from "@onchainux/react";
+// import { CinaConnect } from "@cinaconnect/react";
 
 console.log(result.changes);
-// ["[appkit-to-onchainux] Renamed package: @web3modal/react → @onchainux/react", ...]
+// ["[appkit-to-cinaconnect] Renamed package: @web3modal/react → @cinaconnect/react", ...]
 ```
 
 ## Available Transforms
 
-### `appkit-to-onchainux`
+### `appkit-to-cinaconnect`
 
-Migrates Web3Modal / AppKit code to OnChainUX:
+Migrates Web3Modal / AppKit code to CinaConnect:
 
 | Before | After |
 |--------|-------|
-| `@reown/appkit` | `@onchainux/core` |
-| `@web3modal/react` | `@onchainux/react` |
-| `@web3modal/ethereum` | `@onchainux/ethereum` |
-| `Web3Modal` | `OnChainUX` |
-| `createWeb3Modal` | `createOnChainUX` |
-| `useWeb3Modal` | `useOnChainUX` |
-| `W3mButton` | `OnChainUXButton` |
-| `Web3ModalConfig` | `OnChainUXConfig` |
+| `@reown/appkit` | `@cinaconnect/core` |
+| `@web3modal/react` | `@cinaconnect/react` |
+| `@web3modal/ethereum` | `@cinaconnect/ethereum` |
+| `Web3Modal` | `CinaConnect` |
+| `createWeb3Modal` | `createCinaConnect` |
+| `useWeb3Modal` | `useCinaConnect` |
+| `W3mButton` | `CinaConnectButton` |
+| `Web3ModalConfig` | `CinaConnectConfig` |
 | `walletConnectProjectId` | `projectId` |
 
 ### `wc-v1-to-v2`
@@ -92,7 +92,7 @@ Migrates WalletConnect v1 patterns to v2:
 ## Recommended Migration Order
 
 1. **Commit your code** before running codemods
-2. Run `appkit-to-onchainux` first (package/identifier renames)
+2. Run `appkit-to-cinaconnect` first (package/identifier renames)
 3. Run `wc-v1-to-v2` second (WalletConnect protocol updates)
 4. Review changes with `git diff`
 5. Fix any manual migration steps (e.g., API differences)

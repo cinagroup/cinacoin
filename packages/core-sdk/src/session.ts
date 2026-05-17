@@ -15,7 +15,7 @@ export type SessionState =
   | { status: 'error'; error: Error };
 
 /** Session storage key for persistence. */
-const SESSION_STORAGE_KEY = 'onchainux_session';
+const SESSION_STORAGE_KEY = 'cinaconnect_session';
 
 /**
  * SessionManager controls the connection lifecycle.

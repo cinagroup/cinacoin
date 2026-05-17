@@ -259,7 +259,7 @@ export class TRONChainAdapter {
 
   /* ---- Configuration ---- */
 
-  /** Set the OnChainUX connector. Required by ChainAdapter interface. */
+  /** Set the CinaConnect connector. Required by ChainAdapter interface. */
   setConnector(_connector: Connector): void {
     // TRON adapter uses TRON Link protocol; connector is optional.
   }
@@ -308,7 +308,7 @@ export class TRONChainAdapter {
     const accounts = await provider.request({
       method: 'tron_requestAccounts',
       params: {
-        websiteName: 'OnChainUX',
+        websiteName: 'CinaConnect',
       },
     });
 

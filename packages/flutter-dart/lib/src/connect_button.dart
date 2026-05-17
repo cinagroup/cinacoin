@@ -41,13 +41,13 @@ class ConnectButtonProps {
 /// and long-press-to-disconnect patterns.
 ///
 /// ```dart
-/// OnChainUXConnectButton(
+/// CinaConnectConnectButton(
 ///   status: ConnectionStatus.connected,
 ///   account: '0x1234...abcd',
 ///   onClick: () => openModal(),
 /// )
 /// ```
-class OnChainUXConnectButton extends StatelessWidget {
+class CinaConnectConnectButton extends StatelessWidget {
   /// Current connection status.
   final ConnectionStatus status;
   /// Connected account address.
@@ -77,7 +77,7 @@ class OnChainUXConnectButton extends StatelessWidget {
   /// CSS class name equivalent (for styling).
   final String? className;
 
-  const OnChainUXConnectButton({
+  const CinaConnectConnectButton({
     super.key,
     required this.status,
     this.account,

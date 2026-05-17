@@ -11,7 +11,7 @@ import "./interfaces/IPaymaster.sol";
 import "./libraries/PaymasterLib.sol";
 
 /// @title UpgradeablePaymaster
-/// @notice Upgradeable version of the OnChainUX Paymaster using UUPS pattern
+/// @notice Upgradeable version of the CinaConnect Paymaster using UUPS pattern
 /// @dev Deploy the implementation, then create a proxy pointing to it.
 ///      The proxy holds all state; the implementation is replaceable.
 contract UpgradeablePaymaster is

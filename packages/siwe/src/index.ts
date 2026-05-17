@@ -1,5 +1,5 @@
 /**
- * @onchainux/siwe — Sign-In with Ethereum (EIP-4361)
+ * @cinaconnect/siwe — Sign-In with Ethereum (EIP-4361)
  *
  * Generate, parse, and verify SIWE messages for Ethereum-based authentication.
  *

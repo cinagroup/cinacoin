@@ -2,7 +2,7 @@
 name = "notify-server"
 version = "0.1.0"
 edition = "2021"
-description = "OnChainUX Notification Server - dApp notification push system"
+description = "CinaConnect Notification Server - dApp notification push system"
 license = "MIT"
 
 [dependencies]

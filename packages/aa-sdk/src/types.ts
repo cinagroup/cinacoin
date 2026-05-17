@@ -1,5 +1,5 @@
 /**
- * Account Abstraction types for @onchainux/aa-sdk
+ * Account Abstraction types for @cinaconnect/aa-sdk
  */
 
 export interface SmartAccountConfig {

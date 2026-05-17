@@ -8,7 +8,7 @@
  */
 
 import type { SIWXParams, SIWXResult, SIWXVerifyInput } from '../types.js';
-import { generateTimestamp } from '@onchainux/siwe';
+import { generateTimestamp } from '@cinaconnect/siwe';
 
 /**
  * Create a sign-in message for Bitcoin chains using BIP-322 compatible format.

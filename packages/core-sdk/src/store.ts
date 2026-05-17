@@ -1,5 +1,5 @@
 /**
- * Zustand-based state management for the OnChainUX SDK.
+ * Zustand-based state management for the CinaConnect SDK.
  */
 
 import { create } from 'zustand';
@@ -9,7 +9,7 @@ import type { Chain, ConnectParams, ConnectionResult, PairingData } from './type
 export type ConnectionStatus = 'disconnected' | 'connecting' | 'connected' | 'error';
 
 /** SDK state managed by Zustand. */
-export interface OnChainUXState {
+export interface CinaConnectState {
   // Connection state
   status: ConnectionStatus;
   accounts: string[];
@@ -44,8 +44,8 @@ export interface OnChainUXState {
 }
 
 /** Create the SDK store. */
-export const createOnChainUXStore = () =>
-  create<OnChainUXState>((set) => ({
+export const createCinaConnectStore = () =>
+  create<CinaConnectState>((set) => ({
     // Initial state
     status: 'disconnected',
     accounts: [],
@@ -101,7 +101,7 @@ export interface StoreConfig {
 
 /** Initialize the SDK store with configuration. */
 export function initializeStore(config: StoreConfig) {
-  const store = createOnChainUXStore();
+  const store = createCinaConnectStore();
   store.getState().setRelayUrl(config.relayUrl);
   store.getState().setProjectId(config.projectId);
   store.getState().setChains(config.chains);

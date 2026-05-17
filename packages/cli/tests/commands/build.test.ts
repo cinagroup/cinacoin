@@ -1,5 +1,5 @@
 /**
- * Tests for @onchainux/cli build command.
+ * Tests for @cinaconnect/cli build command.
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
@@ -127,7 +127,7 @@ describe('buildCommand', () => {
       command: vi.fn().mockReturnThis(),
       description: vi.fn().mockReturnThis(),
       option: vi.fn().mockReturnThis(),
-      action: vi.fn((cb: (opts: any) => void) => cb({ scope: '@onchainux/core-sdk' })),
+      action: vi.fn((cb: (opts: any) => void) => cb({ scope: '@cinaconnect/core-sdk' })),
     };
     const mockCli = {
       command: vi.fn().mockReturnValue(mockCommand),
@@ -137,7 +137,7 @@ describe('buildCommand', () => {
     buildCommand(mockCli);
 
     expect(execSync).toHaveBeenCalledWith(
-      'npx turbo run build --filter=@onchainux/core',
+      'npx turbo run build --filter=@cinaconnect/core',
       expect.objectContaining({ stdio: 'pipe' })
     );
   });

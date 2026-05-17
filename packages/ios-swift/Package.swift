@@ -4,30 +4,30 @@
 import PackageDescription
 
 let package = Package(
-    name: "OnChainUX",
+    name: "CinaConnect",
     platforms: [
         .iOS(.v15),
         .macOS(.v12),
     ],
     products: [
         .library(
-            name: "OnChainUX",
-            targets: ["OnChainUX"]),
+            name: "CinaConnect",
+            targets: ["CinaConnect"]),
     ],
     dependencies: [
         .package(url: "https://github.com/WalletConnect/WalletConnectSwiftV2.git", exact: "1.13.0"),
     ],
     targets: [
         .target(
-            name: "OnChainUX",
+            name: "CinaConnect",
             dependencies: [
                 .product(name: "WalletConnect", package: "WalletConnectSwiftV2"),
                 .product(name: "WalletConnectNetworking", package: "WalletConnectSwiftV2"),
             ],
-            path: "Sources/OnChainUX",
+            path: "Sources/CinaConnect",
             // Include WalletConnect v2 module files
             sources: [
-                "OnChainUX.swift",
+                "CinaConnect.swift",
                 "WalletManager.swift",
                 "ConnectButton.swift",
                 "ConnectModal.swift",
@@ -40,8 +40,8 @@ let package = Package(
                 "WalletConnect/WCUtils.swift",
             ]),
         .testTarget(
-            name: "OnChainUXTests",
-            dependencies: ["OnChainUX"],
-            path: "Tests/OnChainUXTests"),
+            name: "CinaConnectTests",
+            dependencies: ["CinaConnect"],
+            path: "Tests/CinaConnectTests"),
     ]
 )

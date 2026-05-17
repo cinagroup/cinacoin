@@ -1,6 +1,6 @@
 /**
- * Tests for @onchainux/vue composables.
- * Tests useOnChainUX, useAccount, useChainId, useConnect, useDisconnect.
+ * Tests for @cinaconnect/vue composables.
+ * Tests useCinaConnect, useAccount, useChainId, useConnect, useDisconnect.
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
@@ -48,14 +48,14 @@ vi.mock('vue', () => ({
 
 // ─── Tests ───────────────────────────────────────────────────────────────────
 
-describe('useOnChainUX', () => {
+describe('useCinaConnect', () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
-  it('should return the injected OnChainUX context', async () => {
-    const { useOnChainUX } = await import('../src/composables.js');
-    const ctx = useOnChainUX();
+  it('should return the injected CinaConnect context', async () => {
+    const { useCinaConnect } = await import('../src/composables.js');
+    const ctx = useCinaConnect();
 
     expect(ctx.config.chains).toHaveLength(2);
     expect(ctx.config.chains![0].id).toBe(1);
@@ -63,16 +63,16 @@ describe('useOnChainUX', () => {
   });
 
   it('should expose connect and disconnect functions', async () => {
-    const { useOnChainUX } = await import('../src/composables.js');
-    const ctx = useOnChainUX();
+    const { useCinaConnect } = await import('../src/composables.js');
+    const ctx = useCinaConnect();
 
     expect(typeof ctx.connect).toBe('function');
     expect(typeof ctx.disconnect).toBe('function');
   });
 
   it('should expose switchChain function', async () => {
-    const { useOnChainUX } = await import('../src/composables.js');
-    const ctx = useOnChainUX();
+    const { useCinaConnect } = await import('../src/composables.js');
+    const ctx = useCinaConnect();
 
     expect(typeof ctx.switchChain).toBe('function');
   });
@@ -81,10 +81,10 @@ describe('useOnChainUX', () => {
     const vueModule = await import('vue');
     (vueModule.inject as ReturnType<typeof vi.fn>).mockReturnValueOnce(null);
 
-    const { useOnChainUX } = await import('../src/composables.js');
+    const { useCinaConnect } = await import('../src/composables.js');
 
-    expect(() => useOnChainUX()).toThrow(
-      'useOnChainUX must be used within <OnChainUXProvider>'
+    expect(() => useCinaConnect()).toThrow(
+      'useCinaConnect must be used within <CinaConnectProvider>'
     );
   });
 });
@@ -117,7 +117,7 @@ describe('useAccount', () => {
     const { useAccount } = await import('../src/composables.js');
 
     expect(() => useAccount()).toThrow(
-      'useOnChainUX must be used within <OnChainUXProvider>'
+      'useCinaConnect must be used within <CinaConnectProvider>'
     );
   });
 });
@@ -141,7 +141,7 @@ describe('useChainId', () => {
     const { useChainId } = await import('../src/composables.js');
 
     expect(() => useChainId()).toThrow(
-      'useOnChainUX must be used within <OnChainUXProvider>'
+      'useCinaConnect must be used within <CinaConnectProvider>'
     );
   });
 });

@@ -43,7 +43,7 @@ export default function MultiChainPage() {
         <div className="text-center space-y-2">
           <h1 className="text-3xl font-bold">Multi-Chain Demo</h1>
           <p className="text-gray-400">
-            OnChainUX supports EVM, Solana, and Bitcoin — all through a unified API.
+            CinaConnect supports EVM, Solana, and Bitcoin — all through a unified API.
           </p>
         </div>
 
@@ -109,7 +109,7 @@ export default function MultiChainPage() {
             <span className="text-2xl text-gray-500">→</span>
             <div className="bg-gray-700 rounded-lg px-4 py-3">
               <span className="text-gray-400">Bridge</span>
-              <p className="font-semibold">OnChainUX Relay</p>
+              <p className="font-semibold">CinaConnect Relay</p>
             </div>
             <span className="text-2xl text-gray-500">→</span>
             <div className="bg-gray-700 rounded-lg px-4 py-3">

@@ -1,25 +1,25 @@
 /**
- * Vue composables for OnChainUX.
+ * Vue composables for CinaConnect.
  *
- * All composables require being used within <OnChainUXProvider>.
+ * All composables require being used within <CinaConnectProvider>.
  */
 
 import { inject } from 'vue';
-import { ONCHAINUX_KEY, type OnChainUXContext } from './types.js';
+import { ONCHAINUX_KEY, type CinaConnectContext } from './types.js';
 
 /**
- * useOnChainUX — access the full OnChainUX context.
+ * useCinaConnect — access the full CinaConnect context.
  *
  * ```vue
  * <script setup>
- * const { connect, disconnect, account, status } = useOnChainUX()
+ * const { connect, disconnect, account, status } = useCinaConnect()
  * </script>
  * ```
  */
-export function useOnChainUX(): OnChainUXContext {
-  const ctx = inject<OnChainUXContext | null>(ONCHAINUX_KEY, null);
+export function useCinaConnect(): CinaConnectContext {
+  const ctx = inject<CinaConnectContext | null>(ONCHAINUX_KEY, null);
   if (!ctx) {
-    throw new Error('useOnChainUX must be used within <OnChainUXProvider>');
+    throw new Error('useCinaConnect must be used within <CinaConnectProvider>');
   }
   return ctx;
 }
@@ -34,7 +34,7 @@ export function useOnChainUX(): OnChainUXContext {
  * ```
  */
 export function useAccount() {
-  const { account } = useOnChainUX();
+  const { account } = useCinaConnect();
   return account;
 }
 
@@ -42,7 +42,7 @@ export function useAccount() {
  * useChainId — access the current chain ID.
  */
 export function useChainId() {
-  const { account } = useOnChainUX();
+  const { account } = useCinaConnect();
   return account.value.chainId;
 }
 
@@ -50,7 +50,7 @@ export function useChainId() {
  * useConnect — connect to a wallet.
  */
 export function useConnect() {
-  const { connect, status, isSwitchingChain } = useOnChainUX();
+  const { connect, status, isSwitchingChain } = useCinaConnect();
   return { connect, status, isSwitchingChain };
 }
 
@@ -58,6 +58,6 @@ export function useConnect() {
  * useDisconnect — disconnect from the current wallet.
  */
 export function useDisconnect() {
-  const { disconnect } = useOnChainUX();
+  const { disconnect } = useCinaConnect();
   return { disconnect };
 }

@@ -1,7 +1,7 @@
 {
-  "name": "@onchainux/analytics",
+  "name": "@cinaconnect/analytics",
   "version": "0.1.0",
-  "description": "OnChainUX Analytics SDK — GDPR-compliant event tracking and metrics",
+  "description": "CinaConnect Analytics SDK — GDPR-compliant event tracking and metrics",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",

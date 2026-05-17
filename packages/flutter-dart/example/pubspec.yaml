@@ -1,5 +1,5 @@
-name: onchainux_example
-description: Example app for OnChainUX Flutter SDK
+name: cinaconnect_example
+description: Example app for CinaConnect Flutter SDK
 publish_to: 'none'
 version: 1.0.0+1
 
@@ -9,7 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  onchainux:
+  cinaconnect:
     path: ../
 
 flutter:

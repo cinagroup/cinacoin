@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using NUnit.Framework;
 
-namespace OnChainUX.Tests.Runtime
+namespace CinaConnect.Tests.Runtime
 {
     /// <summary>
     /// PlayMode tests for the WalletManager class.

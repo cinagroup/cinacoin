@@ -275,7 +275,7 @@ export class TONChainAdapter {
 
   /* ---- Configuration ---- */
 
-  /** Set the OnChainUX connector. Required by ChainAdapter interface. */
+  /** Set the CinaConnect connector. Required by ChainAdapter interface. */
   setConnector(_connector: Connector): void {
     // TON adapter uses TON Connect protocol; connector is optional.
   }

@@ -6,7 +6,7 @@ export default function SwapPage() {
       <div className="max-w-xl mx-auto space-y-6">
         <div className="text-center space-y-2">
           <h1 className="text-3xl font-bold">Swap Demo</h1>
-          <p className="text-gray-400">Cross-chain token swap powered by OnChainUX Swap SDK</p>
+          <p className="text-gray-400">Cross-chain token swap powered by CinaConnect Swap SDK</p>
         </div>
 
         <div className="bg-gray-800/50 backdrop-blur rounded-2xl border border-gray-700 p-6 space-y-4">

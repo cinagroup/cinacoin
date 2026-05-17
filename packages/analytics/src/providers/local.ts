@@ -6,7 +6,7 @@
 
 import type { AnalyticsEvent, AnalyticsProvider } from "./types.js.js";
 
-const STORAGE_KEY = "onchainux-analytics-events";
+const STORAGE_KEY = "cinaconnect-analytics-events";
 const MAX_EVENTS = 1000;
 
 export class LocalStorageProvider implements AnalyticsProvider {

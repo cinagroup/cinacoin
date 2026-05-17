@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/onchainux/rpc-proxy/internal/config"
+	"github.com/cinaconnect/rpc-proxy/internal/config"
 )
 
 func TestNewRateLimiter(t *testing.T) {

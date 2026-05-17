@@ -1,7 +1,7 @@
 {
-  "name": "@onchainux/siwe",
+  "name": "@cinaconnect/siwe",
   "version": "0.1.0",
-  "description": "OnChainUX Sign-In with Ethereum (SIWE) implementation per EIP-4361",
+  "description": "CinaConnect Sign-In with Ethereum (SIWE) implementation per EIP-4361",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",

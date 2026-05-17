@@ -1,5 +1,5 @@
 /**
- * Core type validation tests for the OnChainUX SDK.
+ * Core type validation tests for the CinaConnect SDK.
  *
  * Tests type utilities and validation helpers defined in types.ts.
  */

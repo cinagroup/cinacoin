@@ -1,19 +1,19 @@
 /**
- * @onchainux/vue
+ * @cinaconnect/vue
  *
- * Vue 3 adapter for OnChainUX white-label UI toolkit.
+ * Vue 3 adapter for CinaConnect white-label UI toolkit.
  */
 
-export { default as OnChainUXProvider } from './OnChainUXProvider.vue.js';
-export type { OnChainUXProviderProps } from './OnChainUXProvider.vue.js';
+export { default as CinaConnectProvider } from './CinaConnectProvider.vue.js';
+export type { CinaConnectProviderProps } from './CinaConnectProvider.vue.js';
 
 export { ONCHAINUX_KEY } from './types.js';
-export type { OnChainUXConfig, OnChainUXContext, AccountState, Connector, ChainConfig, ThemeMode } from './types.js';
+export type { CinaConnectConfig, CinaConnectContext, AccountState, Connector, ChainConfig, ThemeMode } from './types.js';
 
 export { OcxConnectButton, OcxConnectModal, OcxChainSwitcher } from './components.js';
 
 export {
-  useOnChainUX,
+  useCinaConnect,
   useAccount,
   useChainId,
   useConnect,

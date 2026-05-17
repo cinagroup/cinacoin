@@ -1,5 +1,5 @@
 import XCTest
-@testable import OnChainUX
+@testable import CinaConnect
 
 /// Tests for ConnectButton UI rendering and state changes.
 final class ConnectButtonTests: XCTestCase {

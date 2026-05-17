@@ -2,7 +2,7 @@
 pragma solidity ^0.8.26;
 
 /// @title IPaymaster
-/// @notice Interface for OnChainUX Paymaster contracts
+/// @notice Interface for CinaConnect Paymaster contracts
 /// @dev Compatible with ERC-4337 EntryPoint v0.7
 interface IPaymaster {
     /// @notice Post-operation callback from EntryPoint

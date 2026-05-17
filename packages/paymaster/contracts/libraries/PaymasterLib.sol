@@ -2,7 +2,7 @@
 pragma solidity ^0.8.26;
 
 /// @title PaymasterLib
-/// @notice Shared library functions for OnChainUX Paymaster contracts
+/// @notice Shared library functions for CinaConnect Paymaster contracts
 library PaymasterLib {
     /// @notice Decode a timestamp + address packed into validationData
     /// @dev Per EIP-4337, validationData is packed as:

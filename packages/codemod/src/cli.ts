@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
 /**
- * CLI entry point for @onchainux/codemod
+ * CLI entry point for @cinaconnect/codemod
  *
  * Usage:
- *   npx onchainux-codemod --src-dir ./src --transform appkit-to-onchainux
- *   npx onchainux-codemod --src-dir ./src --transform appkit-to-onchainux --dry-run
- *   npx onchainux-codemod --list
+ *   npx cinaconnect-codemod --src-dir ./src --transform appkit-to-cinaconnect
+ *   npx cinaconnect-codemod --src-dir ./src --transform appkit-to-cinaconnect --dry-run
+ *   npx cinaconnect-codemod --list
  */
 
 import yargs from "yargs";
@@ -35,7 +35,7 @@ function main(): void {
     .option("transform", {
       type: "array",
       default: [],
-      describe: "Transform(s) to apply (e.g. appkit-to-onchainux, wc-v1-to-v2)",
+      describe: "Transform(s) to apply (e.g. appkit-to-cinaconnect, wc-v1-to-v2)",
     })
     .option("dry-run", {
       type: "boolean",

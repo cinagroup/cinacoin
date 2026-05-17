@@ -1,8 +1,8 @@
 {
-  "name": "com.onchainux.sdk",
+  "name": "com.cinaconnect.sdk",
   "version": "0.1.0",
-  "displayName": "OnChainUX SDK",
-  "description": "OnChainUX Unity SDK — Self-hosted wallet connection toolkit for Unity games and apps. Complete replacement for Reown/WalletConnect infrastructure.",
+  "displayName": "CinaConnect SDK",
+  "description": "CinaConnect Unity SDK — Self-hosted wallet connection toolkit for Unity games and apps. Complete replacement for Reown/WalletConnect infrastructure.",
   "unity": "2022.3",
   "license": "MIT",
   "keywords": [
@@ -14,9 +14,9 @@
     "walletconnect"
   ],
   "author": {
-    "name": "OnChainUX Team",
-    "email": "team@onchainux.dev",
-    "url": "https://onchainux.dev"
+    "name": "CinaConnect Team",
+    "email": "team@cinaconnect.dev",
+    "url": "https://cinaconnect.dev"
   },
   "samples": [
     {

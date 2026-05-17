@@ -136,7 +136,7 @@ describe('SessionManager state transitions', () => {
     await manager.initiate(connector);
     await vi.runAllTimersAsync();
 
-    const stored = localStorage.getItem('onchainux_session');
+    const stored = localStorage.getItem('cinaconnect_session');
     expect(stored).not.toBeNull();
     const parsed = JSON.parse(stored!);
     expect(parsed.status).toBe('connected');
@@ -151,7 +151,7 @@ describe('SessionManager state transitions', () => {
       sessionId: 'restored-session',
       connectorId: 'test-connector',
     });
-    localStorage.setItem('onchainux_session', sessionData);
+    localStorage.setItem('cinaconnect_session', sessionData);
 
     const freshManager = new SessionManager();
     await freshManager.restore();
@@ -164,7 +164,7 @@ describe('SessionManager state transitions', () => {
   });
 
   it('should handle corrupted localStorage gracefully', async () => {
-    localStorage.setItem('onchainux_session', 'not-json');
+    localStorage.setItem('cinaconnect_session', 'not-json');
     const freshManager = new SessionManager();
     const state = await freshManager.restore();
     expect(state.status).toBe('disconnected');
@@ -173,10 +173,10 @@ describe('SessionManager state transitions', () => {
   it('should clear localStorage on terminate', async () => {
     await manager.initiate(connector);
     await vi.runAllTimersAsync();
-    expect(localStorage.getItem('onchainux_session')).not.toBeNull();
+    expect(localStorage.getItem('cinaconnect_session')).not.toBeNull();
 
     await manager.terminate();
-    expect(localStorage.getItem('onchainux_session')).toBeNull();
+    expect(localStorage.getItem('cinaconnect_session')).toBeNull();
   });
 
   it('should throw on confirm without initiate', async () => {

@@ -1,6 +1,6 @@
-package com.onchainux.wallet
+package com.cinaconnect.wallet
 
-import com.onchainux.core.*
+import com.cinaconnect.core.*
 import org.junit.Test
 import org.junit.Assert.*
 

@@ -1,5 +1,5 @@
 import XCTest
-@testable import OnChainUX
+@testable import CinaConnect
 
 // MARK: - Message Generation
 

@@ -6,18 +6,18 @@
 
 <script setup lang="ts">
 /**
- * OnChainUXProvider — Vue provider component.
- * Wraps the app and provides OnChainUX state via Vue's provide/inject.
+ * CinaConnectProvider — Vue provider component.
+ * Wraps the app and provides CinaConnect state via Vue's provide/inject.
  */
 import { computed, provide, ref, type CSSProperties } from 'vue';
 import { ONCHAINUX_KEY } from './types';
-import type { OnChainUXConfig, AccountState, Connector } from './types';
+import type { CinaConnectConfig, AccountState, Connector } from './types';
 
-export interface OnChainUXProviderProps {
-  config: OnChainUXConfig;
+export interface CinaConnectProviderProps {
+  config: CinaConnectConfig;
 }
 
-const props = defineProps<OnChainUXProviderProps>();
+const props = defineProps<CinaConnectProviderProps>();
 
 const themeMode = computed(() => props.config.theme?.mode ?? 'dark');
 

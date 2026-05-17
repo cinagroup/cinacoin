@@ -9,12 +9,12 @@ import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 describe("CDN Config", () => {
   beforeEach(() => {
     if (typeof window !== "undefined") {
-      delete (window as any).OnChainUX;
+      delete (window as any).CinaConnect;
     }
     vi.resetModules();
   });
 
-  it("returns default config when window.OnChainUX is not set", async () => {
+  it("returns default config when window.CinaConnect is not set", async () => {
     const { getConfig } = await import("../src/config.js");
     const config = getConfig();
     expect(config.theme).toBe("light");
@@ -23,7 +23,7 @@ describe("CDN Config", () => {
   });
 
   it("merges user config with defaults", async () => {
-    (window as any).OnChainUX = {
+    (window as any).CinaConnect = {
       projectId: "test-123",
       theme: "dark",
       chains: [1, 10],

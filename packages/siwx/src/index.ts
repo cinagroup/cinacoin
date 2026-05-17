@@ -1,5 +1,5 @@
 /**
- * @onchainux/siwx — Sign-In with Cross-chain (SIWX)
+ * @cinaconnect/siwx — Sign-In with Cross-chain (SIWX)
  *
  * Unified authentication across EVM (EIP-4361), Solana (ed25519),
  * and Bitcoin (BIP-322) chains.

@@ -1,4 +1,4 @@
-package com.onchainux.deeplink
+package com.cinaconnect.deeplink
 
 import org.junit.Test
 import org.junit.Assert.*

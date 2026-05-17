@@ -1,9 +1,9 @@
 /**
  * wc-v1-to-v2 codemod
  *
- * Transforms WalletConnect v1 patterns → WalletConnect v2 / OnChainUX patterns:
+ * Transforms WalletConnect v1 patterns → WalletConnect v2 / CinaConnect patterns:
  *   - bridge URL      → projectId
- *   - v1 provider init → v2 Web3Modal / OnChainUX init
+ *   - v1 provider init → v2 Web3Modal / CinaConnect init
  *   - v1 events       → v2 event names
  *   - v1 methods      → v2 methods
  */

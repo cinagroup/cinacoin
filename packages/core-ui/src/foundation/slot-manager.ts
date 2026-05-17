@@ -1,5 +1,5 @@
 /**
- * Slot management utilities for OnChainUX Web Components.
+ * Slot management utilities for CinaConnect Web Components.
  *
  * Provides helpers to detect assigned slots, manage fallback content,
  * and handle named-slot distribution.

@@ -1,5 +1,5 @@
 /**
- * Fixtures — Common test fixtures for OnChainUX testing.
+ * Fixtures — Common test fixtures for CinaConnect testing.
  *
  * Pre-built addresses, signatures, ABIs, events, and configuration objects
  * that cover the most common testing scenarios.
@@ -41,7 +41,7 @@ export const HASHES = {
 
 export const TYPED_DATA = {
   domain: {
-    name: "OnChainUX Test",
+    name: "CinaConnect Test",
     version: "1",
     chainId: 1,
     verifyingContract: ADDRESSES.contract,
@@ -61,7 +61,7 @@ export const TYPED_DATA = {
   message: {
     from: { name: "Alice", wallet: ADDRESSES.user1 },
     to: { name: "Bob", wallet: ADDRESSES.user2 },
-    contents: "Hello, OnChainUX!",
+    contents: "Hello, CinaConnect!",
   },
 };
 

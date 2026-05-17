@@ -1,22 +1,22 @@
 /**
- * CDN global configuration via window.OnChainUX.
+ * CDN global configuration via window.CinaConnect.
  *
  * Users can set configuration before loading the CDN bundle:
  *
  * ```html
  * <script>
- *   window.OnChainUX = {
+ *   window.CinaConnect = {
  *     projectId: 'your-project-id',
  *     theme: 'dark',
  *     primaryColor: '#6366F1',
  *     chains: [1, 10, 137],
  *   };
  * </script>
- * <script src="https://cdn.onchainux.dev/connect.js"></script>
+ * <script src="https://cdn.cinaconnect.dev/connect.js"></script>
  * ```
  */
 
-export interface OnChainUXConfig {
+export interface CinaConnectConfig {
   /** WalletConnect Project ID */
   projectId?: string;
   /** Theme mode */
@@ -47,25 +47,25 @@ export interface OnChainUXConfig {
  */
 declare global {
   interface Window {
-    OnChainUX?: OnChainUXConfig;
+    CinaConnect?: CinaConnectConfig;
   }
 }
 
 /**
  * Default configuration values.
  */
-const DEFAULT_CONFIG: OnChainUXConfig = {
+const DEFAULT_CONFIG: CinaConnectConfig = {
   theme: "light",
   chains: [1],
   showRecent: true,
 };
 
 /**
- * Get the merged configuration from window.OnChainUX.
+ * Get the merged configuration from window.CinaConnect.
  * Falls back to defaults for any missing values.
  */
-export function getConfig(): OnChainUXConfig {
-  const userConfig = typeof window !== "undefined" ? window.OnChainUX : undefined;
+export function getConfig(): CinaConnectConfig {
+  const userConfig = typeof window !== "undefined" ? window.CinaConnect : undefined;
   return {
     ...DEFAULT_CONFIG,
     ...userConfig,
@@ -76,7 +76,7 @@ export function getConfig(): OnChainUXConfig {
  * Validate that required configuration is present.
  * Returns a list of missing keys.
  */
-export function validateConfig(config: OnChainUXConfig): string[] {
+export function validateConfig(config: CinaConnectConfig): string[] {
   const missing: string[] = [];
   if (!config.projectId) {
     missing.push("projectId");

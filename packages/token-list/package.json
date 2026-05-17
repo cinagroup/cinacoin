@@ -1,7 +1,7 @@
 {
-  "name": "@onchainux/token-list",
+  "name": "@cinaconnect/token-list",
   "version": "0.1.0",
-  "description": "OnChainUX Token List — Token discovery, metadata, and validation",
+  "description": "CinaConnect Token List — Token discovery, metadata, and validation",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -22,7 +22,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@onchainux/core-sdk": "workspace:*"
+    "@cinaconnect/core-sdk": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^20.11.0",

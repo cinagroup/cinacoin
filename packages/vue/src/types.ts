@@ -1,5 +1,5 @@
 /**
- * Type definitions for @onchainux/vue
+ * Type definitions for @cinaconnect/vue
  */
 
 /** Supported theme modes. */
@@ -38,8 +38,8 @@ export interface AccountState {
   ensName?: string;
 }
 
-/** OnChainUX configuration. */
-export interface OnChainUXConfig {
+/** CinaConnect configuration. */
+export interface CinaConnectConfig {
   projectId?: string;
   chains?: ChainConfig[];
   theme?: {
@@ -55,9 +55,9 @@ export interface OnChainUXConfig {
   recommendedWallets?: string[];
 }
 
-/** Context value provided by OnChainUXProvider. */
-export interface OnChainUXContext {
-  config: OnChainUXConfig;
+/** Context value provided by CinaConnectProvider. */
+export interface CinaConnectContext {
+  config: CinaConnectConfig;
   connectors: import('vue').Ref<Connector[]>;
   account: import('vue').Ref<AccountState>;
   status: import('vue').Ref<'disconnected' | 'connecting' | 'connected' | 'error'>;
@@ -67,5 +67,5 @@ export interface OnChainUXContext {
   isSwitchingChain: import('vue').Ref<boolean>;
 }
 
-/** Injection key for OnChainUX context. */
-export const ONCHAINUX_KEY = Symbol('onchainux');
+/** Injection key for CinaConnect context. */
+export const ONCHAINUX_KEY = Symbol('cinaconnect');

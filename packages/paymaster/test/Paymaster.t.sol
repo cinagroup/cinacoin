@@ -2,15 +2,15 @@
 pragma solidity ^0.8.26;
 
 import "forge-std/Test.sol";
-import "../contracts/OnChainUXPaymaster.sol";
+import "../contracts/CinaConnectPaymaster.sol";
 import "../contracts/VerifyingPaymaster.sol";
 import "../contracts/TokenPaymaster.sol";
 import "../contracts/libraries/PaymasterLib.sol";
 
 /// @title PaymasterTest
-/// @notice Comprehensive test suite for OnChainUX paymaster contracts
+/// @notice Comprehensive test suite for CinaConnect paymaster contracts
 contract PaymasterTest is Test {
-    OnChainUXPaymaster public paymaster;
+    CinaConnectPaymaster public paymaster;
     VerifyingPaymaster public verifyingPaymaster;
     TokenPaymaster public tokenPaymaster;
 
@@ -25,12 +25,12 @@ contract PaymasterTest is Test {
     function setUp() public {
         owner = address(this);
 
-        paymaster = new OnChainUXPaymaster(entryPoint);
+        paymaster = new CinaConnectPaymaster(entryPoint);
         verifyingPaymaster = new VerifyingPaymaster(entryPoint, trustedSigner);
         tokenPaymaster = new TokenPaymaster(entryPoint);
     }
 
-    // ==================== OnChainUXPaymaster Tests ====================
+    // ==================== CinaConnectPaymaster Tests ====================
 
     function test_ConstructorSetsEntryPoint() public view {
         assertEq(address(paymaster.entryPoint()), entryPoint);
@@ -43,16 +43,16 @@ contract PaymasterTest is Test {
     function test_SetSponsorConfig() public {
         paymaster.setSponsorConfig(
             user1,
-            OnChainUXPaymaster.SponsorMode.FreeTier,
+            CinaConnectPaymaster.SponsorMode.FreeTier,
             1e16,   // maxAmountPerOp
             10,     // dailyLimitPerUser
             1e18    // totalDailyBudget
         );
 
-        (OnChainUXPaymaster.SponsorMode mode, uint256 maxAmount, uint256 dailyLimit, uint256 totalBudget) =
+        (CinaConnectPaymaster.SponsorMode mode, uint256 maxAmount, uint256 dailyLimit, uint256 totalBudget) =
             paymaster.sponsors(user1);
 
-        assertEq(uint8(mode), uint8(OnChainUXPaymaster.SponsorMode.FreeTier));
+        assertEq(uint8(mode), uint8(CinaConnectPaymaster.SponsorMode.FreeTier));
         assertEq(maxAmount, 1e16);
         assertEq(dailyLimit, 10);
         assertEq(totalBudget, 1e18);
@@ -87,7 +87,7 @@ contract PaymasterTest is Test {
         vm.expectRevert(); // OwnableUnauthorizedAccount
         paymaster.setSponsorConfig(
             user1,
-            OnChainUXPaymaster.SponsorMode.Fixed,
+            CinaConnectPaymaster.SponsorMode.Fixed,
             1e16,
             10,
             1e18
@@ -132,7 +132,7 @@ contract PaymasterTest is Test {
     function test_FreeTierTracking() public {
         paymaster.setSponsorConfig(
             user1,
-            OnChainUXPaymaster.SponsorMode.FreeTier,
+            CinaConnectPaymaster.SponsorMode.FreeTier,
             0,
             5,     // 5 free ops per day
             0
@@ -171,7 +171,7 @@ contract PaymasterTest is Test {
 
     function test_EmergencyShutdownEmitsEvent() public {
         vm.expectEmit(true, true, true, true);
-        emit OnChainUXPaymaster.EmergencyShutdown();
+        emit CinaConnectPaymaster.EmergencyShutdown();
         paymaster.pause();
     }
 
@@ -182,7 +182,7 @@ contract PaymasterTest is Test {
         uint48 end = uint48(block.timestamp + 24 hours);
 
         vm.expectEmit(true, true, true, true);
-        emit OnChainUXPaymaster.TimeWindowSet(start, end);
+        emit CinaConnectPaymaster.TimeWindowSet(start, end);
         paymaster.setTimeWindow(start, end);
 
         assertEq(paymaster.windowStart(), start);
@@ -224,7 +224,7 @@ contract PaymasterTest is Test {
 
     function test_SetGlobalDailyBudget() public {
         vm.expectEmit(true, true, true, true);
-        emit OnChainUXPaymaster.GlobalBudgetSet(10 ether);
+        emit CinaConnectPaymaster.GlobalBudgetSet(10 ether);
         paymaster.setGlobalDailyBudget(10 ether);
 
         assertEq(paymaster.globalDailyBudget(), 10 ether);
@@ -421,7 +421,7 @@ contract PaymasterTest is Test {
     function test_IsSponsoredConfiguredUser() public {
         paymaster.setSponsorConfig(
             user1,
-            OnChainUXPaymaster.SponsorMode.Fixed,
+            CinaConnectPaymaster.SponsorMode.Fixed,
             1e16,
             10,
             1e18
@@ -450,7 +450,7 @@ contract PaymasterTest is Test {
 
     function test_GlobalDailyBudgetEmitsEvent() public {
         vm.expectEmit(true, true, true, true);
-        emit OnChainUXPaymaster.GlobalBudgetSet(25 ether);
+        emit CinaConnectPaymaster.GlobalBudgetSet(25 ether);
         paymaster.setGlobalDailyBudget(25 ether);
     }
 
@@ -470,7 +470,7 @@ contract PaymasterTest is Test {
         uint48 start = uint48(block.timestamp);
         uint48 end = uint48(block.timestamp + 24 hours);
         vm.expectEmit(true, true, true, true);
-        emit OnChainUXPaymaster.TimeWindowSet(start, end);
+        emit CinaConnectPaymaster.TimeWindowSet(start, end);
         paymaster.setTimeWindow(start, end);
     }
 
@@ -490,20 +490,20 @@ contract PaymasterTest is Test {
 
     function test_SetTargetFilterEmitsEvent() public {
         vm.expectEmit(true, true, true, true);
-        emit OnChainUXPaymaster.TargetFilterEnabled(true);
+        emit CinaConnectPaymaster.TargetFilterEnabled(true);
         paymaster.setTargetFilter(true);
     }
 
     function test_WhitelistUserEmitsEvent() public {
         vm.expectEmit(true, true, true, true);
-        emit OnChainUXPaymaster.UserWhitelisted(user1, true);
+        emit CinaConnectPaymaster.UserWhitelisted(user1, true);
         paymaster.setWhitelistedUser(user1, true);
     }
 
     function test_WhitelistTargetEmitsEvent() public {
         address target = makeAddr("target");
         vm.expectEmit(true, true, true, true);
-        emit OnChainUXPaymaster.TargetWhitelisted(target, true);
+        emit CinaConnectPaymaster.TargetWhitelisted(target, true);
         paymaster.setWhitelistedTarget(target, true);
     }
 
@@ -511,14 +511,14 @@ contract PaymasterTest is Test {
 
     function test_SponsorConfigEmitsEvent() public {
         vm.expectEmit(true, true, true, true);
-        emit OnChainUXPaymaster.SponsorConfigSet(
+        emit CinaConnectPaymaster.SponsorConfigSet(
             user1,
-            OnChainUXPaymaster.SponsorMode.FreeTier,
+            CinaConnectPaymaster.SponsorMode.FreeTier,
             1e16
         );
         paymaster.setSponsorConfig(
             user1,
-            OnChainUXPaymaster.SponsorMode.FreeTier,
+            CinaConnectPaymaster.SponsorMode.FreeTier,
             1e16,
             10,
             1e18
@@ -538,14 +538,14 @@ contract PaymasterTest is Test {
     // ==================== Expanded: Edge Cases ====================
 
     function test_MultipleUsersWithDifferentModes() public {
-        paymaster.setSponsorConfig(user1, OnChainUXPaymaster.SponsorMode.FreeTier, 0, 5, 0);
-        paymaster.setSponsorConfig(user2, OnChainUXPaymaster.SponsorMode.Fixed, 1e16, 10, 1e18);
+        paymaster.setSponsorConfig(user1, CinaConnectPaymaster.SponsorMode.FreeTier, 0, 5, 0);
+        paymaster.setSponsorConfig(user2, CinaConnectPaymaster.SponsorMode.Fixed, 1e16, 10, 1e18);
 
-        (OnChainUXPaymaster.SponsorMode mode1,,, ) = paymaster.sponsors(user1);
-        (OnChainUXPaymaster.SponsorMode mode2,,, ) = paymaster.sponsors(user2);
+        (CinaConnectPaymaster.SponsorMode mode1,,, ) = paymaster.sponsors(user1);
+        (CinaConnectPaymaster.SponsorMode mode2,,, ) = paymaster.sponsors(user2);
 
-        assertEq(uint8(mode1), uint8(OnChainUXPaymaster.SponsorMode.FreeTier));
-        assertEq(uint8(mode2), uint8(OnChainUXPaymaster.SponsorMode.Fixed));
+        assertEq(uint8(mode1), uint8(CinaConnectPaymaster.SponsorMode.FreeTier));
+        assertEq(uint8(mode2), uint8(CinaConnectPaymaster.SponsorMode.Fixed));
     }
 
     // ==================== Expanded: Deposit Events ====================
@@ -561,7 +561,7 @@ contract PaymasterTest is Test {
         );
 
         vm.expectEmit(true, true, true, true);
-        emit OnChainUXPaymaster.Deposited(address(paymaster), 1 ether);
+        emit CinaConnectPaymaster.Deposited(address(paymaster), 1 ether);
         paymaster.deposit{value: 1 ether}();
     }
 
@@ -587,7 +587,7 @@ contract PaymasterTest is Test {
         );
 
         vm.expectEmit(true, true, true, true);
-        emit OnChainUXPaymaster.Withdrawn(address(paymaster), user1, 0.5 ether);
+        emit CinaConnectPaymaster.Withdrawn(address(paymaster), user1, 0.5 ether);
         paymaster.withdrawTo(payable(user1), 0.5 ether);
     }
 
@@ -637,7 +637,7 @@ contract PaymasterTest is Test {
     function test_FreeTierConfig() public {
         paymaster.setSponsorConfig(
             user1,
-            OnChainUXPaymaster.SponsorMode.FreeTier,
+            CinaConnectPaymaster.SponsorMode.FreeTier,
             0,    // no max per op
             3,    // 3 free ops per day
             0     // no total budget
@@ -652,16 +652,16 @@ contract PaymasterTest is Test {
     function test_PercentageModeConfig() public {
         paymaster.setSponsorConfig(
             user1,
-            OnChainUXPaymaster.SponsorMode.Percentage,
+            CinaConnectPaymaster.SponsorMode.Percentage,
             5e15,   // 0.005 ETH max
             100,
             1e18
         );
 
-        (OnChainUXPaymaster.SponsorMode mode, uint256 maxAmount,,) =
+        (CinaConnectPaymaster.SponsorMode mode, uint256 maxAmount,,) =
             paymaster.sponsors(user1);
 
-        assertEq(uint8(mode), uint8(OnChainUXPaymaster.SponsorMode.Percentage));
+        assertEq(uint8(mode), uint8(CinaConnectPaymaster.SponsorMode.Percentage));
         assertEq(maxAmount, 5e15);
     }
 

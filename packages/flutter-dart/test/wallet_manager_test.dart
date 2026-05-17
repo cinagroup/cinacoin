@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:onchainux/onchainux.dart';
+import 'package:cinaconnect/cinaconnect.dart';
 
 void main() {
   group('WalletManager', () {

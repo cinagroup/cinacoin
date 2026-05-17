@@ -1,11 +1,11 @@
 /**
- * @onchainux/wallet-recommender
+ * @cinaconnect/wallet-recommender
  *
- * OnChainUX Wallet Recommender Engine — intelligent wallet suggestions.
+ * CinaConnect Wallet Recommender Engine — intelligent wallet suggestions.
  *
  * @example
  * ```ts
- * import { WalletRecommender } from '@onchainux/wallet-recommender';
+ * import { WalletRecommender } from '@cinaconnect/wallet-recommender';
  *
  * const recommender = new WalletRecommender({
  *   targetChain: 'evm',

@@ -1,12 +1,12 @@
 /**
- * Vue component wrappers for OnChainUX Web Components.
+ * Vue component wrappers for CinaConnect Web Components.
  *
  * These are thin wrappers that forward props and events to the underlying
- * custom elements registered by @onchainux/core-ui.
+ * custom elements registered by @cinaconnect/core-ui.
  */
 
 import { defineComponent, h, ref, watch, onMounted, onBeforeUnmount } from 'vue';
-import { useOnChainUX } from './composables.js';
+import { useCinaConnect } from './composables.js';
 
 /**
  * ConnectButton — Vue wrapper for the OCX ConnectButton Web Component.
@@ -24,7 +24,7 @@ export const OcxConnectButton = defineComponent({
   emits: ['click', 'disconnect'],
   setup(props, { emit }) {
     const elRef = ref<HTMLElement | null>(null);
-    const { account, status, connect, disconnect } = useOnChainUX();
+    const { account, status, connect, disconnect } = useCinaConnect();
 
     const stateMap: Record<string, string> = {
       disconnected: 'disconnected',
@@ -86,7 +86,7 @@ export const OcxConnectModal = defineComponent({
   emits: ['close', 'wallet-select'],
   setup(props, { emit }) {
     const elRef = ref<HTMLElement | null>(null);
-    const { connect } = useOnChainUX();
+    const { connect } = useCinaConnect();
 
     onMounted(() => {
       const el = elRef.value;
@@ -129,7 +129,7 @@ export const OcxChainSwitcher = defineComponent({
   emits: ['chain-change'],
   setup(props, { emit }) {
     const elRef = ref<HTMLElement | null>(null);
-    const { config, account, switchChain } = useOnChainUX();
+    const { config, account, switchChain } = useCinaConnect();
 
     watch(
       [() => config.chains, () => account.value.chainId],

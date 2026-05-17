@@ -28,7 +28,7 @@ export function deriveSeedFromIdentity(
   derivationKey?: string
 ): Buffer {
   // Create a unique seed using HKDF-like construction
-  const salt = 'onchainux-social-login-v1';
+  const salt = 'cinaconnect-social-login-v1';
   const info = `${providerId}:${identifier}`;
 
   // HKDF-Extract
@@ -76,7 +76,7 @@ export function deriveAddressFromSeed(seed: Buffer): { address: string; publicKe
  */
 export function deriveAddressFromEmail(
   email: string,
-  salt: string = 'onchainux-email-v1'
+  salt: string = 'cinaconnect-email-v1'
 ): { address: string; publicKey: string } {
   const seed = createHash('sha256')
     .update(`${salt}:${email.toLowerCase().trim()}`)
@@ -108,7 +108,7 @@ export function deriveAddressFromProvider(
   email?: string
 ): { address: string; publicKey: string } {
   const identifier = email ? `${userId}:${email}` : userId;
-  const seed = deriveSeedFromIdentity(userId, identifier, `onchainux-${provider}`);
+  const seed = deriveSeedFromIdentity(userId, identifier, `cinaconnect-${provider}`);
   return deriveAddressFromSeed(seed);
 }
 

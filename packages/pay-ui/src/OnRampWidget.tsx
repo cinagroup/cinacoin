@@ -26,7 +26,7 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import type { OnRampWidgetProps } from "./types.js";
 import { OnRampWidgetCore } from "./OnRampWidgetCore.js";
 import { getWidgetStyles, cardStyles, buttonStyles, inputStyles } from "./styles.js";
-import type { OnRampQuote, OnRampProviderId, OnRampResult } from "@onchainux/onramp-sdk";
+import type { OnRampQuote, OnRampProviderId, OnRampResult } from "@cinaconnect/onramp-sdk";
 
 export { OnRampWidgetCore } from "./OnRampWidgetCore.js";
 

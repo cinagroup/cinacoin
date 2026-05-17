@@ -1,8 +1,8 @@
 using System;
 using NUnit.Framework;
-using OnChainUX.Auth;
+using CinaConnect.Auth;
 
-namespace OnChainUX.Tests.Runtime
+namespace CinaConnect.Tests.Runtime
 {
     /// <summary>
     /// Tests for SIWE: message generation, validation.

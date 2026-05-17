@@ -6,7 +6,7 @@
  */
 
 import XCTest
-@testable import OnChainUX
+@testable import CinaConnect
 
 final class WalletConnectTests: XCTestCase {
 
@@ -45,13 +45,13 @@ final class WalletConnectTests: XCTestCase {
     // MARK: - URI Parsing
 
     func testParseValidWCv2Uri() {
-        let uri = "wc:abc123@2?relay-protocol=waku&relay-url=wss%3A%2F%2Frelay.onchainux.io&symKey=def456"
+        let uri = "wc:abc123@2?relay-protocol=waku&relay-url=wss%3A%2F%2Frelay.cinaconnect.io&symKey=def456"
         do {
             let components = try WCUtils.parseUri(uri)
             XCTAssertEqual(components.topic, "abc123")
             XCTAssertEqual(components.version, 2)
             XCTAssertEqual(components.relayProtocol, "waku")
-            XCTAssertEqual(components.relayUrl, "wss://relay.onchainux.io")
+            XCTAssertEqual(components.relayUrl, "wss://relay.cinaconnect.io")
             XCTAssertEqual(components.symKey, "def456")
         } catch {
             XCTFail("Failed to parse valid WC URI: \(error)")
@@ -80,7 +80,7 @@ final class WalletConnectTests: XCTestCase {
             topic: "test123",
             version: 2,
             relayProtocol: "waku",
-            relayUrl: "wss://relay.onchainux.io",
+            relayUrl: "wss://relay.cinaconnect.io",
             symKey: "symkey123"
         )
 
@@ -329,7 +329,7 @@ final class WalletConnectTests: XCTestCase {
 
     func testWalletManagerWcConnectors() {
         let manager = WalletManager()
-        let config = OnChainUXConfig(
+        let config = CinaConnectConfig(
             projectId: "test-id",
             chains: [.ethereum, .polygon],
             metadata: AppMetadata(

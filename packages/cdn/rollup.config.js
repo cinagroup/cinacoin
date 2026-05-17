@@ -8,7 +8,7 @@ export default [
       {
         file: "dist/cdn.js",
         format: "iife",
-        name: "OnChainUX",
+        name: "CinaConnect",
         sourcemap: true,
       },
       {

@@ -73,12 +73,12 @@ describe('Translation Engine', () => {
 
     it('should interpolate parameters', () => {
       registerLocale('en', { powered_by: 'Powered by {brand}' });
-      expect(t('powered_by', { brand: 'OnChainUX' })).toBe('Powered by OnChainUX');
+      expect(t('powered_by', { brand: 'CinaConnect' })).toBe('Powered by CinaConnect');
     });
 
     it('should handle multiple parameters', () => {
       registerLocale('en', { greeting: 'Hello, {name}! Welcome to {place}.' });
-      expect(t('greeting', { name: 'Alice', place: 'OnChainUX' })).toBe('Hello, Alice! Welcome to OnChainUX.');
+      expect(t('greeting', { name: 'Alice', place: 'CinaConnect' })).toBe('Hello, Alice! Welcome to CinaConnect.');
     });
 
     it('should leave unmatched params as-is', () => {

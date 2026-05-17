@@ -1,21 +1,21 @@
 #!/usr/bin/env node
 
 /**
- * @onchainux/cli
+ * @cinaconnect/cli
  *
- * Command-line interface for OnChainUX SDK.
+ * Command-line interface for CinaConnect SDK.
  *
  * Commands:
- *   ocx init    — Scaffold a new OnChainUX project
+ *   ocx init    — Scaffold a new CinaConnect project
  *   ocx add     — Add adapters, plugins, or UI components
  *   ocx build   — Build the SDK packages
  *   ocx test    — Run unit + E2E tests
  *
  * Usage:
- *   npx @onchainux/cli init my-app
- *   npx @onchainux/cli add @onchainux/swap-sdk
- *   npx @onchainux/cli build
- *   npx @onchainux/cli test --e2e
+ *   npx @cinaconnect/cli init my-app
+ *   npx @cinaconnect/cli add @cinaconnect/swap-sdk
+ *   npx @cinaconnect/cli build
+ *   npx @cinaconnect/cli test --e2e
  */
 
 import { program } from 'commander';
@@ -26,8 +26,8 @@ import { testCommand } from './commands/test.js';
 import { VERSION } from './utils/fs.js';
 
 program
-  .name('onchainux')
-  .description('OnChainUX SDK CLI — self-hosted wallet connection toolkit')
+  .name('cinaconnect')
+  .description('CinaConnect SDK CLI — self-hosted wallet connection toolkit')
   .version(VERSION, '-v, --version');
 
 // Register subcommands

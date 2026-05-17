@@ -1,14 +1,14 @@
 /**
  * Relay client for WalletConnect v2.
  *
- * Connects to the OnChainUX self-hosted relay server via WebSocket,
+ * Connects to the CinaConnect self-hosted relay server via WebSocket,
  * manages subscriptions to topics, and publishes encrypted payloads.
  *
  * This is a thin wrapper around the core SDK's RelayTransport that
  * provides a Promise-based API and auto-subscription management.
  */
 
-import { EventEmitter } from '@onchainux/core-sdk';
+import { EventEmitter } from '@cinaconnect/core-sdk';
 import type { RelayConfig, RelayMessage } from './types.js';
 
 /** Relay client state. */

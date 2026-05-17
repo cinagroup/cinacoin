@@ -1,4 +1,4 @@
-// @onchainux/passkey-auth
+// @cinaconnect/passkey-auth
 // WebAuthn-based passkey authentication
 
 export { PasskeyManager } from './passkey.js';

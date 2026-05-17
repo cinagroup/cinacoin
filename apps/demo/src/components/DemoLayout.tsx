@@ -20,7 +20,7 @@ export default function DemoLayout({ children }: { children: ReactNode }) {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <Link href="/" className="text-xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
-              OnChainUX
+              CinaConnect
             </Link>
 
             <div className="flex items-center gap-1">
@@ -50,7 +50,7 @@ export default function DemoLayout({ children }: { children: ReactNode }) {
       {/* Footer */}
       <footer className="border-t border-gray-800 mt-auto">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-sm text-gray-500">
-          OnChainUX Demo — Self-hosted wallet connection toolkit
+          CinaConnect Demo — Self-hosted wallet connection toolkit
         </div>
       </footer>
     </div>

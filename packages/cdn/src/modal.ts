@@ -3,9 +3,9 @@
  *
  * For script-tag usage:
  * ```html
- * <script src="https://cdn.onchainux.dev/connect.js"></script>
+ * <script src="https://cdn.cinaconnect.dev/connect.js"></script>
  * <script>
- *   OnChainUX.renderConnectModal('#my-modal', {
+ *   CinaConnect.renderConnectModal('#my-modal', {
  *     projectId: 'your-project-id',
  *     theme: 'dark',
  *   });
@@ -14,7 +14,7 @@
  */
 
 import { getConfig, validateConfig } from "./config.js.js";
-import type { OnChainUXConfig } from "./config.js.js";
+import type { CinaConnectConfig } from "./config.js.js";
 
 export type ModalView = "connect" | "connecting" | "connected" | "networks";
 
@@ -53,14 +53,14 @@ export function renderConnectModal(
 ): void {
   const element = document.querySelector(selector);
   if (!element) {
-    console.error(`[OnChainUX] Element "${selector}" not found`);
+    console.error(`[CinaConnect] Element "${selector}" not found`);
     return;
   }
 
   const config = { ...getConfig(), ...options };
   const missing = validateConfig(config);
   if (missing.length > 0) {
-    console.warn(`[OnChainUX] Missing config: ${missing.join(", ")}`);
+    console.warn(`[CinaConnect] Missing config: ${missing.join(", ")}`);
   }
 
   _isOpen = false;
@@ -145,7 +145,7 @@ export function getConnectedAddress(): string | null {
 
 function handleWalletSelect(
   walletId: string,
-  config: OnChainUXConfig & ConnectModalOptions,
+  config: CinaConnectConfig & ConnectModalOptions,
   modal: HTMLElement,
   options: ConnectModalOptions
 ): void {
@@ -170,7 +170,7 @@ function handleWalletSelect(
   }, 800);
 }
 
-function getModalContent(config: OnChainUXConfig & ConnectModalOptions, view: ModalView): string {
+function getModalContent(config: CinaConnectConfig & ConnectModalOptions, view: ModalView): string {
   if (view === "connecting") {
     return `
       <div style="text-align:center;padding:40px 24px;">

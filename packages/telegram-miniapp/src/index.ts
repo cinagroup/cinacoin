@@ -1,5 +1,5 @@
 /**
- * OnChainUX Telegram Mini App SDK.
+ * CinaConnect Telegram Mini App SDK.
  *
  * Wallet connectivity and user identity for Telegram Mini Apps.
  *

@@ -1,14 +1,14 @@
 /**
- * OnChainUX iOS SDK — Main module.
+ * CinaConnect iOS SDK — Main module.
  *
- * Provides the core `OnChainUX` class that manages wallet connections,
+ * Provides the core `CinaConnect` class that manages wallet connections,
  * chain state, and theme configuration for native iOS applications.
  *
  * ## Usage
  * ```swift
- * import OnChainUX
+ * import CinaConnect
  *
- * let config = OnChainUXConfig(
+ * let config = CinaConnectConfig(
  *     projectId: "your-project-id",
  *     chains: [.ethereum, .polygon, .arbitrum],
  *     metadata: AppMetadata(
@@ -19,11 +19,11 @@
  *     )
  * )
  *
- * OnChainUX.shared.configure(with: config)
+ * CinaConnect.shared.configure(with: config)
  * ```
  *
  * ## Architecture
- * - `OnChainUX` — Central manager (singleton) for configuration and state
+ * - `CinaConnect` — Central manager (singleton) for configuration and state
  * - `WalletManager` — Wallet discovery, connection, and session lifecycle
  * - `ConnectButton` — SwiftUI button component
  * - `ConnectModal` — SwiftUI modal component
@@ -40,14 +40,14 @@ import Foundation
 /// SDK version string.
 public let ONCHAINUX_VERSION = "0.1.0"
 
-// MARK: - OnChainUX
+// MARK: - CinaConnect
 
-/// Central OnChainUX manager. Configured once at app launch, provides
+/// Central CinaConnect manager. Configured once at app launch, provides
 /// access to wallet connection state, chain information, and theme settings.
-public final class OnChainUX: ObservableObject {
+public final class CinaConnect: ObservableObject {
     
     /// Shared singleton instance.
-    public static let shared = OnChainUX()
+    public static let shared = CinaConnect()
     
     /// Current connection status.
     @Published public private(set) var status: ConnectionStatus = .disconnected
@@ -67,7 +67,7 @@ public final class OnChainUX: ObservableObject {
     @Published public private(set) var themeColors: ThemeColors = .dark
     
     /// Configuration provided by the app.
-    public private(set) var config: OnChainUXConfig?
+    public private(set) var config: CinaConnectConfig?
     
     /// Wallet manager for connection operations.
     public let walletManager = WalletManager()
@@ -80,9 +80,9 @@ public final class OnChainUX: ObservableObject {
     
     private init() {}
     
-    /// Configure OnChainUX with app-specific settings.
+    /// Configure CinaConnect with app-specific settings.
     /// - Parameter config: The configuration to apply.
-    public func configure(with config: OnChainUXConfig) {
+    public func configure(with config: CinaConnectConfig) {
         self.config = config
         self.themeMode = config.themeMode
         activeChainId = config.chains.first?.chainId ?? 1
@@ -116,10 +116,10 @@ public final class OnChainUX: ObservableObject {
     /// - Parameter chainId: Target chain ID.
     public func switchChain(chainId: Int) async throws {
         guard let config = config else {
-            throw OnChainUXError.notConfigured
+            throw CinaConnectError.notConfigured
         }
         guard config.chains.contains(where: { $0.chainId == chainId }) else {
-            throw OnChainUXError.chainNotSupported(chainId)
+            throw CinaConnectError.chainNotSupported(chainId)
         }
         activeChainId = chainId
     }
@@ -137,8 +137,8 @@ public final class OnChainUX: ObservableObject {
 
 // MARK: - Configuration
 
-/// Configuration passed to OnChainUX at startup.
-public struct OnChainUXConfig: Sendable {
+/// Configuration passed to CinaConnect at startup.
+public struct CinaConnectConfig: Sendable {
     /// Optional project ID for Relay/RPC services.
     public var projectId: String?
     /// Supported chains.
@@ -428,8 +428,8 @@ public struct TransactionRequest: Sendable {
 
 // MARK: - Errors
 
-/// OnChainUX-specific errors.
-public enum OnChainUXError: Error, LocalizedError {
+/// CinaConnect-specific errors.
+public enum CinaConnectError: Error, LocalizedError {
     case notConfigured
     case chainNotSupported(Int)
     case walletNotFound(String)
@@ -440,7 +440,7 @@ public enum OnChainUXError: Error, LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .notConfigured:
-            return "OnChainUX has not been configured. Call OnChainUX.shared.configure(with:) first."
+            return "CinaConnect has not been configured. Call CinaConnect.shared.configure(with:) first."
         case let .chainNotSupported(id):
             return "Chain \(id) is not supported."
         case let .walletNotFound(id):

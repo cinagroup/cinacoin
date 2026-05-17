@@ -1,14 +1,14 @@
 /**
  * WalletConnectProvider — Real WalletConnect v2 session management for React Native.
  *
- * Wraps @walletconnect/react-native-dapp (or the onchainux core wrapper) to provide:
+ * Wraps @walletconnect/react-native-dapp (or the cinaconnect core wrapper) to provide:
  * - Real pairing URI creation and QR display
  * - Deep-link wallet connection flow (MetaMask, Rainbow, Trust, Coinbase)
  * - Session lifecycle management (connect / disconnect / events)
  * - Balance fetching via on-chain RPC
  * - Transaction signing via WC v2 personal_sign / eth_sendTransaction
  *
- * This provider bridges the low-level WC v2 SDK with OnChainUX React Native components.
+ * This provider bridges the low-level WC v2 SDK with CinaConnect React Native components.
  */
 
 import React, {
@@ -23,8 +23,8 @@ import React, {
 } from 'react';
 import { Linking, Platform } from 'react-native';
 
-// Core WC v2 types (from the onchainux walletconnect-v2 package)
-import type { Session, WcClientEvent } from '@onchainux/walletconnect-v2';
+// Core WC v2 types (from the cinaconnect walletconnect-v2 package)
+import type { Session, WcClientEvent } from '@cinaconnect/walletconnect-v2';
 import {
   WcSessionManager,
   createPairing,
@@ -37,8 +37,8 @@ import {
   buildWalletDeepLink,
   buildWalletUniversalLink,
   WC_METHODS,
-} from '@onchainux/walletconnect-v2';
-import type { AppMetadata } from '@onchainux/core-sdk';
+} from '@cinaconnect/walletconnect-v2';
+import type { AppMetadata } from '@cinaconnect/core-sdk';
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 

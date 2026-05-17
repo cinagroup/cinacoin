@@ -1,11 +1,11 @@
-# @onchainux/testing
+# @cinaconnect/testing
 
-Testing utilities for OnChainUX — mock providers, wallets, chains, transactions, and fixtures.
+Testing utilities for CinaConnect — mock providers, wallets, chains, transactions, and fixtures.
 
 ## Installation
 
 ```bash
-npm install -D @onchainux/testing
+npm install -D @cinaconnect/testing
 ```
 
 ## Quick Start
@@ -17,7 +17,7 @@ import {
   MOCK_CHAINS,
   createMockTransaction,
   ADDRESSES,
-} from "@onchainux/testing";
+} from "@cinaconnect/testing";
 
 // Create a mock EIP-1193 provider
 const provider = new MockProvider({
@@ -112,7 +112,7 @@ wallet.provider;             // underlying MockProvider
 Pre-built chain configurations.
 
 ```ts
-import { MOCK_CHAINS, getChainById, createMockChain } from "@onchainux/testing";
+import { MOCK_CHAINS, getChainById, createMockChain } from "@cinaconnect/testing";
 
 MOCK_CHAINS.mainnet;         // Ethereum Mainnet config
 MOCK_CHAINS.sepolia;         // Sepolia testnet
@@ -133,7 +133,7 @@ createMockChain({ id: 999, name: "Custom" });
 Generate mock transactions and receipts.
 
 ```ts
-import { createMockTransaction, createMockReceipt, simulateTransaction } from "@onchainux/testing";
+import { createMockTransaction, createMockReceipt, simulateTransaction } from "@cinaconnect/testing";
 
 const tx = createMockTransaction({
   from: "0x...",
@@ -166,7 +166,7 @@ import {
   CHAIN_FIXTURES,  // chain shorthand objects
   PROVIDER_STATES, // disconnected, connected, multiAccount, testnet
   ERRORS,          // standard EIP-1193 error objects
-} from "@onchainux/testing";
+} from "@cinaconnect/testing";
 ```
 
 ## License

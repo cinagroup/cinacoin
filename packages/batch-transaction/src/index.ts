@@ -1,5 +1,5 @@
 /**
- * Batch Transaction SDK for OnChainUX.
+ * Batch Transaction SDK for CinaConnect.
  *
  * Atomic batch operations with gas estimation and validation.
  */

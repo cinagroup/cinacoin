@@ -2,7 +2,7 @@
  * ConnectModal — Native React Native modal with real WalletConnect v2 deep linking.
  *
  * Integrates real WC v2 pairing via WalletConnectProvider, deep linking via
- * react-native Linking API, and the OnChainUX wallet registry for a real
+ * react-native Linking API, and the CinaConnect wallet registry for a real
  * connection flow with actual wallet apps.
  */
 
@@ -20,9 +20,9 @@ import {
   Alert,
   Platform,
 } from 'react-native';
-import { useOnChainUXContext } from './OnChainUXProvider.js';
+import { useCinaConnectContext } from './CinaConnectProvider.js';
 import { useWalletConnect, WALLET_DEEP_LINKS } from './WalletConnectProvider.js';
-import { WALLET_REGISTRY, getWalletById, buildWalletDeepLink, buildWalletUniversalLink } from '@onchainux/walletconnect-v2';
+import { WALLET_REGISTRY, getWalletById, buildWalletDeepLink, buildWalletUniversalLink } from '@cinaconnect/walletconnect-v2';
 
 /** Wallet info for modal display. */
 export interface WalletInfo {
@@ -110,7 +110,7 @@ export function ConnectModal({
   fallbackTimeoutMs = 1500,
 }: ConnectModalProps): JSX.Element {
   const [currentView, setCurrentView] = useState<ModalView>(defaultView as ModalView);
-  const { connect, themeColors, wcUri: ctxWcUri } = useOnChainUXContext();
+  const { connect, themeColors, wcUri: ctxWcUri } = useCinaConnectContext();
 
   // Real WC v2 provider (may not be available)
   let createPairingUri: (() => Promise<string>) | null = null;
@@ -127,7 +127,7 @@ export function ConnectModal({
     activePairingUri = wc.pairingUri;
     wcConnecting = wc.connecting;
   } catch {
-    // WalletConnectProvider not in tree — use OnChainUXProvider fallback
+    // WalletConnectProvider not in tree — use CinaConnectProvider fallback
   }
 
   const [email, setEmail] = useState('');
@@ -183,7 +183,7 @@ export function ConnectModal({
 
           setDeepLinkStatus(prev => ({ ...prev, [wallet.id]: 'success' }));
         } else if (wallet.supportsWalletConnect && ctxWcUri) {
-          // Fallback to OnChainUXProvider wcUri
+          // Fallback to CinaConnectProvider wcUri
           const deepLink = buildWalletDeepLink(wallet.id, ctxWcUri);
           if (deepLink) {
             const canOpen = await Linking.canOpenURL(deepLink);
@@ -438,7 +438,7 @@ export function ConnectModal({
           {/* Footer */}
           <View style={styles.footer}>
             <Text style={[styles.footerText, { color: themeColors.textTertiary }]}>
-              Powered by OnChainUX
+              Powered by CinaConnect
             </Text>
           </View>
         </View>

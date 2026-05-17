@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace OnChainUX.WalletConnect
+namespace CinaConnect.WalletConnect
 {
     // ═══════════════════════════════════════════════════════════════════
     // WalletConnect v2 Protocol Implementation for Unity (C#)
@@ -1013,7 +1013,7 @@ namespace OnChainUX.WalletConnect
         private void Log(string msg)
         {
 #if UNITY_EDITOR
-            Debug.Log($"[OnChainUX:RelayClient] {msg}");
+            Debug.Log($"[CinaConnect:RelayClient] {msg}");
 #endif
         }
     }
@@ -1162,7 +1162,7 @@ namespace OnChainUX.WalletConnect
             catch (Exception ex)
             {
 #if UNITY_EDITOR
-                Debug.LogError($"[OnChainUX:PairingManager] Error handling pairing message: {ex.Message}");
+                Debug.LogError($"[CinaConnect:PairingManager] Error handling pairing message: {ex.Message}");
 #endif
             }
         }
@@ -1375,7 +1375,7 @@ namespace OnChainUX.WalletConnect
             catch (Exception ex)
             {
 #if UNITY_EDITOR
-                Debug.LogError($"[OnChainUX:SessionManager] Error handling session message: {ex.Message}");
+                Debug.LogError($"[CinaConnect:SessionManager] Error handling session message: {ex.Message}");
 #endif
             }
         }
@@ -1423,14 +1423,14 @@ namespace OnChainUX.WalletConnect
             };
 
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(data);
-            PlayerPrefs.SetString($"OnChainUX_WCSession_{topic}", json);
+            PlayerPrefs.SetString($"CinaConnect_WCSession_{topic}", json);
             PlayerPrefs.Save();
         }
 
         /// Load a session from PlayerPrefs.
         public SessionInfo LoadSession(string topic)
         {
-            var key = $"OnChainUX_WCSession_{topic}";
+            var key = $"CinaConnect_WCSession_{topic}";
             if (!PlayerPrefs.HasKey(key)) return null;
 
             try
@@ -1463,7 +1463,7 @@ namespace OnChainUX.WalletConnect
         /// Delete a persisted session from PlayerPrefs.
         public void DeletePersistedSession(string topic)
         {
-            PlayerPrefs.DeleteKey($"OnChainUX_WCSession_{topic}");
+            PlayerPrefs.DeleteKey($"CinaConnect_WCSession_{topic}");
         }
 
         /// Load all persisted sessions.
@@ -1472,7 +1472,7 @@ namespace OnChainUX.WalletConnect
             var sessions = new List<SessionInfo>();
 
             // Enumerate PlayerPrefs keys that match our pattern
-            var json = PlayerPrefs.GetString("OnChainUX_WCSessionTopics", "");
+            var json = PlayerPrefs.GetString("CinaConnect_WCSessionTopics", "");
             if (!string.IsNullOrEmpty(json))
             {
                 var topics = Newtonsoft.Json.JsonConvert.DeserializeObject<string[]>(json);
@@ -1491,7 +1491,7 @@ namespace OnChainUX.WalletConnect
         {
             var topics = _sessions.Keys.ToArray();
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(topics);
-            PlayerPrefs.SetString("OnChainUX_WCSessionTopics", json);
+            PlayerPrefs.SetString("CinaConnect_WCSessionTopics", json);
             PlayerPrefs.Save();
         }
     }

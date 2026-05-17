@@ -8,12 +8,12 @@ import "@openzeppelin/contracts/security/Pausable.sol";
 import "./interfaces/IPaymaster.sol";
 import "./libraries/PaymasterLib.sol";
 
-/// @title OnChainUXPaymaster
+/// @title CinaConnectPaymaster
 /// @notice Production ERC-4337 Paymaster with multi-mode gas sponsorship
 /// @dev Supports Fixed, Percentage, FreeTier, and Whitelist sponsorship modes.
 ///      Compatible with EntryPoint v0.7.
 ///      Features: emergency pause, time windows, global budget tracking.
-contract OnChainUXPaymaster is IPaymaster, Ownable2Step, Pausable {
+contract CinaConnectPaymaster is IPaymaster, Ownable2Step, Pausable {
     /// @notice The EntryPoint contract this paymaster works with
     IEntryPoint public immutable entryPoint;
 

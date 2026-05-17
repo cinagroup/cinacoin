@@ -18,7 +18,7 @@
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { WcSessionManager } from '../src/session.js';
-import type { AppMetadata } from '@onchainux/core-sdk';
+import type { AppMetadata } from '@cinaconnect/core-sdk';
 
 const mockMetadata: AppMetadata = {
   name: 'Test dApp',

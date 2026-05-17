@@ -1,7 +1,7 @@
 {
-  "name": "@onchainux/telegram-miniapp",
+  "name": "@cinaconnect/telegram-miniapp",
   "version": "0.1.0",
-  "description": "OnChainUX Telegram Mini App integration for wallet connectivity",
+  "description": "CinaConnect Telegram Mini App integration for wallet connectivity",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",

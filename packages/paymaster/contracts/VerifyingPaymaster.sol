@@ -55,7 +55,7 @@ contract VerifyingPaymaster is EIP712, IPaymaster {
 
     /// @param _entryPoint The EntryPoint v0.7 contract address
     /// @param _trustedSigner The initial trusted signer address
-    constructor(address _entryPoint, address _trustedSigner) EIP712("OnChainUX VerifyingPaymaster", "1") {
+    constructor(address _entryPoint, address _trustedSigner) EIP712("CinaConnect VerifyingPaymaster", "1") {
         entryPoint = IEntryPoint(_entryPoint);
         trustedSigner = _trustedSigner;
     }

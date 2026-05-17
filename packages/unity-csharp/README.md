@@ -1,4 +1,4 @@
-# OnChainUX Unity SDK
+# CinaConnect Unity SDK
 
 Self-hosted wallet connection toolkit for Unity games and apps. Complete replacement for Reown/WalletConnect infrastructure.
 
@@ -11,25 +11,25 @@ Add to your `Packages/manifest.json`:
 ```json
 {
   "dependencies": {
-    "com.onchainux.sdk": "https://github.com/hainai/onchainux.git?path=packages/unity-csharp"
+    "com.cinaconnect.sdk": "https://github.com/hainai/cinaconnect.git?path=packages/unity-csharp"
   }
 }
 ```
 
 ### Manual
 
-1. Copy `packages/unity-csharp` into your Unity project's `Assets/Plugins/OnChainUX` folder.
+1. Copy `packages/unity-csharp` into your Unity project's `Assets/Plugins/CinaConnect` folder.
 2. Add `com.unity.nuget.newtonsoft-json` via Package Manager.
 
 ## Quick Start
 
 ```csharp
-using OnChainUX;
+using CinaConnect;
 
-// 1. Add OnChainUXManager to your scene (via Menu > Window > OnChainUX > Configuration)
+// 1. Add CinaConnectManager to your scene (via Menu > Window > CinaConnect > Configuration)
 //    or create programmatically:
 
-var manager = OnChainUXManager.Instance;
+var manager = CinaConnectManager.Instance;
 manager.Initialize("YOUR_PROJECT_ID", new AppMetadata(
     name: "My Unity Game",
     description: "A blockchain game",
@@ -49,23 +49,23 @@ var txHash = await manager.SendTransactionAsync(tx);
 
 ## API Reference
 
-### OnChainUXManager
+### CinaConnectManager
 
 Unity singleton managing wallet connections. Matches `Connector` + `SessionManager` from the core SDK.
 
 ```csharp
 // Properties
-OnChainUXManager.Instance.Status      // ConnectionStatus
-OnChainUXManager.Instance.Accounts    // string[]
-OnChainUXManager.Instance.ChainId     // int
-OnChainUXManager.Instance.IsConnected  // bool
+CinaConnectManager.Instance.Status      // ConnectionStatus
+CinaConnectManager.Instance.Accounts    // string[]
+CinaConnectManager.Instance.ChainId     // int
+CinaConnectManager.Instance.IsConnected  // bool
 
 // Events
-OnChainUXManager.Instance.OnStateChanged += (state) => { ... };
-OnChainUXManager.Instance.OnWalletConnected += (result) => { ... };
-OnChainUXManager.Instance.OnWalletDisconnected += () => { ... };
-OnChainUXManager.Instance.OnChainChangedEvent += (chainId) => { ... };
-OnChainUXManager.Instance.OnErrorEvent += (error) => { ... };
+CinaConnectManager.Instance.OnStateChanged += (state) => { ... };
+CinaConnectManager.Instance.OnWalletConnected += (result) => { ... };
+CinaConnectManager.Instance.OnWalletDisconnected += () => { ... };
+CinaConnectManager.Instance.OnChainChangedEvent += (chainId) => { ... };
+CinaConnectManager.Instance.OnErrorEvent += (error) => { ... };
 ```
 
 ### ConnectButton (UI)
@@ -159,7 +159,7 @@ WalletRegistry.Register(customWallet);
 
 | Unity SDK | TypeScript core-sdk |
 |-----------|---------------------|
-| `OnChainUXManager` | `Connector` + `SessionManager` |
+| `CinaConnectManager` | `Connector` + `SessionManager` |
 | `WalletManager` | `Connector` |
 | `EvmAdapter` | `EvmAdapter` |
 | `SolanaAdapter` | `SolanaChainAdapter` |

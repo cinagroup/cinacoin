@@ -1,4 +1,4 @@
-//! OnChainUX ERC-4337 Bundler
+//! CinaConnect ERC-4337 Bundler
 //!
 //! Production-grade bundler for ERC-4337 UserOperations. Accepts UserOps via JSON-RPC,
 //! validates and simulates them, pools them in a reputation-aware priority mempool,
@@ -46,7 +46,7 @@ async fn main() -> anyhow::Result<()> {
     tracing_subscriber::fmt()
         .with_env_filter(
             tracing_subscriber::EnvFilter::try_from_default_env()
-                .unwrap_or_else(|_| "onchainux_bundler=info,tower_http=info".into()),
+                .unwrap_or_else(|_| "cinaconnect_bundler=info,tower_http=info".into()),
         )
         .init();
 
@@ -62,7 +62,7 @@ async fn main() -> anyhow::Result<()> {
         beneficiary = %config.beneficiary(),
         chain_id = config.chain_id,
         rpc_url = %config.rpc_url,
-        "Starting OnChainUX Bundler"
+        "Starting CinaConnect Bundler"
     );
 
     // Initialise metrics

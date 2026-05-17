@@ -1,7 +1,7 @@
 {
-  "name": "@onchainux/ens-resolver",
+  "name": "@cinaconnect/ens-resolver",
   "version": "0.1.0",
-  "description": "ENS name resolution, reverse lookup, avatar retrieval, and record fetching for OnChainUX",
+  "description": "ENS name resolution, reverse lookup, avatar retrieval, and record fetching for CinaConnect",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -25,7 +25,7 @@
     "ens",
     "ethereum",
     "resolver",
-    "onchainux",
+    "cinaconnect",
     "web3"
   ],
   "license": "MIT",
@@ -39,7 +39,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/onchainux/onchainux.git",
+    "url": "https://github.com/cinaconnect/cinaconnect.git",
     "directory": "packages/ens-resolver"
   }
 }

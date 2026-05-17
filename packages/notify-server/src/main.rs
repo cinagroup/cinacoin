@@ -1,4 +1,4 @@
-//! OnChainUX Notify Server
+//! CinaConnect Notify Server
 //! 
 //! A notification push system for dApp notifications, wallet alerts, and transaction status updates.
 

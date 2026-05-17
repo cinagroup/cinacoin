@@ -1,8 +1,8 @@
 [package]
-name = "onchainux-bundler"
+name = "cinaconnect-bundler"
 version = "0.2.0"
 edition = "2021"
-description = "OnChainUX ERC-4337 Bundler — production UserOp bundling service"
+description = "CinaConnect ERC-4337 Bundler — production UserOp bundling service"
 license = "MIT"
 
 [dependencies]

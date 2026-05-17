@@ -1,7 +1,7 @@
 {
-  "name": "@onchainux/session-keys",
+  "name": "@cinaconnect/session-keys",
   "version": "0.1.0",
-  "description": "OnChainUX Session Keys — temporary signing keys with policies and social recovery for ERC-4337 smart accounts",
+  "description": "CinaConnect Session Keys — temporary signing keys with policies and social recovery for ERC-4337 smart accounts",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",

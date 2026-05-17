@@ -1,5 +1,5 @@
 /**
- * Gas estimation types for @onchainux/gas-estimator
+ * Gas estimation types for @cinaconnect/gas-estimator
  */
 
 export interface EvmGasEstimate {

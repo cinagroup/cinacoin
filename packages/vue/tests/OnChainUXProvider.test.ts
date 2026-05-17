@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 
 // ============================================================
-// Tests for @onchainux/vue OnChainUXProvider
+// Tests for @cinaconnect/vue CinaConnectProvider
 // ============================================================
 
 // Mock Vue's provide/inject system for testing
@@ -16,7 +16,7 @@ vi.mock('vue', () => ({
   ref: mockRef,
 }));
 
-describe('OnChainUXProvider', () => {
+describe('CinaConnectProvider', () => {
   describe('configuration', () => {
     it('should accept config with chains', () => {
       const config = {
@@ -99,7 +99,7 @@ describe('OnChainUXProvider', () => {
       const { ONCHAINUX_KEY } = await import('../src/types.js');
 
       expect(typeof ONCHAINUX_KEY).toBe('symbol');
-      expect(ONCHAINUX_KEY.description).toBe('onchainux');
+      expect(ONCHAINUX_KEY.description).toBe('cinaconnect');
     });
 
     it('should have correct account state shape', () => {

@@ -1,4 +1,4 @@
-package com.onchainux.ui
+package com.cinaconnect.ui
 
 import org.junit.Test
 import org.junit.Assert.*

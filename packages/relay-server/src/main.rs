@@ -1,4 +1,4 @@
-//! OnChainUX Relay Server — Self-hosted WebSocket relay compatible with WalletConnect v2 protocol.
+//! CinaConnect Relay Server — Self-hosted WebSocket relay compatible with WalletConnect v2 protocol.
 //!
 //! This server provides the relay layer for end-to-end encrypted wallet connections.
 //! It does NOT decrypt messages — it routes encrypted payloads by topic.
@@ -59,7 +59,7 @@ async fn main() -> io::Result<()> {
         project_id = %config.project_id,
         nats_enabled = %config.nats_url.is_some(),
         tls_enabled = %config.tls_enabled(),
-        "starting OnChainUX relay server"
+        "starting CinaConnect relay server"
     );
 
     // Connect to Redis

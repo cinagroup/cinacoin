@@ -1,8 +1,8 @@
 /**
- * OnChainUXProvider — React Native context provider with real WalletConnect v2 integration.
+ * CinaConnectProvider — React Native context provider with real WalletConnect v2 integration.
  *
  * Wraps the app and provides chain state, connection methods, and theming.
- * Uses @onchainux/walletconnect-v2 for real WC v2 protocol communication.
+ * Uses @cinaconnect/walletconnect-v2 for real WC v2 protocol communication.
  */
 
 import React, {
@@ -15,7 +15,7 @@ import React, {
   useRef,
   type ReactNode,
 } from 'react';
-import type { Session, WcClientEvent } from '@onchainux/walletconnect-v2';
+import type { Session, WcClientEvent } from '@cinaconnect/walletconnect-v2';
 import {
   WcSessionManager,
   WcRelay,
@@ -30,8 +30,8 @@ import {
   getDefaultRequiredNamespaces,
   buildSendTransaction,
   buildPersonalSign,
-} from '@onchainux/walletconnect-v2';
-import type { TransactionRequest, AppMetadata } from '@onchainux/core-sdk';
+} from '@cinaconnect/walletconnect-v2';
+import type { TransactionRequest, AppMetadata } from '@cinaconnect/core-sdk';
 
 /** Supported theme modes. */
 export type ThemeMode = 'dark' | 'light' | 'minimal';
@@ -82,7 +82,7 @@ export interface AccountState {
 }
 
 /** Configuration passed to provider. */
-export interface OnChainUXConfig {
+export interface CinaConnectConfig {
   /** Relay server URL. */
   relayUrl?: string;
   /** Project ID. */
@@ -97,8 +97,8 @@ export interface OnChainUXConfig {
 }
 
 /** Context value. */
-export interface OnChainUXContextValue {
-  config: OnChainUXConfig;
+export interface CinaConnectContextValue {
+  config: CinaConnectConfig;
   connectors: Connector[];
   wallets: WalletInfo[];
   account: AccountState;
@@ -188,20 +188,20 @@ const THEME_COLORS: Record<ThemeMode, ThemeColors> = {
   },
 };
 
-const OnChainUXContext = createContext<OnChainUXContextValue | null>(null);
+const CinaConnectContext = createContext<CinaConnectContextValue | null>(null);
 
-/** Hook to access OnChainUX context. Throws if used outside provider. */
-export function useOnChainUXContext(): OnChainUXContextValue {
-  const ctx = useContext(OnChainUXContext);
+/** Hook to access CinaConnect context. Throws if used outside provider. */
+export function useCinaConnectContext(): CinaConnectContextValue {
+  const ctx = useContext(CinaConnectContext);
   if (!ctx) {
-    throw new Error('useOnChainUXContext must be used within <OnChainUXProvider>');
+    throw new Error('useCinaConnectContext must be used within <CinaConnectProvider>');
   }
   return ctx;
 }
 
 /** Provider props. */
-export interface OnChainUXProviderProps {
-  config: OnChainUXConfig;
+export interface CinaConnectProviderProps {
+  config: CinaConnectConfig;
   children: ReactNode;
 }
 
@@ -252,9 +252,9 @@ function extractChainId(caip2: string): number {
 }
 
 /**
- * OnChainUXProvider for React Native with real WC v2 support.
+ * CinaConnectProvider for React Native with real WC v2 support.
  */
-export function OnChainUXProvider({ config, children }: OnChainUXProviderProps): JSX.Element {
+export function CinaConnectProvider({ config, children }: CinaConnectProviderProps): JSX.Element {
   const [status, setStatus] = useState<'disconnected' | 'connecting' | 'connected' | 'error'>('disconnected');
   const [account, setAccount] = useState<AccountState>({
     address: null,
@@ -336,7 +336,7 @@ export function OnChainUXProvider({ config, children }: OnChainUXProviderProps):
   /** Create a new pairing and return the WC v2 URI. */
   const createPairingUri = useCallback(async (): Promise<string> => {
     if (!sessionManagerRef.current) {
-      throw new Error('OnChainUX not configured with relayUrl and metadata');
+      throw new Error('CinaConnect not configured with relayUrl and metadata');
     }
     const uri = await sessionManagerRef.current.initiatePairing();
     setWcUri(uri);
@@ -346,7 +346,7 @@ export function OnChainUXProvider({ config, children }: OnChainUXProviderProps):
   /** Connect using a WC v2 URI. */
   const connectWithUri = useCallback(async (uri: string): Promise<void> => {
     if (!sessionManagerRef.current) {
-      throw new Error('OnChainUX not configured with relayUrl and metadata');
+      throw new Error('CinaConnect not configured with relayUrl and metadata');
     }
     setStatus('connecting');
     try {
@@ -491,7 +491,7 @@ export function OnChainUXProvider({ config, children }: OnChainUXProviderProps):
     [],
   );
 
-  const value = useMemo<OnChainUXContextValue>(
+  const value = useMemo<CinaConnectContextValue>(
     () => ({
       config,
       connectors,
@@ -533,6 +533,6 @@ export function OnChainUXProvider({ config, children }: OnChainUXProviderProps):
   );
 
   return (
-    <OnChainUXContext.Provider value={value}>{children}</OnChainUXContext.Provider>
+    <CinaConnectContext.Provider value={value}>{children}</CinaConnectContext.Provider>
   );
 }

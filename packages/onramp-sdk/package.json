@@ -1,7 +1,7 @@
 {
-  "name": "@onchainux/onramp-sdk",
+  "name": "@cinaconnect/onramp-sdk",
   "version": "0.1.0",
-  "description": "OnChainUX On-Ramp Aggregator SDK — multi-provider fiat-to-crypto gateway",
+  "description": "CinaConnect On-Ramp Aggregator SDK — multi-provider fiat-to-crypto gateway",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",

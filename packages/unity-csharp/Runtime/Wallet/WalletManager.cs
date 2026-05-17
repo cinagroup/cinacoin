@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
-using OnChainUX.WalletConnect;
-using OnChainUX.Chain;
+using CinaConnect.WalletConnect;
+using CinaConnect.Chain;
 
-namespace OnChainUX
+namespace CinaConnect
 {
     /// <summary>
     /// Wallet manager with real WalletConnect v2 protocol support.

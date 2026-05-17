@@ -1,20 +1,20 @@
 /**
- * React hooks for OnChainUX.
+ * React hooks for CinaConnect.
  *
- * All hooks require being used within <OnChainUXProvider>.
+ * All hooks require being used within <CinaConnectProvider>.
  */
 
-import { useOnChainUXContext, type OnChainUXContextValue } from './OnChainUXProvider.js';
+import { useCinaConnectContext, type CinaConnectContextValue } from './CinaConnectProvider.js';
 
 /**
- * useOnChainUX — access the full OnChainUX context.
+ * useCinaConnect — access the full CinaConnect context.
  *
  * ```tsx
- * const { connect, disconnect, account, status } = useOnChainUX();
+ * const { connect, disconnect, account, status } = useCinaConnect();
  * ```
  */
-export function useOnChainUX(): OnChainUXContextValue {
-  return useOnChainUXContext();
+export function useCinaConnect(): CinaConnectContextValue {
+  return useCinaConnectContext();
 }
 
 /**
@@ -25,7 +25,7 @@ export function useOnChainUX(): OnChainUXContextValue {
  * ```
  */
 export function useAccount() {
-  const { account } = useOnChainUXContext();
+  const { account } = useCinaConnectContext();
   return account;
 }
 
@@ -37,7 +37,7 @@ export function useAccount() {
  * ```
  */
 export function useChainId(): number | null {
-  const { account } = useOnChainUXContext();
+  const { account } = useCinaConnectContext();
   return account.chainId;
 }
 
@@ -52,7 +52,7 @@ export function useChainId(): number | null {
  * ```
  */
 export function useConnect() {
-  const { connect, status, isSwitchingChain } = useOnChainUXContext();
+  const { connect, status, isSwitchingChain } = useCinaConnectContext();
   return { connect, status, isSwitchingChain };
 }
 
@@ -66,6 +66,6 @@ export function useConnect() {
  * ```
  */
 export function useDisconnect() {
-  const { disconnect } = useOnChainUXContext();
+  const { disconnect } = useCinaConnectContext();
   return { disconnect };
 }

@@ -1,5 +1,5 @@
 /**
- * Tests for @onchainux/vue components.
+ * Tests for @cinaconnect/vue components.
  * Tests OcxConnectButton, OcxConnectModal, OcxChainSwitcher rendering.
  */
 
@@ -24,7 +24,7 @@ vi.mock('vue', () => ({
 }));
 
 vi.mock('../src/composables.js', () => ({
-  useOnChainUX: vi.fn(() => ({
+  useCinaConnect: vi.fn(() => ({
     account: { value: { address: '0x1234', balance: '1.0', chainSymbol: 'ETH', chainId: 1 } },
     status: { value: 'disconnected' },
     config: { chains: [{ id: 1, name: 'Ethereum' }] },

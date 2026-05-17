@@ -24,13 +24,13 @@
  * </queries>
  * ```
  */
-package com.onchainux.deeplink
+package com.cinaconnect.deeplink
 
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import com.onchainux.core.OnChainUXConfig
+import com.cinaconnect.core.CinaConnectConfig
 
 /** Platform for redirect decisions. */
 enum class Platform { IOS, ANDROID, WEB }
@@ -115,10 +115,10 @@ class DeepLinkHandler {
         )
     }
 
-    private var config: OnChainUXConfig? = null
+    private var config: CinaConnectConfig? = null
 
     /** Configure the handler. */
-    fun configure(config: OnChainUXConfig) {
+    fun configure(config: CinaConnectConfig) {
         this.config = config
     }
 

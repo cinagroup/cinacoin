@@ -8,8 +8,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/onchainux/rpc-proxy/internal/cache"
-	"github.com/onchainux/rpc-proxy/internal/config"
+	"github.com/cinaconnect/rpc-proxy/internal/cache"
+	"github.com/cinaconnect/rpc-proxy/internal/config"
 )
 
 // newTestProxy creates an RPCProxy with in-memory cache and a test server provider.

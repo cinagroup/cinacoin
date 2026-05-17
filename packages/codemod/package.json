@@ -1,9 +1,9 @@
 {
-  "name": "@onchainux/codemod",
+  "name": "@cinaconnect/codemod",
   "version": "0.1.0",
-  "description": "Codemods for migrating from Web3Modal/AppKit and WalletConnect v1 to OnChainUX",
+  "description": "Codemods for migrating from Web3Modal/AppKit and WalletConnect v1 to CinaConnect",
   "bin": {
-    "onchainux-codemod": "./dist/cli.js"
+    "cinaconnect-codemod": "./dist/cli.js"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -17,7 +17,7 @@
     "clean": "rm -rf dist"
   },
   "keywords": [
-    "onchainux",
+    "cinaconnect",
     "codemod",
     "migration",
     "web3modal",

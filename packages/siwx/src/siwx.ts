@@ -8,7 +8,7 @@ import type { SIWXParams, SIWXResult, SIWXVerifyInput, ChainType } from './types
 import { createEvmSignInMessage, verifyEvmSignature } from './chains/evm.js';
 import { createSolanaSignInMessage, verifySolanaSignature } from './chains/solana.js';
 import { createBitcoinSignInMessage, verifyBitcoinSignature } from './chains/bitcoin.js';
-import { generateTimestamp } from '@onchainux/siwe';
+import { generateTimestamp } from '@cinaconnect/siwe';
 import { randomBytes } from 'crypto';
 
 /**

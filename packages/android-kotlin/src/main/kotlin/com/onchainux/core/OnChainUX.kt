@@ -1,13 +1,13 @@
 /**
- * OnChainUX Android SDK — Main class.
+ * CinaConnect Android SDK — Main class.
  *
- * Provides the core `OnChainUX` manager for Android applications.
+ * Provides the core `CinaConnect` manager for Android applications.
  * Configured once at app launch, provides access to wallet connections,
  * chain state, and theme configuration.
  *
  * ## Usage
  * ```kotlin
- * val config = OnChainUXConfig(
+ * val config = CinaConnectConfig(
  *     projectId = "your-project-id",
  *     chains = listOf(ChainConfig.ethereum, ChainConfig.polygon),
  *     metadata = AppMetadata(
@@ -18,7 +18,7 @@
  *     )
  * )
  *
- * val onChainUX = OnChainUX.initialize(config)
+ * val onChainUX = CinaConnect.initialize(config)
  * ```
  *
  * @property config Current configuration
@@ -26,33 +26,33 @@
  * @property deepLinkHandler Deep link handler
  * @property pushNotificationHandler FCM push handler
  */
-package com.onchainux.core
+package com.cinaconnect.core
 
-import com.onchainux.wallet.WalletManager
-import com.onchainux.deeplink.DeepLinkHandler
-import com.onchainux.push.FcmHandler
+import com.cinaconnect.wallet.WalletManager
+import com.cinaconnect.deeplink.DeepLinkHandler
+import com.cinaconnect.push.FcmHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 /**
- * Central OnChainUX manager for Android.
+ * Central CinaConnect manager for Android.
  */
-class OnChainUX private constructor() {
+class CinaConnect private constructor() {
 
     /** Shared singleton instance. */
     companion object {
         @Volatile
-        private var INSTANCE: OnChainUX? = null
+        private var INSTANCE: CinaConnect? = null
 
         /** Get or create the shared instance. */
-        fun getInstance(): OnChainUX =
+        fun getInstance(): CinaConnect =
             INSTANCE ?: synchronized(this) {
-                INSTANCE ?: OnChainUX().also { INSTANCE = it }
+                INSTANCE ?: CinaConnect().also { INSTANCE = it }
             }
 
-        /** Initialize OnChainUX with configuration. */
-        fun initialize(config: OnChainUXConfig): OnChainUX =
+        /** Initialize CinaConnect with configuration. */
+        fun initialize(config: CinaConnectConfig): CinaConnect =
             getInstance().apply { configure(config) }
     }
 
@@ -60,7 +60,7 @@ class OnChainUX private constructor() {
     val version: String = "0.1.0"
 
     /** Current configuration. */
-    var config: OnChainUXConfig? = null
+    var config: CinaConnectConfig? = null
         private set
 
     /** Wallet manager for connection operations. */
@@ -93,9 +93,9 @@ class OnChainUX private constructor() {
         get() = ThemeColors(_themeMode.value)
 
     /**
-     * Configure OnChainUX with app-specific settings.
+     * Configure CinaConnect with app-specific settings.
      */
-    fun configure(config: OnChainUXConfig) {
+    fun configure(config: CinaConnectConfig) {
         this.config = config
         _themeMode.value = config.themeMode
         _activeChainId.value = config.chains.firstOrNull()?.chainId ?: 1
@@ -133,7 +133,7 @@ class OnChainUX private constructor() {
      * Switch to a different chain.
      */
     suspend fun switchChain(chainId: Int) {
-        val config = config ?: throw IllegalStateException("OnChainUX not configured")
+        val config = config ?: throw IllegalStateException("CinaConnect not configured")
         if (config.chains.none { it.chainId == chainId }) {
             throw IllegalArgumentException("Chain $chainId not supported")
         }
@@ -157,8 +157,8 @@ class OnChainUX private constructor() {
 // Configuration types (shared with other modules)
 // ============================================================
 
-/** Configuration passed to OnChainUX at startup. */
-data class OnChainUXConfig(
+/** Configuration passed to CinaConnect at startup. */
+data class CinaConnectConfig(
     val projectId: String? = null,
     val chains: List<ChainConfig>,
     val themeMode: ThemeMode = ThemeMode.DARK,

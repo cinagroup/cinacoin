@@ -1,6 +1,6 @@
 # Push Server
 
-> OnChainUX 推送通知服务 — 通过 APNs 和 FCM 向移动端用户推送链上事件。
+> CinaConnect 推送通知服务 — 通过 APNs 和 FCM 向移动端用户推送链上事件。
 
 ## 架构
 
@@ -52,19 +52,19 @@ Push Server 订阅 NATS 上的链上事件主题，将相关通知通过 APNs (i
 ### Docker
 
 ```bash
-docker build -t onchainux/push-server:latest .
+docker build -t cinaconnect/push-server:latest .
 docker run -p 3000:3000 \
   -e NATS_URL=nats://nats-cluster:4222 \
   -e REDIS_URL=redis://redis-cluster:6379 \
-  onchainux/push-server:latest
+  cinaconnect/push-server:latest
 ```
 
 ### Kubernetes
 
 ```bash
-helm install push-server ./deploy/helm/onchainux \
+helm install push-server ./deploy/helm/cinaconnect \
   --set pushServer.replicaCount=2 \
-  --set global.imageRegistry=ghcr.io/onchainux
+  --set global.imageRegistry=ghcr.io/cinaconnect
 ```
 
 ## API

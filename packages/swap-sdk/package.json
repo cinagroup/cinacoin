@@ -1,7 +1,7 @@
 {
-  "name": "@onchainux/swap-sdk",
+  "name": "@cinaconnect/swap-sdk",
   "version": "0.1.0",
-  "description": "OnChainUX Swap Aggregator SDK — multi-DEX swap routing with slippage protection",
+  "description": "CinaConnect Swap Aggregator SDK — multi-DEX swap routing with slippage protection",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",

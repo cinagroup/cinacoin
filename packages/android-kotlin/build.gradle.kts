@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.onchainux"
+    namespace = "com.cinaconnect"
     compileSdk = 34
 
     defaultConfig {
@@ -95,7 +95,7 @@ dependencies {
 publishing {
     publications {
         register<MavenPublication>("release") {
-            groupId = "com.onchainux"
+            groupId = "com.cinaconnect"
             artifactId = "android-sdk"
             version = "0.1.0"
             afterEvaluate {

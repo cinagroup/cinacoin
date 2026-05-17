@@ -6,7 +6,7 @@ export default function HomePage() {
       <div className="max-w-2xl mx-auto space-y-8">
         <div className="text-center space-y-4">
           <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
-            OnChainUX Demo
+            CinaConnect Demo
           </h1>
           <p className="text-gray-400 text-lg">
             A self-hosted wallet connection toolkit. No WalletConnect. No Reown.
@@ -44,7 +44,7 @@ export default function HomePage() {
         <div className="grid sm:grid-cols-2 gap-4">
           <a href="/swap" className="block p-6 bg-gray-800/50 rounded-2xl border border-gray-700 hover:border-blue-500/50 transition-colors">
             <h3 className="text-lg font-semibold mb-2">Swap Demo →</h3>
-            <p className="text-gray-400 text-sm">Cross-chain token swapping with OnChainUX Swap SDK</p>
+            <p className="text-gray-400 text-sm">Cross-chain token swapping with CinaConnect Swap SDK</p>
           </a>
           <a href="/multi-chain" className="block p-6 bg-gray-800/50 rounded-2xl border border-gray-700 hover:border-purple-500/50 transition-colors">
             <h3 className="text-lg font-semibold mb-2">Multi-Chain Demo →</h3>

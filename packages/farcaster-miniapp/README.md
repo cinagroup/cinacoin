@@ -1,6 +1,6 @@
-# @onchainux/farcaster-miniapp
+# @cinaconnect/farcaster-miniapp
 
-Farcaster Mini Apps integration for OnChainUX SDK.
+Farcaster Mini Apps integration for CinaConnect SDK.
 
 ## Features
 
@@ -11,13 +11,13 @@ Farcaster Mini Apps integration for OnChainUX SDK.
 ## Install
 
 ```bash
-npm install @onchainux/farcaster-miniapp
+npm install @cinaconnect/farcaster-miniapp
 ```
 
 ## Usage
 
 ```ts
-import { FarcasterProvider, FarcasterAuth } from '@onchainux/farcaster-miniapp';
+import { FarcasterProvider, FarcasterAuth } from '@cinaconnect/farcaster-miniapp';
 
 // Initialize provider
 const provider = new FarcasterProvider({

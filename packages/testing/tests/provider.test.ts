@@ -11,7 +11,7 @@ describe("MockProvider", () => {
       expect(p.accounts).toHaveLength(2);
       expect(p.chainId).toBe("0x1");
       expect(p.isMetaMask).toBe(true);
-      expect(p.isOnChainUX).toBe(true);
+      expect(p.isCinaConnect).toBe(true);
     });
 
     test("creates with custom accounts", () => {

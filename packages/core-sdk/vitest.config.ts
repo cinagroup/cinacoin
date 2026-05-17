@@ -37,7 +37,7 @@ export default defineConfig({
   plugins: [tsResolver()],
   resolve: {
     alias: {
-      '@onchainux/siwe': path.resolve(__dirname, '../siwe/src/index.ts'),
+      '@cinaconnect/siwe': path.resolve(__dirname, '../siwe/src/index.ts'),
     },
   },
   test: {

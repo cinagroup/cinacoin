@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
 
-namespace OnChainUX.Chain
+namespace CinaConnect.Chain
 {
     /// <summary>
     /// EVM chain adapter with real JSON-RPC integration.

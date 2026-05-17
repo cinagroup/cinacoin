@@ -1,7 +1,7 @@
 {
-  "name": "@onchainux/core-ui",
+  "name": "@cinaconnect/core-ui",
   "version": "0.1.0",
-  "description": "Web Components core for OnChainUX — built with Lit",
+  "description": "Web Components core for CinaConnect — built with Lit",
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.js",

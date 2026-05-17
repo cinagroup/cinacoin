@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
 using System.Numerics;
 using NUnit.Framework;
-using OnChainUX.Chain;
+using CinaConnect.Chain;
 
-namespace OnChainUX.Tests.Runtime
+namespace CinaConnect.Tests.Runtime
 {
     /// <summary>
     /// Tests for EVM adapter: balance queries, transaction formatting, chain switching.

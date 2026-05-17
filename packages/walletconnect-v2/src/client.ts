@@ -6,8 +6,8 @@
  * easy-to-use API. Compatible with the Reown/WalletConnect v2 API surface.
  */
 
-import { EventEmitter } from '@onchainux/core-sdk';
-import type { AppMetadata, RequiredNamespace } from '@onchainux/core-sdk';
+import { EventEmitter } from '@cinaconnect/core-sdk';
+import type { AppMetadata, RequiredNamespace } from '@cinaconnect/core-sdk';
 import type {
   Pairing,
   Session,

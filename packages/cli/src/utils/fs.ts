@@ -2,7 +2,7 @@ import { existsSync, readFileSync, readdirSync, statSync, mkdirSync, copyFileSyn
 import { join, resolve } from 'node:path';
 
 // ============================================================
-// File utilities for @onchainux/cli
+// File utilities for @cinaconnect/cli
 // ============================================================
 
 /** CLI version (synced with package.json). */
@@ -71,7 +71,7 @@ export function findUp(filename: string): string | null {
 }
 
 /**
- * Resolve the OnChainUX monorepo root.
+ * Resolve the CinaConnect monorepo root.
  */
 export function resolveMonorepoRoot(): string | null {
   return findUp('pnpm-workspace.yaml');

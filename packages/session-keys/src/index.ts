@@ -1,7 +1,7 @@
 /**
- * @onchainux/session-keys
+ * @cinaconnect/session-keys
  *
- * OnChainUX Session Keys — temporary signing keys with policies
+ * CinaConnect Session Keys — temporary signing keys with policies
  * and social recovery for ERC-4337 smart accounts.
  *
  * @example
@@ -10,7 +10,7 @@
  *   SessionKeyManager,
  *   SessionKeyPolicyManager,
  *   SocialRecoveryManager,
- * } from '@onchainux/session-keys';
+ * } from '@cinaconnect/session-keys';
  *
  * // Create a session key with a DEX policy
  * const policyManager = new SessionKeyPolicyManager();

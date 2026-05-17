@@ -1,7 +1,7 @@
 {
-  "name": "@onchainux/react",
+  "name": "@cinaconnect/react",
   "version": "0.1.0",
-  "description": "React adapter for OnChainUX white-label UI toolkit",
+  "description": "React adapter for CinaConnect white-label UI toolkit",
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -18,7 +18,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@onchainux/core-ui": "file:../core-ui",
+    "@cinaconnect/core-ui": "file:../core-ui",
     "react": "^18.3.0",
     "react-dom": "^18.3.0"
   },

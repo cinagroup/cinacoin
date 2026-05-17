@@ -1,4 +1,4 @@
-// @onchainux/gas-estimator
+// @cinaconnect/gas-estimator
 // Gas estimation for EVM and Solana
 
 export { GasEstimator } from './estimator.js';

@@ -1,5 +1,5 @@
 /**
- * OnChainUX Deep Linking Module
+ * CinaConnect Deep Linking Module
  *
  * Provides deep link generation, universal link support, and smart redirect
  * logic for wallet connections across iOS, Android, and web platforms.

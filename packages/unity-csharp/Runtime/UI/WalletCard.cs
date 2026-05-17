@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System;
 using System.Collections;
 
-namespace OnChainUX.UI
+namespace CinaConnect.UI
 {
     /// <summary>
     /// Wallet card component for the Connect Modal.
@@ -120,7 +120,7 @@ namespace OnChainUX.UI
                 }
                 else
                 {
-                    Debug.LogWarning($"[OnChainUX:WalletCard] Failed to load wallet icon: {url}");
+                    Debug.LogWarning($"[CinaConnect:WalletCard] Failed to load wallet icon: {url}");
                 }
             }
         }

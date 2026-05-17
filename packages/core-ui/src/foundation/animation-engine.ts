@@ -1,5 +1,5 @@
 /**
- * Animation engine for OnChainUX Web Components.
+ * Animation engine for CinaConnect Web Components.
  *
  * Provides a lightweight, CSS-variable-driven animation system with
  * support for transitions, keyframe animations, and spring physics.

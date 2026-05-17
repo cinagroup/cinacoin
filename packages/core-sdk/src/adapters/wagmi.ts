@@ -1,5 +1,5 @@
 /**
- * wagmi Adapter — integrates wagmi's hooks and config with OnChainUX.
+ * wagmi Adapter — integrates wagmi's hooks and config with CinaConnect.
  *
  * Provides a WagmiConnector that wraps wagmi's createConfig and supports
  * multi-chain via wagmi's chains configuration.
@@ -8,7 +8,7 @@
  *
  * @example
  * ```ts
- * import { createWagmiConnector } from '@onchainux/core-sdk';
+ * import { createWagmiConnector } from '@cinaconnect/core-sdk';
  * import { http } from 'viem';
  * import { mainnet, polygon } from 'wagmi/chains';
  *
@@ -89,10 +89,10 @@ export interface CreateWagmiConfig {
 
 /**
  * WagmiConnector bridges wagmi's configuration and connector system
- * with OnChainUX's Connector abstract base class.
+ * with CinaConnect's Connector abstract base class.
  *
  * It wraps a WagmiConnectorInstance (injected, walletconnect, etc.)
- * and exposes the standard OnChainUX connector API.
+ * and exposes the standard CinaConnect connector API.
  */
 export class WagmiConnector extends EventEmitter implements Connector {
   readonly id: string;
@@ -250,7 +250,7 @@ export class WagmiConnector extends EventEmitter implements Connector {
 
 /**
  * MultiChainConnector wraps a full wagmi config with multiple connector
- * instances and exposes the OnChainUX Connector API.
+ * instances and exposes the CinaConnect Connector API.
  *
  * Use this when you need to support multiple wallet types (injected,
  * WalletConnect, Coinbase, etc.) through a single connector.

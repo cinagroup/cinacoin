@@ -1,8 +1,8 @@
 /**
- * ChainAdapter interface for OnChainUX adapters.
+ * ChainAdapter interface for CinaConnect adapters.
  *
  * Defines the contract that all chain adapters (viem, wagmi, ethers, etc.)
- * must implement to work with the OnChainUX SDK.
+ * must implement to work with the CinaConnect SDK.
  */
 
 import type { Connector } from '../connector.js';
@@ -91,7 +91,7 @@ export interface AdapterFactoryConfig {
   /** Underlying client/provider. */
   client?: unknown;
 
-  /** OnChainUX connector. */
+  /** CinaConnect connector. */
   connector?: Connector;
 
   /** Supported chains. */

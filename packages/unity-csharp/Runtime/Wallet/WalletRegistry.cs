@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace OnChainUX
+namespace CinaConnect
 {
     /// <summary>
     /// Registry of supported wallets with deep link schemes.

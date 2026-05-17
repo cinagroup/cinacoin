@@ -1,7 +1,7 @@
 /**
- * @onchainux/onramp-sdk
+ * @cinaconnect/onramp-sdk
  *
- * OnChainUX On-Ramp Aggregator SDK — multi-provider fiat-to-crypto gateway.
+ * CinaConnect On-Ramp Aggregator SDK — multi-provider fiat-to-crypto gateway.
  *
  * @example
  * ```ts
@@ -11,7 +11,7 @@
  *   MoonPayProvider,
  *   RampProvider,
  *   TransakProvider,
- * } from '@onchainux/onramp-sdk';
+ * } from '@cinaconnect/onramp-sdk';
  *
  * const aggregator = new OnRampAggregator();
  *

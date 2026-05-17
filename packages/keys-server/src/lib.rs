@@ -1,4 +1,4 @@
-//! OnChainUX Keys Server Library.
+//! CinaConnect Keys Server Library.
 
 pub mod config;
 pub mod database;

@@ -5,10 +5,10 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 using System.Collections;
-using OnChainUX.WalletConnect;
-using OnChainUX.Auth;
+using CinaConnect.WalletConnect;
+using CinaConnect.Auth;
 
-namespace OnChainUX.Tests.Runtime
+namespace CinaConnect.Tests.Runtime
 {
     /// <summary>
     /// Comprehensive PlayMode tests for real WalletConnect v2 functionality.
@@ -567,8 +567,8 @@ namespace OnChainUX.Tests.Runtime
         [Test]
         public void BuildCallbackUrl_ReturnsSchemeUrl()
         {
-            var url = _handler.BuildCallbackUrl("onchainux");
-            Assert.That(url, Does.StartWith("onchainux://"));
+            var url = _handler.BuildCallbackUrl("cinaconnect");
+            Assert.That(url, Does.StartWith("cinaconnect://"));
         }
 
         [Test]
@@ -588,17 +588,17 @@ namespace OnChainUX.Tests.Runtime
     }
 
     // ═══════════════════════════════════════════════════════════════════
-    // OnChainUXManager Tests
+    // CinaConnectManager Tests
     // ═══════════════════════════════════════════════════════════════════
 
     [TestFixture]
-    public class OnChainUXIntegrationTests
+    public class CinaConnectIntegrationTests
     {
         [UnityTest]
         public IEnumerator Initialize_SetsStatusToDisconnected()
         {
-            var go = new GameObject("[OnChainUX_Test]");
-            var manager = go.AddComponent<OnChainUXManager>();
+            var go = new GameObject("[CinaConnect_Test]");
+            var manager = go.AddComponent<CinaConnectManager>();
 
             manager.Initialize("test_project_id",
                 new AppMetadata("Test App", "Test", "https://test.com"));
@@ -614,13 +614,13 @@ namespace OnChainUX.Tests.Runtime
         [UnityTest]
         public IEnumerator Singleton_CreatesInstance()
         {
-            var existing = Object.FindObjectOfType<OnChainUXManager>();
+            var existing = Object.FindObjectOfType<CinaConnectManager>();
             if (existing != null)
                 Object.DestroyImmediate(existing.gameObject);
 
-            var instance = OnChainUXManager.Instance;
+            var instance = CinaConnectManager.Instance;
             Assert.That(instance, Is.Not.Null);
-            Assert.That(instance, Is.TypeOf<OnChainUXManager>());
+            Assert.That(instance, Is.TypeOf<CinaConnectManager>());
 
             Object.DestroyImmediate(instance.gameObject);
             yield return null;
@@ -629,8 +629,8 @@ namespace OnChainUX.Tests.Runtime
         [UnityTest]
         public IEnumerator EvmAdapter_AvailableAfterInit()
         {
-            var go = new GameObject("[OnChainUX_Test]");
-            var manager = go.AddComponent<OnChainUXManager>();
+            var go = new GameObject("[CinaConnect_Test]");
+            var manager = go.AddComponent<CinaConnectManager>();
             manager.Initialize("test", new AppMetadata("Test", "Test", "https://test.com"));
 
             Assert.That(manager.Evm, Is.Not.Null);
@@ -642,8 +642,8 @@ namespace OnChainUX.Tests.Runtime
         [UnityTest]
         public IEnumerator DeepLinks_AvailableAfterInit()
         {
-            var go = new GameObject("[OnChainUX_Test]");
-            var manager = go.AddComponent<OnChainUXManager>();
+            var go = new GameObject("[CinaConnect_Test]");
+            var manager = go.AddComponent<CinaConnectManager>();
             manager.Initialize("test", new AppMetadata("Test", "Test", "https://test.com"));
 
             Assert.That(manager.DeepLinks, Is.Not.Null);

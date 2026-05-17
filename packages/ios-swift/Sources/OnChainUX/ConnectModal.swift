@@ -8,7 +8,7 @@
  * ```swift
  * struct ContentView: View {
  *     @State private var showModal = false
- *     @EnvironmentObject var onChainUX: OnChainUX
+ *     @EnvironmentObject var onChainUX: CinaConnect
  *
  *     var body: some View {
  *         ConnectButton { showModal = true }
@@ -88,7 +88,7 @@ public enum ConnectModalView: String, CaseIterable, Identifiable {
 
 /// SwiftUI Connect Modal.
 public struct ConnectModal: View {
-    @EnvironmentObject private var onChainUX: OnChainUX
+    @EnvironmentObject private var onChainUX: CinaConnect
     
     /// Binding controlling modal visibility.
     @Binding public var isPresented: Bool

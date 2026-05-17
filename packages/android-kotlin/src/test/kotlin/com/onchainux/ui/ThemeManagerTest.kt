@@ -1,4 +1,4 @@
-package com.onchainux.core
+package com.cinaconnect.core
 
 import org.junit.Test
 import org.junit.Assert.*

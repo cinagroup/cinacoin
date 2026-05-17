@@ -1,7 +1,7 @@
 {
-  "name": "@onchainux/social-login",
+  "name": "@cinaconnect/social-login",
   "version": "0.1.0",
-  "description": "OnChainUX Social Login — OAuth2 and email-based wallet authentication with deterministic HD wallet derivation",
+  "description": "CinaConnect Social Login — OAuth2 and email-based wallet authentication with deterministic HD wallet derivation",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",

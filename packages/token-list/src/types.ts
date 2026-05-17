@@ -1,5 +1,5 @@
 /**
- * Token types for @onchainux/token-list
+ * Token types for @cinaconnect/token-list
  */
 
 export interface TokenInfo {

@@ -324,7 +324,7 @@ export class PolkadotChainAdapter {
 
   /* ---- Configuration ---- */
 
-  /** Set the OnChainUX connector. Required by ChainAdapter interface. */
+  /** Set the CinaConnect connector. Required by ChainAdapter interface. */
   setConnector(_connector: Connector): void {
     // Polkadot adapter uses polkadot.js injection; connector is optional.
   }

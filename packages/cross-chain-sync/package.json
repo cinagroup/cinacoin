@@ -1,7 +1,7 @@
 {
-  "name": "@onchainux/cross-chain-sync",
+  "name": "@cinaconnect/cross-chain-sync",
   "version": "0.1.0",
-  "description": "OnChainUX Cross-Chain Account Sync — unified state and identity across EVM/Solana/BTC/TON/TRON/Polkadot",
+  "description": "CinaConnect Cross-Chain Account Sync — unified state and identity across EVM/Solana/BTC/TON/TRON/Polkadot",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",

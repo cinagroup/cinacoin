@@ -5,7 +5,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/onchainux/rpc-proxy/internal/config"
+	"github.com/cinaconnect/rpc-proxy/internal/config"
 	"golang.org/x/time/rate"
 )
 

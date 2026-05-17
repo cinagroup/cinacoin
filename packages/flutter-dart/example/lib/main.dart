@@ -1,18 +1,18 @@
-/// Example app demonstrating OnChainUX Flutter SDK usage.
+/// Example app demonstrating CinaConnect Flutter SDK usage.
 import 'package:flutter/material.dart';
-import 'package:onchainux/onchainux.dart';
+import 'package:cinaconnect/cinaconnect.dart';
 
 void main() {
-  runApp(const OnChainUXExampleApp());
+  runApp(const CinaConnectExampleApp());
 }
 
-class OnChainUXExampleApp extends StatelessWidget {
-  const OnChainUXExampleApp({super.key});
+class CinaConnectExampleApp extends StatelessWidget {
+  const CinaConnectExampleApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'OnChainUX Example',
+      title: 'CinaConnect Example',
       theme: ThemeData(
         colorSchemeSeed: const Color(0xFF3B82F6),
         useMaterial3: true,
@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
     _walletManager = WalletManager(
       projectId: 'YOUR_PROJECT_ID', // Replace with your WC v2 project ID
       metadata: const AppMetadata(
-        name: 'OnChainUX Example',
+        name: 'CinaConnect Example',
         description: 'A Flutter dApp example',
         url: 'https://example.com',
         icons: [],
@@ -88,7 +88,7 @@ class _HomePageState extends State<HomePage> {
   void _showConnectModal() {
     showModalBottomSheet(
       context: context,
-      builder: (_) => OnChainUXConnectModal(
+      builder: (_) => CinaConnectConnectModal(
         wallets: WalletRegistry.getAll(),
         recommendedWalletIds: ['metamask', 'rainbow', 'coinbase'],
         onWalletSelect: (wallet) {
@@ -103,11 +103,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('OnChainUX Example'),
+        title: const Text('CinaConnect Example'),
         actions: [
           Padding(
             padding: const EdgeInsets.all(8),
-            child: OnChainUXConnectButton(
+            child: CinaConnectConnectButton(
               status: _sessionState.status,
               account: _sessionState.accounts?.first,
               showAvatar: true,

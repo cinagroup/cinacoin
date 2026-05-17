@@ -1,11 +1,11 @@
 /**
- * @onchainux/analytics
+ * @cinaconnect/analytics
  *
- * OnChainUX Analytics SDK — GDPR-compliant event tracking and metrics.
+ * CinaConnect Analytics SDK — GDPR-compliant event tracking and metrics.
  *
  * @example
  * ```ts
- * import { EventTracker, InMemoryProvider, ConsentManager } from '@onchainux/analytics';
+ * import { EventTracker, InMemoryProvider, ConsentManager } from '@cinaconnect/analytics';
  *
  * const tracker = new EventTracker();
  * tracker.addProvider(new InMemoryProvider());

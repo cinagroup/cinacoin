@@ -1,4 +1,4 @@
-//! OnChainUX Push Server Library.
+//! CinaConnect Push Server Library.
 //!
 //! Provides unified push notification delivery via APNs and FCM.
 

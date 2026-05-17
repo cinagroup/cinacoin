@@ -1,9 +1,9 @@
 using UnityEngine;
 
-namespace OnChainUX
+namespace CinaConnect
 {
     /// <summary>
-    /// Core type definitions for the OnChainUX Unity SDK.
+    /// Core type definitions for the CinaConnect Unity SDK.
     /// Mirrors the TypeScript core-sdk types.ts API surface.
     /// </summary>
 
@@ -254,7 +254,7 @@ namespace OnChainUX
     }
 
     /// SDK version.
-    public static class OnChainUXVersion
+    public static class CinaConnectVersion
     {
         public const string Value = "0.1.0";
     }
