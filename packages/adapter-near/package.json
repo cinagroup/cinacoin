@@ -1,0 +1,37 @@
+{
+  "name": "@cinaconnect/adapter-near",
+  "version": "0.1.0",
+  "description": "CinaConnect NEAR chain adapter — NEAR Wallet, Here Wallet, Meteor Wallet support",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./connectors/near-wallet": {
+      "import": "./dist/connectors/near-wallet.mjs",
+      "require": "./dist/connectors/near-wallet.js",
+      "types": "./dist/connectors/near-wallet.d.ts"
+    },
+    "./connectors/here-wallet": {
+      "import": "./dist/connectors/here-wallet.mjs",
+      "require": "./dist/connectors/here-wallet.js",
+      "types": "./dist/connectors/here-wallet.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "check": "tsc --noEmit",
+    "lint": "eslint src/",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@cinaconnect/core-sdk": ">=0.1.0",
+    "@near-wallet-selector/core": ">=8.9.0"
+  }
+}
