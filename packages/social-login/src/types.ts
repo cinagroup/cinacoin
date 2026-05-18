@@ -5,7 +5,7 @@
  */
 
 /** Supported social login providers. */
-export type SocialProvider = 'google' | 'apple' | 'twitter' | 'email';
+export type SocialProvider = 'google' | 'apple' | 'twitter' | 'email' | 'phone' | 'x' | 'github' | 'discord' | 'facebook';
 
 /**
  * Base parameters for social login.
