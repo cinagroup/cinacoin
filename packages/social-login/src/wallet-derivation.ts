@@ -32,11 +32,11 @@ export function deriveSeedFromIdentity(
   const info = `${providerId}:${identifier}`;
 
   // HKDF-Extract
-  const prk = createHmac(derivationKey || salt, salt).digest('sha256');
+  const prk = createHmac(derivationKey || salt, salt);
 
   // HKDF-Expand
   const infoBuffer = Buffer.from(info);
-  const t = createHmac(prk.toString('hex'), `${infoBuffer.toString('hex')}01`).digest('sha256');
+  const t = createHmac(prk.toString('hex'), `${infoBuffer.toString('hex')}01`);
 
   return t;
 }

@@ -1,5 +1,10 @@
 import { useState } from 'react';
 
+/**
+ * MOCK PRICES — These are illustrative only, not live data.
+ * A production swap would pull prices from a DEX aggregator API
+ * (e.g. 1inch, Jupiter, CoW Protocol, or on-chain oracles).
+ */
 const TOKENS = [
   { symbol: 'ETH', name: 'Ethereum', balance: '2.4821', price: 2995.67, icon: 'Ξ', color: '#627EEA', chain: 'Ethereum' },
   { symbol: 'USDC', name: 'USD Coin', balance: '12,450.00', price: 1.00, icon: '$', color: '#2775CA', chain: 'Ethereum' },
@@ -124,6 +129,11 @@ export default function SwapPage() {
         {/* Swap Details */}
         {amount > 0 && (
           <div className="mt-4 bg-gray-900/50 backdrop-blur rounded-2xl border border-gray-800 p-4 space-y-3">
+            <div className="flex items-center gap-2 mb-2 px-1">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-medium">
+                ⚠️ Mock prices — not live data
+              </span>
+            </div>
             <div className="flex justify-between text-sm"><span className="text-gray-500">Rate</span><span>{rate}</span></div>
             <div className="flex justify-between text-sm"><span className="text-gray-500">Network Fee</span><span className="text-green-400">~$2.34</span></div>
             <div className="flex justify-between text-sm">
@@ -146,7 +156,10 @@ export default function SwapPage() {
         </button>
 
         {/* Powered by */}
-        <p className="text-center text-xs text-gray-600 mt-4">Powered by <span className="text-gray-400">CinaConnect Swap SDK</span></p>
+        <p className="text-center text-xs text-gray-600 mt-4">
+          Powered by <span className="text-gray-400">CinaConnect Swap SDK</span>
+          {' · '}<span className="text-amber-500/60">Demo mode — prices are illustrative</span>
+        </p>
 
         {/* Recent Swaps */}
         <div className="mt-8">

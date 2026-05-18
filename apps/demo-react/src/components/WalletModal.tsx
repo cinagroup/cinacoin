@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { useWallet, formatAddress } from '../hooks/useWallet'
+import { useWallet, formatAddress } from '../contexts/WalletContext'
 
 interface WalletOption {
   id: string
@@ -27,80 +27,62 @@ interface WalletModalProps {
   onClose: () => void
 }
 
-declare global {
-  interface Window {
-    ethereum?: any
-  }
-}
-
 const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
-  const { isConnected, address, connect, disconnect } = useWallet()
+  const { connected, address, walletId, connectMetaMask, connectWalletConnect, disconnect, error: ctxError, clearError } = useWallet()
 
   const [modalState, setModalState] = useState<ModalState>(isOpen ? 'open' : 'closed')
   const [selectedWallet, setSelectedWallet] = useState<WalletOption | null>(null)
   const [activeTab, setActiveTab] = useState<'popular' | 'all'>('popular')
-  const [error, setError] = useState<string | null>(null)
 
   // Detect installed wallets
-  const isMetaMaskInstalled = typeof window !== 'undefined' && !!window.ethereum?.isMetaMask
-  const isCoinbaseInstalled = typeof window !== 'undefined' && !!window.ethereum?.isCoinbaseWallet
+  const isMetaMaskInstalled = typeof window !== 'undefined' && !!(window as any).ethereum?.isMetaMask
+  const isCoinbaseInstalled = typeof window !== 'undefined' && !!(window as any).ethereum?.isCoinbaseWallet
 
   useEffect(() => {
     if (isOpen) {
       setModalState('open')
       setSelectedWallet(null)
-      setError(null)
+      clearError()
     }
-  }, [isOpen])
+  }, [isOpen, clearError])
 
-  // If already connected from outside the modal, close
+  // If already connected from outside the modal, show success
   useEffect(() => {
-    if (isConnected && modalState !== 'success') {
+    if (connected && modalState !== 'success') {
       setModalState('success')
     }
-  }, [isConnected, modalState])
+  }, [connected, modalState])
 
   const handleSelectWallet = useCallback(async (wallet: WalletOption) => {
     setSelectedWallet(wallet)
-    setError(null)
+    clearError()
 
     if (wallet.id === 'metamask') {
       setModalState('connecting')
       try {
-        await connect()
-        // connect() already sets isConnected → true, useEffect above handles success
-      } catch (err: any) {
-        let message = 'Failed to connect wallet'
-        if (err.code === 4001 || err.message?.includes('rejected')) {
-          message = 'User rejected the connection request'
-        } else if (err.message) {
-          message = err.message
-        }
-        setError(message)
-        setModalState('error')
+        await connectMetaMask()
+      } catch {
+        // error handled by context
+      }
+    } else if (wallet.id === 'walletconnect') {
+      setModalState('connecting')
+      try {
+        await connectWalletConnect()
+      } catch {
+        // error handled by context
       }
     } else if (wallet.id === 'coinbase' && isCoinbaseInstalled) {
       setModalState('connecting')
       try {
-        await connect()
-      } catch (err: any) {
-        let message = 'Failed to connect wallet'
-        if (err.code === 4001 || err.message?.includes('rejected')) {
-          message = 'User rejected the connection request'
-        } else if (err.message) {
-          message = err.message
-        }
-        setError(message)
-        setModalState('error')
+        await connectMetaMask() // Coinbase injects as window.ethereum too
+      } catch {
+        // error handled by context
       }
-    } else if (wallet.id === 'walletconnect') {
-      // WalletConnect not available via injected provider — show info
-      setModalState('no-wallet')
     } else {
       // Wallet not installed — show "no wallet" state
       setModalState('no-wallet')
     }
-  }, [connect, isCoinbaseInstalled])
+  }, [connectMetaMask, connectWalletConnect, clearError, isCoinbaseInstalled])
 
   const handleClose = useCallback(() => {
     setModalState('closed')
@@ -118,30 +100,30 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
 
   const handleRetry = useCallback(async () => {
     if (!selectedWallet) return
-    setError(null)
+    clearError()
     setModalState('connecting')
     try {
-      await connect()
-    } catch (err: any) {
-      let message = 'Failed to connect wallet'
-      if (err.code === 4001 || err.message?.includes('rejected')) {
-        message = 'User rejected the connection request'
-      } else if (err.message) {
-        message = err.message
+      if (selectedWallet.id === 'walletconnect') {
+        await connectWalletConnect()
+      } else {
+        await connectMetaMask()
       }
-      setError(message)
-      setModalState('error')
+    } catch {
+      // error handled by context
     }
-  }, [selectedWallet, connect])
+  }, [selectedWallet, connectMetaMask, connectWalletConnect, clearError])
 
   const handleDisconnect = useCallback(() => {
     disconnect()
     setModalState('closed')
+    setSelectedWallet(null)
+    clearError()
     onClose()
-  }, [disconnect, onClose])
+  }, [disconnect, clearError, onClose])
 
   // Show success if connected
   const displayAddress = address ? formatAddress(address) : ''
+  const error = ctxError
 
   if (modalState === 'closed') return null
 

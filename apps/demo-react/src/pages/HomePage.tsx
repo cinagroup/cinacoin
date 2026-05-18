@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import WalletModal from '../components/WalletModal'
-import { useWallet, formatAddress } from '../hooks/useWallet'
+import { useWallet, formatAddress } from '../contexts/WalletContext'
+import { useChainInfo } from '../hooks/useChainInfo'
 
 interface Chain {
   name: string
@@ -44,7 +45,8 @@ const FEATURES: Feature[] = [
 ]
 
 const HomePage: React.FC = () => {
-  const { isConnected, address, disconnect } = useWallet()
+  const { connected: isConnected, address, chainId, disconnect } = useWallet()
+  const chainInfo = useChainInfo(chainId || null, address || null)
   const [walletModalOpen, setWalletModalOpen] = useState(false)
   const [selectedChain, setSelectedChain] = useState('Ethereum')
 
@@ -144,7 +146,27 @@ const HomePage: React.FC = () => {
                 </div>
                 <div>
                   <p className="font-mono font-semibold">{formatAddress(address)}</p>
-                  <p className="text-sm text-gray-400">Ethereum Mainnet</p>
+                  <p className="text-sm text-gray-400">
+                    {chainInfo.chainName}
+                    {chainInfo.loading ? ' ⏳' : ''}
+                  </p>
+                </div>
+                <div className="flex items-center gap-4 text-sm">
+                  {chainInfo.blockNumber && (
+                    <div>
+                      <p className="text-gray-500 text-xs">Block</p>
+                      <p className="font-mono font-medium text-violet-400">#{chainInfo.blockNumber}</p>
+                    </div>
+                  )}
+                  {chainInfo.balanceEth && (
+                    <div>
+                      <p className="text-gray-500 text-xs">Balance</p>
+                      <p className="font-mono font-medium text-emerald-400">{chainInfo.balanceEth} ETH</p>
+                    </div>
+                  )}
+                  {chainInfo.error && (
+                    <p className="text-xs text-red-400">{chainInfo.error}</p>
+                  )}
                 </div>
               </div>
               <div className="flex items-center gap-3">

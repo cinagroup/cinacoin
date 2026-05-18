@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useCallback, useEffect, useRef } from 'react'
-import { EthereumProvider } from '@walletconnect/ethereum-provider'
+import { EthereumProvider } from '../wc'
 
 export interface WalletState {
   connected: boolean
@@ -68,7 +68,6 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
               error: null,
             })
 
-            // Listen for account/chain changes
             window.ethereum.on('accountsChanged', (accounts: string[]) => {
               if (accounts.length === 0) {
                 setState(prev => ({ ...prev, connected: false, address: '', walletId: null }))
@@ -138,7 +137,6 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         error: null,
       })
 
-      // Set up listeners
       window.ethereum.on('accountsChanged', (accounts: string[]) => {
         if (accounts.length === 0) {
           setState(prev => ({ ...prev, connected: false, address: '', walletId: null }))
@@ -170,7 +168,7 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     try {
       if (!wcProvider) {
         wcProvider = await EthereumProvider.init({
-          projectId: 'c8e4e0f2c8e4e0f2c8e4e0f2c8e4e0f2', // Demo project ID - replace with real one
+          projectId: 'c8e4e0f2c8e4e0f2c8e4e0f2c8e4e0f2',
           chains: [1],
           showQrModal: true,
           qrModalOptions: {
@@ -225,13 +223,11 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   }, [])
 
   const disconnect = useCallback(() => {
-    // Remove MetaMask listeners
     if (window.ethereum) {
       window.ethereum.removeAllListeners?.('accountsChanged')
       window.ethereum.removeAllListeners?.('chainChanged')
     }
 
-    // Disconnect WalletConnect
     if (wcProvider) {
       wcProvider.disconnect?.()
     }

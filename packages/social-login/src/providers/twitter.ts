@@ -26,9 +26,9 @@ const DEFAULT_SCOPES = ['users.read', 'tweet.read'];
  *
  * @returns Object with codeVerifier and codeChallenge.
  */
-export function generatePKCE(): { codeVerifier: string; codeChallenge: string } {
+export async function generatePKCE(): Promise<{ codeVerifier: string; codeChallenge: string }> {
   const codeVerifier = generateRandomString(64);
-  const codeChallenge = base64URLEncode(sha256(codeVerifier));
+  const codeChallenge = base64URLEncode(await sha256(codeVerifier));
 
   return { codeVerifier, codeChallenge };
 }

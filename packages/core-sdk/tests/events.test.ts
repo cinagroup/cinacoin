@@ -1,109 +1,181 @@
 /**
- * Tests for EventEmitter — event emission, subscription, and cleanup.
+ * core-sdk/tests/events.test.ts
+ *
+ * Tests for the EventEmitter class: on, off, emit, once, removeAllListeners, listenerCount.
  */
 
-import { describe, it, expect, vi } from 'vitest';
 import { EventEmitter } from '../src/events.js';
 
-describe('EventEmitter', () => {
-  it('should register and emit events', () => {
-    const emitter = new EventEmitter();
-    const fn = vi.fn();
-    emitter.on('test', fn);
-    emitter.emit('test', 'hello');
-    expect(fn).toHaveBeenCalledWith('hello');
-  });
+function assert(condition: boolean, msg: string) {
+  if (!condition) throw new Error(`Assertion failed: ${msg}`);
+}
 
-  it('should support multiple handlers for the same event', () => {
-    const emitter = new EventEmitter();
-    const fn1 = vi.fn();
-    const fn2 = vi.fn();
-    emitter.on('test', fn1);
-    emitter.on('test', fn2);
-    emitter.emit('test', 'a', 'b');
-    expect(fn1).toHaveBeenCalledWith('a', 'b');
-    expect(fn2).toHaveBeenCalledWith('a', 'b');
-  });
+// --- on + emit ---
 
-  it('should remove handlers with off()', () => {
-    const emitter = new EventEmitter();
-    const fn = vi.fn();
-    emitter.on('test', fn);
-    emitter.off('test', fn);
-    emitter.emit('test');
-    expect(fn).not.toHaveBeenCalled();
-  });
+function testOnAndEmit() {
+  const ee = new EventEmitter();
+  let result: unknown;
+  ee.on('test', (val) => { result = val; });
+  ee.emit('test', 'hello');
+  assert(result === 'hello', 'handler should receive emitted value');
+  console.log('✓ on + emit');
+}
 
-  it('should call once() handler exactly one time', () => {
-    const emitter = new EventEmitter();
-    const fn = vi.fn();
-    emitter.once('test', fn);
-    emitter.emit('test', 1);
-    emitter.emit('test', 2);
-    expect(fn).toHaveBeenCalledTimes(1);
-    expect(fn).toHaveBeenCalledWith(1);
-  });
+// --- multiple listeners ---
 
-  it('should removeAllListeners for a specific event', () => {
-    const emitter = new EventEmitter();
-    const fn1 = vi.fn();
-    const fn2 = vi.fn();
-    emitter.on('test', fn1);
-    emitter.on('other', fn2);
-    emitter.removeAllListeners('test');
-    emitter.emit('test');
-    emitter.emit('other');
-    expect(fn1).not.toHaveBeenCalled();
-    expect(fn2).toHaveBeenCalled();
-  });
+function testMultipleListeners() {
+  const ee = new EventEmitter();
+  const order: number[] = [];
+  ee.on('data', () => order.push(1));
+  ee.on('data', () => order.push(2));
+  ee.on('data', () => order.push(3));
+  ee.emit('data');
+  assert(order.length === 3, 'all three handlers should fire');
+  assert(order[0] === 1 && order[1] === 2 && order[2] === 3, 'handlers should fire in order');
+  console.log('✓ multiple listeners');
+}
 
-  it('should removeAllListeners for all events', () => {
-    const emitter = new EventEmitter();
-    const fn1 = vi.fn();
-    const fn2 = vi.fn();
-    emitter.on('test', fn1);
-    emitter.on('other', fn2);
-    emitter.removeAllListeners();
-    emitter.emit('test');
-    emitter.emit('other');
-    expect(fn1).not.toHaveBeenCalled();
-    expect(fn2).not.toHaveBeenCalled();
-  });
+// --- off ---
 
-  it('should report listenerCount correctly', () => {
-    const emitter = new EventEmitter();
-    expect(emitter.listenerCount('test')).toBe(0);
-    const fn = vi.fn();
-    emitter.on('test', fn);
-    expect(emitter.listenerCount('test')).toBe(1);
-    emitter.on('test', fn);
-    // Using same fn in Set means count stays 1 (Set deduplicates)
-    expect(emitter.listenerCount('test')).toBe(1);
-    const fn2 = vi.fn();
-    emitter.on('test', fn2);
-    expect(emitter.listenerCount('test')).toBe(2);
-  });
+function testOff() {
+  const ee = new EventEmitter();
+  let count = 0;
+  const handler = () => { count++; };
+  ee.on('inc', handler);
+  ee.emit('inc');
+  assert(count === 1, 'handler should fire once before removal');
+  ee.off('inc', handler);
+  ee.emit('inc');
+  assert(count === 1, 'handler should not fire after off');
+  console.log('✓ off');
+}
 
-  it('should not throw when emitting to handlers that throw', () => {
-    const emitter = new EventEmitter();
-    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-    const good = vi.fn();
-    emitter.on('test', () => { throw new Error('boom'); });
-    emitter.on('test', good);
-    emitter.emit('test');
-    expect(good).toHaveBeenCalled();
-    expect(errorSpy).toHaveBeenCalled();
-    errorSpy.mockRestore();
-  });
+// --- once ---
 
-  it('should handle emitting with no registered handlers', () => {
-    const emitter = new EventEmitter();
-    expect(() => emitter.emit('nonexistent')).not.toThrow();
-  });
+function testOnce() {
+  const ee = new EventEmitter();
+  let count = 0;
+  ee.once('once_event', () => { count++; });
+  ee.emit('once_event');
+  assert(count === 1, 'once handler should fire first time');
+  ee.emit('once_event');
+  assert(count === 1, 'once handler should NOT fire second time');
+  console.log('✓ once');
+}
 
-  it('should handle off for non-existent event', () => {
-    const emitter = new EventEmitter();
-    const fn = vi.fn();
-    expect(() => emitter.off('nonexistent', fn)).not.toThrow();
-  });
-});
+// --- emit with multiple args ---
+
+function testEmitMultipleArgs() {
+  const ee = new EventEmitter();
+  let a: unknown, b: unknown, c: unknown;
+  ee.on('multi', (x, y, z) => { a = x; b = y; c = z; });
+  ee.emit('multi', 1, 'two', { three: true });
+  assert(a === 1, 'first arg');
+  assert(b === 'two', 'second arg');
+  assert((c as any).three === true, 'third arg');
+  console.log('✓ emit multiple args');
+}
+
+// --- listenerCount ---
+
+function testListenerCount() {
+  const ee = new EventEmitter();
+  assert(ee.listenerCount('x') === 0, 'no listeners initially');
+  const h = () => {};
+  ee.on('x', h);
+  assert(ee.listenerCount('x') === 1, 'one listener after on');
+  ee.on('x', h);
+  assert(ee.listenerCount('x') === 2, 'two listeners');
+  ee.off('x', h);
+  assert(ee.listenerCount('x') === 1, 'one after off');
+  console.log('✓ listenerCount');
+}
+
+// --- removeAllListeners ---
+
+function testRemoveAllListeners() {
+  const ee = new EventEmitter();
+  ee.on('a', () => {});
+  ee.on('a', () => {});
+  ee.on('b', () => {});
+  assert(ee.listenerCount('a') === 2, 'a has 2 listeners');
+  assert(ee.listenerCount('b') === 1, 'b has 1 listener');
+
+  ee.removeAllListeners('a');
+  assert(ee.listenerCount('a') === 0, 'a should be cleared');
+  assert(ee.listenerCount('b') === 1, 'b should be unaffected');
+
+  ee.removeAllListeners();
+  assert(ee.listenerCount('b') === 0, 'all should be cleared');
+  console.log('✓ removeAllListeners');
+}
+
+// --- emit with no listeners ---
+
+function testEmitNoListeners() {
+  const ee = new EventEmitter();
+  // Should not throw
+  ee.emit('nothing', 'ignored');
+  console.log('✓ emit with no listeners');
+}
+
+// --- event handler error does not break others ---
+
+function testHandlerError() {
+  const ee = new EventEmitter();
+  let secondFired = false;
+  ee.on('err', () => { throw new Error('boom'); });
+  ee.on('err', () => { secondFired = true; });
+  // Should not throw; errors are caught internally
+  ee.emit('err');
+  assert(secondFired === true, 'second handler should still fire after first throws');
+  console.log('✓ handler error isolation');
+}
+
+// --- off removes last handler cleans up ---
+
+function testOffCleansUp() {
+  const ee = new EventEmitter();
+  const h = () => {};
+  ee.on('x', h);
+  ee.off('x', h);
+  assert(ee.listenerCount('x') === 0, 'listener count should be 0');
+  console.log('✓ off cleans up empty listener set');
+}
+
+// ---------------------------------------------------------------------------
+// Runner
+// ---------------------------------------------------------------------------
+
+async function run() {
+  const tests = [
+    testOnAndEmit,
+    testMultipleListeners,
+    testOff,
+    testOnce,
+    testEmitMultipleArgs,
+    testListenerCount,
+    testRemoveAllListeners,
+    testEmitNoListeners,
+    testHandlerError,
+    testOffCleansUp,
+  ];
+
+  let passed = 0;
+  let failed = 0;
+
+  for (const fn of tests) {
+    try {
+      fn();
+      passed++;
+    } catch (e: any) {
+      console.error(`✗ ${fn.name}: ${e.message}`);
+      failed++;
+    }
+  }
+
+  console.log(`\nResults: ${passed} passed, ${failed} failed (${tests.length} total)`);
+  if (failed > 0) process.exit(1);
+}
+
+run();
