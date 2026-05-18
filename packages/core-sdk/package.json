@@ -18,7 +18,8 @@
     "lint": "eslint src/",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "test:direct": "npx tsx tests/*.test.ts"
   },
   "license": "MIT",
   "dependencies": {

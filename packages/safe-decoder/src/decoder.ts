@@ -150,8 +150,11 @@ function normalizeAddress(addr: string): string {
   return "0x" + cleaned;
 }
 
-function toHex(val: string | bigint): string {
+function toHex(val: string | bigint | number): string {
   if (typeof val === "bigint") {
+    return "0x" + val.toString(16);
+  }
+  if (typeof val === "number") {
     return "0x" + val.toString(16);
   }
   return val.startsWith("0x") ? val : "0x" + val;

@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+# run-tests.sh — Run all CinaConnect package tests from workspace root.
+# Usage: bash run-tests.sh   (from onux/ directory)
+set -euo pipefail
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+NC='\033[0m' # No Color
+
+PACKAGES=(
+  "core-sdk"
+  "swap-sdk"
+  "siwe"
+  "aa-sdk"
+  "config"
+)
+
+TOTAL_PASS=0
+TOTAL_FAIL=0
+TOTAL_FILES=0
+
+echo "========================================"
+echo "  CinaConnect Package Test Runner"
+echo "========================================"
+echo ""
+
+for pkg in "${PACKAGES[@]}"; do
+  DIR="packages/${pkg}"
+  TESTS_DIR="${DIR}/tests"
+
+  if [ ! -d "$TESTS_DIR" ]; then
+    echo -e "${YELLOW}⊘ ${pkg}: no tests/ directory${NC}"
+    continue
+  fi
+
+  echo -e "\n${YELLOW}── ${pkg} ──${NC}"
+
+  # Count test files
+  FILE_COUNT=$(find "$TESTS_DIR" -name '*.test.ts' -type f | wc -l | tr -d ' ')
+  TOTAL_FILES=$((TOTAL_FILES + FILE_COUNT))
+
+  for test_file in "${TESTS_DIR}"/*.test.ts; do
+    [ -f "$test_file" ] || continue
+    TEST_NAME=$(basename "$test_file" .test.ts)
+    echo -n "  ${TEST_NAME}: "
+
+    if npx tsx "$test_file" 2>&1; then
+      echo -e "${GREEN}✓${NC}"
+      TOTAL_PASS=$((TOTAL_PASS + 1))
+    else
+      echo -e "${RED}✗${NC}"
+      TOTAL_FAIL=$((TOTAL_FAIL + 1))
+    fi
+  done
+done
+
+echo ""
+echo "========================================"
+echo -e "  ${GREEN}Passed: ${TOTAL_PASS}${NC}  ${RED}Failed: ${TOTAL_FAIL}${NC}  Files: ${TOTAL_FILES}"
+echo "========================================"
+
+if [ "$TOTAL_FAIL" -gt 0 ]; then
+  exit 1
+fi

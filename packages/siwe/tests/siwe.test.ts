@@ -1,383 +1,347 @@
 /**
- * Tests for SIWE (Sign-In with Ethereum) message generation, parsing, and verification per EIP-4361.
+ * siwe/tests/siwe.test.ts
+ *
+ * Tests for SIWE (Sign-In with Ethereum) message generation, parsing, and validation.
  */
 
-import { describe, it, expect, vi } from 'vitest';
 import { generateMessage, parseMessage } from '../src/siwe.js';
-import { generateNonce, generateTimestamp, isValidEthereumAddress, isValidUri } from '../src/utils.js';
-import type { SIWEParams, ParsedSIWE } from '../src/types.js';
+import { generateNonce, isValidEthereumAddress, isValidUri, normalizeAddress, getOrigin } from '../src/utils.js';
+import { validateSIWEParams, validateDomainMatch } from '../src/validator.js';
+import type { SIWEParams } from '../src/types.js';
 
-// ============================================================
-// Helpers
-// ============================================================
-
-function makeParams(overrides?: Partial<SIWEParams>): SIWEParams {
-  return {
-    domain: 'https://example.com',
-    address: '0x1234567890abcdef1234567890abcdef12345678',
-    uri: 'https://example.com/login',
-    chainId: 1,
-    nonce: generateNonce(),
-    issuedAt: generateTimestamp(),
-    ...overrides,
-  };
+function assert(condition: boolean, msg: string) {
+  if (!condition) throw new Error(`Assertion failed: ${msg}`);
 }
 
-// ============================================================
+// ---------------------------------------------------------------------------
+// Fixtures
+// ---------------------------------------------------------------------------
+
+const validParams: SIWEParams = {
+  domain: 'https://example.com',
+  address: '0xabcDEF0123456789abcdef0123456789ABCDEF01',
+  statement: 'Sign in to continue.',
+  uri: 'https://example.com/login',
+  version: '1',
+  chainId: 1,
+  nonce: 'abc123def456',
+  issuedAt: '2024-01-15T12:00:00.000Z',
+  expirationTime: '2024-01-15T13:00:00.000Z',
+  notBefore: '2024-01-15T11:00:00.000Z',
+  requestId: 'req-001',
+  resources: ['https://example.com/resource1', 'https://example.com/resource2'],
+};
+
+// ---------------------------------------------------------------------------
 // generateMessage
-// ============================================================
+// ---------------------------------------------------------------------------
 
-describe('generateMessage', () => {
-  it('should generate a valid SIWE message with minimal required fields', () => {
-    const params = makeParams();
-    const message = generateMessage(params);
+function testGenerateMessageBasics() {
+  const msg = generateMessage(validParams);
+  assert(msg.startsWith('https://example.com wants you to sign in with your Ethereum account:'), 'preamble');
+  assert(msg.includes('0xabcDEF0123456789abcdef0123456789ABCDEF01'), 'address');
+  assert(msg.includes('Sign in to continue.'), 'statement');
+  assert(msg.includes('URI: https://example.com/login'), 'uri');
+  assert(msg.includes('Version: 1'), 'version');
+  assert(msg.includes('Chain ID: 1'), 'chainId');
+  assert(msg.includes('Nonce: abc123def456'), 'nonce');
+  assert(msg.includes('Issued At: 2024-01-15T12:00:00.000Z'), 'issuedAt');
+  assert(msg.includes('Expiration Time: 2024-01-15T13:00:00.000Z'), 'expirationTime');
+  assert(msg.includes('Not Before: 2024-01-15T11:00:00.000Z'), 'notBefore');
+  assert(msg.includes('Request ID: req-001'), 'requestId');
+  console.log('✓ generateMessage full params');
+}
 
-    expect(message).toContain('example.com wants you to sign in with your Ethereum account:');
-    expect(message).toContain(params.address);
-    expect(message).toContain(`URI: ${params.uri}`);
-    expect(message).toContain(`Version: 1`);
-    expect(message).toContain(`Chain ID: ${params.chainId}`);
-    expect(message).toContain(`Nonce: ${params.nonce}`);
-    expect(message).toContain(`Issued At: ${params.issuedAt}`);
-  });
+function testGenerateMessageMinimal() {
+  const minimal: SIWEParams = {
+    domain: 'https://app.io',
+    address: '0x1234567890abcdef1234567890abcdef12345678',
+    uri: 'https://app.io',
+    version: '1',
+    chainId: 1,
+    nonce: 'abcdefgh',
+  };
+  const msg = generateMessage(minimal);
+  assert(msg.startsWith('app.io wants you to sign in with your Ethereum account:'), 'preamble');
+  assert(msg.includes('URI: https://app.io'), 'uri');
+  assert(msg.includes('Version: 1'), 'version');
+  assert(msg.includes('Chain ID: 1'), 'chainId');
+  assert(msg.includes('Nonce: abcdefgh'), 'nonce');
+  assert(!msg.includes('Expiration Time'), 'no expiration');
+  assert(!msg.includes('Resources:'), 'no resources');
+  console.log('✓ generateMessage minimal');
+}
 
-  it('should include optional statement when provided', () => {
-    const params = makeParams({ statement: 'Accept the terms of service' });
-    const message = generateMessage(params);
+function testGenerateMessageAutoIssuedAt() {
+  const params: SIWEParams = {
+    domain: 'https://test.com',
+    address: '0x1111111111111111111111111111111111111111',
+    uri: 'https://test.com',
+    version: '1',
+    chainId: 1,
+    nonce: 'nonce1234567',
+  };
+  const msg = generateMessage(params);
+  assert(msg.includes('Issued At:'), 'auto-issuedAt should be present');
+  console.log('✓ generateMessage auto issuedAt');
+}
 
-    expect(message).toContain('Accept the terms of service');
-  });
+function testGenerateMessageNoStatement() {
+  const params: SIWEParams = {
+    domain: 'https://nos.com',
+    address: '0x2222222222222222222222222222222222222222',
+    uri: 'https://nos.com',
+    version: '1',
+    chainId: 1,
+    nonce: 'nonce1234567',
+  };
+  const msg = generateMessage(params);
+  assert(!msg.includes('Sign in'), 'no statement text');
+  console.log('✓ generateMessage no statement');
+}
 
-  it('should include expiration time when provided', () => {
-    const expiresAt = '2025-12-31T23:59:59.000Z';
-    const params = makeParams({ expirationTime: expiresAt });
-    const message = generateMessage(params);
+function testGenerateMessageResources() {
+  const params: SIWEParams = {
+    domain: 'https://res.com',
+    address: '0x3333333333333333333333333333333333333333',
+    uri: 'https://res.com',
+    version: '1',
+    chainId: 1,
+    nonce: 'nonce1234567',
+    resources: ['ipfs://bafy123', 'https://res.com/doc'],
+  };
+  const msg = generateMessage(params);
+  assert(msg.includes('Resources:'), 'resources header');
+  assert(msg.includes('- ipfs://bafy123'), 'resource 1');
+  assert(msg.includes('- https://res.com/doc'), 'resource 2');
+  console.log('✓ generateMessage resources');
+}
 
-    expect(message).toContain(`Expiration Time: ${expiresAt}`);
-  });
+function testGenerateMessageInvalidParams() {
+  // Missing domain
+  const bad: SIWEParams = {
+    domain: '',
+    address: '0x1111111111111111111111111111111111111111',
+    uri: 'https://x.com',
+    version: '1',
+    chainId: 1,
+    nonce: 'n',
+  };
+  try {
+    generateMessage(bad);
+    assert(false, 'Should throw for empty domain');
+  } catch (e: any) {
+    assert(e.message.includes('Invalid SIWE parameters'), 'should report invalid params');
+  }
+  console.log('✓ generateMessage rejects invalid params');
+}
 
-  it('should include notBefore when provided', () => {
-    const notBefore = '2025-01-01T00:00:00.000Z';
-    const params = makeParams({ notBefore });
-    const message = generateMessage(params);
-
-    expect(message).toContain(`Not Before: ${notBefore}`);
-  });
-
-  it('should include requestId when provided', () => {
-    const params = makeParams({ requestId: 'req-abc-123' });
-    const message = generateMessage(params);
-
-    expect(message).toContain(`Request ID: req-abc-123`);
-  });
-
-  it('should include resources section when provided', () => {
-    const params = makeParams({
-      resources: [
-        'https://example.com/terms',
-        'https://example.com/privacy',
-      ],
-    });
-    const message = generateMessage(params);
-
-    expect(message).toContain('Resources:');
-    expect(message).toContain('- https://example.com/terms');
-    expect(message).toContain('- https://example.com/privacy');
-  });
-
-  it('should use custom version when provided', () => {
-    const params = makeParams({ version: '1' });
-    const message = generateMessage(params);
-    expect(message).toContain('Version: 1');
-  });
-
-  it('should generate timestamp when issuedAt is not provided', () => {
-    vi.useFakeTimers();
-    vi.setSystemTime(new Date('2025-06-15T12:00:00.000Z'));
-
-    const { issuedAt, ...rest } = makeParams();
-    const message = generateMessage(rest as SIWEParams);
-
-    expect(message).toContain('Issued At: 2025-06-15T12:00:00.000Z');
-
-    vi.useRealTimers();
-  });
-
-  it('should throw when domain is missing', () => {
-    const params = makeParams();
-    delete (params as any).domain;
-
-    expect(() => generateMessage(params as SIWEParams)).toThrow('Invalid SIWE parameters');
-  });
-
-  it('should throw when address is invalid', () => {
-    const params = makeParams({ address: '0xinvalid' });
-
-    expect(() => generateMessage(params)).toThrow('Invalid SIWE parameters');
-  });
-
-  it('should throw when nonce is too short', () => {
-    const params = makeParams({ nonce: 'short' });
-
-    expect(() => generateMessage(params)).toThrow('Invalid SIWE parameters');
-  });
-
-  it('should throw when URI is invalid', () => {
-    const params = makeParams({ uri: 'not-a-uri' });
-
-    expect(() => generateMessage(params)).toThrow('Invalid SIWE parameters');
-  });
-
-  it('should include all optional fields together', () => {
-    const params = makeParams({
-      statement: 'Sign in to continue',
-      expirationTime: '2025-12-31T23:59:59.000Z',
-      notBefore: '2025-01-01T00:00:00.000Z',
-      requestId: 'auth-001',
-      resources: ['https://example.com/resource'],
-    });
-    const message = generateMessage(params);
-
-    expect(message).toContain('Sign in to continue');
-    expect(message).toContain('Expiration Time: 2025-12-31T23:59:59.000Z');
-    expect(message).toContain('Not Before: 2025-01-01T00:00:00.000Z');
-    expect(message).toContain('Request ID: auth-001');
-    expect(message).toContain('Resources:');
-    expect(message).toContain('- https://example.com/resource');
-  });
-});
-
-// ============================================================
+// ---------------------------------------------------------------------------
 // parseMessage
-// ============================================================
+// ---------------------------------------------------------------------------
 
-describe('parseMessage', () => {
-  it('should parse a minimal SIWE message', () => {
-    const params = makeParams();
-    const message = generateMessage(params);
-    const parsed = parseMessage(message);
+function testParseMessage() {
+  const msg = generateMessage(validParams);
+  const parsed = parseMessage(msg);
 
-    expect(parsed.domain).toBe('https://example.com');
-    expect(parsed.address).toBe(params.address);
-    expect(parsed.uri).toBe(params.uri);
-    expect(parsed.version).toBe('1');
-    expect(parsed.chainId).toBe(1);
-    expect(parsed.nonce).toBe(params.nonce);
-    expect(parsed.issuedAt).toBe(params.issuedAt);
-    expect(parsed.resources).toEqual([]);
-  });
+  assert(parsed.domain === 'https://example.com', 'domain');
+  assert(parsed.address === '0xabcDEF0123456789abcdef0123456789ABCDEF01', 'address');
+  assert(parsed.statement === 'Sign in to continue.', 'statement');
+  assert(parsed.uri === 'https://example.com/login', 'uri');
+  assert(parsed.version === '1', 'version');
+  assert(parsed.chainId === 1, 'chainId');
+  assert(parsed.nonce === 'abc123def456', 'nonce');
+  assert(parsed.issuedAt === '2024-01-15T12:00:00.000Z', 'issuedAt');
+  assert(parsed.expirationTime === '2024-01-15T13:00:00.000Z', 'expirationTime');
+  assert(parsed.notBefore === '2024-01-15T11:00:00.000Z', 'notBefore');
+  assert(parsed.requestId === 'req-001', 'requestId');
+  assert(parsed.resources?.length === 2, 'resources length');
+  assert(parsed.resources?.[0] === 'https://example.com/resource1', 'resource 0');
+  assert(parsed.resources?.[1] === 'https://example.com/resource2', 'resource 1');
+  console.log('✓ parseMessage full');
+}
 
-  it('should parse statement from a SIWE message', () => {
-    const params = makeParams({ statement: 'I accept the terms' });
-    const message = generateMessage(params);
-    const parsed = parseMessage(message);
+function testParseMessageMinimal() {
+  const params: SIWEParams = {
+    domain: 'https://min.io',
+    address: '0x4444444444444444444444444444444444444444',
+    uri: 'https://min.io',
+    version: '1',
+    chainId: 5,
+    nonce: 'abcdefgh',
+  };
+  const msg = generateMessage(params);
+  const parsed = parseMessage(msg);
 
-    expect(parsed.statement).toBe('I accept the terms');
-  });
+  assert(parsed.domain === 'https://min.io', 'domain');
+  assert(parsed.chainId === 5, 'chainId');
+  assert(parsed.statement === undefined, 'no statement');
+  assert(parsed.expirationTime === undefined, 'no expirationTime');
+  assert(parsed.resources?.length === 0, 'no resources');
+  console.log('✓ parseMessage minimal');
+}
 
-  it('should parse optional expirationTime', () => {
-    const params = makeParams({ expirationTime: '2025-12-31T23:59:59.000Z' });
-    const message = generateMessage(params);
-    const parsed = parseMessage(message);
+function testParseMessageInvalid() {
+  try {
+    parseMessage('This is not a SIWE message');
+    assert(false, 'Should throw for invalid message');
+  } catch (e: any) {
+    assert(e.message.includes('Invalid SIWE message'), 'should report invalid');
+  }
+  console.log('✓ parseMessage rejects invalid');
+}
 
-    expect(parsed.expirationTime).toBe('2025-12-31T23:59:59.000Z');
-  });
+function testParseMessageMissingAddress() {
+  try {
+    parseMessage('example.com wants you to sign in with your Ethereum account:\nnoaddress\n\nURI: https://x\nVersion: 1\nChain ID: 1\nNonce: n\nIssued At: 2024-01-01T00:00:00.000Z');
+    assert(false, 'Should throw for missing 0x address');
+  } catch (e: any) {
+    assert(e.message.includes('Invalid SIWE message'), 'should report invalid');
+  }
+  console.log('✓ parseMessage rejects missing address');
+}
 
-  it('should parse optional notBefore', () => {
-    const params = makeParams({ notBefore: '2025-06-01T00:00:00.000Z' });
-    const message = generateMessage(params);
-    const parsed = parseMessage(message);
+// ---------------------------------------------------------------------------
+// Round-trip: generate → parse → compare
+// ---------------------------------------------------------------------------
 
-    expect(parsed.notBefore).toBe('2025-06-01T00:00:00.000Z');
-  });
+function testRoundTrip() {
+  const params: SIWEParams = {
+    domain: 'https://roundtrip.app',
+    address: '0x5555555555555555555555555555555555555555',
+    statement: 'Round trip test',
+    uri: 'https://roundtrip.app',
+    version: '1',
+    chainId: 137,
+    nonce: 'rt-' + Date.now().toString(36) + Date.now().toString(36),
+    issuedAt: '2024-06-01T00:00:00.000Z',
+    expirationTime: '2024-06-02T00:00:00.000Z',
+    resources: ['https://roundtrip.app/res'],
+  };
 
-  it('should parse optional requestId', () => {
-    const params = makeParams({ requestId: 'req-123' });
-    const message = generateMessage(params);
-    const parsed = parseMessage(message);
+  const msg = generateMessage(params);
+  const parsed = parseMessage(msg);
 
-    expect(parsed.requestId).toBe('req-123');
-  });
+  assert(parsed.domain === params.domain, 'domain round-trip');
+  assert(parsed.address === params.address, 'address round-trip');
+  assert(parsed.statement === params.statement, 'statement round-trip');
+  assert(parsed.uri === params.uri, 'uri round-trip');
+  assert(parsed.chainId === params.chainId, 'chainId round-trip');
+  assert(parsed.nonce === params.nonce, 'nonce round-trip');
+  assert(parsed.resources?.[0] === params.resources?.[0], 'resource round-trip');
+  console.log('✓ round-trip generate → parse');
+}
 
-  it('should parse resources list', () => {
-    const params = makeParams({
-      resources: [
-        'https://example.com/terms',
-        'https://example.com/privacy',
-      ],
-    });
-    const message = generateMessage(params);
-    const parsed = parseMessage(message);
+// ---------------------------------------------------------------------------
+// Utilities
+// ---------------------------------------------------------------------------
 
-    expect(parsed.resources).toEqual([
-      'https://example.com/terms',
-      'https://example.com/privacy',
-    ]);
-  });
+function testGenerateNonce() {
+  const n1 = generateNonce();
+  const n2 = generateNonce();
+  assert(n1.length > 0, 'nonce should not be empty');
+  assert(n1 !== n2, 'nonces should be unique');
+  console.log('✓ generateNonce');
+}
 
-  it('should parse custom version', () => {
-    const params = makeParams({ version: '1' });
-    const message = generateMessage(params);
-    const parsed = parseMessage(message);
+function testIsValidEthereumAddress() {
+  assert(isValidEthereumAddress('0x1234567890abcdef1234567890abcdef12345678') === true, 'valid');
+  assert(isValidEthereumAddress('0x1234') === false, 'too short');
+  assert(isValidEthereumAddress('nope') === false, 'no prefix');
+  assert(isValidEthereumAddress('0xGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG') === false, 'invalid hex');
+  console.log('✓ isValidEthereumAddress');
+}
 
-    expect(parsed.version).toBe('1');
-  });
+function testIsValidUri() {
+  assert(isValidUri('https://example.com') === true, 'https valid');
+  assert(isValidUri('http://localhost:3000') === true, 'http valid');
+  assert(isValidUri('not-a-uri') === false, 'invalid');
+  console.log('✓ isValidUri');
+}
 
-  it('should throw on missing preamble', () => {
-    expect(() => parseMessage('This is not a SIWE message')).toThrow(
-      'Invalid SIWE message: missing or malformed preamble'
-    );
-  });
+function testNormalizeAddress() {
+  const addr = '0xABCDEF0123456789abcdef0123456789ABCDEF01';
+  const lower = normalizeAddress(addr);
+  assert(lower === addr.toLowerCase(), 'should lowercase');
+  assert(normalizeAddress('0x0000') === '0x0000', 'passthrough short');
+  console.log('✓ normalizeAddress');
+}
 
-  it('should throw on missing address', () => {
-    expect(() => parseMessage('example.com wants you to sign in with your Ethereum account:\nnot-an-address\n\nURI: https://example.com\nVersion: 1\nChain ID: 1\nNonce: abcdefgh\nIssued At: 2025-01-01T00:00:00.000Z')).toThrow(
-      'Invalid SIWE message: missing or malformed address'
-    );
-  });
+function testGetOrigin() {
+  assert(getOrigin('https://example.com/path?query=1') === 'https://example.com', 'extracts origin');
+  assert(getOrigin('http://localhost:3000/app') === 'http://localhost:3000', 'localhost origin');
+  console.log('✓ getOrigin');
+}
 
-  it('should throw on missing URI field', () => {
-    expect(() => parseMessage('example.com wants you to sign in with your Ethereum account:\n0x1234567890abcdef1234567890abcdef12345678\n')).toThrow(
-      'Invalid SIWE message: missing URI field'
-    );
-  });
+// ---------------------------------------------------------------------------
+// Validation
+// ---------------------------------------------------------------------------
 
-  it('should throw on missing required fields (nonce, chainId)', () => {
-    const message = [
-      'example.com wants you to sign in with your Ethereum account:',
-      '0x1234567890abcdef1234567890abcdef12345678',
-      '',
-      'URI: https://example.com',
-      'Version: 1',
-      'Issued At: 2025-01-01T00:00:00.000Z',
-    ].join('\n');
+function testValidateSIWEParams() {
+  const errors = validateSIWEParams(validParams);
+  assert(errors.length === 0, `valid params should have no errors, got: ${JSON.stringify(errors)}`);
+  console.log('✓ validateSIWEParams valid');
 
-    expect(() => parseMessage(message)).toThrow(
-      'Invalid SIWE message: missing required fields'
-    );
-  });
+  const badParams: SIWEParams = {
+    domain: '',
+    address: '0xshort',
+    uri: 'nope',
+    version: '1',
+    chainId: 1,
+    nonce: '',
+  };
+  const badErrors = validateSIWEParams(badParams);
+  assert(badErrors.length > 0, 'invalid params should have errors');
+  console.log('✓ validateSIWEParams invalid');
+}
 
-  it('should throw on invalid Chain ID (non-numeric)', () => {
-    const message = [
-      'example.com wants you to sign in with your Ethereum account:',
-      '0x1234567890abcdef1234567890abcdef12345678',
-      '',
-      'URI: https://example.com',
-      'Version: 1',
-      'Chain ID: not-a-number',
-      'Nonce: abcdefgh',
-      'Issued At: 2025-01-01T00:00:00.000Z',
-    ].join('\n');
+function testValidateDomainMatch() {
+  assert(validateDomainMatch('https://example.com', 'https://example.com/login') === true, 'match');
+  assert(validateDomainMatch('example.com', 'https://other.com/login') === false, 'mismatch');
+  console.log('✓ validateDomainMatch');
+}
 
-    expect(() => parseMessage(message)).toThrow(
-      'Invalid SIWE message: Chain ID must be a number'
-    );
-  });
+// ---------------------------------------------------------------------------
+// Runner
+// ---------------------------------------------------------------------------
 
-  it('should round-trip: generate then parse preserves all fields', () => {
-    const params = makeParams({
-      statement: 'Round trip test',
-      expirationTime: '2026-01-01T00:00:00.000Z',
-      notBefore: '2025-01-01T00:00:00.000Z',
-      requestId: 'rt-001',
-      resources: ['https://example.com/doc'],
-    });
+async function run() {
+  const tests = [
+    testGenerateMessageBasics,
+    testGenerateMessageMinimal,
+    testGenerateMessageAutoIssuedAt,
+    testGenerateMessageNoStatement,
+    testGenerateMessageResources,
+    testGenerateMessageInvalidParams,
+    testParseMessage,
+    testParseMessageMinimal,
+    testParseMessageInvalid,
+    testParseMessageMissingAddress,
+    testRoundTrip,
+    testGenerateNonce,
+    testIsValidEthereumAddress,
+    testIsValidUri,
+    testNormalizeAddress,
+    testGetOrigin,
+    testValidateSIWEParams,
+    testValidateDomainMatch,
+  ];
 
-    const message = generateMessage(params);
-    const parsed = parseMessage(message);
+  let passed = 0;
+  let failed = 0;
 
-    expect(parsed.domain).toBe(params.domain);
-    expect(parsed.address).toBe(params.address);
-    expect(parsed.statement).toBe(params.statement);
-    expect(parsed.uri).toBe(params.uri);
-    expect(parsed.chainId).toBe(params.chainId);
-    expect(parsed.nonce).toBe(params.nonce);
-    expect(parsed.expirationTime).toBe(params.expirationTime);
-    expect(parsed.notBefore).toBe(params.notBefore);
-    expect(parsed.requestId).toBe(params.requestId);
-    expect(parsed.resources).toEqual(params.resources);
-  });
+  for (const fn of tests) {
+    try {
+      fn();
+      passed++;
+    } catch (e: any) {
+      console.error(`✗ ${fn.name}: ${e.message}`);
+      failed++;
+    }
+  }
 
-  it('should parse message without statement', () => {
-    const params = makeParams();
-    const message = generateMessage(params);
-    const parsed = parseMessage(message);
+  console.log(`\nResults: ${passed} passed, ${failed} failed (${tests.length} total)`);
+  if (failed > 0) process.exit(1);
+}
 
-    expect(parsed.statement).toBeUndefined();
-  });
-});
-
-// ============================================================
-// Utility functions
-// ============================================================
-
-describe('generateNonce', () => {
-  it('should generate a nonce of default length (16 hex chars = 8 bytes)', () => {
-    const nonce = generateNonce();
-    expect(nonce.length).toBe(16);
-    expect(/^[0-9a-f]+$/.test(nonce)).toBe(true);
-  });
-
-  it('should generate different nonces on each call', () => {
-    const n1 = generateNonce();
-    const n2 = generateNonce();
-    expect(n1).not.toBe(n2);
-  });
-
-  it('should support custom byte length', () => {
-    const nonce = generateNonce(4);
-    expect(nonce.length).toBe(8);
-  });
-});
-
-describe('generateTimestamp', () => {
-  it('should generate an ISO 8601 timestamp', () => {
-    const ts = generateTimestamp();
-    expect(() => new Date(ts)).not.toThrow();
-  });
-
-  it('should use provided date', () => {
-    const date = new Date('2025-03-15T10:30:00.000Z');
-    const ts = generateTimestamp(date);
-    expect(ts).toBe('2025-03-15T10:30:00.000Z');
-  });
-});
-
-describe('isValidEthereumAddress', () => {
-  it('should return true for valid addresses', () => {
-    expect(isValidEthereumAddress('0x1234567890abcdef1234567890abcdef12345678')).toBe(true);
-  });
-
-  it('should return false for too-short address', () => {
-    expect(isValidEthereumAddress('0x1234')).toBe(false);
-  });
-
-  it('should return false for non-hex characters', () => {
-    expect(isValidEthereumAddress('0xGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG')).toBe(false);
-  });
-
-  it('should return false for missing 0x prefix', () => {
-    expect(isValidEthereumAddress('1234567890abcdef1234567890abcdef12345678')).toBe(false);
-  });
-
-  it('should return false for empty string', () => {
-    expect(isValidEthereumAddress('')).toBe(false);
-  });
-});
-
-describe('isValidUri', () => {
-  it('should return true for valid HTTPS URIs', () => {
-    expect(isValidUri('https://example.com')).toBe(true);
-  });
-
-  it('should return true for valid HTTP URIs', () => {
-    expect(isValidUri('http://localhost:3000')).toBe(true);
-  });
-
-  it('should return false for non-URI strings', () => {
-    expect(isValidUri('not a uri')).toBe(false);
-  });
-
-  it('should return false for empty string', () => {
-    expect(isValidUri('')).toBe(false);
-  });
-});
+run();

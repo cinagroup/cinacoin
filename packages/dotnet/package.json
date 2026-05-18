@@ -1,14 +1,14 @@
 {
-  "name": "@cinaconnect/unity-types",
+  "name": "@cinaconnect/dotnet",
   "version": "0.1.0",
-  "description": "TypeScript types for CinaConnect Unity SDK C# API surface",
+  "description": "CinaConnect SDK — TypeScript types matching the CinaConnect .NET client API surface",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf dist"
   },
-  "keywords": ["web3", "wallet", "unity", "csharp", "typescript"],
+  "keywords": ["web3", "wallet", "blockchain", "dotnet"],
   "license": "MIT",
   "author": "CinaConnect Team",
   "devDependencies": {
