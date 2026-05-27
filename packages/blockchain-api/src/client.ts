@@ -1138,7 +1138,8 @@ export class BlockchainApiClient {
 
     return {
       items: items.slice(0, limit),
-      hasMore: false, // TODO: implement pagination cursor with indexer
+      hasMore: items.length > limit,
+      cursor: items.length > limit ? items[limit - 1]?.id : undefined,
     };
   }
 

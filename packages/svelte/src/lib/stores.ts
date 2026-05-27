@@ -178,18 +178,18 @@ function subscribeToEvents(connector: Connector): void {
   const onChainChanged = (chainId: number) => _chainIdStore.set(chainId);
   const onError = (err: Error) => syncError(err);
 
-  connector.on('connect', onConnect as any);
+  connector.on('connect', onConnect);
   connector.on('disconnect', onDisconnect);
-  connector.on('accountsChanged', onAccountsChanged as any);
-  connector.on('chainChanged', onChainChanged as any);
-  connector.on('error', onError as any);
+  connector.on('accountsChanged', onAccountsChanged);
+  connector.on('chainChanged', onChainChanged);
+  connector.on('error', onError);
 
   _eventUnsubscribe = () => {
-    connector.off('connect', onConnect as any);
+    connector.off('connect', onConnect);
     connector.off('disconnect', onDisconnect);
-    connector.off('accountsChanged', onAccountsChanged as any);
-    connector.off('chainChanged', onChainChanged as any);
-    connector.off('error', onError as any);
+    connector.off('accountsChanged', onAccountsChanged);
+    connector.off('chainChanged', onChainChanged);
+    connector.off('error', onError);
   };
 }
 

@@ -1319,7 +1319,7 @@ export class XrplChainAdapter {
         method: 'xrpl_signAndSubmit',
         params: [txObj],
       });
-      return (result as any)?.hash ?? (result as any)?.tx_json?.hash ?? '';
+      return (result as XrplSubmitResponse)?.hash ?? (result as XrplSubmitResponse)?.tx_json?.hash ?? '';
     }
 
     throw new Error('Connected wallet does not support transaction signing');
@@ -1675,7 +1675,7 @@ export class XrplChainAdapter {
         method: 'xrpl_signMessage',
         params: [this.getAddress(), message],
       });
-      return (result as any)?.signature ?? result as string;
+      return (result as XrplSubmitResponse)?.signature ?? result as string;
     }
 
     throw new Error('Connected wallet does not support message signing');
@@ -1701,8 +1701,8 @@ export class XrplChainAdapter {
         params: [tx],
       });
       return {
-        tx_blob: (result as any)?.tx_blob ?? '',
-        hash: (result as any)?.hash ?? '',
+        tx_blob: (result as XrplSubmitResponse)?.tx_blob ?? '',
+        hash: (result as XrplSubmitResponse)?.hash ?? '',
       };
     }
 
@@ -1734,7 +1734,7 @@ export class XrplChainAdapter {
       return result.transactions.map((t) => ({
         hash: t.hash ?? '',
         txType: (t.tx.TransactionType as string) ?? '',
-        status: (t.meta as any)?.TransactionResult ?? 'unknown',
+        status: (t.meta as XrplTransactionResult['meta'])?.TransactionResult ?? 'unknown',
         ledgerIndex: t.ledger_index,
         fee: (t.tx.Fee as string) ?? '0',
         meta: t.meta,
@@ -1756,7 +1756,7 @@ export class XrplChainAdapter {
       return {
         hash: result.hash,
         txType: (result.tx_json.TransactionType as string) ?? '',
-        status: (result.meta as any)?.TransactionResult ?? 'unknown',
+        status: (result.meta as XrplTransactionResult['meta'])?.TransactionResult ?? 'unknown',
         ledgerIndex: result.LedgerIndex,
         fee: (result.tx_json.Fee as string) ?? '0',
         meta: result.meta,

@@ -429,19 +429,19 @@ export async function createAdapter(
   switch (config.type) {
     case 'viem': {
       const mod = await import('./adapters/viem.js');
-      return mod.createViemAdapter(config.client as any, config.connector);
+      return mod.createViemAdapter(config.client, config.connector);
     }
     case 'wagmi': {
       const mod = await import('./adapters/wagmi.js');
-      return mod.createMultiChainConnector(config.client as any);
+      return mod.createMultiChainConnector(config.client);
     }
     case 'ethers5': {
       const mod = await import('./adapters/ethers5.js');
-      return new mod.Ethers5Adapter(config.client as any);
+      return new mod.Ethers5Adapter(config.client);
     }
     case 'ethers6': {
       const mod = await import('./adapters/ethers6.js');
-      return new mod.Ethers6Adapter(config.client as any);
+      return new mod.Ethers6Adapter(config.client);
     }
     case 'ton': {
       const mod = await import('./adapters/ton.js');
@@ -508,7 +508,7 @@ export async function createAdapter(
       return adapter;
     }
     default:
-      throw new Error(`Unknown adapter type: ${(config as any).type}`);
+      throw new Error(`Unknown adapter type: ${(config as AdapterConfig).type}`);
   }
 }
 

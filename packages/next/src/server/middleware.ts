@@ -1,5 +1,6 @@
 import type { NextRequest, NextResponse } from 'next/server';
 import type { ChainConfig } from '@cinacoin/react';
+import { verifySessionToken } from './jwt.js';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -268,33 +269,54 @@ function extractCookieValue(cookieHeader: string, name: string): string | null {
 
 /**
  * Decode a base64-encoded session token into a ServerSession.
- * In production, this should be cryptographically verified with the secret.
+ * Uses JWT verification with the secret in production.
  */
-function decodeSessionToken(token: string, _secret?: string): ServerSession | null {
+async function decodeSessionToken(token: string, secret?: string): Promise<ServerSession | null> {
   try {
-    // Session tokens are base64-encoded JSON in the current implementation.
-    // TODO: In production, use jose or similar for JWE/JWT decryption with the secret.
-    const decoded = JSON.parse(atob(token));
-    if (
-      typeof decoded.address === 'string' &&
-      typeof decoded.chainId === 'number' &&
-      typeof decoded.nonce === 'string' &&
-      typeof decoded.expiresAt === 'number'
-    ) {
+    if (secret) {
+      // Production: verify JWT with secret
+      const payload = await verifySessionToken(token, secret);
+      if (!payload) return null;
+      
       // Check expiration
-      if (decoded.expiresAt < Math.floor(Date.now() / 1000)) {
+      if (payload.expiresAt < Date.now()) {
         return null;
       }
+      
       return {
-        address: decoded.address,
-        chainId: decoded.chainId,
-        nonce: decoded.nonce,
-        expiresAt: decoded.expiresAt,
+        address: payload.address,
+        chainId: payload.chainId,
+        nonce: payload.nonce,
+        expiresAt: payload.expiresAt,
         token,
       };
+    } else {
+      // Development: decode without verification (unsafe)
+      const decoded = JSON.parse(atob(token));
+      if (
+        typeof decoded.address === 'string' &&
+        typeof decoded.chainId === 'number' &&
+        typeof decoded.nonce === 'string' &&
+        typeof decoded.expiresAt === 'number'
+      ) {
+        // Check expiration
+        if (decoded.expiresAt < Math.floor(Date.now() / 1000)) {
+          return null;
+        }
+        
+        return {
+          address: decoded.address,
+          chainId: decoded.chainId,
+          nonce: decoded.nonce,
+          expiresAt: decoded.expiresAt,
+          token,
+        };
+      }
     }
+    
     return null;
-  } catch {
+  } catch (error) {
+    console.warn('Session token decode failed:', error);
     return null;
   }
 }

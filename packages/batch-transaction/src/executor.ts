@@ -13,8 +13,9 @@
 import type { Address, Hex, WalletClient, PublicClient } from 'viem';
 import { pad, toHex, hexToBytes as viemHexToBytes } from 'viem';
 
-import { Operation, BatchResult, OperationResult, OnChainBatchResult, OnChainExecuteOptions, BatchGasEstimate } from './types.js';
+import { Operation, BatchResult, OperationResult, OnChainBatchResult, OnChainExecuteOptions, BatchGasEstimate, ExecutionStrategy } from './types.js';
 import { buildMultiSendCalldata, operationToMultiSendCall, getMultiSendAddress } from './multisend.js';
+import type { Eip5792WalletClient, SingleTxParams } from './types-extension.js';
 
 export interface ExecuteOptions {
   /** Override atomicity for this execution. */
@@ -107,7 +108,9 @@ export class BatchExecutor {
       case 'sequential':
         return this.executeSequential(operations, options);
       default:
-        throw new Error(`Unknown execution strategy: ${(strategy as any).mode}`);
+        // This should never happen due to type safety
+        const unknownStrategy = strategy as never;
+        throw new Error(`Unknown execution strategy: ${JSON.stringify(unknownStrategy)}`);
     }
   }
 
@@ -162,7 +165,7 @@ export class BatchExecutor {
     };
 
     try {
-      const result = await (walletClient as any).request({
+      const result = await (walletClient as Eip5792WalletClient).request({
         method: 'wallet_sendCalls',
         params: [params],
       });
@@ -307,8 +310,8 @@ export class BatchExecutor {
     const gasOverrides = this.buildGasOverrides(options);
 
     try {
-      const hash = await (walletClient as any).sendTransaction({
-        account: account,
+      const hash = await (walletClient as Eip5792WalletClient).sendTransaction({
+        account,
         to: multisendAddress,
         data: calldata,
         gas: gasLimit,
