@@ -27,7 +27,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 20
 
@@ -45,7 +45,7 @@ jobs:
 
       - name: Check bundle size
         id: size-check
-        uses: preactjs/compressed-size-action@v2
+        uses: preactjs/compressed-size-action@v3
         with:
           pattern: '${{ matrix.package }}/dist/**/*.{js,cjs}'
           cwd: ${{ matrix.package }}
