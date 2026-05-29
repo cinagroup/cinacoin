@@ -42,12 +42,19 @@ function isOriginAllowed(origin: string | undefined, allowed: string[] | RegExp)
   return allowed.test(origin);
 }
 
+/** All started rpc-proxy instances (for signal handling). */
+const allInstances: RpcProxy[] = [];
+
 /**
  * RpcProxy — Multi-chain RPC proxy with routing, caching, and rate limiting.
  * Forwards JSON-RPC requests to the appropriate chain backend.
  */
 export class RpcProxy {
   private server: Server | null = null;
+  /** When true, reject new requests during shutdown. */
+  private shuttingDown = false;
+  /** Map of in-flight request resolvers for drain tracking. */
+  private inFlight: Set<Promise<unknown>> = new Set();
   private cache: Map<string, CacheEntry> = new Map();
   private rateLimits: Map<string, RateEntry> = new Map();
   private startTime: number = Date.now();
@@ -73,6 +80,8 @@ export class RpcProxy {
     return new Promise((resolve, reject) => {
       this.server!.listen(this.config.port, this.config.host, resolve);
       this.server!.on('error', reject);
+    }).then(() => {
+      allInstances.push(this);
     });
   }
 
@@ -84,6 +93,35 @@ export class RpcProxy {
         else resolve();
       });
     });
+  }
+
+  /**
+   * Graceful shutdown handler:
+   * 1. Logs "Shutting down..."
+   * 2. Stops accepting new connections
+   * 3. Waits for in-flight requests (up to 10 s timeout)
+   * 4. Closes server / connections
+   * 5. Exits with code 0
+   */
+  async gracefulShutdown(): Promise<void> {
+    console.log('Shutting down...');
+    this.shuttingDown = true;
+
+    // Stop accepting new connections
+    this.server?.closeAllConnections?.();
+
+    // Wait up to 10 s for in-flight requests to complete
+    const deadline = Date.now() + 10_000;
+    await new Promise<void>((resolve) => {
+      const tick = () => {
+        if (this.inFlight.size === 0 || Date.now() >= deadline) resolve();
+        else setTimeout(tick, 50);
+      };
+      tick();
+    });
+
+    await this.stop();
+    process.exit(0);
   }
 
   /** Get configured chains */
@@ -168,6 +206,11 @@ export class RpcProxy {
   }
 
   private handleRequest(req: IncomingMessage, res: ServerResponse): void {
+    if (this.shuttingDown) {
+      res.writeHead(503, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'Server is shutting down' }));
+      return;
+    }
     // Security headers
     res.setHeader('Content-Security-Policy', "default-src 'none'");
     res.setHeader('X-Frame-Options', 'DENY');
@@ -236,6 +279,8 @@ export class RpcProxy {
     req.on('end', async () => {
       if (res.writableEnded) return; // already errored
 
+      // Track in-flight request for graceful drain
+      const task = (async () => {
       try {
         const chain = this.resolveChain(req);
         const parsed = JSON.parse(body);
@@ -254,6 +299,9 @@ export class RpcProxy {
           this.sendError(res, 502, errMsg);
         }
       }
+      })();
+      this.inFlight.add(task);
+      void task.finally(() => this.inFlight.delete(task));
     });
 
     req.on('error', () => {
@@ -270,3 +318,18 @@ export class RpcProxy {
     return this.config.defaultChain;
   }
 }
+
+// ---- Process signal handling ----
+let globalShuttingDown = false;
+
+const handleShutdown = async () => {
+  if (globalShuttingDown) return;
+  globalShuttingDown = true;
+
+  for (const srv of allInstances) {
+    await srv.gracefulShutdown();
+  }
+};
+
+process.on('SIGTERM', handleShutdown);
+process.on('SIGINT', handleShutdown);

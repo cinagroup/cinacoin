@@ -12,6 +12,7 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@cinacoin/core-sdk": "workspace:*",
     "viem": "^2.21.0"
   },
   "devDependencies": {

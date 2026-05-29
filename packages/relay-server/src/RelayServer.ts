@@ -177,6 +177,9 @@ function isOriginAllowed(origin: string | undefined, allowed: string[] | RegExp)
   return allowed.test(origin);
 }
 
+/** All started relay-server instances (for signal handling). */
+const allInstances: RelayServer[] = [];
+
 /**
  * RelayServer — HTTP/WebSocket relay for WalletConnect bridge messaging.
  * Handles topic-based message routing between connected clients.
@@ -193,6 +196,8 @@ export class RelayServer {
     Pick<RelayServerConfig, 'ssl' | 'allowedOrigins'>;
   private readonly rateLimiter: RateLimiter;
   private readonly idleTimeouts: Map<string, ReturnType<typeof setTimeout>> = new Map();
+  /** When true, reject new connections during shutdown. */
+  private shuttingDown = false;
 
   constructor(config: RelayServerConfig) {
     this.config = {
@@ -222,6 +227,8 @@ export class RelayServer {
     return new Promise((resolve, reject) => {
       this.server!.listen(this.config.port, this.config.host, resolve);
       this.server!.on('error', reject);
+    }).then(() => {
+      allInstances.push(this);
     });
   }
 
@@ -241,6 +248,39 @@ export class RelayServer {
         });
       });
     });
+  }
+
+  /**
+   * Graceful shutdown handler:
+   * 1. Logs "Shutting down..."
+   * 2. Stops accepting new connections
+   * 3. Waits for in-flight requests (up to 10 s timeout)
+   * 4. Closes server / connections
+   * 5. Exits with code 0
+   */
+  async gracefulShutdown(): Promise<void> {
+    console.log('Shutting down...');
+    this.shuttingDown = true;
+
+    // Stop accepting new connections immediately
+    this.server?.closeAllConnections?.();
+    // Terminate all open WebSocket connections
+    for (const ws of this.wss?.clients ?? []) {
+      ws.terminate();
+    }
+
+    // Wait up to 10 s for in-flight work to drain
+    const deadline = Date.now() + 10_000;
+    await new Promise<void>((resolve) => {
+      const tick = () => {
+        if (this.clients.size === 0 || Date.now() >= deadline) resolve();
+        else setTimeout(tick, 50);
+      };
+      tick();
+    });
+
+    await this.stop();
+    process.exit(0);
   }
 
   /** Get current relay statistics */
@@ -290,9 +330,13 @@ export class RelayServer {
 
   /** Verify client origin on WebSocket upgrade */
   private verifyClient(info: { req: IncomingMessage }, cb: (ok: boolean, code?: number, msg?: string) => void): void {
+    if (this.shuttingDown) {
+      cb(false, 503, 'Server is shutting down');
+      return;
+    }
+
     const allowed = this.config.allowedOrigins;
     if (!allowed) {
-      // No origin restriction — allow all
       cb(true);
       return;
     }
@@ -432,3 +476,19 @@ export class RelayServer {
     });
   }
 }
+
+// ---- Process signal handling ----
+let globalShuttingDown = false;
+
+const handleShutdown = async () => {
+  if (globalShuttingDown) return;
+  globalShuttingDown = true;
+
+  // Serialise shutdowns so each server finishes cleanly
+  for (const srv of allInstances) {
+    await srv.gracefulShutdown();
+  }
+};
+
+process.on('SIGTERM', handleShutdown);
+process.on('SIGINT', handleShutdown);

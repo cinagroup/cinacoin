@@ -14,6 +14,7 @@ import type {
   Chain,
   Account,
 } from "viem";
+import { CircuitBreaker, CircuitBreakerError } from "@cinacoin/core-sdk/utils/circuitBreaker.js";
 
 // ============================================================
 // Constants
@@ -169,26 +170,44 @@ export class ZeroxExecutor implements SwapExecutor {
 
   private apiKey: string;
   private timeoutMs: number;
+  private circuitBreaker: CircuitBreaker;
 
   constructor(apiKey: string, options?: { timeoutMs?: number }) {
     this.apiKey = apiKey;
     this.timeoutMs = options?.timeoutMs ?? DEFAULT_TIMEOUT_MS;
+    this.circuitBreaker = new CircuitBreaker({
+      failureThreshold: 5,
+      recoveryTimeout: 30_000,
+      halfOpenMaxAttempts: 3,
+      onStateChange: (from, to, error) => {
+        console.warn(
+          `[0x executor] Circuit breaker: ${from} → ${to}${error ? ` (cause: ${error.message})` : ""}`,
+        );
+      },
+    });
+  }
+
+  /** Access the circuit breaker (for testing/monitoring) */
+  getCircuitBreaker(): CircuitBreaker {
+    return this.circuitBreaker;
   }
 
   async isAvailable(): Promise<boolean> {
     try {
-      const res = await fetch(`${ZEROX_API_BASE}/swap/v1/quote`, {
-        method: "POST",
-        headers: {
-          "0x-api-key": this.apiKey,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          sellToken: "USDC",
-          buyToken: "WETH",
-          sellAmount: "1000000",
+      const res = await this.circuitBreaker.execute(async () =>
+        fetch(`${ZEROX_API_BASE}/swap/v1/quote`, {
+          method: "POST",
+          headers: {
+            "0x-api-key": this.apiKey,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            sellToken: "USDC",
+            buyToken: "WETH",
+            sellAmount: "1000000",
+          }),
         }),
-      });
+      );
       return res.ok || res.status === 400; // 400 is fine (validation error means API is up)
     } catch {
       return false;
@@ -209,10 +228,12 @@ export class ZeroxExecutor implements SwapExecutor {
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), this.timeoutMs);
 
-        const res = await fetch(url.toString(), {
-          headers: { "0x-api-key": this.apiKey },
-          signal: controller.signal,
-        });
+        const res = await this.circuitBreaker.execute(async () =>
+          fetch(url.toString(), {
+            headers: { "0x-api-key": this.apiKey },
+            signal: controller.signal,
+          }),
+        );
 
         clearTimeout(timeout);
 
@@ -226,7 +247,7 @@ export class ZeroxExecutor implements SwapExecutor {
         return this.buildQuoteFromResponse(params, data);
       } catch (err) {
         lastError = err instanceof Error ? err : new Error(String(err));
-        if (lastError.message.includes("4")) break;
+        if (lastError.message.includes("4") || lastError instanceof CircuitBreakerError) break;
         if (attempt < MAX_RETRIES) {
           await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS * (attempt + 1)));
         }
@@ -297,10 +318,12 @@ export class ZeroxExecutor implements SwapExecutor {
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), this.timeoutMs);
 
-        const res = await fetch(url.toString(), {
-          headers: { "0x-api-key": this.apiKey },
-          signal: controller.signal,
-        });
+        const res = await this.circuitBreaker.execute(async () =>
+          fetch(url.toString(), {
+            headers: { "0x-api-key": this.apiKey },
+            signal: controller.signal,
+          }),
+        );
 
         clearTimeout(timeout);
 
@@ -320,6 +343,8 @@ export class ZeroxExecutor implements SwapExecutor {
         };
       } catch (err) {
         lastError = err instanceof Error ? err : new Error(String(err));
+        // Don't retry if circuit breaker tripped
+        if (lastError instanceof CircuitBreakerError) break;
         if (attempt < MAX_RETRIES) {
           await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS * (attempt + 1)));
         }

@@ -13,6 +13,7 @@ import type {
   OnRampWidgetParams,
   UserPreferences,
 } from "./types.js";
+import { CircuitBreaker, CircuitBreakerError } from "@cinacoin/core-sdk/utils/circuitBreaker.js";
 
 // ============================================================
 // Provider Interface
@@ -133,10 +134,12 @@ function validateOnRampQuote(data: unknown, providerId: string): OnRampQuote {
 export class OnRampAggregator {
   private providers: Map<string, OnRampProviderAdapter>;
   private config: AggregatorConfig;
+  private circuitBreakers: Map<string, CircuitBreaker>;
 
   constructor(config?: Partial<AggregatorConfig>) {
     this.providers = new Map();
     this.config = { ...DEFAULT_CONFIG, ...config };
+    this.circuitBreakers = new Map();
   }
 
   /**
@@ -144,6 +147,19 @@ export class OnRampAggregator {
    */
   registerProvider(provider: OnRampProviderAdapter): void {
     this.providers.set(provider.id, provider);
+    this.circuitBreakers.set(
+      provider.id,
+      new CircuitBreaker({
+        failureThreshold: 5,
+        recoveryTimeout: 30_000,
+        halfOpenMaxAttempts: 3,
+        onStateChange: (from, to, error) => {
+          console.warn(
+            `[onramp-sdk/aggregator] Provider ${provider.id} circuit breaker: ${from} → ${to}${error ? ` (cause: ${error.message})` : ""}`,
+          );
+        },
+      }),
+    );
   }
 
   /**
@@ -151,6 +167,7 @@ export class OnRampAggregator {
    */
   unregisterProvider(id: string): void {
     this.providers.delete(id);
+    this.circuitBreakers.delete(id);
   }
 
   /**
@@ -179,6 +196,7 @@ export class OnRampAggregator {
    */
   async getQuotes(params: OnRampQuoteParams): Promise<OnRampQuote[]> {
     const quotePromises = Array.from(this.providers.values()).map(async (provider) => {
+      const cb = this.circuitBreakers.get(provider.id);
       try {
         const controller = new AbortController();
         const timeout = setTimeout(
@@ -186,11 +204,17 @@ export class OnRampAggregator {
           this.config.quoteTimeoutMs,
         );
 
-        const rawQuote = await provider.getQuote(params);
+        const rawQuote = await (cb
+          ? cb.execute(async () => provider.getQuote(params))
+          : provider.getQuote(params));
         clearTimeout(timeout);
         const validated = validateOnRampQuote(rawQuote, provider.id);
         return validated;
       } catch (err) {
+        // Don't log circuit-breaker rejections — they're already warned by onStateChange
+        if (err instanceof CircuitBreakerError) {
+          return null;
+        }
         console.warn(`Quote failed for ${provider.id}:`, err);
         return null;
       }
@@ -250,6 +274,13 @@ export class OnRampAggregator {
       // 3. Fee percentage
       return a.fees.totalFeePercent - b.fees.totalFeePercent;
     });
+  }
+
+  /**
+   * Get the circuit breaker for a specific provider (for monitoring/testing).
+   */
+  getCircuitBreaker(providerId: string): CircuitBreaker | undefined {
+    return this.circuitBreakers.get(providerId);
   }
 
   /**

@@ -67,10 +67,15 @@ function parseUrl(url: string): { pathname: string; searchParams: URLSearchParam
 // Server
 // ---------------------------------------------------------------------------
 
+/** All started indexer servers (for signal handling). */
+const allInstances: IndexerServer[] = [];
+
 export class IndexerServer {
   private indexer: TxIndexer;
   private config: RestApiConfig;
   private httpServer: http.Server | null = null;
+  /** When true, reject new requests during shutdown. */
+  private shuttingDown = false;
 
   constructor(indexerConfig: IndexerConfig, serverConfig: RestApiConfig) {
     this.indexer = new TxIndexer(indexerConfig);
@@ -92,6 +97,7 @@ export class IndexerServer {
         resolve();
       });
     });
+    allInstances.push(this);
   }
 
   /** Stop the server and indexer. */
@@ -103,6 +109,41 @@ export class IndexerServer {
     this.indexer.close();
   }
 
+  /**
+   * Graceful shutdown handler:
+   * 1. Logs "Shutting down..."
+   * 2. Stops accepting new connections
+   * 3. Waits for in-flight requests (up to 10 s timeout)
+   * 4. Closes server / connections
+   * 5. Exits with code 0
+   */
+  async gracefulShutdown(): Promise<void> {
+    console.log('Shutting down...');
+    this.shuttingDown = true;
+
+    // Stop accepting new connections
+    this.httpServer?.closeAllConnections?.();
+
+    // Wait up to 10 s for in-flight requests to drain
+    const deadline = Date.now() + 10_000;
+    await new Promise<void>((resolve) => {
+      const tick = () => {
+        if (this.httpServer?.getConnections === undefined) {
+          resolve();
+          return;
+        }
+        this.httpServer!.getConnections((err, count) => {
+          if (err || count === 0 || Date.now() >= deadline) resolve();
+          else setTimeout(tick, 50);
+        });
+      };
+      tick();
+    });
+
+    this.stop();
+    process.exit(0);
+  }
+
   /** Get the underlying indexer instance. */
   getIndexer(): TxIndexer {
     return this.indexer;
@@ -111,6 +152,11 @@ export class IndexerServer {
   // -- Request handling ----------------------------------------------------
 
   private async handleRequest(req: http.IncomingMessage, res: http.ServerResponse): Promise<void> {
+    if (this.shuttingDown) {
+      res.writeHead(503, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'Server is shutting down' }));
+      return;
+    }
     const origin = req.headers.origin;
 
     // CORS preflight
@@ -270,3 +316,18 @@ export async function createIndexerServer(
   await server.start();
   return server;
 }
+
+// ---- Process signal handling ----
+let globalShuttingDown = false;
+
+const handleShutdown = async () => {
+  if (globalShuttingDown) return;
+  globalShuttingDown = true;
+
+  for (const srv of allInstances) {
+    await srv.gracefulShutdown();
+  }
+};
+
+process.on('SIGTERM', handleShutdown);
+process.on('SIGINT', handleShutdown);

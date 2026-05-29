@@ -14,6 +14,7 @@ import type {
   Chain,
   Account,
 } from "viem";
+import { CircuitBreaker, CircuitBreakerError } from "@cinacoin/core-sdk/utils/circuitBreaker.js";
 
 // ============================================================
 // Constants
@@ -173,20 +174,38 @@ export class OneInchExecutor implements SwapExecutor {
   private apiKey: string;
   private apiVersion: string;
   private timeoutMs: number;
+  private circuitBreaker: CircuitBreaker;
 
   constructor(apiKey: string, options?: { version?: string; timeoutMs?: number }) {
     this.apiKey = apiKey;
     this.apiVersion = options?.version ?? "6.0";
     this.timeoutMs = options?.timeoutMs ?? DEFAULT_TIMEOUT_MS;
+    this.circuitBreaker = new CircuitBreaker({
+      failureThreshold: 5,
+      recoveryTimeout: 30_000,
+      halfOpenMaxAttempts: 3,
+      onStateChange: (from, to, error) => {
+        console.warn(
+          `[1inch executor] Circuit breaker: ${from} → ${to}${error ? ` (cause: ${error.message})` : ""}`,
+        );
+      },
+    });
+  }
+
+  /** Access the circuit breaker (for testing/monitoring) */
+  getCircuitBreaker(): CircuitBreaker {
+    return this.circuitBreaker;
   }
 
   async isAvailable(): Promise<boolean> {
     try {
-      const res = await fetch(
-        `${ONEINCH_API_BASE}/v${this.apiVersion}/56/healthcheck`,
-        {
-          headers: { Authorization: `Bearer ${this.apiKey}` },
-        },
+      const res = await this.circuitBreaker.execute(async () =>
+        fetch(
+          `${ONEINCH_API_BASE}/v${this.apiVersion}/56/healthcheck`,
+          {
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+          },
+        ),
       );
       return res.ok;
     } catch {
@@ -210,10 +229,12 @@ export class OneInchExecutor implements SwapExecutor {
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), this.timeoutMs);
 
-        const res = await fetch(url.toString(), {
-          headers: { Authorization: `Bearer ${this.apiKey}` },
-          signal: controller.signal,
-        });
+        const res = await this.circuitBreaker.execute(async () =>
+          fetch(url.toString(), {
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+            signal: controller.signal,
+          }),
+        );
 
         clearTimeout(timeout);
 
@@ -228,8 +249,8 @@ export class OneInchExecutor implements SwapExecutor {
       } catch (err) {
         lastError = err instanceof Error ? err : new Error(String(err));
 
-        // Don't retry on client errors (4xx)
-        if (lastError.message.includes("4")) break;
+        // Don't retry on client errors (4xx) or circuit breaker open
+        if (lastError.message.includes("4") || lastError instanceof CircuitBreakerError) break;
 
         if (attempt < MAX_RETRIES) {
           await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS * (attempt + 1)));
@@ -303,10 +324,12 @@ export class OneInchExecutor implements SwapExecutor {
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), this.timeoutMs);
 
-        const res = await fetch(url.toString(), {
-          headers: { Authorization: `Bearer ${this.apiKey}` },
-          signal: controller.signal,
-        });
+        const res = await this.circuitBreaker.execute(async () =>
+          fetch(url.toString(), {
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+            signal: controller.signal,
+          }),
+        );
 
         clearTimeout(timeout);
 
@@ -326,6 +349,8 @@ export class OneInchExecutor implements SwapExecutor {
         };
       } catch (err) {
         lastError = err instanceof Error ? err : new Error(String(err));
+        // Don't retry if circuit breaker tripped
+        if (lastError instanceof CircuitBreakerError) break;
         if (attempt < MAX_RETRIES) {
           await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS * (attempt + 1)));
         }
@@ -336,12 +361,19 @@ export class OneInchExecutor implements SwapExecutor {
   }
 
   async getSupportedTokens(chainId: number): Promise<TokenInfo[]> {
-    const res = await fetch(
-      `${ONEINCH_TOKENS_BASE}/v1.2/${chainId}/tokens`,
-      {
-        headers: { Authorization: `Bearer ${this.apiKey}` },
-      },
-    );
+    let res: Response;
+    try {
+      res = await this.circuitBreaker.execute(async () =>
+        fetch(
+          `${ONEINCH_TOKENS_BASE}/v1.2/${chainId}/tokens`,
+          {
+            headers: { Authorization: `Bearer ${this.apiKey}` },
+          },
+        ),
+      );
+    } catch {
+      return [];
+    }
 
     if (!res.ok) return [];
 

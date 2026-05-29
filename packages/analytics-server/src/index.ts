@@ -169,3 +169,44 @@ app.get("/", (c) =>
 );
 
 export default app;
+
+// ---- Process signal handling (Node.js / local dev runtime) ----
+// Cloudflare Workers manage lifecycle via the platform; these handlers
+// apply when the app is run locally via `hono/node-server` or similar.
+if (typeof process !== 'undefined' && typeof process.on === 'function') {
+  let shuttingDown = false;
+  let inFlight = 0;
+
+  // Middleware to track in-flight requests for graceful drain
+  app.use('/*', async (c, next) => {
+    if (shuttingDown) return c.json({ error: 'Server is shutting down' }, 503);
+    inFlight++;
+    try {
+      await next();
+    } finally {
+      inFlight--;
+    }
+  });
+
+  const gracefulShutdown = async () => {
+    if (shuttingDown) return;
+    shuttingDown = true;
+    console.log('Shutting down...');
+
+    // Wait up to 10 s for in-flight requests to drain
+    const deadline = Date.now() + 10_000;
+    await new Promise<void>((resolve) => {
+      const tick = () => {
+        if (inFlight === 0 || Date.now() >= deadline) resolve();
+        else setTimeout(tick, 50);
+      };
+      tick();
+    });
+
+    // Let the host process exit gracefully
+    process.exit(0);
+  };
+
+  process.on('SIGTERM', gracefulShutdown);
+  process.on('SIGINT', gracefulShutdown);
+}
