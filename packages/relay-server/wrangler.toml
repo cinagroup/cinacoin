@@ -1,6 +1,12 @@
+workers_dev = true
+
 name = "cinacoin-relay-server"
 main = "cloudflare/worker.ts"
 compatibility_date = "2024-01-01"
+
+routes = [
+  { pattern = "relay.cinacoin.com", custom_domain = true }
+]
 
 [durable_objects]
 bindings = [
@@ -17,7 +23,3 @@ id = "1a8dc90cb91c423695be43ce74028c88"
 
 [vars]
 RELAY_URL = "wss://relay.walletconnect.com"
-
-routes = [
-  { pattern = "relay.cinacoin.com", custom_domain = true }
-]
