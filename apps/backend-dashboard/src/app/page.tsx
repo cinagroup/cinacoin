@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
-import { SERVICES, ServiceDefinition, HealthCheck, ServiceMetrics, checkHealth, generateDemoMetrics } from "@/lib/services";
+import { SERVICES, ServiceDefinition, ServiceMetrics, generateDemoMetrics } from "@/lib/services";
 import { formatNumber, formatLatency, statusColor } from "@/lib/utils";
+import { useWorkerHealth } from "@/hooks/useWorkerHealth";
 import ServiceCard from "@/components/ServiceCard";
 import MetricBox from "@/components/MetricBox";
 import BarChart from "@/components/BarChart";
@@ -12,35 +12,12 @@ import BarChart from "@/components/BarChart";
 const HISTORY_DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 const HISTORY_DATA = [142000, 158000, 171000, 163000, 189000, 98000, 112000];
 
-function useHealthChecks() {
-  const [health, setHealth] = useState<Record<string, HealthCheck>>({});
-  const [demoMode, setDemoMode] = useState(true);
-
-  useEffect(() => {
-    const runChecks = async () => {
-      const results: Record<string, HealthCheck> = {};
-      for (const svc of SERVICES) {
-        results[svc.id] = await checkHealth(svc.id);
-      }
-      setHealth(results);
-
-      // If all services are down, enable demo mode
-      const allDown = SERVICES.every((s) => results[s.id]?.status === "down");
-      if (allDown) {
-        setDemoMode(true);
-      }
-    };
-
-    runChecks();
-    const interval = setInterval(runChecks, 30000);
-    return () => clearInterval(interval);
-  }, []);
-
-  return { health, demoMode };
-}
-
 export default function OverviewPage() {
-  const { health, demoMode } = useHealthChecks();
+  const { health, allHealthy, degradedCount, downCount, checking, lastRefresh, manualRefresh } = useWorkerHealth(15000);
+
+  // Demo mode when all services are unreachable
+  const demoMode = Object.keys(health).length === 0 ||
+    SERVICES.every((s) => health[s.id]?.status === "down");
 
   // Compute aggregate stats
   const totalRequests = SERVICES.reduce((sum, s) => {
@@ -70,19 +47,36 @@ export default function OverviewPage() {
           <h1 className="text-2xl font-bold text-white">Service Overview</h1>
           <p className="text-dashboard-muted mt-1">
             {demoMode ? "Demo Mode — Simulated metrics" : "Live monitoring of Cloudflare Workers"}
+            {lastRefresh && !demoMode && (
+              <span className="ml-2 text-xs">
+                · Updated {new Date(lastRefresh).toLocaleTimeString()}
+              </span>
+            )}
           </p>
         </div>
-        <Link
-          href="/settings"
-          className="px-4 py-2 text-sm bg-dashboard-surface border border-dashboard-border rounded-lg text-dashboard-muted hover:text-white hover:border-dashboard-primary transition-colors"
-        >
-          ⚙️ Settings
-        </Link>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={manualRefresh}
+            disabled={checking}
+            className="px-3 py-2 text-sm bg-dashboard-surface border border-dashboard-border rounded-lg text-dashboard-muted hover:text-white hover:border-dashboard-primary transition-colors disabled:opacity-50"
+          >
+            {checking ? "↻ Checking..." : "↻ Refresh"}
+          </button>
+          <Link
+            href="/settings"
+            className="px-4 py-2 text-sm bg-dashboard-surface border border-dashboard-border rounded-lg text-dashboard-muted hover:text-white hover:border-dashboard-primary transition-colors"
+          >
+            ⚙️ Settings
+          </Link>
+        </div>
       </div>
 
-      {/* Aggregate metrics */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <MetricBox label="Total Services" value={`${healthyCount}/${SERVICES.length}`} icon="📊" color="text-dashboard-primaryLight" />
+      {/* Aggregate metrics - Workers health summary */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <MetricBox label="Workers Health" value={`${healthyCount}/${SERVICES.length}`} icon="🏥" color="text-dashboard-primaryLight" />
+        {degradedCount > 0 && <MetricBox label="Degraded" value={degradedCount} icon="⚠️" color="text-dashboard-warning" />}
+        {downCount > 0 && <MetricBox label="Down" value={downCount} icon="❌" color="text-dashboard-danger" />}
+        <MetricBox label="Total Requests" value={formatNumber(totalRequests)} icon="📈" />
         <MetricBox label="Total Requests" value={formatNumber(totalRequests)} icon="📈" />
         <MetricBox label="Total Errors" value={formatNumber(totalErrors)} icon="⚠️" color={totalErrors > 10000 ? "text-dashboard-danger" : "text-dashboard-warning"} />
         <MetricBox label="Avg Error Rate" value={`${avgErrorRate.toFixed(2)}%`} icon="📉" color={avgErrorRate > 1 ? "text-dashboard-danger" : "text-dashboard-success"} />

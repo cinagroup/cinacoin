@@ -1,13 +1,45 @@
 "use client";
 
 import { useAuth } from "@/lib/AuthProvider";
+import { useWorkerHealth, aggregateStatusLabel } from "@/hooks/useWorkerHealth";
 
 export default function Header() {
   const { address, isLoggedIn, doLogout } = useAuth();
+  const { allHealthy, degradedCount, downCount, checking } = useWorkerHealth(15000);
 
   const shortAddress = address
     ? `${address.slice(0, 6)}…${address.slice(-4)}`
     : "";
+
+  const statusBadge = aggregateStatusLabel(allHealthy, degradedCount, downCount, checking);
+
+  // Determine dot color for health indicator
+  const dotColor =
+    downCount > 0
+      ? "bg-dashboard-danger"
+      : degradedCount > 0
+        ? "bg-dashboard-warning"
+        : checking
+          ? "bg-dashboard-muted animate-pulse"
+          : "bg-dashboard-success animate-pulse";
+
+  const borderColor =
+    downCount > 0
+      ? "border-dashboard-danger/30"
+      : degradedCount > 0
+        ? "border-dashboard-warning/30"
+        : checking
+          ? "border-dashboard-border"
+          : "border-dashboard-success/30";
+
+  const bgColor =
+    downCount > 0
+      ? "bg-dashboard-danger/10"
+      : degradedCount > 0
+        ? "bg-dashboard-warning/10"
+        : checking
+          ? "bg-dashboard-muted/10"
+          : "bg-dashboard-success/10";
 
   return (
     <header className="bg-dashboard-surface/80 backdrop-blur border-b border-dashboard-border px-6 py-4 flex items-center justify-between">
@@ -19,9 +51,9 @@ export default function Header() {
         </div>
       </div>
       <div className="flex items-center gap-3">
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-dashboard-success/10 border border-dashboard-success/30">
-          <span className="w-2 h-2 rounded-full bg-dashboard-success animate-pulse" />
-          <span className="text-xs text-dashboard-success font-medium">All Systems Operational</span>
+        <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full ${bgColor} border ${borderColor}`}>
+          <span className={`w-2 h-2 rounded-full ${dotColor}`} />
+          <span className={`text-xs font-medium ${statusBadge.color}`}>{statusBadge.label}</span>
         </div>
 
         {isLoggedIn && (
