@@ -40,12 +40,12 @@ export default function OverviewPage() {
   ).length;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Page title */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-white">Service Overview</h1>
-          <p className="text-dashboard-muted mt-1">
+          <h1 className="text-xl sm:text-2xl font-bold text-white">Service Overview</h1>
+          <p className="text-dashboard-muted mt-1 text-sm">
             {demoMode ? "Demo Mode — Simulated metrics" : "Live monitoring of Cloudflare Workers"}
             {lastRefresh && !demoMode && (
               <span className="ml-2 text-xs">
@@ -58,13 +58,13 @@ export default function OverviewPage() {
           <button
             onClick={manualRefresh}
             disabled={checking}
-            className="px-3 py-2 text-sm bg-dashboard-surface border border-dashboard-border rounded-lg text-dashboard-muted hover:text-white hover:border-dashboard-primary transition-colors disabled:opacity-50"
+            className="px-3 py-2 text-sm bg-dashboard-surface border border-dashboard-border rounded-lg text-dashboard-muted hover:text-white hover:border-dashboard-primary transition-colors disabled:opacity-50 min-h-[40px]"
           >
             {checking ? "↻ Checking..." : "↻ Refresh"}
           </button>
           <Link
             href="/settings"
-            className="px-4 py-2 text-sm bg-dashboard-surface border border-dashboard-border rounded-lg text-dashboard-muted hover:text-white hover:border-dashboard-primary transition-colors"
+            className="px-4 py-2 text-sm bg-dashboard-surface border border-dashboard-border rounded-lg text-dashboard-muted hover:text-white hover:border-dashboard-primary transition-colors min-h-[40px]"
           >
             ⚙️ Settings
           </Link>
@@ -72,7 +72,7 @@ export default function OverviewPage() {
       </div>
 
       {/* Aggregate metrics - Workers health summary */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <MetricBox label="Workers Health" value={`${healthyCount}/${SERVICES.length}`} icon="🏥" color="text-dashboard-primaryLight" />
         {degradedCount > 0 && <MetricBox label="Degraded" value={degradedCount} icon="⚠️" color="text-dashboard-warning" />}
         {downCount > 0 && <MetricBox label="Down" value={downCount} icon="❌" color="text-dashboard-danger" />}
@@ -86,8 +86,8 @@ export default function OverviewPage() {
       <BarChart data={HISTORY_DATA} labels={HISTORY_DAYS} color="#6366f1" height={140} />
 
       {/* Service status cards */}
-      <h2 className="text-lg font-semibold text-white mt-6">Service Status</h2>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <h2 className="text-base sm:text-lg font-semibold text-white mt-4 sm:mt-6">Service Status</h2>
+      <div className="grid gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {SERVICES.map((service) => (
           <Link key={service.id} href={`/${service.id}`}>
             <ServiceCard
@@ -100,15 +100,15 @@ export default function OverviewPage() {
       </div>
 
       {/* Service summary table */}
-      <div className="bg-dashboard-surface rounded-xl border border-dashboard-border overflow-hidden">
-        <table className="w-full text-sm">
+      <div className="bg-dashboard-surface rounded-xl border border-dashboard-border overflow-hidden overflow-x-auto">
+        <table className="w-full text-sm min-w-[500px]">
           <thead>
             <tr className="border-b border-dashboard-border">
-              <th className="text-left px-4 py-3 text-dashboard-muted font-medium">Service</th>
-              <th className="text-left px-4 py-3 text-dashboard-muted font-medium">Status</th>
-              <th className="text-right px-4 py-3 text-dashboard-muted font-medium">Requests</th>
-              <th className="text-right px-4 py-3 text-dashboard-muted font-medium">Error Rate</th>
-              <th className="text-right px-4 py-3 text-dashboard-muted font-medium">Avg Latency</th>
+              <th className="text-left px-3 sm:px-4 py-3 text-dashboard-muted font-medium">Service</th>
+              <th className="text-left px-3 sm:px-4 py-3 text-dashboard-muted font-medium">Status</th>
+              <th className="text-right px-3 sm:px-4 py-3 text-dashboard-muted font-medium">Requests</th>
+              <th className="text-right px-3 sm:px-4 py-3 text-dashboard-muted font-medium">Error Rate</th>
+              <th className="text-right px-3 sm:px-4 py-3 text-dashboard-muted font-medium">Avg Latency</th>
             </tr>
           </thead>
           <tbody>
@@ -117,16 +117,16 @@ export default function OverviewPage() {
               const h = health[service.id] || { status: "unknown", latency: null, lastChecked: 0 };
               return (
                 <tr key={service.id} className="border-b border-dashboard-border/50 hover:bg-dashboard-border/20">
-                  <td className="px-4 py-3 text-white">
+                  <td className="px-3 sm:px-4 py-3 text-white whitespace-nowrap">
                     <span className="mr-2">{service.icon}</span>
                     {service.name}
                   </td>
-                  <td className={`px-4 py-3 font-medium ${statusColor(h.status)}`}>
+                  <td className={`px-3 sm:px-4 py-3 font-medium ${statusColor(h.status)}`}>
                     {h.status}
                   </td>
-                  <td className="px-4 py-3 text-right text-white">{metrics ? formatNumber(metrics.totalRequests || 0) : "—"}</td>
-                  <td className="px-4 py-3 text-right text-white">{metrics ? `${metrics.errorRate?.toFixed(2) || 0}%` : "—"}</td>
-                  <td className="px-4 py-3 text-right text-white">
+                  <td className="px-3 sm:px-4 py-3 text-right text-white">{metrics ? formatNumber(metrics.totalRequests || 0) : "—"}</td>
+                  <td className="px-3 sm:px-4 py-3 text-right text-white">{metrics ? `${metrics.errorRate?.toFixed(2) || 0}%` : "—"}</td>
+                  <td className="px-3 sm:px-4 py-3 text-right text-white">
                     {metrics ? formatLatency(metrics.avgLatency || 0) : "—"}
                   </td>
                 </tr>

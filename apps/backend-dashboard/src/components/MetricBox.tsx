@@ -8,13 +8,13 @@ interface MetricBoxProps {
 
 export default function MetricBox({ label, value, icon, trend, color = "text-white" }: MetricBoxProps) {
   return (
-    <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-4">
-      <div className="flex items-center justify-between mb-2">
-        <span className="text-sm text-dashboard-muted">{label}</span>
-        {icon && <span className="text-lg">{icon}</span>}
+    <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-3 sm:p-4">
+      <div className="flex items-center justify-between mb-1 sm:mb-2">
+        <span className="text-xs sm:text-sm text-dashboard-muted">{label}</span>
+        {icon && <span className="text-base sm:text-lg">{icon}</span>}
       </div>
-      <div className="flex items-end gap-2">
-        <span className={`text-2xl font-bold ${color}`}>{value}</span>
+      <div className="flex items-end gap-1 sm:gap-2">
+        <span className={`text-lg sm:text-2xl font-bold ${color} break-all`}>{value}</span>
         {trend && (
           <span className={`text-xs mb-1 ${
             trend === "up" ? "text-dashboard-success" :

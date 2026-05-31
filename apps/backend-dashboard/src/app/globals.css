@@ -16,4 +16,15 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Touch-friendly minimums for dashboard */
+@media (max-width: 768px) {
+  button, a {
+    min-height: 44px;
+  }
+  input, select, textarea {
+    min-height: 44px;
+  }
 }
