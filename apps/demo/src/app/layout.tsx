@@ -7,8 +7,8 @@ export const metadata: Metadata = {
   title: 'CinaCoin — Wallet Connection Toolkit',
   description: 'Open-source wallet connection toolkit for 16 chains. Connect wallets, swap tokens, bridge chains. Self-hosted, zero vendor lock-in.',
   icons: {
-    icon: '/favicon.png',
-    apple: '/favicon.png',
+    icon: '/favicon.ico',
+    apple: '/favicon.ico',
   },
   openGraph: {
     title: 'CinaCoin — Wallet Connection Toolkit',

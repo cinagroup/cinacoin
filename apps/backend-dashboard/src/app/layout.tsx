@@ -7,6 +7,9 @@ import AuthGuard from "@/components/AuthGuard";
 export const metadata: Metadata = {
   title: "CinaCoin — Backend Dashboard",
   description: "Management dashboard for CinaCoin Cloudflare Workers services",
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({
