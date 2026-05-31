@@ -1,3 +1,8 @@
+'use client'
+
+import FadeIn from '@/components/FadeIn'
+import AnimatedNumber from '@/components/AnimatedNumber'
+
 export default function Stats() {
   const stats = [
     { value: '100M+', label: 'Wallet Connections' },
@@ -9,16 +14,20 @@ export default function Stats() {
   return (
     <section className="relative py-20">
       {/* Subtle divider */}
-      <div className="mx-auto mb-16 h-px w-full max-w-7xl bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+      <FadeIn direction="none" duration={800}>
+        <div className="mx-auto mb-16 h-px w-full max-w-7xl bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+      </FadeIn>
       
       <div className="mx-auto grid max-w-6xl grid-cols-2 gap-8 px-6 md:grid-cols-4">
         {stats.map((stat, i) => (
-          <div key={i} className="text-center">
-            <div className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl md:text-6xl">
-              {stat.value}
+          <FadeIn key={i} delay={i * 150} direction="up" duration={700}>
+            <div className="text-center">
+              <div className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl md:text-6xl">
+                <AnimatedNumber value={stat.value} duration={2000} />
+              </div>
+              <div className="mt-2 text-sm text-zinc-500">{stat.label}</div>
             </div>
-            <div className="mt-2 text-sm text-zinc-500">{stat.label}</div>
-          </div>
+          </FadeIn>
         ))}
       </div>
     </section>

@@ -1,6 +1,26 @@
+'use client'
+
+import { useEffect, useState } from 'react'
+
 export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20)
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/[0.06] bg-[#050505]/80 backdrop-blur-xl">
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-500 ${
+        scrolled
+          ? 'border-white/[0.08] bg-[#050505]/90 backdrop-blur-xl shadow-lg shadow-black/20'
+          : 'border-white/[0.06] bg-[#050505]/60 backdrop-blur-sm'
+      }`}
+    >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <a href="/" className="flex items-center gap-2.5">
           <img src="/logo.png" alt="Cinacoin" className="h-8 w-8 rounded-lg" />

@@ -1,3 +1,7 @@
+'use client'
+
+import FadeIn from '@/components/FadeIn'
+
 export default function Products() {
   const products = [
     {
@@ -41,31 +45,38 @@ export default function Products() {
   return (
     <section id="products" className="relative py-24">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="mx-auto mb-16 max-w-3xl text-center">
-          <h2 className="text-4xl font-bold tracking-tight md:text-5xl">
-            Products & Infrastructure
-          </h2>
-          <p className="mt-4 text-lg text-zinc-400">
-            Everything you need to build seamless onchain experiences
-          </p>
-        </div>
+        <FadeIn>
+          <div className="mx-auto mb-16 max-w-3xl text-center">
+            <h2 className="text-4xl font-bold tracking-tight md:text-5xl">
+              Products & Infrastructure
+            </h2>
+            <p className="mt-4 text-lg text-zinc-400">
+              Everything you need to build seamless onchain experiences
+            </p>
+          </div>
+        </FadeIn>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {products.map((p) => (
-            <a
-              key={p.name}
-              href={p.href}
-              className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 transition-all hover:border-white/[0.12] hover:bg-white/[0.04]"
-            >
-              <div className="mb-4 flex items-center gap-2">
-                <div className={`h-8 w-8 rounded-lg bg-gradient-to-br ${p.gradient}`} />
-                <h3 className="text-lg font-semibold">{p.name}</h3>
-              </div>
-              <p className="text-sm leading-relaxed text-zinc-400">{p.desc}</p>
-              <div className="mt-4 flex items-center gap-1 text-sm text-zinc-500 transition-colors group-hover:text-white">
-                Learn more <span>→</span>
-              </div>
-            </a>
+          {products.map((p, i) => (
+            <FadeIn key={p.name} delay={i * 100} direction="up" duration={600}>
+              <a
+                href={p.href}
+                className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 transition-all duration-300 hover:border-white/[0.12] hover:bg-white/[0.04] hover:shadow-xl hover:shadow-purple-500/5 hover:-translate-y-1"
+              >
+                {/* Hover glow effect */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${p.gradient} opacity-0 transition-opacity duration-300 group-hover:opacity-[0.03]`} />
+                <div className="relative">
+                  <div className="mb-4 flex items-center gap-2">
+                    <div className={`h-8 w-8 rounded-lg bg-gradient-to-br ${p.gradient} transition-transform duration-300 group-hover:scale-110 group-hover:shadow-lg`} />
+                    <h3 className="text-lg font-semibold">{p.name}</h3>
+                  </div>
+                  <p className="text-sm leading-relaxed text-zinc-400">{p.desc}</p>
+                  <div className="mt-4 flex items-center gap-1 text-sm text-zinc-500 transition-colors group-hover:text-white">
+                    Learn more <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                  </div>
+                </div>
+              </a>
+            </FadeIn>
           ))}
         </div>
       </div>
