@@ -6,39 +6,39 @@ export default function Features() {
   const features = [
     {
       title: 'Universal Wallet Connection',
-      desc: 'Connect any wallet to any chain with a single SDK. Support for 300+ wallets and 100+ chains out of the box.',
+      desc: 'Connect MetaMask, WalletConnect, Coinbase, and 50+ more wallets across 16 chains with a single SDK.',
       icon: '🔗',
       iconLabel: 'Wallet and chain connection',
     },
     {
       title: 'Chain Abstraction',
-      desc: 'Let users interact with your app without worrying about which chain they\'re on. Automatic bridging and routing.',
+      desc: 'Let users interact with your app across EVM, Solana, Bitcoin, Cosmos, and more — without worrying about which chain.',
       icon: '🌐',
       iconLabel: 'Multi-chain abstraction',
     },
     {
-      title: 'Smart Account Integration',
-      desc: 'ERC-4337 account abstraction with session keys, gas sponsorship, and batch transactions built in.',
+      title: 'SIWE Authentication',
+      desc: 'Sign-In With Ethereum (EIP-4361) with session management, wallet verification, and passkey support.',
       icon: '🔐',
       iconLabel: 'Smart account security',
     },
     {
       title: 'Real-time Notifications',
-      desc: 'Push notifications for wallet activity, transaction confirmations, and cross-chain events.',
+      desc: 'Push notifications for wallet activity, transaction confirmations, and cross-chain events via Push server.',
       icon: '🔔',
       iconLabel: 'Real-time notifications',
     },
     {
-      title: 'Developer-First APIs',
-      desc: 'Clean TypeScript SDKs, comprehensive docs, and playground examples to get you building in minutes.',
+      title: 'Developer-First SDKs',
+      desc: 'Clean TypeScript SDKs for React, Vue, Svelte, and more. Comprehensive docs and live demo examples.',
       icon: '⚡',
-      iconLabel: 'Developer tools and APIs',
+      iconLabel: 'Developer tools and SDKs',
     },
     {
-      title: 'Enterprise Security',
-      desc: 'SOC 2 compliant, encrypted communications, and zero-knowledge proofs for maximum security.',
+      title: 'Fully Open Source',
+      desc: 'Self-hosted, zero vendor lock-in. MIT licensed with full transparency and community contributions.',
       icon: '🛡️',
-      iconLabel: 'Enterprise-grade security',
+      iconLabel: 'Open source and transparent',
     },
   ];
 

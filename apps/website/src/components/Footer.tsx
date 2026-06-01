@@ -6,19 +6,41 @@ export default function Footer() {
   const columns = [
     {
       title: 'Products',
-      links: ['AppKit', 'Auth', 'Relay', 'Push', 'Keys', 'RPC Proxy'],
+      links: [
+        { label: 'AppKit', href: 'https://docs.cinacoin.com/api/appkit' },
+        { label: 'Auth', href: 'https://docs.cinacoin.com/api/auth' },
+        { label: 'Relay', href: 'https://docs.cinacoin.com/api/relay' },
+        { label: 'Push', href: 'https://docs.cinacoin.com/api/push' },
+        { label: 'Keys', href: 'https://docs.cinacoin.com/api/keys' },
+        { label: 'RPC Proxy', href: 'https://docs.cinacoin.com/api/rpc' },
+      ],
     },
     {
       title: 'Developers',
-      links: ['Documentation', 'API Reference', 'SDKs', 'Examples', 'Changelog'],
+      links: [
+        { label: 'Documentation', href: 'https://docs.cinacoin.com' },
+        { label: 'API Reference', href: 'https://docs.cinacoin.com/api/core-sdk' },
+        { label: 'SDKs', href: 'https://github.com/cinagroup/cinacoin' },
+        { label: 'Examples', href: 'https://demo.cinacoin.com' },
+        { label: 'Changelog', href: 'https://github.com/cinagroup/cinacoin/releases' },
+      ],
     },
     {
       title: 'Company',
-      links: ['About', 'Blog', 'Careers', 'Press'],
+      links: [
+        { label: 'About', href: 'https://cinagroup.com' },
+        { label: 'Blog', href: 'https://docs.cinacoin.com/guide/quick-start' },
+        { label: 'Careers', href: 'https://github.com/cinagroup' },
+        { label: 'Press', href: 'https://github.com/cinagroup' },
+      ],
     },
     {
       title: 'Legal',
-      links: ['Privacy', 'Terms', 'Cookie Policy'],
+      links: [
+        { label: 'Privacy', href: '#' },
+        { label: 'Terms', href: '#' },
+        { label: 'Cookie Policy', href: '#' },
+      ],
     },
   ];
 
@@ -46,9 +68,9 @@ export default function Footer() {
                 <h4 className="mb-4 text-sm font-medium text-zinc-300">{col.title}</h4>
                 <ul className="space-y-3">
                   {col.links.map((link) => (
-                    <li key={link}>
-                      <a href="#" className="text-sm text-zinc-500 transition-colors hover:text-white min-h-[44px] flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded" aria-label={`${col.title} - ${link}`}>
-                        {link}
+                    <li key={link.label}>
+                      <a href={link.href} className="text-sm text-zinc-500 transition-colors hover:text-white min-h-[44px] flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded" aria-label={`${col.title} - ${link.label}`}>
+                        {link.label}
                       </a>
                     </li>
                   ))}

@@ -5,7 +5,9 @@ import FadeIn from '@/components/FadeIn'
 export default function Logos() {
   const logos = [
     'Ethereum', 'Polygon', 'Arbitrum', 'Optimism',
-    'Base', 'BNB Chain', 'Avalanche', 'Solana'
+    'Base', 'BNB Chain', 'Avalanche', 'Solana',
+    'Bitcoin', 'Cosmos', 'TON', 'Sui',
+    'Aptos', 'Near', 'Starknet', 'XRPL'
   ];
 
   return (

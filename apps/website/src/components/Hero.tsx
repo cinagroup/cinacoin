@@ -73,11 +73,13 @@ export default function Hero() {
             </div>
             <pre className="p-5 font-mono text-sm leading-relaxed">
               <code>
-                <span className="text-purple-400">import</span>{' '}<span className="text-zinc-300">{'{ createCinacoin }'}</span>{' '}<span className="text-purple-400">from</span>{' '}<span className="text-green-400">'@cinacoin/core'</span>
+                <span className="text-purple-400">import</span>{' '}<span className="text-zinc-300">{'{ Cinacoin }'}</span>{' '}<span className="text-purple-400">from</span>{' '}<span className="text-green-400">'@cinacoin/sdk'</span>
                 {'\n\n'}
-                <span className="text-purple-400">const</span>{' '}<span className="text-blue-300">client</span>{' '}<span className="text-zinc-500">=</span>{' '}<span className="text-yellow-300">createCinacoin</span><span className="text-zinc-500">({'{'}</span>{'\n'}
+                <span className="text-purple-400">const</span>{' '}<span className="text-blue-300">client</span>{' '}<span className="text-zinc-500">=</span>{' '}<span className="text-yellow-300">Cinacoin.init</span><span className="text-zinc-500">(</span><span className="text-zinc-500">{'{'}</span>{'\n'}
                 {'  '}<span className="text-zinc-300">projectId:</span>{' '}<span className="text-green-400">'your-project-id'</span>{'\n'}
-                <span className="text-zinc-500">{'}'})</span>
+                <span className="text-zinc-500">{'}'}</span><span className="text-zinc-500">)</span>
+                {'\n\n'}
+                <span className="text-purple-400">await</span>{' '}<span className="text-blue-300">client</span><span className="text-zinc-500">.connect()</span>
               </code>
             </pre>
           </div>

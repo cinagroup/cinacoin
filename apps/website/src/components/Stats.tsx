@@ -5,10 +5,10 @@ import AnimatedNumber from '@/components/AnimatedNumber'
 
 export default function Stats() {
   const stats = [
-    { value: '100M+', label: 'Wallet Connections' },
-    { value: '50+', label: 'Chains Supported' },
-    { value: '10K+', label: 'Apps Built' },
-    { value: '99.99%', label: 'Uptime' },
+    { value: '16', label: 'Chains Supported' },
+    { value: '52', label: 'Wallets Integrated' },
+    { value: '5', label: 'SDK Packages' },
+    { value: '100%', label: 'Open Source' },
   ];
 
   return (

@@ -7,37 +7,37 @@ export default function Products() {
     {
       name: 'AppKit',
       desc: 'Universal wallet connection kit. 300+ wallets, 50+ chains. One SDK to rule them all.',
-      href: 'https://docs.cinacoin.com/appkit',
+      href: 'https://docs.cinacoin.com/api/appkit',
       gradient: 'from-blue-500 to-cyan-500',
     },
     {
       name: 'Auth',
       desc: 'Sign-In With Ethereum (SIWE) authentication with session management and wallet verification.',
-      href: 'https://docs.cinacoin.com/auth',
+      href: 'https://docs.cinacoin.com/api/auth',
       gradient: 'from-purple-500 to-pink-500',
     },
     {
       name: 'Relay',
       desc: 'Cross-chain message relay infrastructure for seamless multi-chain transactions.',
-      href: 'https://docs.cinacoin.com/relay',
+      href: 'https://docs.cinacoin.com/api/relay',
       gradient: 'from-orange-500 to-red-500',
     },
     {
       name: 'Push',
       desc: 'Real-time push notifications for wallet activity, transactions, and chain events.',
-      href: 'https://docs.cinacoin.com/push',
+      href: 'https://docs.cinacoin.com/api/push',
       gradient: 'from-green-500 to-emerald-500',
     },
     {
       name: 'Keys',
       desc: 'Decentralized key management with secure storage, rotation, and recovery.',
-      href: 'https://docs.cinacoin.com/keys',
+      href: 'https://docs.cinacoin.com/api/keys',
       gradient: 'from-yellow-500 to-orange-500',
     },
     {
       name: 'RPC Proxy',
       desc: 'Unified RPC endpoint with automatic routing, rate limiting, and failover.',
-      href: 'https://docs.cinacoin.com/rpc',
+      href: 'https://docs.cinacoin.com/api/rpc',
       gradient: 'from-indigo-500 to-violet-500',
     },
   ];
