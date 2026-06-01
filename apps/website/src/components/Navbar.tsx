@@ -47,6 +47,7 @@ export default function Navbar() {
             height={32}
             className="h-8 w-8 rounded-lg"
             priority
+            unoptimized
           />
           <span className="text-lg font-semibold tracking-tight">Cinacoin</span>
         </a>
