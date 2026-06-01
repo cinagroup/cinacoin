@@ -4,9 +4,9 @@ const isProd = process.env.NODE_ENV === 'production'
 
 export default defineConfig({
   title: 'Cinacoin',
-  description: '自有品牌链上 UX 工具包 — Self-hosted Wallet Connection Toolkit',
+  description: 'Onchain Access, Simplified — Self-hosted Wallet Connection Toolkit',
   base: '/',
-  lang: 'zh-CN',
+  lang: 'en',
   lastUpdated: true,
   cleanUrls: true,
 
@@ -15,14 +15,25 @@ export default defineConfig({
     ['meta', { name: 'theme-color', content: '#3B82F6' }],
   ],
 
+  locales: {
+    root: {
+      label: 'English',
+      lang: 'en',
+    },
+    zh: {
+      label: '中文',
+      lang: 'zh-CN',
+    },
+  },
+
   themeConfig: {
     logo: '/logo.svg',
     siteTitle: 'Cinacoin',
 
     nav: [
-      { text: '指南', link: '/guide/quick-start' },
+      { text: 'Guide', link: '/guide/quick-start' },
       { text: 'API', link: '/api/core-sdk' },
-      { text: '示例', link: '/api/react' },
+      { text: 'Examples', link: '/api/react' },
     ],
 
     sidebar: [
@@ -30,11 +41,11 @@ export default defineConfig({
       {
         text: '🚀 Getting Started',
         items: [
-          { text: '快速开始', link: '/guide/quick-start' },
-          { text: '安装', link: '/guide/installation' },
-          { text: '配置', link: '/guide/configuration' },
-          { text: '迁移指南', link: '/guide/migrate-from-reown' },
-          { text: '故障排除', link: '/guide/troubleshooting' },
+          { text: 'Quick Start', link: '/guide/quick-start' },
+          { text: 'Installation', link: '/guide/installation' },
+          { text: 'Configuration', link: '/guide/configuration' },
+          { text: 'Migrate from Reown', link: '/guide/migrate-from-reown' },
+          { text: 'Troubleshooting', link: '/guide/troubleshooting' },
         ],
       },
 
@@ -226,7 +237,7 @@ export default defineConfig({
 
     editLink: {
       pattern: 'https://github.com/cinagroup/cinacoin/edit/main/docs/:path',
-      text: '在 GitHub 上编辑此页',
+      text: 'Edit this page on GitHub',
     },
 
     search: {
@@ -235,8 +246,24 @@ export default defineConfig({
 
     outline: {
       level: [2, 3],
-      label: '页面导航',
+      label: 'On this page',
     },
+
+    lastUpdated: {
+      text: 'Last updated',
+    },
+
+    docFooter: {
+      prev: 'Previous page',
+      next: 'Next page',
+    },
+
+    darkModeSwitchLabel: 'Appearance',
+    lightModeSwitchTitle: 'Switch to light mode',
+    darkModeSwitchTitle: 'Switch to dark mode',
+    sidebarMenuLabel: 'Menu',
+    returnToTopLabel: 'Return to top',
+    langMenuLabel: 'Change language',
   },
 
   markdown: {
