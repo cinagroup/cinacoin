@@ -54,6 +54,7 @@ export default function Navbar() {
         {/* Desktop links */}
         <div className="hidden items-center gap-8 md:flex">
           <a href="#products" className="text-sm text-zinc-400 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded" aria-label="View products">Products</a>
+          <a href="/pricing" className="text-sm text-zinc-400 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded" aria-label="View pricing">Pricing</a>
           <a href="https://docs.cinacoin.com" className="text-sm text-zinc-400 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded" aria-label="Read documentation">Docs</a>
           <a href="https://github.com/cinagroup" className="text-sm text-zinc-400 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded" aria-label="View GitHub repository">GitHub</a>
         </div>
@@ -101,8 +102,23 @@ export default function Navbar() {
           aria-label="Mobile navigation"
         >
           <div className="flex flex-col gap-1 px-6 py-4">
+            <a href="/" onClick={closeMobile} className="rounded-lg px-3 py-2 text-sm text-zinc-400 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400" aria-label="Home">
+              Home
+            </a>
             <a href="#products" onClick={closeMobile} className="rounded-lg px-3 py-2 text-sm text-zinc-400 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400" aria-label="View products">
               Products
+            </a>
+            <a href="/pricing" onClick={closeMobile} className="rounded-lg px-3 py-2 text-sm text-zinc-400 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400" aria-label="View pricing">
+              Pricing
+            </a>
+            <a href="/about" onClick={closeMobile} className="rounded-lg px-3 py-2 text-sm text-zinc-400 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400" aria-label="About Cinacoin">
+              About
+            </a>
+            <a href="/changelog" onClick={closeMobile} className="rounded-lg px-3 py-2 text-sm text-zinc-400 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400" aria-label="View changelog">
+              Changelog
+            </a>
+            <a href="/contact" onClick={closeMobile} className="rounded-lg px-3 py-2 text-sm text-zinc-400 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400" aria-label="Contact us">
+              Contact
             </a>
             <a href="https://docs.cinacoin.com" className="rounded-lg px-3 py-2 text-sm text-zinc-400 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400" aria-label="Read documentation">
               Docs
@@ -114,7 +130,7 @@ export default function Navbar() {
               Dashboard
             </a>
             <a
-              href="#cta"
+              href="/contact"
               onClick={closeMobile}
               className="mt-2 rounded-full bg-white px-4 py-2.5 text-center text-sm font-medium text-black transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
               aria-label="Get started with Cinacoin"

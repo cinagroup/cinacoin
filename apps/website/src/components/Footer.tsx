@@ -28,10 +28,10 @@ export default function Footer() {
     {
       title: 'Company',
       links: [
-        { label: 'About', href: 'https://cinagroup.com' },
-        { label: 'Blog', href: 'https://docs.cinacoin.com/guide/quick-start' },
-        { label: 'Careers', href: 'https://github.com/cinagroup' },
-        { label: 'Press', href: 'https://github.com/cinagroup' },
+        { label: 'About', href: '/about' },
+        { label: 'Pricing', href: '/pricing' },
+        { label: 'Changelog', href: '/changelog' },
+        { label: 'Contact', href: '/contact' },
       ],
     },
     {
