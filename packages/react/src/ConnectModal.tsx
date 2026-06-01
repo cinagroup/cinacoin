@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, type CSSProperties } from 'react';
-import { useCinaCoinContext } from './CinaCoinProvider.js';
+import { useCinaCoinContext } from './CinacoinProvider.js';
 
 /** Props for the React ConnectModal wrapper. */
 export interface ConnectModalProps {

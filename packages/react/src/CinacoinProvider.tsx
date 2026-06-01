@@ -1,19 +1,22 @@
 /**
  * Barrel re-export — alias for OnChainUXProvider.
  *
- * All internal components import from './CinaCoinProvider.js';
- * this file re-exports everything from OnChainUXProvider.tsx
- * so those imports resolve correctly.
+ * Exports both old (CinaCoin*) and new (Cinacoin*) names for backward compatibility.
  */
 
 export {
   CinaCoinProvider,
   useCinaCoinContext,
+  // New lowercase aliases
+  CinaCoinProvider as CinacoinProvider,
+  useCinaCoinContext as useCinacoinContext,
 } from './OnChainUXProvider.js';
 
 export type {
   CinaCoinConfig,
+  CinaCoinConfig as CinacoinConfig,
   CinaCoinContextValue,
+  CinaCoinContextValue as CinacoinContextValue,
   ChainConfig,
   ThemeMode,
   AccountState,
