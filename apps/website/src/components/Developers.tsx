@@ -29,10 +29,10 @@ export default function Developers() {
 
               <div className="mt-8 space-y-4">
                 {[
-                  'TypeScript, Python, Go, and Rust SDKs',
-                  'Interactive API playground with live examples',
-                  'Webhook integration for real-time events',
-                  'Open source on GitHub — 2K+ stars',
+                  'TypeScript SDK — @cinacoin/core-sdk, @cinacoin/react',
+                  '9 framework adapters: React, Vue, Svelte, Next, Nuxt, Angular',
+                  '8 chain adapters: EVM, Solana, Bitcoin, Cosmos, TON, Sui, Starknet, XRPL',
+                  'Open source on GitHub — 52+ packages, MIT licensed',
                 ].map((item, i) => (
                   <FadeIn key={i} delay={200 + i * 100} direction="right" duration={500}>
                     <div className="flex items-start gap-3">
@@ -71,68 +71,56 @@ export default function Developers() {
                 <div className="h-2.5 w-2.5 rounded-full bg-zinc-600" />
                 <div className="h-2.5 w-2.5 rounded-full bg-zinc-600" />
                 <div className="h-2.5 w-2.5 rounded-full bg-zinc-600" />
-                <span className="ml-2 text-xs text-zinc-500">example.ts</span>
+                <span className="ml-2 text-xs text-zinc-500">example.tsx</span>
               </div>
               <pre className="p-5 font-mono text-sm leading-relaxed">
                 <code>
                   <span className="text-purple-400">import</span>{' '}
-                  <span className="text-zinc-300">{'{ Cinacoin }'}</span>{' '}
+                  <span className="text-zinc-300">{'{ useCinacoin, ConnectButton }'}</span>{' '}
                   <span className="text-purple-400">from</span>{' '}
-                  <span className="text-green-400">'@cinacoin/sdk'</span>
+                  <span className="text-green-400">'@cinacoin/react'</span>
                   {'\n\n'}
-                  <span className="text-zinc-500">// Initialize the client</span>
+                  <span className="text-purple-400">function</span>{' '}
+                  <span className="text-yellow-300">MyApp</span>
+                  <span className="text-zinc-500">() {'{'}</span>
                   {'\n'}
-                  <span className="text-purple-400">const</span>{' '}
-                  <span className="text-blue-300">client</span>{' '}
-                  <span className="text-zinc-500">=</span>{' '}
-                  <span className="text-yellow-300">Cinacoin</span>
-                  <span className="text-zinc-500">.</span>
-                  <span className="text-yellow-300">init</span>
-                  <span className="text-zinc-500">({'{'}</span>
-                  {'\n'}
-                  {'  '}<span className="text-zinc-300">projectId:</span>{' '}
-                  <span className="text-green-400">'your-id'</span>
-                  <span className="text-zinc-500">,</span>
-                  {'\n'}
-                  {'  '}<span className="text-zinc-300">chains:</span>{' '}
-                  <span className="text-zinc-500">[</span>
-                  <span className="text-orange-400">1</span>
+                  {'  '}<span className="text-purple-400">const</span>{' '}
+                  <span className="text-zinc-500">{'{'}</span>
+                  <span className="text-blue-300"> address</span>
                   <span className="text-zinc-500">,</span>{' '}
-                  <span className="text-orange-400">137</span>
+                  <span className="text-blue-300"> isConnected</span>
                   <span className="text-zinc-500">,</span>{' '}
-                  <span className="text-orange-400">42161</span>
-                  <span className="text-zinc-500">],</span>
-                  {'\n'}
-                  <span className="text-zinc-500">{'}'})</span>
-                  {'\n\n'}
-                  <span className="text-zinc-500">// Connect a wallet</span>
-                  {'\n'}
-                  <span className="text-purple-400">const</span>{' '}
-                  <span className="text-blue-300">session</span>{' '}
-                  <span className="text-zinc-500">=</span>{' '}
-                  <span className="text-purple-400">await</span>{' '}
-                  <span className="text-blue-300">client</span>
-                  <span className="text-zinc-500">.</span>
-                  <span className="text-yellow-300">connect</span>
+                  <span className="text-blue-300"> chain</span>
+                  <span className="text-zinc-500"> {'}'} =</span>{' '}
+                  <span className="text-yellow-300">useCinacoin</span>
                   <span className="text-zinc-500">()</span>
                   {'\n\n'}
-                  <span className="text-zinc-500">// Send a cross-chain transaction</span>
+                  {'  '}<span className="text-purple-400">return</span>{' '}
+                  <span className="text-zinc-500">(</span>
                   {'\n'}
-                  <span className="text-purple-400">await</span>{' '}
-                  <span className="text-blue-300">client</span>
-                  <span className="text-zinc-500">.</span>
-                  <span className="text-yellow-300">transfer</span>
-                  <span className="text-zinc-500">({'{'}</span>
+                  {'    '}<span className="text-zinc-500">{'<'}</span>
+                  <span className="text-yellow-300">div</span>
+                  <span className="text-zinc-500">{'>'}</span>
                   {'\n'}
-                  {'  '}<span className="text-zinc-300">to:</span>{' '}
-                  <span className="text-green-400">'0x...'</span>
-                  <span className="text-zinc-500">,</span>
+                  {'      '}<span className="text-zinc-500">{'<'}</span>
+                  <span className="text-yellow-300">ConnectButton</span>{' '}
+                  <span className="text-zinc-500">{'/>'}</span>
                   {'\n'}
-                  {'  '}<span className="text-zinc-300">chain:</span>{' '}
-                  <span className="text-orange-400">137</span>
-                  <span className="text-zinc-500">,</span>
+                  {'      '}<span className="text-zinc-500">{'{'}</span>
+                  <span className="text-blue-300">isConnected</span>
+                  <span className="text-zinc-500">{' ?'}</span>{' '}
+                  <span className="text-green-400">`Connected: ${'{'}address{'}'}`</span>
+                  <span className="text-zinc-500">{' :'}</span>{' '}
+                  <span className="text-green-400">'Not connected'</span>
+                  <span className="text-zinc-500">{'}'}</span>
                   {'\n'}
-                  <span className="text-zinc-500">{'}'})</span>
+                  {'    '}<span className="text-zinc-500">{'<'}/</span>
+                  <span className="text-yellow-300">div</span>
+                  <span className="text-zinc-500">{'>'}</span>
+                  {'\n'}
+                  {'  '}<span className="text-zinc-500">)</span>
+                  {'\n'}
+                  <span className="text-zinc-500">{'}'}</span>
                 </code>
               </pre>
             </div>
