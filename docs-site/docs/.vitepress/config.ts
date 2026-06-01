@@ -161,6 +161,12 @@ export default defineConfig({
       {
         text: '🏗️ Infrastructure',
         items: [
+          { text: 'AppKit', link: '/api/appkit' },
+          { text: 'Auth', link: '/api/auth' },
+          { text: 'Relay', link: '/api/relay' },
+          { text: 'Push', link: '/api/push' },
+          { text: 'Keys', link: '/api/keys' },
+          { text: 'RPC', link: '/api/rpc' },
           { text: 'Relay Server', link: '/api/relay-server' },
           { text: 'RPC Proxy', link: '/api/rpc-proxy' },
           { text: 'Blockchain API', link: '/api/blockchain-api' },
