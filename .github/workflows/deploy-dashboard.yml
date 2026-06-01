@@ -41,10 +41,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: ${{ env.PNPM_VERSION }}
-          run_install: false
+        run: corepack enable
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
