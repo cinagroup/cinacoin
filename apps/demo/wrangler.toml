@@ -1,7 +1,14 @@
-name: "cinacoin-demo"
-compatibility_date = "2024-01-01"
+# wrangler.toml - Cloudflare Pages configuration for Cinacoin Demo
+# https://developers.cloudflare.com/pages/configuration/
 
-pages_build_output_dir = "apps/demo/out"
+name = "cinacoin-demo"
+compatibility_date = "2025-01-01"
+
+[build]
+# Build using the workspace's pnpm command from repo root
+command = "pnpm --filter demo build"
+# Static export output directory (Next.js produces out/)
+output_directory = "apps/demo/out"
 
 [vars]
 NEXT_PUBLIC_PROJECT_ID = "demo-project-id"
