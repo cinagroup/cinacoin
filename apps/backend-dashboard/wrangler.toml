@@ -2,6 +2,6 @@ name = "backend-dashboard"
 compatibility_date = "2025-01-01"
 
 [build]
-command = "pnpm dashboard:build"
+command = "pnpm install --frozen-lockfile && npx turbo run build --filter=backend-dashboard && npx @cloudflare/next-on-pages --package-manager pnpm"
 cwd = "../.."
 watch_dir = "apps/backend-dashboard/src"
