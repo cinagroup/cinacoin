@@ -102,7 +102,7 @@ export default function ContactPage() {
                       { label: 'Email', value: 'hello@cinacoin.com', href: 'mailto:hello@cinacoin.com' },
                       { label: 'GitHub', value: 'github.com/cinagroup/cinacoin', href: 'https://github.com/cinagroup/cinacoin' },
                       { label: 'Discord', value: 'discord.gg/cinacoin', href: 'https://discord.gg/cinacoin' },
-                      { label: 'Twitter/X', value: '@cinacoin', href: 'https://twitter.com/cinacoin' },
+                      { label: 'X (Twitter)', value: '@cinacoin', href: 'https://x.com/cinacoin' },
                     ].map((item) => (
                       <li key={item.label}>
                         <span className="text-xs text-zinc-500 block mb-1">{item.label}</span>
