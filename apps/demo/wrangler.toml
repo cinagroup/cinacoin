@@ -1,7 +1,7 @@
-name = "cinacoin-demo"
+name: "cinacoin-demo"
 compatibility_date = "2024-01-01"
 
-pages_build_output_dir = ".next"
+pages_build_output_dir = "apps/demo/out"
 
 [vars]
 NEXT_PUBLIC_PROJECT_ID = "demo-project-id"
