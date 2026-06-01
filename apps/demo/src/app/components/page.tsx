@@ -13,7 +13,7 @@ const THEMES: Record<string, { name: string; bg: string; card: string; border: s
     bg: 'bg-gray-950',
     card: 'bg-gray-800/60',
     border: 'border-gray-700/50',
-    primary: 'from-blue-500 to-purple-600',
+    primary: 'from-brand-500 to-brand-600',
     text: 'text-white',
     accent: 'text-blue-400',
   },
@@ -22,7 +22,7 @@ const THEMES: Record<string, { name: string; bg: string; card: string; border: s
     bg: 'bg-gray-100',
     card: 'bg-white/80',
     border: 'border-gray-300/50',
-    primary: 'from-blue-500 to-purple-600',
+    primary: 'from-brand-500 to-brand-600',
     text: 'text-gray-900',
     accent: 'text-blue-600',
   },
@@ -31,7 +31,7 @@ const THEMES: Record<string, { name: string; bg: string; card: string; border: s
     bg: 'bg-slate-950',
     card: 'bg-slate-900/60',
     border: 'border-slate-700/50',
-    primary: 'from-indigo-500 to-blue-600',
+    primary: 'from-brand-500 to-brand-600',
     text: 'text-slate-100',
     accent: 'text-indigo-400',
   },
@@ -49,7 +49,7 @@ const THEMES: Record<string, { name: string; bg: string; card: string; border: s
     bg: 'bg-gray-950',
     card: 'bg-gray-900/60',
     border: 'border-orange-500/30',
-    primary: 'from-orange-500 to-pink-600',
+    primary: 'from-brand-500 to-brand-600',
     text: 'text-orange-100',
     accent: 'text-orange-400',
   },
@@ -141,7 +141,7 @@ function ComponentShowcase({
           onClick={() => setShowCode(!showCode)}
           className={`text-xs px-3 py-1.5 rounded-lg transition-all ${
             showCode
-              ? 'bg-blue-500/15 text-blue-400 border border-blue-500/30'
+              ? 'bg-brand-500/15 text-brand-400 border border-brand-500/30'
               : 'bg-gray-700/40 text-gray-400 border border-gray-600/40 hover:text-white'
           }`}
         >
@@ -180,10 +180,10 @@ export default function ComponentsPage() {
 
         {/* ── Header ── */}
         <div className="text-center space-y-2">
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-brand-500 via-brand-400 to-brand-300 bg-clip-text text-transparent">
             Component Gallery
           </h1>
-          <p className="text-gray-400 text-sm">Browse all CinaCoin components with live theme previews</p>
+          <p className="text-gray-400 text-sm">Browse all Cinacoin components with live theme previews</p>
         </div>
 
         {/* ── Theme Switcher ── */}
@@ -220,13 +220,13 @@ export default function ComponentsPage() {
             <div className="space-y-4">
               {/* Variants */}
               <div className="flex flex-wrap gap-3 items-center">
-                <button className="px-5 py-2.5 rounded-xl font-semibold text-sm bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 transition-all hover:-translate-y-0.5">
+                <button className="px-5 py-2.5 rounded-xl font-semibold text-sm bg-gradient-to-r from-brand-600 to-brand-500 text-white shadow-lg shadow-brand-500/20 hover:shadow-brand-500/40 transition-all hover:-translate-y-0.5">
                   Primary
                 </button>
                 <button className="px-5 py-2.5 rounded-xl font-semibold text-sm bg-gray-700/60 text-gray-300 border border-gray-600/40 hover:text-white hover:border-gray-500 transition-all">
                   Secondary
                 </button>
-                <button className="px-5 py-2.5 rounded-xl font-semibold text-sm text-blue-400 hover:text-blue-300 transition-colors">
+                <button className="px-5 py-2.5 rounded-xl font-semibold text-sm text-brand-400 hover:text-brand-300 transition-colors">
                   Ghost
                 </button>
                 <button className="px-5 py-2.5 rounded-xl font-semibold text-sm bg-red-500/15 text-red-400 border border-red-500/25 hover:bg-red-500/25 transition-all">
@@ -242,13 +242,13 @@ export default function ComponentsPage() {
 
               {/* Sizes */}
               <div className="flex flex-wrap gap-3 items-center">
-                <button className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+                <button className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-gradient-to-r from-brand-600 to-brand-500 text-white">
                   Small
                 </button>
-                <button className="px-5 py-2.5 rounded-xl text-sm font-semibold bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+                <button className="px-5 py-2.5 rounded-xl text-sm font-semibold bg-gradient-to-r from-brand-600 to-brand-500 text-white">
                   Medium
                 </button>
-                <button className="px-8 py-4 rounded-2xl text-base font-semibold bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+                <button className="px-8 py-4 rounded-2xl text-base font-semibold bg-gradient-to-r from-brand-600 to-brand-500 text-white">
                   Large
                 </button>
               </div>
@@ -258,7 +258,7 @@ export default function ComponentsPage() {
                 <button className="size-10 rounded-xl bg-gray-700/60 text-gray-400 hover:text-white hover:bg-gray-600 transition-all flex items-center justify-center text-lg">
                   🔗
                 </button>
-                <button className="size-10 rounded-xl bg-blue-500/15 text-blue-400 hover:bg-blue-500/25 border border-blue-500/25 transition-all flex items-center justify-center text-lg">
+                <button className="size-10 rounded-xl bg-brand-500/15 text-blue-400 hover:bg-brand-500/25 border border-blue-500/25 transition-all flex items-center justify-center text-lg">
                   🔄
                 </button>
                 <button className="size-10 rounded-xl bg-emerald-500/15 text-emerald-400 hover:bg-emerald-500/25 border border-emerald-500/25 transition-all flex items-center justify-center text-lg">
@@ -269,7 +269,7 @@ export default function ComponentsPage() {
           }
           code={`// Primary Button
 <button className="px-5 py-2.5 rounded-xl font-semibold text-sm
-  bg-gradient-to-r from-blue-600 to-purple-600 text-white
+  bg-gradient-to-r from-brand-600 to-brand-500 text-white
   shadow-lg shadow-blue-500/20">
   Connect Wallet
 </button>
@@ -282,7 +282,7 @@ export default function ComponentsPage() {
 
 // Ghost Button
 <button className="px-5 py-2.5 rounded-xl font-semibold text-sm
-  text-blue-400 hover:text-blue-300">
+  text-brand-400 hover:text-brand-300">
   Learn More
 </button>
 
@@ -304,7 +304,7 @@ export default function ComponentsPage() {
             <div className="space-y-3">
               {isConnected ? (
                 <div className="flex items-center gap-4 p-4 rounded-xl bg-gray-900/60 border border-gray-700/40">
-                  <div className="size-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-sm font-bold text-white shadow-lg shadow-blue-500/20">
+                  <div className="size-12 rounded-full bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-sm font-bold text-white shadow-lg shadow-blue-500/20">
                     {account.address?.slice(2, 4).toUpperCase()}
                   </div>
                   <div className="flex-1 min-w-0">
@@ -317,7 +317,7 @@ export default function ComponentsPage() {
                 </div>
               ) : (
                 <div className="flex items-center gap-4 p-4 rounded-xl bg-gray-900/60 border border-gray-700/40">
-                  <div className="size-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-sm font-bold text-white">
+                  <div className="size-12 rounded-full bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-sm font-bold text-white">
                     00
                   </div>
                   <div className="flex-1">
@@ -336,7 +336,7 @@ export default function ComponentsPage() {
   bg-gray-900/60 border border-gray-700/40">
   {/* Avatar */}
   <div className="size-12 rounded-full bg-gradient-to-br
-    from-blue-500 to-purple-600 flex items-center justify-center
+    from-brand-500 to-brand-600 flex items-center justify-center
     text-sm font-bold text-white">
     {address.slice(2, 4).toUpperCase()}
   </div>
@@ -403,7 +403,7 @@ export default function ComponentsPage() {
                 <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-red-500/15 text-red-400 border border-red-500/25">
                   ✗ Down
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono bg-blue-500/15 text-blue-400 border border-blue-500/25">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono bg-brand-500/15 text-brand-400 border border-brand-500/25">
                   142ms
                 </span>
               </div>
@@ -428,7 +428,7 @@ export default function ComponentsPage() {
 // Latency Badge
 <span className="inline-flex items-center gap-1.5 px-3 py-1.5
   rounded-full text-xs font-mono
-  bg-blue-500/15 text-blue-400 border border-blue-500/25">
+  bg-brand-500/15 text-brand-400 border border-brand-500/25">
   142ms
 </span>`}
         />
@@ -533,7 +533,7 @@ function ToggleSwitch({ checked, onChange }) {
                 <input
                   type="text"
                   placeholder="0x..."
-                  className="w-full px-4 py-2.5 bg-gray-900/60 border border-gray-700/50 rounded-xl text-sm text-gray-200 placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/50 font-mono"
+                  className="w-full px-4 py-2.5 bg-gray-900/60 border border-gray-700/50 rounded-xl text-sm text-gray-200 placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-brand-500/40 focus:border-blue-500/50 font-mono"
                   readOnly
                   defaultValue="0x1a2b3c4d5e6f7890abcdef1234567890abcdef12"
                 />
@@ -545,7 +545,7 @@ function ToggleSwitch({ checked, onChange }) {
                 <input
                   type="text"
                   placeholder="Search by name, symbol, or address..."
-                  className="w-full px-4 py-2.5 pl-10 bg-gray-900/60 border border-gray-700/50 rounded-xl text-sm text-gray-200 placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500/40"
+                  className="w-full px-4 py-2.5 pl-10 bg-gray-900/60 border border-gray-700/50 rounded-xl text-sm text-gray-200 placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
                 />
                 <span className="absolute left-3 top-9 text-gray-500">🔍</span>
               </div>
@@ -553,7 +553,7 @@ function ToggleSwitch({ checked, onChange }) {
               {/* Select */}
               <div className="relative">
                 <label className="text-sm text-gray-400 mb-1 block">Network</label>
-                <select className="w-full px-4 py-2.5 bg-gray-900/60 border border-gray-700/50 rounded-xl text-sm text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500/40 appearance-none cursor-pointer">
+                <select className="w-full px-4 py-2.5 bg-gray-900/60 border border-gray-700/50 rounded-xl text-sm text-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-500/40 appearance-none cursor-pointer">
                   <option>Ethereum</option>
                   <option>Polygon</option>
                   <option>Arbitrum</option>
@@ -570,7 +570,7 @@ function ToggleSwitch({ checked, onChange }) {
   className="w-full px-4 py-2.5 bg-gray-900/60 border
     border-gray-700/50 rounded-xl text-sm text-gray-200
     placeholder:text-gray-600 focus:outline-none
-    focus:ring-2 focus:ring-blue-500/40 font-mono"
+    focus:ring-2 focus:ring-brand-500/40 font-mono"
 />
 
 // Search Input with icon
@@ -578,7 +578,7 @@ function ToggleSwitch({ checked, onChange }) {
   <input placeholder="Search..." className="w-full px-4 py-2.5
     pl-10 bg-gray-900/60 border border-gray-700/50 rounded-xl
     text-sm placeholder:text-gray-600 focus:outline-none
-    focus:ring-2 focus:ring-blue-500/40" />
+    focus:ring-2 focus:ring-brand-500/40" />
   <span className="absolute left-3 top-1/2 -translate-y-1/2
     text-gray-500">🔍</span>
 </div>
@@ -586,7 +586,7 @@ function ToggleSwitch({ checked, onChange }) {
 // Select Dropdown
 <select className="w-full px-4 py-2.5 bg-gray-900/60 border
   border-gray-700/50 rounded-xl text-sm appearance-none
-  focus:outline-none focus:ring-2 focus:ring-blue-500/40">
+  focus:outline-none focus:ring-2 focus:ring-brand-500/40">
   <option>Ethereum</option>
   <option>Polygon</option>
 </select>`}
@@ -624,7 +624,7 @@ function ToggleSwitch({ checked, onChange }) {
                   { value: '$0', label: 'Cost' },
                 ].map((s) => (
                   <div key={s.label} className="text-center p-3 rounded-xl bg-gray-900/50 border border-gray-800/50">
-                    <div className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                    <div className="text-xl font-bold bg-gradient-to-r from-brand-400 to-brand-300 bg-clip-text text-transparent">
                       {s.value}
                     </div>
                     <div className="text-[10px] text-gray-500 mt-1">{s.label}</div>
@@ -646,7 +646,7 @@ function ToggleSwitch({ checked, onChange }) {
 <div className="text-center p-3 rounded-xl bg-gray-900/50
   border border-gray-800/50">
   <div className="text-xl font-bold bg-gradient-to-r
-    from-blue-400 to-purple-400 bg-clip-text text-transparent">
+    from-brand-400 to-brand-300 bg-clip-text text-transparent">
     {value}
   </div>
   <div className="text-[10px] text-gray-500 mt-1">{label}</div>
@@ -662,12 +662,12 @@ function ToggleSwitch({ checked, onChange }) {
             <div className="space-y-4">
               {/* Spinners */}
               <div className="flex flex-wrap gap-6 items-center">
-                <svg className="animate-spin h-6 w-6 text-blue-400" viewBox="0 0 24 24" fill="none">
+                <svg className="animate-spin h-6 w-6 text-brand-400" viewBox="0 0 24 24" fill="none">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                 </svg>
                 <span className="inline-flex items-center gap-2 text-sm text-gray-400">
-                  <svg className="animate-spin h-4 w-4 text-purple-400" viewBox="0 0 24 24" fill="none">
+                  <svg className="animate-spin h-4 w-4 text-brand-400" viewBox="0 0 24 24" fill="none">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                   </svg>
@@ -735,7 +735,7 @@ function ToggleSwitch({ checked, onChange }) {
               {[
                 { type: 'Success', icon: '✓', bg: 'bg-emerald-500/15', border: 'border-emerald-500/25', text: 'text-emerald-400', desc: 'Transaction completed successfully' },
                 { type: 'Error', icon: '✗', bg: 'bg-red-500/15', border: 'border-red-500/25', text: 'text-red-400', desc: 'Connection failed: User rejected' },
-                { type: 'Info', icon: 'ℹ', bg: 'bg-blue-500/15', border: 'border-blue-500/25', text: 'text-blue-400', desc: 'Switching to Polygon network' },
+                { type: 'Info', icon: 'ℹ', bg: 'bg-brand-500/15', border: 'border-blue-500/25', text: 'text-blue-400', desc: 'Switching to Polygon network' },
                 { type: 'Warning', icon: '⚠', bg: 'bg-amber-500/15', border: 'border-amber-500/25', text: 'text-amber-400', desc: 'High gas prices detected' },
               ].map((t) => (
                 <div key={t.type} className={`p-3 rounded-xl ${t.bg} border ${t.border} flex items-start gap-3`}>
@@ -763,7 +763,7 @@ warning('High Gas', 'Gas prices are above average');`}
         {/* ── Footer ── */}
         <div className="text-center py-8 border-t border-gray-800/50">
           <p className="text-sm text-gray-600">
-            CinaCoin Component Gallery — {Object.keys(THEMES).length} themes × {8} components
+            Cinacoin Component Gallery — {Object.keys(THEMES).length} themes × {8} components
           </p>
           <p className="text-xs text-gray-700 mt-1">
             All components use Tailwind CSS with consistent design tokens

@@ -1,0 +1,30 @@
+{
+  "incidents": [
+    {
+      "id": "inc-2026-05-31-001",
+      "title": "docs.cinacoin.com & status.cinacoin.com DNS 配置",
+      "status": "resolved",
+      "severity": "minor",
+      "created_at": "2026-05-31T09:40:00Z",
+      "resolved_at": "2026-05-31T10:18:00Z",
+      "updates": [
+        {
+          "timestamp": "2026-05-31T09:40:00Z",
+          "status": "investigating",
+          "message": "发现 docs.cinacoin.com 和 status.cinacoin.com 缺少 DNS CNAME 记录"
+        },
+        {
+          "timestamp": "2026-05-31T09:45:00Z",
+          "status": "identified",
+          "message": "已添加 CNAME 记录并配置 Pages 自定义域名"
+        },
+        {
+          "timestamp": "2026-05-31T10:18:00Z",
+          "status": "resolved",
+          "message": "SSL 证书配置完成，两个站点均已上线"
+        }
+      ],
+      "affected_services": ["Documentation", "Status Page"]
+    }
+  ]
+}

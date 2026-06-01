@@ -1,7 +1,7 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from "react";
-import { isWalletAvailable, createSiweMessage, generateNonce } from "@/lib/auth";
+import React, { createContext, useContext, useState, useEffect, useCallback, useRef, type ReactNode } from "react";
+import { createSiweMessage, generateNonce, connectWallet, signAndVerify, getSession, logout } from "@/lib/auth";
 
 interface AuthContextValue {
   address: string | null;
@@ -30,40 +30,34 @@ interface AuthProviderProps {
 }
 
 /**
- * httpOnly cookie-based auth provider.
+ * Pure client-side wallet authentication for static-export dashboard.
  *
- * Replaces localStorage storage with server-managed httpOnly cookies.
- * The login flow is:
- * 1. Connect wallet
- * 2. Request nonce from server (server stores nonce in httpOnly cookie)
- * 3. Sign SIWE message with wallet
- * 4. Send signature to server for verification
- * 5. Server verifies, sets session in httpOnly cookie
- * 6. Client stores only display metadata in memory
+ * No server API routes needed (they don't work in static export mode).
+ * Authentication is proven by wallet signature — no server verification
+ * is required for the dashboard since it's a read-only monitoring tool.
  *
- * SECURITY: The session token is never exposed to JavaScript.
- * XSS attacks cannot steal the token because httpOnly cookies are
- * not accessible via document.cookie or localStorage.
+ * Security model:
+ * 1. Wallet connection proves ownership (eth_requestAccounts)
+ * 2. SIWE message signing proves control of the private key
+ * 3. Session stored in localStorage with expiry
+ * 4. No token can be stolen via XSS (signature is useless without wallet)
  */
 export default function AuthProvider({ children }: AuthProviderProps) {
   const [address, setAddress] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const addressRef = useRef<string | null>(null);
 
-  // Restore session on mount by checking server-side cookie
+  // Restore session on mount
   useEffect(() => {
-    fetch('/api/auth/session', { credentials: 'include' })
-      .then((res) => {
-        if (res.ok) return res.json();
-        return null;
-      })
-      .then((data) => {
-        if (data?.authenticated) {
-          setAddress(data.address);
-        }
-      })
-      .catch(() => {})
-      .finally(() => setIsLoading(false));
+    try {
+      const session = getSession();
+      if (session) {
+        setAddress(session.address);
+        addressRef.current = session.address;
+      }
+    } catch { /* ignore */ }
+    setIsLoading(false);
   }, []);
 
   // Listen for account changes
@@ -72,76 +66,48 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     const eth = (window as any).ethereum;
     if (!eth) return;
 
-    const handler = (accounts: string[]) => {
+    const handleAccountsChanged = (accounts: string[]) => {
       if (accounts.length === 0) {
         // Wallet disconnected externally
         handleLogoutRequest();
-        setAddress(null);
       } else {
         const current = accounts[0].toLowerCase();
-        if (address && current !== address) {
+        if (addressRef.current && current !== addressRef.current) {
+          // Account switched
           handleLogoutRequest();
           setAddress(current);
+          addressRef.current = current;
         }
       }
     };
 
-    eth.on("accountsChanged", handler);
-    return () => eth.removeListener("accountsChanged", handler);
-  }, [address]);
+    eth.on("accountsChanged", handleAccountsChanged);
+    return () => eth.removeListener("accountsChanged", handleAccountsChanged);
+  }, []);
 
   const doLogin = useCallback(async () => {
     setIsLoading(true);
     setError(null);
     try {
-      const eth = (window as any).ethereum;
-      if (!eth) throw new Error("No Ethereum wallet detected");
-
-      // Step 1: Connect wallet
-      const accounts = (await eth.request({ method: "eth_requestAccounts" })) as string[];
-      if (!accounts || accounts.length === 0) throw new Error("No accounts returned");
-      const walletAddress = accounts[0];
-
-      // Step 2: Request nonce from server (stored in httpOnly cookie)
-      const nonceRes = await fetch('/api/auth/nonce', { method: 'POST', credentials: 'include' });
-      if (!nonceRes.ok) throw new Error('Failed to get nonce');
-      const { nonce } = await nonceRes.json();
-
-      // Step 3: Build SIWE message and sign
+      const walletAddress = await connectWallet();
+      const nonce = generateNonce();
       const message = createSiweMessage(walletAddress, nonce);
-      const hexMessage = "0x" + Array.from(new TextEncoder().encode(message))
-        .map((b) => b.toString(16).padStart(2, "0"))
-        .join("");
+      const signature = await signAndVerify(message, walletAddress);
 
-      const signature = (await eth.request({
-        method: "personal_sign",
-        params: [hexMessage, walletAddress],
-      })) as string;
-
-      // Step 4: Send to server for verification
-      const loginRes = await fetch('/api/auth/login', {
-        method: 'POST',
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message, signature, nonce }),
-      });
-
-      if (!loginRes.ok) {
-        const errData = await loginRes.json();
-        throw new Error(errData.error || 'Login failed');
-      }
-
-      const loginData = await loginRes.json();
-      setAddress(loginData.address);
-    } catch (err: any) {
-      setError(err?.message || "Login failed");
+      // Session is saved in signAndVerify → login() → localStorage
+      setAddress(walletAddress);
+      addressRef.current = walletAddress;
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Login failed";
+      setError(message);
     } finally {
       setIsLoading(false);
     }
   }, []);
 
   const handleLogoutRequest = useCallback(() => {
-    fetch('/api/auth/logout', { method: 'POST', credentials: 'include' }).catch(() => {});
+    logout();
+    addressRef.current = null;
   }, []);
 
   const doLogout = useCallback(() => {

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 
 interface UseInViewOptions {
   threshold?: number
@@ -8,23 +8,26 @@ interface UseInViewOptions {
   triggerOnce?: boolean
 }
 
-export function useInView({
+export function useInView<T extends HTMLElement = HTMLDivElement>({
   threshold = 0.1,
   rootMargin = '0px 0px -50px 0px',
   triggerOnce = true,
-}: UseInViewOptions = {}): [React.RefObject<HTMLDivElement | null>, boolean] {
-  const ref = useRef<HTMLDivElement | null>(null)
+}: UseInViewOptions = {}): [(el: T | null) => void, boolean] {
+  const ref = useRef<T | null>(null)
   const [inView, setInView] = useState(false)
+  const observerRef = useRef<IntersectionObserver | null>(null)
 
-  useEffect(() => {
-    const el = ref.current
+  const callback = useCallback((el: T | null) => {
+    ref.current = el
     if (!el) return
 
-    const observer = new IntersectionObserver(
+    if (observerRef.current) observerRef.current.disconnect()
+
+    observerRef.current = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setInView(true)
-          if (triggerOnce) observer.disconnect()
+          if (triggerOnce) observerRef.current?.disconnect()
         } else if (!triggerOnce) {
           setInView(false)
         }
@@ -32,9 +35,8 @@ export function useInView({
       { threshold, rootMargin }
     )
 
-    observer.observe(el)
-    return () => observer.disconnect()
+    observerRef.current.observe(el)
   }, [threshold, rootMargin, triggerOnce])
 
-  return [ref, inView]
+  return [callback, inView]
 }

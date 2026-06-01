@@ -87,16 +87,16 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
   const handleClose = useCallback(() => {
     setModalState('closed')
     setSelectedWallet(null)
-    setError(null)
+    clearError()
     // Don't disconnect on close — user may still be connected
     onClose()
-  }, [onClose])
+  }, [onClose, clearError])
 
   const handleBack = useCallback(() => {
     setModalState('open')
     setSelectedWallet(null)
-    setError(null)
-  }, [])
+    clearError()
+  }, [clearError])
 
   const handleRetry = useCallback(async () => {
     if (!selectedWallet) return
@@ -148,8 +148,9 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
                 <button
                   onClick={modalState === 'success' ? handleClose : handleBack}
                   className="p-1 rounded-lg hover:bg-white/10 transition-colors"
+                  aria-label="Go back"
                 >
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                   </svg>
                 </button>
@@ -164,8 +165,9 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
             <button
               onClick={handleClose}
               className="p-2 rounded-lg hover:bg-white/10 transition-colors"
+              aria-label="Close dialog"
             >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
@@ -181,7 +183,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
                     onClick={() => setActiveTab('popular')}
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                       activeTab === 'popular'
-                        ? 'bg-violet-600/20 text-violet-400'
+                        ? 'bg-brand-600/20 text-brand-400'
                         : 'text-gray-400 hover:text-white'
                     }`}
                   >
@@ -191,7 +193,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
                     onClick={() => setActiveTab('all')}
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                       activeTab === 'all'
-                        ? 'bg-violet-600/20 text-violet-400'
+                        ? 'bg-brand-600/20 text-brand-400'
                         : 'text-gray-400 hover:text-white'
                     }`}
                   >
@@ -266,7 +268,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
                 <div className="relative mb-6">
                   <div className="w-20 h-20 rounded-full border-2 border-white/10" />
                   <div
-                    className="absolute inset-0 w-20 h-20 rounded-full border-2 border-transparent border-t-violet-500 animate-spin-slow"
+                    className="absolute inset-0 w-20 h-20 rounded-full border-2 border-transparent border-t-brand-500 animate-spin-slow"
                   />
                   <div
                     className="absolute inset-2 w-16 h-16 rounded-xl flex items-center justify-center text-2xl"
@@ -302,6 +304,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
                     <button
                       onClick={() => navigator.clipboard.writeText(address)}
                       className="p-1 rounded hover:bg-white/10 transition-colors"
+                      aria-label="Copy address to clipboard"
                       title="Copy address"
                     >
                       <svg className="w-4 h-4 text-gray-500 hover:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -426,7 +429,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
                 href="https://ethereum.org/en/wallets/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-violet-400 hover:text-violet-300 hover:underline"
+                className="text-brand-400 hover:text-brand-300 hover:underline"
               >
                 Learn more →
               </a>

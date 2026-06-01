@@ -49,7 +49,7 @@ export default function Sidebar({ onClose }: SidebarProps) {
         <div className="flex items-center gap-3">
           <span className="text-2xl">🔢</span>
           <div className="flex-1">
-            <h1 className="text-lg font-bold text-white">CinaCoin</h1>
+            <h1 className="text-lg font-bold text-white">cinacoin</h1>
             <p className="text-xs text-dashboard-muted">Backend Dashboard</p>
           </div>
           {/* Mobile close button */}
@@ -84,7 +84,7 @@ export default function Sidebar({ onClose }: SidebarProps) {
                     onClick={handleNav}
                     className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors min-h-[44px] ${
                       isActive
-                        ? "bg-dashboard-primary/20 text-dashboard-primaryLight"
+                        ? "bg-brand-500/20 text-brand-400"
                         : "text-dashboard-muted hover:text-white hover:bg-dashboard-border/50"
                     }`}
                   >

@@ -33,7 +33,7 @@ export default function KeysServerPage() {
 
       {/* Key metrics */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <MetricBox label="Active Sessions" value={formatNumber(metrics.activeSessions || 0)} color="text-dashboard-primaryLight" />
+        <MetricBox label="Active Sessions" value={formatNumber(metrics.activeSessions || 0)} color="text-brand-400" />
         <MetricBox label="Total Requests" value={formatNumber(metrics.totalRequests || 0)} />
         <MetricBox label="Avg Latency" value={formatLatency(metrics.avgLatency || 0)} />
         <MetricBox label="Error Rate" value={`${metrics.errorRate?.toFixed(2) || 0}%`} color={metrics.errorRate! > 0.5 ? "text-dashboard-danger" : "text-dashboard-success"} />

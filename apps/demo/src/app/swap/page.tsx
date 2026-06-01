@@ -22,9 +22,6 @@ import {
   type PriceQuote,
   type SwapHistoryEntry,
 } from '@/lib/swap';
-import Card from '@/components/Card';
-import Button from '@/components/Button';
-import ChainSelector from '@/components/ChainSelector';
 import TxProgress, { type TxStep } from '@/components/TxProgress';
 
 // ─── Token Selector Dropdown ──────────────────────────────────────────────
@@ -470,7 +467,7 @@ export default function SwapPage() {
 
         {/* ── Header ─────────────────────────────────────── */}
         <div className="text-center space-y-2">
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-brand-500 via-brand-400 to-brand-300 bg-clip-text text-transparent">
             Token Swap
           </h1>
           <p className="text-gray-400 text-sm">Swap tokens with real DEX aggregator rates</p>
@@ -482,6 +479,7 @@ export default function SwapPage() {
           <select
             value={chainId}
             onChange={(e) => handleChainChange(Number(e.target.value))}
+            aria-label="Select blockchain network"
             className="bg-gray-700/80 text-white text-sm rounded-xl px-3 py-2 border border-gray-600/50 outline-none cursor-pointer"
           >
             {SUPPORTED_CHAINS.map((c) => (
@@ -505,7 +503,7 @@ export default function SwapPage() {
           ) : (
             <button
               onClick={() => connect(primaryConnector?.id ?? 'io.metamask')}
-              className="px-4 py-2 rounded-xl text-sm font-semibold bg-blue-600 hover:bg-blue-500 text-white transition-all"
+              className="px-4 py-2 rounded-xl text-sm font-semibold bg-brand-600 hover:bg-brand-500 text-white transition-all"
             >
               Connect Wallet
             </button>
@@ -530,7 +528,7 @@ export default function SwapPage() {
                 </span>
                 <button
                   onClick={handleMax}
-                  className="text-xs font-bold text-blue-400 hover:text-blue-300 transition-colors px-2 py-0.5 rounded bg-blue-400/10 hover:bg-blue-400/20"
+                  className="text-xs font-bold text-brand-400 hover:text-brand-300 transition-colors px-2 py-0.5 rounded bg-brand-400/10 hover:bg-brand-400/20"
                 >
                   MAX
                 </button>
@@ -570,6 +568,7 @@ export default function SwapPage() {
               onClick={handleSwapTokens}
               className="w-10 h-10 bg-gray-800 border-4 border-gray-900/50 rounded-xl flex items-center justify-center hover:bg-gray-700 hover:scale-110 active:scale-95 transition-all shadow-lg"
               title="Swap tokens"
+              aria-label="Swap tokens"
             >
               <svg className="w-5 h-5 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
@@ -615,9 +614,10 @@ export default function SwapPage() {
                     onClick={() => setSlippage(s)}
                     className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all ${
                       slippage === s
-                        ? 'bg-blue-500/20 text-blue-400 border border-blue-500/40'
+                        ? 'bg-brand-500/20 text-brand-400 border border-brand-500/40'
                         : 'bg-gray-700/50 text-gray-400 hover:bg-gray-600/50 border border-transparent'
                     }`}
+                    aria-label={`Set slippage to ${s}%`}
                   >
                     {s}%
                   </button>
@@ -645,7 +645,7 @@ export default function SwapPage() {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                   </svg>
-                  <span className="text-xs text-blue-400">Fetching best rate from 1inch...</span>
+                  <span className="text-xs text-brand-400">Fetching best rate from 1inch...</span>
                 </div>
               )}
             </div>
@@ -665,11 +665,11 @@ export default function SwapPage() {
                 swapState === 'success'
                   ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/30'
                   : swapState === 'swapping' || swapState === 'approving'
-                  ? 'bg-blue-500/80 text-white cursor-wait'
+                  ? 'bg-brand-500/80 text-white cursor-wait'
                   : swapState === 'quoting'
                   ? 'bg-purple-500/60 text-white cursor-wait'
                   : canSwap
-                  ? 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white shadow-lg shadow-blue-600/25 hover:shadow-blue-500/40 active:scale-[0.98]'
+                  ? 'from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-400 text-white shadow-lg shadow-brand-600/25 hover:shadow-brand-500/40 active:scale-[0.98]'
                   : 'bg-gray-700/60 text-gray-500 cursor-not-allowed'
               }`}
             >
@@ -780,7 +780,7 @@ export default function SwapPage() {
         {/* ── Footer ───────────────────────────────────── */}
         <div className="text-center space-y-1">
           <div className="flex items-center justify-center gap-2 text-gray-500 text-xs">
-            <span className="inline-block w-2 h-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-500" />
+            <span className="inline-block w-2 h-2 rounded-full bg-gradient-to-r from-brand-500 to-brand-400" />
             <span>Powered by <span className="text-gray-300 font-semibold">1inch DEX Aggregator</span></span>
           </div>
           <p className="text-gray-600 text-xs">

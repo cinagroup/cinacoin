@@ -1,6 +1,6 @@
 'use client'
 
-import { ReactNode } from 'react'
+import { useEffect, useState, ReactNode } from 'react'
 import { useInView } from '@/hooks/useInView'
 
 interface FadeInProps {
@@ -20,7 +20,16 @@ export default function FadeIn({
   duration = 600,
   stagger = 0,
 }: FadeInProps) {
-  const [ref, inView] = useInView({ threshold: 0.1, rootMargin: '0px 0px -40px 0px' })
+  const [ref, inView] = useInView<HTMLDivElement>({ threshold: 0.1, rootMargin: '0px 0px -40px 0px' })
+  const [reducedMotion, setReducedMotion] = useState(false)
+
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
+    setReducedMotion(mq.matches)
+    const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches)
+    mq.addEventListener('change', handler)
+    return () => mq.removeEventListener('change', handler)
+  }, [])
 
   const translateMap = {
     up: 'translateY(30px)',
@@ -31,14 +40,22 @@ export default function FadeIn({
   }
 
   const totalDelay = delay + stagger
+  const effectiveDuration = reducedMotion ? 1 : duration
+  const effectiveTransform = reducedMotion
+    ? 'translate(0) scale(1)'
+    : inView
+      ? 'translate(0) scale(1)'
+      : `${translateMap[direction]} scale(0.98)`
 
   return (
     <div ref={ref} className={className}>
       <div
         style={{
-          opacity: inView ? 1 : 0,
-          transform: inView ? 'translate(0) scale(1)' : `${translateMap[direction]} scale(0.98)`,
-          transition: `opacity ${duration}ms cubic-bezier(0.16, 1, 0.3, 1) ${totalDelay}ms, transform ${duration}ms cubic-bezier(0.16, 1, 0.3, 1) ${totalDelay}ms`,
+          opacity: reducedMotion || inView ? 1 : 0,
+          transform: effectiveTransform,
+          transition: reducedMotion
+            ? 'none'
+            : `opacity ${effectiveDuration}ms cubic-bezier(0.16, 1, 0.3, 1) ${totalDelay}ms, transform ${effectiveDuration}ms cubic-bezier(0.16, 1, 0.3, 1) ${totalDelay}ms`,
           willChange: 'opacity, transform',
         }}
       >

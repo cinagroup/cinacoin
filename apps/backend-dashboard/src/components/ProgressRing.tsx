@@ -6,7 +6,7 @@ interface ProgressRingProps {
   label?: string;
 }
 
-export default function ProgressRing({ value, size = 80, strokeWidth = 6, color = "#6366f1", label }: ProgressRingProps) {
+export default function ProgressRing({ value, size = 80, strokeWidth = 6, color = "#3b82f6", label }: ProgressRingProps) {
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (value / 100) * circumference;

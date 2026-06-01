@@ -49,12 +49,12 @@ function checkRate(ip: string, limit: number): boolean {
 const DEFAULT_RATE_LIMIT = 100; // requests per minute
 
 const CHAIN_RPC_URLS: Record<string, string> = {
-  "1": "https://rpc.mevblocker.io",
-  "42161": "https://arbitrum.llamarpc.com",
-  "8453": "https://base.llamarpc.com",
-  "137": "https://polygon.llamarpc.com",
-  "10": "https://optimism.llamarpc.com",
-  "56": "https://bsc-dataseed.binance.org",
+  "1": "https://eth.llamarpc.com",
+  "42161": "https://arb1.arbitrum.io/rpc",
+  "8453": "https://mainnet.base.org",
+  "137": "https://polygon-rpc.com",
+  "10": "https://mainnet.optimism.io",
+  "56": "https://bsc-dataseed1.binance.org",
 };
 
 const READ_ONLY_METHODS = new Set([
@@ -125,8 +125,10 @@ const ALLOWED_ORIGINS = [
   'https://cinacoin.com',
   'https://dash.cinacoin.com',
   'https://demo.cinacoin.com',
-  'http://localhost:3000',
-  'http://localhost:5173',
+  'https://docs.cinacoin.com',
+  'https://status.cinacoin.com',
+  // 'http://localhost:3000', // dev only
+  // 'http://localhost:5173', // dev only
 ];
 
 const WRITE_METHODS = new Set([
@@ -311,6 +313,13 @@ export default {
     const url = new URL(request.url);
     const origin = request.headers.get("Origin");
 
+    // CORS preflight (before rate limiting)
+    if (request.method === "OPTIONS") {
+      return new Response(null, {
+        headers: { "Content-Length": "0", ...makeCorsHeaders(origin) },
+      });
+    }
+
     // Rate limiting (skip health check)
     if (url.pathname !== "/health") {
       const ip = getClientIp(request);
@@ -343,13 +352,6 @@ export default {
         );
       }
       return handleRpc(request, env, chainId);
-    }
-
-    // Preflight
-    if (request.method === "OPTIONS") {
-      return new Response(null, {
-        headers: { "Content-Length": "0", ...makeCorsHeaders(origin) },
-      });
     }
 
     return new Response(JSON.stringify({ error: "Not found" }), {

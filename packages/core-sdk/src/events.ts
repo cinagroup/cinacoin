@@ -1,5 +1,8 @@
 /**
  * Event system — typed EventEmitter for SDK events.
+ *
+ * Provides a lightweight, dependency-free event emitter supporting
+ * synchronous event dispatch, one-time listeners, and listener cleanup.
  */
 
 import type { EventHandler } from './types.js';
@@ -7,13 +10,26 @@ import type { EventHandler } from './types.js';
 /**
  * Lightweight event emitter.
  *
- * Supports on/off/once/emit with typed event names.
+ * Supports on/off/once/emit with typed event names. Each event can have
+ * multiple listeners. Errors in individual handlers are caught and logged
+ * without affecting other handlers or the emitting code.
+ *
+ * @example
+ * ```ts
+ * const emitter = new EventEmitter();
+ * emitter.on('connect', (account) => console.log('Connected:', account));
+ * emitter.emit('connect', '0xabc...');
+ * ```
  */
 export class EventEmitter {
   private listeners: Map<string, Set<EventHandler>> = new Map();
 
   /**
-   * Register an event handler.
+   * Register an event handler. The handler will be called each time
+   * the event is emitted.
+   *
+   * @param event - Event name to listen for.
+   * @param handler - Callback invoked when the event is emitted.
    */
   on(event: string, handler: EventHandler): void {
     if (!this.listeners.has(event)) {
@@ -23,10 +39,14 @@ export class EventEmitter {
   }
 
   /**
-   * Register a one-time event handler.
+   * Register a one-time event handler. The handler is automatically
+   * removed after it fires once.
+   *
+   * @param event - Event name to listen for.
+   * @param handler - Callback invoked on the next emission.
    */
   once(event: string, handler: EventHandler): void {
-    const onceHandler = (...args: unknown[]) => {
+    const onceHandler: EventHandler = (...args: unknown[]) => {
       this.off(event, onceHandler);
       handler(...args);
     };
@@ -34,7 +54,10 @@ export class EventEmitter {
   }
 
   /**
-   * Remove an event handler.
+   * Remove a previously registered event handler.
+   *
+   * @param event - Event name.
+   * @param handler - Handler to remove.
    */
   off(event: string, handler: EventHandler): void {
     const handlers = this.listeners.get(event);
@@ -47,7 +70,13 @@ export class EventEmitter {
   }
 
   /**
-   * Emit an event with arbitrary arguments.
+   * Emit an event, invoking all registered handlers.
+   *
+   * Errors in individual handlers are caught and logged to console.error
+   * but do not prevent other handlers from running.
+   *
+   * @param event - Event name to emit.
+   * @param args - Arguments passed to each handler.
    */
   emit(event: string, ...args: unknown[]): void {
     const handlers = this.listeners.get(event);
@@ -56,14 +85,16 @@ export class EventEmitter {
         try {
           handler(...args);
         } catch (err) {
-          console.error(`[Cinacoin] Event handler error for "${event}":`, err);
+          console.error(`[core-sdk:EventEmitter] Event handler error for "${event}":`, err);
         }
       }
     }
   }
 
   /**
-   * Remove all listeners for an event (or all events if none specified).
+   * Remove all listeners for a specific event, or all events if none specified.
+   *
+   * @param event - Event name to clear. Omit to clear all events.
    */
   removeAllListeners(event?: string): void {
     if (event) {
@@ -74,7 +105,10 @@ export class EventEmitter {
   }
 
   /**
-   * Get the number of listeners for an event.
+   * Get the number of registered listeners for an event.
+   *
+   * @param event - Event name.
+   * @returns Number of listeners, or 0 if none registered.
    */
   listenerCount(event: string): number {
     return this.listeners.get(event)?.size ?? 0;

@@ -14,7 +14,7 @@ export default function Card({
   className = '',
   title,
   subtitle,
-  glowColor = 'from-blue-500/10 to-purple-500/10',
+  glowColor = 'from-brand-500/10 to-brand-400/10',
   hoverLift = true,
 }: CardProps) {
   const [hovered, setHovered] = useState(false);

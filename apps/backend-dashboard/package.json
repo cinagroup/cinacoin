@@ -16,6 +16,7 @@
     "viem": "^2.51.3"
   },
   "devDependencies": {
+    "@cinacoin/config": "workspace:^",
     "@cloudflare/next-on-pages": "1",
     "@types/node": "^22.0.0",
     "@types/react": "^19.0.0",

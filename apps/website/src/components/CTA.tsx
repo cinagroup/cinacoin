@@ -4,7 +4,7 @@ import FadeIn from '@/components/FadeIn'
 
 export default function CTA() {
   return (
-    <section className="relative py-24">
+    <section className="relative py-20 sm:py-24" aria-labelledby="cta-heading">
       {/* Background glow */}
       <FadeIn delay={0} duration={1200} direction="none">
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -14,7 +14,7 @@ export default function CTA() {
 
       <div className="relative mx-auto max-w-3xl px-6 text-center">
         <FadeIn delay={100} duration={700}>
-          <h2 className="text-4xl font-bold tracking-tight md:text-5xl">
+          <h2 id="cta-heading" className="text-3xl sm:text-4xl font-bold tracking-tight md:text-5xl">
             Ready to build{' '}
             <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
               onchain
@@ -32,13 +32,15 @@ export default function CTA() {
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <a
               href="https://docs.cinacoin.com"
-              className="rounded-full bg-white px-8 py-3.5 text-sm font-semibold text-black transition-all hover:bg-zinc-200"
+              className="rounded-full bg-white px-8 py-3.5 text-sm font-semibold text-black transition-all hover:bg-zinc-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+              aria-label="Start building with Cinacoin documentation"
             >
               Start Building →
             </a>
             <a
               href="https://github.com/cinagroup/cinacoin"
-              className="rounded-full border border-white/10 bg-white/[0.04] px-8 py-3.5 text-sm font-semibold backdrop-blur-sm transition-all hover:bg-white/[0.08]"
+              className="rounded-full border border-white/10 bg-white/[0.04] px-8 py-3.5 text-sm font-semibold backdrop-blur-sm transition-all hover:bg-white/[0.08] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+              aria-label="View Cinacoin on GitHub"
             >
               View on GitHub
             </a>

@@ -14,8 +14,8 @@ npm install @cinacoin/siwe @cinacoin/core-sdk
 import { SIWE } from '@cinacoin/siwe'
 
 const siwe = new SIWE({
-  domain: 'yourdomain.com',
-  uri: 'https://yourdomain.com',
+  domain: 'cinacoin.com',
+  uri: 'https://cinacoin.com',
   statement: 'Sign in to Cinacoin',
 })
 ```

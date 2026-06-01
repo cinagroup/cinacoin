@@ -17,6 +17,9 @@ interface UseWalletReturn {
 /**
  * A simple React hook for connecting to an Ethereum wallet via window.ethereum.
  * Handles connection, disconnection, and live account/chain change events.
+ *
+ * NOTE: This hook is a reference implementation. The app uses
+ * WalletContext.tsx as its primary wallet provider.
  */
 export function useWallet(): UseWalletReturn {
   const [isConnected, setIsConnected] = useState(false)

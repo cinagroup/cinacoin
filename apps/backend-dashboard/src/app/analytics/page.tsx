@@ -32,14 +32,14 @@ const WALLET_DISTRIBUTION = [
 ];
 
 const AUTH_METHODS = [
-  { name: "Wallet Signature (SIWE)", pct: 55, color: "#6366f1" },
+  { name: "Wallet Signature (SIWE)", pct: 55, color: "#3b82f6" },
   { name: "Email & Social Login", pct: 25, color: "#06b6d4" },
   { name: "Smart Accounts", pct: 12, color: "#8b5cf6" },
   { name: "SIWX (Cross-chain)", pct: 8, color: "#22c55e" },
 ];
 
 const TOP_DAPPS = [
-  { name: "CinaCoin Demo", users: 28500, growth: 12.4 },
+  { name: "Cinacoin Demo", users: 28500, growth: 12.4 },
   { name: "Hainai DeFi Portal", users: 15200, growth: 8.7 },
   { name: "CinaSwap", users: 12800, growth: 15.2 },
   { name: "Telegram Mini App", users: 9400, growth: 22.1 },
@@ -67,14 +67,16 @@ export default function AnalyticsPage() {
             AppKit usage metrics and connection analytics
           </p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2" role="group" aria-label="Time range selector">
           {(["7d", "30d", "90d", "1y"] as TimeRange[]).map((range) => (
             <button
               key={range}
               onClick={() => setTimeRange(range)}
-              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+              aria-pressed={timeRange === range}
+              aria-label={`Show ${range} data`}
+              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface ${
                 timeRange === range
-                  ? "bg-dashboard-primary text-white"
+                  ? "bg-brand-500 text-white"
                   : "bg-dashboard-surface text-dashboard-muted hover:text-white border border-dashboard-border"
               }`}
             >
@@ -86,34 +88,34 @@ export default function AnalyticsPage() {
 
       {/* Key metrics */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <MetricBox label="Monthly Active Users" value={formatCompact(currentMAU)} icon="👥" trend="up" color="text-dashboard-primaryLight" />
-        <MetricBox label="Total Connections" value={formatCompact(totalConnections)} icon="🔗" trend="up" />
+        <MetricBox label="Monthly Active Users" value={formatCompact(currentMAU)} icon="👥" trend="up" color="text-brand-400" />
+        <MetricBox label="Total Connections" value={formatCompact(totalConnections)} icon="🔗" trend="up" color="text-brand-400" />
         <MetricBox label="Auth Sessions" value={formatCompact(totalAuth)} icon="🔐" trend="up" color="text-dashboard-success" />
         <MetricBox label="Active Sessions" value={formatCompact(activeSessions)} icon="⚡" trend="up" color="text-dashboard-warning" />
       </div>
 
       {/* MAU Trend */}
       <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-5">
-        <h3 className="text-lg font-semibold text-white mb-4">Monthly Active Users</h3>
-        <BarChart data={MAU_DATA.map((v) => Math.round(v * multiplier))} labels={MONTHS} color="#6366f1" height={180} />
+        <h3 className="text-lg font-semibold text-white mb-4" id="mau-chart-heading">Monthly Active Users</h3>
+        <BarChart data={MAU_DATA.map((v) => Math.round(v * multiplier))} labels={MONTHS} color="#3b82f6" height={180} ariaLabelledBy="mau-chart-heading" />
       </div>
 
       {/* Charts row */}
       <div className="grid md:grid-cols-2 gap-4">
         <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-5">
-          <h3 className="text-lg font-semibold text-white mb-4">Connections Over Time</h3>
-          <BarChart data={CONNECTIONS_DATA.map((v) => Math.round(v * multiplier))} labels={MONTHS} color="#06b6d4" height={160} />
+          <h3 className="text-lg font-semibold text-white mb-4" id="connections-chart-heading">Connections Over Time</h3>
+          <BarChart data={CONNECTIONS_DATA.map((v) => Math.round(v * multiplier))} labels={MONTHS} color="#06b6d4" height={160} ariaLabelledBy="connections-chart-heading" />
         </div>
         <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-5">
-          <h3 className="text-lg font-semibold text-white mb-4">Authentication Events</h3>
-          <BarChart data={AUTH_DATA.map((v) => Math.round(v * multiplier))} labels={MONTHS} color="#8b5cf6" height={160} />
+          <h3 className="text-lg font-semibold text-white mb-4" id="auth-chart-heading">Authentication Events</h3>
+          <BarChart data={AUTH_DATA.map((v) => Math.round(v * multiplier))} labels={MONTHS} color="#8b5cf6" height={160} ariaLabelledBy="auth-chart-heading" />
         </div>
       </div>
 
       {/* Hourly activity */}
       <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-5">
-        <h3 className="text-lg font-semibold text-white mb-4">Hourly Activity Distribution (24h)</h3>
-        <BarChart data={HOURLY_DATA} labels={HOURLY_LABELS} color="#22c55e" height={140} />
+        <h3 className="text-lg font-semibold text-white mb-4" id="hourly-chart-heading">Hourly Activity Distribution (24h)</h3>
+        <BarChart data={HOURLY_DATA} labels={HOURLY_LABELS} color="#22c55e" height={140} ariaLabelledBy="hourly-chart-heading" />
       </div>
 
       {/* Chain & Wallet distribution */}
@@ -123,9 +125,9 @@ export default function AnalyticsPage() {
           <div className="space-y-3">
             {CHAIN_DISTRIBUTION.map((chain) => (
               <div key={chain.name} className="flex items-center gap-3">
-                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: chain.color }} />
+                <div className="w-3 h-3 rounded-full flex-shrink-0" style={{ backgroundColor: chain.color }} aria-hidden="true" />
                 <span className="text-sm text-dashboard-muted w-24">{chain.name}</span>
-                <div className="flex-1 bg-dashboard-border rounded-full h-2.5 overflow-hidden">
+                <div className="flex-1 bg-dashboard-border rounded-full h-2.5 overflow-hidden" role="progressbar" aria-valuenow={chain.pct} aria-valuemin={0} aria-valuemax={100} aria-label={`${chain.name}: ${chain.pct}%`}>
                   <div className="h-full rounded-full transition-all" style={{ width: `${chain.pct}%`, backgroundColor: chain.color }} />
                 </div>
                 <span className="text-sm text-white w-12 text-right">{chain.pct}%</span>
@@ -138,10 +140,10 @@ export default function AnalyticsPage() {
           <div className="space-y-3">
             {WALLET_DISTRIBUTION.map((wallet) => (
               <div key={wallet.name} className="flex items-center gap-3">
-                <span className="text-lg">{wallet.icon}</span>
+                <span className="text-lg" aria-hidden="true">{wallet.icon}</span>
                 <span className="text-sm text-dashboard-muted w-32">{wallet.name}</span>
-                <div className="flex-1 bg-dashboard-border rounded-full h-2.5 overflow-hidden">
-                  <div className="h-full rounded-full bg-dashboard-primary transition-all" style={{ width: `${wallet.pct}%` }} />
+                <div className="flex-1 bg-dashboard-border rounded-full h-2.5 overflow-hidden" role="progressbar" aria-valuenow={wallet.pct} aria-valuemin={0} aria-valuemax={100} aria-label={`${wallet.name}: ${wallet.pct}%`}>
+                  <div className="h-full rounded-full bg-brand-500 transition-all" style={{ width: `${wallet.pct}%` }} />
                 </div>
                 <span className="text-sm text-white w-12 text-right">{wallet.pct}%</span>
               </div>
@@ -157,14 +159,14 @@ export default function AnalyticsPage() {
           <div className="space-y-3">
             {AUTH_METHODS.map((method) => (
               <div key={method.name} className="flex items-center gap-3">
-                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: method.color }} />
+                <div className="w-3 h-3 rounded-full flex-shrink-0" style={{ backgroundColor: method.color }} aria-hidden="true" />
                 <span className="text-sm text-dashboard-muted flex-1">{method.name}</span>
                 <span className="text-sm font-medium text-white">{method.pct}%</span>
               </div>
             ))}
           </div>
           <div className="flex items-center justify-center">
-            <div className="w-40 h-40 rounded-full border-8 border-dashboard-border relative">
+            <div className="w-40 h-40 rounded-full border-8 border-dashboard-border relative" role="img" aria-label="Authentication method distribution pie chart">
               {AUTH_METHODS.reduce((acc, method, i) => {
                 const startDeg = AUTH_METHODS.slice(0, i).reduce((sum, m) => sum + (m.pct * 360) / 100, 0);
                 const arcDeg = (method.pct * 360) / 100;
@@ -198,10 +200,10 @@ export default function AnalyticsPage() {
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-dashboard-border">
-                <th className="text-left px-4 py-3 text-dashboard-muted font-medium">#</th>
-                <th className="text-left px-4 py-3 text-dashboard-muted font-medium">Project</th>
-                <th className="text-right px-4 py-3 text-dashboard-muted font-medium">MAU</th>
-                <th className="text-right px-4 py-3 text-dashboard-muted font-medium">Growth</th>
+                <th scope="col" className="text-left px-4 py-3 text-dashboard-muted font-medium">#</th>
+                <th scope="col" className="text-left px-4 py-3 text-dashboard-muted font-medium">Project</th>
+                <th scope="col" className="text-right px-4 py-3 text-dashboard-muted font-medium">MAU</th>
+                <th scope="col" className="text-right px-4 py-3 text-dashboard-muted font-medium">Growth</th>
               </tr>
             </thead>
             <tbody>
@@ -211,7 +213,7 @@ export default function AnalyticsPage() {
                   <td className="px-4 py-3 text-white font-medium">{app.name}</td>
                   <td className="px-4 py-3 text-right text-white">{formatCompact(app.users)}</td>
                   <td className={`px-4 py-3 text-right font-medium ${app.growth > 0 ? "text-dashboard-success" : "text-dashboard-danger"}`}>
-                    +{app.growth}%
+                    {app.growth > 0 ? "+" : ""}{app.growth}%
                   </td>
                 </tr>
               ))}

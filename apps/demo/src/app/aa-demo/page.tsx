@@ -45,7 +45,7 @@ const MOCK_GAS_SPONSORS = [
 
 /* ── Toggle Switch ── */
 
-function ToggleSwitch({ checked, onChange }: { checked: boolean; onChange: (v: boolean) => void }) {
+function ToggleSwitch({ checked, onChange, label }: { checked: boolean; onChange: (v: boolean) => void; label?: string }) {
   return (
     <button
       onClick={() => onChange(!checked)}
@@ -54,6 +54,7 @@ function ToggleSwitch({ checked, onChange }: { checked: boolean; onChange: (v: b
       }`}
       role="switch"
       aria-checked={checked}
+      aria-label={label}
     >
       <span
         className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-md transition-transform duration-200 ${
@@ -371,7 +372,7 @@ export default function AADemoPage() {
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
-                    <ToggleSwitch checked={key.active} onChange={() => handleToggleKey(key.id)} />
+                    <ToggleSwitch checked={key.active} onChange={() => handleToggleKey(key.id)} label={`Toggle ${key.name}`} />
                     <button
                       onClick={() => handleRemoveKey(key.id)}
                       className="text-xs text-red-400 hover:text-red-300 transition-colors px-2 py-1 rounded hover:bg-red-500/10"
@@ -410,7 +411,7 @@ export default function AADemoPage() {
               <h2 className="text-lg font-bold text-white">⛽ Gas Sponsorship</h2>
               <p className="text-xs text-gray-500 mt-0.5">Paymaster coverage — users don't pay gas</p>
             </div>
-            <ToggleSwitch checked={gasSponsored} onChange={setGasSponsored} />
+            <ToggleSwitch checked={gasSponsored} onChange={setGasSponsored} label="Toggle gas sponsorship" />
           </div>
 
           <div className="p-5 space-y-4">
@@ -444,7 +445,7 @@ export default function AADemoPage() {
             {/* Stats */}
             <div className="grid grid-cols-3 gap-3">
               <div className="p-3 rounded-xl bg-gray-900/50 border border-gray-800/50 text-center">
-                <p className="text-2xl font-bold bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent">
+                <p className="text-2xl font-bold bg-gradient-to-r from-brand-400 to-brand-500 bg-clip-text text-transparent">
                   {txCount}
                 </p>
                 <p className="text-[10px] text-gray-500 mt-1">Gasless TXs</p>

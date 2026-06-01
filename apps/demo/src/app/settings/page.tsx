@@ -36,7 +36,7 @@ const SETTINGS_SECTIONS = [
 
 type SectionId = (typeof SETTINGS_SECTIONS)[number]['id'];
 
-function ToggleSwitch({ checked, onChange }: { checked: boolean; onChange: (v: boolean) => void }) {
+function ToggleSwitch({ checked, onChange, label }: { checked: boolean; onChange: (v: boolean) => void; label?: string }) {
   return (
     <button
       onClick={() => onChange(!checked)}
@@ -45,6 +45,7 @@ function ToggleSwitch({ checked, onChange }: { checked: boolean; onChange: (v: b
       }`}
       role="switch"
       aria-checked={checked}
+      aria-label={label}
     >
       <span
         className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-md transition-transform duration-200 ${
@@ -260,7 +261,7 @@ export default function SettingsPage() {
                     <p className="text-sm font-medium text-gray-200">Compact Mode</p>
                     <p className="text-xs text-gray-500">Reduce spacing and padding</p>
                   </div>
-                  <ToggleSwitch checked={compactMode} onChange={(v) => { setCompactMode(v); info('Compact Mode', v ? 'Enabled' : 'Disabled'); }} />
+                  <ToggleSwitch checked={compactMode} onChange={(v) => { setCompactMode(v); info('Compact Mode', v ? 'Enabled' : 'Disabled'); }} label="Compact Mode" />
                 </div>
               </div>
             </div>
@@ -315,7 +316,7 @@ export default function SettingsPage() {
                     <p className="text-sm font-medium text-gray-200">Auto-Detect Networks</p>
                     <p className="text-xs text-gray-500">Automatically detect supported chains</p>
                   </div>
-                  <ToggleSwitch checked={autoDetectNetworks} onChange={(v) => { setAutoDetectNetworks(v); info('Auto-Detect', v ? 'Enabled' : 'Disabled'); }} />
+                  <ToggleSwitch checked={autoDetectNetworks} onChange={(v) => { setAutoDetectNetworks(v); info('Auto-Detect', v ? 'Enabled' : 'Disabled'); }} label="Auto-Detect Networks" />
                 </div>
 
                 <div>
@@ -384,7 +385,7 @@ export default function SettingsPage() {
                     <p className="text-sm font-medium text-gray-200">Analytics Consent</p>
                     <p className="text-xs text-gray-500">Allow anonymous usage analytics</p>
                   </div>
-                  <ToggleSwitch checked={analyticsConsent} onChange={(v) => { setAnalyticsConsent(v); info('Analytics', v ? 'Enabled' : 'Disabled'); }} />
+                  <ToggleSwitch checked={analyticsConsent} onChange={(v) => { setAnalyticsConsent(v); info('Analytics', v ? 'Enabled' : 'Disabled'); }} label="Analytics Consent" />
                 </div>
 
                 <div className="flex items-center justify-between">
@@ -392,7 +393,7 @@ export default function SettingsPage() {
                     <p className="text-sm font-medium text-gray-200">Crash Reporting</p>
                     <p className="text-xs text-gray-500">Send crash reports to help improve</p>
                   </div>
-                  <ToggleSwitch checked={crashReporting} onChange={(v) => { setCrashReporting(v); info('Crash Reporting', v ? 'Enabled' : 'Disabled'); }} />
+                  <ToggleSwitch checked={crashReporting} onChange={(v) => { setCrashReporting(v); info('Crash Reporting', v ? 'Enabled' : 'Disabled'); }} label="Crash Reporting" />
                 </div>
 
                 <div className="flex items-center justify-between">
@@ -490,7 +491,7 @@ export default function SettingsPage() {
                     <p className="text-sm font-medium text-gray-200">Debug Mode</p>
                     <p className="text-xs text-gray-500">Enable verbose logging in browser console</p>
                   </div>
-                  <ToggleSwitch checked={debugMode} onChange={(v) => { setDebugMode(v); info('Debug Mode', v ? 'Enabled' : 'Disabled'); }} />
+                  <ToggleSwitch checked={debugMode} onChange={(v) => { setDebugMode(v); info('Debug Mode', v ? 'Enabled' : 'Disabled'); }} label="Debug Mode" />
                 </div>
 
                 <div className="flex items-center justify-between">
@@ -498,7 +499,7 @@ export default function SettingsPage() {
                     <p className="text-sm font-medium text-gray-200">Auto-Connect</p>
                     <p className="text-xs text-gray-500">Automatically reconnect on page load</p>
                   </div>
-                  <ToggleSwitch checked={autoConnect} onChange={(v) => { setAutoConnect(v); info('Auto-Connect', v ? 'Enabled' : 'Disabled'); }} />
+                  <ToggleSwitch checked={autoConnect} onChange={(v) => { setAutoConnect(v); info('Auto-Connect', v ? 'Enabled' : 'Disabled'); }} label="Auto-Connect" />
                 </div>
 
                 {debugMode && (
@@ -574,7 +575,7 @@ export default function SettingsPage() {
                     <p className="text-sm font-medium text-gray-200">Auto-Connect</p>
                     <p className="text-xs text-gray-500">Reconnect last wallet on page load</p>
                   </div>
-                  <ToggleSwitch checked={autoConnect} onChange={(v) => { setAutoConnect(v); info('Auto-Connect', v ? 'Enabled' : 'Disabled'); }} />
+                  <ToggleSwitch checked={autoConnect} onChange={(v) => { setAutoConnect(v); info('Auto-Connect', v ? 'Enabled' : 'Disabled'); }} label="Auto-Connect" />
                 </div>
 
                 <div>

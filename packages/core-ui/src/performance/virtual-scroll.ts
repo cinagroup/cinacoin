@@ -66,11 +66,9 @@ export function calculateVisibleRange(
  * @returns Scroll position to set.
  */
 export function scrollToItem(itemIndex: number, config: VirtualScrollConfig): number {
-  const { itemHeight, viewportHeight } = config;
+  const { itemHeight } = config;
 
   const itemTop = itemIndex * itemHeight;
-  const itemBottom = itemTop + itemHeight;
-  const viewportBottom = config.viewportHeight;
 
   // If item is above viewport, scroll to it
   if (itemTop < 0) {

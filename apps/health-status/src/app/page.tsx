@@ -10,9 +10,12 @@ import {
   formatTime,
   formatDuration,
 } from "@/lib/health-check";
+import { fetchIncidents, severityConfig, statusLabels } from "@/lib/incidents";
 import { ServiceCheck, ServiceConfig, ServiceStatus, HistoryEntry } from "@/types";
+import type { Incident } from "@/lib/incidents";
 
-// Icons as simple SVG components
+/* ---- Icons ---- */
+
 function CheckIcon({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 20 20" fill="currentColor" width="20" height="20">
@@ -45,6 +48,24 @@ function RefreshIcon({ spinning }: { spinning: boolean }) {
   );
 }
 
+function ClockIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-13a.75.75 0 00-1.5 0v5c0 .414.336.75.75.75h4a.75.75 0 000-1.5h-3.25V5z" clipRule="evenodd" />
+    </svg>
+  );
+}
+
+function ChevronIcon({ open }: { open: boolean }) {
+  return (
+    <svg className={`w-4 h-4 transition-transform ${open ? "rotate-180" : ""}`} viewBox="0 0 20 20" fill="currentColor">
+      <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
+    </svg>
+  );
+}
+
+/* ---- Components ---- */
+
 function StatusBadge({ status }: { status: ServiceStatus }) {
   const config = {
     healthy: { bg: "bg-emerald-500/10", text: "text-emerald-400", border: "border-emerald-500/20", label: "Operational" },
@@ -67,12 +88,13 @@ function UptimeBadge({ uptime }: { uptime: number }) {
   const color = uptime >= 99.9 ? "text-emerald-400" : uptime >= 99 ? "text-yellow-400" : "text-red-400";
   return (
     <span className={`text-xs font-mono ${color}`}>
-      {uptime.toFixed(1)}%
+      {uptime.toFixed(2)}%
     </span>
   );
 }
 
 function ServiceCard({ service }: { service: ServiceCheck }) {
+  const [expanded, setExpanded] = useState(false);
   const statusColor = {
     healthy: "border-l-emerald-500",
     degraded: "border-l-yellow-500",
@@ -80,86 +102,149 @@ function ServiceCard({ service }: { service: ServiceCheck }) {
     unknown: "border-l-gray-500",
   }[service.status];
 
+  // Build 72-slot history bar (6h at 5-min intervals)
+  const history = getHistory();
+  const svcHistory = history.slice(-72).map((entry) => {
+    const found = entry.services.find((s) => s.name === service.name);
+    return found?.status || "unknown";
+  });
+
+  const dotColor = (s: string) => {
+    if (s === "healthy") return "bg-emerald-500";
+    if (s === "degraded") return "bg-yellow-500";
+    if (s === "down") return "bg-red-500";
+    return "bg-gray-600";
+  };
+
   return (
-    <div className={`animate-fade-in bg-[var(--bg-card)] rounded-lg border border-[var(--border)] border-l-4 ${statusColor} p-5 hover:bg-[var(--bg-card-hover)] transition-colors`}>
-      <div className="flex items-start justify-between gap-4">
-        <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-2 mb-1">
-            <h3 className="text-base font-semibold text-[var(--text-primary)] truncate">{service.name}</h3>
+    <div className={`animate-fade-in bg-[var(--bg-card)] rounded-lg border border-[var(--border)] border-l-4 ${statusColor} overflow-hidden hover:bg-[var(--bg-card-hover)] transition-colors`}>
+      <button
+        onClick={() => setExpanded(!expanded)}
+        className="w-full p-5 text-left"
+      >
+        <div className="flex items-start justify-between gap-4">
+          <div className="min-w-0 flex-1">
+            <h3 className="text-base font-semibold text-[var(--text-primary)]">{service.name}</h3>
+            <p className="text-sm text-[var(--text-secondary)] mt-1">{service.description}</p>
           </div>
-          <p className="text-sm text-[var(--text-secondary)] mb-3">{service.description}</p>
+          <div className="flex items-center gap-3 shrink-0">
+            <StatusBadge status={service.status} />
+            <ChevronIcon open={expanded} />
+          </div>
         </div>
-        <StatusBadge status={service.status} />
-      </div>
-      <div className="flex items-center gap-6 mt-4 text-sm">
-        <div>
-          <span className="text-[var(--text-secondary)]">Response Time</span>
-          <p className={`font-mono text-sm mt-0.5 ${service.responseTime !== null && service.responseTime < 1000 ? "text-emerald-400" : service.responseTime !== null && service.responseTime < 3000 ? "text-yellow-400" : "text-red-400"}`}>
-            {formatDuration(service.responseTime)}
-          </p>
+        <div className="flex items-center gap-6 mt-4 text-sm">
+          <div>
+            <span className="text-[var(--text-secondary)]">Response Time</span>
+            <p className={`font-mono text-sm mt-0.5 ${service.responseTime !== null && service.responseTime < 1000 ? "text-emerald-400" : service.responseTime !== null && service.responseTime < 3000 ? "text-yellow-400" : "text-red-400"}`}>
+              {formatDuration(service.responseTime)}
+            </p>
+          </div>
+          <div>
+            <span className="text-[var(--text-secondary)]">Uptime (7d)</span>
+            <p className="mt-0.5"><UptimeBadge uptime={service.uptime} /></p>
+          </div>
+          <div>
+            <span className="text-[var(--text-secondary)]">Last Check</span>
+            <p className="font-mono text-sm text-[var(--text-secondary)] mt-0.5">{formatTime(service.lastChecked)}</p>
+          </div>
         </div>
-        <div>
-          <span className="text-[var(--text-secondary)]">Uptime</span>
-          <p className="mt-0.5"><UptimeBadge uptime={service.uptime} /></p>
-        </div>
-        <div>
-          <span className="text-[var(--text-secondary)]">Last Check</span>
-          <p className="font-mono text-sm text-[var(--text-secondary)] mt-0.5">{formatTime(service.lastChecked)}</p>
-        </div>
-      </div>
-      {service.error && (
-        <div className="mt-3 px-3 py-2 bg-red-500/10 border border-red-500/20 rounded text-xs text-red-400 font-mono">
-          Error: {service.error}
+      </button>
+
+      {/* Expanded details */}
+      {expanded && (
+        <div className="px-5 pb-5 border-t border-[var(--border)] pt-4 animate-fade-in">
+          <div className="flex items-center gap-2 mb-3">
+            <ClockIcon className="text-[var(--text-secondary)]" />
+            <span className="text-xs text-[var(--text-secondary)]">Last ~6 Hours</span>
+          </div>
+          <div className="flex gap-px">
+            {svcHistory.map((status, idx) => (
+              <div
+                key={idx}
+                className={`flex-1 h-8 rounded-sm ${dotColor(status)}`}
+                title={`${status}`}
+              />
+            ))}
+          </div>
+          <div className="flex items-center gap-4 mt-3 text-xs text-[var(--text-secondary)]">
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-sm bg-emerald-500" /> Operational</span>
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-sm bg-yellow-500" /> Degraded</span>
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-sm bg-red-500" /> Down</span>
+          </div>
+          {service.error && (
+            <div className="mt-3 px-3 py-2 bg-red-500/10 border border-red-500/20 rounded text-xs text-red-400 font-mono">
+              Error: {service.error}
+            </div>
+          )}
         </div>
       )}
     </div>
   );
 }
 
-function HistoryChart({ history, services }: { history: HistoryEntry[]; services: string[] }) {
-  if (history.length < 2) return null;
-
-  const recent = history.slice(-48); // Show last 48 entries (4h at 5-min intervals)
+function IncidentCard({ incident }: { incident: Incident }) {
+  const sev = severityConfig[incident.severity];
+  const statusLabel = statusLabels[incident.status];
+  const isActive = incident.status !== "resolved";
 
   return (
-    <div className="bg-[var(--bg-card)] rounded-lg border border-[var(--border)] p-5 animate-fade-in">
-      <h3 className="text-base font-semibold text-[var(--text-primary)] mb-4">Health History (Last ~4 Hours)</h3>
-      <div className="flex gap-4 overflow-x-auto pb-2">
-        {services.map((serviceName) => {
-          const serviceData = recent.map((entry) => {
-            const found = entry.services.find((s) => s.name === serviceName);
-            return found?.status || "unknown";
-          });
-
-          const statusDot = (status: string) => {
-            if (status === "healthy") return "bg-emerald-500";
-            if (status === "degraded") return "bg-yellow-500";
-            if (status === "down") return "bg-red-500";
-            return "bg-gray-600";
-          };
-
-          return (
-            <div key={serviceName} className="flex flex-col items-center gap-2">
-              <span className="text-xs text-[var(--text-secondary)] truncate max-w-[80px]">{serviceName}</span>
-              <div className="flex gap-0.5">
-                {serviceData.map((status, idx) => (
-                  <div
-                    key={idx}
-                    className={`w-2 h-4 rounded-sm ${statusDot(status)}`}
-                    title={`${serviceName}: ${status}`}
-                  />
-                ))}
-              </div>
-            </div>
-          );
-        })}
+    <div className={`animate-fade-in bg-[var(--bg-card)] rounded-lg border ${isActive ? "border-yellow-500/30" : "border-[var(--border)]"} p-5`}>
+      <div className="flex items-start justify-between gap-4 mb-3">
+        <div className="flex-1">
+          <div className="flex items-center gap-2 flex-wrap">
+            <h4 className="text-sm font-semibold text-[var(--text-primary)]">{incident.title}</h4>
+            <span className={`px-2 py-0.5 rounded text-xs font-medium ${sev.bg} ${sev.text} border ${sev.border}`}>
+              {sev.label}
+            </span>
+            <span className={`px-2 py-0.5 rounded text-xs font-medium ${isActive ? "bg-yellow-500/10 text-yellow-400 border border-yellow-500/20" : "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"}`}>
+              {statusLabel}
+            </span>
+          </div>
+          <p className="text-xs text-[var(--text-secondary)] mt-1">
+            Affected: {incident.affected_services.join(", ")}
+          </p>
+        </div>
+        <span className="text-xs text-[var(--text-secondary)] whitespace-nowrap">
+          {new Date(incident.created_at).toLocaleDateString()}
+        </span>
       </div>
-      <div className="flex items-center gap-4 mt-3 text-xs text-[var(--text-secondary)]">
-        <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-sm bg-emerald-500" /> Operational</span>
-        <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-sm bg-yellow-500" /> Degraded</span>
-        <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-sm bg-red-500" /> Down</span>
+
+      {/* Timeline */}
+      <div className="space-y-3 mt-4">
+        {incident.updates.map((update, idx) => (
+          <div key={idx} className="flex gap-3">
+            <div className="flex flex-col items-center">
+              <div className={`w-2 h-2 rounded-full ${idx === incident.updates.length - 1 && incident.status === "resolved" ? "bg-emerald-500" : "bg-[var(--text-secondary)]"}`} />
+              {idx < incident.updates.length - 1 && <div className="w-px h-full bg-[var(--border)] mt-1" />}
+            </div>
+            <div className="flex-1 pb-2">
+              <div className="flex items-center gap-2 mb-1">
+                <span className={`text-xs font-medium ${sev.text}`}>{statusLabels[update.status]}</span>
+                <span className="text-xs text-[var(--text-secondary)]">{formatTime(update.timestamp)}</span>
+              </div>
+              <p className="text-sm text-[var(--text-secondary)]">{update.message}</p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="text-center text-xs text-[var(--text-secondary)] pt-6 border-t border-[var(--border)]">
+      <p className="flex items-center justify-center gap-4 flex-wrap">
+        <span>Health checks run client-side every 5 minutes</span>
+        <span className="hidden sm:inline">•</span>
+        <a href="/incidents.json" className="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">Incidents API</a>
+        <span className="hidden sm:inline">•</span>
+        <a href="https://github.com/cinagroup/cinacoin" className="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </p>
+      <p className="mt-2">
+        Powered by Cinacoin — <a href="https://cinacoin.com" className="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">cinacoin.com</a>
+      </p>
+    </footer>
   );
 }
 
@@ -173,22 +258,20 @@ export default function HealthStatusPage() {
   const [error, setError] = useState<string | null>(null);
   const [configLoaded, setConfigLoaded] = useState(false);
   const [configs, setConfigs] = useState<ServiceConfig[]>([]);
+  const [incidents, setIncidents] = useState<Incident[]>([]);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
   const serviceConfigRef = useRef<ServiceConfig[]>([]);
 
   const runChecks = useCallback(async () => {
-    const configs = serviceConfigRef.current;
-    if (configs.length === 0) return;
+    const cfgs = serviceConfigRef.current;
+    if (cfgs.length === 0) return;
 
     setRefreshing(true);
     setError(null);
     try {
-      const checks = await checkAllServices(configs);
-
-      // Load history and compute uptimes
+      const checks = await checkAllServices(cfgs);
       const hist = getHistory();
-      const uptimes = loadHistoryUptimes(configs, hist);
+      const uptimes = loadHistoryUptimes(cfgs, hist);
       const updated = checks.map((c) => ({
         ...c,
         uptime: uptimes.get(c.name) ?? 99,
@@ -209,9 +292,11 @@ export default function HealthStatusPage() {
     }
   }, []);
 
-  // Load service configuration
+  // Load configuration + incidents
   useEffect(() => {
     let mounted = true;
+
+    // Load service config
     fetch("/service-status.json")
       .then((res) => {
         if (!res.ok) throw new Error(`Failed to load config: ${res.status}`);
@@ -222,29 +307,34 @@ export default function HealthStatusPage() {
         serviceConfigRef.current = data.services;
         setConfigs(data.services);
         setConfigLoaded(true);
-        // Load existing history
-        const hist = getHistory();
-        setHistory(hist);
+        setHistory(getHistory());
       })
       .catch((err) => {
         if (!mounted) return;
         setError(`Failed to load service configuration: ${err.message}`);
         setConfigLoaded(true);
       });
+
+    // Load incidents
+    fetchIncidents().then((data) => {
+      if (!mounted) return;
+      setIncidents(data.incidents);
+    });
+
     return () => { mounted = false; };
   }, []);
 
-  // Run initial check
+  // Initial check
   useEffect(() => {
     if (configLoaded && configs.length > 0) {
       runChecks();
     }
   }, [configLoaded, configs, runChecks]);
 
-  // Auto-refresh interval
+  // Auto-refresh
   useEffect(() => {
     if (autoRefresh) {
-      intervalRef.current = setInterval(runChecks, 300000); // 5 minutes
+      intervalRef.current = setInterval(runChecks, 300000);
     }
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
@@ -258,18 +348,20 @@ export default function HealthStatusPage() {
     unknown: { gradient: "from-gray-500/20 to-gray-500/5", border: "border-gray-500/30", icon: "text-gray-400", label: "Status Unknown" },
   }[overallStatus];
 
+  const activeIncidents = incidents.filter((i) => i.status !== "resolved");
+  const resolvedIncidents = incidents.filter((i) => i.status === "resolved");
+
   return (
     <div className="min-h-screen bg-[var(--bg-primary)]">
-      <div className="max-w-4xl mx-auto px-4 py-12">
+      <div className="max-w-4xl mx-auto px-4 py-8 sm:py-12">
         {/* Header */}
-        <header className="mb-10">
-          <div className="flex items-center justify-between">
+        <header className="mb-8">
+          <div className="flex items-center justify-between flex-wrap gap-4">
             <div>
-              <h1 className="text-2xl font-bold text-[var(--text-primary)]">CinaCoin</h1>
+              <h1 className="text-2xl font-bold text-[var(--text-primary)]">Cinacoin</h1>
               <p className="text-[var(--text-secondary)] text-sm mt-1">Service Status</p>
             </div>
             <div className="flex items-center gap-3">
-              {/* Auto-refresh toggle */}
               <button
                 onClick={() => setAutoRefresh(!autoRefresh)}
                 className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${
@@ -281,7 +373,6 @@ export default function HealthStatusPage() {
                 <span className={`w-2 h-2 rounded-full ${autoRefresh ? "bg-blue-400 animate-pulse-dot" : "bg-gray-600"}`} />
                 Auto-refresh
               </button>
-              {/* Manual refresh */}
               <button
                 onClick={runChecks}
                 disabled={refreshing}
@@ -308,49 +399,63 @@ export default function HealthStatusPage() {
                 {refreshing && " (refreshing)"}
               </p>
             </div>
-            {refreshing && (
-              <div className="ml-auto flex items-center gap-2 text-[var(--text-secondary)] text-sm">
-                <RefreshIcon spinning />
-              </div>
-            )}
           </div>
         </div>
 
+        {/* Active Incidents */}
+        {activeIncidents.length > 0 && (
+          <section className="mb-8 animate-fade-in">
+            <h3 className="text-base font-semibold text-[var(--text-primary)] mb-4">
+              ⚡ Active Incidents ({activeIncidents.length})
+            </h3>
+            <div className="space-y-4">
+              {activeIncidents.map((inc) => (
+                <IncidentCard key={inc.id} incident={inc} />
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* Error banner */}
         {error && (
-          <div className="mb-6 px-4 py-3 bg-red-500/10 border border-red-500/20 rounded-lg text-sm text-red-400">
+          <div className="mb-6 px-4 py-3 bg-red-500/10 border border-red-500/20 rounded-lg text-sm text-red-400 animate-fade-in">
             {error}
           </div>
         )}
 
         {/* Service Cards */}
-        <div className="space-y-4 mb-8">
-          {!configLoaded ? (
-            <div className="text-center py-12 text-[var(--text-secondary)]">
-              <RefreshIcon spinning />
-              <p className="mt-4">Loading service configuration...</p>
-            </div>
-          ) : (
-            services.map((service) => (
-              <ServiceCard key={service.name} service={service} />
-            ))
-          )}
-        </div>
-
-        {/* History Chart */}
-        {history.length >= 2 && (
-          <div className="mb-8">
-            <HistoryChart history={history} services={configs.map((c) => c.name)} />
+        <section className="mb-8">
+          <h3 className="text-base font-semibold text-[var(--text-primary)] mb-4">Services</h3>
+          <div className="space-y-4">
+            {!configLoaded ? (
+              <div className="text-center py-12 text-[var(--text-secondary)] animate-fade-in">
+                <RefreshIcon spinning />
+                <p className="mt-4">Loading service configuration...</p>
+              </div>
+            ) : (
+              services.map((service) => (
+                <ServiceCard key={service.name} service={service} />
+              ))
+            )}
           </div>
+        </section>
+
+        {/* Resolved Incidents */}
+        {resolvedIncidents.length > 0 && (
+          <section className="mb-8 animate-fade-in">
+            <h3 className="text-base font-semibold text-[var(--text-primary)] mb-4">
+              Resolved Incidents ({resolvedIncidents.length})
+            </h3>
+            <div className="space-y-4">
+              {resolvedIncidents.map((inc) => (
+                <IncidentCard key={inc.id} incident={inc} />
+              ))}
+            </div>
+          </section>
         )}
 
         {/* Footer */}
-        <footer className="text-center text-xs text-[var(--text-secondary)] pt-4 border-t border-[var(--border)]">
-          <p>Health checks run client-side every 5 minutes. Last updated: {lastRefresh ? formatTime(lastRefresh) : "—"}</p>
-          <p className="mt-1">
-            Powered by CinaCoin — <a href="https://cinacoin.dev" className="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">cinacoin.dev</a>
-          </p>
-        </footer>
+        <Footer />
       </div>
     </div>
   );

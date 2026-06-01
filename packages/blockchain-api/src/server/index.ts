@@ -13,6 +13,39 @@ import { NextRequest, NextResponse } from "next/server";
 import { BlockchainApiClient } from "../../client.js";
 
 // ---------------------------------------------------------------------------
+// Security Configuration
+// ---------------------------------------------------------------------------
+
+/** Allowed origins for CORS */
+const ALLOWED_ORIGINS = [
+  'https://cinacoin.com',
+  'https://dash.cinacoin.com',
+  'https://demo.cinacoin.com',
+  'https://docs.cinacoin.com',
+  'https://status.cinacoin.com',
+  'http://localhost:3000',
+];
+
+function corsHeaders(origin?: string | null): Record<string, string> {
+  const allowed = ALLOWED_ORIGINS.includes(origin || '') ? origin : ALLOWED_ORIGINS[0];
+  return {
+    'Access-Control-Allow-Origin': allowed || '',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Access-Control-Max-Age': '86400',
+    'X-Content-Type-Options': 'nosniff',
+    'X-Frame-Options': 'DENY',
+    'Referrer-Policy': 'strict-origin-when-cross-origin',
+  };
+}
+
+function withCors(response: NextResponse, origin?: string | null): NextResponse {
+  const headers = corsHeaders(origin);
+  Object.entries(headers).forEach(([k, v]) => response.headers.set(k, v));
+  return response;
+}
+
+// ---------------------------------------------------------------------------
 // Shared helpers
 // ---------------------------------------------------------------------------
 

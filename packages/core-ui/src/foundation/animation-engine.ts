@@ -3,6 +3,9 @@
  *
  * Provides a lightweight, CSS-variable-driven animation system with
  * support for transitions, keyframe animations, and spring physics.
+ * Uses the Web Animations API for hardware-accelerated animations.
+ *
+ * @packageDocumentation
  */
 
 import type { OCXTheme } from './base-element.js';

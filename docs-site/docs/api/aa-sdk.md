@@ -18,8 +18,8 @@ The AA SDK provides tools for interacting with ERC-4337 smart accounts, includin
 import { AASDK } from '@cinacoin/aa-sdk'
 
 const aa = new AASDK({
-  bundlerUrl: 'https://bundler.yourdomain.com/v1',
-  paymasterUrl: 'https://paymaster.yourdomain.com/v1',
+  bundlerUrl: 'https://bundler.cinacoin.com/v1',
+  paymasterUrl: 'https://paymaster.cinacoin.com/v1',
   chainId: 1,
 })
 ```

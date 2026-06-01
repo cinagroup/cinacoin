@@ -6,7 +6,7 @@
 
 ### Wallet not connecting
 
-1. Check Relay Server is running: `curl https://relay.yourdomain.com/health`
+1. Check Relay Server is running: `curl https://relay.cinacoin.com/health`
 2. Verify WebSocket connection in browser dev tools
 3. Ensure projectId matches your Relay Server config
 

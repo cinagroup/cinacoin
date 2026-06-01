@@ -5,32 +5,19 @@
  * for consuming translations in web components.
  */
 
-import {
-  t as translate,
-  setLocale as setLocaleInternal,
-  setFallbackLocale as setFallbackInternal,
-  getLocale as getLocaleInternal,
-  getAvailableLocales as getAvailableInternal,
-  has as hasInternal,
-  isRTL as isRTLInternal,
-  isLocaleRTL as isLocaleRTLInternal,
-  registerLocale as registerLocaleInternal,
-  registerLocales as registerLocalesInternal,
-  lazyLocale as lazyLocaleFactory,
-} from './translator.js';
-
+// Re-export everything from translator
 export {
-  translate as t,
-  setLocaleInternal as setLocale,
-  setFallbackInternal as setFallbackLocale,
-  getLocaleInternal as getLocale,
-  getAvailableInternal as getAvailableLocales,
-  hasInternal as has,
-  isRTLInternal as isRTL,
-  isLocaleRTLInternal as isLocaleRTL,
-  registerLocaleInternal as registerLocale,
-  registerLocalesInternal as registerLocales,
-  lazyLocaleFactory as lazyLocale,
+  t,
+  setLocale,
+  setFallbackLocale,
+  getLocale,
+  getAvailableLocales,
+  has,
+  isRTL,
+  isLocaleRTL,
+  registerLocale,
+  registerLocales,
+  lazyLocale,
 } from './translator.js';
 
 export type { TranslationMessages, LocaleLoader, LocaleRegistry } from './translator.js';
@@ -41,7 +28,8 @@ import {
   registerLocales,
   setFallbackLocale,
   setLocale,
-  isRTL,
+  getAvailableLocales,
+  lazyLocale,
 } from './translator.js';
 
 /**
@@ -50,17 +38,17 @@ import {
  */
 export function registerAllLocales(): void {
   registerLocales({
-    'en': lazyLocaleFactory(() => import('./locales/en.json')),
-    'zh-CN': lazyLocaleFactory(() => import('./locales/zh-CN.json')),
-    'zh': lazyLocaleFactory(() => import('./locales/zh-CN.json')),
-    'ja': lazyLocaleFactory(() => import('./locales/ja.json')),
-    'ko': lazyLocaleFactory(() => import('./locales/ko.json')),
-    'es': lazyLocaleFactory(() => import('./locales/es.json')),
-    'fr': lazyLocaleFactory(() => import('./locales/fr.json')),
-    'de': lazyLocaleFactory(() => import('./locales/de.json')),
-    'ru': lazyLocaleFactory(() => import('./locales/ru.json')),
-    'ar': lazyLocaleFactory(() => import('./locales/ar.json')),
-    'pt': lazyLocaleFactory(() => import('./locales/pt.json')),
+    'en': lazyLocale(() => import('./locales/en.json')),
+    'zh-CN': lazyLocale(() => import('./locales/zh-CN.json')),
+    'zh': lazyLocale(() => import('./locales/zh-CN.json')),
+    'ja': lazyLocale(() => import('./locales/ja.json')),
+    'ko': lazyLocale(() => import('./locales/ko.json')),
+    'es': lazyLocale(() => import('./locales/es.json')),
+    'fr': lazyLocale(() => import('./locales/fr.json')),
+    'de': lazyLocale(() => import('./locales/de.json')),
+    'ru': lazyLocale(() => import('./locales/ru.json')),
+    'ar': lazyLocale(() => import('./locales/ar.json')),
+    'pt': lazyLocale(() => import('./locales/pt.json')),
   });
 
   setFallbackLocale('en');
@@ -87,7 +75,7 @@ export function detectBrowserLocale(): string | null {
   if (typeof navigator === 'undefined') return null;
 
   const langs = navigator.languages || [navigator.language];
-  const available = getAvailableInternal();
+  const available = getAvailableLocales();
 
   for (const lang of langs) {
     const normalized = normalizeLocale(lang);
@@ -110,7 +98,7 @@ function normalizeLocale(lang: string): string {
 // ─── Lit i18n Mixin ─────────────────────────────────────────────────
 
 import type { LitElement } from 'lit';
-import type { Constructor } from '../foundation/base-element.js';
+import { t as translateFn, isRTL as isRTLCheck } from './translator.js';
 
 /**
  * Mixin that adds i18n support to a LitElement.
@@ -125,24 +113,40 @@ import type { Constructor } from '../foundation/base-element.js';
  * The mixin also sets `dir="rtl"` on the host element when the current
  * locale is RTL (Arabic, Hebrew, etc.).
  */
-export function I18nMixin<TBase extends Constructor<LitElement>>(Base: TBase) {
-  class I18nElement extends Base {
+/**
+ * Creates a mixin that adds i18n translation support to a LitElement class.
+ *
+ * @param Base - The LitElement base class to extend.
+ * @returns A new class with `t()` translation method and RTL auto-detection.
+ *
+ * @example
+ * ```ts
+ * class MyComponent extends I18nMixin(BaseLitElement) {
+ *   render() {
+ *     return html`<p>${this.t('hello_world')}</p>`;
+ *   }
+ * }
+ * ```
+ */
+// Mixin constructor rest params must be `any[]` per TypeScript spec.
+export function I18nMixin<TBase extends new (...args: any[]) => LitElement>(Base: TBase) {
+  abstract class I18nElement extends Base {
     /**
      * Translate a key. Calls the global t() function.
      */
     t(key: string, params?: Record<string, unknown>): string {
-      return translate(key, params);
+      return translateFn(key, params);
     }
 
     /** Whether the current locale is RTL. */
     get i18nIsRTL(): boolean {
-      return isRTL();
+      return isRTLCheck();
     }
 
     override connectedCallback(): void {
       super.connectedCallback();
       // Apply RTL direction if needed
-      if (isRTL()) {
+      if (isRTLCheck()) {
         this.setAttribute('dir', 'rtl');
       } else {
         this.removeAttribute('dir');
@@ -150,5 +154,5 @@ export function I18nMixin<TBase extends Constructor<LitElement>>(Base: TBase) {
     }
   }
 
-  return I18nElement as Constructor<I18nElement> & TBase;
+  return I18nElement as TBase;
 }

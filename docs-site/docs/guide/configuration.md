@@ -10,7 +10,7 @@ import { Cinacoin } from '@cinacoin/core-sdk'
 const cinacoin = new Cinacoin({
   // Required
   projectId: 'your-project-id',
-  relayUrl: 'wss://relay.yourdomain.com/v1',
+  relayUrl: 'wss://relay.cinacoin.com/v1',
   chains: [mainnet, polygon],
 
   // Optional

@@ -1,8 +1,12 @@
 /**
  * ChainAdapter interface for Cinacoin adapters.
  *
- * Defines the contract that all chain adapters (viem, wagmi, ethers, etc.)
- * must implement to work with the Cinacoin SDK.
+ * Defines the contract that all chain adapters (viem, wagmi, ethers, solana,
+ * bitcoin, and other chains) must implement to work with the Cinacoin SDK.
+ *
+ * The interface covers the core operations needed for wallet interaction:
+ * connection management, account queries, balance checks, transaction sending,
+ * message signing, and chain switching.
  */
 
 import type { Connector } from '../connector.js';

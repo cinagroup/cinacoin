@@ -84,8 +84,10 @@ const ALLOWED_ORIGINS = [
   'https://cinacoin.com',
   'https://dash.cinacoin.com',
   'https://demo.cinacoin.com',
-  'http://localhost:3000',
-  'http://localhost:5173',
+  'https://docs.cinacoin.com',
+  'https://status.cinacoin.com',
+  // 'http://localhost:3000', // dev only
+  // 'http://localhost:5173', // dev only
 ];
 
 function isAllowedOrigin(origin: string | null): boolean {
@@ -138,16 +140,8 @@ export default {
     }
 
     // CSRF protection for state-changing requests
-    const csrfError = validateCsrf(request, {
-      allowedOrigins: [...CSRF_ALLOWED_ORIGINS],
-    });
-    if (csrfError) {
-      const headers = new Headers(csrfError.headers);
-      const cors = makeCorsHeaders(origin);
-      for (const [k, v] of Object.entries(cors)) {
-        headers.set(k, v);
-      }
-      return new Response(csrfError.body, { status: csrfError.status, headers });
+    if (!validateCsrf(request)) {
+      return jsonError('CSRF validation failed', 403, origin);
     }
 
     // Rate limiting (skip health check)

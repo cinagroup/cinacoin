@@ -56,5 +56,9 @@ export default function AnimatedNumber({ value, duration = 2000 }: AnimatedNumbe
     return () => cancelAnimationFrame(animationFrame)
   }, [inView, value, num, duration, prefix, suffix, hasDecimal, decimals])
 
-  return <span ref={ref}>{displayed}</span>
+  return (
+    <span ref={ref} role="text" aria-label={value}>
+      {displayed}
+    </span>
+  )
 }

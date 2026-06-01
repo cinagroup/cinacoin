@@ -83,7 +83,7 @@ export default function ChainSelector({
         onKeyDown={handleKeyDown}
         className={`w-full flex items-center gap-2.5 px-4 py-2.5 bg-gray-700/60 text-white text-sm rounded-xl border border-gray-600/40 outline-none cursor-pointer appearance-none transition-all duration-200 ${
           open
-            ? 'ring-2 ring-blue-500/40 border-blue-500/50'
+            ? 'ring-2 ring-brand-500/40 border-brand-500/50'
             : 'hover:border-gray-500/60 hover:bg-gray-700/80'
         }`}
         aria-expanded={open}
@@ -140,7 +140,7 @@ export default function ChainSelector({
                   onMouseLeave={() => setHovered(null)}
                   className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-all duration-150 ${
                     isSelected
-                      ? 'bg-blue-500/15 border border-blue-500/30'
+                      ? 'bg-brand-500/15 border border-brand-500/30'
                       : isHovered
                       ? 'bg-gray-700/60'
                       : 'hover:bg-gray-700/40'
@@ -166,7 +166,7 @@ export default function ChainSelector({
                   {/* Active checkmark */}
                   {isSelected && (
                     <svg
-                      className="w-4 h-4 text-blue-400 animate-check-pop"
+                      className="w-4 h-4 text-brand-400 animate-check-pop"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"

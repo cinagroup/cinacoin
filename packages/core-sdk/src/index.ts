@@ -418,10 +418,42 @@ export { SIWEAuth } from './auth/siwe.js';
 export type { SIWEAuthConfig, SIWESignInResult } from './auth/siwe.js';
 
 /**
+ * Factory configuration for creating chain adapters.
+ *
+ * Covers all supported adapter types including EVM libraries (viem, wagmi,
+ * ethers v5/v6) and native chain adapters (Solana, Bitcoin, TON, TRON,
+ * Polkadot, Cosmos, Hedera, Sui, Starknet, NEAR, XRPL).
+ */
+export interface NewChainAdapterFactoryConfig {
+  /** Adapter type identifier. */
+  type:
+    | 'viem' | 'wagmi' | 'ethers5' | 'ethers6'
+    | 'ton' | 'tron' | 'polkadot' | 'solana' | 'cosmos'
+    | 'sui' | 'hedera' | 'starknet' | 'near' | 'bitcoin' | 'xrpl';
+  /** Underlying client/provider (library-specific). */
+  client?: unknown;
+  /** Cinacoin connector instance. */
+  connector?: import('./connector.js').Connector;
+  /** Supported chains for the adapter. */
+  chains?: import('./types.js').Chain[];
+}
+
+/**
  * Create a ChainAdapter from factory config.
  *
- * @param config - Adapter factory configuration.
- * @returns ChainAdapter instance.
+ * Dynamically imports the requested adapter module and returns an
+ * initialized adapter instance. The return type depends on the
+ * adapter type — use type narrowing or cast as needed.
+ *
+ * @param config - Adapter factory configuration specifying type and options.
+ * @returns Promise resolving to the adapter instance.
+ * @throws Error if the adapter type is unknown or initialization fails.
+ *
+ * @example
+ * ```ts
+ * const adapter = await createAdapter({ type: 'solana' });
+ * const tonAdapter = await createAdapter({ type: 'ton', chains: TON_CHAINS });
+ * ```
  */
 export async function createAdapter(
   config: import('./adapters/types.js').AdapterFactoryConfig | NewChainAdapterFactoryConfig,
@@ -429,19 +461,26 @@ export async function createAdapter(
   switch (config.type) {
     case 'viem': {
       const mod = await import('./adapters/viem.js');
-      return mod.createViemAdapter(config.client, config.connector);
+      return mod.createViemAdapter(
+        config.client as import('./adapters/viem.js').ViemClient | undefined,
+        config.connector,
+      );
     }
     case 'wagmi': {
       const mod = await import('./adapters/wagmi.js');
-      return mod.createMultiChainConnector(config.client);
+      return mod.createMultiChainConnector(config as unknown as import('./adapters/wagmi.js').CreateWagmiConfig);
     }
     case 'ethers5': {
       const mod = await import('./adapters/ethers5.js');
-      return new mod.Ethers5Adapter(config.client);
+      return new mod.Ethers5Adapter(
+        config.client as import('./adapters/ethers5.js').Ethers5Provider | undefined,
+      );
     }
     case 'ethers6': {
       const mod = await import('./adapters/ethers6.js');
-      return new mod.Ethers6Adapter(config.client);
+      return new mod.Ethers6Adapter(
+        config.client as import('./adapters/ethers6.js').Ethers6Provider | undefined,
+      );
     }
     case 'ton': {
       const mod = await import('./adapters/ton.js');
@@ -508,18 +547,8 @@ export async function createAdapter(
       return adapter;
     }
     default:
-      throw new Error(`Unknown adapter type: ${(config as AdapterConfig).type}`);
+      throw new Error(`Unknown adapter type: ${(config as NewChainAdapterFactoryConfig).type}`);
   }
-}
-
-/**
- * Factory configuration for new chain adapters (TON, TRON, Polkadot).
- */
-export interface NewChainAdapterFactoryConfig {
-  type: 'ton' | 'tron' | 'polkadot' | 'solana' | 'cosmos' | 'sui' | 'hedera' | 'starknet' | 'near' | 'bitcoin' | 'xrpl';
-  client?: unknown;
-  connector?: import('./connector.js').Connector;
-  chains?: import('./types.js').Chain[];
 }
 
 // Deep Linking

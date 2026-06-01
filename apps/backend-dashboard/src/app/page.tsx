@@ -58,13 +58,15 @@ export default function OverviewPage() {
           <button
             onClick={manualRefresh}
             disabled={checking}
-            className="px-3 py-2 text-sm bg-dashboard-surface border border-dashboard-border rounded-lg text-dashboard-muted hover:text-white hover:border-dashboard-primary transition-colors disabled:opacity-50 min-h-[40px]"
+            aria-label={checking ? "Refreshing health check" : "Refresh health check"}
+            className="px-3 py-2 text-sm bg-dashboard-surface border border-dashboard-border rounded-lg text-dashboard-muted hover:text-white hover:border-brand-500 transition-colors disabled:opacity-50 min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
           >
             {checking ? "↻ Checking..." : "↻ Refresh"}
           </button>
           <Link
             href="/settings"
-            className="px-4 py-2 text-sm bg-dashboard-surface border border-dashboard-border rounded-lg text-dashboard-muted hover:text-white hover:border-dashboard-primary transition-colors min-h-[40px]"
+            aria-label="Go to settings"
+            className="px-4 py-2 text-sm bg-dashboard-surface border border-dashboard-border rounded-lg text-dashboard-muted hover:text-white hover:border-brand-500 transition-colors min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
           >
             ⚙️ Settings
           </Link>
@@ -73,17 +75,16 @@ export default function OverviewPage() {
 
       {/* Aggregate metrics - Workers health summary */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-        <MetricBox label="Workers Health" value={`${healthyCount}/${SERVICES.length}`} icon="🏥" color="text-dashboard-primaryLight" />
+        <MetricBox label="Workers Health" value={`${healthyCount}/${SERVICES.length}`} icon="🏥" color="text-brand-400" />
         {degradedCount > 0 && <MetricBox label="Degraded" value={degradedCount} icon="⚠️" color="text-dashboard-warning" />}
         {downCount > 0 && <MetricBox label="Down" value={downCount} icon="❌" color="text-dashboard-danger" />}
-        <MetricBox label="Total Requests" value={formatNumber(totalRequests)} icon="📈" />
         <MetricBox label="Total Requests" value={formatNumber(totalRequests)} icon="📈" />
         <MetricBox label="Total Errors" value={formatNumber(totalErrors)} icon="⚠️" color={totalErrors > 10000 ? "text-dashboard-danger" : "text-dashboard-warning"} />
         <MetricBox label="Avg Error Rate" value={`${avgErrorRate.toFixed(2)}%`} icon="📉" color={avgErrorRate > 1 ? "text-dashboard-danger" : "text-dashboard-success"} />
       </div>
 
       {/* 7-day request chart */}
-      <BarChart data={HISTORY_DATA} labels={HISTORY_DAYS} color="#6366f1" height={140} />
+      <BarChart data={HISTORY_DATA} labels={HISTORY_DAYS} color="#3b82f6" height={140} aria-label="7-day request volume bar chart" />
 
       {/* Service status cards */}
       <h2 className="text-base sm:text-lg font-semibold text-white mt-4 sm:mt-6">Service Status</h2>
@@ -104,11 +105,11 @@ export default function OverviewPage() {
         <table className="w-full text-sm min-w-[500px]">
           <thead>
             <tr className="border-b border-dashboard-border">
-              <th className="text-left px-3 sm:px-4 py-3 text-dashboard-muted font-medium">Service</th>
-              <th className="text-left px-3 sm:px-4 py-3 text-dashboard-muted font-medium">Status</th>
-              <th className="text-right px-3 sm:px-4 py-3 text-dashboard-muted font-medium">Requests</th>
-              <th className="text-right px-3 sm:px-4 py-3 text-dashboard-muted font-medium">Error Rate</th>
-              <th className="text-right px-3 sm:px-4 py-3 text-dashboard-muted font-medium">Avg Latency</th>
+              <th scope="col" className="text-left px-3 sm:px-4 py-3 text-dashboard-muted font-medium">Service</th>
+              <th scope="col" className="text-left px-3 sm:px-4 py-3 text-dashboard-muted font-medium">Status</th>
+              <th scope="col" className="text-right px-3 sm:px-4 py-3 text-dashboard-muted font-medium">Requests</th>
+              <th scope="col" className="text-right px-3 sm:px-4 py-3 text-dashboard-muted font-medium">Error Rate</th>
+              <th scope="col" className="text-right px-3 sm:px-4 py-3 text-dashboard-muted font-medium">Avg Latency</th>
             </tr>
           </thead>
           <tbody>

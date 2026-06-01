@@ -301,6 +301,8 @@ export default function ActivityPage() {
                 <button
                   onClick={() => setExpandedId(expandedId === item.id ? null : item.id)}
                   className="w-full text-left p-4 rounded-xl bg-gray-800/40 border border-gray-700/40 hover:border-gray-600/60 hover:bg-gray-800/60 transition-all"
+                  aria-expanded={expandedId === item.id}
+                  aria-label={`${item.title} - ${item.status}`}
                 >
                   <div className="flex items-center gap-3">
                     <span className="text-lg">{typeIcon(item.type)}</span>
@@ -387,6 +389,7 @@ export default function ActivityPage() {
                 onClick={() => setPage((p) => Math.max(0, p - 1))}
                 disabled={page === 0}
                 className="px-3 py-1.5 rounded-lg text-xs font-medium bg-gray-700/50 text-gray-400 border border-gray-600/40 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                aria-label="Previous page"
               >
                 ← Prev
               </button>
@@ -394,6 +397,7 @@ export default function ActivityPage() {
                 onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
                 disabled={page >= totalPages - 1}
                 className="px-3 py-1.5 rounded-lg text-xs font-medium bg-gray-700/50 text-gray-400 border border-gray-600/40 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                aria-label="Next page"
               >
                 Next →
               </button>

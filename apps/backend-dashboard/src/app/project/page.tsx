@@ -3,14 +3,16 @@
 import { useState } from "react";
 
 export default function ProjectPage() {
-  const [projectName, setProjectName] = useState("CinaCoin");
+  const [projectName, setProjectName] = useState("Cinacoin");
   const [projectId, setProjectId] = useState("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6");
   const [projectDescription, setProjectDescription] = useState("Full-stack Web3 SDK — Connect Everything On-Chain");
   const [projectUrl, setProjectUrl] = useState("https://cinacoin.com");
-  const [iconUrl, setIconUrl] = useState("https://dashboard.cinacoin.com/favicon.ico");
+  const [iconUrl, setIconUrl] = useState("/favicon.ico");
   const [saved, setSaved] = useState(false);
   const [showProjectId, setShowProjectId] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [showRegenConfirm, setShowRegenConfirm] = useState(false);
 
   // Authentication settings
   const [siweEnabled, setSiweEnabled] = useState(true);
@@ -30,7 +32,9 @@ export default function ProjectPage() {
   };
 
   const handleCopyProjectId = () => {
-    navigator.clipboard.writeText(projectId);
+    navigator.clipboard.writeText(projectId).catch(() => {
+      // clipboard API may be unavailable in some contexts
+    });
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -64,12 +68,14 @@ export default function ProjectPage() {
             </code>
             <button
               onClick={() => setShowProjectId(!showProjectId)}
+              aria-label={showProjectId ? "Hide Project ID" : "Show Project ID"}
               className="px-3 py-2 bg-dashboard-border rounded-lg text-sm text-dashboard-muted hover:text-white transition-colors"
             >
               {showProjectId ? "🙈 Hide" : "👁️ Show"}
             </button>
             <button
               onClick={handleCopyProjectId}
+              aria-label={copied ? "Copied" : "Copy Project ID"}
               className="px-3 py-2 bg-dashboard-border rounded-lg text-sm text-dashboard-muted hover:text-white transition-colors"
             >
               {copied ? "✓ Copied" : "📋 Copy"}
@@ -87,8 +93,11 @@ export default function ProjectPage() {
             type="text"
             value={projectName}
             onChange={(e) => setProjectName(e.target.value)}
-            className="w-full bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-dashboard-primary"
+            aria-label="Project name"
+            aria-describedby="project-name-desc"
+            className="w-full bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
           />
+          <p id="project-name-desc" className="sr-only">Enter your project display name</p>
         </div>
 
         {/* Description */}
@@ -98,7 +107,8 @@ export default function ProjectPage() {
             value={projectDescription}
             onChange={(e) => setProjectDescription(e.target.value)}
             rows={2}
-            className="w-full bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-dashboard-primary resize-none"
+            aria-label="Project description"
+            className="w-full bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface resize-none"
           />
         </div>
 
@@ -109,7 +119,8 @@ export default function ProjectPage() {
             type="url"
             value={projectUrl}
             onChange={(e) => setProjectUrl(e.target.value)}
-            className="w-full bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-dashboard-primary"
+            aria-label="Project URL"
+            className="w-full bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
           />
         </div>
 
@@ -120,7 +131,8 @@ export default function ProjectPage() {
             type="url"
             value={iconUrl}
             onChange={(e) => setIconUrl(e.target.value)}
-            className="w-full bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-dashboard-primary"
+            aria-label="Project icon URL"
+            className="w-full bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
           />
         </div>
       </div>
@@ -146,6 +158,9 @@ export default function ProjectPage() {
               </div>
               <button
                 onClick={() => item.setter(!item.state)}
+                role="switch"
+                aria-checked={item.state}
+                aria-label={`${item.label}: ${item.state ? 'on' : 'off'}`}
                 className={`relative w-10 h-5 rounded-full transition-colors ${
                   item.state ? "bg-dashboard-success" : "bg-dashboard-border"
                 }`}
@@ -182,6 +197,9 @@ export default function ProjectPage() {
               </div>
               <button
                 onClick={() => item.setter(!item.state)}
+                role="switch"
+                aria-checked={item.state}
+                aria-label={`${item.label}: ${item.state ? 'on' : 'off'}`}
                 className={`relative w-10 h-5 rounded-full transition-colors ${
                   item.state ? "bg-dashboard-success" : "bg-dashboard-border"
                 }`}
@@ -245,26 +263,83 @@ createAppKit({
             <p className="text-white font-medium">Regenerate Project ID</p>
             <p className="text-sm text-dashboard-muted">This will invalidate the current project ID and require updating all apps.</p>
           </div>
-          <button className="px-4 py-2 border border-dashboard-danger/30 text-dashboard-danger rounded-lg text-sm hover:bg-dashboard-danger/10 transition-colors">
+          <button
+            onClick={() => setShowRegenConfirm(true)}
+            aria-label="Regenerate project ID"
+            className="px-4 py-2 border border-dashboard-danger/30 text-dashboard-danger rounded-lg text-sm hover:bg-dashboard-danger/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dashboard-danger focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
+          >
             Regenerate
           </button>
         </div>
+        {showRegenConfirm && (
+          <div className="bg-dashboard-bg rounded-lg p-4 border border-dashboard-border">
+            <p className="text-sm text-white mb-3">Are you sure you want to regenerate the Project ID? This cannot be undone.</p>
+            <div className="flex gap-2">
+              <button
+                onClick={() => {
+                  setShowRegenConfirm(false);
+                  // In production: call API to regenerate
+                }}
+                aria-label="Confirm project ID regeneration"
+                className="px-4 py-2 bg-dashboard-danger text-white rounded-lg text-sm hover:bg-red-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dashboard-danger focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
+              >
+                Confirm Regenerate
+              </button>
+              <button
+                onClick={() => setShowRegenConfirm(false)}
+                aria-label="Cancel project ID regeneration"
+                className="px-4 py-2 border border-dashboard-border text-dashboard-muted rounded-lg text-sm hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        )}
         <div className="flex items-center justify-between pt-2 border-t border-dashboard-danger/10">
           <div>
             <p className="text-white font-medium">Delete Project</p>
             <p className="text-sm text-dashboard-muted">Permanently delete this project and all associated data.</p>
           </div>
-          <button className="px-4 py-2 bg-dashboard-danger text-white rounded-lg text-sm hover:bg-red-700 transition-colors">
+          <button
+            onClick={() => setShowDeleteConfirm(true)}
+            aria-label="Delete project"
+            className="px-4 py-2 bg-dashboard-danger text-white rounded-lg text-sm hover:bg-red-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dashboard-danger focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
+          >
             Delete Project
           </button>
         </div>
+        {showDeleteConfirm && (
+          <div className="bg-dashboard-bg rounded-lg p-4 border border-dashboard-border">
+            <p className="text-sm text-white mb-3">Are you sure you want to delete this project? This action is permanent and cannot be undone.</p>
+            <div className="flex gap-2">
+              <button
+                onClick={() => {
+                  setShowDeleteConfirm(false);
+                  // In production: call API to delete
+                }}
+                aria-label="Confirm project deletion"
+                className="px-4 py-2 bg-dashboard-danger text-white rounded-lg text-sm hover:bg-red-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dashboard-danger focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
+              >
+                Confirm Delete
+              </button>
+              <button
+                onClick={() => setShowDeleteConfirm(false)}
+                aria-label="Cancel project deletion"
+                className="px-4 py-2 border border-dashboard-border text-dashboard-muted rounded-lg text-sm hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Save */}
       <div className="flex justify-end">
         <button
           onClick={handleSave}
-          className="px-6 py-2.5 bg-dashboard-primary hover:bg-dashboard-primaryLight text-white rounded-lg font-medium transition-colors"
+          aria-label={saved ? "Settings saved" : "Save all project settings"}
+          className="px-6 py-2.5 bg-brand-500 hover:bg-brand-400 text-white rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
         >
           {saved ? "✓ Saved" : "Save All Settings"}
         </button>

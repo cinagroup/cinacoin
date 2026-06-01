@@ -67,7 +67,7 @@ export default function RelayServerPage() {
             return (
               <div key={i} className="flex items-center gap-3">
                 <span className="text-sm text-dashboard-muted w-36">{chain.label}</span>
-                <div className="flex-1 bg-dashboard-border rounded-full h-3 overflow-hidden">
+                <div className="flex-1 bg-dashboard-border rounded-full h-3 overflow-hidden" role="progressbar" aria-valuenow={Math.round(Number(pct))} aria-valuemin={0} aria-valuemax={100} aria-label={`${chain.label}: ${pct}%`}>
                   <div
                     className="h-full rounded-full transition-all"
                     style={{ width: `${pct}%`, backgroundColor: chain.color }}

@@ -30,7 +30,7 @@ const INITIAL_CHAINS: ChainConfig[] = [
 ];
 
 const NETWORK_COLORS: Record<string, string> = {
-  evm: "#6366f1",
+  evm: "#3b82f6",
   solana: "#9945FF",
   bitcoin: "#F7931A",
   ton: "#0098EA",
@@ -50,7 +50,6 @@ const NETWORK_ICONS: Record<string, string> = {
 export default function ChainsPage() {
   const [chains, setChains] = useState<ChainConfig[]>(INITIAL_CHAINS);
   const [filter, setFilter] = useState<string>("all");
-  const [editingChain, setEditingChain] = useState<ChainConfig | null>(null);
   const [saved, setSaved] = useState(false);
 
   const filteredChains = filter === "all" ? chains : chains.filter((c) => c.network === filter);
@@ -77,7 +76,8 @@ export default function ChainsPage() {
         </div>
         <button
           onClick={handleSave}
-          className="px-4 py-2 bg-dashboard-primary hover:bg-dashboard-primaryLight text-white rounded-lg font-medium transition-colors"
+          aria-label={saved ? "Changes saved" : "Save chain configuration changes"}
+          className="px-4 py-2 bg-brand-500 hover:bg-brand-400 text-white rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
         >
           {saved ? "✓ Saved" : "Save Changes"}
         </button>
@@ -101,7 +101,7 @@ export default function ChainsPage() {
         </div>
         <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-4">
           <p className="text-sm text-dashboard-muted">EVM Chains</p>
-          <p className="text-2xl font-bold text-dashboard-primaryLight">{chains.filter((c) => c.network === "evm").length}</p>
+          <p className="text-2xl font-bold text-brand-400">{chains.filter((c) => c.network === "evm").length}</p>
         </div>
         <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-4">
           <p className="text-sm text-dashboard-muted">Non-EVM</p>
@@ -110,7 +110,7 @@ export default function ChainsPage() {
       </div>
 
       {/* Filter tabs */}
-      <div className="flex gap-2 flex-wrap">
+      <div className="flex gap-2 flex-wrap" role="group" aria-label="Network filter">
         {[
           { key: "all", label: "All" },
           { key: "evm", label: "EVM" },
@@ -123,13 +123,14 @@ export default function ChainsPage() {
           <button
             key={f.key}
             onClick={() => setFilter(f.key)}
+            aria-pressed={filter === f.key}
             className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
               filter === f.key
-                ? "bg-dashboard-primary text-white"
+                ? "bg-brand-500 text-white"
                 : "bg-dashboard-surface text-dashboard-muted hover:text-white border border-dashboard-border"
             }`}
           >
-            {NETWORK_ICONS[f.key] || "📋"} {f.label}
+            <span aria-hidden="true">{NETWORK_ICONS[f.key] || "📋"}</span> {f.label}
           </button>
         ))}
       </div>
@@ -151,7 +152,7 @@ export default function ChainsPage() {
               <tr key={chain.id} className="border-b border-dashboard-border/50 hover:bg-dashboard-border/10 transition-colors">
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-2">
-                    <span>{NETWORK_ICONS[chain.network]}</span>
+                    <span aria-hidden="true">{NETWORK_ICONS[chain.network]}</span>
                     <span className="text-white font-medium">{chain.name}</span>
                     <span
                       className="text-xs px-1.5 py-0.5 rounded"
@@ -172,13 +173,16 @@ export default function ChainsPage() {
                   </span>
                 </td>
                 <td className="px-4 py-3">
-                  <a href={chain.explorerUrl} target="_blank" rel="noopener noreferrer" className="text-dashboard-primaryLight hover:underline text-xs">
+                  <a href={chain.explorerUrl} target="_blank" rel="noopener noreferrer" className="text-brand-400 hover:underline text-xs">
                     {chain.explorerUrl.replace("https://", "")}
                   </a>
                 </td>
                 <td className="px-4 py-3 text-center">
                   <button
                     onClick={() => toggleChain(chain.id)}
+                    role="switch"
+                    aria-checked={chain.enabled}
+                    aria-label={`Toggle ${chain.name} ${chain.enabled ? 'off' : 'on'}`}
                     className={`relative w-10 h-5 rounded-full transition-colors ${
                       chain.enabled ? "bg-dashboard-success" : "bg-dashboard-border"
                     }`}
@@ -206,26 +210,30 @@ export default function ChainsPage() {
           <input
             type="text"
             placeholder="Network name (e.g. zkSync Era)"
-            className="bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-white placeholder-dashboard-muted/50 focus:outline-none focus:border-dashboard-primary"
+            aria-label="Network name"
+            className="bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-white placeholder-dashboard-muted/50 focus:outline-none focus:border-brand-500"
           />
           <input
             type="text"
             placeholder="Chain ID (e.g. 324)"
-            className="bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-white placeholder-dashboard-muted/50 focus:outline-none focus:border-dashboard-primary"
+            aria-label="Chain ID"
+            className="bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-white placeholder-dashboard-muted/50 focus:outline-none focus:border-brand-500"
           />
           <input
             type="text"
             placeholder="RPC URL"
-            className="bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-white placeholder-dashboard-muted/50 focus:outline-none focus:border-dashboard-primary"
+            aria-label="RPC URL"
+            className="bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-white placeholder-dashboard-muted/50 focus:outline-none focus:border-brand-500"
           />
           <input
             type="text"
             placeholder="Native currency symbol (e.g. ETH)"
-            className="bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-white placeholder-dashboard-muted/50 focus:outline-none focus:border-dashboard-primary"
+            aria-label="Native currency symbol"
+            className="bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-white placeholder-dashboard-muted/50 focus:outline-none focus:border-brand-500"
           />
         </div>
         <div className="mt-4 flex justify-end">
-          <button className="px-4 py-2 bg-dashboard-primary hover:bg-dashboard-primaryLight text-white rounded-lg text-sm font-medium transition-colors">
+          <button className="px-4 py-2 bg-brand-500 hover:bg-brand-400 text-white rounded-lg text-sm font-medium transition-colors">
             + Add Network
           </button>
         </div>

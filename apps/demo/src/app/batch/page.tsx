@@ -522,7 +522,7 @@ export default function BatchPage() {
 
         {/* ── Header ─────────────────────────────────────── */}
         <div className="text-center space-y-2">
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-brand-400 via-brand-500 to-brand-600 bg-clip-text text-transparent">
             EIP-5792 Atomic Batch
           </h1>
           <p className="text-gray-400 text-sm">
@@ -710,35 +710,41 @@ export default function BatchPage() {
                 </div>
 
                 <div>
-                  <label className="text-xs text-gray-500 mb-1 block">To (address)</label>
+                  <label htmlFor={`batch-to-${index}`} className="text-xs text-gray-500 mb-1 block">To (address)</label>
                   <input
+                    id={`batch-to-${index}`}
                     type="text"
                     value={call.to}
                     onChange={(e) => handleUpdateCall(index, 'to', e.target.value)}
                     placeholder="0x…"
                     className="w-full px-3 py-2 bg-gray-800/80 border border-gray-700/50 rounded-lg text-sm font-mono text-gray-300 placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500/50"
+                    aria-label={`Call ${index + 1} destination address`}
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="text-xs text-gray-500 mb-1 block">Value (hex wei)</label>
+                    <label htmlFor={`batch-value-${index}`} className="text-xs text-gray-500 mb-1 block">Value (hex wei)</label>
                     <input
+                      id={`batch-value-${index}`}
                       type="text"
                       value={call.value}
                       onChange={(e) => handleUpdateCall(index, 'value', e.target.value)}
                       placeholder="0x0"
                       className="w-full px-3 py-2 bg-gray-800/80 border border-gray-700/50 rounded-lg text-sm font-mono text-gray-300 placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500/50"
+                      aria-label={`Call ${index + 1} value in hex wei`}
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-gray-500 mb-1 block">Data (hex)</label>
+                    <label htmlFor={`batch-data-${index}`} className="text-xs text-gray-500 mb-1 block">Data (hex)</label>
                     <input
+                      id={`batch-data-${index}`}
                       type="text"
                       value={call.data}
                       onChange={(e) => handleUpdateCall(index, 'data', e.target.value)}
                       placeholder="0x"
                       className="w-full px-3 py-2 bg-gray-800/80 border border-gray-700/50 rounded-lg text-sm font-mono text-gray-300 placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500/50"
+                      aria-label={`Call ${index + 1} transaction data`}
                     />
                   </div>
                 </div>
@@ -763,7 +769,7 @@ export default function BatchPage() {
               <button
                 onClick={handleSendBatch}
                 disabled={!isConnected || executing || callsStatus.isPolling}
-                className="flex-1 px-4 py-3 rounded-xl text-sm font-semibold bg-gradient-to-r from-blue-600 to-violet-600 text-white hover:from-blue-500 hover:to-violet-500 shadow-lg shadow-blue-500/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 px-4 py-3 rounded-xl text-sm font-semibold bg-gradient-to-r from-brand-600 to-brand-500 text-white hover:from-brand-500 hover:to-brand-400 shadow-lg shadow-blue-500/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {executing && lastAction === 'send' ? (
                   <span className="inline-flex items-center gap-2"><Spinner /> Sending…</span>
@@ -774,7 +780,7 @@ export default function BatchPage() {
               <button
                 onClick={handleAtomicBatch}
                 disabled={!isConnected || executing || callsStatus.isPolling}
-                className="flex-1 px-4 py-3 rounded-xl text-sm font-semibold bg-gradient-to-r from-emerald-600 to-cyan-600 text-white hover:from-emerald-500 hover:to-cyan-500 shadow-lg shadow-emerald-500/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 px-4 py-3 rounded-xl text-sm font-semibold bg-gradient-to-r from-brand-600 to-brand-500 text-white hover:from-brand-500 hover:to-brand-400 shadow-lg shadow-brand-500/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {executing && lastAction === 'batch' ? (
                   <span className="inline-flex items-center gap-2"><Spinner /> Executing…</span>

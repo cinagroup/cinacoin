@@ -21,7 +21,7 @@ function App() {
     <CinacoinProvider
       adapter={new EvmAdapter({
         projectId: 'your-project-id',
-        relayUrl: 'wss://relay.yourdomain.com/v1',
+        relayUrl: 'wss://relay.cinacoin.com/v1',
       })}
     >
       {children}

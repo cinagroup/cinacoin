@@ -7,10 +7,10 @@
 
 /* ── deployed worker URLs ── */
 export const WORKER_URLS = {
-  rpcProxy: 'https://cinacoin-rpc-proxy.cinagroup.workers.dev',
-  keysServer: 'https://cinacoin-keys-server.cinagroup.workers.dev',
-  relayServer: 'https://cinacoin-relay-server.cinagroup.workers.dev',
-  notifyServer: 'https://cinacoin-notify-server.cinagroup.workers.dev',
+  rpcProxy: 'https://rpc.cinacoin.com',
+  keysServer: 'https://keys.cinacoin.com',
+  relayServer: 'https://relay.cinacoin.com',
+  notifyServer: 'https://notify.cinacoin.com',
   pushServer: 'https://push.cinacoin.com',
 } as const;
 

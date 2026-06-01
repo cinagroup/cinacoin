@@ -59,9 +59,9 @@ export default function Header({ onMenuToggle }: HeaderProps) {
           </svg>
         </button>
 
-        <img src="/logo.png" alt="Cinacoin" className="h-7 w-7 sm:h-8 sm:w-8 rounded-lg shrink-0" />
+        <img src="/logo.png" alt="cinacoin" className="h-7 w-7 sm:h-8 sm:w-8 rounded-lg shrink-0" />
         <div className="min-w-0">
-          <h2 className="text-base sm:text-xl font-semibold text-white truncate">CinaCoin Backend</h2>
+          <h2 className="text-base sm:text-xl font-semibold text-white truncate">cinacoin Backend</h2>
           <p className="text-xs sm:text-sm text-dashboard-muted hidden sm:block">Cloudflare Workers Management</p>
         </div>
       </div>
@@ -76,9 +76,9 @@ export default function Header({ onMenuToggle }: HeaderProps) {
 
         {isLoggedIn && (
           <>
-            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/30">
-              <span className="w-2 h-2 rounded-full bg-indigo-400" />
-              <span className="text-xs text-indigo-300 font-mono">{shortAddress}</span>
+            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/30">
+              <span className="w-2 h-2 rounded-full bg-brand-400" />
+              <span className="text-xs text-brand-300 font-mono">{shortAddress}</span>
             </div>
             <button
               onClick={doLogout}

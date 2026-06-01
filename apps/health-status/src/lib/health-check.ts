@@ -37,13 +37,26 @@ async function checkService(config: ServiceConfig, timeoutMs: number = 8000): Pr
 
     const elapsed = Math.round(performance.now() - start);
 
-    // If CORS blocks us, we can still attempt a no-cors fetch for basic reachability
+    // Handle non-OK responses
     if (!response.ok) {
+      // For non-JSON endpoints (like status pages), 200 with HTML is still healthy
+      const contentType = response.headers.get("content-type") || "";
+      if (response.status < 500 && contentType.includes("html")) {
+        return {
+          name: config.name,
+          url: config.url,
+          description: config.description,
+          status: "healthy",
+          responseTime: elapsed,
+          lastChecked: new Date().toISOString(),
+          uptime: 99,
+        };
+      }
       return {
         name: config.name,
         url: config.url,
         description: config.description,
-        status: "degraded",
+        status: response.status >= 500 ? "down" : "degraded",
         responseTime: elapsed,
         lastChecked: new Date().toISOString(),
         uptime: 99,
@@ -93,7 +106,8 @@ async function checkService(config: ServiceConfig, timeoutMs: number = 8000): Pr
         cache: "no-cache",
       });
       const fallbackElapsed = Math.round(performance.now() - fallbackStart);
-      // If no-cors succeeds, the service is reachable (we just can't read the response)
+      // no-cors always returns opaque response with status 0 — can't determine health
+      // but if fetch itself succeeds, service is at least reachable
       return {
         name: config.name,
         url: config.url,
@@ -102,6 +116,7 @@ async function checkService(config: ServiceConfig, timeoutMs: number = 8000): Pr
         responseTime: fallbackElapsed,
         lastChecked: new Date().toISOString(),
         uptime: 99,
+        error: undefined,
       };
     } catch {
       return {

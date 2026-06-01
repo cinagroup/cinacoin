@@ -43,11 +43,11 @@ export default function Products() {
   ];
 
   return (
-    <section id="products" className="relative py-24">
+    <section id="products" className="relative py-20 sm:py-24" aria-labelledby="products-heading">
       <div className="mx-auto max-w-7xl px-6">
         <FadeIn>
-          <div className="mx-auto mb-16 max-w-3xl text-center">
-            <h2 className="text-4xl font-bold tracking-tight md:text-5xl">
+          <div className="mx-auto mb-12 sm:mb-16 max-w-3xl text-center">
+            <h2 id="products-heading" className="text-3xl sm:text-4xl font-bold tracking-tight md:text-5xl">
               Products & Infrastructure
             </h2>
             <p className="mt-4 text-lg text-zinc-400">
@@ -61,7 +61,8 @@ export default function Products() {
             <FadeIn key={p.name} delay={i * 100} direction="up" duration={600}>
               <a
                 href={p.href}
-                className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 transition-all duration-300 hover:border-white/[0.12] hover:bg-white/[0.04] hover:shadow-xl hover:shadow-purple-500/5 hover:-translate-y-1"
+                className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 transition-all duration-300 hover:border-white/[0.12] hover:bg-white/[0.04] hover:shadow-xl hover:shadow-purple-500/5 hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+                aria-label={`Learn more about ${p.name}: ${p.desc}`}
               >
                 {/* Hover glow effect */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${p.gradient} opacity-0 transition-opacity duration-300 group-hover:opacity-[0.03]`} />

@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 
-const RPC_PROXY_BASE = 'https://cinacoin-rpc-proxy.cinagroup.workers.dev/rpc'
+const RPC_PROXY_BASE = import.meta.env.VITE_RPC_PROXY_BASE ?? 'https://rpc.cinacoin.com/rpc'
 
 interface ChainInfo {
   blockNumber: string | null
@@ -98,8 +98,8 @@ export function useChainInfo(chainId: number | null, address: string | null): Ch
       if (address) {
         const balanceResult = await rpcFetch(url, 'eth_getBalance', [address, 'latest']) as string
         const balanceWeiVal = BigInt(balanceResult)
-        // Convert wei to ETH (1e18)
-        const ethValue = Number(balanceWeiVal) / 1e18
+        // Convert wei to ETH using BigInt arithmetic to preserve precision
+        const ethValue = Number(balanceWeiVal / 10n ** 15n) / 1e3
         setBalanceWei(balanceResult)
         setBalanceEth(ethValue.toFixed(6))
       } else {
@@ -108,7 +108,6 @@ export function useChainInfo(chainId: number | null, address: string | null): Ch
       }
     } catch (err: any) {
       setError(err.message || 'Failed to fetch chain info')
-      console.error('[useChainInfo] RPC error:', err)
     } finally {
       setLoading(false)
     }

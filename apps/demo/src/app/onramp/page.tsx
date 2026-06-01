@@ -2,7 +2,6 @@
 
 import { useState, useCallback, useMemo } from 'react';
 import DemoLayout from '@/components/DemoLayout';
-import { DemoDisclaimer } from '@/components/DemoDisclaimer';
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -18,6 +17,7 @@ interface ProviderQuote {
   paymentMethods: string[];
   regions: string[];
   isBest: boolean;
+  token: string;
 }
 
 interface TokenOption {
@@ -132,6 +132,7 @@ function generateMockQuotes(
       paymentMethods: p.methods,
       regions: p.regions,
       isBest: false,
+      token,
     };
   }).filter(Boolean) as ProviderQuote[];
 
@@ -200,7 +201,7 @@ function ProviderCard({
           <span className="text-gray-500 text-xs">You receive</span>
           <p className="text-white font-semibold">
             {quote.cryptoAmount.toFixed(6)}{' '}
-            <span className="text-gray-400 text-xs">{quote.providerId === 'moonpay' ? 'ETH' : 'token'}</span>
+            <span className="text-gray-400 text-xs">{quote.token}</span>
           </p>
         </div>
         <div>
@@ -288,7 +289,7 @@ export default function OnrampPage() {
 
         {/* ── Header ─────────────────────────────────────── */}
         <div className="text-center space-y-2">
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-brand-400 via-brand-500 to-brand-600 bg-clip-text text-transparent">
             Fiat On-Ramp
           </h1>
           <p className="text-gray-400 text-sm">

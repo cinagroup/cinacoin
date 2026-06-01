@@ -5,7 +5,6 @@ import { generateDemoMetrics, ServiceMetrics } from "@/lib/services";
 import { formatNumber, formatLatency } from "@/lib/utils";
 import MetricBox from "@/components/MetricBox";
 import BarChart from "@/components/BarChart";
-import ProgressRing from "@/components/ProgressRing";
 
 const HISTORY = [142, 168, 155, 189, 201, 178, 195, 210, 188, 223, 198, 245];
 const HISTORY_LABELS = [
@@ -44,7 +43,7 @@ export default function RPCProxyPage() {
 
       {/* Charts */}
       <div className="grid md:grid-cols-2 gap-4">
-        <BarChart data={HISTORY} labels={HISTORY_LABELS} color="#6366f1" height={140} />
+        <BarChart data={HISTORY} labels={HISTORY_LABELS} color="#3b82f6" height={140} />
         <BarChart data={CHAIN_DATA} labels={CHAIN_LABELS} color="#8b5cf6" height={140} />
       </div>
 
@@ -67,7 +66,7 @@ export default function RPCProxyPage() {
         </div>
       </div>
 
-      {/* Chain usage */}
+      {/* Chain distribution */}
       <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-5">
         <h3 className="text-lg font-semibold text-white mb-4">Chain Distribution (24h)</h3>
         <div className="space-y-3">
@@ -77,9 +76,9 @@ export default function RPCProxyPage() {
             return (
               <div key={i} className="flex items-center gap-3">
                 <span className="text-sm text-dashboard-muted w-24">{CHAIN_LABELS[i]}</span>
-                <div className="flex-1 bg-dashboard-border rounded-full h-3 overflow-hidden">
+                <div className="flex-1 bg-dashboard-border rounded-full h-3 overflow-hidden" role="progressbar" aria-valuenow={Number(pct)} aria-valuemin={0} aria-valuemax={100} aria-label={`${CHAIN_LABELS[i]}: ${pct}%`}>
                   <div
-                    className="h-full rounded-full bg-dashboard-primary transition-all"
+                    className="h-full rounded-full bg-brand-500 transition-all"
                     style={{ width: `${pct}%` }}
                   />
                 </div>

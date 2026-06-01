@@ -1,43 +1,45 @@
 /**
- * ConnectButton Web Component (i18n-enabled)
+ * ConnectButton Web Component.
  *
- * Primary entry-point button for wallet connection. Shows connect prompt when
- * disconnected, and address + balance when connected.
+ * Primary entry-point button for wallet connection. Shows a connect prompt
+ * when disconnected, and displays the truncated address with optional balance,
+ * avatar, and network badge when connected.
  *
- * Attributes:
- *   - variant: 'primary' | 'secondary' | 'ghost'
- *   - size: 'sm' | 'md' | 'lg'
- *   - label: text shown when disconnected (falls back to t('connect_wallet'))
- *   - show-balance: whether to display balance
- *   - show-avatar: whether to show avatar icon
- *   - show-network: whether to show network badge
+ * **Attributes:**
+ * - `variant` — `'primary'` | `'secondary'` | `'ghost'`
+ * - `size` — `'sm'` | `'md'` | `'lg'`
+ * - `label` — Text shown when disconnected (falls back to `t('connect_wallet')`)
+ * - `show-balance` — Whether to display the account balance
+ * - `show-avatar` — Whether to show the address avatar icon
+ * - `show-network` — Whether to show the network badge
  *
- * Properties (set via JS):
- *   - address: connected wallet address
- *   - balance: account balance string
- *   - chainSymbol: native currency symbol (e.g. "ETH")
- *   - state: 'disconnected' | 'connecting' | 'connected' | 'wrong_network' | 'error'
+ * **Properties:**
+ * - `address` — Connected wallet address
+ * - `balance` — Account balance string
+ * - `chainSymbol` — Native currency symbol (e.g. "ETH")
+ * - `state` — Current connection state
+ * - `chainId` — Current chain ID
  *
- * Events:
- *   - ocx-click: fired when button is clicked
- *   - ocx-disconnect: fired when disconnect action is triggered
+ * **Events:**
+ * - `ocx-click` — Fired when the button is clicked while disconnected
+ * - `ocx-disconnect` — Fired when the user clicks disconnect in the dropdown
  */
 
 import { html, css, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { BaseLitElement, OCXTheme } from '../foundation/base-element.js';
 import { animate } from '../foundation/animation-engine.js';
-import { t, isRTL, I18nMixin } from '../i18n/index.js';
+import { t, isRTL } from '../i18n/index.js';
 
 export type ConnectButtonVariant = 'primary' | 'secondary' | 'ghost';
 export type ConnectButtonSize = 'sm' | 'md' | 'lg';
 export type ConnectButtonState = 'disconnected' | 'connecting' | 'connected' | 'wrong_network' | 'error';
 
 @customElement('ocx-connect-button')
-export class ConnectButton extends I18nMixin(BaseLitElement) {
+export class ConnectButton extends BaseLitElement {
   static override get styles() {
     return [
-      super.hostStyles,
+      (BaseLitElement as typeof BaseLitElement).hostStyles,
       css`
         :host {
           display: inline-block;
@@ -236,14 +238,14 @@ export class ConnectButton extends I18nMixin(BaseLitElement) {
 
   @state() private _menuOpen = false;
 
-  override connectedCallback() {
+  connectedCallback() {
     super.connectedCallback();
     this.addEventListener('click', this._onClick);
     this.addEventListener('keydown', this._onKeydown);
     if (isRTL()) this.setAttribute('dir', 'rtl');
   }
 
-  override disconnectedCallback() {
+  disconnectedCallback() {
     super.disconnectedCallback();
     this.removeEventListener('click', this._onClick);
     this.removeEventListener('keydown', this._onKeydown);
@@ -272,7 +274,7 @@ export class ConnectButton extends I18nMixin(BaseLitElement) {
     this.dispatchEvent(new CustomEvent('ocx-disconnect', { bubbles: true, composed: true }));
   }
 
-  override render() {
+  render() {
     const stateClass = `state-${this.state}`;
     const variantClass = `variant-${this.variant}`;
     const sizeClass = `size-${this.size}`;

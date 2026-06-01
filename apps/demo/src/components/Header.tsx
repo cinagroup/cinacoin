@@ -44,9 +44,9 @@ export default function Header({
           {/* Logo */}
           <Link
             href="/"
-            className="text-xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent shrink-0"
+            className="text-xl font-bold bg-gradient-to-r from-brand-500 to-brand-400 bg-clip-text text-transparent shrink-0"
           >
-            CinaCoin
+            Cinacoin
           </Link>
 
           {/* Desktop Nav */}
@@ -71,7 +71,7 @@ export default function Header({
             {onConnectWallet && (
               <button
                 onClick={onConnectWallet}
-                className="hidden sm:inline-flex px-4 py-2 rounded-xl text-sm font-semibold bg-blue-600 hover:bg-blue-500 text-white transition-all"
+                className="hidden sm:inline-flex px-4 py-2 rounded-xl text-sm font-semibold bg-brand-600 hover:bg-brand-500 text-white transition-all"
               >
                 {connectWalletLabel}
               </button>
@@ -114,7 +114,7 @@ export default function Header({
               >
                 {item.label}
                 {pathname === item.href && (
-                  <span className="ml-auto w-1.5 h-1.5 rounded-full bg-blue-400" />
+                  <span className="ml-auto w-1.5 h-1.5 rounded-full bg-brand-400" />
                 )}
               </Link>
             ))}
@@ -124,7 +124,7 @@ export default function Header({
                   onConnectWallet();
                   setMobileOpen(false);
                 }}
-                className="w-full mt-2 px-4 py-3 rounded-xl text-sm font-semibold bg-blue-600 hover:bg-blue-500 text-white transition-all"
+                className="w-full mt-2 px-4 py-3 rounded-xl text-sm font-semibold bg-brand-600 hover:bg-brand-500 text-white transition-all"
               >
                 {connectWalletLabel}
               </button>

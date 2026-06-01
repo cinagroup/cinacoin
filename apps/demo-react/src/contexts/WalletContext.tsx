@@ -25,7 +25,7 @@ export function useWallet(): WalletContextValue {
   return ctx
 }
 
-function formatAddress(addr: string): string {
+export function formatAddress(addr: string): string {
   return `${addr.slice(0, 6)}...${addr.slice(-4)}`
 }
 
@@ -49,6 +49,16 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   })
 
   const wcProviderRef = useRef<any>(null)
+  const mmListenersRef = useRef<{ accountsChanged: (a: string[]) => void; chainChanged: (c: string) => void } | null>(null)
+
+  // Remove MetaMask listeners on disconnect
+  const removeMMListeners = useCallback(() => {
+    if (window.ethereum && mmListenersRef.current) {
+      window.ethereum.removeListener('accountsChanged', mmListenersRef.current.accountsChanged)
+      window.ethereum.removeListener('chainChanged', mmListenersRef.current.chainChanged)
+      mmListenersRef.current = null
+    }
+  }, [])
 
   // Check for existing connection on mount
   useEffect(() => {
@@ -68,16 +78,20 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
               error: null,
             })
 
-            window.ethereum.on('accountsChanged', (accounts: string[]) => {
+            const onAccountsChanged = (accounts: string[]) => {
               if (accounts.length === 0) {
                 setState(prev => ({ ...prev, connected: false, address: '', walletId: null }))
               } else {
                 setState(prev => ({ ...prev, address: accounts[0] }))
               }
-            })
-            window.ethereum.on('chainChanged', (chainId: string) => {
+            }
+            const onChainChanged = (chainId: string) => {
               setState(prev => ({ ...prev, chainId: parseInt(chainId, 16) }))
-            })
+            }
+
+            window.ethereum.on('accountsChanged', onAccountsChanged)
+            window.ethereum.on('chainChanged', onChainChanged)
+            mmListenersRef.current = { accountsChanged: onAccountsChanged, chainChanged: onChainChanged }
             return
           }
         } catch {
@@ -108,6 +122,36 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     checkExisting()
   }, [])
 
+  // Sync chain listeners when walletId changes
+  useEffect(() => {
+    if (state.walletId !== 'metamask' || !window.ethereum) {
+      removeMMListeners()
+      return
+    }
+
+    const onAccountsChanged = (accounts: string[]) => {
+      if (accounts.length === 0) {
+        setState(prev => ({ ...prev, connected: false, address: '', walletId: null }))
+      } else {
+        setState(prev => ({ ...prev, address: accounts[0] }))
+      }
+    }
+    const onChainChanged = (chainId: string) => {
+      setState(prev => ({ ...prev, chainId: parseInt(chainId, 16) }))
+    }
+
+    window.ethereum.on('accountsChanged', onAccountsChanged)
+    window.ethereum.on('chainChanged', onChainChanged)
+    mmListenersRef.current = { accountsChanged: onAccountsChanged, chainChanged: onChainChanged }
+
+    return () => {
+      if (window.ethereum) {
+        window.ethereum.removeListener('accountsChanged', onAccountsChanged)
+        window.ethereum.removeListener('chainChanged', onChainChanged)
+      }
+    }
+  }, [state.walletId, removeMMListeners])
+
   const connectMetaMask = useCallback(async () => {
     if (!window.ethereum) {
       setState(prev => ({
@@ -137,22 +181,14 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         error: null,
       })
 
-      window.ethereum.on('accountsChanged', (accounts: string[]) => {
-        if (accounts.length === 0) {
-          setState(prev => ({ ...prev, connected: false, address: '', walletId: null }))
-        } else {
-          setState(prev => ({ ...prev, address: accounts[0] }))
-        }
-      })
-      window.ethereum.on('chainChanged', (chainId: string) => {
-        setState(prev => ({ ...prev, chainId: parseInt(chainId, 16) }))
-      })
-    } catch (err: any) {
+      // Listeners are managed by the useEffect above, triggered by walletId change
+    } catch (err: unknown) {
+      const error = err as { code?: number; message?: string }
       let message = 'Failed to connect wallet'
-      if (err.code === 4001) {
+      if (error.code === 4001) {
         message = 'User rejected the connection request'
-      } else if (err.message) {
-        message = err.message
+      } else if (error.message) {
+        message = error.message
       }
       setState(prev => ({
         ...prev,
@@ -168,7 +204,7 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     try {
       if (!wcProvider) {
         wcProvider = await EthereumProvider.init({
-          projectId: 'c8e4e0f2c8e4e0f2c8e4e0f2c8e4e0f2',
+          projectId: import.meta.env.VITE_WC_PROJECT_ID ?? 'c8e4e0f2c8e4e0f2c8e4e0f2c8e4e0f2',
           chains: [1],
           showQrModal: true,
           qrModalOptions: {
@@ -177,9 +213,9 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
           methods: ['eth_sendTransaction', 'personal_sign'],
           events: ['chainChanged', 'accountsChanged'],
           metadata: {
-            name: 'CinaCoin Demo',
-            description: 'CinaCoin Demo Application',
-            url: 'https://cinacoin-demo.pages.dev',
+            name: 'Cinacoin Demo',
+            description: 'Cinacoin Demo Application',
+            url: import.meta.env.VITE_APP_URL ?? 'https://cinacoin-demo.pages.dev',
             icons: ['https://avatars.githubusercontent.com/u/37784886'],
           },
         })
@@ -207,12 +243,13 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
           connecting: false,
         }))
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const error = err as { message?: string }
       let message = 'Failed to connect WalletConnect'
-      if (err.message?.includes('rejected') || err.message?.includes('User rejected')) {
+      if (error.message?.includes('rejected') || error.message?.includes('User rejected')) {
         message = 'User rejected the connection request'
-      } else if (err.message) {
-        message = err.message
+      } else if (error.message) {
+        message = error.message
       }
       setState(prev => ({
         ...prev,
@@ -223,10 +260,7 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   }, [])
 
   const disconnect = useCallback(() => {
-    if (window.ethereum) {
-      window.ethereum.removeAllListeners?.('accountsChanged')
-      window.ethereum.removeAllListeners?.('chainChanged')
-    }
+    removeMMListeners()
 
     if (wcProvider) {
       wcProvider.disconnect?.()
@@ -240,7 +274,7 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       connecting: false,
       error: null,
     })
-  }, [])
+  }, [removeMMListeners])
 
   const clearError = useCallback(() => {
     setState(prev => ({ ...prev, error: null }))
@@ -258,5 +292,3 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     </WalletContext.Provider>
   )
 }
-
-export { formatAddress }

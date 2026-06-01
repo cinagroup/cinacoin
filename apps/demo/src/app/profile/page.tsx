@@ -88,7 +88,7 @@ function PortfolioSummary({ balances }: { balances: ChainBalance[] }) {
         {/* Total */}
         <div className="text-center mb-6 p-4 rounded-xl bg-gradient-to-b from-gray-900/60 to-gray-800/40 border border-gray-700/30">
           <p className="text-xs text-gray-500 mb-1">Total Estimated Value</p>
-          <p className="text-3xl font-bold bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent inline-flex items-center gap-2">
+          <p className="text-3xl font-bold bg-gradient-to-r from-brand-500 to-brand-400 bg-clip-text text-transparent inline-flex items-center gap-2">
             ${totalUsd.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             <SimulatedBadge size="xs" />
           </p>
@@ -113,7 +113,7 @@ function PortfolioSummary({ balances }: { balances: ChainBalance[] }) {
                     <span className="text-xs text-gray-500">{item.balance} {item.symbol}</span>
                     <div className="flex-1 h-1.5 bg-gray-700 rounded-full overflow-hidden">
                       <div
-                        className="h-full rounded-full bg-gradient-to-r from-blue-500 to-emerald-500 transition-all duration-500"
+                        className="h-full rounded-full bg-gradient-to-r from-brand-500 to-brand-400 transition-all duration-500"
                         style={{ width: `${pct}%` }}
                       />
                     </div>
@@ -155,7 +155,7 @@ function WalletCard({
   return (
     <div className={`p-5 rounded-xl border transition-all ${
       isPrimary
-        ? 'bg-blue-500/10 border-blue-500/30'
+        ? 'bg-brand-500/10 border-brand-500/30'
         : 'bg-gray-900/40 border-gray-700/40 hover:border-gray-600'
     }`}>
       <div className="flex items-center gap-4">
@@ -164,7 +164,7 @@ function WalletCard({
           <div className="flex items-center gap-2">
             <p className="font-mono text-sm text-gray-200 truncate">{shortenAddress(address)}</p>
             {isPrimary && (
-              <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/30 font-semibold">
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-brand-500/20 text-brand-400 border border-brand-500/30 font-semibold">
                 Primary
               </span>
             )}
@@ -175,7 +175,7 @@ function WalletCard({
           <p className="text-sm font-semibold text-gray-200">{totalBalance.toFixed(4)}</p>
           <button
             onClick={onSwitch}
-            className="text-[10px] text-blue-400 hover:text-blue-300 transition-colors"
+            className="text-[10px] text-brand-400 hover:text-brand-300 transition-colors"
           >
             Switch →
           </button>
@@ -255,7 +255,7 @@ export default function ProfilePage() {
 
         {/* ── Header ── */}
         <div className="text-center space-y-2">
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-brand-500 via-brand-400 to-brand-300 bg-clip-text text-transparent">
             Profile
           </h1>
           <p className="text-gray-400 text-sm">Your identity, wallets, and portfolio</p>
@@ -268,7 +268,7 @@ export default function ProfilePage() {
             <p className="text-gray-400 mt-4 text-sm">Connect your wallet to view your profile</p>
             <button
               onClick={handleConnect}
-              className="mt-4 px-6 py-3 rounded-xl font-semibold bg-purple-600 hover:bg-purple-500 text-white transition-all"
+              className="mt-4 px-6 py-3 rounded-xl font-semibold bg-brand-600 hover:bg-brand-500 text-white transition-all"
             >
               Connect Wallet
             </button>
@@ -280,7 +280,7 @@ export default function ProfilePage() {
             {/* ── Profile Card ── */}
             <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl border border-gray-700/60 overflow-hidden">
               {/* Banner */}
-              <div className="h-24 bg-gradient-to-r from-purple-600/30 via-pink-600/30 to-red-600/30 relative">
+              <div className="h-24 bg-gradient-to-r from-brand-600/30 via-brand-500/30 to-brand-400/30 relative">
                 <div className="absolute -bottom-10 left-6">
                   <AvatarDisplay address={account.address} size="xl" />
                 </div>

@@ -26,7 +26,7 @@ export interface Env {
 // Hono app
 const app = new Hono<{ Bindings: Env }>();
 app.use("/*", cors({
-  origin: ["*"],
+  origin: ["https://cinacoin.com", "https://dash.cinacoin.com", "https://demo.cinacoin.com", "https://docs.cinacoin.com", "https://status.cinacoin.com"],
   allowMethods: ["GET", "POST", "OPTIONS"],
   allowHeaders: ["Content-Type", "Authorization", "X-API-Key"],
   maxAge: 86400,

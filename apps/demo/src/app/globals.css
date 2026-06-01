@@ -180,6 +180,13 @@
 /* ── smooth scroll ── */
 html { scroll-behavior: smooth; }
 
+/* ── brand palette CSS variables (used by inline styles) ── */
+:root {
+  --brand-500: #3b82f6;
+  --brand-400: #60a5fa;
+  --brand-600: #2563eb;
+}
+
 /* ── background particles ── */
 .particle {
   position: absolute;
@@ -200,7 +207,7 @@ html { scroll-behavior: smooth; }
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  background: linear-gradient(135deg, var(--brand-500), var(--brand-400));
   color: white;
   border: none;
   cursor: pointer;

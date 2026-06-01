@@ -16,14 +16,16 @@ export default function Hero() {
       <FadeIn delay={100}>
         <div className="relative mb-8 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-1.5 text-xs text-zinc-400 backdrop-blur-sm">
           <span className="h-1.5 w-1.5 rounded-full bg-blue-400 animate-pulse" />
-          Introducing Cinacoin SDK v2.0
-          <span className="text-zinc-600">→</span>
+          <a href="https://docs.cinacoin.com" className="flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded-full px-1 -mx-1" aria-label="Read about Cinacoin SDK v2.0">
+            Introducing Cinacoin SDK v2.0
+            <span aria-hidden="true" className="text-zinc-600">→</span>
+          </a>
         </div>
       </FadeIn>
 
       {/* Headline */}
       <FadeIn delay={200} duration={800}>
-        <h1 className="relative max-w-4xl text-center text-5xl font-extrabold leading-[1.1] tracking-tight sm:text-6xl md:text-7xl lg:text-8xl">
+        <h1 id="hero-heading" className="relative max-w-4xl text-center text-5xl font-extrabold leading-[1.1] tracking-tight sm:text-6xl md:text-7xl lg:text-8xl">
           Connect any wallet,
           <br />
           <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
@@ -45,13 +47,15 @@ export default function Hero() {
         <div className="relative mt-10 flex flex-col gap-4 sm:flex-row">
           <a
             href="https://docs.cinacoin.com"
-            className="rounded-full bg-white px-8 py-3.5 text-center text-sm font-semibold text-black transition-all hover:bg-zinc-200"
+            className="rounded-full bg-white px-8 py-3.5 text-center text-sm font-semibold text-black transition-all hover:bg-zinc-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+            aria-label="Start building with Cinacoin documentation"
           >
             Start Building →
           </a>
           <a
             href="https://github.com/cinagroup/cinacoin"
-            className="rounded-full border border-white/10 bg-white/[0.04] px-8 py-3.5 text-center text-sm font-semibold backdrop-blur-sm transition-all hover:bg-white/[0.08]"
+            className="rounded-full border border-white/10 bg-white/[0.04] px-8 py-3.5 text-center text-sm font-semibold backdrop-blur-sm transition-all hover:bg-white/[0.08] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+            aria-label="View Cinacoin on GitHub"
           >
             View on GitHub
           </a>

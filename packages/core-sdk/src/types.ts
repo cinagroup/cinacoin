@@ -1,11 +1,31 @@
 /**
  * Core type definitions for the Cinacoin SDK.
+ *
+ * These types define the shared data structures used across all
+ * chain adapters, connectors, and the session manager.
  */
 
-/** Supported blockchain network types. */
+/**
+ * Supported blockchain network namespaces (CAIP-2 format).
+ *
+ * Each namespace groups chains that share a common protocol:
+ * - `eip155`: EVM-compatible chains (Ethereum, Polygon, BSC, etc.)
+ * - `solana`: Solana mainnet, devnet, testnet
+ * - `bip122`: Bitcoin-based chains (mainnet, testnet, signet)
+ * - `tron`, `ton`, `polkadot`, `sui`, `hedera`: respective networks
+ *
+ * Note: `bip121` is included for legacy compatibility.
+ */
 export type ChainNamespace = 'eip155' | 'solana' | 'bip121' | 'bip122' | 'tron' | 'ton' | 'polkadot' | 'sui' | 'hedera';
 
-/** Chain reference (CAIP-2 format: namespace:reference). */
+/**
+ * Chain reference following CAIP-2 format (namespace:reference).
+ *
+ * @example
+ * ```ts
+ * { namespace: 'eip155', reference: '1' } // Ethereum mainnet
+ * ```
+ */
 export interface ChainReference {
   /** Chain namespace (e.g., 'eip155'). */
   namespace: ChainNamespace;
@@ -13,23 +33,29 @@ export interface ChainReference {
   reference: string;
 }
 
-/** Full chain definition. */
+/**
+ * Full chain definition with all metadata needed for RPC calls,
+ * UI display, and transaction construction.
+ */
 export interface Chain {
-  /** Unique chain ID. */
+  /** Unique chain identifier (e.g., 'eip155:1' for Ethereum). */
   id: string;
   /** Human-readable chain name. */
   name: string;
-  /** RPC endpoint URL. */
+  /** JSON-RPC endpoint URL for on-chain queries. */
   rpcUrl: string;
-  /** Native currency symbol. */
+  /** Native currency metadata. */
   nativeCurrency?: {
+    /** Currency display name (e.g., 'Ether'). */
     name: string;
+    /** Currency ticker symbol (e.g., 'ETH'). */
     symbol: string;
+    /** Number of decimal places (e.g., 18 for ETH). */
     decimals: number;
   };
-  /** Explorer URL. */
+  /** Block explorer base URL. */
   explorerUrl?: string;
-  /** Chain icon URL. */
+  /** Chain icon URL (data URI or HTTPS). */
   iconUrl?: string;
 }
 

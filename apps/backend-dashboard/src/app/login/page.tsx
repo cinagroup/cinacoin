@@ -7,10 +7,10 @@ import { useAuth } from "@/lib/AuthProvider";
 import { isWalletAvailable } from "@/lib/auth";
 
 export default function LoginPage() {
-  const { doLogin, isLoggedIn, isLoading, error, address } = useAuth();
+  const { doLogin, isLoggedIn, isLoading, error } = useAuth();
   const router = useRouter();
   const [walletMissing, setWalletMissing] = useState(false);
-  const [signMessage, setSignMessage] = useState<string | null>(null);
+  const [step, setStep] = useState<"idle" | "connecting" | "signing">("idle");
 
   // If already logged in, redirect to dashboard
   if (isLoggedIn) {
@@ -24,13 +24,13 @@ export default function LoginPage() {
       return;
     }
     setWalletMissing(false);
-    setSignMessage("Connecting wallet...");
+    setStep("connecting");
 
     try {
       await doLogin();
-      // AuthProvider will set address on success; the redirect is handled below
+      // AuthProvider sets address on success; redirect handled by isLoggedIn check
     } catch {
-      setSignMessage(null);
+      setStep("idle");
     }
   };
 
@@ -39,10 +39,10 @@ export default function LoginPage() {
       <div className="w-full max-w-md">
         {/* Logo / Brand */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-indigo-500/20 border border-indigo-500/30 mb-4">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-brand-500/20 border border-brand-500/30 mb-4">
             <span className="text-3xl">🔢</span>
           </div>
-          <h1 className="text-3xl font-bold text-white">CinaCoin</h1>
+          <h1 className="text-3xl font-bold text-white">cinacoin</h1>
           <p className="text-gray-400 mt-2">Backend Dashboard</p>
         </div>
 
@@ -50,7 +50,7 @@ export default function LoginPage() {
         <div className="bg-[#1a1d2e] border border-[#2a2d3e] rounded-2xl p-8 shadow-2xl">
           <h2 className="text-xl font-semibold text-white mb-2">Sign in with Wallet</h2>
           <p className="text-sm text-gray-400 mb-6">
-            Connect your Ethereum wallet to access the CinaCoin Backend Dashboard.
+            Connect your Ethereum wallet to access the cinacoin Backend Dashboard.
             A signature will be requested — no gas fees required.
           </p>
 
@@ -77,32 +77,34 @@ export default function LoginPage() {
             </div>
           )}
 
-          {/* Sign message preview */}
-          {signMessage && !error && (
-            <div className="mb-4 p-3 rounded-lg bg-indigo-500/10 border border-indigo-500/30">
-              <p className="text-xs text-indigo-300 font-medium mb-1">⏳ {signMessage}</p>
-              {signMessage === "Check your wallet to sign the message..." && (
-                <p className="text-xs text-gray-500 mt-1">
-                  Approve the signature request in your wallet popup.
-                </p>
-              )}
+          {/* Sign progress */}
+          {step === "connecting" && !error && (
+            <div className="mb-4 p-3 rounded-lg bg-brand-500/10 border border-brand-500/30">
+              <p className="text-xs text-brand-300 font-medium">⏳ Connecting wallet...</p>
+            </div>
+          )}
+          {isLoading && step !== "connecting" && !error && (
+            <div className="mb-4 p-3 rounded-lg bg-brand-500/10 border border-brand-500/30">
+              <p className="text-xs text-brand-300 font-medium">⏳ Check your wallet to sign the message...</p>
+              <p className="text-xs text-gray-500 mt-1">Approve the signature request in your wallet popup.</p>
             </div>
           )}
 
           {/* Login button */}
           <button
             onClick={handleLogin}
+            aria-label={isLoading || step === "connecting" ? "Wallet connection in progress" : "Connect Ethereum wallet and sign in"}
             disabled={isLoading}
             className={`
               w-full py-3 px-4 rounded-xl font-semibold text-sm transition-all duration-200
               ${
-                isLoading
-                  ? "bg-indigo-500/50 text-white/60 cursor-not-allowed"
-                  : "bg-indigo-500 hover:bg-indigo-400 text-white shadow-lg shadow-indigo-500/25 hover:shadow-indigo-400/30 active:scale-[0.98]"
+                isLoading || step === "connecting"
+                  ? "bg-brand-500/50 text-white/60 cursor-not-allowed"
+                  : "bg-brand-500 hover:bg-brand-400 text-white shadow-lg shadow-brand-500/25 hover:shadow-brand-400/30 active:scale-[0.98]"
               }
             `}
           >
-            {isLoading ? (
+            {isLoading || step === "connecting" ? (
               <span className="flex items-center justify-center gap-2">
                 <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
@@ -112,7 +114,7 @@ export default function LoginPage() {
                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
                   />
                 </svg>
-                {signMessage || "Connecting..."}
+                {step === "connecting" ? "Connecting..." : "Signing..."}
               </span>
             ) : (
               "🦊 Connect Wallet & Login"

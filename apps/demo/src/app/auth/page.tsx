@@ -285,7 +285,7 @@ export default function AuthPage() {
             Real SIWE — EIP-4361 + Passkeys
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight">
-            <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-brand-400 via-brand-500 to-brand-600 bg-clip-text text-transparent">
               Sign-In With Ethereum
             </span>
           </h1>
@@ -631,6 +631,7 @@ export default function AuthPage() {
                               setPasskeyError(`Removed passkey for "${cred.username}"`);
                             }}
                             className="text-red-400 hover:text-red-300 transition-colors"
+                            aria-label={`Remove passkey for ${cred.username}`}
                           >
                             Remove
                           </button>
@@ -685,7 +686,7 @@ export default function AuthPage() {
                 </div>
                 <div className="rounded-lg bg-gray-950 border border-gray-800 p-4 space-y-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-sm font-bold shadow-lg">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-sm font-bold shadow-lg">
                       {passkeyResult.username[0]?.toUpperCase()}
                     </div>
                     <div>

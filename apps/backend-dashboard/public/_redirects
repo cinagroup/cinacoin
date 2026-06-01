@@ -1,0 +1,8 @@
+# API proxy redirects to Cloudflare Workers
+# These allow the dashboard to call Workers via relative paths
+# instead of exposing direct Worker URLs in the client bundle
+/api/rpc/*    https://rpc.cinacoin.com/:splat    200
+/api/keys/*    https://keys.cinacoin.com/:splat    200
+/api/relay/*    https://relay.cinacoin.com/:splat    200
+/api/notify/*    https://notify.cinacoin.com/:splat    200
+/api/push/*    https://push.cinacoin.com/:splat    200

@@ -55,7 +55,8 @@ export default function TokenInput({
           {maxButton && onMax && (
             <button
               onClick={onMax}
-              className="text-xs font-bold text-blue-400 hover:text-blue-300 transition-colors px-2 py-0.5 rounded bg-blue-400/10 hover:bg-blue-400/20"
+              aria-label={`Set maximum ${label} amount`}
+              className="text-xs font-bold text-brand-400 hover:text-brand-300 transition-colors px-2 py-0.5 rounded bg-brand-400/10 hover:bg-brand-400/20"
             >
               MAX
             </button>

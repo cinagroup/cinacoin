@@ -48,7 +48,7 @@ export default function NotifyServerPage() {
           />
           <div className="space-y-3">
             <div>
-              <p className="text-sm text-dashboard-muted">Successfully DeliveredRate</p>
+              <p className="text-sm text-dashboard-muted">Successfully Delivered</p>
               <p className="text-xl font-bold text-dashboard-success">{metrics.deliveryRate?.toFixed(1) || 0}%</p>
             </div>
             <div>

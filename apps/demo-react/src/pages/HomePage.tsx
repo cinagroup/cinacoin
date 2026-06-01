@@ -63,7 +63,7 @@ const HomePage: React.FC = () => {
           <div className="flex items-center justify-between h-16">
             <Link to="/" className="flex items-center gap-2">
               <span className="text-2xl">🔢</span>
-              <span className="font-bold text-lg">Cina<span className="text-violet-400">Connect</span></span>
+              <span className="font-bold text-lg">Cina<span className="text-brand-400">Connect</span></span>
             </Link>
             <div className="hidden md:flex items-center gap-6">
               <Link to="/swap" className="text-gray-400 hover:text-white transition-colors text-sm">Swap</Link>
@@ -98,13 +98,13 @@ const HomePage: React.FC = () => {
       {/* Hero */}
       <section className="relative overflow-hidden">
         {/* Background glow */}
-        <div className="absolute inset-0 bg-gradient-to-b from-violet-900/20 via-transparent to-transparent" />
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-violet-600/10 rounded-full blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-b from-brand-900/20 via-transparent to-transparent" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-brand-600/10 rounded-full blur-3xl" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32">
           <div className="text-center max-w-4xl mx-auto">
             <div className="animate-fade-in-up">
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-sm mb-6">
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-sm mb-6">
                 ✨ Open Source • 64 Packages • Zero Cost
               </span>
             </div>
@@ -141,7 +141,7 @@ const HomePage: React.FC = () => {
           <div className="glass-card rounded-2xl p-6">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center text-xl">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-brand-500 to-brand-400 flex items-center justify-center text-xl">
                   👤
                 </div>
                 <div>
@@ -155,7 +155,7 @@ const HomePage: React.FC = () => {
                   {chainInfo.blockNumber && (
                     <div>
                       <p className="text-gray-500 text-xs">Block</p>
-                      <p className="font-mono font-medium text-violet-400">#{chainInfo.blockNumber}</p>
+                      <p className="font-mono font-medium text-brand-400">#{chainInfo.blockNumber}</p>
                     </div>
                   )}
                   {chainInfo.balanceEth && (
@@ -174,7 +174,8 @@ const HomePage: React.FC = () => {
                 <select
                   value={selectedChain}
                   onChange={(e) => setSelectedChain(e.target.value)}
-                  className="bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm focus:border-violet-500 outline-none"
+                  className="bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm focus:border-brand-500 outline-none"
+                  aria-label="Select chain"
                 >
                   {CHAINS.map(c => (
                     <option key={c.name} value={c.name}>{c.emoji} {c.name}</option>
@@ -268,7 +269,7 @@ const HomePage: React.FC = () => {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
               <span className="text-xl">🔢</span>
-              <span className="font-semibold">CinaCoin</span>
+              <span className="font-semibold">Cinacoin</span>
               <span className="text-gray-500 text-sm">v1.0.0</span>
             </div>
             <div className="flex items-center gap-6">

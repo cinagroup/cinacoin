@@ -5,10 +5,22 @@ import AuthProvider from "@/lib/AuthProvider";
 import AuthGuard from "@/components/AuthGuard";
 
 export const metadata: Metadata = {
-  title: "CinaCoin — Backend Dashboard",
-  description: "Management dashboard for CinaCoin Cloudflare Workers services",
+  title: "Cinacoin — Backend Dashboard",
+  description: "Management dashboard for Cinacoin Cloudflare Workers services",
   icons: {
     icon: '/favicon.ico',
+    apple: '/favicon.png',
+  },
+  openGraph: {
+    title: 'Cinacoin — Backend Dashboard',
+    description: 'Management dashboard for Cinacoin Cloudflare Workers services',
+    type: 'website',
+    siteName: 'Cinacoin',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Cinacoin — Backend Dashboard',
+    description: 'Management dashboard for Cinacoin Cloudflare Workers services',
   },
 };
 

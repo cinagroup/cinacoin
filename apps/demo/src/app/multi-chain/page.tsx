@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import DemoLayout from '@/components/DemoLayout';
 import { useWallet, shortenAddress } from '@/lib/useWallet';
 import {
@@ -66,7 +66,7 @@ function ChainCard({ chain, balance, health, isWalletConnected, isCurrentChain, 
   return (
     <div className={`group bg-gray-800/40 backdrop-blur rounded-2xl border ${
       isCurrentChain
-        ? 'border-blue-500/50 ring-1 ring-blue-500/20'
+        ? 'border-brand-500/50 ring-1 ring-brand-500/20'
         : justSwitched
         ? 'border-green-500/50 ring-1 ring-green-500/20'
         : 'border-gray-700/60'
@@ -76,7 +76,7 @@ function ChainCard({ chain, balance, health, isWalletConnected, isCurrentChain, 
       {/* Top gradient bar */}
       <div className={`h-1 ${
         isCurrentChain
-          ? 'bg-gradient-to-r from-blue-500 to-violet-500'
+          ? 'bg-gradient-to-r from-brand-500 to-brand-400'
           : isHealthy
           ? 'bg-emerald-400/70'
           : 'bg-red-500/70'
@@ -86,7 +86,7 @@ function ChainCard({ chain, balance, health, isWalletConnected, isCurrentChain, 
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-sm shadow-md">
+            <div className="w-10 h-10 bg-gradient-to-br from-brand-500 to-brand-600 rounded-xl flex items-center justify-center text-white font-bold text-sm shadow-md">
               {chain.symbol}
             </div>
             <div>
@@ -141,7 +141,7 @@ function ChainCard({ chain, balance, health, isWalletConnected, isCurrentChain, 
 
         {/* Explorer Link */}
         <a
-          href={`${chain.explorer}/address/${balance?.chain?.rpcUrl ? '0x0000000000000000000000000000000000000000' : ''}`}
+          href={`${chain.explorer}/address/0x0000000000000000000000000000000000000000`}
           target="_blank"
           rel="noopener noreferrer"
           className="block w-full py-2 rounded-xl text-center text-xs font-semibold text-gray-400 border border-gray-700/40 hover:text-white hover:border-gray-500 transition-all"
@@ -151,16 +151,16 @@ function ChainCard({ chain, balance, health, isWalletConnected, isCurrentChain, 
 
         {/* Connect / Switch */}
         {isWalletConnected && isCurrentChain ? (
-          <div className="w-full py-2.5 rounded-xl text-center font-semibold text-sm bg-gradient-to-r from-blue-500/10 to-violet-500/10 text-blue-400 border border-blue-500/30 animate-status-transition">
+          <div className="w-full py-2.5 rounded-xl text-center font-semibold text-sm bg-gradient-to-r from-brand-500/10 to-brand-400/10 text-brand-400 border border-brand-500/30 animate-status-transition">
             <span className="inline-flex items-center gap-1.5">
-              <span className="size-2 rounded-full bg-blue-400 animate-pulse" />
+              <span className="size-2 rounded-full bg-brand-400 animate-pulse" />
               Active Chain
             </span>
           </div>
         ) : isWalletConnected ? (
           <button
             onClick={onSwitchChain}
-            className="w-full py-2.5 rounded-xl font-semibold text-sm bg-blue-600/20 text-blue-400 border border-blue-500/30 hover:bg-blue-600/30 transition-all"
+            className="w-full py-2.5 rounded-xl font-semibold text-sm bg-brand-600/20 text-brand-400 border border-brand-500/30 hover:bg-brand-600/30 transition-all"
           >
             Switch to {chain.name}
           </button>
@@ -260,7 +260,7 @@ function BalanceSummary({ balances }: { balances: ChainBalance[] }) {
           {hasBalance.map((b) => (
             <div key={b.chain.id} className="flex items-center justify-between px-4 py-3 rounded-xl bg-gray-900/50 border border-gray-700/40">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center text-white text-xs font-bold">
+                <div className="w-8 h-8 bg-gradient-to-br from-brand-500 to-brand-600 rounded-lg flex items-center justify-center text-white text-xs font-bold">
                   {b.chain.symbol}
                 </div>
                 <div>
@@ -294,7 +294,7 @@ function CrossChainFlow() {
   const steps = [
     { label: 'Initiate', detail: 'User selects chain A', icon: '🔗' },
     { label: 'Lock', detail: 'Assets locked on source', icon: '🔒' },
-    { label: 'Relay', detail: 'CinaCoin Relay', icon: '⚡' },
+    { label: 'Relay', detail: 'Cinacoin Relay', icon: '⚡' },
     { label: 'Mint/Release', detail: 'Assets on chain B', icon: '🔓' },
     { label: 'Complete', detail: 'Cross-chain transfer', icon: '✅' },
   ];
@@ -309,23 +309,23 @@ function CrossChainFlow() {
   return (
     <div className="bg-gray-800/40 backdrop-blur rounded-2xl border border-gray-700/60 p-8 overflow-hidden">
       <h2 className="text-xl font-semibold text-white mb-2">Cross-Chain Flow</h2>
-      <p className="text-sm text-gray-400 mb-8">Atomic cross-chain transfers powered by CinaCoin Relay protocol</p>
+      <p className="text-sm text-gray-400 mb-8">Atomic cross-chain transfers powered by Cinacoin Relay protocol</p>
 
       <div className="relative">
         <div className="absolute top-10 left-10 right-10 h-0.5 bg-gray-700">
           <div
-            className="absolute top-0 left-0 h-full bg-gradient-to-r from-blue-500 via-purple-500 to-emerald-500 transition-all duration-500 ease-out"
+            className="absolute top-0 left-0 h-full bg-gradient-to-r from-brand-500 via-brand-400 to-brand-300 transition-all duration-500 ease-out"
             style={{ width: `${((activeStep + 1) / steps.length) * 100}%` }}
           />
         </div>
 
-        <div className="relative flex justify-between">
+        <div className="relative flex justify-between flex-wrap gap-4">
           {steps.map((step, i) => (
-            <div key={step.label} className="flex flex-col items-center gap-3 z-10 w-32">
+            <div key={step.label} className="flex flex-col items-center gap-3 z-10 w-20 sm:w-24 md:w-32">
               <div
                 className={`w-20 h-20 rounded-2xl flex items-center justify-center text-3xl transition-all duration-500 ${
                   i <= activeStep
-                    ? 'bg-gradient-to-br from-blue-500/30 to-purple-500/30 border-2 border-blue-400/50 shadow-lg shadow-blue-500/10 scale-105'
+                    ? 'bg-gradient-to-br from-brand-500/30 to-brand-400/30 border-2 border-brand-400/50 shadow-lg shadow-brand-500/10 scale-105'
                     : 'bg-gray-800 border border-gray-700/60 opacity-50'
                 }`}
               >
@@ -350,12 +350,12 @@ function CrossChainFlow() {
 function UnifiedApiExample() {
   const [copied, setCopied] = useState(false);
 
-  const code = `// CinaCoin — Unified Multi-Chain API
+  const code = `// Cinacoin — Unified Multi-Chain API
 // One interface. Every chain. Zero complexity.
 
-import { CinaCoin } from '@cinacoin/sdk';
+import { Cinacoin } from '@cinacoin/sdk';
 
-const client = new CinaCoin();
+const client = new Cinacoin();
 
 // 🔗 Connect to ANY chain with the same API
 const eth = await client.connect('ethereum', 'MetaMask');
@@ -589,7 +589,7 @@ export default function MultiChainPage() {
               ? `${account.chainName} · ${shortenAddress(account.address ?? '')}`
               : `${CHAINS.length} EVM chains · Real RPC balances`}
           </div>
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400 bg-clip-text text-transparent">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-brand-400 via-brand-500 to-brand-300 bg-clip-text text-transparent">
             Multi-Chain Connectivity
           </h1>
           <p className="text-gray-400 max-w-2xl mx-auto text-lg">
@@ -627,7 +627,7 @@ export default function MultiChainPage() {
           ) : (
             <button
               onClick={() => connect(primaryConnector?.id ?? 'io.metamask')}
-              className="px-6 py-3 rounded-xl font-semibold bg-blue-600 hover:bg-blue-500 text-white transition-all shadow-lg shadow-blue-600/25"
+              className="px-6 py-3 rounded-xl font-semibold bg-brand-600 hover:bg-brand-500 text-white transition-all shadow-lg shadow-brand-600/25"
             >
               Connect Wallet
             </button>
@@ -643,7 +643,7 @@ export default function MultiChainPage() {
         <div className="flex items-center justify-between bg-gray-800/30 rounded-xl border border-gray-700/40 px-5 py-3">
           <div className="flex items-center gap-3">
             <span className="text-xs text-gray-400">Auto-refresh:</span>
-            <span className="text-xs font-mono text-blue-400">{countdown}s</span>
+            <span className="text-xs font-mono text-brand-400">{countdown}s</span>
           </div>
           <div className="flex items-center gap-3">
             {loadingBalances && (
@@ -706,7 +706,7 @@ export default function MultiChainPage() {
         <div className="text-center py-4">
           <p className="text-sm text-gray-600">
             Powered by{' '}
-            <span className="text-gray-400 font-semibold">CinaCoin SDK</span>
+            <span className="text-gray-400 font-semibold">Cinacoin SDK</span>
             {' '}— one interface, every chain.
           </p>
         </div>

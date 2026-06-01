@@ -23,7 +23,7 @@ const nextConfig: NextConfig = {
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: blob:",
               "font-src 'self'",
-              "connect-src 'self' https://*.walletconnect.com",
+              "connect-src 'self' https://*.cinacoin.com https://*.walletconnect.com",
               "frame-src 'none'",
               "frame-ancestors 'none'",
               "object-src 'none'",

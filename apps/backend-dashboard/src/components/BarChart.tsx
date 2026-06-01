@@ -3,14 +3,20 @@ interface BarChartProps {
   labels: string[];
   color?: string;
   height?: number;
+  ariaLabelledBy?: string;
 }
 
-export default function BarChart({ data, labels, color = "#6366f1", height = 120 }: BarChartProps) {
+export default function BarChart({ data, labels, color = "#3b82f6", height = 120, ariaLabelledBy }: BarChartProps) {
   if (!data.length) return null;
   const max = Math.max(...data, 1);
 
   return (
-    <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-4">
+    <div
+      className="bg-dashboard-surface rounded-xl border border-dashboard-border p-4"
+      role="img"
+      aria-label="Bar chart"
+      aria-labelledby={ariaLabelledBy}
+    >
       <div
         className="flex items-end gap-1"
         style={{ height: `${height}px` }}
@@ -26,7 +32,9 @@ export default function BarChart({ data, labels, color = "#6366f1", height = 120
                 backgroundColor: color,
                 minWidth: "4px",
               }}
-              title={`${labels[i]}: ${value}`}
+              role="img"
+              aria-label={`${labels[i]}: ${value.toLocaleString()}`}
+              title={`${labels[i]}: ${value.toLocaleString()}`}
             >
               <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-dashboard-bg text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
                 {value.toLocaleString()}

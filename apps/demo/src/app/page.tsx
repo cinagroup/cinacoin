@@ -106,7 +106,7 @@ function FeatureCard({ feature, delay }: { feature: (typeof FEATURES)[number]; d
       }`}
       style={isInView ? { animationDelay: `${delay}ms`, animationFillMode: 'both' } : undefined}
     >
-      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-brand-500/5 to-brand-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
       <div className="relative">
         <div className="text-3xl mb-4">{feature.icon}</div>
         <h3 className="text-base font-semibold text-gray-100 group-hover:text-white transition-colors mb-2">
@@ -431,7 +431,7 @@ export default function HomePage() {
       <section className="relative w-full max-w-4xl text-center space-y-8 pt-8 sm:pt-20 pb-12 px-4 z-10">
         {/* Ambient glow behind hero */}
         <div
-          className="absolute -top-20 left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full bg-gradient-to-br from-blue-500/10 via-violet-500/5 to-purple-500/10 blur-3xl animate-hero-glow pointer-events-none"
+          className="absolute -top-20 left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full bg-gradient-to-br from-brand-500/10 via-brand-400/5 to-brand-300/10 blur-3xl animate-hero-glow pointer-events-none"
           aria-hidden="true"
         />
 
@@ -448,8 +448,8 @@ export default function HomePage() {
 
         {/* Title with animated gradient */}
         <h1 className="relative text-6xl sm:text-7xl font-extrabold tracking-tight">
-          <span className="bg-gradient-to-r from-blue-400 via-violet-400 to-purple-500 bg-clip-text text-transparent animate-gradient-shift">
-            CinaCoin
+          <span className="bg-gradient-to-r from-brand-400 via-brand-500 to-brand-300 bg-clip-text text-transparent animate-gradient-shift">
+            Cinacoin
           </span>
         </h1>
 
@@ -469,7 +469,7 @@ export default function HomePage() {
           <button
             onClick={() => handleConnect('io.metamask')}
             disabled={isConnecting}
-            className="px-8 py-4 rounded-2xl font-semibold text-base bg-gradient-to-r from-blue-600 to-violet-600 text-white hover:from-blue-500 hover:to-violet-500 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-200 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-8 py-4 rounded-2xl font-semibold text-base bg-gradient-to-r from-brand-600 to-brand-500 text-white hover:from-brand-500 hover:to-brand-400 shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 transition-all duration-200 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isConnecting ? (
               <span className="inline-flex items-center gap-2">
@@ -502,7 +502,7 @@ export default function HomePage() {
       <section className="relative w-full max-w-2xl px-4 py-8 z-10">
         <div className="relative bg-gradient-to-b from-gray-800/80 to-gray-900/80 backdrop-blur-xl rounded-3xl border border-gray-700/50 shadow-2xl shadow-black/40 overflow-hidden">
           {/* Gradient border glow */}
-          <div className="absolute -inset-px rounded-3xl bg-gradient-to-r from-blue-500/20 via-violet-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+          <div className="absolute -inset-px rounded-3xl bg-gradient-to-r from-brand-500/20 via-brand-400/20 to-brand-300/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
           {/* Card header */}
           <div className="relative flex items-center justify-between px-6 py-4 border-b border-gray-700/40">
@@ -512,7 +512,7 @@ export default function HomePage() {
                 <span className="size-3 rounded-full bg-yellow-500/60" />
                 <span className="size-3 rounded-full bg-green-500/60" />
               </div>
-              <span className="text-xs text-gray-500 font-mono ml-2">CinaCoin Demo</span>
+              <span className="text-xs text-gray-500 font-mono ml-2">Cinacoin Demo</span>
             </div>
             <div className="flex items-center gap-2">
               <span
@@ -553,7 +553,7 @@ export default function HomePage() {
                       onClick={() => handleConnect(c.id)}
                       className="flex items-center gap-3 px-4 py-3 rounded-xl bg-gray-800/60 border border-gray-700/50 hover:border-gray-500 hover:bg-gray-700/60 transition-all text-left"
                     >
-                      <span className="size-8 rounded-full bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center text-xs font-bold text-gray-300">
+                      <span className="size-8 rounded-full bg-gradient-to-br from-brand-500/20 to-brand-400/20 flex items-center justify-center text-xs font-bold text-gray-300">
                         {c.name[0]}
                       </span>
                       <span className="text-sm font-medium text-gray-200">{c.name}</span>
@@ -589,7 +589,7 @@ export default function HomePage() {
                 <div className="absolute inset-0 bg-gradient-to-r from-green-500/5 to-transparent pointer-events-none" />
                 {/* Avatar with ring */}
                 <div className="relative shrink-0">
-                  <div className="size-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-sm font-bold text-white shadow-lg shadow-blue-500/20">
+                  <div className="size-12 rounded-full bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-sm font-bold text-white shadow-lg shadow-blue-500/20">
                     {account.address.slice(2, 4).toUpperCase()}
                   </div>
                   <span className="absolute -bottom-0.5 -right-0.5 size-3.5 rounded-full bg-emerald-400 border-2 border-gray-900" />
@@ -624,7 +624,7 @@ export default function HomePage() {
                     <button
                       onClick={handleQuickReconnect}
                       disabled={isConnecting}
-                      className="flex-1 px-6 py-3.5 rounded-xl font-semibold text-sm bg-gradient-to-r from-blue-600 to-violet-600 text-white hover:from-blue-500 hover:to-violet-500 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="flex-1 px-6 py-3.5 rounded-xl font-semibold text-sm bg-gradient-to-r from-brand-600 to-brand-500 text-white hover:from-brand-500 hover:to-brand-400 shadow-lg shadow-brand-500/20 hover:shadow-brand-500/30 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {isConnecting ? (
                         <span className="inline-flex items-center gap-2">
@@ -648,7 +648,7 @@ export default function HomePage() {
                   <button
                     onClick={() => handleConnect('io.metamask')}
                     disabled={isConnecting || connectors.length === 0}
-                    className="flex-1 px-6 py-3.5 rounded-xl font-semibold text-sm bg-gradient-to-r from-blue-600 to-violet-600 text-white hover:from-blue-500 hover:to-violet-500 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex-1 px-6 py-3.5 rounded-xl font-semibold text-sm bg-gradient-to-r from-brand-600 to-brand-500 text-white hover:from-brand-500 hover:to-brand-400 shadow-lg shadow-brand-500/20 hover:shadow-brand-500/30 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isConnecting ? 'Connecting...' : '⚡ Connect Wallet'}
                   </button>
@@ -723,7 +723,7 @@ export default function HomePage() {
         <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
           {STATS.map((s) => (
             <div key={s.label} className="text-center">
-              <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-brand-400 to-brand-300 bg-clip-text text-transparent">
                 {s.value}
               </div>
               <div className="text-xs text-gray-500 mt-1 font-medium">{s.label}</div>
@@ -739,7 +739,7 @@ export default function HomePage() {
         <div className="text-center mb-10">
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">
             Everything you need to{' '}
-            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent animate-gradient-shift"
+            <span className="bg-gradient-to-r from-brand-400 to-brand-300 bg-clip-text text-transparent animate-gradient-shift"
               style={{ backgroundSize: '200% 200%' }}>
               connect wallets
             </span>
@@ -795,7 +795,7 @@ export default function HomePage() {
                 const timeLabel = ago < 60000 ? 'Just now' : ago < 3600000 ? `${Math.floor(ago / 60000)}m ago` : ago < 86400000 ? `${Math.floor(ago / 3600000)}h ago` : `${Math.floor(ago / 86400000)}d ago`;
                 return (
                   <div key={i} className="flex items-center gap-3 px-5 py-3 hover:bg-gray-700/20 transition-colors">
-                    <div className="size-8 rounded-full bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center text-xs font-bold text-gray-300 shrink-0">
+                    <div className="size-8 rounded-full bg-gradient-to-br from-brand-500/20 to-brand-400/20 flex items-center justify-center text-xs font-bold text-gray-300 shrink-0">
                       {record.address.slice(2, 4).toUpperCase()}
                     </div>
                     <div className="flex-1 min-w-0">
@@ -836,12 +836,12 @@ export default function HomePage() {
               Ready to get started?
             </h2>
             <p className="text-gray-500 mb-8 max-w-md mx-auto">
-              Start building with CinaCoin. Open source, self-hosted, and free forever.
+              Start building with Cinacoin. Open source, self-hosted, and free forever.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Link
                 href="/swap"
-                className="px-8 py-4 rounded-2xl font-semibold text-base bg-gradient-to-r from-blue-600 to-violet-600 text-white hover:from-blue-500 hover:to-violet-500 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-200 hover:-translate-y-0.5"
+                className="px-8 py-4 rounded-2xl font-semibold text-base bg-gradient-to-r from-brand-600 to-brand-500 text-white hover:from-brand-500 hover:to-brand-400 shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 transition-all duration-200 hover:-translate-y-0.5"
               >
                 Get Started
               </Link>
@@ -857,7 +857,7 @@ export default function HomePage() {
       <footer className="relative w-full max-w-4xl px-4 py-8 border-t border-gray-800/50 z-10">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <p className="text-xs text-gray-600">
-            © 2026 CinaCoin. Open source under MIT License.
+            © 2026 Cinacoin. Open source under MIT License.
           </p>
           <div className="flex items-center gap-4">
             <Link href="/swap" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">

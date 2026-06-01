@@ -17,7 +17,7 @@ export const SERVICES: ServiceDefinition[] = [
     healthPath: "/health",
     metricsPath: "/metrics",
     icon: "🔄",
-    color: "#6366f1",
+    color: "#3b82f6",
   },
   {
     id: "keys-server",
@@ -102,15 +102,16 @@ function getBaseUrl(serviceId: string): string {
   const isProduction = typeof window !== "undefined" && window.location.hostname !== "localhost";
   
   if (isProduction) {
-    // Production custom domain URLs
-    const productionUrls: Record<string, string> = {
-      "rpc-proxy": "https://rpc.cinacoin.com",
-      "keys-server": "https://keys.cinacoin.com",
-      "relay-server": "https://relay.cinacoin.com",
-      "notify-server": "https://notify.cinacoin.com",
-      "push-server": "https://push.cinacoin.com",
+    // Use relative paths proxied through Pages (_redirects)
+    // Workers are proxied via /api/* to hide direct URLs from client bundle
+    const pathMap: Record<string, string> = {
+      "rpc-proxy": "/api/rpc",
+      "keys-server": "/api/keys",
+      "relay-server": "/api/relay",
+      "notify-server": "/api/notify",
+      "push-server": "/api/push",
     };
-    return productionUrls[serviceId] || `https://${serviceId}.cinacoin.com`;
+    return pathMap[serviceId] || `/${serviceId}`;
   }
   
   // Default: localhost dev URLs

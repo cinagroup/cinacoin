@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type FC } from 'react';
 
 /**
  * MOCK PRICES — These are illustrative only, not live data.
@@ -43,7 +43,14 @@ export default function SwapPage() {
     setFlipped(!flipped);
   };
 
-  const TokenSelector = ({ show, onClose, onSelect, label }: any) => (
+  interface TokenSelectorProps {
+    show: boolean
+    onClose: () => void
+    onSelect: (index: number) => void
+    label: string
+  }
+
+  const TokenSelector: React.FC<TokenSelectorProps> = ({ show, onClose, onSelect, label }) => (
     <div className={`fixed inset-0 z-50 flex items-center justify-center p-4 ${!show && 'hidden'}`}>
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} />
       <div className="relative w-full max-w-sm bg-gray-900 rounded-2xl border border-gray-800 shadow-2xl p-4">
@@ -72,7 +79,7 @@ export default function SwapPage() {
       {/* Nav */}
       <nav className="border-b border-gray-800/50 bg-gray-950/80 backdrop-blur sticky top-0 z-40">
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
-          <a href="/" className="text-lg font-bold bg-gradient-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">CinaCoin</a>
+          <a href="/" className="text-lg font-bold bg-gradient-to-r from-brand-500 to-brand-400 bg-clip-text text-transparent">Cinacoin</a>
           <div className="flex items-center gap-1">
             <a href="/" className="px-3 py-1.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-all">Home</a>
             <a href="/swap" className="px-3 py-1.5 rounded-lg text-sm font-medium text-white bg-gray-800">Swap</a>
@@ -84,7 +91,7 @@ export default function SwapPage() {
 
       {/* Swap Card */}
       <section className="max-w-md mx-auto pt-12 px-4">
-        <h1 className="text-3xl font-bold text-center mb-8 bg-gradient-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">Swap Tokens</h1>
+        <h1 className="text-3xl font-bold text-center mb-8 bg-gradient-to-r from-brand-500 to-brand-400 bg-clip-text text-transparent">Swap Tokens</h1>
 
         <div className="bg-gray-900/80 backdrop-blur rounded-2xl border border-gray-800 p-4 space-y-2">
           {/* FROM */}
@@ -140,7 +147,7 @@ export default function SwapPage() {
               <span className="text-gray-500">Slippage</span>
               <div className="flex gap-1">
                 {['0.1', '0.5', '1.0'].map(s => (
-                  <button key={s} onClick={() => setSlippage(s)} className={`px-2 py-0.5 rounded text-xs transition-all ${slippage === s ? 'bg-blue-600 text-white' : 'bg-gray-800 text-gray-400 hover:bg-gray-700'}`}>{s}%</button>
+                  <button key={s} onClick={() => setSlippage(s)} className={`px-2 py-0.5 rounded text-xs transition-all ${slippage === s ? 'bg-brand-600 text-white' : 'bg-gray-800 text-gray-400 hover:bg-gray-700'}`}>{s}%</button>
                 ))}
               </div>
             </div>
@@ -151,13 +158,13 @@ export default function SwapPage() {
         )}
 
         {/* Swap Button */}
-        <button className={`w-full mt-4 py-4 rounded-xl font-semibold text-lg transition-all ${amount > 0 ? 'bg-gradient-to-r from-blue-600 to-violet-600 text-white hover:from-blue-500 hover:to-violet-500 shadow-lg shadow-blue-500/20' : 'bg-gray-800 text-gray-500 cursor-not-allowed'}`}>
+        <button className={`w-full mt-4 py-4 rounded-xl font-semibold text-lg transition-all ${amount > 0 ? 'bg-gradient-to-r from-brand-600 to-brand-500 text-white hover:from-brand-500 hover:to-brand-400 shadow-lg shadow-brand-500/20' : 'bg-gray-800 text-gray-500 cursor-not-allowed'}`}>
           {amount > 0 ? 'Swap' : 'Enter an amount'}
         </button>
 
         {/* Powered by */}
         <p className="text-center text-xs text-gray-600 mt-4">
-          Powered by <span className="text-gray-400">CinaCoin Swap SDK</span>
+          Powered by <span className="text-gray-400">Cinacoin Swap SDK</span>
           {' · '}<span className="text-amber-500/60">Demo mode — prices are illustrative</span>
         </p>
 

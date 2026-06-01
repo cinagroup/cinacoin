@@ -227,6 +227,11 @@ export default {
 
     const origin = getCorsOrigin(request);
 
+    // CORS preflight (before rate limiting)
+    if (request.method === 'OPTIONS') {
+      return new Response(null, { headers: corsHeaders(origin) });
+    }
+
     // Rate limiting (skip health check)
     if (url.pathname !== '/health') {
       const ip = getClientIp(request);
@@ -235,26 +240,9 @@ export default {
       }
     }
 
-    // CORS preflight
-    if (request.method === 'OPTIONS') {
-      return new Response(null, { headers: corsHeaders(origin) });
-    }
-
     // CSRF protection for state-changing requests
-    const csrfError = validateCsrf(request, {
-      allowedOrigins: [...CSRF_ALLOWED_ORIGINS],
-    });
-    if (csrfError) {
-      // Re-attach CORS headers to CSRF error response
-      const headers = new Headers(csrfError.headers);
-      const cors = corsHeaders(origin);
-      for (const [k, v] of Object.entries(cors)) {
-        headers.set(k, v);
-      }
-      return new Response(csrfError.body, {
-        status: csrfError.status,
-        headers,
-      });
+    if (!validateCsrf(request)) {
+      return jsonResponse({ error: 'CSRF validation failed' }, 403, origin);
     }
 
     try {
@@ -265,7 +253,7 @@ export default {
         }
 
         case '/metrics':
-          return jsonResponse(handleMetrics(), 200, origin);
+          return handleMetrics();
 
         case '/api/v1/keypairs': {
           // Session required for both read and write
@@ -469,8 +457,10 @@ const ALLOWED_ORIGINS = [
   'https://cinacoin.com',
   'https://dash.cinacoin.com',
   'https://demo.cinacoin.com',
-  'http://localhost:3000',
-  'http://localhost:5173',
+  'https://docs.cinacoin.com',
+  'https://status.cinacoin.com',
+  // 'http://localhost:3000', // dev only
+  // 'http://localhost:5173', // dev only
 ];
 
 function isAllowedOrigin(origin: string | null): boolean {

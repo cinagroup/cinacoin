@@ -4,7 +4,7 @@ import FadeIn from '@/components/FadeIn'
 
 export default function Developers() {
   return (
-    <section id="developers" className="relative py-24">
+    <section id="developers" className="relative py-20 sm:py-24" aria-labelledby="developers-heading">
       {/* Background glow */}
       <FadeIn delay={0} duration={1000} direction="none">
         <div className="absolute bottom-0 left-1/4">
@@ -17,7 +17,7 @@ export default function Developers() {
           {/* Left: Text */}
           <FadeIn direction="right" duration={800}>
             <div>
-              <h2 className="text-4xl font-bold tracking-tight md:text-5xl">
+              <h2 id="developers-heading" className="text-3xl sm:text-4xl font-bold tracking-tight md:text-5xl">
                 Built for{' '}
                 <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
                   developers
@@ -36,7 +36,7 @@ export default function Developers() {
                 ].map((item, i) => (
                   <FadeIn key={i} delay={200 + i * 100} direction="right" duration={500}>
                     <div className="flex items-start gap-3">
-                      <span className="mt-1 text-green-400">✓</span>
+                      <span className="mt-1 text-green-400" aria-hidden="true">✓</span>
                       <span className="text-sm text-zinc-300">{item}</span>
                     </div>
                   </FadeIn>
@@ -47,13 +47,15 @@ export default function Developers() {
                 <div className="mt-8 flex gap-4">
                   <a
                     href="https://docs.cinacoin.com"
-                    className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition-opacity hover:opacity-90"
+                    className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+                    aria-label="Read Cinacoin documentation"
                   >
                     Read Docs →
                   </a>
                   <a
                     href="https://github.com/cinagroup/cinacoin"
-                    className="rounded-full border border-white/10 px-6 py-3 text-sm font-semibold transition-colors hover:bg-white/5"
+                    className="rounded-full border border-white/10 px-6 py-3 text-sm font-semibold transition-colors hover:bg-white/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+                    aria-label="View Cinacoin on GitHub"
                   >
                     GitHub
                   </a>

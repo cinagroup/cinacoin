@@ -2,7 +2,7 @@
 
 /** Shared spinner components with multiple variants. */
 
-export function SpinnerRing({ size = 'md', color = 'text-blue-400' }: { size?: 'sm' | 'md' | 'lg'; color?: string }) {
+export function SpinnerRing({ size = 'md', color = 'text-brand-400' }: { size?: 'sm' | 'md' | 'lg'; color?: string }) {
   const sizeClasses = {
     sm: 'w-4 h-4',
     md: 'w-6 h-6',
@@ -16,7 +16,7 @@ export function SpinnerRing({ size = 'md', color = 'text-blue-400' }: { size?: '
   );
 }
 
-export function SpinnerDots({ color = 'text-blue-400' }: { color?: string }) {
+export function SpinnerDots({ color = 'text-brand-400' }: { color?: string }) {
   return (
     <span className={`inline-flex items-center gap-1 ${color}`}>
       <span className="w-2 h-2 rounded-full bg-current animate-[dot-bounce_1.2s_ease-in-out_infinite]" />
@@ -26,7 +26,7 @@ export function SpinnerDots({ color = 'text-blue-400' }: { color?: string }) {
   );
 }
 
-export function SpinnerPulse({ size = 'md', color = 'text-blue-400' }: { size?: 'sm' | 'md' | 'lg'; color?: string }) {
+export function SpinnerPulse({ size = 'md', color = 'text-brand-400' }: { size?: 'sm' | 'md' | 'lg'; color?: string }) {
   const sizeClasses = {
     sm: 'w-8 h-8',
     md: 'w-12 h-12',

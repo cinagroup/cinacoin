@@ -411,6 +411,31 @@ export interface XrplTransactionResponse {
   date?: number;
 }
 
+/** XRPL submit response (from wallet signAndSubmit). */
+export interface XrplSubmitResponse {
+  /** Transaction hash. */
+  hash?: string;
+  /** Signed transaction blob. */
+  tx_blob?: string;
+  /** Signature. */
+  signature?: string;
+  /** Raw transaction JSON. */
+  tx_json?: {
+    hash?: string;
+    [key: string]: unknown;
+  };
+  [key: string]: unknown;
+}
+
+/** XRPL transaction result metadata. */
+export interface XrplTransactionResult {
+  /** Transaction result status. */
+  meta?: {
+    TransactionResult?: string;
+    [key: string]: unknown;
+  };
+}
+
 /** XRPL fee estimate. */
 export interface XrplFeeEstimate {
   /** Open ledger fee in drops. */

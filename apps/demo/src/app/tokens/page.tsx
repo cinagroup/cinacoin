@@ -10,7 +10,6 @@ import {
   type TokenInfo,
 } from '@/lib/swapTokens';
 import { getMockQuote, type PriceQuote } from '@/lib/swap';
-import { isDemoMode } from '@/lib/environment';
 import { SimulatedBadge } from '@/components/DemoDisclaimer';
 
 /* ── mock token prices & history ── */
@@ -144,6 +143,7 @@ function TokenDetailPanel({ token, onClose }: { token: TokenInfo; onClose: () =>
         <button
           onClick={onClose}
           className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-700/50 transition-all"
+          aria-label="Close token details"
         >
           ✕
         </button>
@@ -328,7 +328,7 @@ function SwapWidget({
         )}
 
         {swapState === 'quoting' && (
-          <div className="flex items-center justify-center text-xs text-blue-400">
+          <div className="flex items-center justify-center text-xs text-brand-400">
             <svg className="animate-spin h-3 w-3 mr-1.5" viewBox="0 0 24 24" fill="none">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
@@ -384,7 +384,7 @@ export default function TokensPage() {
 
         {/* ── Header ── */}
         <div className="text-center space-y-2">
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-brand-400 via-brand-500 to-brand-600 bg-clip-text text-transparent">
             Token Search & Swap
           </h1>
           <p className="text-gray-400 text-sm">Search tokens, view details, and swap in one place</p>
@@ -437,6 +437,7 @@ export default function TokensPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full px-4 py-3 pl-10 bg-gray-800/60 border border-gray-700/50 rounded-xl text-sm text-gray-200 placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500/40"
+                aria-label="Search tokens"
               />
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">🔍</span>
             </div>
