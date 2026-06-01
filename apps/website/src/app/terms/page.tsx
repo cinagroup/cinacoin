@@ -6,6 +6,9 @@ import FadeIn from '@/components/FadeIn'
 export const metadata: Metadata = {
   title: 'Terms of Service — Cinacoin',
   description: 'Cinacoin Terms of Service — rules and guidelines for using our Services.',
+  alternates: {
+    canonical: '/terms',
+  },
 }
 
 export default function TermsPage() {

@@ -6,6 +6,9 @@ import FadeIn from '@/components/FadeIn'
 export const metadata: Metadata = {
   title: 'About — Cinacoin',
   description: 'Cinacoin is an open-source onchain access layer built by CINA Group. Self-hosted, zero vendor lock-in.',
+  alternates: {
+    canonical: '/about',
+  },
 }
 
 const principles = [

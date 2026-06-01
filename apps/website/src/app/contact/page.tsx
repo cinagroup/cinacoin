@@ -6,6 +6,9 @@ import FadeIn from '@/components/FadeIn'
 export const metadata: Metadata = {
   title: 'Contact — Cinacoin',
   description: 'Get in touch with the Cinacoin team. Sales, support, partnerships, or just say hello.',
+  alternates: {
+    canonical: '/contact',
+  },
 }
 
 export default function ContactPage() {

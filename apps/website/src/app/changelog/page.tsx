@@ -6,6 +6,9 @@ import FadeIn from '@/components/FadeIn'
 export const metadata: Metadata = {
   title: 'Changelog — Cinacoin',
   description: 'Release history and updates for Cinacoin SDK and infrastructure.',
+  alternates: {
+    canonical: '/changelog',
+  },
 }
 
 const releases = [

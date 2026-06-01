@@ -6,6 +6,9 @@ import FadeIn from '@/components/FadeIn'
 export const metadata: Metadata = {
   title: 'Cookie Policy — Cinacoin',
   description: 'Cinacoin Cookie Policy — how we use cookies and similar technologies.',
+  alternates: {
+    canonical: '/cookies',
+  },
 }
 
 export default function CookiesPage() {

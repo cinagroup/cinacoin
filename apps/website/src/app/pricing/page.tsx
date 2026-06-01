@@ -6,6 +6,9 @@ import FadeIn from '@/components/FadeIn'
 export const metadata: Metadata = {
   title: 'Pricing — Cinacoin',
   description: 'Transparent, usage-based pricing for Cinacoin. Free tier for developers, scalable plans for teams and enterprises.',
+  alternates: {
+    canonical: '/pricing',
+  },
 }
 
 const tiers = [
