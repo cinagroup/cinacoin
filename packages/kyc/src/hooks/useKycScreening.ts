@@ -4,7 +4,6 @@ import {
   screenAddress,
   screenTransaction,
   screenPayment,
-  getRiskScore,
 } from '../screening.js';
 
 /* ── types ─────────────────────────────────────────────────────── */

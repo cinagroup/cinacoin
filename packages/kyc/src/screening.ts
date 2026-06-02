@@ -12,7 +12,6 @@ import type {
   PaymentScreeningParams,
   AddressRiskProfile,
   ComplianceReport,
-  KycStatus,
 } from './types.js';
 import {
   isSanctioned,
@@ -129,7 +128,7 @@ export function screenTransaction(tx: TransactionInput): TransactionRisk {
           ? 'medium'
           : 'low';
 
-  const allFlags = [...sender.flags, ...recipient.flags, ...patterns.flags];
+  // const allFlags = [...sender.flags, ...recipient.flags, ...patterns.flags];
 
   return {
     tx,

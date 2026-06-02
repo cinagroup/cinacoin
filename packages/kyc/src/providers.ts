@@ -118,8 +118,6 @@ export interface KycProvider {
 // SumSub Provider
 // ============================================================
 
-const SUMSUB_API_BASE = "https://api.sumsub.com/resources/rs";
-
 export interface SumSubConfig {
   /** SumSub API token (server-side) */
   apiToken: string;
@@ -256,7 +254,7 @@ export class SumSubProvider implements KycProvider {
   private async _uploadDocument(
     applicantId: string,
     documents: KycDocument,
-    side: "front" | "back" | "selfie" | "additional" = "front",
+    _side: "front" | "back" | "selfie" | "additional" = "front",
   ): Promise<void> {
     const docType = this._mapDocType(documents.type);
     const url = `${this.getBaseUrl()}/applicants/${applicantId}/idDoc?docType=${docType}&idDocType=${docType}`;
@@ -264,7 +262,7 @@ export class SumSubProvider implements KycProvider {
     // In production, use FormData for file upload
     // For now, this is a placeholder
     const formData = new FormData();
-    formData.append("content", documents.front as Blob);
+    formData.append("content", documents.front as unknown as unknown as Blob);
 
     const res = await fetch(url, {
       method: "POST",
@@ -397,7 +395,7 @@ export class OnfidoProvider implements KycProvider {
     if (documents.front) {
       const formData = new FormData();
       formData.append("type", this._mapOnfidoDocType(documents.type));
-      formData.append("file", documents.front as Blob);
+      formData.append("file", documents.front as unknown as unknown as Blob);
 
       const res = await fetch(url, {
         method: "POST",
@@ -487,12 +485,11 @@ export class OnfidoProvider implements KycProvider {
   }
 
   async handleWebhook(payload: Record<string, unknown>): Promise<KycProviderResult> {
-    const resourceType = payload.resource_type as string;
     const action = payload.action as string;
 
     let status: KycStatus = "pending";
     if (action === "check.completed") {
-      const result = payload.payload?.result as string;
+      const result = (payload.payload as Record<string, unknown>)?.result as string ?? "consider";
       status = result === "clear" ? "verified" : result === "consider" ? "flagged" : "rejected";
     }
 

@@ -340,7 +340,7 @@ export function useBestRoute(
 
 export interface UseSwapTokensOptions {
   /** SwapRouter instance */
-  router?: ReturnType<typeof import("./router.js").SwapRouter> | null;
+  router?: InstanceType<typeof import("./router.js").SwapRouter> | null;
   /** Chain ID to fetch tokens for */
   chainId: number;
 }

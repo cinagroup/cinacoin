@@ -5,8 +5,9 @@
  * Supports local storage (browser) and server-side storage adapters.
  */
 
-import type { KycStatus, KycLevel } from "./providers.js";
-import type { KycProviderResult, KycDocument } from "./providers.js";
+import type { KycLevel } from "./providers.js";
+import type { KycStatus } from "./types.js";
+import type { KycProviderResult } from "./providers.js";
 
 // ============================================================
 // Types
@@ -293,7 +294,7 @@ export class KycStatusManager {
   /**
    * Store an encrypted KYC credential.
    */
-  async storeCredential(userId: string, credential: EncryptedKycCredential): Promise<void> {
+  async storeCredential(_userId: string, credential: EncryptedKycCredential): Promise<void> {
     await this.storage.saveCredential(credential);
   }
 
@@ -315,7 +316,7 @@ export class KycStatusManager {
    * Get all users with a specific KYC status.
    * Note: this requires iterating all users; in production, use a database index.
    */
-  async getUsersByStatus(status: KycStatus): Promise<KycStatusRecord[]> {
+  async getUsersByStatus(_status: KycStatus): Promise<KycStatusRecord[]> {
     // This would be implemented with a database query in production
     return [];
   }
