@@ -37,3 +37,4 @@ apps/demo/tests/playwright-report/
 apps/backend-dashboard/out/
 apps/health-status/out/
 packages/*/dist/
+apps/*/out/

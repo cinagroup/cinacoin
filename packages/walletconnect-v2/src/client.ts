@@ -190,8 +190,8 @@ export class WalletConnectClient extends EventEmitter {
       });
 
       // Forward events from session manager
-      this.sessionManager.on('wcEvent', (event: WcClientEvent) => {
-        this.emit('wcEvent', event);
+      this.sessionManager.on('wcEvent', (event) => {
+        this.emit('wcEvent', event as WcClientEvent);
       });
 
       const session = await this.sessionManager.connectWithUri(options.uri);
@@ -219,8 +219,8 @@ export class WalletConnectClient extends EventEmitter {
       sessionTtl: this.config.sessionTtl,
     });
 
-    this.sessionManager.on('wcEvent', (event: WcClientEvent) => {
-      this.emit('wcEvent', event);
+    this.sessionManager.on('wcEvent', (event) => {
+      this.emit('wcEvent', event as WcClientEvent);
     });
 
     const uri = await this.sessionManager.initiatePairing();

@@ -151,16 +151,15 @@ export async function approvePairing(
 }> {
   const parsed = parseWcUri(uri);
 
-  const relay = config?.relay ?? new WcRelay({ url: parsed.relayUrl || config?.relayUrl ?? '' });
+  const relay = config?.relay ?? new WcRelay({ url: parsed.relayUrl || (config?.relayUrl ?? '') });
   await relay.connect();
-
   relay.subscribe(parsed.topic);
 
   const pairing: Pairing = {
     topic: parsed.topic,
     uri,
     active: true,
-    expiry: Date.now() + (config?.expiry ?? 300) * 1000,
+    expiry: Date.now() + ((config as any)?.expiry ?? 300) * 1000,
     symKey: parsed.symKey,
   };
 

@@ -25,7 +25,7 @@ export {
 } from '@cinacoin/core-sdk';
 
 import { sha256 } from '@noble/hashes/sha2.js';
-import { hmac_sha256 } from '@noble/hashes/hmac.js';
+import { hmac } from '@noble/hashes/hmac.js';
 import {
   sharedSecret,
   bytesToHex,
@@ -139,7 +139,7 @@ export function deriveAuthKey(
  * @returns 32-byte HMAC tag.
  */
 export function computeHmac(key: Uint8Array, data: Uint8Array): Uint8Array {
-  return hmac_sha256(key, data);
+  return hmac(sha256, key, data);
 }
 
 /**

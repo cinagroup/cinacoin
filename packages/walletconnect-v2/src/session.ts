@@ -45,7 +45,7 @@ export interface SessionManagerConfig {
 
 /** Pending request entry. */
 interface PendingRequest {
-  resolve: (result: unknown) => void;
+  resolve: (result: any) => void;
   reject: (error: Error) => void;
   timeout: ReturnType<typeof setTimeout>;
 }
@@ -150,13 +150,14 @@ export class WcSessionManager extends EventEmitter {
     await this.sendSessionProposal();
 
     return new Promise((resolve, reject) => {
-      const handler = (event: WcClientEvent) => {
-        if (event.type === 'connected') {
+      const handler = (event: unknown) => {
+        const e = event as WcClientEvent;
+        if (e.type === 'connected') {
           this.off('wcEvent', handler);
-          resolve(event.session);
-        } else if (event.type === 'error') {
+          resolve(e.session);
+        } else if (e.type === 'error') {
           this.off('wcEvent', handler);
-          reject(event.error);
+          reject(e.error);
         }
       };
       this.on('wcEvent', handler);
@@ -625,7 +626,8 @@ export class WcSessionManager extends EventEmitter {
     if (!this.sessionSharedSecret) {
       throw new Error('No session shared secret');
     }
-    return encrypt(this.sessionSharedSecret, new TextEncoder().encode(JSON.stringify({ id, jsonrpc: '2.0', ...message })));
+    const msgData = typeof message === 'object' && message !== null ? message : {};
+    return encrypt(this.sessionSharedSecret, new TextEncoder().encode(JSON.stringify({ id, jsonrpc: '2.0', ...msgData })));
   }
 
   /** Send a session delete notification. */

@@ -8,6 +8,9 @@
 
 import type { AppMetadata, TransactionRequest, RequiredNamespace } from '@cinacoin/core-sdk';
 
+// Re-export RequiredNamespace for local use
+export type { RequiredNamespace, AppMetadata } from '@cinacoin/core-sdk';
+
 // ============================================================
 // WC v2 Error Codes (per WC v2 spec)
 // ============================================================
