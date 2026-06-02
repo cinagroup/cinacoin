@@ -15,6 +15,7 @@
 package com.cinacoin.walletconnect
 
 import android.content.Context
+import android.content.SharedPreferences
 import com.cinacoin.core.AppMetadata
 import com.walletconnect.android.Core
 import com.walletconnect.android.CoreClient
@@ -214,6 +215,23 @@ class WCClient {
     private var sessionDeleteListenerId: Long? = null
     private var sessionSettleListenerId: Long? = null
 
+    // Session persistence manager
+    var sessionManager: WCSessionManager? = null
+        private set
+
+    // Session TTL in milliseconds (default: 7 days)
+    var sessionTTL: Long = 7L * 24 * 60 * 60 * 1000
+
+    // Whether auto-reconnect is enabled
+    var autoReconnectEnabled: Boolean = true
+
+    // Max reconnect attempts
+    var maxReconnectAttempts: Int = 5
+
+    // Relay health status
+    private val _relayHealth = MutableStateFlow<RelayHealth>(RelayHealth.Disconnected)
+    val relayHealth: StateFlow<RelayHealth> = _relayHealth.asStateFlow()
+
     /**
      * Initialize the WalletConnectKotlin SDK.
      * Call this once at app startup before any WC operations.
@@ -224,10 +242,37 @@ class WCClient {
         metadata: AppMetadata,
         server: Server = Server("relay.walletconnect.com")
     ) {
+        initializeWithPrefs(
+            context = context,
+            projectId = projectId,
+            metadata = metadata,
+            server = server,
+            prefs = context.getSharedPreferences("wc_session_manager", Context.MODE_PRIVATE)
+        )
+    }
+
+    /**
+     * Initialize with custom SharedPreferences (for testing).
+     */
+    fun initializeWithPrefs(
+        context: Context,
+        projectId: String,
+        metadata: AppMetadata,
+        server: Server = Server("relay.walletconnect.com"),
+        prefs: SharedPreferences
+    ) {
         if (isInitialized) return
 
         this.projectId = projectId
         this.metadata = metadata
+
+        // Initialize session manager
+        sessionManager = WCSessionManager(prefs).also { mgr ->
+            mgr.sessionTTL = sessionTTL
+            mgr.autoReconnectEnabled = autoReconnectEnabled
+            mgr.maxReconnectAttempts = maxReconnectAttempts
+            mgr.startExpiryMonitoring { scope.launch { disconnect() } }
+        }
 
         // Initialize the Core SDK
         val core = CoreClient(
@@ -255,6 +300,11 @@ class WCClient {
         subscribeToSdkEvents(sign)
 
         isInitialized = true
+
+        // Attempt to restore a persisted session
+        if (autoReconnectEnabled) {
+            scope.launch { attemptRestoreSession(context) }
+        }
     }
 
     /**
@@ -268,7 +318,16 @@ class WCClient {
                 _session.value = wcSession
                 _accounts.value = wcSession.accounts
                 _status.value = WCStatus.Connected
+                _relayHealth.value = RelayHealth.Connected
                 _events.emit(WCEvent.Connected(wcSession))
+
+                // Persist session
+                sessionManager?.persistSession(
+                    topic = wcSession.topic,
+                    accounts = wcSession.accounts,
+                    chainId = wcSession.accounts.firstOrNull()?.substringBefore(":")?.substringAfter("eip155:")?.toIntOrNull() ?: 1,
+                    peerName = wcSession.peerMetadata["name"]
+                )
             }
         }
 
@@ -279,6 +338,8 @@ class WCClient {
                 _accounts.value = emptyList()
                 _pairingUri.value = null
                 _status.value = WCStatus.Disconnected
+                _relayHealth.value = RelayHealth.Disconnected
+                sessionManager?.clearSession()
                 _events.emit(WCEvent.Disconnected)
             }
         }
@@ -328,6 +389,7 @@ class WCClient {
 
         _pairingUri.value = pairingUri
         _status.value = WCStatus.Pairing
+        _relayHealth.value = RelayHealth.Connected
 
         pairingUri
     }
@@ -342,6 +404,7 @@ class WCClient {
         val parsed = parseWcUri(uri)
 
         _status.value = WCStatus.Connecting
+        _relayHealth.value = RelayHealth.Reconnecting
 
         // Approve the pairing (SDK handles the session establishment)
         sign.pair(uri = uri)
@@ -354,20 +417,70 @@ class WCClient {
      * Disconnect the current session.
      */
     suspend fun disconnect() {
-        val sign = signClient ?: return
-        val sessionVal = _session.value ?: return
+        // Cancel any pending reconnection attempts
+        sessionManager?.cancelReconnect()
 
-        try {
-            sign.disconnectSession(sessionVal.topic)
-        } catch (_: Exception) {
-            // Session may already be gone
+        val sign = signClient ?: run {
+            sessionManager?.clearSession()
+            _session.value = null
+            _accounts.value = emptyList()
+            _pairingUri.value = null
+            _status.value = WCStatus.Disconnected
+            _relayHealth.value = RelayHealth.Disconnected
+            _events.emit(WCEvent.Disconnected)
+            return
+        }
+        val sessionVal = _session.value
+
+        if (sessionVal != null) {
+            try {
+                sign.disconnectSession(sessionVal.topic)
+            } catch (_: Exception) {
+                // Session may already be gone
+            }
         }
 
         _session.value = null
         _accounts.value = emptyList()
         _pairingUri.value = null
         _status.value = WCStatus.Disconnected
+        _relayHealth.value = RelayHealth.Disconnected
+        sessionManager?.clearSession()
         _events.emit(WCEvent.Disconnected)
+    }
+
+    /**
+     * Attempt to restore a previously persisted session.
+     */
+    private suspend fun attemptRestoreSession(context: Context) {
+        if (!autoReconnectEnabled) return
+
+        val persisted = sessionManager?.loadSession() ?: return
+        val sign = signClient ?: return
+
+        try {
+            val sessions = sign.getActiveSessions()
+            val activeSession = sessions.find { it.topic == persisted.topic }
+
+            if (activeSession != null) {
+                val wcSession = activeSession.toWCSession()
+                _session.value = wcSession
+                _accounts.value = wcSession.accounts
+                _status.value = WCStatus.Connected
+                _relayHealth.value = RelayHealth.Connected
+                _events.emit(WCEvent.Connected(wcSession))
+
+                // Fetch updated balance
+                try {
+                    val balance = fetchBalance()
+                    _events.emit(WCEvent.SessionUpdate(_session.value))
+                } catch (_: Exception) {}
+            } else {
+                sessionManager?.clearSession()
+            }
+        } catch (_: Exception) {
+            sessionManager?.clearSession()
+        }
     }
 
     /**
@@ -404,6 +517,37 @@ class WCClient {
     suspend fun sendTransaction(tx: WCTransactionRequest): String {
         val params = JSONArray().apply { put(tx.toJson()) }
         val result = request(WCMethods.ETH_SEND_TRANSACTION, params)
+        return result.getString("result")
+    }
+
+    /**
+     * Send eth_signTransaction (signs tx locally without broadcasting).
+     */
+    suspend fun signTransaction(tx: WCTransactionRequest): String {
+        val params = JSONArray().apply {
+            put(JSONObject().apply {
+                put("from", tx.from)
+                put("to", tx.to)
+                tx.value?.let { put("value", it) }
+                tx.data?.let { put("data", it) }
+                tx.gas?.let { put("gas", it) }
+                tx.gasPrice?.let { put("gasPrice", it) }
+                tx.nonce?.let { put("nonce", it) }
+            })
+        }
+        val result = request(WCMethods.ETH_SIGN_TRANSACTION, params)
+        return result.getString("result")
+    }
+
+    /**
+     * Send eth_signTypedData_v4 (EIP-712 structured data signing).
+     */
+    suspend fun signTypedData(address: String, typedData: String): String {
+        val params = JSONArray().apply {
+            put(address)
+            put(typedData)
+        }
+        val result = request(WCMethods.ETH_SIGN_TYPED_DATA_V4, params)
         return result.getString("result")
     }
 

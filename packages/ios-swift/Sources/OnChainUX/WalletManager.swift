@@ -212,6 +212,39 @@ public final class WalletManager: ObservableObject {
         }
     }
     
+    /// Real signTypedData (EIP-712) via the connected WC session.
+    public func signTypedData(typedData: String) async throws -> String {
+        guard let account = connectedAccount else {
+            throw WCError.notConnected
+        }
+        return try await wcClient.signTypedData(address: account.address, typedData: typedData)
+    }
+
+    /// Real signTypedData (EIP-712) via the connected WC session.
+    public func signTypedData(typedData: String) async throws -> String {
+        guard let account = connectedAccount else {
+            throw WCError.notConnected
+        }
+        return try await wcClient.signTypedData(address: account.address, typedData: typedData)
+    }
+
+    /// Real sendTransaction via the connected WC session.
+    public func sendTransaction(_ tx: TransactionRequest) async throws -> String {
+        let wcTx = WCTransactionRequest(
+            from: tx.from,
+            to: tx.to,
+            value: tx.value,
+            data: tx.data,
+            gas: tx.gas,
+            gasPrice: tx.gasPrice,
+            maxFeePerGas: tx.maxFeePerGas,
+            maxPriorityFeePerGas: tx.maxPriorityFeePerGas,
+            nonce: tx.nonce,
+            chainId: tx.chainId
+        )
+        return try await wcClient.sendTransaction(wcTx)
+    }
+
     /// Real SIWE signing via the connected WC session.
     public func signInWithEthereum(domain: String, statement: String? = nil) async throws -> SIWESignInResult {
         guard let account = connectedAccount else {

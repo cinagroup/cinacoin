@@ -94,13 +94,13 @@ export class CoinGeckoSource implements TokenSource {
 
   private platformToChainId(platform: string): number {
     const mapping: Record<string, number> = {
-      ethereum: 1,
-      binance-smart-chain: 56,
-      polygon-pos: 137,
+      'ethereum': 1,
+      'binance-smart-chain': 56,
+      'polygon-pos': 137,
       'avalanche': 43114,
-      optimism: 10,
-      arbitrum: 42161,
-      fantom: 250,
+      'optimism': 10,
+      'arbitrum': 42161,
+      'fantom': 250,
       'base': 8453,
     };
     return mapping[platform] ?? 0;

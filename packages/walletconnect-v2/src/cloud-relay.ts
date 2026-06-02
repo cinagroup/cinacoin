@@ -33,6 +33,12 @@ export const FALLBACK_RELAY_URLS: readonly string[] = [
   'wss://relay.wallet.network',
 ];
 
+/** Waku-compatible fallback relay URLs for regions where Cloud relay is blocked. */
+export const WAKU_FALLBACK_RELAY_URLS: readonly string[] = [
+  'wss://relay.walletconnect.com',
+  'wss://waku-relay.walletconnect.org',
+];
+
 /** Default connection timeout (ms). */
 const DEFAULT_CONNECTION_TIMEOUT = 10_000;
 

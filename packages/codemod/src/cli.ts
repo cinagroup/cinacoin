@@ -4,17 +4,18 @@
  * CLI entry point for @cinacoin/codemod
  *
  * Usage:
- *   npx cinacoin-codemod --src-dir ./src --transform appkit-to-cinacoin
- *   npx cinacoin-codemod --src-dir ./src --transform appkit-to-cinacoin --dry-run
- *   npx cinacoin-codemod --list
+ *   npx @cinacoin/codemod <transform> <path>
+ *   npx @cinacoin/codemod appkit-to-cinacoin ./src
+ *   npx @cinacoin/codemod ethers-v5-to-viem ./src --dry-run
+ *   npx @cinacoin/codemod --list
  */
 
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
-import { readFileSync, writeFileSync } from "fs";
-import { join, relative } from "path";
+import { readFileSync, writeFileSync, statSync } from "fs";
+import { join, relative, extname, dirname } from "path";
 import { sync as globSync } from "glob";
-import { TRANSFORMS, listTransforms } from "./index.js";
+import { TRANSFORMS, listTransforms, applyTransforms } from "./index.js";
 
 interface CliOptions {
   srcDir: string;
@@ -25,17 +26,49 @@ interface CliOptions {
   pattern: string;
 }
 
+const FILE_EXTENSIONS = new Set([".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs"]);
+
+/** Check if a transform name is valid */
+function isValidTransform(name: string): boolean {
+  return name in TRANSFORMS;
+}
+
+/** Recursively find all JS/TS files in a directory */
+function findFiles(dir: string, pattern: string): string[] {
+  // If it's a single file, return it
+  try {
+    const stat = statSync(dir);
+    if (stat.isFile() && FILE_EXTENSIONS.has(extname(dir))) {
+      return [dir];
+    }
+  } catch {
+    // Not a valid path, try glob
+  }
+
+  return globSync(join(dir, pattern), { nodir: true }).filter((f) =>
+    FILE_EXTENSIONS.has(extname(f))
+  );
+}
+
 function main(): void {
   const argv = yargs(hideBin(process.argv))
-    .option("src-dir", {
-      type: "string",
-      default: "src",
-      describe: "Source directory to process",
+    .command("$0 <transform> [path]", "Run a codemod transform", (y) => {
+      return y
+        .positional("transform", {
+          type: "string",
+          describe: "Transform to apply (e.g. appkit-to-cinacoin)",
+        })
+        .positional("path", {
+          type: "string",
+          default: "src",
+          describe: "File or directory to process",
+        });
     })
     .option("transform", {
+      alias: "t",
       type: "array",
       default: [],
-      describe: "Transform(s) to apply (e.g. appkit-to-cinacoin, wc-v1-to-v2)",
+      describe: "Additional transform(s) to apply",
     })
     .option("dry-run", {
       type: "boolean",
@@ -48,56 +81,71 @@ function main(): void {
       describe: "Show detailed output",
     })
     .option("list", {
+      alias: "l",
       type: "boolean",
       default: false,
       describe: "List available transforms and exit",
     })
     .option("pattern", {
       type: "string",
-      default: "**/*.{ts,tsx,js,jsx}",
+      default: "**/*.{ts,tsx,js,jsx,mjs,cjs}",
       describe: "Glob pattern for files to process",
     })
     .help()
     .alias("h", "help")
-    .alias("v", "verbose")
-    .strict()
-    .parseSync() as unknown as CliOptions;
+    .strict(false) // Allow positional args
+    .parseSync() as unknown as CliOptions & {
+      transform?: string;
+      path?: string;
+    };
 
   // --list
   if (argv.list) {
     console.log("Available transforms:\n");
     for (const name of listTransforms()) {
-      console.log(`  - ${name}`);
+      const fn = TRANSFORMS[name];
+      // Try to get description from the function name
+      const desc = name
+        .replace(/-/g, " → ")
+        .replace(/to/g, "to");
+      console.log(`  ${name.padEnd(30)} ${desc}`);
     }
     console.log();
     return;
   }
 
-  // Validate transforms
-  const available = listTransforms();
-  if (argv.transform.length === 0) {
-    console.error("Error: At least one --transform is required. Use --list to see available transforms.");
+  // Get transform from positional arg or --transform flag
+  const positionalTransform = (argv as any)._?.[0] as string | undefined;
+  const transforms = [
+    ...(positionalTransform ? [positionalTransform] : []),
+    ...(Array.isArray(argv.transform) ? argv.transform : []),
+  ].filter(Boolean) as string[];
+
+  if (transforms.length === 0) {
+    console.error("Error: A transform is required. Use --list to see available transforms.");
+    console.error("Usage: npx @cinacoin/codemod <transform> <path>");
     process.exit(1);
   }
 
-  for (const t of argv.transform) {
-    if (!available.includes(t)) {
-      console.error(`Error: Unknown transform "${t}". Available: ${available.join(", ")}`);
+  // Validate transforms
+  for (const t of transforms) {
+    if (!isValidTransform(t)) {
+      console.error(`Error: Unknown transform "${t}". Available: ${listTransforms().join(", ")}`);
       process.exit(1);
     }
   }
 
   // Discover files
-  const srcDir = join(process.cwd(), argv.srcDir);
-  const pattern = join(srcDir, argv.pattern);
-  const files = globSync(pattern, { nodir: true });
+  const targetPath = (argv as any)._?.[1] as string | undefined || argv.srcDir || "src";
+  const absPath = join(process.cwd(), targetPath);
+  const files = findFiles(absPath, argv.pattern);
 
   if (files.length === 0) {
-    console.log(`No files matching "${pattern}" found in ${srcDir}`);
+    console.log(`No files matching "${argv.pattern}" found in ${absPath}`);
     return;
   }
 
-  console.log(`Found ${files.length} file(s) in ${srcDir}\n`);
+  console.log(`Found ${files.length} file(s) in ${targetPath}\n`);
 
   let totalChanges = 0;
   let modifiedFiles = 0;
@@ -107,37 +155,27 @@ function main(): void {
     try {
       source = readFileSync(filePath, "utf-8");
     } catch (err) {
-      console.warn(`⚠ Skipping unreadable: ${filePath}`, err);
+      console.warn(`⚠ Skipping unreadable: ${filePath}`);
       continue;
     }
 
-    let current = source;
-    const allChanges: string[] = [];
+    const result = applyTransforms(transforms, source);
 
-    for (const t of argv.transform) {
-      const fn = TRANSFORMS[t];
-      const result = fn(current);
-      if (result.transformed) {
-        current = result.output;
-        allChanges.push(...result.changes.map((c) => `[${t}] ${c}`));
-      }
-    }
-
-    if (allChanges.length > 0) {
+    if (result.changes.length > 0) {
       modifiedFiles++;
-      totalChanges += allChanges.length;
+      totalChanges += result.changes.length;
 
       const relPath = relative(process.cwd(), filePath);
 
       if (argv.dryRun) {
-        console.log(`🔍 ${relPath} (${allChanges.length} change(s))`);
+        console.log(`🔍 ${relPath} (${result.changes.length} change(s))`);
       } else {
-        writeFileSync(filePath, current, "utf-8");
-        console.log(`✅ ${relPath} (${allChanges.length} change(s))`);
+        writeFileSync(filePath, result.output, "utf-8");
+        console.log(`✅ ${relPath} (${result.changes.length} change(s))`);
       }
 
       if (argv.verbose) {
-        for (const change of allChanges) {
+        for (const change of result.changes) {
           console.log(`   ${change}`);
         }
         console.log();

@@ -51,7 +51,8 @@ const IDENTIFIER_RENAMES: [RegExp, string][] = [
   // Components
   [/ConnectKitButton\b/g, 'ConnectButton'],
 
-  // Hooks — same names, different package
+  // Hooks
+  [/useConnectKit\b/g, 'useCinacoin'],
   // useAccount, useConnect, useDisconnect keep their names
 
   // Connector factories

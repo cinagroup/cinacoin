@@ -1,0 +1,26 @@
+name = "cinacoin-wc-relay"
+main = "src/worker.ts"
+compatibility_date = "2024-01-01"
+
+# D1 Database binding
+[[d1_databases]]
+binding = "SESSION_DB"
+database_name = "cinacoin-wc-relay-db"
+database_id = ""  # Set after creation
+
+# KV Namespace binding
+[[kv_namespaces]]
+binding = "SESSION_CACHE"
+id = ""  # Set after creation
+
+# Environment variables
+[vars]
+RATE_LIMIT_RPM = "120"
+REGION = "nam"
+
+# Multi-region overrides (set in CI/CD)
+[env.eur.vars]
+REGION = "eur"
+
+[env.apac.vars]
+REGION = "apac"

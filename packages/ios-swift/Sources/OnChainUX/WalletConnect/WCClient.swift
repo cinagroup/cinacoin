@@ -5,10 +5,12 @@
  * - Pairing URI generation for QR display
  * - Session proposal and establishment via WalletConnectSwiftV2
  * - X25519 key exchange (handled by SDK)
- * - Relay connection (Waku, handled by SDK)
- * - JSON-RPC dispatch (eth_sendTransaction, personal_sign, etc.)
+ * - Relay connection to relay.walletconnect.com
+ * - JSON-RPC dispatch (eth_sendTransaction, eth_signTransaction, personal_sign, eth_signTypedData_v4)
  * - SIWE signing flow
  * - Balance fetching via on-chain RPC
+ * - Session persistence via UserDefaults
+ * - Automatic reconnection with exponential backoff
  *
  * Uses the official WalletConnectSwiftV2 SDK via SPM.
  */
@@ -45,6 +47,9 @@ public final class WCClient: ObservableObject {
     /// Peer wallet metadata.
     @Published public private(set) var peerMetadata: [String: String] = [:]
     
+    /// Relay connection health.
+    @Published public private(set) var relayHealth: RelayHealth = .disconnected
+    
     // MARK: - Configuration
     
     /// WalletConnect projectId (from WalletConnect Cloud).
@@ -61,6 +66,9 @@ public final class WCClient: ObservableObject {
     
     /// Required events.
     public var requiredEvents: [String]
+    
+    /// Custom relay URL (defaults to relay.walletconnect.com).
+    public var relayUrl: String = "wss://relay.walletconnect.com"
     
     // MARK: - Internal WalletConnectSwiftV2 References
     
@@ -84,6 +92,29 @@ public final class WCClient: ObservableObject {
     
     /// Next JSON-RPC request ID.
     private var nextRequestId: UInt64 = 1
+    
+    // MARK: - Session Persistence & Auto-Reconnect
+    
+    /// Whether auto-reconnect on app foreground is enabled.
+    public var autoReconnectEnabled: Bool = true
+    
+    /// Session manager for persistence and auto-reconnect.
+    public let sessionManager = WCSessionManager.shared
+    
+    /// Session TTL in seconds (default: 7 days).
+    public var sessionTTL: TimeInterval = 7 * 24 * 60 * 60 {
+        didSet { sessionManager.sessionTTL = sessionTTL }
+    }
+    
+    /// Maximum reconnect attempts before giving up.
+    public var maxReconnectAttempts: Int = 5 {
+        didSet { sessionManager.maxReconnectAttempts = maxReconnectAttempts }
+    }
+    
+    /// Whether auto-reconnect on app foreground is enabled.
+    public var autoReconnectEnabled: Bool = true {
+        didSet { sessionManager.autoReconnectEnabled = autoReconnectEnabled }
+    }
     
     private init(
         projectId: String = "",
@@ -160,12 +191,51 @@ public final class WCClient: ObservableObject {
                 self?.sessionTopic = nil
                 self?.accounts = []
                 self?.status = .disconnected
+                self?.persistSessionCleanup()
                 self?.emit(.disconnected)
             }
             .store(in: &cancellables)
         
+        // Listen for session events (chain/accounts changes)
+        signClient?.sessionEventPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] event, _, _ in
+                guard let self = self else { return }
+                switch event.name {
+                case "chainChanged":
+                    if let newChain = event.params as? String,
+                       let chainId = Int(newChain.dropFirst(2), radix: 16) {
+                        self.chainId = chainId
+                        self.persistSessionIfActive()
+                    }
+                case "accountsChanged":
+                    if let newAccounts = event.params as? [String] {
+                        self.accounts = newAccounts
+                        self.persistSessionIfActive()
+                    }
+                default:
+                    break
+                }
+            }
+            .store(in: &cancellables)
+        
+        // Start expiry monitoring
+        sessionManager.startExpiryMonitoring { [weak self] in
+            Task { await self?.disconnect() }
+        }
+        
         self.metadata = metadata
         self.projectId = projectId
+        
+        // Attempt to restore a persisted session
+        if autoReconnectEnabled {
+            Task { [weak self] in
+                await self?.attemptRestoreSession()
+            }
+        }
+        
+        // Start expiry monitoring
+        startExpiryMonitoring()
     }
     
     // MARK: - Pairing
@@ -179,6 +249,7 @@ public final class WCClient: ObservableObject {
         let uri = try await pairing.create()
         self.pairingUri = uri.absoluteString
         status = .pairing
+        relayHealth = .connected
         
         return uri.absoluteString
     }
@@ -190,6 +261,7 @@ public final class WCClient: ObservableObject {
         }
         
         status = .connecting
+        relayHealth = .connecting
         
         // Pair with the URI
         let pairingInfo = try await pairing.pair(uri: uri)
@@ -200,18 +272,40 @@ public final class WCClient: ObservableObject {
     
     /// Disconnect the current session.
     public func disconnect() async {
-        guard let sign = signClient, let topic = sessionTopic else { return }
+        // Cancel any pending reconnection attempts
+        reconnectWorkItem?.cancel()
+        reconnectWorkItem = nil
+        reconnectAttempts = 0
+        
+        guard let sign = signClient, let topic = sessionTopic else {
+            persistSessionCleanup()
+            await MainActor.run {
+                sessionTopic = nil
+                accounts = []
+                pairingUri = nil
+                peerMetadata = [:]
+                status = .disconnected
+                relayHealth = .disconnected
+                emit(.disconnected)
+            }
+            return
+        }
         
         try? await sign.disconnect(
             topic: topic,
             reason: .userDisconnected
         )
         
-        sessionTopic = nil
-        accounts = []
-        pairingUri = nil
-        peerMetadata = [:]
-        status = .disconnected
+        await MainActor.run {
+            sessionTopic = nil
+            accounts = []
+            pairingUri = nil
+            peerMetadata = [:]
+            status = .disconnected
+            relayHealth = .disconnected
+        }
+        
+        persistSessionCleanup()
         emit(.disconnected)
     }
     
@@ -240,6 +334,7 @@ public final class WCClient: ObservableObject {
                 
                 sessionTopic = session.topic
                 status = .connected
+                relayHealth = .connected
                 emit(.connected(session: WCSession(topic: session.topic)))
             } catch {
                 status = .error(error.localizedDescription)
@@ -283,6 +378,9 @@ public final class WCClient: ObservableObject {
                     }
                     
                     self.status = .connected
+                    self.relayHealth = .connected
+                    self.reconnectAttempts = 0
+                    self.persistSessionIfActive()
                     self.emit(.connected(
                         session: WCSession(topic: topic, accounts: sessionAccounts)
                     ))
@@ -298,6 +396,7 @@ public final class WCClient: ObservableObject {
             Task {
                 try? await Task.sleep(nanoseconds: 300_000_000_000)
                 if self.sessionTopic != topic {
+                    self.attemptAutoReconnect()
                     continuation.resume(throwing: WCError.sessionTimeout)
                 }
             }
@@ -334,6 +433,32 @@ public final class WCClient: ObservableObject {
         return try await request(method: WCMethods.ethSendTransaction, params: params)
     }
     
+    /// Convenience: send eth_signTransaction.
+    public func signTransaction(_ tx: WCTransactionRequest) async throws -> String {
+        let params: [[String: String]] = [[
+            "from": tx.from,
+            "to": tx.to,
+            "value": tx.value ?? "0x0",
+            "data": tx.data ?? "0x",
+            "gas": tx.gas ?? "0x5208",
+        ].compactMapValues { $0 }]
+        return try await request(method: WCMethods.ethSignTransaction, params: params)
+    }
+    
+    /// Convenience: send eth_signTransaction.
+    public func signTransaction(_ tx: WCTransactionRequest) async throws -> String {
+        let params: [[String: String]] = [[
+            "from": tx.from,
+            "to": tx.to,
+            "value": tx.value ?? "0x0",
+            "data": tx.data ?? "0x",
+            "gas": tx.gas ?? "0x5208",
+            "gasPrice": tx.gasPrice ?? "0x0",
+            "nonce": tx.nonce ?? "0x0",
+        ].compactMapValues { $0 }]
+        return try await request(method: WCMethods.ethSignTransaction, params: params)
+    }
+
     /// Convenience: send personal_sign.
     public func personalSign(message: String, address: String) async throws -> String {
         let hexMessage = message.hasPrefix("0x") ? message : message.utf8Hex
@@ -406,9 +531,140 @@ public final class WCClient: ObservableObject {
             handler(event)
         }
     }
+    
+    // MARK: - Session Persistence
+    
+    /// Persist the current active session to UserDefaults.
+    private func persistSessionIfActive() {
+        guard let topic = sessionTopic, !topic.isEmpty else { return }
+        
+        let defaults = UserDefaults.standard
+        defaults.set(topic, forKey: WCSessionKeys.sessionTopic)
+        defaults.set(accounts, forKey: WCSessionKeys.sessionAccounts)
+        defaults.set(chainId, forKey: WCSessionKeys.sessionChainId)
+        defaults.set(peerMetadata, forKey: WCSessionKeys.sessionPeerMetadata)
+        defaults.set(Date().timeIntervalSince1970, forKey: WCSessionKeys.sessionCreatedAt)
+        defaults.set(Date().timeIntervalSince1970 + sessionTTL, forKey: WCSessionKeys.sessionExpiry)
+        defaults.synchronize()
+    }
+    
+    /// Clear persisted session on disconnect.
+    private func persistSessionCleanup() {
+        let defaults = UserDefaults.standard
+        defaults.removeObject(forKey: WCSessionKeys.sessionTopic)
+        defaults.removeObject(forKey: WCSessionKeys.sessionAccounts)
+        defaults.removeObject(forKey: WCSessionKeys.sessionChainId)
+        defaults.removeObject(forKey: WCSessionKeys.sessionPeerMetadata)
+        defaults.removeObject(forKey: WCSessionKeys.sessionCreatedAt)
+        defaults.removeObject(forKey: WCSessionKeys.sessionExpiry)
+        defaults.synchronize()
+    }
+    
+    /// Attempt to restore a previously persisted session.
+    func attemptRestoreSession() async {
+        guard autoReconnectEnabled else { return }
+        
+        let defaults = UserDefaults.standard
+        
+        // Check for expired session
+        if let expiry = defaults.object(forKey: WCSessionKeys.sessionExpiry) as? TimeInterval,
+           Date().timeIntervalSince1970 > expiry {
+            persistSessionCleanup()
+            return
+        }
+        
+        // Check if we already have an active session
+        guard sessionTopic == nil || sessionTopic?.isEmpty == true else { return }
+        
+        guard let persistedTopic = defaults.string(forKey: WCSessionKeys.sessionTopic),
+              !persistedTopic.isEmpty else { return }
+        
+        // Verify session still exists in the SDK
+        guard let sign = signClient else { return }
+        
+        do {
+            let sessions = sign.getActiveSessions()
+            if let activeSession = sessions.first(where: { $0.topic == persistedTopic }) {
+                // Session is still valid — restore state
+                await MainActor.run {
+                    self.sessionTopic = persistedTopic
+                    self.accounts = defaults.stringArray(forKey: WCSessionKeys.sessionAccounts) ?? []
+                    self.chainId = defaults.integer(forKey: WCSessionKeys.sessionChainId)
+                    self.peerMetadata = defaults.dictionary(forKey: WCSessionKeys.sessionPeerMetadata) as? [String: String] ?? [:]
+                    self.status = .connected
+                    self.relayHealth = .connected
+                    self.emit(.connected(session: WCSession(
+                        topic: persistedTopic,
+                        accounts: self.accounts
+                    )))
+                }
+                
+                // Fetch updated balance
+                _ = try? await fetchBalance()
+            } else {
+                persistSessionCleanup()
+            }
+        } catch {
+            persistSessionCleanup()
+        }
+    }
+    
+    // MARK: - Auto-Reconnect
+    
+    /// Start periodic session expiry checking.
+    private func startExpiryMonitoring() {
+        expiryTimer?.invalidate()
+        expiryTimer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { [weak self] _ in
+            Task { [weak self] in
+                await self?.checkSessionExpiry()
+            }
+        }
+    }
+    
+    /// Check if the current persisted session has expired.
+    private func checkSessionExpiry() async {
+        let defaults = UserDefaults.standard
+        guard let expiry = defaults.object(forKey: WCSessionKeys.sessionExpiry) as? TimeInterval else { return }
+        if Date().timeIntervalSince1970 > expiry {
+            await MainActor.run { disconnect() }
+        }
+    }
+    
+    /// Attempt to auto-reconnect after a disconnection with exponential backoff.
+    private func attemptAutoReconnect() {
+        guard autoReconnectEnabled, reconnectAttempts < maxReconnectAttempts else { return }
+        
+        reconnectWorkItem?.cancel()
+        
+        let delay = 2.0 * pow(2.0, Double(reconnectAttempts))
+        let item = DispatchWorkItem { [weak self] in
+            guard let self = self else { return }
+            self.reconnectAttempts += 1
+            
+            Task { [weak self] in
+                await self?.attemptRestoreSession()
+                if await self?.status != .connected {
+                    self?.attemptAutoReconnect()
+                } else {
+                    self?.reconnectAttempts = 0
+                }
+            }
+        }
+        
+        reconnectWorkItem = item
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: item)
+    }
 }
 
 // MARK: - Types
+
+/// Relay connection health status.
+public enum RelayHealth: Equatable {
+    case connected
+    case connecting
+    case disconnected
+    case reconnecting
+}
 
 /// WC client connection status.
 public enum WCStatus: Equatable {

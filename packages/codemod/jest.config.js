@@ -1,8 +1,9 @@
-{
-  "rootDir": ".",
-  "transform": {
+/** @type {import('ts-jest').JestConfigWithTsJest} */
+module.exports = {
+  rootDir: ".",
+  transform: {
     "^.+\\.tsx?$": "ts-jest"
   },
-  "testMatch": ["**/tests/**/*.test.ts"],
-  "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"]
-}
+  testMatch: ["**/tests/**/*.test.ts"],
+  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"]
+};
