@@ -120,6 +120,9 @@ export interface CinaCoinContextValue {
   /** Whether a chain switch is in progress. */
   isSwitchingChain: boolean;
 
+  /** Send a raw JSON-RPC request to the connected wallet. */
+  request: <T = unknown>(method: string, params: unknown) => Promise<T>;
+
   /** EIP-5792 provider context for advanced hooks. */
   eip5792?: EIP5792ProviderContext;
 }
@@ -351,6 +354,18 @@ export function CinaCoinProvider({ config, children }: CinaCoinProviderProps): J
     };
   }, []);
 
+  // JSON-RPC request helper
+  const request = useCallback(
+    async <T = unknown>(method: string, params: unknown): Promise<T> => {
+      const provider = eip5792.provider;
+      if (!provider) {
+        throw new Error('No wallet provider available — connect a wallet first');
+      }
+      return provider.request({ method, params: Array.isArray(params) ? params : [params] }) as Promise<T>;
+    },
+    [eip5792.provider],
+  );
+
   const value = useMemo<CinaCoinContextValue>(
     () => ({
       config,
@@ -361,9 +376,10 @@ export function CinaCoinProvider({ config, children }: CinaCoinProviderProps): J
       disconnect,
       switchChain,
       isSwitchingChain,
+      request,
       eip5792,
     }),
-    [config, connectors, account, status, connect, disconnect, switchChain, isSwitchingChain, eip5792],
+    [config, connectors, account, status, connect, disconnect, switchChain, isSwitchingChain, request, eip5792],
   );
 
   // Apply theme CSS variables

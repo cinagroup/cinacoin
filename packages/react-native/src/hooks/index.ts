@@ -1,7 +1,7 @@
 /**
  * @cinacoin/react-native/hooks
  *
- * React Native-specific hooks including EIP-5792, ENS, and more.
+ * React Native-specific hooks including EIP-5792, ENS, account, and more.
  */
 
 // EIP-5792
@@ -33,3 +33,21 @@ export type {
   UseENSNameReturn,
   UseENSAddressReturn,
 } from './useENS.js';
+
+// Account hooks
+export {
+  useBalance,
+  useDisconnect,
+  useSwitchChain,
+  useSendTransaction,
+  useSignMessage,
+} from './useAccount.js';
+
+export type {
+  UseBalanceReturn,
+  UseDisconnectReturn,
+  UseSwitchChainReturn,
+  TransactionRequest,
+  UseSendTransactionReturn,
+  UseSignMessageReturn,
+} from './useAccount.js';

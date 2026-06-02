@@ -39,7 +39,7 @@ import {
   allCallsSucceeded as checkAllCallsSucceeded,
   getFailedReceipts as getFailedReceiptsHelper,
 } from '@cinacoin/core-sdk';
-import { useCinacoinContext } from '../OnChainUXProvider.js';
+import { useCinaCoinContext } from '../OnChainUXProvider.js';
 
 // ---------------------------------------------------------------------------
 // Internal: build a WalletClient wrapper from the context's request function
@@ -92,7 +92,7 @@ export interface UseWalletCapabilitiesReturn {
  * ```
  */
 export function useWalletCapabilities(): UseWalletCapabilitiesReturn {
-  const { account, status, request: ctxRequest } = useCinacoinContext();
+  const { account, status, request: ctxRequest } = useCinaCoinContext();
   const [capabilities, setCapabilities] = useState<WalletCapabilities | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
@@ -211,7 +211,7 @@ export interface UseSendCallsReturn {
  * ```
  */
 export function useSendCalls(): UseSendCallsReturn {
-  const { account, status, request: ctxRequest } = useCinacoinContext();
+  const { account, status, request: ctxRequest } = useCinaCoinContext();
   const [isSending, setIsSending] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   const [lastCallId, setLastCallId] = useState<string | null>(null);
@@ -305,7 +305,7 @@ export interface UseAtomicBatchReturn {
  * ```
  */
 export function useAtomicBatch(): UseAtomicBatchReturn {
-  const { account, status, request: ctxRequest } = useCinacoinContext();
+  const { account, status, request: ctxRequest } = useCinaCoinContext();
   const [isExecuting, setIsExecuting] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   const [lastCallId, setLastCallId] = useState<string | null>(null);
@@ -425,7 +425,7 @@ export function useCallsStatus(
     callId?: string;
   } = {},
 ): UseCallsStatusReturn {
-  const { request: ctxRequest, account } = useCinacoinContext();
+  const { request: ctxRequest, account } = useCinaCoinContext();
   const [status, setStatus] = useState<CallsStatus | null>(null);
   const [result, setResult] = useState<GetCallsStatusResult | null>(null);
   const [isPolling, setIsPolling] = useState(false);

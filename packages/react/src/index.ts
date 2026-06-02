@@ -21,7 +21,29 @@ export type { ConnectModalProps } from './ConnectModal.js';
 export { ChainSwitcher } from './ChainSwitcher.js';
 export type { ChainSwitcherProps } from './ChainSwitcher.js';
 
-export { useCinacoin, useAccount, useChainId, useConnect, useDisconnect } from './hooks.js';
+export {
+  useCinacoin,
+  useAccount,
+  useChainId,
+  useConnect,
+  useDisconnect,
+  useSwitchChain,
+  useBalance,
+  useSendTransaction,
+  useSignMessage,
+  useEnsName,
+  useEnsAddress,
+} from './hooks.js';
+
+export type {
+  UseSwitchChainReturn,
+  UseBalanceReturn,
+  TransactionRequest,
+  UseSendTransactionReturn,
+  UseSignMessageReturn,
+  UseEnsNameReturn,
+  UseEnsAddressReturn,
+} from './hooks.js';
 
 // EIP-5792 Wallet Call API hooks
 export {
