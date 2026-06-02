@@ -77,6 +77,10 @@ export type { X25519Keypair } from '@cinacoin/core-sdk';
 export { WcRelay } from './relay.js';
 export type { RelayState } from './relay.js';
 
+// Cloud Relay
+export { CloudRelay, WC_CLOUD_RELAY_URL, FALLBACK_RELAY_URLS, IRN_PROTOCOL_VERSION } from './cloud-relay.js';
+export type { CloudRelayState, CloudRelayConfig } from './cloud-relay.js';
+
 // Pairing
 export {
   parseWcUri,
@@ -98,9 +102,51 @@ export type { PairingConfig } from './pairing.js';
 export { WcSessionManager } from './session.js';
 export type { SessionManagerConfig } from './session.js';
 
+// Multi-Session Manager
+export { MultiSessionManager } from './multi-session-manager.js';
+export type { MultiSessionManagerConfig, ManagedSession, MultiSessionState } from './multi-session-manager.js';
+
+// Session Store
+export { SessionStore, CURRENT_SCHEMA_VERSION } from './session-store.js';
+export type {
+  StoredPairing,
+  StoredSession,
+  StoredKeypair,
+  StoredMeta,
+  StoredNonce,
+} from './session-store.js';
+
+// Signature Verification
+export {
+  recoverPersonalSignature,
+  verifyPersonalSignature,
+  verifyTypedDataSignature,
+  verifySiweSignature,
+  parseSiweMessage,
+  NonceManager,
+  computeHmac as computeHmacSig,
+  verifyHmac as verifyHmacSig,
+  deriveAuthKey as deriveAuthKeySig,
+  generateAuthChallenge,
+  isValidAddress,
+  toChecksumAddress,
+  normalizeAddress,
+} from './signature-verification.js';
+export type {
+  TypedDataDomain,
+  TypedDataField,
+  TypedData,
+  NonceEntry,
+  VerificationResult,
+} from './signature-verification.js';
+
 // Client
 export { WalletConnectClient, WcClientError } from './client.js';
 export type { WalletConnectClientConfig } from './client.js';
+
+// WC Connector
+export { WcConnector } from './wc-connector.js';
+export type { WcConnectorConfig } from './wc-connector.js';
 
 // Methods
 export {
@@ -144,4 +190,4 @@ export {
 /**
  * SDK version.
  */
-export const VERSION = '0.1.0';
+export const VERSION = '0.2.0';

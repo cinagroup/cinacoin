@@ -385,6 +385,20 @@ export class WcConnector extends Connector {
   }
 
   /**
+   * Send a request to the session supporting the given chain.
+   */
+  async requestForChain<T = unknown>(chainId: string, method: string, params?: unknown): Promise<T> {
+    return this.manager.requestForChain<T>(chainId, method, params);
+  }
+
+  /**
+   * Get a session that supports the given chain.
+   */
+  getSessionByChain(chainId: string) {
+    return this.manager.getSessionByChain(chainId);
+  }
+
+  /**
    * Wait for a session to be established (after createPairing).
    *
    * @param timeoutMs - Timeout in milliseconds (default: 5 minutes).

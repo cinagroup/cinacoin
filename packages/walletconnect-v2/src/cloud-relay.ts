@@ -419,12 +419,53 @@ export class CloudRelay extends EventEmitter {
     });
   }
 
+  /**
+   * Publish multiple encrypted payloads in one batch.
+   *
+   * Sends `irn_batchPublish` to the relay, which is more efficient
+   * than individual publishes when multiple messages need to be sent
+   * simultaneously (e.g., session propose + pairing ack).
+   *
+   * @param messages - Array of { topic, payload, tag } objects.
+   * @returns Promise that resolves when all are published.
+   */
+  async batchPublish(
+    messages: Array<{ topic: string; payload: string; tag?: number }>,
+  ): Promise<void> {
+    if (this.state !== 'connected' || messages.length === 0) return;
+
+    const batchMsg: JsonRpcRequest = {
+      id: this.nextId++,
+      jsonrpc: '2.0',
+      method: 'irn_batchPublish',
+      params: {
+        messages: messages.map((m) => ({
+          topic: m.topic,
+          message: m.payload,
+          tag: m.tag ?? 11,
+          prompt: false,
+          ttl: 300,
+        })),
+      },
+    };
+    this.send(batchMsg);
+  }
+
   /** Flush queued publishes after reconnection. */
   private flushPendingPublishes(): void {
     const pending = [...this.pendingPublishes];
     this.pendingPublishes = [];
 
-    for (const { topic, payload, tag, resolve, reject } of pending) {
+    // If we have multiple publishes, batch them for efficiency
+    if (pending.length > 1) {
+      this.batchPublish(
+        pending.map(({ topic, payload, tag }) => ({ topic, payload, tag })),
+      );
+      for (const { resolve } of pending) {
+        resolve();
+      }
+    } else if (pending.length === 1) {
+      const { topic, payload, tag } = pending[0];
       const publishMsg: JsonRpcRequest = {
         id: this.nextId++,
         jsonrpc: '2.0',
@@ -432,7 +473,7 @@ export class CloudRelay extends EventEmitter {
         params: { topic, message: payload, tag, prompt: false, ttl: 300 },
       };
       this.send(publishMsg);
-      resolve();
+      pending[0].resolve();
     }
   }
 
@@ -442,7 +483,7 @@ export class CloudRelay extends EventEmitter {
 
   /** Handle incoming IRN messages. */
   private handleMessage(data: JsonRpcRequest | JsonRpcResponse): void {
-    // Check for JSON-RPC response (to our subscribe/unsubscribe requests)
+    // Check for JSON-RPC response (to our subscribe/unsubscribe/ping requests)
     if ('result' in data || 'error' in data) {
       this.handleResponse(data as JsonRpcResponse);
       return;
@@ -455,6 +496,21 @@ export class CloudRelay extends EventEmitter {
       return;
     }
 
+    // Handle irn_pong (response to our irn_ping heartbeat)
+    if (msg.method === 'irn_pong') {
+      this.pongReceived();
+      return;
+    }
+
+    // Handle relay errors (e.g., projectId rejected)
+    if (msg.method === 'irn_error') {
+      const params = msg.params as { code?: number; message?: string } | undefined;
+      const err = new Error(`[IRN] ${params?.message ?? 'Unknown error'}`);
+      this.emit('error', err);
+      console.warn('[CloudRelay] IRN error:', params);
+      return;
+    }
+
     // Legacy relay format support
     const legacyMsg = data as unknown as RelayMessage;
     if (legacyMsg.type === 'message') {
@@ -464,6 +520,7 @@ export class CloudRelay extends EventEmitter {
 
   /** Handle JSON-RPC responses to our requests. */
   private handleResponse(response: JsonRpcResponse): void {
+    // Check for pending subscribe
     const pending = this.pendingSubscribes.get(response.id);
     if (pending) {
       clearTimeout(pending.timeout);
@@ -476,6 +533,13 @@ export class CloudRelay extends EventEmitter {
         const subId = result.id ?? result.subscriptionId ?? response.id;
         pending.resolve(subId);
       }
+      return;
+    }
+
+    // Check for pending publish ack (some relays respond to publishes)
+    if (response.error) {
+      console.warn(`[CloudRelay] Publish error (id=${response.id}):`, response.error.message);
+      this.emit('publish_error', { id: response.id, error: response.error });
     }
   }
 
@@ -517,10 +581,29 @@ export class CloudRelay extends EventEmitter {
     }
   }
 
+  /** Last time we received a pong from the relay. */
+  private lastPongAt = 0;
+
   /** Start heartbeat keepalive. */
   private startHeartbeat(): void {
     this.stopHeartbeat();
+    this.lastPongAt = Date.now();
     this.heartbeatTimer = setInterval(() => {
+      // Check if we've missed too many pongs
+      const timeSincePong = Date.now() - this.lastPongAt;
+      if (timeSincePong > this.config.heartbeatInterval * 3) {
+        console.warn(
+          `[CloudRelay] No pong received in ${timeSincePong}ms — relay may be dead`,
+        );
+        this.emit('stale');
+        // Force reconnect
+        this.state = 'reconnecting';
+        this.stopHeartbeat();
+        this.ws?.close(4000, 'Heartbeat timeout');
+        this.attemptReconnect();
+        return;
+      }
+
       this.send({
         id: this.nextId++,
         jsonrpc: '2.0',
@@ -536,6 +619,11 @@ export class CloudRelay extends EventEmitter {
       clearInterval(this.heartbeatTimer);
       this.heartbeatTimer = null;
     }
+  }
+
+  /** Called when a pong response is received from the relay. */
+  private pongReceived(): void {
+    this.lastPongAt = Date.now();
   }
 
   /** Attempt reconnection with exponential backoff. */

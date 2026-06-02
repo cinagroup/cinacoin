@@ -30,11 +30,17 @@ const STORAGE_KEYS = {
   NONCES: 'cinacoin_wc_nonces',
 } as const;
 
+/** Current schema version for migrations. */
+export const CURRENT_SCHEMA_VERSION = 1;
+
 /** Default session TTL: 7 days in milliseconds. */
 const DEFAULT_SESSION_TTL_MS = 7 * 24 * 60 * 60 * 1000;
 
 /** Default pairing TTL: 5 minutes in milliseconds. */
 const DEFAULT_PAIRING_TTL_MS = 5 * 60 * 1000;
+
+/** Default nonce expiry: 24 hours. */
+const DEFAULT_NONCE_EXPIRY_MS = 24 * 60 * 60 * 1000;
 
 // ============================================================
 // Stored Data Interfaces
@@ -85,6 +91,8 @@ export interface StoredMeta {
   lastRelayUrl?: string;
   lastConnectedAt?: number;
   version: number;
+  /** Schema version for migration tracking. */
+  schemaVersion?: number;
 }
 
 /** Nonce entry for replay protection. */
@@ -177,6 +185,8 @@ export class SessionStore {
 
   constructor() {
     this.storage = getStorageBackend();
+    // Run migrations on initialization
+    this.migrate();
   }
 
   // ============================================================
@@ -280,6 +290,11 @@ export class SessionStore {
     const sessions = this.loadSessions();
     sessions.set(stored.topic, stored);
     this.saveSessions(sessions);
+
+    // Also persist the keypair separately for recovery
+    if (keypair && peerPublicKey) {
+      this.saveKeypair(session.topic, keypair, peerPublicKey);
+    }
   }
 
   /** Load a session by topic, or null if not found or expired. */
@@ -443,9 +458,9 @@ export class SessionStore {
   }
 
   /** Clean up expired nonces (older than 24 hours). */
-  cleanupExpiredNonces(): number {
+  cleanupExpiredNonces(expiryMs: number = DEFAULT_NONCE_EXPIRY_MS): number {
     const nonces = this.loadNonces();
-    const cutoff = Date.now() - 24 * 60 * 60 * 1000;
+    const cutoff = Date.now() - expiryMs;
     let count = 0;
 
     for (const [nonce, entry] of nonces) {
@@ -459,6 +474,140 @@ export class SessionStore {
       this.saveNonces(nonces);
     }
     return count;
+  }
+
+  // ============================================================
+  // Migration Support
+  // ============================================================
+
+  /**
+   * Run schema migration if needed.
+   *
+   * Called automatically on initialization. Checks the current schema
+   * version stored in metadata and applies any necessary migrations.
+   *
+   * @returns The current schema version after migration.
+   */
+  migrate(): number {
+    const meta = this.loadMeta();
+    const currentVersion = meta.schemaVersion ?? 0;
+
+    if (currentVersion >= CURRENT_SCHEMA_VERSION) {
+      return currentVersion;
+    }
+
+    console.log(
+      `[SessionStore] Migrating schema from v${currentVersion} to v${CURRENT_SCHEMA_VERSION}`,
+    );
+
+    // Apply migrations sequentially
+    if (currentVersion < 1) {
+      this.migrateToV1();
+    }
+
+    // Add future migrations here:
+    // if (currentVersion < 2) { this.migrateToV2(); }
+
+    // Update schema version
+    this.saveMeta({ schemaVersion: CURRENT_SCHEMA_VERSION });
+    return CURRENT_SCHEMA_VERSION;
+  }
+
+  /** Migrate to schema version 1. */
+  private migrateToV1(): void {
+    // V1 adds schemaVersion to metadata and integrity hashes.
+    // No data transformation needed for existing entries since
+    // the new fields are optional.
+    // This is a no-op migration — future versions will have actual transforms.
+  }
+
+  // ============================================================
+  // Batch Operations
+  // ============================================================
+
+  /**
+   * Save multiple sessions in one batch.
+   *
+   * @param sessions - Array of { session, keypair?, peerPublicKey? }.
+   */
+  saveSessionsBatch(
+    sessions: Array<{
+      session: Session;
+      keypair?: { publicKey: string; privateKey: string };
+      peerPublicKey?: string;
+    }>,
+  ): void {
+    const allSessions = this.loadSessions();
+
+    for (const { session, keypair, peerPublicKey } of sessions) {
+      const stored: StoredSession = addIntegrity({
+        topic: session.topic,
+        peerMetadata: session.peerMetadata,
+        accounts: session.accounts,
+        namespaces: session.namespaces,
+        requiredNamespaces: session.requiredNamespaces,
+        expiry: session.expiry,
+        relay: session.relay,
+        keypair,
+        peerPublicKey,
+      });
+      allSessions.set(stored.topic, stored);
+    }
+
+    this.saveSessions(allSessions);
+  }
+
+  /**
+   * Delete multiple sessions in one batch.
+   *
+   * @param topics - Array of session topics to delete.
+   * @returns Number of sessions deleted.
+   */
+  deleteSessionsBatch(topics: string[]): number {
+    const sessions = this.loadSessions();
+    const keypairs = this.loadKeypairs();
+    let count = 0;
+
+    for (const topic of topics) {
+      if (sessions.delete(topic)) {
+        keypairs.delete(topic);
+        count++;
+      }
+    }
+
+    if (count > 0) {
+      this.saveSessions(sessions);
+      this.saveKeypairs(keypairs);
+    }
+
+    return count;
+  }
+
+  /**
+   * Get a summary of all stored data.
+   */
+  getSummary(): {
+    pairings: number;
+    sessions: number;
+    keypairs: number;
+    nonces: number;
+    activePairings: number;
+    activeSessions: number;
+  } {
+    const pairings = this.loadPairings();
+    const sessions = this.loadSessions();
+    const keypairs = this.loadKeypairs();
+    const nonces = this.loadNonces();
+    const now = Date.now();
+
+    return {
+      pairings: pairings.size,
+      sessions: sessions.size,
+      keypairs: keypairs.size,
+      nonces: nonces.size,
+      activePairings: Array.from(pairings.values()).filter((p) => p.active && p.expiry > now).length,
+      activeSessions: Array.from(sessions.values()).filter((s) => s.expiry > now).length,
+    };
   }
 
   // ============================================================

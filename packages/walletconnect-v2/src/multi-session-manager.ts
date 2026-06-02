@@ -475,6 +475,51 @@ export class MultiSessionManager extends EventEmitter {
     return this.sessions.get(this.activeTopic)?.session ?? null;
   }
 
+  /**
+   * Get a session that supports the given chain (CAIP-2, e.g., 'eip155:1').
+   *
+   * Returns the active session if it supports the chain, otherwise finds
+   * the first session that does, or null.
+   *
+   * @param chainId - CAIP-2 chain identifier.
+   * @returns Session supporting the chain, or null.
+   */
+  getSessionByChain(chainId: string): Session | null {
+    // Check active session first
+    const active = this.getActiveSession();
+    if (active && this.sessionSupportsChain(active, chainId)) {
+      return active;
+    }
+
+    // Search all sessions
+    for (const managed of this.sessions.values()) {
+      if (this.sessionSupportsChain(managed.session, chainId)) {
+        return managed.session;
+      }
+    }
+
+    return null;
+  }
+
+  /** Check if a session supports a given chain. */
+  private sessionSupportsChain(session: Session, chainId: string): boolean {
+    // Check if any account belongs to this chain
+    for (const account of session.accounts) {
+      if (account.startsWith(`${chainId}:`)) {
+        return true;
+      }
+    }
+
+    // Check namespaces
+    for (const ns of Object.values(session.namespaces)) {
+      if (ns.chains?.includes(chainId)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   /** Set the active session by topic. Returns false if topic not found. */
   setActiveSession(topic: string): boolean {
     if (!this.sessions.has(topic)) return false;
@@ -516,6 +561,28 @@ export class MultiSessionManager extends EventEmitter {
   async requestTo<T = unknown>(topic: string, method: string, params?: unknown): Promise<T> {
     const managed = this.sessions.get(topic);
     if (!managed) throw new Error(`Session not found: ${topic}`);
+    return this.sendRequest<T>(managed, method, params);
+  }
+
+  /**
+   * Send a request to a session that supports the given chain.
+   *
+   * Automatically routes to the appropriate session based on chainId.
+   *
+   * @param chainId - CAIP-2 chain identifier (e.g., 'eip155:1').
+   * @param method - RPC method name.
+   * @param params - Method parameters.
+   * @returns Promise resolving with the response.
+   */
+  async requestForChain<T = unknown>(chainId: string, method: string, params?: unknown): Promise<T> {
+    const session = this.getSessionByChain(chainId);
+    if (!session) {
+      throw new Error(`No session supports chain ${chainId}`);
+    }
+    const managed = this.sessions.get(session.topic);
+    if (!managed) {
+      throw new Error(`Session not found for topic ${session.topic}`);
+    }
     return this.sendRequest<T>(managed, method, params);
   }
 
@@ -678,7 +745,35 @@ export class MultiSessionManager extends EventEmitter {
         const result = msg.result as Record<string, unknown>;
         if ('responderPublicKey' in result) {
           await this.handleProposalResponse(pairingTopic, result);
+          return;
         }
+      }
+
+      // Check for proposal rejection (wc_sessionPropose error)
+      if (msg.error) {
+        const err = msg.error as { code?: number; message?: string };
+        const pending = this.pendingProposals.get(pairingTopic);
+        if (pending) {
+          this.pendingProposals.delete(pairingTopic);
+          this.pendingSessionReject?.(
+            new Error(`Proposal rejected (code ${err.code}): ${err.message ?? 'Unknown'}`),
+          );
+          this.clearPendingSession();
+          this.store.deletePairing(pairingTopic);
+        }
+        this.emit('wcEvent', {
+          type: 'error',
+          error: new Error(`Proposal rejected: ${err.message ?? 'Unknown'}`),
+        } as WcClientEvent);
+        return;
+      }
+
+      // Handle incoming session proposal (wallet → dApp)
+      if (msg.method === 'wc_sessionPropose') {
+        this.emit('wcEvent', {
+          type: 'session_proposal',
+          proposal: msg as unknown as SessionProposal,
+        } as WcClientEvent);
       }
     } catch (err) {
       console.warn(`[MultiSessionManager] Failed to handle pairing message:`, err);
@@ -699,6 +794,18 @@ export class MultiSessionManager extends EventEmitter {
     const responderPublicKey = (result.responderPublicKey as string) ?? '';
     if (!responderPublicKey) {
       this.pendingSessionReject?.(new Error('Missing responder public key'));
+      return;
+    }
+
+    // Check for approval errors (user rejected, unsupported chains, etc.)
+    const approvalError = result.error as { code?: number; message?: string } | undefined;
+    if (approvalError) {
+      this.pendingProposals.delete(pairingTopic);
+      this.pendingSessionReject?.(
+        new Error(`Session rejected (code ${approvalError.code}): ${approvalError.message}`),
+      );
+      this.clearPendingSession();
+      this.store.deletePairing(pairingTopic);
       return;
     }
 
