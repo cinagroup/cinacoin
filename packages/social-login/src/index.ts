@@ -20,10 +20,24 @@ export {
   type MagicLinkVerifyResult,
   type MagicLinkConfig,
 } from './email-otp.js';
-export { buildGoogleAuthUrl, exchangeCodeForTokens, fetchGoogleUserProfile, loginWithGoogle } from './providers/google.js';
+export { buildGoogleAuthUrl, exchangeCodeForTokens, fetchGoogleUserProfile, loginWithGoogle, GoogleOAuthProvider } from './providers/google.js';
 export { buildGitHubAuthUrl, exchangeCodeForTokens as exchangeGitHubCode, fetchGitHubUserProfile, fetchGitHubUserEmails, loginWithGitHub } from './providers/github.js';
-export { buildAppleAuthUrl, exchangeAppleCode, decodeAppleIdToken, loginWithApple, verifyAppleToken, generateAppleClientSecret } from './providers/apple.js';
+export { buildAppleAuthUrl, exchangeAppleCode, decodeAppleIdToken, loginWithApple, verifyAppleToken, generateAppleClientSecret, AppleOAuthProvider } from './providers/apple.js';
 export { buildTwitterAuthUrl, exchangeTwitterCode, fetchTwitterUserProfile, loginWithTwitter, generatePKCE } from './providers/twitter.js';
+
+// React components
+export {
+  GoogleLoginButton,
+  GoogleCallbackHandler,
+  type GoogleLoginButtonProps,
+  type GoogleCallbackHandlerProps,
+} from './components/GoogleLoginButton.js';
+export {
+  AppleLoginButton,
+  AppleCallbackHandler,
+  type AppleLoginButtonProps,
+  type AppleCallbackHandlerProps,
+} from './components/AppleLoginButton.js';
 
 // Phone OTP authentication
 export {

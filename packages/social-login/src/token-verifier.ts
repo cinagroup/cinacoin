@@ -12,7 +12,7 @@ import { jwtVerify, createRemoteJWKSet, type JWTPayload } from 'jose';
 // ─── Types ──────────────────────────────────────────────────────────────
 
 /** Supported providers for token verification. */
-export type TokenProvider = 'google' | 'apple' | 'twitter' | 'github';
+export type TokenProvider = 'google' | 'apple' | 'twitter' | 'github' | 'discord';
 
 /**
  * Result of a token verification operation.
@@ -107,6 +107,8 @@ export class TokenVerifier {
         return this.verifyTwitterToken(token);
       case 'github':
         return this.verifyGitHubToken(token);
+      case 'discord':
+        return this.verifyDiscordToken(token);
       default:
         return { valid: false, error: `Unsupported provider: ${provider}` };
     }
@@ -381,6 +383,60 @@ export class TokenVerifier {
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Unknown error';
       return { valid: false, error: `GitHub token verification failed: ${message}` };
+    }
+  }
+
+  // ─── Discord ────────────────────────────────────────────────────────
+
+  /**
+   * Verify a Discord access token using the Discord API.
+   *
+   * Calls `/users/@me` endpoint with the access token to confirm
+   * it is valid and retrieve the user profile.
+   *
+   * @param accessToken - Discord OAuth2 access token.
+   * @returns Verification result.
+   */
+  private async verifyDiscordToken(accessToken: string): Promise<TokenVerifyResult> {
+    if (!accessToken || accessToken.length < 10) {
+      return { valid: false, error: 'Invalid Discord access token: too short' };
+    }
+
+    try {
+      const response = await fetch('https://discord.com/api/users/@me', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if (!response.ok) {
+        const body = await response.text();
+        return {
+          valid: false,
+          error: `Discord API returned ${response.status}: ${body}`,
+        };
+      }
+
+      const data = (await response.json()) as Record<string, unknown>;
+      const userId = String(data.id || '');
+
+      if (!userId) {
+        return { valid: false, error: 'Discord token returned no user ID' };
+      }
+
+      return {
+        valid: true,
+        payload: {
+          sub: userId,
+          name: (data.global_name ?? data.username) as string,
+          username: data.username as string,
+        },
+        userId,
+        email: (data.email as string) || undefined,
+      };
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Unknown error';
+      return { valid: false, error: `Discord token verification failed: ${message}` };
     }
   }
 }

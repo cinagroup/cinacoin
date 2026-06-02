@@ -19,6 +19,9 @@ const GOOGLE_TOKEN_URL = 'https://oauth2.googleapis.com/token';
 /** Google OAuth2 userinfo endpoint. */
 const GOOGLE_USERINFO_URL = 'https://www.googleapis.com/oauth2/v3/userinfo';
 
+/** Google token revoke endpoint. */
+const GOOGLE_REVOKE_URL = 'https://oauth2.googleapis.com/revoke';
+
 /** Default scopes for Google Sign-In. */
 const DEFAULT_SCOPES = ['openid', 'email', 'profile'];
 
@@ -158,4 +161,195 @@ function generateState(): string {
   const bytes = new Uint8Array(32);
   crypto.getRandomValues(bytes);
   return btoa(String.fromCharCode(...bytes));
+}
+
+// ─── Class-based Provider ───────────────────────────────────────────────
+
+/**
+ * Class-based Google OAuth2 provider.
+ *
+ * Provides an object-oriented interface for Google Sign-In with
+ * init, authorize, handleCallback, verifyToken, getUserInfo, and refreshToken.
+ */
+export class GoogleOAuthProvider {
+  private clientId: string = '';
+  private redirectUri: string = '';
+  private clientSecret: string = '';
+  private hostedDomain?: string;
+  private scopes: string[] = DEFAULT_SCOPES;
+  private tokenVerifier: TokenVerifier | null = null;
+
+  /**
+   * Initialize the provider with credentials.
+   *
+   * @param clientId - Google OAuth2 client ID.
+   * @param redirectUri - OAuth2 redirect URI.
+   * @param options - Optional configuration.
+   */
+  init(
+    clientId: string,
+    redirectUri: string,
+    options?: {
+      clientSecret?: string;
+      hostedDomain?: string;
+      scopes?: string[];
+    }
+  ): void {
+    this.clientId = clientId;
+    this.redirectUri = redirectUri;
+    if (options?.clientSecret) {
+      this.clientSecret = options.clientSecret;
+    }
+    if (options?.hostedDomain) {
+      this.hostedDomain = options.hostedDomain;
+    }
+    if (options?.scopes) {
+      this.scopes = options.scopes;
+    }
+    this.tokenVerifier = new TokenVerifier({ googleClientId: clientId });
+  }
+
+  /**
+   * Open the Google OAuth2 authorization window (client-side redirect).
+   *
+   * @param state - Optional state parameter for CSRF.
+   * @returns Authorization URL.
+   */
+  authorize(state?: string): string {
+    if (!this.clientId || !this.redirectUri) {
+      throw new Error('GoogleOAuthProvider not initialized. Call init() first.');
+    }
+
+    const query = new URLSearchParams({
+      client_id: this.clientId,
+      redirect_uri: this.redirectUri,
+      response_type: 'code',
+      scope: this.scopes.join(' '),
+      state: state || generateState(),
+      access_type: 'offline',
+      prompt: 'consent',
+    });
+
+    if (this.hostedDomain) {
+      query.set('hd', this.hostedDomain);
+    }
+
+    const url = `${GOOGLE_AUTH_URL}?${query.toString()}`;
+
+    // In browser context, redirect
+    if (typeof window !== 'undefined') {
+      window.location.href = url;
+    }
+
+    return url;
+  }
+
+  /**
+   * Handle the OAuth2 callback: exchange code for tokens and return them.
+   *
+   * @param code - Authorization code from Google redirect.
+   * @param clientSecret - OAuth2 client secret (required for server-side exchange).
+   * @returns Token response with access_token, id_token, and refresh_token.
+   */
+  async handleCallback(
+    code: string,
+    clientSecret?: string
+  ): Promise<{
+    accessToken: string;
+    idToken?: string;
+    refreshToken?: string;
+    expiresIn: number;
+    tokenType: string;
+  }> {
+    const secret = clientSecret || this.clientSecret;
+    if (!secret) {
+      throw new Error('clientSecret is required for token exchange.');
+    }
+
+    const tokens = await exchangeCodeForTokens(code, { clientId: this.clientId, redirectUri: this.redirectUri }, secret);
+
+    return {
+      accessToken: tokens.accessToken,
+      idToken: tokens.idToken,
+      refreshToken: tokens.refreshToken,
+      expiresIn: tokens.expiresIn,
+      tokenType: tokens.tokenType,
+    };
+  }
+
+  /**
+   * Verify a Google ID token.
+   *
+   * @param token - Google ID token (JWT).
+   * @returns Verification result.
+   */
+  async verifyToken(token: string): Promise<TokenVerifyResult> {
+    if (!this.tokenVerifier) {
+      throw new Error('GoogleOAuthProvider not initialized. Call init() first.');
+    }
+    return this.tokenVerifier.verify('google', token);
+  }
+
+  /**
+   * Get user information from Google using an access token.
+   *
+   * @param accessToken - Google OAuth2 access token.
+   * @returns User profile with email, name, and picture.
+   */
+  async getUserInfo(accessToken: string): Promise<OAuth2UserProfile> {
+    return fetchGoogleUserProfile(accessToken);
+  }
+
+  /**
+   * Refresh an expired access token using a refresh token.
+   *
+   * @param refreshToken - Google refresh token.
+   * @param clientSecret - Optional client secret override.
+   * @returns New token response.
+   */
+  async refreshToken(
+    refreshToken: string,
+    clientSecret?: string
+  ): Promise<{ accessToken: string; expiresIn: number; tokenType: string; scope?: string }> {
+    const secret = clientSecret || this.clientSecret;
+    if (!secret) {
+      throw new Error('clientSecret is required for token refresh.');
+    }
+
+    const response = await fetch(GOOGLE_TOKEN_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        client_id: this.clientId,
+        client_secret: secret,
+        refresh_token: refreshToken,
+        grant_type: 'refresh_token',
+      }),
+    });
+
+    if (!response.ok) {
+      const error = await response.text();
+      throw new Error(`Google token refresh failed: ${error}`);
+    }
+
+    return response.json() as Promise<{ accessToken: string; expiresIn: number; tokenType: string; scope?: string }>;
+  }
+
+  /**
+   * Revoke a token (access or refresh).
+   *
+   * @param token - Token to revoke.
+   */
+  async revokeToken(token: string): Promise<void> {
+    const response = await fetch(GOOGLE_REVOKE_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({ token }),
+    });
+
+    if (!response.ok) {
+      const error = await response.text();
+      throw new Error(`Google token revocation failed: ${error}`);
+    }
+  }
 }

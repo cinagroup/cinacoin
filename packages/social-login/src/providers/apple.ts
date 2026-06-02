@@ -16,6 +16,9 @@ const APPLE_AUTH_URL = 'https://appleid.apple.com/auth/authorize';
 /** Apple OAuth2 token endpoint. */
 const APPLE_TOKEN_URL = 'https://appleid.apple.com/auth/token';
 
+/** Apple public keys endpoint (JWKS). */
+const APPLE_JWKS_URL = 'https://appleid.apple.com/auth/keys';
+
 /** Default scopes for Apple Sign-In. */
 const DEFAULT_SCOPES = ['openid', 'email', 'name'];
 
@@ -23,23 +26,11 @@ const DEFAULT_SCOPES = ['openid', 'email', 'name'];
  * Generate an Apple client_secret JWT.
  *
  * Apple requires a JWT signed with your private key as the client_secret.
- *
- * @param params - Apple login parameters.
- * @returns JWT client_secret string.
- *
- * Note: In production, use the `jose` library for proper JWT generation.
- * This is a placeholder showing the required claims structure.
- */
-/**
- * Generate an Apple client_secret JWT.
- *
- * Apple requires a JWT signed with your private key as the client_secret.
- *
- * @param params - Apple login parameters.
- * @returns JWT client_secret string.
- *
  * Uses `jose` to generate a properly signed ES256 JWT with the
  * required claims (iss, iat, exp, aud, sub).
+ *
+ * @param params - Apple login parameters.
+ * @returns JWT client_secret string.
  */
 export async function generateAppleClientSecret(params: AppleLoginParams): Promise<string> {
   const { SignJWT, importPKCS8 } = await import('jose');
@@ -149,7 +140,6 @@ export function decodeAppleIdToken(idToken: string): OAuth2UserProfile {
  *
  * @param code - Authorization code from Apple redirect.
  * @param params - Apple login parameters.
- * @param clientSecret - JWT client_secret.
  * @param deriveWallet - Function to derive a wallet address.
  * @param appleUserData - Optional user data from form POST (first login only).
  * @returns Social login result.
@@ -205,7 +195,7 @@ export async function loginWithApple(
 export async function verifyAppleToken(idToken: string, audience?: string): Promise<boolean> {
   const { jwtVerify, createRemoteJWKSet } = await import('jose');
 
-  const JWKS = createRemoteJWKSet(new URL('https://appleid.apple.com/auth/keys'), {
+  const JWKS = createRemoteJWKSet(new URL(APPLE_JWKS_URL), {
     cooldownDuration: 600_000, // 10 min cache
     timeoutDuration: 10_000,
   });
@@ -229,4 +219,205 @@ function generateState(): string {
   const bytes = new Uint8Array(32);
   crypto.getRandomValues(bytes);
   return btoa(String.fromCharCode(...bytes));
+}
+
+// ─── Class-based Provider ───────────────────────────────────────────────
+
+/**
+ * Class-based Apple Sign-In provider.
+ *
+ * Provides an object-oriented interface for Sign in with Apple with
+ * init, authorize, handleCallback, verifyToken, getUserInfo, and
+ * generateClientSecret methods.
+ */
+export class AppleOAuthProvider {
+  private clientId: string = '';
+  private redirectUri: string = '';
+  private teamId: string = '';
+  private keyId: string = '';
+  private privateKey: string = '';
+  private scopes: string[] = DEFAULT_SCOPES;
+  private tokenVerifier: TokenVerifier | null = null;
+
+  /**
+   * Initialize the provider with Apple credentials.
+   *
+   * @param clientId - Apple Services ID (e.g., com.example.app).
+   * @param redirectUri - OAuth2 redirect URI.
+   * @param options - Apple-specific options (teamId, keyId, privateKey, scopes).
+   */
+  init(
+    clientId: string,
+    redirectUri: string,
+    options?: {
+      teamId?: string;
+      keyId?: string;
+      privateKey?: string;
+      scopes?: string[];
+    }
+  ): void {
+    this.clientId = clientId;
+    this.redirectUri = redirectUri;
+    if (options?.teamId) {
+      this.teamId = options.teamId;
+    }
+    if (options?.keyId) {
+      this.keyId = options.keyId;
+    }
+    if (options?.privateKey) {
+      this.privateKey = options.privateKey;
+    }
+    if (options?.scopes) {
+      this.scopes = options.scopes;
+    }
+    this.tokenVerifier = new TokenVerifier({ appleClientId: clientId });
+  }
+
+  /**
+   * Open the Apple Sign-In authorization window (client-side redirect).
+   *
+   * @param state - Optional state parameter for CSRF.
+   * @returns Authorization URL.
+   */
+  authorize(state?: string): string {
+    if (!this.clientId || !this.redirectUri) {
+      throw new Error('AppleOAuthProvider not initialized. Call init() first.');
+    }
+
+    const query = new URLSearchParams({
+      client_id: this.clientId,
+      redirect_uri: this.redirectUri,
+      response_type: 'code id_token',
+      response_mode: 'form_post',
+      scope: this.scopes.join(' '),
+      state: state || generateState(),
+    });
+
+    const url = `${APPLE_AUTH_URL}?${query.toString()}`;
+
+    // In browser context, redirect
+    if (typeof window !== 'undefined') {
+      window.location.href = url;
+    }
+
+    return url;
+  }
+
+  /**
+   * Handle the OAuth2 callback: exchange code for tokens.
+   *
+   * @param code - Authorization code from Apple redirect.
+   * @param options - Optional override for token exchange parameters.
+   * @returns Token response with id_token and optionally access_token.
+   */
+  async handleCallback(
+    code: string,
+    options?: {
+      teamId?: string;
+      keyId?: string;
+      privateKey?: string;
+    }
+  ): Promise<{
+    idToken: string;
+    accessToken?: string;
+    expiresIn: number;
+  }> {
+    const teamId = options?.teamId || this.teamId;
+    const keyId = options?.keyId || this.keyId;
+    const privateKey = options?.privateKey || this.privateKey;
+
+    if (!teamId || !keyId || !privateKey) {
+      throw new Error('teamId, keyId, and privateKey are required for Apple token exchange.');
+    }
+
+    const clientSecret = await generateAppleClientSecret({
+      clientId: this.clientId,
+      redirectUri: this.redirectUri,
+      teamId,
+      keyId,
+      privateKey,
+    });
+
+    const tokens = await exchangeAppleCode(code, { clientId: this.clientId, redirectUri: this.redirectUri }, clientSecret);
+
+    return {
+      idToken: tokens.idToken,
+      accessToken: tokens.accessToken,
+      expiresIn: tokens.expiresIn,
+    };
+  }
+
+  /**
+   * Verify an Apple ID token.
+   *
+   * @param token - Apple ID token (JWT).
+   * @returns Verification result.
+   */
+  async verifyToken(token: string): Promise<TokenVerifyResult> {
+    if (!this.tokenVerifier) {
+      throw new Error('AppleOAuthProvider not initialized. Call init() first.');
+    }
+    return this.tokenVerifier.verify('apple', token);
+  }
+
+  /**
+   * Get user information by decoding the Apple ID token.
+   *
+   * Apple returns user info (name/email) only on first login via form POST.
+   * For subsequent logins, decode the ID token.
+   *
+   * @param idToken - Apple ID token (JWT).
+   * @param firstLoginData - Optional user data from first-login form POST.
+   * @returns User profile.
+   */
+  getUserInfo(
+    idToken: string,
+    firstLoginData?: { name?: { firstName?: string; lastName?: string }; email?: string }
+  ): OAuth2UserProfile {
+    const profile = decodeAppleIdToken(idToken);
+
+    // On first login, Apple returns name/email in the POST body
+    if (firstLoginData) {
+      if (firstLoginData.name) {
+        profile.name = `${firstLoginData.name.firstName || ''} ${firstLoginData.name.lastName || ''}`.trim();
+      }
+      if (firstLoginData.email) {
+        profile.email = firstLoginData.email;
+      }
+    }
+
+    return profile;
+  }
+
+  /**
+   * Generate a client_secret JWT signed with Apple private key.
+   *
+   * Apple requires this JWT for token exchange requests.
+   *
+   * @param options - Optional override for client_secret generation.
+   * @returns JWT client_secret string.
+   */
+  async generateClientSecret(options?: {
+    teamId?: string;
+    keyId?: string;
+    privateKey?: string;
+    clientId?: string;
+  }): Promise<string> {
+    const teamId = options?.teamId || this.teamId;
+    const keyId = options?.keyId || this.keyId;
+    const privateKey = options?.privateKey || this.privateKey;
+    const clientId = options?.clientId || this.clientId;
+
+    if (!teamId || !keyId || !privateKey || !clientId) {
+      throw new Error('teamId, keyId, privateKey, and clientId are required for client_secret generation.');
+    }
+
+    return generateAppleClientSecret({
+      clientId,
+      redirectUri: this.redirectUri,
+      teamId,
+      keyId,
+      privateKey,
+    });
+  }
 }
