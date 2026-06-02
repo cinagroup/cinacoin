@@ -102,16 +102,16 @@ function getBaseUrl(serviceId: string): string {
   const isProduction = typeof window !== "undefined" && window.location.hostname !== "localhost";
   
   if (isProduction) {
-    // Use relative paths proxied through Pages (_redirects)
-    // Workers are proxied via /api/* to hide direct URLs from client bundle
-    const pathMap: Record<string, string> = {
-      "rpc-proxy": "/api/rpc",
-      "keys-server": "/api/keys",
-      "relay-server": "/api/relay",
-      "notify-server": "/api/notify",
-      "push-server": "/api/push",
+    // Use direct Worker subdomain URLs
+    // Cloudflare Pages static export doesn't support cross-origin proxy redirects
+    const urlMap: Record<string, string> = {
+      "rpc-proxy": "https://rpc.cinacoin.com",
+      "keys-server": "https://keys.cinacoin.com",
+      "relay-server": "https://relay.cinacoin.com",
+      "notify-server": "https://notify.cinacoin.com",
+      "push-server": "https://push.cinacoin.com",
     };
-    return pathMap[serviceId] || `/${serviceId}`;
+    return urlMap[serviceId] || `https://${serviceId}.cinacoin.com`;
   }
   
   // Default: localhost dev URLs
