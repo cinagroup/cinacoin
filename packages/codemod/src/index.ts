@@ -9,12 +9,20 @@
  * ```
  */
 
-export { transformAppKitToCinacoin, type CodemodResult as AppKitCodemodResult } from "./codemods/appkit-to-onchainux.js";
-export { transformWcV1ToV2, type CodemodResult as WcCodemodResult } from "./codemods/wc-v1-to-v2.js";
-export { transformRainbowKitToCinacoin, type CodemodResult as RainbowKitCodemodResult } from "./codemods/rainbowkit-to-cinacoin.js";
-export { transformConnectKitToCinacoin, type CodemodResult as ConnectKitCodemodResult } from "./codemods/connectkit-to-cinacoin.js";
-export { transformWeb3ModalToCinacoin, type CodemodResult as Web3ModalCodemodResult } from "./codemods/web3modal-to-cinacoin.js";
-export { transformEthersV5ToViem, type CodemodResult as EthersViemCodemodResult } from "./codemods/ethers-v5-to-viem.js";
+import { transformAppKitToCinacoin, CodemodResult as AppKitCodemodResult } from "./codemods/appkit-to-onchainux.js";
+import { transformWcV1ToV2, CodemodResult as WcCodemodResult } from "./codemods/wc-v1-to-v2.js";
+import { transformRainbowKitToCinacoin, CodemodResult as RainbowKitCodemodResult } from "./codemods/rainbowkit-to-cinacoin.js";
+import { transformConnectKitToCinacoin, CodemodResult as ConnectKitCodemodResult } from "./codemods/connectkit-to-cinacoin.js";
+import { transformWeb3ModalToCinacoin, CodemodResult as Web3ModalCodemodResult } from "./codemods/web3modal-to-cinacoin.js";
+import { transformEthersV5ToViem, CodemodResult as EthersViemCodemodResult } from "./codemods/ethers-v5-to-viem.js";
+
+// Re-export everything
+export { transformAppKitToCinacoin, AppKitCodemodResult };
+export { transformWcV1ToV2, WcCodemodResult };
+export { transformRainbowKitToCinacoin, RainbowKitCodemodResult };
+export { transformConnectKitToCinacoin, ConnectKitCodemodResult };
+export { transformWeb3ModalToCinacoin, Web3ModalCodemodResult };
+export { transformEthersV5ToViem, EthersViemCodemodResult };
 
 /** Codemod result type */
 export interface CodemodResult {

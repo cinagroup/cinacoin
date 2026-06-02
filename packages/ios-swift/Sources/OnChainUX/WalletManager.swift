@@ -220,14 +220,6 @@ public final class WalletManager: ObservableObject {
         return try await wcClient.signTypedData(address: account.address, typedData: typedData)
     }
 
-    /// Real signTypedData (EIP-712) via the connected WC session.
-    public func signTypedData(typedData: String) async throws -> String {
-        guard let account = connectedAccount else {
-            throw WCError.notConnected
-        }
-        return try await wcClient.signTypedData(address: account.address, typedData: typedData)
-    }
-
     /// Real sendTransaction via the connected WC session.
     public func sendTransaction(_ tx: TransactionRequest) async throws -> String {
         let wcTx = WCTransactionRequest(
