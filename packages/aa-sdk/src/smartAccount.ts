@@ -24,8 +24,12 @@ import type {
   SmartAccountState,
   UserOperation,
   UserOperationResult,
+  UserOperationReceipt,
   BatchTransaction,
 } from './types.js';
+import { UserOperationStatus } from './types.js';
+import { BundlerClient } from './bundler-client.js';
+import type { EnhancedBundlerConfig, SubmittedUserOp } from './bundler-client.js';
 
 /**
  * SmartAccount wraps a signer key and manages UserOperation lifecycle.
@@ -35,8 +39,9 @@ export class SmartAccount {
   private readonly signer: ReturnType<typeof privateKeyToAccount>;
   private state: SmartAccountState;
   private publicClient: ReturnType<typeof createPublicClient>;
+  private _bundler: BundlerClient | null = null;
 
-  constructor(config: SmartAccountConfig & { privateKey: Hex }) {
+  constructor(config: SmartAccountConfig & { privateKey: Hex; bundlerConfig?: EnhancedBundlerConfig }) {
     this.config = config;
     this.signer = privateKeyToAccount(config.privateKey);
     this.state = {
@@ -49,6 +54,11 @@ export class SmartAccount {
     this.publicClient = createPublicClient({
       transport: http(config.rpcUrl),
     });
+
+    // Initialize bundler if config provided
+    if (config.bundlerConfig) {
+      this._bundler = new BundlerClient(config.bundlerConfig);
+    }
   }
 
   /**
@@ -130,30 +140,98 @@ export class SmartAccount {
 
   /**
    * Execute a single transaction through the smart account.
-   * Builds a UserOperation but does NOT submit it — the caller
-   * should pass the result through BundlerClient / PaymasterClient.
+   *
+   * If a bundler is configured (via bundlerConfig in constructor),
+   * the UserOp is automatically:
+   *   1. Built and signed
+   *   2. Sent to the bundler via eth_sendUserOperation
+   *   3. Tracked for receipt polling
+   *
+   * Without a bundler, returns the signed UserOp and hash for
+   * manual submission via BundlerClient.
    */
   async execute(
     to: Address,
     value: bigint,
     data: Hex,
-  ): Promise<{ userOp: UserOperation; userOpHash: Hash }> {
+  ): Promise<
+    | { userOp: UserOperation; userOpHash: Hash }
+    | { userOp: UserOperation; userOpHash: Hash; submitted: SubmittedUserOp }
+  > {
     const userOp = await this.buildUserOperation([{ to, value, data }]);
     const signed = await this.signUserOp(userOp);
     const userOpHash = this.hashUserOperation(signed);
+
+    // If bundler is configured, send the UserOp through it
+    if (this._bundler) {
+      const submitted = await this._bundler.sendUserOperation(signed);
+      return { userOp: signed, userOpHash: userOpHash as Hash, submitted };
+    }
+
     return { userOp: signed, userOpHash: userOpHash as Hash };
   }
 
   /**
    * Execute multiple transactions in a batch.
+   *
+   * Same behavior as execute(): sends through bundler if configured.
    */
   async executeBatch(
     transactions: BatchTransaction[],
-  ): Promise<{ userOp: UserOperation; userOpHash: Hash }> {
+  ): Promise<
+    | { userOp: UserOperation; userOpHash: Hash }
+    | { userOp: UserOperation; userOpHash: Hash; submitted: SubmittedUserOp }
+  > {
     const userOp = await this.buildUserOperation(transactions);
     const signed = await this.signUserOp(userOp);
     const userOpHash = this.hashUserOperation(signed);
+
+    // If bundler is configured, send the UserOp through it
+    if (this._bundler) {
+      const submitted = await this._bundler.sendUserOperation(signed);
+      return { userOp: signed, userOpHash: userOpHash as Hash, submitted };
+    }
+
     return { userOp: signed, userOpHash: userOpHash as Hash };
+  }
+
+  // ── Bundler Integration ───────────────────────────────────────
+
+  /**
+   * Access the BundlerClient (if configured).
+   */
+  getBundler(): BundlerClient | null {
+    return this._bundler;
+  }
+
+  /**
+   * Set or replace the BundlerClient at runtime.
+   */
+  setBundler(config: EnhancedBundlerConfig): void {
+    this._bundler = new BundlerClient(config);
+  }
+
+  /**
+   * Wait for a previously submitted UserOperation to be confirmed.
+   * Requires a configured bundler.
+   */
+  async waitForConfirmation(
+    userOpHash: Hash,
+  ): Promise<UserOperationReceipt> {
+    if (!this._bundler) {
+      throw new Error('No bundler configured. Use setBundler() or pass bundlerConfig in constructor.');
+    }
+    return this._bundler.waitForUserOperationReceipt(userOpHash);
+  }
+
+  /**
+   * Get the current status of a tracked UserOperation.
+   */
+  getUserOpStatus(userOpHash: Hash): UserOperationStatus {
+    if (!this._bundler) {
+      return UserOperationStatus.Pending;
+    }
+    return this._bundler.getUserOperationStatus(userOpHash);
   }
 
   // ── UserOperation building ────────────────────────────────────

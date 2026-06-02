@@ -27,6 +27,8 @@ import type { MultiSessionManagerConfig, ManagedSession } from './multi-session-
 import { SessionStore } from './session-store.js';
 import { NonceManager } from './signature-verification.js';
 import { parseWcUri, isValidWcUri } from './pairing.js';
+import { HeartbeatManager, createHeartbeat } from './heartbeat.js';
+import type { HeartbeatConfig, HeartbeatStatus } from './heartbeat.js';
 
 // ============================================================
 // WC Connector Configuration
@@ -50,6 +52,8 @@ export interface WcConnectorConfig extends Partial<MultiSessionManagerConfig> {
   relayUrl?: string;
   /** Auto-restore sessions on creation. */
   autoRestore?: boolean;
+  /** Heartbeat configuration (default: enabled with 30s interval). Pass `false` to disable. */
+  heartbeat?: HeartbeatConfig | false;
 }
 
 // ============================================================
@@ -113,6 +117,7 @@ export class WcConnector extends Connector {
   private store: SessionStore;
   private nonceManager: NonceManager;
   private _connected = false;
+  private heartbeatManager: HeartbeatManager | null = null;
 
   constructor(config: WcConnectorConfig) {
     super();
@@ -153,6 +158,23 @@ export class WcConnector extends Connector {
     // Auto-restore sessions if configured
     if (config.autoRestore !== false) {
       this.restore().catch(() => {});
+    }
+
+    // Initialize heartbeat if not disabled
+    if (config.heartbeat !== false) {
+      const heartbeatConfig = config.heartbeat ?? {};
+      this.heartbeatManager = createHeartbeat(heartbeatConfig);
+      // Start heartbeat after sessions are restored
+      this.heartbeatManager.start(this);
+      // Forward heartbeat status events as wcEvent
+      this.heartbeatManager.on('status', (event) => {
+        const status = event as { type: string; status: string; reason?: string };
+        this.emit('wcEvent', {
+          type: 'heartbeat_status',
+          status: status.status as HeartbeatStatus,
+          reason: status.reason,
+        });
+      });
     }
   }
 
@@ -432,6 +454,9 @@ export class WcConnector extends Connector {
     this.manager.cleanupExpiredSessions();
     this.nonceManager.cleanup();
     this.store.fullCleanup();
+    if (this.heartbeatManager) {
+      this.heartbeatManager.stop();
+    }
   }
 
   /**
@@ -453,6 +478,14 @@ export class WcConnector extends Connector {
    */
   getManager(): MultiSessionManager {
     return this.manager;
+  }
+
+  /**
+   * Get the heartbeat manager for connection health monitoring.
+   * Returns null if heartbeat is disabled.
+   */
+  getHeartbeat(): HeartbeatManager | null {
+    return this.heartbeatManager;
   }
 
   /**

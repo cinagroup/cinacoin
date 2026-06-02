@@ -174,6 +174,13 @@ export {
 } from './methods.js';
 export type { NamespacesConfig, AddChainParams } from './methods.js';
 
+// Heartbeat
+export {
+  HeartbeatManager,
+  createHeartbeat,
+} from './heartbeat.js';
+export type { HeartbeatConfig, HeartbeatStatus, HeartbeatEvent, HeartbeatConnector } from './heartbeat.js';
+
 // Wallets
 export {
   WALLET_REGISTRY,
