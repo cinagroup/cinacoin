@@ -40,10 +40,10 @@ export function createEvmSignInMessage(params: SIWXParams): string {
  */
 export async function verifyEvmSignature(
   input: SIWXVerifyInput,
-  // TODO: narrow type — EIP-1193 or ethers/viem provider
-  provider: unknown
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  provider: any
 ): Promise<SIWXResult> {
-  const result = await verifyMessage(input.message, input.signature, provider);
+  const result = await verifyMessage(input.message, input.signature, provider as any);
 
   return {
     chainType: 'evm',

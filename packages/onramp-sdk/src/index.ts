@@ -63,6 +63,10 @@ export { RampProvider } from "./providers/ramp.js";
 export type { RampConfig } from "./providers/ramp.js";
 export { TransakProvider } from "./providers/transak.js";
 export type { TransakConfig } from "./providers/transak.js";
+export { StripeProvider } from "./providers/stripe.js";
+export type { StripeConfig } from "./providers/stripe.js";
+export { CoinbaseProvider } from "./providers/coinbase.js";
+export type { CoinbaseConfig } from "./providers/coinbase.js";
 
 // Widget
 export { OnRampWidget } from "./widget.js";

@@ -96,3 +96,72 @@ export interface RpcResponse<T> {
   result: T;
   error?: { code: number; message: string };
 }
+
+// ---------------------------------------------------------------------------
+// Multi-Source Gas Aggregation Types
+// ---------------------------------------------------------------------------
+
+/** Identifier for a gas price source. */
+export type GasSourceId = 'ethgasstation' | 'blocknative' | 'rpc' | 'custom';
+
+/** Gas price data from a single source. */
+export interface GasSourceData {
+  /** Source identifier. */
+  source: GasSourceId;
+  /** Gas price in wei. */
+  gasPrice: bigint;
+  /** Optional EIP-1559 base fee. */
+  baseFee?: bigint;
+  /** Optional EIP-1559 priority fee. */
+  priorityFee?: bigint;
+  /** Confidence level (0-1). */
+  confidence: number;
+  /** Timestamp when data was fetched. */
+  timestamp: number;
+  /** Optional error message. */
+  error?: string;
+}
+
+/** Weighted gas price result from aggregation. */
+export interface AggregatedGasPrice {
+  /** Weighted average gas price. */
+  gasPrice: bigint;
+  /** Weighted average base fee. */
+  baseFee?: bigint;
+  /** Weighted average priority fee. */
+  priorityFee?: bigint;
+  /** Number of sources that contributed. */
+  sourceCount: number;
+  /** Individual source results. */
+  sources: GasSourceData[];
+  /** Timestamp of aggregation. */
+  timestamp: number;
+  /** Standard deviation of source prices. */
+  stdDeviation: number;
+}
+
+/** Configuration for a gas price source. */
+export interface GasSourceConfig {
+  /** API key. */
+  apiKey?: string;
+  /** Custom API endpoint override. */
+  endpoint?: string;
+  /** Source weight in the aggregation. */
+  weight?: number;
+  /** Request timeout in ms. */
+  timeoutMs?: number;
+  /** Whether this source is enabled. */
+  enabled?: boolean;
+}
+
+/** Configuration for the multi-source aggregator. */
+export interface MultiSourceGasAggregatorConfig {
+  /** Per-source configuration overrides. */
+  sources?: Partial<Record<GasSourceId, GasSourceConfig>>;
+  /** Custom RPC URL for eth_gasPrice fallback. */
+  rpcUrl?: string;
+  /** RPC timeout in ms. */
+  rpcTimeoutMs?: number;
+  /** Minimum number of sources required. */
+  minSources?: number;
+}

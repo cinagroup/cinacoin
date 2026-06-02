@@ -69,6 +69,24 @@ export type {
 // React Hooks for Cloud Auth
 export { useCloudSession, useCloudAuthEvents } from './cloud-hooks.js';
 
+// SIWX Session Management
+export {
+  SIWXSessionManager,
+  defaultSessionManager,
+} from './siwx-session.js';
+
+export type {
+  SessionStatus,
+  SIWXSession,
+  CreateSessionParams,
+} from './siwx-session.js';
+
+// React Hooks
+export {
+  useSIWX,
+  useSIWXSession,
+} from './react-hooks.js';
+
 // Types
 export type {
   ChainType,
