@@ -11,7 +11,9 @@
   ],
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts",
-    "dev": "tsup src/index.ts --format esm,cjs --dts --watch"
+    "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
     "@cinacoin/core-sdk": "workspace:*"

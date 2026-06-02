@@ -5,7 +5,7 @@
  * with MPC-based key management.
  */
 
-import type { NearFunctionCall, NearTransaction, NearTransactionResult, NearWalletConnector } from '../types.js';
+import type { NearFunctionCall, NearTransferAction, NearTransaction, NearTransactionResult, NearWalletConnector } from '../types.js';
 
 /** Minimal Here Wallet provider declarations. */
 interface HereWalletProvider {

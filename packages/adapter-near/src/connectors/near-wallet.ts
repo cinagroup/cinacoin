@@ -5,7 +5,7 @@
  * NEAR Wallet Selector or direct browser redirect flow.
  */
 
-import type { NearFunctionCall, NearTransaction, NearTransactionResult, NearWalletConnector } from '../types.js';
+import type { NearFunctionCall, NearTransferAction, NearTransaction, NearTransactionResult, NearWalletConnector as NearWalletConnectorInterface } from '../types.js';
 
 /** Minimal NEAR Wallet provider declarations. */
 interface NearWalletProvider {
@@ -13,15 +13,13 @@ interface NearWalletProvider {
   id: string;
   /** Whether currently connected. */
   isConnected: boolean;
-  /** Connected account id. */
-  account: NearAccount | null;
 
   /** Sign in / connect. */
   signIn(params: { contractId?: string; methodNames?: string[] }): Promise<unknown>;
   /** Sign out / disconnect. */
   signOut(): Promise<void>;
   /** Get the connected account. */
-  account(): NearAccount | Promise<NearAccount>;
+  getAccount(): NearAccount | Promise<NearAccount>;
   /** Check connection state. */
   isSignedIn(): boolean;
   /** Get account ids. */
@@ -63,7 +61,7 @@ declare global {
  * Connects to wallet.near.org using the browser redirect flow or
  * Wallet Selector integration.
  */
-export class NearWalletConnector implements NearWalletConnector {
+export class NearWalletConnector implements NearWalletConnectorInterface {
   readonly id = 'near-wallet';
   readonly name = 'NEAR Wallet';
 
@@ -134,7 +132,7 @@ export class NearWalletConnector implements NearWalletConnector {
   async signTransaction(tx: NearTransaction): Promise<string> {
     if (!this.provider) throw new Error('NEAR Wallet not connected');
 
-    const account = await this.provider.account();
+    const account = await this.provider.getAccount();
     const actions = Array.isArray(tx.actions) ? tx.actions : [tx.actions];
 
     // Execute each action; the wallet handles signing
@@ -159,7 +157,7 @@ export class NearWalletConnector implements NearWalletConnector {
   async sendTransaction(tx: NearTransaction): Promise<NearTransactionResult> {
     if (!this.provider) throw new Error('NEAR Wallet not connected');
 
-    const account = await this.provider.account();
+    const account = await this.provider.getAccount();
     const actions = Array.isArray(tx.actions) ? tx.actions : [tx.actions];
 
     // For single transfer, use direct sendMoney
@@ -210,11 +208,14 @@ export class NearWalletConnector implements NearWalletConnector {
 
     // The wallet selector handles message signing via wallet.request
     if (this.provider && 'request' in this.provider) {
-      const result = await (this.provider as Record<string, unknown>).request?.({
-        method: 'signMessage',
-        params: payload,
-      }) as { signature: string };
-      return result?.signature ?? '';
+      const requestFn = (this.provider as Record<string, unknown>).request as ((args: { method: string; params?: unknown }) => Promise<unknown>) | undefined;
+      if (requestFn) {
+        const result = await requestFn({
+          method: 'signMessage',
+          params: payload,
+        }) as { signature: string };
+        return result?.signature ?? '';
+      }
     }
 
     // Fallback: throw as NEAR Wallet may not support direct message signing
