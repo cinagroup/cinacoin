@@ -1,7 +1,7 @@
 {
   "name": "@cinacoin/core-sdk",
   "version": "0.2.0",
-  "description": "Cinacoin Core SDK — Self-hosted wallet connection toolkit",
+  "description": "Cinacoin Core SDK \u2014 Self-hosted wallet connection toolkit",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -10,6 +10,10 @@
       "import": "./dist/index.js",
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
+    },
+    "./utils/circuitBreaker.js": {
+      "import": "./dist/utils/circuitBreaker.js",
+      "types": "./dist/utils/circuitBreaker.d.ts"
     }
   },
   "scripts": {

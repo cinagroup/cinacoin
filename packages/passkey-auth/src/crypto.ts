@@ -8,7 +8,7 @@ import type { CryptoKeypair } from './types.js';
  * Generate a P-256 keypair for passkey operations.
  */
 export function generateKeypair(): CryptoKeypair {
-  const privateKey = p256.utils.randomPrivateKey();
+  const privateKey = p256.utils.randomSecretKey();
   const publicKey = p256.getPublicKey(privateKey);
 
   return {
@@ -54,7 +54,7 @@ export function signData(
 ): Uint8Array {
   const privateKey = hexToBytes(privateKeyHex);
   const hash = sha256(data);
-  return p256.sign(hash, privateKey).toCompactRawBytes();
+  return p256.sign(hash, privateKey);
 }
 
 /**
@@ -89,7 +89,6 @@ export function deriveAddress(publicKeyHex: string): string {
  * Compress a public key to its compressed form (33 bytes).
  */
 export function compressPublicKey(publicKeyHex: string): string {
-  const publicKey = hexToBytes(publicKeyHex);
-  const compressed = p256.ProjectivePoint.fromHex(publicKey).toRawBytes(true);
+  const compressed = p256.Point.fromHex(publicKeyHex).toBytes(true);
   return bytesToHex(compressed);
 }

@@ -7,7 +7,7 @@
  * @packageDocumentation
  */
 
-import { sha256 } from '@noble/hashes/sha256.js';
+import { sha256 } from '@noble/hashes/sha2.js';
 import { p256 } from '@noble/curves/nist.js';
 import { bytesToHex, hexToBytes } from '@noble/hashes/utils.js';
 
@@ -112,6 +112,11 @@ export function fromBase64Url(base64url: string): Uint8Array {
     .replace(/_/g, '/')
     .padEnd(base64url.length + ((4 - (base64url.length % 4)) % 4), '=');
   return new Uint8Array(Array.from(atob(base64), (c) => c.charCodeAt(0)));
+}
+
+/** Decode base64url to Uint8Array for PublicKeyCredentialDescriptor.id */
+export function fromBase64UrlAllowCredential(base64url: string): Uint8Array {
+  return fromBase64Url(base64url);
 }
 
 // ─── Uint8Array utilities ───────────────────────────────────────────────

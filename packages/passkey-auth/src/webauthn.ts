@@ -1,4 +1,5 @@
 import { encodeChallenge, decodeChallenge } from './crypto.js';
+import { fromBase64UrlAllowCredential } from './credentials.js';
 import type {
   PublicKeyCredentialCreationOptionsJSON,
   PublicKeyCredentialRequestOptionsJSON,
@@ -29,13 +30,30 @@ export class WebAuthnClient {
       throw new Error('WebAuthn is not available in this environment');
     }
 
+    const challengeBytes = decodeChallenge(options.challenge);
+    const challenge = challengeBytes.buffer.slice(
+      challengeBytes.byteOffset,
+      challengeBytes.byteOffset + challengeBytes.byteLength
+    ) as ArrayBuffer;
+
     const publicKey: PublicKeyCredentialCreationOptions = {
-      ...options,
-      challenge: decodeChallenge(options.challenge),
+      challenge,
       user: {
-        ...options.user,
-        id: decodeChallenge(options.user.id),
+        id: (() => {
+          const bytes = decodeChallenge(options.user.id);
+          return bytes.buffer.slice(
+            bytes.byteOffset,
+            bytes.byteOffset + bytes.byteLength
+          ) as ArrayBuffer;
+        })(),
+        name: options.user.name,
+        displayName: options.user.displayName,
       },
+      rp: options.rp,
+      pubKeyCredParams: options.pubKeyCredParams as PublicKeyCredentialCreationOptions['pubKeyCredParams'],
+      timeout: options.timeout,
+      attestation: (options.attestation || 'none') as AttestationConveyancePreference,
+      authenticatorSelection: options.authenticatorSelection as PublicKeyCredentialCreationOptions['authenticatorSelection'],
     };
 
     const credential = (await navigator.credentials.create({
@@ -55,9 +73,27 @@ export class WebAuthnClient {
       throw new Error('WebAuthn is not available in this environment');
     }
 
+    const challengeBytes = decodeChallenge(options.challenge);
+    const challenge = challengeBytes.buffer.slice(
+      challengeBytes.byteOffset,
+      challengeBytes.byteOffset + challengeBytes.byteLength
+    ) as ArrayBuffer;
+
+    const allowCredentials = options.allowCredentials?.map(c => ({
+      type: c.type as PublicKeyCredentialDescriptor['type'],
+      id: (() => {
+        const bytes = fromBase64UrlAllowCredential(c.id);
+        return bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) as ArrayBuffer;
+      })(),
+      transports: c.transports as AuthenticatorTransport[],
+    }));
+
     const publicKey: PublicKeyCredentialRequestOptions = {
-      ...options,
-      challenge: decodeChallenge(options.challenge),
+      challenge,
+      timeout: options.timeout,
+      rpId: options.rpId,
+      allowCredentials,
+      userVerification: (options.userVerification || 'required') as UserVerificationRequirement,
     };
 
     const credential = (await navigator.credentials.get({
