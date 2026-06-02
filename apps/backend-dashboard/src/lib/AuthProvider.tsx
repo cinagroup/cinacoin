@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, useCallback, useRef, type ReactNode } from "react";
-import { createSiweMessage, generateNonce, connectWallet, signAndVerify, getSession, logout } from "@/lib/auth";
+import { createSiweMessage, generateNonce, connectWallet, signAndVerify, getSession, logout, saveSession } from "@/lib/auth";
 
 interface AuthContextValue {
   address: string | null;
@@ -94,7 +94,16 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       const message = createSiweMessage(walletAddress, nonce);
       const signature = await signAndVerify(message, walletAddress);
 
-      // Session is saved in signAndVerify → login() → localStorage
+      // Persist session to localStorage so it survives redirects/reloads
+      const session = {
+        address: walletAddress,
+        signature,
+        nonce,
+        timestamp: Date.now(),
+        expiresAt: Date.now() + 24 * 60 * 60 * 1000, // 24 hours
+      };
+      saveSession(session);
+
       setAddress(walletAddress);
       addressRef.current = walletAddress;
     } catch (err: unknown) {

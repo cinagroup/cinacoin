@@ -229,6 +229,13 @@ export function logout(): void {
 }
 
 /**
+ * Save a session to localStorage.
+ */
+export function saveSession(session: AuthSession): void {
+  localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+}
+
+/**
  * Retrieve the current session from localStorage, or null if none / expired.
  */
 export function getSession(): AuthSession | null {
