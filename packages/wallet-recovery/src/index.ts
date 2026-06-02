@@ -2,7 +2,8 @@
  * @cinacoin/wallet-recovery — Shamir's Secret Sharing Wallet Recovery
  *
  * Threshold-based wallet recovery across multiple providers
- * (email, phone, social OAuth) with password-based fallback.
+ * (email, phone, social OAuth) with password-based fallback,
+ * plus Guardian-based social recovery with time-delayed execution.
  *
  * @packageDocumentation
  */
@@ -24,10 +25,29 @@ export {
   deriveKeyFromPassword,
 } from './WalletRecovery.js';
 
-// React hook
+// React hook (SSS-based)
 export { useWalletRecovery } from './useWalletRecovery.js';
 
-// Types
+// Social Recovery (Guardian-based)
+export { SocialRecoveryManager } from './socialRecovery/index.js';
+export type {
+  NotificationCallback,
+  SocialRecoveryManagerOptions,
+} from './socialRecovery/index.js';
+
+// Social Recovery React Hooks
+export {
+  useRecovery,
+  useGuardians,
+  useRecoveryStatus,
+} from './socialRecovery/index.js';
+export type {
+  UseRecoveryReturn,
+  UseGuardiansReturn,
+  UseRecoveryStatusReturn,
+} from './socialRecovery/index.js';
+
+// Types (SSS-based)
 export type {
   RecoveryProviderType,
   RecoveryShare,
@@ -44,3 +64,17 @@ export type {
   ChangePasswordParams,
   EncryptedShareBundle,
 } from './types.js';
+
+// Types (Social Recovery)
+export type {
+  GuardianType,
+  Guardian,
+  RecoveryStatus,
+  RecoveryRequest,
+  RecoveryEventType,
+  RecoveryEvent,
+  GuardianSetConfig,
+  RecoveryStatusResult,
+  InitiateRecoveryParams,
+  SetGuardiansResult,
+} from './socialRecovery/index.js';
