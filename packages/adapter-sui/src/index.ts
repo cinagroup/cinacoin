@@ -6,68 +6,42 @@
  * plus wallet connectors for Sui Wallet, Suiet, Ethos, and Martian.
  *
  * @packageDocumentation
- * @example
- * ```ts
- * import { SuiChainAdapter, SUI_CHAINS, SUI_WALLETS } from '@cinacoin/adapter-sui';
- *
- * const adapter = new SuiChainAdapter();
- * adapter.registerChains(SUI_CHAINS);
- *
- * // Connect to the first available wallet
- * const address = await adapter.connect();
- * console.log('Connected:', address);
- *
- * // Query balance
- * const balance = await adapter.getBalance(address);
- * console.log(`${balance} SUI`);
- *
- * // Query a Sui object
- * const obj = await adapter.getObject('0x2::sui::SUI');
- * ```
  */
 
-/* ------------------------------------------------------------------ */
-/*  Adapter                                                            */
-/* ------------------------------------------------------------------ */
-
-export {
-  SuiChainAdapter,
-  SUI_CHAINS,
-  SUI_WALLETS,
-  mistToSui,
-  suiToMist,
-} from './SuiAdapter.js';
-
-/* ------------------------------------------------------------------ */
-/*  Connectors                                                         */
-/* ------------------------------------------------------------------ */
+export { SuiChainAdapter, SUI_CHAINS, SUI_WALLETS, mistToSui, suiToMist } from './SuiAdapter.js';
 
 export { SuiWalletConnector } from './connectors/sui-wallet.js';
 export { SuietConnector } from './connectors/suiet.js';
 export { EthosConnector } from './connectors/ethos.js';
 export { MartianConnector } from './connectors/martian.js';
 
-/* ------------------------------------------------------------------ */
-/*  Types                                                              */
-/* ------------------------------------------------------------------ */
-
 export { isValidSuiAddress } from './types.js';
 
 export type {
-  SuiNetwork,
-  SuiChainPreset,
-  SuiWalletProvider,
-  SuiCoinBalance,
-  SuiObjectResponse,
-  SuiTransactionEffects,
-  SuiPlatform,
-  SuiFeature,
-  SuiConnector,
-  SuiTransactionCall,
-  SuiTransferSui,
+  SuiNetwork, SuiChainPreset, SuiWalletProvider, SuiCoinBalance,
+  SuiObjectResponse, SuiTransactionEffects, SuiPlatform, SuiFeature,
+  SuiConnector, SuiTransactionCall, SuiTransferSui,
 } from './types.js';
 
-/**
- * Package version.
- */
+// Sui operations service
+export {
+  createTransactionBlock, transferObjects, splitCoin, splitCoinEqual,
+  mergeCoins, moveCall, publish, makeMoveVec,
+  buildTransferObjectTx, buildSplitCoinTx, buildMergeCoinsTx,
+  buildSuiTransferTx, buildSuiBatchPayTx, buildCoinTransferTx,
+  buildCoinMintTx, buildCoinBurnTx,
+  serializeSignature, buildPersonalMessage, buildTxBytesForSigning,
+  buildExecuteTransactionRpc, buildDryRunRpc, buildDevInspectRpc,
+  serializeTransactionBlock, parseTransactionBlock,
+  isValidSuiObjectId as isValidSuiObjectIdFn,
+  type SuiCommand, type SuiCommandKind,
+  type TransferObjectsCommand, type SplitCoinCommand, type SplitCoinEqualCommand,
+  type MergeCoinsCommand, type MakeMoveVecCommand,
+  type MoveCallCommand, type PublishCommand,
+  type SuiGasSettings, type SuiTransactionBlock,
+  type SuiObjectRef, type SuiObjectOwner, type SuiObject,
+  type SerializedSignature, type SuiSignatureScheme,
+  type SuiRequestType, type SuiSubmitParams,
+} from './services/sui-ops.js';
+
 export const VERSION = '0.1.0';

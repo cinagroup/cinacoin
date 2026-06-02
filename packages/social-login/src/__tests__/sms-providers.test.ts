@@ -5,7 +5,7 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { TwilioProvider, MockSMSProvider } from '../sms-providers';
+import { TwilioProvider, MockSMSProvider } from '../sms-providers.js';
 
 // ─── Twilio Provider ──────────────────────────────────────────────────────
 

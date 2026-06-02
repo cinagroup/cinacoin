@@ -3,7 +3,7 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import { MagicLinkManager } from '../email-otp';
+import { MagicLinkManager } from '../email-otp.js';
 
 const TEST_SECRET = 'test-magic-link-secret-that-is-long-enough-for-jwt';
 

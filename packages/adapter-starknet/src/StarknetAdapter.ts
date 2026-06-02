@@ -12,6 +12,21 @@ import type { StarknetWalletConnector } from './types.js';
 import { STARKNET_CHAINS, STARKNET_WALLETS, type StarknetCall } from './types.js';
 import { ArgentXConnector } from './connectors/argent-x.js';
 import { BraavosConnector } from './connectors/braavos.js';
+import {
+  buildDeployAccountTx,
+  computeAccountAddress,
+  buildExecuteTx,
+  buildEstimateFeeRpc,
+  buildGetNonceRpc,
+  buildGetClassHashRpc,
+  buildGetStorageAtRpc,
+  buildErc20TransferOnStarknet,
+  buildErc20ApproveOnStarknet,
+  verifyStarknetSignature,
+  type DeployAccountParams,
+  type ExecuteOptions,
+  type FeeEstimate,
+} from './services/starknet-ops.js';
 
 /* ------------------------------------------------------------------ */
 /*  Minimal Starknet RPC types                                         */

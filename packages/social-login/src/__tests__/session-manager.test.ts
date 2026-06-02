@@ -3,7 +3,7 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { SessionManager } from '../session-manager';
+import { SessionManager } from '../session-manager.js';
 
 const TEST_SECRET = 'test-session-secret-key-that-is-long-enough-for-hs256';
 

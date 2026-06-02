@@ -25,3 +25,29 @@ export {
   type StarknetWalletConnector,
   type StarknetConnectParams,
 } from './types.js';
+
+// Starknet advanced operations
+export {
+  verifyStarknetSignature,
+  isValidStarknetSignature,
+  buildDeployAccountTx,
+  computeAccountAddress,
+  buildCallRpc,
+  buildExecuteTx,
+  buildMultiExecuteTx,
+  buildEstimateFeeRpc,
+  parseFeeEstimate,
+  buildGetNonceRpc,
+  buildGetClassHashRpc,
+  buildGetClassRpc,
+  buildGetStorageAtRpc,
+  buildErc20TransferOnStarknet,
+  buildErc20ApproveOnStarknet,
+  buildErc20BatchOnStarknet,
+  type StarknetPublicKey,
+  type StarknetSignature,
+  type DeployAccountParams,
+  type ContractCallParams,
+  type ExecuteOptions,
+  type FeeEstimate,
+} from './services/starknet-ops.js';

@@ -5,7 +5,7 @@
  */
 
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
-import { TokenVerifier, type TokenVerifyResult } from '../token-verifier';
+import { TokenVerifier, type TokenVerifyResult } from '../token-verifier.js';
 
 // ─── Helpers ──────────────────────────────────────────────────────────────
 
@@ -280,7 +280,7 @@ describe('TokenVerifier — Twitter', () => {
 describe('TokenVerifier — unsupported provider', () => {
   it('returns error for unknown providers', async () => {
     const verifier = new TokenVerifier();
-    const result = await verifier.verify('facebook' as unknown as TokenProvider, 'some-token');
+    const result = await verifier.verify('discord', 'some-token');
     expect(result.valid).toBe(false);
     expect(result.error).toContain('Unsupported provider');
   });

@@ -61,6 +61,53 @@ export type {
   EIP6963BitcoinProviderDetail,
 } from './types.js';
 
+// Services — Coin Selection, PSBT Builder, Blockstream API, BitcoinService
+export {
+  branchAndBound,
+  knapsack,
+  singleRandomDraw,
+  selectCoins,
+  prepareUtxos,
+  type CoinSelectionUTXO,
+  type CoinSelectionResult,
+  type CoinSelectionConfig,
+} from './services/coin-selection.js';
+
+export {
+  buildPsbt,
+  buildMultiOutputPsbt,
+  buildOpReturnOutput,
+  psbtToJson,
+  psbtFromJson,
+  type PsbtDescriptor,
+  type PsbtInput,
+  type PsbtOutput,
+  type PsbtGlobal,
+  type BuildPsbtParams,
+} from './services/psbt-builder.js';
+
+export {
+  BlockstreamClient,
+  validateBitcoinAddress,
+  type BlockstreamConfig,
+  type BlockstreamUTXO,
+  type BlockstreamTransaction,
+  type BlockstreamTxStatus,
+  type BlockstreamAddressInfo,
+  type BlockstreamFeeEstimate,
+  type BlockstreamNetwork,
+} from './services/blockstream.js';
+
+export {
+  BitcoinService,
+  BITCOIN_NETWORKS,
+  type BitcoinServiceConfig,
+  type BitcoinTransactionInfo,
+  type BitcoinBalanceInfo,
+  type BitcoinNetworkPreset,
+  type BitcoinInputFormat,
+} from './services/bitcoin-service.js';
+
 /**
  * Package version.
  */

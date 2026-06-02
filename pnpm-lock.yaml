@@ -460,6 +460,19 @@ importers:
         specifier: '>=8.9.0'
         version: 10.1.4(@near-js/keystores@2.5.1(@near-js/crypto@2.5.1(@near-js/types@2.5.1)(@near-js/utils@2.5.1(@near-js/types@2.5.1)))(@near-js/types@2.5.1))(@near-js/utils@2.5.1(@near-js/types@2.5.1))
 
+  packages/adapter-solana:
+    dependencies:
+      '@cinacoin/core-sdk':
+        specifier: workspace:*
+        version: link:../core-sdk
+    devDependencies:
+      tsup:
+        specifier: ^8.0.0
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.15)(tsx@4.22.1)(typescript@5.9.3)(yaml@2.9.0)
+      typescript:
+        specifier: ^5.7.0
+        version: 5.9.3
+
   packages/adapter-starknet:
     dependencies:
       '@cinacoin/core-sdk':
@@ -1070,6 +1083,10 @@ importers:
       react:
         specifier: '>=18.0.0'
         version: 18.3.1
+    devDependencies:
+      '@types/react':
+        specifier: 18.3.12
+        version: 18.3.12
 
   packages/multiwallet:
     dependencies:
@@ -1181,9 +1198,6 @@ importers:
       '@noble/hashes':
         specifier: ^2.2.0
         version: 2.2.0
-      react:
-        specifier: ^18.0.0 || ^19.0.0
-        version: 18.3.1
     devDependencies:
       '@types/node':
         specifier: ^20.11.0
@@ -1525,13 +1539,13 @@ importers:
       '@cinacoin/core-sdk':
         specifier: workspace:*
         version: link:../core-sdk
-      react:
-        specifier: '>=18.0.0'
-        version: 18.3.1
       viem:
         specifier: ^2.21.0
         version: 2.49.3(typescript@5.9.3)(zod@3.25.76)
     devDependencies:
+      '@types/react':
+        specifier: 18.3.12
+        version: 18.3.12
       eslint:
         specifier: ^9.12.0
         version: 9.39.4(jiti@2.7.0)
@@ -1761,9 +1775,6 @@ importers:
       '@cinacoin/core-sdk':
         specifier: workspace:*
         version: link:../core-sdk
-      '@cinacoin/wallet-registry':
-        specifier: workspace:*
-        version: link:../wallet-registry
       '@noble/ciphers':
         specifier: ^2.2.0
         version: 2.2.0

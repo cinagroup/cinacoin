@@ -41,6 +41,33 @@ export { CosmosAdapter } from './CosmosAdapter.js';
 export type { CosmosAdapterConfig, CosmosConnectResult } from './CosmosAdapter.js';
 export { COSMOS_CHAINS, COSMOS_CHAIN_INFO } from './CosmosAdapter.js';
 
+// IBC, Staking, and Transaction History services
+export {
+  buildIbcTransferMsg,
+  buildIbcTransferTx,
+  parseIbcDenom,
+  buildDelegateMsg,
+  buildUndelegateMsg,
+  buildRedelegateMsg,
+  buildWithdrawRewardMsg,
+  buildSetWithdrawAddressMsg,
+  buildStakingTx,
+  buildTxHistoryUrl,
+  buildDelegationsUrl,
+  buildUnbondingDelegationsUrl,
+  buildRewardsUrl,
+  buildValidatorsUrl,
+  parseTxResponse,
+  type IbcTransferParams,
+  type DelegateParams,
+  type UndelegateParams,
+  type RedelegateParams,
+  type WithdrawRewardParams,
+  type TxRecord,
+  type PaginatedResult,
+  type TxHistoryParams,
+} from './services/ibc-staking.js';
+
 // Wallet connectors
 export { KeplrConnector } from './connectors/keplr.js';
 export { LeapConnector } from './connectors/leap.js';
@@ -57,3 +84,27 @@ export type {
   SignDoc,
   CosmosWalletConnector,
 } from './types.js';
+
+// IBC & Staking services
+export {
+  buildIbcTransferMsg,
+  buildIbcTransferTx,
+  parseIbcDenom,
+  buildDelegateMsg,
+  buildUndelegateMsg,
+  buildRedelegateMsg,
+  buildWithdrawRewardMsg,
+  buildSetWithdrawAddressMsg,
+  buildStakingTx,
+  buildTxHistoryUrl,
+  parseTxRecord,
+  type IbcTransferParams,
+  type DelegateParams,
+  type UndelegateParams,
+  type RedelegateParams,
+  type WithdrawRewardParams,
+  type CosmosTxRecord,
+  type CosmosTxHistory,
+  type TxHistoryQuery,
+  type Pagination,
+} from './services/ibc-staking.js';
