@@ -152,5 +152,9 @@
   "value": "القيمة",
   "newest": "الأحدث",
   "oldest": "الأقدم",
-  "recent": "حديث"
+  "recent": "حديث",
+  "all_wallets": "جميع المحافظ",
+  "chain_name": "اسم الشبكة",
+  "add_custom_chain": "إضافة شبكة مخصصة",
+  "no_qr_data": "لا توجد بيانات QR"
 }

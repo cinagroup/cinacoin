@@ -152,5 +152,9 @@
   "value": "Valor",
   "newest": "Mais Recente",
   "oldest": "Mais Antigo",
-  "recent": "Recente"
+  "recent": "Recente",
+  "all_wallets": "Todas as carteiras",
+  "chain_name": "Nome da rede",
+  "add_custom_chain": "Adicionar rede personalizada",
+  "no_qr_data": "Sem dados QR"
 }

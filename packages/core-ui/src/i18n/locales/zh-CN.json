@@ -152,5 +152,9 @@
   "value": "价值",
   "newest": "最新",
   "oldest": "最旧",
-  "recent": "最近"
+  "recent": "最近",
+  "all_wallets": "所有钱包",
+  "chain_name": "链名称",
+  "add_custom_chain": "添加自定义链",
+  "no_qr_data": "无二维码数据"
 }

@@ -152,5 +152,9 @@
   "value": "Стоимость",
   "newest": "Новейшие",
   "oldest": "Старейшие",
-  "recent": "Недавние"
+  "recent": "Недавние",
+  "all_wallets": "Все кошельки",
+  "chain_name": "Имя сети",
+  "add_custom_chain": "Добавить свою сеть",
+  "no_qr_data": "Нет данных QR"
 }

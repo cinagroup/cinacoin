@@ -152,5 +152,9 @@
   "value": "価値",
   "newest": "最新",
   "oldest": "最古",
-  "recent": "最近"
+  "recent": "最近",
+  "all_wallets": "すべてのウォレット",
+  "chain_name": "チェーン名",
+  "add_custom_chain": "カスタムチェーンを追加",
+  "no_qr_data": "QRデータなし"
 }

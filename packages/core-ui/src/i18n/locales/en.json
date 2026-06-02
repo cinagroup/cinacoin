@@ -152,5 +152,9 @@
   "value": "Value",
   "newest": "Newest",
   "oldest": "Oldest",
-  "recent": "Recent"
+  "recent": "Recent",
+  "all_wallets": "All Wallets",
+  "chain_name": "Chain Name",
+  "add_custom_chain": "Add Custom Chain",
+  "no_qr_data": "No QR data"
 }
