@@ -9,9 +9,8 @@ import type {
   CrossChainState,
   SyncResult,
   StateStorage,
-  SessionState,
 } from "./types.js";
-import type { UnifiedIdentity } from "./identity.js";
+import type { UnifiedIdentity, SessionState } from "./types.js";
 import { InMemoryStorage } from "./storage.js";
 
 /**

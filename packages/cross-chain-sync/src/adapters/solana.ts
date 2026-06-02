@@ -23,6 +23,7 @@ export async function syncSolanaState(
   const session: SessionState = {
     chain: "solana",
     address: account.address,
+    accounts: [account],
     expiresAt: Date.now() + 3600_000,
     data: {
       tokenAccounts: account.tokenAccounts?.join(",") ?? "",

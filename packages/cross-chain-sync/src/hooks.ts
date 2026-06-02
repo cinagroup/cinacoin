@@ -1,459 +1,516 @@
 /**
- * React Hooks for Cross-Chain Sync
+ * React Hooks for Cross-Chain Bridge
  *
- * Provides useBridge and useCrossChainBalance hooks for React applications.
+ * Provides hooks for bridge transfers, status, history, and fees:
+ *   - useBridgeTransfer: Create and execute bridge transfers
+ *   - useBridgeStatus: Query and poll bridge status
+ *   - useBridgeHistory: Query bridge transfer history
+ *   - useBridgeFee: Estimate bridge fees
  */
 
 import { useState, useCallback, useEffect, useRef, useMemo } from "react";
-import type { StateStorage, ChainFamily, ChainAccount } from "./types.js";
-import type { StateSync } from "./sync.js";
 import type {
-  BridgeTransfer,
-  BridgeState,
-  BridgeAsset,
-} from "./bridge.js";
-import {
-  createBridgeTransfer,
-  transitionBridge,
-  getBridgeProgress,
-  isBridgeTerminal,
-  canRetryBridge,
-} from "./bridge.js";
-import type { CrossChainMessage } from "./messaging.js";
-import { RelayClient } from "./messaging.js";
+  BridgeFeeEstimate,
+  BridgeLifecycleState,
+  BridgeRoute,
+  BridgeTransferRecord,
+  BridgeTransferResult,
+  CreateBridgeTransferOptions,
+} from "./types.js";
+import { BridgeEngine } from "./bridge-engine.js";
+import type { BridgeEngineOptions, BridgeCreateOptions } from "./bridge-engine.js";
+import { BridgeStateManager } from "./bridge-state-manager.js";
+import { getActiveRoutes, getRoute, isSupportedPair } from "./bridge-routes.js";
 
 // ============================================================
-// useBridge Hook
+// useBridgeTransfer
 // ============================================================
 
-export interface UseBridgeOptions {
-  /** Relay server base URL */
-  relayServerUrl?: string;
-  /** Relay server API key */
-  relayApiKey?: string;
-  /** Polling interval for bridge status (ms) */
-  pollIntervalMs?: number;
-  /** Storage for persisting bridge state */
-  storage?: StateStorage;
+export interface UseBridgeTransferOptions extends BridgeEngineOptions {
+  /** Whether to auto-execute after creation */
+  autoExecute?: boolean;
 }
 
-export interface UseBridgeReturn {
-  /** Active bridge transfers */
-  transfers: BridgeTransfer[];
-  /** Whether a bridge operation is in progress */
-  isBridging: boolean;
+export interface UseBridgeTransferReturn {
+  /** Create a new bridge transfer */
+  createTransfer: (options: CreateBridgeTransferOptions) => Promise<BridgeTransferRecord>;
+  /** Execute a bridge transfer */
+  executeTransfer: (transferId: string) => Promise<BridgeTransferRecord>;
+  /** Whether a transfer is being created */
+  isCreating: boolean;
+  /** Whether a transfer is being executed */
+  isExecuting: boolean;
+  /** Last created transfer */
+  lastTransfer: BridgeTransferRecord | null;
   /** Last error */
   error: Error | null;
-  /** Initiate a new bridge transfer */
-  initiateBridge: (options: BridgeInitiateOptions) => Promise<BridgeTransfer>;
-  /** Get status of a specific bridge */
-  getBridgeStatus: (bridgeId: string) => Promise<BridgeTransfer>;
-  /** Retry a failed bridge */
-  retryBridge: (bridgeId: string) => Promise<BridgeTransfer>;
-  /** Get progress percentage for a bridge */
-  getProgress: (bridgeId: string) => number;
-}
-
-export interface BridgeInitiateOptions {
-  sourceChain: ChainFamily;
-  sourceChainId: number;
-  destChain: ChainFamily;
-  destChainId: number;
-  asset: BridgeAsset;
-  sourceAddress: string;
-  destAddress: string;
-  protocol: string;
+  /** Clear error */
+  clearError: () => void;
 }
 
 /**
- * Hook for managing cross-chain bridge transfers.
+ * Hook for creating and executing bridge transfers.
  *
  * @example
  * ```tsx
- * const { transfers, initiateBridge, isBridging } = useBridge({
- *   relayServerUrl: 'https://relay.cinacoin.dev',
- *   pollIntervalMs: 5000,
+ * const { createTransfer, executeTransfer, isCreating, isExecuting, lastTransfer, error } = useBridgeTransfer({
+ *   relayServerUrl: 'http://localhost:3001',
+ *   autoExecute: false,
  * });
  *
  * const handleBridge = async () => {
- *   const transfer = await initiateBridge({
- *     sourceChain: 'evm',
- *     sourceChainId: 1,
- *     destChain: 'evm',
- *     destChainId: 8453,
- *     asset: { symbol: 'USDC', sourceToken: usdcEth, destToken: usdcBase, amount: 100n * 10n ** 6n, decimals: 6 },
- *     sourceAddress: walletAddress,
- *     destAddress: walletAddress,
- *     protocol: 'relay-server',
+ *   const transfer = await createTransfer({
+ *     fromChain: 'eth',
+ *     toChain: 'arbitrum',
+ *     amount: '1',
+ *     token: 'ETH',
+ *     recipient: '0x...',
+ *     sender: '0x...',
  *   });
- *   console.log('Bridge started:', transfer.bridgeId);
+ *
+ *   await executeTransfer(transfer.transferId);
  * };
  * ```
  */
-export function useBridge(options: UseBridgeOptions = {}): UseBridgeReturn {
-  const { relayServerUrl, relayApiKey, pollIntervalMs = 5000, storage } = options;
+export function useBridgeTransfer(
+  options: UseBridgeTransferOptions = {},
+): UseBridgeTransferReturn {
+  const { autoExecute = false, ...engineOptions } = options;
 
-  const [transfers, setTransfers] = useState<BridgeTransfer[]>([]);
-  const [isBridging, setIsBridging] = useState(false);
+  const engineRef = useRef<BridgeEngine | null>(null);
+  const [isCreating, setIsCreating] = useState(false);
+  const [isExecuting, setIsExecuting] = useState(false);
+  const [lastTransfer, setLastTransfer] = useState<BridgeTransferRecord | null>(null);
   const [error, setError] = useState<Error | null>(null);
-  const relayClientRef = useRef<RelayClient | null>(null);
-  const pollIntervalsRef = useRef<Map<string, ReturnType<typeof setInterval>>>(new Map());
 
-  // Initialize relay client
-  useEffect(() => {
-    relayClientRef.current = relayServerUrl
-      ? new RelayClient({ baseUrl: relayServerUrl, apiKey: relayApiKey })
-      : null;
+  // Initialize engine
+  if (!engineRef.current) {
+    const sm = (engineOptions as BridgeEngineOptions).stateManager;
+    engineRef.current = new BridgeEngine(sm);
+  }
 
-    // Restore from storage
-    if (storage) {
-      storage.get<BridgeTransfer[]>("bridge-transfers").then((stored) => {
-        if (stored) setTransfers(stored);
-      });
-    }
-  }, [relayServerUrl, relayApiKey, storage]);
-
-  // Persist transfers to storage
-  useEffect(() => {
-    if (storage && transfers.length > 0) {
-      storage.set("bridge-transfers", transfers).catch(() => {});
-    }
-  }, [transfers, storage]);
-
-  // Poll for active bridge status updates
-  useEffect(() => {
-    // Clean up old intervals
-    for (const [id, interval] of pollIntervalsRef.current.entries()) {
-      if (!transfers.find((t) => t.bridgeId === id) || isBridgeTerminal(transfers.find((t) => t.bridgeId === id)!)) {
-        clearInterval(interval);
-        pollIntervalsRef.current.delete(id);
-      }
-    }
-
-    // Start polling for non-terminal transfers
-    for (const transfer of transfers) {
-      if (!isBridgeTerminal(transfer) && !pollIntervalsRef.current.has(transfer.bridgeId)) {
-        const interval = setInterval(() => {
-          pollBridgeStatus(transfer.bridgeId);
-        }, pollIntervalMs);
-        pollIntervalsRef.current.set(transfer.bridgeId, interval);
-      }
-    }
-
-    return () => {
-      for (const interval of pollIntervalsRef.current.values()) {
-        clearInterval(interval);
-      }
-      pollIntervalsRef.current.clear();
-    };
-  }, [transfers, pollIntervalMs]);
-
-  const pollBridgeStatus = useCallback(async (bridgeId: string) => {
-    const relay = relayClientRef.current;
-    if (!relay) return;
-
-    try {
-      const status = await relay.getStatus(bridgeId);
-      setTransfers((prev) =>
-        prev.map((t) => {
-          if (t.bridgeId !== bridgeId) return t;
-
-          // Map relay status to bridge state
-          const stateMap: Record<string, BridgeState> = {
-            pending: "preparing",
-            relaying: "bridging",
-            delivered: "confirming",
-            confirmed: "completed",
-            failed: "failed",
-          };
-
-          const newState = stateMap[status.status];
-          if (newState && newState !== t.state) {
-            try {
-              return transitionBridge(t, newState, {
-                destTxHash: status.destTxHash ?? "",
-              });
-            } catch {
-              return t;
-            }
-          }
-          return t;
-        }),
-      );
-    } catch {
-      // Polling error, silently retry
-    }
-  }, []);
-
-  const initiateBridge = useCallback(
-    async (bridgeOptions: BridgeInitiateOptions): Promise<BridgeTransfer> => {
-      setIsBridging(true);
+  const createTransfer = useCallback(
+    async (createOptions: CreateBridgeTransferOptions): Promise<BridgeTransferRecord> => {
+      setIsCreating(true);
       setError(null);
 
       try {
-        const transfer = createBridgeTransfer(bridgeOptions);
+        const result: BridgeTransferResult = await engineRef.current!.createBridgeTransfer(createOptions);
+        const record = result.transfer;
+        if (!record) throw new Error("createBridgeTransfer did not return a transfer record");
+        setLastTransfer(record);
 
-        // Transition to preparing
-        const preparing = transitionBridge(transfer, "preparing");
-        setTransfers((prev) => [...prev, preparing]);
-
-        // Submit to relay server
-        const relay = relayClientRef.current;
-        if (relay) {
-          // Create a cross-chain message
-          const messagePayload = {
-            asset: bridgeOptions.asset.symbol,
-            amount: bridgeOptions.asset.amount.toString(),
-            sourceToken: bridgeOptions.asset.sourceToken,
-            destToken: bridgeOptions.asset.destToken,
-            sourceAddress: bridgeOptions.sourceAddress,
-            destAddress: bridgeOptions.destAddress,
-          };
-
-          const message: CrossChainMessage = {
-            messageId: `msg-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`,
-            type: "transfer",
-            sourceChain: bridgeOptions.sourceChain,
-            sourceChainId: bridgeOptions.sourceChainId,
-            destChain: bridgeOptions.destChain,
-            destChainId: bridgeOptions.destChainId,
-            sender: bridgeOptions.sourceAddress,
-            recipient: bridgeOptions.destAddress,
-            payload: messagePayload,
-            signature: "0x", // Would be signed by wallet in production
-            nonce: Date.now(),
-            createdAt: Date.now(),
-            ttlSeconds: 3600,
-            status: "pending",
-            deliveryAttempts: 0,
-          };
-
-          await relay.submit(message);
+        // Auto-execute if configured
+        if (autoExecute) {
+          const executed = await engineRef.current!.executeBridgeTransfer(
+            record.transferId,
+          );
+          setLastTransfer(executed);
+          return executed;
         }
 
-        // Transition to locked (assets locked on source chain)
-        const locked = transitionBridge(preparing, "locked");
-        setTransfers((prev) =>
-          prev.map((t) => (t.bridgeId === preparing.bridgeId ? locked : t)),
-        );
-
-        return locked;
+        return record;
       } catch (err) {
         const errorObj = err instanceof Error ? err : new Error(String(err));
         setError(errorObj);
         throw errorObj;
       } finally {
-        setIsBridging(false);
+        setIsCreating(false);
+      }
+    },
+    [autoExecute],
+  );
+
+  const executeTransfer = useCallback(
+    async (transferId: string): Promise<BridgeTransferRecord> => {
+      setIsExecuting(true);
+      setError(null);
+
+      try {
+        const executed = await engineRef.current!.executeBridgeTransfer(transferId);
+        setLastTransfer(executed);
+        return executed;
+      } catch (err) {
+        const errorObj = err instanceof Error ? err : new Error(String(err));
+        setError(errorObj);
+        throw errorObj;
+      } finally {
+        setIsExecuting(false);
       }
     },
     [],
   );
 
-  const getBridgeStatus = useCallback(
-    async (bridgeId: string): Promise<BridgeTransfer> => {
-      const transfer = transfers.find((t) => t.bridgeId === bridgeId);
-      if (!transfer) throw new Error(`Bridge ${bridgeId} not found`);
-
-      const relay = relayClientRef.current;
-      if (relay && !isBridgeTerminal(transfer)) {
-        const status = await relay.getStatus(bridgeId);
-        setTransfers((prev) => {
-          const t = prev.find((x) => x.bridgeId === bridgeId);
-          if (!t) return prev;
-          const stateMap: Record<string, BridgeState> = {
-            pending: "preparing",
-            relaying: "bridging",
-            delivered: "confirming",
-            confirmed: "completed",
-            failed: "failed",
-          };
-          const newState = stateMap[status.status];
-          if (newState && newState !== t.state) {
-            try {
-              const updated = transitionBridge(t, newState, {
-                destTxHash: status.destTxHash ?? "",
-              });
-              return prev.map((x) => (x.bridgeId === bridgeId ? updated : x));
-            } catch {
-              return prev;
-            }
-          }
-          return prev;
-        });
-      }
-
-      return transfers.find((t) => t.bridgeId === bridgeId) || transfer;
-    },
-    [transfers],
-  );
-
-  const retryBridge = useCallback(
-    async (bridgeId: string): Promise<BridgeTransfer> => {
-      const transfer = transfers.find((t) => t.bridgeId === bridgeId);
-      if (!transfer) throw new Error(`Bridge ${bridgeId} not found`);
-      if (!canRetryBridge(transfer)) {
-        throw new Error(`Bridge ${bridgeId} cannot be retried (state: ${transfer.state})`);
-      }
-
-      try {
-        const refunding = transitionBridge(transfer, "refunding");
-        setTransfers((prev) =>
-          prev.map((t) => (t.bridgeId === bridgeId ? refunding : t)),
-        );
-
-        // Re-submit to relay
-        const relay = relayClientRef.current;
-        if (relay) {
-          await relay.getStatus(bridgeId); // Check status
-        }
-
-        const retried = transitionBridge(refunding, "preparing");
-        setTransfers((prev) =>
-          prev.map((t) => (t.bridgeId === bridgeId ? retried : t)),
-        );
-
-        return retried;
-      } catch (err) {
-        const errorObj = err instanceof Error ? err : new Error(String(err));
-        setError(errorObj);
-        throw errorObj;
-      }
-    },
-    [transfers],
-  );
-
-  const getProgress = useCallback(
-    (bridgeId: string): number => {
-      const transfer = transfers.find((t) => t.bridgeId === bridgeId);
-      return transfer ? getBridgeProgress(transfer) : 0;
-    },
-    [transfers],
-  );
+  const clearError = useCallback(() => setError(null), []);
 
   return {
-    transfers,
-    isBridging,
+    createTransfer,
+    executeTransfer,
+    isCreating,
+    isExecuting,
+    lastTransfer,
     error,
-    initiateBridge,
-    getBridgeStatus,
-    retryBridge,
-    getProgress,
+    clearError,
   };
 }
 
 // ============================================================
-// useCrossChainBalance Hook
+// useBridgeStatus
 // ============================================================
 
-export interface UseCrossChainBalanceOptions {
-  /** StateSync instance */
-  stateSync?: StateSync;
-  /** Chain accounts to track */
-  accounts: ChainAccount[];
-  /** Polling interval for balance refresh (ms) */
-  refreshIntervalMs?: number;
+export interface UseBridgeStatusOptions {
+  /** Relay server URL */
+  relayServerUrl?: string;
+  /** Polling interval in ms */
+  pollIntervalMs?: number;
+  /** Whether to enable polling */
+  enabled?: boolean;
 }
 
-export interface ChainBalance {
-  chain: ChainFamily;
-  chainId?: number;
-  address: string;
-  /** Token balances (symbol → balance string) */
-  balances: Record<string, string>;
-  /** Last refresh timestamp */
-  lastRefreshed: number;
-  /** Whether the balance fetch is loading */
+export interface UseBridgeStatusReturn {
+  /** Current transfer status */
+  transfer: BridgeTransferRecord | null;
+  /** Current state */
+  state: BridgeLifecycleState | null;
+  /** Progress percentage (0-100) */
+  progress: number;
+  /** Whether the transfer is loading */
   isLoading: boolean;
-  /** Error message if fetch failed */
-  error?: string;
+  /** Last error */
+  error: Error | null;
+  /** Refresh status manually */
+  refresh: () => Promise<void>;
+  /** Estimated remaining time */
+  estimatedRemainingSeconds: number | null;
 }
 
-export interface UseCrossChainBalanceReturn {
-  /** Balances per chain */
-  balances: ChainBalance[];
-  /** Whether any balance is loading */
+/** Progress map for bridge states */
+const STATE_PROGRESS: Record<BridgeLifecycleState, number> = {
+  initiated: 0,
+  confirming: 15,
+  locking: 35,
+  minting: 70,
+  completed: 100,
+  failed: -1,
+  expired: -1,
+  refunded: -1,
+};
+
+/**
+ * Hook for querying and polling bridge transfer status.
+ *
+ * @example
+ * ```tsx
+ * const { transfer, state, progress, isLoading, refresh } = useBridgeStatus({
+ *   transferId: 'bridge-abc123',
+ *   pollIntervalMs: 5000,
+ *   enabled: true,
+ * });
+ * ```
+ */
+export function useBridgeStatus(
+  transferId: string,
+  options: UseBridgeStatusOptions = {},
+): UseBridgeStatusReturn {
+  const { relayServerUrl, pollIntervalMs = 5000, enabled = true } = options;
+
+  const stateManagerRef = useRef<BridgeStateManager | null>(null);
+  const [transfer, setTransfer] = useState<BridgeTransferRecord | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  // Initialize state manager
+  if (!stateManagerRef.current) {
+    stateManagerRef.current = new BridgeStateManager();
+  }
+
+  const fetchStatus = useCallback(async () => {
+    if (!transferId) return;
+
+    try {
+      const t = await stateManagerRef.current!.getTransfer(transferId);
+      setTransfer(t);
+      setError(null);
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error(String(err)));
+    } finally {
+      setIsLoading(false);
+    }
+  }, [transferId]);
+
+  // Initial fetch
+  useEffect(() => {
+    fetchStatus();
+  }, [fetchStatus]);
+
+  // Polling
+  useEffect(() => {
+    if (!enabled || !transferId) return;
+
+    const interval = setInterval(() => {
+      const t = stateManagerRef.current!;
+      t.getTransfer(transferId).then((result) => {
+        setTransfer(result);
+
+        // Stop polling when terminal
+        if (result && (result.state === "completed" || result.state === "refunded" || result.state === "failed")) {
+          setIsLoading(false);
+        }
+      }).catch(() => {});
+    }, pollIntervalMs);
+
+    return () => clearInterval(interval);
+  }, [transferId, enabled, pollIntervalMs]);
+
+  const state = transfer?.state ?? null;
+  const progress = transfer ? STATE_PROGRESS[transfer.state] ?? 0 : 0;
+
+  // Estimated remaining time
+  const estimatedRemainingSeconds = useMemo(() => {
+    if (!transfer || transfer.state === "completed" || transfer.state === "failed" || transfer.state === "refunded") {
+      return null;
+    }
+
+    const route = getRoute(transfer.fromChain, transfer.toChain);
+    if (!route) return null;
+
+    const elapsed = (Date.now() - transfer.createdAt) / 1000;
+    const remaining = route.estimatedTimeSeconds - elapsed;
+    return Math.max(0, remaining);
+  }, [transfer]);
+
+  return {
+    transfer,
+    state,
+    progress,
+    isLoading,
+    error,
+    refresh: fetchStatus,
+    estimatedRemainingSeconds,
+  };
+}
+
+// ============================================================
+// useBridgeHistory
+// ============================================================
+
+export interface UseBridgeHistoryOptions {
+  /** Relay server URL */
+  relayServerUrl?: string;
+  /** Filter by state */
+  stateFilter?: BridgeLifecycleState;
+  /** Maximum number of records */
+  limit?: number;
+}
+
+export interface UseBridgeHistoryReturn {
+  /** Bridge transfer history */
+  history: BridgeTransferRecord[];
+  /** Whether history is loading */
   isLoading: boolean;
-  /** Refresh all balances */
+  /** Last error */
+  error: Error | null;
+  /** Refresh history */
   refresh: () => Promise<void>;
 }
 
 /**
- * Hook for tracking balances across multiple chains.
+ * Hook for querying bridge transfer history.
  *
  * @example
  * ```tsx
- * const { balances, isLoading, refresh } = useCrossChainBalance({
- *   accounts: [
- *     { chain: 'evm', chainId: 1, address: '0x...', addedAt: Date.now() },
- *     { chain: 'evm', chainId: 8453, address: '0x...', addedAt: Date.now() },
- *     { chain: 'solana', address: 'sol1...', addedAt: Date.now() },
- *   ],
- *   refreshIntervalMs: 30000,
+ * const { history, isLoading, refresh } = useBridgeHistory({
+ *   address: '0x...',
+ *   stateFilter: 'completed',
+ *   limit: 50,
  * });
  * ```
  */
-export function useCrossChainBalance(
-  options: UseCrossChainBalanceOptions,
-): UseCrossChainBalanceReturn {
-  const { accounts, refreshIntervalMs = 30000 } = options;
+export function useBridgeHistory(
+  address: string,
+  options: UseBridgeHistoryOptions = {},
+): UseBridgeHistoryReturn {
+  const { stateFilter, limit = 50 } = options;
 
-  const [balances, setBalances] = useState<ChainBalance[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const stateManagerRef = useRef<BridgeStateManager | null>(null);
+  const [history, setHistory] = useState<BridgeTransferRecord[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
 
-  const fetchBalances = useCallback(async () => {
-    if (accounts.length === 0) return;
+  // Initialize state manager
+  if (!stateManagerRef.current) {
+    stateManagerRef.current = new BridgeStateManager();
+  }
+
+  const fetchHistory = useCallback(async () => {
+    if (!address) return;
 
     setIsLoading(true);
+    setError(null);
 
-    const results = await Promise.allSettled(
-      accounts.map(async (account) => {
-        // In production, this would call RPC endpoints per chain
-        // For now, return empty balances
-        const balance: ChainBalance = {
-          chain: account.chain,
-          chainId: account.chainId,
-          address: account.address,
-          balances: {},
-          lastRefreshed: Date.now(),
-          isLoading: false,
-        };
+    try {
+      let transfers: BridgeTransferRecord[];
 
-        // Attempt to fetch from state sync if available
-        try {
-          const state = options.stateSync?.getState();
-          if (state) {
-            // Extract balance data from synced state
-            balance.lastRefreshed = state.lastSyncedAt;
-          }
-        } catch {
-          balance.error = "Failed to fetch balance";
-        }
+      if (stateFilter) {
+        transfers = await stateManagerRef.current!.getTransfersByState(stateFilter);
+        transfers = transfers.filter(
+          (t) =>
+            t.sender.toLowerCase() === address.toLowerCase() ||
+            t.recipient.toLowerCase() === address.toLowerCase(),
+        );
+      } else {
+        transfers = await stateManagerRef.current!.getTransfersByAddress(address);
+      }
 
-        return balance;
-      }),
-    );
+      // Apply limit and sort by createdAt desc
+      transfers = transfers
+        .sort((a, b) => b.createdAt - a.createdAt)
+        .slice(0, limit);
 
-    const fetched = results
-      .filter((r): r is PromiseFulfilledResult<ChainBalance> => r.status === "fulfilled")
-      .map((r) => r.value);
-
-    setBalances(fetched);
-    setIsLoading(false);
-  }, [accounts, options.stateSync]);
-
-  // Auto-refresh
-  useEffect(() => {
-    fetchBalances();
-
-    if (refreshIntervalMs > 0) {
-      const interval = setInterval(fetchBalances, refreshIntervalMs);
-      return () => clearInterval(interval);
+      setHistory(transfers);
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error(String(err)));
+    } finally {
+      setIsLoading(false);
     }
-  }, [fetchBalances, refreshIntervalMs]);
+  }, [address, stateFilter, limit]);
+
+  // Fetch on mount and when dependencies change
+  useEffect(() => {
+    fetchHistory();
+  }, [fetchHistory]);
 
   return {
-    balances,
+    history,
     isLoading,
-    refresh: fetchBalances,
+    error,
+    refresh: fetchHistory,
   };
+}
+
+// ============================================================
+// useBridgeFee
+// ============================================================
+
+export interface UseBridgeFeeOptions {
+  /** Relay server URL */
+  relayServerUrl?: string;
+}
+
+export interface UseBridgeFeeReturn {
+  /** Fee estimate */
+  estimate: BridgeFeeEstimate | null;
+  /** Whether estimate is loading */
+  isLoading: boolean;
+  /** Last error */
+  error: Error | null;
+  /** Route info */
+  route: BridgeRoute | null;
+  /** Whether the pair is supported */
+  isSupported: boolean;
+}
+
+/**
+ * Hook for estimating bridge fees.
+ *
+ * @example
+ * ```tsx
+ * const { estimate, isLoading, route, isSupported } = useBridgeFee(
+ *   'eth',
+ *   'arbitrum',
+ *   1n * 10n ** 18n, // 1 ETH
+ *   'ETH',
+ * );
+ * ```
+ */
+export function useBridgeFee(
+  fromChain: string,
+  toChain: string,
+  amount: bigint,
+  tokenSymbol: string = "ETH",
+  options: UseBridgeFeeOptions = {},
+): UseBridgeFeeReturn {
+  const engineRef = useRef<BridgeEngine | null>(null);
+  const [estimate, setEstimate] = useState<BridgeFeeEstimate | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  // Initialize engine
+  if (!engineRef.current) {
+    const sm = (options as BridgeEngineOptions).stateManager;
+    engineRef.current = new BridgeEngine(sm);
+  }
+
+  // Compute route info
+  const routeInfo = useMemo(
+    () => getRoute(fromChain, toChain) ?? null,
+    [fromChain, toChain],
+  );
+
+  const supported = useMemo(
+    () => isSupportedPair(fromChain, toChain),
+    [fromChain, toChain],
+  );
+
+  useEffect(() => {
+    if (!supported || amount <= 0n) {
+      setIsLoading(false);
+      return;
+    }
+
+    setIsLoading(true);
+    setError(null);
+
+    engineRef.current!
+      .estimateBridgeFee(fromChain, toChain, amount, tokenSymbol)
+      .then((fee) => {
+        setEstimate(fee);
+      })
+      .catch((err) => {
+        setError(err instanceof Error ? err : new Error(String(err)));
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, [fromChain, toChain, amount, tokenSymbol, supported]);
+
+  return {
+    estimate,
+    isLoading,
+    error,
+    route: routeInfo,
+    isSupported: supported,
+  };
+}
+
+// ============================================================
+// useBridgeRoutes (bonus: get available routes)
+// ============================================================
+
+export interface UseBridgeRoutesReturn {
+  /** All active routes */
+  routes: BridgeRoute[];
+  /** Routes from a specific chain */
+  fromChain: (chain: string) => BridgeRoute[];
+  /** Routes to a specific chain */
+  toChain: (chain: string) => BridgeRoute[];
+}
+
+/**
+ * Hook for accessing available bridge routes.
+ */
+export function useBridgeRoutes(): UseBridgeRoutesReturn {
+  const routes = useMemo(() => getActiveRoutes(), []);
+
+  const fromChain = useCallback(
+    (chain: string) => routes.filter((r) => r.fromChain === chain),
+    [routes],
+  );
+
+  const toChain = useCallback(
+    (chain: string) => routes.filter((r) => r.toChain === chain),
+    [routes],
+  );
+
+  return { routes, fromChain, toChain };
 }

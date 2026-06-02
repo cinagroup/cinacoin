@@ -27,6 +27,7 @@ export async function syncEvmState(
     chain: "evm",
     chainId: account.chainId,
     address: account.address,
+    accounts: [account],
     expiresAt: Date.now() + 3600_000, // 1 hour
     data: {
       ensName: account.ensName ?? "",

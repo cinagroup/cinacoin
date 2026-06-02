@@ -33,6 +33,20 @@ export class InMemoryStorage implements StateStorage {
   async clear(): Promise<void> {
     this.store.clear();
   }
+
+  async getState(): Promise<any> {
+    const raw = this.store.get("session-state");
+    if (raw === undefined) return { accounts: [] };
+    try {
+      return JSON.parse(raw);
+    } catch {
+      return { accounts: [] };
+    }
+  }
+
+  async setState(state: any): Promise<void> {
+    this.store.set("session-state", JSON.stringify(state));
+  }
 }
 
 /**
@@ -59,5 +73,19 @@ export class LocalStorage implements StateStorage {
 
   async clear(): Promise<void> {
     localStorage.clear();
+  }
+
+  async getState(): Promise<any> {
+    const raw = localStorage.getItem("session-state");
+    if (raw === null) return { accounts: [] };
+    try {
+      return JSON.parse(raw);
+    } catch {
+      return { accounts: [] };
+    }
+  }
+
+  async setState(state: any): Promise<void> {
+    localStorage.setItem("session-state", JSON.stringify(state));
   }
 }

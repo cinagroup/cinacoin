@@ -25,6 +25,7 @@ export async function syncBitcoinState(
   const session: SessionState = {
     chain: "bitcoin",
     address: account.address,
+    accounts: [account],
     expiresAt: Date.now() + 3600_000,
     data: {
       addressType: account.addressType,
