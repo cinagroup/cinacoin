@@ -17,7 +17,7 @@ import {
   type TextStyle,
 } from 'react-native';
 import { useCinaCoinContext } from './CinaCoinProvider.js';
-import { useWalletConnect, type BalanceState } from './WalletConnectProvider.js';
+
 
 /** Props for the native ConnectButton. */
 export interface ConnectButtonProps {
@@ -87,39 +87,16 @@ export function ConnectButton({
 }: ConnectButtonProps): JSX.Element {
   const { account, status, connect, disconnect, themeColors } = useCinaCoinContext();
 
-  // Try to get real WC v2 state (may not be available if not wrapped)
-  let wcBalance: BalanceState | null = null;
-  let wcSession = null;
-  let wcDisconnect: (() => Promise<void>) | null = null;
-  let wcFetching = false;
-
-  try {
-    const wc = useWalletConnect();
-    wcBalance = wc.balance;
-    wcSession = wc.session;
-    wcDisconnect = wc.disconnect;
-    wcFetching = wc.connecting;
-  } catch {
-    // WalletConnectProvider not in tree — use CinaCoinProvider only
-  }
-
-  const [fetchingBalance, setFetchingBalance] = useState(false);
-
-  // Derive effective connected state
-  const isConnected = status === 'connected' || wcSession !== null;
-  const isConnecting = status === 'connecting' || wcFetching;
+  // Derive effective connected state (useWalletConnect can't be conditionally called)
+  const isConnected = status === 'connected';
+  const isConnecting = status === 'connecting';
   const isError = status === 'error';
 
   const handlePress = useCallback(() => {
     if (isConnecting) return;
 
     if (isConnected) {
-      // Toggle: disconnect via WC or CinaCoin
-      if (wcDisconnect) {
-        wcDisconnect().then(() => onDisconnect?.()).catch(() => {});
-      } else {
-        disconnect().then(() => onDisconnect?.()).catch(() => {});
-      }
+      disconnect().then(() => onDisconnect?.()).catch(() => {});
       return;
     }
 
@@ -127,26 +104,11 @@ export function ConnectButton({
     connect('walletconnect')
       .then(() => onPress?.())
       .catch(() => {});
-  }, [isConnected, isConnecting, connect, disconnect, wcDisconnect, onPress, onDisconnect]);
+  }, [isConnected, isConnecting, connect, disconnect, onPress, onDisconnect]);
 
-  // Fetch balance on connect
-  React.useEffect(() => {
-    if (isConnected && showBalance && !wcBalance && !fetchingBalance) {
-      setFetchingBalance(true);
-      try {
-        const wc = useWalletConnect();
-        wc.fetchBalance()
-          .catch(() => {})
-          .finally(() => setFetchingBalance(false));
-      } catch {
-        setFetchingBalance(false);
-      }
-    }
-  }, [isConnected, showBalance, wcBalance, fetchingBalance]);
-
-  // Use real balance from WC if available
-  const displayBalance = wcBalance?.balance ?? account?.balance;
-  const displaySymbol = wcBalance?.symbol ?? account?.chainSymbol ?? '';
+  // Use CinaCoinProvider balance
+  const displayBalance = account?.balance ?? '0.00';
+  const displaySymbol = account?.chainSymbol ?? '';
   const displayAddress = account?.address ?? '';
   const displayChainId = account?.chainId ?? 1;
 

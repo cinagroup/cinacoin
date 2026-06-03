@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import UIKit
 
 /// Result of a successful wallet connection.
 public struct ConnectResult: Sendable {

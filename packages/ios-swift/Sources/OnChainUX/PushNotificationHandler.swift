@@ -24,6 +24,7 @@
  */
 
 import Foundation
+import UIKit
 import UserNotifications
 
 /// Type of wallet push notification.

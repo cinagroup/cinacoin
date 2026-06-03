@@ -223,6 +223,7 @@ export function buildSetWithdrawAddressMsg(
  * Build a staking transaction.
  */
 export function buildStakingTx(
+  sender: string,
   messages: CosmosMsg[],
   fee?: CosmosFee,
   memo?: string,
@@ -363,4 +364,48 @@ export function parseTxResponse(data: Record<string, unknown>): TxRecord | null 
     },
     messages,
   };
+}
+
+/* ─────────────────────────────────────────────────────────────── */
+/*  Adapter-level types (CosmosTxRecord, CosmosTxHistory, etc.)     */
+/* ─────────────────────────────────────────────────────────────── */
+
+/** Normalized transaction record used by CosmosAdapter. */
+export interface CosmosTxRecord {
+  txhash: string;
+  height: string;
+  code: number;
+  rawLog: string;
+  gasUsed: string;
+  gasWanted: string;
+  fee: { amount: Coin[]; gasLimit: string };
+  messages: Array<{ typeUrl: string; value: Record<string, unknown> }>;
+  timestamp?: string;
+}
+
+/** Pagination info. */
+export interface Pagination {
+  nextKey: string | null;
+  total: string;
+}
+
+/** Paginated transaction history result. */
+export interface CosmosTxHistory {
+  transactions: CosmosTxRecord[];
+  pagination: Pagination;
+}
+
+/** Query parameters for CosmosAdapter.getTransactionHistory. */
+export interface TxHistoryQuery {
+  address?: string;
+  page?: number;
+  limit?: number;
+  orderBy?: 'asc' | 'desc';
+}
+
+/**
+ * Alias: parseTxRecord = parseTxResponse (for backward compatibility).
+ */
+export function parseTxRecord(data: Record<string, unknown>): CosmosTxRecord | null {
+  return parseTxResponse(data) as CosmosTxRecord | null;
 }

@@ -110,20 +110,16 @@ export function ConnectModal({
   fallbackTimeoutMs = 1500,
 }: ConnectModalProps): JSX.Element {
   const [currentView, setCurrentView] = useState<ModalView>(defaultView as ModalView);
-  const { connect, themeColors, wcUri: ctxWcUri } = useCinaCoinContext();
+  const { connect, themeColors, wcUri: ctxWcUri, createPairing: createPairingUri, connectWithUri: connectWithUriProvider } = useCinaCoinContext();
 
   // Real WC v2 provider (may not be available)
-  let createPairingUri: (() => Promise<string>) | null = null;
-  let connectWithUri: ((uri: string) => Promise<void>) | null = null;
-  let openWalletDeepLink: ((walletId: string) => Promise<void>) | null = null;
+  let wcOpenWalletDeepLink: ((walletId: string) => Promise<void>) | null = null;
   let activePairingUri: string | null = null;
   let wcConnecting = false;
 
   try {
     const wc = useWalletConnect();
-    createPairingUri = wc.createPairingUri;
-    connectWithUri = async (uri: string) => { void await wc.connectWithUri(uri); };
-    openWalletDeepLink = wc.openWalletDeepLink;
+    wcOpenWalletDeepLink = wc.openWalletDeepLink;
     activePairingUri = wc.pairingUri;
     wcConnecting = wc.connecting;
   } catch {
@@ -156,10 +152,16 @@ export function ConnectModal({
       }
 
       try {
-        if (wallet.supportsWalletConnect && createPairingUri && openWalletDeepLink) {
+        if (wallet.supportsWalletConnect && createPairingUri && (wcOpenWalletDeepLink || connectWithUriProvider)) {
           // Real WC v2 flow: create pairing → deep link → wait for session
           const uri = await createPairingUri();
-          await openWalletDeepLink(wallet.id);
+
+          // Open wallet via WC provider deep link, or fall back to context openWallet
+          if (wcOpenWalletDeepLink) {
+            await wcOpenWalletDeepLink(wallet.id);
+          } else if (connectWithUriProvider) {
+            await connectWithUriProvider(uri);
+          }
 
           // Set fallback timer: if no session after timeout, try universal link
           const timer = setTimeout(async () => {
@@ -215,7 +217,7 @@ export function ConnectModal({
         setDeepLinkStatus(prev => ({ ...prev, [wallet.id]: 'error' }));
       }
     },
-    [connect, createPairingUri, openWalletDeepLink, onClose, ctxWcUri, fallbackTimeoutMs],
+    [connect, createPairingUri, connectWithUriProvider, wcOpenWalletDeepLink, onClose, ctxWcUri, fallbackTimeoutMs],
   );
 
   /** Check if wallet app is installed via deep link scheme. */

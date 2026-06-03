@@ -93,10 +93,16 @@ public final class WCClient: ObservableObject {
     /// Next JSON-RPC request ID.
     private var nextRequestId: UInt64 = 1
     
-    // MARK: - Session Persistence & Auto-Reconnect
+    /// Pending reconnect work item.
+    private var reconnectWorkItem: DispatchWorkItem?
     
-    /// Whether auto-reconnect on app foreground is enabled.
-    public var autoReconnectEnabled: Bool = true
+    /// Current reconnect attempt count.
+    private var reconnectAttempts: Int = 0
+    
+    /// Expiry check timer.
+    private var expiryTimer: Timer?
+    
+    // MARK: - Session Persistence & Auto-Reconnect
     
     /// Session manager for persistence and auto-reconnect.
     public let sessionManager = WCSessionManager.shared

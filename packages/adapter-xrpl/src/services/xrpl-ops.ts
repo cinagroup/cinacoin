@@ -91,6 +91,37 @@ export interface XrplTransaction {
   SigningPubKey?: string;
   /** TxnSignature. */
   TxnSignature?: string;
+  /* ── Payment-specific ── */
+  Destination?: XrplClassicAddress;
+  DestinationTag?: number;
+  Amount?: string | { value: string; currency: string; issuer: XrplClassicAddress };
+  /* ── TrustSet-specific ── */
+  LimitAmount?: { currency: string; issuer: XrplClassicAddress; value: string };
+  /* ── OfferCreate/OfferCancel-specific ── */
+  TakerGets?: string | { value: string; currency: string; issuer: XrplClassicAddress };
+  TakerPays?: string | { value: string; currency: string; issuer: XrplClassicAddress };
+  Expiration?: number;
+  OfferSequence?: number;
+  /* ── NFTokenMint-specific ── */
+  NFTokenTaxon?: number;
+  URI?: string;
+  TransferFee?: number;
+  Issuer?: XrplClassicAddress;
+  /* ── NFTokenBurn-specific ── */
+  NFTokenID?: string;
+  Owner?: XrplClassicAddress;
+  /* ── NFTokenCreateOffer-specific ── */
+  /* NFTokenID, Amount, Destination, Expiration already covered */
+  /* ── NFTokenCancelOffer-specific ── */
+  NFTokenOffers?: string[];
+  /* ── AccountSet-specific ── */
+  SetFlag?: number;
+  ClearFlag?: number;
+  Domain?: string;
+  EmailHash?: string;
+  MessageKey?: string;
+  TransferRate?: number;
+  TickSize?: number;
 }
 
 /**

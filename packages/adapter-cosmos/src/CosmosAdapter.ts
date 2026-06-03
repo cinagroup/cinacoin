@@ -50,7 +50,7 @@ import {
   type TxHistoryQuery,
   type Pagination,
 } from './services/ibc-staking.js';
-import type { CosmosWalletConnector, CosmosChainId, Coin, TxResult, TransferParams } from './types.js';
+import type { CosmosWalletConnector, CosmosChainId, Coin, TxResult, TransferParams, CosmosMsg, CosmosFee } from './types.js';
 
 /* ------------------------------------------------------------------ */
 /*  Cosmos chain presets                                                */
@@ -752,6 +752,31 @@ export class CosmosAdapter {
     return Array.from(bytes)
       .map((b) => b.toString(16).padStart(2, '0'))
       .join('');
+  }
+
+  /**
+   * Simplified TxBody encoding — returns the messages + memo as a
+   * plain JSON-serialised byte blob. In a production implementation
+   * you would use @cosmjs/proto-signing + @cosmjs/stargate to produce
+   * proper protobuf-encoded bytes.
+   */
+  private _encodeTxBody(messages: unknown[], memo: string): Uint8Array {
+    const body = { messages, memo };
+    return new TextEncoder().encode(JSON.stringify(body));
+  }
+
+  /**
+   * Simplified AuthInfo encoding — returns fee info as JSON bytes.
+   * In production, use @cosmjs/proto-signing.
+   */
+  private _encodeAuthInfo(fee?: CosmosFee): Uint8Array {
+    const auth = {
+      fee: {
+        gasLimit: fee?.gas ?? '200000',
+        amount: fee?.amount ?? [],
+      },
+    };
+    return new TextEncoder().encode(JSON.stringify(auth));
   }
 
   /* ─────────────────────────────────────────────────────────── */

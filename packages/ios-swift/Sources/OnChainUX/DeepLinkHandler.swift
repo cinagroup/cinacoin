@@ -31,6 +31,7 @@
  */
 
 import Foundation
+import UIKit
 
 /// Platform for redirect decisions.
 public enum DeepLinkPlatform: String, Sendable {

@@ -34,6 +34,13 @@ struct PersistedSession: Codable {
 enum WCSessionKeys {
     static let sessionData = "wc_v2_persisted_session_v1"
     static let relayUrl = "wc_v2_relay_url"
+    // Keys used by WCClient for direct session persistence
+    static let sessionTopic = "wc_v2_session_topic"
+    static let sessionAccounts = "wc_v2_session_accounts"
+    static let sessionChainId = "wc_v2_session_chain_id"
+    static let sessionPeerMetadata = "wc_v2_session_peer_metadata"
+    static let sessionCreatedAt = "wc_v2_session_created_at"
+    static let sessionExpiry = "wc_v2_session_expiry"
 }
 
 // MARK: - Session Manager

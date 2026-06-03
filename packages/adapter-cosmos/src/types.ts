@@ -164,6 +164,26 @@ export interface SignDoc {
 /* ------------------------------------------------------------------ */
 
 /**
+ * Represents a Cosmos SDK message.
+ */
+export interface CosmosMsg {
+  /** Type URL of the message (e.g. "/cosmos.bank.v1beta1.MsgSend"). */
+  typeUrl: string;
+  /** Message value. */
+  value: Record<string, unknown>;
+}
+
+/**
+ * Represents a Cosmos transaction fee.
+ */
+export interface CosmosFee {
+  /** Gas limit as string. */
+  gas: string;
+  /** Fee amount in coins. */
+  amount: Coin[];
+}
+
+/**
  * Abstract interface for Cosmos wallet connectors (Keplr, Leap, etc.).
  *
  * Each connector implementation wraps the wallet's browser extension
@@ -234,8 +254,9 @@ export interface CosmosWalletConnector {
 
   /**
    * Get the current chain ID from the wallet.
+   * @param chainId - Optional chain ID to query for.
    */
-  getChainId(): Promise<string>;
+  getChainId(chainId?: string): Promise<string>;
 
   /**
    * Get accounts available on the given chain.

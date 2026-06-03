@@ -21,6 +21,7 @@
  */
 
 import SwiftUI
+import UIKit
 
 /// Wallet info for modal display.
 public struct WalletInfo: Identifiable, Sendable {

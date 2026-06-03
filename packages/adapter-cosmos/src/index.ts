@@ -58,6 +58,7 @@ export {
   buildRewardsUrl,
   buildValidatorsUrl,
   parseTxResponse,
+  parseTxRecord,
   type IbcTransferParams,
   type DelegateParams,
   type UndelegateParams,
@@ -66,6 +67,10 @@ export {
   type TxRecord,
   type PaginatedResult,
   type TxHistoryParams,
+  type CosmosTxRecord,
+  type CosmosTxHistory,
+  type TxHistoryQuery,
+  type Pagination,
 } from './services/ibc-staking.js';
 
 // Wallet connectors
@@ -83,28 +88,6 @@ export type {
   CosmosTransaction,
   SignDoc,
   CosmosWalletConnector,
+  CosmosMsg,
+  CosmosFee,
 } from './types.js';
-
-// IBC & Staking services
-export {
-  buildIbcTransferMsg,
-  buildIbcTransferTx,
-  parseIbcDenom,
-  buildDelegateMsg,
-  buildUndelegateMsg,
-  buildRedelegateMsg,
-  buildWithdrawRewardMsg,
-  buildSetWithdrawAddressMsg,
-  buildStakingTx,
-  buildTxHistoryUrl,
-  parseTxRecord,
-  type IbcTransferParams,
-  type DelegateParams,
-  type UndelegateParams,
-  type RedelegateParams,
-  type WithdrawRewardParams,
-  type CosmosTxRecord,
-  type CosmosTxHistory,
-  type TxHistoryQuery,
-  type Pagination,
-} from './services/ibc-staking.js';

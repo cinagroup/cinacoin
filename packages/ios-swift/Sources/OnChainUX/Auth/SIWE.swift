@@ -247,7 +247,7 @@ public final class SIWEAuth {
     /// - Returns: Parsed SIWE data.
     public static func parseMessage(_ message: String) -> ParsedSIWE? {
         do {
-            return try parseMessage(message)
+            return try parseMessageInternal(message)
         } catch {
             return nil
         }
@@ -255,7 +255,7 @@ public final class SIWEAuth {
     
     // MARK: - Private
     
-    private static func parseMessage(_ message: String) throws -> ParsedSIWE {
+    private static func parseMessageInternal(_ message: String) throws -> ParsedSIWE {
         let lines = message.split(separator: "\n", omittingEmptySubsequences: false)
         
         // First line: "{domain} wants you to sign in with your Ethereum account:"
