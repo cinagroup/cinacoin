@@ -9,12 +9,9 @@ import type {
 // Re-export sats-connect types so consumers don't need to install the package separately
 export type {
   AddressPurpose,
-  RpcError,
-  RpcMethod,
   GetAddressResponse,
-  SignMessageResponse,
   SignTransactionResponse,
-  SendTransferResponse,
+  SendBtcTransactionResponse,
 } from '@sats-connect/core';
 
 /**
@@ -76,15 +73,17 @@ export class SatsConnectConnector implements BitcoinConnector {
   // ─── Lifecycle ───────────────────────────────────────────────────
 
   async connect(params?: { accounts?: string[] }): Promise<BitcoinConnectionResult> {
-    const { getAddress, AddressPurpose } = await import('@sats-connect/core');
+    const { getAddress, AddressPurpose, BitcoinNetworkType } = await import('@sats-connect/core');
 
     // Request Bitcoin address(es) from the sats-connect protocol.
-    // SDK v0.2.x types getAddress as Promise<void>, so we narrow via unknown.
-    const result = await getAddress({
-      paymentType: 'P2WPKH' as unknown, // Native segwit; SDK types are incomplete in v0.2.x
-      purposes: [AddressPurpose.Payment],
-      message: 'Connect to application',
-    }) as unknown as { address?: string; addresses?: SatsConnectAddressEntry[] };
+    // SDK v0.2.x uses callback-based API with payload network requirement.
+    const result = await new Promise<{ address?: string; addresses?: SatsConnectAddressEntry[] }>((resolve, reject) => {
+      getAddress({
+        payload: { purposes: [AddressPurpose.Payment], network: { type: BitcoinNetworkType.Mainnet }, message: 'Connect to application' },
+        onFinish: (response) => resolve(response as unknown as { address?: string; addresses?: SatsConnectAddressEntry[] }),
+        onCancel: () => reject(new Error('User cancelled wallet connection')),
+      });
+    });
 
     if (!result.address && (!result.addresses || result.addresses.length === 0)) {
       throw new Error('No addresses returned from SatsConnect wallet');
@@ -117,11 +116,9 @@ export class SatsConnectConnector implements BitcoinConnector {
   // ─── RPC ─────────────────────────────────────────────────────────
 
   async request<T = unknown>(args: { method: string; params?: unknown[] }): Promise<T> {
-    const { makeRPC } = await import('@sats-connect/core');
-
-    // SatsConnect uses a postMessage-based RPC system
-    // This is a simplified wrapper — production use should implement
-    // a proper wallet picker to select which wallet to route to
+    // SatsConnect uses a postMessage-based RPC system.
+    // makeRPC was removed in @sats-connect/core v0.2.x.
+    // Production use should implement a proper wallet picker.
     throw new Error(
       `SatsConnect direct RPC not yet implemented for method: ${args.method}. ` +
         `Use the typed methods (signMessage, signTransaction, sendTransfer) instead.`
@@ -154,37 +151,46 @@ export class SatsConnectConnector implements BitcoinConnector {
     message: string;
     address: string;
   }): Promise<{ signature: string }> {
-    const { signMessage } = await import('@sats-connect/core');
+    const { signMessage, BitcoinNetworkType } = await import('@sats-connect/core');
 
-    const result = await signMessage({
-      address: params.address,
-      message: params.message,
+    // SDK v0.2.x types signMessage as returning void, but the actual
+    // response resolves with a signature string. Narrow via unknown.
+    const result = await new Promise<string>((resolve, reject) => {
+      signMessage({
+        payload: { address: params.address, message: params.message, network: { type: BitcoinNetworkType.Mainnet } },
+        onFinish: (response) => resolve(response as unknown as string),
+        onCancel: () => reject(new Error('User cancelled signing')),
+      });
     });
 
-    if (!result.signature) {
+    if (!result) {
       throw new Error('SatsConnect signMessage returned no signature');
     }
 
-    return { signature: result.signature };
+    return { signature: result };
   }
 
   async signPsbt(params: {
     psbt: string;
     signInputs?: Record<number, number[]>;
   }): Promise<{ psbt: string }> {
-    const { signTransaction } = await import('@sats-connect/core');
+    const { signTransaction, BitcoinNetworkType } = await import('@sats-connect/core');
 
-    // signPsbt maps to signTransaction in sats-connect
-    const result = await signTransaction({
-      psbt: params.psbt,
-      broadcast: false,
+    // signPsbt maps to signTransaction in sats-connect.
+    // SDK v0.2.x returns void; narrow via unknown.
+    const result = await new Promise<{ psbtBase64?: string }>((resolve, reject) => {
+      signTransaction({
+        payload: { psbtBase64: params.psbt, inputsToSign: [], broadcast: false, message: 'Sign transaction', network: { type: BitcoinNetworkType.Mainnet } },
+        onFinish: (response) => resolve(response as unknown as { psbtBase64?: string }),
+        onCancel: () => reject(new Error('User cancelled transaction signing')),
+      });
     });
 
-    if (!result.psbt) {
+    if (!result?.psbtBase64) {
       throw new Error('SatsConnect signTransaction returned no PSBT');
     }
 
-    return { psbt: result.psbt };
+    return { psbt: result.psbtBase64 };
   }
 
   async sendTransfer(params: {
@@ -192,19 +198,27 @@ export class SatsConnectConnector implements BitcoinConnector {
     amount: number;
     feeRate?: number;
   }): Promise<{ txid: string }> {
-    const { sendTransfer } = await import('@sats-connect/core');
+    const { sendBtcTransaction, BitcoinNetworkType } = await import('@sats-connect/core');
 
-    const result = await sendTransfer({
-      recipient: params.recipient,
-      amount: params.amount,
-      feeRate: params.feeRate,
+    // sendBtcTransaction replaces sendTransfer in sats-connect v0.2.x.
+    // SDK returns void; narrow via unknown.
+    const result = await new Promise<string>((resolve, reject) => {
+      sendBtcTransaction({
+        payload: {
+          recipients: [{ address: params.recipient, amountSats: BigInt(params.amount) }],
+          senderAddress: this._connectedAccounts[0] ?? '',
+          network: { type: BitcoinNetworkType.Mainnet },
+        },
+        onFinish: (response) => resolve(response as unknown as string),
+        onCancel: () => reject(new Error('User cancelled transaction')),
+      });
     });
 
-    if (!result.txid) {
+    if (!result) {
       throw new Error('SatsConnect sendTransfer returned no txid');
     }
 
-    return { txid: result.txid };
+    return { txid: result };
   }
 
   // ─── Events ──────────────────────────────────────────────────────

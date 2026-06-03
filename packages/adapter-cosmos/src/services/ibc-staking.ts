@@ -344,11 +344,14 @@ export function parseTxResponse(data: Record<string, unknown>): TxRecord | null 
   const authInfo = tx?.auth_info as Record<string, unknown> | undefined;
   const feeData = authInfo?.fee as Record<string, unknown> | undefined;
 
-  const messages = (body?.messages as unknown[] | undefined ?? [])
-    .map((m: Record<string, unknown>) => ({
-      typeUrl: (m['@type'] as string) ?? (m.type_url as string) ?? '',
-      value: (m.value as Record<string, unknown>) ?? m,
-    }));
+  const messages = ((body?.messages ?? []) as unknown[])
+    .map((m: unknown) => {
+      const obj = m as Record<string, unknown>;
+      return {
+        typeUrl: (obj['@type'] as string) ?? (obj.type_url as string) ?? '',
+        value: (obj.value as Record<string, unknown>) ?? obj,
+      };
+    });
 
   return {
     txhash: (txResponse.txhash as string) ?? '',

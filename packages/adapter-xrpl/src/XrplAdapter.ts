@@ -295,7 +295,7 @@ export class XrplAdapter implements XrplConnector {
    * Submit a signed transaction via `submit` RPC.
    */
   async submitViaRpc(
-    network: import('./services/xrpl-ops.js').XrplNetwork,
+    network: import('./types.js').XrplNetwork,
     txBlob: string,
   ): Promise<import('./services/xrpl-ops.js').XrplSubmitResult> {
     const { submitViaRpc } = await import('./services/xrpl-ops.js');
@@ -306,7 +306,7 @@ export class XrplAdapter implements XrplConnector {
    * Prepare a Payment transaction via RPC (builds unsigned tx ready for signing).
    */
   async preparePaymentViaRpc(
-    network: import('./services/xrpl-ops.js').XrplNetwork,
+    network: import('./types.js').XrplNetwork,
     account: string,
     destination: string,
     amountDrops: string,
@@ -321,7 +321,7 @@ export class XrplAdapter implements XrplConnector {
    * Prepare a TrustSet transaction via RPC (Trust Line management).
    */
   async prepareTrustSetViaRpc(
-    network: import('./services/xrpl-ops.js').XrplNetwork,
+    network: import('./types.js').XrplNetwork,
     account: string,
     issuer: string,
     currency: string,
@@ -336,7 +336,7 @@ export class XrplAdapter implements XrplConnector {
    * Prepare an OfferCreate transaction via RPC (DEX order placement).
    */
   async prepareOfferCreateViaRpc(
-    network: import('./services/xrpl-ops.js').XrplNetwork,
+    network: import('./types.js').XrplNetwork,
     account: string,
     takerPays: string | { value: string; currency: string; issuer: string },
     takerGets: string | { value: string; currency: string; issuer: string },
@@ -351,7 +351,7 @@ export class XrplAdapter implements XrplConnector {
    * Query order book via `book_offers` RPC.
    */
   async getOrderBookViaRpc(
-    network: import('./services/xrpl-ops.js').XrplNetwork,
+    network: import('./types.js').XrplNetwork,
     gets: { currency: string; issuer?: string },
     pays: { currency: string; issuer?: string },
     limit?: number,
@@ -372,7 +372,7 @@ export class XrplAdapter implements XrplConnector {
    * Get account info via `account_info` RPC.
    */
   async getAccountInfoViaRpc(
-    network: import('./services/xrpl-ops.js').XrplNetwork,
+    network: import('./types.js').XrplNetwork,
     account: string,
   ): Promise<{ sequence: number; xrpBalance: string; ownerCount: number; flags: number }> {
     const { getAccountInfoViaRpc } = await import('./services/xrpl-ops.js');
@@ -383,7 +383,7 @@ export class XrplAdapter implements XrplConnector {
    * Get account trust lines via `account_lines` RPC.
    */
   async getTrustLinesViaRpc(
-    network: import('./services/xrpl-ops.js').XrplNetwork,
+    network: import('./types.js').XrplNetwork,
     account: string,
     peerAccount?: string,
     limit?: number,
@@ -400,7 +400,7 @@ export class XrplAdapter implements XrplConnector {
    * Get account offers via `account_offers` RPC.
    */
   async getAccountOffersViaRpc(
-    network: import('./services/xrpl-ops.js').XrplNetwork,
+    network: import('./types.js').XrplNetwork,
     account: string,
     limit?: number,
   ): Promise<{
@@ -418,7 +418,7 @@ export class XrplAdapter implements XrplConnector {
    * Get server info via `server_info` RPC.
    */
   async getServerInfoViaRpc(
-    network: import('./services/xrpl-ops.js').XrplNetwork,
+    network: import('./types.js').XrplNetwork,
   ): Promise<{
     info: { validated_ledger: { seq: number; hash: string }; server_state: string; uptime: number };
   }> {
@@ -430,7 +430,7 @@ export class XrplAdapter implements XrplConnector {
    * Get ledger info via `ledger` RPC.
    */
   async getLedgerViaRpc(
-    network: import('./services/xrpl-ops.js').XrplNetwork,
+    network: import('./types.js').XrplNetwork,
     ledgerIndex?: string | number,
   ): Promise<{ ledger_hash: string; ledger_index: number; transactions: unknown[] }> {
     const { getLedgerViaRpc } = await import('./services/xrpl-ops.js');

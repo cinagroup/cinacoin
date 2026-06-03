@@ -120,8 +120,6 @@ describe('createI18n', () => {
 /* ── detectLocale ───────────────────────────────────────────────── */
 
 describe('detectLocale', () => {
-  const originalNavigator = globalThis.navigator;
-
   beforeEach(() => {
     // Reset navigator mock
     Object.defineProperty(globalThis, 'navigator', {

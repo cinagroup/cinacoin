@@ -8,7 +8,9 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { WalletButtonData } from '../types';
 import { Connector } from '@cinacoin/core-sdk';
-import { getWalletById } from '@cinacoin/explorer';
+import { WalletRegistry } from '@cinacoin/explorer';
+
+const explorerRegistry = WalletRegistry.getInstance();
 
 // ---------------------------------------------------------------------------
 // Wallet icon source — uses @cinacoin/explorer registry icons by default.
@@ -82,7 +84,7 @@ const WALLET_REGISTRY: Array<{
  */
 function resolveWalletData(walletId: string): WalletButtonData | null {
   // Try the explorer registry first.
-  const registry = getWalletById(walletId);
+  const registry = explorerRegistry.getWallet(walletId);
   if (registry) {
     const master = WALLET_REGISTRY.find((w) => w.walletId === walletId);
     return {
@@ -167,9 +169,10 @@ export function useWalletButtons(
   }, [connector]);
 
   const connect = useCallback(
-    async (walletId: string) => {
+    async (_walletId: string) => {
       if (connector) {
-        await connector.connect({ walletId });
+        // Note: walletId is managed by the connector instance initialization
+        await connector.connect();
       }
     },
     [connector],

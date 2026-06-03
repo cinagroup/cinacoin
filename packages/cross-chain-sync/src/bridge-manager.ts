@@ -14,7 +14,7 @@ import type {
   BridgeRoute,
   BridgeFeeEstimate,
   BridgeTimeEstimate,
-} from "./types.js";
+} from "./types";
 
 // ============================================================
 // Supported Bridge Routes

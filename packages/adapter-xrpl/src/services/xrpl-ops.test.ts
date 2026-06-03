@@ -28,7 +28,7 @@ import {
   OfferCreateFlags,
   NFTokenMintFlags,
   AccountSetFlags,
-} from './services/xrpl-ops.js';
+} from './xrpl-ops.js';
 
 describe('address validation', () => {
   it('should validate classic addresses', () => {

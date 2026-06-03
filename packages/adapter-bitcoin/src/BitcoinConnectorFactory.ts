@@ -1,4 +1,4 @@
-import { ConnectorRegistry } from './types';
+import { ConnectorRegistry, BitcoinConnector } from './types';
 import { UnisatConnector } from './connectors/unisat';
 import { LeatherConnector } from './connectors/leather';
 import { OKXBitcoinConnector } from './connectors/okx';

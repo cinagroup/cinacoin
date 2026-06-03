@@ -83,8 +83,8 @@ export class UnisatConnector implements BitcoinConnector {
       return result;
     });
 
-    const network = await this._safeCall(provider, 'getNetwork', () =>
-      provider.request({ method: 'wallet_getNetwork' })
+    const network = await this._safeCall<string>(provider, 'getNetwork', () =>
+      provider.request({ method: 'wallet_getNetwork' }) as Promise<string>
     );
 
     this._bindProviderEvents(provider);
@@ -138,14 +138,14 @@ export class UnisatConnector implements BitcoinConnector {
   }): Promise<{ signature: string }> {
     const provider = this._getProviderOrThrow();
 
-    const signature = await this._safeCall(
+    const signature = await this._safeCall<string>(
       provider,
       'signMessage',
       () =>
         provider.request({
           method: 'wallet_signMessage',
           params: [params.message],
-        })
+        }) as Promise<string>
     );
 
     return { signature };
@@ -157,7 +157,7 @@ export class UnisatConnector implements BitcoinConnector {
   }): Promise<{ psbt: string }> {
     const provider = this._getProviderOrThrow();
 
-    const psbt = await this._safeCall(
+    const psbt = await this._safeCall<string>(
       provider,
       'signPsbt',
       () =>
@@ -167,7 +167,7 @@ export class UnisatConnector implements BitcoinConnector {
             params.psbt,
             { autoFinalized: true, signInputs: params.signInputs },
           ],
-        })
+        }) as Promise<string>
     );
 
     return { psbt };
@@ -180,14 +180,14 @@ export class UnisatConnector implements BitcoinConnector {
   }): Promise<{ txid: string }> {
     const provider = this._getProviderOrThrow();
 
-    const txid = await this._safeCall(
+    const txid = await this._safeCall<string>(
       provider,
       'sendBitcoin',
       () =>
         provider.request({
           method: 'wallet_sendBitcoin',
           params: [params.recipient, params.amount, params.feeRate],
-        })
+        }) as Promise<string>
     );
 
     return { txid };

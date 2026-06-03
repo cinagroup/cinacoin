@@ -2,8 +2,6 @@
  * Type definitions for @cinacoin/wallet-buttons
  */
 
-import type { ReactNode } from 'react';
-
 /**
  * Visual style variant for a wallet button.
  *

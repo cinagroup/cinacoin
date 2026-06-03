@@ -10,7 +10,7 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { BlockchainApiClient } from "../../client.js";
+import { BlockchainApiClient } from "../client.js";
 
 // ---------------------------------------------------------------------------
 // Security Configuration

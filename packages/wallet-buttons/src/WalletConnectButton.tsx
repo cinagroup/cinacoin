@@ -67,7 +67,7 @@ const QR_ICON = (
 );
 
 const SIZE_MAP: Record<
-  WalletConnectButtonProps['size'],
+  WalletButtonSize,
   { padding: string; icon: string; fontSize: string; gap: string; borderRadius: string }
 > = {
   sm: { padding: '6px 12px', icon: '18px', fontSize: '13px', gap: '6px', borderRadius: '8px' },
@@ -82,7 +82,7 @@ export const WalletConnectButton: React.FC<WalletConnectButtonProps> = ({
   isLoading = false,
   disabled = false,
   onClick,
-  projectId,
+  projectId: _projectId,
 }) => {
   const [showingQR, setShowingQR] = useState(false);
   const sizes = SIZE_MAP[size];

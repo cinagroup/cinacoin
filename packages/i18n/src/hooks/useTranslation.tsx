@@ -8,8 +8,8 @@
  */
 
 import { createContext, useContext, useState, useCallback } from 'react';
-import type { LocaleCode, InterpolationParams } from './types';
-import type { I18nInstance } from './i18n';
+import type { InterpolationParams } from '../types';
+import type { I18nInstance } from '../i18n';
 
 /* ------------------------------------------------------------------ */
 /*  Context                                                           */

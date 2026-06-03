@@ -54,7 +54,7 @@ describe('BitcoinConnectorFactory', () => {
       supportedFeatures: ['bitcoin:connect'],
       connect: async () => ({ accounts: [], network: 'mainnet' }),
       disconnect: async () => {},
-      request: async () => ({}),
+      request: async <T = unknown>() => ({} as T),
       getAccounts: async () => [],
       getNetwork: async () => 'mainnet',
       switchNetwork: async () => {},

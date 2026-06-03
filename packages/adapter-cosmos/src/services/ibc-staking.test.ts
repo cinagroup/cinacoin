@@ -19,7 +19,7 @@ import {
   buildRewardsUrl,
   buildValidatorsUrl,
   parseTxResponse,
-} from './services/ibc-staking.js';
+} from './ibc-staking.js';
 
 describe('buildIbcTransferMsg', () => {
   it('should build a valid IBC transfer message', () => {
@@ -59,8 +59,8 @@ describe('buildIbcTransferTx', () => {
     }, { gas: '800000', amount: [{ denom: 'uatom', amount: '1000' }] });
 
     expect(tx.messages).toHaveLength(1);
-    expect(tx.fee.gas).toBe('800000');
-    expect(tx.fee.amount[0].denom).toBe('uatom');
+    expect(tx.fee!.gas).toBe('800000');
+    expect(tx.fee!.amount[0].denom).toBe('uatom');
   });
 
   it('should use default fee when not provided', () => {
@@ -70,8 +70,8 @@ describe('buildIbcTransferTx', () => {
       receiver: 'osmo1receiver',
     });
 
-    expect(tx.fee.gas).toBe('500000');
-    expect(tx.fee.amount).toEqual([]);
+    expect(tx.fee!.gas).toBe('500000');
+    expect(tx.fee!.amount).toEqual([]);
   });
 });
 
@@ -151,14 +151,14 @@ describe('buildSetWithdrawAddressMsg', () => {
 
 describe('buildStakingTx', () => {
   it('should build a staking transaction with default fee', () => {
-    const tx = buildStakingTx([]);
-    expect(tx.fee.gas).toBe('300000');
+    const tx = buildStakingTx('cosmos1sender', []);
+    expect(tx.fee!.gas).toBe('300000');
     expect(tx.memo).toBe('');
   });
 
   it('should accept custom fee and memo', () => {
-    const tx = buildStakingTx([], { gas: '500000', amount: [] }, 'staking');
-    expect(tx.fee.gas).toBe('500000');
+    const tx = buildStakingTx('cosmos1sender', [], { gas: '500000', amount: [] }, 'staking');
+    expect(tx.fee!.gas).toBe('500000');
     expect(tx.memo).toBe('staking');
   });
 });

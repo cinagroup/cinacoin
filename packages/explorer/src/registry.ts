@@ -83,7 +83,7 @@ export class WalletRegistry {
         );
       case 'chain':
         return Array.from(this.chains.values()).filter(c =>
-          c.name.toLowerCase().includes(q) || c.caipNetworkId.includes(q)
+          c.name.toLowerCase().includes(q) || c.id.includes(q)
         );
     }
   }
@@ -118,7 +118,7 @@ export class WalletRegistry {
   /* ── Chain / DApp registry (extensible) ──────────────────── */
 
   registerChain(info: ChainInfo): void {
-    this.chains.set(info.caipNetworkId, info);
+    this.chains.set(info.id, info);
   }
 
   registerDapp(info: DappInfo): void {

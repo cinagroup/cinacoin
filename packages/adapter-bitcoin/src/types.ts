@@ -180,6 +180,12 @@ export interface BitcoinConnector {
 }
 
 /**
+ * Registry mapping connector IDs to BitcoinConnector instances.
+ */
+export type ConnectorRegistry = Map<string, BitcoinConnector>;
+
+
+/**
  * EIP-6963–style provider announcement payload for Bitcoin wallets.
  */
 export interface EIP6963BitcoinProviderDetail {

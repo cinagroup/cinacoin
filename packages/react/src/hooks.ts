@@ -524,7 +524,7 @@ export function useEnsAddress(name?: string): UseEnsAddressReturn {
  */
 function computeEnsNamehash(name: string): `0x${string}` {
   const labels = name.toLowerCase().replace(/\.$/, '').split('.').reverse();
-  let node = '0x' + '0'.repeat(64);
+  let node = ('0x' + '0'.repeat(64)) as `0x${string}`;
 
   for (const label of labels) {
     const labelHash = keccak256(toBytes(label));
@@ -543,7 +543,7 @@ function computeEnsNamehash(name: string): `0x${string}` {
  */
 function computeEnsReverseNode(address: string): `0x${string}` {
   const addrHex = address.slice(2).toLowerCase();
-  return computeEnsNamehash(`${addrHex}.addr.reverse`);
+  return computeEnsNamehash(`${addrHex}.addr.reverse`) as `0x${string}`;
 }
 
 /**

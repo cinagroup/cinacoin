@@ -1148,7 +1148,7 @@ export class BlockchainApiClient {
     return {
       items: items.slice(0, limit),
       hasMore: items.length > limit,
-      cursor: items.length > limit ? items[limit - 1]?.id : undefined,
+      nextCursor: items.length > limit ? items[limit - 1]?.tokenId : undefined,
     };
   }
 

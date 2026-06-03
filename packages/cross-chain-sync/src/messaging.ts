@@ -5,7 +5,7 @@
  * Messages are signed, relayed, and verified on the destination chain.
  */
 
-import type { ChainFamily } from "./types.js";
+import type { ChainFamily } from "./types";
 
 // ============================================================
 // Message Types

@@ -758,13 +758,14 @@ export function buildRpcUrl(network: 'mainnet' | 'testnet' | 'devnet'): string {
 /* ─────────────────────────────────────────────────────────────── */
 
 /** XRPL network identifier. */
-type XrplNetworkInternal = 'mainnet' | 'testnet' | 'devnet';
+type XrplNetworkInternal = 'mainnet' | 'testnet' | 'devnet' | 'amm-devnet';
 
 /** REST proxy URLs per network. */
 export const XRPL_REST_URLS: Record<XrplNetworkInternal, string> = {
   mainnet: 'https://s1.ripple.com:51234',
   testnet: 'https://s.altnet.rippletest.net:51234',
   devnet: 'https://s.devnet.rippletest.net:51234',
+  'amm-devnet': 'https://amm.devnet.rippletest.net:51234',
 };
 
 /** WebSocket URLs per network. */
@@ -772,6 +773,7 @@ export const XRPL_WS_URLS: Record<XrplNetworkInternal, string> = {
   mainnet: 'wss://s1.ripple.com',
   testnet: 'wss://s.altnet.rippletest.net:51233',
   devnet: 'wss://s.devnet.rippletest.net:51233',
+  'amm-devnet': 'wss://amm.devnet.rippletest.net:51233',
 };
 
 /** RPC response wrapper. */

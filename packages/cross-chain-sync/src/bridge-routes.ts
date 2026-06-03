@@ -15,7 +15,7 @@
  *   - Protocol used
  */
 
-import type { BridgeRoute } from "./types.js";
+import type { BridgeRoute } from "./types";
 
 // ============================================================
 // Chain Constants

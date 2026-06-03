@@ -96,7 +96,7 @@ export function useAllFeatures(): {
   loading: boolean;
 } {
   const [features, setFeatures] = useState<Readonly<FeatureFlags>>(
-    () => configManagerRef.current?.getAllFeatures() ?? {}
+    () => configManagerRef.current?.getAllFeatures() ?? {} as Readonly<FeatureFlags>
   );
   const [loading, setLoading] = useState(!configManagerRef.current);
 

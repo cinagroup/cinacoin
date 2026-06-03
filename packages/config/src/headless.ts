@@ -1,8 +1,40 @@
-import {
-  createClient,
-  type Client,
-  type ClientOptions,
-} from "@cinacoin/core-sdk";
+/**
+ * Stub types for headless client configuration.
+ *
+ * NOTE: These mirror the planned `@cinacoin/core-sdk` `Client`/`ClientOptions`
+ * interfaces.  Once `createClient` lands in core-sdk, swap the import here.
+ */
+
+interface ClientOptions {
+  /** Wallet IDs to enable. */
+  wallets?: string[];
+  /** Chain IDs to support. */
+  chains?: string[];
+  /** Project identifier. */
+  projectId?: string;
+  /** Client mode — set to "headless" here. */
+  mode?: string;
+  [key: string]: unknown;
+}
+
+interface Client {
+  /** Connect to a wallet. */
+  connect: () => Promise<{ address: string; chainId: string }>;
+  /** Disconnect from the current wallet. */
+  disconnect: () => Promise<void>;
+}
+
+/**
+ * Placeholder factory for headless client creation.
+ * Replace with actual `@cinacoin/core-sdk` implementation.
+ */
+function createClient(options: ClientOptions): Client {
+  void options; // TODO: replace with real core-sdk createClient
+  return {
+    connect: async () => ({ address: '', chainId: '' }),
+    disconnect: async () => {},
+  };
+}
 
 /**
  * Options for creating a headless SDK client.

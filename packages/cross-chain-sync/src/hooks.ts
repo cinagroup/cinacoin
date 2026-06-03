@@ -16,11 +16,11 @@ import type {
   BridgeTransferRecord,
   BridgeTransferResult,
   CreateBridgeTransferOptions,
-} from "./types.js";
-import { BridgeEngine } from "./bridge-engine.js";
-import type { BridgeEngineOptions, BridgeCreateOptions } from "./bridge-engine.js";
-import { BridgeStateManager } from "./bridge-state-manager.js";
-import { getActiveRoutes, getRoute, isSupportedPair } from "./bridge-routes.js";
+} from "./types";
+import { BridgeEngine } from "./bridge-engine";
+import type { BridgeEngineOptions, BridgeCreateOptions } from "./bridge-engine";
+import { BridgeStateManager } from "./bridge-state-manager";
+import { getActiveRoutes, getRoute, isSupportedPair } from "./bridge-routes";
 
 // ============================================================
 // useBridgeTransfer

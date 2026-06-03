@@ -12,14 +12,14 @@ import type {
   BridgeTimeEstimate,
   CreateBridgeTransferOptions,
   BridgeTransferResult,
-} from "./types.js";
+} from "./types";
 import {
   BridgeStateManager,
   findRoute,
   resolveTokenMapping,
   CHAIN_TIMINGS,
   RELAY_OVERHEAD,
-} from "./bridge-manager.js";
+} from "./bridge-manager";
 import {
   BridgeExecutor,
   type BridgeExecuteParams,
@@ -29,7 +29,7 @@ import {
   BRIDGE_CONTRACTS,
   getChainOrDefine,
   pollTransactionReceipt,
-} from "./bridge-executor.js";
+} from "./bridge-executor";
 import type { Address, Hex, WalletClient, Transport, Chain, Account } from "viem";
 import { http, createPublicClient, defineChain } from "viem";
 

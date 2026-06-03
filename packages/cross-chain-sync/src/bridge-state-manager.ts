@@ -12,7 +12,7 @@ import type {
   BridgeLifecycleState,
   BridgeStateTransition,
   BridgeTransferRecord,
-} from "./types.js";
+} from "./types";
 
 // ============================================================
 // Valid State Transitions

@@ -69,6 +69,7 @@ function computeIntegrity(state: object): string {
 export class SessionManager extends EventEmitter {
   private state: SessionState = { status: 'disconnected' };
   private _connector: Connector | null = null;
+  private _cleanupTimer: ReturnType<typeof setTimeout> | null = null;
 
   /** Current session state. */
   getState(): SessionState {
@@ -104,16 +105,16 @@ export class SessionManager extends EventEmitter {
       // Check expiry
       if (persisted.expiresAt && Date.now() > persisted.expiresAt) {
         localStorage.removeItem(SESSION_STORAGE_KEY);
-        return this.state;
+        return { status: 'disconnected' };
       }
 
       // Verify integrity hash
-      const { expiresAt, ...stateForHash } = persisted;
+      const { expiresAt, _integrity: integrityHash, ...stateForHash } = persisted;
       const expectedHash = computeIntegrity(stateForHash);
-      if (persisted._integrity && persisted._integrity !== expectedHash) {
+      if (integrityHash && integrityHash !== expectedHash) {
         // Tampered data — clear and return disconnected
         localStorage.removeItem(SESSION_STORAGE_KEY);
-        return this.state;
+        return { status: 'disconnected' };
       }
 
       if (persisted?.status === 'connected') {
@@ -156,7 +157,8 @@ export class SessionManager extends EventEmitter {
         error: error instanceof Error ? error : new Error(String(error)),
       });
       // Briefly hold error state, then transition to disconnected
-      setTimeout(() => {
+      this._cleanupTimer = setTimeout(() => {
+        this._cleanupTimer = null;
         if (this.state.status === 'error') {
           this.transition({ status: 'disconnected' });
         }
@@ -195,6 +197,12 @@ export class SessionManager extends EventEmitter {
    * Terminate the current session.
    */
   async terminate(): Promise<void> {
+    // Cancel any pending cleanup timer
+    if (this._cleanupTimer) {
+      clearTimeout(this._cleanupTimer);
+      this._cleanupTimer = null;
+    }
+
     if (this._connector) {
       try {
         await this._connector.disconnect();

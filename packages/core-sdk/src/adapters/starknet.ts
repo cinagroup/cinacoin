@@ -78,16 +78,24 @@ export type CairoCalldataItem = string | number | bigint;
 /** Encode a single value to a felt252 hex string. */
 export function encodeFelt252(value: CairoCalldataItem): string {
   if (typeof value === 'string') {
-    // Already hex?
-    if (value.startsWith('0x') || /^[0-9a-fA-F]+$/.test(value)) {
-      const hex = value.startsWith('0x') ? value : '0x' + value;
+    // Already hex (explicit 0x prefix)?
+    if (value.startsWith('0x')) {
+      if (!isValidFelt(value)) throw new Error(`Invalid felt252: ${value}`);
+      return padHex(value);
+    }
+    // Pure decimal string (digits only)?
+    if (/^[0-9]+$/.test(value)) {
+      const n = BigInt(value);
+      if (n < 0n || n >= Felt252_MAX) throw new Error(`Value out of felt252 range: ${n}`);
+      return padHex('0x' + n.toString(16));
+    }
+    // Hex without 0x prefix (contains a-f/A-F)
+    if (/^[0-9a-fA-F]+$/.test(value)) {
+      const hex = '0x' + value;
       if (!isValidFelt(hex)) throw new Error(`Invalid felt252: ${hex}`);
       return padHex(hex);
     }
-    // Decimal string
-    const n = BigInt(value);
-    if (n < 0n || n >= Felt252_MAX) throw new Error(`Value out of felt252 range: ${n}`);
-    return padHex('0x' + n.toString(16));
+    throw new Error(`Invalid felt252 string: ${value}`);
   }
   if (typeof value === 'bigint') {
     if (value < 0n || value >= Felt252_MAX) throw new Error(`Value out of felt252 range: ${value}`);

@@ -21,14 +21,14 @@ export type {
   BridgeLifecycleState,
   BridgeTransferRecord,
   BridgeStateTransition,
-} from "./types.js";
+} from "./types";
 
-export type { EvmAccount } from "./adapters/evm.js";
-export type { SolanaAccount } from "./adapters/solana.js";
-export type { BitcoinAccount } from "./adapters/bitcoin.js";
+export type { EvmAccount } from "./adapters/evm";
+export type { SolanaAccount } from "./adapters/solana";
+export type { BitcoinAccount } from "./adapters/bitcoin";
 
 // Sync
-export { StateSync } from "./sync.js";
+export { StateSync } from "./sync";
 
 // Identity
 export {
@@ -36,19 +36,19 @@ export {
   generateIdentityHash,
   verifyLinkingProof,
   createLinkingProof,
-} from "./identity.js";
+} from "./identity";
 
 // Adapters
-export { syncEvmState, getEvmSession } from "./adapters/evm.js";
-export { syncSolanaState, getSolanaSession } from "./adapters/solana.js";
-export { syncBitcoinState, getBitcoinSession } from "./adapters/bitcoin.js";
+export { syncEvmState, getEvmSession } from "./adapters/evm";
+export { syncSolanaState, getSolanaSession } from "./adapters/solana";
+export { syncBitcoinState, getBitcoinSession } from "./adapters/bitcoin";
 
 // Storage
-export { InMemoryStorage, LocalStorage } from "./storage.js";
+export { InMemoryStorage, LocalStorage } from "./storage";
 
 // Bridge Engine
-export { BridgeEngine } from "./bridge-engine.js";
-export type { BridgeEngineOptions, BridgeCreateOptions } from "./bridge-engine.js";
+export { BridgeEngine } from "./bridge-engine";
+export type { BridgeEngineOptions, BridgeCreateOptions } from "./bridge-engine";
 
 // Bridge Executor (real contract interactions)
 export {
@@ -60,7 +60,7 @@ export {
   LOCK_MINT_BRIDGE_ABI,
   ERC20_ABI,
   BRIDGE_CONTRACTS,
-} from "./bridge-executor.js";
+} from "./bridge-executor";
 export type {
   BridgeExecuteParams,
   BridgeProtocol,
@@ -69,10 +69,10 @@ export type {
   SourceLockResult,
   DestMintResult,
   TxPollOptions,
-} from "./bridge-executor.js";
+} from "./bridge-executor";
 
 // Bridge State Manager
-export { BridgeStateManager } from "./bridge-state-manager.js";
+export { BridgeStateManager } from "./bridge-state-manager";
 
 // Bridge Routes
 export {
@@ -86,7 +86,7 @@ export {
   getRoutesFromChain,
   getRoutesToChain,
   getActiveRoutes,
-} from "./bridge-routes.js";
+} from "./bridge-routes";
 
 // Message Validation
 export {
@@ -98,8 +98,8 @@ export {
   verifyMerkleProof,
   generateMerkleProof,
   verifyMessageInStateRoot,
-} from "./message-validation.js";
-export type { MerkleProof } from "./message-validation.js";
+} from "./message-validation";
+export type { MerkleProof } from "./message-validation";
 
 // Messaging / Relay
 export {
@@ -108,14 +108,14 @@ export {
   deserializeMessage,
   isMessageExpired,
   RelayClient,
-} from "./messaging.js";
+} from "./messaging";
 export type {
   CrossChainMessage,
   CrossChainMessageType,
   CrossChainMessageStatus,
   RelaySubmitResponse,
   RelayStatusResponse,
-} from "./messaging.js";
+} from "./messaging";
 
 // Bridge Lifecycle (legacy compat)
 export {
@@ -129,7 +129,7 @@ export {
   getBridgeProgress,
   isBridgeTerminal,
   canRetryBridge,
-} from "./bridge.js";
+} from "./bridge";
 
 // React Hooks
 export {
@@ -138,7 +138,7 @@ export {
   useBridgeHistory,
   useBridgeFee,
   useBridgeRoutes,
-} from "./hooks.js";
+} from "./hooks";
 export type {
   UseBridgeTransferOptions,
   UseBridgeTransferReturn,
@@ -149,4 +149,4 @@ export type {
   UseBridgeFeeOptions,
   UseBridgeFeeReturn,
   UseBridgeRoutesReturn,
-} from "./hooks.js";
+} from "./hooks";

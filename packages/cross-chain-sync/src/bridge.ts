@@ -13,8 +13,8 @@
  * Each transition is recorded with a timestamp and optional metadata.
  */
 
-import type { ChainFamily, StateStorage, ChainRoute, BridgePair } from "./types.js";
-import type { RelayClient } from "./messaging.js";
+import type { ChainFamily, StateStorage, ChainRoute, BridgePair } from "./types";
+import type { RelayClient } from "./messaging";
 
 // ============================================================
 // Bridge States
@@ -860,8 +860,8 @@ export class BridgeEngine {
    */
   private async _createBridgeMessage(
     transfer: BridgeTransfer,
-  ): Promise<import("./messaging.js").CrossChainMessage> {
-    const { createCrossChainMessage } = await import("./messaging.js");
+  ): Promise<import("./messaging").CrossChainMessage> {
+    const { createCrossChainMessage } = await import("./messaging");
 
     return createCrossChainMessage({
       type: "transfer",

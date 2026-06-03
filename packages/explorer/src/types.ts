@@ -170,6 +170,28 @@ export type RegistryEntry = WalletInfo | DappInfo | ChainInfo;
 /** Discriminated union tag used by the generic registry store. */
 export type RegistryEntryType = 'wallet' | 'dapp' | 'chain';
 
+/** Platform alias for convenience. */
+export type Platform = WalletPlatform;
+
+/** Deep-links alias for convenience. */
+export type DeepLinks = WalletDeepLinks;
+
+/**
+ * Filter used for generic search across wallets, dApps, and chains.
+ */
+export interface SearchFilter {
+  /** Search by text (name, id, etc.). */
+  query?: string;
+  /** Limit results to a specific chain namespace. */
+  namespace?: string;
+  /** Limit results to a specific platform. */
+  platform?: Platform;
+  /** Limit results to entries supporting a given chain ID. */
+  chainId?: string;
+  /** Whether to include only popular entries. */
+  popular?: boolean;
+}
+
 /** Search result envelope. */
 export interface SearchResult<T extends RegistryEntry> {
   item: T;

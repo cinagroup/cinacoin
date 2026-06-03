@@ -9,7 +9,7 @@ import {
   deriveAddressFromEmail,
   deriveAddressFromProvider,
   generateRandomMnemonic,
-} from '../../src/wallet-derivation.js';
+} from '../src/wallet-derivation.js';
 
 describe('Wallet Derivation', () => {
   describe('deriveSeedFromIdentity', () => {

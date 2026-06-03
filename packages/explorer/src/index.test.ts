@@ -157,7 +157,6 @@ describe('WalletRegistry — chain/dApp registration', () => {
   it('registers and retrieves a chain', () => {
     registry.registerChain({
       id: 'eip155:137',
-      caipNetworkId: 'eip155:137',
       namespace: 'eip155',
       chainId: 137,
       name: 'Polygon',

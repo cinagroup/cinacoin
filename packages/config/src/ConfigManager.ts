@@ -1,5 +1,3 @@
-import { createClient, type Client } from "@cinacoin/core-sdk";
-
 /**
  * Remote configuration options for initializing the feature flag system.
  */

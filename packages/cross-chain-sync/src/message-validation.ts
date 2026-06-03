@@ -10,7 +10,7 @@
  * and uses on-chain verification for Merkle proofs.
  */
 
-import type { CrossChainMessage } from "./messaging.js";
+import type { CrossChainMessage } from "./messaging";
 
 // ============================================================
 // Message Signing

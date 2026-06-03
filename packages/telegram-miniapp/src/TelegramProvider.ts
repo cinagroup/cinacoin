@@ -23,7 +23,7 @@ interface TelegramWebApp {
   close: () => void;
   ready: () => void;
   showAlert?: (message: string) => void;
-  showConfirm?: (message: string) => boolean;
+  showConfirm?: (message: string) => boolean | Promise<boolean>;
   openLink?: (url: string) => void;
   openTelegramLink?: (url: string) => void;
   onEvent?: (eventType: string, callback: () => void) => void;

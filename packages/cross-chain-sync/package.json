@@ -13,7 +13,7 @@
     }
   },
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "build": "tsup src/index.ts --format cjs,esm --dts --dts-resolve --external react",
     "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
     "lint": "eslint src/",
     "test": "vitest"
@@ -22,10 +22,14 @@
     "viem": "^2.21.0"
   },
   "devDependencies": {
+    "@types/react": "^19.0.0",
     "tsup": "^8.3.0",
     "typescript": "^5.6.0",
     "vitest": "^2.1.0",
     "eslint": "^9.12.0"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0"
   },
   "license": "MIT",
   "files": [
