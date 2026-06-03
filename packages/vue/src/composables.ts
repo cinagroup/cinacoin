@@ -78,3 +78,21 @@ export type {
   SendCallsOptions,
   AtomicBatchOptions,
 } from './composables/useEIP5792.js';
+
+// Additional composables: balance, ENS, send tx, sign message
+export {
+  useBalance,
+  useEnsName,
+  useEnsAddress,
+  useSendTransaction,
+  useSignMessage,
+} from './composables/useExtraHooks.js';
+
+export type {
+  UseBalanceReturn,
+  UseEnsNameReturn,
+  UseEnsAddressReturn,
+  SendTransactionArgs,
+  UseSendTransactionReturn,
+  UseSignMessageReturn,
+} from './composables/useExtraHooks.js';

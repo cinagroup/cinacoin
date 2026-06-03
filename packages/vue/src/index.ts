@@ -37,5 +37,23 @@ export type {
   AtomicBatchOptions,
 } from './composables.js';
 
+// Additional composables: balance, ENS, send tx, sign message
+export {
+  useBalance,
+  useEnsName,
+  useEnsAddress,
+  useSendTransaction,
+  useSignMessage,
+} from './composables.js';
+
+export type {
+  UseBalanceReturn,
+  UseEnsNameReturn,
+  UseEnsAddressReturn,
+  SendTransactionArgs,
+  UseSendTransactionReturn,
+  UseSignMessageReturn,
+} from './composables.js';
+
 // Connector manager for real wallet connections
 export { ConnectorManager } from './connectorManager.js';
