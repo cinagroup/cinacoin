@@ -132,6 +132,34 @@ export function defaultConfig(chainName: string, beneficiary: Address, signerKey
  * - Health check endpoint
  * - UserOp validation, mempool, bundle building, and execution
  */
+
+// ── Allowed origins for CORS ────────────────────────────────────────
+const BUNDLER_ALLOWED_ORIGINS = [
+  'https://cinacoin.com',
+  'https://dash.cinacoin.com',
+  'https://demo.cinacoin.com',
+  'https://docs.cinacoin.com',
+  'https://status.cinacoin.com',
+  'http://localhost:3000',
+  'http://localhost:5173',
+];
+
+function isAllowedOrigin(origin: string | undefined): boolean {
+  if (!origin) return false;
+  return BUNDLER_ALLOWED_ORIGINS.includes(origin);
+}
+
+function setCorsHeaders(res: any, req: IncomingMessage): void {
+  const origin = req.headers.origin;
+  if (isAllowedOrigin(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Max-Age', '86400');
+  res.setHeader('Vary', 'Origin');
+}
+
 export class BundlerServer {
   private config: BundlerServerConfig;
   private chain: Chain;
@@ -236,10 +264,8 @@ export class BundlerServer {
   // ── HTTP Request Router ───────────────────────────────────────────
 
   private async handleRequest(req: IncomingMessage, res: any): Promise<void> {
-    // CORS headers
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    // CORS headers (origin-validated, no wildcard)
+    setCorsHeaders(res, req);
 
     if (req.method === 'OPTIONS') {
       res.writeHead(204);

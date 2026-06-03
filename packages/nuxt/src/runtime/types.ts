@@ -1,4 +1,4 @@
-import type { Cinacoin } from '@cinacoin/vue'
+import type { Cinacoin } from './cinacoin'
 
 declare module '#app' {
   interface NuxtApp {
@@ -11,6 +11,7 @@ declare module '#app' {
   }
 }
 
+// Augmentation for Vue runtime — valid for Nuxt apps at runtime.
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
     $cinaConnect: Cinacoin

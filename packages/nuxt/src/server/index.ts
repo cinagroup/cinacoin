@@ -31,6 +31,14 @@
  */
 
 import type { H3Event, EventHandlerRequest } from 'h3';
+import {
+  defineEventHandler,
+  getHeader as getRequestHeader,
+  getRequestURL,
+  sendRedirect,
+  sendError,
+  createError,
+} from 'h3';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -372,7 +380,7 @@ export async function getNuxtSession(
 
   // Fall back to header
   if (!token) {
-    token = getRequestHeader(event, headerName);
+    token = getRequestHeader(event, headerName) ?? null;
   }
 
   if (!token) {

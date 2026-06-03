@@ -1,7 +1,11 @@
-import type { CinacoinModuleOptions } from '#build/types'
+// #build/types is a Nuxt virtual module generated at build time.
+// We import CinacoinModuleOptions from the module source instead.
+import type { CinacoinModuleOptions } from '../module'
 
-import { defineNuxtPlugin, useRuntimeConfig, useNuxtApp } from '#imports'
-import { Cinacoin } from '@cinacoin/vue'
+// Nuxt virtual module, resolved at build time.
+import { defineNuxtPlugin, useRuntimeConfig } from '#imports'
+
+import { Cinacoin } from './cinacoin'
 
 /**
  * Nuxt runtime plugin that creates a Cinacoin application instance

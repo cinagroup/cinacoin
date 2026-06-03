@@ -1,6 +1,19 @@
 import { defineNuxtModule, addPlugin, addImportsDir, addComponent, addTemplate, createResolver } from '@nuxt/kit'
 
-import type { MetaOptions } from '@cinacoin/core-sdk'
+/**
+ * Metadata options for the WalletConnect connection.
+ * (core-sdk does not export this type; defined here for Nuxt module options.)
+ */
+export interface MetaOptions {
+  /** Application name. */
+  name?: string
+  /** Application description. */
+  description?: string
+  /** Application URL. */
+  url?: string
+  /** Icon URL. */
+  icons?: string[]
+}
 
 /**
  * Network identifiers supported by Cinacoin.
@@ -139,7 +152,8 @@ export default defineNuxtModule<CinacoinModuleOptions>({
     })
 
     // Inject generated CSS into the app
-    nuxt.hook('app:resolve', (app) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    nuxt.hook('app:resolve', (app: any) => {
       app.css.push('#build/cinacoin-theme.css')
     })
 

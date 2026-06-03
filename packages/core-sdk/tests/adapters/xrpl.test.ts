@@ -39,7 +39,7 @@ import {
 
 describe('isValidXrplAddress', () => {
   it('accepts valid classic address', () => {
-    expect(isValidXrplAddress('rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ')).toBe(true);
+    expect(isValidXrplAddress('rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ')).toBe(true);
   });
 
   it('accepts Ripple classic address', () => {
@@ -97,7 +97,7 @@ describe('isValidXAddress', () => {
 
 describe('isValidAnyXrplAddress', () => {
   it('accepts classic address', () => {
-    expect(isValidAnyXrplAddress('rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ')).toBe(true);
+    expect(isValidAnyXrplAddress('rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ')).toBe(true);
   });
 
   it('accepts X-address', () => {
@@ -125,7 +125,7 @@ describe('normalizeXrplAddress', () => {
   });
 
   it('mixed case becomes uppercase', () => {
-    expect(normalizeXrplAddress('rDnHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ')).toBe(
+    expect(normalizeXrplAddress('rDnHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ')).toBe(
       'RDNHXJ2SMFWJHXGFKFDGZCGFDNKVGVLWZQ',
     );
   });
@@ -529,7 +529,7 @@ describe('XRPL_WALLETS', () => {
 describe('buildPayment', () => {
   it('creates a basic Payment transaction', () => {
     const tx = buildPayment({
-      account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ',
+      account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ',
       destination: 'rPEPPER7kfTD9w2To4CQk6UCfuHM9c6GDHqU',
       amount: '1000000',
       sequence: 42,
@@ -545,7 +545,7 @@ describe('buildPayment', () => {
 
   it('sets custom fee', () => {
     const tx = buildPayment({
-      account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ',
+      account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ',
       destination: 'rPEPPER7kfTD9w2To4CQk6UCfuHM9c6GDHqU',
       amount: '500000',
       fee: '20',
@@ -556,7 +556,7 @@ describe('buildPayment', () => {
 
   it('adds memos when provided', () => {
     const tx = buildPayment({
-      account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ',
+      account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ',
       destination: 'rPEPPER7kfTD9w2To4CQk6UCfuHM9c6GDHqU',
       amount: '1000000',
       sequence: 42,
@@ -569,7 +569,7 @@ describe('buildPayment', () => {
 
   it('sets flags when provided', () => {
     const tx = buildPayment({
-      account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ',
+      account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ',
       destination: 'rPEPPER7kfTD9w2To4CQk6UCfuHM9c6GDHqU',
       amount: '1000000',
       sequence: 42,
@@ -582,7 +582,7 @@ describe('buildPayment', () => {
 describe('buildOfferCreate', () => {
   it('creates a basic OfferCreate transaction', () => {
     const tx = buildOfferCreate({
-      account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ',
+      account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ',
       takerPays: '10000000',
       takerGets: {
         currency: 'USD',
@@ -600,7 +600,7 @@ describe('buildOfferCreate', () => {
 
   it('sets expiration when provided', () => {
     const tx = buildOfferCreate({
-      account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ',
+      account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ',
       takerPays: '10000000',
       takerGets: '5000000',
       sequence: 42,
@@ -613,7 +613,7 @@ describe('buildOfferCreate', () => {
 describe('buildOfferCancel', () => {
   it('creates a basic OfferCancel transaction', () => {
     const tx = buildOfferCancel({
-      account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ',
+      account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ',
       offerSequence: 40,
       sequence: 42,
     });
@@ -626,7 +626,7 @@ describe('buildOfferCancel', () => {
 describe('buildTrustSet', () => {
   it('creates a basic TrustSet transaction', () => {
     const tx = buildTrustSet({
-      account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ',
+      account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ',
       limitAmount: {
         currency: 'USD',
         issuer: 'rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B',
@@ -642,7 +642,7 @@ describe('buildTrustSet', () => {
 
   it('sets flags when provided', () => {
     const tx = buildTrustSet({
-      account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ',
+      account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ',
       limitAmount: {
         currency: 'USD',
         issuer: 'rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B',
@@ -658,7 +658,7 @@ describe('buildTrustSet', () => {
 describe('buildNftMint', () => {
   it('creates a basic NFTokenMint transaction', () => {
     const tx = buildNftMint({
-      account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ',
+      account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ',
       nftTaxon: 0,
       sequence: 42,
     });
@@ -669,7 +669,7 @@ describe('buildNftMint', () => {
 
   it('includes URI when provided', () => {
     const tx = buildNftMint({
-      account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ',
+      account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ',
       nftTaxon: 1,
       uri: '697066733a2f2f',
       sequence: 42,
@@ -679,7 +679,7 @@ describe('buildNftMint', () => {
 
   it('includes TransferFee when provided', () => {
     const tx = buildNftMint({
-      account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ',
+      account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ',
       nftTaxon: 2,
       transferFee: 500, // 5%
       sequence: 42,
@@ -691,7 +691,7 @@ describe('buildNftMint', () => {
 describe('buildNftBurn', () => {
   it('creates a basic NFTokenBurn transaction', () => {
     const tx = buildNftBurn({
-      account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ',
+      account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ',
       nftId: '00000123ABC' + '0'.repeat(53),
       sequence: 42,
     });
@@ -704,7 +704,7 @@ describe('buildNftBurn', () => {
 describe('buildNftCreateOffer', () => {
   it('creates a basic NFTokenCreateOffer transaction', () => {
     const tx = buildNftCreateOffer({
-      account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ',
+      account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ',
       nftId: '00000123ABC' + '0'.repeat(53),
       amount: '1000000',
       sequence: 42,
@@ -717,7 +717,7 @@ describe('buildNftCreateOffer', () => {
 
   it('sets destination for sell offers', () => {
     const tx = buildNftCreateOffer({
-      account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ',
+      account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ',
       nftId: '00000123ABC' + '0'.repeat(53),
       amount: '2000000',
       sequence: 42,
@@ -729,7 +729,7 @@ describe('buildNftCreateOffer', () => {
 
   it('sets expiration when provided', () => {
     const tx = buildNftCreateOffer({
-      account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ',
+      account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ',
       nftId: '00000123ABC' + '0'.repeat(53),
       amount: '1000000',
       sequence: 42,
@@ -926,12 +926,12 @@ describe('XrplChainAdapter connect/disconnect', () => {
     const mockDisconnect = vi.fn().mockResolvedValue(undefined);
     const mockProvider = {
       getAccounts: vi.fn().mockResolvedValue([]),
-      connect: vi.fn().mockResolvedValue({ accounts: [{ address: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ' }] }),
+      connect: vi.fn().mockResolvedValue({ accounts: [{ address: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ' }] }),
       disconnect: mockDisconnect,
     };
     adapter.setProvider(mockProvider);
     adapter['provider'] = mockProvider;
-    adapter['_accounts'] = ['rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ'];
+    adapter['_accounts'] = ['rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ'];
 
     await adapter.disconnect();
     expect(mockDisconnect).toHaveBeenCalled();
@@ -958,12 +958,12 @@ describe('XrplChainAdapter getAccounts', () => {
   it('returns accounts when connected', async () => {
     const mockProvider = {
       getAccounts: vi.fn().mockResolvedValue([
-        { address: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ' },
+        { address: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ' },
         { address: 'rPEPPER7kfTD9w2To4CQk6UCfuHM9c6GDHqU' },
       ]),
       connect: vi.fn().mockResolvedValue({
         accounts: [
-          { address: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ' },
+          { address: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ' },
           { address: 'rPEPPER7kfTD9w2To4CQk6UCfuHM9c6GDHqU' },
         ],
       }),
@@ -1040,7 +1040,7 @@ describe('XrplChainAdapter transaction validation', () => {
   });
 
   it('sendXrp throws when no provider', async () => {
-    await expect(adapter.sendXrp('rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ', '1000000')).rejects.toThrow('No provider connected');
+    await expect(adapter.sendXrp('rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ', '1000000')).rejects.toThrow('No provider connected');
   });
 
   it('sendXrp rejects invalid recipient', async () => {
@@ -1053,7 +1053,7 @@ describe('XrplChainAdapter transaction validation', () => {
     };
     adapter.setProvider(mockProvider);
     adapter['provider'] = mockProvider;
-    adapter['_accounts'] = ['rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ'];
+    adapter['_accounts'] = ['rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ'];
 
     await expect(adapter.sendXrp('invalid', '1000000')).rejects.toThrow('Invalid recipient');
   });
@@ -1137,9 +1137,9 @@ describe('XrplChainAdapter with mock provider', () => {
     adapter = new XrplChainAdapter();
     mockProvider = {
       name: 'Test XRPL Wallet',
-      getAccounts: vi.fn().mockResolvedValue([{ address: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ' }]),
+      getAccounts: vi.fn().mockResolvedValue([{ address: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ' }]),
       connect: vi.fn().mockResolvedValue({
-        accounts: [{ address: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ' }],
+        accounts: [{ address: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ' }],
       }),
       disconnect: vi.fn().mockResolvedValue(undefined),
       signMessage: vi.fn().mockResolvedValue({
@@ -1185,7 +1185,7 @@ describe('XrplChainAdapter with mock provider', () => {
 
     const result = await adapter.signTransaction({
       TransactionType: 'Payment',
-      Account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ',
+      Account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ',
     });
     expect(mockProvider.signTransaction).toHaveBeenCalled();
     expect(result.tx_blob).toBe('120000...');
@@ -1237,7 +1237,7 @@ describe('XrplChainAdapter with mock provider', () => {
         engine_result_code: 0,
         engine_result_message: 'The transaction was applied.',
         tx_blob: '120000...',
-        tx_json: { hash: 'DEADBEEF123', Account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ' },
+        tx_json: { hash: 'DEADBEEF123', Account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ' },
       }),
       getAccountInfo: vi.fn().mockResolvedValue({
         account_data: {
@@ -1262,7 +1262,7 @@ describe('XrplChainAdapter with mock provider', () => {
     } as any;
 
     const tx = buildPayment({
-      account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ',
+      account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ',
       destination: 'rPEPPER7kfTD9w2To4CQk6UCfuHM9c6GDHqU',
       amount: '1000000',
       fee: '15',
@@ -1319,7 +1319,7 @@ describe('XrplChainAdapter with mocked RPC', () => {
       getAccountTransactions: vi.fn().mockResolvedValue({
         transactions: [
           {
-            tx: { TransactionType: 'Payment', Fee: '12', Account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ' },
+            tx: { TransactionType: 'Payment', Fee: '12', Account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ' },
             meta: { TransactionResult: 'tesSUCCESS' },
             hash: 'ABC123DEF456',
             ledger_index: 79999999,
@@ -1394,17 +1394,17 @@ describe('XrplChainAdapter with mocked RPC', () => {
   });
 
   it('getBalance returns balance from mock', async () => {
-    const balance = await adapter.getBalance('rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ');
+    const balance = await adapter.getBalance('rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ');
     expect(balance).toBe('1000000000');
   });
 
   it('getBalanceFormatted returns formatted XRP', async () => {
-    const formatted = await adapter.getBalanceFormatted('rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ');
+    const formatted = await adapter.getBalanceFormatted('rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ');
     expect(formatted).toBe('1000');
   });
 
   it('getAccountInfo returns account data', async () => {
-    const info = await adapter.getAccountInfo('rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ');
+    const info = await adapter.getAccountInfo('rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ');
     expect(info).not.toBeNull();
     expect(info!.address).toBe('RDNHXJ2SMFWJHXGFKFDGZCGFDNKVGVLWZQ');
     expect(info!.balance).toBe('1000000000');
@@ -1414,7 +1414,7 @@ describe('XrplChainAdapter with mocked RPC', () => {
   });
 
   it('getTrustLines returns trust lines', async () => {
-    const lines = await adapter.getTrustLines('rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ');
+    const lines = await adapter.getTrustLines('rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ');
     expect(lines.length).toBe(1);
     expect(lines[0].currency).toBe('USD');
     expect(lines[0].balance).toBe('50.5');
@@ -1423,21 +1423,21 @@ describe('XrplChainAdapter with mocked RPC', () => {
   });
 
   it('getOffers returns offers', async () => {
-    const offers = await adapter.getOffers('rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ');
+    const offers = await adapter.getOffers('rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ');
     expect(offers.length).toBe(1);
     expect(offers[0].seq).toBe(40);
     expect(offers[0].takerPays).toBe('10000000');
   });
 
   it('getNfts returns NFTs', async () => {
-    const nfts = await adapter.getNfts('rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ');
+    const nfts = await adapter.getNfts('rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ');
     expect(nfts.length).toBe(1);
     expect(nfts[0].nftTaxon).toBe(1);
     expect(nfts[0].nftTransferFee).toBe(500);
   });
 
   it('getTransactions returns transaction history', async () => {
-    const txs = await adapter.getTransactions('rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ');
+    const txs = await adapter.getTransactions('rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ');
     expect(txs.length).toBe(1);
     expect(txs[0].txType).toBe('Payment');
     expect(txs[0].status).toBe('tesSUCCESS');
@@ -1453,7 +1453,7 @@ describe('XrplChainAdapter with mocked RPC', () => {
 
   it('getTokenBalance finds matching trust line', async () => {
     const balance = await adapter.getTokenBalance(
-      'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ',
+      'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ',
       'USD',
       'rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B',
     );
@@ -1462,7 +1462,7 @@ describe('XrplChainAdapter with mocked RPC', () => {
 
   it('getTokenBalance returns 0 for unknown currency', async () => {
     const balance = await adapter.getTokenBalance(
-      'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ',
+      'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ',
       'EUR',
       'rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B',
     );
@@ -1492,8 +1492,8 @@ describe('XrplChainAdapter sendXrp', () => {
     adapter = new XrplChainAdapter();
     mockProvider = {
       name: 'Test XRPL Wallet',
-      getAccounts: vi.fn().mockResolvedValue([{ address: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ' }]),
-      connect: vi.fn().mockResolvedValue({ accounts: [{ address: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ' }] }),
+      getAccounts: vi.fn().mockResolvedValue([{ address: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ' }]),
+      connect: vi.fn().mockResolvedValue({ accounts: [{ address: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ' }] }),
       disconnect: vi.fn().mockResolvedValue(undefined),
       signTransaction: vi.fn().mockResolvedValue({
         tx_blob: '120000...',
@@ -1563,7 +1563,7 @@ describe('XrplChainAdapter sendXrp', () => {
     mockProvider.signAndSubmit = undefined;
 
     const hash = await adapter.sendXrp('rPEPPER7kfTD9w2To4CQk6UCfuHM9c6GDHqU', '1000000');
-    expect(hash).toBe('DEADBEEF123');
+    expect(hash).toBe('DEADBEEF456');
     expect(mockProvider.signTransaction).toHaveBeenCalled();
     expect(mockRpcClient.submit).toHaveBeenCalled();
   });
@@ -1572,7 +1572,7 @@ describe('XrplChainAdapter sendXrp', () => {
     mockProvider.signAndSubmit = undefined;
 
     const hash = await adapter.sendXrp('rPEPPER7kfTD9w2To4CQk6UCfuHM9c6GDHqU', '1.5');
-    expect(hash).toBe('DEADBEEF123');
+    expect(hash).toBe('DEADBEEF456');
     expect(mockProvider.signTransaction).toHaveBeenCalled();
   });
 
@@ -1580,7 +1580,7 @@ describe('XrplChainAdapter sendXrp', () => {
     mockProvider.signAndSubmit = undefined;
 
     const hash = await adapter.sendXrp('rPEPPER7kfTD9w2To4CQk6UCfuHM9c6GDHqU', '1000000', 'payment memo');
-    expect(hash).toBe('DEADBEEF123');
+    expect(hash).toBe('DEADBEEF456');
     expect(mockProvider.signTransaction).toHaveBeenCalled();
 
     // Verify the transaction had a memo
@@ -1603,8 +1603,8 @@ describe('XrplChainAdapter DEX operations', () => {
     adapter = new XrplChainAdapter();
     mockProvider = {
       name: 'Test XRPL Wallet',
-      getAccounts: vi.fn().mockResolvedValue([{ address: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ' }]),
-      connect: vi.fn().mockResolvedValue({ accounts: [{ address: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ' }] }),
+      getAccounts: vi.fn().mockResolvedValue([{ address: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ' }]),
+      connect: vi.fn().mockResolvedValue({ accounts: [{ address: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ' }] }),
       disconnect: vi.fn().mockResolvedValue(undefined),
       signTransaction: vi.fn().mockResolvedValue({
         tx_blob: '120000...',
@@ -1703,8 +1703,8 @@ describe('XrplChainAdapter NFT operations', () => {
     adapter = new XrplChainAdapter();
     mockProvider = {
       name: 'Test XRPL Wallet',
-      getAccounts: vi.fn().mockResolvedValue([{ address: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ' }]),
-      connect: vi.fn().mockResolvedValue({ accounts: [{ address: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGhLwZQ' }] }),
+      getAccounts: vi.fn().mockResolvedValue([{ address: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ' }]),
+      connect: vi.fn().mockResolvedValue({ accounts: [{ address: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ' }] }),
       disconnect: vi.fn().mockResolvedValue(undefined),
       signTransaction: vi.fn().mockResolvedValue({
         tx_blob: '120000...',

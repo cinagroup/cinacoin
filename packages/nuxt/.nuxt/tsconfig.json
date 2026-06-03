@@ -16,9 +16,6 @@
       "vue": [
         "../../../node_modules/.pnpm/vue@3.5.34_typescript@5.9.3/node_modules/vue"
       ],
-      "@vue/runtime-core": [
-        "../../../node_modules/.pnpm/@vue+runtime-core@3.5.34/node_modules/@vue/runtime-core"
-      ],
       "@vue/compiler-sfc": [
         "../../../node_modules/.pnpm/@vue+compiler-sfc@3.5.34/node_modules/@vue/compiler-sfc"
       ],
@@ -122,7 +119,7 @@
         "./imports"
       ],
       "#app-manifest": [
-        "./manifest/meta/594303c0-0399-4472-ad84-c55aed05c443.json"
+        "./manifest/meta/af07301e-dc70-4542-9a16-b953ff2dff8b.json"
       ],
       "#components": [
         "./components"

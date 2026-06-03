@@ -33,8 +33,9 @@ const BASE58_ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvw
  */
 export function isValidXrplAddress(address: string): boolean {
   if (typeof address !== 'string') return false;
-  if (!address.startsWith('r')) return false;
-  if (address.length < 25 || address.length > 35) return false;
+  // XRPL addresses are case-insensitive; accept both 'r' and 'R' prefix
+  if (address[0] !== 'r' && address[0] !== 'R') return false;
+  if (address.length < 25 || address.length > 36) return false;
   return /^[1-9A-HJ-NP-Za-km-z]+$/.test(address);
 }
 

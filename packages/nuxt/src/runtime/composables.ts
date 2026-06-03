@@ -8,7 +8,19 @@
  * - useCinacoin, useCinacoinAccount, useCinacoinNetwork (base)
  * - useWalletCapabilities, useSendCalls, useCallsStatus, useAtomicBatch (EIP-5792)
  */
-import type { Cinacoin } from '@cinacoin/vue'
+// Local interface for the Cinacoin app instance provided by the plugin.
+interface CinacoinApp {
+  address: string | undefined
+  balance: string | undefined
+  chain: string | undefined
+  isConnected: boolean
+  networks: string[]
+  switchNetwork(network: string): Promise<void>
+  connect(): Promise<void>
+  disconnect(): Promise<void>
+}
+
+// #imports is a Nuxt virtual module — available at runtime after Nuxt prepares.
 import { useNuxtApp } from '#imports'
 
 // Re-export EIP-5792 composables from @cinacoin/vue for auto-import in Nuxt
@@ -39,7 +51,7 @@ export type {
  */
 export function useCinacoin() {
   const nuxtApp = useNuxtApp()
-  const cinaConnect = nuxtApp.$cinaConnect as Cinacoin
+  const cinaConnect = nuxtApp.$cinaConnect as CinacoinApp
 
   return { cinaConnect }
 }
