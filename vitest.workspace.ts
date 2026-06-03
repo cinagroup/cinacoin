@@ -189,4 +189,17 @@ export default defineWorkspace([
       globals: true,
     },
   },
+  {
+    test: {
+      name: 'integration-tests',
+      include: ['packages/integration-tests/tests/**/*.test.ts'],
+      environment: 'node',
+      globals: true,
+      testTimeout: 30_000,
+      hookTimeout: 15_000,
+      // Integration tests hit real RPCs — run serially to avoid rate limits
+      pool: 'forks',
+      poolOptions: { forks: { singleFork: true } },
+    },
+  },
 ]);
