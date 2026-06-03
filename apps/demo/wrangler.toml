@@ -5,8 +5,8 @@ name = "cinacoin-demo"
 compatibility_date = "2025-01-01"
 
 [build]
-# Build using the workspace's pnpm command from repo root
-command = "pnpm --filter demo build"
+# Build demo then clean webpack cache (CF Pages 25 MiB file limit)
+command = "pnpm --filter demo build && rm -rf cache/ apps/demo/.next/cache"
 # Static export output directory (Next.js produces out/)
 output_directory = "apps/demo/out"
 
