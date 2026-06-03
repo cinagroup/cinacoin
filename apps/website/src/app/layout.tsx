@@ -62,6 +62,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} dark`}>
+      <head>
+        {/* DNS prefetch & preconnect for external resources */}
+        <link rel="dns-prefetch" href="https://docs.cinacoin.com" />
+        <link rel="preconnect" href="https://docs.cinacoin.com" />
+        <link rel="dns-prefetch" href="https://dash.cinacoin.com" />
+        <link rel="preconnect" href="https://dash.cinacoin.com" />
+        <link rel="dns-prefetch" href="https://github.com" />
+        <link rel="preconnect" href="https://github.com" />
+        {/* Preload critical font */}
+
+      </head>
       <body className="antialiased bg-[#050505]">{children}</body>
     </html>
   )

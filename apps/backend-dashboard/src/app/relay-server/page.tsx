@@ -5,11 +5,38 @@ import { generateDemoMetrics, ServiceMetrics } from "@/lib/services";
 import { formatNumber, formatLatency } from "@/lib/utils";
 import MetricBox from "@/components/MetricBox";
 import BarChart from "@/components/BarChart";
+import ProgressRing from "@/components/ProgressRing";
 
 const THROUGHPUT_HISTORY = [7200, 8100, 7800, 9200, 8534, 9100, 8800, 9400, 8200, 7600, 8900, 8534];
 const THROUGHPUT_LABELS = [
   "00:00", "02:00", "04:00", "06:00", "08:00", "10:00",
   "12:00", "14:00", "16:00", "18:00", "20:00", "22:00",
+];
+
+const CONNECTION_HISTORY = [1200, 1150, 1080, 1020, 980, 1050, 1247];
+const CONNECTION_LABELS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+const CHAIN_DATA = [
+  { label: "Ethereum Mainnet", count: 520, color: "#627eea", status: "healthy" },
+  { label: "Polygon", count: 380, color: "#8247e5", status: "healthy" },
+  { label: "Arbitrum", count: 197, color: "#28a0f0", status: "healthy" },
+  { label: "Optimism", count: 98, color: "#ff0420", status: "degraded" },
+  { label: "Solana", count: 52, color: "#9945ff", status: "healthy" },
+];
+
+const DO_STATS = [
+  { label: "Active DOs", value: 89, icon: "🏗️" },
+  { label: "Avg DO Latency", value: "3ms", icon: "⚡" },
+  { label: "DO Errors (24h)", value: "2", icon: "⚠️" },
+  { label: "WebSocket Uptime", value: "99.97%", icon: "🟢" },
+];
+
+const RECENT_EVENTS = [
+  { event: "WebSocket connected", client: "0x7a3f…8d2e", chain: "Ethereum", time: "3s ago" },
+  { event: "Subscription created", client: "0x2b1c…9f4a", chain: "Polygon", time: "12s ago" },
+  { event: "WebSocket disconnected", client: "0x4d6e…3c7b", chain: "Arbitrum", time: "1m ago" },
+  { event: "Heartbeat timeout", client: "0x9f8a…1e5d", chain: "Optimism", time: "2m ago" },
+  { event: "WebSocket reconnected", client: "0x6c5b…4a3f", chain: "Solana", time: "3m ago" },
 ];
 
 export default function RelayServerPage() {
@@ -24,59 +51,97 @@ export default function RelayServerPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-white">📡 Relay Server</h1>
-        <p className="text-dashboard-muted mt-1">WebSocket relay via Durable Objects</p>
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <h1 className="text-xl sm:text-2xl font-bold text-white">📡 Relay Server</h1>
+          <p className="text-dashboard-muted mt-1">WebSocket relay via Durable Objects for real-time chain events</p>
+        </div>
+        <span className="text-xs text-dashboard-muted bg-dashboard-surface border border-dashboard-border rounded-full px-3 py-1.5">
+          Durable Objects • WebSocket
+        </span>
       </div>
 
       {/* Key metrics */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <MetricBox label="Active Connections" value={formatNumber(metrics.activeConnections || 0)} color="text-cyan-400" />
-        <MetricBox label="Throughput" value={`${formatNumber(metrics.throughput || 0)} msg/s`} />
-        <MetricBox label="Total Requests" value={formatNumber(metrics.totalRequests || 0)} />
+        <MetricBox label="Active Connections" value={formatNumber(metrics.activeConnections || 0)} color="text-cyan-400" trend="up" />
+        <MetricBox label="Throughput" value={`${formatNumber(metrics.throughput || 0)} msg/s`} trend="stable" />
+        <MetricBox label="Total Requests" value={formatNumber(metrics.totalRequests || 0)} trend="up" />
         <MetricBox label="Error Rate" value={`${metrics.errorRate?.toFixed(2) || 0}%`} color="text-dashboard-success" />
       </div>
 
-      {/* Throughput chart */}
-      <BarChart data={THROUGHPUT_HISTORY} labels={THROUGHPUT_LABELS} color="#06b6d4" height={140} />
+      {/* DO Status + Connection breakdown */}
+      <div className="grid md:grid-cols-2 gap-4">
+        {/* DO status */}
+        <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-5">
+          <h3 className="text-lg font-semibold text-white mb-4">Durable Objects Status</h3>
+          <div className="grid grid-cols-2 gap-4">
+            {DO_STATS.map((s, i) => (
+              <MetricBox key={i} label={s.label} value={s.value} icon={s.icon} />
+            ))}
+          </div>
+        </div>
 
-      {/* Durable Objects status */}
-      <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-5">
-        <h3 className="text-lg font-semibold text-white mb-4">Durable Objects Status</h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <MetricBox label="Active DOs" value="89" icon="🏗️" />
-          <MetricBox label="Avg DO Latency" value="3ms" icon="⚡" />
-          <MetricBox label="DO Errors (24h)" value="2" icon="⚠️" color="text-dashboard-success" />
-          <MetricBox label="WebSocket Uptime" value="99.97%" icon="🟢" color="text-dashboard-success" />
+        {/* Connection breakdown */}
+        <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-5">
+          <h3 className="text-lg font-semibold text-white mb-4">Connection Breakdown</h3>
+          <div className="space-y-3">
+            {CHAIN_DATA.map((chain, i) => {
+              const total = metrics.activeConnections || 1247;
+              const pct = ((chain.count / total) * 100).toFixed(1);
+              return (
+                <div key={i} className="flex items-center gap-3">
+                  <span className="text-sm text-dashboard-muted w-36">{chain.label}</span>
+                  <div className="flex-1 bg-dashboard-border rounded-full h-3 overflow-hidden" role="progressbar" aria-valuenow={Math.round(Number(pct))} aria-valuemin={0} aria-valuemax={100} aria-label={`${chain.label}: ${pct}%`}>
+                    <div
+                      className="h-full rounded-full transition-all"
+                      style={{ width: `${pct}%`, backgroundColor: chain.color }}
+                    />
+                  </div>
+                  <span className="text-sm text-white w-12 text-right">{chain.count}</span>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
 
-      {/* Connection details */}
-      <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-5">
-        <h3 className="text-lg font-semibold text-white mb-4">Connection Breakdown</h3>
-        <div className="space-y-3">
-          {[
-            { label: "Ethereum Mainnet", count: 520, color: "#627eea" },
-            { label: "Polygon", count: 380, color: "#8247e5" },
-            { label: "Arbitrum", count: 197, color: "#28a0f0" },
-            { label: "Optimism", count: 98, color: "#ff0420" },
-            { label: "Other", count: 52, color: "#6b7280" },
-          ].map((chain, i) => {
-            const total = metrics.activeConnections || 1247;
-            const pct = ((chain.count / total) * 100).toFixed(1);
-            return (
-              <div key={i} className="flex items-center gap-3">
-                <span className="text-sm text-dashboard-muted w-36">{chain.label}</span>
-                <div className="flex-1 bg-dashboard-border rounded-full h-3 overflow-hidden" role="progressbar" aria-valuenow={Math.round(Number(pct))} aria-valuemin={0} aria-valuemax={100} aria-label={`${chain.label}: ${pct}%`}>
-                  <div
-                    className="h-full rounded-full transition-all"
-                    style={{ width: `${pct}%`, backgroundColor: chain.color }}
-                  />
-                </div>
-                <span className="text-sm text-white w-12 text-right">{chain.count}</span>
-              </div>
-            );
-          })}
+      {/* Charts */}
+      <div className="grid md:grid-cols-2 gap-4">
+        <BarChart data={THROUGHPUT_HISTORY} labels={THROUGHPUT_LABELS} color="#06b6d4" height={140} aria-label="24h throughput trend" />
+        <BarChart data={CONNECTION_HISTORY} labels={CONNECTION_LABELS} color="#06b6d4" height={140} aria-label="Weekly active connections" />
+      </div>
+
+      {/* Event log */}
+      <div className="bg-dashboard-surface rounded-xl border border-dashboard-border overflow-hidden">
+        <div className="px-5 py-4 border-b border-dashboard-border">
+          <h3 className="text-lg font-semibold text-white">Live Events</h3>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-dashboard-border/50 text-dashboard-muted">
+                <th className="text-left px-5 py-3 font-medium">Event</th>
+                <th className="text-left px-5 py-3 font-medium">Client</th>
+                <th className="text-left px-5 py-3 font-medium">Chain</th>
+                <th className="text-left px-5 py-3 font-medium">Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              {RECENT_EVENTS.map((e, i) => (
+                <tr key={i} className="border-b border-dashboard-border/30 hover:bg-dashboard-border/20">
+                  <td className="px-5 py-3">
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-dashboard-border/50 text-white">
+                      {e.event}
+                    </span>
+                  </td>
+                  <td className="px-5 py-3 font-mono text-xs text-white">{e.client}</td>
+                  <td className="px-5 py-3 text-dashboard-muted">{e.chain}</td>
+                  <td className="px-5 py-3 text-dashboard-muted">{e.time}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

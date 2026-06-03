@@ -48,6 +48,17 @@ function checkRate(ip: string, limit: number): boolean {
 
 const DEFAULT_RATE_LIMIT = 100; // requests per minute
 
+// ---------------------------------------------------------------------------
+// Chain Configuration
+// Each entry: primary URL, optional fallback, and chain-specific read-only methods.
+// ---------------------------------------------------------------------------
+
+interface ChainConfig {
+  url: string;
+  fallback?: string;
+  readOnlyMethods?: Set<string>;  // chain-specific (union with EVM set for EVM chains)
+}
+
 const CHAIN_RPC_URLS: Record<string, string> = {
   "1": "https://eth.llamarpc.com",
   "42161": "https://arb1.arbitrum.io/rpc",
@@ -55,6 +66,107 @@ const CHAIN_RPC_URLS: Record<string, string> = {
   "137": "https://polygon-rpc.com",
   "10": "https://mainnet.optimism.io",
   "56": "https://bsc-dataseed1.binance.org",
+};
+
+const CHAIN_CONFIG: Record<string, ChainConfig> = {
+  // --- EVM chains (reuse READ_ONLY_METHODS) ---
+  "1":      { url: "https://eth.llamarpc.com",            fallback: "https://rpc.ankr.com/eth" },
+  "42161":  { url: "https://arb1.arbitrum.io/rpc",        fallback: "https://arbitrum-one.publicnode.com" },
+  "8453":   { url: "https://mainnet.base.org",            fallback: "https://base.publicnode.com" },
+  "137":    { url: "https://polygon-rpc.com",             fallback: "https://polygon-mainnet.public.blastapi.io" },
+  "10":     { url: "https://mainnet.optimism.io",         fallback: "https://optimism-mainnet.public.blastapi.io" },
+  "56":     { url: "https://bsc-dataseed1.binance.org",   fallback: "https://bsc-dataseed2.binance.org" },
+
+  // --- Solana ---
+  "solana": {
+    url: "https://api.mainnet-beta.solana.com",
+    fallback: "https://solana-rpc.publicnode.com",
+    readOnlyMethods: new Set([
+      "getAccountInfo", "getBalance", "getBlockHeight", "getBlockProduction",
+      "getBlockCommitment", "getBlocks", "getBlocksWithLimit", "getBlockTime",
+      "getClusterNodes", "getEpochInfo", "getEpochSchedule", "getFeeForMessage",
+      "getFirstAvailableBlock", "getGenesisHash", "getHealth", "getHighestSnapshotSlot",
+      "getIdentity", "getInflationGovernor", "getInflationRate", "getInflationReward",
+      "getLargestAccounts", "getLatestBlockhash", "getLeaderSchedule", "getMaxRetransmitSlot",
+      "getMaxShredInsertSlot", "getMinimumBalanceForRentExemption", "getMultipleAccounts",
+      "getProgramAccounts", "getRecentPerformanceSamples", "getRecentPrioritizationFees",
+      "getSignaturesForAddress", "getSignatureStatuses", "getSlot", "getSlotLeader",
+      "getSlotLeaders", "getStakeActivation", "getStakeMinimumDelegation", "getSupply",
+      "getTokenAccountBalance", "getTokenAccountsByDelegate", "getTokenAccountsByOwner",
+      "getTokenLargestAccounts", "getTokenSupply", "getTransaction", "getTransactionCount",
+      "getVersion", "getVoteAccounts", "isBlockhashValid", "minimumLedgerSlot",
+      "requestAirdrop", "simulateTransaction",
+    ]),
+  },
+
+  // --- TRON ---
+  "tron": {
+    url: "https://api.trongrid.io",
+    fallback: "https://tron-rpc.publicnode.com",
+    readOnlyMethods: new Set([
+      "wallet/getaccount", "wallet/getbalance", "wallet/getblock",
+      "wallet/getblockbyid", "wallet/getblockbylimitnext", "wallet/getblockbylatestnum",
+      "wallet/getnowblock", "wallet/gettransactionbyid", "wallet/gettransactioninfobyid",
+      "wallet/getcontract", "wallet/triggerconstantcontract",
+      "wallet/gettransactioncountbyblocknum", "wallet/listnodes",
+      "wallet/getchainparameters", "wallet/getaccountnet", "wallet/getaccountresource",
+      "wallet/getdelegatedresource", "wallet/getdelegatedresourceaccountindex",
+      "wallet/getblockbalance", "wallet/getbandwidthprices",
+    ]),
+  },
+
+  // --- TON ---
+  "ton": {
+    url: "https://toncenter.com/api/v2/jsonRPC",
+    fallback: "https://ton.api.onfinality.io/public",
+    readOnlyMethods: new Set([
+      "getAddressBalance", "getTransactions", "getAddressInformation",
+      "getExtendedAddressInformation", "getWalletInformation", "getAddressBook",
+      "getMasterchainInfo", "getMasterchainBlockSignatures", "getShardBlockProof",
+      "getShardBlockInfo", "getBlockHeader", "getBlockShards", "getShards",
+      "getValidatorStats", "tryLocateResultTx", "tryLocateSourceTx",
+      "getTokenData", "getWalletTransactions", "estimateFee",
+    ]),
+  },
+
+  // --- Sui ---
+  "sui": {
+    url: "https://fullnode.mainnet.sui.io",
+    fallback: "https://sui-mainnet.public.blastapi.io",
+    readOnlyMethods: new Set([
+      "suix_getBalance", "suix_getAllBalances", "suix_getCoinMetadata",
+      "suix_getCoins", "suix_getAllCoins", "suix_getTotalSupply",
+      "suix_getOwnedObjects", "suix_getDynamicFields", "suix_getDynamicFieldObject",
+      "suix_getObject", "suix_multiGetObjects", "suix_getTransactionsBatch",
+      "suix_queryTransactionBlocks", "suix_queryEvents", "suix_resolveNameServiceNames",
+      "suix_resolveNameServiceAddress", "suix_getNormalizedMoveModulesByPackage",
+      "sui_getTransactionBlock", "sui_multiGetTransactionBlocks", "sui_getObject",
+      "sui_multiGetObjects", "sui_getReferenceGasPrice", "sui_getLatestCheckpointSequenceNumber",
+      "sui_getCheckpoint", "sui_getCommitteeInfo", "sui_getNetworkIdentifier",
+      "sui_getChainIdentifier", "sui_getTotalTransactionBlocks",
+      "sui_xsuix_getOwnedObjects",  // legacy
+    ]),
+  },
+
+  // --- Cosmos (REST API) ---
+  "cosmos": {
+    url: "https://rest.cosmos.directory/cosmoshub",
+    fallback: "https://cosmos-rest.publicnode.com",
+    // Cosmos uses REST endpoints; for proxy compatibility we pass through
+    // The proxy will forward GET requests and POST with JSON-RPC-like bodies
+    readOnlyMethods: new Set(["_all_readonly"]), // all Cosmos queries are read-only
+  },
+
+  // --- NEAR ---
+  "near": {
+    url: "https://rpc.mainnet.near.org",
+    fallback: "https://near.lava.build",
+    readOnlyMethods: new Set([
+      "query", "block", "chunk", "gas_price", "status", "health",
+      "network_info", "validators", "block_by_id", "light_client_proof",
+      "next_light_client_block_proof", "broadcast_tx_async",
+    ]),
+  },
 };
 
 const READ_ONLY_METHODS = new Set([
@@ -203,6 +315,29 @@ function formatUptime(ms: number): string {
   return `${seconds}s`;
 }
 
+function getChainConfig(chainId: string): { config: ChainConfig | undefined; isReadOnly(method: string): boolean } {
+  const config = CHAIN_CONFIG[chainId] ?? CHAIN_CONFIG[chainId.toLowerCase()];
+  const isReadOnly = (method: string): boolean => {
+    if (!config) return READ_ONLY_METHODS.has(method);
+    if (config.readOnlyMethods?.has(method)) return true;
+    if (!config.readOnlyMethods) return READ_ONLY_METHODS.has(method);
+    return false;
+  };
+  return { config, isReadOnly };
+}
+
+async function forwardToUpstream(
+  rpcUrl: string,
+  body: JsonRpcRequest,
+): Promise<{ ok: boolean; status: number; text: string }> {
+  const upstream = await fetch(rpcUrl, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  return { ok: upstream.ok, status: upstream.status, text: await upstream.text() };
+}
+
 async function handleRpc(
   request: Request,
   env: Env,
@@ -218,8 +353,8 @@ async function handleRpc(
   }
   metrics.chainUsage[chainId]++;
 
-  const rpcUrl = CHAIN_RPC_URLS[chainId];
-  if (!rpcUrl) {
+  const { config, isReadOnly } = getChainConfig(chainId);
+  if (!config) {
     metrics.errorCount++;
     return new Response(
       JSON.stringify({ jsonrpc: "2.0", error: { code: -32601, message: `Unsupported chain: ${chainId}` }, id: null } as JsonRpcResponse),
@@ -248,7 +383,7 @@ async function handleRpc(
     );
   }
 
-  // Block write methods entirely
+  // Block write methods entirely (EVM-specific; non-EVM chains don't use these)
   if (WRITE_METHODS.has(body.method)) {
     metrics.errorCount++;
     return new Response(
@@ -257,11 +392,11 @@ async function handleRpc(
     );
   }
 
-  const isReadOnly = READ_ONLY_METHODS.has(body.method);
+  const readOnly = isReadOnly(body.method);
   const ttl = Number(env.CACHE_TTL) || 300;
 
   // Try cache for read-only methods
-  if (isReadOnly && env.RPC_CACHE) {
+  if (readOnly && env.RPC_CACHE) {
     const key = cacheKey(chainId, body);
     const cached = await env.RPC_CACHE.get(key);
     if (cached) {
@@ -271,39 +406,49 @@ async function handleRpc(
     metrics.cacheMisses++;
   }
 
-  // Forward to upstream
-  try {
-    const upstream = await fetch(rpcUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
+  // Forward to upstream with fallback support
+  const urls = [config.url];
+  if (config.fallback) urls.push(config.fallback);
 
-    const text = await upstream.text();
+  for (let i = 0; i < urls.length; i++) {
+    const rpcUrl = urls[i];
+    try {
+      const result = await forwardToUpstream(rpcUrl, body);
 
-    // Cache successful read-only responses
-    if (isReadOnly && env.RPC_CACHE && upstream.ok) {
-      const key = cacheKey(chainId, body);
-      await env.RPC_CACHE.put(key, text, { expirationTtl: ttl });
+      // Cache successful read-only responses
+      if (readOnly && env.RPC_CACHE && result.ok) {
+        const key = cacheKey(chainId, body);
+        await env.RPC_CACHE.put(key, result.text, { expirationTtl: ttl });
+      }
+
+      return new Response(result.text, {
+        status: result.status,
+        headers,
+      });
+    } catch (err) {
+      const requestId = extractRequestId(request);
+      logger.warn('Upstream failed, trying fallback', { requestId, chainId, method: body.method, url: rpcUrl, error: String(err) });
+      if (i === urls.length - 1) {
+        metrics.errorCount++;
+        logger.error('All upstreams failed', { requestId, chainId, method: body.method });
+        return new Response(
+          JSON.stringify({ jsonrpc: "2.0", error: { code: -32603, message: "Upstream request failed" }, id: body.id ?? null } as JsonRpcResponse),
+          { status: 502, headers }
+        );
+      }
     }
-
-    return new Response(text, {
-      status: upstream.status,
-      headers,
-    });
-  } catch (err) {
-    metrics.errorCount++;
-    const requestId = extractRequestId(request);
-    logger.error('Upstream RPC request failed', { requestId, chainId, method: body.method, error: String(err) });
-    return new Response(
-      JSON.stringify({ jsonrpc: "2.0", error: { code: -32603, message: "Upstream request failed" }, id: body.id ?? null } as JsonRpcResponse),
-      { status: 502, headers }
-    );
   }
+
+  metrics.errorCount++;
+  return new Response(
+    JSON.stringify({ jsonrpc: "2.0", error: { code: -32603, message: "Upstream request failed" }, id: body.id ?? null } as JsonRpcResponse),
+    { status: 502, headers }
+  );
 }
 
 function handleHealth(origin: string | null): Response {
-  return new Response(JSON.stringify({ status: "ok", timestamp: new Date().toISOString() }), {
+  const supportedChains = Object.keys(CHAIN_CONFIG);
+  return new Response(JSON.stringify({ status: "ok", timestamp: new Date().toISOString(), supported_chains: supportedChains }), {
     headers: { "Content-Type": "application/json", ...makeCorsHeaders(origin), "X-Frame-Options": "DENY" },
   });
 }
@@ -345,7 +490,8 @@ export default {
     const rpcMatch = url.pathname.match(/^\/rpc\/([A-Za-z0-9-]+)$/);
     if (rpcMatch && request.method === "POST") {
       const chainId = rpcMatch[1];
-      if (!(chainId in CHAIN_RPC_URLS)) {
+      const resolved = CHAIN_CONFIG[chainId] ?? CHAIN_CONFIG[chainId.toLowerCase()];
+      if (!resolved) {
         return new Response(
           JSON.stringify({ jsonrpc: "2.0", error: { code: -32601, message: `Unsupported chain: ${chainId}` }, id: null } as JsonRpcResponse),
           { status: 400, headers: { "Content-Type": "application/json", ...makeCorsHeaders(origin) } }
