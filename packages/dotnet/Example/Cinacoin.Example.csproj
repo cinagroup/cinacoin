@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CinaConnect.csproj" />
+    <ProjectReference Include="..\Cinacoin.csproj" />
   </ItemGroup>
 
 </Project>
