@@ -95,12 +95,18 @@ export class RampProvider implements OnRampProviderAdapter {
     url.searchParams.set("hostApiKey", this.config.apiKey);
     url.searchParams.set("userAddress", params.destinationAddress);
 
+    // swapAsset format: SYMBOL_BLOCKCHAIN (e.g., ETH_ETHEREUM, USDC_ARBITRUM)
     if (params.defaultCryptoToken) {
-      url.searchParams.set("swapAsset", params.defaultCryptoToken.toUpperCase());
+      const token = params.defaultCryptoToken.toUpperCase();
+      // Ramp Network supports comma-separated tokens for multi-asset
+      url.searchParams.set("swapAsset", token);
     }
+
     if (params.defaultFiatAmount) {
-      url.searchParams.set("defaultCurrency", params.defaultFiatCurrency || "USD");
       url.searchParams.set("defaultAmount", params.defaultFiatAmount.toString());
+    }
+    if (params.defaultFiatCurrency) {
+      url.searchParams.set("defaultCurrency", params.defaultFiatCurrency.toUpperCase());
     }
     if (params.theme) {
       url.searchParams.set("theme", params.theme);
@@ -109,7 +115,10 @@ export class RampProvider implements OnRampProviderAdapter {
       url.searchParams.set("redirectUrl", params.redirectUrl);
     }
     if (params.primaryColor) {
-      url.searchParams.set("defaultTheme", params.primaryColor.replace("#", ""));
+      url.searchParams.set("primaryColor", params.primaryColor);
+    }
+    if (params.userRegion) {
+      url.searchParams.set("userCountry", params.userRegion);
     }
 
     return url.toString();

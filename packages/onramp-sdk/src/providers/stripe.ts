@@ -9,11 +9,13 @@ import type { OnRampProviderAdapter } from "../aggregator.js";
 import type { OnRampProvider, OnRampQuote, OnRampQuoteParams, OnRampWidgetParams } from "../types.js";
 
 const STRIPE_ONRAMP_BASE = "https://link.stripe.com/v1/onramp";
-const STRIPE_API_BASE = "https://api.stripe.com/v1/crypto";
+const STRIPE_API_BASE = "https://api.stripe.com/v1/crypto/onramp";
 
 export interface StripeConfig {
-  /** Stripe publishable key */
+  /** Stripe publishable key (for widget/client) */
   publishableKey: string;
+  /** Stripe secret key (for server-side Checkout Session creation) */
+  secretKey?: string;
   /** Stripe account ID (Connect) */
   stripeAccount?: string;
   /** Environment */
@@ -98,14 +100,72 @@ export class StripeProvider implements OnRampProviderAdapter {
     return this.estimateQuote(params, info);
   }
 
+  /**
+   * Create a Stripe Checkout Session for crypto onramp (server-side).
+   * Returns the session ID which can be used to redirect to Stripe Checkout.
+   *
+   * Requires secretKey to be configured.
+   * Call this from your backend, not from the browser.
+   */
+  async createCheckoutSession(params: OnRampWidgetParams): Promise<string | null> {
+    if (!this.config.secretKey) {
+      throw new Error("Stripe secretKey is required for Checkout Session creation. Configure it server-side.");
+    }
+
+    try {
+      const url = new URL(`${STRIPE_API_BASE}/checkout_sessions`);
+
+      const body = new URLSearchParams();
+      body.set("destination_address", params.destinationAddress);
+      if (params.defaultFiatAmount) {
+        body.set("amount", params.defaultFiatAmount.toString());
+      }
+      if (params.defaultFiatCurrency) {
+        body.set("currency", params.defaultFiatCurrency.toLowerCase());
+      }
+      if (params.defaultCryptoToken) {
+        body.set("default_asset", params.defaultCryptoToken.toUpperCase());
+      }
+      if (params.redirectUrl) {
+        body.set("redirect_url", params.redirectUrl);
+      }
+
+      const res = await fetch(url.toString(), {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${this.config.secretKey}`,
+          "Content-Type": "application/x-www-form-urlencoded",
+          "Stripe-Version": "2023-10-16",
+          ...(this.config.stripeAccount ? { "Stripe-Account": this.config.stripeAccount } : {}),
+        },
+        body: body.toString(),
+      });
+
+      if (!res.ok) {
+        const error = await res.text();
+        console.error("[onramp-sdk/stripe] Checkout Session creation failed:", error);
+        return null;
+      }
+
+      const data = await res.json();
+      return data.id || data.url || null;
+    } catch (err) {
+      console.error("[onramp-sdk/stripe] Checkout Session error:", err);
+      return null;
+    }
+  }
+
   getWidgetUrl(params: OnRampWidgetParams): string {
     const baseUrl = this.config.environment === "sandbox"
       ? "https://link.stripe.com/test/v1/onramp"
       : STRIPE_ONRAMP_BASE;
 
     const url = new URL(baseUrl);
-    url.searchParams.set("client_reference_id", params.destinationAddress);
+    url.searchParams.set("pk", this.config.publishableKey);
 
+    if (params.destinationAddress) {
+      url.searchParams.set("destination_address", params.destinationAddress);
+    }
     if (params.defaultCryptoToken) {
       url.searchParams.set("default_asset", params.defaultCryptoToken.toUpperCase());
     }
