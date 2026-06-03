@@ -9,7 +9,7 @@ import type { OnRampProviderAdapter } from "../aggregator.js";
 import type { OnRampProvider, OnRampQuote, OnRampQuoteParams, OnRampWidgetParams } from "../types.js";
 
 const RAMP_WIDGET_BASE = "https://buy.ramp.network";
-const RAMP_API_BASE = "https://api-instant.ramp.network";
+const RAMP_API_BASE = "https://api-instant.ramp.network/api/host-api";
 
 export interface RampConfig {
   /** Ramp partner ID / API key */
@@ -50,17 +50,22 @@ export class RampProvider implements OnRampProviderAdapter {
 
   async getQuote(params: OnRampQuoteParams): Promise<OnRampQuote> {
     const info = this.getProviderInfo();
-    const url = new URL(`${RAMP_API_BASE}/api/host-api/get-token-price/`);
-    url.searchParams.set("symbol", params.cryptoToken.toLowerCase());
+    const url = new URL(`${RAMP_API_BASE}/get-token-price/`);
+    url.searchParams.set("symbol", params.cryptoToken.toUpperCase());
+    url.searchParams.set("fiatCurrency", params.fiatCurrency);
 
     try {
-      const res = await fetch(url.toString());
+      const res = await fetch(url.toString(), {
+        headers: {
+          Authorization: `Bearer ${this.config.apiKey}`,
+        },
+      });
       if (!res.ok) {
         return this.estimateQuote(params, info);
       }
       const data = await res.json();
       const exchangeRate = data.price || 0;
-      const cryptoAmount = params.fiatAmount / exchangeRate;
+      const cryptoAmount = exchangeRate > 0 ? params.fiatAmount / exchangeRate : 0;
       const totalCost = params.fiatAmount * (info.fees.totalFeePercent / 100) + info.fees.fixedFee;
 
       return {
@@ -94,14 +99,14 @@ export class RampProvider implements OnRampProviderAdapter {
       url.searchParams.set("swapAsset", params.defaultCryptoToken.toUpperCase());
     }
     if (params.defaultFiatAmount) {
-      url.searchParams.set("fiatCurrency", params.defaultFiatCurrency || "USD");
-      url.searchParams.set("fiatValue", params.defaultFiatAmount.toString());
+      url.searchParams.set("defaultCurrency", params.defaultFiatCurrency || "USD");
+      url.searchParams.set("defaultAmount", params.defaultFiatAmount.toString());
     }
     if (params.theme) {
       url.searchParams.set("theme", params.theme);
     }
     if (params.redirectUrl) {
-      url.searchParams.set("url", params.redirectUrl);
+      url.searchParams.set("redirectUrl", params.redirectUrl);
     }
     if (params.primaryColor) {
       url.searchParams.set("defaultTheme", params.primaryColor.replace("#", ""));

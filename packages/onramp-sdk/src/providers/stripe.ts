@@ -9,7 +9,7 @@ import type { OnRampProviderAdapter } from "../aggregator.js";
 import type { OnRampProvider, OnRampQuote, OnRampQuoteParams, OnRampWidgetParams } from "../types.js";
 
 const STRIPE_ONRAMP_BASE = "https://link.stripe.com/v1/onramp";
-const STRIPE_API_BASE = "https://api.stripe.com/v1";
+const STRIPE_API_BASE = "https://api.stripe.com/v1/crypto";
 
 export interface StripeConfig {
   /** Stripe publishable key */
