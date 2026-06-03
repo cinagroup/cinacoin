@@ -63,7 +63,7 @@ const CHAIN_RPC_URLS: Record<string, string> = {
   "1": "https://eth.llamarpc.com",
   "42161": "https://arb1.arbitrum.io/rpc",
   "8453": "https://mainnet.base.org",
-  "137": "https://polygon-rpc.com",
+  "137": "https://polygon-bor.publicnode.com",
   "10": "https://mainnet.optimism.io",
   "56": "https://bsc-dataseed1.binance.org",
 };
@@ -73,7 +73,7 @@ const CHAIN_CONFIG: Record<string, ChainConfig> = {
   "1":      { url: "https://eth.llamarpc.com",            fallback: "https://rpc.ankr.com/eth" },
   "42161":  { url: "https://arb1.arbitrum.io/rpc",        fallback: "https://arbitrum-one.publicnode.com" },
   "8453":   { url: "https://mainnet.base.org",            fallback: "https://base.publicnode.com" },
-  "137":    { url: "https://polygon-rpc.com",             fallback: "https://polygon-mainnet.public.blastapi.io" },
+  "137":    { url: "https://polygon-bor.publicnode.com",             fallback: "https://polygon-mainnet.public.blastapi.io" },
   "10":     { url: "https://mainnet.optimism.io",         fallback: "https://optimism-mainnet.public.blastapi.io" },
   "56":     { url: "https://bsc-dataseed1.binance.org",   fallback: "https://bsc-dataseed2.binance.org" },
 

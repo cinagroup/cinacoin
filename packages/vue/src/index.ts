@@ -57,3 +57,17 @@ export type {
 
 // Connector manager for real wallet connections
 export { ConnectorManager } from './connectorManager.js';
+
+// Native Vue 3 components
+export { default as ConnectModal } from './components/ConnectModal.vue.js'
+export type { ConnectModalProps } from './components/ConnectModal.vue.js'
+export { default as ChainSwitcher } from './components/ChainSwitcher.vue.js'
+export type { ChainSwitcherProps } from './components/ChainSwitcher.vue.js'
+export { default as WalletButton } from './components/WalletButton.vue.js'
+export type { WalletButtonProps } from './components/WalletButton.vue.js'
+export { default as WalletButtonGroup } from './components/WalletButtonGroup.vue.js'
+export type { WalletButtonGroupProps } from './components/WalletButtonGroup.vue.js'
+export { default as AccountModal } from './components/AccountModal.vue.js'
+export type { AccountModalProps } from './components/AccountModal.vue.js'
+export { default as BalanceDisplay } from './components/BalanceDisplay.vue.js'
+export type { BalanceDisplayProps } from './components/BalanceDisplay.vue.js'

@@ -46,22 +46,6 @@ export function useChainId() {
   return account.value.chainId;
 }
 
-/**
- * useConnect — connect to a wallet.
- */
-export function useConnect() {
-  const { connect, status, isSwitchingChain } = useCinacoin();
-  return { connect, status, isSwitchingChain };
-}
-
-/**
- * useDisconnect — disconnect from the current wallet.
- */
-export function useDisconnect() {
-  const { disconnect } = useCinacoin();
-  return { disconnect };
-}
-
 // EIP-5792 composables
 export {
   useWalletCapabilities,
@@ -96,3 +80,7 @@ export type {
   UseSendTransactionReturn,
   UseSignMessageReturn,
 } from './composables/useExtraHooks.js';
+
+// Standalone connect/disconnect composables
+export { useConnect } from './composables/useConnect.js'
+export { useDisconnect } from './composables/useDisconnect.js'
