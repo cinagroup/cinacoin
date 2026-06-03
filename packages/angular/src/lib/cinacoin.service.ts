@@ -190,12 +190,14 @@ export class CinacoinService implements OnDestroy {
   /**
    * Open the Cinacoin connection modal.
    *
-   * Triggers wallet discovery and connection flow.
+   * Emits `true` on `isOpen$` so that `<cina-connect-modal>`
+   * (subscribed to `isOpen$`) becomes visible.
+   *
+   * Usage in template:
+   *   `<cina-connect-modal [isOpen]="cina.isOpen$ | async"></cina-connect-modal>`
    */
   open(): void {
     this._open$.next(true);
-    // In a full implementation, this would trigger the UI modal.
-    // For now, we rely on the ConnectButton component to handle UI.
   }
 
   /**

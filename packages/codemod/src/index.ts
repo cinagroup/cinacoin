@@ -15,6 +15,8 @@ import { transformRainbowKitToCinacoin, CodemodResult as RainbowKitCodemodResult
 import { transformConnectKitToCinacoin, CodemodResult as ConnectKitCodemodResult } from "./codemods/connectkit-to-cinacoin.js";
 import { transformWeb3ModalToCinacoin, CodemodResult as Web3ModalCodemodResult } from "./codemods/web3modal-to-cinacoin.js";
 import { transformEthersV5ToViem, CodemodResult as EthersViemCodemodResult } from "./codemods/ethers-v5-to-viem.js";
+import { transformEthersToViem, CodemodResult as EthersToViemCodemodResult } from "./codemods/ethers-to-viem.js";
+import { transformWagmiToCinacoin, CodemodResult as WagmiCodemodResult } from "./codemods/wagmi-to-cinacoin.js";
 
 // Re-export everything
 export { transformAppKitToCinacoin, AppKitCodemodResult };
@@ -23,6 +25,8 @@ export { transformRainbowKitToCinacoin, RainbowKitCodemodResult };
 export { transformConnectKitToCinacoin, ConnectKitCodemodResult };
 export { transformWeb3ModalToCinacoin, Web3ModalCodemodResult };
 export { transformEthersV5ToViem, EthersViemCodemodResult };
+export { transformEthersToViem, EthersToViemCodemodResult };
+export { transformWagmiToCinacoin, WagmiCodemodResult };
 
 /** Codemod result type */
 export interface CodemodResult {
@@ -40,6 +44,8 @@ export const TRANSFORMS: Record<string, (source: string) => CodemodResult> = {
   "connectkit-to-cinacoin": transformConnectKitToCinacoin,
   "web3modal-to-cinacoin": transformWeb3ModalToCinacoin,
   "ethers-v5-to-viem": transformEthersV5ToViem,
+  "ethers-to-viem": transformEthersToViem,
+  "wagmi-to-cinacoin": transformWagmiToCinacoin,
 };
 
 /** List all available transform names */

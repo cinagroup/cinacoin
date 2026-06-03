@@ -6,6 +6,7 @@ export { CINA_CONNECT_OPTIONS, CINA_CONNECT_INSTANCE } from './lib/cinacoin.toke
 export { ConnectButtonComponent } from './lib/components/connect-button.component';
 export { AccountButtonComponent } from './lib/components/account-button.component';
 export { NetworkButtonComponent } from './lib/components/network-button.component';
+export { ConnectModalComponent } from './lib/components/connect-modal.component';
 
 // Pipes
 export { AddressPipe } from './lib/pipes/address.pipe';

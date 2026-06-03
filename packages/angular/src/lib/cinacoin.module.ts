@@ -15,6 +15,7 @@ import {
 import { ConnectButtonComponent } from './components/connect-button.component.js';
 import { AccountButtonComponent } from './components/account-button.component.js';
 import { NetworkButtonComponent } from './components/network-button.component.js';
+import { ConnectModalComponent } from './components/connect-modal.component.js';
 
 // Pipes
 import { AddressPipe } from './pipes/address.pipe.js';
@@ -51,6 +52,7 @@ export { Eip5792Service } from './eip5792/eip5792.service.js';
     ConnectButtonComponent,
     AccountButtonComponent,
     NetworkButtonComponent,
+    ConnectModalComponent,
   ],
   declarations: [
     // Non-standalone declarations still need to be declared
@@ -64,6 +66,7 @@ export { Eip5792Service } from './eip5792/eip5792.service.js';
     ConnectButtonComponent,
     AccountButtonComponent,
     NetworkButtonComponent,
+    ConnectModalComponent,
     // Non-standalone declarations
     AddressPipe,
     BalancePipe,

@@ -284,12 +284,15 @@ class WalletManager {
     }
 
     try {
+      final hexMessage =
+          '0x${message.codeUnits.map((b) => b.toRadixString(16).padLeft(2, '0')).join()}';
+
       final result = await _wcClient.request(
         topic: _currentSessionId!,
         request: SessionRequestParams(
           method: 'personal_sign',
           params: [
-            message,
+            hexMessage,
             _currentAccounts.first,
           ],
         ),
@@ -546,9 +549,12 @@ class WalletManager {
 
   Future<SessionStruct> _waitForSessionApproval() async {
     final completer = Completer<SessionStruct>();
+    StreamSubscription? proposalSub;
+    StreamSubscription? connectSub;
+    Timer? timeout;
 
-    // Listen for session proposal
-    _wcClient.onSessionProposal.subscribe((proposal) async {
+    // Listen for session proposal — approve it when received
+    proposalSub = _wcClient.onSessionProposal.subscribe((proposal) async {
       if (proposal != null) {
         try {
           await _wcClient.approveSession(
@@ -561,13 +567,30 @@ class WalletManager {
               ),
             },
           );
-        } catch (_) {}
+        } catch (e) {
+          if (!completer.isCompleted) {
+            completer.completeError(Exception('Session approval failed: $e'));
+          }
+        }
       }
     });
 
-    // Set a timeout
-    Future.delayed(const Duration(minutes: 5), () {
+    // Listen for session connect — the wallet approved and the session is established
+    connectSub = _wcClient.onSessionConnect.subscribe((session) async {
+      if (session != null && !completer.isCompleted) {
+        // Clean up subscriptions before completing
+        await proposalSub?.cancel();
+        await connectSub?.cancel();
+        timeout?.cancel();
+        completer.complete(session);
+      }
+    });
+
+    // Set a timeout (3 minutes — user needs time to approve in their wallet)
+    timeout = Timer(const Duration(minutes: 3), () {
       if (!completer.isCompleted) {
+        proposalSub?.cancel();
+        connectSub?.cancel();
         completer.completeError(TimeoutException('Session approval timed out'));
       }
     });

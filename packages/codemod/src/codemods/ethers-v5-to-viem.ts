@@ -38,14 +38,12 @@ const PROVIDER_REWRITES: [RegExp, string][] = [
   [/new ethers\.providers\.WebSocketProvider\(/g, "createPublicClient({ transport: webSocket("],
   [/new ethers\.providers\.FallbackProvider\(/g, "createPublicClient({ transport: fallback(["],
   [/\.getNetwork\(\)/g, ".getChainId()"],
-  [/\.getBalance\(/g, ".getBalance({ address: "],
   [/\.getBlockNumber\(\)/g, ".getBlockNumber()"],
   [/\.getTransaction\(/g, ".getTransaction({ hash: "],
   [/\.getTransactionReceipt\(/g, ".getTransactionReceipt({ hash: "],
   [/\.getCode\(/g, ".getBytecode({ address: "],
   [/\.getStorageAt\(/g, ".getStorageAt({ address: "],
   [/\.getLogs\(/g, ".getLogs("],
-  [/\.call\(/g, ".call({"],
   [/\.estimateGas\(/g, ".estimateGas({"],
   [/\.getBlock\(/g, ".getBlock({"],
   [/\.getTransactionCount\(/g, ".getTransactionCount({ address: "],
@@ -59,12 +57,11 @@ const PROVIDER_REWRITES: [RegExp, string][] = [
 const SIGNER_REWRITES: [RegExp, string][] = [
   [/new ethers\.Wallet\(/g, "privateKeyToAccount("],
   [/new ethers\.VoidSigner\(/g, "// VoidSigner not needed in viem"],
+  [/ethers\.Signer\b/g, "WalletClient"],
   [/\.signMessage\(/g, ".signMessage({ message: "],
   [/\.signTransaction\(/g, ".signTransaction({"],
   [/\.sendTransaction\(/g, ".sendTransaction({"],
   [/\.getAddress\(\)/g, ".address"],
-  [/\.provider/g, ".publicClient"],
-  [/\.connect\(/g, "// connect not needed in viem"],
 ];
 
 // ── Contract rewrites ─────────────────────────────────────────────────────
@@ -72,7 +69,6 @@ const SIGNER_REWRITES: [RegExp, string][] = [
 const CONTRACT_REWRITES: [RegExp, string][] = [
   [/new ethers\.Contract\(/g, "getContract({ address: "],
   [/\.populateTransaction\./g, ".simulate."],
-  [/\.estimateGas\./g, ".estimateGas."],
   [/\.callStatic\./g, ".read."],
   [/\.functions\./g, ".read."],
 ];
@@ -94,8 +90,8 @@ const UTILS_REWRITES: [RegExp, string][] = [
   [/ethers\.utils\.toUtf8Bytes\(/g, "toBytes("],
   [/ethers\.utils\.toUtf8String\(/g, "fromBytes("],
   [/ethers\.utils\.arrayify\(/g, "toBytes("],
-  [/ethers\.utils\.concat\(/g, "concat("],
-  [/ethers\.utils\.solidityPack\(/g, "encodeAbiParameters("],
+  [/ethers\.utils\.concat\(/g, "concatHex("],
+  [/ethers\.utils\.solidityPack\(/g, "encodePacked("],
   [/ethers\.utils\.defaultAbiCoder\./g, "encodeAbiParameters("],
   [/ethers\.utils\.Interface\(/g, "parseAbi("],
   [/ethers\.utils\.parseAbi\(/g, "parseAbi("],
@@ -106,20 +102,18 @@ const UTILS_REWRITES: [RegExp, string][] = [
 
 const BIGNUMBER_REWRITES: [RegExp, string][] = [
   [/ethers\.BigNumber\.from\(/g, "BigInt("],
-  [/\.toString\(\)/g, ".toString()"],
-  [/\.toNumber\(\)/g, "Number("],
+  [/ethers\.BigNumber\.isBigNumber\(/g, "typeof $1 === 'bigint'"],
+  [/\.toNumber\(\)/g, "Number($1)"],
   [/\.toBigInt\(\)/g, ""],
-  [/\.add\(/g, "+ BigInt("],
-  [/\.sub\(/g, "- BigInt("],
-  [/\.mul\(/g, "* BigInt("],
-  [/\.div\(/g, "/ BigInt("],
-  [/\.mod\(/g, "% BigInt("],
-  [/\.lt\(/g, "< BigInt("],
-  [/\.lte\(/g, "<= BigInt("],
-  [/\.gt\(/g, "> BigInt("],
-  [/\.gte\(/g, ">= BigInt("],
-  [/\.eq\(/g, "=== BigInt("],
-  [/\.isZero\(\)/g, "=== 0n"],
+];
+
+// ── Constants rewrites ────────────────────────────────────────────────────
+
+const CONSTANTS_REWRITES: [RegExp, string][] = [
+  [/ethers\.constants\.AddressZero/g, "zeroAddress"],
+  [/ethers\.constants\.HashZero/g, "zeroHash"],
+  [/ethers\.constants\.WeiPerEther/g, "etherUnits(1)"],
+  [/ethers\.constants\.MaxUint256/g, "maxUint256"],
 ];
 
 // ── Main transform ──────────────────────────────────────────────────────────
@@ -150,6 +144,7 @@ export function transformEthersV5ToViem(source: string): CodemodResult {
   applyRewrites(CONTRACT_REWRITES, "contract");
   applyRewrites(UTILS_REWRITES, "utils");
   applyRewrites(BIGNUMBER_REWRITES, "bigint");
+  applyRewrites(CONSTANTS_REWRITES, "constants");
 
   return {
     transformed: output !== source,
