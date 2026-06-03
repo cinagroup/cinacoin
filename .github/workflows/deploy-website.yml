@@ -1,0 +1,56 @@
+name: Deploy Website to Cloudflare Pages
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "apps/website/**"
+      - ".github/workflows/deploy-website.yml"
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: "20"
+  PNPM_VERSION: "9"
+
+jobs:
+  deploy:
+    name: Build & Deploy Website
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build Website
+        run: pnpm --filter cinacoin-website build
+
+      - name: Verify Output
+        run: |
+          if [ -d "apps/website/out" ]; then
+            echo "✓ Static output directory exists"
+            echo "Files generated:"
+            find apps/website/out -type f | wc -l
+          else
+            echo "✗ Static output directory not found"
+            exit 1
+          fi
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy apps/website/out --project-name=cinacoin-website
+        env:
+          NODE_ENV: production
