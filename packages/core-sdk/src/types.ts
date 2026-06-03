@@ -3,7 +3,19 @@
  *
  * These types define the shared data structures used across all
  * chain adapters, connectors, and the session manager.
+ *
+ * CAIP-2/10/19 types are re-exported from `@cinacoin/caip` for use
+ * throughout the monorepo.
  */
+
+import type {
+  Caip2ChainId,
+  Caip10AccountId,
+  Caip19AssetId,
+} from '@cinacoin/caip';
+
+// Re-export CAIP types for downstream consumers
+export type { Caip2ChainId, Caip10AccountId, Caip19AssetId };
 
 /**
  * Supported blockchain network namespaces (CAIP-2 format).

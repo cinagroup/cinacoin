@@ -27,6 +27,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@cinacoin/caip": "workspace:*",
     "@cinacoin/siwe": "workspace:*",
     "@noble/ciphers": "^2.2.0",
     "@noble/curves": "^2.2.0",
