@@ -33,6 +33,7 @@ export {
   useSignMessage,
   useEnsName,
   useEnsAddress,
+  useWallets,
 } from './hooks.js';
 
 export type {
@@ -43,6 +44,11 @@ export type {
   UseSignMessageReturn,
   UseEnsNameReturn,
   UseEnsAddressReturn,
+  UseConnectReturn,
+  UseAccountReturn,
+  UseDisconnectReturn,
+  WalletEntry,
+  UseWalletsReturn,
 } from './hooks.js';
 
 // EIP-5792 Wallet Call API hooks
