@@ -50,7 +50,7 @@ describe('payment-flow', () => {
     const src = readSource('hooks/usePayment.ts');
 
     it('exports usePayment function', () => { expect(src).toContain('export function usePayment'); });
-    it('accepts PaymentConfig parameter', () => { expect(src).toContain('config: PaymentConfig'); });
+    it('accepts UsePaymentConfig parameter (extends PaymentConfig)', () => { expect(src).toContain('UsePaymentConfig'); });
     it('returns UsePaymentReturn shape', () => { expect(src).toContain('UsePaymentReturn'); });
     it('implements buy function', () => { expect(src).toContain('async (params: BuyParams)'); });
     it('implements send function', () => { expect(src).toContain('async (params: SendParams)'); });
@@ -136,5 +136,97 @@ describe('payment-flow', () => {
     it('has export key with confirmation', () => { expect(src).toContain('showConfirmExport'); });
     it('has default linked providers', () => { expect(src).toContain('DEFAULT_LINKED_PROVIDERS'); });
     it('displays connected/disconnected status', () => { expect(src).toContain('provider.connected'); });
+  });
+
+  describe('usePayment hook — real execution features', () => {
+    const src = readSource('hooks/usePayment.ts');
+    it('exposes createPayment for real execution', () => { expect(src).toContain('createPayment'); });
+    it('exposes executePayment for real execution', () => { expect(src).toContain('executePayment'); });
+    it('exposes estimateGas for real execution', () => { expect(src).toContain('estimateGas'); });
+    it('exposes cancelPayment', () => { expect(src).toContain('cancelPayment'); });
+    it('uses executor when available in send', () => { expect(src).toContain('executor.createPaymentRequest'); });
+    it('uses executor.executePayment in send', () => { expect(src).toContain('executor.executePayment'); });
+    it('falls back to mock when no executor', () => { expect(src).toContain('Mock path'); });
+    it('maps chain strings to chain IDs', () => { expect(src).toContain('chainToChainId'); });
+  });
+
+  describe('PaymentExecutor (source analysis)', () => {
+    const src = readSource('executor/PaymentExecutor.ts');
+    it('exports PaymentExecutor class', () => { expect(src).toContain('export class PaymentExecutor'); });
+    it('has createPaymentRequest method', () => { expect(src).toContain('createPaymentRequest'); });
+    it('has executePayment method', () => { expect(src).toContain('executePayment'); });
+    it('has estimateGas method', () => { expect(src).toContain('estimateGas'); });
+    it('has getPaymentStatus method', () => { expect(src).toContain('getPaymentStatus'); });
+    it('has cancelPayment method', () => { expect(src).toContain('cancelPayment'); });
+    it('supports multisig approvals', () => { expect(src).toContain('approvePayment'); });
+    it('uses exponential backoff for polling', () => { expect(src).toContain('backoffMs'); });
+    it('handles native token transfers', () => { expect(src).toContain('sendTransaction'); });
+    it('handles ERC-20 transfers', () => { expect(src).toContain('writeContract'); });
+    it('uses ERC-20 ABI', () => { expect(src).toContain('ERC20_ABI'); });
+    it('uses parseUnits for amount conversion', () => { expect(src).toContain('parseUnits'); });
+    it('tracks payments in a Map', () => { expect(src).toContain('Map<string, PaymentRequest>'); });
+    it('polls for transaction receipt', () => { expect(src).toContain('pollForReceipt'); });
+  });
+
+  describe('PaymentStateMachine (source analysis)', () => {
+    const src = readSource('executor/PaymentStateMachine.ts');
+    it('exports PaymentStateMachine class', () => { expect(src).toContain('export class PaymentStateMachine'); });
+    it('defines valid state transitions', () => { expect(src).toContain('VALID_TRANSITIONS'); });
+    it('has transition method', () => { expect(src).toContain('transition('); });
+    it('has startPolling method', () => { expect(src).toContain('startPolling'); });
+    it('has stopPolling method', () => { expect(src).toContain('stopPolling'); });
+    it('supports event listeners', () => { expect(src).toContain('onStateChange'); });
+    it('supports confirmed event', () => { expect(src).toContain('onConfirmed'); });
+    it('supports failed event', () => { expect(src).toContain('onFailed'); });
+    it('supports cancelled event', () => { expect(src).toContain('onCancelled'); });
+    it('uses exponential backoff', () => { expect(src).toContain('_backoffMs'); });
+  });
+
+  describe('BatchPayment (source analysis)', () => {
+    const src = readSource('executor/BatchPayment.ts');
+    it('exports BatchPayment class', () => { expect(src).toContain('export class BatchPayment'); });
+    it('has add method', () => { expect(src).toContain('add('); });
+    it('has execute method', () => { expect(src).toContain('execute('); });
+    it('has estimateGas method', () => { expect(src).toContain('estimateGas'); });
+    it('uses Multicall3', () => { expect(src).toContain('MULTICALL3_ABI'); });
+    it('has default multicall addresses', () => { expect(src).toContain('DEFAULT_MULTICALL3_ADDRESS'); });
+    it('supports aggregate3', () => { expect(src).toContain('aggregate3'); });
+  });
+
+  describe('usePaymentStatus hook (source analysis)', () => {
+    const src = readSource('hooks/usePaymentStatus.ts');
+    it('exports usePaymentStatus function', () => { expect(src).toContain('export function usePaymentStatus'); });
+    it('accepts paymentId and executor', () => { expect(src).toContain('paymentId: string | null'); });
+    it('returns payment state', () => { expect(src).toContain('state: PaymentState | null'); });
+    it('returns txHash', () => { expect(src).toContain('txHash'); });
+    it('supports auto-refresh', () => { expect(src).toContain('setInterval'); });
+    it('returns refetch function', () => { expect(src).toContain('refetch'); });
+  });
+
+  describe('usePaymentHistory hook (source analysis)', () => {
+    const src = readSource('hooks/usePaymentHistory.ts');
+    it('exports usePaymentHistory function', () => { expect(src).toContain('export function usePaymentHistory'); });
+    it('returns filtered payments', () => { expect(src).toContain('filteredPayments'); });
+    it('supports state filtering', () => { expect(src).toContain('filter'); });
+    it('supports auto-refresh', () => { expect(src).toContain('setInterval'); });
+    it('has getPayment method', () => { expect(src).toContain('getPayment'); });
+  });
+
+  describe('types: Payment execution types', () => {
+    const src = readSource('types.ts');
+    it('defines PaymentState type', () => { expect(src).toContain('PaymentState'); });
+    it('defines PaymentRequest interface', () => { expect(src).toContain('PaymentRequest'); });
+    it('defines CreatePaymentParams interface', () => { expect(src).toContain('CreatePaymentParams'); });
+    it('defines PaymentResult interface', () => { expect(src).toContain('PaymentResult'); });
+    it('defines GasEstimate interface', () => { expect(src).toContain('GasEstimate'); });
+    it('defines MultisigApproval interface', () => { expect(src).toContain('MultisigApproval'); });
+    it('defines ExecutorConfig interface', () => { expect(src).toContain('ExecutorConfig'); });
+    it('PaymentState includes all states', () => {
+      expect(src).toContain('"pending"');
+      expect(src).toContain('"processing"');
+      expect(src).toContain('"confirmed"');
+      expect(src).toContain('"failed"');
+      expect(src).toContain('"cancelled"');
+    });
   });
 });
