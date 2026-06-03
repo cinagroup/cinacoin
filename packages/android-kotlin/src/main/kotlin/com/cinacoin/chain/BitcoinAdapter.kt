@@ -17,7 +17,7 @@
  */
 package com.cinacoin.chain
 
-import com.cinacoin.chain.ChainAdapter
+
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
