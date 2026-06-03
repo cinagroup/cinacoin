@@ -44,3 +44,4 @@ packages/*/dist/
 apps/*/out/
 packages/push-server/target/
 */target/
+packages/nuxt/.nuxt/
