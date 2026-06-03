@@ -313,3 +313,87 @@ class SessionState {
         error: error,
       );
 }
+
+/// Transaction parameters for chain adapters.
+class TransactionParams {
+  /// Sender address.
+  final String from;
+
+  /// Recipient address.
+  final String to;
+
+  /// Value to transfer (wei/satoshi/nano units as hex or decimal string).
+  final String? value;
+
+  /// Transaction data / calldata.
+  final String? data;
+
+  /// Gas limit.
+  final String? gasLimit;
+
+  /// Gas price.
+  final String? gasPrice;
+
+  /// Chain ID override.
+  final String? chainId;
+
+  const TransactionParams({
+    required this.from,
+    required this.to,
+    this.value,
+    this.data,
+    this.gasLimit,
+    this.gasPrice,
+    this.chainId,
+  });
+}
+
+/// Generic error type for the Cinacoin SDK.
+class CinacoinError implements Exception {
+  /// Error code.
+  final int code;
+
+  /// Human-readable message.
+  final String message;
+
+  /// Underlying cause (optional).
+  final Object? cause;
+
+  const CinacoinError({
+    required this.code,
+    required this.message,
+    this.cause,
+  });
+
+  @override
+  String toString() => 'CinacoinError($code): $message';
+}
+
+/// Wallet connection info for signer display.
+class WalletConnection {
+  /// Unique wallet identifier.
+  final String id;
+
+  /// Display name.
+  final String name;
+
+  /// Icon URL.
+  final String? iconUrl;
+
+  /// Deep link scheme for mobile.
+  final String? deepLink;
+
+  /// Whether installed on device.
+  final bool isInstalled;
+
+  const WalletConnection({
+    required this.id,
+    required this.name,
+    this.iconUrl,
+    this.deepLink,
+    this.isInstalled = false,
+  });
+
+  @override
+  String toString() => 'WalletConnection(id=$id, name=$name)';
+}

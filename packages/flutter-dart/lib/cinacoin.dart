@@ -51,6 +51,15 @@ export 'src/adapters/solana_adapter.dart';
 export 'src/auth/siwe.dart';
 export 'src/utils.dart';
 
+// ─── New Multi-Chain & WC v2 Modules ───────────────────────────────────
+
+export 'src/walletconnect_manager.dart';
+export 'src/chain_adapters.dart';
+export 'src/transaction_manager.dart';
+export 'src/signer_manager.dart';
+export 'src/storage_manager.dart';
+export 'src/cinacoin_sdk.dart';
+
 // ─── SDK Version ────────────────────────────────────────────────────────
 
 /// SDK version string.
