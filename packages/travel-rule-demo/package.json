@@ -9,11 +9,11 @@
   },
   "dependencies": {
     "ethers": "^6.13",
-    "axios": "^1.7"
+    "axios": "^1.17"
   },
   "devDependencies": {
     "typescript": "^5.7",
-    "tsx": "^4.19.0"
+    "tsx": "^4.22.4"
   },
   "publishConfig": {
     "access": "public"
