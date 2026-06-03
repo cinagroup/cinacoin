@@ -2,13 +2,13 @@ use std::time::{SystemTime, UNIX_EPOCH};
 
 use jsonwebtoken::{encode, Algorithm, EncodingKey, Header};
 use reqwest::header::{HeaderMap, HeaderValue, AUTHORIZATION};
-use ring::signature::Ed25519KeyPair;
 
 use crate::config::Config;
 use crate::metrics::{record_push_failed, record_push_sent};
 use crate::types::PushResponse;
 
 /// Apple Push Notification Service HTTP/2 client.
+#[derive(Clone)]
 pub struct ApnsClient {
     config: Config,
     http_client: reqwest::Client,
@@ -25,16 +25,17 @@ impl ApnsClient {
 
     /// Generate a JWT token for APNs authentication (ES256).
     ///
+    /// Apple APNs auth keys (.p8) are EC P-256 keys in PKCS#8 PEM format.
+    /// `jsonwebtoken`'s `from_ec_pem` accepts this format directly.
     /// The token is valid for 60 minutes per Apple's specification.
     pub fn generate_token(&self) -> Result<String, ApnsError> {
-        let key_bytes = std::fs::read(&self.config.apns_cert_path)
+        let pem = std::fs::read(&self.config.apns_cert_path)
             .map_err(|e| ApnsError::KeyRead(e.to_string()))?;
 
-        let key_pair = Ed25519KeyPair::from_pkcs8(&key_bytes)
+        // Apple .p8 keys are EC P-256 PKCS#8 PEM files.
+        // jsonwebtoken::EncodingKey::from_ec_pem handles this directly.
+        let encoding_key = EncodingKey::from_ec_pem(&pem)
             .map_err(|e| ApnsError::KeyParse(e.to_string()))?;
-
-        let encoding_key =
-            EncodingKey::from_secret(key_pair.as_ref());
 
         let now = SystemTime::now()
             .duration_since(UNIX_EPOCH)
@@ -87,6 +88,8 @@ impl ApnsClient {
                     message_id: None,
                     error: Some(format!("Token generation failed: {}", e)),
                     platform: "apns".to_string(),
+                    retry_attempts: 0,
+                    receipt_id: None,
                 };
             }
         };
@@ -137,6 +140,8 @@ impl ApnsClient {
                         message_id: apns_id,
                         error: None,
                         platform: "apns".to_string(),
+                        retry_attempts: 0,
+                        receipt_id: None,
                     }
                 } else {
                     let body_text = resp.text().await.unwrap_or_default();
@@ -146,6 +151,8 @@ impl ApnsClient {
                         message_id: None,
                         error: Some(format!("APNs error {}: {}", status, body_text)),
                         platform: "apns".to_string(),
+                        retry_attempts: 0,
+                        receipt_id: None,
                     }
                 }
             }
@@ -156,6 +163,8 @@ impl ApnsClient {
                     message_id: None,
                     error: Some(format!("APNs request failed: {}", e)),
                     platform: "apns".to_string(),
+                    retry_attempts: 0,
+                    receipt_id: None,
                 }
             }
         }
@@ -190,7 +199,7 @@ impl std::fmt::Display for ApnsError {
 }
 
 /// Build the APNs JSON payload.
-pub(crate) fn build_apns_payload(
+pub fn build_apns_payload(
     title: Option<&str>,
     body: &str,
     data: &std::collections::HashMap<String, String>,

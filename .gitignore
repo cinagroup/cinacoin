@@ -38,3 +38,5 @@ apps/backend-dashboard/out/
 apps/health-status/out/
 packages/*/dist/
 apps/*/out/
+packages/push-server/target/
+*/target/

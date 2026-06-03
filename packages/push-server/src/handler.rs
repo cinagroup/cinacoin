@@ -2,6 +2,7 @@ use axum::extract::State;
 use axum::http::StatusCode;
 use axum::response::IntoResponse;
 use axum::Json;
+use serde_json::json;
 use std::sync::Arc;
 use uuid::Uuid;
 
@@ -35,7 +36,7 @@ pub struct AppState {
 pub async fn push(
     State(state): State<Arc<AppState>>,
     Json(req): Json<PushRequest>,
-) -> impl IntoResponse {
+) -> (StatusCode, Json<PushResponse>) {
     let platform_str = match req.platform {
         Platform::Apns => "apns",
         Platform::Fcm => "fcm",
@@ -46,9 +47,13 @@ pub async fn push(
         metrics::record_rate_limited("device");
         return (
             StatusCode::TOO_MANY_REQUESTS,
-            Json(RateLimitResponse {
-                error: "Device rate limit exceeded".into(),
-                retry_after_secs: state.config.rate_limit_window_secs,
+            Json(PushResponse {
+                success: false,
+                message_id: None,
+                error: Some("Device rate limit exceeded".into()),
+                platform: platform_str.to_string(),
+                retry_attempts: 0,
+                receipt_id: None,
             }),
         );
     }
@@ -58,9 +63,13 @@ pub async fn push(
             metrics::record_rate_limited("app");
             return (
                 StatusCode::TOO_MANY_REQUESTS,
-                Json(RateLimitResponse {
-                    error: "App rate limit exceeded".into(),
-                    retry_after_secs: state.config.rate_limit_window_secs,
+                Json(PushResponse {
+                    success: false,
+                    message_id: None,
+                    error: Some("App rate limit exceeded".into()),
+                    platform: platform_str.to_string(),
+                    retry_attempts: 0,
+                    receipt_id: None,
                 }),
             );
         }
@@ -121,7 +130,7 @@ pub async fn push(
             }
         });
 
-        Some(receipt_id)
+        Some(receipt_id.clone())
     } else {
         None
     };
@@ -201,6 +210,7 @@ pub async fn push_batch(
     let mut success = 0;
     let mut failed = 0;
 
+    let total = req.pushes.len();
     for push_req in req.pushes {
         // We reuse the single-push handler by simulating state.
         // For batch we call send_once directly (skipping rate-limiter for brevity).
@@ -232,7 +242,7 @@ pub async fn push_batch(
     (
         StatusCode::OK,
         Json(BatchPushResponse {
-            total: req.pushes.len(),
+            total,
             success,
             failed,
             results,
@@ -249,14 +259,16 @@ pub async fn get_receipt(
     axum::extract::Path(receipt_id): axum::extract::Path<String>,
 ) -> impl IntoResponse {
     match crate::delivery::get_receipt(&state.config.redis_url, &receipt_id).await {
-        Ok(Some(receipt)) => (StatusCode::OK, Json(receipt)),
+        Ok(Some(receipt)) => {
+            (StatusCode::OK, axum::Json(serde_json::to_value(receipt).unwrap()))
+        }
         Ok(None) => (
             StatusCode::NOT_FOUND,
-            Json(serde_json::json!({ "error": "Receipt not found" })),
+            axum::Json(serde_json::json!({ "error": "Receipt not found" })),
         ),
         Err(e) => (
             StatusCode::INTERNAL_SERVER_ERROR,
-            Json(serde_json::json!({ "error": e })),
+            axum::Json(serde_json::json!({ "error": e })),
         ),
     }
 }

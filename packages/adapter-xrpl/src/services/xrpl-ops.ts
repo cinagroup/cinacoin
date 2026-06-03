@@ -721,3 +721,311 @@ export function buildRpcUrl(network: 'mainnet' | 'testnet' | 'devnet'): string {
   };
   return urls[network];
 }
+
+/* ─────────────────────────────────────────────────────────────── */
+/*  Real RPC Execution (fetch-based via HTTP JSON-RPC proxy)        */
+/* ─────────────────────────────────────────────────────────────── */
+
+/** XRPL network identifier. */
+type XrplNetworkInternal = 'mainnet' | 'testnet' | 'devnet';
+
+/** REST proxy URLs per network. */
+export const XRPL_REST_URLS: Record<XrplNetworkInternal, string> = {
+  mainnet: 'https://s1.ripple.com:51234',
+  testnet: 'https://s.altnet.rippletest.net:51234',
+  devnet: 'https://s.devnet.rippletest.net:51234',
+};
+
+/** WebSocket URLs per network. */
+export const XRPL_WS_URLS: Record<XrplNetworkInternal, string> = {
+  mainnet: 'wss://s1.ripple.com',
+  testnet: 'wss://s.altnet.rippletest.net:51233',
+  devnet: 'wss://s.devnet.rippletest.net:51233',
+};
+
+/** RPC response wrapper. */
+export interface XrplRpcResult {
+  result: {
+    status?: string;
+    error?: string;
+    error_message?: string;
+    [key: string]: unknown;
+  };
+}
+
+/** Submit transaction result. */
+export interface XrplSubmitResult {
+  engineResult: string;
+  engineResultMessage: string;
+  txBlob: string;
+  txJson: XrplTransaction;
+}
+
+/**
+ * Make a JSON-RPC POST call to an XRPL server via the HTTP JSON-RPC proxy.
+ */
+async function xrplRpcPost<T>(
+  rpcUrl: string,
+  command: string,
+  params: Record<string, unknown> = {},
+): Promise<T> {
+  const response = await fetch(rpcUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ command, ...params }),
+  });
+  if (!response.ok) {
+    throw new Error(`XRPL RPC HTTP ${response.status}: ${response.statusText}`);
+  }
+  const data = (await response.json()) as XrplRpcResult;
+  if (data.result.error) {
+    throw new Error(`XRPL RPC error: ${data.result.error} - ${data.result.error_message ?? ''}`);
+  }
+  return data.result as T;
+}
+
+/**
+ * Submit a signed transaction via `submit` RPC.
+ *
+ * @param network - XRPL network.
+ * @param txBlob - Signed transaction blob (hex).
+ * @returns Submit result with engine result code.
+ */
+export async function submitViaRpc(
+  network: XrplNetworkInternal,
+  txBlob: string,
+): Promise<XrplSubmitResult> {
+  const rpcUrl = XRPL_REST_URLS[network];
+  const result = await xrplRpcPost<{ engine_result: string; engine_result_message: string; tx_blob: string; tx_json: XrplTransaction }>(
+    rpcUrl,
+    'submit',
+    { tx_blob: txBlob },
+  );
+  return {
+    engineResult: result.engine_result,
+    engineResultMessage: result.engine_result_message,
+    txBlob: result.tx_blob,
+    txJson: result.tx_json,
+  };
+}
+
+/**
+ * Prepare a Payment transaction via RPC.
+ * Returns the unsigned transaction JSON ready for signing.
+ *
+ * @param network - XRPL network.
+ * @param account - Sender address.
+ * @param destination - Recipient address.
+ * @param amountDrops - Amount in drops.
+ * @param destinationTag - Optional destination tag.
+ * @param memo - Optional memo.
+ * @returns Unsigned Payment transaction + current sequence + fee.
+ */
+export async function preparePaymentViaRpc(
+  network: XrplNetworkInternal,
+  account: string,
+  destination: string,
+  amountDrops: string,
+  destinationTag?: number,
+  memo?: string,
+): Promise<{ txJson: XrplTransaction; sequence: number; fee: string; lastLedgerSequence: number }> {
+  const rpcUrl = XRPL_REST_URLS[network];
+  const accountInfo = await xrplRpcPost<{ account_data: { Sequence: number; Balance: string } }>(
+    rpcUrl, 'account_info', { account, ledger_index: 'current' },
+  );
+  const serverInfo = await xrplRpcPost<{ validated_ledger: { seq: number } }>(
+    rpcUrl, 'server_info',
+  );
+
+  const sequence = accountInfo.account_data.Sequence;
+  const fee = DEFAULT_FEE;
+  const lastLedgerSequence = serverInfo.validated_ledger.seq + 20;
+
+  const txJson = buildPaymentTx({
+    account, destination, amount: amountDrops, fee, sequence, lastLedgerSequence,
+    ...(destinationTag !== undefined ? { destinationTag } : {}),
+    ...(memo ? { memo } : {}),
+  });
+  return { txJson, sequence, fee, lastLedgerSequence };
+}
+
+/**
+ * Prepare a TrustSet transaction via RPC.
+ *
+ * @param network - XRPL network.
+ * @param account - Sender address.
+ * @param issuer - Issuer address.
+ * @param currency - Currency code.
+ * @param limit - Trust limit.
+ * @param flags - Optional flags.
+ * @returns Unsigned TrustSet transaction + sequence + fee.
+ */
+export async function prepareTrustSetViaRpc(
+  network: XrplNetworkInternal,
+  account: string,
+  issuer: string,
+  currency: string,
+  limit: string,
+  flags?: number,
+): Promise<{ txJson: XrplTransaction; sequence: number; fee: string; lastLedgerSequence: number }> {
+  const rpcUrl = XRPL_REST_URLS[network];
+  const accountInfo = await xrplRpcPost<{ account_data: { Sequence: number } }>(
+    rpcUrl, 'account_info', { account, ledger_index: 'current' },
+  );
+  const serverInfo = await xrplRpcPost<{ validated_ledger: { seq: number } }>(
+    rpcUrl, 'server_info',
+  );
+
+  const sequence = accountInfo.account_data.Sequence;
+  const fee = DEFAULT_FEE;
+  const lastLedgerSequence = serverInfo.validated_ledger.seq + 20;
+
+  const txJson = buildTrustSetTx({
+    account, issuer, currency, limit, fee, sequence, lastLedgerSequence, flags,
+  });
+  return { txJson, sequence, fee, lastLedgerSequence };
+}
+
+/**
+ * Prepare an OfferCreate transaction via RPC (DEX order).
+ *
+ * @param network - XRPL network.
+ * @param account - Sender address.
+ * @param takerPays - What the account wants.
+ * @param takerGets - What the account pays.
+ * @param expiration - Optional expiration ledger.
+ * @param flags - Optional flags.
+ * @returns Unsigned OfferCreate transaction + sequence + fee.
+ */
+export async function prepareOfferCreateViaRpc(
+  network: XrplNetworkInternal,
+  account: string,
+  takerPays: string | { value: string; currency: string; issuer: XrplClassicAddress },
+  takerGets: string | { value: string; currency: string; issuer: XrplClassicAddress },
+  expiration?: number,
+  flags?: number,
+): Promise<{ txJson: XrplTransaction; sequence: number; fee: string; lastLedgerSequence: number }> {
+  const rpcUrl = XRPL_REST_URLS[network];
+  const accountInfo = await xrplRpcPost<{ account_data: { Sequence: number } }>(
+    rpcUrl, 'account_info', { account, ledger_index: 'current' },
+  );
+  const serverInfo = await xrplRpcPost<{ validated_ledger: { seq: number } }>(
+    rpcUrl, 'server_info',
+  );
+
+  const sequence = accountInfo.account_data.Sequence;
+  const fee = DEFAULT_FEE;
+  const lastLedgerSequence = serverInfo.validated_ledger.seq + 20;
+
+  const txJson = buildOfferCreateTx({
+    account, takerPays, takerGets, fee, sequence, lastLedgerSequence,
+    ...(expiration !== undefined ? { expiration } : {}),
+    ...(flags !== undefined ? { flags } : {}),
+  });
+  return { txJson, sequence, fee, lastLedgerSequence };
+}
+
+/**
+ * Query order book via `book_offers` RPC.
+ */
+export async function getOrderBookViaRpc(
+  network: XrplNetworkInternal,
+  gets: { currency: string; issuer?: string },
+  pays: { currency: string; issuer?: string },
+  limit?: number,
+): Promise<{
+  offers: Array<{
+    Account: string;
+    BookDirectory: string;
+    TakerGets: string | { value: string; currency: string; issuer: string };
+    TakerPays: string | { value: string; currency: string; issuer: string };
+    Sequence: number;
+  }>;
+  ledger_hash?: string;
+  ledger_index?: number;
+}> {
+  const rpcUrl = XRPL_REST_URLS[network];
+  return xrplRpcPost(rpcUrl, 'book_offers', {
+    taker_gets: { currency: gets.currency, ...(gets.issuer ? { issuer: gets.issuer } : {}) },
+    taker_pays: { currency: pays.currency, ...(pays.issuer ? { issuer: pays.issuer } : {}) },
+    limit: limit ?? 20,
+  });
+}
+
+/**
+ * Get account info via `account_info` RPC.
+ */
+export async function getAccountInfoViaRpc(
+  network: XrplNetworkInternal,
+  account: string,
+  strict: boolean = true,
+): Promise<{ sequence: number; xrpBalance: string; ownerCount: number; flags: number }> {
+  const rpcUrl = XRPL_REST_URLS[network];
+  const result = await xrplRpcPost<{ account_data: Record<string, unknown> }>(
+    rpcUrl, 'account_info', { account, strict, ledger_index: 'current' },
+  );
+  return parseAccountInfo(result as unknown as Record<string, unknown>);
+}
+
+/**
+ * Get account trust lines via `account_lines` RPC.
+ */
+export async function getTrustLinesViaRpc(
+  network: XrplNetworkInternal,
+  account: string,
+  peerAccount?: string,
+  limit?: number,
+): Promise<{
+  lines: Array<{
+    account: string; balance: string; limit: string; limit_peer: string; currency: string;
+  }>;
+}> {
+  const rpcUrl = XRPL_REST_URLS[network];
+  return xrplRpcPost(rpcUrl, 'account_lines', {
+    account, ...(peerAccount ? { peer: peerAccount } : {}), ...(limit ? { limit } : {}),
+    ledger_index: 'current',
+  });
+}
+
+/**
+ * Get account offers via `account_offers` RPC.
+ */
+export async function getAccountOffersViaRpc(
+  network: XrplNetworkInternal,
+  account: string,
+  limit?: number,
+): Promise<{
+  offers: Array<{
+    flags: number; seq: number;
+    taker_gets: string | { value: string; currency: string; issuer: string };
+    taker_pays: string | { value: string; currency: string; issuer: string };
+  }>;
+}> {
+  const rpcUrl = XRPL_REST_URLS[network];
+  return xrplRpcPost(rpcUrl, 'account_offers', {
+    account, ...(limit ? { limit } : {}), ledger_index: 'current',
+  });
+}
+
+/**
+ * Get server info via `server_info` RPC.
+ */
+export async function getServerInfoViaRpc(
+  network: XrplNetworkInternal,
+): Promise<{ info: { validated_ledger: { seq: number; hash: string }; server_state: string; uptime: number } }> {
+  const rpcUrl = XRPL_REST_URLS[network];
+  return xrplRpcPost(rpcUrl, 'server_info');
+}
+
+/**
+ * Get ledger info via `ledger` RPC.
+ */
+export async function getLedgerViaRpc(
+  network: XrplNetworkInternal,
+  ledgerIndex?: string | number,
+): Promise<{ ledger_hash: string; ledger_index: number; transactions: unknown[] }> {
+  const rpcUrl = XRPL_REST_URLS[network];
+  return xrplRpcPost(rpcUrl, 'ledger', {
+    ledger_index: ledgerIndex ?? 'validated', transactions: true, expand: true,
+  });
+}

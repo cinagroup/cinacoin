@@ -276,6 +276,110 @@ export class HederaAdapter implements HederaConnector {
     }
     return this._connector;
   }
+
+  // ─── Real RPC Execution ─────────────────────────────────────────
+
+  /**
+   * Submit a signed transaction via Hedera JSON-RPC relay.
+   */
+  async submitViaRpc(
+    relayUrl: string,
+    signedTxHex: string,
+  ): Promise<import('./services/hedera-ops.js').HederaSubmitResult> {
+    const { submitViaRpc } = await import('./services/hedera-ops.js');
+    return submitViaRpc(relayUrl, signedTxHex);
+  }
+
+  /**
+   * Prepare an HBAR transfer for signing via relay.
+   */
+  async prepareHbarTransferViaRpc(
+    relayUrl: string,
+    from: string,
+    to: string,
+    amountTinybar: string,
+    memo?: string,
+  ): Promise<import('./services/hedera-ops.js').HederaSubmitResult> {
+    const { submitHbarTransferViaRpc } = await import('./services/hedera-ops.js');
+    return submitHbarTransferViaRpc(relayUrl, from, to, amountTinybar, memo);
+  }
+
+  /**
+   * Prepare an HTS token transfer for signing via relay.
+   */
+  async prepareTokenTransferViaRpc(
+    relayUrl: string,
+    from: string,
+    to: string,
+    tokenId: string,
+    amount: string,
+  ): Promise<import('./services/hedera-ops.js').HederaSubmitResult> {
+    const { submitTokenTransferViaRpc } = await import('./services/hedera-ops.js');
+    return submitTokenTransferViaRpc(relayUrl, from, to, tokenId, amount);
+  }
+
+  /**
+   * Prepare a smart contract call for signing via relay.
+   */
+  async prepareContractCallViaRpc(
+    relayUrl: string,
+    contractId: string,
+    functionParameters: string,
+    gas: number,
+    amount?: string,
+  ): Promise<import('./services/hedera-ops.js').HederaSubmitResult> {
+    const { submitContractCallViaRpc } = await import('./services/hedera-ops.js');
+    return submitContractCallViaRpc(relayUrl, contractId, functionParameters, gas, amount);
+  }
+
+  /**
+   * Get account balance via mirror node REST API.
+   */
+  async getBalanceViaMirror(
+    accountId: string,
+    network: import('./services/hedera-ops.js').HederaNetwork = 'mainnet',
+  ): Promise<{ balance: string; tokens: Array<{ tokenId: string; balance: string }> }> {
+    const { HEDERA_NETWORKS, getBalanceViaMirror } = await import('./services/hedera-ops.js');
+    const mirrorUrl = HEDERA_NETWORKS[network].mirrorNodeUrl;
+    return getBalanceViaMirror(mirrorUrl, accountId);
+  }
+
+  /**
+   * Get token info via mirror node REST API.
+   */
+  async getTokenInfoViaMirror(
+    tokenId: string,
+    network: import('./services/hedera-ops.js').HederaNetwork = 'mainnet',
+  ): Promise<{
+    tokenId: string;
+    name: string;
+    symbol: string;
+    decimals: number;
+    totalSupply: string;
+  }> {
+    const { HEDERA_NETWORKS, getTokenInfoViaMirror } = await import('./services/hedera-ops.js');
+    const mirrorUrl = HEDERA_NETWORKS[network].mirrorNodeUrl;
+    return getTokenInfoViaMirror(mirrorUrl, tokenId);
+  }
+
+  /**
+   * Get transaction history via mirror node REST API.
+   */
+  async getTransactionHistoryViaMirror(
+    accountId: string,
+    network: import('./services/hedera-ops.js').HederaNetwork = 'mainnet',
+    limit: number = 10,
+  ): Promise<{
+    transactions: Array<{
+      transaction_id: string;
+      name: string;
+      consensus_timestamp: string;
+    }>;
+  }> {
+    const { HEDERA_NETWORKS, getTransactionHistoryViaMirror } = await import('./services/hedera-ops.js');
+    const mirrorUrl = HEDERA_NETWORKS[network].mirrorNodeUrl;
+    return getTransactionHistoryViaMirror(mirrorUrl, accountId, limit);
+  }
 }
 
 /**

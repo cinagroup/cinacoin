@@ -9,10 +9,11 @@ use crate::types::PushResponse;
 /// Firebase Cloud Messaging HTTP v1 API client.
 ///
 /// Uses OAuth2 service account flow with real JWT signing via `jsonwebtoken` + `ring`.
+#[derive(Clone)]
 pub struct FcmClient {
     config: Config,
     http_client: reqwest::Client,
-    oauth_token: std::sync::RwLock<Option<FcmToken>>,
+    oauth_token: std::sync::Arc<std::sync::RwLock<Option<FcmToken>>>,
 }
 
 /// Cached OAuth2 access token for FCM.
@@ -43,7 +44,7 @@ impl FcmClient {
         Self {
             config: config.clone(),
             http_client: reqwest::Client::new(),
-            oauth_token: std::sync::RwLock::new(None),
+            oauth_token: std::sync::Arc::new(std::sync::RwLock::new(None)),
         }
     }
 
@@ -149,6 +150,8 @@ impl FcmClient {
                     message_id: None,
                     error: Some(format!("OAuth2 token error: {}", e)),
                     platform: "fcm".to_string(),
+                    retry_attempts: 0,
+                    receipt_id: None,
                 };
             }
         };
@@ -200,6 +203,8 @@ impl FcmClient {
                                 message_id: None,
                                 error: Some(format!("FCM response parse error: {}", e)),
                                 platform: "fcm".to_string(),
+                                retry_attempts: 0,
+                                receipt_id: None,
                             };
                         }
                     };
@@ -209,6 +214,8 @@ impl FcmClient {
                         message_id: Some(resp_body.name),
                         error: None,
                         platform: "fcm".to_string(),
+                        retry_attempts: 0,
+                        receipt_id: None,
                     }
                 } else {
                     let body_text = resp.text().await.unwrap_or_default();
@@ -218,6 +225,8 @@ impl FcmClient {
                         message_id: None,
                         error: Some(format!("FCM error {}: {}", status, body_text)),
                         platform: "fcm".to_string(),
+                        retry_attempts: 0,
+                        receipt_id: None,
                     }
                 }
             }
@@ -228,6 +237,8 @@ impl FcmClient {
                     message_id: None,
                     error: Some(format!("FCM request failed: {}", e)),
                     platform: "fcm".to_string(),
+                    retry_attempts: 0,
+                    receipt_id: None,
                 }
             }
         }
@@ -241,7 +252,7 @@ pub(crate) struct FcmMessageRequest {
 }
 
 impl FcmMessageRequest {
-    fn build(
+    pub fn build(
         registration_id: &str,
         title: Option<&str>,
         body: &str,

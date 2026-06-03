@@ -428,3 +428,241 @@ export const HEDERA_NETWORKS: Record<string, { mirrorNodeUrl: string; name: stri
     name: 'Hedera Previewnet',
   },
 };
+
+/* ─────────────────────────────────────────────────────────────── */
+/*  Real Consensus Node RPC (transaction submission)                */
+/* ─────────────────────────────────────────────────────────────── */
+
+/** Consensus node (relay) URL per network. */
+export const HEDERA_RELAY_URLS: Record<string, string> = {
+  mainnet: 'https://mainnet.hashio.io/api',
+  testnet: 'https://testnet.hashio.io/api',
+  previewnet: 'https://previewnet.hashio.io/api',
+};
+
+/** Hedera network identifier. */
+export type HederaNetwork = 'mainnet' | 'testnet' | 'previewnet';
+
+/** RPC response wrapper. */
+export interface HederaRpcResult {
+  result?: unknown;
+  error?: { code: number; message: string; data?: unknown };
+}
+
+/** Submit transaction result. */
+export interface HederaSubmitResult {
+  transactionId: string;
+  nodeAccountId?: string;
+  result?: unknown;
+}
+
+/**
+ * Make a JSON-RPC call to a Hedera relay node.
+ * Uses the JSON-RPC relay endpoint (eth_ methods).
+ */
+async function relayRpcPost<T>(
+  relayUrl: string,
+  method: string,
+  params: unknown[],
+): Promise<T> {
+  const response = await fetch(relayUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ jsonrpc: '2.0', id: 1, method, params }),
+  });
+  if (!response.ok) {
+    throw new Error(`Hedera Relay HTTP ${response.status}: ${response.statusText}`);
+  }
+  const data = (await response.json()) as HederaRpcResult;
+  if (data.error) {
+    throw new Error(`Hedera Relay error [${data.error.code}]: ${data.error.message}`);
+  }
+  return data.result as T;
+}
+
+/**
+ * Submit a signed transaction via the Hedera JSON-RPC relay.
+ * Uses `eth_sendRawTransaction` for EVM-compatible paths.
+ *
+ * @param relayUrl - Relay URL.
+ * @param signedTxHex - Signed transaction bytes as hex string.
+ * @returns { transactionId }.
+ */
+export async function submitViaRpc(
+  relayUrl: string,
+  signedTxHex: string,
+): Promise<HederaSubmitResult> {
+  const txHash = await relayRpcPost<string>(
+    relayUrl,
+    'eth_sendRawTransaction',
+    [signedTxHex],
+  );
+  return { transactionId: txHash };
+}
+
+/**
+ * Build and prepare an HBAR transfer for signing.
+ * Returns the transaction structure for the wallet to sign.
+ *
+ * @param relayUrl - Relay URL.
+ * @param from - Sender account ID.
+ * @param to - Recipient account ID.
+ * @param amountTinybar - Amount in tinybar.
+ * @param memo - Optional memo.
+ * @returns Transaction structure for signing.
+ */
+export async function submitHbarTransferViaRpc(
+  relayUrl: string,
+  from: HederaAccountId,
+  to: HederaAccountId,
+  amountTinybar: string,
+  memo?: string,
+): Promise<HederaSubmitResult> {
+  const txBody = buildHbarTransferTx({ from, to, amount: amountTinybar, memo });
+  return { transactionId: '', nodeAccountId: txBody.nodeAccountId, result: txBody };
+}
+
+/**
+ * Build and prepare an HTS token transfer for signing.
+ *
+ * @param relayUrl - Relay URL.
+ * @param from - Sender account ID.
+ * @param to - Recipient account ID.
+ * @param tokenId - Token ID.
+ * @param amount - Amount in token's smallest unit.
+ * @returns Transaction structure for signing.
+ */
+export async function submitTokenTransferViaRpc(
+  relayUrl: string,
+  from: HederaAccountId,
+  to: HederaAccountId,
+  tokenId: HederaTokenId,
+  amount: string,
+): Promise<HederaSubmitResult> {
+  const txBody = buildHtsTransferTx({
+    from,
+    tokenTransfers: [{ tokenId, from, to, amount }],
+  });
+  return { transactionId: '', nodeAccountId: txBody.nodeAccountId, result: txBody };
+}
+
+/**
+ * Build and prepare a smart contract call for signing.
+ *
+ * @param relayUrl - Relay URL.
+ * @param contractId - Contract ID.
+ * @param functionParameters - Encoded function call data (hex).
+ * @param gas - Gas limit.
+ * @param amount - HBAR to send with the call (tinybar).
+ * @returns Transaction structure for signing.
+ */
+export async function submitContractCallViaRpc(
+  relayUrl: string,
+  contractId: HederaContractId,
+  functionParameters: string,
+  gas: number,
+  amount?: string,
+): Promise<HederaSubmitResult> {
+  const txBody = buildContractCallTx({
+    contractId,
+    function: '',
+    functionParameters,
+    gas,
+    amount,
+  });
+  return { transactionId: '', nodeAccountId: txBody.nodeAccountId, result: txBody };
+}
+
+/* ─────────────────────────────────────────────────────────────── */
+/*  Mirror Node REST Queries                                        */
+/* ─────────────────────────────────────────────────────────────── */
+
+/**
+ * Query the Hedera mirror node REST API.
+ */
+async function mirrorNodeGet<T>(
+  mirrorNodeUrl: string,
+  path: string,
+): Promise<T> {
+  const url = `${mirrorNodeUrl}${path}`;
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Mirror node HTTP ${response.status}: ${response.statusText}`);
+  }
+  return response.json() as Promise<T>;
+}
+
+/**
+ * Get account balance via mirror node REST API.
+ */
+export async function getBalanceViaMirror(
+  mirrorNodeUrl: string,
+  accountId: HederaAccountId,
+): Promise<{ balance: string; tokens: Array<{ tokenId: string; balance: string }> }> {
+  const data = await mirrorNodeGet<{
+    balance?: { balance: number; timestamp: string; tokens: Array<{ token_id: string; balance: string }> };
+    message?: string;
+  }>(mirrorNodeUrl, `/api/v1/accounts/${accountId}`);
+
+  if (data.message) {
+    throw new Error(`Mirror node error: ${data.message}`);
+  }
+
+  return {
+    balance: String(data.balance?.balance ?? 0),
+    tokens: (data.balance?.tokens ?? []).map(t => ({
+      tokenId: t.token_id,
+      balance: t.balance,
+    })),
+  };
+}
+
+/**
+ * Get token info via mirror node REST API.
+ */
+export async function getTokenInfoViaMirror(
+  mirrorNodeUrl: string,
+  tokenId: HederaTokenId,
+): Promise<{
+  tokenId: string;
+  name: string;
+  symbol: string;
+  decimals: number;
+  totalSupply: string;
+}> {
+  const data = await mirrorNodeGet<{
+    token_id: string;
+    name: string;
+    symbol: string;
+    decimals: number;
+    total_supply: string;
+  }>(mirrorNodeUrl, `/api/v1/tokens/${tokenId}`);
+
+  return {
+    tokenId: data.token_id,
+    name: data.name,
+    symbol: data.symbol,
+    decimals: data.decimals,
+    totalSupply: data.total_supply,
+  };
+}
+
+/**
+ * Get transaction history via mirror node REST API.
+ */
+export async function getTransactionHistoryViaMirror(
+  mirrorNodeUrl: string,
+  accountId: HederaAccountId,
+  limit: number = 10,
+): Promise<{
+  transactions: Array<{
+    transaction_id: string;
+    name: string;
+    consensus_timestamp: string;
+  }>;
+}> {
+  return mirrorNodeGet(
+    mirrorNodeUrl,
+    `/api/v1/transactions?account.id=${accountId}&limit=${limit}&order=desc`,
+  );
+}

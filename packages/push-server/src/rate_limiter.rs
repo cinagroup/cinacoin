@@ -46,12 +46,13 @@ impl RateLimiter {
     }
 
     async fn check(&self, key: &str, limit: u32) -> bool {
-        let counter = self
+        let entry = self
             .cache
             .entry_by_ref(key)
-            .or_insert_with(|| Arc::new(Mutex::new(0)))
+            .or_insert_with(async { Arc::new(Mutex::new(0)) })
             .await;
 
+        let counter = entry.into_value();
         let mut val = counter.lock().await;
         if *val < limit {
             *val += 1;

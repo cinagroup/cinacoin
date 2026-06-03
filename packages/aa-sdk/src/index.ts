@@ -3,7 +3,8 @@
 
 export { SmartAccount } from './smartAccount.js';
 export { SmartAccountFactory } from './factory.js';
-export { PaymasterClient } from './paymaster.js';
+export { PaymasterClient, PaymasterRouter } from './paymaster.js';
+export type { PmRouterEntry, PmRoutingResult } from './paymaster.js';
 export { BundlerClient } from './bundler.js';
 export {
   BundlerClient as EnhancedBundlerClient,

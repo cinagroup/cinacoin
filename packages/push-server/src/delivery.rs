@@ -1,4 +1,3 @@
-use crate::config::Config;
 use crate::metrics;
 use crate::types::{DeliveryReceipt, PushResponse};
 use redis::AsyncCommands;
@@ -11,7 +10,7 @@ pub async fn store_receipt(
     ttl_secs: u64,
 ) -> Result<(), String> {
     let client =
-        redis::Client::open(redis_url.as_str()).map_err(|e| format!("Redis client error: {}", e))?;
+        redis::Client::open(redis_url).map_err(|e| format!("Redis client error: {}", e))?;
 
     let mut conn = client
         .get_multiplexed_async_connection()
@@ -38,7 +37,7 @@ pub async fn store_receipt(
 /// Retrieve a delivery receipt by ID.
 pub async fn get_receipt(redis_url: &str, receipt_id: &str) -> Result<Option<DeliveryReceipt>, String> {
     let client =
-        redis::Client::open(redis_url.as_str()).map_err(|e| format!("Redis client error: {}", e))?;
+        redis::Client::open(redis_url).map_err(|e| format!("Redis client error: {}", e))?;
 
     let mut conn = client
         .get_multiplexed_async_connection()

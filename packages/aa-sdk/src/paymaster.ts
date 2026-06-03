@@ -152,3 +152,209 @@ function serializeUserOp(op: UserOperation): Record<string, string> {
     signature: op.signature,
   };
 }
+
+/* ─────────────────────────────────────────────────────────────── */
+/*  Multi-Paymaster Router (aa-sdk native)                          */
+/* ─────────────────────────────────────────────────────────────── */
+
+/** Paymaster entry for the router. */
+export interface PmRouterEntry {
+  /** Unique identifier for this paymaster. */
+  id: string;
+  /** PaymasterClient instance. */
+  client: PaymasterClient;
+  /** Whether currently active. */
+  active: boolean;
+  /** Supported chain IDs (empty = all). */
+  chains: number[];
+  /** Priority weight (higher = preferred). */
+  priority: number;
+}
+
+/** Routing result from the PaymasterRouter. */
+export interface PmRoutingResult {
+  /** Selected paymaster ID. */
+  id: string;
+  /** Response from the selected paymaster. */
+  response: PaymasterResponse;
+  /** Whether fallback was used. */
+  usedFallback: boolean;
+}
+
+/**
+ * PaymasterRouter — routes sponsorship requests across multiple paymasters.
+ *
+ * Supports three strategies:
+ * - `round-robin`: Distribute evenly across active paymasters
+ * - `priority`: Always use highest-priority available paymaster
+ * - `fallback`: Use primary, fall back to secondary on failure
+ *
+ * ```ts
+ * const router = new PaymasterRouter('priority');
+ * router.add('primary', primaryClient, [1, 11155111], 10);
+ * router.add('backup', backupClient, [1, 11155111], 5);
+ *
+ * const { id, response } = await router.route(request);
+ * ```
+ */
+export class PaymasterRouter {
+  private entries: PmRouterEntry[] = [];
+  private strategy: 'round-robin' | 'priority' | 'fallback';
+  private rrIndex = 0;
+
+  constructor(strategy: 'round-robin' | 'priority' | 'fallback' = 'priority') {
+    this.strategy = strategy;
+  }
+
+  /**
+   * Add a paymaster to the router.
+   */
+  add(
+    id: string,
+    client: PaymasterClient,
+    chains: number[] = [],
+    priority: number = 1,
+  ): void {
+    if (this.entries.some((e) => e.id === id)) {
+      throw new Error(`Paymaster "${id}" already registered`);
+    }
+    this.entries.push({ id, client, active: true, chains, priority });
+  }
+
+  /**
+   * Remove a paymaster by ID.
+   */
+  remove(id: string): void {
+    this.entries = this.entries.filter((e) => e.id !== id);
+  }
+
+  /**
+   * Deactivate a paymaster (keeps config, stops routing to it).
+   */
+  deactivate(id: string): void {
+    const entry = this.entries.find((e) => e.id === id);
+    if (entry) entry.active = false;
+  }
+
+  /**
+   * Reactivate a paymaster.
+   */
+  activate(id: string): void {
+    const entry = this.entries.find((e) => e.id === id);
+    if (entry) entry.active = true;
+  }
+
+  /**
+   * Route a sponsorship request to the best paymaster.
+   */
+  async route(request: PaymasterRequest): Promise<PmRoutingResult> {
+    const eligible = this.entries.filter(
+      (e) => e.active && (e.chains.length === 0 || e.chains.includes(request.chainId)),
+    );
+
+    if (eligible.length === 0) {
+      throw new Error('No active paymasters available for this chain');
+    }
+
+    // Sort by strategy
+    let ordered: PmRouterEntry[];
+    switch (this.strategy) {
+      case 'priority':
+        ordered = [...eligible].sort((a, b) => b.priority - a.priority);
+        break;
+      case 'round-robin':
+        ordered = this._roundRobinOrder(eligible);
+        break;
+      case 'fallback':
+        ordered = [...eligible].sort((a, b) => b.priority - a.priority);
+        break;
+      default:
+        ordered = eligible;
+    }
+
+    // Try each paymaster in order
+    const errors: Error[] = [];
+    for (let i = 0; i < ordered.length; i++) {
+      const entry = ordered[i];
+      try {
+        const response = await entry.client.sponsor(request);
+        return {
+          id: entry.id,
+          response,
+          usedFallback: i > 0,
+        };
+      } catch (err) {
+        errors.push(err instanceof Error ? err : new Error(String(err)));
+        // In fallback mode, only try the first, then give up
+        if (this.strategy === 'fallback' && i === 0) break;
+      }
+    }
+
+    throw new Error(
+      `All paymasters failed: ${errors.map((e) => e.message).join('; ')}`,
+    );
+  }
+
+  /**
+   * Get the gas limits from the best paymaster.
+   */
+  async getGasLimits(
+    userOp: UserOperation,
+    entryPoint: Address,
+    chainId: number,
+  ): Promise<{
+    id: string;
+    limits: {
+      verificationGasLimit: bigint;
+      callGasLimit: bigint;
+      preVerificationGas: bigint;
+    };
+  }> {
+    const eligible = this.entries.filter(
+      (e) => e.active && (e.chains.length === 0 || e.chains.includes(chainId)),
+    );
+
+    if (eligible.length === 0) {
+      throw new Error('No active paymasters available');
+    }
+
+    const ordered = [...eligible].sort((a, b) => b.priority - a.priority);
+
+    for (const entry of ordered) {
+      try {
+        const limits = await entry.client.getGasLimits(userOp, entryPoint, chainId);
+        return { id: entry.id, limits };
+      } catch {
+        // Try next
+      }
+    }
+
+    throw new Error('All paymasters failed to provide gas limits');
+  }
+
+  /**
+   * Get all active paymasters.
+   */
+  getActive(): PmRouterEntry[] {
+    return this.entries.filter((e) => e.active);
+  }
+
+  /**
+   * Set routing strategy.
+   */
+  setStrategy(strategy: 'round-robin' | 'priority' | 'fallback'): void {
+    this.strategy = strategy;
+    this.rrIndex = 0;
+  }
+
+  private _roundRobinOrder(eligible: PmRouterEntry[]): PmRouterEntry[] {
+    const ordered = [...eligible];
+    // Rotate: start from rrIndex
+    const rotated = [
+      ...ordered.slice(this.rrIndex % ordered.length),
+      ...ordered.slice(0, this.rrIndex % ordered.length),
+    ];
+    this.rrIndex = (this.rrIndex + 1) % ordered.length;
+    return rotated;
+  }
+}

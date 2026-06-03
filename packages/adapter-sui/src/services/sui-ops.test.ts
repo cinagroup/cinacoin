@@ -19,7 +19,7 @@ import {
   buildPersonalMessage,
   buildExecuteTransactionRpc,
   buildDryRunRpc,
-} from './services/sui-ops.js';
+} from './sui-ops.js';
 
 describe('TransactionBlock builder', () => {
   it('should create an empty transaction block', () => {

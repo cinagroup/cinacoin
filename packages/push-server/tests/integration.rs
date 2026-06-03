@@ -2,8 +2,9 @@
 //!
 //! Tests FCM OAuth2 token flow, APNS token generation, and push handler logic.
 
-use push_server::config::Config;
-use push_server::types::{Platform, PushRequest, PushResponse};
+use cinacoin_push_server::config::Config;
+use cinacoin_push_server::types::{Platform, PushRequest, PushResponse};
+use std::sync::Arc;
 
 // ─────────────────────────────────────────────────────────────
 // FCM unit tests
@@ -11,7 +12,7 @@ use push_server::types::{Platform, PushRequest, PushResponse};
 
 mod fcm_tests {
     use super::*;
-    use push_server::fcm::FcmClient;
+    use cinacoin_push_server::fcm::FcmClient;
 
     #[test]
     fn fcm_client_constructs_from_config() {
@@ -66,7 +67,7 @@ mod fcm_tests {
 
 mod apns_tests {
     use super::*;
-    use push_server::apns::ApnsClient;
+    use cinacoin_push_server::apns::ApnsClient;
 
     #[test]
     fn apns_client_constructs_from_config() {
@@ -96,8 +97,8 @@ mod types_tests {
         let req = PushRequest {
             token: "device-token-123".into(),
             platform: Platform::Fcm,
-            title: Some("Hello"),
-            body: "World".into(),
+            title: Some("Hello".to_string()),
+            body: "World".to_string(),
             badge: Some(1),
             sound: Some("default".into()),
             data: {
@@ -157,8 +158,9 @@ mod types_tests {
 // ─────────────────────────────────────────────────────────────
 
 mod retry_tests {
-    use push_server::retry::RetryPolicy;
-    use push_server::config::Config;
+    use super::test_config;
+    use cinacoin_push_server::retry::RetryPolicy;
+    use cinacoin_push_server::config::Config;
 
     #[test]
     fn retry_policy_from_config() {
@@ -174,11 +176,12 @@ mod retry_tests {
         let policy = RetryPolicy::from_config(&config);
 
         // Calculate delays for several attempts and verify exponential growth.
-        let mut prev_delay = policy.initial_delay_ms as f64;
+        let mut prev_delay_ms = policy.initial_delay_ms as f64;
         for i in 1..=policy.max_attempts {
             let delay = policy.delay_for_attempt(i);
-            assert!(delay >= prev_delay, "delay should increase exponentially");
-            prev_delay = delay;
+            let delay_ms = delay.as_millis() as f64;
+            assert!(delay_ms >= prev_delay_ms, "delay should increase exponentially");
+            prev_delay_ms = delay_ms;
         }
     }
 }
@@ -188,8 +191,9 @@ mod retry_tests {
 // ─────────────────────────────────────────────────────────────
 
 mod rate_limiter_tests {
-    use push_server::rate_limiter::RateLimiter;
-    use push_server::config::Config;
+    use super::test_config;
+    use cinacoin_push_server::rate_limiter::RateLimiter;
+    use cinacoin_push_server::config::Config;
 
     #[tokio::test]
     async fn rate_limiter_allows_within_limit() {
@@ -229,7 +233,7 @@ mod rate_limiter_tests {
 // Helper
 // ─────────────────────────────────────────────────────────────
 
-fn test_config() -> Config {
+pub fn test_config() -> Config {
     std::env::set_var("APNS_TEAM_ID", "TESTTEAM123");
     std::env::set_var("APNS_KEY_ID", "TESTKEY12345");
     std::env::set_var("APNS_CERT_PATH", "/nonexistent/key.p8");

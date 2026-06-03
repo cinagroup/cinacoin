@@ -17,7 +17,7 @@ import {
   hbarToTinybar,
   buildBalanceUrl,
   buildTransactionHistoryUrl,
-} from './services/hedera-ops.js';
+} from './hedera-ops.js';
 
 describe('parseHederaId', () => {
   it('should parse a valid Hedera ID', () => {

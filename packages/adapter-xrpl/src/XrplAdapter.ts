@@ -288,6 +288,154 @@ export class XrplAdapter implements XrplConnector {
     }
     return this._connector;
   }
+
+  // ─── Real RPC Execution ─────────────────────────────────────────
+
+  /**
+   * Submit a signed transaction via `submit` RPC.
+   */
+  async submitViaRpc(
+    network: import('./services/xrpl-ops.js').XrplNetwork,
+    txBlob: string,
+  ): Promise<import('./services/xrpl-ops.js').XrplSubmitResult> {
+    const { submitViaRpc } = await import('./services/xrpl-ops.js');
+    return submitViaRpc(network, txBlob);
+  }
+
+  /**
+   * Prepare a Payment transaction via RPC (builds unsigned tx ready for signing).
+   */
+  async preparePaymentViaRpc(
+    network: import('./services/xrpl-ops.js').XrplNetwork,
+    account: string,
+    destination: string,
+    amountDrops: string,
+    destinationTag?: number,
+    memo?: string,
+  ): Promise<{ txJson: import('./services/xrpl-ops.js').XrplTransaction; sequence: number; fee: string; lastLedgerSequence: number }> {
+    const { preparePaymentViaRpc } = await import('./services/xrpl-ops.js');
+    return preparePaymentViaRpc(network, account, destination, amountDrops, destinationTag, memo);
+  }
+
+  /**
+   * Prepare a TrustSet transaction via RPC (Trust Line management).
+   */
+  async prepareTrustSetViaRpc(
+    network: import('./services/xrpl-ops.js').XrplNetwork,
+    account: string,
+    issuer: string,
+    currency: string,
+    limit: string,
+    flags?: number,
+  ): Promise<{ txJson: import('./services/xrpl-ops.js').XrplTransaction; sequence: number; fee: string; lastLedgerSequence: number }> {
+    const { prepareTrustSetViaRpc } = await import('./services/xrpl-ops.js');
+    return prepareTrustSetViaRpc(network, account, issuer, currency, limit, flags);
+  }
+
+  /**
+   * Prepare an OfferCreate transaction via RPC (DEX order placement).
+   */
+  async prepareOfferCreateViaRpc(
+    network: import('./services/xrpl-ops.js').XrplNetwork,
+    account: string,
+    takerPays: string | { value: string; currency: string; issuer: string },
+    takerGets: string | { value: string; currency: string; issuer: string },
+    expiration?: number,
+    flags?: number,
+  ): Promise<{ txJson: import('./services/xrpl-ops.js').XrplTransaction; sequence: number; fee: string; lastLedgerSequence: number }> {
+    const { prepareOfferCreateViaRpc } = await import('./services/xrpl-ops.js');
+    return prepareOfferCreateViaRpc(network, account, takerPays, takerGets, expiration, flags);
+  }
+
+  /**
+   * Query order book via `book_offers` RPC.
+   */
+  async getOrderBookViaRpc(
+    network: import('./services/xrpl-ops.js').XrplNetwork,
+    gets: { currency: string; issuer?: string },
+    pays: { currency: string; issuer?: string },
+    limit?: number,
+  ): Promise<{
+    offers: Array<{
+      Account: string;
+      BookDirectory: string;
+      TakerGets: string | { value: string; currency: string; issuer: string };
+      TakerPays: string | { value: string; currency: string; issuer: string };
+      Sequence: number;
+    }>;
+  }> {
+    const { getOrderBookViaRpc } = await import('./services/xrpl-ops.js');
+    return getOrderBookViaRpc(network, gets, pays, limit);
+  }
+
+  /**
+   * Get account info via `account_info` RPC.
+   */
+  async getAccountInfoViaRpc(
+    network: import('./services/xrpl-ops.js').XrplNetwork,
+    account: string,
+  ): Promise<{ sequence: number; xrpBalance: string; ownerCount: number; flags: number }> {
+    const { getAccountInfoViaRpc } = await import('./services/xrpl-ops.js');
+    return getAccountInfoViaRpc(network, account);
+  }
+
+  /**
+   * Get account trust lines via `account_lines` RPC.
+   */
+  async getTrustLinesViaRpc(
+    network: import('./services/xrpl-ops.js').XrplNetwork,
+    account: string,
+    peerAccount?: string,
+    limit?: number,
+  ): Promise<{
+    lines: Array<{
+      account: string; balance: string; limit: string; limit_peer: string; currency: string;
+    }>;
+  }> {
+    const { getTrustLinesViaRpc } = await import('./services/xrpl-ops.js');
+    return getTrustLinesViaRpc(network, account, peerAccount, limit);
+  }
+
+  /**
+   * Get account offers via `account_offers` RPC.
+   */
+  async getAccountOffersViaRpc(
+    network: import('./services/xrpl-ops.js').XrplNetwork,
+    account: string,
+    limit?: number,
+  ): Promise<{
+    offers: Array<{
+      flags: number; seq: number;
+      taker_gets: string | { value: string; currency: string; issuer: string };
+      taker_pays: string | { value: string; currency: string; issuer: string };
+    }>;
+  }> {
+    const { getAccountOffersViaRpc } = await import('./services/xrpl-ops.js');
+    return getAccountOffersViaRpc(network, account, limit);
+  }
+
+  /**
+   * Get server info via `server_info` RPC.
+   */
+  async getServerInfoViaRpc(
+    network: import('./services/xrpl-ops.js').XrplNetwork,
+  ): Promise<{
+    info: { validated_ledger: { seq: number; hash: string }; server_state: string; uptime: number };
+  }> {
+    const { getServerInfoViaRpc } = await import('./services/xrpl-ops.js');
+    return getServerInfoViaRpc(network);
+  }
+
+  /**
+   * Get ledger info via `ledger` RPC.
+   */
+  async getLedgerViaRpc(
+    network: import('./services/xrpl-ops.js').XrplNetwork,
+    ledgerIndex?: string | number,
+  ): Promise<{ ledger_hash: string; ledger_index: number; transactions: unknown[] }> {
+    const { getLedgerViaRpc } = await import('./services/xrpl-ops.js');
+    return getLedgerViaRpc(network, ledgerIndex);
+  }
 }
 
 /**
