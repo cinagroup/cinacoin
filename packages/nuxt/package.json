@@ -31,6 +31,7 @@
     "@cinacoin/core-sdk": "workspace:*",
     "@cinacoin/vue": "workspace:*",
     "@nuxt/kit": "^3.15.0",
+    "jose": "^6.0.0",
     "nuxt": "^3.15.0"
   },
   "devDependencies": {

@@ -7,6 +7,7 @@
 
 import type { Connector } from '../connector.js';
 import type { TransactionRequest, Chain } from '../types.js';
+import { DEFAULT_EVM_CHAINES, getChainById, type EvmChainConfig } from '../configs/evm-chains.js';
 
 /** Minimal EIP-1193-like provider interface for internal use. */
 interface EIP1193Like {
@@ -22,6 +23,14 @@ interface EIP1193Like {
 export class EvmAdapter {
   private connector: Connector | null = null;
   private chains: Chain[] = [];
+
+  /**
+   * Create an EVM adapter. Auto-registers default chain configs.
+   */
+  constructor() {
+    // Pre-register the default EVM chains
+    this.chains = [...DEFAULT_EVM_CHAINES];
+  }
 
   /**
    * Register supported EVM chains.
@@ -200,6 +209,13 @@ export class EvmAdapter {
         return false;
       }
     });
+  }
+
+  /**
+   * Find a chain by numeric chain ID using the extended config.
+   */
+  findChainById(chainId: number): EvmChainConfig | undefined {
+    return getChainById(chainId);
   }
 }
 

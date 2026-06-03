@@ -152,39 +152,65 @@ function getCookieFromEvent(event: H3Event<EventHandlerRequest>, name: string): 
 /**
  * Decode a session token into a NuxtServerSession.
  *
- * Supports base64-encoded JSON session tokens.
- * In production, this should be cryptographically verified with the secret.
+ * When a secret is provided, the token is treated as a JWT and verified
+ * using `jose` (HMAC-SHA256). If no secret is available (dev mode),
+ * falls back to base64-decoded JSON for convenience.
  *
- * @param token - Session token string.
+ * @param token - Session token string (JWT or base64 JSON).
+ * @param secret - Secret key for HMAC verification. When absent, dev fallback is used.
  * @returns Session data, or `null` if invalid/expired.
  */
-function decodeSessionToken(token: string, _secret?: string): NuxtServerSession | null {
+async function decodeSessionToken(token: string, secret?: string): Promise<NuxtServerSession | null> {
   try {
-    // Session tokens are base64-encoded JSON in the current implementation.
-    // TODO: In production, use jose or similar for JWE/JWT decryption with the secret.
-    const decoded = JSON.parse(Buffer.from(token, 'base64').toString('utf-8'));
+    let decoded: { address: string; chainId: number; nonce: string; expiresAt: number } | null = null;
 
-    if (
-      typeof decoded.address === 'string' &&
-      typeof decoded.chainId === 'number' &&
-      typeof decoded.nonce === 'string' &&
-      typeof decoded.expiresAt === 'number'
-    ) {
-      // Check expiration
-      if (decoded.expiresAt < Math.floor(Date.now() / 1000)) {
-        return null;
+    if (secret) {
+      // ── Production: cryptographically verify the JWT ──────────────────
+      const { jwtVerify } = await import('jose');
+
+      const encoder = new TextEncoder();
+      const key = encoder.encode(secret);
+
+      const { payload } = await jwtVerify(token, key, {
+        algorithms: ['HS256'],
+      });
+
+      if (
+        typeof payload.address === 'string' &&
+        typeof payload.chainId === 'number' &&
+        typeof payload.nonce === 'string' &&
+        typeof payload.expiresAt === 'number'
+      ) {
+        decoded = payload as typeof decoded;
       }
+    } else {
+      // ── Dev mode: base64-decode JSON (no signature check) ────────────
+      const parsed = JSON.parse(Buffer.from(token, 'base64').toString('utf-8'));
 
-      return {
-        address: decoded.address,
-        chainId: decoded.chainId,
-        nonce: decoded.nonce,
-        expiresAt: decoded.expiresAt,
-        token,
-      };
+      if (
+        typeof parsed.address === 'string' &&
+        typeof parsed.chainId === 'number' &&
+        typeof parsed.nonce === 'string' &&
+        typeof parsed.expiresAt === 'number'
+      ) {
+        decoded = parsed;
+      }
     }
 
-    return null;
+    if (!decoded) return null;
+
+    // Check expiration
+    if (decoded.expiresAt < Math.floor(Date.now() / 1000)) {
+      return null;
+    }
+
+    return {
+      address: decoded.address,
+      chainId: decoded.chainId,
+      nonce: decoded.nonce,
+      expiresAt: decoded.expiresAt,
+      token,
+    };
   } catch {
     return null;
   }

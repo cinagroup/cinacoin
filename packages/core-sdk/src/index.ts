@@ -53,6 +53,10 @@ export type { QRTransportConfig } from './transports/qr.js';
 export { EvmAdapter } from './adapters/evm.js';
 export type { EthCallParams } from './adapters/evm.js';
 
+// EVM Chain Configs
+export { EVM_CHAINS, DEFAULT_EVM_CHAINES, getChainById, getChainByName } from './configs/evm-chains.js';
+export type { EvmChainConfig } from './configs/evm-chains.js';
+
 // viem Adapter (optional — requires viem peer dep)
 export { ViemChainAdapter, createViemAdapter } from './adapters/viem.js';
 export type { ViemClient, ViemAccount, ViemChain, ViemTransport } from './adapters/viem.js';
