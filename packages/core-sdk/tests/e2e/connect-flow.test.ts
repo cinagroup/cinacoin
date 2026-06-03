@@ -131,11 +131,13 @@ class MockWCV2Connector extends Connector {
       ['eth_sendTransaction', 'personal_sign', 'eth_signTypedData_v4']
     );
 
-    // Simulate wallet auto-approve
+    // Simulate wallet auto-approve using requested chains from params
+    const requestedChains = params?.chains?.map(c => `eip155:${c}`)
+      ?? this.wallet.getChains();
     const approved = await this.approveSession({
       approved: this.wallet.getApproved(),
       accounts: this.wallet.getAccounts(),
-      chains: this.wallet.getChains(),
+      chains: requestedChains,
     });
 
     return approved;

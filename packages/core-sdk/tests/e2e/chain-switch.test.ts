@@ -104,6 +104,8 @@ class MockChainConnector extends Connector {
     this.registerChain(ETH_MAINNET);
     this.registerChain(ARBITRUM);
     this.registerChain(BASE);
+    this.registerChain(POLYGON);
+    this.registerChain(OPTIMISM);
     return {
       sessionId: 'session_chain_test',
       accounts: ['0x1234567890abcdef1234567890abcdef12345678'],

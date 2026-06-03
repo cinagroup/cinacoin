@@ -139,7 +139,8 @@ class MockTxConnector extends Connector {
   // Send transaction
   async sendTransaction(tx: TransactionRequest): Promise<string> {
     if (!this._connected) throw new Error('Not connected');
-    const txHash = '0x' + Math.random().toString(16).slice(2) + '0'.repeat(48);
+    const randomHex = Math.random().toString(16).slice(2).padStart(64, '0').slice(0, 64);
+    const txHash = '0x' + randomHex;
     const receipt: TxReceipt = {
       txHash,
       status: 'pending',
