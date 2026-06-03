@@ -175,13 +175,19 @@ async function decodeSessionToken(token: string, secret?: string): Promise<NuxtS
         algorithms: ['HS256'],
       });
 
+      const p = payload as unknown as Record<string, unknown>;
       if (
-        typeof payload.address === 'string' &&
-        typeof payload.chainId === 'number' &&
-        typeof payload.nonce === 'string' &&
-        typeof payload.expiresAt === 'number'
+        typeof p.address === 'string' &&
+        typeof p.chainId === 'number' &&
+        typeof p.nonce === 'string' &&
+        typeof p.expiresAt === 'number'
       ) {
-        decoded = payload as typeof decoded;
+        decoded = {
+          address: p.address as string,
+          chainId: p.chainId as number,
+          nonce: p.nonce as string,
+          expiresAt: p.expiresAt as number,
+        };
       }
     } else {
       // ── Dev mode: base64-decode JSON (no signature check) ────────────

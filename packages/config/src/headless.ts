@@ -7,7 +7,7 @@
  */
 
 import { createCinacoinStore } from '@cinacoin/core-sdk';
-import type { CinacoinState, ConnectionStatus } from '@cinacoin/core-sdk';
+import type { CinacoinState, ConnectionStatus, Chain } from '@cinacoin/core-sdk';
 
 /**
  * Options for creating the internal core-sdk store instance.
@@ -46,7 +46,11 @@ function createClient(options: ClientOptions): Client {
   }
   if (options.chains) {
     // Map chain ids to core-sdk Chain objects at runtime
-    store.getState().setChains(options.chains.map((id) => ({ id, name: id })));
+    store.getState().setChains(options.chains.map((id): Chain => ({
+      id,
+      name: id,
+      rpcUrl: '', // Runtime RPC URL resolved by EvmAdapter at connect time
+    })));
   }
 
   return {

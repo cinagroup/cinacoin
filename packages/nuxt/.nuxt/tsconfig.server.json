@@ -69,7 +69,7 @@
         "../../../node_modules/.pnpm/crossws@0.3.5/node_modules/crossws"
       ],
       "vite/client": [
-        "../../../node_modules/.pnpm/vite@5.4.21_@types+node@22.19.19_less@4.6.4_sass@1.99.0_terser@5.47.1/node_modules/vite/client"
+        "../../../node_modules/.pnpm/vite@6.4.2_@types+node@22.19.19_jiti@2.7.0_less@4.6.4_sass@1.99.0_terser@5.47.1_tsx@4.22.1_yaml@2.9.0/node_modules/vite/client"
       ],
       "nitropack/types": [
         "../../../node_modules/.pnpm/nitropack@2.13.4_better-sqlite3@11.10.0_idb-keyval@6.2.2_oxc-parser@0.129.0_srvx@0.11.15/node_modules/nitropack/types"

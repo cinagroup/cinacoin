@@ -1,0 +1,39 @@
+"use client";
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { useState, useEffect } from "react";
+import { generateDemoMetrics } from "@/lib/services";
+import { formatNumber, formatLatency } from "@/lib/utils";
+import MetricBox from "@/components/MetricBox";
+import BarChart from "@/components/BarChart";
+import ProgressRing from "@/components/ProgressRing";
+const TOKEN_HISTORY = [45000, 47200, 48900, 50100, 51200, 52100, 52890];
+const TOKEN_LABELS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const PUSH_HISTORY = [8200, 9100, 8800, 9500, 10200, 7100, 6300];
+const PUSH_LABELS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const PLATFORMS_DATA = [
+    { label: "iOS (APNs)", count: 31200, color: "#007aff", icon: "🍎" },
+    { label: "Android (FCM)", count: 18900, color: "#34a853", icon: "🤖" },
+    { label: "Web Push", count: 2790, color: "#f59e0b", icon: "🌐" },
+];
+const TOPICS = [
+    { name: "price-alerts", subscribers: 18200, messages24h: 4200 },
+    { name: "tx-confirmations", subscribers: 14500, messages24h: 3100 },
+    { name: "security-alerts", subscribers: 9800, messages24h: 890 },
+    { name: "airdrop-notifications", subscribers: 7200, messages24h: 340 },
+    { name: "governance-votes", subscribers: 3190, messages24h: 120 },
+];
+export default function PushServerPage() {
+    const [metrics, setMetrics] = useState(generateDemoMetrics("push-server"));
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setMetrics(generateDemoMetrics("push-server"));
+        }, 30000);
+        return () => clearInterval(interval);
+    }, []);
+    return (_jsxs("div", { className: "space-y-6", children: [_jsxs("div", { className: "flex flex-col sm:flex-row sm:items-center justify-between gap-3", children: [_jsxs("div", { children: [_jsx("h1", { className: "text-xl sm:text-2xl font-bold text-white", children: "\uD83D\uDCF1 Push Server" }), _jsx("p", { className: "text-dashboard-muted mt-1", children: "Cross-platform push notification delivery" })] }), _jsx("span", { className: "text-xs text-dashboard-muted bg-dashboard-surface border border-dashboard-border rounded-full px-3 py-1.5", children: "APNs \u2022 FCM \u2022 Web Push" })] }), _jsxs("div", { className: "grid grid-cols-2 md:grid-cols-4 gap-4", children: [_jsx(MetricBox, { label: "Device Tokens", value: formatNumber(metrics.deviceTokens || 0), color: "text-emerald-400", trend: "up" }), _jsx(MetricBox, { label: "Delivery Success", value: formatNumber(metrics.deliverySuccess || 0), color: "text-dashboard-success", trend: "up" }), _jsx(MetricBox, { label: "Delivery Failed", value: formatNumber(metrics.deliveryFailed || 0), color: "text-dashboard-danger", trend: "down" }), _jsx(MetricBox, { label: "Delivery Rate", value: `${metrics.deliveryRate?.toFixed(1) || 0}%`, color: "text-dashboard-success" })] }), _jsxs("div", { className: "grid md:grid-cols-2 gap-4", children: [_jsxs("div", { className: "bg-dashboard-surface rounded-xl border border-dashboard-border p-5", children: [_jsx("h3", { className: "text-lg font-semibold text-white mb-4", children: "Delivery Success Rate" }), _jsxs("div", { className: "flex items-center justify-center gap-8", children: [_jsx(ProgressRing, { value: Math.round(metrics.deliveryRate || 0), size: 120, strokeWidth: 10, color: (metrics.deliveryRate || 0) > 99 ? "#22c55e" : (metrics.deliveryRate || 0) > 95 ? "#f59e0b" : "#ef4444", label: "Success" }), _jsxs("div", { className: "space-y-3", children: [_jsxs("div", { children: [_jsx("p", { className: "text-sm text-dashboard-muted", children: "Successful" }), _jsx("p", { className: "text-xl font-bold text-dashboard-success", children: formatNumber(metrics.deliverySuccess || 0) })] }), _jsxs("div", { children: [_jsx("p", { className: "text-sm text-dashboard-muted", children: "Failed" }), _jsx("p", { className: "text-xl font-bold text-dashboard-danger", children: formatNumber(metrics.deliveryFailed || 0) })] }), _jsxs("div", { children: [_jsx("p", { className: "text-sm text-dashboard-muted", children: "Avg Latency" }), _jsx("p", { className: "text-xl font-bold text-white", children: formatLatency(metrics.avgLatency || 0) })] })] })] })] }), _jsxs("div", { className: "bg-dashboard-surface rounded-xl border border-dashboard-border p-5", children: [_jsx("h3", { className: "text-lg font-semibold text-white mb-4", children: "Platform Breakdown" }), _jsx("div", { className: "space-y-3", children: PLATFORMS_DATA.map((platform, i) => {
+                                    const total = metrics.deviceTokens || 52890;
+                                    const pct = ((platform.count / total) * 100).toFixed(1);
+                                    return (_jsxs("div", { className: "flex items-center gap-3", children: [_jsx("span", { className: "text-base w-6 text-center", children: platform.icon }), _jsx("span", { className: "text-sm text-dashboard-muted w-32", children: platform.label }), _jsx("div", { className: "flex-1 bg-dashboard-border rounded-full h-3 overflow-hidden", children: _jsx("div", { className: "h-full rounded-full transition-all", style: { width: `${pct}%`, backgroundColor: platform.color } }) }), _jsx("span", { className: "text-sm text-white w-16 text-right", children: formatNumber(platform.count) })] }, i));
+                                }) })] })] }), _jsxs("div", { className: "grid md:grid-cols-2 gap-4", children: [_jsx(BarChart, { data: TOKEN_HISTORY, labels: TOKEN_LABELS, color: "#22c55e", height: 140, "aria-label": "Weekly token growth" }), _jsx(BarChart, { data: PUSH_HISTORY, labels: PUSH_LABELS, color: "#007aff", height: 140, "aria-label": "Weekly push delivery volume" })] }), _jsxs("div", { className: "bg-dashboard-surface rounded-xl border border-dashboard-border overflow-hidden", children: [_jsx("div", { className: "px-5 py-4 border-b border-dashboard-border", children: _jsx("h3", { className: "text-lg font-semibold text-white", children: "Push Topics" }) }), _jsx("div", { className: "overflow-x-auto", children: _jsxs("table", { className: "w-full text-sm", children: [_jsx("thead", { children: _jsxs("tr", { className: "border-b border-dashboard-border/50 text-dashboard-muted", children: [_jsx("th", { className: "text-left px-5 py-3 font-medium", children: "Topic" }), _jsx("th", { className: "text-left px-5 py-3 font-medium", children: "Subscribers" }), _jsx("th", { className: "text-left px-5 py-3 font-medium", children: "Messages (24h)" }), _jsx("th", { className: "text-left px-5 py-3 font-medium", children: "Per-Subscriber Rate" })] }) }), _jsx("tbody", { children: TOPICS.map((t, i) => (_jsxs("tr", { className: "border-b border-dashboard-border/30 hover:bg-dashboard-border/20", children: [_jsx("td", { className: "px-5 py-3 font-mono text-xs text-white", children: t.name }), _jsx("td", { className: "px-5 py-3 text-white", children: formatNumber(t.subscribers) }), _jsx("td", { className: "px-5 py-3 text-dashboard-muted", children: formatNumber(t.messages24h) }), _jsxs("td", { className: "px-5 py-3 text-dashboard-muted", children: [(t.messages24h / t.subscribers).toFixed(2), " msgs/user"] })] }, i))) })] }) })] }), _jsxs("div", { className: "bg-dashboard-surface rounded-xl border border-dashboard-border p-5", children: [_jsx("h3", { className: "text-lg font-semibold text-white mb-4", children: "Error Breakdown (24h)" }), _jsxs("div", { className: "grid grid-cols-2 md:grid-cols-4 gap-4", children: [_jsx(MetricBox, { label: "Invalid Token", value: "1,892", icon: "\uD83D\uDEAB", color: "text-dashboard-danger" }), _jsx(MetricBox, { label: "Expired Token", value: "987", icon: "\u23F0", color: "text-dashboard-warning" }), _jsx(MetricBox, { label: "Rate Limited", value: "342", icon: "\u23F1\uFE0F", color: "text-dashboard-warning" }), _jsx(MetricBox, { label: "Network Error", value: "200", icon: "\uD83C\uDF10", color: "text-dashboard-muted" })] })] })] }));
+}
+//# sourceMappingURL=page.js.map

@@ -1,0 +1,30 @@
+"use client";
+import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
+import { useEffect } from "react";
+import { usePathname } from "next/navigation";
+import { useAuth } from "@/lib/AuthProvider";
+/**
+ * Client-side auth guard: redirects to /login if not authenticated.
+ * Must be used inside AuthProvider.
+ */
+export default function AuthGuard({ children }) {
+    const { isLoggedIn, isLoading } = useAuth();
+    const pathname = usePathname();
+    useEffect(() => {
+        if (isLoading)
+            return; // wait for session restore
+        const isLoginPage = pathname === "/login";
+        if (!isLoggedIn && !isLoginPage) {
+            window.location.href = "/login";
+        }
+        if (isLoggedIn && isLoginPage) {
+            window.location.href = "/";
+        }
+    }, [isLoggedIn, isLoading, pathname]);
+    // Show nothing while checking (avoid flash of protected content)
+    if (isLoading) {
+        return (_jsx("div", { className: "min-h-screen bg-dashboard-bg flex items-center justify-center", children: _jsxs("div", { className: "flex items-center gap-3 text-gray-400", children: [_jsxs("svg", { className: "animate-spin h-5 w-5", viewBox: "0 0 24 24", fill: "none", children: [_jsx("circle", { className: "opacity-25", cx: "12", cy: "12", r: "10", stroke: "currentColor", strokeWidth: "4" }), _jsx("path", { className: "opacity-75", fill: "currentColor", d: "M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" })] }), _jsx("span", { className: "text-sm", children: "Loading\u2026" })] }) }));
+    }
+    return _jsx(_Fragment, { children: children });
+}
+//# sourceMappingURL=AuthGuard.js.map

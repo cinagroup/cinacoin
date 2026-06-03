@@ -1,0 +1,37 @@
+"use client";
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { useState, useEffect } from "react";
+import { generateDemoMetrics } from "@/lib/services";
+import { formatNumber, formatLatency } from "@/lib/utils";
+import MetricBox from "@/components/MetricBox";
+import BarChart from "@/components/BarChart";
+import ProgressRing from "@/components/ProgressRing";
+const SENT_HISTORY = [28000, 31000, 29500, 34000, 36000, 22000, 19000];
+const SENT_LABELS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const CHANNELS_DATA = [
+    { name: "Email", count: "142K", icon: "📧", color: "#3b82f6", pct: 40.6 },
+    { name: "Web Push", count: "98K", icon: "🌐", color: "#8b5cf6", pct: 28.0 },
+    { name: "Webhook", count: "76K", icon: "🔗", color: "#f59e0b", pct: 21.7 },
+    { name: "SMS", count: "29K", icon: "📱", color: "#22c55e", pct: 8.3 },
+];
+const RECENT_NOTIFICATIONS = [
+    { type: "email", to: "user@example.com", subject: "Transaction confirmed", status: "delivered", time: "12s ago" },
+    { type: "webhook", to: "api.client.com", subject: "Price alert: BTC > $70K", status: "delivered", time: "28s ago" },
+    { type: "push", to: "0x7a3f…8d2e", subject: "Swap completed", status: "delivered", time: "45s ago" },
+    { type: "sms", to: "+1***-***-4567", subject: "Login verification", status: "pending", time: "1m ago" },
+    { type: "email", to: "dev@project.io", subject: "API key rotation notice", status: "delivered", time: "2m ago" },
+    { type: "webhook", to: "hooks.bot.io", subject: "New deposit detected", status: "failed", time: "3m ago" },
+];
+export default function NotifyServerPage() {
+    const [metrics, setMetrics] = useState(generateDemoMetrics("notify-server"));
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setMetrics(generateDemoMetrics("notify-server"));
+        }, 30000);
+        return () => clearInterval(interval);
+    }, []);
+    return (_jsxs("div", { className: "space-y-6", children: [_jsxs("div", { className: "flex flex-col sm:flex-row sm:items-center justify-between gap-3", children: [_jsxs("div", { children: [_jsx("h1", { className: "text-xl sm:text-2xl font-bold text-white", children: "\uD83D\uDD14 Notify Server" }), _jsx("p", { className: "text-dashboard-muted mt-1", children: "Multi-channel notification delivery service" })] }), _jsx("span", { className: "text-xs text-dashboard-muted bg-dashboard-surface border border-dashboard-border rounded-full px-3 py-1.5", children: "Email \u2022 Web Push \u2022 Webhook \u2022 SMS" })] }), _jsxs("div", { className: "grid grid-cols-2 md:grid-cols-4 gap-4", children: [_jsx(MetricBox, { label: "Total Sent", value: formatNumber(metrics.totalRequests || 0), trend: "up" }), _jsx(MetricBox, { label: "Delivery Rate", value: `${metrics.deliveryRate?.toFixed(1) || 0}%`, color: "text-dashboard-success", trend: "up" }), _jsx(MetricBox, { label: "Avg Latency", value: formatLatency(metrics.avgLatency || 0) }), _jsx(MetricBox, { label: "Error Count", value: formatNumber(metrics.errorCount || 0), color: metrics.errorRate > 2 ? "text-dashboard-danger" : "text-dashboard-warning", trend: "down" })] }), _jsxs("div", { className: "grid md:grid-cols-2 gap-4", children: [_jsxs("div", { className: "bg-dashboard-surface rounded-xl border border-dashboard-border p-5", children: [_jsx("h3", { className: "text-lg font-semibold text-white mb-4", children: "Delivery Performance" }), _jsxs("div", { className: "flex items-center justify-center gap-8", children: [_jsx(ProgressRing, { value: Math.round(metrics.deliveryRate || 0), size: 120, strokeWidth: 10, color: (metrics.deliveryRate || 0) > 98 ? "#22c55e" : (metrics.deliveryRate || 0) > 95 ? "#f59e0b" : "#ef4444", label: "Delivered" }), _jsxs("div", { className: "space-y-3", children: [_jsxs("div", { children: [_jsx("p", { className: "text-sm text-dashboard-muted", children: "Successfully Delivered" }), _jsxs("p", { className: "text-xl font-bold text-dashboard-success", children: [metrics.deliveryRate?.toFixed(1) || 0, "%"] })] }), _jsxs("div", { children: [_jsx("p", { className: "text-sm text-dashboard-muted", children: "Failed Delivery" }), _jsx("p", { className: "text-xl font-bold text-dashboard-danger", children: formatNumber(metrics.errorCount || 0) })] }), _jsxs("div", { children: [_jsx("p", { className: "text-sm text-dashboard-muted", children: "Avg Queue Depth" }), _jsx("p", { className: "text-xl font-bold text-white", children: "127" })] })] })] })] }), _jsxs("div", { className: "bg-dashboard-surface rounded-xl border border-dashboard-border p-5", children: [_jsx("h3", { className: "text-lg font-semibold text-white mb-4", children: "Channel Distribution" }), _jsx("div", { className: "space-y-3", children: CHANNELS_DATA.map((ch, i) => (_jsxs("div", { className: "flex items-center gap-3", children: [_jsx("span", { className: "text-base w-6 text-center", children: ch.icon }), _jsx("span", { className: "text-sm text-dashboard-muted w-20", children: ch.name }), _jsx("div", { className: "flex-1 bg-dashboard-border rounded-full h-3 overflow-hidden", children: _jsx("div", { className: "h-full rounded-full transition-all", style: { width: `${ch.pct}%`, backgroundColor: ch.color } }) }), _jsxs("span", { className: "text-sm text-white w-12 text-right", children: [ch.pct, "%"] })] }, i))) })] })] }), _jsx(BarChart, { data: SENT_HISTORY, labels: SENT_LABELS, color: "#f59e0b", height: 140, "aria-label": "Weekly notification volume" }), _jsxs("div", { className: "bg-dashboard-surface rounded-xl border border-dashboard-border overflow-hidden", children: [_jsx("div", { className: "px-5 py-4 border-b border-dashboard-border", children: _jsx("h3", { className: "text-lg font-semibold text-white", children: "Recent Notifications" }) }), _jsx("div", { className: "overflow-x-auto", children: _jsxs("table", { className: "w-full text-sm", children: [_jsx("thead", { children: _jsxs("tr", { className: "border-b border-dashboard-border/50 text-dashboard-muted", children: [_jsx("th", { className: "text-left px-5 py-3 font-medium", children: "Type" }), _jsx("th", { className: "text-left px-5 py-3 font-medium", children: "Recipient" }), _jsx("th", { className: "text-left px-5 py-3 font-medium", children: "Subject" }), _jsx("th", { className: "text-left px-5 py-3 font-medium", children: "Status" }), _jsx("th", { className: "text-left px-5 py-3 font-medium", children: "Time" })] }) }), _jsx("tbody", { children: RECENT_NOTIFICATIONS.map((n, i) => (_jsxs("tr", { className: "border-b border-dashboard-border/30 hover:bg-dashboard-border/20", children: [_jsx("td", { className: "px-5 py-3 text-dashboard-muted", children: n.type }), _jsx("td", { className: "px-5 py-3 font-mono text-xs text-white", children: n.to }), _jsx("td", { className: "px-5 py-3 text-white truncate max-w-[200px]", children: n.subject }), _jsx("td", { className: "px-5 py-3", children: _jsx("span", { className: `inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${n.status === "delivered" ? "bg-dashboard-success/10 text-dashboard-success" :
+                                                        n.status === "failed" ? "bg-dashboard-danger/10 text-dashboard-danger" :
+                                                            "bg-dashboard-warning/10 text-dashboard-warning"}`, children: n.status }) }), _jsx("td", { className: "px-5 py-3 text-dashboard-muted", children: n.time })] }, i))) })] }) })] })] }));
+}
+//# sourceMappingURL=page.js.map
