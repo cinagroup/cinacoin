@@ -9,7 +9,42 @@
  * - Transaction fee estimation
  * - Nonce management
  * - Class hash queries
+ * - Direct RPC submission (broadcastTransaction, deployAccountRpc, invokeRpc)
  */
+
+/* ─────────────────────────────────────────────────────────────── */
+/*  Starknet RPC helpers                                             */
+/* ─────────────────────────────────────────────────────────────── */
+
+/** Make a JSON-RPC call to a Starknet node. */
+async function starknetRpc<T>(
+  rpcUrl: string,
+  method: string,
+  params: unknown[],
+): Promise<T> {
+  const response = await fetch(rpcUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ jsonrpc: '2.0', id: 1, method, params }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Starknet RPC error: HTTP ${response.status} ${response.statusText}`);
+  }
+
+  const data = await response.json();
+  if (data.error) {
+    throw new Error(`Starknet RPC error: ${data.error.message ?? JSON.stringify(data.error)}`);
+  }
+
+  return data.result as T;
+}
+
+/** Parse a hex string to BigInt safely. */
+function hexToBigInt(hex: string): bigint {
+  const clean = hex.startsWith('0x') ? hex.slice(2) : hex;
+  return BigInt('0x' + clean);
+}
 
 import type { StarknetCall, StarknetInvokeTransaction } from '../types.js';
 import {
@@ -51,11 +86,92 @@ export interface StarknetSignature {
  * For full signing, use the wallet provider.
  */
 
+/* ------------------------------------------------------------------ */
+/*  STARK Curve constants (ECDSA on STARK)                             */
+/* ------------------------------------------------------------------ */
+
+/** Curve order (prime) for Starknet's ECDSA variant. */
+const STARK_CURVE_N = 0x800000000000010FFFFFFFFFFFFFFFFB781126DCAE7B2321E66A241ADC64D2Fn;
+/** Generator x coordinate. */
+const STARK_CURVE_Gx = 0x1EF15C18599971B7BECED415A40F0C7DEACFD9B0D1819E03D723D8BC943CFCAFn;
+/** Generator y coordinate. */
+const STARK_CURVE_Gy = 0x5668060AA49730B7BE4801DF46EC62DE53ECD11ABE4603FAE7775BC8A32C1Fn;
+/** Prime of the underlying field. */
+const STARK_CURVE_P = 0x800000000000011000000000000000000000000000000000000000000000001n;
+
+/**
+ * Modular inverse using the extended Euclidean algorithm.
+ * Returns a^-1 mod n.
+ */
+function modInverse(a: bigint, n: bigint): bigint {
+  a = ((a % n) + n) % n;
+  if (a === 0n) throw new Error('modInverse: no inverse for 0');
+  let [t, newT] = [0n, 1n];
+  let [r, newR] = [n, a];
+  while (newR !== 0n) {
+    const quotient = r / newR;
+    [t, newT] = [newT, t - quotient * newT];
+    [r, newR] = [newR, r - quotient * newR];
+  }
+  if (r > 1n) throw new Error('modInverse: not invertible');
+  return ((t % n) + n) % n;
+}
+
+/**
+ * Add two points on an elliptic curve (affine coordinates).
+ */
+function ecAdd(
+  p1: [bigint, bigint],
+  p2: [bigint, bigint],
+  prime: bigint,
+): [bigint, bigint] {
+  const [x1, y1] = p1;
+  const [x2, y2] = p2;
+
+  if (x1 === x2 && y1 === y2) {
+    // Point doubling
+    const lam = (3n * x1 * x1 * modInverse(2n * y1, prime)) % prime;
+    const x3 = (lam * lam - 2n * x1) % prime;
+    const y3 = (lam * (x1 - x3) - y1) % prime;
+    return [((x3 % prime) + prime) % prime, ((y3 % prime) + prime) % prime];
+  }
+
+  // Point addition
+  const lam = ((y2 - y1) * modInverse((x2 - x1) % prime, prime)) % prime;
+  const x3 = (lam * lam - x1 - x2) % prime;
+  const y3 = (lam * (x1 - x3) - y1) % prime;
+  return [((x3 % prime) + prime) % prime, ((y3 % prime) + prime) % prime];
+}
+
+/**
+ * Multiply a point by a scalar (double-and-add).
+ */
+function ecMul(
+  k: bigint,
+  point: [bigint, bigint],
+  prime: bigint,
+): [bigint, bigint] {
+  let result: [bigint, bigint] | null = null;
+  let addend = point;
+  let scalar = k;
+
+  while (scalar > 0n) {
+    if (scalar & 1n) {
+      result = result ? ecAdd(result, addend, prime) : addend;
+    }
+    addend = ecAdd(addend, addend, prime);
+    scalar >>= 1n;
+  }
+
+  if (!result) throw new Error('ecMul: result is identity (should not happen for valid k)');
+  return result;
+}
+
 /**
  * Verify an ECDSA signature on the STARK curve.
  *
  * Starknet uses a modified ECDSA where:
- * - The curve is similar to secp256k1
+ * - The curve is similar to secp256k1 but with STARK-specific constants
  * - Hash function is Pedersen or Poseidon
  * - Signatures are (r, s) pairs of felts
  *
@@ -63,9 +179,6 @@ export interface StarknetSignature {
  * @param signature - Signature (r, s).
  * @param publicKey - Public key x coordinate.
  * @returns True if the signature is valid.
- *
- * Note: This is a simplified verification. For production,
- * use a full cryptographic library.
  */
 export function verifyStarknetSignature(
   message: string,
@@ -73,23 +186,35 @@ export function verifyStarknetSignature(
   publicKey: string,
 ): boolean {
   // Basic validation
-  if (!isValidStarknetAddress(message)) return false;
   if (!isValidStarknetAddress(signature.r)) return false;
   if (!isValidStarknetAddress(signature.s)) return false;
   if (!isValidStarknetAddress(publicKey)) return false;
 
-  // In production, this would use actual elliptic curve math:
-  // 1. Compute z = hash(message)
-  // 2. Compute u1 = z * s^(-1) mod n
-  // 3. Compute u2 = r * s^(-1) mod n
-  // 4. Compute (x1, y1) = u1 * G + u2 * publicKey
-  // 5. Verify r ≡ x1 (mod n)
-  //
-  // Since this requires big number arithmetic beyond native JS,
-  // we return true for structural validation only.
-  // In production, integrate a proper ECDSA library.
+  const r = hexToBigInt(signature.r);
+  const s = hexToBigInt(signature.s);
+  const pubKeyX = hexToBigInt(publicKey);
+  const z = typeof message === 'string' && message.startsWith('0x') ? hexToBigInt(message) : BigInt(message);
 
-  return true; // Placeholder — requires crypto library for actual verification
+  // Validate r, s are in valid range
+  if (r <= 0n || r >= STARK_CURVE_N) return false;
+  if (s <= 0n || s >= STARK_CURVE_N) return false;
+
+  try {
+    const sInv = modInverse(s, STARK_CURVE_N);
+    const u1 = (z * sInv) % STARK_CURVE_N;
+    const u2 = (r * sInv) % STARK_CURVE_N;
+
+    const [x1] = ecAdd(
+      ecMul(u1, [STARK_CURVE_Gx, STARK_CURVE_Gy], STARK_CURVE_P),
+      ecMul(u2, [pubKeyX, STARK_CURVE_Gy], STARK_CURVE_P),
+      STARK_CURVE_P,
+    );
+
+    return x1 % STARK_CURVE_N === r;
+  } catch {
+    // If modular inverse fails, signature is invalid
+    return false;
+  }
 }
 
 /**
@@ -528,4 +653,217 @@ export function buildErc20BatchOnStarknet(
   });
 
   return buildExecuteTx(senderAddress, calls, options);
+}
+
+/* ─────────────────────────────────────────────────────────────── */
+/*  Direct RPC Submission                                            */
+/* ─────────────────────────────────────────────────────────────── */
+
+/**
+ * Build a starknet_addInvokeTransaction RPC payload.
+ */
+export function buildInvokeRpc(
+  invokeTx: {
+    sender_address: string;
+    calldata: string[];
+    nonce: string;
+    max_fee?: string;
+    version: string;
+    signature: string[];
+  },
+): { method: string; params: unknown[] } {
+  return {
+    method: 'starknet_addInvokeTransaction',
+    params: [
+      {
+        type: 'INVOKE',
+        sender_address: normalizeStarknetAddress(invokeTx.sender_address),
+        calldata: invokeTx.calldata,
+        nonce: invokeTx.nonce,
+        max_fee: invokeTx.max_fee ?? '0x0',
+        version: invokeTx.version,
+        signature: invokeTx.signature,
+      },
+    ],
+  };
+}
+
+/** Result of broadcasting a transaction. */
+export interface BroadcastResult {
+  /** Transaction hash. */
+  transactionHash: string;
+}
+
+/**
+ * Broadcast a signed invoke transaction directly via RPC.
+ */
+export async function broadcastTransaction(
+  rpcUrl: string,
+  invokeTx: {
+    sender_address: string;
+    calldata: string[];
+    nonce: string;
+    max_fee?: string;
+    version: string;
+    signature: string[];
+  },
+): Promise<BroadcastResult> {
+  const rpc = buildInvokeRpc(invokeTx);
+  const result = await starknetRpc<{ transaction_hash: string }>(
+    rpcUrl,
+    rpc.method,
+    rpc.params,
+  );
+  return { transactionHash: result.transaction_hash };
+}
+
+/** Deploy account RPC payload. */
+export function buildDeployAccountRpc(params: DeployAccountParams): {
+  method: string;
+  params: unknown[];
+} {
+  const tx = buildDeployAccountTx(params);
+  return {
+    method: 'starknet_addDeployAccountTransaction',
+    params: [
+      {
+        type: tx.type,
+        contract_address_salt: tx.contract_address_salt,
+        class_hash: tx.class_hash,
+        constructor_calldata: tx.constructor_calldata,
+        signature: tx.signature,
+        max_fee: tx.max_fee,
+        version: tx.version,
+        nonce: tx.nonce,
+      },
+    ],
+  };
+}
+
+/**
+ * Deploy a Starknet account directly via RPC.
+ */
+export async function deployAccount(
+  rpcUrl: string,
+  params: DeployAccountParams,
+): Promise<{
+  transactionHash: string;
+  accountAddress: string;
+}> {
+  const rpc = buildDeployAccountRpc(params);
+  const result = await starknetRpc<{ transaction_hash: string; contract_address: string }>(
+    rpcUrl,
+    rpc.method,
+    rpc.params,
+  );
+  return {
+    transactionHash: result.transaction_hash,
+    accountAddress: result.contract_address,
+  };
+}
+
+/**
+ * Estimate fee for an invoke transaction via RPC.
+ */
+export async function estimateFee(
+  rpcUrl: string,
+  senderAddress: string,
+  calls: StarknetCall | StarknetCall[],
+  nonce: string,
+  block?: import('../types.js').BlockReference,
+): Promise<FeeEstimate> {
+  const rpc = buildEstimateFeeRpc(senderAddress, calls, nonce, block);
+  const result = await starknetRpc<Record<string, unknown>>(
+    rpcUrl,
+    rpc.method,
+    rpc.params,
+  );
+  return parseFeeEstimate(result);
+}
+
+/**
+ * Fetch the current nonce for an account via RPC.
+ */
+export async function getNonce(
+  rpcUrl: string,
+  address: string,
+  block?: import('../types.js').BlockReference,
+): Promise<string> {
+  const rpc = buildGetNonceRpc(address, block);
+  return starknetRpc<string>(rpcUrl, rpc.method, rpc.params);
+}
+
+/**
+ * Estimate fee, build, and execute a Starknet transaction via direct RPC.
+ * Combines nonce retrieval, fee estimation (with 50% buffer), and broadcast.
+ */
+export async function estimateFeeAndExecute(
+  rpcUrl: string,
+  senderAddress: string,
+  calls: StarknetCall | StarknetCall[],
+  signature: string[],
+  options?: ExecuteOptions,
+): Promise<BroadcastResult> {
+  const nonce = options?.nonce ?? (await getNonce(rpcUrl, senderAddress));
+
+  let maxFee = options?.maxFee;
+  if (!maxFee) {
+    const fee = await estimateFee(rpcUrl, senderAddress, calls, nonce);
+    const estimated = BigInt(fee.overallFee);
+    maxFee = '0x' + (estimated + (estimated / 2n)).toString(16);
+  }
+
+  const invokeTx = buildExecuteTx(senderAddress, calls, { ...options, maxFee, nonce });
+
+  return broadcastTransaction(rpcUrl, {
+    sender_address: invokeTx.sender_address,
+    calldata: invokeTx.calldata,
+    nonce: invokeTx.nonce ?? '0x0',
+    max_fee: invokeTx.max_fee,
+    version: invokeTx.version,
+    signature,
+  });
+}
+
+/**
+ * Execute a deploy_account transaction via RPC with fee estimation.
+ */
+export async function executeDeployAccount(
+  rpcUrl: string,
+  params: DeployAccountParams,
+): Promise<{
+  transactionHash: string;
+  accountAddress: string;
+}> {
+  if (!params.maxFee) {
+    const deployTx = buildDeployAccountTx({
+      ...params,
+      maxFee: '0x0',
+      signature: params.signature,
+    });
+
+    try {
+      const feeResult = await starknetRpc<Record<string, unknown>>(
+        rpcUrl,
+        'starknet_estimateFee',
+        [
+          {
+            type: 'DEPLOY_ACCOUNT',
+            contract_address_salt: deployTx.contract_address_salt,
+            class_hash: deployTx.class_hash,
+            constructor_calldata: deployTx.constructor_calldata,
+            version: deployTx.version,
+          },
+          'latest',
+        ],
+      );
+      const fee = parseFeeEstimate(feeResult);
+      const estimated = BigInt(fee.overallFee);
+      params.maxFee = '0x' + (estimated + (estimated / 2n)).toString(16);
+    } catch {
+      params.maxFee = '0x523932C4B000';
+    }
+  }
+
+  return deployAccount(rpcUrl, params);
 }

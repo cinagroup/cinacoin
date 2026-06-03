@@ -441,20 +441,11 @@ public final class WCClient: ObservableObject {
             "value": tx.value ?? "0x0",
             "data": tx.data ?? "0x",
             "gas": tx.gas ?? "0x5208",
-        ].compactMapValues { $0 }]
-        return try await request(method: WCMethods.ethSignTransaction, params: params)
-    }
-    
-    /// Convenience: send eth_signTransaction.
-    public func signTransaction(_ tx: WCTransactionRequest) async throws -> String {
-        let params: [[String: String]] = [[
-            "from": tx.from,
-            "to": tx.to,
-            "value": tx.value ?? "0x0",
-            "data": tx.data ?? "0x",
-            "gas": tx.gas ?? "0x5208",
-            "gasPrice": tx.gasPrice ?? "0x0",
-            "nonce": tx.nonce ?? "0x0",
+            "gasPrice": tx.gasPrice,
+            "maxFeePerGas": tx.maxFeePerGas,
+            "maxPriorityFeePerGas": tx.maxPriorityFeePerGas,
+            "nonce": tx.nonce,
+            "chainId": tx.chainId.map { String($0) },
         ].compactMapValues { $0 }]
         return try await request(method: WCMethods.ethSignTransaction, params: params)
     }

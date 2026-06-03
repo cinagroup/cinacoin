@@ -23,9 +23,17 @@ import {
   buildErc20TransferOnStarknet,
   buildErc20ApproveOnStarknet,
   verifyStarknetSignature,
+  broadcastTransaction,
+  deployAccount,
+  estimateFee,
+  estimateFeeAndExecute,
+  executeDeployAccount,
+  buildDeployAccountRpc,
+  getNonce,
   type DeployAccountParams,
   type ExecuteOptions,
   type FeeEstimate,
+  type BroadcastResult,
 } from './services/starknet-ops.js';
 
 /* ------------------------------------------------------------------ */
@@ -243,7 +251,154 @@ export class StarknetChainAdapter implements ChainAdapter {
     return result.transactionHash;
   }
 
-  /* ---- Utility ---- */
+  /* ---- Advanced RPC Operations ---- */
+
+  /**
+   * Broadcast a pre-signed Starknet invoke transaction directly via RPC.
+   * Useful for hardware wallets or external signers.
+   *
+   * @param invokeTx - Signed invoke transaction.
+   * @returns Transaction hash.
+   */
+  async broadcastTransaction(invokeTx: {
+    sender_address: string;
+    calldata: string[];
+    nonce: string;
+    max_fee?: string;
+    version: string;
+    signature: string[];
+  }): Promise<BroadcastResult> {
+    return broadcastTransaction(this.rpcUrl, invokeTx);
+  }
+
+  /**
+   * Deploy a new Starknet account contract via RPC.
+   * Estimates fee automatically if maxFee is not provided.
+   *
+   * @param params - Account deployment parameters (classHash, salt, constructorCalldata, signature).
+   * @returns Transaction hash and deployed account address.
+   */
+  async deployAccount(params: DeployAccountParams): Promise<{
+    transactionHash: string;
+    accountAddress: string;
+  }> {
+    return executeDeployAccount(this.rpcUrl, params);
+  }
+
+  /**
+   * Estimate fee for a set of contract calls.
+   *
+   * @param senderAddress - Account address.
+   * @param calls - Contract calls to estimate.
+   * @param nonce - Current nonce.
+   * @returns Fee estimate (gasConsumed, gasPrice, overallFee, unit).
+   */
+  async estimateFee(
+    senderAddress: string,
+    calls: StarknetCall | StarknetCall[],
+    nonce: string,
+  ): Promise<FeeEstimate> {
+    return estimateFee(this.rpcUrl, senderAddress, calls, nonce);
+  }
+
+  /**
+   * Get the current nonce for an account.
+   *
+   * @param address - Account address.
+   * @returns Nonce as hex string.
+   */
+  async getNonce(address: string): Promise<string> {
+    return getNonce(this.rpcUrl, address);
+  }
+
+  /**
+   * Sign with the wallet and execute via direct RPC with auto fee estimation.
+   *
+   * This method:
+   * 1. Fetches the current nonce
+   * 2. Estimates the transaction fee (+50% buffer)
+   * 3. Builds the signed invoke transaction
+   * 4. Broadcasts it via starknet_addInvokeTransaction
+   *
+   * @param calls - Contract calls.
+   * @param options - Optional overrides (maxFee, nonce, version).
+   * @returns Transaction hash.
+   */
+  async signAndExecute(
+    calls: StarknetCall | StarknetCall[],
+    options?: ExecuteOptions,
+  ): Promise<BroadcastResult> {
+    if (!this.activeConnector) {
+      throw new Error('No wallet connected. Call connect() first.');
+    }
+
+    const senderAddress = this.activeConnector.getAccount();
+    if (!senderAddress) {
+      throw new Error('No account available from connected wallet.');
+    }
+
+    const normalizedCalls = Array.isArray(calls) ? calls : [calls];
+
+    // Get nonce and estimate fee if not overridden
+    const nonce = options?.nonce ?? (await getNonce(this.rpcUrl, senderAddress));
+    let maxFee = options?.maxFee;
+    if (!maxFee) {
+      const fee = await estimateFee(this.rpcUrl, senderAddress, normalizedCalls, nonce);
+      const estimated = BigInt(fee.overallFee);
+      maxFee = '0x' + (estimated + (estimated / 2n)).toString(16);
+    }
+
+    // Sign the transaction via the wallet
+    const signedResult = await this.activeConnector.signTransaction(normalizedCalls);
+
+    // Extract signature from the wallet response
+    const signature: string[] = this._extractSignature(signedResult);
+
+    return estimateFeeAndExecute(this.rpcUrl, senderAddress, normalizedCalls, signature, {
+      ...options,
+      maxFee,
+      nonce,
+    });
+  }
+
+  /**
+   * Verify a Starknet ECDSA signature against a message and public key.
+   *
+   * @param message - Message hash (felt252).
+   * @param signature - Signature (r, s).
+   * @param publicKey - Public key x coordinate.
+   * @returns True if the signature is valid.
+   */
+  static verifySignature(
+    message: string,
+    signature: { r: string; s: string },
+    publicKey: string,
+  ): boolean {
+    return verifyStarknetSignature(message, signature, publicKey);
+  }
+
+  /* ---- Private helpers ---- */
+
+  /** Extract signature array from wallet response. */
+  private _extractSignature(signedResult: unknown): string[] {
+    if (Array.isArray(signedResult)) {
+      return signedResult.map(s => typeof s === 'string' ? s : String(s));
+    }
+    if (typeof signedResult === 'object' && signedResult !== null) {
+      const obj = signedResult as Record<string, unknown>;
+      if (Array.isArray(obj.signature)) {
+        return obj.signature.map(s => String(s));
+      }
+      if (typeof obj.signature === 'string') {
+        // If signature is a single hex string, split into r and s
+        return [obj.signature];
+      }
+      if (typeof obj.r === 'string' && typeof obj.s === 'string') {
+        return [obj.r, obj.s];
+      }
+    }
+    throw new Error('Unable to extract signature from wallet response');
+  }
 
   /** Find a Starknet chain by its ID. */
   findChain(chainId: number): Chain | undefined {
@@ -265,8 +420,6 @@ export class StarknetChainAdapter implements ChainAdapter {
     if (hex.length === 0 || hex.length > 66) return false;
     return /^[0-9a-fA-F]+$/.test(hex);
   }
-
-  /* ---- Private helpers ---- */
 
   private _resolveConnector(walletId?: string): StarknetWalletConnector | null {
     if (walletId) {

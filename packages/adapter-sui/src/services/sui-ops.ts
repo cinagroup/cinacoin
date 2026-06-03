@@ -6,10 +6,39 @@
  * - Object management (create, transfer, split, merge)
  * - Coin operations (SUI and custom coins)
  * - Signature serialization
- * - Transaction submission
+ * - Transaction submission via direct RPC
+ * - Real JSON-RPC execution (sui_executeTransactionBlock)
  */
 
 import type { SuiTransactionCall, SuiTransferSui } from '../types.js';
+
+/* ─────────────────────────────────────────────────────────────── */
+/*  Sui RPC helpers                                                  */
+/* ─────────────────────────────────────────────────────────────── */
+
+/** Make a JSON-RPC call to a Sui full node. */
+async function suiRpc<T>(
+  rpcUrl: string,
+  method: string,
+  params: unknown[],
+): Promise<T> {
+  const response = await fetch(rpcUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ jsonrpc: '2.0', id: 1, method, params }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Sui RPC error: HTTP ${response.status} ${response.statusText}`);
+  }
+
+  const data = await response.json();
+  if (data.error) {
+    throw new Error(`Sui RPC error: ${data.error.message ?? JSON.stringify(data.error)}`);
+  }
+
+  return data.result as T;
+}
 
 /* ─────────────────────────────────────────────────────────────── */
 /*  TransactionBlock Builder (JSON format)                          */
