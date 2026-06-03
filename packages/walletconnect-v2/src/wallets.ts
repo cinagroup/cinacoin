@@ -3,14 +3,34 @@
  *
  * Provides wallet discovery data for the connect modal, including
  * deep link schemes, universal links, and app store URLs for
- * 18+ major mobile wallets.
+ * 100+ wallets via dynamic fetch from registry.walletconnect.com.
+ *
+ * The hardcoded WALLET_REGISTRY array below serves as a fallback
+ * when the dynamic fetch is unavailable (SSR, network failure,
+ * no localStorage, etc.).
+ *
+ * Primary API: getWallets() — returns Promise<WalletRegistry[]>
+ * with cache-aware dynamic fetch and automatic fallback.
  */
 
 import type { WalletRegistryEntry } from './types.js';
+import { fetchWallets as dynamicFetch, invalidateCache } from './registry.js';
+export { invalidateCache } from './registry.js';
+export type { FetchWalletsOptions } from './registry.js';
 
 /**
  * Registry of well-known wallets with their deep link schemes,
  * universal links, and app store URLs.
+ */
+/**
+ * Hardcoded fallback registry.
+ *
+ * Used when:
+ * - The dynamic fetch from registry.walletconnect.com fails
+ * - Running in SSR/no-browser environments (no localStorage/fetch)
+ * - Cache is empty and fetch fails
+ *
+ * Contains ~18 well-known wallets with verified deep links.
  */
 export const WALLET_REGISTRY: ReadonlyArray<WalletRegistryEntry> = [
   // ─── EVM Wallets ──────────────────────────────────────
@@ -249,25 +269,63 @@ export const WALLET_REGISTRY: ReadonlyArray<WalletRegistryEntry> = [
 ];
 
 // ============================================================
-// Lookup helpers
+// Dynamic fetch (primary) + fallback helpers
 // ============================================================
 
 /**
- * Get a wallet entry by ID.
+ * Get wallet entries dynamically from the WalletConnect registry API.
+ *
+ * Strategy:
+ * 1. Try localStorage cache (TTL: 1 hour)
+ * 2. Fetch from https://registry.walletconnect.com/api/v2/wallets
+ * 3. On fetch failure, return cached data (even if stale)
+ * 4. If no cache available, return hardcoded WALLET_REGISTRY fallback
+ *
+ * @example
+ * ```ts
+ * // Get all wallets
+ * const wallets = await getWallets();
+ *
+ * // Filter by EVM chain
+ * const evmWallets = await getWallets({ chainFilter: 'eip155:1' });
+ *
+ * // Force fresh fetch
+ * const fresh = await getWallets({ forceRefresh: true });
+ * ```
+ */
+export async function getWallets(
+  options?: import('./registry.js').FetchWalletsOptions,
+): Promise<WalletRegistryEntry[]> {
+  const dynamic = await dynamicFetch(options);
+  if (dynamic && dynamic.length > 0) {
+    return dynamic;
+  }
+  // Fallback to hardcoded entries
+  return [...WALLET_REGISTRY];
+}
+
+// ============================================================
+// Lookup helpers (static fallback)
+// ============================================================
+
+/**
+ * Get a wallet entry by ID from the hardcoded fallback registry.
+ * For dynamic lookup, use: (await getWallets()).find(w => w.id === id)
  */
 export function getWalletById(id: string): WalletRegistryEntry | undefined {
   return WALLET_REGISTRY.find((w) => w.id === id);
 }
 
 /**
- * Get all wallet IDs.
+ * Get all wallet IDs from the hardcoded fallback registry.
  */
 export function getWalletIds(): string[] {
   return WALLET_REGISTRY.map((w) => w.id);
 }
 
 /**
- * Search wallets by name (case-insensitive substring match).
+ * Search hardcoded wallets by name (case-insensitive substring match).
+ * For dynamic search: (await getWallets()).filter(w => w.name.toLowerCase().includes(query))
  */
 export function searchWallets(query: string): WalletRegistryEntry[] {
   const q = query.toLowerCase();
@@ -295,7 +353,8 @@ export function buildWalletUniversalLink(walletId: string, wcUri: string): strin
 }
 
 /**
- * Get wallets that support a specific chain.
+ * Get wallets that support a specific chain (from hardcoded fallback).
+ * For dynamic: await getWallets({ chainFilter: 'eip155:1' })
  */
 export function getWalletsForChain(chain: string): WalletRegistryEntry[] {
   return WALLET_REGISTRY.filter(
@@ -304,14 +363,14 @@ export function getWalletsForChain(chain: string): WalletRegistryEntry[] {
 }
 
 /**
- * Get wallets that support WalletConnect v2.
+ * Get wallets that support WalletConnect v2 (from hardcoded fallback).
  */
 export function getWcV2Wallets(): WalletRegistryEntry[] {
   return WALLET_REGISTRY.filter((w) => w.supportsWcV2);
 }
 
 /**
- * Get the recommended wallet order for display.
+ * Get the recommended wallet order for display (from hardcoded fallback).
  * Returns wallets sorted by: supports WC v2 first, then by chain support breadth.
  */
 export function getRecommendedWalletOrder(): WalletRegistryEntry[] {

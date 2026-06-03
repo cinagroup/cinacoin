@@ -184,6 +184,7 @@ export type { HeartbeatConfig, HeartbeatStatus, HeartbeatEvent, HeartbeatConnect
 // Wallets
 export {
   WALLET_REGISTRY,
+  getWallets,
   getWalletById,
   getWalletIds,
   searchWallets,
@@ -192,7 +193,9 @@ export {
   getWalletsForChain,
   getWcV2Wallets,
   getRecommendedWalletOrder,
+  invalidateCache,
 } from './wallets.js';
+export type { FetchWalletsOptions } from './wallets.js';
 
 /**
  * SDK version.
