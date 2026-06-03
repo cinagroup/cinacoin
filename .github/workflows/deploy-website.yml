@@ -7,6 +7,12 @@ on:
     paths:
       - "apps/website/**"
       - ".github/workflows/deploy-website.yml"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "apps/website/**"
+      - ".github/workflows/deploy-website.yml"
   workflow_dispatch:
 
 env:
