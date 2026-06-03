@@ -44,7 +44,8 @@ export type {
 } from "./types.js";
 
 // Session Key Management
-export { SessionKeyManager, encodeEnableSessionKey, encodeDisableSessionKey, isKeyValidForOperation } from "./session-key.js";
+export { SessionKeyManager, encodeEnableSessionKey, encodeDisableSessionKey, isKeyValidForOperation, validateSessionKeyPolicy, SESSION_KEY_STRATEGY_ABI, buildSessionKeyUserOpCallData, signUserOpWithSessionKey, canSessionKeyExecute, } from "./session-key.js";
+export type { PartialUserOp } from "./session-key.js";
 
 // Policy Management
 export { SessionKeyPolicyManager } from "./policy.js";

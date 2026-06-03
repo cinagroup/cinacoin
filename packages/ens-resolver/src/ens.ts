@@ -532,7 +532,7 @@ export async function reverseLookupENS(
   return resolver.reverseLookup(address, chainId);
 }
 
-export { namehash, keccak256 } from "./namehash.js";
+export { namehash, keccak256, reverseNamehash } from "./namehash.js";
 
 export async function getAvatarENS(
   nameOrAddress: string,

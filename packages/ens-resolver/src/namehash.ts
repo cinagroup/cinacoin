@@ -9,7 +9,7 @@
  * simpleKeccak returning 0x00...00 problem.
  */
 
-import { keccak_256 } from '@noble/hashes/sha3.js';
+import { keccak_256 } from '@noble/hashes/sha3';
 
 const EMPTY_HASH = '0'.repeat(64);
 
@@ -72,4 +72,18 @@ function hexToBytes(hex: string): Uint8Array {
     bytes[i] = parseInt(cleaned.slice(i * 2, i * 2 + 2), 16);
   }
   return bytes;
+}
+
+/**
+ * Compute the ENS reverse resolution node for an Ethereum address.
+ *
+ * Per EIP-137, the reverse node is namehash(`${address.toLowerCase()}.addr.reverse`).
+ * Used for ENS reverse lookup: address → ENS name.
+ *
+ * @param address - Ethereum address (with or without 0x prefix)
+ * @returns 32-byte namehash for the reverse node
+ */
+export function reverseNamehash(address: string): `0x${string}` {
+  const addr = address.toLowerCase().replace('0x', '');
+  return namehash(`${addr}.addr.reverse`);
 }

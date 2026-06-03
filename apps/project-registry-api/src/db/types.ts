@@ -39,3 +39,14 @@ export interface UsageStat {
   error_count: number;
   date: string;
 }
+
+export interface UsageSummary {
+  totalRequests: number;
+  totalErrors: number;
+  errorRate: number;
+  dailyStats: UsageStat[];
+  dateRange: {
+    start: string;
+    end: string;
+  };
+}

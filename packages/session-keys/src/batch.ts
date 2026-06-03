@@ -210,18 +210,37 @@ export class BatchTransactionBuilder {
     // Encode as bytes[] for executeBatch function:
     // function executeBatch(bytes[] calldata calls) external
     const encodedCalls = operations.map((op) => {
-      // ABI encode each call as (target, value, data)
-      const target = op.target.padEnd(64, "0").slice(2);
-      const value = (op.value ?? 0n).toString(16).padStart(64, "0");
-      const dataLen = (op.data.length - 2) / 2; // length in bytes
-      const dataLenHex = dataLen.toString(16).padStart(64, "0");
-
-      return `0x${target}${value}${dataLenHex}${op.data.slice(2)}`;
+      // ABI encode each call as (target, value, data) — tuple(address, uint256, bytes)
+      return encodeFunctionData({
+        abi: [
+          {
+            type: "function",
+            name: "_encodeCall",
+            inputs: [
+              { name: "target", type: "address" },
+              { name: "value", type: "uint256" },
+              { name: "data", type: "bytes" },
+            ],
+            outputs: [],
+          },
+        ],
+        args: [op.target, op.value ?? 0n, op.data],
+      });
     });
 
-    // Return as the calldata for executeBatch
-    // Simplified encoding — in production use viem's encodeFunctionData
-    return encodedCalls.length > 0 ? (encodedCalls[0] as Hex) : "0x";
+    // Encode all calls into executeBatch
+    if (encodedCalls.length === 0) return "0x";
+    return encodeFunctionData({
+      abi: [
+        {
+          type: "function",
+          name: "executeBatch",
+          inputs: [{ name: "calls", type: "bytes[]" }],
+          outputs: [],
+        },
+      ],
+      args: [encodedCalls as Hex[]],
+    });
   }
 }
 

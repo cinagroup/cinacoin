@@ -35,4 +35,4 @@ export {
   ENSResolverError,
 } from "./types.js";
 
-export { namehash, keccak256 } from "./namehash.js";
+export { namehash, keccak256, reverseNamehash } from "./namehash.js";

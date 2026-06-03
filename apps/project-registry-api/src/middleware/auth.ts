@@ -1,10 +1,10 @@
 import type { ContextVariableMap } from 'hono';
 
-// Extend Hono's ContextVariableMap for API key authentication
 declare module 'hono' {
   interface ContextVariableMap {
     apiKeyId: string;
     projectId: string;
+    permissions: string[];
   }
 }
 
