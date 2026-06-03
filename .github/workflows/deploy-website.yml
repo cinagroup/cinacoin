@@ -33,7 +33,25 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build Website
-        run: pnpm --filter cinacoin-website build
+        run: |
+          # Clean ALL caches before build
+          rm -rf apps/website/.next/cache
+          rm -rf apps/website/cache
+          rm -rf cache/
+          pnpm --filter cinacoin-website build
+
+      - name: Clean cache files before deploy
+        run: |
+          # Remove ALL cache directories that wrangler might scan
+          rm -rf apps/website/.next/cache
+          rm -rf apps/website/cache
+          rm -rf apps/website/out/cache
+          # CRITICAL: Also clean root-level cache (wrangler scans entire repo)
+          rm -rf cache/
+          rm -rf .next/
+          # Verify no large files remain
+          find . -path "*/node_modules" -prune -o -type f -size +20M -print 2>/dev/null
+          echo "Cache cleaned"
 
       - name: Verify Output
         run: |

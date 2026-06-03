@@ -47,9 +47,28 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build demo
-        run: pnpm --filter demo build
+        run: |
+          # Clean ALL caches before build (root + app level)
+          rm -rf apps/demo/.next/cache
+          rm -rf apps/demo/cache
+          rm -rf cache/webpack
+          rm -rf cache/
+          pnpm --filter demo build
         env:
           NODE_ENV: production
+
+      - name: Clean cache files before deploy
+        run: |
+          # Remove ALL cache directories that wrangler might scan
+          rm -rf apps/demo/.next/cache
+          rm -rf apps/demo/cache
+          rm -rf apps/demo/out/cache
+          # CRITICAL: Also clean root-level cache (wrangler scans entire repo)
+          rm -rf cache/
+          rm -rf .next/
+          # Verify no large files remain
+          find . -path "*/node_modules" -prune -o -type f -size +20M -print 2>/dev/null
+          echo "Cache cleaned"
 
       - name: Verify static output
         run: |

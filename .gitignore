@@ -10,6 +10,10 @@ dist/
 .next/
 .turbo/
 
+# Build cache
+cache/
+**/cache/
+
 # OS
 .DS_Store
 Thumbs.db
