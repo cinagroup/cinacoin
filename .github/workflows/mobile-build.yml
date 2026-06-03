@@ -213,11 +213,12 @@ jobs:
         working-directory: packages/dotnet
         run: dotnet build --no-incremental --configuration Release
 
-      - name: Build Unity SDK (if solution exists)
+      - name: Build Unity SDK (if .csproj exists)
         working-directory: packages/unity-csharp
         run: |
-          if [ -f "*.csproj" ]; then
-            dotnet build --no-incremental --configuration Release
+          CSPROJ=$(find . -maxdepth 1 -name '*.csproj' | head -1)
+          if [ -n "$CSPROJ" ]; then
+            dotnet build "$CSPROJ" --no-incremental --configuration Release
           else
             echo "No .csproj found in packages/unity-csharp — skipping Unity build."
           fi
@@ -230,34 +231,39 @@ jobs:
     needs: [android-lint, kotlin-compile-check, flutter-analyze, swift-syntax-check, csharp-compile-check]
     if: always()
     steps:
-      - name: Report status
+      - name: Generate summary report
+        env:
+          ANDROID_LINT: ${{ needs.android-lint.result }}
+          KOTLIN_COMPILE: ${{ needs.kotlin-compile-check.result }}
+          FLUTTER_ANALYZE: ${{ needs.flutter-analyze.result }}
+          SWIFT_SYNTAX: ${{ needs.swift-syntax-check.result }}
+          CSHARP_COMPILE: ${{ needs.csharp-compile-check.result }}
         run: |
           echo "## Mobile SDK Build Summary" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "| Job | Status |" >> "$GITHUB_STEP_SUMMARY"
           echo "| --- | ------ |" >> "$GITHUB_STEP_SUMMARY"
-          echo "| android-lint | ${{ needs.android-lint.result }} |" >> "$GITHUB_STEP_SUMMARY"
-          echo "| kotlin-compile-check | ${{ needs.kotlin-compile-check.result }} |" >> "$GITHUB_STEP_SUMMARY"
-          echo "| flutter-analyze | ${{ needs.flutter-analyze.result }} |" >> "$GITHUB_STEP_SUMMARY"
-          echo "| swift-syntax-check | ${{ needs.swift-syntax-check.result }} |" >> "$GITHUB_STEP_SUMMARY"
-          echo "| csharp-compile-check | ${{ needs.csharp-compile-check.result }} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| android-lint | $ANDROID_LINT |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| kotlin-compile-check | $KOTLIN_COMPILE |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| flutter-analyze | $FLUTTER_ANALYZE |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| swift-syntax-check | $SWIFT_SYNTAX |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| csharp-compile-check | $CSHARP_COMPILE |" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
 
-          # Fail the summary if any job failed
           FAILED=""
-          if [ "${{ needs.android-lint.result }}" = "failure" ] || [ "${{ needs.android-lint.result }}" = "cancelled" ]; then
+          if [ "$ANDROID_LINT" = "failure" ] || [ "$ANDROID_LINT" = "cancelled" ]; then
             FAILED="${FAILED}android-lint "
           fi
-          if [ "${{ needs.kotlin-compile-check.result }}" = "failure" ] || [ "${{ needs.kotlin-compile-check.result }}" = "cancelled" ]; then
+          if [ "$KOTLIN_COMPILE" = "failure" ] || [ "$KOTLIN_COMPILE" = "cancelled" ]; then
             FAILED="${FAILED}kotlin-compile-check "
           fi
-          if [ "${{ needs.flutter-analyze.result }}" = "failure" ] || [ "${{ needs.flutter-analyze.result }}" = "cancelled" ]; then
+          if [ "$FLUTTER_ANALYZE" = "failure" ] || [ "$FLUTTER_ANALYZE" = "cancelled" ]; then
             FAILED="${FAILED}flutter-analyze "
           fi
-          if [ "${{ needs.swift-syntax-check.result }}" = "failure" ] || [ "${{ needs.swift-syntax-check.result }}" = "cancelled" ]; then
+          if [ "$SWIFT_SYNTAX" = "failure" ] || [ "$SWIFT_SYNTAX" = "cancelled" ]; then
             FAILED="${FAILED}swift-syntax-check "
           fi
-          if [ "${{ needs.csharp-compile-check.result }}" = "failure" ] || [ "${{ needs.csharp-compile-check.result }}" = "cancelled" ]; then
+          if [ "$CSHARP_COMPILE" = "failure" ] || [ "$CSHARP_COMPILE" = "cancelled" ]; then
             FAILED="${FAILED}csharp-compile-check "
           fi
           if [ -n "$FAILED" ]; then
