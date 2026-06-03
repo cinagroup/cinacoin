@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    kotlin("plugin.serialization") version "1.9.24"
     id("maven-publish")
 }
 
@@ -52,6 +53,9 @@ dependencies {
     // ─── Kotlin Coroutines ─────────────────────────────────────────────────
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
+
+    // ─── Kotlinx Serialization ─────────────────────────────────────────────
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
 
     // ─── EncryptedSharedPreferences ────────────────────────────────────────
     implementation("androidx.security:security-crypto:1.1.0-alpha06")
