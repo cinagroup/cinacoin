@@ -50,6 +50,27 @@ export { InMemoryStorage, LocalStorage } from "./storage.js";
 export { BridgeEngine } from "./bridge-engine.js";
 export type { BridgeEngineOptions, BridgeCreateOptions } from "./bridge-engine.js";
 
+// Bridge Executor (real contract interactions)
+export {
+  BridgeExecutor,
+  getChainOrDefine,
+  pollTransactionReceipt,
+  STANDARD_BRIDGE_ABI,
+  POLYGON_POS_BRIDGE_ABI,
+  LOCK_MINT_BRIDGE_ABI,
+  ERC20_ABI,
+  BRIDGE_CONTRACTS,
+} from "./bridge-executor.js";
+export type {
+  BridgeExecuteParams,
+  BridgeProtocol,
+  BridgeExecutionResult,
+  BridgeExecutionState,
+  SourceLockResult,
+  DestMintResult,
+  TxPollOptions,
+} from "./bridge-executor.js";
+
 // Bridge State Manager
 export { BridgeStateManager } from "./bridge-state-manager.js";
 
