@@ -6,7 +6,7 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { AnalyticsEngine, type FunnelQuery } from "../../../lib/analytics.js";
+import { AnalyticsEngine, type FunnelQuery } from "../../../../lib/analytics";
 
 const engine = new AnalyticsEngine();
 

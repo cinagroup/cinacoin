@@ -5,14 +5,14 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { AnalyticsQueryEngine, type MetricsQuery } from "../../../lib/analytics.js";
+import { AnalyticsEngine, type QueryParams } from "../../../../lib/analytics";
 
 // Shared engine instance (in production, use a real DB)
-const engine = new AnalyticsQueryEngine();
+const engine = new AnalyticsEngine();
 
 export async function POST(req: NextRequest) {
   try {
-    const body = (await req.json()) as MetricsQuery;
+    const body = (await req.json()) as QueryParams;
 
     if (!body.timeRange?.from || !body.timeRange?.to) {
       return NextResponse.json(
@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const results = engine.queryMetrics(body);
+    const results = engine.query(body);
 
     return NextResponse.json({ results });
   } catch (err) {

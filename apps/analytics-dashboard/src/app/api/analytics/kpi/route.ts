@@ -5,9 +5,9 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { AnalyticsQueryEngine, type TimeRange } from "../../../lib/analytics.js";
+import { AnalyticsEngine, type TimeRange } from "../../../../lib/analytics";
 
-const engine = new AnalyticsQueryEngine();
+const engine = new AnalyticsEngine();
 
 export async function POST(req: NextRequest) {
   try {
