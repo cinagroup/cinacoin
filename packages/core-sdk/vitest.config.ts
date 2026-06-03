@@ -43,6 +43,7 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
+    include: ['tests/**/*.test.ts'],
     server: {
       deps: {
         inline: ['zustand', 'viem', '@noble/curves', '@noble/ciphers', '@noble/hashes'],
