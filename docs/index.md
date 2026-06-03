@@ -115,18 +115,57 @@ function App() {
 
 ## 文档导航
 
+### 🚀 快速开始指南
+
+| 文档 | 说明 |
+|------|------|
+| [⚛️ React 快速开始](/guides/quickstart-react) | 5 分钟 React 集成指南 |
+| [💚 Vue 快速开始](/guides/quickstart-vue) | 5 分钟 Vue 3 集成指南 |
+| [🤖 Android 快速开始](/guides/quickstart-android) | Kotlin SDK 快速上手 |
+| [🍎 iOS 快速开始](/guides/quickstart-ios) | Swift SDK 快速上手 |
+| [🦋 Flutter 快速开始](/guides/quickstart-flutter) | Dart/Flutter SDK 快速上手 |
+| [🔄 WalletConnect 迁移](/guides/migration-from-walletconnect) | 从 @walletconnect/ 迁移指南 |
+| [🌐 链支持矩阵](/guides/chain-support) | 30+ 链功能对照表 |
+
+### 📚 基础指南
+
 | 文档 | 说明 |
 |------|------|
 | [📖 快速开始](/guide/quick-start) | 5 分钟上手指南 |
 | [📦 安装](/guide/installation) | 各框架安装说明 |
 | [⚙️ 配置](/guide/configuration) | 完整配置选项 |
+| [🐛 故障排除](/guide/troubleshooting) | 常见问题解决方案 |
+| [❓ FAQ](/faq) | 常见问题 |
+
+### 🔌 API 参考
+
+| 文档 | 说明 |
+|------|------|
 | [🔌 Core SDK API](/api/core-sdk) | 核心 SDK 参考 |
+| [⚛️ React Hooks API](/api/react-hooks) | React Hooks 参考 |
+| [⚛️ React SDK API](/api/react) | React 组件参考 |
+| [💚 Vue SDK API](/api/vue) | Vue Composables 参考 |
 | [🎨 UI 组件 API](/api/ui-components) | 组件参考 |
 | [🔐 SIWE API](/api/siwe) | 签名认证参考 |
 | [📱 Mobile SDK](/api/mobile) | 移动端参考 |
+| [💰 Swap SDK](/api/swap-sdk) | Swap 聚合器参考 |
+| [⛽ Paymaster API](/api/paymaster) | Gas 赞助参考 |
+
+### 💻 示例代码
+
+| 文档 | 说明 |
+|------|------|
 | [💻 Web 示例](/examples/web) | 完整 Web 示例 |
 | [📲 React Native 示例](/examples/react-native) | 移动端示例 |
 | [🍎 iOS 示例](/examples/ios) | iOS 原生示例 |
 | [🤖 Android 示例](/examples/android) | Android 原生示例 |
+| [📝 SIWE 认证](/examples/siwe-auth) | 登录认证示例 |
+| [🔄 多链切换](/examples/multi-chain) | 多链支持示例 |
+
+### 🏗️ 基础设施与安全
+
+| 文档 | 说明 |
+|------|------|
 | [🛡️ 安全最佳实践](/security/best-practices) | 安全指南 |
-| [❓ FAQ](/faq) | 常见问题 |
+| [🚀 部署](/enterprise/deployment) | 生产环境部署 |
+| [📋 审计报告](/security/audit-report) | 安全审计报告 |

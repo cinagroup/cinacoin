@@ -218,6 +218,10 @@ export default {
 
     // Metrics endpoint
     if (url.pathname === '/metrics') {
+      const accept = request.headers.get('Accept') || '';
+      if (accept.includes('text/plain') || accept.includes('application/openmetrics')) {
+        return handlePrometheusMetrics();
+      }
       return handleMetrics(origin);
     }
 
@@ -305,6 +309,51 @@ function handleMetrics(origin: string | null): Response {
     active_sessions: metrics.activeSessions,
     timestamp: new Date().toISOString(),
   }, 200, origin);
+}
+
+function handlePrometheusMetrics(): Response {
+  const uptime = Date.now() - metrics.startTime;
+  const errorRate = metrics.requestCount > 0
+    ? ((metrics.errorCount / metrics.requestCount) * 100).toFixed(2)
+    : "0.00";
+
+  const lines: string[] = [
+    '# HELP relay_server_request_count_total Total requests processed',
+    '# TYPE relay_server_request_count_total counter',
+    `relay_server_request_count_total ${metrics.requestCount}`,
+    '',
+    '# HELP relay_server_error_count_total Total errors',
+    '# TYPE relay_server_error_count_total counter',
+    `relay_server_error_count_total ${metrics.errorCount}`,
+    '',
+    '# HELP relay_server_error_rate Error rate as percentage',
+    '# TYPE relay_server_error_rate gauge',
+    `relay_server_error_rate ${errorRate}`,
+    '',
+    '# HELP relay_server_message_store_total Messages stored',
+    '# TYPE relay_server_message_store_total counter',
+    `relay_server_message_store_total ${metrics.messageStoreCount}`,
+    '',
+    '# HELP relay_server_message_retrieve_total Messages retrieved',
+    '# TYPE relay_server_message_retrieve_total counter',
+    `relay_server_message_retrieve_total ${metrics.messageRetrieveCount}`,
+    '',
+    '# HELP relay_server_active_sessions Active WebSocket sessions',
+    '# TYPE relay_server_active_sessions gauge',
+    `relay_server_active_sessions ${metrics.activeSessions}`,
+    '',
+    '# HELP relay_server_uptime_ms Uptime in milliseconds',
+    '# TYPE relay_server_uptime_ms gauge',
+    `relay_server_uptime_ms ${uptime}`,
+    '',
+    '# HELP relay_server_up Whether the service is alive',
+    '# TYPE relay_server_up gauge',
+    'relay_server_up 1',
+  ];
+
+  return new Response(lines.join('\n') + '\n', {
+    headers: { 'Content-Type': 'text/plain; version=0.0.4' },
+  });
 }
 
 /**

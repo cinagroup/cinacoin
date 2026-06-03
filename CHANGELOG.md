@@ -5,6 +5,55 @@ All notable changes to Cinacoin will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Automated Changelog Generation
+
+This project uses **@changesets/cli** for automated changelog generation and version management.
+
+### How it works
+
+1. **Create a changeset** when making changes:
+   ```bash
+   pnpm changeset
+   ```
+   Select the packages that changed and describe the changes (major/minor/patch).
+
+2. **Version bump** (automated in CI or manual):
+   ```bash
+   pnpm changeset version
+   ```
+   This updates all package versions and generates changelog entries.
+
+3. **Publish** (automated in CI on tag push):
+   ```bash
+   pnpm changeset publish
+   ```
+
+### Manual releases
+
+For one-off releases without changesets:
+```bash
+bash packages/release-tools/publish.sh --manual 1.2.0
+bash packages/release-tools/publish.sh --dry-run --manual 1.2.0  # preview
+```
+
+### Release scripts
+
+| Platform | Script | Command |
+|----------|--------|----------|
+| npm | `publish.sh` | `pnpm release:npm` |
+| Android (Maven Central) | `publish-android.sh` | `pnpm release:android` |
+| iOS (CocoaPods) | `publish-ios.sh` | `pnpm release:ios` |
+| .NET (NuGet) | `publish-dotnet.sh` | `pnpm release:dotnet` |
+| All platforms | — | `pnpm release:all` |
+
+### CI/CD
+
+Push a version tag to trigger the full release pipeline:
+```bash
+git tag v1.2.0 && git push origin v1.2.0
+```
+This triggers `.github/workflows/release.yml` which builds, tests, and publishes to all registries.
+
 ---
 
 ## [Unreleased]

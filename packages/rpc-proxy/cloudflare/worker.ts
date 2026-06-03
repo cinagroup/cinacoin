@@ -286,7 +286,7 @@ function handleMetrics(origin: string | null): Response {
     ? ((metrics.cacheHits / (metrics.cacheHits + metrics.cacheMisses)) * 100).toFixed(2)
     : "0.00";
 
-  return new Response(JSON.stringify({
+  const jsonBody = {
     service: "cinacoin-rpc-proxy",
     uptime_ms: uptime,
     uptime_readable: formatUptime(uptime),
@@ -298,8 +298,63 @@ function handleMetrics(origin: string | null): Response {
     cache_hit_rate_percent: parseFloat(cacheHitRate),
     chain_usage: metrics.chainUsage,
     timestamp: new Date().toISOString(),
-  }), {
+  };
+
+  return new Response(JSON.stringify(jsonBody), {
     headers: { "Content-Type": "application/json", ...makeCorsHeaders(origin), "X-Frame-Options": "DENY" },
+  });
+}
+
+function handlePrometheusMetrics(): Response {
+  const uptime = Date.now() - metrics.startTime;
+  const errorRate = metrics.requestCount > 0
+    ? ((metrics.errorCount / metrics.requestCount) * 100).toFixed(2)
+    : "0.00";
+  const cacheHitRate = metrics.cacheHits + metrics.cacheMisses > 0
+    ? ((metrics.cacheHits / (metrics.cacheHits + metrics.cacheMisses)) * 100).toFixed(2)
+    : "0.00";
+
+  const lines: string[] = [
+    '# HELP rpc_proxy_request_count_total Total requests processed',
+    '# TYPE rpc_proxy_request_count_total counter',
+    `rpc_proxy_request_count_total ${metrics.requestCount}`,
+    '',
+    '# HELP rpc_proxy_error_count_total Total errors',
+    '# TYPE rpc_proxy_error_count_total counter',
+    `rpc_proxy_error_count_total ${metrics.errorCount}`,
+    '',
+    '# HELP rpc_proxy_error_rate Error rate as percentage',
+    '# TYPE rpc_proxy_error_rate gauge',
+    `rpc_proxy_error_rate ${errorRate}`,
+    '',
+    '# HELP rpc_proxy_cache_hits_total Cache hits',
+    '# TYPE rpc_proxy_cache_hits_total counter',
+    `rpc_proxy_cache_hits_total ${metrics.cacheHits}`,
+    '',
+    '# HELP rpc_proxy_cache_misses_total Cache misses',
+    '# TYPE rpc_proxy_cache_misses_total counter',
+    `rpc_proxy_cache_misses_total ${metrics.cacheMisses}`,
+    '',
+    '# HELP rpc_proxy_cache_hit_rate Cache hit rate as percentage',
+    '# TYPE rpc_proxy_cache_hit_rate gauge',
+    `rpc_proxy_cache_hit_rate ${cacheHitRate}`,
+    '',
+    '# HELP rpc_proxy_uptime_ms Uptime in milliseconds',
+    '# TYPE rpc_proxy_uptime_ms gauge',
+    `rpc_proxy_uptime_ms ${uptime}`,
+    '',
+    '# HELP rpc_proxy_up Whether the service is alive',
+    '# TYPE rpc_proxy_up gauge',
+    'rpc_proxy_up 1',
+  ];
+
+  for (const [chain, count] of Object.entries(metrics.chainUsage)) {
+    if (lines[lines.length - 1] !== '') lines.push('');
+    lines.push(`rpc_proxy_chain_requests_total{chain="${chain}"} ${count}`);
+  }
+
+  return new Response(lines.join('\n') + '\n', {
+    headers: { 'Content-Type': 'text/plain; version=0.0.4' },
   });
 }
 
@@ -483,6 +538,10 @@ export default {
 
     // Metrics endpoint
     if (url.pathname === "/metrics" && request.method === "GET") {
+      const accept = request.headers.get("Accept") || "";
+      if (accept.includes("text/plain") || accept.includes("application/openmetrics")) {
+        return handlePrometheusMetrics();
+      }
       return handleMetrics(origin);
     }
 

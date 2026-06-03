@@ -1,0 +1,25 @@
+name = "cinacoin-monitoring"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+workers_dev = true
+
+routes = [
+  { pattern = "monitor.cinacoin.com", custom_domain = true }
+]
+
+[vars]
+POLL_INTERVAL_SECONDS = "30"
+ALERT_COOLDOWN_SECONDS = "300"
+DISCORD_WEBHOOK_URL = ""
+
+[[kv_namespaces]]
+binding = "MONITORING_KV"
+id = "MONITORING_KV_ID_REPLACE_ME"
+
+[[d1_databases]]
+binding = "MONITORING_DB"
+database_name = "cinacoin-monitoring"
+database_id = "MONITORING_DB_ID_REPLACE_ME"
+
+[triggers]
+crons = ["*/5 * * * *"]

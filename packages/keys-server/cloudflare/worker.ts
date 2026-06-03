@@ -130,6 +130,51 @@ function handleMetrics(): Response {
   });
 }
 
+function handlePrometheusMetrics(): Response {
+  const uptime = Date.now() - metrics.startTime;
+  const errorRate = metrics.requestCount > 0
+    ? ((metrics.errorCount / metrics.requestCount) * 100).toFixed(2)
+    : "0.00";
+
+  const lines: string[] = [
+    '# HELP keys_server_request_count_total Total requests processed',
+    '# TYPE keys_server_request_count_total counter',
+    `keys_server_request_count_total ${metrics.requestCount}`,
+    '',
+    '# HELP keys_server_error_count_total Total errors',
+    '# TYPE keys_server_error_count_total counter',
+    `keys_server_error_count_total ${metrics.errorCount}`,
+    '',
+    '# HELP keys_server_error_rate Error rate as percentage',
+    '# TYPE keys_server_error_rate gauge',
+    `keys_server_error_rate ${errorRate}`,
+    '',
+    '# HELP keys_server_keypair_create_total Keypair creations',
+    '# TYPE keys_server_keypair_create_total counter',
+    `keys_server_keypair_create_total ${metrics.keypairCreateCount}`,
+    '',
+    '# HELP keys_server_keypair_list_total Keypair list requests',
+    '# TYPE keys_server_keypair_list_total counter',
+    `keys_server_keypair_list_total ${metrics.keypairListCount}`,
+    '',
+    '# HELP keys_server_session_create_total Session creations',
+    '# TYPE keys_server_session_create_total counter',
+    `keys_server_session_create_total ${metrics.sessionCreateCount}`,
+    '',
+    '# HELP keys_server_uptime_ms Uptime in milliseconds',
+    '# TYPE keys_server_uptime_ms gauge',
+    `keys_server_uptime_ms ${uptime}`,
+    '',
+    '# HELP keys_server_up Whether the service is alive',
+    '# TYPE keys_server_up gauge',
+    'keys_server_up 1',
+  ];
+
+  return new Response(lines.join('\n') + '\n', {
+    headers: { 'Content-Type': 'text/plain; version=0.0.4' },
+  });
+}
+
 // ---------------------------------------------------------------------------
 // Session Validation
 // ---------------------------------------------------------------------------
@@ -252,8 +297,13 @@ export default {
           return jsonResponse({ status: 'ok', uptime: uptimeSec, version: '1.0.0', timestamp: new Date().toISOString() }, 200, origin);
         }
 
-        case '/metrics':
+        case '/metrics': {
+          const accept = request.headers.get('Accept') || '';
+          if (accept.includes('text/plain') || accept.includes('application/openmetrics')) {
+            return handlePrometheusMetrics();
+          }
           return handleMetrics();
+        }
 
         case '/api/v1/keypairs': {
           // Session required for both read and write

@@ -32,7 +32,19 @@
     "publish:all": "node scripts/publish-all.js",
     "publish:all:sh": "bash scripts/publish-all.sh",
     "publish:dry-run": "node scripts/publish-all.js --dry-run",
-    "publish:all:force": "node scripts/publish-all.js --publish"
+    "publish:all:force": "node scripts/publish-all.js --publish",
+    "release:npm": "bash packages/release-tools/publish.sh",
+    "release:npm:dry-run": "bash packages/release-tools/publish.sh --dry-run",
+    "release:npm:changeset": "bash packages/release-tools/publish.sh --changeset",
+    "release:android": "bash packages/release-tools/publish-android.sh",
+    "release:android:snapshot": "bash packages/release-tools/publish-android.sh --snapshot",
+    "release:android:local": "bash packages/release-tools/publish-android.sh --local",
+    "release:ios": "bash packages/release-tools/publish-ios.sh",
+    "release:ios:validate": "bash packages/release-tools/publish-ios.sh --validate-only",
+    "release:dotnet": "bash packages/release-tools/publish-dotnet.sh",
+    "release:dotnet:dry-run": "bash packages/release-tools/publish-dotnet.sh --dry-run",
+    "release:all": "bash packages/release-tools/publish.sh --changeset && bash packages/release-tools/publish-android.sh && bash packages/release-tools/publish-ios.sh && bash packages/release-tools/publish-dotnet.sh",
+    "release:all:dry-run": "bash packages/release-tools/publish.sh --dry-run && bash packages/release-tools/publish-android.sh --dry-run && bash packages/release-tools/publish-ios.sh --dry-run && bash packages/release-tools/publish-dotnet.sh --dry-run"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",

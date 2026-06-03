@@ -170,6 +170,30 @@ export default {
 
       // Metrics (no auth)
       if (path === '/metrics' && request.method === 'GET') {
+        const accept = request.headers.get('Accept') || '';
+        if (accept.includes('text/plain') || accept.includes('application/openmetrics')) {
+          const m = server.getMetrics() as Record<string, unknown>;
+          const lines: string[] = [
+            '# HELP push_server_up Whether the service is alive',
+            '# TYPE push_server_up gauge',
+            'push_server_up 1',
+            '',
+            '# HELP push_server_uptime_ms Uptime in milliseconds',
+            '# TYPE push_server_uptime_ms gauge',
+            `push_server_uptime_ms ${m.uptime_ms ?? 0}`,
+            '',
+            '# HELP push_server_request_count_total Total requests processed',
+            '# TYPE push_server_request_count_total counter',
+            `push_server_request_count_total ${m.request_count ?? 0}`,
+            '',
+            '# HELP push_server_error_rate Error rate as percentage',
+            '# TYPE push_server_error_rate gauge',
+            `push_server_error_rate ${m.error_rate_percent ?? 0}`,
+          ];
+          return new Response(lines.join('\n') + '\n', {
+            headers: { 'Content-Type': 'text/plain; version=0.0.4' },
+          });
+        }
         return jsonOk(server.getMetrics(), origin);
       }
 
