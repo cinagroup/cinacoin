@@ -57,19 +57,6 @@ jobs:
         env:
           NODE_ENV: production
 
-      - name: Clean cache files before deploy
-        run: |
-          # Remove ALL cache directories that wrangler might scan
-          rm -rf apps/demo/.next/cache
-          rm -rf apps/demo/cache
-          rm -rf apps/demo/out/cache
-          # CRITICAL: Also clean root-level cache (wrangler scans entire repo)
-          rm -rf cache/
-          rm -rf .next/
-          # Verify no large files remain
-          find . -path "*/node_modules" -prune -o -type f -size +20M -print 2>/dev/null
-          echo "Cache cleaned"
-
       - name: Verify static output
         run: |
           if [ -d "apps/demo/out" ]; then
@@ -80,6 +67,18 @@ jobs:
             echo "✗ Static output directory not found"
             exit 1
           fi
+
+      - name: Clean cache files before deploy
+        run: |
+          # CRITICAL: Next.js build generates cache/ in monorepo root
+          # Must clean AFTER build, BEFORE deploy (wrangler scans entire repo)
+          rm -rf cache/
+          rm -rf apps/demo/.next/cache
+          rm -rf apps/demo/out/cache
+          # Verify no large files remain
+          echo "=== Checking for large files ==="
+          find . -path "*/node_modules" -prune -o -type f -size +20M -print 2>/dev/null || echo "None found"
+          echo "Cache cleaned"
 
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3

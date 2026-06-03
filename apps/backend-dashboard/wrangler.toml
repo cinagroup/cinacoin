@@ -2,7 +2,7 @@ name = "backend-dashboard"
 compatibility_date = "2025-01-01"
 
 [build]
-command = "pnpm install --frozen-lockfile && npx turbo run build --filter=backend-dashboard && rm -rf cache/ apps/backend-dashboard/.next/cache"
+command = "rm -rf cache/ && pnpm install --frozen-lockfile && npx turbo run build --filter=backend-dashboard --no-cache && rm -rf cache/ apps/backend-dashboard/.next/cache"
 cwd = "../.."
 output_directory = "apps/backend-dashboard/out"
 watch_dir = "apps/backend-dashboard/src"

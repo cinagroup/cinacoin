@@ -48,26 +48,13 @@ jobs:
 
       - name: Build dashboard
         run: |
-          # Clean ALL caches before build
+          # Clean caches before build
           rm -rf apps/backend-dashboard/.next/cache
           rm -rf apps/backend-dashboard/cache
           rm -rf cache/
           pnpm dashboard:build
         env:
           NODE_ENV: production
-
-      - name: Clean cache files before deploy
-        run: |
-          # Remove ALL cache directories that wrangler might scan
-          rm -rf apps/backend-dashboard/.next/cache
-          rm -rf apps/backend-dashboard/cache
-          rm -rf apps/backend-dashboard/out/cache
-          # CRITICAL: Also clean root-level cache (wrangler scans entire repo)
-          rm -rf cache/
-          rm -rf .next/
-          # Verify no large files remain
-          find . -path "*/node_modules" -prune -o -type f -size +20M -print 2>/dev/null
-          echo "Cache cleaned"
 
       - name: Verify static output
         run: |
@@ -79,6 +66,17 @@ jobs:
             echo "✗ Static output directory not found"
             exit 1
           fi
+
+      - name: Clean cache before deploy
+        run: |
+          # CRITICAL: next build generates cache/ in monorepo root
+          # wrangler scans entire repo before deploy
+          rm -rf cache/
+          rm -rf apps/backend-dashboard/.next/cache
+          rm -rf apps/backend-dashboard/out/cache
+          echo "=== Large files check ==="
+          find . -path "*/node_modules" -prune -o -type f -size +20M -print 2>/dev/null || echo "None found"
+          echo "Cache cleaned"
 
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
