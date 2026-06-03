@@ -198,7 +198,7 @@ class WCClient {
     var requiredEvents: List<String> = WCEvents.standardEvmEvents
 
     // Internal state
-    private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+    internal val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     private var isInitialized = false
 
     // WalletConnectKotlin SDK clients
@@ -217,6 +217,24 @@ class WCClient {
 
     // Session persistence manager
     var sessionManager: WCSessionManager? = null
+        private set
+
+    // ─── New Integration Modules ────────────────────────────────────────
+
+    /** Session recovery manager (multi-session, background validation). */
+    var sessionRecovery: WCSessionRecovery? = null
+        private set
+
+    /** SIWE handler (EIP-4361 sign-in flow). */
+    var siweHandler: WCSiweHandler? = null
+        private set
+
+    /** Multi-chain manager (CAIP-2 namespace, chain switching). */
+    var multiChainManager: WCMultiChainManager? = null
+        private set
+
+    /** Relay manager (auto-reconnect, health monitoring, fallback). */
+    var relayManager: WCRelayManager? = null
         private set
 
     // Session TTL in milliseconds (default: 7 days)
@@ -274,6 +292,23 @@ class WCClient {
             mgr.startExpiryMonitoring { scope.launch { disconnect() } }
         }
 
+        // Initialize session recovery module
+        sessionRecovery = WCSessionRecovery(prefs).also { recovery ->
+            recovery.sessionTTL = sessionTTL
+            recovery.onSessionRecovered { info ->
+                scope.launch { attemptRestoreSession(context) }
+            }
+        }
+
+        // Initialize SIWE handler
+        siweHandler = WCSiweHandler(this)
+
+        // Initialize multi-chain manager
+        multiChainManager = WCMultiChainManager(this)
+
+        // Initialize relay manager
+        relayManager = WCRelayManager(this)
+
         // Initialize the Core SDK
         val core = CoreClient(
             context = context,
@@ -301,6 +336,9 @@ class WCClient {
 
         isInitialized = true
 
+        // Start relay health monitoring
+        relayManager?.startHealthMonitoring()
+
         // Attempt to restore a persisted session
         if (autoReconnectEnabled) {
             scope.launch { attemptRestoreSession(context) }
@@ -321,13 +359,33 @@ class WCClient {
                 _relayHealth.value = RelayHealth.Connected
                 _events.emit(WCEvent.Connected(wcSession))
 
-                // Persist session
+                // Persist session (legacy)
+                val chainId = wcSession.accounts.firstOrNull()
+                    ?.substringBefore(":")?.substringAfter("eip155:")?.toIntOrNull() ?: 1
                 sessionManager?.persistSession(
                     topic = wcSession.topic,
                     accounts = wcSession.accounts,
-                    chainId = wcSession.accounts.firstOrNull()?.substringBefore(":")?.substringAfter("eip155:")?.toIntOrNull() ?: 1,
+                    chainId = chainId,
                     peerName = wcSession.peerMetadata["name"]
                 )
+
+                // Register in multi-session recovery store
+                sessionRecovery?.registerSession(
+                    topic = wcSession.topic,
+                    accounts = wcSession.accounts,
+                    chainId = chainId,
+                    peerName = wcSession.peerMetadata["name"],
+                    isActive = true
+                )
+
+                // Validate session in recovery
+                sessionRecovery?.validateSession(wcSession.topic)
+
+                // Notify relay manager
+                relayManager?.onConnected()
+
+                // Initialize multi-chain support
+                multiChainManager?.initialize()
             }
         }
 
@@ -340,6 +398,9 @@ class WCClient {
                 _status.value = WCStatus.Disconnected
                 _relayHealth.value = RelayHealth.Disconnected
                 sessionManager?.clearSession()
+                sessionRecovery?.unregisterSession(topic)
+                siweHandler?.clearSession()
+                relayManager?.onDisconnected()
                 _events.emit(WCEvent.Disconnected)
             }
         }
@@ -451,10 +512,43 @@ class WCClient {
 
     /**
      * Attempt to restore a previously persisted session.
+     * Uses session recovery module for enhanced multi-session support.
      */
     private suspend fun attemptRestoreSession(context: Context) {
         if (!autoReconnectEnabled) return
 
+        // Try the new recovery module first
+        val recoveryResult = sessionRecovery?.attemptRecovery()
+        if (recoveryResult is RecoveryResult.Success && recoveryResult.sessions.isNotEmpty()) {
+            val activeSession = recoveryResult.sessions.find { it.isActive }
+                ?: recoveryResult.sessions.first()
+
+            val sign = signClient ?: return
+            try {
+                val sessions = sign.getActiveSessions()
+                val sdkSession = sessions.find { it.topic == activeSession.topic }
+
+                if (sdkSession != null) {
+                    val wcSession = sdkSession.toWCSession()
+                    _session.value = wcSession
+                    _accounts.value = wcSession.accounts
+                    _status.value = WCStatus.Connected
+                    _relayHealth.value = RelayHealth.Connected
+                    _events.emit(WCEvent.Connected(wcSession))
+
+                    relayManager?.onConnected()
+                    multiChainManager?.initialize()
+
+                    try {
+                        fetchBalance()
+                        _events.emit(WCEvent.SessionUpdate(_session.value))
+                    } catch (_: Exception) {}
+                    return
+                }
+            } catch (_: Exception) {}
+        }
+
+        // Fallback: try legacy single-session recovery
         val persisted = sessionManager?.loadSession() ?: return
         val sign = signClient ?: return
 
@@ -470,9 +564,11 @@ class WCClient {
                 _relayHealth.value = RelayHealth.Connected
                 _events.emit(WCEvent.Connected(wcSession))
 
-                // Fetch updated balance
+                relayManager?.onConnected()
+                multiChainManager?.initialize()
+
                 try {
-                    val balance = fetchBalance()
+                    fetchBalance()
                     _events.emit(WCEvent.SessionUpdate(_session.value))
                 } catch (_: Exception) {}
             } else {
@@ -550,6 +646,80 @@ class WCClient {
         val result = request(WCMethods.ETH_SIGN_TYPED_DATA_V4, params)
         return result.getString("result")
     }
+
+    // ─── SIWE Convenience Methods ───────────────────────────────────────
+
+    /**
+     * Perform SIWE authentication via the integrated SIWE handler.
+     */
+    suspend fun siweSignIn(
+        domain: String,
+        statement: String? = null,
+        uri: String? = null,
+        chainId: Int? = null,
+        expirationTime: String? = null,
+        resources: List<String>? = null
+    ): SiweAuthResult {
+        val handler = siweHandler ?: throw WCError.NotConfigured
+        val address = _accounts.value.firstOrNull()?.substringAfterLast(":")
+            ?: throw WCError.NotConnected
+        val activeChainId = chainId
+            ?: _accounts.value.firstOrNull()
+                ?.substringBefore(":")?.substringAfter("eip155:")?.toIntOrNull()
+            ?: 1
+
+        return handler.signIn(
+            domain = domain,
+            address = address,
+            statement = statement,
+            uri = uri ?: metadata?.url ?: "https://cinacoin.io",
+            chainId = activeChainId,
+            expirationTime = expirationTime,
+            resources = resources
+        )
+    }
+
+    /** Check if current session has a valid SIWE binding. */
+    fun isSiweAuthenticated(): Boolean = siweHandler?.isSessionValid() ?: false
+
+    /** Get current SIWE session binding. */
+    fun getSiweSession(): SiweSessionBinding? = siweHandler?.siweSession?.value
+
+    // ─── Multi-Chain Convenience Methods ────────────────────────────────
+
+    /** Switch chain via multi-chain manager. */
+    suspend fun multiChainSwitchTo(chainId: Int): Result<Unit> {
+        val manager = multiChainManager ?: return Result.failure(IllegalStateException("Multi-chain not initialized"))
+        return manager.switchToChain(chainId)
+    }
+
+    /** Get multi-chain state. */
+    fun getMultiChainState(): MultiChainState? = multiChainManager?.state?.value
+
+    /** Fetch balance for a specific chain. */
+    suspend fun fetchBalanceForChain(chainId: Int): String {
+        val manager = multiChainManager ?: return fetchBalance()
+        val chain = Caip2Chain("eip155", chainId.toString())
+        return manager.fetchBalance(chain)
+    }
+
+    /** Fetch balances for all supported chains. */
+    suspend fun fetchAllBalances(): Map<Caip2Chain, String> {
+        val manager = multiChainManager ?: return emptyMap()
+        return manager.fetchAllBalances()
+    }
+
+    // ─── Relay Convenience Methods ──────────────────────────────────────
+
+    /** Get relay health metrics. */
+    fun getRelayHealthMetrics(): RelayHealthMetrics? = relayManager?.healthMetrics?.value
+
+    /** Manually switch relay URL. */
+    fun switchRelay(url: String) {
+        relayManager?.switchRelay(url)
+    }
+
+    // ─── Standard Methods ───────────────────────────────────────────────
 
     /**
      * Send personal_sign.
@@ -643,6 +813,15 @@ class WCClient {
         }
 
         continuation.invokeOnCancellation { job.cancel() }
+    }
+
+    /**
+     * Clean up all resources.
+     */
+    fun close() {
+        sessionManager?.close()
+        sessionRecovery?.close()
+        relayManager?.close()
     }
 
     /**
