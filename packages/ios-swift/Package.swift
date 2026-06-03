@@ -10,14 +10,20 @@ let package = Package(
         .macOS(.v12),
     ],
     products: [
+        // MARK: - OnChainUX (UI components + WC integration)
         .library(
             name: "OnChainUX",
             targets: ["OnChainUX"]),
+        // MARK: - CinacoinSDK (Core Wallet SDK — programmatic API)
+        .library(
+            name: "CinacoinSDK",
+            targets: ["CinacoinSDK"]),
     ],
     dependencies: [
         .package(url: "https://github.com/WalletConnect/WalletConnectSwiftV2.git", exact: "1.13.0"),
     ],
     targets: [
+        // MARK: - OnChainUX
         .target(
             name: "OnChainUX",
             dependencies: [
@@ -25,16 +31,26 @@ let package = Package(
                 .product(name: "WalletConnectNetworking", package: "WalletConnectSwiftV2"),
             ],
             path: "Sources/OnChainUX",
-            // Sources are automatically discovered under path:
-            //   OnChainUX.swift, WalletManager.swift, ConnectButton.swift,
-            //   ConnectModal.swift, DeepLinkHandler.swift, PushNotificationHandler.swift
-            //   Auth/SIWE.swift
-            //   ChainAdapter/SolanaAdapter.swift, ChainAdapter/EVMAdapter.swift
-            //   WalletConnect/WCClient.swift, WalletConnect/WCUtils.swift
         ),
         .testTarget(
             name: "OnChainUXTests",
             dependencies: ["OnChainUX"],
             path: "Tests/OnChainUXTests"),
+
+        // MARK: - CinacoinSDK
+        .target(
+            name: "CinacoinSDK",
+            dependencies: [
+                // WalletConnectSwiftV2 is declared as an optional dependency.
+                // The SDK compiles without it (stubs for testing); production
+                // apps should include the WC package.
+                // .product(name: "WalletConnect", package: "WalletConnectSwiftV2"),
+            ],
+            path: "Sources/CinacoinSDK",
+        ),
+        .testTarget(
+            name: "CinacoinSDKTests",
+            dependencies: ["CinacoinSDK"],
+            path: "Tests/CinacoinSDKTests")
     ]
 )
