@@ -30,6 +30,11 @@ export {
   buildTransferObjectTx, buildSplitCoinTx, buildMergeCoinsTx,
   buildSuiTransferTx, buildSuiBatchPayTx, buildCoinTransferTx,
   buildCoinMintTx, buildCoinBurnTx,
+  buildMoveCallTransaction, buildBatchMoveCallTransaction,
+  buildStakeSuiTx, buildNftMintTx,
+  buildSplitCoinExTx, buildTransferSharedObjectTx, buildMakeMoveVecTx,
+  executeSignedTransaction, dryRunTransaction, devInspectTransaction,
+  executeMoveCall, executeTransfer,
   serializeSignature, buildPersonalMessage, buildTxBytesForSigning,
   buildExecuteTransactionRpc, buildDryRunRpc, buildDevInspectRpc,
   serializeTransactionBlock, parseTransactionBlock,
@@ -42,6 +47,8 @@ export {
   type SuiObjectRef, type SuiObjectOwner, type SuiObject,
   type SerializedSignature, type SuiSignatureScheme,
   type SuiRequestType, type SuiSubmitParams,
+  type SuiExecuteResult, type DryRunResult, type DevInspectResult,
+  type MoveCallParams, type BatchMoveCallParams,
 } from './services/sui-ops.js';
 
 export const VERSION = '0.1.0';

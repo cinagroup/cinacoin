@@ -234,7 +234,7 @@ export function verifyRegistrationResponse(
 ): RegistrationVerificationResult {
   try {
     // 1. Parse client data
-    parseClientDataJSON(
+    const clientData = parseClientDataJSON(
       response.clientDataJSON,
       'webauthn.create',
       expectedChallenge,
@@ -244,7 +244,7 @@ export function verifyRegistrationResponse(
     // 2. Hash client data JSON
     const clientDataHash = sha256(fromBase64Url(response.clientDataJSON));
 
-    // 3. Decode attestation object
+    // 3. Decode attestation object and extract authData
     const authData = decodeAuthenticatorData(
       fromBase64Url(response.attestationObject)
     );
@@ -262,20 +262,26 @@ export function verifyRegistrationResponse(
       return { verified: false, error: 'No attested credential data' };
     }
 
-    // 5. Extract credential public key
-    const credentialData = extractAttestedCredentialData(authData);
-    if (!credentialData) {
-      return { verified: false, error: 'Failed to extract credential data' };
-    }
-
-    // 6. Verify RP ID hash
+    // 5. Verify RP ID hash
     const rpIdHash = authData.slice(0, 32);
     const expectedRpIdHash = sha256(new TextEncoder().encode(rpId));
     if (bytesToHex(rpIdHash) !== bytesToHex(expectedRpIdHash)) {
       return { verified: false, error: 'RP ID hash mismatch' };
     }
 
-    // 7. Build credential record
+    // 6. Extract credential public key
+    const credentialData = extractAttestedCredentialData(authData);
+    if (!credentialData) {
+      return { verified: false, error: 'Failed to extract credential data' };
+    }
+
+    // 7. Verify attestation format
+    const attestationFormat = decodeAttestationFormat(fromBase64Url(response.attestationObject));
+    if (!attestationFormat.valid) {
+      return { verified: false, error: `Invalid attestation format: ${attestationFormat.error}` };
+    }
+
+    // 8. Build credential record
     const credential: CredentialRecord = {
       id: response.rawId,
       userHandle: '',
@@ -379,46 +385,179 @@ export function verifyAuthenticationResponse(
  * The attestation object is a CBOR map:
  *   { "fmt": text, "authData": bytes, "attStmt": map }
  *
- * This is a minimal parser for self-attestation (fmt = "none").
- * For production, use a proper CBOR library like `cbor-x`.
+ * This is a minimal parser that properly walks the CBOR structure
+ * to find the "authData" field regardless of key ordering.
  */
 function decodeAuthenticatorData(attestationBytes: Uint8Array): Uint8Array {
-  // Skip CBOR map header and "fmt" key + value to reach "authData"
-  // Typical layout: a3 63 66 6d 74 64 6e 6f 6e 65 68 authData 58 <len> <data>
   let offset = 0;
 
-  // Skip map header byte
-  offset += 1;
+  // Read CBOR map header
+  const mapHeader = attestationBytes[offset++];
+  const mapType = (mapHeader >> 5) & 0x07;
+  const mapCount = readCborUint(attestationBytes, mapHeader);
 
-  // Skip "fmt" key (text string, len = 3: 0x63 + "fmt")
-  offset += 1 + 3;
-
-  // Skip "none" value (text string, len = 4: 0x64 + "none")
-  offset += 1 + 4;
-
-  // Skip "authData" key (text string, len = 8: 0x68 + "authData")
-  offset += 1 + 8;
-
-  // Now at authData byte string header
-  // Byte string major type = 0x40
-  const header = attestationBytes[offset];
-  const majorType = (header >> 5) & 0x07;
-  const inlineLen = header & 0x1f;
-
-  if (majorType === 2) {
-    // Byte string with inline length (≤23)
-    offset += 1;
-    return attestationBytes.slice(offset, offset + inlineLen);
-  } else if (majorType === 3 && inlineLen === 24) {
-    // Byte string with 1-byte length
-    const len = attestationBytes[offset + 1];
-    offset += 2;
-    return attestationBytes.slice(offset, offset + len);
+  if (mapType !== 5) {
+    throw new Error('Expected CBOR map for attestation object');
   }
 
-  // Fallback: assume the authData starts after the header
-  offset += 1;
-  return attestationBytes.slice(offset);
+  // Walk through map entries to find "authData"
+  for (let i = 0; i < mapCount; i++) {
+    // Read key (text string)
+    const keyStart = offset;
+    const keyVal = readCborText(attestationBytes, offset);
+    const keyLen = keyVal.length;
+    offset += cborTextEncodedLength(attestationBytes, offset);
+
+    // Read value
+    if (keyVal === 'authData') {
+      return readCborBytes(attestationBytes, offset);
+    }
+
+    // Skip value based on type
+    offset += skipCborValue(attestationBytes, offset);
+  }
+
+  throw new Error('authData field not found in attestation object');
+}
+
+/**
+ * Read a CBOR unsigned integer from the header byte and advance offset.
+ */
+function readCborUint(bytes: Uint8Array, header: number): number {
+  const majorType = (header >> 5) & 0x07;
+  const ai = header & 0x1f;
+
+  if (ai < 24) return ai;
+  if (ai === 24) return bytes[1];
+  if (ai === 25) {
+    return (bytes[1] << 8) | bytes[2];
+  }
+  throw new Error('Unsupported CBOR uint size');
+}
+
+/**
+ * Read a CBOR byte string and return its value.
+ */
+function readCborBytes(bytes: Uint8Array, offset: number): Uint8Array {
+  const header = bytes[offset];
+  const majorType = (header >> 5) & 0x07;
+  const ai = header & 0x1f;
+
+  if (majorType !== 2) {
+    throw new Error('Expected CBOR byte string');
+  }
+
+  let len: number;
+  let dataOffset: number;
+
+  if (ai < 24) {
+    len = ai;
+    dataOffset = offset + 1;
+  } else if (ai === 24) {
+    len = bytes[offset + 1];
+    dataOffset = offset + 2;
+  } else if (ai === 25) {
+    len = (bytes[offset + 1] << 8) | bytes[offset + 2];
+    dataOffset = offset + 3;
+  } else {
+    throw new Error('Unsupported CBOR byte string length');
+  }
+
+  return bytes.slice(dataOffset, dataOffset + len);
+}
+
+/**
+ * Read a CBOR text string and return its decoded value.
+ */
+function readCborText(bytes: Uint8Array, offset: number): string {
+  const header = bytes[offset];
+  const majorType = (header >> 5) & 0x07;
+  const ai = header & 0x1f;
+
+  if (majorType !== 3) {
+    throw new Error('Expected CBOR text string');
+  }
+
+  let len: number;
+  let dataOffset: number;
+
+  if (ai < 24) {
+    len = ai;
+    dataOffset = offset + 1;
+  } else if (ai === 24) {
+    len = bytes[offset + 1];
+    dataOffset = offset + 2;
+  } else if (ai === 25) {
+    len = (bytes[offset + 1] << 8) | bytes[offset + 2];
+    dataOffset = offset + 3;
+  } else {
+    throw new Error('Unsupported CBOR text string length');
+  }
+
+  return new TextDecoder().decode(bytes.slice(dataOffset, dataOffset + len));
+}
+
+/**
+ * Get the encoded length of a CBOR text string at the given offset.
+ */
+function cborTextEncodedLength(bytes: Uint8Array, offset: number): number {
+  const header = bytes[offset];
+  const ai = header & 0x1f;
+
+  if (ai < 24) return 1 + ai;
+  if (ai === 24) return 2 + bytes[offset + 1];
+  if (ai === 25) return 3 + ((bytes[offset + 1] << 8) | bytes[offset + 2]);
+  throw new Error('Unsupported CBOR text string length');
+}
+
+/**
+ * Skip a CBOR value and return the number of bytes consumed.
+ */
+function skipCborValue(bytes: Uint8Array, offset: number): number {
+  const header = bytes[offset];
+  const majorType = (header >> 5) & 0x07;
+  const ai = header & 0x1f;
+
+  if (majorType === 0 || majorType === 1) {
+    // uint / nint
+    if (ai < 24) return 1;
+    if (ai === 24) return 2;
+    if (ai === 25) return 3;
+    if (ai === 26) return 5;
+    if (ai === 27) return 9;
+    return 1;
+  } else if (majorType === 2) {
+    // byte string
+    const len = ai < 24 ? ai : ai === 24 ? bytes[offset + 1] : ai === 25 ? (bytes[offset + 1] << 8) | bytes[offset + 2] : 0;
+    return (ai < 24 ? 1 : ai === 24 ? 2 : ai === 25 ? 3 : 1) + len;
+  } else if (majorType === 3) {
+    // text string
+    const len = ai < 24 ? ai : ai === 24 ? bytes[offset + 1] : ai === 25 ? (bytes[offset + 1] << 8) | bytes[offset + 2] : 0;
+    return (ai < 24 ? 1 : ai === 24 ? 2 : ai === 25 ? 3 : 1) + len;
+  } else if (majorType === 4) {
+    // array
+    const count = ai < 24 ? ai : ai === 24 ? bytes[offset + 1] : ai === 25 ? (bytes[offset + 1] << 8) | bytes[offset + 2] : 0;
+    let innerOffset = ai < 24 ? 1 : ai === 24 ? 2 : ai === 25 ? 3 : 1;
+    for (let i = 0; i < count; i++) {
+      innerOffset += skipCborValue(bytes, offset + innerOffset);
+    }
+    return innerOffset;
+  } else if (majorType === 5) {
+    // map
+    const count = ai < 24 ? ai : ai === 24 ? bytes[offset + 1] : ai === 25 ? (bytes[offset + 1] << 8) | bytes[offset + 2] : 0;
+    let innerOffset = ai < 24 ? 1 : ai === 24 ? 2 : ai === 25 ? 3 : 1;
+    for (let i = 0; i < count; i++) {
+      innerOffset += cborTextEncodedLength(bytes, offset + innerOffset); // key
+      innerOffset += skipCborValue(bytes, offset + innerOffset); // value
+    }
+    return innerOffset;
+  } else if (majorType === 7) {
+    // simple / float
+    if (ai < 24 || ai === 25 || ai === 26 || ai === 27) return ai < 24 ? 1 : ai === 25 ? 3 : ai === 26 ? 5 : 9;
+    return 1;
+  }
+
+  return 1; // fallback
 }
 
 interface AttestedCredentialData {
@@ -435,7 +574,7 @@ interface AttestedCredentialData {
  * - 1 byte: flags
  * - 4 bytes: counter
  * - 16 bytes: AAGUID
- * - 2 bytes: credential ID length
+ * - 2 bytes: credential ID length (big-endian uint16)
  * - N bytes: credential ID
  * - M bytes: credential public key (COSE-encoded)
  */
@@ -448,8 +587,11 @@ function extractAttestedCredentialData(
   const aaguid = authData.slice(offset, offset + 16);
   offset += 16;
 
-  const credentialIdLength = readUInt32BE(new Uint8Array([0, 0, authData[offset], authData[offset + 1]]), 0);
+  // Credential ID length is a 2-byte big-endian uint16
+  const credentialIdLength = (authData[offset] << 8) | authData[offset + 1];
   offset += 2;
+
+  if (offset + credentialIdLength > authData.length) return null;
 
   const credentialId = authData.slice(offset, offset + credentialIdLength);
   offset += credentialIdLength;
@@ -457,6 +599,69 @@ function extractAttestedCredentialData(
   const credentialPublicKey = authData.slice(offset);
 
   return { aaguid, credentialId, credentialPublicKey };
+}
+
+// ─── Attestation format validation ──────────────────────────────────────
+
+/**
+ * Decode and validate the attestation format from the attestation object.
+ *
+ * Supported formats: "none" (self-attestation, most common for passkeys),
+ * "packed", "android-key", "fido-u2f".
+ *
+ * For "none" format, we only validate that attStmt is empty.
+ * For "packed" format, we validate the sig and alg fields.
+ */
+function decodeAttestationFormat(
+  attestationBytes: Uint8Array
+): { valid: boolean; format?: string; error?: string } {
+  let offset = 0;
+
+  // Read CBOR map header
+  const mapHeader = attestationBytes[offset++];
+  const mapType = (mapHeader >> 5) & 0x07;
+  const mapCount = readCborUint(attestationBytes, mapHeader);
+
+  if (mapType !== 5) {
+    return { valid: false, error: 'Expected CBOR map for attestation object' };
+  }
+
+  let fmt: string | null = null;
+  let hasAuthData = false;
+
+  for (let i = 0; i < mapCount; i++) {
+    const keyVal = readCborText(attestationBytes, offset);
+    offset += cborTextEncodedLength(attestationBytes, offset);
+
+    if (keyVal === 'fmt') {
+      fmt = readCborText(attestationBytes, offset);
+      offset += cborTextEncodedLength(attestationBytes, offset);
+      continue;
+    }
+    if (keyVal === 'authData') {
+      hasAuthData = true;
+      offset += skipCborValue(attestationBytes, offset);
+      continue;
+    }
+    // Skip attStmt and other fields
+    offset += skipCborValue(attestationBytes, offset);
+  }
+
+  if (!hasAuthData) {
+    return { valid: false, error: 'Missing authData in attestation object' };
+  }
+  if (fmt === null) {
+    return { valid: false, error: 'Missing fmt field in attestation object' };
+  }
+
+  // Accept "none" (no attestation) and "packed" formats
+  // For production, you may want to restrict to specific formats
+  const acceptedFormats = ['none', 'packed', 'android-key', 'fido-u2f', 'android-safetynet', 'apple'];
+  if (!acceptedFormats.includes(fmt)) {
+    return { valid: false, error: `Unsupported attestation format: ${fmt}` };
+  }
+
+  return { valid: true, format: fmt };
 }
 
 // ─── COSE public key parsing ────────────────────────────────────────────

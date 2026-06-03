@@ -6,6 +6,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useCinacoinContext, type CinacoinContextValue } from './CinacoinProvider.js';
+import { keccak256, toBytes, encodeAbiParameters, parseAbiParameters } from 'viem';
 
 /**
  * useCinacoin — access the full Cinacoin context.
@@ -420,7 +421,7 @@ export function useEnsName(address?: string): UseEnsNameReturn {
       const reverseNode = computeEnsReverseNode(address);
 
       // resolver.name(bytes32)
-      const data = `0x691f3431${reverseNode}`;
+      const data = `0x691f3431${reverseNode.slice(2)}`;
       const result = await ctxRequest<string>('eth_call', [
         { to: ENS_REGISTRY, data },
         'latest',
@@ -480,10 +481,10 @@ export function useEnsAddress(name?: string): UseEnsAddressReturn {
 
     try {
       const ENS_RESOLVER = '0x231b0Ee14048e9dCcD1d247744d114a4EB5E8E63';
-      const namehash = computeEnsNamehash(name);
+      const namehashNode = computeEnsNamehash(name);
 
       // resolver.addr(bytes32) selector = 0x3b3b57de
-      const data = `0x3b3b57de${namehash}`;
+      const data = `0x3b3b57de${namehashNode.slice(2)}`;
       const result = await ctxRequest<string>('eth_call', [
         { to: ENS_RESOLVER, data },
         'latest',
@@ -519,15 +520,19 @@ export function useEnsAddress(name?: string): UseEnsAddressReturn {
 
 /**
  * Compute the ENS namehash of a domain.
- * Uses a simplified approach — production should use @ensdomains/ensjs or viem.
+ * Implements EIP-137: namehash('') = 0x00...00, namehash(FQDN) = keccak256(namehash(parent) || keccak256(label))
  */
-function computeEnsNamehash(name: string): string {
-  const labels = name.split('.').reverse();
-  let node = '0'.repeat(64);
+function computeEnsNamehash(name: string): `0x${string}` {
+  const labels = name.toLowerCase().replace(/\.$/, '').split('.').reverse();
+  let node = '0x' + '0'.repeat(64);
 
   for (const label of labels) {
-    const labelHash = simpleKeccak(label);
-    node = simpleKeccak(node + labelHash);
+    const labelHash = keccak256(toBytes(label));
+    // Concatenate parent node + label hash as bytes, then keccak256
+    node = keccak256(encodeAbiParameters(
+      parseAbiParameters('bytes32, bytes32'),
+      [node as `0x${string}`, labelHash as `0x${string}`],
+    ));
   }
 
   return node;
@@ -536,7 +541,7 @@ function computeEnsNamehash(name: string): string {
 /**
  * Compute the ENS reverse node for an address.
  */
-function computeEnsReverseNode(address: string): string {
+function computeEnsReverseNode(address: string): `0x${string}` {
   const addrHex = address.slice(2).toLowerCase();
   return computeEnsNamehash(`${addrHex}.addr.reverse`);
 }
@@ -562,13 +567,7 @@ function decodeEnsString(result: string): string | null {
   }
 }
 
-/**
- * Simplified keccak256 — placeholder for type compatibility.
- * Actual ENS resolution is performed via RPC eth_call which handles hashing.
- */
-function simpleKeccak(_input: string): string {
-  return '0'.repeat(64);
-}
+// simpleKeccak removed — computeEnsNamehash now uses viem's keccak256 directly
 
 // EIP-5792 hooks
 export {

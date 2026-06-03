@@ -30,6 +30,7 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "@noble/hashes": "^1.6.0",
     "viem": "^2.21.0"
   },
   "devDependencies": {

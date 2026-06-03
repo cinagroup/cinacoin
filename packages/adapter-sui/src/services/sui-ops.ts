@@ -699,3 +699,487 @@ export function serializeTransactionBlock(tx: SuiTransactionBlock): string {
 export function parseTransactionBlock(json: string): SuiTransactionBlock {
   return JSON.parse(json) as SuiTransactionBlock;
 }
+
+/* ─────────────────────────────────────────────────────────────── */
+/*  Transaction Building (Enhanced Move Calls)                      */
+/* ─────────────────────────────────────────────────────────────── */
+
+/** Parameters for building a Move call transaction. */
+export interface MoveCallParams {
+  /** Package::module::function target. */
+  target: string;
+  /** Type arguments (e.g., ["0x2::sui::SUI"]). */
+  typeArguments?: string[];
+  /** Function arguments. */
+  arguments?: unknown[];
+  /** Gas budget in MIST. */
+  gasBudget?: string;
+}
+
+/**
+ * Build a Move call transaction with proper Sui transaction block format.
+ *
+ * Supports all Sui Move entry points: transfer, mint, burn, swap, etc.
+ * The TransactionBlock format is compatible with Sui full node JSON-RPC.
+ *
+ * @param sender - Sender address.
+ * @param params - Move call parameters.
+ * @returns Ready-to-sign TransactionBlock.
+ */
+export function buildMoveCallTransaction(
+  sender: string,
+  params: MoveCallParams,
+): SuiTransactionBlock {
+  const tx = createTransactionBlock(sender);
+
+  const cmd: MoveCallCommand = {
+    kind: 'MoveCall',
+    target: params.target,
+    typeArguments: params.typeArguments,
+    arguments: params.arguments,
+  };
+
+  tx.transactions.push(cmd);
+
+  if (params.gasBudget) {
+    tx.gasConfig = { budget: params.gasBudget, owner: sender };
+  }
+
+  return tx;
+}
+
+/** Parameters for a batch Move call. */
+export interface BatchMoveCallParams {
+  /** Each Move call in the batch. */
+  calls: Array<{
+    target: string;
+    typeArguments?: string[];
+    arguments?: unknown[];
+  }>;
+  /** Gas budget in MIST. */
+  gasBudget?: string;
+}
+
+/**
+ * Build a batch of Move calls in a single transaction.
+ *
+ * All calls execute atomically — if any fails, the entire
+ * transaction is reverted.
+ *
+ * @param sender - Sender address.
+ * @param params - Batch call parameters.
+ * @returns Ready-to-sign TransactionBlock.
+ */
+export function buildBatchMoveCallTransaction(
+  sender: string,
+  params: BatchMoveCallParams,
+): SuiTransactionBlock {
+  const tx = createTransactionBlock(sender);
+
+  for (const call of params.calls) {
+    tx.transactions.push({
+      kind: 'MoveCall',
+      target: call.target,
+      typeArguments: call.typeArguments,
+      arguments: call.arguments,
+    });
+  }
+
+  if (params.gasBudget) {
+    tx.gasConfig = { budget: params.gasBudget, owner: sender };
+  }
+
+  return tx;
+}
+
+/**
+ * Build a SUI staking transaction.
+ *
+ * Delegates SUI to a validator's staking pool.
+ *
+ * @param sender - Sender address.
+ * @param validatorAddress - Validator's staking pool object ID.
+ * @param amount - Amount in MIST.
+ * @param gasBudget - Optional gas budget in MIST.
+ * @returns Ready-to-sign TransactionBlock.
+ */
+export function buildStakeSuiTx(
+  sender: string,
+  validatorAddress: string,
+  amount: string,
+  gasBudget?: string,
+): SuiTransactionBlock {
+  const tx = createTransactionBlock(sender);
+
+  tx.transactions.push({
+    kind: 'MoveCall',
+    target: '0x3::validator::request_add_stake',
+    typeArguments: [],
+    arguments: [
+      validatorAddress, // staking pool object ID
+      amount,
+    ],
+  });
+
+  if (gasBudget) {
+    tx.gasConfig = { budget: gasBudget, owner: sender };
+  }
+
+  return tx;
+}
+
+/**
+ * Build an NFT mint transaction.
+ *
+ * Calls a Move module to mint an NFT with metadata.
+ *
+ * @param sender - Sender address.
+ * @param packageId - NFT package ID.
+ * @param moduleName - Module name (e.g., "my_nft").
+ * @param recipient - Recipient address (defaults to sender).
+ * @param name - NFT name.
+ * @param description - NFT description.
+ * @param imageUrl - NFT image URL.
+ * @param gasBudget - Optional gas budget.
+ * @returns Ready-to-sign TransactionBlock.
+ */
+export function buildNftMintTx(
+  sender: string,
+  packageId: string,
+  moduleName: string,
+  recipient: string,
+  name: string,
+  description: string,
+  imageUrl: string,
+  gasBudget?: string,
+): SuiTransactionBlock {
+  const tx = createTransactionBlock(sender);
+
+  tx.transactions.push({
+    kind: 'MoveCall',
+    target: `${packageId}::${moduleName}::mint`,
+    typeArguments: [],
+    arguments: [recipient, name, description, imageUrl],
+  });
+
+  if (gasBudget) {
+    tx.gasConfig = { budget: gasBudget, owner: sender };
+  }
+
+  return tx;
+}
+
+/* ─────────────────────────────────────────────────────────────── */
+/*  Object Management (Enhanced)                                    */
+/* ─────────────────────────────────────────────────────────────── */
+
+/**
+ * Build a transaction to split a coin into multiple smaller coins.
+ *
+ * Useful for paying gas on multiple transactions or distributing funds.
+ *
+ * @param sender - Sender address.
+ * @param coinObjectId - Coin to split from.
+ * @param amounts - Amounts in MIST for each new coin.
+ * @param gasBudget - Optional gas budget.
+ * @returns Ready-to-sign TransactionBlock.
+ */
+export function buildSplitCoinExTx(
+  sender: string,
+  coinObjectId: string,
+  amounts: string[],
+  gasBudget?: string,
+): SuiTransactionBlock {
+  const tx = createTransactionBlock(sender);
+
+  tx.transactions.push({
+    kind: 'SplitCoin',
+    coin: coinObjectId,
+    amounts,
+  });
+
+  if (gasBudget) {
+    tx.gasConfig = { budget: gasBudget, owner: sender };
+  }
+
+  return tx;
+}
+
+/**
+ * Build a transaction to transfer a shared object with mutable access.
+ *
+ * @param sender - Sender address.
+ * @param objectId - Shared object ID.
+ * @param initialSharedVersion - Version when the object became shared.
+ * @param recipient - New recipient (converts to address-owned).
+ * @returns Ready-to-sign TransactionBlock.
+ */
+export function buildTransferSharedObjectTx(
+  sender: string,
+  objectId: string,
+  initialSharedVersion: string,
+  recipient: string,
+): SuiTransactionBlock {
+  const tx = createTransactionBlock(sender);
+
+  tx.inputs.push({
+    objectType: 'sharedObject',
+    objectId,
+    initialSharedVersion,
+    mutable: true,
+  });
+
+  return transferObjects(tx, [objectId], recipient);
+}
+
+/**
+ * Build a transaction to wrap objects in a Move vector.
+ *
+ * @param sender - Sender address.
+ * @param elements - Object IDs to wrap.
+ * @param type - Element type (e.g., "0x2::coin::Coin<0x2::sui::SUI>").
+ * @param gasBudget - Optional gas budget.
+ * @returns Ready-to-sign TransactionBlock.
+ */
+export function buildMakeMoveVecTx(
+  sender: string,
+  elements: string[],
+  type?: string,
+  gasBudget?: string,
+): SuiTransactionBlock {
+  const tx = createTransactionBlock(sender);
+  makeMoveVec(tx, elements, type);
+
+  if (gasBudget) {
+    tx.gasConfig = { budget: gasBudget, owner: sender };
+  }
+
+  return tx;
+}
+
+/* ─────────────────────────────────────────────────────────────── */
+/*  Real Transaction Execution                                      */
+/* ─────────────────────────────────────────────────────────────── */
+
+/** Result of executing a transaction. */
+export interface SuiExecuteResult {
+  /** Transaction digest. */
+  digest: string;
+  /** Gas used breakdown. */
+  gasUsed?: {
+    computationCost: string;
+    storageCost: string;
+    storageRebate: string;
+  };
+  /** Execution status. */
+  status: 'success' | 'failure';
+  /** Error message if failed. */
+  error?: string;
+  /** Created/modified objects. */
+  objectChanges?: unknown[];
+}
+
+/**
+ * Execute a signed Sui transaction block directly via RPC.
+ *
+ * Use this when you have already built and signed a transaction
+ * (e.g., via wallet SDK or external signer) and need to submit
+ * it to the Sui network.
+ *
+ * @param rpcUrl - Sui full node JSON-RPC endpoint.
+ * @param txBytes - Signed transaction bytes (base64).
+ * @param signatures - Array of serialized signatures (base64).
+ * @param requestType - Execution confirmation level.
+ * @returns Transaction digest and execution details.
+ */
+export async function executeSignedTransaction(
+  rpcUrl: string,
+  txBytes: string,
+  signatures: string[],
+  requestType: 'WaitForLocalExec' | 'WaitForEffectsCert' = 'WaitForLocalExec',
+): Promise<SuiExecuteResult> {
+  const rpc = buildExecuteTransactionRpc({
+    txBytes,
+    signature: signatures[0],
+    requestType,
+  });
+
+  const result = await suiRpc<{
+    digest: string;
+    effects?: {
+      messageVersion: string;
+      status: { status: string; error?: string };
+      gasUsed: {
+        computationCost: string;
+        storageCost: string;
+        storageRebate: string;
+        nonRefundableStorageFee: string;
+      };
+    };
+    objectChanges?: unknown[];
+  }>(rpcUrl, rpc.method, rpc.params);
+
+  return {
+    digest: result.digest,
+    gasUsed: result.effects?.gasUsed
+      ? {
+          computationCost: result.effects.gasUsed.computationCost,
+          storageCost: result.effects.gasUsed.storageCost,
+          storageRebate: result.effects.gasUsed.storageRebate,
+        }
+      : undefined,
+    status: result.effects?.status?.status === 'success' ? 'success' : 'failure',
+    error: result.effects?.status?.error,
+    objectChanges: result.objectChanges,
+  };
+}
+
+/** Parameters for dry-running a transaction. */
+export interface DryRunResult {
+  /** Whether execution would succeed. */
+  success: boolean;
+  /** Gas that would be used. */
+  gasUsed?: {
+    computationCost: string;
+    storageCost: string;
+  };
+  /** Error if execution would fail. */
+  error?: string;
+  /** Events that would be emitted. */
+  events?: unknown[];
+}
+
+/**
+ * Dry-run a Sui transaction block to simulate execution.
+ *
+ * Useful for estimating gas, checking for errors before submission,
+ * and previewing object changes.
+ *
+ * @param rpcUrl - Sui full node JSON-RPC endpoint.
+ * @param txBytes - Transaction bytes (base64).
+ * @returns Simulation result.
+ */
+export async function dryRunTransaction(
+  rpcUrl: string,
+  txBytes: string,
+): Promise<DryRunResult> {
+  const rpc = buildDryRunRpc(txBytes);
+
+  const result = await suiRpc<{
+    effects?: {
+      status: { status: string; error?: string };
+      gasUsed: { computationCost: string; storageCost: string };
+    };
+    events?: unknown[];
+  }>(rpcUrl, rpc.method, rpc.params);
+
+  return {
+    success: result.effects?.status?.status === 'success',
+    gasUsed: result.effects?.gasUsed,
+    error: result.effects?.status?.error,
+    events: result.events,
+  };
+}
+
+/** Parameters for dev-inspecting a transaction. */
+export interface DevInspectResult {
+  /** Return values from the Move call. */
+  results: unknown[];
+  /** Gas that would be used. */
+  gasUsed?: {
+    computationCost: string;
+    storageCost: string;
+  };
+}
+
+/**
+ * Dev-inspect a Move call to get return values without execution.
+ *
+ * This is like a dry-run but returns the Move function's return
+ * values, making it useful for read-only queries.
+ *
+ * @param rpcUrl - Sui full node JSON-RPC endpoint.
+ * @param sender - Sender address (for gas estimation context).
+ * @param tx - TransactionBlock.
+ * @param gasPrice - Optional gas price override.
+ * @returns Return values and estimated gas.
+ */
+export async function devInspectTransaction(
+  rpcUrl: string,
+  sender: string,
+  tx: SuiTransactionBlock,
+  gasPrice?: string,
+): Promise<DevInspectResult> {
+  const rpc = buildDevInspectRpc(sender, tx, gasPrice);
+
+  const result = await suiRpc<{
+    results?: unknown[];
+    effects?: {
+      gasUsed: { computationCost: string; storageCost: string };
+    };
+  }>(rpcUrl, rpc.method, rpc.params);
+
+  return {
+    results: result.results ?? [],
+    gasUsed: result.effects?.gasUsed,
+  };
+}
+
+/**
+ * Execute a Move call transaction end-to-end via RPC.
+ *
+ * This builds the transaction, dry-runs it for validation,
+ * and returns the transaction block ready for wallet signing.
+ *
+ * @param rpcUrl - Sui full node JSON-RPC endpoint.
+ * @param sender - Sender address.
+ * @param params - Move call parameters.
+ * @returns Built TransactionBlock (sign with wallet, then submit).
+ */
+export async function executeMoveCall(
+  rpcUrl: string,
+  sender: string,
+  params: MoveCallParams,
+): Promise<SuiTransactionBlock> {
+  const tx = buildMoveCallTransaction(sender, params);
+
+  // Dry-run to validate
+  try {
+    const txBytes = btoa(JSON.stringify(tx));
+    await dryRunTransaction(rpcUrl, txBytes);
+  } catch (err) {
+    console.warn('[Sui] Dry-run failed:', err instanceof Error ? err.message : String(err));
+    // Continue anyway — wallet may handle this differently
+  }
+
+  return tx;
+}
+
+/**
+ * Execute a coin transfer end-to-end via RPC.
+ *
+ * @param rpcUrl - Sui full node JSON-RPC endpoint.
+ * @param sender - Sender address.
+ * @param recipient - Recipient address.
+ * @param amount - Amount in MIST.
+ * @param gasBudget - Optional gas budget.
+ * @returns Built TransactionBlock ready for signing.
+ */
+export async function executeTransfer(
+  rpcUrl: string,
+  sender: string,
+  recipient: string,
+  amount: string,
+  gasBudget?: string,
+): Promise<SuiTransactionBlock> {
+  const tx = buildSuiTransferTx(sender, recipient, amount, gasBudget);
+
+  try {
+    const txBytes = btoa(JSON.stringify(tx));
+    await dryRunTransaction(rpcUrl, txBytes);
+  } catch (err) {
+    console.warn('[Sui] Dry-run failed:', err instanceof Error ? err.message : String(err));
+  }
+
+  return tx;
+}

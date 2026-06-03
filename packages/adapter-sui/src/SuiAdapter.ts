@@ -44,6 +44,26 @@ import { SuietConnector } from './connectors/suiet.js';
 import { MartianConnector } from './connectors/martian.js';
 import type { SuiConnector } from './types.js';
 
+import {
+  buildMoveCallTransaction,
+  buildBatchMoveCallTransaction,
+  buildStakeSuiTx,
+  buildNftMintTx,
+  buildSplitCoinExTx,
+  buildTransferSharedObjectTx,
+  buildMakeMoveVecTx,
+  executeSignedTransaction,
+  dryRunTransaction,
+  devInspectTransaction,
+  executeMoveCall,
+  executeTransfer,
+  type SuiExecuteResult,
+  type DryRunResult,
+  type DevInspectResult,
+  type MoveCallParams,
+  type BatchMoveCallParams,
+} from './services/sui-ops.js';
+
 /* ------------------------------------------------------------------ */
 /*  Sui chain presets                                                  */
 /* ------------------------------------------------------------------ */
@@ -508,6 +528,68 @@ export class SuiChainAdapter implements ChainAdapter {
    */
   buildMoveCall(call: SuiTransactionCall): string {
     return btoa(JSON.stringify(call));
+  }
+
+  /**
+   * Build and dry-run a Move call transaction via RPC.
+   */
+  async buildAndExecuteMoveCall(params: MoveCallParams): Promise<import('./services/sui-ops.js').SuiTransactionBlock> {
+    if (!this.provider?.account) throw new Error('No wallet connected. Call connect() first.');
+    return executeMoveCall(this.rpcUrl, this.provider.account, params);
+  }
+
+  /**
+   * Build and dry-run a batch of Move calls in a single transaction.
+   */
+  async buildBatchMoveCall(params: BatchMoveCallParams): Promise<import('./services/sui-ops.js').SuiTransactionBlock> {
+    if (!this.provider?.account) throw new Error('No wallet connected. Call connect() first.');
+    return buildBatchMoveCallTransaction(this.provider.account, params);
+  }
+
+  /** Build a SUI staking transaction. */
+  async buildStakeSui(validatorAddress: string, amount: string, gasBudget?: string): Promise<import('./services/sui-ops.js').SuiTransactionBlock> {
+    if (!this.provider?.account) throw new Error('No wallet connected. Call connect() first.');
+    return buildStakeSuiTx(this.provider.account, validatorAddress, amount, gasBudget);
+  }
+
+  /** Build an NFT mint transaction. */
+  async buildNftMint(packageId: string, moduleName: string, recipient: string, name: string, description: string, imageUrl: string, gasBudget?: string): Promise<import('./services/sui-ops.js').SuiTransactionBlock> {
+    if (!this.provider?.account) throw new Error('No wallet connected. Call connect() first.');
+    return buildNftMintTx(this.provider.account, packageId, moduleName, recipient, name, description, imageUrl, gasBudget);
+  }
+
+  /** Build a coin split transaction with gas budget support. */
+  async buildSplitCoin(coinObjectId: string, amounts: string[], gasBudget?: string): Promise<import('./services/sui-ops.js').SuiTransactionBlock> {
+    if (!this.provider?.account) throw new Error('No wallet connected. Call connect() first.');
+    return buildSplitCoinExTx(this.provider.account, coinObjectId, amounts, gasBudget);
+  }
+
+  /** Build a transfer transaction for a shared object. */
+  async buildTransferSharedObject(objectId: string, initialSharedVersion: string, recipient: string): Promise<import('./services/sui-ops.js').SuiTransactionBlock> {
+    if (!this.provider?.account) throw new Error('No wallet connected. Call connect() first.');
+    return buildTransferSharedObjectTx(this.provider.account, objectId, initialSharedVersion, recipient);
+  }
+
+  /** Build a MakeMoveVec transaction. */
+  async buildMakeMoveVec(elements: string[], type?: string, gasBudget?: string): Promise<import('./services/sui-ops.js').SuiTransactionBlock> {
+    if (!this.provider?.account) throw new Error('No wallet connected. Call connect() first.');
+    return buildMakeMoveVecTx(this.provider.account, elements, type, gasBudget);
+  }
+
+  /** Execute a signed transaction directly via RPC. */
+  async executeSignedTransaction(txBytes: string, signatures: string[], requestType?: 'WaitForLocalExec' | 'WaitForEffectsCert'): Promise<SuiExecuteResult> {
+    return executeSignedTransaction(this.rpcUrl, txBytes, signatures, requestType);
+  }
+
+  /** Dry-run a transaction to simulate execution without submission. */
+  async dryRun(txBytes: string): Promise<DryRunResult> {
+    return dryRunTransaction(this.rpcUrl, txBytes);
+  }
+
+  /** Dev-inspect a transaction to get return values. */
+  async devInspect(tx: import('./services/sui-ops.js').SuiTransactionBlock, gasPrice?: string): Promise<DevInspectResult> {
+    if (!this.provider?.account) throw new Error('No wallet connected. Call connect() first.');
+    return devInspectTransaction(this.rpcUrl, this.provider.account, tx, gasPrice);
   }
 
   /* ---- Query Operations ---- */

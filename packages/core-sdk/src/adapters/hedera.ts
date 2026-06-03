@@ -15,6 +15,8 @@
 
 import type { Connector } from '../connector.js';
 import type { Chain } from '../types.js';
+import { keccak_256 } from '@noble/hashes/sha3.js';
+import { bytesToHex } from '@noble/hashes/utils.js';
 
 /* ------------------------------------------------------------------ */
 /*  Hedera address & account utilities                                  */
@@ -535,25 +537,10 @@ export interface HederaSignedTransaction {
 
 /** Encode a Solidity function call (minimal ABI encoder). */
 export function encodeFunctionCall(functionSignature: string, params: unknown[] = []): string {
-  // Simple function selector: first 4 bytes of keccak256 (simulated with a hash approach)
-  // For production, use a proper ABI encoder like @hashgraph/cryptography or ethers abi
-  const sigHash = simpleKeccak256(functionSignature).slice(0, 8);
+  // Function selector: first 4 bytes of keccak256 of the function signature
+  const sigHash = bytesToHex(keccak_256(new TextEncoder().encode(functionSignature))).slice(0, 8);
   const encoded = params.map((p) => encodeSolidityParam(p)).join('');
   return '0x' + sigHash + encoded;
-}
-
-/** Minimal keccak256 simulation for function signature hashing. */
-function simpleKeccak256(input: string): string {
-  // In production, use a real keccak256 implementation
-  // This is a placeholder that produces a deterministic hash
-  let hash = 0;
-  for (let i = 0; i < input.length; i++) {
-    const char = input.charCodeAt(i);
-    hash = ((hash << 5) - hash) + char;
-    hash |= 0;
-  }
-  // Convert to hex, padded to 8 chars (4 bytes for function selector)
-  return Math.abs(hash).toString(16).padStart(8, '0');
 }
 
 /** Encode a single Solidity parameter. */

@@ -10,8 +10,8 @@ import {
   type Address,
   type Chain,
   type PublicClient,
-  namehash,
 } from "viem";
+import { namehash } from "./namehash.js";
 import {
   mainnet,
   arbitrum,
@@ -531,6 +531,8 @@ export async function reverseLookupENS(
   const resolver = new ENSResolver({ rpcUrl, chainId });
   return resolver.reverseLookup(address, chainId);
 }
+
+export { namehash, keccak256 } from "./namehash.js";
 
 export async function getAvatarENS(
   nameOrAddress: string,
