@@ -62,6 +62,15 @@ export function createSignInMessage(
 }
 
 /**
+ * EVM provider type — accepts any EIP-1193 provider,
+ * ethers.js provider/signer, or viem wallet client.
+ */
+export type EvmProvider =
+  | { request: (args: { method: string; params?: unknown[] }) => Promise<unknown> }
+  | { verifyMessage: (args: { message: string; signature: string; address: string }) => Promise<boolean> }
+  | { verifyMessage: (args: { message: { raw: Uint8Array | string }; signature: string; account: string }) => Promise<boolean> };
+
+/**
  * Verify a cross-chain sign-in signature.
  *
  * Dispatches to the appropriate chain-specific verification method.
@@ -72,8 +81,7 @@ export function createSignInMessage(
  */
 export async function verifySignIn(
   input: SIWXVerifyInput,
-  // TODO: narrow type — EIP-1193 or ethers/viem provider
-  provider?: unknown
+  provider?: EvmProvider
 ): Promise<SIWXResult> {
   switch (input.chainType) {
     case 'evm':
@@ -109,8 +117,7 @@ export interface SIWXAdapter {
   /**
    * Verify a signature for this chain.
    */
-  // TODO: narrow type — EIP-1193 or ethers/viem provider
-  verify(input: SIWXVerifyInput, provider?: unknown): Promise<SIWXResult>;
+  verify(input: SIWXVerifyInput, provider?: EvmProvider): Promise<SIWXResult>;
 }
 
 /**

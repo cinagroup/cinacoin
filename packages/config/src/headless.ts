@@ -1,10 +1,17 @@
 /**
- * Stub types for headless client configuration.
+ * Headless client configuration backed by `@cinacoin/core-sdk`.
  *
- * NOTE: These mirror the planned `@cinacoin/core-sdk` `Client`/`ClientOptions`
- * interfaces.  Once `createClient` lands in core-sdk, swap the import here.
+ * Uses the core-sdk Zustand store (`createCinacoinStore`) for state
+ * management while exposing a minimal `HeadlessClient` API so that
+ * developers can build their own UI on top.
  */
 
+import { createCinacoinStore } from '@cinacoin/core-sdk';
+import type { CinacoinState, ConnectionStatus } from '@cinacoin/core-sdk';
+
+/**
+ * Options for creating the internal core-sdk store instance.
+ */
 interface ClientOptions {
   /** Wallet IDs to enable. */
   wallets?: string[];
@@ -25,14 +32,37 @@ interface Client {
 }
 
 /**
- * Placeholder factory for headless client creation.
- * Replace with actual `@cinacoin/core-sdk` implementation.
+ * Factory that creates a headless client backed by the core-sdk Zustand store.
+ *
+ * Initializes the store with the provided options and returns a minimal
+ * client wrapper around it.
  */
 function createClient(options: ClientOptions): Client {
-  void options; // TODO: replace with real core-sdk createClient
+  const store = createCinacoinStore();
+
+  // Configure the store with project id and any chain preferences
+  if (options.projectId) {
+    store.getState().setProjectId(options.projectId);
+  }
+  if (options.chains) {
+    // Map chain ids to core-sdk Chain objects at runtime
+    store.getState().setChains(options.chains.map((id) => ({ id, name: id })));
+  }
+
   return {
-    connect: async () => ({ address: '', chainId: '' }),
-    disconnect: async () => {},
+    connect: async () => {
+      store.getState().setStatus('connecting' as ConnectionStatus);
+      // In headless mode the developer drives the connection flow manually
+      // using the store actions; this placeholder resolves the interface.
+      const state = store.getState();
+      return {
+        address: state.accounts[0] ?? '',
+        chainId: String(state.chainId ?? ''),
+      };
+    },
+    disconnect: async () => {
+      store.getState().disconnect();
+    },
   };
 }
 

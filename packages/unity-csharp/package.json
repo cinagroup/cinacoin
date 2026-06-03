@@ -16,6 +16,7 @@
     "push-notifications"
   ],
   "category": "Unity",
+  "main": "Runtime/CinacoinSDK.cs",
   "license": "MIT",
   "author": {
     "name": "Cinacoin Team",
