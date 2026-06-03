@@ -1,9 +1,16 @@
+import org.jetbrains.dokka.gradle.DokkaTask
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     kotlin("plugin.serialization") version "1.9.24"
+    id("org.jetbrains.dokka") version "1.9.20"
     id("maven-publish")
+    id("signing")
 }
+
+// ─── Versioning ────────────────────────────────────────────────────────────
+val sdkVersion = "1.0.0"
 
 android {
     namespace = "com.cinacoin.sdk"
@@ -12,10 +19,16 @@ android {
     defaultConfig {
         minSdk = 26  // Android 8.0+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        versionName = sdkVersion
     }
 
     buildTypes {
         release {
+            isMinifyEnabled = false
+            consumerProguardFiles("consumer-rules.pro")
+        }
+        debug {
             isMinifyEnabled = false
             consumerProguardFiles("consumer-rules.pro")
         }
@@ -32,6 +45,7 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 
     composeOptions {
@@ -41,6 +55,7 @@ android {
     publishing {
         singleVariant("release") {
             withSourcesJar()
+            withJavadocJar()
         }
     }
 }
@@ -87,16 +102,47 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 }
 
-// ─── Maven Central Publishing ──────────────────────────────────────────────
+// ─── Dokka (API Documentation) ─────────────────────────────────────────────
+
+tasks.withType<DokkaTask>().configureEach {
+    dokkaSourceSets.named("main") {
+        moduleName.set("Cinacoin Wallet SDK")
+        moduleVersion.set(sdkVersion)
+        includes.from("README.md")
+    }
+}
+
+val dokkaJavadocJar by tasks.registering(Jar::class) {
+    group = "documentation"
+    description = "Assembles Javadoc jar from Dokka output"
+    archiveClassifier.set("javadoc")
+    from(tasks.named("dokkaJavadoc"))
+}
+
+// ─── Source Jar ────────────────────────────────────────────────────────────
+
+val sourcesJar by tasks.registering(Jar::class) {
+    group = "build"
+    description = "Assembles sources jar"
+    archiveClassifier.set("sources")
+    from(android.sourceSets["main"].java.srcDirs)
+}
+
+// ─── Maven Central Publishing (Sonatype OSSRH) ─────────────────────────────
 
 afterEvaluate {
     publishing {
         publications {
             register("release", MavenPublication::class) {
                 from(components["release"])
+
                 groupId = "com.cinacoin"
                 artifactId = "sdk-android"
-                version = "0.1.0"
+                version = sdkVersion
+
+                // Attach source and javadoc jars
+                artifact(sourcesJar)
+                artifact(dokkaJavadocJar)
 
                 pom {
                     name.set("Cinacoin Wallet SDK")
@@ -104,7 +150,7 @@ afterEvaluate {
                     url.set("https://github.com/cinacoin/sdk-android")
                     licenses {
                         license {
-                            name.set("MIT")
+                            name.set("MIT License")
                             url.set("https://opensource.org/licenses/MIT")
                         }
                     }
@@ -112,14 +158,48 @@ afterEvaluate {
                         developer {
                             id.set("cinacoin")
                             name.set("Cinacoin Team")
+                            email.set("dev@cinacoin.com")
                         }
                     }
                     scm {
                         connection.set("scm:git:git://github.com/cinacoin/sdk-android.git")
+                        developerConnection.set("scm:git:ssh://github.com/cinacoin/sdk-android.git")
                         url.set("https://github.com/cinacoin/sdk-android")
                     }
                 }
             }
         }
+
+        repositories {
+            maven {
+                name = "sonatype"
+                val releasesRepoUrl = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+                val snapshotsRepoUrl = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+                url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
+                credentials {
+                    username = findProperty("ossrhUsername")?.toString() ?: System.getenv("OSSRH_USERNAME") ?: ""
+                    password = findProperty("ossrhPassword")?.toString() ?: System.getenv("OSSRH_PASSWORD") ?: ""
+                }
+            }
+        }
+    }
+}
+
+// ─── Signing ───────────────────────────────────────────────────────────────
+
+signing {
+    val signingKeyId = findProperty("signing.keyId")?.toString() ?: System.getenv("SIGNING_KEY_ID") ?: ""
+    val signingPassword = findProperty("signing.password")?.toString() ?: System.getenv("SIGNING_PASSWORD") ?: ""
+    val signingKey = findProperty("signingKey")?.toString() ?: System.getenv("SIGNING_KEY") ?: ""
+
+    if (signingKeyId.isNotEmpty() && signingPassword.isNotEmpty() && signingKey.isNotEmpty()) {
+        useInMemoryPgpKeys(signingKeyId, signingKey, signingPassword)
+        sign(publishing.publications["release"])
+    }
+}
+
+tasks.withType<Sign>().configureEach {
+    onlyIf {
+        findProperty("signing.keyId") != null || System.getenv("SIGNING_KEY_ID") != null
     }
 }
