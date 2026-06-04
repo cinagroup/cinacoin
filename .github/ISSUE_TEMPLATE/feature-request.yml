@@ -1,0 +1,67 @@
+name: "🚀 Feature Request"
+description: "Suggest an idea or enhancement for Cinacoin"
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a feature! For complex ideas, consider starting a [GitHub Discussion](https://github.com/your-org/onux/discussions) first to gather community feedback.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      description: Which part of the project does this affect?
+      options:
+        - SDK / Core library
+        - CLI / Tooling
+        - Documentation
+        - Infrastructure / Deployment
+        - Chain adapter (TON, TRON, EVM, etc.)
+        - UI / Frontend
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem statement
+      description: What problem does this feature solve? Include use cases.
+      placeholder: I'm always frustrated when…
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe your idea. How should it work? Include examples if possible.
+      placeholder: It would be great if…
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Did you consider other approaches? Why didn't they work?
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Links, screenshots, mockups, or references to related issues.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: willing-to-contribute
+    attributes:
+      label: Are you willing to contribute?
+      options:
+        - label: I'd be open to helping implement or test this feature
+          required: false

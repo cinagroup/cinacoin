@@ -190,9 +190,9 @@ export class TronChainAdapter implements ChainAdapter {
     
     // Try to get from connector if available
     if (this._connector) {
-      const state = this._connector?.getState?.() || { accounts: [] };
-      if (state.accounts.length > 0) {
-        const addr = state.accounts[0];
+      const accounts = await this._connector.getAccounts();
+      if (accounts.length > 0) {
+        const addr = accounts[0];
         if (isValidTRONAddress(addr)) {
           this._connectedAddress = addr;
           return [addr];
