@@ -1,7 +1,7 @@
 {
   "name": "@cinacoin/push-server",
-  "version": "0.2.0",
-  "description": "Push notification server for Cinacoin — APNs and FCM delivery",
+  "version": "0.3.0",
+  "description": "Push notification server for Cinacoin — APNs and FCM delivery with device registry, rate limiting, and notification types",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -19,6 +19,8 @@
     "build": "tsc",
     "check": "tsc --noEmit",
     "start": "node dist/index.js",
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
     "clean": "rm -rf dist"
   },
   "license": "MIT",
@@ -26,8 +28,10 @@
     "@cinacoin/core-sdk": "workspace:*"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241112.0",
     "@types/node": "^20.11.0",
-    "typescript": "^5.6.0"
+    "typescript": "^5.6.0",
+    "wrangler": "^3.87.0"
   },
   "publishConfig": {
     "access": "public"
