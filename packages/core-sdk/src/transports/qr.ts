@@ -7,6 +7,7 @@
 
 import { Connector } from '../connector.js';
 import { EventEmitter } from '../events.js';
+import { SDK } from '../errors/codes.js';
 import type { ConnectParams, ConnectionResult, TransactionRequest } from '../types.js';
 import { RelayTransport } from './relay.js';
 import { createError, NETWORK, WALLET_CONNECT, SIGNING, TRANSACTION } from '../errors/index.js';

@@ -180,8 +180,9 @@ export interface RequiredNamespace {
 export type {
   ErrorSeverity,
   ErrorCodeDefinition,
-  SupportedLocale,
 } from './errors/codes.js';
+
+export type { SupportedLocale } from './errors/i18n.js';
 
 export {
   CONNECTION,

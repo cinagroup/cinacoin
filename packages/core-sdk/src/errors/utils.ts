@@ -202,20 +202,6 @@ export function errorToJSON(error: unknown): Record<string, unknown> {
  * Deserialize a JSON object back into the appropriate error class.
  */
 export function errorFromJSON(json: Record<string, unknown>): CinacoinError {
-  const { CinacoinError: CE, ConnectionError, AuthenticationError, ChainError, TransactionError, WalletConnectError, SigningError, NetworkError, SdkError, SecurityError } =
-    (() => ({
-      CinacoinError,
-      ConnectionError,
-      AuthenticationError,
-      ChainError,
-      TransactionError,
-      WalletConnectError,
-      SigningError,
-      NetworkError,
-      SdkError,
-      SecurityError,
-    }))();
-
   const code = typeof json.code === 'number' ? json.code : 0;
   const message = typeof json.message === 'string' ? json.message : 'Unknown error';
   const cause = typeof json.cause === 'string' ? new Error(json.cause) : undefined;
