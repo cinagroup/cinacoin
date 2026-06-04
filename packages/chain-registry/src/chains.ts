@@ -24,7 +24,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'etherscan.io',
     testnet: false,
     category: 'mainnet' as const,
-  },,
+  },
   {
     id: 10,
     name: 'Optimism',
@@ -35,7 +35,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'optimistic.etherscan.io',
     testnet: false,
     category: 'l2' as const,
-  },,
+  },
   {
     id: 25,
     name: 'Cronos',
@@ -46,7 +46,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'cronoscan.com',
     testnet: false,
     category: 'sidechain' as const,
-  },,
+  },
   {
     id: 56,
     name: 'BNB Smart Chain',
@@ -57,7 +57,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'bscscan.com',
     testnet: false,
     category: 'mainnet' as const,
-  },,
+  },
   {
     id: 97,
     name: 'BSC Testnet',
@@ -68,7 +68,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'testnet.bscscan.com',
     testnet: true,
     category: 'testnet' as const,
-  },,
+  },
   {
     id: 100,
     name: 'Gnosis Chain',
@@ -79,7 +79,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'gnosisscan.io',
     testnet: false,
     category: 'sidechain' as const,
-  },,
+  },
   {
     id: 122,
     name: 'Fuse Mainnet',
@@ -90,7 +90,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'explorer.fuse.io',
     testnet: false,
     category: 'sidechain' as const,
-  },,
+  },
   {
     id: 128,
     name: 'Huobi ECO Chain',
@@ -101,7 +101,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'hecoinfo.com',
     testnet: false,
     category: 'sidechain' as const,
-  },,
+  },
   {
     id: 137,
     name: 'Polygon',
@@ -112,7 +112,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'polygonscan.com',
     testnet: false,
     category: 'sidechain' as const,
-  },,
+  },
   {
     id: 169,
     name: 'Manta Pacific',
@@ -123,7 +123,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'pacific-explorer.manta.network',
     testnet: false,
     category: 'l2' as const,
-  },,
+  },
   {
     id: 196,
     name: 'OKXChain Mainnet',
@@ -134,7 +134,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'oklink.com',
     testnet: false,
     category: 'sidechain' as const,
-  },,
+  },
   {
     id: 204,
     name: 'opBNB Mainnet',
@@ -145,7 +145,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'opbnbscan.com',
     testnet: false,
     category: 'l2' as const,
-  },,
+  },
   {
     id: 250,
     name: 'Fantom Opera',
@@ -156,7 +156,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'ftmscan.com',
     testnet: false,
     category: 'sidechain' as const,
-  },,
+  },
   {
     id: 255,
     name: 'Kroma',
@@ -167,7 +167,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'kromascan.com',
     testnet: false,
     category: 'l2' as const,
-  },,
+  },
   {
     id: 288,
     name: 'Boba Network',
@@ -178,7 +178,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'bobascan.com',
     testnet: false,
     category: 'sidechain' as const,
-  },,
+  },
   {
     id: 314,
     name: 'Filecoin',
@@ -189,7 +189,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'filfox.info',
     testnet: false,
     category: 'mainnet' as const,
-  },,
+  },
   {
     id: 324,
     name: 'zkSync Era',
@@ -200,7 +200,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'explorer.zksync.io',
     testnet: false,
     category: 'l2' as const,
-  },,
+  },
   {
     id: 369,
     name: 'PulseChain',
@@ -211,7 +211,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'scan.pulsechain.com',
     testnet: false,
     category: 'sidechain' as const,
-  },,
+  },
   {
     id: 480,
     name: 'World Chain',
@@ -222,7 +222,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'worldchain-mainnet.explorer.alchemy.com',
     testnet: false,
     category: 'l2' as const,
-  },,
+  },
   {
     id: 1030,
     name: 'Conflux eSpace',
@@ -233,7 +233,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'evm.confluxscan.io',
     testnet: false,
     category: 'sidechain' as const,
-  },,
+  },
   {
     id: 1088,
     name: 'Metis Andromeda',
@@ -244,7 +244,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'andromeda-explorer.metis.io',
     testnet: false,
     category: 'sidechain' as const,
-  },,
+  },
   {
     id: 1101,
     name: 'Polygon zkEVM',
@@ -255,7 +255,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'zkevm.polygonscan.com',
     testnet: false,
     category: 'l2' as const,
-  },,
+  },
   {
     id: 1284,
     name: 'Moonbeam',
@@ -266,7 +266,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'moonscan.io',
     testnet: false,
     category: 'sidechain' as const,
-  },,
+  },
   {
     id: 1285,
     name: 'Moonriver',
@@ -277,7 +277,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'moonriver.moonscan.io',
     testnet: false,
     category: 'sidechain' as const,
-  },,
+  },
   {
     id: 2020,
     name: 'PublicMint Mainnet',
@@ -288,7 +288,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'explorer.publicmint.io',
     testnet: false,
     category: 'mainnet' as const,
-  },,
+  },
   {
     id: 2818,
     name: 'Morph Mainnet',
@@ -299,7 +299,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'explorer.morphl2.io',
     testnet: false,
     category: 'l2' as const,
-  },,
+  },
   {
     id: 5000,
     name: 'Mantle',
@@ -310,7 +310,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'explorer.mantle.xyz',
     testnet: false,
     category: 'defi' as const,
-  },,
+  },
   {
     id: 5002,
     name: 'Treasurenet Mainnet Alpha',
@@ -321,7 +321,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'evmexplorer.treasurenet.io',
     testnet: false,
     category: 'mainnet' as const,
-  },,
+  },
   {
     id: 7560,
     name: 'Cyber Mainnet',
@@ -332,7 +332,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'cyberscan.co',
     testnet: false,
     category: 'l2' as const,
-  },,
+  },
   {
     id: 8453,
     name: 'Base',
@@ -343,7 +343,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'basescan.org',
     testnet: false,
     category: 'l2' as const,
-  },,
+  },
   {
     id: 10200,
     name: 'Gnosis Chiado Testnet',
@@ -354,7 +354,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'blockscout.chiadochain.net',
     testnet: true,
     category: 'testnet' as const,
-  },,
+  },
   {
     id: 34443,
     name: 'Mode',
@@ -365,7 +365,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'explorer.mode.network',
     testnet: false,
     category: 'l2' as const,
-  },,
+  },
   {
     id: 42161,
     name: 'Arbitrum One',
@@ -376,7 +376,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'arbiscan.io',
     testnet: false,
     category: 'l2' as const,
-  },,
+  },
   {
     id: 42170,
     name: 'Arbitrum Nova',
@@ -387,7 +387,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'nova.arbiscan.io',
     testnet: false,
     category: 'l2' as const,
-  },,
+  },
   {
     id: 42220,
     name: 'Celo',
@@ -398,7 +398,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'celoscan.io',
     testnet: false,
     category: 'sidechain' as const,
-  },,
+  },
   {
     id: 43113,
     name: 'Avalanche Fuji',
@@ -409,7 +409,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'testnet.snowtrace.io',
     testnet: true,
     category: 'testnet' as const,
-  },,
+  },
   {
     id: 43114,
     name: 'Avalanche C-Chain',
@@ -420,7 +420,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'snowtrace.io',
     testnet: false,
     category: 'sidechain' as const,
-  },,
+  },
   {
     id: 59141,
     name: 'Linea Sepolia',
@@ -431,7 +431,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'sepolia.lineascan.build',
     testnet: true,
     category: 'testnet' as const,
-  },,
+  },
   {
     id: 59144,
     name: 'Linea',
@@ -442,7 +442,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'lineascan.build',
     testnet: false,
     category: 'defi' as const,
-  },,
+  },
   {
     id: 60808,
     name: 'Bobas',
@@ -453,7 +453,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'bobascan.com',
     testnet: false,
     category: 'sidechain' as const,
-  },,
+  },
   {
     id: 80002,
     name: 'Polygon Amoy',
@@ -464,7 +464,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'amoy.polygonscan.com',
     testnet: true,
     category: 'testnet' as const,
-  },,
+  },
   {
     id: 81457,
     name: 'Blast',
@@ -475,7 +475,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'blastscan.io',
     testnet: false,
     category: 'l2' as const,
-  },,
+  },
   {
     id: 84532,
     name: 'Base Sepolia',
@@ -486,7 +486,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'sepolia.basescan.org',
     testnet: true,
     category: 'testnet' as const,
-  },,
+  },
   {
     id: 88888,
     name: 'Chiliz Chain',
@@ -497,7 +497,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'scan.chiliz.com',
     testnet: false,
     category: 'mainnet' as const,
-  },,
+  },
   {
     id: 421614,
     name: 'Arbitrum Sepolia',
@@ -508,7 +508,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'sepolia.arbiscan.io',
     testnet: true,
     category: 'testnet' as const,
-  },,
+  },
   {
     id: 504441,
     name: 'Playdapp Network',
@@ -519,7 +519,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'subnets.avax.network/playdappne',
     testnet: false,
     category: 'gaming' as const,
-  },,
+  },
   {
     id: 534351,
     name: 'Scroll Sepolia Testnet',
@@ -530,7 +530,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'sepolia.scrollscan.com',
     testnet: true,
     category: 'testnet' as const,
-  },,
+  },
   {
     id: 534352,
     name: 'Scroll',
@@ -541,7 +541,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'scrollscan.com',
     testnet: false,
     category: 'l2' as const,
-  },,
+  },
   {
     id: 534353,
     name: 'Scroll Alpha Testnet',
@@ -552,7 +552,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'alpha-blockscout.scroll.io',
     testnet: true,
     category: 'testnet' as const,
-  },,
+  },
   {
     id: 656476,
     name: 'EDU Chain Testnet',
@@ -563,7 +563,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'edu-chain-testnet.blockscout.com',
     testnet: true,
     category: 'testnet' as const,
-  },,
+  },
   {
     id: 660279,
     name: 'Xai Mainnet',
@@ -574,7 +574,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'explorer.xai-chain.net',
     testnet: false,
     category: 'gaming' as const,
-  },,
+  },
   {
     id: 743111,
     name: 'Hemi Sepolia',
@@ -585,7 +585,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'testnet.explorer.hemi.xyz',
     testnet: true,
     category: 'testnet' as const,
-  },,
+  },
   {
     id: 747474,
     name: 'katana',
@@ -596,7 +596,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'katanascan.com',
     testnet: false,
     category: 'l2' as const,
-  },,
+  },
   {
     id: 763373,
     name: 'Ink Sepolia',
@@ -607,7 +607,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'explorer-sepolia.inkonchain.com',
     testnet: true,
     category: 'testnet' as const,
-  },,
+  },
   {
     id: 808813,
     name: 'BOB Sepolia',
@@ -618,7 +618,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'bob-sepolia.explorer.gobob.xyz',
     testnet: true,
     category: 'testnet' as const,
-  },,
+  },
   {
     id: 810180,
     name: 'zkLink Nova Mainnet',
@@ -629,7 +629,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'explorer.zklink.io',
     testnet: false,
     category: 'l2' as const,
-  },,
+  },
   {
     id: 978658,
     name: 'Treasure Topaz',
@@ -640,7 +640,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'topaz.treasurescan.io',
     testnet: true,
     category: 'gaming' as const,
-  },,
+  },
   {
     id: 984122,
     name: 'Forma',
@@ -651,7 +651,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'explorer.forma.art',
     testnet: false,
     category: 'mainnet' as const,
-  },,
+  },
   {
     id: 988207,
     name: 'Ecrox Chain Mainnet',
@@ -662,7 +662,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'ecroxscan.com',
     testnet: false,
     category: 'mainnet' as const,
-  },,
+  },
   {
     id: 1440000,
     name: 'XRPL EVM Sidechain',
@@ -673,7 +673,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'explorer.xrplevm.org',
     testnet: false,
     category: 'sidechain' as const,
-  },,
+  },
   {
     id: 2632500,
     name: 'COTI',
@@ -684,7 +684,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'mainnet.cotiscan.io',
     testnet: false,
     category: 'mainnet' as const,
-  },,
+  },
   {
     id: 2702128,
     name: 'Xterio Chain (ETH)',
@@ -695,7 +695,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'eth.xterscan.io',
     testnet: false,
     category: 'mainnet' as const,
-  },,
+  },
   {
     id: 3132023,
     name: 'Sahara AI',
@@ -706,7 +706,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: '',
     testnet: false,
     category: 'mainnet' as const,
-  },,
+  },
   {
     id: 3397901,
     name: 'Funki Sepolia Testnet',
@@ -717,7 +717,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'testnet.funkiscan.io',
     testnet: true,
     category: 'testnet' as const,
-  },,
+  },
   {
     id: 3441006,
     name: 'Manta Pacific Sepolia Testnet',
@@ -728,7 +728,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'pacific-explorer.sepolia-testnet.manta.network',
     testnet: true,
     category: 'testnet' as const,
-  },,
+  },
   {
     id: 5734951,
     name: 'Jovay Mainnet',
@@ -739,7 +739,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'explorer.jovay.io',
     testnet: false,
     category: 'l2' as const,
-  },,
+  },
   {
     id: 7225878,
     name: 'Saakuru Mainnet',
@@ -750,7 +750,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'explorer.saakuru.network',
     testnet: false,
     category: 'mainnet' as const,
-  },,
+  },
   {
     id: 7771777,
     name: 'VALYGO Smartchain',
@@ -761,7 +761,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'vyoscan.com',
     testnet: false,
     category: 'mainnet' as const,
-  },,
+  },
   {
     id: 7777777,
     name: 'Zora',
@@ -772,7 +772,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'explorer.zora.energy',
     testnet: false,
     category: 'l2' as const,
-  },,
+  },
   {
     id: 8008135,
     name: 'Fhenix Helium',
@@ -783,7 +783,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'explorer.helium.fhenix.zone',
     testnet: true,
     category: 'testnet' as const,
-  },,
+  },
   {
     id: 8080808,
     name: 'Hokum',
@@ -794,7 +794,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'explorer.hokum.gg',
     testnet: false,
     category: 'mainnet' as const,
-  },,
+  },
   {
     id: 10241024,
     name: 'AlienX Mainnet',
@@ -805,7 +805,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'explorer.alienxchain.io',
     testnet: false,
     category: 'mainnet' as const,
-  },,
+  },
   {
     id: 11142220,
     name: 'Celo Sepolia Testnet',
@@ -816,7 +816,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'celo-sepolia.blockscout.com',
     testnet: true,
     category: 'testnet' as const,
-  },,
+  },
   {
     id: 11155111,
     name: 'Ethereum Sepolia',
@@ -827,7 +827,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'sepolia.etherscan.io',
     testnet: true,
     category: 'testnet' as const,
-  },,
+  },
   {
     id: 11155420,
     name: 'OP Sepolia Testnet',
@@ -838,7 +838,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'sepolia-optimism.etherscan.io',
     testnet: true,
     category: 'testnet' as const,
-  },,
+  },
   {
     id: 20241133,
     name: 'Swan Proxima Testnet',
@@ -849,7 +849,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'proxima-explorer.swanchain.io',
     testnet: true,
     category: 'testnet' as const,
-  },,
+  },
   {
     id: 21000000,
     name: 'Corn',
@@ -860,7 +860,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'cornscan.io',
     testnet: false,
     category: 'l2' as const,
-  },,
+  },
   {
     id: 28122024,
     name: 'Ancient8 Testnet',
@@ -871,7 +871,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'scanv2-testnet.ancient8.gg',
     testnet: true,
     category: 'testnet' as const,
-  },,
+  },
   {
     id: 108160679,
     name: 'Oraichain Mainnet',
@@ -882,7 +882,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: '',
     testnet: false,
     category: 'mainnet' as const,
-  },,
+  },
   {
     id: 111557560,
     name: 'Cyber Testnet',
@@ -893,7 +893,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'testnet.cyberscan.co',
     testnet: true,
     category: 'testnet' as const,
-  },,
+  },
   {
     id: 123420111,
     name: 'OP Celestia Raspberry',
@@ -904,7 +904,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'opcelestia-raspberry.gelatoscout.com',
     testnet: true,
     category: 'testnet' as const,
-  },,
+  },
   {
     id: 168587773,
     name: 'Blast Sepolia Testnet',
@@ -915,7 +915,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'testnet.blastscan.io',
     testnet: true,
     category: 'testnet' as const,
-  },,
+  },
   {
     id: 222000222,
     name: 'Kanazawa',
@@ -926,7 +926,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'testnet.meldscan.io',
     testnet: true,
     category: 'testnet' as const,
-  },,
+  },
   {
     id: 241320161,
     name: 'XMTP Sepolia',
@@ -937,7 +937,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: '',
     testnet: true,
     category: 'testnet' as const,
-  },,
+  },
   {
     id: 245022926,
     name: 'Neon EVM Devnet',
@@ -948,7 +948,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'devnet.neonscan.org',
     testnet: true,
     category: 'testnet' as const,
-  },,
+  },
   {
     id: 245022934,
     name: 'Neon EVM Mainnet',
@@ -959,7 +959,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'neonscan.org',
     testnet: false,
     category: 'sidechain' as const,
-  },,
+  },
   {
     id: 253368190,
     name: 'Flame',
@@ -970,7 +970,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'explorer.flame.astria.org',
     testnet: false,
     category: 'mainnet' as const,
-  },,
+  },
   {
     id: 333000333,
     name: 'Meld',
@@ -981,7 +981,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'meldscan.io',
     testnet: false,
     category: 'mainnet' as const,
-  },,
+  },
   {
     id: 420420418,
     name: 'Kusama',
@@ -992,7 +992,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'blockscout-kusama.polkadot.io',
     testnet: false,
     category: 'mainnet' as const,
-  },,
+  },
   {
     id: 420420419,
     name: 'Polkadot',
@@ -1003,7 +1003,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'blockscout.polkadot.io',
     testnet: false,
     category: 'mainnet' as const,
-  },,
+  },
   {
     id: 531050104,
     name: 'Sophon Testnet',
@@ -1014,7 +1014,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'explorer.testnet.sophon.xyz',
     testnet: true,
     category: 'testnet' as const,
-  },,
+  },
   {
     id: 666666666,
     name: 'Degen Chain',
@@ -1025,7 +1025,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: '',
     testnet: false,
     category: 'gaming' as const,
-  },,
+  },
   {
     id: 888888888,
     name: 'Ancient8',
@@ -1036,7 +1036,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'scan.ancient8.gg',
     testnet: false,
     category: 'l2' as const,
-  },,
+  },
   {
     id: 974399131,
     name: 'SKALE Calypso Hub Testnet',
@@ -1047,7 +1047,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'giant-half-dual-testnet.explorer.testnet.skalenodes.com',
     testnet: true,
     category: 'testnet' as const,
-  },,
+  },
   {
     id: 994873017,
     name: 'Lumia Mainnet',
@@ -1058,7 +1058,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'explorer.lumia.org',
     testnet: false,
     category: 'l2' as const,
-  },,
+  },
   {
     id: 999999999,
     name: 'Zora Sepolia Testnet',
@@ -1069,7 +1069,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'sepolia.explorer.zora.energy',
     testnet: true,
     category: 'testnet' as const,
-  },,
+  },
   {
     id: 1020352220,
     name: 'SKALE Titan Hub Testnet',
@@ -1080,7 +1080,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'aware-fake-trim-testnet.explorer.testnet.skalenodes.com',
     testnet: true,
     category: 'testnet' as const,
-  },,
+  },
   {
     id: 1273227453,
     name: 'HUMAN Protocol',
@@ -1091,7 +1091,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'wan-red-ain.explorer.mainnet.skalenodes.com',
     testnet: false,
     category: 'mainnet' as const,
-  },,
+  },
   {
     id: 1313161554,
     name: 'Aurora Mainnet',
@@ -1102,7 +1102,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'explorer.aurora.dev',
     testnet: false,
     category: 'sidechain' as const,
-  },,
+  },
   {
     id: 1313161555,
     name: 'Aurora Testnet',
@@ -1113,7 +1113,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'explorer.testnet.aurora.dev',
     testnet: true,
     category: 'testnet' as const,
-  },,
+  },
   {
     id: 1350216234,
     name: 'SKALE Titan Hub',
@@ -1124,7 +1124,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'parallel-stormy-spica.explorer.mainnet.skalenodes.com',
     testnet: false,
     category: 'sidechain' as const,
-  },,
+  },
   {
     id: 1380012617,
     name: 'RARI Chain Mainnet',
@@ -1135,7 +1135,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'mainnet.explorer.rarichain.org',
     testnet: false,
     category: 'mainnet' as const,
-  },,
+  },
   {
     id: 1444673419,
     name: 'SKALE Europa Hub Testnet',
@@ -1146,7 +1146,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'juicy-low-small-testnet.explorer.testnet.skalenodes.com',
     testnet: true,
     category: 'testnet' as const,
-  },,
+  },
   {
     id: 1482601649,
     name: 'SKALE Nebula Hub',
@@ -1157,7 +1157,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'green-giddy-denebola.explorer.mainnet.skalenodes.com',
     testnet: false,
     category: 'sidechain' as const,
-  },,
+  },
   {
     id: 1511670449,
     name: 'GPT Mainnet',
@@ -1168,7 +1168,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'explorer.gptprotocol.io',
     testnet: false,
     category: 'mainnet' as const,
-  },,
+  },
   {
     id: 1564830818,
     name: 'SKALE Calypso Hub',
@@ -1179,7 +1179,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'honorable-steel-rasalhague.explorer.mainnet.skalenodes.com',
     testnet: false,
     category: 'sidechain' as const,
-  },,
+  },
   {
     id: 1666600000,
     name: 'Harmony Mainnet Shard 0',
@@ -1190,7 +1190,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'explorer.harmony.one',
     testnet: false,
     category: 'sidechain' as const,
-  },,
+  },
   {
     id: 1702448187,
     name: 'WITNESS CHAIN',
@@ -1201,7 +1201,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'explorer.witnesschain.com',
     testnet: false,
     category: 'l2' as const,
-  },,
+  },
   {
     id: 1918988905,
     name: 'RARI Chain Testnet',
@@ -1212,7 +1212,7 @@ export const CHAIN_REGISTRY: ChainRegistryEntry[] = [
     icon: 'explorer.rarichain.org',
     testnet: true,
     category: 'testnet' as const,
-  },,
+  },
   {
     id: 2046399126,
     name: 'SKALE Europa Hub',

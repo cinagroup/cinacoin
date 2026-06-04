@@ -22,9 +22,6 @@
  *
  * const balance = await adapter.getBalance('TNA2B...');
  * console.log(`${balance} sun`);
- *
- * const trc20Bal = await adapter.getTRC20Balance(walletAddr, contractAddr);
- * console.log(`${trc20Bal} token units`);
  * ```
  *
  * @packageDocumentation
@@ -32,6 +29,9 @@
 
 import type { Connector, Chain, ChainAdapter } from '@cinacoin/core-sdk';
 import TronWeb from 'tronweb';
+
+// TronWeb lacks proper TypeScript types
+const TronWebAny = TronWeb as any;
 
 /* ------------------------------------------------------------------ */
 /*  CinacoinError — standardised error class                           */
@@ -49,153 +49,87 @@ export class CinacoinError extends Error {
 }
 
 /* ------------------------------------------------------------------ */
-/*  TRON Address helpers                                                */
+/*  Address validation                                                */
 /* ------------------------------------------------------------------ */
 
-const BASE58_ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+/** Validate a TRON address (base58 format). */
+function isValidTRONAddress(address: string): boolean {
+  if (!address || typeof address !== 'string') return false;
+  // Basic TRON address validation (41 chars starting with T)
+  return /^T[1-9A-HJ-NP-Za-km-z]{33}$/.test(address);
+}
+
+/* ------------------------------------------------------------------ */
+/*  TRON chain configurations                                         */
+/* ------------------------------------------------------------------ */
+
+/** TRON mainnet configuration. */
+export const TRON_MAINNET: Chain = {
+  id: 'tron:mainnet',
+  name: 'TRON Mainnet',
+  rpcUrl: 'https://api.trongrid.io',
+  nativeCurrency: { name: 'TRX', symbol: 'TRX', decimals: 6 },
+  explorerUrl: 'https://tronscan.org',
+};
+
+/** TRON Shasta testnet configuration. */
+export const TRON_SHASTA: Chain = {
+  id: 'tron:shasta',
+  name: 'TRON Shasta Testnet',
+  rpcUrl: 'https://api.shasta.trongrid.io',
+  nativeCurrency: { name: 'TRX', symbol: 'TRX', decimals: 6 },
+  explorerUrl: 'https://shasta.tronscan.org',
+};
+
+/** TRON Nile testnet configuration. */
+export const TRON_NILE: Chain = {
+  id: 'tron:nile',
+  name: 'TRON Nile Testnet',
+  rpcUrl: 'https://api.nileex.io',
+  nativeCurrency: { name: 'TRX', symbol: 'TRX', decimals: 6 },
+  explorerUrl: 'https://nile.tronscan.org',
+};
+
+/** All supported TRON chains. */
+export const TRON_CHAINS = [TRON_MAINNET, TRON_SHASTA, TRON_NILE];
+
+/* ------------------------------------------------------------------ */
+/*  TronChainAdapter implementation                                   */
+/* ------------------------------------------------------------------ */
 
 /**
- * Validate a TRON address (base58 format with 'T' prefix).
+ * TRON Chain Adapter — standalone TypeScript package using TronWeb.
  *
- * Rules:
- *  - Starts with 'T'
- *  - Exactly 34 characters
- *  - Contains only valid base58 characters
- */
-export function isValidTRONAddress(address: string): boolean {
-  if (typeof address !== 'string') return false;
-  if (!address.startsWith('T') || address.length !== 34) return false;
-  for (let i = 0; i < address.length; i++) {
-    if (BASE58_ALPHABET.indexOf(address[i]) === -1) return false;
-  }
-  return true;
-}
-
-/**
- * Decode a base58 string to hex.
- */
-export function base58ToHex(address: string): string {
-  let num = 0n;
-  for (let i = 0; i < address.length; i++) {
-    const charIndex = BASE58_ALPHABET.indexOf(address[i]);
-    if (charIndex === -1) throw new CinacoinError(`Invalid base58 character: ${address[i]}`, 'INVALID_BASE58');
-    num = num * 58n + BigInt(charIndex);
-  }
-
-  const bytes: number[] = [];
-  while (num > 0n) {
-    bytes.unshift(Number(num % 256n));
-    num = num / 256n;
-  }
-
-  // Leading '1's → leading zero bytes
-  for (let i = 0; i < address.length && address[i] === '1'; i++) {
-    bytes.unshift(0);
-  }
-
-  return bytes.map((b) => b.toString(16).padStart(2, '0')).join('');
-}
-
-/**
- * Encode hex to base58.
- */
-export function hexToBase58(hex: string): string {
-  let num = BigInt('0x' + hex);
-  if (num === 0n) return '1';
-
-  let encoded = '';
-  while (num > 0n) {
-    const remainder = Number(num % 58n);
-    encoded = BASE58_ALPHABET[remainder] + encoded;
-    num = num / 58n;
-  }
-
-  // Leading zero bytes → leading '1's
-  for (let i = 0; i < hex.length / 2; i++) {
-    if (hex.slice(i * 2, i * 2 + 2) !== '00') break;
-    encoded = '1' + encoded;
-  }
-
-  return encoded;
-}
-
-/* ------------------------------------------------------------------ */
-/*  Chain presets                                                       */
-/* ------------------------------------------------------------------ */
-
-/** Well-known TRON chain presets. */
-export const TRON_CHAINS: Chain[] = [
-  {
-    id: 'tron:mainnet',
-    name: 'TRON Mainnet',
-    rpcUrl: 'https://api.trongrid.io',
-    nativeCurrency: { name: 'TRON', symbol: 'TRX', decimals: 6 },
-    explorerUrl: 'https://tronscan.org',
-    iconUrl: 'https://cryptologos.cc/logos/tron-trx-logo.svg',
-  },
-  {
-    id: 'tron:shasta',
-    name: 'TRON Shasta Testnet',
-    rpcUrl: 'https://api.shasta.trongrid.io',
-    nativeCurrency: { name: 'Shasta TRX', symbol: 'tTRX', decimals: 6 },
-    explorerUrl: 'https://shasta.tronscan.org',
-    iconUrl: 'https://cryptologos.cc/logos/tron-trx-logo.svg',
-  },
-  {
-    id: 'tron:nile',
-    name: 'TRON Nile Testnet',
-    rpcUrl: 'https://nile.trongrid.io',
-    nativeCurrency: { name: 'Nile TRX', symbol: 'tTRX', decimals: 6 },
-    explorerUrl: 'https://nile.tronscan.org',
-    iconUrl: 'https://cryptologos.cc/logos/tron-trx-logo.svg',
-  },
-];
-
-/* ------------------------------------------------------------------ */
-/*  TRON-specific types                                                 */
-/* ------------------------------------------------------------------ */
-
-/** Parameters for triggering a smart contract function call. */
-export interface TriggerSmartContractParams {
-  /** Contract address (base58). */
-  contractAddress: string;
-  /** Function name. */
-  functionName: string;
-  /** ABI / parameter map for the function call. */
-  params?: Record<string, unknown>;
-  /** Amount of TRX to send with the call (in sun). */
-  callValue?: string;
-  /** Fee limit in sun. */
-  feeLimit?: number;
-}
-
-/** Estimated energy / bandwidth for a transaction. */
-export interface EnergyBandwidthEstimate {
-  /** Estimated energy units required. */
-  energy: number;
-  /** Estimated bandwidth (bytes) required. */
-  bandwidth: number;
-  /** Estimated TRX cost if energy is burned. */
-  estimatedCostSun: number;
-}
-
-/* ------------------------------------------------------------------ */
-/*  TronChainAdapter                                                    */
-/* ------------------------------------------------------------------ */
-
-/**
- * TRON chain adapter implementing the {@link ChainAdapter} interface.
+ * Implements the {@link ChainAdapter} interface from @cinacoin/core-sdk
+ * and provides TRON-specific operations via the TronWeb RPC client.
  *
- * Uses `TronWeb` for RPC communication with the TRON blockchain.
- * Supports mainnet, Shasta, and Nile testnets. Provides TRX transfers,
- * TRC-20 token queries, smart contract interaction, and energy/bandwidth
- * estimation.
+ * Features:
+ *  - Native TRX balance queries and transfers
+ *  - TRC-20 token balance queries
+ *  - Smart contract triggering
+ *  - Energy & bandwidth estimation
+ *  - Base58 address validation
+ *  - Mainnet & Shasta testnet support
+ *  - Message signing via connected wallet
+ *
+ * @example
+ * ```ts
+ * import { TronChainAdapter, TRON_CHAINS } from '@cinacoin/adapter-tron';
+ *
+ * const adapter = new TronChainAdapter();
+ * adapter.registerChains(TRON_CHAINS);
+ *
+ * const balance = await adapter.getBalance('TNA2B...');
+ * console.log(`${balance} sun`);
+ * ```
+ *
+ * @packageDocumentation
  */
 export class TronChainAdapter implements ChainAdapter {
   readonly id = 'tron-adapter';
   readonly name = 'TRON Chain Adapter';
 
-  private tronWeb: TronWeb | null = null;
+  private tronWeb: any | null = null;
   private chains: Chain[] = [];
   private _connector: Connector | null = null;
   private _connectedAddress: string | null = null;
@@ -215,13 +149,11 @@ export class TronChainAdapter implements ChainAdapter {
 
   /** Set the TronWeb client or any compatible client object. */
   setClient(client: unknown): void {
-    if (client instanceof TronWeb) {
-      this.tronWeb = client;
-    } else if (client && typeof (client as TronWeb).trx === 'object') {
+    if (client && typeof (client as any).trx === 'object') {
       // Accept duck-typed TronWeb-like object
-      this.tronWeb = client as TronWeb;
+      this.tronWeb = client;
     } else {
-      throw new CinacoinError('Client must be an instance of TronWeb', 'INVALID_CLIENT');
+      throw new CinacoinError('Client must be a TronWeb-compatible object', 'INVALID_CLIENT');
     }
   }
 
@@ -230,410 +162,282 @@ export class TronChainAdapter implements ChainAdapter {
     this._connector = connector;
   }
 
-  /** Register supported TRON chains. */
+  /** Register supported chains. */
   registerChains(chains: Chain[]): void {
     this.chains = chains;
-    if (!this.tronWeb && chains.length > 0) {
-      this._initClient(chains[0]);
-    }
   }
 
-  /** Find a chain by numeric ID — TRON doesn't use numeric chain IDs here. */
-  findChain(_chainId: number): Chain | undefined {
-    return this.chains[0];
+  /** Find a chain by numeric ID. */
+  findChain(chainId: number): Chain | undefined {
+    // TRON doesn't use numeric chain IDs in the same way as EVM
+    // This is a placeholder implementation
+    return this.chains.find((c) => c.id.includes(String(chainId))) ?? this.chains[0];
   }
 
-  /**
-   * Get connected account addresses.
-   * Returns the connected address or an empty array.
-   */
+  /** Get connected account addresses. */
   async getAccounts(): Promise<string[]> {
-    return this._connectedAddress ? [this._connectedAddress] : [];
+    if (this._connectedAddress) {
+      return [this._connectedAddress];
+    }
+    
+    if (this.tronWeb && typeof this.tronWeb.defaultAddress === 'object') {
+      const addr = this.tronWeb.defaultAddress.base58;
+      if (isValidTRONAddress(addr)) {
+        this._connectedAddress = addr;
+        return [addr];
+      }
+    }
+    
+    // Try to get from connector if available
+    if (this._connector) {
+      const state = this._connector?.getState?.() || { accounts: [] };
+      if (state.accounts.length > 0) {
+        const addr = state.accounts[0];
+        if (isValidTRONAddress(addr)) {
+          this._connectedAddress = addr;
+          return [addr];
+        }
+      }
+    }
+    
+    return [];
   }
 
-  /**
-   * Get TRX balance for an address.
-   *
-   * @param address - TRON address (base58 format, starts with 'T').
-   * @returns Balance in sun (1 TRX = 1,000,000 sun) as a string.
-   */
+  /** Get native balance for an address. */
   async getBalance(address: string): Promise<string> {
     if (!isValidTRONAddress(address)) {
       throw new CinacoinError(`Invalid TRON address: ${address}`, 'INVALID_ADDRESS');
     }
 
     const client = this._ensureClient();
-
     try {
       const balance = await client.trx.getBalance(address);
-      return balance.toString();
+      return String(balance);
     } catch (err) {
       throw new CinacoinError(
-        `Failed to get balance: ${err instanceof Error ? err.message : String(err)}`,
-        'RPC_ERROR',
+        `Failed to get balance for ${address}: ${err instanceof Error ? err.message : String(err)}`,
+        'RPC_ERROR'
       );
     }
   }
 
-  /**
-   * Send a TRX transfer transaction.
-   *
-   * @param from - Sender address.
-   * @param to - Recipient address.
-   * @param amount - Amount in sun (string or bigint).
-   * @returns Transaction ID (hex string).
-   */
-  async sendTransaction(
-    from: string,
-    to: string,
-    amount: string | bigint,
-  ): Promise<string> {
+  /** Send a transaction. */
+  async sendTransaction(tx: unknown): Promise<string> {
+    // TRON-specific transaction: expect { from, to, amount }
+    const params = tx as { from?: string; to: string; amount: string | bigint };
+    const to = params.to;
+    const amount = params.amount;
+    
     if (!isValidTRONAddress(to)) {
       throw new CinacoinError(`Invalid recipient address: ${to}`, 'INVALID_ADDRESS');
     }
 
     const client = this._ensureClient();
-    const amountNum = typeof amount === 'bigint' ? Number(amount) : parseInt(amount, 10);
+    const amountNum = typeof amount === 'bigint' ? Number(amount) : parseInt(amount as string, 10);
 
     try {
       // If we have a private key (server-side), sign and send directly
       if (this._privateKey) {
         client.setPrivateKey(this._privateKey);
-      }
-
-      const tx = await client.trx.sendTransaction(to, amountNum);
-
-      if (tx && typeof tx === 'object') {
-        const record = tx as Record<string, unknown>;
-        // TronWeb returns { txid: string } or { result: boolean, txid: string }
-        if (typeof record.txid === 'string') {
-          return record.txid;
+        const txObj = await client.transactionBuilder.sendTrx(to, amountNum);
+        const signedTx = await client.trx.sign(txObj);
+        const result = await client.trx.sendRawTransaction(signedTx);
+        if (result.result) {
+          return result.transaction.txID;
+        } else {
+          throw new CinacoinError(`Transaction failed: ${result.message}`, 'TX_FAILED');
         }
-        // Some versions wrap differently
-        if (record.result === true && typeof record.txid === 'string') {
-          return record.txid;
+      } else {
+        // Browser environment: delegate to TronLink or similar
+        const tx = await client.trx.sendTransaction(to, amountNum);
+        if (tx && typeof tx === 'object' && 'txID' in tx) {
+          return tx.txID as string;
+        } else {
+          return String(tx);
         }
       }
-
-      // Fallback: return empty or throw
-      throw new CinacoinError('Transaction sent but no txid returned', 'TX_NO_ID');
     } catch (err) {
-      if (err instanceof CinacoinError) throw err;
       throw new CinacoinError(
         `Failed to send transaction: ${err instanceof Error ? err.message : String(err)}`,
-        'TX_SEND_ERROR',
+        'TX_ERROR'
       );
     }
   }
 
-  /**
-   * Get the latest block number on the TRON blockchain.
-   *
-   * @returns Latest block number.
-   */
+  /** Sign a message. */
+  async signMessage(message: string): Promise<string> {
+    if (!this._connectedAddress) {
+      throw new CinacoinError('No wallet connected', 'NOT_CONNECTED');
+    }
+
+    const client = this._ensureClient();
+    try {
+      // TRON message signing
+      const signature = await client.trx.sign(message);
+      return signature;
+    } catch (err) {
+      throw new CinacoinError(
+        `Failed to sign message: ${err instanceof Error ? err.message : String(err)}`,
+        'SIGN_ERROR'
+      );
+    }
+  }
+
+  /** Switch to a different chain. */
+  async switchChain(chainId: number): Promise<void> {
+    const chain = this.findChain(chainId);
+    if (!chain) {
+      throw new CinacoinError(`Unsupported chain ID: ${chainId}`, 'UNSUPPORTED_CHAIN');
+    }
+    
+    // Update client RPC URL if needed
+    if (this.tronWeb && chain.rpcUrl) {
+      // Note: TronWeb doesn't easily support dynamic RPC switching
+      // This would require creating a new instance
+      console.warn('Chain switching not fully supported in TronWeb');
+    }
+  }
+
+  /** Get the latest block number. */
   async getLatestBlock(): Promise<number> {
     const client = this._ensureClient();
-
     try {
       const block = await client.trx.getCurrentBlock();
-      return (block as Record<string, unknown>)?.number as number ?? 0;
+      return block.block_header.raw_data.number;
     } catch (err) {
       throw new CinacoinError(
         `Failed to get latest block: ${err instanceof Error ? err.message : String(err)}`,
-        'RPC_ERROR',
+        'RPC_ERROR'
       );
     }
   }
 
-  /**
-   * Estimate fee (energy + bandwidth) for a transaction.
-   *
-   * @param _tx - Transaction parameters (simplified).
-   * @returns Energy and bandwidth estimate.
-   */
-  async estimateFee(_tx: unknown): Promise<bigint> {
-    // Standard TRX transfer fee baseline: ~0.01 TRX (10,000 sun) for bandwidth.
-    // Smart contract interactions require additional energy.
-    // A rough estimate without inspecting the specific transaction.
+  /** Estimate gas/energy for a transaction. */
+  async estimateFee(tx: unknown): Promise<bigint> {
+    // TRON uses energy and bandwidth instead of gas
+    const params = tx as { to: string; amount: string | bigint };
+    const to = params.to;
+    const amount = params.amount;
+    
+    if (!isValidTRONAddress(to)) {
+      throw new CinacoinError(`Invalid recipient address: ${to}`, 'INVALID_ADDRESS');
+    }
+
+    const client = this._ensureClient();
+    const amountNum = typeof amount === 'bigint' ? Number(amount) : parseInt(amount as string, 10);
+    
     try {
-      const client = this._ensureClient();
-      // Use TronWeb's energy estimation if available
-      // For now, return a baseline estimate
-      return 10_000n; // ~0.01 TRX baseline
-    } catch {
-      return 10_000n;
+      // Estimate energy consumption for transfer
+      const energy = await client.trx.calculateEnergy(to, amountNum);
+      // Convert to approximate fee in SUN
+      return BigInt(Math.max(energy, 10000)); // Minimum fee
+    } catch (err) {
+      throw new CinacoinError(
+        `Failed to estimate fee: ${err instanceof Error ? err.message : String(err)}`,
+        'ESTIMATE_ERROR'
+      );
     }
   }
+
+  /* ---- TRON-Specific Methods ---- */
 
   /**
    * Get TRC-20 token balance for an address.
    *
-   * @param address - Wallet address (base58).
-   * @param contractAddress - TRC-20 contract address (base58).
-   * @returns Token balance in the smallest unit as a string.
+   * @param address - Wallet address.
+   * @param contractAddress - TRC-20 contract address.
+   * @returns Token balance as string.
    */
-  async getTRC20Balance(
-    address: string,
-    contractAddress: string,
-  ): Promise<string> {
+  async getTRC20Balance(address: string, contractAddress: string): Promise<string> {
     if (!isValidTRONAddress(address)) {
       throw new CinacoinError(`Invalid wallet address: ${address}`, 'INVALID_ADDRESS');
     }
     if (!isValidTRONAddress(contractAddress)) {
-      throw new CinacoinError(
-        `Invalid contract address: ${contractAddress}`,
-        'INVALID_ADDRESS',
-      );
+      throw new CinacoinError(`Invalid contract address: ${contractAddress}`, 'INVALID_ADDRESS');
     }
 
     const client = this._ensureClient();
-
     try {
-      const contract = client.contract().at(contractAddress);
-      const balance = await contract.methods.balanceOf(address).call();
+      const contract = await client.contract().at(contractAddress);
+      const balance = await contract.balanceOf(address).call();
       return String(balance);
     } catch (err) {
-      // Fallback: use the HTTP API
-      try {
-        const hexAddr = client.address.toHex(address);
-        const hexContract = client.address.toHex(contractAddress);
-
-        const response = await fetch(
-          `${client.fullNode.host}/wallet/triggerconstantcontract`,
-          {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              owner_address: hexAddr,
-              contract_address: hexContract,
-              function_selector: 'balanceOf(address)',
-              parameter: client.address.toHex(address).slice(2).padStart(64, '0'),
-              visible: true,
-            }),
-          },
-        );
-
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}`);
-        }
-
-        const data = await response.json();
-        if (data.result?.result && data.result?.message) {
-          // Decode the hex result (uint256)
-          const resultHex = data.result.message;
-          return BigInt('0x' + resultHex).toString();
-        }
-
-        return '0';
-      } catch (apiErr) {
-        throw new CinacoinError(
-          `Failed to get TRC-20 balance: ${apiErr instanceof Error ? apiErr.message : String(apiErr)}`,
-          'TRC20_ERROR',
-        );
-      }
-    }
-  }
-
-  /**
-   * Sign a message with the connected wallet.
-   *
-   * @param _address - Address to sign with.
-   * @param message - Message string to sign.
-   * @returns Signature as a hex string.
-   */
-  async signMessage(_address: string, message: string): Promise<string> {
-    const client = this._ensureClient();
-
-    try {
-      // If private key is set (server-side), sign directly
-      if (this._privateKey) {
-        client.setPrivateKey(this._privateKey);
-        const result = await client.trx.signMessageV2(message);
-        return (result as Record<string, unknown>)?.signature as string ?? '';
-      }
-
-      // Otherwise, delegate to TronLink in browser
-      const result = await client.trx.signMessageV2(message);
-      return (result as Record<string, unknown>)?.signature as string ?? '';
-    } catch (err) {
       throw new CinacoinError(
-        `Failed to sign message: ${err instanceof Error ? err.message : String(err)}`,
-        'SIGN_ERROR',
+        `Failed to get TRC-20 balance: ${err instanceof Error ? err.message : String(err)}`,
+        'TOKEN_ERROR'
       );
     }
   }
 
   /**
-   * Trigger a smart contract function call.
+   * Trigger a smart contract function.
    *
-   * @param params - Contract trigger parameters.
-   * @returns Transaction ID (hex string).
+   * @param contractAddress - Contract address.
+   * @param functionName - Function name to call.
+   * @param params - Function parameters.
+   * @returns Transaction ID.
    */
-  async triggerSmartContract(params: TriggerSmartContractParams): Promise<string> {
-    const client = this._ensureClient();
-
-    if (!isValidTRONAddress(params.contractAddress)) {
-      throw new CinacoinError(
-        `Invalid contract address: ${params.contractAddress}`,
-        'INVALID_ADDRESS',
-      );
+  async triggerSmartContract(
+    contractAddress: string,
+    functionName: string,
+    params: Record<string, unknown> = {}
+  ): Promise<string> {
+    if (!isValidTRONAddress(contractAddress)) {
+      throw new CinacoinError(`Invalid contract address: ${contractAddress}`, 'INVALID_ADDRESS');
     }
 
+    const client = this._ensureClient();
     try {
-      if (this._privateKey) {
-        client.setPrivateKey(this._privateKey);
-      }
-
-      const contract = client.contract().at(params.contractAddress);
-      const method = (contract.methods as Record<string, unknown>)[params.functionName];
-
-      if (!method) {
-        throw new CinacoinError(
-          `Function "${params.functionName}" not found on contract`,
-          'FUNCTION_NOT_FOUND',
-        );
-      }
-
-      // Call the method with provided params
-      const args = params.params ? Object.values(params.params) : [];
-      const sendOptions: Record<string, unknown> = {};
-      if (params.callValue) sendOptions.callValue = parseInt(params.callValue, 10);
-      if (params.feeLimit) sendOptions.feeLimit = params.feeLimit;
-
-      const result = await (method as (...args: unknown[]) => Promise<unknown>)(...args).send(sendOptions);
-      const record = result as Record<string, unknown>;
-
-      if (typeof record.txid === 'string') {
-        return record.txid;
-      }
-
-      throw new CinacoinError('Contract call succeeded but no txid returned', 'TX_NO_ID');
+      const contract = await client.contract().at(contractAddress);
+      const tx = await contract[functionName](...Object.values(params)).send();
+      return tx.txID;
     } catch (err) {
-      if (err instanceof CinacoinError) throw err;
       throw new CinacoinError(
         `Failed to trigger contract: ${err instanceof Error ? err.message : String(err)}`,
-        'CONTRACT_ERROR',
+        'CONTRACT_ERROR'
       );
     }
   }
 
   /**
-   * Estimate energy and bandwidth for a TRX transfer.
+   * Estimate energy and bandwidth consumption for a transaction.
    *
-   * @param amount - Transfer amount in sun.
-   * @param isContractInteraction - Whether the tx interacts with a contract.
-   * @returns Energy/bandwidth/cost estimate.
+   * @param amount - Transaction amount in SUN.
+   * @param isContractInteraction - Whether this is a contract interaction.
+   * @returns Object with energy and bandwidth estimates.
    */
-  async estimateEnergyBandwidth(
-    amount: string,
-    isContractInteraction = false,
-  ): Promise<EnergyBandwidthEstimate> {
-    // TRX transfer baseline:
-    // - Bandwidth: ~270 bytes (transaction size)
-    // - Energy: 0 for native TRX transfer, significant for contract calls
-    // - Energy price: ~350 sun per energy unit (dynamic)
-    const bandwidth = 270;
-    let energy = 0;
-    let estimatedCostSun = 0;
-
-    if (isContractInteraction) {
-      // Simple contract call: ~30k-65k energy depending on complexity
-      energy = 50_000;
-      // Energy cost: 350 sun/unit × energy units
-      estimatedCostSun = energy * 350;
-    }
-
-    return { energy, bandwidth, estimatedCostSun };
+  async estimateEnergyBandwidth(amount: bigint | number, isContractInteraction = false): Promise<{
+    energy: number;
+    bandwidth: number;
+  }> {
+    const amountNum = typeof amount === 'bigint' ? Number(amount) : amount;
+    // Simplified estimation logic
+    const baseBandwidth = 200; // Base bandwidth for simple transfer
+    const baseEnergy = isContractInteraction ? 50000 : 0; // Energy only for contracts
+    
+    return {
+      energy: baseEnergy,
+      bandwidth: baseBandwidth + Math.floor(amountNum / 1000000), // Scale with amount
+    };
   }
 
-  /* ---- Additional Utility Methods ---- */
+  /* ---- Internal Helpers ---- */
 
-  /** Get the current TronWeb instance. */
-  getClient(): TronWeb | null {
+  /** Ensure a TronWeb client is available. */
+  private _ensureClient(): any {
+    if (!this.tronWeb) {
+      throw new CinacoinError('TronWeb client not initialized', 'CLIENT_NOT_READY');
+    }
     return this.tronWeb;
   }
 
-  /** Get the currently connected address. */
-  getAddress(): string | null {
-    return this._connectedAddress;
+  /** Convert SUN to TRX. */
+  sunToTRX(sun: bigint | number): number {
+    return Number(sun) / 1_000_000;
   }
 
-  /** Set the connected address (called after wallet connection). */
-  setAddress(address: string): void {
-    if (!isValidTRONAddress(address)) {
-      throw new CinacoinError(`Invalid address: ${address}`, 'INVALID_ADDRESS');
-    }
-    this._connectedAddress = address;
-  }
-
-  /** Disconnect the wallet. */
-  async disconnect(): Promise<void> {
-    this._connectedAddress = null;
-  }
-
-  /** Connect using an address (simplified — real connection uses TronLink). */
-  async connect(address: string): Promise<string> {
-    this.setAddress(address);
-    return this._connectedAddress!;
-  }
-
-  /** Switch the active chain. */
-  async switchChain(chainId: number): Promise<void> {
-    const chain = this.findChain(chainId);
-    if (chain) {
-      this._initClient(chain);
-    }
-  }
-
-  /** Find a TRON chain by its string ID. */
-  findChainById(chainId: string): Chain | undefined {
-    return this.chains.find((c) => c.id === chainId);
-  }
-
-  /** Get the current chain ID (string-based). */
-  getChainId(): string | undefined {
-    if (this.chains.length > 0) {
-      return this.chains[0].id;
-    }
-    return undefined;
-  }
-
-  /** Convert sun to TRX (human-readable decimal). */
-  static sunToTRX(sun: string | number | bigint): string {
-    const n = typeof sun === 'bigint' ? sun : BigInt(sun);
-    const intPart = n / 1_000_000n;
-    const fracPart = n % 1_000_000n;
-    const fracStr = fracPart.toString().padStart(6, '0').replace(/0+$/, '');
-    return fracStr ? `${intPart}.${fracStr}` : `${intPart}`;
-  }
-
-  /** Convert TRX to sun. */
-  static trxToSun(trx: string | number): string {
-    const parts = String(trx).split('.');
-    const intPart = BigInt(parts[0] || '0');
-    let fracPart = 0n;
-    if (parts.length > 1) {
-      const frac = parts[1].padEnd(6, '0').slice(0, 6);
-      fracPart = BigInt(frac);
-    }
-    return (intPart * 1_000_000n + fracPart).toString();
-  }
-
-  /* ---- Private Helpers ---- */
-
-  private _ensureClient(): TronWeb {
-    if (!this.tronWeb) {
-      this._initClient(TRON_CHAINS[0]);
-    }
-    return this.tronWeb!;
-  }
-
-  private _initClient(chain: Chain): void {
-    this.tronWeb = new TronWeb({
-      fullHost: chain.rpcUrl,
-    });
+  /** Convert TRX to SUN. */
+  trxToSun(trx: number): bigint {
+    return BigInt(Math.round(trx * 1_000_000));
   }
 }
-
-/** Package version. */
-export const VERSION = '1.0.0';

@@ -1,8 +1,8 @@
 declare global {
   const H3Error: typeof import('../../../../node_modules/.pnpm/h3@1.15.11/node_modules/h3').H3Error
   const H3Event: typeof import('../../../../node_modules/.pnpm/h3@1.15.11/node_modules/h3').H3Event
-  const __buildAssetsURL: typeof import('../../../../node_modules/.pnpm/@nuxt+nitro-server@3.21.5_better-sqlite3@11.10.0_db0@0.3.4_better-sqlite3@11.10.0__idb-keyval_igfpro4plfs54uvgzfkzselora/node_modules/@nuxt/nitro-server/dist/runtime/utils/paths').buildAssetsURL
-  const __publicAssetsURL: typeof import('../../../../node_modules/.pnpm/@nuxt+nitro-server@3.21.5_better-sqlite3@11.10.0_db0@0.3.4_better-sqlite3@11.10.0__idb-keyval_igfpro4plfs54uvgzfkzselora/node_modules/@nuxt/nitro-server/dist/runtime/utils/paths').publicAssetsURL
+  const __buildAssetsURL: typeof import('../../../../node_modules/.pnpm/@nuxt+nitro-server@3.21.5_better-sqlite3@11.10.0_db0@0.3.4_better-sqlite3@11.10.0__idb-keyval_7uojccw5sgtu7t2zjscpc5a7iq/node_modules/@nuxt/nitro-server/dist/runtime/utils/paths').buildAssetsURL
+  const __publicAssetsURL: typeof import('../../../../node_modules/.pnpm/@nuxt+nitro-server@3.21.5_better-sqlite3@11.10.0_db0@0.3.4_better-sqlite3@11.10.0__idb-keyval_7uojccw5sgtu7t2zjscpc5a7iq/node_modules/@nuxt/nitro-server/dist/runtime/utils/paths').publicAssetsURL
   const appendCorsHeaders: typeof import('../../../../node_modules/.pnpm/h3@1.15.11/node_modules/h3').appendCorsHeaders
   const appendCorsPreflightHeaders: typeof import('../../../../node_modules/.pnpm/h3@1.15.11/node_modules/h3').appendCorsPreflightHeaders
   const appendHeader: typeof import('../../../../node_modules/.pnpm/h3@1.15.11/node_modules/h3').appendHeader
@@ -22,7 +22,7 @@ declare global {
   const createEventStream: typeof import('../../../../node_modules/.pnpm/h3@1.15.11/node_modules/h3').createEventStream
   const createRouter: typeof import('../../../../node_modules/.pnpm/h3@1.15.11/node_modules/h3').createRouter
   const defaultContentType: typeof import('../../../../node_modules/.pnpm/h3@1.15.11/node_modules/h3').defaultContentType
-  const defineAppConfig: typeof import('../../../../node_modules/.pnpm/@nuxt+nitro-server@3.21.5_better-sqlite3@11.10.0_db0@0.3.4_better-sqlite3@11.10.0__idb-keyval_igfpro4plfs54uvgzfkzselora/node_modules/@nuxt/nitro-server/dist/runtime/utils/config').defineAppConfig
+  const defineAppConfig: typeof import('../../../../node_modules/.pnpm/@nuxt+nitro-server@3.21.5_better-sqlite3@11.10.0_db0@0.3.4_better-sqlite3@11.10.0__idb-keyval_7uojccw5sgtu7t2zjscpc5a7iq/node_modules/@nuxt/nitro-server/dist/runtime/utils/config').defineAppConfig
   const defineCachedEventHandler: typeof import('../../../../node_modules/.pnpm/nitropack@2.13.4_better-sqlite3@11.10.0_idb-keyval@6.2.2_oxc-parser@0.129.0_srvx@0.11.15/node_modules/nitropack/dist/runtime/internal/cache').defineCachedEventHandler
   const defineCachedFunction: typeof import('../../../../node_modules/.pnpm/nitropack@2.13.4_better-sqlite3@11.10.0_idb-keyval@6.2.2_oxc-parser@0.129.0_srvx@0.11.15/node_modules/nitropack/dist/runtime/internal/cache').defineCachedFunction
   const defineEventHandler: typeof import('../../../../node_modules/.pnpm/h3@1.15.11/node_modules/h3').defineEventHandler
@@ -145,5 +145,5 @@ export { getRouteRules } from 'nitropack/runtime/internal/route-rules';
 export { useEvent } from 'nitropack/runtime/internal/context';
 export { defineTask, runTask } from 'nitropack/runtime/internal/task';
 export { defineNitroErrorHandler } from 'nitropack/runtime/internal/error/utils';
-export { buildAssetsURL as __buildAssetsURL, publicAssetsURL as __publicAssetsURL } from '/home/cina/.openclaw/workspace/onux/node_modules/.pnpm/@nuxt+nitro-server@3.21.5_better-sqlite3@11.10.0_db0@0.3.4_better-sqlite3@11.10.0__idb-keyval_igfpro4plfs54uvgzfkzselora/node_modules/@nuxt/nitro-server/dist/runtime/utils/paths';
-export { defineAppConfig } from '/home/cina/.openclaw/workspace/onux/node_modules/.pnpm/@nuxt+nitro-server@3.21.5_better-sqlite3@11.10.0_db0@0.3.4_better-sqlite3@11.10.0__idb-keyval_igfpro4plfs54uvgzfkzselora/node_modules/@nuxt/nitro-server/dist/runtime/utils/config';
+export { buildAssetsURL as __buildAssetsURL, publicAssetsURL as __publicAssetsURL } from '/home/cina/.openclaw/workspace/onux/node_modules/.pnpm/@nuxt+nitro-server@3.21.5_better-sqlite3@11.10.0_db0@0.3.4_better-sqlite3@11.10.0__idb-keyval_7uojccw5sgtu7t2zjscpc5a7iq/node_modules/@nuxt/nitro-server/dist/runtime/utils/paths';
+export { defineAppConfig } from '/home/cina/.openclaw/workspace/onux/node_modules/.pnpm/@nuxt+nitro-server@3.21.5_better-sqlite3@11.10.0_db0@0.3.4_better-sqlite3@11.10.0__idb-keyval_7uojccw5sgtu7t2zjscpc5a7iq/node_modules/@nuxt/nitro-server/dist/runtime/utils/config';

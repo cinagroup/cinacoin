@@ -36,7 +36,7 @@
         "../../../node_modules/.pnpm/vue-router@4.6.4_vue@3.5.34_typescript@5.9.3_/node_modules/vue-router/vue-router-auto-routes"
       ],
       "nuxt": [
-        "../../../node_modules/.pnpm/nuxt@3.21.5_@parcel+watcher@2.5.6_@types+node@22.19.19_@vue+compiler-sfc@3.5.34_better-sqlite_gxs55oppr4pwttetnvbuf2mh6u/node_modules/nuxt"
+        "../../../node_modules/.pnpm/nuxt@3.21.5_@parcel+watcher@2.5.6_@types+node@22.19.19_@vue+compiler-sfc@3.5.34_better-sqlite_ijb7bg2jce2ova23nxfifuvzna/node_modules/nuxt"
       ],
       "@unhead/vue": [
         "../../../node_modules/.pnpm/@unhead+vue@2.1.15_vue@3.5.34_typescript@5.9.3_/node_modules/@unhead/vue"
@@ -111,10 +111,10 @@
         "./*"
       ],
       "#internal/nuxt/paths": [
-        "../../../node_modules/.pnpm/@nuxt+nitro-server@3.21.5_better-sqlite3@11.10.0_db0@0.3.4_better-sqlite3@11.10.0__idb-keyval_igfpro4plfs54uvgzfkzselora/node_modules/@nuxt/nitro-server/dist/runtime/utils/paths"
+        "../../../node_modules/.pnpm/@nuxt+nitro-server@3.21.5_better-sqlite3@11.10.0_db0@0.3.4_better-sqlite3@11.10.0__idb-keyval_7uojccw5sgtu7t2zjscpc5a7iq/node_modules/@nuxt/nitro-server/dist/runtime/utils/paths"
       ],
       "#unhead/composables": [
-        "../../../node_modules/.pnpm/nuxt@3.21.5_@parcel+watcher@2.5.6_@types+node@22.19.19_@vue+compiler-sfc@3.5.34_better-sqlite_gxs55oppr4pwttetnvbuf2mh6u/node_modules/nuxt/dist/head/runtime/composables/v3"
+        "../../../node_modules/.pnpm/nuxt@3.21.5_@parcel+watcher@2.5.6_@types+node@22.19.19_@vue+compiler-sfc@3.5.34_better-sqlite_ijb7bg2jce2ova23nxfifuvzna/node_modules/nuxt/dist/head/runtime/composables/v3"
       ]
     },
     "lib": [
@@ -139,7 +139,7 @@
   "exclude": [
     "../node_modules",
     "../../../node_modules",
-    "../../../node_modules/.pnpm/nuxt@3.21.5_@parcel+watcher@2.5.6_@types+node@22.19.19_@vue+compiler-sfc@3.5.34_better-sqlite_gxs55oppr4pwttetnvbuf2mh6u/node_modules/nuxt/node_modules",
+    "../../../node_modules/.pnpm/nuxt@3.21.5_@parcel+watcher@2.5.6_@types+node@22.19.19_@vue+compiler-sfc@3.5.34_better-sqlite_ijb7bg2jce2ova23nxfifuvzna/node_modules/nuxt/node_modules",
     "../../../node_modules/.pnpm/@nuxt+devtools@2.7.0_bufferutil@4.1.0_utf-8-validate@5.0.10_vite@7.3.3_@types+node@22.19.19_j_srlv3bvmuok2gsu4da7vbnfjmi/node_modules/@nuxt/devtools/node_modules",
     "../../../node_modules/.pnpm/@nuxt+telemetry@2.8.0_@nuxt+kit@3.21.5_magicast@0.5.3_/node_modules/@nuxt/telemetry/node_modules",
     "../dist"

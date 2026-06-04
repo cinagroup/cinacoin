@@ -217,11 +217,11 @@ export class TonChainAdapter implements ChainAdapter {
    * @param amount - Amount in nanotons (string) or TON (number).
    * @returns Transaction BOC hash (hex string).
    */
-  async sendTransaction(
-    _from: string,
-    to: string,
-    amount: string | bigint,
-  ): Promise<string> {
+  async sendTransaction(tx: unknown): Promise<string> {
+    // TON-specific transaction: expect { from, to, amount }
+    const params = tx as { from?: string; to: string; amount: string | bigint };
+    const to = params.to;
+    const amount = params.amount;
     if (!isValidTONAddress(to)) {
       throw new CinacoinError(`Invalid recipient address: ${to}`, 'INVALID_ADDRESS');
     }
@@ -272,7 +272,7 @@ export class TonChainAdapter implements ChainAdapter {
 
     try {
       const masterchainInfo = await client.getMasterchainInfo();
-      return masterchainInfo.last.seqno;
+      return (masterchainInfo as { last?: { seqno?: number } }).last?.seqno ?? 0;
     } catch (err) {
       throw new CinacoinError(
         `Failed to get latest block: ${err instanceof Error ? err.message : String(err)}`,
@@ -353,7 +353,7 @@ export class TonChainAdapter implements ChainAdapter {
    * @param message - Message string to sign.
    * @returns Signature as a hex string.
    */
-  async signMessage(_address: string, message: string): Promise<string> {
+  async signMessage(message: string): Promise<string> {
     if (!this._connectedAddress) {
       throw new CinacoinError('No wallet connected', 'NOT_CONNECTED');
     }

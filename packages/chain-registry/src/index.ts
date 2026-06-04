@@ -1,89 +1,137 @@
 /**
- * @cinacoin/chain-registry
+ * @cinacoin/chain-registry — Public API.
  *
- * EVM chain registry with 150+ chains, auto-generated from chainid.network.
- * CAIP-2 compatible with search, category filtering, and dynamic registration.
+ * Provides access to 100+ EVM chains with:
+ * - CAIP-2 compatible identifiers
+ * - Search, category filtering, dynamic registration
+ * - Popular chains helper (top 20 by TVL)
  */
 
-import { CHAIN_REGISTRY } from './chains.js';
-import type { ChainRegistryEntry, ChainCategory } from './types.js';
+import type { ChainRegistryEntry, ChainCategory, Caip2 } from './types.js';
+import {
+  CHAIN_REGISTRY,
+  CHAIN_BY_ID,
+  CHAIN_BY_NAME,
+  searchChains,
+  getChainsByCategory,
+} from './chains.js';
 
-// Internal mutable registry
-const _registry = new Map<number, ChainRegistryEntry>(
-  CHAIN_REGISTRY.map((c) => [c.id, c])
-);
-
-const _nameIndex = new Map<string, ChainRegistryEntry>(
-  CHAIN_REGISTRY.map((c) => [c.name.toLowerCase(), c])
-);
-
-// Popular chains by TVL / usage
-const POPULAR_IDS = [1, 10, 56, 137, 42161, 8453, 43114, 100, 324, 250, 59144, 534352, 1284, 42220, 25, 97, 80002, 421614, 11155111, 11155420];
+/* ------------------------------------------------------------------ */
+/*  Core Query Functions                                                */
+/* ------------------------------------------------------------------ */
 
 /** Get all registered chains. */
 export function getAllChains(): ChainRegistryEntry[] {
-  return Array.from(_registry.values());
+  return [...CHAIN_REGISTRY];
 }
 
-/** Get a chain by its numeric chainId. */
+/** Look up a chain by numeric chain ID. */
 export function getChainById(chainId: number): ChainRegistryEntry | undefined {
-  return _registry.get(chainId);
+  return CHAIN_BY_ID.get(chainId);
 }
 
-/** Get a chain by its name (case-insensitive). */
+/** Look up a chain by name (case-insensitive). */
 export function getChainByName(name: string): ChainRegistryEntry | undefined {
-  return _nameIndex.get(name.toLowerCase());
+  return CHAIN_BY_NAME.get(name.toLowerCase());
 }
 
-/** Search chains by name or symbol. */
-export function searchChains(query: string): ChainRegistryEntry[] {
-  const q = query.toLowerCase();
-  return Array.from(_registry.values()).filter(
-    (c) => c.name.toLowerCase().includes(q) || c.shortName.toLowerCase().includes(q)
-  );
-}
+/**
+ * Re-export: fuzzy search chains by name, shortName, category, or ID substring.
+ */
+export { searchChains } from './chains.js';
 
-/** Get chains by category. */
-export function getChainsByCategory(category: ChainCategory): ChainRegistryEntry[] {
-  return Array.from(_registry.values()).filter((c) => c.category === category);
-}
+/**
+ * Re-export: get all chains matching a category.
+ */
+export { getChainsByCategory } from './chains.js';
 
-/** Get the top 20 most popular chains. */
+/* ------------------------------------------------------------------ */
+/*  Popular Chains                                                      */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Top 20 chains by approximate TVL / usage popularity.
+ * Order matters — first = most popular.
+ */
+const POPULAR_CHAIN_IDS: number[] = [
+  1,          // Ethereum
+  56,         // BNB Smart Chain
+  137,        // Polygon
+  42161,      // Arbitrum One
+  10,         // Optimism
+  8453,       // Base
+  43114,      // Avalanche
+  1666600000, // Harmony
+  250,        // Fantom
+  324,        // zkSync Era
+  888888888,  // Ancient8
+  534352,     // Scroll
+  59144,      // Linea
+  81457,      // Blast
+  7777777,    // Zora
+  245022934,  // Neon EVM
+  34443,      // Mode
+  169,        // Manta Pacific
+  480,        // World Chain
+  1101,       // Polygon zkEVM
+];
+
+/**
+ * Get the top 20 most popular chains (by TVL).
+ */
 export function getPopularChains(): ChainRegistryEntry[] {
-  return POPULAR_IDS.map((id) => _registry.get(id)).filter(Boolean) as ChainRegistryEntry[];
+  return POPULAR_CHAIN_IDS
+    .map(id => CHAIN_BY_ID.get(id))
+    .filter((c): c is ChainRegistryEntry => c !== undefined);
 }
 
-/** Get all testnets. */
-export function getTestnets(): ChainRegistryEntry[] {
-  return Array.from(_registry.values()).filter((c) => c.testnet);
-}
+/* ------------------------------------------------------------------ */
+/*  Dynamic Registration                                                */
+/* ------------------------------------------------------------------ */
 
-/** Get all mainnets. */
-export function getMainnets(): ChainRegistryEntry[] {
-  return Array.from(_registry.values()).filter((c) => !c.testnet);
-}
-
-/** Register a new chain dynamically. */
+/**
+ * Register a new chain dynamically at runtime.
+ * Useful for custom / private chains not in the default registry.
+ */
 export function registerChain(chain: ChainRegistryEntry): void {
-  _registry.set(chain.id, chain);
-  _nameIndex.set(chain.name.toLowerCase(), chain);
+  // Replace existing entry if same ID
+  const idx = CHAIN_REGISTRY.findIndex(c => c.id === chain.id);
+  if (idx !== -1) {
+    CHAIN_REGISTRY[idx] = chain;
+  } else {
+    CHAIN_REGISTRY.push(chain);
+  }
+  // Update lookup maps
+  CHAIN_BY_ID.set(chain.id, chain);
+  CHAIN_BY_NAME.set(chain.name.toLowerCase(), chain);
 }
 
-/** Convert a chain entry to CAIP-2 string. */
-export function toCaip2(chain: ChainRegistryEntry): string {
-  return `eip155:${chain.id}`;
+/* ------------------------------------------------------------------ */
+/*  CAIP-2 Conversion                                                   */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Convert a chain entry to a CAIP-2 string: "eip155:{chainId}"
+ */
+export function toCaip2(chain: ChainRegistryEntry | number): Caip2 {
+  const chainId = typeof chain === 'number' ? chain : chain.id;
+  return `eip155:${chainId}`;
 }
 
-/** Parse a CAIP-2 string to chain entry. */
-export function fromCaip2(caip2: string): ChainRegistryEntry | undefined {
-  const match = /^eip155:(\d+)$/.exec(caip2);
-  if (!match) return undefined;
-  return _registry.get(Number(match[1]));
+/**
+ * Parse a CAIP-2 string back to a chain ID.
+ */
+export function fromCaip2(caip2: Caip2 | string): number | undefined {
+  if (!caip2.startsWith('eip155:')) return undefined;
+  const id = Number(caip2.slice(7));
+  return Number.isFinite(id) ? id : undefined;
 }
 
-/** Total chain count. */
-export const CHAIN_COUNT = _registry.size;
+/* ------------------------------------------------------------------ */
+/*  Type Exports                                                        */
+/* ------------------------------------------------------------------ */
 
-/** Export the static registry data for direct access. */
-export { CHAIN_REGISTRY };
-export type { ChainRegistryEntry, ChainCategory };
+export type { ChainRegistryEntry, ChainCategory, Caip2 } from './types.js';
+
+/** Re-export the raw registry and lookup maps for advanced usage. */
+export { CHAIN_REGISTRY, CHAIN_BY_ID, CHAIN_BY_NAME } from './chains.js';
