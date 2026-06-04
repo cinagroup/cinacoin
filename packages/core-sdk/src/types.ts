@@ -172,3 +172,73 @@ export interface RequiredNamespace {
   /** Required events. */
   events: string[];
 }
+
+// ============================================================================
+// Re-export error system types and classes
+// ============================================================================
+
+export type {
+  ErrorSeverity,
+  ErrorCodeDefinition,
+  SupportedLocale,
+} from './errors/codes.js';
+
+export {
+  CONNECTION,
+  AUTHENTICATION,
+  CHAIN,
+  TRANSACTION,
+  WALLET_CONNECT,
+  SIGNING,
+  NETWORK,
+  SDK,
+  SECURITY,
+  ERROR_CODES,
+  ERROR_CODE_COUNT,
+  getErrorCode,
+  getErrorByIdentifier,
+} from './errors/codes.js';
+
+export {
+  CinacoinError,
+  ConnectionError,
+  AuthenticationError,
+  ChainError,
+  TransactionError,
+  WalletConnectError,
+  SigningError,
+  NetworkError,
+  SdkError,
+  SecurityError,
+  createError,
+  resolveCodeDef,
+} from './errors/classes.js';
+
+export {
+  isError,
+  isConnectionError,
+  isAuthenticationError,
+  isChainError,
+  isTransactionError,
+  isWalletConnectError,
+  isSigningError,
+  isNetworkError,
+  isSdkError,
+  isSecurityError,
+  getErrorSeverity,
+  isRetryable,
+  getErrorDocumentation,
+  formatError,
+  formatErrorCompact,
+  errorToJSON,
+  errorFromJSON,
+} from './errors/utils.js';
+
+export {
+  SUPPORTED_LOCALES,
+  DEFAULT_LOCALE,
+  isLocaleSupported,
+  resolveLocale,
+  getMessage,
+  getAllTranslations,
+} from './errors/i18n.js';

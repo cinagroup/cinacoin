@@ -24,6 +24,7 @@
 import type { Connector } from '../connector.js';
 import type { SIWEParams, ParsedSIWE, SIWEVerificationResult } from '@cinacoin/siwe';
 import { generateMessage, parseMessage, verifyMessage, generateNonce, generateTimestamp } from '@cinacoin/siwe';
+import { createError, WALLET_CONNECT, AUTHENTICATION } from '../errors/index.js';
 
 /** Minimal provider shape for SIWE signature verification (mirrors @cinacoin/siwe internal SIWEProvider). */
 interface SIWEVerifyProvider {
@@ -162,7 +163,7 @@ export class SIWEAuth {
 
     const currentAccounts = await this.connector.getAccounts();
     if (currentAccounts.length === 0) {
-      throw new Error('No accounts available. Please connect your wallet first.');
+      throw createError(WALLET_CONNECT.SESSION_NOT_FOUND.code, 'No accounts available. Please connect your wallet first.');
     }
 
     const address = currentAccounts[0];
@@ -207,7 +208,7 @@ export class SIWEAuth {
     }
 
     if (!verification.valid) {
-      throw new Error(`SIWE verification failed: ${verification.error || 'Unknown error'}`);
+      throw createError(AUTHENTICATION.SIWE_VERIFICATION_FAILED.code, `SIWE verification failed: ${verification.error || 'Unknown error'}`);
     }
 
     // Create session

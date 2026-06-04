@@ -26,6 +26,7 @@ import type { ConnectParams, ConnectionResult } from './types.js';
 import type { Connector } from './connector.js';
 import type { EventHandler } from './types.js';
 import { EventEmitter } from './events.js';
+import { createError, WALLET_CONNECT, SDK } from './errors/index.js';
 
 /** Session state discriminator. */
 export type SessionState =
@@ -142,7 +143,7 @@ export class SessionManager extends EventEmitter {
    */
   async initiate(connector: Connector, params?: ConnectParams): Promise<void> {
     if (this.state.status === 'connecting') {
-      throw new Error('Connection already in progress');
+      throw createError(WALLET_CONNECT.PROTOCOL_ERROR.code, 'Connection already in progress');
     }
 
     this._connector = connector;
@@ -178,7 +179,7 @@ export class SessionManager extends EventEmitter {
     chainId: number,
   ): Promise<void> {
     if (!this._connector) {
-      throw new Error('No connector set — call initiate() first');
+      throw createError(SDK.NOT_INITIALIZED.code, 'No connector set — call initiate() first');
     }
 
     this.transition({

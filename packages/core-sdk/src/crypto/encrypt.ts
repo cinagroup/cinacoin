@@ -11,6 +11,7 @@
 
 import { chacha20poly1305 } from '@noble/ciphers/chacha.js';
 import { sha256 } from '@noble/hashes/sha2.js';
+import { createError, SECURITY } from '../errors/index.js';
 
 /**
  * Encrypt plaintext using ChaCha20-Poly1305.
@@ -52,7 +53,7 @@ export function decrypt(
 
   const nonceLen = chacha20poly1305.nonceLength;
   if (combined.length < nonceLen) {
-    throw new Error('Encrypted data too short (missing nonce)');
+    throw createError(SECURITY.TAMPERED_DATA.code, 'Encrypted data too short (missing nonce)');
   }
 
   const nonce = combined.slice(0, nonceLen);

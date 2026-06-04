@@ -9,6 +9,7 @@ import { Connector } from '../connector.js';
 import { EventEmitter } from '../events.js';
 import type { ConnectParams, ConnectionResult, TransactionRequest } from '../types.js';
 import { RelayTransport } from './relay.js';
+import { createError, NETWORK, WALLET_CONNECT, SIGNING, TRANSACTION } from '../errors/index.js';
 
 /** QR transport configuration. */
 export interface QRTransportConfig {
@@ -124,7 +125,7 @@ export class QRTransport extends Connector {
     return new Promise((resolve, reject) => {
       const timeout = setTimeout(() => {
         this.relay.off('message', handler);
-        reject(new Error('QR connection timed out'));
+        reject(createError(NETWORK.NETWORK_TIMEOUT.code, 'QR connection timed out'));
       }, this.config.qrTimeout);
 
       const handler = (_topic: unknown, payload: unknown) => {
@@ -137,7 +138,7 @@ export class QRTransport extends Connector {
             // In production: approve session and get accounts/chainId
             // For now, emit the proposal for UI handling
             this.emit('sessionProposal', data);
-            reject(new Error('Session proposal received — handle approval in UI layer'));
+            reject(createError(WALLET_CONNECT.SESSION_PROPOSAL_REJECTED.code, 'Session proposal received — handle approval in UI layer'));
           }
         } catch (err) {
           console.warn(`[core-sdk:connect] error:`, err);
@@ -163,21 +164,21 @@ export class QRTransport extends Connector {
 
   async getChainId(): Promise<number> {
     if (this.connectedChainId === null) {
-      throw new Error('Not connected');
+      throw createError(WALLET_CONNECT.SESSION_NOT_FOUND.code, 'Not connected');
     }
     return this.connectedChainId;
   }
 
   async switchChain(_chainId: number): Promise<void> {
-    throw new Error('QR transport does not support chain switching directly');
+    throw createError(SDK.METHOD_NOT_IMPLEMENTED.code, 'QR transport does not support chain switching directly');
   }
 
   async signMessage(_message: string): Promise<string> {
-    throw new Error('Sign via session layer, not transport');
+    throw createError(SIGNING.UNSUPPORTED_SIGNING_METHOD.code, 'Sign via session layer, not transport');
   }
 
   async signTransaction(_tx: TransactionRequest): Promise<string> {
-    throw new Error('Sign via session layer, not transport');
+    throw createError(TRANSACTION.SIMULATION_FAILED.code, 'Sign via session layer, not transport');
   }
 
   /** Get the current QR URI (if active). */

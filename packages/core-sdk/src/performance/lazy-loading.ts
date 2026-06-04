@@ -5,6 +5,8 @@
  * to reduce initial bundle size and improve startup performance.
  */
 
+import { createError, SDK, NETWORK } from '../errors/index.js';
+
 /** Type for a module loader function. */
 export type ModuleLoader<T> = () => Promise<T>;
 
@@ -105,7 +107,7 @@ export class AdapterRegistry<T = unknown> {
   async get(name: string): Promise<T> {
     const state = this._registry.get(name);
     if (!state) {
-      throw new Error(`Adapter not registered: ${name}`);
+      throw createError(SDK.MISSING_DEPENDENCY.code, `Adapter not registered: ${name}`);
     }
 
     if (state.module) return state.module;
@@ -202,7 +204,7 @@ export async function loadWithTimeout<T>(
   timeoutMs: number = 5000
 ): Promise<T> {
   const timeout = new Promise<never>((_, reject) => {
-    setTimeout(() => reject(new Error(`Module loading timed out after ${timeoutMs}ms`)), timeoutMs);
+    setTimeout(() => reject(createError(NETWORK.NETWORK_TIMEOUT.code, `Module loading timed out after ${timeoutMs}ms`)), timeoutMs);
   });
 
   return Promise.race([loader(), timeout]);
