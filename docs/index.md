@@ -169,3 +169,10 @@ function App() {
 | [🛡️ 安全最佳实践](/security/best-practices) | 安全指南 |
 | [🚀 部署](/enterprise/deployment) | 生产环境部署 |
 | [📋 审计报告](/security/audit-report) | 安全审计报告 |
+
+### 📝 博客
+
+| 文档 | 说明 |
+|------|------|
+| [🆚 Cinacoin vs Reown: The Complete Comparison](/blog/cinacoin-vs-reown-comparison) | 全面技术对比：架构、特性、性能 |
+| [🚀 Cinacoin v0.2.0 — Connect Everything On-Chain](/blog/release-v0.2.0) | v0.2.0 发布：72 个包，全平台支持 |
