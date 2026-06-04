@@ -6,21 +6,27 @@
  * Command-line interface for Cinacoin SDK.
  *
  * Commands:
- *   ocx init    — Scaffold a new Cinacoin project
- *   ocx add     — Add adapters, plugins, or UI components
- *   ocx build   — Build the SDK packages
- *   ocx test    — Run unit + E2E tests
+ *   cinacoin init      — Scaffold a new dApp project (interactive)
+ *   cinacoin template   — Download project templates
+ *   cinacoin add        — Add components or packages
+ *   cinacoin doctor     — Diagnose project setup
+ *   cinacoin build      — Build the SDK packages
+ *   cinacoin test       — Run unit + E2E tests
  *
  * Usage:
- *   npx @cinacoin/cli init my-app
- *   npx @cinacoin/cli add @cinacoin/swap-sdk
+ *   npx @cinacoin/cli init
+ *   npx @cinacoin/cli template wallet
+ *   npx @cinacoin/cli add connect-button
+ *   npx @cinacoin/cli doctor
  *   npx @cinacoin/cli build
  *   npx @cinacoin/cli test --e2e
  */
 
 import { program } from 'commander';
 import { initCommand } from './commands/init.js';
+import { templateCommand } from './commands/template.js';
 import { addCommand } from './commands/add.js';
+import { doctorCommand } from './commands/doctor.js';
 import { buildCommand } from './commands/build.js';
 import { testCommand } from './commands/test.js';
 import { VERSION } from './utils/fs.js';
@@ -32,7 +38,9 @@ program
 
 // Register subcommands
 initCommand(program);
+templateCommand(program);
 addCommand(program);
+doctorCommand(program);
 buildCommand(program);
 testCommand(program);
 
