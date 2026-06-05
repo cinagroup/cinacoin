@@ -94,7 +94,7 @@ function CodeBlock({ code, lang = 'tsx' }: { code: string; lang?: string }) {
   }, [code]);
 
   return (
-    <div className="relative rounded-xl overflow-hidden border border-gray-700/40">
+    <div className="relative rounded-md overflow-hidden border border-gray-700/40">
       <div className="flex items-center justify-between px-4 py-2 bg-gray-900/60 border-b border-gray-700/40">
         <span className="text-[10px] text-gray-500 font-mono">{lang}</span>
         <button
@@ -131,10 +131,10 @@ function ComponentShowcase({
   const [showCode, setShowCode] = useState(false);
 
   return (
-    <div className={`${theme.card} backdrop-blur-xl rounded-2xl border ${theme.border} overflow-hidden`}>
+    <div className={`${theme.card} backdrop-blur-xl rounded-[var(--cc-radius-md)] border ${theme.border} overflow-hidden`}>
       <div className="px-5 py-4 border-b border-gray-700/30 flex items-center justify-between">
         <div>
-          <h3 className={`text-lg font-bold ${theme.text}`}>{title}</h3>
+          <h3 className={`text-lg font-semibold tracking-tighter ${theme.text}`}>{title}</h3>
           <p className="text-xs text-gray-500 mt-0.5">{description}</p>
         </div>
         <button
@@ -180,16 +180,16 @@ export default function ComponentsPage() {
 
         {/* ── Header ── */}
         <div className="text-center space-y-2">
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-brand-500 via-brand-400 to-brand-300 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-semibold tracking-tighter bg-gradient-to-r from-brand-500 via-brand-400 to-brand-300 bg-clip-text text-transparent">
             Component Gallery
           </h1>
           <p className="text-gray-400 text-sm">Browse all Cinacoin components with live theme previews</p>
         </div>
 
         {/* ── Theme Switcher ── */}
-        <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl border border-gray-700/60 overflow-hidden">
+        <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
           <div className="px-5 py-4 border-b border-gray-700/50">
-            <h2 className="text-lg font-bold text-white">🎨 Theme Preview</h2>
+            <h2 className="text-lg font-semibold tracking-tighter text-white">🎨 Theme Preview</h2>
             <p className="text-xs text-gray-500 mt-1">Switch themes to see all components update in real-time</p>
           </div>
           <div className="p-5">
@@ -198,9 +198,9 @@ export default function ComponentsPage() {
                 <button
                   key={key}
                   onClick={() => setThemeKey(key)}
-                  className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
                     themeKey === key
-                      ? `bg-gradient-to-r ${t.primary} text-white shadow-lg`
+                      ? `bg-[var(--cc-primary)] text-[var(--cc-on-primary)] shadow-[0_2px_8px_rgba(0,0,0,0.15)]`
                       : 'bg-gray-800/40 text-gray-400 border border-gray-700/40 hover:text-white hover:border-gray-600'
                   }`}
                 >
@@ -220,79 +220,79 @@ export default function ComponentsPage() {
             <div className="space-y-4">
               {/* Variants */}
               <div className="flex flex-wrap gap-3 items-center">
-                <button className="px-5 py-2.5 rounded-xl font-semibold text-sm bg-gradient-to-r from-brand-600 to-brand-500 text-white shadow-lg shadow-brand-500/20 hover:shadow-brand-500/40 transition-all hover:-translate-y-0.5">
+                <button className="px-5 py-2.5 rounded-[100px] font-semibold text-sm bg-[var(--cc-primary)] text-[var(--cc-on-primary)] shadow-[0_4px_12px_rgba(99,102,241,0.25),0_2px_4px_rgba(99,102,241,0.15)] hover:shadow-[0_6px_16px_rgba(99,102,241,0.4),0_2px_6px_rgba(99,102,241,0.2)] transition-all hover:-translate-y-0.5">
                   Primary
                 </button>
-                <button className="px-5 py-2.5 rounded-xl font-semibold text-sm bg-gray-700/60 text-gray-300 border border-gray-600/40 hover:text-white hover:border-gray-500 transition-all">
+                <button className="px-5 py-2.5 rounded-md font-semibold text-sm bg-gray-700/60 text-gray-300 border border-gray-600/40 hover:text-white hover:border-gray-500 transition-all">
                   Secondary
                 </button>
-                <button className="px-5 py-2.5 rounded-xl font-semibold text-sm text-brand-400 hover:text-brand-300 transition-colors">
+                <button className="px-5 py-2.5 rounded-md font-semibold text-sm text-brand-400 hover:text-brand-300 transition-colors">
                   Ghost
                 </button>
-                <button className="px-5 py-2.5 rounded-xl font-semibold text-sm bg-red-500/15 text-red-400 border border-red-500/25 hover:bg-red-500/25 transition-all">
+                <button className="px-5 py-2.5 rounded-md font-semibold text-sm bg-red-500/15 text-red-400 border border-red-500/25 hover:bg-red-500/25 transition-all">
                   Danger
                 </button>
-                <button className="px-5 py-2.5 rounded-xl font-semibold text-sm bg-emerald-500/15 text-emerald-400 border border-emerald-500/25 hover:bg-emerald-500/25 transition-all">
+                <button className="px-5 py-2.5 rounded-md font-semibold text-sm bg-emerald-500/15 text-emerald-400 border border-emerald-500/25 hover:bg-emerald-500/25 transition-all">
                   Success
                 </button>
-                <button disabled className="px-5 py-2.5 rounded-xl font-semibold text-sm bg-gray-700/40 text-gray-600 cursor-not-allowed">
+                <button disabled className="px-5 py-2.5 rounded-md font-semibold text-sm bg-gray-700/40 text-gray-600 cursor-not-allowed">
                   Disabled
                 </button>
               </div>
 
               {/* Sizes */}
               <div className="flex flex-wrap gap-3 items-center">
-                <button className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-gradient-to-r from-brand-600 to-brand-500 text-white">
+                <button className="px-3 py-1.5 rounded-[100px] text-xs font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)]">
                   Small
                 </button>
-                <button className="px-5 py-2.5 rounded-xl text-sm font-semibold bg-gradient-to-r from-brand-600 to-brand-500 text-white">
+                <button className="px-5 py-2.5 rounded-[100px] text-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)]">
                   Medium
                 </button>
-                <button className="px-8 py-4 rounded-2xl text-base font-semibold bg-gradient-to-r from-brand-600 to-brand-500 text-white">
+                <button className="px-8 py-4 rounded-[100px] text-base font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)]">
                   Large
                 </button>
               </div>
 
               {/* Icon buttons */}
               <div className="flex flex-wrap gap-3 items-center">
-                <button className="size-10 rounded-xl bg-gray-700/60 text-gray-400 hover:text-white hover:bg-gray-600 transition-all flex items-center justify-center text-lg">
+                <button className="size-10 rounded-md bg-gray-700/60 text-gray-400 hover:text-white hover:bg-gray-600 transition-all flex items-center justify-center text-lg">
                   🔗
                 </button>
-                <button className="size-10 rounded-xl bg-brand-500/15 text-blue-400 hover:bg-brand-500/25 border border-blue-500/25 transition-all flex items-center justify-center text-lg">
+                <button className="size-10 rounded-md bg-brand-500/15 text-blue-400 hover:bg-brand-500/25 border border-blue-500/25 transition-all flex items-center justify-center text-lg">
                   🔄
                 </button>
-                <button className="size-10 rounded-xl bg-emerald-500/15 text-emerald-400 hover:bg-emerald-500/25 border border-emerald-500/25 transition-all flex items-center justify-center text-lg">
+                <button className="size-10 rounded-md bg-emerald-500/15 text-emerald-400 hover:bg-emerald-500/25 border border-emerald-500/25 transition-all flex items-center justify-center text-lg">
                   ✓
                 </button>
               </div>
             </div>
           }
           code={`// Primary Button
-<button className="px-5 py-2.5 rounded-xl font-semibold text-sm
-  bg-gradient-to-r from-brand-600 to-brand-500 text-white
-  shadow-lg shadow-blue-500/20">
+<button className="px-5 py-2.5 rounded-md font-semibold text-sm
+  bg-gradient-to-r from-brand-600 to-brand-500 text-[var(--cc-on-primary)]
+  shadow-[0_4px_12px_rgba(99,102,241,0.25)]">
   Connect Wallet
 </button>
 
 // Secondary Button
-<button className="px-5 py-2.5 rounded-xl font-semibold text-sm
+<button className="px-5 py-2.5 rounded-md font-semibold text-sm
   bg-gray-700/60 text-gray-300 border border-gray-600/40">
   Cancel
 </button>
 
 // Ghost Button
-<button className="px-5 py-2.5 rounded-xl font-semibold text-sm
+<button className="px-5 py-2.5 rounded-md font-semibold text-sm
   text-brand-400 hover:text-brand-300">
   Learn More
 </button>
 
 // Danger Button
-<button className="px-5 py-2.5 rounded-xl font-semibold text-sm
+<button className="px-5 py-2.5 rounded-md font-semibold text-sm
   bg-red-500/15 text-red-400 border border-red-500/25">
   Delete
 </button>
 
-// Sizes: text-xs/rounded-lg (sm), text-sm/rounded-xl (md), text-base/rounded-2xl (lg)`}
+// Sizes: text-xs/rounded-lg (sm), text-sm/rounded-md (md), text-base/rounded-[var(--cc-radius-md)] (lg)`}
         />
 
         {/* ── Wallet Card ── */}
@@ -303,8 +303,8 @@ export default function ComponentsPage() {
           preview={
             <div className="space-y-3">
               {isConnected ? (
-                <div className="flex items-center gap-4 p-4 rounded-xl bg-gray-900/60 border border-gray-700/40">
-                  <div className="size-12 rounded-full bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-sm font-bold text-white shadow-lg shadow-blue-500/20">
+                <div className="flex items-center gap-4 p-4 rounded-md bg-gray-900/60 border border-gray-700/40">
+                  <div className="size-12 rounded-full bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-sm font-semibold tracking-tighter text-white shadow-[0_4px_12px_rgba(99,102,241,0.25),0_2px_4px_rgba(99,102,241,0.15)]">
                     {account.address?.slice(2, 4).toUpperCase()}
                   </div>
                   <div className="flex-1 min-w-0">
@@ -316,8 +316,8 @@ export default function ComponentsPage() {
                   </div>
                 </div>
               ) : (
-                <div className="flex items-center gap-4 p-4 rounded-xl bg-gray-900/60 border border-gray-700/40">
-                  <div className="size-12 rounded-full bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-sm font-bold text-white">
+                <div className="flex items-center gap-4 p-4 rounded-md bg-gray-900/60 border border-gray-700/40">
+                  <div className="size-12 rounded-full bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-sm font-semibold tracking-tighter text-white">
                     00
                   </div>
                   <div className="flex-1">
@@ -332,12 +332,12 @@ export default function ComponentsPage() {
             </div>
           }
           code={`// Wallet Card Component
-<div className="flex items-center gap-4 p-4 rounded-xl
+<div className="flex items-center gap-4 p-4 rounded-md
   bg-gray-900/60 border border-gray-700/40">
   {/* Avatar */}
   <div className="size-12 rounded-full bg-gradient-to-br
     from-brand-500 to-brand-600 flex items-center justify-center
-    text-sm font-bold text-white">
+    text-sm font-semibold tracking-tighter text-white">
     {address.slice(2, 4).toUpperCase()}
   </div>
 
@@ -452,10 +452,10 @@ export default function ComponentsPage() {
               ].map((c) => (
                 <div
                   key={c.symbol}
-                  className="group flex items-center gap-2 px-3 py-2 rounded-xl bg-gray-900/80 border border-gray-800 hover:border-gray-600 transition-colors cursor-default shrink-0"
+                  className="group flex items-center gap-2 px-3 py-2 rounded-md bg-gray-900/80 border border-gray-800 hover:border-gray-600 transition-colors cursor-default shrink-0"
                 >
                   <span
-                    className="inline-flex size-5 items-center justify-center rounded-full text-[10px] font-bold text-white"
+                    className="inline-flex size-5 items-center justify-center rounded-full text-[10px] font-semibold tracking-tighter text-white"
                     style={{ backgroundColor: c.color }}
                   >
                     {c.initial}
@@ -468,11 +468,11 @@ export default function ComponentsPage() {
             </div>
           }
           code={`// Chain Badge Component
-<div className="flex items-center gap-2 px-3 py-2 rounded-xl
+<div className="flex items-center gap-2 px-3 py-2 rounded-md
   bg-gray-900/80 border border-gray-800 hover:border-gray-600
   transition-colors cursor-default shrink-0">
   <span className="inline-flex size-5 items-center justify-center
-    rounded-full text-[10px] font-bold text-white"
+    rounded-full text-[10px] font-semibold tracking-tighter text-white"
     style={{ backgroundColor: chainColor }}>
     {chain.initial}
   </span>
@@ -533,7 +533,7 @@ function ToggleSwitch({ checked, onChange }) {
                 <input
                   type="text"
                   placeholder="0x..."
-                  className="w-full px-4 py-2.5 bg-gray-900/60 border border-gray-700/50 rounded-xl text-sm text-gray-200 placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-brand-500/40 focus:border-blue-500/50 font-mono"
+                  className="w-full px-4 py-2.5 bg-gray-900/60 border border-gray-700/50 rounded-md text-sm text-gray-200 placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-brand-500/40 focus:border-blue-500/50 font-mono"
                   readOnly
                   defaultValue="0x1a2b3c4d5e6f7890abcdef1234567890abcdef12"
                 />
@@ -545,7 +545,7 @@ function ToggleSwitch({ checked, onChange }) {
                 <input
                   type="text"
                   placeholder="Search by name, symbol, or address..."
-                  className="w-full px-4 py-2.5 pl-10 bg-gray-900/60 border border-gray-700/50 rounded-xl text-sm text-gray-200 placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+                  className="w-full px-4 py-2.5 pl-10 bg-gray-900/60 border border-gray-700/50 rounded-md text-sm text-gray-200 placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
                 />
                 <span className="absolute left-3 top-9 text-gray-500">🔍</span>
               </div>
@@ -553,7 +553,7 @@ function ToggleSwitch({ checked, onChange }) {
               {/* Select */}
               <div className="relative">
                 <label className="text-sm text-gray-400 mb-1 block">Network</label>
-                <select className="w-full px-4 py-2.5 bg-gray-900/60 border border-gray-700/50 rounded-xl text-sm text-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-500/40 appearance-none cursor-pointer">
+                <select className="w-full px-4 py-2.5 bg-gray-900/60 border border-gray-700/50 rounded-md text-sm text-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-500/40 appearance-none cursor-pointer">
                   <option>Ethereum</option>
                   <option>Polygon</option>
                   <option>Arbitrum</option>
@@ -568,7 +568,7 @@ function ToggleSwitch({ checked, onChange }) {
   type="text"
   placeholder="0x..."
   className="w-full px-4 py-2.5 bg-gray-900/60 border
-    border-gray-700/50 rounded-xl text-sm text-gray-200
+    border-gray-700/50 rounded-md text-sm text-gray-200
     placeholder:text-gray-600 focus:outline-none
     focus:ring-2 focus:ring-brand-500/40 font-mono"
 />
@@ -576,7 +576,7 @@ function ToggleSwitch({ checked, onChange }) {
 // Search Input with icon
 <div className="relative">
   <input placeholder="Search..." className="w-full px-4 py-2.5
-    pl-10 bg-gray-900/60 border border-gray-700/50 rounded-xl
+    pl-10 bg-gray-900/60 border border-gray-700/50 rounded-md
     text-sm placeholder:text-gray-600 focus:outline-none
     focus:ring-2 focus:ring-brand-500/40" />
   <span className="absolute left-3 top-1/2 -translate-y-1/2
@@ -585,7 +585,7 @@ function ToggleSwitch({ checked, onChange }) {
 
 // Select Dropdown
 <select className="w-full px-4 py-2.5 bg-gray-900/60 border
-  border-gray-700/50 rounded-xl text-sm appearance-none
+  border-gray-700/50 rounded-md text-sm appearance-none
   focus:outline-none focus:ring-2 focus:ring-brand-500/40">
   <option>Ethereum</option>
   <option>Polygon</option>
@@ -607,7 +607,7 @@ function ToggleSwitch({ checked, onChange }) {
                   { icon: '🔄', title: 'Token Swap', desc: 'DEX aggregation' },
                   { icon: '🌉', title: 'Cross-Chain', desc: 'Unified bridge routing' },
                 ].map((f) => (
-                  <div key={f.title} className="group p-4 rounded-xl bg-gray-900/50 border border-gray-800 hover:border-gray-600 hover:bg-gray-800/60 transition-all cursor-default">
+                  <div key={f.title} className="group p-4 rounded-md bg-gray-900/50 border border-gray-800 hover:border-gray-600 hover:bg-gray-800/60 transition-all cursor-default">
                     <div className="text-2xl mb-2">{f.icon}</div>
                     <h4 className="text-sm font-semibold text-gray-200">{f.title}</h4>
                     <p className="text-xs text-gray-500 mt-1">{f.desc}</p>
@@ -623,8 +623,8 @@ function ToggleSwitch({ checked, onChange }) {
                   { value: '30+', label: 'Wallets' },
                   { value: '$0', label: 'Cost' },
                 ].map((s) => (
-                  <div key={s.label} className="text-center p-3 rounded-xl bg-gray-900/50 border border-gray-800/50">
-                    <div className="text-xl font-bold bg-gradient-to-r from-brand-400 to-brand-300 bg-clip-text text-transparent">
+                  <div key={s.label} className="text-center p-3 rounded-md bg-gray-900/50 border border-gray-800/50">
+                    <div className="text-xl font-semibold tracking-tighter bg-gradient-to-r from-brand-400 to-brand-300 bg-clip-text text-transparent">
                       {s.value}
                     </div>
                     <div className="text-[10px] text-gray-500 mt-1">{s.label}</div>
@@ -634,7 +634,7 @@ function ToggleSwitch({ checked, onChange }) {
             </div>
           }
           code={`// Feature Card
-<div className="group p-4 rounded-xl bg-gray-900/50 border
+<div className="group p-4 rounded-md bg-gray-900/50 border
   border-gray-800 hover:border-gray-600 hover:bg-gray-800/60
   transition-all cursor-default">
   <div className="text-2xl mb-2">{icon}</div>
@@ -643,9 +643,9 @@ function ToggleSwitch({ checked, onChange }) {
 </div>
 
 // Stat Card
-<div className="text-center p-3 rounded-xl bg-gray-900/50
+<div className="text-center p-3 rounded-md bg-gray-900/50
   border border-gray-800/50">
-  <div className="text-xl font-bold bg-gradient-to-r
+  <div className="text-xl font-semibold tracking-tighter bg-gradient-to-r
     from-brand-400 to-brand-300 bg-clip-text text-transparent">
     {value}
   </div>
@@ -681,7 +681,7 @@ function ToggleSwitch({ checked, onChange }) {
               </div>
 
               {/* Skeleton */}
-              <div className="p-4 rounded-xl bg-gray-900/50 border border-gray-800 space-y-3 animate-pulse">
+              <div className="p-4 rounded-md bg-gray-900/50 border border-gray-800 space-y-3 animate-pulse">
                 <div className="flex items-center gap-3">
                   <div className="size-10 rounded-full bg-gray-700" />
                   <div className="flex-1">
@@ -738,7 +738,7 @@ function ToggleSwitch({ checked, onChange }) {
                 { type: 'Info', icon: 'ℹ', bg: 'bg-brand-500/15', border: 'border-blue-500/25', text: 'text-blue-400', desc: 'Switching to Polygon network' },
                 { type: 'Warning', icon: '⚠', bg: 'bg-amber-500/15', border: 'border-amber-500/25', text: 'text-amber-400', desc: 'High gas prices detected' },
               ].map((t) => (
-                <div key={t.type} className={`p-3 rounded-xl ${t.bg} border ${t.border} flex items-start gap-3`}>
+                <div key={t.type} className={`p-3 rounded-md ${t.bg} border ${t.border} flex items-start gap-3`}>
                   <span className={`text-lg ${t.text}`}>{t.icon}</span>
                   <div>
                     <p className={`text-sm font-semibold ${t.text}`}>{t.type}</p>
@@ -780,7 +780,7 @@ function ToggleDemo({ label, desc, defaultChecked }: { label: string; desc: stri
   const [checked, setChecked] = useState(defaultChecked);
 
   return (
-    <div className="flex items-center justify-between p-3 rounded-xl bg-gray-900/40 border border-gray-800/40">
+    <div className="flex items-center justify-between p-3 rounded-md bg-gray-900/40 border border-gray-800/40">
       <div>
         <p className="text-sm font-medium text-gray-200">{label}</p>
         <p className="text-xs text-gray-500">{desc}</p>

@@ -35,7 +35,7 @@ export default function SettingsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-white">⚙️ Settings</h1>
+          <h1 className="text-xl sm:text-2xl font-semibold tracking-tight text-white">⚙️ Settings</h1>
           <p className="text-dashboard-muted mt-1">Configure dashboard preferences and API endpoints</p>
         </div>
         {saved && (
@@ -222,19 +222,19 @@ export default function SettingsPage() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div>
             <p className="text-sm text-dashboard-muted">Version</p>
-            <p className="text-lg font-bold text-white">v0.1.0</p>
+            <p className="text-lg font-semibold text-white">v0.1.0</p>
           </div>
           <div>
             <p className="text-sm text-dashboard-muted">Framework</p>
-            <p className="text-lg font-bold text-white">Next.js 15</p>
+            <p className="text-lg font-semibold text-white">Next.js 15</p>
           </div>
           <div>
             <p className="text-sm text-dashboard-muted">Deploy Target</p>
-            <p className="text-lg font-bold text-white">Cloudflare Pages</p>
+            <p className="text-lg font-semibold text-white">Cloudflare Pages</p>
           </div>
           <div>
             <p className="text-sm text-dashboard-muted">Last Build</p>
-            <p className="text-lg font-bold text-white">Jun 3, 2026</p>
+            <p className="text-lg font-semibold text-white">Jun 3, 2026</p>
           </div>
         </div>
       </div>
@@ -253,13 +253,13 @@ export default function SettingsPage() {
             setApiUrl("https://api.cinacoin.com");
             setWsUrl("wss://ws.cinacoin.com");
           }}
-          className="px-4 py-2 text-sm text-dashboard-muted border border-dashboard-border rounded-lg hover:text-white hover:border-white/30 transition-colors"
+          className="px-4 py-2 text-sm text-dashboard-muted border border-dashboard-border rounded-[100px] hover:text-white hover:border-white/30 transition-colors"
         >
           Reset
         </button>
         <button
           onClick={handleSave}
-          className="px-4 py-2 text-sm bg-brand-500 text-white rounded-lg hover:bg-brand-600 transition-colors font-medium"
+          className="px-4 py-2 text-sm bg-brand-500 text-white rounded-[100px] hover:bg-brand-600 transition-colors font-medium"
         >
           Save Settings
         </button>

@@ -92,7 +92,7 @@ function TokenRow({
   return (
     <button
       onClick={onSelect}
-      className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-left ${
+      className={`w-full flex items-center gap-3 px-4 py-3 rounded-md transition-all text-left ${
         isSelected
           ? 'bg-blue-500/10 border border-blue-500/30'
           : 'bg-gray-800/30 border border-gray-700/30 hover:bg-gray-800/50 hover:border-gray-600'
@@ -131,12 +131,12 @@ function TokenDetailPanel({ token, onClose }: { token: TokenInfo; onClose: () =>
   const sparkData = useMemo(() => generateSparkline(priceInfo.usd, 48), [token.symbol]);
 
   return (
-    <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl border border-gray-700/60 overflow-hidden">
+    <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
       <div className="px-5 py-4 border-b border-gray-700/50 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <span className="text-3xl">{token.icon}</span>
           <div>
-            <h3 className="text-lg font-bold text-white">{token.symbol}</h3>
+            <h3 className="text-lg font-semibold tracking-tighter text-white">{token.symbol}</h3>
             <p className="text-xs text-gray-500">{token.name}</p>
           </div>
         </div>
@@ -152,7 +152,7 @@ function TokenDetailPanel({ token, onClose }: { token: TokenInfo; onClose: () =>
       <div className="p-5 space-y-4">
         {/* Price */}
         <div className="text-center">
-          <p className="text-4xl font-bold text-white inline-flex items-center gap-3">
+          <p className="text-4xl font-semibold tracking-tighter text-white inline-flex items-center gap-3">
             ${priceInfo.usd.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             <SimulatedBadge size="sm" />
           </p>
@@ -168,21 +168,21 @@ function TokenDetailPanel({ token, onClose }: { token: TokenInfo; onClose: () =>
 
         {/* Stats grid */}
         <div className="grid grid-cols-2 gap-3">
-          <div className="p-3 rounded-xl bg-gray-900/50 border border-gray-700/30">
+          <div className="p-3 rounded-md bg-gray-900/50 border border-gray-700/30">
             <p className="text-[10px] text-gray-500 uppercase tracking-wider">Volume (24h)</p>
             <p className="text-sm font-semibold text-gray-200 mt-1">{priceInfo.volume24h}</p>
           </div>
-          <div className="p-3 rounded-xl bg-gray-900/50 border border-gray-700/30">
+          <div className="p-3 rounded-md bg-gray-900/50 border border-gray-700/30">
             <p className="text-[10px] text-gray-500 uppercase tracking-wider">Market Cap</p>
             <p className="text-sm font-semibold text-gray-200 mt-1">{priceInfo.marketCap}</p>
           </div>
-          <div className="p-3 rounded-xl bg-gray-900/50 border border-gray-700/30">
+          <div className="p-3 rounded-md bg-gray-900/50 border border-gray-700/30">
             <p className="text-[10px] text-gray-500 uppercase tracking-wider">Address</p>
             <p className="text-xs font-mono text-gray-300 mt-1 truncate">
               {token.address === 'native' ? 'Native Token' : shortenAddress(token.address)}
             </p>
           </div>
-          <div className="p-3 rounded-xl bg-gray-900/50 border border-gray-700/30">
+          <div className="p-3 rounded-md bg-gray-900/50 border border-gray-700/30">
             <p className="text-[10px] text-gray-500 uppercase tracking-wider">Chain</p>
             <p className="text-sm font-semibold text-gray-200 mt-1">
               {SUPPORTED_CHAINS.find((c) => c.chainId === token.chainId)?.name ?? `Chain ${token.chainId}`}
@@ -191,7 +191,7 @@ function TokenDetailPanel({ token, onClose }: { token: TokenInfo; onClose: () =>
         </div>
 
         {/* Mock price history */}
-        <div className="p-3 rounded-xl bg-gray-900/50 border border-gray-700/30">
+        <div className="p-3 rounded-md bg-gray-900/50 border border-gray-700/30">
           <p className="text-[10px] text-gray-500 uppercase tracking-wider mb-2">Price History</p>
           <div className="flex gap-1">
             {['1H', '24H', '7D', '30D', '1Y'].map((period) => (
@@ -248,22 +248,22 @@ function SwapWidget({
 
   if (!fromToken || !toToken) {
     return (
-      <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl border border-gray-700/60 p-8 text-center">
+      <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 p-8 text-center">
         <p className="text-gray-400 text-sm">Select tokens to swap</p>
       </div>
     );
   }
 
   return (
-    <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl border border-gray-700/60 overflow-hidden">
+    <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
       <div className="px-5 py-3 border-b border-gray-700/50">
-        <h3 className="text-sm font-bold text-white">Quick Swap</h3>
+        <h3 className="text-sm font-semibold tracking-tighter text-white">Quick Swap</h3>
       </div>
       <div className="p-5 space-y-3">
         {/* From */}
-        <div className="flex items-center gap-2 bg-gray-900/50 rounded-xl p-3 border border-gray-700/30">
+        <div className="flex items-center gap-2 bg-gray-900/50 rounded-md p-3 border border-gray-700/30">
           <span className="text-xl">{fromToken.icon}</span>
-          <span className="text-sm font-bold text-white w-16">{fromToken.symbol}</span>
+          <span className="text-sm font-semibold text-white w-16">{fromToken.symbol}</span>
           <input
             type="text"
             inputMode="decimal"
@@ -273,7 +273,7 @@ function SwapWidget({
               if (v === '' || /^\d*\.?\d*$/.test(v)) setFromAmount(v);
             }}
             placeholder="0.0"
-            className="flex-1 bg-transparent text-right text-lg font-bold text-white outline-none placeholder:text-gray-600"
+            className="flex-1 bg-transparent text-right text-lg font-semibold text-white outline-none placeholder:text-gray-600"
           />
         </div>
 
@@ -288,10 +288,10 @@ function SwapWidget({
         </div>
 
         {/* To */}
-        <div className="flex items-center gap-2 bg-gray-900/50 rounded-xl p-3 border border-gray-700/30">
+        <div className="flex items-center gap-2 bg-gray-900/50 rounded-md p-3 border border-gray-700/30">
           <span className="text-xl">{toToken.icon}</span>
-          <span className="text-sm font-bold text-white w-16">{toToken.symbol}</span>
-          <div className="flex-1 text-right text-lg font-bold text-gray-300">
+          <span className="text-sm font-semibold text-white w-16">{toToken.symbol}</span>
+          <div className="flex-1 text-right text-lg font-semibold text-gray-300">
             {toAmount || '0.0'}
           </div>
         </div>
@@ -310,10 +310,10 @@ function SwapWidget({
               }, 2000);
             }}
             disabled={swapState !== 'idle' || !fromAmount || parseFloat(fromAmount) <= 0}
-            className={`w-full py-3 rounded-xl font-bold text-sm transition-all ${
+            className={`w-full py-3 rounded-[100px] font-semibold text-sm transition-all ${
               swapState === 'success'
                 ? 'bg-emerald-500 text-white'
-                : 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white disabled:opacity-40 disabled:cursor-not-allowed'
+                : 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)] disabled:opacity-40 disabled:cursor-not-allowed hover:opacity-90'
             }`}
           >
             {swapState === 'success' ? '✓ Swap Successful!' : 'Swap'}
@@ -321,7 +321,7 @@ function SwapWidget({
         ) : (
           <button
             onClick={() => connect(connectors.find((c) => c.id === 'io.metamask')?.id ?? 'io.metamask')}
-            className="w-full py-3 rounded-xl font-bold text-sm bg-blue-600 hover:bg-blue-500 text-white transition-all"
+            className="w-full py-3 rounded-[100px] font-semibold text-sm bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all"
           >
             Connect Wallet to Swap
           </button>
@@ -384,18 +384,18 @@ export default function TokensPage() {
 
         {/* ── Header ── */}
         <div className="text-center space-y-2">
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-brand-400 via-brand-500 to-brand-600 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-semibold tracking-tighter bg-gradient-to-r from-brand-400 via-brand-500 to-brand-600 bg-clip-text text-transparent">
             Token Search & Swap
           </h1>
           <p className="text-gray-400 text-sm">Search tokens, view details, and swap in one place</p>
         </div>
 
         {/* ── Wallet connect bar ── */}
-        <div className="flex items-center justify-between bg-gray-800/40 backdrop-blur rounded-2xl border border-gray-700/50 px-5 py-4">
+        <div className="flex items-center justify-between bg-gray-800/40 backdrop-blur rounded-[var(--cc-radius-md)] border border-gray-700/50 px-5 py-4">
           <div className="flex items-center gap-3">
             {isConnected ? (
               <>
-                <div className="size-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-xs font-bold text-white">
+                <div className="size-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-xs font-semibold text-white">
                   {account.address?.slice(2, 4).toUpperCase()}
                 </div>
                 <div>
@@ -406,7 +406,7 @@ export default function TokensPage() {
             ) : (
               <button
                 onClick={() => connect(connectors.find((c) => c.id === 'io.metamask')?.id ?? 'io.metamask')}
-                className="px-5 py-2.5 rounded-xl text-sm font-semibold bg-blue-600 hover:bg-blue-500 text-white transition-all"
+                className="px-5 py-2.5 rounded-[100px] text-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all"
               >
                 Connect Wallet
               </button>
@@ -417,7 +417,7 @@ export default function TokensPage() {
           <select
             value={chainId}
             onChange={(e) => { setChainId(Number(e.target.value)); setSelectedToken(null); }}
-            className="bg-gray-700/60 text-white text-sm rounded-xl px-3 py-2 border border-gray-600/40 outline-none cursor-pointer"
+            className="bg-gray-700/60 text-white text-sm rounded-md px-3 py-2 border border-gray-600/40 outline-none cursor-pointer"
           >
             {SUPPORTED_CHAINS.map((c) => (
               <option key={c.chainId} value={c.chainId}>{c.name}</option>
@@ -436,7 +436,7 @@ export default function TokensPage() {
                 placeholder="Search by name, symbol, or address..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-4 py-3 pl-10 bg-gray-800/60 border border-gray-700/50 rounded-xl text-sm text-gray-200 placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500/40"
+                className="w-full px-4 py-3 pl-10 bg-gray-800/60 border border-gray-700/50 rounded-md text-sm text-gray-200 placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500/40"
                 aria-label="Search tokens"
               />
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">🔍</span>

@@ -51,7 +51,7 @@ export default function RPCProxyPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-white">🔄 RPC Proxy</h1>
+          <h1 className="text-xl sm:text-2xl font-semibold tracking-tight text-white">🔄 RPC Proxy</h1>
           <p className="text-dashboard-muted mt-1">Multi-chain RPC proxy with KV caching and failover</p>
         </div>
         <span className="text-xs text-dashboard-muted bg-dashboard-surface border border-dashboard-border rounded-full px-3 py-1.5">
@@ -75,19 +75,19 @@ export default function RPCProxyPage() {
           <div className="space-y-4">
             <div>
               <p className="text-sm text-dashboard-muted">Cache Hit Rate</p>
-              <p className="text-3xl font-bold text-dashboard-success">78.3%</p>
+              <p className="text-3xl font-semibold text-dashboard-success">78.3%</p>
             </div>
             <div>
               <p className="text-sm text-dashboard-muted">Cached Keys</p>
-              <p className="text-2xl font-bold text-white">24,891</p>
+              <p className="text-2xl font-semibold text-white">24,891</p>
             </div>
             <div>
               <p className="text-sm text-dashboard-muted">KV Storage Used</p>
-              <p className="text-2xl font-bold text-white">1.2 GB</p>
+              <p className="text-2xl font-semibold text-white">1.2 GB</p>
             </div>
             <div>
               <p className="text-sm text-dashboard-muted">Cache Misses (24h)</p>
-              <p className="text-2xl font-bold text-dashboard-warning">48,392</p>
+              <p className="text-2xl font-semibold text-dashboard-warning">48,392</p>
             </div>
           </div>
         </div>

@@ -153,7 +153,7 @@ export default function SettingsPage() {
         <button
           key={s.id}
           onClick={() => setActiveSection(s.id)}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all ${
+          className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all ${
             activeSection === s.id
               ? 'bg-blue-500/15 text-blue-400 border border-blue-500/30'
               : 'bg-gray-800/40 text-gray-400 border border-gray-700/40 hover:text-white hover:border-gray-600'
@@ -171,7 +171,7 @@ export default function SettingsPage() {
       <div className="max-w-2xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-semibold tracking-tighter bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
             Settings
           </h1>
           <p className="text-gray-400 text-sm mt-2">Customize your demo experience</p>
@@ -182,9 +182,9 @@ export default function SettingsPage() {
         {/* ── Appearance ── */}
         {activeSection === 'appearance' && (
           <div className="space-y-6">
-            <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl border border-gray-700/60 overflow-hidden">
+            <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
               <div className="px-5 py-4 border-b border-gray-700/50">
-                <h2 className="text-lg font-bold text-white">🎨 Theme</h2>
+                <h2 className="text-lg font-semibold tracking-tighter text-white">🎨 Theme</h2>
               </div>
               <div className="p-5 space-y-4">
                 {/* Theme Presets */}
@@ -204,7 +204,7 @@ export default function SettingsPage() {
                       <button
                         key={preset.key}
                         onClick={() => { setTheme(preset.key as 'dark' | 'light' | 'minimal'); success('Theme Updated', preset.label); }}
-                        className={`p-3 rounded-xl border text-center transition-all ${
+                        className={`p-3 rounded-md border text-center transition-all ${
                           theme === preset.key
                             ? 'bg-blue-500/15 border-blue-500/30 text-blue-400'
                             : 'bg-gray-800/40 border-gray-700/40 hover:border-gray-600 text-gray-300'
@@ -225,7 +225,7 @@ export default function SettingsPage() {
                   <div className="flex gap-2">
                     <button
                       onClick={() => { setTheme('dark'); success('Theme Updated', 'Switched to dark mode'); }}
-                      className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
+                      className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
                         theme === 'dark'
                           ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
                           : 'bg-gray-700/50 text-gray-400 border border-gray-600/40 hover:text-white'
@@ -235,7 +235,7 @@ export default function SettingsPage() {
                     </button>
                     <button
                       onClick={() => { setTheme('light'); success('Theme Updated', 'Switched to light mode'); }}
-                      className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
+                      className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
                         theme === 'light'
                           ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
                           : 'bg-gray-700/50 text-gray-400 border border-gray-600/40 hover:text-white'
@@ -245,7 +245,7 @@ export default function SettingsPage() {
                     </button>
                     <button
                       onClick={() => { setTheme('minimal'); success('Theme Updated', 'Switched to minimal mode'); }}
-                      className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
+                      className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
                         theme === 'minimal'
                           ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
                           : 'bg-gray-700/50 text-gray-400 border border-gray-600/40 hover:text-white'
@@ -271,16 +271,16 @@ export default function SettingsPage() {
         {/* ── Language ── */}
         {activeSection === 'language' && (
           <div className="space-y-6">
-            <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl border border-gray-700/60 overflow-hidden">
+            <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
               <div className="px-5 py-4 border-b border-gray-700/50">
-                <h2 className="text-lg font-bold text-white">🌐 Language</h2>
+                <h2 className="text-lg font-semibold tracking-tighter text-white">🌐 Language</h2>
               </div>
               <div className="p-5 space-y-2">
                 {LANGUAGES.map((lang) => (
                   <button
                     key={lang.code}
                     onClick={() => { setLanguage(lang.code); success('Language Updated', lang.label); }}
-                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
+                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-md transition-all ${
                       language === lang.code
                         ? 'bg-blue-500/15 border border-blue-500/30'
                         : 'bg-gray-800/40 border border-gray-700/40 hover:border-gray-600'
@@ -306,9 +306,9 @@ export default function SettingsPage() {
         {/* ── Network ── */}
         {activeSection === 'network' && (
           <div className="space-y-6">
-            <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl border border-gray-700/60 overflow-hidden">
+            <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
               <div className="px-5 py-4 border-b border-gray-700/50">
-                <h2 className="text-lg font-bold text-white">🌍 Network Settings</h2>
+                <h2 className="text-lg font-semibold tracking-tighter text-white">🌍 Network Settings</h2>
               </div>
               <div className="p-5 space-y-4">
                 <div className="flex items-center justify-between">
@@ -338,7 +338,7 @@ export default function SettingsPage() {
                   </div>
                 </div>
 
-                <div className="p-4 rounded-xl bg-gray-900/60 border border-gray-700/40 space-y-3">
+                <div className="p-4 rounded-md bg-gray-900/60 border border-gray-700/40 space-y-3">
                   <p className="text-sm font-medium text-gray-200">Custom RPC Endpoint</p>
                   <div className="flex gap-2">
                     <input
@@ -358,7 +358,7 @@ export default function SettingsPage() {
                   </div>
                 </div>
 
-                <div className="p-4 rounded-xl bg-gray-900/60 border border-gray-700/40">
+                <div className="p-4 rounded-md bg-gray-900/60 border border-gray-700/40">
                   <p className="text-xs text-gray-500 mb-2">Supported RPC Networks</p>
                   {['Ethereum Mainnet', 'Polygon', 'Arbitrum One', 'Base', 'Optimism', 'BNB Chain'].map((rpc) => (
                     <div key={rpc} className="flex items-center justify-between py-2 border-b border-gray-800/30 last:border-0">
@@ -375,9 +375,9 @@ export default function SettingsPage() {
         {/* ── Privacy ── */}
         {activeSection === 'privacy' && (
           <div className="space-y-6">
-            <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl border border-gray-700/60 overflow-hidden">
+            <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
               <div className="px-5 py-4 border-b border-gray-700/50">
-                <h2 className="text-lg font-bold text-white">🔒 Privacy & Data</h2>
+                <h2 className="text-lg font-semibold tracking-tighter text-white">🔒 Privacy & Data</h2>
               </div>
               <div className="p-5 space-y-4">
                 <div className="flex items-center justify-between">
@@ -412,7 +412,7 @@ export default function SettingsPage() {
                   <ToggleSwitch checked={personalizedOffers} onChange={(v) => { setPersonalizedOffers(v); info('Personalized Offers', v ? 'Enabled' : 'Disabled'); }} />
                 </div>
 
-                <div className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20">
+                <div className="p-4 rounded-md bg-blue-500/10 border border-blue-500/20">
                   <p className="text-sm font-medium text-blue-400">Your Data Rights</p>
                   <p className="text-xs text-gray-400 mt-1">
                     You can export or delete your data at any time. All data is stored locally and never sent to third-party servers without your consent.
@@ -440,14 +440,14 @@ export default function SettingsPage() {
         {/* ── Connected Apps ── */}
         {activeSection === 'connectedApps' && (
           <div className="space-y-6">
-            <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl border border-gray-700/60 overflow-hidden">
+            <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
               <div className="px-5 py-4 border-b border-gray-700/50">
-                <h2 className="text-lg font-bold text-white">📱 Connected Apps</h2>
+                <h2 className="text-lg font-semibold tracking-tighter text-white">📱 Connected Apps</h2>
                 <p className="text-xs text-gray-500 mt-1">Manage wallet connections to external applications</p>
               </div>
               <div className="p-5 space-y-3">
                 {connectedApps.map((app) => (
-                  <div key={app.name} className="p-4 rounded-xl bg-gray-900/40 border border-gray-800/40">
+                  <div key={app.name} className="p-4 rounded-md bg-gray-900/40 border border-gray-800/40">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <span className="text-2xl">{app.icon}</span>
@@ -481,9 +481,9 @@ export default function SettingsPage() {
         {/* ── Debug ── */}
         {activeSection === 'debug' && (
           <div className="space-y-6">
-            <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl border border-gray-700/60 overflow-hidden">
+            <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
               <div className="px-5 py-4 border-b border-gray-700/50">
-                <h2 className="text-lg font-bold text-white">🐛 Debug Options</h2>
+                <h2 className="text-lg font-semibold tracking-tighter text-white">🐛 Debug Options</h2>
               </div>
               <div className="p-5 space-y-4">
                 <div className="flex items-center justify-between">
@@ -503,7 +503,7 @@ export default function SettingsPage() {
                 </div>
 
                 {debugMode && (
-                  <div className="p-4 rounded-xl bg-gray-900/60 border border-gray-700/40">
+                  <div className="p-4 rounded-md bg-gray-900/60 border border-gray-700/40">
                     <p className="text-xs text-gray-400 font-mono">
                       {/* Simulated debug info */}
                       Debug: ON — Verbose logging enabled<br />
@@ -522,12 +522,12 @@ export default function SettingsPage() {
         {/* ── Storage ── */}
         {activeSection === 'storage' && (
           <div className="space-y-6">
-            <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl border border-gray-700/60 overflow-hidden">
+            <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
               <div className="px-5 py-4 border-b border-gray-700/50">
-                <h2 className="text-lg font-bold text-white">💾 Storage Management</h2>
+                <h2 className="text-lg font-semibold tracking-tighter text-white">💾 Storage Management</h2>
               </div>
               <div className="p-5 space-y-4">
-                <div className="p-4 rounded-xl bg-gray-900/60 border border-gray-700/40">
+                <div className="p-4 rounded-md bg-gray-900/60 border border-gray-700/40">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm font-medium text-gray-200">Connection History</p>
@@ -536,14 +536,14 @@ export default function SettingsPage() {
                     <button
                       onClick={handleClearHistory}
                       disabled={historyCount === 0}
-                      className="px-4 py-2 rounded-xl text-sm font-medium bg-red-500/15 text-red-400 border border-red-500/25 hover:bg-red-500/25 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                      className="px-4 py-2 rounded-md text-sm font-medium bg-red-500/15 text-red-400 border border-red-500/25 hover:bg-red-500/25 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
                     >
                       Clear History
                     </button>
                   </div>
                 </div>
 
-                <div className="p-4 rounded-xl bg-gray-900/60 border border-gray-700/40">
+                <div className="p-4 rounded-md bg-gray-900/60 border border-gray-700/40">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm font-medium text-gray-200">All App Data</p>
@@ -551,7 +551,7 @@ export default function SettingsPage() {
                     </div>
                     <button
                       onClick={handleClearStorage}
-                      className="px-4 py-2 rounded-xl text-sm font-medium bg-red-500/15 text-red-400 border border-red-500/25 hover:bg-red-500/25 transition-all"
+                      className="px-4 py-2 rounded-md text-sm font-medium bg-red-500/15 text-red-400 border border-red-500/25 hover:bg-red-500/25 transition-all"
                     >
                       Clear All Data
                     </button>
@@ -565,9 +565,9 @@ export default function SettingsPage() {
         {/* ── Connection ── */}
         {activeSection === 'connection' && (
           <div className="space-y-6">
-            <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl border border-gray-700/60 overflow-hidden">
+            <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
               <div className="px-5 py-4 border-b border-gray-700/50">
-                <h2 className="text-lg font-bold text-white">🔗 Connection Preferences</h2>
+                <h2 className="text-lg font-semibold tracking-tighter text-white">🔗 Connection Preferences</h2>
               </div>
               <div className="p-5 space-y-4">
                 <div className="flex items-center justify-between">

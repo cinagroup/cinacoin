@@ -41,7 +41,7 @@ export default function NotifyServerPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-white">🔔 Notify Server</h1>
+          <h1 className="text-xl sm:text-2xl font-semibold tracking-tight text-white">🔔 Notify Server</h1>
           <p className="text-dashboard-muted mt-1">Multi-channel notification delivery service</p>
         </div>
         <span className="text-xs text-dashboard-muted bg-dashboard-surface border border-dashboard-border rounded-full px-3 py-1.5">
@@ -73,15 +73,15 @@ export default function NotifyServerPage() {
             <div className="space-y-3">
               <div>
                 <p className="text-sm text-dashboard-muted">Successfully Delivered</p>
-                <p className="text-xl font-bold text-dashboard-success">{metrics.deliveryRate?.toFixed(1) || 0}%</p>
+                <p className="text-xl font-semibold text-dashboard-success">{metrics.deliveryRate?.toFixed(1) || 0}%</p>
               </div>
               <div>
                 <p className="text-sm text-dashboard-muted">Failed Delivery</p>
-                <p className="text-xl font-bold text-dashboard-danger">{formatNumber(metrics.errorCount || 0)}</p>
+                <p className="text-xl font-semibold text-dashboard-danger">{formatNumber(metrics.errorCount || 0)}</p>
               </div>
               <div>
                 <p className="text-sm text-dashboard-muted">Avg Queue Depth</p>
-                <p className="text-xl font-bold text-white">127</p>
+                <p className="text-xl font-semibold text-white">127</p>
               </div>
             </div>
           </div>

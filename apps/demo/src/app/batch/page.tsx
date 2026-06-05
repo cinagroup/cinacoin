@@ -522,7 +522,7 @@ export default function BatchPage() {
 
         {/* ── Header ─────────────────────────────────────── */}
         <div className="text-center space-y-2">
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-brand-400 via-brand-500 to-brand-600 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-semibold tracking-tighter bg-gradient-to-r from-brand-400 via-brand-500 to-brand-600 bg-clip-text text-transparent">
             EIP-5792 Atomic Batch
           </h1>
           <p className="text-gray-400 text-sm">
@@ -542,7 +542,7 @@ export default function BatchPage() {
               </span>
               <button
                 onClick={() => disconnect()}
-                className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-gray-700/60 text-gray-300 border border-gray-600/40 hover:text-white hover:border-gray-500 transition-all"
+                className="px-3 py-1.5 rounded-md text-xs font-semibold bg-gray-700/60 text-gray-300 border border-gray-600/40 hover:text-white hover:border-gray-500 transition-all"
               >
                 Disconnect
               </button>
@@ -551,7 +551,7 @@ export default function BatchPage() {
             <button
               onClick={() => connect(connectors.find((c) => c.id === 'io.metamask')?.id ?? connectors[0]?.id ?? 'io.metamask')}
               disabled={isConnecting}
-              className="px-4 py-2 rounded-xl text-sm font-semibold bg-emerald-600 hover:bg-emerald-500 text-white transition-all disabled:opacity-50"
+              className="px-4 py-2 rounded-[100px] text-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all disabled:opacity-50"
             >
               {isConnecting ? 'Connecting...' : 'Connect Wallet'}
             </button>
@@ -559,15 +559,15 @@ export default function BatchPage() {
         </div>
 
         {error && (
-          <div className="text-center text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-2">
+          <div className="text-center text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-md px-4 py-2">
             {error}
           </div>
         )}
 
         {/* ── Wallet Capabilities ────────────────────────── */}
-        <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl border border-gray-700/60 shadow-2xl shadow-black/30 overflow-hidden">
+        <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 shadow-[0_12px_40px_rgba(0,0,0,0.15),0_4px_12px_rgba(0,0,0,0.10)] overflow-hidden">
           <div className="px-5 py-4 border-b border-gray-700/50 flex items-center justify-between">
-            <h2 className="text-lg font-bold text-white">Wallet Capabilities</h2>
+            <h2 className="text-lg font-semibold tracking-tighter text-white">Wallet Capabilities</h2>
             <button
               onClick={() => capabilities.refetch()}
               disabled={!isConnected}
@@ -627,7 +627,7 @@ export default function BatchPage() {
               </div>
 
               {currentChainHex && (
-                <div className="flex items-center gap-2 p-3 rounded-xl bg-gray-900/50 border border-gray-700/40">
+                <div className="flex items-center gap-2 p-3 rounded-md bg-gray-900/50 border border-gray-700/40">
                   <span className="text-xs text-gray-400">Current chain:</span>
                   <span className="text-xs font-mono text-gray-300">{chainLabel(currentChainHex)} ({currentChainHex})</span>
                   <span className="ml-auto">
@@ -645,9 +645,9 @@ export default function BatchPage() {
 
         {/* ── Gas Estimation ─────────────────────────────── */}
         {isConnected && (
-          <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl border border-gray-700/60 shadow-2xl shadow-black/30 overflow-hidden">
+          <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 shadow-[0_12px_40px_rgba(0,0,0,0.15),0_4px_12px_rgba(0,0,0,0.10)] overflow-hidden">
             <div className="px-5 py-4 border-b border-gray-700/50 flex items-center justify-between">
-              <h2 className="text-lg font-bold text-white">Gas Estimation</h2>
+              <h2 className="text-lg font-semibold tracking-tighter text-white">Gas Estimation</h2>
               <button
                 onClick={handleEstimateGas}
                 disabled={estimatingGas || batchCalls.length === 0}
@@ -663,9 +663,9 @@ export default function BatchPage() {
             <div className="p-5 space-y-3">
               {gasEstimate ? (
                 <>
-                  <div className="flex items-center justify-between p-3 rounded-xl bg-gray-900/50 border border-gray-700/40">
+                  <div className="flex items-center justify-between p-3 rounded-md bg-gray-900/50 border border-gray-700/40">
                     <span className="text-xs text-gray-400">Total Gas</span>
-                    <span className="text-sm font-mono text-emerald-400 font-bold">
+                    <span className="text-sm font-mono text-emerald-400 font-semibold">
                       {gasEstimate.totalDecimal.toLocaleString()} gas
                     </span>
                   </div>
@@ -688,15 +688,15 @@ export default function BatchPage() {
         )}
 
         {/* ── Batch Transaction Builder ──────────────────── */}
-        <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl border border-gray-700/60 shadow-2xl shadow-black/30 overflow-hidden">
+        <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 shadow-[0_12px_40px_rgba(0,0,0,0.15),0_4px_12px_rgba(0,0,0,0.10)] overflow-hidden">
           <div className="px-5 py-4 border-b border-gray-700/50">
-            <h2 className="text-lg font-bold text-white">Batch Transaction Builder</h2>
+            <h2 className="text-lg font-semibold tracking-tighter text-white">Batch Transaction Builder</h2>
             <p className="text-xs text-gray-500 mt-1">Add multiple calls to send atomically</p>
           </div>
 
           <div className="p-5 space-y-3">
             {batchCalls.map((call, index) => (
-              <div key={index} className="p-4 rounded-xl bg-gray-900/50 border border-gray-700/40 space-y-3">
+              <div key={index} className="p-4 rounded-md bg-gray-900/50 border border-gray-700/40 space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Call #{index + 1}</span>
                   {batchCalls.length > 1 && (
@@ -753,7 +753,7 @@ export default function BatchPage() {
 
             <button
               onClick={handleAddCall}
-              className="w-full py-2.5 rounded-xl text-sm font-semibold border border-dashed border-gray-600 text-gray-400 hover:text-white hover:border-gray-400 transition-all"
+              className="w-full py-2.5 rounded-md text-sm font-semibold border border-dashed border-gray-600 text-gray-400 hover:text-white hover:border-gray-400 transition-all"
             >
               + Add Call
             </button>
@@ -762,14 +762,14 @@ export default function BatchPage() {
               <button
                 onClick={handlePreview}
                 disabled={!isConnected}
-                className="flex-1 px-4 py-3 rounded-xl text-sm font-semibold bg-gray-700/60 text-gray-300 border border-gray-600/40 hover:text-white hover:border-gray-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 px-4 py-3 rounded-md text-sm font-semibold bg-gray-700/60 text-gray-300 border border-gray-600/40 hover:text-white hover:border-gray-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Preview Batch
               </button>
               <button
                 onClick={handleSendBatch}
                 disabled={!isConnected || executing || callsStatus.isPolling}
-                className="flex-1 px-4 py-3 rounded-xl text-sm font-semibold bg-gradient-to-r from-brand-600 to-brand-500 text-white hover:from-brand-500 hover:to-brand-400 shadow-lg shadow-blue-500/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 px-4 py-3 rounded-[100px] text-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 shadow-[0_4px_12px_rgba(99,102,241,0.25),0_2px_4px_rgba(99,102,241,0.15)] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {executing && lastAction === 'send' ? (
                   <span className="inline-flex items-center gap-2"><Spinner /> Sending…</span>
@@ -780,7 +780,7 @@ export default function BatchPage() {
               <button
                 onClick={handleAtomicBatch}
                 disabled={!isConnected || executing || callsStatus.isPolling}
-                className="flex-1 px-4 py-3 rounded-xl text-sm font-semibold bg-gradient-to-r from-brand-600 to-brand-500 text-white hover:from-brand-500 hover:to-brand-400 shadow-lg shadow-brand-500/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 px-4 py-3 rounded-[100px] text-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 shadow-[0_4px_12px_rgba(99,102,241,0.25),0_2px_4px_rgba(99,102,241,0.15)] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {executing && lastAction === 'batch' ? (
                   <span className="inline-flex items-center gap-2"><Spinner /> Executing…</span>
@@ -791,7 +791,7 @@ export default function BatchPage() {
             </div>
 
             {batchResult && !batchResult.success && (
-              <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/20">
+              <div className="p-3 rounded-md bg-red-500/10 border border-red-500/20">
                 <p className="text-sm text-red-400">{batchResult.error ?? 'Unknown error'}</p>
               </div>
             )}
@@ -800,9 +800,9 @@ export default function BatchPage() {
 
         {/* ── Batch Preview ──────────────────────────────── */}
         {showPreview && (
-          <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl border border-gray-700/60 shadow-2xl shadow-black/30 overflow-hidden">
+          <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 shadow-[0_12px_40px_rgba(0,0,0,0.15),0_4px_12px_rgba(0,0,0,0.10)] overflow-hidden">
             <div className="px-5 py-4 border-b border-gray-700/50 flex items-center justify-between">
-              <h2 className="text-lg font-bold text-white">Batch Preview</h2>
+              <h2 className="text-lg font-semibold tracking-tighter text-white">Batch Preview</h2>
               <button
                 onClick={() => setShowPreview(false)}
                 className="text-xs text-gray-400 hover:text-white transition-colors"
@@ -814,14 +814,14 @@ export default function BatchPage() {
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-2">
                   <span className="text-xs text-gray-400">Total calls:</span>
-                  <span className="text-xs font-bold text-emerald-400">{batchCalls.length}</span>
+                  <span className="text-xs font-semibold text-emerald-400">{batchCalls.length}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-xs text-gray-400">Atomic:</span>
                   {eip5792Supported ? (
-                    <span className="text-xs font-bold text-emerald-400">Yes ✓</span>
+                    <span className="text-xs font-semibold text-emerald-400">Yes ✓</span>
                   ) : (
-                    <span className="text-xs font-bold text-amber-400">Sequential fallback</span>
+                    <span className="text-xs font-semibold text-amber-400">Sequential fallback</span>
                   )}
                 </div>
                 {gasEstimate && (
@@ -847,14 +847,14 @@ export default function BatchPage() {
 
         {/* ── Transaction Status ─────────────────────────── */}
         {(callsStatus.isPolling || callsStatus.result || batchResult) && (
-          <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl border border-gray-700/60 shadow-2xl shadow-black/30 overflow-hidden">
+          <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 shadow-[0_12px_40px_rgba(0,0,0,0.15),0_4px_12px_rgba(0,0,0,0.10)] overflow-hidden">
             <div className="px-5 py-4 border-b border-gray-700/50">
-              <h2 className="text-lg font-bold text-white">Transaction Status</h2>
+              <h2 className="text-lg font-semibold tracking-tighter text-white">Transaction Status</h2>
             </div>
             <div className="p-5 space-y-4">
               {/* EIP-5792 call ID */}
               {batchResult?.callId && (
-                <div className="p-3 rounded-xl bg-gray-900/50 border border-gray-700/40">
+                <div className="p-3 rounded-md bg-gray-900/50 border border-gray-700/40">
                   <p className="text-xs text-gray-500 mb-1">Batch ID (EIP-5792)</p>
                   <p className="text-sm font-mono text-gray-300 break-all">{batchResult.callId}</p>
                 </div>
@@ -886,13 +886,13 @@ export default function BatchPage() {
               )}
 
               {callsStatus.allSucceeded && (
-                <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
+                <div className="p-3 rounded-md bg-emerald-500/10 border border-emerald-500/20">
                   <p className="text-sm text-emerald-400 font-semibold">✓ All calls succeeded!</p>
                 </div>
               )}
 
               {callsStatus.failedReceipts.length > 0 && (
-                <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/20">
+                <div className="p-3 rounded-md bg-red-500/10 border border-red-500/20">
                   <p className="text-sm text-red-400 font-semibold mb-1">✗ {callsStatus.failedReceipts.length} call(s) failed</p>
                   {callsStatus.failedReceipts.map((r, i) => (
                     <p key={i} className="text-xs font-mono text-red-400/80">tx: {r.transactionHash ?? 'pending'}</p>
@@ -901,7 +901,7 @@ export default function BatchPage() {
               )}
 
               {callsStatus.error && (
-                <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/20">
+                <div className="p-3 rounded-md bg-red-500/10 border border-red-500/20">
                   <p className="text-sm text-red-400">{callsStatus.error.message}</p>
                 </div>
               )}
@@ -913,7 +913,7 @@ export default function BatchPage() {
                     <div key={i} className="p-3 rounded-lg bg-gray-900/50 border border-gray-700/40 space-y-1">
                       <div className="flex items-center gap-2">
                         <span className="text-xs text-gray-500">Call #{i + 1}</span>
-                        <span className={`text-[10px] px-1.5 py-0.5 rounded font-bold ${r.receipt.status === '0x1' ? 'bg-emerald-500/15 text-emerald-400' : 'bg-red-500/15 text-red-400'}`}>
+                        <span className={`text-[10px] px-1.5 py-0.5 rounded font-semibold ${r.receipt.status === '0x1' ? 'bg-emerald-500/15 text-emerald-400' : 'bg-red-500/15 text-red-400'}`}
                           {r.receipt.status === '0x1' ? 'SUCCESS' : 'FAILED'}
                         </span>
                       </div>
@@ -928,7 +928,7 @@ export default function BatchPage() {
               {callsStatus.isPolling && (
                 <button
                   onClick={() => callsStatus.stopPolling()}
-                  className="w-full py-2.5 rounded-xl text-sm font-semibold bg-gray-700/60 text-gray-300 border border-gray-600/40 hover:text-white hover:border-gray-500 transition-all"
+                  className="w-full py-2.5 rounded-md text-sm font-semibold bg-gray-700/60 text-gray-300 border border-gray-600/40 hover:text-white hover:border-gray-500 transition-all"
                 >
                   Stop Polling
                 </button>
@@ -938,7 +938,7 @@ export default function BatchPage() {
         )}
 
         {/* ── Info ───────────────────────────────────────── */}
-        <div className="text-center space-y-2 bg-blue-500/5 border border-blue-500/20 rounded-xl px-6 py-4">
+        <div className="text-center space-y-2 bg-blue-500/5 border border-blue-500/20 rounded-md px-6 py-4">
           <p className="text-sm text-blue-400 font-semibold">EIP-5792 Wallet Call API</p>
           <p className="text-xs text-gray-500">
             This page demonstrates atomic batch transactions using EIP-5792{' '}

@@ -39,7 +39,7 @@ function AvatarDisplay({ address, size = 'lg' }: { address: string | null; size?
 
   return (
     <div
-      className={`${sizes[size]} rounded-full flex items-center justify-center font-bold text-white shadow-lg`}
+      className={`${sizes[size]} rounded-full flex items-center justify-center font-semibold text-white shadow-[0_4px_12px_rgba(0,0,0,0.2),0_2px_4px_rgba(0,0,0,0.1)]`}
       style={{
         background: `linear-gradient(135deg, hsl(${hue1}, 70%, 50%), hsl(${hue2}, 70%, 50%))`,
         boxShadow: `0 4px 20px hsla(${hue1}, 70%, 50%, 0.3)`,
@@ -78,17 +78,17 @@ function PortfolioSummary({ balances }: { balances: ChainBalance[] }) {
   perChain.sort((a, b) => b.usd - a.usd);
 
   return (
-    <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl border border-gray-700/60 overflow-hidden">
+    <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
       <div className="px-5 py-4 border-b border-gray-700/50 flex items-center justify-between">
-        <h2 className="text-lg font-bold text-white">💰 Portfolio Summary</h2>
+        <h2 className="text-lg font-semibold tracking-tighter text-white">💰 Portfolio Summary</h2>
         <span className="text-xs text-gray-500">{withBalance.length} chains with balance</span>
       </div>
 
       <div className="p-5">
         {/* Total */}
-        <div className="text-center mb-6 p-4 rounded-xl bg-gradient-to-b from-gray-900/60 to-gray-800/40 border border-gray-700/30">
+        <div className="text-center mb-6 p-4 rounded-md bg-gradient-to-b from-gray-900/60 to-gray-800/40 border border-gray-700/30">
           <p className="text-xs text-gray-500 mb-1">Total Estimated Value</p>
-          <p className="text-3xl font-bold bg-gradient-to-r from-brand-500 to-brand-400 bg-clip-text text-transparent inline-flex items-center gap-2">
+          <p className="text-3xl font-semibold tracking-tighter bg-gradient-to-r from-brand-500 to-brand-400 bg-clip-text text-transparent inline-flex items-center gap-2">
             ${totalUsd.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             <SimulatedBadge size="xs" />
           </p>
@@ -102,7 +102,7 @@ function PortfolioSummary({ balances }: { balances: ChainBalance[] }) {
             {perChain.map((item) => {
               const pct = totalUsd > 0 ? (item.usd / totalUsd) * 100 : 0;
               return (
-                <div key={item.chain} className="p-3 rounded-xl bg-gray-900/40 border border-gray-700/30">
+                <div key={item.chain} className="p-3 rounded-md bg-gray-900/40 border border-gray-700/30">
                   <div className="flex items-center justify-between mb-1">
                     <span className="text-sm font-medium text-gray-200">{item.chain}</span>
                     <span className="text-sm font-semibold text-gray-300">
@@ -153,7 +153,7 @@ function WalletCard({
     .reduce((sum, b) => sum + parseFloat(b.balance), 0);
 
   return (
-    <div className={`p-5 rounded-xl border transition-all ${
+    <div className={`p-5 rounded-md border transition-all ${
       isPrimary
         ? 'bg-brand-500/10 border-brand-500/30'
         : 'bg-gray-900/40 border-gray-700/40 hover:border-gray-600'
@@ -255,7 +255,7 @@ export default function ProfilePage() {
 
         {/* ── Header ── */}
         <div className="text-center space-y-2">
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-brand-500 via-brand-400 to-brand-300 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-semibold tracking-tighter bg-gradient-to-r from-brand-500 via-brand-400 to-brand-300 bg-clip-text text-transparent">
             Profile
           </h1>
           <p className="text-gray-400 text-sm">Your identity, wallets, and portfolio</p>
@@ -263,12 +263,12 @@ export default function ProfilePage() {
 
         {/* ── Wallet connect ── */}
         {!isConnected && (
-          <div className="text-center py-12 bg-gray-800/30 rounded-2xl border border-gray-700/40">
+          <div className="text-center py-12 bg-gray-800/30 rounded-[var(--cc-radius-md)] border border-gray-700/40">
             <AvatarDisplay address={null} size="xl" />
             <p className="text-gray-400 mt-4 text-sm">Connect your wallet to view your profile</p>
             <button
               onClick={handleConnect}
-              className="mt-4 px-6 py-3 rounded-xl font-semibold bg-brand-600 hover:bg-brand-500 text-white transition-all"
+              className="mt-4 px-6 py-3 rounded-[100px] font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all"
             >
               Connect Wallet
             </button>
@@ -278,7 +278,7 @@ export default function ProfilePage() {
         {isConnected && (
           <>
             {/* ── Profile Card ── */}
-            <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl border border-gray-700/60 overflow-hidden">
+            <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
               {/* Banner */}
               <div className="h-24 bg-gradient-to-r from-brand-600/30 via-brand-500/30 to-brand-400/30 relative">
                 <div className="absolute -bottom-10 left-6">
@@ -291,9 +291,9 @@ export default function ProfilePage() {
                 <div className="flex items-start justify-between">
                   <div>
                     {ensName ? (
-                      <h2 className="text-xl font-bold text-white">{ensName}</h2>
+                      <h2 className="text-xl font-semibold tracking-tighter text-white">{ensName}</h2>
                     ) : (
-                      <h2 className="text-xl font-bold text-white">
+                      <h2 className="text-xl font-semibold tracking-tighter text-white">
                         {shortenAddress(account.address ?? '')}
                       </h2>
                     )}
@@ -304,7 +304,7 @@ export default function ProfilePage() {
                   </div>
                   <button
                     onClick={() => disconnect()}
-                    className="px-4 py-2 rounded-xl text-xs font-semibold bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/20 transition-all"
+                    className="px-4 py-2 rounded-md text-xs font-semibold bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/20 transition-all"
                   >
                     Disconnect
                   </button>
@@ -312,15 +312,15 @@ export default function ProfilePage() {
 
                 {/* Quick stats */}
                 <div className="grid grid-cols-3 gap-4 mt-6">
-                  <div className="p-3 rounded-xl bg-gray-900/50 border border-gray-700/30 text-center">
+                  <div className="p-3 rounded-md bg-gray-900/50 border border-gray-700/30 text-center">
                     <p className="text-xs text-gray-500">Network</p>
                     <p className="text-sm font-semibold text-gray-200">{account.chainName}</p>
                   </div>
-                  <div className="p-3 rounded-xl bg-gray-900/50 border border-gray-700/30 text-center">
+                  <div className="p-3 rounded-md bg-gray-900/50 border border-gray-700/30 text-center">
                     <p className="text-xs text-gray-500">Balance</p>
                     <p className="text-sm font-semibold text-gray-200">{account.balance} {account.chainSymbol}</p>
                   </div>
-                  <div className="p-3 rounded-xl bg-gray-900/50 border border-gray-700/30 text-center">
+                  <div className="p-3 rounded-md bg-gray-900/50 border border-gray-700/30 text-center">
                     <p className="text-xs text-gray-500">Chain ID</p>
                     <p className="text-sm font-semibold text-gray-200">{account.chainId}</p>
                   </div>
@@ -329,9 +329,9 @@ export default function ProfilePage() {
             </div>
 
             {/* ── Multi-Wallet Display ── */}
-            <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl border border-gray-700/60 overflow-hidden">
+            <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
               <div className="px-5 py-4 border-b border-gray-700/50">
-                <h2 className="text-lg font-bold text-white">👛 Connected Wallets</h2>
+                <h2 className="text-lg font-semibold tracking-tighter text-white">👛 Connected Wallets</h2>
                 <p className="text-xs text-gray-500 mt-1">All wallets linked to this profile</p>
               </div>
               <div className="p-5 space-y-3">

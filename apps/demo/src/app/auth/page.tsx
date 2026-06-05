@@ -284,7 +284,7 @@ export default function AuthPage() {
             </svg>
             Real SIWE — EIP-4361 + Passkeys
           </div>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tighter">
             <span className="bg-gradient-to-r from-brand-400 via-brand-500 to-brand-600 bg-clip-text text-transparent">
               Sign-In With Ethereum
             </span>
@@ -298,7 +298,7 @@ export default function AuthPage() {
 
         {/* ── Active Session Banner ── */}
         {session?.authenticated && (
-          <div className="mb-8 p-4 rounded-xl bg-green-500/10 border border-green-500/20 flex items-center justify-between">
+          <div className="mb-8 p-4 rounded-md bg-green-500/10 border border-green-500/20 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center">
                 <svg className="w-5 h-5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -330,7 +330,7 @@ export default function AuthPage() {
 
         {/* ── Error Banner ── */}
         {(error || passkeyError) && (
-          <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 flex items-start gap-3">
+          <div className="mb-6 p-4 rounded-md bg-red-500/10 border border-red-500/20 flex items-start gap-3">
             <svg className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
             </svg>
@@ -346,8 +346,8 @@ export default function AuthPage() {
           {/* ═══════════════════════════════════════════ */}
           {/* ── SIWE Auth Panel ── */}
           {/* ═══════════════════════════════════════════ */}
-          <div className="rounded-2xl bg-gray-900/80 border border-gray-800 p-6">
-            <h2 className="text-lg font-bold mb-4 flex items-center gap-2">
+          <div className="rounded-[var(--cc-radius-md)] bg-gray-900/80 border border-gray-800 p-6">
+            <h2 className="text-lg font-semibold tracking-tighter mb-4 flex items-center gap-2">
               <span className="text-blue-400">🔗</span> Wallet Auth (SIWE)
             </h2>
 
@@ -371,7 +371,7 @@ export default function AuthPage() {
                             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                           </svg>
                         ) : (
-                          <span className="w-3.5 h-3.5 rounded-full border-2 flex items-center justify-center text-[10px] font-bold"
+                          <span className="w-3.5 h-3.5 rounded-full border-2 flex items-center justify-center text-[10px] font-semibold"
                             style={{ borderColor: isCurrent ? 'rgb(96 165 250)' : 'rgb(107 114 128)', color: isCurrent ? 'rgb(96 165 250)' : 'rgb(107 114 128)' }}>
                             {i + 1}
                           </span>
@@ -430,7 +430,7 @@ export default function AuthPage() {
               <div className="space-y-3">
                 <button
                   onClick={handleConnect}
-                  className="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold transition-all shadow-lg shadow-blue-500/20 text-sm"
+                  className="w-full py-2.5 rounded-[100px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all shadow-[0_4px_12px_rgba(99,102,241,0.2),0_2px_4px_rgba(99,102,241,0.1)] text-sm"
                 >
                   🔗 Connect Wallet & Sign
                 </button>
@@ -442,7 +442,7 @@ export default function AuthPage() {
               <button
                 onClick={handleSign}
                 disabled={isSigningLoading}
-                className="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold transition-all disabled:opacity-50 text-sm"
+                className="w-full py-2.5 rounded-[100px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all disabled:opacity-50 text-sm"
               >
                 {isSigningLoading ? 'Waiting for wallet...' : '✍️ Sign SIWE Message'}
               </button>
@@ -473,7 +473,7 @@ export default function AuthPage() {
                 </div>
                 <button
                   onClick={handleVerify}
-                  className="w-full py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold transition-all text-sm"
+                  className="w-full py-2.5 rounded-[100px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all text-sm"
                 >
                   🔐 Verify Signature
                 </button>
@@ -528,7 +528,7 @@ export default function AuthPage() {
             {isConnected && account.address && !siweMessage && authStep !== 'connected' && authStep !== 'signing' && authStep !== 'signed' && authStep !== 'verifying' && authStep !== 'verified' && authStep !== 'error' && (
               <button
                 onClick={handleSign}
-                className="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold transition-all text-sm"
+                className="w-full py-2.5 rounded-[100px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all text-sm"
               >
                 ✍️ Sign SIWE Message
               </button>
@@ -564,8 +564,8 @@ export default function AuthPage() {
           {/* ═══════════════════════════════════════════ */}
           {/* ── Passkey Auth Panel ── */}
           {/* ═══════════════════════════════════════════ */}
-          <div className="rounded-2xl bg-gray-900/80 border border-gray-800 p-6">
-            <h2 className="text-lg font-bold mb-4 flex items-center gap-2">
+          <div className="rounded-[var(--cc-radius-md)] bg-gray-900/80 border border-gray-800 p-6">
+            <h2 className="text-lg font-semibold tracking-tighter mb-4 flex items-center gap-2">
               <span className="text-purple-400">🔑</span> Passkey Auth
             </h2>
 
@@ -616,7 +616,7 @@ export default function AuthPage() {
                     </p>
                     <button
                       onClick={handleLoginPasskey}
-                      className="w-full py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold transition-all text-sm"
+                      className="w-full py-2.5 rounded-[100px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all text-sm"
                     >
                       🔑 Login with Passkey
                     </button>
@@ -686,7 +686,7 @@ export default function AuthPage() {
                 </div>
                 <div className="rounded-lg bg-gray-950 border border-gray-800 p-4 space-y-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-sm font-bold shadow-lg">
+                    <div className="w-10 h-10 rounded-md bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-sm font-semibold shadow-[0_2px_8px_rgba(0,0,0,0.2),0_1px_2px_rgba(0,0,0,0.1)]">
                       {passkeyResult.username[0]?.toUpperCase()}
                     </div>
                     <div>
@@ -721,13 +721,13 @@ export default function AuthPage() {
 
         {/* ── Session Info (when authenticated) ── */}
         {session?.authenticated && (
-          <div className="rounded-2xl bg-gray-900/80 border border-gray-800 p-6 sm:p-8 mb-16">
-            <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+          <div className="rounded-[var(--cc-radius-md)] bg-gray-900/80 border border-gray-800 p-6 sm:p-8 mb-16">
+            <h3 className="text-xl font-semibold tracking-tighter mb-4 flex items-center gap-2">
               <span className="text-green-400">🛡️</span> Session Information
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {session.address && (
-                <div className="p-4 rounded-xl bg-gray-950/60 border border-gray-800">
+                <div className="p-4 rounded-md bg-gray-950/60 border border-gray-800">
                   <p className="text-xs text-gray-500 mb-1">Wallet Address</p>
                   <p className="font-mono text-sm text-gray-300 break-all">{session.address}</p>
                   <p className="text-xs text-gray-500 mt-1">
@@ -736,7 +736,7 @@ export default function AuthPage() {
                 </div>
               )}
               {session.passkey.username && (
-                <div className="p-4 rounded-xl bg-gray-950/60 border border-gray-800">
+                <div className="p-4 rounded-md bg-gray-950/60 border border-gray-800">
                   <p className="text-xs text-gray-500 mb-1">Passkey User</p>
                   <p className="text-sm text-gray-300 font-semibold">{session.passkey.username}</p>
                   <p className="text-xs text-gray-500 mt-1">
@@ -745,13 +745,13 @@ export default function AuthPage() {
                 </div>
               )}
               {session.createdAt && (
-                <div className="p-4 rounded-xl bg-gray-950/60 border border-gray-800">
+                <div className="p-4 rounded-md bg-gray-950/60 border border-gray-800">
                   <p className="text-xs text-gray-500 mb-1">Session Started</p>
                   <p className="text-sm text-gray-300">{new Date(session.createdAt).toLocaleString()}</p>
                 </div>
               )}
               {session.expiresAt && (
-                <div className="p-4 rounded-xl bg-gray-950/60 border border-gray-800">
+                <div className="p-4 rounded-md bg-gray-950/60 border border-gray-800">
                   <p className="text-xs text-gray-500 mb-1">Session Expires</p>
                   <p className="text-sm text-gray-300">{new Date(session.expiresAt).toLocaleString()}</p>
                   <p className="text-xs text-green-400 mt-1">{formatSessionRemaining()}</p>
@@ -786,8 +786,8 @@ export default function AuthPage() {
 
         {/* ── Info Section ── */}
         <section className="mb-16">
-          <div className="rounded-2xl bg-gray-900/80 border border-gray-800 p-6 sm:p-8">
-            <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+          <div className="rounded-[var(--cc-radius-md)] bg-gray-900/80 border border-gray-800 p-6 sm:p-8">
+            <h3 className="text-xl font-semibold tracking-tighter mb-4 flex items-center gap-2">
               <span className="text-green-400">📋</span> How It Works
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -823,7 +823,7 @@ export default function AuthPage() {
               </div>
             </div>
 
-            <div className="mt-6 rounded-xl bg-gray-950 border border-gray-800 p-4 font-mono text-xs text-gray-300 overflow-x-auto">
+            <div className="mt-6 rounded-md bg-gray-950 border border-gray-800 p-4 font-mono text-xs text-gray-300 overflow-x-auto">
               <pre>{`// SIWE — Sign-In With Ethereum
 const { message } = createSiweMessage(address, chainId);
 const signature = await signSiweMessage(message, address);
@@ -850,9 +850,9 @@ const auth = await authenticatePasskey();`}</pre>
             ].map((chain) => (
               <div
                 key={chain.name}
-                className="group flex flex-col items-center gap-2 px-5 py-4 rounded-2xl bg-gray-800/30 border border-gray-800 hover:border-gray-600 transition-all cursor-default"
+                className="group flex flex-col items-center gap-2 px-5 py-4 rounded-[var(--cc-radius-md)] bg-gray-800/30 border border-gray-800 hover:border-gray-600 transition-all cursor-default"
               >
-                <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${chain.color} flex items-center justify-center text-lg font-bold shadow-lg group-hover:scale-110 transition-transform`}>
+                <div className={`w-10 h-10 rounded-md bg-gradient-to-br ${chain.color} flex items-center justify-center text-lg font-semibold shadow-[0_2px_8px_rgba(0,0,0,0.2),0_1px_2px_rgba(0,0,0,0.1)] group-hover:scale-110 transition-transform`}>
                   {chain.symbol}
                 </div>
                 <span className="text-xs text-gray-400 group-hover:text-gray-200 transition-colors">

@@ -42,7 +42,7 @@ export default function PushServerPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-white">📱 Push Server</h1>
+          <h1 className="text-xl sm:text-2xl font-semibold tracking-tight text-white">📱 Push Server</h1>
           <p className="text-dashboard-muted mt-1">Cross-platform push notification delivery</p>
         </div>
         <span className="text-xs text-dashboard-muted bg-dashboard-surface border border-dashboard-border rounded-full px-3 py-1.5">
@@ -74,15 +74,15 @@ export default function PushServerPage() {
             <div className="space-y-3">
               <div>
                 <p className="text-sm text-dashboard-muted">Successful</p>
-                <p className="text-xl font-bold text-dashboard-success">{formatNumber(metrics.deliverySuccess || 0)}</p>
+                <p className="text-xl font-semibold text-dashboard-success">{formatNumber(metrics.deliverySuccess || 0)}</p>
               </div>
               <div>
                 <p className="text-sm text-dashboard-muted">Failed</p>
-                <p className="text-xl font-bold text-dashboard-danger">{formatNumber(metrics.deliveryFailed || 0)}</p>
+                <p className="text-xl font-semibold text-dashboard-danger">{formatNumber(metrics.deliveryFailed || 0)}</p>
               </div>
               <div>
                 <p className="text-sm text-dashboard-muted">Avg Latency</p>
-                <p className="text-xl font-bold text-white">{formatLatency(metrics.avgLatency || 0)}</p>
+                <p className="text-xl font-semibold text-white">{formatLatency(metrics.avgLatency || 0)}</p>
               </div>
             </div>
           </div>

@@ -176,17 +176,17 @@ export default function AADemoPage() {
 
         {/* ── Header ── */}
         <div className="text-center space-y-2">
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-violet-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-semibold tracking-tighter bg-gradient-to-r from-violet-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
             Account Abstraction Demo
           </h1>
           <p className="text-gray-400 text-sm">ERC-4337 smart accounts, session keys, gas sponsorship, and batch transactions</p>
         </div>
 
         {/* ── Wallet connect ── */}
-        <div className="flex items-center justify-between bg-gray-800/40 backdrop-blur rounded-2xl border border-gray-700/50 px-5 py-4">
+        <div className="flex items-center justify-between bg-gray-800/40 backdrop-blur rounded-[var(--cc-radius-md)] border border-gray-700/50 px-5 py-4">
           {isConnected ? (
             <div className="flex items-center gap-3">
-              <div className="size-8 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center text-xs font-bold text-white">
+              <div className="size-8 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center text-xs font-semibold tracking-tighter text-white">
                 {account.address?.slice(2, 4).toUpperCase()}
               </div>
               <div>
@@ -197,7 +197,7 @@ export default function AADemoPage() {
           ) : (
             <button
               onClick={handleConnect}
-              className="px-5 py-2.5 rounded-xl text-sm font-semibold bg-violet-600 hover:bg-violet-500 text-white transition-all"
+              className="px-5 py-2.5 rounded-md text-sm font-semibold bg-violet-600 hover:bg-violet-500 text-white transition-all"
             >
               Connect Wallet
             </button>
@@ -205,7 +205,7 @@ export default function AADemoPage() {
           {isConnected && (
             <button
               onClick={() => disconnect()}
-              className="px-4 py-2 rounded-xl text-xs font-semibold bg-gray-700/60 text-gray-300 border border-gray-600/40 hover:text-white transition-all"
+              className="px-4 py-2 rounded-md text-xs font-semibold bg-gray-700/60 text-gray-300 border border-gray-600/40 hover:text-white transition-all"
             >
               Disconnect
             </button>
@@ -215,10 +215,10 @@ export default function AADemoPage() {
         {/* ═══════════════════════════════════════════
             Section 1: Smart Account Creation
            ═══════════════════════════════════════════ */}
-        <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl border border-gray-700/60 overflow-hidden">
+        <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
           <div className="px-5 py-4 border-b border-gray-700/50 flex items-center justify-between">
             <div>
-              <h2 className="text-lg font-bold text-white">🏦 Smart Account</h2>
+              <h2 className="text-lg font-semibold tracking-tighter text-white">🏦 Smart Account</h2>
               <p className="text-xs text-gray-500 mt-0.5">ERC-4337 Account Abstraction wallet</p>
             </div>
             {accountCreated && smartAccount && (
@@ -245,8 +245,8 @@ export default function AADemoPage() {
                     { step: '2', title: 'Configure', desc: 'Set session keys & permissions' },
                     { step: '3', title: 'Use', desc: 'Gasless, batched transactions' },
                   ].map((s) => (
-                    <div key={s.step} className="text-center p-3 rounded-xl bg-gray-900/40 border border-gray-800/40">
-                      <div className="size-8 rounded-full bg-violet-500/20 text-violet-400 flex items-center justify-center text-sm font-bold mx-auto mb-2">
+                    <div key={s.step} className="text-center p-3 rounded-md bg-gray-900/40 border border-gray-800/40">
+                      <div className="size-8 rounded-full bg-violet-500/20 text-violet-400 flex items-center justify-center text-sm font-semibold mx-auto mb-2">
                         {s.step}
                       </div>
                       <p className="text-sm font-semibold text-gray-200">{s.title}</p>
@@ -258,10 +258,10 @@ export default function AADemoPage() {
                 <button
                   onClick={handleCreateSmartAccount}
                   disabled={creatingAccount}
-                  className={`w-full py-3.5 rounded-xl font-semibold text-sm transition-all ${
+                  className={`w-full py-3.5 rounded-md font-semibold text-sm transition-all ${
                     creatingAccount
                       ? 'bg-violet-500/60 text-white cursor-wait'
-                      : 'bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white shadow-lg shadow-violet-500/25'
+                      : 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 shadow-[0_4px_12px_rgba(124,58,237,0.25),0_2px_4px_rgba(124,58,237,0.15)]'
                   }`}
                 >
                   {creatingAccount ? (
@@ -281,16 +281,16 @@ export default function AADemoPage() {
 
             {accountCreated && smartAccount && (
               <div className="space-y-4">
-                <div className="p-4 rounded-xl bg-gray-900/60 border border-gray-700/40">
+                <div className="p-4 rounded-md bg-gray-900/60 border border-gray-700/40">
                   <p className="text-[10px] text-gray-500 mb-1">Smart Account Address</p>
                   <p className="font-mono text-sm text-violet-400">{smartAccount}</p>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
-                  <div className="p-3 rounded-xl bg-gray-900/40 border border-gray-800/40">
+                  <div className="p-3 rounded-md bg-gray-900/40 border border-gray-800/40">
                     <p className="text-[10px] text-gray-500">Owner</p>
                     <p className="text-xs font-mono text-gray-300 mt-1">{shortenAddress(account.address ?? '')}</p>
                   </div>
-                  <div className="p-3 rounded-xl bg-gray-900/40 border border-gray-800/40">
+                  <div className="p-3 rounded-md bg-gray-900/40 border border-gray-800/40">
                     <p className="text-[10px] text-gray-500">ERC-4337</p>
                     <p className="text-xs text-emerald-400 mt-1 font-semibold">Supported ✓</p>
                   </div>
@@ -303,10 +303,10 @@ export default function AADemoPage() {
         {/* ═══════════════════════════════════════════
             Section 2: Session Key Management
            ═══════════════════════════════════════════ */}
-        <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl border border-gray-700/60 overflow-hidden">
+        <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
           <div className="px-5 py-4 border-b border-gray-700/50 flex items-center justify-between">
             <div>
-              <h2 className="text-lg font-bold text-white">🔑 Session Keys</h2>
+              <h2 className="text-lg font-semibold tracking-tighter text-white">🔑 Session Keys</h2>
               <p className="text-xs text-gray-500 mt-0.5">Temporary keys with limited permissions</p>
             </div>
             <button
@@ -320,7 +320,7 @@ export default function AADemoPage() {
           <div className="p-5 space-y-3">
             {/* Create key form */}
             {showCreateKey && (
-              <div className="p-4 rounded-xl bg-gray-900/50 border border-gray-700/40 space-y-3">
+              <div className="p-4 rounded-md bg-gray-900/50 border border-gray-700/40 space-y-3">
                 <div className="flex gap-2">
                   <input
                     type="text"
@@ -351,7 +351,7 @@ export default function AADemoPage() {
             {sessionKeys.map((key) => (
               <div
                 key={key.id}
-                className={`p-4 rounded-xl border transition-all ${
+                className={`p-4 rounded-md border transition-all ${
                   key.active
                     ? 'bg-violet-500/5 border-violet-500/30'
                     : 'bg-gray-900/30 border-gray-800/40'
@@ -359,7 +359,7 @@ export default function AADemoPage() {
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className={`size-8 rounded-lg flex items-center justify-center text-sm font-bold ${
+                    <div className={`size-8 rounded-md flex items-center justify-center text-sm font-semibold ${
                       key.active
                         ? 'bg-violet-500/20 text-violet-400'
                         : 'bg-gray-700/50 text-gray-500'
@@ -405,10 +405,10 @@ export default function AADemoPage() {
         {/* ═══════════════════════════════════════════
             Section 3: Gas Sponsorship
            ═══════════════════════════════════════════ */}
-        <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl border border-gray-700/60 overflow-hidden">
+        <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
           <div className="px-5 py-4 border-b border-gray-700/50 flex items-center justify-between">
             <div>
-              <h2 className="text-lg font-bold text-white">⛽ Gas Sponsorship</h2>
+              <h2 className="text-lg font-semibold tracking-tighter text-white">⛽ Gas Sponsorship</h2>
               <p className="text-xs text-gray-500 mt-0.5">Paymaster coverage — users don't pay gas</p>
             </div>
             <ToggleSwitch checked={gasSponsored} onChange={setGasSponsored} label="Toggle gas sponsorship" />
@@ -416,7 +416,7 @@ export default function AADemoPage() {
 
           <div className="p-5 space-y-4">
             {gasSponsored && (
-              <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
+              <div className="p-4 rounded-md bg-emerald-500/10 border border-emerald-500/20">
                 <div className="flex items-center gap-3">
                   <span className="text-2xl">✓</span>
                   <div>
@@ -430,7 +430,7 @@ export default function AADemoPage() {
             {/* Sponsor sources */}
             <div className="grid grid-cols-3 gap-3">
               {MOCK_GAS_SPONSORS.map((s) => (
-                <div key={s.name} className="p-3 rounded-xl bg-gray-900/40 border border-gray-800/40 text-center">
+                <div key={s.name} className="p-3 rounded-md bg-gray-900/40 border border-gray-800/40 text-center">
                   <p className="text-xs font-semibold text-gray-200">{s.name}</p>
                   <p className={`text-[10px] font-semibold mt-1 ${
                     s.status === 'active' ? 'text-emerald-400' : 'text-amber-400'
@@ -444,21 +444,21 @@ export default function AADemoPage() {
 
             {/* Stats */}
             <div className="grid grid-cols-3 gap-3">
-              <div className="p-3 rounded-xl bg-gray-900/50 border border-gray-800/50 text-center">
-                <p className="text-2xl font-bold bg-gradient-to-r from-brand-400 to-brand-500 bg-clip-text text-transparent">
+              <div className="p-3 rounded-md bg-gray-900/50 border border-gray-800/50 text-center">
+                <p className="text-2xl font-semibold tracking-tighter bg-gradient-to-r from-brand-400 to-brand-500 bg-clip-text text-transparent">
                   {txCount}
                 </p>
                 <p className="text-[10px] text-gray-500 mt-1">Gasless TXs</p>
               </div>
-              <div className="p-3 rounded-xl bg-gray-900/50 border border-gray-800/50 text-center">
+              <div className="p-3 rounded-md bg-gray-900/50 border border-gray-800/50 text-center">
                 {/* TODO: Calculate real gas saved from on-chain data */}
-                <p className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                <p className="text-2xl font-semibold tracking-tighter bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
                   ~$2.40
                 </p>
                 <p className="text-[10px] text-gray-500 mt-1">Gas Saved</p>
               </div>
-              <div className="p-3 rounded-xl bg-gray-900/50 border border-gray-800/50 text-center">
-                <p className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-violet-400 bg-clip-text text-transparent">
+              <div className="p-3 rounded-md bg-gray-900/50 border border-gray-800/50 text-center">
+                <p className="text-2xl font-semibold tracking-tighter bg-gradient-to-r from-purple-400 to-violet-400 bg-clip-text text-transparent">
                   0
                 </p>
                 <p className="text-[10px] text-gray-500 mt-1">User Gas Paid</p>
@@ -470,9 +470,9 @@ export default function AADemoPage() {
         {/* ═══════════════════════════════════════════
             Section 4: Batch Transaction Demo
            ═══════════════════════════════════════════ */}
-        <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl border border-gray-700/60 overflow-hidden">
+        <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
           <div className="px-5 py-4 border-b border-gray-700/50">
-            <h2 className="text-lg font-bold text-white">📦 Batch Transaction Demo</h2>
+            <h2 className="text-lg font-semibold tracking-tighter text-white">📦 Batch Transaction Demo</h2>
             <p className="text-xs text-gray-500 mt-0.5">Execute multiple transactions in a single user operation</p>
           </div>
 
@@ -481,7 +481,7 @@ export default function AADemoPage() {
             {batchTxs.map((tx, i) => (
               <div
                 key={i}
-                className={`p-3 rounded-xl border transition-all ${
+                className={`p-3 rounded-md border transition-all ${
                   tx.status === 'completed'
                     ? 'bg-emerald-500/5 border-emerald-500/25'
                     : tx.status === 'pending'
@@ -491,7 +491,7 @@ export default function AADemoPage() {
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <span className={`size-6 rounded-full flex items-center justify-center text-xs font-bold ${
+                    <span className={`size-6 rounded-full flex items-center justify-center text-xs font-semibold ${
                       tx.status === 'completed'
                         ? 'bg-emerald-500/20 text-emerald-400'
                         : tx.status === 'pending'
@@ -521,11 +521,11 @@ export default function AADemoPage() {
             <button
               onClick={handleExecuteBatch}
               disabled={batchExecuting || !smartAccount}
-              className={`w-full py-3.5 rounded-xl font-semibold text-sm transition-all ${
+              className={`w-full py-3.5 rounded-md font-semibold text-sm transition-all ${
                 batchExecuting
                   ? 'bg-violet-500/60 text-white cursor-wait'
                   : smartAccount
-                  ? 'bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white shadow-lg shadow-violet-500/25'
+                  ? 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 shadow-[0_4px_12px_rgba(124,58,237,0.25),0_2px_4px_rgba(124,58,237,0.15)]'
                   : 'bg-gray-700/60 text-gray-500 cursor-not-allowed'
               }`}
             >
@@ -556,8 +556,8 @@ export default function AADemoPage() {
         </div>
 
         {/* ── Info Section ── */}
-        <div className="bg-violet-500/5 border border-violet-500/20 rounded-2xl p-6 space-y-4">
-          <h3 className="text-base font-bold text-violet-400">What is Account Abstraction?</h3>
+        <div className="bg-violet-500/5 border border-violet-500/20 rounded-[var(--cc-radius-md)] p-6 space-y-4">
+          <h3 className="text-base font-semibold tracking-tighter text-violet-400">What is Account Abstraction?</h3>
           <p className="text-sm text-gray-400 leading-relaxed">
             ERC-4337 enables smart contract wallets that replace EOAs. Users get features like social recovery,
             session keys, batched transactions, and gas sponsorship — all without changing the Ethereum consensus layer.
@@ -569,7 +569,7 @@ export default function AADemoPage() {
               { icon: '📦', title: 'Batch Transactions', desc: 'Multiple actions in one UserOperation' },
               { icon: '🔄', title: 'Social Recovery', desc: 'Recover accounts via guardians' },
             ].map((f) => (
-              <div key={f.title} className="p-3 rounded-xl bg-gray-900/40 border border-gray-800/40">
+              <div key={f.title} className="p-3 rounded-md bg-gray-900/40 border border-gray-800/40">
                 <div className="text-lg mb-1">{f.icon}</div>
                 <p className="text-xs font-semibold text-gray-200">{f.title}</p>
                 <p className="text-[10px] text-gray-500 mt-0.5">{f.desc}</p>
@@ -579,7 +579,7 @@ export default function AADemoPage() {
         </div>
 
         {/* ── Code Example ── */}
-        <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl border border-gray-700/60 overflow-hidden">
+        <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
           <div className="flex items-center justify-between px-5 py-3 border-b border-gray-700/40">
             <div className="flex items-center gap-3">
               <div className="flex gap-1.5">

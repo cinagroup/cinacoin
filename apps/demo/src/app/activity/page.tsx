@@ -208,17 +208,17 @@ export default function ActivityPage() {
 
         {/* ── Header ── */}
         <div className="text-center space-y-2">
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-semibold tracking-tighter bg-gradient-to-r from-blue-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent">
             Activity History
           </h1>
           <p className="text-gray-400 text-sm">Track all your wallet interactions and transactions</p>
         </div>
 
         {/* ── Wallet connect bar ── */}
-        <div className="flex items-center justify-between bg-gray-800/40 backdrop-blur rounded-2xl border border-gray-700/50 px-5 py-4">
+        <div className="flex items-center justify-between bg-gray-800/40 backdrop-blur rounded-[var(--cc-radius-md)] border border-gray-700/50 px-5 py-4">
           {isConnected ? (
             <div className="flex items-center gap-3">
-              <div className="size-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-xs font-bold text-white">
+              <div className="size-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-xs font-semibold text-white">
                 {account.address?.slice(2, 4).toUpperCase()}
               </div>
               <div>
@@ -229,7 +229,7 @@ export default function ActivityPage() {
           ) : (
             <button
               onClick={handleConnect}
-              className="px-5 py-2.5 rounded-xl text-sm font-semibold bg-blue-600 hover:bg-blue-500 text-white transition-all"
+              className="px-5 py-2.5 rounded-[100px] text-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all"
             >
               Connect Wallet
             </button>
@@ -245,8 +245,8 @@ export default function ActivityPage() {
             { label: 'Pending', value: stats.pending, color: 'text-amber-400' },
             { label: 'Failed', value: stats.failed, color: 'text-red-400' },
           ].map((s) => (
-            <div key={s.label} className="text-center p-4 rounded-xl bg-gray-800/40 border border-gray-700/40">
-              <div className={`text-2xl font-bold ${s.color}`}>{s.value}</div>
+            <div key={s.label} className="text-center p-4 rounded-md bg-gray-800/40 border border-gray-700/40">
+              <div className={`text-2xl font-semibold tracking-tighter ${s.color}`}>{s.value}</div>
               <div className="text-xs text-gray-500 mt-1">{s.label}</div>
             </div>
           ))}
@@ -260,7 +260,7 @@ export default function ActivityPage() {
               <button
                 key={f.value}
                 onClick={() => { setTypeFilter(f.value); setPage(0); }}
-                className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition-all ${
+                className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-all ${
                   typeFilter === f.value
                     ? 'bg-blue-500/15 text-blue-400 border border-blue-500/30'
                     : 'bg-gray-800/40 text-gray-400 border border-gray-700/40 hover:text-white hover:border-gray-600'
@@ -277,7 +277,7 @@ export default function ActivityPage() {
             <select
               value={chainFilter}
               onChange={(e) => { setChainFilter(e.target.value); setPage(0); }}
-              className="w-full px-4 py-2.5 bg-gray-800/60 border border-gray-700/50 rounded-xl text-sm text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500/40 appearance-none cursor-pointer"
+              className="w-full px-4 py-2.5 bg-gray-800/60 border border-gray-700/50 rounded-md text-sm text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500/40 appearance-none cursor-pointer"
             >
               {CHAINS.map((c) => (
                 <option key={c} value={c}>{c === 'All' ? 'All Chains' : c}</option>
@@ -289,7 +289,7 @@ export default function ActivityPage() {
 
         {/* ── Activity List ── */}
         {paginated.length === 0 ? (
-          <div className="text-center py-16 bg-gray-800/30 rounded-2xl border border-gray-700/40">
+          <div className="text-center py-16 bg-gray-800/30 rounded-[var(--cc-radius-md)] border border-gray-700/40">
             <p className="text-3xl mb-3">🔍</p>
             <p className="text-gray-400 text-sm">No activities found</p>
             <p className="text-gray-500 text-xs mt-1">Connect your wallet and start interacting to see activity here.</p>
@@ -300,7 +300,7 @@ export default function ActivityPage() {
               <div key={item.id}>
                 <button
                   onClick={() => setExpandedId(expandedId === item.id ? null : item.id)}
-                  className="w-full text-left p-4 rounded-xl bg-gray-800/40 border border-gray-700/40 hover:border-gray-600/60 hover:bg-gray-800/60 transition-all"
+                  className="w-full text-left p-4 rounded-md bg-gray-800/40 border border-gray-700/40 hover:border-gray-600/60 hover:bg-gray-800/60 transition-all"
                   aria-expanded={expandedId === item.id}
                   aria-label={`${item.title} - ${item.status}`}
                 >
@@ -329,7 +329,7 @@ export default function ActivityPage() {
 
                 {/* Expanded detail */}
                 {expandedId === item.id && (
-                  <div className="mt-1 p-4 rounded-xl bg-gray-900/60 border border-gray-700/30 space-y-2 ml-8">
+                  <div className="mt-1 p-4 rounded-md bg-gray-900/60 border border-gray-700/30 space-y-2 ml-8">
                     <div className="grid grid-cols-2 gap-2 text-xs">
                       <div>
                         <span className="text-gray-500">Type:</span>
@@ -380,7 +380,7 @@ export default function ActivityPage() {
 
         {/* ── Pagination ── */}
         {totalPages > 1 && (
-          <div className="flex items-center justify-between bg-gray-800/30 rounded-xl border border-gray-700/40 px-5 py-3">
+          <div className="flex items-center justify-between bg-gray-800/30 rounded-md border border-gray-700/40 px-5 py-3">
             <span className="text-xs text-gray-500">
               Page {page + 1} of {totalPages} · {filtered.length} items
             </span>

@@ -51,10 +51,10 @@ function TokenSelector({
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-2 bg-gray-700/80 hover:bg-gray-600/80 rounded-xl px-3 py-2 transition-colors border border-gray-600/50"
+        className="flex items-center gap-2 bg-gray-700/80 hover:bg-gray-600/80 rounded-md px-3 py-2 transition-colors border border-gray-600/50"
       >
         <span className="text-xl leading-none">{selected.icon}</span>
-        <span className="font-bold text-white text-sm">{selected.symbol}</span>
+        <span className="font-semibold text-white text-sm">{selected.symbol}</span>
         <svg className={`w-4 h-4 text-gray-400 transition-transform ${open ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
         </svg>
@@ -63,7 +63,7 @@ function TokenSelector({
       {open && (
         <>
           <div className="fixed inset-0 z-10" onClick={() => setOpen(false)} />
-          <div className="absolute z-20 top-full mt-2 left-0 w-64 bg-gray-800 border border-gray-600 rounded-xl shadow-2xl shadow-black/40 overflow-hidden">
+          <div className="absolute z-20 top-full mt-2 left-0 w-64 bg-gray-800 border border-gray-600 rounded-md shadow-[0_8px_30px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)] overflow-hidden">
             <div className="p-2 border-b border-gray-700">
               <p className="text-xs text-gray-400 px-2 py-1 font-semibold uppercase tracking-wider">Select Token</p>
             </div>
@@ -467,7 +467,7 @@ export default function SwapPage() {
 
         {/* ── Header ─────────────────────────────────────── */}
         <div className="text-center space-y-2">
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-brand-500 via-brand-400 to-brand-300 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-semibold tracking-tighter bg-gradient-to-r from-brand-500 via-brand-400 to-brand-300 bg-clip-text text-transparent">
             Token Swap
           </h1>
           <p className="text-gray-400 text-sm">Swap tokens with real DEX aggregator rates</p>
@@ -480,7 +480,7 @@ export default function SwapPage() {
             value={chainId}
             onChange={(e) => handleChainChange(Number(e.target.value))}
             aria-label="Select blockchain network"
-            className="bg-gray-700/80 text-white text-sm rounded-xl px-3 py-2 border border-gray-600/50 outline-none cursor-pointer"
+            className="bg-gray-700/80 text-white text-sm rounded-md px-3 py-2 border border-gray-600/50 outline-none cursor-pointer"
           >
             {SUPPORTED_CHAINS.map((c) => (
               <option key={c.chainId} value={c.chainId}>{c.name}</option>
@@ -495,7 +495,7 @@ export default function SwapPage() {
               <span className="text-xs text-gray-500">{account.chainName} · {shortenAddress(account.address ?? '')}</span>
               <button
                 onClick={() => disconnect()}
-                className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-gray-700/60 text-gray-300 border border-gray-600/40 hover:text-white hover:border-gray-500 transition-all"
+                className="px-3 py-1.5 rounded-md text-xs font-semibold bg-gray-700/60 text-gray-300 border border-gray-600/40 hover:text-white hover:border-gray-500 transition-all"
               >
                 Disconnect
               </button>
@@ -503,20 +503,20 @@ export default function SwapPage() {
           ) : (
             <button
               onClick={() => connect(primaryConnector?.id ?? 'io.metamask')}
-              className="px-4 py-2 rounded-xl text-sm font-semibold bg-brand-600 hover:bg-brand-500 text-white transition-all"
+              className="px-4 py-2 rounded-[100px] text-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all"
             >
               Connect Wallet
             </button>
           )}
         </div>
         {error && (
-          <div className="text-center text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-2">
+          <div className="text-center text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-md px-4 py-2">
             {error}
           </div>
         )}
 
         {/* ── Swap Card ──────────────────────────────────── */}
-        <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl border border-gray-700/60 shadow-2xl shadow-black/30 overflow-hidden">
+        <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 shadow-[0_12px_40px_rgba(0,0,0,0.15),0_4px_12px_rgba(0,0,0,0.10)] overflow-hidden">
 
           {/* FROM */}
           <div className="p-5 pb-3">
@@ -528,7 +528,7 @@ export default function SwapPage() {
                 </span>
                 <button
                   onClick={handleMax}
-                  className="text-xs font-bold text-brand-400 hover:text-brand-300 transition-colors px-2 py-0.5 rounded bg-brand-400/10 hover:bg-brand-400/20"
+                  className="text-xs font-semibold text-brand-400 hover:text-brand-300 transition-colors px-2 py-0.5 rounded bg-brand-400/10 hover:bg-brand-400/20"
                 >
                   MAX
                 </button>
@@ -554,7 +554,7 @@ export default function SwapPage() {
                   }
                 }}
                 placeholder="0.0"
-                className="flex-1 bg-transparent text-right text-3xl font-bold text-white outline-none placeholder:text-gray-600"
+                className="flex-1 bg-transparent text-right text-3xl font-semibold text-white outline-none placeholder:text-gray-600"
               />
             </div>
             <div className="text-right mt-1">
@@ -566,7 +566,7 @@ export default function SwapPage() {
           <div className="flex justify-center -my-1 relative z-10">
             <button
               onClick={handleSwapTokens}
-              className="w-10 h-10 bg-gray-800 border-4 border-gray-900/50 rounded-xl flex items-center justify-center hover:bg-gray-700 hover:scale-110 active:scale-95 transition-all shadow-lg"
+              className="w-10 h-10 bg-gray-800 border-4 border-gray-900/50 rounded-md flex items-center justify-center hover:bg-gray-700 hover:scale-110 active:scale-95 transition-all shadow-[0_4px_12px_rgba(0,0,0,0.15),0_2px_4px_rgba(0,0,0,0.10)]"
               title="Swap tokens"
               aria-label="Swap tokens"
             >
@@ -592,7 +592,7 @@ export default function SwapPage() {
                 label="To"
                 nativeBalance={isConnected ? account.balance : undefined}
               />
-              <div className="flex-1 text-right text-3xl font-bold text-white truncate">
+              <div className="flex-1 text-right text-3xl font-semibold text-white truncate">
                 {displayToAmount || <span className="text-gray-600">0.0</span>}
               </div>
             </div>
@@ -628,7 +628,7 @@ export default function SwapPage() {
 
           {/* ── Swap Details ───────────────────────────── */}
           {(fromAmount && parseFloat(fromAmount) > 0) && (
-            <div className="mx-5 p-4 bg-gray-900/50 rounded-xl space-y-0.5 border border-gray-700/30">
+            <div className="mx-5 p-4 bg-gray-900/50 rounded-md space-y-0.5 border border-gray-700/30">
               {displayRate && <DetailRow label="Rate" value={displayRate} />}
               <DetailRow
                 label="Price Impact"
@@ -661,15 +661,15 @@ export default function SwapPage() {
             <button
               onClick={isConnected ? handleSwap : () => connect(primaryConnector?.id ?? 'io.metamask')}
               disabled={buttonDisabled}
-              className={`w-full py-4 rounded-xl font-bold text-lg transition-all ${
+              className={`w-full py-4 rounded-[100px] font-semibold text-lg transition-all ${
                 swapState === 'success'
-                  ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/30'
+                  ? 'bg-emerald-500 text-white shadow-[0_4px_12px_rgba(16,185,129,0.3),0_2px_4px_rgba(16,185,129,0.15)]'
                   : swapState === 'swapping' || swapState === 'approving'
                   ? 'bg-brand-500/80 text-white cursor-wait'
                   : swapState === 'quoting'
                   ? 'bg-purple-500/60 text-white cursor-wait'
                   : canSwap
-                  ? 'from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-400 text-white shadow-lg shadow-brand-600/25 hover:shadow-brand-500/40 active:scale-[0.98]'
+                  ? 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 shadow-[0_4px_12px_rgba(99,102,241,0.25),0_2px_4px_rgba(99,102,241,0.15)] hover:shadow-[0_6px_16px_rgba(99,102,241,0.4),0_2px_6px_rgba(99,102,241,0.2)] active:scale-[0.98]'
                   : 'bg-gray-700/60 text-gray-500 cursor-not-allowed'
               }`}
             >
@@ -688,9 +688,9 @@ export default function SwapPage() {
         </div>
 
         {/* ── Recent Swaps History ─────────────────────── */}
-        <div className="bg-gray-800/60 backdrop-blur-xl rounded-2xl border border-gray-700/60 overflow-hidden">
+        <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
           <div className="px-5 py-4 border-b border-gray-700/50">
-            <h2 className="text-lg font-bold text-white">
+            <h2 className="text-lg font-semibold tracking-tighter text-white">
               Swap History
               {swapHistory.length > 0 && (
                 <span className="ml-2 text-xs text-gray-500 font-normal">({swapHistory.length})</span>
@@ -780,7 +780,7 @@ export default function SwapPage() {
         {/* ── Footer ───────────────────────────────────── */}
         <div className="text-center space-y-1">
           <div className="flex items-center justify-center gap-2 text-gray-500 text-xs">
-            <span className="inline-block w-2 h-2 rounded-full bg-gradient-to-r from-brand-500 to-brand-400" />
+            <span className="inline-block w-2 h-2 rounded-full bg-[var(--cc-primary)]" />
             <span>Powered by <span className="text-gray-300 font-semibold">1inch DEX Aggregator</span></span>
           </div>
           <p className="text-gray-600 text-xs">

@@ -13,6 +13,9 @@ import {
 import { fetchIncidents, severityConfig, statusLabels } from "@/lib/incidents";
 import { ServiceCheck, ServiceConfig, ServiceStatus, HistoryEntry } from "@/types";
 import type { Incident } from "@/lib/incidents";
+import { useTheme } from "@/providers/ThemeProvider";
+import { useI18n } from "@/providers/I18nProvider";
+import type { Locale } from "@/providers/I18nProvider";
 
 /* ---- Icons ---- */
 
@@ -64,14 +67,70 @@ function ChevronIcon({ open }: { open: boolean }) {
   );
 }
 
+/* ---- Theme Toggle ---- */
+
+function ThemeToggle() {
+  const { theme, toggle } = useTheme();
+  const { t } = useI18n();
+
+  return (
+    <button
+      onClick={toggle}
+      title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+      className="p-2 rounded-lg bg-[var(--bg-card)] border border-[var(--border)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--text-secondary)] transition-colors"
+    >
+      {theme === 'dark' ? (
+        /* sun */
+        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <circle cx="12" cy="12" r="5" />
+          <path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+        </svg>
+      ) : (
+        /* moon */
+        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+        </svg>
+      )}
+    </button>
+  );
+}
+
+/* ---- Language Selector ---- */
+
+function LanguageSelector() {
+  const { locale, setLocale } = useI18n();
+
+  return (
+    <select
+      value={locale}
+      onChange={(e) => setLocale(e.target.value as Locale)}
+      className="px-2 py-1.5 rounded-lg text-xs font-medium bg-[var(--bg-card)] border border-[var(--border)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--text-secondary)] transition-colors cursor-pointer outline-none"
+      aria-label="Language"
+    >
+      <option value="en">EN</option>
+      <option value="zh">中文</option>
+    </select>
+  );
+}
+
 /* ---- Components ---- */
 
 function StatusBadge({ status }: { status: ServiceStatus }) {
+  const { t } = useI18n();
+  const statusKeyMap: Record<string, "statusOperational" | "statusDegraded" | "statusDown" | "statusUnknown"> = {
+    healthy: "statusOperational",
+    degraded: "statusDegraded",
+    down: "statusDown",
+    unknown: "statusUnknown",
+  };
+  const statusKey = statusKeyMap[status] || "statusUnknown";
+  const label = t(statusKey);
+
   const config = {
-    healthy: { bg: "bg-emerald-500/10", text: "text-emerald-400", border: "border-emerald-500/20", label: "Operational" },
-    degraded: { bg: "bg-yellow-500/10", text: "text-yellow-400", border: "border-yellow-500/20", label: "Degraded" },
-    down: { bg: "bg-red-500/10", text: "text-red-400", border: "border-red-500/20", label: "Down" },
-    unknown: { bg: "bg-gray-500/10", text: "text-gray-400", border: "border-gray-500/20", label: "Unknown" },
+    healthy: { bg: "bg-emerald-500/10", text: "text-emerald-400", border: "border-emerald-500/20" },
+    degraded: { bg: "bg-yellow-500/10", text: "text-yellow-400", border: "border-yellow-500/20" },
+    down: { bg: "bg-red-500/10", text: "text-red-400", border: "border-red-500/20" },
+    unknown: { bg: "bg-gray-500/10", text: "text-gray-400", border: "border-gray-500/20" },
   }[status];
 
   return (
@@ -79,7 +138,7 @@ function StatusBadge({ status }: { status: ServiceStatus }) {
       {status === "healthy" && <CheckIcon className="w-3 h-3" />}
       {status === "degraded" && <WarningIcon className="w-3 h-3" />}
       {status === "down" && <ErrorIcon className="w-3 h-3" />}
-      {config.label}
+      {label}
     </span>
   );
 }
@@ -94,6 +153,7 @@ function UptimeBadge({ uptime }: { uptime: number }) {
 }
 
 function ServiceCard({ service }: { service: ServiceCheck }) {
+  const { t } = useI18n();
   const [expanded, setExpanded] = useState(false);
   const statusColor = {
     healthy: "border-l-emerald-500",
@@ -102,7 +162,6 @@ function ServiceCard({ service }: { service: ServiceCheck }) {
     unknown: "border-l-gray-500",
   }[service.status];
 
-  // Build 72-slot history bar (6h at 5-min intervals)
   const history = getHistory();
   const svcHistory = history.slice(-72).map((entry) => {
     const found = entry.services.find((s) => s.name === service.name);
@@ -117,7 +176,7 @@ function ServiceCard({ service }: { service: ServiceCheck }) {
   };
 
   return (
-    <div className={`animate-fade-in bg-[var(--bg-card)] rounded-lg border border-[var(--border)] border-l-4 ${statusColor} overflow-hidden hover:bg-[var(--bg-card-hover)] transition-colors`}>
+    <div className={`animate-fade-in bg-[var(--bg-card)] rounded-[var(--cc-radius-md)] border border-[var(--border)] border-l-4 ${statusColor} overflow-hidden hover:bg-[var(--bg-card-hover)] transition-colors`} style={{ boxShadow: '0 2px 2px rgba(0,0,0,0.1), 0 8px 16px -4px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(0,0,0,0.08)' }}>
       <button
         onClick={() => setExpanded(!expanded)}
         className="w-full p-5 text-left"
@@ -134,17 +193,17 @@ function ServiceCard({ service }: { service: ServiceCheck }) {
         </div>
         <div className="flex items-center gap-6 mt-4 text-sm">
           <div>
-            <span className="text-[var(--text-secondary)]">Response Time</span>
+            <span className="text-[var(--text-secondary)]">{t("responseTime")}</span>
             <p className={`font-mono text-sm mt-0.5 ${service.responseTime !== null && service.responseTime < 1000 ? "text-emerald-400" : service.responseTime !== null && service.responseTime < 3000 ? "text-yellow-400" : "text-red-400"}`}>
               {formatDuration(service.responseTime)}
             </p>
           </div>
           <div>
-            <span className="text-[var(--text-secondary)]">Uptime (7d)</span>
+            <span className="text-[var(--text-secondary)]">{t("uptime")}</span>
             <p className="mt-0.5"><UptimeBadge uptime={service.uptime} /></p>
           </div>
           <div>
-            <span className="text-[var(--text-secondary)]">Last Check</span>
+            <span className="text-[var(--text-secondary)]">{t("lastCheck")}</span>
             <p className="font-mono text-sm text-[var(--text-secondary)] mt-0.5">{formatTime(service.lastChecked)}</p>
           </div>
         </div>
@@ -155,7 +214,7 @@ function ServiceCard({ service }: { service: ServiceCheck }) {
         <div className="px-5 pb-5 border-t border-[var(--border)] pt-4 animate-fade-in">
           <div className="flex items-center gap-2 mb-3">
             <ClockIcon className="text-[var(--text-secondary)]" />
-            <span className="text-xs text-[var(--text-secondary)]">Last ~6 Hours</span>
+            <span className="text-xs text-[var(--text-secondary)]">{t("last6Hours")}</span>
           </div>
           <div className="flex gap-px">
             {svcHistory.map((status, idx) => (
@@ -167,9 +226,9 @@ function ServiceCard({ service }: { service: ServiceCheck }) {
             ))}
           </div>
           <div className="flex items-center gap-4 mt-3 text-xs text-[var(--text-secondary)]">
-            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-sm bg-emerald-500" /> Operational</span>
-            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-sm bg-yellow-500" /> Degraded</span>
-            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-sm bg-red-500" /> Down</span>
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-sm bg-emerald-500" /> {t("statusOperational")}</span>
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-sm bg-yellow-500" /> {t("statusDegraded")}</span>
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-sm bg-red-500" /> {t("statusDown")}</span>
           </div>
           {service.error && (
             <div className="mt-3 px-3 py-2 bg-red-500/10 border border-red-500/20 rounded text-xs text-red-400 font-mono">
@@ -183,25 +242,33 @@ function ServiceCard({ service }: { service: ServiceCheck }) {
 }
 
 function IncidentCard({ incident }: { incident: Incident }) {
+  const { t } = useI18n();
   const sev = severityConfig[incident.severity];
-  const statusLabel = statusLabels[incident.status];
   const isActive = incident.status !== "resolved";
 
+  // Translate severity label
+  const sevKey = `sev_${incident.severity}` as "sev_critical" | "sev_major" | "sev_minor" | "sev_maintenance";
+  const sevLabel = t(sevKey);
+
+  // Translate incident status
+  const incStatusKey = `inc_${incident.status}` as "inc_investigating" | "inc_identified" | "inc_monitoring" | "inc_resolved";
+  const incStatusLabel = t(incStatusKey);
+
   return (
-    <div className={`animate-fade-in bg-[var(--bg-card)] rounded-lg border ${isActive ? "border-yellow-500/30" : "border-[var(--border)]"} p-5`}>
+    <div className={`animate-fade-in bg-[var(--bg-card)] rounded-[var(--cc-radius-md)] border ${isActive ? "border-yellow-500/30" : "border-[var(--border)]"} p-5`} style={{ boxShadow: '0 2px 2px rgba(0,0,0,0.1), 0 8px 16px -4px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(0,0,0,0.08)' }}>
       <div className="flex items-start justify-between gap-4 mb-3">
         <div className="flex-1">
           <div className="flex items-center gap-2 flex-wrap">
             <h4 className="text-sm font-semibold text-[var(--text-primary)]">{incident.title}</h4>
             <span className={`px-2 py-0.5 rounded text-xs font-medium ${sev.bg} ${sev.text} border ${sev.border}`}>
-              {sev.label}
+              {sevLabel}
             </span>
             <span className={`px-2 py-0.5 rounded text-xs font-medium ${isActive ? "bg-yellow-500/10 text-yellow-400 border border-yellow-500/20" : "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"}`}>
-              {statusLabel}
+              {incStatusLabel}
             </span>
           </div>
           <p className="text-xs text-[var(--text-secondary)] mt-1">
-            Affected: {incident.affected_services.join(", ")}
+            {t("affected")}: {incident.affected_services.join(", ")}
           </p>
         </div>
         <span className="text-xs text-[var(--text-secondary)] whitespace-nowrap">
@@ -211,50 +278,62 @@ function IncidentCard({ incident }: { incident: Incident }) {
 
       {/* Timeline */}
       <div className="space-y-3 mt-4">
-        {incident.updates.map((update, idx) => (
-          <div key={idx} className="flex gap-3">
-            <div className="flex flex-col items-center">
-              <div className={`w-2 h-2 rounded-full ${idx === incident.updates.length - 1 && incident.status === "resolved" ? "bg-emerald-500" : "bg-[var(--text-secondary)]"}`} />
-              {idx < incident.updates.length - 1 && <div className="w-px h-full bg-[var(--border)] mt-1" />}
-            </div>
-            <div className="flex-1 pb-2">
-              <div className="flex items-center gap-2 mb-1">
-                <span className={`text-xs font-medium ${sev.text}`}>{statusLabels[update.status]}</span>
-                <span className="text-xs text-[var(--text-secondary)]">{formatTime(update.timestamp)}</span>
+        {incident.updates.map((update, idx) => {
+          const updStatusKey = `inc_${update.status}` as "inc_investigating" | "inc_identified" | "inc_monitoring" | "inc_resolved";
+          const updStatusLabel = t(updStatusKey);
+          return (
+            <div key={idx} className="flex gap-3">
+              <div className="flex flex-col items-center">
+                <div className={`w-2 h-2 rounded-full ${idx === incident.updates.length - 1 && incident.status === "resolved" ? "bg-emerald-500" : "bg-[var(--text-secondary)]"}`} />
+                {idx < incident.updates.length - 1 && <div className="w-px h-full bg-[var(--border)] mt-1" />}
               </div>
-              <p className="text-sm text-[var(--text-secondary)]">{update.message}</p>
+              <div className="flex-1 pb-2">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className={`text-xs font-medium ${sev.text}`}>{updStatusLabel}</span>
+                  <span className="text-xs text-[var(--text-secondary)]">{formatTime(update.timestamp)}</span>
+                </div>
+                <p className="text-sm text-[var(--text-secondary)]">{update.message}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
 }
 
 function Footer() {
+  const { t } = useI18n();
+
   return (
     <footer className="text-center text-xs text-[var(--text-secondary)] pt-6 border-t border-[var(--border)]">
       <p className="flex items-center justify-center gap-4 flex-wrap">
-        <span>Health checks run client-side every 5 minutes</span>
+        <span>{t("healthChecksInfo")}</span>
         <span className="hidden sm:inline">•</span>
-        <a href="/incidents.json" className="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">Incidents API</a>
+        <a href="/incidents.json" className="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">{t("incidentsApi")}</a>
         <span className="hidden sm:inline">•</span>
         <a href="https://github.com/cinagroup/cinacoin" className="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">GitHub</a>
       </p>
       <p className="mt-2">
-        Powered by Cinacoin — <a href="https://cinacoin.com" className="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">cinacoin.com</a>
+        {t("poweredBy")} — <a href="https://cinacoin.com" className="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">cinacoin.com</a>
       </p>
     </footer>
   );
 }
 
+/* ---- Severity config override for theme-aware colors ---- */
+
+// We override severityConfig labels dynamically in IncidentCard via i18n,
+// but the tailwind classes remain static (they reference raw color values).
+
 export default function HealthStatusPage() {
+  const { t } = useI18n();
   const [services, setServices] = useState<ServiceCheck[]>([]);
   const [history, setHistory] = useState<HistoryEntry[]>([]);
   const [autoRefresh, setAutoRefresh] = useState<boolean>(true);
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const [lastRefresh, setLastRefresh] = useState<string | null>(null);
-  const [overallStatus, setOverallStatus] = useState<ServiceStatus>("unknown");
+  const [overallStatus, setOverallStatus] = useState<ServiceStatus>("healthy");
   const [error, setError] = useState<string | null>(null);
   const [configLoaded, setConfigLoaded] = useState(false);
   const [configs, setConfigs] = useState<ServiceConfig[]>([]);
@@ -296,7 +375,6 @@ export default function HealthStatusPage() {
   useEffect(() => {
     let mounted = true;
 
-    // Load service config
     fetch("/service-status.json")
       .then((res) => {
         if (!res.ok) throw new Error(`Failed to load config: ${res.status}`);
@@ -315,7 +393,6 @@ export default function HealthStatusPage() {
         setConfigLoaded(true);
       });
 
-    // Load incidents
     fetchIncidents().then((data) => {
       if (!mounted) return;
       setIncidents(data.incidents);
@@ -342,51 +419,53 @@ export default function HealthStatusPage() {
   }, [autoRefresh, runChecks]);
 
   const overallConfig = {
-    healthy: { gradient: "from-emerald-500/20 to-emerald-500/5", border: "border-emerald-500/30", icon: "text-emerald-400", label: "All Systems Operational" },
-    degraded: { gradient: "from-yellow-500/20 to-yellow-500/5", border: "border-yellow-500/30", icon: "text-yellow-400", label: "Some Systems Degraded" },
-    down: { gradient: "from-red-500/20 to-red-500/5", border: "border-red-500/30", icon: "text-red-400", label: "System Outage" },
-    unknown: { gradient: "from-gray-500/20 to-gray-500/5", border: "border-gray-500/30", icon: "text-gray-400", label: "Status Unknown" },
+    healthy: { gradient: "from-emerald-500/20 to-emerald-500/5", border: "border-emerald-500/30", icon: "text-emerald-400", label: t("allOperational") },
+    degraded: { gradient: "from-yellow-500/20 to-yellow-500/5", border: "border-yellow-500/30", icon: "text-yellow-400", label: t("someDegraded") },
+    down: { gradient: "from-red-500/20 to-red-500/5", border: "border-red-500/30", icon: "text-red-400", label: t("systemOutage") },
+    unknown: { gradient: "from-gray-500/20 to-gray-500/5", border: "border-gray-500/30", icon: "text-gray-400", label: t("statusUnknown") },
   }[overallStatus];
 
   const activeIncidents = incidents.filter((i) => i.status !== "resolved");
   const resolvedIncidents = incidents.filter((i) => i.status === "resolved");
 
   return (
-    <div className="min-h-screen bg-[var(--bg-primary)]">
+    <div className="min-h-screen bg-[var(--cc-canvas-soft)]">
       <div className="max-w-4xl mx-auto px-4 py-8 sm:py-12">
         {/* Header */}
         <header className="mb-8">
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div>
-              <h1 className="text-2xl font-bold text-[var(--text-primary)]">Cinacoin</h1>
-              <p className="text-[var(--text-secondary)] text-sm mt-1">Service Status</p>
+              <h1 className="text-2xl font-semibold tracking-tighter text-[var(--cc-ink)]">{t("siteName")}</h1>
+              <p className="text-[var(--cc-body)] text-sm mt-1">{t("pageTitle")}</p>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 flex-wrap">
+              <LanguageSelector />
+              <ThemeToggle />
               <button
                 onClick={() => setAutoRefresh(!autoRefresh)}
-                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${
+                className={`flex items-center gap-2 px-3 py-1.5 rounded-[100px] text-xs font-medium transition-colors ${
                   autoRefresh
-                    ? "bg-[var(--blue-bg)] border-blue-500/30 text-blue-400"
-                    : "bg-[var(--bg-card)] border-[var(--border)] text-[var(--text-secondary)]"
+                    ? "bg-[var(--cc-primary)] text-[var(--cc-on-primary)]"
+                    : "bg-[var(--cc-canvas)] border border-[var(--cc-border)] text-[var(--cc-body)]"
                 }`}
               >
                 <span className={`w-2 h-2 rounded-full ${autoRefresh ? "bg-blue-400 animate-pulse-dot" : "bg-gray-600"}`} />
-                Auto-refresh
+                {t("autoRefresh")}
               </button>
               <button
                 onClick={runChecks}
                 disabled={refreshing}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-[var(--bg-card)] border border-[var(--border)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--text-secondary)] transition-colors disabled:opacity-50"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-[100px] text-xs font-medium bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-colors disabled:opacity-50"
               >
                 <RefreshIcon spinning={refreshing} />
-                Refresh
+                {t("refresh")}
               </button>
             </div>
           </div>
         </header>
 
         {/* Overall Status */}
-        <div className={`mb-8 rounded-xl border ${overallConfig.border} bg-gradient-to-r ${overallConfig.gradient} p-6 animate-fade-in`}>
+        <div className={`mb-8 rounded-[var(--cc-radius-md)] border ${overallConfig.border} bg-gradient-to-r ${overallConfig.gradient} p-6 animate-fade-in`} style={{ boxShadow: '0 2px 2px rgba(0,0,0,0.1), 0 8px 16px -4px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(0,0,0,0.08)' }}>
           <div className="flex items-center gap-3">
             {overallStatus === "healthy" && <CheckIcon className={`w-6 h-6 ${overallConfig.icon}`} />}
             {overallStatus === "degraded" && <WarningIcon className={`w-6 h-6 ${overallConfig.icon}`} />}
@@ -394,9 +473,9 @@ export default function HealthStatusPage() {
             {overallStatus === "unknown" && <span className={`w-6 h-6 rounded-full border-2 border-current ${overallConfig.icon}`} />}
             <div>
               <h2 className={`text-lg font-semibold ${overallConfig.icon}`}>{overallConfig.label}</h2>
-              <p className="text-sm text-[var(--text-secondary)] mt-0.5">
-                {lastRefresh ? `Last checked at ${formatTime(lastRefresh)}` : "Checking..."}
-                {refreshing && " (refreshing)"}
+              <p className="text-sm text-[var(--cc-body)] mt-0.5">
+                {lastRefresh ? `${t("lastChecked")} ${formatTime(lastRefresh)}` : t("checking")}
+                {refreshing && ` (${t("refreshing")})`}
               </p>
             </div>
           </div>
@@ -405,8 +484,8 @@ export default function HealthStatusPage() {
         {/* Active Incidents */}
         {activeIncidents.length > 0 && (
           <section className="mb-8 animate-fade-in">
-            <h3 className="text-base font-semibold text-[var(--text-primary)] mb-4">
-              ⚡ Active Incidents ({activeIncidents.length})
+            <h3 className="text-base font-semibold text-[var(--cc-ink)] mb-4">
+              ⚡ {t("activeIncidents")} ({activeIncidents.length})
             </h3>
             <div className="space-y-4">
               {activeIncidents.map((inc) => (
@@ -425,12 +504,12 @@ export default function HealthStatusPage() {
 
         {/* Service Cards */}
         <section className="mb-8">
-          <h3 className="text-base font-semibold text-[var(--text-primary)] mb-4">Services</h3>
+          <h3 className="text-base font-semibold text-[var(--cc-ink)] mb-4">{t("services")}</h3>
           <div className="space-y-4">
             {!configLoaded ? (
-              <div className="text-center py-12 text-[var(--text-secondary)] animate-fade-in">
+              <div className="text-center py-12 text-[var(--cc-body)] animate-fade-in">
                 <RefreshIcon spinning />
-                <p className="mt-4">Loading service configuration...</p>
+                <p className="mt-4">{t("loadingConfig")}</p>
               </div>
             ) : (
               services.map((service) => (
@@ -443,8 +522,8 @@ export default function HealthStatusPage() {
         {/* Resolved Incidents */}
         {resolvedIncidents.length > 0 && (
           <section className="mb-8 animate-fade-in">
-            <h3 className="text-base font-semibold text-[var(--text-primary)] mb-4">
-              Resolved Incidents ({resolvedIncidents.length})
+            <h3 className="text-base font-semibold text-[var(--cc-ink)] mb-4">
+              {t("resolvedIncidents")} ({resolvedIncidents.length})
             </h3>
             <div className="space-y-4">
               {resolvedIncidents.map((inc) => (

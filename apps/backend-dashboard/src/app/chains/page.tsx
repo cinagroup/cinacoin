@@ -69,7 +69,7 @@ export default function ChainsPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">🌐 Networks & Chains</h1>
+          <h1 className="text-2xl font-semibold tracking-tight text-white">🌐 Networks & Chains</h1>
           <p className="text-dashboard-muted mt-1">
             Configure supported blockchain networks — {enabledCount} of {chains.length} enabled
           </p>
@@ -77,7 +77,7 @@ export default function ChainsPage() {
         <button
           onClick={handleSave}
           aria-label={saved ? "Changes saved" : "Save chain configuration changes"}
-          className="px-4 py-2 bg-brand-500 hover:bg-brand-400 text-white rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
+          className="px-4 py-2 bg-brand-500 hover:bg-brand-400 text-white rounded-[100px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
         >
           {saved ? "✓ Saved" : "Save Changes"}
         </button>
@@ -93,19 +93,19 @@ export default function ChainsPage() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-4">
           <p className="text-sm text-dashboard-muted">Total Networks</p>
-          <p className="text-2xl font-bold text-white">{chains.length}</p>
+          <p className="text-2xl font-semibold text-white">{chains.length}</p>
         </div>
         <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-4">
           <p className="text-sm text-dashboard-muted">Enabled</p>
-          <p className="text-2xl font-bold text-dashboard-success">{enabledCount}</p>
+          <p className="text-2xl font-semibold text-dashboard-success">{enabledCount}</p>
         </div>
         <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-4">
           <p className="text-sm text-dashboard-muted">EVM Chains</p>
-          <p className="text-2xl font-bold text-brand-400">{chains.filter((c) => c.network === "evm").length}</p>
+          <p className="text-2xl font-semibold text-brand-400">{chains.filter((c) => c.network === "evm").length}</p>
         </div>
         <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-4">
           <p className="text-sm text-dashboard-muted">Non-EVM</p>
-          <p className="text-2xl font-bold text-dashboard-warning">{chains.filter((c) => c.network !== "evm").length}</p>
+          <p className="text-2xl font-semibold text-dashboard-warning">{chains.filter((c) => c.network !== "evm").length}</p>
         </div>
       </div>
 
@@ -124,7 +124,7 @@ export default function ChainsPage() {
             key={f.key}
             onClick={() => setFilter(f.key)}
             aria-pressed={filter === f.key}
-            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+            className={`px-3 py-1.5 rounded-[100px] text-sm font-medium transition-colors ${
               filter === f.key
                 ? "bg-brand-500 text-white"
                 : "bg-dashboard-surface text-dashboard-muted hover:text-white border border-dashboard-border"
@@ -233,7 +233,7 @@ export default function ChainsPage() {
           />
         </div>
         <div className="mt-4 flex justify-end">
-          <button className="px-4 py-2 bg-brand-500 hover:bg-brand-400 text-white rounded-lg text-sm font-medium transition-colors">
+          <button className="px-4 py-2 bg-brand-500 hover:bg-brand-400 text-white rounded-[100px] text-sm font-medium transition-colors">
             + Add Network
           </button>
         </div>

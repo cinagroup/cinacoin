@@ -54,7 +54,7 @@ export default function RelayServerPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-white">📡 Relay Server</h1>
+          <h1 className="text-xl sm:text-2xl font-semibold tracking-tight text-white">📡 Relay Server</h1>
           <p className="text-dashboard-muted mt-1">WebSocket relay via Durable Objects for real-time chain events</p>
         </div>
         <span className="text-xs text-dashboard-muted bg-dashboard-surface border border-dashboard-border rounded-full px-3 py-1.5">

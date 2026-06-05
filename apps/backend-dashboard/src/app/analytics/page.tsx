@@ -62,7 +62,7 @@ export default function AnalyticsPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">📊 Analytics</h1>
+          <h1 className="text-2xl font-semibold tracking-tight text-white">📊 Analytics</h1>
           <p className="text-dashboard-muted mt-1">
             AppKit usage metrics and connection analytics
           </p>
@@ -74,7 +74,7 @@ export default function AnalyticsPage() {
               onClick={() => setTimeRange(range)}
               aria-pressed={timeRange === range}
               aria-label={`Show ${range} data`}
-              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface ${
+              className={`px-3 py-1.5 rounded-[100px] text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface ${
                 timeRange === range
                   ? "bg-brand-500 text-white"
                   : "bg-dashboard-surface text-dashboard-muted hover:text-white border border-dashboard-border"
@@ -185,7 +185,7 @@ export default function AnalyticsPage() {
               <div className="absolute inset-3 bg-dashboard-surface rounded-full flex items-center justify-center">
                 <div className="text-center">
                   <p className="text-xs text-dashboard-muted">Auth Rate</p>
-                  <p className="text-lg font-bold text-white">94.2%</p>
+                  <p className="text-lg font-semibold text-white">94.2%</p>
                 </div>
               </div>
             </div>

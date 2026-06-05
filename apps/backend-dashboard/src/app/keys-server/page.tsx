@@ -45,7 +45,7 @@ export default function KeysServerPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-white">🔑 Keys Server</h1>
+          <h1 className="text-xl sm:text-2xl font-semibold tracking-tight text-white">🔑 Keys Server</h1>
           <p className="text-dashboard-muted mt-1">Session key management with D1 storage</p>
         </div>
         <span className="text-xs text-dashboard-muted bg-dashboard-surface border border-dashboard-border rounded-full px-3 py-1.5">
@@ -77,15 +77,15 @@ export default function KeysServerPage() {
             <div className="space-y-3">
               <div>
                 <p className="text-sm text-dashboard-muted">Used Space</p>
-                <p className="text-xl font-bold text-white">{formatBytes(metrics.storageUsed || 0)}</p>
+                <p className="text-xl font-semibold text-white">{formatBytes(metrics.storageUsed || 0)}</p>
               </div>
               <div>
                 <p className="text-sm text-dashboard-muted">Total Capacity</p>
-                <p className="text-xl font-bold text-white">{formatBytes(metrics.storageLimit || 10_000_000_000)}</p>
+                <p className="text-xl font-semibold text-white">{formatBytes(metrics.storageLimit || 10_000_000_000)}</p>
               </div>
               <div>
                 <p className="text-sm text-dashboard-muted">Available</p>
-                <p className="text-xl font-bold text-dashboard-success">
+                <p className="text-xl font-semibold text-dashboard-success">
                   {formatBytes((metrics.storageLimit || 10_000_000_000) - (metrics.storageUsed || 0))}
                 </p>
               </div>

@@ -64,13 +64,13 @@ function ChainCard({ chain, balance, health, isWalletConnected, isCurrentChain, 
   }, [isCurrentChain]);
 
   return (
-    <div className={`group bg-gray-800/40 backdrop-blur rounded-2xl border ${
+    <div className={`group bg-gray-800/40 backdrop-blur rounded-[var(--cc-radius-md)] border ${
       isCurrentChain
         ? 'border-brand-500/50 ring-1 ring-brand-500/20'
         : justSwitched
         ? 'border-green-500/50 ring-1 ring-green-500/20'
         : 'border-gray-700/60'
-    } overflow-hidden hover:border-gray-500/60 transition-all duration-300 hover:shadow-lg hover:shadow-black/20 hover:-translate-y-0.5 ${
+    } overflow-hidden hover:border-gray-500/60 transition-all duration-300 hover:shadow-[0_4px_12px_rgba(0,0,0,0.15),0_2px_4px_rgba(0,0,0,0.10)] hover:-translate-y-0.5 ${
       justSwitched ? 'animate-chain-switch-flash' : ''
     }`}>
       {/* Top gradient bar */}
@@ -86,7 +86,7 @@ function ChainCard({ chain, balance, health, isWalletConnected, isCurrentChain, 
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-brand-500 to-brand-600 rounded-xl flex items-center justify-center text-white font-bold text-sm shadow-md">
+            <div className="w-10 h-10 bg-gradient-to-br from-brand-500 to-brand-600 rounded-md flex items-center justify-center text-white font-semibold text-sm shadow-[0_2px_8px_rgba(0,0,0,0.2),0_1px_2px_rgba(0,0,0,0.1)]">
               {chain.symbol}
             </div>
             <div>
@@ -144,14 +144,14 @@ function ChainCard({ chain, balance, health, isWalletConnected, isCurrentChain, 
           href={`${chain.explorer}/address/0x0000000000000000000000000000000000000000`}
           target="_blank"
           rel="noopener noreferrer"
-          className="block w-full py-2 rounded-xl text-center text-xs font-semibold text-gray-400 border border-gray-700/40 hover:text-white hover:border-gray-500 transition-all"
+          className="block w-full py-2 rounded-md text-center text-xs font-semibold text-gray-400 border border-gray-700/40 hover:text-white hover:border-gray-500 transition-all"
         >
           View on Explorer ↗
         </a>
 
         {/* Connect / Switch */}
         {isWalletConnected && isCurrentChain ? (
-          <div className="w-full py-2.5 rounded-xl text-center font-semibold text-sm bg-gradient-to-r from-brand-500/10 to-brand-400/10 text-brand-400 border border-brand-500/30 animate-status-transition">
+          <div className="w-full py-2.5 rounded-md text-center font-semibold text-sm bg-gradient-to-r from-brand-500/10 to-brand-400/10 text-brand-400 border border-brand-500/30 animate-status-transition">
             <span className="inline-flex items-center gap-1.5">
               <span className="size-2 rounded-full bg-brand-400 animate-pulse" />
               Active Chain
@@ -160,7 +160,7 @@ function ChainCard({ chain, balance, health, isWalletConnected, isCurrentChain, 
         ) : isWalletConnected ? (
           <button
             onClick={onSwitchChain}
-            className="w-full py-2.5 rounded-xl font-semibold text-sm bg-brand-600/20 text-brand-400 border border-brand-500/30 hover:bg-brand-600/30 transition-all"
+            className="w-full py-2.5 rounded-md font-semibold text-sm bg-brand-600/20 text-brand-400 border border-brand-500/30 hover:bg-brand-600/30 transition-all"
           >
             Switch to {chain.name}
           </button>
@@ -178,9 +178,9 @@ function HealthSummary({ statuses, loading }: { statuses: ChainHealthStatus[]; l
   const avgLatency = statuses.filter((s) => s.latencyMs).reduce((sum, s) => sum + (s.latencyMs ?? 0), 0) / (healthy || 1);
 
   return (
-    <div className="bg-gray-800/40 backdrop-blur rounded-2xl border border-gray-700/60 p-6">
+    <div className="bg-gray-800/40 backdrop-blur rounded-[var(--cc-radius-md)] border border-gray-700/60 p-6">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-semibold text-white">RPC Health Status</h2>
+        <h2 className="text-lg font-semibold tracking-tighter text-white">RPC Health Status</h2>
         {loading && (
           <span className="inline-flex items-center gap-2 text-xs text-gray-400">
             <Spinner /> Checking…
@@ -189,20 +189,20 @@ function HealthSummary({ statuses, loading }: { statuses: ChainHealthStatus[]; l
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
-        <div className="text-center p-3 rounded-xl bg-gray-900/50 border border-gray-700/40">
-          <div className="text-2xl font-bold text-white">{total}</div>
+        <div className="text-center p-3 rounded-md bg-gray-900/50 border border-gray-700/40">
+          <div className="text-2xl font-semibold text-white">{total}</div>
           <div className="text-xs text-gray-500">Total Chains</div>
         </div>
-        <div className="text-center p-3 rounded-xl bg-gray-900/50 border border-gray-700/40">
-          <div className="text-2xl font-bold text-emerald-400">{healthy}</div>
+        <div className="text-center p-3 rounded-md bg-gray-900/50 border border-gray-700/40">
+          <div className="text-2xl font-semibold text-emerald-400">{healthy}</div>
           <div className="text-xs text-gray-500">Healthy</div>
         </div>
-        <div className="text-center p-3 rounded-xl bg-gray-900/50 border border-gray-700/40">
-          <div className="text-2xl font-bold text-red-400">{total - healthy}</div>
+        <div className="text-center p-3 rounded-md bg-gray-900/50 border border-gray-700/40">
+          <div className="text-2xl font-semibold text-red-400">{total - healthy}</div>
           <div className="text-xs text-gray-500">Down</div>
         </div>
-        <div className="text-center p-3 rounded-xl bg-gray-900/50 border border-gray-700/40">
-          <div className="text-2xl font-bold text-blue-400">{Math.round(avgLatency)}ms</div>
+        <div className="text-center p-3 rounded-md bg-gray-900/50 border border-gray-700/40">
+          <div className="text-2xl font-semibold text-blue-400">{Math.round(avgLatency)}ms</div>
           <div className="text-xs text-gray-500">Avg Latency</div>
         </div>
       </div>
@@ -210,7 +210,7 @@ function HealthSummary({ statuses, loading }: { statuses: ChainHealthStatus[]; l
       {/* Chain-by-chain health */}
       <div className="space-y-2">
         {statuses.map((s) => (
-          <div key={s.chain.id} className="flex items-center justify-between px-4 py-2.5 rounded-xl bg-gray-900/30 border border-gray-700/30">
+          <div key={s.chain.id} className="flex items-center justify-between px-4 py-2.5 rounded-md bg-gray-900/30 border border-gray-700/30">
             <div className="flex items-center gap-3">
               <StatusIndicator healthy={s.healthy} />
               <span className="text-sm text-white">{s.chain.name}</span>
@@ -248,8 +248,8 @@ function BalanceSummary({ balances }: { balances: ChainBalance[] }) {
   if (loaded.length === 0) return null;
 
   return (
-    <div className="bg-gray-800/40 backdrop-blur rounded-2xl border border-gray-700/60 p-6">
-      <h2 className="text-lg font-semibold text-white mb-4">Multi-Chain Balances</h2>
+    <div className="bg-gray-800/40 backdrop-blur rounded-[var(--cc-radius-md)] border border-gray-700/60 p-6">
+      <h2 className="text-lg font-semibold tracking-tighter text-white mb-4">Multi-Chain Balances</h2>
 
       {hasBalance.length === 0 ? (
         <div className="text-center py-4 text-sm text-gray-500">
@@ -258,9 +258,9 @@ function BalanceSummary({ balances }: { balances: ChainBalance[] }) {
       ) : (
         <div className="space-y-2">
           {hasBalance.map((b) => (
-            <div key={b.chain.id} className="flex items-center justify-between px-4 py-3 rounded-xl bg-gray-900/50 border border-gray-700/40">
+            <div key={b.chain.id} className="flex items-center justify-between px-4 py-3 rounded-md bg-gray-900/50 border border-gray-700/40">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-gradient-to-br from-brand-500 to-brand-600 rounded-lg flex items-center justify-center text-white text-xs font-bold">
+                <div className="w-8 h-8 bg-gradient-to-br from-brand-500 to-brand-600 rounded-lg flex items-center justify-center text-white text-xs font-semibold">
                   {b.chain.symbol}
                 </div>
                 <div>
@@ -269,7 +269,7 @@ function BalanceSummary({ balances }: { balances: ChainBalance[] }) {
                 </div>
               </div>
               <div className="text-right">
-                <div className="text-sm font-mono text-emerald-400 font-bold">{b.balance}</div>
+                <div className="text-sm font-mono text-emerald-400 font-semibold">{b.balance}</div>
                 <div className="text-xs text-gray-500">{b.chain.symbol}</div>
               </div>
             </div>
@@ -307,8 +307,8 @@ function CrossChainFlow() {
   }, [steps.length]);
 
   return (
-    <div className="bg-gray-800/40 backdrop-blur rounded-2xl border border-gray-700/60 p-8 overflow-hidden">
-      <h2 className="text-xl font-semibold text-white mb-2">Cross-Chain Flow</h2>
+    <div className="bg-gray-800/40 backdrop-blur rounded-[var(--cc-radius-md)] border border-gray-700/60 p-8 overflow-hidden">
+      <h2 className="text-xl font-semibold tracking-tighter text-white mb-2">Cross-Chain Flow</h2>
       <p className="text-sm text-gray-400 mb-8">Atomic cross-chain transfers powered by Cinacoin Relay protocol</p>
 
       <div className="relative">
@@ -323,9 +323,9 @@ function CrossChainFlow() {
           {steps.map((step, i) => (
             <div key={step.label} className="flex flex-col items-center gap-3 z-10 w-20 sm:w-24 md:w-32">
               <div
-                className={`w-20 h-20 rounded-2xl flex items-center justify-center text-3xl transition-all duration-500 ${
+                className={`w-20 h-20 rounded-[var(--cc-radius-md)] flex items-center justify-center text-3xl transition-all duration-500 ${
                   i <= activeStep
-                    ? 'bg-gradient-to-br from-brand-500/30 to-brand-400/30 border-2 border-brand-400/50 shadow-lg shadow-brand-500/10 scale-105'
+                    ? 'bg-gradient-to-br from-brand-500/30 to-brand-400/30 border-2 border-brand-400/50 shadow-[0_4px_12px_rgba(99,102,241,0.10),0_2px_4px_rgba(99,102,241,0.05)] scale-105'
                     : 'bg-gray-800 border border-gray-700/60 opacity-50'
                 }`}
               >
@@ -391,7 +391,7 @@ client.on('transaction', (event) => {
   }, [code]);
 
   return (
-    <div className="bg-gray-800/40 backdrop-blur rounded-2xl border border-gray-700/60 overflow-hidden">
+    <div className="bg-gray-800/40 backdrop-blur rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
       <div className="flex items-center justify-between px-6 py-4 border-b border-gray-700/40">
         <div className="flex items-center gap-3">
           <div className="flex gap-1.5">
@@ -589,7 +589,7 @@ export default function MultiChainPage() {
               ? `${account.chainName} · ${shortenAddress(account.address ?? '')}`
               : `${CHAINS.length} EVM chains · Real RPC balances`}
           </div>
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-brand-400 via-brand-500 to-brand-300 bg-clip-text text-transparent">
+          <h1 className="text-4xl font-semibold tracking-tighter bg-gradient-to-r from-brand-400 via-brand-500 to-brand-300 bg-clip-text text-transparent">
             Multi-Chain Connectivity
           </h1>
           <p className="text-gray-400 max-w-2xl mx-auto text-lg">
@@ -601,7 +601,7 @@ export default function MultiChainPage() {
         <div className="flex flex-wrap items-center justify-center gap-4">
           {isConnected ? (
             <>
-              <div className="flex items-center gap-3 bg-gray-800/60 border border-gray-700/60 rounded-2xl px-6 py-4">
+              <div className="flex items-center gap-3 bg-gray-800/60 border border-gray-700/60 rounded-[var(--cc-radius-md)] px-6 py-4">
                 <div className="text-center">
                   <div className="text-xs text-gray-500">Address</div>
                   <div className="text-sm font-mono text-white">{shortenAddress(account.address ?? '')}</div>
@@ -618,7 +618,7 @@ export default function MultiChainPage() {
                 </div>
                 <button
                   onClick={() => disconnect()}
-                  className="ml-2 px-4 py-2 rounded-xl text-xs font-semibold bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/20 transition-all"
+                  className="ml-2 px-4 py-2 rounded-md text-xs font-semibold bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/20 transition-all"
                 >
                   Disconnect
                 </button>
@@ -627,20 +627,20 @@ export default function MultiChainPage() {
           ) : (
             <button
               onClick={() => connect(primaryConnector?.id ?? 'io.metamask')}
-              className="px-6 py-3 rounded-xl font-semibold bg-brand-600 hover:bg-brand-500 text-white transition-all shadow-lg shadow-brand-600/25"
+              className="px-6 py-3 rounded-[100px] font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all shadow-[0_4px_12px_rgba(99,102,241,0.25),0_2px_4px_rgba(99,102,241,0.15)]"
             >
               Connect Wallet
             </button>
           )}
         </div>
         {error && (
-          <div className="text-center text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-2">
+          <div className="text-center text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-md px-4 py-2">
             {error}
           </div>
         )}
 
         {/* Auto-refresh indicator */}
-        <div className="flex items-center justify-between bg-gray-800/30 rounded-xl border border-gray-700/40 px-5 py-3">
+        <div className="flex items-center justify-between bg-gray-800/30 rounded-md border border-gray-700/40 px-5 py-3">
           <div className="flex items-center gap-3">
             <span className="text-xs text-gray-400">Auto-refresh:</span>
             <span className="text-xs font-mono text-brand-400">{countdown}s</span>
