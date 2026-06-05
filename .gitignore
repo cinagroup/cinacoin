@@ -33,16 +33,11 @@ coverage/
 .wrangler/
 
 # Large generated build artifacts
-apps/demo/out/_next/
-apps/demo/out/*.html
-apps/demo/out/*.txt
 apps/demo/test-results/
 apps/demo/tests/playwright-report/
-apps/backend-dashboard/out/
-apps/health-status/out/
 packages/*/dist/
-apps/*/out/
 packages/push-server/target/
 */target/
 packages/nuxt/.nuxt/
 .open-next/
+apps/*/out/
