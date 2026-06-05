@@ -24,15 +24,15 @@ export function estimateUptime(history: HistoryEntry[], serviceName: string): nu
 async function checkService(config: ServiceConfig, timeoutMs: number = 8000): Promise<ServiceCheck> {
   const start = performance.now();
   try {
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), timeoutMs);
+    const controller = AbortSignal.timeout(timeoutMs);
 
-    const response = await fetch(config.url, {
+    // Use API proxy to avoid CORS issues
+    const proxyUrl = `/api/health-check?url=${encodeURIComponent(config.url)}`;
+    const response = await fetch(proxyUrl, {
       method: "GET",
-      signal: controller.signal,
+      signal: controller,
       cache: "no-cache",
     });
-    clearTimeout(timer);
 
     const elapsed = Math.round(performance.now() - start);
 
@@ -96,39 +96,16 @@ async function checkService(config: ServiceConfig, timeoutMs: number = 8000): Pr
     const elapsed = Math.round(performance.now() - start);
     const message = err instanceof Error ? err.message : "Unknown error";
 
-    // If it's a CORS/network error, try a no-cors fetch to at least check reachability
-    try {
-      const fallbackStart = performance.now();
-      const fallbackResp = await fetch(config.url, {
-        method: "GET",
-        mode: "no-cors",
-        cache: "no-cache",
-      });
-      const fallbackElapsed = Math.round(performance.now() - fallbackStart);
-      // no-cors always returns opaque response with status 0 — can't determine health
-      // but if fetch itself succeeds, service is at least reachable
-      return {
-        name: config.name,
-        url: config.url,
-        description: config.description,
-        status: "healthy",
-        responseTime: fallbackElapsed,
-        lastChecked: new Date().toISOString(),
-        uptime: 99,
-        error: undefined,
-      };
-    } catch {
-      return {
-        name: config.name,
-        url: config.url,
-        description: config.description,
-        status: "down",
-        responseTime: elapsed,
-        lastChecked: new Date().toISOString(),
-        uptime: 0,
-        error: message,
-      };
-    }
+    return {
+      name: config.name,
+      url: config.url,
+      description: config.description,
+      status: "down",
+      responseTime: elapsed,
+      lastChecked: new Date().toISOString(),
+      uptime: 0,
+      error: message,
+    };
   }
 }
 

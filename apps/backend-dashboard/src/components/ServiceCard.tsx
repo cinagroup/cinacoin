@@ -30,20 +30,20 @@ function statusDotColor(status: string): string {
     case "down":
       return "bg-red-400 shadow-lg shadow-red-500/30 animate-pulse";
     default:
-      return "bg-gray-500";
+      return "bg-[var(--cc-muted)]";
   }
 }
 
 function statusBadgeBg(status: string): string {
   switch (status) {
     case "healthy":
-      return "bg-emerald-500/10 border-emerald-500/20";
+      return "bg-[var(--cc-success)]/10 border-emerald-500/20";
     case "degraded":
-      return "bg-amber-500/10 border-amber-500/20";
+      return "bg-[var(--cc-warning)]/10 border-amber-500/20";
     case "down":
-      return "bg-red-500/10 border-red-500/20";
+      return "bg-[var(--cc-error)]/10 border-red-500/20";
     default:
-      return "bg-gray-500/10 border-gray-500/20";
+      return "bg-[var(--cc-muted)]/10 border-[var(--cc-muted)]/20";
   }
 }
 
@@ -68,7 +68,7 @@ export default function ServiceCard({ service, health, demoMode = false }: Servi
       <div className="mb-4">
         <div className="flex items-center gap-3 mb-2">
           <span className="text-2xl" role="img" aria-label={service.name}>{service.icon}</span>
-          <h3 className="text-base font-semibold text-white">{service.name}</h3>
+          <h3 className="text-base font-semibold text-[var(--cc-ink)]">{service.name}</h3>
         </div>
         <p className="text-xs text-dashboard-muted leading-relaxed">{service.description}</p>
       </div>
@@ -81,7 +81,7 @@ export default function ServiceCard({ service, health, demoMode = false }: Servi
             <span className={`text-sm font-medium ${
               isDown ? "text-dashboard-danger" :
               isDegraded ? "text-dashboard-warning" :
-              health.latency > 500 ? "text-dashboard-warning" : "text-white"
+              health.latency > 500 ? "text-dashboard-warning" : "text-[var(--cc-ink)]"
             }`}>
               {formatLatency(health.latency)}
             </span>
@@ -90,8 +90,8 @@ export default function ServiceCard({ service, health, demoMode = false }: Servi
 
         {health.error && (
           <div className="flex items-center gap-1.5">
-            <span className="text-xs text-red-400">⚠</span>
-            <span className="text-xs text-red-400/80 truncate">{health.error}</span>
+            <span className="text-xs text-[var(--cc-error)]">⚠</span>
+            <span className="text-xs text-[var(--cc-error)]/80 truncate">{health.error}</span>
           </div>
         )}
 

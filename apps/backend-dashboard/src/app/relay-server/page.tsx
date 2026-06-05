@@ -54,7 +54,7 @@ export default function RelayServerPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl sm:text-2xl font-semibold tracking-tighter text-white">📡 Relay Server</h1>
+          <h1 className="text-xl sm:text-2xl font-semibold tracking-tighter text-[var(--cc-ink)]">📡 Relay Server</h1>
           <p className="text-dashboard-muted mt-1">WebSocket relay via Durable Objects for real-time chain events</p>
         </div>
         <span className="text-xs text-dashboard-muted bg-dashboard-surface border border-dashboard-border rounded-full px-3 py-1.5">
@@ -74,7 +74,7 @@ export default function RelayServerPage() {
       <div className="grid md:grid-cols-2 gap-4">
         {/* DO status */}
         <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
-          <h3 className="text-lg font-semibold text-white mb-4">Durable Objects Status</h3>
+          <h3 className="text-lg font-semibold text-[var(--cc-ink)] mb-4">Durable Objects Status</h3>
           <div className="grid grid-cols-2 gap-4">
             {DO_STATS.map((s, i) => (
               <MetricBox key={i} label={s.label} value={s.value} icon={s.icon} />
@@ -84,7 +84,7 @@ export default function RelayServerPage() {
 
         {/* Connection breakdown */}
         <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
-          <h3 className="text-lg font-semibold text-white mb-4">Connection Breakdown</h3>
+          <h3 className="text-lg font-semibold text-[var(--cc-ink)] mb-4">Connection Breakdown</h3>
           <div className="space-y-3">
             {CHAIN_DATA.map((chain, i) => {
               const total = metrics.activeConnections || 1247;
@@ -98,7 +98,7 @@ export default function RelayServerPage() {
                       style={{ width: `${pct}%`, backgroundColor: chain.color }}
                     />
                   </div>
-                  <span className="text-sm text-white w-12 text-right">{chain.count}</span>
+                  <span className="text-sm text-[var(--cc-ink)] w-12 text-right">{chain.count}</span>
                 </div>
               );
             })}
@@ -115,7 +115,7 @@ export default function RelayServerPage() {
       {/* Event log */}
       <div className="bg-dashboard-surface rounded-md border border-dashboard-border overflow-hidden">
         <div className="px-5 py-4 border-b border-dashboard-border">
-          <h3 className="text-lg font-semibold text-white">Live Events</h3>
+          <h3 className="text-lg font-semibold text-[var(--cc-ink)]">Live Events</h3>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
@@ -131,11 +131,11 @@ export default function RelayServerPage() {
               {RECENT_EVENTS.map((e, i) => (
                 <tr key={i} className="border-b border-dashboard-border/30 hover:bg-dashboard-border/20">
                   <td className="px-5 py-3">
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-dashboard-border/50 text-white">
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-dashboard-border/50 text-[var(--cc-ink)]">
                       {e.event}
                     </span>
                   </td>
-                  <td className="px-5 py-3 font-mono text-xs text-white">{e.client}</td>
+                  <td className="px-5 py-3 font-mono text-xs text-[var(--cc-ink)]">{e.client}</td>
                   <td className="px-5 py-3 text-dashboard-muted">{e.chain}</td>
                   <td className="px-5 py-3 text-dashboard-muted">{e.time}</td>
                 </tr>

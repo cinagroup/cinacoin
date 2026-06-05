@@ -44,7 +44,7 @@ export default function OverviewPage() {
       {/* Page title */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl sm:text-2xl font-semibold tracking-tighter text-white">Service Overview</h1>
+          <h1 className="text-xl sm:text-2xl font-semibold tracking-tighter text-[var(--cc-ink)]">Service Overview</h1>
           <p className="text-dashboard-muted mt-1 text-sm">
             {demoMode ? "Demo Mode — Simulated metrics" : "Live monitoring of Cloudflare Workers"}
             {lastRefresh && !demoMode && (
@@ -59,14 +59,14 @@ export default function OverviewPage() {
             onClick={manualRefresh}
             disabled={checking}
             aria-label={checking ? "Refreshing health check" : "Refresh health check"}
-            className="px-3 py-2 text-sm bg-dashboard-surface border border-dashboard-border rounded-[100px] text-dashboard-muted hover:text-white hover:border-brand-500 transition-colors disabled:opacity-50 min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
+            className="px-3 py-2 text-sm bg-dashboard-surface border border-dashboard-border rounded-[100px] text-dashboard-muted hover:text-[var(--cc-ink)] hover:border-brand-500 transition-colors disabled:opacity-50 min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
           >
             {checking ? "↻ Checking..." : "↻ Refresh"}
           </button>
           <Link
             href="/settings"
             aria-label="Go to settings"
-            className="px-4 py-2 text-sm bg-dashboard-surface border border-dashboard-border rounded-[100px] text-dashboard-muted hover:text-white hover:border-brand-500 transition-colors min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
+            className="px-4 py-2 text-sm bg-dashboard-surface border border-dashboard-border rounded-[100px] text-dashboard-muted hover:text-[var(--cc-ink)] hover:border-brand-500 transition-colors min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
           >
             ⚙️ Settings
           </Link>
@@ -87,7 +87,7 @@ export default function OverviewPage() {
       <BarChart data={HISTORY_DATA} labels={HISTORY_DAYS} color="#3b82f6" height={140} aria-label="7-day request volume bar chart" />
 
       {/* Service status cards */}
-      <h2 className="text-base sm:text-lg font-semibold text-white mt-4 sm:mt-6">Service Status</h2>
+      <h2 className="text-base sm:text-lg font-semibold text-[var(--cc-ink)] mt-4 sm:mt-6">Service Status</h2>
       <div className="grid gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {SERVICES.map((service) => (
           <Link key={service.id} href={`/${service.id}`}>
@@ -118,16 +118,16 @@ export default function OverviewPage() {
               const h = health[service.id] || { status: "unknown", latency: null, lastChecked: 0 };
               return (
                 <tr key={service.id} className="border-b border-dashboard-border/50 hover:bg-dashboard-border/20">
-                  <td className="px-3 sm:px-4 py-3 text-white whitespace-nowrap">
+                  <td className="px-3 sm:px-4 py-3 text-[var(--cc-ink)] whitespace-nowrap">
                     <span className="mr-2">{service.icon}</span>
                     {service.name}
                   </td>
                   <td className={`px-3 sm:px-4 py-3 font-medium ${statusColor(h.status)}`}>
                     {h.status}
                   </td>
-                  <td className="px-3 sm:px-4 py-3 text-right text-white">{metrics ? formatNumber(metrics.totalRequests || 0) : "—"}</td>
-                  <td className="px-3 sm:px-4 py-3 text-right text-white">{metrics ? `${metrics.errorRate?.toFixed(2) || 0}%` : "—"}</td>
-                  <td className="px-3 sm:px-4 py-3 text-right text-white">
+                  <td className="px-3 sm:px-4 py-3 text-right text-[var(--cc-ink)]">{metrics ? formatNumber(metrics.totalRequests || 0) : "—"}</td>
+                  <td className="px-3 sm:px-4 py-3 text-right text-[var(--cc-ink)]">{metrics ? `${metrics.errorRate?.toFixed(2) || 0}%` : "—"}</td>
+                  <td className="px-3 sm:px-4 py-3 text-right text-[var(--cc-ink)]">
                     {metrics ? formatLatency(metrics.avgLatency || 0) : "—"}
                   </td>
                 </tr>

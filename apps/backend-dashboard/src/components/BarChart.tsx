@@ -36,7 +36,7 @@ export default function BarChart({ data, labels, color = "#3b82f6", height = 120
               aria-label={`${labels[i]}: ${value.toLocaleString()}`}
               title={`${labels[i]}: ${value.toLocaleString()}`}
             >
-              <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-dashboard-bg text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
+              <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-dashboard-bg text-[var(--cc-ink)] text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
                 {value.toLocaleString()}
               </div>
             </div>

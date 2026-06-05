@@ -51,7 +51,7 @@ export default function RPCProxyPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl sm:text-2xl font-semibold tracking-tighter text-white">🔄 RPC Proxy</h1>
+          <h1 className="text-xl sm:text-2xl font-semibold tracking-tighter text-[var(--cc-ink)]">🔄 RPC Proxy</h1>
           <p className="text-dashboard-muted mt-1">Multi-chain RPC proxy with KV caching and failover</p>
         </div>
         <span className="text-xs text-dashboard-muted bg-dashboard-surface border border-dashboard-border rounded-full px-3 py-1.5">
@@ -71,7 +71,7 @@ export default function RPCProxyPage() {
       <div className="grid md:grid-cols-3 gap-4">
         {/* KV Cache */}
         <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
-          <h3 className="text-lg font-semibold text-white mb-4">KV Cache Status</h3>
+          <h3 className="text-lg font-semibold text-[var(--cc-ink)] mb-4">KV Cache Status</h3>
           <div className="space-y-4">
             <div>
               <p className="text-sm text-dashboard-muted">Cache Hit Rate</p>
@@ -79,11 +79,11 @@ export default function RPCProxyPage() {
             </div>
             <div>
               <p className="text-sm text-dashboard-muted">Cached Keys</p>
-              <p className="text-2xl font-semibold text-white">24,891</p>
+              <p className="text-2xl font-semibold text-[var(--cc-ink)]">24,891</p>
             </div>
             <div>
               <p className="text-sm text-dashboard-muted">KV Storage Used</p>
-              <p className="text-2xl font-semibold text-white">1.2 GB</p>
+              <p className="text-2xl font-semibold text-[var(--cc-ink)]">1.2 GB</p>
             </div>
             <div>
               <p className="text-sm text-dashboard-muted">Cache Misses (24h)</p>
@@ -102,7 +102,7 @@ export default function RPCProxyPage() {
       {/* RPC Methods */}
       <div className="bg-dashboard-surface rounded-md border border-dashboard-border overflow-hidden">
         <div className="px-5 py-4 border-b border-dashboard-border">
-          <h3 className="text-lg font-semibold text-white">Top RPC Methods (24h)</h3>
+          <h3 className="text-lg font-semibold text-[var(--cc-ink)]">Top RPC Methods (24h)</h3>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
@@ -118,7 +118,7 @@ export default function RPCProxyPage() {
               {RPC_METHODS.map((m, i) => (
                 <tr key={i} className="border-b border-dashboard-border/30 hover:bg-dashboard-border/20">
                   <td className="px-5 py-3 font-mono text-xs text-brand-400">{m.method}</td>
-                  <td className="px-5 py-3 text-white">{formatNumber(m.count)}</td>
+                  <td className="px-5 py-3 text-[var(--cc-ink)]">{formatNumber(m.count)}</td>
                   <td className="px-5 py-3 text-dashboard-muted">{m.pct}%</td>
                   <td className="px-5 py-3 w-48">
                     <div className="bg-dashboard-border rounded-full h-2 overflow-hidden">
@@ -138,7 +138,7 @@ export default function RPCProxyPage() {
       {/* Provider status */}
       <div className="bg-dashboard-surface rounded-md border border-dashboard-border overflow-hidden">
         <div className="px-5 py-4 border-b border-dashboard-border">
-          <h3 className="text-lg font-semibold text-white">RPC Provider Status</h3>
+          <h3 className="text-lg font-semibold text-[var(--cc-ink)]">RPC Provider Status</h3>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
@@ -153,8 +153,8 @@ export default function RPCProxyPage() {
             <tbody>
               {RPC_PROVIDERS.map((p, i) => (
                 <tr key={i} className="border-b border-dashboard-border/30 hover:bg-dashboard-border/20">
-                  <td className="px-5 py-3 text-white">{p.name}</td>
-                  <td className="px-5 py-3 text-white">{formatNumber(p.requests)}</td>
+                  <td className="px-5 py-3 text-[var(--cc-ink)]">{p.name}</td>
+                  <td className="px-5 py-3 text-[var(--cc-ink)]">{formatNumber(p.requests)}</td>
                   <td className="px-5 py-3 text-dashboard-muted">{p.latency}</td>
                   <td className="px-5 py-3">
                     <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
@@ -172,7 +172,7 @@ export default function RPCProxyPage() {
 
       {/* Chain distribution */}
       <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
-        <h3 className="text-lg font-semibold text-white mb-4">Chain Distribution (24h)</h3>
+        <h3 className="text-lg font-semibold text-[var(--cc-ink)] mb-4">Chain Distribution (24h)</h3>
         <div className="space-y-3">
           {CHAIN_DATA.map((chain, i) => {
             const total = CHAIN_DATA.reduce((a, b) => a + b.count, 0);
@@ -186,7 +186,7 @@ export default function RPCProxyPage() {
                     style={{ width: `${pct}%`, backgroundColor: chain.color }}
                   />
                 </div>
-                <span className="text-sm text-white w-16 text-right">{pct}%</span>
+                <span className="text-sm text-[var(--cc-ink)] w-16 text-right">{pct}%</span>
               </div>
             );
           })}

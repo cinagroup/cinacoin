@@ -41,7 +41,7 @@ export default function NotifyServerPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl sm:text-2xl font-semibold tracking-tighter text-white">🔔 Notify Server</h1>
+          <h1 className="text-xl sm:text-2xl font-semibold tracking-tighter text-[var(--cc-ink)]">🔔 Notify Server</h1>
           <p className="text-dashboard-muted mt-1">Multi-channel notification delivery service</p>
         </div>
         <span className="text-xs text-dashboard-muted bg-dashboard-surface border border-dashboard-border rounded-full px-3 py-1.5">
@@ -61,7 +61,7 @@ export default function NotifyServerPage() {
       <div className="grid md:grid-cols-2 gap-4">
         {/* Delivery performance */}
         <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
-          <h3 className="text-lg font-semibold text-white mb-4">Delivery Performance</h3>
+          <h3 className="text-lg font-semibold text-[var(--cc-ink)] mb-4">Delivery Performance</h3>
           <div className="flex items-center justify-center gap-8">
             <ProgressRing
               value={Math.round(metrics.deliveryRate || 0)}
@@ -81,7 +81,7 @@ export default function NotifyServerPage() {
               </div>
               <div>
                 <p className="text-sm text-dashboard-muted">Avg Queue Depth</p>
-                <p className="text-xl font-semibold text-white">127</p>
+                <p className="text-xl font-semibold text-[var(--cc-ink)]">127</p>
               </div>
             </div>
           </div>
@@ -89,7 +89,7 @@ export default function NotifyServerPage() {
 
         {/* Channel distribution */}
         <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
-          <h3 className="text-lg font-semibold text-white mb-4">Channel Distribution</h3>
+          <h3 className="text-lg font-semibold text-[var(--cc-ink)] mb-4">Channel Distribution</h3>
           <div className="space-y-3">
             {CHANNELS_DATA.map((ch, i) => (
               <div key={i} className="flex items-center gap-3">
@@ -101,7 +101,7 @@ export default function NotifyServerPage() {
                     style={{ width: `${ch.pct}%`, backgroundColor: ch.color }}
                   />
                 </div>
-                <span className="text-sm text-white w-12 text-right">{ch.pct}%</span>
+                <span className="text-sm text-[var(--cc-ink)] w-12 text-right">{ch.pct}%</span>
               </div>
             ))}
           </div>
@@ -114,7 +114,7 @@ export default function NotifyServerPage() {
       {/* Recent notifications */}
       <div className="bg-dashboard-surface rounded-md border border-dashboard-border overflow-hidden">
         <div className="px-5 py-4 border-b border-dashboard-border">
-          <h3 className="text-lg font-semibold text-white">Recent Notifications</h3>
+          <h3 className="text-lg font-semibold text-[var(--cc-ink)]">Recent Notifications</h3>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
@@ -131,8 +131,8 @@ export default function NotifyServerPage() {
               {RECENT_NOTIFICATIONS.map((n, i) => (
                 <tr key={i} className="border-b border-dashboard-border/30 hover:bg-dashboard-border/20">
                   <td className="px-5 py-3 text-dashboard-muted">{n.type}</td>
-                  <td className="px-5 py-3 font-mono text-xs text-white">{n.to}</td>
-                  <td className="px-5 py-3 text-white truncate max-w-[200px]">{n.subject}</td>
+                  <td className="px-5 py-3 font-mono text-xs text-[var(--cc-ink)]">{n.to}</td>
+                  <td className="px-5 py-3 text-[var(--cc-ink)] truncate max-w-[200px]">{n.subject}</td>
                   <td className="px-5 py-3">
                     <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
                       n.status === "delivered" ? "bg-dashboard-success/10 text-dashboard-success" :

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -16,7 +17,7 @@ export default function Header() {
     <header className="border-b border-[var(--cc-hairline)] bg-[var(--cc-canvas)]">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-2 text-lg font-semibold tracking-tight text-[var(--cc-ink)]">
-          <span className="text-[var(--cc-primary)]">🔢</span>
+          <Image src="/logo.png" alt="Cinacoin logo" width={24} height={24} className="h-6 w-6" />
           <span>Cinacoin Cloud</span>
         </Link>
         <nav className="flex items-center gap-6">

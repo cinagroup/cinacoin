@@ -69,7 +69,7 @@ export default function ChainsPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold tracking-tighter text-white">🌐 Networks & Chains</h1>
+          <h1 className="text-2xl font-semibold tracking-tighter text-[var(--cc-ink)]">🌐 Networks & Chains</h1>
           <p className="text-dashboard-muted mt-1">
             Configure supported blockchain networks — {enabledCount} of {chains.length} enabled
           </p>
@@ -77,7 +77,7 @@ export default function ChainsPage() {
         <button
           onClick={handleSave}
           aria-label={saved ? "Changes saved" : "Save chain configuration changes"}
-          className="px-4 py-2 bg-brand-500 hover:bg-brand-400 text-white rounded-[100px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
+          className="px-4 py-2 bg-brand-500 hover:bg-brand-400 text-[var(--cc-ink)] rounded-[100px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
         >
           {saved ? "✓ Saved" : "Save Changes"}
         </button>
@@ -93,7 +93,7 @@ export default function ChainsPage() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-4">
           <p className="text-sm text-dashboard-muted">Total Networks</p>
-          <p className="text-2xl font-semibold text-white">{chains.length}</p>
+          <p className="text-2xl font-semibold text-[var(--cc-ink)]">{chains.length}</p>
         </div>
         <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-4">
           <p className="text-sm text-dashboard-muted">Enabled</p>
@@ -126,8 +126,8 @@ export default function ChainsPage() {
             aria-pressed={filter === f.key}
             className={`px-3 py-1.5 rounded-[100px] text-sm font-medium transition-colors ${
               filter === f.key
-                ? "bg-brand-500 text-white"
-                : "bg-dashboard-surface text-dashboard-muted hover:text-white border border-dashboard-border"
+                ? "bg-brand-500 text-[var(--cc-ink)]"
+                : "bg-dashboard-surface text-dashboard-muted hover:text-[var(--cc-ink)] border border-dashboard-border"
             }`}
           >
             <span aria-hidden="true">{NETWORK_ICONS[f.key] || "📋"}</span> {f.label}
@@ -153,7 +153,7 @@ export default function ChainsPage() {
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-2">
                     <span aria-hidden="true">{NETWORK_ICONS[chain.network]}</span>
-                    <span className="text-white font-medium">{chain.name}</span>
+                    <span className="text-[var(--cc-ink)] font-medium">{chain.name}</span>
                     <span
                       className="text-xs px-1.5 py-0.5 rounded"
                       style={{ backgroundColor: `${NETWORK_COLORS[chain.network]}20`, color: NETWORK_COLORS[chain.network] }}
@@ -188,7 +188,7 @@ export default function ChainsPage() {
                     }`}
                   >
                     <span
-                      className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform ${
+                      className={`absolute top-0.5 w-4 h-4 rounded-full bg-[var(--cc-canvas)] shadow transition-transform ${
                         chain.enabled ? "left-5" : "left-0.5"
                       }`}
                     />
@@ -202,7 +202,7 @@ export default function ChainsPage() {
 
       {/* Custom chain add */}
       <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-6">
-        <h3 className="text-lg font-semibold text-white mb-2">Add Custom Network</h3>
+        <h3 className="text-lg font-semibold text-[var(--cc-ink)] mb-2">Add Custom Network</h3>
         <p className="text-sm text-dashboard-muted mb-4">
           Add a custom EVM-compatible chain or non-EVM network for your AppKit configuration.
         </p>
@@ -211,29 +211,29 @@ export default function ChainsPage() {
             type="text"
             placeholder="Network name (e.g. zkSync Era)"
             aria-label="Network name"
-            className="bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-white placeholder-dashboard-muted/50 focus:outline-none focus:border-brand-500"
+            className="bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-[var(--cc-ink)] placeholder-dashboard-muted/50 focus:outline-none focus:border-brand-500"
           />
           <input
             type="text"
             placeholder="Chain ID (e.g. 324)"
             aria-label="Chain ID"
-            className="bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-white placeholder-dashboard-muted/50 focus:outline-none focus:border-brand-500"
+            className="bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-[var(--cc-ink)] placeholder-dashboard-muted/50 focus:outline-none focus:border-brand-500"
           />
           <input
             type="text"
             placeholder="RPC URL"
             aria-label="RPC URL"
-            className="bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-white placeholder-dashboard-muted/50 focus:outline-none focus:border-brand-500"
+            className="bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-[var(--cc-ink)] placeholder-dashboard-muted/50 focus:outline-none focus:border-brand-500"
           />
           <input
             type="text"
             placeholder="Native currency symbol (e.g. ETH)"
             aria-label="Native currency symbol"
-            className="bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-white placeholder-dashboard-muted/50 focus:outline-none focus:border-brand-500"
+            className="bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-[var(--cc-ink)] placeholder-dashboard-muted/50 focus:outline-none focus:border-brand-500"
           />
         </div>
         <div className="mt-4 flex justify-end">
-          <button className="px-4 py-2 bg-brand-500 hover:bg-brand-400 text-white rounded-[100px] text-sm font-medium transition-colors">
+          <button className="px-4 py-2 bg-brand-500 hover:bg-brand-400 text-[var(--cc-ink)] rounded-[100px] text-sm font-medium transition-colors">
             + Add Network
           </button>
         </div>

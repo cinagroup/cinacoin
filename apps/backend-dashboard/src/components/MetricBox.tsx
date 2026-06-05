@@ -6,7 +6,7 @@ interface MetricBoxProps {
   color?: string;
 }
 
-export default function MetricBox({ label, value, icon, trend, color = "text-white" }: MetricBoxProps) {
+export default function MetricBox({ label, value, icon, trend, color = "text-[var(--cc-ink)]" }: MetricBoxProps) {
   return (
     <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-3 sm:p-4">
       <div className="flex items-center justify-between mb-1 sm:mb-2">

@@ -62,7 +62,7 @@ export default function AnalyticsPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold tracking-tighter text-white">📊 Analytics</h1>
+          <h1 className="text-2xl font-semibold tracking-tighter text-[var(--cc-ink)]">📊 Analytics</h1>
           <p className="text-dashboard-muted mt-1">
             AppKit usage metrics and connection analytics
           </p>
@@ -76,8 +76,8 @@ export default function AnalyticsPage() {
               aria-label={`Show ${range} data`}
               className={`px-3 py-1.5 rounded-[100px] text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface ${
                 timeRange === range
-                  ? "bg-brand-500 text-white"
-                  : "bg-dashboard-surface text-dashboard-muted hover:text-white border border-dashboard-border"
+                  ? "bg-brand-500 text-[var(--cc-ink)]"
+                  : "bg-dashboard-surface text-dashboard-muted hover:text-[var(--cc-ink)] border border-dashboard-border"
               }`}
             >
               {range}
@@ -96,32 +96,32 @@ export default function AnalyticsPage() {
 
       {/* MAU Trend */}
       <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
-        <h3 className="text-lg font-semibold text-white mb-4" id="mau-chart-heading">Monthly Active Users</h3>
+        <h3 className="text-lg font-semibold text-[var(--cc-ink)] mb-4" id="mau-chart-heading">Monthly Active Users</h3>
         <BarChart data={MAU_DATA.map((v) => Math.round(v * multiplier))} labels={MONTHS} color="#3b82f6" height={180} ariaLabelledBy="mau-chart-heading" />
       </div>
 
       {/* Charts row */}
       <div className="grid md:grid-cols-2 gap-4">
         <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
-          <h3 className="text-lg font-semibold text-white mb-4" id="connections-chart-heading">Connections Over Time</h3>
+          <h3 className="text-lg font-semibold text-[var(--cc-ink)] mb-4" id="connections-chart-heading">Connections Over Time</h3>
           <BarChart data={CONNECTIONS_DATA.map((v) => Math.round(v * multiplier))} labels={MONTHS} color="#06b6d4" height={160} ariaLabelledBy="connections-chart-heading" />
         </div>
         <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
-          <h3 className="text-lg font-semibold text-white mb-4" id="auth-chart-heading">Authentication Events</h3>
+          <h3 className="text-lg font-semibold text-[var(--cc-ink)] mb-4" id="auth-chart-heading">Authentication Events</h3>
           <BarChart data={AUTH_DATA.map((v) => Math.round(v * multiplier))} labels={MONTHS} color="#8b5cf6" height={160} ariaLabelledBy="auth-chart-heading" />
         </div>
       </div>
 
       {/* Hourly activity */}
       <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
-        <h3 className="text-lg font-semibold text-white mb-4" id="hourly-chart-heading">Hourly Activity Distribution (24h)</h3>
+        <h3 className="text-lg font-semibold text-[var(--cc-ink)] mb-4" id="hourly-chart-heading">Hourly Activity Distribution (24h)</h3>
         <BarChart data={HOURLY_DATA} labels={HOURLY_LABELS} color="#22c55e" height={140} ariaLabelledBy="hourly-chart-heading" />
       </div>
 
       {/* Chain & Wallet distribution */}
       <div className="grid md:grid-cols-2 gap-4">
         <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
-          <h3 className="text-lg font-semibold text-white mb-4">Chain Distribution</h3>
+          <h3 className="text-lg font-semibold text-[var(--cc-ink)] mb-4">Chain Distribution</h3>
           <div className="space-y-3">
             {CHAIN_DISTRIBUTION.map((chain) => (
               <div key={chain.name} className="flex items-center gap-3">
@@ -130,13 +130,13 @@ export default function AnalyticsPage() {
                 <div className="flex-1 bg-dashboard-border rounded-full h-2.5 overflow-hidden" role="progressbar" aria-valuenow={chain.pct} aria-valuemin={0} aria-valuemax={100} aria-label={`${chain.name}: ${chain.pct}%`}>
                   <div className="h-full rounded-full transition-all" style={{ width: `${chain.pct}%`, backgroundColor: chain.color }} />
                 </div>
-                <span className="text-sm text-white w-12 text-right">{chain.pct}%</span>
+                <span className="text-sm text-[var(--cc-ink)] w-12 text-right">{chain.pct}%</span>
               </div>
             ))}
           </div>
         </div>
         <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
-          <h3 className="text-lg font-semibold text-white mb-4">Wallet Connectors</h3>
+          <h3 className="text-lg font-semibold text-[var(--cc-ink)] mb-4">Wallet Connectors</h3>
           <div className="space-y-3">
             {WALLET_DISTRIBUTION.map((wallet) => (
               <div key={wallet.name} className="flex items-center gap-3">
@@ -145,7 +145,7 @@ export default function AnalyticsPage() {
                 <div className="flex-1 bg-dashboard-border rounded-full h-2.5 overflow-hidden" role="progressbar" aria-valuenow={wallet.pct} aria-valuemin={0} aria-valuemax={100} aria-label={`${wallet.name}: ${wallet.pct}%`}>
                   <div className="h-full rounded-full bg-brand-500 transition-all" style={{ width: `${wallet.pct}%` }} />
                 </div>
-                <span className="text-sm text-white w-12 text-right">{wallet.pct}%</span>
+                <span className="text-sm text-[var(--cc-ink)] w-12 text-right">{wallet.pct}%</span>
               </div>
             ))}
           </div>
@@ -154,14 +154,14 @@ export default function AnalyticsPage() {
 
       {/* Authentication methods */}
       <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
-        <h3 className="text-lg font-semibold text-white mb-4">Authentication Methods</h3>
+        <h3 className="text-lg font-semibold text-[var(--cc-ink)] mb-4">Authentication Methods</h3>
         <div className="grid md:grid-cols-2 gap-6">
           <div className="space-y-3">
             {AUTH_METHODS.map((method) => (
               <div key={method.name} className="flex items-center gap-3">
                 <div className="w-3 h-3 rounded-full flex-shrink-0" style={{ backgroundColor: method.color }} aria-hidden="true" />
                 <span className="text-sm text-dashboard-muted flex-1">{method.name}</span>
-                <span className="text-sm font-medium text-white">{method.pct}%</span>
+                <span className="text-sm font-medium text-[var(--cc-ink)]">{method.pct}%</span>
               </div>
             ))}
           </div>
@@ -185,7 +185,7 @@ export default function AnalyticsPage() {
               <div className="absolute inset-3 bg-dashboard-surface rounded-full flex items-center justify-center">
                 <div className="text-center">
                   <p className="text-xs text-dashboard-muted">Auth Rate</p>
-                  <p className="text-lg font-semibold text-white">94.2%</p>
+                  <p className="text-lg font-semibold text-[var(--cc-ink)]">94.2%</p>
                 </div>
               </div>
             </div>
@@ -195,7 +195,7 @@ export default function AnalyticsPage() {
 
       {/* Top dApps */}
       <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
-        <h3 className="text-lg font-semibold text-white mb-4">Top Projects by MAU</h3>
+        <h3 className="text-lg font-semibold text-[var(--cc-ink)] mb-4">Top Projects by MAU</h3>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
@@ -210,8 +210,8 @@ export default function AnalyticsPage() {
               {TOP_DAPPS.map((app, i) => (
                 <tr key={app.name} className="border-b border-dashboard-border/50 hover:bg-dashboard-border/20">
                   <td className="px-4 py-3 text-dashboard-muted">{i + 1}</td>
-                  <td className="px-4 py-3 text-white font-medium">{app.name}</td>
-                  <td className="px-4 py-3 text-right text-white">{formatCompact(app.users)}</td>
+                  <td className="px-4 py-3 text-[var(--cc-ink)] font-medium">{app.name}</td>
+                  <td className="px-4 py-3 text-right text-[var(--cc-ink)]">{formatCompact(app.users)}</td>
                   <td className={`px-4 py-3 text-right font-medium ${app.growth > 0 ? "text-dashboard-success" : "text-dashboard-danger"}`}>
                     {app.growth > 0 ? "+" : ""}{app.growth}%
                   </td>

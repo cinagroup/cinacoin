@@ -43,7 +43,7 @@ export default function ProjectPage() {
     <div className="space-y-6 max-w-4xl">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-semibold tracking-tighter text-white">⚙️ Project Settings</h1>
+        <h1 className="text-2xl font-semibold tracking-tighter text-[var(--cc-ink)]">⚙️ Project Settings</h1>
         <p className="text-dashboard-muted mt-1">
           Configure your AppKit project, authentication, and feature flags
         </p>
@@ -57,26 +57,26 @@ export default function ProjectPage() {
 
       {/* Project Identity */}
       <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-6 space-y-4">
-        <h2 className="text-lg font-semibold text-white">Project Identity</h2>
+        <h2 className="text-lg font-semibold text-[var(--cc-ink)]">Project Identity</h2>
 
         {/* Project ID */}
         <div>
           <label className="text-sm text-dashboard-muted block mb-1">Project ID</label>
           <div className="flex items-center gap-2">
-            <code className="flex-1 bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-white font-mono">
+            <code className="flex-1 bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-[var(--cc-ink)] font-mono">
               {showProjectId ? projectId : "•".repeat(projectId.length)}
             </code>
             <button
               onClick={() => setShowProjectId(!showProjectId)}
               aria-label={showProjectId ? "Hide Project ID" : "Show Project ID"}
-              className="px-3 py-2 bg-dashboard-border rounded-[100px] text-sm text-dashboard-muted hover:text-white transition-colors"
+              className="px-3 py-2 bg-dashboard-border rounded-[100px] text-sm text-dashboard-muted hover:text-[var(--cc-ink)] transition-colors"
             >
               {showProjectId ? "🙈 Hide" : "👁️ Show"}
             </button>
             <button
               onClick={handleCopyProjectId}
               aria-label={copied ? "Copied" : "Copy Project ID"}
-              className="px-3 py-2 bg-dashboard-border rounded-[100px] text-sm text-dashboard-muted hover:text-white transition-colors"
+              className="px-3 py-2 bg-dashboard-border rounded-[100px] text-sm text-dashboard-muted hover:text-[var(--cc-ink)] transition-colors"
             >
               {copied ? "✓ Copied" : "📋 Copy"}
             </button>
@@ -95,7 +95,7 @@ export default function ProjectPage() {
             onChange={(e) => setProjectName(e.target.value)}
             aria-label="Project name"
             aria-describedby="project-name-desc"
-            className="w-full bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
+            className="w-full bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-[var(--cc-ink)] focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
           />
           <p id="project-name-desc" className="sr-only">Enter your project display name</p>
         </div>
@@ -108,7 +108,7 @@ export default function ProjectPage() {
             onChange={(e) => setProjectDescription(e.target.value)}
             rows={2}
             aria-label="Project description"
-            className="w-full bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface resize-none"
+            className="w-full bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-[var(--cc-ink)] focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface resize-none"
           />
         </div>
 
@@ -120,7 +120,7 @@ export default function ProjectPage() {
             value={projectUrl}
             onChange={(e) => setProjectUrl(e.target.value)}
             aria-label="Project URL"
-            className="w-full bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
+            className="w-full bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-[var(--cc-ink)] focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
           />
         </div>
 
@@ -132,14 +132,14 @@ export default function ProjectPage() {
             value={iconUrl}
             onChange={(e) => setIconUrl(e.target.value)}
             aria-label="Project icon URL"
-            className="w-full bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
+            className="w-full bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-[var(--cc-ink)] focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
           />
         </div>
       </div>
 
       {/* Authentication */}
       <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-6 space-y-4">
-        <h2 className="text-lg font-semibold text-white">🔐 Authentication</h2>
+        <h2 className="text-lg font-semibold text-[var(--cc-ink)]">🔐 Authentication</h2>
         <p className="text-sm text-dashboard-muted">
           Configure authentication methods for your AppKit integration.
         </p>
@@ -153,7 +153,7 @@ export default function ProjectPage() {
           ].map((item) => (
             <div key={item.label} className="flex items-center justify-between py-2">
               <div>
-                <p className="text-white font-medium">{item.label}</p>
+                <p className="text-[var(--cc-ink)] font-medium">{item.label}</p>
                 <p className="text-sm text-dashboard-muted">{item.desc}</p>
               </div>
               <button
@@ -166,7 +166,7 @@ export default function ProjectPage() {
                 }`}
               >
                 <span
-                  className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform ${
+                  className={`absolute top-0.5 w-4 h-4 rounded-full bg-[var(--cc-canvas)] shadow transition-transform ${
                     item.state ? "left-5" : "left-0.5"
                   }`}
                 />
@@ -178,7 +178,7 @@ export default function ProjectPage() {
 
       {/* Feature Flags */}
       <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-6 space-y-4">
-        <h2 className="text-lg font-semibold text-white">🚀 Features</h2>
+        <h2 className="text-lg font-semibold text-[var(--cc-ink)]">🚀 Features</h2>
         <p className="text-sm text-dashboard-muted">
           Enable or disable AppKit features for your project.
         </p>
@@ -192,7 +192,7 @@ export default function ProjectPage() {
           ].map((item) => (
             <div key={item.label} className="flex items-center justify-between py-2">
               <div>
-                <p className="text-white font-medium">{item.label}</p>
+                <p className="text-[var(--cc-ink)] font-medium">{item.label}</p>
                 <p className="text-sm text-dashboard-muted">{item.desc}</p>
               </div>
               <button
@@ -205,7 +205,7 @@ export default function ProjectPage() {
                 }`}
               >
                 <span
-                  className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform ${
+                  className={`absolute top-0.5 w-4 h-4 rounded-full bg-[var(--cc-canvas)] shadow transition-transform ${
                     item.state ? "left-5" : "left-0.5"
                   }`}
                 />
@@ -217,7 +217,7 @@ export default function ProjectPage() {
 
       {/* AppKit Integration Code */}
       <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-6 space-y-4">
-        <h2 className="text-lg font-semibold text-white">📦 Integration Code</h2>
+        <h2 className="text-lg font-semibold text-[var(--cc-ink)]">📦 Integration Code</h2>
         <p className="text-sm text-dashboard-muted">
           Copy this snippet to get started with AppKit in your project.
         </p>
@@ -260,7 +260,7 @@ createAppKit({
         <h2 className="text-lg font-semibold text-dashboard-danger">⚠️ Danger Zone</h2>
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-white font-medium">Regenerate Project ID</p>
+            <p className="text-[var(--cc-ink)] font-medium">Regenerate Project ID</p>
             <p className="text-sm text-dashboard-muted">This will invalidate the current project ID and require updating all apps.</p>
           </div>
           <button
@@ -273,7 +273,7 @@ createAppKit({
         </div>
         {showRegenConfirm && (
           <div className="bg-dashboard-bg rounded-lg p-4 border border-dashboard-border">
-            <p className="text-sm text-white mb-3">Are you sure you want to regenerate the Project ID? This cannot be undone.</p>
+            <p className="text-sm text-[var(--cc-ink)] mb-3">Are you sure you want to regenerate the Project ID? This cannot be undone.</p>
             <div className="flex gap-2">
               <button
                 onClick={() => {
@@ -281,14 +281,14 @@ createAppKit({
                   // In production: call API to regenerate
                 }}
                 aria-label="Confirm project ID regeneration"
-                className="px-4 py-2 bg-dashboard-danger text-white rounded-[100px] text-sm hover:bg-red-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dashboard-danger focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
+                className="px-4 py-2 bg-dashboard-danger text-[var(--cc-ink)] rounded-[100px] text-sm hover:bg-red-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dashboard-danger focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
               >
                 Confirm Regenerate
               </button>
               <button
                 onClick={() => setShowRegenConfirm(false)}
                 aria-label="Cancel project ID regeneration"
-                className="px-4 py-2 border border-dashboard-border rounded-[100px] text-dashboard-muted text-sm hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
+                className="px-4 py-2 border border-dashboard-border rounded-[100px] text-dashboard-muted text-sm hover:text-[var(--cc-ink)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
               >
                 Cancel
               </button>
@@ -297,20 +297,20 @@ createAppKit({
         )}
         <div className="flex items-center justify-between pt-2 border-t border-dashboard-danger/10">
           <div>
-            <p className="text-white font-medium">Delete Project</p>
+            <p className="text-[var(--cc-ink)] font-medium">Delete Project</p>
             <p className="text-sm text-dashboard-muted">Permanently delete this project and all associated data.</p>
           </div>
           <button
             onClick={() => setShowDeleteConfirm(true)}
             aria-label="Delete project"
-            className="px-4 py-2 bg-dashboard-danger text-white rounded-[100px] text-sm hover:bg-red-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dashboard-danger focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
+            className="px-4 py-2 bg-dashboard-danger text-[var(--cc-ink)] rounded-[100px] text-sm hover:bg-red-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dashboard-danger focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
           >
             Delete Project
           </button>
         </div>
         {showDeleteConfirm && (
           <div className="bg-dashboard-bg rounded-lg p-4 border border-dashboard-border">
-            <p className="text-sm text-white mb-3">Are you sure you want to delete this project? This action is permanent and cannot be undone.</p>
+            <p className="text-sm text-[var(--cc-ink)] mb-3">Are you sure you want to delete this project? This action is permanent and cannot be undone.</p>
             <div className="flex gap-2">
               <button
                 onClick={() => {
@@ -318,14 +318,14 @@ createAppKit({
                   // In production: call API to delete
                 }}
                 aria-label="Confirm project deletion"
-                className="px-4 py-2 bg-dashboard-danger text-white rounded-[100px] text-sm hover:bg-red-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dashboard-danger focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
+                className="px-4 py-2 bg-dashboard-danger text-[var(--cc-ink)] rounded-[100px] text-sm hover:bg-red-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dashboard-danger focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
               >
                 Confirm Delete
               </button>
               <button
                 onClick={() => setShowDeleteConfirm(false)}
                 aria-label="Cancel project deletion"
-                className="px-4 py-2 border border-dashboard-border rounded-[100px] text-sm text-dashboard-muted hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
+                className="px-4 py-2 border border-dashboard-border rounded-[100px] text-sm text-dashboard-muted hover:text-[var(--cc-ink)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
               >
                 Cancel
               </button>
@@ -339,7 +339,7 @@ createAppKit({
         <button
           onClick={handleSave}
           aria-label={saved ? "Settings saved" : "Save all project settings"}
-          className="px-6 py-2.5 bg-brand-500 hover:bg-brand-400 text-white rounded-[100px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
+          className="px-6 py-2.5 bg-brand-500 hover:bg-brand-400 text-[var(--cc-ink)] rounded-[100px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
         >
           {saved ? "✓ Saved" : "Save All Settings"}
         </button>

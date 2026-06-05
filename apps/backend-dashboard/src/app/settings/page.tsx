@@ -35,7 +35,7 @@ export default function SettingsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl sm:text-2xl font-semibold tracking-tighter text-white">⚙️ Settings</h1>
+          <h1 className="text-xl sm:text-2xl font-semibold tracking-tighter text-[var(--cc-ink)]">⚙️ Settings</h1>
           <p className="text-dashboard-muted mt-1">Configure dashboard preferences and API endpoints</p>
         </div>
         {saved && (
@@ -47,11 +47,11 @@ export default function SettingsPage() {
 
       {/* Appearance */}
       <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
-        <h3 className="text-lg font-semibold text-white mb-4">Appearance</h3>
+        <h3 className="text-lg font-semibold text-[var(--cc-ink)] mb-4">Appearance</h3>
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-white font-medium">Theme</p>
+              <p className="text-[var(--cc-ink)] font-medium">Theme</p>
               <p className="text-sm text-dashboard-muted">Choose your preferred dashboard theme</p>
             </div>
             <div className="flex items-center gap-2">
@@ -60,7 +60,7 @@ export default function SettingsPage() {
                 className={`px-3 py-1.5 rounded-lg text-sm font-medium border transition-colors ${
                   theme === "dark"
                     ? "bg-brand-500/20 text-brand-400 border-brand-500/30"
-                    : "text-dashboard-muted border-dashboard-border hover:text-white"
+                    : "text-dashboard-muted border-dashboard-border hover:text-[var(--cc-ink)]"
                 }`}
               >
                 🌙 Dark
@@ -70,7 +70,7 @@ export default function SettingsPage() {
                 className={`px-3 py-1.5 rounded-lg text-sm font-medium border transition-colors ${
                   theme === "light"
                     ? "bg-brand-500/20 text-brand-400 border-brand-500/30"
-                    : "text-dashboard-muted border-dashboard-border hover:text-white"
+                    : "text-dashboard-muted border-dashboard-border hover:text-[var(--cc-ink)]"
                 }`}
               >
                 ☀️ Light
@@ -80,7 +80,7 @@ export default function SettingsPage() {
           <hr className="border-dashboard-border" />
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-white font-medium">Demo Mode</p>
+              <p className="text-[var(--cc-ink)] font-medium">Demo Mode</p>
               <p className="text-sm text-dashboard-muted">Use simulated metrics instead of live data</p>
             </div>
             <button
@@ -89,7 +89,7 @@ export default function SettingsPage() {
                 demoMode ? "bg-brand-500" : "bg-dashboard-border"
               }`}
             >
-              <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition-transform ${
+              <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-[var(--cc-canvas)] rounded-full transition-transform ${
                 demoMode ? "translate-x-6" : ""
               }`} />
             </button>
@@ -97,7 +97,7 @@ export default function SettingsPage() {
           <hr className="border-dashboard-border" />
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-white font-medium">Sound Alerts</p>
+              <p className="text-[var(--cc-ink)] font-medium">Sound Alerts</p>
               <p className="text-sm text-dashboard-muted">Play sound when a service goes down</p>
             </div>
             <button
@@ -106,7 +106,7 @@ export default function SettingsPage() {
                 soundEnabled ? "bg-brand-500" : "bg-dashboard-border"
               }`}
             >
-              <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition-transform ${
+              <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-[var(--cc-canvas)] rounded-full transition-transform ${
                 soundEnabled ? "translate-x-6" : ""
               }`} />
             </button>
@@ -116,11 +116,11 @@ export default function SettingsPage() {
 
       {/* Monitoring */}
       <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
-        <h3 className="text-lg font-semibold text-white mb-4">Monitoring</h3>
+        <h3 className="text-lg font-semibold text-[var(--cc-ink)] mb-4">Monitoring</h3>
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-white font-medium">Health Check Interval</p>
+              <p className="text-[var(--cc-ink)] font-medium">Health Check Interval</p>
               <p className="text-sm text-dashboard-muted">How often to check worker health (seconds)</p>
             </div>
             <div className="flex items-center gap-2">
@@ -128,7 +128,7 @@ export default function SettingsPage() {
                 type="number"
                 value={refreshInterval}
                 onChange={(e) => setRefreshInterval(Number(e.target.value))}
-                className="w-20 bg-dashboard-border/30 border border-dashboard-border rounded-lg px-3 py-1.5 text-white text-center focus:outline-none focus:ring-2 focus:ring-brand-500"
+                className="w-20 bg-dashboard-border/30 border border-dashboard-border rounded-lg px-3 py-1.5 text-[var(--cc-ink)] text-center focus:outline-none focus:ring-2 focus:ring-brand-500"
                 min={10}
                 max={300}
               />
@@ -138,7 +138,7 @@ export default function SettingsPage() {
           <hr className="border-dashboard-border" />
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-white font-medium">Email Alerts</p>
+              <p className="text-[var(--cc-ink)] font-medium">Email Alerts</p>
               <p className="text-sm text-dashboard-muted">Receive email notifications for service issues</p>
             </div>
             <button
@@ -147,7 +147,7 @@ export default function SettingsPage() {
                 emailAlerts ? "bg-brand-500" : "bg-dashboard-border"
               }`}
             >
-              <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition-transform ${
+              <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-[var(--cc-canvas)] rounded-full transition-transform ${
                 emailAlerts ? "translate-x-6" : ""
               }`} />
             </button>
@@ -155,7 +155,7 @@ export default function SettingsPage() {
           <hr className="border-dashboard-border" />
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-white font-medium">Alert: Service Down</p>
+              <p className="text-[var(--cc-ink)] font-medium">Alert: Service Down</p>
               <p className="text-sm text-dashboard-muted">Notify after service is down for (seconds)</p>
             </div>
             <div className="flex items-center gap-2">
@@ -163,7 +163,7 @@ export default function SettingsPage() {
                 type="number"
                 value={downAlertThreshold}
                 onChange={(e) => setDownAlertThreshold(Number(e.target.value))}
-                className="w-20 bg-dashboard-border/30 border border-dashboard-border rounded-lg px-3 py-1.5 text-white text-center focus:outline-none focus:ring-2 focus:ring-brand-500"
+                className="w-20 bg-dashboard-border/30 border border-dashboard-border rounded-lg px-3 py-1.5 text-[var(--cc-ink)] text-center focus:outline-none focus:ring-2 focus:ring-brand-500"
                 min={10}
                 max={600}
               />
@@ -173,7 +173,7 @@ export default function SettingsPage() {
           <hr className="border-dashboard-border" />
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-white font-medium">Alert: Service Degraded</p>
+              <p className="text-[var(--cc-ink)] font-medium">Alert: Service Degraded</p>
               <p className="text-sm text-dashboard-muted">Notify after service is degraded for (seconds)</p>
             </div>
             <div className="flex items-center gap-2">
@@ -181,7 +181,7 @@ export default function SettingsPage() {
                 type="number"
                 value={degradedAlertThreshold}
                 onChange={(e) => setDegradedAlertThreshold(Number(e.target.value))}
-                className="w-20 bg-dashboard-border/30 border border-dashboard-border rounded-lg px-3 py-1.5 text-white text-center focus:outline-none focus:ring-2 focus:ring-brand-500"
+                className="w-20 bg-dashboard-border/30 border border-dashboard-border rounded-lg px-3 py-1.5 text-[var(--cc-ink)] text-center focus:outline-none focus:ring-2 focus:ring-brand-500"
                 min={10}
                 max={600}
               />
@@ -193,7 +193,7 @@ export default function SettingsPage() {
 
       {/* API Configuration */}
       <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
-        <h3 className="text-lg font-semibold text-white mb-4">API Endpoints</h3>
+        <h3 className="text-lg font-semibold text-[var(--cc-ink)] mb-4">API Endpoints</h3>
         <div className="space-y-4">
           <div>
             <label className="block text-sm text-dashboard-muted mb-1">RPC API URL</label>
@@ -201,7 +201,7 @@ export default function SettingsPage() {
               type="text"
               value={apiUrl}
               onChange={(e) => setApiUrl(e.target.value)}
-              className="w-full bg-dashboard-border/30 border border-dashboard-border rounded-lg px-3 py-2 text-white font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+              className="w-full bg-dashboard-border/30 border border-dashboard-border rounded-lg px-3 py-2 text-[var(--cc-ink)] font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
             />
           </div>
           <div>
@@ -210,7 +210,7 @@ export default function SettingsPage() {
               type="text"
               value={wsUrl}
               onChange={(e) => setWsUrl(e.target.value)}
-              className="w-full bg-dashboard-border/30 border border-dashboard-border rounded-lg px-3 py-2 text-white font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+              className="w-full bg-dashboard-border/30 border border-dashboard-border rounded-lg px-3 py-2 text-[var(--cc-ink)] font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
             />
           </div>
         </div>
@@ -218,23 +218,23 @@ export default function SettingsPage() {
 
       {/* Quick stats */}
       <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
-        <h3 className="text-lg font-semibold text-white mb-4">Dashboard Info</h3>
+        <h3 className="text-lg font-semibold text-[var(--cc-ink)] mb-4">Dashboard Info</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div>
             <p className="text-sm text-dashboard-muted">Version</p>
-            <p className="text-lg font-semibold text-white">v0.1.0</p>
+            <p className="text-lg font-semibold text-[var(--cc-ink)]">v0.1.0</p>
           </div>
           <div>
             <p className="text-sm text-dashboard-muted">Framework</p>
-            <p className="text-lg font-semibold text-white">Next.js 15</p>
+            <p className="text-lg font-semibold text-[var(--cc-ink)]">Next.js 15</p>
           </div>
           <div>
             <p className="text-sm text-dashboard-muted">Deploy Target</p>
-            <p className="text-lg font-semibold text-white">Cloudflare Pages</p>
+            <p className="text-lg font-semibold text-[var(--cc-ink)]">Cloudflare Pages</p>
           </div>
           <div>
             <p className="text-sm text-dashboard-muted">Last Build</p>
-            <p className="text-lg font-semibold text-white">Jun 3, 2026</p>
+            <p className="text-lg font-semibold text-[var(--cc-ink)]">Jun 3, 2026</p>
           </div>
         </div>
       </div>
@@ -253,13 +253,13 @@ export default function SettingsPage() {
             setApiUrl("https://api.cinacoin.com");
             setWsUrl("wss://ws.cinacoin.com");
           }}
-          className="px-4 py-2 text-sm text-dashboard-muted border border-dashboard-border rounded-[100px] hover:text-white hover:border-white/30 transition-colors"
+          className="px-4 py-2 text-sm text-dashboard-muted border border-dashboard-border rounded-[100px] hover:text-[var(--cc-ink)] hover:border-white/30 transition-colors"
         >
           Reset
         </button>
         <button
           onClick={handleSave}
-          className="px-4 py-2 text-sm bg-brand-500 text-white rounded-[100px] hover:bg-brand-600 transition-colors font-medium"
+          className="px-4 py-2 text-sm bg-brand-500 text-[var(--cc-ink)] rounded-[100px] hover:bg-brand-600 transition-colors font-medium"
         >
           Save Settings
         </button>

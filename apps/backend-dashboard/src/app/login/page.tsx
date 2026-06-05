@@ -42,28 +42,28 @@ export default function LoginPage() {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-lg bg-brand-500/20 border border-brand-500/30 mb-4">
           <img src="/logo.png" alt="cinacoin" className="w-10 h-10 rounded-md" />
           </div>
-          <h1 className="text-3xl font-semibold tracking-tighter text-white">cinacoin</h1>
-          <p className="text-gray-400 mt-2">Backend Dashboard</p>
+          <h1 className="text-3xl font-semibold tracking-tighter text-[var(--cc-ink)]">cinacoin</h1>
+          <p className="text-[var(--cc-muted)] mt-2">Backend Dashboard</p>
         </div>
 
         {/* Login Card */}
         <div className="bg-[#1a1d2e] border border-[#2a2d3e] rounded-lg p-8 shadow-[0_2px_2px_rgba(0,0,0,0.3),0_8px_16px_-4px_rgba(0,0,0,0.3),inset_0_0_0_1px_rgba(255,255,255,0.08)]">
-          <h2 className="text-xl font-semibold text-white mb-2">Sign in with Wallet</h2>
-          <p className="text-sm text-gray-400 mb-6">
+          <h2 className="text-xl font-semibold text-[var(--cc-ink)] mb-2">Sign in with Wallet</h2>
+          <p className="text-sm text-[var(--cc-muted)] mb-6">
             Connect your Ethereum wallet to access the cinacoin Backend Dashboard.
             A signature will be requested — no gas fees required.
           </p>
 
           {/* Error message */}
           {error && (
-            <div className="mb-4 p-3 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-sm">
+            <div className="mb-4 p-3 rounded-lg bg-[var(--cc-error)]/10 border border-red-500/30 text-[var(--cc-error)] text-sm">
               {error}
             </div>
           )}
 
           {/* Wallet not installed warning */}
           {walletMissing && (
-            <div className="mb-4 p-3 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-400 text-sm">
+            <div className="mb-4 p-3 rounded-lg bg-[var(--cc-warning)]/10 border border-amber-500/30 text-[var(--cc-warning)] text-sm">
               ⚠️ No Ethereum wallet detected. Please install{" "}
               <a
                 href="https://metamask.io"
@@ -86,7 +86,7 @@ export default function LoginPage() {
           {isLoading && step !== "connecting" && !error && (
             <div className="mb-4 p-3 rounded-lg bg-brand-500/10 border border-brand-500/30">
               <p className="text-xs text-brand-300 font-medium">⏳ Check your wallet to sign the message...</p>
-              <p className="text-xs text-gray-500 mt-1">Approve the signature request in your wallet popup.</p>
+              <p className="text-xs text-[var(--cc-body)] mt-1">Approve the signature request in your wallet popup.</p>
             </div>
           )}
 
@@ -99,8 +99,8 @@ export default function LoginPage() {
               w-full py-3 px-4 rounded-[100px] font-semibold text-sm transition-all duration-200
               ${
                 isLoading || step === "connecting"
-                  ? "bg-brand-500/50 text-white/60 cursor-not-allowed"
-                  : "bg-brand-500 hover:bg-brand-400 text-white shadow-lg shadow-brand-500/25 hover:shadow-brand-400/30 active:scale-[0.98]"
+                  ? "bg-brand-500/50 text-[var(--cc-ink)]/60 cursor-not-allowed"
+                  : "bg-brand-500 hover:bg-brand-400 text-[var(--cc-ink)] shadow-lg shadow-brand-500/25 hover:shadow-brand-400/30 active:scale-[0.98]"
               }
             `}
           >
@@ -122,7 +122,7 @@ export default function LoginPage() {
           </button>
 
           {/* What happens info */}
-          <div className="mt-6 space-y-2 text-xs text-gray-500">
+          <div className="mt-6 space-y-2 text-xs text-[var(--cc-body)]">
             <p>🔒 You will be asked to sign a message to prove wallet ownership.</p>
             <p>⛽ No gas fees — this is an off-chain signature.</p>
             <p>⏱️ Session expires after 24 hours.</p>
@@ -133,7 +133,7 @@ export default function LoginPage() {
         <div className="text-center mt-6">
           <Link
             href="/"
-            className="text-sm text-gray-500 hover:text-gray-300 transition-colors"
+            className="text-sm text-[var(--cc-body)] hover:text-[var(--cc-ink)] transition-colors"
           >
             ← Back to Dashboard
           </Link>
