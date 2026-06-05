@@ -200,8 +200,8 @@
   .cc-btn-primary-sm {
     display: inline-flex; align-items: center; justify-content: center;
     background: var(--cc-primary); color: var(--cc-on-primary);
-    border: none; border-radius: var(--cc-radius-pill);
-    padding: 0 var(--cc-xs); height: 32px;
+    border: none; border-radius: var(--cc-radius-sm);
+    padding: 0 var(--cc-xs); height: 28px;
     font-size: 14px; font-weight: 500; line-height: 20px;
     cursor: pointer; transition: opacity 0.15s ease; text-decoration: none; white-space: nowrap;
   }
