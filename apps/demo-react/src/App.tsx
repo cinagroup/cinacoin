@@ -6,16 +6,16 @@ import MultiChainPage from './pages/MultiChainPage'
 import AuthPage from './pages/AuthPage'
 
 function App() {
-  return (
-    <WalletProvider>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/swap" element={<SwapPage />} />
-        <Route path="/multichain" element={<MultiChainPage />} />
-        <Route path="/auth" element={<AuthPage />} />
-      </Routes>
-    </WalletProvider>
-  )
+ return (
+ <WalletProvider>
+ <Routes>
+ <Route path="/" element={<HomePage />} />
+ <Route path="/swap" element={<SwapPage />} />
+ <Route path="/multichain" element={<MultiChainPage />} />
+ <Route path="/auth" element={<AuthPage />} />
+ </Routes>
+ </WalletProvider>
+ )
 }
 
 export default App

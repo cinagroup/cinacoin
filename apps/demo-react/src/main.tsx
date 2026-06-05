@@ -8,11 +8,11 @@ import { EthereumProvider } from '@walletconnect/ethereum-provider'
 
 // Force the bundler to keep the module by exposing it at module scope
 if (typeof window !== 'undefined') {
-  ;(window as any).__WC = EthereumProvider
+ ;(window as any).__WC = EthereumProvider
 }
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
+ <BrowserRouter>
+ <App />
+ </BrowserRouter>,
 )
