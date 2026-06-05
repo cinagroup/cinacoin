@@ -368,7 +368,7 @@ export default function ComponentsPage() {
               <div className="flex flex-wrap gap-3">
                 {/* Connection status */}
                 <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-green-500/15 text-green-400 border border-green-500/25">
-                  <span className="size-3 rounded-full bg-green-400 animate-pulse" />
+                  <span className="size-3 rounded-full bg-[var(--cc-success)] animate-pulse" />
                   Connected
                 </span>
                 <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border border-yellow-500/25">
@@ -413,7 +413,7 @@ export default function ComponentsPage() {
 <span className="inline-flex items-center gap-1.5 px-3 py-1.5
   rounded-full text-xs font-semibold
   bg-green-500/15 text-green-400 border border-green-500/25">
-  <span className="size-3 rounded-full bg-green-400 animate-pulse" />
+  <span className="size-3 rounded-full bg-[var(--cc-success)] animate-pulse" />
   Connected
 </span>
 
@@ -506,7 +506,7 @@ function ToggleSwitch({ checked, onChange }) {
     <button
       onClick={() => onChange(!checked)}
       className={\`relative w-12 h-6 rounded-full transition-colors
-        \${checked ? 'bg-blue-500' : 'bg-[var(--cc-canvas-soft-2)]'}\`}
+        \${checked ? 'bg-[var(--cc-link)]' : 'bg-[var(--cc-canvas-soft-2)]'}\`}
       role="switch" aria-checked={checked}
     >
       <span className={\`absolute top-0.5 left-0.5 w-5 h-5
@@ -788,7 +788,7 @@ function ToggleDemo({ label, desc, defaultChecked }: { label: string; desc: stri
       <button
         onClick={() => setChecked(!checked)}
         className={`relative w-12 h-6 rounded-full transition-colors duration-200 ${
-          checked ? 'bg-blue-500' : 'bg-[var(--cc-canvas-soft-2)]'
+          checked ? 'bg-[var(--cc-link)]' : 'bg-[var(--cc-canvas-soft-2)]'
         }`}
         role="switch"
         aria-checked={checked}

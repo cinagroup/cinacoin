@@ -583,7 +583,7 @@ export default function MultiChainPage() {
       <div className="max-w-6xl mx-auto space-y-8">
         {/* Hero */}
         <div className="text-center space-y-4 py-6">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-[var(--cc-primary)]/20 rounded-full text-sm text-[var(--cc-link)] mb-2">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-[var(--cc-link)]/10 border border-[var(--cc-primary)]/20 rounded-full text-sm text-[var(--cc-link)] mb-2">
             <span className="w-2 h-2 rounded-full bg-[var(--cc-link)] animate-pulse" />
             {isConnected
               ? `${account.chainName} · ${shortenAddress(account.address ?? '')}`
