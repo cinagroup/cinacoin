@@ -143,10 +143,10 @@ function BackendStatus() {
           boxShadow: '0px 2px 2px #0000000a, 0px 8px 8px -8px #0000000a, 0 0 0 1px #00000014',
         }}
       >
-        {} /* Scan line effect removed per DESIGN.md */}
-        {/* <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[var(--cc-radius-md)]"> */}
+        {/* Scan line effect removed per DESIGN.md */}
+        {/* <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[var(--cc-radius-md)]">
           <div className="absolute inset-x-0 h-px bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent animate-[scan-line_3s_linear_infinite]" />
-        </div>
+        </div> */}
 
         {/* Card header */}
         <div className="relative flex items-center justify-between px-5 py-3 border-b border-emerald-900/30">
