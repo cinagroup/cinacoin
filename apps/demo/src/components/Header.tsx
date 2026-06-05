@@ -66,8 +66,9 @@ export default function Header({
           {/* Logo */}
           <Link
             href="/"
-            className="text-xl font-semibold text-[var(--cc-ink)] shrink-0"
+            className="flex items-center gap-2 text-xl font-semibold text-[var(--cc-ink)] shrink-0"
           >
+            <img src="/logo.png" alt="Cinacoin" className="h-8 w-8 rounded-md" />
             Cinacoin
           </Link>
 

@@ -92,8 +92,8 @@ html {
 
 body {
   margin: 0;
-  background: #0f172a;
-  color: #e2e8f0;
+  background: var(--cc-canvas-soft-2);
+  color: var(--cc-ink, #e2e8f0);
   min-height: 100vh;
 }
 
@@ -119,7 +119,7 @@ body {
 
 /* ── Footer ───────────────────────────────────────────────────────── */
 .app-footer {
-  border-top: 1px solid #1e293b;
+  border-top: 1px solid var(--cc-canvas, #1e293b);
   padding: 1.5rem 1rem;
   text-align: center;
 }
@@ -127,15 +127,15 @@ body {
 .app-footer p {
   margin: 0;
   font-size: 0.8rem;
-  color: #475569;
+  color: var(--cc-hairline-strong, #475569);
 }
 
 .app-footer code {
-  background: #1e293b;
+  background: var(--cc-canvas, #1e293b);
   padding: 0.125rem 0.375rem;
   border-radius: 4px;
   font-size: 0.75rem;
-  color: #38bdf8;
+  color: var(--cc-link, #38bdf8);
 }
 
 /* ── Connect Prompt ───────────────────────────────────────────────── */
@@ -145,8 +145,8 @@ body {
 }
 
 .prompt-card {
-  background: #1e293b;
-  border: 1px dashed #334155;
+  background: var(--cc-canvas, #1e293b);
+  border: 1px dashed var(--cc-hairline, #334155);
   border-radius: 0.75rem;
   padding: 2.5rem;
   text-align: center;
@@ -158,13 +158,13 @@ body {
 .prompt-card h2 {
   margin: 0 0 0.5rem;
   font-size: 1.25rem;
-  color: #e2e8f0;
+  color: var(--cc-ink, #e2e8f0);
 }
 
 .prompt-card p {
   margin: 0;
   font-size: 0.9rem;
-  color: #94a3b8;
+  color: var(--cc-body, #94a3b8);
   line-height: 1.5;
 }
 </style>
