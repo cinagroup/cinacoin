@@ -536,20 +536,21 @@ function getInitialLocale(): Locale {
   return 'en'
 }
 
+const initialLocale = getInitialLocale()
+
 export function I18nProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>('en')
-  const [mounted, setMounted] = useState(false)
+  const [locale, setLocaleState] = useState<Locale>(initialLocale)
 
   useEffect(() => {
-    setLocaleState(getInitialLocale())
-    setMounted(true)
+    // Re-evaluate on client for stored preference
+    const clientLocale = getInitialLocale()
+    setLocaleState(clientLocale)
   }, [])
 
   useEffect(() => {
-    if (!mounted) return
     try { localStorage.setItem('cc-locale', locale) } catch {}
     document.documentElement.lang = locale
-  }, [locale, mounted])
+  }, [locale])
 
   const setLocale = useCallback((l: Locale) => {
     setLocaleState(l)
@@ -561,8 +562,6 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
     },
     [locale],
   )
-
-  if (!mounted) return <>{children}</>
 
   return (
     <LocaleContext.Provider value={{ locale, setLocale, t }}>
