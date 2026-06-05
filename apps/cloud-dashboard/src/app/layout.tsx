@@ -19,7 +19,7 @@ export default function RootLayout({
           <aside className="hidden w-64 flex-shrink-0 border-r border-[var(--cc-hairline)] bg-[var(--cc-canvas-soft)]/50 md:block">
             <nav className="flex h-full flex-col p-4">
               <div className="mb-8 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-md bg-primary-600 font-semibold text-[var(--cc-ink)]">
+                <div className="flex h-10 w-10 items-center justify-center rounded-md bg-[var(--cc-primary)] font-semibold text-[var(--cc-ink)]">
                   C
                 </div>
                 <div>

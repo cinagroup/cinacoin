@@ -19,7 +19,7 @@ export function UsageChart({ data }: { data: UsageDataPoint[] }) {
                 style={{ height: "160px" }}
               >
                 <div
-                  className="w-full rounded-t-sm bg-primary-600 transition-all hover:bg-primary-500"
+                  className="w-full rounded-t-sm bg-[var(--cc-primary)] transition-all hover:opacity-85"
                   style={{ height: `${height}%` }}
                   title={`${point.requests} requests, ${point.errors} errors`}
                 />
@@ -31,7 +31,7 @@ export function UsageChart({ data }: { data: UsageDataPoint[] }) {
       </div>
       <div className="flex items-center gap-4 text-xs text-[var(--cc-muted)]">
         <div className="flex items-center gap-1.5">
-          <div className="h-3 w-3 rounded-sm bg-primary-600" />
+          <div className="h-3 w-3 rounded-sm bg-[var(--cc-primary)]" />
           <span>Requests</span>
         </div>
       </div>

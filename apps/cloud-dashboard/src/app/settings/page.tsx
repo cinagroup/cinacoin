@@ -75,11 +75,11 @@ export default function SettingsPage() {
 
         {/* Danger Zone */}
         <div className="rounded-lg border border-red-200 bg-[var(--cc-card)] p-6 shadow-[var(--cc-level1)]" style={{ boxShadow: 'var(--cc-level2)' }}>
-          <h2 className="mb-4 text-lg font-semibold tracking-tight text-red-600">Danger Zone</h2>
+          <h2 className="mb-4 text-lg font-semibold tracking-tight text-[var(--cc-error)]">Danger Zone</h2>
           <p className="mb-4 text-sm text-[var(--cc-body)]">
             Once you delete your account, there is no going back.
           </p>
-          <button className="rounded-md border border-red-300 bg-red-50 px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-100">
+          <button className="rounded-md border border-[var(--cc-error-soft)] bg-[var(--cc-error-soft)] px-4 py-2 text-sm font-medium text-[var(--cc-error)] hover:bg-[var(--cc-error-soft)]">
             Delete Account
           </button>
         </div>
