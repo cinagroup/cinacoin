@@ -69,7 +69,7 @@ export default function ProjectDetailPage() {
           <a href="/projects" className="text-sm text-slate-400 hover:text-white">
             ← Back to Projects
           </a>
-          <h1 className="mt-2 text-2xl font-bold text-white">{project.name}</h1>
+          <h1 className="mt-2 text-2xl font-semibold tracking-tight text-white">{project.name}</h1>
           <p className="mt-1 text-sm text-slate-400">{project.description}</p>
         </div>
 
@@ -96,19 +96,19 @@ export default function ProjectDetailPage() {
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
               <div className="rounded-lg border border-dark-800 bg-dark-900 p-6">
                 <p className="text-sm text-slate-400">Total Requests</p>
-                <p className="mt-1 text-3xl font-bold text-white">
+                <p className="mt-1 text-3xl font-semibold text-white">
                   {totalRequests.toLocaleString()}
                 </p>
               </div>
               <div className="rounded-lg border border-dark-800 bg-dark-900 p-6">
                 <p className="text-sm text-slate-400">Errors</p>
-                <p className="mt-1 text-3xl font-bold text-red-400">
+                <p className="mt-1 text-3xl font-semibold text-red-400">
                   {totalErrors.toLocaleString()}
                 </p>
               </div>
               <div className="rounded-lg border border-dark-800 bg-dark-900 p-6">
                 <p className="text-sm text-slate-400">Avg Latency</p>
-                <p className="mt-1 text-3xl font-bold text-emerald-400">
+                <p className="mt-1 text-3xl font-semibold text-emerald-400">
                   45ms
                 </p>
               </div>
@@ -125,7 +125,7 @@ export default function ProjectDetailPage() {
 
         {activeTab === "settings" && (
           <div className="rounded-xl border border-dark-800 bg-dark-900 p-6">
-            <h3 className="mb-4 text-lg font-medium text-white">Project Settings</h3>
+            <h3 className="mb-4 text-lg font-medium tracking-tight text-white">Project Settings</h3>
             <p className="text-sm text-slate-400">Settings management coming soon.</p>
           </div>
         )}

@@ -66,7 +66,7 @@ export default function Header({
           {/* Logo */}
           <Link
             href="/"
-            className="text-xl font-bold text-[var(--cc-ink)] shrink-0"
+            className="text-xl font-semibold text-[var(--cc-ink)] shrink-0"
           >
             Cinacoin
           </Link>
@@ -123,7 +123,7 @@ export default function Header({
               {langOpen && (
                 <>
                   <div className="fixed inset-0 z-40" onClick={() => setLangOpen(false)} />
-                  <div className="absolute right-0 top-full mt-1 z-50 w-36 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-lg)] shadow-xl overflow-hidden animate-dropdown-in">
+                  <div className="absolute right-0 top-full mt-1 z-50 w-36 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-lg)] shadow-[0_4px_16px_rgba(0,0,0,0.15)] overflow-hidden animate-dropdown-in">
                     <button
                       onClick={() => { setLocale('en'); setLangOpen(false); }}
                       className={`w-full px-4 py-2.5 text-sm text-left transition-colors ${
@@ -186,7 +186,7 @@ export default function Header({
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors ${
+                  className={`flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors ${
                     pathname === item.href
                       ? 'bg-[var(--cc-hairline)] text-[var(--cc-ink)]'
                       : 'text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-hairline)]/50'

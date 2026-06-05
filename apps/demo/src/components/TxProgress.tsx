@@ -13,7 +13,7 @@ export default function TxProgress({ steps }: { steps: TxStep[] }) {
   const errorIdx = steps.findIndex((s) => s.status === 'error');
 
   return (
-    <div className="mx-5 mb-5 p-4 bg-gray-900/60 rounded-xl border border-gray-700/30 animate-slide-up">
+    <div className="mx-5 mb-5 p-4 bg-gray-900/60 rounded-md border border-gray-700/30 animate-slide-up">
       <div className="space-y-3">
         {steps.map((step, i) => {
           const isDone = step.status === 'done';

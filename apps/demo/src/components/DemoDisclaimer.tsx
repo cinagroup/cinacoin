@@ -74,7 +74,7 @@ export function DemoDisclaimer({ compact = false }: { compact?: boolean }) {
 
   return (
     <div className="mx-auto max-w-6xl px-4 pt-6">
-      <div className="flex items-start gap-3 rounded-xl bg-amber-500/10 border border-amber-500/25 px-5 py-4 text-sm text-amber-200 shadow-lg shadow-amber-500/5">
+      <div className="flex items-start gap-3 rounded-md bg-amber-500/10 border border-amber-500/25 px-5 py-4 text-sm text-amber-200 shadow-[0_4px_12px_rgba(245,158,11,0.12)]">
         <span className="text-xl leading-none mt-0.5">⚠️</span>
         <div className="flex-1">
           <p className="font-semibold text-amber-100">

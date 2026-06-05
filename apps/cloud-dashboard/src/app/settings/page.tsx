@@ -11,7 +11,7 @@ export default function SettingsPage() {
       <Header />
       <main className="mx-auto max-w-2xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-900">Account Settings</h1>
+          <h1 className="text-2xl font-semibold tracking-tight text-gray-900">Account Settings</h1>
           <p className="mt-1 text-sm text-gray-500">
             Manage your account preferences and API access.
           </p>
@@ -19,7 +19,7 @@ export default function SettingsPage() {
 
         {/* API Access */}
         <div className="mb-6 rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-          <h2 className="mb-4 text-lg font-semibold text-gray-900">API Access</h2>
+          <h2 className="mb-4 text-lg font-semibold tracking-tight text-gray-900">API Access</h2>
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700">
@@ -45,7 +45,7 @@ export default function SettingsPage() {
 
         {/* Profile */}
         <div className="mb-6 rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-          <h2 className="mb-4 text-lg font-semibold text-gray-900">Profile</h2>
+          <h2 className="mb-4 text-lg font-semibold tracking-tight text-gray-900">Profile</h2>
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700">
@@ -67,7 +67,7 @@ export default function SettingsPage() {
                 className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
               />
             </div>
-            <button className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700">
+            <button className="rounded-[100px] bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700">
               Save Changes
             </button>
           </div>
@@ -75,7 +75,7 @@ export default function SettingsPage() {
 
         {/* Danger Zone */}
         <div className="rounded-lg border border-red-200 bg-white p-6 shadow-sm">
-          <h2 className="mb-4 text-lg font-semibold text-red-600">Danger Zone</h2>
+          <h2 className="mb-4 text-lg font-semibold tracking-tight text-red-600">Danger Zone</h2>
           <p className="mb-4 text-sm text-gray-500">
             Once you delete your account, there is no going back.
           </p>

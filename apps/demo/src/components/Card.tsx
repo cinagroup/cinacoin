@@ -33,14 +33,14 @@ export default function Card({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onMouseMove={handleMouseMove}
-      className={`relative bg-gray-800/60 backdrop-blur-xl rounded-2xl border border-gray-700/60 overflow-hidden transition-all duration-300 ${
-        hoverLift ? 'hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/30 hover:border-gray-600/60' : ''
+      className={`relative bg-gray-800/60 backdrop-blur-xl rounded-md border border-gray-700/60 overflow-hidden transition-all duration-300 ${
+        hoverLift ? 'hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.25)] hover:border-gray-600/60' : ''
       } ${className}`}
     >
       {/* Gradient glow on hover */}
       {hoverLift && (
         <div
-          className="absolute inset-0 rounded-2xl opacity-0 pointer-events-none transition-opacity duration-300"
+          className="absolute inset-0 rounded-md opacity-0 pointer-events-none transition-opacity duration-300"
           style={{
             opacity: hovered ? 1 : 0,
             background: `radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(59,130,246,0.06), transparent 40%)`,
@@ -51,14 +51,14 @@ export default function Card({
       {/* Border shimmer */}
       {hoverLift && (
         <div
-          className={`absolute -inset-px rounded-2xl bg-gradient-to-r ${glowColor} pointer-events-none transition-opacity duration-500`}
+          className={`absolute -inset-px rounded-md bg-gradient-to-r ${glowColor} pointer-events-none transition-opacity duration-500`}
           style={{ opacity: hovered ? 1 : 0, mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)', maskComposite: 'exclude', WebkitMaskComposite: 'xor', padding: 1 }}
         />
       )}
 
       {(title || subtitle) && (
         <div className="relative px-5 py-4 border-b border-gray-700/50">
-          {title && <h2 className="text-lg font-bold text-white">{title}</h2>}
+          {title && <h2 className="text-lg font-semibold tracking-tight text-white">{title}</h2>}
           {subtitle && <p className="text-xs text-gray-500 mt-0.5">{subtitle}</p>}
         </div>
       )}

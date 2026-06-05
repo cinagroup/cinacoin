@@ -100,10 +100,10 @@ function ToastContainer() {
         return (
           <div
             key={toast.id}
-            className={`pointer-events-auto ${s.bg} ${s.border} border rounded-xl p-4 shadow-2xl backdrop-blur-sm animate-slide-in`}
+            className={`pointer-events-auto ${s.bg} ${s.border} border rounded-md p-4 shadow-[0_4px_16px_rgba(0,0,0,0.35)] backdrop-blur-sm animate-slide-in}`}
           >
             <div className="flex items-start gap-3">
-              <span className={`text-lg font-bold flex-shrink-0 ${
+              <span className={`text-lg font-semibold flex-shrink-0 ${
                 toast.type === 'success' ? 'text-emerald-400' :
                 toast.type === 'error' ? 'text-red-400' :
                 toast.type === 'warning' ? 'text-amber-400' :

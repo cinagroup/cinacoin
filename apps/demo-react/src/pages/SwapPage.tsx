@@ -53,13 +53,13 @@ export default function SwapPage() {
   const TokenSelector: React.FC<TokenSelectorProps> = ({ show, onClose, onSelect, label }) => (
     <div className={`fixed inset-0 z-50 flex items-center justify-center p-4 ${!show && 'hidden'}`}>
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative w-full max-w-sm bg-gray-900 rounded-2xl border border-gray-800 shadow-2xl p-4">
+      <div className="relative w-full max-w-sm bg-gray-900 rounded-lg border border-gray-800 shadow-[0_2px_2px_rgba(0,0,0,0.3),0_8px_16px_-4px_rgba(0,0,0,0.3),inset_0_0_0_1px_rgba(255,255,255,0.08)] p-4">
         <h3 className="font-semibold mb-3">{label}</h3>
         <div className="space-y-2 max-h-64 overflow-y-auto">
           {TOKENS.map((t, i) => (
             <button key={t.symbol} onClick={() => { onSelect(i); onClose(); }}
-              className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-gray-800 transition-colors">
-              <span className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold text-white" style={{ backgroundColor: t.color }}>{t.icon}</span>
+              className="w-full flex items-center gap-3 p-3 rounded-md hover:bg-gray-800 transition-colors">
+              <span className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold text-white" style={{ backgroundColor: t.color }}>{t.icon}</span>
               <div className="flex-1 text-left">
                 <span className="font-medium text-sm">{t.symbol}</span>
                 <p className="text-xs text-gray-500">{t.name}</p>
@@ -79,7 +79,7 @@ export default function SwapPage() {
       {/* Nav */}
       <nav className="border-b border-gray-800/50 bg-gray-950/80 backdrop-blur sticky top-0 z-40">
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
-          <a href="/" className="text-lg font-bold bg-gradient-to-r from-brand-500 to-brand-400 bg-clip-text text-transparent">Cinacoin</a>
+          <a href="/" className="text-lg font-semibold bg-gradient-to-r from-brand-500 to-brand-400 bg-clip-text text-transparent">Cinacoin</a>
           <div className="flex items-center gap-1">
             <a href="/" className="px-3 py-1.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-all">Home</a>
             <a href="/swap" className="px-3 py-1.5 rounded-lg text-sm font-medium text-white bg-gray-800">Swap</a>
@@ -91,18 +91,18 @@ export default function SwapPage() {
 
       {/* Swap Card */}
       <section className="max-w-md mx-auto pt-12 px-4">
-        <h1 className="text-3xl font-bold text-center mb-8 bg-gradient-to-r from-brand-500 to-brand-400 bg-clip-text text-transparent">Swap Tokens</h1>
+        <h1 className="text-3xl font-semibold text-center mb-8 tracking-tight bg-gradient-to-r from-brand-500 to-brand-400 bg-clip-text text-transparent">Swap Tokens</h1>
 
-        <div className="bg-gray-900/80 backdrop-blur rounded-2xl border border-gray-800 p-4 space-y-2">
+        <div className="bg-gray-900/80 backdrop-blur rounded-lg border border-gray-800 p-4 space-y-2">
           {/* FROM */}
-          <div className="bg-gray-800/50 rounded-xl p-4">
+          <div className="bg-gray-800/50 rounded-md p-4">
             <div className="flex justify-between mb-3">
               <span className="text-xs text-gray-500">From</span>
               <span className="text-xs text-gray-500">Balance: {from.balance} {from.symbol}</span>
             </div>
             <div className="flex items-center gap-3">
-              <button onClick={() => setShowFromSelector(true)} className="flex items-center gap-2 px-3 py-2 bg-gray-700 rounded-xl hover:bg-gray-600 transition-colors shrink-0">
-                <span className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white" style={{ backgroundColor: from.color }}>{from.icon}</span>
+              <button onClick={() => setShowFromSelector(true)} className="flex items-center gap-2 px-3 py-2 bg-gray-700 rounded-md hover:bg-gray-600 transition-colors shrink-0">
+                <span className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold text-white" style={{ backgroundColor: from.color }}>{from.icon}</span>
                 <span className="font-semibold text-sm">{from.symbol}</span>
                 <span className="text-gray-500">▾</span>
               </button>
@@ -117,14 +117,14 @@ export default function SwapPage() {
           </div>
 
           {/* TO */}
-          <div className="bg-gray-800/50 rounded-xl p-4">
+          <div className="bg-gray-800/50 rounded-md p-4">
             <div className="flex justify-between mb-3">
               <span className="text-xs text-gray-500">To</span>
               <span className="text-xs text-gray-500">Balance: {to.balance} {to.symbol}</span>
             </div>
             <div className="flex items-center gap-3">
-              <button onClick={() => setShowToSelector(true)} className="flex items-center gap-2 px-3 py-2 bg-gray-700 rounded-xl hover:bg-gray-600 transition-colors shrink-0">
-                <span className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white" style={{ backgroundColor: to.color }}>{to.icon}</span>
+              <button onClick={() => setShowToSelector(true)} className="flex items-center gap-2 px-3 py-2 bg-gray-700 rounded-md hover:bg-gray-600 transition-colors shrink-0">
+                <span className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold text-white" style={{ backgroundColor: to.color }}>{to.icon}</span>
                 <span className="font-semibold text-sm">{to.symbol}</span>
                 <span className="text-gray-500">▾</span>
               </button>
@@ -135,7 +135,7 @@ export default function SwapPage() {
 
         {/* Swap Details */}
         {amount > 0 && (
-          <div className="mt-4 bg-gray-900/50 backdrop-blur rounded-2xl border border-gray-800 p-4 space-y-3">
+          <div className="mt-4 bg-gray-900/50 backdrop-blur rounded-lg border border-gray-800 p-4 space-y-3">
             <div className="flex items-center gap-2 mb-2 px-1">
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-medium">
                 ⚠️ Mock prices — not live data
@@ -158,7 +158,7 @@ export default function SwapPage() {
         )}
 
         {/* Swap Button */}
-        <button className={`w-full mt-4 py-4 rounded-xl font-semibold text-lg transition-all ${amount > 0 ? 'bg-gradient-to-r from-brand-600 to-brand-500 text-white hover:from-brand-500 hover:to-brand-400 shadow-lg shadow-brand-500/20' : 'bg-gray-800 text-gray-500 cursor-not-allowed'}`}>
+        <button className={`w-full mt-4 py-4 rounded-[100px] font-semibold text-lg transition-all ${amount > 0 ? 'bg-gradient-to-r from-brand-600 to-brand-500 text-white hover:from-brand-500 hover:to-brand-400 shadow-lg shadow-brand-500/20' : 'bg-gray-800 text-gray-500 cursor-not-allowed'}`}>
           {amount > 0 ? 'Swap' : 'Enter an amount'}
         </button>
 
@@ -170,8 +170,8 @@ export default function SwapPage() {
 
         {/* Recent Swaps */}
         <div className="mt-8">
-          <h2 className="text-lg font-semibold mb-4">Recent Swaps</h2>
-          <div className="bg-gray-900/50 backdrop-blur rounded-2xl border border-gray-800 overflow-hidden">
+          <h2 className="text-lg font-semibold mb-4 tracking-tight">Recent Swaps</h2>
+          <div className="bg-gray-900/50 backdrop-blur rounded-lg border border-gray-800 overflow-hidden">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-gray-800 text-gray-500 text-xs">

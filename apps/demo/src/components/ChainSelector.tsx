@@ -81,7 +81,7 @@ export default function ChainSelector({
         type="button"
         onClick={() => setOpen((o) => !o)}
         onKeyDown={handleKeyDown}
-        className={`w-full flex items-center gap-2.5 px-4 py-2.5 bg-gray-700/60 text-white text-sm rounded-xl border border-gray-600/40 outline-none cursor-pointer appearance-none transition-all duration-200 ${
+        className={`w-full flex items-center gap-2.5 px-4 py-2.5 bg-gray-700/60 text-white text-sm rounded-md border border-gray-600/40 outline-none cursor-pointer appearance-none transition-all duration-200 ${
           open
             ? 'ring-2 ring-brand-500/40 border-brand-500/50'
             : 'hover:border-gray-500/60 hover:bg-gray-700/80'
@@ -114,7 +114,7 @@ export default function ChainSelector({
       {/* Dropdown */}
       {open && (
         <div
-          className="absolute z-50 top-full mt-2 left-0 w-full min-w-[240px] bg-gray-800/95 backdrop-blur-xl border border-gray-600/50 rounded-xl shadow-2xl shadow-black/40 overflow-hidden animate-dropdown-in"
+          className="absolute z-50 top-full mt-2 left-0 w-full min-w-[240px] bg-gray-800/95 backdrop-blur-xl border border-gray-600/50 rounded-md shadow-[0_4px_16px_rgba(0,0,0,0.35)] overflow-hidden animate-dropdown-in"
           role="listbox"
         >
           {/* Dropdown header */}

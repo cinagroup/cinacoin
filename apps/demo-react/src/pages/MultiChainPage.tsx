@@ -27,7 +27,7 @@ export default function MultiChainPage() {
     <div className="min-h-screen bg-gray-950 text-white">
       <nav className="border-b border-gray-800/50 bg-gray-950/80 backdrop-blur sticky top-0 z-40">
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
-          <a href="/" className="text-lg font-bold bg-gradient-to-r from-brand-500 to-brand-400 bg-clip-text text-transparent">Cinacoin</a>
+          <a href="/" className="text-lg font-semibold bg-gradient-to-r from-brand-500 to-brand-400 bg-clip-text text-transparent">Cinacoin</a>
           <div className="flex items-center gap-1">
             <a href="/" className="px-3 py-1.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-all">Home</a>
             <a href="/swap" className="px-3 py-1.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-all">Swap</a>
@@ -39,16 +39,16 @@ export default function MultiChainPage() {
 
       <section className="max-w-5xl mx-auto pt-12 px-4">
         <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-brand-500 via-brand-400 to-brand-300 bg-clip-text text-transparent mb-3">16 Chains, One SDK</h1>
+          <h1 className="text-4xl font-semibold tracking-tighter bg-gradient-to-r from-brand-500 via-brand-400 to-brand-300 bg-clip-text text-transparent mb-3">16 Chains, One SDK</h1>
           <p className="text-gray-400 max-w-lg mx-auto">EVM · Solana · Bitcoin · Layer 2s — unified API, zero fragmentation</p>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mb-8">
           {CHAINS.map(c => (
             <button key={c.id} onClick={() => setSelected(selected === c.id ? null : c.id)}
-              className={`p-4 rounded-2xl border text-left transition-all hover:-translate-y-0.5 ${selected === c.id ? 'border-brand-500 ring-2 ring-brand-500/20 bg-gray-800/80' : 'border-gray-800 bg-gray-900/50 hover:border-gray-600'}`}>
+              className={`p-4 rounded-lg border text-left transition-all hover:-translate-y-0.5 ${selected === c.id ? 'border-brand-500 ring-2 ring-brand-500/20 bg-gray-800/80' : 'border-gray-800 bg-gray-900/50 hover:border-gray-600'}`}>
               <div className="flex items-center gap-3 mb-2">
-                <span className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold text-white" style={{ backgroundColor: c.color }}>{c.icon}</span>
+                <span className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold text-white" style={{ backgroundColor: c.color }}>{c.icon}</span>
                 <span className="font-semibold text-sm">{c.name}</span>
               </div>
               <div className="flex gap-1 flex-wrap">
@@ -59,41 +59,41 @@ export default function MultiChainPage() {
         </div>
 
         {chain && (
-          <div className="bg-gray-900/80 backdrop-blur rounded-2xl border border-brand-500/20 p-6 mb-8">
+          <div className="bg-gray-900/80 backdrop-blur rounded-lg border border-brand-500/20 p-6 mb-8">
             <div className="flex items-center gap-4 mb-4">
-              <span className="w-12 h-12 rounded-full flex items-center justify-center text-2xl font-bold text-white" style={{ backgroundColor: chain.color }}>{chain.icon}</span>
+              <span className="w-12 h-12 rounded-full flex items-center justify-center text-2xl font-semibold text-white" style={{ backgroundColor: chain.color }}>{chain.icon}</span>
               <div>
-                <h2 className="text-xl font-bold">{chain.name}</h2>
+                <h2 className="text-xl font-semibold">{chain.name}</h2>
                 <p className="text-sm text-gray-500">{chain.wallets.join(' · ')}</p>
               </div>
             </div>
             <div className="grid grid-cols-3 gap-4 mb-4">
-              <div className="bg-gray-800/50 rounded-xl p-3 text-center"><div className="text-lg font-bold text-brand-400">{chain.txs}</div><div className="text-xs text-gray-500">TXs/day</div></div>
-              <div className="bg-gray-800/50 rounded-xl p-3 text-center"><div className="text-lg font-bold text-brand-400">{chain.tvl}</div><div className="text-xs text-gray-500">TVL</div></div>
-              <div className="bg-gray-800/50 rounded-xl p-3 text-center"><div className="flex items-center justify-center gap-2"><span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"/><span className="text-green-400 text-sm font-medium">Active</span></div><div className="text-xs text-gray-500">Status</div></div>
+              <div className="bg-gray-800/50 rounded-md p-3 text-center"><div className="text-lg font-semibold text-brand-400">{chain.txs}</div><div className="text-xs text-gray-500">TXs/day</div></div>
+              <div className="bg-gray-800/50 rounded-md p-3 text-center"><div className="text-lg font-semibold text-brand-400">{chain.tvl}</div><div className="text-xs text-gray-500">TVL</div></div>
+              <div className="bg-gray-800/50 rounded-md p-3 text-center"><div className="flex items-center justify-center gap-2"><span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"/><span className="text-green-400 text-sm font-medium">Active</span></div><div className="text-xs text-gray-500">Status</div></div>
             </div>
-            <button className="w-full py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-400 transition-all">Connect {chain.name}</button>
+            <button className="w-full py-3 rounded-[100px] font-semibold text-white bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-400 transition-all">Connect {chain.name}</button>
           </div>
         )}
 
         {/* Cross-Chain Flow */}
-        <div className="bg-gray-900/80 backdrop-blur rounded-2xl border border-gray-800 p-6">
-          <h2 className="text-xl font-semibold mb-4">Cross-Chain Bridge</h2>
+        <div className="bg-gray-900/80 backdrop-blur rounded-lg border border-gray-800 p-6">
+          <h2 className="text-xl font-semibold mb-4 tracking-tight">Cross-Chain Bridge</h2>
           <div className="flex items-center justify-center gap-3 flex-wrap">
-            <div className="bg-gradient-to-br from-brand-600 to-brand-500 rounded-xl px-6 py-4 text-center"><span className="text-2xl">Ξ</span><p className="text-sm font-semibold">Ethereum</p></div>
+            <div className="bg-gradient-to-br from-brand-600 to-brand-500 rounded-md px-6 py-4 text-center"><span className="text-2xl">Ξ</span><p className="text-sm font-semibold">Ethereum</p></div>
             <span className="text-2xl text-gray-500">→</span>
-            <div className="bg-gray-800 rounded-xl px-6 py-4 text-center"><span className="text-2xl">🌉</span><p className="text-sm font-semibold">Relay</p><p className="text-xs text-gray-500">Cinacoin</p></div>
+            <div className="bg-gray-800 rounded-md px-6 py-4 text-center"><span className="text-2xl">🌉</span><p className="text-sm font-semibold">Relay</p><p className="text-xs text-gray-500">Cinacoin</p></div>
             <span className="text-2xl text-gray-500">→</span>
-            <div className="bg-gradient-to-br from-emerald-400 to-teal-500 rounded-xl px-6 py-4 text-center"><span className="text-2xl">◎</span><p className="text-sm font-semibold">Solana</p></div>
+            <div className="bg-gradient-to-br from-emerald-400 to-teal-500 rounded-md px-6 py-4 text-center"><span className="text-2xl">◎</span><p className="text-sm font-semibold">Solana</p></div>
             <span className="text-2xl text-gray-500">→</span>
-            <div className="bg-gradient-to-br from-orange-400 to-amber-500 rounded-xl px-6 py-4 text-center"><span className="text-2xl">₿</span><p className="text-sm font-semibold">Bitcoin</p></div>
+            <div className="bg-gradient-to-br from-orange-400 to-amber-500 rounded-md px-6 py-4 text-center"><span className="text-2xl">₿</span><p className="text-sm font-semibold">Bitcoin</p></div>
           </div>
         </div>
 
         {/* Unified API */}
-        <div className="mt-8 bg-gray-900/80 backdrop-blur rounded-2xl border border-gray-800 p-6">
-          <h2 className="text-xl font-semibold mb-4">Unified API</h2>
-          <pre className="bg-gray-950 rounded-xl p-4 font-mono text-sm text-gray-300 overflow-x-auto">
+        <div className="mt-8 bg-gray-900/80 backdrop-blur rounded-lg border border-gray-800 p-6">
+          <h2 className="text-xl font-semibold mb-4 tracking-tight">Unified API</h2>
+          <pre className="bg-gray-950 rounded-md p-4 font-mono text-sm text-gray-300 overflow-x-auto">
 {`import { Cinacoin } from '@cinacoin/core-sdk';
 
 const cc = new Cinacoin({ projectId: 'YOUR_ID' });
@@ -107,8 +107,8 @@ const btc = await cc.connect('bitcoin', 'xverse');`}</pre>
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
           {[{ l: 'Chains', v: '16', c: 'text-brand-400' }, { l: 'Wallets', v: '30+', c: 'text-brand-400' }, { l: 'Adapters', v: '11', c: 'text-brand-400' }, { l: 'Latency', v: '<50ms', c: 'text-green-400' }].map(s => (
-            <div key={s.l} className="bg-gray-900/50 backdrop-blur rounded-2xl border border-gray-800 p-6 text-center">
-              <div className={`text-3xl font-bold ${s.c}`}>{s.v}</div><div className="text-gray-500 text-sm">{s.l}</div>
+            <div key={s.l} className="bg-gray-900/50 backdrop-blur rounded-lg border border-gray-800 p-6 text-center">
+              <div className={`text-3xl font-semibold ${s.c}`}>{s.v}</div><div className="text-gray-500 text-sm">{s.l}</div>
             </div>
           ))}
         </div>

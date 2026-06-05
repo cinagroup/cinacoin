@@ -76,7 +76,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
       {/* Nav */}
       <nav className="border-b border-gray-800/50 bg-gray-950/80 backdrop-blur sticky top-0 z-40">
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
-          <a href="/" className="text-lg font-bold bg-gradient-to-r from-brand-500 to-brand-400 bg-clip-text text-transparent">Cinacoin</a>
+          <a href="/" className="text-lg font-semibold bg-gradient-to-r from-brand-500 to-brand-400 bg-clip-text text-transparent">Cinacoin</a>
           <div className="flex items-center gap-1">
             <a href="/" className="px-3 py-1.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-all">Home</a>
             <a href="/swap" className="px-3 py-1.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-all">Swap</a>
@@ -88,12 +88,12 @@ Issued At: 2026-05-17T13:45:00.000Z`;
 
       <section className="max-w-xl mx-auto pt-12 px-4">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-brand-500 to-brand-400 bg-clip-text text-transparent mb-3">Authentication</h1>
+          <h1 className="text-4xl font-semibold tracking-tighter bg-gradient-to-r from-brand-500 to-brand-400 bg-clip-text text-transparent mb-3">Authentication</h1>
           <p className="text-gray-400">Sign in with your wallet or social account. No passwords needed.</p>
         </div>
 
         {/* Auth Method Tabs */}
-        <div className="flex gap-2 mb-8 bg-gray-900/50 p-1 rounded-xl">
+        <div className="flex gap-2 mb-8 bg-gray-900/50 p-1 rounded-md">
           <button onClick={() => { setAuthMethod('wallet'); setStep(1); }} className={`flex-1 py-2.5 rounded-lg text-sm font-medium transition-all ${authMethod === 'wallet' ? 'bg-brand-600 text-white shadow-lg shadow-brand-500/20' : 'text-gray-400 hover:text-white'}`}>
             🔗 Wallet
           </button>
@@ -109,7 +109,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
             <div className="flex items-center justify-center gap-2 mb-4">
               {['Connect', 'Sign', 'Verify', 'Profile'].map((label, i) => (
                 <div key={label} className="flex items-center gap-2">
-                  <div className={`flex items-center justify-center w-7 h-7 rounded-full text-xs font-bold transition-all ${step > i + 1 ? 'bg-green-500/20 text-green-400' : step === i + 1 ? 'bg-brand-500/20 text-brand-400 ring-2 ring-brand-500/40' : 'bg-gray-800 text-gray-500'}`}>
+                  <div className={`flex items-center justify-center w-7 h-7 rounded-full text-xs font-semibold transition-all ${step > i + 1 ? 'bg-green-500/20 text-green-400' : step === i + 1 ? 'bg-brand-500/20 text-brand-400 ring-2 ring-brand-500/40' : 'bg-gray-800 text-gray-500'}`}>
                     {step > i + 1 ? '✓' : i + 1}
                   </div>
                   {i < 3 && <div className={`w-8 h-px ${step > i + 1 ? 'bg-green-500/40' : 'bg-gray-800'}`} />}
@@ -119,15 +119,15 @@ Issued At: 2026-05-17T13:45:00.000Z`;
 
             {/* Step 1 */}
             {step === 1 && (
-              <div className="bg-gray-900/80 backdrop-blur rounded-2xl border border-gray-800 p-6 space-y-4">
+              <div className="bg-gray-900/80 backdrop-blur rounded-lg border border-gray-800 p-6 space-y-4">
                 <h2 className="text-lg font-semibold text-center">Connect Wallet</h2>
                 <div className="flex gap-2 flex-wrap justify-center mb-4">
                   {chains.map(c => (
-                    <button key={c} onClick={() => setSelectedChain(c)} className={`px-4 py-2 rounded-xl text-sm transition-all ${selectedChain === c ? 'bg-brand-600 text-white' : 'bg-gray-800 text-gray-400 hover:bg-gray-700'}`}>{c}</button>
+                    <button key={c} onClick={() => setSelectedChain(c)} className={`px-4 py-2 rounded-md text-sm transition-all ${selectedChain === c ? 'bg-brand-600 text-white' : 'bg-gray-800 text-gray-400 hover:bg-gray-700'}`}>{c}</button>
                   ))}
                 </div>
                 {WALLET_PROVIDERS.map(w => (
-                  <button key={w.id} onClick={handleConnect} className="w-full flex items-center gap-3 p-4 rounded-xl bg-gray-800/50 hover:bg-gray-800 border border-gray-700/50 hover:border-gray-600 transition-all">
+                  <button key={w.id} onClick={handleConnect} className="w-full flex items-center gap-3 p-4 rounded-md bg-gray-800/50 hover:bg-gray-800 border border-gray-700/50 hover:border-gray-600 transition-all">
                     <span className="text-2xl">{w.icon}</span>
                     <div className="flex-1 text-left"><span className="font-medium">{w.name}</span><p className="text-xs text-gray-500">Connect with {w.name}</p></div>
                     <span className="text-gray-500">→</span>
@@ -138,10 +138,10 @@ Issued At: 2026-05-17T13:45:00.000Z`;
 
             {/* Step 2 */}
             {step === 2 && (
-              <div className="bg-gray-900/80 backdrop-blur rounded-2xl border border-gray-800 p-6 space-y-4">
+              <div className="bg-gray-900/80 backdrop-blur rounded-lg border border-gray-800 p-6 space-y-4">
                 <h2 className="text-lg font-semibold text-center">Sign Message</h2>
-                <div className="bg-gray-950 rounded-xl p-4 font-mono text-xs text-gray-400 whitespace-pre-wrap border border-gray-800 max-h-48 overflow-y-auto">{siweMessage}</div>
-                <button onClick={handleSign} disabled={signing} className={`w-full py-4 rounded-xl font-semibold transition-all ${signing ? 'bg-gray-700 text-gray-500' : 'bg-gradient-to-r from-brand-600 to-brand-500 text-white hover:from-brand-500 hover:to-brand-400 shadow-lg shadow-brand-500/20'}`}>
+                <div className="bg-gray-950 rounded-md p-4 font-mono text-xs text-gray-400 whitespace-pre-wrap border border-gray-800 max-h-48 overflow-y-auto">{siweMessage}</div>
+                <button onClick={handleSign} disabled={signing} className={`w-full py-4 rounded-[100px] font-semibold transition-all ${signing ? 'bg-gray-700 text-gray-500' : 'bg-gradient-to-r from-brand-600 to-brand-500 text-white hover:from-brand-500 hover:to-brand-400 shadow-lg shadow-brand-500/20'}`}>
                   {signing ? <span className="flex items-center justify-center gap-2"><span className="w-5 h-5 border-2 border-gray-400 border-t-white rounded-full animate-spin" />Signing...</span> : 'Sign Message'}
                 </button>
               </div>
@@ -149,14 +149,14 @@ Issued At: 2026-05-17T13:45:00.000Z`;
 
             {/* Step 3 */}
             {step === 3 && (
-              <div className="bg-gray-900/80 backdrop-blur rounded-2xl border border-gray-800 p-6 space-y-4">
+              <div className="bg-gray-900/80 backdrop-blur rounded-lg border border-gray-800 p-6 space-y-4">
                 <h2 className="text-lg font-semibold text-center">Verify Signature</h2>
-                <div className="bg-gray-950 rounded-xl p-4 border border-gray-800 text-sm space-y-2">
+                <div className="bg-gray-950 rounded-md p-4 border border-gray-800 text-sm space-y-2">
                   <div className="flex justify-between"><span className="text-gray-500">Address</span><span className="font-mono text-xs">{address}</span></div>
                   <div className="flex justify-between"><span className="text-gray-500">Signature</span><span className="font-mono text-xs">0x1a2b3c4d...</span></div>
                   <div className="flex justify-between"><span className="text-gray-500">Nonce</span><span className="font-mono text-xs">8b3f9a2c</span></div>
                 </div>
-                <button onClick={handleVerify} className="w-full py-4 rounded-xl font-semibold bg-gradient-to-r from-brand-600 to-brand-500 text-white hover:from-brand-500 hover:to-brand-400 transition-all shadow-lg shadow-brand-500/20">Verify</button>
+                <button onClick={handleVerify} className="w-full py-4 rounded-[100px] font-semibold bg-gradient-to-r from-brand-600 to-brand-500 text-white hover:from-brand-500 hover:to-brand-400 transition-all shadow-lg shadow-brand-500/20">Verify</button>
               </div>
             )}
           </div>
@@ -164,14 +164,14 @@ Issued At: 2026-05-17T13:45:00.000Z`;
 
         {/* Social Auth */}
         {authMethod === 'social' && (
-          <div className="bg-gray-900/80 backdrop-blur rounded-2xl border border-gray-800 p-6 space-y-4">
+          <div className="bg-gray-900/80 backdrop-blur rounded-lg border border-gray-800 p-6 space-y-4">
             <h2 className="text-lg font-semibold text-center">Sign in with Social</h2>
             <p className="text-sm text-gray-500 text-center">Connect with your favorite account. We'll create a wallet for you.</p>
 
             <div className="grid grid-cols-2 gap-3">
               {SOCIAL_PROVIDERS.map(p => (
                 <button key={p.id} onClick={() => handleSocialLogin(p.id)} disabled={socialLoading}
-                  className={`flex items-center gap-3 p-4 rounded-xl border transition-all hover:-translate-y-0.5 ${selectedSocial === p.id ? 'border-brand-500 ring-2 ring-brand-500/20' : 'border-gray-700/50 hover:border-gray-600'} bg-gray-800/50 hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed`}>
+                  className={`flex items-center gap-3 p-4 rounded-md border transition-all hover:-translate-y-0.5 ${selectedSocial === p.id ? 'border-brand-500 ring-2 ring-brand-500/20' : 'border-gray-700/50 hover:border-gray-600'} bg-gray-800/50 hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed`}>
                   {p.icon}
                   <span className="font-medium text-sm">{p.name}</span>
                 </button>
@@ -186,7 +186,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
             )}
 
             {selectedSocial && !socialLoading && step === 4 && (
-              <div className="bg-gray-950 rounded-xl p-4 border border-green-500/20">
+              <div className="bg-gray-950 rounded-md p-4 border border-green-500/20">
                 <div className="text-center mb-3">
                   <div className="w-12 h-12 mx-auto rounded-full bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center text-xl mb-2">✓</div>
                   <h3 className="text-lg font-semibold text-green-400">Authenticated!</h3>
@@ -196,7 +196,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
                   <div className="flex justify-between"><span className="text-gray-500">Wallet</span><span className="font-mono text-xs">{address}</span></div>
                   <div className="flex justify-between"><span className="text-gray-500">Verified</span><span className="text-green-400">✓ True</span></div>
                 </div>
-                <button onClick={handleReset} className="w-full mt-4 py-2.5 rounded-xl text-sm font-medium bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white transition-all">Reset</button>
+                <button onClick={handleReset} className="w-full mt-4 py-2.5 rounded-md text-sm font-medium bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white transition-all">Reset</button>
               </div>
             )}
           </div>
@@ -204,21 +204,21 @@ Issued At: 2026-05-17T13:45:00.000Z`;
 
         {/* Profile (both methods) */}
         {step === 4 && verified && (
-          <div className="mt-6 bg-gray-900/80 backdrop-blur rounded-2xl border border-green-500/20 p-6">
+          <div className="mt-6 bg-gray-900/80 backdrop-blur rounded-lg border border-green-500/20 p-6">
             <div className="flex items-center gap-4 mb-4">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-brand-500 to-brand-400 flex items-center justify-center text-lg font-bold">0x</div>
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-brand-500 to-brand-400 flex items-center justify-center text-lg font-semibold">0x</div>
               <div>
                 <p className="font-mono text-sm">{address}</p>
                 <p className="text-xs text-gray-500">{authMethod === 'social' ? `Signed in via ${SOCIAL_PROVIDERS.find(s => s.id === selectedSocial)?.name}` : 'Signed in with Ethereum'}</p>
               </div>
             </div>
-            <button onClick={handleReset} className="w-full py-2.5 rounded-xl text-sm font-medium bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white transition-all">Disconnect</button>
+            <button onClick={handleReset} className="w-full py-2.5 rounded-md text-sm font-medium bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white transition-all">Disconnect</button>
           </div>
         )}
 
         {/* Comparison */}
-        <div className="mt-8 bg-gray-900/80 backdrop-blur rounded-2xl border border-gray-800 p-6">
-          <h2 className="text-lg font-semibold mb-4">Cinacoin vs Reown</h2>
+        <div className="mt-8 bg-gray-900/80 backdrop-blur rounded-lg border border-gray-800 p-6">
+          <h2 className="text-lg font-semibold mb-4 tracking-tight">Cinacoin vs Reown</h2>
           <table className="w-full text-sm">
             <thead><tr className="border-b border-gray-800 text-gray-500 text-xs"><th className="text-left p-2 font-normal">Feature</th><th className="text-center p-2 font-normal">Cinacoin</th><th className="text-center p-2 font-normal">Reown</th></tr></thead>
             <tbody>
@@ -232,9 +232,9 @@ Issued At: 2026-05-17T13:45:00.000Z`;
         </div>
 
         {/* Code Example */}
-        <div className="mt-8 bg-gray-900/80 backdrop-blur rounded-2xl border border-gray-800 p-6">
-          <h2 className="text-lg font-semibold mb-4">Implement Auth in 3 Lines</h2>
-          <pre className="bg-gray-950 rounded-xl p-4 font-mono text-sm text-gray-300 overflow-x-auto">
+        <div className="mt-8 bg-gray-900/80 backdrop-blur rounded-lg border border-gray-800 p-6">
+          <h2 className="text-lg font-semibold mb-4 tracking-tight">Implement Auth in 3 Lines</h2>
+          <pre className="bg-gray-950 rounded-md p-4 font-mono text-sm text-gray-300 overflow-x-auto">
 {`// Wallet login (SIWE)
 const { address } = await cc.connect('ethereum', 'metamask');
 

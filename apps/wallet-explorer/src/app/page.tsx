@@ -107,7 +107,7 @@ function WalletCard({ wallet }: { wallet: WalletRegistryEntry }) {
               }}
             />
           ) : (
-            <span className="text-lg font-bold text-cina-600">
+            <span className="text-lg font-semibold text-cina-600">
               {wallet.name.charAt(0)}
             </span>
           )}
@@ -465,7 +465,7 @@ export default function WalletExplorerPage() {
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+              <h1 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
                 🔢 Wallet Explorer
               </h1>
               <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
@@ -510,7 +510,7 @@ export default function WalletExplorerPage() {
                 <svg className="mb-4 h-12 w-12 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
-                <p className="text-lg font-medium text-slate-500 dark:text-slate-400">
+                <p className="text-lg font-medium tracking-tight text-slate-500 dark:text-slate-400">
                   No wallets found
                 </p>
                 <p className="mt-1 text-sm text-slate-400 dark:text-slate-500">

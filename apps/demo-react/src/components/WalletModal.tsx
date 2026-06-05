@@ -140,7 +140,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
 
       {/* Modal */}
       <div className="relative z-10 w-full max-w-md mx-4 animate-bounce-in">
-        <div className="glass-card rounded-2xl overflow-hidden shadow-2xl">
+        <div className="glass-card rounded-lg overflow-hidden shadow-[0_1px_1px_rgba(0,0,0,0.2),0_2px_2px_rgba(0,0,0,0.3),inset_0_0_0_1px_rgba(255,255,255,0.08)]">
           {/* Header */}
           <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
             <div className="flex items-center gap-3">
@@ -211,11 +211,11 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
                           <button
                             key={wallet.id}
                             onClick={() => handleSelectWallet(wallet)}
-                            className="w-full flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-white/5 transition-all group"
+                            className="w-full flex items-center gap-4 px-4 py-3 rounded-md hover:bg-white/5 transition-all group"
                             style={{ animationDelay: `${i * 0.05}s` }}
                           >
                             <div
-                              className="w-10 h-10 rounded-xl flex items-center justify-center text-xl"
+                              className="w-10 h-10 rounded-md flex items-center justify-center text-xl"
                               style={{ backgroundColor: wallet.color + '20' }}
                             >
                               {wallet.emoji}
@@ -241,11 +241,11 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
                         <button
                           key={wallet.id}
                           onClick={() => handleSelectWallet(wallet)}
-                          className="w-full flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-white/5 transition-all group"
+                          className="w-full flex items-center gap-4 px-4 py-3 rounded-md hover:bg-white/5 transition-all group"
                           style={{ animationDelay: `${i * 0.05}s` }}
                         >
                           <div
-                            className="w-10 h-10 rounded-xl flex items-center justify-center text-xl"
+                            className="w-10 h-10 rounded-md flex items-center justify-center text-xl"
                             style={{ backgroundColor: wallet.color + '20' }}
                           >
                             {wallet.emoji}
@@ -271,7 +271,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
                     className="absolute inset-0 w-20 h-20 rounded-full border-2 border-transparent border-t-brand-500 animate-spin-slow"
                   />
                   <div
-                    className="absolute inset-2 w-16 h-16 rounded-xl flex items-center justify-center text-2xl"
+                    className="absolute inset-2 w-16 h-16 rounded-md flex items-center justify-center text-2xl"
                     style={{ backgroundColor: selectedWallet.color + '20' }}
                   >
                     {selectedWallet.emoji}
@@ -336,7 +336,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
                 </p>
                 <button
                   onClick={handleRetry}
-                  className="btn-primary px-6 py-2.5 rounded-xl text-sm font-medium"
+                  className="btn-primary px-6 py-2.5 rounded-[100px] text-sm font-medium"
                 >
                   Try Again
                 </button>
@@ -365,7 +365,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
                       href="https://metamask.io/download/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-primary px-6 py-2.5 rounded-xl text-sm font-medium text-center"
+                      className="btn-primary px-6 py-2.5 rounded-[100px] text-sm font-medium text-center"
                     >
                       Install MetaMask →
                     </a>
@@ -375,7 +375,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
                       href="https://www.coinbase.com/wallet"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-primary px-6 py-2.5 rounded-xl text-sm font-medium text-center"
+                      className="btn-primary px-6 py-2.5 rounded-[100px] text-sm font-medium text-center"
                     >
                       Install Coinbase Wallet →
                     </a>
@@ -385,7 +385,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
                       href="https://rainbow.me/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-primary px-6 py-2.5 rounded-xl text-sm font-medium text-center"
+                      className="btn-primary px-6 py-2.5 rounded-[100px] text-sm font-medium text-center"
                     >
                       Install Rainbow →
                     </a>
@@ -395,7 +395,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
                       href="https://phantom.app/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-primary px-6 py-2.5 rounded-xl text-sm font-medium text-center"
+                      className="btn-primary px-6 py-2.5 rounded-[100px] text-sm font-medium text-center"
                     >
                       Install Phantom →
                     </a>
@@ -405,14 +405,14 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
                       href="https://trustwallet.com/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-primary px-6 py-2.5 rounded-xl text-sm font-medium text-center"
+                      className="btn-primary px-6 py-2.5 rounded-[100px] text-sm font-medium text-center"
                     >
                       Install Trust Wallet →
                     </a>
                   )}
                   <button
                     onClick={handleBack}
-                    className="px-6 py-2.5 rounded-xl text-sm font-medium text-gray-400 hover:text-white transition-colors"
+                    className="px-6 py-2.5 rounded-md text-sm font-medium text-gray-400 hover:text-white transition-colors"
                   >
                     ← Back to wallets
                   </button>

@@ -63,7 +63,7 @@ const HomePage: React.FC = () => {
           <div className="flex items-center justify-between h-16">
             <Link to="/" className="flex items-center gap-2">
               <span className="text-2xl">🔢</span>
-              <span className="font-bold text-lg">Cina<span className="text-brand-400">Connect</span></span>
+              <span className="font-semibold text-lg">Cina<span className="text-brand-400">Connect</span></span>
             </Link>
             <div className="hidden md:flex items-center gap-6">
               <Link to="/swap" className="text-gray-400 hover:text-white transition-colors text-sm">Swap</Link>
@@ -86,7 +86,7 @@ const HomePage: React.FC = () => {
             ) : (
               <button
                 onClick={() => setWalletModalOpen(true)}
-                className="btn-primary px-5 py-2.5 rounded-xl text-sm font-medium"
+                className="btn-primary px-5 py-2.5 rounded-[100px] text-sm font-medium"
               >
                 Connect Wallet
               </button>
@@ -120,13 +120,13 @@ const HomePage: React.FC = () => {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
               <button
                 onClick={() => setWalletModalOpen(true)}
-                className="btn-primary px-8 py-4 rounded-2xl text-lg font-semibold w-full sm:w-auto animate-pulse-glow"
+                className="btn-primary px-8 py-4 rounded-[100px] text-lg font-semibold w-full sm:w-auto animate-pulse-glow"
               >
                 {isConnected ? '🔗 Reconnect Wallet' : '🚀 Connect Wallet'}
               </button>
               <Link
                 to="/swap"
-                className="btn-secondary px-8 py-4 rounded-2xl text-lg font-medium w-full sm:w-auto"
+                className="btn-secondary px-8 py-4 rounded-lg text-lg font-medium w-full sm:w-auto"
               >
                 Try Swap Demo →
               </Link>
@@ -138,7 +138,7 @@ const HomePage: React.FC = () => {
       {/* Connected State */}
       {isConnected && (
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-slide-up">
-          <div className="glass-card rounded-2xl p-6">
+          <div className="glass-card rounded-lg p-6">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-gradient-to-br from-brand-500 to-brand-400 flex items-center justify-center text-xl">
@@ -195,7 +195,7 @@ const HomePage: React.FC = () => {
 
       {/* Stats Bar */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="glass-card rounded-2xl p-6">
+        <div className="glass-card rounded-lg p-6">
           <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-center">
             {[
               { label: 'Packages', value: '64' },
@@ -205,7 +205,7 @@ const HomePage: React.FC = () => {
               { label: 'Open Source', value: '100%' },
             ].map((stat) => (
               <div key={stat.label}>
-                <p className="text-2xl sm:text-3xl font-bold gradient-text">{stat.value}</p>
+                <p className="text-2xl sm:text-3xl font-semibold gradient-text">{stat.value}</p>
                 <p className="text-xs sm:text-sm text-gray-500 mt-1">{stat.label}</p>
               </div>
             ))}
@@ -216,7 +216,7 @@ const HomePage: React.FC = () => {
       {/* Features Grid */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">Everything you need</h2>
+          <h2 className="text-3xl sm:text-4xl font-semibold mb-4 tracking-tight">Everything you need</h2>
           <p className="text-gray-400 max-w-xl mx-auto">
             A complete wallet connection toolkit, open source and free.
           </p>
@@ -225,7 +225,7 @@ const HomePage: React.FC = () => {
           {FEATURES.map((feature, i) => (
             <div
               key={feature.title}
-              className="glass-card glass-card-hover rounded-2xl p-6 animate-fade-in-up"
+              className="glass-card glass-card-hover rounded-lg p-6 animate-fade-in-up"
               style={{ animationDelay: `${i * 0.08}s` }}
             >
               <div className="text-3xl mb-4">{feature.icon}</div>
@@ -239,7 +239,7 @@ const HomePage: React.FC = () => {
       {/* Chain Showcase */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">16 Chains Supported</h2>
+          <h2 className="text-3xl sm:text-4xl font-semibold mb-4 tracking-tight">16 Chains Supported</h2>
           <p className="text-gray-400 max-w-xl mx-auto">
             From Ethereum to Solana, EVM to non-EVM — connect to any chain seamlessly.
           </p>
@@ -248,11 +248,11 @@ const HomePage: React.FC = () => {
           {CHAINS.map((chain, i) => (
             <div
               key={chain.name}
-              className="glass-card glass-card-hover rounded-xl p-4 text-center cursor-pointer animate-fade-in-up group"
+              className="glass-card glass-card-hover rounded-md p-4 text-center cursor-pointer animate-fade-in-up group"
               style={{ animationDelay: `${i * 0.04}s` }}
             >
               <div
-                className="w-12 h-12 rounded-xl mx-auto mb-3 flex items-center justify-center text-2xl transition-transform group-hover:scale-110"
+                className="w-12 h-12 rounded-md mx-auto mb-3 flex items-center justify-center text-2xl transition-transform group-hover:scale-110"
                 style={{ backgroundColor: chain.color + '20' }}
               >
                 {chain.emoji}

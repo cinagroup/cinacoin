@@ -43,7 +43,7 @@ export default function TokenInput({
   const selectedToken = tokens.find((t) => t.symbol === token) ?? tokens[0];
 
   return (
-    <div className={`bg-gray-900/50 rounded-xl p-4 border border-gray-700/30 ${className}`}>
+    <div className={`bg-gray-900/50 rounded-md p-4 border border-gray-700/30 ${className}`}>
       <div className="flex justify-between items-center mb-2">
         <span className="text-sm font-medium text-gray-400">{label}</span>
         <div className="flex items-center gap-2">
@@ -56,7 +56,7 @@ export default function TokenInput({
             <button
               onClick={onMax}
               aria-label={`Set maximum ${label} amount`}
-              className="text-xs font-bold text-brand-400 hover:text-brand-300 transition-colors px-2 py-0.5 rounded bg-brand-400/10 hover:bg-brand-400/20"
+              className="text-xs font-semibold text-brand-400 hover:text-brand-300 transition-colors px-2 py-0.5 rounded bg-brand-400/10 hover:bg-brand-400/20"
             >
               MAX
             </button>
@@ -69,7 +69,7 @@ export default function TokenInput({
           <select
             value={token}
             onChange={(e) => onTokenChange(e.target.value)}
-            className="appearance-none bg-gray-700/80 hover:bg-gray-600/80 rounded-xl px-3 py-2 transition-colors border border-gray-600/50 text-sm text-white font-bold cursor-pointer pr-8"
+            className="appearance-none bg-gray-700/80 hover:bg-gray-600/80 rounded-md px-3 py-2 transition-colors border border-gray-600/50 text-sm text-white font-semibold cursor-pointer pr-8"
           >
             {tokens.map((t) => (
               <option key={t.symbol} value={t.symbol}>
@@ -94,7 +94,7 @@ export default function TokenInput({
             }
           }}
           placeholder={placeholder}
-          className="flex-1 bg-transparent text-right text-2xl font-bold text-white outline-none placeholder:text-gray-600"
+          className="flex-1 bg-transparent text-right text-2xl font-semibold text-white outline-none placeholder:text-gray-600"
         />
       </div>
     </div>

@@ -6,7 +6,7 @@ export default function Home() {
       <Header />
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
+          <h1 className="text-2xl font-semibold tracking-tight text-gray-900">Dashboard</h1>
           <p className="mt-1 text-sm text-gray-500">
             Welcome to Cinacoin Cloud. Manage your projects and API keys from here.
           </p>
@@ -16,21 +16,21 @@ export default function Home() {
         <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
           <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
             <p className="text-sm text-gray-500">Total Projects</p>
-            <p className="mt-1 text-3xl font-bold text-gray-900">0</p>
+            <p className="mt-1 text-3xl font-semibold text-gray-900">0</p>
           </div>
           <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
             <p className="text-sm text-gray-500">Total API Keys</p>
-            <p className="mt-1 text-3xl font-bold text-gray-900">0</p>
+            <p className="mt-1 text-3xl font-semibold text-gray-900">0</p>
           </div>
           <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
             <p className="text-sm text-gray-500">Requests Today</p>
-            <p className="mt-1 text-3xl font-bold text-gray-900">0</p>
+            <p className="mt-1 text-3xl font-semibold text-gray-900">0</p>
           </div>
         </div>
 
         {/* Quick Links */}
         <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-          <h2 className="mb-4 text-lg font-semibold text-gray-900">Quick Start</h2>
+          <h2 className="mb-4 text-lg font-semibold tracking-tight text-gray-900">Quick Start</h2>
           <div className="grid gap-4 sm:grid-cols-2">
             <a
               href="/projects/new"

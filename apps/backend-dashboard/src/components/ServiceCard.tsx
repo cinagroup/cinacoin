@@ -53,7 +53,7 @@ export default function ServiceCard({ service, health, demoMode = false }: Servi
   const isDown = health.status === "down";
 
   return (
-    <div className={`relative rounded-xl border border-dashboard-border bg-dashboard-surface p-5 ${statusBorder(health.status)} transition-all duration-300 hover:bg-dashboard-surfaceHover hover:shadow-xl hover:shadow-black/20`}>
+    <div className={`relative rounded-md border border-dashboard-border bg-dashboard-surface p-5 ${statusBorder(health.status)} transition-all duration-300 hover:bg-dashboard-surfaceHover hover:shadow-[0_2px_2px_rgba(0,0,0,0.1),0_8px_8px_-8px_rgba(0,0,0,0.1),inset_0_0_0_1px_rgba(255,255,255,0.08)]`}>
       {/* Status indicator - top right */}
       <div className="absolute top-3 right-3">
         <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-xs font-medium ${statusBadgeBg(health.status)}`}>

@@ -33,14 +33,14 @@ export default function ProjectsPage() {
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="mb-6 flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-white">Projects</h1>
+            <h1 className="text-2xl font-semibold tracking-tight text-white">Projects</h1>
             <p className="mt-1 text-sm text-slate-400">
               Manage your Cinacoin projects
             </p>
           </div>
           <a
             href="/projects/new"
-            className="rounded-md bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-500"
+            className="rounded-[100px] bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-500"
           >
             + New Project
           </a>
@@ -57,7 +57,7 @@ export default function ProjectsPage() {
             <p className="text-sm text-slate-400">No projects yet.</p>
             <a
               href="/projects/new"
-              className="mt-4 inline-block rounded-md bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-500"
+              className="mt-4 inline-block rounded-[100px] bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-500"
             >
               Create Your First Project
             </a>

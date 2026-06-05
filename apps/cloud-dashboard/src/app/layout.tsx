@@ -19,11 +19,11 @@ export default function RootLayout({
           <aside className="hidden w-64 flex-shrink-0 border-r border-dark-800 bg-dark-900/50 md:block">
             <nav className="flex h-full flex-col p-4">
               <div className="mb-8 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-600 font-bold text-white">
+                <div className="flex h-10 w-10 items-center justify-center rounded-md bg-primary-600 font-semibold text-white">
                   C
                 </div>
                 <div>
-                  <div className="text-lg font-semibold">Cinacoin Cloud</div>
+                  <div className="text-lg font-semibold tracking-tight">Cinacoin Cloud</div>
                   <div className="text-xs text-slate-400">Developer Portal</div>
                 </div>
               </div>
