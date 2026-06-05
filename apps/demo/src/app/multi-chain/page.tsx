@@ -18,7 +18,7 @@ import {
 function StatusIndicator({ healthy }: { healthy: boolean }) {
   const color = healthy
     ? 'bg-emerald-400 shadow-emerald-400/60'
-    : 'bg-red-500 shadow-red-500/60';
+    : 'bg-[var(--cc-error)] shadow-red-500/60';
 
   return (
     <span className="relative flex h-3 w-3">
@@ -64,13 +64,13 @@ function ChainCard({ chain, balance, health, isWalletConnected, isCurrentChain, 
   }, [isCurrentChain]);
 
   return (
-    <div className={`group bg-gray-800/40 backdrop-blur rounded-[var(--cc-radius-md)] border ${
+    <div className={`group bg-[var(--cc-canvas-soft-2)]/40 backdrop-blur rounded-[var(--cc-radius-md)] border ${
       isCurrentChain
         ? 'border-brand-500/50 ring-1 ring-brand-500/20'
         : justSwitched
         ? 'border-green-500/50 ring-1 ring-green-500/20'
-        : 'border-gray-700/60'
-    } overflow-hidden hover:border-gray-500/60 transition-all duration-300 hover:shadow-[0_4px_12px_rgba(0,0,0,0.15),0_2px_4px_rgba(0,0,0,0.10)] hover:-translate-y-0.5 ${
+        : 'border-[var(--cc-hairline-strong)]/60'
+    } overflow-hidden hover:border-[var(--cc-hairline-strong)]/60 transition-all duration-300 hover:shadow-[0_4px_12px_rgba(0,0,0,0.15),0_2px_4px_rgba(0,0,0,0.10)] hover:-translate-y-0.5 ${
       justSwitched ? 'animate-chain-switch-flash' : ''
     }`}>
       {/* Top gradient bar */}
@@ -79,61 +79,61 @@ function ChainCard({ chain, balance, health, isWalletConnected, isCurrentChain, 
           ? 'bg-gradient-to-r from-brand-500 to-brand-400'
           : isHealthy
           ? 'bg-emerald-400/70'
-          : 'bg-red-500/70'
+          : 'bg-[var(--cc-error)]/70'
       } group-hover:opacity-100 transition-all duration-300`} />
 
       <div className="p-5 space-y-4">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-brand-500 to-brand-600 rounded-md flex items-center justify-center text-white font-semibold text-sm shadow-[0_2px_8px_rgba(0,0,0,0.2),0_1px_2px_rgba(0,0,0,0.1)]">
+            <div className="w-10 h-10 bg-gradient-to-br from-brand-500 to-brand-600 rounded-md flex items-center justify-center text-[var(--cc-ink)] font-semibold text-sm shadow-[0_2px_8px_rgba(0,0,0,0.2),0_1px_2px_rgba(0,0,0,0.1)]">
               {chain.symbol}
             </div>
             <div>
-              <h3 className="font-semibold text-white">{chain.name}</h3>
+              <h3 className="font-semibold text-[var(--cc-ink)]">{chain.name}</h3>
               <div className="flex items-center gap-1.5">
                 <StatusIndicator healthy={isHealthy} />
-                <span className="text-xs text-gray-400">
+                <span className="text-xs text-[var(--cc-muted)]">
                   {isHealthy ? 'Operational' : 'Offline'}
                 </span>
                 {latency != null && (
                   <>
-                    <span className="text-xs text-gray-600">·</span>
-                    <span className="text-xs text-gray-500">{latency}ms</span>
+                    <span className="text-xs text-[var(--cc-body)]">·</span>
+                    <span className="text-xs text-[var(--cc-body)]">{latency}ms</span>
                   </>
                 )}
               </div>
             </div>
           </div>
           <div className="text-right">
-            <div className="text-xs text-gray-500">{chain.symbol}</div>
-            <div className="text-xs text-gray-600 font-mono">ID: {chain.chainId}</div>
+            <div className="text-xs text-[var(--cc-body)]">{chain.symbol}</div>
+            <div className="text-xs text-[var(--cc-body)] font-mono">ID: {chain.chainId}</div>
           </div>
         </div>
 
         {/* Balance */}
-        <div className="grid grid-cols-2 gap-3 pt-2 border-t border-gray-700/40">
+        <div className="grid grid-cols-2 gap-3 pt-2 border-t border-[var(--cc-hairline-strong)]/40">
           <div>
-            <div className="text-[11px] text-gray-500">Balance</div>
+            <div className="text-[11px] text-[var(--cc-body)]">Balance</div>
             {balance ? (
-              <div className="text-sm font-mono text-white">
+              <div className="text-sm font-mono text-[var(--cc-ink)]">
                 {balance.status === 'loaded' ? `${balance.balance} ${chain.symbol}` : '—'}
               </div>
             ) : (
-              <div className="text-sm text-gray-600">—</div>
+              <div className="text-sm text-[var(--cc-body)]">—</div>
             )}
           </div>
           <div>
-            <div className="text-[11px] text-gray-500">RPC Health</div>
+            <div className="text-[11px] text-[var(--cc-body)]">RPC Health</div>
             <div className="text-sm">
               {health ? (
                 health.healthy ? (
-                  <span className="text-emerald-400">OK</span>
+                  <span className="text-[var(--cc-success)]">OK</span>
                 ) : (
-                  <span className="text-red-400">Down</span>
+                  <span className="text-[var(--cc-error)]">Down</span>
                 )
               ) : (
-                <span className="text-gray-500">—</span>
+                <span className="text-[var(--cc-body)]">—</span>
               )}
             </div>
           </div>
@@ -144,7 +144,7 @@ function ChainCard({ chain, balance, health, isWalletConnected, isCurrentChain, 
           href={`${chain.explorer}/address/0x0000000000000000000000000000000000000000`}
           target="_blank"
           rel="noopener noreferrer"
-          className="block w-full py-2 rounded-md text-center text-xs font-semibold text-gray-400 border border-gray-700/40 hover:text-white hover:border-gray-500 transition-all"
+          className="block w-full py-2 rounded-md text-center text-xs font-semibold text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all"
         >
           View on Explorer ↗
         </a>
@@ -178,56 +178,56 @@ function HealthSummary({ statuses, loading }: { statuses: ChainHealthStatus[]; l
   const avgLatency = statuses.filter((s) => s.latencyMs).reduce((sum, s) => sum + (s.latencyMs ?? 0), 0) / (healthy || 1);
 
   return (
-    <div className="bg-gray-800/40 backdrop-blur rounded-[var(--cc-radius-md)] border border-gray-700/60 p-6">
+    <div className="bg-[var(--cc-canvas-soft-2)]/40 backdrop-blur rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 p-6">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-semibold tracking-tighter text-white">RPC Health Status</h2>
+        <h2 className="text-lg font-semibold tracking-tighter text-[var(--cc-ink)]">RPC Health Status</h2>
         {loading && (
-          <span className="inline-flex items-center gap-2 text-xs text-gray-400">
+          <span className="inline-flex items-center gap-2 text-xs text-[var(--cc-muted)]">
             <Spinner /> Checking…
           </span>
         )}
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
-        <div className="text-center p-3 rounded-md bg-gray-900/50 border border-gray-700/40">
-          <div className="text-2xl font-semibold text-white">{total}</div>
-          <div className="text-xs text-gray-500">Total Chains</div>
+        <div className="text-center p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/40">
+          <div className="text-2xl font-semibold text-[var(--cc-ink)]">{total}</div>
+          <div className="text-xs text-[var(--cc-body)]">Total Chains</div>
         </div>
-        <div className="text-center p-3 rounded-md bg-gray-900/50 border border-gray-700/40">
-          <div className="text-2xl font-semibold text-emerald-400">{healthy}</div>
-          <div className="text-xs text-gray-500">Healthy</div>
+        <div className="text-center p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/40">
+          <div className="text-2xl font-semibold text-[var(--cc-success)]">{healthy}</div>
+          <div className="text-xs text-[var(--cc-body)]">Healthy</div>
         </div>
-        <div className="text-center p-3 rounded-md bg-gray-900/50 border border-gray-700/40">
-          <div className="text-2xl font-semibold text-red-400">{total - healthy}</div>
-          <div className="text-xs text-gray-500">Down</div>
+        <div className="text-center p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/40">
+          <div className="text-2xl font-semibold text-[var(--cc-error)]">{total - healthy}</div>
+          <div className="text-xs text-[var(--cc-body)]">Down</div>
         </div>
-        <div className="text-center p-3 rounded-md bg-gray-900/50 border border-gray-700/40">
+        <div className="text-center p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/40">
           <div className="text-2xl font-semibold text-blue-400">{Math.round(avgLatency)}ms</div>
-          <div className="text-xs text-gray-500">Avg Latency</div>
+          <div className="text-xs text-[var(--cc-body)]">Avg Latency</div>
         </div>
       </div>
 
       {/* Chain-by-chain health */}
       <div className="space-y-2">
         {statuses.map((s) => (
-          <div key={s.chain.id} className="flex items-center justify-between px-4 py-2.5 rounded-md bg-gray-900/30 border border-gray-700/30">
+          <div key={s.chain.id} className="flex items-center justify-between px-4 py-2.5 rounded-md bg-[var(--cc-canvas)]/30 border border-[var(--cc-hairline-strong)]/30">
             <div className="flex items-center gap-3">
               <StatusIndicator healthy={s.healthy} />
-              <span className="text-sm text-white">{s.chain.name}</span>
+              <span className="text-sm text-[var(--cc-ink)]">{s.chain.name}</span>
             </div>
             <div className="flex items-center gap-3">
-              <span className="text-xs font-mono text-gray-500">{s.chain.rpcUrl.split('/')[2]}</span>
+              <span className="text-xs font-mono text-[var(--cc-body)]">{s.chain.rpcUrl.split('/')[2]}</span>
               {s.latencyMs != null && (
                 <span className={`text-xs font-mono px-2 py-0.5 rounded ${
-                  s.latencyMs < 500 ? 'bg-emerald-500/15 text-emerald-400' : 'bg-amber-500/15 text-amber-400'
+                  s.latencyMs < 500 ? 'bg-[var(--cc-success)]/15 text-[var(--cc-success)]' : 'bg-[var(--cc-warning)]/15 text-[var(--cc-warning)]'
                 }`}>
                   {s.latencyMs}ms
                 </span>
               )}
               <span className={`text-xs px-2 py-0.5 rounded font-semibold ${
                 s.healthy
-                  ? 'bg-emerald-500/15 text-emerald-400'
-                  : 'bg-red-500/15 text-red-400'
+                  ? 'bg-[var(--cc-success)]/15 text-[var(--cc-success)]'
+                  : 'bg-[var(--cc-error)]/15 text-[var(--cc-error)]'
               }`}>
                 {s.healthy ? 'OK' : 'DOWN'}
               </span>
@@ -248,29 +248,29 @@ function BalanceSummary({ balances }: { balances: ChainBalance[] }) {
   if (loaded.length === 0) return null;
 
   return (
-    <div className="bg-gray-800/40 backdrop-blur rounded-[var(--cc-radius-md)] border border-gray-700/60 p-6">
-      <h2 className="text-lg font-semibold tracking-tighter text-white mb-4">Multi-Chain Balances</h2>
+    <div className="bg-[var(--cc-canvas-soft-2)]/40 backdrop-blur rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 p-6">
+      <h2 className="text-lg font-semibold tracking-tighter text-[var(--cc-ink)] mb-4">Multi-Chain Balances</h2>
 
       {hasBalance.length === 0 ? (
-        <div className="text-center py-4 text-sm text-gray-500">
+        <div className="text-center py-4 text-sm text-[var(--cc-body)]">
           No balances found on any chain. Connect a wallet with funded addresses.
         </div>
       ) : (
         <div className="space-y-2">
           {hasBalance.map((b) => (
-            <div key={b.chain.id} className="flex items-center justify-between px-4 py-3 rounded-md bg-gray-900/50 border border-gray-700/40">
+            <div key={b.chain.id} className="flex items-center justify-between px-4 py-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/40">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-gradient-to-br from-brand-500 to-brand-600 rounded-lg flex items-center justify-center text-white text-xs font-semibold">
+                <div className="w-8 h-8 bg-gradient-to-br from-brand-500 to-brand-600 rounded-lg flex items-center justify-center text-[var(--cc-ink)] text-xs font-semibold">
                   {b.chain.symbol}
                 </div>
                 <div>
-                  <div className="text-sm text-white font-semibold">{b.chain.name}</div>
-                  <div className="text-xs text-gray-500">Chain ID: {b.chain.chainId}</div>
+                  <div className="text-sm text-[var(--cc-ink)] font-semibold">{b.chain.name}</div>
+                  <div className="text-xs text-[var(--cc-body)]">Chain ID: {b.chain.chainId}</div>
                 </div>
               </div>
               <div className="text-right">
-                <div className="text-sm font-mono text-emerald-400 font-semibold">{b.balance}</div>
-                <div className="text-xs text-gray-500">{b.chain.symbol}</div>
+                <div className="text-sm font-mono text-[var(--cc-success)] font-semibold">{b.balance}</div>
+                <div className="text-xs text-[var(--cc-body)]">{b.chain.symbol}</div>
               </div>
             </div>
           ))}
@@ -278,7 +278,7 @@ function BalanceSummary({ balances }: { balances: ChainBalance[] }) {
       )}
 
       <div className="mt-4 text-center">
-        <span className="text-xs text-gray-500">
+        <span className="text-xs text-[var(--cc-body)]">
           Loaded {loaded.length}/{balances.length} chains
         </span>
       </div>
@@ -307,12 +307,12 @@ function CrossChainFlow() {
   }, [steps.length]);
 
   return (
-    <div className="bg-gray-800/40 backdrop-blur rounded-[var(--cc-radius-md)] border border-gray-700/60 p-8 overflow-hidden">
-      <h2 className="text-xl font-semibold tracking-tighter text-white mb-2">Cross-Chain Flow</h2>
-      <p className="text-sm text-gray-400 mb-8">Atomic cross-chain transfers powered by Cinacoin Relay protocol</p>
+    <div className="bg-[var(--cc-canvas-soft-2)]/40 backdrop-blur rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 p-8 overflow-hidden">
+      <h2 className="text-xl font-semibold tracking-tighter text-[var(--cc-ink)] mb-2">Cross-Chain Flow</h2>
+      <p className="text-sm text-[var(--cc-muted)] mb-8">Atomic cross-chain transfers powered by Cinacoin Relay protocol</p>
 
       <div className="relative">
-        <div className="absolute top-10 left-10 right-10 h-0.5 bg-gray-700">
+        <div className="absolute top-10 left-10 right-10 h-0.5 bg-[var(--cc-canvas-soft-2)]">
           <div
             className="absolute top-0 left-0 h-full bg-gradient-to-r from-brand-500 via-brand-400 to-brand-300 transition-all duration-500 ease-out"
             style={{ width: `${((activeStep + 1) / steps.length) * 100}%` }}
@@ -326,16 +326,16 @@ function CrossChainFlow() {
                 className={`w-20 h-20 rounded-[var(--cc-radius-md)] flex items-center justify-center text-3xl transition-all duration-500 ${
                   i <= activeStep
                     ? 'bg-gradient-to-br from-brand-500/30 to-brand-400/30 border-2 border-brand-400/50 shadow-[0_4px_12px_rgba(99,102,241,0.10),0_2px_4px_rgba(99,102,241,0.05)] scale-105'
-                    : 'bg-gray-800 border border-gray-700/60 opacity-50'
+                    : 'bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline-strong)]/60 opacity-50'
                 }`}
               >
                 {step.icon}
               </div>
               <div className="text-center">
-                <div className={`text-sm font-semibold ${i <= activeStep ? 'text-white' : 'text-gray-500'}`}>
+                <div className={`text-sm font-semibold ${i <= activeStep ? 'text-[var(--cc-ink)]' : 'text-[var(--cc-body)]'}`}>
                   {step.label}
                 </div>
-                <div className="text-xs text-gray-500 mt-0.5">{step.detail}</div>
+                <div className="text-xs text-[var(--cc-body)] mt-0.5">{step.detail}</div>
               </div>
             </div>
           ))}
@@ -391,22 +391,22 @@ client.on('transaction', (event) => {
   }, [code]);
 
   return (
-    <div className="bg-gray-800/40 backdrop-blur rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
-      <div className="flex items-center justify-between px-6 py-4 border-b border-gray-700/40">
+    <div className="bg-[var(--cc-canvas-soft-2)]/40 backdrop-blur rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
+      <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--cc-hairline-strong)]/40">
         <div className="flex items-center gap-3">
           <div className="flex gap-1.5">
-            <div className="w-3 h-3 rounded-full bg-red-500/70" />
-            <div className="w-3 h-3 rounded-full bg-yellow-500/70" />
+            <div className="w-3 h-3 rounded-full bg-[var(--cc-error)]/70" />
+            <div className="w-3 h-3 rounded-full bg-[var(--cc-warning)]/70" />
             <div className="w-3 h-3 rounded-full bg-green-500/70" />
           </div>
-          <span className="text-sm text-gray-400 font-mono">unified-api.ts</span>
+          <span className="text-sm text-[var(--cc-muted)] font-mono">unified-api.ts</span>
         </div>
         <button
           onClick={handleCopy}
           className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
             copied
-              ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-              : 'bg-gray-700/60 text-gray-400 border border-gray-600/40 hover:text-white hover:border-gray-500'
+              ? 'bg-[var(--cc-success)]/20 text-[var(--cc-success)] border border-emerald-500/30'
+              : 'bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)]'
           }`}
         >
           {copied ? '✓ Copied' : '📋 Copy'}
@@ -414,19 +414,19 @@ client.on('transaction', (event) => {
       </div>
 
       <pre className="p-6 text-sm leading-relaxed overflow-x-auto">
-        <code className="text-gray-300 font-mono whitespace-pre">
+        <code className="text-[var(--cc-body)] font-mono whitespace-pre">
           {code.split('\n').map((line, i) => {
-            let color = 'text-gray-300';
-            if (line.trim().startsWith('//')) color = 'text-gray-500 italic';
+            let color = 'text-[var(--cc-body)]';
+            if (line.trim().startsWith('//')) color = 'text-[var(--cc-body)] italic';
             else if (line.includes('import') || line.includes('from')) color = 'text-purple-400';
             else if (line.includes('const') || line.includes('let')) color = 'text-sky-400';
-            else if (line.includes('await')) color = 'text-amber-400';
+            else if (line.includes('await')) color = 'text-[var(--cc-warning)]';
             else if (line.includes('console')) color = 'text-green-400';
-            else if (line.includes('new ')) color = 'text-emerald-400';
+            else if (line.includes('new ')) color = 'text-[var(--cc-success)]';
 
             return (
               <div key={i} className={`${color} ${i === 0 ? 'mt-0' : ''}`}>
-                <span className="select-none text-gray-600 w-8 inline-block text-right mr-4">
+                <span className="select-none text-[var(--cc-body)] w-8 inline-block text-right mr-4">
                   {i + 1}
                 </span>
                 {line}
@@ -583,7 +583,7 @@ export default function MultiChainPage() {
       <div className="max-w-6xl mx-auto space-y-8">
         {/* Hero */}
         <div className="text-center space-y-4 py-6">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full text-sm text-blue-400 mb-2">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-[var(--cc-primary)]/20 rounded-full text-sm text-blue-400 mb-2">
             <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
             {isConnected
               ? `${account.chainName} · ${shortenAddress(account.address ?? '')}`
@@ -592,7 +592,7 @@ export default function MultiChainPage() {
           <h1 className="text-4xl font-semibold tracking-tighter bg-gradient-to-r from-brand-400 via-brand-500 to-brand-300 bg-clip-text text-transparent">
             Multi-Chain Connectivity
           </h1>
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+          <p className="text-[var(--cc-muted)] max-w-2xl mx-auto text-lg">
             Real-time balances and RPC health across {CHAINS.length} EVM chains — powered by public RPC endpoints.
           </p>
         </div>
@@ -601,24 +601,24 @@ export default function MultiChainPage() {
         <div className="flex flex-wrap items-center justify-center gap-4">
           {isConnected ? (
             <>
-              <div className="flex items-center gap-3 bg-gray-800/60 border border-gray-700/60 rounded-[var(--cc-radius-md)] px-6 py-4">
+              <div className="flex items-center gap-3 bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline-strong)]/60 rounded-[var(--cc-radius-md)] px-6 py-4">
                 <div className="text-center">
-                  <div className="text-xs text-gray-500">Address</div>
-                  <div className="text-sm font-mono text-white">{shortenAddress(account.address ?? '')}</div>
+                  <div className="text-xs text-[var(--cc-body)]">Address</div>
+                  <div className="text-sm font-mono text-[var(--cc-ink)]">{shortenAddress(account.address ?? '')}</div>
                 </div>
-                <div className="w-px h-8 bg-gray-700" />
+                <div className="w-px h-8 bg-[var(--cc-canvas-soft-2)]" />
                 <div className="text-center">
-                  <div className="text-xs text-gray-500">Balance</div>
-                  <div className="text-sm font-semibold text-white">{account.balance} {account.chainSymbol}</div>
+                  <div className="text-xs text-[var(--cc-body)]">Balance</div>
+                  <div className="text-sm font-semibold text-[var(--cc-ink)]">{account.balance} {account.chainSymbol}</div>
                 </div>
-                <div className="w-px h-8 bg-gray-700" />
+                <div className="w-px h-8 bg-[var(--cc-canvas-soft-2)]" />
                 <div className="text-center">
-                  <div className="text-xs text-gray-500">Network</div>
-                  <div className="text-sm text-white">{account.chainName}</div>
+                  <div className="text-xs text-[var(--cc-body)]">Network</div>
+                  <div className="text-sm text-[var(--cc-ink)]">{account.chainName}</div>
                 </div>
                 <button
                   onClick={() => disconnect()}
-                  className="ml-2 px-4 py-2 rounded-md text-xs font-semibold bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/20 transition-all"
+                  className="ml-2 px-4 py-2 rounded-md text-xs font-semibold bg-[var(--cc-error)]/10 text-[var(--cc-error)] border border-red-500/20 hover:bg-[var(--cc-error)]/20 transition-all"
                 >
                   Disconnect
                 </button>
@@ -634,27 +634,27 @@ export default function MultiChainPage() {
           )}
         </div>
         {error && (
-          <div className="text-center text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-md px-4 py-2">
+          <div className="text-center text-sm text-[var(--cc-error)] bg-[var(--cc-error)]/10 border border-red-500/20 rounded-md px-4 py-2">
             {error}
           </div>
         )}
 
         {/* Auto-refresh indicator */}
-        <div className="flex items-center justify-between bg-gray-800/30 rounded-md border border-gray-700/40 px-5 py-3">
+        <div className="flex items-center justify-between bg-[var(--cc-canvas-soft-2)]/30 rounded-md border border-[var(--cc-hairline-strong)]/40 px-5 py-3">
           <div className="flex items-center gap-3">
-            <span className="text-xs text-gray-400">Auto-refresh:</span>
+            <span className="text-xs text-[var(--cc-muted)]">Auto-refresh:</span>
             <span className="text-xs font-mono text-brand-400">{countdown}s</span>
           </div>
           <div className="flex items-center gap-3">
             {loadingBalances && (
-              <span className="inline-flex items-center gap-1.5 text-xs text-gray-400">
+              <span className="inline-flex items-center gap-1.5 text-xs text-[var(--cc-muted)]">
                 <Spinner /> Fetching balances…
               </span>
             )}
             <button
               onClick={manualRefresh}
               disabled={loadingBalances || loadingHealth}
-              className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-gray-700/60 text-gray-300 border border-gray-600/40 hover:text-white hover:border-gray-500 transition-all disabled:opacity-50"
+              className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all disabled:opacity-50"
             >
               ↻ Refresh Now
             </button>
@@ -673,7 +673,7 @@ export default function MultiChainPage() {
 
         {/* Chain Cards Grid */}
         <div>
-          <h2 className="text-lg font-semibold text-white mb-4">Chain Balances</h2>
+          <h2 className="text-lg font-semibold text-[var(--cc-ink)] mb-4">Chain Balances</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {CHAINS.map((chain) => {
               const isEvm = !!EVM_CHAINS[chain.id];
@@ -704,9 +704,9 @@ export default function MultiChainPage() {
 
         {/* Footer hint */}
         <div className="text-center py-4">
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-[var(--cc-body)]">
             Powered by{' '}
-            <span className="text-gray-400 font-semibold">Cinacoin SDK</span>
+            <span className="text-[var(--cc-muted)] font-semibold">Cinacoin SDK</span>
             {' '}— one interface, every chain.
           </p>
         </div>

@@ -50,14 +50,14 @@ function ToggleSwitch({ checked, onChange, label }: { checked: boolean; onChange
     <button
       onClick={() => onChange(!checked)}
       className={`relative w-12 h-6 rounded-full transition-colors duration-200 ${
-        checked ? 'bg-blue-500' : 'bg-gray-700'
+        checked ? 'bg-blue-500' : 'bg-[var(--cc-canvas-soft-2)]'
       }`}
       role="switch"
       aria-checked={checked}
       aria-label={label}
     >
       <span
-        className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-md transition-transform duration-200 ${
+        className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-[var(--cc-canvas)] shadow-md transition-transform duration-200 ${
           checked ? 'translate-x-6' : 'translate-x-0'
         }`}
       />
@@ -179,25 +179,25 @@ export default function AADemoPage() {
           <h1 className="text-3xl font-semibold tracking-tighter bg-gradient-to-r from-violet-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
             Account Abstraction Demo
           </h1>
-          <p className="text-gray-400 text-sm">ERC-4337 smart accounts, session keys, gas sponsorship, and batch transactions</p>
+          <p className="text-[var(--cc-muted)] text-sm">ERC-4337 smart accounts, session keys, gas sponsorship, and batch transactions</p>
         </div>
 
         {/* ── Wallet connect ── */}
-        <div className="flex items-center justify-between bg-gray-800/40 backdrop-blur rounded-[var(--cc-radius-md)] border border-gray-700/50 px-5 py-4">
+        <div className="flex items-center justify-between bg-[var(--cc-canvas-soft-2)]/40 backdrop-blur rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/50 px-5 py-4">
           {isConnected ? (
             <div className="flex items-center gap-3">
-              <div className="size-8 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center text-xs font-semibold tracking-tighter text-white">
+              <div className="size-8 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center text-xs font-semibold tracking-tighter text-[var(--cc-ink)]">
                 {account.address?.slice(2, 4).toUpperCase()}
               </div>
               <div>
-                <p className="text-sm font-mono text-gray-200">{shortenAddress(account.address ?? '')}</p>
-                <p className="text-xs text-gray-500">{account.chainName}</p>
+                <p className="text-sm font-mono text-[var(--cc-body)]">{shortenAddress(account.address ?? '')}</p>
+                <p className="text-xs text-[var(--cc-body)]">{account.chainName}</p>
               </div>
             </div>
           ) : (
             <button
               onClick={handleConnect}
-              className="px-5 py-2.5 rounded-md text-sm font-semibold bg-violet-600 hover:bg-violet-500 text-white transition-all"
+              className="px-5 py-2.5 rounded-md text-sm font-semibold bg-violet-600 hover:bg-violet-500 text-[var(--cc-ink)] transition-all"
             >
               Connect Wallet
             </button>
@@ -205,7 +205,7 @@ export default function AADemoPage() {
           {isConnected && (
             <button
               onClick={() => disconnect()}
-              className="px-4 py-2 rounded-md text-xs font-semibold bg-gray-700/60 text-gray-300 border border-gray-600/40 hover:text-white transition-all"
+              className="px-4 py-2 rounded-md text-xs font-semibold bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] transition-all"
             >
               Disconnect
             </button>
@@ -215,14 +215,14 @@ export default function AADemoPage() {
         {/* ═══════════════════════════════════════════
             Section 1: Smart Account Creation
            ═══════════════════════════════════════════ */}
-        <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
-          <div className="px-5 py-4 border-b border-gray-700/50 flex items-center justify-between">
+        <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
+          <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50 flex items-center justify-between">
             <div>
-              <h2 className="text-lg font-semibold tracking-tighter text-white">🏦 Smart Account</h2>
-              <p className="text-xs text-gray-500 mt-0.5">ERC-4337 Account Abstraction wallet</p>
+              <h2 className="text-lg font-semibold tracking-tighter text-[var(--cc-ink)]">🏦 Smart Account</h2>
+              <p className="text-xs text-[var(--cc-body)] mt-0.5">ERC-4337 Account Abstraction wallet</p>
             </div>
             {accountCreated && smartAccount && (
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-500/15 text-emerald-400 border border-emerald-500/25">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-emerald-500/25">
                 <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse" />
                 Deployed
               </span>
@@ -231,7 +231,7 @@ export default function AADemoPage() {
 
           <div className="p-5 space-y-4">
             {!isConnected && (
-              <div className="text-center py-6 text-sm text-gray-500">
+              <div className="text-center py-6 text-sm text-[var(--cc-body)]">
                 Connect your wallet to create a smart account
               </div>
             )}
@@ -245,12 +245,12 @@ export default function AADemoPage() {
                     { step: '2', title: 'Configure', desc: 'Set session keys & permissions' },
                     { step: '3', title: 'Use', desc: 'Gasless, batched transactions' },
                   ].map((s) => (
-                    <div key={s.step} className="text-center p-3 rounded-md bg-gray-900/40 border border-gray-800/40">
+                    <div key={s.step} className="text-center p-3 rounded-md bg-[var(--cc-canvas)]/40 border border-[var(--cc-hairline)]/40">
                       <div className="size-8 rounded-full bg-violet-500/20 text-violet-400 flex items-center justify-center text-sm font-semibold mx-auto mb-2">
                         {s.step}
                       </div>
-                      <p className="text-sm font-semibold text-gray-200">{s.title}</p>
-                      <p className="text-[10px] text-gray-500 mt-1">{s.desc}</p>
+                      <p className="text-sm font-semibold text-[var(--cc-body)]">{s.title}</p>
+                      <p className="text-[10px] text-[var(--cc-body)] mt-1">{s.desc}</p>
                     </div>
                   ))}
                 </div>
@@ -260,7 +260,7 @@ export default function AADemoPage() {
                   disabled={creatingAccount}
                   className={`w-full py-3.5 rounded-md font-semibold text-sm transition-all ${
                     creatingAccount
-                      ? 'bg-violet-500/60 text-white cursor-wait'
+                      ? 'bg-violet-500/60 text-[var(--cc-ink)] cursor-wait'
                       : 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 shadow-[0_4px_12px_rgba(124,58,237,0.25),0_2px_4px_rgba(124,58,237,0.15)]'
                   }`}
                 >
@@ -281,18 +281,18 @@ export default function AADemoPage() {
 
             {accountCreated && smartAccount && (
               <div className="space-y-4">
-                <div className="p-4 rounded-md bg-gray-900/60 border border-gray-700/40">
-                  <p className="text-[10px] text-gray-500 mb-1">Smart Account Address</p>
+                <div className="p-4 rounded-md bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/40">
+                  <p className="text-[10px] text-[var(--cc-body)] mb-1">Smart Account Address</p>
                   <p className="font-mono text-sm text-violet-400">{smartAccount}</p>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
-                  <div className="p-3 rounded-md bg-gray-900/40 border border-gray-800/40">
-                    <p className="text-[10px] text-gray-500">Owner</p>
-                    <p className="text-xs font-mono text-gray-300 mt-1">{shortenAddress(account.address ?? '')}</p>
+                  <div className="p-3 rounded-md bg-[var(--cc-canvas)]/40 border border-[var(--cc-hairline)]/40">
+                    <p className="text-[10px] text-[var(--cc-body)]">Owner</p>
+                    <p className="text-xs font-mono text-[var(--cc-body)] mt-1">{shortenAddress(account.address ?? '')}</p>
                   </div>
-                  <div className="p-3 rounded-md bg-gray-900/40 border border-gray-800/40">
-                    <p className="text-[10px] text-gray-500">ERC-4337</p>
-                    <p className="text-xs text-emerald-400 mt-1 font-semibold">Supported ✓</p>
+                  <div className="p-3 rounded-md bg-[var(--cc-canvas)]/40 border border-[var(--cc-hairline)]/40">
+                    <p className="text-[10px] text-[var(--cc-body)]">ERC-4337</p>
+                    <p className="text-xs text-[var(--cc-success)] mt-1 font-semibold">Supported ✓</p>
                   </div>
                 </div>
               </div>
@@ -303,11 +303,11 @@ export default function AADemoPage() {
         {/* ═══════════════════════════════════════════
             Section 2: Session Key Management
            ═══════════════════════════════════════════ */}
-        <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
-          <div className="px-5 py-4 border-b border-gray-700/50 flex items-center justify-between">
+        <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
+          <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50 flex items-center justify-between">
             <div>
-              <h2 className="text-lg font-semibold tracking-tighter text-white">🔑 Session Keys</h2>
-              <p className="text-xs text-gray-500 mt-0.5">Temporary keys with limited permissions</p>
+              <h2 className="text-lg font-semibold tracking-tighter text-[var(--cc-ink)]">🔑 Session Keys</h2>
+              <p className="text-xs text-[var(--cc-body)] mt-0.5">Temporary keys with limited permissions</p>
             </div>
             <button
               onClick={() => setShowCreateKey(!showCreateKey)}
@@ -320,26 +320,26 @@ export default function AADemoPage() {
           <div className="p-5 space-y-3">
             {/* Create key form */}
             {showCreateKey && (
-              <div className="p-4 rounded-md bg-gray-900/50 border border-gray-700/40 space-y-3">
+              <div className="p-4 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/40 space-y-3">
                 <div className="flex gap-2">
                   <input
                     type="text"
                     placeholder="Key name (e.g., Trading Bot)"
                     value={newKeyName}
                     onChange={(e) => setNewKeyName(e.target.value)}
-                    className="flex-1 px-3 py-2 bg-gray-800/80 border border-gray-700/50 rounded-lg text-sm text-gray-200 placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-violet-500/40"
+                    className="flex-1 px-3 py-2 bg-[var(--cc-canvas-soft-2)]/80 border border-[var(--cc-hairline-strong)]/50 rounded-lg text-sm text-[var(--cc-body)] placeholder:text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-violet-500/40"
                   />
                   <button
                     onClick={handleCreateSessionKey}
                     disabled={!newKeyName.trim()}
-                    className="px-4 py-2 rounded-lg text-sm font-semibold bg-violet-600 hover:bg-violet-500 text-white disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+                    className="px-4 py-2 rounded-lg text-sm font-semibold bg-violet-600 hover:bg-violet-500 text-[var(--cc-ink)] disabled:opacity-40 disabled:cursor-not-allowed transition-all"
                   >
                     Create
                   </button>
                 </div>
                 <div className="flex gap-2">
                   {['swap', 'approve', 'mint', 'transfer'].map((p) => (
-                    <span key={p} className="px-2 py-1 rounded text-[10px] font-medium bg-gray-700/50 text-gray-400 border border-gray-600/40">
+                    <span key={p} className="px-2 py-1 rounded text-[10px] font-medium bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40">
                       {p}
                     </span>
                   ))}
@@ -354,7 +354,7 @@ export default function AADemoPage() {
                 className={`p-4 rounded-md border transition-all ${
                   key.active
                     ? 'bg-violet-500/5 border-violet-500/30'
-                    : 'bg-gray-900/30 border-gray-800/40'
+                    : 'bg-[var(--cc-canvas)]/30 border-[var(--cc-hairline)]/40'
                 }`}
               >
                 <div className="flex items-center justify-between">
@@ -362,20 +362,20 @@ export default function AADemoPage() {
                     <div className={`size-8 rounded-md flex items-center justify-center text-sm font-semibold ${
                       key.active
                         ? 'bg-violet-500/20 text-violet-400'
-                        : 'bg-gray-700/50 text-gray-500'
+                        : 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-body)]'
                     }`}>
                       🔑
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-gray-200">{key.name}</p>
-                      <p className="text-[10px] text-gray-500 font-mono">{key.address}</p>
+                      <p className="text-sm font-semibold text-[var(--cc-body)]">{key.name}</p>
+                      <p className="text-[10px] text-[var(--cc-body)] font-mono">{key.address}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
                     <ToggleSwitch checked={key.active} onChange={() => handleToggleKey(key.id)} label={`Toggle ${key.name}`} />
                     <button
                       onClick={() => handleRemoveKey(key.id)}
-                      className="text-xs text-red-400 hover:text-red-300 transition-colors px-2 py-1 rounded hover:bg-red-500/10"
+                      className="text-xs text-[var(--cc-error)] hover:text-red-300 transition-colors px-2 py-1 rounded hover:bg-[var(--cc-error)]/10"
                     >
                       Revoke
                     </button>
@@ -387,7 +387,7 @@ export default function AADemoPage() {
                       {p}
                     </span>
                   ))}
-                  <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-gray-700/50 text-gray-400">
+                  <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)]">
                     Expires: {key.expiry}
                   </span>
                 </div>
@@ -395,7 +395,7 @@ export default function AADemoPage() {
             ))}
 
             {sessionKeys.length === 0 && (
-              <div className="text-center py-8 text-sm text-gray-500">
+              <div className="text-center py-8 text-sm text-[var(--cc-body)]">
                 No session keys. Create one to enable delegated transactions.
               </div>
             )}
@@ -405,23 +405,23 @@ export default function AADemoPage() {
         {/* ═══════════════════════════════════════════
             Section 3: Gas Sponsorship
            ═══════════════════════════════════════════ */}
-        <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
-          <div className="px-5 py-4 border-b border-gray-700/50 flex items-center justify-between">
+        <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
+          <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50 flex items-center justify-between">
             <div>
-              <h2 className="text-lg font-semibold tracking-tighter text-white">⛽ Gas Sponsorship</h2>
-              <p className="text-xs text-gray-500 mt-0.5">Paymaster coverage — users don't pay gas</p>
+              <h2 className="text-lg font-semibold tracking-tighter text-[var(--cc-ink)]">⛽ Gas Sponsorship</h2>
+              <p className="text-xs text-[var(--cc-body)] mt-0.5">Paymaster coverage — users don't pay gas</p>
             </div>
             <ToggleSwitch checked={gasSponsored} onChange={setGasSponsored} label="Toggle gas sponsorship" />
           </div>
 
           <div className="p-5 space-y-4">
             {gasSponsored && (
-              <div className="p-4 rounded-md bg-emerald-500/10 border border-emerald-500/20">
+              <div className="p-4 rounded-md bg-[var(--cc-success)]/10 border border-emerald-500/20">
                 <div className="flex items-center gap-3">
                   <span className="text-2xl">✓</span>
                   <div>
-                    <p className="text-sm font-semibold text-emerald-400">Gas Sponsorship Active</p>
-                    <p className="text-xs text-gray-400 mt-0.5">All transactions will be sponsored by the paymaster</p>
+                    <p className="text-sm font-semibold text-[var(--cc-success)]">Gas Sponsorship Active</p>
+                    <p className="text-xs text-[var(--cc-muted)] mt-0.5">All transactions will be sponsored by the paymaster</p>
                   </div>
                 </div>
               </div>
@@ -430,38 +430,38 @@ export default function AADemoPage() {
             {/* Sponsor sources */}
             <div className="grid grid-cols-3 gap-3">
               {MOCK_GAS_SPONSORS.map((s) => (
-                <div key={s.name} className="p-3 rounded-md bg-gray-900/40 border border-gray-800/40 text-center">
-                  <p className="text-xs font-semibold text-gray-200">{s.name}</p>
+                <div key={s.name} className="p-3 rounded-md bg-[var(--cc-canvas)]/40 border border-[var(--cc-hairline)]/40 text-center">
+                  <p className="text-xs font-semibold text-[var(--cc-body)]">{s.name}</p>
                   <p className={`text-[10px] font-semibold mt-1 ${
-                    s.status === 'active' ? 'text-emerald-400' : 'text-amber-400'
+                    s.status === 'active' ? 'text-[var(--cc-success)]' : 'text-[var(--cc-warning)]'
                   }`}>
                     {s.status === 'active' ? '✓ Active' : '⚠ Limited'}
                   </p>
-                  <p className="text-[10px] text-gray-500 mt-0.5">Covers: {s.covered}</p>
+                  <p className="text-[10px] text-[var(--cc-body)] mt-0.5">Covers: {s.covered}</p>
                 </div>
               ))}
             </div>
 
             {/* Stats */}
             <div className="grid grid-cols-3 gap-3">
-              <div className="p-3 rounded-md bg-gray-900/50 border border-gray-800/50 text-center">
+              <div className="p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline)]/50 text-center">
                 <p className="text-2xl font-semibold tracking-tighter bg-gradient-to-r from-brand-400 to-brand-500 bg-clip-text text-transparent">
                   {txCount}
                 </p>
-                <p className="text-[10px] text-gray-500 mt-1">Gasless TXs</p>
+                <p className="text-[10px] text-[var(--cc-body)] mt-1">Gasless TXs</p>
               </div>
-              <div className="p-3 rounded-md bg-gray-900/50 border border-gray-800/50 text-center">
+              <div className="p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline)]/50 text-center">
                 {/* TODO: Calculate real gas saved from on-chain data */}
                 <p className="text-2xl font-semibold tracking-tighter bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
                   ~$2.40
                 </p>
-                <p className="text-[10px] text-gray-500 mt-1">Gas Saved</p>
+                <p className="text-[10px] text-[var(--cc-body)] mt-1">Gas Saved</p>
               </div>
-              <div className="p-3 rounded-md bg-gray-900/50 border border-gray-800/50 text-center">
+              <div className="p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline)]/50 text-center">
                 <p className="text-2xl font-semibold tracking-tighter bg-gradient-to-r from-purple-400 to-violet-400 bg-clip-text text-transparent">
                   0
                 </p>
-                <p className="text-[10px] text-gray-500 mt-1">User Gas Paid</p>
+                <p className="text-[10px] text-[var(--cc-body)] mt-1">User Gas Paid</p>
               </div>
             </div>
           </div>
@@ -470,10 +470,10 @@ export default function AADemoPage() {
         {/* ═══════════════════════════════════════════
             Section 4: Batch Transaction Demo
            ═══════════════════════════════════════════ */}
-        <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
-          <div className="px-5 py-4 border-b border-gray-700/50">
-            <h2 className="text-lg font-semibold tracking-tighter text-white">📦 Batch Transaction Demo</h2>
-            <p className="text-xs text-gray-500 mt-0.5">Execute multiple transactions in a single user operation</p>
+        <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
+          <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
+            <h2 className="text-lg font-semibold tracking-tighter text-[var(--cc-ink)]">📦 Batch Transaction Demo</h2>
+            <p className="text-xs text-[var(--cc-body)] mt-0.5">Execute multiple transactions in a single user operation</p>
           </div>
 
           <div className="p-5 space-y-3">
@@ -483,32 +483,32 @@ export default function AADemoPage() {
                 key={i}
                 className={`p-3 rounded-md border transition-all ${
                   tx.status === 'completed'
-                    ? 'bg-emerald-500/5 border-emerald-500/25'
+                    ? 'bg-[var(--cc-success)]/5 border-emerald-500/25'
                     : tx.status === 'pending'
-                    ? 'bg-amber-500/5 border-amber-500/25'
-                    : 'bg-gray-900/40 border-gray-800/40'
+                    ? 'bg-[var(--cc-warning)]/5 border-amber-500/25'
+                    : 'bg-[var(--cc-canvas)]/40 border-[var(--cc-hairline)]/40'
                 }`}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <span className={`size-6 rounded-full flex items-center justify-center text-xs font-semibold ${
                       tx.status === 'completed'
-                        ? 'bg-emerald-500/20 text-emerald-400'
+                        ? 'bg-[var(--cc-success)]/20 text-[var(--cc-success)]'
                         : tx.status === 'pending'
-                        ? 'bg-amber-500/20 text-amber-400'
-                        : 'bg-gray-700/50 text-gray-500'
+                        ? 'bg-[var(--cc-warning)]/20 text-[var(--cc-warning)]'
+                        : 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-body)]'
                     }`}>
                       {tx.status === 'completed' ? '✓' : tx.status === 'pending' ? '⏳' : (i + 1)}
                     </span>
                     <div>
-                      <p className="text-sm font-medium text-gray-200">{tx.action}</p>
-                      <p className="text-[10px] text-gray-500 font-mono">{tx.to}</p>
+                      <p className="text-sm font-medium text-[var(--cc-body)]">{tx.action}</p>
+                      <p className="text-[10px] text-[var(--cc-body)] font-mono">{tx.to}</p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-sm font-semibold text-gray-300">{tx.amount}</p>
+                    <p className="text-sm font-semibold text-[var(--cc-body)]">{tx.amount}</p>
                     <p className={`text-[10px] font-semibold ${
-                      tx.status === 'completed' ? 'text-emerald-400' : tx.status === 'pending' ? 'text-amber-400' : 'text-gray-500'
+                      tx.status === 'completed' ? 'text-[var(--cc-success)]' : tx.status === 'pending' ? 'text-[var(--cc-warning)]' : 'text-[var(--cc-body)]'
                     }`}>
                       {tx.status}
                     </p>
@@ -523,10 +523,10 @@ export default function AADemoPage() {
               disabled={batchExecuting || !smartAccount}
               className={`w-full py-3.5 rounded-md font-semibold text-sm transition-all ${
                 batchExecuting
-                  ? 'bg-violet-500/60 text-white cursor-wait'
+                  ? 'bg-violet-500/60 text-[var(--cc-ink)] cursor-wait'
                   : smartAccount
                   ? 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 shadow-[0_4px_12px_rgba(124,58,237,0.25),0_2px_4px_rgba(124,58,237,0.15)]'
-                  : 'bg-gray-700/60 text-gray-500 cursor-not-allowed'
+                  : 'bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-body)] cursor-not-allowed'
               }`}
             >
               {batchExecuting ? (
@@ -543,11 +543,11 @@ export default function AADemoPage() {
             </button>
 
             {!smartAccount && (
-              <p className="text-xs text-gray-500 text-center">Create a smart account first to execute batch transactions</p>
+              <p className="text-xs text-[var(--cc-body)] text-center">Create a smart account first to execute batch transactions</p>
             )}
 
             {gasSponsored && (
-              <div className="flex items-center gap-2 text-xs text-emerald-400">
+              <div className="flex items-center gap-2 text-xs text-[var(--cc-success)]">
                 <span>⛽</span>
                 <span>Gas will be sponsored — you won't pay any gas fees</span>
               </div>
@@ -558,7 +558,7 @@ export default function AADemoPage() {
         {/* ── Info Section ── */}
         <div className="bg-violet-500/5 border border-violet-500/20 rounded-[var(--cc-radius-md)] p-6 space-y-4">
           <h3 className="text-base font-semibold tracking-tighter text-violet-400">What is Account Abstraction?</h3>
-          <p className="text-sm text-gray-400 leading-relaxed">
+          <p className="text-sm text-[var(--cc-muted)] leading-relaxed">
             ERC-4337 enables smart contract wallets that replace EOAs. Users get features like social recovery,
             session keys, batched transactions, and gas sponsorship — all without changing the Ethereum consensus layer.
           </p>
@@ -569,29 +569,29 @@ export default function AADemoPage() {
               { icon: '📦', title: 'Batch Transactions', desc: 'Multiple actions in one UserOperation' },
               { icon: '🔄', title: 'Social Recovery', desc: 'Recover accounts via guardians' },
             ].map((f) => (
-              <div key={f.title} className="p-3 rounded-md bg-gray-900/40 border border-gray-800/40">
+              <div key={f.title} className="p-3 rounded-md bg-[var(--cc-canvas)]/40 border border-[var(--cc-hairline)]/40">
                 <div className="text-lg mb-1">{f.icon}</div>
-                <p className="text-xs font-semibold text-gray-200">{f.title}</p>
-                <p className="text-[10px] text-gray-500 mt-0.5">{f.desc}</p>
+                <p className="text-xs font-semibold text-[var(--cc-body)]">{f.title}</p>
+                <p className="text-[10px] text-[var(--cc-body)] mt-0.5">{f.desc}</p>
               </div>
             ))}
           </div>
         </div>
 
         {/* ── Code Example ── */}
-        <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
-          <div className="flex items-center justify-between px-5 py-3 border-b border-gray-700/40">
+        <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
+          <div className="flex items-center justify-between px-5 py-3 border-b border-[var(--cc-hairline-strong)]/40">
             <div className="flex items-center gap-3">
               <div className="flex gap-1.5">
-                <div className="w-3 h-3 rounded-full bg-red-500/70" />
-                <div className="w-3 h-3 rounded-full bg-yellow-500/70" />
+                <div className="w-3 h-3 rounded-full bg-[var(--cc-error)]/70" />
+                <div className="w-3 h-3 rounded-full bg-[var(--cc-warning)]/70" />
                 <div className="w-3 h-3 rounded-full bg-green-500/70" />
               </div>
-              <span className="text-[10px] text-gray-500 font-mono">userop-example.ts</span>
+              <span className="text-[10px] text-[var(--cc-body)] font-mono">userop-example.ts</span>
             </div>
-            <span className="text-[10px] px-2 py-0.5 rounded bg-gray-700/50 text-gray-400">TypeScript</span>
+            <span className="text-[10px] px-2 py-0.5 rounded bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)]">TypeScript</span>
           </div>
-          <pre className="p-5 text-xs text-gray-300 font-mono overflow-x-auto leading-relaxed">
+          <pre className="p-5 text-xs text-[var(--cc-body)] font-mono overflow-x-auto leading-relaxed">
 {`import { createBundlerClient } from '@cinacoin/aa';
 
 // Create smart account

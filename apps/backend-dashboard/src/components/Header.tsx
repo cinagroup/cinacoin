@@ -53,7 +53,7 @@ export default function Header({ onMenuToggle }: HeaderProps) {
         {/* Mobile hamburger */}
         <button
           onClick={onMenuToggle}
-          className="lg:hidden p-2 rounded-lg text-dashboard-muted hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas)]/10 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+          className="lg:hidden p-2 rounded-[var(--cc-radius-sm)] text-dashboard-muted hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas)]/10 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
           aria-label="Toggle sidebar"
         >
           <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -61,7 +61,7 @@ export default function Header({ onMenuToggle }: HeaderProps) {
           </svg>
         </button>
 
-        <img src="/logo.png" alt="cinacoin" className="h-7 w-7 sm:h-8 sm:w-8 rounded-lg shrink-0" />
+        <img src="/logo.png" alt="cinacoin" className="h-7 w-7 sm:h-8 sm:w-8 rounded-[var(--cc-radius-sm)] shrink-0" />
         <div className="min-w-0">
           <h2 className="text-base sm:text-xl font-semibold text-[var(--cc-ink)] truncate">cinacoin Backend</h2>
           <p className="text-xs sm:text-sm text-dashboard-muted hidden sm:block">Cloudflare Workers Management</p>
@@ -79,7 +79,7 @@ export default function Header({ onMenuToggle }: HeaderProps) {
         {/* Theme Toggle */}
         <button
           onClick={toggle}
-          className="p-2 rounded-lg text-dashboard-muted hover:text-dashboard-text hover:bg-dashboard-surface-hover transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+          className="p-2 rounded-[var(--cc-radius-sm)] text-dashboard-muted hover:text-dashboard-text hover:bg-dashboard-surface-hover transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
           aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
           title={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
         >
@@ -102,7 +102,7 @@ export default function Header({ onMenuToggle }: HeaderProps) {
             </div>
             <button
               onClick={doLogout}
-              className="px-3 py-1.5 text-xs font-medium text-[var(--cc-error)] border border-red-500/30 rounded-full hover:bg-[var(--cc-error)]/10 transition-colors min-h-[36px]"
+              className="px-3 py-1.5 text-xs font-medium text-[var(--cc-error)] border border-[var(--cc-error)]/30 rounded-full hover:bg-[var(--cc-error)]/10 transition-colors min-h-[36px]"
             >
               Logout
             </button>

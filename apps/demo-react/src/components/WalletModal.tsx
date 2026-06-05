@@ -336,7 +336,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
                 </p>
                 <button
                   onClick={handleRetry}
-                  className="btn-primary px-6 py-2.5 rounded-[100px] text-sm font-medium"
+                  className="btn-primary px-6 py-3 rounded-[100px] text-sm font-medium"
                 >
                   Try Again
                 </button>
@@ -365,7 +365,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
                       href="https://metamask.io/download/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-primary px-6 py-2.5 rounded-[100px] text-sm font-medium text-center"
+                      className="btn-primary px-6 py-3 rounded-[100px] text-sm font-medium text-center"
                     >
                       Install MetaMask →
                     </a>
@@ -375,7 +375,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
                       href="https://www.coinbase.com/wallet"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-primary px-6 py-2.5 rounded-[100px] text-sm font-medium text-center"
+                      className="btn-primary px-6 py-3 rounded-[100px] text-sm font-medium text-center"
                     >
                       Install Coinbase Wallet →
                     </a>
@@ -385,7 +385,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
                       href="https://rainbow.me/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-primary px-6 py-2.5 rounded-[100px] text-sm font-medium text-center"
+                      className="btn-primary px-6 py-3 rounded-[100px] text-sm font-medium text-center"
                     >
                       Install Rainbow →
                     </a>
@@ -395,7 +395,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
                       href="https://phantom.app/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-primary px-6 py-2.5 rounded-[100px] text-sm font-medium text-center"
+                      className="btn-primary px-6 py-3 rounded-[100px] text-sm font-medium text-center"
                     >
                       Install Phantom →
                     </a>
@@ -405,14 +405,14 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
                       href="https://trustwallet.com/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-primary px-6 py-2.5 rounded-[100px] text-sm font-medium text-center"
+                      className="btn-primary px-6 py-3 rounded-[100px] text-sm font-medium text-center"
                     >
                       Install Trust Wallet →
                     </a>
                   )}
                   <button
                     onClick={handleBack}
-                    className="px-6 py-2.5 rounded-[100px] text-sm font-medium text-gray-400 hover:text-white transition-colors"
+                    className="px-6 py-3 rounded-[100px] text-sm font-medium text-gray-400 hover:text-white transition-colors"
                   >
                     ← Back to wallets
                   </button>

@@ -24,7 +24,7 @@ export function UsageChart({ data }: { data: UsageDataPoint[] }) {
                   title={`${point.requests} requests, ${point.errors} errors`}
                 />
               </div>
-              <span className="text-xs text-slate-500">{point.date.slice(5)}</span>
+              <span className="text-xs text-[var(--cc-muted)]">{point.date.slice(5)}</span>
             </div>
           );
         })}

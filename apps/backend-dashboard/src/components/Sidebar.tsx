@@ -47,7 +47,7 @@ export default function Sidebar({ onClose }: SidebarProps) {
       {/* Logo */}
       <div className="p-6 border-b border-dashboard-border">
         <div className="flex items-center gap-3">
-          <img src="/logo.png" alt="cinacoin" className="h-8 w-8 rounded-lg shrink-0" />
+          <img src="/logo.png" alt="cinacoin" className="h-8 w-8 rounded-[var(--cc-radius-sm)] shrink-0" />
           <div className="flex-1">
             <h1 className="text-lg font-semibold text-dashboard-text">cinacoin</h1>
             <p className="text-xs text-dashboard-muted">Backend Dashboard</p>
@@ -56,7 +56,7 @@ export default function Sidebar({ onClose }: SidebarProps) {
           {onClose && (
             <button
               onClick={onClose}
-              className="lg:hidden p-2 rounded-lg text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas)]/10 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+              className="lg:hidden p-2 rounded-[var(--cc-radius-sm)] text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas)]/10 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
               aria-label="Close sidebar"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -82,7 +82,7 @@ export default function Sidebar({ onClose }: SidebarProps) {
                     key={item.href}
                     href={item.href}
                     onClick={handleNav}
-                    className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors min-h-[44px] ${
+                    className={`flex items-center gap-3 px-3 py-3 rounded-[var(--cc-radius-sm)] text-sm font-medium transition-colors min-h-[44px] ${
                       isActive
                         ? "bg-brand-500/20 text-brand-400"
                         : "text-dashboard-muted hover:text-[var(--cc-ink)] hover:bg-dashboard-border/50"

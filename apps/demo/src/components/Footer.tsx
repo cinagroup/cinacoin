@@ -19,10 +19,10 @@ export default function Footer({
   githubUrl = 'https://github.com/cinaseek/cinacoin',
 }: FooterProps) {
   return (
-    <footer className="border-t border-gray-800 mt-auto">
+    <footer className="border-t border-[var(--cc-hairline)] mt-auto">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="flex flex-wrap items-center justify-between gap-4">
-          <p className="text-xs text-gray-600">
+          <p className="text-xs text-[var(--cc-body)]">
             © {copyrightYear} {brand}. Open source under MIT License.
           </p>
           <div className="flex items-center gap-4">
@@ -30,17 +30,17 @@ export default function Footer({
               <Link
                 key={l.href}
                 href={l.href}
-                className="text-xs text-gray-500 hover:text-gray-300 transition-colors"
+                className="text-xs text-[var(--cc-body)] hover:text-[var(--cc-body)] transition-colors"
               >
                 {l.label}
               </Link>
             ))}
-            <span className="text-xs text-gray-700">|</span>
+            <span className="text-xs text-[var(--cc-ink)]">|</span>
             <a
               href={githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs text-gray-500 hover:text-gray-300 transition-colors"
+              className="text-xs text-[var(--cc-body)] hover:text-[var(--cc-body)] transition-colors"
             >
               GitHub
             </a>

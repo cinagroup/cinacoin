@@ -13,7 +13,7 @@ export default function TxProgress({ steps }: { steps: TxStep[] }) {
   const errorIdx = steps.findIndex((s) => s.status === 'error');
 
   return (
-    <div className="mx-5 mb-5 p-4 bg-gray-900/60 rounded-md border border-gray-700/30 animate-slide-up">
+    <div className="mx-5 mb-5 p-4 bg-[var(--cc-canvas)]/60 rounded-md border border-[var(--cc-hairline-strong)]/30 animate-slide-up">
       <div className="space-y-3">
         {steps.map((step, i) => {
           const isDone = step.status === 'done';
@@ -28,12 +28,12 @@ export default function TxProgress({ steps }: { steps: TxStep[] }) {
                 <div
                   className={`flex items-center justify-center w-8 h-8 rounded-full border-2 transition-all duration-300 ${
                     isDone
-                      ? 'bg-emerald-500/20 border-emerald-500/60 text-emerald-400'
+                      ? 'bg-[var(--cc-success)]/20 border-emerald-500/60 text-[var(--cc-success)]'
                       : isActive
-                      ? 'bg-blue-500/20 border-blue-500/60 text-blue-400'
+                      ? 'bg-blue-500/20 border-[var(--cc-primary)]/60 text-blue-400'
                       : isError
-                      ? 'bg-red-500/20 border-red-500/60 text-red-400'
-                      : 'bg-gray-800 border-gray-600/50 text-gray-600'
+                      ? 'bg-[var(--cc-error)]/20 border-red-500/60 text-[var(--cc-error)]'
+                      : 'bg-[var(--cc-canvas-soft-2)] border-[var(--cc-hairline-strong)]/50 text-[var(--cc-body)]'
                   }`}
                 >
                   {isDone ? (
@@ -57,14 +57,14 @@ export default function TxProgress({ steps }: { steps: TxStep[] }) {
                 {!isLast && (
                   <div
                     className={`w-0.5 h-6 transition-colors duration-300 ${
-                      isDone ? 'bg-emerald-500/40' : 'bg-gray-700/50'
+                      isDone ? 'bg-[var(--cc-success)]/40' : 'bg-[var(--cc-canvas-soft-2)]/50'
                     }`}
                   />
                 )}
               </div>
               {/* Step label */}
               <div className={`pt-1.5 transition-colors duration-300 ${
-                isDone ? 'text-emerald-400' : isActive ? 'text-blue-400' : isError ? 'text-red-400' : 'text-gray-600'
+                isDone ? 'text-[var(--cc-success)]' : isActive ? 'text-blue-400' : isError ? 'text-[var(--cc-error)]' : 'text-[var(--cc-body)]'
               }`}>
                 <span className="text-sm font-medium">{step.label}</span>
               </div>
@@ -74,17 +74,17 @@ export default function TxProgress({ steps }: { steps: TxStep[] }) {
       </div>
 
       {/* Overall progress bar */}
-      <div className="mt-3 pt-3 border-t border-gray-700/30">
-        <div className="h-1.5 bg-gray-800 rounded-full overflow-hidden">
+      <div className="mt-3 pt-3 border-t border-[var(--cc-hairline-strong)]/30">
+        <div className="h-1.5 bg-[var(--cc-canvas-soft-2)] rounded-full overflow-hidden">
           <div
             className={`h-full rounded-full transition-all duration-500 ease-out ${
               errorIdx >= 0
-                ? 'bg-red-500'
+                ? 'bg-[var(--cc-error)]'
                 : steps.every((s) => s.status === 'done')
-                ? 'bg-emerald-500'
+                ? 'bg-[var(--cc-success)]'
                 : activeIdx >= 0
                 ? 'bg-blue-500'
-                : 'bg-gray-700'
+                : 'bg-[var(--cc-canvas-soft-2)]'
             }`}
             style={{
               width: errorIdx >= 0

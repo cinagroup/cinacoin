@@ -78,10 +78,10 @@ Issued At: 2026-05-17T13:45:00.000Z`;
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
           <a href="/" className="text-lg font-semibold bg-gradient-to-r from-[var(--cc-link)] to-[var(--cc-link)] bg-clip-text text-transparent">Cinacoin</a>
           <div className="flex items-center gap-1">
-            <a href="/" className="px-3 py-1.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-all">Home</a>
-            <a href="/swap" className="px-3 py-1.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-all">Swap</a>
-            <a href="/multichain" className="px-3 py-1.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-all">Multi-Chain</a>
-            <a href="/auth" className="px-3 py-1.5 rounded-[100px] text-sm font-medium text-white bg-gray-800">Auth</a>
+            <a href="/" className="px-3 py-2 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-all">Home</a>
+            <a href="/swap" className="px-3 py-2 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-all">Swap</a>
+            <a href="/multichain" className="px-3 py-2 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-all">Multi-Chain</a>
+            <a href="/auth" className="px-3 py-2 rounded-[100px] text-sm font-medium text-white bg-gray-800">Auth</a>
           </div>
         </div>
       </nav>
@@ -94,10 +94,10 @@ Issued At: 2026-05-17T13:45:00.000Z`;
 
         {/* Auth Method Tabs */}
         <div className="flex gap-2 mb-8 bg-gray-900/50 p-1 rounded-md">
-          <button onClick={() => { setAuthMethod('wallet'); setStep(1); }} className={`flex-1 py-2.5 rounded-[100px] text-sm font-medium transition-all ${authMethod === 'wallet' ? 'bg-[var(--cc-link)] text-white shadow-[var(--cc-level3)]' : 'text-gray-400 hover:text-white'}`}>
+          <button onClick={() => { setAuthMethod('wallet'); setStep(1); }} className={`flex-1 py-3 rounded-[100px] text-sm font-medium transition-all ${authMethod === 'wallet' ? 'bg-[var(--cc-link)] text-white shadow-[var(--cc-level3)]' : 'text-gray-400 hover:text-white'}`}>
             🔗 Wallet
           </button>
-          <button onClick={() => { setAuthMethod('social'); setStep(1); }} className={`flex-1 py-2.5 rounded-[100px] text-sm font-medium transition-all ${authMethod === 'social' ? 'bg-[var(--cc-link)] text-white shadow-[var(--cc-level3)]' : 'text-gray-400 hover:text-white'}`}>
+          <button onClick={() => { setAuthMethod('social'); setStep(1); }} className={`flex-1 py-3 rounded-[100px] text-sm font-medium transition-all ${authMethod === 'social' ? 'bg-[var(--cc-link)] text-white shadow-[var(--cc-level3)]' : 'text-gray-400 hover:text-white'}`}>
             👤 Social
           </button>
         </div>
@@ -196,7 +196,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
                   <div className="flex justify-between"><span className="text-gray-500">Wallet</span><span className="font-mono text-xs">{address}</span></div>
                   <div className="flex justify-between"><span className="text-gray-500">Verified</span><span className="text-[var(--cc-success)]">✓ True</span></div>
                 </div>
-                <button onClick={handleReset} className="w-full mt-4 py-2.5 rounded-[100px] text-sm font-medium bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white transition-all">Reset</button>
+                <button onClick={handleReset} className="w-full mt-4 py-3 rounded-[100px] text-sm font-medium bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white transition-all">Reset</button>
               </div>
             )}
           </div>
@@ -212,7 +212,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
                 <p className="text-xs text-gray-500">{authMethod === 'social' ? `Signed in via ${SOCIAL_PROVIDERS.find(s => s.id === selectedSocial)?.name}` : 'Signed in with Ethereum'}</p>
               </div>
             </div>
-            <button onClick={handleReset} className="w-full py-2.5 rounded-[100px] text-sm font-medium bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white transition-all">Disconnect</button>
+            <button onClick={handleReset} className="w-full py-3 rounded-[100px] text-sm font-medium bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white transition-all">Disconnect</button>
           </div>
         )}
 

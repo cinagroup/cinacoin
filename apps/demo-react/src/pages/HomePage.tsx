@@ -86,7 +86,7 @@ const HomePage: React.FC = () => {
             ) : (
               <button
                 onClick={() => setWalletModalOpen(true)}
-                className="btn-primary px-5 py-2.5 rounded-[100px] text-sm font-medium"
+                className="btn-primary px-5 py-3 rounded-[100px] text-sm font-medium"
               >
                 Connect Wallet
               </button>
@@ -104,7 +104,7 @@ const HomePage: React.FC = () => {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32">
           <div className="text-center max-w-4xl mx-auto">
             <div className="animate-fade-in-up">
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[var(--cc-link)]/10 border border-[var(--cc-link)]/20 text-[var(--cc-link)] text-sm mb-6">
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--cc-link)]/10 border border-[var(--cc-link)]/20 text-[var(--cc-link)] text-sm mb-6">
                 ✨ Open Source • 64 Packages • Zero Cost
               </span>
             </div>

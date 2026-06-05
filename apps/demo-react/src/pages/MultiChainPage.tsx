@@ -29,10 +29,10 @@ export default function MultiChainPage() {
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
           <a href="/" className="text-lg font-semibold bg-gradient-to-r from-[var(--cc-link)] to-[var(--cc-link)] bg-clip-text text-transparent">Cinacoin</a>
           <div className="flex items-center gap-1">
-            <a href="/" className="px-3 py-1.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-all">Home</a>
-            <a href="/swap" className="px-3 py-1.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-all">Swap</a>
-            <a href="/multichain" className="px-3 py-1.5 rounded-[100px] text-sm font-medium text-white bg-gray-800">Multi-Chain</a>
-            <a href="/auth" className="px-3 py-1.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-all">Auth</a>
+            <a href="/" className="px-3 py-2 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-all">Home</a>
+            <a href="/swap" className="px-3 py-2 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-all">Swap</a>
+            <a href="/multichain" className="px-3 py-2 rounded-[100px] text-sm font-medium text-white bg-gray-800">Multi-Chain</a>
+            <a href="/auth" className="px-3 py-2 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-all">Auth</a>
           </div>
         </div>
       </nav>
@@ -52,7 +52,7 @@ export default function MultiChainPage() {
                 <span className="font-semibold text-sm">{c.name}</span>
               </div>
               <div className="flex gap-1 flex-wrap">
-                {c.wallets.slice(0, 3).map(w => <span key={w} className="px-1.5 py-0.5 bg-gray-800 rounded text-[10px] text-gray-400">{w}</span>)}
+                {c.wallets.slice(0, 3).map(w => <span key={w} className="px-2 py-1 bg-gray-800 rounded text-[10px] text-gray-400">{w}</span>)}
               </div>
             </button>
           ))}

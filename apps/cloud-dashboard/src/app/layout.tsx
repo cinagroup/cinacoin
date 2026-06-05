@@ -13,7 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-[var(--cc-canvas)] text-slate-100 antialiased">
+      <body className="min-h-screen bg-[var(--cc-canvas)] text-[var(--cc-ink)] antialiased">
         <div className="flex min-h-screen">
           {/* Sidebar */}
           <aside className="hidden w-64 flex-shrink-0 border-r border-[var(--cc-hairline)] bg-[var(--cc-canvas-soft)]/50 md:block">
@@ -77,7 +77,7 @@ function NavItem({
     <li>
       <a
         href={href}
-        className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition-colors hover:bg-[var(--cc-canvas-soft-2)] hover:text-[var(--cc-ink)]"
+        className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-[var(--cc-body)] transition-colors hover:bg-[var(--cc-canvas-soft-2)] hover:text-[var(--cc-ink)]"
       >
         {icons[icon]}
         {label}

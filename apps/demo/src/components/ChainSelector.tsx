@@ -81,10 +81,10 @@ export default function ChainSelector({
         type="button"
         onClick={() => setOpen((o) => !o)}
         onKeyDown={handleKeyDown}
-        className={`w-full flex items-center gap-2.5 px-4 py-2.5 bg-gray-700/60 text-white text-sm rounded-md border border-gray-600/40 outline-none cursor-pointer appearance-none transition-all duration-200 ${
+        className={`w-full flex items-center gap-2.5 px-4 py-2.5 bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-ink)] text-sm rounded-md border border-[var(--cc-hairline-strong)]/40 outline-none cursor-pointer appearance-none transition-all duration-200 ${
           open
             ? 'ring-2 ring-brand-500/40 border-brand-500/50'
-            : 'hover:border-gray-500/60 hover:bg-gray-700/80'
+            : 'hover:border-[var(--cc-hairline-strong)]/60 hover:bg-[var(--cc-canvas-soft-2)]/80'
         }`}
         aria-expanded={open}
         aria-haspopup="listbox"
@@ -102,7 +102,7 @@ export default function ChainSelector({
         <span className="text-base leading-none">{selected.icon}</span>
         <span className="flex-1 text-left font-medium truncate">{selected.name}</span>
         <svg
-          className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
+          className={`w-4 h-4 text-[var(--cc-muted)] transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -114,12 +114,12 @@ export default function ChainSelector({
       {/* Dropdown */}
       {open && (
         <div
-          className="absolute z-50 top-full mt-2 left-0 w-full min-w-[240px] bg-gray-800/95 backdrop-blur-xl border border-gray-600/50 rounded-md shadow-[0_4px_16px_rgba(0,0,0,0.35)] overflow-hidden animate-dropdown-in"
+          className="absolute z-50 top-full mt-2 left-0 w-full min-w-[240px] bg-[var(--cc-canvas-soft-2)]/95 backdrop-blur-xl border border-[var(--cc-hairline-strong)]/50 rounded-md shadow-[0_4px_16px_rgba(0,0,0,0.35)] overflow-hidden animate-dropdown-in"
           role="listbox"
         >
           {/* Dropdown header */}
-          <div className="px-4 py-2.5 border-b border-gray-700/50">
-            <p className="text-[11px] text-gray-500 font-semibold uppercase tracking-wider">
+          <div className="px-4 py-2.5 border-b border-[var(--cc-hairline-strong)]/50">
+            <p className="text-[11px] text-[var(--cc-body)] font-semibold uppercase tracking-wider">
               Select Chain
             </p>
           </div>
@@ -142,8 +142,8 @@ export default function ChainSelector({
                     isSelected
                       ? 'bg-brand-500/15 border border-brand-500/30'
                       : isHovered
-                      ? 'bg-gray-700/60'
-                      : 'hover:bg-gray-700/40'
+                      ? 'bg-[var(--cc-canvas-soft-2)]/60'
+                      : 'hover:bg-[var(--cc-canvas-soft-2)]/40'
                   }`}
                   style={mounted ? { animationDelay: `${i * 30}ms` } : undefined}
                 >
@@ -161,7 +161,7 @@ export default function ChainSelector({
                     )}
                   </div>
 
-                  <span className="flex-1 text-sm text-white font-medium">{chain.name}</span>
+                  <span className="flex-1 text-sm text-[var(--cc-ink)] font-medium">{chain.name}</span>
 
                   {/* Active checkmark */}
                   {isSelected && (

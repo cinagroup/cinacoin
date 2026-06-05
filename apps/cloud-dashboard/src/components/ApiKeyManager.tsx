@@ -48,7 +48,7 @@ export function ApiKeyManager({ projectId }: { projectId: string }) {
 
       {/* Show newly generated key */}
       {showNewKey && (
-        <div className="rounded-lg border border-emerald-800 bg-emerald-950/30 p-4">
+        <div className="rounded-lg border border-[var(--cc-success)]/30 bg-[var(--cc-success)]/10 p-4">
           <p className="mb-2 text-sm font-medium text-[var(--cc-success)]">New API Key Generated</p>
           <code className="block rounded bg-[var(--cc-canvas-soft)] px-3 py-2 text-sm font-mono text-[var(--cc-ink)] break-all">
             {showNewKey}
@@ -75,14 +75,14 @@ export function ApiKeyManager({ projectId }: { projectId: string }) {
             </div>
             <div className="flex items-center gap-2">
               <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${
-                key.isActive ? 'bg-emerald-500/20 text-[var(--cc-success)]' : 'bg-red-500/20 text-[var(--cc-error)]'
+                key.isActive ? 'bg-[var(--cc-success)]/20 text-[var(--cc-success)]' : 'bg-[var(--cc-error)]/20 text-[var(--cc-error)]'
               }`}>
                 {key.isActive ? 'Active' : 'Revoked'}
               </span>
               {key.isActive && (
                 <button
                   onClick={() => revokeKey(key.id)}
-                  className="rounded-md px-3 py-1 text-xs font-medium text-[var(--cc-error)] transition hover:bg-red-500/20 hover:text-red-300"
+                  className="rounded-md px-3 py-1 text-xs font-medium text-[var(--cc-error)] transition hover:bg-[var(--cc-error)]/20 hover:text-[var(--cc-error)]"
                 >
                   Revoke
                 </button>

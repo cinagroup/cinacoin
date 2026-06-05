@@ -10,35 +10,35 @@ import { useToast } from '@/lib/toast';
 const THEMES: Record<string, { name: string; bg: string; card: string; border: string; primary: string; text: string; accent: string }> = {
   dark: {
     name: 'Dark',
-    bg: 'bg-gray-950',
-    card: 'bg-gray-800/60',
-    border: 'border-gray-700/50',
+    bg: 'bg-[var(--cc-canvas)]',
+    card: 'bg-[var(--cc-canvas-soft-2)]/60',
+    border: 'border-[var(--cc-hairline-strong)]/50',
     primary: 'from-brand-500 to-brand-600',
-    text: 'text-white',
+    text: 'text-[var(--cc-ink)]',
     accent: 'text-blue-400',
   },
   light: {
     name: 'Light',
-    bg: 'bg-gray-100',
-    card: 'bg-white/80',
-    border: 'border-gray-300/50',
+    bg: 'bg-[var(--cc-canvas-soft-2)]',
+    card: 'bg-[var(--cc-canvas)]/80',
+    border: 'border-[var(--cc-hairline-strong)]/50',
     primary: 'from-brand-500 to-brand-600',
-    text: 'text-gray-900',
-    accent: 'text-blue-600',
+    text: 'text-[var(--cc-ink)]',
+    accent: 'text-[var(--cc-primary)]',
   },
   midnight: {
     name: 'Midnight',
     bg: 'bg-slate-950',
-    card: 'bg-slate-900/60',
+    card: 'bg-[var(--cc-canvas)]/60',
     border: 'border-slate-700/50',
     primary: 'from-brand-500 to-brand-600',
     text: 'text-slate-100',
-    accent: 'text-indigo-400',
+    accent: 'text-[var(--cc-link)]',
   },
   neon: {
     name: 'Neon',
-    bg: 'bg-gray-950',
-    card: 'bg-gray-900/70',
+    bg: 'bg-[var(--cc-canvas)]',
+    card: 'bg-[var(--cc-canvas)]/70',
     border: 'border-green-500/30',
     primary: 'from-green-400 to-emerald-600',
     text: 'text-green-100',
@@ -46,8 +46,8 @@ const THEMES: Record<string, { name: string; bg: string; card: string; border: s
   },
   sunset: {
     name: 'Sunset',
-    bg: 'bg-gray-950',
-    card: 'bg-gray-900/60',
+    bg: 'bg-[var(--cc-canvas)]',
+    card: 'bg-[var(--cc-canvas)]/60',
     border: 'border-orange-500/30',
     primary: 'from-brand-500 to-brand-600',
     text: 'text-orange-100',
@@ -56,7 +56,7 @@ const THEMES: Record<string, { name: string; bg: string; card: string; border: s
   ocean: {
     name: 'Ocean',
     bg: 'bg-slate-950',
-    card: 'bg-slate-900/50',
+    card: 'bg-[var(--cc-canvas)]/50',
     border: 'border-cyan-500/30',
     primary: 'from-cyan-500 to-teal-600',
     text: 'text-cyan-100',
@@ -64,8 +64,8 @@ const THEMES: Record<string, { name: string; bg: string; card: string; border: s
   },
   rose: {
     name: 'Rose',
-    bg: 'bg-gray-950',
-    card: 'bg-gray-900/60',
+    bg: 'bg-[var(--cc-canvas)]',
+    card: 'bg-[var(--cc-canvas)]/60',
     border: 'border-pink-500/30',
     primary: 'from-pink-500 to-rose-600',
     text: 'text-pink-100',
@@ -73,12 +73,12 @@ const THEMES: Record<string, { name: string; bg: string; card: string; border: s
   },
   minimal: {
     name: 'Minimal',
-    bg: 'bg-gray-950',
-    card: 'bg-gray-900/30',
-    border: 'border-gray-800/40',
+    bg: 'bg-[var(--cc-canvas)]',
+    card: 'bg-[var(--cc-canvas)]/30',
+    border: 'border-[var(--cc-hairline)]/40',
     primary: 'from-gray-400 to-gray-600',
-    text: 'text-gray-200',
-    accent: 'text-gray-400',
+    text: 'text-[var(--cc-body)]',
+    accent: 'text-[var(--cc-muted)]',
   },
 };
 
@@ -94,19 +94,19 @@ function CodeBlock({ code, lang = 'tsx' }: { code: string; lang?: string }) {
   }, [code]);
 
   return (
-    <div className="relative rounded-md overflow-hidden border border-gray-700/40">
-      <div className="flex items-center justify-between px-4 py-2 bg-gray-900/60 border-b border-gray-700/40">
-        <span className="text-[10px] text-gray-500 font-mono">{lang}</span>
+    <div className="relative rounded-md overflow-hidden border border-[var(--cc-hairline-strong)]/40">
+      <div className="flex items-center justify-between px-4 py-2 bg-[var(--cc-canvas)]/60 border-b border-[var(--cc-hairline-strong)]/40">
+        <span className="text-[10px] text-[var(--cc-body)] font-mono">{lang}</span>
         <button
           onClick={handleCopy}
           className={`text-[10px] px-2 py-0.5 rounded transition-all ${
-            copied ? 'text-emerald-400 bg-emerald-500/15' : 'text-gray-500 hover:text-gray-300'
+            copied ? 'text-[var(--cc-success)] bg-[var(--cc-success)]/15' : 'text-[var(--cc-body)] hover:text-[var(--cc-body)]'
           }`}
         >
           {copied ? '✓ Copied' : 'Copy'}
         </button>
       </div>
-      <pre className="p-4 text-xs text-gray-300 font-mono overflow-x-auto bg-gray-950/50 leading-relaxed">
+      <pre className="p-4 text-xs text-[var(--cc-body)] font-mono overflow-x-auto bg-[var(--cc-canvas)]/50 leading-relaxed">
         {code}
       </pre>
     </div>
@@ -132,17 +132,17 @@ function ComponentShowcase({
 
   return (
     <div className={`${theme.card} backdrop-blur-xl rounded-[var(--cc-radius-md)] border ${theme.border} overflow-hidden`}>
-      <div className="px-5 py-4 border-b border-gray-700/30 flex items-center justify-between">
+      <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/30 flex items-center justify-between">
         <div>
           <h3 className={`text-lg font-semibold tracking-tighter ${theme.text}`}>{title}</h3>
-          <p className="text-xs text-gray-500 mt-0.5">{description}</p>
+          <p className="text-xs text-[var(--cc-body)] mt-0.5">{description}</p>
         </div>
         <button
           onClick={() => setShowCode(!showCode)}
           className={`text-xs px-3 py-1.5 rounded-lg transition-all ${
             showCode
               ? 'bg-brand-500/15 text-brand-400 border border-brand-500/30'
-              : 'bg-gray-700/40 text-gray-400 border border-gray-600/40 hover:text-white'
+              : 'bg-[var(--cc-canvas-soft-2)]/40 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)]'
           }`}
         >
           {showCode ? 'Hide Code' : 'Show Code'}
@@ -154,7 +154,7 @@ function ComponentShowcase({
 
       {/* Code */}
       {showCode && (
-        <div className="border-t border-gray-700/30">
+        <div className="border-t border-[var(--cc-hairline-strong)]/30">
           <div className="p-5">
             <CodeBlock code={code} />
           </div>
@@ -183,14 +183,14 @@ export default function ComponentsPage() {
           <h1 className="text-3xl font-semibold tracking-tighter bg-gradient-to-r from-brand-500 via-brand-400 to-brand-300 bg-clip-text text-transparent">
             Component Gallery
           </h1>
-          <p className="text-gray-400 text-sm">Browse all Cinacoin components with live theme previews</p>
+          <p className="text-[var(--cc-muted)] text-sm">Browse all Cinacoin components with live theme previews</p>
         </div>
 
         {/* ── Theme Switcher ── */}
-        <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
-          <div className="px-5 py-4 border-b border-gray-700/50">
-            <h2 className="text-lg font-semibold tracking-tighter text-white">🎨 Theme Preview</h2>
-            <p className="text-xs text-gray-500 mt-1">Switch themes to see all components update in real-time</p>
+        <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
+          <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
+            <h2 className="text-lg font-semibold tracking-tighter text-[var(--cc-ink)]">🎨 Theme Preview</h2>
+            <p className="text-xs text-[var(--cc-body)] mt-1">Switch themes to see all components update in real-time</p>
           </div>
           <div className="p-5">
             <div className="flex flex-wrap gap-2">
@@ -201,7 +201,7 @@ export default function ComponentsPage() {
                   className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
                     themeKey === key
                       ? `bg-[var(--cc-primary)] text-[var(--cc-on-primary)] shadow-[0_2px_8px_rgba(0,0,0,0.15)]`
-                      : 'bg-gray-800/40 text-gray-400 border border-gray-700/40 hover:text-white hover:border-gray-600'
+                      : 'bg-[var(--cc-canvas-soft-2)]/40 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)]'
                   }`}
                 >
                   {t.name}
@@ -223,19 +223,19 @@ export default function ComponentsPage() {
                 <button className="px-5 py-2.5 rounded-[100px] font-semibold text-sm bg-[var(--cc-primary)] text-[var(--cc-on-primary)] shadow-[0_4px_12px_rgba(99,102,241,0.25),0_2px_4px_rgba(99,102,241,0.15)] hover:shadow-[0_6px_16px_rgba(99,102,241,0.4),0_2px_6px_rgba(99,102,241,0.2)] transition-all hover:-translate-y-0.5">
                   Primary
                 </button>
-                <button className="px-5 py-2.5 rounded-md font-semibold text-sm bg-gray-700/60 text-gray-300 border border-gray-600/40 hover:text-white hover:border-gray-500 transition-all">
+                <button className="px-5 py-2.5 rounded-md font-semibold text-sm bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all">
                   Secondary
                 </button>
                 <button className="px-5 py-2.5 rounded-md font-semibold text-sm text-brand-400 hover:text-brand-300 transition-colors">
                   Ghost
                 </button>
-                <button className="px-5 py-2.5 rounded-md font-semibold text-sm bg-red-500/15 text-red-400 border border-red-500/25 hover:bg-red-500/25 transition-all">
+                <button className="px-5 py-2.5 rounded-md font-semibold text-sm bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-red-500/25 hover:bg-[var(--cc-error)]/25 transition-all">
                   Danger
                 </button>
-                <button className="px-5 py-2.5 rounded-md font-semibold text-sm bg-emerald-500/15 text-emerald-400 border border-emerald-500/25 hover:bg-emerald-500/25 transition-all">
+                <button className="px-5 py-2.5 rounded-md font-semibold text-sm bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-emerald-500/25 hover:bg-[var(--cc-success)]/25 transition-all">
                   Success
                 </button>
-                <button disabled className="px-5 py-2.5 rounded-md font-semibold text-sm bg-gray-700/40 text-gray-600 cursor-not-allowed">
+                <button disabled className="px-5 py-2.5 rounded-md font-semibold text-sm bg-[var(--cc-canvas-soft-2)]/40 text-[var(--cc-body)] cursor-not-allowed">
                   Disabled
                 </button>
               </div>
@@ -255,13 +255,13 @@ export default function ComponentsPage() {
 
               {/* Icon buttons */}
               <div className="flex flex-wrap gap-3 items-center">
-                <button className="size-10 rounded-md bg-gray-700/60 text-gray-400 hover:text-white hover:bg-gray-600 transition-all flex items-center justify-center text-lg">
+                <button className="size-10 rounded-md bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-muted)] transition-all flex items-center justify-center text-lg">
                   🔗
                 </button>
-                <button className="size-10 rounded-md bg-brand-500/15 text-blue-400 hover:bg-brand-500/25 border border-blue-500/25 transition-all flex items-center justify-center text-lg">
+                <button className="size-10 rounded-md bg-brand-500/15 text-blue-400 hover:bg-brand-500/25 border border-[var(--cc-primary)]/25 transition-all flex items-center justify-center text-lg">
                   🔄
                 </button>
-                <button className="size-10 rounded-md bg-emerald-500/15 text-emerald-400 hover:bg-emerald-500/25 border border-emerald-500/25 transition-all flex items-center justify-center text-lg">
+                <button className="size-10 rounded-md bg-[var(--cc-success)]/15 text-[var(--cc-success)] hover:bg-[var(--cc-success)]/25 border border-emerald-500/25 transition-all flex items-center justify-center text-lg">
                   ✓
                 </button>
               </div>
@@ -276,7 +276,7 @@ export default function ComponentsPage() {
 
 // Secondary Button
 <button className="px-5 py-2.5 rounded-md font-semibold text-sm
-  bg-gray-700/60 text-gray-300 border border-gray-600/40">
+  bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/40">
   Cancel
 </button>
 
@@ -288,7 +288,7 @@ export default function ComponentsPage() {
 
 // Danger Button
 <button className="px-5 py-2.5 rounded-md font-semibold text-sm
-  bg-red-500/15 text-red-400 border border-red-500/25">
+  bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-red-500/25">
   Delete
 </button>
 
@@ -303,29 +303,29 @@ export default function ComponentsPage() {
           preview={
             <div className="space-y-3">
               {isConnected ? (
-                <div className="flex items-center gap-4 p-4 rounded-md bg-gray-900/60 border border-gray-700/40">
-                  <div className="size-12 rounded-full bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-sm font-semibold tracking-tighter text-white shadow-[0_4px_12px_rgba(99,102,241,0.25),0_2px_4px_rgba(99,102,241,0.15)]">
+                <div className="flex items-center gap-4 p-4 rounded-md bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/40">
+                  <div className="size-12 rounded-full bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-sm font-semibold tracking-tighter text-[var(--cc-ink)] shadow-[0_4px_12px_rgba(99,102,241,0.25),0_2px_4px_rgba(99,102,241,0.15)]">
                     {account.address?.slice(2, 4).toUpperCase()}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-mono text-gray-200 truncate">{shortenAddress(account.address ?? '')}</p>
-                    <p className="text-xs text-gray-500">{account.chainName} · Chain ID: {account.chainId}</p>
+                    <p className="text-sm font-mono text-[var(--cc-body)] truncate">{shortenAddress(account.address ?? '')}</p>
+                    <p className="text-xs text-[var(--cc-body)]">{account.chainName} · Chain ID: {account.chainId}</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-sm font-semibold text-gray-200">{account.balance} {account.chainSymbol}</p>
+                    <p className="text-sm font-semibold text-[var(--cc-body)]">{account.balance} {account.chainSymbol}</p>
                   </div>
                 </div>
               ) : (
-                <div className="flex items-center gap-4 p-4 rounded-md bg-gray-900/60 border border-gray-700/40">
-                  <div className="size-12 rounded-full bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-sm font-semibold tracking-tighter text-white">
+                <div className="flex items-center gap-4 p-4 rounded-md bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/40">
+                  <div className="size-12 rounded-full bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-sm font-semibold tracking-tighter text-[var(--cc-ink)]">
                     00
                   </div>
                   <div className="flex-1">
-                    <p className="text-sm font-mono text-gray-200">0x1a2b...3c4d</p>
-                    <p className="text-xs text-gray-500">Ethereum · Chain ID: 1</p>
+                    <p className="text-sm font-mono text-[var(--cc-body)]">0x1a2b...3c4d</p>
+                    <p className="text-xs text-[var(--cc-body)]">Ethereum · Chain ID: 1</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-sm font-semibold text-gray-200">1.2345 ETH</p>
+                    <p className="text-sm font-semibold text-[var(--cc-body)]">1.2345 ETH</p>
                   </div>
                 </div>
               )}
@@ -333,11 +333,11 @@ export default function ComponentsPage() {
           }
           code={`// Wallet Card Component
 <div className="flex items-center gap-4 p-4 rounded-md
-  bg-gray-900/60 border border-gray-700/40">
+  bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/40">
   {/* Avatar */}
   <div className="size-12 rounded-full bg-gradient-to-br
     from-brand-500 to-brand-600 flex items-center justify-center
-    text-sm font-semibold tracking-tighter text-white">
+    text-sm font-semibold tracking-tighter text-[var(--cc-ink)]">
     {address.slice(2, 4).toUpperCase()}
   </div>
 
@@ -346,7 +346,7 @@ export default function ComponentsPage() {
     <p className="text-sm font-mono truncate">
       {shortenAddress(address)}
     </p>
-    <p className="text-xs text-gray-500">
+    <p className="text-xs text-[var(--cc-body)]">
       {chainName} · Chain ID: {chainId}
     </p>
   </div>
@@ -371,11 +371,11 @@ export default function ComponentsPage() {
                   <span className="size-1.5 rounded-full bg-green-400 animate-pulse" />
                   Connected
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-yellow-500/15 text-yellow-400 border border-yellow-500/25">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border border-yellow-500/25">
                   <span className="size-1.5 rounded-full bg-yellow-400 animate-pulse" />
                   Connecting...
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-gray-700/50 text-gray-500 border border-gray-600/40">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/40">
                   <span className="size-1.5 rounded-full bg-gray-500" />
                   Disconnected
                 </span>
@@ -383,24 +383,24 @@ export default function ComponentsPage() {
 
               {/* Transaction status */}
               <div className="flex flex-wrap gap-3">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-500/15 text-emerald-400 border border-emerald-500/25">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-emerald-500/25">
                   ✓ Completed
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-amber-500/15 text-amber-400 border border-amber-500/25">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border border-amber-500/25">
                   <span className="size-1.5 rounded-full bg-amber-400 animate-pulse" />
                   Pending
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-red-500/15 text-red-400 border border-red-500/25">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-red-500/25">
                   ✗ Failed
                 </span>
               </div>
 
               {/* Health badges */}
               <div className="flex flex-wrap gap-3">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-500/15 text-emerald-400 border border-emerald-500/25">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-emerald-500/25">
                   ✓ Operational
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-red-500/15 text-red-400 border border-red-500/25">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-red-500/25">
                   ✗ Down
                 </span>
                 <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono bg-brand-500/15 text-brand-400 border border-brand-500/25">
@@ -420,7 +420,7 @@ export default function ComponentsPage() {
 // Pending Transaction
 <span className="inline-flex items-center gap-1.5 px-3 py-1.5
   rounded-full text-xs font-semibold
-  bg-amber-500/15 text-amber-400 border border-amber-500/25">
+  bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border border-amber-500/25">
   <span className="size-1.5 rounded-full bg-amber-400 animate-pulse" />
   Pending
 </span>
@@ -452,15 +452,15 @@ export default function ComponentsPage() {
               ].map((c) => (
                 <div
                   key={c.symbol}
-                  className="group flex items-center gap-2 px-3 py-2 rounded-md bg-gray-900/80 border border-gray-800 hover:border-gray-600 transition-colors cursor-default shrink-0"
+                  className="group flex items-center gap-2 px-3 py-2 rounded-md bg-[var(--cc-canvas)]/80 border border-[var(--cc-hairline)] hover:border-[var(--cc-hairline-strong)] transition-colors cursor-default shrink-0"
                 >
                   <span
-                    className="inline-flex size-5 items-center justify-center rounded-full text-[10px] font-semibold tracking-tighter text-white"
+                    className="inline-flex size-5 items-center justify-center rounded-full text-[10px] font-semibold tracking-tighter text-[var(--cc-ink)]"
                     style={{ backgroundColor: c.color }}
                   >
                     {c.initial}
                   </span>
-                  <span className="text-xs font-medium text-gray-400 group-hover:text-gray-200 transition-colors">
+                  <span className="text-xs font-medium text-[var(--cc-muted)] group-hover:text-[var(--cc-body)] transition-colors">
                     {c.name}
                   </span>
                 </div>
@@ -469,15 +469,15 @@ export default function ComponentsPage() {
           }
           code={`// Chain Badge Component
 <div className="flex items-center gap-2 px-3 py-2 rounded-md
-  bg-gray-900/80 border border-gray-800 hover:border-gray-600
+  bg-[var(--cc-canvas)]/80 border border-[var(--cc-hairline)] hover:border-[var(--cc-hairline-strong)]
   transition-colors cursor-default shrink-0">
   <span className="inline-flex size-5 items-center justify-center
-    rounded-full text-[10px] font-semibold tracking-tighter text-white"
+    rounded-full text-[10px] font-semibold tracking-tighter text-[var(--cc-ink)]"
     style={{ backgroundColor: chainColor }}>
     {chain.initial}
   </span>
-  <span className="text-xs font-medium text-gray-400
-    group-hover:text-gray-200 transition-colors">
+  <span className="text-xs font-medium text-[var(--cc-muted)]
+    group-hover:text-[var(--cc-body)] transition-colors">
     {chain.name}
   </span>
 </div>`}
@@ -506,11 +506,11 @@ function ToggleSwitch({ checked, onChange }) {
     <button
       onClick={() => onChange(!checked)}
       className={\`relative w-12 h-6 rounded-full transition-colors
-        \${checked ? 'bg-blue-500' : 'bg-gray-700'}\`}
+        \${checked ? 'bg-blue-500' : 'bg-[var(--cc-canvas-soft-2)]'}\`}
       role="switch" aria-checked={checked}
     >
       <span className={\`absolute top-0.5 left-0.5 w-5 h-5
-        rounded-full bg-white shadow-md transition-transform
+        rounded-full bg-[var(--cc-canvas)] shadow-md transition-transform
         \${checked ? 'translate-x-6' : 'translate-x-0'}\`} />
     </button>
   );
@@ -529,11 +529,11 @@ function ToggleSwitch({ checked, onChange }) {
             <div className="space-y-4">
               {/* Text input */}
               <div>
-                <label className="text-sm text-gray-400 mb-1 block">Wallet Address</label>
+                <label className="text-sm text-[var(--cc-muted)] mb-1 block">Wallet Address</label>
                 <input
                   type="text"
                   placeholder="0x..."
-                  className="w-full px-4 py-2.5 bg-gray-900/60 border border-gray-700/50 rounded-md text-sm text-gray-200 placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-brand-500/40 focus:border-blue-500/50 font-mono"
+                  className="w-full px-4 py-2.5 bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/50 rounded-md text-sm text-[var(--cc-body)] placeholder:text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-brand-500/40 focus:border-[var(--cc-primary)]/50 font-mono"
                   readOnly
                   defaultValue="0x1a2b3c4d5e6f7890abcdef1234567890abcdef12"
                 />
@@ -541,25 +541,25 @@ function ToggleSwitch({ checked, onChange }) {
 
               {/* Search input */}
               <div className="relative">
-                <label className="text-sm text-gray-400 mb-1 block">Search Tokens</label>
+                <label className="text-sm text-[var(--cc-muted)] mb-1 block">Search Tokens</label>
                 <input
                   type="text"
                   placeholder="Search by name, symbol, or address..."
-                  className="w-full px-4 py-2.5 pl-10 bg-gray-900/60 border border-gray-700/50 rounded-md text-sm text-gray-200 placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+                  className="w-full px-4 py-2.5 pl-10 bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/50 rounded-md text-sm text-[var(--cc-body)] placeholder:text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-brand-500/40"
                 />
-                <span className="absolute left-3 top-9 text-gray-500">🔍</span>
+                <span className="absolute left-3 top-9 text-[var(--cc-body)]">🔍</span>
               </div>
 
               {/* Select */}
               <div className="relative">
-                <label className="text-sm text-gray-400 mb-1 block">Network</label>
-                <select className="w-full px-4 py-2.5 bg-gray-900/60 border border-gray-700/50 rounded-md text-sm text-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-500/40 appearance-none cursor-pointer">
+                <label className="text-sm text-[var(--cc-muted)] mb-1 block">Network</label>
+                <select className="w-full px-4 py-2.5 bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/50 rounded-md text-sm text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-brand-500/40 appearance-none cursor-pointer">
                   <option>Ethereum</option>
                   <option>Polygon</option>
                   <option>Arbitrum</option>
                   <option>Base</option>
                 </select>
-                <span className="pointer-events-none absolute right-3 top-9 text-gray-500 text-xs">▾</span>
+                <span className="pointer-events-none absolute right-3 top-9 text-[var(--cc-body)] text-xs">▾</span>
               </div>
             </div>
           }
@@ -567,25 +567,25 @@ function ToggleSwitch({ checked, onChange }) {
 <input
   type="text"
   placeholder="0x..."
-  className="w-full px-4 py-2.5 bg-gray-900/60 border
-    border-gray-700/50 rounded-md text-sm text-gray-200
-    placeholder:text-gray-600 focus:outline-none
+  className="w-full px-4 py-2.5 bg-[var(--cc-canvas)]/60 border
+    border-[var(--cc-hairline-strong)]/50 rounded-md text-sm text-[var(--cc-body)]
+    placeholder:text-[var(--cc-body)] focus:outline-none
     focus:ring-2 focus:ring-brand-500/40 font-mono"
 />
 
 // Search Input with icon
 <div className="relative">
   <input placeholder="Search..." className="w-full px-4 py-2.5
-    pl-10 bg-gray-900/60 border border-gray-700/50 rounded-md
-    text-sm placeholder:text-gray-600 focus:outline-none
+    pl-10 bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/50 rounded-md
+    text-sm placeholder:text-[var(--cc-body)] focus:outline-none
     focus:ring-2 focus:ring-brand-500/40" />
   <span className="absolute left-3 top-1/2 -translate-y-1/2
-    text-gray-500">🔍</span>
+    text-[var(--cc-body)]">🔍</span>
 </div>
 
 // Select Dropdown
-<select className="w-full px-4 py-2.5 bg-gray-900/60 border
-  border-gray-700/50 rounded-md text-sm appearance-none
+<select className="w-full px-4 py-2.5 bg-[var(--cc-canvas)]/60 border
+  border-[var(--cc-hairline-strong)]/50 rounded-md text-sm appearance-none
   focus:outline-none focus:ring-2 focus:ring-brand-500/40">
   <option>Ethereum</option>
   <option>Polygon</option>
@@ -607,10 +607,10 @@ function ToggleSwitch({ checked, onChange }) {
                   { icon: '🔄', title: 'Token Swap', desc: 'DEX aggregation' },
                   { icon: '🌉', title: 'Cross-Chain', desc: 'Unified bridge routing' },
                 ].map((f) => (
-                  <div key={f.title} className="group p-4 rounded-md bg-gray-900/50 border border-gray-800 hover:border-gray-600 hover:bg-gray-800/60 transition-all cursor-default">
+                  <div key={f.title} className="group p-4 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline)] hover:border-[var(--cc-hairline-strong)] hover:bg-[var(--cc-canvas-soft-2)]/60 transition-all cursor-default">
                     <div className="text-2xl mb-2">{f.icon}</div>
-                    <h4 className="text-sm font-semibold text-gray-200">{f.title}</h4>
-                    <p className="text-xs text-gray-500 mt-1">{f.desc}</p>
+                    <h4 className="text-sm font-semibold text-[var(--cc-body)]">{f.title}</h4>
+                    <p className="text-xs text-[var(--cc-body)] mt-1">{f.desc}</p>
                   </div>
                 ))}
               </div>
@@ -623,33 +623,33 @@ function ToggleSwitch({ checked, onChange }) {
                   { value: '30+', label: 'Wallets' },
                   { value: '$0', label: 'Cost' },
                 ].map((s) => (
-                  <div key={s.label} className="text-center p-3 rounded-md bg-gray-900/50 border border-gray-800/50">
+                  <div key={s.label} className="text-center p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline)]/50">
                     <div className="text-xl font-semibold tracking-tighter bg-gradient-to-r from-brand-400 to-brand-300 bg-clip-text text-transparent">
                       {s.value}
                     </div>
-                    <div className="text-[10px] text-gray-500 mt-1">{s.label}</div>
+                    <div className="text-[10px] text-[var(--cc-body)] mt-1">{s.label}</div>
                   </div>
                 ))}
               </div>
             </div>
           }
           code={`// Feature Card
-<div className="group p-4 rounded-md bg-gray-900/50 border
-  border-gray-800 hover:border-gray-600 hover:bg-gray-800/60
+<div className="group p-4 rounded-md bg-[var(--cc-canvas)]/50 border
+  border-[var(--cc-hairline)] hover:border-[var(--cc-hairline-strong)] hover:bg-[var(--cc-canvas-soft-2)]/60
   transition-all cursor-default">
   <div className="text-2xl mb-2">{icon}</div>
-  <h4 className="text-sm font-semibold text-gray-200">{title}</h4>
-  <p className="text-xs text-gray-500 mt-1">{description}</p>
+  <h4 className="text-sm font-semibold text-[var(--cc-body)]">{title}</h4>
+  <p className="text-xs text-[var(--cc-body)] mt-1">{description}</p>
 </div>
 
 // Stat Card
-<div className="text-center p-3 rounded-md bg-gray-900/50
-  border border-gray-800/50">
+<div className="text-center p-3 rounded-md bg-[var(--cc-canvas)]/50
+  border border-[var(--cc-hairline)]/50">
   <div className="text-xl font-semibold tracking-tighter bg-gradient-to-r
     from-brand-400 to-brand-300 bg-clip-text text-transparent">
     {value}
   </div>
-  <div className="text-[10px] text-gray-500 mt-1">{label}</div>
+  <div className="text-[10px] text-[var(--cc-body)] mt-1">{label}</div>
 </div>`}
         />
 
@@ -666,7 +666,7 @@ function ToggleSwitch({ checked, onChange }) {
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                 </svg>
-                <span className="inline-flex items-center gap-2 text-sm text-gray-400">
+                <span className="inline-flex items-center gap-2 text-sm text-[var(--cc-muted)]">
                   <svg className="animate-spin h-4 w-4 text-brand-400" viewBox="0 0 24 24" fill="none">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
@@ -681,19 +681,19 @@ function ToggleSwitch({ checked, onChange }) {
               </div>
 
               {/* Skeleton */}
-              <div className="p-4 rounded-md bg-gray-900/50 border border-gray-800 space-y-3 animate-pulse">
+              <div className="p-4 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline)] space-y-3 animate-pulse">
                 <div className="flex items-center gap-3">
-                  <div className="size-10 rounded-full bg-gray-700" />
+                  <div className="size-10 rounded-full bg-[var(--cc-canvas-soft-2)]" />
                   <div className="flex-1">
-                    <div className="h-3 bg-gray-700 rounded w-32 mb-2" />
-                    <div className="h-2 bg-gray-800 rounded w-48" />
+                    <div className="h-3 bg-[var(--cc-canvas-soft-2)] rounded w-32 mb-2" />
+                    <div className="h-2 bg-[var(--cc-canvas-soft-2)] rounded w-48" />
                   </div>
                 </div>
-                <div className="h-8 bg-gray-700/50 rounded" />
+                <div className="h-8 bg-[var(--cc-canvas-soft-2)]/50 rounded" />
                 <div className="grid grid-cols-3 gap-2">
-                  <div className="h-6 bg-gray-700/50 rounded" />
-                  <div className="h-6 bg-gray-700/50 rounded" />
-                  <div className="h-6 bg-gray-700/50 rounded" />
+                  <div className="h-6 bg-[var(--cc-canvas-soft-2)]/50 rounded" />
+                  <div className="h-6 bg-[var(--cc-canvas-soft-2)]/50 rounded" />
+                  <div className="h-6 bg-[var(--cc-canvas-soft-2)]/50 rounded" />
                 </div>
               </div>
             </div>
@@ -709,9 +709,9 @@ function ToggleSwitch({ checked, onChange }) {
 
 // Skeleton Loader
 <div className="animate-pulse space-y-3">
-  <div className="h-3 bg-gray-700 rounded w-32" />
-  <div className="h-2 bg-gray-800 rounded w-48" />
-  <div className="h-8 bg-gray-700/50 rounded" />
+  <div className="h-3 bg-[var(--cc-canvas-soft-2)] rounded w-32" />
+  <div className="h-2 bg-[var(--cc-canvas-soft-2)] rounded w-48" />
+  <div className="h-8 bg-[var(--cc-canvas-soft-2)]/50 rounded" />
 </div>
 
 // Dot loading
@@ -733,16 +733,16 @@ function ToggleSwitch({ checked, onChange }) {
           preview={
             <div className="space-y-3">
               {[
-                { type: 'Success', icon: '✓', bg: 'bg-emerald-500/15', border: 'border-emerald-500/25', text: 'text-emerald-400', desc: 'Transaction completed successfully' },
-                { type: 'Error', icon: '✗', bg: 'bg-red-500/15', border: 'border-red-500/25', text: 'text-red-400', desc: 'Connection failed: User rejected' },
-                { type: 'Info', icon: 'ℹ', bg: 'bg-brand-500/15', border: 'border-blue-500/25', text: 'text-blue-400', desc: 'Switching to Polygon network' },
-                { type: 'Warning', icon: '⚠', bg: 'bg-amber-500/15', border: 'border-amber-500/25', text: 'text-amber-400', desc: 'High gas prices detected' },
+                { type: 'Success', icon: '✓', bg: 'bg-[var(--cc-success)]/15', border: 'border-emerald-500/25', text: 'text-[var(--cc-success)]', desc: 'Transaction completed successfully' },
+                { type: 'Error', icon: '✗', bg: 'bg-[var(--cc-error)]/15', border: 'border-red-500/25', text: 'text-[var(--cc-error)]', desc: 'Connection failed: User rejected' },
+                { type: 'Info', icon: 'ℹ', bg: 'bg-brand-500/15', border: 'border-[var(--cc-primary)]/25', text: 'text-blue-400', desc: 'Switching to Polygon network' },
+                { type: 'Warning', icon: '⚠', bg: 'bg-[var(--cc-warning)]/15', border: 'border-amber-500/25', text: 'text-[var(--cc-warning)]', desc: 'High gas prices detected' },
               ].map((t) => (
                 <div key={t.type} className={`p-3 rounded-md ${t.bg} border ${t.border} flex items-start gap-3`}>
                   <span className={`text-lg ${t.text}`}>{t.icon}</span>
                   <div>
                     <p className={`text-sm font-semibold ${t.text}`}>{t.type}</p>
-                    <p className="text-xs text-gray-400 mt-0.5">{t.desc}</p>
+                    <p className="text-xs text-[var(--cc-muted)] mt-0.5">{t.desc}</p>
                   </div>
                 </div>
               ))}
@@ -761,11 +761,11 @@ warning('High Gas', 'Gas prices are above average');`}
         />
 
         {/* ── Footer ── */}
-        <div className="text-center py-8 border-t border-gray-800/50">
-          <p className="text-sm text-gray-600">
+        <div className="text-center py-8 border-t border-[var(--cc-hairline)]/50">
+          <p className="text-sm text-[var(--cc-body)]">
             Cinacoin Component Gallery — {Object.keys(THEMES).length} themes × {8} components
           </p>
-          <p className="text-xs text-gray-700 mt-1">
+          <p className="text-xs text-[var(--cc-ink)] mt-1">
             All components use Tailwind CSS with consistent design tokens
           </p>
         </div>
@@ -780,21 +780,21 @@ function ToggleDemo({ label, desc, defaultChecked }: { label: string; desc: stri
   const [checked, setChecked] = useState(defaultChecked);
 
   return (
-    <div className="flex items-center justify-between p-3 rounded-md bg-gray-900/40 border border-gray-800/40">
+    <div className="flex items-center justify-between p-3 rounded-md bg-[var(--cc-canvas)]/40 border border-[var(--cc-hairline)]/40">
       <div>
-        <p className="text-sm font-medium text-gray-200">{label}</p>
-        <p className="text-xs text-gray-500">{desc}</p>
+        <p className="text-sm font-medium text-[var(--cc-body)]">{label}</p>
+        <p className="text-xs text-[var(--cc-body)]">{desc}</p>
       </div>
       <button
         onClick={() => setChecked(!checked)}
         className={`relative w-12 h-6 rounded-full transition-colors duration-200 ${
-          checked ? 'bg-blue-500' : 'bg-gray-700'
+          checked ? 'bg-blue-500' : 'bg-[var(--cc-canvas-soft-2)]'
         }`}
         role="switch"
         aria-checked={checked}
       >
         <span
-          className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-md transition-transform duration-200 ${
+          className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-[var(--cc-canvas)] shadow-md transition-transform duration-200 ${
             checked ? 'translate-x-6' : 'translate-x-0'
           }`}
         />

@@ -11,24 +11,24 @@ interface ServiceCardProps {
 function statusBorder(status: string): string {
   switch (status) {
     case "healthy":
-      return "border-l-4 border-l-emerald-500 border-t-transparent border-r-transparent border-b-transparent";
+      return "border-l-4 border-l-[var(--cc-success)] border-t-transparent border-r-transparent border-b-transparent";
     case "degraded":
-      return "border-l-4 border-l-amber-500 border-t-transparent border-r-transparent border-b-transparent";
+      return "border-l-4 border-l-[var(--cc-warning)] border-t-transparent border-r-transparent border-b-transparent";
     case "down":
-      return "border-l-4 border-l-red-500 border-t-transparent border-r-transparent border-b-transparent";
+      return "border-l-4 border-l-[var(--cc-error)] border-t-transparent border-r-transparent border-b-transparent";
     default:
-      return "border-l-4 border-l-gray-600 border-t-transparent border-r-transparent border-b-transparent";
+      return "border-l-4 border-l-[var(--cc-muted)] border-t-transparent border-r-transparent border-b-transparent";
   }
 }
 
 function statusDotColor(status: string): string {
   switch (status) {
     case "healthy":
-      return "bg-emerald-400 shadow-lg shadow-emerald-500/30";
+      return "bg-[var(--cc-success)] shadow-[0_0_8px_var(--cc-success)]";
     case "degraded":
-      return "bg-amber-400 shadow-lg shadow-amber-500/30";
+      return "bg-[var(--cc-warning)] shadow-[0_0_8px_var(--cc-warning)]";
     case "down":
-      return "bg-red-400 shadow-lg shadow-red-500/30 animate-pulse";
+      return "bg-[var(--cc-error)] shadow-[0_0_8px_var(--cc-error)] animate-pulse";
     default:
       return "bg-[var(--cc-muted)]";
   }
@@ -37,11 +37,11 @@ function statusDotColor(status: string): string {
 function statusBadgeBg(status: string): string {
   switch (status) {
     case "healthy":
-      return "bg-[var(--cc-success)]/10 border-emerald-500/20";
+      return "bg-[var(--cc-success)]/10 border-[var(--cc-success)]/20";
     case "degraded":
-      return "bg-[var(--cc-warning)]/10 border-amber-500/20";
+      return "bg-[var(--cc-warning)]/10 border-[var(--cc-warning)]/20";
     case "down":
-      return "bg-[var(--cc-error)]/10 border-red-500/20";
+      return "bg-[var(--cc-error)]/10 border-[var(--cc-error)]/20";
     default:
       return "bg-[var(--cc-muted)]/10 border-[var(--cc-muted)]/20";
   }

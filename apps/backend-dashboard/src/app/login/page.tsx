@@ -39,7 +39,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md">
         {/* Logo / Brand */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-lg bg-brand-500/20 border border-brand-500/30 mb-4">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-[var(--cc-radius-sm)] bg-brand-500/20 border border-brand-500/30 mb-4">
           <img src="/logo.png" alt="cinacoin" className="w-10 h-10 rounded-md" />
           </div>
           <h1 className="text-3xl font-semibold tracking-tighter text-[var(--cc-ink)]">cinacoin</h1>
@@ -47,7 +47,7 @@ export default function LoginPage() {
         </div>
 
         {/* Login Card */}
-        <div className="bg-[#1a1d2e] border border-[#2a2d3e] rounded-lg p-8 shadow-[0_2px_2px_rgba(0,0,0,0.3),0_8px_16px_-4px_rgba(0,0,0,0.3),inset_0_0_0_1px_rgba(255,255,255,0.08)]">
+        <div className="bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-sm)] p-8 shadow-[var(--cc-level3)]">
           <h2 className="text-xl font-semibold text-[var(--cc-ink)] mb-2">Sign in with Wallet</h2>
           <p className="text-sm text-[var(--cc-muted)] mb-6">
             Connect your Ethereum wallet to access the cinacoin Backend Dashboard.
@@ -56,20 +56,20 @@ export default function LoginPage() {
 
           {/* Error message */}
           {error && (
-            <div className="mb-4 p-3 rounded-lg bg-[var(--cc-error)]/10 border border-red-500/30 text-[var(--cc-error)] text-sm">
+            <div className="mb-4 p-3 rounded-[var(--cc-radius-sm)] bg-[var(--cc-error)]/10 border border-[var(--cc-error)]/30 text-[var(--cc-error)] text-sm">
               {error}
             </div>
           )}
 
           {/* Wallet not installed warning */}
           {walletMissing && (
-            <div className="mb-4 p-3 rounded-lg bg-[var(--cc-warning)]/10 border border-amber-500/30 text-[var(--cc-warning)] text-sm">
+            <div className="mb-4 p-3 rounded-[var(--cc-radius-sm)] bg-[var(--cc-warning)]/10 border border-[var(--cc-warning)]/30 text-[var(--cc-warning)] text-sm">
               ⚠️ No Ethereum wallet detected. Please install{" "}
               <a
                 href="https://metamask.io"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline hover:text-amber-300"
+                className="underline hover:text-[var(--cc-warning)]"
               >
                 MetaMask
               </a>{" "}
@@ -79,12 +79,12 @@ export default function LoginPage() {
 
           {/* Sign progress */}
           {step === "connecting" && !error && (
-            <div className="mb-4 p-3 rounded-lg bg-brand-500/10 border border-brand-500/30">
+            <div className="mb-4 p-3 rounded-[var(--cc-radius-sm)] bg-brand-500/10 border border-brand-500/30">
               <p className="text-xs text-brand-300 font-medium">⏳ Connecting wallet...</p>
             </div>
           )}
           {isLoading && step !== "connecting" && !error && (
-            <div className="mb-4 p-3 rounded-lg bg-brand-500/10 border border-brand-500/30">
+            <div className="mb-4 p-3 rounded-[var(--cc-radius-sm)] bg-brand-500/10 border border-brand-500/30">
               <p className="text-xs text-brand-300 font-medium">⏳ Check your wallet to sign the message...</p>
               <p className="text-xs text-[var(--cc-body)] mt-1">Approve the signature request in your wallet popup.</p>
             </div>

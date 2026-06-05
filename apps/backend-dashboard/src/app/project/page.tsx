@@ -63,7 +63,7 @@ export default function ProjectPage() {
         <div>
           <label className="text-sm text-dashboard-muted block mb-1">Project ID</label>
           <div className="flex items-center gap-2">
-            <code className="flex-1 bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-[var(--cc-ink)] font-mono">
+            <code className="flex-1 bg-dashboard-bg border border-dashboard-border rounded-[var(--cc-radius-md)] px-3 py-2 text-sm text-[var(--cc-ink)] font-mono">
               {showProjectId ? projectId : "•".repeat(projectId.length)}
             </code>
             <button
@@ -95,7 +95,7 @@ export default function ProjectPage() {
             onChange={(e) => setProjectName(e.target.value)}
             aria-label="Project name"
             aria-describedby="project-name-desc"
-            className="w-full bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-[var(--cc-ink)] focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
+            className="w-full bg-dashboard-bg border border-dashboard-border rounded-[var(--cc-radius-md)] px-3 py-2 text-sm text-[var(--cc-ink)] focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
           />
           <p id="project-name-desc" className="sr-only">Enter your project display name</p>
         </div>
@@ -108,7 +108,7 @@ export default function ProjectPage() {
             onChange={(e) => setProjectDescription(e.target.value)}
             rows={2}
             aria-label="Project description"
-            className="w-full bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-[var(--cc-ink)] focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface resize-none"
+            className="w-full bg-dashboard-bg border border-dashboard-border rounded-[var(--cc-radius-md)] px-3 py-2 text-sm text-[var(--cc-ink)] focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface resize-none"
           />
         </div>
 
@@ -120,7 +120,7 @@ export default function ProjectPage() {
             value={projectUrl}
             onChange={(e) => setProjectUrl(e.target.value)}
             aria-label="Project URL"
-            className="w-full bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-[var(--cc-ink)] focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
+            className="w-full bg-dashboard-bg border border-dashboard-border rounded-[var(--cc-radius-md)] px-3 py-2 text-sm text-[var(--cc-ink)] focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
           />
         </div>
 
@@ -132,7 +132,7 @@ export default function ProjectPage() {
             value={iconUrl}
             onChange={(e) => setIconUrl(e.target.value)}
             aria-label="Project icon URL"
-            className="w-full bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-[var(--cc-ink)] focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
+            className="w-full bg-dashboard-bg border border-dashboard-border rounded-[var(--cc-radius-md)] px-3 py-2 text-sm text-[var(--cc-ink)] focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
           />
         </div>
       </div>
@@ -222,7 +222,7 @@ export default function ProjectPage() {
           Copy this snippet to get started with AppKit in your project.
         </p>
 
-        <div className="bg-dashboard-bg rounded-lg p-4 overflow-x-auto">
+        <div className="bg-dashboard-bg rounded-[var(--cc-radius-md)] p-4 overflow-x-auto">
           <pre className="text-sm text-dashboard-muted font-mono whitespace-pre">
 {`// Install
 npm install @reown/appkit @reown/appkit-adapter-wagmi wagmi viem
@@ -272,7 +272,7 @@ createAppKit({
           </button>
         </div>
         {showRegenConfirm && (
-          <div className="bg-dashboard-bg rounded-lg p-4 border border-dashboard-border">
+          <div className="bg-dashboard-bg rounded-[var(--cc-radius-md)] p-4 border border-dashboard-border">
             <p className="text-sm text-[var(--cc-ink)] mb-3">Are you sure you want to regenerate the Project ID? This cannot be undone.</p>
             <div className="flex gap-2">
               <button
@@ -309,7 +309,7 @@ createAppKit({
           </button>
         </div>
         {showDeleteConfirm && (
-          <div className="bg-dashboard-bg rounded-lg p-4 border border-dashboard-border">
+          <div className="bg-dashboard-bg rounded-[var(--cc-radius-md)] p-4 border border-dashboard-border">
             <p className="text-sm text-[var(--cc-ink)] mb-3">Are you sure you want to delete this project? This action is permanent and cannot be undone.</p>
             <div className="flex gap-2">
               <button

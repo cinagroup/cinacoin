@@ -211,25 +211,25 @@ export default function ChainsPage() {
             type="text"
             placeholder="Network name (e.g. zkSync Era)"
             aria-label="Network name"
-            className="bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-[var(--cc-ink)] placeholder-dashboard-muted/50 focus:outline-none focus:border-brand-500"
+            className="bg-dashboard-bg border border-dashboard-border rounded-[var(--cc-radius-sm)] px-3 py-2 text-sm text-[var(--cc-ink)] placeholder-dashboard-muted/50 focus:outline-none focus:border-brand-500"
           />
           <input
             type="text"
             placeholder="Chain ID (e.g. 324)"
             aria-label="Chain ID"
-            className="bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-[var(--cc-ink)] placeholder-dashboard-muted/50 focus:outline-none focus:border-brand-500"
+            className="bg-dashboard-bg border border-dashboard-border rounded-[var(--cc-radius-sm)] px-3 py-2 text-sm text-[var(--cc-ink)] placeholder-dashboard-muted/50 focus:outline-none focus:border-brand-500"
           />
           <input
             type="text"
             placeholder="RPC URL"
             aria-label="RPC URL"
-            className="bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-[var(--cc-ink)] placeholder-dashboard-muted/50 focus:outline-none focus:border-brand-500"
+            className="bg-dashboard-bg border border-dashboard-border rounded-[var(--cc-radius-sm)] px-3 py-2 text-sm text-[var(--cc-ink)] placeholder-dashboard-muted/50 focus:outline-none focus:border-brand-500"
           />
           <input
             type="text"
             placeholder="Native currency symbol (e.g. ETH)"
             aria-label="Native currency symbol"
-            className="bg-dashboard-bg border border-dashboard-border rounded-lg px-3 py-2 text-sm text-[var(--cc-ink)] placeholder-dashboard-muted/50 focus:outline-none focus:border-brand-500"
+            className="bg-dashboard-bg border border-dashboard-border rounded-[var(--cc-radius-sm)] px-3 py-2 text-sm text-[var(--cc-ink)] placeholder-dashboard-muted/50 focus:outline-none focus:border-brand-500"
           />
         </div>
         <div className="mt-4 flex justify-end">

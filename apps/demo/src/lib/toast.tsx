@@ -71,17 +71,17 @@ function ToastContainer() {
       bg: 'bg-emerald-950/90',
       border: 'border-emerald-500/30',
       icon: '✓',
-      progress: 'bg-emerald-500',
+      progress: 'bg-[var(--cc-success)]',
     },
     error: {
       bg: 'bg-red-950/90',
       border: 'border-red-500/30',
       icon: '✕',
-      progress: 'bg-red-500',
+      progress: 'bg-[var(--cc-error)]',
     },
     info: {
       bg: 'bg-blue-950/90',
-      border: 'border-blue-500/30',
+      border: 'border-[var(--cc-primary)]/30',
       icon: 'ℹ',
       progress: 'bg-blue-500',
     },
@@ -89,7 +89,7 @@ function ToastContainer() {
       bg: 'bg-amber-950/90',
       border: 'border-amber-500/30',
       icon: '⚠',
-      progress: 'bg-amber-500',
+      progress: 'bg-[var(--cc-warning)]',
     },
   };
 
@@ -104,20 +104,20 @@ function ToastContainer() {
           >
             <div className="flex items-start gap-3">
               <span className={`text-lg font-semibold flex-shrink-0 ${
-                toast.type === 'success' ? 'text-emerald-400' :
-                toast.type === 'error' ? 'text-red-400' :
-                toast.type === 'warning' ? 'text-amber-400' :
+                toast.type === 'success' ? 'text-[var(--cc-success)]' :
+                toast.type === 'error' ? 'text-[var(--cc-error)]' :
+                toast.type === 'warning' ? 'text-[var(--cc-warning)]' :
                 'text-blue-400'
               }`}>
                 {s.icon}
               </span>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-white">{toast.title}</p>
-                {toast.message && <p className="text-xs text-gray-400 mt-0.5">{toast.message}</p>}
+                <p className="text-sm font-semibold text-[var(--cc-ink)]">{toast.title}</p>
+                {toast.message && <p className="text-xs text-[var(--cc-muted)] mt-0.5">{toast.message}</p>}
               </div>
               <button
                 onClick={() => removeToast(toast.id)}
-                className="text-gray-500 hover:text-white transition-colors flex-shrink-0"
+                className="text-[var(--cc-body)] hover:text-[var(--cc-ink)] transition-colors flex-shrink-0"
                 aria-label="Dismiss"
               >
                 ✕
@@ -125,7 +125,7 @@ function ToastContainer() {
             </div>
             {/* Progress bar */}
             {toast.duration && toast.duration > 0 && (
-              <div className="mt-2 h-0.5 bg-gray-800 rounded-full overflow-hidden">
+              <div className="mt-2 h-0.5 bg-[var(--cc-canvas-soft-2)] rounded-full overflow-hidden">
                 <div
                   className={`h-full ${s.progress} rounded-full animate-shrink`}
                   style={{ animationDuration: `${toast.duration}ms` }}

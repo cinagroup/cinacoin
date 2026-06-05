@@ -278,7 +278,7 @@ export default function AuthPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* ── Hero ── */}
         <section className="py-16 sm:py-20 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-medium mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-[var(--cc-primary)]/20 text-blue-400 text-sm font-medium mb-6">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
             </svg>
@@ -289,10 +289,10 @@ export default function AuthPage() {
               Sign-In With Ethereum
             </span>
           </h1>
-          <p className="mt-5 text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="mt-5 text-lg sm:text-xl text-[var(--cc-muted)] max-w-2xl mx-auto leading-relaxed">
             Authenticate with your wallet or biometrics. No passwords, no accounts.
             <br />
-            <span className="text-gray-500">Powered by @cinacoin/siwe + WebAuthn Passkeys.</span>
+            <span className="text-[var(--cc-body)]">Powered by @cinacoin/siwe + WebAuthn Passkeys.</span>
           </p>
         </section>
 
@@ -312,7 +312,7 @@ export default function AuthPage() {
                     : `Authenticated: ${session.passkey.username}`
                   }
                 </p>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-[var(--cc-muted)]">
                   {session.siwe.verified ? 'SIWE verified' : 'Passkey authenticated'}
                   {' · '}
                   {formatSessionRemaining()}
@@ -321,7 +321,7 @@ export default function AuthPage() {
             </div>
             <button
               onClick={handleSignOut}
-              className="px-3 py-1.5 rounded-lg bg-red-500/15 text-red-400 border border-red-500/20 hover:bg-red-500/25 text-xs font-medium transition-colors"
+              className="px-3 py-1.5 rounded-lg bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-red-500/20 hover:bg-[var(--cc-error)]/25 text-xs font-medium transition-colors"
             >
               Sign Out
             </button>
@@ -330,13 +330,13 @@ export default function AuthPage() {
 
         {/* ── Error Banner ── */}
         {(error || passkeyError) && (
-          <div className="mb-6 p-4 rounded-md bg-red-500/10 border border-red-500/20 flex items-start gap-3">
-            <svg className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <div className="mb-6 p-4 rounded-md bg-[var(--cc-error)]/10 border border-red-500/20 flex items-start gap-3">
+            <svg className="w-5 h-5 text-[var(--cc-error)] flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
             </svg>
             <div>
-              <p className="text-sm text-red-400 font-medium">{error || passkeyError}</p>
-              {walletError && <p className="text-xs text-red-400/70 mt-1">Wallet error: {walletError}</p>}
+              <p className="text-sm text-[var(--cc-error)] font-medium">{error || passkeyError}</p>
+              {walletError && <p className="text-xs text-[var(--cc-error)]/70 mt-1">Wallet error: {walletError}</p>}
             </div>
           </div>
         )}
@@ -346,7 +346,7 @@ export default function AuthPage() {
           {/* ═══════════════════════════════════════════ */}
           {/* ── SIWE Auth Panel ── */}
           {/* ═══════════════════════════════════════════ */}
-          <div className="rounded-[var(--cc-radius-md)] bg-gray-900/80 border border-gray-800 p-6">
+          <div className="rounded-[var(--cc-radius-md)] bg-[var(--cc-canvas)]/80 border border-[var(--cc-hairline)] p-6">
             <h2 className="text-lg font-semibold tracking-tighter mb-4 flex items-center gap-2">
               <span className="text-blue-400">🔗</span> Wallet Auth (SIWE)
             </h2>
@@ -363,8 +363,8 @@ export default function AuthPage() {
                         isDone || (authStep === 'verified' && i === 3)
                           ? 'bg-green-500/15 text-green-400 border border-green-500/25'
                           : isCurrent
-                          ? 'bg-blue-500/15 text-blue-400 border border-blue-500/30 ring-2 ring-blue-500/20'
-                          : 'bg-gray-800/40 text-gray-500 border border-gray-800'
+                          ? 'bg-blue-500/15 text-blue-400 border border-[var(--cc-primary)]/30 ring-2 ring-blue-500/20'
+                          : 'bg-[var(--cc-canvas-soft-2)]/40 text-[var(--cc-body)] border border-[var(--cc-hairline)]'
                       }`}>
                         {isDone || (authStep === 'verified' && i === 3) ? (
                           <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -382,7 +382,7 @@ export default function AuthPage() {
                         <div className={`w-4 h-0.5 mx-1 ${
                           isDone || (authStep === 'verified' && i === 3)
                             ? 'bg-green-500/40'
-                            : 'bg-gray-800'
+                            : 'bg-[var(--cc-canvas-soft-2)]'
                         }`} />
                       )}
                     </div>
@@ -397,19 +397,19 @@ export default function AuthPage() {
                 <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${
                   isConnected
                     ? 'bg-green-500/15 text-green-400 border border-green-500/20'
-                    : 'bg-gray-700/50 text-gray-500 border border-gray-600/40'
+                    : 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/40'
                 }`}>
                   <span className={`size-2 rounded-full ${isConnected ? 'bg-green-400 animate-pulse' : 'bg-gray-500'}`} />
                   {isConnected ? 'Connected' : 'Disconnected'}
                 </span>
                 {isConnected && account.address && (
-                  <span className="text-xs font-mono text-gray-400">{shortenAddress(account.address)}</span>
+                  <span className="text-xs font-mono text-[var(--cc-muted)]">{shortenAddress(account.address)}</span>
                 )}
               </div>
               {isConnected && (
                 <button
                   onClick={handleDisconnect}
-                  className="text-xs text-gray-500 hover:text-white px-2 py-1 rounded border border-gray-700 hover:border-gray-500 transition-colors"
+                  className="text-xs text-[var(--cc-body)] hover:text-[var(--cc-ink)] px-2 py-1 rounded border border-[var(--cc-hairline-strong)] hover:border-[var(--cc-hairline-strong)] transition-colors"
                 >
                   Disconnect
                 </button>
@@ -418,8 +418,8 @@ export default function AuthPage() {
 
             {/* Chain info */}
             {isConnected && account.chainName && (
-              <div className="mb-4 text-xs text-gray-500">
-                <span className="text-gray-400 font-medium">{account.chainName}</span>
+              <div className="mb-4 text-xs text-[var(--cc-body)]">
+                <span className="text-[var(--cc-muted)] font-medium">{account.chainName}</span>
                 <span className="mx-1">·</span>
                 <span>ID: {account.chainId}</span>
               </div>
@@ -451,7 +451,7 @@ export default function AuthPage() {
             {/* ── SIWE: Signing ── */}
             {authStep === 'signing' && (
               <div className="space-y-3">
-                <p className="text-sm text-gray-400">Please approve the signature in your wallet.</p>
+                <p className="text-sm text-[var(--cc-muted)]">Please approve the signature in your wallet.</p>
                 <div className="flex items-center justify-center py-4">
                   <svg className="animate-spin w-6 h-6 text-blue-400" fill="none" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
@@ -465,9 +465,9 @@ export default function AuthPage() {
             {authStep === 'signed' && siweMessage && signature && (
               <div className="space-y-3">
                 <p className="text-sm text-green-400 font-semibold">✓ Message Signed</p>
-                <div className="rounded-lg bg-gray-950 border border-gray-800 p-3">
-                  <p className="text-[10px] text-gray-500 mb-1">SIWE Message:</p>
-                  <pre className="font-mono text-[10px] text-gray-300 overflow-x-auto whitespace-pre leading-relaxed select-all max-h-40 overflow-y-auto">
+                <div className="rounded-lg bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] p-3">
+                  <p className="text-[10px] text-[var(--cc-body)] mb-1">SIWE Message:</p>
+                  <pre className="font-mono text-[10px] text-[var(--cc-body)] overflow-x-auto whitespace-pre leading-relaxed select-all max-h-40 overflow-y-auto">
                     {siweMessage}
                   </pre>
                 </div>
@@ -483,7 +483,7 @@ export default function AuthPage() {
             {/* ── SIWE: Verifying ── */}
             {authStep === 'verifying' && (
               <div className="space-y-3">
-                <p className="text-sm text-gray-400">Checking signature validity...</p>
+                <p className="text-sm text-[var(--cc-muted)]">Checking signature validity...</p>
                 <div className="flex items-center justify-center py-4">
                   <svg className="animate-spin w-6 h-6 text-purple-400" fill="none" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
@@ -498,17 +498,17 @@ export default function AuthPage() {
               <div className="space-y-3">
                 <div className="p-3 rounded-lg bg-green-500/10 border border-green-500/20">
                   <p className="text-sm font-semibold text-green-400">✓ Authentication Successful</p>
-                  <p className="text-xs text-gray-400 mt-1">Wallet ownership verified via SIWE</p>
+                  <p className="text-xs text-[var(--cc-muted)] mt-1">Wallet ownership verified via SIWE</p>
                 </div>
                 {(() => {
                   try {
                     const parsed = parseMessage(siweMessage);
                     return (
-                      <div className="rounded-lg bg-gray-950 border border-gray-800 p-3 space-y-1 text-[10px] font-mono text-gray-400">
-                        <div className="flex justify-between"><span>Domain:</span><span className="text-gray-300">{parsed.domain}</span></div>
-                        <div className="flex justify-between"><span>Nonce:</span><span className="text-gray-300">{parsed.nonce}</span></div>
-                        <div className="flex justify-between"><span>Chain ID:</span><span className="text-gray-300">{parsed.chainId}</span></div>
-                        <div className="flex justify-between"><span>Issued At:</span><span className="text-gray-300">{parsed.issuedAt}</span></div>
+                      <div className="rounded-lg bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] p-3 space-y-1 text-[10px] font-mono text-[var(--cc-muted)]">
+                        <div className="flex justify-between"><span>Domain:</span><span className="text-[var(--cc-body)]">{parsed.domain}</span></div>
+                        <div className="flex justify-between"><span>Nonce:</span><span className="text-[var(--cc-body)]">{parsed.nonce}</span></div>
+                        <div className="flex justify-between"><span>Chain ID:</span><span className="text-[var(--cc-body)]">{parsed.chainId}</span></div>
+                        <div className="flex justify-between"><span>Issued At:</span><span className="text-[var(--cc-body)]">{parsed.issuedAt}</span></div>
                       </div>
                     );
                   } catch {
@@ -517,7 +517,7 @@ export default function AuthPage() {
                 })()}
                 <button
                   onClick={handleReset}
-                  className="w-full py-2 rounded-lg bg-gray-800 text-gray-400 hover:text-white hover:bg-gray-700 text-xs font-medium transition-all border border-gray-700"
+                  className="w-full py-2 rounded-lg bg-[var(--cc-canvas-soft-2)] text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft-2)] text-xs font-medium transition-all border border-[var(--cc-hairline-strong)]"
                 >
                   Start Over
                 </button>
@@ -538,7 +538,7 @@ export default function AuthPage() {
             {authStep === 'error' && error && (
               <button
                 onClick={handleReset}
-                className="w-full py-2 rounded-lg bg-gray-800 text-gray-400 hover:text-white hover:bg-gray-700 text-xs font-medium transition-all border border-gray-700"
+                className="w-full py-2 rounded-lg bg-[var(--cc-canvas-soft-2)] text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft-2)] text-xs font-medium transition-all border border-[var(--cc-hairline-strong)]"
               >
                 Try Again
               </button>
@@ -547,14 +547,14 @@ export default function AuthPage() {
             {/* SIWE info toggle */}
             <button
               onClick={() => setShowSessionInfo(!showSessionInfo)}
-              className="mt-4 w-full text-xs text-gray-500 hover:text-gray-300 transition-colors"
+              className="mt-4 w-full text-xs text-[var(--cc-body)] hover:text-[var(--cc-body)] transition-colors"
             >
               {showSessionInfo ? '▾ Hide SIWE Details' : '▸ Show SIWE Details'}
             </button>
 
             {showSessionInfo && siweMessage && (
-              <div className="mt-3 rounded-lg bg-gray-950 border border-gray-800 p-3">
-                <pre className="font-mono text-[10px] text-gray-300 overflow-x-auto whitespace-pre leading-relaxed select-all max-h-60 overflow-y-auto">
+              <div className="mt-3 rounded-lg bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] p-3">
+                <pre className="font-mono text-[10px] text-[var(--cc-body)] overflow-x-auto whitespace-pre leading-relaxed select-all max-h-60 overflow-y-auto">
                   {siweMessage}
                 </pre>
               </div>
@@ -564,14 +564,14 @@ export default function AuthPage() {
           {/* ═══════════════════════════════════════════ */}
           {/* ── Passkey Auth Panel ── */}
           {/* ═══════════════════════════════════════════ */}
-          <div className="rounded-[var(--cc-radius-md)] bg-gray-900/80 border border-gray-800 p-6">
+          <div className="rounded-[var(--cc-radius-md)] bg-[var(--cc-canvas)]/80 border border-[var(--cc-hairline)] p-6">
             <h2 className="text-lg font-semibold tracking-tighter mb-4 flex items-center gap-2">
               <span className="text-purple-400">🔑</span> Passkey Auth
             </h2>
 
             {!webAuthnSupported && (
-              <div className="mb-4 p-3 rounded-lg bg-yellow-500/10 border border-yellow-500/20">
-                <p className="text-xs text-yellow-400">
+              <div className="mb-4 p-3 rounded-lg bg-[var(--cc-warning)]/10 border border-yellow-500/20">
+                <p className="text-xs text-[var(--cc-warning)]">
                   ⚠ WebAuthn is not supported in this browser. Try Chrome, Safari, or Firefox with a security key.
                 </p>
               </div>
@@ -582,36 +582,36 @@ export default function AuthPage() {
               <div className="space-y-4">
                 {/* Register */}
                 <div>
-                  <p className="text-sm font-semibold text-gray-300 mb-2">Register New Passkey</p>
+                  <p className="text-sm font-semibold text-[var(--cc-body)] mb-2">Register New Passkey</p>
                   <div className="flex gap-2">
                     <input
                       type="text"
                       placeholder="Enter username..."
                       value={passkeyUsername}
                       onChange={(e) => setPasskeyUsername(e.target.value)}
-                      className="flex-1 px-3 py-2 rounded-lg bg-gray-800 border border-gray-700 text-sm text-white placeholder-gray-500 focus:border-purple-500 focus:outline-none transition-colors"
+                      className="flex-1 px-3 py-2 rounded-lg bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline-strong)] text-sm text-[var(--cc-ink)] placeholder-gray-500 focus:border-purple-500 focus:outline-none transition-colors"
                       disabled={!webAuthnSupported}
                     />
                     <button
                       onClick={handleRegisterPasskey}
                       disabled={!webAuthnSupported || !passkeyUsername.trim()}
-                      className="px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-500 text-white text-sm font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+                      className="px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-500 text-[var(--cc-ink)] text-sm font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
                     >
                       Register
                     </button>
                   </div>
                   {platformAuthAvailable && (
-                    <p className="text-[10px] text-gray-500 mt-1">✓ Platform authenticator available (Face ID / Touch ID / Windows Hello)</p>
+                    <p className="text-[10px] text-[var(--cc-body)] mt-1">✓ Platform authenticator available (Face ID / Touch ID / Windows Hello)</p>
                   )}
                 </div>
 
                 {/* Login with existing passkey */}
                 {hasExistingPasskeys && (
-                  <div className="pt-3 border-t border-gray-800">
-                    <p className="text-sm font-semibold text-gray-300 mb-2">
+                  <div className="pt-3 border-t border-[var(--cc-hairline)]">
+                    <p className="text-sm font-semibold text-[var(--cc-body)] mb-2">
                       Login with Passkey
                     </p>
-                    <p className="text-xs text-gray-500 mb-3">
+                    <p className="text-xs text-[var(--cc-body)] mb-3">
                       {storedCredentials.length} passkey(s) registered on this device
                     </p>
                     <button
@@ -623,14 +623,14 @@ export default function AuthPage() {
                     {/* Show registered usernames */}
                     <div className="mt-2 space-y-1">
                       {storedCredentials.map((cred) => (
-                        <div key={cred.id} className="flex items-center justify-between text-xs text-gray-400 px-2 py-1 rounded bg-gray-800/40">
+                        <div key={cred.id} className="flex items-center justify-between text-xs text-[var(--cc-muted)] px-2 py-1 rounded bg-[var(--cc-canvas-soft-2)]/40">
                           <span className="font-mono">{cred.username}</span>
                           <button
                             onClick={() => {
                               removePasskey(cred.id);
                               setPasskeyError(`Removed passkey for "${cred.username}"`);
                             }}
-                            className="text-red-400 hover:text-red-300 transition-colors"
+                            className="text-[var(--cc-error)] hover:text-red-300 transition-colors"
                             aria-label={`Remove passkey for ${cred.username}`}
                           >
                             Remove
@@ -643,7 +643,7 @@ export default function AuthPage() {
 
                 {!hasExistingPasskeys && !webAuthnSupported && (
                   <div className="text-center py-4">
-                    <p className="text-xs text-gray-500">No passkeys registered and WebAuthn is not supported.</p>
+                    <p className="text-xs text-[var(--cc-body)]">No passkeys registered and WebAuthn is not supported.</p>
                   </div>
                 )}
               </div>
@@ -652,28 +652,28 @@ export default function AuthPage() {
             {/* Passkey Registering */}
             {passkeyStep === 'registering' && (
               <div className="space-y-3">
-                <p className="text-sm text-gray-400">Creating passkey for &quot;{passkeyUsername}&quot;...</p>
+                <p className="text-sm text-[var(--cc-muted)]">Creating passkey for &quot;{passkeyUsername}&quot;...</p>
                 <div className="flex items-center justify-center py-6">
                   <svg className="animate-spin w-8 h-8 text-purple-400" fill="none" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                   </svg>
                 </div>
-                <p className="text-xs text-gray-500 text-center">Please approve in your device&apos;s security dialog</p>
+                <p className="text-xs text-[var(--cc-body)] text-center">Please approve in your device&apos;s security dialog</p>
               </div>
             )}
 
             {/* Passkey Authenticating */}
             {passkeyStep === 'authenticating' && (
               <div className="space-y-3">
-                <p className="text-sm text-gray-400">Authenticating with passkey...</p>
+                <p className="text-sm text-[var(--cc-muted)]">Authenticating with passkey...</p>
                 <div className="flex items-center justify-center py-6">
                   <svg className="animate-spin w-8 h-8 text-purple-400" fill="none" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                   </svg>
                 </div>
-                <p className="text-xs text-gray-500 text-center">Please verify with your biometric/PIN</p>
+                <p className="text-xs text-[var(--cc-body)] text-center">Please verify with your biometric/PIN</p>
               </div>
             )}
 
@@ -682,22 +682,22 @@ export default function AuthPage() {
               <div className="space-y-4">
                 <div className="p-3 rounded-lg bg-green-500/10 border border-green-500/20">
                   <p className="text-sm font-semibold text-green-400">✓ Authentication Successful</p>
-                  <p className="text-xs text-gray-400 mt-1">Authenticated via passkey</p>
+                  <p className="text-xs text-[var(--cc-muted)] mt-1">Authenticated via passkey</p>
                 </div>
-                <div className="rounded-lg bg-gray-950 border border-gray-800 p-4 space-y-3">
+                <div className="rounded-lg bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] p-4 space-y-3">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-md bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-sm font-semibold shadow-[0_2px_8px_rgba(0,0,0,0.2),0_1px_2px_rgba(0,0,0,0.1)]">
                       {passkeyResult.username[0]?.toUpperCase()}
                     </div>
                     <div>
                       <h3 className="text-sm font-semibold text-green-400">{passkeyResult.username}</h3>
-                      <p className="text-[10px] text-gray-500 font-mono break-all">ID: {passkeyResult.credentialId.slice(0, 24)}...</p>
+                      <p className="text-[10px] text-[var(--cc-body)] font-mono break-all">ID: {passkeyResult.credentialId.slice(0, 24)}...</p>
                     </div>
                   </div>
                 </div>
                 <button
                   onClick={handleReset}
-                  className="w-full py-2 rounded-lg bg-gray-800 text-gray-400 hover:text-white hover:bg-gray-700 text-xs font-medium transition-all border border-gray-700"
+                  className="w-full py-2 rounded-lg bg-[var(--cc-canvas-soft-2)] text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft-2)] text-xs font-medium transition-all border border-[var(--cc-hairline-strong)]"
                 >
                   Start Over
                 </button>
@@ -711,7 +711,7 @@ export default function AuthPage() {
                   setPasskeyStep('idle');
                   setPasskeyError(null);
                 }}
-                className="w-full py-2 rounded-lg bg-gray-800 text-gray-400 hover:text-white hover:bg-gray-700 text-xs font-medium transition-all border border-gray-700"
+                className="w-full py-2 rounded-lg bg-[var(--cc-canvas-soft-2)] text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft-2)] text-xs font-medium transition-all border border-[var(--cc-hairline-strong)]"
               >
                 Try Again
               </button>
@@ -721,39 +721,39 @@ export default function AuthPage() {
 
         {/* ── Session Info (when authenticated) ── */}
         {session?.authenticated && (
-          <div className="rounded-[var(--cc-radius-md)] bg-gray-900/80 border border-gray-800 p-6 sm:p-8 mb-16">
+          <div className="rounded-[var(--cc-radius-md)] bg-[var(--cc-canvas)]/80 border border-[var(--cc-hairline)] p-6 sm:p-8 mb-16">
             <h3 className="text-xl font-semibold tracking-tighter mb-4 flex items-center gap-2">
               <span className="text-green-400">🛡️</span> Session Information
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {session.address && (
-                <div className="p-4 rounded-md bg-gray-950/60 border border-gray-800">
-                  <p className="text-xs text-gray-500 mb-1">Wallet Address</p>
-                  <p className="font-mono text-sm text-gray-300 break-all">{session.address}</p>
-                  <p className="text-xs text-gray-500 mt-1">
+                <div className="p-4 rounded-md bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline)]">
+                  <p className="text-xs text-[var(--cc-body)] mb-1">Wallet Address</p>
+                  <p className="font-mono text-sm text-[var(--cc-body)] break-all">{session.address}</p>
+                  <p className="text-xs text-[var(--cc-body)] mt-1">
                     <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-blue-500/15 text-blue-400 text-[10px]">SIWE</span>
                   </p>
                 </div>
               )}
               {session.passkey.username && (
-                <div className="p-4 rounded-md bg-gray-950/60 border border-gray-800">
-                  <p className="text-xs text-gray-500 mb-1">Passkey User</p>
-                  <p className="text-sm text-gray-300 font-semibold">{session.passkey.username}</p>
-                  <p className="text-xs text-gray-500 mt-1">
+                <div className="p-4 rounded-md bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline)]">
+                  <p className="text-xs text-[var(--cc-body)] mb-1">Passkey User</p>
+                  <p className="text-sm text-[var(--cc-body)] font-semibold">{session.passkey.username}</p>
+                  <p className="text-xs text-[var(--cc-body)] mt-1">
                     <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-purple-500/15 text-purple-400 text-[10px]">Passkey</span>
                   </p>
                 </div>
               )}
               {session.createdAt && (
-                <div className="p-4 rounded-md bg-gray-950/60 border border-gray-800">
-                  <p className="text-xs text-gray-500 mb-1">Session Started</p>
-                  <p className="text-sm text-gray-300">{new Date(session.createdAt).toLocaleString()}</p>
+                <div className="p-4 rounded-md bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline)]">
+                  <p className="text-xs text-[var(--cc-body)] mb-1">Session Started</p>
+                  <p className="text-sm text-[var(--cc-body)]">{new Date(session.createdAt).toLocaleString()}</p>
                 </div>
               )}
               {session.expiresAt && (
-                <div className="p-4 rounded-md bg-gray-950/60 border border-gray-800">
-                  <p className="text-xs text-gray-500 mb-1">Session Expires</p>
-                  <p className="text-sm text-gray-300">{new Date(session.expiresAt).toLocaleString()}</p>
+                <div className="p-4 rounded-md bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline)]">
+                  <p className="text-xs text-[var(--cc-body)] mb-1">Session Expires</p>
+                  <p className="text-sm text-[var(--cc-body)]">{new Date(session.expiresAt).toLocaleString()}</p>
                   <p className="text-xs text-green-400 mt-1">{formatSessionRemaining()}</p>
                 </div>
               )}
@@ -762,21 +762,21 @@ export default function AuthPage() {
             <div className="mt-4 flex gap-3">
               <button
                 onClick={() => setShowSessionInfo(!showSessionInfo)}
-                className="px-4 py-2 rounded-lg bg-gray-800 text-gray-400 hover:text-white hover:bg-gray-700 text-sm font-medium transition-all border border-gray-700"
+                className="px-4 py-2 rounded-lg bg-[var(--cc-canvas-soft-2)] text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft-2)] text-sm font-medium transition-all border border-[var(--cc-hairline-strong)]"
               >
                 {showSessionInfo ? 'Hide Details' : 'Show Raw Session'}
               </button>
               <button
                 onClick={handleSignOut}
-                className="px-4 py-2 rounded-lg bg-red-500/15 text-red-400 border border-red-500/20 hover:bg-red-500/25 text-sm font-medium transition-colors"
+                className="px-4 py-2 rounded-lg bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-red-500/20 hover:bg-[var(--cc-error)]/25 text-sm font-medium transition-colors"
               >
                 Sign Out
               </button>
             </div>
 
             {showSessionInfo && (
-              <div className="mt-4 rounded-lg bg-gray-950 border border-gray-800 p-4">
-                <pre className="font-mono text-[10px] text-gray-400 overflow-x-auto whitespace-pre-wrap max-h-48 overflow-y-auto">
+              <div className="mt-4 rounded-lg bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] p-4">
+                <pre className="font-mono text-[10px] text-[var(--cc-muted)] overflow-x-auto whitespace-pre-wrap max-h-48 overflow-y-auto">
                   {JSON.stringify(session, null, 2)}
                 </pre>
               </div>
@@ -786,7 +786,7 @@ export default function AuthPage() {
 
         {/* ── Info Section ── */}
         <section className="mb-16">
-          <div className="rounded-[var(--cc-radius-md)] bg-gray-900/80 border border-gray-800 p-6 sm:p-8">
+          <div className="rounded-[var(--cc-radius-md)] bg-[var(--cc-canvas)]/80 border border-[var(--cc-hairline)] p-6 sm:p-8">
             <h3 className="text-xl font-semibold tracking-tighter mb-4 flex items-center gap-2">
               <span className="text-green-400">📋</span> How It Works
             </h3>
@@ -794,36 +794,36 @@ export default function AuthPage() {
               {/* SIWE */}
               <div>
                 <h4 className="text-base font-semibold text-blue-400 mb-3">🔗 SIWE (Sign-In With Ethereum)</h4>
-                <div className="space-y-3 text-sm text-gray-400">
+                <div className="space-y-3 text-sm text-[var(--cc-muted)]">
                   <p>
-                    <strong className="text-gray-300">1. Connect</strong> — Connect your wallet via <code className="text-blue-400 bg-gray-800 px-1.5 py-0.5 rounded text-xs">eth_requestAccounts</code>.
+                    <strong className="text-[var(--cc-body)]">1. Connect</strong> — Connect your wallet via <code className="text-blue-400 bg-[var(--cc-canvas-soft-2)] px-1.5 py-0.5 rounded text-xs">eth_requestAccounts</code>.
                   </p>
                   <p>
-                    <strong className="text-gray-300">2. Sign</strong> — Sign a SIWE message (EIP-4361) via <code className="text-blue-400 bg-gray-800 px-1.5 py-0.5 rounded text-xs">personal_sign</code>.
+                    <strong className="text-[var(--cc-body)]">2. Sign</strong> — Sign a SIWE message (EIP-4361) via <code className="text-blue-400 bg-[var(--cc-canvas-soft-2)] px-1.5 py-0.5 rounded text-xs">personal_sign</code>.
                   </p>
                   <p>
-                    <strong className="text-gray-300">3. Verify</strong> — Verify the signature matches the address in the message.
+                    <strong className="text-[var(--cc-body)]">3. Verify</strong> — Verify the signature matches the address in the message.
                   </p>
                 </div>
               </div>
               {/* Passkey */}
               <div>
                 <h4 className="text-base font-semibold text-purple-400 mb-3">🔑 Passkey (WebAuthn)</h4>
-                <div className="space-y-3 text-sm text-gray-400">
+                <div className="space-y-3 text-sm text-[var(--cc-muted)]">
                   <p>
-                    <strong className="text-gray-300">1. Register</strong> — Create a passkey via <code className="text-purple-400 bg-gray-800 px-1.5 py-0.5 rounded text-xs">navigator.credentials.create()</code>.
+                    <strong className="text-[var(--cc-body)]">1. Register</strong> — Create a passkey via <code className="text-purple-400 bg-[var(--cc-canvas-soft-2)] px-1.5 py-0.5 rounded text-xs">navigator.credentials.create()</code>.
                   </p>
                   <p>
-                    <strong className="text-gray-300">2. Login</strong> — Authenticate via <code className="text-purple-400 bg-gray-800 px-1.5 py-0.5 rounded text-xs">navigator.credentials.get()</code>.
+                    <strong className="text-[var(--cc-body)]">2. Login</strong> — Authenticate via <code className="text-purple-400 bg-[var(--cc-canvas-soft-2)] px-1.5 py-0.5 rounded text-xs">navigator.credentials.get()</code>.
                   </p>
                   <p>
-                    <strong className="text-gray-300">3. Verify</strong> — Session persisted in localStorage with 24h expiry.
+                    <strong className="text-[var(--cc-body)]">3. Verify</strong> — Session persisted in localStorage with 24h expiry.
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="mt-6 rounded-md bg-gray-950 border border-gray-800 p-4 font-mono text-xs text-gray-300 overflow-x-auto">
+            <div className="mt-6 rounded-md bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] p-4 font-mono text-xs text-[var(--cc-body)] overflow-x-auto">
               <pre>{`// SIWE — Sign-In With Ethereum
 const { message } = createSiweMessage(address, chainId);
 const signature = await signSiweMessage(message, address);
@@ -837,8 +837,8 @@ const auth = await authenticatePasskey();`}</pre>
         </section>
 
         {/* ── Supported Chains ── */}
-        <section className="py-12 border-t border-gray-800/50 mb-16">
-          <p className="text-center text-sm text-gray-500 mb-8 uppercase tracking-wider font-medium">
+        <section className="py-12 border-t border-[var(--cc-hairline)]/50 mb-16">
+          <p className="text-center text-sm text-[var(--cc-body)] mb-8 uppercase tracking-wider font-medium">
             Supported Chains
           </p>
           <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
@@ -850,12 +850,12 @@ const auth = await authenticatePasskey();`}</pre>
             ].map((chain) => (
               <div
                 key={chain.name}
-                className="group flex flex-col items-center gap-2 px-5 py-4 rounded-[var(--cc-radius-md)] bg-gray-800/30 border border-gray-800 hover:border-gray-600 transition-all cursor-default"
+                className="group flex flex-col items-center gap-2 px-5 py-4 rounded-[var(--cc-radius-md)] bg-[var(--cc-canvas-soft-2)]/30 border border-[var(--cc-hairline)] hover:border-[var(--cc-hairline-strong)] transition-all cursor-default"
               >
                 <div className={`w-10 h-10 rounded-md bg-gradient-to-br ${chain.color} flex items-center justify-center text-lg font-semibold shadow-[0_2px_8px_rgba(0,0,0,0.2),0_1px_2px_rgba(0,0,0,0.1)] group-hover:scale-110 transition-transform`}>
                   {chain.symbol}
                 </div>
-                <span className="text-xs text-gray-400 group-hover:text-gray-200 transition-colors">
+                <span className="text-xs text-[var(--cc-muted)] group-hover:text-[var(--cc-body)] transition-colors">
                   {chain.name}
                 </span>
               </div>

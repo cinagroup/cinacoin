@@ -178,19 +178,19 @@ function ProviderCard({
       onClick={() => onSelect(quote.providerId)}
       className={`w-full text-left p-4 rounded-md border transition-all ${
         quote.isBest
-          ? 'border-emerald-500/50 bg-emerald-500/5 ring-1 ring-emerald-500/20'
+          ? 'border-emerald-500/50 bg-[var(--cc-success)]/5 ring-1 ring-emerald-500/20'
           : selected
-          ? 'border-blue-500/50 bg-blue-500/5 ring-1 ring-blue-500/20'
-          : 'border-gray-700/50 bg-gray-800/40 hover:border-gray-600/50 hover:bg-gray-800/60'
+          ? 'border-[var(--cc-primary)]/50 bg-blue-500/5 ring-1 ring-blue-500/20'
+          : 'border-[var(--cc-hairline-strong)]/50 bg-[var(--cc-canvas-soft-2)]/40 hover:border-[var(--cc-hairline-strong)]/50 hover:bg-[var(--cc-canvas-soft-2)]/60'
       }`}
     >
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <span className="text-xl">{quote.icon}</span>
-          <span className="font-semibold tracking-tighter text-white">{quote.providerName}</span>
+          <span className="font-semibold tracking-tighter text-[var(--cc-ink)]">{quote.providerName}</span>
         </div>
         {quote.isBest && (
-          <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+          <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-emerald-500/30">
             Best Rate
           </span>
         )}
@@ -198,34 +198,34 @@ function ProviderCard({
 
       <div className="grid grid-cols-2 gap-2 text-sm">
         <div>
-          <span className="text-gray-500 text-xs">You receive</span>
-          <p className="text-white font-semibold">
+          <span className="text-[var(--cc-body)] text-xs">You receive</span>
+          <p className="text-[var(--cc-ink)] font-semibold">
             {quote.cryptoAmount.toFixed(6)}{' '}
-            <span className="text-gray-400 text-xs">{quote.token}</span>
+            <span className="text-[var(--cc-muted)] text-xs">{quote.token}</span>
           </p>
         </div>
         <div>
-          <span className="text-gray-500 text-xs">Total cost</span>
-          <p className="text-white font-semibold">${quote.totalCost.toFixed(2)}</p>
+          <span className="text-[var(--cc-body)] text-xs">Total cost</span>
+          <p className="text-[var(--cc-ink)] font-semibold">${quote.totalCost.toFixed(2)}</p>
         </div>
         <div>
-          <span className="text-gray-500 text-xs">Fee</span>
-          <p className="text-gray-300">{quote.fees.totalFeePercent}% + ${quote.fees.fixedFee}</p>
+          <span className="text-[var(--cc-body)] text-xs">Fee</span>
+          <p className="text-[var(--cc-body)]">{quote.fees.totalFeePercent}% + ${quote.fees.fixedFee}</p>
         </div>
         <div>
-          <span className="text-gray-500 text-xs">Time</span>
-          <p className="text-gray-300">~{quote.estimatedTime} min</p>
+          <span className="text-[var(--cc-body)] text-xs">Time</span>
+          <p className="text-[var(--cc-body)]">~{quote.estimatedTime} min</p>
         </div>
       </div>
 
       <div className="mt-3 flex items-center gap-2 flex-wrap">
         {quote.requiresKyc && (
-          <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-400 border border-amber-500/25">
+          <span className="text-[10px] px-1.5 py-0.5 rounded bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border border-amber-500/25">
             KYC Required
           </span>
         )}
         {quote.paymentMethods.slice(0, 3).map((m) => (
-          <span key={m} className="text-[10px] px-1.5 py-0.5 rounded bg-gray-700/50 text-gray-400">
+          <span key={m} className="text-[10px] px-1.5 py-0.5 rounded bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)]">
             {m.replace('_', ' ')}
           </span>
         ))}
@@ -292,20 +292,20 @@ export default function OnrampPage() {
           <h1 className="text-3xl font-semibold tracking-tighter bg-gradient-to-r from-brand-400 via-brand-500 to-brand-600 bg-clip-text text-transparent">
             Fiat On-Ramp
           </h1>
-          <p className="text-gray-400 text-sm">
+          <p className="text-[var(--cc-muted)] text-sm">
             Buy crypto with fiat — compare MoonPay, Ramp &amp; Transak rates
           </p>
         </div>
 
         {/* ── Input Form ─────────────────────────────────── */}
-        <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 p-6 space-y-5">
-          <h2 className="text-lg font-semibold tracking-tighter text-white">Configure Purchase</h2>
+        <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 p-6 space-y-5">
+          <h2 className="text-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Configure Purchase</h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Amount Input */}
             <div>
-              <label className="block text-sm text-gray-400 mb-1.5">Amount</label>
-              <div className="flex items-center bg-gray-900/60 rounded-md border border-gray-600/50 overflow-hidden">
+              <label className="block text-sm text-[var(--cc-muted)] mb-1.5">Amount</label>
+              <div className="flex items-center bg-[var(--cc-canvas)]/60 rounded-md border border-[var(--cc-hairline-strong)]/50 overflow-hidden">
                 <input
                   type="text"
                   inputMode="decimal"
@@ -315,12 +315,12 @@ export default function OnrampPage() {
                     if (v === '' || /^\d*\.?\d*$/.test(v)) setFiatAmount(v);
                   }}
                   placeholder="100"
-                  className="flex-1 bg-transparent px-4 py-3 text-white text-lg font-semibold outline-none placeholder:text-gray-600"
+                  className="flex-1 bg-transparent px-4 py-3 text-[var(--cc-ink)] text-lg font-semibold outline-none placeholder:text-[var(--cc-body)]"
                 />
                 <select
                   value={currency}
                   onChange={(e) => setCurrency(e.target.value)}
-                  className="bg-gray-700/80 text-white text-sm px-3 py-3 border-l border-gray-600/50 outline-none cursor-pointer"
+                  className="bg-[var(--cc-canvas-soft-2)]/80 text-[var(--cc-ink)] text-sm px-3 py-3 border-l border-[var(--cc-hairline-strong)]/50 outline-none cursor-pointer"
                 >
                   {CURRENCIES.map((c) => (
                     <option key={c} value={c}>{c}</option>
@@ -331,12 +331,12 @@ export default function OnrampPage() {
 
             {/* Token Selection */}
             <div>
-              <label className="block text-sm text-gray-400 mb-1.5">Token</label>
-              <div className="flex items-center bg-gray-900/60 rounded-md border border-gray-600/50 overflow-hidden">
+              <label className="block text-sm text-[var(--cc-muted)] mb-1.5">Token</label>
+              <div className="flex items-center bg-[var(--cc-canvas)]/60 rounded-md border border-[var(--cc-hairline-strong)]/50 overflow-hidden">
                 <select
                   value={token}
                   onChange={(e) => setToken(e.target.value)}
-                  className="flex-1 bg-transparent px-4 py-3 text-white text-lg font-semibold outline-none cursor-pointer"
+                  className="flex-1 bg-transparent px-4 py-3 text-[var(--cc-ink)] text-lg font-semibold outline-none cursor-pointer"
                 >
                   {TOKENS.map((t) => (
                     <option key={t.symbol} value={t.symbol}>{t.icon} {t.symbol} — {t.name}</option>
@@ -347,11 +347,11 @@ export default function OnrampPage() {
 
             {/* Region Selection */}
             <div>
-              <label className="block text-sm text-gray-400 mb-1.5">Region</label>
+              <label className="block text-sm text-[var(--cc-muted)] mb-1.5">Region</label>
               <select
                 value={region}
                 onChange={(e) => setRegion(e.target.value)}
-                className="w-full bg-gray-900/60 text-white text-sm px-4 py-3 rounded-md border border-gray-600/50 outline-none cursor-pointer"
+                className="w-full bg-[var(--cc-canvas)]/60 text-[var(--cc-ink)] text-sm px-4 py-3 rounded-md border border-[var(--cc-hairline-strong)]/50 outline-none cursor-pointer"
               >
                 {REGIONS.map((r) => (
                   <option key={r.code} value={r.code}>{r.code} — {r.name}</option>
@@ -361,7 +361,7 @@ export default function OnrampPage() {
 
             {/* Quick Amount Buttons */}
             <div>
-              <label className="block text-sm text-gray-400 mb-1.5">Quick Select</label>
+              <label className="block text-sm text-[var(--cc-muted)] mb-1.5">Quick Select</label>
               <div className="flex gap-2">
                 {[50, 100, 250, 500, 1000].map((v) => (
                   <button
@@ -369,8 +369,8 @@ export default function OnrampPage() {
                     onClick={() => setFiatAmount(v.toString())}
                     className={`flex-1 py-2 rounded-lg text-sm font-semibold transition-all ${
                       fiatAmount === v.toString()
-                        ? 'bg-blue-500/20 text-blue-400 border border-blue-500/40'
-                        : 'bg-gray-700/50 text-gray-400 hover:bg-gray-600/50 border border-transparent'
+                        ? 'bg-blue-500/20 text-blue-400 border border-[var(--cc-primary)]/40'
+                        : 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] hover:bg-[var(--cc-muted)]/50 border border-transparent'
                     }`}
                   >
                     ${v}
@@ -387,7 +387,7 @@ export default function OnrampPage() {
             className={`w-full py-3.5 rounded-md font-semibold text-base transition-all ${
               isValidAmount && !loading
                 ? 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 shadow-[0_4px_12px_rgba(99,102,241,0.25),0_2px_4px_rgba(99,102,241,0.15)] active:scale-[0.98]'
-                : 'bg-gray-700/60 text-gray-500 cursor-not-allowed'
+                : 'bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-body)] cursor-not-allowed'
             }`}
           >
             {loading ? (
@@ -407,10 +407,10 @@ export default function OnrampPage() {
         {/* ── Provider Comparison ────────────────────────── */}
         {hasSearched && (
           <div className="space-y-4">
-            <h2 className="text-lg font-semibold tracking-tighter text-white">
+            <h2 className="text-lg font-semibold tracking-tighter text-[var(--cc-ink)]">
               Provider Comparison
               {quotes.length > 0 && (
-                <span className="ml-2 text-sm text-gray-500 font-normal">
+                <span className="ml-2 text-sm text-[var(--cc-body)] font-normal">
                   ({quotes.length} provider{quotes.length !== 1 ? 's' : ''})
                 </span>
               )}
@@ -419,12 +419,12 @@ export default function OnrampPage() {
             {loading ? (
               <div className="space-y-3">
                 {[1, 2, 3].map((i) => (
-                  <div key={i} className="h-36 bg-gray-800/40 rounded-md animate-pulse border border-gray-700/30" />
+                  <div key={i} className="h-36 bg-[var(--cc-canvas-soft-2)]/40 rounded-md animate-pulse border border-[var(--cc-hairline-strong)]/30" />
                 ))}
               </div>
             ) : quotes.length === 0 ? (
-              <div className="bg-gray-800/60 rounded-[var(--cc-radius-md)] border border-gray-700/60 p-8 text-center">
-                <p className="text-gray-400">
+              <div className="bg-[var(--cc-canvas-soft-2)]/60 rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 p-8 text-center">
+                <p className="text-[var(--cc-muted)]">
                   No providers available for your region ({region}). Try selecting a different region.
                 </p>
               </div>
@@ -443,13 +443,13 @@ export default function OnrampPage() {
 
             {/* Selected Provider Action */}
             {selectedQuote && !loading && (
-              <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 p-6 space-y-4">
+              <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 p-6 space-y-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="text-lg font-semibold tracking-tighter text-white">
+                    <h3 className="text-lg font-semibold tracking-tighter text-[var(--cc-ink)]">
                       {selectedQuote.icon} {selectedQuote.providerName}
                     </h3>
-                    <p className="text-sm text-gray-400">
+                    <p className="text-sm text-[var(--cc-muted)]">
                       Receive {selectedQuote.cryptoAmount.toFixed(6)} {token} for ${selectedQuote.totalCost.toFixed(2)} {currency}
                     </p>
                   </div>
@@ -463,11 +463,11 @@ export default function OnrampPage() {
 
                 {/* SDK Usage Example */}
                 <details className="group">
-                  <summary className="text-xs text-gray-500 cursor-pointer hover:text-gray-300 transition-colors select-none">
+                  <summary className="text-xs text-[var(--cc-body)] cursor-pointer hover:text-[var(--cc-body)] transition-colors select-none">
                     <span className="group-open:hidden">Show SDK integration code ▸</span>
                     <span className="hidden group-open:inline">Hide code ▾</span>
                   </summary>
-                  <pre className="mt-3 p-4 bg-gray-900/80 rounded-md text-xs text-gray-300 overflow-x-auto font-mono">
+                  <pre className="mt-3 p-4 bg-[var(--cc-canvas)]/80 rounded-md text-xs text-[var(--cc-body)] overflow-x-auto font-mono">
 {`import { OnRampAggregator, MoonPayProvider, RampProvider, TransakProvider } from '@cinacoin/onramp-sdk';
 
 const aggregator = new OnRampAggregator();
@@ -498,22 +498,22 @@ const quote = await aggregator.getBestQuote({
 
         {/* ── Embedded Widget Iframe ─────────────────────── */}
         {showWidget && selectedQuote && (
-          <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
-            <div className="flex items-center justify-between px-5 py-3 border-b border-gray-700/50">
+          <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
+            <div className="flex items-center justify-between px-5 py-3 border-b border-[var(--cc-hairline-strong)]/50">
               <div className="flex items-center gap-2">
                 <span>{selectedQuote.icon}</span>
-                <span className="font-semibold tracking-tighter text-white text-sm">{selectedQuote.providerName}</span>
-                <span className="text-xs text-gray-500">— On-Ramp Widget</span>
+                <span className="font-semibold tracking-tighter text-[var(--cc-ink)] text-sm">{selectedQuote.providerName}</span>
+                <span className="text-xs text-[var(--cc-body)]">— On-Ramp Widget</span>
               </div>
               <button
                 onClick={() => setShowWidget(false)}
-                className="text-gray-400 hover:text-white transition-colors p-1 rounded hover:bg-gray-700/50"
+                className="text-[var(--cc-muted)] hover:text-[var(--cc-ink)] transition-colors p-1 rounded hover:bg-[var(--cc-canvas-soft-2)]/50"
                 aria-label="Close widget"
               >
                 ✕
               </button>
             </div>
-            <div className="w-full flex justify-center bg-gray-900/50 p-4">
+            <div className="w-full flex justify-center bg-[var(--cc-canvas)]/50 p-4">
               <iframe
                 src={buildWidgetUrl(amountNum, currency, token)}
                 title={`${selectedQuote.providerName} On-Ramp Widget`}
@@ -523,9 +523,9 @@ const quote = await aggregator.getBestQuote({
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               />
             </div>
-            <div className="px-5 py-3 border-t border-gray-700/50">
-              <p className="text-xs text-gray-500">
-                Widget URL: <code className="text-gray-400 break-all">{buildWidgetUrl(amountNum, currency, token)}</code>
+            <div className="px-5 py-3 border-t border-[var(--cc-hairline-strong)]/50">
+              <p className="text-xs text-[var(--cc-body)]">
+                Widget URL: <code className="text-[var(--cc-muted)] break-all">{buildWidgetUrl(amountNum, currency, token)}</code>
               </p>
             </div>
           </div>
@@ -550,21 +550,21 @@ const quote = await aggregator.getBestQuote({
               desc: 'Support for 150+ countries and multiple fiat currencies.',
             },
           ].map((card) => (
-            <div key={card.title} className="bg-gray-800/40 rounded-md border border-gray-700/40 p-5 text-center">
+            <div key={card.title} className="bg-[var(--cc-canvas-soft-2)]/40 rounded-md border border-[var(--cc-hairline-strong)]/40 p-5 text-center">
               <span className="text-2xl">{card.icon}</span>
-              <h3 className="text-white font-semibold mt-2">{card.title}</h3>
-              <p className="text-gray-400 text-sm mt-1">{card.desc}</p>
+              <h3 className="text-[var(--cc-ink)] font-semibold mt-2">{card.title}</h3>
+              <p className="text-[var(--cc-muted)] text-sm mt-1">{card.desc}</p>
             </div>
           ))}
         </div>
 
         {/* ── Footer ───────────────────────────────────── */}
         <div className="text-center space-y-1 pt-4">
-          <div className="flex items-center justify-center gap-2 text-gray-500 text-xs">
+          <div className="flex items-center justify-center gap-2 text-[var(--cc-body)] text-xs">
             <span className="inline-block w-2 h-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-500" />
-            <span>Powered by <span className="text-gray-300 font-semibold">@cinacoin/onramp-sdk</span></span>
+            <span>Powered by <span className="text-[var(--cc-body)] font-semibold">@cinacoin/onramp-sdk</span></span>
           </div>
-          <p className="text-gray-600 text-xs">
+          <p className="text-[var(--cc-body)] text-xs">
             Aggregating MoonPay, Ramp, and Transak for the best on-ramp rates
           </p>
         </div>

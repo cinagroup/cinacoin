@@ -57,7 +57,7 @@ export default function SettingsPage() {
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setTheme("dark")}
-                className={`px-3 py-1.5 rounded-lg text-sm font-medium border transition-colors ${
+                className={`px-3 py-1.5 rounded-[var(--cc-radius-sm)] text-sm font-medium border transition-colors ${
                   theme === "dark"
                     ? "bg-brand-500/20 text-brand-400 border-brand-500/30"
                     : "text-dashboard-muted border-dashboard-border hover:text-[var(--cc-ink)]"
@@ -67,7 +67,7 @@ export default function SettingsPage() {
               </button>
               <button
                 onClick={() => setTheme("light")}
-                className={`px-3 py-1.5 rounded-lg text-sm font-medium border transition-colors ${
+                className={`px-3 py-1.5 rounded-[var(--cc-radius-sm)] text-sm font-medium border transition-colors ${
                   theme === "light"
                     ? "bg-brand-500/20 text-brand-400 border-brand-500/30"
                     : "text-dashboard-muted border-dashboard-border hover:text-[var(--cc-ink)]"
@@ -128,7 +128,7 @@ export default function SettingsPage() {
                 type="number"
                 value={refreshInterval}
                 onChange={(e) => setRefreshInterval(Number(e.target.value))}
-                className="w-20 bg-dashboard-border/30 border border-dashboard-border rounded-lg px-3 py-1.5 text-[var(--cc-ink)] text-center focus:outline-none focus:ring-2 focus:ring-brand-500"
+                className="w-20 bg-dashboard-border/30 border border-dashboard-border rounded-[var(--cc-radius-sm)] px-3 py-1.5 text-[var(--cc-ink)] text-center focus:outline-none focus:ring-2 focus:ring-brand-500"
                 min={10}
                 max={300}
               />
@@ -163,7 +163,7 @@ export default function SettingsPage() {
                 type="number"
                 value={downAlertThreshold}
                 onChange={(e) => setDownAlertThreshold(Number(e.target.value))}
-                className="w-20 bg-dashboard-border/30 border border-dashboard-border rounded-lg px-3 py-1.5 text-[var(--cc-ink)] text-center focus:outline-none focus:ring-2 focus:ring-brand-500"
+                className="w-20 bg-dashboard-border/30 border border-dashboard-border rounded-[var(--cc-radius-sm)] px-3 py-1.5 text-[var(--cc-ink)] text-center focus:outline-none focus:ring-2 focus:ring-brand-500"
                 min={10}
                 max={600}
               />
@@ -181,7 +181,7 @@ export default function SettingsPage() {
                 type="number"
                 value={degradedAlertThreshold}
                 onChange={(e) => setDegradedAlertThreshold(Number(e.target.value))}
-                className="w-20 bg-dashboard-border/30 border border-dashboard-border rounded-lg px-3 py-1.5 text-[var(--cc-ink)] text-center focus:outline-none focus:ring-2 focus:ring-brand-500"
+                className="w-20 bg-dashboard-border/30 border border-dashboard-border rounded-[var(--cc-radius-sm)] px-3 py-1.5 text-[var(--cc-ink)] text-center focus:outline-none focus:ring-2 focus:ring-brand-500"
                 min={10}
                 max={600}
               />
@@ -201,7 +201,7 @@ export default function SettingsPage() {
               type="text"
               value={apiUrl}
               onChange={(e) => setApiUrl(e.target.value)}
-              className="w-full bg-dashboard-border/30 border border-dashboard-border rounded-lg px-3 py-2 text-[var(--cc-ink)] font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+              className="w-full bg-dashboard-border/30 border border-dashboard-border rounded-[var(--cc-radius-sm)] px-3 py-2 text-[var(--cc-ink)] font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
             />
           </div>
           <div>
@@ -210,7 +210,7 @@ export default function SettingsPage() {
               type="text"
               value={wsUrl}
               onChange={(e) => setWsUrl(e.target.value)}
-              className="w-full bg-dashboard-border/30 border border-dashboard-border rounded-lg px-3 py-2 text-[var(--cc-ink)] font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+              className="w-full bg-dashboard-border/30 border border-dashboard-border rounded-[var(--cc-radius-sm)] px-3 py-2 text-[var(--cc-ink)] font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
             />
           </div>
         </div>

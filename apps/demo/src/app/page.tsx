@@ -70,13 +70,13 @@ const _P = Array.from({ length: 18 }, (_, i) => ({
 function ChainBadge({ chain }: { chain: (typeof CHAINS)[number] }) {
   return (
     <div
-      className="group flex items-center gap-2 px-3 py-2 rounded-[var(--cc-radius-md)] bg-gray-900/80 border border-gray-800 hover:border-gray-500 transition-all duration-300 cursor-default shrink-0 hover:-translate-y-0.5"
+      className="group flex items-center gap-2 px-3 py-2 rounded-[var(--cc-radius-md)] bg-[var(--cc-canvas)]/80 border border-[var(--cc-hairline)] hover:border-[var(--cc-hairline-strong)] transition-all duration-300 cursor-default shrink-0 hover:-translate-y-0.5"
       style={{
         transition: 'all 0.3s ease',
       }}
     >
       <span
-        className="inline-flex size-5 items-center justify-center rounded-full text-[10px] font-semibold text-white transition-all duration-300 group-hover:shadow-lg"
+        className="inline-flex size-5 items-center justify-center rounded-full text-[10px] font-semibold text-[var(--cc-ink)] transition-all duration-300 group-hover:shadow-[var(--cc-level3)]"
         style={{
           backgroundColor: chain.color,
           boxShadow: 'none',
@@ -90,7 +90,7 @@ function ChainBadge({ chain }: { chain: (typeof CHAINS)[number] }) {
       >
         {chain.initial}
       </span>
-      <span className="text-xs font-medium text-gray-400 group-hover:text-gray-200 transition-colors whitespace-nowrap">
+      <span className="text-xs font-medium text-[var(--cc-muted)] group-hover:text-[var(--cc-body)] transition-colors whitespace-nowrap">
         {chain.name}
       </span>
     </div>
@@ -103,7 +103,7 @@ function FeatureCard({ feature, delay }: { feature: (typeof FEATURES)[number]; d
   return (
     <div
       ref={ref}
-      className={`group relative p-6 rounded-[var(--cc-radius-md)] bg-gray-900/50 border border-gray-800 hover:border-gray-600 hover:bg-gray-800/60 transition-all duration-300 hover:-translate-y-1 ${
+      className={`group relative p-6 rounded-[var(--cc-radius-md)] bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline)] hover:border-[var(--cc-hairline-strong)] hover:bg-[var(--cc-canvas-soft-2)]/60 transition-all duration-300 hover:-translate-y-1 ${
         isInView ? 'animate-fade-in-up' : 'opacity-0'
       }`}
       style={isInView ? { animationDelay: `${delay}ms`, animationFillMode: 'both' } : undefined}
@@ -111,10 +111,10 @@ function FeatureCard({ feature, delay }: { feature: (typeof FEATURES)[number]; d
       <div className="absolute inset-0 rounded-[var(--cc-radius-md)] bg-gradient-to-br from-brand-500/5 to-brand-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
       <div className="relative">
         <div className="text-3xl mb-4">{feature.icon}</div>
-        <h3 className="text-base font-semibold text-gray-100 group-hover:text-white transition-colors mb-2">
+        <h3 className="text-base font-semibold text-gray-100 group-hover:text-[var(--cc-ink)] transition-colors mb-2">
           {feature.title}
         </h3>
-        <p className="text-sm text-gray-500 leading-relaxed group-hover:text-gray-400 transition-colors">
+        <p className="text-sm text-[var(--cc-body)] leading-relaxed group-hover:text-[var(--cc-muted)] transition-colors">
           {feature.desc}
         </p>
       </div>
@@ -138,7 +138,7 @@ function BackendStatus() {
 
   return (
     <section className="w-full max-w-2xl px-4 py-8">
-      <div className="relative bg-gradient-to-b from-gray-900 to-gray-950 rounded-[var(--cc-radius-md)] border border-emerald-900/40 overflow-hidden"
+      <div className="relative bg-gradient-to-b from-gray-900 to-gray-950 rounded-[var(--cc-radius-md)] border border-[var(--cc-success)]/40 overflow-hidden"
         style={{
           boxShadow: '0px 2px 2px #0000000a, 0px 8px 8px -8px #0000000a, 0 0 0 1px #00000014',
         }}
@@ -149,27 +149,27 @@ function BackendStatus() {
         </div> */}
 
         {/* Card header */}
-        <div className="relative flex items-center justify-between px-5 py-3 border-b border-emerald-900/30">
+        <div className="relative flex items-center justify-between px-5 py-3 border-b border-[var(--cc-success)]/30">
           <div className="flex items-center gap-3">
             <div className="flex gap-1.5">
-              <span className="size-2.5 rounded-full bg-red-500/80" />
-              <span className="size-2.5 rounded-full bg-yellow-500/80" />
+              <span className="size-2.5 rounded-full bg-[var(--cc-error)]/80" />
+              <span className="size-2.5 rounded-full bg-[var(--cc-warning)]/80" />
               <span className="size-2.5 rounded-full bg-green-500/80" />
             </div>
-            <span className="text-[11px] text-emerald-600/70 font-mono tracking-wider ml-1 uppercase">
+            <span className="text-[11px] text-[var(--cc-success)]/70 font-mono tracking-wider ml-1 uppercase">
               ⚡ Infrastructure Monitor
             </span>
           </div>
           <div className="flex items-center gap-2">
             {lastChecked && (
-              <span className="text-[10px] text-gray-700 font-mono">
+              <span className="text-[10px] text-[var(--cc-ink)] font-mono">
                 {Math.round((Date.now() - lastChecked) / 1000)}s ago
               </span>
             )}
             <button
               onClick={refresh}
               disabled={loading}
-              className="text-xs text-gray-500 hover:text-emerald-400 transition-colors disabled:opacity-50"
+              className="text-xs text-[var(--cc-body)] hover:text-[var(--cc-success)] transition-colors disabled:opacity-50"
               title="Refresh"
             >
               {loading ? (
@@ -185,15 +185,15 @@ function BackendStatus() {
         </div>
 
         {/* Overall status bar */}
-        <div className="relative px-5 py-2.5 border-b border-gray-800/40 flex items-center justify-between bg-gray-950/50">
+        <div className="relative px-5 py-2.5 border-b border-[var(--cc-hairline)]/40 flex items-center justify-between bg-[var(--cc-canvas)]/50">
           <div className="flex items-center gap-2">
             <span
               className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
                 healthyCount === total
-                  ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                  ? 'bg-[var(--cc-success)]/10 text-[var(--cc-success)] border border-emerald-500/20'
                   : healthyCount > 0
-                  ? 'bg-yellow-500/10 text-yellow-400 border border-yellow-500/20'
-                  : 'bg-red-500/10 text-red-400 border border-red-500/20'
+                  ? 'bg-[var(--cc-warning)]/10 text-[var(--cc-warning)] border border-yellow-500/20'
+                  : 'bg-[var(--cc-error)]/10 text-[var(--cc-error)] border border-red-500/20'
               }`}
             >
               <span
@@ -212,7 +212,7 @@ function BackendStatus() {
               {healthyCount}/{total} Workers Online
             </span>
           </div>
-          <span className="text-[10px] text-gray-700 font-mono">Cloudflare Workers Edge</span>
+          <span className="text-[10px] text-[var(--cc-ink)] font-mono">Cloudflare Workers Edge</span>
         </div>
 
         {/* Worker rows */}
@@ -221,15 +221,15 @@ function BackendStatus() {
             if (loading) {
               return (
                 <div key={i} className="flex items-center gap-3 px-5 py-3 animate-pulse">
-                  <div className="size-2 rounded-full bg-gray-800" />
-                  <div className="flex-1 h-3 bg-gray-800 rounded" />
-                  <div className="w-16 h-3 bg-gray-800 rounded" />
+                  <div className="size-2 rounded-full bg-[var(--cc-canvas-soft-2)]" />
+                  <div className="flex-1 h-3 bg-[var(--cc-canvas-soft-2)] rounded" />
+                  <div className="w-16 h-3 bg-[var(--cc-canvas-soft-2)] rounded" />
                 </div>
               );
             }
             const result = h as NonNullable<typeof health>[number];
             return (
-              <div key={result.name} className="flex items-center gap-3 px-5 py-3 hover:bg-gray-800/20 transition-colors">
+              <div key={result.name} className="flex items-center gap-3 px-5 py-3 hover:bg-[var(--cc-canvas-soft-2)]/20 transition-colors">
                 <span
                   className={`size-2 rounded-full ${
                     result.healthy ? 'bg-emerald-400' : 'bg-red-400'
@@ -240,18 +240,18 @@ function BackendStatus() {
                   } : undefined}
                 />
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-mono text-gray-300">
+                  <p className="text-sm font-mono text-[var(--cc-body)]">
                     {WORKER_LABELS[result.name]}
                   </p>
-                  <p className="text-[10px] text-gray-700 font-mono truncate">
+                  <p className="text-[10px] text-[var(--cc-ink)] font-mono truncate">
                     {result.url}
                   </p>
                 </div>
                 <div className="text-right shrink-0">
-                  <p className="text-xs font-mono text-gray-500">
+                  <p className="text-xs font-mono text-[var(--cc-body)]">
                     {result.latencyMs}ms
                   </p>
-                  <p className={`text-[10px] font-mono ${result.healthy ? 'text-emerald-500' : 'text-red-400'}`}>
+                  <p className={`text-[10px] font-mono ${result.healthy ? 'text-[var(--cc-success)]' : 'text-[var(--cc-error)]'}`}>
                     {result.healthy ? 'OK' : result.status ? `HTTP ${result.status}` : 'OFFLINE'}
                   </p>
                 </div>
@@ -323,9 +323,9 @@ function ConnectingOverlay() {
     <div className="flex flex-col items-center justify-center py-10 space-y-5 animate-status-transition">
       {/* Pulsing ring animation */}
       <div className="relative">
-        <div className="w-16 h-16 rounded-full border-2 border-blue-500/30 animate-ping-once" />
+        <div className="w-16 h-16 rounded-full border-2 border-[var(--cc-primary)]/30 animate-ping-once" />
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500/20 to-violet-500/20 border border-blue-500/40 flex items-center justify-center">
+          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500/20 to-violet-500/20 border border-[var(--cc-primary)]/40 flex items-center justify-center">
             <svg className="animate-spin h-6 w-6 text-blue-400" viewBox="0 0 24 24" fill="none">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
@@ -335,7 +335,7 @@ function ConnectingOverlay() {
       </div>
       <div className="text-center space-y-1">
         <p className="text-sm font-semibold text-blue-400">Connecting to wallet...</p>
-        <p className="text-xs text-gray-500">Please approve the connection in your wallet</p>
+        <p className="text-xs text-[var(--cc-body)]">Please approve the connection in your wallet</p>
       </div>
     </div>
   );
@@ -444,11 +444,11 @@ export default function HomePage() {
 
         {/* Version badge + GitHub stars */}
         <div className="relative flex items-center justify-center gap-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-medium">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-[var(--cc-primary)]/20 text-blue-400 text-xs font-medium">
             <span className="size-2 rounded-full bg-green-400 animate-pulse" />
             v0.1.0 — Open Source
           </div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-800/60 border border-gray-700/50 text-gray-400 text-xs font-medium">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline-strong)]/50 text-[var(--cc-muted)] text-xs font-medium">
             ⭐ 200+ stars
           </div>
         </div>
@@ -461,12 +461,12 @@ export default function HomePage() {
         </h1>
 
         {/* Subtitle */}
-        <p className="relative text-xl sm:text-2xl font-semibold tracking-tight text-gray-300 max-w-2xl mx-auto">
+        <p className="relative text-xl sm:text-2xl font-semibold tracking-tight text-[var(--cc-body)] max-w-2xl mx-auto">
           The open-source wallet connection toolkit
         </p>
 
         {/* Description */}
-        <p className="relative text-base sm:text-lg text-gray-500 max-w-xl mx-auto leading-relaxed">
+        <p className="relative text-base sm:text-lg text-[var(--cc-body)] max-w-xl mx-auto leading-relaxed">
           Connect wallets, swap tokens, bridge chains across 16 networks.
           Fully self-hosted. Zero vendor lock-in.
         </p>
@@ -476,7 +476,7 @@ export default function HomePage() {
           <button
             onClick={() => handleConnect('io.metamask')}
             disabled={isConnecting}
-            className="px-8 py-4 rounded-[100px] font-medium text-base bg-[var(--cc-primary)] text-white hover:opacity-90 transition-all duration-200 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-8 py-4 rounded-[100px] font-medium text-base bg-[var(--cc-primary)] text-[var(--cc-ink)] hover:opacity-90 transition-all duration-200 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
             style={{
               boxShadow: '0px 1px 1px #00000005, 0px 2px 2px #0000000a',
             }}
@@ -493,13 +493,13 @@ export default function HomePage() {
           </button>
           <Link
             href="/swap"
-            className="px-6 py-4 rounded-[100px] font-medium text-base bg-gray-800/60 border border-gray-700/60 text-gray-300 hover:text-white hover:border-gray-500 transition-all duration-200"
+            className="px-6 py-4 rounded-[100px] font-medium text-base bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline-strong)]/60 text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all duration-200"
           >
             Try Swap Demo →
           </Link>
           <Link
             href="/multi-chain"
-            className="px-6 py-4 rounded-[100px] font-medium text-base bg-gray-800/60 border border-gray-700/60 text-gray-300 hover:text-white hover:border-gray-500 transition-all duration-200"
+            className="px-6 py-4 rounded-[100px] font-medium text-base bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline-strong)]/60 text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all duration-200"
           >
             Multi-Chain →
           </Link>
@@ -510,7 +510,7 @@ export default function HomePage() {
           LIVE DEMO CARD
          ═══════════════════════════════════════════ */}
       <section className="relative w-full max-w-2xl px-4 py-8 z-10">
-        <div className="relative bg-gradient-to-b from-gray-800/80 to-gray-900/80 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/50 overflow-hidden"
+        <div className="relative bg-gradient-to-b from-gray-800/80 to-gray-900/80 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/50 overflow-hidden"
           style={{
             boxShadow: '0px 2px 2px #0000000a, 0px 8px 16px -4px #0000000a, 0 0 0 1px #00000014',
           }}
@@ -519,14 +519,14 @@ export default function HomePage() {
           <div className="absolute -inset-px rounded-[var(--cc-radius-md)] bg-gradient-to-r from-brand-500/20 via-brand-400/20 to-brand-300/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
           {/* Card header */}
-          <div className="relative flex items-center justify-between px-6 py-4 border-b border-gray-700/40">
+          <div className="relative flex items-center justify-between px-6 py-4 border-b border-[var(--cc-hairline-strong)]/40">
             <div className="flex items-center gap-3">
               <div className="flex gap-1.5">
-                <span className="size-3 rounded-full bg-red-500/60" />
-                <span className="size-3 rounded-full bg-yellow-500/60" />
+                <span className="size-3 rounded-full bg-[var(--cc-error)]/60" />
+                <span className="size-3 rounded-full bg-[var(--cc-warning)]/60" />
                 <span className="size-3 rounded-full bg-green-500/60" />
               </div>
-              <span className="text-xs text-gray-500 font-mono ml-2">Cinacoin Demo</span>
+              <span className="text-xs text-[var(--cc-body)] font-mono ml-2">Cinacoin Demo</span>
             </div>
             <div className="flex items-center gap-2">
               <span
@@ -534,8 +534,8 @@ export default function HomePage() {
                   isConnected
                     ? 'bg-green-500/15 text-green-400 border border-green-500/20'
                     : status === 'connecting'
-                    ? 'bg-yellow-500/15 text-yellow-400 border border-yellow-500/20'
-                    : 'bg-gray-700/50 text-gray-500 border border-gray-600/40'
+                    ? 'bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border border-yellow-500/20'
+                    : 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/40'
                 }`}
               >
                 <span
@@ -559,20 +559,20 @@ export default function HomePage() {
             {/* Wallet connection options when not connected */}
             {!isConnected && !isConnecting && connectors.length > 0 && (
               <div className="space-y-3">
-                <p className="text-xs text-gray-400 uppercase tracking-wider">Available Wallets</p>
+                <p className="text-xs text-[var(--cc-muted)] uppercase tracking-wider">Available Wallets</p>
                 <div className="grid gap-2">
                   {connectors.map((c) => (
                     <button
                       key={c.id}
                       onClick={() => handleConnect(c.id)}
-                      className="flex items-center gap-3 px-4 py-3 rounded-[100px] bg-gray-800/60 border border-gray-700/50 hover:border-gray-500 hover:bg-gray-700/60 transition-all text-left"
+                      className="flex items-center gap-3 px-4 py-3 rounded-[100px] bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline-strong)]/50 hover:border-[var(--cc-hairline-strong)] hover:bg-[var(--cc-canvas-soft-2)]/60 transition-all text-left"
                     >
-                      <span className="size-8 rounded-full bg-gradient-to-br from-brand-500/20 to-brand-400/20 flex items-center justify-center text-xs font-semibold text-gray-300">
+                      <span className="size-8 rounded-full bg-gradient-to-br from-brand-500/20 to-brand-400/20 flex items-center justify-center text-xs font-semibold text-[var(--cc-body)]">
                         {c.name[0]}
                       </span>
-                      <span className="text-sm font-medium text-gray-200">{c.name}</span>
+                      <span className="text-sm font-medium text-[var(--cc-body)]">{c.name}</span>
                       {c.id.includes('metamask') && (
-                        <span className="ml-auto text-[10px] px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                        <span className="ml-auto text-[10px] px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-[var(--cc-primary)]/20">
                           Recommended
                         </span>
                       )}
@@ -585,11 +585,11 @@ export default function HomePage() {
             {/* No wallet detected */}
             {!isConnected && !isConnecting && connectors.length === 0 && (
               <div className="text-center py-6">
-                <p className="text-gray-400 text-sm">No wallet extension detected.</p>
-                <p className="text-gray-500 text-xs mt-1">Install MetaMask or another EIP-1193 wallet to continue.</p>
+                <p className="text-[var(--cc-muted)] text-sm">No wallet extension detected.</p>
+                <p className="text-[var(--cc-body)] text-xs mt-1">Install MetaMask or another EIP-1193 wallet to continue.</p>
                 <button
                   onClick={() => window.open('https://metamask.io/download/', '_blank')}
-                  className="mt-4 px-6 py-2 rounded-[100px] bg-blue-600/20 text-blue-400 border border-blue-500/30 hover:bg-blue-600/30 text-sm font-medium transition-colors"
+                  className="mt-4 px-6 py-2 rounded-[100px] bg-[var(--cc-primary)]/20 text-blue-400 border border-[var(--cc-primary)]/30 hover:bg-[var(--cc-primary)]/30 text-sm font-medium transition-colors"
                 >
                   Get MetaMask →
                 </button>
@@ -598,35 +598,35 @@ export default function HomePage() {
 
             {/* Connected state */}
             {isConnected && account.address && (
-              <div className="relative flex items-center gap-4 p-4 rounded-[var(--cc-radius-md)] bg-gray-900/60 border border-green-500/20 animate-status-transition overflow-hidden">
+              <div className="relative flex items-center gap-4 p-4 rounded-[var(--cc-radius-md)] bg-[var(--cc-canvas)]/60 border border-green-500/20 animate-status-transition overflow-hidden">
                 {/* Subtle green glow */}
                 <div className="absolute inset-0 bg-gradient-to-r from-green-500/5 to-transparent pointer-events-none" />
                 {/* Avatar with ring */}
                 <div className="relative shrink-0">
-                  <div className="size-12 rounded-full bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-sm font-semibold text-white shadow-lg shadow-blue-500/20">
+                  <div className="size-12 rounded-full bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-sm font-semibold text-[var(--cc-ink)] shadow-[var(--cc-level3)] shadow-blue-500/20">
                     {account.address.slice(2, 4).toUpperCase()}
                   </div>
                   <span className="absolute -bottom-0.5 -right-0.5 size-3.5 rounded-full bg-emerald-400 border-2 border-gray-900" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-mono text-gray-200 truncate">
+                  <p className="text-sm font-mono text-[var(--cc-body)] truncate">
                     {shortenAddress(account.address)}
                   </p>
                   <div className="flex items-center gap-2">
                     <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                    <p className="text-xs text-gray-500">{account.chainName} · {account.chainId}</p>
+                    <p className="text-xs text-[var(--cc-body)]">{account.chainName} · {account.chainId}</p>
                   </div>
                 </div>
                 <div className="text-right shrink-0">
-                  <p className="text-sm font-semibold text-gray-200">{account.balance} {account.chainSymbol}</p>
+                  <p className="text-sm font-semibold text-[var(--cc-body)]">{account.balance} {account.chainSymbol}</p>
                 </div>
               </div>
             )}
 
             {/* Error state */}
             {error && (
-              <div className="p-4 rounded-[var(--cc-radius-md)] bg-red-500/10 border border-red-500/20">
-                <p className="text-sm text-red-400">{error}</p>
+              <div className="p-4 rounded-[var(--cc-radius-md)] bg-[var(--cc-error)]/10 border border-red-500/20">
+                <p className="text-sm text-[var(--cc-error)]">{error}</p>
               </div>
             )}
 
@@ -638,7 +638,7 @@ export default function HomePage() {
                     <button
                       onClick={handleQuickReconnect}
                       disabled={isConnecting}
-                      className="flex-1 px-6 py-3.5 rounded-[100px] font-medium text-sm bg-[var(--cc-primary)] text-white hover:opacity-90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="flex-1 px-6 py-3.5 rounded-[100px] font-medium text-sm bg-[var(--cc-primary)] text-[var(--cc-ink)] hover:opacity-90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                       style={{
                         boxShadow: '0px 1px 1px #00000005, 0px 2px 2px #0000000a',
                       }}
@@ -656,7 +656,7 @@ export default function HomePage() {
                     <button
                       onClick={() => handleConnect('io.metamask')}
                       disabled={isConnecting || connectors.length === 0}
-                      className="px-6 py-3.5 rounded-[100px] font-medium text-sm bg-gray-700 text-gray-300 hover:bg-gray-600 border border-gray-600 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="px-6 py-3.5 rounded-[100px] font-medium text-sm bg-[var(--cc-canvas-soft-2)] text-[var(--cc-body)] hover:bg-[var(--cc-muted)] border border-[var(--cc-hairline-strong)] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       New
                     </button>
@@ -665,7 +665,7 @@ export default function HomePage() {
                   <button
                     onClick={() => handleConnect('io.metamask')}
                     disabled={isConnecting || connectors.length === 0}
-                    className="flex-1 px-6 py-3.5 rounded-[100px] font-medium text-sm bg-[var(--cc-primary)] text-white hover:opacity-90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex-1 px-6 py-3.5 rounded-[100px] font-medium text-sm bg-[var(--cc-primary)] text-[var(--cc-ink)] hover:opacity-90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                     style={{
                       boxShadow: '0px 1px 1px #00000005, 0px 2px 2px #0000000a',
                     }}
@@ -676,7 +676,7 @@ export default function HomePage() {
               ) : (
                 <button
                   onClick={handleDisconnect}
-                  className="flex-1 px-6 py-3.5 rounded-[100px] font-medium text-sm bg-gray-700 text-gray-300 hover:bg-gray-600 border border-gray-600 transition-all duration-200"
+                  className="flex-1 px-6 py-3.5 rounded-[100px] font-medium text-sm bg-[var(--cc-canvas-soft-2)] text-[var(--cc-body)] hover:bg-[var(--cc-muted)] border border-[var(--cc-hairline-strong)] transition-all duration-200"
                 >
                   Disconnect
                 </button>
@@ -698,28 +698,28 @@ export default function HomePage() {
 
             {/* Status indicators */}
             <div className="grid grid-cols-3 gap-3">
-              <div className="p-3 rounded-[var(--cc-radius-md)] bg-gray-900/50 border border-gray-800/50">
-                <p className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">Status</p>
+              <div className="p-3 rounded-[var(--cc-radius-md)] bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline)]/50">
+                <p className="text-[10px] uppercase tracking-wider text-[var(--cc-body)] mb-1">Status</p>
                 <div className="flex items-center gap-1.5">
                   <span className={`size-2 rounded-full ${
                     isConnected ? 'bg-green-400 animate-pulse' : isConnecting ? 'bg-yellow-400 animate-pulse' : 'bg-gray-500'
                   }`} />
                   <p className={`text-sm font-semibold ${
-                    isConnected ? 'text-green-400' : isConnecting ? 'text-yellow-400' : 'text-gray-500'
+                    isConnected ? 'text-green-400' : isConnecting ? 'text-[var(--cc-warning)]' : 'text-[var(--cc-body)]'
                   }`}>
                     {isConnected ? 'Connected' : isConnecting ? 'Connecting...' : 'Not Connected'}
                   </p>
                 </div>
               </div>
-              <div className="p-3 rounded-[var(--cc-radius-md)] bg-gray-900/50 border border-gray-800/50">
-                <p className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">Network</p>
-                <p className="text-sm font-semibold text-gray-300">
+              <div className="p-3 rounded-[var(--cc-radius-md)] bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline)]/50">
+                <p className="text-[10px] uppercase tracking-wider text-[var(--cc-body)] mb-1">Network</p>
+                <p className="text-sm font-semibold text-[var(--cc-body)]">
                   {isConnected ? account.chainName : selectedChain}
                 </p>
               </div>
-              <div className="p-3 rounded-[var(--cc-radius-md)] bg-gray-900/50 border border-gray-800/50">
-                <p className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">Balance</p>
-                <p className="text-sm font-semibold text-gray-300">
+              <div className="p-3 rounded-[var(--cc-radius-md)] bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline)]/50">
+                <p className="text-[10px] uppercase tracking-wider text-[var(--cc-body)] mb-1">Balance</p>
+                <p className="text-sm font-semibold text-[var(--cc-body)]">
                   {isConnected ? `${account.balance} ${account.chainSymbol}` : '—'}
                 </p>
               </div>
@@ -746,7 +746,7 @@ export default function HomePage() {
               <div className="text-3xl sm:text-4xl font-semibold tracking-tight bg-gradient-to-r from-brand-400 to-brand-300 bg-clip-text text-transparent">
                 {s.value}
               </div>
-              <div className="text-xs text-gray-500 mt-1 font-medium">{s.label}</div>
+              <div className="text-xs text-[var(--cc-body)] mt-1 font-medium">{s.label}</div>
             </div>
           ))}
         </div>
@@ -757,14 +757,14 @@ export default function HomePage() {
          ═══════════════════════════════════════════ */}
       <section className="w-full max-w-4xl px-4 py-12 z-10">
         <div className="text-center mb-10">
-          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tighter text-white mb-3">
+          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tighter text-[var(--cc-ink)] mb-3">
             Everything you need to{' '}
             <span className="bg-gradient-to-r from-brand-400 to-brand-300 bg-clip-text text-transparent animate-gradient-shift"
               style={{ backgroundSize: '200% 200%' }}>
               connect wallets
             </span>
           </h2>
-          <p className="text-gray-500 max-w-lg mx-auto">
+          <p className="text-[var(--cc-body)] max-w-lg mx-auto">
             A complete toolkit for wallet connections, cross-chain operations, and account abstraction — all open source.
           </p>
         </div>
@@ -784,10 +784,10 @@ export default function HomePage() {
         className={`w-full max-w-4xl px-4 py-16 z-10 ${chainsSection.isInView ? 'animate-fade-in-up' : 'opacity-0'}`}
       >
         <div className="text-center mb-8">
-          <h2 className="text-2xl sm:text-3xl font-semibold tracking-tighter text-white mb-2">
+          <h2 className="text-2xl sm:text-3xl font-semibold tracking-tighter text-[var(--cc-ink)] mb-2">
             16 Chains Supported
           </h2>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-[var(--cc-body)]">
             EVM · Solana · Bitcoin · Layer 2s — one SDK, every network
           </p>
         </div>
@@ -804,26 +804,26 @@ export default function HomePage() {
          ═══════════════════════════════════════════ */}
       {connectionHistory.length > 0 && (
         <section className="w-full max-w-2xl px-4 py-8 z-10">
-          <div className="bg-gray-800/40 backdrop-blur rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
-            <div className="px-5 py-4 border-b border-gray-700/50 flex items-center justify-between">
-              <h2 className="text-lg font-semibold tracking-tight text-white">Recent Connections</h2>
-              <span className="text-xs text-gray-500">{connectionHistory.length} records</span>
+          <div className="bg-[var(--cc-canvas-soft-2)]/40 backdrop-blur rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
+            <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50 flex items-center justify-between">
+              <h2 className="text-lg font-semibold tracking-tight text-[var(--cc-ink)]">Recent Connections</h2>
+              <span className="text-xs text-[var(--cc-body)]">{connectionHistory.length} records</span>
             </div>
             <div className="divide-y divide-gray-800/50">
               {connectionHistory.slice(0, 5).map((record, i) => {
                 const ago = Date.now() - record.connectedAt;
                 const timeLabel = ago < 60000 ? 'Just now' : ago < 3600000 ? `${Math.floor(ago / 60000)}m ago` : ago < 86400000 ? `${Math.floor(ago / 3600000)}h ago` : `${Math.floor(ago / 86400000)}d ago`;
                 return (
-                  <div key={i} className="flex items-center gap-3 px-5 py-3 hover:bg-gray-700/20 transition-colors">
-                    <div className="size-8 rounded-full bg-gradient-to-br from-brand-500/20 to-brand-400/20 flex items-center justify-center text-xs font-semibold text-gray-300 shrink-0">
+                  <div key={i} className="flex items-center gap-3 px-5 py-3 hover:bg-[var(--cc-canvas-soft-2)]/20 transition-colors">
+                    <div className="size-8 rounded-full bg-gradient-to-br from-brand-500/20 to-brand-400/20 flex items-center justify-center text-xs font-semibold text-[var(--cc-body)] shrink-0">
                       {record.address.slice(2, 4).toUpperCase()}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-mono text-gray-200 truncate">{shortenAddress(record.address)}</p>
-                      <p className="text-xs text-gray-500">{record.chainName} · {record.connectorName}</p>
+                      <p className="text-sm font-mono text-[var(--cc-body)] truncate">{shortenAddress(record.address)}</p>
+                      <p className="text-xs text-[var(--cc-body)]">{record.chainName} · {record.connectorName}</p>
                     </div>
                     <div className="text-right shrink-0">
-                      <p className="text-xs text-gray-500">{timeLabel}</p>
+                      <p className="text-xs text-[var(--cc-body)]">{timeLabel}</p>
                       {!isConnected && (
                         <button
                           onClick={() => handleConnect(record.connectorId)}
@@ -848,7 +848,7 @@ export default function HomePage() {
         ref={ctaSection.ref}
         className={`w-full max-w-2xl px-4 py-20 text-center z-10 ${ctaSection.isInView ? 'animate-fade-in-up' : 'opacity-0'}`}
       >
-        <div className="relative p-10 sm:p-14 rounded-[var(--cc-radius-md)] bg-gradient-to-b from-gray-800/60 to-gray-900/60 border border-gray-700/40 overflow-hidden"
+        <div className="relative p-10 sm:p-14 rounded-[var(--cc-radius-md)] bg-gradient-to-b from-gray-800/60 to-gray-900/60 border border-[var(--cc-hairline-strong)]/40 overflow-hidden"
           style={{
             boxShadow: '0px 2px 2px #0000000a, 0px 8px 16px -4px #0000000a, 0 0 0 1px #00000014',
           }}
@@ -856,23 +856,23 @@ export default function HomePage() {
           {/* Subtle shimmer effect */}
           <div className="absolute inset-0 animate-shimmer pointer-events-none" />
           <div className="relative">
-            <h2 className="text-3xl sm:text-4xl font-semibold tracking-tighter text-white mb-3">
+            <h2 className="text-3xl sm:text-4xl font-semibold tracking-tighter text-[var(--cc-ink)] mb-3">
               Ready to get started?
             </h2>
-            <p className="text-gray-500 mb-8 max-w-md mx-auto">
+            <p className="text-[var(--cc-body)] mb-8 max-w-md mx-auto">
               Start building with Cinacoin. Open source, self-hosted, and free forever.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Link
                 href="/swap"
-                className="px-8 py-4 rounded-[100px] font-medium text-base bg-[var(--cc-primary)] text-white hover:opacity-90 transition-all duration-200 hover:-translate-y-0.5"
+                className="px-8 py-4 rounded-[100px] font-medium text-base bg-[var(--cc-primary)] text-[var(--cc-ink)] hover:opacity-90 transition-all duration-200 hover:-translate-y-0.5"
                 style={{
                   boxShadow: '0px 1px 1px #00000005, 0px 2px 2px #0000000a',
                 }}
               >
                 Get Started
               </Link>
-              <button className="px-8 py-4 rounded-[100px] font-medium text-base bg-transparent border border-gray-600 text-gray-300 hover:text-white hover:border-gray-400 transition-all duration-200">
+              <button className="px-8 py-4 rounded-[100px] font-medium text-base bg-transparent border border-[var(--cc-hairline-strong)] text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:border-gray-400 transition-all duration-200">
                 View Docs
               </button>
             </div>
@@ -881,24 +881,24 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="relative w-full max-w-4xl px-4 py-8 border-t border-gray-800/50 z-10">
+      <footer className="relative w-full max-w-4xl px-4 py-8 border-t border-[var(--cc-hairline)]/50 z-10">
         <div className="flex flex-wrap items-center justify-between gap-4">
-          <p className="text-xs text-gray-600">
+          <p className="text-xs text-[var(--cc-body)]">
             © 2026 Cinacoin. Open source under MIT License.
           </p>
           <div className="flex items-center gap-4">
-            <Link href="/swap" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">
+            <Link href="/swap" className="text-xs text-[var(--cc-body)] hover:text-[var(--cc-body)] transition-colors">
               Swap
             </Link>
-            <Link href="/multi-chain" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">
+            <Link href="/multi-chain" className="text-xs text-[var(--cc-body)] hover:text-[var(--cc-body)] transition-colors">
               Multi-Chain
             </Link>
-            <span className="text-xs text-gray-700">|</span>
+            <span className="text-xs text-[var(--cc-ink)]">|</span>
             <a
               href="https://github.com/cinaseek/cinacoin"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs text-gray-500 hover:text-gray-300 transition-colors"
+              className="text-xs text-[var(--cc-body)] hover:text-[var(--cc-body)] transition-colors"
             >
               GitHub
             </a>

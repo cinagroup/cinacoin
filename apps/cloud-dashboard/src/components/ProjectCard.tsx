@@ -9,7 +9,7 @@ export function ProjectCard({ project }: { project: Project }) {
             <path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
           </svg>
         </div>
-        <span className="rounded-full bg-emerald-500/20 px-2 py-0.5 text-xs font-medium text-[var(--cc-success)]">
+        <span className="rounded-full bg-[var(--cc-success)]/20 px-2 py-1 text-xs font-medium text-[var(--cc-success)]">
           active
         </span>
       </div>
@@ -19,7 +19,7 @@ export function ProjectCard({ project }: { project: Project }) {
       <p className="mb-3 text-sm text-[var(--cc-muted)] line-clamp-2">
         {project.description || "No description"}
       </p>
-      <div className="flex items-center justify-between text-xs text-slate-500">
+      <div className="flex items-center justify-between text-xs text-[var(--cc-muted)]">
         <span>Updated {new Date(project.updatedAt).toLocaleDateString()}</span>
       </div>
     </a>

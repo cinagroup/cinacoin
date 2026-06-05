@@ -43,13 +43,13 @@ export default function TokenInput({
   const selectedToken = tokens.find((t) => t.symbol === token) ?? tokens[0];
 
   return (
-    <div className={`bg-gray-900/50 rounded-md p-4 border border-gray-700/30 ${className}`}>
+    <div className={`bg-[var(--cc-canvas)]/50 rounded-md p-4 border border-[var(--cc-hairline-strong)]/30 ${className}`}>
       <div className="flex justify-between items-center mb-2">
-        <span className="text-sm font-medium text-gray-400">{label}</span>
+        <span className="text-sm font-medium text-[var(--cc-muted)]">{label}</span>
         <div className="flex items-center gap-2">
           {balance !== undefined && (
-            <span className="text-xs text-gray-500">
-              Balance: <span className="text-gray-300">{balance}</span>
+            <span className="text-xs text-[var(--cc-body)]">
+              Balance: <span className="text-[var(--cc-body)]">{balance}</span>
             </span>
           )}
           {maxButton && onMax && (
@@ -69,7 +69,7 @@ export default function TokenInput({
           <select
             value={token}
             onChange={(e) => onTokenChange(e.target.value)}
-            className="appearance-none bg-gray-700/80 hover:bg-gray-600/80 rounded-md px-3 py-2 transition-colors border border-gray-600/50 text-sm text-white font-semibold cursor-pointer pr-8"
+            className="appearance-none bg-[var(--cc-canvas-soft-2)]/80 hover:bg-[var(--cc-muted)]/80 rounded-md px-3 py-2 transition-colors border border-[var(--cc-hairline-strong)]/50 text-sm text-[var(--cc-ink)] font-semibold cursor-pointer pr-8"
           >
             {tokens.map((t) => (
               <option key={t.symbol} value={t.symbol}>
@@ -77,7 +77,7 @@ export default function TokenInput({
               </option>
             ))}
           </select>
-          <span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 text-[10px]">
+          <span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[var(--cc-muted)] text-[10px]">
             ▾
           </span>
         </div>
@@ -94,7 +94,7 @@ export default function TokenInput({
             }
           }}
           placeholder={placeholder}
-          className="flex-1 bg-transparent text-right text-2xl font-semibold text-white outline-none placeholder:text-gray-600"
+          className="flex-1 bg-transparent text-right text-2xl font-semibold text-[var(--cc-ink)] outline-none placeholder:text-[var(--cc-body)]"
         />
       </div>
     </div>

@@ -41,14 +41,14 @@ function ToggleSwitch({ checked, onChange, label }: { checked: boolean; onChange
     <button
       onClick={() => onChange(!checked)}
       className={`relative w-12 h-6 rounded-full transition-colors duration-200 ${
-        checked ? 'bg-blue-500' : 'bg-gray-700'
+        checked ? 'bg-blue-500' : 'bg-[var(--cc-canvas-soft-2)]'
       }`}
       role="switch"
       aria-checked={checked}
       aria-label={label}
     >
       <span
-        className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-md transition-transform duration-200 ${
+        className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-[var(--cc-canvas)] shadow-md transition-transform duration-200 ${
           checked ? 'translate-x-6' : 'translate-x-0'
         }`}
       />
@@ -155,8 +155,8 @@ export default function SettingsPage() {
           onClick={() => setActiveSection(s.id)}
           className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all ${
             activeSection === s.id
-              ? 'bg-blue-500/15 text-blue-400 border border-blue-500/30'
-              : 'bg-gray-800/40 text-gray-400 border border-gray-700/40 hover:text-white hover:border-gray-600'
+              ? 'bg-blue-500/15 text-blue-400 border border-[var(--cc-primary)]/30'
+              : 'bg-[var(--cc-canvas-soft-2)]/40 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)]'
           }`}
         >
           <span>{s.icon}</span>
@@ -174,7 +174,7 @@ export default function SettingsPage() {
           <h1 className="text-3xl font-semibold tracking-tighter bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
             Settings
           </h1>
-          <p className="text-gray-400 text-sm mt-2">Customize your demo experience</p>
+          <p className="text-[var(--cc-muted)] text-sm mt-2">Customize your demo experience</p>
         </div>
 
         <SectionNav />
@@ -182,14 +182,14 @@ export default function SettingsPage() {
         {/* ── Appearance ── */}
         {activeSection === 'appearance' && (
           <div className="space-y-6">
-            <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
-              <div className="px-5 py-4 border-b border-gray-700/50">
-                <h2 className="text-lg font-semibold tracking-tighter text-white">🎨 Theme</h2>
+            <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
+              <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
+                <h2 className="text-lg font-semibold tracking-tighter text-[var(--cc-ink)]">🎨 Theme</h2>
               </div>
               <div className="p-5 space-y-4">
                 {/* Theme Presets */}
                 <div>
-                  <p className="text-sm font-medium text-gray-200 mb-3">Theme Presets</p>
+                  <p className="text-sm font-medium text-[var(--cc-body)] mb-3">Theme Presets</p>
                   <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
                     {[
                       { key: 'dark', label: '🌙 Dark', desc: 'Default dark' },
@@ -206,8 +206,8 @@ export default function SettingsPage() {
                         onClick={() => { setTheme(preset.key as 'dark' | 'light' | 'minimal'); success('Theme Updated', preset.label); }}
                         className={`p-3 rounded-md border text-center transition-all ${
                           theme === preset.key
-                            ? 'bg-blue-500/15 border-blue-500/30 text-blue-400'
-                            : 'bg-gray-800/40 border-gray-700/40 hover:border-gray-600 text-gray-300'
+                            ? 'bg-blue-500/15 border-[var(--cc-primary)]/30 text-blue-400'
+                            : 'bg-[var(--cc-canvas-soft-2)]/40 border-[var(--cc-hairline-strong)]/40 hover:border-[var(--cc-hairline-strong)] text-[var(--cc-body)]'
                         }`}
                       >
                         <p className="text-sm">{preset.label.split(' ')[0]}</p>
@@ -219,16 +219,16 @@ export default function SettingsPage() {
 
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-200">Theme Mode</p>
-                    <p className="text-xs text-gray-500">Choose your base theme mode</p>
+                    <p className="text-sm font-medium text-[var(--cc-body)]">Theme Mode</p>
+                    <p className="text-xs text-[var(--cc-body)]">Choose your base theme mode</p>
                   </div>
                   <div className="flex gap-2">
                     <button
                       onClick={() => { setTheme('dark'); success('Theme Updated', 'Switched to dark mode'); }}
                       className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
                         theme === 'dark'
-                          ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
-                          : 'bg-gray-700/50 text-gray-400 border border-gray-600/40 hover:text-white'
+                          ? 'bg-blue-500/20 text-blue-400 border border-[var(--cc-primary)]/30'
+                          : 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)]'
                       }`}
                     >
                       🌙 Dark
@@ -237,8 +237,8 @@ export default function SettingsPage() {
                       onClick={() => { setTheme('light'); success('Theme Updated', 'Switched to light mode'); }}
                       className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
                         theme === 'light'
-                          ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
-                          : 'bg-gray-700/50 text-gray-400 border border-gray-600/40 hover:text-white'
+                          ? 'bg-blue-500/20 text-blue-400 border border-[var(--cc-primary)]/30'
+                          : 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)]'
                       }`}
                     >
                       ☀️ Light
@@ -247,8 +247,8 @@ export default function SettingsPage() {
                       onClick={() => { setTheme('minimal'); success('Theme Updated', 'Switched to minimal mode'); }}
                       className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
                         theme === 'minimal'
-                          ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
-                          : 'bg-gray-700/50 text-gray-400 border border-gray-600/40 hover:text-white'
+                          ? 'bg-blue-500/20 text-blue-400 border border-[var(--cc-primary)]/30'
+                          : 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)]'
                       }`}
                     >
                       ◻️ Minimal
@@ -258,8 +258,8 @@ export default function SettingsPage() {
 
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-200">Compact Mode</p>
-                    <p className="text-xs text-gray-500">Reduce spacing and padding</p>
+                    <p className="text-sm font-medium text-[var(--cc-body)]">Compact Mode</p>
+                    <p className="text-xs text-[var(--cc-body)]">Reduce spacing and padding</p>
                   </div>
                   <ToggleSwitch checked={compactMode} onChange={(v) => { setCompactMode(v); info('Compact Mode', v ? 'Enabled' : 'Disabled'); }} label="Compact Mode" />
                 </div>
@@ -271,9 +271,9 @@ export default function SettingsPage() {
         {/* ── Language ── */}
         {activeSection === 'language' && (
           <div className="space-y-6">
-            <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
-              <div className="px-5 py-4 border-b border-gray-700/50">
-                <h2 className="text-lg font-semibold tracking-tighter text-white">🌐 Language</h2>
+            <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
+              <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
+                <h2 className="text-lg font-semibold tracking-tighter text-[var(--cc-ink)]">🌐 Language</h2>
               </div>
               <div className="p-5 space-y-2">
                 {LANGUAGES.map((lang) => (
@@ -282,12 +282,12 @@ export default function SettingsPage() {
                     onClick={() => { setLanguage(lang.code); success('Language Updated', lang.label); }}
                     className={`w-full flex items-center gap-3 px-4 py-3 rounded-md transition-all ${
                       language === lang.code
-                        ? 'bg-blue-500/15 border border-blue-500/30'
-                        : 'bg-gray-800/40 border border-gray-700/40 hover:border-gray-600'
+                        ? 'bg-blue-500/15 border border-[var(--cc-primary)]/30'
+                        : 'bg-[var(--cc-canvas-soft-2)]/40 border border-[var(--cc-hairline-strong)]/40 hover:border-[var(--cc-hairline-strong)]'
                     }`}
                   >
                     <span className="text-xl">{lang.flag}</span>
-                    <span className={`text-sm font-medium ${language === lang.code ? 'text-blue-400' : 'text-gray-300'}`}>
+                    <span className={`text-sm font-medium ${language === lang.code ? 'text-blue-400' : 'text-[var(--cc-body)]'}`}>
                       {lang.label}
                     </span>
                     {language === lang.code && (
@@ -295,7 +295,7 @@ export default function SettingsPage() {
                     )}
                   </button>
                 ))}
-                <p className="text-xs text-gray-500 mt-4 text-center">
+                <p className="text-xs text-[var(--cc-body)] mt-4 text-center">
                   Note: Language selection is saved but not fully implemented in this demo.
                 </p>
               </div>
@@ -306,21 +306,21 @@ export default function SettingsPage() {
         {/* ── Network ── */}
         {activeSection === 'network' && (
           <div className="space-y-6">
-            <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
-              <div className="px-5 py-4 border-b border-gray-700/50">
-                <h2 className="text-lg font-semibold tracking-tighter text-white">🌍 Network Settings</h2>
+            <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
+              <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
+                <h2 className="text-lg font-semibold tracking-tighter text-[var(--cc-ink)]">🌍 Network Settings</h2>
               </div>
               <div className="p-5 space-y-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-200">Auto-Detect Networks</p>
-                    <p className="text-xs text-gray-500">Automatically detect supported chains</p>
+                    <p className="text-sm font-medium text-[var(--cc-body)]">Auto-Detect Networks</p>
+                    <p className="text-xs text-[var(--cc-body)]">Automatically detect supported chains</p>
                   </div>
                   <ToggleSwitch checked={autoDetectNetworks} onChange={(v) => { setAutoDetectNetworks(v); info('Auto-Detect', v ? 'Enabled' : 'Disabled'); }} label="Auto-Detect Networks" />
                 </div>
 
                 <div>
-                  <p className="text-sm font-medium text-gray-200 mb-2">Preferred Network</p>
+                  <p className="text-sm font-medium text-[var(--cc-body)] mb-2">Preferred Network</p>
                   <div className="flex flex-wrap gap-2">
                     {CHAINS_PREF.map((chain) => (
                       <button
@@ -328,8 +328,8 @@ export default function SettingsPage() {
                         onClick={() => { setPreferredChain(chain); success('Network Changed', chain); }}
                         className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                           preferredChain === chain
-                            ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
-                            : 'bg-gray-700/50 text-gray-400 border border-gray-600/40 hover:text-white'
+                            ? 'bg-blue-500/20 text-blue-400 border border-[var(--cc-primary)]/30'
+                            : 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)]'
                         }`}
                       >
                         {chain}
@@ -338,32 +338,32 @@ export default function SettingsPage() {
                   </div>
                 </div>
 
-                <div className="p-4 rounded-md bg-gray-900/60 border border-gray-700/40 space-y-3">
-                  <p className="text-sm font-medium text-gray-200">Custom RPC Endpoint</p>
+                <div className="p-4 rounded-md bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/40 space-y-3">
+                  <p className="text-sm font-medium text-[var(--cc-body)]">Custom RPC Endpoint</p>
                   <div className="flex gap-2">
                     <input
                       type="text"
                       placeholder="https://your-rpc-endpoint.com"
                       value={rpcEndpoint}
                       onChange={(e) => setRpcEndpoint(e.target.value)}
-                      className="flex-1 px-3 py-2 bg-gray-800/80 border border-gray-700/50 rounded-lg text-sm text-gray-200 placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500/40 font-mono"
+                      className="flex-1 px-3 py-2 bg-[var(--cc-canvas-soft-2)]/80 border border-[var(--cc-hairline-strong)]/50 rounded-lg text-sm text-[var(--cc-body)] placeholder:text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-primary)]/40 font-mono"
                     />
                     <button
                       onClick={() => { if (rpcEndpoint) success('RPC Updated', rpcEndpoint.slice(0, 30) + '...'); }}
                       disabled={!rpcEndpoint}
-                      className="px-4 py-2 rounded-lg text-sm font-semibold bg-blue-600 hover:bg-blue-500 text-white disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+                      className="px-4 py-2 rounded-lg text-sm font-semibold bg-[var(--cc-primary)] hover:bg-blue-500 text-[var(--cc-ink)] disabled:opacity-40 disabled:cursor-not-allowed transition-all"
                     >
                       Save
                     </button>
                   </div>
                 </div>
 
-                <div className="p-4 rounded-md bg-gray-900/60 border border-gray-700/40">
-                  <p className="text-xs text-gray-500 mb-2">Supported RPC Networks</p>
+                <div className="p-4 rounded-md bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/40">
+                  <p className="text-xs text-[var(--cc-body)] mb-2">Supported RPC Networks</p>
                   {['Ethereum Mainnet', 'Polygon', 'Arbitrum One', 'Base', 'Optimism', 'BNB Chain'].map((rpc) => (
-                    <div key={rpc} className="flex items-center justify-between py-2 border-b border-gray-800/30 last:border-0">
-                      <span className="text-sm text-gray-300">{rpc}</span>
-                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Active</span>
+                    <div key={rpc} className="flex items-center justify-between py-2 border-b border-[var(--cc-hairline)]/30 last:border-0">
+                      <span className="text-sm text-[var(--cc-body)]">{rpc}</span>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-[var(--cc-success)]/10 text-[var(--cc-success)] border border-emerald-500/20">Active</span>
                     </div>
                   ))}
                 </div>
@@ -375,58 +375,58 @@ export default function SettingsPage() {
         {/* ── Privacy ── */}
         {activeSection === 'privacy' && (
           <div className="space-y-6">
-            <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
-              <div className="px-5 py-4 border-b border-gray-700/50">
-                <h2 className="text-lg font-semibold tracking-tighter text-white">🔒 Privacy & Data</h2>
+            <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
+              <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
+                <h2 className="text-lg font-semibold tracking-tighter text-[var(--cc-ink)]">🔒 Privacy & Data</h2>
               </div>
               <div className="p-5 space-y-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-200">Analytics Consent</p>
-                    <p className="text-xs text-gray-500">Allow anonymous usage analytics</p>
+                    <p className="text-sm font-medium text-[var(--cc-body)]">Analytics Consent</p>
+                    <p className="text-xs text-[var(--cc-body)]">Allow anonymous usage analytics</p>
                   </div>
                   <ToggleSwitch checked={analyticsConsent} onChange={(v) => { setAnalyticsConsent(v); info('Analytics', v ? 'Enabled' : 'Disabled'); }} label="Analytics Consent" />
                 </div>
 
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-200">Crash Reporting</p>
-                    <p className="text-xs text-gray-500">Send crash reports to help improve</p>
+                    <p className="text-sm font-medium text-[var(--cc-body)]">Crash Reporting</p>
+                    <p className="text-xs text-[var(--cc-body)]">Send crash reports to help improve</p>
                   </div>
                   <ToggleSwitch checked={crashReporting} onChange={(v) => { setCrashReporting(v); info('Crash Reporting', v ? 'Enabled' : 'Disabled'); }} label="Crash Reporting" />
                 </div>
 
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-200">Usage Data Sharing</p>
-                    <p className="text-xs text-gray-500">Share usage patterns with partners</p>
+                    <p className="text-sm font-medium text-[var(--cc-body)]">Usage Data Sharing</p>
+                    <p className="text-xs text-[var(--cc-body)]">Share usage patterns with partners</p>
                   </div>
                   <ToggleSwitch checked={usageDataSharing} onChange={(v) => { setUsageDataSharing(v); info('Usage Data', v ? 'Enabled' : 'Disabled'); }} />
                 </div>
 
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-200">Personalized Offers</p>
-                    <p className="text-xs text-gray-500">Receive tailored dApp recommendations</p>
+                    <p className="text-sm font-medium text-[var(--cc-body)]">Personalized Offers</p>
+                    <p className="text-xs text-[var(--cc-body)]">Receive tailored dApp recommendations</p>
                   </div>
                   <ToggleSwitch checked={personalizedOffers} onChange={(v) => { setPersonalizedOffers(v); info('Personalized Offers', v ? 'Enabled' : 'Disabled'); }} />
                 </div>
 
-                <div className="p-4 rounded-md bg-blue-500/10 border border-blue-500/20">
+                <div className="p-4 rounded-md bg-blue-500/10 border border-[var(--cc-primary)]/20">
                   <p className="text-sm font-medium text-blue-400">Your Data Rights</p>
-                  <p className="text-xs text-gray-400 mt-1">
+                  <p className="text-xs text-[var(--cc-muted)] mt-1">
                     You can export or delete your data at any time. All data is stored locally and never sent to third-party servers without your consent.
                   </p>
                   <div className="flex gap-2 mt-3">
                     <button
                       onClick={() => info('Export', 'Data export started...')}
-                      className="px-3 py-1.5 rounded-lg text-xs font-medium bg-blue-500/15 text-blue-400 border border-blue-500/30 hover:bg-blue-500/25 transition-all"
+                      className="px-3 py-1.5 rounded-lg text-xs font-medium bg-blue-500/15 text-blue-400 border border-[var(--cc-primary)]/30 hover:bg-blue-500/25 transition-all"
                     >
                       Export Data
                     </button>
                     <button
                       onClick={() => { clearConnectionHistory(); setHistoryCount(0); success('Data Deleted', 'Local data cleared'); }}
-                      className="px-3 py-1.5 rounded-lg text-xs font-medium bg-red-500/15 text-red-400 border border-red-500/25 hover:bg-red-500/25 transition-all"
+                      className="px-3 py-1.5 rounded-lg text-xs font-medium bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-red-500/25 hover:bg-[var(--cc-error)]/25 transition-all"
                     >
                       Delete All Data
                     </button>
@@ -440,39 +440,39 @@ export default function SettingsPage() {
         {/* ── Connected Apps ── */}
         {activeSection === 'connectedApps' && (
           <div className="space-y-6">
-            <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
-              <div className="px-5 py-4 border-b border-gray-700/50">
-                <h2 className="text-lg font-semibold tracking-tighter text-white">📱 Connected Apps</h2>
-                <p className="text-xs text-gray-500 mt-1">Manage wallet connections to external applications</p>
+            <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
+              <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
+                <h2 className="text-lg font-semibold tracking-tighter text-[var(--cc-ink)]">📱 Connected Apps</h2>
+                <p className="text-xs text-[var(--cc-body)] mt-1">Manage wallet connections to external applications</p>
               </div>
               <div className="p-5 space-y-3">
                 {connectedApps.map((app) => (
-                  <div key={app.name} className="p-4 rounded-md bg-gray-900/40 border border-gray-800/40">
+                  <div key={app.name} className="p-4 rounded-md bg-[var(--cc-canvas)]/40 border border-[var(--cc-hairline)]/40">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <span className="text-2xl">{app.icon}</span>
                         <div>
-                          <p className="text-sm font-semibold text-gray-200">{app.name}</p>
-                          <p className="text-xs text-gray-500">Connected {app.connected}</p>
+                          <p className="text-sm font-semibold text-[var(--cc-body)]">{app.name}</p>
+                          <p className="text-xs text-[var(--cc-body)]">Connected {app.connected}</p>
                         </div>
                       </div>
                       <button
                         onClick={() => info('Disconnected', `${app.name} disconnected`)}
-                        className="px-3 py-1.5 rounded-lg text-xs font-medium bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/20 transition-all"
+                        className="px-3 py-1.5 rounded-lg text-xs font-medium bg-[var(--cc-error)]/10 text-[var(--cc-error)] border border-red-500/20 hover:bg-[var(--cc-error)]/20 transition-all"
                       >
                         Disconnect
                       </button>
                     </div>
                     <div className="flex flex-wrap gap-2 mt-3">
                       {app.permissions.map((perm) => (
-                        <span key={perm} className="px-2 py-0.5 rounded text-[10px] font-medium bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                        <span key={perm} className="px-2 py-0.5 rounded text-[10px] font-medium bg-blue-500/10 text-blue-400 border border-[var(--cc-primary)]/20">
                           {perm}
                         </span>
                       ))}
                     </div>
                   </div>
                 ))}
-                <p className="text-xs text-gray-500 text-center pt-2">{connectedApps.length} apps connected</p>
+                <p className="text-xs text-[var(--cc-body)] text-center pt-2">{connectedApps.length} apps connected</p>
               </div>
             </div>
           </div>
@@ -481,30 +481,30 @@ export default function SettingsPage() {
         {/* ── Debug ── */}
         {activeSection === 'debug' && (
           <div className="space-y-6">
-            <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
-              <div className="px-5 py-4 border-b border-gray-700/50">
-                <h2 className="text-lg font-semibold tracking-tighter text-white">🐛 Debug Options</h2>
+            <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
+              <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
+                <h2 className="text-lg font-semibold tracking-tighter text-[var(--cc-ink)]">🐛 Debug Options</h2>
               </div>
               <div className="p-5 space-y-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-200">Debug Mode</p>
-                    <p className="text-xs text-gray-500">Enable verbose logging in browser console</p>
+                    <p className="text-sm font-medium text-[var(--cc-body)]">Debug Mode</p>
+                    <p className="text-xs text-[var(--cc-body)]">Enable verbose logging in browser console</p>
                   </div>
                   <ToggleSwitch checked={debugMode} onChange={(v) => { setDebugMode(v); info('Debug Mode', v ? 'Enabled' : 'Disabled'); }} label="Debug Mode" />
                 </div>
 
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-200">Auto-Connect</p>
-                    <p className="text-xs text-gray-500">Automatically reconnect on page load</p>
+                    <p className="text-sm font-medium text-[var(--cc-body)]">Auto-Connect</p>
+                    <p className="text-xs text-[var(--cc-body)]">Automatically reconnect on page load</p>
                   </div>
                   <ToggleSwitch checked={autoConnect} onChange={(v) => { setAutoConnect(v); info('Auto-Connect', v ? 'Enabled' : 'Disabled'); }} label="Auto-Connect" />
                 </div>
 
                 {debugMode && (
-                  <div className="p-4 rounded-md bg-gray-900/60 border border-gray-700/40">
-                    <p className="text-xs text-gray-400 font-mono">
+                  <div className="p-4 rounded-md bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/40">
+                    <p className="text-xs text-[var(--cc-muted)] font-mono">
                       {/* Simulated debug info */}
                       Debug: ON — Verbose logging enabled<br />
                       localStorage keys: {Object.keys(typeof window !== 'undefined' ? localStorage : {}).filter((k) => k.startsWith('cinacoin_')).length} found<br />
@@ -522,36 +522,36 @@ export default function SettingsPage() {
         {/* ── Storage ── */}
         {activeSection === 'storage' && (
           <div className="space-y-6">
-            <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
-              <div className="px-5 py-4 border-b border-gray-700/50">
-                <h2 className="text-lg font-semibold tracking-tighter text-white">💾 Storage Management</h2>
+            <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
+              <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
+                <h2 className="text-lg font-semibold tracking-tighter text-[var(--cc-ink)]">💾 Storage Management</h2>
               </div>
               <div className="p-5 space-y-4">
-                <div className="p-4 rounded-md bg-gray-900/60 border border-gray-700/40">
+                <div className="p-4 rounded-md bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/40">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium text-gray-200">Connection History</p>
-                      <p className="text-xs text-gray-500">{historyCount} records stored</p>
+                      <p className="text-sm font-medium text-[var(--cc-body)]">Connection History</p>
+                      <p className="text-xs text-[var(--cc-body)]">{historyCount} records stored</p>
                     </div>
                     <button
                       onClick={handleClearHistory}
                       disabled={historyCount === 0}
-                      className="px-4 py-2 rounded-md text-sm font-medium bg-red-500/15 text-red-400 border border-red-500/25 hover:bg-red-500/25 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                      className="px-4 py-2 rounded-md text-sm font-medium bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-red-500/25 hover:bg-[var(--cc-error)]/25 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
                     >
                       Clear History
                     </button>
                   </div>
                 </div>
 
-                <div className="p-4 rounded-md bg-gray-900/60 border border-gray-700/40">
+                <div className="p-4 rounded-md bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/40">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium text-gray-200">All App Data</p>
-                      <p className="text-xs text-gray-500">Settings, history, wallet state</p>
+                      <p className="text-sm font-medium text-[var(--cc-body)]">All App Data</p>
+                      <p className="text-xs text-[var(--cc-body)]">Settings, history, wallet state</p>
                     </div>
                     <button
                       onClick={handleClearStorage}
-                      className="px-4 py-2 rounded-md text-sm font-medium bg-red-500/15 text-red-400 border border-red-500/25 hover:bg-red-500/25 transition-all"
+                      className="px-4 py-2 rounded-md text-sm font-medium bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-red-500/25 hover:bg-[var(--cc-error)]/25 transition-all"
                     >
                       Clear All Data
                     </button>
@@ -565,21 +565,21 @@ export default function SettingsPage() {
         {/* ── Connection ── */}
         {activeSection === 'connection' && (
           <div className="space-y-6">
-            <div className="bg-gray-800/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-gray-700/60 overflow-hidden">
-              <div className="px-5 py-4 border-b border-gray-700/50">
-                <h2 className="text-lg font-semibold tracking-tighter text-white">🔗 Connection Preferences</h2>
+            <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
+              <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
+                <h2 className="text-lg font-semibold tracking-tighter text-[var(--cc-ink)]">🔗 Connection Preferences</h2>
               </div>
               <div className="p-5 space-y-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-200">Auto-Connect</p>
-                    <p className="text-xs text-gray-500">Reconnect last wallet on page load</p>
+                    <p className="text-sm font-medium text-[var(--cc-body)]">Auto-Connect</p>
+                    <p className="text-xs text-[var(--cc-body)]">Reconnect last wallet on page load</p>
                   </div>
                   <ToggleSwitch checked={autoConnect} onChange={(v) => { setAutoConnect(v); info('Auto-Connect', v ? 'Enabled' : 'Disabled'); }} label="Auto-Connect" />
                 </div>
 
                 <div>
-                  <p className="text-sm font-medium text-gray-200 mb-3">Preferred Chain</p>
+                  <p className="text-sm font-medium text-[var(--cc-body)] mb-3">Preferred Chain</p>
                   <div className="flex flex-wrap gap-2">
                     {CHAINS_PREF.map((chain) => (
                       <button
@@ -587,8 +587,8 @@ export default function SettingsPage() {
                         onClick={() => { setPreferredChain(chain); success('Preferred Chain', chain); }}
                         className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                           preferredChain === chain
-                            ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
-                            : 'bg-gray-700/50 text-gray-400 border border-gray-600/40 hover:text-white'
+                            ? 'bg-blue-500/20 text-blue-400 border border-[var(--cc-primary)]/30'
+                            : 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)]'
                         }`}
                       >
                         {chain}

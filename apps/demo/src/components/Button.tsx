@@ -16,13 +16,13 @@ export interface ButtonProps {
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    'bg-gradient-to-r from-brand-600 to-brand-500 text-white hover:from-brand-500 hover:to-brand-400 shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40',
+    'bg-gradient-to-r from-brand-600 to-brand-500 text-[var(--cc-ink)] hover:from-brand-500 hover:to-brand-400 shadow-[var(--cc-level3)] shadow-brand-500/25 hover:shadow-brand-500/40',
   secondary:
-    'bg-gray-800/60 border border-gray-700/60 text-gray-300 hover:text-white hover:border-gray-500',
+    'bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline-strong)]/60 text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)]',
   ghost:
-    'bg-transparent text-gray-400 hover:text-white hover:bg-gray-800/50',
+    'bg-transparent text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft-2)]/50',
   success:
-    'bg-emerald-600 text-white shadow-lg shadow-emerald-500/25 hover:bg-emerald-500 hover:shadow-emerald-500/40',
+    'bg-emerald-600 text-[var(--cc-ink)] shadow-[var(--cc-level3)] shadow-emerald-500/25 hover:bg-[var(--cc-success)] hover:shadow-emerald-500/40',
 };
 
 const sizeClasses: Record<ButtonSize, string> = {
@@ -35,7 +35,7 @@ const sizeClasses: Record<ButtonSize, string> = {
 function Ripple({ x, y }: { x: number; y: number }) {
   return (
     <span
-      className="absolute rounded-full bg-white/30 pointer-events-none animate-ripple"
+      className="absolute rounded-full bg-[var(--cc-canvas)]/30 pointer-events-none animate-ripple"
       style={{ left: x - 40, top: y - 40, width: 80, height: 80 }}
     />
   );

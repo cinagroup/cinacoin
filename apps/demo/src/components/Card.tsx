@@ -33,8 +33,8 @@ export default function Card({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onMouseMove={handleMouseMove}
-      className={`relative bg-gray-800/60 backdrop-blur-xl rounded-md border border-gray-700/60 overflow-hidden transition-all duration-300 ${
-        hoverLift ? 'hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.25)] hover:border-gray-600/60' : ''
+      className={`relative bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-md border border-[var(--cc-hairline-strong)]/60 overflow-hidden transition-all duration-300 ${
+        hoverLift ? 'hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.25)] hover:border-[var(--cc-hairline-strong)]/60' : ''
       } ${className}`}
     >
       {/* Gradient glow on hover */}
@@ -57,9 +57,9 @@ export default function Card({
       )}
 
       {(title || subtitle) && (
-        <div className="relative px-5 py-4 border-b border-gray-700/50">
-          {title && <h2 className="text-lg font-semibold tracking-tight text-white">{title}</h2>}
-          {subtitle && <p className="text-xs text-gray-500 mt-0.5">{subtitle}</p>}
+        <div className="relative px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
+          {title && <h2 className="text-lg font-semibold tracking-tight text-[var(--cc-ink)]">{title}</h2>}
+          {subtitle && <p className="text-xs text-[var(--cc-body)] mt-0.5">{subtitle}</p>}
         </div>
       )}
       <div className="relative p-5">{children}</div>
