@@ -19,8 +19,8 @@
     "@cinacoin/react": "workspace:*",
     "@cinacoin/vue": "workspace:*",
     "@cinacoin/walletconnect-v2": "workspace:*",
-    "tsx": "^4.19.0",
+    "tsx": "^4.22.4",
     "typescript": "^5.7.0",
-    "viem": "^2.9.0"
+    "viem": "^2.52.2"
   }
 }

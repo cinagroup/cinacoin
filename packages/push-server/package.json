@@ -28,7 +28,7 @@
     "@cinacoin/core-sdk": "workspace:*"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20241112.0",
+    "@cloudflare/workers-types": "^4.20260605.1",
     "@types/node": "^20.11.0",
     "typescript": "^5.6.0",
     "wrangler": "^3.87.0"
