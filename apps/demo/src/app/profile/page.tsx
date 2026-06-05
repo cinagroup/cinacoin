@@ -111,7 +111,7 @@ function PortfolioSummary({ balances }: { balances: ChainBalance[] }) {
                   </div>
                   <div className="flex items-center gap-3">
                     <span className="text-xs text-[var(--cc-body)]">{item.balance} {item.symbol}</span>
-                    <div className="flex-1 h-1.5 bg-[var(--cc-canvas-soft-2)] rounded-full overflow-hidden">
+                    <div className="flex-1 h-2 bg-[var(--cc-canvas-soft-2)] rounded-full overflow-hidden">
                       <div
                         className="h-full rounded-full bg-gradient-to-r from-brand-500 to-brand-400 transition-all duration-500"
                         style={{ width: `${pct}%` }}

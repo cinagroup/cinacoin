@@ -218,13 +218,13 @@ function HealthSummary({ statuses, loading }: { statuses: ChainHealthStatus[]; l
             <div className="flex items-center gap-3">
               <span className="text-xs font-mono text-[var(--cc-body)]">{s.chain.rpcUrl.split('/')[2]}</span>
               {s.latencyMs != null && (
-                <span className={`text-xs font-mono px-2 py-0.5 rounded ${
+                <span className={`text-xs font-mono px-2 py-1 rounded ${
                   s.latencyMs < 500 ? 'bg-[var(--cc-success)]/15 text-[var(--cc-success)]' : 'bg-[var(--cc-warning)]/15 text-[var(--cc-warning)]'
                 }`}>
                   {s.latencyMs}ms
                 </span>
               )}
-              <span className={`text-xs px-2 py-0.5 rounded font-semibold ${
+              <span className={`text-xs px-2 py-1 rounded font-semibold ${
                 s.healthy
                   ? 'bg-[var(--cc-success)]/15 text-[var(--cc-success)]'
                   : 'bg-[var(--cc-error)]/15 text-[var(--cc-error)]'
@@ -403,9 +403,9 @@ client.on('transaction', (event) => {
         </div>
         <button
           onClick={handleCopy}
-          className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+          className={`px-3 py-2 rounded-lg text-xs font-semibold transition-all ${
             copied
-              ? 'bg-[var(--cc-success)]/20 text-[var(--cc-success)] border border-emerald-500/30'
+              ? 'bg-[var(--cc-success)]/20 text-[var(--cc-success)] border border-[var(--cc-success)]/30'
               : 'bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)]'
           }`}
         >
@@ -654,7 +654,7 @@ export default function MultiChainPage() {
             <button
               onClick={manualRefresh}
               disabled={loadingBalances || loadingHealth}
-              className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all disabled:opacity-50"
+              className="px-3 py-2 rounded-lg text-xs font-semibold bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all disabled:opacity-50"
             >
               ↻ Refresh Now
             </button>

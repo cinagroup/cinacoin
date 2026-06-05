@@ -41,7 +41,7 @@ function ToggleSwitch({ checked, onChange, label }: { checked: boolean; onChange
     <button
       onClick={() => onChange(!checked)}
       className={`relative w-12 h-6 rounded-full transition-colors duration-200 ${
-        checked ? 'bg-blue-500' : 'bg-[var(--cc-canvas-soft-2)]'
+        checked ? 'bg-[var(--cc-link)]' : 'bg-[var(--cc-canvas-soft-2)]'
       }`}
       role="switch"
       aria-checked={checked}
@@ -155,7 +155,7 @@ export default function SettingsPage() {
           onClick={() => setActiveSection(s.id)}
           className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all ${
             activeSection === s.id
-              ? 'bg-blue-500/15 text-blue-400 border border-[var(--cc-primary)]/30'
+              ? 'bg-[var(--cc-link)]/15 text-[var(--cc-link)] border border-[var(--cc-primary)]/30'
               : 'bg-[var(--cc-canvas-soft-2)]/40 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)]'
           }`}
         >
@@ -206,12 +206,12 @@ export default function SettingsPage() {
                         onClick={() => { setTheme(preset.key as 'dark' | 'light' | 'minimal'); success('Theme Updated', preset.label); }}
                         className={`p-3 rounded-md border text-center transition-all ${
                           theme === preset.key
-                            ? 'bg-blue-500/15 border-[var(--cc-primary)]/30 text-blue-400'
+                            ? 'bg-[var(--cc-link)]/15 border-[var(--cc-primary)]/30 text-[var(--cc-link)]'
                             : 'bg-[var(--cc-canvas-soft-2)]/40 border-[var(--cc-hairline-strong)]/40 hover:border-[var(--cc-hairline-strong)] text-[var(--cc-body)]'
                         }`}
                       >
                         <p className="text-sm">{preset.label.split(' ')[0]}</p>
-                        <p className="text-[10px] mt-0.5">{preset.desc}</p>
+                        <p className="text-[12px] mt-0.5">{preset.desc}</p>
                       </button>
                     ))}
                   </div>
@@ -227,7 +227,7 @@ export default function SettingsPage() {
                       onClick={() => { setTheme('dark'); success('Theme Updated', 'Switched to dark mode'); }}
                       className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
                         theme === 'dark'
-                          ? 'bg-blue-500/20 text-blue-400 border border-[var(--cc-primary)]/30'
+                          ? 'bg-[var(--cc-link)]/20 text-[var(--cc-link)] border border-[var(--cc-primary)]/30'
                           : 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)]'
                       }`}
                     >
@@ -237,7 +237,7 @@ export default function SettingsPage() {
                       onClick={() => { setTheme('light'); success('Theme Updated', 'Switched to light mode'); }}
                       className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
                         theme === 'light'
-                          ? 'bg-blue-500/20 text-blue-400 border border-[var(--cc-primary)]/30'
+                          ? 'bg-[var(--cc-link)]/20 text-[var(--cc-link)] border border-[var(--cc-primary)]/30'
                           : 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)]'
                       }`}
                     >
@@ -247,7 +247,7 @@ export default function SettingsPage() {
                       onClick={() => { setTheme('minimal'); success('Theme Updated', 'Switched to minimal mode'); }}
                       className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
                         theme === 'minimal'
-                          ? 'bg-blue-500/20 text-blue-400 border border-[var(--cc-primary)]/30'
+                          ? 'bg-[var(--cc-link)]/20 text-[var(--cc-link)] border border-[var(--cc-primary)]/30'
                           : 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)]'
                       }`}
                     >
@@ -282,16 +282,16 @@ export default function SettingsPage() {
                     onClick={() => { setLanguage(lang.code); success('Language Updated', lang.label); }}
                     className={`w-full flex items-center gap-3 px-4 py-3 rounded-md transition-all ${
                       language === lang.code
-                        ? 'bg-blue-500/15 border border-[var(--cc-primary)]/30'
+                        ? 'bg-[var(--cc-link)]/15 border border-[var(--cc-primary)]/30'
                         : 'bg-[var(--cc-canvas-soft-2)]/40 border border-[var(--cc-hairline-strong)]/40 hover:border-[var(--cc-hairline-strong)]'
                     }`}
                   >
                     <span className="text-xl">{lang.flag}</span>
-                    <span className={`text-sm font-medium ${language === lang.code ? 'text-blue-400' : 'text-[var(--cc-body)]'}`}>
+                    <span className={`text-sm font-medium ${language === lang.code ? 'text-[var(--cc-link)]' : 'text-[var(--cc-body)]'}`}>
                       {lang.label}
                     </span>
                     {language === lang.code && (
-                      <span className="ml-auto text-blue-400 text-sm">✓</span>
+                      <span className="ml-auto text-[var(--cc-link)] text-sm">✓</span>
                     )}
                   </button>
                 ))}
@@ -326,9 +326,9 @@ export default function SettingsPage() {
                       <button
                         key={chain}
                         onClick={() => { setPreferredChain(chain); success('Network Changed', chain); }}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                        className={`px-3 py-2 rounded-lg text-xs font-medium transition-all ${
                           preferredChain === chain
-                            ? 'bg-blue-500/20 text-blue-400 border border-[var(--cc-primary)]/30'
+                            ? 'bg-[var(--cc-link)]/20 text-[var(--cc-link)] border border-[var(--cc-primary)]/30'
                             : 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)]'
                         }`}
                       >
@@ -351,7 +351,7 @@ export default function SettingsPage() {
                     <button
                       onClick={() => { if (rpcEndpoint) success('RPC Updated', rpcEndpoint.slice(0, 30) + '...'); }}
                       disabled={!rpcEndpoint}
-                      className="px-4 py-2 rounded-lg text-sm font-semibold bg-[var(--cc-primary)] hover:bg-blue-500 text-[var(--cc-ink)] disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+                      className="px-4 py-2 rounded-lg text-sm font-semibold bg-[var(--cc-primary)] hover:bg-[var(--cc-link)] text-[var(--cc-ink)] disabled:opacity-40 disabled:cursor-not-allowed transition-all"
                     >
                       Save
                     </button>
@@ -363,7 +363,7 @@ export default function SettingsPage() {
                   {['Ethereum Mainnet', 'Polygon', 'Arbitrum One', 'Base', 'Optimism', 'BNB Chain'].map((rpc) => (
                     <div key={rpc} className="flex items-center justify-between py-2 border-b border-[var(--cc-hairline)]/30 last:border-0">
                       <span className="text-sm text-[var(--cc-body)]">{rpc}</span>
-                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-[var(--cc-success)]/10 text-[var(--cc-success)] border border-emerald-500/20">Active</span>
+                      <span className="text-[12px] px-2 py-1 rounded-full bg-[var(--cc-success)]/10 text-[var(--cc-success)] border border-[var(--cc-success)]/20">Active</span>
                     </div>
                   ))}
                 </div>
@@ -412,21 +412,21 @@ export default function SettingsPage() {
                   <ToggleSwitch checked={personalizedOffers} onChange={(v) => { setPersonalizedOffers(v); info('Personalized Offers', v ? 'Enabled' : 'Disabled'); }} />
                 </div>
 
-                <div className="p-4 rounded-md bg-blue-500/10 border border-[var(--cc-primary)]/20">
-                  <p className="text-sm font-medium text-blue-400">Your Data Rights</p>
+                <div className="p-4 rounded-md bg-[var(--cc-link)]/10 border border-[var(--cc-primary)]/20">
+                  <p className="text-sm font-medium text-[var(--cc-link)]">Your Data Rights</p>
                   <p className="text-xs text-[var(--cc-muted)] mt-1">
                     You can export or delete your data at any time. All data is stored locally and never sent to third-party servers without your consent.
                   </p>
                   <div className="flex gap-2 mt-3">
                     <button
                       onClick={() => info('Export', 'Data export started...')}
-                      className="px-3 py-1.5 rounded-lg text-xs font-medium bg-blue-500/15 text-blue-400 border border-[var(--cc-primary)]/30 hover:bg-blue-500/25 transition-all"
+                      className="px-3 py-2 rounded-lg text-xs font-medium bg-[var(--cc-link)]/15 text-[var(--cc-link)] border border-[var(--cc-primary)]/30 hover:bg-[var(--cc-link)]/25 transition-all"
                     >
                       Export Data
                     </button>
                     <button
                       onClick={() => { clearConnectionHistory(); setHistoryCount(0); success('Data Deleted', 'Local data cleared'); }}
-                      className="px-3 py-1.5 rounded-lg text-xs font-medium bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-red-500/25 hover:bg-[var(--cc-error)]/25 transition-all"
+                      className="px-3 py-2 rounded-lg text-xs font-medium bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-red-500/25 hover:bg-[var(--cc-error)]/25 transition-all"
                     >
                       Delete All Data
                     </button>
@@ -458,14 +458,14 @@ export default function SettingsPage() {
                       </div>
                       <button
                         onClick={() => info('Disconnected', `${app.name} disconnected`)}
-                        className="px-3 py-1.5 rounded-lg text-xs font-medium bg-[var(--cc-error)]/10 text-[var(--cc-error)] border border-red-500/20 hover:bg-[var(--cc-error)]/20 transition-all"
+                        className="px-3 py-2 rounded-lg text-xs font-medium bg-[var(--cc-error)]/10 text-[var(--cc-error)] border border-red-500/20 hover:bg-[var(--cc-error)]/20 transition-all"
                       >
                         Disconnect
                       </button>
                     </div>
                     <div className="flex flex-wrap gap-2 mt-3">
                       {app.permissions.map((perm) => (
-                        <span key={perm} className="px-2 py-0.5 rounded text-[10px] font-medium bg-blue-500/10 text-blue-400 border border-[var(--cc-primary)]/20">
+                        <span key={perm} className="px-2 py-1 rounded text-[12px] font-medium bg-[var(--cc-link)]/10 text-[var(--cc-link)] border border-[var(--cc-primary)]/20">
                           {perm}
                         </span>
                       ))}
@@ -585,9 +585,9 @@ export default function SettingsPage() {
                       <button
                         key={chain}
                         onClick={() => { setPreferredChain(chain); success('Preferred Chain', chain); }}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                        className={`px-3 py-2 rounded-lg text-xs font-medium transition-all ${
                           preferredChain === chain
-                            ? 'bg-blue-500/20 text-blue-400 border border-[var(--cc-primary)]/30'
+                            ? 'bg-[var(--cc-link)]/20 text-[var(--cc-link)] border border-[var(--cc-primary)]/30'
                             : 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)]'
                         }`}
                       >

@@ -139,7 +139,7 @@ function ComponentShowcase({
         </div>
         <button
           onClick={() => setShowCode(!showCode)}
-          className={`text-xs px-3 py-1.5 rounded-lg transition-all ${
+          className={`text-xs px-3 py-2 rounded-lg transition-all ${
             showCode
               ? 'bg-brand-500/15 text-[var(--cc-primary)] border border-[var(--cc-primary)]/30'
               : 'bg-[var(--cc-canvas-soft-2)]/40 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)]'
@@ -232,7 +232,7 @@ export default function ComponentsPage() {
                 <button className="px-5 py-3 rounded-md font-semibold text-sm bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-red-500/25 hover:bg-[var(--cc-error)]/25 transition-all">
                   Danger
                 </button>
-                <button className="px-5 py-3 rounded-md font-semibold text-sm bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-emerald-500/25 hover:bg-[var(--cc-success)]/25 transition-all">
+                <button className="px-5 py-3 rounded-md font-semibold text-sm bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-[var(--cc-success)]/25 hover:bg-[var(--cc-success)]/25 transition-all">
                   Success
                 </button>
                 <button disabled className="px-5 py-3 rounded-md font-semibold text-sm bg-[var(--cc-canvas-soft-2)]/40 text-[var(--cc-body)] cursor-not-allowed">
@@ -242,7 +242,7 @@ export default function ComponentsPage() {
 
               {/* Sizes */}
               <div className="flex flex-wrap gap-3 items-center">
-                <button className="px-3 py-1.5 rounded-[100px] text-xs font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)]">
+                <button className="px-3 py-2 rounded-[100px] text-xs font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)]">
                   Small
                 </button>
                 <button className="px-5 py-3 rounded-[100px] text-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)]">
@@ -261,7 +261,7 @@ export default function ComponentsPage() {
                 <button className="size-10 rounded-md bg-brand-500/15 text-[var(--cc-link)] hover:bg-brand-500/25 border border-[var(--cc-primary)]/25 transition-all flex items-center justify-center text-lg">
                   🔄
                 </button>
-                <button className="size-10 rounded-md bg-[var(--cc-success)]/15 text-[var(--cc-success)] hover:bg-[var(--cc-success)]/25 border border-emerald-500/25 transition-all flex items-center justify-center text-lg">
+                <button className="size-10 rounded-md bg-[var(--cc-success)]/15 text-[var(--cc-success)] hover:bg-[var(--cc-success)]/25 border border-[var(--cc-success)]/25 transition-all flex items-center justify-center text-lg">
                   ✓
                 </button>
               </div>
@@ -367,15 +367,15 @@ export default function ComponentsPage() {
             <div className="space-y-4">
               <div className="flex flex-wrap gap-3">
                 {/* Connection status */}
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-green-500/15 text-green-400 border border-green-500/25">
+                <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-semibold bg-green-500/15 text-green-400 border border-green-500/25">
                   <span className="size-3 rounded-full bg-[var(--cc-success)] animate-pulse" />
                   Connected
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border border-yellow-500/25">
+                <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-semibold bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border border-yellow-500/25">
                   <span className="size-3 rounded-full bg-yellow-400 animate-pulse" />
                   Connecting...
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/40">
+                <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-semibold bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/40">
                   <span className="size-3 rounded-full bg-[var(--cc-muted)]" />
                   Disconnected
                 </span>
@@ -383,34 +383,34 @@ export default function ComponentsPage() {
 
               {/* Transaction status */}
               <div className="flex flex-wrap gap-3">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-emerald-500/25">
+                <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-semibold bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-[var(--cc-success)]/25">
                   ✓ Completed
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border border-amber-500/25">
+                <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-semibold bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border border-[var(--cc-warning)]/25">
                   <span className="size-3 rounded-full bg-amber-400 animate-pulse" />
                   Pending
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-red-500/25">
+                <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-semibold bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-red-500/25">
                   ✗ Failed
                 </span>
               </div>
 
               {/* Health badges */}
               <div className="flex flex-wrap gap-3">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-emerald-500/25">
+                <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-semibold bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-[var(--cc-success)]/25">
                   ✓ Operational
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-red-500/25">
+                <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-semibold bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-red-500/25">
                   ✗ Down
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono bg-brand-500/15 text-[var(--cc-primary)] border border-brand-500/25">
+                <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-mono bg-brand-500/15 text-[var(--cc-primary)] border border-brand-500/25">
                   142ms
                 </span>
               </div>
             </div>
           }
           code={`// Connected Status
-<span className="inline-flex items-center gap-1.5 px-3 py-1.5
+<span className="inline-flex items-center gap-1.5 px-3 py-2
   rounded-full text-xs font-semibold
   bg-green-500/15 text-green-400 border border-green-500/25">
   <span className="size-3 rounded-full bg-[var(--cc-success)] animate-pulse" />
@@ -418,15 +418,15 @@ export default function ComponentsPage() {
 </span>
 
 // Pending Transaction
-<span className="inline-flex items-center gap-1.5 px-3 py-1.5
+<span className="inline-flex items-center gap-1.5 px-3 py-2
   rounded-full text-xs font-semibold
-  bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border border-amber-500/25">
+  bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border border-[var(--cc-warning)]/25">
   <span className="size-3 rounded-full bg-amber-400 animate-pulse" />
   Pending
 </span>
 
 // Latency Badge
-<span className="inline-flex items-center gap-1.5 px-3 py-1.5
+<span className="inline-flex items-center gap-1.5 px-3 py-2
   rounded-full text-xs font-mono
   bg-brand-500/15 text-[var(--cc-primary)] border border-brand-500/25">
   142ms
@@ -733,10 +733,10 @@ function ToggleSwitch({ checked, onChange }) {
           preview={
             <div className="space-y-3">
               {[
-                { type: 'Success', icon: '✓', bg: 'bg-[var(--cc-success)]/15', border: 'border-emerald-500/25', text: 'text-[var(--cc-success)]', desc: 'Transaction completed successfully' },
+                { type: 'Success', icon: '✓', bg: 'bg-[var(--cc-success)]/15', border: 'border-[var(--cc-success)]/25', text: 'text-[var(--cc-success)]', desc: 'Transaction completed successfully' },
                 { type: 'Error', icon: '✗', bg: 'bg-[var(--cc-error)]/15', border: 'border-red-500/25', text: 'text-[var(--cc-error)]', desc: 'Connection failed: User rejected' },
                 { type: 'Info', icon: 'ℹ', bg: 'bg-brand-500/15', border: 'border-[var(--cc-primary)]/25', text: 'text-[var(--cc-link)]', desc: 'Switching to Polygon network' },
-                { type: 'Warning', icon: '⚠', bg: 'bg-[var(--cc-warning)]/15', border: 'border-amber-500/25', text: 'text-[var(--cc-warning)]', desc: 'High gas prices detected' },
+                { type: 'Warning', icon: '⚠', bg: 'bg-[var(--cc-warning)]/15', border: 'border-[var(--cc-warning)]/25', text: 'text-[var(--cc-warning)]', desc: 'High gas prices detected' },
               ].map((t) => (
                 <div key={t.type} className={`p-3 rounded-md ${t.bg} border ${t.border} flex items-start gap-3`}>
                   <span className={`text-lg ${t.text}`}>{t.icon}</span>

@@ -178,9 +178,9 @@ function ProviderCard({
       onClick={() => onSelect(quote.providerId)}
       className={`w-full text-left p-4 rounded-md border transition-all ${
         quote.isBest
-          ? 'border-emerald-500/50 bg-[var(--cc-success)]/5 ring-1 ring-emerald-500/20'
+          ? 'border-[var(--cc-success)]/50 bg-[var(--cc-success)]/5 ring-1 ring-emerald-500/20'
           : selected
-          ? 'border-[var(--cc-primary)]/50 bg-blue-500/5 ring-1 ring-blue-500/20'
+          ? 'border-[var(--cc-primary)]/50 bg-[var(--cc-link)]/5 ring-1 ring-blue-500/20'
           : 'border-[var(--cc-hairline-strong)]/50 bg-[var(--cc-canvas-soft-2)]/40 hover:border-[var(--cc-hairline-strong)]/50 hover:bg-[var(--cc-canvas-soft-2)]/60'
       }`}
     >
@@ -190,7 +190,7 @@ function ProviderCard({
           <span className="font-semibold tracking-tighter text-[var(--cc-ink)]">{quote.providerName}</span>
         </div>
         {quote.isBest && (
-          <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-emerald-500/30">
+          <span className="text-[12px] font-semibold uppercase tracking-normal px-2 py-1 rounded-full bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-[var(--cc-success)]/30">
             Best Rate
           </span>
         )}
@@ -220,12 +220,12 @@ function ProviderCard({
 
       <div className="mt-3 flex items-center gap-2 flex-wrap">
         {quote.requiresKyc && (
-          <span className="text-[10px] px-1.5 py-0.5 rounded bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border border-amber-500/25">
+          <span className="text-[12px] px-2 py-1 rounded bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border border-[var(--cc-warning)]/25">
             KYC Required
           </span>
         )}
         {quote.paymentMethods.slice(0, 3).map((m) => (
-          <span key={m} className="text-[10px] px-1.5 py-0.5 rounded bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)]">
+          <span key={m} className="text-[12px] px-2 py-1 rounded bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)]">
             {m.replace('_', ' ')}
           </span>
         ))}
@@ -369,7 +369,7 @@ export default function OnrampPage() {
                     onClick={() => setFiatAmount(v.toString())}
                     className={`flex-1 py-2 rounded-lg text-sm font-semibold transition-all ${
                       fiatAmount === v.toString()
-                        ? 'bg-blue-500/20 text-blue-400 border border-[var(--cc-primary)]/40'
+                        ? 'bg-[var(--cc-link)]/20 text-[var(--cc-link)] border border-[var(--cc-primary)]/40'
                         : 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] hover:bg-[var(--cc-muted)]/50 border border-transparent'
                     }`}
                   >

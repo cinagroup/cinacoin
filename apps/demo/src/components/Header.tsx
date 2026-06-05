@@ -116,7 +116,7 @@ export default function Header({
             <div className="relative">
               <button
                 onClick={() => setLangOpen(!langOpen)}
-                className="px-2 py-1.5 rounded-[var(--cc-radius-lg)] text-sm font-medium text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-hairline)]/50 transition-colors"
+                className="px-2 py-2 rounded-[var(--cc-radius-lg)] text-sm font-medium text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-hairline)]/50 transition-colors"
                 aria-label="Select language"
               >
                 {locale === 'zh' ? '中文' : 'EN'}
@@ -127,7 +127,7 @@ export default function Header({
                   <div className="absolute right-0 top-full mt-1 z-50 w-36 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-lg)] shadow-[0_4px_16px_rgba(0,0,0,0.15)] overflow-hidden animate-dropdown-in">
                     <button
                       onClick={() => { setLocale('en'); setLangOpen(false); }}
-                      className={`w-full px-4 py-2.5 text-sm text-left transition-colors ${
+                      className={`w-full px-4 py-3 text-sm text-left transition-colors ${
                         locale === 'en' ? 'bg-[var(--cc-hairline)] text-[var(--cc-ink)]' : 'text-[var(--cc-body)] hover:bg-[var(--cc-hairline)]/50'
                       }`}
                     >
@@ -135,7 +135,7 @@ export default function Header({
                     </button>
                     <button
                       onClick={() => { setLocale('zh'); setLangOpen(false); }}
-                      className={`w-full px-4 py-2.5 text-sm text-left transition-colors ${
+                      className={`w-full px-4 py-3 text-sm text-left transition-colors ${
                         locale === 'zh' ? 'bg-[var(--cc-hairline)] text-[var(--cc-ink)]' : 'text-[var(--cc-body)] hover:bg-[var(--cc-hairline)]/50'
                       }`}
                     >
@@ -195,7 +195,7 @@ export default function Header({
                 >
                   {label}
                   {pathname === item.href && (
-                    <span className="ml-auto w-1.5 h-1.5 rounded-full bg-brand-400" />
+                    <span className="ml-auto w-2 h-2 rounded-full bg-brand-400" />
                   )}
                 </Link>
               );

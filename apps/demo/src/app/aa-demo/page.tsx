@@ -50,7 +50,7 @@ function ToggleSwitch({ checked, onChange, label }: { checked: boolean; onChange
     <button
       onClick={() => onChange(!checked)}
       className={`relative w-12 h-6 rounded-full transition-colors duration-200 ${
-        checked ? 'bg-blue-500' : 'bg-[var(--cc-canvas-soft-2)]'
+        checked ? 'bg-[var(--cc-link)]' : 'bg-[var(--cc-canvas-soft-2)]'
       }`}
       role="switch"
       aria-checked={checked}
@@ -197,7 +197,7 @@ export default function AADemoPage() {
           ) : (
             <button
               onClick={handleConnect}
-              className="px-5 py-2.5 rounded-md text-sm font-semibold bg-violet-600 hover:bg-violet-500 text-[var(--cc-ink)] transition-all"
+              className="px-5 py-3 rounded-md text-sm font-semibold bg-violet-600 hover:bg-violet-500 text-[var(--cc-ink)] transition-all"
             >
               Connect Wallet
             </button>
@@ -222,8 +222,8 @@ export default function AADemoPage() {
               <p className="text-xs text-[var(--cc-body)] mt-0.5">ERC-4337 Account Abstraction wallet</p>
             </div>
             {accountCreated && smartAccount && (
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-emerald-500/25">
-                <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-semibold bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-[var(--cc-success)]/25">
+                <span className="size-2 rounded-full bg-emerald-400 animate-pulse" />
                 Deployed
               </span>
             )}
@@ -250,7 +250,7 @@ export default function AADemoPage() {
                         {s.step}
                       </div>
                       <p className="text-sm font-semibold text-[var(--cc-body)]">{s.title}</p>
-                      <p className="text-[10px] text-[var(--cc-body)] mt-1">{s.desc}</p>
+                      <p className="text-[12px] text-[var(--cc-body)] mt-1">{s.desc}</p>
                     </div>
                   ))}
                 </div>
@@ -282,16 +282,16 @@ export default function AADemoPage() {
             {accountCreated && smartAccount && (
               <div className="space-y-4">
                 <div className="p-4 rounded-md bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/40">
-                  <p className="text-[10px] text-[var(--cc-body)] mb-1">Smart Account Address</p>
+                  <p className="text-[12px] text-[var(--cc-body)] mb-1">Smart Account Address</p>
                   <p className="font-mono text-sm text-violet-400">{smartAccount}</p>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div className="p-3 rounded-md bg-[var(--cc-canvas)]/40 border border-[var(--cc-hairline)]/40">
-                    <p className="text-[10px] text-[var(--cc-body)]">Owner</p>
+                    <p className="text-[12px] text-[var(--cc-body)]">Owner</p>
                     <p className="text-xs font-mono text-[var(--cc-body)] mt-1">{shortenAddress(account.address ?? '')}</p>
                   </div>
                   <div className="p-3 rounded-md bg-[var(--cc-canvas)]/40 border border-[var(--cc-hairline)]/40">
-                    <p className="text-[10px] text-[var(--cc-body)]">ERC-4337</p>
+                    <p className="text-[12px] text-[var(--cc-body)]">ERC-4337</p>
                     <p className="text-xs text-[var(--cc-success)] mt-1 font-semibold">Supported ✓</p>
                   </div>
                 </div>
@@ -311,7 +311,7 @@ export default function AADemoPage() {
             </div>
             <button
               onClick={() => setShowCreateKey(!showCreateKey)}
-              className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-violet-500/15 text-violet-400 border border-violet-500/30 hover:bg-violet-500/25 transition-all"
+              className="px-3 py-2 rounded-lg text-xs font-semibold bg-violet-500/15 text-violet-400 border border-violet-500/30 hover:bg-violet-500/25 transition-all"
             >
               + New Key
             </button>
@@ -339,7 +339,7 @@ export default function AADemoPage() {
                 </div>
                 <div className="flex gap-2">
                   {['swap', 'approve', 'mint', 'transfer'].map((p) => (
-                    <span key={p} className="px-2 py-1 rounded text-[10px] font-medium bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40">
+                    <span key={p} className="px-2 py-1 rounded text-[12px] font-medium bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40">
                       {p}
                     </span>
                   ))}
@@ -368,7 +368,7 @@ export default function AADemoPage() {
                     </div>
                     <div>
                       <p className="text-sm font-semibold text-[var(--cc-body)]">{key.name}</p>
-                      <p className="text-[10px] text-[var(--cc-body)] font-mono">{key.address}</p>
+                      <p className="text-[12px] text-[var(--cc-body)] font-mono">{key.address}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
@@ -383,11 +383,11 @@ export default function AADemoPage() {
                 </div>
                 <div className="flex flex-wrap gap-2 mt-3">
                   {key.permissions.map((p) => (
-                    <span key={p} className="px-2 py-0.5 rounded text-[10px] font-medium bg-violet-500/10 text-violet-400 border border-violet-500/20">
+                    <span key={p} className="px-2 py-1 rounded text-[12px] font-medium bg-violet-500/10 text-violet-400 border border-violet-500/20">
                       {p}
                     </span>
                   ))}
-                  <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)]">
+                  <span className="px-2 py-1 rounded text-[12px] font-medium bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)]">
                     Expires: {key.expiry}
                   </span>
                 </div>
@@ -416,7 +416,7 @@ export default function AADemoPage() {
 
           <div className="p-5 space-y-4">
             {gasSponsored && (
-              <div className="p-4 rounded-md bg-[var(--cc-success)]/10 border border-emerald-500/20">
+              <div className="p-4 rounded-md bg-[var(--cc-success)]/10 border border-[var(--cc-success)]/20">
                 <div className="flex items-center gap-3">
                   <span className="text-2xl">✓</span>
                   <div>
@@ -432,12 +432,12 @@ export default function AADemoPage() {
               {MOCK_GAS_SPONSORS.map((s) => (
                 <div key={s.name} className="p-3 rounded-md bg-[var(--cc-canvas)]/40 border border-[var(--cc-hairline)]/40 text-center">
                   <p className="text-xs font-semibold text-[var(--cc-body)]">{s.name}</p>
-                  <p className={`text-[10px] font-semibold mt-1 ${
+                  <p className={`text-[12px] font-semibold mt-1 ${
                     s.status === 'active' ? 'text-[var(--cc-success)]' : 'text-[var(--cc-warning)]'
                   }`}>
                     {s.status === 'active' ? '✓ Active' : '⚠ Limited'}
                   </p>
-                  <p className="text-[10px] text-[var(--cc-body)] mt-0.5">Covers: {s.covered}</p>
+                  <p className="text-[12px] text-[var(--cc-body)] mt-0.5">Covers: {s.covered}</p>
                 </div>
               ))}
             </div>
@@ -448,20 +448,20 @@ export default function AADemoPage() {
                 <p className="text-2xl font-semibold tracking-tighter bg-gradient-to-r from-brand-400 to-brand-500 bg-clip-text text-transparent">
                   {txCount}
                 </p>
-                <p className="text-[10px] text-[var(--cc-body)] mt-1">Gasless TXs</p>
+                <p className="text-[12px] text-[var(--cc-body)] mt-1">Gasless TXs</p>
               </div>
               <div className="p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline)]/50 text-center">
                 {/* TODO: Calculate real gas saved from on-chain data */}
                 <p className="text-2xl font-semibold tracking-tighter bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
                   ~$2.40
                 </p>
-                <p className="text-[10px] text-[var(--cc-body)] mt-1">Gas Saved</p>
+                <p className="text-[12px] text-[var(--cc-body)] mt-1">Gas Saved</p>
               </div>
               <div className="p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline)]/50 text-center">
                 <p className="text-2xl font-semibold tracking-tighter bg-gradient-to-r from-purple-400 to-violet-400 bg-clip-text text-transparent">
                   0
                 </p>
-                <p className="text-[10px] text-[var(--cc-body)] mt-1">User Gas Paid</p>
+                <p className="text-[12px] text-[var(--cc-body)] mt-1">User Gas Paid</p>
               </div>
             </div>
           </div>
@@ -483,9 +483,9 @@ export default function AADemoPage() {
                 key={i}
                 className={`p-3 rounded-md border transition-all ${
                   tx.status === 'completed'
-                    ? 'bg-[var(--cc-success)]/5 border-emerald-500/25'
+                    ? 'bg-[var(--cc-success)]/5 border-[var(--cc-success)]/25'
                     : tx.status === 'pending'
-                    ? 'bg-[var(--cc-warning)]/5 border-amber-500/25'
+                    ? 'bg-[var(--cc-warning)]/5 border-[var(--cc-warning)]/25'
                     : 'bg-[var(--cc-canvas)]/40 border-[var(--cc-hairline)]/40'
                 }`}
               >
@@ -502,12 +502,12 @@ export default function AADemoPage() {
                     </span>
                     <div>
                       <p className="text-sm font-medium text-[var(--cc-body)]">{tx.action}</p>
-                      <p className="text-[10px] text-[var(--cc-body)] font-mono">{tx.to}</p>
+                      <p className="text-[12px] text-[var(--cc-body)] font-mono">{tx.to}</p>
                     </div>
                   </div>
                   <div className="text-right">
                     <p className="text-sm font-semibold text-[var(--cc-body)]">{tx.amount}</p>
-                    <p className={`text-[10px] font-semibold ${
+                    <p className={`text-[12px] font-semibold ${
                       tx.status === 'completed' ? 'text-[var(--cc-success)]' : tx.status === 'pending' ? 'text-[var(--cc-warning)]' : 'text-[var(--cc-body)]'
                     }`}>
                       {tx.status}
@@ -572,7 +572,7 @@ export default function AADemoPage() {
               <div key={f.title} className="p-3 rounded-md bg-[var(--cc-canvas)]/40 border border-[var(--cc-hairline)]/40">
                 <div className="text-lg mb-1">{f.icon}</div>
                 <p className="text-xs font-semibold text-[var(--cc-body)]">{f.title}</p>
-                <p className="text-[10px] text-[var(--cc-body)] mt-0.5">{f.desc}</p>
+                <p className="text-[12px] text-[var(--cc-body)] mt-0.5">{f.desc}</p>
               </div>
             ))}
           </div>
@@ -587,9 +587,9 @@ export default function AADemoPage() {
                 <div className="w-3 h-3 rounded-full bg-[var(--cc-warning)]/70" />
                 <div className="w-3 h-3 rounded-full bg-green-500/70" />
               </div>
-              <span className="text-[10px] text-[var(--cc-body)] font-mono">userop-example.ts</span>
+              <span className="text-[12px] text-[var(--cc-body)] font-mono">userop-example.ts</span>
             </div>
-            <span className="text-[10px] px-2 py-0.5 rounded bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)]">TypeScript</span>
+            <span className="text-[12px] px-2 py-1 rounded bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)]">TypeScript</span>
           </div>
           <pre className="p-5 text-xs text-[var(--cc-body)] font-mono overflow-x-auto leading-relaxed">
 {`import { createBundlerClient } from '@cinacoin/aa';

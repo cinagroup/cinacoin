@@ -430,7 +430,7 @@ export default function AuthPage() {
               <div className="space-y-3">
                 <button
                   onClick={handleConnect}
-                  className="w-full py-2.5 rounded-[100px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all shadow-[0_4px_12px_rgba(99,102,241,0.2),0_2px_4px_rgba(99,102,241,0.1)] text-sm"
+                  className="w-full py-3 rounded-[100px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all shadow-[0_4px_12px_rgba(99,102,241,0.2),0_2px_4px_rgba(99,102,241,0.1)] text-sm"
                 >
                   <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101" /><path strokeLinecap="round" strokeLinejoin="round" d="M10.172 13.828a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.101 1.101" /></svg> Connect Wallet & Sign
                 </button>
@@ -442,7 +442,7 @@ export default function AuthPage() {
               <button
                 onClick={handleSign}
                 disabled={isSigningLoading}
-                className="w-full py-2.5 rounded-[100px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all disabled:opacity-50 text-sm"
+                className="w-full py-3 rounded-[100px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all disabled:opacity-50 text-sm"
               >
                 {isSigningLoading ? 'Waiting for wallet...' : '✍️ Sign SIWE Message'}
               </button>
@@ -473,7 +473,7 @@ export default function AuthPage() {
                 </div>
                 <button
                   onClick={handleVerify}
-                  className="w-full py-2.5 rounded-[100px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all text-sm"
+                  className="w-full py-3 rounded-[100px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all text-sm"
                 >
                   🔐 Verify Signature
                 </button>
@@ -528,7 +528,7 @@ export default function AuthPage() {
             {isConnected && account.address && !siweMessage && authStep !== 'connected' && authStep !== 'signing' && authStep !== 'signed' && authStep !== 'verifying' && authStep !== 'verified' && authStep !== 'error' && (
               <button
                 onClick={handleSign}
-                className="w-full py-2.5 rounded-[100px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all text-sm"
+                className="w-full py-3 rounded-[100px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all text-sm"
               >
                 ✍️ Sign SIWE Message
               </button>
@@ -616,7 +616,7 @@ export default function AuthPage() {
                     </p>
                     <button
                       onClick={handleLoginPasskey}
-                      className="w-full py-2.5 rounded-[100px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all text-sm"
+                      className="w-full py-3 rounded-[100px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all text-sm"
                     >
                       🔑 Login with Passkey
                     </button>
@@ -731,7 +731,7 @@ export default function AuthPage() {
                   <p className="text-xs text-[var(--cc-body)] mb-1">Wallet Address</p>
                   <p className="font-mono text-sm text-[var(--cc-body)] break-all">{session.address}</p>
                   <p className="text-xs text-[var(--cc-body)] mt-1">
-                    <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-[var(--cc-link)]/15 text-[var(--cc-link)] text-[12px]">SIWE</span>
+                    <span className="inline-flex items-center gap-1 px-2 py-1 rounded bg-[var(--cc-link)]/15 text-[var(--cc-link)] text-[12px]">SIWE</span>
                   </p>
                 </div>
               )}
@@ -740,7 +740,7 @@ export default function AuthPage() {
                   <p className="text-xs text-[var(--cc-body)] mb-1">Passkey User</p>
                   <p className="text-sm text-[var(--cc-body)] font-semibold">{session.passkey.username}</p>
                   <p className="text-xs text-[var(--cc-body)] mt-1">
-                    <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-purple-500/15 text-purple-400 text-[12px]">Passkey</span>
+                    <span className="inline-flex items-center gap-1 px-2 py-1 rounded bg-purple-500/15 text-purple-400 text-[12px]">Passkey</span>
                   </p>
                 </div>
               )}
@@ -796,10 +796,10 @@ export default function AuthPage() {
                 <h4 className="text-base font-semibold text-[var(--cc-link)] mb-3"><svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101" /><path strokeLinecap="round" strokeLinejoin="round" d="M10.172 13.828a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.101 1.101" /></svg> SIWE (Sign-In With Ethereum)</h4>
                 <div className="space-y-3 text-sm text-[var(--cc-muted)]">
                   <p>
-                    <strong className="text-[var(--cc-body)]">1. Connect</strong> — Connect your wallet via <code className="text-[var(--cc-link)] bg-[var(--cc-canvas-soft-2)] px-1.5 py-0.5 rounded text-xs">eth_requestAccounts</code>.
+                    <strong className="text-[var(--cc-body)]">1. Connect</strong> — Connect your wallet via <code className="text-[var(--cc-link)] bg-[var(--cc-canvas-soft-2)] px-2 py-1 rounded text-xs">eth_requestAccounts</code>.
                   </p>
                   <p>
-                    <strong className="text-[var(--cc-body)]">2. Sign</strong> — Sign a SIWE message (EIP-4361) via <code className="text-[var(--cc-link)] bg-[var(--cc-canvas-soft-2)] px-1.5 py-0.5 rounded text-xs">personal_sign</code>.
+                    <strong className="text-[var(--cc-body)]">2. Sign</strong> — Sign a SIWE message (EIP-4361) via <code className="text-[var(--cc-link)] bg-[var(--cc-canvas-soft-2)] px-2 py-1 rounded text-xs">personal_sign</code>.
                   </p>
                   <p>
                     <strong className="text-[var(--cc-body)]">3. Verify</strong> — Verify the signature matches the address in the message.
@@ -811,10 +811,10 @@ export default function AuthPage() {
                 <h4 className="text-base font-semibold text-purple-400 mb-3">🔑 Passkey (WebAuthn)</h4>
                 <div className="space-y-3 text-sm text-[var(--cc-muted)]">
                   <p>
-                    <strong className="text-[var(--cc-body)]">1. Register</strong> — Create a passkey via <code className="text-purple-400 bg-[var(--cc-canvas-soft-2)] px-1.5 py-0.5 rounded text-xs">navigator.credentials.create()</code>.
+                    <strong className="text-[var(--cc-body)]">1. Register</strong> — Create a passkey via <code className="text-purple-400 bg-[var(--cc-canvas-soft-2)] px-2 py-1 rounded text-xs">navigator.credentials.create()</code>.
                   </p>
                   <p>
-                    <strong className="text-[var(--cc-body)]">2. Login</strong> — Authenticate via <code className="text-purple-400 bg-[var(--cc-canvas-soft-2)] px-1.5 py-0.5 rounded text-xs">navigator.credentials.get()</code>.
+                    <strong className="text-[var(--cc-body)]">2. Login</strong> — Authenticate via <code className="text-purple-400 bg-[var(--cc-canvas-soft-2)] px-2 py-1 rounded text-xs">navigator.credentials.get()</code>.
                   </p>
                   <p>
                     <strong className="text-[var(--cc-body)]">3. Verify</strong> — Session persisted in localStorage with 24h expiry.
@@ -838,7 +838,7 @@ const auth = await authenticatePasskey();`}</pre>
 
         {/* ── Supported Chains ── */}
         <section className="py-12 border-t border-[var(--cc-hairline)]/50 mb-16">
-          <p className="text-center text-sm text-[var(--cc-body)] mb-8 uppercase tracking-wider font-medium">
+          <p className="text-center text-sm text-[var(--cc-body)] mb-8 uppercase tracking-normal font-medium">
             Supported Chains
           </p>
           <div className="flex flex-wrap justify-center gap-4 sm:gap-6">

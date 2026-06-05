@@ -94,7 +94,7 @@ function TokenRow({
       onClick={onSelect}
       className={`w-full flex items-center gap-3 px-4 py-3 rounded-md transition-all text-left ${
         isSelected
-          ? 'bg-blue-500/10 border border-[var(--cc-primary)]/30'
+          ? 'bg-[var(--cc-link)]/10 border border-[var(--cc-primary)]/30'
           : 'bg-[var(--cc-canvas-soft-2)]/30 border border-[var(--cc-hairline-strong)]/30 hover:bg-[var(--cc-canvas-soft-2)]/50 hover:border-[var(--cc-hairline-strong)]'
       }`}
     >
@@ -169,21 +169,21 @@ function TokenDetailPanel({ token, onClose }: { token: TokenInfo; onClose: () =>
         {/* Stats grid */}
         <div className="grid grid-cols-2 gap-3">
           <div className="p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/30">
-            <p className="text-[10px] text-[var(--cc-body)] uppercase tracking-wider">Volume (24h)</p>
+            <p className="text-[12px] text-[var(--cc-body)] uppercase tracking-normal">Volume (24h)</p>
             <p className="text-sm font-semibold text-[var(--cc-body)] mt-1">{priceInfo.volume24h}</p>
           </div>
           <div className="p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/30">
-            <p className="text-[10px] text-[var(--cc-body)] uppercase tracking-wider">Market Cap</p>
+            <p className="text-[12px] text-[var(--cc-body)] uppercase tracking-normal">Market Cap</p>
             <p className="text-sm font-semibold text-[var(--cc-body)] mt-1">{priceInfo.marketCap}</p>
           </div>
           <div className="p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/30">
-            <p className="text-[10px] text-[var(--cc-body)] uppercase tracking-wider">Address</p>
+            <p className="text-[12px] text-[var(--cc-body)] uppercase tracking-normal">Address</p>
             <p className="text-xs font-mono text-[var(--cc-body)] mt-1 truncate">
               {token.address === 'native' ? 'Native Token' : shortenAddress(token.address)}
             </p>
           </div>
           <div className="p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/30">
-            <p className="text-[10px] text-[var(--cc-body)] uppercase tracking-wider">Chain</p>
+            <p className="text-[12px] text-[var(--cc-body)] uppercase tracking-normal">Chain</p>
             <p className="text-sm font-semibold text-[var(--cc-body)] mt-1">
               {SUPPORTED_CHAINS.find((c) => c.chainId === token.chainId)?.name ?? `Chain ${token.chainId}`}
             </p>
@@ -192,14 +192,14 @@ function TokenDetailPanel({ token, onClose }: { token: TokenInfo; onClose: () =>
 
         {/* Mock price history */}
         <div className="p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/30">
-          <p className="text-[10px] text-[var(--cc-body)] uppercase tracking-wider mb-2">Price History</p>
+          <p className="text-[12px] text-[var(--cc-body)] uppercase tracking-normal mb-2">Price History</p>
           <div className="flex gap-1">
             {['1H', '24H', '7D', '30D', '1Y'].map((period) => (
               <button
                 key={period}
-                className={`px-2 py-1 rounded text-[10px] font-semibold transition-all ${
+                className={`px-2 py-1 rounded text-[12px] font-semibold transition-all ${
                   period === '24H'
-                    ? 'bg-blue-500/20 text-blue-400 border border-[var(--cc-primary)]/30'
+                    ? 'bg-[var(--cc-link)]/20 text-[var(--cc-link)] border border-[var(--cc-primary)]/30'
                     : 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-body)] hover:text-[var(--cc-body)]'
                 }`}
               >
@@ -406,7 +406,7 @@ export default function TokensPage() {
             ) : (
               <button
                 onClick={() => connect(connectors.find((c) => c.id === 'io.metamask')?.id ?? 'io.metamask')}
-                className="px-5 py-2.5 rounded-[100px] text-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all"
+                className="px-5 py-3 rounded-[100px] text-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all"
               >
                 Connect Wallet
               </button>

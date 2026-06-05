@@ -81,7 +81,7 @@ export default function ChainSelector({
         type="button"
         onClick={() => setOpen((o) => !o)}
         onKeyDown={handleKeyDown}
-        className={`w-full flex items-center gap-2.5 px-4 py-2.5 bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-ink)] text-sm rounded-md border border-[var(--cc-hairline-strong)]/40 outline-none cursor-pointer appearance-none transition-all duration-200 ${
+        className={`w-full flex items-center gap-2.5 px-4 py-3 bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-ink)] text-sm rounded-md border border-[var(--cc-hairline-strong)]/40 outline-none cursor-pointer appearance-none transition-all duration-200 ${
           open
             ? 'ring-2 ring-brand-500/40 border-brand-500/50'
             : 'hover:border-[var(--cc-hairline-strong)]/60 hover:bg-[var(--cc-canvas-soft-2)]/80'
@@ -118,8 +118,8 @@ export default function ChainSelector({
           role="listbox"
         >
           {/* Dropdown header */}
-          <div className="px-4 py-2.5 border-b border-[var(--cc-hairline-strong)]/50">
-            <p className="text-[11px] text-[var(--cc-body)] font-semibold uppercase tracking-wider">
+          <div className="px-4 py-3 border-b border-[var(--cc-hairline-strong)]/50">
+            <p className="text-[12px] text-[var(--cc-body)] font-semibold uppercase tracking-normal">
               Select Chain
             </p>
           </div>
@@ -138,7 +138,7 @@ export default function ChainSelector({
                   onClick={() => handleSelect(chain.id)}
                   onMouseEnter={() => setHovered(chain.id)}
                   onMouseLeave={() => setHovered(null)}
-                  className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-all duration-150 ${
+                  className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg text-left transition-all duration-150 ${
                     isSelected
                       ? 'bg-brand-500/15 border border-brand-500/30'
                       : isHovered

@@ -28,9 +28,9 @@ export default function TxProgress({ steps }: { steps: TxStep[] }) {
                 <div
                   className={`flex items-center justify-center w-8 h-8 rounded-full border-2 transition-all duration-300 ${
                     isDone
-                      ? 'bg-[var(--cc-success)]/20 border-emerald-500/60 text-[var(--cc-success)]'
+                      ? 'bg-[var(--cc-success)]/20 border-[var(--cc-success)]/60 text-[var(--cc-success)]'
                       : isActive
-                      ? 'bg-blue-500/20 border-[var(--cc-primary)]/60 text-blue-400'
+                      ? 'bg-[var(--cc-link)]/20 border-[var(--cc-primary)]/60 text-[var(--cc-link)]'
                       : isError
                       ? 'bg-[var(--cc-error)]/20 border-red-500/60 text-[var(--cc-error)]'
                       : 'bg-[var(--cc-canvas-soft-2)] border-[var(--cc-hairline-strong)]/50 text-[var(--cc-body)]'
@@ -64,7 +64,7 @@ export default function TxProgress({ steps }: { steps: TxStep[] }) {
               </div>
               {/* Step label */}
               <div className={`pt-1.5 transition-colors duration-300 ${
-                isDone ? 'text-[var(--cc-success)]' : isActive ? 'text-blue-400' : isError ? 'text-[var(--cc-error)]' : 'text-[var(--cc-body)]'
+                isDone ? 'text-[var(--cc-success)]' : isActive ? 'text-[var(--cc-link)]' : isError ? 'text-[var(--cc-error)]' : 'text-[var(--cc-body)]'
               }`}>
                 <span className="text-sm font-medium">{step.label}</span>
               </div>
@@ -75,7 +75,7 @@ export default function TxProgress({ steps }: { steps: TxStep[] }) {
 
       {/* Overall progress bar */}
       <div className="mt-3 pt-3 border-t border-[var(--cc-hairline-strong)]/30">
-        <div className="h-1.5 bg-[var(--cc-canvas-soft-2)] rounded-full overflow-hidden">
+        <div className="h-2 bg-[var(--cc-canvas-soft-2)] rounded-full overflow-hidden">
           <div
             className={`h-full rounded-full transition-all duration-500 ease-out ${
               errorIdx >= 0
@@ -83,7 +83,7 @@ export default function TxProgress({ steps }: { steps: TxStep[] }) {
                 : steps.every((s) => s.status === 'done')
                 ? 'bg-[var(--cc-success)]'
                 : activeIdx >= 0
-                ? 'bg-blue-500'
+                ? 'bg-[var(--cc-link)]'
                 : 'bg-[var(--cc-canvas-soft-2)]'
             }`}
             style={{

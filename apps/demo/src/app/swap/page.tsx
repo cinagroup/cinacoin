@@ -65,13 +65,13 @@ function TokenSelector({
           <div className="fixed inset-0 z-10" onClick={() => setOpen(false)} />
           <div className="absolute z-20 top-full mt-2 left-0 w-64 bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline-strong)] rounded-md shadow-[0_8px_30px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)] overflow-hidden">
             <div className="p-2 border-b border-[var(--cc-hairline-strong)]">
-              <p className="text-xs text-[var(--cc-muted)] px-2 py-1 font-semibold uppercase tracking-wider">Select Token</p>
+              <p className="text-xs text-[var(--cc-muted)] px-2 py-1 font-semibold uppercase tracking-normal">Select Token</p>
             </div>
             {tokens.map((t) => (
               <button
                 key={t.symbol + t.address}
                 onClick={() => { onSelect(t); setOpen(false); }}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 hover:bg-[var(--cc-canvas-soft-2)]/60 transition-colors ${
+                className={`w-full flex items-center gap-3 px-3 py-3 hover:bg-[var(--cc-canvas-soft-2)]/60 transition-colors ${
                   t.address === selected.address ? 'bg-[var(--cc-canvas-soft-2)]/40' : ''
                 }`}
               >
@@ -112,7 +112,7 @@ function DetailRow({
     : 'text-[var(--cc-body)]';
 
   return (
-    <div className="flex justify-between items-center py-1.5">
+    <div className="flex justify-between items-center py-2">
       <span className="text-sm text-[var(--cc-muted)]">{label}</span>
       <span className={`text-sm font-medium ${color}`}>{value}</span>
     </div>
@@ -495,7 +495,7 @@ export default function SwapPage() {
               <span className="text-xs text-[var(--cc-body)]">{account.chainName} · {shortenAddress(account.address ?? '')}</span>
               <button
                 onClick={() => disconnect()}
-                className="px-3 py-1.5 rounded-md text-xs font-semibold bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all"
+                className="px-3 py-2 rounded-md text-xs font-semibold bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all"
               >
                 Disconnect
               </button>
@@ -528,7 +528,7 @@ export default function SwapPage() {
                 </span>
                 <button
                   onClick={handleMax}
-                  className="text-xs font-semibold text-brand-400 hover:text-brand-300 transition-colors px-2 py-0.5 rounded bg-brand-400/10 hover:bg-brand-400/20"
+                  className="text-xs font-semibold text-brand-400 hover:text-brand-300 transition-colors px-2 py-1 rounded bg-brand-400/10 hover:bg-brand-400/20"
                 >
                   MAX
                 </button>
@@ -612,7 +612,7 @@ export default function SwapPage() {
                   <button
                     key={s}
                     onClick={() => setSlippage(s)}
-                    className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all ${
+                    className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
                       slippage === s
                         ? 'bg-brand-500/20 text-brand-400 border border-brand-500/40'
                         : 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] hover:bg-[var(--cc-muted)]/50 border border-transparent'
@@ -641,7 +641,7 @@ export default function SwapPage() {
               {swapRoute && <DetailRow label="Route" value={swapRoute} />}
               {swapState === 'quoting' && (
                 <div className="flex items-center gap-2 py-1">
-                  <svg className="animate-spin h-3 w-3 text-blue-400" viewBox="0 0 24 24" fill="none">
+                  <svg className="animate-spin h-3 w-3 text-[var(--cc-link)]" viewBox="0 0 24 24" fill="none">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                   </svg>
@@ -705,7 +705,7 @@ export default function SwapPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="text-[var(--cc-body)] text-xs uppercase tracking-wider">
+                  <tr className="text-[var(--cc-body)] text-xs uppercase tracking-normal">
                     <th className="text-left px-5 py-3 font-semibold">Tx</th>
                     <th className="text-left px-5 py-3 font-semibold">From → To</th>
                     <th className="text-right px-5 py-3 font-semibold">Amount</th>
@@ -725,12 +725,12 @@ export default function SwapPage() {
                               href={getBlockExplorerUrl(chainId, swap.txHash!)}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-blue-400 font-mono text-xs hover:underline"
+                              className="text-[var(--cc-link)] font-mono text-xs hover:underline"
                             >
                               {shortenAddress(swap.txHash)}
                             </a>
                           ) : (
-                            <span className="text-blue-400 font-mono text-xs">{swap.id.slice(0, 8)}</span>
+                            <span className="text-[var(--cc-link)] font-mono text-xs">{swap.id.slice(0, 8)}</span>
                           )}
                         </td>
                         <td className="px-5 py-3">
@@ -747,7 +747,7 @@ export default function SwapPage() {
                         </td>
                         <td className="px-5 py-3 text-center">
                           <span
-                            className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold ${
+                            className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-semibold ${
                               swap.status === 'completed'
                                 ? 'bg-[var(--cc-success)]/15 text-[var(--cc-success)]'
                                 : swap.status === 'pending'
@@ -756,7 +756,7 @@ export default function SwapPage() {
                             }`}
                           >
                             <span
-                              className={`w-1.5 h-1.5 rounded-full ${
+                              className={`w-2 h-2 rounded-full ${
                                 swap.status === 'completed'
                                   ? 'bg-emerald-400'
                                   : swap.status === 'pending'

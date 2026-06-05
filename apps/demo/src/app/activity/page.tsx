@@ -66,8 +66,8 @@ function typeIcon(type: ActivityType): string {
 
 function statusColor(status: ActivityItem['status']): string {
   switch (status) {
-    case 'completed': return 'bg-[var(--cc-success)]/15 text-[var(--cc-success)] border-emerald-500/25';
-    case 'pending': return 'bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border-amber-500/25';
+    case 'completed': return 'bg-[var(--cc-success)]/15 text-[var(--cc-success)] border-[var(--cc-success)]/25';
+    case 'pending': return 'bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border-[var(--cc-warning)]/25';
     case 'failed': return 'bg-[var(--cc-error)]/15 text-[var(--cc-error)] border-red-500/25';
   }
 }
@@ -229,7 +229,7 @@ export default function ActivityPage() {
           ) : (
             <button
               onClick={handleConnect}
-              className="px-5 py-2.5 rounded-[100px] text-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all"
+              className="px-5 py-3 rounded-[100px] text-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all"
             >
               Connect Wallet
             </button>
@@ -262,7 +262,7 @@ export default function ActivityPage() {
                 onClick={() => { setTypeFilter(f.value); setPage(0); }}
                 className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-all ${
                   typeFilter === f.value
-                    ? 'bg-blue-500/15 text-blue-400 border border-[var(--cc-primary)]/30'
+                    ? 'bg-[var(--cc-link)]/15 text-[var(--cc-link)] border border-[var(--cc-primary)]/30'
                     : 'bg-[var(--cc-canvas-soft-2)]/40 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)]'
                 }`}
               >
@@ -277,7 +277,7 @@ export default function ActivityPage() {
             <select
               value={chainFilter}
               onChange={(e) => { setChainFilter(e.target.value); setPage(0); }}
-              className="w-full px-4 py-2.5 bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline-strong)]/50 rounded-md text-sm text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-primary)]/40 appearance-none cursor-pointer"
+              className="w-full px-4 py-3 bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline-strong)]/50 rounded-md text-sm text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-primary)]/40 appearance-none cursor-pointer"
             >
               {CHAINS.map((c) => (
                 <option key={c} value={c}>{c === 'All' ? 'All Chains' : c}</option>
@@ -312,14 +312,14 @@ export default function ActivityPage() {
                     </div>
                     <div className="flex items-center gap-2 shrink-0">
                       {item.chain && (
-                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-muted)]">
+                        <span className="text-[12px] px-2 py-1 rounded-full bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-muted)]">
                           {item.chain}
                         </span>
                       )}
-                      <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold border ${statusColor(item.status)}`}>
+                      <span className={`text-[12px] px-2 py-1 rounded-full font-semibold border ${statusColor(item.status)}`}>
                         {item.status}
                       </span>
-                      <span className="text-[10px] text-[var(--cc-body)]">{timeAgo(item.timestamp)}</span>
+                      <span className="text-[12px] text-[var(--cc-body)]">{timeAgo(item.timestamp)}</span>
                       <svg className={`w-4 h-4 text-[var(--cc-body)] transition-transform ${expandedId === item.id ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                       </svg>
@@ -354,13 +354,13 @@ export default function ActivityPage() {
                     </div>
                     {item.hash && (
                       <div className="pt-2 border-t border-[var(--cc-hairline)]/50">
-                        <span className="text-[10px] text-[var(--cc-body)]">Transaction Hash:</span>
-                        <p className="font-mono text-xs text-blue-400 break-all mt-1">{item.hash}</p>
+                        <span className="text-[12px] text-[var(--cc-body)]">Transaction Hash:</span>
+                        <p className="font-mono text-xs text-[var(--cc-link)] break-all mt-1">{item.hash}</p>
                       </div>
                     )}
                     {item.metadata && Object.keys(item.metadata).length > 0 && (
                       <div className="pt-2 border-t border-[var(--cc-hairline)]/50">
-                        <span className="text-[10px] text-[var(--cc-body)]">Details:</span>
+                        <span className="text-[12px] text-[var(--cc-body)]">Details:</span>
                         <div className="mt-1 space-y-1">
                           {Object.entries(item.metadata).map(([k, v]) => (
                             <div key={k} className="flex text-xs">
@@ -388,7 +388,7 @@ export default function ActivityPage() {
               <button
                 onClick={() => setPage((p) => Math.max(0, p - 1))}
                 disabled={page === 0}
-                className="px-3 py-1.5 rounded-lg text-xs font-medium bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                className="px-3 py-2 rounded-lg text-xs font-medium bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
                 aria-label="Previous page"
               >
                 ← Prev
@@ -396,7 +396,7 @@ export default function ActivityPage() {
               <button
                 onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
                 disabled={page >= totalPages - 1}
-                className="px-3 py-1.5 rounded-lg text-xs font-medium bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                className="px-3 py-2 rounded-lg text-xs font-medium bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
                 aria-label="Next page"
               >
                 Next →
