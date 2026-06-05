@@ -46,8 +46,8 @@ const statusDotClass = computed(() => {
 
 <style scoped>
 .app-header {
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-  border-bottom: 1px solid #334155;
+  background: linear-gradient(135deg, var(--cc-canvas-soft-2) 0%, var(--cc-canvas) 100%);
+  border-bottom: 1px solid var(--cc-hairline, #334155);
   padding: 0.75rem 1.5rem;
   position: sticky;
   top: 0;
@@ -75,15 +75,15 @@ const statusDotClass = computed(() => {
 .title {
   margin: 0;
   font-size: 1.25rem;
-  font-weight: 700;
-  color: #f1f5f9;
+  font-weight: 600;
+  color: var(--cc-ink, #f1f5f9);
   line-height: 1.2;
 }
 
 .subtitle {
   margin: 0;
   font-size: 0.75rem;
-  color: #94a3b8;
+  color: var(--cc-body, #94a3b8);
   letter-spacing: 0.05em;
 }
 
@@ -95,7 +95,7 @@ const statusDotClass = computed(() => {
   padding: 0.375rem 0.75rem;
   border-radius: 9999px;
   font-size: 0.8rem;
-  color: #cbd5e1;
+  color: var(--cc-body, #cbd5e1);
 }
 
 .status-dot {
@@ -105,10 +105,10 @@ const statusDotClass = computed(() => {
   display: inline-block;
 }
 
-.dot-gray { background: #64748b; }
-.dot-yellow { background: #eab308; animation: pulse 1.5s infinite; }
-.dot-green { background: #22c55e; }
-.dot-red { background: #ef4444; }
+.dot-gray { background: var(--cc-muted, #64748b); }
+.dot-yellow { background: var(--cc-warning, #eab308); animation: pulse 1.5s infinite; }
+.dot-green { background: var(--cc-success, #22c55e); }
+.dot-red { background: var(--cc-error, #ef4444); }
 
 @keyframes pulse {
   0%, 100% { opacity: 1; }

@@ -160,16 +160,16 @@ async function handleDisconnect() {
 
 <style scoped>
 .connect-wallet { display: flex; flex-direction: column; gap: 1.25rem; }
-.section-title { margin: 0; font-size: 1.5rem; font-weight: 700; color: #f1f5f9; }
+.section-title { margin: 0; font-size: 1.5rem; font-weight: 600; color: var(--cc-ink, #f1f5f9); }
 .card {
-  background: #1e293b;
-  border: 1px solid #334155;
+  background: var(--cc-canvas, #1e293b);
+  border: 1px solid var(--cc-hairline, #334155);
   border-radius: 0.75rem;
   padding: 1.25rem;
 }
-.card-title { margin: 0 0 0.25rem; font-size: 1rem; font-weight: 600; color: #e2e8f0; }
-.card-desc { margin: 0 0 1rem; font-size: 0.85rem; color: #94a3b8; }
-.card-desc code { background: #0f172a; padding: 0.125rem 0.375rem; border-radius: 4px; font-size: 0.8rem; color: #38bdf8; }
+.card-title { margin: 0 0 0.25rem; font-size: 1rem; font-weight: 600; color: var(--cc-ink, #e2e8f0); }
+.card-desc { margin: 0 0 1rem; font-size: 0.85rem; color: var(--cc-body, #94a3b8); }
+.card-desc code { background: var(--cc-canvas-soft-2, #0f172a); padding: 0.125rem 0.375rem; border-radius: 4px; font-size: 0.8rem; color: var(--cc-link, #38bdf8); }
 .demo-area { min-height: 40px; }
 .btn {
   padding: 0.5rem 1rem;
@@ -182,29 +182,29 @@ async function handleDisconnect() {
 }
 .btn-outline {
   background: transparent;
-  border: 1px solid #3b82f6;
-  color: #3b82f6;
+  border: 1px solid var(--cc-link, #3b82f6);
+  color: var(--cc-link, #3b82f6);
 }
-.btn-outline:hover { background: #1e3a5f; }
-.btn-sm { padding: 0.25rem 0.75rem; font-size: 0.8rem; background: #3b82f6; color: #fff; }
-.btn-sm:hover { background: #2563eb; }
-.btn-red { background: #dc2626; }
+.btn-outline:hover { background: var(--cc-link-bg-soft, #1e3a5f); }
+.btn-sm { padding: 0.25rem 0.75rem; font-size: 0.8rem; background: var(--cc-link, #3b82f6); color: #fff; }
+.btn-sm:hover { background: var(--cc-link-deep, #2563eb); }
+.btn-red { background: var(--cc-error, #dc2626); }
 .btn-red:hover { background: #b91c1c; }
 .wallet-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
 .wallet-item {
   display: flex; align-items: center; gap: 0.5rem;
-  background: #0f172a; padding: 0.5rem 0.75rem; border-radius: 0.5rem;
+  background: var(--cc-canvas-soft-2, #0f172a); padding: 0.5rem 0.75rem; border-radius: 0.5rem;
 }
 .wallet-icon { font-size: 1.25rem; }
-.wallet-name { flex: 1; color: #e2e8f0; font-weight: 500; }
-.wallet-type { color: #64748b; font-size: 0.75rem; text-transform: uppercase; }
+.wallet-name { flex: 1; color: var(--cc-ink, #e2e8f0); font-weight: 500; }
+.wallet-type { color: var(--cc-muted, #64748b); font-size: 0.75rem; text-transform: uppercase; }
 .wallet-badge { padding: 0.125rem 0.5rem; border-radius: 999px; font-size: 0.7rem; font-weight: 600; }
-.badge-green { background: #064e3b; color: #34d399; }
-.badge-gray { background: #1e293b; color: #64748b; }
-.empty-state { color: #64748b; font-style: italic; font-size: 0.875rem; }
+.badge-green { background: #064e3b; color: var(--cc-success, #34d399); }
+.badge-gray { background: var(--cc-canvas, #1e293b); color: var(--cc-muted, #64748b); }
+.empty-state { color: var(--cc-muted, #64748b); font-style: italic; font-size: 0.875rem; }
 .state-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.75rem; }
 .state-item { display: flex; flex-direction: column; gap: 0.25rem; }
-.state-label { font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; }
-.state-value { color: #e2e8f0; font-size: 0.9rem; }
+.state-label { font-size: 0.75rem; color: var(--cc-muted, #64748b); text-transform: uppercase; letter-spacing: 0.05em; }
+.state-value { color: var(--cc-ink, #e2e8f0); font-size: 0.9rem; }
 .mono { font-family: 'SF Mono', 'Fira Code', monospace; }
 </style>

@@ -107,45 +107,45 @@ async function handleSwitchChain(chainId: number) {
 
 <style scoped>
 .chain-info { display: flex; flex-direction: column; gap: 1.25rem; }
-.section-title { margin: 0; font-size: 1.5rem; font-weight: 700; color: #f1f5f9; }
+.section-title { margin: 0; font-size: 1.5rem; font-weight: 600; color: var(--cc-ink, #f1f5f9); }
 .card {
-  background: #1e293b;
-  border: 1px solid #334155;
+  background: var(--cc-canvas, #1e293b);
+  border: 1px solid var(--cc-hairline, #334155);
   border-radius: 0.75rem;
   padding: 1.25rem;
 }
-.card-title { margin: 0 0 0.25rem; font-size: 1rem; font-weight: 600; color: #e2e8f0; }
-.card-desc { margin: 0 0 1rem; font-size: 0.85rem; color: #94a3b8; }
-.card-desc code { background: #0f172a; padding: 0.125rem 0.375rem; border-radius: 4px; font-size: 0.8rem; color: #38bdf8; }
+.card-title { margin: 0 0 0.25rem; font-size: 1rem; font-weight: 600; color: var(--cc-ink, #e2e8f0); }
+.card-desc { margin: 0 0 1rem; font-size: 0.85rem; color: var(--cc-body, #94a3b8); }
+.card-desc code { background: var(--cc-canvas-soft-2, #0f172a); padding: 0.125rem 0.375rem; border-radius: 4px; font-size: 0.8rem; color: var(--cc-link, #38bdf8); }
 .demo-area { min-height: 40px; }
 .chain-display { display: flex; align-items: center; gap: 1rem; }
 .chain-icon { font-size: 2.5rem; }
 .chain-logo { width: 48px; height: 48px; border-radius: 50%; }
 .chain-details { display: flex; flex-direction: column; gap: 0.25rem; }
-.chain-name { font-size: 1.125rem; font-weight: 600; color: #f1f5f9; }
-.chain-id { font-family: 'SF Mono', monospace; font-size: 0.85rem; color: #94a3b8; }
-.chain-currency { font-size: 0.85rem; color: #94a3b8; }
-.currency-full { color: #64748b; }
+.chain-name { font-size: 1.125rem; font-weight: 600; color: var(--cc-ink, #f1f5f9); }
+.chain-id { font-family: 'SF Mono', monospace; font-size: 0.85rem; color: var(--cc-body, #94a3b8); }
+.chain-currency { font-size: 0.85rem; color: var(--cc-body, #94a3b8); }
+.currency-full { color: var(--cc-muted, #64748b); }
 .badge { padding: 0.125rem 0.5rem; border-radius: 999px; font-size: 0.7rem; font-weight: 600; display: inline-block; }
-.badge-yellow { background: #422006; color: #facc15; }
-.empty-state { color: #64748b; font-style: italic; font-size: 0.875rem; }
+.badge-yellow { background: var(--cc-warning-soft, #422006); color: var(--cc-warning, #facc15); }
+.empty-state { color: var(--cc-muted, #64748b); font-style: italic; font-size: 0.875rem; }
 .switcher-area { margin-bottom: 1rem; }
-.sub-title { margin: 0.75rem 0 0.5rem; font-size: 0.875rem; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; }
+.sub-title { margin: 0.75rem 0 0.5rem; font-size: 0.875rem; font-weight: 600; color: var(--cc-body, #94a3b8); text-transform: uppercase; letter-spacing: 0.05em; }
 .chain-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.375rem; }
 .chain-items { list-style: none; padding: 0; margin: 0; }
 .chain-item {
   display: flex; align-items: center; gap: 0.75rem;
   padding: 0.5rem 0.75rem; border-radius: 0.5rem;
-  background: #0f172a; cursor: pointer; transition: background 0.15s;
+  background: var(--cc-canvas-soft-2, #0f172a); cursor: pointer; transition: background 0.15s;
 }
-.chain-item:hover { background: #1e3a5f; }
-.chain-item.active { background: #1e3a5f; border: 1px solid #3b82f6; }
-.chain-item-name { flex: 1; color: #e2e8f0; font-weight: 500; }
-.chain-item-id { color: #64748b; font-family: 'SF Mono', monospace; font-size: 0.8rem; }
-.chain-item-active { color: #22c55e; font-weight: 700; }
-.switching-indicator { margin-top: 0.75rem; color: #38bdf8; font-size: 0.875rem; display: flex; align-items: center; gap: 0.5rem; }
+.chain-item:hover { background: var(--cc-link-bg-soft, #1e3a5f); }
+.chain-item.active { background: var(--cc-link-bg-soft, #1e3a5f); border: 1px solid var(--cc-link, #3b82f6); }
+.chain-item-name { flex: 1; color: var(--cc-ink, #e2e8f0); font-weight: 500; }
+.chain-item-id { color: var(--cc-muted, #64748b); font-family: 'SF Mono', monospace; font-size: 0.8rem; }
+.chain-item-active { color: var(--cc-success, #22c55e); font-weight: 600; }
+.switching-indicator { margin-top: 0.75rem; color: var(--cc-link, #38bdf8); font-size: 0.875rem; display: flex; align-items: center; gap: 0.5rem; }
 .spinner {
-  width: 14px; height: 14px; border: 2px solid #38bdf8;
+  width: 14px; height: 14px; border: 2px solid var(--cc-link, #38bdf8);
   border-top-color: transparent; border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }

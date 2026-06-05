@@ -72,32 +72,32 @@ const formattedBalance = computed(() => {
 
 <style scoped>
 .account-balance { display: flex; flex-direction: column; gap: 1.25rem; }
-.section-title { margin: 0; font-size: 1.5rem; font-weight: 700; color: #f1f5f9; }
+.section-title { margin: 0; font-size: 1.5rem; font-weight: 600; color: var(--cc-ink, #f1f5f9); }
 .card {
-  background: #1e293b;
-  border: 1px solid #334155;
+  background: var(--cc-canvas, #1e293b);
+  border: 1px solid var(--cc-hairline, #334155);
   border-radius: 0.75rem;
   padding: 1.25rem;
 }
-.card-title { margin: 0 0 0.25rem; font-size: 1rem; font-weight: 600; color: #e2e8f0; }
+.card-title { margin: 0 0 0.25rem; font-size: 1rem; font-weight: 600; color: var(--cc-ink, #e2e8f0); }
 .demo-area { min-height: 40px; }
 .balance-display { display: flex; align-items: center; justify-content: space-between; }
 .balance-main { display: flex; align-items: baseline; gap: 0.5rem; }
-.balance-amount { font-size: 2rem; font-weight: 700; color: #22c55e; font-family: 'SF Mono', monospace; }
-.balance-symbol { font-size: 1rem; color: #94a3b8; font-weight: 500; }
+.balance-amount { font-size: 2rem; font-weight: 600; color: var(--cc-success, #22c55e); font-family: 'SF Mono', monospace; }
+.balance-symbol { font-size: 1rem; color: var(--cc-body, #94a3b8); font-weight: 500; }
 .btn {
   padding: 0.5rem 1rem; border-radius: 0.5rem; border: none;
   font-weight: 600; cursor: pointer; font-size: 0.875rem; transition: all 0.15s;
 }
-.btn-sm { padding: 0.25rem 0.75rem; font-size: 0.8rem; background: #3b82f6; color: #fff; }
-.btn-sm:hover:not(:disabled) { background: #2563eb; }
+.btn-sm { padding: 0.25rem 0.75rem; font-size: 0.8rem; background: var(--cc-link, #3b82f6); color: #fff; }
+.btn-sm:hover:not(:disabled) { background: var(--cc-link-deep, #2563eb); }
 .btn-sm:disabled { opacity: 0.5; cursor: not-allowed; }
-.empty-state { color: #64748b; font-style: italic; font-size: 0.875rem; }
+.empty-state { color: var(--cc-muted, #64748b); font-style: italic; font-size: 0.875rem; }
 .ens-display { display: flex; align-items: baseline; gap: 0.5rem; margin-bottom: 0.5rem; }
-.ens-label { font-size: 0.8rem; color: #64748b; min-width: 90px; text-transform: uppercase; letter-spacing: 0.05em; }
-.ens-value { color: #e2e8f0; font-size: 0.9rem; }
-.has-name { color: #38bdf8; font-weight: 500; }
+.ens-label { font-size: 0.8rem; color: var(--cc-muted, #64748b); min-width: 90px; text-transform: uppercase; letter-spacing: 0.05em; }
+.ens-value { color: var(--cc-ink, #e2e8f0); font-size: 0.9rem; }
+.has-name { color: var(--cc-link, #38bdf8); font-weight: 500; }
 .mono { font-family: 'SF Mono', 'Fira Code', monospace; }
-.loading-text { color: #38bdf8; font-size: 0.8rem; margin-top: 0.5rem; }
-.error-text { color: #ef4444; font-size: 0.8rem; margin-top: 0.5rem; }
+.loading-text { color: var(--cc-link, #38bdf8); font-size: 0.8rem; margin-top: 0.5rem; }
+.error-text { color: var(--cc-error, #ef4444); font-size: 0.8rem; margin-top: 0.5rem; }
 </style>
