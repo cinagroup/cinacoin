@@ -40,7 +40,7 @@ export function ApiKeyManager({ projectId }: { projectId: string }) {
       <div className="flex items-center gap-3">
         <button
           onClick={generateKey}
-          className="rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-primary-500"
+          className="rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-[var(--cc-ink)] transition hover:bg-primary-500"
         >
           Generate API Key
         </button>
@@ -49,11 +49,11 @@ export function ApiKeyManager({ projectId }: { projectId: string }) {
       {/* Show newly generated key */}
       {showNewKey && (
         <div className="rounded-lg border border-emerald-800 bg-emerald-950/30 p-4">
-          <p className="mb-2 text-sm font-medium text-emerald-400">New API Key Generated</p>
-          <code className="block rounded bg-dark-900 px-3 py-2 text-sm font-mono text-white break-all">
+          <p className="mb-2 text-sm font-medium text-[var(--cc-success)]">New API Key Generated</p>
+          <code className="block rounded bg-[var(--cc-canvas-soft)] px-3 py-2 text-sm font-mono text-[var(--cc-ink)] break-all">
             {showNewKey}
           </code>
-          <p className="mt-2 text-xs text-slate-400">Save this key now. It won&apos;t be shown again.</p>
+          <p className="mt-2 text-xs text-[var(--cc-muted)]">Save this key now. It won&apos;t be shown again.</p>
         </div>
       )}
 
@@ -63,26 +63,26 @@ export function ApiKeyManager({ projectId }: { projectId: string }) {
           <div
             key={key.id}
             className={`flex items-center justify-between rounded-lg border p-4 transition ${
-              key.isActive ? 'border-dark-800 bg-dark-900' : 'border-dark-800/50 bg-dark-950/50 opacity-60'
+              key.isActive ? 'border-[var(--cc-hairline)] bg-[var(--cc-canvas-soft)]' : 'border-[var(--cc-hairline)]/50 bg-[var(--cc-canvas)]/50 opacity-60'
             }`}
           >
             <div>
-              <div className="text-sm font-medium text-white">{key.label}</div>
-              <div className="mt-0.5 text-xs text-slate-400">
+              <div className="text-sm font-medium text-[var(--cc-ink)]">{key.label}</div>
+              <div className="mt-0.5 text-xs text-[var(--cc-muted)]">
                 {key.permissions} • Created {key.createdAt}
                 {key.lastUsedAt && ` • Last used ${key.lastUsedAt}`}
               </div>
             </div>
             <div className="flex items-center gap-2">
               <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${
-                key.isActive ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'
+                key.isActive ? 'bg-emerald-500/20 text-[var(--cc-success)]' : 'bg-red-500/20 text-[var(--cc-error)]'
               }`}>
                 {key.isActive ? 'Active' : 'Revoked'}
               </span>
               {key.isActive && (
                 <button
                   onClick={() => revokeKey(key.id)}
-                  className="rounded-md px-3 py-1 text-xs font-medium text-red-400 transition hover:bg-red-500/20 hover:text-red-300"
+                  className="rounded-md px-3 py-1 text-xs font-medium text-[var(--cc-error)] transition hover:bg-red-500/20 hover:text-red-300"
                 >
                   Revoke
                 </button>

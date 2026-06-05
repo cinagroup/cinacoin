@@ -13,18 +13,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-dark-950 text-slate-100 antialiased">
+      <body className="min-h-screen bg-[var(--cc-canvas)] text-slate-100 antialiased">
         <div className="flex min-h-screen">
           {/* Sidebar */}
-          <aside className="hidden w-64 flex-shrink-0 border-r border-dark-800 bg-dark-900/50 md:block">
+          <aside className="hidden w-64 flex-shrink-0 border-r border-[var(--cc-hairline)] bg-[var(--cc-canvas-soft)]/50 md:block">
             <nav className="flex h-full flex-col p-4">
               <div className="mb-8 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-md bg-primary-600 font-semibold text-white">
+                <div className="flex h-10 w-10 items-center justify-center rounded-md bg-primary-600 font-semibold text-[var(--cc-ink)]">
                   C
                 </div>
                 <div>
                   <div className="text-lg font-semibold tracking-tight">Cinacoin Cloud</div>
-                  <div className="text-xs text-slate-400">Developer Portal</div>
+                  <div className="text-xs text-[var(--cc-muted)]">Developer Portal</div>
                 </div>
               </div>
               <ul className="space-y-1">
@@ -77,7 +77,7 @@ function NavItem({
     <li>
       <a
         href={href}
-        className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition-colors hover:bg-dark-800 hover:text-white"
+        className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition-colors hover:bg-[var(--cc-canvas-soft-2)] hover:text-[var(--cc-ink)]"
       >
         {icons[icon]}
         {label}

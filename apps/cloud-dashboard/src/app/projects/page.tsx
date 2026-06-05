@@ -28,19 +28,19 @@ const demoProjects: Project[] = [
 
 export default function ProjectsPage() {
   return (
-    <div className="min-h-screen bg-dark-950">
+    <div className="min-h-screen bg-[var(--cc-canvas)]">
       <Header />
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="mb-6 flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-semibold tracking-tight text-white">Projects</h1>
-            <p className="mt-1 text-sm text-slate-400">
+            <h1 className="text-2xl font-semibold tracking-tight text-[var(--cc-ink)]">Projects</h1>
+            <p className="mt-1 text-sm text-[var(--cc-muted)]">
               Manage your Cinacoin projects
             </p>
           </div>
           <a
             href="/projects/new"
-            className="rounded-[100px] bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-500"
+            className="rounded-[100px] bg-primary-600 px-4 py-2 text-sm font-medium text-[var(--cc-ink)] hover:bg-primary-500"
           >
             + New Project
           </a>
@@ -53,11 +53,11 @@ export default function ProjectsPage() {
         </div>
 
         {demoProjects.length === 0 && (
-          <div className="rounded-lg border border-dashed border-dark-800 p-12 text-center">
-            <p className="text-sm text-slate-400">No projects yet.</p>
+          <div className="rounded-lg border border-dashed border-[var(--cc-hairline)] p-12 text-center">
+            <p className="text-sm text-[var(--cc-muted)]">No projects yet.</p>
             <a
               href="/projects/new"
-              className="mt-4 inline-block rounded-[100px] bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-500"
+              className="mt-4 inline-block rounded-[100px] bg-primary-600 px-4 py-2 text-sm font-medium text-[var(--cc-ink)] hover:bg-primary-500"
             >
               Create Your First Project
             </a>

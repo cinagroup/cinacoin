@@ -29,7 +29,7 @@ export function UsageChart({ data }: { data: UsageDataPoint[] }) {
           );
         })}
       </div>
-      <div className="flex items-center gap-4 text-xs text-slate-400">
+      <div className="flex items-center gap-4 text-xs text-[var(--cc-muted)]">
         <div className="flex items-center gap-1.5">
           <div className="h-3 w-3 rounded-sm bg-primary-600" />
           <span>Requests</span>

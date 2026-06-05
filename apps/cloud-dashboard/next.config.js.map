@@ -1,1 +1,0 @@
-{"version":3,"file":"next.config.js","sourceRoot":"","sources":["next.config.ts"],"names":[],"mappings":"AAAA,wCAAwC;AACxC,MAAM,UAAU,GAAG;IACjB,eAAe,EAAE,IAAI;IACrB,MAAM,EAAE;QACN,cAAc,EAAE;YACd;gBACE,QAAQ,EAAE,OAAO;gBACjB,QAAQ,EAAE,IAAI;aACf;SACF;KACF;CACF,CAAC;AAEF,eAAe,UAAU,CAAC"}

@@ -13,10 +13,10 @@ export default function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="border-b border-gray-200 bg-white">
+    <header className="border-b border-[var(--cc-hairline)] bg-[var(--cc-canvas)]">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-2 text-lg font-semibold tracking-tight text-gray-900">
-          <span className="text-blue-600">🔢</span>
+        <Link href="/" className="flex items-center gap-2 text-lg font-semibold tracking-tight text-[var(--cc-ink)]">
+          <span className="text-[var(--cc-primary)]">🔢</span>
           <span>Cinacoin Cloud</span>
         </Link>
         <nav className="flex items-center gap-6">
@@ -26,8 +26,8 @@ export default function Header() {
               href={item.href}
               className={`text-sm font-medium transition-colors ${
                 pathname === item.href
-                  ? "text-blue-600"
-                  : "text-gray-500 hover:text-gray-900"
+                  ? "text-[var(--cc-primary)]"
+                  : "text-[var(--cc-body)] hover:text-[var(--cc-ink)]"
               }`}
             >
               {item.label}

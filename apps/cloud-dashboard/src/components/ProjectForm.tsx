@@ -29,17 +29,17 @@ export function ProjectForm() {
     return (
       <div className="space-y-4 text-center">
         <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/20">
-          <svg className="h-6 w-6 text-emerald-400" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+          <svg className="h-6 w-6 text-[var(--cc-success)]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h3 className="text-lg font-semibold text-white">Project Created!</h3>
-        <p className="text-sm text-slate-400">Your project has been created successfully.</p>
+        <h3 className="text-lg font-semibold text-[var(--cc-ink)]">Project Created!</h3>
+        <p className="text-sm text-[var(--cc-muted)]">Your project has been created successfully.</p>
         <div className="flex items-center justify-center gap-3">
-          <a href="/projects" className="rounded-lg border border-dark-700 px-4 py-2 text-sm font-medium text-slate-300 transition hover:bg-dark-800">
+          <a href="/projects" className="rounded-lg border border-dark-700 px-4 py-2 text-sm font-medium text-slate-300 transition hover:bg-[var(--cc-canvas-soft-2)]">
             Back to Projects
           </a>
-          <a href={`/projects/${created}`} className="rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-primary-500">
+          <a href={`/projects/${created}`} className="rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-[var(--cc-ink)] transition hover:bg-primary-500">
             View Project
           </a>
         </div>
@@ -57,7 +57,7 @@ export function ProjectForm() {
           required
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          className="mt-1 w-full rounded-lg border border-dark-700 bg-dark-900 px-3 py-2 text-sm text-white placeholder-slate-500 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
+          className="mt-1 w-full rounded-lg border border-dark-700 bg-[var(--cc-canvas-soft)] px-3 py-2 text-sm text-[var(--cc-ink)] placeholder-slate-500 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
           placeholder="My Awesome Project"
         />
       </div>
@@ -69,7 +69,7 @@ export function ProjectForm() {
           rows={3}
           value={formData.description}
           onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-          className="mt-1 w-full rounded-lg border border-dark-700 bg-dark-900 px-3 py-2 text-sm text-white placeholder-slate-500 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
+          className="mt-1 w-full rounded-lg border border-dark-700 bg-[var(--cc-canvas-soft)] px-3 py-2 text-sm text-[var(--cc-ink)] placeholder-slate-500 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
           placeholder="What does your project do?"
         />
       </div>
@@ -82,7 +82,7 @@ export function ProjectForm() {
           required
           value={formData.ownerAddress}
           onChange={(e) => setFormData({ ...formData, ownerAddress: e.target.value })}
-          className="mt-1 w-full rounded-lg border border-dark-700 bg-dark-900 px-3 py-2 text-sm font-mono text-white placeholder-slate-500 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
+          className="mt-1 w-full rounded-lg border border-dark-700 bg-[var(--cc-canvas-soft)] px-3 py-2 text-sm font-mono text-[var(--cc-ink)] placeholder-slate-500 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
           placeholder="0x..."
         />
       </div>
@@ -94,7 +94,7 @@ export function ProjectForm() {
           type="url"
           value={formData.websiteUrl}
           onChange={(e) => setFormData({ ...formData, websiteUrl: e.target.value })}
-          className="mt-1 w-full rounded-lg border border-dark-700 bg-dark-900 px-3 py-2 text-sm text-white placeholder-slate-500 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
+          className="mt-1 w-full rounded-lg border border-dark-700 bg-[var(--cc-canvas-soft)] px-3 py-2 text-sm text-[var(--cc-ink)] placeholder-slate-500 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
           placeholder="https://myproject.com"
         />
       </div>
@@ -106,19 +106,19 @@ export function ProjectForm() {
           type="text"
           value={formData.redirectUris}
           onChange={(e) => setFormData({ ...formData, redirectUris: e.target.value })}
-          className="mt-1 w-full rounded-lg border border-dark-700 bg-dark-900 px-3 py-2 text-sm text-white placeholder-slate-500 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
+          className="mt-1 w-full rounded-lg border border-dark-700 bg-[var(--cc-canvas-soft)] px-3 py-2 text-sm text-[var(--cc-ink)] placeholder-slate-500 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
           placeholder="https://myproject.com/callback"
         />
       </div>
 
       <div className="flex items-center justify-end gap-3">
-        <a href="/projects" className="rounded-lg border border-dark-700 px-4 py-2 text-sm font-medium text-slate-300 transition hover:bg-dark-800">
+        <a href="/projects" className="rounded-lg border border-dark-700 px-4 py-2 text-sm font-medium text-slate-300 transition hover:bg-[var(--cc-canvas-soft-2)]">
           Cancel
         </a>
         <button
           type="submit"
           disabled={loading}
-          className="rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-primary-500 disabled:opacity-50"
+          className="rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-[var(--cc-ink)] transition hover:bg-primary-500 disabled:opacity-50"
         >
           {loading ? 'Creating...' : 'Create Project'}
         </button>
