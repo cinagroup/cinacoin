@@ -93,7 +93,7 @@ function PortfolioSummary({ balances }: { balances: ChainBalance[] }) {
             <SimulatedBadge size="xs" />
           </p>
           <p className="text-xs text-[var(--cc-body)] mt-1">Across {withBalance.length} chains</p>
-          <p className="text-[10px] text-[var(--cc-warning)]/70 mt-1">⚠ Simulated values — not from live market data</p>
+          <p className="text-[12px] text-[var(--cc-warning)]/70 mt-1">⚠ Simulated values — not from live market data</p>
         </div>
 
         {/* Per-chain breakdown */}
@@ -117,7 +117,7 @@ function PortfolioSummary({ balances }: { balances: ChainBalance[] }) {
                         style={{ width: `${pct}%` }}
                       />
                     </div>
-                    <span className="text-[10px] text-[var(--cc-body)] w-10 text-right">{pct.toFixed(1)}%</span>
+                    <span className="text-[12px] text-[var(--cc-body)] w-10 text-right">{pct.toFixed(1)}%</span>
                   </div>
                 </div>
               );
@@ -155,7 +155,7 @@ function WalletCard({
   return (
     <div className={`p-5 rounded-md border transition-all ${
       isPrimary
-        ? 'bg-brand-500/10 border-brand-500/30'
+        ? 'bg-brand-500/10 border-[var(--cc-link)]/30'
         : 'bg-[var(--cc-canvas)]/40 border-[var(--cc-hairline-strong)]/40 hover:border-[var(--cc-hairline-strong)]'
     }`}>
       <div className="flex items-center gap-4">
@@ -164,7 +164,7 @@ function WalletCard({
           <div className="flex items-center gap-2">
             <p className="font-mono text-sm text-[var(--cc-body)] truncate">{shortenAddress(address)}</p>
             {isPrimary && (
-              <span className="text-[10px] px-2 py-0.5 rounded-full bg-brand-500/20 text-brand-400 border border-brand-500/30 font-semibold">
+              <span className="text-[12px] px-2 py-1 rounded-full bg-[var(--cc-link)]/20 text-[var(--cc-link)] border border-[var(--cc-link)]/30 font-semibold">
                 Primary
               </span>
             )}
@@ -175,7 +175,7 @@ function WalletCard({
           <p className="text-sm font-semibold text-[var(--cc-body)]">{totalBalance.toFixed(4)}</p>
           <button
             onClick={onSwitch}
-            className="text-[10px] text-brand-400 hover:text-brand-300 transition-colors"
+            className="text-[12px] text-[var(--cc-link)] hover:text-[var(--cc-link-deep)] transition-colors"
           >
             Switch →
           </button>

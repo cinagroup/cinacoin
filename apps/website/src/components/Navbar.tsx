@@ -54,9 +54,9 @@ export default function Navbar() {
     >
       <div className="cc-container flex h-full items-center justify-between">
         {/* Logo */}
-        <a href="/" className="flex items-center gap-2.5" aria-label="Cinacoin home">
+        <a href="/" className="flex items-center gap-3" aria-label="Cinacoin home">
           <Image src="/logo.png" alt="Cinacoin logo" width={28} height={28} className="h-7 w-7" priority unoptimized />
-          <span className="text-[15px] font-semibold tracking-tight text-[var(--cc-ink)]">Cinacoin</span>
+          <span className="text-[16px] font-semibold tracking-tight text-[var(--cc-ink)]">Cinacoin</span>
         </a>
 
         {/* Desktop links */}
@@ -109,7 +109,7 @@ export default function Navbar() {
                   <button
                     key={l.code}
                     onClick={() => { setLocale(l.code); setLangOpen(false) }}
-                    className={`flex w-full items-center gap-2 px-3 py-1.5 cc-body-sm transition-colors ${
+                    className={`flex w-full items-center gap-2 px-3 py-2 cc-body-sm transition-colors ${
                       locale === l.code
                         ? 'text-[var(--cc-ink)] bg-[var(--cc-canvas-soft-2)]'
                         : 'text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft-2)]'

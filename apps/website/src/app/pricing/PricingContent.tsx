@@ -125,7 +125,7 @@ export default function PricingContent() {
                     <ul className="mt-8 space-y-3">
                       {tier.features.map((feature) => (
                         <li key={feature} className="flex items-start gap-3 cc-body-sm" style={{ opacity: 0.85 }}>
-                          <span className="mt-0.5" aria-hidden="true">✓</span>
+                          <span className="mt-0.5" aria-hidden="true"><svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg></span>
                           {feature}
                         </li>
                       ))}
@@ -157,7 +157,7 @@ export default function PricingContent() {
                     <ul className="mt-8 space-y-3">
                       {tier.features.map((feature) => (
                         <li key={feature} className="flex items-start gap-3 cc-body-sm text-[var(--cc-body)]">
-                          <span className="mt-0.5 text-[var(--cc-success)]" aria-hidden="true">✓</span>
+                          <span className="mt-0.5 text-[var(--cc-success)]" aria-hidden="true"><svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg></span>
                           {feature}
                         </li>
                       ))}

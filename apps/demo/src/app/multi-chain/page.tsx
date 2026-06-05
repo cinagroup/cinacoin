@@ -114,7 +114,7 @@ function ChainCard({ chain, balance, health, isWalletConnected, isCurrentChain, 
         {/* Balance */}
         <div className="grid grid-cols-2 gap-3 pt-2 border-t border-[var(--cc-hairline-strong)]/40">
           <div>
-            <div className="text-[11px] text-[var(--cc-body)]">Balance</div>
+            <div className="text-[12px] text-[var(--cc-body)]">Balance</div>
             {balance ? (
               <div className="text-sm font-mono text-[var(--cc-ink)]">
                 {balance.status === 'loaded' ? `${balance.balance} ${chain.symbol}` : '—'}
@@ -124,7 +124,7 @@ function ChainCard({ chain, balance, health, isWalletConnected, isCurrentChain, 
             )}
           </div>
           <div>
-            <div className="text-[11px] text-[var(--cc-body)]">RPC Health</div>
+            <div className="text-[12px] text-[var(--cc-body)]">RPC Health</div>
             <div className="text-sm">
               {health ? (
                 health.healthy ? (
@@ -151,7 +151,7 @@ function ChainCard({ chain, balance, health, isWalletConnected, isCurrentChain, 
 
         {/* Connect / Switch */}
         {isWalletConnected && isCurrentChain ? (
-          <div className="w-full py-2.5 rounded-md text-center font-semibold text-sm bg-gradient-to-r from-brand-500/10 to-brand-400/10 text-brand-400 border border-brand-500/30 animate-status-transition">
+          <div className="w-full py-3 rounded-md text-center font-semibold text-sm bg-gradient-to-r from-[var(--cc-primary)]/10 to-[var(--cc-primary)]/5 text-[var(--cc-primary)] border border-[var(--cc-primary)]/30 animate-status-transition">
             <span className="inline-flex items-center gap-1.5">
               <span className="size-2 rounded-full bg-brand-400 animate-pulse" />
               Active Chain
@@ -160,7 +160,7 @@ function ChainCard({ chain, balance, health, isWalletConnected, isCurrentChain, 
         ) : isWalletConnected ? (
           <button
             onClick={onSwitchChain}
-            className="w-full py-2.5 rounded-md font-semibold text-sm bg-brand-600/20 text-brand-400 border border-brand-500/30 hover:bg-brand-600/30 transition-all"
+            className="w-full py-3 rounded-md font-semibold text-sm bg-[var(--cc-primary)]/20 text-[var(--cc-primary)] border border-[var(--cc-primary)]/30 hover:bg-[var(--cc-primary)]/30 transition-all"
           >
             Switch to {chain.name}
           </button>
@@ -202,7 +202,7 @@ function HealthSummary({ statuses, loading }: { statuses: ChainHealthStatus[]; l
           <div className="text-xs text-[var(--cc-body)]">Down</div>
         </div>
         <div className="text-center p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/40">
-          <div className="text-2xl font-semibold text-blue-400">{Math.round(avgLatency)}ms</div>
+          <div className="text-2xl font-semibold text-[var(--cc-link)]">{Math.round(avgLatency)}ms</div>
           <div className="text-xs text-[var(--cc-body)]">Avg Latency</div>
         </div>
       </div>
@@ -210,7 +210,7 @@ function HealthSummary({ statuses, loading }: { statuses: ChainHealthStatus[]; l
       {/* Chain-by-chain health */}
       <div className="space-y-2">
         {statuses.map((s) => (
-          <div key={s.chain.id} className="flex items-center justify-between px-4 py-2.5 rounded-md bg-[var(--cc-canvas)]/30 border border-[var(--cc-hairline-strong)]/30">
+          <div key={s.chain.id} className="flex items-center justify-between px-4 py-3 rounded-md bg-[var(--cc-canvas)]/30 border border-[var(--cc-hairline-strong)]/30">
             <div className="flex items-center gap-3">
               <StatusIndicator healthy={s.healthy} />
               <span className="text-sm text-[var(--cc-ink)]">{s.chain.name}</span>
@@ -583,8 +583,8 @@ export default function MultiChainPage() {
       <div className="max-w-6xl mx-auto space-y-8">
         {/* Hero */}
         <div className="text-center space-y-4 py-6">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-[var(--cc-primary)]/20 rounded-full text-sm text-blue-400 mb-2">
-            <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-[var(--cc-primary)]/20 rounded-full text-sm text-[var(--cc-link)] mb-2">
+            <span className="w-2 h-2 rounded-full bg-[var(--cc-link)] animate-pulse" />
             {isConnected
               ? `${account.chainName} · ${shortenAddress(account.address ?? '')}`
               : `${CHAINS.length} EVM chains · Real RPC balances`}
@@ -643,7 +643,7 @@ export default function MultiChainPage() {
         <div className="flex items-center justify-between bg-[var(--cc-canvas-soft-2)]/30 rounded-md border border-[var(--cc-hairline-strong)]/40 px-5 py-3">
           <div className="flex items-center gap-3">
             <span className="text-xs text-[var(--cc-muted)]">Auto-refresh:</span>
-            <span className="text-xs font-mono text-brand-400">{countdown}s</span>
+            <span className="text-xs font-mono text-[var(--cc-primary)]">{countdown}s</span>
           </div>
           <div className="flex items-center gap-3">
             {loadingBalances && (

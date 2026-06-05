@@ -42,7 +42,7 @@ export default function CTA() {
             <a
               href="https://github.com/cinagroup/cinacoin"
               className="rounded-full inline-flex items-center justify-center cc-button-lg no-underline transition-colors"
-              style={{ backgroundColor: 'transparent', color: 'var(--cc-on-primary)', border: '1px solid var(--cc-on-primary)', borderColor: 'rgba(255,255,255,0.2)' }}
+              style={{ backgroundColor: 'transparent', color: 'var(--cc-on-primary)', border: '1px solid var(--cc-on-primary)', borderColor: 'var(--cc-on-primary-hairline-soft)' }}
             >
               {t('cta-github')}
             </a>

@@ -34,7 +34,7 @@ export default function Developers() {
                         style={{ color: 'var(--cc-cyan)' }}
                         aria-hidden="true"
                       >
-                        ✓
+                        <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
                       </span>
                       <span className="cc-body-sm text-[var(--cc-body)]">{t(key)}</span>
                     </div>
@@ -70,7 +70,7 @@ export default function Developers() {
                   />
                 ))}
                 <span
-                  className="ml-2 text-[11px] font-mono"
+                  className="ml-2 text-[12px] font-mono"
                   style={{ color: 'var(--cc-muted)' }}
                 >
                   example.tsx

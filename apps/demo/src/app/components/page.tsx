@@ -15,7 +15,7 @@ const THEMES: Record<string, { name: string; bg: string; card: string; border: s
     border: 'border-[var(--cc-hairline-strong)]/50',
     primary: 'from-brand-500 to-brand-600',
     text: 'text-[var(--cc-ink)]',
-    accent: 'text-blue-400',
+    accent: 'text-[var(--cc-link)]',
   },
   light: {
     name: 'Light',
@@ -28,11 +28,11 @@ const THEMES: Record<string, { name: string; bg: string; card: string; border: s
   },
   midnight: {
     name: 'Midnight',
-    bg: 'bg-slate-950',
+    bg: 'bg-[var(--cc-canvas)]',
     card: 'bg-[var(--cc-canvas)]/60',
     border: 'border-slate-700/50',
     primary: 'from-brand-500 to-brand-600',
-    text: 'text-slate-100',
+    text: 'text-[var(--cc-ink)]',
     accent: 'text-[var(--cc-link)]',
   },
   neon: {
@@ -55,7 +55,7 @@ const THEMES: Record<string, { name: string; bg: string; card: string; border: s
   },
   ocean: {
     name: 'Ocean',
-    bg: 'bg-slate-950',
+    bg: 'bg-[var(--cc-canvas)]',
     card: 'bg-[var(--cc-canvas)]/50',
     border: 'border-cyan-500/30',
     primary: 'from-cyan-500 to-teal-600',
@@ -96,10 +96,10 @@ function CodeBlock({ code, lang = 'tsx' }: { code: string; lang?: string }) {
   return (
     <div className="relative rounded-md overflow-hidden border border-[var(--cc-hairline-strong)]/40">
       <div className="flex items-center justify-between px-4 py-2 bg-[var(--cc-canvas)]/60 border-b border-[var(--cc-hairline-strong)]/40">
-        <span className="text-[10px] text-[var(--cc-body)] font-mono">{lang}</span>
+        <span className="text-[12px] text-[var(--cc-body)] font-mono">{lang}</span>
         <button
           onClick={handleCopy}
-          className={`text-[10px] px-2 py-0.5 rounded transition-all ${
+          className={`text-[12px] px-2 py-1 rounded transition-all ${
             copied ? 'text-[var(--cc-success)] bg-[var(--cc-success)]/15' : 'text-[var(--cc-body)] hover:text-[var(--cc-body)]'
           }`}
         >
@@ -134,14 +134,14 @@ function ComponentShowcase({
     <div className={`${theme.card} backdrop-blur-xl rounded-[var(--cc-radius-md)] border ${theme.border} overflow-hidden`}>
       <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/30 flex items-center justify-between">
         <div>
-          <h3 className={`text-lg font-semibold tracking-tighter ${theme.text}`}>{title}</h3>
+          <h3 className={`text-lg font-semibold tracking-tight ${theme.text}`}>{title}</h3>
           <p className="text-xs text-[var(--cc-body)] mt-0.5">{description}</p>
         </div>
         <button
           onClick={() => setShowCode(!showCode)}
           className={`text-xs px-3 py-1.5 rounded-lg transition-all ${
             showCode
-              ? 'bg-brand-500/15 text-brand-400 border border-brand-500/30'
+              ? 'bg-brand-500/15 text-[var(--cc-primary)] border border-[var(--cc-primary)]/30'
               : 'bg-[var(--cc-canvas-soft-2)]/40 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)]'
           }`}
         >
@@ -180,7 +180,7 @@ export default function ComponentsPage() {
 
         {/* ── Header ── */}
         <div className="text-center space-y-2">
-          <h1 className="text-3xl font-semibold tracking-tighter bg-gradient-to-r from-brand-500 via-brand-400 to-brand-300 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-semibold tracking-tight bg-gradient-to-r from-brand-500 via-brand-400 to-brand-300 bg-clip-text text-transparent">
             Component Gallery
           </h1>
           <p className="text-[var(--cc-muted)] text-sm">Browse all Cinacoin components with live theme previews</p>
@@ -189,7 +189,7 @@ export default function ComponentsPage() {
         {/* ── Theme Switcher ── */}
         <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
           <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
-            <h2 className="text-lg font-semibold tracking-tighter text-[var(--cc-ink)]">🎨 Theme Preview</h2>
+            <h2 className="text-lg font-semibold tracking-tight text-[var(--cc-ink)]">🎨 Theme Preview</h2>
             <p className="text-xs text-[var(--cc-body)] mt-1">Switch themes to see all components update in real-time</p>
           </div>
           <div className="p-5">
@@ -220,22 +220,22 @@ export default function ComponentsPage() {
             <div className="space-y-4">
               {/* Variants */}
               <div className="flex flex-wrap gap-3 items-center">
-                <button className="px-5 py-2.5 rounded-[100px] font-semibold text-sm bg-[var(--cc-primary)] text-[var(--cc-on-primary)] shadow-[0_4px_12px_rgba(99,102,241,0.25),0_2px_4px_rgba(99,102,241,0.15)] hover:shadow-[0_6px_16px_rgba(99,102,241,0.4),0_2px_6px_rgba(99,102,241,0.2)] transition-all hover:-translate-y-0.5">
+                <button className="px-5 py-3 rounded-[100px] font-semibold text-sm bg-[var(--cc-primary)] text-[var(--cc-on-primary)] shadow-[0_4px_12px_rgba(99,102,241,0.25),0_2px_4px_rgba(99,102,241,0.15)] hover:shadow-[0_6px_16px_rgba(99,102,241,0.4),0_2px_6px_rgba(99,102,241,0.2)] transition-all hover:-translate-y-0.5">
                   Primary
                 </button>
-                <button className="px-5 py-2.5 rounded-md font-semibold text-sm bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all">
+                <button className="px-5 py-3 rounded-md font-semibold text-sm bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all">
                   Secondary
                 </button>
-                <button className="px-5 py-2.5 rounded-md font-semibold text-sm text-brand-400 hover:text-brand-300 transition-colors">
+                <button className="px-5 py-3 rounded-md font-semibold text-sm text-[var(--cc-primary)] hover:text-[var(--cc-ink)] transition-colors">
                   Ghost
                 </button>
-                <button className="px-5 py-2.5 rounded-md font-semibold text-sm bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-red-500/25 hover:bg-[var(--cc-error)]/25 transition-all">
+                <button className="px-5 py-3 rounded-md font-semibold text-sm bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-red-500/25 hover:bg-[var(--cc-error)]/25 transition-all">
                   Danger
                 </button>
-                <button className="px-5 py-2.5 rounded-md font-semibold text-sm bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-emerald-500/25 hover:bg-[var(--cc-success)]/25 transition-all">
+                <button className="px-5 py-3 rounded-md font-semibold text-sm bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-emerald-500/25 hover:bg-[var(--cc-success)]/25 transition-all">
                   Success
                 </button>
-                <button disabled className="px-5 py-2.5 rounded-md font-semibold text-sm bg-[var(--cc-canvas-soft-2)]/40 text-[var(--cc-body)] cursor-not-allowed">
+                <button disabled className="px-5 py-3 rounded-md font-semibold text-sm bg-[var(--cc-canvas-soft-2)]/40 text-[var(--cc-body)] cursor-not-allowed">
                   Disabled
                 </button>
               </div>
@@ -245,7 +245,7 @@ export default function ComponentsPage() {
                 <button className="px-3 py-1.5 rounded-[100px] text-xs font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)]">
                   Small
                 </button>
-                <button className="px-5 py-2.5 rounded-[100px] text-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)]">
+                <button className="px-5 py-3 rounded-[100px] text-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)]">
                   Medium
                 </button>
                 <button className="px-8 py-4 rounded-[100px] text-base font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)]">
@@ -258,7 +258,7 @@ export default function ComponentsPage() {
                 <button className="size-10 rounded-md bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-muted)] transition-all flex items-center justify-center text-lg">
                   🔗
                 </button>
-                <button className="size-10 rounded-md bg-brand-500/15 text-blue-400 hover:bg-brand-500/25 border border-[var(--cc-primary)]/25 transition-all flex items-center justify-center text-lg">
+                <button className="size-10 rounded-md bg-brand-500/15 text-[var(--cc-link)] hover:bg-brand-500/25 border border-[var(--cc-primary)]/25 transition-all flex items-center justify-center text-lg">
                   🔄
                 </button>
                 <button className="size-10 rounded-md bg-[var(--cc-success)]/15 text-[var(--cc-success)] hover:bg-[var(--cc-success)]/25 border border-emerald-500/25 transition-all flex items-center justify-center text-lg">
@@ -268,26 +268,26 @@ export default function ComponentsPage() {
             </div>
           }
           code={`// Primary Button
-<button className="px-5 py-2.5 rounded-md font-semibold text-sm
+<button className="px-5 py-3 rounded-md font-semibold text-sm
   bg-gradient-to-r from-brand-600 to-brand-500 text-[var(--cc-on-primary)]
   shadow-[0_4px_12px_rgba(99,102,241,0.25)]">
   Connect Wallet
 </button>
 
 // Secondary Button
-<button className="px-5 py-2.5 rounded-md font-semibold text-sm
+<button className="px-5 py-3 rounded-md font-semibold text-sm
   bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/40">
   Cancel
 </button>
 
 // Ghost Button
-<button className="px-5 py-2.5 rounded-md font-semibold text-sm
-  text-brand-400 hover:text-brand-300">
+<button className="px-5 py-3 rounded-md font-semibold text-sm
+  text-[var(--cc-primary)] hover:text-[var(--cc-ink)]">
   Learn More
 </button>
 
 // Danger Button
-<button className="px-5 py-2.5 rounded-md font-semibold text-sm
+<button className="px-5 py-3 rounded-md font-semibold text-sm
   bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-red-500/25">
   Delete
 </button>
@@ -304,7 +304,7 @@ export default function ComponentsPage() {
             <div className="space-y-3">
               {isConnected ? (
                 <div className="flex items-center gap-4 p-4 rounded-md bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/40">
-                  <div className="size-12 rounded-full bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-sm font-semibold tracking-tighter text-[var(--cc-ink)] shadow-[0_4px_12px_rgba(99,102,241,0.25),0_2px_4px_rgba(99,102,241,0.15)]">
+                  <div className="size-12 rounded-full bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-sm font-semibold tracking-tight text-[var(--cc-ink)] shadow-[0_4px_12px_rgba(99,102,241,0.25),0_2px_4px_rgba(99,102,241,0.15)]">
                     {account.address?.slice(2, 4).toUpperCase()}
                   </div>
                   <div className="flex-1 min-w-0">
@@ -317,7 +317,7 @@ export default function ComponentsPage() {
                 </div>
               ) : (
                 <div className="flex items-center gap-4 p-4 rounded-md bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/40">
-                  <div className="size-12 rounded-full bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-sm font-semibold tracking-tighter text-[var(--cc-ink)]">
+                  <div className="size-12 rounded-full bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-sm font-semibold tracking-tight text-[var(--cc-ink)]">
                     00
                   </div>
                   <div className="flex-1">
@@ -337,7 +337,7 @@ export default function ComponentsPage() {
   {/* Avatar */}
   <div className="size-12 rounded-full bg-gradient-to-br
     from-brand-500 to-brand-600 flex items-center justify-center
-    text-sm font-semibold tracking-tighter text-[var(--cc-ink)]">
+    text-sm font-semibold tracking-tight text-[var(--cc-ink)]">
     {address.slice(2, 4).toUpperCase()}
   </div>
 
@@ -368,15 +368,15 @@ export default function ComponentsPage() {
               <div className="flex flex-wrap gap-3">
                 {/* Connection status */}
                 <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-green-500/15 text-green-400 border border-green-500/25">
-                  <span className="size-1.5 rounded-full bg-green-400 animate-pulse" />
+                  <span className="size-3 rounded-full bg-green-400 animate-pulse" />
                   Connected
                 </span>
                 <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border border-yellow-500/25">
-                  <span className="size-1.5 rounded-full bg-yellow-400 animate-pulse" />
+                  <span className="size-3 rounded-full bg-yellow-400 animate-pulse" />
                   Connecting...
                 </span>
                 <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/40">
-                  <span className="size-1.5 rounded-full bg-gray-500" />
+                  <span className="size-3 rounded-full bg-[var(--cc-muted)]" />
                   Disconnected
                 </span>
               </div>
@@ -387,7 +387,7 @@ export default function ComponentsPage() {
                   ✓ Completed
                 </span>
                 <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border border-amber-500/25">
-                  <span className="size-1.5 rounded-full bg-amber-400 animate-pulse" />
+                  <span className="size-3 rounded-full bg-amber-400 animate-pulse" />
                   Pending
                 </span>
                 <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-red-500/25">
@@ -403,7 +403,7 @@ export default function ComponentsPage() {
                 <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-red-500/25">
                   ✗ Down
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono bg-brand-500/15 text-brand-400 border border-brand-500/25">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono bg-brand-500/15 text-[var(--cc-primary)] border border-brand-500/25">
                   142ms
                 </span>
               </div>
@@ -413,7 +413,7 @@ export default function ComponentsPage() {
 <span className="inline-flex items-center gap-1.5 px-3 py-1.5
   rounded-full text-xs font-semibold
   bg-green-500/15 text-green-400 border border-green-500/25">
-  <span className="size-1.5 rounded-full bg-green-400 animate-pulse" />
+  <span className="size-3 rounded-full bg-green-400 animate-pulse" />
   Connected
 </span>
 
@@ -421,14 +421,14 @@ export default function ComponentsPage() {
 <span className="inline-flex items-center gap-1.5 px-3 py-1.5
   rounded-full text-xs font-semibold
   bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border border-amber-500/25">
-  <span className="size-1.5 rounded-full bg-amber-400 animate-pulse" />
+  <span className="size-3 rounded-full bg-amber-400 animate-pulse" />
   Pending
 </span>
 
 // Latency Badge
 <span className="inline-flex items-center gap-1.5 px-3 py-1.5
   rounded-full text-xs font-mono
-  bg-brand-500/15 text-brand-400 border border-brand-500/25">
+  bg-brand-500/15 text-[var(--cc-primary)] border border-brand-500/25">
   142ms
 </span>`}
         />
@@ -455,7 +455,7 @@ export default function ComponentsPage() {
                   className="group flex items-center gap-2 px-3 py-2 rounded-md bg-[var(--cc-canvas)]/80 border border-[var(--cc-hairline)] hover:border-[var(--cc-hairline-strong)] transition-colors cursor-default shrink-0"
                 >
                   <span
-                    className="inline-flex size-5 items-center justify-center rounded-full text-[10px] font-semibold tracking-tighter text-[var(--cc-ink)]"
+                    className="inline-flex size-6 items-center justify-center rounded-full text-[12px] font-semibold tracking-tight text-[var(--cc-ink)]"
                     style={{ backgroundColor: c.color }}
                   >
                     {c.initial}
@@ -471,8 +471,8 @@ export default function ComponentsPage() {
 <div className="flex items-center gap-2 px-3 py-2 rounded-md
   bg-[var(--cc-canvas)]/80 border border-[var(--cc-hairline)] hover:border-[var(--cc-hairline-strong)]
   transition-colors cursor-default shrink-0">
-  <span className="inline-flex size-5 items-center justify-center
-    rounded-full text-[10px] font-semibold tracking-tighter text-[var(--cc-ink)]"
+  <span className="inline-flex size-6 items-center justify-center
+    rounded-full text-[12px] font-semibold tracking-tight text-[var(--cc-ink)]"
     style={{ backgroundColor: chainColor }}>
     {chain.initial}
   </span>
@@ -533,7 +533,7 @@ function ToggleSwitch({ checked, onChange }) {
                 <input
                   type="text"
                   placeholder="0x..."
-                  className="w-full px-4 py-2.5 bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/50 rounded-md text-sm text-[var(--cc-body)] placeholder:text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-brand-500/40 focus:border-[var(--cc-primary)]/50 font-mono"
+                  className="w-full px-4 py-3 bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/50 rounded-md text-sm text-[var(--cc-body)] placeholder:text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-brand-500/40 focus:border-[var(--cc-primary)]/50 font-mono"
                   readOnly
                   defaultValue="0x1a2b3c4d5e6f7890abcdef1234567890abcdef12"
                 />
@@ -545,7 +545,7 @@ function ToggleSwitch({ checked, onChange }) {
                 <input
                   type="text"
                   placeholder="Search by name, symbol, or address..."
-                  className="w-full px-4 py-2.5 pl-10 bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/50 rounded-md text-sm text-[var(--cc-body)] placeholder:text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+                  className="w-full px-4 py-3 pl-10 bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/50 rounded-md text-sm text-[var(--cc-body)] placeholder:text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-brand-500/40"
                 />
                 <span className="absolute left-3 top-9 text-[var(--cc-body)]">🔍</span>
               </div>
@@ -553,7 +553,7 @@ function ToggleSwitch({ checked, onChange }) {
               {/* Select */}
               <div className="relative">
                 <label className="text-sm text-[var(--cc-muted)] mb-1 block">Network</label>
-                <select className="w-full px-4 py-2.5 bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/50 rounded-md text-sm text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-brand-500/40 appearance-none cursor-pointer">
+                <select className="w-full px-4 py-3 bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/50 rounded-md text-sm text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-brand-500/40 appearance-none cursor-pointer">
                   <option>Ethereum</option>
                   <option>Polygon</option>
                   <option>Arbitrum</option>
@@ -567,7 +567,7 @@ function ToggleSwitch({ checked, onChange }) {
 <input
   type="text"
   placeholder="0x..."
-  className="w-full px-4 py-2.5 bg-[var(--cc-canvas)]/60 border
+  className="w-full px-4 py-3 bg-[var(--cc-canvas)]/60 border
     border-[var(--cc-hairline-strong)]/50 rounded-md text-sm text-[var(--cc-body)]
     placeholder:text-[var(--cc-body)] focus:outline-none
     focus:ring-2 focus:ring-brand-500/40 font-mono"
@@ -575,7 +575,7 @@ function ToggleSwitch({ checked, onChange }) {
 
 // Search Input with icon
 <div className="relative">
-  <input placeholder="Search..." className="w-full px-4 py-2.5
+  <input placeholder="Search..." className="w-full px-4 py-3
     pl-10 bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/50 rounded-md
     text-sm placeholder:text-[var(--cc-body)] focus:outline-none
     focus:ring-2 focus:ring-brand-500/40" />
@@ -584,7 +584,7 @@ function ToggleSwitch({ checked, onChange }) {
 </div>
 
 // Select Dropdown
-<select className="w-full px-4 py-2.5 bg-[var(--cc-canvas)]/60 border
+<select className="w-full px-4 py-3 bg-[var(--cc-canvas)]/60 border
   border-[var(--cc-hairline-strong)]/50 rounded-md text-sm appearance-none
   focus:outline-none focus:ring-2 focus:ring-brand-500/40">
   <option>Ethereum</option>
@@ -624,10 +624,10 @@ function ToggleSwitch({ checked, onChange }) {
                   { value: '$0', label: 'Cost' },
                 ].map((s) => (
                   <div key={s.label} className="text-center p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline)]/50">
-                    <div className="text-xl font-semibold tracking-tighter bg-gradient-to-r from-brand-400 to-brand-300 bg-clip-text text-transparent">
+                    <div className="text-xl font-semibold tracking-tight bg-gradient-to-r from-brand-400 to-brand-300 bg-clip-text text-transparent">
                       {s.value}
                     </div>
-                    <div className="text-[10px] text-[var(--cc-body)] mt-1">{s.label}</div>
+                    <div className="text-[12px] text-[var(--cc-body)] mt-1">{s.label}</div>
                   </div>
                 ))}
               </div>
@@ -645,11 +645,11 @@ function ToggleSwitch({ checked, onChange }) {
 // Stat Card
 <div className="text-center p-3 rounded-md bg-[var(--cc-canvas)]/50
   border border-[var(--cc-hairline)]/50">
-  <div className="text-xl font-semibold tracking-tighter bg-gradient-to-r
+  <div className="text-xl font-semibold tracking-tight bg-gradient-to-r
     from-brand-400 to-brand-300 bg-clip-text text-transparent">
     {value}
   </div>
-  <div className="text-[10px] text-[var(--cc-body)] mt-1">{label}</div>
+  <div className="text-[12px] text-[var(--cc-body)] mt-1">{label}</div>
 </div>`}
         />
 
@@ -662,21 +662,21 @@ function ToggleSwitch({ checked, onChange }) {
             <div className="space-y-4">
               {/* Spinners */}
               <div className="flex flex-wrap gap-6 items-center">
-                <svg className="animate-spin h-6 w-6 text-brand-400" viewBox="0 0 24 24" fill="none">
+                <svg className="animate-spin h-6 w-6 text-[var(--cc-primary)]" viewBox="0 0 24 24" fill="none">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                 </svg>
                 <span className="inline-flex items-center gap-2 text-sm text-[var(--cc-muted)]">
-                  <svg className="animate-spin h-4 w-4 text-brand-400" viewBox="0 0 24 24" fill="none">
+                  <svg className="animate-spin h-4 w-4 text-[var(--cc-primary)]" viewBox="0 0 24 24" fill="none">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                   </svg>
                   Connecting...
                 </span>
                 <div className="flex gap-1">
-                  <div className="size-2 rounded-full bg-blue-400 animate-bounce" style={{ animationDelay: '0ms' }} />
-                  <div className="size-2 rounded-full bg-blue-400 animate-bounce" style={{ animationDelay: '150ms' }} />
-                  <div className="size-2 rounded-full bg-blue-400 animate-bounce" style={{ animationDelay: '300ms' }} />
+                  <div className="size-3 rounded-full bg-[var(--cc-link)] animate-bounce" style={{ animationDelay: '0ms' }} />
+                  <div className="size-3 rounded-full bg-[var(--cc-link)] animate-bounce" style={{ animationDelay: '150ms' }} />
+                  <div className="size-3 rounded-full bg-[var(--cc-link)] animate-bounce" style={{ animationDelay: '300ms' }} />
                 </div>
               </div>
 
@@ -699,7 +699,7 @@ function ToggleSwitch({ checked, onChange }) {
             </div>
           }
           code={`// Spinner
-<svg className="animate-spin h-6 w-6 text-blue-400"
+<svg className="animate-spin h-6 w-6 text-[var(--cc-link)]"
   viewBox="0 0 24 24" fill="none">
   <circle className="opacity-25" cx="12" cy="12" r="10"
     stroke="currentColor" strokeWidth="4" />
@@ -716,11 +716,11 @@ function ToggleSwitch({ checked, onChange }) {
 
 // Dot loading
 <div className="flex gap-1">
-  <div className="size-2 rounded-full bg-blue-400 animate-bounce"
+  <div className="size-3 rounded-full bg-[var(--cc-link)] animate-bounce"
     style={{ animationDelay: '0ms' }} />
-  <div className="size-2 rounded-full bg-blue-400 animate-bounce"
+  <div className="size-3 rounded-full bg-[var(--cc-link)] animate-bounce"
     style={{ animationDelay: '150ms' }} />
-  <div className="size-2 rounded-full bg-blue-400 animate-bounce"
+  <div className="size-3 rounded-full bg-[var(--cc-link)] animate-bounce"
     style={{ animationDelay: '300ms' }} />
 </div>`}
         />
@@ -735,7 +735,7 @@ function ToggleSwitch({ checked, onChange }) {
               {[
                 { type: 'Success', icon: '✓', bg: 'bg-[var(--cc-success)]/15', border: 'border-emerald-500/25', text: 'text-[var(--cc-success)]', desc: 'Transaction completed successfully' },
                 { type: 'Error', icon: '✗', bg: 'bg-[var(--cc-error)]/15', border: 'border-red-500/25', text: 'text-[var(--cc-error)]', desc: 'Connection failed: User rejected' },
-                { type: 'Info', icon: 'ℹ', bg: 'bg-brand-500/15', border: 'border-[var(--cc-primary)]/25', text: 'text-blue-400', desc: 'Switching to Polygon network' },
+                { type: 'Info', icon: 'ℹ', bg: 'bg-brand-500/15', border: 'border-[var(--cc-primary)]/25', text: 'text-[var(--cc-link)]', desc: 'Switching to Polygon network' },
                 { type: 'Warning', icon: '⚠', bg: 'bg-[var(--cc-warning)]/15', border: 'border-amber-500/25', text: 'text-[var(--cc-warning)]', desc: 'High gas prices detected' },
               ].map((t) => (
                 <div key={t.type} className={`p-3 rounded-md ${t.bg} border ${t.border} flex items-start gap-3`}>

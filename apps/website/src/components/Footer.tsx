@@ -42,9 +42,9 @@ export default function Footer() {
           {/* Brand */}
           <FadeIn direction="up" duration={600}>
             <div className="col-span-2 md:col-span-1">
-              <div className="flex items-center gap-2.5">
+              <div className="flex items-center gap-3">
                 <div className="h-7 w-7 rounded-md bg-[var(--cc-primary)]" />
-                <span className="text-[15px] font-semibold text-[var(--cc-ink)]">Cinacoin</span>
+                <span className="text-[16px] font-semibold text-[var(--cc-ink)]">Cinacoin</span>
               </div>
               <p className="mt-4 cc-body-sm text-[var(--cc-muted)]">{t('footer-brand')}</p>
             </div>
