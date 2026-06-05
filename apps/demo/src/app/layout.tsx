@@ -1,13 +1,21 @@
 import type { Metadata, Viewport } from 'next';
+import { Inter, JetBrains_Mono } from 'next/font/google';
 import { ToastProvider } from '@/lib/toast';
 import { WorkerHealthProvider } from '@/lib/WorkerHealthProvider';
+import { Providers } from '@/providers';
 import './globals.css';
+
+const inter = Inter({ subsets: ['latin'] });
+const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'] });
 
 const siteUrl = 'https://demo.cinacoin.com';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: 'Cinacoin — Wallet Connection Toolkit',
+  title: {
+    template: '%s | Cinacoin',
+    default: 'Cinacoin — Wallet Connection Toolkit',
+  },
   description: 'Open-source wallet connection toolkit for 16 chains. Connect wallets, swap tokens, bridge chains. Self-hosted, zero vendor lock-in.',
   keywords: ['wallet', 'Web3', 'blockchain', 'cross-chain', 'Cinacoin', 'SDK'],
   authors: [{ name: 'Cinacoin' }],
@@ -46,9 +54,9 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: dark)', color: '#030712' },
+    { media: '(prefers-color-scheme: dark)', color: '#0a0a0a' },
+    { media: '(prefers-color-scheme: light)', color: '#fafafa' },
   ],
-  colorScheme: 'dark',
 };
 
 export default function RootLayout({
@@ -57,15 +65,16 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="dark">
-      <body className="bg-gray-950">
-        <ToastProvider>
-          <WorkerHealthProvider>
-            {children}
-          </WorkerHealthProvider>
-        </ToastProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.className} bg-[var(--cc-canvas-soft)] text-[var(--cc-ink)]`}>
+        <Providers>
+          <ToastProvider>
+            <WorkerHealthProvider>
+              {children}
+            </WorkerHealthProvider>
+          </ToastProvider>
+        </Providers>
       </body>
     </html>
   )
 }
-

@@ -1,359 +1,410 @@
-# 快速开始 — React
+# Cinacoin React/Next.js Quickstart Guide
 
-> 5 分钟从零到钱包连接。适用于 React 18+ 和 Next.js。
+This guide will help you integrate Cinacoin into your React/Next.js application in under 5 minutes. Cinacoin is a self-hosted wallet connection toolkit that provides a white-label UI for connecting, managing, and interacting with crypto wallets across multiple chains.
 
-## 概述
+## Overview
 
-本指南帮助你在 React 应用中快速集成 Cinacoin SDK，实现：
+Cinacoin provides:
+- **React components** for wallet connection, chain switching, and account management
+- **React hooks** for accessing wallet state and performing blockchain operations
+- **Multi-chain support** with built-in EVM, Cosmos, Solana, and other chain adapters
+- **White-label UI** that can be fully customized to match your brand
+- **EIP-5792 support** for advanced wallet capabilities like atomic batch transactions
 
-- ✅ 钱包连接（MetaMask、WalletConnect、Coinbase 等）
-- ✅ 账户状态管理
-- ✅ 消息签名
-- ✅ 多链切换
+## Environment Setup
 
-**预计完成时间：** 5 分钟
+Before starting, ensure you have the following prerequisites:
 
----
-
-## 前置条件
-
-- **Node.js** ≥ 18.x
-- **npm** ≥ 9.x / **pnpm** ≥ 8.x / **yarn** ≥ 1.22.x
-- **React** ≥ 18.x（支持 Hooks）
-- 已有 Vite / Next.js / CRA 项目，或准备从零创建
-
----
-
-## 第一步：安装
+- **Node.js**: Version 18 or higher (v18.17.0+ recommended)
+- **Package Manager**: pnpm (recommended), npm, or yarn
+- **TypeScript**: Version 5.0 or higher
 
 ```bash
-# 新建项目（如已有项目则跳过）
-npm create vite@latest my-dapp -- --template react-ts
-cd my-dapp
+# Verify your Node.js version
+node --version
+# Should output: v18.x.x or higher
 
-# 安装核心 SDK 和 React 适配器
-npm install @cinacoin/core-sdk @cinacoin/react
-
-# 或使用 pnpm / yarn
-# pnpm add @cinacoin/core-sdk @cinacoin/react
-# yarn add @cinacoin/core-sdk @cinacoin/react
+# Install pnpm if you don't have it
+npm install -g pnpm
 ```
 
-### 依赖说明
+## 5-Minute Quick Start
 
-| 包名 | 说明 | 是否必选 |
-|------|------|----------|
-| `@cinacoin/core-sdk` | 核心 SDK，管理连接和链适配器 | ✅ 必选 |
-| `@cinacoin/react` | React 适配层，提供 Hooks 和组件 | ✅ 必选 |
-| `viem` | EVM 交易处理（peer dependency） | 推荐 |
-| `wagmi` | React 链状态管理（peer dependency） | 推荐 |
+### Step 1: Create a Next.js Project
 
----
+Create a new Next.js project with TypeScript support:
 
-## 第二步：配置 CinacoinProvider
-
-在应用入口（或根布局）使用 `CinacoinProvider` 包裹整个应用：
-
-```tsx
-// src/main.tsx
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import { CinacoinProvider } from '@cinacoin/react'
-import App from './App'
-import './index.css'
-
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <CinacoinProvider
-      config={{
-        // 项目标识 — 用于 analytics 和会话管理
-        projectId: 'your-project-id',
-
-        // 自建 Relay 服务器地址
-        // 测试环境可使用公共节点: wss://relay-test.cinacoin.com/v1
-        relayUrl: 'wss://relay.yourdomain.com/v1',
-
-        // 支持的链列表
-        chains: [
-          {
-            id: 1,
-            name: 'Ethereum',
-            nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
-            rpcUrl: 'https://rpc.yourdomain.com/eth',
-          },
-          {
-            id: 137,
-            name: 'Polygon',
-            nativeCurrency: { name: 'MATIC', symbol: 'MATIC', decimals: 18 },
-            rpcUrl: 'https://rpc.yourdomain.com/polygon',
-          },
-          {
-            id: 10,
-            name: 'Optimism',
-            nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
-            rpcUrl: 'https://rpc.yourdomain.com/optimism',
-          },
-        ],
-
-        // 应用元数据（展示在钱包连接界面）
-        metadata: {
-          name: 'My dApp',
-          description: 'My awesome decentralized application',
-          url: 'https://mydapp.com',
-          icons: ['https://mydapp.com/icon.png'],
-        },
-      }}
-    >
-      <App />
-    </CinacoinProvider>
-  </React.StrictMode>,
-)
+```bash
+pnpm create next-app@latest my-cinacoin-app --use-pnpm --typescript
+cd my-cinacoin-app
 ```
 
-### Next.js App Router 配置
+### Step 2: Install Cinacoin Dependencies
 
-```tsx
-// app/providers.tsx
-'use client'
+Install the Cinacoin React adapter and core SDK:
 
-import { CinacoinProvider } from '@cinacoin/react'
-
-export function Providers({ children }: { children: React.ReactNode }) {
-  return (
-    <CinacoinProvider config={{
-      projectId: 'your-project-id',
-      relayUrl: 'wss://relay.yourdomain.com/v1',
-      chains: [{
-        id: 1, name: 'Ethereum',
-        nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
-        rpcUrl: 'https://rpc.yourdomain.com/eth',
-      }],
-    }}>
-      {children}
-    </CinacoinProvider>
-  )
-}
+```bash
+pnpm add @cinacoin/react @cinacoin/core-sdk
 ```
 
-```tsx
-// app/layout.tsx
-import { Providers } from './providers'
+### Step 3: Basic Configuration
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+Create a configuration object with your project settings. You'll need:
+
+- **Project ID**: Your unique identifier (use "demo_project_id" for testing)
+- **Chains**: Array of supported blockchain networks
+- **Theme**: UI appearance settings
+
+### Step 4: ConnectButton Component Usage
+
+The `ConnectButton` component provides a ready-to-use wallet connection button with full customization options.
+
+### Step 5: useAccount and useDisconnect Hooks
+
+Use these hooks to access account information and manage wallet disconnection.
+
+## Complete Example
+
+Here's a complete working example for a Next.js App Router project:
+
+### App Layout (`app/layout.tsx`)
+
+```tsx
+'use client';
+
+import React from 'react';
+import type { CinacoinConfig } from '@cinacoin/react';
+import { CinacoinProvider } from '@cinacoin/react';
+
+// Replace with your actual project ID
+const projectId = process.env.NEXT_PUBLIC_PROJECT_ID ?? 'demo_project_id';
+
+const config: CinacoinConfig = {
+  projectId,
+  metadata: {
+    name: 'My dApp',
+    description: 'My awesome decentralized application',
+    url: 'https://mydapp.com',
+    icons: ['https://mydapp.com/icon.png'],
+  },
+  chains: [
+    {
+      id: 1,
+      name: 'Ethereum',
+      rpcUrl: 'https://cloudflare-eth.com',
+      nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
+      blockExplorerUrl: 'https://etherscan.io',
+    },
+    {
+      id: 137,
+      name: 'Polygon',
+      rpcUrl: 'https://polygon-rpc.com',
+      nativeCurrency: { name: 'MATIC', symbol: 'MATIC', decimals: 18 },
+      blockExplorerUrl: 'https://polygonscan.com',
+    },
+    {
+      id: 11155111,
+      name: 'Sepolia',
+      rpcUrl: 'https://rpc.sepolia.org',
+      nativeCurrency: { name: 'Sepolia ETH', symbol: 'ETH', decimals: 18 },
+      blockExplorerUrl: 'https://sepolia.etherscan.io',
+      testnet: true,
+    },
+  ],
+  theme: {
+    mode: 'dark',
+  },
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <body>
-        <Providers>{children}</Providers>
+        <CinacoinProvider config={config}>
+          {children}
+        </CinacoinProvider>
       </body>
     </html>
-  )
+  );
 }
 ```
 
----
-
-## 第三步：添加连接按钮
-
-`ConnectButton` 是开箱即用的钱包连接组件：
+### Home Page (`app/page.tsx`)
 
 ```tsx
-// src/App.tsx
-import { ConnectButton } from '@cinacoin/react'
+'use client';
 
-function App() {
+import React from 'react';
+import { ConnectButton, useAccount, useDisconnect } from '@cinacoin/react';
+
+export default function HomePage() {
+  const { address, isConnected } = useAccount();
+  const { disconnect } = useDisconnect();
+
   return (
     <div style={{ padding: '2rem' }}>
-      <h1>🔢 My dApp</h1>
-      <ConnectButton />
-    </div>
-  )
-}
-
-export default App
-```
-
-运行应用：
-
-```bash
-npm run dev
-```
-
-打开 `http://localhost:5173`，点击 **Connect Wallet**，选择钱包即可连接。
-
----
-
-## 第四步：使用 Hooks 管理状态
-
-Cinacoin React 提供了一组 Hooks 用于访问连接状态：
-
-```tsx
-// src/WalletInfo.tsx
-import { useAccount, useConnect, useDisconnect } from '@cinacoin/react'
-
-export function WalletInfo() {
-  const account = useAccount()
-  const { connect, connectors, status } = useConnect()
-  const { disconnect } = useDisconnect()
-
-  if (!account.address) {
-    return (
-      <div>
-        <h3>连接钱包</h3>
-        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-          {connectors.map((connector) => (
-            <button
-              key={connector.id}
-              onClick={() => connect({ connector })}
-              disabled={status === 'connecting'}
-            >
-              {connector.name}
-            </button>
-          ))}
-        </div>
-      </div>
-    )
-  }
-
-  return (
-    <div>
-      <h3>✅ 已连接</h3>
-      <p><strong>地址:</strong> <code>{account.address}</code></p>
-      <p><strong>余额:</strong> {account.formattedBalance} {account.chainSymbol}</p>
-      <p><strong>链:</strong> {account.chainName} (ID: {account.chainId})</p>
-      <button onClick={() => disconnect()}>断开连接</button>
-    </div>
-  )
-}
-```
-
-### 签名消息
-
-```tsx
-// src/SignMessage.tsx
-import { useState } from 'react'
-import { useAccount, useSignMessage } from '@cinacoin/react'
-
-export function SignMessage() {
-  const { address } = useAccount()
-  const { signMessage, isPending, isSuccess, data } = useSignMessage()
-  const [message, setMessage] = useState('Hello Cinacoin!')
-
-  const handleSign = () => {
-    signMessage({ message })
-  }
-
-  if (!address) return <p>请先连接钱包</p>
-
-  return (
-    <div>
-      <input
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        placeholder="Enter message to sign"
+      <h1>Cinacoin Quickstart Demo</h1>
+      
+      {/* Connect Button */}
+      <ConnectButton 
+        label="Connect Wallet"
+        variant="primary"
+        size="md"
+        showAvatar
+        showNetwork
       />
-      <button onClick={handleSign} disabled={isPending}>
-        {isPending ? 'Signing...' : 'Sign Message'}
-      </button>
-      {isSuccess && (
-        <div>
-          <p>✅ 签名成功</p>
-          <code style={{ wordBreak: 'break-all' }}>{data}</code>
+      
+      {/* Account Info */}
+      {isConnected && address && (
+        <div style={{ marginTop: '1rem' }}>
+          <p>Connected: {address}</p>
+          <button 
+            onClick={() => disconnect()}
+            style={{ 
+              background: '#dc2626', 
+              color: 'white', 
+              border: 'none', 
+              padding: '0.5rem 1rem',
+              borderRadius: '4px',
+              cursor: 'pointer'
+            }}
+          >
+            Disconnect
+          </button>
         </div>
       )}
     </div>
-  )
+  );
 }
 ```
 
-### 完整 Dashboard 示例
+## Project Structure
+
+A typical Cinacoin-integrated Next.js project structure looks like this:
+
+```
+my-cinacoin-app/
+├── app/
+│   ├── layout.tsx          # Root layout with CinacoinProvider
+│   ├── page.tsx            # Main page with ConnectButton
+│   └── components/         # Custom components using Cinacoin hooks
+├── public/
+├── .env.local             # Environment variables (NEXT_PUBLIC_PROJECT_ID)
+├── package.json
+└── tsconfig.json
+```
+
+## Multi-Chain Configuration
+
+Cinacoin supports multiple chains out of the box. Add any EVM-compatible chain to your configuration:
 
 ```tsx
-// src/Dashboard.tsx
-import {
-  useAccount, useBalance, useConnect,
-  useDisconnect, useSwitchChain,
-} from '@cinacoin/react'
+const config: CinacoinConfig = {
+  // ... other config
+  chains: [
+    // Ethereum Mainnet
+    {
+      id: 1,
+      name: 'Ethereum',
+      rpcUrl: 'https://cloudflare-eth.com',
+      nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
+      blockExplorerUrl: 'https://etherscan.io',
+    },
+    // Polygon
+    {
+      id: 137,
+      name: 'Polygon',
+      rpcUrl: 'https://polygon-rpc.com',
+      nativeCurrency: { name: 'MATIC', symbol: 'MATIC', decimals: 18 },
+      blockExplorerUrl: 'https://polygonscan.com',
+    },
+    // Arbitrum
+    {
+      id: 42161,
+      name: 'Arbitrum',
+      rpcUrl: 'https://arb1.arbitrum.io/rpc',
+      nativeCurrency: { name: 'Arbitrum ETH', symbol: 'ETH', decimals: 18 },
+      blockExplorerUrl: 'https://arbiscan.io',
+    },
+    // Optimism
+    {
+      id: 10,
+      name: 'Optimism',
+      rpcUrl: 'https://mainnet.optimism.io',
+      nativeCurrency: { name: 'Optimism ETH', symbol: 'ETH', decimals: 18 },
+      blockExplorerUrl: 'https://optimistic.etherscan.io',
+    },
+  ],
+};
+```
 
-export function Dashboard() {
-  const account = useAccount()
-  const balance = useBalance({ address: account.address })
-  const { connect, connectors } = useConnect()
-  const { disconnect } = useDisconnect()
-  const { chains, switchChain } = useSwitchChain()
+## Wallet Customization
 
-  if (!account.address) {
-    return (
-      <div>
-        <h2>选择钱包</h2>
-        {connectors.map((c) => (
-          <button key={c.id} onClick={() => connect({ connector: c })}>
-            {c.name}
-          </button>
-        ))}
-      </div>
-    )
-  }
+You can customize which wallets appear in the connection modal by specifying `recommendedWallets`:
 
-  return (
-    <div>
-      <h2>账户信息</h2>
-      <p>地址: {account.address}</p>
-      <p>
-        余额: {balance.data?.formatted ?? '...'} {balance.data?.symbol}
-      </p>
+```tsx
+const config: CinacoinConfig = {
+  // ... other config
+  recommendedWallets: ['metamask', 'walletconnect', 'coinbase', 'rabby'],
+};
+```
 
-      <h3>切换链</h3>
-      {chains.map((chain) => (
-        <button
-          key={chain.id}
-          onClick={() => switchChain({ chainId: chain.id })}
-          disabled={account.chainId === chain.id}
-        >
-          {chain.name} {account.chainId === chain.id ? '✅' : ''}
-        </button>
-      ))}
+Available wallet IDs:
+- `metamask` - MetaMask
+- `walletconnect` - WalletConnect
+- `coinbase` - Coinbase Wallet
+- `rabby` - Rabby Wallet
+- `email` - Email-based authentication
 
-      <button onClick={() => disconnect()} style={{ marginTop: '1rem' }}>
-        断开连接
-      </button>
-    </div>
-  )
+## Theme Customization
+
+Cinacoin supports three theme modes:
+
+```tsx
+const config: CinacoinConfig = {
+  // ... other config
+  theme: {
+    mode: 'dark', // 'dark' | 'light' | 'minimal'
+  },
+};
+```
+
+For advanced theming, you can override CSS variables:
+
+```tsx
+const config: CinacoinConfig = {
+  // ... other config
+  theme: {
+    mode: 'dark',
+    variables: {
+      '--ocx-primary': '#6366f1',
+      '--ocx-primary-hover': '#4f46e5',
+      '--ocx-border-radius': '8px',
+    },
+  },
+};
+```
+
+## Internationalization (i18n)
+
+Cinacoin supports multiple languages through the `@cinacoin/cinacoin-i18n` package:
+
+```bash
+pnpm add @cinacoin/cinacoin-i18n
+```
+
+```tsx
+import { loadLocale } from '@cinacoin/cinacoin-i18n';
+
+// Load Spanish locale
+await loadLocale('es');
+
+const config: CinacoinConfig = {
+  // ... other config
+};
+```
+
+Available locales: `en`, `es`, `fr`, `de`, `zh`, `ja`, `ko`, `ru`, `pt`, `it`
+
+## Common Error Troubleshooting
+
+### "useCinacoinContext must be used within <CinacoinProvider>"
+
+**Cause**: You're using Cinacoin hooks outside the provider context.
+
+**Solution**: Ensure your component is wrapped with `<CinacoinProvider>` in your layout.
+
+### "No wallet provider available — connect a wallet first"
+
+**Cause**: You're trying to make a blockchain request before connecting a wallet.
+
+**Solution**: Check the connection status before making requests:
+
+```tsx
+const { status, request } = useCinacoin();
+
+if (status === 'connected') {
+  await request('eth_getBalance', [address, 'latest']);
 }
 ```
 
----
+### "Window is not defined" (SSR errors)
 
-## 常见问题排查
+**Cause**: Cinacoin tries to access browser APIs during server-side rendering.
 
-### "Cannot connect to relay server"
+**Solution**: Use the `'use client'` directive at the top of your files and ensure provider is only used in client components.
 
-- 检查 `relayUrl` 是否正确（`wss://` 协议）
-- 确认 Relay 服务器正在运行
-- 检查防火墙/CORS 设置
+### Wallet connection fails silently
 
-### "No connectors available"
+**Cause**: Missing or incorrect RPC URLs in chain configuration.
 
-- 确保已安装 `@cinacoin/core-sdk` 和 `@cinacoin/react`
-- 检查 `CinacoinProvider` 是否包裹了使用 Hooks 的组件
-- 注入型钱包（MetaMask）需浏览器安装对应扩展
+**Solution**: Verify your RPC URLs are correct and accessible:
 
-### "Chain not supported"
+```tsx
+// Test RPC URL
+const response = await fetch('YOUR_RPC_URL', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    jsonrpc: '2.0',
+    method: 'eth_chainId',
+    params: [],
+    id: 1
+  })
+});
+```
 
-- 确认链在 `chains` 配置数组中
-- 检查 `rpcUrl` 是否可达
-- 使用 `useSwitchChain` 切换时确认目标链已注册
+## Next Steps
 
-### Next.js SSR 报错
+Once you have the basic integration working, explore these advanced features:
 
-- `CinacoinProvider` 必须在客户端组件中使用（`'use client'`）
-- 不要在服务端组件中调用 Hooks
+### Swap Integration
+Use `@cinacoin/swap-sdk` for token swaps:
 
----
+```bash
+pnpm add @cinacoin/swap-sdk
+```
 
-## 下一步
+### On-Ramp Integration
+Add fiat on-ramp functionality with `@cinacoin/onramp-sdk`:
 
-- [安装指南](/guide/installation) — 各框架详细安装说明
-- [配置选项](/guide/configuration) — 完整配置参考
-- [React Hooks API](/api/react-hooks) — 全部 Hooks 参考
-- [React SDK API](/api/react) — 组件参考
-- [迁移指南](/guides/migration-from-walletconnect) — 从 @walletconnect/ 迁移
+```bash
+pnpm add @cinacoin/onramp-sdk
+```
+
+### Account Abstraction (AA)
+Enable smart contract wallets with `@cinacoin/aa-sdk`:
+
+```bash
+pnpm add @cinacoin/aa-sdk
+```
+
+### SIWE/SIWX Authentication
+Implement Sign-In with Ethereum/Ethereum-compatible chains:
+
+```bash
+pnpm add @cinacoin/siwe
+```
+
+### Advanced Hooks
+Explore additional hooks for advanced functionality:
+
+- `useBalance()` - Get account balance
+- `useSendTransaction()` - Send transactions
+- `useSignMessage()` - Sign messages
+- `useSwitchChain()` - Switch between chains
+- `useWalletCapabilities()` - Check EIP-5792 capabilities
+- `useSendCalls()` - Send atomic batch transactions
+
+## Support
+
+For questions and support, visit:
+- [GitHub Repository](https://github.com/cinagroup/Cinacoin)
+- [Documentation](https://docs.cinacoin.dev)
+- [Discord Community](https://discord.gg/cinacoin)
+
+Happy building! 🚀

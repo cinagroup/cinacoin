@@ -51,7 +51,7 @@ export default function RPCProxyPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl sm:text-2xl font-semibold tracking-tight text-white">🔄 RPC Proxy</h1>
+          <h1 className="text-xl sm:text-2xl font-semibold tracking-tighter text-white">🔄 RPC Proxy</h1>
           <p className="text-dashboard-muted mt-1">Multi-chain RPC proxy with KV caching and failover</p>
         </div>
         <span className="text-xs text-dashboard-muted bg-dashboard-surface border border-dashboard-border rounded-full px-3 py-1.5">
@@ -70,7 +70,7 @@ export default function RPCProxyPage() {
       {/* KV Cache + Charts */}
       <div className="grid md:grid-cols-3 gap-4">
         {/* KV Cache */}
-        <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-5">
+        <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
           <h3 className="text-lg font-semibold text-white mb-4">KV Cache Status</h3>
           <div className="space-y-4">
             <div>
@@ -100,7 +100,7 @@ export default function RPCProxyPage() {
       </div>
 
       {/* RPC Methods */}
-      <div className="bg-dashboard-surface rounded-xl border border-dashboard-border overflow-hidden">
+      <div className="bg-dashboard-surface rounded-md border border-dashboard-border overflow-hidden">
         <div className="px-5 py-4 border-b border-dashboard-border">
           <h3 className="text-lg font-semibold text-white">Top RPC Methods (24h)</h3>
         </div>
@@ -136,7 +136,7 @@ export default function RPCProxyPage() {
       </div>
 
       {/* Provider status */}
-      <div className="bg-dashboard-surface rounded-xl border border-dashboard-border overflow-hidden">
+      <div className="bg-dashboard-surface rounded-md border border-dashboard-border overflow-hidden">
         <div className="px-5 py-4 border-b border-dashboard-border">
           <h3 className="text-lg font-semibold text-white">RPC Provider Status</h3>
         </div>
@@ -171,7 +171,7 @@ export default function RPCProxyPage() {
       </div>
 
       {/* Chain distribution */}
-      <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-5">
+      <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
         <h3 className="text-lg font-semibold text-white mb-4">Chain Distribution (24h)</h3>
         <div className="space-y-3">
           {CHAIN_DATA.map((chain, i) => {

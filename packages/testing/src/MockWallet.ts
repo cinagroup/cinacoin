@@ -112,7 +112,7 @@ export class MockWallet {
   }
 
   /** Convenience: get EIP-1193 events from the provider */
-  on = this._provider.on.bind(this._provider);
-  removeListener = this._provider.removeListener.bind(this._provider);
-  once = this._provider.once.bind(this._provider);
+  on!: (...args: Parameters<MockProvider['on']>) => ReturnType<MockProvider['on']>;
+  removeListener!: (...args: Parameters<MockProvider['removeListener']>) => ReturnType<MockProvider['removeListener']>;
+  once!: (...args: Parameters<MockProvider['once']>) => ReturnType<MockProvider['once']>;
 }

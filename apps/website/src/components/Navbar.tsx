@@ -2,23 +2,25 @@
 
 import { useCallback, useEffect, useState } from 'react'
 import Image from 'next/image'
+import { useTheme } from '@/providers/ThemeProvider'
+import { useI18n, type Locale } from '@/providers/I18nProvider'
 
 export default function Navbar() {
+  const { theme, toggle } = useTheme()
+  const { t, locale, setLocale } = useI18n()
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [langOpen, setLangOpen] = useState(false)
 
   const handleScroll = useCallback(() => {
-    setScrolled(window.scrollY > 20)
+    setScrolled(window.scrollY > 10)
   }, [])
 
   useEffect(() => {
     let ticking = false
     const onScroll = () => {
       if (!ticking) {
-        requestAnimationFrame(() => {
-          handleScroll()
-          ticking = false
-        })
+        requestAnimationFrame(() => { handleScroll(); ticking = false })
         ticking = true
       }
     }
@@ -26,60 +28,115 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [handleScroll])
 
-  // Close mobile menu on nav link click
+  // Close dropdowns on outside click
+  useEffect(() => {
+    if (!langOpen) return
+    const handler = () => setLangOpen(false)
+    window.addEventListener('click', handler)
+    return () => window.removeEventListener('click', handler)
+  }, [langOpen])
+
   const closeMobile = () => setMobileOpen(false)
+
+  const locales: { code: Locale; label: string }[] = [
+    { code: 'en', label: 'English' },
+    { code: 'zh', label: '中文' },
+  ]
 
   return (
     <nav
       aria-label="Main navigation"
-      className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 h-16 transition-all duration-300 ${
         scrolled
-          ? 'border-white/[0.08] bg-[#050505]/90 backdrop-blur-xl shadow-lg shadow-black/20'
-          : 'border-white/[0.06] bg-[#050505]/60 backdrop-blur-sm'
+          ? 'border-b border-[var(--cc-hairline)] bg-[var(--cc-canvas)]/90 backdrop-blur-md'
+          : 'border-b border-[var(--cc-hairline)] bg-[var(--cc-canvas)]'
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 py-4">
-        <a href="/" className="flex items-center gap-2.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded-lg" aria-label="Cinacoin home">
-          <Image
-            src="/logo.png"
-            alt="Cinacoin logo"
-            width={32}
-            height={32}
-            className="h-8 w-8 rounded-lg"
-            priority
-            unoptimized
-          />
-          <span className="text-lg font-semibold tracking-tight">Cinacoin</span>
+      <div className="cc-container flex h-full items-center justify-between">
+        {/* Logo */}
+        <a href="/" className="flex items-center gap-2.5" aria-label="Cinacoin home">
+          <Image src="/logo.png" alt="Cinacoin logo" width={28} height={28} className="h-7 w-7" priority unoptimized />
+          <span className="text-[15px] font-semibold tracking-tight text-[var(--cc-ink)]">Cinacoin</span>
         </a>
 
         {/* Desktop links */}
-        <div className="hidden items-center gap-8 md:flex">
-          <a href="#products" className="text-sm text-zinc-400 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded" aria-label="View products">Products</a>
-          <a href="/pricing" className="text-sm text-zinc-400 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded" aria-label="View pricing">Pricing</a>
-          <a href="https://docs.cinacoin.com" className="text-sm text-zinc-400 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded" aria-label="Read documentation">Docs</a>
-          <a href="https://github.com/cinagroup" className="text-sm text-zinc-400 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded" aria-label="View GitHub repository">GitHub</a>
+        <div className="hidden items-center gap-1 md:flex">
+          <a href="#products" className="cc-navbar-link">{t('nav-products')}</a>
+          <a href="/pricing" className="cc-navbar-link">{t('nav-pricing')}</a>
+          <a href="https://docs.cinacoin.com" className="cc-navbar-link">{t('nav-docs')}</a>
+          <a href="https://github.com/cinagroup" className="cc-navbar-link">{t('nav-github')}</a>
         </div>
 
-        {/* Desktop actions + mobile toggle */}
-        <div className="flex items-center gap-3">
-          <a
-            href="https://dash.cinacoin.com"
-            className="hidden text-sm text-zinc-400 transition-colors hover:text-white sm:inline focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded"
-            aria-label="Open dashboard"
-          >
-            Dashboard
+        {/* Desktop actions */}
+        <div className="flex items-center gap-1">
+          <a href="https://dash.cinacoin.com" className="hidden text-[var(--cc-body)] transition-colors hover:text-[var(--cc-ink)] cc-body-sm sm:inline">
+            {t('nav-dashboard')}
           </a>
-          <a
-            href="#cta"
-            className="hidden sm:inline rounded-full bg-white px-4 py-2 text-sm font-medium text-black transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
-            aria-label="Get started with Cinacoin"
+
+          {/* Theme toggle */}
+          <button
+            onClick={toggle}
+            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            className="flex h-8 w-8 items-center justify-center rounded-md text-[var(--cc-body)] transition-colors hover:text-[var(--cc-ink)]"
           >
-            Get Started
+            {theme === 'dark' ? (
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <circle cx="12" cy="12" r="5" />
+                <path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+              </svg>
+            ) : (
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+              </svg>
+            )}
+          </button>
+
+          {/* Language selector */}
+          <div className="relative" onClick={(e) => e.stopPropagation()}>
+            <button
+              onClick={() => setLangOpen((v) => !v)}
+              className="flex h-8 items-center gap-1 rounded-md px-2 text-[var(--cc-body)] transition-colors hover:text-[var(--cc-ink)] cc-body-sm-strong"
+            >
+              {locale === 'zh' ? '中文' : 'EN'}
+              <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+
+            {langOpen && (
+              <div className="absolute right-0 top-full mt-2 w-36 rounded-lg border border-[var(--cc-hairline)] bg-[var(--cc-canvas)] py-1 shadow-[var(--cc-level4)]">
+                {locales.map((l) => (
+                  <button
+                    key={l.code}
+                    onClick={() => { setLocale(l.code); setLangOpen(false) }}
+                    className={`flex w-full items-center gap-2 px-3 py-1.5 cc-body-sm transition-colors ${
+                      locale === l.code
+                        ? 'text-[var(--cc-ink)] bg-[var(--cc-canvas-soft-2)]'
+                        : 'text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft-2)]'
+                    }`}
+                  >
+                    {locale === l.code && (
+                      <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                    )}
+                    {l.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* CTA */}
+          <a href="https://docs.cinacoin.com" className="hidden sm:inline-flex ml-1">
+            <span className="cc-btn-primary-sm">{t('nav-get-started')}</span>
           </a>
+
+          {/* Mobile toggle */}
           <button
             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={mobileOpen}
-            className="md:hidden rounded-lg p-2 text-zinc-400 transition-colors hover:text-white"
+            className="rounded-md p-2 text-[var(--cc-body)] transition-colors hover:text-[var(--cc-ink)] md:hidden"
             onClick={() => setMobileOpen((v) => !v)}
           >
             {mobileOpen ? (
@@ -97,46 +154,42 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div
-          className="md:hidden border-t border-white/[0.06] bg-[#050505]/95 backdrop-blur-xl"
-          role="dialog"
-          aria-label="Mobile navigation"
-        >
+        <div className="border-t border-[var(--cc-hairline)] bg-[var(--cc-canvas)] md:hidden" role="dialog" aria-label="Mobile navigation">
           <div className="flex flex-col gap-1 px-6 py-4">
-            <a href="/" onClick={closeMobile} className="rounded-lg px-3 py-2 text-sm text-zinc-400 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400" aria-label="Home">
-              Home
-            </a>
-            <a href="#products" onClick={closeMobile} className="rounded-lg px-3 py-2 text-sm text-zinc-400 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400" aria-label="View products">
-              Products
-            </a>
-            <a href="/pricing" onClick={closeMobile} className="rounded-lg px-3 py-2 text-sm text-zinc-400 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400" aria-label="View pricing">
-              Pricing
-            </a>
-            <a href="/about" onClick={closeMobile} className="rounded-lg px-3 py-2 text-sm text-zinc-400 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400" aria-label="About Cinacoin">
-              About
-            </a>
-            <a href="/changelog" onClick={closeMobile} className="rounded-lg px-3 py-2 text-sm text-zinc-400 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400" aria-label="View changelog">
-              Changelog
-            </a>
-            <a href="/contact" onClick={closeMobile} className="rounded-lg px-3 py-2 text-sm text-zinc-400 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400" aria-label="Contact us">
-              Contact
-            </a>
-            <a href="https://docs.cinacoin.com" className="rounded-lg px-3 py-2 text-sm text-zinc-400 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400" aria-label="Read documentation">
-              Docs
-            </a>
-            <a href="https://github.com/cinagroup" className="rounded-lg px-3 py-2 text-sm text-zinc-400 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400" aria-label="View GitHub repository">
-              GitHub
-            </a>
-            <a href="https://dash.cinacoin.com" className="rounded-lg px-3 py-2 text-sm text-zinc-400 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400" aria-label="Open dashboard">
-              Dashboard
-            </a>
-            <a
-              href="/contact"
-              onClick={closeMobile}
-              className="mt-2 rounded-full bg-white px-4 py-2.5 text-center text-sm font-medium text-black transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
-              aria-label="Get started with Cinacoin"
-            >
-              Get Started
+            <a href="/" onClick={closeMobile} className="rounded-lg px-3 py-2 text-sm text-[var(--cc-body)] hover:text-[var(--cc-ink)]">Home</a>
+            <a href="#products" onClick={closeMobile} className="rounded-lg px-3 py-2 text-sm text-[var(--cc-body)] hover:text-[var(--cc-ink)]">{t('nav-products')}</a>
+            <a href="/pricing" onClick={closeMobile} className="rounded-lg px-3 py-2 text-sm text-[var(--cc-body)] hover:text-[var(--cc-ink)]">{t('nav-pricing')}</a>
+            <a href="/about" onClick={closeMobile} className="rounded-lg px-3 py-2 text-sm text-[var(--cc-body)] hover:text-[var(--cc-ink)]">{t('footer-about')}</a>
+            <a href="/changelog" onClick={closeMobile} className="rounded-lg px-3 py-2 text-sm text-[var(--cc-body)] hover:text-[var(--cc-ink)]">{t('footer-changelog')}</a>
+            <a href="/contact" onClick={closeMobile} className="rounded-lg px-3 py-2 text-sm text-[var(--cc-body)] hover:text-[var(--cc-ink)]">{t('footer-contact')}</a>
+            <a href="https://docs.cinacoin.com" className="rounded-lg px-3 py-2 text-sm text-[var(--cc-body)] hover:text-[var(--cc-ink)]">{t('nav-docs')}</a>
+            <a href="https://github.com/cinagroup" className="rounded-lg px-3 py-2 text-sm text-[var(--cc-body)] hover:text-[var(--cc-ink)]">{t('nav-github')}</a>
+            <a href="https://dash.cinacoin.com" className="rounded-lg px-3 py-2 text-sm text-[var(--cc-body)] hover:text-[var(--cc-ink)]">{t('nav-dashboard')}</a>
+
+            {/* Mobile theme toggle */}
+            <button onClick={() => { toggle(); closeMobile() }} className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-[var(--cc-body)] hover:text-[var(--cc-ink)]">
+              {theme === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode'}
+            </button>
+
+            {/* Mobile language toggle */}
+            <div className="flex gap-2 px-3 pt-1">
+              {locales.map((l) => (
+                <button
+                  key={l.code}
+                  onClick={() => { setLocale(l.code); closeMobile() }}
+                  className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
+                    locale === l.code
+                      ? 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)]'
+                      : 'bg-[var(--cc-canvas-soft-2)] text-[var(--cc-body)] hover:text-[var(--cc-ink)]'
+                  }`}
+                >
+                  {l.label}
+                </button>
+              ))}
+            </div>
+
+            <a href="/contact" onClick={closeMobile} className="mt-2 rounded-full bg-[var(--cc-primary)] px-4 py-2.5 text-center text-sm font-medium text-[var(--cc-on-primary)] hover:opacity-90">
+              {t('nav-get-started')}
             </a>
           </div>
         </div>

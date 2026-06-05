@@ -913,7 +913,7 @@ export default function BatchPage() {
                     <div key={i} className="p-3 rounded-lg bg-gray-900/50 border border-gray-700/40 space-y-1">
                       <div className="flex items-center gap-2">
                         <span className="text-xs text-gray-500">Call #{i + 1}</span>
-                        <span className={`text-[10px] px-1.5 py-0.5 rounded font-semibold ${r.receipt.status === '0x1' ? 'bg-emerald-500/15 text-emerald-400' : 'bg-red-500/15 text-red-400'}`}
+                        <span className={`text-[10px] px-1.5 py-0.5 rounded font-semibold ${r.receipt.status === '0x1' ? 'bg-emerald-500/15 text-emerald-400' : 'bg-red-500/15 text-red-400'}`}>
                           {r.receipt.status === '0x1' ? 'SUCCESS' : 'FAILED'}
                         </span>
                       </div>

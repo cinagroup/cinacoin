@@ -35,7 +35,7 @@ export default function SettingsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl sm:text-2xl font-semibold tracking-tight text-white">⚙️ Settings</h1>
+          <h1 className="text-xl sm:text-2xl font-semibold tracking-tighter text-white">⚙️ Settings</h1>
           <p className="text-dashboard-muted mt-1">Configure dashboard preferences and API endpoints</p>
         </div>
         {saved && (
@@ -46,7 +46,7 @@ export default function SettingsPage() {
       </div>
 
       {/* Appearance */}
-      <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-5">
+      <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
         <h3 className="text-lg font-semibold text-white mb-4">Appearance</h3>
         <div className="space-y-4">
           <div className="flex items-center justify-between">
@@ -115,7 +115,7 @@ export default function SettingsPage() {
       </div>
 
       {/* Monitoring */}
-      <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-5">
+      <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
         <h3 className="text-lg font-semibold text-white mb-4">Monitoring</h3>
         <div className="space-y-4">
           <div className="flex items-center justify-between">
@@ -192,7 +192,7 @@ export default function SettingsPage() {
       </div>
 
       {/* API Configuration */}
-      <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-5">
+      <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
         <h3 className="text-lg font-semibold text-white mb-4">API Endpoints</h3>
         <div className="space-y-4">
           <div>
@@ -217,7 +217,7 @@ export default function SettingsPage() {
       </div>
 
       {/* Quick stats */}
-      <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-5">
+      <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
         <h3 className="text-lg font-semibold text-white mb-4">Dashboard Info</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div>

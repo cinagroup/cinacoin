@@ -41,7 +41,7 @@ export default function NotifyServerPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl sm:text-2xl font-semibold tracking-tight text-white">🔔 Notify Server</h1>
+          <h1 className="text-xl sm:text-2xl font-semibold tracking-tighter text-white">🔔 Notify Server</h1>
           <p className="text-dashboard-muted mt-1">Multi-channel notification delivery service</p>
         </div>
         <span className="text-xs text-dashboard-muted bg-dashboard-surface border border-dashboard-border rounded-full px-3 py-1.5">
@@ -60,7 +60,7 @@ export default function NotifyServerPage() {
       {/* Delivery ring + channel breakdown side by side */}
       <div className="grid md:grid-cols-2 gap-4">
         {/* Delivery performance */}
-        <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-5">
+        <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
           <h3 className="text-lg font-semibold text-white mb-4">Delivery Performance</h3>
           <div className="flex items-center justify-center gap-8">
             <ProgressRing
@@ -88,7 +88,7 @@ export default function NotifyServerPage() {
         </div>
 
         {/* Channel distribution */}
-        <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-5">
+        <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
           <h3 className="text-lg font-semibold text-white mb-4">Channel Distribution</h3>
           <div className="space-y-3">
             {CHANNELS_DATA.map((ch, i) => (
@@ -112,7 +112,7 @@ export default function NotifyServerPage() {
       <BarChart data={SENT_HISTORY} labels={SENT_LABELS} color="#f59e0b" height={140} aria-label="Weekly notification volume" />
 
       {/* Recent notifications */}
-      <div className="bg-dashboard-surface rounded-xl border border-dashboard-border overflow-hidden">
+      <div className="bg-dashboard-surface rounded-md border border-dashboard-border overflow-hidden">
         <div className="px-5 py-4 border-b border-dashboard-border">
           <h3 className="text-lg font-semibold text-white">Recent Notifications</h3>
         </div>

@@ -44,7 +44,7 @@ export default function OverviewPage() {
       {/* Page title */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-white">Service Overview</h1>
+          <h1 className="text-xl sm:text-2xl font-semibold tracking-tighter text-white">Service Overview</h1>
           <p className="text-dashboard-muted mt-1 text-sm">
             {demoMode ? "Demo Mode — Simulated metrics" : "Live monitoring of Cloudflare Workers"}
             {lastRefresh && !demoMode && (
@@ -59,14 +59,14 @@ export default function OverviewPage() {
             onClick={manualRefresh}
             disabled={checking}
             aria-label={checking ? "Refreshing health check" : "Refresh health check"}
-            className="px-3 py-2 text-sm bg-dashboard-surface border border-dashboard-border rounded-lg text-dashboard-muted hover:text-white hover:border-brand-500 transition-colors disabled:opacity-50 min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
+            className="px-3 py-2 text-sm bg-dashboard-surface border border-dashboard-border rounded-[100px] text-dashboard-muted hover:text-white hover:border-brand-500 transition-colors disabled:opacity-50 min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
           >
             {checking ? "↻ Checking..." : "↻ Refresh"}
           </button>
           <Link
             href="/settings"
             aria-label="Go to settings"
-            className="px-4 py-2 text-sm bg-dashboard-surface border border-dashboard-border rounded-lg text-dashboard-muted hover:text-white hover:border-brand-500 transition-colors min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
+            className="px-4 py-2 text-sm bg-dashboard-surface border border-dashboard-border rounded-[100px] text-dashboard-muted hover:text-white hover:border-brand-500 transition-colors min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
           >
             ⚙️ Settings
           </Link>
@@ -101,7 +101,7 @@ export default function OverviewPage() {
       </div>
 
       {/* Service summary table */}
-      <div className="bg-dashboard-surface rounded-xl border border-dashboard-border overflow-hidden overflow-x-auto">
+      <div className="bg-dashboard-surface rounded-md border border-dashboard-border overflow-hidden overflow-x-auto">
         <table className="w-full text-sm min-w-[500px]">
           <thead>
             <tr className="border-b border-dashboard-border">

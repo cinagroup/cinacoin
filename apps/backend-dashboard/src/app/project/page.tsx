@@ -43,20 +43,20 @@ export default function ProjectPage() {
     <div className="space-y-6 max-w-4xl">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-semibold tracking-tight text-white">⚙️ Project Settings</h1>
+        <h1 className="text-2xl font-semibold tracking-tighter text-white">⚙️ Project Settings</h1>
         <p className="text-dashboard-muted mt-1">
           Configure your AppKit project, authentication, and feature flags
         </p>
       </div>
 
       {saved && (
-        <div className="bg-dashboard-success/10 border border-dashboard-success/30 rounded-xl px-4 py-3 text-sm text-dashboard-success">
+        <div className="bg-dashboard-success/10 border border-dashboard-success/30 rounded-md px-4 py-3 text-sm text-dashboard-success">
           ✓ Project settings saved successfully
         </div>
       )}
 
       {/* Project Identity */}
-      <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-6 space-y-4">
+      <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-6 space-y-4">
         <h2 className="text-lg font-semibold text-white">Project Identity</h2>
 
         {/* Project ID */}
@@ -138,7 +138,7 @@ export default function ProjectPage() {
       </div>
 
       {/* Authentication */}
-      <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-6 space-y-4">
+      <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-6 space-y-4">
         <h2 className="text-lg font-semibold text-white">🔐 Authentication</h2>
         <p className="text-sm text-dashboard-muted">
           Configure authentication methods for your AppKit integration.
@@ -177,7 +177,7 @@ export default function ProjectPage() {
       </div>
 
       {/* Feature Flags */}
-      <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-6 space-y-4">
+      <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-6 space-y-4">
         <h2 className="text-lg font-semibold text-white">🚀 Features</h2>
         <p className="text-sm text-dashboard-muted">
           Enable or disable AppKit features for your project.
@@ -216,7 +216,7 @@ export default function ProjectPage() {
       </div>
 
       {/* AppKit Integration Code */}
-      <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-6 space-y-4">
+      <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-6 space-y-4">
         <h2 className="text-lg font-semibold text-white">📦 Integration Code</h2>
         <p className="text-sm text-dashboard-muted">
           Copy this snippet to get started with AppKit in your project.
@@ -256,7 +256,7 @@ createAppKit({
       </div>
 
       {/* Danger Zone */}
-      <div className="bg-dashboard-danger/5 rounded-xl border border-dashboard-danger/20 p-6 space-y-4">
+      <div className="bg-dashboard-danger/5 rounded-md border border-dashboard-danger/20 p-6 space-y-4">
         <h2 className="text-lg font-semibold text-dashboard-danger">⚠️ Danger Zone</h2>
         <div className="flex items-center justify-between">
           <div>

@@ -4,9 +4,10 @@ name = "cinacoin-relay-server"
 main = "cloudflare/worker.ts"
 compatibility_date = "2024-01-01"
 
-routes = [
-  { pattern = "relay.cinacoin.com", custom_domain = true }
-]
+# Routes managed externally via Cloudflare DNS
+# routes = [
+#   { pattern = "relay.cinacoin.com", custom_domain = true }
+# ]
 
 [durable_objects]
 bindings = [

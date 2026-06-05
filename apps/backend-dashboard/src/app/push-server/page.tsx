@@ -42,7 +42,7 @@ export default function PushServerPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl sm:text-2xl font-semibold tracking-tight text-white">📱 Push Server</h1>
+          <h1 className="text-xl sm:text-2xl font-semibold tracking-tighter text-white">📱 Push Server</h1>
           <p className="text-dashboard-muted mt-1">Cross-platform push notification delivery</p>
         </div>
         <span className="text-xs text-dashboard-muted bg-dashboard-surface border border-dashboard-border rounded-full px-3 py-1.5">
@@ -61,7 +61,7 @@ export default function PushServerPage() {
       {/* Delivery ring + platform breakdown */}
       <div className="grid md:grid-cols-2 gap-4">
         {/* Delivery ring */}
-        <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-5">
+        <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
           <h3 className="text-lg font-semibold text-white mb-4">Delivery Success Rate</h3>
           <div className="flex items-center justify-center gap-8">
             <ProgressRing
@@ -89,7 +89,7 @@ export default function PushServerPage() {
         </div>
 
         {/* Platform breakdown */}
-        <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-5">
+        <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
           <h3 className="text-lg font-semibold text-white mb-4">Platform Breakdown</h3>
           <div className="space-y-3">
             {PLATFORMS_DATA.map((platform, i) => {
@@ -120,7 +120,7 @@ export default function PushServerPage() {
       </div>
 
       {/* Topics table */}
-      <div className="bg-dashboard-surface rounded-xl border border-dashboard-border overflow-hidden">
+      <div className="bg-dashboard-surface rounded-md border border-dashboard-border overflow-hidden">
         <div className="px-5 py-4 border-b border-dashboard-border">
           <h3 className="text-lg font-semibold text-white">Push Topics</h3>
         </div>
@@ -151,7 +151,7 @@ export default function PushServerPage() {
       </div>
 
       {/* Error breakdown */}
-      <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-5">
+      <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
         <h3 className="text-lg font-semibold text-white mb-4">Error Breakdown (24h)</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <MetricBox label="Invalid Token" value="1,892" icon="🚫" color="text-dashboard-danger" />

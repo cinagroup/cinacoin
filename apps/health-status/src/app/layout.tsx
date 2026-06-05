@@ -1,5 +1,12 @@
 import type { Metadata, Viewport } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider, I18nProvider } from "@/providers";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+});
 
 const siteUrl = 'https://status.cinacoin.com';
 
@@ -48,8 +55,8 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   themeColor: [
     { media: '(prefers-color-scheme: dark)', color: '#050505' },
+    { media: '(prefers-color-scheme: light)', color: '#fafafa' },
   ],
-  colorScheme: 'dark',
 };
 
 export default function RootLayout({
@@ -58,8 +65,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark">
-      <body className="antialiased">{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.className} antialiased`}>
+        <ThemeProvider>
+          <I18nProvider>
+            {children}
+          </I18nProvider>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

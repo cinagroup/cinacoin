@@ -1,26 +1,71 @@
 name = "cinacoin-wc-relay"
 main = "src/worker.ts"
 compatibility_date = "2024-01-01"
+account_id = "7ea8e46d8210bad342fa7595f7935fea"
 
-# D1 Database binding
-[[d1_databases]]
+# Multi-region environments
+[env.default]
+routes = [
+  { pattern = "relay-default.cinacoin.com/*", zone_name = "cinacoin.com" }
+]
+[env.default.durable_objects]
+bindings = [
+  { name = "RELAY_SESSION", class_name = "RelaySession" }
+]
+[[env.default.d1_databases]]
 binding = "SESSION_DB"
 database_name = "cinacoin-wc-relay-db"
-database_id = ""  # Set after creation
-
-# KV Namespace binding
-[[kv_namespaces]]
+database_id = "94175e8d-fce0-4552-9db7-ca89df69ecca"
+[[env.default.kv_namespaces]]
 binding = "SESSION_CACHE"
-id = ""  # Set after creation
-
-# Environment variables
-[vars]
+id = "0d2624a4b6ca4b519f1c7b6af9739c54"
+[[env.default.migrations]]
+tag = "v1"
+new_sqlite_classes = ["RelaySession"]
+[env.default.vars]
 RATE_LIMIT_RPM = "120"
 REGION = "nam"
 
-# Multi-region overrides (set in CI/CD)
-[env.eur.vars]
-REGION = "eur"
-
+[env.apac]
+routes = [
+  { pattern = "relay-apac.cinacoin.com/*", zone_name = "cinacoin.com" }
+]
+[env.apac.durable_objects]
+bindings = [
+  { name = "RELAY_SESSION", class_name = "RelaySession" }
+]
+[[env.apac.d1_databases]]
+binding = "SESSION_DB"
+database_name = "cinacoin-wc-relay-db"
+database_id = "94175e8d-fce0-4552-9db7-ca89df69ecca"
+[[env.apac.kv_namespaces]]
+binding = "SESSION_CACHE"
+id = "0d2624a4b6ca4b519f1c7b6af9739c54"
+[[env.apac.migrations]]
+tag = "v1"
+new_sqlite_classes = ["RelaySession"]
 [env.apac.vars]
+RATE_LIMIT_RPM = "120"
 REGION = "apac"
+
+[env.eur]
+routes = [
+  { pattern = "relay-eur.cinacoin.com/*", zone_name = "cinacoin.com" }
+]
+[env.eur.durable_objects]
+bindings = [
+  { name = "RELAY_SESSION", class_name = "RelaySession" }
+]
+[[env.eur.d1_databases]]
+binding = "SESSION_DB"
+database_name = "cinacoin-wc-relay-db"
+database_id = "94175e8d-fce0-4552-9db7-ca89df69ecca"
+[[env.eur.kv_namespaces]]
+binding = "SESSION_CACHE"
+id = "0d2624a4b6ca4b519f1c7b6af9739c54"
+[[env.eur.migrations]]
+tag = "v1"
+new_sqlite_classes = ["RelaySession"]
+[env.eur.vars]
+RATE_LIMIT_RPM = "120"
+REGION = "eur"

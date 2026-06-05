@@ -45,7 +45,7 @@ export default function KeysServerPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl sm:text-2xl font-semibold tracking-tight text-white">🔑 Keys Server</h1>
+          <h1 className="text-xl sm:text-2xl font-semibold tracking-tighter text-white">🔑 Keys Server</h1>
           <p className="text-dashboard-muted mt-1">Session key management with D1 storage</p>
         </div>
         <span className="text-xs text-dashboard-muted bg-dashboard-surface border border-dashboard-border rounded-full px-3 py-1.5">
@@ -64,7 +64,7 @@ export default function KeysServerPage() {
       {/* Storage + Signing side by side */}
       <div className="grid md:grid-cols-2 gap-4">
         {/* Storage */}
-        <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-5">
+        <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
           <h3 className="text-lg font-semibold text-white mb-4">D1 Storage Usage</h3>
           <div className="flex items-center justify-center gap-8">
             <ProgressRing
@@ -94,7 +94,7 @@ export default function KeysServerPage() {
         </div>
 
         {/* Signing operations */}
-        <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-5">
+        <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
           <h3 className="text-lg font-semibold text-white mb-4">Signing Operations (24h)</h3>
           <div className="space-y-3">
             {SIGNING_STATS.map((stat, i) => (
@@ -118,7 +118,7 @@ export default function KeysServerPage() {
       <BarChart data={SESSION_HISTORY} labels={SESSION_LABELS} color="#8b5cf6" height={140} aria-label="Weekly session creation trend" />
 
       {/* Active sessions table */}
-      <div className="bg-dashboard-surface rounded-xl border border-dashboard-border overflow-hidden">
+      <div className="bg-dashboard-surface rounded-md border border-dashboard-border overflow-hidden">
         <div className="px-5 py-4 border-b border-dashboard-border">
           <h3 className="text-lg font-semibold text-white">Active Sessions</h3>
         </div>
@@ -155,7 +155,7 @@ export default function KeysServerPage() {
       </div>
 
       {/* Session stats */}
-      <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-5">
+      <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
         <h3 className="text-lg font-semibold text-white mb-4">Session Statistics (24h)</h3>
         <div className="grid grid-cols-3 gap-4">
           <MetricBox label="New Sessions" value="1,247" icon="🆕" trend="up" />

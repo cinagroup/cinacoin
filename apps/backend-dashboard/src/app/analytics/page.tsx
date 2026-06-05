@@ -62,7 +62,7 @@ export default function AnalyticsPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold tracking-tight text-white">📊 Analytics</h1>
+          <h1 className="text-2xl font-semibold tracking-tighter text-white">📊 Analytics</h1>
           <p className="text-dashboard-muted mt-1">
             AppKit usage metrics and connection analytics
           </p>
@@ -95,32 +95,32 @@ export default function AnalyticsPage() {
       </div>
 
       {/* MAU Trend */}
-      <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-5">
+      <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
         <h3 className="text-lg font-semibold text-white mb-4" id="mau-chart-heading">Monthly Active Users</h3>
         <BarChart data={MAU_DATA.map((v) => Math.round(v * multiplier))} labels={MONTHS} color="#3b82f6" height={180} ariaLabelledBy="mau-chart-heading" />
       </div>
 
       {/* Charts row */}
       <div className="grid md:grid-cols-2 gap-4">
-        <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-5">
+        <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
           <h3 className="text-lg font-semibold text-white mb-4" id="connections-chart-heading">Connections Over Time</h3>
           <BarChart data={CONNECTIONS_DATA.map((v) => Math.round(v * multiplier))} labels={MONTHS} color="#06b6d4" height={160} ariaLabelledBy="connections-chart-heading" />
         </div>
-        <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-5">
+        <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
           <h3 className="text-lg font-semibold text-white mb-4" id="auth-chart-heading">Authentication Events</h3>
           <BarChart data={AUTH_DATA.map((v) => Math.round(v * multiplier))} labels={MONTHS} color="#8b5cf6" height={160} ariaLabelledBy="auth-chart-heading" />
         </div>
       </div>
 
       {/* Hourly activity */}
-      <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-5">
+      <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
         <h3 className="text-lg font-semibold text-white mb-4" id="hourly-chart-heading">Hourly Activity Distribution (24h)</h3>
         <BarChart data={HOURLY_DATA} labels={HOURLY_LABELS} color="#22c55e" height={140} ariaLabelledBy="hourly-chart-heading" />
       </div>
 
       {/* Chain & Wallet distribution */}
       <div className="grid md:grid-cols-2 gap-4">
-        <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-5">
+        <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
           <h3 className="text-lg font-semibold text-white mb-4">Chain Distribution</h3>
           <div className="space-y-3">
             {CHAIN_DISTRIBUTION.map((chain) => (
@@ -135,7 +135,7 @@ export default function AnalyticsPage() {
             ))}
           </div>
         </div>
-        <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-5">
+        <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
           <h3 className="text-lg font-semibold text-white mb-4">Wallet Connectors</h3>
           <div className="space-y-3">
             {WALLET_DISTRIBUTION.map((wallet) => (
@@ -153,7 +153,7 @@ export default function AnalyticsPage() {
       </div>
 
       {/* Authentication methods */}
-      <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-5">
+      <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
         <h3 className="text-lg font-semibold text-white mb-4">Authentication Methods</h3>
         <div className="grid md:grid-cols-2 gap-6">
           <div className="space-y-3">
@@ -194,7 +194,7 @@ export default function AnalyticsPage() {
       </div>
 
       {/* Top dApps */}
-      <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-5">
+      <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
         <h3 className="text-lg font-semibold text-white mb-4">Top Projects by MAU</h3>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">

@@ -1,55 +1,49 @@
 {
-  "updatedAt": "2026-05-31T11:00:00Z",
   "services": [
     {
       "name": "Main Website",
       "url": "https://cinacoin.com",
-      "description": "CinaCoin official website — product overview and documentation"
+      "description": "Public website and landing page"
     },
     {
       "name": "Demo App",
       "url": "https://demo.cinacoin.com",
-      "description": "Interactive demo — wallet connection, multi-chain, and smart account flows"
+      "description": "Interactive demo showcasing all features"
     },
     {
       "name": "Dashboard",
       "url": "https://dash.cinacoin.com",
-      "description": "Developer dashboard — project management, API keys, and analytics"
+      "description": "Backend admin dashboard"
     },
     {
       "name": "Documentation",
       "url": "https://docs.cinacoin.com",
-      "description": "VitePress documentation — getting started, API reference, and guides"
+      "description": "Developer documentation site"
     },
     {
       "name": "RPC Proxy",
       "url": "https://rpc.cinacoin.com/health",
-      "description": "Cloudflare Worker — multi-chain RPC proxy with caching and rate limiting"
+      "description": "Blockchain RPC proxy with caching"
     },
     {
       "name": "Keys Server",
       "url": "https://keys.cinacoin.com/health",
-      "description": "Cloudflare Worker — session key management and SIWE authentication"
+      "description": "Key management server"
     },
     {
       "name": "Relay Server",
       "url": "https://relay.cinacoin.com/health",
-      "description": "Cloudflare Worker — WebSocket relay for real-time wallet communication"
+      "description": "WalletConnect relay server"
     },
     {
       "name": "Notify Server",
       "url": "https://notify.cinacoin.com/health",
-      "description": "Cloudflare Worker — push notification and event delivery service"
+      "description": "Notification delivery service"
     },
     {
       "name": "Push Server",
       "url": "https://push.cinacoin.com/health",
-      "description": "Cloudflare Worker — mobile push notification gateway"
-    },
-    {
-      "name": "NPM Packages",
-      "url": "https://www.npmjs.com/package/@cinacoin/core-sdk",
-      "description": "Core SDK and framework adapters published to npm"
+      "description": "Push notification service (APNs/FCM)"
     }
   ]
 }

@@ -12,7 +12,7 @@ export default function BarChart({ data, labels, color = "#3b82f6", height = 120
 
   return (
     <div
-      className="bg-dashboard-surface rounded-xl border border-dashboard-border p-4"
+      className="bg-dashboard-surface rounded-md border border-dashboard-border p-4"
       role="img"
       aria-label="Bar chart"
       aria-labelledby={ariaLabelledBy}

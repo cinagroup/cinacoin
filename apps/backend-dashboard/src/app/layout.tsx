@@ -3,6 +3,7 @@ import "./globals.css";
 import AppShell from "@/components/AppShell";
 import AuthProvider from "@/lib/AuthProvider";
 import AuthGuard from "@/components/AuthGuard";
+import { Providers } from "@/providers";
 
 export const metadata: Metadata = {
   title: "Cinacoin — Backend Dashboard",
@@ -30,13 +31,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className="bg-dashboard-bg min-h-screen">
-        <AuthProvider>
-          <AuthGuard>
-            <AppShell>{children}</AppShell>
-          </AuthGuard>
-        </AuthProvider>
+        <Providers>
+          <AuthProvider>
+            <AuthGuard>
+              <AppShell>{children}</AppShell>
+            </AuthGuard>
+          </AuthProvider>
+        </Providers>
       </body>
     </html>
   );

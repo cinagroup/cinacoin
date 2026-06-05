@@ -1,8 +1,14 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
+import { JetBrains_Mono } from 'next/font/google'
 import './globals.css'
+import { Providers } from '@/providers'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-mono',
+})
 
 const siteUrl = 'https://cinacoin.com'
 
@@ -28,52 +34,41 @@ export const metadata: Metadata = {
     title: 'Cinacoin — Onchain Access, Simplified',
     description: 'The onchain access layer for wallets, dApps, and chains. Connect, authenticate, and transact across 100+ blockchains.',
     images: [
-      {
-        url: '/logo.png',
-        width: 1200,
-        height: 630,
-        alt: 'Cinacoin — Onchain Access, Simplified',
-      },
+      { url: '/logo.png', width: 1200, height: 630, alt: 'Cinacoin — Onchain Access, Simplified' },
     ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Cinacoin — Onchain Access, Simplified',
-    description: 'The onchain access layer for wallets, dApps, and chains. Connect, authenticate, and transact across 100+ blockchains.',
+    description: 'The onchain access layer for wallets, dApps, and chains.',
     site: '@cinacoin',
     creator: '@cinacoin',
   },
-  alternates: {
-    canonical: siteUrl,
-  },
+  alternates: { canonical: siteUrl },
 }
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: dark)', color: '#050505' },
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#0a0a0a' },
   ],
-  colorScheme: 'dark',
+  colorScheme: 'light dark',
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} dark`}>
+    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
       <head>
-        {/* DNS prefetch & preconnect for external resources */}
         <link rel="dns-prefetch" href="https://docs.cinacoin.com" />
         <link rel="preconnect" href="https://docs.cinacoin.com" />
         <link rel="dns-prefetch" href="https://dash.cinacoin.com" />
         <link rel="preconnect" href="https://dash.cinacoin.com" />
         <link rel="dns-prefetch" href="https://github.com" />
         <link rel="preconnect" href="https://github.com" />
-        {/* Preload critical font */}
-
       </head>
-      <body className="antialiased bg-[#050505]">{children}</body>
+      <body className="antialiased bg-[var(--cc-canvas-soft)]">
+        <Providers>{children}</Providers>
+      </body>
     </html>
   )
 }

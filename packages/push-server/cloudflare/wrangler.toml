@@ -16,20 +16,17 @@ DEFAULT_TIMEOUT_MS = "5000"
 # APNS_P8_KEY - Apple P8 private key
 # APNS_PRODUCTION - boolean (true for production, false for sandbox)
 
-# Rate limiting
-[limits]
-cpu_ms = 50
 
 # KV namespace for device tokens
 [[kv_namespaces]]
 binding = "DEVICE_TOKENS"
-id = "9ab61f92afc3485da73fef3b2e730260"
+id = "10680718388843678a48f5f2ed045cc0"
 
 # D1 database for push log (optional)
 [[d1_databases]]
 binding = "PUSH_LOG_DB"
 database_name = "cinacoin-push"
-database_id = "PLACEHOLDER_REPLACE_AFTER_CREATE"
+database_id = "4c889c2b-91d5-4ef5-9cd6-6c5d7799bf64"
 
 # Queues for background processing (optional)
 [[queues.producers]]

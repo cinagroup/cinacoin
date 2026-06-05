@@ -10,6 +10,17 @@ const nextConfig: NextConfig = {
   // Static export mode (API routes disabled in _auth_disabled)
   output: "export",
 
+  // Redirects for legacy route names
+  async redirects() {
+    return [
+      { source: '/appkit', destination: '/', permanent: true },
+      { source: '/auth', destination: '/login', permanent: true },
+      { source: '/keys', destination: '/keys-server', permanent: true },
+      { source: '/relay', destination: '/relay-server', permanent: true },
+      { source: '/rpc', destination: '/rpc-proxy', permanent: true },
+    ];
+  },
+
   async headers() {
     return [
       {

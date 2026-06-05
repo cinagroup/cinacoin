@@ -206,10 +206,10 @@ export class ContractScanner extends EventEmitter<{
     const res = await fetch(`${url}?${params}`);
     if (!res.ok) return null;
 
-    const json = await res.json();
+    const json = await res.json() as Record<string, any>;
     if (json.status !== '1' || !json.result?.[0]) return null;
 
-    const r = json.result[0];
+    const r = json.result[0] as Record<string, any>;
     return {
       sourceCode: r.SourceCode ?? '',
       contractName: r.ContractName ?? '',
@@ -279,7 +279,7 @@ export class ContractScanner extends EventEmitter<{
     // Common honeypot patterns
     const honeypotIndicators = [
       // Transfer restrictions that can block selling
-      'onlyowner' && code.includes('transfer') && code.includes('return false'),
+      code.includes('onlyowner') && code.includes('transfer') && code.includes('return false'),
       // Sell tax significantly higher than buy tax
       code.includes('_sellfee') && code.includes('_buyfee'),
       // Trading can be disabled by owner

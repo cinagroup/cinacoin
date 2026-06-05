@@ -1,48 +1,50 @@
 'use client'
 
 import FadeIn from '@/components/FadeIn'
+import { useI18n } from '@/providers/I18nProvider'
 
 export default function CTA() {
-  return (
-    <section className="relative py-20 sm:py-24" aria-labelledby="cta-heading">
-      {/* Background glow */}
-      <FadeIn delay={0} duration={1200} direction="none">
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-          <div className="h-[500px] w-[700px] rounded-full bg-gradient-to-br from-blue-500/15 via-purple-500/10 to-transparent blur-[120px]" />
-        </div>
-      </FadeIn>
+  const { t } = useI18n()
 
-      <div className="relative mx-auto max-w-3xl px-6 text-center">
-        <FadeIn delay={100} duration={700}>
-          <h2 id="cta-heading" className="text-3xl sm:text-4xl font-bold tracking-tight md:text-5xl">
-            Ready to build{' '}
-            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-              onchain
-            </span>
-            ?
+  return (
+    <section
+      className="relative overflow-hidden bg-[var(--cc-primary)] py-24 sm:py-32"
+      aria-labelledby="cta-heading"
+    >
+      {/* Mesh gradient */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] cc-mesh-gradient-strong"
+          style={{ opacity: 0.08 }}
+        />
+      </div>
+
+      <div className="relative cc-container text-center">
+        <FadeIn>
+          <h2 id="cta-heading" className="cc-display-lg text-[var(--cc-on-primary)]">
+            {t('cta-title')}
           </h2>
         </FadeIn>
-        <FadeIn delay={250} duration={700}>
-          <p className="mt-4 text-lg text-zinc-400">
-            Join thousands of developers building seamless cross-chain experiences with Cinacoin.
+        <FadeIn delay={200}>
+          <p className="mt-4 cc-body-lg" style={{ color: 'var(--cc-on-primary)', opacity: 0.7 }}>
+            {t('cta-subtitle')}
           </p>
         </FadeIn>
-
-        <FadeIn delay={400} direction="up" duration={800}>
+        <FadeIn delay={400}>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <a
               href="https://docs.cinacoin.com"
-              className="rounded-full bg-white px-8 py-3.5 text-sm font-semibold text-black transition-all hover:bg-zinc-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
-              aria-label="Start building with Cinacoin documentation"
+              className="rounded-full inline-flex items-center justify-center cc-button-lg no-underline transition-opacity hover:opacity-85"
+              style={{ backgroundColor: 'var(--cc-on-primary)', color: 'var(--cc-primary)', padding: '0 var(--cc-sm)', height: '48px' }}
             >
-              Start Building →
+              {t('cta-start')}
             </a>
             <a
               href="https://github.com/cinagroup/cinacoin"
-              className="rounded-full border border-white/10 bg-white/[0.04] px-8 py-3.5 text-sm font-semibold backdrop-blur-sm transition-all hover:bg-white/[0.08] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
-              aria-label="View Cinacoin on GitHub"
+              className="rounded-full inline-flex items-center justify-center cc-button-lg no-underline transition-colors"
+              style={{ backgroundColor: 'transparent', color: 'var(--cc-on-primary)', border: '1px solid var(--cc-on-primary)', borderColor: 'rgba(255,255,255,0.2)' }}
             >
-              View on GitHub
+              {t('cta-github')}
             </a>
           </div>
         </FadeIn>

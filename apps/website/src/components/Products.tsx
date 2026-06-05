@@ -1,79 +1,93 @@
 'use client'
 
 import FadeIn from '@/components/FadeIn'
+import { useI18n } from '@/providers/I18nProvider'
 
 export default function Products() {
+  const { t } = useI18n()
+
   const products = [
     {
-      name: 'AppKit',
-      desc: 'Universal wallet connection kit. 300+ wallets, 50+ chains. One SDK to rule them all.',
+      name: t('nav-products'),
+      descKey: 'f1-desc',
       href: 'https://docs.cinacoin.com/api/appkit',
-      gradient: 'from-blue-500 to-cyan-500',
+      gradientStart: 'var(--cc-link)',
+      gradientEnd: 'var(--cc-cyan)',
     },
     {
       name: 'Auth',
-      desc: 'Sign-In With Ethereum (SIWE) authentication with session management and wallet verification.',
+      descKey: 'f3-desc',
       href: 'https://docs.cinacoin.com/api/auth',
-      gradient: 'from-purple-500 to-pink-500',
+      gradientStart: 'var(--cc-violet)',
+      gradientEnd: 'var(--cc-highlight-pink)',
     },
     {
       name: 'Relay',
-      desc: 'Cross-chain message relay infrastructure for seamless multi-chain transactions.',
+      descKey: 'f5-desc',
       href: 'https://docs.cinacoin.com/api/relay',
-      gradient: 'from-orange-500 to-red-500',
+      gradientStart: 'var(--cc-warning)',
+      gradientEnd: 'var(--cc-error)',
     },
     {
       name: 'Push',
-      desc: 'Real-time push notifications for wallet activity, transactions, and chain events.',
+      descKey: 'f4-desc',
       href: 'https://docs.cinacoin.com/api/push',
-      gradient: 'from-green-500 to-emerald-500',
+      gradientStart: 'var(--cc-cyan)',
+      gradientEnd: 'var(--cc-cyan-deep)',
     },
     {
       name: 'Keys',
-      desc: 'Decentralized key management with secure storage, rotation, and recovery.',
+      descKey: 'f5-desc',
       href: 'https://docs.cinacoin.com/api/keys',
-      gradient: 'from-yellow-500 to-orange-500',
+      gradientStart: 'var(--cc-warning-deep)',
+      gradientEnd: 'var(--cc-warning)',
     },
     {
       name: 'RPC Proxy',
-      desc: 'Unified RPC endpoint with automatic routing, rate limiting, and failover.',
+      descKey: 'f5-desc',
       href: 'https://docs.cinacoin.com/api/rpc',
-      gradient: 'from-indigo-500 to-violet-500',
+      gradientStart: 'var(--cc-link)',
+      gradientEnd: 'var(--cc-violet)',
     },
-  ];
+  ]
 
   return (
-    <section id="products" className="relative py-20 sm:py-24" aria-labelledby="products-heading">
-      <div className="mx-auto max-w-7xl px-6">
+    <section
+      id="products"
+      className="relative bg-[var(--cc-canvas-soft-2)] py-24 sm:py-32"
+      aria-labelledby="products-heading"
+    >
+      <div className="cc-container">
         <FadeIn>
-          <div className="mx-auto mb-12 sm:mb-16 max-w-3xl text-center">
-            <h2 id="products-heading" className="text-3xl sm:text-4xl font-bold tracking-tight md:text-5xl">
-              Products & Infrastructure
+          <div className="mx-auto mb-16 max-w-3xl text-center">
+            <p className="cc-caption-mono text-[var(--cc-muted)] mb-3">{t('products-label')}</p>
+            <h2 id="products-heading" className="cc-display-lg text-[var(--cc-ink)]">
+              {t('products-title')}
             </h2>
-            <p className="mt-4 text-lg text-zinc-400">
-              Everything you need to build seamless onchain experiences
-            </p>
+            <p className="mt-4 cc-body-lg text-[var(--cc-body)]">{t('products-subtitle')}</p>
           </div>
         </FadeIn>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {products.map((p, i) => (
             <FadeIn key={p.name} delay={i * 100} direction="up" duration={600}>
               <a
                 href={p.href}
-                className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 transition-all duration-300 hover:border-white/[0.12] hover:bg-white/[0.04] hover:shadow-xl hover:shadow-purple-500/5 hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
-                aria-label={`Learn more about ${p.name}: ${p.desc}`}
+                className="group cc-card block no-underline transition-shadow hover:shadow-[var(--cc-level3)]"
               >
-                {/* Hover glow effect */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${p.gradient} opacity-0 transition-opacity duration-300 group-hover:opacity-[0.03]`} />
                 <div className="relative">
                   <div className="mb-4 flex items-center gap-2">
-                    <div className={`h-8 w-8 rounded-lg bg-gradient-to-br ${p.gradient} transition-transform duration-300 group-hover:scale-110 group-hover:shadow-lg`} />
-                    <h3 className="text-lg font-semibold">{p.name}</h3>
+                    <div
+                      className="h-8 w-8 rounded-md transition-transform duration-200 group-hover:scale-110"
+                      style={{
+                        background: `linear-gradient(135deg, ${p.gradientStart}, ${p.gradientEnd})`,
+                      }}
+                    />
+                    <h3 className="cc-display-sm text-[var(--cc-ink)]">{p.name}</h3>
                   </div>
-                  <p className="text-sm leading-relaxed text-zinc-400">{p.desc}</p>
-                  <div className="mt-4 flex items-center gap-1 text-sm text-zinc-500 transition-colors group-hover:text-white">
-                    Learn more <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                  <p className="cc-body-sm text-[var(--cc-body)]">{t(p.descKey)}</p>
+                  <div className="mt-4 cc-body-sm text-[var(--cc-link)] transition-colors group-hover:text-[var(--cc-link-deep)]">
+                    {t('learn-more')}
                   </div>
                 </div>
               </a>
@@ -82,5 +96,5 @@ export default function Products() {
         </div>
       </div>
     </section>
-  );
+  )
 }

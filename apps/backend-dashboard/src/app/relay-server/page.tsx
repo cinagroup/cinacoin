@@ -54,7 +54,7 @@ export default function RelayServerPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl sm:text-2xl font-semibold tracking-tight text-white">📡 Relay Server</h1>
+          <h1 className="text-xl sm:text-2xl font-semibold tracking-tighter text-white">📡 Relay Server</h1>
           <p className="text-dashboard-muted mt-1">WebSocket relay via Durable Objects for real-time chain events</p>
         </div>
         <span className="text-xs text-dashboard-muted bg-dashboard-surface border border-dashboard-border rounded-full px-3 py-1.5">
@@ -73,7 +73,7 @@ export default function RelayServerPage() {
       {/* DO Status + Connection breakdown */}
       <div className="grid md:grid-cols-2 gap-4">
         {/* DO status */}
-        <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-5">
+        <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
           <h3 className="text-lg font-semibold text-white mb-4">Durable Objects Status</h3>
           <div className="grid grid-cols-2 gap-4">
             {DO_STATS.map((s, i) => (
@@ -83,7 +83,7 @@ export default function RelayServerPage() {
         </div>
 
         {/* Connection breakdown */}
-        <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-5">
+        <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
           <h3 className="text-lg font-semibold text-white mb-4">Connection Breakdown</h3>
           <div className="space-y-3">
             {CHAIN_DATA.map((chain, i) => {
@@ -113,7 +113,7 @@ export default function RelayServerPage() {
       </div>
 
       {/* Event log */}
-      <div className="bg-dashboard-surface rounded-xl border border-dashboard-border overflow-hidden">
+      <div className="bg-dashboard-surface rounded-md border border-dashboard-border overflow-hidden">
         <div className="px-5 py-4 border-b border-dashboard-border">
           <h3 className="text-lg font-semibold text-white">Live Events</h3>
         </div>

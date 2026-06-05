@@ -1,6 +1,11 @@
+# Legacy route redirects for renamed pages
+/appkit    /    301
+/auth      /login    301
+/keys      /keys-server    301
+/relay     /relay-server    301
+/rpc       /rpc-proxy    301
+
 # API proxy redirects to Cloudflare Workers
-# These allow the dashboard to call Workers via relative paths
-# instead of exposing direct Worker URLs in the client bundle
 /api/rpc/*    https://rpc.cinacoin.com/:splat    200
 /api/keys/*    https://keys.cinacoin.com/:splat    200
 /api/relay/*    https://relay.cinacoin.com/:splat    200

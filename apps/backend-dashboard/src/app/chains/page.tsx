@@ -69,7 +69,7 @@ export default function ChainsPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold tracking-tight text-white">🌐 Networks & Chains</h1>
+          <h1 className="text-2xl font-semibold tracking-tighter text-white">🌐 Networks & Chains</h1>
           <p className="text-dashboard-muted mt-1">
             Configure supported blockchain networks — {enabledCount} of {chains.length} enabled
           </p>
@@ -84,26 +84,26 @@ export default function ChainsPage() {
       </div>
 
       {saved && (
-        <div className="bg-dashboard-success/10 border border-dashboard-success/30 rounded-xl px-4 py-3 text-sm text-dashboard-success">
+        <div className="bg-dashboard-success/10 border border-dashboard-success/30 rounded-md px-4 py-3 text-sm text-dashboard-success">
           ✓ Chain configuration saved successfully
         </div>
       )}
 
       {/* Summary cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-4">
+        <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-4">
           <p className="text-sm text-dashboard-muted">Total Networks</p>
           <p className="text-2xl font-semibold text-white">{chains.length}</p>
         </div>
-        <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-4">
+        <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-4">
           <p className="text-sm text-dashboard-muted">Enabled</p>
           <p className="text-2xl font-semibold text-dashboard-success">{enabledCount}</p>
         </div>
-        <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-4">
+        <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-4">
           <p className="text-sm text-dashboard-muted">EVM Chains</p>
           <p className="text-2xl font-semibold text-brand-400">{chains.filter((c) => c.network === "evm").length}</p>
         </div>
-        <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-4">
+        <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-4">
           <p className="text-sm text-dashboard-muted">Non-EVM</p>
           <p className="text-2xl font-semibold text-dashboard-warning">{chains.filter((c) => c.network !== "evm").length}</p>
         </div>
@@ -136,7 +136,7 @@ export default function ChainsPage() {
       </div>
 
       {/* Chain list */}
-      <div className="bg-dashboard-surface rounded-xl border border-dashboard-border overflow-hidden">
+      <div className="bg-dashboard-surface rounded-md border border-dashboard-border overflow-hidden">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-dashboard-border">
@@ -201,7 +201,7 @@ export default function ChainsPage() {
       </div>
 
       {/* Custom chain add */}
-      <div className="bg-dashboard-surface rounded-xl border border-dashboard-border p-6">
+      <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-6">
         <h3 className="text-lg font-semibold text-white mb-2">Add Custom Network</h3>
         <p className="text-sm text-dashboard-muted mb-4">
           Add a custom EVM-compatible chain or non-EVM network for your AppKit configuration.

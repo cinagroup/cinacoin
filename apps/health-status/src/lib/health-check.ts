@@ -30,7 +30,6 @@ async function checkService(config: ServiceConfig, timeoutMs: number = 8000): Pr
     const response = await fetch(config.url, {
       method: "GET",
       signal: controller.signal,
-      mode: "cors",
       cache: "no-cache",
     });
     clearTimeout(timer);

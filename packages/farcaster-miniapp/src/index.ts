@@ -13,20 +13,15 @@ export type { FarcasterProviderConfig, FarcasterWalletState } from './types.js';
 
 // Auth
 export {
-  generateSignInMessage,
-  parseSignInMessage,
-  buildSignInResult,
-  createSessionPayload,
-  validateSignature,
-  generateNonce,
+  createSiweMessage,
+  verifySignature,
+  FarcasterAuth,
 } from './FarcasterAuth.js';
 
 // Types
 export type {
   FarcasterUser,
   FarcasterContext,
+  SignInWithFarcasterParams,
   SignInWithFarcasterResult,
-  FarcasterFrameAction,
-  FarcasterFrameResponse,
-  FarcasterMiniAppEvent,
 } from './types.js';

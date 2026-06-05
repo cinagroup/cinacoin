@@ -6,6 +6,7 @@
  */
 
 export interface MockTxParams {
+  hash?: string;
   from?: string;
   to?: string;
   value?: string; // hex wei

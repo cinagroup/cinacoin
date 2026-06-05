@@ -39,15 +39,15 @@ export default function LoginPage() {
       <div className="w-full max-w-md">
         {/* Logo / Brand */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-brand-500/20 border border-brand-500/30 mb-4">
-          <img src="/logo.png" alt="cinacoin" className="w-10 h-10 rounded-xl" />
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-lg bg-brand-500/20 border border-brand-500/30 mb-4">
+          <img src="/logo.png" alt="cinacoin" className="w-10 h-10 rounded-md" />
           </div>
-          <h1 className="text-3xl font-bold text-white">cinacoin</h1>
+          <h1 className="text-3xl font-semibold tracking-tighter text-white">cinacoin</h1>
           <p className="text-gray-400 mt-2">Backend Dashboard</p>
         </div>
 
         {/* Login Card */}
-        <div className="bg-[#1a1d2e] border border-[#2a2d3e] rounded-2xl p-8 shadow-2xl">
+        <div className="bg-[#1a1d2e] border border-[#2a2d3e] rounded-lg p-8 shadow-[0_2px_2px_rgba(0,0,0,0.3),0_8px_16px_-4px_rgba(0,0,0,0.3),inset_0_0_0_1px_rgba(255,255,255,0.08)]">
           <h2 className="text-xl font-semibold text-white mb-2">Sign in with Wallet</h2>
           <p className="text-sm text-gray-400 mb-6">
             Connect your Ethereum wallet to access the cinacoin Backend Dashboard.
@@ -96,7 +96,7 @@ export default function LoginPage() {
             aria-label={isLoading || step === "connecting" ? "Wallet connection in progress" : "Connect Ethereum wallet and sign in"}
             disabled={isLoading}
             className={`
-              w-full py-3 px-4 rounded-xl font-semibold text-sm transition-all duration-200
+              w-full py-3 px-4 rounded-[100px] font-semibold text-sm transition-all duration-200
               ${
                 isLoading || step === "connecting"
                   ? "bg-brand-500/50 text-white/60 cursor-not-allowed"
