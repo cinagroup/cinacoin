@@ -81,7 +81,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
             <a href="/" className="px-3 py-1.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-all">Home</a>
             <a href="/swap" className="px-3 py-1.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-all">Swap</a>
             <a href="/multichain" className="px-3 py-1.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-all">Multi-Chain</a>
-            <a href="/auth" className="px-3 py-1.5 rounded-lg text-sm font-medium text-white bg-gray-800">Auth</a>
+            <a href="/auth" className="px-3 py-1.5 rounded-[100px] text-sm font-medium text-white bg-gray-800">Auth</a>
           </div>
         </div>
       </nav>
@@ -94,10 +94,10 @@ Issued At: 2026-05-17T13:45:00.000Z`;
 
         {/* Auth Method Tabs */}
         <div className="flex gap-2 mb-8 bg-gray-900/50 p-1 rounded-md">
-          <button onClick={() => { setAuthMethod('wallet'); setStep(1); }} className={`flex-1 py-2.5 rounded-lg text-sm font-medium transition-all ${authMethod === 'wallet' ? 'bg-[var(--cc-link)] text-white shadow-lg shadow-[var(--cc-link)]/20' : 'text-gray-400 hover:text-white'}`}>
+          <button onClick={() => { setAuthMethod('wallet'); setStep(1); }} className={`flex-1 py-2.5 rounded-[100px] text-sm font-medium transition-all ${authMethod === 'wallet' ? 'bg-[var(--cc-link)] text-white shadow-[var(--cc-level3)]' : 'text-gray-400 hover:text-white'}`}>
             🔗 Wallet
           </button>
-          <button onClick={() => { setAuthMethod('social'); setStep(1); }} className={`flex-1 py-2.5 rounded-lg text-sm font-medium transition-all ${authMethod === 'social' ? 'bg-[var(--cc-link)] text-white shadow-lg shadow-[var(--cc-link)]/20' : 'text-gray-400 hover:text-white'}`}>
+          <button onClick={() => { setAuthMethod('social'); setStep(1); }} className={`flex-1 py-2.5 rounded-[100px] text-sm font-medium transition-all ${authMethod === 'social' ? 'bg-[var(--cc-link)] text-white shadow-[var(--cc-level3)]' : 'text-gray-400 hover:text-white'}`}>
             👤 Social
           </button>
         </div>
@@ -123,7 +123,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
                 <h2 className="text-lg font-semibold text-center">Connect Wallet</h2>
                 <div className="flex gap-2 flex-wrap justify-center mb-4">
                   {chains.map(c => (
-                    <button key={c} onClick={() => setSelectedChain(c)} className={`px-4 py-2 rounded-md text-sm transition-all ${selectedChain === c ? 'bg-[var(--cc-link)] text-white' : 'bg-gray-800 text-gray-400 hover:bg-gray-700'}`}>{c}</button>
+                    <button key={c} onClick={() => setSelectedChain(c)} className={`px-4 py-2 rounded-[100px] text-sm transition-all ${selectedChain === c ? 'bg-[var(--cc-link)] text-white' : 'bg-gray-800 text-gray-400 hover:bg-gray-700'}`}>{c}</button>
                   ))}
                 </div>
                 {WALLET_PROVIDERS.map(w => (
@@ -141,7 +141,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
               <div className="bg-gray-900/80 backdrop-blur rounded-lg border border-gray-800 p-6 space-y-4">
                 <h2 className="text-lg font-semibold text-center">Sign Message</h2>
                 <div className="bg-gray-950 rounded-md p-4 font-mono text-xs text-gray-400 whitespace-pre-wrap border border-gray-800 max-h-48 overflow-y-auto">{siweMessage}</div>
-                <button onClick={handleSign} disabled={signing} className={`w-full py-4 rounded-[100px] font-semibold transition-all ${signing ? 'bg-gray-700 text-gray-500' : 'bg-gradient-to-r from-[var(--cc-link)] to-[var(--cc-link)] text-white hover:from-[var(--cc-link)] hover:to-[var(--cc-link)] shadow-lg shadow-[var(--cc-link)]/20'}`}>
+                <button onClick={handleSign} disabled={signing} className={`w-full py-4 rounded-[100px] font-semibold transition-all ${signing ? 'bg-gray-700 text-gray-500' : 'bg-gradient-to-r from-[var(--cc-link)] to-[var(--cc-link)] text-white hover:from-[var(--cc-link)] hover:to-[var(--cc-link)] shadow-[var(--cc-level3)]'}`}>
                   {signing ? <span className="flex items-center justify-center gap-2"><span className="w-5 h-5 border-2 border-gray-400 border-t-white rounded-full animate-spin" />Signing...</span> : 'Sign Message'}
                 </button>
               </div>
@@ -156,7 +156,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
                   <div className="flex justify-between"><span className="text-gray-500">Signature</span><span className="font-mono text-xs">0x1a2b3c4d...</span></div>
                   <div className="flex justify-between"><span className="text-gray-500">Nonce</span><span className="font-mono text-xs">8b3f9a2c</span></div>
                 </div>
-                <button onClick={handleVerify} className="w-full py-4 rounded-[100px] font-semibold bg-gradient-to-r from-[var(--cc-link)] to-[var(--cc-link)] text-white hover:from-[var(--cc-link)] hover:to-[var(--cc-link)] transition-all shadow-lg shadow-[var(--cc-link)]/20">Verify</button>
+                <button onClick={handleVerify} className="w-full py-4 rounded-[100px] font-semibold bg-gradient-to-r from-[var(--cc-link)] to-[var(--cc-link)] text-white hover:from-[var(--cc-link)] hover:to-[var(--cc-link)] transition-all shadow-[var(--cc-level3)]">Verify</button>
               </div>
             )}
           </div>
@@ -196,7 +196,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
                   <div className="flex justify-between"><span className="text-gray-500">Wallet</span><span className="font-mono text-xs">{address}</span></div>
                   <div className="flex justify-between"><span className="text-gray-500">Verified</span><span className="text-[var(--cc-success)]">✓ True</span></div>
                 </div>
-                <button onClick={handleReset} className="w-full mt-4 py-2.5 rounded-md text-sm font-medium bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white transition-all">Reset</button>
+                <button onClick={handleReset} className="w-full mt-4 py-2.5 rounded-[100px] text-sm font-medium bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white transition-all">Reset</button>
               </div>
             )}
           </div>
@@ -212,7 +212,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
                 <p className="text-xs text-gray-500">{authMethod === 'social' ? `Signed in via ${SOCIAL_PROVIDERS.find(s => s.id === selectedSocial)?.name}` : 'Signed in with Ethereum'}</p>
               </div>
             </div>
-            <button onClick={handleReset} className="w-full py-2.5 rounded-md text-sm font-medium bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white transition-all">Disconnect</button>
+            <button onClick={handleReset} className="w-full py-2.5 rounded-[100px] text-sm font-medium bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white transition-all">Disconnect</button>
           </div>
         )}
 

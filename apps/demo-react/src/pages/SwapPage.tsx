@@ -82,7 +82,7 @@ export default function SwapPage() {
           <a href="/" className="text-lg font-semibold bg-gradient-to-r from-[var(--cc-link)] to-[var(--cc-link)] bg-clip-text text-transparent">Cinacoin</a>
           <div className="flex items-center gap-1">
             <a href="/" className="px-3 py-1.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-all">Home</a>
-            <a href="/swap" className="px-3 py-1.5 rounded-lg text-sm font-medium text-white bg-gray-800">Swap</a>
+            <a href="/swap" className="px-3 py-1.5 rounded-[100px] text-sm font-medium text-white bg-gray-800">Swap</a>
             <a href="/multichain" className="px-3 py-1.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-all">Multi-Chain</a>
             <a href="/auth" className="px-3 py-1.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-all">Auth</a>
           </div>
@@ -158,7 +158,7 @@ export default function SwapPage() {
         )}
 
         {/* Swap Button */}
-        <button className={`w-full mt-4 py-4 rounded-[100px] font-semibold text-lg transition-all ${amount > 0 ? 'bg-gradient-to-r from-[var(--cc-link)] to-[var(--cc-link)] text-white hover:from-[var(--cc-link)] hover:to-[var(--cc-link)] shadow-lg shadow-[var(--cc-link)]/20' : 'bg-gray-800 text-gray-500 cursor-not-allowed'}`}>
+        <button className={`w-full mt-4 py-4 rounded-[100px] font-semibold text-lg transition-all ${amount > 0 ? 'bg-gradient-to-r from-[var(--cc-link)] to-[var(--cc-link)] text-white hover:from-[var(--cc-link)] hover:to-[var(--cc-link)] shadow-[var(--cc-level3)]' : 'bg-gray-800 text-gray-500 cursor-not-allowed'}`}>
           {amount > 0 ? 'Swap' : 'Enter an amount'}
         </button>
 

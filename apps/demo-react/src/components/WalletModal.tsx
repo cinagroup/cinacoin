@@ -181,7 +181,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
                 <div className="flex px-6 pt-4 gap-2">
                   <button
                     onClick={() => setActiveTab('popular')}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                    className={`px-4 py-2 rounded-[100px] text-sm font-medium transition-all ${
                       activeTab === 'popular'
                         ? 'bg-[var(--cc-link)]/20 text-[var(--cc-link)]'
                         : 'text-gray-400 hover:text-white'
@@ -191,7 +191,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
                   </button>
                   <button
                     onClick={() => setActiveTab('all')}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                    className={`px-4 py-2 rounded-[100px] text-sm font-medium transition-all ${
                       activeTab === 'all'
                         ? 'bg-[var(--cc-link)]/20 text-[var(--cc-link)]'
                         : 'text-gray-400 hover:text-white'
@@ -412,7 +412,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
                   )}
                   <button
                     onClick={handleBack}
-                    className="px-6 py-2.5 rounded-md text-sm font-medium text-gray-400 hover:text-white transition-colors"
+                    className="px-6 py-2.5 rounded-[100px] text-sm font-medium text-gray-400 hover:text-white transition-colors"
                   >
                     ← Back to wallets
                   </button>

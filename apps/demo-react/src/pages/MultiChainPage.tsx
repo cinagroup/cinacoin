@@ -31,7 +31,7 @@ export default function MultiChainPage() {
           <div className="flex items-center gap-1">
             <a href="/" className="px-3 py-1.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-all">Home</a>
             <a href="/swap" className="px-3 py-1.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-all">Swap</a>
-            <a href="/multichain" className="px-3 py-1.5 rounded-lg text-sm font-medium text-white bg-gray-800">Multi-Chain</a>
+            <a href="/multichain" className="px-3 py-1.5 rounded-[100px] text-sm font-medium text-white bg-gray-800">Multi-Chain</a>
             <a href="/auth" className="px-3 py-1.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-all">Auth</a>
           </div>
         </div>
