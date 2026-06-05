@@ -79,7 +79,7 @@ export default function SwapPage() {
       {/* Nav */}
       <nav className="border-b border-gray-800/50 bg-gray-950/80 backdrop-blur sticky top-0 z-40">
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
-          <a href="/" className="text-lg font-semibold bg-gradient-to-r from-brand-500 to-brand-400 bg-clip-text text-transparent">Cinacoin</a>
+          <a href="/" className="text-lg font-semibold bg-gradient-to-r from-[var(--cc-link)] to-[var(--cc-link)] bg-clip-text text-transparent">Cinacoin</a>
           <div className="flex items-center gap-1">
             <a href="/" className="px-3 py-1.5 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-all">Home</a>
             <a href="/swap" className="px-3 py-1.5 rounded-lg text-sm font-medium text-white bg-gray-800">Swap</a>
@@ -91,7 +91,7 @@ export default function SwapPage() {
 
       {/* Swap Card */}
       <section className="max-w-md mx-auto pt-12 px-4">
-        <h1 className="text-3xl font-semibold text-center mb-8 tracking-tight bg-gradient-to-r from-brand-500 to-brand-400 bg-clip-text text-transparent">Swap Tokens</h1>
+        <h1 className="text-3xl font-semibold text-center mb-8 tracking-tight bg-gradient-to-r from-[var(--cc-link)] to-[var(--cc-link)] bg-clip-text text-transparent">Swap Tokens</h1>
 
         <div className="bg-gray-900/80 backdrop-blur rounded-lg border border-gray-800 p-4 space-y-2">
           {/* FROM */}
@@ -142,23 +142,23 @@ export default function SwapPage() {
               </span>
             </div>
             <div className="flex justify-between text-sm"><span className="text-gray-500">Rate</span><span>{rate}</span></div>
-            <div className="flex justify-between text-sm"><span className="text-gray-500">Network Fee</span><span className="text-green-400">~$2.34</span></div>
+            <div className="flex justify-between text-sm"><span className="text-gray-500">Network Fee</span><span className="text-[var(--cc-success)]">~$2.34</span></div>
             <div className="flex justify-between text-sm">
               <span className="text-gray-500">Slippage</span>
               <div className="flex gap-1">
                 {['0.1', '0.5', '1.0'].map(s => (
-                  <button key={s} onClick={() => setSlippage(s)} className={`px-2 py-0.5 rounded text-xs transition-all ${slippage === s ? 'bg-brand-600 text-white' : 'bg-gray-800 text-gray-400 hover:bg-gray-700'}`}>{s}%</button>
+                  <button key={s} onClick={() => setSlippage(s)} className={`px-2 py-0.5 rounded text-xs transition-all ${slippage === s ? 'bg-[var(--cc-link)] text-white' : 'bg-gray-800 text-gray-400 hover:bg-gray-700'}`}>{s}%</button>
                 ))}
               </div>
             </div>
-            <div className="flex justify-between text-sm"><span className="text-gray-500">Price Impact</span><span className="text-green-400">0.02%</span></div>
+            <div className="flex justify-between text-sm"><span className="text-gray-500">Price Impact</span><span className="text-[var(--cc-success)]">0.02%</span></div>
             <div className="flex justify-between text-sm"><span className="text-gray-500">Minimum Received</span><span>{(parseFloat(toAmount || '0') * 0.995).toFixed(2)} {to.symbol}</span></div>
             <div className="pt-2 border-t border-gray-800 text-xs text-gray-500">Route: {from.symbol} → {to.symbol} via Uniswap V3</div>
           </div>
         )}
 
         {/* Swap Button */}
-        <button className={`w-full mt-4 py-4 rounded-[100px] font-semibold text-lg transition-all ${amount > 0 ? 'bg-gradient-to-r from-brand-600 to-brand-500 text-white hover:from-brand-500 hover:to-brand-400 shadow-lg shadow-brand-500/20' : 'bg-gray-800 text-gray-500 cursor-not-allowed'}`}>
+        <button className={`w-full mt-4 py-4 rounded-[100px] font-semibold text-lg transition-all ${amount > 0 ? 'bg-gradient-to-r from-[var(--cc-link)] to-[var(--cc-link)] text-white hover:from-[var(--cc-link)] hover:to-[var(--cc-link)] shadow-lg shadow-[var(--cc-link)]/20' : 'bg-gray-800 text-gray-500 cursor-not-allowed'}`}>
           {amount > 0 ? 'Swap' : 'Enter an amount'}
         </button>
 
@@ -186,7 +186,7 @@ export default function SwapPage() {
                   <tr key={i} className="border-b border-gray-800/50 hover:bg-gray-800/30 transition-colors">
                     <td className="p-3"><span className="font-medium">{s.from}</span><span className="text-gray-500 mx-1">→</span><span className="font-medium">{s.to}</span></td>
                     <td className="p-3 text-gray-400">{s.route}</td>
-                    <td className="p-3"><span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs ${s.status === 'completed' ? 'bg-green-500/10 text-green-400' : 'bg-yellow-500/10 text-yellow-400'}`}><span className={`w-1.5 h-1.5 rounded-full ${s.status === 'completed' ? 'bg-green-400' : 'bg-yellow-400'}`}/>{s.status}</span></td>
+                    <td className="p-3"><span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs ${s.status === 'completed' ? 'bg-[var(--cc-success)]/10 text-[var(--cc-success)]' : 'bg-yellow-500/10 text-yellow-400'}`}><span className={`w-1.5 h-1.5 rounded-full ${s.status === 'completed' ? 'bg-[var(--cc-success)]' : 'bg-yellow-400'}`}/>{s.status}</span></td>
                     <td className="p-3 text-right text-gray-500">{s.time}</td>
                   </tr>
                 ))}

@@ -183,7 +183,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
                     onClick={() => setActiveTab('popular')}
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                       activeTab === 'popular'
-                        ? 'bg-brand-600/20 text-brand-400'
+                        ? 'bg-[var(--cc-link)]/20 text-[var(--cc-link)]'
                         : 'text-gray-400 hover:text-white'
                     }`}
                   >
@@ -193,7 +193,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
                     onClick={() => setActiveTab('all')}
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                       activeTab === 'all'
-                        ? 'bg-brand-600/20 text-brand-400'
+                        ? 'bg-[var(--cc-link)]/20 text-[var(--cc-link)]'
                         : 'text-gray-400 hover:text-white'
                     }`}
                   >
@@ -222,7 +222,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
                             </div>
                             <span className="flex-1 text-left font-medium">{wallet.name}</span>
                             {detected && (
-                              <span className="text-xs px-2 py-1 rounded-full bg-emerald-500/20 text-emerald-400">
+                              <span className="text-xs px-2 py-1 rounded-full bg-[var(--cc-success)]/20 text-[var(--cc-success)]">
                                 Detected
                               </span>
                             )}
@@ -268,7 +268,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
                 <div className="relative mb-6">
                   <div className="w-20 h-20 rounded-full border-2 border-white/10" />
                   <div
-                    className="absolute inset-0 w-20 h-20 rounded-full border-2 border-transparent border-t-brand-500 animate-spin-slow"
+                    className="absolute inset-0 w-20 h-20 rounded-full border-2 border-transparent border-t-[var(--cc-link)] animate-spin-slow"
                   />
                   <div
                     className="absolute inset-2 w-16 h-16 rounded-md flex items-center justify-center text-2xl"
@@ -289,8 +289,8 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
             {modalState === 'success' && (
               <div className="flex flex-col items-center justify-center py-12 px-6">
                 {/* Checkmark animation */}
-                <div className="w-20 h-20 rounded-full bg-emerald-500/20 flex items-center justify-center mb-6 animate-bounce-in">
-                  <svg className="w-10 h-10 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="w-20 h-20 rounded-full bg-[var(--cc-success)]/20 flex items-center justify-center mb-6 animate-bounce-in">
+                  <svg className="w-10 h-10 text-[var(--cc-success)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
@@ -429,7 +429,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
                 href="https://ethereum.org/en/wallets/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-brand-400 hover:text-brand-300 hover:underline"
+                className="text-[var(--cc-link)] hover:text-[var(--cc-link)] hover:underline"
               >
                 Learn more →
               </a>
