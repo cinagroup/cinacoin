@@ -1,6 +1,0 @@
-import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-export default function MetricBox({ label, value, icon, trend, color = "text-white" }) {
-    return (_jsxs("div", { className: "bg-dashboard-surface rounded-xl border border-dashboard-border p-3 sm:p-4", children: [_jsxs("div", { className: "flex items-center justify-between mb-1 sm:mb-2", children: [_jsx("span", { className: "text-xs sm:text-sm text-dashboard-muted", children: label }), icon && _jsx("span", { className: "text-base sm:text-lg", children: icon })] }), _jsxs("div", { className: "flex items-end gap-1 sm:gap-2", children: [_jsx("span", { className: `text-lg sm:text-2xl font-bold ${color} break-all`, children: value }), trend && (_jsx("span", { className: `text-xs mb-1 ${trend === "up" ? "text-dashboard-success" :
-                            trend === "down" ? "text-dashboard-danger" : "text-dashboard-muted"}`, children: trend === "up" ? "↑" : trend === "down" ? "↓" : "→" }))] })] }));
-}
-//# sourceMappingURL=MetricBox.js.map

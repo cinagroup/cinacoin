@@ -204,12 +204,14 @@ a:hover { color: var(--cc-link-deep); }
 }
 .cc-btn-secondary-sm:hover { border-color: var(--cc-body); }
 .cc-card {
-  background: var(--cc-canvas); border-radius: var(--cc-radius-md);
+  background: var(--cc-canvas); border: 1px solid var(--cc-hairline);
+  border-radius: var(--cc-radius-md);
   padding: var(--cc-lg); box-shadow: var(--cc-level2); transition: box-shadow 0.2s ease;
 }
 .cc-card:hover { box-shadow: var(--cc-level3); }
 .cc-card-lg {
-  background: var(--cc-canvas); border-radius: var(--cc-radius-lg);
+  background: var(--cc-canvas); border: 1px solid var(--cc-hairline);
+  border-radius: var(--cc-radius-lg);
   padding: var(--cc-xl); box-shadow: var(--cc-level3); transition: box-shadow 0.2s ease;
 }
 .cc-card-lg:hover { box-shadow: var(--cc-level4); }

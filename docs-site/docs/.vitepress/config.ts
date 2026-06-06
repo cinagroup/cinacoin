@@ -11,6 +11,8 @@ export default defineConfig({
   lang: 'en',
   lastUpdated: true,
   cleanUrls: true,
+  // Brand is a light, ink-on-near-white system (DESIGN.md) — force light.
+  appearance: false,
 
   head: [
     ['link', { rel: 'icon', href: '/docs/favicon.svg' }],

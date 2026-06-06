@@ -3,3 +3,10 @@
 /out/
 /out_deploy/
 node_modules/
+# Stale compiled config/output that must never live next to .ts/.tsx source
+tailwind.config.js
+tailwind.config.js.map
+next.config.js
+next.config.d.ts
+src/**/*.js
+src/**/*.d.ts
