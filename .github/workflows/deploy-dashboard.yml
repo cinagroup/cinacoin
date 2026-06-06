@@ -78,13 +78,12 @@ jobs:
           find . -path "*/node_modules" -prune -o -type f -size +20M -print 2>/dev/null || echo "None found"
           echo "Cache cleaned"
 
+      - name: Install Wrangler
+        run: npm install -g wrangler@3
+
       - name: Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          wranglerVersion: "3.99.0"
-          packageManager: npm
-          command: pages deploy apps/backend-dashboard/out --project-name=backend-dashboard
+        run: wrangler pages deploy apps/backend-dashboard/out --project-name=backend-dashboard
         env:
           NODE_ENV: production
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
