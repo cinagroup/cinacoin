@@ -17,4 +17,13 @@ routes = [
   { pattern = "cinacoin.com/dashboard/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
   { pattern = "cinacoin.com/analytics", zone_id = "9e9b0140baac8f501ded715128fa5415" },
   { pattern = "cinacoin.com/analytics/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+
+  # Retired subdomains — the Worker 301s every path to the canonical
+  # cinacoin.com/<zone>/. Requires the Pages custom domain to be removed
+  # from each project + a proxied DNS record so the route attaches.
+  { pattern = "demo.cinacoin.com/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+  { pattern = "wallet.cinacoin.com/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+  { pattern = "cloud.cinacoin.com/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+  { pattern = "analytics.cinacoin.com/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+  { pattern = "docs.cinacoin.com/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
 ]
