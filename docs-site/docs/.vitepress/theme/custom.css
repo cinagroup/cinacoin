@@ -60,17 +60,26 @@
   --vp-home-hero-image-filter: blur(56px);
 }
 
-/* Headings: weight 600 ceiling + negative tracking (DESIGN.md voice) */
+/* Headings: weight 600 ceiling + negative tracking (DESIGN.md voice).
+   High-specificity to override VitePress defaults. */
 .vp-doc h1,
+.vp-doc h2,
+.vp-doc h3,
+.VPDoc h1,
+.VPDoc h2,
+h1.vp-doc-title,
+.VPHomeHero .name,
+.VPHomeHero .text,
 .VPHero .name,
 .VPHero .text {
-  font-weight: 600;
-  letter-spacing: -0.04em;
+  font-weight: 600 !important;
+  letter-spacing: -0.04em !important;
 }
 .vp-doc h2,
-.vp-doc h3 {
-  font-weight: 600;
-  letter-spacing: -0.02em;
+.vp-doc h3,
+.VPDoc h2,
+.VPDoc h3 {
+  letter-spacing: -0.025em !important;
 }
 
 /* Marketing CTAs = 100px pill */
