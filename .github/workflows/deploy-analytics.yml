@@ -69,6 +69,7 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: apps/analytics-dashboard
           wranglerVersion: "3.99.0"
+          packageManager: npm
           command: deploy
         env:
           NODE_ENV: production

@@ -9,8 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "build:cf": "opennextjs-cloudflare",
-    "deploy:cf": "opennextjs-cloudflare && wrangler deploy"
+    "build:cf": "opennextjs-cloudflare build",
+    "deploy:cf": "opennextjs-cloudflare build && wrangler deploy"
   },
   "dependencies": {
     "next": "^15.5.18",
