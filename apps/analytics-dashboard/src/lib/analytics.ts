@@ -1,9 +1,11 @@
 /**
  * Analytics Query Layer
  *
- * Provides typed interfaces and in-memory query engine for
- * on-ramp conversion analytics. In production, replace the
- * in-memory store with a database-backed implementation.
+ * Typed interfaces and an in-memory query engine for conversion analytics.
+ * The production dashboard reads aggregated metrics directly from the
+ * D1-backed analytics-server Worker (GET /v1/overview); this engine powers
+ * the optional in-app API routes and unit tests where a non-static runtime
+ * loads events explicitly via loadEvents()/addEvents().
  */
 
 // ============================================================

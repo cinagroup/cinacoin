@@ -1549,17 +1549,37 @@ export class SuiChainAdapter {
     if (!this.provider) throw new Error('No provider connected');
 
     const builder = new TransactionBuilder();
+
+    // Register each argument as a proper transaction input and pass its
+    // resulting index to the Move call. Numbers/bigints become u64 inputs,
+    // 0x-addresses become address inputs, raw bytes become pure inputs, and
+    // strings are encoded as UTF-8 pure inputs.
+    const argIndices = (params.arguments ?? []).map((a) => {
+      if (typeof a === 'bigint') return builder.inputU64(a);
+      if (typeof a === 'number') {
+        return Number.isInteger(a)
+          ? builder.inputU64(a)
+          : builder.inputPure(new TextEncoder().encode(String(a)));
+      }
+      if (a instanceof Uint8Array) return builder.inputPure(a);
+      if (typeof a === 'string') {
+        return /^0x[0-9a-fA-F]{1,64}$/.test(a)
+          ? builder.inputAddress(a)
+          : builder.inputPure(new TextEncoder().encode(a), 'string');
+      }
+      // Fallback: BCS-encode the JSON representation as a pure input rather
+      // than dropping the argument with a placeholder.
+      return builder.inputPure(new TextEncoder().encode(JSON.stringify(a)));
+    });
+
     const cmdIdx = builder.moveCall({
       package: params.package,
       module: params.module,
       function: params.function,
       typeArguments: params.typeArguments,
-      arguments: params.arguments?.map((a) => {
-        if (typeof a === 'number') return a;
-        // For pure values, we need to add them as inputs
-        return -1; // placeholder
-      }),
+      arguments: argIndices,
     });
+    void cmdIdx;
 
     const built = builder.build(params.gasBudget ?? '100000000');
 

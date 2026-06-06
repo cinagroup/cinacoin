@@ -104,14 +104,34 @@ describe('buildDeployAccountTx', () => {
   });
 });
 
+describe('getSelectorFromName', () => {
+  it('computes the canonical sn_keccak selector for a function name', async () => {
+    const { getSelectorFromName } = await import('../types.js');
+    // Known Starknet vector: selector('transfer')
+    expect(BigInt(getSelectorFromName('transfer'))).toBe(
+      BigInt(
+        '0x0083afd3f4caedc6eebf44246fe54e38c95e3179a5ec9ea81740eca5b482d12e',
+      ),
+    );
+  });
+
+  it('passes through an already-numeric felt selector', async () => {
+    const { getSelectorFromName } = await import('../types.js');
+    expect(BigInt(getSelectorFromName('0x123'))).toBe(0x123n);
+  });
+});
+
 describe('computeAccountAddress', () => {
-  it('should return a 0x-prefixed address', () => {
-    const address = computeAccountAddress(
+  it('should return a deterministic 0x-prefixed Pedersen-derived address', async () => {
+    const address = await computeAccountAddress(
       '0x1234',
       '0x5678',
       ['0xabc'],
     );
     expect(address.startsWith('0x')).toBe(true);
+    // Deterministic: same inputs must yield the same address.
+    const again = await computeAccountAddress('0x1234', '0x5678', ['0xabc']);
+    expect(again).toBe(address);
   });
 });
 

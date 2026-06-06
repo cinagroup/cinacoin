@@ -1,138 +1,241 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { SiteHeader, SiteFooter } from '@cinacoin/ui';
 
-const KPIS = [
-  { label: 'On-ramp volume', value: '$2.84M', delta: '+12.4%', positive: true, caption: 'Last 30 days' },
-  { label: 'Active wallets', value: '18,402', delta: '+6.1%', positive: true, caption: 'Unique, 30d' },
-  { label: 'Transactions', value: '142,910', delta: '+9.7%', positive: true, caption: 'Settled, 30d' },
-  { label: 'Conversion rate', value: '63.8%', delta: '-1.2%', positive: false, caption: 'Quote → settle' },
-];
+// Analytics ingestion + query Worker (packages/analytics-server). The
+// dashboard is a static export, so it queries this Worker directly from the
+// browser rather than via in-app API routes.
+const ANALYTICS_URL =
+  process.env.NEXT_PUBLIC_ANALYTICS_URL ||
+  'https://analytics-api.cinacoin.com';
 
-// Demo daily volume (last 30 days), normalized 0..1 for the bar heights.
-const VOLUME = [
-  0.42, 0.48, 0.39, 0.55, 0.61, 0.58, 0.5, 0.63, 0.69, 0.64, 0.72, 0.68, 0.6, 0.74,
-  0.8, 0.77, 0.7, 0.82, 0.86, 0.79, 0.73, 0.85, 0.9, 0.84, 0.78, 0.88, 0.93, 0.87, 0.81, 0.95,
-];
+interface Overview {
+  period: { days: number; from: number; to: number };
+  kpis: {
+    activeWallets: { value: number; deltaPct: number };
+    transactions: { value: number; deltaPct: number };
+    conversionRate: { value: number; deltaPct: number };
+  };
+  dailyTransactions: { date: string; count: number }[];
+  chains: { chainId: string; count: number }[];
+}
 
-const CHAINS = [
-  { name: 'Ethereum', pct: 38 },
-  { name: 'Base', pct: 21 },
-  { name: 'Solana', pct: 17 },
-  { name: 'Arbitrum', pct: 12 },
-  { name: 'Polygon', pct: 7 },
-  { name: 'Others', pct: 5 },
-];
+// Friendly chain names for common chainIds; falls back to the raw id.
+const CHAIN_NAMES: Record<string, string> = {
+  '1': 'Ethereum',
+  '8453': 'Base',
+  '42161': 'Arbitrum',
+  '137': 'Polygon',
+  '10': 'Optimism',
+  '56': 'BNB Chain',
+  '43114': 'Avalanche',
+};
+
+function chainName(id: string): string {
+  return CHAIN_NAMES[id] ?? `Chain ${id}`;
+}
+
+function fmtInt(n: number): string {
+  return n.toLocaleString();
+}
+
+function fmtDelta(pct: number): string {
+  const r = Math.round(pct * 10) / 10;
+  return `${r >= 0 ? '+' : ''}${r}%`;
+}
 
 export default function HomePage() {
+  const [data, setData] = useState<Overview | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch(`${ANALYTICS_URL}/v1/overview?days=30`)
+      .then((r) => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+      })
+      .then((json: Overview) => {
+        if (!cancelled) setData(json);
+      })
+      .catch(() => {
+        if (!cancelled) setError(true);
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const kpis = data
+    ? [
+        {
+          label: 'Active wallets',
+          value: fmtInt(data.kpis.activeWallets.value),
+          delta: fmtDelta(data.kpis.activeWallets.deltaPct),
+          positive: data.kpis.activeWallets.deltaPct >= 0,
+          caption: 'Unique, 30d',
+        },
+        {
+          label: 'Transactions',
+          value: fmtInt(data.kpis.transactions.value),
+          delta: fmtDelta(data.kpis.transactions.deltaPct),
+          positive: data.kpis.transactions.deltaPct >= 0,
+          caption: 'Confirmed, 30d',
+        },
+        {
+          label: 'Conversion rate',
+          value: `${data.kpis.conversionRate.value}%`,
+          delta: fmtDelta(data.kpis.conversionRate.deltaPct),
+          positive: data.kpis.conversionRate.deltaPct >= 0,
+          caption: 'Confirmed / attempted',
+        },
+      ]
+    : [];
+
+  const dailyCounts = data?.dailyTransactions.map((d) => d.count) ?? [];
+  const maxCount = Math.max(1, ...dailyCounts);
+  const totalChain = data?.chains.reduce((s, c) => s + c.count, 0) ?? 0;
+  const hasData =
+    data != null &&
+    (data.kpis.transactions.value > 0 ||
+      data.kpis.activeWallets.value > 0 ||
+      dailyCounts.some((c) => c > 0));
+
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      {/* Shared site header from @cinacoin/ui */}
       <SiteHeader
         logoSrc="/analytics/logo.png"
         sublabel="Analytics"
         links={[
-          { label: 'Demo', href: 'https://demo.cinacoin.com' },
-          { label: 'Docs', href: 'https://docs.cinacoin.com' },
+          { label: 'Demo', href: 'https://cinacoin.com/demo' },
+          { label: 'Docs', href: 'https://cinacoin.com/docs' },
         ]}
       />
 
-      {/* Main */}
       <main style={{ flex: 1, padding: '48px 0' }}>
         <div className="cc-container" style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
           {/* Title */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            <span className="cc-caption-mono" style={{ color: 'var(--cc-muted)' }}>OVERVIEW · DEMO DATA</span>
-            <h1 className="cc-display-lg" style={{ color: 'var(--cc-ink)' }}>On-ramp analytics.</h1>
+            <span className="cc-caption-mono" style={{ color: 'var(--cc-muted)' }}>OVERVIEW</span>
+            <h1 className="cc-display-lg" style={{ color: 'var(--cc-ink)' }}>Wallet analytics.</h1>
             <p className="cc-body-lg" style={{ color: 'var(--cc-body)', maxWidth: 640 }}>
-              Fiat-to-crypto conversion performance across chains. Figures below are illustrative demo data.
+              Wallet activity and transaction performance across chains, aggregated from
+              ingested SDK events over the last 30 days.
             </p>
           </div>
 
-          {/* KPI row */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 16 }}>
-            {KPIS.map((k) => (
-              <div key={k.label} className="cc-card" style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                  <span className="cc-caption-mono" style={{ color: 'var(--cc-muted)' }}>{k.label}</span>
-                  <span
-                    className="cc-badge"
-                    style={{
-                      color: k.positive ? 'var(--cc-success)' : 'var(--cc-error)',
-                      background: 'var(--cc-canvas-soft-2)',
-                    }}
-                  >
-                    {k.delta}
-                  </span>
-                </div>
-                <span className="cc-display-md" style={{ color: 'var(--cc-ink)' }}>{k.value}</span>
-                <span className="cc-caption" style={{ color: 'var(--cc-muted)' }}>{k.caption}</span>
-              </div>
-            ))}
-          </div>
-
-          {/* Charts */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 2fr) minmax(0, 1fr)', gap: 24 }} className="cc-analytics-grid">
-            {/* Volume bars */}
-            <div className="cc-card-lg">
-              <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 24 }}>
-                <h2 className="cc-display-sm" style={{ color: 'var(--cc-ink)' }}>On-ramp volume</h2>
-                <span className="cc-caption-mono" style={{ color: 'var(--cc-muted)' }}>LAST 30 DAYS</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'flex-end', gap: 4, height: 200 }}>
-                {VOLUME.map((v, i) => (
-                  <div
-                    key={i}
-                    title={`Day ${i + 1}`}
-                    style={{
-                      flex: 1,
-                      height: `${Math.round(v * 100)}%`,
-                      borderRadius: '4px 4px 0 0',
-                      background: 'linear-gradient(180deg, var(--cc-gradient-develop-start), var(--cc-gradient-develop-end))',
-                      opacity: 0.85,
-                    }}
-                  />
-                ))}
-              </div>
+          {loading ? (
+            <div className="cc-card" style={{ color: 'var(--cc-muted)' }}>Loading analytics…</div>
+          ) : error ? (
+            <div className="cc-card" style={{ color: 'var(--cc-muted)' }}>
+              Analytics service is unavailable right now. Try again shortly.
             </div>
-
-            {/* Top chains */}
-            <div className="cc-card-lg">
-              <h2 className="cc-display-sm" style={{ color: 'var(--cc-ink)', marginBottom: 24 }}>Top chains</h2>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                {CHAINS.map((c) => (
-                  <div key={c.name} style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <span className="cc-body-sm" style={{ color: 'var(--cc-ink)' }}>{c.name}</span>
-                      <span className="cc-body-sm" style={{ color: 'var(--cc-muted)' }}>{c.pct}%</span>
+          ) : !hasData ? (
+            <div className="cc-card" style={{ color: 'var(--cc-muted)' }}>
+              No events recorded yet. Once your apps send SDK analytics events, wallet
+              activity and transaction metrics will appear here.
+            </div>
+          ) : (
+            <>
+              {/* KPI row */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 16 }}>
+                {kpis.map((k) => (
+                  <div key={k.label} className="cc-card" style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                      <span className="cc-caption-mono" style={{ color: 'var(--cc-muted)' }}>{k.label}</span>
+                      <span
+                        className="cc-badge"
+                        style={{
+                          color: k.positive ? 'var(--cc-success)' : 'var(--cc-error)',
+                          background: 'var(--cc-canvas-soft-2)',
+                        }}
+                      >
+                        {k.delta}
+                      </span>
                     </div>
-                    <div style={{ height: 8, borderRadius: 9999, background: 'var(--cc-canvas-soft-2)', overflow: 'hidden' }}>
-                      <div style={{ width: `${c.pct}%`, height: '100%', background: 'var(--cc-primary)', borderRadius: 9999 }} />
-                    </div>
+                    <span className="cc-display-md" style={{ color: 'var(--cc-ink)' }}>{k.value}</span>
+                    <span className="cc-caption" style={{ color: 'var(--cc-muted)' }}>{k.caption}</span>
                   </div>
                 ))}
               </div>
-            </div>
-          </div>
+
+              {/* Charts */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 2fr) minmax(0, 1fr)', gap: 24 }} className="cc-analytics-grid">
+                {/* Daily transactions */}
+                <div className="cc-card-lg">
+                  <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 24 }}>
+                    <h2 className="cc-display-sm" style={{ color: 'var(--cc-ink)' }}>Transactions</h2>
+                    <span className="cc-caption-mono" style={{ color: 'var(--cc-muted)' }}>LAST 30 DAYS</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'flex-end', gap: 4, height: 200 }}>
+                    {dailyCounts.map((count, i) => (
+                      <div
+                        key={i}
+                        title={`${data?.dailyTransactions[i]?.date ?? ''}: ${count}`}
+                        style={{
+                          flex: 1,
+                          height: `${Math.max(2, Math.round((count / maxCount) * 100))}%`,
+                          borderRadius: '4px 4px 0 0',
+                          background: 'linear-gradient(180deg, var(--cc-gradient-develop-start), var(--cc-gradient-develop-end))',
+                          opacity: 0.85,
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Top chains */}
+                <div className="cc-card-lg">
+                  <h2 className="cc-display-sm" style={{ color: 'var(--cc-ink)', marginBottom: 24 }}>Top chains</h2>
+                  {data && data.chains.length > 0 ? (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                      {data.chains.map((c) => {
+                        const pct = totalChain > 0 ? Math.round((c.count / totalChain) * 100) : 0;
+                        return (
+                          <div key={c.chainId} style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                              <span className="cc-body-sm" style={{ color: 'var(--cc-ink)' }}>{chainName(c.chainId)}</span>
+                              <span className="cc-body-sm" style={{ color: 'var(--cc-muted)' }}>{pct}%</span>
+                            </div>
+                            <div style={{ height: 8, borderRadius: 9999, background: 'var(--cc-canvas-soft-2)', overflow: 'hidden' }}>
+                              <div style={{ width: `${pct}%`, height: '100%', background: 'var(--cc-primary)', borderRadius: 9999 }} />
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <p className="cc-body-sm" style={{ color: 'var(--cc-muted)' }}>
+                      No chain data yet.
+                    </p>
+                  )}
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </main>
 
-      {/* Shared site footer from @cinacoin/ui */}
       <SiteFooter
         logoSrc="/analytics/logo.png"
-        tagline="On-ramp conversion analytics. Demo data, illustrative only."
+        tagline="Wallet and transaction analytics, aggregated from ingested SDK events."
         columns={[
           {
             heading: 'Analytics',
             links: [
-              { label: 'Overview', href: 'https://analytics.cinacoin.com' },
-              { label: 'Demo', href: 'https://demo.cinacoin.com' },
+              { label: 'Overview', href: 'https://cinacoin.com/analytics' },
+              { label: 'Demo', href: 'https://cinacoin.com/demo' },
             ],
           },
           {
             heading: 'Developers',
             links: [
-              { label: 'Docs', href: 'https://docs.cinacoin.com' },
+              { label: 'Docs', href: 'https://cinacoin.com/docs' },
               { label: 'GitHub', href: 'https://github.com/cinagroup' },
             ],
           },
