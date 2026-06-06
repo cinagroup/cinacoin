@@ -66,7 +66,7 @@ jobs:
         run: npm install -g wrangler@3
 
       - name: Deploy to Cloudflare Pages
-        run: wrangler pages deploy apps/website/out --project-name=cinacoin-website
+        run: wrangler pages deploy apps/website/out --project-name=cinacoin-website --branch=main
         env:
           NODE_ENV: production
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}

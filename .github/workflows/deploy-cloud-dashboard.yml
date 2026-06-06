@@ -1,24 +1,24 @@
-name: Deploy Analytics to Cloudflare Pages
+name: Deploy Cloud Dashboard to Cloudflare Pages
 
 on:
   push:
     branches:
       - main
     paths:
-      - "apps/analytics-dashboard/**"
+      - "apps/cloud-dashboard/**"
       - "packages/**"
-      - ".github/workflows/deploy-analytics.yml"
+      - ".github/workflows/deploy-cloud-dashboard.yml"
   workflow_dispatch:
 
 env:
-  NODE_VERSION: "22"
+  NODE_VERSION: "20"
 
 jobs:
   deploy:
-    name: Build & Deploy Analytics
+    name: Build & Deploy Cloud Dashboard
     runs-on: ubuntu-latest
     concurrency:
-      group: deploy-analytics-production
+      group: deploy-cloud-dashboard-production
       cancel-in-progress: false
     steps:
       - uses: actions/checkout@v4
@@ -28,30 +28,28 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - name: Setup pnpm
-        run: corepack enable
+      - uses: pnpm/action-setup@v4
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build analytics (static export)
+      - name: Build Cloud Dashboard
         run: |
-          rm -rf apps/analytics-dashboard/.next
-          rm -rf apps/analytics-dashboard/out
-          pnpm --filter analytics-dashboard build
+          rm -rf apps/cloud-dashboard/.next/cache
+          pnpm --filter cloud-dashboard build
         env:
           NODE_ENV: production
 
-      - name: Verify static output
+      - name: Verify Output
         run: |
-          test -f apps/analytics-dashboard/out/index.html || { echo "✗ out/index.html missing"; exit 1; }
+          test -f apps/cloud-dashboard/out/index.html || { echo "✗ out/index.html missing"; exit 1; }
           echo "✓ static output exists"
 
       - name: Install Wrangler
         run: npm install -g wrangler@3
 
       - name: Deploy to Cloudflare Pages
-        run: wrangler pages deploy apps/analytics-dashboard/out --project-name=cinacoin-analytics --branch=main
+        run: wrangler pages deploy apps/cloud-dashboard/out --project-name=cinacoin-cloud-dashboard --branch=main
         env:
           NODE_ENV: production
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}

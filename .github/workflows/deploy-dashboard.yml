@@ -82,7 +82,7 @@ jobs:
         run: npm install -g wrangler@3
 
       - name: Deploy to Cloudflare Pages
-        run: wrangler pages deploy apps/backend-dashboard/out --project-name=backend-dashboard
+        run: wrangler pages deploy apps/backend-dashboard/out --project-name=cinacoin-backend-dashboard --branch=main
         env:
           NODE_ENV: production
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
