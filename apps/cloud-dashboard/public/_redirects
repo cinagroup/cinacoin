@@ -1,0 +1,4 @@
+# Standalone cloud.cinacoin.com root -> the basePath the app is built under.
+# (Served at /dashboard so it can also mount at cinacoin.com/dashboard via
+#  the consolidation router Worker.)
+/  /dashboard/  301

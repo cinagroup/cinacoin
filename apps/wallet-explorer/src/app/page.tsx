@@ -464,6 +464,7 @@ export default function WalletExplorerPage() {
     <div className="min-h-screen bg-[var(--cc-canvas-soft)] text-[var(--cc-ink)]">
       {/* Shared site header from @cinacoin/ui */}
       <SiteHeader
+        logoSrc="/wallets/logo.png"
         sublabel="Wallet Explorer"
         links={[
           { label: 'Docs', href: 'https://docs.cinacoin.com' },
@@ -531,6 +532,7 @@ export default function WalletExplorerPage() {
 
       {/* Shared site footer from @cinacoin/ui */}
       <SiteFooter
+        logoSrc="/wallets/logo.png"
         tagline={`Discover ${WALLET_COUNT}+ wallets for every chain and platform.`}
         columns={[
           {

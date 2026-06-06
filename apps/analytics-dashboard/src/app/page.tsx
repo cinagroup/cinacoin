@@ -29,6 +29,7 @@ export default function HomePage() {
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       {/* Shared site header from @cinacoin/ui */}
       <SiteHeader
+        logoSrc="/analytics/logo.png"
         sublabel="Analytics"
         links={[
           { label: 'Demo', href: 'https://demo.cinacoin.com' },
@@ -118,6 +119,7 @@ export default function HomePage() {
 
       {/* Shared site footer from @cinacoin/ui */}
       <SiteFooter
+        logoSrc="/analytics/logo.png"
         tagline="On-ramp conversion analytics. Demo data, illustrative only."
         columns={[
           {
