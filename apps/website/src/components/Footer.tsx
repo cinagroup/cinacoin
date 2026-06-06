@@ -1,6 +1,7 @@
 'use client'
 
 import FadeIn from '@/components/FadeIn'
+import { Brand } from '@cinacoin/ui'
 import { useI18n } from '@/providers/I18nProvider'
 
 export default function Footer() {
@@ -42,10 +43,7 @@ export default function Footer() {
           {/* Brand */}
           <FadeIn direction="up" duration={600}>
             <div className="col-span-2 md:col-span-1">
-              <div className="flex items-center gap-3">
-                <div className="h-7 w-7 rounded-md bg-[var(--cc-primary)]" />
-                <span className="text-[16px] font-semibold text-[var(--cc-ink)]">Cinacoin</span>
-              </div>
+              <Brand href="/" logoSrc="/logo.png" />
               <p className="mt-4 cc-body-sm text-[var(--cc-muted)]">{t('footer-brand')}</p>
             </div>
           </FadeIn>

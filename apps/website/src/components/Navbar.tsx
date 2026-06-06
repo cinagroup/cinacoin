@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
-import Image from 'next/image'
+import { Brand } from '@cinacoin/ui'
 import { useTheme } from '@/providers/ThemeProvider'
 import { useI18n, type Locale } from '@/providers/I18nProvider'
 
@@ -53,11 +53,8 @@ export default function Navbar() {
       }`}
     >
       <div className="cc-container flex h-full items-center justify-between">
-        {/* Logo */}
-        <a href="/" className="flex items-center gap-3" aria-label="Cinacoin home">
-          <Image src="/logo.png" alt="Cinacoin logo" width={28} height={28} className="h-7 w-7" priority unoptimized />
-          <span className="text-[16px] font-semibold tracking-tight text-[var(--cc-ink)]">Cinacoin</span>
-        </a>
+        {/* Logo — shared Brand lockup from @cinacoin/ui */}
+        <Brand href="/" logoSrc="/logo.png" />
 
         {/* Desktop links */}
         <div className="hidden items-center gap-1 md:flex">
