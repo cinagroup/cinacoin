@@ -23,7 +23,7 @@ export default function Products() {
     },
     {
       name: 'Relay',
-      descKey: 'f5-desc',
+      descKey: 'relay-desc',
       href: 'https://docs.cinacoin.com/api/relay',
       gradientStart: 'var(--cc-warning)',
       gradientEnd: 'var(--cc-error)',
@@ -37,14 +37,14 @@ export default function Products() {
     },
     {
       name: 'Keys',
-      descKey: 'f5-desc',
+      descKey: 'keys-desc',
       href: 'https://docs.cinacoin.com/api/keys',
       gradientStart: 'var(--cc-warning-deep)',
       gradientEnd: 'var(--cc-warning)',
     },
     {
       name: 'RPC Proxy',
-      descKey: 'f5-desc',
+      descKey: 'rpc-desc',
       href: 'https://docs.cinacoin.com/api/rpc',
       gradientStart: 'var(--cc-link)',
       gradientEnd: 'var(--cc-violet)',
