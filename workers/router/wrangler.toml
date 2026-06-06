@@ -9,8 +9,6 @@ account_id = "7ea8e46d8210bad342fa7595f7935fea"
 routes = [
   { pattern = "cinacoin.com/wallets", zone_id = "9e9b0140baac8f501ded715128fa5415" },
   { pattern = "cinacoin.com/wallets/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
-  { pattern = "cinacoin.com/demo", zone_id = "9e9b0140baac8f501ded715128fa5415" },
-  { pattern = "cinacoin.com/demo/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
   { pattern = "cinacoin.com/docs", zone_id = "9e9b0140baac8f501ded715128fa5415" },
   { pattern = "cinacoin.com/docs/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
 ]
