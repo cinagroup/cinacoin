@@ -96,7 +96,7 @@ export default function MultiChainPage() {
  <pre className="bg-[var(--cc-canvas)] rounded-md p-4 font-mono text-sm text-[var(--cc-body)] overflow-x-auto">
 {`import { Cinacoin } from '@cinacoin/core-sdk';
 
-const cc = new Cinacoin({ projectId: 'YOUR_ID' });
+const cc = new Cinacoin({ projectId: 'YOUR_PROJECT_ID' });
 
 // Connect to any chain with the same API
 const eth = await cc.connect('ethereum', 'metamask');

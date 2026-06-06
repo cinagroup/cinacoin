@@ -34,6 +34,11 @@ pub struct Config {
 
     // --- Metrics ---
     pub metrics_path: String,
+
+    // --- CORS ---
+    /// Comma-separated list of allowed origins. Empty means same-origin only
+    /// (no cross-origin browser access). Never falls back to a wildcard.
+    pub allowed_origins: Vec<String>,
 }
 
 impl Config {
@@ -95,6 +100,13 @@ impl Config {
 
             metrics_path: std::env::var("KEYS_METRICS_PATH")
                 .unwrap_or_else(|_| "/metrics".into()),
+
+            allowed_origins: std::env::var("KEYS_ALLOWED_ORIGINS")
+                .unwrap_or_default()
+                .split(',')
+                .map(|s| s.trim().to_string())
+                .filter(|s| !s.is_empty())
+                .collect(),
         })
     }
 }

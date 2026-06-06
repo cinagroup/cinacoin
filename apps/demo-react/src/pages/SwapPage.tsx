@@ -29,6 +29,7 @@ export default function SwapPage() {
  const [flipped, setFlipped] = useState(false);
  const [showFromSelector, setShowFromSelector] = useState(false);
  const [showToSelector, setShowToSelector] = useState(false);
+ const [swapStatus, setSwapStatus] = useState<'idle' | 'swapping' | 'done'>('idle');
 
  const from = TOKENS[fromToken];
  const to = TOKENS[toToken];
@@ -41,6 +42,18 @@ export default function SwapPage() {
  setFromToken(toToken);
  setToToken(fromToken);
  setFlipped(!flipped);
+ };
+
+ // Demo-only swap simulation. A production build would request a signature
+ // from the connected wallet and submit via a DEX aggregator.
+ const handleSwap = () => {
+ if (amount <= 0 || swapStatus === 'swapping') return;
+ setSwapStatus('swapping');
+ setTimeout(() => {
+ setSwapStatus('done');
+ setFromAmount('');
+ setTimeout(() => setSwapStatus('idle'), 2500);
+ }, 1200);
  };
 
  interface TokenSelectorProps {
@@ -158,8 +171,17 @@ export default function SwapPage() {
  )}
 
  {/* Swap Button */}
- <button className={`w-full mt-4 py-4 rounded-[100px] font-semibold text-lg transition-all ${amount > 0 ? 'bg-gradient-to-r from-[var(--cc-link)] to-[var(--cc-link)] text-[var(--cc-ink)] hover:from-[var(--cc-link)] hover:to-[var(--cc-link)] shadow-[var(--cc-level3)]' : 'bg-[var(--cc-canvas-soft-2)] text-[var(--cc-muted)] cursor-not-allowed'}`}>
- {amount > 0 ? 'Swap' : 'Enter an amount'}
+ <button
+ onClick={handleSwap}
+ disabled={amount <= 0 || swapStatus === 'swapping'}
+ className={`w-full mt-4 py-4 rounded-[100px] font-semibold text-lg transition-all ${amount > 0 ? 'bg-gradient-to-r from-[var(--cc-link)] to-[var(--cc-link)] text-[var(--cc-ink)] hover:from-[var(--cc-link)] hover:to-[var(--cc-link)] shadow-[var(--cc-level3)]' : 'bg-[var(--cc-canvas-soft-2)] text-[var(--cc-muted)] cursor-not-allowed'}`}>
+ {swapStatus === 'swapping'
+ ? 'Swapping…'
+ : swapStatus === 'done'
+ ? '✓ Swap complete (demo)'
+ : amount > 0
+ ? 'Swap'
+ : 'Enter an amount'}
  </button>
 
  {/* Powered by */}

@@ -87,6 +87,8 @@ const SORT_OPTIONS = [
 // ============================================================
 
 function WalletCard({ wallet }: { wallet: WalletRegistryEntry }) {
+  const [logoFailed, setLogoFailed] = useState(false);
+  const showImage = wallet.logo && !logoFailed;
   return (
     <a
       href={wallet.homepage}
@@ -96,19 +98,18 @@ function WalletCard({ wallet }: { wallet: WalletRegistryEntry }) {
     >
       {/* Header */}
       <div className="flex items-start gap-3">
-        <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-slate-100 dark:bg-slate-700">
-          {wallet.logo ? (
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-cina-50 dark:bg-slate-700">
+          {showImage ? (
             <img
               src={wallet.logo}
               alt={wallet.name}
               className="h-10 w-10 object-contain"
-              onError={(e) => {
-                (e.target as HTMLImageElement).style.display = "none";
-              }}
+              loading="lazy"
+              onError={() => setLogoFailed(true)}
             />
           ) : (
-            <span className="text-lg font-semibold text-cina-600">
-              {wallet.name.charAt(0)}
+            <span className="text-lg font-semibold text-cina-600 dark:text-cina-400">
+              {wallet.name.charAt(0).toUpperCase()}
             </span>
           )}
         </div>
@@ -473,7 +474,7 @@ export default function WalletExplorerPage() {
               </p>
             </div>
             <a
-              href="/"
+              href="https://cinacoin.com"
               className="inline-flex items-center gap-1 text-sm text-cina-600 hover:text-cina-700 dark:text-cina-400"
             >
               ← Back to Cinacoin

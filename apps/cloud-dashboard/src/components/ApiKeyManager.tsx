@@ -19,13 +19,21 @@ const mockKeys: ApiKey[] = [
 
 export function ApiKeyManager({ projectId }: { projectId: string }) {
   const [keys, setKeys] = useState(mockKeys);
-  const [newKey, setNewKey] = useState('');
   const [showNewKey, setShowNewKey] = useState('');
 
   const generateKey = () => {
     const key = 'ck_' + Array.from(crypto.getRandomValues(new Uint8Array(32)))
       .map((b) => b.toString(16).padStart(2, '0')).join('');
-    setNewKey(key);
+    const now = new Date().toISOString().slice(0, 10);
+    const entry: ApiKey = {
+      id: 'key_' + Date.now(),
+      label: 'New Key',
+      permissions: 'read,write',
+      isActive: true,
+      createdAt: now,
+      lastUsedAt: null,
+    };
+    setKeys((prev) => [entry, ...prev]);
     setShowNewKey(key);
   };
 

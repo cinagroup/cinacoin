@@ -201,10 +201,17 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
  const connectWalletConnect = useCallback(async () => {
  setState(prev => ({ ...prev, connecting: true, error: null, walletId: 'walletconnect' }))
 
- try {
+  try {
+ const projectId = import.meta.env.VITE_WC_PROJECT_ID
+ if (!projectId) {
+ throw new Error(
+ 'WalletConnect is not configured: set VITE_WC_PROJECT_ID to a valid project ID. ' +
+ 'Get one at https://cloud.reown.com (or your self-hosted relay project).'
+ )
+ }
  if (!wcProvider) {
  wcProvider = await EthereumProvider.init({
- projectId: import.meta.env.VITE_WC_PROJECT_ID ?? 'c8e4e0f2c8e4e0f2c8e4e0f2c8e4e0f2',
+ projectId,
  chains: [1],
  showQrModal: true,
  qrModalOptions: {
@@ -215,7 +222,7 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
  metadata: {
  name: 'Cinacoin Demo',
  description: 'Cinacoin Demo Application',
- url: import.meta.env.VITE_APP_URL ?? 'https://cinacoin-demo.pages.dev',
+ url: import.meta.env.VITE_APP_URL ?? 'https://react.cinacoin.com',
  icons: ['https://avatars.githubusercontent.com/u/37784886'],
  },
  })

@@ -1,4 +1,4 @@
-//! CinaConnect Notify Server
+//! Cinacoin Notify Server
 //! 
 //! A notification push system for dApp notifications, wallet alerts, and transaction status updates.
 
@@ -62,8 +62,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .route("/v1/notify", post(handlers::notify::notify))
         .route("/v1/history", get(handlers::history::history))
         .route("/v1/metrics", get(metrics::metrics_handler))
-        .layer(Extension(state))
-        .layer(middleware::auth::AuthLayer::new());
+        // Auth runs before handlers; health/metrics are allow-listed inside the middleware.
+        .layer(axum::middleware::from_fn(middleware::auth::auth_middleware))
+        .layer(Extension(state));
 
     let addr = std::net::SocketAddr::from(([0, 0, 0, 0], 8080));
     tracing::info!("Notify server listening on {}", addr);
