@@ -57,6 +57,9 @@ importers:
 
   apps/analytics-dashboard:
     dependencies:
+      '@cinacoin/design-tokens':
+        specifier: workspace:*
+        version: link:../../packages/design-tokens
       next:
         specifier: ^15.5.18
         version: 15.5.18(@playwright/test@1.60.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(sass@1.99.0)
@@ -140,6 +143,9 @@ importers:
 
   apps/cloud-dashboard:
     dependencies:
+      '@cinacoin/design-tokens':
+        specifier: workspace:*
+        version: link:../../packages/design-tokens
       next:
         specifier: ^15.0.0
         version: 15.5.18(@playwright/test@1.60.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(sass@1.99.0)
@@ -180,6 +186,9 @@ importers:
       '@cinacoin/core-ui':
         specifier: workspace:*
         version: link:../../packages/core-ui
+      '@cinacoin/design-tokens':
+        specifier: workspace:*
+        version: link:../../packages/design-tokens
       '@cinacoin/react':
         specifier: workspace:*
         version: link:../../packages/react
@@ -257,6 +266,9 @@ importers:
 
   apps/demo-react:
     dependencies:
+      '@cinacoin/design-tokens':
+        specifier: workspace:*
+        version: link:../../packages/design-tokens
       '@walletconnect/ethereum-provider':
         specifier: ^2.23.9
         version: 2.23.9(@types/react@18.3.12)(aws4fetch@1.0.20)(bufferutil@4.1.0)(db0@0.3.4(better-sqlite3@11.10.0))(immer@10.0.2)(ioredis@5.10.1)(react@18.3.1)(typescript@5.9.3)(use-sync-external-store@1.6.0(react@18.3.1))(utf-8-validate@5.0.10)(zod@3.25.76)
@@ -375,6 +387,9 @@ importers:
 
   apps/wallet-explorer:
     dependencies:
+      '@cinacoin/design-tokens':
+        specifier: workspace:*
+        version: link:../../packages/design-tokens
       '@cinacoin/wallet-registry':
         specifier: workspace:*
         version: link:../../packages/wallet-registry

@@ -11,6 +11,7 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
+    "@cinacoin/design-tokens": "workspace:*",
     "@cinacoin/core-sdk": "workspace:*",
     "@cinacoin/core-ui": "workspace:*",
     "@cinacoin/react": "workspace:*",
