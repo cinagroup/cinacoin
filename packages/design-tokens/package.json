@@ -13,11 +13,13 @@
       "types": "./dist/index.d.ts"
     },
     "./tokens/*": "./tokens/*",
-    "./css/*": "./dist/css/*"
+    "./css/cinacoin.css": "./css/cinacoin.css",
+    "./css/*": "./css/*"
   },
   "files": [
     "dist",
-    "tokens"
+    "tokens",
+    "css"
   ],
   "scripts": {
     "build": "tsx scripts/build.ts",

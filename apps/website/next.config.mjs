@@ -2,6 +2,7 @@
 const nextConfig = {
     reactStrictMode: true,
     output: 'export',
+    transpilePackages: ['@cinacoin/ui'],
     compress: true,
     images: {
         unoptimized: true,
