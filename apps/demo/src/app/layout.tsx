@@ -5,8 +5,8 @@ import { WorkerHealthProvider } from '@/lib/WorkerHealthProvider';
 import { Providers } from '@/providers';
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'] });
-const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'] });
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono' });
 
 const siteUrl = 'https://demo.cinacoin.com';
 
@@ -65,7 +65,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" data-theme="light" suppressHydrationWarning className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <body className={`${inter.className} bg-[var(--cc-canvas-soft)] text-[var(--cc-ink)]`}>
         <Providers>
           <ToastProvider>

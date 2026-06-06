@@ -7,7 +7,6 @@
    Dark theme default for Dashboard (admin interface)
    ═══════════════════════════════════════════════════════ */
 
-:root,
 :root[data-theme="dark"] {
   /* Surface */
   --cc-canvas: #0a0a0a;
@@ -91,6 +90,7 @@
   --background-end-rgb: 15, 17, 23;
 }
 
+:root,
 :root[data-theme="light"] {
   /* Surface */
   --cc-canvas: #ffffff;
