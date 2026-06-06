@@ -47,9 +47,9 @@ export default function Sidebar({ onClose }: SidebarProps) {
       {/* Logo */}
       <div className="p-6 border-b border-dashboard-border">
         <div className="flex items-center gap-3">
-          <img src="/logo.png" alt="cinacoin" className="h-8 w-8 rounded-[var(--cc-radius-sm)] shrink-0" />
+          <img src="/logo.png" alt="Cinacoin logo" className="h-8 w-8 rounded-md shrink-0" />
           <div className="flex-1">
-            <h1 className="text-lg font-semibold text-dashboard-text">cinacoin</h1>
+            <h1 className="text-lg font-semibold tracking-tight text-dashboard-text">Cinacoin</h1>
             <p className="text-xs text-dashboard-muted">Backend Dashboard</p>
           </div>
           {/* Mobile close button */}

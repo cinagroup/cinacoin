@@ -306,16 +306,31 @@ function Footer() {
   const { t } = useI18n();
 
   return (
-    <footer className="text-center text-xs text-[var(--text-secondary)] pt-6 border-t border-[var(--border)]">
-      <p className="flex items-center justify-center gap-4 flex-wrap">
-        <span>{t("healthChecksInfo")}</span>
-        <span className="hidden sm:inline">•</span>
-        <a href="/incidents.json" className="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">{t("incidentsApi")}</a>
-        <span className="hidden sm:inline">•</span>
-        <a href="https://github.com/cinagroup/cinacoin" className="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">GitHub</a>
-      </p>
-      <p className="mt-2">
-        {t("poweredBy")} — <a href="https://cinacoin.com" className="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">cinacoin.com</a>
+    <footer className="pt-8 mt-8 border-t border-[var(--cc-hairline)]">
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6">
+        <div className="flex items-center gap-2">
+          <img src="/logo.png" alt="" width={24} height={24} className="h-6 w-6 rounded" />
+          <span className="text-sm font-semibold tracking-tight text-[var(--cc-ink)]">Cinacoin</span>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-12 gap-y-6">
+          <div>
+            <p className="cc-footer-heading">Status</p>
+            <a href="/incidents.json" className="cc-footer-link" target="_blank" rel="noopener noreferrer">{t("incidentsApi")}</a>
+            <a href="https://status.cinacoin.com" className="cc-footer-link">Live status</a>
+          </div>
+          <div>
+            <p className="cc-footer-heading">Developers</p>
+            <a href="https://docs.cinacoin.com" className="cc-footer-link">Docs</a>
+            <a href="https://github.com/cinagroup/cinacoin" className="cc-footer-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+          <div>
+            <p className="cc-footer-heading">Company</p>
+            <a href="https://cinacoin.com" className="cc-footer-link">Home</a>
+          </div>
+        </div>
+      </div>
+      <p className="mt-8 text-xs text-[var(--cc-muted)]">
+        © 2026 Cinacoin · {t("healthChecksInfo")}
       </p>
     </footer>
   );
@@ -430,13 +445,29 @@ export default function HealthStatusPage() {
 
   return (
     <div className="min-h-screen bg-[var(--cc-canvas-soft)]">
+      {/* Top nav bar — consistent brand lockup */}
+      <header className="sticky top-0 z-50 h-16 bg-[var(--cc-canvas)] border-b border-[var(--cc-hairline)]">
+        <div className="max-w-4xl mx-auto h-16 px-4 flex items-center justify-between">
+          <a href="https://cinacoin.com" className="flex items-center gap-2" aria-label="Cinacoin home">
+            <img src="/logo.png" alt="Cinacoin logo" width={28} height={28} className="h-7 w-7 rounded-md" />
+            <span className="text-[16px] font-semibold tracking-tight text-[var(--cc-ink)]">
+              Cinacoin <span className="text-[var(--cc-muted)] font-normal">Status</span>
+            </span>
+          </a>
+          <nav className="flex items-center gap-1">
+            <a className="cc-navbar-link" href="https://docs.cinacoin.com">Docs</a>
+            <a className="cc-navbar-link" href="https://cinacoin.com">Home</a>
+          </nav>
+        </div>
+      </header>
+
       <div className="max-w-4xl mx-auto px-4 py-8 sm:py-12">
-        {/* Header */}
+        {/* Page title */}
         <header className="mb-8">
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div>
-              <h1 className="text-2xl font-semibold tracking-tighter text-[var(--cc-ink)]">{t("siteName")}</h1>
-              <p className="text-[var(--cc-body)] text-sm mt-1">{t("pageTitle")}</p>
+              <h1 className="text-2xl font-semibold tracking-tight text-[var(--cc-ink)]">{t("pageTitle")}</h1>
+              <p className="text-[var(--cc-body)] text-sm mt-1">{t("siteName")}</p>
             </div>
             <div className="flex items-center gap-2 flex-wrap">
               <LanguageSelector />
