@@ -1,0 +1,73 @@
+name: Deploy Analytics to Cloudflare Workers
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "apps/analytics-dashboard/**"
+      - "packages/**"
+      - ".github/workflows/deploy-analytics.yml"
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Target environment"
+        required: true
+        default: production
+        type: choice
+        options:
+          - staging
+          - production
+
+env:
+  NODE_VERSION: "22"
+  PNPM_VERSION: "9"
+
+jobs:
+  deploy:
+    name: Build & Deploy Analytics
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment || 'production' }}
+    concurrency:
+      group: deploy-analytics-${{ github.event.inputs.environment || 'production' }}
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Setup pnpm
+        run: corepack enable
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build analytics (OpenNext for Cloudflare)
+        run: |
+          rm -rf apps/analytics-dashboard/.next/cache
+          rm -rf apps/analytics-dashboard/.open-next
+          pnpm --filter analytics-dashboard build:cf
+        env:
+          NODE_ENV: production
+
+      - name: Verify worker output
+        run: |
+          if [ -f "apps/analytics-dashboard/.open-next/worker.js" ]; then
+            echo "✓ Worker output exists"
+          else
+            echo "✗ Worker output not found"
+            exit 1
+          fi
+
+      - name: Deploy to Cloudflare Workers
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: apps/analytics-dashboard
+          command: deploy
+        env:
+          NODE_ENV: production

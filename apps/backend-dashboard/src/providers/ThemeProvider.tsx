@@ -10,7 +10,7 @@ interface ThemeContextValue {
 }
 
 const ThemeContext = createContext<ThemeContextValue>({
-  theme: 'dark',
+  theme: 'light',
   toggle: () => {},
 });
 
@@ -22,13 +22,13 @@ function getInitialTheme(): Theme {
   if (typeof window !== 'undefined') {
     const stored = localStorage.getItem('cc-theme') as Theme | null;
     if (stored === 'light' || stored === 'dark') return stored;
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark';
   }
-  return 'dark';
+  // Brand default is the light theme; users can opt into dark via the toggle.
+  return 'light';
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('dark');
+  const [theme, setTheme] = useState<Theme>('light');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {

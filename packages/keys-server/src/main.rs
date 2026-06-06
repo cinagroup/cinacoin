@@ -8,6 +8,7 @@ mod redis;
 #[cfg(test)]
 mod tests;
 
+use axum::http::{HeaderValue, Method};
 use axum::Router;
 use std::sync::Arc;
 use tokio::signal;
@@ -87,9 +88,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             state.clone(),
             middleware::auth::auth_middleware,
         ))
-        .with_state(state)
+        .with_state(state.clone())
         .layer(TraceLayer::new_for_http())
-        .layer(CorsLayer::permissive());
+        .layer(build_cors(&state.config.allowed_origins));
 
     let addr = format!("{}:{}", state.config.host, state.config.port);
     tracing::info!("Keys server listening on {}", addr);
@@ -102,6 +103,35 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     tracing::info!("Graceful shutdown complete");
     Ok(())
+}
+
+/// Build a CORS layer restricted to the configured origins.
+///
+/// This server handles sensitive key-management operations, so it must never
+/// use a wildcard origin. When no origins are configured, cross-origin browser
+/// requests are denied entirely (same-origin / server-to-server only).
+fn build_cors(allowed_origins: &[String]) -> CorsLayer {
+    let mut origins: Vec<HeaderValue> = Vec::new();
+    for o in allowed_origins {
+        match o.parse::<HeaderValue>() {
+            Ok(v) => origins.push(v),
+            Err(_) => tracing::warn!("Ignoring invalid CORS origin: {}", o),
+        }
+    }
+
+    if origins.is_empty() {
+        tracing::warn!(
+            "KEYS_ALLOWED_ORIGINS is empty — cross-origin browser requests will be denied."
+        );
+    }
+
+    CorsLayer::new()
+        .allow_methods([Method::GET, Method::POST, Method::DELETE, Method::OPTIONS])
+        .allow_headers([
+            axum::http::header::AUTHORIZATION,
+            axum::http::header::CONTENT_TYPE,
+        ])
+        .allow_origin(origins)
 }
 
 async fn shutdown_signal() {

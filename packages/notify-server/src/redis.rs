@@ -85,4 +85,12 @@ impl RedisClient {
         
         Ok(())
     }
+
+    /// Returns true if the given JWT has been revoked (present in the blacklist set).
+    pub async fn is_token_revoked(&self, token: &str) -> Result<bool, redis::RedisError> {
+        let mut conn = self.client.get_connection()?;
+        let key = format!("token:blacklist:{}", token);
+        let exists: bool = redis::cmd("EXISTS").arg(&key).query(&mut conn)?;
+        Ok(exists)
+    }
 }

@@ -31,6 +31,10 @@ pub struct Config {
     /// Path to Firebase service account JSON key.
     pub fcm_service_account_path: String,
 
+    // --- Auth ---
+    /// HMAC secret used to verify inbound JWT bearer tokens (HS256).
+    pub jwt_secret: String,
+
     // --- Redis ---
     /// Redis URL for device token caching and rate limiting.
     pub redis_url: String,
@@ -89,6 +93,14 @@ impl Config {
 
             fcm_project_id: require_env("FCM_PROJECT_ID"),
             fcm_service_account_path: require_env("FCM_SERVICE_ACCOUNT_PATH"),
+
+            jwt_secret: {
+                let secret = require_env("JWT_SECRET");
+                if secret.len() < 16 {
+                    panic!("JWT_SECRET must be at least 16 characters");
+                }
+                secret
+            },
 
             redis_url: std::env::var("REDIS_URL").unwrap_or_else(|_| "redis://localhost:6379".into()),
 

@@ -69,7 +69,7 @@ export default function Navbar() {
 
         {/* Desktop actions */}
         <div className="flex items-center gap-1">
-          <a href="https://dash.cinacoin.com" className="hidden text-[var(--cc-body)] transition-colors hover:text-[var(--cc-ink)] cc-body-sm sm:inline">
+          <a href="https://cloud.cinacoin.com" className="hidden text-[var(--cc-body)] transition-colors hover:text-[var(--cc-ink)] cc-body-sm sm:inline">
             {t('nav-dashboard')}
           </a>
 
@@ -164,7 +164,7 @@ export default function Navbar() {
             <a href="/contact" onClick={closeMobile} className="rounded-lg px-3 py-2 text-sm text-[var(--cc-body)] hover:text-[var(--cc-ink)]">{t('footer-contact')}</a>
             <a href="https://docs.cinacoin.com" className="rounded-lg px-3 py-2 text-sm text-[var(--cc-body)] hover:text-[var(--cc-ink)]">{t('nav-docs')}</a>
             <a href="https://github.com/cinagroup" className="rounded-lg px-3 py-2 text-sm text-[var(--cc-body)] hover:text-[var(--cc-ink)]">{t('nav-github')}</a>
-            <a href="https://dash.cinacoin.com" className="rounded-lg px-3 py-2 text-sm text-[var(--cc-body)] hover:text-[var(--cc-ink)]">{t('nav-dashboard')}</a>
+            <a href="https://cloud.cinacoin.com" className="rounded-lg px-3 py-2 text-sm text-[var(--cc-body)] hover:text-[var(--cc-ink)]">{t('nav-dashboard')}</a>
 
             {/* Mobile theme toggle */}
             <button onClick={() => { toggle(); closeMobile() }} className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-[var(--cc-body)] hover:text-[var(--cc-ink)]">

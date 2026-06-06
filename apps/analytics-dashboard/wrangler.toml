@@ -3,6 +3,13 @@ compatibility_date = "2026-06-04"
 compatibility_flags = ["nodejs_compat"]
 main = ".open-next/worker.js"
 
+# Bind the worker to the custom domain so analytics.cinacoin.com is served
+# (without this the DNS resolves to Cloudflare but no worker handles the route,
+# producing an empty 404).
+routes = [
+  { pattern = "analytics.cinacoin.com", custom_domain = true },
+]
+
 [site]
 bucket = ".open-next/assets"
 

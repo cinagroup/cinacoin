@@ -63,7 +63,7 @@ const HomePage: React.FC = () => {
  <div className="flex items-center justify-between h-16">
  <Link to="/" className="flex items-center gap-2">
  <img src="/logo.png" alt="Cinacoin" className="h-8 w-8 rounded-md" />
- <span className="font-semibold text-lg">Cina<span className="text-[var(--cc-link)]">Connect</span></span>
+ <span className="font-semibold text-lg">Cina<span className="text-[var(--cc-link)]">coin</span></span>
  </Link>
  <div className="hidden md:flex items-center gap-6">
  <Link to="/swap" className="text-[var(--cc-muted)] hover:text-[var(--cc-ink)] transition-colors text-sm">Swap</Link>

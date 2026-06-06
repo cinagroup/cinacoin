@@ -1,4 +1,5 @@
 mod apns;
+mod auth;
 mod config;
 mod delivery;
 mod fcm;
@@ -44,6 +45,11 @@ async fn main() {
 
     let app = Router::new()
         .merge(router::create_router())
+        // JWT auth runs before handlers; health/metrics are allow-listed in the middleware.
+        .layer(axum::middleware::from_fn_with_state(
+            state.clone(),
+            auth::auth_middleware,
+        ))
         .with_state(state)
         .layer(TraceLayer::new_for_http())
         .layer(CorsLayer::permissive());

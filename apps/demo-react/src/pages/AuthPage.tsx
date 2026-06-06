@@ -45,12 +45,12 @@ export default function AuthPage() {
 
  const chains = ['Ethereum', 'Polygon', 'Arbitrum', 'Base'];
 
- const siweMessage = `cinacoin-demo.pages.dev wants you to sign in with your Ethereum account:
+ const siweMessage = `react.cinacoin.com wants you to sign in with your Ethereum account:
 0x7a3F8C12dE4bF5678901234567890AbCdEfE82b
 
 I accept the Terms of Service: https://cinacoin.com/terms
 
-URI: https://cinacoin-demo.pages.dev/
+URI: https://react.cinacoin.com/
 Version: 1
 Chain ID: 1
 Nonce: 8b3f9a2c
