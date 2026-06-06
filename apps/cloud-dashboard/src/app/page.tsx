@@ -35,14 +35,14 @@ export default function Home() {
           <div className="grid gap-4 sm:grid-cols-2">
             <a
               href="/dashboard/projects/new"
-              className="cc-card-soft text-center block transition-opacity hover:opacity-85"
+              className="cc-card text-center block hover:shadow-[var(--cc-level3)]"
             >
               <p className="font-medium text-[var(--cc-primary)]">+ Create Project</p>
               <p className="text-xs text-[var(--cc-body)] mt-1">Start building with Cinacoin</p>
             </a>
             <a
               href="/dashboard/projects"
-              className="cc-card-soft text-center block transition-opacity hover:opacity-85"
+              className="cc-card text-center block hover:shadow-[var(--cc-level3)]"
             >
               <p className="font-medium text-[var(--cc-primary)]">View All Projects</p>
               <p className="text-xs text-[var(--cc-body)] mt-1">Manage existing projects</p>

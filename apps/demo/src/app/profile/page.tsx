@@ -86,7 +86,7 @@ function PortfolioSummary({ balances }: { balances: ChainBalance[] }) {
 
       <div className="p-5">
         {/* Total */}
-        <div className="text-center mb-6 p-4 rounded-md bg-gradient-to-b from-gray-900/60 to-gray-800/40 border border-[var(--cc-hairline-strong)]/30">
+        <div className="text-center mb-6 p-4 rounded-md bg-[var(--cc-primary)] border border-[var(--cc-hairline-strong)]/30">
           <p className="text-xs text-[var(--cc-body)] mb-1">Total Estimated Value</p>
           <p className="text-3xl font-semibold tracking-tighter bg-gradient-to-r from-brand-500 to-brand-400 bg-clip-text text-transparent inline-flex items-center gap-2">
             ${totalUsd.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}

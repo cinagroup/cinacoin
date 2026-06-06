@@ -138,7 +138,7 @@ function BackendStatus() {
 
   return (
     <section className="w-full max-w-2xl px-4 py-8">
-      <div className="relative bg-gradient-to-b from-gray-900 to-gray-950 rounded-[var(--cc-radius-md)] border border-[var(--cc-success)]/40 overflow-hidden"
+      <div className="relative bg-[var(--cc-primary)] rounded-[var(--cc-radius-md)] border border-[var(--cc-success)]/40 overflow-hidden"
         style={{
           boxShadow: '0px 2px 2px #0000000a, 0px 8px 8px -8px #0000000a, 0 0 0 1px #00000014',
         }}
@@ -510,7 +510,7 @@ export default function HomePage() {
           LIVE DEMO CARD
          ═══════════════════════════════════════════ */}
       <section className="relative w-full max-w-2xl px-4 py-8 z-10">
-        <div className="relative bg-gradient-to-b from-gray-800/80 to-gray-900/80 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/50 overflow-hidden"
+        <div className="relative bg-[var(--cc-primary)] rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/50 overflow-hidden"
           style={{
             boxShadow: '0px 2px 2px #0000000a, 0px 8px 16px -4px #0000000a, 0 0 0 1px #00000014',
           }}
@@ -848,7 +848,7 @@ export default function HomePage() {
         ref={ctaSection.ref}
         className={`w-full max-w-2xl px-4 py-20 text-center z-10 ${ctaSection.isInView ? 'animate-fade-in-up' : 'opacity-0'}`}
       >
-        <div className="relative p-10 sm:p-14 rounded-[var(--cc-radius-md)] bg-gradient-to-b from-gray-800/60 to-gray-900/60 border border-[var(--cc-hairline-strong)]/40 overflow-hidden"
+        <div className="relative p-10 sm:p-14 rounded-[var(--cc-radius-md)] bg-[var(--cc-primary)] border border-[var(--cc-hairline-strong)]/40 overflow-hidden"
           style={{
             boxShadow: '0px 2px 2px #0000000a, 0px 8px 16px -4px #0000000a, 0 0 0 1px #00000014',
           }}

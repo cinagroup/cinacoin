@@ -99,8 +99,8 @@ export default function LoginPage() {
               w-full py-3 px-4 rounded-[100px] font-semibold text-sm transition-all duration-200
               ${
                 isLoading || step === "connecting"
-                  ? "bg-brand-500/50 text-[var(--cc-ink)]/60 cursor-not-allowed"
-                  : "bg-brand-500 hover:bg-brand-400 text-[var(--cc-ink)] shadow-lg shadow-brand-500/25 hover:shadow-brand-400/30 active:scale-[0.98]"
+                  ? "bg-[var(--cc-primary)]/50 text-[var(--cc-on-primary)]/70 cursor-not-allowed"
+                  : "bg-[var(--cc-primary)] hover:opacity-85 text-[var(--cc-on-primary)] active:scale-[0.98]"
               }
             `}
           >
