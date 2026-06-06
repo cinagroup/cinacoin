@@ -5,13 +5,15 @@ const isProd = process.env.NODE_ENV === 'production'
 export default defineConfig({
   title: 'Cinacoin',
   description: 'Onchain Access, Simplified — Self-hosted Wallet Connection Toolkit',
-  base: '/',
+  // Served under cinacoin.com/docs via the consolidation router Worker
+  // (Phase 3 Multi-Zone). VitePress `base` nests the built output under /docs/.
+  base: '/docs/',
   lang: 'en',
   lastUpdated: true,
   cleanUrls: true,
 
   head: [
-    ['link', { rel: 'icon', href: '/favicon.svg' }],
+    ['link', { rel: 'icon', href: '/docs/favicon.svg' }],
     ['meta', { name: 'theme-color', content: '#171717', media: '(prefers-color-scheme: light)' }],
     ['meta', { name: 'theme-color', content: '#0a0a0a', media: '(prefers-color-scheme: dark)' }],
   ],
