@@ -68,6 +68,7 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           wranglerVersion: "3.99.0"
+          packageManager: npm
           command: pages deploy apps/website/out --project-name=cinacoin-website
         env:
           NODE_ENV: production

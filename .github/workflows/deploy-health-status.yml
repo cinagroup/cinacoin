@@ -68,7 +68,7 @@ jobs:
       - name: Verify static export
         run: |
           echo "Verifying static export..."
-          test -d apps/health-status/out/index.html || { echo "✗ out/index.html missing"; exit 1; }
+          test -f apps/health-status/out/index.html || { echo "✗ out/index.html missing"; exit 1; }
           test -d apps/health-status/out/_next || { echo "✗ out/_next missing"; exit 1; }
           echo "✓ Static export verified"
           echo "Export size:"
