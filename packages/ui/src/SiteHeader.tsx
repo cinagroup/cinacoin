@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 import { Brand } from './Brand';
 
 export interface NavLink {
@@ -21,7 +21,8 @@ export interface SiteHeaderProps {
   theme?: 'light' | 'dark';
   onToggleTheme?: () => void;
   /** Extra node rendered just left of the CTA (e.g. a language selector). */
-  rightSlot?: React.ReactNode;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  rightSlot?: any;
 }
 
 /**
@@ -40,7 +41,7 @@ export function SiteHeader({
   onToggleTheme,
   rightSlot,
 }: SiteHeaderProps) {
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
     <header className="cc-navbar" aria-label="Site header">

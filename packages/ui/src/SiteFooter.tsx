@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Brand } from './Brand';
 
 export interface FooterLink {

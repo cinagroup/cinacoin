@@ -12,6 +12,10 @@
   "files": [
     "src"
   ],
+  "devDependencies": {
+    "@types/react": "18.3.12",
+    "react": "19.2.6"
+  },
   "license": "MIT",
   "sideEffects": false
 }
