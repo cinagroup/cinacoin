@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 export interface BrandProps {
   /** Logo image src. Defaults to /logo.png (each app serves its own copy). */
   logoSrc?: string;
@@ -9,7 +7,7 @@ export interface BrandProps {
   sublabel?: string;
   /** Logo size in px (square). Default 28. */
   size?: number;
-  /** Render an <a> (default) or just the inline lockup (set as=false). */
+  /** Render an <a> (default) or just the inline lockup (set as="span"). */
   as?: 'a' | 'span';
   className?: string;
 }
@@ -52,12 +50,12 @@ export function Brand({
     </>
   );
 
-  const style: React.CSSProperties = {
+  const style = {
     display: 'inline-flex',
     alignItems: 'center',
     gap: 8,
     textDecoration: 'none',
-  };
+  } as const;
 
   if (as === 'span') {
     return (
