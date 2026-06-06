@@ -1,0 +1,5 @@
+# Build artifacts — never commit (they shadow fresh CI builds)
+/.next/
+/out/
+/out_deploy/
+node_modules/
