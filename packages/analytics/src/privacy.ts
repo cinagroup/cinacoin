@@ -4,7 +4,7 @@
  * Manages user consent, data minimization, and retention policies.
  */
 
-import { AnalyticsEvent } from '../types.js';
+import { AnalyticsEvent } from './types.js';
 
 export interface PrivacyConfig {
   /** Whether tracking is allowed by default. */
@@ -126,4 +126,50 @@ export class PrivacyManager {
     }
     return null;
   }
+}
+
+/* ───────────────────────────────────────────────────────────────────
+ * Functional privacy API (used by index.ts re-exports).
+ * ─────────────────────────────────────────────────────────────────── */
+
+/** Consent manager — alias of PrivacyManager for the functional API. */
+export { PrivacyManager as ConsentManager };
+
+const SENSITIVE_KEYS = ['address', 'walletAddress', 'ip', 'email'] as const;
+
+/** Anonymize a single event by redacting/truncating sensitive fields. */
+export function anonymizeEvent(event: AnalyticsEvent): AnalyticsEvent {
+  const out = { ...(event as Record<string, unknown>) };
+  for (const key of SENSITIVE_KEYS) {
+    const val = out[key];
+    if (typeof val === 'string' && val.length > 8) {
+      out[key] = val.slice(0, 6) + '...' + val.slice(-4);
+    }
+  }
+  return out as AnalyticsEvent;
+}
+
+/** Anonymize a batch of events. */
+export function anonymizeEvents(events: AnalyticsEvent[]): AnalyticsEvent[] {
+  return events.map(anonymizeEvent);
+}
+
+/** Export all events for a given user (GDPR data-access request). */
+export function exportUserData(
+  events: AnalyticsEvent[],
+  userId: string,
+): AnalyticsEvent[] {
+  return events.filter(
+    (e) => (e as { userId?: string }).userId === userId,
+  );
+}
+
+/** Delete all events for a given user (GDPR erasure). Returns the kept set. */
+export function deleteUserData(
+  events: AnalyticsEvent[],
+  userId: string,
+): AnalyticsEvent[] {
+  return events.filter(
+    (e) => (e as { userId?: string }).userId !== userId,
+  );
 }

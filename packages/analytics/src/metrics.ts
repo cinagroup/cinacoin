@@ -2,7 +2,7 @@
  * Metric calculations for analytics events.
  */
 
-import { AnalyticsEvent } from '../types.js';
+import { AnalyticsEvent } from './types.js';
 
 /** Extended event fields for connection-related events. */
 interface ConnectionEvent extends AnalyticsEvent {
@@ -109,4 +109,57 @@ export class MetricsCalculator {
 
     return { chainUsage: usage, mostSwitchedToChain: mostSwitchedTo };
   }
+}
+
+/* ───────────────────────────────────────────────────────────────────
+ * Standalone functional API (used by index.ts re-exports). These wrap
+ * the MetricsCalculator so callers can compute a single metric without
+ * instantiating the class.
+ * ─────────────────────────────────────────────────────────────────── */
+
+const _calc = new MetricsCalculator();
+
+/** Connection success rate + average connection time. */
+export function calculateConnectionMetrics(
+  events: AnalyticsEvent[],
+): ConnectionMetrics {
+  return _calc.calculate(events).connection;
+}
+
+/** Wallet popularity (walletId -> connection count). */
+export function calculateWalletPopularity(
+  events: AnalyticsEvent[],
+): Map<string, number> {
+  return _calc.calculate(events).wallet.walletPopularity;
+}
+
+/** Chain usage distribution (chainId -> switch count). */
+export function calculateChainUsage(
+  events: AnalyticsEvent[],
+): Map<number, number> {
+  return _calc.calculate(events).chain.chainUsage;
+}
+
+/** Transaction success rate (0-1) over transaction events. */
+export function calculateTransactionSuccessRate(
+  events: AnalyticsEvent[],
+): number {
+  const txEvents = events.filter(
+    (e) => e.type === 'transaction' || e.type === 'transaction_confirmed' || e.type === 'transaction_failed',
+  );
+  if (txEvents.length === 0) return 0;
+  const confirmed = txEvents.filter(
+    (e) => e.type === 'transaction_confirmed' || (e as { success?: boolean }).success === true,
+  ).length;
+  return confirmed / txEvents.length;
+}
+
+/** Count of unique sessions present in the events. */
+export function countUniqueSessions(events: AnalyticsEvent[]): number {
+  const sessions = new Set<string>();
+  for (const e of events) {
+    const sid = (e as { sessionId?: string }).sessionId;
+    if (sid != null) sessions.add(sid);
+  }
+  return sessions.size;
 }
