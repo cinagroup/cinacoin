@@ -53,8 +53,9 @@ jobs:
           rm -rf apps/demo/cache
           rm -rf cache/webpack
           rm -rf cache/
-          # NOTE: filter by the package NAME (cinacoin-demo), not the dir.
-          pnpm --filter cinacoin-demo build
+          # Use turbo so all workspace deps (siwe, core-sdk, core-ui, react)
+          # are built first (dependsOn ^build). Filter by package NAME.
+          pnpm exec turbo run build --filter=cinacoin-demo
         env:
           NODE_ENV: production
 
