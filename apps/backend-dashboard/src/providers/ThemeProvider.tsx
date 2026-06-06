@@ -18,36 +18,20 @@ export function useTheme() {
   return useContext(ThemeContext);
 }
 
-function getInitialTheme(): Theme {
-  if (typeof window !== 'undefined') {
-    const stored = localStorage.getItem('cc-theme') as Theme | null;
-    if (stored === 'light' || stored === 'dark') return stored;
-  }
-  // Brand default is the light theme; users can opt into dark via the toggle.
-  return 'light';
-}
-
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('light');
-  const [mounted, setMounted] = useState(false);
+  // The brand (DESIGN.md) is a light, ink-on-near-white system — light only.
+  const [theme] = useState<Theme>('light');
 
   useEffect(() => {
-    setTheme(getInitialTheme());
-    setMounted(true);
+    document.documentElement.setAttribute('data-theme', 'light');
+    // Clear any stale dark preference cached from the old dark-theme era so
+    // returning visitors are not stuck on dark.
+    try { localStorage.removeItem('cc-theme'); } catch {}
   }, []);
-
-  useEffect(() => {
-    if (!mounted) return;
-    document.documentElement.setAttribute('data-theme', theme);
-    try { localStorage.setItem('cc-theme', theme); } catch {}
-  }, [theme, mounted]);
 
   const toggle = useCallback(() => {
-    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+    /* Light-only brand — toggle is intentionally a no-op. */
   }, []);
-
-  // Prevent hydration mismatch
-  if (!mounted) return <>{children}</>;
 
   return (
     <ThemeContext.Provider value={{ theme, toggle }}>
