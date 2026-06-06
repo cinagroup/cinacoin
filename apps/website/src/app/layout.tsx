@@ -59,10 +59,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
       <head>
-        <link rel="dns-prefetch" href="https://docs.cinacoin.com" />
-        <link rel="preconnect" href="https://docs.cinacoin.com" />
-        <link rel="dns-prefetch" href="https://cloud.cinacoin.com" />
-        <link rel="preconnect" href="https://cloud.cinacoin.com" />
         <link rel="dns-prefetch" href="https://github.com" />
         <link rel="preconnect" href="https://github.com" />
       </head>

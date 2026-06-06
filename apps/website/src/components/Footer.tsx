@@ -9,18 +9,18 @@ export default function Footer() {
 
   const columns = [
     { titleKey: 'footer-products', links: [
-      { label: 'AppKit', href: 'https://docs.cinacoin.com/api/appkit' },
-      { label: 'Auth', href: 'https://docs.cinacoin.com/api/auth' },
-      { label: 'Relay', href: 'https://docs.cinacoin.com/api/relay' },
-      { label: 'Push', href: 'https://docs.cinacoin.com/api/push' },
-      { label: 'Keys', href: 'https://docs.cinacoin.com/api/keys' },
-      { label: 'RPC Proxy', href: 'https://docs.cinacoin.com/api/rpc' },
+      { label: 'AppKit', href: '/docs/api/appkit' },
+      { label: 'Auth', href: '/docs/api/auth' },
+      { label: 'Relay', href: '/docs/api/relay' },
+      { label: 'Push', href: '/docs/api/push' },
+      { label: 'Keys', href: '/docs/api/keys' },
+      { label: 'RPC Proxy', href: '/docs/api/rpc' },
     ]},
     { titleKey: 'footer-developers', links: [
-      { label: t('nav-docs'), href: 'https://docs.cinacoin.com' },
-      { label: 'API Reference', href: 'https://docs.cinacoin.com/api/core-sdk' },
+      { label: t('nav-docs'), href: '/docs/' },
+      { label: 'API Reference', href: '/docs/api/core-sdk' },
       { label: 'SDKs', href: 'https://github.com/cinagroup/cinacoin' },
-      { label: 'Examples', href: 'https://demo.cinacoin.com' },
+      { label: 'Examples', href: '/demo/' },
       { label: t('footer-changelog'), href: 'https://github.com/cinagroup/cinacoin/releases' },
     ]},
     { titleKey: 'footer-company', links: [

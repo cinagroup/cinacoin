@@ -16,7 +16,7 @@ export default function Hero() {
       {/* Announcement badge */}
       <FadeIn delay={100}>
         <a
-          href="https://docs.cinacoin.com"
+          href="/docs/"
           className="cc-badge inline-flex items-center gap-2 rounded-full px-4 py-2 no-underline transition-colors hover:text-[var(--cc-ink)]"
         >
           <span
@@ -46,7 +46,7 @@ export default function Hero() {
       {/* CTAs */}
       <FadeIn delay={500}>
         <div className="relative mt-10 flex flex-col gap-3 sm:flex-row">
-          <a href="https://docs.cinacoin.com" className="cc-btn-primary">
+          <a href="/docs/" className="cc-btn-primary">
             {t('hero-start')}
           </a>
           <a href="https://github.com/cinagroup/cinacoin" className="cc-btn-secondary">

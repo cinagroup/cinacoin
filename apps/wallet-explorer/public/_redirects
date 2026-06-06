@@ -1,4 +1,3 @@
-# Standalone wallet.cinacoin.com root -> the basePath the app is built under.
-# (The app is served at /wallets so it can also mount at cinacoin.com/wallets
-#  via the consolidation router Worker.)
-/  /wallets/  301
+# Consolidation: this app's canonical home is cinacoin.com/wallets/.
+# 301 the standalone subdomain root to the canonical subpath (SEO consolidation).
+/  https://cinacoin.com/wallets/  301

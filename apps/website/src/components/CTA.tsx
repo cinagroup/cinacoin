@@ -33,7 +33,7 @@ export default function CTA() {
         <FadeIn delay={400}>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <a
-              href="https://docs.cinacoin.com"
+              href="/docs/"
               className="rounded-full inline-flex items-center justify-center cc-button-lg no-underline transition-opacity hover:opacity-85"
               style={{ backgroundColor: 'var(--cc-on-primary)', color: 'var(--cc-primary)', padding: '0 var(--cc-sm)', height: '48px' }}
             >

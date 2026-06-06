@@ -60,13 +60,13 @@ export default function Navbar() {
         <div className="hidden items-center gap-1 md:flex">
           <a href="#products" className="cc-navbar-link">{t('nav-products')}</a>
           <a href="/pricing" className="cc-navbar-link">{t('nav-pricing')}</a>
-          <a href="https://docs.cinacoin.com" className="cc-navbar-link">{t('nav-docs')}</a>
+          <a href="/docs/" className="cc-navbar-link">{t('nav-docs')}</a>
           <a href="https://github.com/cinagroup" className="cc-navbar-link">{t('nav-github')}</a>
         </div>
 
         {/* Desktop actions */}
         <div className="flex items-center gap-1">
-          <a href="https://cloud.cinacoin.com" className="hidden text-[var(--cc-body)] transition-colors hover:text-[var(--cc-ink)] cc-body-sm sm:inline">
+          <a href="/dashboard/" className="hidden text-[var(--cc-body)] transition-colors hover:text-[var(--cc-ink)] cc-body-sm sm:inline">
             {t('nav-dashboard')}
           </a>
 
@@ -125,7 +125,7 @@ export default function Navbar() {
           </div>
 
           {/* CTA */}
-          <a href="https://docs.cinacoin.com" className="hidden sm:inline-flex ml-1">
+          <a href="/docs/" className="hidden sm:inline-flex ml-1">
             <span className="cc-btn-primary-sm">{t('nav-get-started')}</span>
           </a>
 
@@ -159,9 +159,9 @@ export default function Navbar() {
             <a href="/about" onClick={closeMobile} className="rounded-lg px-3 py-2 text-sm text-[var(--cc-body)] hover:text-[var(--cc-ink)]">{t('footer-about')}</a>
             <a href="/changelog" onClick={closeMobile} className="rounded-lg px-3 py-2 text-sm text-[var(--cc-body)] hover:text-[var(--cc-ink)]">{t('footer-changelog')}</a>
             <a href="/contact" onClick={closeMobile} className="rounded-lg px-3 py-2 text-sm text-[var(--cc-body)] hover:text-[var(--cc-ink)]">{t('footer-contact')}</a>
-            <a href="https://docs.cinacoin.com" className="rounded-lg px-3 py-2 text-sm text-[var(--cc-body)] hover:text-[var(--cc-ink)]">{t('nav-docs')}</a>
+            <a href="/docs/" className="rounded-lg px-3 py-2 text-sm text-[var(--cc-body)] hover:text-[var(--cc-ink)]">{t('nav-docs')}</a>
             <a href="https://github.com/cinagroup" className="rounded-lg px-3 py-2 text-sm text-[var(--cc-body)] hover:text-[var(--cc-ink)]">{t('nav-github')}</a>
-            <a href="https://cloud.cinacoin.com" className="rounded-lg px-3 py-2 text-sm text-[var(--cc-body)] hover:text-[var(--cc-ink)]">{t('nav-dashboard')}</a>
+            <a href="/dashboard/" className="rounded-lg px-3 py-2 text-sm text-[var(--cc-body)] hover:text-[var(--cc-ink)]">{t('nav-dashboard')}</a>
 
             {/* Mobile theme toggle */}
             <button onClick={() => { toggle(); closeMobile() }} className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-[var(--cc-body)] hover:text-[var(--cc-ink)]">
