@@ -1,4 +1,3 @@
-# Standalone cloud.cinacoin.com root -> the basePath the app is built under.
-# (Served at /dashboard so it can also mount at cinacoin.com/dashboard via
-#  the consolidation router Worker.)
-/  /dashboard/  301
+# Consolidation: this app's canonical home is cinacoin.com/dashboard/.
+# 301 the standalone subdomain root to the canonical subpath (SEO consolidation).
+/  https://cinacoin.com/dashboard/  301

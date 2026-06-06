@@ -95,7 +95,7 @@ jobs:
           mkdir -p docs-site/dist_deploy/docs
           cp -r "$DIST"/. docs-site/dist_deploy/docs/
           # Standalone docs.cinacoin.com root -> /docs/
-          printf '/  /docs/  301\n' > docs-site/dist_deploy/_redirects
+          printf '/  https://cinacoin.com/docs/  301\n' > docs-site/dist_deploy/_redirects
           test -f docs-site/dist_deploy/docs/index.html || { echo "✗ nested index missing"; exit 1; }
           echo "✓ nested output at /docs"
 

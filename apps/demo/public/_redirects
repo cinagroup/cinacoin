@@ -1,4 +1,3 @@
-# Standalone demo.cinacoin.com root -> the basePath the app is built under.
-# (The app is served at /demo so it can also mount at cinacoin.com/demo
-#  via the consolidation router Worker.)
-/  /demo/  301
+# Consolidation: this app's canonical home is cinacoin.com/demo/.
+# 301 the standalone subdomain root to the canonical subpath (SEO consolidation).
+/  https://cinacoin.com/demo/  301

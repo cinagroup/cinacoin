@@ -1,4 +1,3 @@
-# Standalone analytics.cinacoin.com root -> the basePath the app is built under.
-# (Served at /analytics so it can also mount at cinacoin.com/analytics via
-#  the consolidation router Worker.)
-/  /analytics/  301
+# Consolidation: this app's canonical home is cinacoin.com/analytics/.
+# 301 the standalone subdomain root to the canonical subpath (SEO consolidation).
+/  https://cinacoin.com/analytics/  301
