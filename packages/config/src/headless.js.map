@@ -1,0 +1,1 @@
+{"version":3,"file":"headless.js","sourceRoot":"","sources":["headless.ts"],"names":[],"mappings":"AAAA,OAAO,EACL,YAAY,GAGb,MAAM,uBAAuB,CAAC;AA4C/B;;;;;;;;;;;;;;GAcG;AACH,MAAM,UAAU,oBAAoB,CAClC,OAA8B;IAE9B,MAAM,MAAM,GAAG,YAAY,CAAC;QAC1B,GAAG,OAAO;QACV,mDAAmD;QACnD,IAAI,EAAE,UAAU;KACjB,CAAmB,CAAC;IAErB,OAAO,MAAM,CAAC;AAChB,CAAC"}
