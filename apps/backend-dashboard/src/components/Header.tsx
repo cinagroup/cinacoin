@@ -2,7 +2,6 @@
 
 import { useAuth } from "@/lib/AuthProvider";
 import { useWorkerHealth, aggregateStatusLabel } from "@/hooks/useWorkerHealth";
-import { useTheme } from "@/providers/ThemeProvider";
 
 interface HeaderProps {
   onMenuToggle: () => void;
@@ -11,7 +10,6 @@ interface HeaderProps {
 export default function Header({ onMenuToggle }: HeaderProps) {
   const { address, isLoggedIn, doLogout } = useAuth();
   const { allHealthy, degradedCount, downCount, checking } = useWorkerHealth(15000);
-  const { theme, toggle } = useTheme();
 
   const shortAddress = address
     ? `${address.slice(0, 6)}…${address.slice(-4)}`
@@ -75,24 +73,6 @@ export default function Header({ onMenuToggle }: HeaderProps) {
             {downCount > 0 ? 'Down' : degradedCount > 0 ? 'Degraded' : 'OK'}
           </span>
         </div>
-
-        {/* Theme Toggle */}
-        <button
-          onClick={toggle}
-          className="p-2 rounded-[var(--cc-radius-sm)] text-dashboard-muted hover:text-dashboard-text hover:bg-dashboard-surface-hover transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
-          aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
-          title={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
-        >
-          {theme === 'dark' ? (
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-            </svg>
-          ) : (
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-            </svg>
-          )}
-        </button>
 
         {isLoggedIn && (
           <>
