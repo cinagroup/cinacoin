@@ -3,6 +3,7 @@
  */
 
 import type { Chain } from '@cinacoin/core-sdk';
+import { keccak_256 } from '@noble/hashes/sha3.js';
 
 /* ------------------------------------------------------------------ */
 /*  Starknet chain presets                                             */
@@ -192,13 +193,38 @@ export function padHex(value: string): string {
 }
 
 /**
+ * Compute the Starknet entry-point selector for a function name.
+ *
+ * Starknet selector = sn_keccak(name) = the lowest 250 bits of
+ * keccak256(utf8(name)). A name that is already a hex/decimal felt (i.e. a
+ * pre-computed selector) is returned as-is.
+ */
+const SELECTOR_MASK_250 = (1n << 250n) - 1n;
+
+export function getSelectorFromName(name: string): string {
+  // Already a felt (hex or decimal numeric string) → use directly.
+  if (/^0x[0-9a-fA-F]+$/.test(name) || /^[0-9]+$/.test(name)) {
+    return encodeFelt252(name);
+  }
+
+  const bytes = new TextEncoder().encode(name);
+  const digest = keccak_256(bytes); // 32-byte big-endian
+  let acc = 0n;
+  for (const b of digest) acc = (acc << 8n) | BigInt(b);
+  return '0x' + (acc & SELECTOR_MASK_250).toString(16);
+}
+
+/**
  * Encode a single Starknet call to calldata format.
- * Returns [contractAddress, entrypoint, dataLen, ...calldata].
+ * Returns [contractAddress, selector, dataLen, ...calldata].
+ *
+ * The entrypoint may be a human-readable function name (e.g. "transfer") —
+ * it is converted to the correct sn_keccak selector — or a pre-computed felt.
  */
 export function encodeCall(call: StarknetCall): string[] {
   return [
     normalizeStarknetAddress(call.contractAddress),
-    encodeFelt252(call.entrypoint),
+    getSelectorFromName(call.entrypoint),
     call.calldata.length.toString(),
     ...call.calldata,
   ];

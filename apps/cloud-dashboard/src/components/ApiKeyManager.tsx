@@ -1,45 +1,72 @@
 'use client';
 
-import { useState } from 'react';
-
-interface ApiKey {
-  id: string;
-  label: string;
-  permissions: string;
-  isActive: boolean;
-  createdAt: string;
-  lastUsedAt: string | null;
-}
-
-const mockKeys: ApiKey[] = [
-  { id: 'key_1', label: 'Production Key', permissions: 'read,write', isActive: true, createdAt: '2025-01-01', lastUsedAt: '2025-01-15' },
-  { id: 'key_2', label: 'Testing Key', permissions: 'read', isActive: true, createdAt: '2025-01-05', lastUsedAt: '2025-01-14' },
-  { id: 'key_3', label: 'Deprecated', permissions: 'read,write', isActive: false, createdAt: '2024-12-01', lastUsedAt: '2025-01-01' },
-];
+import { useCallback, useEffect, useState } from 'react';
+import {
+  generateApiKey,
+  listApiKeys,
+  revokeApiKey,
+} from '@/lib/api';
+import type { ApiKey } from '@/types';
 
 export function ApiKeyManager({ projectId }: { projectId: string }) {
-  const [keys, setKeys] = useState(mockKeys);
+  const [keys, setKeys] = useState<ApiKey[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [showNewKey, setShowNewKey] = useState('');
+  const [creating, setCreating] = useState(false);
 
-  const generateKey = () => {
-    const key = 'ck_' + Array.from(crypto.getRandomValues(new Uint8Array(32)))
-      .map((b) => b.toString(16).padStart(2, '0')).join('');
-    const now = new Date().toISOString().slice(0, 10);
-    const entry: ApiKey = {
-      id: 'key_' + Date.now(),
-      label: 'New Key',
-      permissions: 'read,write',
-      isActive: true,
-      createdAt: now,
-      lastUsedAt: null,
-    };
-    setKeys((prev) => [entry, ...prev]);
-    setShowNewKey(key);
+  const refresh = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const list = await listApiKeys(projectId);
+      setKeys(list);
+    } catch (e) {
+      setKeys([]);
+      setError(
+        e instanceof Error
+          ? e.message
+          : 'Unable to load API keys.'
+      );
+    } finally {
+      setLoading(false);
+    }
+  }, [projectId]);
+
+  useEffect(() => {
+    void refresh();
+  }, [refresh]);
+
+  const generateKey = async () => {
+    setCreating(true);
+    setError(null);
+    try {
+      const created = await generateApiKey(projectId, {
+        name: 'New Key',
+        permissions: ['read', 'write'],
+      });
+      setShowNewKey(created.plainKey);
+      await refresh();
+    } catch (e) {
+      setError(
+        e instanceof Error ? e.message : 'Unable to create API key.'
+      );
+    } finally {
+      setCreating(false);
+    }
   };
 
-  const revokeKey = (id: string) => {
-    setKeys(keys.map((k) => k.id === id ? { ...k, isActive: false } : k));
-    setShowNewKey('');
+  const revokeKey = async (id: string) => {
+    setError(null);
+    try {
+      await revokeApiKey(projectId, id);
+      setShowNewKey('');
+      await refresh();
+    } catch (e) {
+      setError(
+        e instanceof Error ? e.message : 'Unable to revoke API key.'
+      );
+    }
   };
 
   return (
@@ -48,11 +75,18 @@ export function ApiKeyManager({ projectId }: { projectId: string }) {
       <div className="flex items-center gap-3">
         <button
           onClick={generateKey}
-          className="cc-btn-primary-sm !h-9 px-4 text-sm"
+          disabled={creating}
+          className="cc-btn-primary-sm !h-9 px-4 text-sm disabled:opacity-50"
         >
-          Generate API Key
+          {creating ? 'Generating…' : 'Generate API Key'}
         </button>
       </div>
+
+      {error && (
+        <div className="rounded-lg border border-[var(--cc-error)]/30 bg-[var(--cc-error-soft)]/20 p-3 text-sm text-[var(--cc-error)]">
+          {error}
+        </div>
+      )}
 
       {/* Show newly generated key */}
       {showNewKey && (
@@ -66,39 +100,38 @@ export function ApiKeyManager({ projectId }: { projectId: string }) {
       )}
 
       {/* Keys list */}
-      <div className="space-y-2">
-        {keys.map((key) => (
-          <div
-            key={key.id}
-            className={`flex items-center justify-between rounded-lg border p-4 transition ${
-              key.isActive ? 'border-[var(--cc-hairline)] bg-[var(--cc-canvas)]' : 'border-[var(--cc-hairline)]/50 bg-[var(--cc-canvas-soft)]/50 opacity-60'
-            }`}
-          >
-            <div>
-              <div className="text-sm font-medium text-[var(--cc-ink)]">{key.label}</div>
-              <div className="mt-0.5 text-xs text-[var(--cc-muted)]">
-                {key.permissions} • Created {key.createdAt}
-                {key.lastUsedAt && ` • Last used ${key.lastUsedAt}`}
+      {loading ? (
+        <div className="text-sm text-[var(--cc-muted)]">Loading API keys…</div>
+      ) : keys.length === 0 ? (
+        <div className="text-sm text-[var(--cc-muted)]">
+          No API keys yet. Generate one to start authenticating requests.
+        </div>
+      ) : (
+        <div className="space-y-2">
+          {keys.map((key) => (
+            <div
+              key={key.id}
+              className="flex items-center justify-between rounded-lg border border-[var(--cc-hairline)] bg-[var(--cc-canvas)] p-4 transition"
+            >
+              <div>
+                <div className="text-sm font-medium text-[var(--cc-ink)]">{key.name || 'Unnamed key'}</div>
+                <div className="mt-0.5 text-xs text-[var(--cc-muted)]">
+                  {key.permissions.join(', ')} • Created {key.createdAt.slice(0, 10)}
+                  {key.expiresAt && ` • Expires ${key.expiresAt.slice(0, 10)}`}
+                </div>
               </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className={`cc-badge ${
-                key.isActive ? '!bg-[var(--cc-link-bg-soft)] !text-[var(--cc-link-deep)]' : '!bg-[var(--cc-error-soft)] !text-[var(--cc-error-deep)]'
-              }`}>
-                {key.isActive ? 'Active' : 'Revoked'}
-              </span>
-              {key.isActive && (
+              <div className="flex items-center gap-2">
                 <button
                   onClick={() => revokeKey(key.id)}
                   className="rounded-md border border-[var(--cc-error)]/20 bg-[var(--cc-error-soft)]/20 px-3 py-1 text-xs font-medium text-[var(--cc-error)] transition hover:bg-[var(--cc-error-soft)]/50"
                 >
                   Revoke
                 </button>
-              )}
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

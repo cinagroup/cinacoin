@@ -1174,16 +1174,20 @@ export class CosmosChainAdapter {
     return new TextEncoder().encode(JSON.stringify(auth));
   }
 
-  /** Encode a signed transaction. */
+  /** Encode a signed transaction for the wallet-driven broadcast path. */
   private _encodeSignedTx(result: {
     signed: { bodyBytes: Uint8Array; authInfoBytes: Uint8Array; chainId: string; accountNumber: number };
     signature: { pub_key: { type: string; value: string }; signature: string };
   }): Uint8Array {
-    // Minimal encoding — the actual protobuf encoding is handled by Keplr
-    // in production. This is a placeholder for the broadcast layer.
+    // In this lightweight core-SDK adapter the connected wallet (Keplr/Leap)
+    // performs the canonical protobuf TxRaw encoding and broadcast after
+    // signDirect; this carries the already-protobuf bodyBytes/authInfoBytes
+    // plus the signature through to that wallet broadcast. For SDK-side
+    // protobuf encoding + direct node broadcast, use @cinacoin/adapter-cosmos
+    // (built on @cosmjs/stargate).
     const tx = {
-      body: result.signed,
-      authInfo: result.signed,
+      bodyBytes: result.signed.bodyBytes,
+      authInfoBytes: result.signed.authInfoBytes,
       signatures: [result.signature.signature],
     };
     return new TextEncoder().encode(JSON.stringify(tx));

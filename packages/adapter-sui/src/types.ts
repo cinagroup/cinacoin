@@ -266,6 +266,9 @@ export interface SuiTransferSui {
 
   /** Amount in MIST (1 SUI = 10^9 MIST). Omit for full balance. */
   amount?: string | bigint;
+
+  /** Optional gas budget in MIST. */
+  gasBudget?: string | bigint;
 }
 
 /* ------------------------------------------------------------------ */

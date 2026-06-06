@@ -52,5 +52,5 @@ export interface UsageStats {
   totalRequests: number;
   totalErrors: number;
   avgLatency: number;
-  dailyData: { date: string; requests: number }[];
+  dailyData: { date: string; requests: number; errors: number }[];
 }

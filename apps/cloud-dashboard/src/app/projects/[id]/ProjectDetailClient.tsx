@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import { ApiKeyManager } from "@/components/ApiKeyManager";
 import { UsageChart } from "@/components/UsageChart";
+import { getUsageStats } from "@/lib/api";
 
 interface UsageDataPoint {
   date: string;
@@ -21,6 +22,8 @@ export function ProjectDetailClient({ projectId, project }: ProjectDetailClientP
     "overview"
   );
   const [usageData, setUsageData] = useState<UsageDataPoint[]>([]);
+  const [avgLatency, setAvgLatency] = useState<number>(0);
+  const [usageLoading, setUsageLoading] = useState(true);
   const [projectName, setProjectName] = useState(project.name);
   const [network, setNetwork] = useState("mainnet");
   const [isSaved, setIsSaved] = useState(false);
@@ -30,17 +33,23 @@ export function ProjectDetailClient({ projectId, project }: ProjectDetailClientP
   }, [project.name]);
 
   useEffect(() => {
-    // Generate mock usage data
-    const now = Date.now();
-    const data: UsageDataPoint[] = Array.from({ length: 14 }, (_, i) => {
-      const requests = Math.floor(Math.random() * 5000);
-      return {
-        date: new Date(now - (13 - i) * 86400000).toISOString().slice(0, 10),
-        requests,
-        errors: Math.floor(Math.random() * 50),
-      };
-    });
-    setUsageData(data);
+    let cancelled = false;
+    setUsageLoading(true);
+    getUsageStats(projectId, 14)
+      .then((stats) => {
+        if (cancelled) return;
+        setUsageData(stats.dailyData);
+        setAvgLatency(stats.avgLatency);
+      })
+      .catch(() => {
+        if (!cancelled) setUsageData([]);
+      })
+      .finally(() => {
+        if (!cancelled) setUsageLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
   }, [projectId]);
 
   const totalRequests = usageData.reduce((sum, d) => sum + d.requests, 0);
@@ -94,11 +103,21 @@ export function ProjectDetailClient({ projectId, project }: ProjectDetailClientP
               <div className="cc-card">
                 <p className="text-sm text-[var(--cc-muted)]">Avg Latency</p>
                 <p className="mt-1 text-3xl font-semibold text-[var(--cc-success)]">
-                  45ms
+                  {avgLatency > 0 ? `${avgLatency}ms` : "—"}
                 </p>
               </div>
             </div>
-            {usageData.length > 0 && <UsageChart data={usageData} />}
+            {usageLoading ? (
+              <div className="cc-card text-sm text-[var(--cc-muted)]">
+                Loading usage…
+              </div>
+            ) : usageData.some((d) => d.requests > 0) ? (
+              <UsageChart data={usageData} />
+            ) : (
+              <div className="cc-card text-sm text-[var(--cc-muted)]">
+                No usage recorded yet. Traffic from your API keys will appear here.
+              </div>
+            )}
           </div>
         )}
 

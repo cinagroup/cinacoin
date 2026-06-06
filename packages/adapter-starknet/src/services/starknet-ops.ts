@@ -52,6 +52,7 @@ import {
   isValidStarknetAddress,
   encodeMultiCall,
   encodeFelt252,
+  getSelectorFromName,
   padHex,
   Felt252_MAX,
 } from '../types.js';
@@ -301,37 +302,47 @@ export function buildDeployAccountTx(
 }
 
 /**
- * Compute the address for a new account before deployment.
+ * Compute the counterfactual address for a new account before deployment.
  *
- * Uses the Starknet address calculation formula:
- * address = pedersen(pedersen(pedersen(prefix, classHash), salt), constructorCalldataHash)
+ * Implements the canonical Starknet formula using the real Pedersen hash via
+ * the `starknet` peer dependency:
  *
- * For simplicity, we use a deterministic hash based on the inputs.
- * In production, use the actual Starknet address calculation.
+ *   address = pedersen_chain(
+ *     'STARKNET_CONTRACT_ADDRESS', deployerAddress, salt, classHash,
+ *     pedersen_array(constructorCalldata)
+ *   ) mod ADDR_BOUND
+ *
+ * `starknet.hash.calculateContractAddressFromHash` performs exactly this
+ * derivation, so the resulting address matches Argent-X / Braavos and any
+ * Starknet node. This is async because the hash backend is loaded lazily.
  */
-export function computeAccountAddress(
+export async function computeAccountAddress(
   classHash: string,
   salt: string,
   constructorCalldata: string[],
   deployerAddress: string = '0x0',
-): string {
-  // Simplified address computation
-  // In production, this uses Pedersen hash over:
-  // ['CONTRACT_ADDRESS_PREFIX', deployerAddress, salt, classHash, calldataHash]
-  const parts = [
-    deployerAddress,
-    normalizeStarknetAddress(salt),
-    normalizeStarknetAddress(classHash),
-    ...constructorCalldata.map(normalizeStarknetAddress),
-  ].join('');
-
-  // Simple hash for demonstration — replace with actual Pedersen
-  let hash = 0n;
-  for (let i = 0; i < parts.length; i++) {
-    hash = (hash * 31n + BigInt(parts.charCodeAt(i))) % Felt252_MAX;
+): Promise<string> {
+  let hash: typeof import('starknet').hash;
+  try {
+    ({ hash } = await import('starknet'));
+  } catch {
+    throw new Error(
+      "computeAccountAddress requires the 'starknet' peer dependency (>=6.0.0) " +
+        'for correct Pedersen-based address derivation. Install it with ' +
+        '`npm install starknet`.',
+    );
   }
 
-  return padHex('0x' + hash.toString(16));
+  const address = hash.calculateContractAddressFromHash(
+    normalizeStarknetAddress(salt),
+    normalizeStarknetAddress(classHash),
+    constructorCalldata.map(normalizeStarknetAddress),
+    normalizeStarknetAddress(deployerAddress),
+  );
+
+  return padHex(
+    typeof address === 'string' ? address : '0x' + BigInt(address).toString(16),
+  );
 }
 
 /* ─────────────────────────────────────────────────────────────── */
@@ -366,7 +377,7 @@ export function buildCallRpc(params: ContractCallParams): {
     params: [
       {
         contract_address: normalizeStarknetAddress(params.contractAddress),
-        entry_point_selector: params.entrypoint,
+        entry_point_selector: getSelectorFromName(params.entrypoint),
         calldata: params.calldata ?? [],
       },
       typeof params.block === 'string' ? params.block : params.block ?? 'latest',

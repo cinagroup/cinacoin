@@ -57,6 +57,7 @@ import {
   devInspectTransaction,
   executeMoveCall,
   executeTransfer,
+  serializeTransactionBlock,
   type SuiExecuteResult,
   type DryRunResult,
   type DevInspectResult,
@@ -188,6 +189,9 @@ export class SuiChainAdapter implements ChainAdapter {
   /** Registered connectors for discovery. */
   private connectors: SuiConnector[] = [];
 
+  /** Optional core-SDK Connector supplied via setConnector(). */
+  private coreConnector: Connector | null = null;
+
   constructor() {
     // Register default connectors
     this.registerConnector(new SuiWalletConnector());
@@ -229,12 +233,23 @@ export class SuiChainAdapter implements ChainAdapter {
   /* ---- ChainAdapter Implementation ---- */
 
   /**
-   * Set the underlying connector (compatibility shim).
-   * @deprecated Use the adapter's own connect() method instead.
+   * Set the underlying core-SDK connector.
+   *
+   * Sui wallet integration is normally driven by the adapter's own
+   * connector system (Suiet/Ethos/Martian/Sui Wallet). This stores a
+   * core-SDK Connector for callers that wire the adapter through the
+   * generic ChainAdapter interface, so it is available to consumers
+   * rather than being silently discarded.
+   *
+   * @deprecated Prefer the adapter's own connect() method.
    */
   setConnector(connector: Connector): void {
-    // No-op for now — connector integration with core SDK Connector
-    // is handled through the adapter's own wallet connector system.
+    this.coreConnector = connector;
+  }
+
+  /** Returns the core-SDK connector set via setConnector(), if any. */
+  getConnector(): Connector | null {
+    return this.coreConnector;
   }
 
   /**
@@ -501,21 +516,21 @@ export class SuiChainAdapter implements ChainAdapter {
     }
 
     if (!this.provider) throw new Error('No provider connected. Call connect() first.');
+    const sender = this.provider.account;
+    if (!sender) throw new Error('No wallet account. Call connect() first.');
 
-    // Build a simple PaySui transaction call
-    const txCall: SuiTransactionCall = {
-      target: '0x2::pay::split_and_transfer',
-      typeArguments: ['0x2::sui::SUI'],
-      arguments: [
-        params.recipient,
-        params.amount ? String(params.amount) : null, // null = full balance
-      ],
-    };
+    // Build a real programmable TransactionBlock (split + transfer of SUI),
+    // dry-run it against the node for validation, then hand the serialized
+    // block to the wallet for signing + execution.
+    const tx = await executeTransfer(
+      this.rpcUrl,
+      sender,
+      params.recipient,
+      params.amount != null ? String(params.amount) : '0',
+      params.gasBudget != null ? String(params.gasBudget) : undefined,
+    );
 
-    // The transaction bytes would be built by the wallet or a Move call builder.
-    // For now, we delegate to the wallet's signAndExecuteTransaction.
-    // In a full implementation, you'd use @mysten/sui.js TransactionBlock here.
-    const txBytes = JSON.stringify(txCall);
+    const txBytes = serializeTransactionBlock(tx);
     const result = await this.provider.signAndExecuteTransaction(txBytes);
     return result.digest;
   }
