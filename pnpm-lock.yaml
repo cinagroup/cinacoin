@@ -1351,6 +1351,9 @@ importers:
 
   packages/i18n:
     devDependencies:
+      '@types/react':
+        specifier: ^18.2.0
+        version: 18.3.12
       react:
         specifier: ^18.2.0
         version: 18.3.1
