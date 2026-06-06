@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { SiteHeader, SiteFooter } from "@cinacoin/ui";
 import {
   getAllWallets,
   getWalletsForChainFamily,
@@ -461,27 +462,14 @@ export default function WalletExplorerPage() {
 
   return (
     <div className="min-h-screen bg-[var(--cc-canvas-soft)] text-[var(--cc-ink)]">
-      {/* Header */}
-      <header className="cc-navbar sticky top-0 z-50 border-b border-[var(--cc-hairline)] bg-[var(--cc-canvas)]">
-        <div className="mx-auto max-w-7xl px-4 h-full flex items-center justify-between sm:px-6 lg:px-8">
-          <div className="flex items-center gap-3">
-            <a href="https://cinacoin.com" className="flex items-center gap-2">
-              <img src="/logo.png" alt="Cinacoin logo" className="h-7 w-7 rounded-md" />
-              <span className="text-[16px] font-semibold tracking-tight text-[var(--cc-ink)]">
-                Cinacoin
-              </span>
-            </a>
-            <span className="text-[var(--cc-muted)]">/</span>
-            <span className="text-sm font-medium text-[var(--cc-muted)]">Wallet Explorer</span>
-          </div>
-          <a
-            href="https://cinacoin.com"
-            className="inline-flex items-center gap-1 text-sm font-medium text-[var(--cc-body)] hover:text-[var(--cc-ink)] transition-colors"
-          >
-            ← Back to Cinacoin
-          </a>
-        </div>
-      </header>
+      {/* Shared site header from @cinacoin/ui */}
+      <SiteHeader
+        sublabel="Wallet Explorer"
+        links={[
+          { label: 'Docs', href: 'https://docs.cinacoin.com' },
+          { label: '← Back to Cinacoin', href: 'https://cinacoin.com' },
+        ]}
+      />
 
       {/* Hero Section */}
       <section className="border-b border-[var(--cc-hairline)] bg-[var(--cc-canvas)] py-12 md:py-16">
@@ -541,47 +529,30 @@ export default function WalletExplorerPage() {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="cc-footer mt-16 border-t border-[var(--cc-hairline)] bg-[var(--cc-canvas)]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            <div>
-              <h4 className="cc-footer-heading mb-3">Explorer</h4>
-              <p className="text-sm text-[var(--cc-body)]">
-                Discover {WALLET_COUNT}+ wallets for every chain and platform.
-              </p>
-            </div>
-            <div>
-              <h4 className="cc-footer-heading mb-3">Links</h4>
-              <div className="space-y-1">
-                <a href="https://docs.cinacoin.com" className="cc-footer-link" target="_blank" rel="noopener noreferrer">
-                  Docs
-                </a>
-                <a href="https://github.com/cinagroup" className="cc-footer-link" target="_blank" rel="noopener noreferrer">
-                  GitHub
-                </a>
-                <a href="https://cinacoin.com" className="cc-footer-link">
-                  Back to Cinacoin
-                </a>
-              </div>
-            </div>
-            <div>
-              <h4 className="cc-footer-heading mb-3">Legal</h4>
-              <p className="text-sm text-[var(--cc-muted)]">
-                © {new Date().getFullYear()} Cinacoin. All rights reserved.
-              </p>
-            </div>
-          </div>
-          <div className="border-t border-[var(--cc-hairline)] pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
-            <span className="text-xs text-[var(--cc-muted)]">
-              © {new Date().getFullYear()} Cinacoin
-            </span>
-            <span className="text-xs text-[var(--cc-muted)]">
-              {WALLET_COUNT} wallets indexed
-            </span>
-          </div>
-        </div>
-      </footer>
+      {/* Shared site footer from @cinacoin/ui */}
+      <SiteFooter
+        tagline={`Discover ${WALLET_COUNT}+ wallets for every chain and platform.`}
+        columns={[
+          {
+            heading: 'Explorer',
+            links: [
+              { label: 'All wallets', href: 'https://wallet.cinacoin.com' },
+              { label: 'Docs', href: 'https://docs.cinacoin.com' },
+            ],
+          },
+          {
+            heading: 'Developers',
+            links: [
+              { label: 'GitHub', href: 'https://github.com/cinagroup' },
+              { label: 'Demo', href: 'https://demo.cinacoin.com' },
+            ],
+          },
+          {
+            heading: 'Company',
+            links: [{ label: 'Back to Cinacoin', href: 'https://cinacoin.com' }],
+          },
+        ]}
+      />
     </div>
   );
 }

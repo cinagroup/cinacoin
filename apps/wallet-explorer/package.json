@@ -14,7 +14,8 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "@cinacoin/wallet-registry": "workspace:*",
-    "@cinacoin/design-tokens": "workspace:*"
+    "@cinacoin/design-tokens": "workspace:*",
+    "@cinacoin/ui": "workspace:*"
   },
   "devDependencies": {
     "@cloudflare/next-on-pages": "^1.13.7",

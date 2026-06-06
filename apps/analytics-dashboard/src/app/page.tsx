@@ -1,3 +1,7 @@
+'use client';
+
+import { SiteHeader, SiteFooter } from '@cinacoin/ui';
+
 const KPIS = [
   { label: 'On-ramp volume', value: '$2.84M', delta: '+12.4%', positive: true, caption: 'Last 30 days' },
   { label: 'Active wallets', value: '18,402', delta: '+6.1%', positive: true, caption: 'Unique, 30d' },
@@ -23,21 +27,14 @@ const CHAINS = [
 export default function HomePage() {
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      {/* Navbar */}
-      <header className="cc-navbar">
-        <div className="cc-container" style={{ height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <a href="https://cinacoin.com" className="flex items-center gap-2" style={{ textDecoration: 'none' }} aria-label="Cinacoin home">
-            <img src="/logo.png" alt="Cinacoin logo" width={28} height={28} className="rounded-md" style={{ height: 28, width: 28 }} />
-            <span style={{ fontSize: 16, fontWeight: 600, letterSpacing: '-0.3px', color: 'var(--cc-ink)' }}>
-              Cinacoin <span style={{ color: 'var(--cc-muted)', fontWeight: 400 }}>Analytics</span>
-            </span>
-          </a>
-          <nav className="flex items-center gap-1">
-            <a className="cc-navbar-link" href="https://demo.cinacoin.com">Demo</a>
-            <a className="cc-navbar-link" href="https://docs.cinacoin.com">Docs</a>
-          </nav>
-        </div>
-      </header>
+      {/* Shared site header from @cinacoin/ui */}
+      <SiteHeader
+        sublabel="Analytics"
+        links={[
+          { label: 'Demo', href: 'https://demo.cinacoin.com' },
+          { label: 'Docs', href: 'https://docs.cinacoin.com' },
+        ]}
+      />
 
       {/* Main */}
       <main style={{ flex: 1, padding: '48px 0' }}>
@@ -119,20 +116,30 @@ export default function HomePage() {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="cc-footer">
-        <div className="cc-container" style={{ display: 'flex', flexWrap: 'wrap', gap: 24, justifyContent: 'space-between', alignItems: 'center' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <img src="/logo.png" alt="" width={20} height={20} style={{ height: 20, width: 20 }} className="rounded" />
-            <span className="cc-caption" style={{ color: 'var(--cc-muted)' }}>© 2026 Cinacoin · Demo data, illustrative only</span>
-          </div>
-          <div style={{ display: 'flex', gap: 24 }}>
-            <a className="cc-footer-link" href="https://docs.cinacoin.com">Docs</a>
-            <a className="cc-footer-link" href="https://github.com/cinagroup">GitHub</a>
-            <a className="cc-footer-link" href="https://cinacoin.com">Back to Cinacoin</a>
-          </div>
-        </div>
-      </footer>
+      {/* Shared site footer from @cinacoin/ui */}
+      <SiteFooter
+        tagline="On-ramp conversion analytics. Demo data, illustrative only."
+        columns={[
+          {
+            heading: 'Analytics',
+            links: [
+              { label: 'Overview', href: 'https://analytics.cinacoin.com' },
+              { label: 'Demo', href: 'https://demo.cinacoin.com' },
+            ],
+          },
+          {
+            heading: 'Developers',
+            links: [
+              { label: 'Docs', href: 'https://docs.cinacoin.com' },
+              { label: 'GitHub', href: 'https://github.com/cinagroup' },
+            ],
+          },
+          {
+            heading: 'Company',
+            links: [{ label: 'Back to Cinacoin', href: 'https://cinacoin.com' }],
+          },
+        ]}
+      />
     </div>
   );
 }

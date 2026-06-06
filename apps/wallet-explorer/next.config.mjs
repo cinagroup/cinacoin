@@ -4,6 +4,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  transpilePackages: ["@cinacoin/ui"],
 };
 
 export default nextConfig;
