@@ -53,20 +53,30 @@ jobs:
           rm -rf apps/demo/cache
           rm -rf cache/webpack
           rm -rf cache/
-          pnpm --filter demo build
+          # NOTE: filter by the package NAME (cinacoin-demo), not the dir.
+          pnpm --filter cinacoin-demo build
         env:
           NODE_ENV: production
 
       - name: Verify static output
         run: |
-          if [ -d "apps/demo/out" ]; then
-            echo "✓ Static output directory exists"
-            echo "Files generated:"
-            find apps/demo/out -type f | wc -l
+          if [ -f "apps/demo/out/index.html" ]; then
+            echo "✓ Static output exists: $(find apps/demo/out -type f | wc -l) files"
           else
             echo "✗ Static output directory not found"
             exit 1
           fi
+
+      - name: Nest output under /demo (basePath layout)
+        run: |
+          rm -rf apps/demo/out_deploy
+          mkdir -p apps/demo/out_deploy/demo
+          cp -r apps/demo/out/. apps/demo/out_deploy/demo/
+          if [ -f apps/demo/out/_redirects ]; then
+            cp apps/demo/out/_redirects apps/demo/out_deploy/_redirects
+          fi
+          test -f apps/demo/out_deploy/demo/index.html || { echo "✗ nested index missing"; exit 1; }
+          echo "✓ nested output at /demo"
 
       - name: Clean cache files before deploy
         run: |
@@ -84,7 +94,7 @@ jobs:
         run: npm install -g wrangler@3
 
       - name: Deploy to Cloudflare Pages
-        run: wrangler pages deploy apps/demo/out --project-name=cinacoin-demo --branch=main
+        run: wrangler pages deploy apps/demo/out_deploy --project-name=cinacoin-demo --branch=main
         env:
           NODE_ENV: production
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
