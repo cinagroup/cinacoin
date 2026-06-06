@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { Brand } from '@cinacoin/ui'
 import { useWallet, formatAddress } from '../contexts/WalletContext'
 import WalletModal from './WalletModal'
 
@@ -12,9 +13,8 @@ export const SiteHeader: React.FC = () => {
     <>
       <header className="cc-navbar">
         <div className="max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2">
-            <img src="/logo.png" alt="Cinacoin" className="h-7 w-7 rounded-md" />
-            <span className="font-semibold text-lg tracking-tight text-[var(--cc-ink)]">Cinacoin</span>
+          <Link to="/" aria-label="Cinacoin home">
+            <Brand as="span" />
           </Link>
           
           <nav className="flex items-center gap-1 sm:gap-2">

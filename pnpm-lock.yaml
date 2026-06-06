@@ -60,6 +60,9 @@ importers:
       '@cinacoin/design-tokens':
         specifier: workspace:*
         version: link:../../packages/design-tokens
+      '@cinacoin/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
       next:
         specifier: ^15.5.18
         version: 15.5.18(@playwright/test@1.60.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(sass@1.99.0)
@@ -269,6 +272,9 @@ importers:
       '@cinacoin/design-tokens':
         specifier: workspace:*
         version: link:../../packages/design-tokens
+      '@cinacoin/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
       '@walletconnect/ethereum-provider':
         specifier: ^2.23.9
         version: 2.23.9(@types/react@18.3.12)(aws4fetch@1.0.20)(bufferutil@4.1.0)(db0@0.3.4(better-sqlite3@11.10.0))(immer@10.0.2)(ioredis@5.10.1)(react@18.3.1)(typescript@5.9.3)(use-sync-external-store@1.6.0(react@18.3.1))(utf-8-validate@5.0.10)(zod@3.25.76)
@@ -390,6 +396,9 @@ importers:
       '@cinacoin/design-tokens':
         specifier: workspace:*
         version: link:../../packages/design-tokens
+      '@cinacoin/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
       '@cinacoin/wallet-registry':
         specifier: workspace:*
         version: link:../../packages/wallet-registry
