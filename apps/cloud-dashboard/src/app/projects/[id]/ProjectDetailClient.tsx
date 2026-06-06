@@ -21,6 +21,13 @@ export function ProjectDetailClient({ projectId, project }: ProjectDetailClientP
     "overview"
   );
   const [usageData, setUsageData] = useState<UsageDataPoint[]>([]);
+  const [projectName, setProjectName] = useState(project.name);
+  const [network, setNetwork] = useState("mainnet");
+  const [isSaved, setIsSaved] = useState(false);
+
+  useEffect(() => {
+    setProjectName(project.name);
+  }, [project.name]);
 
   useEffect(() => {
     // Generate mock usage data
@@ -40,14 +47,14 @@ export function ProjectDetailClient({ projectId, project }: ProjectDetailClientP
   const totalErrors = usageData.reduce((sum, d) => sum + d.errors, 0);
 
   return (
-    <div className="min-h-screen bg-[var(--cc-canvas)]">
+    <div className="min-h-screen bg-[var(--cc-canvas-soft)]">
       <Header />
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="mb-6">
           <a href="/projects" className="text-sm text-[var(--cc-muted)] hover:text-[var(--cc-ink)]">
             ← Back to Projects
           </a>
-          <h1 className="mt-2 text-2xl font-semibold tracking-tight text-[var(--cc-ink)]">{project.name}</h1>
+          <h1 className="mt-2 cc-display-md text-[var(--cc-ink)]">{project.name}</h1>
           <p className="mt-1 text-sm text-[var(--cc-muted)]">{project.description}</p>
         </div>
 
@@ -72,19 +79,19 @@ export function ProjectDetailClient({ projectId, project }: ProjectDetailClientP
         {activeTab === "overview" && (
           <div className="space-y-6">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-              <div className="rounded-lg border border-[var(--cc-hairline)] bg-[var(--cc-canvas-soft)] p-6">
+              <div className="cc-card">
                 <p className="text-sm text-[var(--cc-muted)]">Total Requests</p>
                 <p className="mt-1 text-3xl font-semibold text-[var(--cc-ink)]">
                   {totalRequests.toLocaleString()}
                 </p>
               </div>
-              <div className="rounded-lg border border-[var(--cc-hairline)] bg-[var(--cc-canvas-soft)] p-6">
+              <div className="cc-card">
                 <p className="text-sm text-[var(--cc-muted)]">Errors</p>
                 <p className="mt-1 text-3xl font-semibold text-[var(--cc-error)]">
                   {totalErrors.toLocaleString()}
                 </p>
               </div>
-              <div className="rounded-lg border border-[var(--cc-hairline)] bg-[var(--cc-canvas-soft)] p-6">
+              <div className="cc-card">
                 <p className="text-sm text-[var(--cc-muted)]">Avg Latency</p>
                 <p className="mt-1 text-3xl font-semibold text-[var(--cc-success)]">
                   45ms
@@ -96,15 +103,81 @@ export function ProjectDetailClient({ projectId, project }: ProjectDetailClientP
         )}
 
         {activeTab === "keys" && (
-          <div className="rounded-xl border border-[var(--cc-hairline)] bg-[var(--cc-canvas-soft)] p-6">
+          <div className="cc-card">
             <ApiKeyManager projectId={projectId} />
           </div>
         )}
 
         {activeTab === "settings" && (
-          <div className="rounded-xl border border-[var(--cc-hairline)] bg-[var(--cc-canvas-soft)] p-6">
-            <h3 className="mb-4 text-lg font-medium tracking-tight text-[var(--cc-ink)]">Project Settings</h3>
-            <p className="text-sm text-[var(--cc-muted)]">Settings management coming soon.</p>
+          <div className="space-y-6">
+            <div className="cc-card">
+              <h3 className="cc-display-sm text-[var(--cc-ink)] mb-4">Project Settings</h3>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  setIsSaved(true);
+                  setTimeout(() => setIsSaved(false), 2000);
+                }}
+                className="space-y-4"
+              >
+                <div>
+                  <label className="block text-sm font-medium text-[var(--cc-body)] mb-1">
+                    Project Name
+                  </label>
+                  <input
+                    type="text"
+                    value={projectName}
+                    onChange={(e) => setProjectName(e.target.value)}
+                    className="cc-form-input"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-[var(--cc-body)] mb-1">
+                    Environment / Network
+                  </label>
+                  <select
+                    value={network}
+                    onChange={(e) => setNetwork(e.target.value)}
+                    className="cc-form-input bg-[var(--cc-canvas)]"
+                  >
+                    <option value="mainnet">Mainnet</option>
+                    <option value="testnet">Testnet</option>
+                    <option value="devnet">Devnet</option>
+                  </select>
+                </div>
+                <div className="flex items-center gap-3 pt-2">
+                  <button type="submit" className="cc-btn-primary-sm">
+                    Save Changes
+                  </button>
+                  {isSaved && (
+                    <span className="text-sm font-medium text-[var(--cc-success)]">Saved</span>
+                  )}
+                </div>
+              </form>
+            </div>
+
+            <div className="cc-card border border-[var(--cc-error)] bg-[var(--cc-error-soft)]/10">
+              <h3 className="text-lg font-medium tracking-tight text-[var(--cc-error)] mb-2">Danger Zone</h3>
+              <p className="text-sm text-[var(--cc-body)] mb-4">
+                Once you delete a project, all of its API keys and usage statistics will be permanently removed.
+              </p>
+              <button
+                type="button"
+                onClick={() => {
+                  const confirmed = window.confirm(
+                    "Are you sure you want to delete this project? This action is permanent and cannot be undone."
+                  );
+                  if (confirmed) {
+                    window.alert("Project deleted (demo).");
+                    window.location.href = "/projects";
+                  }
+                }}
+                className="inline-flex items-center justify-center rounded-[var(--cc-radius-sm)] bg-[var(--cc-error)] text-white px-4 py-2 text-sm font-medium hover:bg-[var(--cc-error-deep)] transition-colors"
+              >
+                Delete Project
+              </button>
+            </div>
           </div>
         )}
       </main>

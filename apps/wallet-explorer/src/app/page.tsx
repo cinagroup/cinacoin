@@ -94,11 +94,11 @@ function WalletCard({ wallet }: { wallet: WalletRegistryEntry }) {
       href={wallet.homepage}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex flex-col gap-3 rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition-all hover:border-cina-300 hover:shadow-md dark:border-slate-700 dark:bg-slate-800 dark:hover:border-cina-500"
+      className="cc-card group flex flex-col gap-3 border border-[var(--cc-hairline)]"
     >
       {/* Header */}
       <div className="flex items-start gap-3">
-        <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-cina-50 dark:bg-slate-700">
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-md border border-[var(--cc-hairline)] bg-[var(--cc-canvas-soft-2)]">
           {showImage ? (
             <img
               src={wallet.logo}
@@ -108,28 +108,28 @@ function WalletCard({ wallet }: { wallet: WalletRegistryEntry }) {
               onError={() => setLogoFailed(true)}
             />
           ) : (
-            <span className="text-lg font-semibold text-cina-600 dark:text-cina-400">
+            <span className="text-lg font-semibold text-[var(--cc-ink)]">
               {wallet.name.charAt(0).toUpperCase()}
             </span>
           )}
         </div>
         <div className="min-w-0 flex-1">
-          <h3 className="truncate font-semibold text-slate-900 group-hover:text-cina-600 dark:text-slate-100 dark:group-hover:text-cina-400">
+          <h3 className="truncate font-semibold text-[var(--cc-ink)] group-hover:text-[var(--cc-link)] transition-colors">
             {wallet.name}
           </h3>
-          <p className="truncate text-xs text-slate-500 dark:text-slate-400">
+          <p className="truncate text-xs text-[var(--cc-muted)]">
             {wallet.developer ?? "Unknown"}
           </p>
         </div>
         {/* Popularity badge */}
-        <span className="shrink-0 rounded-full bg-cina-50 px-2 py-0.5 text-xs font-medium text-cina-600 dark:bg-cina-900/50 dark:text-cina-400">
+        <span className="shrink-0 cc-badge h-5">
           {wallet.popularity}%
         </span>
       </div>
 
       {/* Description */}
       {wallet.description && (
-        <p className="line-clamp-2 text-sm text-slate-600 dark:text-slate-300">
+        <p className="line-clamp-2 text-sm text-[var(--cc-body)]">
           {wallet.description}
         </p>
       )}
@@ -139,13 +139,13 @@ function WalletCard({ wallet }: { wallet: WalletRegistryEntry }) {
         {wallet.supportedChainFamilies.slice(0, 3).map((chain) => (
           <span
             key={chain}
-            className="rounded bg-slate-100 px-2 py-0.5 text-xs text-slate-600 dark:bg-slate-700 dark:text-slate-300"
+            className="rounded bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] px-2 py-0.5 text-xs font-medium text-[var(--cc-body)]"
           >
             {CHAIN_LABELS[chain] ?? chain}
           </span>
         ))}
         {wallet.supportedChainFamilies.length > 3 && (
-          <span className="rounded bg-slate-100 px-2 py-0.5 text-xs text-slate-500 dark:bg-slate-700 dark:text-slate-400">
+          <span className="rounded bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] px-2 py-0.5 text-xs font-medium text-[var(--cc-muted)]">
             +{wallet.supportedChainFamilies.length - 3}
           </span>
         )}
@@ -156,7 +156,7 @@ function WalletCard({ wallet }: { wallet: WalletRegistryEntry }) {
         {wallet.platforms.map((p) => (
           <span
             key={p}
-            className="rounded border border-slate-200 px-2 py-0.5 text-xs text-slate-500 dark:border-slate-600 dark:text-slate-400"
+            className="rounded border border-[var(--cc-hairline)] px-2 py-0.5 text-xs text-[var(--cc-muted)] bg-[var(--cc-canvas)]"
           >
             {PLATFORM_LABELS[p] ?? p}
           </span>
@@ -166,27 +166,27 @@ function WalletCard({ wallet }: { wallet: WalletRegistryEntry }) {
       {/* Feature badges */}
       <div className="flex flex-wrap gap-1.5 pt-1">
         {wallet.supportsWalletConnectV2 && (
-          <span className="rounded bg-blue-50 px-2 py-0.5 text-xs text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">
+          <span className="rounded bg-[var(--cc-link-bg-soft)] text-[var(--cc-link-deep)] dark:bg-[var(--cc-link-bg-soft)]/20 dark:text-[var(--cc-link)] px-2 py-0.5 text-xs font-medium">
             WC v2
           </span>
         )}
         {wallet.supportsEIP6963 && (
-          <span className="rounded bg-purple-50 px-2 py-0.5 text-xs text-purple-600 dark:bg-purple-900/30 dark:text-purple-400">
+          <span className="rounded bg-[var(--cc-violet-soft)] text-[var(--cc-violet-deep)] dark:bg-[var(--cc-violet-soft)]/20 dark:text-[var(--cc-violet)] px-2 py-0.5 text-xs font-medium">
             EIP-6963
           </span>
         )}
         {wallet.supportsAccountAbstraction && (
-          <span className="rounded bg-green-50 px-2 py-0.5 text-xs text-green-600 dark:bg-green-900/30 dark:text-green-400">
+          <span className="rounded bg-[var(--cc-cyan-soft)] text-[var(--cc-cyan-deep)] dark:bg-[var(--cc-cyan-soft)]/20 dark:text-[var(--cc-cyan)] px-2 py-0.5 text-xs font-medium">
             AA
           </span>
         )}
         {wallet.openSource && (
-          <span className="rounded bg-orange-50 px-2 py-0.5 text-xs text-orange-600 dark:bg-orange-900/30 dark:text-orange-400">
+          <span className="rounded bg-[var(--cc-warning-soft)] text-[var(--cc-warning-deep)] dark:bg-[var(--cc-warning-soft)]/20 dark:text-[var(--cc-warning)] px-2 py-0.5 text-xs font-medium">
             Open Source
           </span>
         )}
         {wallet.walletType && (
-          <span className="rounded bg-slate-100 px-2 py-0.5 text-xs text-slate-600 dark:bg-slate-700 dark:text-slate-300">
+          <span className="rounded bg-[var(--cc-canvas-soft-2)] text-[var(--cc-body)] border border-[var(--cc-hairline)] px-2 py-0.5 text-xs font-medium">
             {TYPE_LABELS[wallet.walletType] ?? wallet.walletType}
           </span>
         )}
@@ -231,11 +231,11 @@ function FilterPanel({
     (filters.showOpenSource ? 1 : 0);
 
   return (
-    <div className="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800">
+    <div className="rounded-md border border-[var(--cc-hairline)] bg-[var(--cc-canvas)] p-5 shadow-sm">
       {/* Search */}
       <div className="relative">
         <svg
-          className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
+          className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--cc-muted)]"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -252,18 +252,18 @@ function FilterPanel({
           placeholder="Search wallets..."
           value={filters.search}
           onChange={(e) => onFilterChange({ search: e.target.value })}
-          className="w-full rounded-lg border border-slate-200 py-2.5 pl-10 pr-4 text-sm focus:border-cina-400 focus:outline-none focus:ring-1 focus:ring-cina-400 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100"
+          className="cc-form-input pl-10"
         />
       </div>
 
       {/* Toggle filters button (mobile) */}
       <button
         onClick={() => setShowFilters(!showFilters)}
-        className="mt-3 flex w-full items-center justify-between rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 md:hidden dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-700"
+        className="mt-3 flex w-full items-center justify-between border border-[var(--cc-hairline)] bg-[var(--cc-canvas)] px-3 h-10 rounded-[6px] text-sm font-medium text-[var(--cc-body)] hover:bg-[var(--cc-canvas-soft-2)] md:hidden transition-colors"
       >
         <span>
           Filters {activeFilterCount > 0 && (
-            <span className="ml-1 rounded-full bg-cina-100 px-1.5 py-0.5 text-xs text-cina-600 dark:bg-cina-900 dark:text-cina-400">
+            <span className="ml-1 rounded-full bg-[var(--cc-canvas-soft-2)] px-1.5 py-0.5 text-xs text-[var(--cc-body)] border border-[var(--cc-hairline)]">
               {activeFilterCount}
             </span>
           )}
@@ -277,13 +277,13 @@ function FilterPanel({
       <div className={`${showFilters ? "" : "hidden"} mt-4 space-y-4 md:block`}>
         {/* Chain family */}
         <div>
-          <label className="mb-1 block text-xs font-medium text-slate-500 dark:text-slate-400">
-            Chain Family
+          <label className="mb-1.5 block cc-caption-mono text-[var(--cc-muted)]">
+            Chain family
           </label>
           <select
             value={filters.chainFamily}
             onChange={(e) => onFilterChange({ chainFamily: e.target.value })}
-            className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-cina-400 focus:outline-none dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100"
+            className="cc-form-input"
           >
             <option value="">All Chains</option>
             {CHAIN_FAMILIES.filter(f => chainCounts[f]).map((f) => (
@@ -296,13 +296,13 @@ function FilterPanel({
 
         {/* Platform */}
         <div>
-          <label className="mb-1 block text-xs font-medium text-slate-500 dark:text-slate-400">
+          <label className="mb-1.5 block cc-caption-mono text-[var(--cc-muted)]">
             Platform
           </label>
           <select
             value={filters.platform}
             onChange={(e) => onFilterChange({ platform: e.target.value })}
-            className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-cina-400 focus:outline-none dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100"
+            className="cc-form-input"
           >
             <option value="">All Platforms</option>
             {PLATFORMS.filter(p => platformCounts[p]).map((p) => (
@@ -315,13 +315,13 @@ function FilterPanel({
 
         {/* Wallet type */}
         <div>
-          <label className="mb-1 block text-xs font-medium text-slate-500 dark:text-slate-400">
+          <label className="mb-1.5 block cc-caption-mono text-[var(--cc-muted)]">
             Type
           </label>
           <select
             value={filters.walletType}
             onChange={(e) => onFilterChange({ walletType: e.target.value })}
-            className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-cina-400 focus:outline-none dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100"
+            className="cc-form-input"
           >
             <option value="">All Types</option>
             {WALLET_TYPES.map((t) => (
@@ -334,13 +334,13 @@ function FilterPanel({
 
         {/* Sort */}
         <div>
-          <label className="mb-1 block text-xs font-medium text-slate-500 dark:text-slate-400">
-            Sort By
+          <label className="mb-1.5 block cc-caption-mono text-[var(--cc-muted)]">
+            Sort by
           </label>
           <select
             value={filters.sort}
             onChange={(e) => onFilterChange({ sort: e.target.value })}
-            className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-cina-400 focus:outline-none dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100"
+            className="cc-form-input"
           >
             {SORT_OPTIONS.map((o) => (
               <option key={o.value} value={o.value}>
@@ -352,7 +352,7 @@ function FilterPanel({
 
         {/* Feature toggles */}
         <div className="space-y-2">
-          <label className="mb-1 block text-xs font-medium text-slate-500 dark:text-slate-400">
+          <label className="mb-1.5 block cc-caption-mono text-[var(--cc-muted)]">
             Features
           </label>
           {[
@@ -360,12 +360,12 @@ function FilterPanel({
             { key: "showEIP6963" as const, label: "EIP-6963" },
             { key: "showOpenSource" as const, label: "Open Source" },
           ].map(({ key, label }) => (
-            <label key={key} className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
+            <label key={key} className="flex items-center gap-2 text-sm text-[var(--cc-body)] cursor-pointer">
               <input
                 type="checkbox"
                 checked={filters[key]}
                 onChange={(e) => onFilterChange({ [key]: e.target.checked })}
-                className="h-4 w-4 rounded border-slate-300 text-cina-600 focus:ring-cina-400"
+                className="h-4 w-4 rounded border-[var(--cc-hairline)] text-[var(--cc-link)] bg-[var(--cc-canvas)] focus:ring-0 focus:ring-offset-0"
               />
               {label}
             </label>
@@ -385,7 +385,7 @@ function FilterPanel({
                 showOpenSource: false,
               })
             }
-            className="w-full rounded-lg bg-slate-100 px-3 py-2 text-sm text-slate-600 hover:bg-slate-200 dark:bg-slate-700 dark:text-slate-300 dark:hover:bg-slate-600"
+            className="w-full inline-flex items-center justify-center bg-[var(--cc-canvas)] text-[var(--cc-ink)] border border-[var(--cc-hairline-strong)] rounded-[6px] text-xs font-medium h-9 hover:border-[var(--cc-body)] transition-colors"
           >
             Reset Filters
           </button>
@@ -460,28 +460,40 @@ export default function WalletExplorerPage() {
   }, [allWallets, filters]);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[var(--cc-canvas-soft)] text-[var(--cc-ink)]">
       {/* Header */}
-      <header className="border-b border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-900">
-        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <h1 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
-                🔢 Wallet Explorer
-              </h1>
-              <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-                Discover {WALLET_COUNT}+ wallets for every chain and platform.
-              </p>
-            </div>
-            <a
-              href="https://cinacoin.com"
-              className="inline-flex items-center gap-1 text-sm text-cina-600 hover:text-cina-700 dark:text-cina-400"
-            >
-              ← Back to Cinacoin
+      <header className="cc-navbar sticky top-0 z-50 border-b border-[var(--cc-hairline)] bg-[var(--cc-canvas)]">
+        <div className="mx-auto max-w-7xl px-4 h-full flex items-center justify-between sm:px-6 lg:px-8">
+          <div className="flex items-center gap-3">
+            <a href="https://cinacoin.com" className="flex items-center gap-2">
+              <img src="/logo.png" alt="Cinacoin logo" className="h-7 w-7 rounded-md" />
+              <span className="text-[16px] font-semibold tracking-tight text-[var(--cc-ink)]">
+                Cinacoin
+              </span>
             </a>
+            <span className="text-[var(--cc-muted)]">/</span>
+            <span className="text-sm font-medium text-[var(--cc-muted)]">Wallet Explorer</span>
           </div>
+          <a
+            href="https://cinacoin.com"
+            className="inline-flex items-center gap-1 text-sm font-medium text-[var(--cc-body)] hover:text-[var(--cc-ink)] transition-colors"
+          >
+            ← Back to Cinacoin
+          </a>
         </div>
       </header>
+
+      {/* Hero Section */}
+      <section className="border-b border-[var(--cc-hairline)] bg-[var(--cc-canvas)] py-12 md:py-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h1 className="cc-display-xl text-[var(--cc-ink)] mb-3">
+            Wallet explorer
+          </h1>
+          <p className="cc-body-lg text-[var(--cc-body)] max-w-2xl">
+            Discover {WALLET_COUNT}+ wallets for every chain and platform.
+          </p>
+        </div>
+      </section>
 
       {/* Content */}
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
@@ -500,21 +512,21 @@ export default function WalletExplorerPage() {
           <div className="flex-1">
             {/* Results count */}
             <div className="mb-4 flex items-center justify-between">
-              <p className="text-sm text-slate-500 dark:text-slate-400">
-                Showing <span className="font-medium text-slate-700 dark:text-slate-200">{filteredWallets.length}</span> of{" "}
-                <span className="font-medium text-slate-700 dark:text-slate-200">{WALLET_COUNT}</span> wallets
+              <p className="text-sm text-[var(--cc-muted)]">
+                Showing <span className="font-semibold text-[var(--cc-ink)]">{filteredWallets.length}</span> of{" "}
+                <span className="font-semibold text-[var(--cc-ink)]">{WALLET_COUNT}</span> wallets
               </p>
             </div>
 
             {filteredWallets.length === 0 ? (
-              <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-slate-300 py-16 text-center dark:border-slate-600">
-                <svg className="mb-4 h-12 w-12 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="flex flex-col items-center justify-center rounded-md border border-dashed border-[var(--cc-hairline-strong)] py-16 text-center bg-[var(--cc-canvas)]">
+                <svg className="mb-4 h-12 w-12 text-[var(--cc-muted)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
-                <p className="text-lg font-medium tracking-tight text-slate-500 dark:text-slate-400">
+                <p className="text-lg font-semibold tracking-tight text-[var(--cc-ink)]">
                   No wallets found
                 </p>
-                <p className="mt-1 text-sm text-slate-400 dark:text-slate-500">
+                <p className="mt-1 text-sm text-[var(--cc-body)]">
                   Try adjusting your search or filters
                 </p>
               </div>
@@ -530,14 +542,45 @@ export default function WalletExplorerPage() {
       </main>
 
       {/* Footer */}
-      <footer className="mt-12 border-t border-slate-200 bg-slate-50 py-8 text-center text-sm text-slate-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-400">
-        <p>
-          © {new Date().getFullYear()} Cinacoin Wallet Explorer ·{" "}
-          {WALLET_COUNT} wallets indexed ·{" "}
-          <a href="https://github.com/cinagroup/Cinacoin" className="text-cina-600 hover:underline dark:text-cina-400">
-            GitHub
-          </a>
-        </p>
+      <footer className="cc-footer mt-16 border-t border-[var(--cc-hairline)] bg-[var(--cc-canvas)]">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            <div>
+              <h4 className="cc-footer-heading mb-3">Explorer</h4>
+              <p className="text-sm text-[var(--cc-body)]">
+                Discover {WALLET_COUNT}+ wallets for every chain and platform.
+              </p>
+            </div>
+            <div>
+              <h4 className="cc-footer-heading mb-3">Links</h4>
+              <div className="space-y-1">
+                <a href="https://docs.cinacoin.com" className="cc-footer-link" target="_blank" rel="noopener noreferrer">
+                  Docs
+                </a>
+                <a href="https://github.com/cinagroup" className="cc-footer-link" target="_blank" rel="noopener noreferrer">
+                  GitHub
+                </a>
+                <a href="https://cinacoin.com" className="cc-footer-link">
+                  Back to Cinacoin
+                </a>
+              </div>
+            </div>
+            <div>
+              <h4 className="cc-footer-heading mb-3">Legal</h4>
+              <p className="text-sm text-[var(--cc-muted)]">
+                © {new Date().getFullYear()} Cinacoin. All rights reserved.
+              </p>
+            </div>
+          </div>
+          <div className="border-t border-[var(--cc-hairline)] pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
+            <span className="text-xs text-[var(--cc-muted)]">
+              © {new Date().getFullYear()} Cinacoin
+            </span>
+            <span className="text-xs text-[var(--cc-muted)]">
+              {WALLET_COUNT} wallets indexed
+            </span>
+          </div>
+        </div>
       </footer>
     </div>
   );

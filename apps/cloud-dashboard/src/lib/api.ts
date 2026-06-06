@@ -8,6 +8,28 @@ import type {
   UsageStats,
 } from "@/types";
 
+export const demoProjects: Project[] = [
+  {
+    id: "demo-1",
+    name: "Demo Wallet App",
+    description: "A demo wallet application using Cinacoin SDK",
+    owner_address: "0xDemo",
+    status: "active",
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: "demo-2",
+    name: "NFT Marketplace",
+    description: "Multi-chain NFT marketplace integration",
+    owner_address: "0xDemo",
+    status: "active",
+    chain_ids: ["eth", "sol", "btc"],
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+];
+
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8787";
 
 interface ApiOptions extends Omit<RequestInit, "headers"> {

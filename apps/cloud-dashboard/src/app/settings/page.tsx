@@ -27,18 +27,18 @@ export default function SettingsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--cc-canvas)]">
+    <div className="min-h-screen bg-[var(--cc-canvas-soft)]">
       <Header />
       <main className="mx-auto max-w-2xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="mb-6">
-          <h1 className="text-2xl font-semibold tracking-tight text-[var(--cc-ink)]">Account Settings</h1>
+          <h1 className="cc-display-md text-[var(--cc-ink)]">Account Settings</h1>
           <p className="mt-1 text-sm text-[var(--cc-body)]">
             Manage your account preferences and API access.
           </p>
         </div>
 
         {/* API Access */}
-        <div className="mb-6 rounded-lg border border-[var(--cc-hairline)] bg-[var(--cc-card)] p-6 shadow-[var(--cc-level1)]" style={{ boxShadow: 'var(--cc-level2)' }}>
+        <div className="mb-6 cc-card">
           <h2 className="mb-4 text-lg font-semibold tracking-tight text-[var(--cc-ink)]">API Access</h2>
           <div className="space-y-4">
             <div>
@@ -50,13 +50,13 @@ export default function SettingsPage() {
                   type="text"
                   value={apiKey || "Not configured"}
                   readOnly
-                  className="flex-1 rounded-md border border-[var(--cc-hairline)] bg-[var(--cc-canvas-soft)] px-3 py-2 text-sm font-mono text-[var(--cc-ink)]"
+                  className="flex-1 cc-form-input bg-[var(--cc-canvas-soft)] font-mono"
                 />
                 <button
                   type="button"
                   onClick={() => apiKey && navigator.clipboard.writeText(apiKey)}
                   disabled={!apiKey}
-                  className="rounded-[var(--cc-radius-sm)] border border-[var(--cc-hairline)] bg-[var(--cc-canvas)] px-3 py-2 text-sm font-medium text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft-2)] disabled:opacity-50"
+                  className="cc-btn-secondary-sm disabled:opacity-50"
                 >
                   Copy
                 </button>
@@ -68,8 +68,7 @@ export default function SettingsPage() {
         {/* Profile */}
         <form
           onSubmit={handleSaveProfile}
-          className="mb-6 rounded-lg border border-[var(--cc-hairline)] bg-[var(--cc-card)] p-6 shadow-[var(--cc-level1)]"
-          style={{ boxShadow: 'var(--cc-level2)' }}
+          className="mb-6 cc-card"
         >
           <h2 className="mb-4 text-lg font-semibold tracking-tight text-[var(--cc-ink)]">Profile</h2>
           <div className="space-y-4">
@@ -83,7 +82,7 @@ export default function SettingsPage() {
                 value={displayName}
                 onChange={(e) => setDisplayName(e.target.value)}
                 placeholder="Your name"
-                className="mt-1 block w-full rounded-md border border-[var(--cc-hairline)] bg-[var(--cc-canvas)] px-3 py-2 text-sm text-[var(--cc-ink)] shadow-[var(--cc-level1)] focus:border-[var(--cc-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--cc-primary)]"
+                className="mt-1 cc-form-input"
               />
             </div>
             <div>
@@ -96,25 +95,25 @@ export default function SettingsPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                className="mt-1 block w-full rounded-md border border-[var(--cc-hairline)] bg-[var(--cc-canvas)] px-3 py-2 text-sm text-[var(--cc-ink)] shadow-[var(--cc-level1)] focus:border-[var(--cc-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--cc-primary)]"
+                className="mt-1 cc-form-input"
               />
             </div>
             <div className="flex items-center gap-3">
               <button
                 type="submit"
-                className="rounded-[100px] bg-[var(--cc-primary)] px-4 py-2 text-sm font-medium text-[var(--cc-on-primary)] hover:opacity-85"
+                className="cc-btn-primary-sm !h-9 px-4 text-sm"
               >
                 Save Changes
               </button>
               {saved && (
-                <span className="text-sm text-[var(--cc-success)]">Saved</span>
+                <span className="text-sm text-[var(--cc-success)] font-medium">Saved</span>
               )}
             </div>
           </div>
         </form>
 
         {/* Danger Zone */}
-        <div className="rounded-lg border border-red-200 bg-[var(--cc-card)] p-6 shadow-[var(--cc-level1)]" style={{ boxShadow: 'var(--cc-level2)' }}>
+        <div className="cc-card border border-[var(--cc-error)] bg-[var(--cc-error-soft)]/10">
           <h2 className="mb-4 text-lg font-semibold tracking-tight text-[var(--cc-error)]">Danger Zone</h2>
           <p className="mb-4 text-sm text-[var(--cc-body)]">
             Once you delete your account, there is no going back.
@@ -122,7 +121,7 @@ export default function SettingsPage() {
           <button
             type="button"
             onClick={handleDeleteAccount}
-            className="rounded-md border border-[var(--cc-error-soft)] bg-[var(--cc-error-soft)] px-4 py-2 text-sm font-medium text-[var(--cc-error)] hover:bg-[var(--cc-error-soft)]"
+            className="inline-flex items-center justify-center rounded-[var(--cc-radius-sm)] bg-[var(--cc-error)] text-white px-4 py-2 text-sm font-medium hover:bg-[var(--cc-error-deep)] transition-colors"
           >
             Delete Account
           </button>
