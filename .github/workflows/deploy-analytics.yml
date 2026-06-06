@@ -47,11 +47,22 @@ jobs:
           test -f apps/analytics-dashboard/out/index.html || { echo "✗ out/index.html missing"; exit 1; }
           echo "✓ static output exists"
 
+      - name: Nest output under /analytics (basePath layout)
+        run: |
+          rm -rf apps/analytics-dashboard/out_deploy
+          mkdir -p apps/analytics-dashboard/out_deploy/analytics
+          cp -r apps/analytics-dashboard/out/. apps/analytics-dashboard/out_deploy/analytics/
+          if [ -f apps/analytics-dashboard/out/_redirects ]; then
+            cp apps/analytics-dashboard/out/_redirects apps/analytics-dashboard/out_deploy/_redirects
+          fi
+          test -f apps/analytics-dashboard/out_deploy/analytics/index.html || { echo "✗ nested index missing"; exit 1; }
+          echo "✓ nested output at /analytics"
+
       - name: Install Wrangler
         run: npm install -g wrangler@3
 
       - name: Deploy to Cloudflare Pages
-        run: wrangler pages deploy apps/analytics-dashboard/out --project-name=cinacoin-analytics --branch=main
+        run: wrangler pages deploy apps/analytics-dashboard/out_deploy --project-name=cinacoin-analytics --branch=main
         env:
           NODE_ENV: production
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}

@@ -34,14 +34,14 @@ export default function Home() {
           <h2 className="mb-4 text-lg font-semibold tracking-tight text-[var(--cc-ink)]">Quick Start</h2>
           <div className="grid gap-4 sm:grid-cols-2">
             <a
-              href="/projects/new"
+              href="/dashboard/projects/new"
               className="cc-card-soft text-center block transition-opacity hover:opacity-85"
             >
               <p className="font-medium text-[var(--cc-primary)]">+ Create Project</p>
               <p className="text-xs text-[var(--cc-body)] mt-1">Start building with Cinacoin</p>
             </a>
             <a
-              href="/projects"
+              href="/dashboard/projects"
               className="cc-card-soft text-center block transition-opacity hover:opacity-85"
             >
               <p className="font-medium text-[var(--cc-primary)]">View All Projects</p>

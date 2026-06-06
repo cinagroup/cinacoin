@@ -8,7 +8,7 @@ const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mon
 export const metadata: Metadata = {
   title: 'Cinacoin Cloud Dashboard',
   description: 'Developer portal for Cinacoin — manage projects, API keys, and usage analytics',
-  icons: { icon: '/logo.svg' },
+  icons: { icon: '/dashboard/logo.svg' },
 };
 
 export default function RootLayout({

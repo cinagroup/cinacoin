@@ -17,7 +17,7 @@ export default function ProjectsPage() {
             </p>
           </div>
           <a
-            href="/projects/new"
+            href="/dashboard/projects/new"
             className="cc-btn-primary px-4 !h-10 text-sm"
           >
             + New Project
@@ -34,7 +34,7 @@ export default function ProjectsPage() {
           <div className="cc-card-soft p-12 text-center">
             <p className="text-sm text-[var(--cc-muted)]">No projects yet.</p>
             <a
-              href="/projects/new"
+              href="/dashboard/projects/new"
               className="mt-4 cc-btn-primary px-4 !h-10 text-sm"
             >
               Create Your First Project

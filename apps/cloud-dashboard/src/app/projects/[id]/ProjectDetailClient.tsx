@@ -51,7 +51,7 @@ export function ProjectDetailClient({ projectId, project }: ProjectDetailClientP
       <Header />
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="mb-6">
-          <a href="/projects" className="text-sm text-[var(--cc-muted)] hover:text-[var(--cc-ink)]">
+          <a href="/dashboard/projects" className="text-sm text-[var(--cc-muted)] hover:text-[var(--cc-ink)]">
             ← Back to Projects
           </a>
           <h1 className="mt-2 cc-display-md text-[var(--cc-ink)]">{project.name}</h1>
@@ -170,7 +170,7 @@ export function ProjectDetailClient({ projectId, project }: ProjectDetailClientP
                   );
                   if (confirmed) {
                     window.alert("Project deleted (demo).");
-                    window.location.href = "/projects";
+                    window.location.href = "/dashboard/projects";
                   }
                 }}
                 className="inline-flex items-center justify-center rounded-[var(--cc-radius-sm)] bg-[var(--cc-error)] text-white px-4 py-2 text-sm font-medium hover:bg-[var(--cc-error-deep)] transition-colors"

@@ -36,7 +36,7 @@ export function ProjectForm() {
         <h3 className="text-lg font-semibold text-[var(--cc-ink)]">Project Created!</h3>
         <p className="text-sm text-[var(--cc-muted)]">Your project has been created successfully.</p>
         <div className="flex items-center justify-center gap-3">
-          <a href="/projects" className="cc-btn-secondary-sm px-4">
+          <a href="/dashboard/projects" className="cc-btn-secondary-sm px-4">
             Back to Projects
           </a>
           <a href={`/projects/${created}`} className="cc-btn-primary-sm px-4">
@@ -112,7 +112,7 @@ export function ProjectForm() {
       </div>
 
       <div className="flex items-center justify-end gap-3 pt-2">
-        <a href="/projects" className="cc-btn-secondary-sm px-4">
+        <a href="/dashboard/projects" className="cc-btn-secondary-sm px-4">
           Cancel
         </a>
         <button

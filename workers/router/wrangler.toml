@@ -13,4 +13,8 @@ routes = [
   { pattern = "cinacoin.com/docs/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
   { pattern = "cinacoin.com/demo", zone_id = "9e9b0140baac8f501ded715128fa5415" },
   { pattern = "cinacoin.com/demo/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+  { pattern = "cinacoin.com/dashboard", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+  { pattern = "cinacoin.com/dashboard/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+  { pattern = "cinacoin.com/analytics", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+  { pattern = "cinacoin.com/analytics/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
 ]
