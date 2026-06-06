@@ -1,0 +1,1 @@
+{"version":3,"file":"HeadlessConnectButton.d.ts","sourceRoot":"","sources":["HeadlessConnectButton.tsx"],"names":[],"mappings":"AACA,OAAO,EAAwB,KAAK,cAAc,EAAE,MAAM,qBAAqB,CAAA;AAE/E,UAAU,kBAAkB;IAC1B,MAAM,EAAE,cAAc,CAAA;IACtB,WAAW,CAAC,EAAE,CAAC,OAAO,EAAE,MAAM,KAAK,IAAI,CAAA;CACxC;AAED;;;;;;;;;;;;;;;GAeG;AACH,wBAAgB,qBAAqB,CAAC,EACpC,MAAM,EACN,WAAW,GACZ,EAAE,kBAAkB,2CAyEpB"}

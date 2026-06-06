@@ -41,13 +41,3 @@ packages/push-server/target/
 packages/nuxt/.nuxt/
 .open-next/
 apps/*/out/
-
-# Compiled TS output must never be committed next to source. These shadow
-# fresh CI builds and serve stale code (see CINACOIN_GAP_TODO.md P1-3/P2-6).
-# Only .js / source-map output is ignored — authored ambient declarations
-# (e.g. vite-env.d.ts, shims-vue.d.ts, native module shims) use .d.ts and are
-# kept. The single authored .js under src/ is the router Worker (negated).
-**/src/**/*.js
-**/src/**/*.js.map
-**/src/**/*.d.ts.map
-!workers/router/src/**/*.js

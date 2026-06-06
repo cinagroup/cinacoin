@@ -35,11 +35,11 @@ documented "coming soon" items.
 | P0-3 Analytics KPIs | ✅ Done | New `GET /v1/overview` on analytics-server (D1 aggregation); dashboard fetches it; "DEMO DATA" + hardcoded arrays removed; honest zero-state. |
 | P1-1 Starknet Pedersen | ✅ Done | Real `calculateContractAddressFromHash` + `sn_keccak` selectors (invoke + call); `@noble/hashes` dep; tests w/ known vectors. |
 | P1-2 Sui TransactionBlock | ✅ Done | `transferSui` uses real `buildSuiTransferTx`/`executeTransfer` + serialize; `setConnector` stores connector; core-sdk sui `-1` placeholder replaced with real input registration (P2-4). |
-| P1-3 Compiled artifacts | ✅ Done | Removed 1,255 committed `.js`/`.js.map`/`.d.ts`(+map) from `src/`; preserved authored router `.js` + ambient `.d.ts`; added `.gitignore` rules (also resolves P2-6). |
+| P1-3 Compiled artifacts | ⏳ Deferred | Purge attempted but **reverted from this PR**: removing the committed `.js` exposed a cascade of pre-existing type errors in unrelated packages (`@cinacoin/analytics` missing functional exports + wrong `../types.js` import — fixed here; `@cinacoin/tx-indexer` strict TS2345 errors; likely more) that the stale `.js` had masked. Needs its own dedicated PR that purges artifacts AND fixes every exposed `tsc` error package-by-package. |
 | P1-4 Migration docs/codemods | ✅ Done | Docs corrected (`appkit-to-cinacoin`, removed "coming soon"); ConnectKit/RainbowKit codemods already shipped + tested. |
 | P2-3 Cosmos broadcast comment | ✅ Done | Clarified wallet-driven broadcast path; carries protobuf body/authInfo bytes; points to `adapter-cosmos` for SDK-side broadcast. |
 | P2-4 Sui core-sdk placeholder | ✅ Done | See P1-2 row. |
-| P2-6 React stale `.js` TODOs | ✅ Done | See P1-3 row. |
+| P2-6 React stale `.js` TODOs | ⏳ Deferred | Bundled with P1-3 (artifact purge) — moved to the dedicated follow-up PR. |
 | P2-1 AA gas convenience | ⏳ Deferred | Current behavior documented & correct-by-contract; convenience wrapper needs cross-package bundler wiring. |
 | P2-2 Dashboard latency metric | ⏳ Deferred | Needs server-side latency percentile tracking (shows "—" until then, not fabricated). |
 | P2-5 Go RPC-proxy Prometheus | ⏳ Deferred | Real counters needed in the Go variant (TS variant already full). |
