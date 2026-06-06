@@ -343,3 +343,207 @@ html { scroll-behavior: smooth; }
   box-shadow: 0 6px 28px rgba(59, 130, 246, 0.5);
   transform: translateY(-2px);
 }
+
+
+/* ── Spacing/radius aliases so shared .cc-* primitives resolve in every app ── */
+:root {
+  --cc-xxs: var(--cc-space-xxs, 4px);
+  --cc-xs: var(--cc-space-xs, 8px);
+  --cc-sm: var(--cc-space-sm, 12px);
+  --cc-md: var(--cc-space-md, 16px);
+  --cc-lg: var(--cc-space-lg, 24px);
+  --cc-xl: var(--cc-space-xl, 32px);
+  --cc-2xl: var(--cc-space-2xl, 40px);
+  --cc-3xl: var(--cc-space-3xl, 48px);
+  --cc-4xl: var(--cc-space-4xl, 64px);
+  --cc-5xl: var(--cc-space-5xl, 96px);
+  --cc-6xl: var(--cc-space-6xl, 128px);
+  --cc-section: var(--cc-space-section, 192px);
+  --cc-radius-pill-sm: 64px;
+}
+
+/* ───────────────────────────────────────────
+   Cinacoin × Vercel Design System — Shared Components
+   Single source of truth for the .cc-* primitive toolkit.
+   Mirrors apps/website/src/app/globals.css. Keep in sync.
+   ─────────────────────────────────────────── */
+
+/* ── Typography utilities ── */
+@layer utilities {
+  .cc-display-xl { font-size: 48px; font-weight: 600; line-height: 48px; letter-spacing: -2.4px; }
+  .cc-display-lg { font-size: 32px; font-weight: 600; line-height: 40px; letter-spacing: -1.28px; }
+  .cc-display-md { font-size: 24px; font-weight: 600; line-height: 32px; letter-spacing: -0.96px; }
+  .cc-display-sm { font-size: 20px; font-weight: 600; line-height: 28px; letter-spacing: -0.6px; }
+  .cc-body-lg { font-size: 18px; font-weight: 400; line-height: 28px; }
+  .cc-body-md { font-size: 16px; font-weight: 400; line-height: 24px; }
+  .cc-body-md-strong { font-size: 16px; font-weight: 500; line-height: 24px; }
+  .cc-body-sm { font-size: 14px; font-weight: 400; line-height: 20px; letter-spacing: -0.28px; }
+  .cc-body-sm-strong { font-size: 14px; font-weight: 500; line-height: 20px; letter-spacing: -0.28px; }
+  .cc-caption { font-size: 12px; font-weight: 400; line-height: 16px; }
+  .cc-caption-mono { font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, monospace; font-size: 12px; font-weight: 400; line-height: 16px; text-transform: uppercase; letter-spacing: 0px; }
+  .cc-code { font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, monospace; font-size: 13px; font-weight: 400; line-height: 20px; }
+  .cc-button-lg { font-size: 16px; font-weight: 500; line-height: 24px; }
+  .cc-button-md { font-size: 14px; font-weight: 500; line-height: 20px; }
+}
+
+/* ── Mesh gradient (hero scale only) ── */
+.cc-mesh-gradient {
+  background:
+    radial-gradient(at 40% 20%, var(--cc-gradient-develop-start) 0px, transparent 50%),
+    radial-gradient(at 80% 0%, var(--cc-gradient-preview-start) 0px, transparent 50%),
+    radial-gradient(at 0% 50%, var(--cc-gradient-develop-end) 0px, transparent 50%),
+    radial-gradient(at 80% 50%, var(--cc-gradient-ship-start) 0px, transparent 40%),
+    radial-gradient(at 0% 100%, var(--cc-gradient-preview-end) 0px, transparent 50%),
+    radial-gradient(at 80% 100%, var(--cc-gradient-ship-end) 0px, transparent 50%);
+  opacity: 0.12;
+}
+.cc-mesh-gradient-strong {
+  background:
+    radial-gradient(at 40% 20%, var(--cc-gradient-develop-start) 0px, transparent 50%),
+    radial-gradient(at 80% 0%, var(--cc-gradient-preview-start) 0px, transparent 50%),
+    radial-gradient(at 0% 50%, var(--cc-gradient-develop-end) 0px, transparent 50%),
+    radial-gradient(at 80% 50%, var(--cc-gradient-ship-start) 0px, transparent 40%),
+    radial-gradient(at 0% 100%, var(--cc-gradient-preview-end) 0px, transparent 50%),
+    radial-gradient(at 80% 100%, var(--cc-gradient-ship-end) 0px, transparent 50%);
+  opacity: 0.18;
+}
+
+/* ── Component primitives ── */
+@layer components {
+  .cc-btn-primary {
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--cc-primary); color: var(--cc-on-primary);
+    border: none; border-radius: var(--cc-radius-pill);
+    padding: 0 var(--cc-sm, 12px); height: 48px;
+    font-size: 16px; font-weight: 500; line-height: 24px;
+    cursor: pointer; transition: opacity 0.15s ease; text-decoration: none; white-space: nowrap;
+  }
+  .cc-btn-primary:hover { opacity: 0.85; }
+
+  .cc-btn-primary-sm {
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--cc-primary); color: var(--cc-on-primary);
+    border: none; border-radius: var(--cc-radius-sm);
+    padding: 0 var(--cc-xs, 8px); height: 28px;
+    font-size: 14px; font-weight: 500; line-height: 20px;
+    cursor: pointer; transition: opacity 0.15s ease; text-decoration: none; white-space: nowrap;
+  }
+  .cc-btn-primary-sm:hover { opacity: 0.85; }
+
+  .cc-btn-secondary {
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--cc-canvas); color: var(--cc-ink);
+    border: 1px solid var(--cc-hairline-strong); border-radius: var(--cc-radius-pill);
+    padding: 0 var(--cc-sm, 12px); height: 48px;
+    font-size: 16px; font-weight: 500; line-height: 24px;
+    cursor: pointer; transition: border-color 0.15s ease; text-decoration: none; white-space: nowrap;
+  }
+  .cc-btn-secondary:hover { border-color: var(--cc-body); }
+
+  .cc-btn-secondary-sm {
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--cc-canvas); color: var(--cc-ink);
+    border: 1px solid var(--cc-hairline-strong); border-radius: var(--cc-radius-pill);
+    padding: 0 var(--cc-xs, 8px); height: 32px;
+    font-size: 14px; font-weight: 500; line-height: 20px;
+    cursor: pointer; transition: border-color 0.15s ease; text-decoration: none; white-space: nowrap;
+  }
+  .cc-btn-secondary-sm:hover { border-color: var(--cc-body); }
+
+  .cc-card {
+    background: var(--cc-canvas); border-radius: var(--cc-radius-md);
+    padding: var(--cc-lg, 24px); box-shadow: var(--cc-level2);
+    transition: box-shadow 0.2s ease;
+  }
+  .cc-card:hover { box-shadow: var(--cc-level3); }
+
+  .cc-card-lg {
+    background: var(--cc-canvas); border-radius: var(--cc-radius-lg);
+    padding: var(--cc-xl, 32px); box-shadow: var(--cc-level3);
+    transition: box-shadow 0.2s ease;
+  }
+  .cc-card-lg:hover { box-shadow: var(--cc-level4); }
+
+  .cc-card-soft {
+    background: var(--cc-canvas-soft-2); border: 1px solid var(--cc-hairline);
+    border-radius: var(--cc-radius-md); padding: var(--cc-lg, 24px);
+  }
+
+  .cc-card-featured {
+    background: var(--cc-primary); color: var(--cc-on-primary);
+    border-radius: var(--cc-radius-md); padding: var(--cc-xl, 32px);
+    box-shadow: var(--cc-level4);
+    transition: box-shadow 0.2s ease;
+  }
+  .cc-card-featured:hover { box-shadow: var(--cc-level5); }
+  .cc-card-featured a { color: var(--cc-on-primary); }
+  .cc-card-featured a:hover { opacity: 0.85; }
+
+  .cc-badge {
+    display: inline-flex; align-items: center;
+    background: var(--cc-canvas-soft-2); color: var(--cc-body);
+    font-size: 12px; font-weight: 400; line-height: 16px;
+    border-radius: var(--cc-radius-full); padding: 0 var(--cc-xs, 8px);
+  }
+
+  .cc-tab-ghost {
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--cc-canvas); color: var(--cc-ink);
+    border-radius: var(--cc-radius-pill-sm, 64px); padding: 0 var(--cc-md, 16px);
+    font-size: 14px; font-weight: 400; line-height: 20px; height: 32px;
+    cursor: pointer; transition: background 0.15s ease;
+    text-decoration: none; border: none;
+  }
+  .cc-tab-ghost:hover { background: var(--cc-canvas-soft-2); }
+  .cc-tab-ghost[data-active='true'] { background: var(--cc-primary); color: var(--cc-on-primary); }
+
+  .cc-form-input {
+    background: var(--cc-canvas); color: var(--cc-ink);
+    border: 1px solid var(--cc-hairline); border-radius: var(--cc-radius-sm);
+    padding: 0 var(--cc-sm, 12px); font-size: 14px; line-height: 20px;
+    height: 40px; width: 100%; transition: border-color 0.15s ease;
+  }
+  .cc-form-input:focus { outline: none; border-color: var(--cc-link); }
+  .cc-form-input::placeholder { color: var(--cc-muted); }
+  textarea.cc-form-input {
+    height: auto; min-height: 80px; padding-top: var(--cc-sm, 12px);
+    padding-bottom: var(--cc-sm, 12px); resize: vertical;
+  }
+
+  .cc-navbar {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--cc-canvas); border-bottom: 1px solid var(--cc-hairline);
+    height: 64px;
+  }
+  .cc-navbar-link {
+    color: var(--cc-body); font-size: 14px; font-weight: 400;
+    padding: var(--cc-xs, 8px) var(--cc-sm, 12px); border-radius: var(--cc-radius-full);
+    text-decoration: none; transition: color 0.15s ease;
+  }
+  .cc-navbar-link:hover { color: var(--cc-ink); }
+
+  .cc-footer {
+    background: var(--cc-canvas); border-top: 1px solid var(--cc-hairline);
+    padding: var(--cc-4xl, 64px) var(--cc-lg, 24px);
+  }
+  .cc-footer-heading {
+    font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+    font-size: 12px; font-weight: 400; line-height: 16px;
+    color: var(--cc-muted); text-transform: uppercase; letter-spacing: 0px;
+    margin-bottom: var(--cc-sm, 12px);
+  }
+  .cc-footer-link {
+    display: block; color: var(--cc-body); font-size: 14px; line-height: 20px;
+    padding: var(--cc-xxs, 4px) 0; text-decoration: none;
+  }
+  .cc-footer-link:hover { color: var(--cc-ink); }
+
+  .cc-container { max-width: 1200px; margin: 0 auto; padding: 0 var(--cc-lg, 24px); }
+  .cc-code-block {
+    background: var(--cc-primary); color: var(--cc-on-primary);
+    border-radius: var(--cc-radius-md); padding: var(--cc-lg, 24px);
+    font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+    font-size: 13px; line-height: 20px; overflow-x: auto;
+  }
+}
+@media (min-width: 1280px) { .cc-container { max-width: 1400px; } }

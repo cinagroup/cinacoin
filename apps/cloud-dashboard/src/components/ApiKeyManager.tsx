@@ -48,7 +48,7 @@ export function ApiKeyManager({ projectId }: { projectId: string }) {
       <div className="flex items-center gap-3">
         <button
           onClick={generateKey}
-          className="rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-[var(--cc-ink)] transition hover:bg-primary-500"
+          className="cc-btn-primary-sm !h-9 px-4 text-sm"
         >
           Generate API Key
         </button>
@@ -56,7 +56,7 @@ export function ApiKeyManager({ projectId }: { projectId: string }) {
 
       {/* Show newly generated key */}
       {showNewKey && (
-        <div className="rounded-lg border border-[var(--cc-success)]/30 bg-[var(--cc-success)]/10 p-4">
+        <div className="rounded-lg border border-[var(--cc-success)]/30 bg-[var(--cc-canvas)] p-4 shadow-[var(--cc-level1)]">
           <p className="mb-2 text-sm font-medium text-[var(--cc-success)]">New API Key Generated</p>
           <code className="block rounded bg-[var(--cc-canvas-soft)] px-3 py-2 text-sm font-mono text-[var(--cc-ink)] break-all">
             {showNewKey}
@@ -71,7 +71,7 @@ export function ApiKeyManager({ projectId }: { projectId: string }) {
           <div
             key={key.id}
             className={`flex items-center justify-between rounded-lg border p-4 transition ${
-              key.isActive ? 'border-[var(--cc-hairline)] bg-[var(--cc-canvas-soft)]' : 'border-[var(--cc-hairline)]/50 bg-[var(--cc-canvas)]/50 opacity-60'
+              key.isActive ? 'border-[var(--cc-hairline)] bg-[var(--cc-canvas)]' : 'border-[var(--cc-hairline)]/50 bg-[var(--cc-canvas-soft)]/50 opacity-60'
             }`}
           >
             <div>
@@ -82,15 +82,15 @@ export function ApiKeyManager({ projectId }: { projectId: string }) {
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${
-                key.isActive ? 'bg-[var(--cc-success)]/20 text-[var(--cc-success)]' : 'bg-[var(--cc-error)]/20 text-[var(--cc-error)]'
+              <span className={`cc-badge ${
+                key.isActive ? '!bg-[var(--cc-link-bg-soft)] !text-[var(--cc-link-deep)]' : '!bg-[var(--cc-error-soft)] !text-[var(--cc-error-deep)]'
               }`}>
                 {key.isActive ? 'Active' : 'Revoked'}
               </span>
               {key.isActive && (
                 <button
                   onClick={() => revokeKey(key.id)}
-                  className="rounded-md px-3 py-1 text-xs font-medium text-[var(--cc-error)] transition hover:bg-[var(--cc-error)]/20 hover:text-[var(--cc-error)]"
+                  className="rounded-md border border-[var(--cc-error)]/20 bg-[var(--cc-error-soft)]/20 px-3 py-1 text-xs font-medium text-[var(--cc-error)] transition hover:bg-[var(--cc-error-soft)]/50"
                 >
                   Revoke
                 </button>

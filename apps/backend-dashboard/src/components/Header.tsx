@@ -61,9 +61,9 @@ export default function Header({ onMenuToggle }: HeaderProps) {
           </svg>
         </button>
 
-        <img src="/logo.png" alt="cinacoin" className="h-7 w-7 sm:h-8 sm:w-8 rounded-[var(--cc-radius-sm)] shrink-0" />
+        <img src="/logo.png" alt="Cinacoin logo" className="h-7 w-7 sm:h-8 sm:w-8 rounded-md shrink-0" />
         <div className="min-w-0">
-          <h2 className="text-base sm:text-xl font-semibold text-[var(--cc-ink)] truncate">cinacoin Backend</h2>
+          <h2 className="text-base sm:text-xl font-semibold tracking-tight text-[var(--cc-ink)] truncate">Cinacoin <span className="text-dashboard-muted font-normal">Backend</span></h2>
           <p className="text-xs sm:text-sm text-dashboard-muted hidden sm:block">Cloudflare Workers Management</p>
         </div>
       </div>

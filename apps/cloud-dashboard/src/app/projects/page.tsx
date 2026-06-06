@@ -2,45 +2,23 @@
 
 import Header from "@/components/Header";
 import { ProjectCard } from "@/components/ProjectCard";
-import type { Project } from "@/types";
-
-const demoProjects: Project[] = [
-  {
-    id: "demo-1",
-    name: "Demo Wallet App",
-    description: "A demo wallet application using Cinacoin SDK",
-    owner_address: "0xDemo",
-    status: "active",
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-  },
-  {
-    id: "demo-2",
-    name: "NFT Marketplace",
-    description: "Multi-chain NFT marketplace integration",
-    owner_address: "0xDemo",
-    status: "active",
-    chain_ids: ["eth", "sol", "btc"],
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-  },
-];
+import { demoProjects } from "@/lib/api";
 
 export default function ProjectsPage() {
   return (
-    <div className="min-h-screen bg-[var(--cc-canvas)]">
+    <div className="min-h-screen bg-[var(--cc-canvas-soft)]">
       <Header />
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="mb-6 flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-semibold tracking-tight text-[var(--cc-ink)]">Projects</h1>
+            <h1 className="cc-display-md text-[var(--cc-ink)]">Projects</h1>
             <p className="mt-1 text-sm text-[var(--cc-muted)]">
               Manage your Cinacoin projects
             </p>
           </div>
           <a
             href="/projects/new"
-            className="rounded-[100px] bg-primary-600 px-4 py-2 text-sm font-medium text-[var(--cc-ink)] hover:bg-primary-500"
+            className="cc-btn-primary px-4 !h-10 text-sm"
           >
             + New Project
           </a>
@@ -53,11 +31,11 @@ export default function ProjectsPage() {
         </div>
 
         {demoProjects.length === 0 && (
-          <div className="rounded-lg border border-dashed border-[var(--cc-hairline)] p-12 text-center">
+          <div className="cc-card-soft p-12 text-center">
             <p className="text-sm text-[var(--cc-muted)]">No projects yet.</p>
             <a
               href="/projects/new"
-              className="mt-4 inline-block rounded-[100px] bg-primary-600 px-4 py-2 text-sm font-medium text-[var(--cc-ink)] hover:bg-primary-500"
+              className="mt-4 cc-btn-primary px-4 !h-10 text-sm"
             >
               Create Your First Project
             </a>
