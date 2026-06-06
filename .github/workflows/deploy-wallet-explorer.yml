@@ -48,11 +48,23 @@ jobs:
           test -f apps/wallet-explorer/out/index.html || { echo "✗ out/index.html missing"; exit 1; }
           echo "✓ static output exists"
 
+      - name: Nest output under /wallets (basePath layout)
+        run: |
+          rm -rf apps/wallet-explorer/out_deploy
+          mkdir -p apps/wallet-explorer/out_deploy/wallets
+          cp -r apps/wallet-explorer/out/. apps/wallet-explorer/out_deploy/wallets/
+          # Preserve the standalone-domain root redirect (_redirects must be at root).
+          if [ -f apps/wallet-explorer/out/_redirects ]; then
+            cp apps/wallet-explorer/out/_redirects apps/wallet-explorer/out_deploy/_redirects
+          fi
+          test -f apps/wallet-explorer/out_deploy/wallets/index.html || { echo "✗ nested index missing"; exit 1; }
+          echo "✓ nested output at /wallets"
+
       - name: Install Wrangler
         run: npm install -g wrangler@3
 
       - name: Deploy to Cloudflare Pages
-        run: wrangler pages deploy apps/wallet-explorer/out --project-name=cinacoin-wallet-explorer --branch=main
+        run: wrangler pages deploy apps/wallet-explorer/out_deploy --project-name=cinacoin-wallet-explorer --branch=main
         env:
           NODE_ENV: production
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
