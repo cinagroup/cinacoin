@@ -436,11 +436,10 @@ export default function HomePage() {
           HERO SECTION
          ═══════════════════════════════════════════ */}
       <section className="relative w-full max-w-4xl text-center space-y-8 pt-8 sm:pt-20 pb-12 px-4 z-10">
-        {/* Ambient glow behind hero */}
-        <div
-          className="absolute -top-20 left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full bg-gradient-to-br from-brand-500/10 via-brand-400/5 to-brand-300/10 blur-3xl animate-hero-glow pointer-events-none"
-          aria-hidden="true"
-        />
+        {/* Mesh gradient backdrop (matches cinacoin.com homepage hero) */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+          <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[1000px] h-[520px] cc-mesh-gradient-strong" />
+        </div>
 
         {/* Version badge + GitHub stars */}
         <div className="relative flex items-center justify-center gap-3">
@@ -453,18 +452,12 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Title with animated gradient */}
-        <h1 className="relative text-6xl sm:text-7xl font-semibold tracking-tighter">
-          <span className="bg-gradient-to-r from-brand-400 via-brand-500 to-brand-300 bg-clip-text text-transparent animate-gradient-shift">
-            Cinacoin
-          </span>
+        {/* Title — ink headline, matching cinacoin.com homepage */}
+        <h1 className="relative text-5xl sm:text-6xl font-semibold tracking-tighter text-[var(--cc-ink)]">
+          The open-source wallet connection toolkit
         </h1>
 
         {/* Subtitle */}
-        <p className="relative text-xl sm:text-2xl font-semibold tracking-tight text-[var(--cc-body)] max-w-2xl mx-auto">
-          The open-source wallet connection toolkit
-        </p>
-
         {/* Description */}
         <p className="relative text-base sm:text-lg text-[var(--cc-body)] max-w-xl mx-auto leading-relaxed">
           Connect wallets, swap tokens, bridge chains across 16 networks.
@@ -476,7 +469,7 @@ export default function HomePage() {
           <button
             onClick={() => handleConnect('io.metamask')}
             disabled={isConnecting}
-            className="px-8 py-4 rounded-[100px] font-medium text-base bg-[var(--cc-primary)] text-[var(--cc-ink)] hover:opacity-90 transition-all duration-200 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-8 py-4 rounded-[100px] font-medium text-base bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all duration-200 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
             style={{
               boxShadow: '0px 1px 1px #00000005, 0px 2px 2px #0000000a',
             }}
@@ -638,7 +631,7 @@ export default function HomePage() {
                     <button
                       onClick={handleQuickReconnect}
                       disabled={isConnecting}
-                      className="flex-1 px-6 py-3.5 rounded-[100px] font-medium text-sm bg-[var(--cc-primary)] text-[var(--cc-ink)] hover:opacity-90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="flex-1 px-6 py-3.5 rounded-[100px] font-medium text-sm bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                       style={{
                         boxShadow: '0px 1px 1px #00000005, 0px 2px 2px #0000000a',
                       }}
@@ -665,7 +658,7 @@ export default function HomePage() {
                   <button
                     onClick={() => handleConnect('io.metamask')}
                     disabled={isConnecting || connectors.length === 0}
-                    className="flex-1 px-6 py-3.5 rounded-[100px] font-medium text-sm bg-[var(--cc-primary)] text-[var(--cc-ink)] hover:opacity-90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex-1 px-6 py-3.5 rounded-[100px] font-medium text-sm bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                     style={{
                       boxShadow: '0px 1px 1px #00000005, 0px 2px 2px #0000000a',
                     }}
@@ -865,7 +858,7 @@ export default function HomePage() {
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Link
                 href="/swap"
-                className="px-8 py-4 rounded-[100px] font-medium text-base bg-[var(--cc-primary)] text-[var(--cc-ink)] hover:opacity-90 transition-all duration-200 hover:-translate-y-0.5"
+                className="px-8 py-4 rounded-[100px] font-medium text-base bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all duration-200 hover:-translate-y-0.5"
                 style={{
                   boxShadow: '0px 1px 1px #00000005, 0px 2px 2px #0000000a',
                 }}
