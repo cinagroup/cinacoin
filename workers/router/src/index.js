@@ -14,10 +14,10 @@
 
 const ZONES = [
   { prefix: '/wallets', origin: 'https://cinacoin-wallet-explorer.pages.dev' },
-  { prefix: '/demo', origin: 'https://cinacoin-demo.pages.dev' },
   { prefix: '/docs', origin: 'https://cinacoin-docs.pages.dev' },
   // Future zones (enable after each app sets its basePath + add the route in
   // wrangler.toml):
+  // { prefix: '/demo', origin: 'https://cinacoin-demo.pages.dev' },  // deferred: demo build needs repair
   // { prefix: '/dashboard', origin: 'https://cinacoin-cloud-dashboard.pages.dev' },
   // { prefix: '/analytics', origin: 'https://cinacoin-analytics.pages.dev' },
 ];

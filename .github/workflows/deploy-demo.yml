@@ -80,23 +80,11 @@ jobs:
           find . -path "*/node_modules" -prune -o -type f -size +20M -print 2>/dev/null || echo "None found"
           echo "Cache cleaned"
 
-      - name: Nest output under /demo (basePath layout)
-        run: |
-          rm -rf apps/demo/out_deploy
-          mkdir -p apps/demo/out_deploy/demo
-          cp -r apps/demo/out/. apps/demo/out_deploy/demo/
-          # Preserve the standalone-domain root redirect (_redirects must be at root).
-          if [ -f apps/demo/out/_redirects ]; then
-            cp apps/demo/out/_redirects apps/demo/out_deploy/_redirects
-          fi
-          test -f apps/demo/out_deploy/demo/index.html || { echo "✗ nested index missing"; exit 1; }
-          echo "✓ nested output at /demo"
-
       - name: Install Wrangler
         run: npm install -g wrangler@3
 
       - name: Deploy to Cloudflare Pages
-        run: wrangler pages deploy apps/demo/out_deploy --project-name=cinacoin-demo --branch=main
+        run: wrangler pages deploy apps/demo/out --project-name=cinacoin-demo --branch=main
         env:
           NODE_ENV: production
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
