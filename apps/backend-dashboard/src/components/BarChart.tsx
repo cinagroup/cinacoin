@@ -6,13 +6,13 @@ interface BarChartProps {
   ariaLabelledBy?: string;
 }
 
-export default function BarChart({ data, labels, color = "#3b82f6", height = 120, ariaLabelledBy }: BarChartProps) {
+export default function BarChart({ data, labels, color = "#0070f3", height = 120, ariaLabelledBy }: BarChartProps) {
   if (!data.length) return null;
   const max = Math.max(...data, 1);
 
   return (
     <div
-      className="bg-dashboard-surface rounded-md border border-dashboard-border p-4"
+      className="cc-card"
       role="img"
       aria-label="Bar chart"
       aria-labelledby={ariaLabelledBy}
@@ -36,7 +36,7 @@ export default function BarChart({ data, labels, color = "#3b82f6", height = 120
               aria-label={`${labels[i]}: ${value.toLocaleString()}`}
               title={`${labels[i]}: ${value.toLocaleString()}`}
             >
-              <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-dashboard-bg text-[var(--cc-ink)] text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
+              <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-[var(--cc-canvas)] text-[var(--cc-ink)] text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10 shadow-sm">
                 {value.toLocaleString()}
               </div>
             </div>
@@ -47,7 +47,7 @@ export default function BarChart({ data, labels, color = "#3b82f6", height = 120
         {labels.map((label, i) => (
           <div
             key={i}
-            className="flex-1 text-center text-[10px] text-dashboard-muted truncate"
+            className="flex-1 text-center cc-caption text-[var(--cc-muted)] truncate"
           >
             {label}
           </div>

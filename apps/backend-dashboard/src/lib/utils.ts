@@ -1,26 +1,26 @@
 export function statusColor(status: string): string {
   switch (status) {
     case "healthy":
-      return "text-dashboard-success";
+      return "text-[var(--cc-success)]";
     case "degraded":
-      return "text-dashboard-warning";
+      return "text-[var(--cc-warning)]";
     case "down":
-      return "text-dashboard-danger";
+      return "text-[var(--cc-error)]";
     default:
-      return "text-dashboard-muted";
+      return "text-[var(--cc-muted)]";
   }
 }
 
 export function statusBg(status: string): string {
   switch (status) {
     case "healthy":
-      return "bg-dashboard-success/10 border-dashboard-success/30";
+      return "bg-[var(--cc-success)]/10 border-[var(--cc-success)]/30";
     case "degraded":
-      return "bg-dashboard-warning/10 border-dashboard-warning/30";
+      return "bg-[var(--cc-warning)]/10 border-[var(--cc-warning)]/30";
     case "down":
-      return "bg-dashboard-danger/10 border-dashboard-danger/30";
+      return "bg-[var(--cc-error)]/10 border-[var(--cc-error)]/30";
     default:
-      return "bg-dashboard-muted/10 border-dashboard-muted/30";
+      return "bg-[var(--cc-muted)]/10 border-[var(--cc-muted)]/30";
   }
 }
 

@@ -51,18 +51,16 @@ export default function RPCProxyPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl sm:text-2xl font-semibold tracking-tighter text-[var(--cc-ink)]">🔄 RPC Proxy</h1>
-          <p className="text-dashboard-muted mt-1">Multi-chain RPC proxy with KV caching and failover</p>
+          <h1 className="cc-display-sm text-[var(--cc-ink)]">RPC Proxy</h1>
+          <p className="cc-body-sm text-[var(--cc-muted)] mt-1">Multi-chain RPC proxy with KV caching and failover</p>
         </div>
-        <span className="text-xs text-dashboard-muted bg-dashboard-surface border border-dashboard-border rounded-full px-3 py-1.5">
-          KV Cache • Multi-Provider Failover
-        </span>
+        <span className="cc-badge">KV Cache • Multi-Provider Failover</span>
       </div>
 
       {/* Key metrics */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <MetricBox label="Total Requests" value={formatNumber(metrics.totalRequests || 0)} trend="up" />
-        <MetricBox label="Error Rate" value={`${metrics.errorRate?.toFixed(2) || 0}%`} color={metrics.errorRate! > 1 ? "text-dashboard-danger" : "text-dashboard-success"} trend="down" />
+        <MetricBox label="Error Rate" value={`${metrics.errorRate?.toFixed(2) || 0}%`} color={metrics.errorRate! > 1 ? "text-[var(--cc-error)]" : "text-[var(--cc-success)]"} trend="down" />
         <MetricBox label="Avg Latency" value={formatLatency(metrics.avgLatency || 0)} />
         <MetricBox label="P99 Latency" value={formatLatency(metrics.p99Latency || 0)} />
       </div>
@@ -70,61 +68,61 @@ export default function RPCProxyPage() {
       {/* KV Cache + Charts */}
       <div className="grid md:grid-cols-3 gap-4">
         {/* KV Cache */}
-        <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
-          <h3 className="text-lg font-semibold text-[var(--cc-ink)] mb-4">KV Cache Status</h3>
+        <div className="cc-card">
+          <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">KV Cache Status</h3>
           <div className="space-y-4">
             <div>
-              <p className="text-sm text-dashboard-muted">Cache Hit Rate</p>
-              <p className="text-3xl font-semibold text-dashboard-success">78.3%</p>
+              <p className="cc-caption text-[var(--cc-muted)]">Cache Hit Rate</p>
+              <p className="cc-display-sm text-[var(--cc-success)]">78.3%</p>
             </div>
             <div>
-              <p className="text-sm text-dashboard-muted">Cached Keys</p>
-              <p className="text-2xl font-semibold text-[var(--cc-ink)]">24,891</p>
+              <p className="cc-caption text-[var(--cc-muted)]">Cached Keys</p>
+              <p className="cc-display-sm text-[var(--cc-ink)]">24,891</p>
             </div>
             <div>
-              <p className="text-sm text-dashboard-muted">KV Storage Used</p>
-              <p className="text-2xl font-semibold text-[var(--cc-ink)]">1.2 GB</p>
+              <p className="cc-caption text-[var(--cc-muted)]">KV Storage Used</p>
+              <p className="cc-display-sm text-[var(--cc-ink)]">1.2 GB</p>
             </div>
             <div>
-              <p className="text-sm text-dashboard-muted">Cache Misses (24h)</p>
-              <p className="text-2xl font-semibold text-dashboard-warning">48,392</p>
+              <p className="cc-caption text-[var(--cc-muted)]">Cache Misses (24h)</p>
+              <p className="cc-display-sm text-[var(--cc-warning)]">48,392</p>
             </div>
           </div>
         </div>
 
         {/* Charts */}
         <div className="md:col-span-2 grid md:grid-cols-2 gap-4">
-          <BarChart data={REQUEST_HISTORY} labels={REQUEST_LABELS} color="#3b82f6" height={140} aria-label="24h RPC request rate" />
-          <BarChart data={CHAIN_DATA.map(d => d.count)} labels={CHAIN_DATA.map(d => d.name)} color="#8b5cf6" height={140} aria-label="Requests by chain" />
+          <BarChart data={REQUEST_HISTORY} labels={REQUEST_LABELS} color="#0070f3" height={140} aria-label="24h RPC request rate" />
+          <BarChart data={CHAIN_DATA.map(d => d.count)} labels={CHAIN_DATA.map(d => d.name)} color="#7928ca" height={140} aria-label="Requests by chain" />
         </div>
       </div>
 
       {/* RPC Methods */}
-      <div className="bg-dashboard-surface rounded-md border border-dashboard-border overflow-hidden">
-        <div className="px-5 py-4 border-b border-dashboard-border">
-          <h3 className="text-lg font-semibold text-[var(--cc-ink)]">Top RPC Methods (24h)</h3>
+      <div className="cc-card-soft overflow-hidden">
+        <div className="px-5 py-4 border-b border-[var(--cc-hairline)]">
+          <h3 className="cc-body-md-strong text-[var(--cc-ink)]">Top RPC Methods (24h)</h3>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-dashboard-border/50 text-dashboard-muted">
-                <th className="text-left px-5 py-3 font-medium">Method</th>
-                <th className="text-left px-5 py-3 font-medium">Calls</th>
-                <th className="text-left px-5 py-3 font-medium">Share</th>
-                <th className="text-left px-5 py-3 font-medium">Distribution</th>
+              <tr className="border-b border-[var(--cc-hairline)]/50 cc-caption text-[var(--cc-muted)]">
+                <th className="text-left px-5 py-3 font-normal">Method</th>
+                <th className="text-left px-5 py-3 font-normal">Calls</th>
+                <th className="text-left px-5 py-3 font-normal">Share</th>
+                <th className="text-left px-5 py-3 font-normal">Distribution</th>
               </tr>
             </thead>
             <tbody>
               {RPC_METHODS.map((m, i) => (
-                <tr key={i} className="border-b border-dashboard-border/30 hover:bg-dashboard-border/20">
-                  <td className="px-5 py-3 font-mono text-xs text-brand-400">{m.method}</td>
+                <tr key={i} className="border-b border-[var(--cc-hairline)]/30 hover:bg-[var(--cc-canvas-soft)] transition-colors">
+                  <td className="px-5 py-3 cc-code text-[var(--cc-link)]">{m.method}</td>
                   <td className="px-5 py-3 text-[var(--cc-ink)]">{formatNumber(m.count)}</td>
-                  <td className="px-5 py-3 text-dashboard-muted">{m.pct}%</td>
+                  <td className="px-5 py-3 text-[var(--cc-muted)]">{m.pct}%</td>
                   <td className="px-5 py-3 w-48">
-                    <div className="bg-dashboard-border rounded-full h-2 overflow-hidden">
+                    <div className="bg-[var(--cc-hairline)] rounded-full h-2 overflow-hidden">
                       <div
                         className="h-full rounded-full transition-all"
-                        style={{ width: `${m.pct}%`, backgroundColor: "#3b82f6" }}
+                        style={{ width: `${m.pct}%`, backgroundColor: "#0070f3" }}
                       />
                     </div>
                   </td>
@@ -136,29 +134,29 @@ export default function RPCProxyPage() {
       </div>
 
       {/* Provider status */}
-      <div className="bg-dashboard-surface rounded-md border border-dashboard-border overflow-hidden">
-        <div className="px-5 py-4 border-b border-dashboard-border">
-          <h3 className="text-lg font-semibold text-[var(--cc-ink)]">RPC Provider Status</h3>
+      <div className="cc-card-soft overflow-hidden">
+        <div className="px-5 py-4 border-b border-[var(--cc-hairline)]">
+          <h3 className="cc-body-md-strong text-[var(--cc-ink)]">RPC Provider Status</h3>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-dashboard-border/50 text-dashboard-muted">
-                <th className="text-left px-5 py-3 font-medium">Provider</th>
-                <th className="text-left px-5 py-3 font-medium">Requests</th>
-                <th className="text-left px-5 py-3 font-medium">Avg Latency</th>
-                <th className="text-left px-5 py-3 font-medium">Status</th>
+              <tr className="border-b border-[var(--cc-hairline)]/50 cc-caption text-[var(--cc-muted)]">
+                <th className="text-left px-5 py-3 font-normal">Provider</th>
+                <th className="text-left px-5 py-3 font-normal">Requests</th>
+                <th className="text-left px-5 py-3 font-normal">Avg Latency</th>
+                <th className="text-left px-5 py-3 font-normal">Status</th>
               </tr>
             </thead>
             <tbody>
               {RPC_PROVIDERS.map((p, i) => (
-                <tr key={i} className="border-b border-dashboard-border/30 hover:bg-dashboard-border/20">
+                <tr key={i} className="border-b border-[var(--cc-hairline)]/30 hover:bg-[var(--cc-canvas-soft)] transition-colors">
                   <td className="px-5 py-3 text-[var(--cc-ink)]">{p.name}</td>
                   <td className="px-5 py-3 text-[var(--cc-ink)]">{formatNumber(p.requests)}</td>
-                  <td className="px-5 py-3 text-dashboard-muted">{p.latency}</td>
+                  <td className="px-5 py-3 text-[var(--cc-muted)]">{p.latency}</td>
                   <td className="px-5 py-3">
-                    <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
-                      p.status === "healthy" ? "bg-dashboard-success/10 text-dashboard-success" : "bg-dashboard-danger/10 text-dashboard-danger"
+                    <span className={`inline-flex items-center px-2 py-0.5 rounded-full cc-caption font-medium ${
+                      p.status === "healthy" ? "bg-[var(--cc-success)]/10 text-[var(--cc-success)]" : "bg-[var(--cc-error)]/10 text-[var(--cc-error)]"
                     }`}>
                       {p.status}
                     </span>
@@ -171,22 +169,22 @@ export default function RPCProxyPage() {
       </div>
 
       {/* Chain distribution */}
-      <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
-        <h3 className="text-lg font-semibold text-[var(--cc-ink)] mb-4">Chain Distribution (24h)</h3>
+      <div className="cc-card">
+        <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Chain Distribution (24h)</h3>
         <div className="space-y-3">
           {CHAIN_DATA.map((chain, i) => {
             const total = CHAIN_DATA.reduce((a, b) => a + b.count, 0);
             const pct = ((chain.count / total) * 100).toFixed(1);
             return (
               <div key={i} className="flex items-center gap-3">
-                <span className="text-sm text-dashboard-muted w-24">{chain.name}</span>
-                <div className="flex-1 bg-dashboard-border rounded-full h-3 overflow-hidden" role="progressbar" aria-valuenow={Number(pct)} aria-valuemin={0} aria-valuemax={100} aria-label={`${chain.name}: ${pct}%`}>
+                <span className="cc-body-sm text-[var(--cc-muted)] w-24">{chain.name}</span>
+                <div className="flex-1 bg-[var(--cc-hairline)] rounded-full h-3 overflow-hidden" role="progressbar" aria-valuenow={Number(pct)} aria-valuemin={0} aria-valuemax={100} aria-label={`${chain.name}: ${pct}%`}>
                   <div
                     className="h-full rounded-full transition-all"
                     style={{ width: `${pct}%`, backgroundColor: chain.color }}
                   />
                 </div>
-                <span className="text-sm text-[var(--cc-ink)] w-16 text-right">{pct}%</span>
+                <span className="cc-body-sm text-[var(--cc-ink)] w-16 text-right">{pct}%</span>
               </div>
             );
           })}

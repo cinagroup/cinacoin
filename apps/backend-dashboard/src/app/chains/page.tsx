@@ -30,21 +30,12 @@ const INITIAL_CHAINS: ChainConfig[] = [
 ];
 
 const NETWORK_COLORS: Record<string, string> = {
-  evm: "#3b82f6",
-  solana: "#9945FF",
-  bitcoin: "#F7931A",
-  ton: "#0098EA",
-  tron: "#FF0013",
-  cosmos: "#6F7390",
-};
-
-const NETWORK_ICONS: Record<string, string> = {
-  evm: "🔷",
-  solana: "◎",
-  bitcoin: "₿",
-  ton: "💎",
-  tron: "🔴",
-  cosmos: "⚛️",
+  evm: "#0070f3",
+  solana: "#7928ca",
+  bitcoin: "#f5a623",
+  ton: "#0070f3",
+  tron: "#ee0000",
+  cosmos: "#888888",
 };
 
 export default function ChainsPage() {
@@ -69,8 +60,8 @@ export default function ChainsPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold tracking-tighter text-[var(--cc-ink)]">🌐 Networks & Chains</h1>
-          <p className="text-dashboard-muted mt-1">
+          <h1 className="cc-display-sm text-[var(--cc-ink)]">Networks & Chains</h1>
+          <p className="cc-body-sm text-[var(--cc-muted)] mt-1">
             Configure supported blockchain networks — {enabledCount} of {chains.length} enabled
           </p>
         </div>
@@ -84,28 +75,28 @@ export default function ChainsPage() {
       </div>
 
       {saved && (
-        <div className="bg-dashboard-success/10 border border-dashboard-success/30 rounded-md px-4 py-3 text-sm text-dashboard-success">
+        <div className="bg-[var(--cc-success)]/10 border border-[var(--cc-success)]/30 rounded-[var(--cc-radius-md)] px-4 py-3 cc-body-sm text-[var(--cc-success)]">
           ✓ Chain configuration saved successfully
         </div>
       )}
 
       {/* Summary cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-4">
-          <p className="text-sm text-dashboard-muted">Total Networks</p>
-          <p className="text-2xl font-semibold text-[var(--cc-ink)]">{chains.length}</p>
+        <div className="cc-card p-4">
+          <p className="cc-caption text-[var(--cc-muted)]">Total Networks</p>
+          <p className="cc-display-sm text-[var(--cc-ink)]">{chains.length}</p>
         </div>
-        <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-4">
-          <p className="text-sm text-dashboard-muted">Enabled</p>
-          <p className="text-2xl font-semibold text-dashboard-success">{enabledCount}</p>
+        <div className="cc-card p-4">
+          <p className="cc-caption text-[var(--cc-muted)]">Enabled</p>
+          <p className="cc-display-sm text-[var(--cc-success)]">{enabledCount}</p>
         </div>
-        <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-4">
-          <p className="text-sm text-dashboard-muted">EVM Chains</p>
-          <p className="text-2xl font-semibold text-brand-400">{chains.filter((c) => c.network === "evm").length}</p>
+        <div className="cc-card p-4">
+          <p className="cc-caption text-[var(--cc-muted)]">EVM Chains</p>
+          <p className="cc-display-sm text-[var(--cc-link)]">{chains.filter((c) => c.network === "evm").length}</p>
         </div>
-        <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-4">
-          <p className="text-sm text-dashboard-muted">Non-EVM</p>
-          <p className="text-2xl font-semibold text-dashboard-warning">{chains.filter((c) => c.network !== "evm").length}</p>
+        <div className="cc-card p-4">
+          <p className="cc-caption text-[var(--cc-muted)]">Non-EVM</p>
+          <p className="cc-display-sm text-[var(--cc-warning)]">{chains.filter((c) => c.network !== "evm").length}</p>
         </div>
       </div>
 
@@ -124,38 +115,37 @@ export default function ChainsPage() {
             key={f.key}
             onClick={() => setFilter(f.key)}
             aria-pressed={filter === f.key}
-            className={`px-3 py-1.5 rounded-[100px] text-sm font-medium transition-colors ${
+            className={`cc-tab-ghost ${
               filter === f.key
-                ? "bg-brand-500 text-[var(--cc-ink)]"
-                : "bg-dashboard-surface text-dashboard-muted hover:text-[var(--cc-ink)] border border-dashboard-border"
+                ? "bg-[var(--cc-primary)] text-[var(--cc-on-primary)]"
+                : "text-[var(--cc-body)] hover:bg-[var(--cc-canvas-soft)] border border-[var(--cc-hairline)]"
             }`}
           >
-            <span aria-hidden="true">{NETWORK_ICONS[f.key] || "📋"}</span> {f.label}
+            {f.label}
           </button>
         ))}
       </div>
 
       {/* Chain list */}
-      <div className="bg-dashboard-surface rounded-md border border-dashboard-border overflow-hidden">
+      <div className="cc-card-soft overflow-hidden">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-dashboard-border">
-              <th className="text-left px-4 py-3 text-dashboard-muted font-medium">Network</th>
-              <th className="text-left px-4 py-3 text-dashboard-muted font-medium">Chain ID</th>
-              <th className="text-left px-4 py-3 text-dashboard-muted font-medium">RPC URL</th>
-              <th className="text-left px-4 py-3 text-dashboard-muted font-medium">Explorer</th>
-              <th className="text-center px-4 py-3 text-dashboard-muted font-medium">Status</th>
+            <tr className="border-b border-[var(--cc-hairline)]">
+              <th className="text-left px-4 py-3 cc-caption text-[var(--cc-muted)] font-normal">Network</th>
+              <th className="text-left px-4 py-3 cc-caption text-[var(--cc-muted)] font-normal">Chain ID</th>
+              <th className="text-left px-4 py-3 cc-caption text-[var(--cc-muted)] font-normal">RPC URL</th>
+              <th className="text-left px-4 py-3 cc-caption text-[var(--cc-muted)] font-normal">Explorer</th>
+              <th className="text-center px-4 py-3 cc-caption text-[var(--cc-muted)] font-normal">Status</th>
             </tr>
           </thead>
           <tbody>
             {filteredChains.map((chain) => (
-              <tr key={chain.id} className="border-b border-dashboard-border/50 hover:bg-dashboard-border/10 transition-colors">
+              <tr key={chain.id} className="border-b border-[var(--cc-hairline)]/50 hover:bg-[var(--cc-canvas-soft)] transition-colors">
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-2">
-                    <span aria-hidden="true">{NETWORK_ICONS[chain.network]}</span>
-                    <span className="text-[var(--cc-ink)] font-medium">{chain.name}</span>
+                    <span className="cc-body-sm-strong text-[var(--cc-ink)]">{chain.name}</span>
                     <span
-                      className="text-xs px-1.5 py-0.5 rounded"
+                      className="cc-caption px-1.5 py-0.5 rounded"
                       style={{ backgroundColor: `${NETWORK_COLORS[chain.network]}20`, color: NETWORK_COLORS[chain.network] }}
                     >
                       {chain.network}
@@ -163,17 +153,17 @@ export default function ChainsPage() {
                   </div>
                 </td>
                 <td className="px-4 py-3">
-                  <code className="text-xs bg-dashboard-bg px-2 py-1 rounded text-dashboard-muted">
+                  <code className="cc-code bg-[var(--cc-canvas-soft-2)] px-2 py-1 rounded">
                     {typeof chain.chainId === "number" ? chain.chainId.toString() : chain.chainId}
                   </code>
                 </td>
                 <td className="px-4 py-3">
-                  <span className="text-dashboard-muted font-mono text-xs truncate max-w-[200px] block">
+                  <span className="cc-code text-[var(--cc-muted)] truncate max-w-[200px] block">
                     {chain.rpcUrl || "—"}
                   </span>
                 </td>
                 <td className="px-4 py-3">
-                  <a href={chain.explorerUrl} target="_blank" rel="noopener noreferrer" className="text-brand-400 hover:underline text-xs">
+                  <a href={chain.explorerUrl} target="_blank" rel="noopener noreferrer" className="cc-caption text-[var(--cc-link)] hover:underline">
                     {chain.explorerUrl.replace("https://", "")}
                   </a>
                 </td>
@@ -184,7 +174,7 @@ export default function ChainsPage() {
                     aria-checked={chain.enabled}
                     aria-label={`Toggle ${chain.name} ${chain.enabled ? 'off' : 'on'}`}
                     className={`relative w-10 h-5 rounded-full transition-colors ${
-                      chain.enabled ? "bg-dashboard-success" : "bg-dashboard-border"
+                      chain.enabled ? "bg-[var(--cc-success)]" : "bg-[var(--cc-hairline)]"
                     }`}
                   >
                     <span
@@ -201,41 +191,19 @@ export default function ChainsPage() {
       </div>
 
       {/* Custom chain add */}
-      <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-6">
-        <h3 className="text-lg font-semibold text-[var(--cc-ink)] mb-2">Add Custom Network</h3>
-        <p className="text-sm text-dashboard-muted mb-4">
+      <div className="cc-card">
+        <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-2">Add Custom Network</h3>
+        <p className="cc-body-sm text-[var(--cc-muted)] mb-4">
           Add a custom EVM-compatible chain or non-EVM network for your AppKit configuration.
         </p>
         <div className="grid md:grid-cols-2 gap-4">
-          <input
-            type="text"
-            placeholder="Network name (e.g. zkSync Era)"
-            aria-label="Network name"
-            className="cc-form-input"
-          />
-          <input
-            type="text"
-            placeholder="Chain ID (e.g. 324)"
-            aria-label="Chain ID"
-            className="cc-form-input"
-          />
-          <input
-            type="text"
-            placeholder="RPC URL"
-            aria-label="RPC URL"
-            className="cc-form-input"
-          />
-          <input
-            type="text"
-            placeholder="Native currency symbol (e.g. ETH)"
-            aria-label="Native currency symbol"
-            className="cc-form-input"
-          />
+          <input type="text" placeholder="Network name (e.g. zkSync Era)" aria-label="Network name" className="cc-form-input" />
+          <input type="text" placeholder="Chain ID (e.g. 324)" aria-label="Chain ID" className="cc-form-input" />
+          <input type="text" placeholder="RPC URL" aria-label="RPC URL" className="cc-form-input" />
+          <input type="text" placeholder="Native currency symbol (e.g. ETH)" aria-label="Native currency symbol" className="cc-form-input" />
         </div>
         <div className="mt-4 flex justify-end">
-          <button className="cc-btn-primary-sm">
-            + Add Network
-          </button>
+          <button className="cc-btn-primary-sm">+ Add Network</button>
         </div>
       </div>
     </div>

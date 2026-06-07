@@ -11,10 +11,10 @@ const SESSION_HISTORY = [2800, 3200, 3500, 3100, 3800, 4100, 3900];
 const SESSION_LABELS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 const SIGNING_STATS = [
-  { label: "Message Signatures", count: 892456, pct: 42, icon: "✍️" },
-  { label: "Transaction Signing", count: 654321, pct: 31, icon: "💳" },
-  { label: "Auth Requests", count: 312000, pct: 15, icon: "🔐" },
-  { label: "Token Refresh", count: 245678, pct: 12, icon: "🔄" },
+  { label: "Message Signatures", count: 892456, pct: 42 },
+  { label: "Transaction Signing", count: 654321, pct: 31 },
+  { label: "Auth Requests", count: 312000, pct: 15 },
+  { label: "Token Refresh", count: 245678, pct: 12 },
 ];
 
 const ACTIVE_SESSIONS = [
@@ -45,47 +45,45 @@ export default function KeysServerPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl sm:text-2xl font-semibold tracking-tighter text-[var(--cc-ink)]">🔑 Keys Server</h1>
-          <p className="text-dashboard-muted mt-1">Session key management with D1 storage</p>
+          <h1 className="cc-display-sm text-[var(--cc-ink)]">Keys Server</h1>
+          <p className="cc-body-sm text-[var(--cc-muted)] mt-1">Session key management with D1 storage</p>
         </div>
-        <span className="text-xs text-dashboard-muted bg-dashboard-surface border border-dashboard-border rounded-full px-3 py-1.5">
-          D1 • Cloudflare Workers
-        </span>
+        <span className="cc-badge">D1 • Cloudflare Workers</span>
       </div>
 
       {/* Key metrics */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <MetricBox label="Active Sessions" value={formatNumber(metrics.activeSessions || 0)} color="text-brand-400" trend="up" />
+        <MetricBox label="Active Sessions" value={formatNumber(metrics.activeSessions || 0)} color="text-[var(--cc-link)]" trend="up" />
         <MetricBox label="Total Requests" value={formatNumber(metrics.totalRequests || 0)} />
         <MetricBox label="Avg Latency" value={formatLatency(metrics.avgLatency || 0)} trend="stable" />
-        <MetricBox label="Error Rate" value={`${metrics.errorRate?.toFixed(2) || 0}%`} color={metrics.errorRate! > 0.5 ? "text-dashboard-danger" : "text-dashboard-success"} />
+        <MetricBox label="Error Rate" value={`${metrics.errorRate?.toFixed(2) || 0}%`} color={metrics.errorRate! > 0.5 ? "text-[var(--cc-error)]" : "text-[var(--cc-success)]"} />
       </div>
 
       {/* Storage + Signing side by side */}
       <div className="grid md:grid-cols-2 gap-4">
         {/* Storage */}
-        <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
-          <h3 className="text-lg font-semibold text-[var(--cc-ink)] mb-4">D1 Storage Usage</h3>
+        <div className="cc-card">
+          <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">D1 Storage Usage</h3>
           <div className="flex items-center justify-center gap-8">
             <ProgressRing
               value={storagePct}
               size={120}
               strokeWidth={10}
-              color={storagePct > 80 ? "#ef4444" : storagePct > 60 ? "#f59e0b" : "#22c55e"}
+              color={storagePct > 80 ? "#ee0000" : storagePct > 60 ? "#f5a623" : "#0070f3"}
               label="Used"
             />
             <div className="space-y-3">
               <div>
-                <p className="text-sm text-dashboard-muted">Used Space</p>
-                <p className="text-xl font-semibold text-[var(--cc-ink)]">{formatBytes(metrics.storageUsed || 0)}</p>
+                <p className="cc-caption text-[var(--cc-muted)]">Used Space</p>
+                <p className="cc-body-md-strong text-[var(--cc-ink)]">{formatBytes(metrics.storageUsed || 0)}</p>
               </div>
               <div>
-                <p className="text-sm text-dashboard-muted">Total Capacity</p>
-                <p className="text-xl font-semibold text-[var(--cc-ink)]">{formatBytes(metrics.storageLimit || 10_000_000_000)}</p>
+                <p className="cc-caption text-[var(--cc-muted)]">Total Capacity</p>
+                <p className="cc-body-md-strong text-[var(--cc-ink)]">{formatBytes(metrics.storageLimit || 10_000_000_000)}</p>
               </div>
               <div>
-                <p className="text-sm text-dashboard-muted">Available</p>
-                <p className="text-xl font-semibold text-dashboard-success">
+                <p className="cc-caption text-[var(--cc-muted)]">Available</p>
+                <p className="cc-body-md-strong text-[var(--cc-success)]">
                   {formatBytes((metrics.storageLimit || 10_000_000_000) - (metrics.storageUsed || 0))}
                 </p>
               </div>
@@ -94,20 +92,19 @@ export default function KeysServerPage() {
         </div>
 
         {/* Signing operations */}
-        <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
-          <h3 className="text-lg font-semibold text-[var(--cc-ink)] mb-4">Signing Operations (24h)</h3>
+        <div className="cc-card">
+          <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Signing Operations (24h)</h3>
           <div className="space-y-3">
             {SIGNING_STATS.map((stat, i) => (
               <div key={i} className="flex items-center gap-3">
-                <span className="text-base w-6 text-center">{stat.icon}</span>
-                <span className="text-sm text-dashboard-muted w-36">{stat.label}</span>
-                <div className="flex-1 bg-dashboard-border rounded-full h-3 overflow-hidden">
+                <span className="cc-body-sm text-[var(--cc-muted)] w-36">{stat.label}</span>
+                <div className="flex-1 bg-[var(--cc-hairline)] rounded-full h-3 overflow-hidden">
                   <div
                     className="h-full rounded-full transition-all"
-                    style={{ width: `${stat.pct}%`, backgroundColor: "#3b82f6" }}
+                    style={{ width: `${stat.pct}%`, backgroundColor: "#0070f3" }}
                   />
                 </div>
-                <span className="text-sm text-[var(--cc-ink)] w-20 text-right">{formatNumber(stat.count)}</span>
+                <span className="cc-body-sm text-[var(--cc-ink)] w-20 text-right">{formatNumber(stat.count)}</span>
               </div>
             ))}
           </div>
@@ -115,34 +112,34 @@ export default function KeysServerPage() {
       </div>
 
       {/* Session history chart */}
-      <BarChart data={SESSION_HISTORY} labels={SESSION_LABELS} color="#8b5cf6" height={140} aria-label="Weekly session creation trend" />
+      <BarChart data={SESSION_HISTORY} labels={SESSION_LABELS} color="#7928ca" height={140} aria-label="Weekly session creation trend" />
 
       {/* Active sessions table */}
-      <div className="bg-dashboard-surface rounded-md border border-dashboard-border overflow-hidden">
-        <div className="px-5 py-4 border-b border-dashboard-border">
-          <h3 className="text-lg font-semibold text-[var(--cc-ink)]">Active Sessions</h3>
+      <div className="cc-card-soft overflow-hidden">
+        <div className="px-5 py-4 border-b border-[var(--cc-hairline)]">
+          <h3 className="cc-body-md-strong text-[var(--cc-ink)]">Active Sessions</h3>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-dashboard-border/50 text-dashboard-muted">
-                <th className="text-left px-5 py-3 font-medium">Session ID</th>
-                <th className="text-left px-5 py-3 font-medium">Address</th>
-                <th className="text-left px-5 py-3 font-medium">Chain</th>
-                <th className="text-left px-5 py-3 font-medium">Last Active</th>
-                <th className="text-left px-5 py-3 font-medium">Status</th>
+              <tr className="border-b border-[var(--cc-hairline)]/50 cc-caption text-[var(--cc-muted)]">
+                <th className="text-left px-5 py-3 font-normal">Session ID</th>
+                <th className="text-left px-5 py-3 font-normal">Address</th>
+                <th className="text-left px-5 py-3 font-normal">Chain</th>
+                <th className="text-left px-5 py-3 font-normal">Last Active</th>
+                <th className="text-left px-5 py-3 font-normal">Status</th>
               </tr>
             </thead>
             <tbody>
               {ACTIVE_SESSIONS.map((s) => (
-                <tr key={s.id} className="border-b border-dashboard-border/30 hover:bg-dashboard-border/20">
-                  <td className="px-5 py-3 font-mono text-xs text-[var(--cc-ink)]">{s.id}</td>
+                <tr key={s.id} className="border-b border-[var(--cc-hairline)]/30 hover:bg-[var(--cc-canvas-soft)] transition-colors">
+                  <td className="px-5 py-3 cc-code text-[var(--cc-ink)]">{s.id}</td>
                   <td className="px-5 py-3 text-[var(--cc-ink)]">{s.address}</td>
-                  <td className="px-5 py-3 text-dashboard-muted">{s.chain}</td>
-                  <td className="px-5 py-3 text-dashboard-muted">{s.age}</td>
+                  <td className="px-5 py-3 text-[var(--cc-muted)]">{s.chain}</td>
+                  <td className="px-5 py-3 text-[var(--cc-muted)]">{s.age}</td>
                   <td className="px-5 py-3">
-                    <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
-                      s.status === "active" ? "bg-dashboard-success/10 text-dashboard-success" : "bg-dashboard-muted/10 text-dashboard-muted"
+                    <span className={`inline-flex items-center px-2 py-0.5 rounded-full cc-caption font-medium ${
+                      s.status === "active" ? "bg-[var(--cc-success)]/10 text-[var(--cc-success)]" : "bg-[var(--cc-muted)]/10 text-[var(--cc-muted)]"
                     }`}>
                       {s.status}
                     </span>
@@ -155,12 +152,12 @@ export default function KeysServerPage() {
       </div>
 
       {/* Session stats */}
-      <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
-        <h3 className="text-lg font-semibold text-[var(--cc-ink)] mb-4">Session Statistics (24h)</h3>
+      <div className="cc-card">
+        <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Session Statistics (24h)</h3>
         <div className="grid grid-cols-3 gap-4">
-          <MetricBox label="New Sessions" value="1,247" icon="🆕" trend="up" />
-          <MetricBox label="Expired Sessions" value="892" icon="⏰" />
-          <MetricBox label="Revoked Sessions" value="23" icon="🚫" trend="down" />
+          <MetricBox label="New Sessions" value="1,247" trend="up" />
+          <MetricBox label="Expired Sessions" value="892" />
+          <MetricBox label="Revoked Sessions" value="23" trend="down" />
         </div>
       </div>
     </div>

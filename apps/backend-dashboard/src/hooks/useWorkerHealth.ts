@@ -76,9 +76,9 @@ export function aggregateStatusLabel(
   downCount: number,
   checking: boolean
 ): { label: string; color: string } {
-  if (checking) return { label: "Checking...", color: "text-dashboard-muted" };
-  if (downCount > 0) return { label: `${downCount} Service${downCount > 1 ? "s" : ""} Down`, color: "text-dashboard-danger" };
-  if (degradedCount > 0) return { label: `${degradedCount} Degraded`, color: "text-dashboard-warning" };
-  if (allHealthy) return { label: "All Systems Operational", color: "text-dashboard-success" };
-  return { label: "Initializing...", color: "text-dashboard-muted" };
+  if (checking) return { label: "Checking...", color: "text-[var(--cc-muted)]" };
+  if (downCount > 0) return { label: `${downCount} Service${downCount > 1 ? "s" : ""} Down`, color: "text-[var(--cc-error)]" };
+  if (degradedCount > 0) return { label: `${degradedCount} Degraded`, color: "text-[var(--cc-warning)]" };
+  if (allHealthy) return { label: "All Systems Operational", color: "text-[var(--cc-success)]" };
+  return { label: "Initializing...", color: "text-[var(--cc-muted)]" };
 }

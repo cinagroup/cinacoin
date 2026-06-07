@@ -20,7 +20,7 @@ export default function ProgressRing({ value, size = 80, strokeWidth = 6, color 
             cy={size / 2}
             r={radius}
             fill="none"
-            stroke="#2a2d3e"
+            stroke="var(--cc-hairline)"
             strokeWidth={strokeWidth}
           />
           <circle
@@ -40,7 +40,7 @@ export default function ProgressRing({ value, size = 80, strokeWidth = 6, color 
           <span className="text-lg font-semibold text-[var(--cc-ink)]">{value}%</span>
         </div>
       </div>
-      {label && <span className="text-xs text-dashboard-muted mt-1">{label}</span>}
+      {label && <span className="cc-caption text-[var(--cc-muted)] mt-1">{label}</span>}
     </div>
   );
 }

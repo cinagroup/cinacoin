@@ -32,9 +32,7 @@ export default function ProjectPage() {
   };
 
   const handleCopyProjectId = () => {
-    navigator.clipboard.writeText(projectId).catch(() => {
-      // clipboard API may be unavailable in some contexts
-    });
+    navigator.clipboard.writeText(projectId).catch(() => {});
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -43,106 +41,70 @@ export default function ProjectPage() {
     <div className="space-y-6 max-w-4xl">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-semibold tracking-tighter text-[var(--cc-ink)]">⚙️ Project Settings</h1>
-        <p className="text-dashboard-muted mt-1">
+        <h1 className="cc-display-sm text-[var(--cc-ink)]">Project Settings</h1>
+        <p className="cc-body-sm text-[var(--cc-muted)] mt-1">
           Configure your AppKit project, authentication, and feature flags
         </p>
       </div>
 
       {saved && (
-        <div className="bg-dashboard-success/10 border border-dashboard-success/30 rounded-md px-4 py-3 text-sm text-dashboard-success">
+        <div className="bg-[var(--cc-success)]/10 border border-[var(--cc-success)]/30 rounded-[var(--cc-radius-md)] px-4 py-3 cc-body-sm text-[var(--cc-success)]">
           ✓ Project settings saved successfully
         </div>
       )}
 
       {/* Project Identity */}
-      <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-6 space-y-4">
-        <h2 className="text-lg font-semibold text-[var(--cc-ink)]">Project Identity</h2>
+      <div className="cc-card space-y-4">
+        <h2 className="cc-body-md-strong text-[var(--cc-ink)]">Project Identity</h2>
 
         {/* Project ID */}
         <div>
-          <label className="text-sm text-dashboard-muted block mb-1">Project ID</label>
+          <label className="cc-body-sm text-[var(--cc-muted)] block mb-1">Project ID</label>
           <div className="flex items-center gap-2">
-            <code className="flex-1 bg-dashboard-bg border border-dashboard-border rounded-[var(--cc-radius-md)] px-3 py-2 text-sm text-[var(--cc-ink)] font-mono">
+            <code className="flex-1 bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-sm)] px-3 py-2 cc-body-sm text-[var(--cc-ink)] font-mono">
               {showProjectId ? projectId : "•".repeat(projectId.length)}
             </code>
-            <button
-              onClick={() => setShowProjectId(!showProjectId)}
-              aria-label={showProjectId ? "Hide Project ID" : "Show Project ID"}
-              className="cc-btn-secondary-sm"
-            >
-              {showProjectId ? "🙈 Hide" : "👁️ Show"}
+            <button onClick={() => setShowProjectId(!showProjectId)} aria-label={showProjectId ? "Hide Project ID" : "Show Project ID"} className="cc-btn-secondary-sm">
+              {showProjectId ? "Hide" : "Show"}
             </button>
-            <button
-              onClick={handleCopyProjectId}
-              aria-label={copied ? "Copied" : "Copy Project ID"}
-              className="cc-btn-secondary-sm"
-            >
-              {copied ? "✓ Copied" : "📋 Copy"}
+            <button onClick={handleCopyProjectId} aria-label={copied ? "Copied" : "Copy Project ID"} className="cc-btn-secondary-sm">
+              {copied ? "✓ Copied" : "Copy"}
             </button>
           </div>
-          <p className="text-xs text-dashboard-muted mt-1">
-            Used to identify your project in AppKit. Copy this into your app's configuration.
+          <p className="cc-caption text-[var(--cc-muted)] mt-1">
+            Used to identify your project in AppKit.
           </p>
         </div>
 
         {/* Project Name */}
         <div>
-          <label className="text-sm text-dashboard-muted block mb-1">Project Name</label>
-          <input
-            type="text"
-            value={projectName}
-            onChange={(e) => setProjectName(e.target.value)}
-            aria-label="Project name"
-            aria-describedby="project-name-desc"
-            className="cc-form-input"
-          />
-          <p id="project-name-desc" className="sr-only">Enter your project display name</p>
+          <label className="cc-body-sm text-[var(--cc-muted)] block mb-1">Project Name</label>
+          <input type="text" value={projectName} onChange={(e) => setProjectName(e.target.value)} aria-label="Project name" className="cc-form-input" />
         </div>
 
         {/* Description */}
         <div>
-          <label className="text-sm text-dashboard-muted block mb-1">Description</label>
-          <textarea
-            value={projectDescription}
-            onChange={(e) => setProjectDescription(e.target.value)}
-            rows={2}
-            aria-label="Project description"
-            className="cc-form-input resize-none"
-          />
+          <label className="cc-body-sm text-[var(--cc-muted)] block mb-1">Description</label>
+          <textarea value={projectDescription} onChange={(e) => setProjectDescription(e.target.value)} rows={2} aria-label="Project description" className="cc-form-input resize-none" />
         </div>
 
         {/* Project URL */}
         <div>
-          <label className="text-sm text-dashboard-muted block mb-1">Project URL</label>
-          <input
-            type="url"
-            value={projectUrl}
-            onChange={(e) => setProjectUrl(e.target.value)}
-            aria-label="Project URL"
-            className="cc-form-input"
-          />
+          <label className="cc-body-sm text-[var(--cc-muted)] block mb-1">Project URL</label>
+          <input type="url" value={projectUrl} onChange={(e) => setProjectUrl(e.target.value)} aria-label="Project URL" className="cc-form-input" />
         </div>
 
         {/* Icon URL */}
         <div>
-          <label className="text-sm text-dashboard-muted block mb-1">Icon URL</label>
-          <input
-            type="url"
-            value={iconUrl}
-            onChange={(e) => setIconUrl(e.target.value)}
-            aria-label="Project icon URL"
-            className="cc-form-input"
-          />
+          <label className="cc-body-sm text-[var(--cc-muted)] block mb-1">Icon URL</label>
+          <input type="url" value={iconUrl} onChange={(e) => setIconUrl(e.target.value)} aria-label="Project icon URL" className="cc-form-input" />
         </div>
       </div>
 
       {/* Authentication */}
-      <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-6 space-y-4">
-        <h2 className="text-lg font-semibold text-[var(--cc-ink)]">🔐 Authentication</h2>
-        <p className="text-sm text-dashboard-muted">
-          Configure authentication methods for your AppKit integration.
-        </p>
+      <div className="cc-card space-y-4">
+        <h2 className="cc-body-md-strong text-[var(--cc-ink)]">Authentication</h2>
+        <p className="cc-body-sm text-[var(--cc-muted)]">Configure authentication methods for your AppKit integration.</p>
 
         <div className="space-y-3">
           {[
@@ -153,23 +115,12 @@ export default function ProjectPage() {
           ].map((item) => (
             <div key={item.label} className="flex items-center justify-between py-2">
               <div>
-                <p className="text-[var(--cc-ink)] font-medium">{item.label}</p>
-                <p className="text-sm text-dashboard-muted">{item.desc}</p>
+                <p className="cc-body-sm-strong text-[var(--cc-ink)]">{item.label}</p>
+                <p className="cc-body-sm text-[var(--cc-muted)]">{item.desc}</p>
               </div>
-              <button
-                onClick={() => item.setter(!item.state)}
-                role="switch"
-                aria-checked={item.state}
-                aria-label={`${item.label}: ${item.state ? 'on' : 'off'}`}
-                className={`relative w-10 h-5 rounded-full transition-colors ${
-                  item.state ? "bg-dashboard-success" : "bg-dashboard-border"
-                }`}
-              >
-                <span
-                  className={`absolute top-0.5 w-4 h-4 rounded-full bg-[var(--cc-canvas)] shadow transition-transform ${
-                    item.state ? "left-5" : "left-0.5"
-                  }`}
-                />
+              <button onClick={() => item.setter(!item.state)} role="switch" aria-checked={item.state} aria-label={`${item.label}: ${item.state ? 'on' : 'off'}`}
+                className={`relative w-10 h-5 rounded-full transition-colors ${item.state ? "bg-[var(--cc-success)]" : "bg-[var(--cc-hairline)]"}`}>
+                <span className={`absolute top-0.5 w-4 h-4 rounded-full bg-[var(--cc-canvas)] shadow transition-transform ${item.state ? "left-5" : "left-0.5"}`} />
               </button>
             </div>
           ))}
@@ -177,11 +128,9 @@ export default function ProjectPage() {
       </div>
 
       {/* Feature Flags */}
-      <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-6 space-y-4">
-        <h2 className="text-lg font-semibold text-[var(--cc-ink)]">🚀 Features</h2>
-        <p className="text-sm text-dashboard-muted">
-          Enable or disable AppKit features for your project.
-        </p>
+      <div className="cc-card space-y-4">
+        <h2 className="cc-body-md-strong text-[var(--cc-ink)]">Features</h2>
+        <p className="cc-body-sm text-[var(--cc-muted)]">Enable or disable AppKit features for your project.</p>
 
         <div className="space-y-3">
           {[
@@ -192,23 +141,12 @@ export default function ProjectPage() {
           ].map((item) => (
             <div key={item.label} className="flex items-center justify-between py-2">
               <div>
-                <p className="text-[var(--cc-ink)] font-medium">{item.label}</p>
-                <p className="text-sm text-dashboard-muted">{item.desc}</p>
+                <p className="cc-body-sm-strong text-[var(--cc-ink)]">{item.label}</p>
+                <p className="cc-body-sm text-[var(--cc-muted)]">{item.desc}</p>
               </div>
-              <button
-                onClick={() => item.setter(!item.state)}
-                role="switch"
-                aria-checked={item.state}
-                aria-label={`${item.label}: ${item.state ? 'on' : 'off'}`}
-                className={`relative w-10 h-5 rounded-full transition-colors ${
-                  item.state ? "bg-dashboard-success" : "bg-dashboard-border"
-                }`}
-              >
-                <span
-                  className={`absolute top-0.5 w-4 h-4 rounded-full bg-[var(--cc-canvas)] shadow transition-transform ${
-                    item.state ? "left-5" : "left-0.5"
-                  }`}
-                />
+              <button onClick={() => item.setter(!item.state)} role="switch" aria-checked={item.state} aria-label={`${item.label}: ${item.state ? 'on' : 'off'}`}
+                className={`relative w-10 h-5 rounded-full transition-colors ${item.state ? "bg-[var(--cc-success)]" : "bg-[var(--cc-hairline)]"}`}>
+                <span className={`absolute top-0.5 w-4 h-4 rounded-full bg-[var(--cc-canvas)] shadow transition-transform ${item.state ? "left-5" : "left-0.5"}`} />
               </button>
             </div>
           ))}
@@ -216,14 +154,12 @@ export default function ProjectPage() {
       </div>
 
       {/* AppKit Integration Code */}
-      <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-6 space-y-4">
-        <h2 className="text-lg font-semibold text-[var(--cc-ink)]">📦 Integration Code</h2>
-        <p className="text-sm text-dashboard-muted">
-          Copy this snippet to get started with AppKit in your project.
-        </p>
+      <div className="cc-card space-y-4">
+        <h2 className="cc-body-md-strong text-[var(--cc-ink)]">Integration Code</h2>
+        <p className="cc-body-sm text-[var(--cc-muted)]">Copy this snippet to get started with AppKit in your project.</p>
 
-        <div className="bg-dashboard-bg rounded-[var(--cc-radius-md)] p-4 overflow-x-auto">
-          <pre className="text-sm text-dashboard-muted font-mono whitespace-pre">
+        <div className="cc-code-block">
+          <pre className="cc-code whitespace-pre text-[var(--cc-on-primary)]">
 {`// Install
 npm install @reown/appkit @reown/appkit-adapter-wagmi wagmi viem
 
@@ -256,79 +192,45 @@ createAppKit({
       </div>
 
       {/* Danger Zone */}
-      <div className="bg-dashboard-danger/5 rounded-md border border-dashboard-danger/20 p-6 space-y-4">
-        <h2 className="text-lg font-semibold text-dashboard-danger">⚠️ Danger Zone</h2>
-        <div className="flex items-center justify-between">
+      <div className="cc-card border border-[var(--cc-error)]/20">
+        <h2 className="cc-body-md-strong text-[var(--cc-error)] mb-4">Danger Zone</h2>
+        <div className="flex items-center justify-between py-3 border-b border-[var(--cc-hairline)]">
           <div>
-            <p className="text-[var(--cc-ink)] font-medium">Regenerate Project ID</p>
-            <p className="text-sm text-dashboard-muted">This will invalidate the current project ID and require updating all apps.</p>
+            <p className="cc-body-sm-strong text-[var(--cc-ink)]">Regenerate Project ID</p>
+            <p className="cc-body-sm text-[var(--cc-muted)]">This will invalidate the current project ID and require updating all apps.</p>
           </div>
-          <button
-            onClick={() => setShowRegenConfirm(true)}
-            aria-label="Regenerate project ID"
-            className="px-4 py-2 border border-[var(--cc-error)]/30 text-[var(--cc-error)] rounded-[100px] text-sm hover:bg-[var(--cc-error)]/10 transition-colors min-h-[40px]"
-          >
+          <button onClick={() => setShowRegenConfirm(true)} aria-label="Regenerate project ID" className="px-4 py-2 border border-[var(--cc-error)]/30 text-[var(--cc-error)] rounded-[var(--cc-radius-pill)] cc-body-sm hover:bg-[var(--cc-error)]/10 transition-colors min-h-[40px]">
             Regenerate
           </button>
         </div>
         {showRegenConfirm && (
-          <div className="bg-dashboard-bg rounded-[var(--cc-radius-md)] p-4 border border-dashboard-border">
-            <p className="text-sm text-[var(--cc-ink)] mb-3">Are you sure you want to regenerate the Project ID? This cannot be undone.</p>
+          <div className="bg-[var(--cc-canvas-soft-2)] rounded-[var(--cc-radius-md)] p-4 border border-[var(--cc-hairline)] mt-3">
+            <p className="cc-body-sm text-[var(--cc-ink)] mb-3">Are you sure you want to regenerate the Project ID?</p>
             <div className="flex gap-2">
-              <button
-                onClick={() => {
-                  setShowRegenConfirm(false);
-                  // In production: call API to regenerate
-                }}
-                aria-label="Confirm project ID regeneration"
-                className="px-4 py-2 bg-[var(--cc-error)] text-[var(--cc-on-primary)] rounded-[100px] text-sm hover:opacity-85 transition-colors min-h-[40px]"
-              >
+              <button onClick={() => setShowRegenConfirm(false)} aria-label="Confirm project ID regeneration" className="px-4 py-2 bg-[var(--cc-error)] text-[var(--cc-on-primary)] rounded-[var(--cc-radius-pill)] cc-body-sm hover:opacity-85 transition-colors min-h-[40px]">
                 Confirm Regenerate
               </button>
-              <button
-                onClick={() => setShowRegenConfirm(false)}
-                aria-label="Cancel project ID regeneration"
-                className="cc-btn-secondary-sm"
-              >
-                Cancel
-              </button>
+              <button onClick={() => setShowRegenConfirm(false)} aria-label="Cancel project ID regeneration" className="cc-btn-secondary-sm">Cancel</button>
             </div>
           </div>
         )}
-        <div className="flex items-center justify-between pt-2 border-t border-dashboard-danger/10">
+        <div className="flex items-center justify-between py-3">
           <div>
-            <p className="text-[var(--cc-ink)] font-medium">Delete Project</p>
-            <p className="text-sm text-dashboard-muted">Permanently delete this project and all associated data.</p>
+            <p className="cc-body-sm-strong text-[var(--cc-ink)]">Delete Project</p>
+            <p className="cc-body-sm text-[var(--cc-muted)]">Permanently delete this project and all associated data.</p>
           </div>
-          <button
-            onClick={() => setShowDeleteConfirm(true)}
-            aria-label="Delete project"
-            className="px-4 py-2 bg-[var(--cc-error)] text-[var(--cc-on-primary)] rounded-[100px] text-sm hover:opacity-85 transition-colors min-h-[40px]"
-          >
+          <button onClick={() => setShowDeleteConfirm(true)} aria-label="Delete project" className="px-4 py-2 bg-[var(--cc-error)] text-[var(--cc-on-primary)] rounded-[var(--cc-radius-pill)] cc-body-sm hover:opacity-85 transition-colors min-h-[40px]">
             Delete Project
           </button>
         </div>
         {showDeleteConfirm && (
-          <div className="bg-dashboard-bg rounded-[var(--cc-radius-md)] p-4 border border-dashboard-border">
-            <p className="text-sm text-[var(--cc-ink)] mb-3">Are you sure you want to delete this project? This action is permanent and cannot be undone.</p>
+          <div className="bg-[var(--cc-canvas-soft-2)] rounded-[var(--cc-radius-md)] p-4 border border-[var(--cc-hairline)] mt-3">
+            <p className="cc-body-sm text-[var(--cc-ink)] mb-3">Are you sure you want to delete this project? This action is permanent and cannot be undone.</p>
             <div className="flex gap-2">
-              <button
-                onClick={() => {
-                  setShowDeleteConfirm(false);
-                  // In production: call API to delete
-                }}
-                aria-label="Confirm project deletion"
-                className="px-4 py-2 bg-[var(--cc-error)] text-[var(--cc-on-primary)] rounded-[100px] text-sm hover:opacity-85 transition-colors min-h-[40px]"
-              >
+              <button onClick={() => setShowDeleteConfirm(false)} aria-label="Confirm project deletion" className="px-4 py-2 bg-[var(--cc-error)] text-[var(--cc-on-primary)] rounded-[var(--cc-radius-pill)] cc-body-sm hover:opacity-85 transition-colors min-h-[40px]">
                 Confirm Delete
               </button>
-              <button
-                onClick={() => setShowDeleteConfirm(false)}
-                aria-label="Cancel project deletion"
-                className="cc-btn-secondary-sm"
-              >
-                Cancel
-              </button>
+              <button onClick={() => setShowDeleteConfirm(false)} aria-label="Cancel project deletion" className="cc-btn-secondary-sm">Cancel</button>
             </div>
           </div>
         )}
@@ -336,11 +238,7 @@ createAppKit({
 
       {/* Save */}
       <div className="flex justify-end">
-        <button
-          onClick={handleSave}
-          aria-label={saved ? "Settings saved" : "Save all project settings"}
-          className="cc-btn-primary"
-        >
+        <button onClick={handleSave} aria-label={saved ? "Settings saved" : "Save all project settings"} className="cc-btn-primary">
           {saved ? "✓ Saved" : "Save All Settings"}
         </button>
       </div>
