@@ -109,7 +109,9 @@ export class CinacoinService implements OnDestroy {
     };
 
     // Register listeners on the underlying provider if available
-    const provider = this.connector.getProvider?.();
+    const provider = this.connector.getProvider?.() as
+      | { on?: (event: string, handler: (...args: unknown[]) => void) => void }
+      | undefined;
     if (provider && typeof provider.on === 'function') {
       provider.on('accountsChanged', this._onAccountsChangedHandler);
       provider.on('chainChanged', this._onChainChangedHandler);
