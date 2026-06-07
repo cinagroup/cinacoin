@@ -33,6 +33,7 @@
     "viem": "^2.21.0"
   },
   "devDependencies": {
+    "@types/react": "18.3.12",
     "next": "^14.0.0",
     "react": "^18.2.0",
     "tsup": "^8.0.0",
