@@ -64,11 +64,13 @@ export const cinaConnectConnect: Action<
   node: HTMLElement,
   params: CinacoinConnectParams = {},
 ) => {
-  const { enabled = true, ariaLabel, connectorId } = params;
+  const { enabled = true, ariaLabel } = params;
 
   function handleClick(_e: MouseEvent) {
     if (!enabled) return;
-    open(connectorId ? { connectorId } : undefined).catch((err: unknown) => {
+    // The core connect() params do not include a connector selector, so the
+    // wallet picker decides; open() is called without connect params.
+    open().catch((err: unknown) => {
       console.error('[Cinacoin] Connection failed:', err);
     });
   }

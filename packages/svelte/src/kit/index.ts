@@ -175,9 +175,9 @@ function createCinacoinServer(): CinacoinServer {
         const payload = decodeSessionToken(token);
         return {
           isAuthenticated: true,
-          address: payload.address ?? null,
-          chainId: payload.chainId ?? null,
-          expiresAt: payload.exp ?? null,
+          address: (payload.address as string | undefined) ?? null,
+          chainId: (payload.chainId as number | undefined) ?? null,
+          expiresAt: (payload.exp as number | undefined) ?? null,
           raw: payload,
         };
       } catch {
@@ -373,7 +373,11 @@ export function createCinacoinLoad(
 ): Load {
   return async (event) => {
     const server = getCinacoinServer();
-    const session = await server.getSession(event);
+    // A LoadEvent carries the same request context getSession reads; cast to
+    // the RequestEvent shape it expects.
+    const session = await server.getSession(
+      event as unknown as Parameters<typeof server.getSession>[0],
+    );
 
     const data: Record<string, unknown> = {
       cinaConnect: session,
@@ -394,9 +398,12 @@ export function createCinacoinLoad(
 
 // ─── Type augmentation for SvelteKit locals ──────────────────────────────────
 
-declare module '@sveltejs/kit' {
-  interface Locals {
-    /** Cinacoin session data (attached by handle middleware). */
-    cinaConnect?: CinacoinSession;
+declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace App {
+    interface Locals {
+      /** Cinacoin session data (attached by handle middleware). */
+      cinaConnect?: CinacoinSession;
+    }
   }
 }
