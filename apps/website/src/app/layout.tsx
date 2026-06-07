@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     title: 'Cinacoin — Onchain Access, Simplified',
     description: 'The onchain access layer for wallets, dApps, and chains. Connect, authenticate, and transact across 100+ blockchains.',
     images: [
-      { url: '/logo.png', width: 1200, height: 630, alt: 'Cinacoin — Onchain Access, Simplified' },
+      { url: '/og-image.png', width: 1200, height: 630, alt: 'Cinacoin — Onchain Access, Simplified' },
     ],
   },
   twitter: {
@@ -61,6 +61,45 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <link rel="dns-prefetch" href="https://github.com" />
         <link rel="preconnect" href="https://github.com" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@graph': [
+                {
+                  '@type': 'Organization',
+                  '@id': `${siteUrl}#organization`,
+                  name: 'Cinacoin',
+                  url: siteUrl,
+                  logo: `${siteUrl}/logo.svg`,
+                  sameAs: [
+                    'https://github.com/cinagroup',
+                    'https://twitter.com/cinacoin',
+                  ],
+                },
+                {
+                  '@type': 'WebSite',
+                  '@id': `${siteUrl}#website`,
+                  url: siteUrl,
+                  name: 'Cinacoin',
+                  description: 'The onchain access layer for wallets, dApps, and chains. Connect, authenticate, and transact across 100+ blockchains.',
+                  publisher: {
+                    '@id': `${siteUrl}#organization`,
+                  },
+                  potentialAction: {
+                    '@type': 'SearchAction',
+                    target: {
+                      '@type': 'EntryPoint',
+                      urlTemplate: `${siteUrl}/docs/search?q={search_term_string}`,
+                    },
+                    'query-input': 'required name=search_term_string',
+                  },
+                },
+              ],
+            }),
+          }}
+        />
       </head>
       <body className="antialiased bg-[var(--cc-canvas-soft)]">
         <Providers>{children}</Providers>

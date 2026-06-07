@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, lazy, Suspense } from 'react'
 import { Link } from 'react-router-dom'
-import WalletModal from '../components/WalletModal'
 import SiteHeader from '../components/SiteHeader'
 import SiteFooter from '../components/SiteFooter'
 import { useWallet, formatAddress } from '../contexts/WalletContext'
 import { useChainInfo } from '../hooks/useChainInfo'
+
+const WalletModal = lazy(() => import('../components/WalletModal'))
 
 interface Chain {
   name: string
@@ -56,13 +57,16 @@ const HomePage: React.FC = () => {
     <div className="min-h-screen flex flex-col bg-[var(--cc-canvas-soft)]">
       <SiteHeader />
 
-      <WalletModal
-        isOpen={walletModalOpen}
-        onClose={() => setWalletModalOpen(false)}
-      />
+      <Suspense fallback={null}>
+        <WalletModal
+          isOpen={walletModalOpen}
+          onClose={() => setWalletModalOpen(false)}
+        />
+      </Suspense>
 
+      <main id="main-content">
       {/* Hero */}
-      <section className="relative overflow-hidden py-24 sm:py-32">
+      <section className="relative overflow-hidden py-24 sm:py-32" aria-label="Hero">
         {/* Mesh gradient background */}
         <div className="absolute inset-0 cc-mesh-gradient" />
         
@@ -84,13 +88,16 @@ const HomePage: React.FC = () => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
             <button
               onClick={() => setWalletModalOpen(true)}
-              className="cc-btn-primary px-8 w-full sm:w-auto text-base font-semibold"
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setWalletModalOpen(true); } }}
+              className="cc-btn-primary px-8 w-full sm:w-auto text-base font-semibold focus-ring"
+              aria-label={isConnected ? 'Reconnect wallet' : 'Connect wallet'}
             >
               {isConnected ? 'Reconnect wallet' : 'Connect wallet'}
             </button>
             <Link
               to="/swap"
-              className="cc-btn-secondary px-8 w-full sm:w-auto text-base font-medium"
+              className="cc-btn-secondary px-8 w-full sm:w-auto text-base font-medium focus-ring"
+              aria-label="Try the swap demo"
             >
               Try swap demo →
             </Link>
@@ -100,7 +107,7 @@ const HomePage: React.FC = () => {
 
       {/* Connected State */}
       {isConnected && (
-        <section className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6 animate-slide-up">
+        <section className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6 animate-slide-up" aria-label="Connected wallet info">
           <div className="cc-card">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div className="flex flex-wrap items-center gap-4">
@@ -147,7 +154,9 @@ const HomePage: React.FC = () => {
                 </select>
                 <button
                   onClick={disconnect}
-                  className="cc-btn-secondary-sm text-sm !h-9 px-4"
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); disconnect(); } }}
+                  className="cc-btn-secondary-sm text-sm !h-9 px-4 focus-ring"
+                  aria-label="Disconnect wallet"
                 >
                   Disconnect
                 </button>
@@ -158,7 +167,7 @@ const HomePage: React.FC = () => {
       )}
 
       {/* Stats Bar */}
-      <section className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-12">
+      <section className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-12" aria-label="Statistics">
         <div className="cc-card">
           <div className="flex flex-wrap items-center justify-around gap-6 text-center">
             {[
@@ -178,7 +187,7 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Features Grid */}
-      <section className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-16">
+      <section className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-16" aria-label="Features">
         <div className="text-center mb-12">
           <h2 className="cc-display-lg mb-4">Everything you need</h2>
           <p className="cc-body-md text-[var(--cc-muted)] max-w-xl mx-auto">
@@ -187,21 +196,22 @@ const HomePage: React.FC = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {FEATURES.map((feature, i) => (
-            <div
+            <article
               key={feature.title}
               className="cc-card animate-fade-in-up"
               style={{ animationDelay: `${i * 0.08}s` }}
+              aria-label={feature.title}
             >
-              <div className="text-3xl mb-4">{feature.icon}</div>
+              <div className="text-3xl mb-4" aria-hidden="true">{feature.icon}</div>
               <h3 className="cc-display-sm mb-2">{feature.title}</h3>
               <p className="cc-body-sm text-[var(--cc-muted)] leading-relaxed">{feature.desc}</p>
-            </div>
+            </article>
           ))}
         </div>
       </section>
 
       {/* Chain Showcase */}
-      <section className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-16 mb-16">
+      <section className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-16 mb-16" aria-label="Supported chains">
         <div className="text-center mb-12">
           <h2 className="cc-display-lg mb-4">16 chains supported</h2>
           <p className="cc-body-md text-[var(--cc-muted)] max-w-xl mx-auto">
@@ -212,12 +222,16 @@ const HomePage: React.FC = () => {
           {CHAINS.map((chain, i) => (
             <div
               key={chain.name}
-              className="cc-card !p-4 text-center cursor-pointer animate-fade-in-up group"
+              className="cc-card !p-4 text-center cursor-pointer animate-fade-in-up group focus-ring"
               style={{ animationDelay: `${i * 0.04}s` }}
+              tabIndex={0}
+              role="listitem"
+              aria-label={`${chain.name} blockchain`}
             >
               <div
                 className="w-12 h-12 rounded-md mx-auto mb-3 flex items-center justify-center text-2xl transition-transform group-hover:scale-110"
                 style={{ backgroundColor: chain.color + '15' }}
+                aria-hidden="true"
               >
                 {chain.emoji}
               </div>
@@ -226,6 +240,8 @@ const HomePage: React.FC = () => {
           ))}
         </div>
       </section>
+
+      </main>
 
       <SiteFooter />
     </div>

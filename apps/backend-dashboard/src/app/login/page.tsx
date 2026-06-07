@@ -29,7 +29,7 @@ export default function LoginPage() {
     try {
       await doLogin();
       // AuthProvider sets address on success; redirect handled by isLoggedIn check
-    } catch {
+    } catch (err) {
       setStep("idle");
     }
   };
@@ -94,15 +94,8 @@ export default function LoginPage() {
           <button
             onClick={handleLogin}
             aria-label={isLoading || step === "connecting" ? "Wallet connection in progress" : "Connect Ethereum wallet and sign in"}
-            disabled={isLoading}
-            className={`
-              w-full py-3 px-4 rounded-[100px] font-semibold text-sm transition-all duration-200
-              ${
-                isLoading || step === "connecting"
-                  ? "bg-[var(--cc-primary)]/50 text-[var(--cc-on-primary)]/70 cursor-not-allowed"
-                  : "bg-[var(--cc-primary)] hover:opacity-85 text-[var(--cc-on-primary)] active:scale-[0.98]"
-              }
-            `}
+            disabled={isLoading || step === "connecting"}
+            className="cc-btn-primary w-full font-semibold text-sm transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed hover:opacity-85 active:scale-[0.98]"
           >
             {isLoading || step === "connecting" ? (
               <span className="flex items-center justify-center gap-2">

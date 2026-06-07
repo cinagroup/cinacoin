@@ -69,14 +69,14 @@ export default function ProjectPage() {
             <button
               onClick={() => setShowProjectId(!showProjectId)}
               aria-label={showProjectId ? "Hide Project ID" : "Show Project ID"}
-              className="px-3 py-2 bg-dashboard-border rounded-[100px] text-sm text-dashboard-muted hover:text-[var(--cc-ink)] transition-colors"
+              className="cc-btn-secondary-sm"
             >
               {showProjectId ? "🙈 Hide" : "👁️ Show"}
             </button>
             <button
               onClick={handleCopyProjectId}
               aria-label={copied ? "Copied" : "Copy Project ID"}
-              className="px-3 py-2 bg-dashboard-border rounded-[100px] text-sm text-dashboard-muted hover:text-[var(--cc-ink)] transition-colors"
+              className="cc-btn-secondary-sm"
             >
               {copied ? "✓ Copied" : "📋 Copy"}
             </button>
@@ -95,7 +95,7 @@ export default function ProjectPage() {
             onChange={(e) => setProjectName(e.target.value)}
             aria-label="Project name"
             aria-describedby="project-name-desc"
-            className="w-full bg-dashboard-bg border border-dashboard-border rounded-[var(--cc-radius-md)] px-3 py-2 text-sm text-[var(--cc-ink)] focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
+            className="cc-form-input"
           />
           <p id="project-name-desc" className="sr-only">Enter your project display name</p>
         </div>
@@ -108,7 +108,7 @@ export default function ProjectPage() {
             onChange={(e) => setProjectDescription(e.target.value)}
             rows={2}
             aria-label="Project description"
-            className="w-full bg-dashboard-bg border border-dashboard-border rounded-[var(--cc-radius-md)] px-3 py-2 text-sm text-[var(--cc-ink)] focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface resize-none"
+            className="cc-form-input resize-none"
           />
         </div>
 
@@ -120,7 +120,7 @@ export default function ProjectPage() {
             value={projectUrl}
             onChange={(e) => setProjectUrl(e.target.value)}
             aria-label="Project URL"
-            className="w-full bg-dashboard-bg border border-dashboard-border rounded-[var(--cc-radius-md)] px-3 py-2 text-sm text-[var(--cc-ink)] focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
+            className="cc-form-input"
           />
         </div>
 
@@ -132,7 +132,7 @@ export default function ProjectPage() {
             value={iconUrl}
             onChange={(e) => setIconUrl(e.target.value)}
             aria-label="Project icon URL"
-            className="w-full bg-dashboard-bg border border-dashboard-border rounded-[var(--cc-radius-md)] px-3 py-2 text-sm text-[var(--cc-ink)] focus:outline-none focus:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
+            className="cc-form-input"
           />
         </div>
       </div>
@@ -266,7 +266,7 @@ createAppKit({
           <button
             onClick={() => setShowRegenConfirm(true)}
             aria-label="Regenerate project ID"
-            className="px-4 py-2 border border-dashboard-danger/30 text-dashboard-danger rounded-[100px] text-sm hover:bg-dashboard-danger/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dashboard-danger focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
+            className="px-4 py-2 border border-[var(--cc-error)]/30 text-[var(--cc-error)] rounded-[100px] text-sm hover:bg-[var(--cc-error)]/10 transition-colors min-h-[40px]"
           >
             Regenerate
           </button>
@@ -281,14 +281,14 @@ createAppKit({
                   // In production: call API to regenerate
                 }}
                 aria-label="Confirm project ID regeneration"
-                className="px-4 py-2 bg-dashboard-danger text-[var(--cc-ink)] rounded-[100px] text-sm hover:bg-red-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dashboard-danger focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
+                className="px-4 py-2 bg-[var(--cc-error)] text-[var(--cc-on-primary)] rounded-[100px] text-sm hover:opacity-85 transition-colors min-h-[40px]"
               >
                 Confirm Regenerate
               </button>
               <button
                 onClick={() => setShowRegenConfirm(false)}
                 aria-label="Cancel project ID regeneration"
-                className="px-4 py-2 border border-dashboard-border rounded-[100px] text-dashboard-muted text-sm hover:text-[var(--cc-ink)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
+                className="cc-btn-secondary-sm"
               >
                 Cancel
               </button>
@@ -303,7 +303,7 @@ createAppKit({
           <button
             onClick={() => setShowDeleteConfirm(true)}
             aria-label="Delete project"
-            className="px-4 py-2 bg-dashboard-danger text-[var(--cc-ink)] rounded-[100px] text-sm hover:bg-red-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dashboard-danger focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
+            className="px-4 py-2 bg-[var(--cc-error)] text-[var(--cc-on-primary)] rounded-[100px] text-sm hover:opacity-85 transition-colors min-h-[40px]"
           >
             Delete Project
           </button>
@@ -318,14 +318,14 @@ createAppKit({
                   // In production: call API to delete
                 }}
                 aria-label="Confirm project deletion"
-                className="px-4 py-2 bg-dashboard-danger text-[var(--cc-ink)] rounded-[100px] text-sm hover:bg-red-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dashboard-danger focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
+                className="px-4 py-2 bg-[var(--cc-error)] text-[var(--cc-on-primary)] rounded-[100px] text-sm hover:opacity-85 transition-colors min-h-[40px]"
               >
                 Confirm Delete
               </button>
               <button
                 onClick={() => setShowDeleteConfirm(false)}
                 aria-label="Cancel project deletion"
-                className="px-4 py-2 border border-dashboard-border rounded-[100px] text-sm text-dashboard-muted hover:text-[var(--cc-ink)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
+                className="cc-btn-secondary-sm"
               >
                 Cancel
               </button>
@@ -339,7 +339,7 @@ createAppKit({
         <button
           onClick={handleSave}
           aria-label={saved ? "Settings saved" : "Save all project settings"}
-          className="px-6 py-2.5 bg-brand-500 hover:bg-brand-400 text-[var(--cc-ink)] rounded-[100px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
+          className="cc-btn-primary"
         >
           {saved ? "✓ Saved" : "Save All Settings"}
         </button>

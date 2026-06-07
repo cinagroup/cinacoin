@@ -17,7 +17,7 @@ export interface BrandProps {
  * with an optional muted sub-label. Used in every app's header/footer.
  */
 export function Brand({
-  logoSrc = '/logo.png',
+  logoSrc = '/logo.svg',
   href = 'https://cinacoin.com',
   sublabel,
   size = 28,
@@ -31,7 +31,7 @@ export function Brand({
         alt="Cinacoin logo"
         width={size}
         height={size}
-        style={{ height: size, width: size, borderRadius: 8, flexShrink: 0 }}
+        style={{ height: size, width: size, flexShrink: 0 }}
       />
       <span
         style={{

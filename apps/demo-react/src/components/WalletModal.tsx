@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, useRef } from 'react'
 import { useWallet, formatAddress } from '../contexts/WalletContext'
 
 interface WalletOption {
@@ -29,6 +29,7 @@ interface WalletModalProps {
 
 const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  const { connected, address, walletId, connectMetaMask, connectWalletConnect, disconnect, error: ctxError, clearError } = useWallet()
+ const modalRef = useRef<HTMLDivElement>(null)
 
  const [modalState, setModalState] = useState<ModalState>(isOpen ? 'open' : 'closed')
  const [selectedWallet, setSelectedWallet] = useState<WalletOption | null>(null)
@@ -37,6 +38,33 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  // Detect installed wallets
  const isMetaMaskInstalled = typeof window !== 'undefined' && !!(window as any).ethereum?.isMetaMask
  const isCoinbaseInstalled = typeof window !== 'undefined' && !!(window as any).ethereum?.isCoinbaseWallet
+
+ // Keyboard handler: Escape to close
+ useEffect(() => {
+ if (!isOpen) return
+ const handleKeyDown = (e: KeyboardEvent) => {
+ if (e.key === 'Escape') {
+ if (modalState === 'open' || modalState === 'no-wallet') {
+ setModalState('closed')
+ setSelectedWallet(null)
+ clearError()
+ onClose()
+ }
+ }
+ }
+ document.addEventListener('keydown', handleKeyDown)
+ return () => document.removeEventListener('keydown', handleKeyDown)
+ }, [isOpen, modalState, onClose, clearError])
+
+ // Focus trap: focus first interactive element on open
+ useEffect(() => {
+ if (isOpen && modalRef.current) {
+ const focusable = modalRef.current.querySelector<HTMLElement>(
+ 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+ )
+ focusable?.focus()
+ }
+ }, [isOpen])
 
  useEffect(() => {
  if (isOpen) {
@@ -131,7 +159,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  const allWallets = WALLETS.filter(w => !w.popular)
 
  return (
- <div className="fixed inset-0 z-50 flex items-center justify-center" role="dialog" aria-modal="true">
+ <div className="fixed inset-0 z-50 flex items-center justify-center" role="dialog" aria-modal="true" aria-label="Connect wallet dialog">
  {/* Backdrop */}
  <div
  className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-fade-in"
@@ -139,7 +167,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  />
 
  {/* Modal */}
- <div className="relative z-10 w-full max-w-md mx-4 animate-bounce-in">
+ <div ref={modalRef} className="relative z-10 w-full max-w-md mx-4 animate-bounce-in">
  <div className="cc-card rounded-lg overflow-hidden shadow-[0_1px_1px_rgba(0,0,0,0.2),0_2px_2px_rgba(0,0,0,0.3),inset_0_0_0_1px_rgba(255,255,255,0.08)]">
  {/* Header */}
  <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--cc-hairline)]">
@@ -147,7 +175,8 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  {(modalState === 'connecting' || modalState === 'success' || modalState === 'error' || modalState === 'no-wallet') && (
  <button
  onClick={modalState === 'success' ? handleClose : handleBack}
- className="p-1 rounded-lg hover:bg-[var(--cc-canvas-soft)] transition-colors"
+ onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); modalState === 'success' ? handleClose() : handleBack(); } }}
+ className="p-1 rounded-lg hover:bg-[var(--cc-canvas-soft)] transition-colors focus-ring"
  aria-label="Go back"
  >
  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -164,7 +193,8 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  </div>
  <button
  onClick={handleClose}
- className="p-2 rounded-lg hover:bg-[var(--cc-canvas-soft)] transition-colors"
+ onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleClose(); } }}
+ className="p-2 rounded-lg hover:bg-[var(--cc-canvas-soft)] transition-colors focus-ring"
  aria-label="Close dialog"
  >
  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -181,7 +211,8 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  <div className="flex px-6 pt-4 gap-2">
  <button
  onClick={() => setActiveTab('popular')}
- className={`px-4 py-2 rounded-[100px] text-sm font-medium transition-all ${
+ onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActiveTab('popular'); } }}
+ className={`px-4 py-2 rounded-[100px] text-sm font-medium transition-all focus-ring ${
  activeTab === 'popular'
  ? 'bg-[var(--cc-link)]/20 text-[var(--cc-link)]'
  : 'text-[var(--cc-muted)] hover:text-[var(--cc-ink)]'
@@ -191,7 +222,8 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  </button>
  <button
  onClick={() => setActiveTab('all')}
- className={`px-4 py-2 rounded-[100px] text-sm font-medium transition-all ${
+ onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActiveTab('all'); } }}
+ className={`px-4 py-2 rounded-[100px] text-sm font-medium transition-all focus-ring ${
  activeTab === 'all'
  ? 'bg-[var(--cc-link)]/20 text-[var(--cc-link)]'
  : 'text-[var(--cc-muted)] hover:text-[var(--cc-ink)]'
@@ -211,22 +243,25 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  <button
  key={wallet.id}
  onClick={() => handleSelectWallet(wallet)}
- className="w-full flex items-center gap-4 px-4 py-3 rounded-md hover:bg-[var(--cc-canvas-soft)]/50 transition-all group"
+ onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleSelectWallet(wallet); } }}
+ className="w-full flex items-center gap-4 px-4 py-3 rounded-md hover:bg-[var(--cc-canvas-soft)]/50 transition-all group focus-ring"
  style={{ animationDelay: `${i * 0.05}s` }}
+ aria-label={`Connect with ${wallet.name}`}
  >
  <div
  className="w-10 h-10 rounded-md flex items-center justify-center text-xl"
  style={{ backgroundColor: wallet.color + '20' }}
+ aria-hidden="true"
  >
  {wallet.emoji}
  </div>
  <span className="flex-1 text-left font-medium">{wallet.name}</span>
  {detected && (
- <span className="text-xs px-2 py-1 rounded-full bg-[var(--cc-success)]/20 text-[var(--cc-success)]">
+ <span className="text-xs px-2 py-1 rounded-full bg-[var(--cc-success)]/20 text-[var(--cc-success)]" role="status">
  Detected
  </span>
  )}
- <svg className="w-5 h-5 text-[var(--cc-muted)] group-hover:text-[var(--cc-muted)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+ <svg className="w-5 h-5 text-[var(--cc-muted)] group-hover:text-[var(--cc-muted)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
  </svg>
  </button>
@@ -241,17 +276,20 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  <button
  key={wallet.id}
  onClick={() => handleSelectWallet(wallet)}
- className="w-full flex items-center gap-4 px-4 py-3 rounded-md hover:bg-[var(--cc-canvas-soft)]/50 transition-all group"
+ onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleSelectWallet(wallet); } }}
+ className="w-full flex items-center gap-4 px-4 py-3 rounded-md hover:bg-[var(--cc-canvas-soft)]/50 transition-all group focus-ring"
  style={{ animationDelay: `${i * 0.05}s` }}
+ aria-label={`Connect with ${wallet.name}`}
  >
  <div
  className="w-10 h-10 rounded-md flex items-center justify-center text-xl"
  style={{ backgroundColor: wallet.color + '20' }}
+ aria-hidden="true"
  >
  {wallet.emoji}
  </div>
  <span className="flex-1 text-left font-medium">{wallet.name}</span>
- <svg className="w-5 h-5 text-[var(--cc-muted)] group-hover:text-[var(--cc-muted)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+ <svg className="w-5 h-5 text-[var(--cc-muted)] group-hover:text-[var(--cc-muted)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
  </svg>
  </button>
@@ -303,11 +341,12 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  <span>{displayAddress}</span>
  <button
  onClick={() => navigator.clipboard.writeText(address)}
- className="p-1 rounded hover:bg-[var(--cc-canvas-soft)] transition-colors"
+ onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); navigator.clipboard.writeText(address); } }}
+ className="p-1 rounded hover:bg-[var(--cc-canvas-soft)] transition-colors focus-ring"
  aria-label="Copy address to clipboard"
  title="Copy address"
  >
- <svg className="w-4 h-4 text-[var(--cc-muted)] hover:text-[var(--cc-body)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+ <svg className="w-4 h-4 text-[var(--cc-muted)] hover:text-[var(--cc-body)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
  </svg>
  </button>
@@ -315,7 +354,9 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  )}
  <button
  onClick={handleDisconnect}
- className="mt-4 px-4 py-2 rounded-lg bg-[var(--cc-canvas-soft)]/50 text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft)] transition-colors text-sm"
+ onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleDisconnect(); } }}
+ className="mt-4 px-4 py-2 rounded-lg bg-[var(--cc-canvas-soft)]/50 text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft)] transition-colors text-sm focus-ring"
+ aria-label="Disconnect wallet"
  >
  Disconnect
  </button>
@@ -336,7 +377,8 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  </p>
  <button
  onClick={handleRetry}
- className="btn-primary px-6 py-3 rounded-[100px] text-sm font-medium"
+ onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleRetry(); } }}
+ className="btn-primary px-6 py-3 rounded-[100px] text-sm font-medium focus-ring"
  >
  Try Again
  </button>
@@ -412,7 +454,8 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  )}
  <button
  onClick={handleBack}
- className="px-6 py-3 rounded-[100px] text-sm font-medium text-[var(--cc-muted)] hover:text-[var(--cc-ink)] transition-colors"
+ onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleBack(); } }}
+ className="px-6 py-3 rounded-[100px] text-sm font-medium text-[var(--cc-muted)] hover:text-[var(--cc-ink)] transition-colors focus-ring"
  >
  ← Back to wallets
  </button>

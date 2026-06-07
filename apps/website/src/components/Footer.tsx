@@ -43,7 +43,7 @@ export default function Footer() {
           {/* Brand */}
           <FadeIn direction="up" duration={600}>
             <div className="col-span-2 md:col-span-1">
-              <Brand href="/" logoSrc="/logo.png" />
+              <Brand href="/" logoSrc="/logo.svg" />
               <p className="mt-4 cc-body-sm text-[var(--cc-muted)]">{t('footer-brand')}</p>
             </div>
           </FadeIn>

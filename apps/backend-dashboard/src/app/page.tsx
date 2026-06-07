@@ -7,6 +7,9 @@ import { useWorkerHealth } from "@/hooks/useWorkerHealth";
 import ServiceCard from "@/components/ServiceCard";
 import MetricBox from "@/components/MetricBox";
 import BarChart from "@/components/BarChart";
+import EmptyState from "@/components/EmptyState";
+import ErrorState from "@/components/ErrorState";
+import LoadingState from "@/components/LoadingState";
 
 // Simulated 7-day request history for overview
 const HISTORY_DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -18,6 +21,17 @@ export default function OverviewPage() {
   // Demo mode when all services are unreachable
   const demoMode = Object.keys(health).length === 0 ||
     SERVICES.every((s) => health[s.id]?.status === "down");
+
+  // No services available
+  if (SERVICES.length === 0) {
+    return (
+      <EmptyState
+        title="No services configured"
+        description="Add services in the configuration to start monitoring."
+        icon="📭"
+      />
+    );
+  }
 
   // Compute aggregate stats
   const totalRequests = SERVICES.reduce((sum, s) => {
@@ -59,14 +73,14 @@ export default function OverviewPage() {
             onClick={manualRefresh}
             disabled={checking}
             aria-label={checking ? "Refreshing health check" : "Refresh health check"}
-            className="px-3 py-2 text-sm bg-dashboard-surface border border-dashboard-border rounded-[100px] text-dashboard-muted hover:text-[var(--cc-ink)] hover:border-brand-500 transition-colors disabled:opacity-50 min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
+            className="cc-btn-secondary-sm disabled:opacity-50"
           >
             {checking ? "↻ Checking..." : "↻ Refresh"}
           </button>
           <Link
             href="/settings"
             aria-label="Go to settings"
-            className="px-4 py-2 text-sm bg-dashboard-surface border border-dashboard-border rounded-[100px] text-dashboard-muted hover:text-[var(--cc-ink)] hover:border-brand-500 transition-colors min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
+            className="cc-btn-secondary-sm"
           >
             ⚙️ Settings
           </Link>

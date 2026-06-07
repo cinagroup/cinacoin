@@ -77,7 +77,7 @@ export default function ChainsPage() {
         <button
           onClick={handleSave}
           aria-label={saved ? "Changes saved" : "Save chain configuration changes"}
-          className="px-4 py-2 bg-brand-500 hover:bg-brand-400 text-[var(--cc-ink)] rounded-[100px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-dashboard-surface"
+          className="cc-btn-primary"
         >
           {saved ? "✓ Saved" : "Save Changes"}
         </button>
@@ -211,29 +211,29 @@ export default function ChainsPage() {
             type="text"
             placeholder="Network name (e.g. zkSync Era)"
             aria-label="Network name"
-            className="bg-dashboard-bg border border-dashboard-border rounded-[var(--cc-radius-sm)] px-3 py-2 text-sm text-[var(--cc-ink)] placeholder-dashboard-muted/50 focus:outline-none focus:border-brand-500"
+            className="cc-form-input"
           />
           <input
             type="text"
             placeholder="Chain ID (e.g. 324)"
             aria-label="Chain ID"
-            className="bg-dashboard-bg border border-dashboard-border rounded-[var(--cc-radius-sm)] px-3 py-2 text-sm text-[var(--cc-ink)] placeholder-dashboard-muted/50 focus:outline-none focus:border-brand-500"
+            className="cc-form-input"
           />
           <input
             type="text"
             placeholder="RPC URL"
             aria-label="RPC URL"
-            className="bg-dashboard-bg border border-dashboard-border rounded-[var(--cc-radius-sm)] px-3 py-2 text-sm text-[var(--cc-ink)] placeholder-dashboard-muted/50 focus:outline-none focus:border-brand-500"
+            className="cc-form-input"
           />
           <input
             type="text"
             placeholder="Native currency symbol (e.g. ETH)"
             aria-label="Native currency symbol"
-            className="bg-dashboard-bg border border-dashboard-border rounded-[var(--cc-radius-sm)] px-3 py-2 text-sm text-[var(--cc-ink)] placeholder-dashboard-muted/50 focus:outline-none focus:border-brand-500"
+            className="cc-form-input"
           />
         </div>
         <div className="mt-4 flex justify-end">
-          <button className="px-4 py-2 bg-brand-500 hover:bg-brand-400 text-[var(--cc-ink)] rounded-[100px] text-sm font-medium transition-colors">
+          <button className="cc-btn-primary-sm">
             + Add Network
           </button>
         </div>
