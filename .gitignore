@@ -52,3 +52,7 @@ apps/*/out/
 **/src/**/*.js.map
 **/src/**/*.d.ts.map
 !workers/router/src/**/*.js
+
+# Docusaurus
+apps/docs-site/.docusaurus/
+apps/docs-site/build/
