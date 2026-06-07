@@ -1,23 +1,24 @@
 'use client';
 
 import React from 'react';
-import { useCinaCoinContext } from '@cinacoin/react';
+import { useCinacoinContext } from '@cinacoin/react';
 
 /** Truncate an Ethereum address for display. */
 function truncateAddress(addr: string): string {
   return `${addr.slice(0, 6)}...${addr.slice(-4)}`;
 }
 
+const STATUS_COLORS: Record<string, string> = {
+  disconnected: '#f87171',
+  connecting: '#facc15',
+  connected: '#34d399',
+  error: '#f87171',
+};
+
 /** DemoHeader — App header with Cinacoin branding and connection status. */
 export function DemoHeader(): JSX.Element {
-  const { account, status } = useCinaCoinContext();
-
-  const statusColors: Record<string, string> = {
-    disconnected: '#f87171',
-    connecting: '#facc15',
-    connected: '#34d399',
-    error: '#f87171',
-  };
+  const { account, status } = useCinacoinContext();
+  const dotColor = STATUS_COLORS[status] ?? '#64748b';
 
   return (
     <header
@@ -25,57 +26,62 @@ export function DemoHeader(): JSX.Element {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: '12px 24px',
-        background: 'linear-gradient(90deg, #1a1a2e 0%, #16213e 100%)',
-        borderBottom: '1px solid rgba(255,255,255,0.08)',
+        padding: 'var(--cc-space-sm) var(--cc-space-lg)',
+        background: 'var(--cc-canvas-soft)',
+        borderBottom: '1px solid var(--cc-hairline)',
         position: 'sticky',
         top: 0,
         zIndex: 100,
+        minHeight: 'var(--cc-touch-target)',
+        gap: 'var(--cc-space-sm)',
+        flexWrap: 'wrap',
       }}
+      role="banner"
     >
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-        <span style={{ fontSize: '24px', fontWeight: 700, letterSpacing: '-0.5px' }}>
-          <span style={{ color: '#6366f1' }}>Cinacoin</span>
-          <span style={{ color: '#94a3b8', fontWeight: 400 }}> Demo</span>
-        </span>
-        <span
+      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--cc-space-xs)', flexWrap: 'wrap' }}>
+        <h1
           style={{
-            background: 'rgba(99,102,241,0.15)',
-            color: '#818cf8',
-            fontSize: '11px',
-            fontWeight: 600,
-            padding: '2px 8px',
-            borderRadius: '99px',
-            letterSpacing: '0.5px',
-            textTransform: 'uppercase',
+            fontSize: 'var(--cc-text-lg)',
+            fontWeight: 'var(--cc-weight-semibold)',
+            letterSpacing: 'var(--cc-tracking-tight)',
+            margin: 0,
+            display: 'flex',
+            alignItems: 'baseline',
+            gap: '4px',
           }}
         >
+          <span style={{ color: 'var(--cc-accent)' }}>Cinacoin</span>
+          <span style={{ color: 'var(--cc-body)', fontWeight: 'var(--cc-weight-normal)' }}>Demo</span>
+        </h1>
+        <span className="cc-badge cc-badge--accent" aria-label="SDK version 0.2">
           SDK v0.2
         </span>
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+      <nav style={{ display: 'flex', alignItems: 'center', gap: 'var(--cc-space-md)', flexWrap: 'wrap' }} aria-label="Connection status">
         {status === 'connected' && account.address && (
           <div
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '8px',
-              background: 'rgba(255,255,255,0.05)',
-              padding: '6px 14px',
-              borderRadius: '8px',
-              fontSize: '13px',
-              fontFamily: 'monospace',
+              gap: 'var(--cc-space-xs)',
+              background: 'var(--cc-surface)',
+              padding: '6px var(--cc-space-sm)',
+              borderRadius: 'var(--cc-radius-md)',
+              fontSize: 'var(--cc-text-xs)',
+              fontFamily: 'var(--cc-font-mono)',
             }}
           >
-            <div
+            <span
               style={{
                 width: '8px',
                 height: '8px',
                 borderRadius: '50%',
-                background: statusColors[status] ?? '#94a3b8',
-                boxShadow: `0 0 6px ${statusColors[status] ?? '#94a3b8'}`,
+                background: dotColor,
+                boxShadow: `0 0 6px ${dotColor}`,
+                display: 'inline-block',
               }}
+              aria-hidden="true"
             />
             {truncateAddress(account.address)}
           </div>
@@ -86,22 +92,27 @@ export function DemoHeader(): JSX.Element {
             display: 'flex',
             alignItems: 'center',
             gap: '6px',
-            fontSize: '12px',
-            fontWeight: 500,
+            fontSize: 'var(--cc-text-xs)',
+            fontWeight: 'var(--cc-weight-medium)',
           }}
+          role="status"
+          aria-live="polite"
+          aria-label={`Connection status: ${status}`}
         >
-          <div
+          <span
             style={{
               width: '8px',
               height: '8px',
               borderRadius: '50%',
-              background: statusColors[status] ?? '#94a3b8',
-              boxShadow: `0 0 6px ${statusColors[status] ?? '#94a3b8'}`,
+              background: dotColor,
+              boxShadow: `0 0 6px ${dotColor}`,
+              display: 'inline-block',
             }}
+            aria-hidden="true"
           />
-          <span style={{ color: '#94a3b8', textTransform: 'capitalize' }}>{status}</span>
+          <span style={{ color: 'var(--cc-body)', textTransform: 'capitalize' }}>{status}</span>
         </div>
-      </div>
+      </nav>
     </header>
   );
 }

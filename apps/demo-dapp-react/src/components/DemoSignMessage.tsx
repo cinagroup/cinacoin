@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useSignMessage, useCinaCoinContext } from '@cinacoin/react';
+import { useSignMessage, useCinacoinContext } from '@cinacoin/react';
 
 /** DemoSignMessage — sign arbitrary messages with the connected wallet. */
 export function DemoSignMessage(): JSX.Element {
-  const { account, status } = useCinaCoinContext();
+  const { account, status } = useCinacoinContext();
   const { signMessage, isPending, error, signature } = useSignMessage();
 
   const [message, setMessage] = useState('Welcome to Cinacoin!');
@@ -27,7 +27,11 @@ export function DemoSignMessage(): JSX.Element {
 
   const handleCopy = async () => {
     if (sigResult) {
-      await navigator.clipboard.writeText(sigResult);
+      try {
+        await navigator.clipboard.writeText(sigResult);
+      } catch {
+        // Clipboard access may fail in some contexts
+      }
     }
   };
 
@@ -35,71 +39,77 @@ export function DemoSignMessage(): JSX.Element {
 
   if (status !== 'connected') {
     return (
-      <section style={sectionStyle}>
-        <h3 style={titleStyle}>
-          <span style={iconStyle}>✍️</span> Sign Message
+      <section className="cc-card cc-fade-in" aria-labelledby="sign-heading">
+        <h3 id="sign-heading" className="cc-section-title">
+          <span style={{ fontSize: '20px' }} aria-hidden="true">✍️</span> Sign Message
         </h3>
-        <p style={descStyle}>Connect a wallet to sign messages.</p>
+        <p className="cc-section-desc">Connect a wallet to sign messages.</p>
       </section>
     );
   }
 
   return (
-    <section style={sectionStyle}>
-      <h3 style={titleStyle}>
-        <span style={iconStyle}>✍️</span> Sign Message
+    <section className="cc-card cc-fade-in" aria-labelledby="sign-heading">
+      <h3 id="sign-heading" className="cc-section-title">
+        <span style={{ fontSize: '20px' }} aria-hidden="true">✍️</span> Sign Message
       </h3>
-      <p style={descStyle}>
+      <p className="cc-section-desc">
         Sign arbitrary messages with your wallet using personal_sign.
       </p>
 
       {/* Message input */}
-      <div style={{ marginBottom: '16px' }}>
-        <label style={labelStyle}>Message to Sign</label>
+      <div style={{ marginBottom: 'var(--cc-space-md)' }}>
+        <label className="cc-label" htmlFor="sign-message-input">Message to Sign</label>
         <textarea
+          id="sign-message-input"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          style={textareaStyle}
+          className="cc-input cc-textarea"
           rows={3}
           placeholder="Enter message to sign..."
+          aria-required="true"
         />
       </div>
 
       {/* Sign button */}
       <button
-        style={{
-          ...btnStyle,
-          background: isPending ? '#4f46e5' : '#6366f1',
-          opacity: isPending ? 0.7 : 1,
-        }}
+        className="cc-btn cc-btn--primary"
+        style={{ width: '100%' }}
         onClick={handleSign}
         disabled={isPending || !message.trim()}
+        aria-label="Sign the message with your wallet"
       >
-        {isPending ? '⏳ Signing...' : 'Sign Message'}
+        {isPending ? (
+          <span style={{ display: 'flex', alignItems: 'center', gap: 'var(--cc-space-xs)' }}>
+            <span className="cc-spinner" /> Signing...
+          </span>
+        ) : (
+          'Sign Message'
+        )}
       </button>
 
       {/* Error display */}
       {(error || sigError) && (
-        <div style={errorStyle}>
+        <div className="cc-error" role="alert">
           {sigError ?? error?.message}
         </div>
       )}
 
       {/* Signature result */}
       {sigResult && (
-        <div style={{ marginTop: '16px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
-            <label style={labelStyle}>Signature</label>
-            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+        <div style={{ marginTop: 'var(--cc-space-md)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--cc-space-xs)', flexWrap: 'wrap', gap: 'var(--cc-space-xs)' }}>
+            <span className="cc-label" style={{ marginBottom: 0 }} id="signature-label">Signature</span>
+            <div style={{ display: 'flex', gap: 'var(--cc-space-xs)', alignItems: 'center' }}>
               {isValidSignature && (
-                <span style={{ fontSize: '11px', color: '#34d399' }}>✓ Valid format</span>
+                <span style={{ fontSize: 'var(--cc-text-xs)', color: 'var(--cc-success)' }}>✓ Valid format</span>
               )}
-              <button style={smallBtnStyle} onClick={handleCopy}>
+              <button className="cc-btn cc-btn--ghost" onClick={handleCopy} aria-label="Copy signature to clipboard">
                 Copy
               </button>
             </div>
           </div>
-          <div style={sigDisplayStyle}>
+          <div style={{ background: 'var(--cc-surface)', border: '1px solid var(--cc-hairline)', borderRadius: 'var(--cc-radius-md)', padding: 'var(--cc-space-sm)', fontFamily: 'var(--cc-font-mono)', fontSize: 'var(--cc-text-xs)', wordBreak: 'break-all', lineHeight: 1.6, color: 'var(--cc-success)' }} aria-labelledby="signature-label">
             {sigResult.slice(0, 66)}
             <br />
             ...
@@ -110,98 +120,9 @@ export function DemoSignMessage(): JSX.Element {
       )}
 
       {/* Info */}
-      <div style={{ marginTop: '16px', fontSize: '12px', color: '#64748b' }}>
-        Uses <code style={{ background: 'rgba(255,255,255,0.08)', padding: '2px 6px', borderRadius: '4px' }}>personal_sign</code> — the wallet will prompt for user confirmation.
-      </div>
+      <p style={{ marginTop: 'var(--cc-space-md)', fontSize: 'var(--cc-text-xs)', color: 'var(--cc-muted)' }}>
+        Uses <code className="cc-code">personal_sign</code> — the wallet will prompt for user confirmation.
+      </p>
     </section>
   );
 }
-
-const sectionStyle: React.CSSProperties = {
-  background: 'rgba(255,255,255,0.03)',
-  border: '1px solid rgba(255,255,255,0.08)',
-  borderRadius: '12px',
-  padding: '24px',
-};
-
-const titleStyle: React.CSSProperties = {
-  fontSize: '18px',
-  fontWeight: 600,
-  margin: '0 0 8px 0',
-  display: 'flex',
-  alignItems: 'center',
-  gap: '8px',
-};
-
-const iconStyle: React.CSSProperties = { fontSize: '20px' };
-
-const descStyle: React.CSSProperties = {
-  fontSize: '14px',
-  color: '#94a3b8',
-  margin: '0 0 20px 0',
-};
-
-const labelStyle: React.CSSProperties = {
-  fontSize: '12px',
-  fontWeight: 600,
-  color: '#818cf8',
-  textTransform: 'uppercase',
-  letterSpacing: '0.5px',
-  display: 'block',
-  marginBottom: '8px',
-};
-
-const textareaStyle: React.CSSProperties = {
-  width: '100%',
-  background: 'rgba(255,255,255,0.05)',
-  border: '1px solid rgba(255,255,255,0.1)',
-  borderRadius: '8px',
-  padding: '12px',
-  color: '#e0e0e0',
-  fontSize: '14px',
-  fontFamily: 'inherit',
-  resize: 'vertical',
-  boxSizing: 'border-box',
-};
-
-const btnStyle: React.CSSProperties = {
-  color: '#fff',
-  border: 'none',
-  borderRadius: '8px',
-  padding: '10px 24px',
-  fontSize: '14px',
-  fontWeight: 600,
-  cursor: 'pointer',
-};
-
-const smallBtnStyle: React.CSSProperties = {
-  background: 'rgba(255,255,255,0.08)',
-  color: '#94a3b8',
-  border: 'none',
-  borderRadius: '6px',
-  padding: '4px 10px',
-  fontSize: '11px',
-  cursor: 'pointer',
-};
-
-const errorStyle: React.CSSProperties = {
-  marginTop: '12px',
-  padding: '10px 14px',
-  background: 'rgba(239,68,68,0.1)',
-  border: '1px solid rgba(239,68,68,0.3)',
-  borderRadius: '8px',
-  color: '#f87171',
-  fontSize: '13px',
-};
-
-const sigDisplayStyle: React.CSSProperties = {
-  background: 'rgba(255,255,255,0.03)',
-  border: '1px solid rgba(255,255,255,0.08)',
-  borderRadius: '8px',
-  padding: '14px',
-  fontFamily: 'monospace',
-  fontSize: '12px',
-  wordBreak: 'break-all',
-  lineHeight: 1.6,
-  color: '#34d399',
-};

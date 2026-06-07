@@ -1,54 +1,59 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ConnectButton, ConnectModal, useConnect, useDisconnect, useCinaCoinContext } from '@cinacoin/react';
+import { ConnectButton, ConnectModal, useConnect, useDisconnect, useCinacoinContext } from '@cinacoin/react';
+
+type ConnectorId = 'metamask' | 'walletconnect' | 'coinbase';
 
 /** DemoConnectSection — showcase connection UI patterns. */
 export function DemoConnectSection(): JSX.Element {
-  const { status, account } = useCinaCoinContext();
+  const { status, account } = useCinacoinContext();
   const { connect } = useConnect();
   const { disconnect } = useDisconnect();
   const [modalOpen, setModalOpen] = useState(false);
-  const [selectedConnector, setSelectedConnector] = useState<string | null>(null);
+  const [selectedConnector, setSelectedConnector] = useState<ConnectorId | null>(null);
 
-  const handleQuickConnect = (connectorId: string) => {
+  const handleQuickConnect = (connectorId: ConnectorId) => {
     setSelectedConnector(connectorId);
-    connect(connectorId).catch(() => {});
+    connect(connectorId).catch(() => {
+      // Connection rejected or failed — status will update via context
+    });
   };
 
   return (
-    <section style={sectionStyle}>
-      <h3 style={titleStyle}>
-        <span style={iconStyle}>🔗</span> Connect
+    <section className="cc-card cc-fade-in" aria-labelledby="connect-heading">
+      <h3 id="connect-heading" className="cc-section-title">
+        <span style={{ fontSize: '20px' }} aria-hidden="true">🔗</span> Connect
       </h3>
-      <p style={descStyle}>
+      <p className="cc-section-desc">
         Connect your wallet using any of the supported methods below.
       </p>
 
       {/* Web Component: ConnectButton (primary variant) */}
-      <div style={{ marginBottom: '16px' }}>
-        <label style={labelStyle}>ConnectButton Web Component</label>
-        <div style={{ marginTop: '8px' }}>
+      <div style={{ marginBottom: 'var(--cc-space-md)' }}>
+        <label className="cc-label" id="connect-btn-primary-label">ConnectButton Web Component</label>
+        <div style={{ marginTop: 'var(--cc-space-xs)' }}>
           <ConnectButton label="Connect Wallet" variant="primary" size="md" showAvatar showNetwork />
         </div>
       </div>
 
       {/* Web Component: ConnectButton (secondary variant) */}
-      <div style={{ marginBottom: '16px' }}>
-        <label style={labelStyle}>ConnectButton (Secondary)</label>
-        <div style={{ marginTop: '8px' }}>
+      <div style={{ marginBottom: 'var(--cc-space-md)' }}>
+        <label className="cc-label" id="connect-btn-secondary-label">ConnectButton (Secondary)</label>
+        <div style={{ marginTop: 'var(--cc-space-xs)' }}>
           <ConnectButton label="Connect" variant="secondary" size="sm" />
         </div>
       </div>
 
       {/* ConnectModal trigger */}
-      <div style={{ marginBottom: '16px' }}>
-        <label style={labelStyle}>ConnectModal</label>
-        <div style={{ marginTop: '8px' }}>
+      <div style={{ marginBottom: 'var(--cc-space-md)' }}>
+        <label className="cc-label" id="connect-modal-label">ConnectModal</label>
+        <div style={{ marginTop: 'var(--cc-space-xs)' }}>
           <button
-            style={btnStyle}
+            className="cc-btn cc-btn--primary"
             onClick={() => setModalOpen(true)}
             disabled={status === 'connected'}
+            aria-labelledby="connect-modal-label"
           >
             Open Connect Modal
           </button>
@@ -57,23 +62,24 @@ export function DemoConnectSection(): JSX.Element {
       </div>
 
       {/* Programmatic connect via useConnect hook */}
-      <div style={{ marginBottom: '16px' }}>
-        <label style={labelStyle}>Programmatic Connect (useConnect)</label>
-        <div style={{ display: 'flex', gap: '8px', marginTop: '8px', flexWrap: 'wrap' }}>
-          <button style={btnOutlineStyle} onClick={() => handleQuickConnect('metamask')}>
-            MetaMask
-          </button>
-          <button style={btnOutlineStyle} onClick={() => handleQuickConnect('walletconnect')}>
-            WalletConnect
-          </button>
-          <button style={btnOutlineStyle} onClick={() => handleQuickConnect('coinbase')}>
-            Coinbase
-          </button>
+      <div style={{ marginBottom: 'var(--cc-space-md)' }}>
+        <label className="cc-label" id="connect-programmatic-label">Programmatic Connect (useConnect)</label>
+        <div style={{ display: 'flex', gap: 'var(--cc-space-xs)', marginTop: 'var(--cc-space-xs)', flexWrap: 'wrap' }} role="group" aria-labelledby="connect-programmatic-label">
+          {(['metamask', 'walletconnect', 'coinbase'] as ConnectorId[]).map((id) => (
+            <button
+              key={id}
+              className="cc-btn cc-btn--outline"
+              onClick={() => handleQuickConnect(id)}
+              aria-label={`Connect with ${id.charAt(0).toUpperCase() + id.slice(1)}`}
+            >
+              {id === 'metamask' ? 'MetaMask' : id === 'walletconnect' ? 'WalletConnect' : 'Coinbase'}
+            </button>
+          ))}
         </div>
         {selectedConnector && (
-          <span style={{ fontSize: '12px', color: '#94a3b8', marginTop: '4px', display: 'block' }}>
+          <p style={{ fontSize: 'var(--cc-text-xs)', color: 'var(--cc-body)', marginTop: 'var(--cc-space-xxs)' }} aria-live="polite">
             Attempting: {selectedConnector}
-          </span>
+          </p>
         )}
       </div>
 
@@ -81,8 +87,10 @@ export function DemoConnectSection(): JSX.Element {
       {status === 'connected' && (
         <div>
           <button
-            style={{ ...btnStyle, background: '#dc2626' }}
+            className="cc-btn"
+            style={{ background: '#dc2626', color: '#fff' }}
             onClick={() => disconnect().catch(() => {})}
+            aria-label="Disconnect wallet"
           >
             Disconnect
           </button>
@@ -90,65 +98,26 @@ export function DemoConnectSection(): JSX.Element {
       )}
 
       {/* Connection status */}
-      <div style={{ marginTop: '16px', padding: '12px', background: 'rgba(255,255,255,0.03)', borderRadius: '8px', fontSize: '13px' }}>
-        <strong>Status:</strong> {status}<br />
-        {account.address && <><strong>Address:</strong> {account.address}<br /></>}
-        {account.chainId && <><strong>Chain ID:</strong> {account.chainId}</>}
+      <div style={{ marginTop: 'var(--cc-space-md)', padding: 'var(--cc-space-sm)', background: 'var(--cc-surface)', borderRadius: 'var(--cc-radius-md)', fontSize: 'var(--cc-text-sm)' }} aria-label="Connection details">
+        <strong>Status:</strong> {status}
+        {account.address && (
+          <>
+            <br />
+            <strong>Address:</strong> <code style={monoStyle}>{account.address}</code>
+          </>
+        )}
+        {account.chainId && (
+          <>
+            <br />
+            <strong>Chain ID:</strong> {account.chainId}
+          </>
+        )}
       </div>
     </section>
   );
 }
 
-const sectionStyle: React.CSSProperties = {
-  background: 'rgba(255,255,255,0.03)',
-  border: '1px solid rgba(255,255,255,0.08)',
-  borderRadius: '12px',
-  padding: '24px',
-};
-
-const titleStyle: React.CSSProperties = {
-  fontSize: '18px',
-  fontWeight: 600,
-  margin: '0 0 8px 0',
-  display: 'flex',
-  alignItems: 'center',
-  gap: '8px',
-};
-
-const iconStyle: React.CSSProperties = { fontSize: '20px' };
-
-const descStyle: React.CSSProperties = {
-  fontSize: '14px',
-  color: '#94a3b8',
-  margin: '0 0 20px 0',
-};
-
-const labelStyle: React.CSSProperties = {
-  fontSize: '12px',
-  fontWeight: 600,
-  color: '#818cf8',
-  textTransform: 'uppercase',
-  letterSpacing: '0.5px',
-};
-
-const btnStyle: React.CSSProperties = {
-  background: '#6366f1',
-  color: '#fff',
-  border: 'none',
-  borderRadius: '8px',
-  padding: '10px 20px',
-  fontSize: '14px',
-  fontWeight: 600,
-  cursor: 'pointer',
-};
-
-const btnOutlineStyle: React.CSSProperties = {
-  background: 'transparent',
-  color: '#e0e0e0',
-  border: '1px solid rgba(255,255,255,0.15)',
-  borderRadius: '8px',
-  padding: '8px 16px',
-  fontSize: '13px',
-  fontWeight: 500,
-  cursor: 'pointer',
+const monoStyle: React.CSSProperties = {
+  fontFamily: 'var(--cc-font-mono)',
+  fontSize: 'var(--cc-text-xs)',
 };

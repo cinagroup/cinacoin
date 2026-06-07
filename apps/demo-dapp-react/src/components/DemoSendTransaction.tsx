@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useState, useCallback } from 'react';
-import { useSendTransaction, useBalance, useCinaCoinContext } from '@cinacoin/react';
+import { useSendTransaction, useBalance, useCinacoinContext } from '@cinacoin/react';
 
 /** DemoSendTransaction — ETH transfer form with gas estimation and tracking. */
 export function DemoSendTransaction(): JSX.Element {
-  const { account, status, config } = useCinaCoinContext();
+  const { account, status, config } = useCinacoinContext();
   const { balance } = useBalance();
   const { sendTransaction, isPending, error, txHash } = useSendTransaction();
 
@@ -24,9 +24,7 @@ export function DemoSendTransaction(): JSX.Element {
   const estimateGas = useCallback(async () => {
     if (!recipient || !amount) return;
     try {
-      // Rough estimate: ~21000 gas for simple transfer
       const gasUnits = 21000;
-      // Assume ~30 gwei for estimation
       const gweiPrice = 30;
       const feeEther = (gasUnits * gweiPrice) / 1e9;
       setEstimatedGas(`${gasUnits.toLocaleString()} gas`);
@@ -42,7 +40,6 @@ export function DemoSendTransaction(): JSX.Element {
     setSending(true);
 
     try {
-      // Convert ETH amount to wei hex
       const wei = BigInt(Math.floor(parseFloat(amount) * 1e18)).toString(16);
       const hash = await sendTransaction({
         to: recipient,
@@ -62,100 +59,124 @@ export function DemoSendTransaction(): JSX.Element {
     }
   };
 
+  const isFormValid = recipient.trim() !== '' && amount.trim() !== '';
+
   if (status !== 'connected') {
     return (
-      <section style={sectionStyle}>
-        <h3 style={titleStyle}>
-          <span style={iconStyle}>📤</span> Send Transaction
+      <section className="cc-card cc-fade-in" aria-labelledby="send-heading">
+        <h3 id="send-heading" className="cc-section-title">
+          <span style={{ fontSize: '20px' }} aria-hidden="true">📤</span> Send Transaction
         </h3>
-        <p style={descStyle}>Connect a wallet to send transactions.</p>
+        <p className="cc-section-desc">Connect a wallet to send transactions.</p>
       </section>
     );
   }
 
   return (
-    <section style={sectionStyle}>
-      <h3 style={titleStyle}>
-        <span style={iconStyle}>📤</span> Send Transaction
+    <section className="cc-card cc-fade-in" aria-labelledby="send-heading">
+      <h3 id="send-heading" className="cc-section-title">
+        <span style={{ fontSize: '20px' }} aria-hidden="true">📤</span> Send Transaction
       </h3>
-      <p style={descStyle}>
+      <p className="cc-section-desc">
         Send {symbol} to another address with gas estimation and status tracking.
       </p>
 
       {/* Recipient */}
-      <div style={{ marginBottom: '16px' }}>
-        <label style={labelStyle}>Recipient Address</label>
+      <div style={{ marginBottom: 'var(--cc-space-md)' }}>
+        <label className="cc-label" htmlFor="recipient-input">Recipient Address</label>
         <input
+          id="recipient-input"
           type="text"
           value={recipient}
           onChange={(e) => setRecipient(e.target.value)}
           placeholder="0x..."
-          style={inputStyle}
+          className="cc-input"
+          aria-required="true"
         />
       </div>
 
       {/* Amount */}
-      <div style={{ marginBottom: '16px' }}>
-        <label style={labelStyle}>
+      <div style={{ marginBottom: 'var(--cc-space-md)' }}>
+        <label className="cc-label" htmlFor="amount-input">
           Amount ({symbol})
         </label>
-        <div style={{ display: 'flex', gap: '8px' }}>
+        <div style={{ display: 'flex', gap: 'var(--cc-space-xs)' }}>
           <input
+            id="amount-input"
             type="text"
+            inputMode="decimal"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             placeholder="0.0"
-            style={{ ...inputStyle, flex: 1 }}
+            className="cc-input"
+            style={{ flex: 1 }}
+            aria-required="true"
           />
-          <button style={maxBtnStyle} onClick={setMax} title="Set max">
+          <button
+            className="cc-btn cc-btn--ghost"
+            style={{ minWidth: 'var(--cc-touch-target)' }}
+            onClick={setMax}
+            title="Set maximum balance"
+            aria-label="Set maximum balance"
+          >
             MAX
           </button>
         </div>
         {balance && (
-          <div style={{ fontSize: '12px', color: '#64748b', marginTop: '4px' }}>
+          <p style={{ fontSize: 'var(--cc-text-xs)', color: 'var(--cc-muted)', marginTop: 'var(--cc-space-xxs)' }}>
             Available: {balance} {symbol}
-          </div>
+          </p>
         )}
       </div>
 
       {/* Gas estimation */}
-      <div style={{ marginBottom: '16px' }}>
-        <button style={estimateBtnStyle} onClick={estimateGas} disabled={!recipient || !amount}>
+      <div style={{ marginBottom: 'var(--cc-space-md)' }}>
+        <button
+          className="cc-btn cc-btn--ghost"
+          onClick={estimateGas}
+          disabled={!isFormValid}
+          aria-label="Estimate gas fees"
+        >
           Estimate Gas
         </button>
         {estimatedGas && (
-          <div style={{ marginTop: '8px', fontSize: '13px', color: '#94a3b8' }}>
+          <p style={{ marginTop: 'var(--cc-space-xs)', fontSize: 'var(--cc-text-sm)', color: 'var(--cc-body)' }} aria-live="polite">
             Gas: {estimatedGas} {gasFee && ` · Fee: ${gasFee}`}
-          </div>
+          </p>
         )}
       </div>
 
       {/* Send button */}
       <button
-        style={{
-          ...sendBtnStyle,
-          opacity: isPending || sending ? 0.7 : 1,
-        }}
+        className="cc-btn cc-btn--primary"
+        style={{ width: '100%' }}
         onClick={handleSend}
-        disabled={isPending || sending || !recipient || !amount}
+        disabled={isPending || sending || !isFormValid}
+        aria-label={`Send ${amount} ${symbol} to ${recipient}`}
       >
-        {sending ? '⏳ Sending...' : `Send ${symbol}`}
+        {sending ? (
+          <span style={{ display: 'flex', alignItems: 'center', gap: 'var(--cc-space-xs)' }}>
+            <span className="cc-spinner" /> Sending...
+          </span>
+        ) : (
+          `Send ${symbol}`
+        )}
       </button>
 
       {/* Error */}
       {(error || sendError) && (
-        <div style={errorStyle}>
+        <div className="cc-error" role="alert">
           {sendError ?? error?.message}
         </div>
       )}
 
       {/* Transaction status */}
       {txHash && (
-        <div style={{ marginTop: '16px', padding: '14px', background: 'rgba(52,211,153,0.08)', border: '1px solid rgba(52,211,153,0.2)', borderRadius: '8px' }}>
-          <div style={{ fontSize: '13px', color: '#34d399', marginBottom: '6px' }}>
+        <div style={{ marginTop: 'var(--cc-space-md)', padding: 'var(--cc-space-sm)', background: 'var(--cc-success-soft)', border: '1px solid var(--cc-success-border)', borderRadius: 'var(--cc-radius-md)' }}>
+          <div style={{ fontSize: 'var(--cc-text-sm)', color: 'var(--cc-success)', marginBottom: 'var(--cc-space-xs)' }}>
             {txStatus}
           </div>
-          <div style={{ fontSize: '11px', fontFamily: 'monospace', wordBreak: 'break-all', color: '#94a3b8' }}>
+          <div style={{ fontSize: 'var(--cc-text-xs)', fontFamily: 'var(--cc-font-mono)', wordBreak: 'break-all', color: 'var(--cc-body)' }}>
             {txHash}
           </div>
           {explorerUrl && (
@@ -163,9 +184,9 @@ export function DemoSendTransaction(): JSX.Element {
               href={`${explorerUrl}/tx/${txHash}`}
               target="_blank"
               rel="noopener noreferrer"
-              style={{ display: 'inline-block', marginTop: '8px', fontSize: '13px', color: '#818cf8', textDecoration: 'none' }}
+              style={{ display: 'inline-flex', marginTop: 'var(--cc-space-xs)', fontSize: 'var(--cc-text-sm)', color: 'var(--cc-accent-soft)', textDecoration: 'none' }}
             >
-              View on Explorer →
+              View on Explorer <span aria-hidden="true">→</span>
             </a>
           )}
         </div>
@@ -173,92 +194,3 @@ export function DemoSendTransaction(): JSX.Element {
     </section>
   );
 }
-
-const sectionStyle: React.CSSProperties = {
-  background: 'rgba(255,255,255,0.03)',
-  border: '1px solid rgba(255,255,255,0.08)',
-  borderRadius: '12px',
-  padding: '24px',
-};
-
-const titleStyle: React.CSSProperties = {
-  fontSize: '18px',
-  fontWeight: 600,
-  margin: '0 0 8px 0',
-  display: 'flex',
-  alignItems: 'center',
-  gap: '8px',
-};
-
-const iconStyle: React.CSSProperties = { fontSize: '20px' };
-
-const descStyle: React.CSSProperties = {
-  fontSize: '14px',
-  color: '#94a3b8',
-  margin: '0 0 20px 0',
-};
-
-const labelStyle: React.CSSProperties = {
-  fontSize: '12px',
-  fontWeight: 600,
-  color: '#818cf8',
-  textTransform: 'uppercase',
-  letterSpacing: '0.5px',
-  display: 'block',
-  marginBottom: '8px',
-};
-
-const inputStyle: React.CSSProperties = {
-  width: '100%',
-  background: 'rgba(255,255,255,0.05)',
-  border: '1px solid rgba(255,255,255,0.1)',
-  borderRadius: '8px',
-  padding: '10px 14px',
-  color: '#e0e0e0',
-  fontSize: '14px',
-  fontFamily: 'monospace',
-  boxSizing: 'border-box',
-};
-
-const maxBtnStyle: React.CSSProperties = {
-  background: 'rgba(99,102,241,0.15)',
-  color: '#818cf8',
-  border: '1px solid rgba(99,102,241,0.3)',
-  borderRadius: '8px',
-  padding: '8px 14px',
-  fontSize: '12px',
-  fontWeight: 700,
-  cursor: 'pointer',
-};
-
-const estimateBtnStyle: React.CSSProperties = {
-  background: 'rgba(255,255,255,0.06)',
-  color: '#94a3b8',
-  border: '1px solid rgba(255,255,255,0.1)',
-  borderRadius: '8px',
-  padding: '8px 16px',
-  fontSize: '13px',
-  cursor: 'pointer',
-};
-
-const sendBtnStyle: React.CSSProperties = {
-  width: '100%',
-  background: 'linear-gradient(90deg, #6366f1, #8b5cf6)',
-  color: '#fff',
-  border: 'none',
-  borderRadius: '10px',
-  padding: '14px',
-  fontSize: '15px',
-  fontWeight: 700,
-  cursor: 'pointer',
-};
-
-const errorStyle: React.CSSProperties = {
-  marginTop: '12px',
-  padding: '10px 14px',
-  background: 'rgba(239,68,68,0.1)',
-  border: '1px solid rgba(239,68,68,0.3)',
-  borderRadius: '8px',
-  color: '#f87171',
-  fontSize: '13px',
-};

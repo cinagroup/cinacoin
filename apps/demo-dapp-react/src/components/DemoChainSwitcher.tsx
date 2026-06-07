@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { ChainSwitcher, useSwitchChain, useCinaCoinContext } from '@cinacoin/react';
+import { ChainSwitcher, useSwitchChain, useCinacoinContext } from '@cinacoin/react';
 
 interface ChainInfo {
   id: number;
@@ -19,23 +19,12 @@ const CHAIN_DETAILS: Record<number, ChainInfo> = {
 
 /** DemoChainSwitcher — showcase chain switching and info display. */
 export function DemoChainSwitcher(): JSX.Element {
-  const { account, config, status } = useCinaCoinContext();
+  const { account, config, status } = useCinacoinContext();
   const { switchChain, isSwitching, error } = useSwitchChain();
 
   const chains = config.chains ?? [];
   const currentChainId = account.chainId;
-  const currentInfo = currentChainId ? CHAIN_DETAILS[currentChainId] : null;
-
-  if (status !== 'connected') {
-    return (
-      <section style={sectionStyle}>
-        <h3 style={titleStyle}>
-          <span style={iconStyle}>⛓️</span> Chain Switcher
-        </h3>
-        <p style={descStyle}>Connect a wallet to switch between chains.</p>
-      </section>
-    );
-  }
+  const currentInfo = currentChainId != null ? CHAIN_DETAILS[currentChainId] : null;
 
   const handleSwitch = async (chainId: number) => {
     try {
@@ -45,151 +34,117 @@ export function DemoChainSwitcher(): JSX.Element {
     }
   };
 
+  if (status !== 'connected') {
+    return (
+      <section className="cc-card cc-fade-in" aria-labelledby="chain-heading">
+        <h3 id="chain-heading" className="cc-section-title">
+          <span style={{ fontSize: '20px' }} aria-hidden="true">⛓️</span> Chain Switcher
+        </h3>
+        <p className="cc-section-desc">Connect a wallet to switch between chains.</p>
+      </section>
+    );
+  }
+
   return (
-    <section style={sectionStyle}>
-      <h3 style={titleStyle}>
-        <span style={iconStyle}>⛓️</span> Chain Switcher
+    <section className="cc-card cc-fade-in" aria-labelledby="chain-heading">
+      <h3 id="chain-heading" className="cc-section-title">
+        <span style={{ fontSize: '20px' }} aria-hidden="true">⛓️</span> Chain Switcher
       </h3>
-      <p style={descStyle}>
+      <p className="cc-section-desc">
         Switch between supported networks and view current chain details.
       </p>
 
       {/* ChainSwitcher Web Component */}
-      <div style={{ marginBottom: '20px' }}>
-        <label style={labelStyle}>ChainSwitcher Component</label>
-        <div style={{ marginTop: '8px' }}>
+      <div style={{ marginBottom: 'var(--cc-space-lg)' }}>
+        <label className="cc-label" id="chain-component-label">ChainSwitcher Component</label>
+        <div style={{ marginTop: 'var(--cc-space-xs)' }}>
           <ChainSwitcher />
         </div>
       </div>
 
       {/* Current chain info */}
       {currentInfo && (
-        <div style={infoCardStyle}>
+        <div style={{ background: 'var(--cc-surface)', borderRadius: 'var(--cc-radius-md)', padding: 'var(--cc-space-md)', marginTop: 'var(--cc-space-sm)' }} aria-label="Current chain information">
           <div style={infoRowStyle}>
-            <span style={infoLabelStyle}>Current Chain</span>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <div
+            <span style={{ color: 'var(--cc-body)' }}>Current Chain</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--cc-space-xs)' }}>
+              <span
                 style={{
                   width: '10px',
                   height: '10px',
                   borderRadius: '50%',
                   background: currentInfo.color,
                   boxShadow: `0 0 8px ${currentInfo.color}`,
+                  display: 'inline-block',
                 }}
+                aria-hidden="true"
               />
-              <span style={{ fontWeight: 600 }}>{currentInfo.name}</span>
+              <span style={{ fontWeight: 'var(--cc-weight-semibold)', color: 'var(--cc-ink)' }}>{currentInfo.name}</span>
             </div>
           </div>
           <div style={infoRowStyle}>
-            <span style={infoLabelStyle}>Chain ID</span>
+            <span style={{ color: 'var(--cc-body)' }}>Chain ID</span>
             <span style={monoStyle}>{currentChainId}</span>
           </div>
           <div style={infoRowStyle}>
-            <span style={infoLabelStyle}>Native Currency</span>
-            <span>{currentInfo.symbol}</span>
+            <span style={{ color: 'var(--cc-body)' }}>Native Currency</span>
+            <span style={{ color: 'var(--cc-ink-soft)' }}>{currentInfo.symbol}</span>
           </div>
-          <div style={infoRowStyle}>
-            <span style={infoLabelStyle}>Hex ID</span>
-            <span style={monoStyle}>0x{currentChainId.toString(16)}</span>
+          <div style={{ ...infoRowStyle, borderBottom: 'none' }}>
+            <span style={{ color: 'var(--cc-body)' }}>Hex ID</span>
+            <span style={monoStyle}>0x{(currentChainId ?? 0).toString(16)}</span>
           </div>
         </div>
       )}
 
       {/* Quick switch buttons */}
-      <div style={{ marginTop: '16px' }}>
-        <label style={labelStyle}>Quick Switch</label>
-        <div style={{ display: 'flex', gap: '8px', marginTop: '8px', flexWrap: 'wrap' }}>
-          {chains.map((chain) => (
-            <button
-              key={chain.id}
-              style={{
-                ...btnStyle,
-                background: chain.id === currentChainId ? '#6366f1' : 'rgba(255,255,255,0.06)',
-                opacity: chain.id === currentChainId ? 1 : isSwitching ? 0.6 : 1,
-              }}
-              onClick={() => handleSwitch(chain.id)}
-              disabled={isSwitching || chain.id === currentChainId}
-            >
-              {chain.name}
-            </button>
-          ))}
+      <div style={{ marginTop: 'var(--cc-space-md)' }}>
+        <label className="cc-label" id="chain-switch-label">Quick Switch</label>
+        <div style={{ display: 'flex', gap: 'var(--cc-space-xs)', marginTop: 'var(--cc-space-xs)', flexWrap: 'wrap' }} role="group" aria-labelledby="chain-switch-label">
+          {chains.map((chain) => {
+            const isCurrent = chain.id === currentChainId;
+            return (
+              <button
+                key={chain.id}
+                className={`cc-btn ${isCurrent ? 'cc-btn--primary' : 'cc-btn--ghost'}`}
+                style={{ minWidth: 'var(--cc-touch-target)' }}
+                onClick={() => handleSwitch(chain.id)}
+                disabled={isSwitching || isCurrent}
+                aria-label={`Switch to ${chain.name}${isCurrent ? ' (current)' : ''}`}
+                aria-current={isCurrent ? 'true' : undefined}
+              >
+                {chain.name}
+              </button>
+            );
+          })}
         </div>
       </div>
 
       {error && (
-        <div style={{ marginTop: '12px', padding: '10px 14px', background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', borderRadius: '8px', color: '#f87171', fontSize: '13px' }}>
+        <div className="cc-error" role="alert" style={{ marginTop: 'var(--cc-space-sm)' }}>
           Switch error: {error.message}
         </div>
       )}
       {isSwitching && (
-        <div style={{ marginTop: '8px', fontSize: '13px', color: '#facc15' }}>
+        <p style={{ marginTop: 'var(--cc-space-xs)', fontSize: 'var(--cc-text-sm)', color: 'var(--cc-warning)' }} aria-live="polite">
           Switching chain...
-        </div>
+        </p>
       )}
     </section>
   );
 }
 
-const sectionStyle: React.CSSProperties = {
-  background: 'rgba(255,255,255,0.03)',
-  border: '1px solid rgba(255,255,255,0.08)',
-  borderRadius: '12px',
-  padding: '24px',
-};
-
-const titleStyle: React.CSSProperties = {
-  fontSize: '18px',
-  fontWeight: 600,
-  margin: '0 0 8px 0',
-  display: 'flex',
-  alignItems: 'center',
-  gap: '8px',
-};
-
-const iconStyle: React.CSSProperties = { fontSize: '20px' };
-
-const descStyle: React.CSSProperties = {
-  fontSize: '14px',
-  color: '#94a3b8',
-  margin: '0 0 20px 0',
-};
-
-const labelStyle: React.CSSProperties = {
-  fontSize: '12px',
-  fontWeight: 600,
-  color: '#818cf8',
-  textTransform: 'uppercase',
-  letterSpacing: '0.5px',
-};
-
-const infoCardStyle: React.CSSProperties = {
-  background: 'rgba(255,255,255,0.03)',
-  borderRadius: '8px',
-  padding: '16px',
-  marginTop: '12px',
-};
-
 const infoRowStyle: React.CSSProperties = {
   display: 'flex',
   justifyContent: 'space-between',
+  alignItems: 'center',
   padding: '6px 0',
-  fontSize: '14px',
-  borderBottom: '1px solid rgba(255,255,255,0.04)',
+  fontSize: 'var(--cc-text-sm)',
+  borderBottom: '1px solid var(--cc-hairline)',
 };
-
-const infoLabelStyle: React.CSSProperties = { color: '#94a3b8' };
 
 const monoStyle: React.CSSProperties = {
-  fontFamily: 'monospace',
-  fontSize: '13px',
-};
-
-const btnStyle: React.CSSProperties = {
-  border: '1px solid rgba(255,255,255,0.1)',
-  borderRadius: '8px',
-  padding: '8px 16px',
-  fontSize: '13px',
-  fontWeight: 500,
-  color: '#e0e0e0',
-  cursor: 'pointer',
+  fontFamily: 'var(--cc-font-mono)',
+  fontSize: 'var(--cc-text-sm)',
+  color: 'var(--cc-ink-soft)',
 };

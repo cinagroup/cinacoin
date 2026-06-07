@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useSendCalls, useCallsStatus, useCinaCoinContext } from '@cinacoin/react';
+import { useSendCalls, useCallsStatus, useCinacoinContext } from '@cinacoin/react';
 
 type BatchStep = {
   label: string;
@@ -12,7 +12,7 @@ type BatchStep = {
 
 /** DemoBatchTransactions — multi-step batch transaction demo via EIP-5792. */
 export function DemoBatchTransactions(): JSX.Element {
-  const { status, account } = useCinaCoinContext();
+  const { status, account } = useCinacoinContext();
   const { sendCalls, isSending, error, lastCallId } = useSendCalls();
   const {
     status: batchStatus,
@@ -22,36 +22,35 @@ export function DemoBatchTransactions(): JSX.Element {
     allSucceeded,
   } = useCallsStatus({ intervalMs: 2000 });
 
-  const [batchSteps, setBatchSteps] = useState<BatchStep[]>([
+  const defaultTarget = account.address ?? '0x0000000000000000000000000000000000000000';
+
+  const [batchSteps] = useState<BatchStep[]>([
     {
       label: 'Step 1: Approval',
-      to: account.address ?? '0x0000000000000000000000000000000000000000',
+      to: defaultTarget,
       data: '0x',
       description: 'Mock token approval call',
     },
     {
       label: 'Step 2: Transfer',
-      to: account.address ?? '0x0000000000000000000000000000000000000000',
+      to: defaultTarget,
       data: '0x',
       description: 'Mock token transfer call',
     },
     {
       label: 'Step 3: Swap',
-      to: account.address ?? '0x0000000000000000000000000000000000000000',
+      to: defaultTarget,
       data: '0x',
       description: 'Mock DEX swap call',
     },
   ]);
 
-  const [executed, setExecuted] = useState(false);
-
   const handleExecuteBatch = async () => {
-    setExecuted(false);
     try {
       const calls = batchSteps.map((step) => ({
         to: step.to as `0x${string}`,
         data: step.data as `0x${string}`,
-        value: '0x0',
+        value: `0x0` as `0x${string}`,
       }));
 
       const batchId = await sendCalls(calls);
@@ -63,37 +62,38 @@ export function DemoBatchTransactions(): JSX.Element {
 
   if (status !== 'connected') {
     return (
-      <section style={sectionStyle}>
-        <h3 style={titleStyle}>
-          <span style={iconStyle}>📦</span> Batch Transactions
+      <section className="cc-card cc-fade-in" aria-labelledby="batch-heading">
+        <h3 id="batch-heading" className="cc-section-title">
+          <span style={{ fontSize: '20px' }} aria-hidden="true">📦</span> Batch Transactions
         </h3>
-        <p style={descStyle}>Connect a wallet to execute batch transactions.</p>
+        <p className="cc-section-desc">Connect a wallet to execute batch transactions.</p>
       </section>
     );
   }
 
   return (
-    <section style={sectionStyle}>
-      <h3 style={titleStyle}>
-        <span style={iconStyle}>📦</span> Batch Transactions
+    <section className="cc-card cc-fade-in" aria-labelledby="batch-heading">
+      <h3 id="batch-heading" className="cc-section-title">
+        <span style={{ fontSize: '20px' }} aria-hidden="true">📦</span> Batch Transactions
       </h3>
-      <p style={descStyle}>
-        Execute multiple calls atomically via EIP-5792 <code style={codeStyle}>wallet_sendCalls</code>.
+      <p className="cc-section-desc">
+        Execute multiple calls atomically via EIP-5792 <code className="cc-code">wallet_sendCalls</code>.
       </p>
 
       {/* Batch steps display */}
-      <div style={{ marginBottom: '20px' }}>
+      <div style={{ marginBottom: 'var(--cc-space-lg)' }} role="list" aria-label="Batch transaction steps">
         {batchSteps.map((step, i) => (
           <div
             key={i}
+            role="listitem"
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '12px',
-              padding: '12px',
-              background: 'rgba(255,255,255,0.03)',
-              borderRadius: '8px',
-              marginBottom: '8px',
+              gap: 'var(--cc-space-sm)',
+              padding: 'var(--cc-space-sm)',
+              background: 'var(--cc-surface)',
+              borderRadius: 'var(--cc-radius-md)',
+              marginBottom: 'var(--cc-space-xs)',
             }}
           >
             <div
@@ -101,26 +101,28 @@ export function DemoBatchTransactions(): JSX.Element {
                 width: '28px',
                 height: '28px',
                 borderRadius: '50%',
-                background: '#6366f1',
+                background: 'var(--cc-accent)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: '13px',
-                fontWeight: 700,
+                fontSize: 'var(--cc-text-xs)',
+                fontWeight: 'var(--cc-weight-semibold)',
                 flexShrink: 0,
+                color: '#fff',
               }}
+              aria-hidden="true"
             >
               {i + 1}
             </div>
-            <div style={{ flex: 1 }}>
-              <div style={{ fontWeight: 600, fontSize: '14px' }}>{step.label}</div>
-              <div style={{ fontSize: '12px', color: '#94a3b8' }}>{step.description}</div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontWeight: 'var(--cc-weight-semibold)', fontSize: 'var(--cc-text-sm)', color: 'var(--cc-ink)' }}>{step.label}</div>
+              <div style={{ fontSize: 'var(--cc-text-xs)', color: 'var(--cc-body)' }}>{step.description}</div>
             </div>
             {batchStatus === 'CONFIRMED' && allSucceeded && (
-              <span style={{ fontSize: '18px' }}>✅</span>
+              <span style={{ fontSize: '18px' }} aria-label="Step completed">✅</span>
             )}
             {isPolling && (
-              <span style={{ fontSize: '14px' }}>⏳</span>
+              <span className="cc-spinner" style={{ color: 'var(--cc-warning)' }} aria-label="Processing" />
             )}
           </div>
         ))}
@@ -128,124 +130,42 @@ export function DemoBatchTransactions(): JSX.Element {
 
       {/* Progress indicator */}
       {isPolling && (
-        <div style={progressStyle}>
-          <div style={progressBarStyle} />
-          <span style={{ fontSize: '13px', color: '#94a3b8' }}>Processing batch...</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--cc-space-sm)', padding: 'var(--cc-space-xs) var(--cc-space-sm)', background: 'var(--cc-warning-soft)', borderRadius: 'var(--cc-radius-md)', marginBottom: 'var(--cc-space-md)' }}>
+          <span className="cc-spinner" style={{ color: 'var(--cc-warning)' }} />
+          <span style={{ fontSize: 'var(--cc-text-sm)', color: 'var(--cc-body)' }}>Processing batch...</span>
         </div>
       )}
 
       {/* Execute button */}
       <button
-        style={{
-          ...btnStyle,
-          opacity: isSending || isPolling ? 0.6 : 1,
-        }}
+        className="cc-btn cc-btn--primary"
+        style={{ width: '100%' }}
         onClick={handleExecuteBatch}
         disabled={isSending || isPolling}
+        aria-label="Execute all batch transaction steps"
       >
-        {isSending ? '⏳ Sending Batch...' : isPolling ? '⏳ Processing...' : 'Execute All Steps'}
+        {isSending ? 'Sending Batch...' : isPolling ? 'Processing...' : 'Execute All Steps'}
       </button>
 
       {/* Error */}
       {error && (
-        <div style={errorStyle}>{error.message}</div>
+        <div className="cc-error" role="alert">
+          {error.message}
+        </div>
       )}
 
       {/* Result */}
       {batchStatus === 'CONFIRMED' && allSucceeded && (
-        <div style={successStyle}>
+        <div className="cc-success">
           ✅ All {batchSteps.length} batch calls confirmed successfully!
         </div>
       )}
 
       {lastCallId && (
-        <div style={{ marginTop: '8px', fontSize: '11px', fontFamily: 'monospace', color: '#64748b' }}>
+        <div style={{ marginTop: 'var(--cc-space-xs)', fontSize: 'var(--cc-text-xs)', fontFamily: 'var(--cc-font-mono)', color: 'var(--cc-muted)' }}>
           Batch ID: {lastCallId}
         </div>
       )}
     </section>
   );
 }
-
-const sectionStyle: React.CSSProperties = {
-  background: 'rgba(255,255,255,0.03)',
-  border: '1px solid rgba(255,255,255,0.08)',
-  borderRadius: '12px',
-  padding: '24px',
-};
-
-const titleStyle: React.CSSProperties = {
-  fontSize: '18px',
-  fontWeight: 600,
-  margin: '0 0 8px 0',
-  display: 'flex',
-  alignItems: 'center',
-  gap: '8px',
-};
-
-const iconStyle: React.CSSProperties = { fontSize: '20px' };
-
-const descStyle: React.CSSProperties = {
-  fontSize: '14px',
-  color: '#94a3b8',
-  margin: '0 0 20px 0',
-};
-
-const codeStyle: React.CSSProperties = {
-  background: 'rgba(255,255,255,0.08)',
-  padding: '2px 6px',
-  borderRadius: '4px',
-  fontSize: '12px',
-};
-
-const progressStyle: React.CSSProperties = {
-  display: 'flex',
-  alignItems: 'center',
-  gap: '12px',
-  padding: '10px 14px',
-  background: 'rgba(250,204,21,0.08)',
-  borderRadius: '8px',
-  marginBottom: '16px',
-};
-
-const progressBarStyle: React.CSSProperties = {
-  width: '60px',
-  height: '4px',
-  background: 'rgba(250,204,21,0.3)',
-  borderRadius: '2px',
-  overflow: 'hidden',
-  position: 'relative',
-};
-
-const btnStyle: React.CSSProperties = {
-  width: '100%',
-  background: 'linear-gradient(90deg, #8b5cf6, #6366f1)',
-  color: '#fff',
-  border: 'none',
-  borderRadius: '10px',
-  padding: '14px',
-  fontSize: '15px',
-  fontWeight: 700,
-  cursor: 'pointer',
-};
-
-const errorStyle: React.CSSProperties = {
-  marginTop: '12px',
-  padding: '10px 14px',
-  background: 'rgba(239,68,68,0.1)',
-  border: '1px solid rgba(239,68,68,0.3)',
-  borderRadius: '8px',
-  color: '#f87171',
-  fontSize: '13px',
-};
-
-const successStyle: React.CSSProperties = {
-  marginTop: '12px',
-  padding: '14px',
-  background: 'rgba(52,211,153,0.08)',
-  border: '1px solid rgba(52,211,153,0.2)',
-  borderRadius: '8px',
-  color: '#34d399',
-  fontSize: '14px',
-  fontWeight: 600,
-};

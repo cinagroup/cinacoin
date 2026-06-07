@@ -1,10 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useCinaCoinContext } from '@cinacoin/react';
-
-// Inline NFT card component since @cinacoin/nft-display may need peer deps
-// This mirrors the NFT display functionality for the demo.
+import { useCinacoinContext } from '@cinacoin/react';
 
 interface NftItem {
   id: string;
@@ -14,7 +11,6 @@ interface NftItem {
   chainId: number;
 }
 
-// Mock NFTs for demo purposes when no API is configured
 const MOCK_NFTS: NftItem[] = [
   {
     id: '1',
@@ -46,35 +42,44 @@ const MOCK_NFTS: NftItem[] = [
   },
 ];
 
+function getChainName(chainId: number): string {
+  if (chainId === 11155111) return 'Sepolia';
+  if (chainId === 80002) return 'Amoy';
+  if (chainId === 1) return 'Ethereum';
+  return `Chain ${chainId}`;
+}
+
 /** DemoNFTGallery — display the connected account's NFT collection. */
 export function DemoNFTGallery(): JSX.Element {
-  const { account, status } = useCinaCoinContext();
+  const { status } = useCinacoinContext();
 
   if (status !== 'connected') {
     return (
-      <section style={sectionStyle}>
-        <h3 style={titleStyle}>
-          <span style={iconStyle}>🖼️</span> NFT Gallery
+      <section className="cc-card cc-fade-in" aria-labelledby="nft-heading">
+        <h3 id="nft-heading" className="cc-section-title">
+          <span style={{ fontSize: '20px' }} aria-hidden="true">🖼️</span> NFT Gallery
         </h3>
-        <p style={descStyle}>Connect a wallet to view your NFT collection.</p>
+        <p className="cc-section-desc">Connect a wallet to view your NFT collection.</p>
       </section>
     );
   }
 
+  const chainCount = new Set(MOCK_NFTS.map((n) => n.chainId)).size;
+
   return (
-    <section style={sectionStyle}>
-      <h3 style={titleStyle}>
-        <span style={iconStyle}>🖼️</span> NFT Gallery
+    <section className="cc-card cc-fade-in" aria-labelledby="nft-heading">
+      <h3 id="nft-heading" className="cc-section-title">
+        <span style={{ fontSize: '20px' }} aria-hidden="true">🖼️</span> NFT Gallery
       </h3>
-      <p style={descStyle}>
+      <p className="cc-section-desc">
         Browse your multi-chain NFT collection. Powered by{' '}
-        <code style={codeStyle}>@cinacoin/nft-display</code>.
+        <code className="cc-code">@cinacoin/nft-display</code>.
       </p>
 
       {/* NFT Grid */}
       <div style={gridStyle}>
         {MOCK_NFTS.map((nft) => (
-          <div key={nft.id} style={cardStyle}>
+          <article key={nft.id} className="cc-card cc-hover-card" style={cardStyle} tabIndex={0} role="img" aria-label={`${nft.name} from ${nft.collection} on ${getChainName(nft.chainId)}`}>
             <div style={imageContainerStyle}>
               <img
                 src={nft.image}
@@ -82,76 +87,42 @@ export function DemoNFTGallery(): JSX.Element {
                 style={imageStyle}
                 loading="lazy"
               />
-              <div style={chainBadgeStyle}>
-                {nft.chainId === 11155111
-                  ? 'Sepolia'
-                  : nft.chainId === 80002
-                  ? 'Amoy'
-                  : 'Ethereum'}
-              </div>
+              <span className="cc-badge" style={chainBadgeStyle} aria-label={`Chain: ${getChainName(nft.chainId)}`}>
+                {getChainName(nft.chainId)}
+              </span>
             </div>
             <div style={cardBodyStyle}>
-              <div style={{ fontWeight: 600, fontSize: '14px', marginBottom: '4px' }}>
+              <div style={{ fontWeight: 'var(--cc-weight-semibold)', fontSize: 'var(--cc-text-sm)', marginBottom: 'var(--cc-space-xxs)', color: 'var(--cc-ink)' }}>
                 {nft.name}
               </div>
-              <div style={{ fontSize: '12px', color: '#94a3b8' }}>
+              <div style={{ fontSize: 'var(--cc-text-xs)', color: 'var(--cc-body)' }}>
                 {nft.collection}
               </div>
             </div>
-          </div>
+          </article>
         ))}
       </div>
 
-      <div style={{ marginTop: '16px', fontSize: '12px', color: '#64748b' }}>
-        Showing {MOCK_NFTS.length} demo NFTs across {new Set(MOCK_NFTS.map((n) => n.chainId)).size} chains
+      <div style={{ marginTop: 'var(--cc-space-md)', fontSize: 'var(--cc-text-xs)', color: 'var(--cc-muted)' }}>
+        Showing {MOCK_NFTS.length} demo NFTs across {chainCount} chains
       </div>
     </section>
   );
 }
 
-const sectionStyle: React.CSSProperties = {
-  background: 'rgba(255,255,255,0.03)',
-  border: '1px solid rgba(255,255,255,0.08)',
-  borderRadius: '12px',
-  padding: '24px',
-};
-
-const titleStyle: React.CSSProperties = {
-  fontSize: '18px',
-  fontWeight: 600,
-  margin: '0 0 8px 0',
-  display: 'flex',
-  alignItems: 'center',
-  gap: '8px',
-};
-
-const iconStyle: React.CSSProperties = { fontSize: '20px' };
-
-const descStyle: React.CSSProperties = {
-  fontSize: '14px',
-  color: '#94a3b8',
-  margin: '0 0 20px 0',
-};
-
-const codeStyle: React.CSSProperties = {
-  background: 'rgba(255,255,255,0.08)',
-  padding: '2px 6px',
-  borderRadius: '4px',
-  fontSize: '12px',
-};
-
 const gridStyle: React.CSSProperties = {
   display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-  gap: '16px',
+  gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))',
+  gap: 'var(--cc-space-md)',
 };
 
 const cardStyle: React.CSSProperties = {
-  background: 'rgba(255,255,255,0.04)',
-  border: '1px solid rgba(255,255,255,0.08)',
-  borderRadius: '12px',
+  background: 'var(--cc-canvas-soft-2)',
+  border: '1px solid var(--cc-hairline)',
+  borderRadius: 'var(--cc-radius-lg)',
   overflow: 'hidden',
   transition: 'transform 0.15s ease, border-color 0.15s ease',
+  cursor: 'default',
 };
 
 const imageContainerStyle: React.CSSProperties = {
@@ -180,5 +151,5 @@ const chainBadgeStyle: React.CSSProperties = {
 };
 
 const cardBodyStyle: React.CSSProperties = {
-  padding: '12px',
+  padding: 'var(--cc-space-sm)',
 };
