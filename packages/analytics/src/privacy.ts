@@ -139,14 +139,14 @@ const SENSITIVE_KEYS = ['address', 'walletAddress', 'ip', 'email'] as const;
 
 /** Anonymize a single event by redacting/truncating sensitive fields. */
 export function anonymizeEvent(event: AnalyticsEvent): AnalyticsEvent {
-  const out = { ...(event as Record<string, unknown>) };
+  const out = { ...event } as AnalyticsEvent & Record<string, unknown>;
   for (const key of SENSITIVE_KEYS) {
     const val = out[key];
     if (typeof val === 'string' && val.length > 8) {
       out[key] = val.slice(0, 6) + '...' + val.slice(-4);
     }
   }
-  return out as AnalyticsEvent;
+  return out;
 }
 
 /** Anonymize a batch of events. */

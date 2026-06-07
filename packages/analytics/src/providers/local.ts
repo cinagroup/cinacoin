@@ -4,7 +4,7 @@
  * Stores analytics events in browser localStorage (or memory fallback).
  */
 
-import type { AnalyticsEvent, AnalyticsProvider } from "./types.js";
+import type { AnalyticsEvent, AnalyticsProvider } from "../types.js";
 
 const STORAGE_KEY = "cinacoin-analytics-events";
 const MAX_EVENTS = 1000;

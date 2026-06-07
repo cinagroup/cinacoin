@@ -4,16 +4,10 @@
 
 import { AnalyticsEvent } from './types.js';
 
-/** Extended event fields for connection-related events. */
-interface ConnectionEvent extends AnalyticsEvent {
-  success?: boolean;
-  duration?: number;
-  walletId?: string;
-}
-
-/** Extended event fields for chain switch events. */
-interface ChainSwitchEvent extends AnalyticsEvent {
-  toChainId?: number;
+/** Read a numeric value from an event's properties bag. */
+function propNumber(e: AnalyticsEvent, key: string): number | undefined {
+  const v = e.properties?.[key];
+  return typeof v === 'number' ? v : undefined;
 }
 
 export interface ConnectionMetrics {
@@ -59,14 +53,16 @@ export class MetricsCalculator {
 
   /** Calculate connection success rate and avg time */
   private calculateConnectionMetrics(events: AnalyticsEvent[]): ConnectionMetrics {
-    const connectEvents = events.filter((e) => e.type === 'wallet_connect');
-    const totalAttempts = connectEvents.length;
-    const successful = connectEvents.filter((e) => (e as ConnectionEvent).success === true).length;
+    const attempts = events.filter(
+      (e) => e.type === 'wallet_connected' || e.type === 'wallet_disconnected',
+    );
+    const totalAttempts = attempts.length;
+    const successful = events.filter((e) => e.type === 'wallet_connected').length;
     const failed = totalAttempts - successful;
     const successRate = totalAttempts > 0 ? successful / totalAttempts : 0;
 
-    const durations = connectEvents
-      .map((e) => (e as ConnectionEvent).duration)
+    const durations = attempts
+      .map((e) => propNumber(e, 'duration'))
       .filter((d): d is number => d != null);
     const avgConnectionTime = durations.length > 0
       ? durations.reduce((a, b) => a + b, 0) / durations.length
@@ -79,8 +75,8 @@ export class MetricsCalculator {
   private calculateWalletMetrics(events: AnalyticsEvent[]): WalletMetrics {
     const popularity = new Map<string, number>();
     for (const event of events) {
-      if (event.type === 'wallet_connect') {
-        const walletId = (event as ConnectionEvent).walletId;
+      if (event.type === 'wallet_connected') {
+        const walletId = event.wallet;
         if (walletId == null) continue;
         popularity.set(walletId, (popularity.get(walletId) ?? 0) + 1);
       }
@@ -95,8 +91,8 @@ export class MetricsCalculator {
     let mostSwitchedTo: number | undefined;
 
     for (const event of events) {
-      if (event.type === 'chain_switch') {
-        const toChain = (event as ChainSwitchEvent).toChainId;
+      if (event.type === 'chain_switched') {
+        const toChain = event.chainId;
         if (toChain == null) continue;
         const count = (usage.get(toChain) ?? 0) + 1;
         usage.set(toChain, count);
@@ -145,11 +141,14 @@ export function calculateTransactionSuccessRate(
   events: AnalyticsEvent[],
 ): number {
   const txEvents = events.filter(
-    (e) => e.type === 'transaction' || e.type === 'transaction_confirmed' || e.type === 'transaction_failed',
+    (e) =>
+      e.type === 'transaction_attempted' ||
+      e.type === 'transaction_confirmed' ||
+      e.type === 'transaction_failed',
   );
   if (txEvents.length === 0) return 0;
   const confirmed = txEvents.filter(
-    (e) => e.type === 'transaction_confirmed' || (e as { success?: boolean }).success === true,
+    (e) => e.type === 'transaction_confirmed',
   ).length;
   return confirmed / txEvents.length;
 }
@@ -158,8 +157,7 @@ export function calculateTransactionSuccessRate(
 export function countUniqueSessions(events: AnalyticsEvent[]): number {
   const sessions = new Set<string>();
   for (const e of events) {
-    const sid = (e as { sessionId?: string }).sessionId;
-    if (sid != null) sessions.add(sid);
+    if (e.sessionId) sessions.add(e.sessionId);
   }
   return sessions.size;
 }
