@@ -36,7 +36,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "framer-motion": "^11.0.0",
+    "framer-motion": "^12.40.0",
     "zustand": "^4.5.0"
   },
   "peerDependencies": {
