@@ -276,10 +276,10 @@ export class IndexerServer {
     }
 
     const q: EventQuery = {
-      address: address ?? undefined,
+      address: (address as EventQuery['address']) ?? undefined,
       chainId,
       eventType: (params.get('eventType') as EventType | null) ?? undefined,
-      tokenAddress: tokenAddress ?? undefined,
+      tokenAddress: (tokenAddress as EventQuery['tokenAddress']) ?? undefined,
       timeFrom,
       timeTo,
       blockFrom,
