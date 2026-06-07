@@ -589,7 +589,7 @@ export default function MultiChainPage() {
               ? `${account.chainName} · ${shortenAddress(account.address ?? '')}`
               : `${CHAINS.length} EVM chains · Real RPC balances`}
           </div>
-          <h1 className="text-4xl font-semibold tracking-tighter bg-gradient-to-r from-[var(--cc-link)]/80 via-[var(--cc-link)] to-[var(--cc-link)]/60/60/60 bg-clip-text text-transparent">
+          <h1 className="text-4xl font-semibold tracking-tighter bg-gradient-to-r from-[var(--cc-link)]/80 via-[var(--cc-link)] to-[var(--cc-link)]/60 bg-clip-text text-transparent">
             Multi-Chain Connectivity
           </h1>
           <p className="text-[var(--cc-muted)] max-w-2xl mx-auto text-lg">

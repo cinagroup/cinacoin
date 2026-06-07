@@ -83,7 +83,7 @@ export default function CookiesContent() {
 
       {/* Divider */}
       <div className="mx-auto max-w-3xl px-6">
-        <div className="h-px bg-[var(--cc-hairline-strong)]" />
+        <div className="h-px w-full bg-[var(--cc-hairline-strong)]" />
       </div>
 
       {/* Content */}

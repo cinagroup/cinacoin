@@ -8,7 +8,7 @@ export default function Footer() {
   const { t } = useI18n()
 
   const columns = [
-    { titleKey: 'footer-products', links: [
+    { titleKey: 'footer-products-label', links: [
       { label: 'AppKit', href: '/docs/api/appkit' },
       { label: 'Auth', href: '/docs/api/auth' },
       { label: 'Relay', href: '/docs/api/relay' },
@@ -16,18 +16,18 @@ export default function Footer() {
       { label: 'Keys', href: '/docs/api/keys' },
       { label: 'RPC Proxy', href: '/docs/api/rpc' },
     ]},
-    { titleKey: 'footer-developers', links: [
+    { titleKey: 'footer-developers-label', links: [
       { label: t('nav-docs'), href: '/docs/' },
       { label: 'API Reference', href: '/docs/api/core-sdk' },
       { label: 'SDKs', href: 'https://github.com/cinagroup/cinacoin' },
       { label: t('footer-changelog'), href: '/changelog' },
     ]},
-    { titleKey: 'footer-company', links: [
+    { titleKey: 'footer-company-label', links: [
       { label: t('footer-about'), href: '/about' },
       { label: t('footer-pricing'), href: '/pricing' },
       { label: t('footer-contact'), href: '/contact' },
     ]},
-    { titleKey: 'footer-legal', links: [
+    { titleKey: 'footer-legal-label', links: [
       { label: t('footer-privacy'), href: '/privacy' },
       { label: t('footer-terms'), href: '/terms' },
       { label: t('footer-cookies'), href: '/cookies' },

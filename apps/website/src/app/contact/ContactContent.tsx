@@ -9,7 +9,7 @@ export default function ContactContent() {
   const { t } = useI18n()
 
   return (
-    <main className="min-h-screen bg-[var(--cc-canvas-soft)] text-[var(--cc-ink)]">
+    <>
       <Navbar />
 
       {/* Hero */}
@@ -185,6 +185,6 @@ export default function ContactContent() {
       </section>
 
       <Footer />
-    </main>
+    </>
   )
 }

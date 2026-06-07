@@ -285,7 +285,7 @@ export default function AuthPage() {
             Real SIWE — EIP-4361 + Passkeys
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tighter">
-            <span className="bg-gradient-to-r from-[var(--cc-link)]/80 via-[var(--cc-link)] to-[var(--cc-link)]/60/60 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[var(--cc-link)]/80 via-[var(--cc-link)] to-[var(--cc-link)]/60 bg-clip-text text-transparent">
               Sign-In With Ethereum
             </span>
           </h1>
