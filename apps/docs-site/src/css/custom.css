@@ -40,8 +40,8 @@
   --ifm-link-hover-decoration: underline;
 
   /* ── Typography ── */
-  --ifm-font-family-base: 'Geist', Inter, system-ui, -apple-system, sans-serif;
-  --ifm-font-family-monospace: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  --ifm-font-family-base: 'Inter', system-ui, -apple-system, sans-serif;
+  --ifm-font-family-monospace: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
   --ifm-heading-font-family: var(--ifm-font-family-base);
 
   --ifm-heading-font-weight: 600;
@@ -206,6 +206,29 @@ html[data-theme='dark'] .navbar__item:hover {
   font-weight: 500;
 }
 
+/* GitHub nav CTA — pill button per DESIGN.md nav-cta pattern */
+.navbar-github-link {
+  background-color: #171717;
+  color: #ffffff !important;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  padding: 4px 12px;
+  border-radius: 6px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  transition: opacity 0.15s ease;
+}
+.navbar-github-link:hover {
+  opacity: 0.85;
+  background-color: #171717;
+}
+html[data-theme='dark'] .navbar-github-link {
+  background-color: #fafafa;
+  color: #0a0a0a !important;
+}
+
 /* ──────────────────────────────────────────────
    Sidebar overrides
    ────────────────────────────────────────────── */
@@ -355,7 +378,7 @@ html[data-theme='dark'] .markdown a:hover {
   background-color: #f5f5f5;
   border: 1px solid #ebebeb;
   border-radius: 6px;
-  font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
   font-size: 13px;
   line-height: 1.5;
   color: #171717;
@@ -372,7 +395,7 @@ html[data-theme='dark'] .markdown code {
    Code blocks
    ────────────────────────────────────────────── */
 .prism-code {
-  font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace !important;
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace !important;
   font-size: 13px !important;
   line-height: 1.6 !important;
   border-radius: 8px !important;
@@ -471,7 +494,7 @@ html[data-theme='dark'] .pagination-nav__link:hover {
 
 .pagination-nav__sublabel {
   font-size: 12px;
-  font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
   color: #888888;
   margin-bottom: 4px;
 }
@@ -557,7 +580,7 @@ html[data-theme='dark'] .footer {
 
 .footer__title {
   font-size: 12px;
-  font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
   font-weight: 400;
   text-transform: none;
   letter-spacing: 0;
@@ -712,4 +735,163 @@ html[data-theme='dark'] ::-webkit-scrollbar-thumb:hover {
 
 .theme-doc-markdown a.card:hover {
   text-decoration: none;
+}
+
+/* ──────────────────────────────────────────────
+   Landing page hero & card grid
+   ────────────────────────────────────────────── */
+.landing-hero {
+  text-align: center;
+  padding: 64px 0 48px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.landing-hero h1 {
+  font-size: 2.75rem;
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  line-height: 1.1;
+  color: #171717;
+  margin-bottom: 16px;
+}
+
+.landing-hero p {
+  font-size: 1.125rem;
+  color: #4d4d4d;
+  margin-bottom: 32px;
+}
+
+html[data-theme='dark'] .landing-hero h1 {
+  color: #fafafa;
+}
+
+html[data-theme='dark'] .landing-hero p {
+  color: #a1a1a1;
+}
+
+.landing-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.landing-btn {
+  display: inline-block;
+  padding: 0 16px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 100px;
+  text-decoration: none;
+  transition: opacity 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+.landing-btn--primary {
+  background-color: #171717;
+  color: #ffffff;
+}
+
+.landing-btn--primary:hover {
+  opacity: 0.85;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.landing-btn--secondary {
+  background-color: #ffffff;
+  color: #171717;
+  border: 1px solid #ebebeb;
+}
+
+.landing-btn--secondary:hover {
+  background-color: #fafafa;
+  color: #171717;
+  text-decoration: none;
+}
+
+html[data-theme='dark'] .landing-btn--primary {
+  background-color: #fafafa;
+  color: #0a0a0a;
+}
+
+html[data-theme='dark'] .landing-btn--secondary {
+  background-color: #0a0a0a;
+  color: #fafafa;
+  border-color: #2a2a2a;
+}
+
+html[data-theme='dark'] .landing-btn--secondary:hover {
+  background-color: #1a1a1a;
+}
+
+.landing-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding: 24px 0 64px;
+}
+
+@media (max-width: 960px) {
+  .landing-card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .landing-card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.landing-card {
+  background-color: #ffffff;
+  border: 1px solid #ebebeb;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.03),
+    0 2px 2px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.landing-card:hover {
+  box-shadow:
+    0 2px 2px rgba(0, 0, 0, 0.06),
+    0 8px 8px rgba(0, 0, 0, 0.06);
+  border-color: #a1a1a1;
+}
+
+.landing-card h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #171717;
+  margin: 0 0 8px;
+  letter-spacing: -0.02em;
+}
+
+.landing-card p {
+  font-size: 14px;
+  color: #4d4d4d;
+  margin: 0;
+  line-height: 1.5;
+}
+
+html[data-theme='dark'] .landing-card {
+  background-color: #111111;
+  border-color: #2a2a2a;
+}
+
+html[data-theme='dark'] .landing-card:hover {
+  border-color: #4d4d4d;
+}
+
+html[data-theme='dark'] .landing-card h3 {
+  color: #fafafa;
+}
+
+html[data-theme='dark'] .landing-card p {
+  color: #a1a1a1;
 }

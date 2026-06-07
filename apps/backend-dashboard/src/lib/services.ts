@@ -5,7 +5,6 @@ export interface ServiceDefinition {
   description: string;
   healthPath: string;
   metricsPath: string;
-  icon: string;
   color: string;
 }
 
@@ -16,7 +15,6 @@ export const SERVICES: ServiceDefinition[] = [
     description: "RPC request proxy with KV caching",
     healthPath: "/health",
     metricsPath: "/metrics",
-    icon: "🔄",
     color: "#3b82f6",
   },
   {
@@ -25,7 +23,6 @@ export const SERVICES: ServiceDefinition[] = [
     description: "Session key management with D1 storage",
     healthPath: "/health",
     metricsPath: "/metrics",
-    icon: "🔑",
     color: "#8b5cf6",
   },
   {
@@ -34,7 +31,6 @@ export const SERVICES: ServiceDefinition[] = [
     description: "WebSocket relay via Durable Objects",
     healthPath: "/health",
     metricsPath: "/metrics",
-    icon: "📡",
     color: "#06b6d4",
   },
   {
@@ -43,7 +39,6 @@ export const SERVICES: ServiceDefinition[] = [
     description: "Notification delivery service",
     healthPath: "/health",
     metricsPath: "/metrics",
-    icon: "🔔",
     color: "#f59e0b",
   },
   {
@@ -52,7 +47,6 @@ export const SERVICES: ServiceDefinition[] = [
     description: "Push notification delivery",
     healthPath: "/health",
     metricsPath: "/metrics",
-    icon: "📱",
     color: "#22c55e",
   },
 ];

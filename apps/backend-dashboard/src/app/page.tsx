@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { SERVICES, ServiceDefinition, ServiceMetrics, generateDemoMetrics } from "@/lib/services";
+import { SERVICES, ServiceMetrics, generateDemoMetrics } from "@/lib/services";
 import { formatNumber, formatLatency, statusColor } from "@/lib/utils";
 import { useWorkerHealth } from "@/hooks/useWorkerHealth";
 import ServiceCard from "@/components/ServiceCard";
@@ -28,7 +28,6 @@ export default function OverviewPage() {
       <EmptyState
         title="No services configured"
         description="Add services in the configuration to start monitoring."
-        icon="📭"
       />
     );
   }
@@ -98,7 +97,7 @@ export default function OverviewPage() {
       </div>
 
       {/* 7-day request chart */}
-      <BarChart data={HISTORY_DATA} labels={HISTORY_DAYS} color="#0070f3" height={140} aria-label="7-day request volume bar chart" />
+      <BarChart data={HISTORY_DATA} labels={HISTORY_DAYS} color="var(--cc-link)" height={140} aria-label="7-day request volume bar chart" />
 
       {/* Service status cards */}
       <h2 className="cc-body-md-strong text-[var(--cc-ink)] mt-4 sm:mt-6">Service Status</h2>
