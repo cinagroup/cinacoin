@@ -167,16 +167,22 @@ function subscribeToEvents(connector: Connector): void {
     _eventUnsubscribe();
   }
 
-  const onConnect = (result: ConnectionResult) => syncFromConnectionResult(result);
+  // Handlers are typed as the connector's broad EventHandler
+  // ((...args: unknown[]) => void) and narrow their payload internally, so
+  // they are assignable to connector.on/off.
+  const onConnect = (...args: unknown[]) =>
+    syncFromConnectionResult(args[0] as ConnectionResult);
   const onDisconnect = () => {
     _statusStore.set('disconnected');
     _accountsStore.set([]);
     _chainIdStore.set(null);
     _errorStore.set(null);
   };
-  const onAccountsChanged = (accounts: string[]) => _accountsStore.set(accounts);
-  const onChainChanged = (chainId: number) => _chainIdStore.set(chainId);
-  const onError = (err: Error) => syncError(err);
+  const onAccountsChanged = (...args: unknown[]) =>
+    _accountsStore.set(args[0] as string[]);
+  const onChainChanged = (...args: unknown[]) =>
+    _chainIdStore.set(args[0] as number);
+  const onError = (...args: unknown[]) => syncError(args[0] as Error);
 
   connector.on('connect', onConnect);
   connector.on('disconnect', onDisconnect);
