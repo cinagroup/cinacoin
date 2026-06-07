@@ -1,16 +1,18 @@
 "use client";
 
 import { useEffect } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/lib/AuthProvider";
 
 /**
  * Client-side auth guard: redirects to /login if not authenticated.
  * Must be used inside AuthProvider.
+ * Uses router.replace to avoid back-button loops.
  */
 export default function AuthGuard({ children }: { children: React.ReactNode }) {
   const { isLoggedIn, isLoading } = useAuth();
   const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     if (isLoading) return; // wait for session restore
@@ -18,13 +20,13 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
     const isLoginPage = pathname === "/login";
 
     if (!isLoggedIn && !isLoginPage) {
-      window.location.href = "/login";
+      router.replace("/login");
     }
 
     if (isLoggedIn && isLoginPage) {
-      window.location.href = "/";
+      router.replace("/");
     }
-  }, [isLoggedIn, isLoading, pathname]);
+  }, [isLoggedIn, isLoading, pathname, router]);
 
   // Show nothing while checking (avoid flash of protected content)
   if (isLoading) {

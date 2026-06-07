@@ -69,7 +69,7 @@ export default function KeysServerPage() {
               value={storagePct}
               size={120}
               strokeWidth={10}
-              color={storagePct > 80 ? "#ee0000" : storagePct > 60 ? "#f5a623" : "#0070f3"}
+              color={storagePct > 80 ? "var(--cc-error)" : storagePct > 60 ? "var(--cc-warning)" : "var(--cc-link)"}
               label="Used"
             />
             <div className="space-y-3">
@@ -101,7 +101,7 @@ export default function KeysServerPage() {
                 <div className="flex-1 bg-[var(--cc-hairline)] rounded-full h-3 overflow-hidden">
                   <div
                     className="h-full rounded-full transition-all"
-                    style={{ width: `${stat.pct}%`, backgroundColor: "#0070f3" }}
+                    style={{ width: `${stat.pct}%`, backgroundColor: "var(--cc-link)" }}
                   />
                 </div>
                 <span className="cc-body-sm text-[var(--cc-ink)] w-20 text-right">{formatNumber(stat.count)}</span>
@@ -112,7 +112,7 @@ export default function KeysServerPage() {
       </div>
 
       {/* Session history chart */}
-      <BarChart data={SESSION_HISTORY} labels={SESSION_LABELS} color="#7928ca" height={140} aria-label="Weekly session creation trend" />
+      <BarChart data={SESSION_HISTORY} labels={SESSION_LABELS} color="var(--cc-violet)" height={140} aria-label="Weekly session creation trend" />
 
       {/* Active sessions table */}
       <div className="cc-card-soft overflow-hidden">

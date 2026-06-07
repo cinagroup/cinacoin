@@ -8,7 +8,7 @@ export default function Home() {
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="mb-8">
           <h1 className="cc-display-md text-[var(--cc-ink)]">Dashboard</h1>
-          <p className="mt-1 text-sm text-[var(--cc-body)]">
+          <p className="cc-body-sm text-[var(--cc-body)] mt-1">
             Welcome to Cinacoin Cloud. Manage your projects and API keys from here.
           </p>
         </div>
@@ -16,36 +16,36 @@ export default function Home() {
         {/* Stats Cards */}
         <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
           <div className="cc-card">
-            <p className="text-sm text-[var(--cc-muted)]">Total Projects</p>
-            <p className="mt-1 text-3xl font-semibold text-[var(--cc-ink)]">{demoProjects.length}</p>
+            <p className="cc-caption text-[var(--cc-muted)]">Total Projects</p>
+            <p className="cc-display-sm text-[var(--cc-ink)] mt-1">{demoProjects.length}</p>
           </div>
           <div className="cc-card">
-            <p className="text-sm text-[var(--cc-muted)]">Total API Keys</p>
-            <p className="mt-1 text-3xl font-semibold text-[var(--cc-ink)]">3</p>
+            <p className="cc-caption text-[var(--cc-muted)]">Total API Keys</p>
+            <p className="cc-display-sm text-[var(--cc-ink)] mt-1">3</p>
           </div>
           <div className="cc-card">
-            <p className="text-sm text-[var(--cc-muted)]">Requests Today</p>
-            <p className="mt-1 text-3xl font-semibold text-[var(--cc-ink)]">12,450</p>
+            <p className="cc-caption text-[var(--cc-muted)]">Requests Today</p>
+            <p className="cc-display-sm text-[var(--cc-ink)] mt-1">12,450</p>
           </div>
         </div>
 
         {/* Quick Links */}
         <div className="cc-card">
-          <h2 className="mb-4 text-lg font-semibold tracking-tight text-[var(--cc-ink)]">Quick Start</h2>
+          <h2 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Quick Start</h2>
           <div className="grid gap-4 sm:grid-cols-2">
             <a
-              href="/dashboard/projects/new"
+              href="/projects/new"
               className="cc-card text-center block hover:shadow-[var(--cc-level3)]"
             >
-              <p className="font-medium text-[var(--cc-primary)]">+ Create Project</p>
-              <p className="text-xs text-[var(--cc-body)] mt-1">Start building with Cinacoin</p>
+              <p className="cc-body-md-strong text-[var(--cc-link)]">+ Create Project</p>
+              <p className="cc-caption text-[var(--cc-muted)] mt-1">Start building with Cinacoin</p>
             </a>
             <a
-              href="/dashboard/projects"
+              href="/projects"
               className="cc-card text-center block hover:shadow-[var(--cc-level3)]"
             >
-              <p className="font-medium text-[var(--cc-primary)]">View All Projects</p>
-              <p className="text-xs text-[var(--cc-body)] mt-1">Manage existing projects</p>
+              <p className="cc-body-md-strong text-[var(--cc-link)]">View All Projects</p>
+              <p className="cc-caption text-[var(--cc-muted)] mt-1">Manage existing projects</p>
             </a>
           </div>
         </div>

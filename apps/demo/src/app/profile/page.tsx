@@ -39,7 +39,7 @@ function AvatarDisplay({ address, size = 'lg' }: { address: string | null; size?
 
   return (
     <div
-      className={`${sizes[size]} rounded-full flex items-center justify-center font-semibold text-[var(--cc-ink)] shadow-[0_4px_12px_rgba(0,0,0,0.2),0_2px_4px_rgba(0,0,0,0.1)]`}
+      className={`${sizes[size]} rounded-full flex items-center justify-center font-semibold text-[var(--cc-ink)] shadow-[var(--cc-level3)]`}
       style={{
         background: `linear-gradient(135deg, hsl(${hue1}, 70%, 50%), hsl(${hue2}, 70%, 50%))`,
         boxShadow: `0 4px 20px hsla(${hue1}, 70%, 50%, 0.3)`,
@@ -88,7 +88,7 @@ function PortfolioSummary({ balances }: { balances: ChainBalance[] }) {
         {/* Total */}
         <div className="text-center mb-6 p-4 rounded-md bg-[var(--cc-primary)] border border-[var(--cc-hairline-strong)]/30">
           <p className="text-xs text-[var(--cc-body)] mb-1">Total Estimated Value</p>
-          <p className="text-3xl font-semibold tracking-tighter bg-gradient-to-r from-brand-500 to-brand-400 bg-clip-text text-transparent inline-flex items-center gap-2">
+          <p className="text-3xl font-semibold tracking-tighter bg-gradient-to-r from-[var(--cc-link)]/70 to-[var(--cc-link)]/50 bg-clip-text text-transparent inline-flex items-center gap-2">
             ${totalUsd.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             <SimulatedBadge size="xs" />
           </p>
@@ -113,7 +113,7 @@ function PortfolioSummary({ balances }: { balances: ChainBalance[] }) {
                     <span className="text-xs text-[var(--cc-body)]">{item.balance} {item.symbol}</span>
                     <div className="flex-1 h-2 bg-[var(--cc-canvas-soft-2)] rounded-full overflow-hidden">
                       <div
-                        className="h-full rounded-full bg-gradient-to-r from-brand-500 to-brand-400 transition-all duration-500"
+                        className="h-full rounded-full bg-gradient-to-r from-[var(--cc-link)]/70 to-[var(--cc-link)]/50 transition-all duration-500"
                         style={{ width: `${pct}%` }}
                       />
                     </div>
@@ -155,7 +155,7 @@ function WalletCard({
   return (
     <div className={`p-5 rounded-md border transition-all ${
       isPrimary
-        ? 'bg-brand-500/10 border-[var(--cc-link)]/30'
+        ? 'border-[var(--cc-link)]/30 border-[var(--cc-link)]/30'
         : 'bg-[var(--cc-canvas)]/40 border-[var(--cc-hairline-strong)]/40 hover:border-[var(--cc-hairline-strong)]'
     }`}>
       <div className="flex items-center gap-4">
@@ -255,7 +255,7 @@ export default function ProfilePage() {
 
         {/* ── Header ── */}
         <div className="text-center space-y-2">
-          <h1 className="text-3xl font-semibold tracking-tighter bg-gradient-to-r from-brand-500 via-brand-400 to-brand-300 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-semibold tracking-tighter bg-gradient-to-r from-[var(--cc-link)]/80 via-[var(--cc-link)]/70 to-[var(--cc-link)]/60 bg-clip-text text-transparent">
             Profile
           </h1>
           <p className="text-[var(--cc-muted)] text-sm">Your identity, wallets, and portfolio</p>
@@ -280,7 +280,7 @@ export default function ProfilePage() {
             {/* ── Profile Card ── */}
             <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
               {/* Banner */}
-              <div className="h-24 bg-gradient-to-r from-brand-600/30 via-brand-500/30 to-brand-400/30 relative">
+              <div className="h-24 bg-gradient-to-r from-[var(--cc-link)]/30 via-[var(--cc-link)]/20 to-[var(--cc-link)]/15 relative">
                 <div className="absolute -bottom-10 left-6">
                   <AvatarDisplay address={account.address} size="xl" />
                 </div>
@@ -304,7 +304,7 @@ export default function ProfilePage() {
                   </div>
                   <button
                     onClick={() => disconnect()}
-                    className="px-4 py-2 rounded-md text-xs font-semibold bg-[var(--cc-error)]/10 text-[var(--cc-error)] border border-red-500/20 hover:bg-[var(--cc-error)]/20 transition-all"
+                    className="px-4 py-2 rounded-md text-xs font-semibold bg-[var(--cc-error)]/10 text-[var(--cc-error)] border border-[var(--cc-error)]/20 hover:bg-[var(--cc-error)]/20 transition-all"
                   >
                     Disconnect
                   </button>

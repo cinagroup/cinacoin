@@ -63,7 +63,7 @@ function TokenSelector({
       {open && (
         <>
           <div className="fixed inset-0 z-10" onClick={() => setOpen(false)} />
-          <div className="absolute z-20 top-full mt-2 left-0 w-64 bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline-strong)] rounded-md shadow-[0_8px_30px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)] overflow-hidden">
+          <div className="absolute z-20 top-full mt-2 left-0 w-64 bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline-strong)] rounded-md shadow-[var(--cc-level5)] overflow-hidden">
             <div className="p-2 border-b border-[var(--cc-hairline-strong)]">
               <p className="text-xs text-[var(--cc-muted)] px-2 py-1 font-semibold uppercase tracking-normal">Select Token</p>
             </div>
@@ -467,7 +467,7 @@ export default function SwapPage() {
 
         {/* ── Header ─────────────────────────────────────── */}
         <div className="text-center space-y-2">
-          <h1 className="text-3xl font-semibold tracking-tighter bg-gradient-to-r from-brand-500 via-brand-400 to-brand-300 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-semibold tracking-tighter text-[var(--cc-ink)]">
             Token Swap
           </h1>
           <p className="text-[var(--cc-muted)] text-sm">Swap tokens with real DEX aggregator rates</p>
@@ -510,13 +510,13 @@ export default function SwapPage() {
           )}
         </div>
         {error && (
-          <div className="text-center text-sm text-[var(--cc-error)] bg-[var(--cc-error)]/10 border border-red-500/20 rounded-md px-4 py-2">
+          <div className="text-center text-sm text-[var(--cc-error)] bg-[var(--cc-error)]/10 border border-[var(--cc-error)]/20 rounded-md px-4 py-2">
             {error}
           </div>
         )}
 
         {/* ── Swap Card ──────────────────────────────────── */}
-        <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 shadow-[0_12px_40px_rgba(0,0,0,0.15),0_4px_12px_rgba(0,0,0,0.10)] overflow-hidden">
+        <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 shadow-[var(--cc-level4)] overflow-hidden">
 
           {/* FROM */}
           <div className="p-5 pb-3">
@@ -528,7 +528,7 @@ export default function SwapPage() {
                 </span>
                 <button
                   onClick={handleMax}
-                  className="text-xs font-semibold text-brand-400 hover:text-brand-300 transition-colors px-2 py-1 rounded bg-brand-400/10 hover:bg-brand-400/20"
+                  className="text-xs font-semibold text-[var(--cc-link)] hover:text-[var(--cc-link)] transition-colors px-2 py-1 rounded bg-[var(--cc-link)]/10 hover:bg-[var(--cc-link)]/20"
                 >
                   MAX
                 </button>
@@ -566,7 +566,7 @@ export default function SwapPage() {
           <div className="flex justify-center -my-1 relative z-10">
             <button
               onClick={handleSwapTokens}
-              className="w-10 h-10 bg-[var(--cc-canvas-soft-2)] border-4 border-gray-900/50 rounded-md flex items-center justify-center hover:bg-[var(--cc-canvas-soft-2)] hover:scale-110 active:scale-95 transition-all shadow-[0_4px_12px_rgba(0,0,0,0.15),0_2px_4px_rgba(0,0,0,0.10)]"
+              className="w-10 h-10 bg-[var(--cc-canvas)] border-2 border-[var(--cc-hairline)] rounded-md flex items-center justify-center hover:bg-[var(--cc-canvas-soft-2)] active:scale-95 transition-all"
               title="Swap tokens"
               aria-label="Swap tokens"
             >
@@ -614,7 +614,7 @@ export default function SwapPage() {
                     onClick={() => setSlippage(s)}
                     className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
                       slippage === s
-                        ? 'bg-brand-500/20 text-brand-400 border border-brand-500/40'
+                        ? 'bg-[var(--cc-link)]/15 text-[var(--cc-link)] border border-[var(--cc-link)]/25'
                         : 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] hover:bg-[var(--cc-muted)]/50 border border-transparent'
                     }`}
                     aria-label={`Set slippage to ${s}%`}
@@ -645,7 +645,7 @@ export default function SwapPage() {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                   </svg>
-                  <span className="text-xs text-brand-400">Fetching best rate from 1inch...</span>
+                  <span className="text-xs text-[var(--cc-link)]">Fetching best rate from 1inch...</span>
                 </div>
               )}
             </div>
@@ -663,13 +663,13 @@ export default function SwapPage() {
               disabled={buttonDisabled}
               className={`w-full py-4 rounded-[100px] font-semibold text-lg transition-all ${
                 swapState === 'success'
-                  ? 'bg-[var(--cc-success)] text-[var(--cc-ink)] shadow-[0_4px_12px_rgba(16,185,129,0.3),0_2px_4px_rgba(16,185,129,0.15)]'
+                  ? 'bg-[var(--cc-success)] text-[var(--cc-ink)] shadow-[var(--cc-level3)]'
                   : swapState === 'swapping' || swapState === 'approving'
-                  ? 'bg-brand-500/80 text-[var(--cc-ink)] cursor-wait'
+                  ? 'bg-[var(--cc-link)]/80 text-[var(--cc-ink)] cursor-wait'
                   : swapState === 'quoting'
-                  ? 'bg-purple-500/60 text-[var(--cc-ink)] cursor-wait'
+                  ? 'bg-[var(--cc-link)]/60 text-[var(--cc-on-primary)] cursor-wait'
                   : canSwap
-                  ? 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 shadow-[0_4px_12px_rgba(99,102,241,0.25),0_2px_4px_rgba(99,102,241,0.15)] hover:shadow-[0_6px_16px_rgba(99,102,241,0.4),0_2px_6px_rgba(99,102,241,0.2)] active:scale-[0.98]'
+                  ? 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 shadow-[var(--cc-level3)] hover:shadow-[var(--cc-level4)] active:scale-[0.98]'
                   : 'bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-body)] cursor-not-allowed'
               }`}
             >
@@ -758,10 +758,10 @@ export default function SwapPage() {
                             <span
                               className={`w-2 h-2 rounded-full ${
                                 swap.status === 'completed'
-                                  ? 'bg-emerald-400'
+                                  ? 'bg-[var(--cc-success)]'
                                   : swap.status === 'pending'
-                                  ? 'bg-amber-400 animate-pulse'
-                                  : 'bg-red-400'
+                                  ? 'bg-[var(--cc-warning)] animate-pulse'
+                                  : 'bg-[var(--cc-error)]'
                               }`}
                             />
                             {swap.status}

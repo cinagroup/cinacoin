@@ -181,7 +181,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
                 >
                   {signing ? (
                     <span className="flex items-center justify-center gap-2">
-                      <span className="w-5 h-5 border-2 border-gray-400 border-t-white rounded-full animate-spin" aria-hidden="true" />
+                      <span className="w-5 h-5 border-2 border-[var(--cc-hairline-strong)] border-t-[var(--cc-ink)] rounded-full animate-spin" aria-hidden="true" />
                       Signing...
                     </span>
                   ) : (

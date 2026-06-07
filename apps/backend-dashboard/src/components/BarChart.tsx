@@ -6,7 +6,7 @@ interface BarChartProps {
   ariaLabelledBy?: string;
 }
 
-export default function BarChart({ data, labels, color = "var(--cc-link)", height = 120, ariaLabelledBy }: BarChartProps) {
+export default function BarChart({ data, labels, color = "var(--cc-primary)", height = 120, ariaLabelledBy }: BarChartProps) {
   if (!data.length) return null;
   const max = Math.max(...data, 1);
 
@@ -14,8 +14,9 @@ export default function BarChart({ data, labels, color = "var(--cc-link)", heigh
     <div
       className="cc-card"
       role="img"
-      aria-label="Bar chart"
+      aria-label={ariaLabelledBy || "Bar chart"}
       aria-labelledby={ariaLabelledBy}
+      tabIndex={0}
     >
       <div
         className="flex items-end gap-1"
@@ -36,7 +37,7 @@ export default function BarChart({ data, labels, color = "var(--cc-link)", heigh
               aria-label={`${labels[i]}: ${value.toLocaleString()}`}
               title={`${labels[i]}: ${value.toLocaleString()}`}
             >
-              <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-[var(--cc-canvas)] text-[var(--cc-ink)] text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10 shadow-sm">
+              <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] text-[var(--cc-ink)] cc-caption px-2 py-1 rounded-[var(--cc-radius-sm)] opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10 shadow-[var(--cc-level1)]" role="tooltip">
                 {value.toLocaleString()}
               </div>
             </div>

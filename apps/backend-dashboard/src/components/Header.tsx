@@ -2,7 +2,7 @@
 
 import { useAuth } from "@/lib/AuthProvider";
 import { useWorkerHealth, aggregateStatusLabel } from "@/hooks/useWorkerHealth";
-import { useState, useCallback } from "react";
+import { useTheme } from "@/providers/ThemeProvider";
 
 interface HeaderProps {
   onMenuToggle: () => void;
@@ -10,14 +10,12 @@ interface HeaderProps {
 
 export default function Header({ onMenuToggle }: HeaderProps) {
   const { address, isLoggedIn, doLogout } = useAuth();
-  const { allHealthy, degradedCount, downCount, checking } = useWorkerHealth(15000);
-  const [theme, setTheme] = useState<"light" | "dark">(() => {
-    if (typeof document !== "undefined") {
-      const current = document.documentElement.getAttribute("data-theme");
-      if (current === "dark" || current === "light") return current;
-    }
-    return "light";
-  });
+  const { allHealthy, degradedCount, downCount, checking } = useWorkerHealth(
+    typeof window !== 'undefined' && localStorage.getItem('dashboard-settings')
+      ? (JSON.parse(localStorage.getItem('dashboard-settings') || '{}').refreshInterval || 15) * 1000
+      : 15000
+  );
+  const { theme, toggle } = useTheme();
 
   const shortAddress = address
     ? `${address.slice(0, 6)}…${address.slice(-4)}`
@@ -35,12 +33,6 @@ export default function Header({ onMenuToggle }: HeaderProps) {
           ? "bg-[var(--cc-muted)] animate-pulse"
           : "bg-[var(--cc-success)] animate-pulse";
 
-  const toggleTheme = useCallback(() => {
-    const next = theme === "light" ? "dark" : "light";
-    setTheme(next);
-    document.documentElement.setAttribute("data-theme", next);
-  }, [theme]);
-
   return (
     <header className="cc-navbar flex items-center justify-between px-4 sm:px-6">
       <div className="flex items-center gap-3">
@@ -55,7 +47,7 @@ export default function Header({ onMenuToggle }: HeaderProps) {
           </svg>
         </button>
 
-        <img src="/logo.png" alt="Cinacoin logo" className="h-7 w-7 sm:h-8 sm:w-8 rounded-md shrink-0" />
+        <img src="/logo.svg" alt="Cinacoin logo" width={32} height={32} className="h-7 w-7 sm:h-8 sm:w-8 rounded-md shrink-0" />
         <div className="min-w-0">
           <h2 className="cc-body-md-strong text-[var(--cc-ink)] truncate">Backend Dashboard</h2>
           <p className="cc-caption text-[var(--cc-muted)] hidden sm:block">Cloudflare Workers Management</p>
@@ -89,7 +81,7 @@ export default function Header({ onMenuToggle }: HeaderProps) {
 
         {/* Theme toggle */}
         <button
-          onClick={toggleTheme}
+          onClick={toggle}
           aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
           className="p-2 rounded-full text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft)] transition-colors min-h-[36px] min-w-[36px] flex items-center justify-center"
         >

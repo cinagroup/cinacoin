@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     siteName: 'Cinacoin',
     images: [
       {
-        url: '/logo.png',
+        url: '/logo.svg',
         width: 1200,
         height: 630,
         alt: 'Cinacoin — Wallet Connection Toolkit',
@@ -67,6 +67,7 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="light" suppressHydrationWarning className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <body className={`${inter.className} bg-[var(--cc-canvas-soft)] text-[var(--cc-ink)]`}>
+        <a href="#main-content" className="skip-link">Skip to main content</a>
         <Providers>
           <ToastProvider>
             <WorkerHealthProvider>

@@ -97,10 +97,10 @@ export default function OverviewPage() {
       </div>
 
       {/* 7-day request chart */}
-      <BarChart data={HISTORY_DATA} labels={HISTORY_DAYS} color="var(--cc-link)" height={140} aria-label="7-day request volume bar chart" />
+      <BarChart data={HISTORY_DATA} labels={HISTORY_DAYS} color="var(--cc-link)" height={140} ariaLabelledBy="overview-heading" />
 
       {/* Service status cards */}
-      <h2 className="cc-body-md-strong text-[var(--cc-ink)] mt-4 sm:mt-6">Service Status</h2>
+      <h2 className="cc-body-md-strong text-[var(--cc-ink)] mt-4 sm:mt-6" id="overview-heading">Service Status</h2>
       <div className="grid gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {SERVICES.map((service) => (
           <Link key={service.id} href={`/${service.id}`}>

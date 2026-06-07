@@ -63,7 +63,12 @@ jobs:
 
       - name: Build health status page
         working-directory: apps/health-status
-        run: pnpm build
+        run: |
+          rm -rf .next/cache
+          rm -rf .next
+          rm -rf out
+          rm -rf ../../cache/
+          pnpm build
 
       - name: Verify static export
         run: |

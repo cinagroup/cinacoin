@@ -9,7 +9,7 @@ export function ProjectCard({ project }: { project: Project }) {
             <path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
           </svg>
         </div>
-        <span className="cc-badge bg-[var(--cc-link-bg-soft)] text-[var(--cc-link-deep)]">
+        <span className="cc-badge" style={{ backgroundColor: 'var(--cc-link-bg-soft)', color: 'var(--cc-link-deep)' }}>
           active
         </span>
       </div>

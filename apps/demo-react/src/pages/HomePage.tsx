@@ -76,10 +76,10 @@ const HomePage: React.FC = () => {
               ✨ Open source • 64 packages • Zero cost
             </span>
           </div>
-          <h1 className="cc-display-xl md:text-[64px] md:leading-[64px] mb-6 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
-            Connect any wallet
+          <h1 className="cc-display-xl mb-6 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+            Connect any wallet,
             <br />
-            <span>on any chain</span>
+            <span>on any chain.</span>
           </h1>
           <p className="cc-body-lg text-[var(--cc-muted)] mb-10 max-w-2xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
             One SDK, infinite possibilities. Unify wallet connections, multi-chain swaps,
@@ -135,7 +135,7 @@ const HomePage: React.FC = () => {
                     </div>
                   )}
                   {chainInfo.error && (
-                    <p className="text-xs text-red-500 font-medium">{chainInfo.error}</p>
+                    <p className="text-xs text-[var(--cc-error)] font-medium">{chainInfo.error}</p>
                   )}
                 </div>
               </div>

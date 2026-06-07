@@ -47,7 +47,7 @@ export default function Sidebar({ onClose }: SidebarProps) {
       {/* Logo */}
       <div className="px-5 py-4 border-b border-[var(--cc-hairline)]">
         <div className="flex items-center gap-3">
-          <img src="/logo.png" alt="Cinacoin logo" className="h-7 w-7 rounded-md shrink-0" />
+          <img src="/logo.svg" alt="Cinacoin logo" className="h-7 w-7 rounded-md shrink-0" />
           <div className="flex-1 min-w-0">
             <h1 className="cc-display-sm text-[var(--cc-ink)] leading-none">Cinacoin</h1>
             <p className="cc-body-sm text-[var(--cc-muted)] leading-none mt-0.5">Backend Dashboard</p>

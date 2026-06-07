@@ -26,11 +26,35 @@ export interface IncidentsData {
   incidents: Incident[];
 }
 
-export const severityConfig: Record<IncidentSeverity, { label: string; text: string; bg: string; border: string }> = {
-  critical: { label: "严重", text: "text-red-400", bg: "bg-red-500/10", border: "border-red-500/20" },
-  major: { label: "重要", text: "text-orange-400", bg: "bg-orange-500/10", border: "border-orange-500/20" },
-  minor: { label: "轻微", text: "text-yellow-400", bg: "bg-yellow-500/10", border: "border-yellow-500/20" },
-  maintenance: { label: "维护", text: "text-blue-400", bg: "bg-blue-500/10", border: "border-blue-500/20" },
+export const severityConfig: Record<IncidentSeverity, {
+  label: string;
+  textColor: string;
+  bgColor: string;
+  borderColor: string;
+  text: string;
+  bg: string;
+  border: string;
+}> = {
+  critical: {
+    label: "严重", text: "text-[var(--cc-error)]",
+    textColor: "var(--cc-error)", bgColor: "var(--cc-error-soft)", borderColor: "var(--cc-error)",
+    bg: "bg-[var(--cc-error-soft)]", border: "border-[var(--cc-error)]",
+  },
+  major: {
+    label: "重要", text: "text-[var(--cc-warning)]",
+    textColor: "var(--cc-warning)", bgColor: "var(--cc-warning-soft)", borderColor: "var(--cc-warning)",
+    bg: "bg-[var(--cc-warning-soft)]", border: "border-[var(--cc-warning)]",
+  },
+  minor: {
+    label: "轻微", text: "text-[var(--cc-warning-deep)]",
+    textColor: "var(--cc-warning-deep)", bgColor: "var(--cc-warning-soft)", borderColor: "var(--cc-warning)",
+    bg: "bg-[var(--cc-warning-soft)]", border: "border-[var(--cc-warning)]",
+  },
+  maintenance: {
+    label: "维护", text: "text-[var(--cc-link)]",
+    textColor: "var(--cc-link)", bgColor: "var(--cc-link-bg-soft)", borderColor: "var(--cc-link)",
+    bg: "bg-[var(--cc-link-bg-soft)]", border: "border-[var(--cc-link)]",
+  },
 };
 
 export const statusLabels: Record<IncidentStatus, string> = {

@@ -16,7 +16,7 @@ export default function Logos() {
     <section
       className="relative py-16"
       style={{ borderTop: '1px solid var(--cc-hairline)' }}
-      aria-label="Supported chains"
+      aria-label={t('logos-label')}
     >
       <FadeIn>
         <h2 className="sr-only">Supported Chains</h2>

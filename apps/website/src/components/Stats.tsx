@@ -15,7 +15,7 @@ export default function Stats() {
 
   return (
     <section
-      className="relative bg-[var(--cc-canvas-soft)] py-20 sm:py-24"
+      className="relative bg-[var(--cc-canvas-soft)] py-24 sm:py-32"
       aria-labelledby="stats-heading"
     >
       <FadeIn direction="none" duration={800}>
@@ -36,7 +36,7 @@ export default function Stats() {
         {stats.map((stat, i) => (
           <FadeIn key={i} delay={i * 150} direction="up" duration={700}>
             <div className="text-center">
-              <div className="cc-display-lg text-[var(--cc-ink)]">
+              <div className="cc-display-lg text-[var(--cc-ink)]" role="status" aria-live="polite">
                 <AnimatedNumber value={stat.value} duration={2000} />
               </div>
               <div className="mt-2 cc-body-sm text-[var(--cc-muted)]">{t(stat.labelKey)}</div>

@@ -68,7 +68,7 @@ export default function Header({
             href="/"
             className="flex items-center gap-2 text-xl font-semibold text-[var(--cc-ink)] shrink-0"
           >
-            <img src="/demo/logo.png" alt="Cinacoin" className="h-8 w-8 rounded-md" />
+            <img src="/demo/logo.svg" alt="Cinacoin" className="h-8 w-8 rounded-md" />
             Cinacoin
           </Link>
 
@@ -77,12 +77,14 @@ export default function Header({
             {links.map((item) => {
               const i18nKey = NAV_I18N_MAP[item.href];
               const label = i18nKey ? t(i18nKey) : item.label;
+              const isActive = pathname === item.href;
               return (
                 <Link
                   key={item.href}
                   href={item.href}
+                  aria-current={isActive ? 'page' : undefined}
                   className={`px-3 py-2 rounded-full text-sm font-medium transition-colors ${
-                    pathname === item.href
+                    isActive
                       ? 'bg-[var(--cc-hairline)] text-[var(--cc-ink)]'
                       : 'text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-hairline)]/50'
                   }`}
@@ -100,6 +102,7 @@ export default function Header({
               onClick={toggleTheme}
               className="p-2 rounded-full text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-hairline)]/50 transition-colors"
               aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
             >
               {theme === 'dark' ? (
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -118,13 +121,15 @@ export default function Header({
                 onClick={() => setLangOpen(!langOpen)}
                 className="px-2 py-2 rounded-[var(--cc-radius-lg)] text-sm font-medium text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-hairline)]/50 transition-colors"
                 aria-label="Select language"
+                aria-expanded={langOpen}
+                aria-haspopup="listbox"
               >
                 {locale === 'zh' ? '中文' : 'EN'}
               </button>
               {langOpen && (
                 <>
                   <div className="fixed inset-0 z-40" onClick={() => setLangOpen(false)} />
-                  <div className="absolute right-0 top-full mt-1 z-50 w-36 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-lg)] shadow-[0_4px_16px_rgba(0,0,0,0.15)] overflow-hidden animate-dropdown-in">
+                  <div className="absolute right-0 top-full mt-1 z-50 w-36 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-lg)] shadow-[var(--cc-level5)] overflow-hidden animate-dropdown-in">
                     <button
                       onClick={() => { setLocale('en'); setLangOpen(false); }}
                       className={`w-full px-4 py-3 text-sm text-left transition-colors ${
@@ -159,7 +164,8 @@ export default function Header({
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               className="lg:hidden p-2 rounded-full text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-hairline)]/50 transition-colors"
-              aria-label="Toggle menu"
+              aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={mobileOpen}
             >
               {mobileOpen ? (
                 <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -177,8 +183,8 @@ export default function Header({
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="lg:hidden border-t border-[var(--cc-hairline)] bg-[var(--cc-canvas)]/95 backdrop-blur">
-          <nav className="px-4 py-3 space-y-1 max-h-[70vh] overflow-y-auto">
+        <div className="lg:hidden border-t border-[var(--cc-hairline)] bg-[var(--cc-canvas)]/95 backdrop-blur" role="dialog" aria-label="Mobile navigation">
+          <nav className="px-4 py-3 space-y-1 max-h-[70vh] overflow-y-auto" aria-label="Mobile menu">
             {links.map((item) => {
               const i18nKey = NAV_I18N_MAP[item.href];
               const label = i18nKey ? t(i18nKey) : item.label;
@@ -195,7 +201,7 @@ export default function Header({
                 >
                   {label}
                   {pathname === item.href && (
-                    <span className="ml-auto w-2 h-2 rounded-full bg-brand-400" />
+                    <span className="ml-auto w-2 h-2 rounded-full bg-[var(--cc-link)]" />
                   )}
                 </Link>
               );

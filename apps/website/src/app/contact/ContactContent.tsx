@@ -32,7 +32,7 @@ export default function ContactContent() {
             <FadeIn direction="right" duration={600}>
               <div className="cc-card">
                 <h2 className="cc-display-sm mb-6">{t('contact-title')}</h2>
-                <form className="space-y-5">
+                <form className="space-y-5" onSubmit={(e) => { e.preventDefault(); alert('Form submitted (demo)') }}>
                   {/* Name */}
                   <div>
                     <label htmlFor="name" className="cc-body-sm-strong block mb-2">
@@ -40,7 +40,10 @@ export default function ContactContent() {
                     </label>
                     <input
                       id="name"
+                      name="name"
                       type="text"
+                      required
+                      autoComplete="name"
                       className="cc-form-input"
                       placeholder={t('contact-form-name-placeholder')}
                     />
@@ -53,7 +56,10 @@ export default function ContactContent() {
                     </label>
                     <input
                       id="email"
+                      name="email"
                       type="email"
+                      required
+                      autoComplete="email"
                       className="cc-form-input"
                       placeholder={t('contact-form-email-placeholder')}
                     />
@@ -64,8 +70,8 @@ export default function ContactContent() {
                     <label htmlFor="subject" className="cc-body-sm-strong block mb-2">
                       {t('contact-form-subject')}
                     </label>
-                    <select id="subject" className="cc-form-input">
-                      <option value="">{t('contact-form-subject-placeholder')}</option>
+                    <select id="subject" name="subject" className="cc-form-input" defaultValue="">
+                      <option value="" disabled>{t('contact-form-subject-placeholder')}</option>
                       <option value="sales">{t('contact-form-subject-sales')}</option>
                       <option value="support">{t('contact-form-subject-support')}</option>
                       <option value="partnership">{t('contact-form-subject-partnership')}</option>
@@ -80,7 +86,9 @@ export default function ContactContent() {
                     </label>
                     <textarea
                       id="message"
+                      name="message"
                       rows={5}
+                      required
                       className="cc-form-input"
                       placeholder={t('contact-form-message-placeholder')}
                     />

@@ -17,7 +17,7 @@ import {
 
 function StatusIndicator({ healthy }: { healthy: boolean }) {
   const color = healthy
-    ? 'bg-emerald-400 shadow-emerald-400/60'
+    ? 'bg-[var(--cc-success)] shadow-[var(--cc-success)]/60'
     : 'bg-[var(--cc-error)] shadow-red-500/60';
 
   return (
@@ -66,19 +66,19 @@ function ChainCard({ chain, balance, health, isWalletConnected, isCurrentChain, 
   return (
     <div className={`group bg-[var(--cc-canvas-soft-2)]/40 backdrop-blur rounded-[var(--cc-radius-md)] border ${
       isCurrentChain
-        ? 'border-brand-500/50 ring-1 ring-brand-500/20'
+        ? 'border-[var(--cc-link)]/50 ring-1 ring-[var(--cc-link)]/20'
         : justSwitched
         ? 'border-green-500/50 ring-1 ring-green-500/20'
         : 'border-[var(--cc-hairline-strong)]/60'
-    } overflow-hidden hover:border-[var(--cc-hairline-strong)]/60 transition-all duration-300 hover:shadow-[0_4px_12px_rgba(0,0,0,0.15),0_2px_4px_rgba(0,0,0,0.10)] hover:-translate-y-0.5 ${
+    } overflow-hidden hover:border-[var(--cc-hairline-strong)]/60 transition-all duration-300 hover:shadow-[var(--cc-level4)] hover:-translate-y-0.5 ${
       justSwitched ? 'animate-chain-switch-flash' : ''
     }`}>
       {/* Top gradient bar */}
       <div className={`h-1 ${
         isCurrentChain
-          ? 'bg-gradient-to-r from-brand-500 to-brand-400'
+          ? 'bg-gradient-to-r from-[var(--cc-link)]/70 to-[var(--cc-link)]/50'
           : isHealthy
-          ? 'bg-emerald-400/70'
+          ? 'bg-[var(--cc-success)]/70'
           : 'bg-[var(--cc-error)]/70'
       } group-hover:opacity-100 transition-all duration-300`} />
 
@@ -86,7 +86,7 @@ function ChainCard({ chain, balance, health, isWalletConnected, isCurrentChain, 
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-brand-500 to-brand-600 rounded-md flex items-center justify-center text-[var(--cc-ink)] font-semibold text-sm shadow-[0_2px_8px_rgba(0,0,0,0.2),0_1px_2px_rgba(0,0,0,0.1)]">
+            <div className="w-10 h-10 bg-gradient-to-br from-[var(--cc-link)]/80 to-[var(--cc-link)] rounded-md flex items-center justify-center text-[var(--cc-ink)] font-semibold text-sm shadow-[var(--cc-level2)]">
               {chain.symbol}
             </div>
             <div>
@@ -153,7 +153,7 @@ function ChainCard({ chain, balance, health, isWalletConnected, isCurrentChain, 
         {isWalletConnected && isCurrentChain ? (
           <div className="w-full py-3 rounded-md text-center font-semibold text-sm bg-gradient-to-r from-[var(--cc-primary)]/10 to-[var(--cc-primary)]/5 text-[var(--cc-primary)] border border-[var(--cc-primary)]/30 animate-status-transition">
             <span className="inline-flex items-center gap-1.5">
-              <span className="size-2 rounded-full bg-brand-400 animate-pulse" />
+              <span className="size-2 rounded-full bg-[var(--cc-link)] animate-pulse" />
               Active Chain
             </span>
           </div>
@@ -260,7 +260,7 @@ function BalanceSummary({ balances }: { balances: ChainBalance[] }) {
           {hasBalance.map((b) => (
             <div key={b.chain.id} className="flex items-center justify-between px-4 py-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/40">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-gradient-to-br from-brand-500 to-brand-600 rounded-lg flex items-center justify-center text-[var(--cc-ink)] text-xs font-semibold">
+                <div className="w-8 h-8 bg-gradient-to-br from-[var(--cc-link)]/80 to-[var(--cc-link)] rounded-lg flex items-center justify-center text-[var(--cc-ink)] text-xs font-semibold">
                   {b.chain.symbol}
                 </div>
                 <div>
@@ -314,7 +314,7 @@ function CrossChainFlow() {
       <div className="relative">
         <div className="absolute top-10 left-10 right-10 h-0.5 bg-[var(--cc-canvas-soft-2)]">
           <div
-            className="absolute top-0 left-0 h-full bg-gradient-to-r from-brand-500 via-brand-400 to-brand-300 transition-all duration-500 ease-out"
+            className="absolute top-0 left-0 h-full bg-gradient-to-r from-[var(--cc-link)]/80 via-[var(--cc-link)]/70 to-[var(--cc-link)]/60 transition-all duration-500 ease-out"
             style={{ width: `${((activeStep + 1) / steps.length) * 100}%` }}
           />
         </div>
@@ -325,7 +325,7 @@ function CrossChainFlow() {
               <div
                 className={`w-20 h-20 rounded-[var(--cc-radius-md)] flex items-center justify-center text-3xl transition-all duration-500 ${
                   i <= activeStep
-                    ? 'bg-gradient-to-br from-brand-500/30 to-brand-400/30 border-2 border-brand-400/50 shadow-[0_4px_12px_rgba(99,102,241,0.10),0_2px_4px_rgba(99,102,241,0.05)] scale-105'
+                    ? 'bg-gradient-to-br from-[var(--cc-link)]/20 to-[var(--cc-link)]/10 border-2 border-[var(--cc-link)]/40 shadow-[var(--cc-level3)] scale-105'
                     : 'bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline-strong)]/60 opacity-50'
                 }`}
               >
@@ -418,10 +418,10 @@ client.on('transaction', (event) => {
           {code.split('\n').map((line, i) => {
             let color = 'text-[var(--cc-body)]';
             if (line.trim().startsWith('//')) color = 'text-[var(--cc-body)] italic';
-            else if (line.includes('import') || line.includes('from')) color = 'text-purple-400';
-            else if (line.includes('const') || line.includes('let')) color = 'text-sky-400';
+            else if (line.includes('import') || line.includes('from')) color = 'text-[var(--cc-violet)]';
+            else if (line.includes('const') || line.includes('let')) color = 'text-[var(--cc-cyan)]';
             else if (line.includes('await')) color = 'text-[var(--cc-warning)]';
-            else if (line.includes('console')) color = 'text-green-400';
+            else if (line.includes('console')) color = 'text-[var(--cc-success)]';
             else if (line.includes('new ')) color = 'text-[var(--cc-success)]';
 
             return (
@@ -589,7 +589,7 @@ export default function MultiChainPage() {
               ? `${account.chainName} · ${shortenAddress(account.address ?? '')}`
               : `${CHAINS.length} EVM chains · Real RPC balances`}
           </div>
-          <h1 className="text-4xl font-semibold tracking-tighter bg-gradient-to-r from-brand-400 via-brand-500 to-brand-300 bg-clip-text text-transparent">
+          <h1 className="text-4xl font-semibold tracking-tighter bg-gradient-to-r from-[var(--cc-link)]/80 via-[var(--cc-link)] to-[var(--cc-link)]/60/60/60 bg-clip-text text-transparent">
             Multi-Chain Connectivity
           </h1>
           <p className="text-[var(--cc-muted)] max-w-2xl mx-auto text-lg">
@@ -618,7 +618,7 @@ export default function MultiChainPage() {
                 </div>
                 <button
                   onClick={() => disconnect()}
-                  className="ml-2 px-4 py-2 rounded-md text-xs font-semibold bg-[var(--cc-error)]/10 text-[var(--cc-error)] border border-red-500/20 hover:bg-[var(--cc-error)]/20 transition-all"
+                  className="ml-2 px-4 py-2 rounded-md text-xs font-semibold bg-[var(--cc-error)]/10 text-[var(--cc-error)] border border-[var(--cc-error)]/20 hover:bg-[var(--cc-error)]/20 transition-all"
                 >
                   Disconnect
                 </button>
@@ -627,14 +627,14 @@ export default function MultiChainPage() {
           ) : (
             <button
               onClick={() => connect(primaryConnector?.id ?? 'io.metamask')}
-              className="px-6 py-3 rounded-[100px] font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all shadow-[0_4px_12px_rgba(99,102,241,0.25),0_2px_4px_rgba(99,102,241,0.15)]"
+              className="px-6 py-3 rounded-[100px] font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all shadow-[var(--cc-level3)]"
             >
               Connect Wallet
             </button>
           )}
         </div>
         {error && (
-          <div className="text-center text-sm text-[var(--cc-error)] bg-[var(--cc-error)]/10 border border-red-500/20 rounded-md px-4 py-2">
+          <div className="text-center text-sm text-[var(--cc-error)] bg-[var(--cc-error)]/10 border border-[var(--cc-error)]/20 rounded-md px-4 py-2">
             {error}
           </div>
         )}

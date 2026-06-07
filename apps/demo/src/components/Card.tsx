@@ -14,7 +14,7 @@ export default function Card({
   className = '',
   title,
   subtitle,
-  glowColor = 'from-brand-500/10 to-brand-400/10',
+  glowColor = 'from-[var(--cc-link)]/10 to-[var(--cc-violet)]/10',
   hoverLift = true,
 }: CardProps) {
   const [hovered, setHovered] = useState(false);
@@ -33,14 +33,15 @@ export default function Card({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onMouseMove={handleMouseMove}
-      className={`relative bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-md border border-[var(--cc-hairline-strong)]/60 overflow-hidden transition-all duration-300 ${
-        hoverLift ? 'hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.25)] hover:border-[var(--cc-hairline-strong)]/60' : ''
+      className={`relative bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] overflow-hidden transition-all duration-300 ${
+        hoverLift ? 'hover:-translate-y-0.5' : ''
       } ${className}`}
+      style={hoverLift && hovered ? { boxShadow: 'var(--cc-level3)' } : undefined}
     >
       {/* Gradient glow on hover */}
       {hoverLift && (
         <div
-          className="absolute inset-0 rounded-md opacity-0 pointer-events-none transition-opacity duration-300"
+          className="absolute inset-0 rounded-[var(--cc-radius-md)] opacity-0 pointer-events-none transition-opacity duration-300"
           style={{
             opacity: hovered ? 1 : 0,
             background: `radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(59,130,246,0.06), transparent 40%)`,
@@ -51,15 +52,15 @@ export default function Card({
       {/* Border shimmer */}
       {hoverLift && (
         <div
-          className={`absolute -inset-px rounded-md bg-gradient-to-r ${glowColor} pointer-events-none transition-opacity duration-500`}
+          className={`absolute -inset-px rounded-[var(--cc-radius-md)] bg-gradient-to-r ${glowColor} pointer-events-none transition-opacity duration-500`}
           style={{ opacity: hovered ? 1 : 0, mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)', maskComposite: 'exclude', WebkitMaskComposite: 'xor', padding: 1 }}
         />
       )}
 
       {(title || subtitle) && (
         <div className="relative px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
-          {title && <h2 className="text-lg font-semibold tracking-tight text-[var(--cc-ink)]">{title}</h2>}
-          {subtitle && <p className="text-xs text-[var(--cc-body)] mt-0.5">{subtitle}</p>}
+          {title && <h2 className="cc-display-sm text-[var(--cc-ink)]">{title}</h2>}
+          {subtitle && <p className="cc-caption text-[var(--cc-body)] mt-1">{subtitle}</p>}
         </div>
       )}
       <div className="relative p-5">{children}</div>

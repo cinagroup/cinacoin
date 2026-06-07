@@ -10,8 +10,8 @@ const config: Config = {
   baseUrl: '/',
   organizationName: 'cinagroup',
   projectName: 'cinacoin',
-  onBrokenLinks: 'warn',
-  onBrokenMarkdownLinks: 'warn',
+  onBrokenLinks: 'throw',
+  onBrokenMarkdownLinks: 'throw',
   i18n: { defaultLocale: 'en', locales: ['en'] },
 
   // Meta tags + font loading

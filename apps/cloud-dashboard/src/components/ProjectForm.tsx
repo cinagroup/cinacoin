@@ -50,7 +50,7 @@ export function ProjectForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       <div>
-        <label htmlFor="name" className="block text-sm font-medium text-[var(--cc-body)] mb-1">Project Name</label>
+        <label htmlFor="name" className="cc-body-sm-strong text-[var(--cc-ink)] block mb-1">Project Name <span className="text-[var(--cc-error)]">*</span></label>
         <input
           id="name"
           type="text"
@@ -63,7 +63,7 @@ export function ProjectForm() {
       </div>
 
       <div>
-        <label htmlFor="description" className="block text-sm font-medium text-[var(--cc-body)] mb-1">Description</label>
+        <label htmlFor="description" className="cc-body-sm-strong text-[var(--cc-ink)] block mb-1">Description</label>
         <textarea
           id="description"
           rows={3}
@@ -75,7 +75,7 @@ export function ProjectForm() {
       </div>
 
       <div>
-        <label htmlFor="ownerAddress" className="block text-sm font-medium text-[var(--cc-body)] mb-1">Owner Wallet Address</label>
+        <label htmlFor="ownerAddress" className="cc-body-sm-strong text-[var(--cc-ink)] block mb-1">Owner Wallet Address</label>
         <input
           id="ownerAddress"
           type="text"
@@ -88,7 +88,7 @@ export function ProjectForm() {
       </div>
 
       <div>
-        <label htmlFor="websiteUrl" className="block text-sm font-medium text-[var(--cc-body)] mb-1">Website URL (optional)</label>
+        <label htmlFor="websiteUrl" className="cc-body-sm-strong text-[var(--cc-ink)] block mb-1">Website URL (optional)</label>
         <input
           id="websiteUrl"
           type="url"
@@ -100,7 +100,7 @@ export function ProjectForm() {
       </div>
 
       <div>
-        <label htmlFor="redirectUris" className="block text-sm font-medium text-[var(--cc-body)] mb-1">Redirect URIs (comma-separated)</label>
+        <label htmlFor="redirectUris" className="cc-body-sm-strong text-[var(--cc-ink)] block mb-1">Redirect URIs (comma-separated)</label>
         <input
           id="redirectUris"
           type="text"

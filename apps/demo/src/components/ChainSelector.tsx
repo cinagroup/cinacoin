@@ -83,7 +83,7 @@ export default function ChainSelector({
         onKeyDown={handleKeyDown}
         className={`w-full flex items-center gap-2.5 px-4 py-3 bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-ink)] text-sm rounded-md border border-[var(--cc-hairline-strong)]/40 outline-none cursor-pointer appearance-none transition-all duration-200 ${
           open
-            ? 'ring-2 ring-brand-500/40 border-brand-500/50'
+            ? 'ring-2 ring-[var(--cc-link)]/40 border-[var(--cc-link)]/50'
             : 'hover:border-[var(--cc-hairline-strong)]/60 hover:bg-[var(--cc-canvas-soft-2)]/80'
         }`}
         aria-expanded={open}
@@ -114,7 +114,7 @@ export default function ChainSelector({
       {/* Dropdown */}
       {open && (
         <div
-          className="absolute z-50 top-full mt-2 left-0 w-full min-w-[240px] bg-[var(--cc-canvas-soft-2)]/95 backdrop-blur-xl border border-[var(--cc-hairline-strong)]/50 rounded-md shadow-[0_4px_16px_rgba(0,0,0,0.35)] overflow-hidden animate-dropdown-in"
+          className="absolute z-50 top-full mt-2 left-0 w-full min-w-[240px] bg-[var(--cc-canvas-soft-2)]/95 backdrop-blur-xl border border-[var(--cc-hairline-strong)]/50 rounded-md shadow-[var(--cc-level5)] overflow-hidden animate-dropdown-in"
           role="listbox"
         >
           {/* Dropdown header */}
@@ -140,7 +140,7 @@ export default function ChainSelector({
                   onMouseLeave={() => setHovered(null)}
                   className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg text-left transition-all duration-150 ${
                     isSelected
-                      ? 'bg-brand-500/15 border border-brand-500/30'
+                      ? 'bg-[var(--cc-link)]/15 border border-[var(--cc-link)]/30'
                       : isHovered
                       ? 'bg-[var(--cc-canvas-soft-2)]/60'
                       : 'hover:bg-[var(--cc-canvas-soft-2)]/40'
@@ -166,7 +166,7 @@ export default function ChainSelector({
                   {/* Active checkmark */}
                   {isSelected && (
                     <svg
-                      className="w-4 h-4 text-brand-400 animate-check-pop"
+                      className="w-4 h-4 text-[var(--cc-link)] animate-check-pop"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"

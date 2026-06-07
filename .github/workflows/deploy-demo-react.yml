@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 env:
-  NODE_VERSION: "20"
+  NODE_VERSION: "22"
 
 jobs:
   deploy:
@@ -34,7 +34,11 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build Demo React
-        run: pnpm --filter cinacoin-demo-react build
+        run: |
+          rm -rf apps/demo-react/dist
+          rm -rf apps/demo-react/node_modules/.vite
+          rm -rf cache/
+          pnpm --filter cinacoin-demo-react build
         env:
           NODE_ENV: production
 
@@ -43,11 +47,17 @@ jobs:
           test -f apps/demo-react/dist/index.html || { echo "✗ dist/index.html missing"; exit 1; }
           echo "✓ static output exists"
 
+      - name: Clean cache before deploy
+        run: |
+          rm -rf apps/demo-react/dist/.vite
+          rm -rf cache/
+          echo "Cache cleaned"
+
       - name: Install Wrangler
         run: npm install -g wrangler@3
 
       - name: Deploy to Cloudflare Pages
-        run: wrangler pages deploy apps/demo-react/dist --project-name=demo-react --branch=main
+        run: wrangler pages deploy apps/demo-react/dist --project-name=cinacoin-demo-react --branch=main
         env:
           NODE_ENV: production
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}

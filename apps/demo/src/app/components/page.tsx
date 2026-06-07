@@ -13,7 +13,7 @@ const THEMES: Record<string, { name: string; bg: string; card: string; border: s
     bg: 'bg-[var(--cc-canvas)]',
     card: 'bg-[var(--cc-canvas-soft-2)]/60',
     border: 'border-[var(--cc-hairline-strong)]/50',
-    primary: 'from-brand-500 to-brand-600',
+    primary: 'from-[var(--cc-link)]/80 to-[var(--cc-link)]',
     text: 'text-[var(--cc-ink)]',
     accent: 'text-[var(--cc-link)]',
   },
@@ -22,7 +22,7 @@ const THEMES: Record<string, { name: string; bg: string; card: string; border: s
     bg: 'bg-[var(--cc-canvas-soft-2)]',
     card: 'bg-[var(--cc-canvas)]/80',
     border: 'border-[var(--cc-hairline-strong)]/50',
-    primary: 'from-brand-500 to-brand-600',
+    primary: 'from-[var(--cc-link)]/80 to-[var(--cc-link)]',
     text: 'text-[var(--cc-ink)]',
     accent: 'text-[var(--cc-primary)]',
   },
@@ -31,7 +31,7 @@ const THEMES: Record<string, { name: string; bg: string; card: string; border: s
     bg: 'bg-[var(--cc-canvas)]',
     card: 'bg-[var(--cc-canvas)]/60',
     border: 'border-slate-700/50',
-    primary: 'from-brand-500 to-brand-600',
+    primary: 'from-[var(--cc-link)]/80 to-[var(--cc-link)]',
     text: 'text-[var(--cc-ink)]',
     accent: 'text-[var(--cc-link)]',
   },
@@ -39,17 +39,17 @@ const THEMES: Record<string, { name: string; bg: string; card: string; border: s
     name: 'Neon',
     bg: 'bg-[var(--cc-canvas)]',
     card: 'bg-[var(--cc-canvas)]/70',
-    border: 'border-green-500/30',
+    border: 'border-[var(--cc-success)]/30',
     primary: 'from-green-400 to-emerald-600',
-    text: 'text-green-100',
-    accent: 'text-green-400',
+    text: 'text-[var(--cc-success)]/70',
+    accent: 'text-[var(--cc-success)]',
   },
   sunset: {
     name: 'Sunset',
     bg: 'bg-[var(--cc-canvas)]',
     card: 'bg-[var(--cc-canvas)]/60',
     border: 'border-orange-500/30',
-    primary: 'from-brand-500 to-brand-600',
+    primary: 'from-[var(--cc-link)]/80 to-[var(--cc-link)]',
     text: 'text-orange-100',
     accent: 'text-orange-400',
   },
@@ -59,8 +59,8 @@ const THEMES: Record<string, { name: string; bg: string; card: string; border: s
     card: 'bg-[var(--cc-canvas)]/50',
     border: 'border-cyan-500/30',
     primary: 'from-cyan-500 to-teal-600',
-    text: 'text-cyan-100',
-    accent: 'text-cyan-400',
+    text: 'text-[var(--cc-cyan-soft)]',
+    accent: 'text-[var(--cc-cyan)]',
   },
   rose: {
     name: 'Rose',
@@ -141,7 +141,7 @@ function ComponentShowcase({
           onClick={() => setShowCode(!showCode)}
           className={`text-xs px-3 py-2 rounded-lg transition-all ${
             showCode
-              ? 'bg-brand-500/15 text-[var(--cc-primary)] border border-[var(--cc-primary)]/30'
+              ? 'bg-[var(--cc-link)]/15 text-[var(--cc-link)] border border-[var(--cc-primary)]/30'
               : 'bg-[var(--cc-canvas-soft-2)]/40 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)]'
           }`}
         >
@@ -180,7 +180,7 @@ export default function ComponentsPage() {
 
         {/* ── Header ── */}
         <div className="text-center space-y-2">
-          <h1 className="text-3xl font-semibold tracking-tight bg-gradient-to-r from-brand-500 via-brand-400 to-brand-300 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-semibold tracking-tight bg-gradient-to-r from-[var(--cc-link)]/80 via-[var(--cc-link)]/70 to-[var(--cc-link)]/60 bg-clip-text text-transparent">
             Component Gallery
           </h1>
           <p className="text-[var(--cc-muted)] text-sm">Browse all Cinacoin components with live theme previews</p>
@@ -200,7 +200,7 @@ export default function ComponentsPage() {
                   onClick={() => setThemeKey(key)}
                   className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
                     themeKey === key
-                      ? `bg-[var(--cc-primary)] text-[var(--cc-on-primary)] shadow-[0_2px_8px_rgba(0,0,0,0.15)]`
+                      ? `bg-[var(--cc-primary)] text-[var(--cc-on-primary)] shadow-[var(--cc-level2)]`
                       : 'bg-[var(--cc-canvas-soft-2)]/40 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)]'
                   }`}
                 >
@@ -220,7 +220,7 @@ export default function ComponentsPage() {
             <div className="space-y-4">
               {/* Variants */}
               <div className="flex flex-wrap gap-3 items-center">
-                <button className="px-5 py-3 rounded-[100px] font-semibold text-sm bg-[var(--cc-primary)] text-[var(--cc-on-primary)] shadow-[0_4px_12px_rgba(99,102,241,0.25),0_2px_4px_rgba(99,102,241,0.15)] hover:shadow-[0_6px_16px_rgba(99,102,241,0.4),0_2px_6px_rgba(99,102,241,0.2)] transition-all hover:-translate-y-0.5">
+                <button className="px-5 py-3 rounded-[100px] font-semibold text-sm bg-[var(--cc-primary)] text-[var(--cc-on-primary)] shadow-[var(--cc-level3)] hover:shadow-[var(--cc-level4)] transition-all hover:-translate-y-0.5">
                   Primary
                 </button>
                 <button className="px-5 py-3 rounded-md font-semibold text-sm bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all">
@@ -229,7 +229,7 @@ export default function ComponentsPage() {
                 <button className="px-5 py-3 rounded-md font-semibold text-sm text-[var(--cc-primary)] hover:text-[var(--cc-ink)] transition-colors">
                   Ghost
                 </button>
-                <button className="px-5 py-3 rounded-md font-semibold text-sm bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-red-500/25 hover:bg-[var(--cc-error)]/25 transition-all">
+                <button className="px-5 py-3 rounded-md font-semibold text-sm bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-[var(--cc-error)]/25 hover:bg-[var(--cc-error)]/25 transition-all">
                   Danger
                 </button>
                 <button className="px-5 py-3 rounded-md font-semibold text-sm bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-[var(--cc-success)]/25 hover:bg-[var(--cc-success)]/25 transition-all">
@@ -258,7 +258,7 @@ export default function ComponentsPage() {
                 <button className="size-10 rounded-md bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-muted)] transition-all flex items-center justify-center text-lg">
                   🔗
                 </button>
-                <button className="size-10 rounded-md bg-brand-500/15 text-[var(--cc-link)] hover:bg-brand-500/25 border border-[var(--cc-primary)]/25 transition-all flex items-center justify-center text-lg">
+                <button className="size-10 rounded-md bg-[var(--cc-link)]/15 text-[var(--cc-link)] hover:bg-[var(--cc-link)]/25 border border-[var(--cc-primary)]/25 transition-all flex items-center justify-center text-lg">
                   🔄
                 </button>
                 <button className="size-10 rounded-md bg-[var(--cc-success)]/15 text-[var(--cc-success)] hover:bg-[var(--cc-success)]/25 border border-[var(--cc-success)]/25 transition-all flex items-center justify-center text-lg">
@@ -269,8 +269,8 @@ export default function ComponentsPage() {
           }
           code={`// Primary Button
 <button className="px-5 py-3 rounded-md font-semibold text-sm
-  bg-gradient-to-r from-brand-600 to-brand-500 text-[var(--cc-on-primary)]
-  shadow-[0_4px_12px_rgba(99,102,241,0.25)]">
+  bg-gradient-to-r from-[var(--cc-link)] to-[var(--cc-link)]/80 text-[var(--cc-on-primary)]
+  shadow-[var(--cc-level3)]">
   Connect Wallet
 </button>
 
@@ -288,7 +288,7 @@ export default function ComponentsPage() {
 
 // Danger Button
 <button className="px-5 py-3 rounded-md font-semibold text-sm
-  bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-red-500/25">
+  bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-[var(--cc-error)]/25">
   Delete
 </button>
 
@@ -304,7 +304,7 @@ export default function ComponentsPage() {
             <div className="space-y-3">
               {isConnected ? (
                 <div className="flex items-center gap-4 p-4 rounded-md bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/40">
-                  <div className="size-12 rounded-full bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-sm font-semibold tracking-tight text-[var(--cc-ink)] shadow-[0_4px_12px_rgba(99,102,241,0.25),0_2px_4px_rgba(99,102,241,0.15)]">
+                  <div className="size-12 rounded-full bg-gradient-to-br from-[var(--cc-link)]/80 to-[var(--cc-link)] flex items-center justify-center text-sm font-semibold tracking-tight text-[var(--cc-ink)] shadow-[var(--cc-level3)]">
                     {account.address?.slice(2, 4).toUpperCase()}
                   </div>
                   <div className="flex-1 min-w-0">
@@ -317,7 +317,7 @@ export default function ComponentsPage() {
                 </div>
               ) : (
                 <div className="flex items-center gap-4 p-4 rounded-md bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/40">
-                  <div className="size-12 rounded-full bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-sm font-semibold tracking-tight text-[var(--cc-ink)]">
+                  <div className="size-12 rounded-full bg-gradient-to-br from-[var(--cc-link)]/80 to-[var(--cc-link)] flex items-center justify-center text-sm font-semibold tracking-tight text-[var(--cc-ink)]">
                     00
                   </div>
                   <div className="flex-1">
@@ -336,7 +336,7 @@ export default function ComponentsPage() {
   bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/40">
   {/* Avatar */}
   <div className="size-12 rounded-full bg-gradient-to-br
-    from-brand-500 to-brand-600 flex items-center justify-center
+    from-[var(--cc-link)]/80 to-[var(--cc-link)] flex items-center justify-center
     text-sm font-semibold tracking-tight text-[var(--cc-ink)]">
     {address.slice(2, 4).toUpperCase()}
   </div>
@@ -367,12 +367,12 @@ export default function ComponentsPage() {
             <div className="space-y-4">
               <div className="flex flex-wrap gap-3">
                 {/* Connection status */}
-                <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-semibold bg-green-500/15 text-green-400 border border-green-500/25">
+                <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-semibold bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-[var(--cc-success)]/25">
                   <span className="size-3 rounded-full bg-[var(--cc-success)] animate-pulse" />
                   Connected
                 </span>
                 <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-semibold bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border border-yellow-500/25">
-                  <span className="size-3 rounded-full bg-yellow-400 animate-pulse" />
+                  <span className="size-3 rounded-full bg-[var(--cc-warning)] animate-pulse" />
                   Connecting...
                 </span>
                 <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-semibold bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/40">
@@ -387,10 +387,10 @@ export default function ComponentsPage() {
                   ✓ Completed
                 </span>
                 <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-semibold bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border border-[var(--cc-warning)]/25">
-                  <span className="size-3 rounded-full bg-amber-400 animate-pulse" />
+                  <span className="size-3 rounded-full bg-[var(--cc-warning)] animate-pulse" />
                   Pending
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-semibold bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-red-500/25">
+                <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-semibold bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-[var(--cc-error)]/25">
                   ✗ Failed
                 </span>
               </div>
@@ -400,10 +400,10 @@ export default function ComponentsPage() {
                 <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-semibold bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-[var(--cc-success)]/25">
                   ✓ Operational
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-semibold bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-red-500/25">
+                <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-semibold bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-[var(--cc-error)]/25">
                   ✗ Down
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-mono bg-brand-500/15 text-[var(--cc-primary)] border border-brand-500/25">
+                <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-mono bg-[var(--cc-link)]/15 text-[var(--cc-link)] border border-[var(--cc-link)]/25">
                   142ms
                 </span>
               </div>
@@ -412,7 +412,7 @@ export default function ComponentsPage() {
           code={`// Connected Status
 <span className="inline-flex items-center gap-1.5 px-3 py-2
   rounded-full text-xs font-semibold
-  bg-green-500/15 text-green-400 border border-green-500/25">
+  bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-[var(--cc-success)]/25">
   <span className="size-3 rounded-full bg-[var(--cc-success)] animate-pulse" />
   Connected
 </span>
@@ -421,14 +421,14 @@ export default function ComponentsPage() {
 <span className="inline-flex items-center gap-1.5 px-3 py-2
   rounded-full text-xs font-semibold
   bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border border-[var(--cc-warning)]/25">
-  <span className="size-3 rounded-full bg-amber-400 animate-pulse" />
+  <span className="size-3 rounded-full bg-[var(--cc-warning)] animate-pulse" />
   Pending
 </span>
 
 // Latency Badge
 <span className="inline-flex items-center gap-1.5 px-3 py-2
   rounded-full text-xs font-mono
-  bg-brand-500/15 text-[var(--cc-primary)] border border-brand-500/25">
+  bg-[var(--cc-link)]/15 text-[var(--cc-link)] border border-[var(--cc-link)]/25">
   142ms
 </span>`}
         />
@@ -533,7 +533,7 @@ function ToggleSwitch({ checked, onChange }) {
                 <input
                   type="text"
                   placeholder="0x..."
-                  className="w-full px-4 py-3 bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/50 rounded-md text-sm text-[var(--cc-body)] placeholder:text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-brand-500/40 focus:border-[var(--cc-primary)]/50 font-mono"
+                  className="w-full px-4 py-3 bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/50 rounded-md text-sm text-[var(--cc-body)] placeholder:text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-link)]/40 focus:border-[var(--cc-primary)]/50 font-mono"
                   readOnly
                   defaultValue="0x1a2b3c4d5e6f7890abcdef1234567890abcdef12"
                 />
@@ -545,7 +545,7 @@ function ToggleSwitch({ checked, onChange }) {
                 <input
                   type="text"
                   placeholder="Search by name, symbol, or address..."
-                  className="w-full px-4 py-3 pl-10 bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/50 rounded-md text-sm text-[var(--cc-body)] placeholder:text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-brand-500/40"
+                  className="w-full px-4 py-3 pl-10 bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/50 rounded-md text-sm text-[var(--cc-body)] placeholder:text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-link)]/40"
                 />
                 <span className="absolute left-3 top-9 text-[var(--cc-body)]">🔍</span>
               </div>
@@ -553,7 +553,7 @@ function ToggleSwitch({ checked, onChange }) {
               {/* Select */}
               <div className="relative">
                 <label className="text-sm text-[var(--cc-muted)] mb-1 block">Network</label>
-                <select className="w-full px-4 py-3 bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/50 rounded-md text-sm text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-brand-500/40 appearance-none cursor-pointer">
+                <select className="w-full px-4 py-3 bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/50 rounded-md text-sm text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-link)]/40 appearance-none cursor-pointer">
                   <option>Ethereum</option>
                   <option>Polygon</option>
                   <option>Arbitrum</option>
@@ -570,7 +570,7 @@ function ToggleSwitch({ checked, onChange }) {
   className="w-full px-4 py-3 bg-[var(--cc-canvas)]/60 border
     border-[var(--cc-hairline-strong)]/50 rounded-md text-sm text-[var(--cc-body)]
     placeholder:text-[var(--cc-body)] focus:outline-none
-    focus:ring-2 focus:ring-brand-500/40 font-mono"
+    focus:ring-2 focus:ring-[var(--cc-link)]/40 font-mono"
 />
 
 // Search Input with icon
@@ -578,7 +578,7 @@ function ToggleSwitch({ checked, onChange }) {
   <input placeholder="Search..." className="w-full px-4 py-3
     pl-10 bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/50 rounded-md
     text-sm placeholder:text-[var(--cc-body)] focus:outline-none
-    focus:ring-2 focus:ring-brand-500/40" />
+    focus:ring-2 focus:ring-[var(--cc-link)]/40" />
   <span className="absolute left-3 top-1/2 -translate-y-1/2
     text-[var(--cc-body)]">🔍</span>
 </div>
@@ -586,7 +586,7 @@ function ToggleSwitch({ checked, onChange }) {
 // Select Dropdown
 <select className="w-full px-4 py-3 bg-[var(--cc-canvas)]/60 border
   border-[var(--cc-hairline-strong)]/50 rounded-md text-sm appearance-none
-  focus:outline-none focus:ring-2 focus:ring-brand-500/40">
+  focus:outline-none focus:ring-2 focus:ring-[var(--cc-link)]/40">
   <option>Ethereum</option>
   <option>Polygon</option>
 </select>`}
@@ -624,7 +624,7 @@ function ToggleSwitch({ checked, onChange }) {
                   { value: '$0', label: 'Cost' },
                 ].map((s) => (
                   <div key={s.label} className="text-center p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline)]/50">
-                    <div className="text-xl font-semibold tracking-tight bg-gradient-to-r from-brand-400 to-brand-300 bg-clip-text text-transparent">
+                    <div className="text-xl font-semibold tracking-tight from-[var(--cc-link)]/80 to-[var(--cc-link)]/60 bg-clip-text text-transparent">
                       {s.value}
                     </div>
                     <div className="text-[12px] text-[var(--cc-body)] mt-1">{s.label}</div>
@@ -646,7 +646,7 @@ function ToggleSwitch({ checked, onChange }) {
 <div className="text-center p-3 rounded-md bg-[var(--cc-canvas)]/50
   border border-[var(--cc-hairline)]/50">
   <div className="text-xl font-semibold tracking-tight bg-gradient-to-r
-    from-brand-400 to-brand-300 bg-clip-text text-transparent">
+    from-[var(--cc-link)]/80 to-[var(--cc-link)]/60 bg-clip-text text-transparent">
     {value}
   </div>
   <div className="text-[12px] text-[var(--cc-body)] mt-1">{label}</div>
@@ -734,8 +734,8 @@ function ToggleSwitch({ checked, onChange }) {
             <div className="space-y-3">
               {[
                 { type: 'Success', icon: '✓', bg: 'bg-[var(--cc-success)]/15', border: 'border-[var(--cc-success)]/25', text: 'text-[var(--cc-success)]', desc: 'Transaction completed successfully' },
-                { type: 'Error', icon: '✗', bg: 'bg-[var(--cc-error)]/15', border: 'border-red-500/25', text: 'text-[var(--cc-error)]', desc: 'Connection failed: User rejected' },
-                { type: 'Info', icon: 'ℹ', bg: 'bg-brand-500/15', border: 'border-[var(--cc-primary)]/25', text: 'text-[var(--cc-link)]', desc: 'Switching to Polygon network' },
+                { type: 'Error', icon: '✗', bg: 'bg-[var(--cc-error)]/15', border: 'border-[var(--cc-error)]/25', text: 'text-[var(--cc-error)]', desc: 'Connection failed: User rejected' },
+                { type: 'Info', icon: 'ℹ', bg: 'bg-[var(--cc-link)]/15', border: 'border-[var(--cc-primary)]/25', text: 'text-[var(--cc-link)]', desc: 'Switching to Polygon network' },
                 { type: 'Warning', icon: '⚠', bg: 'bg-[var(--cc-warning)]/15', border: 'border-[var(--cc-warning)]/25', text: 'text-[var(--cc-warning)]', desc: 'High gas prices detected' },
               ].map((t) => (
                 <div key={t.type} className={`p-3 rounded-md ${t.bg} border ${t.border} flex items-start gap-3`}>

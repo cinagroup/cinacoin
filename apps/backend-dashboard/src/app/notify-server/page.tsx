@@ -65,7 +65,7 @@ export default function NotifyServerPage() {
               value={Math.round(metrics.deliveryRate || 0)}
               size={120}
               strokeWidth={10}
-              color={(metrics.deliveryRate || 0) > 98 ? "#0070f3" : (metrics.deliveryRate || 0) > 95 ? "#f5a623" : "#ee0000"}
+              color={(metrics.deliveryRate || 0) > 98 ? "var(--cc-link)" : (metrics.deliveryRate || 0) > 95 ? "var(--cc-warning)" : "var(--cc-error)"}
               label="Delivered"
             />
             <div className="space-y-3">
@@ -95,7 +95,7 @@ export default function NotifyServerPage() {
                 <div className="flex-1 bg-[var(--cc-hairline)] rounded-full h-3 overflow-hidden">
                   <div
                     className="h-full rounded-full transition-all"
-                    style={{ width: `${ch.pct}%`, backgroundColor: ch.pct > 30 ? "#0070f3" : ch.pct > 20 ? "#7928ca" : "#f5a623" }}
+                    style={{ width: `${ch.pct}%`, backgroundColor: ch.pct > 30 ? "var(--cc-link)" : ch.pct > 20 ? "var(--cc-violet)" : "var(--cc-warning)" }}
                   />
                 </div>
                 <span className="cc-body-sm text-[var(--cc-ink)] w-12 text-right">{ch.pct}%</span>

@@ -188,7 +188,7 @@ export default function SwapPage() {
         {amount > 0 && (
           <div className="cc-card-soft mt-4 space-y-3">
             <div className="flex items-center gap-2 mb-2">
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-600 text-xs font-medium" role="alert">
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[var(--cc-warning)]/10 border border-[var(--cc-warning)]/20 text-[var(--cc-warning)] text-xs font-medium" role="alert">
                 ⚠️ Mock prices — not live data
               </span>
             </div>
@@ -222,7 +222,7 @@ export default function SwapPage() {
         {/* Powered by */}
         <p className="text-center text-xs text-[var(--cc-muted)] cc-caption mt-4">
           Powered by <span className="font-medium text-[var(--cc-body)]">Cinacoin Swap SDK</span>
-          {' · '}<span className="text-amber-600/70">Demo mode — prices are illustrative</span>
+          {' · '}<span className="text-[var(--cc-warning)]/70">Demo mode — prices are illustrative</span>
         </p>
 
         {/* Recent Swaps */}
@@ -245,8 +245,8 @@ export default function SwapPage() {
                       <td className="p-3.5 text-[var(--cc-ink)]"><span className="font-semibold">{s.from}</span><span className="text-[var(--cc-muted)] mx-1">→</span><span className="font-semibold">{s.to}</span></td>
                       <td className="p-3.5 text-[var(--cc-body)] font-medium text-xs">{s.route}</td>
                       <td className="p-3.5">
-                        <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium ${s.status === 'completed' ? 'bg-[var(--cc-success)]/10 text-[var(--cc-success)]' : 'bg-yellow-500/10 text-yellow-600'}`}>
-                          <span className={`w-1.5 h-1.5 rounded-full ${s.status === 'completed' ? 'bg-[var(--cc-success)] animate-pulse' : 'bg-yellow-500'}`} />
+                        <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium ${s.status === 'completed' ? 'bg-[var(--cc-success)]/10 text-[var(--cc-success)]' : 'bg-[var(--cc-warning)]/10 text-[var(--cc-warning)]'}`}>
+                          <span className={`w-1.5 h-1.5 rounded-full ${s.status === 'completed' ? 'bg-[var(--cc-success)] animate-pulse' : 'bg-[var(--cc-warning)]'}`} />
                           {s.status}
                         </span>
                       </td>

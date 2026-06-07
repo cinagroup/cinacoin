@@ -1,8 +1,11 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import { useTheme } from "@/providers/ThemeProvider";
+import Toast from "@/components/Toast";
 
 export default function SettingsPage() {
+  const { theme, toggle } = useTheme();
   const [refreshInterval, setRefreshInterval] = useState(30);
   const [demoMode, setDemoMode] = useState(true);
   const [saved, setSaved] = useState(false);
@@ -12,29 +15,27 @@ export default function SettingsPage() {
   const [degradedAlertThreshold, setDegradedAlertThreshold] = useState(30);
   const [apiUrl, setApiUrl] = useState("https://api.cinacoin.com");
   const [wsUrl, setWsUrl] = useState("wss://ws.cinacoin.com");
+  const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' | 'info' } | null>(null);
 
-  const handleSave = () => {
-    localStorage.setItem("dashboard-settings", JSON.stringify({
-      refreshInterval,
-      demoMode,
-      soundEnabled,
-      emailAlerts,
-      downAlertThreshold,
-      degradedAlertThreshold,
-      apiUrl,
-      wsUrl,
-    }));
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
-  };
-
-  const setLightTheme = useCallback(() => {
-    document.documentElement.setAttribute("data-theme", "light");
-  }, []);
-
-  const setDarkTheme = useCallback(() => {
-    document.documentElement.setAttribute("data-theme", "dark");
-  }, []);
+  const handleSave = useCallback(() => {
+    try {
+      localStorage.setItem("dashboard-settings", JSON.stringify({
+        refreshInterval,
+        demoMode,
+        soundEnabled,
+        emailAlerts,
+        downAlertThreshold,
+        degradedAlertThreshold,
+        apiUrl,
+        wsUrl,
+      }));
+      setSaved(true);
+      setToast({ message: "Settings saved successfully", type: "success" });
+      setTimeout(() => setSaved(false), 2000);
+    } catch {
+      setToast({ message: "Failed to save settings", type: "error" });
+    }
+  }, [refreshInterval, demoMode, soundEnabled, emailAlerts, downAlertThreshold, degradedAlertThreshold, apiUrl, wsUrl]);
 
   return (
     <div className="space-y-6 max-w-3xl">
@@ -60,16 +61,15 @@ export default function SettingsPage() {
               <p className="cc-body-sm-strong text-[var(--cc-ink)]">Theme</p>
               <p className="cc-body-sm text-[var(--cc-muted)]">Choose your preferred dashboard theme</p>
             </div>
-            <div className="flex items-center gap-2">
-              <button onClick={setDarkTheme} className="cc-btn-secondary-sm">
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>{" "}
-                Dark
-              </button>
-              <button onClick={setLightTheme} className="cc-btn-secondary-sm">
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>{" "}
-                Light
-              </button>
-            </div>
+            <button
+              onClick={toggle}
+              role="switch"
+              aria-checked={theme === 'dark'}
+              aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
+              className={`relative w-12 h-6 rounded-full transition-colors ${theme === 'dark' ? "bg-[var(--cc-primary)]" : "bg-[var(--cc-hairline)]"}`}
+            >
+              <span className={`absolute top-0.5 w-5 h-5 bg-[var(--cc-on-primary)] rounded-full transition-transform ${theme === 'dark' ? "translate-x-6" : "left-0.5"}`} />
+            </button>
           </div>
           <hr className="border-[var(--cc-hairline)]" />
           <div className="flex items-center justify-between">
@@ -77,7 +77,13 @@ export default function SettingsPage() {
               <p className="cc-body-sm-strong text-[var(--cc-ink)]">Demo Mode</p>
               <p className="cc-body-sm text-[var(--cc-muted)]">Use simulated metrics instead of live data</p>
             </div>
-            <button onClick={() => setDemoMode(!demoMode)} className={`relative w-12 h-6 rounded-full transition-colors ${demoMode ? "bg-[var(--cc-link)]" : "bg-[var(--cc-hairline)]"}`}>
+            <button
+              onClick={() => setDemoMode(!demoMode)}
+              role="switch"
+              aria-checked={demoMode}
+              aria-label={`Demo mode: ${demoMode ? 'on' : 'off'}`}
+              className={`relative w-12 h-6 rounded-full transition-colors ${demoMode ? "bg-[var(--cc-link)]" : "bg-[var(--cc-hairline)]"}`}
+            >
               <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-[var(--cc-canvas)] rounded-full transition-transform ${demoMode ? "translate-x-6" : ""}`} />
             </button>
           </div>
@@ -87,7 +93,13 @@ export default function SettingsPage() {
               <p className="cc-body-sm-strong text-[var(--cc-ink)]">Sound Alerts</p>
               <p className="cc-body-sm text-[var(--cc-muted)]">Play sound when a service goes down</p>
             </div>
-            <button onClick={() => setSoundEnabled(!soundEnabled)} className={`relative w-12 h-6 rounded-full transition-colors ${soundEnabled ? "bg-[var(--cc-link)]" : "bg-[var(--cc-hairline)]"}`}>
+            <button
+              onClick={() => setSoundEnabled(!soundEnabled)}
+              role="switch"
+              aria-checked={soundEnabled}
+              aria-label={`Sound alerts: ${soundEnabled ? 'on' : 'off'}`}
+              className={`relative w-12 h-6 rounded-full transition-colors ${soundEnabled ? "bg-[var(--cc-link)]" : "bg-[var(--cc-hairline)]"}`}
+            >
               <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-[var(--cc-canvas)] rounded-full transition-transform ${soundEnabled ? "translate-x-6" : ""}`} />
             </button>
           </div>
@@ -114,7 +126,13 @@ export default function SettingsPage() {
               <p className="cc-body-sm-strong text-[var(--cc-ink)]">Email Alerts</p>
               <p className="cc-body-sm text-[var(--cc-muted)]">Receive email notifications for service issues</p>
             </div>
-            <button onClick={() => setEmailAlerts(!emailAlerts)} className={`relative w-12 h-6 rounded-full transition-colors ${emailAlerts ? "bg-[var(--cc-link)]" : "bg-[var(--cc-hairline)]"}`}>
+            <button
+              onClick={() => setEmailAlerts(!emailAlerts)}
+              role="switch"
+              aria-checked={emailAlerts}
+              aria-label={`Email alerts: ${emailAlerts ? 'on' : 'off'}`}
+              className={`relative w-12 h-6 rounded-full transition-colors ${emailAlerts ? "bg-[var(--cc-link)]" : "bg-[var(--cc-hairline)]"}`}
+            >
               <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-[var(--cc-canvas)] rounded-full transition-transform ${emailAlerts ? "translate-x-6" : ""}`} />
             </button>
           </div>
@@ -148,12 +166,12 @@ export default function SettingsPage() {
         <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">API Endpoints</h3>
         <div className="space-y-4">
           <div>
-            <label className="cc-body-sm text-[var(--cc-muted)] block mb-1">RPC API URL</label>
-            <input type="text" value={apiUrl} onChange={(e) => setApiUrl(e.target.value)} className="cc-form-input font-mono" />
+            <label htmlFor="apiUrl" className="cc-body-sm text-[var(--cc-muted)] block mb-1">RPC API URL</label>
+            <input id="apiUrl" type="text" value={apiUrl} onChange={(e) => setApiUrl(e.target.value)} className="cc-form-input font-mono" />
           </div>
           <div>
-            <label className="cc-body-sm text-[var(--cc-muted)] block mb-1">WebSocket URL</label>
-            <input type="text" value={wsUrl} onChange={(e) => setWsUrl(e.target.value)} className="cc-form-input font-mono" />
+            <label htmlFor="wsUrl" className="cc-body-sm text-[var(--cc-muted)] block mb-1">WebSocket URL</label>
+            <input id="wsUrl" type="text" value={wsUrl} onChange={(e) => setWsUrl(e.target.value)} className="cc-form-input font-mono" />
           </div>
         </div>
       </div>
@@ -183,7 +201,9 @@ export default function SettingsPage() {
 
       {/* Save */}
       <div className="flex justify-end gap-3">
-        <button onClick={() => {
+        <button
+          type="button"
+          onClick={() => {
             setRefreshInterval(30);
             setDemoMode(true);
             setSoundEnabled(false);
@@ -192,13 +212,18 @@ export default function SettingsPage() {
             setDegradedAlertThreshold(30);
             setApiUrl("https://api.cinacoin.com");
             setWsUrl("wss://ws.cinacoin.com");
+            setToast({ message: "Settings reset to defaults", type: "info" });
           }}
+          aria-label="Reset all settings to defaults"
           className="cc-btn-secondary-sm"
         >
           Reset
         </button>
-        <button onClick={handleSave} className="cc-btn-primary-sm">Save Settings</button>
+        <button onClick={handleSave} aria-label="Save all settings" className="cc-btn-primary-sm">Save Settings</button>
       </div>
+
+      {/* Toast notification */}
+      {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
     </div>
   );
 }

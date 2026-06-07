@@ -115,11 +115,8 @@ export default function ChainsPage() {
             key={f.key}
             onClick={() => setFilter(f.key)}
             aria-pressed={filter === f.key}
-            className={`cc-tab-ghost ${
-              filter === f.key
-                ? "bg-[var(--cc-primary)] text-[var(--cc-on-primary)]"
-                : "text-[var(--cc-body)] hover:bg-[var(--cc-canvas-soft)] border border-[var(--cc-hairline)]"
-            }`}
+            className="cc-tab-ghost"
+            data-active={filter === f.key}
           >
             {f.label}
           </button>
@@ -203,7 +200,7 @@ export default function ChainsPage() {
           <input type="text" placeholder="Native currency symbol (e.g. ETH)" aria-label="Native currency symbol" className="cc-form-input" />
         </div>
         <div className="mt-4 flex justify-end">
-          <button className="cc-btn-primary-sm">+ Add Network</button>
+          <button className="cc-btn-primary-sm" aria-label="Add custom network">+ Add Network</button>
         </div>
       </div>
     </div>

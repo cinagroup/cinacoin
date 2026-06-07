@@ -32,17 +32,17 @@ export default function SettingsPage() {
       <main className="mx-auto max-w-2xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="mb-6">
           <h1 className="cc-display-md text-[var(--cc-ink)]">Account Settings</h1>
-          <p className="mt-1 text-sm text-[var(--cc-body)]">
+          <p className="mt-1 text-sm text-[var(--cc-ink)]">
             Manage your account preferences and API access.
           </p>
         </div>
 
         {/* API Access */}
         <div className="mb-6 cc-card">
-          <h2 className="mb-4 text-lg font-semibold tracking-tight text-[var(--cc-ink)]">API Access</h2>
+          <h2 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">API Access</h2>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-[var(--cc-ink)]">
+              <label className="cc-body-sm-strong text-[var(--cc-ink)] block">
                 Default API Key
               </label>
               <div className="mt-1 flex gap-2">
@@ -70,10 +70,10 @@ export default function SettingsPage() {
           onSubmit={handleSaveProfile}
           className="mb-6 cc-card"
         >
-          <h2 className="mb-4 text-lg font-semibold tracking-tight text-[var(--cc-ink)]">Profile</h2>
+          <h2 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Profile</h2>
           <div className="space-y-4">
             <div>
-              <label htmlFor="displayName" className="block text-sm font-medium text-[var(--cc-ink)]">
+              <label htmlFor="displayName" className="cc-body-sm-strong text-[var(--cc-ink)] block">
                 Display Name
               </label>
               <input
@@ -86,7 +86,7 @@ export default function SettingsPage() {
               />
             </div>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-[var(--cc-ink)]">
+              <label htmlFor="email" className="cc-body-sm-strong text-[var(--cc-ink)] block">
                 Email
               </label>
               <input
@@ -114,14 +114,14 @@ export default function SettingsPage() {
 
         {/* Danger Zone */}
         <div className="cc-card border border-[var(--cc-error)] bg-[var(--cc-error-soft)]/10">
-          <h2 className="mb-4 text-lg font-semibold tracking-tight text-[var(--cc-error)]">Danger Zone</h2>
-          <p className="mb-4 text-sm text-[var(--cc-body)]">
+          <h2 className="cc-body-md-strong text-[var(--cc-error)] mb-4">Danger Zone</h2>
+          <p className="cc-body-sm text-[var(--cc-ink)] mb-4">
             Once you delete your account, there is no going back.
           </p>
           <button
             type="button"
             onClick={handleDeleteAccount}
-            className="inline-flex items-center justify-center rounded-[var(--cc-radius-sm)] bg-[var(--cc-error)] text-white px-4 py-2 text-sm font-medium hover:bg-[var(--cc-error-deep)] transition-colors"
+            className="cc-btn-primary-sm bg-[var(--cc-error)] hover:bg-[var(--cc-error-deep)]"
           >
             Delete Account
           </button>

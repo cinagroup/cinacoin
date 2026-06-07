@@ -76,6 +76,7 @@ export function ApiKeyManager({ projectId }: { projectId: string }) {
         <button
           onClick={generateKey}
           disabled={creating}
+          aria-label={creating ? 'Generating API key' : 'Generate new API key'}
           className="cc-btn-primary-sm !h-9 px-4 text-sm disabled:opacity-50"
         >
           {creating ? 'Generating…' : 'Generate API Key'}

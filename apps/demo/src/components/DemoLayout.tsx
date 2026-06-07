@@ -23,7 +23,7 @@ export default function DemoLayout({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen bg-[var(--cc-canvas)] text-[var(--cc-ink)] flex flex-col">
       <Header links={NAV_ITEMS} />
-      <main className="flex-1">
+      <main id="main-content" className="flex-1">
         <DemoDisclaimer compact />
         {children}
       </main>

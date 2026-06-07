@@ -328,7 +328,7 @@ function SwapWidget({
         )}
 
         {swapState === 'quoting' && (
-          <div className="flex items-center justify-center text-xs text-brand-400">
+          <div className="flex items-center justify-center text-xs text-[var(--cc-link)]">
             <svg className="animate-spin h-3 w-3 mr-1.5" viewBox="0 0 24 24" fill="none">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
@@ -384,7 +384,7 @@ export default function TokensPage() {
 
         {/* ── Header ── */}
         <div className="text-center space-y-2">
-          <h1 className="text-3xl font-semibold tracking-tighter bg-gradient-to-r from-brand-400 via-brand-500 to-brand-600 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-semibold tracking-tighter bg-gradient-to-r from-[var(--cc-link)]/80 via-[var(--cc-link)] to-[var(--cc-link)]/60/60 bg-clip-text text-transparent">
             Token Search & Swap
           </h1>
           <p className="text-[var(--cc-muted)] text-sm">Search tokens, view details, and swap in one place</p>
@@ -395,7 +395,7 @@ export default function TokensPage() {
           <div className="flex items-center gap-3">
             {isConnected ? (
               <>
-                <div className="size-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-xs font-semibold text-[var(--cc-ink)]">
+                <div className="size-8 rounded-full bg-gradient-to-br from-[var(--cc-link)] to-[var(--cc-violet-deep)] flex items-center justify-center text-xs font-semibold text-[var(--cc-ink)]">
                   {account.address?.slice(2, 4).toUpperCase()}
                 </div>
                 <div>

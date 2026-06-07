@@ -34,15 +34,15 @@ export default function CTA() {
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <a
               href="/docs/"
-              className="rounded-full inline-flex items-center justify-center cc-button-lg no-underline transition-opacity hover:opacity-85"
-              style={{ backgroundColor: 'var(--cc-on-primary)', color: 'var(--cc-primary)', padding: '0 var(--cc-sm)', height: '48px' }}
+              className="cc-btn-primary"
+              style={{ backgroundColor: 'var(--cc-on-primary)', color: 'var(--cc-primary)' }}
             >
               {t('cta-start')}
             </a>
             <a
               href="https://github.com/cinagroup/cinacoin"
-              className="rounded-full inline-flex items-center justify-center cc-button-lg no-underline transition-colors"
-              style={{ backgroundColor: 'transparent', color: 'var(--cc-on-primary)', border: '1px solid var(--cc-on-primary)', borderColor: 'var(--cc-on-primary-hairline-soft)' }}
+              className="cc-btn-secondary no-underline"
+              style={{ backgroundColor: 'transparent', color: 'var(--cc-on-primary)', borderColor: 'rgba(255,255,255,0.4)' }}
             >
               {t('cta-github')}
             </a>

@@ -17,6 +17,7 @@ export default function LoadingState({
     <div
       className="bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] p-6 flex items-center gap-3"
       role="status"
+      aria-live="polite"
       aria-label={label}
     >
       <svg className="animate-spin h-5 w-5 text-[var(--cc-muted)] flex-shrink-0" viewBox="0 0 24 24" fill="none">

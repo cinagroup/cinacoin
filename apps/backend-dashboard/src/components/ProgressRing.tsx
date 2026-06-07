@@ -6,15 +6,15 @@ interface ProgressRingProps {
   label?: string;
 }
 
-export default function ProgressRing({ value, size = 80, strokeWidth = 6, color = "#3b82f6", label }: ProgressRingProps) {
+export default function ProgressRing({ value, size = 80, strokeWidth = 6, color = "var(--cc-link)", label }: ProgressRingProps) {
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (value / 100) * circumference;
 
   return (
     <div className="flex flex-col items-center gap-1">
-      <div className="relative">
-        <svg width={size} height={size} className="transform -rotate-90">
+      <div className="relative" role="progressbar" aria-valuenow={value} aria-valuemin={0} aria-valuemax={100} aria-label={label || "Progress"}>
+        <svg width={size} height={size} className="transform -rotate-90" aria-hidden="true">
           <circle
             cx={size / 2}
             cy={size / 2}

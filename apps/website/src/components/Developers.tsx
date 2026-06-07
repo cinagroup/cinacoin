@@ -62,11 +62,11 @@ export default function Developers() {
                 className="flex items-center gap-2 pb-3 mb-3"
                 style={{ borderBottom: '1px solid var(--cc-hairline-strong)' }}
               >
-                {[0, 1, 2].map((dot) => (
+                {['#ff5f57', '#febc2e', '#28c840'].map((color, dot) => (
                   <div
                     key={dot}
                     className="h-2.5 w-2.5 rounded-full"
-                    style={{ backgroundColor: 'var(--cc-muted)', opacity: 0.4 }}
+                    style={{ backgroundColor: color }}
                   />
                 ))}
                 <span

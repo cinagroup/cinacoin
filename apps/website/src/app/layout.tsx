@@ -102,6 +102,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="antialiased bg-[var(--cc-canvas-soft)]">
+        <a href="#main-content" className="cc-skip-link">Skip to main content</a>
         <Providers>{children}</Providers>
       </body>
     </html>

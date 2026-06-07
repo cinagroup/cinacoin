@@ -35,27 +35,27 @@ export function Brand({
       />
       <span
         style={{
-          fontSize: 16,
+          fontSize: '16px',
           fontWeight: 600,
           letterSpacing: '-0.3px',
-          color: 'var(--cc-ink)',
+          color: 'var(--cc-ink, #171717)',
           whiteSpace: 'nowrap',
         }}
       >
         Cinacoin
         {sublabel ? (
-          <span style={{ color: 'var(--cc-muted)', fontWeight: 400 }}> {sublabel}</span>
+          <span style={{ color: 'var(--cc-muted, #888888)', fontWeight: 400 }}> {sublabel}</span>
         ) : null}
       </span>
     </>
   );
 
-  const style = {
+  const style: React.CSSProperties = {
     display: 'inline-flex',
     alignItems: 'center',
-    gap: 8,
+    gap: '8px',
     textDecoration: 'none',
-  } as const;
+  };
 
   if (as === 'span') {
     return (

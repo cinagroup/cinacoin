@@ -16,15 +16,17 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[var(--cc-canvas-soft)] text-[var(--cc-ink)] overflow-hidden">
+    <main className="min-h-screen bg-[var(--cc-canvas-soft)] text-[var(--cc-ink)]">
       <Navbar />
-      <Hero />
-      <Logos />
-      <Features />
-      <Stats />
-      <Products />
-      <Developers />
-      <CTA />
+      <div id="main-content">
+        <Hero />
+        <Logos />
+        <Features />
+        <Stats />
+        <Products />
+        <Developers />
+        <CTA />
+      </div>
       <Footer />
     </main>
   )

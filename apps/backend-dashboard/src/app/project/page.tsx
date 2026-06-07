@@ -76,28 +76,26 @@ export default function ProjectPage() {
           </p>
         </div>
 
-        {/* Project Name */}
         <div>
-          <label className="cc-body-sm text-[var(--cc-muted)] block mb-1">Project Name</label>
-          <input type="text" value={projectName} onChange={(e) => setProjectName(e.target.value)} aria-label="Project name" className="cc-form-input" />
+          <label htmlFor="projectName" className="cc-body-sm text-[var(--cc-muted)] block mb-1">Project Name</label>
+          <input id="projectName" type="text" value={projectName} onChange={(e) => setProjectName(e.target.value)} className="cc-form-input" />
         </div>
 
         {/* Description */}
         <div>
-          <label className="cc-body-sm text-[var(--cc-muted)] block mb-1">Description</label>
-          <textarea value={projectDescription} onChange={(e) => setProjectDescription(e.target.value)} rows={2} aria-label="Project description" className="cc-form-input resize-none" />
+          <label htmlFor="projectDescription" className="cc-body-sm text-[var(--cc-muted)] block mb-1">Description</label>
+          <textarea id="projectDescription" value={projectDescription} onChange={(e) => setProjectDescription(e.target.value)} rows={2} className="cc-form-input resize-none" />
         </div>
 
-        {/* Project URL */}
         <div>
-          <label className="cc-body-sm text-[var(--cc-muted)] block mb-1">Project URL</label>
-          <input type="url" value={projectUrl} onChange={(e) => setProjectUrl(e.target.value)} aria-label="Project URL" className="cc-form-input" />
+          <label htmlFor="projectUrl" className="cc-body-sm text-[var(--cc-muted)] block mb-1">Project URL</label>
+          <input id="projectUrl" type="url" value={projectUrl} onChange={(e) => setProjectUrl(e.target.value)} className="cc-form-input" />
         </div>
 
         {/* Icon URL */}
         <div>
-          <label className="cc-body-sm text-[var(--cc-muted)] block mb-1">Icon URL</label>
-          <input type="url" value={iconUrl} onChange={(e) => setIconUrl(e.target.value)} aria-label="Project icon URL" className="cc-form-input" />
+          <label htmlFor="iconUrl" className="cc-body-sm text-[var(--cc-muted)] block mb-1">Icon URL</label>
+          <input id="iconUrl" type="url" value={iconUrl} onChange={(e) => setIconUrl(e.target.value)} className="cc-form-input" />
         </div>
       </div>
 

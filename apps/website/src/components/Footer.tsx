@@ -52,7 +52,7 @@ export default function Footer() {
           {columns.map((col, ci) => (
             <FadeIn key={col.titleKey} delay={100 + ci * 80} direction="up" duration={600}>
               <div>
-                <h4 className="cc-caption-mono">{t(col.titleKey)}</h4>
+                <h4 className="cc-footer-heading">{t(col.titleKey)}</h4>
                 <ul className="space-y-2">
                   {col.links.map((link) => (
                     <li key={link.label}>

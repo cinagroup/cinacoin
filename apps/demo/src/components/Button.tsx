@@ -16,19 +16,19 @@ export interface ButtonProps {
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    'bg-gradient-to-r from-brand-600 to-brand-500 text-[var(--cc-ink)] hover:from-brand-500 hover:to-brand-400 shadow-[var(--cc-level3)] shadow-brand-500/25 hover:shadow-brand-500/40',
+    'bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-80',
   secondary:
-    'bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline-strong)]/60 text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)]',
+    'bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)]',
   ghost:
     'bg-transparent text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft-2)]/50',
   success:
-    'bg-emerald-600 text-[var(--cc-ink)] shadow-[var(--cc-level3)] shadow-emerald-500/25 hover:bg-[var(--cc-success)] hover:shadow-emerald-500/40',
+    'bg-[var(--cc-success)] text-[var(--cc-on-primary)] hover:opacity-85',
 };
 
 const sizeClasses: Record<ButtonSize, string> = {
-  sm: 'px-3 py-2 text-xs font-semibold rounded-[100px] min-h-[36px]',
-  md: 'px-5 py-3 text-sm font-semibold rounded-[100px] min-h-[44px]',
-  lg: 'px-8 py-4 text-base font-semibold rounded-[100px] min-h-[52px]',
+  sm: 'px-[var(--cc-xs)] text-[var(--cc-button-md)] rounded-[var(--cc-radius-pill)] h-[32px]',
+  md: 'px-[var(--cc-sm)] text-[var(--cc-button-lg)] rounded-[var(--cc-radius-pill)] h-[40px]',
+  lg: 'px-[var(--cc-sm)] text-[var(--cc-button-lg)] rounded-[var(--cc-radius-pill)] h-[48px]',
 };
 
 /** Ripple effect on click */

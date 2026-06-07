@@ -68,7 +68,7 @@ function statusColor(status: ActivityItem['status']): string {
   switch (status) {
     case 'completed': return 'bg-[var(--cc-success)]/15 text-[var(--cc-success)] border-[var(--cc-success)]/25';
     case 'pending': return 'bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border-[var(--cc-warning)]/25';
-    case 'failed': return 'bg-[var(--cc-error)]/15 text-[var(--cc-error)] border-red-500/25';
+    case 'failed': return 'bg-[var(--cc-error)]/15 text-[var(--cc-error)] border-[var(--cc-error)]/25';
   }
 }
 
@@ -208,7 +208,7 @@ export default function ActivityPage() {
 
         {/* ── Header ── */}
         <div className="text-center space-y-2">
-          <h1 className="text-3xl font-semibold tracking-tighter bg-gradient-to-r from-blue-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-semibold tracking-tighter bg-gradient-to-r from-[var(--cc-link)] via-[var(--cc-cyan)] to-[var(--cc-success)] bg-clip-text text-transparent">
             Activity History
           </h1>
           <p className="text-[var(--cc-muted)] text-sm">Track all your wallet interactions and transactions</p>
@@ -218,7 +218,7 @@ export default function ActivityPage() {
         <div className="flex items-center justify-between bg-[var(--cc-canvas-soft-2)]/40 backdrop-blur rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/50 px-5 py-4">
           {isConnected ? (
             <div className="flex items-center gap-3">
-              <div className="size-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-xs font-semibold text-[var(--cc-ink)]">
+              <div className="size-8 rounded-full bg-gradient-to-br from-[var(--cc-link)] to-[var(--cc-violet-deep)] flex items-center justify-center text-xs font-semibold text-[var(--cc-ink)]">
                 {account.address?.slice(2, 4).toUpperCase()}
               </div>
               <div>

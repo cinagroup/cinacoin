@@ -109,8 +109,8 @@ export default function SettingsPage() {
   useEffect(() => {
     if (theme === 'light') {
       document.documentElement.classList.remove('dark');
-      document.body.style.backgroundColor = '#f5f5f5';
-      document.body.style.color = '#1a1a1a';
+      document.body.style.backgroundColor = 'var(--cc-canvas-soft, #f5f5f5)';
+      document.body.style.color = 'var(--cc-ink, #1a1a1a)';
     } else {
       document.documentElement.classList.add('dark');
       document.body.style.backgroundColor = '';
@@ -171,7 +171,7 @@ export default function SettingsPage() {
       <div className="max-w-2xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-semibold tracking-tighter bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-semibold tracking-tighter bg-gradient-to-r from-[var(--cc-link)] to-[var(--cc-violet)] bg-clip-text text-transparent">
             Settings
           </h1>
           <p className="text-[var(--cc-muted)] text-sm mt-2">Customize your demo experience</p>
@@ -426,7 +426,7 @@ export default function SettingsPage() {
                     </button>
                     <button
                       onClick={() => { clearConnectionHistory(); setHistoryCount(0); success('Data Deleted', 'Local data cleared'); }}
-                      className="px-3 py-2 rounded-lg text-xs font-medium bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-red-500/25 hover:bg-[var(--cc-error)]/25 transition-all"
+                      className="px-3 py-2 rounded-lg text-xs font-medium bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-[var(--cc-error)]/25 hover:bg-[var(--cc-error)]/25 transition-all"
                     >
                       Delete All Data
                     </button>
@@ -458,7 +458,7 @@ export default function SettingsPage() {
                       </div>
                       <button
                         onClick={() => info('Disconnected', `${app.name} disconnected`)}
-                        className="px-3 py-2 rounded-lg text-xs font-medium bg-[var(--cc-error)]/10 text-[var(--cc-error)] border border-red-500/20 hover:bg-[var(--cc-error)]/20 transition-all"
+                        className="px-3 py-2 rounded-lg text-xs font-medium bg-[var(--cc-error)]/10 text-[var(--cc-error)] border border-[var(--cc-error)]/20 hover:bg-[var(--cc-error)]/20 transition-all"
                       >
                         Disconnect
                       </button>
@@ -536,7 +536,7 @@ export default function SettingsPage() {
                     <button
                       onClick={handleClearHistory}
                       disabled={historyCount === 0}
-                      className="px-4 py-2 rounded-md text-sm font-medium bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-red-500/25 hover:bg-[var(--cc-error)]/25 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                      className="px-4 py-2 rounded-md text-sm font-medium bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-[var(--cc-error)]/25 hover:bg-[var(--cc-error)]/25 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
                     >
                       Clear History
                     </button>
@@ -551,7 +551,7 @@ export default function SettingsPage() {
                     </div>
                     <button
                       onClick={handleClearStorage}
-                      className="px-4 py-2 rounded-md text-sm font-medium bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-red-500/25 hover:bg-[var(--cc-error)]/25 transition-all"
+                      className="px-4 py-2 rounded-md text-sm font-medium bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-[var(--cc-error)]/25 hover:bg-[var(--cc-error)]/25 transition-all"
                     >
                       Clear All Data
                     </button>

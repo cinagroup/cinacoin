@@ -87,7 +87,8 @@
   .cc-btn-secondary-sm:hover { border-color: var(--cc-body); }
 
   .cc-card {
-    background: var(--cc-canvas); border-radius: var(--cc-radius-md);
+    background: var(--cc-canvas); border: 1px solid var(--cc-hairline);
+    border-radius: var(--cc-radius-md);
     padding: var(--cc-lg, 24px); box-shadow: var(--cc-level2);
     transition: box-shadow 0.2s ease;
   }
@@ -107,7 +108,8 @@
 
   .cc-card-featured {
     background: var(--cc-primary); color: var(--cc-on-primary);
-    border-radius: var(--cc-radius-md); padding: var(--cc-xl, 32px);
+    border: 1px solid var(--cc-primary); border-radius: var(--cc-radius-md);
+    padding: var(--cc-xl, 32px);
     box-shadow: var(--cc-level4);
     transition: box-shadow 0.2s ease;
   }

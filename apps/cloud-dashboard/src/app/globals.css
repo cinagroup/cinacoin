@@ -5,3 +5,44 @@
 /* Canonical Cinacoin design system — tokens + .cc-* primitives.
    Single source of truth: packages/design-tokens/css/cinacoin.css */
 @import "@cinacoin/design-tokens/css/cinacoin.css";
+
+/* ── Cloud dashboard touch-friendly minimums ── */
+@media (max-width: 768px) {
+  button, a { min-height: 44px; }
+  input, select, textarea { min-height: 44px; }
+}
+
+/* ── Cloud-dashboard light theme default ── */
+:root, :root[data-theme="light"] {
+  --bg-primary: var(--cc-canvas-soft);
+  --bg-card: var(--cc-canvas);
+  --border: var(--cc-hairline);
+  --text-primary: var(--cc-ink);
+  --text-secondary: var(--cc-body);
+  --green: var(--cc-success);
+  --green-bg: rgba(22, 163, 74, 0.10);
+  --yellow: var(--cc-warning);
+  --yellow-bg: rgba(245, 166, 35, 0.10);
+  --red: var(--cc-error);
+  --red-bg: rgba(238, 0, 0, 0.10);
+  --blue: var(--cc-link);
+  --blue-bg: rgba(0, 112, 243, 0.10);
+}
+
+:root[data-theme="dark"] {
+  --bg-primary: var(--cc-canvas-soft);
+  --bg-card: var(--cc-canvas);
+  --border: var(--cc-hairline);
+  --text-primary: var(--cc-ink);
+  --text-secondary: var(--cc-body);
+  --green: var(--cc-success);
+  --green-bg: rgba(34, 197, 94, 0.15);
+  --yellow: var(--cc-warning);
+  --yellow-bg: rgba(251, 191, 36, 0.15);
+  --red: var(--cc-error);
+  --red-bg: rgba(248, 113, 113, 0.15);
+  --blue: var(--cc-link);
+  --blue-bg: rgba(96, 165, 250, 0.15);
+}
+
+/* Touch-friendly minimums — already declared above; removed duplicate */

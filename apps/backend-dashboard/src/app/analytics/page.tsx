@@ -60,25 +60,21 @@ export default function AnalyticsPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <h1 className="cc-display-sm text-[var(--cc-ink)]">Analytics</h1>
           <p className="cc-body-sm text-[var(--cc-muted)] mt-1">
             AppKit usage metrics and connection analytics
           </p>
         </div>
-        <div className="flex gap-2" role="group" aria-label="Time range selector">
+        <div className="flex gap-2 flex-wrap" role="group" aria-label="Time range selector">
           {(["7d", "30d", "90d", "1y"] as TimeRange[]).map((range) => (
             <button
               key={range}
               onClick={() => setTimeRange(range)}
               aria-pressed={timeRange === range}
-              aria-label={`Show ${range} data`}
-              className={`cc-tab-ghost ${
-                timeRange === range
-                  ? "bg-[var(--cc-primary)] text-[var(--cc-on-primary)]"
-                  : "text-[var(--cc-body)] hover:bg-[var(--cc-canvas-soft)] border border-[var(--cc-hairline)]"
-              }`}
+              data-active={timeRange === range ? "true" : "false"}
+              className="cc-tab-ghost"
             >
               {range}
             </button>
@@ -97,25 +93,25 @@ export default function AnalyticsPage() {
       {/* MAU Trend */}
       <div className="cc-card">
         <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4" id="mau-chart-heading">Monthly Active Users</h3>
-        <BarChart data={MAU_DATA.map((v) => Math.round(v * multiplier))} labels={MONTHS} color="#0070f3" height={180} ariaLabelledBy="mau-chart-heading" />
+        <BarChart data={MAU_DATA.map((v) => Math.round(v * multiplier))} labels={MONTHS} color="var(--cc-link)" height={180} ariaLabelledBy="mau-chart-heading" />
       </div>
 
       {/* Charts row */}
       <div className="grid md:grid-cols-2 gap-4">
         <div className="cc-card">
           <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4" id="connections-chart-heading">Connections Over Time</h3>
-          <BarChart data={CONNECTIONS_DATA.map((v) => Math.round(v * multiplier))} labels={MONTHS} color="#29bc9b" height={160} ariaLabelledBy="connections-chart-heading" />
+          <BarChart data={CONNECTIONS_DATA.map((v) => Math.round(v * multiplier))} labels={MONTHS} color="var(--cc-success)" height={160} ariaLabelledBy="connections-chart-heading" />
         </div>
         <div className="cc-card">
           <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4" id="auth-chart-heading">Authentication Events</h3>
-          <BarChart data={AUTH_DATA.map((v) => Math.round(v * multiplier))} labels={MONTHS} color="#7928ca" height={160} ariaLabelledBy="auth-chart-heading" />
+          <BarChart data={AUTH_DATA.map((v) => Math.round(v * multiplier))} labels={MONTHS} color="var(--cc-violet)" height={160} ariaLabelledBy="auth-chart-heading" />
         </div>
       </div>
 
       {/* Hourly activity */}
       <div className="cc-card">
         <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4" id="hourly-chart-heading">Hourly Activity Distribution (24h)</h3>
-        <BarChart data={HOURLY_DATA} labels={HOURLY_LABELS} color="#0070f3" height={140} ariaLabelledBy="hourly-chart-heading" />
+        <BarChart data={HOURLY_DATA} labels={HOURLY_LABELS} color="var(--cc-link)" height={140} ariaLabelledBy="hourly-chart-heading" />
       </div>
 
       {/* Chain & Wallet distribution */}
@@ -142,7 +138,7 @@ export default function AnalyticsPage() {
               <div key={wallet.name} className="flex items-center gap-3">
                 <span className="cc-body-sm text-[var(--cc-muted)] w-32">{wallet.name}</span>
                 <div className="flex-1 bg-[var(--cc-hairline)] rounded-full h-2.5 overflow-hidden" role="progressbar" aria-valuenow={wallet.pct} aria-valuemin={0} aria-valuemax={100} aria-label={`${wallet.name}: ${wallet.pct}%`}>
-                  <div className="h-full rounded-full transition-all" style={{ width: `${wallet.pct}%`, backgroundColor: "#0070f3" }} />
+                  <div className="h-full rounded-full transition-all" style={{ width: `${wallet.pct}%`, backgroundColor: "var(--cc-link)" }} />
                 </div>
                 <span className="cc-body-sm text-[var(--cc-ink)] w-12 text-right">{wallet.pct}%</span>
               </div>

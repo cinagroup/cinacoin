@@ -92,8 +92,8 @@ export default function RPCProxyPage() {
 
         {/* Charts */}
         <div className="md:col-span-2 grid md:grid-cols-2 gap-4">
-          <BarChart data={REQUEST_HISTORY} labels={REQUEST_LABELS} color="#0070f3" height={140} aria-label="24h RPC request rate" />
-          <BarChart data={CHAIN_DATA.map(d => d.count)} labels={CHAIN_DATA.map(d => d.name)} color="#7928ca" height={140} aria-label="Requests by chain" />
+          <BarChart data={REQUEST_HISTORY} labels={REQUEST_LABELS} color="var(--cc-link)" height={140} aria-label="24h RPC request rate" />
+          <BarChart data={CHAIN_DATA.map(d => d.count)} labels={CHAIN_DATA.map(d => d.name)} color="var(--cc-violet)" height={140} aria-label="Requests by chain" />
         </div>
       </div>
 
@@ -105,8 +105,8 @@ export default function RPCProxyPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-[var(--cc-hairline)]/50 cc-caption text-[var(--cc-muted)]">
-                <th className="text-left px-5 py-3 font-normal">Method</th>
+              <tr className="border-b border-[var(--cc-hairline)]/50">
+                <th scope="col" className="text-left px-5 py-3 cc-caption text-[var(--cc-muted)] font-normal">Method</th>
                 <th className="text-left px-5 py-3 font-normal">Calls</th>
                 <th className="text-left px-5 py-3 font-normal">Share</th>
                 <th className="text-left px-5 py-3 font-normal">Distribution</th>
@@ -122,7 +122,7 @@ export default function RPCProxyPage() {
                     <div className="bg-[var(--cc-hairline)] rounded-full h-2 overflow-hidden">
                       <div
                         className="h-full rounded-full transition-all"
-                        style={{ width: `${m.pct}%`, backgroundColor: "#0070f3" }}
+                        style={{ width: `${m.pct}%`, backgroundColor: "var(--cc-link)" }}
                       />
                     </div>
                   </td>
@@ -141,8 +141,8 @@ export default function RPCProxyPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-[var(--cc-hairline)]/50 cc-caption text-[var(--cc-muted)]">
-                <th className="text-left px-5 py-3 font-normal">Provider</th>
+              <tr className="border-b border-[var(--cc-hairline)]/50">
+                <th scope="col" className="text-left px-5 py-3 cc-caption text-[var(--cc-muted)] font-normal">Provider</th>
                 <th className="text-left px-5 py-3 font-normal">Requests</th>
                 <th className="text-left px-5 py-3 font-normal">Avg Latency</th>
                 <th className="text-left px-5 py-3 font-normal">Status</th>

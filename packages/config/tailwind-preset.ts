@@ -2,37 +2,56 @@
  * Cinacoin 统一 Tailwind CSS Preset
  *
  * 所有项目共享的品牌颜色、字体和命名约定。
- * 主品牌色: #3B82F6 (blue-500)
+ * 对齐 DESIGN.md 语义色：primary=#171717 (ink), success=#16a34a, error=#ee0000.
+ * Brand blue (#3B82F6) 保留为 accent / link 色（不是 primary CTA 色）。
  */
 export const cinacoinPreset = {
   theme: {
     extend: {
       colors: {
-        // Cinacoin 品牌色 - 统一的 blue-primary
+        // Primary ink — the single CTA / text color per DESIGN.md
+        ink: {
+          DEFAULT: "#171717",
+          soft: "#4d4d4d",
+          mute: "#888888",
+        },
+        // Canvas surfaces per DESIGN.md
+        canvas: {
+          DEFAULT: "#ffffff",
+          soft: "#fafafa",
+          soft2: "#f5f5f5",
+        },
+        // Hairline borders per DESIGN.md
+        hairline: {
+          DEFAULT: "#ebebeb",
+          strong: "#a1a1a1",
+        },
+        // Accent blue for links, badges, and gradients (not primary CTA)
         brand: {
           50: "#eff6ff",
           100: "#dbeafe",
           200: "#bfdbfe",
           300: "#93c5fd",
           400: "#60a5fa",
-          500: "#3b82f6", // 主品牌色
+          500: "#3b82f6",
           600: "#2563eb",
           700: "#1d4ed8",
           800: "#1e40af",
           900: "#1e3a8a",
         },
-        // 语义色
-        success: { DEFAULT: "#22c55e", dark: "#16a34a" },
-        warning: { DEFAULT: "#f59e0b", dark: "#d97706" },
-        danger: { DEFAULT: "#ef4444", dark: "#dc2626" },
-        info: { DEFAULT: "#3b82f6", dark: "#2563eb" },
-        // Dashboard surface colors (light theme default per DESIGN.md)
-        // These are overridden per-app via CSS variables in tailwind.config.ts.
-        surface: {
-          DEFAULT: "#ffffff",
-          hover: "#f1f5f9",
-          border: "#e2e8f0",
-          borderLight: "#e5e7eb",
+        // Semantic colors aligned with DESIGN.md
+        success: { DEFAULT: "#0070f3", dark: "#0761d1" },
+        warning: { DEFAULT: "#f5a623", dark: "#ab570a" },
+        danger: { DEFAULT: "#ee0000", dark: "#c50000" },
+        info: { DEFAULT: "#0070f3", dark: "#0761d1" },
+        // Gradient stops (hero mesh gradient per DESIGN.md)
+        gradient: {
+          developStart: "#007cf0",
+          developEnd: "#00dfd8",
+          previewStart: "#7928ca",
+          previewEnd: "#ff0080",
+          shipStart: "#ff4d4d",
+          shipEnd: "#f9cb28",
         },
       },
       fontFamily: {

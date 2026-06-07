@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 env:
-  NODE_VERSION: "20"
+  NODE_VERSION: "22"
 
 jobs:
   deploy:
@@ -36,6 +36,9 @@ jobs:
       - name: Build Cloud Dashboard
         run: |
           rm -rf apps/cloud-dashboard/.next/cache
+          rm -rf apps/cloud-dashboard/.next
+          rm -rf apps/cloud-dashboard/out
+          rm -rf cache/
           pnpm --filter cloud-dashboard build
         env:
           NODE_ENV: production
@@ -44,6 +47,14 @@ jobs:
         run: |
           test -f apps/cloud-dashboard/out/index.html || { echo "✗ out/index.html missing"; exit 1; }
           echo "✓ static output exists"
+
+      - name: Clean cache before deploy
+        run: |
+          rm -rf apps/cloud-dashboard/.next/cache
+          rm -rf apps/cloud-dashboard/.next
+          rm -rf apps/cloud-dashboard/out/cache
+          rm -rf cache/
+          echo "Cache cleaned"
 
       - name: Nest output under /dashboard (basePath layout)
         run: |

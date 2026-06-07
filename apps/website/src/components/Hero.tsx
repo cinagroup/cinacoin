@@ -7,9 +7,13 @@ export default function Hero() {
   const { t } = useI18n()
 
   return (
-    <section className="relative flex flex-col items-center justify-center overflow-hidden px-6 pt-32 pb-24 md:pt-40 md:pb-32">
+    <section
+      id="main-content"
+      aria-label="Hero section"
+      className="relative flex flex-col items-center justify-center overflow-hidden px-6 pt-32 pb-24 md:pt-40 md:pb-32 lg:pt-48 lg:pb-40"
+    >
       {/* Mesh gradient backdrop */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[600px] cc-mesh-gradient-strong" />
       </div>
 
@@ -59,7 +63,7 @@ export default function Hero() {
       <FadeIn delay={700}>
         <div className="relative mt-16 w-full max-w-lg">
           <div className="cc-code-block">
-            <pre>
+            <pre className="cc-code">
               <code>
                 <span style={{ color: 'var(--cc-violet)' }}>import</span>{' '}
                 <span style={{ color: 'var(--cc-cyan)' }}>{'{ CinacoinProvider }'}</span>{' '}

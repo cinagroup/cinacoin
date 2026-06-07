@@ -47,7 +47,7 @@ export function SiteHeader({
     <header className="cc-navbar" aria-label="Site header">
       <div
         className="cc-container"
-        style={{ height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
+        style={{ height: '64px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
       >
         <Brand logoSrc={logoSrc} href={brandHref} sublabel={sublabel} />
 
@@ -75,8 +75,8 @@ export function SiteHeader({
               aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
               style={{
                 display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                height: 32, width: 32, borderRadius: 8, border: 'none',
-                background: 'transparent', color: 'var(--cc-body)', cursor: 'pointer',
+                height: '32px', width: '32px', borderRadius: 'var(--cc-radius-sm, 6px)', border: 'none',
+                background: 'transparent', color: 'var(--cc-body, #4d4d4d)', cursor: 'pointer',
               }}
             >
               {theme === 'dark' ? (
@@ -113,8 +113,8 @@ export function SiteHeader({
             className="cc-nav-mobile-btn"
             style={{
               display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-              height: 36, width: 36, borderRadius: 8, border: 'none',
-              background: 'transparent', color: 'var(--cc-body)', cursor: 'pointer',
+              height: '36px', width: '36px', borderRadius: 'var(--cc-radius-sm, 6px)', border: 'none',
+              background: 'transparent', color: 'var(--cc-body, #4d4d4d)', cursor: 'pointer',
             }}
           >
             {mobileOpen ? (
@@ -159,7 +159,7 @@ export function SiteHeader({
             ) : null}
             {cta ? (
               <a href={cta.href} style={{ marginTop: 8 }}>
-                <span className="cc-btn-primary-sm" style={{ width: '100%', height: 40 }}>
+                <span className="cc-btn-primary-sm" style={{ width: '100%', height: '40px' }}>
                   {cta.label}
                 </span>
               </a>

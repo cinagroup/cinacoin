@@ -176,7 +176,7 @@ export default function AADemoPage() {
 
         {/* ── Header ── */}
         <div className="text-center space-y-2">
-          <h1 className="text-3xl font-semibold tracking-tighter bg-gradient-to-r from-violet-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-semibold tracking-tighter bg-gradient-to-r from-[var(--cc-violet)] via-[var(--cc-highlight-pink)] to-[var(--cc-link)] bg-clip-text text-transparent">
             Account Abstraction Demo
           </h1>
           <p className="text-[var(--cc-muted)] text-sm">ERC-4337 smart accounts, session keys, gas sponsorship, and batch transactions</p>
@@ -186,7 +186,7 @@ export default function AADemoPage() {
         <div className="flex items-center justify-between bg-[var(--cc-canvas-soft-2)]/40 backdrop-blur rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/50 px-5 py-4">
           {isConnected ? (
             <div className="flex items-center gap-3">
-              <div className="size-8 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center text-xs font-semibold tracking-tighter text-[var(--cc-ink)]">
+              <div className="size-8 rounded-full bg-gradient-to-br from-[var(--cc-violet)] to-[var(--cc-violet-deep)] flex items-center justify-center text-xs font-semibold tracking-tighter text-[var(--cc-ink)]">
                 {account.address?.slice(2, 4).toUpperCase()}
               </div>
               <div>
@@ -223,7 +223,7 @@ export default function AADemoPage() {
             </div>
             {accountCreated && smartAccount && (
               <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-semibold bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-[var(--cc-success)]/25">
-                <span className="size-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="size-2 rounded-full bg-[var(--cc-success)] animate-pulse" />
                 Deployed
               </span>
             )}
@@ -261,7 +261,7 @@ export default function AADemoPage() {
                   className={`w-full py-3.5 rounded-md font-semibold text-sm transition-all ${
                     creatingAccount
                       ? 'bg-violet-500/60 text-[var(--cc-ink)] cursor-wait'
-                      : 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 shadow-[0_4px_12px_rgba(124,58,237,0.25),0_2px_4px_rgba(124,58,237,0.15)]'
+                      : 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 shadow-[var(--cc-level3)]'
                   }`}
                 >
                   {creatingAccount ? (
@@ -375,7 +375,7 @@ export default function AADemoPage() {
                     <ToggleSwitch checked={key.active} onChange={() => handleToggleKey(key.id)} label={`Toggle ${key.name}`} />
                     <button
                       onClick={() => handleRemoveKey(key.id)}
-                      className="text-xs text-[var(--cc-error)] hover:text-red-300 transition-colors px-2 py-1 rounded hover:bg-[var(--cc-error)]/10"
+                      className="text-xs text-[var(--cc-error)] hover:text-[var(--cc-error-deep)] transition-colors px-2 py-1 rounded hover:bg-[var(--cc-error)]/10"
                     >
                       Revoke
                     </button>
@@ -445,20 +445,20 @@ export default function AADemoPage() {
             {/* Stats */}
             <div className="grid grid-cols-3 gap-3">
               <div className="p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline)]/50 text-center">
-                <p className="text-2xl font-semibold tracking-tighter bg-gradient-to-r from-brand-400 to-brand-500 bg-clip-text text-transparent">
+                <p className="text-2xl font-semibold tracking-tighter bg-gradient-to-r from-[var(--cc-link)]/80 to-[var(--cc-link)] bg-clip-text text-transparent">
                   {txCount}
                 </p>
                 <p className="text-[12px] text-[var(--cc-body)] mt-1">Gasless TXs</p>
               </div>
               <div className="p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline)]/50 text-center">
                 {/* TODO: Calculate real gas saved from on-chain data */}
-                <p className="text-2xl font-semibold tracking-tighter bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                <p className="text-2xl font-semibold tracking-tighter bg-gradient-to-r from-[var(--cc-link)] to-[var(--cc-violet)] bg-clip-text text-transparent">
                   ~$2.40
                 </p>
                 <p className="text-[12px] text-[var(--cc-body)] mt-1">Gas Saved</p>
               </div>
               <div className="p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline)]/50 text-center">
-                <p className="text-2xl font-semibold tracking-tighter bg-gradient-to-r from-purple-400 to-violet-400 bg-clip-text text-transparent">
+                <p className="text-2xl font-semibold tracking-tighter bg-gradient-to-r from-[var(--cc-violet)]/70 to-[var(--cc-violet-deep)]/70 bg-clip-text text-transparent">
                   0
                 </p>
                 <p className="text-[12px] text-[var(--cc-body)] mt-1">User Gas Paid</p>
@@ -525,7 +525,7 @@ export default function AADemoPage() {
                 batchExecuting
                   ? 'bg-violet-500/60 text-[var(--cc-ink)] cursor-wait'
                   : smartAccount
-                  ? 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 shadow-[0_4px_12px_rgba(124,58,237,0.25),0_2px_4px_rgba(124,58,237,0.15)]'
+                  ? 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 shadow-[var(--cc-level3)]'
                   : 'bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-body)] cursor-not-allowed'
               }`}
             >

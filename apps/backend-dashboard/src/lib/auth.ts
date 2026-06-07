@@ -3,6 +3,8 @@
 
 const SESSION_KEY = "cinacoin_auth_session";
 const SESSION_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
+const CSRF_COOKIE_NAME = "cinacoin_csrf_token";
+const CSRF_HEADER_NAME = "X-CSRF-Token";
 
 export interface AuthSession {
   address: string;
@@ -133,9 +135,6 @@ export async function signAndVerify(message: string, address: string): Promise<s
 
 // ---------- CSRF Protection ----------
 
-const CSRF_COOKIE_NAME = "cinacoin_csrf_token";
-const CSRF_HEADER_NAME = "X-CSRF-Token";
-
 /**
  * Generate a cryptographically secure CSRF token using crypto.getRandomValues.
  */
@@ -217,8 +216,14 @@ export async function login(): Promise<AuthSession> {
     expiresAt: Date.now() + SESSION_TTL_MS,
   };
 
-  localStorage.setItem(SESSION_KEY, JSON.stringify(session));
-  return session;
+  // Sanitize before storing to prevent XSS if address is ever rendered
+  const sanitized: AuthSession = {
+    ...session,
+    address: session.address.toLowerCase(),
+  };
+
+  localStorage.setItem(SESSION_KEY, JSON.stringify(sanitized));
+  return sanitized;
 }
 
 /**

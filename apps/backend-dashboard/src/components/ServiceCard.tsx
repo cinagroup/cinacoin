@@ -41,7 +41,7 @@ export default function ServiceCard({ service, health, demoMode = false }: Servi
     <div className="cc-card relative transition-all duration-300 hover:shadow-[var(--cc-shadow-level-3)]">
       {/* Status indicator - top right */}
       <div className="absolute top-3 right-3">
-        <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-xs font-medium ${statusBadgeBg(health.status)}`}>
+        <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-xs font-medium cc-badge ${statusBadgeBg(health.status)}`}>
           <span className={`inline-block w-2 h-2 rounded-full ${statusDotColor(health.status)}`} />
           <span className={statusColor(health.status)}>
             {health.status === "unknown" ? "Checking..." : health.status.charAt(0).toUpperCase() + health.status.slice(1)}

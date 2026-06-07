@@ -109,7 +109,7 @@ export default function HomePage() {
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <SiteHeader
-        logoSrc="/analytics/logo.png"
+        logoSrc="/analytics/logo.svg"
         sublabel="Analytics"
         links={[
           { label: 'Demo', href: 'https://cinacoin.com/demo' },
@@ -222,7 +222,7 @@ export default function HomePage() {
       </main>
 
       <SiteFooter
-        logoSrc="/analytics/logo.png"
+        logoSrc="/analytics/logo.svg"
         tagline="Wallet and transaction analytics, aggregated from ingested SDK events."
         columns={[
           {

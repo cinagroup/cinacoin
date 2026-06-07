@@ -66,7 +66,7 @@ export default function PushServerPage() {
               value={Math.round(metrics.deliveryRate || 0)}
               size={120}
               strokeWidth={10}
-              color={(metrics.deliveryRate || 0) > 99 ? "#0070f3" : (metrics.deliveryRate || 0) > 95 ? "#f5a623" : "#ee0000"}
+              color={(metrics.deliveryRate || 0) > 99 ? "var(--cc-link)" : (metrics.deliveryRate || 0) > 95 ? "var(--cc-warning)" : "var(--cc-error)"}
               label="Success"
             />
             <div className="space-y-3">

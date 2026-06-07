@@ -11,6 +11,7 @@ export default function LoginPage() {
   const router = useRouter();
   const [walletMissing, setWalletMissing] = useState(false);
   const [step, setStep] = useState<"idle" | "connecting" | "signing">("idle");
+  const [focused, setFocused] = useState(false);
 
   // If already logged in, redirect to dashboard
   if (isLoggedIn) {
@@ -40,7 +41,7 @@ export default function LoginPage() {
         {/* Logo / Brand */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-[var(--cc-radius-sm)] bg-[var(--cc-link)]/10 border border-[var(--cc-link)]/20 mb-4">
-          <img src="/logo.png" alt="Cinacoin logo" className="w-10 h-10 rounded-md" />
+          <img src="/logo.svg" alt="Cinacoin logo" className="w-10 h-10 rounded-md" />
           </div>
           <h1 className="text-3xl font-semibold tracking-tight text-[var(--cc-ink)]">Cinacoin</h1>
           <p className="text-[var(--cc-muted)] mt-2">Backend Dashboard</p>

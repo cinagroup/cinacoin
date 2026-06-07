@@ -63,7 +63,7 @@ const _P = Array.from({ length: 18 }, (_, i) => ({
   top: (i * 53 + 7) % 100,
   duration: 6 + (i * 3) % 10,
   delay: (i * 2) % 5,
-  color: i % 3 === 0 ? '#3b82f6' : i % 3 === 1 ? '#8b5cf6' : '#6366f1',
+  color: i % 3 === 0 ? 'var(--cc-link)' : i % 3 === 1 ? 'var(--cc-violet)' : 'var(--cc-cyan)',
 }));
 
 /* ── chain badge with hover glow ── */
@@ -108,13 +108,13 @@ function FeatureCard({ feature, delay }: { feature: (typeof FEATURES)[number]; d
       }`}
       style={isInView ? { animationDelay: `${delay}ms`, animationFillMode: 'both' } : undefined}
     >
-      <div className="absolute inset-0 rounded-[var(--cc-radius-md)] bg-gradient-to-br from-brand-500/5 to-brand-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+      <div className="absolute inset-0 rounded-[var(--cc-radius-md)] bg-gradient-to-br from-[var(--cc-link)]/5 to-[var(--cc-link)]/3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
       <div className="relative">
         <div className="text-3xl mb-4">{feature.icon}</div>
-        <h3 className="text-base font-semibold text-gray-100 group-hover:text-[var(--cc-ink)] transition-colors mb-2">
+        <h3 className="text-base font-semibold text-[var(--cc-ink)] mb-2">
           {feature.title}
         </h3>
-        <p className="text-sm text-[var(--cc-body)] leading-relaxed group-hover:text-[var(--cc-muted)] transition-colors">
+        <p className="text-sm text-[var(--cc-muted)] leading-relaxed">
           {feature.desc}
         </p>
       </div>
@@ -154,7 +154,7 @@ function BackendStatus() {
             <div className="flex gap-1.5">
               <span className="size-3 rounded-full bg-[var(--cc-error)]/80" />
               <span className="size-3 rounded-full bg-[var(--cc-warning)]/80" />
-              <span className="size-3 rounded-full bg-green-500/80" />
+              <span className="size-3 rounded-full bg-[var(--cc-success)]/80" />
             </div>
             <span className="text-[12px] text-[var(--cc-success)]/70 font-mono tracking-normal ml-1 uppercase">
               ⚡ Infrastructure Monitor
@@ -193,16 +193,16 @@ function BackendStatus() {
                   ? 'bg-[var(--cc-success)]/10 text-[var(--cc-success)] border border-[var(--cc-success)]/20'
                   : healthyCount > 0
                   ? 'bg-[var(--cc-warning)]/10 text-[var(--cc-warning)] border border-yellow-500/20'
-                  : 'bg-[var(--cc-error)]/10 text-[var(--cc-error)] border border-red-500/20'
+                  : 'bg-[var(--cc-error)]/10 text-[var(--cc-error)] border border-[var(--cc-error)]/20'
               }`}
             >
               <span
                 className={`size-2 rounded-full ${
                   healthyCount === total
-                    ? 'bg-emerald-400'
+                    ? 'bg-[var(--cc-success)]'
                     : healthyCount > 0
-                    ? 'bg-yellow-400'
-                    : 'bg-red-400'
+                    ? 'bg-[var(--cc-warning)]'
+                    : 'bg-[var(--cc-error)]'
                 }`}
                 style={{
                   color: healthyCount === total ? '#34d399' : healthyCount > 0 ? '#facc15' : '#f87171',
@@ -216,7 +216,7 @@ function BackendStatus() {
         </div>
 
         {/* Worker rows */}
-        <div className="relative divide-y divide-gray-800/30">
+        <div className="relative divide-y divide-[var(--cc-hairline)]/30">
           {(loading ? Array.from({ length: total }) : health).map((h, i) => {
             if (loading) {
               return (
@@ -232,7 +232,7 @@ function BackendStatus() {
               <div key={result.name} className="flex items-center gap-3 px-5 py-3 hover:bg-[var(--cc-canvas-soft-2)]/20 transition-colors">
                 <span
                   className={`size-2 rounded-full ${
-                    result.healthy ? 'bg-emerald-400' : 'bg-red-400'
+                    result.healthy ? 'bg-[var(--cc-success)]' : 'bg-[var(--cc-error)]'
                   }`}
                   style={result.healthy ? {
                     color: '#34d399',
@@ -292,7 +292,7 @@ function SuccessParticles() {
   const particles = Array.from({ length: 12 }, (_, i) => ({
     id: i,
     left: 15 + (i * 6) % 70,
-    color: ['#3b82f6', '#8b5cf6', '#10b981', '#f59e0b', '#ec4899'][i % 5],
+    color: ['var(--cc-link)', 'var(--cc-violet)', 'var(--cc-cyan)', 'var(--cc-warning)', 'var(--cc-highlight-pink)'][i % 5],
     delay: (i * 0.08).toFixed(2),
     size: 3 + (i % 3) * 2,
   }));
@@ -325,7 +325,7 @@ function ConnectingOverlay() {
       <div className="relative">
         <div className="w-16 h-16 rounded-full border-2 border-[var(--cc-primary)]/30 animate-ping-once" />
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500/20 to-violet-500/20 border border-[var(--cc-primary)]/40 flex items-center justify-center">
+          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[var(--cc-link)]/20 to-[var(--cc-violet)]/20 border border-[var(--cc-primary)]/40 flex items-center justify-center">
             <svg className="animate-spin h-6 w-6 text-[var(--cc-link)]" viewBox="0 0 24 24" fill="none">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
@@ -453,7 +453,7 @@ export default function HomePage() {
         </div>
 
         {/* Title — ink headline, matching cinacoin.com homepage */}
-        <h1 className="relative text-5xl sm:text-6xl font-semibold tracking-tighter text-[var(--cc-ink)]">
+        <h1 className="relative text-5xl sm:text-6xl font-semibold text-[var(--cc-ink)]" style={{ letterSpacing: '-0.05em', lineHeight: '1.05' }}>
           The open-source wallet connection toolkit
         </h1>
 
@@ -509,7 +509,7 @@ export default function HomePage() {
           }}
         >
           {/* Gradient border glow */}
-          <div className="absolute -inset-px rounded-[var(--cc-radius-md)] bg-gradient-to-r from-brand-500/20 via-brand-400/20 to-brand-300/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+          <div className="absolute -inset-px rounded-[var(--cc-radius-md)] bg-gradient-to-r from-[var(--cc-link)]/20 via-[var(--cc-link)]/15 to-[var(--cc-link)]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
           {/* Card header */}
           <div className="relative flex items-center justify-between px-6 py-4 border-b border-[var(--cc-hairline-strong)]/40">
@@ -517,7 +517,7 @@ export default function HomePage() {
               <div className="flex gap-1.5">
                 <span className="size-3 rounded-full bg-[var(--cc-error)]/60" />
                 <span className="size-3 rounded-full bg-[var(--cc-warning)]/60" />
-                <span className="size-3 rounded-full bg-green-500/60" />
+                <span className="size-3 rounded-full bg-[var(--cc-success)]/60" />
               </div>
               <span className="text-xs text-[var(--cc-body)] font-mono ml-2">Cinacoin Demo</span>
             </div>
@@ -525,7 +525,7 @@ export default function HomePage() {
               <span
                 className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-colors ${
                   isConnected
-                    ? 'bg-green-500/15 text-green-400 border border-green-500/20'
+                    ? 'bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-[var(--cc-success)]/20'
                     : status === 'connecting'
                     ? 'bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border border-yellow-500/20'
                     : 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/40'
@@ -533,7 +533,7 @@ export default function HomePage() {
               >
                 <span
                   className={`size-2 rounded-full ${
-                    isConnected ? 'bg-[var(--cc-success)] animate-pulse' : status === 'connecting' ? 'bg-yellow-400 animate-pulse' : 'bg-[var(--cc-muted)]'
+                    isConnected ? 'bg-[var(--cc-success)] animate-pulse' : status === 'connecting' ? 'bg-[var(--cc-warning)] animate-pulse' : 'bg-[var(--cc-muted)]'
                   }`}
                 />
                 {isConnected ? 'Live' : isConnecting ? 'Connecting...' : 'Idle'}
@@ -560,7 +560,7 @@ export default function HomePage() {
                       onClick={() => handleConnect(c.id)}
                       className="flex items-center gap-3 px-4 py-3 rounded-[100px] bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline-strong)]/50 hover:border-[var(--cc-hairline-strong)] hover:bg-[var(--cc-canvas-soft-2)]/60 transition-all text-left"
                     >
-                      <span className="size-8 rounded-full bg-gradient-to-br from-brand-500/20 to-brand-400/20 flex items-center justify-center text-xs font-semibold text-[var(--cc-body)]">
+                      <span className="size-8 rounded-full bg-[var(--cc-canvas-soft-2)] flex items-center justify-center text-xs font-semibold text-[var(--cc-muted)]">
                         {c.name[0]}
                       </span>
                       <span className="text-sm font-medium text-[var(--cc-body)]">{c.name}</span>
@@ -591,22 +591,22 @@ export default function HomePage() {
 
             {/* Connected state */}
             {isConnected && account.address && (
-              <div className="relative flex items-center gap-4 p-4 rounded-[var(--cc-radius-md)] bg-[var(--cc-canvas)]/60 border border-green-500/20 animate-status-transition overflow-hidden">
+              <div className="relative flex items-center gap-4 p-4 rounded-[var(--cc-radius-md)] bg-[var(--cc-canvas)]/60 border border-[var(--cc-success)]/20 animate-status-transition overflow-hidden">
                 {/* Subtle green glow */}
                 <div className="absolute inset-0 bg-gradient-to-r from-green-500/5 to-transparent pointer-events-none" />
                 {/* Avatar with ring */}
                 <div className="relative shrink-0">
-                  <div className="size-12 rounded-full bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-sm font-semibold text-[var(--cc-ink)] shadow-[var(--cc-level3)] shadow-blue-500/20">
+                  <div className="size-12 rounded-full bg-[var(--cc-link)]/15 flex items-center justify-center text-sm font-semibold text-[var(--cc-link)]">
                     {account.address.slice(2, 4).toUpperCase()}
                   </div>
-                  <span className="absolute -bottom-0.5 -right-0.5 size-4 rounded-full bg-emerald-400 border-2 border-gray-900" />
+                  <span className="absolute -bottom-0.5 -right-0.5 size-4 rounded-full bg-[var(--cc-success)] border-2 border-[var(--cc-primary)]" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-mono text-[var(--cc-body)] truncate">
                     {shortenAddress(account.address)}
                   </p>
                   <div className="flex items-center gap-2">
-                    <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="inline-block w-2 h-2 rounded-full bg-[var(--cc-success)] animate-pulse" />
                     <p className="text-xs text-[var(--cc-body)]">{account.chainName} · {account.chainId}</p>
                   </div>
                 </div>
@@ -618,7 +618,7 @@ export default function HomePage() {
 
             {/* Error state */}
             {error && (
-              <div className="p-4 rounded-[var(--cc-radius-md)] bg-[var(--cc-error)]/10 border border-red-500/20">
+              <div className="p-4 rounded-[var(--cc-radius-md)] bg-[var(--cc-error)]/10 border border-[var(--cc-error)]/20">
                 <p className="text-sm text-[var(--cc-error)]">{error}</p>
               </div>
             )}
@@ -695,10 +695,10 @@ export default function HomePage() {
                 <p className="text-[12px] uppercase tracking-normal text-[var(--cc-body)] mb-1">Status</p>
                 <div className="flex items-center gap-1.5">
                   <span className={`size-2 rounded-full ${
-                    isConnected ? 'bg-[var(--cc-success)] animate-pulse' : isConnecting ? 'bg-yellow-400 animate-pulse' : 'bg-[var(--cc-muted)]'
+                    isConnected ? 'bg-[var(--cc-success)] animate-pulse' : isConnecting ? 'bg-[var(--cc-warning)] animate-pulse' : 'bg-[var(--cc-muted)]'
                   }`} />
                   <p className={`text-sm font-semibold ${
-                    isConnected ? 'text-green-400' : isConnecting ? 'text-[var(--cc-warning)]' : 'text-[var(--cc-body)]'
+                    isConnected ? 'text-[var(--cc-success)]' : isConnecting ? 'text-[var(--cc-warning)]' : 'text-[var(--cc-body)]'
                   }`}>
                     {isConnected ? 'Connected' : isConnecting ? 'Connecting...' : 'Not Connected'}
                   </p>
@@ -736,7 +736,7 @@ export default function HomePage() {
         <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
           {STATS.map((s) => (
             <div key={s.label} className="text-center">
-              <div className="text-3xl sm:text-4xl font-semibold tracking-tight bg-gradient-to-r from-brand-400 to-brand-300 bg-clip-text text-transparent">
+              <div className="text-3xl sm:text-4xl font-semibold tracking-tight text-[var(--cc-ink)]">
                 {s.value}
               </div>
               <div className="text-xs text-[var(--cc-body)] mt-1 font-medium">{s.label}</div>
@@ -752,7 +752,7 @@ export default function HomePage() {
         <div className="text-center mb-10">
           <h2 className="text-3xl sm:text-4xl font-semibold tracking-tighter text-[var(--cc-ink)] mb-3">
             Everything you need to{' '}
-            <span className="bg-gradient-to-r from-brand-400 to-brand-300 bg-clip-text text-transparent animate-gradient-shift"
+            <span className="text-[var(--cc-link)]"
               style={{ backgroundSize: '200% 200%' }}>
               connect wallets
             </span>
@@ -802,13 +802,13 @@ export default function HomePage() {
               <h2 className="text-lg font-semibold tracking-tight text-[var(--cc-ink)]">Recent Connections</h2>
               <span className="text-xs text-[var(--cc-body)]">{connectionHistory.length} records</span>
             </div>
-            <div className="divide-y divide-gray-800/50">
+            <div className="divide-y divide-[var(--cc-hairline)]/50">
               {connectionHistory.slice(0, 5).map((record, i) => {
                 const ago = Date.now() - record.connectedAt;
                 const timeLabel = ago < 60000 ? 'Just now' : ago < 3600000 ? `${Math.floor(ago / 60000)}m ago` : ago < 86400000 ? `${Math.floor(ago / 3600000)}h ago` : `${Math.floor(ago / 86400000)}d ago`;
                 return (
                   <div key={i} className="flex items-center gap-3 px-5 py-3 hover:bg-[var(--cc-canvas-soft-2)]/20 transition-colors">
-                    <div className="size-8 rounded-full bg-gradient-to-br from-brand-500/20 to-brand-400/20 flex items-center justify-center text-xs font-semibold text-[var(--cc-body)] shrink-0">
+                    <div className="size-8 rounded-full bg-[var(--cc-canvas-soft-2)] flex items-center justify-center text-xs font-semibold text-[var(--cc-muted)] shrink-0">
                       {record.address.slice(2, 4).toUpperCase()}
                     </div>
                     <div className="flex-1 min-w-0">
@@ -820,7 +820,7 @@ export default function HomePage() {
                       {!isConnected && (
                         <button
                           onClick={() => handleConnect(record.connectorId)}
-                          className="text-xs text-[var(--cc-link)] hover:text-blue-300 transition-colors mt-0.5"
+                          className="text-xs text-[var(--cc-link)] hover:text-[var(--cc-link-deep)] transition-colors mt-0.5"
                         >
                           Reconnect
                         </button>
@@ -865,7 +865,7 @@ export default function HomePage() {
               >
                 Get Started
               </Link>
-              <button className="px-8 py-4 rounded-[100px] font-medium text-base bg-transparent border border-[var(--cc-hairline-strong)] text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:border-gray-400 transition-all duration-200">
+              <button className="px-8 py-4 rounded-[100px] font-medium text-base bg-transparent border border-[var(--cc-hairline-strong)] text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all duration-200">
                 View Docs
               </button>
             </div>

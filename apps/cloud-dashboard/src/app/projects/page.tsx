@@ -12,7 +12,7 @@ export default function ProjectsPage() {
         <div className="mb-6 flex items-center justify-between">
           <div>
             <h1 className="cc-display-md text-[var(--cc-ink)]">Projects</h1>
-            <p className="mt-1 text-sm text-[var(--cc-muted)]">
+            <p className="cc-body-sm text-[var(--cc-muted)] mt-1">
               Manage your Cinacoin projects
             </p>
           </div>
@@ -32,7 +32,7 @@ export default function ProjectsPage() {
 
         {demoProjects.length === 0 && (
           <div className="cc-card-soft p-12 text-center">
-            <p className="text-sm text-[var(--cc-muted)]">No projects yet.</p>
+            <p className="cc-body-sm text-[var(--cc-muted)]">No projects yet.</p>
             <a
               href="/dashboard/projects/new"
               className="mt-4 cc-btn-primary px-4 !h-10 text-sm"

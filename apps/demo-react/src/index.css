@@ -76,7 +76,8 @@
 }
 
 @layer components {
-  /* Mesh gradient — the ONLY decorative chrome per DESIGN.md */
+  /* Mesh gradient — the ONLY decorative chrome per DESIGN.md.
+     Fixed atmospheric backdrop; no animation per spec. */
   .cc-mesh-gradient {
     background:
       radial-gradient(at 40% 20%, var(--cc-gradient-develop-start, #007cf0) 0, transparent 50%),
@@ -85,13 +86,6 @@
       radial-gradient(at 80% 50%, var(--cc-gradient-ship-start, #ff4d4d) 0, transparent 40%),
       radial-gradient(at 0% 100%, var(--cc-gradient-preview-end, #ff0080) 0, transparent 50%),
       radial-gradient(at 80% 100%, var(--cc-gradient-ship-end, #f9cb28) 0, transparent 50%);
-    background-size: 200% 200%;
-    animation: mesh-shift 20s ease infinite;
-  }
-
-  @keyframes mesh-shift {
-    0%, 100% { background-position: 0% 0%; }
-    50% { background-position: 100% 100%; }
   }
 
   /* Cards — stacked shadows per DESIGN.md */

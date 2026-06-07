@@ -11,43 +11,37 @@ export default function Products() {
       name: t('nav-products'),
       descKey: 'f1-desc',
       href: '/docs/api/appkit',
-      gradientStart: 'var(--cc-link)',
-      gradientEnd: 'var(--cc-cyan)',
+      iconColor: 'var(--cc-link)',
     },
     {
       name: 'Auth',
       descKey: 'f3-desc',
       href: '/docs/api/auth',
-      gradientStart: 'var(--cc-violet)',
-      gradientEnd: 'var(--cc-highlight-pink)',
+      iconColor: 'var(--cc-violet)',
     },
     {
       name: 'Relay',
       descKey: 'relay-desc',
       href: '/docs/api/relay',
-      gradientStart: 'var(--cc-warning)',
-      gradientEnd: 'var(--cc-error)',
+      iconColor: 'var(--cc-warning)',
     },
     {
       name: 'Push',
       descKey: 'f4-desc',
       href: '/docs/api/push',
-      gradientStart: 'var(--cc-cyan)',
-      gradientEnd: 'var(--cc-cyan-deep)',
+      iconColor: 'var(--cc-cyan)',
     },
     {
       name: 'Keys',
       descKey: 'keys-desc',
       href: '/docs/api/keys',
-      gradientStart: 'var(--cc-warning-deep)',
-      gradientEnd: 'var(--cc-warning)',
+      iconColor: 'var(--cc-warning-deep)',
     },
     {
       name: 'RPC Proxy',
       descKey: 'rpc-desc',
       href: '/docs/api/rpc',
-      gradientStart: 'var(--cc-link)',
-      gradientEnd: 'var(--cc-violet)',
+      iconColor: 'var(--cc-link)',
     },
   ]
 
@@ -78,11 +72,13 @@ export default function Products() {
                 <div className="relative">
                   <div className="mb-4 flex items-center gap-2">
                     <div
-                      className="h-8 w-8 rounded-md transition-transform duration-200 group-hover:scale-110"
-                      style={{
-                        background: `linear-gradient(135deg, ${p.gradientStart}, ${p.gradientEnd})`,
-                      }}
-                    />
+                      className="h-8 w-8 rounded-md flex items-center justify-center transition-transform duration-200 group-hover:scale-110"
+                      style={{ backgroundColor: 'var(--cc-canvas-soft-2)', color: p.iconColor }}
+                    >
+                      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    </div>
                     <h3 className="cc-display-sm text-[var(--cc-ink)]">{p.name}</h3>
                   </div>
                   <p className="cc-body-sm text-[var(--cc-body)]">{t(p.descKey)}</p>

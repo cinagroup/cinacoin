@@ -64,9 +64,9 @@ export function SiteFooter({
     <footer className="cc-footer">
       <div
         className="cc-container"
-        style={{ display: 'flex', flexWrap: 'wrap', gap: 48, justifyContent: 'space-between' }}
+        style={{ display: 'flex', flexWrap: 'wrap', gap: '48px', justifyContent: 'space-between' }}
       >
-        <div style={{ maxWidth: 280, display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <div style={{ maxWidth: '280px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
           <Brand logoSrc={logoSrc} />
           <p className="cc-body-sm" style={{ color: 'var(--cc-muted)' }}>{tagline}</p>
         </div>

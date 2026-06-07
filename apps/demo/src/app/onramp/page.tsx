@@ -289,7 +289,7 @@ export default function OnrampPage() {
 
         {/* ── Header ─────────────────────────────────────── */}
         <div className="text-center space-y-2">
-          <h1 className="text-3xl font-semibold tracking-tighter bg-gradient-to-r from-brand-400 via-brand-500 to-brand-600 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-semibold tracking-tighter bg-gradient-to-r from-[var(--cc-link)]/80 via-[var(--cc-link)] to-[var(--cc-link)]/60/60 bg-clip-text text-transparent">
             Fiat On-Ramp
           </h1>
           <p className="text-[var(--cc-muted)] text-sm">
@@ -386,7 +386,7 @@ export default function OnrampPage() {
             disabled={!isValidAmount || loading}
             className={`w-full py-3.5 rounded-md font-semibold text-base transition-all ${
               isValidAmount && !loading
-                ? 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 shadow-[0_4px_12px_rgba(99,102,241,0.25),0_2px_4px_rgba(99,102,241,0.15)] active:scale-[0.98]'
+                ? 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 shadow-[var(--cc-level3)] active:scale-[0.98]'
                 : 'bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-body)] cursor-not-allowed'
             }`}
           >
@@ -455,7 +455,7 @@ export default function OnrampPage() {
                   </div>
                   <button
                     onClick={handleOpenWidget}
-                    className="px-6 py-3 rounded-[100px] font-semibold text-sm bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 shadow-[0_4px_12px_rgba(99,102,241,0.25),0_2px_4px_rgba(99,102,241,0.15)] transition-all active:scale-[0.98]"
+                    className="px-6 py-3 rounded-[100px] font-semibold text-sm bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 shadow-[var(--cc-level3)] transition-all active:scale-[0.98]"
                   >
                     Buy Now
                   </button>
@@ -561,7 +561,7 @@ const quote = await aggregator.getBestQuote({
         {/* ── Footer ───────────────────────────────────── */}
         <div className="text-center space-y-1 pt-4">
           <div className="flex items-center justify-center gap-2 text-[var(--cc-body)] text-xs">
-            <span className="inline-block w-2 h-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-500" />
+            <span className="inline-block w-2 h-2 rounded-full bg-gradient-to-r from-[var(--cc-link)] to-[var(--cc-violet)]" />
             <span>Powered by <span className="text-[var(--cc-body)] font-semibold">@cinacoin/onramp-sdk</span></span>
           </div>
           <p className="text-[var(--cc-body)] text-xs">

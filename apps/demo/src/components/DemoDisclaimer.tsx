@@ -55,14 +55,14 @@ export function DemoDisclaimer({ compact = false }: { compact?: boolean }) {
   if (compact) {
     return (
       <div className="mx-auto max-w-6xl px-4 pt-4">
-        <div className="flex items-center gap-2 rounded-lg bg-[var(--cc-warning)]/10 border border-[var(--cc-warning)]/25 px-4 py-2 text-xs text-amber-300">
+        <div className="flex items-center gap-2 rounded-lg bg-[var(--cc-warning)]/10 border border-[var(--cc-warning)]/25 px-4 py-2 text-xs text-[var(--cc-warning-deep)]">
           <span>⚠️</span>
           <span>
             <strong>Demo Environment</strong> — All wallet connections and transactions are simulated.
           </span>
           <button
             onClick={handleDismiss}
-            className="ml-auto text-[var(--cc-warning)] hover:text-amber-200 transition-colors"
+            className="ml-auto text-[var(--cc-warning)] hover:text-[var(--cc-warning)] transition-colors"
             aria-label="Dismiss demo disclaimer"
           >
             ✕
@@ -74,20 +74,20 @@ export function DemoDisclaimer({ compact = false }: { compact?: boolean }) {
 
   return (
     <div className="mx-auto max-w-6xl px-4 pt-6">
-      <div className="flex items-start gap-3 rounded-md bg-[var(--cc-warning)]/10 border border-[var(--cc-warning)]/25 px-5 py-4 text-sm text-amber-200 shadow-[0_4px_12px_rgba(245,158,11,0.12)]">
+      <div className="flex items-start gap-3 rounded-md bg-[var(--cc-warning)]/10 border border-[var(--cc-warning)]/25 px-5 py-4 text-sm text-[var(--cc-warning)] shadow-[var(--cc-level3)]">
         <span className="text-xl leading-none mt-0.5">⚠️</span>
         <div className="flex-1">
-          <p className="font-semibold text-amber-100">
+          <p className="font-semibold text-[var(--cc-warning)]">
             Demo Environment
           </p>
-          <p className="text-amber-300/90 mt-0.5">
+          <p className="text-[var(--cc-warning-deep)]/90 mt-0.5">
             All wallet connections, balances, and transactions are simulated.
             No real blockchain interaction occurs. Do not send real funds.
           </p>
         </div>
         <button
           onClick={handleDismiss}
-          className="shrink-0 text-[var(--cc-warning)] hover:text-amber-200 transition-colors p-1 rounded hover:bg-[var(--cc-warning)]/10"
+          className="shrink-0 text-[var(--cc-warning)] hover:text-[var(--cc-warning)] transition-colors p-1 rounded hover:bg-[var(--cc-warning)]/10"
           aria-label="Dismiss demo disclaimer"
         >
           ✕

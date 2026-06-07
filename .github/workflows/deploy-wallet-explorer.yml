@@ -39,6 +39,7 @@ jobs:
       - name: Build Wallet Explorer
         run: |
           rm -rf apps/wallet-explorer/.next/cache
+          rm -rf apps/wallet-explorer/.next
           pnpm --filter cinacoin-wallet-explorer build
         env:
           NODE_ENV: production
@@ -47,6 +48,14 @@ jobs:
         run: |
           test -f apps/wallet-explorer/out/index.html || { echo "✗ out/index.html missing"; exit 1; }
           echo "✓ static output exists"
+
+      - name: Clean cache before deploy
+        run: |
+          rm -rf apps/wallet-explorer/.next/cache
+          rm -rf apps/wallet-explorer/.next
+          rm -rf apps/wallet-explorer/out/cache
+          rm -rf cache/
+          echo "Cache cleaned"
 
       - name: Nest output under /wallets (basePath layout)
         run: |

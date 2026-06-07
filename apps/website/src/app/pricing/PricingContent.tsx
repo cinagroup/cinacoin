@@ -98,26 +98,27 @@ export default function PricingContent() {
             {tiers.map((tier, i) => (
               <FadeIn key={tier.nameKey} delay={i * 150} direction="up" duration={600}>
                 {tier.popular ? (
-                  <div className="cc-card-featured relative h-full">
+                  <div className="cc-card-lg relative h-full bg-[var(--cc-primary)] text-[var(--cc-on-primary)] border-[var(--cc-on-primary-hairline-soft)]">
                     <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                       <span className="cc-badge" style={{ background: 'var(--cc-on-primary)', color: 'var(--cc-primary)' }}>
                         {t('pricing-tier-pro-badge')}
                       </span>
                     </div>
 
-                    <h3 className="cc-display-sm">{t(tier.nameKey)}</h3>
-                    <p className="mt-1 cc-body-sm" style={{ opacity: 0.8 }}>{t(tier.descKey)}</p>
+                    <h3 className="cc-display-md">{t(tier.nameKey)}</h3>
+                    <p className="mt-1 cc-body-md" style={{ opacity: 0.8 }}>{t(tier.descKey)}</p>
 
                     <div className="mt-6 flex items-baseline gap-1">
-                      <span className="cc-display-lg">{tier.price}</span>
+                      <span className="cc-display-xl">{tier.price}</span>
                       {tier.periodKey && (
-                        <span className="cc-body-sm" style={{ opacity: 0.7 }}>{t(tier.periodKey)}</span>
+                        <span className="cc-body-md" style={{ opacity: 0.7 }}>{t(tier.periodKey)}</span>
                       )}
                     </div>
 
                     <a
                       href={tier.href}
-                      className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-[var(--cc-on-primary)] text-[var(--cc-primary)] px-6 py-3 cc-button-md transition-opacity hover:opacity-85"
+                      className="cc-btn-secondary-sm mt-6 w-full"
+                      style={{ backgroundColor: 'var(--cc-on-primary)', color: 'var(--cc-primary)', borderColor: 'transparent' }}
                     >
                       {t(tier.ctaKey)}
                     </a>
@@ -180,7 +181,7 @@ export default function PricingContent() {
           {faqData.map((faq, i) => (
             <FadeIn key={i} delay={i * 100}>
               <details className="group border-b border-[var(--cc-hairline)] py-6 last:border-b-0">
-                <summary className="flex cursor-pointer items-center justify-between cc-body-md-strong transition-colors hover:text-[var(--cc-link)] focus:outline-none rounded">
+                <summary className="flex cursor-pointer items-center justify-between cc-body-md-strong transition-colors hover:text-[var(--cc-link)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cc-link)] focus-visible:ring-offset-2 rounded">
                   {t(faq.qKey)}
                   <span
                     className="ml-4 text-[var(--cc-muted)] transition-transform group-open:rotate-45 text-xl"

@@ -68,15 +68,29 @@ export function ProjectDetailClient({ projectId, project }: ProjectDetailClientP
         </div>
 
         <div className="mb-6 border-b border-[var(--cc-hairline)]">
-          <nav className="-mb-px flex gap-6">
+          <nav className="-mb-px flex gap-2" role="tablist" aria-label="Project sections">
             {(["overview", "keys", "settings"] as const).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`border-b-2 px-1 py-4 text-sm font-medium capitalize ${
+                role="tab"
+                aria-selected={activeTab === tab}
+                aria-controls={`panel-${tab}`}
+                id={`tab-${tab}`}
+                tabIndex={activeTab === tab ? 0 : -1}
+                onKeyDown={(e) => {
+                  if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    const tabs = ['overview', 'keys', 'settings'];
+                    const idx = tabs.indexOf(activeTab);
+                    const next = e.key === 'ArrowRight' ? (idx + 1) % 3 : (idx + 2) % 3;
+                    setActiveTab(tabs[next] as typeof activeTab);
+                  }
+                }}
+                className={`cc-tab-ghost capitalize ${
                   activeTab === tab
-                    ? "border-[var(--cc-primary)] text-[var(--cc-primary)]"
-                    : "border-transparent text-[var(--cc-muted)] hover:border-[var(--cc-hairline-strong)] hover:text-[var(--cc-ink)]"
+                    ? "bg-[var(--cc-canvas-soft-2)] text-[var(--cc-ink)]"
+                    : "text-[var(--cc-muted)]"
                 }`}
               >
                 {tab}
@@ -86,23 +100,23 @@ export function ProjectDetailClient({ projectId, project }: ProjectDetailClientP
         </div>
 
         {activeTab === "overview" && (
-          <div className="space-y-6">
+          <div className="space-y-6" role="tabpanel" id="panel-overview" aria-labelledby="tab-overview">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
               <div className="cc-card">
-                <p className="text-sm text-[var(--cc-muted)]">Total Requests</p>
-                <p className="mt-1 text-3xl font-semibold text-[var(--cc-ink)]">
+                <p className="cc-caption text-[var(--cc-muted)]">Total Requests</p>
+                <p className="mt-1 cc-display-sm text-[var(--cc-ink)]">
                   {totalRequests.toLocaleString()}
                 </p>
               </div>
               <div className="cc-card">
-                <p className="text-sm text-[var(--cc-muted)]">Errors</p>
-                <p className="mt-1 text-3xl font-semibold text-[var(--cc-error)]">
+                <p className="cc-caption text-[var(--cc-muted)]">Errors</p>
+                <p className="mt-1 cc-display-sm text-[var(--cc-error)]">
                   {totalErrors.toLocaleString()}
                 </p>
               </div>
               <div className="cc-card">
-                <p className="text-sm text-[var(--cc-muted)]">Avg Latency</p>
-                <p className="mt-1 text-3xl font-semibold text-[var(--cc-success)]">
+                <p className="cc-caption text-[var(--cc-muted)]">Avg Latency</p>
+                <p className="mt-1 cc-display-sm text-[var(--cc-success)]">
                   {avgLatency > 0 ? `${avgLatency}ms` : "—"}
                 </p>
               </div>
@@ -122,13 +136,13 @@ export function ProjectDetailClient({ projectId, project }: ProjectDetailClientP
         )}
 
         {activeTab === "keys" && (
-          <div className="cc-card">
+          <div className="cc-card" role="tabpanel" id="panel-keys" aria-labelledby="tab-keys">
             <ApiKeyManager projectId={projectId} />
           </div>
         )}
 
         {activeTab === "settings" && (
-          <div className="space-y-6">
+          <div className="space-y-6" role="tabpanel" id="panel-settings" aria-labelledby="tab-settings">
             <div className="cc-card">
               <h3 className="cc-display-sm text-[var(--cc-ink)] mb-4">Project Settings</h3>
               <form
@@ -140,10 +154,11 @@ export function ProjectDetailClient({ projectId, project }: ProjectDetailClientP
                 className="space-y-4"
               >
                 <div>
-                  <label className="block text-sm font-medium text-[var(--cc-body)] mb-1">
+                  <label htmlFor="projectName" className="cc-body-sm-strong text-[var(--cc-ink)] block mb-1">
                     Project Name
                   </label>
                   <input
+                    id="projectName"
                     type="text"
                     value={projectName}
                     onChange={(e) => setProjectName(e.target.value)}
@@ -152,10 +167,11 @@ export function ProjectDetailClient({ projectId, project }: ProjectDetailClientP
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-[var(--cc-body)] mb-1">
+                  <label htmlFor="networkSelect" className="cc-body-sm-strong text-[var(--cc-ink)] block mb-1">
                     Environment / Network
                   </label>
                   <select
+                    id="networkSelect"
                     value={network}
                     onChange={(e) => setNetwork(e.target.value)}
                     className="cc-form-input bg-[var(--cc-canvas)]"
@@ -176,9 +192,9 @@ export function ProjectDetailClient({ projectId, project }: ProjectDetailClientP
               </form>
             </div>
 
-            <div className="cc-card border border-[var(--cc-error)] bg-[var(--cc-error-soft)]/10">
-              <h3 className="text-lg font-medium tracking-tight text-[var(--cc-error)] mb-2">Danger Zone</h3>
-              <p className="text-sm text-[var(--cc-body)] mb-4">
+            <div className="cc-card border border-[var(--cc-error)]/30 bg-[var(--cc-error-soft)]/10">
+              <h3 className="cc-body-md-strong text-[var(--cc-error)] mb-2">Danger Zone</h3>
+              <p className="cc-body-sm text-[var(--cc-body)] mb-4">
                 Once you delete a project, all of its API keys and usage statistics will be permanently removed.
               </p>
               <button
@@ -192,7 +208,7 @@ export function ProjectDetailClient({ projectId, project }: ProjectDetailClientP
                     window.location.href = "/dashboard/projects";
                   }
                 }}
-                className="inline-flex items-center justify-center rounded-[var(--cc-radius-sm)] bg-[var(--cc-error)] text-white px-4 py-2 text-sm font-medium hover:bg-[var(--cc-error-deep)] transition-colors"
+                className="cc-btn-primary-sm bg-[var(--cc-error)] hover:bg-[var(--cc-error-deep)]"
               >
                 Delete Project
               </button>

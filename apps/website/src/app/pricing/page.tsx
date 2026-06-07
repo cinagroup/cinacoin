@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 import PricingContent from './PricingContent'
 
 export const metadata: Metadata = {
@@ -13,7 +15,11 @@ export const metadata: Metadata = {
 export default function PricingPage() {
   return (
     <main className="min-h-screen bg-[var(--cc-canvas-soft)] text-[var(--cc-ink)]">
+      <Navbar />
+      <div id="main-content">
       <PricingContent />
+      </div>
+      <Footer />
     </main>
   )
 }
