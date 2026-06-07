@@ -9,6 +9,7 @@
 
 import type { ChainType, SIWXParams, SIWXResult, SIWXVerifyInput } from './types.js';
 import { createSignInMessage, verifySignIn } from './siwx.js';
+import type { EvmProvider } from './siwx.js';
 import type { SIWXSession } from './siwx-session.js';
 import { SIWXSessionManager, defaultSessionManager } from './siwx-session.js';
 
@@ -72,7 +73,7 @@ export function useSIWX(options?: {
   generateMessage: (params: SIWXParams & { chainType: ChainType }) => string;
 
   /** Verify a signature and create a session. */
-  verify: (input: SIWXVerifyInput, provider?: unknown) => Promise<SIWXResult>;
+  verify: (input: SIWXVerifyInput, provider?: EvmProvider) => Promise<SIWXResult>;
 
   /** Current active session, or null. */
   session: SIWXSession | null;
@@ -98,7 +99,7 @@ export function useSIWX(options?: {
 
   const verify = async (
     input: SIWXVerifyInput,
-    provider?: unknown,
+    provider?: EvmProvider,
   ): Promise<SIWXResult> => {
     const result = await verifySignIn(input, provider);
 
