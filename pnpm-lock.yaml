@@ -807,19 +807,19 @@ importers:
         version: 17.3.12(@angular/core@17.3.12(rxjs@7.8.2)(zone.js@0.14.10))
       '@angular/compiler-cli':
         specifier: ^17.0.0
-        version: 17.3.12(@angular/compiler@17.3.12(@angular/core@17.3.12(rxjs@7.8.2)(zone.js@0.14.10)))(typescript@5.9.3)
+        version: 17.3.12(@angular/compiler@17.3.12(@angular/core@17.3.12(rxjs@7.8.2)(zone.js@0.14.10)))(typescript@5.4.5)
       '@angular/core':
         specifier: ^17.0.0
         version: 17.3.12(rxjs@7.8.2)(zone.js@0.14.10)
       ng-packagr:
         specifier: ^17.0.0
-        version: 17.3.0(@angular/compiler-cli@17.3.12(@angular/compiler@17.3.12(@angular/core@17.3.12(rxjs@7.8.2)(zone.js@0.14.10)))(typescript@5.9.3))(tailwindcss@3.4.19(tsx@4.22.1)(yaml@2.9.0))(tslib@2.8.1)(typescript@5.9.3)
+        version: 17.3.0(@angular/compiler-cli@17.3.12(@angular/compiler@17.3.12(@angular/core@17.3.12(rxjs@7.8.2)(zone.js@0.14.10)))(typescript@5.4.5))(tailwindcss@3.4.19(tsx@4.22.1)(yaml@2.9.0))(tslib@2.8.1)(typescript@5.4.5)
       rxjs:
         specifier: ^7.8.0
         version: 7.8.2
       typescript:
-        specifier: ^5.3.0
-        version: 5.9.3
+        specifier: ~5.4.0
+        version: 5.4.5
 
   packages/batch-transaction:
     dependencies:
@@ -14728,6 +14728,11 @@ packages:
   typedarray@0.0.6:
     resolution: {integrity: sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==}
 
+  typescript@5.4.5:
+    resolution: {integrity: sha512-vcI4UpRgg81oIRUFwR0WSIHKt11nJ7SAVlYNIu+QpqeyXP+gpQJy/Z4+F0aGxSE4MqwjyXvW/TzgkLAx2AGHwQ==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
   typescript@5.9.3:
     resolution: {integrity: sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==}
     engines: {node: '>=14.17'}
@@ -15818,7 +15823,7 @@ snapshots:
       rxjs: 7.8.2
       tslib: 2.8.1
 
-  '@angular/compiler-cli@17.3.12(@angular/compiler@17.3.12(@angular/core@17.3.12(rxjs@7.8.2)(zone.js@0.14.10)))(typescript@5.9.3)':
+  '@angular/compiler-cli@17.3.12(@angular/compiler@17.3.12(@angular/core@17.3.12(rxjs@7.8.2)(zone.js@0.14.10)))(typescript@5.4.5)':
     dependencies:
       '@angular/compiler': 17.3.12(@angular/core@17.3.12(rxjs@7.8.2)(zone.js@0.14.10))
       '@babel/core': 7.23.9
@@ -15828,7 +15833,7 @@ snapshots:
       reflect-metadata: 0.2.2
       semver: 7.8.0
       tslib: 2.8.1
-      typescript: 5.9.3
+      typescript: 5.4.5
       yargs: 17.7.2
     transitivePeerDependencies:
       - supports-color
@@ -28583,9 +28588,9 @@ snapshots:
       - '@babel/core'
       - babel-plugin-macros
 
-  ng-packagr@17.3.0(@angular/compiler-cli@17.3.12(@angular/compiler@17.3.12(@angular/core@17.3.12(rxjs@7.8.2)(zone.js@0.14.10)))(typescript@5.9.3))(tailwindcss@3.4.19(tsx@4.22.1)(yaml@2.9.0))(tslib@2.8.1)(typescript@5.9.3):
+  ng-packagr@17.3.0(@angular/compiler-cli@17.3.12(@angular/compiler@17.3.12(@angular/core@17.3.12(rxjs@7.8.2)(zone.js@0.14.10)))(typescript@5.4.5))(tailwindcss@3.4.19(tsx@4.22.1)(yaml@2.9.0))(tslib@2.8.1)(typescript@5.4.5):
     dependencies:
-      '@angular/compiler-cli': 17.3.12(@angular/compiler@17.3.12(@angular/core@17.3.12(rxjs@7.8.2)(zone.js@0.14.10)))(typescript@5.9.3)
+      '@angular/compiler-cli': 17.3.12(@angular/compiler@17.3.12(@angular/core@17.3.12(rxjs@7.8.2)(zone.js@0.14.10)))(typescript@5.4.5)
       '@rollup/plugin-json': 6.1.0(rollup@4.60.4)
       '@rollup/plugin-node-resolve': 15.3.1(rollup@4.60.4)
       '@rollup/wasm-node': 4.60.4
@@ -28609,7 +28614,7 @@ snapshots:
       rxjs: 7.8.2
       sass: 1.99.0
       tslib: 2.8.1
-      typescript: 5.9.3
+      typescript: 5.4.5
     optionalDependencies:
       esbuild: 0.20.2
       rollup: 4.60.4
@@ -31647,6 +31652,8 @@ snapshots:
       is-typed-array: 1.1.15
 
   typedarray@0.0.6: {}
+
+  typescript@5.4.5: {}
 
   typescript@5.9.3: {}
 
