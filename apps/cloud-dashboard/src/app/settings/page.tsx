@@ -83,6 +83,8 @@ export default function SettingsPage() {
                 onChange={(e) => setDisplayName(e.target.value)}
                 placeholder="Your name"
                 className="mt-1 cc-form-input"
+                maxLength={100}
+                required
               />
             </div>
             <div>
@@ -96,6 +98,8 @@ export default function SettingsPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
                 className="mt-1 cc-form-input"
+                maxLength={254}
+                required
               />
             </div>
             <div className="flex items-center gap-3">

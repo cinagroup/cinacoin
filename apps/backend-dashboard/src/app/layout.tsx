@@ -3,6 +3,7 @@ import "./globals.css";
 import AppShell from "@/components/AppShell";
 import AuthProvider from "@/lib/AuthProvider";
 import AuthGuard from "@/components/AuthGuard";
+import ErrorBoundary from "@/components/ErrorBoundary";
 import { Providers } from "@/providers";
 
 export const metadata: Metadata = {
@@ -37,7 +38,9 @@ export default function RootLayout({
         <Providers>
           <AuthProvider>
             <AuthGuard>
-              <AppShell>{children}</AppShell>
+              <ErrorBoundary>
+                <AppShell>{children}</AppShell>
+              </ErrorBoundary>
             </AuthGuard>
           </AuthProvider>
         </Providers>

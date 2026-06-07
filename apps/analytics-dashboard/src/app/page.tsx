@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { SiteHeader, SiteFooter } from '@cinacoin/ui';
 
 // Analytics ingestion + query Worker (packages/analytics-server). The
@@ -45,10 +45,38 @@ function fmtDelta(pct: number): string {
   return `${r >= 0 ? '+' : ''}${r}%`;
 }
 
+function SkeletonCard() {
+  return (
+    <div className="cc-card animate-pulse" style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+      <div style={{ height: 12, width: 100, borderRadius: 4, background: 'var(--cc-hairline)' }} />
+      <div style={{ height: 24, width: 64, borderRadius: 4, background: 'var(--cc-hairline)' }} />
+      <div style={{ height: 16, width: 80, borderRadius: 4, background: 'var(--cc-hairline)' }} />
+    </div>
+  );
+}
+
 export default function HomePage() {
   const [data, setData] = useState<Overview | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const loadData = useCallback(() => {
+    setLoading(true);
+    setError(null);
+    fetch(`${ANALYTICS_URL}/v1/overview?days=30`)
+      .then((r) => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+      })
+      .then((json: Overview) => {
+        setData(json);
+        setLoading(false);
+      })
+      .catch((err: Error) => {
+        setError(err.message);
+        setLoading(false);
+      });
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -61,7 +89,7 @@ export default function HomePage() {
         if (!cancelled) setData(json);
       })
       .catch(() => {
-        if (!cancelled) setError(true);
+        if (!cancelled) setError('Failed to load analytics');
       })
       .finally(() => {
         if (!cancelled) setLoading(false);
@@ -144,10 +172,31 @@ export default function HomePage() {
           </div>
 
           {loading ? (
-            <div className="cc-card" style={{ color: 'var(--cc-muted)' }}>Loading analytics…</div>
+            <>
+              {/* Skeleton KPI row */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 16 }}>
+                {Array.from({ length: 3 }).map((_, i) => <SkeletonCard key={i} />)}
+              </div>
+              {/* Skeleton charts */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 2fr) minmax(0, 1fr)', gap: 24 }} className="cc-analytics-grid">
+                <div className="cc-card-lg animate-pulse" style={{ minHeight: 280 }}>
+                  <div style={{ height: 20, width: 120, borderRadius: 4, background: 'var(--cc-hairline)', marginBottom: 24 }} />
+                  <div style={{ height: 200, borderRadius: 'var(--cc-radius-md)', background: 'var(--cc-hairline)' }} />
+                </div>
+                <div className="cc-card-lg animate-pulse" style={{ minHeight: 280 }}>
+                  <div style={{ height: 20, width: 80, borderRadius: 4, background: 'var(--cc-hairline)', marginBottom: 24 }} />
+                  <div style={{ height: 160, borderRadius: 'var(--cc-radius-md)', background: 'var(--cc-hairline)' }} />
+                </div>
+              </div>
+            </>
           ) : error ? (
-            <div className="cc-card" style={{ color: 'var(--cc-muted)' }}>
-              Analytics service is unavailable right now. Try again shortly.
+            <div className="cc-card" style={{ color: 'var(--cc-body)', textAlign: 'center', padding: 48 }}>
+              <p className="cc-body-md" style={{ color: 'var(--cc-body)' }}>
+                Analytics service is unavailable: {error}
+              </p>
+              <button onClick={loadData} className="cc-btn-secondary-sm" style={{ marginTop: 16 }}>
+                Retry
+              </button>
             </div>
           ) : !hasData ? (
             <div className="cc-card" style={{ color: 'var(--cc-muted)' }}>
@@ -191,13 +240,17 @@ export default function HomePage() {
                       <div
                         key={i}
                         title={`${data?.dailyTransactions[i]?.date ?? ''}: ${count}`}
+                        className="cc-bar"
                         style={{
                           flex: 1,
                           height: `${Math.max(2, Math.round((count / maxCount) * 100))}%`,
                           borderRadius: '4px 4px 0 0',
                           background: 'linear-gradient(180deg, var(--cc-gradient-develop-start), var(--cc-gradient-develop-end))',
                           opacity: 0.85,
+                          transition: 'opacity 0.15s ease, transform 0.15s ease',
                         }}
+                        onMouseEnter={(e) => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.transform = 'scaleY(1.05)'; }}
+                        onMouseLeave={(e) => { e.currentTarget.style.opacity = '0.85'; e.currentTarget.style.transform = 'scaleY(1)'; }}
                       />
                     ))}
                   </div>

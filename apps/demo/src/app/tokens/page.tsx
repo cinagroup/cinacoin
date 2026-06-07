@@ -9,7 +9,7 @@ import {
   SUPPORTED_CHAINS,
   type TokenInfo,
 } from '@/lib/swapTokens';
-import { getMockQuote, type PriceQuote } from '@/lib/swap';
+import { getMockQuote } from '@/lib/swap';
 import { SimulatedBadge } from '@/components/DemoDisclaimer';
 
 /* ── mock token prices & history ── */

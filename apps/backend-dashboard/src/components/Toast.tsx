@@ -64,7 +64,7 @@ export default function Toast({
       <button
         onClick={() => { setVisible(false); onClose(); }}
         aria-label="Dismiss notification"
-        className="ml-2 p-1 rounded-full hover:bg-[var(--cc-canvas-soft-2)] transition-colors min-h-[28px] min-w-[28px] flex items-center justify-center"
+        className="ml-2 p-2 rounded-full hover:bg-[var(--cc-canvas-soft-2)] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
       >
         <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />

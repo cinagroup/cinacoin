@@ -30,17 +30,17 @@ export default function Footer({
               <Link
                 key={l.href}
                 href={l.href}
-                className="text-xs text-[var(--cc-body)] hover:text-[var(--cc-body)] transition-colors"
+                className="text-xs text-[var(--cc-body)] hover:text-[var(--cc-ink)] transition-colors"
               >
                 {l.label}
               </Link>
             ))}
-            <span className="text-xs text-[var(--cc-ink)]">|</span>
+            <span className="text-xs text-[var(--cc-muted)]">|</span>
             <a
               href={githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs text-[var(--cc-body)] hover:text-[var(--cc-body)] transition-colors"
+              className="text-xs text-[var(--cc-body)] hover:text-[var(--cc-ink)] transition-colors"
             >
               GitHub
             </a>

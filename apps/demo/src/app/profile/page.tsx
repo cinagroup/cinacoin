@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import DemoLayout from '@/components/DemoLayout';
 import { useWallet, shortenAddress } from '@/lib/useWallet';
-import { getMultiChainBalances, CHAINS, type ChainBalance } from '@/lib/multiChain';
+import { getMultiChainBalances, type ChainBalance } from '@/lib/multiChain';
 import { SimulatedBadge } from '@/components/DemoDisclaimer';
 
 /* ── mock ENS data ── */

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 import DemoLayout from '@/components/DemoLayout';
 import { useWallet, shortenAddress } from '@/lib/useWallet';
 import { useToast } from '@/lib/toast';

@@ -10,6 +10,7 @@ import BarChart from "@/components/BarChart";
 import EmptyState from "@/components/EmptyState";
 import ErrorState from "@/components/ErrorState";
 import LoadingState from "@/components/LoadingState";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
 // Simulated 7-day request history for overview
 const HISTORY_DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -53,6 +54,7 @@ export default function OverviewPage() {
   ).length;
 
   return (
+    <ErrorBoundary>
     <div className="space-y-4 sm:space-y-6">
       {/* Page title */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -149,5 +151,6 @@ export default function OverviewPage() {
         </table>
       </div>
     </div>
+    </ErrorBoundary>
   );
 }

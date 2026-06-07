@@ -84,6 +84,7 @@ const SORT_OPTIONS = [
 ];
 
 const PAGE_SIZE = 24;
+const SEARCH_DEBOUNCE_MS = 200;
 
 // ============================================================
 // Skeleton Card (loading state)
@@ -462,6 +463,14 @@ function FilterPanel({
 
 function useInfiniteScroll(callback: () => void, hasMore: boolean) {
   const observer = useRef<IntersectionObserver | null>(null);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (observer.current) observer.current.disconnect();
+    };
+  }, []);
+
   const sentinelRef = useCallback(
     (node: HTMLDivElement | null) => {
       if (!hasMore) return;
@@ -474,6 +483,30 @@ function useInfiniteScroll(callback: () => void, hasMore: boolean) {
     [callback, hasMore],
   );
   return sentinelRef;
+}
+
+// ============================================================
+// Debounce Hook
+// ============================================================
+
+function useDebounce<T>(value: T, delayMs: number): T {
+  const [debounced, setDebounced] = useState(value);
+  useEffect(() => {
+    const t = setTimeout(() => setDebounced(value), delayMs);
+    return () => clearTimeout(t);
+  }, [value, delayMs]);
+  return debounced;
+}
+
+// Cleanup observer on unmount
+function useInfiniteScrollCleanup() {
+  useEffect(() => {
+    return () => {
+      if (typeof window !== "undefined") {
+        // observers will be GC'd; this is a safety net
+      }
+    };
+  }, []);
 }
 
 // ============================================================
@@ -496,6 +529,9 @@ export default function WalletExplorerPage() {
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const contentRef = useRef<HTMLDivElement>(null);
 
+  // Debounced search to avoid re-filtering on every keystroke
+  const debouncedSearch = useDebounce(filters.search, SEARCH_DEBOUNCE_MS);
+
   const allWallets = useMemo(() => getAllWallets(), []);
   const chainCounts = useMemo(() => getChainFamilyCounts(), []);
   const platformCounts = useMemo(() => getPlatformCounts(), []);
@@ -509,9 +545,9 @@ export default function WalletExplorerPage() {
   const filteredWallets = useMemo(() => {
     let result = allWallets;
 
-    // Search
-    if (filters.search.trim()) {
-      result = searchWallets(filters.search.trim());
+    // Search (debounced)
+    if (debouncedSearch.trim()) {
+      result = searchWallets(debouncedSearch.trim());
     }
 
     // Chain family
@@ -548,7 +584,7 @@ export default function WalletExplorerPage() {
     });
 
     return result;
-  }, [allWallets, filters]);
+  }, [allWallets, debouncedSearch, filters.chainFamily, filters.platform, filters.walletType, filters.sort, filters.showWcV2, filters.showEIP6963, filters.showOpenSource]);
 
   // Reset visible count on filter change
   useEffect(() => {
@@ -667,7 +703,7 @@ export default function WalletExplorerPage() {
             ) : (
               <div
                 id="wallet-grid"
-                className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3"
+                className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4"
                 aria-label="Wallet list"
               >
                 {loading
@@ -682,8 +718,11 @@ export default function WalletExplorerPage() {
             {/* Infinite scroll sentinel */}
             {hasMore && !loading && (
               <div ref={sentinelRef} className="flex items-center justify-center py-8" role="status" aria-live="polite">
-                <div className="cc-caption-mono text-[var(--cc-muted)]">
-                  Loading more wallets…
+                <div className="flex items-center gap-2">
+                  <div className="h-2 w-2 rounded-full bg-[var(--cc-link)] animate-pulse-dot" />
+                  <span className="cc-caption-mono text-[var(--cc-muted)]">
+                    Loading more wallets…
+                  </span>
                 </div>
               </div>
             )}

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import BarChart from "@/components/BarChart";
 import MetricBox from "@/components/MetricBox";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
 function formatCompact(n: number): string {
   if (n >= 1e6) return `${(n / 1e6).toFixed(1)}M`;
@@ -64,6 +65,7 @@ export default function AnalyticsPage() {
   const activeSessions = Math.round(12847 * multiplier);
 
   return (
+    <ErrorBoundary>
     <div className="space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -223,6 +225,7 @@ export default function AnalyticsPage() {
         </div>
       </div>
     </div>
+    </ErrorBoundary>
   );
 }
 

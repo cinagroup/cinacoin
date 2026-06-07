@@ -49,7 +49,7 @@ function ToggleSwitch({ checked, onChange, label }: { checked: boolean; onChange
   return (
     <button
       onClick={() => onChange(!checked)}
-      className={`relative w-12 h-6 rounded-full transition-colors duration-200 ${
+      className={`relative w-12 h-6 rounded-full transition-colors duration-200 min-w-[44px] min-h-[44px] flex items-center ${
         checked ? 'bg-[var(--cc-link)]' : 'bg-[var(--cc-canvas-soft-2)]'
       }`}
       role="switch"

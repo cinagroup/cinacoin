@@ -11,7 +11,6 @@ export default function LoginPage() {
   const router = useRouter();
   const [walletMissing, setWalletMissing] = useState(false);
   const [step, setStep] = useState<"idle" | "connecting" | "signing">("idle");
-  const [focused, setFocused] = useState(false);
 
   // If already logged in, redirect to dashboard
   if (isLoggedIn) {

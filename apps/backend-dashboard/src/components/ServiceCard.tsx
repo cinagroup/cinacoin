@@ -38,7 +38,7 @@ export default function ServiceCard({ service, health, demoMode = false }: Servi
   const isDegraded = health.status === "degraded";
 
   return (
-    <div className="cc-card relative">
+    <div className="cc-card relative transition-shadow duration-200 hover:shadow-[var(--cc-level3)] hover:-translate-y-0.5"
       {/* Status indicator - top right */}
       <div className="absolute top-3 right-3">
         <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-xs font-medium cc-badge ${statusBadgeBg(health.status)}`}>

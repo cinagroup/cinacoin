@@ -26,9 +26,9 @@ const variantClasses: Record<ButtonVariant, string> = {
 };
 
 const sizeClasses: Record<ButtonSize, string> = {
-  sm: 'px-[var(--cc-xs)] text-[var(--cc-button-md)] rounded-[var(--cc-radius-pill)] h-[32px]',
-  md: 'px-[var(--cc-sm)] text-[var(--cc-button-lg)] rounded-[var(--cc-radius-pill)] h-[40px]',
-  lg: 'px-[var(--cc-sm)] text-[var(--cc-button-lg)] rounded-[var(--cc-radius-pill)] h-[48px]',
+  sm: 'px-[var(--cc-xs)] text-[var(--cc-button-md)] rounded-[var(--cc-radius-pill)] h-[32px] min-h-[44px]',
+  md: 'px-[var(--cc-sm)] text-[var(--cc-button-lg)] rounded-[var(--cc-radius-pill)] h-[40px] min-h-[44px]',
+  lg: 'px-[var(--cc-sm)] text-[var(--cc-button-lg)] rounded-[var(--cc-radius-pill)] h-[48px] min-h-[48px]',
 };
 
 /** Ripple effect on click */

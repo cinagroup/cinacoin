@@ -10,7 +10,7 @@ import { useWorkerHealth } from '@/lib/WorkerHealthProvider';
 import { WORKER_URLS, type WorkerName } from '@/lib/workers';
 import { DemoDisclaimer } from '@/components/DemoDisclaimer';
 import { useInView } from '@/hooks/useInView';
-import ChainSelector, { type ChainOption } from '@/components/ChainSelector';
+import ChainSelector from '@/components/ChainSelector';
 
 /* ── chain data ── */
 const CHAINS = [

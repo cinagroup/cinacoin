@@ -10,9 +10,10 @@ import {
   formatTime,
   formatDuration,
 } from "@/lib/health-check";
-import { fetchIncidents, severityConfig, statusLabels } from "@/lib/incidents";
-import { ServiceCheck, ServiceConfig, ServiceStatus, HistoryEntry } from "@/types";
+import { fetchIncidents, severityConfig } from "@/lib/incidents";
 import type { Incident } from "@/lib/incidents";
+import { ServiceCheck, ServiceConfig, ServiceStatus, HistoryEntry } from "@/types";
+
 import { useTheme } from "@/providers/ThemeProvider";
 import { useI18n } from "@/providers/I18nProvider";
 import type { Locale } from "@/providers/I18nProvider";
@@ -166,11 +167,12 @@ function ServiceCard({ service }: { service: ServiceCheck }) {
     unknown: "border-l-[var(--cc-muted)]",
   }[service.status];
 
-  const history = getHistory();
-  const svcHistory = history.slice(-72).map((entry) => {
-    const found = entry.services.find((s) => s.name === service.name);
-    return found?.status || "unknown";
-  });
+  const svcHistory = useMemo(() => {
+    return getHistory().slice(-72).map((entry) => {
+      const found = entry.services.find((s) => s.name === service.name);
+      return found?.status || "unknown";
+    });
+  }, [service.name]);
 
   const dotColor = (s: string) => {
     if (s === "healthy") return "bg-[var(--cc-cyan)]";
@@ -228,7 +230,7 @@ function ServiceCard({ service }: { service: ServiceCheck }) {
             {svcHistory.map((status, idx) => (
               <div
                 key={idx}
-                className={`flex-1 h-8 ${dotColor(status)}`}
+                className={`flex-1 h-8 ${dotColor(status)} transition-colors duration-300`}
                 title={`${status}`}
                 style={{ borderRadius: 'var(--cc-radius-xs)' }}
               />

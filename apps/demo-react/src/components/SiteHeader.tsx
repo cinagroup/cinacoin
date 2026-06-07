@@ -7,34 +7,36 @@ const WalletModal = lazy(() => import('./WalletModal'))
 export const SiteHeader: React.FC = () => {
   const { connected: isConnected, address, disconnect } = useWallet()
   const [walletModalOpen, setWalletModalOpen] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
   const location = useLocation()
 
   return (
     <>
       <a href="#main-content" className="skip-link">Skip to main content</a>
-      <header className="cc-navbar" role="banner">
+      <header className="cc-navbar relative" role="banner">
         <div className="max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           <Link to="/" aria-label="Cinacoin home">
             <Brand as="span" />
           </Link>
-          
-          <nav className="flex items-center gap-1 sm:gap-2" aria-label="Primary navigation">
-            <Link 
-              to="/swap" 
+
+          {/* Desktop nav */}
+          <nav className="hidden sm:flex items-center gap-1 sm:gap-2" aria-label="Primary navigation">
+            <Link
+              to="/swap"
               className={`cc-navbar-link focus-ring ${location.pathname === '/swap' ? 'bg-[var(--cc-canvas-soft-2)] text-[var(--cc-ink)] font-medium' : ''}`}
               aria-current={location.pathname === '/swap' ? 'page' : undefined}
             >
               Swap
             </Link>
-            <Link 
-              to="/multichain" 
+            <Link
+              to="/multichain"
               className={`cc-navbar-link focus-ring ${location.pathname === '/multichain' ? 'bg-[var(--cc-canvas-soft-2)] text-[var(--cc-ink)] font-medium' : ''}`}
               aria-current={location.pathname === '/multichain' ? 'page' : undefined}
             >
               Multi-Chain
             </Link>
-            <Link 
-              to="/auth" 
+            <Link
+              to="/auth"
               className={`cc-navbar-link focus-ring ${location.pathname === '/auth' ? 'bg-[var(--cc-canvas-soft-2)] text-[var(--cc-ink)] font-medium' : ''}`}
               aria-current={location.pathname === '/auth' ? 'page' : undefined}
             >
@@ -42,7 +44,8 @@ export const SiteHeader: React.FC = () => {
             </Link>
           </nav>
 
-          <div>
+          {/* Desktop actions */}
+          <div className="hidden sm:block">
             {isConnected ? (
               <div className="flex items-center gap-2 sm:gap-3">
                 <span className="hidden sm:inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full bg-[var(--cc-success)]/10 text-[var(--cc-success)] font-medium border border-[var(--cc-success)]/20" role="status">
@@ -70,7 +73,93 @@ export const SiteHeader: React.FC = () => {
               </button>
             )}
           </div>
+
+          {/* Mobile controls */}
+          <div className="flex items-center gap-1 sm:hidden">
+            {isConnected ? (
+              <span className="text-xs font-mono text-[var(--cc-body)] bg-[var(--cc-canvas-soft-2)] px-2 py-1 rounded-md border border-[var(--cc-hairline)]" aria-label="Wallet connected">{formatAddress(address)}</span>
+            ) : null}
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label="Toggle navigation menu"
+              className="p-2 rounded-lg min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft)] transition-colors"
+              aria-expanded={mobileOpen}
+            >
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                {mobileOpen
+                  ? <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  : <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                }
+              </svg>
+            </button>
+          </div>
         </div>
+
+        {/* Mobile nav overlay */}
+        {mobileOpen && (
+          <>
+            <div
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 sm:hidden"
+              onClick={() => setMobileOpen(false)}
+              role="presentation"
+              aria-hidden="true"
+            />
+            <nav className="fixed right-4 top-16 z-50 w-56 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] shadow-[var(--cc-level5)] p-2 sm:hidden" aria-label="Mobile navigation">
+              <Link
+                to="/swap"
+                onClick={() => setMobileOpen(false)}
+                className={`block px-4 py-3 rounded-[var(--cc-radius-sm)] text-sm font-medium transition-colors min-h-[44px] flex items-center ${
+                  location.pathname === '/swap'
+                    ? "text-[var(--cc-ink)] bg-[var(--cc-canvas-soft-2)]"
+                    : "text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft)]"
+                }`}
+                aria-current={location.pathname === '/swap' ? 'page' : undefined}
+              >
+                Swap
+              </Link>
+              <Link
+                to="/multichain"
+                onClick={() => setMobileOpen(false)}
+                className={`block px-4 py-3 rounded-[var(--cc-radius-sm)] text-sm font-medium transition-colors min-h-[44px] flex items-center ${
+                  location.pathname === '/multichain'
+                    ? "text-[var(--cc-ink)] bg-[var(--cc-canvas-soft-2)]"
+                    : "text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft)]"
+                }`}
+                aria-current={location.pathname === '/multichain' ? 'page' : undefined}
+              >
+                Multi-Chain
+              </Link>
+              <Link
+                to="/auth"
+                onClick={() => setMobileOpen(false)}
+                className={`block px-4 py-3 rounded-[var(--cc-radius-sm)] text-sm font-medium transition-colors min-h-[44px] flex items-center ${
+                  location.pathname === '/auth'
+                    ? "text-[var(--cc-ink)] bg-[var(--cc-canvas-soft-2)]"
+                    : "text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft)]"
+                }`}
+                aria-current={location.pathname === '/auth' ? 'page' : undefined}
+              >
+                Auth
+              </Link>
+              <div className="border-t border-[var(--cc-hairline)] my-1" />
+              {isConnected ? (
+                <button
+                  onClick={() => { disconnect(); setMobileOpen(false); }}
+                  className="block w-full px-4 py-3 rounded-[var(--cc-radius-sm)] text-sm font-medium text-[var(--cc-error)] transition-colors min-h-[44px] flex items-center hover:bg-[var(--cc-canvas-soft)]"
+                >
+                  Disconnect
+                </button>
+              ) : (
+                <button
+                  onClick={() => { setWalletModalOpen(true); setMobileOpen(false); }}
+                  className="block w-full px-4 py-3 rounded-[var(--cc-radius-sm)] text-sm font-medium text-[var(--cc-link)] transition-colors min-h-[44px] flex items-center hover:bg-[var(--cc-canvas-soft)]"
+                >
+                  Connect Wallet
+                </button>
+              )}
+            </nav>
+          </>
+        )}
       </header>
 
       <Suspense fallback={null}>
