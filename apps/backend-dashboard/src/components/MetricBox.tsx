@@ -8,15 +8,16 @@ interface MetricBoxProps {
 
 export default function MetricBox({ label, value, icon, trend, color = "text-[var(--cc-ink)]" }: MetricBoxProps) {
   const trendLabel = trend === "up" ? "increasing" : trend === "down" ? "decreasing" : "stable";
+  const labelId = `metric-label-${label.toLowerCase().replace(/\s+/g, '-')}`;
   return (
-    <div className="cc-card p-3 sm:p-4" role="status" aria-label={label}>
+    <div className="cc-card p-3 sm:p-4" role="status" aria-labelledby={labelId}>
       <span className="sr-only">{`${label}: ${value}`}</span>
       <div className="flex items-center justify-between mb-1 sm:mb-2">
-        <span id={`metric-label-${label.toLowerCase().replace(/\s+/g, '-')}`} className="cc-caption text-[var(--cc-muted)]">{label}</span>
+        <span id={labelId} className="cc-caption text-[var(--cc-muted)]">{label}</span>
         {icon && <span className="cc-display-sm" aria-hidden="true">{icon}</span>}
       </div>
       <div className="flex items-end gap-1 sm:gap-2">
-        <span aria-labelledby={`metric-label-${label.toLowerCase().replace(/\s+/g, '-')}`} className={`cc-display-sm ${color} break-all`}>{value}</span>
+        <span className={`cc-display-sm ${color} break-all`}>{value}</span>
         {trend && (
           <span className={`text-xs mb-1 ${
             trend === "up" ? "text-[var(--cc-success)]" :

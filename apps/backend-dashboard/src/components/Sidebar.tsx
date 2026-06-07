@@ -68,7 +68,7 @@ export default function Sidebar({ onClose }: SidebarProps) {
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 p-3 space-y-5 overflow-y-auto" aria-label="Dashboard navigation">
+      <nav className="flex-1 p-3 space-y-5 overflow-y-auto" aria-label="Dashboard navigation" role="navigation">
         {NAV_SECTIONS.map((section) => (
           <div key={section.label}>
             <p className="cc-caption-mono text-[var(--cc-muted)] px-3 mb-1.5">
@@ -99,11 +99,11 @@ export default function Sidebar({ onClose }: SidebarProps) {
       </nav>
 
       {/* Footer */}
-      <div className="px-4 py-3 border-t border-[var(--cc-hairline)]">
+      <footer className="px-4 py-3 border-t border-[var(--cc-hairline)]">
         <div className="cc-caption text-[var(--cc-muted)]">
           v0.1.0 • Cloudflare Workers
         </div>
-      </div>
+      </footer>
     </aside>
   );
 }

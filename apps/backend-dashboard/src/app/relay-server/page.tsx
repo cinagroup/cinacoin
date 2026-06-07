@@ -119,10 +119,10 @@ export default function RelayServerPage() {
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-[var(--cc-hairline)]/50 cc-caption text-[var(--cc-muted)]">
-                <th className="text-left px-5 py-3 font-normal">Event</th>
-                <th className="text-left px-5 py-3 font-normal">Client</th>
-                <th className="text-left px-5 py-3 font-normal">Chain</th>
-                <th className="text-left px-5 py-3 font-normal">Time</th>
+                <th scope="col" className="text-left px-5 py-3 font-normal">Event</th>
+                <th scope="col" className="text-left px-5 py-3 font-normal">Client</th>
+                <th scope="col" className="text-left px-5 py-3 font-normal">Chain</th>
+                <th scope="col" className="text-left px-5 py-3 font-normal">Time</th>
               </tr>
             </thead>
             <tbody>

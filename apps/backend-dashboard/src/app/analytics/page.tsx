@@ -126,13 +126,13 @@ export default function AnalyticsPage() {
                 <div className="flex-1 bg-[var(--cc-hairline)] rounded-full h-2.5 overflow-hidden" role="progressbar" aria-valuenow={chain.pct} aria-valuemin={0} aria-valuemax={100} aria-label={`${chain.name}: ${chain.pct}%`}>
                   <div className="h-full rounded-full transition-all" style={{ width: `${chain.pct}%`, backgroundColor: chain.color }} />
                 </div>
-                <span className="cc-body-sm text-[var(--cc-ink)] w-12 text-right">{chain.pct}%</span>
+                <span className="cc-body-sm text-[var(--cc-ink)] w-12 text-right" aria-hidden="true">{chain.pct}%</span>
               </div>
             ))}
           </div>
         </div>
         <div className="cc-card">
-          <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Wallet Connectors</h3>
+          <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4" id="wallet-distribution-heading">Wallet Connectors</h3>
           <div className="space-y-3">
             {WALLET_DISTRIBUTION.map((wallet) => (
               <div key={wallet.name} className="flex items-center gap-3">
@@ -140,7 +140,7 @@ export default function AnalyticsPage() {
                 <div className="flex-1 bg-[var(--cc-hairline)] rounded-full h-2.5 overflow-hidden" role="progressbar" aria-valuenow={wallet.pct} aria-valuemin={0} aria-valuemax={100} aria-label={`${wallet.name}: ${wallet.pct}%`}>
                   <div className="h-full rounded-full transition-all" style={{ width: `${wallet.pct}%`, backgroundColor: "var(--cc-link)" }} />
                 </div>
-                <span className="cc-body-sm text-[var(--cc-ink)] w-12 text-right">{wallet.pct}%</span>
+                <span className="cc-body-sm text-[var(--cc-ink)] w-12 text-right" aria-hidden="true">{wallet.pct}%</span>
               </div>
             ))}
           </div>

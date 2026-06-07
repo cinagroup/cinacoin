@@ -2,6 +2,16 @@
 
 import { useState } from "react";
 
+/** Escape HTML for safe interpolation in code blocks */
+function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/'/g, "&#39;")
+    .replace(/"/g, '&quot;');
+}
+
 export default function ProjectPage() {
   const [projectName, setProjectName] = useState("Cinacoin");
   const [projectId, setProjectId] = useState("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6");
@@ -171,7 +181,7 @@ createAppKit({
     // Add chain adapters as needed
   ],
   networks: [mainnet, polygon],
-  projectId: '${projectId}',
+  projectId: '${escapeHtml(projectId)}',
   features: {
     swaps: ${swapsEnabled},
     onramp: ${onrampEnabled},
@@ -179,10 +189,10 @@ createAppKit({
     socials: ${socialLoginEnabled},
   },
   metadata: {
-    name: '${projectName}',
-    description: '${projectDescription}',
-    url: '${projectUrl}',
-    icons: ['${iconUrl}'],
+    name: '${escapeHtml(projectName)}',
+    description: '${escapeHtml(projectDescription)}',
+    url: '${escapeHtml(projectUrl)}',
+    icons: ['${escapeHtml(iconUrl)}'],
   },
 })`}
           </pre>

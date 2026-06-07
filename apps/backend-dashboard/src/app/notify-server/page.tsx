@@ -117,11 +117,11 @@ export default function NotifyServerPage() {
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-[var(--cc-hairline)]/50 cc-caption text-[var(--cc-muted)]">
-                <th className="text-left px-5 py-3 font-normal">Type</th>
-                <th className="text-left px-5 py-3 font-normal">Recipient</th>
-                <th className="text-left px-5 py-3 font-normal">Subject</th>
-                <th className="text-left px-5 py-3 font-normal">Status</th>
-                <th className="text-left px-5 py-3 font-normal">Time</th>
+                <th scope="col" className="text-left px-5 py-3 font-normal">Type</th>
+                <th scope="col" className="text-left px-5 py-3 font-normal">Recipient</th>
+                <th scope="col" className="text-left px-5 py-3 font-normal">Subject</th>
+                <th scope="col" className="text-left px-5 py-3 font-normal">Status</th>
+                <th scope="col" className="text-left px-5 py-3 font-normal">Time</th>
               </tr>
             </thead>
             <tbody>

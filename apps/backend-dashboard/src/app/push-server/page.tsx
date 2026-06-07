@@ -125,10 +125,10 @@ export default function PushServerPage() {
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-[var(--cc-hairline)]/50 cc-caption text-[var(--cc-muted)]">
-                <th className="text-left px-5 py-3 font-normal">Topic</th>
-                <th className="text-left px-5 py-3 font-normal">Subscribers</th>
-                <th className="text-left px-5 py-3 font-normal">Messages (24h)</th>
-                <th className="text-left px-5 py-3 font-normal">Per-Subscriber Rate</th>
+                <th scope="col" className="text-left px-5 py-3 font-normal">Topic</th>
+                <th scope="col" className="text-left px-5 py-3 font-normal">Subscribers</th>
+                <th scope="col" className="text-left px-5 py-3 font-normal">Messages (24h)</th>
+                <th scope="col" className="text-left px-5 py-3 font-normal">Per-Subscriber Rate</th>
               </tr>
             </thead>
             <tbody>

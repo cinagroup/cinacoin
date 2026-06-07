@@ -14,7 +14,7 @@ export default function BarChart({ data, labels, color = "var(--cc-primary)", he
     <div
       className="cc-card"
       role="img"
-      aria-label={ariaLabelledBy || "Bar chart"}
+      aria-label="Bar chart showing data trends"
       aria-labelledby={ariaLabelledBy}
       tabIndex={0}
     >
@@ -37,7 +37,7 @@ export default function BarChart({ data, labels, color = "var(--cc-primary)", he
               aria-label={`${labels[i]}: ${value.toLocaleString()}`}
               title={`${labels[i]}: ${value.toLocaleString()}`}
             >
-              <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] text-[var(--cc-ink)] cc-caption px-2 py-1 rounded-[var(--cc-radius-sm)] opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10 shadow-[var(--cc-level1)]" role="tooltip">
+              <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] text-[var(--cc-ink)] cc-caption px-2 py-1 rounded-[var(--cc-radius-sm)] opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10" role="tooltip" style={{ boxShadow: 'var(--cc-level1)' }}>
                 {value.toLocaleString()}
               </div>
             </div>

@@ -45,9 +45,10 @@ export default function Toast({
 
   return (
     <div
-      role="alert"
-      aria-live="assertive"
-      className={`fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3 rounded-[var(--cc-radius-md)] border shadow-[var(--cc-level3)] cc-body-sm ${bgMap[type]} ${textMap[type]}`}
+      role="status"
+      aria-live="polite"
+      className={`fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3 rounded-[var(--cc-radius-md)] border cc-body-sm ${bgMap[type]} ${textMap[type]}`}
+      style={{ boxShadow: 'var(--cc-level3)' }}
     >
       {type === "success" && (
         <svg className="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -63,7 +64,7 @@ export default function Toast({
       <button
         onClick={() => { setVisible(false); onClose(); }}
         aria-label="Dismiss notification"
-        className="ml-2 p-1 rounded-full hover:bg-[var(--cc-canvas-soft-2)] transition-colors"
+        className="ml-2 p-1 rounded-full hover:bg-[var(--cc-canvas-soft-2)] transition-colors min-h-[28px] min-w-[28px] flex items-center justify-center"
       >
         <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />

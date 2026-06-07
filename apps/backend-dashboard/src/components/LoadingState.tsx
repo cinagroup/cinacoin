@@ -29,8 +29,8 @@ export default function LoadingState({
         />
       </svg>
       <div>
-        <p className="text-sm font-medium text-[var(--cc-ink)]">{label}</p>
-        <p className="text-xs text-[var(--cc-muted)]">{message}</p>
+        <p className="cc-body-sm-strong text-[var(--cc-ink)]">{label}</p>
+        <p className="cc-caption text-[var(--cc-muted)]">{message}</p>
       </div>
     </div>
   );

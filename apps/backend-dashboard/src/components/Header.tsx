@@ -1,20 +1,17 @@
 "use client";
 
 import { useAuth } from "@/lib/AuthProvider";
-import { useWorkerHealth, aggregateStatusLabel } from "@/hooks/useWorkerHealth";
+import { aggregateStatusLabel, useWorkerHealth } from "@/hooks/useWorkerHealth";
 import { useTheme } from "@/providers/ThemeProvider";
 
 interface HeaderProps {
   onMenuToggle: () => void;
+  refreshInterval?: number;
 }
 
-export default function Header({ onMenuToggle }: HeaderProps) {
+export default function Header({ onMenuToggle, refreshInterval = 15000 }: HeaderProps) {
   const { address, isLoggedIn, doLogout } = useAuth();
-  const { allHealthy, degradedCount, downCount, checking } = useWorkerHealth(
-    typeof window !== 'undefined' && localStorage.getItem('dashboard-settings')
-      ? (JSON.parse(localStorage.getItem('dashboard-settings') || '{}').refreshInterval || 15) * 1000
-      : 15000
-  );
+  const { allHealthy, degradedCount, downCount, checking } = useWorkerHealth(refreshInterval);
   const { theme, toggle } = useTheme();
 
   const shortAddress = address

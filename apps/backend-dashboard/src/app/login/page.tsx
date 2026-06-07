@@ -51,7 +51,7 @@ export default function LoginPage() {
         <div className="bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-sm)] p-8 shadow-[var(--cc-level3)]">
           <h2 className="cc-display-sm text-[var(--cc-ink)] mb-2">Sign in with Wallet</h2>
           <p className="text-sm text-[var(--cc-muted)] mb-6">
-            Connect your Ethereum wallet to access the cinacoin Backend Dashboard.
+            Connect your Ethereum wallet to access the Cinacoin Backend Dashboard.
             A signature will be requested — no gas fees required.
           </p>
 
@@ -109,7 +109,7 @@ export default function LoginPage() {
             onClick={handleLogin}
             aria-label={isLoading || step === "connecting" ? "Wallet connection in progress" : "Connect Ethereum wallet and sign in"}
             disabled={isLoading || step === "connecting"}
-            className="cc-btn-primary w-full cc-body-md-strong transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed hover:opacity-85 active:scale-[0.98]"
+            className="cc-btn-primary w-full transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed hover:opacity-85 active:scale-[0.98]"
           >
             {isLoading || step === "connecting" ? (
               <span className="flex items-center justify-center gap-2">

@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 /**
  * Client component that conditionally renders sidebar + header
@@ -15,6 +15,18 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isLogin = pathname === "/login";
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+  const [refreshInterval, setRefreshInterval] = useState(15000);
+
+  // Read settings from localStorage on mount
+  useEffect(() => {
+    try {
+      const settings = localStorage.getItem("dashboard-settings");
+      if (settings) {
+        const parsed = JSON.parse(settings);
+        setRefreshInterval((parsed.refreshInterval || 15) * 1000);
+      }
+    } catch { /* ignore */ }
+  }, []);
 
   if (isLogin) {
     return <>{children}</>;
@@ -27,6 +39,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         <div
           className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
           onClick={() => setMobileSidebarOpen(false)}
+          role="presentation"
+          aria-hidden="true"
         />
       )}
 
@@ -45,8 +59,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       </div>
 
       <div className="flex-1 min-w-0">
-        <Header onMenuToggle={() => setMobileSidebarOpen(!mobileSidebarOpen)} />
-        <main className="p-4 sm:p-6">{children}</main>
+        <Header onMenuToggle={() => setMobileSidebarOpen(!mobileSidebarOpen)} refreshInterval={refreshInterval} />
+        <main id="main-content" className="p-4 sm:p-6" role="main">{children}</main>
       </div>
     </div>
   );

@@ -42,6 +42,7 @@ export default function ChainsPage() {
   const [chains, setChains] = useState<ChainConfig[]>(INITIAL_CHAINS);
   const [filter, setFilter] = useState<string>("all");
   const [saved, setSaved] = useState(false);
+  const [saving, setSaving] = useState(false);
 
   const filteredChains = filter === "all" ? chains : chains.filter((c) => c.network === filter);
   const enabledCount = chains.filter((c) => c.enabled).length;
@@ -51,8 +52,13 @@ export default function ChainsPage() {
   };
 
   const handleSave = () => {
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
+    setSaving(true);
+    // Simulate async save
+    setTimeout(() => {
+      setSaving(false);
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2000);
+    }, 500);
   };
 
   return (
@@ -67,10 +73,11 @@ export default function ChainsPage() {
         </div>
         <button
           onClick={handleSave}
+          disabled={saving}
           aria-label={saved ? "Changes saved" : "Save chain configuration changes"}
-          className="cc-btn-primary"
+          className="cc-btn-primary disabled:opacity-70 disabled:cursor-not-allowed"
         >
-          {saved ? "✓ Saved" : "Save Changes"}
+          {saving ? "⋯ Saving" : saved ? "✓ Saved" : "Save Changes"}
         </button>
       </div>
 
@@ -128,11 +135,11 @@ export default function ChainsPage() {
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-[var(--cc-hairline)]">
-              <th className="text-left px-4 py-3 cc-caption text-[var(--cc-muted)] font-normal">Network</th>
-              <th className="text-left px-4 py-3 cc-caption text-[var(--cc-muted)] font-normal">Chain ID</th>
-              <th className="text-left px-4 py-3 cc-caption text-[var(--cc-muted)] font-normal">RPC URL</th>
-              <th className="text-left px-4 py-3 cc-caption text-[var(--cc-muted)] font-normal">Explorer</th>
-              <th className="text-center px-4 py-3 cc-caption text-[var(--cc-muted)] font-normal">Status</th>
+              <th scope="col" className="text-left px-4 py-3 cc-caption text-[var(--cc-muted)] font-normal">Network</th>
+              <th scope="col" className="text-left px-4 py-3 cc-caption text-[var(--cc-muted)] font-normal">Chain ID</th>
+              <th scope="col" className="text-left px-4 py-3 cc-caption text-[var(--cc-muted)] font-normal">RPC URL</th>
+              <th scope="col" className="text-left px-4 py-3 cc-caption text-[var(--cc-muted)] font-normal">Explorer</th>
+              <th scope="col" className="text-center px-4 py-3 cc-caption text-[var(--cc-muted)] font-normal">Status</th>
             </tr>
           </thead>
           <tbody>
@@ -170,7 +177,7 @@ export default function ChainsPage() {
                     role="switch"
                     aria-checked={chain.enabled}
                     aria-label={`Toggle ${chain.name} ${chain.enabled ? 'off' : 'on'}`}
-                    className={`relative w-10 h-5 rounded-full transition-colors ${
+                    className={`relative w-10 h-5 rounded-full transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--cc-link)] ${
                       chain.enabled ? "bg-[var(--cc-success)]" : "bg-[var(--cc-hairline)]"
                     }`}
                   >

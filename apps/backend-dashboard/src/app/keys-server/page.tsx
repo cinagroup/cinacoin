@@ -123,11 +123,11 @@ export default function KeysServerPage() {
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-[var(--cc-hairline)]/50 cc-caption text-[var(--cc-muted)]">
-                <th className="text-left px-5 py-3 font-normal">Session ID</th>
-                <th className="text-left px-5 py-3 font-normal">Address</th>
-                <th className="text-left px-5 py-3 font-normal">Chain</th>
-                <th className="text-left px-5 py-3 font-normal">Last Active</th>
-                <th className="text-left px-5 py-3 font-normal">Status</th>
+                <th scope="col" className="text-left px-5 py-3 font-normal">Session ID</th>
+                <th scope="col" className="text-left px-5 py-3 font-normal">Address</th>
+                <th scope="col" className="text-left px-5 py-3 font-normal">Chain</th>
+                <th scope="col" className="text-left px-5 py-3 font-normal">Last Active</th>
+                <th scope="col" className="text-left px-5 py-3 font-normal">Status</th>
               </tr>
             </thead>
             <tbody>
