@@ -9,8 +9,8 @@ export function ProjectCard({ project }: { project: Project }) {
             <path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
           </svg>
         </div>
-        <span className="cc-badge" style={{ backgroundColor: 'var(--cc-link-bg-soft)', color: 'var(--cc-link-deep)' }}>
-          active
+        <span className="cc-badge" style={{ backgroundColor: 'var(--cc-success-bg, rgba(0,112,243,0.10))', color: 'var(--cc-success)' }}>
+          Active
         </span>
       </div>
       <h3 className="mb-1 cc-body-md-strong text-[var(--cc-ink)] transition-colors group-hover:text-[var(--cc-link)]">

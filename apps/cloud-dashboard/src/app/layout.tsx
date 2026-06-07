@@ -21,6 +21,7 @@ export default function RootLayout({
     <html lang="en" data-theme="light" className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <body className="min-h-screen bg-[var(--cc-canvas-soft)] text-[var(--cc-ink)] antialiased">
         <ThemeProvider>
+          <a href="#main-content" className="cc-skip-link">Skip to main content</a>
           <div className="min-h-screen flex flex-col">
             {children}
           </div>

@@ -2,11 +2,11 @@ import React, { useState, useEffect, useCallback, useRef } from 'react'
 import { useWallet, formatAddress } from '../contexts/WalletContext'
 
 interface WalletOption {
- id: string
- name: string
- emoji: string
- color: string
- popular: boolean
+  id: string
+  name: string
+  emoji: string
+  color: string
+  popular: boolean
 }
 
 const WALLETS: WalletOption[] = [

@@ -57,7 +57,7 @@ export default function OverviewPage() {
       {/* Page title */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="cc-display-sm text-[var(--cc-ink)]">Service Overview</h1>
+          <h1 className="cc-display-md text-[var(--cc-ink)]">Service Overview</h1>
           <p className="cc-body-sm text-[var(--cc-muted)] mt-1">
             {demoMode ? "Demo Mode — Simulated metrics" : "Live monitoring of Cloudflare Workers"}
             {lastRefresh && !demoMode && (

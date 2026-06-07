@@ -77,7 +77,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
     <div className="min-h-screen flex flex-col bg-[var(--cc-canvas-soft)] text-[var(--cc-ink)]">
       <SiteHeader />
 
-      <main id="main-content">
+      <main id="main-content" role="main">
       <section className="max-w-xl mx-auto w-full pt-12 pb-24 px-4 flex-1" aria-label="Authentication">
         <div className="text-center mb-8">
           <h1 className="cc-display-lg text-[var(--cc-ink)] mb-3">Authentication</h1>

@@ -74,7 +74,7 @@ const HomePage: React.FC = () => {
         />
       </Suspense>
 
-      <main id="main-content">
+      <main id="main-content" role="main">
       {/* Hero */}
       <section className="relative overflow-hidden py-24 sm:py-32" aria-label="Hero">
         {/* Mesh gradient background */}
@@ -99,14 +99,14 @@ const HomePage: React.FC = () => {
             <button
               onClick={() => setWalletModalOpen(true)}
               onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setWalletModalOpen(true); } }}
-              className="cc-btn-primary px-8 w-full sm:w-auto text-base font-semibold focus-ring"
+              className="cc-btn-primary px-8 w-full sm:w-auto focus-ring"
               aria-label={isConnected ? 'Reconnect wallet' : 'Connect wallet'}
             >
               {isConnected ? 'Reconnect wallet' : 'Connect wallet'}
             </button>
             <Link
               to="/swap"
-              className="cc-btn-secondary px-8 w-full sm:w-auto text-base font-medium focus-ring"
+              className="cc-btn-secondary px-8 w-full sm:w-auto focus-ring"
               aria-label="Try the swap demo"
             >
               Try swap demo →
@@ -125,7 +125,7 @@ const HomePage: React.FC = () => {
                   👤
                 </div>
                 <div>
-                  <p className="font-mono font-semibold text-[var(--cc-ink)] cc-body-md-strong">{formatAddress(address)}</p>
+                  <p className="font-mono text-[var(--cc-ink)] cc-body-md-strong">{formatAddress(address)}</p>
                   <p className="cc-body-sm text-[var(--cc-muted)]">
                     {chainInfo.chainName}
                     {chainInfo.loading ? ' ⏳' : ''}

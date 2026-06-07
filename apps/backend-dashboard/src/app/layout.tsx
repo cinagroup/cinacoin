@@ -33,6 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="light" suppressHydrationWarning>
       <body className="bg-[var(--cc-canvas-soft)] min-h-screen">
+        <a href="#main-content" className="cc-skip-link">Skip to main content</a>
         <Providers>
           <AuthProvider>
             <AuthGuard>

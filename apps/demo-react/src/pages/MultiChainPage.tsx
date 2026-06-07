@@ -29,11 +29,11 @@ export default function MultiChainPage() {
     <div className="min-h-screen flex flex-col bg-[var(--cc-canvas-soft)] text-[var(--cc-ink)]">
       <SiteHeader />
 
-      <main id="main-content">
+      <main id="main-content" role="main">
       <section className="max-w-5xl mx-auto w-full pt-12 pb-24 px-4 flex-1" aria-label="Multi-chain support">
         <div className="text-center mb-10">
-          <h1 className="cc-display-lg text-[var(--cc-ink)] mb-3">16 chains, one SDK</h1>
-          <p className="cc-body-md text-[var(--cc-muted)] max-w-lg mx-auto">EVM · Solana · Bitcoin · Layer 2s — unified API, zero fragmentation</p>
+          <h1 className="cc-display-lg mb-3">16 chains, one SDK</h1>
+          <p className="cc-body-md text-[var(--cc-body)] max-w-lg mx-auto">EVM · Solana · Bitcoin · Layer 2s — unified API, zero fragmentation</p>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
