@@ -198,7 +198,7 @@ async function handleSend(request: Request, env: Env): Promise<Response> {
   for (const device of devices) {
     const prefs = device.preferences;
     // Check user preferences for notification type
-    if (type in prefs && !(prefs as Record<string, boolean>)[type as string]) {
+    if (type in prefs && !(prefs as unknown as Record<string, boolean>)[type]) {
       results.push({ deviceId: device.deviceId, success: false, message: "Notifications disabled for this type", skipped: true });
       continue;
     }
@@ -257,10 +257,17 @@ async function handleSendBatch(request: Request, env: Env): Promise<Response> {
 
   const results = [];
   for (const item of notifications) {
-    const { address, type, title, body: msgBody, data, chainId } = item;
-    if (!address || !type || !title || !msgBody) continue;
+    const it = item as Record<string, unknown>;
+    if (!it.address || !it.type || !it.title || !it.body) continue;
 
-    const devices = await registry.getAllDevicesForAddress(address as string);
+    const address = String(it.address);
+    const type = String(it.type);
+    const title = String(it.title);
+    const msgBody = String(it.body);
+    const data = it.data;
+    const chainId = it.chainId;
+
+    const devices = await registry.getAllDevicesForAddress(address);
     for (const device of devices) {
       const result = await delivery.send(device, {
         type: type as any,
@@ -281,7 +288,7 @@ async function handleSendBatch(request: Request, env: Env): Promise<Response> {
 async function handleStatus(deviceId: string, env: Env): Promise<Response> {
   const delivery = new NotificationDelivery(env);
   const status = await delivery.getDeliveryStatus(deviceId);
-  return jsonResponse(status);
+  return jsonResponse(status, null);
 }
 
 async function handlePreferences(request: Request, env: Env): Promise<Response> {
@@ -298,7 +305,7 @@ async function handlePreferences(request: Request, env: Env): Promise<Response> 
     return jsonError("Missing deviceId or preferences", 400, origin);
   }
 
-  const result = await registry.updatePreferences(deviceId, preferences as any);
+  const result = await registry.updatePreferences(String(deviceId), preferences as any);
   return jsonResponse(result, origin, result.success ? 200 : 404);
 }
 
