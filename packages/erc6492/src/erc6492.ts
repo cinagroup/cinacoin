@@ -67,10 +67,10 @@ export function decodeValidation(signature: string): ERC6492Signature {
 
   // Parse: first 65 bytes (130 hex chars) = standard signature
   // The rest = factoryData
-  const signature = `0x${beforeDeployer.slice(0, 130)}` as `0x${string}`;
+  const extractedSignature = `0x${beforeDeployer.slice(0, 130)}` as `0x${string}`;
   const factoryData = `0x${beforeDeployer.slice(130)}` as `0x${string}`;
 
-  return { signature, deployer, factoryData };
+  return { signature: extractedSignature, deployer, factoryData };
 }
 
 /**
