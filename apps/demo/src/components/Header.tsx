@@ -83,7 +83,7 @@ export default function Header({
                   key={item.href}
                   href={item.href}
                   aria-current={isActive ? 'page' : undefined}
-                  className={`px-3 py-2 rounded-full text-sm font-medium transition-colors ${
+                  className={`px-3 py-2 rounded-full text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cc-link)] focus-visible:ring-offset-2 ${
                     isActive
                       ? 'bg-[var(--cc-hairline)] text-[var(--cc-ink)]'
                       : 'text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-hairline)]/50'
@@ -100,7 +100,7 @@ export default function Header({
             {/* Theme toggle */}
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-full text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-hairline)]/50 transition-colors"
+              className="p-2 rounded-full text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-hairline)]/50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cc-link)] focus-visible:ring-offset-2"
               aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
               title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
             >

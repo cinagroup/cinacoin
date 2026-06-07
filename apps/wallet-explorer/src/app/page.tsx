@@ -663,7 +663,6 @@ export default function WalletExplorerPage() {
               <div
                 id="wallet-grid"
                 className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3"
-                role="list"
                 aria-label="Wallet list"
               >
                 {loading

@@ -210,11 +210,11 @@ html { scroll-behavior: smooth; }
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--cc-link), var(--cc-cyan));
+  background: var(--cc-primary);
   color: var(--cc-on-primary);
   border: none;
   cursor: pointer;
-  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
   opacity: 0;
   transform: translateY(12px);
@@ -226,6 +226,10 @@ html { scroll-behavior: smooth; }
   pointer-events: auto;
 }
 .scroll-to-top:hover {
-  box-shadow: 0 6px 28px rgba(59, 130, 246, 0.5);
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.25);
   transform: translateY(-2px);
+}
+.scroll-to-top:focus-visible {
+  outline: 2px solid var(--cc-link);
+  outline-offset: 2px;
 }

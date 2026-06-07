@@ -1,0 +1,25 @@
+{
+  "id": "api/erc6492",
+  "title": "ERC-6492",
+  "description": "@cinacoin/erc6492 — ERC-6492 signature validation for contract wallets.",
+  "source": "@site/docs/api/erc6492.md",
+  "sourceDirName": "api",
+  "slug": "/api/erc6492",
+  "permalink": "/api/erc6492",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/erc6492.md",
+  "tags": [],
+  "version": "current",
+  "lastUpdatedAt": 1780817605000,
+  "frontMatter": {},
+  "sidebar": "apiSidebar",
+  "previous": {
+    "title": "ENS Resolver",
+    "permalink": "/api/ens-resolver"
+  },
+  "next": {
+    "title": "Explorer",
+    "permalink": "/api/explorer"
+  }
+}

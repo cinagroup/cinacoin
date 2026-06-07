@@ -1,0 +1,21 @@
+{
+  "id": "api/walletconnect-v2",
+  "title": "WalletConnect V2",
+  "description": "@cinacoin/walletconnect-v2 — WalletConnect V2 protocol integration for Cinacoin.",
+  "source": "@site/docs/api/walletconnect-v2.md",
+  "sourceDirName": "api",
+  "slug": "/api/walletconnect-v2",
+  "permalink": "/api/walletconnect-v2",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/walletconnect-v2.md",
+  "tags": [],
+  "version": "current",
+  "lastUpdatedAt": 1780817605000,
+  "frontMatter": {},
+  "sidebar": "apiSidebar",
+  "previous": {
+    "title": "Wallet Recovery",
+    "permalink": "/api/wallet-recovery"
+  }
+}

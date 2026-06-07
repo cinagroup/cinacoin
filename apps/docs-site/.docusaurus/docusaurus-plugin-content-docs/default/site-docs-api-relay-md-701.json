@@ -1,0 +1,25 @@
+{
+  "id": "api/relay",
+  "title": "Relay",
+  "description": "Cross-chain message relay infrastructure.",
+  "source": "@site/docs/api/relay.md",
+  "sourceDirName": "api",
+  "slug": "/api/relay",
+  "permalink": "/api/relay",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/relay.md",
+  "tags": [],
+  "version": "current",
+  "lastUpdatedAt": 1780817605000,
+  "frontMatter": {},
+  "sidebar": "apiSidebar",
+  "previous": {
+    "title": "Relay Server",
+    "permalink": "/api/relay-server"
+  },
+  "next": {
+    "title": "RPC Proxy",
+    "permalink": "/api/rpc-proxy"
+  }
+}

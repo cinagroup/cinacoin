@@ -1,0 +1,25 @@
+{
+  "id": "api/design-tokens",
+  "title": "Design Tokens",
+  "description": "@cinacoin/design-tokens — Design token system for Cinacoin white-label theming.",
+  "source": "@site/docs/api/design-tokens.md",
+  "sourceDirName": "api",
+  "slug": "/api/design-tokens",
+  "permalink": "/api/design-tokens",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/design-tokens.md",
+  "tags": [],
+  "version": "current",
+  "lastUpdatedAt": 1780817605000,
+  "frontMatter": {},
+  "sidebar": "apiSidebar",
+  "previous": {
+    "title": "Deposit",
+    "permalink": "/api/deposit"
+  },
+  "next": {
+    "title": ".NET C",
+    "permalink": "/api/dotnet"
+  }
+}

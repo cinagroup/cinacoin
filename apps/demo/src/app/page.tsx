@@ -55,16 +55,8 @@ const STATS = [
 ];
 
 /* ── particles ── */
-const PARTICLES: { id: number; size: number; left: number; top: number; duration: number; delay: number; color: string }[] = []; // Removed particles per DESIGN.md: "mesh gradient is the only decorative chrome"
-const _P = Array.from({ length: 18 }, (_, i) => ({
-  id: i,
-  size: 2 + (i * 7) % 5,
-  left: (i * 37 + 13) % 100,
-  top: (i * 53 + 7) % 100,
-  duration: 6 + (i * 3) % 10,
-  delay: (i * 2) % 5,
-  color: i % 3 === 0 ? 'var(--cc-link)' : i % 3 === 1 ? 'var(--cc-violet)' : 'var(--cc-cyan)',
-}));
+// Decorative particles removed per DESIGN.md: "mesh gradient is the only decorative chrome"
+const PARTICLES: { id: number; size: number; left: number; top: number; duration: number; delay: number; color: string }[] = [];
 
 /* ── chain badge with hover glow ── */
 function ChainBadge({ chain }: { chain: (typeof CHAINS)[number] }) {

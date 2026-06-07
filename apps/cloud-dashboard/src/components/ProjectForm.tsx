@@ -33,7 +33,7 @@ export function ProjectForm() {
             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h3 className="text-lg font-semibold text-[var(--cc-ink)]">Project Created!</h3>
+        <h3 className="cc-display-sm text-[var(--cc-ink)]">Project Created!</h3>
         <p className="text-sm text-[var(--cc-muted)]">Your project has been created successfully.</p>
         <div className="flex items-center justify-center gap-3">
           <a href="/dashboard/projects" className="cc-btn-secondary-sm px-4">

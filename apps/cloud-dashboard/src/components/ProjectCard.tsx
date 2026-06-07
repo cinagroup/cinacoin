@@ -13,7 +13,7 @@ export function ProjectCard({ project }: { project: Project }) {
           active
         </span>
       </div>
-      <h3 className="mb-1 text-base font-semibold text-[var(--cc-ink)] transition-colors group-hover:text-[var(--cc-link)]">
+      <h3 className="mb-1 cc-body-md-strong text-[var(--cc-ink)] transition-colors group-hover:text-[var(--cc-link)]">
         {project.name}
       </h3>
       <p className="mb-3 text-sm text-[var(--cc-muted)] line-clamp-2">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import SiteHeader from '../components/SiteHeader';
 import SiteFooter from '../components/SiteFooter';
 
@@ -63,10 +63,54 @@ export default function SwapPage() {
     label: string
   }
 
-  const TokenSelector: React.FC<TokenSelectorProps> = ({ show, onClose, onSelect, label }) => (
+  const TokenSelector: React.FC<TokenSelectorProps> = ({ show, onClose, onSelect, label }) => {
+    const modalRef = useRef<HTMLDivElement>(null)
+
+    // Escape to close
+    useEffect(() => {
+      if (!show) return
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          e.preventDefault()
+          onClose()
+        }
+      }
+      document.addEventListener('keydown', handleKeyDown)
+      return () => document.removeEventListener('keydown', handleKeyDown)
+    }, [show, onClose])
+
+    // Focus trap
+    useEffect(() => {
+      if (!show || !modalRef.current) return
+      const modal = modalRef.current
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key !== 'Tab') return
+        const focusable = modal.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        )
+        if (focusable.length === 0) return
+        const first = focusable[0]
+        const last = focusable[focusable.length - 1]
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault()
+          last.focus()
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault()
+          first.focus()
+        }
+      }
+      modal.addEventListener('keydown', handleKeyDown)
+      const firstFocusable = modal.querySelector<HTMLElement>(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      )
+      firstFocusable?.focus()
+      return () => modal.removeEventListener('keydown', handleKeyDown)
+    }, [show])
+
+    return (
     <div className={`fixed inset-0 z-50 flex items-center justify-center p-4 ${!show && 'hidden'}`} role="dialog" aria-modal="true" aria-label={label}>
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} aria-hidden="true" />
-      <div className="relative w-full max-w-sm cc-card-lg !p-6" role="dialog">
+      <div ref={modalRef} className="relative w-full max-w-sm cc-card-lg !p-6" role="dialog">
         <h3 className="cc-display-sm mb-4" id="token-selector-title">{label}</h3>
         <div className="space-y-2 max-h-64 overflow-y-auto pr-1" role="listbox" aria-labelledby="token-selector-title">
           {TOKENS.map((t, i) => (
@@ -91,7 +135,8 @@ export default function SwapPage() {
         </div>
       </div>
     </div>
-  );
+    )
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-[var(--cc-canvas-soft)]">

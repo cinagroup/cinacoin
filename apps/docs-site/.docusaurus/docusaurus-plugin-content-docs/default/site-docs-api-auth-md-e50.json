@@ -1,0 +1,25 @@
+{
+  "id": "api/auth",
+  "title": "Auth",
+  "description": "Sign-In With Ethereum (SIWE) authentication with session management.",
+  "source": "@site/docs/api/auth.md",
+  "sourceDirName": "api",
+  "slug": "/api/auth",
+  "permalink": "/api/auth",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/auth.md",
+  "tags": [],
+  "version": "current",
+  "lastUpdatedAt": 1780817605000,
+  "frontMatter": {},
+  "sidebar": "apiSidebar",
+  "previous": {
+    "title": "AppKit",
+    "permalink": "/api/appkit"
+  },
+  "next": {
+    "title": "Batch Transaction",
+    "permalink": "/api/batch-transaction"
+  }
+}

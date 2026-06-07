@@ -1,0 +1,25 @@
+{
+  "id": "api/bundler",
+  "title": "Bundler",
+  "description": "@cinacoin/bundler — Self-hosted ERC-4337 Bundler implementation in Rust.",
+  "source": "@site/docs/api/bundler.md",
+  "sourceDirName": "api",
+  "slug": "/api/bundler",
+  "permalink": "/api/bundler",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/bundler.md",
+  "tags": [],
+  "version": "current",
+  "lastUpdatedAt": 1780817605000,
+  "frontMatter": {},
+  "sidebar": "apiSidebar",
+  "previous": {
+    "title": "Blockchain API",
+    "permalink": "/api/blockchain-api"
+  },
+  "next": {
+    "title": "CDN",
+    "permalink": "/api/cdn"
+  }
+}

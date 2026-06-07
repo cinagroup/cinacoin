@@ -1,0 +1,25 @@
+{
+  "id": "api/safe-decoder",
+  "title": "Safe Decoder",
+  "description": "@cinacoin/safe-decoder — Safe (Gnosis) transaction decoder for Cinacoin.",
+  "source": "@site/docs/api/safe-decoder.md",
+  "sourceDirName": "api",
+  "slug": "/api/safe-decoder",
+  "permalink": "/api/safe-decoder",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/safe-decoder.md",
+  "tags": [],
+  "version": "current",
+  "lastUpdatedAt": 1780817605000,
+  "frontMatter": {},
+  "sidebar": "apiSidebar",
+  "previous": {
+    "title": "RPC Proxy",
+    "permalink": "/api/rpc"
+  },
+  "next": {
+    "title": "Session Keys",
+    "permalink": "/api/session-keys"
+  }
+}

@@ -13,10 +13,10 @@ export default function MetricBox({ label, value, icon, trend, color = "text-[va
       <span className="sr-only">{`${label}: ${value}`}</span>
       <div className="flex items-center justify-between mb-1 sm:mb-2">
         <span id={`metric-label-${label.toLowerCase().replace(/\s+/g, '-')}`} className="cc-caption text-[var(--cc-muted)]">{label}</span>
-        {icon && <span className="text-base sm:text-lg" aria-hidden="true">{icon}</span>}
+        {icon && <span className="cc-display-sm" aria-hidden="true">{icon}</span>}
       </div>
       <div className="flex items-end gap-1 sm:gap-2">
-        <span aria-labelledby={`metric-label-${label.toLowerCase().replace(/\s+/g, '-')}`} className={`text-lg sm:text-2xl font-semibold ${color} break-all`}>{value}</span>
+        <span aria-labelledby={`metric-label-${label.toLowerCase().replace(/\s+/g, '-')}`} className={`cc-display-sm ${color} break-all`}>{value}</span>
         {trend && (
           <span className={`text-xs mb-1 ${
             trend === "up" ? "text-[var(--cc-success)]" :

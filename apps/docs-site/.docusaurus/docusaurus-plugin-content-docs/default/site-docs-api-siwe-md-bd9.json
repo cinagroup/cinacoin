@@ -1,0 +1,25 @@
+{
+  "id": "api/siwe",
+  "title": "SIWE",
+  "description": "@cinacoin/siwe — Sign-In with Ethereum integration for Cinacoin.",
+  "source": "@site/docs/api/siwe.md",
+  "sourceDirName": "api",
+  "slug": "/api/siwe",
+  "permalink": "/api/siwe",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/siwe.md",
+  "tags": [],
+  "version": "current",
+  "lastUpdatedAt": 1780817605000,
+  "frontMatter": {},
+  "sidebar": "apiSidebar",
+  "previous": {
+    "title": "Session Keys",
+    "permalink": "/api/session-keys"
+  },
+  "next": {
+    "title": "SIWX",
+    "permalink": "/api/siwx"
+  }
+}

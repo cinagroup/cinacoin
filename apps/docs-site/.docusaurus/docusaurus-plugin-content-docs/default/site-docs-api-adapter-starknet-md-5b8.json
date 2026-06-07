@@ -1,0 +1,25 @@
+{
+  "id": "api/adapter-starknet",
+  "title": "Starknet Adapter",
+  "description": "@cinacoin/adapter-starknet — Starknet L2 adapter for Cinacoin.",
+  "source": "@site/docs/api/adapter-starknet.md",
+  "sourceDirName": "api",
+  "slug": "/api/adapter-starknet",
+  "permalink": "/api/adapter-starknet",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/adapter-starknet.md",
+  "tags": [],
+  "version": "current",
+  "lastUpdatedAt": 1780817605000,
+  "frontMatter": {},
+  "sidebar": "apiSidebar",
+  "previous": {
+    "title": "NEAR Adapter",
+    "permalink": "/api/adapter-near"
+  },
+  "next": {
+    "title": "Sui Adapter",
+    "permalink": "/api/adapter-sui"
+  }
+}

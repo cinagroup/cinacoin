@@ -1,0 +1,25 @@
+{
+  "id": "guide/migrate-from-reown",
+  "title": "Migration Guide",
+  "description": "Migrate from Reown/WalletConnect to Cinacoin.",
+  "source": "@site/docs/guide/migrate-from-reown.md",
+  "sourceDirName": "guide",
+  "slug": "/guide/migrate-from-reown",
+  "permalink": "/guide/migrate-from-reown",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/guide/migrate-from-reown.md",
+  "tags": [],
+  "version": "current",
+  "lastUpdatedAt": 1780817605000,
+  "frontMatter": {},
+  "sidebar": "guideSidebar",
+  "previous": {
+    "title": "Configuration",
+    "permalink": "/guide/configuration"
+  },
+  "next": {
+    "title": "Troubleshooting",
+    "permalink": "/guide/troubleshooting"
+  }
+}

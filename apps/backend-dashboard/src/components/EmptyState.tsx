@@ -30,8 +30,8 @@ export default function EmptyState({
   return (
     <div className="bg-[var(--cc-canvas-soft)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] flex flex-col items-center justify-center py-16 px-4 text-center">
       <span className="mb-4" aria-hidden="true">{icon}</span>
-      <h3 className="text-lg font-semibold text-[var(--cc-ink)] mb-1">{title}</h3>
-      <p className="text-sm text-[var(--cc-body)] max-w-sm">{description}</p>
+      <h3 className="cc-display-sm text-[var(--cc-ink)] mb-1">{title}</h3>
+      <p className="cc-body-sm text-[var(--cc-body)] max-w-sm">{description}</p>
       {action && (
         <button
           onClick={action.onClick}

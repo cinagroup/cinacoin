@@ -1,0 +1,25 @@
+{
+  "id": "api/relay-server",
+  "title": "Relay Server",
+  "description": "@cinacoin/relay-server — Self-hosted WebSocket relay server in Rust.",
+  "source": "@site/docs/api/relay-server.md",
+  "sourceDirName": "api",
+  "slug": "/api/relay-server",
+  "permalink": "/api/relay-server",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/relay-server.md",
+  "tags": [],
+  "version": "current",
+  "lastUpdatedAt": 1780817605000,
+  "frontMatter": {},
+  "sidebar": "apiSidebar",
+  "previous": {
+    "title": "React",
+    "permalink": "/api/react"
+  },
+  "next": {
+    "title": "Relay",
+    "permalink": "/api/relay"
+  }
+}

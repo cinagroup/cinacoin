@@ -93,6 +93,7 @@ export default function MultiChainPage() {
               className="cc-btn-primary w-full text-base font-semibold focus-ring"
               onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); } }}
               aria-label={`Connect to ${chain.name} chain`}
+              onClick={() => { /* Demo: would trigger chain connection flow */ }}
             >
               Connect {chain.name}
             </button>
@@ -105,23 +106,23 @@ export default function MultiChainPage() {
           <div className="flex items-center justify-center gap-3 flex-wrap">
             <div className="bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] rounded-lg px-6 py-4 text-center min-w-[120px]">
               <span className="text-2xl">Ξ</span>
-              <p className="text-sm font-semibold mt-1">Ethereum</p>
+              <p className="cc-body-sm-strong mt-1">Ethereum</p>
             </div>
             <span className="text-2xl text-[var(--cc-muted)]">→</span>
             <div className="bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] rounded-lg px-6 py-4 text-center min-w-[120px]">
               <span className="text-2xl">🌉</span>
-              <p className="text-sm font-semibold mt-1">Relay</p>
+              <p className="cc-body-sm-strong mt-1">Relay</p>
               <p className="text-xs text-[var(--cc-muted)] cc-caption">Cinacoin</p>
             </div>
             <span className="text-2xl text-[var(--cc-muted)]">→</span>
             <div className="bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] rounded-lg px-6 py-4 text-center min-w-[120px]">
               <span className="text-2xl">◎</span>
-              <p className="text-sm font-semibold mt-1">Solana</p>
+              <p className="cc-body-sm-strong mt-1">Solana</p>
             </div>
             <span className="text-2xl text-[var(--cc-muted)]">→</span>
             <div className="bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] rounded-lg px-6 py-4 text-center min-w-[120px]">
               <span className="text-2xl">₿</span>
-              <p className="text-sm font-semibold mt-1">Bitcoin</p>
+              <p className="cc-body-sm-strong mt-1">Bitcoin</p>
             </div>
           </div>
         </div>

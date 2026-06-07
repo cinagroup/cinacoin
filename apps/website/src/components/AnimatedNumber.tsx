@@ -29,6 +29,13 @@ export default function AnimatedNumber({ value, duration = 2000 }: AnimatedNumbe
   useEffect(() => {
     if (!inView) return
 
+    // Respect prefers-reduced-motion: skip animation, show final value immediately
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (prefersReducedMotion) {
+      setDisplayed(value)
+      return
+    }
+
     let startTime: number | null = null
     let animationFrame: number
 

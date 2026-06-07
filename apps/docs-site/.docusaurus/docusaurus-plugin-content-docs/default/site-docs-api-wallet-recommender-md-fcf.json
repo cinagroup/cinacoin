@@ -1,0 +1,25 @@
+{
+  "id": "api/wallet-recommender",
+  "title": "Wallet Recommender",
+  "description": "@cinacoin/wallet-recommender — Intelligent wallet recommendation for Cinacoin.",
+  "source": "@site/docs/api/wallet-recommender.md",
+  "sourceDirName": "api",
+  "slug": "/api/wallet-recommender",
+  "permalink": "/api/wallet-recommender",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/wallet-recommender.md",
+  "tags": [],
+  "version": "current",
+  "lastUpdatedAt": 1780817605000,
+  "frontMatter": {},
+  "sidebar": "apiSidebar",
+  "previous": {
+    "title": "Wallet Buttons",
+    "permalink": "/api/wallet-buttons"
+  },
+  "next": {
+    "title": "Wallet Recovery",
+    "permalink": "/api/wallet-recovery"
+  }
+}

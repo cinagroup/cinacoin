@@ -1,0 +1,25 @@
+{
+  "id": "api/i18n",
+  "title": "i18n",
+  "description": "@cinacoin/i18n — Internationalization utilities for Cinacoin.",
+  "source": "@site/docs/api/i18n.md",
+  "sourceDirName": "api",
+  "slug": "/api/i18n",
+  "permalink": "/api/i18n",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/i18n.md",
+  "tags": [],
+  "version": "current",
+  "lastUpdatedAt": 1780817605000,
+  "frontMatter": {},
+  "sidebar": "apiSidebar",
+  "previous": {
+    "title": "Gas Sponsorship",
+    "permalink": "/api/gas-sponsorship"
+  },
+  "next": {
+    "title": "iOS Swift",
+    "permalink": "/api/ios-swift"
+  }
+}

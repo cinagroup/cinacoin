@@ -37,7 +37,7 @@ export default function ProgressRing({ value, size = 80, strokeWidth = 6, color 
           />
         </svg>
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-lg font-semibold text-[var(--cc-ink)]">{value}%</span>
+          <span className="cc-display-sm text-[var(--cc-ink)]">{value}%</span>
         </div>
       </div>
       {label && <span className="cc-caption text-[var(--cc-muted)] mt-1">{label}</span>}

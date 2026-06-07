@@ -1,0 +1,25 @@
+{
+  "id": "guide/quick-start",
+  "title": "Quick Start",
+  "description": "Get started with Cinacoin in 5 minutes.",
+  "source": "@site/docs/guide/quick-start.md",
+  "sourceDirName": "guide",
+  "slug": "/guide/quick-start",
+  "permalink": "/guide/quick-start",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/guide/quick-start.md",
+  "tags": [],
+  "version": "current",
+  "lastUpdatedAt": 1780817605000,
+  "frontMatter": {},
+  "sidebar": "guideSidebar",
+  "previous": {
+    "title": "Getting Started",
+    "permalink": "/guide/"
+  },
+  "next": {
+    "title": "Installation",
+    "permalink": "/guide/installation"
+  }
+}

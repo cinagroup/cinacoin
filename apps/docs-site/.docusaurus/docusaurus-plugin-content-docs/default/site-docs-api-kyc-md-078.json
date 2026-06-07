@@ -1,0 +1,25 @@
+{
+  "id": "api/kyc",
+  "title": "KYC",
+  "description": "@cinacoin/kyc — KYC (Know Your Customer) integration for Cinacoin.",
+  "source": "@site/docs/api/kyc.md",
+  "sourceDirName": "api",
+  "slug": "/api/kyc",
+  "permalink": "/api/kyc",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/kyc.md",
+  "tags": [],
+  "version": "current",
+  "lastUpdatedAt": 1780817605000,
+  "frontMatter": {},
+  "sidebar": "apiSidebar",
+  "previous": {
+    "title": "Keys",
+    "permalink": "/api/keys"
+  },
+  "next": {
+    "title": "Multiwallet",
+    "permalink": "/api/multiwallet"
+  }
+}

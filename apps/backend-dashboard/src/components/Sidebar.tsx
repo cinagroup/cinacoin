@@ -68,7 +68,7 @@ export default function Sidebar({ onClose }: SidebarProps) {
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 p-3 space-y-5 overflow-y-auto">
+      <nav className="flex-1 p-3 space-y-5 overflow-y-auto" aria-label="Dashboard navigation">
         {NAV_SECTIONS.map((section) => (
           <div key={section.label}>
             <p className="cc-caption-mono text-[var(--cc-muted)] px-3 mb-1.5">
@@ -82,11 +82,12 @@ export default function Sidebar({ onClose }: SidebarProps) {
                     key={item.href}
                     href={item.href}
                     onClick={handleNav}
-                    className={`flex items-center px-3 py-2 rounded-[var(--cc-radius-sm)] text-sm font-medium transition-colors min-h-[36px] ${
+                    className={`cc-navbar-link min-h-[36px] ${
                       isActive
                         ? "bg-[var(--cc-canvas-soft-2)] text-[var(--cc-ink)]"
-                        : "text-[var(--cc-body)] hover:bg-[var(--cc-canvas-soft)] hover:text-[var(--cc-ink)]"
+                        : ""
                     }`}
+                    aria-current={isActive ? 'page' : undefined}
                   >
                     {item.label}
                   </Link>

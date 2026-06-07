@@ -1,4 +1,4 @@
-import React, { useState, lazy, Suspense } from 'react'
+import React, { useState, lazy, Suspense, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import SiteHeader from '../components/SiteHeader'
 import SiteFooter from '../components/SiteFooter'
@@ -52,6 +52,16 @@ const HomePage: React.FC = () => {
   const chainInfo = useChainInfo(chainId || null, address || null)
   const [walletModalOpen, setWalletModalOpen] = useState(false)
   const [selectedChain, setSelectedChain] = useState('Ethereum')
+
+  // Lock body scroll when wallet modal is open
+  useEffect(() => {
+    if (walletModalOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => { document.body.style.overflow = '' }
+  }, [walletModalOpen])
 
   return (
     <div className="min-h-screen flex flex-col bg-[var(--cc-canvas-soft)]">

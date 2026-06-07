@@ -108,6 +108,15 @@ export default function HomePage() {
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      {/* Skip to content link for accessibility */}
+      <a
+        href="#analytics-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-[var(--cc-primary)] focus:text-[var(--cc-on-primary)] focus:rounded-[var(--cc-radius-sm)]"
+        style={{ position: 'absolute', top: 0, left: 0, zIndex: 50 }}
+      >
+        Skip to analytics content
+      </a>
+
       <SiteHeader
         logoSrc="/analytics/logo.svg"
         sublabel="Analytics"
@@ -117,16 +126,21 @@ export default function HomePage() {
         ]}
       />
 
-      <main style={{ flex: 1, padding: '48px 0' }}>
+      <main id="analytics-content" style={{ flex: 1, padding: '48px 0' }}>
         <div className="cc-container" style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
           {/* Title */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            <span className="cc-caption-mono" style={{ color: 'var(--cc-muted)' }}>OVERVIEW</span>
+            <span className="cc-caption-mono" style={{ color: 'var(--cc-muted)' }}>Overview</span>
             <h1 className="cc-display-lg" style={{ color: 'var(--cc-ink)' }}>Wallet analytics.</h1>
             <p className="cc-body-lg" style={{ color: 'var(--cc-body)', maxWidth: 640 }}>
               Wallet activity and transaction performance across chains, aggregated from
               ingested SDK events over the last 30 days.
             </p>
+          </div>
+
+          {/* Screen reader live region for analytics status */}
+          <div role="status" aria-live="polite" className="sr-only" aria-atomic="true">
+            {loading ? 'Loading analytics...' : error ? 'Analytics service is unavailable.' : !hasData ? 'No analytics data available yet.' : 'Analytics data loaded.'}
           </div>
 
           {loading ? (
@@ -170,7 +184,7 @@ export default function HomePage() {
                 <div className="cc-card-lg">
                   <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 24 }}>
                     <h2 className="cc-display-sm" style={{ color: 'var(--cc-ink)' }}>Transactions</h2>
-                    <span className="cc-caption-mono" style={{ color: 'var(--cc-muted)' }}>LAST 30 DAYS</span>
+                    <span className="cc-caption-mono" style={{ color: 'var(--cc-muted)' }}>Last 30 days</span>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'flex-end', gap: 4, height: 200 }}>
                     {dailyCounts.map((count, i) => (

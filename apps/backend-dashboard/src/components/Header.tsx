@@ -83,7 +83,7 @@ export default function Header({ onMenuToggle }: HeaderProps) {
         <button
           onClick={toggle}
           aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
-          className="p-2 rounded-full text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft)] transition-colors min-h-[36px] min-w-[36px] flex items-center justify-center"
+          className="p-2 rounded-full text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft)] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
         >
           {theme === "light" ? (
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

@@ -8,7 +8,6 @@ export default function Hero() {
 
   return (
     <section
-      id="main-content"
       aria-label="Hero section"
       className="relative flex flex-col items-center justify-center overflow-hidden px-6 pt-32 pb-24 md:pt-40 md:pb-32 lg:pt-48 lg:pb-40"
     >

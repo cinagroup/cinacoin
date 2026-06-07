@@ -1,0 +1,25 @@
+{
+  "id": "api/batch-transaction",
+  "title": "Batch Transaction",
+  "description": "@cinacoin/batch-transaction — Batch transaction construction for Cinacoin.",
+  "source": "@site/docs/api/batch-transaction.md",
+  "sourceDirName": "api",
+  "slug": "/api/batch-transaction",
+  "permalink": "/api/batch-transaction",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/batch-transaction.md",
+  "tags": [],
+  "version": "current",
+  "lastUpdatedAt": 1780817605000,
+  "frontMatter": {},
+  "sidebar": "apiSidebar",
+  "previous": {
+    "title": "Auth",
+    "permalink": "/api/auth"
+  },
+  "next": {
+    "title": "Blockchain API",
+    "permalink": "/api/blockchain-api"
+  }
+}

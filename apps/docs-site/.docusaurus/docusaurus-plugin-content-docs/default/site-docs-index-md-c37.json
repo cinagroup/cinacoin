@@ -1,0 +1,21 @@
+{
+  "id": "index",
+  "title": "Cinacoin — 自有品牌链上 UX 工具包",
+  "description": "Self-hosted Wallet Connection Toolkit — Fully independent from Reown/WalletConnect.",
+  "source": "@site/docs/index.md",
+  "sourceDirName": ".",
+  "slug": "/",
+  "permalink": "/",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/index.md",
+  "tags": [],
+  "version": "current",
+  "lastUpdatedAt": 1780818244000,
+  "frontMatter": {
+    "id": "index",
+    "title": "Cinacoin — 自有品牌链上 UX 工具包",
+    "slug": "/",
+    "sidebar_label": "Home"
+  }
+}

@@ -115,7 +115,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
             <div className="flex items-center justify-center gap-2 mb-4" role="progressbar" aria-valuenow={step} aria-valuemin={1} aria-valuemax={4} aria-label="Authentication progress">
               {['Connect', 'Sign', 'Verify', 'Profile'].map((label, i) => (
                 <div key={label} className="flex items-center gap-2">
-                  <div className={`flex items-center justify-center w-7 h-7 rounded-full text-xs font-semibold transition-all ${
+                  <div className={`flex items-center justify-center w-7 h-7 rounded-full cc-caption-mono transition-all ${
                     step > i + 1
                       ? 'bg-[var(--cc-success)]/10 text-[var(--cc-success)] border border-[var(--cc-success)]/20'
                       : step === i + 1

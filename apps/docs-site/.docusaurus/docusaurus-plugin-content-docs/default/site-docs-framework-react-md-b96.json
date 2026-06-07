@@ -1,0 +1,17 @@
+{
+  "id": "framework/react",
+  "title": "React",
+  "description": "@cinacoin/react — React hooks, provider, and UI components for Cinacoin.",
+  "source": "@site/docs/framework/react.md",
+  "sourceDirName": "framework",
+  "slug": "/framework/react",
+  "permalink": "/framework/react",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/framework/react.md",
+  "tags": [],
+  "version": "current",
+  "lastUpdatedAt": 1780817605000,
+  "frontMatter": {},
+  "sidebar": "frameworkSidebar"
+}

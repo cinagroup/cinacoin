@@ -1,0 +1,25 @@
+{
+  "id": "api/next",
+  "title": "Next.js",
+  "description": "@cinacoin/next — Next.js adapter for Cinacoin with App Router support.",
+  "source": "@site/docs/api/next.md",
+  "sourceDirName": "api",
+  "slug": "/api/next",
+  "permalink": "/api/next",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/next.md",
+  "tags": [],
+  "version": "current",
+  "lastUpdatedAt": 1780817605000,
+  "frontMatter": {},
+  "sidebar": "apiSidebar",
+  "previous": {
+    "title": "Multiwallet",
+    "permalink": "/api/multiwallet"
+  },
+  "next": {
+    "title": "Notify Server",
+    "permalink": "/api/notify-server"
+  }
+}
