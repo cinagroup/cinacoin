@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/AuthProvider";
@@ -12,9 +12,14 @@ export default function LoginPage() {
   const [walletMissing, setWalletMissing] = useState(false);
   const [step, setStep] = useState<"idle" | "connecting" | "signing">("idle");
 
-  // If already logged in, redirect to dashboard
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.replace("/");
+    }
+  }, [isLoggedIn, router]);
+
+  // Show nothing while redirecting
   if (isLoggedIn) {
-    router.push("/");
     return null;
   }
 
