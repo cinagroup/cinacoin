@@ -41,3 +41,14 @@ packages/push-server/target/
 packages/nuxt/.nuxt/
 .open-next/
 apps/*/out/
+
+# Compiled TS output must never be committed next to source. These shadow
+# fresh builds (esbuild/tsup prefer an existing .js over the .ts) and serve
+# stale/broken code (e.g. ens.js importing "./types.js.js"). Only .js and
+# source-map output is ignored — authored ambient declarations (vite-env.d.ts,
+# shims-vue.d.ts, native module shims) use .d.ts and are kept. The single
+# authored .js under src/ is the router Worker (negated).
+**/src/**/*.js
+**/src/**/*.js.map
+**/src/**/*.d.ts.map
+!workers/router/src/**/*.js
