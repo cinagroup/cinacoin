@@ -41,7 +41,8 @@
     "h3": "^1.15.0",
     "nuxi": "^3.20.0",
     "typescript": "^5.7.0",
-    "viem": "^2.23.0"
+    "viem": "^2.23.0",
+    "vue-tsc": "^2.1.0"
   },
   "peerDependencies": {
     "@cinacoin/core-sdk": "workspace:*",
