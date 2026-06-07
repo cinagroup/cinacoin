@@ -77,7 +77,6 @@
       "weight-normal": { "value": "{global.typography.font-normal}" },
       "weight-medium": { "value": "{global.typography.font-medium}" },
       "weight-semibold": { "value": "{global.typography.font-semibold}" },
-      "weight-bold": { "value": "{global.typography.font-semibold}" },
       "weight-bold": { "value": "{global.typography.font-semibold}" }
     },
 

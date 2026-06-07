@@ -8,7 +8,7 @@ export default function ProjectsPage() {
   return (
     <div className="min-h-screen bg-[var(--cc-canvas-soft)]">
       <Header />
-      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <main id="main-content" className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="mb-6 flex items-center justify-between">
           <div>
             <h1 className="cc-display-md text-[var(--cc-ink)]">Projects</h1>
@@ -17,7 +17,7 @@ export default function ProjectsPage() {
             </p>
           </div>
           <a
-            href="/dashboard/projects/new"
+            href="/projects/new"
             className="cc-btn-primary px-4 !h-10 text-sm"
           >
             + New Project
@@ -34,7 +34,7 @@ export default function ProjectsPage() {
           <div className="cc-card-soft p-12 text-center">
             <p className="cc-body-sm text-[var(--cc-muted)]">No projects yet.</p>
             <a
-              href="/dashboard/projects/new"
+              href="/projects/new"
               className="mt-4 cc-btn-primary px-4 !h-10 text-sm"
             >
               Create Your First Project

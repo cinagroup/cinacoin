@@ -3,6 +3,7 @@
 import { useAuth } from "@/lib/AuthProvider";
 import { aggregateStatusLabel, useWorkerHealth } from "@/hooks/useWorkerHealth";
 import { useTheme } from "@/providers/ThemeProvider";
+import { Brand } from "@cinacoin/ui";
 
 interface HeaderProps {
   onMenuToggle: () => void;
@@ -44,7 +45,7 @@ export default function Header({ onMenuToggle, refreshInterval = 15000 }: Header
           </svg>
         </button>
 
-        <img src="/logo.svg" alt="Cinacoin logo" width={32} height={32} className="h-7 w-7 sm:h-8 sm:w-8 rounded-md shrink-0" />
+        <Brand href="/" logoSrc="/logo.svg" sublabel="Dashboard" size={28} as="span" />
         <div className="min-w-0">
           <h2 className="cc-body-md-strong text-[var(--cc-ink)] truncate">Backend Dashboard</h2>
           <p className="cc-caption text-[var(--cc-muted)] hidden sm:block">Cloudflare Workers Management</p>

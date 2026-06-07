@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[var(--cc-canvas-soft)]">
       <Header />
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <main id="main-content" className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="mb-8">
           <h1 className="cc-display-md text-[var(--cc-ink)]">Dashboard</h1>
           <p className="cc-body-sm text-[var(--cc-body)] mt-1">
@@ -49,7 +49,7 @@ export default function Home() {
             </a>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }

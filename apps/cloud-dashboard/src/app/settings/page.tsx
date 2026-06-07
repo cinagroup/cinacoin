@@ -29,7 +29,7 @@ export default function SettingsPage() {
   return (
     <div className="min-h-screen bg-[var(--cc-canvas-soft)]">
       <Header />
-      <main className="mx-auto max-w-2xl px-4 py-8 sm:px-6 lg:px-8">
+      <main id="main-content" className="mx-auto max-w-2xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="mb-6">
           <h1 className="cc-display-md text-[var(--cc-ink)]">Account Settings</h1>
           <p className="mt-1 text-sm text-[var(--cc-ink)]">

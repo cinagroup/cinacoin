@@ -58,9 +58,9 @@ export function ProjectDetailClient({ projectId, project }: ProjectDetailClientP
   return (
     <div className="min-h-screen bg-[var(--cc-canvas-soft)]">
       <Header />
-      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <main id="main-content" className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="mb-6">
-          <a href="/dashboard/projects" className="text-sm text-[var(--cc-muted)] hover:text-[var(--cc-ink)]">
+          <a href="/projects" className="text-sm text-[var(--cc-muted)] hover:text-[var(--cc-ink)]">
             ← Back to Projects
           </a>
           <h1 className="mt-2 cc-display-md text-[var(--cc-ink)]">{project.name}</h1>
@@ -205,7 +205,7 @@ export function ProjectDetailClient({ projectId, project }: ProjectDetailClientP
                   );
                   if (confirmed) {
                     window.alert("Project deleted (demo).");
-                    window.location.href = "/dashboard/projects";
+                    window.location.href = "/projects";
                   }
                 }}
                 className="cc-btn-primary-sm bg-[var(--cc-error)] hover:bg-[var(--cc-error-deep)]"
