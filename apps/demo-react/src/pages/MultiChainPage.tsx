@@ -29,7 +29,8 @@ export default function MultiChainPage() {
     <div className="min-h-screen flex flex-col bg-[var(--cc-canvas-soft)] text-[var(--cc-ink)]">
       <SiteHeader />
 
-      <section className="max-w-5xl mx-auto w-full pt-12 pb-24 px-4 flex-1">
+      <main id="main-content">
+      <section className="max-w-5xl mx-auto w-full pt-12 pb-24 px-4 flex-1" aria-label="Multi-chain support">
         <div className="text-center mb-10">
           <h1 className="cc-display-lg text-[var(--cc-ink)] mb-3">16 chains, one SDK</h1>
           <p className="cc-body-md text-[var(--cc-muted)] max-w-lg mx-auto">EVM · Solana · Bitcoin · Layer 2s — unified API, zero fragmentation</p>
@@ -40,12 +41,14 @@ export default function MultiChainPage() {
             <button
               key={c.id}
               onClick={() => setSelected(selected === c.id ? null : c.id)}
-              className={`cc-card !p-4 text-left transition-all border ${
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelected(selected === c.id ? null : c.id); } }}
+              className={`cc-card !p-4 text-left transition-all border focus-ring ${
                 selected === c.id
                   ? 'border-[var(--cc-link)] shadow-[var(--cc-level3)] ring-2 ring-[var(--cc-link)]/10'
                   : 'border-[var(--cc-hairline)] hover:border-[var(--cc-muted)]'
               }`}
               aria-label={`Select ${c.name} chain`}
+              aria-pressed={selected === c.id}
             >
               <div className="flex items-center gap-3 mb-3">
                 <span className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold text-[var(--cc-ink)]" style={{ backgroundColor: c.color + '20' }}>{c.icon}</span>
@@ -86,7 +89,13 @@ export default function MultiChainPage() {
                 <div className="cc-caption-mono text-[var(--cc-muted)] mt-1">Status</div>
               </div>
             </div>
-            <button className="cc-btn-primary w-full text-base font-semibold">Connect {chain.name}</button>
+            <button
+              className="cc-btn-primary w-full text-base font-semibold focus-ring"
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); } }}
+              aria-label={`Connect to ${chain.name} chain`}
+            >
+              Connect {chain.name}
+            </button>
           </div>
         )}
 
@@ -146,6 +155,7 @@ const btc = await cc.connect('bitcoin', 'xverse');`}</pre>
           ))}
         </div>
       </section>
+      </main>
 
       <SiteFooter />
     </div>

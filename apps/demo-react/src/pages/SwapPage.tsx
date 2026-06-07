@@ -64,16 +64,19 @@ export default function SwapPage() {
   }
 
   const TokenSelector: React.FC<TokenSelectorProps> = ({ show, onClose, onSelect, label }) => (
-    <div className={`fixed inset-0 z-50 flex items-center justify-center p-4 ${!show && 'hidden'}`}>
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative w-full max-w-sm cc-card-lg !p-6">
-        <h3 className="cc-display-sm mb-4">{label}</h3>
-        <div className="space-y-2 max-h-64 overflow-y-auto pr-1">
+    <div className={`fixed inset-0 z-50 flex items-center justify-center p-4 ${!show && 'hidden'}`} role="dialog" aria-modal="true" aria-label={label}>
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} aria-hidden="true" />
+      <div className="relative w-full max-w-sm cc-card-lg !p-6" role="dialog">
+        <h3 className="cc-display-sm mb-4" id="token-selector-title">{label}</h3>
+        <div className="space-y-2 max-h-64 overflow-y-auto pr-1" role="listbox" aria-labelledby="token-selector-title">
           {TOKENS.map((t, i) => (
             <button
               key={t.symbol}
               onClick={() => { onSelect(i); onClose(); }}
-              className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-[var(--cc-canvas-soft-2)] transition-colors text-left"
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onSelect(i); onClose(); } }}
+              className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-[var(--cc-canvas-soft-2)] transition-colors text-left focus-ring"
+              role="option"
+              aria-selected={false}
             >
               <span className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold text-[var(--cc-ink)]" style={{ backgroundColor: t.color + '20' }}>{t.icon}</span>
               <div className="flex-1">
@@ -94,8 +97,9 @@ export default function SwapPage() {
     <div className="min-h-screen flex flex-col bg-[var(--cc-canvas-soft)]">
       <SiteHeader />
 
+      <main id="main-content">
       {/* Swap Card */}
-      <section className="max-w-md mx-auto w-full pt-12 pb-24 px-4 flex-1">
+      <section className="max-w-md mx-auto w-full pt-12 pb-24 px-4 flex-1" aria-label="Token swap">
         <h1 className="cc-display-lg text-center mb-8 text-[var(--cc-ink)]">Swap tokens</h1>
 
         <div className="cc-card space-y-4">
@@ -108,18 +112,21 @@ export default function SwapPage() {
             <div className="flex items-center justify-between gap-3">
               <button
                 onClick={() => setShowFromSelector(true)}
-                className="flex items-center gap-2 px-3 py-1.5 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-full hover:bg-[var(--cc-canvas-soft-2)] transition-colors shrink-0"
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setShowFromSelector(true); } }}
+                className="flex items-center gap-2 px-3 py-1.5 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-full hover:bg-[var(--cc-canvas-soft-2)] transition-colors shrink-0 focus-ring"
+                aria-label={`Select token to swap from, currently ${from.symbol}`}
               >
-                <span className="w-5 h-5 rounded-full flex items-center justify-center text-xs font-semibold text-[var(--cc-ink)]" style={{ backgroundColor: from.color + '20' }}>{from.icon}</span>
+                <span className="w-5 h-5 rounded-full flex items-center justify-center text-xs font-semibold text-[var(--cc-ink)]" style={{ backgroundColor: from.color + '20' }} aria-hidden="true">{from.icon}</span>
                 <span className="font-semibold text-sm text-[var(--cc-ink)]">{from.symbol}</span>
-                <span className="text-[var(--cc-muted)] text-xs">▾</span>
+                <span className="text-[var(--cc-muted)] text-xs" aria-hidden="true">▾</span>
               </button>
               <input
                 type="text"
+                inputMode="decimal"
                 value={fromAmount}
                 onChange={e => setFromAmount(e.target.value)}
                 placeholder="0.0"
-                className="flex-1 bg-transparent text-right text-2xl font-semibold text-[var(--cc-ink)] outline-none placeholder:text-[var(--cc-muted)] w-24"
+                className="flex-1 bg-transparent text-right text-2xl font-semibold text-[var(--cc-ink)] outline-none placeholder:text-[var(--cc-muted)] w-24 focus-ring"
                 aria-label="Amount to swap from"
               />
             </div>
@@ -130,7 +137,8 @@ export default function SwapPage() {
           <div className="flex justify-center -my-2 relative z-10">
             <button
               onClick={handleFlip}
-              className={`w-9 h-9 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-full flex items-center justify-center hover:bg-[var(--cc-canvas-soft-2)] transition-all duration-300 shadow-[var(--cc-level2)] ${flipped ? 'rotate-180' : ''}`}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleFlip(); } }}
+              className={`w-9 h-9 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-full flex items-center justify-center hover:bg-[var(--cc-canvas-soft-2)] transition-all duration-300 shadow-[var(--cc-level2)] ${flipped ? 'rotate-180' : ''} focus-ring`}
               aria-label="Switch from and to tokens"
             >
               ⇅
@@ -146,11 +154,13 @@ export default function SwapPage() {
             <div className="flex items-center justify-between gap-3">
               <button
                 onClick={() => setShowToSelector(true)}
-                className="flex items-center gap-2 px-3 py-1.5 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-full hover:bg-[var(--cc-canvas-soft-2)] transition-colors shrink-0"
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setShowToSelector(true); } }}
+                className="flex items-center gap-2 px-3 py-1.5 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-full hover:bg-[var(--cc-canvas-soft-2)] transition-colors shrink-0 focus-ring"
+                aria-label={`Select token to swap to, currently ${to.symbol}`}
               >
-                <span className="w-5 h-5 rounded-full flex items-center justify-center text-xs font-semibold text-[var(--cc-ink)]" style={{ backgroundColor: to.color + '20' }}>{to.icon}</span>
+                <span className="w-5 h-5 rounded-full flex items-center justify-center text-xs font-semibold text-[var(--cc-ink)]" style={{ backgroundColor: to.color + '20' }} aria-hidden="true">{to.icon}</span>
                 <span className="font-semibold text-sm text-[var(--cc-ink)]">{to.symbol}</span>
-                <span className="text-[var(--cc-muted)] text-xs">▾</span>
+                <span className="text-[var(--cc-muted)] text-xs" aria-hidden="true">▾</span>
               </button>
               <div className="flex-1 text-right text-2xl font-semibold text-[var(--cc-muted)] truncate">{toAmount || '0.0'}</div>
             </div>
@@ -159,8 +169,10 @@ export default function SwapPage() {
           {/* Swap Button */}
           <button
             onClick={handleSwap}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleSwap(); } }}
             disabled={amount <= 0 || swapStatus === 'swapping'}
-            className="cc-btn-primary w-full text-base font-semibold disabled:opacity-40 disabled:cursor-not-allowed"
+            className="cc-btn-primary w-full text-base font-semibold disabled:opacity-40 disabled:cursor-not-allowed focus-ring"
+            aria-label={swapStatus === 'swapping' ? 'Swap in progress' : swapStatus === 'done' ? 'Swap complete' : amount > 0 ? 'Swap tokens' : 'Enter an amount to swap'}
           >
             {swapStatus === 'swapping'
               ? 'Swapping…'
@@ -176,7 +188,7 @@ export default function SwapPage() {
         {amount > 0 && (
           <div className="cc-card-soft mt-4 space-y-3">
             <div className="flex items-center gap-2 mb-2">
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-600 text-xs font-medium">
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-600 text-xs font-medium" role="alert">
                 ⚠️ Mock prices — not live data
               </span>
             </div>
@@ -189,8 +201,12 @@ export default function SwapPage() {
                   <button
                     key={s}
                     onClick={() => setSlippage(s)}
-                    className="cc-tab-ghost !h-6 !px-2.5 text-xs rounded-md"
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSlippage(s); } }}
+                    className="cc-tab-ghost !h-6 !px-2.5 text-xs rounded-md focus-ring"
                     data-active={slippage === s}
+                    role="radio"
+                    aria-checked={slippage === s}
+                    aria-label={`Slippage ${s}%`}
                   >
                     {s}%
                   </button>
@@ -217,10 +233,10 @@ export default function SwapPage() {
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-[var(--cc-hairline)] text-[var(--cc-muted)] text-xs bg-[var(--cc-canvas-soft-2)]">
-                    <th className="text-left p-3.5 font-semibold cc-caption-mono">Pair</th>
-                    <th className="text-left p-3.5 font-semibold cc-caption-mono">Route</th>
-                    <th className="text-left p-3.5 font-semibold cc-caption-mono">Status</th>
-                    <th className="text-right p-3.5 font-semibold cc-caption-mono">Time</th>
+                    <th scope="col" className="text-left p-3.5 font-semibold cc-caption-mono">Pair</th>
+                    <th scope="col" className="text-left p-3.5 font-semibold cc-caption-mono">Route</th>
+                    <th scope="col" className="text-left p-3.5 font-semibold cc-caption-mono">Status</th>
+                    <th scope="col" className="text-right p-3.5 font-semibold cc-caption-mono">Time</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -243,6 +259,8 @@ export default function SwapPage() {
           </div>
         </div>
       </section>
+
+      </main>
 
       <TokenSelector show={showFromSelector} onClose={() => setShowFromSelector(false)} onSelect={(i: number) => { setFromToken(i); if (i === toToken) setToToken(fromToken); }} label="Select Token" />
       <TokenSelector show={showToSelector} onClose={() => setShowToSelector(false)} onSelect={(i: number) => { setToToken(i); if (i === fromToken) setFromToken(toToken); }} label="Select Token" />

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useCallback, useEffect, useRef } from 'react'
-import { EthereumProvider } from '../wc'
+import { getEthereumProvider } from '../wc'
 
 export interface WalletState {
  connected: boolean
@@ -210,6 +210,7 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
  )
  }
  if (!wcProvider) {
+ const EthereumProvider = await getEthereumProvider()
  wcProvider = await EthereumProvider.init({
  projectId,
  chains: [1],

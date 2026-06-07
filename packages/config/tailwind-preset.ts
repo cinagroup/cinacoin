@@ -26,12 +26,13 @@ export const cinacoinPreset = {
         warning: { DEFAULT: "#f59e0b", dark: "#d97706" },
         danger: { DEFAULT: "#ef4444", dark: "#dc2626" },
         info: { DEFAULT: "#3b82f6", dark: "#2563eb" },
-        // Dashboard 暗色主题
+        // Dashboard surface colors (light theme default per DESIGN.md)
+        // These are overridden per-app via CSS variables in tailwind.config.ts.
         surface: {
-          DEFAULT: "#12141c",
-          hover: "#1a1d28",
-          border: "#1e2130",
-          borderLight: "#2a2d3e",
+          DEFAULT: "#ffffff",
+          hover: "#f1f5f9",
+          border: "#e2e8f0",
+          borderLight: "#e5e7eb",
         },
       },
       fontFamily: {

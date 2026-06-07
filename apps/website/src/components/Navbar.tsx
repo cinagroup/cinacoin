@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Brand } from '@cinacoin/ui'
 import { useTheme } from '@/providers/ThemeProvider'
 import { useI18n, type Locale } from '@/providers/I18nProvider'
@@ -28,12 +28,17 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [handleScroll])
 
-  // Close dropdowns on outside click
+  // Close dropdowns on outside click (mousedown to avoid React synthetic event timing issues)
+  const langRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
     if (!langOpen) return
-    const handler = () => setLangOpen(false)
-    window.addEventListener('click', handler)
-    return () => window.removeEventListener('click', handler)
+    const handler = (e: MouseEvent) => {
+      if (langRef.current && !langRef.current.contains(e.target as Node)) {
+        setLangOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
   }, [langOpen])
 
   const closeMobile = () => setMobileOpen(false)
@@ -54,7 +59,7 @@ export default function Navbar() {
     >
       <div className="cc-container flex h-full items-center justify-between">
         {/* Logo — shared Brand lockup from @cinacoin/ui */}
-        <Brand href="/" logoSrc="/logo.png" />
+        <Brand href="/" logoSrc="/logo.svg" />
 
         {/* Desktop links */}
         <div className="hidden items-center gap-1 md:flex">
@@ -89,7 +94,7 @@ export default function Navbar() {
           </button>
 
           {/* Language selector */}
-          <div className="relative" onClick={(e) => e.stopPropagation()}>
+          <div ref={langRef} className="relative">
             <button
               onClick={() => setLangOpen((v) => !v)}
               className="flex h-8 items-center gap-1 rounded-md px-2 text-[var(--cc-body)] transition-colors hover:text-[var(--cc-ink)] cc-body-sm-strong"

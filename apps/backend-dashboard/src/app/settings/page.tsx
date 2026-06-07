@@ -4,7 +4,7 @@ import { useState } from "react";
 
 export default function SettingsPage() {
   const [refreshInterval, setRefreshInterval] = useState(30);
-  const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const [theme, setTheme] = useState<"dark" | "light">("light");
   const [demoMode, setDemoMode] = useState(true);
   const [saved, setSaved] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(false);
@@ -128,7 +128,7 @@ export default function SettingsPage() {
                 type="number"
                 value={refreshInterval}
                 onChange={(e) => setRefreshInterval(Number(e.target.value))}
-                className="w-20 bg-dashboard-border/30 border border-dashboard-border rounded-[var(--cc-radius-sm)] px-3 py-1.5 text-[var(--cc-ink)] text-center focus:outline-none focus:ring-2 focus:ring-brand-500"
+                className="cc-form-input w-20 text-center"
                 min={10}
                 max={300}
               />
@@ -163,7 +163,7 @@ export default function SettingsPage() {
                 type="number"
                 value={downAlertThreshold}
                 onChange={(e) => setDownAlertThreshold(Number(e.target.value))}
-                className="w-20 bg-dashboard-border/30 border border-dashboard-border rounded-[var(--cc-radius-sm)] px-3 py-1.5 text-[var(--cc-ink)] text-center focus:outline-none focus:ring-2 focus:ring-brand-500"
+                className="cc-form-input w-20 text-center"
                 min={10}
                 max={600}
               />
@@ -181,7 +181,7 @@ export default function SettingsPage() {
                 type="number"
                 value={degradedAlertThreshold}
                 onChange={(e) => setDegradedAlertThreshold(Number(e.target.value))}
-                className="w-20 bg-dashboard-border/30 border border-dashboard-border rounded-[var(--cc-radius-sm)] px-3 py-1.5 text-[var(--cc-ink)] text-center focus:outline-none focus:ring-2 focus:ring-brand-500"
+                className="cc-form-input w-20 text-center"
                 min={10}
                 max={600}
               />
@@ -201,7 +201,7 @@ export default function SettingsPage() {
               type="text"
               value={apiUrl}
               onChange={(e) => setApiUrl(e.target.value)}
-              className="w-full bg-dashboard-border/30 border border-dashboard-border rounded-[var(--cc-radius-sm)] px-3 py-2 text-[var(--cc-ink)] font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+              className="cc-form-input font-mono"
             />
           </div>
           <div>
@@ -210,7 +210,7 @@ export default function SettingsPage() {
               type="text"
               value={wsUrl}
               onChange={(e) => setWsUrl(e.target.value)}
-              className="w-full bg-dashboard-border/30 border border-dashboard-border rounded-[var(--cc-radius-sm)] px-3 py-2 text-[var(--cc-ink)] font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+              className="cc-form-input font-mono"
             />
           </div>
         </div>
@@ -244,7 +244,7 @@ export default function SettingsPage() {
         <button
           onClick={() => {
             setRefreshInterval(30);
-            setTheme("dark");
+            setTheme("light");
             setDemoMode(true);
             setSoundEnabled(false);
             setEmailAlerts(true);
@@ -253,13 +253,13 @@ export default function SettingsPage() {
             setApiUrl("https://api.cinacoin.com");
             setWsUrl("wss://ws.cinacoin.com");
           }}
-          className="px-4 py-2 text-sm text-dashboard-muted border border-dashboard-border rounded-[100px] hover:text-[var(--cc-ink)] hover:border-white/30 transition-colors"
+          className="cc-btn-secondary-sm"
         >
           Reset
         </button>
         <button
           onClick={handleSave}
-          className="px-4 py-2 text-sm bg-brand-500 text-[var(--cc-ink)] rounded-[100px] hover:bg-brand-600 transition-colors font-medium"
+          className="cc-btn-primary-sm"
         >
           Save Settings
         </button>

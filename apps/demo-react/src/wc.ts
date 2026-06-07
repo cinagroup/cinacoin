@@ -1,16 +1,17 @@
 /**
  * WalletConnect SDK wrapper module.
- * 
- * This module provides a barrier that prevents Rollup from tree-shaking
- * the WalletConnect SDK. The SDK is imported statically and exposed
- * through the `getEthereumProvider()` function.
+ *
+ * This module provides a lazy-loaded barrier that defers the WalletConnect SDK
+ * import until a user actually attempts a WalletConnect connection.
+ * This keeps the initial bundle small.
  */
-import { EthereumProvider } from '@walletconnect/ethereum-provider'
 
-// Expose the provider class so Rollup can't tree-shake the import
-export { EthereumProvider }
+let cachedProvider: typeof import('@walletconnect/ethereum-provider').EthereumProvider | null = null
 
-// Force the module to be retained by exposing at runtime
-if (typeof globalThis !== 'undefined') {
-  ;(globalThis as any).__CINA_WC = EthereumProvider
+export async function getEthereumProvider() {
+  if (!cachedProvider) {
+    const mod = await import('@walletconnect/ethereum-provider')
+    cachedProvider = mod.EthereumProvider
+  }
+  return cachedProvider
 }
