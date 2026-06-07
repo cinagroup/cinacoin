@@ -7,7 +7,13 @@
 
 import http from 'node:http';
 import { TxIndexer } from './indexer.js';
-import type { IndexerConfig, ApiHealthStatus, RestApiConfig } from './types.js';
+import type {
+  IndexerConfig,
+  ApiHealthStatus,
+  RestApiConfig,
+  EventQuery,
+  EventType,
+} from './types.js';
 
 // ---------------------------------------------------------------------------
 // CORS Configuration (Production Security)
@@ -28,7 +34,8 @@ function isAllowedOrigin(origin: string | undefined): boolean {
 }
 
 function setCorsHeaders(res: http.ServerResponse, origin?: string): void {
-  const allowedOrigin = isAllowedOrigin(origin) ? origin : ALLOWED_ORIGINS[0];
+  const allowedOrigin =
+    isAllowedOrigin(origin) && origin ? origin : ALLOWED_ORIGINS[0];
   res.setHeader('Access-Control-Allow-Origin', allowedOrigin);
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
@@ -268,11 +275,11 @@ export class IndexerServer {
       return;
     }
 
-    const q = {
-      address: address,
+    const q: EventQuery = {
+      address: address ?? undefined,
       chainId,
-      eventType: params.get('eventType') || undefined,
-      tokenAddress,
+      eventType: (params.get('eventType') as EventType | null) ?? undefined,
+      tokenAddress: tokenAddress ?? undefined,
       timeFrom,
       timeTo,
       blockFrom,
