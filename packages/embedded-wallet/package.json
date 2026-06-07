@@ -20,7 +20,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@noble/secp256k1": "^2.1.0",
+    "@noble/curves": "^1.2.0",
     "@noble/hashes": "^1.5.0"
   },
   "peerDependencies": {
