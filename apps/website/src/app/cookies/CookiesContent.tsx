@@ -70,7 +70,7 @@ export default function CookiesContent() {
       {/* Hero */}
       <section className="relative pt-32 pb-16 sm:pt-40 sm:pb-20">
         <FadeIn>
-          <div className="mx-auto max-w-3xl px-6">
+          <div id="main-content" className="mx-auto max-w-3xl px-6">
             <h1 className="cc-display-xl text-[var(--cc-ink)]">
               {t('cookies-title')}
             </h1>

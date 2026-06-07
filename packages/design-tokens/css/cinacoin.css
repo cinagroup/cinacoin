@@ -157,10 +157,22 @@ a:hover { color: var(--cc-link-deep); }
 }
 
 /* ── Typography utilities ── */
-.cc-display-xl { font-size: 48px; font-weight: 600; line-height: 48px; letter-spacing: -2.4px; }
-.cc-display-lg { font-size: 32px; font-weight: 600; line-height: 40px; letter-spacing: -1.28px; }
-.cc-display-md { font-size: 24px; font-weight: 600; line-height: 32px; letter-spacing: -0.96px; }
-.cc-display-sm { font-size: 20px; font-weight: 600; line-height: 28px; letter-spacing: -0.6px; }
+.cc-display-xl { font-size: 32px; font-weight: 600; line-height: 36px; letter-spacing: -1.28px; }
+.cc-display-lg { font-size: 24px; font-weight: 600; line-height: 32px; letter-spacing: -0.96px; }
+.cc-display-md { font-size: 20px; font-weight: 600; line-height: 28px; letter-spacing: -0.6px; }
+.cc-display-sm { font-size: 18px; font-weight: 600; line-height: 28px; letter-spacing: -0.4px; }
+@media (min-width: 640px) {
+  .cc-display-xl { font-size: 40px; line-height: 44px; letter-spacing: -1.8px; }
+  .cc-display-lg { font-size: 28px; line-height: 36px; letter-spacing: -1.1px; }
+  .cc-display-md { font-size: 22px; line-height: 30px; letter-spacing: -0.8px; }
+  .cc-display-sm { font-size: 18px; line-height: 28px; letter-spacing: -0.4px; }
+}
+@media (min-width: 1024px) {
+  .cc-display-xl { font-size: 48px; line-height: 48px; letter-spacing: -2.4px; }
+  .cc-display-lg { font-size: 32px; line-height: 40px; letter-spacing: -1.28px; }
+  .cc-display-md { font-size: 24px; line-height: 32px; letter-spacing: -0.96px; }
+  .cc-display-sm { font-size: 20px; line-height: 28px; letter-spacing: -0.6px; }
+}
 .cc-body-lg { font-size: 18px; font-weight: 400; line-height: 28px; }
 .cc-body-md { font-size: 16px; font-weight: 400; line-height: 24px; }
 .cc-body-md-strong { font-size: 16px; font-weight: 500; line-height: 24px; }
@@ -395,3 +407,23 @@ select.cc-form-input option { background: var(--cc-canvas); color: var(--cc-ink)
   box-shadow: var(--cc-level3);
 }
 pre, code { max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+/* Screen-reader only utility */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0, 0, 0, 0); white-space: nowrap;
+  border-width: 0;
+}
+
+/* Focus-visible for keyboard navigation on all interactive elements */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--cc-link);
+  outline-offset: 2px;
+}
+
+/* Improve touch targets on mobile */
+@media (max-width: 639px) {
+  .cc-btn-primary, .cc-btn-secondary { min-height: 44px; }
+  .cc-navbar-link { min-height: 44px; display: inline-flex; align-items: center; }
+}

@@ -54,10 +54,8 @@ export default function ChangelogContent() {
       {/* Hero */}
       <section className="relative pt-32 pb-16 sm:pt-40 sm:pb-20">
         <FadeIn>
-          <div className="cc-container mx-auto max-w-4xl px-6 text-center">
-            <h1 className="cc-display-xl">
-              <span className="text-[var(--cc-link)]">{t('changelog-hero-title')}</span>
-            </h1>
+          <div id="main-content" className="cc-container mx-auto max-w-4xl px-6 text-center">
+            <h1 className="cc-display-xl">{t('changelog-hero-title')}</h1>
             <p className="mt-6 cc-body-lg text-[var(--cc-body)]">
               {t('changelog-hero-subtitle')}
             </p>

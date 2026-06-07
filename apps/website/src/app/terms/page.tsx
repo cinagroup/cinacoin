@@ -15,7 +15,9 @@ export default function TermsPage() {
   return (
     <main className="min-h-screen bg-[var(--cc-canvas-soft)] text-[var(--cc-ink)]">
       <Navbar />
+      <div id="main-content">
       <TermsContent />
+      </div>
       <Footer />
     </main>
   )

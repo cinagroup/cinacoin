@@ -13,7 +13,7 @@ export default function ProgressRing({ value, size = 80, strokeWidth = 6, color 
 
   return (
     <div className="flex flex-col items-center gap-1">
-      <div className="relative" role="progressbar" aria-valuenow={value} aria-valuemin={0} aria-valuemax={100} aria-label={label || "Progress"}>
+      <div className="relative" role="progressbar" aria-valuenow={value} aria-valuemin={0} aria-valuemax={100} aria-label={label ? `${label}: ${value}%` : `${value}%`}>
         <svg width={size} height={size} className="transform -rotate-90" aria-hidden="true">
           <circle
             cx={size / 2}

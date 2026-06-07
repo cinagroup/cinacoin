@@ -15,7 +15,7 @@ export default function ContactContent() {
       {/* Hero */}
       <section className="relative pt-32 pb-16 sm:pt-40 sm:pb-20">
         <FadeIn>
-          <div className="cc-container text-center">
+          <div id="main-content" className="cc-container text-center">
             <h1 className="cc-display-xl">{t('contact-title')}</h1>
             <p className="cc-body-lg text-[var(--cc-body)] mt-6 max-w-xl mx-auto">
               {t('contact-subtitle')}
@@ -70,13 +70,20 @@ export default function ContactContent() {
                     <label htmlFor="subject" className="cc-body-sm-strong block mb-2">
                       {t('contact-form-subject')}
                     </label>
-                    <select id="subject" name="subject" className="cc-form-input" defaultValue="">
+                    <select
+                      id="subject"
+                      name="subject"
+                      className="cc-form-input"
+                      defaultValue=""
+                      aria-describedby="subject-help"
+                    >
                       <option value="" disabled>{t('contact-form-subject-placeholder')}</option>
                       <option value="sales">{t('contact-form-subject-sales')}</option>
                       <option value="support">{t('contact-form-subject-support')}</option>
                       <option value="partnership">{t('contact-form-subject-partnership')}</option>
                       <option value="other">{t('contact-form-subject-other')}</option>
                     </select>
+                    <span id="subject-help" className="sr-only">Select a topic for your message</span>
                   </div>
 
                   {/* Message */}

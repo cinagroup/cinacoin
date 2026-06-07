@@ -5,16 +5,16 @@
       "bg-hover": { "value": "{semantic.colors.brand-hover}" },
       "bg-active": { "value": "{semantic.colors.brand-active}" },
       "text-color": { "value": "{semantic.colors.text-inverse}" },
-      "padding-x": { "value": "{semantic.spacing.lg}" },
-      "padding-y": { "value": "{semantic.spacing.sm}" },
-      "radius": { "value": "{semantic.radii.xl}" },
+      "padding-x": { "value": "{semantic.spacing.sm}" },
+      "padding-y": { "value": "{semantic.spacing.xs}" },
+      "radius": { "value": "{semantic.radii.full}" },
       "font-size": { "value": "{semantic.typography.size-sm}" },
       "font-weight": { "value": "{semantic.typography.weight-semibold}" },
-      "shadow": { "value": "{semantic.shadows.glow}" },
+      "shadow": { "value": "{semantic.shadows.level2}" },
       "min-width": { "value": "180px" },
-      "height-sm": { "value": "36px" },
+      "height-sm": { "value": "32px" },
       "height-md": { "value": "44px" },
-      "height-lg": { "value": "52px" },
+      "height-lg": { "value": "48px" },
       "avatar-size": { "value": "24px" },
       "connected-bg": { "value": "{semantic.colors.bg-card}" },
       "connected-border": { "value": "{semantic.colors.border}" }
@@ -22,13 +22,13 @@
 
     "connect-modal": {
       "overlay-bg": { "value": "rgba(0, 0, 0, 0.7)" },
-      "bg": { "value": "{semantic.colors.bg-primary}" },
-      "radius": { "value": "{semantic.radii.xl}" },
+      "bg": { "value": "{semantic.colors.canvas}" },
+      "radius": { "value": "{semantic.radii.lg}" },
       "max-width": { "value": "420px" },
       "padding": { "value": "{semantic.spacing.lg}" },
-      "shadow": { "value": "{semantic.shadows.lg}" },
+      "shadow": { "value": "{semantic.shadows.level4}" },
       "header-padding": { "value": "{semantic.spacing.lg}" },
-      "wallet-card-gap": { "value": "{semantic.spacing.3}" },
+      "wallet-card-gap": { "value": "{semantic.spacing.xs}" },
       "divider-color": { "value": "{semantic.colors.border}" },
       "footer-text-color": { "value": "{semantic.colors.text-tertiary}" }
     },
@@ -51,7 +51,7 @@
 
     "wallet-list": {
       "bg": { "value": "{semantic.colors.bg-primary}" },
-      "gap": { "value": "{semantic.spacing.3}" },
+      "gap": { "value": "{semantic.spacing.sm}" },
       "max-height": { "value": "360px" },
       "scrollbar-thumb": { "value": "{semantic.colors.border}" }
     },
@@ -106,8 +106,8 @@
       "bg": { "value": "{semantic.colors.bg-card}" },
       "border": { "value": "1px solid {semantic.colors.border}" },
       "radius": { "value": "{semantic.radii.full}" },
-      "padding-x": { "value": "{semantic.spacing.2}" },
-      "padding-y": { "value": "{semantic.spacing.1}" },
+      "padding-x": { "value": "{semantic.spacing.xs}" },
+      "padding-y": { "value": "{semantic.spacing.xs}" },
       "icon-size": { "value": "14px" },
       "text-font-size": { "value": "{semantic.typography.size-xs}" },
       "text-font-weight": { "value": "{semantic.typography.weight-medium}" }

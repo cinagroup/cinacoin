@@ -55,7 +55,6 @@ const STATS = [
 ];
 
 /* ── particles ── */
-// Decorative particles removed per DESIGN.md: "mesh gradient is the only decorative chrome"
 const PARTICLES: { id: number; size: number; left: number; top: number; duration: number; delay: number; color: string }[] = [];
 
 /* ── chain badge with hover glow ── */
@@ -63,22 +62,10 @@ function ChainBadge({ chain }: { chain: (typeof CHAINS)[number] }) {
   return (
     <div
       className="group flex items-center gap-2 px-3 py-2 rounded-[var(--cc-radius-md)] bg-[var(--cc-canvas)]/80 border border-[var(--cc-hairline)] hover:border-[var(--cc-hairline-strong)] transition-all duration-300 cursor-default shrink-0 hover:-translate-y-0.5"
-      style={{
-        transition: 'all 0.3s ease',
-      }}
     >
       <span
         className="inline-flex size-5 items-center justify-center rounded-full text-[12px] font-semibold text-[var(--cc-ink)] transition-all duration-300 group-hover:shadow-[var(--cc-level3)]"
-        style={{
-          backgroundColor: chain.color,
-          boxShadow: 'none',
-        }}
-        onMouseEnter={(e) => {
-          (e.currentTarget as HTMLElement).style.boxShadow = `0 0 12px 4px ${chain.color}60`;
-        }}
-        onMouseLeave={(e) => {
-          (e.currentTarget as HTMLElement).style.boxShadow = 'none';
-        }}
+        style={{ backgroundColor: chain.color }}
       >
         {chain.initial}
       </span>
@@ -102,7 +89,7 @@ function FeatureCard({ feature, delay }: { feature: (typeof FEATURES)[number]; d
     >
       <div className="absolute inset-0 rounded-[var(--cc-radius-md)] bg-gradient-to-br from-[var(--cc-link)]/5 to-[var(--cc-link)]/3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
       <div className="relative">
-        <div className="text-3xl mb-4">{feature.icon}</div>
+        <div className="text-3xl mb-4" aria-hidden="true">{feature.icon}</div>
         <h3 className="text-base font-semibold text-[var(--cc-ink)] mb-2">
           {feature.title}
         </h3>
@@ -129,21 +116,16 @@ function BackendStatus() {
   const total = Object.keys(WORKER_URLS).length;
 
   return (
-    <section className="w-full max-w-2xl px-4 py-8">
+    <section className="w-full max-w-2xl px-4 py-8" aria-label="Backend status">
       <div className="relative bg-[var(--cc-primary)] rounded-[var(--cc-radius-md)] border border-[var(--cc-success)]/40 overflow-hidden"
         style={{
           boxShadow: '0px 2px 2px #0000000a, 0px 8px 8px -8px #0000000a, 0 0 0 1px #00000014',
         }}
       >
-        {/* Scan line effect removed per DESIGN.md */}
-        {/* <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[var(--cc-radius-md)]">
-          <div className="absolute inset-x-0 h-px bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent animate-[scan-line_3s_linear_infinite]" />
-        </div> */}
-
         {/* Card header */}
         <div className="relative flex items-center justify-between px-5 py-3 border-b border-[var(--cc-success)]/30">
           <div className="flex items-center gap-3">
-            <div className="flex gap-1.5">
+            <div className="flex gap-1.5" aria-hidden="true">
               <span className="size-3 rounded-full bg-[var(--cc-error)]/80" />
               <span className="size-3 rounded-full bg-[var(--cc-warning)]/80" />
               <span className="size-3 rounded-full bg-[var(--cc-success)]/80" />
@@ -161,8 +143,9 @@ function BackendStatus() {
             <button
               onClick={refresh}
               disabled={loading}
-              className="text-xs text-[var(--cc-body)] hover:text-[var(--cc-success)] transition-colors disabled:opacity-50"
+              className="text-xs text-[var(--cc-body)] hover:text-[var(--cc-success)] transition-colors disabled:opacity-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cc-link)] focus-visible:ring-offset-2"
               title="Refresh"
+              aria-label="Refresh health check"
             >
               {loading ? (
                 <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
@@ -187,6 +170,7 @@ function BackendStatus() {
                   ? 'bg-[var(--cc-warning)]/10 text-[var(--cc-warning)] border border-yellow-500/20'
                   : 'bg-[var(--cc-error)]/10 text-[var(--cc-error)] border border-[var(--cc-error)]/20'
               }`}
+              role="status"
             >
               <span
                 className={`size-2 rounded-full ${
@@ -196,10 +180,6 @@ function BackendStatus() {
                     ? 'bg-[var(--cc-warning)]'
                     : 'bg-[var(--cc-error)]'
                 }`}
-                style={{
-                  color: healthyCount === total ? '#34d399' : healthyCount > 0 ? '#facc15' : '#f87171',
-                  animation: 'pulse-glow 2s ease-in-out infinite',
-                }}
               />
               {healthyCount}/{total} Workers Online
             </span>
@@ -226,10 +206,6 @@ function BackendStatus() {
                   className={`size-2 rounded-full ${
                     result.healthy ? 'bg-[var(--cc-success)]' : 'bg-[var(--cc-error)]'
                   }`}
-                  style={result.healthy ? {
-                    color: '#34d399',
-                    animation: 'pulse-glow 2s ease-in-out infinite',
-                  } : undefined}
                 />
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-mono text-[var(--cc-body)]">
@@ -290,7 +266,7 @@ function SuccessParticles() {
   }));
 
   return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+    <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
       {particles.map((p) => (
         <div
           key={p.id}
@@ -312,9 +288,8 @@ function SuccessParticles() {
 /* ── connecting overlay ── */
 function ConnectingOverlay() {
   return (
-    <div className="flex flex-col items-center justify-center py-10 space-y-5 animate-status-transition">
-      {/* Pulsing ring animation */}
-      <div className="relative">
+    <div className="flex flex-col items-center justify-center py-10 space-y-5 animate-status-transition" role="status" aria-live="polite">
+      <div className="relative" aria-hidden="true">
         <div className="w-16 h-16 rounded-full border-2 border-[var(--cc-primary)]/30 animate-ping-once" />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[var(--cc-link)]/20 to-[var(--cc-violet)]/20 border border-[var(--cc-primary)]/40 flex items-center justify-center">
@@ -339,14 +314,11 @@ export default function HomePage() {
   const { success, error: toastError, info } = useToast();
   const isConnected = status === 'connected';
   const isConnecting = status === 'connecting';
-  const wasConnecting = status === 'connected' && account.address; // for success animation trigger
 
-  // For the chain selector in the demo card, use a local state
   const [selectedChain, setSelectedChain] = useState('Ethereum');
   const [connectionHistory, setConnectionHistory] = useState<ConnectionRecord[]>([]);
   const [showSuccessParticles, setShowSuccessParticles] = useState(false);
 
-  // Section refs for scroll animations
   const statsSection = useInView(0.1);
   const chainsSection = useInView(0.1);
   const ctaSection = useInView(0.1);
@@ -355,7 +327,6 @@ export default function HomePage() {
     setConnectionHistory(getConnectionHistory());
   }, []);
 
-  // Record connection in history
   const handleConnect = useCallback(async (connectorId: string) => {
     try {
       await connect(connectorId);
@@ -364,7 +335,6 @@ export default function HomePage() {
     }
   }, [connect, toastError]);
 
-  // Watch for connection success
   useEffect(() => {
     if (isConnected && account.address) {
       const connector = connectors.find((c) => c.id === 'io.metamask') ?? connectors[0];
@@ -378,7 +348,6 @@ export default function HomePage() {
       });
       setConnectionHistory(getConnectionHistory());
       success('Wallet Connected', `${shortenAddress(account.address)} on ${account.chainName}`);
-      // Trigger success celebration
       setShowSuccessParticles(true);
       setTimeout(() => setShowSuccessParticles(false), 2000);
     }
@@ -399,6 +368,7 @@ export default function HomePage() {
   return (
     <div className="flex flex-col items-center min-h-screen relative">
       <Header />
+
       {/* ── background particles ── */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
         {PARTICLES.map((p) => (
@@ -427,7 +397,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════
           HERO SECTION
          ═══════════════════════════════════════════ */}
-      <section className="relative w-full max-w-4xl text-center space-y-8 pt-8 sm:pt-20 pb-12 px-4 z-10">
+      <section className="relative w-full max-w-4xl text-center space-y-8 pt-8 sm:pt-20 pb-12 px-4 z-10" aria-label="Hero">
         {/* Mesh gradient backdrop (matches cinacoin.com homepage hero) */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
           <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[1000px] h-[520px] cc-mesh-gradient-strong" />
@@ -444,24 +414,22 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Title — ink headline, matching cinacoin.com homepage */}
-        <h1 className="relative text-5xl sm:text-6xl font-semibold text-[var(--cc-ink)]" style={{ letterSpacing: '-0.05em', lineHeight: '1.05' }}>
-          The open-source wallet connection toolkit
+        {/* Title — ink headline, sentence-case period-terminated per DESIGN.md */}
+        <h1 className="relative text-[48px] font-[600] text-[var(--cc-ink)] leading-[48px] tracking-[-2.4px]">
+          The open-source wallet connection toolkit.
         </h1>
 
-        {/* Subtitle */}
-        {/* Description */}
-        <p className="relative text-base sm:text-lg text-[var(--cc-body)] max-w-xl mx-auto leading-relaxed">
-          Connect wallets, swap tokens, bridge chains across 16 networks.
-          Fully self-hosted. Zero vendor lock-in.
+        {/* Description — body-lg per DESIGN.md */}
+        <p className="relative text-[18px] text-[var(--cc-body)] max-w-xl mx-auto leading-[28px]">
+          Connect wallets, swap tokens, bridge chains across 16 networks. Fully self-hosted. Zero vendor lock-in.
         </p>
 
-        {/* CTA Buttons */}
+        {/* CTA Buttons — button-lg per DESIGN.md (16px/500/24px, pill 100px) */}
         <div className="relative flex flex-wrap items-center justify-center gap-4 pt-2">
           <button
             onClick={() => handleConnect('io.metamask')}
             disabled={isConnecting}
-            className="px-8 py-4 rounded-[100px] font-medium text-base bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all duration-200 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-8 py-4 rounded-[100px] font-[500] text-[16px] leading-[24px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all duration-200 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
             style={{
               boxShadow: '0px 1px 1px #00000005, 0px 2px 2px #0000000a',
             }}
@@ -478,13 +446,13 @@ export default function HomePage() {
           </button>
           <Link
             href="/swap"
-            className="px-6 py-4 rounded-[100px] font-medium text-base bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline-strong)]/60 text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all duration-200"
+            className="px-6 py-4 rounded-[100px] font-[500] text-[16px] leading-[24px] bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline-strong)]/60 text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all duration-200"
           >
             Try Swap Demo →
           </Link>
           <Link
             href="/multi-chain"
-            className="px-6 py-4 rounded-[100px] font-medium text-base bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline-strong)]/60 text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all duration-200"
+            className="px-6 py-4 rounded-[100px] font-[500] text-[16px] leading-[24px] bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline-strong)]/60 text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all duration-200"
           >
             Multi-Chain →
           </Link>
@@ -494,19 +462,16 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════
           LIVE DEMO CARD
          ═══════════════════════════════════════════ */}
-      <section className="relative w-full max-w-2xl px-4 py-8 z-10">
+      <section className="relative w-full max-w-2xl px-4 py-8 z-10" aria-label="Live demo">
         <div className="relative bg-[var(--cc-primary)] rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/50 overflow-hidden"
           style={{
             boxShadow: '0px 2px 2px #0000000a, 0px 8px 16px -4px #0000000a, 0 0 0 1px #00000014',
           }}
         >
-          {/* Gradient border glow */}
-          <div className="absolute -inset-px rounded-[var(--cc-radius-md)] bg-gradient-to-r from-[var(--cc-link)]/20 via-[var(--cc-link)]/15 to-[var(--cc-link)]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-
           {/* Card header */}
           <div className="relative flex items-center justify-between px-6 py-4 border-b border-[var(--cc-hairline-strong)]/40">
             <div className="flex items-center gap-3">
-              <div className="flex gap-1.5">
+              <div className="flex gap-1.5" aria-hidden="true">
                 <span className="size-3 rounded-full bg-[var(--cc-error)]/60" />
                 <span className="size-3 rounded-full bg-[var(--cc-warning)]/60" />
                 <span className="size-3 rounded-full bg-[var(--cc-success)]/60" />
@@ -522,6 +487,7 @@ export default function HomePage() {
                     ? 'bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border border-yellow-500/20'
                     : 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/40'
                 }`}
+                role="status"
               >
                 <span
                   className={`size-2 rounded-full ${
@@ -535,13 +501,9 @@ export default function HomePage() {
 
           {/* Card body */}
           <div className="relative p-6 sm:p-8 space-y-6">
-            {/* Connecting overlay */}
             {isConnecting && <ConnectingOverlay />}
-
-            {/* Success celebration particles */}
             {showSuccessParticles && <SuccessParticles />}
 
-            {/* Wallet connection options when not connected */}
             {!isConnected && !isConnecting && connectors.length > 0 && (
               <div className="space-y-3">
                 <p className="text-xs text-[var(--cc-muted)] uppercase tracking-normal">Available Wallets</p>
@@ -567,7 +529,6 @@ export default function HomePage() {
               </div>
             )}
 
-            {/* No wallet detected */}
             {!isConnected && !isConnecting && connectors.length === 0 && (
               <div className="text-center py-6">
                 <p className="text-[var(--cc-muted)] text-sm">No wallet extension detected.</p>
@@ -581,12 +542,9 @@ export default function HomePage() {
               </div>
             )}
 
-            {/* Connected state */}
             {isConnected && account.address && (
               <div className="relative flex items-center gap-4 p-4 rounded-[var(--cc-radius-md)] bg-[var(--cc-canvas)]/60 border border-[var(--cc-success)]/20 animate-status-transition overflow-hidden">
-                {/* Subtle green glow */}
                 <div className="absolute inset-0 bg-gradient-to-r from-green-500/5 to-transparent pointer-events-none" />
-                {/* Avatar with ring */}
                 <div className="relative shrink-0">
                   <div className="size-12 rounded-full bg-[var(--cc-link)]/15 flex items-center justify-center text-sm font-semibold text-[var(--cc-link)]">
                     {account.address.slice(2, 4).toUpperCase()}
@@ -608,9 +566,8 @@ export default function HomePage() {
               </div>
             )}
 
-            {/* Error state */}
             {error && (
-              <div className="p-4 rounded-[var(--cc-radius-md)] bg-[var(--cc-error)]/10 border border-[var(--cc-error)]/20">
+              <div className="p-4 rounded-[var(--cc-radius-md)] bg-[var(--cc-error)]/10 border border-[var(--cc-error)]/20" role="alert">
                 <p className="text-sm text-[var(--cc-error)]">{error}</p>
               </div>
             )}
@@ -682,7 +639,7 @@ export default function HomePage() {
             </div>
 
             {/* Status indicators */}
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-3 gap-3" role="status" aria-label="Connection status">
               <div className="p-3 rounded-[var(--cc-radius-md)] bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline)]/50">
                 <p className="text-[12px] uppercase tracking-normal text-[var(--cc-body)] mb-1">Status</p>
                 <div className="flex items-center gap-1.5">
@@ -724,14 +681,15 @@ export default function HomePage() {
       <section
         ref={statsSection.ref}
         className={`w-full max-w-4xl px-4 py-16 z-10 ${statsSection.isInView ? 'animate-fade-in-up' : 'opacity-0'}`}
+        aria-label="Statistics"
       >
         <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
           {STATS.map((s) => (
             <div key={s.label} className="text-center">
-              <div className="text-3xl sm:text-4xl font-semibold tracking-tight text-[var(--cc-ink)]">
+              <div className="text-[32px] font-[600] tracking-[-1.28px] leading-[40px] text-[var(--cc-ink)]">
                 {s.value}
               </div>
-              <div className="text-xs text-[var(--cc-body)] mt-1 font-medium">{s.label}</div>
+              <div className="text-[12px] text-[var(--cc-body)] mt-1 font-medium cc-caption-mono">{s.label}</div>
             </div>
           ))}
         </div>
@@ -740,16 +698,12 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════
           FEATURE GRID (3x3)
          ═══════════════════════════════════════════ */}
-      <section className="w-full max-w-4xl px-4 py-12 z-10">
+      <section className="w-full max-w-4xl px-4 py-12 z-10" aria-label="Features">
         <div className="text-center mb-10">
-          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tighter text-[var(--cc-ink)] mb-3">
-            Everything you need to{' '}
-            <span className="text-[var(--cc-link)]"
-              style={{ backgroundSize: '200% 200%' }}>
-              connect wallets
-            </span>
+          <h2 className="text-[32px] font-[600] tracking-[-1.28px] leading-[40px] text-[var(--cc-ink)] mb-3">
+            Everything you need to connect wallets.
           </h2>
-          <p className="text-[var(--cc-body)] max-w-lg mx-auto">
+          <p className="text-[16px] text-[var(--cc-body)] leading-[24px] max-w-lg mx-auto">
             A complete toolkit for wallet connections, cross-chain operations, and account abstraction — all open source.
           </p>
         </div>
@@ -767,17 +721,18 @@ export default function HomePage() {
       <section
         ref={chainsSection.ref}
         className={`w-full max-w-4xl px-4 py-16 z-10 ${chainsSection.isInView ? 'animate-fade-in-up' : 'opacity-0'}`}
+        aria-label="Supported chains"
       >
         <div className="text-center mb-8">
-          <h2 className="text-2xl sm:text-3xl font-semibold tracking-tighter text-[var(--cc-ink)] mb-2">
-            16 Chains Supported
+          <h2 className="text-[24px] font-[600] tracking-[-0.96px] leading-[32px] text-[var(--cc-ink)] mb-2">
+            16 chains supported.
           </h2>
-          <p className="text-sm text-[var(--cc-body)]">
+          <p className="text-[14px] text-[var(--cc-body)] leading-[20px] tracking-[-0.28px]">
             EVM · Solana · Bitcoin · Layer 2s — one SDK, every network
           </p>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-2">
+        <div className="flex flex-wrap justify-center gap-2" role="list">
           {CHAINS.map((c) => (
             <ChainBadge key={c.symbol} chain={c} />
           ))}
@@ -788,7 +743,7 @@ export default function HomePage() {
           CONNECTION HISTORY
          ═══════════════════════════════════════════ */}
       {connectionHistory.length > 0 && (
-        <section className="w-full max-w-2xl px-4 py-8 z-10">
+        <section className="w-full max-w-2xl px-4 py-8 z-10" aria-label="Connection history">
           <div className="bg-[var(--cc-canvas-soft-2)]/40 backdrop-blur rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
             <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50 flex items-center justify-between">
               <h2 className="text-lg font-semibold tracking-tight text-[var(--cc-ink)]">Recent Connections</h2>
@@ -832,58 +787,61 @@ export default function HomePage() {
       <section
         ref={ctaSection.ref}
         className={`w-full max-w-2xl px-4 py-20 text-center z-10 ${ctaSection.isInView ? 'animate-fade-in-up' : 'opacity-0'}`}
+        aria-label="Call to action"
       >
         <div className="relative p-10 sm:p-14 rounded-[var(--cc-radius-md)] bg-[var(--cc-primary)] border border-[var(--cc-hairline-strong)]/40 overflow-hidden"
           style={{
             boxShadow: '0px 2px 2px #0000000a, 0px 8px 16px -4px #0000000a, 0 0 0 1px #00000014',
           }}
         >
-          {/* Subtle shimmer effect */}
-          <div className="absolute inset-0 animate-shimmer pointer-events-none" />
           <div className="relative">
-            <h2 className="text-3xl sm:text-4xl font-semibold tracking-tighter text-[var(--cc-ink)] mb-3">
-              Ready to get started?
+            <h2 className="text-[32px] font-[600] tracking-[-1.28px] leading-[40px] text-[var(--on-primary)] mb-3">
+              Ready to get started.
             </h2>
-            <p className="text-[var(--cc-body)] mb-8 max-w-md mx-auto">
+            <p className="text-[18px] text-[var(--cc-body)] mb-8 max-w-md mx-auto leading-[28px]">
               Start building with Cinacoin. Open source, self-hosted, and free forever.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Link
                 href="/swap"
-                className="px-8 py-4 rounded-[100px] font-medium text-base bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all duration-200 hover:-translate-y-0.5"
+                className="px-8 py-4 rounded-[100px] font-[500] text-[16px] leading-[24px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all duration-200 hover:-translate-y-0.5"
                 style={{
                   boxShadow: '0px 1px 1px #00000005, 0px 2px 2px #0000000a',
                 }}
               >
                 Get Started
               </Link>
-              <button className="px-8 py-4 rounded-[100px] font-medium text-base bg-transparent border border-[var(--cc-hairline-strong)] text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all duration-200">
+              <a
+                href="https://docs.cinacoin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-8 py-4 rounded-[100px] font-[500] text-[16px] leading-[24px] bg-transparent border border-[var(--cc-hairline-strong)] text-[var(--cc-body)] hover:text-[var(--cc-on-primary)] transition-colors duration-200"
+              >
                 View Docs
-              </button>
+              </a>
             </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="relative w-full max-w-4xl px-4 py-8 border-t border-[var(--cc-hairline)]/50 z-10">
+      <footer className="relative w-full max-w-4xl px-4 py-8 border-t border-[var(--cc-hairline)]/50 z-10" role="contentinfo">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <p className="text-xs text-[var(--cc-body)]">
             © 2026 Cinacoin. Open source under MIT License.
           </p>
           <div className="flex items-center gap-4">
-            <Link href="/swap" className="text-xs text-[var(--cc-body)] hover:text-[var(--cc-body)] transition-colors">
+            <Link href="/swap" className="text-xs text-[var(--cc-body)] hover:text-[var(--cc-ink)] transition-colors">
               Swap
             </Link>
-            <Link href="/multi-chain" className="text-xs text-[var(--cc-body)] hover:text-[var(--cc-body)] transition-colors">
+            <Link href="/multi-chain" className="text-xs text-[var(--cc-body)] hover:text-[var(--cc-ink)] transition-colors">
               Multi-Chain
             </Link>
-            <span className="text-xs text-[var(--cc-ink)]">|</span>
             <a
               href="https://github.com/cinaseek/cinacoin"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs text-[var(--cc-body)] hover:text-[var(--cc-body)] transition-colors"
+              className="text-xs text-[var(--cc-body)] hover:text-[var(--cc-ink)] transition-colors"
             >
               GitHub
             </a>

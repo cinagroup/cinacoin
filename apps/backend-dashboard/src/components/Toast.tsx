@@ -45,8 +45,8 @@ export default function Toast({
 
   return (
     <div
-      role="status"
-      aria-live="polite"
+      role={type === "error" ? "alert" : "status"}
+      aria-live={type === "error" ? "assertive" : "polite"}
       className={`fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3 rounded-[var(--cc-radius-md)] border cc-body-sm ${bgMap[type]} ${textMap[type]}`}
       style={{ boxShadow: 'var(--cc-level3)' }}
     >

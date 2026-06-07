@@ -15,7 +15,9 @@ export default function PrivacyPage() {
   return (
     <main className="min-h-screen bg-[var(--cc-canvas-soft)] text-[var(--cc-ink)]">
       <Navbar />
+      <div id="main-content">
       <PrivacyContent />
+      </div>
       <Footer />
     </main>
   )

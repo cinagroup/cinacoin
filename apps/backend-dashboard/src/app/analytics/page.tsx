@@ -4,6 +4,12 @@ import { useState } from "react";
 import BarChart from "@/components/BarChart";
 import MetricBox from "@/components/MetricBox";
 
+function formatCompact(n: number): string {
+  if (n >= 1e6) return `${(n / 1e6).toFixed(1)}M`;
+  if (n >= 1e3) return `${(n / 1e3).toFixed(1)}K`;
+  return n.toLocaleString();
+}
+
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const MAU_DATA = [42000, 48000, 55000, 61000, 73000, 82000, 89000, 95000, 102000, 115000, 128000, 142000];
 const CONNECTIONS_DATA = [120000, 138000, 155000, 172000, 198000, 221000, 245000, 268000, 289000, 315000, 342000, 378000];
@@ -220,8 +226,4 @@ export default function AnalyticsPage() {
   );
 }
 
-function formatCompact(n: number): string {
-  if (n >= 1e6) return `${(n / 1e6).toFixed(1)}M`;
-  if (n >= 1e3) return `${(n / 1e3).toFixed(1)}K`;
-  return n.toLocaleString();
-}
+

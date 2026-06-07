@@ -14,9 +14,8 @@ export default function BarChart({ data, labels, color = "var(--cc-primary)", he
     <div
       className="cc-card"
       role="img"
-      aria-label="Bar chart showing data trends"
+      aria-label={ariaLabelledBy ? undefined : "Bar chart showing data trends"}
       aria-labelledby={ariaLabelledBy}
-      tabIndex={0}
     >
       <div
         className="flex items-end gap-1"
@@ -33,8 +32,6 @@ export default function BarChart({ data, labels, color = "var(--cc-primary)", he
                 backgroundColor: color,
                 minWidth: "4px",
               }}
-              role="img"
-              aria-label={`${labels[i]}: ${value.toLocaleString()}`}
               title={`${labels[i]}: ${value.toLocaleString()}`}
             >
               <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] text-[var(--cc-ink)] cc-caption px-2 py-1 rounded-[var(--cc-radius-sm)] opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10" role="tooltip" style={{ boxShadow: 'var(--cc-level1)' }}>

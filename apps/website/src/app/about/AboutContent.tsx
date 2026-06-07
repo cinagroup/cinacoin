@@ -25,7 +25,7 @@ export default function AboutContent() {
       {/* Hero */}
       <section className="relative pt-32 pb-16 sm:pt-40 sm:pb-20">
         <FadeIn>
-          <div className="cc-container mx-auto max-w-4xl px-6 text-center">
+          <div id="main-content" className="cc-container mx-auto max-w-4xl px-6 text-center">
             <h1 className="cc-display-xl">
               {t('about-hero-title')}{' '}
               <span className="text-[var(--cc-link)]">{t('about-hero-title-highlight')}</span>

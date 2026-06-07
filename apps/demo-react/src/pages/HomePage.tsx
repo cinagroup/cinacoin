@@ -77,7 +77,7 @@ const HomePage: React.FC = () => {
       <main id="main-content" role="main">
       {/* Hero */}
       <section className="relative overflow-hidden py-24 sm:py-32" aria-label="Hero">
-        {/* Mesh gradient background */}
+        {/* Mesh gradient background — the ONLY decorative chrome per DESIGN.md */}
         <div className="absolute inset-0 cc-mesh-gradient" />
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-4xl mx-auto">
@@ -86,6 +86,7 @@ const HomePage: React.FC = () => {
               ✨ Open source • 64 packages • Zero cost
             </span>
           </div>
+          {/* display-xl: 48px/600/48px/-2.4px, sentence-case period-terminated */}
           <h1 className="cc-display-xl mb-6 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
             Connect any wallet,
             <br />
@@ -121,7 +122,7 @@ const HomePage: React.FC = () => {
           <div className="cc-card">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div className="flex flex-wrap items-center gap-4">
-                <div className="w-10 h-10 rounded-full bg-[var(--cc-canvas-soft-2)] flex items-center justify-center text-lg border border-[var(--cc-hairline)]">
+                <div className="w-10 h-10 rounded-full bg-[var(--cc-canvas-soft-2)] flex items-center justify-center text-lg border border-[var(--cc-hairline)]" aria-hidden="true">
                   👤
                 </div>
                 <div>
@@ -145,14 +146,15 @@ const HomePage: React.FC = () => {
                     </div>
                   )}
                   {chainInfo.error && (
-                    <p className="text-xs text-[var(--cc-error)] font-medium">{chainInfo.error}</p>
+                    <p className="text-xs text-[var(--cc-error)] font-medium" role="alert">{chainInfo.error}</p>
                   )}
                 </div>
               </div>
               
               <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
-                <label className="text-sm text-[var(--cc-muted)] cc-body-sm">Chain:</label>
+                <label htmlFor="chain-select" className="text-sm text-[var(--cc-muted)] cc-body-sm">Chain:</label>
                 <select
+                  id="chain-select"
                   value={selectedChain}
                   onChange={(e) => setSelectedChain(e.target.value)}
                   className="cc-form-input !h-9 !w-auto text-sm"
@@ -199,7 +201,8 @@ const HomePage: React.FC = () => {
       {/* Features Grid */}
       <section className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-16" aria-label="Features">
         <div className="text-center mb-12">
-          <h2 className="cc-display-lg mb-4">Everything you need</h2>
+          {/* display-lg: 32px/600/40px/-1.28px, sentence-case period-terminated */}
+          <h2 className="cc-display-lg mb-4">Everything you need.</h2>
           <p className="cc-body-md text-[var(--cc-muted)] max-w-xl mx-auto">
             A complete wallet connection toolkit, open source and free.
           </p>
@@ -210,7 +213,6 @@ const HomePage: React.FC = () => {
               key={feature.title}
               className="cc-card animate-fade-in-up"
               style={{ animationDelay: `${i * 0.08}s` }}
-              aria-label={feature.title}
             >
               <div className="text-3xl mb-4" aria-hidden="true">{feature.icon}</div>
               <h3 className="cc-display-sm mb-2">{feature.title}</h3>
@@ -223,7 +225,7 @@ const HomePage: React.FC = () => {
       {/* Chain Showcase */}
       <section className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-16 mb-16" aria-label="Supported chains">
         <div className="text-center mb-12">
-          <h2 className="cc-display-lg mb-4">16 chains supported</h2>
+          <h2 className="cc-display-lg mb-4">16 chains supported.</h2>
           <p className="cc-body-md text-[var(--cc-muted)] max-w-xl mx-auto">
             From Ethereum to Solana, EVM to non-EVM — connect to any chain seamlessly.
           </p>

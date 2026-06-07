@@ -125,7 +125,7 @@ function WalletCard({ wallet }: { wallet: WalletRegistryEntry }) {
       href={wallet.homepage}
       target="_blank"
       rel="noopener noreferrer"
-      className="cc-card group flex flex-col gap-3 no-underline"
+      className="cc-card group flex flex-col gap-3 no-underline focus-visible:outline-2 focus-visible:outline-[var(--cc-link)] focus-visible:outline-offset-2"
       aria-label={`${wallet.name} wallet by ${wallet.developer ?? "Unknown"}. Supports: ${wallet.supportedChainFamilies.map(c => CHAIN_LABELS[c] ?? c).join(", ")}. Platforms: ${wallet.platforms.map(p => PLATFORM_LABELS[p] ?? p).join(", ")}. Popularity: ${wallet.popularity}%. Opens in new tab.`}
     >
       {/* Header */}
@@ -606,8 +606,13 @@ export default function WalletExplorerPage() {
       />
 
       {/* Hero Section */}
-      <section className="border-b border-[var(--cc-hairline)] bg-[var(--cc-canvas)] py-12 md:py-16">
-        <div className="cc-container px-4 sm:px-6 lg:px-8">
+      <section className="relative overflow-hidden border-b border-[var(--cc-hairline)] bg-[var(--cc-canvas)] py-12 md:py-16">
+        {/* Atmospheric mesh gradient backdrop (DESIGN.md: hero-scale decoration) */}
+        <div
+          className="pointer-events-none absolute inset-0 cc-mesh-gradient-strong"
+          aria-hidden="true"
+        />
+        <div className="cc-container relative z-10 px-4 sm:px-6 lg:px-8">
           <h1 className="cc-display-xl text-[var(--cc-ink)] mb-3">
             Wallet explorer.
           </h1>

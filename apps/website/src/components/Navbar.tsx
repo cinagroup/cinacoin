@@ -1,11 +1,13 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { Brand } from '@cinacoin/ui'
 import { useTheme } from '@/providers/ThemeProvider'
 import { useI18n, type Locale } from '@/providers/I18nProvider'
 
 export default function Navbar() {
+  const pathname = usePathname()
   const { theme, toggle } = useTheme()
   const { t, locale, setLocale } = useI18n()
   const [scrolled, setScrolled] = useState(false)
@@ -44,6 +46,9 @@ export default function Navbar() {
 
   const closeMobile = () => setMobileOpen(false)
 
+  // Determine active page for aria-current
+  const activePage = pathname === '/' ? '/' : pathname
+
   const locales: { code: Locale; label: string }[] = [
     { code: 'en', label: 'English' },
     { code: 'zh', label: '中文' },
@@ -64,10 +69,10 @@ export default function Navbar() {
 
         {/* Desktop links */}
         <div className="hidden items-center gap-1 md:flex">
-          <a href="#products" className="cc-navbar-link">{t('nav-products')}</a>
-          <a href="/pricing" className="cc-navbar-link">{t('nav-pricing')}</a>
+          <a href="/" className="cc-navbar-link" aria-current={activePage === '/' ? 'page' : undefined}>{t('nav-home')}</a>
+          <a href="/pricing" className="cc-navbar-link" aria-current={activePage === '/pricing' ? 'page' : undefined}>{t('nav-pricing')}</a>
+          <a href="/about" className="cc-navbar-link" aria-current={activePage === '/about' ? 'page' : undefined}>{t('footer-about')}</a>
           <a href="/docs/" className="cc-navbar-link">{t('nav-docs')}</a>
-          <a href="https://github.com/cinagroup" className="cc-navbar-link">{t('nav-github')}</a>
         </div>
 
         {/* Desktop actions */}
@@ -100,6 +105,9 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => setLangOpen((v) => !v)}
+              onKeyDown={(e) => {
+                if (e.key === 'Escape') setLangOpen(false)
+              }}
               aria-haspopup="listbox"
               aria-expanded={langOpen}
               aria-label="Select language"
@@ -112,11 +120,13 @@ export default function Navbar() {
             </button>
 
             {langOpen && (
-              <div className="absolute right-0 top-full mt-2 w-36 rounded-md border border-[var(--cc-hairline)] bg-[var(--cc-canvas)] py-1 shadow-[var(--cc-level5)]">
+              <div className="absolute right-0 top-full mt-2 w-36 rounded-md border border-[var(--cc-hairline)] bg-[var(--cc-canvas)] py-1 shadow-[var(--cc-level5)]" role="listbox">
                 {locales.map((l) => (
                   <button
                     key={l.code}
                     onClick={() => { setLocale(l.code); setLangOpen(false) }}
+                    role="option"
+                    aria-selected={locale === l.code}
                     className={`flex w-full items-center gap-2 px-3 py-2 cc-body-sm transition-colors ${
                       locale === l.code
                         ? 'text-[var(--cc-ink)] bg-[var(--cc-canvas-soft-2)]'
@@ -165,14 +175,13 @@ export default function Navbar() {
       {mobileOpen && (
         <div ref={mobileMenuRef} className="border-t border-[var(--cc-hairline)] bg-[var(--cc-canvas)] md:hidden" role="dialog" aria-modal="true" aria-label="Mobile navigation">
           <div className="flex flex-col gap-1 px-6 py-4">
-            <a href="/" onClick={closeMobile} className="cc-navbar-link">Home</a>
+            <a href="/" onClick={closeMobile} className="cc-navbar-link" aria-current={activePage === '/' ? 'page' : undefined}>Home</a>
             <a href="#products" onClick={closeMobile} className="cc-navbar-link">{t('nav-products')}</a>
-            <a href="/pricing" onClick={closeMobile} className="cc-navbar-link">{t('nav-pricing')}</a>
-            <a href="/about" onClick={closeMobile} className="cc-navbar-link">{t('footer-about')}</a>
-            <a href="/changelog" onClick={closeMobile} className="cc-navbar-link">{t('footer-changelog')}</a>
-            <a href="/contact" onClick={closeMobile} className="cc-navbar-link">{t('footer-contact')}</a>
+            <a href="/pricing" onClick={closeMobile} className="cc-navbar-link" aria-current={activePage === '/pricing' ? 'page' : undefined}>{t('nav-pricing')}</a>
+            <a href="/about" onClick={closeMobile} className="cc-navbar-link" aria-current={activePage === '/about' ? 'page' : undefined}>{t('footer-about')}</a>
+            <a href="/changelog" onClick={closeMobile} className="cc-navbar-link" aria-current={activePage === '/changelog' ? 'page' : undefined}>{t('footer-changelog')}</a>
+            <a href="/contact" onClick={closeMobile} className="cc-navbar-link" aria-current={activePage === '/contact' ? 'page' : undefined}>{t('footer-contact')}</a>
             <a href="/docs/" className="cc-navbar-link">{t('nav-docs')}</a>
-            <a href="https://github.com/cinagroup" className="cc-navbar-link">{t('nav-github')}</a>
             <a href="/dashboard/" className="cc-navbar-link">{t('nav-dashboard')}</a>
 
             {/* Mobile theme toggle */}
@@ -212,7 +221,7 @@ export default function Navbar() {
               ))}
             </div>
 
-            <a href="/contact" onClick={closeMobile} className="mt-2 cc-btn-primary-sm text-center">
+            <a href="/docs/" onClick={closeMobile} className="mt-2 cc-btn-primary-sm text-center">
               {t('nav-get-started')}
             </a>
           </div>

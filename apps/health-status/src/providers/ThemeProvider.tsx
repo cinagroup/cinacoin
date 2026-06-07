@@ -27,6 +27,8 @@ function getStoredTheme(): Theme | null {
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
+  // Initialize with dark to match SSR default; useEffect corrects to stored/system.
+  // This avoids hydration mismatch when stored preference matches default.
   const [theme, setTheme] = useState<Theme>('dark');
   const [mounted, setMounted] = useState(false);
 

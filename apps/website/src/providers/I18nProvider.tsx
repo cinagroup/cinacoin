@@ -13,14 +13,15 @@ interface LocaleContextValue {
 const translations: Record<Locale, Record<string, string>> = {
   en: {
     'nav-products': 'Products',
+    'nav-home': 'Home',
     'nav-pricing': 'Pricing',
     'nav-docs': 'Docs',
     'nav-github': 'GitHub',
     'nav-dashboard': 'Dashboard',
     'nav-get-started': 'Get Started',
-    'hero-badge': 'Introducing Cinacoin SDK v2.0',
+    'hero-badge': 'Introducing Cinacoin SDK v2.0.'
     'hero-title': 'Connect any wallet, to any chain.',
-    'hero-subtitle': 'The onchain infrastructure for seamless cross-chain experiences. One SDK for authentication, transactions, and wallet connectivity.',
+    'hero-subtitle': 'The onchain infrastructure for seamless cross-chain experiences. One SDK for authentication, transactions, and wallet connectivity.'
     'hero-start': 'Start Building →',
     'hero-github': 'View on GitHub',
     'logos-label': 'Trusted by builders across',
@@ -98,8 +99,8 @@ const translations: Record<Locale, Record<string, string>> = {
     'about-stat-license-label': 'License',
     'about-stat-lockin-label': 'Vendor Lock-in',
     // Pricing
-    'pricing-hero-title': 'Simple, transparent',
-    'pricing-hero-title-highlight': 'pricing',
+    'pricing-hero-title': 'Simple, transparent pricing.',
+    'pricing-hero-title-highlight': '',
     'pricing-hero-subtitle': 'Start free, scale as you grow. No hidden fees, no surprise bills.',
     'pricing-tier-free': 'Free',
     'pricing-tier-free-period': 'forever',
@@ -132,7 +133,7 @@ const translations: Record<Locale, Record<string, string>> = {
     'changelog-type-major': 'major',
     'changelog-type-minor': 'minor',
     // Contact
-    'contact-title': 'Get in Touch',
+    'contact-title': 'Get in touch.'
     'contact-subtitle': 'Have a question, partnership idea, or need support? We\'d love to hear from you.',
     'contact-form-name': 'Name',
     'contact-form-name-placeholder': 'Your name',
@@ -296,12 +297,13 @@ const translations: Record<Locale, Record<string, string>> = {
   },
   zh: {
     'nav-products': '产品',
+    'nav-home': '首页',
     'nav-pricing': '定价',
     'nav-docs': '文档',
     'nav-github': 'GitHub',
     'nav-dashboard': '控制台',
     'nav-get-started': '开始使用',
-    'hero-badge': 'Cinacoin SDK v2.0 正式发布',
+    'hero-badge': 'Cinacoin SDK v2.0 正式发布。',
     'hero-title': '连接任何钱包，到任何链。',
     'hero-subtitle': '跨链基础设施，实现无缝链上体验。一个 SDK 搞定认证、交易和钱包连接。',
     'hero-start': '开始构建 →',
@@ -381,8 +383,8 @@ const translations: Record<Locale, Record<string, string>> = {
     'about-stat-license-label': '许可证',
     'about-stat-lockin-label': '供应商锁定',
     // Pricing
-    'pricing-hero-title': '简单透明的',
-    'pricing-hero-title-highlight': '定价',
+    'pricing-hero-title': '简单透明的定价。',
+    'pricing-hero-title-highlight': '',
     'pricing-hero-subtitle': '免费起步，按需扩展。无隐藏费用，无意外账单。',
     'pricing-tier-free': '免费版',
     'pricing-tier-free-period': '永远免费',
@@ -415,7 +417,7 @@ const translations: Record<Locale, Record<string, string>> = {
     'changelog-type-major': '重大',
     'changelog-type-minor': '次要',
     // Contact
-    'contact-title': '联系我们',
+    'contact-title': '联系我们。'
     'contact-subtitle': '有问题、合作想法或需要支持？我们很乐意听取您的意见。',
     'contact-form-name': '姓名',
     'contact-form-name-placeholder': '您的姓名',

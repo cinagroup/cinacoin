@@ -80,10 +80,7 @@ export default function PricingContent() {
       <section className="relative pt-32 pb-16 sm:pt-40 sm:pb-20">
         <FadeIn>
           <div className="cc-container mx-auto max-w-4xl px-6 text-center">
-            <h1 className="cc-display-xl">
-              {t('pricing-hero-title')}{' '}
-              <span className="text-[var(--cc-link)]">{t('pricing-hero-title-highlight')}</span>
-            </h1>
+            <h1 className="cc-display-xl">{t('pricing-hero-title')}</h1>
             <p className="mt-6 cc-body-lg text-[var(--cc-body)] max-w-2xl mx-auto">
               {t('pricing-hero-subtitle')}
             </p>
