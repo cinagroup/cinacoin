@@ -32,10 +32,10 @@ export default function FadeIn({
   }, [])
 
   const translateMap = {
-    up: 'translateY(30px)',
-    down: 'translateY(-30px)',
-    left: 'translateX(30px)',
-    right: 'translateX(-30px)',
+    up: 'translateY(20px)',
+    down: 'translateY(-20px)',
+    left: 'translateX(20px)',
+    right: 'translateX(-20px)',
     none: 'none',
   }
 
@@ -44,8 +44,8 @@ export default function FadeIn({
   const effectiveTransform = reducedMotion
     ? 'translate(0) scale(1)'
     : inView
-      ? 'translate(0) scale(1)'
-      : `${translateMap[direction]} scale(0.98)`
+      ? 'translate(0)'
+      : `${translateMap[direction]}`
 
   return (
     <div ref={ref} className={className}>
@@ -56,7 +56,6 @@ export default function FadeIn({
           transition: reducedMotion
             ? 'none'
             : `opacity ${effectiveDuration}ms cubic-bezier(0.16, 1, 0.3, 1) ${totalDelay}ms, transform ${effectiveDuration}ms cubic-bezier(0.16, 1, 0.3, 1) ${totalDelay}ms`,
-          willChange: 'opacity, transform',
         }}
       >
         {children}

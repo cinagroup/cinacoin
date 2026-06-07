@@ -11,7 +11,11 @@ const config: Config = {
   organizationName: 'cinagroup',
   projectName: 'cinacoin',
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'throw',
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: 'throw',
+    },
+  },
   i18n: { defaultLocale: 'en', locales: ['en'] },
 
   // Meta tags + font loading

@@ -77,9 +77,6 @@ export default function Navbar() {
 
         {/* Desktop actions */}
         <div className="flex items-center gap-1">
-          <a href="/dashboard/" className="hidden text-[var(--cc-body)] transition-colors hover:text-[var(--cc-ink)] cc-body-sm sm:inline">
-            {t('nav-dashboard')}
-          </a>
 
           {/* Theme toggle */}
           <button
@@ -146,7 +143,7 @@ export default function Navbar() {
           </div>
 
           {/* CTA */}
-          <a href="/docs/" className="hidden sm:inline-flex ml-1 cc-btn-primary-sm">
+          <a href="/docs/" className="hidden sm:inline-flex ml-1 cc-btn-primary-sm" role="button">
             {t('nav-get-started')}
           </a>
 
@@ -155,6 +152,7 @@ export default function Navbar() {
             type="button"
             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
             className="rounded-full p-2 text-[var(--cc-body)] transition-colors hover:text-[var(--cc-ink)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cc-link)] focus-visible:ring-offset-2 md:hidden"
             onClick={() => setMobileOpen((v) => !v)}
           >
@@ -173,16 +171,15 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div ref={mobileMenuRef} className="border-t border-[var(--cc-hairline)] bg-[var(--cc-canvas)] md:hidden" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+        <div ref={mobileMenuRef} id="mobile-menu" className="border-t border-[var(--cc-hairline)] bg-[var(--cc-canvas)] md:hidden" role="dialog" aria-modal="true" aria-label="Mobile navigation">
           <div className="flex flex-col gap-1 px-6 py-4">
             <a href="/" onClick={closeMobile} className="cc-navbar-link" aria-current={activePage === '/' ? 'page' : undefined}>Home</a>
-            <a href="#products" onClick={closeMobile} className="cc-navbar-link">{t('nav-products')}</a>
+            <a href="#products" onClick={closeMobile} className="cc-navbar-link" aria-current={pathname === '/' && activePage === '#' ? 'page' : undefined}>{t('nav-products')}</a>
             <a href="/pricing" onClick={closeMobile} className="cc-navbar-link" aria-current={activePage === '/pricing' ? 'page' : undefined}>{t('nav-pricing')}</a>
             <a href="/about" onClick={closeMobile} className="cc-navbar-link" aria-current={activePage === '/about' ? 'page' : undefined}>{t('footer-about')}</a>
             <a href="/changelog" onClick={closeMobile} className="cc-navbar-link" aria-current={activePage === '/changelog' ? 'page' : undefined}>{t('footer-changelog')}</a>
             <a href="/contact" onClick={closeMobile} className="cc-navbar-link" aria-current={activePage === '/contact' ? 'page' : undefined}>{t('footer-contact')}</a>
             <a href="/docs/" className="cc-navbar-link">{t('nav-docs')}</a>
-            <a href="/dashboard/" className="cc-navbar-link">{t('nav-dashboard')}</a>
 
             {/* Mobile theme toggle */}
             <button onClick={() => { toggle(); closeMobile() }} className="cc-navbar-link">

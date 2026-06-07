@@ -136,7 +136,7 @@ a:hover { color: var(--cc-link-deep); }
   background: var(--cc-primary);
   color: var(--cc-on-primary);
   padding: 8px 16px;
-  z-index: 200;
+  z-index: 9999;
   font-size: 14px;
   font-weight: 500;
   border-radius: 0 0 var(--cc-radius-sm) 0;

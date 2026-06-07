@@ -19,9 +19,9 @@ const translations: Record<Locale, Record<string, string>> = {
     'nav-github': 'GitHub',
     'nav-dashboard': 'Dashboard',
     'nav-get-started': 'Get Started',
-    'hero-badge': 'Introducing Cinacoin SDK v2.0.'
+    'hero-badge': 'Introducing Cinacoin SDK v2.0.',
     'hero-title': 'Connect any wallet, to any chain.',
-    'hero-subtitle': 'The onchain infrastructure for seamless cross-chain experiences. One SDK for authentication, transactions, and wallet connectivity.'
+    'hero-subtitle': 'The onchain infrastructure for seamless cross-chain experiences. One SDK for authentication, transactions, and wallet connectivity.',
     'hero-start': 'Start Building →',
     'hero-github': 'View on GitHub',
     'logos-label': 'Trusted by builders across',
@@ -50,6 +50,10 @@ const translations: Record<Locale, Record<string, string>> = {
     'products-label': 'Products',
     'products-title': 'Products & Infrastructure.',
     'products-subtitle': 'Everything you need to build seamless onchain experiences.',
+    'products-appkit-desc': 'Universal wallet connection UI — 50+ wallets, 16 chains, zero config.',
+    'products-auth-desc': 'SIWE / SIWX authentication with session management and passkey support.',
+    'products-push-desc': 'Real-time push notifications for wallet activity and cross-chain events.',
+    'products-keys-desc': 'Encrypted key management with rotation, audit logging, and secure retrieval.',
     'learn-more': 'Learn more →',
     'dev-label': 'Developer Experience',
     'dev-title': 'Built for developers.',
@@ -133,7 +137,7 @@ const translations: Record<Locale, Record<string, string>> = {
     'changelog-type-major': 'major',
     'changelog-type-minor': 'minor',
     // Contact
-    'contact-title': 'Get in touch.'
+    'contact-title': 'Get in touch.',
     'contact-subtitle': 'Have a question, partnership idea, or need support? We\'d love to hear from you.',
     'contact-form-name': 'Name',
     'contact-form-name-placeholder': 'Your name',
@@ -334,6 +338,10 @@ const translations: Record<Locale, Record<string, string>> = {
     'products-label': '产品',
     'products-title': '产品与基础设施。',
     'products-subtitle': '构建无缝链上体验所需的一切。',
+    'products-appkit-desc': '通用钱包连接 UI — 50+ 钱包、16 条链、零配置。',
+    'products-auth-desc': 'SIWE / SIWX 认证，支持会话管理和 Passkey。',
+    'products-push-desc': '钱包活动和跨链事件的实时推送通知。',
+    'products-keys-desc': '加密密钥管理，支持轮换、审计日志和安全检索。',
     'learn-more': '了解更多 →',
     'dev-label': '开发者体验',
     'dev-title': '为开发者而生。',
@@ -417,7 +425,7 @@ const translations: Record<Locale, Record<string, string>> = {
     'changelog-type-major': '重大',
     'changelog-type-minor': '次要',
     // Contact
-    'contact-title': '联系我们。'
+    'contact-title': '联系我们。',
     'contact-subtitle': '有问题、合作想法或需要支持？我们很乐意听取您的意见。',
     'contact-form-name': '姓名',
     'contact-form-name-placeholder': '您的姓名',
