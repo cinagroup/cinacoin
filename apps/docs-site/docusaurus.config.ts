@@ -14,7 +14,7 @@ const config: Config = {
   onBrokenMarkdownLinks: 'warn',
   i18n: { defaultLocale: 'en', locales: ['en'] },
 
-  // Meta tags
+  // Meta tags + font loading
   headTags: [
     {
       tagName: 'meta',
@@ -23,6 +23,36 @@ const config: Config = {
     {
       tagName: 'meta',
       attributes: { name: 'color-scheme', content: 'light dark' },
+    },
+    // Google Fonts: Inter (Geist substitute) + JetBrains Mono (Geist Mono substitute)
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preconnect',
+        href: 'https://fonts.googleapis.com',
+      },
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preconnect',
+        href: 'https://fonts.gstatic.com',
+        crossorigin: 'anonymous',
+      },
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap',
+      },
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap',
+      },
     },
   ],
 

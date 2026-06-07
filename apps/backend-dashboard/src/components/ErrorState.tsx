@@ -17,7 +17,7 @@ export default function ErrorState({
 }: ErrorStateProps) {
   return (
     <div className="bg-[var(--cc-error-soft)] border border-[var(--cc-error)]/30 rounded-[var(--cc-radius-md)] p-6 text-center">
-      <span className="text-4xl mb-3 block" aria-hidden="true">⚠️</span>
+      <svg className="w-10 h-10 mx-auto mb-3 block text-[var(--cc-error)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
       <h3 className="text-lg font-semibold text-[var(--cc-ink)] mb-1">{title}</h3>
       <p className="text-sm text-[var(--cc-body)] max-w-md mx-auto">{message}</p>
       {retry && (

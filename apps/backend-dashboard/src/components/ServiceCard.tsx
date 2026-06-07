@@ -72,7 +72,7 @@ export default function ServiceCard({ service, health, demoMode = false }: Servi
 
         {health.error && (
           <div className="flex items-center gap-1.5">
-            <span className="text-xs text-[var(--cc-error)]">⚠</span>
+            <svg className="w-3.5 h-3.5 flex-shrink-0 text-[var(--cc-error)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
             <span className="cc-caption text-[var(--cc-error)]/80 truncate">{health.error}</span>
           </div>
         )}
@@ -90,7 +90,7 @@ export default function ServiceCard({ service, health, demoMode = false }: Servi
       {demoMode && health.status === "down" && (
         <div className="mt-3 pt-3 border-t border-[var(--cc-hairline)]">
           <p className="cc-caption text-[var(--cc-muted)]/60">
-            ℹ️ Services on Cloudflare Workers — using demo data
+            <svg className="w-3.5 h-3.5 flex-shrink-0 text-[var(--cc-muted)]/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg> Services on Cloudflare Workers — using demo data
           </p>
         </div>
       )}

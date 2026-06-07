@@ -6,7 +6,7 @@ interface BarChartProps {
   ariaLabelledBy?: string;
 }
 
-export default function BarChart({ data, labels, color = "#0070f3", height = 120, ariaLabelledBy }: BarChartProps) {
+export default function BarChart({ data, labels, color = "var(--cc-link)", height = 120, ariaLabelledBy }: BarChartProps) {
   if (!data.length) return null;
   const max = Math.max(...data, 1);
 
