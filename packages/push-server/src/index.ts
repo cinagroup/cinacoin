@@ -176,11 +176,18 @@ async function handleSend(request: Request, env: Env): Promise<Response> {
     return jsonError("Invalid JSON", 400, origin);
   }
 
-  const { address, type, title, body: msgBody, data, chainId } = body as Record<string, unknown>;
+  const raw = body as Record<string, unknown>;
 
-  if (!address || !type || !title || !msgBody) {
+  if (!raw.address || !raw.type || !raw.title || !raw.body) {
     return jsonError("Missing required fields: address, type, title, body", 400, origin);
   }
+
+  const address = String(raw.address);
+  const type = String(raw.type);
+  const title = String(raw.title);
+  const msgBody = String(raw.body);
+  const data = raw.data;
+  const chainId = raw.chainId;
 
   const devices = await registry.getAllDevicesForAddress(address);
   if (devices.length === 0) {
