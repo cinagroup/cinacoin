@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react';
 import {
   View,
   Text,
@@ -7,60 +7,62 @@ import {
   Alert,
   TouchableOpacity,
   ActivityIndicator,
-} from 'react-native'
-import { useCinaCoin, ConnectButton, ConnectModal } from '@cinacoin/react-native'
-import { WalletList } from '../components/WalletList'
-import { defaultWallets } from '../utils/walletConfig'
-import { QRScanner } from '@cinacoin/react-native'
-import { ethers } from 'ethers'
-
-/**
- * Real ConnectScreen with:
- * - WalletConnect v2 QR code scanning for mobile wallet pairing
- * - Real balance fetching via JSON-RPC after connection
- * - Deep link redirect handling for wallet apps
- */
+} from 'react-native';
+import { useCinaCoinContext, ConnectButton, ConnectModal, QRScanner } from '@cinacoin/react-native';
+import { WalletList } from '../components/WalletList';
+import { defaultWallets } from '../utils/walletConfig';
 
 const RPC_ENDPOINTS: Record<number, string> = {
   1: 'https://eth.llamarpc.com',
   137: 'https://polygon-rpc.com',
   42161: 'https://arb1.arbitrum.io/rpc',
-}
+};
 
 export function ConnectScreen() {
-  const { account, status, connectors, disconnect, chainId } = useCinaCoin()
-  const [showModal, setShowModal] = useState(false)
-  const [showQRScanner, setShowQRScanner] = useState(false)
-  const [balance, setBalance] = useState<string | null>(null)
-  const [loadingBalance, setLoadingBalance] = useState(false)
+  const { account, status, connectors, disconnect, switchChain } = useCinaCoinContext();
+  const [showModal, setShowModal] = useState(false);
+  const [showQRScanner, setShowQRScanner] = useState(false);
+  const [balance, setBalance] = useState<string | null>(null);
+  const [loadingBalance, setLoadingBalance] = useState(false);
 
   // Fetch real on-chain balance
   const fetchBalance = useCallback(async () => {
-    if (!account || !chainId) return
-    setLoadingBalance(true)
+    if (!account?.address) return;
+    setLoadingBalance(true);
 
     try {
-      const rpcUrl = RPC_ENDPOINTS[chainId] || RPC_ENDPOINTS[1]
-      const provider = new ethers.JsonRpcProvider(rpcUrl)
-      const balanceWei = await provider.getBalance(account)
-      const ethBalance = ethers.formatEther(balanceWei)
-      setBalance(parseFloat(ethBalance).toFixed(6))
+      const rpcUrl = RPC_ENDPOINTS[account.chainId ?? 1] || RPC_ENDPOINTS[1];
+      // Use context request for eth_getBalance
+      const result = await fetch(rpcUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          jsonrpc: '2.0',
+          method: 'eth_getBalance',
+          params: [account.address, 'latest'],
+          id: 1,
+        }),
+      });
+      const data = await result.json();
+      if (data.result) {
+        const balanceWei = BigInt(data.result);
+        const ethBalance = Number(balanceWei) / 1e18;
+        setBalance(ethBalance.toFixed(6));
+      }
     } catch (err) {
-      console.error('Failed to fetch balance:', err)
-      setBalance('—')
+      console.error('Failed to fetch balance:', err);
+      setBalance('—');
     } finally {
-      setLoadingBalance(false)
+      setLoadingBalance(false);
     }
-  }, [account, chainId])
+  }, [account?.address, account?.chainId]);
 
   // Handle QR scan result (WalletConnect URI)
   const handleQRScan = (uri: string) => {
-    setShowQRScanner(false)
-    // Pass the WalletConnect URI to the connector
-    // In production, this pairs via WalletConnect v2
-    console.log('WalletConnect URI scanned:', uri)
-    Alert.alert('QR 已扫描', '正在连接钱包...')
-  }
+    setShowQRScanner(false);
+    console.log('WalletConnect URI scanned:', uri);
+    Alert.alert('QR 已扫描', '正在连接钱包...');
+  };
 
   const handleDisconnect = useCallback(() => {
     Alert.alert(
@@ -72,22 +74,22 @@ export function ConnectScreen() {
           text: '断开',
           style: 'destructive',
           onPress: () => {
-            disconnect()
-            setBalance(null)
+            disconnect();
+            setBalance(null);
           },
         },
       ]
-    )
-  }, [disconnect])
+    );
+  }, [disconnect]);
 
   // Fetch balance when connected
-  React.useEffect(() => {
-    if (account) {
-      fetchBalance()
+  useEffect(() => {
+    if (account?.address) {
+      fetchBalance();
     } else {
-      setBalance(null)
+      setBalance(null);
     }
-  }, [account, fetchBalance])
+  }, [account?.address, fetchBalance]);
 
   return (
     <ScrollView style={styles.container}>
@@ -100,21 +102,26 @@ export function ConnectScreen() {
             <Text
               style={[
                 styles.statusValue,
-                styles[`status${status}`],
+                status === 'connected' && styles.statusConnected,
+                status === 'connecting' && styles.statusConnecting,
+                status === 'disconnected' && styles.statusDisconnected,
+                status === 'error' && styles.statusError,
               ]}
             >
               {status === 'connected'
                 ? '已连接'
                 : status === 'connecting'
                   ? '连接中...'
-                  : '未连接'}
+                  : status === 'error'
+                    ? '错误'
+                    : '未连接'}
             </Text>
           </View>
           <View style={styles.statusItem}>
             <Text style={styles.statusLabel}>地址</Text>
             <Text style={styles.statusValue}>
-              {account
-                ? `${account.slice(0, 6)}...${account.slice(-4)}`
+              {account?.address
+                ? `${account.address.slice(0, 6)}...${account.address.slice(-4)}`
                 : '—'}
             </Text>
           </View>
@@ -124,7 +131,7 @@ export function ConnectScreen() {
               <ActivityIndicator size="small" color="#3B82F6" />
             ) : (
               <Text style={styles.statusValue}>
-                {balance ? `${balance} ${chainId === 137 ? 'MATIC' : 'ETH'}` : '—'}
+                {balance ? `${balance} ${account?.chainSymbol ?? 'ETH'}` : '—'}
               </Text>
             )}
           </View>
@@ -135,7 +142,6 @@ export function ConnectScreen() {
       <View style={styles.section}>
         <ConnectButton
           onPress={() => setShowModal(true)}
-          account={account}
           variant="primary"
           size="lg"
           style={styles.connectBtn}
@@ -147,6 +153,9 @@ export function ConnectScreen() {
         <TouchableOpacity
           style={styles.qrBtn}
           onPress={() => setShowQRScanner(true)}
+          accessible={true}
+          accessibilityRole="button"
+          accessibilityLabel="Scan QR code to connect"
         >
           <Text style={styles.qrBtnText}>📷 扫描二维码连接 (WalletConnect)</Text>
         </TouchableOpacity>
@@ -157,60 +166,59 @@ export function ConnectScreen() {
         <ConnectModal
           visible={showModal}
           onClose={() => setShowModal(false)}
-          wallets={defaultWallets}
-          onWalletSelect={(wallet) => {
-            setShowModal(false)
-            // Real wallet connection via WalletConnect v2
-            Alert.alert('选择钱包', `正在连接 ${wallet.name}...`)
-          }}
-          views={['wallets', 'qr']}
+          wallets={defaultWallets.map(w => ({
+            id: w.id,
+            name: w.name,
+            icon: w.icon,
+            description: '',
+            deepLink: '',
+            supportsWalletConnect: true,
+          }))}
+          views={['wallets', 'scan']}
           defaultView="wallets"
-          recommendedWallets={['metamask', 'walletconnect', 'rabby']}
+          recommendedWalletIds={['metamask', 'walletconnect']}
         />
       )}
 
       {/* QR Scanner Overlay */}
       {showQRScanner && (
-        <View style={styles.qrOverlay}>
-          <QRScanner
-            onScan={handleQRScan}
-            onError={(error) => {
-              Alert.alert('扫描失败', error.message)
-              setShowQRScanner(false)
-            }}
-          />
-          <TouchableOpacity
-            style={styles.qrCancel}
-            onPress={() => setShowQRScanner(false)}
-          >
-            <Text style={styles.qrCancelText}>取消</Text>
-          </TouchableOpacity>
-        </View>
+        <QRScanner
+          visible={showQRScanner}
+          onScan={handleQRScan}
+          onClose={() => setShowQRScanner(false)}
+          onError={(error) => {
+            Alert.alert('扫描失败', error.message);
+            setShowQRScanner(false);
+          }}
+        />
       )}
 
       {/* Disconnect */}
-      {account && (
+      {account?.address && (
         <View style={styles.section}>
           <TouchableOpacity
             style={styles.disconnectBtn}
             onPress={handleDisconnect}
+            accessible={true}
+            accessibilityRole="button"
+            accessibilityLabel="Disconnect wallet"
           >
             <Text style={styles.disconnectText}>断开连接</Text>
           </TouchableOpacity>
         </View>
       )}
     </ScrollView>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0F172A',
+    backgroundColor: '#0F172A', // design-token: semantic.bg-primary (dark)
     padding: 16,
   },
   statusCard: {
-    backgroundColor: '#1E293B',
+    backgroundColor: '#1E293B', // design-token: semantic.bg-card
     borderRadius: 12,
     padding: 16,
     marginBottom: 16,
@@ -237,14 +245,17 @@ const styles = StyleSheet.create({
     color: '#F8FAFC',
     fontFamily: 'monospace',
   },
-  statusconnected: {
-    color: '#22C55E',
+  statusConnected: {
+    color: '#22C55E', // design-token: semantic.success
   },
-  statusconnecting: {
-    color: '#F59E0B',
+  statusConnecting: {
+    color: '#F59E0B', // design-token: semantic.warning
   },
-  statusdisconnected: {
+  statusDisconnected: {
     color: '#64748B',
+  },
+  statusError: {
+    color: '#EF4444', // design-token: semantic.error
   },
   section: {
     marginBottom: 16,
@@ -256,7 +267,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#1E293B',
     borderRadius: 8,
     padding: 12,
+    minHeight: 44, // a11y: min touch target
     alignItems: 'center',
+    justifyContent: 'center',
     borderWidth: 1,
     borderColor: '#3B82F6',
   },
@@ -265,34 +278,17 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '600',
   },
-  qrOverlay: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: '#000000CC',
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: 100,
-  },
-  qrCancel: {
-    marginTop: 24,
-    padding: 12,
-  },
-  qrCancelText: {
-    color: '#FFFFFF',
-    fontSize: 16,
-  },
   disconnectBtn: {
-    backgroundColor: '#DC2626',
+    backgroundColor: '#DC2626', // design-token: semantic.error
     borderRadius: 8,
     padding: 12,
+    minHeight: 44, // a11y: min touch target
     alignItems: 'center',
+    justifyContent: 'center',
   },
   disconnectText: {
     color: '#FFFFFF',
     fontSize: 16,
     fontWeight: '600',
   },
-})
+});

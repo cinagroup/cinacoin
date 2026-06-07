@@ -37,6 +37,9 @@ export function WalletList({ wallets, onSelect, recommended = [] }: WalletListPr
     <TouchableOpacity
       style={styles.walletCard}
       onPress={() => onSelect(item)}
+      accessible={true}
+      accessibilityRole="button"
+      accessibilityLabel={`Connect to ${item.name}${item.installed ? ' (installed)' : ''}`}
     >
       <View style={styles.walletIcon}>
         <Image source={{ uri: item.icon }} style={styles.iconImage} />
@@ -80,14 +83,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#1E293B',
-    borderRadius: 12,
-    padding: 16,
+    borderRadius: 12, // design-token: semantic.radii.lg
+    padding: 16, // design-token: semantic.spacing.md
+    minHeight: 64, // a11y: min touch target for list item
     marginBottom: 8,
   },
   walletIcon: {
-    width: 40,
+    width: 40, // design-token: wallet-card.icon-size
     height: 40,
-    borderRadius: 20,
+    borderRadius: 8, // design-token: wallet-card.icon-radius
     backgroundColor: '#334155',
     justifyContent: 'center',
     alignItems: 'center',
@@ -100,9 +104,9 @@ const styles = StyleSheet.create({
   },
   walletInfo: { flex: 1 },
   nameRow: { flexDirection: 'row', alignItems: 'center' },
-  walletName: { color: '#F8FAFC', fontSize: 16, fontWeight: '600' },
+  walletName: { color: '#F8FAFC', fontSize: 16, fontWeight: '600' }, // design-token: wallet-card.name-font-size
   recommendedBadge: {
-    backgroundColor: '#3B82F6',
+    backgroundColor: '#3B82F6', // design-token: semantic.brand-primary
     borderRadius: 4,
     paddingHorizontal: 6,
     paddingVertical: 2,
@@ -110,7 +114,7 @@ const styles = StyleSheet.create({
   },
   recommendedText: { color: '#FFFFFF', fontSize: 10, fontWeight: '600' },
   installedBadge: {
-    backgroundColor: '#22C55E',
+    backgroundColor: '#22C55E', // design-token: semantic.success
     borderRadius: 4,
     paddingHorizontal: 6,
     paddingVertical: 2,

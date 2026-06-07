@@ -276,6 +276,9 @@ export function ConnectModal({
             ]}
             onPress={() => handleWalletSelect(wallet)}
             disabled={deepLinkStatus[wallet.id] === 'loading'}
+            accessible={true}
+            accessibilityRole="button"
+            accessibilityLabel={`Connect to ${wallet.name}`}
           >
             <View
               style={[
@@ -408,13 +411,19 @@ export function ConnectModal({
             <Text style={[styles.headerTitle, { color: themeColors.textPrimary }]}>
               Connect Wallet
             </Text>
-            <TouchableOpacity onPress={onClose} style={styles.closeBtn}>
+            <TouchableOpacity
+              onPress={onClose}
+              style={styles.closeBtn}
+              accessible={true}
+              accessibilityRole="button"
+              accessibilityLabel="Close connect modal"
+            >
               <Text style={{ color: themeColors.textSecondary, fontSize: 18 }}>✕</Text>
             </TouchableOpacity>
           </View>
 
           {/* View Tabs */}
-          <View style={styles.tabs}>
+          <View style={styles.tabBar}>
             {availableViews.map(view => (
               <TouchableOpacity
                 key={view}
@@ -452,15 +461,15 @@ export function ConnectModal({
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.7)',
+    backgroundColor: 'rgba(0,0,0,0.7)', // design-token: semantic.bg-overlay
     justifyContent: 'center',
     alignItems: 'center',
   },
   modal: {
     width: '90%',
-    maxWidth: 420,
+    maxWidth: 420, // design-token: connect-modal.max-width
     maxHeight: '80%',
-    borderRadius: 24,
+    borderRadius: 12, // design-token: semantic.radii.lg
     borderWidth: 1,
     overflow: 'hidden',
   },
@@ -468,29 +477,33 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 24,
+    padding: 24, // design-token: semantic.spacing.lg
     borderBottomWidth: 1,
-    borderBottomColor: '#334155',
+    borderBottomColor: '#334155', // design-token: semantic.border (dark)
   },
   headerTitle: { fontSize: 20, fontWeight: '600' },
-  closeBtn: { padding: 8 },
-  tabs: { flexDirection: 'row', gap: 8, padding: 16 },
-  tab: { flex: 1, padding: 8, borderWidth: 1, borderRadius: 8, alignItems: 'center' },
+  closeBtn: { padding: 12, minHeight: 44, minWidth: 44 }, // a11y: min touch target 44×44
+  tabBar: { flexDirection: 'row', gap: 8, padding: 16 },
+  tab: { flex: 1, padding: 8, minHeight: 44, borderWidth: 1, borderRadius: 8, justifyContent: 'center', alignItems: 'center' }, // a11y: min touch target
   tabText: { fontSize: 14, fontWeight: '500' },
   content: { padding: 16 },
   walletGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 12 },
   walletCard: {
     flex: 1,
     minWidth: '45%',
+    minHeight: 48, // a11y: min touch target 44×44
     padding: 16,
     borderWidth: 1,
-    borderRadius: 12,
+    borderRadius: 12, // design-token: wallet-card.radius
     alignItems: 'center',
     gap: 8,
   },
   walletIcon: {
-    width: 40, height: 40, borderRadius: 8,
-    justifyContent: 'center', alignItems: 'center',
+    width: 40, // design-token: wallet-card.icon-size
+    height: 40,
+    borderRadius: 8, // design-token: wallet-card.icon-radius
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   walletIconImage: { width: 24, height: 24 },
   walletIconFallback: { fontSize: 20 },
@@ -498,18 +511,18 @@ const styles = StyleSheet.create({
   walletDesc: { fontSize: 12, textAlign: 'center' },
   recommendedBadge: { fontSize: 12, fontWeight: '500' },
   altActions: { gap: 12 },
-  altBtn: { padding: 12, borderWidth: 1, borderRadius: 12, alignItems: 'center' },
+  altBtn: { padding: 12, minHeight: 44, borderWidth: 1, borderRadius: 12, alignItems: 'center' }, // a11y: min touch target
   altBtnText: { fontSize: 14, fontWeight: '500' },
-  emailInput: { padding: 12, borderWidth: 1, borderRadius: 12, fontSize: 14 },
+  emailInput: { padding: 12, minHeight: 44, borderWidth: 1, borderRadius: 12, fontSize: 14 }, // a11y: min touch target
   scanContainer: { alignItems: 'center', padding: 32 },
   scanTitle: { fontSize: 18, marginBottom: 16 },
   scanQR: { width: 200, height: 200, borderRadius: 12, justifyContent: 'center', alignItems: 'center' },
-  footer: { padding: 16, alignItems: 'center', borderTopWidth: 1, borderTopColor: '#334155' },
+  footer: { padding: 16, alignItems: 'center', borderTopWidth: 1, borderTopColor: '#334155' }, // design-token: semantic.border (dark)
   footerText: { fontSize: 12 },
   wcUri: { fontSize: 10, marginTop: 8, textAlign: 'center' },
-  statusLoading: { fontSize: 11, color: '#60a5fa' },
-  statusSuccess: { fontSize: 11, color: '#34d399' },
-  statusError: { fontSize: 11, color: '#f87171' },
+  statusLoading: { fontSize: 11, color: '#3B82F6' }, // design-token: semantic.info
+  statusSuccess: { fontSize: 11, color: '#22C55E' }, // design-token: semantic.success
+  statusError: { fontSize: 11, color: '#EF4444' }, // design-token: semantic.error
   installedBadge: { fontSize: 10 },
 });
 

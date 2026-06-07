@@ -73,7 +73,7 @@ export function QRScanner({
   scanFrameColor,
   devMode = __DEV__,
 }: QRScannerProps): JSX.Element {
-  const { connectWithUri, connect, themeColors, wcUri } = useCinaCoinContext();
+  const { connectWithUri, themeColors, wcUri } = useCinaCoinContext();
   const [scanning, setScanning] = useState(false);
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -110,12 +110,12 @@ export function QRScanner({
         Animated.timing(scanLineAnim, {
           toValue: SCAN_FRAME_SIZE,
           duration: 2000,
-          useNativeDriver: false,
+          useNativeDriver: true,
         }),
         Animated.timing(scanLineAnim, {
           toValue: 0,
           duration: 2000,
-          useNativeDriver: false,
+          useNativeDriver: true,
         }),
       ])
     ).start();
@@ -165,7 +165,6 @@ export function QRScanner({
     setScanning(true);
     setError(null);
 
-    // Use the existing pairing URI, or fall back to a test URI
     const testUri =
       wcUri ??
       'wc:7f4b7e3c-1a2b-4c5d-8e9f-0a1b2c3d4e5f@2?relay-protocol=waku&relay-url=wss%3A%2F%2Frelay.cinacoin.io%2Fv1&symKey=abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890';
@@ -176,7 +175,6 @@ export function QRScanner({
         onClose();
       })
       .catch((err: Error) => {
-        // If connectWithUri fails (no real relay), still fire onScan for testing
         onScan(testUri);
         onError?.(err);
       })
@@ -185,35 +183,18 @@ export function QRScanner({
       });
   }, [connectWithUri, onScan, onClose, onError, wcUri]);
 
-  // ── Real Camera View ────────────────────────────────────────────────────
-
   const renderRealCamera = () => {
-    try {
-      // Dynamic import — will fail if the package is not installed
-      // In production, this renders the actual camera view
-      return (
-        <View style={styles.cameraPlaceholder}>
-          <Text style={styles.cameraPlaceholderText}>
-            Camera permission {hasPermission ? 'granted' : 'required'}
-          </Text>
-          <Text style={styles.cameraPlaceholderSubtext}>
-            react-native-vision-camera must be linked to use real scanning.
-          </Text>
-        </View>
-      );
-    } catch {
-      return (
-        <View style={styles.cameraPlaceholder}>
-          <Text style={styles.cameraPlaceholderText}>Camera Not Available</Text>
-          <Text style={styles.cameraPlaceholderSubtext}>
-            Install react-native-vision-camera for real QR scanning
-          </Text>
-        </View>
-      );
-    }
+    return (
+      <View style={styles.cameraPlaceholder}>
+        <Text style={styles.cameraPlaceholderText}>
+          Camera permission {hasPermission ? 'granted' : 'required'}
+        </Text>
+        <Text style={styles.cameraPlaceholderSubtext}>
+          react-native-vision-camera must be linked to use real scanning.
+        </Text>
+      </View>
+    );
   };
-
-  // ── Main Render ─────────────────────────────────────────────────────────
 
   return (
     <Modal
@@ -225,9 +206,17 @@ export function QRScanner({
       <View style={[styles.container, { backgroundColor: '#000' }]}>
         {/* Header */}
         <View style={styles.header}>
-          <Text style={styles.headerTitle}>Scan QR Code</Text>
-          <TouchableOpacity onPress={onClose} style={styles.closeBtn}>
-            <Text style={styles.closeText}>✕</Text>
+          <Text style={[styles.headerTitle, { color: themeColors.textPrimary }]}>
+            Scan QR Code
+          </Text>
+          <TouchableOpacity
+            onPress={onClose}
+            style={styles.closeBtn}
+            accessible={true}
+            accessibilityRole="button"
+            accessibilityLabel="Close scanner"
+          >
+            <Text style={[styles.closeText, { color: themeColors.textSecondary }]}>✕</Text>
           </TouchableOpacity>
         </View>
 
@@ -277,10 +266,10 @@ export function QRScanner({
 
         {/* Instructions */}
         <View style={styles.instructions}>
-          <Text style={styles.instructionsText}>
+          <Text style={[styles.instructionsText, { color: themeColors.textSecondary }]}>
             Align the QR code within the frame
           </Text>
-          <Text style={styles.instructionsSubtext}>
+          <Text style={[styles.instructionsSubtext, { color: themeColors.textTertiary }]}>
             Open your wallet app and scan the WalletConnect QR code
           </Text>
         </View>
@@ -288,7 +277,9 @@ export function QRScanner({
         {/* Error */}
         {error && (
           <View style={styles.errorContainer}>
-            <Text style={styles.errorText}>{error}</Text>
+            <Text style={[styles.errorText, { color: themeColors.error }]}>
+              {error}
+            </Text>
           </View>
         )}
 
@@ -298,6 +289,9 @@ export function QRScanner({
             style={[styles.scanBtn, { backgroundColor: frameColor }]}
             onPress={handleSimulatedScan}
             disabled={scanning}
+            accessible={true}
+            accessibilityRole="button"
+            accessibilityLabel={scanning ? 'Connecting' : 'Simulate QR scan'}
           >
             <Text style={styles.scanBtnText}>
               {scanning ? 'Connecting...' : 'Simulate Scan (Dev)'}
@@ -312,6 +306,9 @@ export function QRScanner({
             onPress={() => {
               Alert.alert('Pairing URI', wcUri);
             }}
+            accessible={true}
+            accessibilityRole="button"
+            accessibilityLabel="View pairing URI"
           >
             <Text style={[styles.copyUriText, { color: themeColors.textTertiary }]}>
               🔑 View Pairing URI
@@ -320,8 +317,16 @@ export function QRScanner({
         )}
 
         {/* Cancel button */}
-        <TouchableOpacity onPress={onClose} style={styles.cancelBtn}>
-          <Text style={styles.cancelText}>Cancel</Text>
+        <TouchableOpacity
+          onPress={onClose}
+          style={styles.cancelBtn}
+          accessible={true}
+          accessibilityRole="button"
+          accessibilityLabel="Cancel scan"
+        >
+          <Text style={[styles.cancelText, { color: themeColors.textSecondary }]}>
+            Cancel
+          </Text>
         </TouchableOpacity>
       </View>
     </Modal>
@@ -342,16 +347,17 @@ const styles = StyleSheet.create({
     paddingTop: 60,
   },
   headerTitle: {
-    color: '#fff',
     fontSize: 18,
     fontWeight: '600',
   },
   closeBtn: {
-    padding: 8,
+    padding: 12,
+    minHeight: 44,
+    minWidth: 44,
   },
   closeText: {
-    color: '#fff',
     fontSize: 24,
+    lineHeight: 32,
   },
   scannerContainer: {
     width: SCAN_FRAME_SIZE + 30,
@@ -363,7 +369,7 @@ const styles = StyleSheet.create({
   },
   scannerFrame: {
     borderWidth: 2,
-    borderRadius: 16,
+    borderRadius: 12,
     position: 'relative',
   },
   corner: {
@@ -414,12 +420,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   instructionsText: {
-    color: '#94A3B8',
     fontSize: 16,
     textAlign: 'center',
   },
   instructionsSubtext: {
-    color: '#64748B',
     fontSize: 13,
     textAlign: 'center',
     marginTop: 4,
@@ -429,7 +433,6 @@ const styles = StyleSheet.create({
     padding: 12,
   },
   errorText: {
-    color: '#EF4444',
     fontSize: 14,
     textAlign: 'center',
   },
@@ -437,7 +440,10 @@ const styles = StyleSheet.create({
     marginTop: 40,
     paddingVertical: 14,
     paddingHorizontal: 32,
-    borderRadius: 24,
+    borderRadius: 9999,
+    minHeight: 44,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   scanBtnText: {
     color: '#fff',
@@ -447,6 +453,8 @@ const styles = StyleSheet.create({
   copyUriBtn: {
     marginTop: 16,
     padding: 12,
+    minHeight: 44,
+    justifyContent: 'center',
   },
   copyUriText: {
     fontSize: 14,
@@ -454,9 +462,10 @@ const styles = StyleSheet.create({
   cancelBtn: {
     marginTop: 24,
     padding: 12,
+    minHeight: 44,
+    justifyContent: 'center',
   },
   cancelText: {
-    color: '#94A3B8',
     fontSize: 16,
   },
   cameraPlaceholder: {
@@ -464,13 +473,11 @@ const styles = StyleSheet.create({
     padding: 24,
   },
   cameraPlaceholderText: {
-    color: '#F8FAFC',
     fontSize: 16,
     fontWeight: '600',
     marginBottom: 8,
   },
   cameraPlaceholderSubtext: {
-    color: '#94A3B8',
     fontSize: 13,
     textAlign: 'center',
   },

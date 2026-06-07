@@ -14,7 +14,7 @@
  */
 
 import { useState, useEffect, useCallback } from 'react';
-import { useCinaCoinContext } from '../CinacoinProvider.js';
+import { useCinaCoinContext } from '../CinaCoinProvider.js';
 
 // ---------------------------------------------------------------------------
 // useBalance

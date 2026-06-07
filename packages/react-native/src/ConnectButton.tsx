@@ -43,8 +43,9 @@ export interface ConnectButtonProps {
   onDisconnect?: () => void;
 }
 
-const SIZE_HEIGHT: Record<string, number> = { sm: 36, md: 44, lg: 52 };
-const SIZE_PADDING: Record<string, number> = { sm: 16, md: 24, lg: 32 };
+// Design-token: connect-button heights
+const SIZE_HEIGHT: Record<string, number> = { sm: 32, md: 44, lg: 48 };
+const SIZE_PADDING: Record<string, number> = { sm: 12, md: 16, lg: 24 };
 const SIZE_FONT: Record<string, number> = { sm: 12, md: 14, lg: 16 };
 
 /** Truncate an Ethereum address. */
@@ -87,7 +88,7 @@ export function ConnectButton({
 }: ConnectButtonProps): JSX.Element {
   const { account, status, connect, disconnect, themeColors } = useCinaCoinContext();
 
-  // Derive effective connected state (useWalletConnect can't be conditionally called)
+  // Derive effective connected state
   const isConnected = status === 'connected';
   const isConnecting = status === 'connecting';
   const isError = status === 'error';
@@ -114,20 +115,21 @@ export function ConnectButton({
 
   const buttonStyle = getButtonStyle(variant, isConnected, isError, themeColors);
   const height = SIZE_HEIGHT[size] ?? 44;
-  const padding = SIZE_PADDING[size] ?? 24;
+  const padding = SIZE_PADDING[size] ?? 16;
   const fontSize = SIZE_FONT[size] ?? 14;
 
   return (
     <TouchableOpacity
       style={[
         styles.button,
-        { height, paddingHorizontal: padding, borderRadius: 24 },
+        { height, paddingHorizontal: padding, borderRadius: 9999 }, // design-token: radii.full
         buttonStyle,
         style,
       ]}
       onPress={handlePress}
       activeOpacity={0.7}
       disabled={isConnecting}
+      accessible={true}
       accessibilityRole="button"
       accessibilityLabel={
         isConnected
@@ -140,7 +142,7 @@ export function ConnectButton({
       ) : isConnected ? (
         <View style={styles.connectedContent}>
           {showAvatar && (
-            <View style={[styles.avatar, { width: fontSize, height: fontSize }]} />
+            <View style={[styles.avatar, { width: 24, height: 24 }]} /> // design-token: connect-button.avatar-size
           )}
           <Text
             style={[
@@ -194,16 +196,16 @@ function getButtonStyle(
 ) {
   if (isConnected || variant === 'secondary') {
     return {
-      backgroundColor: colors.bgCard,
+      backgroundColor: colors.bgCard, // design-token: connect-button.connected-bg
       borderWidth: 1,
-      borderColor: colors.border,
+      borderColor: colors.border, // design-token: connect-button.connected-border
       color: colors.textPrimary,
     };
   }
   if (isError) {
     return {
-      backgroundColor: colors.error + '26',
-      color: colors.error,
+      backgroundColor: colors.error + '26', // design-token: semantic.error-bg
+      color: colors.error, // design-token: semantic.error
     };
   }
   if (variant === 'ghost') {
@@ -213,8 +215,8 @@ function getButtonStyle(
     };
   }
   return {
-    backgroundColor: colors.accent500,
-    color: '#FFFFFF',
+    backgroundColor: colors.accent500, // design-token: connect-button.bg
+    color: '#FFFFFF', // design-token: semantic.text-inverse
   };
 }
 
@@ -226,7 +228,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   text: {
-    fontWeight: '600',
+    fontWeight: '600', // design-token: connect-button.font-weight
     textAlign: 'center',
   },
   connectedContent: {
@@ -235,7 +237,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   avatar: {
-    borderRadius: 12,
+    borderRadius: 12, // design-token: semantic.radii.full
     backgroundColor: '#3B82F6',
   },
   addressText: {
@@ -243,16 +245,16 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   balanceText: {
-    fontSize: 12,
+    fontSize: 12, // design-token: semantic.typography.size-xs
   },
   networkBadge: {
     borderWidth: 1,
-    borderRadius: 4,
-    paddingHorizontal: 6,
-    paddingVertical: 2,
+    borderRadius: 9999, // design-token: network-badge.radius
+    paddingHorizontal: 8, // design-token: network-badge.padding-x
+    paddingVertical: 2, // design-token: network-badge.padding-y
   },
   networkBadgeText: {
-    fontSize: 10,
+    fontSize: 12, // design-token: network-badge.text-font-size
     fontWeight: '600',
   },
 });
