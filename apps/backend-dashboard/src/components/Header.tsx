@@ -2,6 +2,7 @@
 
 import { useAuth } from "@/lib/AuthProvider";
 import { useWorkerHealth, aggregateStatusLabel } from "@/hooks/useWorkerHealth";
+import { useState, useCallback } from "react";
 
 interface HeaderProps {
   onMenuToggle: () => void;
@@ -10,6 +11,13 @@ interface HeaderProps {
 export default function Header({ onMenuToggle }: HeaderProps) {
   const { address, isLoggedIn, doLogout } = useAuth();
   const { allHealthy, degradedCount, downCount, checking } = useWorkerHealth(15000);
+  const [theme, setTheme] = useState<"light" | "dark">(() => {
+    if (typeof document !== "undefined") {
+      const current = document.documentElement.getAttribute("data-theme");
+      if (current === "dark" || current === "light") return current;
+    }
+    return "light";
+  });
 
   const shortAddress = address
     ? `${address.slice(0, 6)}…${address.slice(-4)}`
@@ -20,38 +28,26 @@ export default function Header({ onMenuToggle }: HeaderProps) {
   // Determine dot color for health indicator
   const dotColor =
     downCount > 0
-      ? "bg-dashboard-danger"
+      ? "bg-[var(--cc-error)]"
       : degradedCount > 0
-        ? "bg-dashboard-warning"
+        ? "bg-[var(--cc-warning)]"
         : checking
-          ? "bg-dashboard-muted animate-pulse"
-          : "bg-dashboard-success animate-pulse";
+          ? "bg-[var(--cc-muted)] animate-pulse"
+          : "bg-[var(--cc-success)] animate-pulse";
 
-  const borderColor =
-    downCount > 0
-      ? "border-dashboard-danger/30"
-      : degradedCount > 0
-        ? "border-dashboard-warning/30"
-        : checking
-          ? "border-dashboard-border"
-          : "border-dashboard-success/30";
-
-  const bgColor =
-    downCount > 0
-      ? "bg-dashboard-danger/10"
-      : degradedCount > 0
-        ? "bg-dashboard-warning/10"
-        : checking
-          ? "bg-dashboard-muted/10"
-          : "bg-dashboard-success/10";
+  const toggleTheme = useCallback(() => {
+    const next = theme === "light" ? "dark" : "light";
+    setTheme(next);
+    document.documentElement.setAttribute("data-theme", next);
+  }, [theme]);
 
   return (
-    <header className="bg-dashboard-surface/80 backdrop-blur border-b border-dashboard-border px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+    <header className="cc-navbar flex items-center justify-between px-4 sm:px-6">
       <div className="flex items-center gap-3">
         {/* Mobile hamburger */}
         <button
           onClick={onMenuToggle}
-          className="lg:hidden p-2 rounded-[var(--cc-radius-sm)] text-dashboard-muted hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas)]/10 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+          className="lg:hidden p-2 rounded-[var(--cc-radius-sm)] text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft)] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
           aria-label="Toggle sidebar"
         >
           <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -61,33 +57,53 @@ export default function Header({ onMenuToggle }: HeaderProps) {
 
         <img src="/logo.png" alt="Cinacoin logo" className="h-7 w-7 sm:h-8 sm:w-8 rounded-md shrink-0" />
         <div className="min-w-0">
-          <h2 className="text-base sm:text-xl font-semibold tracking-tight text-[var(--cc-ink)] truncate">Cinacoin <span className="text-dashboard-muted font-normal">Backend</span></h2>
-          <p className="text-xs sm:text-sm text-dashboard-muted hidden sm:block">Cloudflare Workers Management</p>
+          <h2 className="cc-body-md-strong text-[var(--cc-ink)] truncate">Backend Dashboard</h2>
+          <p className="cc-caption text-[var(--cc-muted)] hidden sm:block">Cloudflare Workers Management</p>
         </div>
       </div>
+
       <div className="flex items-center gap-2 sm:gap-3">
-        <div className={`flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1.5 rounded-full ${bgColor} border ${borderColor}`}>
-          <span className={`w-2 h-2 rounded-full ${dotColor}`} />
-          <span className={`text-xs font-medium hidden sm:inline ${statusBadge.color}`}>{statusBadge.label}</span>
-          <span className={`text-xs font-medium sm:hidden ${statusBadge.color}`}>
+        {/* Health status badge */}
+        <span className="cc-badge">
+          <span className={`w-1.5 h-1.5 rounded-full mr-1.5 ${dotColor}`} />
+          <span className="hidden sm:inline">{statusBadge.label}</span>
+          <span className="sm:hidden">
             {downCount > 0 ? 'Down' : degradedCount > 0 ? 'Degraded' : 'OK'}
           </span>
-        </div>
+        </span>
 
         {isLoggedIn && (
           <>
-            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/30">
-              <span className="w-2 h-2 rounded-full bg-brand-400" />
-              <span className="text-xs text-brand-300 font-mono">{shortAddress}</span>
-            </div>
+            <span className="cc-badge hidden sm:inline-flex">
+              <span className="w-1.5 h-1.5 rounded-full mr-1.5 bg-[var(--cc-success)]" />
+              <span className="cc-caption-mono">{shortAddress}</span>
+            </span>
             <button
               onClick={doLogout}
-              className="px-3 py-1.5 text-xs font-medium text-[var(--cc-error)] border border-[var(--cc-error)]/30 rounded-full hover:bg-[var(--cc-error)]/10 transition-colors min-h-[36px]"
+              className="cc-btn-secondary-sm"
             >
               Logout
             </button>
           </>
         )}
+
+        {/* Theme toggle */}
+        <button
+          onClick={toggleTheme}
+          aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
+          className="p-2 rounded-full text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft)] transition-colors min-h-[36px] min-w-[36px] flex items-center justify-center"
+        >
+          {theme === "light" ? (
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+          ) : (
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <circle cx="12" cy="12" r="5" />
+              <path strokeLinecap="round" d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+            </svg>
+          )}
+        </button>
       </div>
     </header>
   );

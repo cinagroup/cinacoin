@@ -7,26 +7,26 @@ const NAV_SECTIONS = [
   {
     label: "Dashboard",
     items: [
-      { href: "/", label: "Overview", icon: "📊" },
-      { href: "/analytics", label: "Analytics", icon: "📈" },
+      { href: "/", label: "Overview" },
+      { href: "/analytics", label: "Analytics" },
     ],
   },
   {
     label: "Services",
     items: [
-      { href: "/rpc-proxy", label: "RPC Proxy", icon: "🔄" },
-      { href: "/keys-server", label: "Keys Server", icon: "🔑" },
-      { href: "/relay-server", label: "Relay Server", icon: "📡" },
-      { href: "/notify-server", label: "Notify Server", icon: "🔔" },
-      { href: "/push-server", label: "Push Server", icon: "📱" },
+      { href: "/rpc-proxy", label: "RPC Proxy" },
+      { href: "/keys-server", label: "Keys Server" },
+      { href: "/relay-server", label: "Relay Server" },
+      { href: "/notify-server", label: "Notify Server" },
+      { href: "/push-server", label: "Push Server" },
     ],
   },
   {
     label: "Configuration",
     items: [
-      { href: "/project", label: "Project", icon: "📦" },
-      { href: "/chains", label: "Networks", icon: "🌐" },
-      { href: "/settings", label: "Settings", icon: "⚙️" },
+      { href: "/project", label: "Project" },
+      { href: "/chains", label: "Networks" },
+      { href: "/settings", label: "Settings" },
     ],
   },
 ];
@@ -43,20 +43,20 @@ export default function Sidebar({ onClose }: SidebarProps) {
   };
 
   return (
-    <aside className="w-64 bg-dashboard-surface border-r border-dashboard-border flex flex-col h-screen sticky top-0">
+    <aside className="w-64 bg-[var(--cc-canvas)] border-r border-[var(--cc-hairline)] flex flex-col h-screen sticky top-0">
       {/* Logo */}
-      <div className="p-6 border-b border-dashboard-border">
+      <div className="px-5 py-4 border-b border-[var(--cc-hairline)]">
         <div className="flex items-center gap-3">
-          <img src="/logo.png" alt="Cinacoin logo" className="h-8 w-8 rounded-md shrink-0" />
-          <div className="flex-1">
-            <h1 className="text-lg font-semibold tracking-tight text-dashboard-text">Cinacoin</h1>
-            <p className="text-xs text-dashboard-muted">Backend Dashboard</p>
+          <img src="/logo.png" alt="Cinacoin logo" className="h-7 w-7 rounded-md shrink-0" />
+          <div className="flex-1 min-w-0">
+            <h1 className="cc-display-sm text-[var(--cc-ink)] leading-none">Cinacoin</h1>
+            <p className="cc-body-sm text-[var(--cc-muted)] leading-none mt-0.5">Backend Dashboard</p>
           </div>
           {/* Mobile close button */}
           {onClose && (
             <button
               onClick={onClose}
-              className="lg:hidden p-2 rounded-[var(--cc-radius-sm)] text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas)]/10 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+              className="lg:hidden p-2 rounded-[var(--cc-radius-sm)] text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft)] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
               aria-label="Close sidebar"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -68,10 +68,10 @@ export default function Sidebar({ onClose }: SidebarProps) {
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 p-4 space-y-4 overflow-y-auto">
+      <nav className="flex-1 p-3 space-y-5 overflow-y-auto">
         {NAV_SECTIONS.map((section) => (
           <div key={section.label}>
-            <p className="text-[10px] uppercase tracking-wider text-dashboard-muted/60 font-semibold mb-2 px-3">
+            <p className="cc-caption-mono text-[var(--cc-muted)] px-3 mb-1.5">
               {section.label}
             </p>
             <div className="space-y-0.5">
@@ -82,13 +82,12 @@ export default function Sidebar({ onClose }: SidebarProps) {
                     key={item.href}
                     href={item.href}
                     onClick={handleNav}
-                    className={`flex items-center gap-3 px-3 py-3 rounded-[var(--cc-radius-sm)] text-sm font-medium transition-colors min-h-[44px] ${
+                    className={`flex items-center px-3 py-2 rounded-[var(--cc-radius-sm)] text-sm font-medium transition-colors min-h-[36px] ${
                       isActive
-                        ? "bg-brand-500/20 text-brand-400"
-                        : "text-dashboard-muted hover:text-[var(--cc-ink)] hover:bg-dashboard-border/50"
+                        ? "bg-[var(--cc-canvas-soft-2)] text-[var(--cc-ink)]"
+                        : "text-[var(--cc-body)] hover:bg-[var(--cc-canvas-soft)] hover:text-[var(--cc-ink)]"
                     }`}
                   >
-                    <span className="text-lg">{item.icon}</span>
                     {item.label}
                   </Link>
                 );
@@ -99,8 +98,8 @@ export default function Sidebar({ onClose }: SidebarProps) {
       </nav>
 
       {/* Footer */}
-      <div className="p-4 border-t border-dashboard-border">
-        <div className="text-xs text-dashboard-muted">
+      <div className="px-4 py-3 border-t border-[var(--cc-hairline)]">
+        <div className="cc-caption text-[var(--cc-muted)]">
           v0.1.0 • Cloudflare Workers
         </div>
       </div>

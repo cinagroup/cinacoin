@@ -7,33 +7,6 @@ interface ServiceCardProps {
   demoMode?: boolean;
 }
 
-/** Get the color ring/border for a service based on its status */
-function statusBorder(status: string): string {
-  switch (status) {
-    case "healthy":
-      return "border-l-4 border-l-[var(--cc-success)] border-t-transparent border-r-transparent border-b-transparent";
-    case "degraded":
-      return "border-l-4 border-l-[var(--cc-warning)] border-t-transparent border-r-transparent border-b-transparent";
-    case "down":
-      return "border-l-4 border-l-[var(--cc-error)] border-t-transparent border-r-transparent border-b-transparent";
-    default:
-      return "border-l-4 border-l-[var(--cc-muted)] border-t-transparent border-r-transparent border-b-transparent";
-  }
-}
-
-function statusDotColor(status: string): string {
-  switch (status) {
-    case "healthy":
-      return "bg-[var(--cc-success)] shadow-[0_0_8px_var(--cc-success)]";
-    case "degraded":
-      return "bg-[var(--cc-warning)] shadow-[0_0_8px_var(--cc-warning)]";
-    case "down":
-      return "bg-[var(--cc-error)] shadow-[0_0_8px_var(--cc-error)] animate-pulse";
-    default:
-      return "bg-[var(--cc-muted)]";
-  }
-}
-
 function statusBadgeBg(status: string): string {
   switch (status) {
     case "healthy":
@@ -47,13 +20,25 @@ function statusBadgeBg(status: string): string {
   }
 }
 
+function statusDotColor(status: string): string {
+  switch (status) {
+    case "healthy":
+      return "bg-[var(--cc-success)]";
+    case "degraded":
+      return "bg-[var(--cc-warning)]";
+    case "down":
+      return "bg-[var(--cc-error)] animate-pulse";
+    default:
+      return "bg-[var(--cc-muted)]";
+  }
+}
+
 export default function ServiceCard({ service, health, demoMode = false }: ServiceCardProps) {
-  const isHealthy = health.status === "healthy";
-  const isDegraded = health.status === "degraded";
   const isDown = health.status === "down";
+  const isDegraded = health.status === "degraded";
 
   return (
-    <div className={`relative rounded-md border border-dashboard-border bg-dashboard-surface p-5 ${statusBorder(health.status)} transition-all duration-300 hover:bg-dashboard-surfaceHover hover:shadow-[0_2px_2px_rgba(0,0,0,0.1),0_8px_8px_-8px_rgba(0,0,0,0.1),inset_0_0_0_1px_rgba(255,255,255,0.08)]`}>
+    <div className="cc-card relative transition-all duration-300 hover:shadow-[var(--cc-shadow-level-3)]">
       {/* Status indicator - top right */}
       <div className="absolute top-3 right-3">
         <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-xs font-medium ${statusBadgeBg(health.status)}`}>
@@ -66,22 +51,19 @@ export default function ServiceCard({ service, health, demoMode = false }: Servi
 
       {/* Service identity */}
       <div className="mb-4">
-        <div className="flex items-center gap-3 mb-2">
-          <span className="text-2xl" role="img" aria-label={service.name}>{service.icon}</span>
-          <h3 className="text-base font-semibold text-[var(--cc-ink)]">{service.name}</h3>
-        </div>
-        <p className="text-xs text-dashboard-muted leading-relaxed">{service.description}</p>
+        <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-1">{service.name}</h3>
+        <p className="cc-caption text-[var(--cc-muted)] leading-relaxed">{service.description}</p>
       </div>
 
       {/* Health details */}
       <div className="space-y-2">
         {health.latency !== null && health.latency >= 0 && (
           <div className="flex items-center justify-between">
-            <span className="text-xs text-dashboard-muted">Response Time</span>
-            <span className={`text-sm font-medium ${
-              isDown ? "text-dashboard-danger" :
-              isDegraded ? "text-dashboard-warning" :
-              health.latency > 500 ? "text-dashboard-warning" : "text-[var(--cc-ink)]"
+            <span className="cc-caption text-[var(--cc-muted)]">Response Time</span>
+            <span className={`cc-body-sm-strong ${
+              isDown ? "text-[var(--cc-error)]" :
+              isDegraded ? "text-[var(--cc-warning)]" :
+              health.latency > 500 ? "text-[var(--cc-warning)]" : "text-[var(--cc-ink)]"
             }`}>
               {formatLatency(health.latency)}
             </span>
@@ -91,14 +73,14 @@ export default function ServiceCard({ service, health, demoMode = false }: Servi
         {health.error && (
           <div className="flex items-center gap-1.5">
             <span className="text-xs text-[var(--cc-error)]">⚠</span>
-            <span className="text-xs text-[var(--cc-error)]/80 truncate">{health.error}</span>
+            <span className="cc-caption text-[var(--cc-error)]/80 truncate">{health.error}</span>
           </div>
         )}
 
         {/* Last checked */}
         <div className="flex items-center justify-between">
-          <span className="text-xs text-dashboard-muted">Last Check</span>
-          <span className="text-xs text-dashboard-muted/60">
+          <span className="cc-caption text-[var(--cc-muted)]">Last Check</span>
+          <span className="cc-caption text-[var(--cc-muted)]/60">
             {health.lastChecked ? new Date(health.lastChecked).toLocaleTimeString() : "—"}
           </span>
         </div>
@@ -106,8 +88,8 @@ export default function ServiceCard({ service, health, demoMode = false }: Servi
 
       {/* Demo mode hint */}
       {demoMode && health.status === "down" && (
-        <div className="mt-3 pt-3 border-t border-dashboard-border">
-          <p className="text-xs text-dashboard-muted/60">
+        <div className="mt-3 pt-3 border-t border-[var(--cc-hairline)]">
+          <p className="cc-caption text-[var(--cc-muted)]/60">
             ℹ️ Services on Cloudflare Workers — using demo data
           </p>
         </div>

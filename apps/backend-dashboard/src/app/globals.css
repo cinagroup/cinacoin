@@ -75,16 +75,6 @@
   --cc-form-large-height: 48px;
 
   /* Legacy compatibility */
-  --cc-bg: #0a0c10;
-  --cc-surface: #12141c;
-  --cc-surface-hover: #1a1d28;
-  --cc-border: #1e2130;
-  --cc-border-light: #2a2d3e;
-  --cc-muted-light: #9ca3af;
-  --cc-text: #f9fafb;
-  --cc-text-secondary: #d1d5db;
-  --cc-danger: #ef4444;
-  --cc-info: #3b82f6;
   --foreground-rgb: 255, 255, 255;
   --background-start-rgb: 15, 17, 23;
   --background-end-rgb: 15, 17, 23;
@@ -130,16 +120,6 @@
   --cc-shadow-level-5: 0 1px 1px rgba(0, 0, 0, 0.05), 0 8px 16px -4px rgba(0, 0, 0, 0.1), 0 24px 32px -8px rgba(0, 0, 0, 0.15), inset 0 0 0 1px rgba(0, 0, 0, 0.08);
 
   /* Legacy compatibility */
-  --cc-bg: #f8fafc;
-  --cc-surface: #ffffff;
-  --cc-surface-hover: #f1f5f9;
-  --cc-border: #e2e8f0;
-  --cc-border-light: #e5e7eb;
-  --cc-muted-light: #6b7280;
-  --cc-text: #0f172a;
-  --cc-text-secondary: #475569;
-  --cc-danger: #dc2626;
-  --cc-info: #2563eb;
   --foreground-rgb: 15, 23, 42;
   --background-start-rgb: 248, 250, 252;
   --background-end-rgb: 248, 250, 252;
@@ -206,6 +186,12 @@ body {
   --cc-6xl: var(--cc-space-6xl, 128px);
   --cc-section: var(--cc-space-section, 192px);
   --cc-radius-pill-sm: 64px;
+
+  /* Shadow level aliases */
+  --cc-level2: var(--cc-shadow-level-2);
+  --cc-level3: var(--cc-shadow-level-3);
+  --cc-level4: var(--cc-shadow-level-4);
+  --cc-level5: var(--cc-shadow-level-5);
 }
 
 /* ───────────────────────────────────────────

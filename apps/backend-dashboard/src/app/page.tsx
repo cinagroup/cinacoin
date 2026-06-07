@@ -58,8 +58,8 @@ export default function OverviewPage() {
       {/* Page title */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl sm:text-2xl font-semibold tracking-tighter text-[var(--cc-ink)]">Service Overview</h1>
-          <p className="text-dashboard-muted mt-1 text-sm">
+          <h1 className="cc-display-sm text-[var(--cc-ink)]">Service Overview</h1>
+          <p className="cc-body-sm text-[var(--cc-muted)] mt-1">
             {demoMode ? "Demo Mode — Simulated metrics" : "Live monitoring of Cloudflare Workers"}
             {lastRefresh && !demoMode && (
               <span className="ml-2 text-xs">
@@ -82,26 +82,26 @@ export default function OverviewPage() {
             aria-label="Go to settings"
             className="cc-btn-secondary-sm"
           >
-            ⚙️ Settings
+            Settings
           </Link>
         </div>
       </div>
 
       {/* Aggregate metrics - Workers health summary */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-        <MetricBox label="Workers Health" value={`${healthyCount}/${SERVICES.length}`} icon="🏥" color="text-brand-400" />
-        {degradedCount > 0 && <MetricBox label="Degraded" value={degradedCount} icon="⚠️" color="text-dashboard-warning" />}
-        {downCount > 0 && <MetricBox label="Down" value={downCount} icon="❌" color="text-dashboard-danger" />}
-        <MetricBox label="Total Requests" value={formatNumber(totalRequests)} icon="📈" />
-        <MetricBox label="Total Errors" value={formatNumber(totalErrors)} icon="⚠️" color={totalErrors > 10000 ? "text-dashboard-danger" : "text-dashboard-warning"} />
-        <MetricBox label="Avg Error Rate" value={`${avgErrorRate.toFixed(2)}%`} icon="📉" color={avgErrorRate > 1 ? "text-dashboard-danger" : "text-dashboard-success"} />
+        <MetricBox label="Workers Health" value={`${healthyCount}/${SERVICES.length}`} color="text-[var(--cc-link)]" />
+        {degradedCount > 0 && <MetricBox label="Degraded" value={degradedCount} color="text-[var(--cc-warning)]" />}
+        {downCount > 0 && <MetricBox label="Down" value={downCount} color="text-[var(--cc-error)]" />}
+        <MetricBox label="Total Requests" value={formatNumber(totalRequests)} />
+        <MetricBox label="Total Errors" value={formatNumber(totalErrors)} color={totalErrors > 10000 ? "text-[var(--cc-error)]" : "text-[var(--cc-warning)]"} />
+        <MetricBox label="Avg Error Rate" value={`${avgErrorRate.toFixed(2)}%`} color={avgErrorRate > 1 ? "text-[var(--cc-error)]" : "text-[var(--cc-success)]"} />
       </div>
 
       {/* 7-day request chart */}
-      <BarChart data={HISTORY_DATA} labels={HISTORY_DAYS} color="#3b82f6" height={140} aria-label="7-day request volume bar chart" />
+      <BarChart data={HISTORY_DATA} labels={HISTORY_DAYS} color="#0070f3" height={140} aria-label="7-day request volume bar chart" />
 
       {/* Service status cards */}
-      <h2 className="text-base sm:text-lg font-semibold text-[var(--cc-ink)] mt-4 sm:mt-6">Service Status</h2>
+      <h2 className="cc-body-md-strong text-[var(--cc-ink)] mt-4 sm:mt-6">Service Status</h2>
       <div className="grid gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {SERVICES.map((service) => (
           <Link key={service.id} href={`/${service.id}`}>
@@ -115,15 +115,15 @@ export default function OverviewPage() {
       </div>
 
       {/* Service summary table */}
-      <div className="bg-dashboard-surface rounded-md border border-dashboard-border overflow-hidden overflow-x-auto">
+      <div className="cc-card-soft overflow-hidden overflow-x-auto">
         <table className="w-full text-sm min-w-[500px]">
           <thead>
-            <tr className="border-b border-dashboard-border">
-              <th scope="col" className="text-left px-3 sm:px-4 py-3 text-dashboard-muted font-medium">Service</th>
-              <th scope="col" className="text-left px-3 sm:px-4 py-3 text-dashboard-muted font-medium">Status</th>
-              <th scope="col" className="text-right px-3 sm:px-4 py-3 text-dashboard-muted font-medium">Requests</th>
-              <th scope="col" className="text-right px-3 sm:px-4 py-3 text-dashboard-muted font-medium">Error Rate</th>
-              <th scope="col" className="text-right px-3 sm:px-4 py-3 text-dashboard-muted font-medium">Avg Latency</th>
+            <tr className="border-b border-[var(--cc-hairline)]">
+              <th scope="col" className="text-left px-3 sm:px-4 py-3 cc-caption text-[var(--cc-muted)] font-normal">Service</th>
+              <th scope="col" className="text-left px-3 sm:px-4 py-3 cc-caption text-[var(--cc-muted)] font-normal">Status</th>
+              <th scope="col" className="text-right px-3 sm:px-4 py-3 cc-caption text-[var(--cc-muted)] font-normal">Requests</th>
+              <th scope="col" className="text-right px-3 sm:px-4 py-3 cc-caption text-[var(--cc-muted)] font-normal">Error Rate</th>
+              <th scope="col" className="text-right px-3 sm:px-4 py-3 cc-caption text-[var(--cc-muted)] font-normal">Avg Latency</th>
             </tr>
           </thead>
           <tbody>
@@ -131,17 +131,16 @@ export default function OverviewPage() {
               const metrics = demoMode ? generateDemoMetrics(service.id) : null;
               const h = health[service.id] || { status: "unknown", latency: null, lastChecked: 0 };
               return (
-                <tr key={service.id} className="border-b border-dashboard-border/50 hover:bg-dashboard-border/20">
-                  <td className="px-3 sm:px-4 py-3 text-[var(--cc-ink)] whitespace-nowrap">
-                    <span className="mr-2">{service.icon}</span>
+                <tr key={service.id} className="border-b border-[var(--cc-hairline)]/50 hover:bg-[var(--cc-canvas-soft)] transition-colors">
+                  <td className="px-3 sm:px-4 py-3 cc-body-sm text-[var(--cc-ink)] whitespace-nowrap">
                     {service.name}
                   </td>
-                  <td className={`px-3 sm:px-4 py-3 font-medium ${statusColor(h.status)}`}>
+                  <td className={`px-3 sm:px-4 py-3 cc-body-sm-strong ${statusColor(h.status)}`}>
                     {h.status}
                   </td>
-                  <td className="px-3 sm:px-4 py-3 text-right text-[var(--cc-ink)]">{metrics ? formatNumber(metrics.totalRequests || 0) : "—"}</td>
-                  <td className="px-3 sm:px-4 py-3 text-right text-[var(--cc-ink)]">{metrics ? `${metrics.errorRate?.toFixed(2) || 0}%` : "—"}</td>
-                  <td className="px-3 sm:px-4 py-3 text-right text-[var(--cc-ink)]">
+                  <td className="px-3 sm:px-4 py-3 text-right cc-body-sm text-[var(--cc-ink)]">{metrics ? formatNumber(metrics.totalRequests || 0) : "—"}</td>
+                  <td className="px-3 sm:px-4 py-3 text-right cc-body-sm text-[var(--cc-ink)]">{metrics ? `${metrics.errorRate?.toFixed(2) || 0}%` : "—"}</td>
+                  <td className="px-3 sm:px-4 py-3 text-right cc-body-sm text-[var(--cc-ink)]">
                     {metrics ? formatLatency(metrics.avgLatency || 0) : "—"}
                   </td>
                 </tr>

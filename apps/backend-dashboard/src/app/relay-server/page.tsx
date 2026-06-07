@@ -25,10 +25,10 @@ const CHAIN_DATA = [
 ];
 
 const DO_STATS = [
-  { label: "Active DOs", value: 89, icon: "🏗️" },
-  { label: "Avg DO Latency", value: "3ms", icon: "⚡" },
-  { label: "DO Errors (24h)", value: "2", icon: "⚠️" },
-  { label: "WebSocket Uptime", value: "99.97%", icon: "🟢" },
+  { label: "Active DOs", value: "89" },
+  { label: "Avg DO Latency", value: "3ms" },
+  { label: "DO Errors (24h)", value: "2" },
+  { label: "WebSocket Uptime", value: "99.97%" },
 ];
 
 const RECENT_EVENTS = [
@@ -54,51 +54,49 @@ export default function RelayServerPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl sm:text-2xl font-semibold tracking-tighter text-[var(--cc-ink)]">📡 Relay Server</h1>
-          <p className="text-dashboard-muted mt-1">WebSocket relay via Durable Objects for real-time chain events</p>
+          <h1 className="cc-display-sm text-[var(--cc-ink)]">Relay Server</h1>
+          <p className="cc-body-sm text-[var(--cc-muted)] mt-1">WebSocket relay via Durable Objects for real-time chain events</p>
         </div>
-        <span className="text-xs text-dashboard-muted bg-dashboard-surface border border-dashboard-border rounded-full px-3 py-1.5">
-          Durable Objects • WebSocket
-        </span>
+        <span className="cc-badge">Durable Objects • WebSocket</span>
       </div>
 
       {/* Key metrics */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <MetricBox label="Active Connections" value={formatNumber(metrics.activeConnections || 0)} color="text-cyan-400" trend="up" />
+        <MetricBox label="Active Connections" value={formatNumber(metrics.activeConnections || 0)} color="text-[var(--cc-cyan)]" trend="up" />
         <MetricBox label="Throughput" value={`${formatNumber(metrics.throughput || 0)} msg/s`} trend="stable" />
         <MetricBox label="Total Requests" value={formatNumber(metrics.totalRequests || 0)} trend="up" />
-        <MetricBox label="Error Rate" value={`${metrics.errorRate?.toFixed(2) || 0}%`} color="text-dashboard-success" />
+        <MetricBox label="Error Rate" value={`${metrics.errorRate?.toFixed(2) || 0}%`} color="text-[var(--cc-success)]" />
       </div>
 
       {/* DO Status + Connection breakdown */}
       <div className="grid md:grid-cols-2 gap-4">
         {/* DO status */}
-        <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
-          <h3 className="text-lg font-semibold text-[var(--cc-ink)] mb-4">Durable Objects Status</h3>
+        <div className="cc-card">
+          <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Durable Objects Status</h3>
           <div className="grid grid-cols-2 gap-4">
             {DO_STATS.map((s, i) => (
-              <MetricBox key={i} label={s.label} value={s.value} icon={s.icon} />
+              <MetricBox key={i} label={s.label} value={s.value} />
             ))}
           </div>
         </div>
 
         {/* Connection breakdown */}
-        <div className="bg-dashboard-surface rounded-md border border-dashboard-border p-5">
-          <h3 className="text-lg font-semibold text-[var(--cc-ink)] mb-4">Connection Breakdown</h3>
+        <div className="cc-card">
+          <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Connection Breakdown</h3>
           <div className="space-y-3">
             {CHAIN_DATA.map((chain, i) => {
               const total = metrics.activeConnections || 1247;
               const pct = ((chain.count / total) * 100).toFixed(1);
               return (
                 <div key={i} className="flex items-center gap-3">
-                  <span className="text-sm text-dashboard-muted w-36">{chain.label}</span>
-                  <div className="flex-1 bg-dashboard-border rounded-full h-3 overflow-hidden" role="progressbar" aria-valuenow={Math.round(Number(pct))} aria-valuemin={0} aria-valuemax={100} aria-label={`${chain.label}: ${pct}%`}>
+                  <span className="cc-body-sm text-[var(--cc-muted)] w-36">{chain.label}</span>
+                  <div className="flex-1 bg-[var(--cc-hairline)] rounded-full h-3 overflow-hidden" role="progressbar" aria-valuenow={Math.round(Number(pct))} aria-valuemin={0} aria-valuemax={100} aria-label={`${chain.label}: ${pct}%`}>
                     <div
                       className="h-full rounded-full transition-all"
                       style={{ width: `${pct}%`, backgroundColor: chain.color }}
                     />
                   </div>
-                  <span className="text-sm text-[var(--cc-ink)] w-12 text-right">{chain.count}</span>
+                  <span className="cc-body-sm text-[var(--cc-ink)] w-12 text-right">{chain.count}</span>
                 </div>
               );
             })}
@@ -108,36 +106,36 @@ export default function RelayServerPage() {
 
       {/* Charts */}
       <div className="grid md:grid-cols-2 gap-4">
-        <BarChart data={THROUGHPUT_HISTORY} labels={THROUGHPUT_LABELS} color="#06b6d4" height={140} aria-label="24h throughput trend" />
-        <BarChart data={CONNECTION_HISTORY} labels={CONNECTION_LABELS} color="#06b6d4" height={140} aria-label="Weekly active connections" />
+        <BarChart data={THROUGHPUT_HISTORY} labels={THROUGHPUT_LABELS} color="#29bc9b" height={140} aria-label="24h throughput trend" />
+        <BarChart data={CONNECTION_HISTORY} labels={CONNECTION_LABELS} color="#29bc9b" height={140} aria-label="Weekly active connections" />
       </div>
 
       {/* Event log */}
-      <div className="bg-dashboard-surface rounded-md border border-dashboard-border overflow-hidden">
-        <div className="px-5 py-4 border-b border-dashboard-border">
-          <h3 className="text-lg font-semibold text-[var(--cc-ink)]">Live Events</h3>
+      <div className="cc-card-soft overflow-hidden">
+        <div className="px-5 py-4 border-b border-[var(--cc-hairline)]">
+          <h3 className="cc-body-md-strong text-[var(--cc-ink)]">Live Events</h3>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-dashboard-border/50 text-dashboard-muted">
-                <th className="text-left px-5 py-3 font-medium">Event</th>
-                <th className="text-left px-5 py-3 font-medium">Client</th>
-                <th className="text-left px-5 py-3 font-medium">Chain</th>
-                <th className="text-left px-5 py-3 font-medium">Time</th>
+              <tr className="border-b border-[var(--cc-hairline)]/50 cc-caption text-[var(--cc-muted)]">
+                <th className="text-left px-5 py-3 font-normal">Event</th>
+                <th className="text-left px-5 py-3 font-normal">Client</th>
+                <th className="text-left px-5 py-3 font-normal">Chain</th>
+                <th className="text-left px-5 py-3 font-normal">Time</th>
               </tr>
             </thead>
             <tbody>
               {RECENT_EVENTS.map((e, i) => (
-                <tr key={i} className="border-b border-dashboard-border/30 hover:bg-dashboard-border/20">
+                <tr key={i} className="border-b border-[var(--cc-hairline)]/30 hover:bg-[var(--cc-canvas-soft)] transition-colors">
                   <td className="px-5 py-3">
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-dashboard-border/50 text-[var(--cc-ink)]">
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full cc-caption bg-[var(--cc-canvas-soft-2)] text-[var(--cc-ink)]">
                       {e.event}
                     </span>
                   </td>
-                  <td className="px-5 py-3 font-mono text-xs text-[var(--cc-ink)]">{e.client}</td>
-                  <td className="px-5 py-3 text-dashboard-muted">{e.chain}</td>
-                  <td className="px-5 py-3 text-dashboard-muted">{e.time}</td>
+                  <td className="px-5 py-3 cc-code text-[var(--cc-ink)]">{e.client}</td>
+                  <td className="px-5 py-3 text-[var(--cc-muted)]">{e.chain}</td>
+                  <td className="px-5 py-3 text-[var(--cc-muted)]">{e.time}</td>
                 </tr>
               ))}
             </tbody>

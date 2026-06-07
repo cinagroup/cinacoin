@@ -32,7 +32,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" data-theme="light" suppressHydrationWarning>
-      <body className="bg-dashboard-bg min-h-screen">
+      <body className="bg-[var(--cc-canvas-soft)] min-h-screen">
         <Providers>
           <AuthProvider>
             <AuthGuard>
