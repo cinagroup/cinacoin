@@ -1,12 +1,45 @@
 'use client'
 
+import { useState } from 'react'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
 import { useI18n } from '@/providers/I18nProvider'
 
+type FormStatus = 'idle' | 'submitting' | 'success' | 'error'
+
 export default function ContactContent() {
   const { t } = useI18n()
+  const [status, setStatus] = useState<FormStatus>('idle')
+  const [errorMsg, setErrorMsg] = useState('')
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    setStatus('submitting')
+    setErrorMsg('')
+
+    const form = e.currentTarget
+    const data = Object.fromEntries(new FormData(form)) as Record<string, string>
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({ error: 'Submission failed' }))
+        throw new Error(err.error || `HTTP ${res.status}`)
+      }
+
+      setStatus('success')
+      form.reset()
+    } catch (err: any) {
+      setStatus('error')
+      setErrorMsg(err.message || 'Something went wrong')
+    }
+  }
 
   return (
     <>
@@ -32,7 +65,18 @@ export default function ContactContent() {
             <FadeIn direction="right" duration={600}>
               <div className="cc-card">
                 <h2 className="cc-display-sm mb-6">{t('contact-title')}</h2>
-                <form className="space-y-5" onSubmit={(e) => { e.preventDefault(); alert('Form submitted (demo)') }}>
+                <form className="space-y-5" onSubmit={handleSubmit}>
+                  {/* Success / Error feedback */}
+                  {status === 'success' && (
+                    <div className="rounded-lg border border-[var(--cc-success)]/30 bg-[var(--cc-success)]/10 px-4 py-3 cc-body-sm text-[var(--cc-success)]" role="status">
+                      ✓ {t('contact-form-success') || 'Message sent successfully!'}
+                    </div>
+                  )}
+                  {status === 'error' && (
+                    <div className="rounded-lg border border-[var(--cc-error)]/30 bg-[var(--cc-error)]/10 px-4 py-3 cc-body-sm text-[var(--cc-error)]" role="alert">
+                      ✗ {errorMsg}
+                    </div>
+                  )}
                   {/* Name */}
                   <div>
                     <label htmlFor="name" className="cc-body-sm-strong block mb-2">
@@ -102,8 +146,8 @@ export default function ContactContent() {
                   </div>
 
                   {/* Submit */}
-                  <button type="submit" className="cc-btn-primary w-full">
-                    {t('contact-form-submit')}
+                  <button type="submit" className="cc-btn-primary w-full" disabled={status === 'submitting'}>
+                    {status === 'submitting' ? '…' : t('contact-form-submit')}
                   </button>
                 </form>
               </div>

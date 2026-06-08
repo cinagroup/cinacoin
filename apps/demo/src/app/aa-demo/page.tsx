@@ -100,32 +100,36 @@ export default function AADemoPage() {
     connect(connectors.find((c) => c.id === 'io.metamask')?.id ?? 'io.metamask');
   }, [connect, connectors]);
 
-  /* DEMO ONLY — mock data, not production logic */
+  /* DEMO ONLY — simulated smart account creation for demonstration purposes */
+  /* In production, this would deploy a real smart account contract */
   const handleCreateSmartAccount = useCallback(async () => {
     if (!isConnected || !account.address) return;
     setCreatingAccount(true);
 
-    // Simulate account creation
+    // Simulate account creation delay
     await new Promise((r) => setTimeout(r, 2000));
 
+    // Generate a demo address (clearly labeled as simulated)
     const newAddr = `0x${Math.random().toString(16).slice(2, 10)}...${Math.random().toString(16).slice(2, 6)}`;
     setSmartAccount(newAddr);
     setAccountCreated(true);
     setCreatingAccount(false);
-    success('Smart Account Created', `0x${account.address.slice(2, 6)}...${account.address.slice(-4)} deployed`);
+    success('Demo Smart Account Created', `Simulated address: 0x${account.address.slice(2, 6)}...${account.address.slice(-4)}`);
   }, [isConnected, account.address, success]);
 
-  /* DEMO ONLY — mock data, not production logic */
+  /* DEMO ONLY — simulated session key creation for demonstration purposes */
+  /* In production, this would create a real session key with actual permissions */
   const handleCreateSessionKey = useCallback(() => {
     if (!newKeyName.trim()) {
       toastError('Validation Error', 'Please enter a name for the session key');
       return;
     }
 
+    // Generate a demo session key (clearly labeled as simulated)
     const newKey: SessionKey = {
       id: `sk-${Date.now()}`,
       name: newKeyName.trim(),
-      address: `0x${Math.random().toString(16).slice(2, 6).toUpperCase()}...${Math.random().toString(16).slice(2, 6).toUpperCase()}`,
+      address: `Demo: 0x${Math.random().toString(16).slice(2, 6).toUpperCase()}...${Math.random().toString(16).slice(2, 6).toUpperCase()}`,
       permissions: ['swap'],
       expiry: new Date(Date.now() + 86400000 * 7).toISOString().split('T')[0],
       active: true,
@@ -134,7 +138,7 @@ export default function AADemoPage() {
     setSessionKeys((prev) => [newKey, ...prev]);
     setNewKeyName('');
     setShowCreateKey(false);
-    success('Session Key Created', newKey.name);
+    success('Demo Session Key Created', `${newKey.name} (simulated)`);
   }, [newKeyName, success, toastError]);
 
   const handleToggleKey = useCallback((id: string) => {

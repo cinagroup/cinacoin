@@ -36,13 +36,18 @@ const MOCK_PRICES: Record<string, { usd: number; change24h: number; volume24h: s
   SUI: { usd: 2.80, change24h: 6.5, volume24h: '$1.1B', marketCap: '$7.5B' },
 };
 
-/* DEMO ONLY — mock data, not production logic */
-/* Generate a sparkline of price changes */
+/* DEMO ONLY — simulated sparkline for visualization purposes only */
+/* In production, this would fetch real historical price data from an API */
 function generateSparkline(basePrice: number, points = 24): number[] {
   const data: number[] = [];
   let price = basePrice * 0.95;
+  // Use deterministic seed for consistent demo experience
+  const seed = basePrice * 1000;
   for (let i = 0; i < points; i++) {
-    price += (Math.random() - 0.48) * basePrice * 0.02;
+    // Pseudo-random based on seed (not cryptographically secure, demo only)
+    const pseudoRandom = Math.sin(seed + i) * 10000;
+    const normalized = (pseudoRandom - Math.floor(pseudoRandom)) - 0.48;
+    price += normalized * basePrice * 0.02;
     data.push(price);
   }
   data[data.length - 1] = basePrice;
