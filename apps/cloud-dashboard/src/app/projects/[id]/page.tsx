@@ -1,6 +1,13 @@
 import { ProjectDetailClient } from "./ProjectDetailClient";
 import { getProject } from "@/lib/api";
 
+export const dynamic = 'force-static';
+export const revalidate = 60;
+
+export function generateStaticParams() {
+  return [{ id: 'default' }];
+}
+
 export default async function ProjectDetailPage(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
   const projectId = params.id;
