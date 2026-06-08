@@ -13,8 +13,8 @@
 /* ── Vercel Design Tokens (CSS Variables) ── */
 :root {
   /* Typography */
-  --v-font-sans: 'Geist', 'Inter', system-ui, -apple-system, sans-serif;
-  --v-font-mono: 'Geist Mono', var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  --v-font-sans: var(--font-geist-sans), 'Inter', system-ui, -apple-system, sans-serif;
+  --v-font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
 
   /* Font Weights */
   --v-weight-regular: 400;

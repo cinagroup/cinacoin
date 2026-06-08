@@ -17,7 +17,7 @@
 
 /* ── Font Stack ── */
 body {
-  font-family: 'Geist', 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: var(--font-geist-sans), 'Inter', system-ui, -apple-system, sans-serif;
   background-color: #fafafa;
 }
 
@@ -83,7 +83,7 @@ body {
 
 /* ── Data Table Headers (mono uppercase) ── */
 .ds-table-header {
-  font-family: 'Geist Mono', 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  font-family: var(--font-geist-mono), 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
   font-size: 12px;
   font-weight: 400;
   line-height: 16px;
