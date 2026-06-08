@@ -79,25 +79,8 @@ export default function HomePage() {
   }, []);
 
   useEffect(() => {
-    let cancelled = false;
-    fetch(`${ANALYTICS_URL}/v1/overview?days=30`)
-      .then((r) => {
-        if (!r.ok) throw new Error(`HTTP ${r.status}`);
-        return r.json();
-      })
-      .then((json: Overview) => {
-        if (!cancelled) setData(json);
-      })
-      .catch(() => {
-        if (!cancelled) setError('Failed to load analytics');
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+    loadData();
+  }, [loadData]);
 
   const kpis = data
     ? [

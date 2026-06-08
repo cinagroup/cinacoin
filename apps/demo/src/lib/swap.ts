@@ -58,6 +58,8 @@ export interface PriceQuote {
   rate: string;
   /** Estimated gas cost in native token (string). */
   estimatedGas: string;
+  /** True if this is a simulated/mock quote (not from real API). */
+  isSimulated?: boolean;
 }
 
 export interface SwapTransaction {
