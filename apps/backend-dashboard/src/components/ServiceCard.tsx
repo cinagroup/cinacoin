@@ -1,4 +1,4 @@
-import { HealthCheck, ServiceDefinition, ServiceMetrics, generateDemoMetrics } from "@/lib/services";
+import { HealthCheck, ServiceDefinition } from "@/lib/services";
 import { statusColor, formatLatency } from "@/lib/utils";
 
 interface ServiceCardProps {

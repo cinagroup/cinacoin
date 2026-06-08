@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { generateDemoMetrics, ServiceMetrics } from "@/lib/services";
+import { useServiceMetrics } from "@/hooks/useServiceMetrics";
 import { formatNumber, formatLatency } from "@/lib/utils";
 import MetricBox from "@/components/MetricBox";
 import BarChart from "@/components/BarChart";
@@ -27,14 +26,9 @@ const RECENT_NOTIFICATIONS = [
 ];
 
 export default function NotifyServerPage() {
-  const [metrics, setMetrics] = useState<ServiceMetrics>(generateDemoMetrics("notify-server"));
+  const { metrics, isDemo, error } = useServiceMetrics("notify-server");
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setMetrics(generateDemoMetrics("notify-server"));
-    }, 30000);
-    return () => clearInterval(interval);
-  }, []);
+  if (!metrics) return <div className="flex items-center justify-center h-64 cc-body text-[var(--cc-muted)]">Loading metrics...</div>;
 
   return (
     <div className="space-y-6">

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"sync"
 	"sync/atomic"
 	"time"
 
@@ -28,6 +29,7 @@ var (
 	metricsCacheHits       atomic.Int64
 	metricsCacheMisses     atomic.Int64
 	metricsUpstreamLatency atomic.Int64 // cumulative ms for averaging
+	metricsChainRequestsMu sync.RWMutex
 	metricsChainRequests   = make(map[string]*atomic.Int64)
 )
 
@@ -80,9 +82,9 @@ func (r *RPCRouter) Handler() http.Handler {
 	mux.Use(middleware.Logger)
 	mux.Use(middleware.Timeout(60 * time.Second))
 
-	// CORS
+	// CORS — specific origins required when AllowCredentials is true
 	mux.Use(cors.Handler(cors.Options{
-		AllowedOrigins:   []string{"*"},
+		AllowedOrigins:   r.cfg.CORSOrigins(),
 		AllowedMethods:   []string{"GET", "POST", "OPTIONS"},
 		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-API-Key"},
 		AllowCredentials: true,
@@ -176,6 +178,16 @@ func (r *RPCRouter) handleMetrics(w http.ResponseWriter, req *http.Request) {
 
 // incChainRequest atomically increments the per-chain request counter.
 func incChainRequest(chainID string) {
+	metricsChainRequestsMu.RLock()
+	if c, ok := metricsChainRequests[chainID]; ok {
+		c.Add(1)
+		metricsChainRequestsMu.RUnlock()
+		return
+	}
+	metricsChainRequestsMu.RUnlock()
+
+	metricsChainRequestsMu.Lock()
+	// Double-check after acquiring write lock
 	if c, ok := metricsChainRequests[chainID]; ok {
 		c.Add(1)
 	} else {
@@ -183,6 +195,7 @@ func incChainRequest(chainID string) {
 		n.Add(1)
 		metricsChainRequests[chainID] = &n
 	}
+	metricsChainRequestsMu.Unlock()
 }
 
 // recordUpstream records latency and optionally an error.

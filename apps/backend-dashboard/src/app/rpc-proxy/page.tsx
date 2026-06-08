@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { generateDemoMetrics, ServiceMetrics } from "@/lib/services";
+import { useServiceMetrics } from "@/hooks/useServiceMetrics";
 import { formatNumber, formatLatency } from "@/lib/utils";
 import MetricBox from "@/components/MetricBox";
 import BarChart from "@/components/BarChart";
@@ -37,14 +36,11 @@ const RPC_PROVIDERS = [
 ];
 
 export default function RPCProxyPage() {
-  const [metrics, setMetrics] = useState<ServiceMetrics>(generateDemoMetrics("rpc-proxy"));
+  const { metrics, isDemo, error } = useServiceMetrics("rpc-proxy");
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setMetrics(generateDemoMetrics("rpc-proxy"));
-    }, 30000);
-    return () => clearInterval(interval);
-  }, []);
+  if (!metrics) {
+    return <div className="flex items-center justify-center h-64 cc-body text-[var(--cc-muted)]">Loading metrics...</div>;
+  }
 
   return (
     <div className="space-y-6">
@@ -56,6 +52,17 @@ export default function RPCProxyPage() {
         </div>
         <span className="cc-badge">KV Cache • Multi-Provider Failover</span>
       </div>
+
+      {/* Demo data banner */}
+      {isDemo && (
+        <div className="cc-card border-l-4 border-[var(--cc-warning)] px-4 py-3 flex items-center gap-3" role="alert">
+          <span className="text-[var(--cc-warning)] text-lg">⚠️</span>
+          <div>
+            <p className="cc-body-sm-strong text-[var(--cc-ink)]">Demo Mode</p>
+            <p className="cc-caption text-[var(--cc-muted)]">{error}</p>
+          </div>
+        </div>
+      )}
 
       {/* Key metrics */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

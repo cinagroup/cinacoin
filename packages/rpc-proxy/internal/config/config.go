@@ -26,6 +26,22 @@ type Config struct {
 	RateLimit RateLimitConfig `yaml:"rate_limit"`
 	// Provider chain configuration per network.
 	Providers map[string]NetworkConfig `yaml:"providers"`
+	// Allowed CORS origins (empty defaults to cinacoin.com subdomains).
+	AllowedOrigins []string `yaml:"allowed_origins"`
+}
+
+// CORSOrigins returns the configured allowed origins, defaulting to cinacoin.com subdomains.
+func (c *Config) CORSOrigins() []string {
+	if len(c.AllowedOrigins) > 0 {
+		return c.AllowedOrigins
+	}
+	return []string{
+		"https://cinacoin.com",
+		"https://*.cinacoin.com",
+		"https://cinacoin.pages.dev",
+		"http://localhost:3000",
+		"http://localhost:8787",
+	}
 }
 
 // CacheConfig configures the multi-level cache.
@@ -152,6 +168,47 @@ func Load(path string) (*Config, error) {
 	if v := os.Getenv("PROXY_REGION"); v != "" {
 		cfg.Region = v
 	}
+	if v := os.Getenv("PROXY_ALLOWED_ORIGINS"); v != "" {
+		cfg.AllowedOrigins = splitAndTrim(v)
+	}
 
 	return cfg, nil
+}
+
+func splitAndTrim(s string) []string {
+	parts := make([]string, 0)
+	for _, p := range splitAny(s, ",;") {
+		p = trimSpace(p)
+		if p != "" {
+			parts = append(parts, p)
+		}
+	}
+	return parts
+}
+
+func splitAny(s, sep string) []string {
+	result := []string{}
+	start := 0
+	for i := 0; i < len(s); i++ {
+		for j := 0; j < len(sep); j++ {
+			if s[i] == sep[j] {
+				result = append(result, s[start:i])
+				start = i + 1
+			}
+		}
+	}
+	result = append(result, s[start:])
+	return result
+}
+
+func trimSpace(s string) string {
+	start := 0
+	end := len(s)
+	for start < end && (s[start] == ' ' || s[start] == '\t') {
+		start++
+	}
+	for end > start && (s[end-1] == ' ' || s[end-1] == '\t') {
+		end--
+	}
+	return s[start:end]
 }

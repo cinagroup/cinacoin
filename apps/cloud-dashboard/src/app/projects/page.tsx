@@ -1,10 +1,27 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import { ProjectCard } from "@/components/ProjectCard";
-import { demoProjects } from "@/lib/api";
+import { listProjects } from "@/lib/api";
+import type { Project } from "@/types";
 
 export default function ProjectsPage() {
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const ownerId = typeof window !== "undefined" ? localStorage.getItem("cinacoin_owner_id") || "" : "";
+    if (ownerId) {
+      listProjects(ownerId)
+        .then(setProjects)
+        .catch(() => setProjects([]))
+        .finally(() => setLoading(false));
+    } else {
+      setLoading(false);
+    }
+  }, []);
+
   return (
     <div className="min-h-screen bg-[var(--cc-canvas-soft)]">
       <Header />
@@ -24,22 +41,30 @@ export default function ProjectsPage() {
           </a>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {demoProjects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
-          ))}
-        </div>
-
-        {demoProjects.length === 0 && (
+        {loading ? (
           <div className="cc-card-soft p-12 text-center">
-            <p className="cc-body-sm text-[var(--cc-muted)]">No projects yet.</p>
-            <a
-              href="/projects/new"
-              className="mt-4 cc-btn-primary px-4 !h-10 text-sm"
-            >
-              Create Your First Project
-            </a>
+            <p className="cc-body-sm text-[var(--cc-muted)]">Loading projects...</p>
           </div>
+        ) : (
+          <>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {projects.map((project) => (
+                <ProjectCard key={project.id} project={project} />
+              ))}
+            </div>
+
+            {projects.length === 0 && (
+              <div className="cc-card-soft p-12 text-center">
+                <p className="cc-body-sm text-[var(--cc-muted)]">No projects yet.</p>
+                <a
+                  href="/projects/new"
+                  className="mt-4 cc-btn-primary px-4 !h-10 text-sm"
+                >
+                  Create Your First Project
+                </a>
+              </div>
+            )}
+          </>
         )}
       </main>
     </div>

@@ -1,7 +1,27 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Header from "@/components/Header";
-import { demoProjects } from "@/lib/api";
+import { listProjects } from "@/lib/api";
+import type { Project } from "@/types";
 
 export default function Home() {
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Try to load real projects; fall back to empty list
+    const ownerId = typeof window !== "undefined" ? localStorage.getItem("cinacoin_owner_id") || "" : "";
+    if (ownerId) {
+      listProjects(ownerId)
+        .then(setProjects)
+        .catch(() => setProjects([]))
+        .finally(() => setLoading(false));
+    } else {
+      setLoading(false);
+    }
+  }, []);
+
   return (
     <div className="min-h-screen bg-[var(--cc-canvas-soft)]">
       <Header />
@@ -17,15 +37,17 @@ export default function Home() {
         <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
           <div className="cc-card">
             <p className="cc-caption text-[var(--cc-muted)]">Total Projects</p>
-            <p className="cc-display-sm text-[var(--cc-ink)] mt-1">{demoProjects.length}</p>
+            <p className="cc-display-sm text-[var(--cc-ink)] mt-1">
+              {loading ? "…" : projects.length}
+            </p>
           </div>
           <div className="cc-card">
             <p className="cc-caption text-[var(--cc-muted)]">Total API Keys</p>
-            <p className="cc-display-sm text-[var(--cc-ink)] mt-1">3</p>
+            <p className="cc-display-sm text-[var(--cc-ink)] mt-1">—</p>
           </div>
           <div className="cc-card">
             <p className="cc-caption text-[var(--cc-muted)]">Requests Today</p>
-            <p className="cc-display-sm text-[var(--cc-ink)] mt-1">12,450</p>
+            <p className="cc-display-sm text-[var(--cc-ink)] mt-1">—</p>
           </div>
         </div>
 

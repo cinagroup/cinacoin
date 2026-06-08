@@ -1,19 +1,25 @@
 import { ProjectDetailClient } from "./ProjectDetailClient";
-import { demoProjects } from "@/lib/api";
-
-export function generateStaticParams() {
-  return demoProjects.map((p) => ({ id: p.id }));
-}
+import { getProject } from "@/lib/api";
 
 export default async function ProjectDetailPage(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
   const projectId = params.id;
-  const project = demoProjects.find((p) => p.id === projectId);
+
+  // Try to fetch from API; if unavailable, show a not-found message
+  let project = null;
+  try {
+    const ownerId = typeof window !== "undefined" ? localStorage.getItem("cinacoin_owner_id") || "" : "";
+    if (ownerId) {
+      project = await getProject(projectId, ownerId);
+    }
+  } catch {
+    // API unavailable or project not found
+  }
 
   if (!project) {
     return (
-      <div className="min-h-screen bg-[var(--cc-canvas)]">
-        <p className="text-[var(--cc-muted)]">Project not found.</p>
+      <div className="min-h-screen bg-[var(--cc-canvas)] flex items-center justify-center">
+        <p className="text-[var(--cc-muted)]">Project not found or API unavailable.</p>
       </div>
     );
   }
