@@ -1,11 +1,10 @@
 import type { Metadata, Viewport } from 'next'
-import { Geist } from 'geist/font/sans'
-import { GeistMono } from 'geist/font/mono'
+// Font loading handled via CSS variables in globals.css
+// Geist fonts are loaded through the design system
 import './globals.css'
 import { Providers } from '@/providers'
 
-const geist = Geist({ subsets: ['latin'], variable: '--font-geist' })
-const geistMono = GeistMono({ subsets: ['latin'], variable: '--font-geist-mono' })
+
 
 const siteUrl = 'https://cinacoin.com'
 
@@ -54,7 +53,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${geist.variable} ${geistMono.variable}`} suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="dns-prefetch" href="https://github.com" />
         <link rel="preconnect" href="https://github.com" />
