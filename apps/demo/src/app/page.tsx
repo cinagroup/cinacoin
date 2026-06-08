@@ -429,7 +429,7 @@ export default function HomePage() {
           <button
             onClick={() => handleConnect('io.metamask')}
             disabled={isConnecting}
-            className="px-8 py-4 rounded-[100px] font-[500] text-[16px] leading-[24px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all duration-200 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-8 py-4 rounded-[100px] font-[500] text-[16px] leading-[24px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all duration-200 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cc-link)] focus-visible:ring-offset-2"
             style={{
               boxShadow: '0px 1px 1px #00000005, 0px 2px 2px #0000000a',
             }}
@@ -580,20 +580,20 @@ export default function HomePage() {
                     <button
                       onClick={handleQuickReconnect}
                       disabled={isConnecting}
-                      className="flex-1 px-6 py-3.5 rounded-[100px] font-medium text-sm bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="flex-1 px-6 py-3.5 rounded-[100px] font-medium text-sm bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cc-link)] focus-visible:ring-offset-2"
                       style={{
                         boxShadow: '0px 1px 1px #00000005, 0px 2px 2px #0000000a',
                       }}
                     >
                       {isConnecting ? (
                         <span className="inline-flex items-center gap-2">
-                          <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
+                          <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                           </svg>
                           Reconnecting...
                         </span>
-                      ) : '⚡ Quick Reconnect'}
+                      ) : <><span aria-hidden="true">⚡</span> Quick Reconnect</>}
                     </button>
                     <button
                       onClick={() => handleConnect('io.metamask')}
@@ -607,12 +607,12 @@ export default function HomePage() {
                   <button
                     onClick={() => handleConnect('io.metamask')}
                     disabled={isConnecting || connectors.length === 0}
-                    className="flex-1 px-6 py-3.5 rounded-[100px] font-medium text-sm bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex-1 px-6 py-3.5 rounded-[100px] font-medium text-sm bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cc-link)] focus-visible:ring-offset-2"
                     style={{
                       boxShadow: '0px 1px 1px #00000005, 0px 2px 2px #0000000a',
                     }}
                   >
-                    {isConnecting ? 'Connecting...' : '⚡ Connect Wallet'}
+                    {isConnecting ? 'Connecting...' : <><span aria-hidden="true">⚡</span> Connect Wallet</>}
                   </button>
                 )
               ) : (
@@ -639,17 +639,18 @@ export default function HomePage() {
             </div>
 
             {/* Status indicators */}
-            <div className="grid grid-cols-3 gap-3" role="status" aria-label="Connection status">
+            <div className="grid grid-cols-3 gap-3" role="region" aria-label="Connection status" aria-live="polite">
               <div className="p-3 rounded-[var(--cc-radius-md)] bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline)]/50">
                 <p className="text-[12px] uppercase tracking-normal text-[var(--cc-body)] mb-1">Status</p>
                 <div className="flex items-center gap-1.5">
                   <span className={`size-2 rounded-full ${
                     isConnected ? 'bg-[var(--cc-success)] animate-pulse' : isConnecting ? 'bg-[var(--cc-warning)] animate-pulse' : 'bg-[var(--cc-muted)]'
-                  }`} />
+                  }`} aria-hidden="true" />
                   <p className={`text-sm font-semibold ${
                     isConnected ? 'text-[var(--cc-success)]' : isConnecting ? 'text-[var(--cc-warning)]' : 'text-[var(--cc-body)]'
                   }`}>
                     {isConnected ? 'Connected' : isConnecting ? 'Connecting...' : 'Not Connected'}
+                    <span className="sr-only">{isConnected ? ', wallet connected' : isConnecting ? ', connecting to wallet' : ', no wallet connected'}</span>
                   </p>
                 </div>
               </div>
