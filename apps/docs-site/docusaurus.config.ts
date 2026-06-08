@@ -28,6 +28,18 @@ const config: Config = {
       tagName: 'meta',
       attributes: { name: 'color-scheme', content: 'light dark' },
     },
+    {
+      tagName: 'meta',
+      attributes: { property: 'og:type', content: 'website' },
+    },
+    {
+      tagName: 'meta',
+      attributes: { property: 'og:site_name', content: 'Cinacoin Docs' },
+    },
+    {
+      tagName: 'meta',
+      attributes: { name: 'twitter:card', content: 'summary_large_image' },
+    },
     // Google Fonts: Inter (Geist substitute) + JetBrains Mono (Geist Mono substitute)
     {
       tagName: 'link',
