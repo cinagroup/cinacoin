@@ -33,7 +33,7 @@
     "check": "tsc --noEmit"
   },
   "dependencies": {
-    "viem": "^2.21.0"
+    "viem": "^2.52.2"
   },
   "peerDependencies": {
     "react": ">=18.0.0",

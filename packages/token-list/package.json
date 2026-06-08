@@ -25,7 +25,7 @@
     "@cinacoin/core-sdk": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "^20.11.0",
+    "@types/node": "^20.19.42",
     "eslint": "^8.56.0",
     "jsdom": "^24.0.0",
     "typescript": "^5.3.0",
