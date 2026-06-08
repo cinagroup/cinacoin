@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import PricingContent from './PricingContent'
 
 export const metadata: Metadata = {
-  title: 'Pricing — Cinacoin',
+  title: 'Pricing',
   description:
     'Transparent, usage-based pricing for Cinacoin. Free tier for developers, scalable plans for teams and enterprises.',
   alternates: {

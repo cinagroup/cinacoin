@@ -124,7 +124,7 @@
 
 /* ── Base ── */
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; overflow-x: hidden; }
 body {
   background: var(--cc-canvas-soft);
   color: var(--cc-ink);

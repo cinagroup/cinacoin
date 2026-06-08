@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import AboutContent from './AboutContent'
 
 export const metadata: Metadata = {
-  title: 'About — Cinacoin',
+  title: 'About',
   description:
     'Cinacoin is an open-source onchain access layer built by CINA Group. Self-hosted, zero vendor lock-in.',
   alternates: {

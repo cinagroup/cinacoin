@@ -4,7 +4,7 @@ import Footer from '@/components/Footer'
 import CookiesContent from './CookiesContent'
 
 export const metadata: Metadata = {
-  title: 'Cookie Policy — Cinacoin',
+  title: 'Cookie Policy',
   description: 'Cinacoin Cookie Policy — how we use cookies and similar technologies.',
   alternates: {
     canonical: '/cookies',

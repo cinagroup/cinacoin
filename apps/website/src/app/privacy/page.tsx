@@ -4,7 +4,7 @@ import Footer from '@/components/Footer'
 import PrivacyContent from './PrivacyContent'
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy — Cinacoin',
+  title: 'Privacy Policy',
   description: 'Cinacoin Privacy Policy — how we collect, use, and protect your data.',
   alternates: {
     canonical: '/privacy',
