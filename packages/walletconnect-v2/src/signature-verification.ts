@@ -113,14 +113,14 @@ export function recoverPersonalSignature(
 /**
  * Hash a message according to EIP-191 (personal_sign).
  *
- * Format: keccak256("\x19Ethereum Message\n" + length + message)
+ * Format: keccak256("\x19Ethereum Signed Message:\n" + length + message)
  */
 function hashPersonalMessage(message: string): Uint8Array {
   const messageBytes = message.startsWith('0x')
     ? hexToBytes(message.slice(2))
     : new TextEncoder().encode(message);
 
-  const prefix = `\x19Ethereum Message\n${messageBytes.length}`;
+  const prefix = `\x19Ethereum Signed Message:\n${messageBytes.length}`;
   const prefixBytes = new TextEncoder().encode(prefix);
 
   const combined = new Uint8Array(prefixBytes.length + messageBytes.length);

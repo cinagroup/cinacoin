@@ -13,7 +13,7 @@ import {
   generateTimestamp,
   parseMessage,
 } from '@cinacoin/siwe';
-import { createSiweSession } from './authSession';
+import { createSiweSession } from './secureAuthSession';
 
 /* ── Types ── */
 
@@ -140,66 +140,52 @@ export async function signSiweMessage(
 /* ── Signature Verification ── */
 
 /**
- * Verify a SIWE signature by confirming the signer address matches
- * the address in the SIWE message and the wallet is still connected.
+ * Verify a SIWE signature using server-side cryptographic recovery.
  *
- * This performs client-side verification. In production, you would
- * send the message + signature to a backend for cryptographic
- * recovery and verification.
+ * SECURITY: This sends the message + signature to /api/verify-siwe which
+ * uses ethers.verifyMessage() to recover the signer address and compare
+ * it with the claimed address. This prevents client-side spoofing.
  */
 export async function verifySiweSignature(
   address: string,
   message: string,
-  _signature: string
+  signature: string
 ): Promise<{ valid: boolean; recoveredAddress: string; error?: string }> {
-  if (typeof window === 'undefined' || !window.ethereum) {
+  if (typeof window === 'undefined') {
     return {
       valid: false,
       recoveredAddress: '',
-      error: 'No Ethereum provider available',
+      error: 'Server-side verification only',
     };
   }
 
   try {
-    // Parse the SIWE message to extract the address from it
-    const parsed = parseMessage(message);
+    // Send to server-side verification endpoint
+    const response = await fetch('/api/verify-siwe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ address, message, signature }),
+    });
 
-    // Normalize addresses for comparison (case-insensitive)
-    const normalizedExpected = address.toLowerCase();
-    const normalizedMessage = parsed.address.toLowerCase();
+    const result = await response.json();
 
-    // Check that the address in the message matches the expected address
-    if (normalizedMessage !== normalizedExpected) {
+    if (!response.ok || !result.valid) {
       return {
         valid: false,
-        recoveredAddress: parsed.address,
-        error: 'Address in SIWE message does not match wallet address',
+        recoveredAddress: result.recoveredAddress || '',
+        error: result.error || 'Server-side verification failed',
       };
     }
 
-    // Verify the wallet is still connected and owns this address
-    const accounts = (await window.ethereum.request!({
-      method: 'eth_accounts',
-    })) as string[];
-
-    const isConnected = accounts.some(
-      (addr: string) => addr.toLowerCase() === normalizedExpected
-    );
-
-    if (!isConnected) {
-      return {
-        valid: false,
-        recoveredAddress: parsed.address,
-        error: 'Wallet is not connected or address mismatch',
-      };
-    }
-
-    return { valid: true, recoveredAddress: parsed.address };
+    return {
+      valid: true,
+      recoveredAddress: result.recoveredAddress,
+    };
   } catch (err) {
     return {
       valid: false,
       recoveredAddress: '',
-      error: err instanceof Error ? err.message : 'Verification failed',
+      error: err instanceof Error ? err.message : 'Verification request failed',
     };
   }
 }

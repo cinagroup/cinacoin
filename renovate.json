@@ -11,9 +11,14 @@
   "rangeStrategy": "bump",
   "packageRules": [
     {
-      "matchUpdateTypes": ["minor", "patch"],
+      "matchUpdateTypes": ["patch"],
       "automerge": true,
       "automergeType": "pr"
+    },
+    {
+      "matchUpdateTypes": ["minor"],
+      "automerge": false,
+      "labels": ["dependencies"]
     },
     {
       "matchUpdateTypes": ["major"],
@@ -39,7 +44,7 @@
   ],
   "vulnerabilityAlerts": {
     "labels": ["security"],
-    "automerge": true
+    "automerge": false
   },
   "prHourlyLimit": 5,
   "prConcurrentLimit": 10,

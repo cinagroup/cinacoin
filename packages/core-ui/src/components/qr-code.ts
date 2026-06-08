@@ -142,7 +142,7 @@ export class QrCode extends BaseLitElement {
 
   @state() private _copied = false;
   @state() private _error: string | null = null;
-  @state() private _svgContent: string = '';
+  @state() private _svgElement: Element | null = null;
 
   override connectedCallback() {
     super.connectedCallback();
@@ -154,6 +154,18 @@ export class QrCode extends BaseLitElement {
         changedProperties.has('fgColor') || changedProperties.has('bgColor')) {
       if (this.uri && !this.loading) {
         this._generateSVG();
+      }
+    }
+  }
+
+  override updated(changedProperties: Map<string, unknown>) {
+    super.updated(changedProperties);
+    // Safely inject SVG using DOM API after render
+    if (this._svgElement) {
+      const wrapper = this.renderRoot.querySelector('.qr-svg-wrapper');
+      if (wrapper) {
+        wrapper.innerHTML = '';
+        wrapper.appendChild(this._svgElement);
       }
     }
   }
@@ -186,8 +198,8 @@ export class QrCode extends BaseLitElement {
         <div class="qr-container" style="--qr-bg:${this.bgColor};">
           ${this._error
             ? html`<span style="color:var(--ocx-color-error,#EF4444);font-size:var(--ocx-font-size-xs,0.75rem);">${this._error}</span>`
-            : this._svgContent
-              ? html`<div class="qr-svg-wrapper" .innerHTML=${this._svgContent}></div>`
+            : this._svgElement
+              ? html`<div class="qr-svg-wrapper"></div>`
               : nothing
           }
         </div>
@@ -217,13 +229,21 @@ export class QrCode extends BaseLitElement {
         },
       });
 
-      // Extract the SVG content from the string (may include XML declaration)
-      const svgMatch = svg.match(/<svg[\s\S]*<\/svg>/);
-      this._svgContent = svgMatch ? svgMatch[0] : svg;
+      // Parse SVG string into DOM element safely using DOMParser
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(svg, 'image/svg+xml');
+      const svgElement = doc.querySelector('svg');
+      
+      if (svgElement) {
+        // Import the node into the document to ensure it's in the right context
+        this._svgElement = document.importNode(svgElement, true);
+      } else {
+        this._svgElement = null;
+      }
       this._error = null;
     } catch (err) {
       this._error = err instanceof Error ? err.message : String(err);
-      this._svgContent = '';
+      this._svgElement = null;
     }
   }
 

@@ -15,6 +15,7 @@
  */
 
 import type { ChainFamily } from "./types";
+import { sha256 } from "@noble/hashes/sha2.js";
 
 // ============================================================
 // Message Types
@@ -120,23 +121,26 @@ export interface BatchSubmission {
 // ============================================================
 
 /**
- * Compute a deterministic hash of a message for signing.
+ * Compute a deterministic SHA-256 hash of a message for signing.
+ * Uses @noble/hashes for cryptographic security.
  */
 export function computeMessageHash(message: Omit<CrossChainMessage, "signature" | "status" | "createdAt" | "retryCount">): string {
-  const parts = [
-    message.messageId,
-    message.type,
-    message.sourceChain,
-    message.sourceChainId.toString(),
-    message.destChain,
-    message.destChainId.toString(),
-    message.sender,
-    message.recipient,
-    message.nonce.toString(),
-    message.expiry.toString(),
-    JSON.stringify(message.payload),
-  ];
-  return parts.join("|");
+  const canonical = JSON.stringify({
+    messageId: message.messageId,
+    type: message.type,
+    sourceChain: message.sourceChain,
+    sourceChainId: message.sourceChainId,
+    destChain: message.destChain,
+    destChainId: message.destChainId,
+    sender: message.sender,
+    recipient: message.recipient,
+    nonce: message.nonce,
+    expiry: message.expiry,
+    payload: message.payload,
+  });
+  const encoder = new TextEncoder();
+  const hashBytes = sha256(encoder.encode(canonical));
+  return "0x" + Array.from(hashBytes, (b) => b.toString(16).padStart(2, "0")).join("");
 }
 
 /**

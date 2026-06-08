@@ -20,6 +20,7 @@
  */
 
 import type { ChainFamily } from "./types";
+import { sha256 } from "@noble/hashes/sha2.js";
 
 // ============================================================
 // Crypto Helpers
@@ -49,25 +50,19 @@ export function generateSecret(): string {
 /**
  * Compute the hash of a secret using the specified algorithm.
  * Returns a hex string.
+ * Uses @noble/hashes for cryptographic security.
  */
 export async function computeHash(
   secret: string,
   algorithm: HashAlgorithm = "SHA-256",
 ): Promise<string> {
-  if (typeof crypto !== "undefined" && crypto.subtle) {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(secret);
-    const hashBuffer = await crypto.subtle.digest(
-      algorithm === "SHA-256" ? "SHA-256" : "SHA-1", // RIPEMD-160 not in Web Crypto; use SHA-1 as proxy
-      data,
-    );
-    return Array.from(new Uint8Array(hashBuffer))
-      .map((b) => b.toString(16).padStart(2, "0"))
-      .join("");
-  }
-  // Simple SHA-256 fallback for Node (sha.js or native)
-  const hash = simpleSHA256(secret);
-  return hash;
+  const encoder = new TextEncoder();
+  const data = encoder.encode(secret);
+  // Always use SHA-256 via @noble/hashes (RIPEMD-160 not commonly used for HTLC)
+  const hashBytes = sha256(data);
+  return Array.from(hashBytes)
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
 }
 
 /**
@@ -83,29 +78,15 @@ export async function verifySecret(
 }
 
 /**
- * Minimal SHA-256 implementation for Node environments without
- * Web Crypto.  Uses a basic rolling hash (NOT production-safe;
- * replace with crypto.createHash('sha256') in real deployment).
+ * Synchronous SHA-256 hash using @noble/hashes.
+ * Used internally for hash lock computations.
  */
 function simpleSHA256(input: string): string {
-  // In real deployment: require('crypto').createHash('sha256').update(input).digest('hex')
-  let h1 = 0xdeadbeef;
-  let h2 = 0x41c6ce57;
-  for (let i = 0; i < input.length; i++) {
-    const ch = input.charCodeAt(i);
-    h1 = Math.imul(h1 ^ ch, 2654435761);
-    h2 = Math.imul(h2 ^ ch, 1597334677);
-  }
-  h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507);
-  h1 ^= Math.imul(h2 ^ (h2 >>> 13), 3266489909);
-  h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507);
-  h2 ^= Math.imul(h1 ^ (h1 >>> 13), 3266489909);
-  return (
-    ("00000000" + (h1 >>> 0).toString(16)).slice(-8) +
-    ("00000000" + (h2 >>> 0).toString(16)).slice(-8) +
-    ("00000000" + (h1 >>> 0).toString(16)).slice(-8) +
-    ("00000000" + (h2 >>> 0).toString(16)).slice(-8)
-  );
+  const encoder = new TextEncoder();
+  const hashBytes = sha256(encoder.encode(input));
+  return Array.from(hashBytes)
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
 }
 
 // ============================================================

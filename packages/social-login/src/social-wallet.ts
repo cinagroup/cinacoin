@@ -350,6 +350,7 @@ export class SocialWalletManager {
 
   /**
    * Normalize provider name to a known TokenProvider.
+   * @throws Error if the provider is not supported.
    */
   private _normalizeProvider(provider: string): TokenProvider {
     const normalized = provider.toLowerCase().trim();
@@ -357,9 +358,10 @@ export class SocialWalletManager {
     if (normalized === 'google') return 'google';
     if (normalized === 'apple') return 'apple';
     if (normalized === 'twitter') return 'twitter';
-    // Default to twitter for any other/unknown provider to avoid runtime crash
-    // Caller should ensure the provider is one of the supported ones
-    return 'twitter';
+    throw new Error(
+      `Unsupported social login provider: "${provider}". ` +
+      `Supported providers: google, apple, twitter (x).`
+    );
   }
 
   /**

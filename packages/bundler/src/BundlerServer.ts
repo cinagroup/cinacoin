@@ -155,9 +155,56 @@ function setCorsHeaders(res: any, req: IncomingMessage): void {
     res.setHeader('Access-Control-Allow-Origin', origin);
   }
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-API-Key');
   res.setHeader('Access-Control-Max-Age', '86400');
   res.setHeader('Vary', 'Origin');
+}
+
+// ── API Key Authentication ────────────────────────────────────────────────
+
+/**
+ * Verify API key from request headers.
+ * Supports: Authorization: Bearer <key> OR X-API-Key: <key>
+ * Environment: BUNDLER_API_KEYS (comma-separated list), BUNDLER_SKIP_AUTH=true to skip
+ */
+function verifyApiKey(req: IncomingMessage): boolean {
+  // Skip auth in development mode
+  if (process.env.BUNDLER_SKIP_AUTH === 'true') {
+    return true;
+  }
+
+  const apiKeysEnv = process.env.BUNDLER_API_KEYS;
+  if (!apiKeysEnv) {
+    // No keys configured = reject all (fail secure)
+    return false;
+  }
+
+  const allowedKeys = apiKeysEnv.split(',').map(k => k.trim()).filter(k => k.length > 0);
+  if (allowedKeys.length === 0) {
+    return false;
+  }
+
+  // Check Authorization: Bearer <key>
+  const authHeader = req.headers['authorization'];
+  if (authHeader && typeof authHeader === 'string') {
+    if (authHeader.startsWith('Bearer ')) {
+      const key = authHeader.slice(7).trim();
+      if (allowedKeys.includes(key)) {
+        return true;
+      }
+    }
+  }
+
+  // Check X-API-Key: <key>
+  const apiKeyHeader = req.headers['x-api-key'];
+  if (apiKeyHeader && typeof apiKeyHeader === 'string') {
+    const key = apiKeyHeader.trim();
+    if (allowedKeys.includes(key)) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 export class BundlerServer {
@@ -285,8 +332,18 @@ export class BundlerServer {
       return;
     }
 
-    // JSON-RPC POST
+    // JSON-RPC POST requires API key authentication
     if (req.method === 'POST' && (req.url === '/' || req.url === '/rpc')) {
+      // Authenticate request
+      if (!verifyApiKey(req)) {
+        res.writeHead(401, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({
+          jsonrpc: '2.0',
+          id: null,
+          error: { code: -32000, message: 'Unauthorized: Invalid or missing API key' }
+        }));
+        return;
+      }
       await this.handleJsonRpc(req, res);
       return;
     }
@@ -648,15 +705,16 @@ export class BundlerServer {
     };
   }
 
-  /** cinacoin_getBundlerConfig — return current config (redacted). */
+  /** cinacoin_getBundlerConfig — return current config (redacted, auth required via JSON-RPC). */
   private rpcGetConfig(): Record<string, unknown> {
+    // Note: This method is only accessible via authenticated JSON-RPC
+    // Beneficiary address removed for security - use admin interface to access
     return {
       chainId: this.chain.id,
       entryPoints: this.config.entryPoints,
       maxOpsPerBundle: this.config.maxOpsPerBundle,
       simulationEnabled: this.config.simulation.enabled,
       metricsEnabled: this.config.metricsEnabled,
-      beneficiary: this.config.beneficiary,
     };
   }
 

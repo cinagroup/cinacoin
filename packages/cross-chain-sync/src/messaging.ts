@@ -6,6 +6,7 @@
  */
 
 import type { ChainFamily } from "./types";
+import { sha256 } from "@noble/hashes/sha2.js";
 
 // ============================================================
 // Message Types
@@ -217,15 +218,13 @@ export interface MerkleProof {
 }
 
 /**
- * Compute a simple keccak256-style hash (stub for production).
- * In production, use viem's keccak256 or web3-utils.
+ * Compute SHA-256 hash for Merkle tree operations.
+ * Uses @noble/hashes for cryptographic security.
  */
 function simpleHash(data: string): string {
-  let hash = 0;
-  for (let i = 0; i < data.length; i++) {
-    hash = ((hash << 5) - hash + data.charCodeAt(i)) | 0;
-  }
-  return `0x${(hash >>> 0).toString(16).padStart(64, "0")}`;
+  const encoder = new TextEncoder();
+  const hashBytes = sha256(encoder.encode(data));
+  return "0x" + Array.from(hashBytes, (b) => b.toString(16).padStart(2, "0")).join("");
 }
 
 /**

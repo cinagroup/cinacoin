@@ -1,5 +1,10 @@
 /**
+ * @deprecated This module is insecure. Use secureAuthSession instead.
+ * 
  * Auth session management — persists SIWE + Passkey auth state.
+ *
+ * SECURITY ISSUE: Storing auth tokens in localStorage is vulnerable to XSS attacks.
+ * This module has been replaced by secureAuthSession.ts which uses in-memory storage.
  *
  * Tracks authenticated address, SIWE verification status, passkey status,
  * and session expiry. Survives page reloads via localStorage.

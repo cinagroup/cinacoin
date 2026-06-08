@@ -28,6 +28,16 @@ import type { EventHandler } from './types.js';
 import { EventEmitter } from './events.js';
 import { createError, WALLET_CONNECT, SDK } from './errors/index.js';
 
+// [H-004] Fix: Enforce SESSION_SECRET in production
+if (typeof process !== 'undefined' && process.env?.NODE_ENV === 'production') {
+  if (!process.env.SESSION_SECRET) {
+    throw new Error(
+      'SESSION_SECRET environment variable is required in production. ' +
+      'Generate a secure secret with: openssl rand -hex 32'
+    );
+  }
+}
+
 /** Session state discriminator. */
 export type SessionState =
   | { status: 'disconnected' }

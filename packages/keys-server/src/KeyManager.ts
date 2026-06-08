@@ -7,6 +7,8 @@ export interface KeyManagerConfig {
   storageUri?: string;
   /** Session TTL in milliseconds */
   sessionTtlMs?: number;
+  /** Salt for key derivation (16 bytes hex string). If not provided, a random salt is generated. */
+  salt?: string;
 }
 
 export interface StoredKey {
@@ -14,6 +16,7 @@ export interface StoredKey {
   label: string;
   encrypted: string;
   algorithm: string;
+  salt: string; // Salt used for encryption (hex encoded)
   createdAt: number;
 }
 
@@ -35,13 +38,39 @@ export interface DecryptResult {
  */
 export class KeyManager {
   private encryptionKey: Buffer;
+  private salt: Buffer;
   private store: Map<string, StoredKey> = new Map();
   private sessions: Map<string, Session> = new Map();
   private readonly sessionTtlMs: number;
+  private static readonly LEGACY_SALT = 'onux-salt'; // For migration only
+  private static readonly LEGACY_DEV_KEY = 'default-dev-key-do-not-use-in-production'; // For migration only
 
   constructor(config?: KeyManagerConfig) {
-    const keyPhrase = config?.encryptionKey ?? 'default-dev-key-do-not-use-in-production';
-    this.encryptionKey = scryptSync(keyPhrase, 'onux-salt', 32);
+    // [S-002] Fix: Require encryption key in production
+    const isProduction = process.env.NODE_ENV === 'production';
+    
+    if (!config?.encryptionKey) {
+      if (isProduction) {
+        throw new Error(
+          'ENCRYPTION_KEY environment variable is required in production. ' +
+          'Generate a secure key with: openssl rand -hex 32'
+        );
+      }
+      // Development fallback with warning
+      console.warn(
+        '[SECURITY WARNING] ENCRYPTION_KEY not set. Using insecure development key. ' +
+        'This MUST NOT be used in production!'
+      );
+      const keyPhrase = KeyManager.LEGACY_DEV_KEY;
+      // [H-001] Fix: Use random salt or provided salt, not hardcoded
+      this.salt = config?.salt ? Buffer.from(config.salt, 'hex') : randomBytes(16);
+      this.encryptionKey = scryptSync(keyPhrase, this.salt, 32);
+    } else {
+      // [H-001] Fix: Use random salt or provided salt, not hardcoded
+      this.salt = config?.salt ? Buffer.from(config.salt, 'hex') : randomBytes(16);
+      this.encryptionKey = scryptSync(config.encryptionKey, this.salt, 32);
+    }
+    
     this.sessionTtlMs = config?.sessionTtlMs ?? 3600_000; // 1 hour default
   }
 
@@ -54,6 +83,7 @@ export class KeyManager {
       label,
       encrypted,
       algorithm: 'aes-256-gcm',
+      salt: this.salt.toString('hex'), // Store salt with encrypted data
       createdAt: Date.now(),
     };
     this.store.set(id, stored);
@@ -68,14 +98,63 @@ export class KeyManager {
   }
 
   /** Decrypt an encrypted key value */
-  decryptKey(encrypted: string): Uint8Array {
+  decryptKey(encrypted: string, saltHex?: string): Uint8Array {
     const data = Buffer.from(encrypted, 'base64');
     const iv = data.subarray(0, 16);
     const authTag = data.subarray(16, 32);
     const ciphertext = data.subarray(32);
-    const decipher = createDecipheriv('aes-256-gcm', this.encryptionKey, iv);
+    
+    // Use provided salt or current salt
+    const decryptSalt = saltHex ? Buffer.from(saltHex, 'hex') : this.salt;
+    
+    // If salt differs from current, derive key with the provided salt
+    let decryptionKey = this.encryptionKey;
+    if (saltHex && saltHex !== this.salt.toString('hex')) {
+      const keyPhrase = process.env.ENCRYPTION_KEY;
+      if (!keyPhrase) {
+        throw new Error(
+          'ENCRYPTION_KEY is required to decrypt data encrypted with a different salt. ' +
+          'Cannot fall back to insecure default.'
+        );
+      }
+      decryptionKey = scryptSync(keyPhrase, decryptSalt, 32);
+    }
+    
+    const decipher = createDecipheriv('aes-256-gcm', decryptionKey, iv);
     decipher.setAuthTag(authTag);
     return Buffer.concat([decipher.update(ciphertext), decipher.final()]);
+  }
+
+  /**
+   * Migrate legacy encrypted data to use random salt
+   * Call this for data encrypted with the old hardcoded salt
+   * 
+   * NOTE: This method requires ENCRYPTION_KEY to be set. It will throw in
+   * production if the key is missing.
+   */
+  async migrateLegacyKey(id: string, label: string, legacyEncrypted: string): Promise<StoredKey> {
+    const keyPhrase = process.env.ENCRYPTION_KEY;
+    if (!keyPhrase) {
+      throw new Error(
+        'ENCRYPTION_KEY is required for legacy key migration. ' +
+        'Cannot fall back to insecure default.'
+      );
+    }
+    // Decrypt with legacy salt
+    const legacySalt = Buffer.from(KeyManager.LEGACY_SALT);
+    const legacyKey = scryptSync(keyPhrase, legacySalt, 32);
+    
+    const data = Buffer.from(legacyEncrypted, 'base64');
+    const iv = data.subarray(0, 16);
+    const authTag = data.subarray(16, 32);
+    const ciphertext = data.subarray(32);
+    
+    const decipher = createDecipheriv('aes-256-gcm', legacyKey, iv);
+    decipher.setAuthTag(authTag);
+    const decrypted = Buffer.concat([decipher.update(ciphertext), decipher.final()]);
+    
+    // Re-encrypt with current (random) salt
+    return this.storeKey(id, label, decrypted);
   }
 
   /** Delete a stored key */

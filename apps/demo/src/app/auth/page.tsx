@@ -25,8 +25,8 @@ import {
   isAuthenticated,
   formatSessionRemaining,
   signOut,
-  type AuthSession,
-} from '@/lib/authSession';
+  type SecureAuthSession as AuthSession,
+} from '@/lib/secureAuthSession';
 
 /* ── types ── */
 type AuthStep = 'idle' | 'connected' | 'signing' | 'signed' | 'verifying' | 'verified' | 'error';

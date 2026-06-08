@@ -5,6 +5,7 @@
  */
 
 import { randomUUID } from "crypto";
+import { sha256 } from "@noble/hashes/sha2.js";
 import type {
   ChainAccount,
   ChainFamily,
@@ -29,15 +30,13 @@ export function generateIdentityHash(
 }
 
 /**
- * Compute a simple hash from string data.
+ * Compute a SHA-256 hash from string data.
+ * Uses @noble/hashes for cryptographic security.
  */
 function computeHash(data: string): string {
-  let hash = 0;
-  for (let i = 0; i < data.length; i++) {
-    const char = data.charCodeAt(i);
-    hash = ((hash << 5) - hash + char) | 0;
-  }
-  return `0x${(hash >>> 0).toString(16).padStart(8, "0")}`;
+  const encoder = new TextEncoder();
+  const hashBytes = sha256(encoder.encode(data));
+  return "0x" + Array.from(hashBytes, (b) => b.toString(16).padStart(2, "0")).join("");
 }
 
 /**

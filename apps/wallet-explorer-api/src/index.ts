@@ -33,11 +33,28 @@ import type { WalletRegistryEntry, WalletPlatform, WalletChainFamily } from "@ci
 // App Setup
 // ============================================================
 
-const app = new Hono<{ Bindings: { CORS_ORIGIN?: string } }>();
+const app = new Hono<{ Bindings: { CORS_ORIGIN?: string; ALLOWED_ORIGINS?: string } }>();
 
-// CORS middleware
+// Allowed origins for CORS (strict whitelist)
+const ALLOWED_ORIGINS = [
+  'https://cinacoin.com',
+  'https://dash.cinacoin.com',
+  'https://demo.cinacoin.com',
+  'https://wallet.cinacoin.com',
+  'http://localhost:3000',
+  'http://localhost:5173',
+];
+
+// CORS middleware - strict origin validation (no wildcard)
 app.use("*", cors({
-  origin: (origin) => origin,
+  origin: (origin) => {
+    // Only allow requests from explicitly whitelisted origins
+    if (!origin) return null;
+    if (ALLOWED_ORIGINS.includes(origin)) {
+      return origin;
+    }
+    return null; // Reject non-allowed origins — do NOT set Access-Control-Allow-Origin
+  },
   allowMethods: ["GET", "OPTIONS"],
   allowHeaders: ["Content-Type", "Authorization"],
   maxAge: 600,

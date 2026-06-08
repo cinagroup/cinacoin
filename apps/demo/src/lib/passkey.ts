@@ -8,7 +8,7 @@
  * (verifying an existing passkey via biometrics/PIN).
  */
 
-import { createPasskeySession } from './authSession';
+import { createPasskeySession } from './secureAuthSession';
 
 /* ── Types ── */
 

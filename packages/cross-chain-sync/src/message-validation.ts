@@ -11,6 +11,7 @@
  */
 
 import type { CrossChainMessage } from "./messaging";
+import { sha256 } from "@noble/hashes/sha2.js";
 
 // ============================================================
 // Message Signing
@@ -38,17 +39,13 @@ export function createMessageHash(message: CrossChainMessage): string {
 }
 
 /**
- * Simple hash function for message digests.
- * Uses djb2 variant for consistent cross-environment hashing.
+ * Compute SHA-256 hash for message digests.
+ * Uses @noble/hashes for cryptographic security.
  */
 function computeHash(data: string): string {
-  let hash = 5381;
-  for (let i = 0; i < data.length; i++) {
-    hash = ((hash << 5) + hash + data.charCodeAt(i)) | 0;
-  }
-  // Return as hex string prefixed with 0x
-  const hex = (hash >>> 0).toString(16).padStart(8, "0");
-  return `0x${hex}`;
+  const encoder = new TextEncoder();
+  const hashBytes = sha256(encoder.encode(data));
+  return "0x" + Array.from(hashBytes, (b) => b.toString(16).padStart(2, "0")).join("");
 }
 
 /**

@@ -282,8 +282,9 @@ export class WcConnector extends Connector {
    * Sign a message with the connected account.
    *
    * Uses personal_sign (EIP-191) for message signing.
+   * The message is hex-encoded per the EIP-191 personal_sign convention.
    *
-   * @param message - Message to sign.
+   * @param message - Message to sign (plain text or 0x-prefixed hex).
    * @returns Signature as a hex string.
    */
   async signMessage(message: string): Promise<string> {
@@ -294,12 +295,22 @@ export class WcConnector extends Connector {
 
     // Generate a nonce for replay protection
     const nonce = this.nonceManager.generate();
-    const messageWithNonce = `${message}\n\nNonce: ${nonce}`;
+
+    // Build the message to sign: original message + nonce appendix
+    // The nonce is appended so that the same message text cannot be replayed.
+    // The entire payload is signed as-is — the wallet applies the EIP-191 prefix:
+    //   keccak256("\x19Ethereum Signed Message:\n" + len + message)
+    const messageToSign = `${message}\n\nNonce: ${nonce}`;
+
+    // Convert to hex for personal_sign (EIP-191 standard)
+    const hexMessage = messageToSign.startsWith('0x')
+      ? messageToSign
+      : '0x' + Array.from(new TextEncoder().encode(messageToSign))
+          .map((b) => b.toString(16).padStart(2, '0'))
+          .join('');
 
     const result = await this.manager.request<string>('personal_sign', [
-      message.startsWith('0x') ? message : '0x' + Array.from(new TextEncoder().encode(messageWithNonce))
-        .map((b) => b.toString(16).padStart(2, '0'))
-        .join(''),
+      hexMessage,
       accounts[0],
     ]);
 

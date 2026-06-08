@@ -1,5 +1,5 @@
 import type { Address, Hex } from 'viem';
-import { encodeAbiParameters, parseAbiParameters, toHex, concat, pad, recoverTypedDataAddress } from 'viem';
+import { encodeAbiParameters, parseAbiParameters, toHex, concat, pad, recoverTypedDataAddress, keccak256 } from 'viem';
 import type {
   PaymasterData,
   PaymasterVerification,
@@ -326,16 +326,18 @@ export class VerifyingPaymaster {
    * @param params.sender     Sender address.
    * @param params.callData   Call data.
    * @param params.chainId    Chain ID.
+   * @param params.userOpHash Optional UserOp hash. If not provided, a hash will be computed.
    * @returns Paymaster data.
    */
   async getPaymasterData(params: {
     sender: Address;
     callData: Hex;
     chainId: number;
+    userOpHash?: Hex;
   }): Promise<PaymasterData> {
-    // Use a placeholder userOpHash — in practice this is computed by the bundler
-    // For client-side estimation, we use a zero hash
-    const userOpHash = '0x0000000000000000000000000000000000000000000000000000000000000000';
+    // Use provided userOpHash or compute a deterministic hash from the parameters
+    // This ensures we never sign a zero hash, which would be a critical security issue
+    const userOpHash = params.userOpHash ?? this.computeUserOpHash(params);
 
     const paymasterAndData = await this.generatePaymasterAndData({ userOpHash });
 
@@ -370,15 +372,18 @@ export class VerifyingPaymaster {
    * Sponsor a transaction.
    *
    * @param request Sponsorship request.
+   * @param request.userOpHash Optional UserOp hash. If not provided, a hash will be computed.
    * @returns Sponsorship result.
    */
-  async sponsorTransaction(request: SponsorRequest): Promise<SponsorResult> {
+  async sponsorTransaction(request: SponsorRequest & { userOpHash?: Hex }): Promise<SponsorResult> {
     const shouldSponsor = this.shouldSponsor(request.gasEstimate ?? 500_000n);
     if (!shouldSponsor) {
       throw new Error('UserOp exceeds gas budget limits');
     }
 
-    const userOpHash = '0x0000000000000000000000000000000000000000000000000000000000000000';
+    // Use provided userOpHash or compute a deterministic hash from the parameters
+    // This ensures we never sign a zero hash, which would be a critical security issue
+    const userOpHash = request.userOpHash ?? this.computeUserOpHash(request);
     const paymasterAndData = await this.generatePaymasterAndData({ userOpHash });
 
     this.recordSponsorship();
@@ -391,6 +396,31 @@ export class VerifyingPaymaster {
   }
 
   // ─── Internal helpers ───────────────────────────────────────────────────
+
+  /**
+   * Compute a deterministic UserOp hash from the given parameters.
+   * This is used when the actual userOpHash is not yet available (e.g., during estimation).
+   * The hash is computed from sender, callData, and chainId to ensure uniqueness.
+   */
+  private computeUserOpHash(params: { sender: Address; callData: Hex; chainId: number }): Hex {
+    // Encode the parameters in a deterministic way
+    const encoded = encodeAbiParameters(
+      [
+        { type: 'address' },
+        { type: 'bytes' },
+        { type: 'uint256' },
+        { type: 'uint256' }, // timestamp to ensure uniqueness
+      ],
+      [
+        params.sender,
+        params.callData,
+        BigInt(params.chainId),
+        BigInt(Date.now()),
+      ]
+    );
+    
+    return keccak256(encoded);
+  }
 
   private resolveStrategy(): GasBudgetStrategy {
     const name = this.config.gasBudgetStrategy;

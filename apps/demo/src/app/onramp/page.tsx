@@ -151,7 +151,10 @@ function buildWidgetUrl(
   currency: string,
   token: string,
 ): string {
-  const apiKey = process.env.NEXT_PUBLIC_MOONPAY_API_KEY || 'pk_test_demo_key';
+  const apiKey = process.env.NEXT_PUBLIC_MOONPAY_API_KEY;
+  if (!apiKey) {
+    throw new Error('NEXT_PUBLIC_MOONPAY_API_KEY is required');
+  }
   const url = new URL('https://buy.moonpay.com');
   url.searchParams.set('apiKey', apiKey);
   url.searchParams.set('currencyCode', token.toLowerCase());
@@ -521,6 +524,7 @@ const quote = await aggregator.getBestQuote({
                 height="600"
                 style={{ border: 'none', borderRadius: '12px', maxWidth: '100%' }}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
               />
             </div>
             <div className="px-5 py-3 border-t border-[var(--cc-hairline-strong)]/50">

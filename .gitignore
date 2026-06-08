@@ -56,3 +56,7 @@ apps/*/out/
 # Docusaurus
 apps/docs-site/.docusaurus/
 apps/docs-site/build/
+
+# Production secrets
+.env.production
+.env.production.new

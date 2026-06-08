@@ -111,13 +111,13 @@ jobs:
 
       - name: pnpm audit
         run: |
-          pnpm audit --audit-level=moderate --json > pnpm-audit-results.json || true
-        continue-on-error: true
+          pnpm audit --audit-level=moderate --json > pnpm-audit-results.json
+        # Removed continue-on-error — audit failures now block the pipeline (C-004 fix)
 
       - name: npm audit
         run: |
-          npm audit --audit-level=moderate --json > npm-audit-results.json 2>/dev/null || true
-        continue-on-error: true
+          npm audit --audit-level=moderate --json > npm-audit-results.json 2>/dev/null
+        # Removed continue-on-error — audit failures now block the pipeline (C-004 fix)
 
       - name: Upload audit results
         uses: actions/upload-artifact@v4
