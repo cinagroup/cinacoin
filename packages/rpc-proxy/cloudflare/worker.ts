@@ -70,7 +70,7 @@ const CHAIN_RPC_URLS: Record<string, string> = {
 
 const CHAIN_CONFIG: Record<string, ChainConfig> = {
   // --- EVM chains (reuse READ_ONLY_METHODS) ---
-  "1":      { url: "https://rpc.ankr.com/eth",              fallback: "https://ethereum.publicnode.com" },
+  "1":      { url: "https://ethereum.publicnode.com",    fallback: "https://rpc.mevblocker.io" },
   "42161":  { url: "https://arb1.arbitrum.io/rpc",        fallback: "https://arbitrum-one.publicnode.com" },
   "8453":   { url: "https://mainnet.base.org",            fallback: "https://base.publicnode.com" },
   "137":    { url: "https://polygon-bor.publicnode.com",             fallback: "https://polygon-mainnet.public.blastapi.io" },
