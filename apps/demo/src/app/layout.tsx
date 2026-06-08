@@ -1,13 +1,12 @@
 import type { Metadata, Viewport } from 'next';
-import { Geist } from 'geist/font/sans';
-import { GeistMono } from 'geist/font/mono';
+// Font loading handled via CSS variables in globals.css
+// Geist fonts are loaded through the design system
 import { ToastProvider } from '@/lib/toast';
 import { WorkerHealthProvider } from '@/lib/WorkerHealthProvider';
 import { Providers } from '@/providers';
 import './globals.css';
 
-const geist = Geist({ subsets: ['latin'], variable: '--font-geist' });
-const geistMono = GeistMono({ subsets: ['latin'], variable: '--font-geist-mono' });
+
 
 const siteUrl = 'https://demo.cinacoin.com';
 
@@ -66,8 +65,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" data-theme="light" suppressHydrationWarning className={`${geist.variable} ${geistMono.variable}`}>
-      <body className={`${geist.className} bg-[var(--cc-canvas-soft)] text-[var(--cc-ink)]`}>
+    <html lang="en" data-theme="light" suppressHydrationWarning>
+      <body className="bg-[var(--cc-canvas-soft)] text-[var(--cc-ink)]">
         <a href="#main-content" className="skip-link">Skip to main content</a>
         <Providers>
           <ToastProvider>
