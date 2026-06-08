@@ -74,6 +74,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className={`${inter.variable} ${jetbrainsMono.variable}`} data-theme="dark">
       <body className={`${inter.className} antialiased`}>
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-[var(--cc-primary)] focus:text-[var(--cc-on-primary)] focus:rounded-md">
+          Skip to main content
+        </a>
         <ThemeProvider>
           <I18nProvider>
             {children}
