@@ -717,7 +717,7 @@ export default function BatchPage() {
                     value={call.to}
                     onChange={(e) => handleUpdateCall(index, 'to', e.target.value)}
                     placeholder="0x…"
-                    className="w-full px-3 py-2 bg-[var(--cc-canvas-soft-2)]/80 border border-[var(--cc-hairline-strong)]/50 rounded-lg text-sm font-mono text-[var(--cc-body)] placeholder:text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-success)]/40 focus:border-[var(--cc-success)]/50"
+                    className="w-full px-3 h-[40px] bg-[var(--cc-canvas-soft-2)]/80 border border-[var(--cc-hairline-strong)]/50 rounded-lg text-sm font-mono text-[var(--cc-body)] placeholder:text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-success)]/40 focus:border-[var(--cc-success)]/50"
                     aria-label={`Call ${index + 1} destination address`}
                   />
                 </div>
@@ -731,7 +731,7 @@ export default function BatchPage() {
                       value={call.value}
                       onChange={(e) => handleUpdateCall(index, 'value', e.target.value)}
                       placeholder="0x0"
-                      className="w-full px-3 py-2 bg-[var(--cc-canvas-soft-2)]/80 border border-[var(--cc-hairline-strong)]/50 rounded-lg text-sm font-mono text-[var(--cc-body)] placeholder:text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-success)]/40 focus:border-[var(--cc-success)]/50"
+                      className="w-full px-3 h-[40px] bg-[var(--cc-canvas-soft-2)]/80 border border-[var(--cc-hairline-strong)]/50 rounded-lg text-sm font-mono text-[var(--cc-body)] placeholder:text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-success)]/40 focus:border-[var(--cc-success)]/50"
                       aria-label={`Call ${index + 1} value in hex wei`}
                     />
                   </div>
@@ -743,7 +743,7 @@ export default function BatchPage() {
                       value={call.data}
                       onChange={(e) => handleUpdateCall(index, 'data', e.target.value)}
                       placeholder="0x"
-                      className="w-full px-3 py-2 bg-[var(--cc-canvas-soft-2)]/80 border border-[var(--cc-hairline-strong)]/50 rounded-lg text-sm font-mono text-[var(--cc-body)] placeholder:text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-success)]/40 focus:border-[var(--cc-success)]/50"
+                      className="w-full px-3 h-[40px] bg-[var(--cc-canvas-soft-2)]/80 border border-[var(--cc-hairline-strong)]/50 rounded-lg text-sm font-mono text-[var(--cc-body)] placeholder:text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-success)]/40 focus:border-[var(--cc-success)]/50"
                       aria-label={`Call ${index + 1} transaction data`}
                     />
                   </div>

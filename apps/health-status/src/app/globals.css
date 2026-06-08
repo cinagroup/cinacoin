@@ -42,5 +42,10 @@
 
 /* ── P0: Geist Mono font alias ── */
 :root {
-  --font-mono: var(--font-geist-mono, ui-monospace, SFMono-Regular, Menlo, Monaco, monospace);
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+}
+
+/* Override body font to use Geist CSS variable from geist/font package */
+body {
+  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif !important;
 }

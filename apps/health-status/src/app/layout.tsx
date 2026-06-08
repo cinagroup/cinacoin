@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
-// Font loading handled via CSS variables in globals.css
-// Geist fonts are loaded through the design system
+import { GeistSans, GeistMono } from "geist/font";
 import "./globals.css";
 import { ThemeProvider, I18nProvider } from "@/providers";
 
@@ -64,7 +63,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning data-theme="dark">
-      <body className="antialiased">
+      <body className={`antialiased ${GeistSans.variable} ${GeistMono.variable}`} style={{ fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif' }}>
         <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-[var(--cc-primary)] focus:text-[var(--cc-on-primary)] focus:rounded-md">
           Skip to main content
         </a>

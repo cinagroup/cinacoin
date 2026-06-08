@@ -589,7 +589,7 @@ export default function AuthPage() {
                       placeholder="Enter username..."
                       value={passkeyUsername}
                       onChange={(e) => setPasskeyUsername(e.target.value)}
-                      className="flex-1 px-3 py-2 rounded-lg bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline-strong)] text-sm text-[var(--cc-ink)] placeholder-[var(--cc-muted)] focus:border-[var(--cc-violet)] focus:outline-none transition-colors"
+                      className="flex-1 px-3 h-[40px] rounded-lg bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline-strong)] text-sm text-[var(--cc-ink)] placeholder-[var(--cc-muted)] focus:border-[var(--cc-violet)] focus:outline-none transition-colors"
                       disabled={!webAuthnSupported}
                     />
                     <button

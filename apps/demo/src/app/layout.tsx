@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next';
-// Font loading handled via CSS variables in globals.css
-// Geist fonts are loaded through the design system
+import { GeistSans } from 'geist/font/sans';
+import { GeistMono } from 'geist/font/mono';
 import { ToastProvider } from '@/lib/toast';
 import { WorkerHealthProvider } from '@/lib/WorkerHealthProvider';
 import { Providers } from '@/providers';
@@ -65,7 +65,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" data-theme="light" suppressHydrationWarning>
+    <html lang="en" data-theme="light" className={`${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>
       <body className="bg-[var(--cc-canvas-soft)] text-[var(--cc-ink)]">
         <a href="#main-content" className="skip-link">Skip to main content</a>
         <Providers>

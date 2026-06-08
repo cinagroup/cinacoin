@@ -19,13 +19,10 @@ html, body {
   --ds-radius-card: 8px;
   
   /* Typography */
-  --ds-font-sans: 'Geist', 'Inter', system-ui, -apple-system, sans-serif;
-  --ds-font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  --ds-font-sans: var(--font-geist-sans), 'Geist', system-ui, -apple-system, sans-serif;
+  --ds-font-mono: var(--font-geist-mono), 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
   
-  /* Shadows (stacked, subtle) */
-  --ds-shadow-card: 0px 1px 1px rgba(0, 0, 0, 0.03), 0px 2px 2px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.08) inset;
-  --ds-shadow-card-hover: 0px 2px 2px rgba(0, 0, 0, 0.06), 0px 8px 8px -8px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.08) inset;
-  --ds-shadow-elevated: 0px 2px 2px rgba(0, 0, 0, 0.06), 0px 8px 16px -4px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.08) inset;
+  /* Shadows — use cc-level* tokens from design-tokens (cinacoin.css) */
 }
 
 /* Base body styling */

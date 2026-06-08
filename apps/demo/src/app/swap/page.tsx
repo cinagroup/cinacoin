@@ -715,7 +715,7 @@ export default function SwapPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="text-[var(--cc-body)] text-xs uppercase tracking-normal">
+                  <tr className="text-[var(--cc-body)] text-xs uppercase tracking-normal font-mono">
                     <th className="text-left px-5 py-3 font-semibold">Tx</th>
                     <th className="text-left px-5 py-3 font-semibold">From → To</th>
                     <th className="text-right px-5 py-3 font-semibold">Amount</th>
