@@ -12,7 +12,7 @@
  */
 
 import { NextResponse } from 'next/server';
-import { ethers } from 'ethers';
+import { recoverMessageAddress } from 'viem';
 
 export interface VerifySiweRequest {
   address: string;
@@ -47,8 +47,11 @@ export async function POST(request: Request): Promise<NextResponse<VerifySiweRes
       );
     }
 
-    // Perform cryptographic signature recovery
-    const recoveredAddress = ethers.verifyMessage(message, signature);
+    // Perform cryptographic signature recovery using viem
+    const recoveredAddress = await recoverMessageAddress({
+      message,
+      signature: signature as `0x${string}`,
+    });
 
     // Compare recovered address with claimed address (case-insensitive)
     const isValid = recoveredAddress.toLowerCase() === address.toLowerCase();
