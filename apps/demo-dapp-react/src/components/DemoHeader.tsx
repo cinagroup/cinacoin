@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useCinacoinContext } from '@cinacoin/react';
+import { ThemeToggle } from './ThemeToggle';
 
 /** Truncate an Ethereum address for display. */
 function truncateAddress(addr: string): string {
@@ -59,6 +60,8 @@ export function DemoHeader(): JSX.Element {
       </div>
 
       <nav style={{ display: 'flex', alignItems: 'center', gap: 'var(--cc-space-md)', flexWrap: 'wrap' }} aria-label="Connection status">
+        <ThemeToggle />
+        
         {status === 'connected' && account.address && (
           <div
             style={{
