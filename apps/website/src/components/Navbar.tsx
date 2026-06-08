@@ -65,7 +65,7 @@ export default function Navbar() {
     >
       <div className="cc-container flex h-full items-center justify-between">
         {/* Logo — shared Brand lockup from @cinacoin/ui */}
-        <Brand href="/" logoSrc="/logo.svg" />
+        <Brand href="/" logoSrc="/logo.png" />
 
         {/* Desktop links */}
         <div className="hidden items-center gap-1 md:flex">

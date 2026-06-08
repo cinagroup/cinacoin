@@ -320,7 +320,7 @@ function Footer() {
     <footer className="cc-footer mt-12" role="contentinfo">
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6">
         <div className="flex items-center gap-2">
-          <img src="/logo.svg" alt="Cinacoin" width={24} height={24} className="h-6 w-6 rounded" loading="lazy" />
+          <img src="/logo.png" alt="Cinacoin" width={24} height={24} className="h-6 w-6 rounded" loading="lazy" />
           <span className="cc-body-sm-strong text-[var(--cc-ink)]">Cinacoin</span>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-12 gap-y-6">
@@ -469,7 +469,7 @@ export default function HealthStatusPage() {
       <header className="sticky top-0 z-50 h-16 bg-[var(--cc-canvas)] border-b border-[var(--cc-hairline)]">
         <div className="cc-container px-4 h-16 flex items-center justify-between">
           <a href="https://cinacoin.com" className="flex items-center gap-2" aria-label="Cinacoin home">
-            <img src="/logo.svg" alt="Cinacoin" width={28} height={28} className="h-7 w-7 rounded-md" loading="lazy" />
+            <img src="/logo.png" alt="Cinacoin" width={28} height={28} className="h-7 w-7 rounded-md" loading="lazy" />
             <span className="cc-body-md-strong text-[var(--cc-ink)]">
               Cinacoin <span className="cc-body-md text-[var(--cc-muted)] font-normal">Status</span>
             </span>

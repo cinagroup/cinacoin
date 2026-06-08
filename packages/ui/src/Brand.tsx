@@ -17,7 +17,7 @@ export interface BrandProps {
  * with an optional muted sub-label. Used in every app's header/footer.
  */
 export function Brand({
-  logoSrc = '/logo.svg',
+  logoSrc = '/logo.png',
   href = 'https://cinacoin.com',
   sublabel,
   size = 28,

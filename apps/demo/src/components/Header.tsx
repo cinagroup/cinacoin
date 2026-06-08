@@ -68,7 +68,7 @@ export default function Header({
             href="/"
             className="flex items-center gap-2 text-xl font-semibold text-[var(--cc-ink)] shrink-0"
           >
-            <img src="/demo/logo.svg" alt="Cinacoin" className="h-8 w-8 rounded-md" />
+            <img src="/demo/logo.png" alt="Cinacoin" className="h-8 w-8 rounded-md" />
             Cinacoin
           </Link>
 

@@ -29,7 +29,7 @@ function Sidebar({ links, mobileOpen, onClose }: { links: NavLink[]; mobileOpen:
     <div className="flex flex-col h-full">
       {/* Logo */}
       <Link href="/" className="flex items-center gap-2 px-4 h-16 border-b border-[var(--cc-hairline)] shrink-0" onClick={onClose}>
-        <img src="/demo/logo.svg" alt="Cinacoin" className="h-6 w-6 rounded-[4px]" />
+        <img src="/demo/logo.png" alt="Cinacoin" className="h-6 w-6 rounded-[4px]" />
         <span className="text-sm font-semibold text-[var(--cc-ink)] tracking-[-0.28px]">Cinacoin</span>
       </Link>
 
@@ -104,7 +104,7 @@ export default function DemoLayout({ children }: { children: ReactNode }) {
             </svg>
           </button>
           <Link href="/" className="flex items-center gap-2 ml-3">
-            <img src="/demo/logo.svg" alt="Cinacoin" className="h-5 w-5 rounded-[4px]" />
+            <img src="/demo/logo.png" alt="Cinacoin" className="h-5 w-5 rounded-[4px]" />
             <span className="text-sm font-semibold text-[var(--cc-ink)]">Cinacoin</span>
           </Link>
         </div>

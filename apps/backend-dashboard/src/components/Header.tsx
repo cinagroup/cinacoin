@@ -45,7 +45,7 @@ export default function Header({ onMenuToggle, refreshInterval = 15000 }: Header
           </svg>
         </button>
 
-        <Brand href="/" logoSrc="/logo.svg" sublabel="Dashboard" size={28} as="span" />
+        <Brand href="/" logoSrc="/logo.png" sublabel="Dashboard" size={28} as="span" />
         <div className="min-w-0">
           <h2 className="cc-body-md-strong text-[var(--cc-ink)] truncate">Backend Dashboard</h2>
           <p className="cc-caption text-[var(--cc-muted)] hidden sm:block">Cloudflare Workers Management</p>

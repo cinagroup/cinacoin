@@ -48,7 +48,7 @@ export default function Sidebar({ onClose }: SidebarProps) {
       {/* Logo */}
       <div className="px-5 py-4 border-b border-[var(--cc-hairline)]">
         <div className="flex items-center gap-3">
-          <Brand href="/" logoSrc="/logo.svg" sublabel="Dashboard" size={28} as="span" />
+          <Brand href="/" logoSrc="/logo.png" sublabel="Dashboard" size={28} as="span" />
           {/* Mobile close button */}
           {onClose && (
             <button

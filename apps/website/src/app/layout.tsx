@@ -72,7 +72,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   '@id': `${siteUrl}#organization`,
                   name: 'Cinacoin',
                   url: siteUrl,
-                  logo: `${siteUrl}/logo.svg`,
+                  logo: `${siteUrl}/logo.png`,
                   sameAs: [
                     'https://github.com/cinagroup',
                     'https://twitter.com/cinacoin',

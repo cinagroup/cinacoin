@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     siteName: 'Cinacoin',
     images: [
       {
-        url: '/logo.svg',
+        url: '/logo.png',
         width: 1200,
         height: 630,
         alt: 'Cinacoin — Wallet Connection Toolkit',

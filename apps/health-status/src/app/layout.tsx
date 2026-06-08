@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     description: 'Public health status page for Cinacoin services. Monitor uptime, incidents, and performance.',
     images: [
       {
-        url: '/logo.svg',
+        url: '/logo.png',
         width: 1200,
         height: 630,
         alt: 'Cinacoin — Service Status',
