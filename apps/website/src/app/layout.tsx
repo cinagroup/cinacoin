@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     default: 'Cinacoin — Onchain Access, Simplified',
     template: '%s | Cinacoin',
   },
-  description: 'The onchain access layer for wallets, dApps, and chains. Connect, authenticate, and transact across 100+ blockchains.',
+  description: 'The onchain access layer for wallets, dApps, and chains. Connect, authenticate, and transact across 16+ blockchain networks.',
   keywords: ['blockchain', 'wallet', 'cross-chain', 'Web3', 'SDK', 'dApp'],
   authors: [{ name: 'Cinacoin' }],
   robots: { index: true, follow: true },
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     url: siteUrl,
     siteName: 'Cinacoin',
     title: 'Cinacoin — Onchain Access, Simplified',
-    description: 'The onchain access layer for wallets, dApps, and chains. Connect, authenticate, and transact across 100+ blockchains.',
+    description: 'The onchain access layer for wallets, dApps, and chains. Connect, authenticate, and transact across 16+ blockchain networks.',
     images: [
       { url: '/og-image.png', width: 1200, height: 630, alt: 'Cinacoin — Onchain Access, Simplified' },
     ],
@@ -83,7 +83,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   '@id': `${siteUrl}#website`,
                   url: siteUrl,
                   name: 'Cinacoin',
-                  description: 'The onchain access layer for wallets, dApps, and chains. Connect, authenticate, and transact across 100+ blockchains.',
+                  description: 'The onchain access layer for wallets, dApps, and chains. Connect, authenticate, and transact across 16+ blockchain networks.',
                   publisher: {
                     '@id': `${siteUrl}#organization`,
                   },
