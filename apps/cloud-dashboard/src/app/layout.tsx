@@ -10,6 +10,18 @@ export const metadata: Metadata = {
   title: 'Cinacoin Cloud Dashboard',
   description: 'Developer portal for Cinacoin — manage projects, API keys, and usage analytics',
   icons: { icon: '/dashboard/logo.svg' },
+  openGraph: {
+    title: 'Cinacoin Cloud Dashboard',
+    description: 'Developer portal for Cinacoin — manage projects, API keys, and usage analytics',
+    type: 'website',
+    url: 'https://cloud.cinacoin.com',
+    siteName: 'Cinacoin Cloud',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Cinacoin Cloud Dashboard',
+    description: 'Developer portal for Cinacoin — manage projects, API keys, and usage analytics',
+  },
 };
 
 export default function RootLayout({

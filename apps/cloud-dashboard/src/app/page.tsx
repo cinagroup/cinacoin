@@ -34,20 +34,30 @@ export default function Home() {
         </div>
 
         {/* Stats Cards */}
-        <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
-          <div className="cc-card">
+        <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-3" role="region" aria-label="Dashboard statistics">
+          <div className="cc-card" role="status" aria-busy={loading}>
             <p className="cc-caption text-[var(--cc-muted)]">Total Projects</p>
             <p className="cc-display-sm text-[var(--cc-ink)] mt-1">
-              {loading ? "…" : projects.length}
+              {loading ? (
+                <span className="inline-block w-12 h-6 bg-[var(--cc-canvas-soft-2)] rounded animate-pulse" aria-hidden="true" />
+              ) : projects.length}
             </p>
           </div>
-          <div className="cc-card">
+          <div className="cc-card" role="status" aria-busy={loading}>
             <p className="cc-caption text-[var(--cc-muted)]">Total API Keys</p>
-            <p className="cc-display-sm text-[var(--cc-ink)] mt-1">—</p>
+            <p className="cc-display-sm text-[var(--cc-ink)] mt-1">
+              {loading ? (
+                <span className="inline-block w-12 h-6 bg-[var(--cc-canvas-soft-2)] rounded animate-pulse" aria-hidden="true" />
+              ) : '—'}
+            </p>
           </div>
-          <div className="cc-card">
+          <div className="cc-card" role="status" aria-busy={loading}>
             <p className="cc-caption text-[var(--cc-muted)]">Requests Today</p>
-            <p className="cc-display-sm text-[var(--cc-ink)] mt-1">—</p>
+            <p className="cc-display-sm text-[var(--cc-ink)] mt-1">
+              {loading ? (
+                <span className="inline-block w-12 h-6 bg-[var(--cc-canvas-soft-2)] rounded animate-pulse" aria-hidden="true" />
+              ) : '—'}
+            </p>
           </div>
         </div>
 
