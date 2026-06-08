@@ -22,9 +22,9 @@ export default function NotFound() {
           <Link href="/" className="cc-btn-primary">
             Go Home
           </Link>
-          <Link href="/docs/" className="cc-btn-secondary">
+          <a href="https://docs.cinacoin.com" className="cc-btn-secondary" target="_blank" rel="noopener noreferrer">
             View Docs
-          </Link>
+          </a>
         </div>
       </div>
       <Footer />

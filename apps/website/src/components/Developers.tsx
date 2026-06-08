@@ -44,7 +44,7 @@ export default function Developers() {
 
               <FadeIn delay={600}>
                 <div className="mt-8 flex gap-4">
-                  <a href="/docs/" className="cc-btn-primary">
+                  <a href="https://docs.cinacoin.com" className="cc-btn-primary" target="_blank" rel="noopener noreferrer">
                     {t('dev-docs')}
                   </a>
                   <a href="https://github.com/cinagroup/cinacoin" className="cc-btn-secondary">

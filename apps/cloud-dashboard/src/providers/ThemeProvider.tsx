@@ -19,6 +19,12 @@ export function useTheme() {
 }
 
 function getInitialTheme(): Theme {
+  if (typeof window !== 'undefined') {
+    try {
+      const stored = localStorage.getItem('cc-theme');
+      if (stored === 'dark' || stored === 'light') return stored;
+    } catch {}
+  }
   if (typeof document !== 'undefined') {
     const attr = document.documentElement.getAttribute('data-theme');
     if (attr === 'dark' || attr === 'light') return attr;

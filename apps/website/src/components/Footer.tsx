@@ -6,19 +6,20 @@ import { useI18n } from '@/providers/I18nProvider'
 
 export default function Footer() {
   const { t } = useI18n()
+  const DOCS = 'https://docs.cinacoin.com'
 
   const columns = [
     { titleKey: 'footer-products-label', links: [
-      { label: 'AppKit', href: '/docs/api/appkit' },
-      { label: 'Auth', href: '/docs/api/auth' },
-      { label: 'Relay', href: '/docs/api/relay' },
-      { label: 'Push', href: '/docs/api/push' },
-      { label: 'Keys', href: '/docs/api/keys' },
-      { label: 'RPC Proxy', href: '/docs/api/rpc' },
+      { label: 'AppKit', href: `${DOCS}/api/appkit` },
+      { label: 'Auth', href: `${DOCS}/api/auth` },
+      { label: 'Relay', href: `${DOCS}/api/relay` },
+      { label: 'Push', href: `${DOCS}/api/push` },
+      { label: 'Keys', href: `${DOCS}/api/keys` },
+      { label: 'RPC Proxy', href: `${DOCS}/api/rpc` },
     ]},
     { titleKey: 'footer-developers-label', links: [
-      { label: t('nav-docs'), href: '/docs/' },
-      { label: 'API Reference', href: '/docs/api/core-sdk' },
+      { label: t('nav-docs'), href: DOCS },
+      { label: 'API Reference', href: `${DOCS}/api/core-sdk` },
       { label: 'SDKs', href: 'https://github.com/cinagroup/cinacoin' },
       { label: t('footer-changelog'), href: '/changelog' },
     ]},

@@ -5,7 +5,7 @@ interface UsageDataPoint {
 }
 
 export function UsageChart({ data }: { data: UsageDataPoint[] }) {
-  const maxRequests = Math.max(...data.map((d) => d.requests), 1);
+  const maxRequests = data.length > 0 ? Math.max(...data.map((d) => d.requests), 1) : 1;
 
   return (
     <div className="cc-card space-y-4">

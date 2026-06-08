@@ -72,7 +72,7 @@ export default function Navbar() {
           <a href="/" className="cc-navbar-link" aria-current={activePage === '/' ? 'page' : undefined}>{t('nav-home')}</a>
           <a href="/pricing" className="cc-navbar-link" aria-current={activePage === '/pricing' ? 'page' : undefined}>{t('nav-pricing')}</a>
           <a href="/about" className="cc-navbar-link" aria-current={activePage === '/about' ? 'page' : undefined}>{t('footer-about')}</a>
-          <a href="/docs/" className="cc-navbar-link">{t('nav-docs')}</a>
+          <a href="https://docs.cinacoin.com" className="cc-navbar-link" target="_blank" rel="noopener noreferrer">{t('nav-docs')}</a>
         </div>
 
         {/* Desktop actions */}
@@ -143,7 +143,7 @@ export default function Navbar() {
           </div>
 
           {/* CTA */}
-          <a href="/docs/" className="hidden sm:inline-flex ml-1 cc-btn-primary-sm" role="button">
+          <a href="https://docs.cinacoin.com" className="hidden sm:inline-flex ml-1 cc-btn-primary-sm" role="button" target="_blank" rel="noopener noreferrer">
             {t('nav-get-started')}
           </a>
 
@@ -179,7 +179,7 @@ export default function Navbar() {
             <a href="/about" onClick={closeMobile} className="cc-navbar-link" aria-current={activePage === '/about' ? 'page' : undefined}>{t('footer-about')}</a>
             <a href="/changelog" onClick={closeMobile} className="cc-navbar-link" aria-current={activePage === '/changelog' ? 'page' : undefined}>{t('footer-changelog')}</a>
             <a href="/contact" onClick={closeMobile} className="cc-navbar-link" aria-current={activePage === '/contact' ? 'page' : undefined}>{t('footer-contact')}</a>
-            <a href="/docs/" className="cc-navbar-link">{t('nav-docs')}</a>
+            <a href="https://docs.cinacoin.com" className="cc-navbar-link" target="_blank" rel="noopener noreferrer">{t('nav-docs')}</a>
 
             {/* Mobile theme toggle */}
             <button onClick={() => { toggle(); closeMobile() }} className="cc-navbar-link">
@@ -218,7 +218,7 @@ export default function Navbar() {
               ))}
             </div>
 
-            <a href="/docs/" onClick={closeMobile} className="mt-2 cc-btn-primary-sm text-center">
+            <a href="https://docs.cinacoin.com" onClick={closeMobile} className="mt-2 cc-btn-primary-sm text-center" target="_blank" rel="noopener noreferrer">
               {t('nav-get-started')}
             </a>
           </div>

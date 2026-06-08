@@ -33,9 +33,10 @@ export default function CTA() {
         <FadeIn delay={400}>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <a
-              href="/docs/"
+              href="https://docs.cinacoin.com"
               className="cc-btn-primary"
               style={{ backgroundColor: 'var(--cc-on-primary)', color: 'var(--cc-primary)' }}
+              target="_blank" rel="noopener noreferrer"
             >
               {t('cta-start')}
             </a>
