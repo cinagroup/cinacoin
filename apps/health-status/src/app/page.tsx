@@ -130,9 +130,9 @@ function StatusBadge({ status }: { status: ServiceStatus }) {
   const label = t(statusKey);
 
   const statusColorMap: Record<string, string> = {
-    healthy: "text-[var(--cc-cyan-deep)] bg-[var(--cc-cyan-soft)] border-[var(--cc-cyan)]",
-    degraded: "text-[var(--cc-warning-deep)] bg-[var(--cc-warning-soft)] border-[var(--cc-warning)]",
-    down: "text-[var(--cc-error-deep)] bg-[var(--cc-error-soft)] border-[var(--cc-error)]",
+    healthy: "text-[var(--status-operational-deep)] bg-[var(--status-operational-soft)] border-[var(--status-operational)]",
+    degraded: "text-[var(--status-degraded-deep)] bg-[var(--status-degraded-soft)] border-[var(--status-degraded)]",
+    down: "text-[var(--status-down-deep)] bg-[var(--status-down-soft)] border-[var(--status-down)]",
     unknown: "text-[var(--cc-body)] bg-[var(--cc-canvas-soft-2)] border-[var(--cc-hairline)]",
   };
   const colorClasses = statusColorMap[status] || statusColorMap.unknown;
@@ -148,7 +148,7 @@ function StatusBadge({ status }: { status: ServiceStatus }) {
 }
 
 function UptimeBadge({ uptime }: { uptime: number }) {
-  const color = uptime >= 99.9 ? "text-[var(--cc-cyan-deep)]" : uptime >= 99 ? "text-[var(--cc-warning-deep)]" : "text-[var(--cc-error-deep)]";
+  const color = uptime >= 99.9 ? "text-[var(--status-operational-deep)]" : uptime >= 99 ? "text-[var(--status-degraded-deep)]" : "text-[var(--status-down-deep)]";
   return (
     <span className={`cc-caption-mono ${color}`}>
       {uptime.toFixed(2)}%
@@ -161,9 +161,9 @@ function ServiceCard({ service }: { service: ServiceCheck }) {
   const [expanded, setExpanded] = useState(false);
   const detailId = `details-${service.name}`;
   const statusColor = {
-    healthy: "border-l-[var(--cc-cyan)]",
-    degraded: "border-l-[var(--cc-warning)]",
-    down: "border-l-[var(--cc-error)]",
+    healthy: "border-l-[var(--status-operational)]",
+    degraded: "border-l-[var(--status-degraded)]",
+    down: "border-l-[var(--status-down)]",
     unknown: "border-l-[var(--cc-muted)]",
   }[service.status];
 
@@ -175,9 +175,9 @@ function ServiceCard({ service }: { service: ServiceCheck }) {
   }, [service.name]);
 
   const dotColor = (s: string) => {
-    if (s === "healthy") return "bg-[var(--cc-cyan)]";
-    if (s === "degraded") return "bg-[var(--cc-warning)]";
-    if (s === "down") return "bg-[var(--cc-error)]";
+    if (s === "healthy") return "bg-[var(--status-operational)]";
+    if (s === "degraded") return "bg-[var(--status-degraded)]";
+    if (s === "down") return "bg-[var(--status-down)]";
     return "bg-[var(--cc-hairline-strong)]";
   };
 
@@ -204,7 +204,7 @@ function ServiceCard({ service }: { service: ServiceCheck }) {
         <div className="flex items-center gap-6 mt-4 text-sm">
           <div>
             <span className="text-[var(--cc-body)]">{t("responseTime")}</span>
-            <p className={`cc-code mt-0.5 ${service.responseTime !== null && service.responseTime < 1000 ? "text-[var(--cc-cyan-deep)]" : service.responseTime !== null && service.responseTime < 3000 ? "text-[var(--cc-warning-deep)]" : "text-[var(--cc-error-deep)]"}`}>
+            <p className={`cc-code mt-0.5 ${service.responseTime !== null && service.responseTime < 1000 ? "text-[var(--status-operational-deep)]" : service.responseTime !== null && service.responseTime < 3000 ? "text-[var(--status-degraded-deep)]" : "text-[var(--status-down-deep)]"}`}>
               {formatDuration(service.responseTime)}
             </p>
           </div>
@@ -237,9 +237,9 @@ function ServiceCard({ service }: { service: ServiceCheck }) {
             ))}
           </div>
           <div className="flex items-center gap-4 mt-3 cc-caption text-[var(--cc-muted)]">
-            <span className="flex items-center gap-1"><span className="w-2 h-2 bg-[var(--cc-cyan)]" style={{ borderRadius: 'var(--cc-radius-xs)' }} /> {t("statusOperational")}</span>
-            <span className="flex items-center gap-1"><span className="w-2 h-2 bg-[var(--cc-warning)]" style={{ borderRadius: 'var(--cc-radius-xs)' }} /> {t("statusDegraded")}</span>
-            <span className="flex items-center gap-1"><span className="w-2 h-2 bg-[var(--cc-error)]" style={{ borderRadius: 'var(--cc-radius-xs)' }} /> {t("statusDown")}</span>
+            <span className="flex items-center gap-1"><span className="w-2 h-2 bg-[var(--status-operational)]" style={{ borderRadius: 'var(--cc-radius-xs)' }} /> {t("statusOperational")}</span>
+            <span className="flex items-center gap-1"><span className="w-2 h-2 bg-[var(--status-degraded)]" style={{ borderRadius: 'var(--cc-radius-xs)' }} /> {t("statusDegraded")}</span>
+            <span className="flex items-center gap-1"><span className="w-2 h-2 bg-[var(--status-down)]" style={{ borderRadius: 'var(--cc-radius-xs)' }} /> {t("statusDown")}</span>
           </div>
           {service.error && (
             <div className="cc-code mt-3 px-3 py-2 rounded-[var(--cc-radius-sm)]" style={{ background: 'var(--cc-error-soft)', border: '1px solid var(--cc-error)', color: 'var(--cc-error-deep)' }}>
@@ -274,7 +274,7 @@ function IncidentCard({ incident }: { incident: Incident }) {
             <span className={`cc-badge ${sev.bg} ${sev.text} border ${sev.border}`}>
               {sevLabel}
             </span>
-            <span className={`cc-badge ${isActive ? "bg-[var(--cc-warning-soft)] text-[var(--cc-warning-deep)] border-[var(--cc-warning)]" : "bg-[var(--cc-cyan-soft)] text-[var(--cc-cyan-deep)] border-[var(--cc-cyan)]"}`}>
+            <span className={`cc-badge ${isActive ? "bg-[var(--status-degraded-soft)] text-[var(--status-degraded-deep)] border-[var(--status-degraded)]" : "bg-[var(--status-operational-soft)] text-[var(--status-operational-deep)] border-[var(--status-operational)]"}`}>
               {incStatusLabel}
             </span>
           </div>
@@ -295,7 +295,7 @@ function IncidentCard({ incident }: { incident: Incident }) {
           return (
             <div key={idx} className="flex gap-3">
               <div className="flex flex-col items-center">
-                <div className={`w-2 h-2 rounded-full ${idx === incident.updates.length - 1 && incident.status === "resolved" ? "bg-[var(--cc-cyan)]" : "bg-[var(--cc-muted)]"}`} />
+                <div className={`w-2 h-2 rounded-full ${idx === incident.updates.length - 1 && incident.status === "resolved" ? "bg-[var(--status-operational)]" : "bg-[var(--cc-muted)]"}`} />
                 {idx < incident.updates.length - 1 && <div className="w-px h-full bg-[var(--cc-hairline)] mt-1" />}
               </div>
               <div className="flex-1 pb-2">
@@ -440,9 +440,9 @@ export default function HealthStatusPage() {
   }, [autoRefresh, runChecks]);
 
   const overallConfig = {
-    healthy: { gradient: "from-[var(--cc-cyan)]/20 to-[var(--cc-cyan)]/5", border: "border-[var(--cc-cyan)]/30", icon: "text-[var(--cc-cyan-deep)]", label: t("allOperational") },
-    degraded: { gradient: "from-[var(--cc-warning)]/20 to-[var(--cc-warning)]/5", border: "border-[var(--cc-warning)]/30", icon: "text-[var(--cc-warning-deep)]", label: t("someDegraded") },
-    down: { gradient: "from-[var(--cc-error)]/20 to-[var(--cc-error)]/5", border: "border-[var(--cc-error)]/30", icon: "text-[var(--cc-error-deep)]", label: t("systemOutage") },
+    healthy: { gradient: "from-[var(--status-operational)]/20 to-[var(--status-operational)]/5", border: "border-[var(--status-operational)]/30", icon: "text-[var(--status-operational-deep)]", label: t("allOperational") },
+    degraded: { gradient: "from-[var(--status-degraded)]/20 to-[var(--status-degraded)]/5", border: "border-[var(--status-degraded)]/30", icon: "text-[var(--status-degraded-deep)]", label: t("someDegraded") },
+    down: { gradient: "from-[var(--status-down)]/20 to-[var(--status-down)]/5", border: "border-[var(--status-down)]/30", icon: "text-[var(--status-down-deep)]", label: t("systemOutage") },
     unknown: { gradient: "from-[var(--cc-muted)]/20 to-[var(--cc-muted)]/5", border: "border-[var(--cc-hairline-strong)]/30", icon: "text-[var(--cc-muted)]", label: t("statusUnknown") },
   }[overallStatus];
 

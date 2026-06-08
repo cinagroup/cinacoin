@@ -47,10 +47,10 @@ function fmtDelta(pct: number): string {
 
 function SkeletonCard() {
   return (
-    <div className="cc-card animate-pulse" style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+    <div className="v-stat-card animate-pulse" style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
       <div style={{ height: 12, width: 100, borderRadius: 4, background: 'var(--cc-hairline)' }} />
-      <div style={{ height: 24, width: 64, borderRadius: 4, background: 'var(--cc-hairline)' }} />
-      <div style={{ height: 16, width: 80, borderRadius: 4, background: 'var(--cc-hairline)' }} />
+      <div style={{ height: 28, width: 80, borderRadius: 4, background: 'var(--cc-hairline)' }} />
+      <div style={{ height: 16, width: 60, borderRadius: 4, background: 'var(--cc-hairline)' }} />
     </div>
   );
 }
@@ -59,6 +59,7 @@ export default function HomePage() {
   const [data, setData] = useState<Overview | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [activeNav, setActiveNav] = useState('overview');
 
   const loadData = useCallback(() => {
     setLoading(true);
@@ -127,22 +128,71 @@ export default function HomePage() {
         Skip to analytics content
       </a>
 
-      <SiteHeader
-        logoSrc="/analytics/logo.svg"
-        sublabel="Analytics"
-        links={[
-          { label: 'Demo', href: 'https://cinacoin.com/demo' },
-          { label: 'Docs', href: 'https://cinacoin.com/docs' },
-        ]}
-      />
+      {/* Sidebar Navigation */}
+      <aside className="v-sidebar">
+        <div className="v-sidebar-logo">
+          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--cc-xs)' }}>
+            <img src="/analytics/logo.svg" alt="Cinacoin" style={{ width: 24, height: 24 }} />
+            <span style={{ fontSize: 16, fontWeight: 600, color: 'var(--cc-ink)' }}>Analytics</span>
+          </div>
+        </div>
+        <nav className="v-sidebar-nav">
+          <div className="v-sidebar-section">Dashboard</div>
+          <button
+            className="v-sidebar-item"
+            data-active={activeNav === 'overview'}
+            onClick={() => setActiveNav('overview')}
+          >
+            Overview
+          </button>
+          <button
+            className="v-sidebar-item"
+            data-active={activeNav === 'wallets'}
+            onClick={() => setActiveNav('wallets')}
+          >
+            Wallets
+          </button>
+          <button
+            className="v-sidebar-item"
+            data-active={activeNav === 'transactions'}
+            onClick={() => setActiveNav('transactions')}
+          >
+            Transactions
+          </button>
+          <button
+            className="v-sidebar-item"
+            data-active={activeNav === 'chains'}
+            onClick={() => setActiveNav('chains')}
+          >
+            Chains
+          </button>
+          
+          <div className="v-sidebar-section" style={{ marginTop: 'var(--cc-md)' }}>Settings</div>
+          <button
+            className="v-sidebar-item"
+            data-active={activeNav === 'api'}
+            onClick={() => setActiveNav('api')}
+          >
+            API Keys
+          </button>
+          <button
+            className="v-sidebar-item"
+            data-active={activeNav === 'team'}
+            onClick={() => setActiveNav('team')}
+          >
+            Team
+          </button>
+        </nav>
+      </aside>
 
-      <main id="analytics-content" style={{ flex: 1, padding: '48px 0' }}>
-        <div className="cc-container" style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
-          {/* Title */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            <span className="cc-caption-mono" style={{ color: 'var(--cc-muted)' }}>Overview</span>
-            <h1 className="cc-display-lg" style={{ color: 'var(--cc-ink)' }}>Wallet analytics.</h1>
-            <p className="cc-body-lg" style={{ color: 'var(--cc-body)', maxWidth: 640 }}>
+      {/* Main Content */}
+      <main id="analytics-content" className="v-main">
+        <div style={{ maxWidth: 1400, margin: '0 auto' }}>
+          {/* Page Header */}
+          <div className="v-page-header">
+            <div className="v-page-header__breadcrumb">Dashboard / Overview</div>
+            <h1 className="v-page-header__title">Wallet analytics.</h1>
+            <p className="v-page-header__desc">
               Wallet activity and transaction performance across chains, aggregated from
               ingested SDK events over the last 30 days.
             </p>
@@ -156,73 +206,64 @@ export default function HomePage() {
           {loading ? (
             <>
               {/* Skeleton KPI row */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 16 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 16, marginBottom: 32 }}>
                 {Array.from({ length: 3 }).map((_, i) => <SkeletonCard key={i} />)}
               </div>
               {/* Skeleton charts */}
               <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 2fr) minmax(0, 1fr)', gap: 24 }} className="cc-analytics-grid">
-                <div className="cc-card-lg animate-pulse" style={{ minHeight: 280 }}>
+                <div className="v-chart-card animate-pulse" style={{ minHeight: 280 }}>
                   <div style={{ height: 20, width: 120, borderRadius: 4, background: 'var(--cc-hairline)', marginBottom: 24 }} />
-                  <div style={{ height: 200, borderRadius: 'var(--cc-radius-md)', background: 'var(--cc-hairline)' }} />
+                  <div style={{ height: 200, borderRadius: 'var(--v-radius-sm)', background: 'var(--cc-hairline)' }} />
                 </div>
-                <div className="cc-card-lg animate-pulse" style={{ minHeight: 280 }}>
+                <div className="v-chart-card animate-pulse" style={{ minHeight: 280 }}>
                   <div style={{ height: 20, width: 80, borderRadius: 4, background: 'var(--cc-hairline)', marginBottom: 24 }} />
-                  <div style={{ height: 160, borderRadius: 'var(--cc-radius-md)', background: 'var(--cc-hairline)' }} />
+                  <div style={{ height: 160, borderRadius: 'var(--v-radius-sm)', background: 'var(--cc-hairline)' }} />
                 </div>
               </div>
             </>
           ) : error ? (
-            <div className="cc-card" style={{ color: 'var(--cc-body)', textAlign: 'center', padding: 48 }}>
-              <p className="cc-body-md" style={{ color: 'var(--cc-body)' }}>
+            <div className="v-chart-card" style={{ textAlign: 'center', padding: 48 }}>
+              <p style={{ fontSize: 14, color: 'var(--cc-body)', marginBottom: 16 }}>
                 Analytics service is unavailable: {error}
               </p>
-              <button onClick={loadData} className="cc-btn-secondary-sm" style={{ marginTop: 16 }}>
+              <button onClick={loadData} className="v-btn-secondary">
                 Retry
               </button>
             </div>
           ) : !hasData ? (
-            <div className="cc-card" style={{ color: 'var(--cc-muted)' }}>
+            <div className="v-chart-card" style={{ color: 'var(--cc-muted)', padding: 48 }}>
               No events recorded yet. Once your apps send SDK analytics events, wallet
               activity and transaction metrics will appear here.
             </div>
           ) : (
             <>
               {/* KPI row */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 16 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 16, marginBottom: 32 }}>
                 {kpis.map((k) => (
-                  <div key={k.label} className="cc-card" style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                      <span className="cc-caption-mono" style={{ color: 'var(--cc-muted)' }}>{k.label}</span>
-                      <span
-                        className="cc-badge"
-                        style={{
-                          color: k.positive ? 'var(--cc-success)' : 'var(--cc-error)',
-                          background: 'var(--cc-canvas-soft-2)',
-                        }}
-                      >
-                        {k.delta}
-                      </span>
+                  <div key={k.label} className="v-stat-card">
+                    <div className="v-stat-card__label">{k.label}</div>
+                    <div className="v-stat-card__value">{k.value}</div>
+                    <div className={`v-stat-card__delta ${k.positive ? 'v-stat-card__delta--positive' : 'v-stat-card__delta--negative'}`}>
+                      {k.delta}
                     </div>
-                    <span className="cc-display-md" style={{ color: 'var(--cc-ink)' }}>{k.value}</span>
-                    <span className="cc-caption" style={{ color: 'var(--cc-muted)' }}>{k.caption}</span>
+                    <div className="v-stat-card__caption">{k.caption}</div>
                   </div>
                 ))}
               </div>
 
               {/* Charts */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 2fr) minmax(0, 1fr)', gap: 24 }} className="cc-analytics-grid">
+              <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 2fr) minmax(0, 1fr)', gap: 24, marginBottom: 32 }} className="cc-analytics-grid">
                 {/* Daily transactions */}
-                <div className="cc-card-lg">
+                <div className="v-chart-card">
                   <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 24 }}>
-                    <h2 className="cc-display-sm" style={{ color: 'var(--cc-ink)' }}>Transactions</h2>
-                    <span className="cc-caption-mono" style={{ color: 'var(--cc-muted)' }}>Last 30 days</span>
+                    <h2 className="v-chart-card__title" style={{ margin: 0 }}>Transactions</h2>
+                    <span style={{ fontFamily: 'var(--v-font-mono)', fontSize: 11, textTransform: 'uppercase', color: 'var(--cc-muted)' }}>Last 30 days</span>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'flex-end', gap: 4, height: 200 }}>
                     {dailyCounts.map((count, i) => (
                       <div
                         key={i}
                         title={`${data?.dailyTransactions[i]?.date ?? ''}: ${count}`}
-                        className="cc-bar"
                         style={{
                           flex: 1,
                           height: `${Math.max(2, Math.round((count / maxCount) * 100))}%`,
@@ -239,8 +280,8 @@ export default function HomePage() {
                 </div>
 
                 {/* Top chains */}
-                <div className="cc-card-lg">
-                  <h2 className="cc-display-sm" style={{ color: 'var(--cc-ink)', marginBottom: 24 }}>Top chains</h2>
+                <div className="v-chart-card">
+                  <h2 className="v-chart-card__title">Top chains</h2>
                   {data && data.chains.length > 0 ? (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                       {data.chains.map((c) => {
@@ -248,8 +289,8 @@ export default function HomePage() {
                         return (
                           <div key={c.chainId} style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                              <span className="cc-body-sm" style={{ color: 'var(--cc-ink)' }}>{chainName(c.chainId)}</span>
-                              <span className="cc-body-sm" style={{ color: 'var(--cc-muted)' }}>{pct}%</span>
+                              <span style={{ fontSize: 14, color: 'var(--cc-ink)' }}>{chainName(c.chainId)}</span>
+                              <span style={{ fontSize: 14, color: 'var(--cc-muted)' }}>{pct}%</span>
                             </div>
                             <div style={{ height: 8, borderRadius: 9999, background: 'var(--cc-canvas-soft-2)', overflow: 'hidden' }}>
                               <div style={{ width: `${pct}%`, height: '100%', background: 'var(--cc-primary)', borderRadius: 9999 }} />
@@ -259,41 +300,57 @@ export default function HomePage() {
                       })}
                     </div>
                   ) : (
-                    <p className="cc-body-sm" style={{ color: 'var(--cc-muted)' }}>
+                    <p style={{ fontSize: 14, color: 'var(--cc-muted)' }}>
                       No chain data yet.
                     </p>
                   )}
+                </div>
+              </div>
+
+              {/* Sample Data Table */}
+              <div className="v-chart-card">
+                <h2 className="v-chart-card__title">Recent Transactions</h2>
+                <div style={{ overflowX: 'auto' }}>
+                  <table className="v-table">
+                    <thead>
+                      <tr>
+                        <th>Hash</th>
+                        <th>Chain</th>
+                        <th>Status</th>
+                        <th>Amount</th>
+                        <th>Time</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td style={{ fontFamily: 'var(--v-font-mono)', fontSize: 13 }}>0x1a2b...3c4d</td>
+                        <td>Ethereum</td>
+                        <td><span style={{ color: 'var(--cc-success)' }}>Confirmed</span></td>
+                        <td>1.5 ETH</td>
+                        <td style={{ color: 'var(--cc-muted)' }}>2m ago</td>
+                      </tr>
+                      <tr>
+                        <td style={{ fontFamily: 'var(--v-font-mono)', fontSize: 13 }}>0x5e6f...7g8h</td>
+                        <td>Base</td>
+                        <td><span style={{ color: 'var(--cc-success)' }}>Confirmed</span></td>
+                        <td>500 USDC</td>
+                        <td style={{ color: 'var(--cc-muted)' }}>5m ago</td>
+                      </tr>
+                      <tr>
+                        <td style={{ fontFamily: 'var(--v-font-mono)', fontSize: 13 }}>0x9i0j...1k2l</td>
+                        <td>Arbitrum</td>
+                        <td><span style={{ color: 'var(--cc-warning)' }}>Pending</span></td>
+                        <td>0.8 ETH</td>
+                        <td style={{ color: 'var(--cc-muted)' }}>12m ago</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </>
           )}
         </div>
       </main>
-
-      <SiteFooter
-        logoSrc="/analytics/logo.svg"
-        tagline="Wallet and transaction analytics, aggregated from ingested SDK events."
-        columns={[
-          {
-            heading: 'Analytics',
-            links: [
-              { label: 'Overview', href: 'https://cinacoin.com/analytics' },
-              { label: 'Demo', href: 'https://cinacoin.com/demo' },
-            ],
-          },
-          {
-            heading: 'Developers',
-            links: [
-              { label: 'Docs', href: 'https://cinacoin.com/docs' },
-              { label: 'GitHub', href: 'https://github.com/cinagroup' },
-            ],
-          },
-          {
-            heading: 'Company',
-            links: [{ label: 'Back to Cinacoin', href: 'https://cinacoin.com' }],
-          },
-        ]}
-      />
     </div>
   );
 }

@@ -2,8 +2,17 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" });
+// Vercel-style fonts: Inter for geometric sans, JetBrains Mono for monospace
+const inter = Inter({ 
+  subsets: ["latin"], 
+  variable: "--font-inter",
+  display: 'swap',
+});
+const jetbrainsMono = JetBrains_Mono({ 
+  subsets: ["latin"], 
+  variable: "--font-mono",
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://wallet.cinacoin.com'),
@@ -33,7 +42,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning className={`${inter.variable} ${jetbrainsMono.variable}`}>
-      <body className={`min-h-screen ${inter.className} antialiased bg-[var(--cc-canvas-soft)] text-[var(--cc-ink)]`}>
+      <body className={`min-h-screen ${inter.className} antialiased`}>
         {children}
       </body>
     </html>

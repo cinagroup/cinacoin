@@ -13,6 +13,9 @@ const jetbrainsMono = JetBrains_Mono({
   display: 'swap',
 });
 
+// Note: In production, replace Inter with Geist and JetBrains_Mono with Geist Mono
+// via next/font/local for the full Vercel-style typography experience.
+
 const siteUrl = 'https://analytics.cinacoin.com';
 
 export const metadata: Metadata = {
@@ -59,7 +62,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" data-theme="light" suppressHydrationWarning className={`${inter.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en" data-theme="light" suppressHydrationWarning className={`${inter.variable}`}>
       <body className={`${inter.className} antialiased`} style={{ background: 'var(--cc-canvas-soft)', color: 'var(--cc-ink)' }}>
         <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-[var(--cc-primary)] focus:text-[var(--cc-on-primary)] focus:rounded-md">
           Skip to main content

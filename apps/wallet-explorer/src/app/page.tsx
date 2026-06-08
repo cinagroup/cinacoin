@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useMemo, useEffect, useCallback, useRef } from "react";
-import { SiteHeader, SiteFooter } from "@cinacoin/ui";
 import {
   getAllWallets,
   getWalletsForChainFamily,
@@ -92,22 +91,22 @@ const SEARCH_DEBOUNCE_MS = 200;
 
 function WalletCardSkeleton() {
   return (
-    <div className="cc-card animate-fade-in animate-pulse" aria-hidden="true">
+    <div className="vercel-card animate-fade-in animate-pulse" aria-hidden="true">
       <div className="flex items-start gap-3">
-        <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline)] bg-[var(--cc-canvas-soft-2)]">
-          <div className="h-8 w-8 rounded-[var(--cc-radius-sm)] bg-[var(--cc-hairline)]" />
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-[var(--vercel-radius-md)] border border-[var(--vercel-hairline)] bg-[var(--vercel-canvas-soft-2)]">
+          <div className="h-8 w-8 rounded-[var(--vercel-radius-sm)] bg-[var(--vercel-hairline)]" />
         </div>
         <div className="min-w-0 flex-1 space-y-2">
-          <div className="h-4 w-2/3 rounded-[var(--cc-radius-sm)] bg-[var(--cc-hairline)]" />
-          <div className="h-3 w-1/3 rounded-[var(--cc-radius-sm)] bg-[var(--cc-hairline)]" />
+          <div className="h-4 w-2/3 rounded-[var(--vercel-radius-sm)] bg-[var(--vercel-hairline)]" />
+          <div className="h-3 w-1/3 rounded-[var(--vercel-radius-sm)] bg-[var(--vercel-hairline)]" />
         </div>
       </div>
-      <div className="mt-3 h-3 w-full rounded-[var(--cc-radius-sm)] bg-[var(--cc-hairline)]" />
-      <div className="mt-3 h-3 w-5/6 rounded-[var(--cc-radius-sm)] bg-[var(--cc-hairline)]" />
+      <div className="mt-3 h-3 w-full rounded-[var(--vercel-radius-sm)] bg-[var(--vercel-hairline)]" />
+      <div className="mt-3 h-3 w-5/6 rounded-[var(--vercel-radius-sm)] bg-[var(--vercel-hairline)]" />
       <div className="mt-3 flex gap-1.5">
-        <div className="h-5 w-14 rounded-[var(--cc-radius-full)] bg-[var(--cc-hairline)]" />
-        <div className="h-5 w-12 rounded-[var(--cc-radius-full)] bg-[var(--cc-hairline)]" />
-        <div className="h-5 w-16 rounded-[var(--cc-radius-full)] bg-[var(--cc-hairline)]" />
+        <div className="h-5 w-14 rounded-full bg-[var(--vercel-hairline)]" />
+        <div className="h-5 w-12 rounded-full bg-[var(--vercel-hairline)]" />
+        <div className="h-5 w-16 rounded-full bg-[var(--vercel-hairline)]" />
       </div>
     </div>
   );
@@ -126,12 +125,12 @@ function WalletCard({ wallet }: { wallet: WalletRegistryEntry }) {
       href={wallet.homepage}
       target="_blank"
       rel="noopener noreferrer"
-      className="cc-card group flex flex-col gap-3 no-underline focus-visible:outline-2 focus-visible:outline-[var(--cc-link)] focus-visible:outline-offset-2"
+      className="vercel-card group flex flex-col gap-3 no-underline focus-visible:outline-2 focus-visible:outline-[var(--vercel-link)] focus-visible:outline-offset-2"
       aria-label={`${wallet.name} wallet by ${wallet.developer ?? "Unknown"}. Supports: ${wallet.supportedChainFamilies.map(c => CHAIN_LABELS[c] ?? c).join(", ")}. Platforms: ${wallet.platforms.map(p => PLATFORM_LABELS[p] ?? p).join(", ")}. Popularity: ${wallet.popularity}%. Opens in new tab.`}
     >
       {/* Header */}
       <div className="flex items-start gap-3">
-        <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline)] bg-[var(--cc-canvas-soft-2)]">
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-[var(--vercel-radius-md)] border border-[var(--vercel-hairline)] bg-[var(--vercel-canvas-soft-2)]">
           {showImage ? (
             <img
               src={wallet.logo}
@@ -144,28 +143,28 @@ function WalletCard({ wallet }: { wallet: WalletRegistryEntry }) {
               height={40}
             />
           ) : (
-            <span className="cc-display-sm text-[var(--cc-ink)]" aria-hidden="true">
+            <span className="vercel-display-sm text-[var(--vercel-ink)]" aria-hidden="true">
               {wallet.name.charAt(0).toUpperCase()}
             </span>
           )}
         </div>
         <div className="min-w-0 flex-1">
-          <h3 className="truncate cc-body-md-strong text-[var(--cc-ink)] group-hover:text-[var(--cc-link)] transition-colors">
+          <h3 className="truncate vercel-body-md font-medium text-[var(--vercel-ink)] group-hover:text-[var(--vercel-link)] transition-colors">
             {wallet.name}
           </h3>
-          <p className="truncate cc-caption text-[var(--cc-muted)]">
+          <p className="truncate vercel-caption text-[var(--vercel-mute)]">
             {wallet.developer ?? "Unknown developer"}
           </p>
         </div>
         {/* Popularity badge */}
-        <span className="shrink-0 cc-badge" aria-label={`Popularity: ${wallet.popularity} percent`}>
+        <span className="shrink-0 vercel-badge" aria-label={`Popularity: ${wallet.popularity} percent`}>
           {wallet.popularity}%
         </span>
       </div>
 
       {/* Description */}
       {wallet.description && (
-        <p className="line-clamp-2 cc-body-sm text-[var(--cc-body)]">
+        <p className="line-clamp-2 vercel-body-sm text-[var(--vercel-body)]">
           {wallet.description}
         </p>
       )}
@@ -175,13 +174,13 @@ function WalletCard({ wallet }: { wallet: WalletRegistryEntry }) {
         {wallet.supportedChainFamilies.slice(0, 3).map((chain) => (
           <span
             key={chain}
-            className="cc-badge"
+            className="vercel-badge"
           >
             {CHAIN_LABELS[chain] ?? chain}
           </span>
         ))}
         {wallet.supportedChainFamilies.length > 3 && (
-          <span className="cc-badge" aria-label={`${wallet.supportedChainFamilies.length - 3} more chains`}>
+          <span className="vercel-badge" aria-label={`${wallet.supportedChainFamilies.length - 3} more chains`}>
             +{wallet.supportedChainFamilies.length - 3}
           </span>
         )}
@@ -192,7 +191,7 @@ function WalletCard({ wallet }: { wallet: WalletRegistryEntry }) {
         {wallet.platforms.map((p) => (
           <span
             key={p}
-            className="cc-badge bg-[var(--cc-canvas)]"
+            className="vercel-badge bg-[var(--vercel-canvas)]"
           >
             {PLATFORM_LABELS[p] ?? p}
           </span>
@@ -202,27 +201,27 @@ function WalletCard({ wallet }: { wallet: WalletRegistryEntry }) {
       {/* Feature badges */}
       <div className="flex flex-wrap gap-1.5 pt-1" aria-label="Features">
         {wallet.supportsWalletConnectV2 && (
-          <span className="cc-badge bg-[var(--cc-link-bg-soft)] text-[var(--cc-link-deep)]">
+          <span className="vercel-badge" style={{ background: '#d3e5ff', color: '#0761d1' }}>
             WC v2
           </span>
         )}
         {wallet.supportsEIP6963 && (
-          <span className="cc-badge bg-[var(--cc-violet-soft)] text-[var(--cc-violet-deep)]">
+          <span className="vercel-badge" style={{ background: '#d8ccf1', color: '#4c2889' }}>
             EIP-6963
           </span>
         )}
         {wallet.supportsAccountAbstraction && (
-          <span className="cc-badge bg-[var(--cc-cyan-soft)] text-[var(--cc-cyan-deep)]">
+          <span className="vercel-badge" style={{ background: '#aaffec', color: '#29bc9b' }}>
             AA
           </span>
         )}
         {wallet.openSource && (
-          <span className="cc-badge bg-[var(--cc-warning-soft)] text-[var(--cc-warning-deep)]">
+          <span className="vercel-badge" style={{ background: '#ffefcf', color: '#ab570a' }}>
             Open Source
           </span>
         )}
         {wallet.walletType && (
-          <span className="cc-badge">
+          <span className="vercel-badge">
             {TYPE_LABELS[wallet.walletType] ?? wallet.walletType}
           </span>
         )}
@@ -270,11 +269,11 @@ function FilterPanel({
     (filters.showOpenSource ? 1 : 0);
 
   return (
-    <div className="cc-card-soft rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline)] bg-[var(--cc-canvas)] p-5" role="search" aria-label="Wallet filters">
+    <div className="vercel-card" style={{ padding: '20px' }} role="search" aria-label="Wallet filters">
       {/* Search */}
       <div className="relative">
         <svg
-          className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--cc-muted)] pointer-events-none"
+          className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--vercel-mute)] pointer-events-none"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -295,7 +294,7 @@ function FilterPanel({
           placeholder="Search wallets..."
           value={filters.search}
           onChange={(e) => onFilterChange({ search: e.target.value })}
-          className="cc-form-input pl-10"
+          className="vercel-input pl-10"
           autoComplete="off"
         />
       </div>
@@ -306,11 +305,11 @@ function FilterPanel({
         onClick={() => setShowFilters(!showFilters)}
         aria-expanded={showFilters}
         aria-controls="filter-content"
-        className="cc-btn-secondary-sm mt-3 flex w-full items-center justify-between bg-[var(--cc-canvas)] text-[var(--cc-body)] hover:bg-[var(--cc-canvas-soft-2)] md:hidden transition-colors"
+        className="vercel-btn-secondary mt-3 flex w-full items-center justify-between md:hidden"
       >
         <span>
           Filters {activeFilterCount > 0 && (
-            <span className="ml-1 cc-badge" aria-hidden="true">
+            <span className="ml-1 vercel-badge" aria-hidden="true">
               {activeFilterCount}
             </span>
           )}
@@ -328,14 +327,14 @@ function FilterPanel({
       >
         {/* Chain family */}
         <div>
-          <label htmlFor="chain-family-select" className="mb-1.5 block cc-caption-mono text-[var(--cc-muted)]">
+          <label htmlFor="chain-family-select" className="mb-1.5 block vercel-caption-mono text-[var(--vercel-mute)]">
             Chain family
           </label>
           <select
             id="chain-family-select"
             value={filters.chainFamily}
             onChange={(e) => onFilterChange({ chainFamily: e.target.value })}
-            className="cc-form-input"
+            className="vercel-input"
             aria-label="Filter by chain family"
           >
             <option value="">All Chains</option>
@@ -349,14 +348,14 @@ function FilterPanel({
 
         {/* Platform */}
         <div>
-          <label htmlFor="platform-select" className="mb-1.5 block cc-caption-mono text-[var(--cc-muted)]">
+          <label htmlFor="platform-select" className="mb-1.5 block vercel-caption-mono text-[var(--vercel-mute)]">
             Platform
           </label>
           <select
             id="platform-select"
             value={filters.platform}
             onChange={(e) => onFilterChange({ platform: e.target.value })}
-            className="cc-form-input"
+            className="vercel-input"
             aria-label="Filter by platform"
           >
             <option value="">All Platforms</option>
@@ -370,14 +369,14 @@ function FilterPanel({
 
         {/* Wallet type */}
         <div>
-          <label htmlFor="wallet-type-select" className="mb-1.5 block cc-caption-mono text-[var(--cc-muted)]">
+          <label htmlFor="wallet-type-select" className="mb-1.5 block vercel-caption-mono text-[var(--vercel-mute)]">
             Type
           </label>
           <select
             id="wallet-type-select"
             value={filters.walletType}
             onChange={(e) => onFilterChange({ walletType: e.target.value })}
-            className="cc-form-input"
+            className="vercel-input"
             aria-label="Filter by wallet type"
           >
             <option value="">All Types</option>
@@ -391,14 +390,14 @@ function FilterPanel({
 
         {/* Sort */}
         <div>
-          <label htmlFor="sort-select" className="mb-1.5 block cc-caption-mono text-[var(--cc-muted)]">
+          <label htmlFor="sort-select" className="mb-1.5 block vercel-caption-mono text-[var(--vercel-mute)]">
             Sort by
           </label>
           <select
             id="sort-select"
             value={filters.sort}
             onChange={(e) => onFilterChange({ sort: e.target.value })}
-            className="cc-form-input"
+            className="vercel-input"
             aria-label="Sort wallets"
           >
             {SORT_OPTIONS.map((o) => (
@@ -411,7 +410,7 @@ function FilterPanel({
 
         {/* Feature toggles */}
         <fieldset className="space-y-2 border-0 p-0">
-          <legend className="mb-1.5 block cc-caption-mono text-[var(--cc-muted)]">
+          <legend className="mb-1.5 block vercel-caption-mono text-[var(--vercel-mute)]">
             Features
           </legend>
           {[
@@ -419,13 +418,13 @@ function FilterPanel({
             { key: "showEIP6963" as const, label: "EIP-6963", id: "eip-6963" },
             { key: "showOpenSource" as const, label: "Open Source", id: "open-source" },
           ].map(({ key, label, id }) => (
-            <label key={key} htmlFor={id} className="flex items-center gap-2 cc-body-sm text-[var(--cc-body)] cursor-pointer">
+            <label key={key} htmlFor={id} className="flex items-center gap-2 vercel-body-sm text-[var(--vercel-body)] cursor-pointer">
               <input
                 type="checkbox"
                 id={id}
                 checked={filters[key]}
                 onChange={(e) => onFilterChange({ [key]: e.target.checked })}
-                className="h-4 w-4 rounded-[var(--cc-radius-xs)] border-[var(--cc-hairline)] text-[var(--cc-link)] bg-[var(--cc-canvas)] focus:ring-[var(--cc-link)] focus:ring-offset-[var(--cc-canvas)]"
+                className="h-4 w-4 rounded-[var(--vercel-radius-sm)] border-[var(--vercel-hairline)] text-[var(--vercel-link)] bg-[var(--vercel-canvas)] focus:ring-[var(--vercel-link)] focus:ring-offset-[var(--vercel-canvas)]"
               />
               {label}
             </label>
@@ -446,7 +445,7 @@ function FilterPanel({
                 showOpenSource: false,
               })
             }
-            className="cc-btn-secondary-sm w-full"
+            className="vercel-btn-secondary w-full"
             aria-label="Reset all filters"
           >
             Reset Filters
@@ -622,44 +621,73 @@ export default function WalletExplorerPage() {
   }, [filteredWallets.length, loading]);
 
   return (
-    <div className="min-h-screen bg-[var(--cc-canvas-soft)] text-[var(--cc-ink)]">
+    <div className="min-h-screen" style={{ background: 'var(--vercel-canvas-soft)', color: 'var(--vercel-ink)' }}>
       {/* Skip to content link for accessibility */}
       <a
         href="#wallet-grid"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-[var(--cc-primary)] focus:text-[var(--cc-on-primary)] focus:rounded-[var(--cc-radius-sm)]"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:rounded-[var(--vercel-radius-sm)]"
+        style={{ background: 'var(--vercel-primary)', color: 'var(--vercel-on-primary)' }}
       >
         Skip to wallet grid
       </a>
 
-      {/* Shared site header from @cinacoin/ui */}
-      <SiteHeader
-        logoSrc="/wallets/logo.svg"
-        sublabel="Wallet Explorer"
-        links={[
-          { label: 'Docs', href: 'https://docs.cinacoin.com' },
-          { label: '← Back to Cinacoin', href: 'https://cinacoin.com' },
-        ]}
-      />
+      {/* Vercel-style Header */}
+      <header className="vercel-header" aria-label="Site header">
+        <div className="max-w-[1400px] mx-auto px-6 flex items-center justify-between h-full">
+          {/* Logo */}
+          <a href="/" className="flex items-center gap-2 no-underline">
+            <img src="/logo.png" alt="Cinacoin" className="h-6 w-auto" />
+            <span className="vercel-body-sm font-medium" style={{ color: 'var(--vercel-ink)' }}>Wallet Explorer</span>
+          </a>
+          
+          {/* Search bar in header */}
+          <div className="hidden md:block flex-1 max-w-md mx-8">
+            <div className="relative">
+              <svg
+                className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--vercel-mute)] pointer-events-none"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+              <input
+                type="search"
+                placeholder="Search wallets..."
+                value={filters.search}
+                onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))}
+                className="vercel-input pl-10"
+                style={{ height: '36px', fontSize: '13px' }}
+                autoComplete="off"
+              />
+            </div>
+          </div>
+          
+          {/* Nav links */}
+          <nav className="flex items-center gap-3">
+            <a href="https://docs.cinacoin.com" className="vercel-body-sm hidden md:inline-block no-underline" style={{ color: 'var(--vercel-body)' }}>Docs</a>
+            <a href="https://cinacoin.com" className="vercel-btn-secondary" style={{ height: '32px', fontSize: '13px', padding: '0 12px' }}>← Back</a>
+          </nav>
+        </div>
+      </header>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden border-b border-[var(--cc-hairline)] bg-[var(--cc-canvas)] py-12 md:py-16">
-        {/* Atmospheric mesh gradient backdrop (DESIGN.md: hero-scale decoration) */}
-        <div
-          className="pointer-events-none absolute inset-0 cc-mesh-gradient-strong"
-          aria-hidden="true"
-        />
-        <div className="cc-container relative z-10 px-4 sm:px-6 lg:px-8">
-          <h1 className="cc-display-xl text-[var(--cc-ink)] mb-3">
+      <section className="relative overflow-hidden border-b" style={{ borderColor: 'var(--vercel-hairline)', background: 'var(--vercel-canvas)' }}>
+        {/* Atmospheric mesh gradient backdrop */}
+        <div className="pointer-events-none absolute inset-0 vercel-mesh-gradient" aria-hidden="true" />
+        <div className="max-w-[1400px] mx-auto px-6 py-12 md:py-16 relative z-10">
+          <h1 className="vercel-display-xl mb-3" style={{ color: 'var(--vercel-ink)' }}>
             Wallet explorer.
           </h1>
-          <p className="cc-body-lg text-[var(--cc-body)] max-w-2xl">
+          <p className="vercel-body-lg max-w-2xl" style={{ color: 'var(--vercel-body)' }}>
             Discover {WALLET_COUNT}+ wallets for every chain and platform.
           </p>
         </div>
       </section>
 
       {/* Content */}
-      <main className="cc-container px-4 py-8 sm:px-6 lg:px-8">
+      <main className="max-w-[1400px] mx-auto px-6 py-8">
         <div className="flex flex-col gap-6 lg:flex-row">
           {/* Sidebar */}
           <aside className="w-full lg:w-72 lg:shrink-0" aria-label="Filters">
@@ -674,11 +702,11 @@ export default function WalletExplorerPage() {
 
           {/* Wallet grid */}
           <div className="flex-1" ref={contentRef}>
-            {/* Results count + active filters announcement */}
+            {/* Results count */}
             <div className="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-              <p className="cc-caption-mono text-[var(--cc-muted)]">
-                Showing <span className="cc-body-sm-strong text-[var(--cc-ink)]">{visibleWallets.length}</span> of{" "}
-                <span className="cc-body-sm-strong text-[var(--cc-ink)]">{filteredWallets.length}</span> wallets
+              <p className="vercel-caption-mono" style={{ color: 'var(--vercel-mute)' }}>
+                Showing <span className="vercel-body-sm font-medium" style={{ color: 'var(--vercel-ink)' }}>{visibleWallets.length}</span> of{" "}
+                <span className="vercel-body-sm font-medium" style={{ color: 'var(--vercel-ink)' }}>{filteredWallets.length}</span> wallets
               </p>
             </div>
 
@@ -689,14 +717,14 @@ export default function WalletExplorerPage() {
             </div>
 
             {filteredWallets.length === 0 && !loading ? (
-              <div className="flex flex-col items-center justify-center rounded-[var(--cc-radius-md)] border border-dashed border-[var(--cc-hairline-strong)] py-16 text-center bg-[var(--cc-canvas)]" role="status">
-                <svg className="mb-4 h-12 w-12 text-[var(--cc-muted)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <div className="flex flex-col items-center justify-center rounded-[var(--vercel-radius-md)] border border-dashed py-16 text-center" style={{ borderColor: 'var(--vercel-hairline-strong)', background: 'var(--vercel-canvas)' }} role="status">
+                <svg className="mb-4 h-12 w-12" style={{ color: 'var(--vercel-mute)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
-                <p className="cc-display-sm text-[var(--cc-ink)]">
+                <p className="vercel-display-md" style={{ color: 'var(--vercel-ink)' }}>
                   No wallets found
                 </p>
-                <p className="cc-body-sm mt-1 text-[var(--cc-body)]">
+                <p className="vercel-body-sm mt-1" style={{ color: 'var(--vercel-body)' }}>
                   Try adjusting your search or filters
                 </p>
               </div>
@@ -719,8 +747,8 @@ export default function WalletExplorerPage() {
             {hasMore && !loading && (
               <div ref={sentinelRef} className="flex items-center justify-center py-8" role="status" aria-live="polite">
                 <div className="flex items-center gap-2">
-                  <div className="h-2 w-2 rounded-full bg-[var(--cc-link)] animate-pulse-dot" />
-                  <span className="cc-caption-mono text-[var(--cc-muted)]">
+                  <div className="h-2 w-2 rounded-full animate-pulse" style={{ background: 'var(--vercel-link)' }} />
+                  <span className="vercel-caption-mono" style={{ color: 'var(--vercel-mute)' }}>
                     Loading more wallets…
                   </span>
                 </div>
@@ -730,31 +758,41 @@ export default function WalletExplorerPage() {
         </div>
       </main>
 
-      {/* Shared site footer from @cinacoin/ui */}
-      <SiteFooter
-        logoSrc="/wallets/logo.svg"
-        tagline={`Discover ${WALLET_COUNT}+ wallets for every chain and platform.`}
-        columns={[
-          {
-            heading: 'Explorer',
-            links: [
-              { label: 'All wallets', href: 'https://wallet.cinacoin.com' },
-              { label: 'Docs', href: 'https://docs.cinacoin.com' },
-            ],
-          },
-          {
-            heading: 'Developers',
-            links: [
-              { label: 'GitHub', href: 'https://github.com/cinagroup' },
-              { label: 'Demo', href: 'https://demo.cinacoin.com' },
-            ],
-          },
-          {
-            heading: 'Company',
-            links: [{ label: 'Back to Cinacoin', href: 'https://cinacoin.com' }],
-          },
-        ]}
-      />
+      {/* Vercel-style Footer */}
+      <footer style={{ background: 'var(--vercel-canvas)', borderTop: '1px solid var(--vercel-hairline)', padding: '64px 24px' }}>
+        <div className="max-w-[1400px] mx-auto flex flex-wrap gap-12 justify-between">
+          <div className="max-w-[280px] flex flex-col gap-3">
+            <div className="flex items-center gap-2">
+              <img src="/logo.png" alt="Cinacoin" className="h-5 w-auto" />
+              <span className="vercel-body-sm font-medium" style={{ color: 'var(--vercel-ink)' }}>Cinacoin</span>
+            </div>
+            <p className="vercel-body-sm" style={{ color: 'var(--vercel-mute)' }}>
+              Discover {WALLET_COUNT}+ wallets for every chain and platform.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-12">
+            <div>
+              <p className="vercel-caption-mono mb-3" style={{ color: 'var(--vercel-mute)' }}>EXPLORER</p>
+              <a href="https://wallet.cinacoin.com" className="block vercel-body-sm py-1 no-underline" style={{ color: 'var(--vercel-body)' }}>All wallets</a>
+              <a href="https://docs.cinacoin.com" className="block vercel-body-sm py-1 no-underline" style={{ color: 'var(--vercel-body)' }}>Docs</a>
+            </div>
+            <div>
+              <p className="vercel-caption-mono mb-3" style={{ color: 'var(--vercel-mute)' }}>DEVELOPERS</p>
+              <a href="https://github.com/cinagroup" className="block vercel-body-sm py-1 no-underline" style={{ color: 'var(--vercel-body)' }}>GitHub</a>
+              <a href="https://demo.cinacoin.com" className="block vercel-body-sm py-1 no-underline" style={{ color: 'var(--vercel-body)' }}>Demo</a>
+            </div>
+            <div>
+              <p className="vercel-caption-mono mb-3" style={{ color: 'var(--vercel-mute)' }}>COMPANY</p>
+              <a href="https://cinacoin.com" className="block vercel-body-sm py-1 no-underline" style={{ color: 'var(--vercel-body)' }}>Back to Cinacoin</a>
+            </div>
+          </div>
+        </div>
+        <div className="max-w-[1400px] mx-auto mt-12 pt-6" style={{ borderTop: '1px solid var(--vercel-hairline)' }}>
+          <p className="vercel-caption" style={{ color: 'var(--vercel-mute)' }}>
+            © {new Date().getFullYear()} Cinacoin. All rights reserved.
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }

@@ -6,6 +6,17 @@
    Single source of truth: packages/design-tokens/css/cinacoin.css */
 @import "@cinacoin/design-tokens/css/cinacoin.css";
 
+/* ──────────────────────────────────────────────────────────────────
+   Cloud Dashboard — Vercel-style Design System Overrides
+   
+   Key differences from the base design system:
+   - Application-level 6px radius (not 100px pill)
+   - Sidebar navigation with active indicator bar
+   - Data table with mono header
+   - Stat cards with stacked shadow
+   - Form inputs: 6px radius, focus → black border
+   ────────────────────────────────────────────────────────────────── */
+
 /* ── Cloud dashboard light theme default ── */
 :root, :root[data-theme="light"] {
   --bg-primary: var(--cc-canvas-soft);
@@ -21,6 +32,10 @@
   --red-bg: rgba(238, 0, 0, 0.10);
   --blue: var(--cc-link);
   --blue-bg: rgba(0, 112, 243, 0.10);
+
+  /* App-level radius: 6px instead of pill */
+  --app-radius: 6px;
+  --app-radius-lg: 8px;
 }
 
 :root[data-theme="dark"] {
@@ -39,8 +54,176 @@
   --blue-bg: rgba(50, 145, 255, 0.15);
 }
 
+/* ── Font stack ── */
+:root {
+  --font-sans: 'Inter', 'Geist', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+}
+
+/* ── Page background: canvas-soft (#fafafa) ── */
+body {
+  font-family: var(--font-sans);
+  background: #fafafa;
+}
+
+/* ── App-level button overrides: 6px radius ── */
+.cc-btn-primary,
+.cc-btn-primary-sm {
+  border-radius: var(--app-radius) !important;
+}
+
+.cc-btn-secondary,
+.cc-btn-secondary-sm {
+  border-radius: var(--app-radius) !important;
+}
+
+/* ── App-level card: 8px radius with stacked shadow ── */
+.cc-card {
+  border-radius: var(--app-radius-lg);
+}
+
+/* ── App-level form input: 6px radius, focus → black border ── */
+.cc-form-input {
+  border-radius: var(--app-radius) !important;
+}
+.cc-form-input:focus {
+  border-color: var(--cc-ink) !important;
+  box-shadow: none !important;
+}
+
+/* ── Sidebar ── */
+.sidebar {
+  background: var(--cc-canvas);
+  border-right: 1px solid var(--cc-hairline);
+  width: 240px;
+  min-height: 100vh;
+  position: sticky;
+  top: 0;
+  flex-shrink: 0;
+}
+
+.sidebar-nav-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  margin: 2px 8px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: -0.28px;
+  color: var(--cc-body);
+  border-radius: var(--app-radius);
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease;
+  position: relative;
+}
+
+.sidebar-nav-item:hover {
+  background: var(--cc-canvas-soft);
+  color: var(--cc-ink);
+}
+
+.sidebar-nav-item.active {
+  background: var(--cc-canvas-soft-2);
+  color: var(--cc-ink);
+  font-weight: 500;
+}
+
+.sidebar-nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 4px;
+  bottom: 4px;
+  width: 3px;
+  background: var(--cc-ink);
+  border-radius: 0 2px 2px 0;
+}
+
+/* ── Data Table ── */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table thead {
+  background: var(--cc-canvas-soft);
+}
+
+.data-table th {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  color: var(--cc-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 10px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--cc-hairline);
+}
+
+.data-table td {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: var(--cc-ink);
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--cc-hairline);
+}
+
+.data-table tbody tr:hover {
+  background: var(--cc-canvas-soft);
+}
+
+.data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ── Stat Card ── */
+.stat-card {
+  background: var(--cc-canvas);
+  border-radius: var(--app-radius-lg);
+  padding: var(--cc-lg);
+  border: 1px solid var(--cc-hairline);
+  box-shadow:
+    0px 1px 1px rgba(0, 0, 0, 0.03),
+    0px 2px 2px rgba(0, 0, 0, 0.06),
+    0 0 0 1px rgba(0, 0, 0, 0.08) inset;
+}
+
+.stat-card-value {
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 36px;
+  letter-spacing: -1.1px;
+  color: var(--cc-ink);
+  margin-top: 4px;
+}
+
+.stat-card-label {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 20px;
+  color: var(--cc-muted);
+}
+
 /* ── Cloud dashboard touch-friendly minimums ── */
 @media (max-width: 768px) {
   button, a { min-height: 44px; }
   input, select, textarea { min-height: 44px; }
+  
+  .sidebar {
+    display: none;
+  }
+  
+  .sidebar-mobile-open {
+    display: block;
+    position: fixed;
+    top: 64px;
+    left: 0;
+    z-index: 90;
+    width: 260px;
+    box-shadow: var(--cc-level5);
+  }
 }

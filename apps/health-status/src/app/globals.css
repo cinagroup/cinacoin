@@ -5,3 +5,29 @@
 /* Canonical Cinacoin design system — tokens + .cc-* primitives.
    Single source of truth: packages/design-tokens/css/cinacoin.css */
 @import "@cinacoin/design-tokens/css/cinacoin.css";
+
+/* ── Vercel-style Status Page Design Tokens ── */
+:root {
+  /* Status colors */
+  --status-operational: #00c853;
+  --status-operational-soft: #e8f5e9;
+  --status-operational-deep: #009624;
+  --status-degraded: #f5a623;
+  --status-degraded-soft: #ffefcf;
+  --status-degraded-deep: #ab570a;
+  --status-down: #ee0000;
+  --status-down-soft: #f7d4d6;
+  --status-down-deep: #c50000;
+}
+
+[data-theme='dark'] {
+  --status-operational: #4caf50;
+  --status-operational-soft: #1b3a1f;
+  --status-operational-deep: #81c784;
+  --status-degraded: #f5a623;
+  --status-degraded-soft: #1a1400;
+  --status-degraded-deep: #ab570a;
+  --status-down: #ff4d4d;
+  --status-down-soft: #3a0a0a;
+  --status-down-deep: #ee0000;
+}

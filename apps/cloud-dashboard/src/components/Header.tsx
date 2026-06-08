@@ -35,7 +35,7 @@ export default function Header() {
     <header className="cc-navbar relative">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-2 cc-body-md-strong text-[var(--cc-ink)]" aria-label="Cinacoin Cloud home">
-          <Image src="/logo.svg" alt="Cinacoin logo" width={28} height={28} className="h-7 w-7 rounded-md" unoptimized />
+          <Image src="/logo.png" alt="Cinacoin logo" width={28} height={28} className="h-7 w-7 rounded-md" unoptimized />
           <span>Cinacoin <span className="text-[var(--cc-muted)] font-normal">Cloud</span></span>
         </Link>
 
@@ -47,7 +47,7 @@ export default function Header() {
             <Link
               key={item.href}
               href={item.href}
-              className={`text-sm font-medium transition-colors px-2 py-1 rounded-[var(--cc-radius-full)] ${
+              className={`text-sm font-medium transition-colors px-2 py-1 rounded-[var(--app-radius)] ${
                 isActive
                   ? "text-[var(--cc-ink)] bg-[var(--cc-canvas-soft-2)]"
                   : "text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft)]"

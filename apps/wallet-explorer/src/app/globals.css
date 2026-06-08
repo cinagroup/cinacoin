@@ -5,3 +5,267 @@
 /* Canonical Cinacoin design system — tokens + .cc-* primitives.
    Single source of truth: packages/design-tokens/css/cinacoin.css */
 @import "@cinacoin/design-tokens/css/cinacoin.css";
+
+/* ═══════════════════════════════════════════════════════════════════
+   Vercel Design System — Wallet Explorer Overrides
+   Based on DESIGN_SYSTEM.md Vercel-inspired design language
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── Vercel Design Tokens (CSS Variables) ── */
+:root {
+  /* Colors - Primary palette */
+  --vercel-primary: #171717;
+  --vercel-on-primary: #ffffff;
+  --vercel-ink: #171717;
+  --vercel-body: #4d4d4d;
+  --vercel-mute: #888888;
+  --vercel-hairline: #ebebeb;
+  --vercel-hairline-strong: #a1a1a1;
+  --vercel-canvas: #ffffff;
+  --vercel-canvas-soft: #fafafa;
+  --vercel-canvas-soft-2: #f5f5f5;
+  --vercel-link: #0070f3;
+  --vercel-link-deep: #0761d1;
+  
+  /* Semantic colors */
+  --vercel-success: #0070f3;
+  --vercel-error: #ee0000;
+  --vercel-error-soft: #f7d4d6;
+  --vercel-warning: #f5a623;
+  --vercel-warning-soft: #ffefcf;
+  
+  /* Border radius - Vercel uses 6px for in-app UI */
+  --vercel-radius-sm: 6px;
+  --vercel-radius-md: 8px;
+  --vercel-radius-lg: 12px;
+  
+  /* Shadows - Vercel's stacked shadow system */
+  --vercel-shadow-1: 0px 1px 1px rgba(0, 0, 0, 0.03), 0px 2px 2px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.08) inset;
+  --vercel-shadow-2: 0px 2px 2px rgba(0, 0, 0, 0.06), 0px 8px 8px -8px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.08) inset;
+  --vercel-shadow-3: 0px 2px 2px rgba(0, 0, 0, 0.06), 0px 8px 16px -4px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.08) inset;
+  
+  /* Typography */
+  --vercel-font-sans: 'Geist', 'Inter', system-ui, -apple-system, sans-serif;
+  --vercel-font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+}
+
+/* ── Global Vercel-style resets ── */
+body {
+  background: var(--vercel-canvas-soft) !important;
+  font-family: var(--vercel-font-sans) !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Vercel Typography Utilities ── */
+.vercel-display-xl {
+  font-family: var(--vercel-font-sans);
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 48px;
+  letter-spacing: -2.4px;
+}
+
+.vercel-display-lg {
+  font-family: var(--vercel-font-sans);
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 40px;
+  letter-spacing: -1.28px;
+}
+
+.vercel-display-md {
+  font-family: var(--vercel-font-sans);
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+  letter-spacing: -0.96px;
+}
+
+.vercel-body-lg {
+  font-family: var(--vercel-font-sans);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 28px;
+}
+
+.vercel-body-md {
+  font-family: var(--vercel-font-sans);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.vercel-body-sm {
+  font-family: var(--vercel-font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: -0.28px;
+}
+
+.vercel-caption {
+  font-family: var(--vercel-font-sans);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+}
+
+.vercel-caption-mono {
+  font-family: var(--vercel-font-mono);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+}
+
+.vercel-code {
+  font-family: var(--vercel-font-mono);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+/* ── Vercel Card Component ── */
+.vercel-card {
+  background: var(--vercel-canvas);
+  border: 1px solid var(--vercel-hairline);
+  border-radius: var(--vercel-radius-md);
+  padding: 24px;
+  box-shadow: var(--vercel-shadow-1);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.vercel-card:hover {
+  box-shadow: var(--vercel-shadow-2);
+  border-color: var(--vercel-hairline-strong);
+}
+
+/* ── Vercel Button Components ── */
+.vercel-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--vercel-primary);
+  color: var(--vercel-on-primary);
+  border: none;
+  border-radius: var(--vercel-radius-sm);
+  padding: 0 12px;
+  height: 40px;
+  font-family: var(--vercel-font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.vercel-btn-primary:hover {
+  opacity: 0.85;
+}
+
+.vercel-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--vercel-canvas);
+  color: var(--vercel-ink);
+  border: 1px solid var(--vercel-hairline);
+  border-radius: var(--vercel-radius-sm);
+  padding: 0 12px;
+  height: 40px;
+  font-family: var(--vercel-font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.vercel-btn-secondary:hover {
+  border-color: var(--vercel-hairline-strong);
+}
+
+/* ── Vercel Form Input ── */
+.vercel-input {
+  background: var(--vercel-canvas);
+  color: var(--vercel-ink);
+  border: 1px solid var(--vercel-hairline);
+  border-radius: var(--vercel-radius-sm);
+  padding: 0 12px;
+  font-family: var(--vercel-font-sans);
+  font-size: 14px;
+  line-height: 20px;
+  height: 40px;
+  width: 100%;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.vercel-input:focus {
+  outline: none;
+  border-color: var(--vercel-link);
+  box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.1);
+}
+
+.vercel-input::placeholder {
+  color: var(--vercel-mute);
+}
+
+/* ── Vercel Badge ── */
+.vercel-badge {
+  display: inline-flex;
+  align-items: center;
+  background: var(--vercel-canvas-soft-2);
+  color: var(--vercel-body);
+  font-family: var(--vercel-font-sans);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  border-radius: 9999px;
+  padding: 0 8px;
+}
+
+/* ── Vercel Header ── */
+.vercel-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--vercel-canvas);
+  border-bottom: 1px solid var(--vercel-hairline);
+  height: 64px;
+}
+
+/* ── Monospace for technical content ── */
+.vercel-mono {
+  font-family: var(--vercel-font-mono);
+}
+
+/* ── Vercel-style mesh gradient (subtle) ── */
+.vercel-mesh-gradient {
+  background:
+    radial-gradient(at 40% 20%, #007cf0 0px, transparent 50%),
+    radial-gradient(at 80% 0%, #7928ca 0px, transparent 50%),
+    radial-gradient(at 0% 50%, #00dfd8 0px, transparent 50%),
+    radial-gradient(at 80% 50%, #ff4d4d 0px, transparent 40%),
+    radial-gradient(at 0% 100%, #ff0080 0px, transparent 50%),
+    radial-gradient(at 80% 100%, #f9cb28 0px, transparent 50%);
+  opacity: 0.08;
+}
+
+/* ── Responsive typography ── */
+@media (max-width: 768px) {
+  .vercel-display-xl {
+    font-size: 32px;
+    line-height: 36px;
+    letter-spacing: -1.28px;
+  }
+  
+  .vercel-display-lg {
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -0.96px;
+  }
+}
