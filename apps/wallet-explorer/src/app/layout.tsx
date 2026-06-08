@@ -12,6 +12,18 @@ export const metadata: Metadata = {
     "Browse, search, and discover 100+ crypto wallets. Filter by chain, platform, and type.",
   keywords: "wallet explorer, crypto wallets, web3, Cinacoin, wallet discovery",
   icons: { icon: "/wallets/logo.svg" },
+  openGraph: {
+    title: "Wallet Explorer — Cinacoin",
+    description: "Browse, search, and discover 100+ crypto wallets. Filter by chain, platform, and type.",
+    type: "website",
+    url: "https://wallet.cinacoin.com",
+    siteName: "Cinacoin Wallet Explorer",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Wallet Explorer — Cinacoin",
+    description: "Browse, search, and discover 100+ crypto wallets. Filter by chain, platform, and type.",
+  },
 };
 
 export default function RootLayout({
