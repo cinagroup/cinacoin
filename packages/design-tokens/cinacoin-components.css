@@ -16,8 +16,8 @@
   .cc-body-sm { font-size: 14px; font-weight: 400; line-height: 20px; letter-spacing: -0.28px; }
   .cc-body-sm-strong { font-size: 14px; font-weight: 500; line-height: 20px; letter-spacing: -0.28px; }
   .cc-caption { font-size: 12px; font-weight: 400; line-height: 16px; }
-  .cc-caption-mono { font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, monospace; font-size: 12px; font-weight: 400; line-height: 16px; text-transform: uppercase; letter-spacing: 0px; }
-  .cc-code { font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, monospace; font-size: 13px; font-weight: 400; line-height: 20px; }
+  .cc-caption-mono { font-family: var(--font-geist-mono), Geist Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, monospace; font-size: 12px; font-weight: 400; line-height: 16px; text-transform: uppercase; letter-spacing: 0px; }
+  .cc-code { font-family: var(--font-geist-mono), Geist Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, monospace; font-size: 13px; font-weight: 400; line-height: 20px; }
   .cc-button-lg { font-size: 16px; font-weight: 500; line-height: 24px; }
   .cc-button-md { font-size: 14px; font-weight: 500; line-height: 20px; }
 }

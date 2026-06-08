@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next'
-// Font loading handled via CSS variables in globals.css
-// Geist fonts are loaded through the design system
+import { GeistSans } from 'geist/font/sans'
+import { GeistMono } from 'geist/font/mono'
 import './globals.css'
 import { Providers } from '@/providers'
 
@@ -53,7 +53,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>
       <head>
         <link rel="dns-prefetch" href="https://github.com" />
         <link rel="preconnect" href="https://github.com" />
@@ -97,7 +97,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
       </head>
-      <body className="antialiased bg-[var(--cc-canvas-soft)]">
+      <body className="antialiased bg-[var(--cc-canvas-soft)] font-sans">
         <a href="#main-content" className="cc-skip-link">Skip to main content</a>
         <Providers>{children}</Providers>
       </body>

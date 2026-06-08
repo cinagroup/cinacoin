@@ -128,7 +128,7 @@ html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-fo
 body {
   background: var(--cc-canvas-soft);
   color: var(--cc-ink);
-  font-family: Geist, var(--font-inter), Inter, system-ui, -apple-system, sans-serif;
+  font-family: var(--font-geist-sans), Geist, Inter, system-ui, -apple-system, sans-serif;
   font-size: 16px; line-height: 24px; overflow-x: hidden;
   transition: background 0.3s ease, color 0.3s ease;
 }
@@ -187,8 +187,8 @@ a:hover { color: var(--cc-link-deep); }
 .cc-body-sm { font-size: 14px; font-weight: 400; line-height: 20px; letter-spacing: -0.28px; }
 .cc-body-sm-strong { font-size: 14px; font-weight: 500; line-height: 20px; letter-spacing: -0.28px; }
 .cc-caption { font-size: 12px; font-weight: 400; line-height: 16px; }
-.cc-caption-mono { font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, monospace; font-size: 12px; font-weight: 400; line-height: 16px; text-transform: uppercase; letter-spacing: 0px; }
-.cc-code { font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, monospace; font-size: 13px; font-weight: 400; line-height: 20px; }
+.cc-caption-mono { font-family: var(--font-geist-mono), Geist Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, monospace; font-size: 12px; font-weight: 400; line-height: 16px; text-transform: uppercase; letter-spacing: 0px; }
+.cc-code { font-family: var(--font-geist-mono), Geist Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, monospace; font-size: 13px; font-weight: 400; line-height: 20px; }
 .cc-button-lg { font-size: 16px; font-weight: 500; line-height: 24px; }
 .cc-button-md { font-size: 14px; font-weight: 500; line-height: 20px; }
 
@@ -218,8 +218,8 @@ a:hover { color: var(--cc-link-deep); }
 .cc-btn-primary {
   display: inline-flex; align-items: center; justify-content: center;
   background: var(--cc-primary); color: var(--cc-on-primary);
-  border: none; border-radius: var(--cc-radius-sm);
-  padding: 0 var(--cc-sm); height: 48px;
+  border: none; border-radius: var(--cc-radius-pill);
+  padding: 0 var(--cc-lg); height: 48px;
   font-size: 16px; font-weight: 500; line-height: 24px;
   cursor: pointer; transition: opacity 0.15s ease; text-decoration: none; white-space: nowrap;
 }
@@ -244,8 +244,8 @@ a:hover { color: var(--cc-link-deep); }
 .cc-btn-secondary {
   display: inline-flex; align-items: center; justify-content: center;
   background: var(--cc-canvas); color: var(--cc-ink);
-  border: 1px solid var(--cc-hairline); border-radius: var(--cc-radius-sm);
-  padding: 0 var(--cc-sm); height: 48px;
+  border: 1px solid var(--cc-hairline); border-radius: var(--cc-radius-pill);
+  padding: 0 var(--cc-lg); height: 48px;
   font-size: 16px; font-weight: 500; line-height: 24px;
   cursor: pointer; transition: border-color 0.15s ease; text-decoration: none; white-space: nowrap;
 }
@@ -372,7 +372,7 @@ select.cc-form-input option { background: var(--cc-canvas); color: var(--cc-ink)
 }
 .cc-footer { background: var(--cc-canvas); border-top: 1px solid var(--cc-hairline); padding: var(--cc-4xl) var(--cc-lg); }
 .cc-footer-heading {
-  font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  font-family: var(--font-geist-mono), Geist Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
   font-size: 12px; font-weight: 400; line-height: 16px;
   color: var(--cc-muted); text-transform: uppercase; letter-spacing: 0px; margin-bottom: var(--cc-sm);
 }
@@ -426,7 +426,7 @@ select.cc-form-input option { background: var(--cc-canvas); color: var(--cc-ink)
 .cc-code-block {
   background: var(--cc-primary); color: var(--cc-on-primary);
   border-radius: var(--cc-radius-md); padding: var(--cc-lg);
-  font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  font-family: var(--font-geist-mono), Geist Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
   font-size: 13px; line-height: 20px; overflow-x: auto;
   box-shadow: var(--cc-level3);
 }
