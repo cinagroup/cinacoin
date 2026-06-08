@@ -72,6 +72,13 @@ export const TRON_MAINNET: Chain = {
   explorerUrl: 'https://tronscan.org',
 };
 
+/** TRON chain numeric IDs for cross-chain compatibility. */
+export const TRON_CHAIN_IDS: Record<string, number> = {
+  'tron:mainnet': 728126428,
+  'tron:shasta': 2494104990,
+  'tron:nile': 3448148180,
+};
+
 /** TRON Shasta testnet configuration. */
 export const TRON_SHASTA: Chain = {
   id: 'tron:shasta',
@@ -169,9 +176,13 @@ export class TronChainAdapter implements ChainAdapter {
 
   /** Find a chain by numeric ID. */
   findChain(chainId: number): Chain | undefined {
-    // TRON doesn't use numeric chain IDs in the same way as EVM
-    // This is a placeholder implementation
-    return this.chains.find((c) => c.id.includes(String(chainId))) ?? this.chains[0];
+    // TRON uses specific numeric chain IDs, not EVM-style chainIds
+    // Map numeric IDs to TRON chain configurations
+    for (const chain of this.chains) {
+      const numId = TRON_CHAIN_IDS[chain.id];
+      if (numId === chainId) return chain;
+    }
+    return undefined;
   }
 
   /** Get connected account addresses. */

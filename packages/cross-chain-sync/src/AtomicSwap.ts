@@ -606,7 +606,16 @@ export class AtomicSwapManager {
 
   private generateSwapId(): string {
     const timestamp = Date.now().toString(36);
-    const random = Math.random().toString(36).slice(2, 10);
+    const bytes = new Uint8Array(4);
+    if (typeof crypto !== "undefined" && crypto.getRandomValues) {
+      crypto.getRandomValues(bytes);
+    } else {
+      const nodeBytes = require("crypto").randomBytes(4);
+      bytes.set(nodeBytes);
+    }
+    const random = Array.from(bytes)
+      .map((b) => b.toString(16).padStart(2, "0"))
+      .join("");
     return `htlc-${timestamp}-${random}`;
   }
 
