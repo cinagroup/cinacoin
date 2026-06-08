@@ -1,16 +1,14 @@
 import type { Metadata } from 'next';
-import { Inter, JetBrains_Mono } from 'next/font/google';
+import { GeistSans } from 'geist/font/sans';
+import { GeistMono } from 'geist/font/mono';
 import './globals.css';
 import { ThemeProvider } from '@/providers/ThemeProvider';
 import Sidebar from '@/components/Sidebar';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
-const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono' });
-
 export const metadata: Metadata = {
   title: 'Cinacoin Cloud Dashboard',
   description: 'Developer portal for Cinacoin — manage projects, API keys, and usage analytics',
-  icons: { icon: '/dashboard/logo.svg' },
+  icons: { icon: '/favicon.ico' },
   openGraph: {
     title: 'Cinacoin Cloud Dashboard',
     description: 'Developer portal for Cinacoin — manage projects, API keys, and usage analytics',
@@ -31,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" data-theme="light" className={`${inter.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en" data-theme="light" className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body className="min-h-screen bg-[var(--cc-canvas-soft)] text-[var(--cc-ink)] antialiased">
         <ThemeProvider>
           <a href="#main-content" className="cc-skip-link">Skip to main content</a>

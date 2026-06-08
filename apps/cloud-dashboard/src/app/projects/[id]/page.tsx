@@ -12,7 +12,6 @@ export default async function ProjectDetailPage(props: { params: Promise<{ id: s
   const params = await props.params;
   const projectId = params.id;
 
-  // Try to fetch from API; if unavailable, show a not-found message
   let project = null;
   try {
     const ownerId = typeof window !== "undefined" ? localStorage.getItem("cinacoin_owner_id") || "" : "";
@@ -25,9 +24,9 @@ export default async function ProjectDetailPage(props: { params: Promise<{ id: s
 
   if (!project) {
     return (
-      <div className="min-h-screen bg-[var(--cc-canvas)] flex items-center justify-center">
+      <main id="main-content" className="flex items-center justify-center min-h-[400px]">
         <p className="text-[var(--cc-muted)]">Project not found or API unavailable.</p>
-      </div>
+      </main>
     );
   }
 

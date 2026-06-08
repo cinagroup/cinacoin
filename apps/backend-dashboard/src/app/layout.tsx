@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
+import { Geist } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import AppShell from "@/components/AppShell";
 import AuthProvider from "@/lib/AuthProvider";
 import AuthGuard from "@/components/AuthGuard";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { Providers } from "@/providers";
+
+const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
+const geistMono = GeistMono({ subsets: ["latin"], variable: "--font-geist-mono" });
 
 export const metadata: Metadata = {
   title: "Cinacoin — Backend Dashboard",
@@ -32,7 +37,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" data-theme="light" suppressHydrationWarning>
+    <html lang="en" data-theme="light" suppressHydrationWarning className={`${geist.variable} ${geistMono.variable}`}>
       <body className="bg-[var(--cc-canvas-soft)] min-h-screen">
         <a href="#main-content" className="cc-skip-link">Skip to main content</a>
         <Providers>

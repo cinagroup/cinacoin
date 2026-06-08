@@ -218,7 +218,7 @@ a:hover { color: var(--cc-link-deep); }
 .cc-btn-primary {
   display: inline-flex; align-items: center; justify-content: center;
   background: var(--cc-primary); color: var(--cc-on-primary);
-  border: none; border-radius: var(--cc-radius-pill);
+  border: none; border-radius: var(--cc-radius-sm);
   padding: 0 var(--cc-sm); height: 48px;
   font-size: 16px; font-weight: 500; line-height: 24px;
   cursor: pointer; transition: opacity 0.15s ease; text-decoration: none; white-space: nowrap;
@@ -231,7 +231,7 @@ a:hover { color: var(--cc-link-deep); }
 .cc-btn-primary-sm {
   display: inline-flex; align-items: center; justify-content: center;
   background: var(--cc-primary); color: var(--cc-on-primary);
-  border: none; border-radius: var(--cc-radius-pill);
+  border: none; border-radius: var(--cc-radius-sm);
   padding: 0 var(--cc-xs); height: 32px;
   font-size: 14px; font-weight: 500; line-height: 20px;
   cursor: pointer; transition: opacity 0.15s ease; text-decoration: none; white-space: nowrap;
@@ -244,7 +244,7 @@ a:hover { color: var(--cc-link-deep); }
 .cc-btn-secondary {
   display: inline-flex; align-items: center; justify-content: center;
   background: var(--cc-canvas); color: var(--cc-ink);
-  border: 1px solid var(--cc-hairline); border-radius: var(--cc-radius-pill);
+  border: 1px solid var(--cc-hairline); border-radius: var(--cc-radius-sm);
   padding: 0 var(--cc-sm); height: 48px;
   font-size: 16px; font-weight: 500; line-height: 24px;
   cursor: pointer; transition: border-color 0.15s ease; text-decoration: none; white-space: nowrap;
@@ -257,7 +257,7 @@ a:hover { color: var(--cc-link-deep); }
 .cc-btn-secondary-sm {
   display: inline-flex; align-items: center; justify-content: center;
   background: var(--cc-canvas); color: var(--cc-ink);
-  border: 1px solid var(--cc-hairline-strong); border-radius: var(--cc-radius-pill);
+  border: 1px solid var(--cc-hairline-strong); border-radius: var(--cc-radius-sm);
   padding: 0 var(--cc-xs); height: 32px;
   font-size: 14px; font-weight: 500; line-height: 20px;
   cursor: pointer; transition: border-color 0.15s ease; text-decoration: none; white-space: nowrap;
@@ -269,24 +269,22 @@ a:hover { color: var(--cc-link-deep); }
 }
 .cc-card {
   background: var(--cc-canvas);
-  border: 1px solid var(--cc-hairline);
   border-radius: var(--cc-radius-md);
   padding: var(--cc-lg);
-  box-shadow: var(--cc-level2);
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.02), 0px 2px 2px rgba(0, 0, 0, 0.04), inset 0 0 0 1px var(--cc-hairline);
   transition: box-shadow 0.2s ease;
 }
-.cc-card:hover { box-shadow: var(--cc-level3); }
+.cc-card:hover { box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.02), 0px 2px 2px rgba(0, 0, 0, 0.04), inset 0 0 0 1px var(--cc-hairline); }
 .cc-card:focus-within { outline: 2px solid var(--cc-link); outline-offset: 2px; }
-.cc-card:focus-within { box-shadow: var(--cc-level3); }
+.cc-card:focus-within { box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.02), 0px 2px 2px rgba(0, 0, 0, 0.04), inset 0 0 0 1px var(--cc-hairline); }
 .cc-card-lg {
   background: var(--cc-canvas);
-  border: 1px solid var(--cc-hairline);
   border-radius: var(--cc-radius-lg);
   padding: var(--cc-xl);
-  box-shadow: var(--cc-level3);
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.04), 0px 8px 8px -8px rgba(0, 0, 0, 0.06), inset 0 0 0 1px var(--cc-hairline);
   transition: box-shadow 0.2s ease;
 }
-.cc-card-lg:hover { box-shadow: var(--cc-level4); }
+.cc-card-lg:hover { box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.06), 0px 8px 16px -4px rgba(0, 0, 0, 0.06), inset 0 0 0 1px var(--cc-hairline); }
 .cc-card-lg:focus-within { outline: 2px solid var(--cc-link); outline-offset: 2px; }
 .cc-card-soft {
   background: var(--cc-canvas-soft-2);
@@ -359,7 +357,7 @@ select.cc-form-input option { background: var(--cc-canvas); color: var(--cc-ink)
 }
 .cc-navbar-link {
   color: var(--cc-body); font-size: 14px; font-weight: 500; line-height: 20px; letter-spacing: -0.28px;
-  padding: var(--cc-xs) var(--cc-sm); border-radius: var(--cc-radius-full);
+  padding: var(--cc-xs) var(--cc-sm); border-radius: var(--cc-radius-sm);
   text-decoration: none; transition: color 0.15s ease;
 }
 .cc-navbar-link:hover { color: var(--cc-ink); }

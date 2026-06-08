@@ -18,13 +18,13 @@ export default function NotFound() {
         <div className="mt-10 flex flex-col gap-3 sm:flex-row">
           <Link
             href="/"
-            className="px-8 py-4 rounded-[100px] font-[500] text-[16px] leading-[24px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all duration-200 hover:-translate-y-0.5"
+            className="px-8 py-4 rounded-[6px] font-[500] text-[16px] leading-[24px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all duration-200 hover:-translate-y-0.5"
           >
             Go Home
           </Link>
           <Link
             href="/swap"
-            className="px-6 py-4 rounded-[100px] font-[500] text-[16px] leading-[24px] bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline-strong)]/60 text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all duration-200"
+            className="px-6 py-4 rounded-[6px] font-[500] text-[16px] leading-[24px] bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline-strong)]/60 text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all duration-200"
           >
             Try Swap Demo →
           </Link>

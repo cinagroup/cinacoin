@@ -458,7 +458,7 @@ export default function OnrampPage() {
                   </div>
                   <button
                     onClick={handleOpenWidget}
-                    className="px-6 py-3 rounded-[100px] font-semibold text-sm bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 shadow-[var(--cc-level3)] transition-all active:scale-[0.98]"
+                    className="px-6 py-3 rounded-[6px] font-semibold text-sm bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 shadow-[var(--cc-level3)] transition-all active:scale-[0.98]"
                   >
                     Buy Now
                   </button>

@@ -658,7 +658,6 @@ export default function WalletExplorerPage() {
                 value={filters.search}
                 onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))}
                 className="vercel-input pl-10"
-                style={{ height: '36px', fontSize: '13px' }}
                 autoComplete="off"
               />
             </div>

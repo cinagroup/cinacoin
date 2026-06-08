@@ -315,7 +315,7 @@ function SwapWidget({
               }, 2000);
             }}
             disabled={swapState !== 'idle' || !fromAmount || parseFloat(fromAmount) <= 0}
-            className={`w-full py-3 rounded-[100px] font-semibold text-sm transition-all ${
+            className={`w-full py-3 rounded-[6px] font-semibold text-sm transition-all ${
               swapState === 'success'
                 ? 'bg-[var(--cc-success)] text-[var(--cc-ink)]'
                 : 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)] disabled:opacity-40 disabled:cursor-not-allowed hover:opacity-90'
@@ -326,7 +326,7 @@ function SwapWidget({
         ) : (
           <button
             onClick={() => connect(connectors.find((c) => c.id === 'io.metamask')?.id ?? 'io.metamask')}
-            className="w-full py-3 rounded-[100px] font-semibold text-sm bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all"
+            className="w-full py-3 rounded-[6px] font-semibold text-sm bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all"
           >
             Connect Wallet to Swap
           </button>
@@ -411,7 +411,7 @@ export default function TokensPage() {
             ) : (
               <button
                 onClick={() => connect(connectors.find((c) => c.id === 'io.metamask')?.id ?? 'io.metamask')}
-                className="px-5 py-3 rounded-[100px] text-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all"
+                className="px-5 py-3 rounded-[6px] text-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all"
               >
                 Connect Wallet
               </button>
@@ -441,7 +441,7 @@ export default function TokensPage() {
                 placeholder="Search by name, symbol, or address..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-4 py-3 pl-10 bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline-strong)]/50 rounded-md text-sm text-[var(--cc-body)] placeholder:text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-primary)]/40"
+className="w-full h-[40px] px-4 pl-10 bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline-strong)]/50 rounded-[6px] text-sm text-[var(--cc-body)] placeholder:text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-primary)]/40"
                 aria-label="Search tokens"
               />
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--cc-body)]">🔍</span>

@@ -10,12 +10,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@cinacoin/design-tokens": "workspace:*",
+    "@cinacoin/ui": "workspace:*",
+    "@cinacoin/wallet-registry": "workspace:*",
+    "geist": "^1.7.2",
     "next": "^15.0.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "@cinacoin/wallet-registry": "workspace:*",
-    "@cinacoin/design-tokens": "workspace:*",
-    "@cinacoin/ui": "workspace:*"
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@cloudflare/next-on-pages": "^1.13.7",

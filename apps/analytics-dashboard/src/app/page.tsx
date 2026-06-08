@@ -132,7 +132,7 @@ export default function HomePage() {
       <aside className="v-sidebar">
         <div className="v-sidebar-logo">
           <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--cc-xs)' }}>
-            <img src="/analytics/logo.svg" alt="Cinacoin" style={{ width: 24, height: 24 }} />
+            <img src="/logo.png" alt="Cinacoin" style={{ width: 24, height: 24 }} />
             <span style={{ fontSize: 16, fontWeight: 600, color: 'var(--cc-ink)' }}>Analytics</span>
           </div>
         </div>

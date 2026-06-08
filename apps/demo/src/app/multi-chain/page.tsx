@@ -609,7 +609,7 @@ export default function MultiChainPage() {
                 <div className="w-px h-8 bg-[var(--cc-canvas-soft-2)]" />
                 <div className="text-center">
                   <div className="text-xs text-[var(--cc-body)]">Balance</div>
-                  <div className="text-sm font-semibold text-[var(--cc-ink)]">{account.balance} {account.chainSymbol}</div>
+                  <div className="text-sm font-mono font-semibold text-[var(--cc-ink)]">{account.balance} {account.chainSymbol}</div>
                 </div>
                 <div className="w-px h-8 bg-[var(--cc-canvas-soft-2)]" />
                 <div className="text-center">
@@ -627,7 +627,7 @@ export default function MultiChainPage() {
           ) : (
             <button
               onClick={() => connect(primaryConnector?.id ?? 'io.metamask')}
-              className="px-6 py-3 rounded-[100px] font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all shadow-[var(--cc-level3)]"
+              className="px-6 py-3 rounded-[6px] font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all shadow-[var(--cc-level3)]"
             >
               Connect Wallet
             </button>

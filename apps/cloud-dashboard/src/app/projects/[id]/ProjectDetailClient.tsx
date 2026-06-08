@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Header from "@/components/Header";
 import { ApiKeyManager } from "@/components/ApiKeyManager";
 import { UsageChart } from "@/components/UsageChart";
 import { getUsageStats } from "@/lib/api";
@@ -56,9 +55,7 @@ export function ProjectDetailClient({ projectId, project }: ProjectDetailClientP
   const totalErrors = usageData.reduce((sum, d) => sum + d.errors, 0);
 
   return (
-    <div className="min-h-screen bg-[var(--cc-canvas-soft)]">
-      <Header />
-      <main id="main-content" className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    <main id="main-content" className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="mb-6">
           <a href="/projects" className="text-sm text-[var(--cc-muted)] hover:text-[var(--cc-ink)]">
             ← Back to Projects
@@ -102,21 +99,21 @@ export function ProjectDetailClient({ projectId, project }: ProjectDetailClientP
         {activeTab === "overview" && (
           <div className="space-y-6" role="tabpanel" id="panel-overview" aria-labelledby="tab-overview">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-              <div className="cc-card">
-                <p className="cc-caption text-[var(--cc-muted)]">Total Requests</p>
-                <p className="mt-1 cc-display-sm text-[var(--cc-ink)]">
+              <div className="stat-card">
+                <p className="stat-card-label">Total Requests</p>
+                <p className="stat-card-value">
                   {totalRequests.toLocaleString()}
                 </p>
               </div>
-              <div className="cc-card">
-                <p className="cc-caption text-[var(--cc-muted)]">Errors</p>
-                <p className="mt-1 cc-display-sm text-[var(--cc-error)]">
+              <div className="stat-card">
+                <p className="stat-card-label">Errors</p>
+                <p className="stat-card-value text-[var(--cc-error)]">
                   {totalErrors.toLocaleString()}
                 </p>
               </div>
-              <div className="cc-card">
-                <p className="cc-caption text-[var(--cc-muted)]">Avg Latency</p>
-                <p className="mt-1 cc-display-sm text-[var(--cc-success)]">
+              <div className="stat-card">
+                <p className="stat-card-label">Avg Latency</p>
+                <p className="stat-card-value text-[var(--cc-success)]">
                   {avgLatency > 0 ? `${avgLatency}ms` : "—"}
                 </p>
               </div>
@@ -216,6 +213,5 @@ export function ProjectDetailClient({ projectId, project }: ProjectDetailClientP
           </div>
         )}
       </main>
-    </div>
   );
 }

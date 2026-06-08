@@ -512,7 +512,7 @@ export default function HomePage() {
                     <button
                       key={c.id}
                       onClick={() => handleConnect(c.id)}
-                      className="flex items-center gap-3 px-4 py-3 rounded-[100px] bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline-strong)]/50 hover:border-[var(--cc-hairline-strong)] hover:bg-[var(--cc-canvas-soft-2)]/60 transition-all text-left"
+                      className="flex items-center gap-3 px-4 py-3 rounded-[6px] bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline-strong)]/50 hover:border-[var(--cc-hairline-strong)] hover:bg-[var(--cc-canvas-soft-2)]/60 transition-all text-left"
                     >
                       <span className="size-8 rounded-full bg-[var(--cc-canvas-soft-2)] flex items-center justify-center text-xs font-semibold text-[var(--cc-muted)]">
                         {c.name[0]}
@@ -535,7 +535,7 @@ export default function HomePage() {
                 <p className="text-[var(--cc-body)] text-xs mt-1">Install MetaMask or another EIP-1193 wallet to continue.</p>
                 <button
                   onClick={() => window.open('https://metamask.io/download/', '_blank')}
-                  className="mt-4 px-6 py-2 rounded-[100px] bg-[var(--cc-primary)]/20 text-[var(--cc-link)] border border-[var(--cc-primary)]/30 hover:bg-[var(--cc-primary)]/30 text-sm font-medium transition-colors"
+                  className="mt-4 px-6 py-2 rounded-[6px] bg-[var(--cc-primary)]/20 text-[var(--cc-link)] border border-[var(--cc-primary)]/30 hover:bg-[var(--cc-primary)]/30 text-sm font-medium transition-colors"
                 >
                   Get MetaMask →
                 </button>
@@ -561,7 +561,7 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div className="text-right shrink-0">
-                  <p className="text-sm font-semibold text-[var(--cc-body)]">{account.balance} {account.chainSymbol}</p>
+                  <p className="text-sm font-mono font-semibold text-[var(--cc-body)]">{account.balance} {account.chainSymbol}</p>
                 </div>
               </div>
             )}
@@ -662,7 +662,7 @@ export default function HomePage() {
               </div>
               <div className="p-3 rounded-[var(--cc-radius-md)] bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline)]/50">
                 <p className="text-[12px] uppercase tracking-normal text-[var(--cc-body)] mb-1">Balance</p>
-                <p className="text-sm font-semibold text-[var(--cc-body)]">
+                <p className="text-sm font-mono font-semibold text-[var(--cc-body)]">
                   {isConnected ? `${account.balance} ${account.chainSymbol}` : '—'}
                 </p>
               </div>

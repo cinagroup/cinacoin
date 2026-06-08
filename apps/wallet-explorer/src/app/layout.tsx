@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Geist } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 
-// Vercel-style fonts: Inter for geometric sans, JetBrains Mono for monospace
-const inter = Inter({ 
-  subsets: ["latin"], 
-  variable: "--font-inter",
-  display: 'swap',
+// Geist fonts: geometric sans + monospace for modern blockchain UI
+const geist = Geist({
+  subsets: ["latin"],
+  variable: "--font-geist",
+  display: "swap",
 });
-const jetbrainsMono = JetBrains_Mono({ 
-  subsets: ["latin"], 
-  variable: "--font-mono",
-  display: 'swap',
+const geistMono = GeistMono({
+  subsets: ["latin"],
+  variable: "--font-geist-mono",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
   description:
     "Browse, search, and discover 100+ crypto wallets. Filter by chain, platform, and type.",
   keywords: "wallet explorer, crypto wallets, web3, Cinacoin, wallet discovery",
-  icons: { icon: "/wallets/logo.svg" },
+  icons: { icon: "/favicon.ico" },
   openGraph: {
     title: "Wallet Explorer — Cinacoin",
     description: "Browse, search, and discover 100+ crypto wallets. Filter by chain, platform, and type.",
@@ -41,8 +42,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${jetbrainsMono.variable}`}>
-      <body className={`min-h-screen ${inter.className} antialiased`}>
+    <html lang="en" suppressHydrationWarning className={`${geist.variable} ${geistMono.variable}`}>
+      <body className={`min-h-screen ${geist.className} antialiased`}>
         {children}
       </body>
     </html>

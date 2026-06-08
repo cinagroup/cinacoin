@@ -11,15 +11,16 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
-    "@cinacoin/design-tokens": "workspace:*",
     "@cinacoin/core-sdk": "workspace:*",
     "@cinacoin/core-ui": "workspace:*",
+    "@cinacoin/design-tokens": "workspace:*",
     "@cinacoin/react": "workspace:*",
     "@cinacoin/siwe": "workspace:*",
-    "viem": "^2.21.0",
+    "geist": "^1.7.2",
     "next": "^15.0.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "viem": "^2.21.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.60.0",

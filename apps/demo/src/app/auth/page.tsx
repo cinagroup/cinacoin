@@ -430,7 +430,7 @@ export default function AuthPage() {
               <div className="space-y-3">
                 <button
                   onClick={handleConnect}
-                  className="w-full py-3 rounded-[100px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all shadow-[var(--cc-level3)] text-sm"
+                  className="w-full py-3 rounded-[6px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all shadow-[var(--cc-level3)] text-sm"
                 >
                   <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101" /><path strokeLinecap="round" strokeLinejoin="round" d="M10.172 13.828a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.101 1.101" /></svg> Connect Wallet & Sign
                 </button>
@@ -442,7 +442,7 @@ export default function AuthPage() {
               <button
                 onClick={handleSign}
                 disabled={isSigningLoading}
-                className="w-full py-3 rounded-[100px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all disabled:opacity-50 text-sm"
+                className="w-full py-3 rounded-[6px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all disabled:opacity-50 text-sm"
               >
                 {isSigningLoading ? 'Waiting for wallet...' : '✍️ Sign SIWE Message'}
               </button>
@@ -473,7 +473,7 @@ export default function AuthPage() {
                 </div>
                 <button
                   onClick={handleVerify}
-                  className="w-full py-3 rounded-[100px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all text-sm"
+                  className="w-full py-3 rounded-[6px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all text-sm"
                 >
                   🔐 Verify Signature
                 </button>
@@ -528,7 +528,7 @@ export default function AuthPage() {
             {isConnected && account.address && !siweMessage && authStep !== 'connected' && authStep !== 'signing' && authStep !== 'signed' && authStep !== 'verifying' && authStep !== 'verified' && authStep !== 'error' && (
               <button
                 onClick={handleSign}
-                className="w-full py-3 rounded-[100px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all text-sm"
+                className="w-full py-3 rounded-[6px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all text-sm"
               >
                 ✍️ Sign SIWE Message
               </button>
@@ -616,7 +616,7 @@ export default function AuthPage() {
                     </p>
                     <button
                       onClick={handleLoginPasskey}
-                      className="w-full py-3 rounded-[100px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all text-sm"
+                      className="w-full py-3 rounded-[6px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all text-sm"
                     >
                       🔑 Login with Passkey
                     </button>

@@ -33,9 +33,9 @@
   --v-radius-lg: 12px;
 
   /* Shadows — stacked shadow + inset hairline */
-  --v-shadow-card: 0px 1px 1px rgba(0, 0, 0, 0.03), 0px 2px 2px rgba(0, 0, 0, 0.06);
-  --v-shadow-card-hover: 0px 2px 2px rgba(0, 0, 0, 0.06), 0px 8px 8px -8px rgba(0, 0, 0, 0.06);
-  --v-shadow-inset: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+  --v-shadow-card: 0px 1px 1px rgba(0, 0, 0, 0.02), 0px 2px 2px rgba(0, 0, 0, 0.04);
+  --v-shadow-card-hover: 0px 2px 2px rgba(0, 0, 0, 0.04), 0px 8px 8px -8px rgba(0, 0, 0, 0.04);
+  --v-shadow-inset: inset 0 0 0 1px #ebebeb;
 
   /* Sidebar */
   --v-sidebar-width: 240px;
@@ -232,6 +232,10 @@ body {
   border: 1px solid var(--cc-hairline);
   border-radius: var(--v-radius-md);
   padding: var(--cc-lg);
+  box-shadow:
+    0px 1px 1px rgba(0, 0, 0, 0.02),
+    0px 2px 2px rgba(0, 0, 0, 0.04),
+    inset 0 0 0 1px #ebebeb;
 }
 
 .v-chart-card__title {

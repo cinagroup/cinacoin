@@ -157,7 +157,7 @@ export default function Header({
             {onConnectWallet && (
               <button
                 onClick={onConnectWallet}
-                className="hidden sm:inline-flex px-4 py-2 rounded-[var(--cc-radius-pill)] text-sm font-semibold bg-[var(--cc-primary)] hover:bg-[var(--cc-primary)]/80 text-[var(--cc-on-primary)] transition-all"
+                className="hidden sm:inline-flex px-4 py-2 rounded-[6px] text-sm font-semibold bg-[var(--cc-primary)] hover:bg-[var(--cc-primary)]/80 text-[var(--cc-on-primary)] transition-all"
               >
                 {walletLabel}
               </button>
@@ -215,7 +215,7 @@ export default function Header({
                   onConnectWallet();
                   setMobileOpen(false);
                 }}
-                className="w-full mt-2 px-4 py-3 rounded-[var(--cc-radius-pill)] text-sm font-semibold bg-[var(--cc-primary)] hover:bg-[var(--cc-primary)]/80 text-[var(--cc-on-primary)] transition-all"
+                className="w-full mt-2 px-4 py-3 rounded-[6px] text-sm font-semibold bg-[var(--cc-primary)] hover:bg-[var(--cc-primary)]/80 text-[var(--cc-on-primary)] transition-all"
               >
                 {walletLabel}
               </button>

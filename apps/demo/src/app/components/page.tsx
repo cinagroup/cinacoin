@@ -220,7 +220,7 @@ export default function ComponentsPage() {
             <div className="space-y-4">
               {/* Variants */}
               <div className="flex flex-wrap gap-3 items-center">
-                <button className="px-5 py-3 rounded-[100px] font-semibold text-sm bg-[var(--cc-primary)] text-[var(--cc-on-primary)] shadow-[var(--cc-level3)] hover:shadow-[var(--cc-level4)] transition-all hover:-translate-y-0.5">
+                <button className="px-5 py-3 rounded-[6px] font-semibold text-sm bg-[var(--cc-primary)] text-[var(--cc-on-primary)] shadow-[var(--cc-level3)] hover:shadow-[var(--cc-level4)] transition-all hover:-translate-y-0.5">
                   Primary
                 </button>
                 <button className="px-5 py-3 rounded-md font-semibold text-sm bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all">
@@ -242,13 +242,13 @@ export default function ComponentsPage() {
 
               {/* Sizes */}
               <div className="flex flex-wrap gap-3 items-center">
-                <button className="px-3 py-2 rounded-[100px] text-xs font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)]">
+                <button className="px-3 py-2 rounded-[6px] text-xs font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)]">
                   Small
                 </button>
-                <button className="px-5 py-3 rounded-[100px] text-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)]">
+                <button className="px-5 py-3 rounded-[6px] text-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)]">
                   Medium
                 </button>
-                <button className="px-8 py-4 rounded-[100px] text-base font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)]">
+                <button className="px-8 py-4 rounded-[6px] text-base font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)]">
                   Large
                 </button>
               </div>
@@ -312,7 +312,7 @@ export default function ComponentsPage() {
                     <p className="text-xs text-[var(--cc-body)]">{account.chainName} · Chain ID: {account.chainId}</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-sm font-semibold text-[var(--cc-body)]">{account.balance} {account.chainSymbol}</p>
+                    <p className="text-sm font-mono font-semibold text-[var(--cc-body)]">{account.balance} {account.chainSymbol}</p>
                   </div>
                 </div>
               ) : (

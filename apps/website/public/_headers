@@ -3,10 +3,8 @@
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
-  X-XSS-Protection: 0
   Cross-Origin-Opener-Policy: same-origin
   Cross-Origin-Resource-Policy: same-origin
-  # Cloudflare auto-compresses with Brotli/Gzip; hint browser
   Vary: Accept-Encoding
 
 /_next/static/*
@@ -20,9 +18,6 @@
   Cache-Control: public, max-age=86400
 
 /favicon.png
-  Cache-Control: public, max-age=86400
-
-/logo.svg
   Cache-Control: public, max-age=86400
 
 /og-image.png

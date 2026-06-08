@@ -153,11 +153,16 @@ function WalletCard({
     .reduce((sum, b) => sum + parseFloat(b.balance), 0);
 
   return (
-    <div className={`p-5 rounded-md border transition-all ${
-      isPrimary
-        ? 'border-[var(--cc-link)]/30 border-[var(--cc-link)]/30'
-        : 'bg-[var(--cc-canvas)]/40 border-[var(--cc-hairline-strong)]/40 hover:border-[var(--cc-hairline-strong)]'
-    }`}>
+    <div
+      className={`p-5 rounded-md border transition-all ${
+        isPrimary
+          ? 'border-[var(--cc-link)]/30 border-[var(--cc-link)]/30'
+          : 'bg-[var(--cc-canvas)]/40 border-[var(--cc-hairline-strong)]/40 hover:border-[var(--cc-hairline-strong)]'
+      }`}
+      style={{
+        boxShadow: '0px 1px 1px #00000005, 0px 2px 2px #0000000a, inset 0 0 0 1px #ebebeb'
+      }}
+    >
       <div className="flex items-center gap-4">
         <AvatarDisplay address={address} size="md" />
         <div className="flex-1 min-w-0">
@@ -268,7 +273,7 @@ export default function ProfilePage() {
             <p className="text-[var(--cc-muted)] mt-4 text-sm">Connect your wallet to view your profile</p>
             <button
               onClick={handleConnect}
-              className="mt-4 px-6 py-3 rounded-[100px] font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all"
+              className="mt-4 px-6 py-3 rounded-[6px] font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all"
             >
               Connect Wallet
             </button>
@@ -318,7 +323,7 @@ export default function ProfilePage() {
                   </div>
                   <div className="p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/30 text-center">
                     <p className="text-xs text-[var(--cc-body)]">Balance</p>
-                    <p className="text-sm font-semibold text-[var(--cc-body)]">{account.balance} {account.chainSymbol}</p>
+                    <p className="text-sm font-mono font-semibold text-[var(--cc-body)]">{account.balance} {account.chainSymbol}</p>
                   </div>
                   <div className="p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/30 text-center">
                     <p className="text-xs text-[var(--cc-body)]">Chain ID</p>
