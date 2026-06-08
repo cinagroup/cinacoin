@@ -120,11 +120,11 @@ export default function OverviewPage() {
         <table className="w-full text-sm min-w-[500px]">
           <thead>
             <tr className="border-b border-[var(--cc-hairline)]">
-              <th scope="col" className="text-left px-3 sm:px-4 py-3 cc-caption text-[var(--cc-muted)] font-normal">Service</th>
-              <th scope="col" className="text-left px-3 sm:px-4 py-3 cc-caption text-[var(--cc-muted)] font-normal">Status</th>
-              <th scope="col" className="text-right px-3 sm:px-4 py-3 cc-caption text-[var(--cc-muted)] font-normal">Requests</th>
-              <th scope="col" className="text-right px-3 sm:px-4 py-3 cc-caption text-[var(--cc-muted)] font-normal">Error Rate</th>
-              <th scope="col" className="text-right px-3 sm:px-4 py-3 cc-caption text-[var(--cc-muted)] font-normal">Avg Latency</th>
+              <th scope="col" className="ds-table-header">Service</th>
+              <th scope="col" className="ds-table-header">Status</th>
+              <th scope="col" className="ds-table-header text-right">Requests</th>
+              <th scope="col" className="ds-table-header text-right">Error Rate</th>
+              <th scope="col" className="ds-table-header text-right">Avg Latency</th>
             </tr>
           </thead>
           <tbody>
@@ -132,16 +132,16 @@ export default function OverviewPage() {
               const metrics = demoMode ? generateDemoMetrics(service.id) : null;
               const h = health[service.id] || { status: "unknown", latency: null, lastChecked: 0 };
               return (
-                <tr key={service.id} className="border-b border-[var(--cc-hairline)]/50 hover:bg-[var(--cc-canvas-soft)] transition-colors">
-                  <td className="px-3 sm:px-4 py-3 cc-body-sm text-[var(--cc-ink)] whitespace-nowrap">
+                <tr key={service.id} className="ds-table-row">
+                  <td className="ds-table-cell whitespace-nowrap">
                     {service.name}
                   </td>
-                  <td className={`px-3 sm:px-4 py-3 cc-body-sm-strong ${statusColor(h.status)}`}>
+                  <td className={`ds-table-cell cc-body-sm-strong ${statusColor(h.status)}`}>
                     {h.status}
                   </td>
-                  <td className="px-3 sm:px-4 py-3 text-right cc-body-sm text-[var(--cc-ink)]">{metrics ? formatNumber(metrics.totalRequests || 0) : "—"}</td>
-                  <td className="px-3 sm:px-4 py-3 text-right cc-body-sm text-[var(--cc-ink)]">{metrics ? `${metrics.errorRate?.toFixed(2) || 0}%` : "—"}</td>
-                  <td className="px-3 sm:px-4 py-3 text-right cc-body-sm text-[var(--cc-ink)]">
+                  <td className="ds-table-cell text-right">{metrics ? formatNumber(metrics.totalRequests || 0) : "—"}</td>
+                  <td className="ds-table-cell text-right">{metrics ? `${metrics.errorRate?.toFixed(2) || 0}%` : "—"}</td>
+                  <td className="ds-table-cell text-right">
                     {metrics ? formatLatency(metrics.avgLatency || 0) : "—"}
                   </td>
                 </tr>

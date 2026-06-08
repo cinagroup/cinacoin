@@ -494,10 +494,10 @@ export default function SwapPage() {
               <span className="text-xs text-[var(--cc-muted)]">
                 Balance: <span className="text-[var(--cc-ink)] font-semibold">{account.balance} {account.chainSymbol}</span>
               </span>
-              <span className="text-xs text-[var(--cc-body)]">{account.chainName} · {shortenAddress(account.address ?? '')}</span>
+              <span className="text-xs text-[var(--cc-body)] font-mono">{account.chainName} · {shortenAddress(account.address ?? '')}</span>
               <button
                 onClick={() => disconnect()}
-                className="px-3 py-2 rounded-md text-xs font-semibold bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all"
+                className="px-3 py-2 rounded-[6px] text-xs font-semibold bg-[var(--cc-canvas)] text-[var(--cc-body)] border border-[var(--cc-hairline)] hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all"
               >
                 Disconnect
               </button>
@@ -505,7 +505,7 @@ export default function SwapPage() {
           ) : (
             <button
               onClick={() => connect(primaryConnector?.id ?? 'io.metamask')}
-              className="px-4 py-2 rounded-[100px] text-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all"
+              className="px-4 py-2 rounded-[6px] text-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all"
             >
               Connect Wallet
             </button>
@@ -671,7 +671,7 @@ export default function SwapPage() {
             <button
               onClick={isConnected ? handleSwap : () => connect(primaryConnector?.id ?? 'io.metamask')}
               disabled={buttonDisabled}
-              className={`w-full py-4 rounded-[100px] font-semibold text-lg transition-all ${
+              className={`w-full py-4 rounded-[6px] font-semibold text-lg transition-all ${
                 swapState === 'success'
                   ? 'bg-[var(--cc-success)] text-[var(--cc-ink)] shadow-[var(--cc-level3)]'
                   : swapState === 'swapping' || swapState === 'approving'

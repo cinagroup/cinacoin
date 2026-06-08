@@ -137,17 +137,17 @@ export default function ChainsPage() {
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-[var(--cc-hairline)]">
-              <th scope="col" className="text-left px-4 py-3 cc-caption text-[var(--cc-muted)] font-normal">Network</th>
-              <th scope="col" className="text-left px-4 py-3 cc-caption text-[var(--cc-muted)] font-normal">Chain ID</th>
-              <th scope="col" className="text-left px-4 py-3 cc-caption text-[var(--cc-muted)] font-normal">RPC URL</th>
-              <th scope="col" className="text-left px-4 py-3 cc-caption text-[var(--cc-muted)] font-normal">Explorer</th>
-              <th scope="col" className="text-center px-4 py-3 cc-caption text-[var(--cc-muted)] font-normal">Status</th>
+              <th scope="col" className="ds-table-header">Network</th>
+              <th scope="col" className="ds-table-header">Chain ID</th>
+              <th scope="col" className="ds-table-header">RPC URL</th>
+              <th scope="col" className="ds-table-header">Explorer</th>
+              <th scope="col" className="ds-table-header text-center">Status</th>
             </tr>
           </thead>
           <tbody>
             {filteredChains.map((chain) => (
-              <tr key={chain.id} className="border-b border-[var(--cc-hairline)]/50 hover:bg-[var(--cc-canvas-soft)] transition-colors">
-                <td className="px-4 py-3">
+              <tr key={chain.id} className="ds-table-row">
+                <td className="ds-table-cell">
                   <div className="flex items-center gap-2">
                     <span className="cc-body-sm-strong text-[var(--cc-ink)]">{chain.name}</span>
                     <span
@@ -158,22 +158,22 @@ export default function ChainsPage() {
                     </span>
                   </div>
                 </td>
-                <td className="px-4 py-3">
+                <td className="ds-table-cell">
                   <code className="cc-code bg-[var(--cc-canvas-soft-2)] px-2 py-1 rounded">
                     {typeof chain.chainId === "number" ? chain.chainId.toString() : chain.chainId}
                   </code>
                 </td>
-                <td className="px-4 py-3">
+                <td className="ds-table-cell">
                   <span className="cc-code text-[var(--cc-muted)] truncate max-w-[200px] block">
                     {chain.rpcUrl || "—"}
                   </span>
                 </td>
-                <td className="px-4 py-3">
+                <td className="ds-table-cell">
                   <a href={chain.explorerUrl} target="_blank" rel="noopener noreferrer" className="cc-caption text-[var(--cc-link)] hover:underline">
                     {chain.explorerUrl.replace("https://", "")}
                   </a>
                 </td>
-                <td className="px-4 py-3 text-center">
+                <td className="ds-table-cell text-center">
                   <button
                     onClick={() => toggleChain(chain.id)}
                     role="switch"

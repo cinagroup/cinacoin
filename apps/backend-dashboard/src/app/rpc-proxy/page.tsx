@@ -112,20 +112,20 @@ export default function RPCProxyPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-[var(--cc-hairline)]/50">
-                <th scope="col" className="text-left px-5 py-3 cc-caption text-[var(--cc-muted)] font-normal">Method</th>
-                <th className="text-left px-5 py-3 font-normal">Calls</th>
-                <th className="text-left px-5 py-3 font-normal">Share</th>
-                <th className="text-left px-5 py-3 font-normal">Distribution</th>
+              <tr className="border-b border-[var(--cc-hairline)]">
+                <th scope="col" className="ds-table-header">Method</th>
+                <th className="ds-table-header">Calls</th>
+                <th className="ds-table-header">Share</th>
+                <th className="ds-table-header">Distribution</th>
               </tr>
             </thead>
             <tbody>
               {RPC_METHODS.map((m, i) => (
-                <tr key={i} className="border-b border-[var(--cc-hairline)]/30 hover:bg-[var(--cc-canvas-soft)] transition-colors">
-                  <td className="px-5 py-3 cc-code text-[var(--cc-link)]">{m.method}</td>
-                  <td className="px-5 py-3 text-[var(--cc-ink)]">{formatNumber(m.count)}</td>
-                  <td className="px-5 py-3 text-[var(--cc-muted)]">{m.pct}%</td>
-                  <td className="px-5 py-3 w-48">
+                <tr key={i} className="ds-table-row">
+                  <td className="ds-table-cell cc-code text-[var(--cc-link)]">{m.method}</td>
+                  <td className="ds-table-cell">{formatNumber(m.count)}</td>
+                  <td className="ds-table-cell text-[var(--cc-muted)]">{m.pct}%</td>
+                  <td className="ds-table-cell w-48">
                     <div className="bg-[var(--cc-hairline)] rounded-full h-2 overflow-hidden">
                       <div
                         className="h-full rounded-full transition-all"
@@ -148,20 +148,20 @@ export default function RPCProxyPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-[var(--cc-hairline)]/50">
-                <th scope="col" className="text-left px-5 py-3 cc-caption text-[var(--cc-muted)] font-normal">Provider</th>
-                <th className="text-left px-5 py-3 font-normal">Requests</th>
-                <th className="text-left px-5 py-3 font-normal">Avg Latency</th>
-                <th className="text-left px-5 py-3 font-normal">Status</th>
+              <tr className="border-b border-[var(--cc-hairline)]">
+                <th scope="col" className="ds-table-header">Provider</th>
+                <th className="ds-table-header">Requests</th>
+                <th className="ds-table-header">Avg Latency</th>
+                <th className="ds-table-header">Status</th>
               </tr>
             </thead>
             <tbody>
               {RPC_PROVIDERS.map((p, i) => (
-                <tr key={i} className="border-b border-[var(--cc-hairline)]/30 hover:bg-[var(--cc-canvas-soft)] transition-colors">
-                  <td className="px-5 py-3 text-[var(--cc-ink)]">{p.name}</td>
-                  <td className="px-5 py-3 text-[var(--cc-ink)]">{formatNumber(p.requests)}</td>
-                  <td className="px-5 py-3 text-[var(--cc-muted)]">{p.latency}</td>
-                  <td className="px-5 py-3">
+                <tr key={i} className="ds-table-row">
+                  <td className="ds-table-cell">{p.name}</td>
+                  <td className="ds-table-cell">{formatNumber(p.requests)}</td>
+                  <td className="ds-table-cell text-[var(--cc-muted)]">{p.latency}</td>
+                  <td className="ds-table-cell">
                     <span className={`inline-flex items-center px-2 py-0.5 rounded-full cc-caption font-medium ${
                       p.status === "healthy" ? "bg-[var(--cc-success)]/10 text-[var(--cc-success)]" : "bg-[var(--cc-error)]/10 text-[var(--cc-error)]"
                     }`}>

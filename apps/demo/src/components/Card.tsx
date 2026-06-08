@@ -33,10 +33,14 @@ export default function Card({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onMouseMove={handleMouseMove}
-      className={`relative bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] overflow-hidden transition-all duration-300 ${
+      className={`relative bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[8px] overflow-hidden transition-all duration-300 ${
         hoverLift ? 'hover:-translate-y-0.5' : ''
       } ${className}`}
-      style={hoverLift && hovered ? { boxShadow: 'var(--cc-level3)' } : undefined}
+      style={{
+        boxShadow: hovered && hoverLift 
+          ? '0px 2px 2px rgba(0, 0, 0, 0.06), 0px 8px 8px -8px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.08) inset'
+          : '0px 1px 1px rgba(0, 0, 0, 0.03), 0px 2px 2px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.08) inset'
+      }}
     >
       {/* Gradient glow on hover */}
       {hoverLift && (

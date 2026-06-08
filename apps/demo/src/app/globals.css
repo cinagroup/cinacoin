@@ -12,6 +12,35 @@ html, body {
    Single source of truth: packages/design-tokens/css/cinacoin.css */
 @import "@cinacoin/design-tokens/css/cinacoin.css";
 
+/* ── Vercel Design System Overrides for Demo App ── */
+:root {
+  /* App-level radius (6px for UI components, not marketing pill) */
+  --ds-radius-app: 6px;
+  --ds-radius-card: 8px;
+  
+  /* Typography */
+  --ds-font-sans: 'Geist', 'Inter', system-ui, -apple-system, sans-serif;
+  --ds-font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  
+  /* Shadows (stacked, subtle) */
+  --ds-shadow-card: 0px 1px 1px rgba(0, 0, 0, 0.03), 0px 2px 2px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.08) inset;
+  --ds-shadow-card-hover: 0px 2px 2px rgba(0, 0, 0, 0.06), 0px 8px 8px -8px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.08) inset;
+  --ds-shadow-elevated: 0px 2px 2px rgba(0, 0, 0, 0.06), 0px 8px 16px -4px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.08) inset;
+}
+
+/* Base body styling */
+body {
+  background-color: #fafafa;
+  font-family: var(--ds-font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Monospace for technical content */
+.font-mono, code, pre {
+  font-family: var(--ds-font-mono);
+}
+
 /* ── existing animations ── */
 
 @keyframes slide-in {

@@ -143,9 +143,14 @@ export default function Navbar() {
           </div>
 
           {/* CTA */}
-          <a href="https://docs.cinacoin.com" className="hidden lg:inline-flex ml-1 cc-btn-primary-sm" role="button" target="_blank" rel="noopener noreferrer">
-            {t('nav-get-started')}
-          </a>
+          <div className="hidden lg:flex items-center gap-2 ml-1">
+            <a href="https://docs.cinacoin.com" className="cc-nav-cta-login" role="button" target="_blank" rel="noopener noreferrer">
+              Log In
+            </a>
+            <a href="https://docs.cinacoin.com" className="cc-nav-cta-signup" role="button" target="_blank" rel="noopener noreferrer">
+              Sign Up
+            </a>
+          </div>
         </div>
 
         {/* Mobile actions */}

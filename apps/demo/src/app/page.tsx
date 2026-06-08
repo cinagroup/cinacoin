@@ -424,12 +424,12 @@ export default function HomePage() {
           Connect wallets, swap tokens, bridge chains across 16 networks. Fully self-hosted. Zero vendor lock-in.
         </p>
 
-        {/* CTA Buttons — button-lg per DESIGN.md (16px/500/24px, pill 100px) */}
+        {/* CTA Buttons — button-lg per DESIGN.md (16px/500/24px, 6px radius for app) */}
         <div className="relative flex flex-wrap items-center justify-center gap-4 pt-2">
           <button
             onClick={() => handleConnect('io.metamask')}
             disabled={isConnecting}
-            className="px-8 py-4 rounded-[100px] font-[500] text-[16px] leading-[24px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all duration-200 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cc-link)] focus-visible:ring-offset-2"
+            className="px-8 py-4 rounded-[6px] font-[500] text-[16px] leading-[24px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all duration-200 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cc-link)] focus-visible:ring-offset-2"
             style={{
               boxShadow: '0px 1px 1px #00000005, 0px 2px 2px #0000000a',
             }}
@@ -446,13 +446,13 @@ export default function HomePage() {
           </button>
           <Link
             href="/swap"
-            className="px-6 py-4 rounded-[100px] font-[500] text-[16px] leading-[24px] bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline-strong)]/60 text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all duration-200"
+            className="px-6 py-4 rounded-[6px] font-[500] text-[16px] leading-[24px] bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline-strong)]/60 text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all duration-200"
           >
             Try Swap Demo →
           </Link>
           <Link
             href="/multi-chain"
-            className="px-6 py-4 rounded-[100px] font-[500] text-[16px] leading-[24px] bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline-strong)]/60 text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all duration-200"
+            className="px-6 py-4 rounded-[6px] font-[500] text-[16px] leading-[24px] bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline-strong)]/60 text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all duration-200"
           >
             Multi-Chain →
           </Link>
@@ -580,7 +580,7 @@ export default function HomePage() {
                     <button
                       onClick={handleQuickReconnect}
                       disabled={isConnecting}
-                      className="flex-1 px-6 py-3.5 rounded-[100px] font-medium text-sm bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cc-link)] focus-visible:ring-offset-2"
+                      className="flex-1 px-6 py-3.5 rounded-[6px] font-medium text-sm bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cc-link)] focus-visible:ring-offset-2"
                       style={{
                         boxShadow: '0px 1px 1px #00000005, 0px 2px 2px #0000000a',
                       }}
@@ -598,7 +598,7 @@ export default function HomePage() {
                     <button
                       onClick={() => handleConnect('io.metamask')}
                       disabled={isConnecting || connectors.length === 0}
-                      className="px-6 py-3.5 rounded-[100px] font-medium text-sm bg-[var(--cc-canvas-soft-2)] text-[var(--cc-body)] hover:bg-[var(--cc-muted)] border border-[var(--cc-hairline-strong)] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="px-6 py-3.5 rounded-[6px] font-medium text-sm bg-[var(--cc-canvas-soft-2)] text-[var(--cc-body)] hover:bg-[var(--cc-muted)] border border-[var(--cc-hairline-strong)] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       New
                     </button>
@@ -607,7 +607,7 @@ export default function HomePage() {
                   <button
                     onClick={() => handleConnect('io.metamask')}
                     disabled={isConnecting || connectors.length === 0}
-                    className="flex-1 px-6 py-3.5 rounded-[100px] font-medium text-sm bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cc-link)] focus-visible:ring-offset-2"
+                    className="flex-1 px-6 py-3.5 rounded-[6px] font-medium text-sm bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cc-link)] focus-visible:ring-offset-2"
                     style={{
                       boxShadow: '0px 1px 1px #00000005, 0px 2px 2px #0000000a',
                     }}
@@ -618,7 +618,7 @@ export default function HomePage() {
               ) : (
                 <button
                   onClick={handleDisconnect}
-                  className="flex-1 px-6 py-3.5 rounded-[100px] font-medium text-sm bg-[var(--cc-canvas-soft-2)] text-[var(--cc-body)] hover:bg-[var(--cc-muted)] border border-[var(--cc-hairline-strong)] transition-all duration-200"
+                  className="flex-1 px-6 py-3.5 rounded-[6px] font-medium text-sm bg-[var(--cc-canvas-soft-2)] text-[var(--cc-body)] hover:bg-[var(--cc-muted)] border border-[var(--cc-hairline-strong)] transition-all duration-200"
                 >
                   Disconnect
                 </button>
@@ -805,7 +805,7 @@ export default function HomePage() {
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Link
                 href="/swap"
-                className="px-8 py-4 rounded-[100px] font-[500] text-[16px] leading-[24px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all duration-200 hover:-translate-y-0.5"
+                className="px-8 py-4 rounded-[6px] font-[500] text-[16px] leading-[24px] bg-[var(--cc-canvas)] text-[var(--cc-ink)] hover:opacity-90 transition-all duration-200 hover:-translate-y-0.5"
                 style={{
                   boxShadow: '0px 1px 1px #00000005, 0px 2px 2px #0000000a',
                 }}
@@ -816,7 +816,7 @@ export default function HomePage() {
                 href="https://docs.cinacoin.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-8 py-4 rounded-[100px] font-[500] text-[16px] leading-[24px] bg-transparent border border-[var(--cc-hairline-strong)] text-[var(--cc-body)] hover:text-[var(--cc-on-primary)] transition-colors duration-200"
+                className="px-8 py-4 rounded-[6px] font-[500] text-[16px] leading-[24px] bg-transparent border border-[var(--cc-on-primary)]/20 text-[var(--cc-on-primary)] hover:text-[var(--cc-on-primary)] hover:border-[var(--cc-on-primary)]/40 transition-colors duration-200"
               >
                 View Docs
               </a>

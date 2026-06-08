@@ -79,9 +79,9 @@ export default function Sidebar({ onClose }: SidebarProps) {
                     key={item.href}
                     href={item.href}
                     onClick={handleNav}
-                    className={`cc-navbar-link min-h-[36px] ${
+                    className={`sidebar-nav-link min-h-[36px] ${
                       isActive
-                        ? "bg-[var(--cc-canvas-soft-2)] text-[var(--cc-ink)]"
+                        ? "text-[var(--cc-ink)] font-semibold"
                         : ""
                     }`}
                     aria-current={isActive ? 'page' : undefined}

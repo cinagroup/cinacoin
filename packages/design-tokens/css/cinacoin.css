@@ -128,7 +128,7 @@ html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-fo
 body {
   background: var(--cc-canvas-soft);
   color: var(--cc-ink);
-  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  font-family: Geist, var(--font-inter), Inter, system-ui, -apple-system, sans-serif;
   font-size: 16px; line-height: 24px; overflow-x: hidden;
   transition: background 0.3s ease, color 0.3s ease;
 }
@@ -405,6 +405,24 @@ select.cc-form-input option { background: var(--cc-canvas); color: var(--cc-ink)
 @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 .animate-pulse-dot { animation: pulse-dot 1.5s ease-in-out infinite; }
 .cc-navbar-link[aria-current='page'] { color: var(--cc-ink); font-weight: 500; }
+.cc-nav-cta-signup {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--cc-primary); color: var(--cc-on-primary);
+  border: none; border-radius: var(--cc-radius-sm);
+  padding: 0 var(--cc-xs); height: 28px;
+  font-size: 14px; font-weight: 500; line-height: 20px;
+  cursor: pointer; transition: opacity 0.15s ease; text-decoration: none; white-space: nowrap;
+}
+.cc-nav-cta-signup:hover { opacity: 0.85; }
+.cc-nav-cta-login {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--cc-canvas); color: var(--cc-ink);
+  border: 1px solid var(--cc-hairline); border-radius: var(--cc-radius-sm);
+  padding: 0 var(--cc-xs); height: 28px;
+  font-size: 14px; font-weight: 500; line-height: 20px;
+  cursor: pointer; transition: border-color 0.15s ease; text-decoration: none; white-space: nowrap;
+}
+.cc-nav-cta-login:hover { border-color: var(--cc-hairline-strong); }
 .cc-container { max-width: 1200px; margin: 0 auto; padding: 0 var(--cc-lg); }
 @media (min-width: 1280px) { .cc-container { max-width: 1400px; } }
 .cc-code-block {

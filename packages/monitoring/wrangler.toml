@@ -14,12 +14,12 @@ DISCORD_WEBHOOK_URL = ""
 
 [[kv_namespaces]]
 binding = "MONITORING_KV"
-id = "MONITORING_KV_ID_REPLACE_ME"
+id = "edf4a47f3178473ca1e069aa140a2e6f"
 
 [[d1_databases]]
 binding = "MONITORING_DB"
 database_name = "cinacoin-monitoring"
-database_id = "MONITORING_DB_ID_REPLACE_ME"
+database_id = "ff3076b9-c077-4e24-ba66-0d3394d8adc2"
 
 [triggers]
 crons = ["*/5 * * * *"]
