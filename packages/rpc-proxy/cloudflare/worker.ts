@@ -60,7 +60,7 @@ interface ChainConfig {
 }
 
 const CHAIN_RPC_URLS: Record<string, string> = {
-  "1": "https://eth.llamarpc.com",
+  "1": "https://rpc.ankr.com/eth",
   "42161": "https://arb1.arbitrum.io/rpc",
   "8453": "https://mainnet.base.org",
   "137": "https://polygon-bor.publicnode.com",
@@ -70,7 +70,7 @@ const CHAIN_RPC_URLS: Record<string, string> = {
 
 const CHAIN_CONFIG: Record<string, ChainConfig> = {
   // --- EVM chains (reuse READ_ONLY_METHODS) ---
-  "1":      { url: "https://eth.llamarpc.com",            fallback: "https://rpc.ankr.com/eth" },
+  "1":      { url: "https://rpc.ankr.com/eth",              fallback: "https://ethereum.publicnode.com" },
   "42161":  { url: "https://arb1.arbitrum.io/rpc",        fallback: "https://arbitrum-one.publicnode.com" },
   "8453":   { url: "https://mainnet.base.org",            fallback: "https://base.publicnode.com" },
   "137":    { url: "https://polygon-bor.publicnode.com",             fallback: "https://polygon-mainnet.public.blastapi.io" },
