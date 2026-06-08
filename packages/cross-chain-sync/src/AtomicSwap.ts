@@ -29,8 +29,9 @@ import type { ChainFamily } from "./types";
 export type HashAlgorithm = "SHA-256" | "RIPEMD-160";
 
 /**
- * Generate a random 32-byte secret (hex string).
- * In production use a CSPRNG; here we use crypto.getRandomValues.
+ * Generate a cryptographically secure random 32-byte secret (hex string).
+ * Uses `crypto.getRandomValues` in browsers / Workers, `crypto.randomBytes`
+ * in Node.js — never `Math.random()`.
  */
 export function generateSecret(): string {
   if (typeof crypto !== "undefined" && crypto.getRandomValues) {
@@ -40,10 +41,9 @@ export function generateSecret(): string {
       .map((b) => b.toString(16).padStart(2, "0"))
       .join("");
   }
-  // Node.js fallback
-  const bytes: number[] = [];
-  for (let i = 0; i < 32; i++) bytes.push(Math.floor(Math.random() * 256));
-  return bytes.map((b) => b.toString(16).padStart(2, "0")).join("");
+  // Node.js fallback — use crypto.randomBytes (CSPRNG)
+  const { randomBytes } = require("crypto");
+  return randomBytes(32).toString("hex");
 }
 
 /**
