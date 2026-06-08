@@ -3,10 +3,9 @@ main = "cloudflare/worker.ts"
 compatibility_date = "2024-01-01"
 workers_dev = true
 
-# Routes managed externally via Cloudflare DNS
-# routes = [
-#   { pattern = "rpc.cinacoin.com", custom_domain = true }
-# ]
+routes = [
+  { pattern = "rpc.cinacoin.com/*", zone_name = "cinacoin.com" }
+]
 
 [vars]
 CACHE_TTL = "300"
