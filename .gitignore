@@ -1,0 +1,72 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+out/
+.next/
+.wrangler/
+
+# Environment and secrets
+.env
+.env.local
+.env.production
+.dev.vars
+*.key
+*.pem
+
+# OpenClaw internal
+.openclaw/
+.memory-*.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Temporary files
+*.tmp
+*.bak
+*.cache
+
+# Keys and credentials
+keys/
+secrets/
+
+# Screenshots (too large for GitHub)
+*.png
+*.jpg
+*.jpeg
+*.gif
+
+# Memory reports (keep in workspace only)
+memory/working/*.md
+# Binaries
+cinad
+*.exe
+*.dll
+*.so
+*.dylib
+*.node
+
+# Build cache
+.next/
+.cache/
+
+# Lock files (too large)
+pnpm-lock.yaml
+package-lock.json

@@ -1,0 +1,70 @@
+/* ── Geist Sans ────────────────────────────────────────── */
+/* Using Vercel CDN for Geist font family */
+
+@font-face {
+  font-family: 'Geist';
+  src: url('https://cdn.jsdelivr.net/npm/@vercel/geist-sans@1.0.0/fonts/geist-sans/Geist-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist';
+  src: url('https://cdn.jsdelivr.net/npm/@vercel/geist-sans@1.0.0/fonts/geist-sans/Geist-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist';
+  src: url('https://cdn.jsdelivr.net/npm/@vercel/geist-sans@1.0.0/fonts/geist-sans/Geist-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Geist Mono ────────────────────────────────────────── */
+
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('https://cdn.jsdelivr.net/npm/@vercel/geist-mono@1.0.0/fonts/geist-mono/GeistMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('https://cdn.jsdelivr.net/npm/@vercel/geist-mono@1.0.0/fonts/geist-mono/GeistMono-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('https://cdn.jsdelivr.net/npm/@vercel/geist-mono@1.0.0/fonts/geist-mono/GeistMono-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/*
+ * Alternative: Use next/font/google in Next.js projects:
+ *
+ * import { Geist, Geist_Mono } from 'next/font/google';
+ *
+ * export const geistSans = Geist({
+ *   subsets: ['latin'],
+ *   variable: '--font-geist-sans',
+ *   display: 'swap',
+ * });
+ *
+ * export const geistMono = Geist_Mono({
+ *   subsets: ['latin'],
+ *   variable: '--font-geist-mono',
+ *   display: 'swap',
+ * });
+ */

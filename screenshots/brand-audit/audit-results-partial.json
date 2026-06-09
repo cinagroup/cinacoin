@@ -1,0 +1,44 @@
+[
+  {
+    "url": "https://dash.cinacoin.com/push-server",
+    "siteName": "Dashboard",
+    "pagePath": "/push-server",
+    "issues": [
+      "No logo detected",
+      "No footer detected"
+    ],
+    "brandChecks": {
+      "logo": {
+        "found": false
+      },
+      "pageTitle": "Cinacoin — Backend Dashboard",
+      "navigation": {
+        "found": false,
+        "linkCount": 0
+      },
+      "footer": {
+        "found": false,
+        "hasCopyright": false,
+        "textPreview": ""
+      },
+      "colors": {
+        "bodyBg": "rgb(10, 12, 16)",
+        "fontFamily": "Inter, system-ui, -apple-system, sans-serif"
+      },
+      "multiLanguage": {
+        "found": false
+      }
+    },
+    "functionalChecks": {
+      "jsErrors": [],
+      "responseOk": true,
+      "mobileOverflow": {
+        "scrollWidth": 375,
+        "clientWidth": 375,
+        "overflow": false
+      },
+      "darkMode": "captured"
+    },
+    "statusCode": 200
+  }
+]

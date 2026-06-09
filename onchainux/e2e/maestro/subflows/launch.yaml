@@ -1,0 +1,4 @@
+appId: com.onchainux.demo
+---
+- launchApp
+- assertVisible: { id: "main_screen" }

@@ -1,0 +1,3 @@
+# SPA fallback for client-side routing
+# All routes serve index.html, letting Next.js handle routing
+/*    /dashboard/index.html   200

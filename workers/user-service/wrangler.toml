@@ -1,0 +1,27 @@
+name = "cinacoin-users"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Custom Domain
+[[routes]]
+pattern = "users.cinacoin.com"
+zone_name = "cinacoin.com"
+
+# Variable bindings — set actual values via wrangler secret or dashboard
+[vars]
+ENVIRONMENT = "production"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "cinacoin-users"
+database_id = "1772bf0d-5e3b-4a18-b143-1bb2c3d29b62"
+
+[[kv_namespaces]]
+binding = "CACHE"
+id = "333615edff9946d6b09ea04f24bea096"
+preview_id = "q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f2"
+
+# Secrets (set via `wrangler secret put <NAME>`):
+# - JWT_SECRET: HMAC secret for API key verification
+# - ADMIN_API_KEY: Master key for admin operations

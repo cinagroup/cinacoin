@@ -1,0 +1,89 @@
+name: Deploy Dashboard to Cloudflare Pages
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "apps/backend-dashboard/**"
+      - "packages/**"
+      - ".github/workflows/deploy-dashboard.yml"
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Target environment"
+        required: true
+        default: production
+        type: choice
+        options:
+          - staging
+          - production
+
+env:
+  NODE_VERSION: "20"
+  PNPM_VERSION: "9"
+
+jobs:
+  # ── Build & Deploy ────────────────────────────────────────────
+  deploy:
+    name: Build & Deploy Dashboard
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment || 'production' }}
+    concurrency:
+      group: deploy-dashboard-${{ github.event.inputs.environment || 'production' }}
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Setup pnpm
+        run: corepack enable
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build dashboard
+        run: |
+          # Clean caches before build
+          rm -rf apps/backend-dashboard/.next/cache
+          rm -rf apps/backend-dashboard/cache
+          rm -rf cache/
+          pnpm dashboard:build
+        env:
+          NODE_ENV: production
+
+      - name: Verify static output
+        run: |
+          if [ -d "apps/backend-dashboard/out" ]; then
+            echo "✓ Static output directory exists"
+            echo "Files generated:"
+            find apps/backend-dashboard/out -type f | wc -l
+          else
+            echo "✗ Static output directory not found"
+            exit 1
+          fi
+
+      - name: Clean cache before deploy
+        run: |
+          # CRITICAL: next build generates cache/ in monorepo root
+          # wrangler scans entire repo before deploy
+          rm -rf cache/
+          rm -rf apps/backend-dashboard/.next/cache
+          rm -rf apps/backend-dashboard/out/cache
+          echo "=== Large files check ==="
+          find . -path "*/node_modules" -prune -o -type f -size +20M -print 2>/dev/null || echo "None found"
+          echo "Cache cleaned"
+
+      - name: Install Wrangler
+        run: npm install -g wrangler@3
+
+      - name: Deploy to Cloudflare Pages
+        run: wrangler pages deploy apps/backend-dashboard/out --project-name=cinacoin-backend-dashboard --branch=main
+        env:
+          NODE_ENV: production
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: 7ea8e46d8210bad342fa7595f7935fea

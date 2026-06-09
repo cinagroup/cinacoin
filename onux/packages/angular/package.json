@@ -1,0 +1,55 @@
+{
+  "name": "@cinacoin/angular",
+  "version": "0.2.0",
+  "description": "Angular 17+ adapter for Cinacoin Core SDK",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cinagroup/Cinacoin.git",
+    "directory": "packages/angular"
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "esm2022": "./dist/esm2022/index.mjs",
+      "esm": "./dist/esm2022/index.mjs",
+      "default": "./dist/fesm2022/cinacoin-angular.mjs"
+    }
+  },
+  "main": "dist/fesm2022/cinacoin-angular.mjs",
+  "module": "dist/fesm2022/cinacoin-angular.mjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "ng-packagr -p ng-package.json",
+    "check": "tsc --noEmit",
+    "lint": "eslint src/",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "peerDependencies": {
+    "@angular/common": "^17.0.0",
+    "@angular/core": "^17.0.0",
+    "rxjs": "^7.0.0"
+  },
+  "dependencies": {
+    "@cinacoin/core-sdk": "^0.2.0",
+    "tslib": "^2.6.0"
+  },
+  "devDependencies": {
+    "@angular/common": "^17.0.0",
+    "@angular/core": "^17.0.0",
+    "@angular/compiler": "^17.0.0",
+    "@angular/compiler-cli": "^17.0.0",
+    "ng-packagr": "^17.0.0",
+    "rxjs": "^7.8.0",
+    "typescript": "~5.4.0"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  }
+}

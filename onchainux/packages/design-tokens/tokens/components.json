@@ -1,0 +1,116 @@
+{
+  "components": {
+    "connect-button": {
+      "bg": { "value": "{semantic.colors.brand-primary}" },
+      "bg-hover": { "value": "{semantic.colors.brand-hover}" },
+      "bg-active": { "value": "{semantic.colors.brand-active}" },
+      "text-color": { "value": "{semantic.colors.text-inverse}" },
+      "padding-x": { "value": "{semantic.spacing.lg}" },
+      "padding-y": { "value": "{semantic.spacing.sm}" },
+      "radius": { "value": "{semantic.radii.xl}" },
+      "font-size": { "value": "{semantic.typography.size-sm}" },
+      "font-weight": { "value": "{semantic.typography.weight-semibold}" },
+      "shadow": { "value": "{semantic.shadows.glow}" },
+      "min-width": { "value": "180px" },
+      "height-sm": { "value": "36px" },
+      "height-md": { "value": "44px" },
+      "height-lg": { "value": "52px" },
+      "avatar-size": { "value": "24px" },
+      "connected-bg": { "value": "{semantic.colors.bg-card}" },
+      "connected-border": { "value": "{semantic.colors.border}" }
+    },
+
+    "connect-modal": {
+      "overlay-bg": { "value": "rgba(0, 0, 0, 0.7)" },
+      "bg": { "value": "{semantic.colors.bg-primary}" },
+      "radius": { "value": "{semantic.radii.xl}" },
+      "max-width": { "value": "420px" },
+      "padding": { "value": "{semantic.spacing.lg}" },
+      "shadow": { "value": "{semantic.shadows.lg}" },
+      "header-padding": { "value": "{semantic.spacing.lg}" },
+      "wallet-card-gap": { "value": "{semantic.spacing.3}" },
+      "divider-color": { "value": "{semantic.colors.border}" },
+      "footer-text-color": { "value": "{semantic.colors.text-tertiary}" }
+    },
+
+    "wallet-card": {
+      "bg": { "value": "{semantic.colors.bg-card}" },
+      "bg-hover": { "value": "{semantic.colors.bg-card-hover}" },
+      "border": { "value": "1px solid {semantic.colors.border}" },
+      "radius": { "value": "{semantic.radii.lg}" },
+      "padding": { "value": "{semantic.spacing.md}" },
+      "icon-size": { "value": "40px" },
+      "icon-radius": { "value": "{semantic.radii.md}" },
+      "name-font-size": { "value": "{semantic.typography.size-md}" },
+      "name-font-weight": { "value": "{semantic.typography.weight-medium}" },
+      "desc-font-size": { "value": "{semantic.typography.size-xs}" },
+      "desc-color": { "value": "{semantic.colors.text-secondary}" },
+      "recommended-badge-bg": { "value": "{semantic.colors.brand-primary}" },
+      "recommended-badge-text": { "value": "{semantic.colors.text-inverse}" }
+    },
+
+    "wallet-list": {
+      "bg": { "value": "{semantic.colors.bg-primary}" },
+      "gap": { "value": "{semantic.spacing.3}" },
+      "max-height": { "value": "360px" },
+      "scrollbar-thumb": { "value": "{semantic.colors.border}" }
+    },
+
+    "chain-switcher": {
+      "bg": { "value": "{semantic.colors.bg-card}" },
+      "border": { "value": "1px solid {semantic.colors.border}" },
+      "radius": { "value": "{semantic.radii.lg}" },
+      "padding": { "value": "{semantic.spacing.sm}" },
+      "icon-size": { "value": "20px" },
+      "name-font-size": { "value": "{semantic.typography.size-sm}" },
+      "dropdown-bg": { "value": "{semantic.colors.bg-secondary}" },
+      "dropdown-radius": { "value": "{semantic.radii.lg}" },
+      "dropdown-shadow": { "value": "{semantic.shadows.lg}" },
+      "item-padding": { "value": "{semantic.spacing.sm}" },
+      "item-hover-bg": { "value": "{semantic.colors.bg-card-hover}" },
+      "active-indicator-color": { "value": "{semantic.colors.brand-primary}" }
+    },
+
+    "account-modal": {
+      "bg": { "value": "{semantic.colors.bg-primary}" },
+      "radius": { "value": "{semantic.radii.xl}" },
+      "max-width": { "value": "380px" },
+      "padding": { "value": "{semantic.spacing.lg}" },
+      "card-bg": { "value": "{semantic.colors.bg-card}" },
+      "card-border": { "value": "1px solid {semantic.colors.border}" },
+      "card-radius": { "value": "{semantic.radii.lg}" },
+      "address-font-size": { "value": "{semantic.typography.size-lg}" },
+      "address-font-family": { "value": "{semantic.typography.font-mono}" },
+      "balance-font-size": { "value": "{semantic.typography.size-xl}" },
+      "balance-font-weight": { "value": "{semantic.typography.weight-bold}" },
+      "action-icon-size": { "value": "18px" },
+      "disconnect-color": { "value": "{semantic.colors.error}" },
+      "disconnect-hover-bg": { "value": "{semantic.colors.error-bg}" }
+    },
+
+    "transaction-toast": {
+      "bg": { "value": "{semantic.colors.bg-card}" },
+      "border": { "value": "1px solid {semantic.colors.border}" },
+      "radius": { "value": "{semantic.radii.lg}" },
+      "padding": { "value": "{semantic.spacing.md}" },
+      "shadow": { "value": "{semantic.shadows.lg}" },
+      "pending-color": { "value": "{semantic.colors.warning}" },
+      "confirmed-color": { "value": "{semantic.colors.success}" },
+      "failed-color": { "value": "{semantic.colors.error}" },
+      "max-width": { "value": "380px" },
+      "progress-bar-bg": { "value": "{semantic.colors.bg-tertiary}" },
+      "progress-bar-fill": { "value": "{semantic.colors.brand-primary}" }
+    },
+
+    "network-badge": {
+      "bg": { "value": "{semantic.colors.bg-card}" },
+      "border": { "value": "1px solid {semantic.colors.border}" },
+      "radius": { "value": "{semantic.radii.full}" },
+      "padding-x": { "value": "{semantic.spacing.2}" },
+      "padding-y": { "value": "{semantic.spacing.1}" },
+      "icon-size": { "value": "14px" },
+      "text-font-size": { "value": "{semantic.typography.size-xs}" },
+      "text-font-weight": { "value": "{semantic.typography.weight-medium}" }
+    }
+  }
+}

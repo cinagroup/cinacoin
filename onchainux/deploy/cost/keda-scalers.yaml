@@ -1,0 +1,82 @@
+# KEDA Autoscaling Configurations
+# Prometheus-based scaling + time-based scaling for low-peak optimization
+
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: relay-prometheus-scaler
+  namespace: onchainux
+  labels:
+    app: relay-server
+    component: scaling
+spec:
+  scaleTargetRef:
+    name: relay-server
+  minReplicaCount: 2
+  maxReplicaCount: 20
+  pollingInterval: 15
+  cooldownPeriod: 120
+  triggers:
+    # Scale based on active WebSocket connections
+    - type: prometheus
+      metadata:
+        serverAddress: http://prometheus-server.onchainux.svc:9090
+        metricName: relay_active_connections
+        threshold: "5000"
+        query: sum(relay_active_connections{region="us-east-1"})
+
+    # Scale based on NATS JetStream consumer pending
+    - type: prometheus
+      metadata:
+        serverAddress: http://prometheus-server.onchainux.svc:9090
+        metricName: nats_jetstream_consumer_pending
+        threshold: "10000"
+        query: sum(nats_jetstream_consumer_pending)
+---
+# Time-based scaling for low-peak reduction
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: relay-time-based-scaler
+  namespace: onchainux
+  labels:
+    app: relay-server
+    component: scaling
+spec:
+  scaleTargetRef:
+    name: relay-server
+  minReplicaCount: 2
+  maxReplicaCount: 6
+  pollingInterval: 60
+  cooldownPeriod: 300
+  triggers:
+    - type: cron
+      metadata:
+        timezone: America/New_York
+        start: 0 2 * * *
+        end: 0 8 * * *
+        desiredReplicas: "2"
+---
+# RPC Proxy scaling based on request rate
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: rpc-proxy-prometheus-scaler
+  namespace: onchainux
+  labels:
+    app: rpc-proxy
+    component: scaling
+spec:
+  scaleTargetRef:
+    name: rpc-proxy
+  minReplicaCount: 2
+  maxReplicaCount: 15
+  pollingInterval: 15
+  cooldownPeriod: 120
+  triggers:
+    - type: prometheus
+      metadata:
+        serverAddress: http://prometheus-server.onchainux.svc:9090
+        metricName: rpc_request_rate
+        threshold: "2000"
+        query: sum(rate(rpc_requests_total[1m]))

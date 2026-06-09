@@ -1,0 +1,142 @@
+/*
+ * CINAcoin Design System — Input Component
+ * With focus state (link blue ring)
+ */
+
+/* Base input */
+.input {
+  display: block;
+  width: 100%;
+  height: 40px;
+  padding: 0 var(--space-sm);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-body-sm);
+  color: var(--color-ink);
+  background-color: var(--color-canvas);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: border-color var(--duration-color) var(--ease-default),
+              box-shadow var(--duration-color) var(--ease-default);
+}
+
+.input::placeholder {
+  color: var(--color-mute);
+}
+
+/* Focus state */
+.input:focus {
+  border-color: var(--color-link);
+  box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.1);
+}
+
+/* Hover state */
+.input:hover:not(:focus):not(:disabled) {
+  border-color: var(--color-hairline-strong);
+}
+
+/* Disabled */
+.input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--color-canvas-soft);
+}
+
+/* Error state */
+.input-error {
+  border-color: var(--color-error);
+}
+
+.input-error:focus {
+  border-color: var(--color-error);
+  box-shadow: 0 0 0 3px rgba(238, 0, 0, 0.1);
+}
+
+/* Sizes */
+.input-sm {
+  height: 32px;
+  padding: 0 var(--space-xs);
+  font-size: var(--text-caption);
+}
+
+.input-lg {
+  height: 48px;
+  padding: 0 var(--space-md);
+  font-size: var(--text-body);
+}
+
+/* Textarea */
+.textarea {
+  display: block;
+  width: 100%;
+  min-height: 100px;
+  padding: var(--space-sm) var(--space-md);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-body-sm);
+  color: var(--color-ink);
+  background-color: var(--color-canvas);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-sm);
+  outline: none;
+  resize: vertical;
+  transition: border-color var(--duration-color) var(--ease-default),
+              box-shadow var(--duration-color) var(--ease-default);
+}
+
+.textarea::placeholder {
+  color: var(--color-mute);
+}
+
+.textarea:focus {
+  border-color: var(--color-link);
+  box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.1);
+}
+
+.textarea:hover:not(:focus):not(:disabled) {
+  border-color: var(--color-hairline-strong);
+}
+
+/* Input group (label + input + helper) */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xxs);
+}
+
+.input-label {
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-ink);
+}
+
+.input-helper {
+  font-size: var(--text-caption);
+  color: var(--color-mute);
+}
+
+.input-helper-error {
+  font-size: var(--text-caption);
+  color: var(--color-error);
+}
+
+/* With icon */
+.input-wrapper {
+  position: relative;
+}
+
+.input-wrapper .input {
+  padding-left: 36px;
+}
+
+.input-wrapper .input-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-mute);
+  pointer-events: none;
+}

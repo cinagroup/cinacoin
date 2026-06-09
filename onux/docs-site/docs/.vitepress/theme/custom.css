@@ -1,0 +1,113 @@
+/* ───────────────────────────────────────────
+   Cinacoin docs theme — maps VitePress vars to the DESIGN.md
+   (Vercel-inspired ink-on-near-white) design system.
+   ─────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  /* Fonts — Inter for everything, JetBrains Mono for code/labels */
+  --vp-font-family-base: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --vp-font-family-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+
+  /* Brand = ink (NOT blue). Vercel-style stark palette. */
+  --vp-c-brand-1: #171717;
+  --vp-c-brand-2: #333333;
+  --vp-c-brand-3: #171717;
+  --vp-c-brand-soft: #f5f5f5;
+
+  /* Surfaces — near-white canvas, white cards */
+  --vp-c-bg: #fafafa;
+  --vp-c-bg-alt: #ffffff;
+  --vp-c-bg-soft: #f5f5f5;
+  --vp-c-bg-elv: #ffffff;
+
+  /* Text */
+  --vp-c-text-1: #171717;
+  --vp-c-text-2: #4d4d4d;
+  --vp-c-text-3: #888888;
+
+  /* Hairline dividers/borders */
+  --vp-c-divider: #ebebeb;
+  --vp-c-border: #ebebeb;
+  --vp-c-gutter: #ebebeb;
+
+  /* Inline links use the brand link blue */
+  --vp-c-brand-link: #0070f3;
+
+  /* Code blocks — ink-near-black surface */
+  --vp-code-block-bg: #171717;
+  --vp-code-block-color: #ededed;
+
+  /* Buttons — ink primary, pill shape */
+  --vp-button-brand-bg: #171717;
+  --vp-button-brand-hover-bg: #333333;
+  --vp-button-brand-active-bg: #000000;
+  --vp-button-brand-text: #ffffff;
+  --vp-button-brand-hover-text: #ffffff;
+  --vp-button-brand-border: transparent;
+  --vp-button-brand-hover-border: transparent;
+  --vp-button-alt-bg: #ffffff;
+  --vp-button-alt-text: #171717;
+  --vp-button-alt-border: #ebebeb;
+  --vp-button-alt-hover-border: #a1a1a1;
+  --vp-button-alt-hover-bg: #ffffff;
+
+  /* Home hero name is INK (matches cinacoin.com homepage — ink headline,
+     gradient lives in the background atmosphere only). */
+  --vp-home-hero-name-color: #171717;
+  --vp-home-hero-image-background-image: linear-gradient(120deg, rgba(0,124,240,0.25), rgba(255,0,128,0.18), rgba(249,203,40,0.2));
+  --vp-home-hero-image-filter: blur(72px);
+}
+
+/* Headings: weight 600 ceiling + negative tracking (DESIGN.md voice).
+   High-specificity to override VitePress defaults. */
+.vp-doc h1,
+.vp-doc h2,
+.vp-doc h3,
+.VPDoc h1,
+.VPDoc h2,
+h1.vp-doc-title,
+.VPHomeHero .name,
+.VPHomeHero .text,
+.VPHero .name,
+.VPHero .text {
+  font-weight: 600 !important;
+  letter-spacing: -0.04em !important;
+}
+.vp-doc h2,
+.vp-doc h3,
+.VPDoc h2,
+.VPDoc h3 {
+  letter-spacing: -0.025em !important;
+}
+
+/* Marketing CTAs = 100px pill */
+.VPButton {
+  border-radius: 100px !important;
+  font-weight: 500;
+}
+
+/* Home feature cards: white + hairline + subtle stacked shadow (Level 2) */
+.VPFeature {
+  background: #ffffff !important;
+  border: 1px solid #ebebeb !important;
+  border-radius: 12px !important;
+  box-shadow:
+    0px 1px 1px rgba(0, 0, 0, 0.03),
+    0px 2px 2px rgba(0, 0, 0, 0.06),
+    0 0 0 1px rgba(0, 0, 0, 0.04) inset !important;
+  transition: box-shadow 0.2s ease;
+}
+.VPFeature:hover {
+  box-shadow:
+    0px 2px 2px rgba(0, 0, 0, 0.06),
+    0px 8px 8px -8px rgba(0, 0, 0, 0.06),
+    0 0 0 1px rgba(0, 0, 0, 0.06) inset !important;
+}
+
+/* Sidebar/nav technical labels stay legible; selection per brand */
+::selection {
+  background: #171717;
+  color: #f2f2f2;
+}

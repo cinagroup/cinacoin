@@ -1,0 +1,94 @@
+import { p256 } from '@noble/curves/nist.js';
+import { sha256 } from '@noble/hashes/sha2.js';
+import { bytesToHex, hexToBytes } from '@noble/hashes/utils.js';
+export { bytesToHex, hexToBytes } from '@noble/hashes/utils.js';
+import type { CryptoKeypair } from './types.js';
+
+/**
+ * Generate a P-256 keypair for passkey operations.
+ */
+export function generateKeypair(): CryptoKeypair {
+  const privateKey = p256.utils.randomSecretKey();
+  const publicKey = p256.getPublicKey(privateKey);
+
+  return {
+    publicKey: bytesToHex(publicKey),
+    privateKey: bytesToHex(privateKey),
+  };
+}
+
+/**
+ * Create a cryptographic challenge for WebAuthn registration/authentication.
+ */
+export function generateChallenge(length = 32): Uint8Array {
+  return crypto.getRandomValues(new Uint8Array(length));
+}
+
+/**
+ * Encode a challenge to base64url for WebAuthn.
+ */
+export function encodeChallenge(challenge: Uint8Array): string {
+  return btoa(String.fromCharCode(...challenge))
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=+$/, '');
+}
+
+/**
+ * Decode a base64url challenge back to Uint8Array.
+ */
+export function decodeChallenge(challengeBase64: string): Uint8Array {
+  const base64 = challengeBase64
+    .replace(/-/g, '+')
+    .replace(/_/g, '/')
+    .padEnd(challengeBase64.length + ((4 - (challengeBase64.length % 4)) % 4), '=');
+  return Uint8Array.from(atob(base64), (c) => c.charCodeAt(0));
+}
+
+/**
+ * Sign data with a P-256 private key.
+ */
+export function signData(
+  privateKeyHex: string,
+  data: Uint8Array,
+): Uint8Array {
+  const privateKey = hexToBytes(privateKeyHex);
+  const hash = sha256(data);
+  return p256.sign(hash, privateKey);
+}
+
+/**
+ * Verify a signature against a P-256 public key.
+ */
+export function verifySignature(
+  publicKeyHex: string,
+  data: Uint8Array,
+  signatureHex: string,
+): boolean {
+  try {
+    const publicKey = hexToBytes(publicKeyHex);
+    const signature = hexToBytes(signatureHex);
+    const hash = sha256(data);
+    return p256.verify(signature, hash, publicKey);
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Hash a public key to derive an Ethereum-style address.
+ * Returns last 20 bytes of keccak-256 equivalent (sha256 for P-256).
+ */
+export function deriveAddress(publicKeyHex: string): string {
+  const publicKey = hexToBytes(publicKeyHex);
+  const hash = sha256(publicKey);
+  return bytesToHex(hash.slice(-20));
+}
+
+/**
+ * Compress a public key to its compressed form (33 bytes).
+ */
+export function compressPublicKey(publicKeyHex: string): string {
+  const compressed = p256.Point.fromHex(publicKeyHex).toBytes(true);
+  return bytesToHex(compressed);
+}

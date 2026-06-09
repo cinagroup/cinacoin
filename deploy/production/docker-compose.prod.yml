@@ -1,0 +1,312 @@
+# =============================================================================
+# Cinacoin Production Docker Compose Override
+# Extends the base docker-compose.yml with production-specific settings
+# Usage: docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+# =============================================================================
+
+version: '3.8'
+
+services:
+  # Auth Service (Production)
+  auth-service:
+    build:
+      context: ./apps/auth-service
+      dockerfile: Dockerfile
+      target: production
+    image: cinacoin/auth-service:${VERSION:-latest}
+    container_name: cinacoin-auth-prod
+    restart: always
+    ports:
+      - "127.0.0.1:3200:3200"
+    environment:
+      - NODE_ENV=production
+      - APP_PORT=3200
+      - DATABASE_URL=${DATABASE_URL}
+      - REDIS_URL=${REDIS_URL}
+      - JWT_PRIVATE_KEY_PATH=/run/secrets/jwt_private_key
+      - JWT_PUBLIC_KEY_PATH=/run/secrets/jwt_public_key
+      - JWT_KEY_ID=${JWT_KEY_ID}
+      - LOG_LEVEL=info
+      - LOG_FORMAT=json
+    volumes:
+      - ./deploy/production/secrets:/run/secrets:ro
+      - ./deploy/production/config:/app/config:ro
+    secrets:
+      - jwt_private_key
+      - jwt_public_key
+      - db_password
+      - redis_password
+    networks:
+      - cinacoin-prod
+      - cinacoin-backend
+    depends_on:
+      db-primary:
+        condition: service_healthy
+      redis-primary:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3200/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2G
+        reservations:
+          cpus: '1.0'
+          memory: 1G
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "10"
+        compress: "true"
+
+  # PostgreSQL Primary (Production)
+  db-primary:
+    image: postgres:16-alpine
+    container_name: cinacoin-db-primary
+    restart: always
+    environment:
+      - POSTGRES_USER=cinacoin
+      - POSTGRES_PASSWORD_FILE=/run/secrets/db_password
+      - POSTGRES_DB=cinacoin_auth
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres_primary_data:/var/lib/postgresql/data
+      - ./deploy/production/config/postgresql.conf:/etc/postgresql/postgresql.conf:ro
+      - ./deploy/production/backups:/backups
+    secrets:
+      - db_password
+    networks:
+      - cinacoin-backend
+    ports:
+      - "127.0.0.1:5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cinacoin -d cinacoin_auth"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'
+          memory: 8G
+        reservations:
+          cpus: '2.0'
+          memory: 4G
+    command: >
+      postgres
+        -c config_file=/etc/postgresql/postgresql.conf
+        -c hba_file=/etc/postgresql/pg_hba.conf
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "5"
+
+  # PostgreSQL Replica (Read-only)
+  db-replica:
+    image: postgres:16-alpine
+    container_name: cinacoin-db-replica
+    restart: always
+    environment:
+      - PGUSER=cinacoin
+      - PGPASSWORD_FILE=/run/secrets/db_password
+      - PGDATABASE=cinacoin_auth
+    volumes:
+      - postgres_replica_data:/var/lib/postgresql/data
+    secrets:
+      - db_password
+    networks:
+      - cinacoin-backend
+    ports:
+      - "127.0.0.1:5433:5432"
+    depends_on:
+      db-primary:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cinacoin -d cinacoin_auth"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4G
+
+  # Redis Primary (Production)
+  redis-primary:
+    image: redis:7-alpine
+    container_name: cinacoin-redis-primary
+    restart: always
+    command: >
+      redis-server
+        /usr/local/etc/redis/redis.conf
+        --requirepass "$$(cat /run/secrets/redis_password)"
+    volumes:
+      - redis_primary_data:/data
+      - ./deploy/production/config/redis.conf:/usr/local/etc/redis/redis.conf:ro
+    secrets:
+      - redis_password
+    networks:
+      - cinacoin-backend
+    ports:
+      - "127.0.0.1:6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "$$(cat /run/secrets/redis_password)", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4G
+        reservations:
+          cpus: '1.0'
+          memory: 2G
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "5"
+
+  # Redis Replica (Read-only)
+  redis-replica:
+    image: redis:7-alpine
+    container_name: cinacoin-redis-replica
+    restart: always
+    command: >
+      redis-server
+        /usr/local/etc/redis/redis.conf
+        --replicaof redis-primary 6379
+        --masterauth "$$(cat /run/secrets/redis_password)"
+        --requirepass "$$(cat /run/secrets/redis_password)"
+    volumes:
+      - redis_replica_data:/data
+      - ./deploy/production/config/redis.conf:/usr/local/etc/redis/redis.conf:ro
+    secrets:
+      - redis_password
+    networks:
+      - cinacoin-backend
+    ports:
+      - "127.0.0.1:6380:6379"
+    depends_on:
+      redis-primary:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "$$(cat /run/secrets/redis_password)", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # Backup Service
+  backup:
+    image: prodrigestivill/postgres-backup-local:16
+    container_name: cinacoin-backup
+    restart: always
+    environment:
+      - POSTGRES_HOST=db-primary
+      - POSTGRES_DB=cinacoin_auth
+      - POSTGRES_USER=cinacoin
+      - POSTGRES_PASSWORD_FILE=/run/secrets/db_password
+      - SCHEDULE=@daily
+      - BACKUP_KEEP_DAYS=30
+      - BACKUP_KEEP_WEEKS=4
+      - BACKUP_KEEP_MONTHS=6
+      - HEALTHCHECK_PORT=8080
+    volumes:
+      - ./deploy/production/backups:/backups
+    secrets:
+      - db_password
+    networks:
+      - cinacoin-backend
+    depends_on:
+      db-primary:
+        condition: service_healthy
+
+  # Monitoring (Prometheus)
+  prometheus:
+    image: prom/prometheus:v2.45.0
+    container_name: cinacoin-prometheus
+    restart: always
+    volumes:
+      - ./deploy/production/config/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    networks:
+      - cinacoin-backend
+      - cinacoin-monitoring
+    ports:
+      - "127.0.0.1:9090:9090"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=30d'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+
+  # Monitoring (Grafana)
+  grafana:
+    image: grafana/grafana:10.0.0
+    container_name: cinacoin-grafana
+    restart: always
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD_FILE=/run/secrets/grafana_admin_password
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./deploy/production/config/grafana:/etc/grafana/provisioning:ro
+    secrets:
+      - grafana_admin_password
+    networks:
+      - cinacoin-monitoring
+    ports:
+      - "127.0.0.1:3000:3000"
+    depends_on:
+      - prometheus
+
+# Networks
+networks:
+  cinacoin-prod:
+    driver: bridge
+  cinacoin-backend:
+    driver: bridge
+    internal: true  # No external access
+  cinacoin-monitoring:
+    driver: bridge
+
+# Volumes
+volumes:
+  postgres_primary_data:
+    driver: local
+  postgres_replica_data:
+    driver: local
+  redis_primary_data:
+    driver: local
+  redis_replica_data:
+    driver: local
+  prometheus_data:
+    driver: local
+  grafana_data:
+    driver: local
+
+# Secrets
+secrets:
+  jwt_private_key:
+    file: ./deploy/production/secrets/jwt-private.pem
+  jwt_public_key:
+    file: ./deploy/production/secrets/jwt-public.pem
+  db_password:
+    file: ./deploy/production/secrets/db_password.txt
+  redis_password:
+    file: ./deploy/production/secrets/redis_password.txt
+  grafana_admin_password:
+    file: ./deploy/production/secrets/grafana_admin_password.txt

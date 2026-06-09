@@ -1,0 +1,21 @@
+{
+  "name": "cinacoin-users",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:migrate:local": "wrangler d1 execute cinacoin-users --local --file=migrations/0001_init.sql",
+    "db:migrate:remote": "wrangler d1 execute cinacoin-users --remote --file=migrations/0001_init.sql",
+    "types": "wrangler types"
+  },
+  "dependencies": {
+    "hono": "^4.4.0",
+    "nanoid": "^5.0.7"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240620.0",
+    "typescript": "^5.5.0",
+    "wrangler": "^3.60.0"
+  }
+}

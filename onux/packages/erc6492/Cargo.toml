@@ -1,0 +1,9 @@
+[package]
+name = "cinacoin-erc6492"
+version = "0.1.0"
+edition = "2021"
+description = "ERC-6492 signature verification for Cinacoin"
+
+[dependencies]
+alloy-primitives = "0.8"
+k256 = "0.13"

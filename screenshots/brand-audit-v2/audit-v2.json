@@ -1,0 +1,1696 @@
+[
+  {
+    "site": "Main Website",
+    "url": "https://cinacoin.com/",
+    "path": "/",
+    "checks": {
+      "hasPillButtons": false,
+      "headingWeightOK": true,
+      "headingNotAllCaps": true,
+      "noGradientButtons": true,
+      "buttonRadii": [
+        "6px",
+        "6px",
+        "6px"
+      ],
+      "h1Weight": "600",
+      "h1LetterSpacing": "-2.4px"
+    },
+    "desktopStyles": {
+      "bodyBg": "rgb(250, 250, 250)",
+      "bodyColor": "rgb(23, 23, 23)",
+      "bodyFontFamily": "Inter, \"Inter Fallback\", system-ui, -apple-system, sans-serif",
+      "headerBg": "not-found",
+      "headerHeight": "not-found",
+      "buttonBg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)"
+      ],
+      "buttonRadius": [
+        "6px",
+        "6px",
+        "6px"
+      ],
+      "buttonFontWeight": [
+        "400",
+        "500",
+        "400"
+      ],
+      "h1Weight": "600",
+      "h1LetterSpacing": "-2.4px",
+      "h1TextTransform": "none",
+      "cardRadius": [
+        "8px",
+        "8px",
+        "8px",
+        "8px",
+        "8px",
+        "8px",
+        "8px",
+        "8px",
+        "8px",
+        "8px",
+        "8px",
+        "8px"
+      ],
+      "linkColor": "rgb(0, 112, 243)"
+    },
+    "hasDarkMode": true
+  },
+  {
+    "site": "Demo App",
+    "url": "https://demo.cinacoin.com/",
+    "path": "/",
+    "checks": {
+      "hasPillButtons": true,
+      "headingWeightOK": false,
+      "headingNotAllCaps": true,
+      "noGradientButtons": true,
+      "buttonRadii": [
+        "8px",
+        "8px",
+        "8px",
+        "4px",
+        "16px"
+      ],
+      "h1Weight": "800",
+      "h1LetterSpacing": "-1.8px"
+    },
+    "desktopStyles": {
+      "bodyBg": "rgb(5, 5, 5)",
+      "bodyColor": "rgb(237, 237, 237)",
+      "bodyFontFamily": "Inter, \"Inter Fallback\"",
+      "headerBg": "rgba(0, 0, 0, 0)",
+      "headerHeight": "65px",
+      "buttonBg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(37, 99, 235, 0.2)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(55, 65, 81, 0.6)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)"
+      ],
+      "buttonRadius": [
+        "8px",
+        "8px",
+        "8px",
+        "4px",
+        "16px",
+        "12px",
+        "12px",
+        "12px",
+        "0px",
+        "16px",
+        "50%"
+      ],
+      "buttonFontWeight": [
+        "400",
+        "500",
+        "400",
+        "400",
+        "600",
+        "500",
+        "600",
+        "400",
+        "400",
+        "600",
+        "400"
+      ],
+      "h1Weight": "800",
+      "h1LetterSpacing": "-1.8px",
+      "h1TextTransform": "none",
+      "cardRadius": [],
+      "linkColor": "rgba(0, 0, 0, 0)"
+    },
+    "hasDarkMode": true
+  },
+  {
+    "site": "Demo App",
+    "url": "https://demo.cinacoin.com/swap",
+    "path": "/swap",
+    "checks": {
+      "hasPillButtons": false,
+      "headingWeightOK": false,
+      "headingNotAllCaps": true,
+      "noGradientButtons": true,
+      "buttonRadii": [
+        "12px",
+        "4px",
+        "12px",
+        "12px",
+        "12px"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal"
+    },
+    "desktopStyles": {
+      "bodyBg": "rgb(5, 5, 5)",
+      "bodyColor": "rgb(237, 237, 237)",
+      "bodyFontFamily": "Inter, \"Inter Fallback\"",
+      "headerBg": "not-found",
+      "headerHeight": "not-found",
+      "buttonBg": [
+        "rgb(37, 99, 235)",
+        "rgba(96, 165, 250, 0.1)",
+        "rgba(55, 65, 81, 0.8)",
+        "rgb(31, 41, 55)",
+        "rgba(55, 65, 81, 0.8)",
+        "rgba(55, 65, 81, 0.5)",
+        "rgba(59, 130, 246, 0.2)",
+        "rgba(55, 65, 81, 0.5)",
+        "rgba(55, 65, 81, 0.6)"
+      ],
+      "buttonRadius": [
+        "12px",
+        "4px",
+        "12px",
+        "12px",
+        "12px",
+        "8px",
+        "8px",
+        "8px",
+        "12px"
+      ],
+      "buttonFontWeight": [
+        "600",
+        "700",
+        "400",
+        "400",
+        "400",
+        "600",
+        "600",
+        "600",
+        "700"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal",
+      "h1TextTransform": "none",
+      "cardRadius": [],
+      "linkColor": "rgba(0, 0, 0, 0)"
+    },
+    "hasDarkMode": true
+  },
+  {
+    "site": "Demo App",
+    "url": "https://demo.cinacoin.com/tokens",
+    "path": "/tokens",
+    "checks": {
+      "hasPillButtons": false,
+      "headingWeightOK": false,
+      "headingNotAllCaps": true,
+      "noGradientButtons": true,
+      "buttonRadii": [
+        "12px",
+        "12px",
+        "12px",
+        "12px",
+        "12px"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal"
+    },
+    "desktopStyles": {
+      "bodyBg": "rgb(5, 5, 5)",
+      "bodyColor": "rgb(237, 237, 237)",
+      "bodyFontFamily": "Inter, \"Inter Fallback\"",
+      "headerBg": "not-found",
+      "headerHeight": "not-found",
+      "buttonBg": [
+        "rgb(37, 99, 235)",
+        "rgba(31, 41, 55, 0.3)",
+        "rgba(31, 41, 55, 0.3)",
+        "rgba(31, 41, 55, 0.3)",
+        "rgba(31, 41, 55, 0.3)",
+        "rgba(31, 41, 55, 0.3)"
+      ],
+      "buttonRadius": [
+        "12px",
+        "12px",
+        "12px",
+        "12px",
+        "12px",
+        "12px"
+      ],
+      "buttonFontWeight": [
+        "600",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal",
+      "h1TextTransform": "none",
+      "cardRadius": [],
+      "linkColor": "rgba(0, 0, 0, 0)"
+    },
+    "hasDarkMode": true
+  },
+  {
+    "site": "Demo App",
+    "url": "https://demo.cinacoin.com/multi-chain",
+    "path": "/multi-chain",
+    "checks": {
+      "hasPillButtons": false,
+      "headingWeightOK": false,
+      "headingNotAllCaps": true,
+      "noGradientButtons": true,
+      "buttonRadii": [
+        "12px",
+        "8px",
+        "8px"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal"
+    },
+    "desktopStyles": {
+      "bodyBg": "rgb(5, 5, 5)",
+      "bodyColor": "rgb(237, 237, 237)",
+      "bodyFontFamily": "Inter, \"Inter Fallback\"",
+      "headerBg": "not-found",
+      "headerHeight": "not-found",
+      "buttonBg": [
+        "rgb(37, 99, 235)",
+        "rgba(55, 65, 81, 0.6)",
+        "rgba(55, 65, 81, 0.6)"
+      ],
+      "buttonRadius": [
+        "12px",
+        "8px",
+        "8px"
+      ],
+      "buttonFontWeight": [
+        "600",
+        "600",
+        "600"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal",
+      "h1TextTransform": "none",
+      "cardRadius": [],
+      "linkColor": "rgba(0, 0, 0, 0)"
+    },
+    "hasDarkMode": true
+  },
+  {
+    "site": "Demo App",
+    "url": "https://demo.cinacoin.com/batch",
+    "path": "/batch",
+    "checks": {
+      "hasPillButtons": false,
+      "headingWeightOK": false,
+      "headingNotAllCaps": true,
+      "noGradientButtons": true,
+      "buttonRadii": [
+        "12px",
+        "12px",
+        "12px",
+        "12px",
+        "12px"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal"
+    },
+    "desktopStyles": {
+      "bodyBg": "rgb(5, 5, 5)",
+      "bodyColor": "rgb(237, 237, 237)",
+      "bodyFontFamily": "Inter, \"Inter Fallback\"",
+      "headerBg": "not-found",
+      "headerHeight": "not-found",
+      "buttonBg": [
+        "rgb(5, 150, 105)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(55, 65, 81, 0.6)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)"
+      ],
+      "buttonRadius": [
+        "12px",
+        "0px",
+        "12px",
+        "12px",
+        "12px",
+        "12px"
+      ],
+      "buttonFontWeight": [
+        "600",
+        "400",
+        "600",
+        "600",
+        "600",
+        "600"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal",
+      "h1TextTransform": "none",
+      "cardRadius": [],
+      "linkColor": "rgba(0, 0, 0, 0)"
+    },
+    "hasDarkMode": true
+  },
+  {
+    "site": "Demo App",
+    "url": "https://demo.cinacoin.com/auth",
+    "path": "/auth",
+    "checks": {
+      "hasPillButtons": false,
+      "headingWeightOK": false,
+      "headingNotAllCaps": true,
+      "noGradientButtons": true,
+      "buttonRadii": [
+        "12px",
+        "8px"
+      ],
+      "h1Weight": "800",
+      "h1LetterSpacing": "-1.5px"
+    },
+    "desktopStyles": {
+      "bodyBg": "rgb(5, 5, 5)",
+      "bodyColor": "rgb(237, 237, 237)",
+      "bodyFontFamily": "Inter, \"Inter Fallback\"",
+      "headerBg": "not-found",
+      "headerHeight": "not-found",
+      "buttonBg": [
+        "rgb(37, 99, 235)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(147, 51, 234)"
+      ],
+      "buttonRadius": [
+        "12px",
+        "0px",
+        "8px"
+      ],
+      "buttonFontWeight": [
+        "600",
+        "400",
+        "500"
+      ],
+      "h1Weight": "800",
+      "h1LetterSpacing": "-1.5px",
+      "h1TextTransform": "none",
+      "cardRadius": [],
+      "linkColor": "rgba(0, 0, 0, 0)"
+    },
+    "hasDarkMode": true
+  },
+  {
+    "site": "Demo App",
+    "url": "https://demo.cinacoin.com/profile",
+    "path": "/profile",
+    "checks": {
+      "hasPillButtons": false,
+      "headingWeightOK": false,
+      "headingNotAllCaps": true,
+      "noGradientButtons": true,
+      "buttonRadii": [
+        "12px"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal"
+    },
+    "desktopStyles": {
+      "bodyBg": "rgb(5, 5, 5)",
+      "bodyColor": "rgb(237, 237, 237)",
+      "bodyFontFamily": "Inter, \"Inter Fallback\"",
+      "headerBg": "not-found",
+      "headerHeight": "not-found",
+      "buttonBg": [
+        "rgb(37, 99, 235)"
+      ],
+      "buttonRadius": [
+        "12px"
+      ],
+      "buttonFontWeight": [
+        "600"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal",
+      "h1TextTransform": "none",
+      "cardRadius": [],
+      "linkColor": "rgba(0, 0, 0, 0)"
+    },
+    "hasDarkMode": true
+  },
+  {
+    "site": "Demo App",
+    "url": "https://demo.cinacoin.com/settings",
+    "path": "/settings",
+    "checks": {
+      "hasPillButtons": true,
+      "headingWeightOK": false,
+      "headingNotAllCaps": true,
+      "noGradientButtons": true,
+      "buttonRadii": [
+        "12px",
+        "12px",
+        "12px",
+        "12px",
+        "12px"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal"
+    },
+    "desktopStyles": {
+      "bodyBg": "rgb(5, 5, 5)",
+      "bodyColor": "rgb(237, 237, 237)",
+      "bodyFontFamily": "Inter, \"Inter Fallback\"",
+      "headerBg": "not-found",
+      "headerHeight": "not-found",
+      "buttonBg": [
+        "rgba(59, 130, 246, 0.15)",
+        "rgba(31, 41, 55, 0.4)",
+        "rgba(31, 41, 55, 0.4)",
+        "rgba(31, 41, 55, 0.4)",
+        "rgba(31, 41, 55, 0.4)",
+        "rgba(31, 41, 55, 0.4)",
+        "rgba(31, 41, 55, 0.4)",
+        "rgba(31, 41, 55, 0.4)",
+        "rgba(59, 130, 246, 0.15)",
+        "rgba(31, 41, 55, 0.4)",
+        "rgba(31, 41, 55, 0.4)",
+        "rgba(31, 41, 55, 0.4)",
+        "rgba(31, 41, 55, 0.4)",
+        "rgba(31, 41, 55, 0.4)",
+        "rgba(31, 41, 55, 0.4)",
+        "rgba(31, 41, 55, 0.4)",
+        "rgba(59, 130, 246, 0.2)",
+        "rgba(55, 65, 81, 0.5)",
+        "rgba(55, 65, 81, 0.5)",
+        "rgb(55, 65, 81)"
+      ],
+      "buttonRadius": [
+        "12px",
+        "12px",
+        "12px",
+        "12px",
+        "12px",
+        "12px",
+        "12px",
+        "12px",
+        "12px",
+        "12px",
+        "12px",
+        "12px",
+        "12px",
+        "12px",
+        "12px",
+        "12px",
+        "12px",
+        "12px",
+        "12px",
+        "9999px"
+      ],
+      "buttonFontWeight": [
+        "500",
+        "500",
+        "500",
+        "500",
+        "500",
+        "500",
+        "500",
+        "500",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400",
+        "500",
+        "500",
+        "500",
+        "400"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal",
+      "h1TextTransform": "none",
+      "cardRadius": [],
+      "linkColor": "rgba(0, 0, 0, 0)"
+    },
+    "hasDarkMode": true
+  },
+  {
+    "site": "Demo App",
+    "url": "https://demo.cinacoin.com/activity",
+    "path": "/activity",
+    "checks": {
+      "hasPillButtons": false,
+      "headingWeightOK": false,
+      "headingNotAllCaps": true,
+      "noGradientButtons": true,
+      "buttonRadii": [
+        "12px",
+        "12px",
+        "12px",
+        "12px",
+        "12px"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal"
+    },
+    "desktopStyles": {
+      "bodyBg": "rgb(5, 5, 5)",
+      "bodyColor": "rgb(237, 237, 237)",
+      "bodyFontFamily": "Inter, \"Inter Fallback\"",
+      "headerBg": "not-found",
+      "headerHeight": "not-found",
+      "buttonBg": [
+        "rgb(37, 99, 235)",
+        "rgba(59, 130, 246, 0.15)",
+        "rgba(31, 41, 55, 0.4)",
+        "rgba(31, 41, 55, 0.4)",
+        "rgba(31, 41, 55, 0.4)",
+        "rgba(31, 41, 55, 0.4)",
+        "rgba(31, 41, 55, 0.4)",
+        "rgba(31, 41, 55, 0.4)",
+        "rgba(31, 41, 55, 0.4)"
+      ],
+      "buttonRadius": [
+        "12px",
+        "12px",
+        "12px",
+        "12px",
+        "12px",
+        "12px",
+        "12px",
+        "12px",
+        "12px"
+      ],
+      "buttonFontWeight": [
+        "600",
+        "500",
+        "500",
+        "500",
+        "500",
+        "500",
+        "400",
+        "400",
+        "400"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal",
+      "h1TextTransform": "none",
+      "cardRadius": [],
+      "linkColor": "rgba(0, 0, 0, 0)"
+    },
+    "hasDarkMode": true
+  },
+  {
+    "site": "Demo App",
+    "url": "https://demo.cinacoin.com/aa-demo",
+    "path": "/aa-demo",
+    "checks": {
+      "hasPillButtons": true,
+      "headingWeightOK": false,
+      "headingNotAllCaps": true,
+      "noGradientButtons": true,
+      "buttonRadii": [
+        "12px",
+        "8px",
+        "9999px",
+        "4px",
+        "9999px"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal"
+    },
+    "desktopStyles": {
+      "bodyBg": "rgb(5, 5, 5)",
+      "bodyColor": "rgb(237, 237, 237)",
+      "bodyFontFamily": "Inter, \"Inter Fallback\"",
+      "headerBg": "not-found",
+      "headerHeight": "not-found",
+      "buttonBg": [
+        "rgb(124, 58, 237)",
+        "rgba(139, 92, 246, 0.15)",
+        "rgb(59, 130, 246)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(55, 65, 81)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(59, 130, 246)",
+        "rgba(55, 65, 81, 0.6)"
+      ],
+      "buttonRadius": [
+        "12px",
+        "8px",
+        "9999px",
+        "4px",
+        "9999px",
+        "4px",
+        "9999px",
+        "12px"
+      ],
+      "buttonFontWeight": [
+        "600",
+        "600",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400",
+        "600"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal",
+      "h1TextTransform": "none",
+      "cardRadius": [],
+      "linkColor": "rgba(0, 0, 0, 0)"
+    },
+    "hasDarkMode": true
+  },
+  {
+    "site": "Demo App",
+    "url": "https://demo.cinacoin.com/onramp",
+    "path": "/onramp",
+    "checks": {
+      "hasPillButtons": false,
+      "headingWeightOK": false,
+      "headingNotAllCaps": true,
+      "noGradientButtons": true,
+      "buttonRadii": [
+        "8px",
+        "8px",
+        "8px",
+        "8px",
+        "8px"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal"
+    },
+    "desktopStyles": {
+      "bodyBg": "rgb(5, 5, 5)",
+      "bodyColor": "rgb(237, 237, 237)",
+      "bodyFontFamily": "Inter, \"Inter Fallback\"",
+      "headerBg": "not-found",
+      "headerHeight": "not-found",
+      "buttonBg": [
+        "rgba(55, 65, 81, 0.5)",
+        "rgba(59, 130, 246, 0.2)",
+        "rgba(55, 65, 81, 0.5)",
+        "rgba(55, 65, 81, 0.5)",
+        "rgba(55, 65, 81, 0.5)",
+        "rgba(0, 0, 0, 0)"
+      ],
+      "buttonRadius": [
+        "8px",
+        "8px",
+        "8px",
+        "8px",
+        "8px",
+        "12px"
+      ],
+      "buttonFontWeight": [
+        "600",
+        "600",
+        "600",
+        "600",
+        "600",
+        "700"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal",
+      "h1TextTransform": "none",
+      "cardRadius": [],
+      "linkColor": "rgba(0, 0, 0, 0)"
+    },
+    "hasDarkMode": true
+  },
+  {
+    "site": "Demo App",
+    "url": "https://demo.cinacoin.com/components",
+    "path": "/components",
+    "checks": {
+      "hasPillButtons": true,
+      "headingWeightOK": false,
+      "headingNotAllCaps": true,
+      "noGradientButtons": true,
+      "buttonRadii": [
+        "12px",
+        "12px",
+        "12px",
+        "12px",
+        "12px"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal"
+    },
+    "desktopStyles": {
+      "bodyBg": "rgb(5, 5, 5)",
+      "bodyColor": "rgb(237, 237, 237)",
+      "bodyFontFamily": "Inter, \"Inter Fallback\"",
+      "headerBg": "not-found",
+      "headerHeight": "not-found",
+      "buttonBg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(31, 41, 55, 0.4)",
+        "rgba(31, 41, 55, 0.4)",
+        "rgba(31, 41, 55, 0.4)",
+        "rgba(31, 41, 55, 0.4)",
+        "rgba(31, 41, 55, 0.4)",
+        "rgba(31, 41, 55, 0.4)",
+        "rgba(31, 41, 55, 0.4)",
+        "rgba(55, 65, 81, 0.4)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(55, 65, 81, 0.6)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(239, 68, 68, 0.15)",
+        "rgba(16, 185, 129, 0.15)",
+        "rgba(55, 65, 81, 0.4)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(55, 65, 81, 0.6)",
+        "rgba(59, 130, 246, 0.15)",
+        "rgba(16, 185, 129, 0.15)",
+        "rgba(55, 65, 81, 0.4)",
+        "rgba(55, 65, 81, 0.4)",
+        "rgba(55, 65, 81, 0.4)",
+        "rgba(55, 65, 81, 0.4)",
+        "rgb(59, 130, 246)",
+        "rgb(59, 130, 246)",
+        "rgb(55, 65, 81)",
+        "rgb(55, 65, 81)",
+        "rgba(55, 65, 81, 0.4)",
+        "rgba(55, 65, 81, 0.4)",
+        "rgba(55, 65, 81, 0.4)",
+        "rgba(55, 65, 81, 0.4)"
+      ],
+      "buttonRadius": [
+        "12px",
+        "12px",
+        "12px",
+        "12px",
+        "12px",
+        "12px",
+        "12px",
+        "12px",
+        "8px",
+        "12px",
+        "12px",
+        "12px",
+        "12px",
+        "12px",
+        "12px",
+        "8px",
+        "12px",
+        "16px",
+        "12px",
+        "12px",
+        "12px",
+        "8px",
+        "8px",
+        "8px",
+        "8px",
+        "9999px",
+        "9999px",
+        "9999px",
+        "9999px",
+        "8px",
+        "8px",
+        "8px",
+        "8px"
+      ],
+      "buttonFontWeight": [
+        "500",
+        "500",
+        "500",
+        "500",
+        "500",
+        "500",
+        "500",
+        "500",
+        "400",
+        "600",
+        "600",
+        "600",
+        "600",
+        "600",
+        "600",
+        "600",
+        "600",
+        "600",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal",
+      "h1TextTransform": "none",
+      "cardRadius": [],
+      "linkColor": "rgba(0, 0, 0, 0)"
+    },
+    "hasDarkMode": true
+  },
+  {
+    "site": "Dashboard",
+    "url": "https://dash.cinacoin.com/",
+    "path": "/",
+    "checks": {
+      "hasPillButtons": false,
+      "headingWeightOK": false,
+      "headingNotAllCaps": true,
+      "noGradientButtons": true,
+      "buttonRadii": [
+        "12px"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal"
+    },
+    "desktopStyles": {
+      "bodyBg": "rgb(10, 12, 16)",
+      "bodyColor": "rgb(255, 255, 255)",
+      "bodyFontFamily": "Inter, system-ui, -apple-system, sans-serif",
+      "headerBg": "not-found",
+      "headerHeight": "not-found",
+      "buttonBg": [
+        "rgb(59, 130, 246)"
+      ],
+      "buttonRadius": [
+        "12px"
+      ],
+      "buttonFontWeight": [
+        "600"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal",
+      "h1TextTransform": "none",
+      "cardRadius": [],
+      "linkColor": "rgb(107, 114, 128)"
+    },
+    "hasDarkMode": true
+  },
+  {
+    "site": "Dashboard",
+    "url": "https://dash.cinacoin.com/analytics",
+    "path": "/analytics",
+    "checks": {
+      "hasPillButtons": false,
+      "headingWeightOK": false,
+      "headingNotAllCaps": true,
+      "noGradientButtons": true,
+      "buttonRadii": [
+        "12px"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal"
+    },
+    "desktopStyles": {
+      "bodyBg": "rgb(10, 12, 16)",
+      "bodyColor": "rgb(255, 255, 255)",
+      "bodyFontFamily": "Inter, system-ui, -apple-system, sans-serif",
+      "headerBg": "not-found",
+      "headerHeight": "not-found",
+      "buttonBg": [
+        "rgb(59, 130, 246)"
+      ],
+      "buttonRadius": [
+        "12px"
+      ],
+      "buttonFontWeight": [
+        "600"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal",
+      "h1TextTransform": "none",
+      "cardRadius": [],
+      "linkColor": "rgb(107, 114, 128)"
+    },
+    "hasDarkMode": true
+  },
+  {
+    "site": "Dashboard",
+    "url": "https://dash.cinacoin.com/chains",
+    "path": "/chains",
+    "checks": {
+      "hasPillButtons": false,
+      "headingWeightOK": false,
+      "headingNotAllCaps": true,
+      "noGradientButtons": true,
+      "buttonRadii": [
+        "12px"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal"
+    },
+    "desktopStyles": {
+      "bodyBg": "rgb(10, 12, 16)",
+      "bodyColor": "rgb(255, 255, 255)",
+      "bodyFontFamily": "Inter, system-ui, -apple-system, sans-serif",
+      "headerBg": "not-found",
+      "headerHeight": "not-found",
+      "buttonBg": [
+        "rgb(59, 130, 246)"
+      ],
+      "buttonRadius": [
+        "12px"
+      ],
+      "buttonFontWeight": [
+        "600"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal",
+      "h1TextTransform": "none",
+      "cardRadius": [],
+      "linkColor": "rgb(107, 114, 128)"
+    },
+    "hasDarkMode": true
+  },
+  {
+    "site": "Dashboard",
+    "url": "https://dash.cinacoin.com/keys-server",
+    "path": "/keys-server",
+    "checks": {
+      "hasPillButtons": false,
+      "headingWeightOK": false,
+      "headingNotAllCaps": true,
+      "noGradientButtons": true,
+      "buttonRadii": [
+        "12px"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal"
+    },
+    "desktopStyles": {
+      "bodyBg": "rgb(10, 12, 16)",
+      "bodyColor": "rgb(255, 255, 255)",
+      "bodyFontFamily": "Inter, system-ui, -apple-system, sans-serif",
+      "headerBg": "not-found",
+      "headerHeight": "not-found",
+      "buttonBg": [
+        "rgb(59, 130, 246)"
+      ],
+      "buttonRadius": [
+        "12px"
+      ],
+      "buttonFontWeight": [
+        "600"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal",
+      "h1TextTransform": "none",
+      "cardRadius": [],
+      "linkColor": "rgb(107, 114, 128)"
+    },
+    "hasDarkMode": true
+  },
+  {
+    "site": "Dashboard",
+    "url": "https://dash.cinacoin.com/notify-server",
+    "path": "/notify-server",
+    "checks": {
+      "hasPillButtons": false,
+      "headingWeightOK": false,
+      "headingNotAllCaps": true,
+      "noGradientButtons": true,
+      "buttonRadii": [
+        "12px"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal"
+    },
+    "desktopStyles": {
+      "bodyBg": "rgb(10, 12, 16)",
+      "bodyColor": "rgb(255, 255, 255)",
+      "bodyFontFamily": "Inter, system-ui, -apple-system, sans-serif",
+      "headerBg": "not-found",
+      "headerHeight": "not-found",
+      "buttonBg": [
+        "rgb(59, 130, 246)"
+      ],
+      "buttonRadius": [
+        "12px"
+      ],
+      "buttonFontWeight": [
+        "600"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal",
+      "h1TextTransform": "none",
+      "cardRadius": [],
+      "linkColor": "rgb(107, 114, 128)"
+    },
+    "hasDarkMode": true
+  },
+  {
+    "site": "Dashboard",
+    "url": "https://dash.cinacoin.com/project",
+    "path": "/project",
+    "checks": {
+      "hasPillButtons": false,
+      "headingWeightOK": false,
+      "headingNotAllCaps": true,
+      "noGradientButtons": true,
+      "buttonRadii": [
+        "12px"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal"
+    },
+    "desktopStyles": {
+      "bodyBg": "rgb(10, 12, 16)",
+      "bodyColor": "rgb(255, 255, 255)",
+      "bodyFontFamily": "Inter, system-ui, -apple-system, sans-serif",
+      "headerBg": "not-found",
+      "headerHeight": "not-found",
+      "buttonBg": [
+        "rgb(59, 130, 246)"
+      ],
+      "buttonRadius": [
+        "12px"
+      ],
+      "buttonFontWeight": [
+        "600"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal",
+      "h1TextTransform": "none",
+      "cardRadius": [],
+      "linkColor": "rgb(107, 114, 128)"
+    },
+    "hasDarkMode": true
+  },
+  {
+    "site": "Dashboard",
+    "url": "https://dash.cinacoin.com/push-server",
+    "path": "/push-server",
+    "checks": {
+      "hasPillButtons": false,
+      "headingWeightOK": false,
+      "headingNotAllCaps": true,
+      "noGradientButtons": true,
+      "buttonRadii": [
+        "12px"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal"
+    },
+    "desktopStyles": {
+      "bodyBg": "rgb(10, 12, 16)",
+      "bodyColor": "rgb(255, 255, 255)",
+      "bodyFontFamily": "Inter, system-ui, -apple-system, sans-serif",
+      "headerBg": "not-found",
+      "headerHeight": "not-found",
+      "buttonBg": [
+        "rgb(59, 130, 246)"
+      ],
+      "buttonRadius": [
+        "12px"
+      ],
+      "buttonFontWeight": [
+        "600"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal",
+      "h1TextTransform": "none",
+      "cardRadius": [],
+      "linkColor": "rgb(107, 114, 128)"
+    },
+    "hasDarkMode": true
+  },
+  {
+    "site": "Dashboard",
+    "url": "https://dash.cinacoin.com/relay-server",
+    "path": "/relay-server",
+    "checks": {
+      "hasPillButtons": false,
+      "headingWeightOK": false,
+      "headingNotAllCaps": true,
+      "noGradientButtons": true,
+      "buttonRadii": [
+        "12px"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal"
+    },
+    "desktopStyles": {
+      "bodyBg": "rgb(10, 12, 16)",
+      "bodyColor": "rgb(255, 255, 255)",
+      "bodyFontFamily": "Inter, system-ui, -apple-system, sans-serif",
+      "headerBg": "not-found",
+      "headerHeight": "not-found",
+      "buttonBg": [
+        "rgb(59, 130, 246)"
+      ],
+      "buttonRadius": [
+        "12px"
+      ],
+      "buttonFontWeight": [
+        "600"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal",
+      "h1TextTransform": "none",
+      "cardRadius": [],
+      "linkColor": "rgb(107, 114, 128)"
+    },
+    "hasDarkMode": true
+  },
+  {
+    "site": "Dashboard",
+    "url": "https://dash.cinacoin.com/rpc-proxy",
+    "path": "/rpc-proxy",
+    "checks": {
+      "hasPillButtons": false,
+      "headingWeightOK": false,
+      "headingNotAllCaps": true,
+      "noGradientButtons": true,
+      "buttonRadii": [
+        "12px"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal"
+    },
+    "desktopStyles": {
+      "bodyBg": "rgb(10, 12, 16)",
+      "bodyColor": "rgb(255, 255, 255)",
+      "bodyFontFamily": "Inter, system-ui, -apple-system, sans-serif",
+      "headerBg": "not-found",
+      "headerHeight": "not-found",
+      "buttonBg": [
+        "rgb(59, 130, 246)"
+      ],
+      "buttonRadius": [
+        "12px"
+      ],
+      "buttonFontWeight": [
+        "600"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal",
+      "h1TextTransform": "none",
+      "cardRadius": [],
+      "linkColor": "rgb(107, 114, 128)"
+    },
+    "hasDarkMode": true
+  },
+  {
+    "site": "Dashboard",
+    "url": "https://dash.cinacoin.com/settings",
+    "path": "/settings",
+    "checks": {
+      "hasPillButtons": false,
+      "headingWeightOK": false,
+      "headingNotAllCaps": true,
+      "noGradientButtons": true,
+      "buttonRadii": [
+        "12px"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal"
+    },
+    "desktopStyles": {
+      "bodyBg": "rgb(10, 12, 16)",
+      "bodyColor": "rgb(255, 255, 255)",
+      "bodyFontFamily": "Inter, system-ui, -apple-system, sans-serif",
+      "headerBg": "not-found",
+      "headerHeight": "not-found",
+      "buttonBg": [
+        "rgb(59, 130, 246)"
+      ],
+      "buttonRadius": [
+        "12px"
+      ],
+      "buttonFontWeight": [
+        "600"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal",
+      "h1TextTransform": "none",
+      "cardRadius": [],
+      "linkColor": "rgb(107, 114, 128)"
+    },
+    "hasDarkMode": true
+  },
+  {
+    "site": "Documentation",
+    "url": "https://docs.cinacoin.com/",
+    "path": "/",
+    "checks": {
+      "hasPillButtons": false,
+      "headingWeightOK": true,
+      "headingNotAllCaps": true,
+      "noGradientButtons": true,
+      "buttonRadii": [
+        "8px",
+        "11px",
+        "11px"
+      ],
+      "h1Weight": "400",
+      "h1LetterSpacing": "normal"
+    },
+    "desktopStyles": {
+      "bodyBg": "rgb(255, 255, 255)",
+      "bodyColor": "rgb(60, 60, 67)",
+      "bodyFontFamily": "Inter, ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "headerBg": "rgba(0, 0, 0, 0)",
+      "headerHeight": "64px",
+      "buttonBg": [
+        "rgb(246, 246, 247)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(142, 150, 170, 0.14)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(142, 150, 170, 0.14)",
+        "rgba(0, 0, 0, 0)"
+      ],
+      "buttonRadius": [
+        "8px",
+        "0px",
+        "11px",
+        "0px",
+        "11px",
+        "0px"
+      ],
+      "buttonFontWeight": [
+        "500",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400"
+      ],
+      "h1Weight": "400",
+      "h1LetterSpacing": "normal",
+      "h1TextTransform": "none",
+      "cardRadius": [],
+      "linkColor": "rgb(52, 81, 178)"
+    },
+    "hasDarkMode": false
+  },
+  {
+    "site": "Documentation",
+    "url": "https://docs.cinacoin.com/guide/quick-start",
+    "path": "/guide/quick-start",
+    "checks": {
+      "hasPillButtons": false,
+      "headingWeightOK": true,
+      "headingNotAllCaps": true,
+      "noGradientButtons": true,
+      "buttonRadii": [
+        "8px",
+        "11px",
+        "11px",
+        "4px",
+        "4px"
+      ],
+      "h1Weight": "600",
+      "h1LetterSpacing": "-0.64px"
+    },
+    "desktopStyles": {
+      "bodyBg": "rgb(255, 255, 255)",
+      "bodyColor": "rgb(60, 60, 67)",
+      "bodyFontFamily": "Inter, ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "headerBg": "rgba(0, 0, 0, 0)",
+      "headerHeight": "64px",
+      "buttonBg": [
+        "rgb(246, 246, 247)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(142, 150, 170, 0.14)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(142, 150, 170, 0.14)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(246, 246, 247)",
+        "rgb(246, 246, 247)"
+      ],
+      "buttonRadius": [
+        "8px",
+        "0px",
+        "11px",
+        "0px",
+        "11px",
+        "0px",
+        "0px",
+        "0px",
+        "4px",
+        "4px"
+      ],
+      "buttonFontWeight": [
+        "500",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400",
+        "500",
+        "500",
+        "400",
+        "400"
+      ],
+      "h1Weight": "600",
+      "h1LetterSpacing": "-0.64px",
+      "h1TextTransform": "none",
+      "cardRadius": [],
+      "linkColor": "rgb(52, 81, 178)"
+    },
+    "hasDarkMode": false
+  },
+  {
+    "site": "Documentation",
+    "url": "https://docs.cinacoin.com/guide/installation",
+    "path": "/guide/installation",
+    "checks": {
+      "hasPillButtons": false,
+      "headingWeightOK": true,
+      "headingNotAllCaps": true,
+      "noGradientButtons": true,
+      "buttonRadii": [
+        "8px",
+        "11px",
+        "11px",
+        "4px",
+        "4px"
+      ],
+      "h1Weight": "600",
+      "h1LetterSpacing": "-0.64px"
+    },
+    "desktopStyles": {
+      "bodyBg": "rgb(255, 255, 255)",
+      "bodyColor": "rgb(60, 60, 67)",
+      "bodyFontFamily": "Inter, ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "headerBg": "rgba(0, 0, 0, 0)",
+      "headerHeight": "64px",
+      "buttonBg": [
+        "rgb(246, 246, 247)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(142, 150, 170, 0.14)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(142, 150, 170, 0.14)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(246, 246, 247)",
+        "rgb(246, 246, 247)",
+        "rgb(246, 246, 247)",
+        "rgb(246, 246, 247)",
+        "rgb(246, 246, 247)",
+        "rgb(246, 246, 247)",
+        "rgb(246, 246, 247)",
+        "rgb(246, 246, 247)",
+        "rgb(246, 246, 247)",
+        "rgb(246, 246, 247)",
+        "rgb(246, 246, 247)",
+        "rgb(246, 246, 247)",
+        "rgb(246, 246, 247)"
+      ],
+      "buttonRadius": [
+        "8px",
+        "0px",
+        "11px",
+        "0px",
+        "11px",
+        "0px",
+        "0px",
+        "0px",
+        "4px",
+        "4px",
+        "4px",
+        "4px",
+        "4px",
+        "4px",
+        "4px",
+        "4px",
+        "4px",
+        "4px",
+        "4px",
+        "4px",
+        "4px"
+      ],
+      "buttonFontWeight": [
+        "500",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400",
+        "500",
+        "500",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400"
+      ],
+      "h1Weight": "600",
+      "h1LetterSpacing": "-0.64px",
+      "h1TextTransform": "none",
+      "cardRadius": [],
+      "linkColor": "rgb(52, 81, 178)"
+    },
+    "hasDarkMode": false
+  },
+  {
+    "site": "Documentation",
+    "url": "https://docs.cinacoin.com/api/core-sdk",
+    "path": "/api/core-sdk",
+    "checks": {
+      "hasPillButtons": false,
+      "headingWeightOK": true,
+      "headingNotAllCaps": true,
+      "noGradientButtons": true,
+      "buttonRadii": [
+        "8px",
+        "11px",
+        "11px",
+        "4px",
+        "4px"
+      ],
+      "h1Weight": "600",
+      "h1LetterSpacing": "-0.64px"
+    },
+    "desktopStyles": {
+      "bodyBg": "rgb(255, 255, 255)",
+      "bodyColor": "rgb(60, 60, 67)",
+      "bodyFontFamily": "Inter, ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "headerBg": "rgba(0, 0, 0, 0)",
+      "headerHeight": "64px",
+      "buttonBg": [
+        "rgb(246, 246, 247)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(142, 150, 170, 0.14)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(142, 150, 170, 0.14)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(246, 246, 247)",
+        "rgb(246, 246, 247)",
+        "rgb(246, 246, 247)",
+        "rgb(246, 246, 247)",
+        "rgb(246, 246, 247)",
+        "rgb(246, 246, 247)",
+        "rgb(246, 246, 247)"
+      ],
+      "buttonRadius": [
+        "8px",
+        "0px",
+        "11px",
+        "0px",
+        "11px",
+        "0px",
+        "0px",
+        "0px",
+        "4px",
+        "4px",
+        "4px",
+        "4px",
+        "4px",
+        "4px",
+        "4px"
+      ],
+      "buttonFontWeight": [
+        "500",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400",
+        "500",
+        "500",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400"
+      ],
+      "h1Weight": "600",
+      "h1LetterSpacing": "-0.64px",
+      "h1TextTransform": "none",
+      "cardRadius": [],
+      "linkColor": "rgb(52, 81, 178)"
+    },
+    "hasDarkMode": false
+  },
+  {
+    "site": "Documentation",
+    "url": "https://docs.cinacoin.com/zh/",
+    "path": "/zh/",
+    "checks": {
+      "hasPillButtons": false,
+      "headingWeightOK": true,
+      "headingNotAllCaps": true,
+      "noGradientButtons": true,
+      "buttonRadii": [
+        "8px",
+        "11px",
+        "11px"
+      ],
+      "h1Weight": "600",
+      "h1LetterSpacing": "-0.64px"
+    },
+    "desktopStyles": {
+      "bodyBg": "rgb(255, 255, 255)",
+      "bodyColor": "rgb(60, 60, 67)",
+      "bodyFontFamily": "\"Punctuation SC\", Inter, ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "headerBg": "rgba(0, 0, 0, 0)",
+      "headerHeight": "64px",
+      "buttonBg": [
+        "rgb(246, 246, 247)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(142, 150, 170, 0.14)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(142, 150, 170, 0.14)",
+        "rgba(0, 0, 0, 0)"
+      ],
+      "buttonRadius": [
+        "8px",
+        "0px",
+        "11px",
+        "0px",
+        "11px",
+        "0px"
+      ],
+      "buttonFontWeight": [
+        "500",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400"
+      ],
+      "h1Weight": "600",
+      "h1LetterSpacing": "-0.64px",
+      "h1TextTransform": "none",
+      "cardRadius": [],
+      "linkColor": "rgb(52, 81, 178)"
+    },
+    "hasDarkMode": false
+  },
+  {
+    "site": "Health Status",
+    "url": "https://status.cinacoin.com/",
+    "path": "/",
+    "checks": {
+      "hasPillButtons": false,
+      "headingWeightOK": false,
+      "headingNotAllCaps": true,
+      "noGradientButtons": true,
+      "buttonRadii": [
+        "8px",
+        "8px",
+        "8px"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal"
+    },
+    "desktopStyles": {
+      "bodyBg": "rgb(250, 250, 250)",
+      "bodyColor": "rgb(10, 10, 10)",
+      "bodyFontFamily": "Inter, \"Inter Fallback\"",
+      "headerBg": "rgba(0, 0, 0, 0)",
+      "headerHeight": "56px",
+      "buttonBg": [
+        "rgb(255, 255, 255)",
+        "rgba(37, 99, 235, 0.1)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)"
+      ],
+      "buttonRadius": [
+        "8px",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "0px"
+      ],
+      "buttonFontWeight": [
+        "400",
+        "500",
+        "500",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400",
+        "400"
+      ],
+      "h1Weight": "700",
+      "h1LetterSpacing": "normal",
+      "h1TextTransform": "none",
+      "cardRadius": [
+        "8px",
+        "8px",
+        "8px",
+        "8px",
+        "8px",
+        "8px",
+        "8px",
+        "8px",
+        "8px",
+        "8px",
+        "8px",
+        "8px"
+      ],
+      "linkColor": "rgb(96, 165, 250)"
+    },
+    "hasDarkMode": true
+  }
+]

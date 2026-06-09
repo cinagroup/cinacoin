@@ -1,0 +1,13 @@
+[Unit]
+Description=frp client
+After=network.target
+
+[Service]
+Type=simple
+User=cina
+ExecStart=/home/cina/frpc -c /home/cina/.frp/frpc.ini
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

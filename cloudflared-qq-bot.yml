@@ -1,0 +1,18 @@
+# Cloudflare Tunnel 配置 - QQ 机器人
+# 文件位置：~/.cloudflared/config.yml
+
+tunnel: qq-bot
+credentials-file: /home/cina/.cloudflared/qq-bot.json
+
+# 日志配置
+logfile: /home/cina/.openclaw/workspace/logs/cloudflared.log
+loglevel: info
+
+# 入口规则
+ingress:
+  # QQ 机器人 HTTP 回调
+  - hostname: qq-bot.cinaclaw.com
+    service: http://localhost:12333
+  
+  # 默认拒绝其他请求
+  - service: http_status:404

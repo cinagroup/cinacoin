@@ -1,0 +1,27 @@
+# Base Kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: cinacoin
+
+resources:
+  - namespace.yaml
+  - secrets.yaml
+  - configmaps.yaml
+  - postgres.yaml
+  - redis.yaml
+  - auth-service.yaml
+  - user-service.yaml
+  - api-gateway.yaml
+  - unified-dashboard.yaml
+  - ingress.yaml
+  - hpa.yaml
+  - network-policies.yaml
+
+commonLabels:
+  app.kubernetes.io/version: "1.0.0"
+  app.kubernetes.io/managed-by: kustomize
+
+commonAnnotations:
+  platform: cinacoin
+  deployment: production

@@ -1,0 +1,83 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { listProjects } from "@/lib/api";
+import type { Project } from "@/types";
+
+export default function Home() {
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Try to load real projects; fall back to empty list
+    const ownerId = typeof window !== "undefined" ? localStorage.getItem("cinacoin_owner_id") || "" : "";
+    if (ownerId) {
+      listProjects(ownerId)
+        .then(setProjects)
+        .catch(() => setProjects([]))
+        .finally(() => setLoading(false));
+    } else {
+      setLoading(false);
+    }
+  }, []);
+
+  return (
+    <main id="main-content" className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="mb-8">
+          <h1 className="cc-display-md text-[var(--cc-ink)]">Dashboard</h1>
+          <p className="cc-body-sm text-[var(--cc-body)] mt-1">
+            Welcome to Cinacoin Cloud. Manage your projects and API keys from here.
+          </p>
+        </div>
+
+        {/* Stats Cards */}
+        <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-3" role="region" aria-label="Dashboard statistics">
+          <div className="cc-card p-5" role="status" aria-busy={loading}>
+            <p className="text-[13px] font-normal leading-5 text-[var(--cc-muted)]">Total Projects</p>
+            <p className="text-[28px] font-semibold leading-9 tracking-[-1.1px] text-[var(--cc-ink)] mt-1">
+              {loading ? (
+                <span className="inline-block w-16 h-8 bg-[var(--cc-canvas-soft-2)] rounded animate-pulse" aria-hidden="true" />
+              ) : projects.length}
+            </p>
+          </div>
+          <div className="cc-card p-5" role="status" aria-busy={loading}>
+            <p className="text-[13px] font-normal leading-5 text-[var(--cc-muted)]">Total API Keys</p>
+            <p className="text-[28px] font-semibold leading-9 tracking-[-1.1px] text-[var(--cc-ink)] mt-1">
+              {loading ? (
+                <span className="inline-block w-16 h-8 bg-[var(--cc-canvas-soft-2)] rounded animate-pulse" aria-hidden="true" />
+              ) : '—'}
+            </p>
+          </div>
+          <div className="cc-card p-5" role="status" aria-busy={loading}>
+            <p className="text-[13px] font-normal leading-5 text-[var(--cc-muted)]">Requests Today</p>
+            <p className="text-[28px] font-semibold leading-9 tracking-[-1.1px] text-[var(--cc-ink)] mt-1">
+              {loading ? (
+                <span className="inline-block w-16 h-8 bg-[var(--cc-canvas-soft-2)] rounded animate-pulse" aria-hidden="true" />
+              ) : '—'}
+            </p>
+          </div>
+        </div>
+
+        {/* Quick Links */}
+        <div className="cc-card p-6">
+          <h2 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Quick Start</h2>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <a
+              href="/projects/new"
+              className="cc-card p-5 text-center block transition-all duration-150 ease-in-out hover:shadow-[0px_2px_2px_rgba(0,0,0,0.04),0px_8px_8px_-8px_rgba(0,0,0,0.04),inset_0_0_0_1px_#ebebeb] hover:-translate-y-0.5"
+            >
+              <p className="cc-body-md-strong text-[var(--cc-link)]">+ Create Project</p>
+              <p className="cc-caption text-[var(--cc-muted)] mt-1">Start building with Cinacoin</p>
+            </a>
+            <a
+              href="/projects"
+              className="cc-card p-5 text-center block transition-all duration-150 ease-in-out hover:shadow-[0px_2px_2px_rgba(0,0,0,0.04),0px_8px_8px_-8px_rgba(0,0,0,0.04),inset_0_0_0_1px_#ebebeb] hover:-translate-y-0.5"
+            >
+              <p className="cc-body-md-strong text-[var(--cc-link)]">View All Projects</p>
+              <p className="cc-caption text-[var(--cc-muted)] mt-1">Manage existing projects</p>
+            </a>
+          </div>
+        </div>
+      </main>
+  );
+}

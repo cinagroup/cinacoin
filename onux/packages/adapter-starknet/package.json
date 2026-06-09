@@ -1,0 +1,48 @@
+{
+  "name": "@cinacoin/adapter-starknet",
+  "version": "1.0.0",
+  "description": "Cinacoin Starknet chain adapter — Argent X, Braavos wallet support with native account abstraction",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./connectors/argent-x": {
+      "import": "./dist/connectors/argent-x.js",
+      "require": "./dist/connectors/argent-x.js",
+      "types": "./dist/connectors/argent-x.d.ts"
+    },
+    "./connectors/braavos": {
+      "import": "./dist/connectors/braavos.js",
+      "require": "./dist/connectors/braavos.js",
+      "types": "./dist/connectors/braavos.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "check": "tsc --noEmit",
+    "lint": "eslint src/",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@noble/hashes": "^2.2.0"
+  },
+  "peerDependencies": {
+    "@cinacoin/core-sdk": ">=0.2.0",
+    "starknet": ">=6.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "sideEffects": false
+}

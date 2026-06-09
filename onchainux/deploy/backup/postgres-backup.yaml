@@ -1,0 +1,119 @@
+# OnChainUX — PostgreSQL Backup CronJob
+# Automated daily backups with 30-day retention
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: postgres-backup
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "onchainux.labels" . | nindent 4 }}
+    component: backup
+spec:
+  schedule: "0 2 * * *"  # Daily at 2:00 AM UTC
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 7
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      activeDeadlineSeconds: 3600
+      backoffLimit: 2
+      template:
+        metadata:
+          labels:
+            {{- include "onchainux.labels" . | nindent 12 }}
+            component: postgres-backup
+        spec:
+          restartPolicy: Never
+          serviceAccountName: backup-sa
+          containers:
+            - name: postgres-backup
+              image: bitnami/postgresql:16
+              command:
+                - /bin/bash
+                - -c
+                - |
+                  set -euo pipefail
+                  TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+                  BACKUP_DIR="/backups"
+                  BACKUP_FILE="${BACKUP_DIR}/postgres_${TIMESTAMP}.sql.gz"
+
+                  echo "Starting PostgreSQL backup at $(date -u)"
+
+                  # Full database dump
+                  pg_dump -h ${POSTGRES_HOST} -p ${POSTGRES_PORT} \
+                    -U ${POSTGRES_USER} -d ${POSTGRES_DB} \
+                    --format=plain --verbose --no-owner --no-privileges \
+                    | gzip > "${BACKUP_FILE}"
+
+                  # Verify backup
+                  if gzip -t "${BACKUP_FILE}"; then
+                    echo "✓ Backup verified successfully"
+                    echo "Size: $(du -h "${BACKUP_FILE}" | cut -f1)"
+                  else
+                    echo "✗ Backup verification failed"
+                    exit 1
+                  fi
+
+                  # Upload to S3
+                  aws s3 cp "${BACKUP_FILE}" \
+                    s3://${BACKUP_BUCKET}/postgres/ \
+                    --sse AES256
+
+                  # Clean old backups (keep 30 days)
+                  find "${BACKUP_DIR}" -name "*.sql.gz" -mtime +30 -delete
+
+                  echo "Backup completed at $(date -u)"
+              env:
+                - name: POSTGRES_HOST
+                  valueFrom:
+                    configMapKeyRef:
+                      name: postgres-config
+                      key: host
+                - name: POSTGRES_PORT
+                  valueFrom:
+                    configMapKeyRef:
+                      name: postgres-config
+                      key: port
+                - name: POSTGRES_USER
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres-credentials
+                      key: username
+                - name: POSTGRES_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres-credentials
+                      key: password
+                - name: POSTGRES_DB
+                  value: "onchainux"
+                - name: BACKUP_BUCKET
+                  valueFrom:
+                    configMapKeyRef:
+                      name: backup-config
+                      key: s3-bucket
+              resources:
+                requests:
+                  cpu: "250m"
+                  memory: "512Mi"
+                limits:
+                  cpu: "500m"
+                  memory: "1Gi"
+              volumeMounts:
+                - name: backup-storage
+                  mountPath: /backups
+          volumes:
+            - name: backup-storage
+              emptyDir:
+                sizeLimit: 10Gi
+---
+# IAM policy for backup service account (AWS)
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: backup-sa
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::ACCOUNT_ID:role/onchainux-backup-role
+  labels:
+    {{- include "onchainux.labels" . | nindent 4 }}

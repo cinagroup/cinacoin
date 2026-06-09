@@ -1,0 +1,37 @@
+name = "cinacoin-api"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+routes = [
+  { pattern = "api.cinacoin.com/*", zone_name = "cinacoin.com" },
+  { pattern = "auth.cinacoin.com/*", zone_name = "cinacoin.com" },
+  { pattern = "ws.cinacoin.com/*", zone_name = "cinacoin.com" }
+]
+
+# 绑定 Auth Service
+[[services]]
+binding = "AUTH_SERVICE"
+service = "cinacoin-auth"
+
+# 绑定 User Service
+[[services]]
+binding = "USER_SERVICE"
+service = "cinacoin-users"
+
+# KV 命名空间
+[[kv_namespaces]]
+binding = "RATE_LIMIT_KV"
+id = "${RATE_LIMIT_KV_ID}"
+
+[[kv_namespaces]]
+binding = "SESSION_KV"
+id = "${SESSION_KV_ID}"
+
+# R2 存储桶
+[[r2_buckets]]
+binding = "AVATARS"
+bucket_name = "cinacoin-avatars"
+
+[[r2_buckets]]
+binding = "BACKUPS"
+bucket_name = "cinacoin-backups"

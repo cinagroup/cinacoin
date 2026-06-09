@@ -1,0 +1,67 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: cost-alerts
+  namespace: onchainux
+  labels:
+    app: prometheus
+    component: alerting-rules
+    role: alert-rules
+spec:
+  groups:
+    - name: cost-alerts
+      rules:
+        - alert: RPCBudgetExceeded
+          expr: |
+            sum(increase(rpc_requests_total{provider!="local"}[1d])) * 0.001 > 50
+          for: 0m
+          labels:
+            severity: warning
+            team: onchainux
+          annotations:
+            summary: "每日 RPC 成本超过 $50 预算"
+            description: "当日 RPC 调用成本估计: ${{ $value }}"
+
+        - alert: HighExternalRPCCalls
+          expr: |
+            sum(rate(rpc_requests_total{provider!="local"}[1h])) > 10000
+          for: 30m
+          labels:
+            severity: warning
+            team: onchainux
+          annotations:
+            summary: "外部 RPC 调用速率过高"
+            description: "外部 RPC 调用速率: {{ $value }}/s"
+
+        - alert: SpotInstanceInterruption
+          expr: |
+            aws_ec2_spot_instance_interruption_warning == 1
+          for: 0m
+          labels:
+            severity: critical
+            team: onchainux
+          annotations:
+            summary: "Spot 实例即将被中断"
+            description: "实例 {{ $labels.instance_id }} 将在 2 分钟内被回收"
+
+        - alert: MonthlyBudget80Percent
+          expr: |
+            kube_pod_container_resource_requests{resource="cpu"} * on (node) kube_node_status_capacity * 0.8 > kube_node_status_capacity * 0.8
+          for: 0m
+          labels:
+            severity: warning
+            team: onchainux
+          annotations:
+            summary: "月度预算使用已达 80%"
+            description: "计算资源使用率达到 80%，请检查成本趋势"
+
+        - alert: StorageCostHigh
+          expr: |
+            sum(kubelet_volume_stats_used_bytes) / sum(kubelet_volume_stats_capacity_bytes) > 0.85
+          for: 0m
+          labels:
+            severity: warning
+            team: onchainux
+          annotations:
+            summary: "存储容量使用 > 85%"
+            description: "总存储使用率: {{ $value | humanizePercentage }}"

@@ -1,0 +1,78 @@
+name: Deploy Cloud Dashboard to Cloudflare Pages
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "apps/cloud-dashboard/**"
+      - "packages/**"
+      - ".github/workflows/deploy-cloud-dashboard.yml"
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: "22"
+
+jobs:
+  deploy:
+    name: Build & Deploy Cloud Dashboard
+    runs-on: ubuntu-latest
+    concurrency:
+      group: deploy-cloud-dashboard-production
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - uses: pnpm/action-setup@v4
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build Cloud Dashboard
+        run: |
+          rm -rf apps/cloud-dashboard/.next/cache
+          rm -rf apps/cloud-dashboard/.next
+          rm -rf apps/cloud-dashboard/out
+          rm -rf cache/
+          pnpm --filter cloud-dashboard build
+        env:
+          NODE_ENV: production
+
+      - name: Verify Output
+        run: |
+          test -f apps/cloud-dashboard/out/index.html || { echo "✗ out/index.html missing"; exit 1; }
+          echo "✓ static output exists"
+
+      - name: Clean cache before deploy
+        run: |
+          rm -rf apps/cloud-dashboard/.next/cache
+          rm -rf apps/cloud-dashboard/.next
+          rm -rf apps/cloud-dashboard/out/cache
+          rm -rf cache/
+          echo "Cache cleaned"
+
+      - name: Nest output under /dashboard (basePath layout)
+        run: |
+          rm -rf apps/cloud-dashboard/out_deploy
+          mkdir -p apps/cloud-dashboard/out_deploy/dashboard
+          cp -r apps/cloud-dashboard/out/. apps/cloud-dashboard/out_deploy/dashboard/
+          if [ -f apps/cloud-dashboard/out/_redirects ]; then
+            cp apps/cloud-dashboard/out/_redirects apps/cloud-dashboard/out_deploy/_redirects
+          fi
+          test -f apps/cloud-dashboard/out_deploy/dashboard/index.html || { echo "✗ nested index missing"; exit 1; }
+          echo "✓ nested output at /dashboard"
+
+      - name: Install Wrangler
+        run: npm install -g wrangler@3
+
+      - name: Deploy to Cloudflare Pages
+        run: wrangler pages deploy apps/cloud-dashboard/out_deploy --project-name=cinacoin-cloud-dashboard --branch=main
+        env:
+          NODE_ENV: production
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: 7ea8e46d8210bad342fa7595f7935fea

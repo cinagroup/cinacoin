@@ -1,0 +1,23 @@
+# Local development secrets for CINAcoin Auth Service
+# Copy this file to .dev.vars and fill in real values
+# NEVER commit .dev.vars to version control!
+#
+# Generate secrets with: ./scripts/generate-secrets.sh
+
+# JWT Signing Secrets (required)
+JWT_SECRET=your-base64url-encoded-secret-here-min-64-chars
+JWT_REFRESH_SECRET=your-base64url-encoded-refresh-secret-here-min-64-chars
+
+# JWT Configuration (optional, defaults shown)
+# JWT_ISSUER=https://auth.cinacoin.com
+# JWT_AUDIENCE=cinacoin
+# JWT_EXPIRES_IN=900
+# JWT_REFRESH_EXPIRES_IN=604800
+
+# OAuth Providers (optional)
+# GOOGLE_CLIENT_ID=
+# GOOGLE_CLIENT_SECRET=
+# GITHUB_CLIENT_ID=
+# GITHUB_CLIENT_SECRET=
+# DISCORD_CLIENT_ID=
+# DISCORD_CLIENT_SECRET=

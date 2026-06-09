@@ -1,0 +1,24 @@
+{
+  "name": "cinacoin-verify-service",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CINAcoin Verify API - Anti-phishing domain verification service (Cloudflare Workers + Hono)",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "hono": "^4.4.0",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240620.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.0.0",
+    "wrangler": "^3.60.0"
+  }
+}

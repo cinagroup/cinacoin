@@ -1,0 +1,7 @@
+name = "cinacoin-website"
+compatibility_date = "2025-01-01"
+
+[build]
+command = "rm -rf cache/ && pnpm install --frozen-lockfile && pnpm --filter cinacoin-website build --no-cache && rm -rf cache/ apps/website/.next/cache"
+cwd = "../.."
+output_directory = "apps/website/out"

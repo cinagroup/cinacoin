@@ -1,0 +1,78 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: rpc-alerts
+  namespace: onchainux
+  labels:
+    app: prometheus
+    component: alerting-rules
+    role: alert-rules
+spec:
+  groups:
+    - name: rpc-alerts
+      rules:
+        - alert: HighRPCErrorRate
+          expr: |
+            sum(rate(rpc_requests_total{status="error"}[5m])) / sum(rate(rpc_requests_total[5m])) > 0.01
+          for: 5m
+          labels:
+            severity: warning
+            team: onchainux
+          annotations:
+            summary: "RPC 错误率 > 1%"
+            description: "当前 RPC 错误率为 {{ $value | humanizePercentage }}"
+
+        - alert: CriticalRPCErrorRate
+          expr: |
+            sum(rate(rpc_requests_total{status="error"}[5m])) / sum(rate(rpc_requests_total[5m])) > 0.05
+          for: 2m
+          labels:
+            severity: critical
+            team: onchainux
+          annotations:
+            summary: "RPC 错误率 > 5% (Critical)"
+            description: "当前 RPC 错误率为 {{ $value | humanizePercentage }}"
+
+        - alert: LowRPCCacheHitRate
+          expr: |
+            sum(rate(rpc_cache_hit_total[5m])) / sum(rate(rpc_requests_total[5m])) < 0.6
+          for: 10m
+          labels:
+            severity: warning
+            team: onchainux
+          annotations:
+            summary: "RPC 缓存命中率 < 60%"
+            description: "缓存命中率: {{ $value | humanizePercentage }}"
+
+        - alert: RPCProviderFailover
+          expr: |
+            rate(rpc_provider_failover_total[5m]) > 0
+          for: 5m
+          labels:
+            severity: warning
+            team: onchainux
+          annotations:
+            summary: "RPC Provider 故障切换发生"
+            description: "从 {{ $labels.from_provider }} 切换到 {{ $labels.to_provider }}"
+
+        - alert: RPCHighLatency
+          expr: |
+            histogram_quantile(0.95, sum(rate(rpc_request_duration_seconds_bucket[5m])) by (le, provider)) > 2
+          for: 5m
+          labels:
+            severity: warning
+            team: onchainux
+          annotations:
+            summary: "RPC 响应延迟 P95 > 2s"
+            description: "Provider {{ $labels.provider }} P95 延迟: {{ $value }}s"
+
+        - alert: RPCProxyPodCrash
+          expr: |
+            increase(kube_pod_container_status_restarts_total{container="rpc-proxy"}[15m]) > 0
+          for: 1m
+          labels:
+            severity: critical
+            team: onchainux
+          annotations:
+            summary: "RPC Proxy Pod 重启"
+            description: "Pod {{ $labels.pod }} 在 15 分钟内重启"

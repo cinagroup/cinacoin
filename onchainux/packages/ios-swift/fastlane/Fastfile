@@ -1,0 +1,39 @@
+# Fastlane configuration for iOS deployment
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Build and upload to TestFlight"
+  lane :beta do
+    increment_build_number
+    build_app(scheme: "OnChainUX")
+    upload_to_testflight(
+      skip_waiting_for_build_processing: true
+    )
+  end
+  
+  desc "Build and upload to App Store"
+  lane :release do
+    increment_version_number
+    increment_build_number
+    build_app(scheme: "OnChainUX")
+    upload_to_app_store(
+      force: true,
+      submit_for_review: true
+    )
+  end
+  
+  desc "Run tests"
+  lane :test do
+    run_tests(
+      scheme: "OnChainUXTests",
+      devices: ["iPhone 15 Pro"]
+    )
+  end
+  
+  desc "Generate screenshots"
+  lane :screenshots do
+    capture_screenshots
+    upload_to_app_store
+  end
+end

@@ -1,0 +1,39 @@
+syntax = "proto3";
+package cina.icsdns;
+
+option go_package = "cina/api/cina/icsdns";
+
+// Query defines the gRPC querier service.
+service Query {
+  // Parameters queries the parameters of the module.
+  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {}
+}
+
+// QueryParamsRequest is request type for the Query/Params RPC method.
+message QueryParamsRequest {}
+
+// QueryParamsResponse is response type for the Query/Params RPC method.
+message QueryParamsResponse {
+  // params holds all the parameters of this module.
+  Params params = 1;
+}
+
+// Params defines the parameters for the module.
+message Params {}
+
+// Msg defines the Msg service.
+service Msg {
+  // UpdateParams defines a governance operation for updating the module parameters.
+  rpc UpdateParams(MsgUpdateParams) returns (MsgUpdateParamsResponse);
+}
+
+// MsgUpdateParams defines a message for updating params.
+message MsgUpdateParams {
+  // authority is the address that controls the module.
+  string authority = 1;
+  // params defines the module parameters to update.
+  Params params = 2;
+}
+
+// MsgUpdateParamsResponse defines the response for updating params.
+message MsgUpdateParamsResponse {}

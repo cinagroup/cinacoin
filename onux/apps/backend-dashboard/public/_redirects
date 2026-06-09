@@ -1,0 +1,13 @@
+# Legacy route redirects for renamed pages
+/appkit    /    301
+/auth      /login    301
+/keys      /keys-server    301
+/relay     /relay-server    301
+/rpc       /rpc-proxy    301
+
+# API proxy redirects to Cloudflare Workers
+/api/rpc/*    https://rpc.cinacoin.com/:splat    200
+/api/keys/*    https://keys.cinacoin.com/:splat    200
+/api/relay/*    https://relay.cinacoin.com/:splat    200
+/api/notify/*    https://notify.cinacoin.com/:splat    200
+/api/push/*    https://push.cinacoin.com/:splat    200

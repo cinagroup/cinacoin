@@ -1,0 +1,523 @@
+{
+  "results": [
+    {
+      "site": "demo",
+      "path": "/",
+      "url": "https://demo.cinacoin.com/",
+      "status": "pass",
+      "httpStatus": 200,
+      "title": "Cinacoin — Wallet Connection Toolkit",
+      "jsErrors": 0,
+      "failedReqs": 0,
+      "hasErrorText": false,
+      "mobileOverflow": false,
+      "hasThemeToggle": true,
+      "hasLangSwitcher": false
+    },
+    {
+      "site": "demo",
+      "path": "/swap",
+      "url": "https://demo.cinacoin.com/swap",
+      "status": "pass",
+      "httpStatus": 200,
+      "title": "Cinacoin — Wallet Connection Toolkit",
+      "jsErrors": 0,
+      "failedReqs": 0,
+      "hasErrorText": false,
+      "mobileOverflow": false,
+      "hasThemeToggle": true,
+      "hasLangSwitcher": true
+    },
+    {
+      "site": "demo",
+      "path": "/tokens",
+      "url": "https://demo.cinacoin.com/tokens",
+      "status": "pass",
+      "httpStatus": 200,
+      "title": "Cinacoin — Wallet Connection Toolkit",
+      "jsErrors": 0,
+      "failedReqs": 0,
+      "hasErrorText": false,
+      "mobileOverflow": false,
+      "hasThemeToggle": true,
+      "hasLangSwitcher": true
+    },
+    {
+      "site": "demo",
+      "path": "/multi-chain",
+      "url": "https://demo.cinacoin.com/multi-chain",
+      "status": "pass",
+      "httpStatus": 200,
+      "title": "Cinacoin — Wallet Connection Toolkit",
+      "jsErrors": 0,
+      "failedReqs": 0,
+      "hasErrorText": false,
+      "mobileOverflow": false,
+      "hasThemeToggle": false,
+      "hasLangSwitcher": false
+    },
+    {
+      "site": "demo",
+      "path": "/batch",
+      "url": "https://demo.cinacoin.com/batch",
+      "status": "pass",
+      "httpStatus": 200,
+      "title": "Cinacoin — Wallet Connection Toolkit",
+      "jsErrors": 0,
+      "failedReqs": 0,
+      "hasErrorText": false,
+      "mobileOverflow": false,
+      "hasThemeToggle": false,
+      "hasLangSwitcher": true
+    },
+    {
+      "site": "demo",
+      "path": "/auth",
+      "url": "https://demo.cinacoin.com/auth",
+      "status": "pass",
+      "httpStatus": 200,
+      "title": "Cinacoin — Wallet Connection Toolkit",
+      "jsErrors": 0,
+      "failedReqs": 0,
+      "hasErrorText": false,
+      "mobileOverflow": false,
+      "hasThemeToggle": false,
+      "hasLangSwitcher": false
+    },
+    {
+      "site": "demo",
+      "path": "/profile",
+      "url": "https://demo.cinacoin.com/profile",
+      "status": "pass",
+      "httpStatus": 200,
+      "title": "Cinacoin — Wallet Connection Toolkit",
+      "jsErrors": 0,
+      "failedReqs": 0,
+      "hasErrorText": false,
+      "mobileOverflow": false,
+      "hasThemeToggle": false,
+      "hasLangSwitcher": true
+    },
+    {
+      "site": "demo",
+      "path": "/settings",
+      "url": "https://demo.cinacoin.com/settings",
+      "status": "pass",
+      "httpStatus": 200,
+      "title": "Cinacoin — Wallet Connection Toolkit",
+      "jsErrors": 0,
+      "failedReqs": 0,
+      "hasErrorText": false,
+      "mobileOverflow": false,
+      "hasThemeToggle": false,
+      "hasLangSwitcher": true
+    },
+    {
+      "site": "demo",
+      "path": "/activity",
+      "url": "https://demo.cinacoin.com/activity",
+      "status": "pass",
+      "httpStatus": 200,
+      "title": "Cinacoin — Wallet Connection Toolkit",
+      "jsErrors": 0,
+      "failedReqs": 0,
+      "hasErrorText": false,
+      "mobileOverflow": false,
+      "hasThemeToggle": true,
+      "hasLangSwitcher": true
+    },
+    {
+      "site": "demo",
+      "path": "/aa-demo",
+      "url": "https://demo.cinacoin.com/aa-demo",
+      "status": "pass",
+      "httpStatus": 200,
+      "title": "Cinacoin — Wallet Connection Toolkit",
+      "jsErrors": 0,
+      "failedReqs": 0,
+      "hasErrorText": false,
+      "mobileOverflow": false,
+      "hasThemeToggle": false,
+      "hasLangSwitcher": false
+    },
+    {
+      "site": "demo",
+      "path": "/onramp",
+      "url": "https://demo.cinacoin.com/onramp",
+      "status": "pass",
+      "httpStatus": 200,
+      "title": "Cinacoin — Wallet Connection Toolkit",
+      "jsErrors": 0,
+      "failedReqs": 0,
+      "hasErrorText": false,
+      "mobileOverflow": false,
+      "hasThemeToggle": false,
+      "hasLangSwitcher": true
+    },
+    {
+      "site": "demo",
+      "path": "/components",
+      "url": "https://demo.cinacoin.com/components",
+      "status": "pass",
+      "httpStatus": 200,
+      "title": "Cinacoin — Wallet Connection Toolkit",
+      "jsErrors": 0,
+      "failedReqs": 0,
+      "hasErrorText": false,
+      "mobileOverflow": false,
+      "hasThemeToggle": false,
+      "hasLangSwitcher": false
+    },
+    {
+      "site": "dashboard",
+      "path": "/",
+      "url": "https://dash.cinacoin.com/",
+      "status": "warning",
+      "httpStatus": 200,
+      "title": "Cinacoin — Backend Dashboard",
+      "jsErrors": 0,
+      "failedReqs": 16,
+      "hasErrorText": false,
+      "mobileOverflow": false,
+      "hasThemeToggle": false,
+      "hasLangSwitcher": true,
+      "issues": [
+        "16 failed resource requests"
+      ]
+    },
+    {
+      "site": "dashboard",
+      "path": "/login",
+      "url": "https://dash.cinacoin.com/login",
+      "status": "pass",
+      "httpStatus": 200,
+      "title": "Cinacoin — Backend Dashboard",
+      "jsErrors": 0,
+      "failedReqs": 0,
+      "hasErrorText": false,
+      "mobileOverflow": false,
+      "hasThemeToggle": false,
+      "hasLangSwitcher": true
+    },
+    {
+      "site": "dashboard",
+      "path": "/analytics",
+      "url": "https://dash.cinacoin.com/analytics",
+      "status": "warning",
+      "httpStatus": 200,
+      "title": "Cinacoin — Backend Dashboard",
+      "jsErrors": 0,
+      "failedReqs": 8,
+      "hasErrorText": false,
+      "mobileOverflow": false,
+      "hasThemeToggle": false,
+      "hasLangSwitcher": true,
+      "issues": [
+        "8 failed resource requests"
+      ]
+    },
+    {
+      "site": "dashboard",
+      "path": "/chains",
+      "url": "https://dash.cinacoin.com/chains",
+      "status": "warning",
+      "httpStatus": 200,
+      "title": "Cinacoin — Backend Dashboard",
+      "jsErrors": 0,
+      "failedReqs": 13,
+      "hasErrorText": false,
+      "mobileOverflow": false,
+      "hasThemeToggle": false,
+      "hasLangSwitcher": true,
+      "issues": [
+        "13 failed resource requests"
+      ]
+    },
+    {
+      "site": "dashboard",
+      "path": "/keys-server",
+      "url": "https://dash.cinacoin.com/keys-server",
+      "status": "warning",
+      "httpStatus": 200,
+      "title": "Cinacoin — Backend Dashboard",
+      "jsErrors": 0,
+      "failedReqs": 13,
+      "hasErrorText": false,
+      "mobileOverflow": false,
+      "hasThemeToggle": false,
+      "hasLangSwitcher": true,
+      "issues": [
+        "13 failed resource requests"
+      ]
+    },
+    {
+      "site": "dashboard",
+      "path": "/notify-server",
+      "url": "https://dash.cinacoin.com/notify-server",
+      "status": "warning",
+      "httpStatus": 200,
+      "title": "Cinacoin — Backend Dashboard",
+      "jsErrors": 0,
+      "failedReqs": 11,
+      "hasErrorText": false,
+      "mobileOverflow": false,
+      "hasThemeToggle": false,
+      "hasLangSwitcher": true,
+      "issues": [
+        "11 failed resource requests"
+      ]
+    },
+    {
+      "site": "dashboard",
+      "path": "/project",
+      "url": "https://dash.cinacoin.com/project",
+      "status": "warning",
+      "httpStatus": 200,
+      "title": "Cinacoin — Backend Dashboard",
+      "jsErrors": 0,
+      "failedReqs": 11,
+      "hasErrorText": false,
+      "mobileOverflow": false,
+      "hasThemeToggle": false,
+      "hasLangSwitcher": true,
+      "issues": [
+        "11 failed resource requests"
+      ]
+    },
+    {
+      "site": "dashboard",
+      "path": "/push-server",
+      "url": "https://dash.cinacoin.com/push-server",
+      "status": "warning",
+      "httpStatus": 200,
+      "title": "Cinacoin — Backend Dashboard",
+      "jsErrors": 0,
+      "failedReqs": 7,
+      "hasErrorText": false,
+      "mobileOverflow": false,
+      "hasThemeToggle": false,
+      "hasLangSwitcher": true,
+      "issues": [
+        "7 failed resource requests"
+      ]
+    },
+    {
+      "site": "dashboard",
+      "path": "/relay-server",
+      "url": "https://dash.cinacoin.com/relay-server",
+      "status": "warning",
+      "httpStatus": 200,
+      "title": "Cinacoin — Backend Dashboard",
+      "jsErrors": 0,
+      "failedReqs": 12,
+      "hasErrorText": false,
+      "mobileOverflow": false,
+      "hasThemeToggle": false,
+      "hasLangSwitcher": true,
+      "issues": [
+        "12 failed resource requests"
+      ]
+    },
+    {
+      "site": "dashboard",
+      "path": "/rpc-proxy",
+      "url": "https://dash.cinacoin.com/rpc-proxy",
+      "status": "warning",
+      "httpStatus": 200,
+      "title": "Cinacoin — Backend Dashboard",
+      "jsErrors": 0,
+      "failedReqs": 11,
+      "hasErrorText": false,
+      "mobileOverflow": false,
+      "hasThemeToggle": false,
+      "hasLangSwitcher": true,
+      "issues": [
+        "11 failed resource requests"
+      ]
+    },
+    {
+      "site": "dashboard",
+      "path": "/settings",
+      "url": "https://dash.cinacoin.com/settings",
+      "status": "warning",
+      "httpStatus": 200,
+      "title": "Cinacoin — Backend Dashboard",
+      "jsErrors": 0,
+      "failedReqs": 13,
+      "hasErrorText": false,
+      "mobileOverflow": false,
+      "hasThemeToggle": false,
+      "hasLangSwitcher": true,
+      "issues": [
+        "13 failed resource requests"
+      ]
+    },
+    {
+      "site": "health",
+      "path": "/",
+      "url": "https://status.cinacoin.com/",
+      "status": "pass",
+      "httpStatus": 200,
+      "title": "Cinacoin — Service Status",
+      "jsErrors": 0,
+      "failedReqs": 4,
+      "hasErrorText": false,
+      "mobileOverflow": false,
+      "hasThemeToggle": true,
+      "hasLangSwitcher": false
+    },
+    {
+      "site": "docs",
+      "path": "/",
+      "url": "https://docs.cinacoin.com/",
+      "status": "pass",
+      "httpStatus": 200,
+      "title": "Cinacoin",
+      "jsErrors": 0,
+      "failedReqs": 0,
+      "hasErrorText": false,
+      "mobileOverflow": false,
+      "hasThemeToggle": true,
+      "hasLangSwitcher": true
+    },
+    {
+      "site": "docs",
+      "path": "/guide/quick-start",
+      "url": "https://docs.cinacoin.com/guide/quick-start",
+      "status": "pass",
+      "httpStatus": 200,
+      "title": "Quick Start | Cinacoin",
+      "jsErrors": 0,
+      "failedReqs": 0,
+      "hasErrorText": false,
+      "mobileOverflow": false,
+      "hasThemeToggle": true,
+      "hasLangSwitcher": false
+    },
+    {
+      "site": "docs",
+      "path": "/guide/installation",
+      "url": "https://docs.cinacoin.com/guide/installation",
+      "status": "pass",
+      "httpStatus": 200,
+      "title": "Installation | Cinacoin",
+      "jsErrors": 0,
+      "failedReqs": 0,
+      "hasErrorText": false,
+      "mobileOverflow": false,
+      "hasThemeToggle": true,
+      "hasLangSwitcher": false
+    },
+    {
+      "site": "docs",
+      "path": "/api/core-sdk",
+      "url": "https://docs.cinacoin.com/api/core-sdk",
+      "status": "pass",
+      "httpStatus": 200,
+      "title": "Core SDK | Cinacoin",
+      "jsErrors": 0,
+      "failedReqs": 0,
+      "hasErrorText": false,
+      "mobileOverflow": false,
+      "hasThemeToggle": true,
+      "hasLangSwitcher": false
+    },
+    {
+      "site": "docs",
+      "path": "/zh/",
+      "url": "https://docs.cinacoin.com/zh/",
+      "status": "pass",
+      "httpStatus": 200,
+      "title": "Cinacoin — 链上访问，化繁为简 | Cinacoin",
+      "jsErrors": 0,
+      "failedReqs": 0,
+      "hasErrorText": false,
+      "mobileOverflow": false,
+      "hasThemeToggle": true,
+      "hasLangSwitcher": true
+    },
+    {
+      "site": "website",
+      "path": "/",
+      "url": "https://cinacoin.com/",
+      "status": "pass",
+      "httpStatus": 200,
+      "title": "Cinacoin — Onchain Access, Simplified",
+      "jsErrors": 0,
+      "failedReqs": 0,
+      "hasErrorText": false,
+      "mobileOverflow": false,
+      "hasThemeToggle": true,
+      "hasLangSwitcher": false
+    }
+  ],
+  "issues": [
+    {
+      "url": "dashboard/",
+      "issues": [
+        "16 failed resource requests"
+      ]
+    },
+    {
+      "url": "dashboard/analytics",
+      "issues": [
+        "8 failed resource requests"
+      ]
+    },
+    {
+      "url": "dashboard/chains",
+      "issues": [
+        "13 failed resource requests"
+      ]
+    },
+    {
+      "url": "dashboard/keys-server",
+      "issues": [
+        "13 failed resource requests"
+      ]
+    },
+    {
+      "url": "dashboard/notify-server",
+      "issues": [
+        "11 failed resource requests"
+      ]
+    },
+    {
+      "url": "dashboard/project",
+      "issues": [
+        "11 failed resource requests"
+      ]
+    },
+    {
+      "url": "dashboard/push-server",
+      "issues": [
+        "7 failed resource requests"
+      ]
+    },
+    {
+      "url": "dashboard/relay-server",
+      "issues": [
+        "12 failed resource requests"
+      ]
+    },
+    {
+      "url": "dashboard/rpc-proxy",
+      "issues": [
+        "11 failed resource requests"
+      ]
+    },
+    {
+      "url": "dashboard/settings",
+      "issues": [
+        "13 failed resource requests"
+      ]
+    }
+  ],
+  "summary": {
+    "total": 30,
+    "passed": 20,
+    "warnings": 10,
+    "errors": 0,
+    "totalScreenshots": 90
+  }
+}

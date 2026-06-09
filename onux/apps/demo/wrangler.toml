@@ -1,0 +1,14 @@
+# wrangler.toml - Cloudflare Pages configuration for Cinacoin Demo
+# https://developers.cloudflare.com/pages/configuration/
+
+name = "cinacoin-demo"
+compatibility_date = "2025-01-01"
+
+[build]
+# Build demo then clean webpack cache (CF Pages 25 MiB file limit)
+command = "rm -rf cache/ && pnpm --filter demo build --no-cache && rm -rf cache/ apps/demo/.next/cache"
+# Static export output directory (Next.js produces out/)
+output_directory = "apps/demo/out"
+
+[vars]
+NEXT_PUBLIC_PROJECT_ID = "demo-project-id"
