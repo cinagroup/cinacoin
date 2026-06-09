@@ -11,7 +11,7 @@ zone_name = "cinacoin.com"
 # KV Namespace for verification cache
 [[kv_namespaces]]
 binding = "VERIFY_KV"
-id = "${KV_VERIFY_NAMESPACE_ID}"
+id = "9ecdd7b3a993408893e6bddc3d7fa0b1"
 
 # Secrets (set via `wrangler secret put`)
 # ADMIN_API_KEY  - Shared secret for /verify/register admin access
