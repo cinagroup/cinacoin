@@ -1,3 +1,3 @@
-# Consolidation: this app's canonical home is cinacoin.com/dashboard/.
-# 301 the standalone subdomain root to the canonical subpath (SEO consolidation).
-/  https://cinacoin.com/dashboard/  301
+# SPA fallback for client-side routing
+# All routes serve index.html, letting Next.js handle routing
+/*    /dashboard/index.html   200
