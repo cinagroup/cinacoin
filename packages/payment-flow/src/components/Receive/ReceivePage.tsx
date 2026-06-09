@@ -106,7 +106,7 @@ export function ReceivePage({ walletAddress = "0x0000000000000000000000000000000
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[400px] max-w-md mx-auto rounded-2xl bg-white/5 p-8 backdrop-blur">
-      <h2 className="text-xl font-bold text-white mb-2">Receive</h2>
+      <h2 className="text-xl font-semibold text-white mb-2">Receive</h2>
       <p className="text-gray-400 text-sm mb-6">
         Share this address or scan the QR code to receive funds
       </p>

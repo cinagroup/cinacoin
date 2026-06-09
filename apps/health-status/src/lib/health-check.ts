@@ -63,7 +63,7 @@ async function checkService(config: ServiceConfig, timeoutMs: number = 8000): Pr
       };
     }
 
-    let data;
+    let data: any;
     try {
       data = await response.json();
     } catch {

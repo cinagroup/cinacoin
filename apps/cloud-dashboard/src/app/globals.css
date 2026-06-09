@@ -152,7 +152,7 @@ a:hover { color: #0051a8; }
   color: var(--color-on-primary);
 }
 
-.btn-primary:hover { background: #000000; }
+.btn-primary:hover { background: #2a2a2a; }
 
 .btn-secondary {
   background: var(--color-canvas);
@@ -233,7 +233,8 @@ a:hover { color: #0051a8; }
 /* Inputs */
 .input {
   width: 100%;
-  padding: 6px 12px;
+  padding: 8px 12px;
+  height: 40px;
   font-size: 14px;
   background: var(--color-canvas);
   border: 1px solid var(--color-hairline);
@@ -257,7 +258,7 @@ a:hover { color: #0051a8; }
   border-radius: 100px;
 }
 
-.badge-success { background: #dbeafe; color: #0070f3; }
+.badge-success { background: #dcfce7; color: #16a34a; }
 .badge-warning { background: #fef3c7; color: #f5a623; }
 .badge-error { background: #fee2e2; color: #ee0000; }
 .badge-info { background: var(--color-canvas-soft-2); color: var(--color-body); }

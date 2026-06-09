@@ -17,7 +17,7 @@ export function Sidebar() {
   return (
     <aside className="sidebar fixed left-0 top-0 h-full w-64 flex flex-col">
       <div className="p-6 border-b border-white/10">
-        <h2 className="text-xl font-bold flex items-center gap-2">
+        <h2 className="text-xl font-semibold flex items-center gap-2">
           <span className="text-2xl">🪙</span>
           CinaCoin
         </h2>
@@ -41,7 +41,7 @@ export function Sidebar() {
 
       <div className="p-4 border-t border-white/10">
         <div className="flex items-center gap-3 px-4 py-2">
-          <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-sm font-bold">
+          <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-sm font-semibold">
             A
           </div>
           <div>

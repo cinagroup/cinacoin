@@ -4,29 +4,33 @@ interface OverallStatusProps {
   status: OverallStatusType;
 }
 
-const config: Record<OverallStatusType, { label: string; color: string; bg: string; icon: string }> = {
+const config: Record<OverallStatusType, { label: string; color: string; bg: string; border: string; icon: string }> = {
   "all-operational": {
     label: "All Systems Operational",
-    color: "text-green-400",
-    bg: "bg-green-400/10 border-green-400/20",
+    color: "text-[var(--cc-success)]",
+    bg: "bg-[var(--cc-success)]/10",
+    border: "border-[var(--cc-success)]/20",
     icon: "✓",
   },
   "partial-outage": {
     label: "Partial System Outage",
-    color: "text-yellow-400",
-    bg: "bg-yellow-400/10 border-yellow-400/20",
+    color: "text-[var(--cc-warning)]",
+    bg: "bg-[var(--cc-warning)]/10",
+    border: "border-[var(--cc-warning)]/20",
     icon: "⚠",
   },
   "major-outage": {
     label: "Major System Outage",
-    color: "text-red-400",
-    bg: "bg-red-400/10 border-red-400/20",
+    color: "text-[var(--cc-error)]",
+    bg: "bg-[var(--cc-error)]/10",
+    border: "border-[var(--cc-error)]/20",
     icon: "✕",
   },
   maintenance: {
     label: "Scheduled Maintenance",
-    color: "text-blue-400",
-    bg: "bg-blue-400/10 border-blue-400/20",
+    color: "text-[var(--cc-maintenance)]",
+    bg: "bg-[var(--cc-maintenance)]/10",
+    border: "border-[var(--cc-maintenance)]/20",
     icon: "🔧",
   },
 };
@@ -34,10 +38,10 @@ const config: Record<OverallStatusType, { label: string; color: string; bg: stri
 export default function OverallStatus({ status }: OverallStatusProps) {
   const c = config[status];
   return (
-    <div className={`rounded-xl border p-6 text-center ${c.bg}`}>
+    <div className={`rounded-[8px] border ${c.border} ${c.bg} p-6 text-center`}>
       <div className={`text-4xl ${c.color}`}>{c.icon}</div>
-      <h2 className={`mt-2 text-xl font-bold ${c.color}`}>{c.label}</h2>
-      <p className="mt-1 text-sm text-gray-400">Last updated: just now</p>
+      <h2 className={`mt-2 text-xl font-semibold ${c.color}`}>{c.label}</h2>
+      <p className="mt-1 text-sm text-[var(--cc-body)]">Last updated: just now</p>
     </div>
   );
 }

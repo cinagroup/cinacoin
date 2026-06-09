@@ -80,7 +80,7 @@ export default function SolutionsPage() {
           <p className="text-[#4d4d4d] text-lg mb-8 max-w-xl mx-auto">
             Contact our team to discuss your specific requirements.
           </p>
-          <Link href="/about" className="inline-flex items-center justify-center px-8 py-3 bg-[#171717] hover:bg-[#000] text-white rounded-[6px] font-medium text-[14px] transition-colors duration-150 h-10">
+          <Link href="/about" className="inline-flex items-center justify-center px-8 py-3 bg-[#171717] hover:bg-[#2a2a2a] text-white rounded-[6px] font-medium text-[14px] transition-colors duration-150 h-10">
             Contact Us
           </Link>
         </div>

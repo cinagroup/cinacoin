@@ -891,10 +891,10 @@ export default function BatchPage() {
                 </div>
               )}
 
-              {callsStatus.failedReceipts.length > 0 && (
+              {(callsStatus.failedReceipts?.length ?? 0) > 0 && (
                 <div className="p-3 rounded-md bg-[var(--cc-error)]/10 border border-[var(--cc-error)]/20">
-                  <p className="text-sm text-[var(--cc-error)] font-semibold mb-1">✗ {callsStatus.failedReceipts.length} call(s) failed</p>
-                  {callsStatus.failedReceipts.map((r, i) => (
+                  <p className="text-sm text-[var(--cc-error)] font-semibold mb-1">✗ {callsStatus.failedReceipts?.length} call(s) failed</p>
+                  {callsStatus.failedReceipts?.map((r, i) => (
                     <p key={i} className="text-xs font-mono text-[var(--cc-error)]/80">tx: {r.transactionHash ?? 'pending'}</p>
                   ))}
                 </div>

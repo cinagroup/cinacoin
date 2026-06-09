@@ -2,9 +2,95 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── Vercel-style Design System Tokens ─── */
 :root {
+  /* Core palette */
+  --cc-canvas: #ffffff;
+  --cc-canvas-soft-1: #fafafa;
+  --cc-canvas-soft-2: #f5f5f5;
+  --cc-ink: #171717;
+  --cc-body: #4d4d4d;
+  --cc-muted: #999999;
+
+  /* Interactive */
+  --cc-primary: #171717;
+  --cc-on-primary: #ffffff;
+  --cc-link: #0070f3;
+  --cc-violet: #7928ca;
+  --cc-violet-deep: #5b21b6;
+  --cc-cyan: #00bcd4;
+
+  /* Borders */
+  --cc-hairline: #ebebeb;
+  --cc-hairline-strong: #e0e0e0;
+
+  /* Semantic */
+  --cc-success: #0070f3;
+  --cc-error: #ee0000;
+  --cc-warning: #f5a623;
+  --cc-warning-deep: #b37400;
+
+  /* Radius */
+  --cc-radius-sm: 4px;
+  --cc-radius-md: 8px;
+  --cc-radius-lg: 12px;
+
+  /* Shadows (Vercel-style) */
+  --cc-level1: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --cc-level2: 0 2px 4px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --cc-level3: 0 4px 8px rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.06);
+  --cc-level4: 0 8px 16px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.06);
+  --cc-level5: 0 16px 32px rgba(0, 0, 0, 0.04), 0 8px 16px rgba(0, 0, 0, 0.06);
+
+  /* Spacing (4px grid) */
+  --cc-xs: 8px;
+  --cc-sm: 12px;
+  --cc-md: 16px;
+  --cc-lg: 24px;
+  --cc-xl: 32px;
+
+  /* Font sizes */
+  --cc-button-md: 13px;
+  --cc-button-lg: 14px;
+  --cc-caption: 12px;
+
+  /* Legacy compat */
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+/* ─── Dark theme ─── */
+[data-theme="dark"] {
+  --cc-canvas: #171717;
+  --cc-canvas-soft-1: #1f1f1f;
+  --cc-canvas-soft-2: #292929;
+  --cc-ink: #ededed;
+  --cc-body: #a1a1a1;
+  --cc-muted: #666666;
+
+  --cc-primary: #ededed;
+  --cc-on-primary: #171717;
+  --cc-link: #0070f3;
+  --cc-violet: #b794f6;
+  --cc-violet-deep: #9f7aea;
+  --cc-cyan: #67e8f9;
+
+  --cc-hairline: #333333;
+  --cc-hairline-strong: #444444;
+
+  --cc-success: #0070f3;
+  --cc-error: #ee0000;
+  --cc-warning: #f5a623;
+  --cc-warning-deep: #d4940a;
+
+  --cc-level1: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --cc-level2: 0 2px 4px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.24);
+  --cc-level3: 0 4px 8px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.24);
+  --cc-level4: 0 8px 16px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.24);
+  --cc-level5: 0 16px 32px rgba(0, 0, 0, 0.2), 0 8px 16px rgba(0, 0, 0, 0.24);
+
   --background: #171717;
-  --foreground: #ffffff;
+  --foreground: #ededed;
 }
 
 body {
@@ -13,6 +99,78 @@ body {
   font-family: var(--font-geist-sans), system-ui, sans-serif;
 }
 
+/* ─── Typography utilities ─── */
+.cc-display-sm {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.32px;
+  line-height: 20px;
+}
+
+.cc-caption {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  color: var(--cc-muted);
+}
+
+/* ─── Animation utilities ─── */
+@keyframes dropdown-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-dropdown-in {
+  animation: dropdown-in 150ms ease;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+.animate-ripple {
+  animation: ripple 600ms linear;
+}
+
+@keyframes chain-switch-flash {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 112, 243, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(0, 112, 243, 0.1);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 112, 243, 0);
+  }
+}
+
+.animate-chain-switch-flash {
+  animation: chain-switch-flash 600ms ease;
+}
+
+@keyframes status-transition {
+  0% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-status-transition {
+  animation: status-transition 200ms ease;
+}
+
+/* ─── Transitions ─── */
 @layer utilities {
   .text-balance {
     text-wrap: balance;

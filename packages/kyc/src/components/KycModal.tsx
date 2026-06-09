@@ -302,7 +302,7 @@ function ModalShell({ title, onClose, children }: ModalShellProps): React.ReactE
             borderBottom: '1px solid #e5e7eb',
           }}
         >
-          <h2 style={{ margin: 0, fontSize: '18px', fontWeight: 700 }}>{title}</h2>
+          <h2 style={{ margin: 0, fontSize: '18px', fontWeight: 600 }}>{title}</h2>
           <button
             onClick={onClose}
             style={{

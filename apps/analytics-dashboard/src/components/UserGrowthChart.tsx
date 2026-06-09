@@ -34,25 +34,25 @@ export default function UserGrowthChart() {
         <AreaChart data={data} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
           <defs>
             <linearGradient id="colorUsers" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.15} />
-              <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
+              <stop offset="5%" stopColor="#0070f3" stopOpacity={0.15} />
+              <stop offset="95%" stopColor="#0070f3" stopOpacity={0} />
             </linearGradient>
           </defs>
-          <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-          <XAxis dataKey="date" tick={{ fontSize: 12 }} stroke="#94a3b8" />
-          <YAxis tick={{ fontSize: 12 }} stroke="#94a3b8" />
+          <CartesianGrid strokeDasharray="3 3" stroke="#ebebeb" />
+          <XAxis dataKey="date" tick={{ fontSize: 12 }} stroke="#888888" />
+          <YAxis tick={{ fontSize: 12 }} stroke="#888888" />
           <Tooltip
             contentStyle={{
-              backgroundColor: "#fff",
-              border: "1px solid #e2e8f0",
+              backgroundColor: "#ffffff",
+              border: "1px solid #ebebeb",
               borderRadius: "8px",
-              boxShadow: "0 4px 6px -1px rgba(0,0,0,0.1)",
+              boxShadow: "0 2px 4px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04)",
             }}
           />
           <Area
             type="monotone"
             dataKey="users"
-            stroke="#3b82f6"
+            stroke="#0070f3"
             strokeWidth={2}
             fill="url(#colorUsers)"
             name="Total Users"

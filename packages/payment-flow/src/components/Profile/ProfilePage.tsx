@@ -77,7 +77,7 @@ export function ProfilePage({
 
   return (
     <div className="max-w-md mx-auto rounded-2xl bg-white/5 p-6 backdrop-blur">
-      <h2 className="text-xl font-bold text-white mb-6">Profile</h2>
+      <h2 className="text-xl font-semibold text-white mb-6">Profile</h2>
 
       {/* Connected address */}
       <div className="mb-6 bg-black/20 rounded-xl p-4">

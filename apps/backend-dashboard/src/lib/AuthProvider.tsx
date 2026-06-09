@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, useCallback, useRef, type ReactNode } from "react";
-import { createSiweMessage, generateNonce, connectWallet, signAndVerify, getSession, logout, saveSession } from "@/lib/auth";
+import { createSiweMessage, generateNonce, connectWallet, signAndVerify, getSession, logout, saveSession } from "@/lib/auth.client";
 
 interface AuthContextValue {
   address: string | null;

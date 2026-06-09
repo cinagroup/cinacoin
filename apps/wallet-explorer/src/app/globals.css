@@ -31,9 +31,9 @@
   --shadow-2: 0 1px 2px rgba(0, 0, 0, 0.04), inset 0 0 0 1px rgba(0, 0, 0, 0.08);
   --shadow-3: 0 2px 4px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04), inset 0 0 0 1px rgba(0, 0, 0, 0.08);
   
-  /* Typography */
-  --font-sans: 'Geist', 'Inter', system-ui, sans-serif;
-  --font-mono: 'Geist Mono', ui-monospace, monospace;
+  /* Typography — uses next/font CSS variables when available */
+  --font-sans: var(--font-geist-sans, 'Geist'), 'Inter', system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono, 'Geist Mono'), ui-monospace, monospace;
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -231,7 +231,7 @@ code, .mono {
 }
 
 .btn-primary:hover {
-  background: #000000;
+  background: #2a2a2a;
 }
 
 .btn-secondary {
@@ -282,6 +282,23 @@ code, .mono {
 
 .amount-negative {
   color: var(--color-error);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   EXTRA TYPOGRAPHY UTILITIES (not in Tailwind preset)
+   ═══════════════════════════════════════════════════════════════ */
+.text-display-sm {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.6px;
+}
+
+.text-caption-mono {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
 }
 
 /* ═══════════════════════════════════════════════════════════════

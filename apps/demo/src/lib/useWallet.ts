@@ -247,7 +247,8 @@ export function useWallet(options: UseWalletOptions = {}): UseWalletReturn {
     };
     if (!eth.on || !eth.removeListener) return;
 
-    const handleAccountsChanged = (accounts: unknown[]) => {
+    const handleAccountsChanged = (...args: unknown[]) => {
+      const accounts = args[0] as unknown[];
       if (!accounts || accounts.length === 0) {
         setAccount({ address: null, balance: '0.0000', chainId: null, chainName: '', chainSymbol: 'ETH' });
         setStatus('disconnected');

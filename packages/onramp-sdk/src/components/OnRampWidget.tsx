@@ -221,7 +221,7 @@ export function OnRampWidget({
           alignItems: "center",
         }}
       >
-        <h2 style={{ margin: 0, fontSize: "18px", fontWeight: 700 }}>Buy Crypto</h2>
+        <h2 style={{ margin: 0, fontSize: "18px", fontWeight: 600 }}>Buy Crypto</h2>
         {onClose && (
           <button
             onClick={onClose}
@@ -334,7 +334,7 @@ export function OnRampWidget({
             border: "none",
             borderRadius: "10px",
             fontSize: "15px",
-            fontWeight: 700,
+            fontWeight: 600,
             cursor: selectedQuote && !isLoading ? "pointer" : "not-allowed",
           }}
         >
@@ -371,14 +371,14 @@ function QuoteCard({ quote, isSelected, onSelect }: QuoteCardProps) {
       }}
     >
       <div>
-        <div style={{ fontWeight: 700, fontSize: "14px" }}>{quote.providerName}</div>
+        <div style={{ fontWeight: 600, fontSize: "14px" }}>{quote.providerName}</div>
         <div style={{ fontSize: "12px", color: "#6b7280" }}>
           {quote.fees.totalFeePercent}% fee · ~{quote.estimatedTime} min
           {quote.requiresKyc && " · KYC required"}
         </div>
       </div>
       <div style={{ textAlign: "right" }}>
-        <div style={{ fontWeight: 700, fontSize: "14px", color: "#111827" }}>
+        <div style={{ fontWeight: 600, fontSize: "14px", color: "#111827" }}>
           {quote.cryptoAmount.toFixed(6)} {quote.cryptoToken}
         </div>
         <div style={{ fontSize: "12px", color: "#6b7280" }}>

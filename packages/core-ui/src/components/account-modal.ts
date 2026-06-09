@@ -119,7 +119,7 @@ export class AccountModal extends BaseLitElement {
 
         .balance {
           font-size: var(--ocx-font-size-xl, 1.25rem);
-          font-weight: var(--ocx-font-weight-bold, 700);
+          font-weight: var(--ocx-font-weight-bold, 600);
           color: var(--ocx-color-text-primary, #f8fafc);
           margin-bottom: var(--ocx-space-3, 0.75rem);
         }

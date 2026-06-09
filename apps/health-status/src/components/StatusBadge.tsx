@@ -4,18 +4,18 @@ interface StatusBadgeProps {
   status: StatusType;
 }
 
-const statusConfig: Record<StatusType, { label: string; color: string; bg: string }> = {
-  operational: { label: "Operational", color: "text-green-400", bg: "bg-green-400/10" },
-  degraded: { label: "Degraded", color: "text-yellow-400", bg: "bg-yellow-400/10" },
-  outage: { label: "Major Outage", color: "text-red-400", bg: "bg-red-400/10" },
-  maintenance: { label: "Maintenance", color: "text-blue-400", bg: "bg-blue-400/10" },
+const statusConfig: Record<StatusType, { label: string; color: string; bg: string; dot: string }> = {
+  operational: { label: "Operational", color: "text-[var(--cc-success)]", bg: "bg-[var(--cc-success)]/10", dot: "bg-[var(--cc-success)]" },
+  degraded: { label: "Degraded", color: "text-[var(--cc-warning)]", bg: "bg-[var(--cc-warning)]/10", dot: "bg-[var(--cc-warning)]" },
+  outage: { label: "Major Outage", color: "text-[var(--cc-error)]", bg: "bg-[var(--cc-error)]/10", dot: "bg-[var(--cc-error)]" },
+  maintenance: { label: "Maintenance", color: "text-[var(--cc-maintenance)]", bg: "bg-[var(--cc-maintenance)]/10", dot: "bg-[var(--cc-maintenance)]" },
 };
 
 export default function StatusBadge({ status }: StatusBadgeProps) {
   const config = statusConfig[status];
   return (
     <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium ${config.color} ${config.bg}`}>
-      <span className={`h-2 w-2 rounded-full ${config.color.replace("text-", "bg-")}`} />
+      <span className={`h-2 w-2 rounded-full ${config.dot}`} />
       {config.label}
     </span>
   );

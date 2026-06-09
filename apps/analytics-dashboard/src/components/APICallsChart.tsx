@@ -31,20 +31,20 @@ export default function APICallsChart() {
     <div className="h-72">
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={data} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-          <XAxis dataKey="hour" tick={{ fontSize: 12 }} stroke="#94a3b8" />
-          <YAxis tick={{ fontSize: 12 }} stroke="#94a3b8" />
+          <CartesianGrid strokeDasharray="3 3" stroke="#ebebeb" />
+          <XAxis dataKey="hour" tick={{ fontSize: 12 }} stroke="#888888" />
+          <YAxis tick={{ fontSize: 12 }} stroke="#888888" />
           <Tooltip
             contentStyle={{
-              backgroundColor: "#fff",
-              border: "1px solid #e2e8f0",
+              backgroundColor: "#ffffff",
+              border: "1px solid #ebebeb",
               borderRadius: "8px",
-              boxShadow: "0 4px 6px -1px rgba(0,0,0,0.1)",
+              boxShadow: "0 2px 4px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04)",
             }}
           />
           <Legend />
-          <Bar dataKey="calls" fill="#3b82f6" radius={[4, 4, 0, 0]} name="API Calls" />
-          <Bar dataKey="errors" fill="#ef4444" radius={[4, 4, 0, 0]} name="Errors" />
+          <Bar dataKey="calls" fill="#0070f3" radius={[4, 4, 0, 0]} name="API Calls" />
+          <Bar dataKey="errors" fill="#ee0000" radius={[4, 4, 0, 0]} name="Errors" />
         </BarChart>
       </ResponsiveContainer>
     </div>

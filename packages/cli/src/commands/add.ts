@@ -96,7 +96,7 @@ export default function ConnectButton({ className, label = 'Connect Wallet' }: C
         borderRadius: '8px',
         padding: '0.5rem 1.5rem',
         cursor: 'pointer',
-        fontWeight: 'bold',
+        fontWeight: '600',
       }}
     >
       {label}
@@ -174,7 +174,7 @@ export default function ConnectModal({ isOpen, onClose }: ConnectModalProps) {
                 }}>
                 <span style={{ fontSize: '1.5rem' }}>{wallet.icon}</span>
                 <div>
-                  <div style={{ fontWeight: 'bold' }}>{wallet.name}</div>
+                  <div style={{ fontWeight: '600' }}>{wallet.name}</div>
                   <div style={{ fontSize: '0.8rem', color: '#888' }}>{wallet.description}</div>
                 </div>
               </button>
@@ -388,10 +388,10 @@ export default function NftGallery({ nfts, className, onBuy, columns = 3 }: NftG
               <h4 style={{ margin: '0 0 0.25rem' }}>{nft.name}</h4>
               <p style={{ color: '#888', margin: '0 0 0.75rem', fontSize: '0.85rem' }}>{nft.collection}</p>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontWeight: 'bold' }}>{nft.price} {nft.currency || 'ETH'}</span>
+                <span style={{ fontWeight: '600' }}>{nft.price} {nft.currency || 'ETH'}</span>
                 {onBuy && (
                   <button onClick={() => onBuy(nft)}
-                    style={{ background: '#6366f1', border: 'none', borderRadius: '6px', padding: '0.4rem 1rem', color: 'white', fontWeight: 'bold', cursor: 'pointer' }}>
+                    style={{ background: '#6366f1', border: 'none', borderRadius: '6px', padding: '0.4rem 1rem', color: 'white', fontWeight: '600', cursor: 'pointer' }}>
                     Buy
                   </button>
                 )}

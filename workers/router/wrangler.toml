@@ -1,5 +1,5 @@
 name = "cinacoin-router"
-main = "src/index.js"
+main = "src/index.ts"
 compatibility_date = "2026-06-04"
 account_id = "7ea8e46d8210bad342fa7595f7935fea"
 

@@ -222,7 +222,7 @@ const styles: Record<string, React.CSSProperties> = {
   },
   statValue: {
     fontSize: "16px",
-    fontWeight: 700,
+    fontWeight: 600,
     color: "#111827",
   },
   statLabel: {

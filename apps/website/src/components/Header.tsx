@@ -49,7 +49,7 @@ export default function Header() {
           </Link>
           <Link
             href="/products"
-            className="px-4 py-2 text-[14px] font-medium bg-[#171717] text-white rounded-[6px] hover:bg-[#000000] transition-colors duration-150"
+            className="px-4 py-2 text-[14px] font-medium bg-[#171717] text-white rounded-[6px] hover:bg-[#2a2a2a] transition-colors duration-150"
           >
             Get Started
           </Link>
@@ -103,7 +103,7 @@ export default function Header() {
               <Link
                 href="/products"
                 onClick={() => setMobileOpen(false)}
-                className="px-4 py-2 text-[14px] font-medium bg-[#171717] text-white rounded-[6px] hover:bg-[#000000] transition-colors duration-150 text-center"
+                className="px-4 py-2 text-[14px] font-medium bg-[#171717] text-white rounded-[6px] hover:bg-[#2a2a2a] transition-colors duration-150 text-center"
               >
                 Get Started
               </Link>

@@ -740,7 +740,7 @@ export default function DemoWallet() {
           padding: '0.75rem 1.5rem',
           borderRadius: '8px',
           cursor: 'pointer',
-          fontWeight: 'bold',
+          fontWeight: '600',
         }}
       >
         Disconnect

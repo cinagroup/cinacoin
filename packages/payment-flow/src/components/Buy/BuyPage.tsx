@@ -66,7 +66,7 @@ export function BuyPage({ tokens = DEFAULT_TOKENS, providers = DEFAULT_PROVIDERS
     return (
       <div className="flex flex-col items-center justify-center min-h-[400px] rounded-2xl bg-white/5 p-8">
         <div className="text-6xl mb-4">✅</div>
-        <h2 className="text-2xl font-bold text-white mb-2">Purchase Initiated</h2>
+        <h2 className="text-2xl font-semibold text-white mb-2">Purchase Initiated</h2>
         <p className="text-gray-400 text-center mb-6">
           Your {selectedToken.symbol} purchase is being processed.
           <br />
@@ -84,7 +84,7 @@ export function BuyPage({ tokens = DEFAULT_TOKENS, providers = DEFAULT_PROVIDERS
 
   return (
     <div className="max-w-md mx-auto rounded-2xl bg-white/5 p-6 backdrop-blur">
-      <h2 className="text-xl font-bold text-white mb-6">Buy Crypto</h2>
+      <h2 className="text-xl font-semibold text-white mb-6">Buy Crypto</h2>
 
       {/* Fiat amount */}
       <div className="mb-4">

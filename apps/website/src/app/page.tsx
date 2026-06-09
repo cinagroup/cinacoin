@@ -17,7 +17,7 @@ export default function Home() {
         <div className="flex gap-4 justify-center flex-wrap">
           <Link
             href="/products"
-            className="inline-flex items-center justify-center px-8 py-3 bg-[#171717] hover:bg-[#000000] text-white rounded-[6px] font-medium text-[14px] transition-colors duration-150 h-10"
+            className="inline-flex items-center justify-center px-8 py-3 bg-[#171717] hover:bg-[#2a2a2a] text-white rounded-[6px] font-medium text-[14px] transition-colors duration-150 h-10"
           >
             Get Started
           </Link>
@@ -134,7 +134,7 @@ export default function Home() {
           <div className="flex gap-4 justify-center flex-wrap">
             <Link
               href="/products"
-              className="inline-flex items-center justify-center px-8 py-3 bg-[#171717] hover:bg-[#000000] text-white rounded-[6px] font-medium text-[14px] transition-colors duration-150 h-10"
+              className="inline-flex items-center justify-center px-8 py-3 bg-[#171717] hover:bg-[#2a2a2a] text-white rounded-[6px] font-medium text-[14px] transition-colors duration-150 h-10"
             >
               Create Your Wallet
             </Link>

@@ -237,7 +237,7 @@ export async function registerPasskey(
     const storedCredential: PasskeyCredential = {
       id: base64ToBase64Url(bufferToBase64(cred.rawId)),
       username: username,
-      publicKey: bufferToBase64(cred.getPublicKey()),
+      publicKey: bufferToBase64(cred.getPublicKey() ?? new ArrayBuffer(0)),
       createdAt: new Date().toISOString(),
     };
 

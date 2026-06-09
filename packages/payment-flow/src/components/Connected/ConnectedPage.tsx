@@ -50,7 +50,7 @@ export function ConnectedPage({
       {/* Account overview */}
       <div className="text-center mb-8">
         <p className="text-gray-400 text-sm mb-1">Total Balance</p>
-        <h1 className="text-4xl font-bold text-white mb-3">{totalBalance}</h1>
+        <h1 className="text-4xl font-semibold text-white mb-3">{totalBalance}</h1>
         <code className="bg-black/20 text-gray-300 text-xs px-3 py-1 rounded-lg">
           {shortAddress}
         </code>

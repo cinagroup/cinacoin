@@ -34,8 +34,12 @@ const RETIRED_SUBDOMAINS = {
   'docs.cinacoin.com': '/docs',
 };
 
+export interface Env {
+  // No bindings needed for the router — it proxies to Pages origins directly.
+}
+
 export default {
-  async fetch(request) {
+  async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
     const host = url.hostname;
 
@@ -58,7 +62,7 @@ export default {
     // (1) Canonical host: prefix-proxy to the matching zone, else the website.
     const path = url.pathname;
     const zone = ZONES.find(
-      (z) => path === z.prefix || path.startsWith(z.prefix + '/'),
+      (z: { prefix: string; origin: string }) => path === z.prefix || path.startsWith(z.prefix + '/'),
     );
 
     const origin = zone ? zone.origin : FALLBACK_ORIGIN;

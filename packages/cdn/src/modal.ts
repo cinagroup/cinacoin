@@ -348,7 +348,7 @@ function renderConnectView(
     avatar.style.justifyContent = "center";
     avatar.style.color = "white";
     avatar.style.fontSize = "14px";
-    avatar.style.fontWeight = "bold";
+    avatar.style.fontWeight = "600";
     avatar.textContent = w.name[0];
 
     // Text container

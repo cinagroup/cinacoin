@@ -88,7 +88,7 @@ export function generateDashboard(
     }
     .header h1 {
       font-size: 24px;
-      font-weight: 700;
+      font-weight: 600;
     }
     .header .badge {
       font-size: 12px;
@@ -119,7 +119,7 @@ export function generateDashboard(
     }
     .summary-card .value {
       font-size: 36px;
-      font-weight: 700;
+      font-weight: 600;
     }
     .summary-card .label {
       font-size: 13px;
@@ -223,7 +223,7 @@ export function generateDashboard(
     .severity-resolved { background: rgba(34,197,94,0.15); color: var(--green); }
     .uptime-pct {
       font-size: 14px;
-      font-weight: 700;
+      font-weight: 600;
       font-variant-numeric: tabular-nums;
     }
     .chart-section {

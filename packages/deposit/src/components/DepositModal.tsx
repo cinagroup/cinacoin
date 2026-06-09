@@ -40,7 +40,7 @@ const styles: Record<string, React.CSSProperties> = {
     alignItems: "center",
     marginBottom: 20,
   },
-  title: { margin: 0, fontSize: 20, fontWeight: 700 },
+  title: { margin: 0, fontSize: 20, fontWeight: 600 },
   closeBtn: {
     background: "none",
     border: "none",

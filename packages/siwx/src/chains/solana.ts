@@ -7,6 +7,8 @@
 
 import type { SIWXParams, SIWXResult, SIWXVerifyInput } from '../types.js';
 import { generateTimestamp } from '@cinacoin/siwe';
+import { ed25519 } from '@noble/curves/ed25519';
+import { hexToBytes } from '@noble/hashes/utils';
 
 /**
  * Create a sign-in message for Solana chains.
@@ -65,35 +67,22 @@ export function createSolanaSignInMessage(params: SIWXParams): string {
  *
  * @param input - Verification input.
  * @returns SIWX result with validity status.
- *
- * Note: This requires an ed25519 verification implementation.
- * In practice, use @noble/ed25519 or @stablelib/ed25519.
  */
 export async function verifySolanaSignature(
   input: SIWXVerifyInput
 ): Promise<SIWXResult> {
   try {
     // Solana addresses are base58-encoded public keys (32 bytes)
-    // For verification, we need the public key bytes and signature bytes
-    let isValid: boolean;
-
-    // Check if we have a verify function available
-    if (typeof globalThis.__solanaVerify === 'function') {
-      const messageBytes = new TextEncoder().encode(input.message);
-      const signatureBytes = typeof input.signature === 'string'
-        ? Buffer.from(input.signature, 'hex')
-        : input.signature;
-
-      isValid = globalThis.__solanaVerify(
-        signatureBytes,
-        messageBytes,
-        input.address
-      );
-    } else {
-      // Without a verify implementation, we can only validate format
-      // In production, integrate @noble/ed25519 or similar
-      isValid = validateSolanaSignatureFormat(input.signature);
-    }
+    const publicKeyBytes = base58Decode(input.address);
+    
+    // Decode signature from hex
+    const signatureBytes = hexToBytes(input.signature);
+    
+    // Encode message to bytes
+    const messageBytes = new TextEncoder().encode(input.message);
+    
+    // Verify using ed25519
+    const isValid = ed25519.verify(signatureBytes, messageBytes, publicKeyBytes);
 
     return {
       chainType: 'solana',
@@ -113,6 +102,42 @@ export async function verifySolanaSignature(
       error: (error as Error)?.message || 'Unknown error during Solana verification',
     };
   }
+}
+
+const BASE58_ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+
+/**
+ * Decode base58 string to bytes.
+ */
+function base58Decode(str: string): Uint8Array {
+  const BASE58_MAP: Record<string, number> = {};
+  for (let i = 0; i < BASE58_ALPHABET.length; i++) {
+    BASE58_MAP[BASE58_ALPHABET[i]] = i;
+  }
+
+  let leadingZeros = 0;
+  for (const ch of str) {
+    if (ch !== '1') break;
+    leadingZeros++;
+  }
+
+  let num = 0n;
+  for (const ch of str) {
+    const val = BASE58_MAP[ch];
+    if (val === undefined) throw new Error(`Invalid base58 character: ${ch}`);
+    num = num * 58n + BigInt(val);
+  }
+
+  const hex = num === 0n ? '' : num.toString(16);
+  const paddedHex = hex.length % 2 ? '0' + hex : hex;
+  const bytes: number[] = [];
+  for (let i = 0; i < paddedHex.length; i += 2) {
+    bytes.push(parseInt(paddedHex.slice(i, i + 2), 16));
+  }
+
+  const result = new Uint8Array(leadingZeros + bytes.length);
+  result.set(bytes, leadingZeros);
+  return result;
 }
 
 /**

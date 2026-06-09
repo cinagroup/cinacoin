@@ -28,7 +28,7 @@ export default function ProductsPage() {
                 </li>
               ))}
             </ul>
-            <Link href="/developers" className="inline-flex items-center justify-center px-4 py-2 bg-[#171717] hover:bg-[#000] text-white rounded-[6px] font-medium text-[14px] transition-colors duration-150 h-10">
+            <Link href="/developers" className="inline-flex items-center justify-center px-4 py-2 bg-[#171717] hover:bg-[#2a2a2a] text-white rounded-[6px] font-medium text-[14px] transition-colors duration-150 h-10">
               Download Wallet
             </Link>
           </div>
@@ -62,7 +62,7 @@ export default function ProductsPage() {
                 </li>
               ))}
             </ul>
-            <Link href="/developers" className="inline-flex items-center justify-center px-4 py-2 bg-[#171717] hover:bg-[#000] text-white rounded-[6px] font-medium text-[14px] transition-colors duration-150 h-10">
+            <Link href="/developers" className="inline-flex items-center justify-center px-4 py-2 bg-[#171717] hover:bg-[#2a2a2a] text-white rounded-[6px] font-medium text-[14px] transition-colors duration-150 h-10">
               Start Staking
             </Link>
           </div>

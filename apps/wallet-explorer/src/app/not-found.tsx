@@ -1,70 +1,52 @@
 "use client";
 
+import Link from 'next/link';
+
 export default function NotFound() {
   return (
-    <div className="min-h-screen" style={{ background: 'var(--vercel-canvas-soft)', color: 'var(--vercel-ink)' }}>
-      {/* Vercel-style Header */}
-      <header className="vercel-header" aria-label="Site header">
-        <div className="max-w-[1400px] mx-auto px-6 flex items-center justify-between h-full">
-          <a href="/" className="flex items-center gap-2 no-underline">
-            <img src="/logo.png" alt="Cinacoin" className="h-6 w-auto" />
-            <span className="vercel-body-sm font-medium" style={{ color: 'var(--vercel-ink)' }}>Wallet Explorer</span>
-          </a>
-          <nav className="flex items-center gap-3">
-            <a href="https://docs.cinacoin.com" className="vercel-body-sm hidden md:inline-block no-underline" style={{ color: 'var(--vercel-body)' }}>Docs</a>
-            <a href="https://cinacoin.com" className="vercel-btn-secondary" style={{ height: '32px', fontSize: '13px', padding: '0 12px' }}>← Back</a>
-          </nav>
-        </div>
-      </header>
-      
-      <main className="max-w-[1400px] mx-auto px-6 py-24">
+    <div className="min-h-screen flex flex-col bg-canvas-soft text-ink">
+      <main className="flex-1 flex items-center justify-center py-24">
         <div className="flex flex-col items-center justify-center text-center">
-          <h1 className="vercel-display-xl mb-4" style={{ color: 'var(--vercel-ink)' }}>404</h1>
-          <p className="vercel-body-lg mb-8 max-w-md" style={{ color: 'var(--vercel-body)' }}>
-            Page not found. The wallet explorer you&apos;re looking for doesn&apos;t exist.
+          <h1 className="text-display text-ink mb-4">404</h1>
+          <p className="text-body-lg text-body mb-8 max-w-md">
+            Page not found. The wallet explorer page you&apos;re looking for doesn&apos;t exist.
           </p>
-          <a
-            href="/"
-            className="vercel-btn-primary"
-          >
-            Back to Wallet Explorer
-          </a>
+          <Link href="/" className="btn btn-primary">
+            ← Back to Wallet Explorer
+          </Link>
         </div>
       </main>
-      
-      {/* Vercel-style Footer */}
-      <footer style={{ background: 'var(--vercel-canvas)', borderTop: '1px solid var(--vercel-hairline)', padding: '64px 24px' }}>
-        <div className="max-w-[1400px] mx-auto flex flex-wrap gap-12 justify-between">
-          <div className="max-w-[280px] flex flex-col gap-3">
-            <div className="flex items-center gap-2">
-              <img src="/logo.png" alt="Cinacoin" className="h-5 w-auto" />
-              <span className="vercel-body-sm font-medium" style={{ color: 'var(--vercel-ink)' }}>Cinacoin</span>
+
+      <footer className="border-t border-hairline bg-canvas py-16 px-6">
+        <div className="mx-auto max-w-6xl">
+          <div className="flex flex-wrap gap-12 justify-between">
+            <div className="max-w-[280px] flex flex-col gap-3">
+              <div className="flex items-center gap-2">
+                <img src="/logo.png" alt="CinaCoin" className="h-5 w-auto" />
+                <span className="text-body-sm font-medium text-ink">CinaCoin</span>
+              </div>
+              <p className="text-body-sm text-mute">
+                Discover wallets for every chain and platform.
+              </p>
             </div>
-            <p className="vercel-body-sm" style={{ color: 'var(--vercel-mute)' }}>
-              Discover 100+ wallets for every chain and platform.
+            <div className="flex flex-wrap gap-12">
+              <div>
+                <p className="caption text-mute mb-3">EXPLORER</p>
+                <Link href="/" className="block text-body-sm py-1 text-body hover:text-ink">All wallets</Link>
+                <Link href="/tokens" className="block text-body-sm py-1 text-body hover:text-ink">Tokens</Link>
+              </div>
+              <div>
+                <p className="caption text-mute mb-3">DEVELOPERS</p>
+                <a href="https://github.com/cinagroup" className="block text-body-sm py-1 text-body hover:text-ink">GitHub</a>
+                <a href="https://demo.cinacoin.com" className="block text-body-sm py-1 text-body hover:text-ink">Demo</a>
+              </div>
+            </div>
+          </div>
+          <div className="mt-12 pt-6 border-t border-hairline">
+            <p className="caption text-mute">
+              © {new Date().getFullYear()} CinaCoin. All rights reserved.
             </p>
           </div>
-          <div className="flex flex-wrap gap-12">
-            <div>
-              <p className="vercel-caption-mono mb-3" style={{ color: 'var(--vercel-mute)' }}>EXPLORER</p>
-              <a href="/" className="block vercel-body-sm py-1 no-underline" style={{ color: 'var(--vercel-body)' }}>All wallets</a>
-              <a href="https://docs.cinacoin.com" className="block vercel-body-sm py-1 no-underline" style={{ color: 'var(--vercel-body)' }}>Docs</a>
-            </div>
-            <div>
-              <p className="vercel-caption-mono mb-3" style={{ color: 'var(--vercel-mute)' }}>DEVELOPERS</p>
-              <a href="https://github.com/cinagroup" className="block vercel-body-sm py-1 no-underline" style={{ color: 'var(--vercel-body)' }}>GitHub</a>
-              <a href="https://demo.cinacoin.com" className="block vercel-body-sm py-1 no-underline" style={{ color: 'var(--vercel-body)' }}>Demo</a>
-            </div>
-            <div>
-              <p className="vercel-caption-mono mb-3" style={{ color: 'var(--vercel-mute)' }}>COMPANY</p>
-              <a href="https://cinacoin.com" className="block vercel-body-sm py-1 no-underline" style={{ color: 'var(--vercel-body)' }}>Back to Cinacoin</a>
-            </div>
-          </div>
-        </div>
-        <div className="max-w-[1400px] mx-auto mt-12 pt-6" style={{ borderTop: '1px solid var(--vercel-hairline)' }}>
-          <p className="vercel-caption" style={{ color: 'var(--vercel-mute)' }}>
-            © {new Date().getFullYear()} Cinacoin. All rights reserved.
-          </p>
         </div>
       </footer>
     </div>

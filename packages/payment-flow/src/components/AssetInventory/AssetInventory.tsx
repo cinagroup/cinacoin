@@ -24,7 +24,7 @@ export function AssetInventory({ balances = [] }: AssetInventoryProps) {
     return (
       <div className="max-w-lg mx-auto rounded-2xl bg-white/5 p-8 backdrop-blur text-center">
         <div className="text-5xl mb-4">📭</div>
-        <h3 className="text-xl font-bold text-white mb-2">No assets available</h3>
+        <h3 className="text-xl font-semibold text-white mb-2">No assets available</h3>
         <p className="text-gray-400 text-sm">
           Connect a wallet or make your first purchase to see your assets here.
         </p>
@@ -40,7 +40,7 @@ export function AssetInventory({ balances = [] }: AssetInventoryProps) {
   return (
     <div className="max-w-lg mx-auto rounded-2xl bg-white/5 p-6 backdrop-blur">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-bold text-white">Assets</h2>
+        <h2 className="text-xl font-semibold text-white">Assets</h2>
         <span className="text-lg font-semibold text-blue-400">
           ${totalFiatValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
         </span>
@@ -54,7 +54,7 @@ export function AssetInventory({ balances = [] }: AssetInventoryProps) {
           >
             <div className="flex items-center gap-3">
               {/* Token icon placeholder */}
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-semibold text-sm">
                 {asset.token.symbol.slice(0, 2)}
               </div>
               <div>

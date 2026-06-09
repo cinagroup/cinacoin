@@ -13,7 +13,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="min-h-screen antialiased">
+      <body className="min-h-screen antialiased bg-[var(--cc-canvas)]">
         <div className="mx-auto max-w-4xl px-4 py-8">
           {children}
         </div>

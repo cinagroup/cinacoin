@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <div className="flex min-h-screen bg-canvas-soft">
       <Sidebar activeTab={activeTab} onTabChange={setActiveTab} />
-      <main className="flex-1 ml-64 p-lg">
+      <main className="flex-1 ml-60 p-lg">
         <div className="max-w-7xl mx-auto">
           <header className="mb-lg">
             <h1 className="text-heading-1 text-ink">

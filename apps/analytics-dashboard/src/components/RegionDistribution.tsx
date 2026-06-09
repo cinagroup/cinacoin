@@ -3,11 +3,11 @@
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 
 const data = [
-  { name: "North America", value: 35, color: "#3b82f6" },
-  { name: "Europe", value: 28, color: "#8b5cf6" },
-  { name: "Asia Pacific", value: 22, color: "#06b6d4" },
-  { name: "Latin America", value: 10, color: "#f59e0b" },
-  { name: "Others", value: 5, color: "#64748b" },
+  { name: "North America", value: 35, color: "#0070f3" },
+  { name: "Europe", value: 28, color: "#7928ca" },
+  { name: "Asia Pacific", value: 22, color: "#0091ff" },
+  { name: "Latin America", value: 10, color: "#f5a623" },
+  { name: "Others", value: 5, color: "#737373" },
 ];
 
 export default function RegionDistribution() {
@@ -31,26 +31,26 @@ export default function RegionDistribution() {
             </Pie>
             <Tooltip
               contentStyle={{
-                backgroundColor: "#fff",
-                border: "1px solid #e2e8f0",
+                backgroundColor: "#ffffff",
+                border: "1px solid #ebebeb",
                 borderRadius: "8px",
-                boxShadow: "0 4px 6px -1px rgba(0,0,0,0.1)",
+                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04)",
               }}
             />
           </PieChart>
         </ResponsiveContainer>
       </div>
-      <div className="mt-4 space-y-2">
+      <div className="mt-lg space-y-xs">
         {data.map((item, index) => (
           <div key={index} className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-xs">
               <div
                 className="w-3 h-3 rounded-full"
                 style={{ backgroundColor: item.color }}
               />
-              <span className="text-sm text-slate-600">{item.name}</span>
+              <span className="text-body text-ink-body">{item.name}</span>
             </div>
-            <span className="text-sm font-medium text-slate-800">{item.value}%</span>
+            <span className="text-body font-medium text-ink">{item.value}%</span>
           </div>
         ))}
       </div>

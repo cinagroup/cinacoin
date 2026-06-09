@@ -93,14 +93,14 @@ export function SendPage({ tokens = DEFAULT_TOKENS, onSend }: SendPageProps) {
         {txStatus === "pending" && (
           <>
             <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mb-4" />
-            <h2 className="text-xl font-bold text-white mb-2">Sending…</h2>
+            <h2 className="text-xl font-semibold text-white mb-2">Sending…</h2>
             <p className="text-gray-400 text-sm mb-4">Waiting for network confirmation</p>
           </>
         )}
         {txStatus === "confirmed" && (
           <>
             <div className="text-5xl mb-4">✅</div>
-            <h2 className="text-xl font-bold text-white mb-2">Transaction Confirmed</h2>
+            <h2 className="text-xl font-semibold text-white mb-2">Transaction Confirmed</h2>
             <p className="text-gray-400 text-sm mb-2">
               {amount} {selectedToken.symbol} sent to
             </p>
@@ -115,7 +115,7 @@ export function SendPage({ tokens = DEFAULT_TOKENS, onSend }: SendPageProps) {
         {txStatus === "failed" && (
           <>
             <div className="text-5xl mb-4">❌</div>
-            <h2 className="text-xl font-bold text-red-400 mb-2">Transaction Failed</h2>
+            <h2 className="text-xl font-semibold text-red-400 mb-2">Transaction Failed</h2>
             <p className="text-gray-400 text-sm mb-4">Something went wrong. Please try again.</p>
           </>
         )}
@@ -136,7 +136,7 @@ export function SendPage({ tokens = DEFAULT_TOKENS, onSend }: SendPageProps) {
   if (step === "confirm") {
     return (
       <div className="max-w-md mx-auto rounded-2xl bg-white/5 p-6 backdrop-blur">
-        <h2 className="text-xl font-bold text-white mb-6">Confirm Transaction</h2>
+        <h2 className="text-xl font-semibold text-white mb-6">Confirm Transaction</h2>
 
         <div className="space-y-4 mb-6">
           <div className="flex justify-between text-sm">
@@ -186,7 +186,7 @@ export function SendPage({ tokens = DEFAULT_TOKENS, onSend }: SendPageProps) {
 
   return (
     <div className="max-w-md mx-auto rounded-2xl bg-white/5 p-6 backdrop-blur">
-      <h2 className="text-xl font-bold text-white mb-6">Send</h2>
+      <h2 className="text-xl font-semibold text-white mb-6">Send</h2>
 
       {/* Recipient address */}
       <div className="mb-4">
