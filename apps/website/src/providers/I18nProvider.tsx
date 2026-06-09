@@ -1011,21 +1011,23 @@ function getInitialLocale(): Locale {
   return 'en'
 }
 
-const initialLocale = getInitialLocale()
-
 export function I18nProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>(initialLocale)
+  // Always start with 'en' to match SSR output, then update on client mount
+  const [locale, setLocaleState] = useState<Locale>('en')
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     // Re-evaluate on client for stored preference
     const clientLocale = getInitialLocale()
     setLocaleState(clientLocale)
+    setMounted(true)
   }, [])
 
   useEffect(() => {
+    if (!mounted) return
     try { localStorage.setItem('cc-locale', locale) } catch {}
     document.documentElement.lang = locale
-  }, [locale])
+  }, [locale, mounted])
 
   const setLocale = useCallback((l: Locale) => {
     setLocaleState(l)
