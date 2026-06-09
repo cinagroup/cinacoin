@@ -26,6 +26,12 @@
   --cc-error: #ee0000;
   --cc-warning: #f5a623;
   --cc-maintenance: #0070f3;
+  
+  /* Status colors - distinct from semantic colors */
+  --color-operational: #22c55e;
+  --color-degraded: #f5a623;
+  --color-outage: #ee0000;
+  --color-maintenance: #0070f3;
 
   /* Radius */
   --cc-radius-sm: 4px;
@@ -38,11 +44,7 @@
   --cc-level3: 0 4px 8px rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.06);
   --cc-level4: 0 8px 16px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.06);
 
-  /* Status colors */
-  --color-operational: #0070f3;
-  --color-degraded: #f5a623;
-  --color-outage: #ee0000;
-  --color-maintenance: #0070f3;
+
 }
 
 body {

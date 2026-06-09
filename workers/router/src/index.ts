@@ -66,7 +66,14 @@ export default {
     );
 
     const origin = zone ? zone.origin : FALLBACK_ORIGIN;
-    const target = new URL(url.pathname + url.search, origin);
+    
+    // Strip the zone prefix before proxying to Pages (Pages apps don't include basePath in static export)
+    let targetPath = url.pathname;
+    if (zone) {
+      targetPath = url.pathname.slice(zone.prefix.length) || '/';
+    }
+    
+    const target = new URL(targetPath + url.search, origin);
 
     const proxied = new Request(target, request);
     proxied.headers.set('Host', new URL(origin).host);

@@ -149,14 +149,16 @@ export default function LoginPage() {
           </div>
         </div>
 
-        {/* Back to dashboard link */}
+        {/* Help link */}
         <div className="text-center mt-6">
-          <Link
-            href="/"
+          <a
+            href="https://metamask.io"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-sm text-[var(--cc-body)] hover:text-[var(--cc-ink)] transition-colors"
           >
-            ← Back to Dashboard
-          </Link>
+            Need help with MetaMask? →
+          </a>
         </div>
       </div>
     </div>

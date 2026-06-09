@@ -152,6 +152,7 @@ const translations: Record<Locale, Record<string, string>> = {
     'contact-form-message': 'Message',
     'contact-form-message-placeholder': 'Tell us how we can help...',
     'contact-form-submit': 'Send Message',
+    'contact-form-success': 'Message sent successfully!',
     'contact-info-title': 'Direct Contact',
     'contact-info-email': 'Email',
     'contact-info-github': 'GitHub',

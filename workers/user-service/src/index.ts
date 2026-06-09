@@ -48,11 +48,12 @@ app.use('*', requestId());
 app.use(
   '/api/*',
   cors({
-    origin: ['*'], // TODO: restrict in production
+    origin: ['https://cinacoin.com', 'https://wallet.cinacoin.com', 'https://backend.cinacoin.com'],
     allowMethods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowHeaders: ['Content-Type', 'Authorization', 'X-Admin-Key'],
+    allowHeaders: ['Content-Type', 'Authorization', 'X-Admin-Key', 'X-CSRF-Token'],
     exposeHeaders: ['X-Request-Id'],
     maxAge: 86400,
+    credentials: true,
   })
 );
 

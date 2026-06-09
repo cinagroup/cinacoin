@@ -41,14 +41,14 @@ export default function Navigation() {
           )}
         </div>
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-2 overflow-x-auto pb-1">
         {navItems.map((item) => {
           const isActive = pathname === item.href;
           return (
             <Link
               key={item.href}
               href={item.href}
-              className={`px-4 py-2 rounded-md text-body-sm font-medium transition-colors ${
+              className={`px-4 py-2 rounded-md text-body-sm font-medium transition-colors whitespace-nowrap ${
                 isActive
                   ? 'bg-primary text-on-primary'
                   : 'text-body hover:bg-canvas-soft-2'

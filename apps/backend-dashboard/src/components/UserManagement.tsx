@@ -27,11 +27,13 @@ const statusBadge: Record<string, string> = {
 };
 
 export function UserManagement() {
-  const [users] = useState<User[]>(mockUsers);
+  const [users, setUsers] = useState<User[]>(mockUsers);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedUsers, setSelectedUsers] = useState<Set<string>>(new Set());
   const [showBatchActions, setShowBatchActions] = useState(false);
-  const [confirmAction, setConfirmAction] = useState<{ type: "delete" | "disable"; count: number } | null>(null);
+  const [confirmAction, setConfirmAction] = useState<{ type: "delete" | "disable"; count: number; userIds?: string[] } | null>(null);
+  const [editingUser, setEditingUser] = useState<User | null>(null);
+  const [showAddUser, setShowAddUser] = useState(false);
 
   const filteredUsers = users.filter(
     (user) =>
@@ -61,18 +63,40 @@ export function UserManagement() {
   };
 
   const handleBatchDelete = () => {
-    setConfirmAction({ type: "delete", count: selectedUsers.size });
+    setConfirmAction({ type: "delete", count: selectedUsers.size, userIds: Array.from(selectedUsers) });
   };
 
   const handleBatchDisable = () => {
-    setConfirmAction({ type: "disable", count: selectedUsers.size });
+    setConfirmAction({ type: "disable", count: selectedUsers.size, userIds: Array.from(selectedUsers) });
   };
 
   const handleConfirmAction = () => {
-    // In production, this would call the API
-    console.log(`Batch ${confirmAction?.type}:`, Array.from(selectedUsers));
+    if (!confirmAction) return;
+    
+    const userIds = confirmAction.userIds || Array.from(selectedUsers);
+    
+    if (confirmAction.type === "delete") {
+      setUsers(users.filter(u => !userIds.includes(u.id)));
+    } else if (confirmAction.type === "disable") {
+      setUsers(users.map(u => 
+        userIds.includes(u.id) ? { ...u, status: "suspended" as const } : u
+      ));
+    }
+    
     setSelectedUsers(new Set());
     setConfirmAction(null);
+  };
+
+  const handleEditUser = (user: User) => {
+    setEditingUser(user);
+  };
+
+  const handleDeleteUser = (userId: string) => {
+    setConfirmAction({ type: "delete", count: 1, userIds: [userId] });
+  };
+
+  const handleAddUser = () => {
+    setShowAddUser(true);
   };
 
   return (
@@ -137,11 +161,140 @@ export function UserManagement() {
         </div>
       )}
 
+      {/* Edit user modal */}
+      {editingUser && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="card p-lg max-w-md w-full mx-4">
+            <h3 className="text-heading-3 text-ink mb-4">Edit User</h3>
+            <div className="space-y-md">
+              <div>
+                <label className="label">Name</label>
+                <input
+                  type="text"
+                  defaultValue={editingUser.name}
+                  className="input"
+                  id="edit-name"
+                />
+              </div>
+              <div>
+                <label className="label">Email</label>
+                <input
+                  type="email"
+                  defaultValue={editingUser.email}
+                  className="input"
+                  id="edit-email"
+                />
+              </div>
+              <div>
+                <label className="label">Role</label>
+                <select defaultValue={editingUser.role} className="select" id="edit-role">
+                  <option value="User">User</option>
+                  <option value="Editor">Editor</option>
+                  <option value="Moderator">Moderator</option>
+                  <option value="Admin">Admin</option>
+                </select>
+              </div>
+              <div>
+                <label className="label">Status</label>
+                <select defaultValue={editingUser.status} className="select" id="edit-status">
+                  <option value="active">Active</option>
+                  <option value="suspended">Suspended</option>
+                  <option value="pending">Pending</option>
+                </select>
+              </div>
+            </div>
+            <div className="flex gap-md justify-end mt-lg">
+              <button
+                onClick={() => setEditingUser(null)}
+                className="btn btn-secondary"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  const name = (document.getElementById('edit-name') as HTMLInputElement)?.value;
+                  const email = (document.getElementById('edit-email') as HTMLInputElement)?.value;
+                  const role = (document.getElementById('edit-role') as HTMLSelectElement)?.value;
+                  const status = (document.getElementById('edit-status') as HTMLSelectElement)?.value as User['status'];
+                  
+                  setUsers(users.map(u => 
+                    u.id === editingUser.id ? { ...u, name, email, role, status } : u
+                  ));
+                  setEditingUser(null);
+                }}
+                className="btn btn-primary"
+              >
+                Save Changes
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Add user modal */}
+      {showAddUser && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="card p-lg max-w-md w-full mx-4">
+            <h3 className="text-heading-3 text-ink mb-4">Add New User</h3>
+            <div className="space-y-md">
+              <div>
+                <label className="label">Name</label>
+                <input type="text" className="input" id="add-name" placeholder="John Doe" />
+              </div>
+              <div>
+                <label className="label">Email</label>
+                <input type="email" className="input" id="add-email" placeholder="john@example.com" />
+              </div>
+              <div>
+                <label className="label">Role</label>
+                <select className="select" id="add-role" defaultValue="User">
+                  <option value="User">User</option>
+                  <option value="Editor">Editor</option>
+                  <option value="Moderator">Moderator</option>
+                  <option value="Admin">Admin</option>
+                </select>
+              </div>
+            </div>
+            <div className="flex gap-md justify-end mt-lg">
+              <button
+                onClick={() => setShowAddUser(false)}
+                className="btn btn-secondary"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  const name = (document.getElementById('add-name') as HTMLInputElement)?.value;
+                  const email = (document.getElementById('add-email') as HTMLInputElement)?.value;
+                  const role = (document.getElementById('add-role') as HTMLSelectElement)?.value;
+                  
+                  if (name && email) {
+                    const newUser: User = {
+                      id: String(Date.now()),
+                      name,
+                      email,
+                      role,
+                      status: 'pending',
+                      createdAt: new Date().toISOString().split('T')[0]
+                    };
+                    setUsers([...users, newUser]);
+                    setShowAddUser(false);
+                  }
+                }}
+                className="btn btn-primary"
+              >
+                Add User
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="card">
         <div className="p-md border-b border-hairline">
           <div className="flex items-center justify-between">
             <h2 className="text-heading-3 text-ink">User Management</h2>
-            <button className="btn btn-primary">
+            <button className="btn btn-primary" onClick={handleAddUser}>
               + Add User
             </button>
           </div>
@@ -184,7 +337,24 @@ export function UserManagement() {
               </tr>
             </thead>
             <tbody>
-              {filteredUsers.map((user) => (
+              {filteredUsers.length === 0 ? (
+                <tr>
+                  <td colSpan={6} className="text-center py-12">
+                    <div className="flex flex-col items-center gap-2">
+                      <svg className="w-12 h-12 text-mute" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                      </svg>
+                      <p className="text-body text-body-color">No users found matching "{searchTerm}"</p>
+                      <button
+                        onClick={() => setSearchTerm("")}
+                        className="text-link hover:text-link-hover text-body-sm font-medium mt-2"
+                      >
+                        Clear search
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ) : filteredUsers.map((user) => (
                 <tr
                   key={user.id}
                   className={`${selectedUsers.has(user.id) ? "bg-blue-50/50" : ""}`}
@@ -220,8 +390,18 @@ export function UserManagement() {
                     {user.createdAt}
                   </td>
                   <td className="text-right">
-                    <button className="text-link hover:text-link-hover mr-3 text-body-sm font-medium">Edit</button>
-                    <button className="text-error hover:opacity-80 text-body-sm font-medium">Delete</button>
+                    <button 
+                      className="text-link hover:text-link-hover mr-3 text-body-sm font-medium"
+                      onClick={() => handleEditUser(user)}
+                    >
+                      Edit
+                    </button>
+                    <button 
+                      className="text-error hover:opacity-80 text-body-sm font-medium"
+                      onClick={() => handleDeleteUser(user.id)}
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               ))}

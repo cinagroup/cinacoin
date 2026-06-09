@@ -1,22 +1,26 @@
 /**
  * Authentication Middleware
  *
- * Supports two auth strategies:
- * 1. Bearer token (API key) — hashed and looked up in DB
- * 2. Admin API key (X-Admin-Key header) — for privileged operations
+ * Supports three auth strategies:
+ * 1. JWT Bearer token — verified using jose (from Auth Service)
+ * 2. Bearer token (API key) — hashed and looked up in DB
+ * 3. Admin API key (X-Admin-Key header) — for privileged operations
  *
  * On success, sets `c.set('userId', ...)` and `c.set('authType', ...)` for downstream use.
  */
 
 import { createMiddleware } from 'hono/factory';
+import { jwtVerify } from 'jose';
 import type { Env } from '../db/schema';
 import { getApiKeyByHash } from '../db/queries';
 
 /** Extend Hono context variables after auth */
 export type AuthVariables = {
   userId: string;
-  authType: 'api_key' | 'admin';
+  authType: 'jwt' | 'api_key' | 'admin';
   scopes: string[];
+  email?: string;
+  role?: string;
 };
 
 async function sha256(text: string): Promise<string> {
@@ -48,18 +52,46 @@ export const requireAuth = createMiddleware<{ Bindings: Env; Variables: AuthVari
     return;
   }
 
-  // ── Bearer Token (API Key) ─────────────────────────────────────────────────
+  // ── Bearer Token (JWT or API Key) ──────────────────────────────────────────
   if (authHeader?.startsWith('Bearer ')) {
     const token = authHeader.slice(7);
     if (!token) {
       return c.json({ error: 'Empty bearer token' }, 401);
     }
 
+    // Try JWT verification first
+    if (c.env.JWT_SECRET) {
+      try {
+        const secret = new TextEncoder().encode(c.env.JWT_SECRET);
+        const { payload } = await jwtVerify(token, secret, {
+          issuer: c.env.JWT_ISSUER,
+          audience: c.env.JWT_AUDIENCE,
+        });
+
+        // Verify it's an access token
+        if (payload.type !== 'access') {
+          return c.json({ error: 'Invalid token type: expected access token' }, 401);
+        }
+
+        c.set('userId', payload.sub as string);
+        c.set('authType', 'jwt');
+        c.set('email', payload.email as string);
+        c.set('role', payload.role as string);
+        c.set('scopes', ['*']); // JWT tokens have full user scope
+        await next();
+        return;
+      } catch (jwtError) {
+        // JWT verification failed, fall through to API key check
+        console.log('JWT verification failed, trying API key:', jwtError.message);
+      }
+    }
+
+    // Fall back to API key verification
     const keyHash = await sha256(token);
     const apiKey = await getApiKeyByHash(c.env.DB, keyHash, c.env.CACHE);
 
     if (!apiKey) {
-      return c.json({ error: 'Invalid API key' }, 401);
+      return c.json({ error: 'Invalid token' }, 401);
     }
 
     // Check expiration
@@ -99,6 +131,29 @@ export const optionalAuth = createMiddleware<{ Bindings: Env; Variables: Partial
   } else if (authHeader?.startsWith('Bearer ')) {
     const token = authHeader.slice(7);
     if (token) {
+      // Try JWT first
+      if (c.env.JWT_SECRET) {
+        try {
+          const secret = new TextEncoder().encode(c.env.JWT_SECRET);
+          const { payload } = await jwtVerify(token, secret, {
+            issuer: c.env.JWT_ISSUER,
+            audience: c.env.JWT_AUDIENCE,
+          });
+          if (payload.type === 'access') {
+            c.set('userId', payload.sub as string);
+            c.set('authType', 'jwt');
+            c.set('email', payload.email as string);
+            c.set('role', payload.role as string);
+            c.set('scopes', ['*']);
+            await next();
+            return;
+          }
+        } catch (jwtError) {
+          // JWT failed, try API key
+        }
+      }
+
+      // Fall back to API key
       const keyHash = await sha256(token);
       const apiKey = await getApiKeyByHash(c.env.DB, keyHash, c.env.CACHE);
       if (apiKey && (apiKey.expires_at === null || apiKey.expires_at >= Math.floor(Date.now() / 1000))) {

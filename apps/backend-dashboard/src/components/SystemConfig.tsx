@@ -48,12 +48,32 @@ const mockConfig: ConfigSection[] = [
 ];
 
 export function SystemConfig() {
-  const [config] = useState<ConfigSection[]>(mockConfig);
+  const [config, setConfig] = useState<ConfigSection[]>(mockConfig);
   const [saved, setSaved] = useState(false);
 
+  const handleFieldChange = (sectionId: string, fieldKey: string, value: string | number | boolean) => {
+    setConfig(config.map(section => {
+      if (section.id === sectionId) {
+        return {
+          ...section,
+          fields: section.fields.map(field => 
+            field.key === fieldKey ? { ...field, value } : field
+          )
+        };
+      }
+      return section;
+    }));
+  };
+
   const handleSave = () => {
+    console.log('Saving config:', config);
     setSaved(true);
     setTimeout(() => setSaved(false), 3000);
+  };
+
+  const handleReset = () => {
+    setConfig(mockConfig);
+    setSaved(false);
   };
 
   return (
@@ -72,14 +92,16 @@ export function SystemConfig() {
                   {field.type === "text" && (
                     <input
                       type="text"
-                      defaultValue={field.value as string}
+                      value={field.value as string}
+                      onChange={(e) => handleFieldChange(section.id, field.key, e.target.value)}
                       className="input"
                     />
                   )}
                   {field.type === "number" && (
                     <input
                       type="number"
-                      defaultValue={field.value as number}
+                      value={field.value as number}
+                      onChange={(e) => handleFieldChange(section.id, field.key, Number(e.target.value))}
                       className="input"
                     />
                   )}
@@ -88,6 +110,7 @@ export function SystemConfig() {
                       className={`toggle ${
                         field.value ? "bg-primary" : "bg-gray-200"
                       }`}
+                      onClick={() => handleFieldChange(section.id, field.key, !field.value)}
                     >
                       <span
                         className={`toggle-knob ${
@@ -98,7 +121,8 @@ export function SystemConfig() {
                   )}
                   {field.type === "select" && (
                     <select
-                      defaultValue={field.value as string}
+                      value={field.value as string}
+                      onChange={(e) => handleFieldChange(section.id, field.key, e.target.value)}
                       className="select"
                     >
                       {field.options?.map((opt) => (
@@ -122,7 +146,7 @@ export function SystemConfig() {
         >
           Save All Changes
         </button>
-        <button className="btn btn-secondary">
+        <button className="btn btn-secondary" onClick={handleReset}>
           Reset to Defaults
         </button>
         {saved && (

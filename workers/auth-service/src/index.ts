@@ -17,6 +17,7 @@ import changePasswordRoute from './routes/auth/change-password.js';
 import mfaRoutes from './routes/mfa/index.js';
 import oauthRoutes from './routes/oauth/index.js';
 import { oneClickAuthRoutes } from './one-click-auth/index.js';
+import { requireCsrf } from './middleware/csrf.js';
 
 const app = new Hono<{ Bindings: Env }>();
 
@@ -41,9 +42,9 @@ app.use('*', async (c, next) => {
 app.use('*', logger());
 app.use('*', async (c, next) => {
   const corsMiddleware = cors({
-    origin: c.env.CORS_ORIGIN || '*',
+    origin: ['https://cinacoin.com', 'https://wallet.cinacoin.com', 'https://backend.cinacoin.com'],
     allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowHeaders: ['Content-Type', 'Authorization'],
+    allowHeaders: ['Content-Type', 'Authorization', 'X-CSRF-Token'],
     credentials: true,
   });
   return corsMiddleware(c, next);
@@ -59,6 +60,9 @@ app.get('/health', (c) => {
     timestamp: new Date().toISOString(),
   });
 });
+
+// CSRF protection for state-changing authenticated requests
+app.use('/auth/*', requireCsrf);
 
 // Mount routes
 app.route('/auth', loginRoute);

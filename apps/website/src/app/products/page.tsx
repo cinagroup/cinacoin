@@ -1,8 +1,11 @@
 import Link from 'next/link';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
 export default function ProductsPage() {
   return (
-    <main className="min-h-screen bg-[#fafafa]">
+    <main className="min-h-screen bg-[var(--cc-canvas-soft)] text-[var(--cc-ink)]">
+      <Navbar />
       {/* Hero */}
       <section className="max-w-[1200px] mx-auto px-6 py-24 text-center">
         <h1 className="text-5xl md:text-[64px] font-semibold mb-6 tracking-tight text-[#171717] leading-[1.05]">
@@ -28,7 +31,7 @@ export default function ProductsPage() {
                 </li>
               ))}
             </ul>
-            <Link href="/developers" className="inline-flex items-center justify-center px-4 py-2 bg-[#171717] hover:bg-[#2a2a2a] text-white rounded-[6px] font-medium text-[14px] transition-colors duration-150 h-10">
+            <Link href="/products#wallet" className="inline-flex items-center justify-center px-4 py-2 bg-[#171717] hover:bg-[#2a2a2a] text-white rounded-[6px] font-medium text-[14px] transition-colors duration-150 h-10">
               Download Wallet
             </Link>
           </div>
@@ -45,7 +48,7 @@ export default function ProductsPage() {
                 </li>
               ))}
             </ul>
-            <Link href="/developers" className="inline-flex items-center justify-center px-4 py-2 border border-[#ebebeb] hover:border-[#a1a1a1] rounded-[6px] font-medium text-[14px] transition-colors duration-150 text-[#171717] bg-white h-10">
+            <Link href="/products#exchange" className="inline-flex items-center justify-center px-4 py-2 border border-[#ebebeb] hover:border-[#a1a1a1] rounded-[6px] font-medium text-[14px] transition-colors duration-150 text-[#171717] bg-white h-10">
               Start Trading
             </Link>
           </div>
@@ -62,7 +65,7 @@ export default function ProductsPage() {
                 </li>
               ))}
             </ul>
-            <Link href="/developers" className="inline-flex items-center justify-center px-4 py-2 bg-[#171717] hover:bg-[#2a2a2a] text-white rounded-[6px] font-medium text-[14px] transition-colors duration-150 h-10">
+            <Link href="/products#staking" className="inline-flex items-center justify-center px-4 py-2 bg-[#171717] hover:bg-[#2a2a2a] text-white rounded-[6px] font-medium text-[14px] transition-colors duration-150 h-10">
               Start Staking
             </Link>
           </div>
@@ -79,12 +82,13 @@ export default function ProductsPage() {
                 </li>
               ))}
             </ul>
-            <Link href="/developers" className="inline-flex items-center justify-center px-4 py-2 border border-[#ebebeb] hover:border-[#a1a1a1] rounded-[6px] font-medium text-[14px] transition-colors duration-150 text-[#171717] bg-white h-10">
+            <Link href="/products#explorer" className="inline-flex items-center justify-center px-4 py-2 border border-[#ebebeb] hover:border-[#a1a1a1] rounded-[6px] font-medium text-[14px] transition-colors duration-150 text-[#171717] bg-white h-10">
               Open Explorer
             </Link>
           </div>
         </div>
       </section>
+      <Footer />
     </main>
   );
 }

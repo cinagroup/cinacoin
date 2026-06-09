@@ -32,9 +32,9 @@ app.use('*', async (c, next) => {
 // Middleware
 app.use('*', logger())
 app.use('*', cors({
-  origin: ['https://cinacoin.com', 'https://dash.cinacoin.com', 'https://website.cinacoin.com'],
+  origin: ['https://cinacoin.com', 'https://wallet.cinacoin.com', 'https://backend.cinacoin.com'],
   allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowHeaders: ['Content-Type', 'Authorization'],
+  allowHeaders: ['Content-Type', 'Authorization', 'X-CSRF-Token'],
   credentials: true,
 }))
 

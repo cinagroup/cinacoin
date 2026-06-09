@@ -1,8 +1,11 @@
 import Link from 'next/link';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
 export default function ResourcesPage() {
   return (
-    <main className="min-h-screen bg-[#fafafa]">
+    <main className="min-h-screen bg-[var(--cc-canvas-soft)] text-[var(--cc-ink)]">
+      <Navbar />
       {/* Hero */}
       <section className="max-w-[1200px] mx-auto px-6 py-24 text-center">
         <h1 className="text-5xl md:text-[64px] font-semibold mb-6 tracking-tight text-[#171717] leading-[1.05]">
@@ -59,6 +62,7 @@ export default function ResourcesPage() {
           </div>
         </div>
       </section>
+      <Footer />
     </main>
   );
 }

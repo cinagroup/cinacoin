@@ -3,21 +3,8 @@
  * 
  * Usage in your app's tailwind.config.ts:
  * 
- * ```typescript
- * import type { Config } from "tailwindcss";
- * import cinacoinPreset from "@cinacoin/design-system/tailwind-preset";
- * 
- * const config: Config = {
- *   presets: [cinacoinPreset],
- *   content: [
- *     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
- *     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
- *     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
- *   ],
- *   // ... app-specific overrides
- * };
- * export default config;
- * ```
+ * Usage: import cinacoinPreset and add to presets array in tailwind.config.ts.
+ * Content paths should include src/pages, src/components, and src/app.
  */
 
 import type { Config } from "tailwindcss";

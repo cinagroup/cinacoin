@@ -1,7 +1,3 @@
-# Consolidation: this app's canonical home is cinacoin.com/demo/.
-# 301 the standalone subdomain root to the canonical subpath (SEO consolidation).
-/  https://cinacoin.com/demo/  301
-/demo/multichain  /demo/multi-chain  301
-/demo/aa  /demo/aa-demo  301
+# Redirect legacy paths to canonical routes
 /multichain  /multi-chain  301
 /aa  /aa-demo  301

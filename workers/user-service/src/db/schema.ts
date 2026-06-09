@@ -120,6 +120,8 @@ export type Env = {
   DB: D1Database;
   CACHE: KVNamespace;  // KV namespace for query caching
   JWT_SECRET: string;
+  JWT_ISSUER: string;
+  JWT_AUDIENCE: string;
   ADMIN_API_KEY: string;
   ENVIRONMENT: string;
 };

@@ -11,6 +11,8 @@ zone_name = "cinacoin.com"
 # Variable bindings — set actual values via wrangler secret or dashboard
 [vars]
 ENVIRONMENT = "production"
+JWT_ISSUER = "https://auth.cinacoin.com"
+JWT_AUDIENCE = "cinacoin"
 
 [[d1_databases]]
 binding = "DB"

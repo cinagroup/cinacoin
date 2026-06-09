@@ -5,7 +5,7 @@ compatibility_flags = ["nodejs_compat"]
 
 # Custom Domain
 [[routes]]
-pattern = "verify.cinacoin.com"
+pattern = "verify.cinacoin.com/*"
 zone_name = "cinacoin.com"
 
 # KV Namespace for verification cache
