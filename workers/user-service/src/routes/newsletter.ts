@@ -130,7 +130,9 @@ newsletter.get('/subscribers', async (c) => {
 
 // Send verification email using Resend
 async function sendVerificationEmail(c: any, email: string, token: string) {
-  const verifyUrl = `https://cinacoin.com/newsletter/verify/${token}`;
+  // Derive base URL from request to avoid hardcoding
+  const reqUrl = new URL(c.req.url);
+  const verifyUrl = `${reqUrl.origin}/newsletter/verify/${token}`;
 
   try {
     const response = await fetch('https://api.resend.com/emails', {

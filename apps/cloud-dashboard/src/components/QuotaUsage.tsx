@@ -8,7 +8,7 @@ const quotas = [
     used: 32,
     total: 64,
     unit: "vCPUs",
-    color: "#171717",
+    color: "var(--cc-ink)",
     percentage: 50,
   },
   {
@@ -16,7 +16,7 @@ const quotas = [
     used: 96,
     total: 192,
     unit: "GB",
-    color: "#0070f3",
+    color: "var(--cc-link)",
     percentage: 50,
   },
   {

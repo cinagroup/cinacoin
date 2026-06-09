@@ -1,106 +1,93 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { listProjects } from "@/lib/api";
+import { useState } from "react";
+import Sidebar from "@/components/Sidebar";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import type { Project } from "@/types";
 
 export default function ProjectsPage() {
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
-  useEffect(() => {
-    const ownerId = typeof window !== "undefined" ? localStorage.getItem("cinacoin_owner_id") || "" : "";
-    if (ownerId) {
-      listProjects(ownerId)
-        .then(setProjects)
-        .catch(() => setProjects([]))
-        .finally(() => setLoading(false));
-    } else {
-      setLoading(false);
-    }
-  }, []);
+  const mockProjects = [
+    { id: 1, name: "Production API", status: "active", resources: 12, region: "us-east-1", created: "2026-01-15" },
+    { id: 2, name: "Staging Environment", status: "active", resources: 8, region: "us-west-2", created: "2026-02-20" },
+    { id: 3, name: "Development", status: "active", resources: 5, region: "eu-west-1", created: "2026-03-10" },
+  ];
 
   return (
-    <main id="main-content" className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <Breadcrumbs />
-        <div className="mb-6 flex items-center justify-between">
-          <div>
-            <h1 className="cc-display-md text-[var(--cc-ink)]">Projects</h1>
-            <p className="cc-body-sm text-[var(--cc-muted)] mt-1">
-              Manage your Cinacoin projects
-            </p>
-          </div>
-          <a
-            href="/projects/new"
-            className="cc-btn-primary px-4 !h-10 text-sm"
-          >
-            + New Project
-          </a>
-        </div>
+    <div className="min-h-screen flex">
+      <Sidebar isOpen={sidebarOpen} onToggle={() => setSidebarOpen(!sidebarOpen)} />
 
-        {loading ? (
-          <div className="cc-card-soft p-12 text-center">
-            <p className="cc-body-sm text-[var(--cc-muted)]">Loading projects...</p>
+      <div className="flex-1 flex flex-col min-w-0">
+        <header className="bg-canvas border-b border-hairline h-14 flex items-center px-6 sticky top-0 z-40">
+          <button
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            className="p-2 rounded-sm hover:bg-canvas-soft-2 mr-4 transition-colors duration-fast"
+          >
+            <svg className="w-5 h-5 text-body" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+          <div className="flex-1 flex items-center gap-4">
+            <div className="relative">
+              <svg className="w-4 h-4 text-mute absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+              <input
+                type="text"
+                placeholder="Search projects..."
+                className="pl-10 pr-4 py-2 bg-canvas-soft border border-hairline rounded-sm text-sm w-80 focus:outline-none focus:border-link focus:ring-2 focus:ring-link/10 transition-colors"
+              />
+            </div>
           </div>
-        ) : projects.length === 0 ? (
-          <div className="cc-card-soft p-12 text-center">
-            <p className="cc-body-sm text-[var(--cc-muted)]">No projects yet.</p>
-            <a
-              href="/projects/new"
-              className="mt-4 cc-btn-primary px-4 !h-10 text-sm"
-            >
-              Create Your First Project
-            </a>
+        </header>
+        <Breadcrumbs />
+
+        <main className="flex-1 p-6 overflow-auto">
+          <div className="mb-6 flex items-center justify-between">
+            <div>
+              <h1 className="text-heading-2 text-ink">Projects</h1>
+              <p className="text-body-sm text-body mt-1">Manage your cloud projects</p>
+            </div>
+            <button className="btn-primary px-4 py-2">
+              + New Project
+            </button>
           </div>
-        ) : (
-          <div className="cc-card p-0 overflow-hidden">
-            <table className="data-table">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Description</th>
-                  <th>Status</th>
-                  <th>Updated</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {projects.map((project) => (
-                  <tr key={project.id}>
-                    <td>
-                      <a
-                        href={`/projects/${project.id}`}
-                        className="text-[var(--cc-link)] hover:text-[var(--cc-link-deep)] font-medium"
-                      >
-                        {project.name}
-                      </a>
-                    </td>
-                    <td className="text-[var(--cc-body)]">
-                      {project.description || '—'}
-                    </td>
-                    <td>
-                      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-[var(--green-bg)] text-[var(--green)]">
-                        Active
-                      </span>
-                    </td>
-                    <td className="text-[var(--cc-muted)] text-sm">
-                      {new Date(project.updatedAt).toLocaleDateString()}
-                    </td>
-                    <td className="text-right">
-                      <a
-                        href={`/projects/${project.id}`}
-                        className="text-sm text-[var(--cc-link)] hover:text-[var(--cc-link-deep)]"
-                      >
-                        View →
-                      </a>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+
+          <div className="grid gap-4">
+            {mockProjects.map((project) => (
+              <div key={project.id} className="bg-canvas border border-hairline rounded-md p-6 hover:shadow-level-2 transition-shadow">
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-2">
+                      <h3 className="text-heading-3 text-ink">{project.name}</h3>
+                      <span className="badge badge-success">{project.status}</span>
+                    </div>
+                    <div className="grid grid-cols-3 gap-4 mt-4 text-body-sm">
+                      <div>
+                        <span className="text-mute">Resources:</span>
+                        <span className="ml-2 text-ink font-medium">{project.resources}</span>
+                      </div>
+                      <div>
+                        <span className="text-mute">Region:</span>
+                        <span className="ml-2 text-ink font-medium">{project.region}</span>
+                      </div>
+                      <div>
+                        <span className="text-mute">Created:</span>
+                        <span className="ml-2 text-ink font-medium">{project.created}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <button className="p-2 hover:bg-canvas-soft-2 rounded transition-colors">
+                    <svg className="w-5 h-5 text-body" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
-        )}
-      </main>
+        </main>
+      </div>
+    </div>
   );
 }

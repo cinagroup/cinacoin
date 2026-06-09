@@ -40,11 +40,11 @@ export function NewsletterForm({ source = 'website' }: { source?: string }) {
 
   if (status === 'success') {
     return (
-      <div className="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
-        <svg className="w-12 h-12 text-green-500 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div className="bg-[var(--cc-success)]/10 border border-[var(--cc-success)]/30 rounded-[var(--cc-radius-md)] p-6 text-center">
+        <svg className="w-12 h-12 text-[var(--cc-success)] mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
         </svg>
-        <p className="text-green-700 font-medium">{message}</p>
+        <p className="text-[var(--cc-success)] font-medium">{message}</p>
       </div>
     );
   }
@@ -56,27 +56,29 @@ export function NewsletterForm({ source = 'website' }: { source?: string }) {
           type="text"
           placeholder={t('newsletter.name_placeholder')}
           value={name}
+          name="name"
           onChange={(e) => setName(e.target.value)}
-          className="px-4 py-3 bg-white border border-[#ebebeb] rounded-[6px] focus:outline-none focus:ring-2 focus:ring-[#0070f3] focus:border-transparent text-[14px]"
+          className="px-4 py-3 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-sm)] text-[var(--cc-ink)] placeholder:text-[var(--cc-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-link)] focus:border-transparent text-[14px]"
         />
         <input
           type="email"
           placeholder={t('newsletter.email_placeholder')}
           value={email}
+          name="email"
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="px-4 py-3 bg-white border border-[#ebebeb] rounded-[6px] focus:outline-none focus:ring-2 focus:ring-[#0070f3] focus:border-transparent text-[14px]"
+          className="px-4 py-3 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-sm)] text-[var(--cc-ink)] placeholder:text-[var(--cc-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-link)] focus:border-transparent text-[14px]"
         />
       </div>
       <button
         type="submit"
         disabled={status === 'loading'}
-        className="w-full px-8 py-3 bg-[#171717] hover:bg-[#2a2a2a] text-white rounded-[6px] font-medium text-[14px] transition-colors duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full px-8 py-3 bg-[var(--cc-ink)] hover:opacity-90 text-[var(--cc-canvas)] rounded-[var(--cc-radius-sm)] font-medium text-[14px] transition-colors duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {status === 'loading' ? t('newsletter.subscribing') : t('newsletter.subscribe')}
       </button>
       {status === 'error' && (
-        <p className="text-red-500 text-sm text-center">{message}</p>
+        <p className="text-[var(--cc-error)] text-sm text-center">{message}</p>
       )}
     </form>
   );

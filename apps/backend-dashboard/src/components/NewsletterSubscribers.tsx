@@ -17,11 +17,13 @@ export function NewsletterSubscribers() {
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
 
+  const USERS_BASE = process.env.NEXT_PUBLIC_USERS_URL || 'https://users.cinacoin.com';
+
   const fetchSubscribers = async () => {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://users.cinacoin.com/api/newsletter/subscribers?page=${page}&limit=20`
+        `${USERS_BASE}/api/newsletter/subscribers?page=${page}&limit=20`
       );
       const data = await response.json();
       setSubscribers(data.subscribers || []);

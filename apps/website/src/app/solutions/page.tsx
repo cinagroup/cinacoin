@@ -54,10 +54,10 @@ export default function SolutionsPage() {
       <Breadcrumbs />
       {/* Hero */}
       <section className="max-w-[1200px] mx-auto px-6 py-24 text-center">
-        <h1 className="text-5xl md:text-[64px] font-semibold mb-6 tracking-tight text-[#171717] leading-[1.05]">
+        <h1 className="text-5xl md:text-[64px] font-semibold mb-6 tracking-tight text-[var(--cc-ink)] leading-[1.05]">
           {t('solutions-hero-title')}
         </h1>
-        <p className="text-lg text-[#4d4d4d] max-w-2xl mx-auto leading-relaxed">
+        <p className="text-lg text-[var(--cc-body)] max-w-2xl mx-auto leading-relaxed">
           {t('solutions-hero-subtitle')}
         </p>
       </section>
@@ -66,13 +66,13 @@ export default function SolutionsPage() {
       <section className="max-w-[1200px] mx-auto px-6 pb-24">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {solutions.map((solution) => (
-            <div key={solution.id} id={solution.id} className="p-6 bg-white border border-[#ebebeb] rounded-[8px] shadow-[0_1px_2px_rgba(0,0,0,0.04)] hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_1px_2px_rgba(0,0,0,0.04)] transition-shadow duration-200">
-              <h2 className="text-[20px] font-semibold mb-2 text-[#171717]">{t(solution.titleKey)}</h2>
-              <p className="text-[#4d4d4d] text-[14px] leading-relaxed mb-4">{t(solution.descKey)}</p>
+            <div key={solution.id} id={solution.id} className="p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] shadow-[var(--cc-level1)] hover:shadow-[var(--cc-level3)] transition-shadow duration-200">
+              <h2 className="text-[20px] font-semibold mb-2 text-[var(--cc-ink)]">{t(solution.titleKey)}</h2>
+              <p className="text-[var(--cc-body)] text-[14px] leading-relaxed mb-4">{t(solution.descKey)}</p>
               <ul className="space-y-2">
                 {solution.features.map((f) => (
-                  <li key={f} className="flex items-center gap-2 text-[14px] text-[#4d4d4d]">
-                    <span className="text-[#0070f3]">✓</span> {t(f)}
+                  <li key={f} className="flex items-center gap-2 text-[14px] text-[var(--cc-body)]">
+                    <span className="text-[var(--cc-success)]">✓</span> {t(f)}
                   </li>
                 ))}
               </ul>
@@ -82,15 +82,15 @@ export default function SolutionsPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-[#f5f5f5] border-y border-[#ebebeb]">
+      <section className="bg-[var(--cc-canvas-soft-2)] border-y border-[var(--cc-hairline)]">
         <div className="max-w-[1200px] mx-auto px-6 py-16 text-center">
-          <h2 className="text-[32px] font-semibold mb-4 tracking-tight text-[#171717]">
+          <h2 className="text-[32px] font-semibold mb-4 tracking-tight text-[var(--cc-ink)]">
             {t('solutions-cta-title')}
           </h2>
-          <p className="text-[#4d4d4d] text-lg mb-8 max-w-xl mx-auto">
+          <p className="text-[var(--cc-body)] text-lg mb-8 max-w-xl mx-auto">
             {t('solutions-cta-subtitle')}
           </p>
-          <Link href="/about" className="inline-flex items-center justify-center px-8 py-3 bg-[#171717] hover:bg-[#2a2a2a] text-white rounded-[6px] font-medium text-[14px] transition-colors duration-150 h-10">
+          <Link href="/about" className="inline-flex items-center justify-center px-8 py-3 bg-[var(--cc-ink)] hover:opacity-90 text-[var(--cc-canvas)] rounded-[var(--cc-radius-sm)] font-medium text-[14px] transition-colors duration-150 h-10">
             {t('solutions-cta-btn')}
           </Link>
         </div>

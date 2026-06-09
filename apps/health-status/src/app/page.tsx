@@ -95,7 +95,7 @@ export default function HealthStatusPage() {
       {/* 90-Day Status Bars */}
       <section>
         <h2 className="mb-4 text-lg font-semibold tracking-tighter text-[var(--cc-ink)]">90-Day History</h2>
-        <div className="space-y-4 rounded-[8px] border border-[var(--cc-hairline)] bg-[var(--cc-canvas)] p-5" style={{ boxShadow: 'inset 0 0 0 1px #ebebeb' }}>
+        <div className="space-y-4 rounded-[8px] border border-[var(--cc-hairline)] bg-[var(--cc-canvas)] p-5" style={{ boxShadow: 'inset 0 0 0 1px var(--cc-hairline)' }}>
           {services.map((service) => (
             <div key={service.name}>
               <div className="mb-1 flex items-center justify-between">

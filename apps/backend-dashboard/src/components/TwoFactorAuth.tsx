@@ -1,37 +1,62 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
+import { setupMfa, enableMfa, disableMfa, apiRequest, AUTH_BASE_URL } from "@/lib/api";
 
-type TwoFAStatus = "disabled" | "setup" | "verify" | "enabled";
+type TwoFAStatus = "disabled" | "loading" | "setup" | "verify" | "enabled" | "showRecovery";
 
 interface RecoveryCode {
   code: string;
   used: boolean;
 }
 
-const mockRecoveryCodes: RecoveryCode[] = [
-  { code: "A1B2-C3D4-E5F6", used: false },
-  { code: "G7H8-I9J0-K1L2", used: false },
-  { code: "M3N4-O5P6-Q7R8", used: false },
-  { code: "S9T0-U1V2-W3X4", used: false },
-  { code: "Y5Z6-A7B8-C9D0", used: false },
-  { code: "E1F2-G3H4-I5J6", used: false },
-  { code: "K7L8-M9N0-O1P2", used: false },
-  { code: "Q3R4-S5T6-U7V8", used: false },
-];
-
 export function TwoFactorAuth() {
-  const [status, setStatus] = useState<TwoFAStatus>("disabled");
+  const [status, setStatus] = useState<TwoFAStatus>("loading");
   const [verificationCode, setVerificationCode] = useState<string[]>(["", "", "", "", "", ""]);
-  const [recoveryCodes] = useState<RecoveryCode[]>(mockRecoveryCodes);
+  const [recoveryCodes, setRecoveryCodes] = useState<RecoveryCode[]>([]);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const [allCopied, setAllCopied] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [qrCodeUrl, setQrCodeUrl] = useState<string | null>(null);
+  const [secretKey, setSecretKey] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleStartSetup = () => {
-    setStatus("setup");
-  };
+  // Check current 2FA status on mount
+  useEffect(() => {
+    const checkStatus = async () => {
+      try {
+        const response = await apiRequest(`${AUTH_BASE_URL}/auth/mfa/status`);
+        if (response.ok) {
+          const data = await response.json();
+          setStatus(data.enabled ? "enabled" : "disabled");
+        } else {
+          setStatus("disabled");
+        }
+      } catch {
+        setStatus("disabled");
+      }
+    };
+    checkStatus();
+  }, []);
+
+  const handleStartSetup = useCallback(async () => {
+    setError(null);
+    setIsSubmitting(true);
+    try {
+      const data = await setupMfa();
+      setSecretKey(data.secret);
+      setQrCodeUrl(data.qrCode);
+      setStatus("setup");
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Failed to start 2FA setup");
+    } finally {
+      setIsSubmitting(false);
+    }
+  }, []);
 
   const handleProceedToVerify = () => {
+    setVerificationCode(["", "", "", "", "", ""]);
+    setError(null);
     setStatus("verify");
   };
 
@@ -47,14 +72,33 @@ export function TwoFactorAuth() {
         nextInput?.focus();
       }
 
-      // Auto-verify when all digits entered
+      // Auto-submit when all digits entered
       if (newCode.every((d) => d !== "") && newCode.join("").length === 6) {
-        setTimeout(() => {
-          setStatus("enabled");
-        }, 500);
+        const code = newCode.join("");
+        handleVerifyCode(code);
       }
     }
   };
+
+  const handleVerifyCode = useCallback(async (code: string) => {
+    setError(null);
+    setIsSubmitting(true);
+    try {
+      const data = await enableMfa(code);
+      // Store recovery codes from the response
+      const codes: RecoveryCode[] = data.recoveryCodes.map((c: string) => ({
+        code: c,
+        used: false,
+      }));
+      setRecoveryCodes(codes);
+      setStatus("showRecovery");
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Invalid verification code");
+      setVerificationCode(["", "", "", "", "", ""]);
+    } finally {
+      setIsSubmitting(false);
+    }
+  }, []);
 
   const handleKeyDown = (index: number, e: React.KeyboardEvent) => {
     if (e.key === "Backspace" && !verificationCode[index] && index > 0) {
@@ -76,13 +120,66 @@ export function TwoFactorAuth() {
     setTimeout(() => setAllCopied(false), 2000);
   };
 
-  const handleDisable = () => {
+  const handleDisable = async () => {
+    setError(null);
+    setIsSubmitting(true);
+    try {
+      // For disable, user needs to enter a TOTP code
+      // We'll prompt for it inline
+      const code = window.prompt("Enter your current 2FA code to disable:");
+      if (!code) {
+        setIsSubmitting(false);
+        return;
+      }
+      await disableMfa(code);
+      setStatus("disabled");
+      setRecoveryCodes([]);
+      setVerificationCode(["", "", "", "", "", ""]);
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Failed to disable 2FA");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleDone = () => {
+    setStatus("enabled");
+  };
+
+  const handleCancel = () => {
     setStatus("disabled");
+    setError(null);
+    setQrCodeUrl(null);
+    setSecretKey(null);
     setVerificationCode(["", "", "", "", "", ""]);
   };
 
+  if (status === "loading") {
+    return (
+      <div className="card p-lg flex items-center justify-center">
+        <div className="flex items-center gap-3 text-[var(--cc-muted)]">
+          <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+          </svg>
+          <span className="text-sm">Loading 2FA status…</span>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-lg">
+      {/* Error display */}
+      {error && (
+        <div className="bg-red-50 border border-red-200 rounded-md p-3 flex items-start gap-2">
+          <svg className="w-4 h-4 mt-0.5 flex-shrink-0 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+          </svg>
+          <p className="text-body-sm text-red-800">{error}</p>
+        </div>
+      )}
+
       {/* Status Card */}
       <div className="card p-lg">
         <div className="flex items-start justify-between mb-lg">
@@ -92,7 +189,7 @@ export function TwoFactorAuth() {
               Add an extra layer of security to your account
             </p>
           </div>
-          <div className={`badge ${status === "enabled" ? "badge-success" : "badge-neutral"}`}>
+          <div className={`badge ${status === "enabled" || status === "showRecovery" ? "badge-success" : "badge-neutral"}`}>
             {status === "enabled" ? "Enabled" : "Disabled"}
           </div>
         </div>
@@ -109,11 +206,15 @@ export function TwoFactorAuth() {
               <div className="flex-1">
                 <h3 className="text-body font-medium text-ink mb-1">Protect your account</h3>
                 <p className="text-body-sm text-body-color mb-md">
-                  Two-factor authentication requires a verification code from your phone in addition to your password. 
+                  Two-factor authentication requires a verification code from your phone in addition to your password.
                   This helps prevent unauthorized access even if your password is compromised.
                 </p>
-                <button onClick={handleStartSetup} className="btn btn-primary">
-                  Enable 2FA
+                <button
+                  onClick={handleStartSetup}
+                  disabled={isSubmitting}
+                  className="btn btn-primary disabled:opacity-50"
+                >
+                  {isSubmitting ? "Setting up…" : "Enable 2FA"}
                 </button>
               </div>
             </div>
@@ -146,66 +247,14 @@ export function TwoFactorAuth() {
                 <p className="text-body-sm text-body-color mb-md text-center">
                   Scan this QR code with your authenticator app
                 </p>
-                <div className="w-48 h-48 bg-white border border-hairline rounded-md p-3 mb-md">
-                  {/* SVG QR Code placeholder - in production, use a real QR library */}
-                  <svg viewBox="0 0 100 100" className="w-full h-full">
-                    {/* QR Code pattern */}
-                    <rect fill="#171717" x="5" y="5" width="25" height="25" rx="2" />
-                    <rect fill="#171717" x="70" y="5" width="25" height="25" rx="2" />
-                    <rect fill="#171717" x="5" y="70" width="25" height="25" rx="2" />
-                    <rect fill="white" x="10" y="10" width="15" height="15" rx="1" />
-                    <rect fill="white" x="75" y="10" width="15" height="15" rx="1" />
-                    <rect fill="white" x="10" y="75" width="15" height="15" rx="1" />
-                    <rect fill="#171717" x="13" y="13" width="9" height="9" rx="1" />
-                    <rect fill="#171717" x="78" y="13" width="9" height="9" rx="1" />
-                    <rect fill="#171717" x="13" y="78" width="9" height="9" rx="1" />
-                    {/* Data modules */}
-                    <rect fill="#171717" x="35" y="5" width="5" height="5" />
-                    <rect fill="#171717" x="45" y="5" width="5" height="5" />
-                    <rect fill="#171717" x="55" y="5" width="5" height="5" />
-                    <rect fill="#171717" x="35" y="15" width="5" height="5" />
-                    <rect fill="#171717" x="50" y="15" width="5" height="5" />
-                    <rect fill="#171717" x="60" y="15" width="5" height="5" />
-                    <rect fill="#171717" x="40" y="25" width="5" height="5" />
-                    <rect fill="#171717" x="55" y="25" width="5" height="5" />
-                    <rect fill="#171717" x="35" y="35" width="5" height="5" />
-                    <rect fill="#171717" x="45" y="35" width="5" height="5" />
-                    <rect fill="#171717" x="60" y="35" width="5" height="5" />
-                    <rect fill="#171717" x="75" y="35" width="5" height="5" />
-                    <rect fill="#171717" x="85" y="35" width="5" height="5" />
-                    <rect fill="#171717" x="5" y="35" width="5" height="5" />
-                    <rect fill="#171717" x="15" y="40" width="5" height="5" />
-                    <rect fill="#171717" x="25" y="40" width="5" height="5" />
-                    <rect fill="#171717" x="40" y="45" width="5" height="5" />
-                    <rect fill="#171717" x="55" y="45" width="5" height="5" />
-                    <rect fill="#171717" x="70" y="45" width="5" height="5" />
-                    <rect fill="#171717" x="85" y="45" width="5" height="5" />
-                    <rect fill="#171717" x="5" y="50" width="5" height="5" />
-                    <rect fill="#171717" x="20" y="50" width="5" height="5" />
-                    <rect fill="#171717" x="35" y="55" width="5" height="5" />
-                    <rect fill="#171717" x="50" y="55" width="5" height="5" />
-                    <rect fill="#171717" x="65" y="55" width="5" height="5" />
-                    <rect fill="#171717" x="80" y="55" width="5" height="5" />
-                    <rect fill="#171717" x="10" y="60" width="5" height="5" />
-                    <rect fill="#171717" x="25" y="60" width="5" height="5" />
-                    <rect fill="#171717" x="45" y="60" width="5" height="5" />
-                    <rect fill="#171717" x="60" y="60" width="5" height="5" />
-                    <rect fill="#171717" x="75" y="60" width="5" height="5" />
-                    <rect fill="#171717" x="90" y="60" width="5" height="5" />
-                    <rect fill="#171717" x="35" y="70" width="5" height="5" />
-                    <rect fill="#171717" x="50" y="70" width="5" height="5" />
-                    <rect fill="#171717" x="65" y="70" width="5" height="5" />
-                    <rect fill="#171717" x="80" y="70" width="5" height="5" />
-                    <rect fill="#171717" x="40" y="80" width="5" height="5" />
-                    <rect fill="#171717" x="55" y="80" width="5" height="5" />
-                    <rect fill="#171717" x="70" y="80" width="5" height="5" />
-                    <rect fill="#171717" x="85" y="80" width="5" height="5" />
-                    <rect fill="#171717" x="35" y="90" width="5" height="5" />
-                    <rect fill="#171717" x="45" y="90" width="5" height="5" />
-                    <rect fill="#171717" x="60" y="90" width="5" height="5" />
-                    <rect fill="#171717" x="75" y="90" width="5" height="5" />
-                    <rect fill="#171717" x="90" y="90" width="5" height="5" />
-                  </svg>
+                <div className="w-48 h-48 bg-canvas border border-hairline rounded-md p-3 mb-md">
+                  {qrCodeUrl ? (
+                    <img src={qrCodeUrl} alt="2FA QR Code" className="w-full h-full" />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-mute text-caption">
+                      Loading QR…
+                    </div>
+                  )}
                 </div>
                 <p className="text-caption text-mute text-center">
                   Works with Google Authenticator, Authy, 1Password, etc.
@@ -220,7 +269,7 @@ export function TwoFactorAuth() {
                 </p>
                 <div className="bg-canvas-soft rounded-md p-3 mb-lg">
                   <code className="font-mono text-body text-ink tracking-wider">
-                    JBSWY3DPEHPK3PXP
+                    {secretKey || "Loading…"}
                   </code>
                 </div>
                 <div className="border-t border-hairline pt-md">
@@ -235,10 +284,14 @@ export function TwoFactorAuth() {
             </div>
 
             <div className="flex gap-md pt-md border-t border-hairline">
-              <button onClick={handleProceedToVerify} className="btn btn-primary">
+              <button
+                onClick={handleProceedToVerify}
+                disabled={isSubmitting}
+                className="btn btn-primary"
+              >
                 I&apos;ve scanned the code — Next
               </button>
-              <button onClick={() => setStatus("disabled")} className="btn btn-secondary">
+              <button onClick={handleCancel} className="btn btn-secondary">
                 Cancel
               </button>
             </div>
@@ -282,11 +335,16 @@ export function TwoFactorAuth() {
                     value={digit}
                     onChange={(e) => handleCodeChange(index, e.target.value)}
                     onKeyDown={(e) => handleKeyDown(index, e)}
-                    className="w-12 h-14 text-center text-heading-3 font-medium bg-canvas border border-hairline rounded-md focus:outline-none focus:ring-2 focus:ring-link focus:border-transparent transition-all"
+                    disabled={isSubmitting}
+                    className="w-12 h-14 text-center text-heading-3 font-medium bg-canvas border border-hairline rounded-md focus:outline-none focus:ring-2 focus:ring-link focus:border-transparent transition-all disabled:opacity-50"
                     autoFocus={index === 0}
                   />
                 ))}
               </div>
+
+              {isSubmitting && (
+                <p className="text-caption text-link mb-md">Verifying…</p>
+              )}
 
               <p className="text-caption text-mute">
                 Code changes every 30 seconds. Make sure your device time is synchronized.
@@ -301,7 +359,7 @@ export function TwoFactorAuth() {
           </div>
         )}
 
-        {status === "enabled" && (
+        {status === "showRecovery" && (
           <div className="space-y-lg">
             {/* Step indicator */}
             <div className="flex items-center gap-sm text-caption">
@@ -369,13 +427,38 @@ export function TwoFactorAuth() {
               </div>
             </div>
 
-            <div className="flex items-center justify-between pt-md border-t border-hairline">
-              <button onClick={handleDisable} className="btn btn-danger">
-                Disable 2FA
+            <div className="flex items-center justify-end pt-md border-t border-hairline">
+              <button onClick={handleDone} className="btn btn-primary">
+                Done — I&apos;ve Saved My Recovery Codes
               </button>
-              <button className="btn btn-primary">
-                Done — Save Recovery Codes
-              </button>
+            </div>
+          </div>
+        )}
+
+        {status === "enabled" && (
+          <div className="space-y-lg">
+            <div className="border border-hairline rounded-md p-lg bg-canvas-soft">
+              <div className="flex items-start gap-md">
+                <div className="w-10 h-10 rounded-md bg-green-100 flex items-center justify-center flex-shrink-0">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-green-600">
+                    <path d="M9 12l2 2 4-4" />
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-body font-medium text-ink mb-1">2FA is enabled</h3>
+                  <p className="text-body-sm text-body-color mb-md">
+                    Your account is protected with two-factor authentication. You&apos;ll need a verification code from your authenticator app when logging in.
+                  </p>
+                  <button
+                    onClick={handleDisable}
+                    disabled={isSubmitting}
+                    className="btn btn-danger disabled:opacity-50"
+                  >
+                    {isSubmitting ? "Disabling…" : "Disable 2FA"}
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         )}

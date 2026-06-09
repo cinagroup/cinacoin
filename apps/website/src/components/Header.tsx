@@ -2,113 +2,100 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-
-const navItems = [
-  { label: 'Products', href: '/products' },
-  { label: 'Solutions', href: '/solutions' },
-  { label: 'Developers', href: '/developers' },
-  { label: 'Resources', href: '/resources' },
-  { label: 'About', href: '/about' },
-];
+import { useI18n } from '@/providers/I18nProvider';
 
 export default function Header() {
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { t } = useI18n();
 
   return (
-    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-[#ebebeb]">
-      <div className="max-w-[1200px] mx-auto px-6 h-16 flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 text-[#171717] font-semibold text-[16px] tracking-tight hover:opacity-70 transition-opacity duration-150">
-          <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="32" height="32" rx="6" fill="#171717"/>
-            <text x="16" y="22" fontFamily="Inter,system-ui,sans-serif" fontSize="18" fontWeight="600" fill="#ffffff" textAnchor="middle">C</text>
-          </svg>
-          CinaCoin
+    <header className="sticky top-0 z-50 bg-[var(--cc-canvas)]/80 backdrop-blur-md border-b border-[var(--cc-hairline)]">
+      <div className="max-w-[1200px] mx-auto px-6 flex items-center justify-between h-16">
+        <Link href="/" className="flex items-center gap-2 text-[var(--cc-ink)] font-semibold text-[16px] tracking-tight hover:opacity-70 transition-opacity duration-150">
+          <img src="/logo.png" alt="Cinacoin logo" width={24} height={24} style={{ height: 24, width: 24 }} />
+          Cinacoin
         </Link>
 
-        {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-1">
-          {navItems.map((item) => (
+          {[
+            { href: '/products', label: t('nav-products') },
+            { href: '/solutions', label: t('nav-solutions') },
+            { href: '/developers', label: t('nav-developers') },
+            { href: '/resources', label: t('nav-resources') },
+            { href: '/pricing', label: t('nav-pricing') },
+          ].map((link) => (
             <Link
-              key={item.href}
-              href={item.href}
-              className="px-3 py-2 text-[14px] font-medium text-[#4d4d4d] hover:text-[#171717] rounded-[6px] hover:bg-[#f5f5f5] transition-all duration-150"
+              key={link.href}
+              href={link.href}
+              className="px-3 py-2 text-[14px] font-medium text-[var(--cc-body)] hover:text-[var(--cc-ink)] rounded-[var(--cc-radius-sm)] hover:bg-[var(--cc-canvas-soft-2)] transition-all duration-150"
             >
-              {item.label}
+              {link.label}
             </Link>
           ))}
         </nav>
 
-        {/* Desktop CTA */}
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden md:flex items-center gap-2">
           <Link
-            href="/developers"
-            className="px-4 py-2 text-[14px] font-medium text-[#4d4d4d] hover:text-[#171717] transition-colors duration-150"
+            href="/login"
+            className="px-4 py-2 text-[14px] font-medium text-[var(--cc-body)] hover:text-[var(--cc-ink)] transition-colors duration-150"
           >
-            Documentation
+            {t('nav-login')}
           </Link>
           <Link
-            href="/products"
-            className="px-4 py-2 text-[14px] font-medium bg-[#171717] text-white rounded-[6px] hover:bg-[#2a2a2a] transition-colors duration-150"
+            href="/register"
+            className="px-4 py-2 text-[14px] font-medium bg-[var(--cc-ink)] text-[var(--cc-canvas)] rounded-[var(--cc-radius-sm)] hover:opacity-90 transition-colors duration-150"
           >
-            Get Started
+            {t('nav-signup')}
           </Link>
         </div>
 
-        {/* Mobile Menu Button */}
         <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden p-2 text-[#171717] hover:bg-[#f5f5f5] rounded-[6px] transition-colors duration-150"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="md:hidden p-2 text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft-2)] rounded-[var(--cc-radius-sm)] transition-colors duration-150"
           aria-label="Toggle menu"
         >
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
-            {mobileOpen ? (
-              <>
-                <line x1="4" y1="4" x2="16" y2="16" />
-                <line x1="16" y1="4" x2="4" y2="16" />
-              </>
-            ) : (
-              <>
-                <line x1="3" y1="5" x2="17" y2="5" />
-                <line x1="3" y1="10" x2="17" y2="10" />
-                <line x1="3" y1="15" x2="17" y2="15" />
-              </>
-            )}
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={mobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
           </svg>
         </button>
       </div>
 
-      {/* Mobile Navigation */}
-      {mobileOpen && (
-        <div className="md:hidden border-t border-[#ebebeb] bg-white">
-          <nav className="max-w-[1200px] mx-auto px-6 py-4 flex flex-col gap-1">
-            {navItems.map((item) => (
+      {mobileMenuOpen && (
+        <div className="md:hidden border-t border-[var(--cc-hairline)] bg-[var(--cc-canvas)]">
+          <div className="max-w-[1200px] mx-auto px-6 py-4 flex flex-col gap-2">
+            {[
+              { href: '/products', label: t('nav-products') },
+              { href: '/solutions', label: t('nav-solutions') },
+              { href: '/developers', label: t('nav-developers') },
+              { href: '/resources', label: t('nav-resources') },
+              { href: '/pricing', label: t('nav-pricing') },
+            ].map((link) => (
               <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setMobileOpen(false)}
-                className="px-3 py-2 text-[14px] font-medium text-[#4d4d4d] hover:text-[#171717] rounded-[6px] hover:bg-[#f5f5f5] transition-all duration-150"
+                key={link.href}
+                href={link.href}
+                className="px-3 py-2 text-[14px] font-medium text-[var(--cc-body)] hover:text-[var(--cc-ink)] rounded-[var(--cc-radius-sm)] hover:bg-[var(--cc-canvas-soft-2)] transition-all duration-150"
+                onClick={() => setMobileMenuOpen(false)}
               >
-                {item.label}
+                {link.label}
               </Link>
             ))}
-            <div className="mt-4 pt-4 border-t border-[#ebebeb] flex flex-col gap-2">
+            <div className="mt-4 pt-4 border-t border-[var(--cc-hairline)] flex flex-col gap-2">
               <Link
-                href="/developers"
-                onClick={() => setMobileOpen(false)}
-                className="px-3 py-2 text-[14px] font-medium text-[#4d4d4d] hover:text-[#171717] rounded-[6px] hover:bg-[#f5f5f5] transition-all duration-150"
+                href="/login"
+                className="px-3 py-2 text-[14px] font-medium text-[var(--cc-body)] hover:text-[var(--cc-ink)] rounded-[var(--cc-radius-sm)] hover:bg-[var(--cc-canvas-soft-2)] transition-all duration-150"
+                onClick={() => setMobileMenuOpen(false)}
               >
-                Documentation
+                {t('nav-login')}
               </Link>
               <Link
-                href="/products"
-                onClick={() => setMobileOpen(false)}
-                className="px-4 py-2 text-[14px] font-medium bg-[#171717] text-white rounded-[6px] hover:bg-[#2a2a2a] transition-colors duration-150 text-center"
+                href="/register"
+                className="px-4 py-2 text-[14px] font-medium bg-[var(--cc-ink)] text-[var(--cc-canvas)] rounded-[var(--cc-radius-sm)] hover:opacity-90 transition-colors duration-150 text-center"
+                onClick={() => setMobileMenuOpen(false)}
               >
-                Get Started
+                {t('nav-signup')}
               </Link>
             </div>
-          </nav>
+          </div>
         </div>
       )}
     </header>

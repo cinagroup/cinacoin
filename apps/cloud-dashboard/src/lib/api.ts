@@ -6,6 +6,11 @@ import type {
   UpdateProjectInput,
   GenerateApiKeyInput,
   UsageStats,
+  LoginResponse,
+  RegisterResponse,
+  User,
+  TwoFactorVerifyResponse,
+  OAuthProvider,
 } from "@/types";
 
 export const demoProjects: Project[] = [
@@ -31,14 +36,16 @@ export const demoProjects: Project[] = [
 ];
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8787";
+const AUTH_BASE = process.env.NEXT_PUBLIC_AUTH_URL || "https://auth.cinacoin.com";
 
 interface ApiOptions extends Omit<RequestInit, "headers"> {
   ownerId?: string;
   headers?: Record<string, string>;
+  skipAuth?: boolean;
 }
 
 async function fetchApi<T>(path: string, options?: ApiOptions): Promise<T> {
-  const { ownerId, headers: extraHeaders, ...fetchOptions } = options || {};
+  const { ownerId, headers: extraHeaders, skipAuth, ...fetchOptions } = options || {};
 
   const url = new URL(`${API_BASE}${path}`);
   if (ownerId) url.searchParams.set("ownerId", ownerId);
@@ -48,10 +55,56 @@ async function fetchApi<T>(path: string, options?: ApiOptions): Promise<T> {
     ...(extraHeaders || {}),
   };
 
+  // Add auth token if available and not skipping auth
+  if (!skipAuth && typeof window !== "undefined") {
+    const token = sessionStorage.getItem("access_token");
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`;
+    }
+  }
+
+  // Add CSRF token for state-changing requests
+  const method = (fetchOptions.method || "GET").toUpperCase();
+  if (["POST", "PUT", "PATCH", "DELETE"].includes(method)) {
+    const csrfToken = getCsrfToken();
+    if (csrfToken) {
+      headers["X-CSRF-Token"] = csrfToken;
+    }
+  }
+
   const res = await fetch(url.toString(), {
     ...fetchOptions,
     headers,
+    credentials: "include", // Include cookies for session management
   });
+
+  // Handle 401 - attempt token refresh
+  if (res.status === 401 && !skipAuth) {
+    const refreshed = await refreshAccessToken();
+    if (refreshed) {
+      const newToken = sessionStorage.getItem("access_token");
+      if (newToken) {
+        headers["Authorization"] = `Bearer ${newToken}`;
+      }
+      const retryRes = await fetch(url.toString(), {
+        ...fetchOptions,
+        headers,
+        credentials: "include",
+      });
+      if (!retryRes.ok) {
+        const error = await retryRes.json().catch(() => ({ error: retryRes.statusText }));
+        throw new Error(error.error || `API error: ${retryRes.status}`);
+      }
+      return retryRes.json();
+    } else {
+      // Refresh failed, redirect to login
+      if (typeof window !== "undefined") {
+        clearSession();
+        window.location.href = "/login";
+      }
+      throw new Error("Unauthorized");
+    }
+  }
 
   if (!res.ok) {
     const error = await res.json().catch(() => ({ error: res.statusText }));
@@ -59,6 +112,265 @@ async function fetchApi<T>(path: string, options?: ApiOptions): Promise<T> {
   }
 
   return res.json();
+}
+
+// CSRF Token Management
+let csrfToken: string | null = null;
+
+function getCsrfToken(): string | null {
+  if (csrfToken) return csrfToken;
+  if (typeof window !== "undefined") {
+    csrfToken = sessionStorage.getItem("csrf_token");
+  }
+  return csrfToken;
+}
+
+export async function fetchCsrfToken(): Promise<string> {
+  if (csrfToken) return csrfToken;
+  
+  const res = await fetch(`${AUTH_BASE}/auth/csrf-token`, {
+    method: "GET",
+    credentials: "include",
+  });
+  
+  if (!res.ok) {
+    throw new Error("Failed to fetch CSRF token");
+  }
+  
+  const data = await res.json();
+  csrfToken = data.token;
+  
+  if (typeof window !== "undefined") {
+    sessionStorage.setItem("csrf_token", csrfToken!);
+  }
+  
+  return csrfToken!;
+}
+
+// Session Management
+export interface Session {
+  user: User;
+  accessToken: string;
+  refreshToken: string;
+  expiresAt: number;
+}
+
+export function getSession(): Session | null {
+  if (typeof window === "undefined") return null;
+  
+  const accessToken = sessionStorage.getItem("access_token");
+  const refreshToken = localStorage.getItem("refresh_token");
+  const expiresAt = localStorage.getItem("token_expires_at");
+  const userStr = localStorage.getItem("user");
+  
+  if (!accessToken || !refreshToken || !expiresAt) return null;
+  
+  // Check if token is expired
+  if (Date.now() >= parseInt(expiresAt)) {
+    clearSession();
+    return null;
+  }
+  
+  const user = userStr ? JSON.parse(userStr) : null;
+  
+  return {
+    user,
+    accessToken,
+    refreshToken,
+    expiresAt: parseInt(expiresAt),
+  };
+}
+
+export function setSession(data: LoginResponse): void {
+  if (typeof window === "undefined") return;
+  
+  sessionStorage.setItem("access_token", data.accessToken ?? "");
+  localStorage.setItem("refresh_token", data.refreshToken ?? "");
+  localStorage.setItem("token_expires_at", String(Date.now() + (data.expiresIn ?? 0) * 1000));
+  
+  if (data.user) {
+    localStorage.setItem("user", JSON.stringify(data.user));
+  }
+}
+
+export function clearSession(): void {
+  if (typeof window === "undefined") return;
+  
+  sessionStorage.removeItem("access_token");
+  sessionStorage.removeItem("csrf_token");
+  localStorage.removeItem("refresh_token");
+  localStorage.removeItem("token_expires_at");
+  localStorage.removeItem("user");
+  csrfToken = null;
+}
+
+export async function refreshAccessToken(): Promise<boolean> {
+  if (typeof window === "undefined") return false;
+  
+  const refreshToken = localStorage.getItem("refresh_token");
+  if (!refreshToken) return false;
+  
+  try {
+    const res = await fetch(`${AUTH_BASE}/auth/refresh`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ refreshToken }),
+      credentials: "include",
+    });
+    
+    if (!res.ok) return false;
+    
+    const data = await res.json();
+    sessionStorage.setItem("access_token", data.accessToken);
+    localStorage.setItem("refresh_token", data.refreshToken);
+    localStorage.setItem("token_expires_at", String(Date.now() + data.expiresIn * 1000));
+    
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+// Authentication API
+export async function login(email: string, password: string): Promise<LoginResponse> {
+  const res = await fetch(`${AUTH_BASE}/auth/login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password }),
+    credentials: "include",
+  });
+  
+  if (!res.ok) {
+    const error = await res.json().catch(() => ({ error: res.statusText }));
+    throw new Error(error.error || error.message || "Login failed");
+  }
+  
+  const data = await res.json();
+  
+  // Handle 2FA required response
+  if (data.requires2FA) {
+    return {
+      requires2FA: true,
+      twoFactorToken: data.twoFactorToken,
+      accessToken: "",
+      refreshToken: "",
+      expiresIn: 0,
+    };
+  }
+  
+  // Store session data
+  setSession(data);
+  
+  // Fetch CSRF token after login
+  await fetchCsrfToken();
+  
+  return data;
+}
+
+export async function verifyTwoFactor(code: string, twoFactorToken: string): Promise<TwoFactorVerifyResponse> {
+  const res = await fetch(`${AUTH_BASE}/auth/2fa/verify`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ code, token: twoFactorToken }),
+    credentials: "include",
+  });
+  
+  if (!res.ok) {
+    const error = await res.json().catch(() => ({ error: res.statusText }));
+    throw new Error(error.error || error.message || "2FA verification failed");
+  }
+  
+  const data = await res.json();
+  
+  // Store session data
+  setSession(data);
+  
+  // Fetch CSRF token after 2FA
+  await fetchCsrfToken();
+  
+  return data;
+}
+
+export async function register(email: string, username: string, password: string): Promise<RegisterResponse> {
+  const res = await fetch(`${AUTH_BASE}/auth/register`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, username, password }),
+    credentials: "include",
+  });
+  
+  if (!res.ok) {
+    const error = await res.json().catch(() => ({ error: res.statusText }));
+    throw new Error(error.error || error.message || "Registration failed");
+  }
+  
+  const data = await res.json();
+  
+  // Store session data
+  setSession(data);
+  
+  // Fetch CSRF token after registration
+  await fetchCsrfToken();
+  
+  return data;
+}
+
+export async function logout(): Promise<void> {
+  try {
+    const refreshToken = localStorage.getItem("refresh_token");
+    if (refreshToken) {
+      await fetch(`${AUTH_BASE}/auth/logout`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ refreshToken }),
+        credentials: "include",
+      });
+    }
+  } catch {
+    // Ignore logout API errors
+  } finally {
+    clearSession();
+  }
+}
+
+export async function getCurrentUser(): Promise<User> {
+  return fetchApi<User>(`${AUTH_BASE}/auth/me`, { skipAuth: false });
+}
+
+// OAuth API
+export function getOAuthUrl(provider: OAuthProvider): string {
+  const redirectUri = typeof window !== "undefined" 
+    ? `${window.location.origin}/oauth/callback` 
+    : "";
+  return `${AUTH_BASE}/auth/oauth/${provider}?redirect_uri=${encodeURIComponent(redirectUri)}`;
+}
+
+export async function exchangeOAuthCode(code: string): Promise<LoginResponse> {
+  const res = await fetch(`${AUTH_BASE}/auth/oauth/token`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ code }),
+    credentials: "include",
+  });
+  
+  if (!res.ok) {
+    const error = await res.json().catch(() => ({ error: res.statusText }));
+    throw new Error(error.error || error.message || "OAuth token exchange failed");
+  }
+  
+  const data = await res.json();
+  
+  if (!data.success || !data.data) {
+    throw new Error("Invalid OAuth response");
+  }
+  
+  // Store session data
+  setSession(data.data);
+  
+  // Fetch CSRF token after OAuth login
+  await fetchCsrfToken();
+  
+  return data.data;
 }
 
 // Project API

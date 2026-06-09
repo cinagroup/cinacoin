@@ -21,9 +21,11 @@ export default function ABTestingPage() {
   const [experiments, setExperiments] = useState<Experiment[]>([]);
   const [results, setResults] = useState<Record<string, Stats[]>>({});
 
+  const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'https://api.cinacoin.com';
+
   useEffect(() => {
     // 获取所有实验
-    fetch('https://api.cinacoin.com/ab/admin/experiments')
+    fetch(`${API_BASE}/ab/admin/experiments`)
       .then(res => res.json())
       .then(data => setExperiments(data.experiments || []));
   }, []);
@@ -31,7 +33,7 @@ export default function ABTestingPage() {
   useEffect(() => {
     // 获取每个实验的结果
     experiments.forEach(async (exp) => {
-      const response = await fetch(`https://api.cinacoin.com/ab/results/${exp.id}`);
+      const response = await fetch(`${API_BASE}/ab/results/${exp.id}`);
       const data = await response.json();
       setResults(prev => ({ ...prev, [exp.id]: data.stats }));
     });

@@ -1,0 +1,1358 @@
+[
+  {
+    "name": "privacy",
+    "url": "https://cinacoin.com/privacy",
+    "status": "ok",
+    "httpStatus": 200,
+    "title": "Privacy Policy | CINAcoin",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Privacy Policy"
+      },
+      {
+        "tag": "H2",
+        "text": "1. Introduction"
+      },
+      {
+        "tag": "H2",
+        "text": "2. Information We Collect"
+      },
+      {
+        "tag": "H2",
+        "text": "3. How We Use Your Information"
+      },
+      {
+        "tag": "H2",
+        "text": "4. Self-Hosted Deployments"
+      },
+      {
+        "tag": "H2",
+        "text": "5. Data Sharing and Disclosure"
+      },
+      {
+        "tag": "H2",
+        "text": "6. Data Security"
+      },
+      {
+        "tag": "H2",
+        "text": "7. Data Retention"
+      },
+      {
+        "tag": "H2",
+        "text": "8. Your Rights"
+      },
+      {
+        "tag": "H2",
+        "text": "9. Cookies"
+      },
+      {
+        "tag": "H2",
+        "text": "10. International Data Transfers"
+      },
+      {
+        "tag": "H2",
+        "text": "11. Children's Privacy"
+      },
+      {
+        "tag": "H2",
+        "text": "12. Changes to This Policy"
+      },
+      {
+        "tag": "H2",
+        "text": "13. Contact Us"
+      },
+      {
+        "tag": "H4",
+        "text": "Product"
+      },
+      {
+        "tag": "H4",
+        "text": "Solutions"
+      },
+      {
+        "tag": "H4",
+        "text": "Developers"
+      },
+      {
+        "tag": "H4",
+        "text": "Resources"
+      },
+      {
+        "tag": "H4",
+        "text": "Company"
+      },
+      {
+        "tag": "H4",
+        "text": "Stay Updated"
+      }
+    ],
+    "links": {
+      "internal": [
+        {
+          "href": "https://cinacoin.com/",
+          "text": "Cinacoin"
+        },
+        {
+          "href": "https://cinacoin.com/",
+          "text": "Home"
+        },
+        {
+          "href": "https://cinacoin.com/pricing",
+          "text": "Pricing"
+        },
+        {
+          "href": "https://cinacoin.com/about",
+          "text": "About"
+        },
+        {
+          "href": "https://cinacoin.com/cookies",
+          "text": "Cookie Policy"
+        },
+        {
+          "href": "https://cinacoin.com/contact",
+          "text": "our Contact page"
+        },
+        {
+          "href": "https://cinacoin.com/products/",
+          "text": "Overview"
+        },
+        {
+          "href": "https://cinacoin.com/products/#wallet",
+          "text": "Wallet"
+        },
+        {
+          "href": "https://cinacoin.com/products/#exchange",
+          "text": "Exchange"
+        },
+        {
+          "href": "https://cinacoin.com/products/#staking",
+          "text": "Staking"
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#enterprise",
+          "text": "Enterprise"
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#defi",
+          "text": "DeFi"
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#payments",
+          "text": "Payments"
+        },
+        {
+          "href": "https://cinacoin.com/developers/",
+          "text": "Documentation"
+        },
+        {
+          "href": "https://cinacoin.com/developers/#api",
+          "text": "API Reference"
+        },
+        {
+          "href": "https://cinacoin.com/developers/#sdks",
+          "text": "SDKs"
+        },
+        {
+          "href": "https://cinacoin.com/developers/#github",
+          "text": "GitHub"
+        },
+        {
+          "href": "https://cinacoin.com/resources/",
+          "text": "Blog"
+        },
+        {
+          "href": "https://cinacoin.com/resources/#whitepaper",
+          "text": "Whitepaper"
+        },
+        {
+          "href": "https://cinacoin.com/resources/#community",
+          "text": "Community"
+        },
+        {
+          "href": "https://cinacoin.com/resources/#support",
+          "text": "Support"
+        },
+        {
+          "href": "https://cinacoin.com/about/",
+          "text": "About"
+        },
+        {
+          "href": "https://cinacoin.com/about/#careers",
+          "text": "Careers"
+        },
+        {
+          "href": "https://cinacoin.com/about/#contact",
+          "text": "Contact"
+        }
+      ],
+      "external": [
+        {
+          "href": "https://docs.cinacoin.com/",
+          "text": "Docs"
+        },
+        {
+          "href": "https://docs.cinacoin.com/",
+          "text": "Log In"
+        },
+        {
+          "href": "https://docs.cinacoin.com/",
+          "text": "Sign Up"
+        }
+      ]
+    },
+    "forms": [],
+    "oauthButtons": [],
+    "errors": [],
+    "contentLength": 3810,
+    "screenshotPath": "/home/cina/.openclaw/workspace/tools/browser-test/screenshots/test-legal/privacy.png",
+    "consoleErrors": []
+  },
+  {
+    "name": "terms",
+    "url": "https://cinacoin.com/terms",
+    "status": "ok",
+    "httpStatus": 200,
+    "title": "Terms of Service | CINAcoin",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Terms of Service"
+      },
+      {
+        "tag": "H2",
+        "text": "1. Agreement to Terms"
+      },
+      {
+        "tag": "H2",
+        "text": "2. Description of Services"
+      },
+      {
+        "tag": "H2",
+        "text": "3. Open Source Software"
+      },
+      {
+        "tag": "H2",
+        "text": "4. Acceptable Use"
+      },
+      {
+        "tag": "H2",
+        "text": "5. API Usage and Rate Limits"
+      },
+      {
+        "tag": "H2",
+        "text": "6. Intellectual Property"
+      },
+      {
+        "tag": "H2",
+        "text": "7. Disclaimer of Warranties"
+      },
+      {
+        "tag": "H2",
+        "text": "8. Limitation of Liability"
+      },
+      {
+        "tag": "H2",
+        "text": "9. Blockchain Risk Acknowledgment"
+      },
+      {
+        "tag": "H2",
+        "text": "10. Self-Hosted Deployments"
+      },
+      {
+        "tag": "H2",
+        "text": "11. Termination"
+      },
+      {
+        "tag": "H2",
+        "text": "12. Governing Law"
+      },
+      {
+        "tag": "H2",
+        "text": "13. Changes to Terms"
+      },
+      {
+        "tag": "H2",
+        "text": "14. Contact"
+      },
+      {
+        "tag": "H4",
+        "text": "Product"
+      },
+      {
+        "tag": "H4",
+        "text": "Solutions"
+      },
+      {
+        "tag": "H4",
+        "text": "Developers"
+      },
+      {
+        "tag": "H4",
+        "text": "Resources"
+      },
+      {
+        "tag": "H4",
+        "text": "Company"
+      },
+      {
+        "tag": "H4",
+        "text": "Stay Updated"
+      }
+    ],
+    "links": {
+      "internal": [
+        {
+          "href": "https://cinacoin.com/",
+          "text": "Cinacoin"
+        },
+        {
+          "href": "https://cinacoin.com/",
+          "text": "Home"
+        },
+        {
+          "href": "https://cinacoin.com/pricing",
+          "text": "Pricing"
+        },
+        {
+          "href": "https://cinacoin.com/about",
+          "text": "About"
+        },
+        {
+          "href": "https://cinacoin.com/pricing",
+          "text": "Pricing page"
+        },
+        {
+          "href": "https://cinacoin.com/contact",
+          "text": "our Contact page"
+        },
+        {
+          "href": "https://cinacoin.com/products/",
+          "text": "Overview"
+        },
+        {
+          "href": "https://cinacoin.com/products/#wallet",
+          "text": "Wallet"
+        },
+        {
+          "href": "https://cinacoin.com/products/#exchange",
+          "text": "Exchange"
+        },
+        {
+          "href": "https://cinacoin.com/products/#staking",
+          "text": "Staking"
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#enterprise",
+          "text": "Enterprise"
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#defi",
+          "text": "DeFi"
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#payments",
+          "text": "Payments"
+        },
+        {
+          "href": "https://cinacoin.com/developers/",
+          "text": "Documentation"
+        },
+        {
+          "href": "https://cinacoin.com/developers/#api",
+          "text": "API Reference"
+        },
+        {
+          "href": "https://cinacoin.com/developers/#sdks",
+          "text": "SDKs"
+        },
+        {
+          "href": "https://cinacoin.com/developers/#github",
+          "text": "GitHub"
+        },
+        {
+          "href": "https://cinacoin.com/resources/",
+          "text": "Blog"
+        },
+        {
+          "href": "https://cinacoin.com/resources/#whitepaper",
+          "text": "Whitepaper"
+        },
+        {
+          "href": "https://cinacoin.com/resources/#community",
+          "text": "Community"
+        },
+        {
+          "href": "https://cinacoin.com/resources/#support",
+          "text": "Support"
+        },
+        {
+          "href": "https://cinacoin.com/about/",
+          "text": "About"
+        },
+        {
+          "href": "https://cinacoin.com/about/#careers",
+          "text": "Careers"
+        },
+        {
+          "href": "https://cinacoin.com/about/#contact",
+          "text": "Contact"
+        }
+      ],
+      "external": [
+        {
+          "href": "https://docs.cinacoin.com/",
+          "text": "Docs"
+        },
+        {
+          "href": "https://docs.cinacoin.com/",
+          "text": "Log In"
+        },
+        {
+          "href": "https://docs.cinacoin.com/",
+          "text": "Sign Up"
+        }
+      ]
+    },
+    "forms": [],
+    "oauthButtons": [],
+    "errors": [],
+    "contentLength": 4121,
+    "screenshotPath": "/home/cina/.openclaw/workspace/tools/browser-test/screenshots/test-legal/terms.png",
+    "consoleErrors": []
+  },
+  {
+    "name": "cookies",
+    "url": "https://cinacoin.com/cookies",
+    "status": "ok",
+    "httpStatus": 200,
+    "title": "Cookie Policy | CINAcoin",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Cookie Policy"
+      },
+      {
+        "tag": "H2",
+        "text": "1. What Are Cookies"
+      },
+      {
+        "tag": "H2",
+        "text": "2. How We Use Cookies"
+      },
+      {
+        "tag": "H3",
+        "text": "Essential Cookies"
+      },
+      {
+        "tag": "H3",
+        "text": "Analytics Cookies"
+      },
+      {
+        "tag": "H3",
+        "text": "Preference Cookies"
+      },
+      {
+        "tag": "H2",
+        "text": "3. Third-Party Cookies"
+      },
+      {
+        "tag": "H2",
+        "text": "4. Self-Hosted Deployments"
+      },
+      {
+        "tag": "H2",
+        "text": "5. Managing Cookies"
+      },
+      {
+        "tag": "H2",
+        "text": "6. Cookie Duration"
+      },
+      {
+        "tag": "H2",
+        "text": "7. Updates to This Policy"
+      },
+      {
+        "tag": "H2",
+        "text": "8. Contact Us"
+      },
+      {
+        "tag": "H4",
+        "text": "Product"
+      },
+      {
+        "tag": "H4",
+        "text": "Solutions"
+      },
+      {
+        "tag": "H4",
+        "text": "Developers"
+      },
+      {
+        "tag": "H4",
+        "text": "Resources"
+      },
+      {
+        "tag": "H4",
+        "text": "Company"
+      },
+      {
+        "tag": "H4",
+        "text": "Stay Updated"
+      }
+    ],
+    "links": {
+      "internal": [
+        {
+          "href": "https://cinacoin.com/",
+          "text": "Cinacoin"
+        },
+        {
+          "href": "https://cinacoin.com/",
+          "text": "Home"
+        },
+        {
+          "href": "https://cinacoin.com/pricing",
+          "text": "Pricing"
+        },
+        {
+          "href": "https://cinacoin.com/about",
+          "text": "About"
+        },
+        {
+          "href": "https://cinacoin.com/contact",
+          "text": "our Contact page"
+        },
+        {
+          "href": "https://cinacoin.com/products/",
+          "text": "Overview"
+        },
+        {
+          "href": "https://cinacoin.com/products/#wallet",
+          "text": "Wallet"
+        },
+        {
+          "href": "https://cinacoin.com/products/#exchange",
+          "text": "Exchange"
+        },
+        {
+          "href": "https://cinacoin.com/products/#staking",
+          "text": "Staking"
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#enterprise",
+          "text": "Enterprise"
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#defi",
+          "text": "DeFi"
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#payments",
+          "text": "Payments"
+        },
+        {
+          "href": "https://cinacoin.com/developers/",
+          "text": "Documentation"
+        },
+        {
+          "href": "https://cinacoin.com/developers/#api",
+          "text": "API Reference"
+        },
+        {
+          "href": "https://cinacoin.com/developers/#sdks",
+          "text": "SDKs"
+        },
+        {
+          "href": "https://cinacoin.com/developers/#github",
+          "text": "GitHub"
+        },
+        {
+          "href": "https://cinacoin.com/resources/",
+          "text": "Blog"
+        },
+        {
+          "href": "https://cinacoin.com/resources/#whitepaper",
+          "text": "Whitepaper"
+        },
+        {
+          "href": "https://cinacoin.com/resources/#community",
+          "text": "Community"
+        },
+        {
+          "href": "https://cinacoin.com/resources/#support",
+          "text": "Support"
+        },
+        {
+          "href": "https://cinacoin.com/about/",
+          "text": "About"
+        },
+        {
+          "href": "https://cinacoin.com/about/#careers",
+          "text": "Careers"
+        },
+        {
+          "href": "https://cinacoin.com/about/#contact",
+          "text": "Contact"
+        }
+      ],
+      "external": [
+        {
+          "href": "https://docs.cinacoin.com/",
+          "text": "Docs"
+        },
+        {
+          "href": "https://docs.cinacoin.com/",
+          "text": "Log In"
+        },
+        {
+          "href": "https://docs.cinacoin.com/",
+          "text": "Sign Up"
+        }
+      ]
+    },
+    "forms": [],
+    "oauthButtons": [],
+    "errors": [],
+    "contentLength": 2746,
+    "screenshotPath": "/home/cina/.openclaw/workspace/tools/browser-test/screenshots/test-legal/cookies.png",
+    "consoleErrors": []
+  },
+  {
+    "name": "login",
+    "url": "https://cinacoin.com/login",
+    "status": "ok",
+    "httpStatus": 200,
+    "title": "Log In | CINAcoin",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Welcome back"
+      },
+      {
+        "tag": "H4",
+        "text": "Product"
+      },
+      {
+        "tag": "H4",
+        "text": "Solutions"
+      },
+      {
+        "tag": "H4",
+        "text": "Developers"
+      },
+      {
+        "tag": "H4",
+        "text": "Resources"
+      },
+      {
+        "tag": "H4",
+        "text": "Company"
+      },
+      {
+        "tag": "H4",
+        "text": "Stay Updated"
+      }
+    ],
+    "links": {
+      "internal": [
+        {
+          "href": "https://cinacoin.com/",
+          "text": "Cinacoin"
+        },
+        {
+          "href": "https://cinacoin.com/",
+          "text": "Home"
+        },
+        {
+          "href": "https://cinacoin.com/pricing",
+          "text": "Pricing"
+        },
+        {
+          "href": "https://cinacoin.com/about",
+          "text": "About"
+        },
+        {
+          "href": "https://cinacoin.com/register/",
+          "text": "Create one"
+        },
+        {
+          "href": "https://cinacoin.com/products/",
+          "text": "Overview"
+        },
+        {
+          "href": "https://cinacoin.com/products/#wallet",
+          "text": "Wallet"
+        },
+        {
+          "href": "https://cinacoin.com/products/#exchange",
+          "text": "Exchange"
+        },
+        {
+          "href": "https://cinacoin.com/products/#staking",
+          "text": "Staking"
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#enterprise",
+          "text": "Enterprise"
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#defi",
+          "text": "DeFi"
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#payments",
+          "text": "Payments"
+        },
+        {
+          "href": "https://cinacoin.com/developers/",
+          "text": "Documentation"
+        },
+        {
+          "href": "https://cinacoin.com/developers/#api",
+          "text": "API Reference"
+        },
+        {
+          "href": "https://cinacoin.com/developers/#sdks",
+          "text": "SDKs"
+        },
+        {
+          "href": "https://cinacoin.com/developers/#github",
+          "text": "GitHub"
+        },
+        {
+          "href": "https://cinacoin.com/resources/",
+          "text": "Blog"
+        },
+        {
+          "href": "https://cinacoin.com/resources/#whitepaper",
+          "text": "Whitepaper"
+        },
+        {
+          "href": "https://cinacoin.com/resources/#community",
+          "text": "Community"
+        },
+        {
+          "href": "https://cinacoin.com/resources/#support",
+          "text": "Support"
+        },
+        {
+          "href": "https://cinacoin.com/about/",
+          "text": "About"
+        },
+        {
+          "href": "https://cinacoin.com/about/#careers",
+          "text": "Careers"
+        },
+        {
+          "href": "https://cinacoin.com/about/#contact",
+          "text": "Contact"
+        }
+      ],
+      "external": [
+        {
+          "href": "https://docs.cinacoin.com/",
+          "text": "Docs"
+        },
+        {
+          "href": "https://docs.cinacoin.com/",
+          "text": "Log In"
+        },
+        {
+          "href": "https://docs.cinacoin.com/",
+          "text": "Sign Up"
+        }
+      ]
+    },
+    "forms": [
+      {
+        "action": "https://cinacoin.com/login/",
+        "method": "get",
+        "fields": [
+          {
+            "type": "email",
+            "name": "",
+            "id": "email",
+            "placeholder": "you@example.com",
+            "required": true
+          },
+          {
+            "type": "password",
+            "name": "",
+            "id": "password",
+            "placeholder": "••••••••",
+            "required": true
+          }
+        ]
+      },
+      {
+        "action": "https://cinacoin.com/login/",
+        "method": "get",
+        "fields": [
+          {
+            "type": "text",
+            "name": "",
+            "id": "",
+            "placeholder": "Name (optional)",
+            "required": false
+          },
+          {
+            "type": "email",
+            "name": "",
+            "id": "",
+            "placeholder": "Email address",
+            "required": true
+          }
+        ]
+      }
+    ],
+    "oauthButtons": [
+      {
+        "tag": "BUTTON",
+        "text": "Continue with Google",
+        "href": null,
+        "class": "cc-btn-secondary w-full flex items-center justify-center gap-3",
+        "dataProvider": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Continue with GitHub",
+        "href": null,
+        "class": "cc-btn-secondary w-full flex items-center justify-center gap-3",
+        "dataProvider": null
+      }
+    ],
+    "errors": [],
+    "contentLength": 523,
+    "screenshotPath": "/home/cina/.openclaw/workspace/tools/browser-test/screenshots/test-legal/login.png",
+    "allInputs": [
+      {
+        "type": "email",
+        "name": "",
+        "id": "email",
+        "placeholder": "you@example.com",
+        "required": true,
+        "inForm": true
+      },
+      {
+        "type": "password",
+        "name": "",
+        "id": "password",
+        "placeholder": "••••••••",
+        "required": true,
+        "inForm": true
+      },
+      {
+        "type": "text",
+        "name": "",
+        "id": "",
+        "placeholder": "Name (optional)",
+        "required": false,
+        "inForm": true
+      },
+      {
+        "type": "email",
+        "name": "",
+        "id": "",
+        "placeholder": "Email address",
+        "required": true,
+        "inForm": true
+      }
+    ],
+    "validationAfterEmptySubmit": [
+      {
+        "text": "EmailPasswordSign In",
+        "class": "space-y-4",
+        "tagName": "FORM"
+      },
+      {
+        "text": "",
+        "class": "cc-form-input",
+        "tagName": "INPUT"
+      },
+      {
+        "text": "",
+        "class": "cc-form-input",
+        "tagName": "INPUT"
+      },
+      {
+        "text": "Subscribe",
+        "class": "space-y-4",
+        "tagName": "FORM"
+      },
+      {
+        "text": "",
+        "class": "px-4 py-3 bg-white border border-[#ebebeb] rounded-[6px] focus:outline-none focus:ring-2 focus:ring-",
+        "tagName": "INPUT"
+      }
+    ],
+    "consoleErrors": []
+  },
+  {
+    "name": "register",
+    "url": "https://cinacoin.com/register",
+    "status": "ok",
+    "httpStatus": 200,
+    "title": "Sign Up | CINAcoin",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Create your account"
+      },
+      {
+        "tag": "H4",
+        "text": "Product"
+      },
+      {
+        "tag": "H4",
+        "text": "Solutions"
+      },
+      {
+        "tag": "H4",
+        "text": "Developers"
+      },
+      {
+        "tag": "H4",
+        "text": "Resources"
+      },
+      {
+        "tag": "H4",
+        "text": "Company"
+      },
+      {
+        "tag": "H4",
+        "text": "Stay Updated"
+      }
+    ],
+    "links": {
+      "internal": [
+        {
+          "href": "https://cinacoin.com/",
+          "text": "Cinacoin"
+        },
+        {
+          "href": "https://cinacoin.com/",
+          "text": "Home"
+        },
+        {
+          "href": "https://cinacoin.com/pricing",
+          "text": "Pricing"
+        },
+        {
+          "href": "https://cinacoin.com/about",
+          "text": "About"
+        },
+        {
+          "href": "https://cinacoin.com/terms/",
+          "text": "Terms of Service"
+        },
+        {
+          "href": "https://cinacoin.com/privacy/",
+          "text": "Privacy Policy"
+        },
+        {
+          "href": "https://cinacoin.com/login/",
+          "text": "Sign in"
+        },
+        {
+          "href": "https://cinacoin.com/products/",
+          "text": "Overview"
+        },
+        {
+          "href": "https://cinacoin.com/products/#wallet",
+          "text": "Wallet"
+        },
+        {
+          "href": "https://cinacoin.com/products/#exchange",
+          "text": "Exchange"
+        },
+        {
+          "href": "https://cinacoin.com/products/#staking",
+          "text": "Staking"
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#enterprise",
+          "text": "Enterprise"
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#defi",
+          "text": "DeFi"
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#payments",
+          "text": "Payments"
+        },
+        {
+          "href": "https://cinacoin.com/developers/",
+          "text": "Documentation"
+        },
+        {
+          "href": "https://cinacoin.com/developers/#api",
+          "text": "API Reference"
+        },
+        {
+          "href": "https://cinacoin.com/developers/#sdks",
+          "text": "SDKs"
+        },
+        {
+          "href": "https://cinacoin.com/developers/#github",
+          "text": "GitHub"
+        },
+        {
+          "href": "https://cinacoin.com/resources/",
+          "text": "Blog"
+        },
+        {
+          "href": "https://cinacoin.com/resources/#whitepaper",
+          "text": "Whitepaper"
+        },
+        {
+          "href": "https://cinacoin.com/resources/#community",
+          "text": "Community"
+        },
+        {
+          "href": "https://cinacoin.com/resources/#support",
+          "text": "Support"
+        },
+        {
+          "href": "https://cinacoin.com/about/",
+          "text": "About"
+        },
+        {
+          "href": "https://cinacoin.com/about/#careers",
+          "text": "Careers"
+        },
+        {
+          "href": "https://cinacoin.com/about/#contact",
+          "text": "Contact"
+        }
+      ],
+      "external": [
+        {
+          "href": "https://docs.cinacoin.com/",
+          "text": "Docs"
+        },
+        {
+          "href": "https://docs.cinacoin.com/",
+          "text": "Log In"
+        },
+        {
+          "href": "https://docs.cinacoin.com/",
+          "text": "Sign Up"
+        }
+      ]
+    },
+    "forms": [
+      {
+        "action": "https://cinacoin.com/register/",
+        "method": "get",
+        "fields": [
+          {
+            "type": "text",
+            "name": "",
+            "id": "name",
+            "placeholder": "John Doe",
+            "required": true
+          },
+          {
+            "type": "email",
+            "name": "",
+            "id": "email",
+            "placeholder": "you@example.com",
+            "required": true
+          },
+          {
+            "type": "password",
+            "name": "",
+            "id": "password",
+            "placeholder": "••••••••",
+            "required": true
+          },
+          {
+            "type": "checkbox",
+            "name": "",
+            "id": "terms",
+            "placeholder": "",
+            "required": true
+          }
+        ]
+      },
+      {
+        "action": "https://cinacoin.com/register/",
+        "method": "get",
+        "fields": [
+          {
+            "type": "text",
+            "name": "",
+            "id": "",
+            "placeholder": "Name (optional)",
+            "required": false
+          },
+          {
+            "type": "email",
+            "name": "",
+            "id": "",
+            "placeholder": "Email address",
+            "required": true
+          }
+        ]
+      }
+    ],
+    "oauthButtons": [
+      {
+        "tag": "BUTTON",
+        "text": "Sign up with Google",
+        "href": null,
+        "class": "cc-btn-secondary w-full flex items-center justify-center gap-3",
+        "dataProvider": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Sign up with GitHub",
+        "href": null,
+        "class": "cc-btn-secondary w-full flex items-center justify-center gap-3",
+        "dataProvider": null
+      }
+    ],
+    "errors": [],
+    "contentLength": 621,
+    "screenshotPath": "/home/cina/.openclaw/workspace/tools/browser-test/screenshots/test-legal/register.png",
+    "allInputs": [
+      {
+        "type": "text",
+        "name": "",
+        "id": "name",
+        "placeholder": "John Doe",
+        "required": true,
+        "inForm": true
+      },
+      {
+        "type": "email",
+        "name": "",
+        "id": "email",
+        "placeholder": "you@example.com",
+        "required": true,
+        "inForm": true
+      },
+      {
+        "type": "password",
+        "name": "",
+        "id": "password",
+        "placeholder": "••••••••",
+        "required": true,
+        "inForm": true
+      },
+      {
+        "type": "checkbox",
+        "name": "",
+        "id": "terms",
+        "placeholder": "",
+        "required": true,
+        "inForm": true
+      },
+      {
+        "type": "text",
+        "name": "",
+        "id": "",
+        "placeholder": "Name (optional)",
+        "required": false,
+        "inForm": true
+      },
+      {
+        "type": "email",
+        "name": "",
+        "id": "",
+        "placeholder": "Email address",
+        "required": true,
+        "inForm": true
+      }
+    ],
+    "validationAfterEmptySubmit": [
+      {
+        "text": "Full NameEmailPasswordAt least 8 charactersI agree to the Terms of Service and Privacy PolicyCreate ",
+        "class": "space-y-4",
+        "tagName": "FORM"
+      },
+      {
+        "text": "",
+        "class": "cc-form-input",
+        "tagName": "INPUT"
+      },
+      {
+        "text": "",
+        "class": "cc-form-input",
+        "tagName": "INPUT"
+      },
+      {
+        "text": "",
+        "class": "cc-form-input",
+        "tagName": "INPUT"
+      },
+      {
+        "text": "",
+        "class": "mt-1 h-4 w-4 rounded border-[var(--cc-hairline)]",
+        "tagName": "INPUT"
+      },
+      {
+        "text": "Subscribe",
+        "class": "space-y-4",
+        "tagName": "FORM"
+      },
+      {
+        "text": "",
+        "class": "px-4 py-3 bg-white border border-[#ebebeb] rounded-[6px] focus:outline-none focus:ring-2 focus:ring-",
+        "tagName": "INPUT"
+      }
+    ],
+    "consoleErrors": []
+  },
+  {
+    "name": "changelog",
+    "url": "https://cinacoin.com/changelog",
+    "status": "ok",
+    "httpStatus": 200,
+    "title": "Changelog | CINAcoin",
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Changelog"
+      },
+      {
+        "tag": "H4",
+        "text": "Product"
+      },
+      {
+        "tag": "H4",
+        "text": "Solutions"
+      },
+      {
+        "tag": "H4",
+        "text": "Developers"
+      },
+      {
+        "tag": "H4",
+        "text": "Resources"
+      },
+      {
+        "tag": "H4",
+        "text": "Company"
+      },
+      {
+        "tag": "H4",
+        "text": "Stay Updated"
+      }
+    ],
+    "links": {
+      "internal": [
+        {
+          "href": "https://cinacoin.com/",
+          "text": "Cinacoin"
+        },
+        {
+          "href": "https://cinacoin.com/",
+          "text": "Home"
+        },
+        {
+          "href": "https://cinacoin.com/pricing",
+          "text": "Pricing"
+        },
+        {
+          "href": "https://cinacoin.com/about",
+          "text": "About"
+        },
+        {
+          "href": "https://cinacoin.com/products/",
+          "text": "Overview"
+        },
+        {
+          "href": "https://cinacoin.com/products/#wallet",
+          "text": "Wallet"
+        },
+        {
+          "href": "https://cinacoin.com/products/#exchange",
+          "text": "Exchange"
+        },
+        {
+          "href": "https://cinacoin.com/products/#staking",
+          "text": "Staking"
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#enterprise",
+          "text": "Enterprise"
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#defi",
+          "text": "DeFi"
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#payments",
+          "text": "Payments"
+        },
+        {
+          "href": "https://cinacoin.com/developers/",
+          "text": "Documentation"
+        },
+        {
+          "href": "https://cinacoin.com/developers/#api",
+          "text": "API Reference"
+        },
+        {
+          "href": "https://cinacoin.com/developers/#sdks",
+          "text": "SDKs"
+        },
+        {
+          "href": "https://cinacoin.com/developers/#github",
+          "text": "GitHub"
+        },
+        {
+          "href": "https://cinacoin.com/resources/",
+          "text": "Blog"
+        },
+        {
+          "href": "https://cinacoin.com/resources/#whitepaper",
+          "text": "Whitepaper"
+        },
+        {
+          "href": "https://cinacoin.com/resources/#community",
+          "text": "Community"
+        },
+        {
+          "href": "https://cinacoin.com/resources/#support",
+          "text": "Support"
+        },
+        {
+          "href": "https://cinacoin.com/about/",
+          "text": "About"
+        },
+        {
+          "href": "https://cinacoin.com/about/#careers",
+          "text": "Careers"
+        },
+        {
+          "href": "https://cinacoin.com/about/#contact",
+          "text": "Contact"
+        }
+      ],
+      "external": [
+        {
+          "href": "https://docs.cinacoin.com/",
+          "text": "Docs"
+        },
+        {
+          "href": "https://docs.cinacoin.com/",
+          "text": "Log In"
+        },
+        {
+          "href": "https://docs.cinacoin.com/",
+          "text": "Sign Up"
+        }
+      ]
+    },
+    "forms": [],
+    "oauthButtons": [],
+    "errors": [],
+    "contentLength": 1121,
+    "screenshotPath": "/home/cina/.openclaw/workspace/tools/browser-test/screenshots/test-legal/changelog.png",
+    "consoleErrors": []
+  }
+]

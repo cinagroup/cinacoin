@@ -1,3 +1,2 @@
-# Consolidation: this app's canonical home is cinacoin.com/wallets/.
-# 301 the standalone subdomain root to the canonical subpath (SEO consolidation).
-/  https://cinacoin.com/wallets/  301
+# Wallet Explorer serves its own content at wallet.cinacoin.com
+# No redirects - this is a standalone application

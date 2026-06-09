@@ -1,0 +1,2550 @@
+{
+  "timestamp": "2026-06-09T12:59:29.832Z",
+  "pages": {
+    "Home": {
+      "url": "https://cinacoin.com",
+      "screenshots": [
+        {
+          "type": "desktop",
+          "path": "/home/cina/.openclaw/workspace/tools/browser-test/screenshots/test-main/home-desktop.png",
+          "viewport": "1440x900"
+        },
+        {
+          "type": "mobile",
+          "path": "/home/cina/.openclaw/workspace/tools/browser-test/screenshots/test-main/home-mobile.png",
+          "viewport": "375x812"
+        },
+        {
+          "type": "tablet",
+          "path": "/home/cina/.openclaw/workspace/tools/browser-test/screenshots/test-main/home-tablet.png",
+          "viewport": "768x1024"
+        }
+      ],
+      "links": [
+        {
+          "href": "https://cinacoin.com/",
+          "text": "Cinacoin",
+          "target": "_self",
+          "hasOnclick": false,
+          "ariaLabel": "Cinacoin home"
+        },
+        {
+          "href": "https://cinacoin.com/",
+          "text": "Home",
+          "target": "_self",
+          "hasOnclick": false,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/pricing",
+          "text": "Pricing",
+          "target": "_self",
+          "hasOnclick": false,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/about",
+          "text": "About",
+          "target": "_self",
+          "hasOnclick": false,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://docs.cinacoin.com/",
+          "text": "Docs",
+          "target": "_blank",
+          "hasOnclick": false,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://docs.cinacoin.com/",
+          "text": "Log In",
+          "target": "_blank",
+          "hasOnclick": false,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://docs.cinacoin.com/",
+          "text": "Sign Up",
+          "target": "_blank",
+          "hasOnclick": false,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/products/",
+          "text": "Get Started",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/about/",
+          "text": "Learn More",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#performance",
+          "text": "⚡Lightning FastTransactions confirmed in seconds, not minutes. Built for real-wo",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#security",
+          "text": "🔒Bank-Level SecurityAdvanced cryptography and decentralized consensus protect y",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#scale",
+          "text": "🌐Global ScaleDesigned to handle millions of transactions per second worldwide.L",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/products/#wallet",
+          "text": "CinaCoin WalletSecure, fast, and easy-to-use digital wallet for managing your Ci",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/products/#exchange",
+          "text": "CinaCoin ExchangeTrade CinaCoin and other digital assets with low fees and high ",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/products/#staking",
+          "text": "StakingEarn rewards by staking your CinaCoin and securing the network.Start Stak",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/developers/",
+          "text": "Developer ToolsBuild powerful applications on the CinaCoin blockchain with our S",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/products/",
+          "text": "Create Your Wallet",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/developers/",
+          "text": "Read the Docs",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/products/",
+          "text": "Overview",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/products/#wallet",
+          "text": "Wallet",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/products/#exchange",
+          "text": "Exchange",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/products/#staking",
+          "text": "Staking",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#enterprise",
+          "text": "Enterprise",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#defi",
+          "text": "DeFi",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#payments",
+          "text": "Payments",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/developers/",
+          "text": "Documentation",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/developers/#api",
+          "text": "API Reference",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/developers/#sdks",
+          "text": "SDKs",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/developers/#github",
+          "text": "GitHub",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/resources/",
+          "text": "Blog",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/resources/#whitepaper",
+          "text": "Whitepaper",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/resources/#community",
+          "text": "Community",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/resources/#support",
+          "text": "Support",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/about/",
+          "text": "About",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/about/#careers",
+          "text": "Careers",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/about/#contact",
+          "text": "Contact",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        }
+      ],
+      "buttons": [
+        {
+          "tag": "BUTTON",
+          "text": "Search...⌘K",
+          "type": "submit",
+          "disabled": false,
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "className": "flex items-center gap-2 px-3 py-1.5 text-sm text-[var(--cc-body)] bg-[var(--cc-canvas-soft)] border "
+        },
+        {
+          "tag": "BUTTON",
+          "text": "",
+          "type": "button",
+          "disabled": false,
+          "hasOnclick": true,
+          "ariaLabel": "Switch to dark mode",
+          "className": "flex h-10 w-10 items-center justify-center rounded-full text-[var(--cc-body)] transition-colors hove"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "EN",
+          "type": "button",
+          "disabled": false,
+          "hasOnclick": true,
+          "ariaLabel": "Select language",
+          "className": "flex h-10 items-center gap-1 rounded-md px-2 text-[var(--cc-body)] transition-colors hover:text-[var"
+        },
+        {
+          "tag": "A",
+          "text": "Log In",
+          "type": "",
+          "disabled": false,
+          "hasOnclick": false,
+          "ariaLabel": "",
+          "className": "cc-nav-cta-login"
+        },
+        {
+          "tag": "A",
+          "text": "Sign Up",
+          "type": "",
+          "disabled": false,
+          "hasOnclick": false,
+          "ariaLabel": "",
+          "className": "cc-nav-cta-signup"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "",
+          "type": "button",
+          "disabled": false,
+          "hasOnclick": true,
+          "ariaLabel": "Switch to dark mode",
+          "className": "flex h-10 w-10 items-center justify-center rounded-full text-[var(--cc-body)] transition-colors hove"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "",
+          "type": "button",
+          "disabled": false,
+          "hasOnclick": true,
+          "ariaLabel": "Open menu",
+          "className": "rounded-full p-2.5 text-[var(--cc-body)] transition-colors hover:text-[var(--cc-ink)] focus:outline-"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Subscribe",
+          "type": "submit",
+          "disabled": false,
+          "hasOnclick": false,
+          "ariaLabel": "",
+          "className": "w-full px-8 py-3 bg-[#171717] hover:bg-[#2a2a2a] text-white rounded-[6px] font-medium text-[14px] tr"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Subscribe",
+          "type": "submit",
+          "disabled": false,
+          "hasOnclick": false,
+          "ariaLabel": "",
+          "className": "w-full px-8 py-3 bg-[#171717] hover:bg-[#2a2a2a] text-white rounded-[6px] font-medium text-[14px] tr"
+        }
+      ],
+      "issues": [],
+      "linkChecks": [
+        {
+          "href": "https://cinacoin.com/",
+          "text": "Home",
+          "target": "_self",
+          "hasOnclick": false,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/pricing",
+          "text": "Pricing",
+          "target": "_self",
+          "hasOnclick": false,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/pricing",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/about",
+          "text": "About",
+          "target": "_self",
+          "hasOnclick": false,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/about",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/products/",
+          "text": "Overview",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/products/",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/about/",
+          "text": "About",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/about/",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#performance",
+          "text": "⚡Lightning FastTransactions confirmed in seconds, not minutes. Built for real-wo",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/solutions/#performance",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#security",
+          "text": "🔒Bank-Level SecurityAdvanced cryptography and decentralized consensus protect y",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/solutions/#security",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#scale",
+          "text": "🌐Global ScaleDesigned to handle millions of transactions per second worldwide.L",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/solutions/#scale",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/products/#wallet",
+          "text": "Wallet",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/products/#wallet",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/products/#exchange",
+          "text": "Exchange",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/products/#exchange",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/products/#staking",
+          "text": "Staking",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/products/#staking",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/developers/",
+          "text": "Documentation",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/developers/",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#enterprise",
+          "text": "Enterprise",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/solutions/#enterprise",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#defi",
+          "text": "DeFi",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/solutions/#defi",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#payments",
+          "text": "Payments",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/solutions/#payments",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/developers/#api",
+          "text": "API Reference",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/developers/#api",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/developers/#sdks",
+          "text": "SDKs",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/developers/#sdks",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/developers/#github",
+          "text": "GitHub",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/developers/#github",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/resources/",
+          "text": "Blog",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/resources/",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/resources/#whitepaper",
+          "text": "Whitepaper",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/resources/#whitepaper",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/resources/#community",
+          "text": "Community",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/resources/#community",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/resources/#support",
+          "text": "Support",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/resources/#support",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/about/#careers",
+          "text": "Careers",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/about/#careers",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/about/#contact",
+          "text": "Contact",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/about/#contact",
+          "status": 200,
+          "ok": true
+        }
+      ],
+      "externalLinkChecks": [],
+      "darkMode": {
+        "found": true,
+        "works": true,
+        "method": "button[aria-label*=\"dark\" i]",
+        "currentTheme": {
+          "bgColor": "rgba(0, 0, 0, 0)",
+          "textColor": "rgb(0, 0, 0)",
+          "htmlClass": ""
+        }
+      },
+      "i18n": {
+        "found": true,
+        "languages": [],
+        "switcherWorks": false,
+        "method": "[aria-label*=\"language\" i]",
+        "hasUrlPrefix": false,
+        "hreflangTags": [],
+        "currentUrl": "https://cinacoin.com/",
+        "menuScreenshot": "/home/cina/.openclaw/workspace/tools/browser-test/screenshots/test-main/lang-menu-open.png"
+      },
+      "accessibility": {
+        "totalImages": 1,
+        "imagesWithoutAlt": 0,
+        "headings": [
+          {
+            "tag": "H1",
+            "text": "CinaCoin"
+          },
+          {
+            "tag": "H2",
+            "text": "Why Choose CinaCoin?"
+          },
+          {
+            "tag": "H3",
+            "text": "Lightning Fast"
+          },
+          {
+            "tag": "H3",
+            "text": "Bank-Level Security"
+          },
+          {
+            "tag": "H3",
+            "text": "Global Scale"
+          },
+          {
+            "tag": "H2",
+            "text": "Our Products"
+          },
+          {
+            "tag": "H3",
+            "text": "CinaCoin Wallet"
+          },
+          {
+            "tag": "H3",
+            "text": "CinaCoin Exchange"
+          },
+          {
+            "tag": "H3",
+            "text": "Staking"
+          },
+          {
+            "tag": "H3",
+            "text": "Developer Tools"
+          },
+          {
+            "tag": "H2",
+            "text": "Stay in the Loop"
+          },
+          {
+            "tag": "H2",
+            "text": "Ready to Join the Revolution?"
+          },
+          {
+            "tag": "H4",
+            "text": "Product"
+          },
+          {
+            "tag": "H4",
+            "text": "Solutions"
+          },
+          {
+            "tag": "H4",
+            "text": "Developers"
+          },
+          {
+            "tag": "H4",
+            "text": "Resources"
+          },
+          {
+            "tag": "H4",
+            "text": "Company"
+          },
+          {
+            "tag": "H4",
+            "text": "Stay Updated"
+          }
+        ],
+        "h1Count": 1,
+        "hasLang": true,
+        "lang": "en"
+      },
+      "meta": {
+        "title": "CINAcoin - The Future of Decentralized Finance",
+        "description": "Build, deploy, and scale your Web3 applications with CINAcoin. Multi-chain wallet, cloud infrastructure, and DeFi tools.",
+        "ogTitle": "CINAcoin - The Future of Decentralized Finance",
+        "ogDesc": "Build, deploy, and scale your Web3 applications with CINAcoin.",
+        "ogImage": "https://cinacoin.com/og-image.jpg",
+        "canonical": "not set"
+      },
+      "pageTitle": "CINAcoin - The Future of Decentralized Finance"
+    },
+    "About": {
+      "url": "https://cinacoin.com/about",
+      "screenshots": [
+        {
+          "type": "desktop",
+          "path": "/home/cina/.openclaw/workspace/tools/browser-test/screenshots/test-main/about-desktop.png",
+          "viewport": "1440x900"
+        },
+        {
+          "type": "mobile",
+          "path": "/home/cina/.openclaw/workspace/tools/browser-test/screenshots/test-main/about-mobile.png",
+          "viewport": "375x812"
+        },
+        {
+          "type": "tablet",
+          "path": "/home/cina/.openclaw/workspace/tools/browser-test/screenshots/test-main/about-tablet.png",
+          "viewport": "768x1024"
+        }
+      ],
+      "links": [
+        {
+          "href": "https://cinacoin.com/",
+          "text": "Cinacoin",
+          "target": "_self",
+          "hasOnclick": false,
+          "ariaLabel": "Cinacoin home"
+        },
+        {
+          "href": "https://cinacoin.com/",
+          "text": "Home",
+          "target": "_self",
+          "hasOnclick": false,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/pricing",
+          "text": "Pricing",
+          "target": "_self",
+          "hasOnclick": false,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/about",
+          "text": "About",
+          "target": "_self",
+          "hasOnclick": false,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://docs.cinacoin.com/",
+          "text": "Docs",
+          "target": "_blank",
+          "hasOnclick": false,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://docs.cinacoin.com/",
+          "text": "Log In",
+          "target": "_blank",
+          "hasOnclick": false,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://docs.cinacoin.com/",
+          "text": "Sign Up",
+          "target": "_blank",
+          "hasOnclick": false,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/",
+          "text": "Home",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/products/",
+          "text": "Overview",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/products/#wallet",
+          "text": "Wallet",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/products/#exchange",
+          "text": "Exchange",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/products/#staking",
+          "text": "Staking",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#enterprise",
+          "text": "Enterprise",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#defi",
+          "text": "DeFi",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#payments",
+          "text": "Payments",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/developers/",
+          "text": "Documentation",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/developers/#api",
+          "text": "API Reference",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/developers/#sdks",
+          "text": "SDKs",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/developers/#github",
+          "text": "GitHub",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/resources/",
+          "text": "Blog",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/resources/#whitepaper",
+          "text": "Whitepaper",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/resources/#community",
+          "text": "Community",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/resources/#support",
+          "text": "Support",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/about/",
+          "text": "About",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/about/#careers",
+          "text": "Careers",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/about/#contact",
+          "text": "Contact",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        }
+      ],
+      "buttons": [
+        {
+          "tag": "BUTTON",
+          "text": "Search...⌘K",
+          "type": "submit",
+          "disabled": false,
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "className": "flex items-center gap-2 px-3 py-1.5 text-sm text-[var(--cc-body)] bg-[var(--cc-canvas-soft)] border "
+        },
+        {
+          "tag": "BUTTON",
+          "text": "",
+          "type": "button",
+          "disabled": false,
+          "hasOnclick": true,
+          "ariaLabel": "Switch to dark mode",
+          "className": "flex h-10 w-10 items-center justify-center rounded-full text-[var(--cc-body)] transition-colors hove"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "EN",
+          "type": "button",
+          "disabled": false,
+          "hasOnclick": true,
+          "ariaLabel": "Select language",
+          "className": "flex h-10 items-center gap-1 rounded-md px-2 text-[var(--cc-body)] transition-colors hover:text-[var"
+        },
+        {
+          "tag": "A",
+          "text": "Log In",
+          "type": "",
+          "disabled": false,
+          "hasOnclick": false,
+          "ariaLabel": "",
+          "className": "cc-nav-cta-login"
+        },
+        {
+          "tag": "A",
+          "text": "Sign Up",
+          "type": "",
+          "disabled": false,
+          "hasOnclick": false,
+          "ariaLabel": "",
+          "className": "cc-nav-cta-signup"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "",
+          "type": "button",
+          "disabled": false,
+          "hasOnclick": true,
+          "ariaLabel": "Switch to dark mode",
+          "className": "flex h-10 w-10 items-center justify-center rounded-full text-[var(--cc-body)] transition-colors hove"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "",
+          "type": "button",
+          "disabled": false,
+          "hasOnclick": true,
+          "ariaLabel": "Open menu",
+          "className": "rounded-full p-2.5 text-[var(--cc-body)] transition-colors hover:text-[var(--cc-ink)] focus:outline-"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Subscribe",
+          "type": "submit",
+          "disabled": false,
+          "hasOnclick": false,
+          "ariaLabel": "",
+          "className": "w-full px-8 py-3 bg-[#171717] hover:bg-[#2a2a2a] text-white rounded-[6px] font-medium text-[14px] tr"
+        }
+      ],
+      "issues": [],
+      "linkChecks": [
+        {
+          "href": "https://cinacoin.com/",
+          "text": "Home",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/pricing",
+          "text": "Pricing",
+          "target": "_self",
+          "hasOnclick": false,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/pricing",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/about",
+          "text": "About",
+          "target": "_self",
+          "hasOnclick": false,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/about",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/products/",
+          "text": "Overview",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/products/",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/products/#wallet",
+          "text": "Wallet",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/products/#wallet",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/products/#exchange",
+          "text": "Exchange",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/products/#exchange",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/products/#staking",
+          "text": "Staking",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/products/#staking",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#enterprise",
+          "text": "Enterprise",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/solutions/#enterprise",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#defi",
+          "text": "DeFi",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/solutions/#defi",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#payments",
+          "text": "Payments",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/solutions/#payments",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/developers/",
+          "text": "Documentation",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/developers/",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/developers/#api",
+          "text": "API Reference",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/developers/#api",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/developers/#sdks",
+          "text": "SDKs",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/developers/#sdks",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/developers/#github",
+          "text": "GitHub",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/developers/#github",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/resources/",
+          "text": "Blog",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/resources/",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/resources/#whitepaper",
+          "text": "Whitepaper",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/resources/#whitepaper",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/resources/#community",
+          "text": "Community",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/resources/#community",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/resources/#support",
+          "text": "Support",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/resources/#support",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/about/",
+          "text": "About",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/about/",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/about/#careers",
+          "text": "Careers",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/about/#careers",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/about/#contact",
+          "text": "Contact",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/about/#contact",
+          "status": 200,
+          "ok": true
+        }
+      ],
+      "externalLinkChecks": [],
+      "darkMode": {
+        "found": true,
+        "works": true,
+        "method": "button[aria-label*=\"dark\" i]",
+        "currentTheme": {
+          "bgColor": "rgba(0, 0, 0, 0)",
+          "textColor": "rgb(0, 0, 0)",
+          "htmlClass": ""
+        }
+      },
+      "i18n": {
+        "found": true,
+        "languages": [],
+        "switcherWorks": false,
+        "method": "[aria-label*=\"language\" i]",
+        "hasUrlPrefix": false,
+        "hreflangTags": [],
+        "currentUrl": "https://cinacoin.com/about/",
+        "menuScreenshot": "/home/cina/.openclaw/workspace/tools/browser-test/screenshots/test-main/lang-menu-open.png"
+      },
+      "accessibility": {
+        "totalImages": 1,
+        "imagesWithoutAlt": 0,
+        "headings": [
+          {
+            "tag": "H1",
+            "text": "Built for developers, by developers"
+          },
+          {
+            "tag": "H2",
+            "text": "Our Principles"
+          },
+          {
+            "tag": "H3",
+            "text": "Open Source First"
+          },
+          {
+            "tag": "H3",
+            "text": "Chain Agnostic"
+          },
+          {
+            "tag": "H3",
+            "text": "Developer Experience"
+          },
+          {
+            "tag": "H3",
+            "text": "Self-Hosted"
+          },
+          {
+            "tag": "H2",
+            "text": "Timeline"
+          },
+          {
+            "tag": "H3",
+            "text": "Project founded"
+          },
+          {
+            "tag": "H3",
+            "text": "Core SDK v1.0"
+          },
+          {
+            "tag": "H3",
+            "text": "Multi-chain expansion"
+          },
+          {
+            "tag": "H3",
+            "text": "React + framework adapters"
+          },
+          {
+            "tag": "H3",
+            "text": "SDK v2.0"
+          },
+          {
+            "tag": "H3",
+            "text": "Open source launch"
+          },
+          {
+            "tag": "H4",
+            "text": "Product"
+          },
+          {
+            "tag": "H4",
+            "text": "Solutions"
+          },
+          {
+            "tag": "H4",
+            "text": "Developers"
+          },
+          {
+            "tag": "H4",
+            "text": "Resources"
+          },
+          {
+            "tag": "H4",
+            "text": "Company"
+          },
+          {
+            "tag": "H4",
+            "text": "Stay Updated"
+          }
+        ],
+        "h1Count": 1,
+        "hasLang": true,
+        "lang": "en"
+      },
+      "meta": {
+        "title": "CINAcoin - The Future of Decentralized Finance",
+        "description": "Build, deploy, and scale your Web3 applications with CINAcoin. Multi-chain wallet, cloud infrastructure, and DeFi tools.",
+        "ogTitle": "CINAcoin - The Future of Decentralized Finance",
+        "ogDesc": "Build, deploy, and scale your Web3 applications with CINAcoin.",
+        "ogImage": "https://cinacoin.com/og-image.jpg",
+        "canonical": "not set"
+      },
+      "pageTitle": "CINAcoin - The Future of Decentralized Finance"
+    },
+    "Products": {
+      "url": "https://cinacoin.com/products",
+      "screenshots": [
+        {
+          "type": "desktop",
+          "path": "/home/cina/.openclaw/workspace/tools/browser-test/screenshots/test-main/products-desktop.png",
+          "viewport": "1440x900"
+        },
+        {
+          "type": "mobile",
+          "path": "/home/cina/.openclaw/workspace/tools/browser-test/screenshots/test-main/products-mobile.png",
+          "viewport": "375x812"
+        },
+        {
+          "type": "tablet",
+          "path": "/home/cina/.openclaw/workspace/tools/browser-test/screenshots/test-main/products-tablet.png",
+          "viewport": "768x1024"
+        }
+      ],
+      "links": [
+        {
+          "href": "https://cinacoin.com/",
+          "text": "Cinacoin",
+          "target": "_self",
+          "hasOnclick": false,
+          "ariaLabel": "Cinacoin home"
+        },
+        {
+          "href": "https://cinacoin.com/",
+          "text": "Home",
+          "target": "_self",
+          "hasOnclick": false,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/pricing",
+          "text": "Pricing",
+          "target": "_self",
+          "hasOnclick": false,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/about",
+          "text": "About",
+          "target": "_self",
+          "hasOnclick": false,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://docs.cinacoin.com/",
+          "text": "Docs",
+          "target": "_blank",
+          "hasOnclick": false,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://docs.cinacoin.com/",
+          "text": "Log In",
+          "target": "_blank",
+          "hasOnclick": false,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://docs.cinacoin.com/",
+          "text": "Sign Up",
+          "target": "_blank",
+          "hasOnclick": false,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/",
+          "text": "Home",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/products/#wallet",
+          "text": "Download Wallet",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/products/#exchange",
+          "text": "Start Trading",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/products/#staking",
+          "text": "Start Staking",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/products/#explorer",
+          "text": "Open Explorer",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/products/",
+          "text": "Overview",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/products/#wallet",
+          "text": "Wallet",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/products/#exchange",
+          "text": "Exchange",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/products/#staking",
+          "text": "Staking",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#enterprise",
+          "text": "Enterprise",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#defi",
+          "text": "DeFi",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#payments",
+          "text": "Payments",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/developers/",
+          "text": "Documentation",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/developers/#api",
+          "text": "API Reference",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/developers/#sdks",
+          "text": "SDKs",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/developers/#github",
+          "text": "GitHub",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/resources/",
+          "text": "Blog",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/resources/#whitepaper",
+          "text": "Whitepaper",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/resources/#community",
+          "text": "Community",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/resources/#support",
+          "text": "Support",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/about/",
+          "text": "About",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/about/#careers",
+          "text": "Careers",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/about/#contact",
+          "text": "Contact",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        }
+      ],
+      "buttons": [
+        {
+          "tag": "BUTTON",
+          "text": "Search...⌘K",
+          "type": "submit",
+          "disabled": false,
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "className": "flex items-center gap-2 px-3 py-1.5 text-sm text-[var(--cc-body)] bg-[var(--cc-canvas-soft)] border "
+        },
+        {
+          "tag": "BUTTON",
+          "text": "",
+          "type": "button",
+          "disabled": false,
+          "hasOnclick": true,
+          "ariaLabel": "Switch to dark mode",
+          "className": "flex h-10 w-10 items-center justify-center rounded-full text-[var(--cc-body)] transition-colors hove"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "EN",
+          "type": "button",
+          "disabled": false,
+          "hasOnclick": true,
+          "ariaLabel": "Select language",
+          "className": "flex h-10 items-center gap-1 rounded-md px-2 text-[var(--cc-body)] transition-colors hover:text-[var"
+        },
+        {
+          "tag": "A",
+          "text": "Log In",
+          "type": "",
+          "disabled": false,
+          "hasOnclick": false,
+          "ariaLabel": "",
+          "className": "cc-nav-cta-login"
+        },
+        {
+          "tag": "A",
+          "text": "Sign Up",
+          "type": "",
+          "disabled": false,
+          "hasOnclick": false,
+          "ariaLabel": "",
+          "className": "cc-nav-cta-signup"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "",
+          "type": "button",
+          "disabled": false,
+          "hasOnclick": true,
+          "ariaLabel": "Switch to dark mode",
+          "className": "flex h-10 w-10 items-center justify-center rounded-full text-[var(--cc-body)] transition-colors hove"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "",
+          "type": "button",
+          "disabled": false,
+          "hasOnclick": true,
+          "ariaLabel": "Open menu",
+          "className": "rounded-full p-2.5 text-[var(--cc-body)] transition-colors hover:text-[var(--cc-ink)] focus:outline-"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Subscribe",
+          "type": "submit",
+          "disabled": false,
+          "hasOnclick": false,
+          "ariaLabel": "",
+          "className": "w-full px-8 py-3 bg-[#171717] hover:bg-[#2a2a2a] text-white rounded-[6px] font-medium text-[14px] tr"
+        }
+      ],
+      "issues": [],
+      "linkChecks": [
+        {
+          "href": "https://cinacoin.com/",
+          "text": "Home",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/pricing",
+          "text": "Pricing",
+          "target": "_self",
+          "hasOnclick": false,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/pricing",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/about",
+          "text": "About",
+          "target": "_self",
+          "hasOnclick": false,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/about",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/products/#wallet",
+          "text": "Wallet",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/products/#wallet",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/products/#exchange",
+          "text": "Exchange",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/products/#exchange",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/products/#staking",
+          "text": "Staking",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/products/#staking",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/products/#explorer",
+          "text": "Open Explorer",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/products/#explorer",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/products/",
+          "text": "Overview",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/products/",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#enterprise",
+          "text": "Enterprise",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/solutions/#enterprise",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#defi",
+          "text": "DeFi",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/solutions/#defi",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#payments",
+          "text": "Payments",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/solutions/#payments",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/developers/",
+          "text": "Documentation",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/developers/",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/developers/#api",
+          "text": "API Reference",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/developers/#api",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/developers/#sdks",
+          "text": "SDKs",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/developers/#sdks",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/developers/#github",
+          "text": "GitHub",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/developers/#github",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/resources/",
+          "text": "Blog",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/resources/",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/resources/#whitepaper",
+          "text": "Whitepaper",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/resources/#whitepaper",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/resources/#community",
+          "text": "Community",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/resources/#community",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/resources/#support",
+          "text": "Support",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/resources/#support",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/about/",
+          "text": "About",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/about/",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/about/#careers",
+          "text": "Careers",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/about/#careers",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/about/#contact",
+          "text": "Contact",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/about/#contact",
+          "status": 200,
+          "ok": true
+        }
+      ],
+      "externalLinkChecks": [],
+      "darkMode": {
+        "found": true,
+        "works": true,
+        "method": "button[aria-label*=\"dark\" i]",
+        "currentTheme": {
+          "bgColor": "rgba(0, 0, 0, 0)",
+          "textColor": "rgb(0, 0, 0)",
+          "htmlClass": ""
+        }
+      },
+      "i18n": {
+        "found": true,
+        "languages": [],
+        "switcherWorks": false,
+        "method": "[aria-label*=\"language\" i]",
+        "hasUrlPrefix": false,
+        "hreflangTags": [],
+        "currentUrl": "https://cinacoin.com/products/",
+        "menuScreenshot": "/home/cina/.openclaw/workspace/tools/browser-test/screenshots/test-main/lang-menu-open.png"
+      },
+      "accessibility": {
+        "totalImages": 1,
+        "imagesWithoutAlt": 0,
+        "headings": [
+          {
+            "tag": "H1",
+            "text": "Products"
+          },
+          {
+            "tag": "H2",
+            "text": "CinaCoin Wallet"
+          },
+          {
+            "tag": "H2",
+            "text": "CinaCoin Exchange"
+          },
+          {
+            "tag": "H2",
+            "text": "Staking"
+          },
+          {
+            "tag": "H2",
+            "text": "Block Explorer"
+          },
+          {
+            "tag": "H4",
+            "text": "Product"
+          },
+          {
+            "tag": "H4",
+            "text": "Solutions"
+          },
+          {
+            "tag": "H4",
+            "text": "Developers"
+          },
+          {
+            "tag": "H4",
+            "text": "Resources"
+          },
+          {
+            "tag": "H4",
+            "text": "Company"
+          },
+          {
+            "tag": "H4",
+            "text": "Stay Updated"
+          }
+        ],
+        "h1Count": 1,
+        "hasLang": true,
+        "lang": "en"
+      },
+      "meta": {
+        "title": "Products | CINAcoin",
+        "description": "Explore CINAcoin's complete suite of Web3 products: Wallet, Exchange, Staking, and Explorer.",
+        "ogTitle": "CINAcoin Products",
+        "ogDesc": "Explore CINAcoin's complete suite of Web3 products.",
+        "ogImage": "not set",
+        "canonical": "not set"
+      },
+      "pageTitle": "Products | CINAcoin"
+    },
+    "Pricing": {
+      "url": "https://cinacoin.com/pricing",
+      "screenshots": [
+        {
+          "type": "desktop",
+          "path": "/home/cina/.openclaw/workspace/tools/browser-test/screenshots/test-main/pricing-desktop.png",
+          "viewport": "1440x900"
+        },
+        {
+          "type": "mobile",
+          "path": "/home/cina/.openclaw/workspace/tools/browser-test/screenshots/test-main/pricing-mobile.png",
+          "viewport": "375x812"
+        },
+        {
+          "type": "tablet",
+          "path": "/home/cina/.openclaw/workspace/tools/browser-test/screenshots/test-main/pricing-tablet.png",
+          "viewport": "768x1024"
+        }
+      ],
+      "links": [
+        {
+          "href": "https://cinacoin.com/",
+          "text": "Cinacoin",
+          "target": "_self",
+          "hasOnclick": false,
+          "ariaLabel": "Cinacoin home"
+        },
+        {
+          "href": "https://cinacoin.com/",
+          "text": "Home",
+          "target": "_self",
+          "hasOnclick": false,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/pricing",
+          "text": "Pricing",
+          "target": "_self",
+          "hasOnclick": false,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/about",
+          "text": "About",
+          "target": "_self",
+          "hasOnclick": false,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://docs.cinacoin.com/",
+          "text": "Docs",
+          "target": "_blank",
+          "hasOnclick": false,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://docs.cinacoin.com/",
+          "text": "Log In",
+          "target": "_blank",
+          "hasOnclick": false,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://docs.cinacoin.com/",
+          "text": "Sign Up",
+          "target": "_blank",
+          "hasOnclick": false,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/",
+          "text": "Home",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/docs/",
+          "text": "Start Free",
+          "target": "_self",
+          "hasOnclick": false,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/docs/",
+          "text": "Start Pro Trial",
+          "target": "_self",
+          "hasOnclick": false,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/contact",
+          "text": "Contact Sales",
+          "target": "_self",
+          "hasOnclick": false,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/products/",
+          "text": "Overview",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/products/#wallet",
+          "text": "Wallet",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/products/#exchange",
+          "text": "Exchange",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/products/#staking",
+          "text": "Staking",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#enterprise",
+          "text": "Enterprise",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#defi",
+          "text": "DeFi",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#payments",
+          "text": "Payments",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/developers/",
+          "text": "Documentation",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/developers/#api",
+          "text": "API Reference",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/developers/#sdks",
+          "text": "SDKs",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/developers/#github",
+          "text": "GitHub",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/resources/",
+          "text": "Blog",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/resources/#whitepaper",
+          "text": "Whitepaper",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/resources/#community",
+          "text": "Community",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/resources/#support",
+          "text": "Support",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/about/",
+          "text": "About",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/about/#careers",
+          "text": "Careers",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        },
+        {
+          "href": "https://cinacoin.com/about/#contact",
+          "text": "Contact",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": ""
+        }
+      ],
+      "buttons": [
+        {
+          "tag": "BUTTON",
+          "text": "Search...⌘K",
+          "type": "submit",
+          "disabled": false,
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "className": "flex items-center gap-2 px-3 py-1.5 text-sm text-[var(--cc-body)] bg-[var(--cc-canvas-soft)] border "
+        },
+        {
+          "tag": "BUTTON",
+          "text": "",
+          "type": "button",
+          "disabled": false,
+          "hasOnclick": true,
+          "ariaLabel": "Switch to dark mode",
+          "className": "flex h-10 w-10 items-center justify-center rounded-full text-[var(--cc-body)] transition-colors hove"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "EN",
+          "type": "button",
+          "disabled": false,
+          "hasOnclick": true,
+          "ariaLabel": "Select language",
+          "className": "flex h-10 items-center gap-1 rounded-md px-2 text-[var(--cc-body)] transition-colors hover:text-[var"
+        },
+        {
+          "tag": "A",
+          "text": "Log In",
+          "type": "",
+          "disabled": false,
+          "hasOnclick": false,
+          "ariaLabel": "",
+          "className": "cc-nav-cta-login"
+        },
+        {
+          "tag": "A",
+          "text": "Sign Up",
+          "type": "",
+          "disabled": false,
+          "hasOnclick": false,
+          "ariaLabel": "",
+          "className": "cc-nav-cta-signup"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "",
+          "type": "button",
+          "disabled": false,
+          "hasOnclick": true,
+          "ariaLabel": "Switch to dark mode",
+          "className": "flex h-10 w-10 items-center justify-center rounded-full text-[var(--cc-body)] transition-colors hove"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "",
+          "type": "button",
+          "disabled": false,
+          "hasOnclick": true,
+          "ariaLabel": "Open menu",
+          "className": "rounded-full p-2.5 text-[var(--cc-body)] transition-colors hover:text-[var(--cc-ink)] focus:outline-"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Subscribe",
+          "type": "submit",
+          "disabled": false,
+          "hasOnclick": false,
+          "ariaLabel": "",
+          "className": "w-full px-8 py-3 bg-[#171717] hover:bg-[#2a2a2a] text-white rounded-[6px] font-medium text-[14px] tr"
+        }
+      ],
+      "issues": [],
+      "linkChecks": [
+        {
+          "href": "https://cinacoin.com/",
+          "text": "Home",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/pricing",
+          "text": "Pricing",
+          "target": "_self",
+          "hasOnclick": false,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/pricing",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/about",
+          "text": "About",
+          "target": "_self",
+          "hasOnclick": false,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/about",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/docs/",
+          "text": "Start Pro Trial",
+          "target": "_self",
+          "hasOnclick": false,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/docs/",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/contact",
+          "text": "Contact Sales",
+          "target": "_self",
+          "hasOnclick": false,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/contact",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/products/",
+          "text": "Overview",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/products/",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/products/#wallet",
+          "text": "Wallet",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/products/#wallet",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/products/#exchange",
+          "text": "Exchange",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/products/#exchange",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/products/#staking",
+          "text": "Staking",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/products/#staking",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#enterprise",
+          "text": "Enterprise",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/solutions/#enterprise",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#defi",
+          "text": "DeFi",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/solutions/#defi",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/solutions/#payments",
+          "text": "Payments",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/solutions/#payments",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/developers/",
+          "text": "Documentation",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/developers/",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/developers/#api",
+          "text": "API Reference",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/developers/#api",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/developers/#sdks",
+          "text": "SDKs",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/developers/#sdks",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/developers/#github",
+          "text": "GitHub",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/developers/#github",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/resources/",
+          "text": "Blog",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/resources/",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/resources/#whitepaper",
+          "text": "Whitepaper",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/resources/#whitepaper",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/resources/#community",
+          "text": "Community",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/resources/#community",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/resources/#support",
+          "text": "Support",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/resources/#support",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/about/",
+          "text": "About",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/about/",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/about/#careers",
+          "text": "Careers",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/about/#careers",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "href": "https://cinacoin.com/about/#contact",
+          "text": "Contact",
+          "target": "_self",
+          "hasOnclick": true,
+          "ariaLabel": "",
+          "url": "https://cinacoin.com/about/#contact",
+          "status": 200,
+          "ok": true
+        }
+      ],
+      "externalLinkChecks": [],
+      "darkMode": {
+        "found": true,
+        "works": true,
+        "method": "button[aria-label*=\"dark\" i]",
+        "currentTheme": {
+          "bgColor": "rgba(0, 0, 0, 0)",
+          "textColor": "rgb(0, 0, 0)",
+          "htmlClass": ""
+        }
+      },
+      "i18n": {
+        "found": true,
+        "languages": [],
+        "switcherWorks": false,
+        "method": "[aria-label*=\"language\" i]",
+        "hasUrlPrefix": false,
+        "hreflangTags": [],
+        "currentUrl": "https://cinacoin.com/pricing/",
+        "menuScreenshot": "/home/cina/.openclaw/workspace/tools/browser-test/screenshots/test-main/lang-menu-open.png"
+      },
+      "accessibility": {
+        "totalImages": 1,
+        "imagesWithoutAlt": 0,
+        "headings": [
+          {
+            "tag": "H1",
+            "text": "Simple, transparent pricing."
+          },
+          {
+            "tag": "H3",
+            "text": "Free"
+          },
+          {
+            "tag": "H3",
+            "text": "Pro"
+          },
+          {
+            "tag": "H3",
+            "text": "Enterprise"
+          },
+          {
+            "tag": "H2",
+            "text": "Frequently Asked Questions"
+          },
+          {
+            "tag": "H4",
+            "text": "Product"
+          },
+          {
+            "tag": "H4",
+            "text": "Solutions"
+          },
+          {
+            "tag": "H4",
+            "text": "Developers"
+          },
+          {
+            "tag": "H4",
+            "text": "Resources"
+          },
+          {
+            "tag": "H4",
+            "text": "Company"
+          },
+          {
+            "tag": "H4",
+            "text": "Stay Updated"
+          }
+        ],
+        "h1Count": 1,
+        "hasLang": true,
+        "lang": "en"
+      },
+      "meta": {
+        "title": "Pricing | CINAcoin",
+        "description": "Transparent, usage-based pricing for Cinacoin. Free tier for developers, scalable plans for teams and enterprises.",
+        "ogTitle": "CINAcoin - The Future of Decentralized Finance",
+        "ogDesc": "Build, deploy, and scale your Web3 applications with CINAcoin.",
+        "ogImage": "https://cinacoin.com/og-image.jpg",
+        "canonical": "https://cinacoin.com/pricing/"
+      },
+      "pageTitle": "Pricing | CINAcoin"
+    }
+  },
+  "issues": []
+}

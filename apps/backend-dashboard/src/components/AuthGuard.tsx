@@ -6,11 +6,12 @@ import { useAuth } from "@/lib/AuthProvider";
 
 /**
  * Client-side auth guard: redirects to /login if not authenticated.
+ * Handles MFA states by redirecting to appropriate pages.
  * Must be used inside AuthProvider.
  * Uses router.replace to avoid back-button loops.
  */
 export default function AuthGuard({ children }: { children: React.ReactNode }) {
-  const { isLoggedIn, isLoading } = useAuth();
+  const { status, isLoading } = useAuth();
   const pathname = usePathname();
   const router = useRouter();
 
@@ -18,15 +19,49 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
     if (isLoading) return; // wait for session restore
 
     const isLoginPage = pathname === "/login";
+    const isMfaPage = pathname === "/mfa/verify";
+    const isMfaSetupPage = pathname === "/mfa/setup";
+    const isAuthPage = isLoginPage || isMfaPage || isMfaSetupPage;
 
-    if (!isLoggedIn && !isLoginPage) {
+    // Handle authentication states
+    if (status === "unauthenticated" && !isAuthPage) {
       router.replace("/login");
+      return;
     }
 
-    if (isLoggedIn && isLoginPage) {
+    if (status === "authenticated" && isAuthPage) {
       router.replace("/");
+      return;
     }
-  }, [isLoggedIn, isLoading, pathname, router]);
+
+    // Handle MFA states
+    if (status === "mfaRequired" && !isMfaPage) {
+      router.replace("/mfa/verify");
+      return;
+    }
+
+    if (status === "mfaSetupRequired" && !isMfaSetupPage) {
+      router.replace("/mfa/setup");
+      return;
+    }
+
+    // If authenticated but on MFA pages, redirect to home
+    if (status === "authenticated" && (isMfaPage || isMfaSetupPage)) {
+      router.replace("/");
+      return;
+    }
+
+    // If not in MFA state but on MFA pages, redirect appropriately
+    if (status !== "mfaRequired" && isMfaPage) {
+      router.replace(status === "authenticated" ? "/" : "/login");
+      return;
+    }
+
+    if (status !== "mfaSetupRequired" && isMfaSetupPage) {
+      router.replace(status === "authenticated" ? "/" : "/login");
+      return;
+    }
+  }, [status, isLoading, pathname, router]);
 
   // Show nothing while checking (avoid flash of protected content)
   if (isLoading) {

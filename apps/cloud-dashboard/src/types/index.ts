@@ -48,6 +48,41 @@ export interface ApiKeyWithPlain extends ApiKey {
   plainKey: string;
 }
 
+// Auth Types
+export type OAuthProvider = "github" | "google" | "discord";
+
+export interface User {
+  id: string;
+  email: string;
+  username: string;
+  avatar?: string;
+  twoFactorEnabled?: boolean;
+  createdAt: string;
+}
+
+export interface LoginResponse {
+  accessToken: string;
+  refreshToken: string;
+  expiresIn: number;
+  user?: User;
+  requires2FA?: boolean;
+  twoFactorToken?: string;
+}
+
+export interface RegisterResponse {
+  accessToken: string;
+  refreshToken: string;
+  expiresIn: number;
+  user: User;
+}
+
+export interface TwoFactorVerifyResponse {
+  accessToken: string;
+  refreshToken: string;
+  expiresIn: number;
+  user: User;
+}
+
 export interface UsageStats {
   totalRequests: number;
   totalErrors: number;

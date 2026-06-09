@@ -15,10 +15,10 @@ export default function ResourcesPage() {
       <Breadcrumbs />
       {/* Hero */}
       <section className="max-w-[1200px] mx-auto px-6 py-24 text-center">
-        <h1 className="text-5xl md:text-[64px] font-semibold mb-6 tracking-tight text-[#171717] leading-[1.05]">
+        <h1 className="text-5xl md:text-[64px] font-semibold mb-6 tracking-tight text-[var(--cc-ink)] leading-[1.05]">
           {t('resources-hero-title')}
         </h1>
-        <p className="text-lg text-[#4d4d4d] max-w-2xl mx-auto leading-relaxed">
+        <p className="text-lg text-[var(--cc-body)] max-w-2xl mx-auto leading-relaxed">
           {t('resources-hero-subtitle')}
         </p>
       </section>
@@ -26,44 +26,44 @@ export default function ResourcesPage() {
       {/* Resources Grid */}
       <section className="max-w-[1200px] mx-auto px-6 pb-24">
         <div className="grid md:grid-cols-2 gap-6">
-          <div id="whitepaper" className="p-8 bg-white border border-[#ebebeb] rounded-[12px] shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
-            <h2 className="text-[24px] font-semibold mb-3 text-[#171717]">{t('resources-whitepaper-title')}</h2>
-            <p className="text-[#4d4d4d] text-[14px] leading-relaxed mb-4">
+          <div id="whitepaper" className="p-8 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-lg)] shadow-[var(--cc-level1)]">
+            <h2 className="text-[24px] font-semibold mb-3 text-[var(--cc-ink)]">{t('resources-whitepaper-title')}</h2>
+            <p className="text-[var(--cc-body)] text-[14px] leading-relaxed mb-4">
               {t('resources-whitepaper-desc')}
             </p>
-            <span className="inline-flex items-center text-[14px] font-medium text-[#0070f3]">
+            <span className="inline-flex items-center text-[14px] font-medium text-[var(--cc-link)]">
               {t('resources-whitepaper-cta')}
             </span>
           </div>
 
-          <div id="blog" className="p-8 bg-white border border-[#ebebeb] rounded-[12px] shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
-            <h2 className="text-[24px] font-semibold mb-3 text-[#171717]">{t('resources-blog-title')}</h2>
-            <p className="text-[#4d4d4d] text-[14px] leading-relaxed mb-4">
+          <div id="blog" className="p-8 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-lg)] shadow-[var(--cc-level1)]">
+            <h2 className="text-[24px] font-semibold mb-3 text-[var(--cc-ink)]">{t('resources-blog-title')}</h2>
+            <p className="text-[var(--cc-body)] text-[14px] leading-relaxed mb-4">
               {t('resources-blog-desc')}
             </p>
-            <span className="inline-flex items-center text-[14px] font-medium text-[#0070f3]">
+            <span className="inline-flex items-center text-[14px] font-medium text-[var(--cc-link)]">
               {t('resources-blog-cta')}
             </span>
           </div>
 
-          <div id="community" className="p-8 bg-white border border-[#ebebeb] rounded-[12px] shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
-            <h2 className="text-[24px] font-semibold mb-3 text-[#171717]">{t('resources-community-title')}</h2>
-            <p className="text-[#4d4d4d] text-[14px] leading-relaxed mb-4">
+          <div id="community" className="p-8 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-lg)] shadow-[var(--cc-level1)]">
+            <h2 className="text-[24px] font-semibold mb-3 text-[var(--cc-ink)]">{t('resources-community-title')}</h2>
+            <p className="text-[var(--cc-body)] text-[14px] leading-relaxed mb-4">
               {t('resources-community-desc')}
             </p>
             <div className="flex gap-3">
-              <span className="px-3 py-1 bg-[#f5f5f5] rounded-[4px] text-[12px] font-medium text-[#4d4d4d]">Discord</span>
-              <span className="px-3 py-1 bg-[#f5f5f5] rounded-[4px] text-[12px] font-medium text-[#4d4d4d]">Twitter</span>
-              <span className="px-3 py-1 bg-[#f5f5f5] rounded-[4px] text-[12px] font-medium text-[#4d4d4d]">Telegram</span>
+              <span className="px-3 py-1 bg-[var(--cc-canvas-soft-2)] rounded-[4px] text-[12px] font-medium text-[var(--cc-body)]">Discord</span>
+              <span className="px-3 py-1 bg-[var(--cc-canvas-soft-2)] rounded-[4px] text-[12px] font-medium text-[var(--cc-body)]">Twitter</span>
+              <span className="px-3 py-1 bg-[var(--cc-canvas-soft-2)] rounded-[4px] text-[12px] font-medium text-[var(--cc-body)]">Telegram</span>
             </div>
           </div>
 
-          <div id="support" className="p-8 bg-white border border-[#ebebeb] rounded-[12px] shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
-            <h2 className="text-[24px] font-semibold mb-3 text-[#171717]">{t('resources-support-title')}</h2>
-            <p className="text-[#4d4d4d] text-[14px] leading-relaxed mb-4">
+          <div id="support" className="p-8 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-lg)] shadow-[var(--cc-level1)]">
+            <h2 className="text-[24px] font-semibold mb-3 text-[var(--cc-ink)]">{t('resources-support-title')}</h2>
+            <p className="text-[var(--cc-body)] text-[14px] leading-relaxed mb-4">
               {t('resources-support-desc')}
             </p>
-            <span className="inline-flex items-center text-[14px] font-medium text-[#0070f3]">
+            <span className="inline-flex items-center text-[14px] font-medium text-[var(--cc-link)]">
               {t('resources-support-cta')}
             </span>
           </div>

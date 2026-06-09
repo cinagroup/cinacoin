@@ -37,13 +37,13 @@ export function Breadcrumbs() {
   if (pathname === "/" || pathname === "/login") return null;
 
   return (
-    <nav className="border-b border-gray-200 bg-white px-4 py-2">
-      <ol className="flex items-center space-x-2 text-sm text-gray-500">
+    <nav className="border-b border-hairline bg-canvas px-4 py-2">
+      <ol className="flex items-center space-x-2 text-sm text-mute">
         {breadcrumbs.map((crumb, index) => (
           <li key={crumb.href} className="flex items-center">
             {index > 0 && (
               <svg
-                className="w-4 h-4 text-gray-400 mx-2"
+                className="w-4 h-4 text-mute mx-2"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -57,11 +57,11 @@ export function Breadcrumbs() {
               </svg>
             )}
             {index === breadcrumbs.length - 1 ? (
-              <span className="text-gray-900 font-medium">{crumb.label}</span>
+              <span className="text-ink font-medium">{crumb.label}</span>
             ) : (
               <Link
                 href={crumb.href}
-                className="text-gray-500 hover:text-gray-900 transition-colors"
+                className="text-mute hover:text-ink transition-colors"
               >
                 {crumb.label}
               </Link>

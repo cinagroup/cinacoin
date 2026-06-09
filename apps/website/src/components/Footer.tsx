@@ -34,13 +34,13 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer className="bg-[#fafafa] border-t border-[#ebebeb]">
+    <footer className="bg-[var(--cc-canvas-soft)] border-t border-[var(--cc-hairline)]">
       <div className="max-w-[1200px] mx-auto px-6 py-16">
         {/* Footer Links Grid */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
           {Object.entries(footerLinks).map(([category, links]) => (
             <div key={category}>
-              <h4 className="text-[12px] font-medium text-[#888888] uppercase tracking-wider mb-4">
+              <h4 className="text-[12px] font-medium text-[var(--cc-muted)] uppercase tracking-wider mb-4">
                 {category}
               </h4>
               <ul className="space-y-3">
@@ -48,7 +48,7 @@ export default function Footer() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-[14px] text-[#4d4d4d] hover:text-[#171717] transition-colors duration-150"
+                      className="text-[14px] text-[var(--cc-body)] hover:text-[var(--cc-ink)] transition-colors duration-150"
                     >
                       {link.label}
                     </Link>
@@ -60,24 +60,24 @@ export default function Footer() {
         </div>
 
         {/* Newsletter in Footer */}
-        <div className="mb-12 pb-12 border-b border-[#ebebeb]">
+        <div className="mb-12 pb-12 border-b border-[var(--cc-hairline)]">
           <div className="max-w-md mx-auto text-center">
-            <h4 className="text-[14px] font-semibold text-[#171717] mb-2">Stay Updated</h4>
-            <p className="text-[12px] text-[#888888] mb-4">Get the latest news and updates</p>
+            <h4 className="text-[14px] font-semibold text-[var(--cc-ink)] mb-2">Stay Updated</h4>
+            <p className="text-[12px] text-[var(--cc-muted)] mb-4">Get the latest news and updates</p>
             <NewsletterForm source="footer" />
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-[#ebebeb] flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2 text-[#171717] font-semibold text-[14px]">
+        <div className="pt-8 border-t border-[var(--cc-hairline)] flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-2 text-[var(--cc-ink)] font-semibold text-[14px]">
             <svg width="20" height="20" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="32" height="32" rx="6" fill="#171717"/>
-              <text x="16" y="22" fontFamily="Inter,system-ui,sans-serif" fontSize="18" fontWeight="600" fill="#ffffff" textAnchor="middle">C</text>
+              <rect width="32" height="32" rx="6" fill="currentColor"/>
+              <text x="16" y="22" fontFamily="Inter,system-ui,sans-serif" fontSize="18" fontWeight="600" fill="var(--cc-canvas)" textAnchor="middle">C</text>
             </svg>
             CinaCoin
           </div>
-          <p className="text-[12px] text-[#888888]">
+          <p className="text-[12px] text-[var(--cc-muted)]">
             &copy; {new Date().getFullYear()} CinaCoin. All rights reserved.
           </p>
         </div>

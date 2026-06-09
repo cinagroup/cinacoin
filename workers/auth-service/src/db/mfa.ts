@@ -214,23 +214,25 @@ export async function createMfaSession(
   db: D1Database,
   userId: string
 ): Promise<string> {
+  const id = uuidv4();
   const token = uuidv4();
   const tokenHash = await sha256(token);
   const expiresAt = addMinutes(5);
+  const createdAt = now();
 
   await db
     .prepare(
-      `INSERT INTO mfa_sessions (user_id, token_hash, expires_at)
-       VALUES (?, ?, ?)`
+      `INSERT INTO mfa_sessions (id, user_id, token_hash, expires_at, created_at)
+       VALUES (?, ?, ?, ?, ?)`
     )
-    .bind(userId, tokenHash, expiresAt)
+    .bind(id, userId, tokenHash, expiresAt, createdAt)
     .run();
 
   return token;
 }
 
 /**
- * Consume MFA session token
+ * Consume MFA session token (delete after use)
  */
 export async function consumeMfaSession(
   db: D1Database,
@@ -241,7 +243,7 @@ export async function consumeMfaSession(
   const session = await db
     .prepare(
       `SELECT user_id FROM mfa_sessions 
-       WHERE token_hash = ? AND used = 0 AND expires_at > datetime('now')`
+       WHERE token_hash = ? AND expires_at > datetime('now')`
     )
     .bind(tokenHash)
     .first<{ user_id: string }>();
@@ -250,8 +252,9 @@ export async function consumeMfaSession(
     return null;
   }
 
+  // Delete the session after consumption (one-time use)
   await db
-    .prepare(`UPDATE mfa_sessions SET used = 1 WHERE token_hash = ?`)
+    .prepare(`DELETE FROM mfa_sessions WHERE token_hash = ?`)
     .bind(tokenHash)
     .run();
 

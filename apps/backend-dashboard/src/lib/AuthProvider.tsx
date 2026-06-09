@@ -1,24 +1,64 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, useCallback, useRef, type ReactNode } from "react";
-import { createSiweMessage, generateNonce, connectWallet, signAndVerify, getSession, logout, saveSession } from "@/lib/auth.client";
+import {
+  login as apiLogin,
+  logoutUser,
+  refreshAccessToken,
+  getCurrentUser,
+  verifyMfa,
+  verifyRecoveryCode,
+  handleOAuthCallback,
+  isAuthenticated,
+  getMfaToken,
+  clearMfaToken,
+  type LoginResponse,
+} from "@/lib/api";
+
+// ============================================================
+// Types
+// ============================================================
+
+export type AuthStatus =
+  | "idle"           // Initial state, checking session
+  | "authenticated"  // User is logged in
+  | "unauthenticated"// Not logged in
+  | "mfaRequired"    // Login succeeded, needs 2FA code
+  | "mfaSetupRequired"; // Login succeeded, needs to setup 2FA
+
+export interface UserInfo {
+  id: string;
+  email: string;
+  username: string;
+  role: string;
+}
 
 interface AuthContextValue {
-  address: string | null;
-  isLoggedIn: boolean;
+  user: UserInfo | null;
+  status: AuthStatus;
   isLoading: boolean;
   error: string | null;
-  doLogin: () => Promise<void>;
-  doLogout: () => void;
+  mfaToken: string | null;
+  doLogin: (email: string, password: string) => Promise<void>;
+  doLogout: () => Promise<void>;
+  doMfaVerify: (code: string) => Promise<void>;
+  doRecoveryCode: (code: string) => Promise<void>;
+  doOAuthCallback: (code: string, state: string) => Promise<void>;
+  clearError: () => void;
 }
 
 const AuthContext = createContext<AuthContextValue>({
-  address: null,
-  isLoggedIn: false,
+  user: null,
+  status: "idle",
   isLoading: true,
   error: null,
+  mfaToken: null,
   doLogin: async () => {},
-  doLogout: () => {},
+  doLogout: async () => {},
+  doMfaVerify: async () => {},
+  doRecoveryCode: async () => {},
+  doOAuthCallback: async () => {},
+  clearError: () => {},
 });
 
 export function useAuth(): AuthContextValue {
@@ -29,108 +69,203 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
+// ============================================================
+// Provider
+// ============================================================
+
 /**
- * Pure client-side wallet authentication for static-export dashboard.
- *
- * No server API routes needed (they don't work in static export mode).
- * Authentication is proven by wallet signature — no server verification
- * is required for the dashboard since it's a read-only monitoring tool.
- *
- * Security model:
- * 1. Wallet connection proves ownership (eth_requestAccounts)
- * 2. SIWE message signing proves control of the private key
- * 3. Session stored in localStorage with expiry
- * 4. No token can be stolen via XSS (signature is useless without wallet)
+ * Authentication provider for the Backend Dashboard.
+ * Supports:
+ * - Email/password login with token-based auth
+ * - 2FA (TOTP) verification flow
+ * - OAuth callback handling
+ * - Session restoration via refresh token
+ * - Automatic token refresh
  */
 export default function AuthProvider({ children }: AuthProviderProps) {
-  const [address, setAddress] = useState<string | null>(null);
+  const [user, setUser] = useState<UserInfo | null>(null);
+  const [status, setStatus] = useState<AuthStatus>("idle");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const addressRef = useRef<string | null>(null);
+  const [mfaToken, setMfaTokenState] = useState<string | null>(null);
+  const refreshTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Restore session on mount
   useEffect(() => {
-    try {
-      const session = getSession();
-      if (session) {
-        setAddress(session.address);
-        addressRef.current = session.address;
+    const restoreSession = async () => {
+      if (!isAuthenticated()) {
+        setStatus("unauthenticated");
+        setIsLoading(false);
+        return;
       }
-    } catch { /* ignore */ }
-    setIsLoading(false);
-  }, []);
 
-  // Listen for account changes
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const eth = (window as any).ethereum;
-    if (!eth) return;
-
-    const handleAccountsChanged = (accounts: string[]) => {
-      if (accounts.length === 0) {
-        // Wallet disconnected externally
-        handleLogoutRequest();
+      // Try to get current user info
+      const userInfo = await getCurrentUser();
+      if (userInfo) {
+        setUser(userInfo);
+        setStatus("authenticated");
       } else {
-        const current = accounts[0].toLowerCase();
-        if (addressRef.current && current !== addressRef.current) {
-          // Account switched
-          handleLogoutRequest();
-          setAddress(current);
-          addressRef.current = current;
+        // Token might be expired, try refresh
+        const refreshed = await refreshAccessToken();
+        if (refreshed) {
+          const userInfo = await getCurrentUser();
+          if (userInfo) {
+            setUser(userInfo);
+            setStatus("authenticated");
+          } else {
+            setStatus("unauthenticated");
+          }
+        } else {
+          setStatus("unauthenticated");
         }
       }
+      setIsLoading(false);
     };
 
-    eth.on("accountsChanged", handleAccountsChanged);
-    return () => eth.removeListener("accountsChanged", handleAccountsChanged);
+    restoreSession();
   }, []);
 
-  const doLogin = useCallback(async () => {
+  // Cleanup refresh timer on unmount
+  useEffect(() => {
+    return () => {
+      if (refreshTimerRef.current) {
+        clearTimeout(refreshTimerRef.current);
+      }
+    };
+  }, []);
+
+  const handleLoginResponse = useCallback((data: LoginResponse) => {
+    if (data.mfaRequired) {
+      // Store MFA token for verification step
+      if (data.mfaToken) {
+        setMfaTokenState(data.mfaToken);
+        // Also store in localStorage for persistence across page reloads
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('mfaToken', data.mfaToken);
+        }
+      }
+      setStatus("mfaRequired");
+      return;
+    }
+
+    if (data.mfaSetupRequired) {
+      if (data.mfaToken) {
+        setMfaTokenState(data.mfaToken);
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('mfaToken', data.mfaToken);
+        }
+      }
+      setStatus("mfaSetupRequired");
+      return;
+    }
+
+    // Direct login success (no MFA)
+    setUser(data.user);
+    setStatus("authenticated");
+    setError(null);
+  }, []);
+
+  const doLogin = useCallback(async (email: string, password: string) => {
     setIsLoading(true);
     setError(null);
     try {
-      const walletAddress = await connectWallet();
-      const nonce = generateNonce();
-      const message = createSiweMessage(walletAddress, nonce);
-      const signature = await signAndVerify(message, walletAddress);
-
-      // Persist session to localStorage so it survives redirects/reloads
-      const session = {
-        address: walletAddress,
-        signature,
-        nonce,
-        timestamp: Date.now(),
-        expiresAt: Date.now() + 24 * 60 * 60 * 1000, // 24 hours
-      };
-      saveSession(session);
-
-      setAddress(walletAddress);
-      addressRef.current = walletAddress;
+      const data = await apiLogin(email, password);
+      handleLoginResponse(data);
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "Login failed";
+      setError(message);
+      setStatus("unauthenticated");
+    } finally {
+      setIsLoading(false);
+    }
+  }, [handleLoginResponse]);
+
+  const doLogout = useCallback(async () => {
+    if (refreshTimerRef.current) {
+      clearTimeout(refreshTimerRef.current);
+    }
+    await logoutUser();
+    setUser(null);
+    setMfaTokenState(null);
+    setStatus("unauthenticated");
+    setError(null);
+  }, []);
+
+  const doMfaVerify = useCallback(async (code: string) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const token = mfaToken || getMfaToken();
+      if (!token) {
+        throw new Error("No MFA token available. Please login again.");
+      }
+
+      const data = await verifyMfa(token, code);
+      clearMfaToken();
+      setMfaTokenState(null);
+      setUser(data.user);
+      setStatus("authenticated");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Invalid verification code";
       setError(message);
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [mfaToken]);
 
-  const handleLogoutRequest = useCallback(() => {
-    logout();
-    addressRef.current = null;
-  }, []);
+  const doRecoveryCode = useCallback(async (code: string) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const token = mfaToken || getMfaToken();
+      if (!token) {
+        throw new Error("No MFA token available. Please login again.");
+      }
 
-  const doLogout = useCallback(() => {
-    handleLogoutRequest();
-    setAddress(null);
-  }, [handleLogoutRequest]);
+      const data = await verifyRecoveryCode(token, code);
+      clearMfaToken();
+      setMfaTokenState(null);
+      setUser(data.user);
+      setStatus("authenticated");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Invalid recovery code";
+      setError(message);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [mfaToken]);
+
+  const doOAuthCallback = useCallback(async (code: string, state: string) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const data = await handleOAuthCallback(code, state);
+      handleLoginResponse(data);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "OAuth login failed";
+      setError(message);
+      setStatus("unauthenticated");
+    } finally {
+      setIsLoading(false);
+    }
+  }, [handleLoginResponse]);
+
+  const clearError = useCallback(() => {
+    setError(null);
+  }, []);
 
   const value: AuthContextValue = {
-    address,
-    isLoggedIn: address !== null,
+    user,
+    status,
     isLoading,
     error,
+    mfaToken,
     doLogin,
     doLogout,
+    doMfaVerify,
+    doRecoveryCode,
+    doOAuthCallback,
+    clearError,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

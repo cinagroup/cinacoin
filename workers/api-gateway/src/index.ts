@@ -2,17 +2,22 @@ import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { logger } from 'hono/logger'
 import { withRateLimit, globalRateLimit } from './middleware/rate-limit'
+import { metricsMiddleware } from './middleware/metrics'
+import { cacheMiddleware } from './middleware/cache'
 import abTesting from './routes/ab-testing'
 import search from './routes/search'
 import webVitals from './routes/analytics/web-vitals'
+import monitoring from './routes/monitoring'
 
 export interface Env {
   AUTH_SERVICE: Fetcher
   USER_SERVICE: Fetcher
   RATE_LIMIT_KV: KVNamespace
   ANALYTICS_KV: KVNamespace
+  CACHE_KV: KVNamespace
   ENVIRONMENT: string
   API_VERSION: string
+  ALERT_WEBHOOK_URL?: string
 }
 
 const app = new Hono<{ Bindings: Env }>()
@@ -34,6 +39,9 @@ app.use('*', async (c, next) => {
   await next();
 });
 
+// Cache middleware (Cloudflare edge cache)
+app.use('*', cacheMiddleware)
+
 // Middleware
 app.use('*', logger())
 app.use('*', cors({
@@ -45,6 +53,9 @@ app.use('*', cors({
 
 // Global rate limiting (1000 req/hour per IP)
 app.use('*', globalRateLimit())
+
+// Metrics collection middleware
+app.use('*', metricsMiddleware)
 
 // Health check
 app.get('/health', (c) => {
@@ -60,6 +71,7 @@ app.get('/health', (c) => {
 // API Routes
 app.route('/', search);
 app.route('/', webVitals);
+app.route('/', monitoring);
 
 app.get('/', (c) => {
   return c.json({

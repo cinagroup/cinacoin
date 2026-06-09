@@ -45,10 +45,11 @@ export function GlobalSearch() {
       return;
     }
 
+    const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'https://api.cinacoin.com';
     const timer = setTimeout(async () => {
       setLoading(true);
       try {
-        const response = await fetch(`https://api.cinacoin.com/search?q=${encodeURIComponent(query)}`);
+        const response = await fetch(`${API_BASE}/search?q=${encodeURIComponent(query)}`);
         const data = await response.json();
         setResults(data.results);
         setSelectedIndex(0);

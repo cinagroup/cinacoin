@@ -146,10 +146,10 @@ export default function Navbar() {
 
           {/* CTA */}
           <div className="hidden lg:flex items-center gap-2 ml-1">
-            <a href="https://docs.cinacoin.com" className="cc-nav-cta-login" role="button" target="_blank" rel="noopener noreferrer">
+            <a href="/login" className="cc-nav-cta-login" role="button">
               Log In
             </a>
-            <a href="https://docs.cinacoin.com" className="cc-nav-cta-signup" role="button" target="_blank" rel="noopener noreferrer">
+            <a href="/register" className="cc-nav-cta-signup" role="button">
               Sign Up
             </a>
           </div>

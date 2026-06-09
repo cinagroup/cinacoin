@@ -20,7 +20,7 @@ const tiers = [
       'Basic analytics',
     ],
     ctaKey: 'pricing-tier-free-cta',
-    href: '/docs/',
+    href: 'https://docs.cinacoin.com',
     popular: false,
   },
   {
@@ -38,7 +38,7 @@ const tiers = [
       'Webhook integrations',
     ],
     ctaKey: 'pricing-tier-pro-cta',
-    href: '/docs/',
+    href: 'https://docs.cinacoin.com',
     popular: true,
   },
   {

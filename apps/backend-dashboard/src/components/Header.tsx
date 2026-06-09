@@ -12,12 +12,13 @@ interface HeaderProps {
 }
 
 export default function Header({ onMenuToggle, refreshInterval = 15000 }: HeaderProps) {
-  const { address, isLoggedIn, doLogout } = useAuth();
+  const { user, status, doLogout } = useAuth();
   const { allHealthy, degradedCount, downCount, checking } = useWorkerHealth(refreshInterval);
   const { theme, toggle } = useTheme();
 
-  const shortAddress = address
-    ? `${address.slice(0, 6)}…${address.slice(-4)}`
+  const isAuthenticated = status === "authenticated";
+  const displayName = user
+    ? user.username || `${user.email.slice(0, 2)}…${user.email.slice(-4)}`
     : "";
 
   const statusBadge = aggregateStatusLabel(allHealthy, degradedCount, downCount, checking);
@@ -65,11 +66,11 @@ export default function Header({ onMenuToggle, refreshInterval = 15000 }: Header
           </span>
         </span>
 
-        {isLoggedIn && (
+        {isAuthenticated && (
           <>
             <span className="cc-badge hidden sm:inline-flex">
               <span className="w-1.5 h-1.5 rounded-full mr-1.5 bg-[var(--cc-success)]" />
-              <span className="cc-caption-mono">{shortAddress}</span>
+              <span className="cc-caption-mono">{displayName}</span>
             </span>
             <button
               onClick={doLogout}

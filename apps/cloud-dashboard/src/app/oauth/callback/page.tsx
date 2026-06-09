@@ -2,6 +2,7 @@
 
 import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { exchangeOAuthCode } from "@/lib/api";
 
 /**
  * OAuth Callback Page
@@ -16,14 +17,14 @@ function OAuthCallbackContent() {
   const [isProcessing, setIsProcessing] = useState(true);
 
   useEffect(() => {
-    const exchangeCodeForTokens = async () => {
+    const handleCallback = async () => {
       try {
         const code = searchParams.get("code");
-        const error = searchParams.get("error");
+        const oauthError = searchParams.get("error");
 
         // Handle OAuth error response
-        if (error) {
-          setError(`Authentication failed: ${error}`);
+        if (oauthError) {
+          setError(`Authentication failed: ${oauthError}`);
           setIsProcessing(false);
           return;
         }
@@ -35,40 +36,8 @@ function OAuthCallbackContent() {
           return;
         }
 
-        // Get the API base URL from environment or use default
-        const apiBaseUrl = process.env.NEXT_PUBLIC_AUTH_API_URL || "https://auth.cinacoin.com";
-
-        // Exchange the authorization code for tokens via POST
-        const response = await fetch(`${apiBaseUrl}/auth/oauth/token`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ code }),
-          credentials: "include", // Include cookies for CSRF protection
-        });
-
-        if (!response.ok) {
-          const errorData = await response.json().catch(() => ({}));
-          throw new Error(errorData.message || "Token exchange failed");
-        }
-
-        const data = await response.json();
-
-        if (!data.success || !data.data) {
-          throw new Error("Invalid response from server");
-        }
-
-        const { accessToken, refreshToken, expiresIn } = data.data;
-
-        // Store tokens securely
-        // Access token in sessionStorage (short-lived, cleared on tab close)
-        sessionStorage.setItem("access_token", accessToken);
-        
-        // Refresh token in httpOnly cookie would be ideal, but for now use localStorage
-        // TODO: Move refresh token to httpOnly cookie when backend supports it
-        localStorage.setItem("refresh_token", refreshToken);
-        localStorage.setItem("token_expires_at", String(Date.now() + expiresIn * 1000));
+        // Exchange the authorization code for tokens using the shared API function
+        await exchangeOAuthCode(code);
 
         // Redirect to dashboard or return URL
         const returnUrl = sessionStorage.getItem("oauth_return_url") || "/";
@@ -82,7 +51,7 @@ function OAuthCallbackContent() {
       }
     };
 
-    exchangeCodeForTokens();
+    handleCallback();
   }, [searchParams, router]);
 
   if (error) {

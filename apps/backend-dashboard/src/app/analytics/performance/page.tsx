@@ -13,7 +13,8 @@ export default function PerformancePage() {
   const [data, setData] = useState<Record<string, PerformanceData[]>>({});
 
   useEffect(() => {
-    fetch('https://api.cinacoin.com/analytics/performance?days=7')
+    const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'https://api.cinacoin.com';
+    fetch(`${API_BASE}/analytics/performance?days=7`)
       .then(res => res.json())
       .then(data => setData(data.results));
   }, []);
