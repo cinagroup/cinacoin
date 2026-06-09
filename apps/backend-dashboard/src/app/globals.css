@@ -2,211 +2,268 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Canonical Cinacoin design system — tokens + .cc-* primitives.
-   Single source of truth: packages/design-tokens/css/cinacoin.css */
-@import "@cinacoin/design-tokens/css/cinacoin.css";
+/* Design system CSS variables */
+:root {
+  /* Colors */
+  --color-primary: #171717;
+  --color-on-primary: #ffffff;
+  --color-ink: #171717;
+  --color-body: #4d4d4d;
+  --color-mute: #888888;
+  --color-hairline: #ebebeb;
+  --color-hairline-dark: #d4d4d4;
+  --color-canvas: #ffffff;
+  --color-canvas-soft: #fafafa;
+  --color-canvas-soft-2: #f5f5f5;
+  --color-link: #0070f3;
+  --color-link-hover: #0051a8;
+  --color-error: #ee0000;
+  --color-success: #0070f3;
+  --color-warning: #f5a623;
 
-/* ── Vercel-style Design System — Backend Dashboard ──
-   Applies the Vercel design language to the admin dashboard:
-   - 6px radius for in-app buttons (overrides marketing pill)
-   - Sidebar active indicator (3px left bar)
-   - Data table headers (mono uppercase)
-   - Stacked shadows on cards
-   - Canvas-soft (#fafafa) page background
-*/
+  /* Typography */
+  --font-sans: 'Geist', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
-/* ── Font Stack ── */
-body {
-  font-family: var(--font-geist-sans), 'Inter', system-ui, -apple-system, sans-serif;
-  background-color: #fafafa;
+  --text-display-xl-size: 48px;
+  --text-display-xl-weight: 600;
+  --text-display-xl-height: 48px;
+  --text-display-xl-spacing: -2.4px;
+
+  --text-display-lg-size: 32px;
+  --text-display-lg-weight: 600;
+  --text-display-lg-height: 40px;
+  --text-display-lg-spacing: -1.28px;
+
+  --text-display-md-size: 24px;
+  --text-display-md-weight: 600;
+  --text-display-md-height: 32px;
+  --text-display-md-spacing: -0.96px;
+
+  --text-display-sm-size: 20px;
+  --text-display-sm-weight: 600;
+  --text-display-sm-height: 28px;
+  --text-display-sm-spacing: -0.6px;
+
+  --text-body-lg-size: 18px;
+  --text-body-lg-weight: 400;
+  --text-body-lg-height: 28px;
+
+  --text-body-md-size: 16px;
+  --text-body-md-weight: 400;
+  --text-body-md-height: 24px;
+
+  --text-body-sm-size: 14px;
+  --text-body-sm-weight: 400;
+  --text-body-sm-height: 20px;
+  --text-body-sm-spacing: -0.28px;
+
+  --text-caption-size: 12px;
+  --text-caption-weight: 400;
+  --text-caption-height: 16px;
+
+  --text-button-md-size: 14px;
+  --text-button-md-weight: 500;
+  --text-button-md-height: 20px;
+
+  /* Spacing */
+  --spacing-xxs: 4px;
+  --spacing-xs: 8px;
+  --spacing-sm: 12px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 40px;
+  --spacing-3xl: 48px;
+
+  /* Border Radius */
+  --rounded-sm: 6px;
+  --rounded-md: 8px;
+  --rounded-lg: 12px;
+
+  /* Shadows */
+  --shadow-level-1: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+  --shadow-level-2: 0px 1px 1px rgba(0, 0, 0, 0.02), 0px 2px 2px rgba(0, 0, 0, 0.04), inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+  --shadow-level-3: 0px 2px 2px rgba(0, 0, 0, 0.04), 0px 8px 8px -8px rgba(0, 0, 0, 0.04), inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ── Dashboard Button Overrides (6px radius for in-app) ── */
-.cc-btn-primary,
-.cc-btn-primary-sm,
-.cc-btn-secondary,
-.cc-btn-secondary-sm {
-  border-radius: 6px;
-}
-
-/* ── Card stacked shadow + inset hairline override ── */
-.cc-card {
-  box-shadow:
-    0px 1px 1px rgba(0, 0, 0, 0.02),
-    0px 2px 2px rgba(0, 0, 0, 0.04),
-    inset 0 0 0 1px #ebebeb;
-}
-
-.cc-card:hover {
-  box-shadow:
-    0px 2px 2px rgba(0, 0, 0, 0.04),
-    0px 8px 8px -8px rgba(0, 0, 0, 0.04),
-    inset 0 0 0 1px #ebebeb;
-}
-
-/* ── Sidebar Active Indicator ── */
-.sidebar-nav-link {
-  position: relative;
-  display: flex;
-  align-items: center;
-  color: var(--cc-body);
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 20px;
-  letter-spacing: -0.28px;
-  padding: 8px 12px;
-  border-radius: 6px;
-  text-decoration: none;
-  transition: color 0.15s ease, background 0.15s ease;
-}
-
-.sidebar-nav-link:hover {
-  color: var(--cc-ink);
-}
-
-.sidebar-nav-link[aria-current='page'] {
-  color: var(--cc-ink);
-  font-weight: 600;
-}
-
-.sidebar-nav-link[aria-current='page']::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 3px;
-  height: 20px;
-  background: var(--cc-ink);
-  border-radius: 0 3px 3px 0;
-}
-
-/* ── Data Table Headers (mono uppercase) ── */
-.ds-table-header {
-  font-family: var(--font-geist-mono), 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 16px;
-  text-transform: uppercase;
-  letter-spacing: 0px;
-  color: var(--cc-muted);
-  background: var(--cc-canvas-soft);
-  padding: 8px 16px;
-  text-align: left;
-  font-weight: 500;
-}
-
-/* ── Data Table Cells ── */
-.ds-table-cell {
-  padding: 8px 16px;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 20px;
-  letter-spacing: -0.28px;
-  color: var(--cc-ink);
-  background: var(--cc-canvas);
-}
-
-/* ── Data Table Row ── */
-.ds-table-row {
-  border-bottom: 1px solid var(--cc-hairline);
-  transition: background 0.15s ease;
-}
-
-.ds-table-row:hover {
-  background: var(--cc-canvas-soft);
-}
-
-.ds-table-row:last-child {
-  border-bottom: none;
-}
-
-/* ── Stat Card (Vercel-style) ── */
-.ds-stat-card {
-  background: var(--cc-canvas);
-  border-radius: 8px;
-  padding: 16px;
-  box-shadow:
-    0px 1px 1px rgba(0, 0, 0, 0.02),
-    0px 2px 2px rgba(0, 0, 0, 0.04),
-    inset 0 0 0 1px #ebebeb;
-  transition: box-shadow 0.2s ease;
-}
-
-.ds-stat-card:hover {
-  box-shadow:
-    0px 2px 2px rgba(0, 0, 0, 0.04),
-    0px 8px 8px -8px rgba(0, 0, 0, 0.04),
-    inset 0 0 0 1px #ebebeb;
-}
-
-.ds-stat-value {
-  font-size: 20px;
-  font-weight: 600;
-  line-height: 28px;
-  letter-spacing: -0.6px;
-  color: var(--cc-ink);
-}
-
-.ds-stat-label {
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 16px;
-  color: var(--cc-muted);
-}
-
-/* ── Status Badge (pill shape) ── */
-.ds-badge {
-  display: inline-flex;
-  align-items: center;
-  background: var(--cc-canvas-soft);
-  color: var(--cc-body);
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 16px;
-  border-radius: 9999px;
-  padding: 2px 8px;
-}
-
-/* ── Backend-dashboard-specific overrides — light + dark themes. */
-:root, :root[data-theme="light"] {
-  --bg-primary: var(--cc-canvas-soft);
-  --bg-card: var(--cc-canvas);
-  --border: var(--cc-hairline);
-  --text-primary: var(--cc-ink);
-  --text-secondary: var(--cc-body);
-  --green: var(--cc-success);
-  --green-bg: rgba(0, 112, 243, 0.10);
-  --yellow: var(--cc-warning);
-  --yellow-bg: rgba(245, 166, 35, 0.10);
-  --red: var(--cc-error);
-  --red-bg: rgba(238, 0, 0, 0.10);
-  --blue: var(--cc-link);
-  --blue-bg: rgba(0, 112, 243, 0.10);
-}
-
-:root[data-theme="dark"] {
-  --bg-primary: var(--cc-canvas-soft);
-  --bg-card: var(--cc-canvas);
-  --border: var(--cc-hairline);
-  --text-primary: var(--cc-ink);
-  --text-secondary: var(--cc-body);
-  --green: var(--cc-cyan);
-  --green-bg: rgba(80, 227, 194, 0.15);
-  --yellow: var(--cc-warning);
-  --yellow-bg: rgba(245, 166, 35, 0.15);
-  --red: var(--cc-error);
-  --red-bg: rgba(255, 77, 77, 0.15);
-  --blue: var(--cc-link);
-  --blue-bg: rgba(50, 145, 255, 0.15);
-}
-
-/* Touch-friendly minimums for dashboard */
-@media (max-width: 768px) {
-  button, a {
-    min-height: 44px;
+/* Base styles */
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
   }
-  input, select, textarea {
-    min-height: 44px;
+
+  html {
+    font-family: var(--font-sans);
+    font-size: var(--text-body-sm-size);
+    line-height: var(--text-body-sm-height);
+    color: var(--color-ink);
+    background-color: var(--color-canvas-soft);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    min-height: 100vh;
+  }
+}
+
+/* Component styles for backend dashboard */
+@layer components {
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center font-medium rounded-md;
+    font-size: var(--text-button-md-size);
+    font-weight: var(--text-button-md-weight);
+    line-height: var(--text-button-md-height);
+    padding: 8px 16px;
+    transition: all var(--transition-fast);
+  }
+
+  .btn-primary {
+    @apply bg-primary text-primary-foreground;
+  }
+
+  .btn-primary:hover {
+    background-color: #262626;
+  }
+
+  .btn-secondary {
+    @apply bg-canvas text-ink border border-hairline;
+  }
+
+  .btn-secondary:hover {
+    background-color: var(--color-canvas-soft);
+  }
+
+  .btn-danger {
+    @apply bg-error text-white;
+  }
+
+  .btn-danger:hover {
+    opacity: 0.9;
+  }
+
+  .btn-ghost {
+    @apply text-ink;
+  }
+
+  .btn-ghost:hover {
+    background-color: var(--color-canvas-soft);
+  }
+
+  /* Cards */
+  .card {
+    @apply bg-canvas rounded-md;
+    box-shadow: var(--shadow-level-2);
+  }
+
+  /* Tables - high density for admin */
+  .table {
+    @apply w-full border-collapse;
+  }
+
+  .table thead {
+    @apply bg-canvas-soft;
+  }
+
+  .table th {
+    @apply px-4 py-2 text-left font-medium uppercase tracking-wider border-b;
+    font-size: var(--text-caption-size);
+    color: var(--color-mute);
+    border-color: var(--color-hairline);
+  }
+
+  .table td {
+    @apply px-4 py-3 border-b;
+    font-size: var(--text-body-sm-size);
+    color: var(--color-ink);
+    border-color: var(--color-hairline);
+  }
+
+  .table tbody tr:hover {
+    background-color: var(--color-canvas-soft);
+  }
+
+  .table tbody tr:last-child td {
+    @apply border-b-0;
+  }
+
+  /* Forms */
+  .input {
+    @apply w-full px-3 py-2 bg-canvas rounded-md placeholder:text-mute focus:outline-none focus:ring-2 focus:ring-link focus:border-transparent;
+    font-size: var(--text-body-sm-size);
+    border: 1px solid var(--color-hairline);
+    color: var(--color-ink);
+  }
+
+  .select {
+    @apply w-full px-3 py-2 bg-canvas rounded-md focus:outline-none focus:ring-2 focus:ring-link focus:border-transparent;
+    font-size: var(--text-body-sm-size);
+    border: 1px solid var(--color-hairline);
+    color: var(--color-ink);
+  }
+
+  .checkbox {
+    @apply w-4 h-4 rounded focus:ring-2 focus:ring-link;
+    accent-color: var(--color-link);
+  }
+
+  /* Badges */
+  .badge {
+    @apply inline-flex items-center font-semibold rounded-full;
+    font-size: var(--text-caption-size);
+    padding: 2px 8px;
+  }
+
+  .badge-success {
+    @apply bg-green-100 text-green-800;
+  }
+
+  .badge-error {
+    @apply bg-red-100 text-red-800;
+  }
+
+  .badge-warning {
+    @apply bg-yellow-100 text-yellow-800;
+  }
+
+  .badge-info {
+    @apply bg-blue-100 text-blue-800;
+  }
+
+  .badge-neutral {
+    @apply bg-gray-100 text-gray-600;
+  }
+
+  /* Toggle switch */
+  .toggle {
+    @apply relative inline-flex h-6 w-11 items-center rounded-full;
+    transition: background-color var(--transition-fast);
+  }
+
+  .toggle-knob {
+    @apply inline-block h-4 w-4 rounded-full bg-white;
+    transition: transform var(--transition-fast);
+  }
+
+  /* Form labels */
+  .label {
+    @apply block text-body-sm font-medium text-ink mb-1;
+  }
+
+  .label-description {
+    @apply text-caption text-body-color;
+  }
+
+  /* Body color utility */
+  .text-body-color {
+    color: var(--color-body);
   }
 }

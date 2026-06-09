@@ -1,0 +1,60 @@
+{
+  "listen": "${BUNDLER_LISTEN:-0.0.0.0:4337}",
+  "beneficiary": "${BUNDLER_BENEFICIARY}",
+  "signerKey": "${BUNDLER_SIGNER_PRIVATE_KEY}",
+  "entryPoints": [
+    "0x0000000071727De22E5E9d8BAf0edAc6f37da032"
+  ],
+  "maxOpsPerBundle": 128,
+  "bundleIntervalMs": 2000,
+  "bundleTimeoutMs": 5000,
+  "minBundleGas": 21000,
+  "minProfitMarginBps": 500,
+  "reputation": {
+    "throttleThreshold": 5,
+    "banThreshold": 20,
+    "throttleDurationSec": 3600,
+    "banDurationSec": 86400,
+    "maxPendingPerSender": 16
+  },
+  "blacklistedSenders": [],
+  "simulation": {
+    "enabled": true,
+    "maxSimulationGas": 30000000
+  },
+  "healthPath": "/health",
+  "metricsPath": "/metrics",
+  "metricsEnabled": true,
+  "chains": {
+    "ethereum": {
+      "chainId": 1,
+      "rpcUrl": "${ETH_RPC_URL:-https://eth.llamarpc.com}",
+      "entryPoint": "0x0000000071727De22E5E9d8BAf0edAc6f37da032"
+    },
+    "sepolia": {
+      "chainId": 11155111,
+      "rpcUrl": "${SEPOLIA_RPC_URL:-https://rpc.sepolia.org}",
+      "entryPoint": "0x0000000071727De22E5E9d8BAf0edAc6f37da032"
+    },
+    "arbitrum": {
+      "chainId": 42161,
+      "rpcUrl": "${ARBITRUM_RPC_URL:-https://arb1.arbitrum.io/rpc}",
+      "entryPoint": "0x0000000071727De22E5E9d8BAf0edAc6f37da032"
+    },
+    "optimism": {
+      "chainId": 10,
+      "rpcUrl": "${OPTIMISM_RPC_URL:-https://mainnet.optimism.io}",
+      "entryPoint": "0x0000000071727De22E5E9d8BAf0edAc6f37da032"
+    },
+    "base": {
+      "chainId": 8453,
+      "rpcUrl": "${BASE_RPC_URL:-https://mainnet.base.org}",
+      "entryPoint": "0x0000000071727De22E5E9d8BAf0edAc6f37da032"
+    },
+    "polygon": {
+      "chainId": 137,
+      "rpcUrl": "${POLYGON_RPC_URL:-https://polygon-rpc.com}",
+      "entryPoint": "0x0000000071727De22E5E9d8BAf0edAc6f37da032"
+    }
+  }
+}

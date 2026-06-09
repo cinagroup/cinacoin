@@ -1,0 +1,304 @@
+# =============================================================================
+# Cinacoin Phase 2 - Production Docker Compose
+# =============================================================================
+# Usage:
+#   1. Copy .env.production.example to .env.production and fill in values
+#   2. docker-compose -f docker-compose.prod.yml --env-file .env.production up -d
+# =============================================================================
+
+version: '3.8'
+
+services:
+  # ===========================================================================
+  # PostgreSQL Database
+  # ===========================================================================
+  postgres:
+    image: postgres:16-alpine
+    container_name: cinacoin-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-cinacoin}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD is required}
+      POSTGRES_MULTIPLE_DATABASES: cinacoin_auth,cinacoin_users,cinacoin_gateway
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init-multiple-databases.sh:/docker-entrypoint-initdb.d/init-multiple-databases.sh:ro
+    ports:
+      - "127.0.0.1:5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-cinacoin}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - cinacoin-network
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 4G
+        reservations:
+          cpus: '1'
+          memory: 2G
+
+  # ===========================================================================
+  # Redis Cache
+  # ===========================================================================
+  redis:
+    image: redis:7-alpine
+    container_name: cinacoin-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:?REDIS_PASSWORD is required} --maxmemory 1gb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data:/data
+    ports:
+      - "127.0.0.1:6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - cinacoin-network
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1.5G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+
+  # ===========================================================================
+  # Auth Service
+  # ===========================================================================
+  auth-service:
+    build:
+      context: ..
+      dockerfile: deploy/docker/Dockerfile.auth-service
+    container_name: cinacoin-auth-service
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 3200
+      DATABASE_URL: postgresql://cinacoin_auth:${DB_PASSWORD}@postgres:5432/cinacoin_auth
+      REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379/0
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET is required}
+      SESSION_SECRET: ${SESSION_SECRET:?SESSION_SECRET is required}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY:?ENCRYPTION_KEY is required}
+      CORS_ORIGINS: ${ALLOWED_ORIGINS:-https://cinacoin.com}
+      SERVICE_API_KEY: ${SERVICE_API_KEY:?SERVICE_API_KEY is required}
+      # OAuth (optional)
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+      GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID:-}
+      GITHUB_CLIENT_SECRET: ${GITHUB_CLIENT_SECRET:-}
+      # Monitoring
+      SENTRY_DSN: ${SENTRY_DSN:-}
+    ports:
+      - "127.0.0.1:3200:3200"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3200/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - cinacoin-network
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+
+  # ===========================================================================
+  # User Service
+  # ===========================================================================
+  user-service:
+    build:
+      context: ..
+      dockerfile: deploy/docker/Dockerfile.user-service
+    container_name: cinacoin-user-service
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 3201
+      DATABASE_URL: postgresql://cinacoin_users:${DB_PASSWORD}@postgres:5432/cinacoin_users
+      REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379/1
+      AUTH_SERVICE_URL: http://auth-service:3200
+      SERVICE_API_KEY: ${SERVICE_API_KEY:?SERVICE_API_KEY is required}
+      CORS_ORIGINS: ${ALLOWED_ORIGINS:-https://cinacoin.com}
+      SENTRY_DSN: ${SENTRY_DSN:-}
+    ports:
+      - "127.0.0.1:3201:3201"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      auth-service:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3201/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - cinacoin-network
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+
+  # ===========================================================================
+  # API Gateway
+  # ===========================================================================
+  api-gateway:
+    build:
+      context: ..
+      dockerfile: deploy/docker/Dockerfile.api-gateway
+    container_name: cinacoin-api-gateway
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 8787
+      DATABASE_URL: postgresql://cinacoin_gateway:${DB_PASSWORD}@postgres:5432/cinacoin_gateway
+      REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379/2
+      AUTH_SERVICE_URL: http://auth-service:3200
+      USER_SERVICE_URL: http://user-service:3201
+      SERVICE_API_KEY: ${SERVICE_API_KEY:?SERVICE_API_KEY is required}
+      ETHEREUM_RPC_URL: ${ETHEREUM_RPC_URL:?ETHEREUM_RPC_URL is required}
+      ARBITRUM_RPC_URL: ${ARBITRUM_RPC_URL:-}
+      BUNDLER_API_KEY: ${BUNDLER_API_KEY:-}
+      BUNDLER_PRIVATE_KEY: ${BUNDLER_PRIVATE_KEY:-}
+      PAYMASTER_API_KEY: ${PAYMASTER_API_KEY:-}
+      PAYMASTER_PRIVATE_KEY: ${PAYMASTER_PRIVATE_KEY:-}
+      CORS_ORIGINS: "*"
+      SENTRY_DSN: ${SENTRY_DSN:-}
+    ports:
+      - "127.0.0.1:8787:8787"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      auth-service:
+        condition: service_healthy
+      user-service:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8787/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    networks:
+      - cinacoin-network
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+
+  # ===========================================================================
+  # Unified Dashboard
+  # ===========================================================================
+  unified-dashboard:
+    build:
+      context: ..
+      dockerfile: deploy/docker/Dockerfile.unified-dashboard
+      args:
+        NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-https://app.cinacoin.com}
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-https://api.cinacoin.com}
+        NEXT_PUBLIC_WS_URL: ${NEXT_PUBLIC_WS_URL:-wss://ws.cinacoin.com}
+        NEXT_PUBLIC_ENVIRONMENT: production
+    container_name: cinacoin-unified-dashboard
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      AUTH_SERVICE_URL: http://auth-service:3200
+      USER_SERVICE_URL: http://user-service:3201
+      API_GATEWAY_URL: http://api-gateway:8787
+      SERVICE_API_KEY: ${SERVICE_API_KEY:?SERVICE_API_KEY is required}
+      NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID: ${NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID:-}
+      NEXT_PUBLIC_MOONPAY_API_KEY: ${NEXT_PUBLIC_MOONPAY_API_KEY:-}
+    ports:
+      - "127.0.0.1:3000:3000"
+    depends_on:
+      auth-service:
+        condition: service_healthy
+      user-service:
+        condition: service_healthy
+      api-gateway:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    networks:
+      - cinacoin-network
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+
+  # ===========================================================================
+  # Nginx Reverse Proxy (Optional - for local testing)
+  # ===========================================================================
+  nginx:
+    image: nginx:alpine
+    container_name: cinacoin-nginx
+    restart: unless-stopped
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - auth-service
+      - user-service
+      - api-gateway
+      - unified-dashboard
+    networks:
+      - cinacoin-network
+    profiles:
+      - with-nginx
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  cinacoin-network:
+    driver: bridge

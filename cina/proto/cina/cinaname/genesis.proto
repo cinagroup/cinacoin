@@ -1,0 +1,17 @@
+syntax = "proto3";
+package cina.cinaname;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+import "cina/cinaname/params.proto";
+
+option go_package = "cina/x/cinaname/types";
+
+// GenesisState defines the cinaname module's genesis state.
+message GenesisState {
+  // params defines all the parameters of the module.
+  Params params = 1 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true
+  ];
+}

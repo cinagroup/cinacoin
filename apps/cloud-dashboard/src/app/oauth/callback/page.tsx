@@ -1,0 +1,157 @@
+"use client";
+
+import { useEffect, useState, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+
+/**
+ * OAuth Callback Page
+ * 
+ * Security: This page receives an authorization code (not tokens) from the backend.
+ * It exchanges the code for tokens via POST request, keeping tokens out of the URL.
+ */
+function OAuthCallbackContent() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [error, setError] = useState<string | null>(null);
+  const [isProcessing, setIsProcessing] = useState(true);
+
+  useEffect(() => {
+    const exchangeCodeForTokens = async () => {
+      try {
+        const code = searchParams.get("code");
+        const error = searchParams.get("error");
+
+        // Handle OAuth error response
+        if (error) {
+          setError(`Authentication failed: ${error}`);
+          setIsProcessing(false);
+          return;
+        }
+
+        // Validate we have a code
+        if (!code) {
+          setError("Missing authorization code");
+          setIsProcessing(false);
+          return;
+        }
+
+        // Get the API base URL from environment or use default
+        const apiBaseUrl = process.env.NEXT_PUBLIC_AUTH_API_URL || "https://auth.cinacoin.com";
+
+        // Exchange the authorization code for tokens via POST
+        const response = await fetch(`${apiBaseUrl}/auth/oauth/token`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ code }),
+          credentials: "include", // Include cookies for CSRF protection
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => ({}));
+          throw new Error(errorData.message || "Token exchange failed");
+        }
+
+        const data = await response.json();
+
+        if (!data.success || !data.data) {
+          throw new Error("Invalid response from server");
+        }
+
+        const { accessToken, refreshToken, expiresIn } = data.data;
+
+        // Store tokens securely
+        // Access token in sessionStorage (short-lived, cleared on tab close)
+        sessionStorage.setItem("access_token", accessToken);
+        
+        // Refresh token in httpOnly cookie would be ideal, but for now use localStorage
+        // TODO: Move refresh token to httpOnly cookie when backend supports it
+        localStorage.setItem("refresh_token", refreshToken);
+        localStorage.setItem("token_expires_at", String(Date.now() + expiresIn * 1000));
+
+        // Redirect to dashboard or return URL
+        const returnUrl = sessionStorage.getItem("oauth_return_url") || "/";
+        sessionStorage.removeItem("oauth_return_url");
+        
+        router.push(returnUrl);
+      } catch (err) {
+        console.error("OAuth callback error:", err);
+        setError(err instanceof Error ? err.message : "Authentication failed");
+        setIsProcessing(false);
+      }
+    };
+
+    exchangeCodeForTokens();
+  }, [searchParams, router]);
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-canvas-soft px-4">
+        <div className="w-full max-w-md">
+          <div className="bg-canvas rounded-md shadow-level-2 p-8">
+            <div className="text-center">
+              <div className="mb-4">
+                <svg
+                  className="mx-auto h-12 w-12 text-error"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                  />
+                </svg>
+              </div>
+              <h2 className="text-heading-3 text-ink mb-2">Authentication Error</h2>
+              <p className="text-body-sm text-body mb-6">{error}</p>
+              <button
+                onClick={() => router.push("/login")}
+                className="btn-primary w-full py-2.5"
+              >
+                Return to Login
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-canvas-soft px-4">
+      <div className="w-full max-w-md">
+        <div className="bg-canvas rounded-md shadow-level-2 p-8">
+          <div className="text-center">
+            <div className="mb-4">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+            </div>
+            <h2 className="text-heading-3 text-ink mb-2">
+              {isProcessing ? "Completing sign-in..." : "Redirecting..."}
+            </h2>
+            <p className="text-body-sm text-body">
+              Please wait while we securely complete your authentication.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function OAuthCallbackPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center bg-canvas-soft">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+        </div>
+      }
+    >
+      <OAuthCallbackContent />
+    </Suspense>
+  );
+}

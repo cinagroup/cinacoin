@@ -1,32 +1,26 @@
 {
-  "name": "backend-dashboard",
-  "version": "0.1.0",
+  "name": "cinacoin-backend-dashboard",
+  "version": "1.0.0",
   "private": true,
-  "description": "Cinacoin Backend Management Dashboard",
   "scripts": {
-    "dev": "next dev -p 3100",
+    "dev": "next dev",
     "build": "next build",
-    "start": "next start -p 3100",
+    "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
-    "@cinacoin/design-tokens": "workspace:*",
-    "@cinacoin/ui": "workspace:*",
-    "geist": "^1.7.2",
-    "next": "^15.0.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "viem": "^2.51.3"
+    "next": "14.2.29",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "recharts": "^2.15.3"
   },
   "devDependencies": {
-    "@cinacoin/config": "workspace:^",
-    "@cloudflare/next-on-pages": "1",
-    "@types/node": "^22.0.0",
-    "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0",
-    "autoprefixer": "^10.4.0",
-    "postcss": "^8.4.0",
-    "tailwindcss": "^3.4.0",
-    "typescript": "^5.7.0"
+    "@types/node": "^20.17.50",
+    "@types/react": "^18.3.21",
+    "@types/react-dom": "^18.3.7",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.4",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.8.3"
   }
 }

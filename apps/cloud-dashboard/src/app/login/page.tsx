@@ -1,96 +1,79 @@
 "use client";
 
 import Link from "next/link";
-import { useState, type FormEvent } from "next/navigation";
+import { useState } from "react";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
-    setLoading(true);
-
-    // TODO: Replace with actual auth service call
-    setTimeout(() => {
-      setLoading(false);
-      setError("Authentication service not yet configured");
-    }, 1000);
+    // TODO: Implement actual login logic
+    console.log("Login:", { email, password });
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[var(--cc-canvas-soft)] px-4">
+    <div className="min-h-screen flex items-center justify-center bg-canvas-soft px-4">
       <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <h1 className="text-2xl font-semibold text-[var(--cc-ink)] mb-2">
-            Sign in to Cinacoin Cloud
-          </h1>
-          <p className="text-sm text-[var(--cc-muted)]">
-            Access your developer dashboard
-          </p>
-        </div>
+        <div className="bg-canvas rounded-md shadow-level-2 p-8">
+          <div className="mb-8">
+            <h1 className="text-heading-2 text-ink">Sign in to CinaCoin Cloud</h1>
+            <p className="text-body-sm text-body mt-2">
+              Welcome back. Enter your credentials to access your account.
+            </p>
+          </div>
 
-        <div className="bg-[var(--cc-canvas)] border border-[var(--cc-border)] rounded-lg shadow-sm p-8">
           <form onSubmit={handleSubmit} className="space-y-5">
-            {error && (
-              <div className="p-3 bg-red-50 border border-red-200 rounded-md text-sm text-red-800">
-                {error}
-              </div>
-            )}
-
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-[var(--cc-ink)] mb-2">
-                Email address
+              <label htmlFor="email" className="block text-body-sm font-medium text-ink mb-2">
+                Email Address
               </label>
               <input
                 id="email"
                 type="email"
-                required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-3 py-2 border border-[var(--cc-border)] rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-[var(--cc-link)] focus:border-transparent"
                 placeholder="you@example.com"
+                className="input"
+                required
+                autoFocus
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-[var(--cc-ink)] mb-2">
+              <label htmlFor="password" className="block text-body-sm font-medium text-ink mb-2">
                 Password
               </label>
               <input
                 id="password"
                 type="password"
-                required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-3 py-2 border border-[var(--cc-border)] rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-[var(--cc-link)] focus:border-transparent"
                 placeholder="••••••••"
+                className="input"
+                required
               />
             </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-[var(--cc-ink)] text-[var(--cc-canvas)] py-2 px-4 rounded-md text-sm font-medium hover:bg-[var(--cc-ink-soft)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-            >
-              {loading ? "Signing in..." : "Sign in"}
+            <button type="submit" className="btn-primary w-full py-2.5">
+              Sign In
             </button>
           </form>
 
-          <div className="mt-6 text-center text-sm text-[var(--cc-muted)]">
-            Don't have an account?{" "}
-            <Link href="/register" className="text-[var(--cc-link)] hover:underline font-medium">
-              Sign up
-            </Link>
+          <div className="mt-6 text-center">
+            <p className="text-body-sm text-body">
+              Don't have an account?{" "}
+              <Link href="/register" className="text-link hover:underline">
+                Create one
+              </Link>
+            </p>
           </div>
         </div>
 
         <div className="mt-6 text-center">
-          <Link href="/" className="text-sm text-[var(--cc-muted)] hover:text-[var(--cc-ink)] transition-colors">
-            ← Back to dashboard
+          <Link href="/" className="text-body-sm text-mute hover:text-ink transition-colors">
+            ← Back to Dashboard
           </Link>
         </div>
       </div>

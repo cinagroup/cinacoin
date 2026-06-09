@@ -1,0 +1,171 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-gateway
+  namespace: cinacoin
+  labels:
+    app: api-gateway
+    version: v1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: api-gateway
+  template:
+    metadata:
+      labels:
+        app: api-gateway
+        version: v1
+    spec:
+      serviceAccountName: api-gateway
+      containers:
+        - name: api-gateway
+          image: cinacoin/api-gateway:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8787
+              protocol: TCP
+              name: http
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: PORT
+              value: "8787"
+            - name: HOSTNAME
+              value: "0.0.0.0"
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: cinacoin-secrets
+                  key: gateway-database-url
+            - name: REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: cinacoin-secrets
+                  key: redis-url
+            - name: AUTH_SERVICE_URL
+              value: "http://auth-service:3200"
+            - name: USER_SERVICE_URL
+              value: "http://user-service:3201"
+            - name: SERVICE_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: cinacoin-secrets
+                  key: service-api-key
+            - name: ETHEREUM_RPC_URL
+              valueFrom:
+                secretKeyRef:
+                  name: cinacoin-secrets
+                  key: ethereum-rpc-url
+            - name: BUNDLER_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: cinacoin-secrets
+                  key: bundler-api-key
+            - name: BUNDLER_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: cinacoin-secrets
+                  key: bundler-private-key
+            - name: PAYMASTER_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: cinacoin-secrets
+                  key: paymaster-api-key
+            - name: PAYMASTER_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: cinacoin-secrets
+                  key: paymaster-private-key
+            - name: LOG_LEVEL
+              valueFrom:
+                configMapKeyRef:
+                  name: cinacoin-config
+                  key: log-level
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8787
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8787
+            initialDelaySeconds: 20
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+          startupProbe:
+            httpGet:
+              path: /health
+              port: 8787
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 12
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-gateway
+  namespace: cinacoin
+  labels:
+    app: api-gateway
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8787
+      targetPort: 8787
+      protocol: TCP
+      name: http
+  selector:
+    app: api-gateway
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: api-gateway-hpa
+  namespace: cinacoin
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: api-gateway
+  minReplicas: 3
+  maxReplicas: 15
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 80
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 60
+      policies:
+        - type: Pods
+          value: 3
+          periodSeconds: 60
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+        - type: Pods
+          value: 1
+          periodSeconds: 60

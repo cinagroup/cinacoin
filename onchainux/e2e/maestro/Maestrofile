@@ -1,0 +1,5 @@
+appId: com.onchainux.demo
+flows:
+  - flows/connect_wallet.yaml
+  - flows/send_transaction.yaml
+  - flows/switch_chain.yaml

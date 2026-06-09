@@ -1,0 +1,68 @@
+name: Deploy Wallet Explorer to Cloudflare Pages
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "apps/wallet-explorer/**"
+      - "packages/**"
+      - ".github/workflows/deploy-wallet-explorer.yml"
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: "20"
+
+jobs:
+  deploy:
+    name: Build & Deploy Wallet Explorer
+    runs-on: ubuntu-latest
+    concurrency:
+      group: deploy-wallet-explorer-production
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - uses: pnpm/action-setup@v4
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build workspace dependencies
+        run: pnpm --filter @cinacoin/wallet-registry build
+
+      - name: Build Wallet Explorer
+        run: |
+          rm -rf apps/wallet-explorer/.next/cache
+          rm -rf apps/wallet-explorer/.next
+          pnpm --filter cinacoin-wallet-explorer build
+        env:
+          NODE_ENV: production
+
+      - name: Verify Output
+        run: |
+          test -f apps/wallet-explorer/out/index.html || { echo "✗ out/index.html missing"; exit 1; }
+          echo "✓ static output exists (deployed at root for wallet.cinacoin.com)"
+
+      - name: Clean cache before deploy
+        run: |
+          rm -rf apps/wallet-explorer/.next/cache
+          rm -rf apps/wallet-explorer/.next
+          rm -rf apps/wallet-explorer/out/cache
+          rm -rf cache/
+          echo "Cache cleaned"
+
+      - name: Install Wrangler
+        run: npm install -g wrangler@3
+
+      - name: Deploy to Cloudflare Pages
+        run: wrangler pages deploy apps/wallet-explorer/out --project-name=cinacoin-wallet-explorer --branch=main
+        env:
+          NODE_ENV: production
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: 7ea8e46d8210bad342fa7595f7935fea

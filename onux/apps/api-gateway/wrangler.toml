@@ -1,0 +1,75 @@
+name = "cinacoin-api-gateway"
+main = "src/index.ts"
+compatibility_date = "2025-01-01"
+compatibility_flags = ["nodejs_compat"]
+account_id = "7ea8e46d8210bad342fa7595f7935fea"
+
+# Production environment
+[env.production]
+name = "cinacoin-api-gateway-prod"
+routes = [
+  { pattern = "api.cinacoin.com/*", zone_id = "9e9b0140baac8f501ded715128fa5415" }
+]
+
+[env.production.vars]
+ENVIRONMENT = "production"
+LOG_LEVEL = "info"
+
+[[env.production.d1_databases]]
+binding = "DB"
+database_name = "cinacoin-api-gateway-prod"
+database_id = ""  # Set after creating: wrangler d1 create cinacoin-api-gateway-prod
+
+[[env.production.kv_namespaces]]
+binding = "RATE_LIMIT_KV"
+id = ""  # Set after creating: wrangler kv:namespace create RATE_LIMIT_KV --env production
+
+[[env.production.kv_namespaces]]
+binding = "CACHE_KV"
+id = ""  # Set after creating: wrangler kv:namespace create CACHE_KV --env production
+
+# Staging environment
+[env.staging]
+name = "cinacoin-api-gateway-staging"
+routes = [
+  { pattern = "api-staging.cinacoin.com/*", zone_id = "9e9b0140baac8f501ded715128fa5415" }
+]
+
+[env.staging.vars]
+ENVIRONMENT = "staging"
+LOG_LEVEL = "debug"
+
+[[env.staging.d1_databases]]
+binding = "DB"
+database_name = "cinacoin-api-gateway-staging"
+database_id = ""  # Set after creating: wrangler d1 create cinacoin-api-gateway-staging
+
+[[env.staging.kv_namespaces]]
+binding = "RATE_LIMIT_KV"
+id = ""  # Set after creating: wrangler kv:namespace create RATE_LIMIT_KV --env staging
+
+[[env.staging.kv_namespaces]]
+binding = "CACHE_KV"
+id = ""  # Set after creating: wrangler kv:namespace create CACHE_KV --env staging
+
+# Development environment (default)
+[vars]
+ENVIRONMENT = "development"
+LOG_LEVEL = "debug"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "cinacoin-api-gateway"
+database_id = ""  # Set after creating: wrangler d1 create cinacoin-api-gateway
+
+[[kv_namespaces]]
+binding = "RATE_LIMIT_KV"
+id = "00000000000000000000000000000000"  # Set after creating: wrangler kv:namespace create RATE_LIMIT_KV
+
+[[kv_namespaces]]
+binding = "CACHE_KV"
+id = "00000000000000000000000000000001"  # Set after creating: wrangler kv:namespace create CACHE_KV
+
+# Secrets (set via wrangler secret put)
+# JWT_SECRET - HMAC secret for JWT verification
+# UPSTREAM_API_KEY - API key for upstream services

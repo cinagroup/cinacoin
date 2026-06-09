@@ -1,0 +1,137 @@
+/*
+ * CINAcoin Design System — Badge / Tag Component
+ * For labels, status indicators, and metadata
+ */
+
+/* Base badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xxs);
+  padding: 2px var(--space-xs);
+  font-family: var(--font-sans);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-caption);
+  color: var(--color-body);
+  background-color: var(--color-canvas-soft-2);
+  border-radius: var(--radius-xs);
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+/* Pill variant */
+.badge-pill {
+  border-radius: var(--radius-pill-sm);
+  padding: 2px var(--space-sm);
+}
+
+/* Mono variant — for code/technical tags */
+.badge-mono {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+}
+
+/* Color variants */
+.badge-primary {
+  background-color: var(--color-ink);
+  color: var(--color-on-primary);
+}
+
+.badge-success {
+  background-color: #e6f4ea;
+  color: #137333;
+}
+
+.badge-error {
+  background-color: #fce8e8;
+  color: var(--color-error);
+}
+
+.badge-warning {
+  background-color: #fef3e0;
+  color: #b06000;
+}
+
+.badge-info {
+  background-color: #e8f0fe;
+  color: var(--color-link);
+}
+
+.badge-violet {
+  background-color: #f3e8ff;
+  color: var(--color-violet);
+}
+
+.badge-cyan {
+  background-color: #e0faf4;
+  color: #0d7d66;
+}
+
+/* Outline variant */
+.badge-outline {
+  background-color: transparent;
+  border: 1px solid var(--color-hairline);
+  color: var(--color-body);
+}
+
+/* Dot indicator */
+.badge-dot::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background-color: currentColor;
+  flex-shrink: 0;
+}
+
+.badge-dot-success::before {
+  background-color: var(--color-success);
+}
+
+.badge-dot-error::before {
+  background-color: var(--color-error);
+}
+
+.badge-dot-warning::before {
+  background-color: var(--color-warning);
+}
+
+/* Removable badge */
+.badge-removable {
+  padding-right: var(--space-xxs);
+}
+
+.badge-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border: none;
+  background: none;
+  color: var(--color-mute);
+  cursor: pointer;
+  border-radius: var(--radius-full);
+  padding: 0;
+  margin-left: var(--space-xxs);
+  transition: color var(--duration-color) var(--ease-default),
+              background-color var(--duration-color) var(--ease-default);
+}
+
+.badge-remove:hover {
+  color: var(--color-ink);
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
+/* Size variants */
+.badge-sm {
+  padding: 1px 6px;
+  font-size: 11px;
+}
+
+.badge-lg {
+  padding: 4px var(--space-sm);
+  font-size: var(--text-body-sm);
+}

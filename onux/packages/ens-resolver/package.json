@@ -1,0 +1,50 @@
+{
+  "name": "@cinacoin/ens-resolver",
+  "version": "0.2.0",
+  "description": "ENS name resolution, reverse lookup, avatar retrieval, and record fetching for Cinacoin",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "ens",
+    "ethereum",
+    "resolver",
+    "cinacoin",
+    "web3"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@noble/hashes": "^1.6.0",
+    "viem": "^2.21.0"
+  },
+  "devDependencies": {
+    "tsup": "^8.3.0",
+    "typescript": "^5.9.3",
+    "vitest": "^2.1.9"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cinacoin/cinacoin.git",
+    "directory": "packages/ens-resolver"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false
+}

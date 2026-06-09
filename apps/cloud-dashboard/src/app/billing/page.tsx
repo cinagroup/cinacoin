@@ -1,92 +1,167 @@
 "use client";
 
-import Link from "next/link";
+import { useState } from "react";
 import Sidebar from "@/components/Sidebar";
 
-export default function BillingPage() {
-  return (
-    <div className="flex min-h-screen">
-      <Sidebar />
-      <main className="flex-1 p-8">
-        <div className="max-w-4xl mx-auto">
-          <div className="mb-8">
-            <h1 className="text-2xl font-semibold text-[var(--cc-ink)] mb-2">Billing & Usage</h1>
-            <p className="text-sm text-[var(--cc-muted)]">
-              Manage your subscription and view usage analytics
-            </p>
-          </div>
+interface Invoice {
+  id: string;
+  date: string;
+  amount: string;
+  status: "paid" | "pending" | "failed";
+}
 
-          <div className="space-y-6">
+export default function BillingPage() {
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [invoices] = useState<Invoice[]>([
+    {
+      id: "INV-2026-001",
+      date: "2026-06-01",
+      amount: "$677.75",
+      status: "paid",
+    },
+    {
+      id: "INV-2026-002",
+      date: "2026-05-01",
+      amount: "$612.30",
+      status: "paid",
+    },
+    {
+      id: "INV-2026-003",
+      date: "2026-04-01",
+      amount: "$589.45",
+      status: "paid",
+    },
+  ]);
+
+  return (
+    <div className="min-h-screen flex">
+      <Sidebar isOpen={sidebarOpen} onToggle={() => setSidebarOpen(!sidebarOpen)} />
+      <div className="flex-1 flex flex-col min-w-0">
+        {/* Top Bar */}
+        <header className="bg-canvas border-b border-hairline h-14 flex items-center px-6 sticky top-0 z-40">
+          <button
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            className="p-2 rounded-sm hover:bg-canvas-soft-2 mr-4 transition-colors duration-fast"
+          >
+            <svg className="w-5 h-5 text-body" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+          <h1 className="text-body-sm font-medium text-ink">Billing</h1>
+        </header>
+
+        <main className="flex-1 p-6 overflow-auto">
+          <div className="max-w-4xl">
+            <div className="mb-8">
+              <h1 className="text-heading-2 text-ink">Billing</h1>
+              <p className="text-body-sm text-body mt-1">
+                Manage your subscription, payment methods, and view invoices.
+              </p>
+            </div>
+
             {/* Current Plan */}
-            <div className="bg-[var(--cc-canvas)] border border-[var(--cc-border)] rounded-lg p-6">
-              <h2 className="text-lg font-medium text-[var(--cc-ink)] mb-4">Current Plan</h2>
+            <div className="bg-canvas rounded-md shadow-level-2 p-6 mb-6">
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <p className="text-sm font-medium text-[var(--cc-ink)]">Free Tier</p>
-                  <p className="text-xs text-[var(--cc-muted)] mt-1">
-                    Perfect for getting started
-                  </p>
+                  <h2 className="text-heading-3 text-ink">Current Plan</h2>
+                  <p className="text-body-sm text-body mt-1">Professional Tier</p>
                 </div>
-                <span className="text-2xl font-semibold text-[var(--cc-ink)]">$0</span>
+                <button className="btn-secondary px-4 py-2">Change Plan</button>
               </div>
-              <ul className="space-y-2 text-sm text-[var(--cc-muted)]">
-                <li className="flex items-center">
-                  <svg className="w-4 h-4 mr-2 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                  3 projects
-                </li>
-                <li className="flex items-center">
-                  <svg className="w-4 h-4 mr-2 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                  1,000 API calls/month
-                </li>
-                <li className="flex items-center">
-                  <svg className="w-4 h-4 mr-2 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                  Community support
-                </li>
-              </ul>
-              <button className="mt-6 w-full bg-[var(--cc-ink)] text-[var(--cc-canvas)] py-2 px-4 rounded-md text-sm font-medium hover:bg-[var(--cc-ink-soft)] transition-colors">
-                Upgrade Plan
-              </button>
-            </div>
-
-            {/* Usage This Month */}
-            <div className="bg-[var(--cc-canvas)] border border-[var(--cc-border)] rounded-lg p-6">
-              <h2 className="text-lg font-medium text-[var(--cc-ink)] mb-4">Usage This Month</h2>
-              <div className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-hairline">
                 <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm text-[var(--cc-muted)]">API Calls</span>
-                    <span className="text-sm font-medium text-[var(--cc-ink)]">0 / 1,000</span>
-                  </div>
-                  <div className="w-full bg-[var(--cc-canvas-soft)] rounded-full h-2">
-                    <div className="bg-[var(--cc-link)] h-2 rounded-full" style={{ width: "0%" }}></div>
-                  </div>
+                  <p className="text-caption text-mute mb-1">Monthly Cost</p>
+                  <p className="text-heading-3 text-ink">$677.75</p>
                 </div>
                 <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm text-[var(--cc-muted)]">Projects</span>
-                    <span className="text-sm font-medium text-[var(--cc-ink)]">0 / 3</span>
-                  </div>
-                  <div className="w-full bg-[var(--cc-canvas-soft)] rounded-full h-2">
-                    <div className="bg-[var(--cc-link)] h-2 rounded-full" style={{ width: "0%" }}></div>
-                  </div>
+                  <p className="text-caption text-mute mb-1">Billing Cycle</p>
+                  <p className="text-body-sm text-ink">Monthly (June 1st)</p>
+                </div>
+                <div>
+                  <p className="text-caption text-mute mb-1">Next Invoice</p>
+                  <p className="text-body-sm text-ink">July 1, 2026</p>
                 </div>
               </div>
             </div>
 
-            {/* Payment History */}
-            <div className="bg-[var(--cc-canvas)] border border-[var(--cc-border)] rounded-lg p-6">
-              <h2 className="text-lg font-medium text-[var(--cc-ink)] mb-4">Payment History</h2>
-              <p className="text-sm text-[var(--cc-muted)]">No payment history yet</p>
+            {/* Payment Method */}
+            <div className="bg-canvas rounded-md shadow-level-2 p-6 mb-6">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-heading-3 text-ink">Payment Method</h2>
+                <button className="btn-secondary px-4 py-2">Update</button>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-8 bg-canvas-soft-2 rounded-sm flex items-center justify-center">
+                  <span className="text-caption font-medium text-ink">VISA</span>
+                </div>
+                <div>
+                  <p className="text-body-sm font-medium text-ink">•••• •••• •••• 4242</p>
+                  <p className="text-caption text-mute">Expires 12/2028</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Invoices */}
+            <div className="bg-canvas rounded-md shadow-level-2 overflow-hidden">
+              <div className="px-6 py-4 border-b border-hairline">
+                <h2 className="text-heading-3 text-ink">Invoice History</h2>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="bg-canvas-soft">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-caption font-medium text-mute uppercase tracking-wider">
+                        Invoice ID
+                      </th>
+                      <th className="px-6 py-3 text-left text-caption font-medium text-mute uppercase tracking-wider">
+                        Date
+                      </th>
+                      <th className="px-6 py-3 text-left text-caption font-medium text-mute uppercase tracking-wider">
+                        Amount
+                      </th>
+                      <th className="px-6 py-3 text-left text-caption font-medium text-mute uppercase tracking-wider">
+                        Status
+                      </th>
+                      <th className="px-6 py-3 text-right text-caption font-medium text-mute uppercase tracking-wider">
+                        Actions
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-hairline">
+                    {invoices.map((invoice) => (
+                      <tr key={invoice.id} className="hover:bg-canvas-soft transition-colors duration-fast">
+                        <td className="px-6 py-4">
+                          <p className="text-body-sm font-medium text-ink">{invoice.id}</p>
+                        </td>
+                        <td className="px-6 py-4 text-body-sm text-body">{invoice.date}</td>
+                        <td className="px-6 py-4 text-body-sm font-medium text-ink">{invoice.amount}</td>
+                        <td className="px-6 py-4">
+                          <span
+                            className={`inline-flex items-center px-2 py-0.5 rounded-pill text-caption font-medium ${
+                              invoice.status === "paid"
+                                ? "badge-success"
+                                : invoice.status === "pending"
+                                ? "badge-warning"
+                                : "badge-error"
+                            }`}
+                          >
+                            {invoice.status}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 text-right">
+                          <button className="text-caption text-link hover:underline">
+                            Download PDF
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
-        </div>
-      </main>
+        </main>
+      </div>
     </div>
   );
 }

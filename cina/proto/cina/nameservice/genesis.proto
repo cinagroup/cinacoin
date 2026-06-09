@@ -1,0 +1,17 @@
+syntax = "proto3";
+package cina.nameservice;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+import "cina/nameservice/params.proto";
+
+option go_package = "cina/x/nameservice/types";
+
+// GenesisState defines the nameservice module's genesis state.
+message GenesisState {
+  // params defines all the parameters of the module.
+  Params params = 1 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true
+  ];
+}

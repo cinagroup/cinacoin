@@ -1,0 +1,114 @@
+# OnChainUX — SLO/SLI Configuration
+# Service Level Objectives for all critical services
+# Based on Google SRE methodology
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: onchainux-slo-monitor
+  namespace: monitoring
+  labels:
+    project: onchainux
+    managed-by: helm
+spec:
+  selector:
+    matchLabels:
+      project: onchainux
+  endpoints:
+    - port: metrics
+      interval: 15s
+      path: /metrics
+---
+# SLO Configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: onchainux-slo-config
+  namespace: monitoring
+  labels:
+    project: onchainux
+data:
+  slo-config.yaml: |
+    service: onchainux
+    environment: production
+
+    slo_targets:
+      # ── Relay Server ─────────────────────────────────────────
+      relay_server:
+        availability:
+          target: 99.95%  # ~21.6 min downtime/month
+          sli: rate(relay_requests_total{status="success"}[5m]) / rate(relay_requests_total[5m])
+        latency:
+          target: 99.9% of requests < 100ms
+          sli: histogram_quantile(0.999, rate(relay_request_duration_seconds_bucket[5m]))
+        error_budget:
+          monthly: 21.6m
+
+      # ── RPC Proxy ────────────────────────────────────────────
+      rpc_proxy:
+        availability:
+          target: 99.99%  # ~4.32 min downtime/month
+          sli: rate(rpc_requests_total{status="success"}[5m]) / rate(rpc_requests_total[5m])
+        latency:
+          target: 99.9% of requests < 200ms
+          sli: histogram_quantile(0.999, rate(rpc_proxy_request_duration_seconds_bucket[5m]))
+        error_budget:
+          monthly: 4.32m
+
+      # ── Bundler ──────────────────────────────────────────────
+      bundler:
+        availability:
+          target: 99.9%  # ~43.2 min downtime/month
+          sli: rate(bundler_operations_total{status="success"}[5m]) / rate(bundler_operations_total[5m])
+        latency:
+          target: 99% of operations < 2s
+          sli: histogram_quantile(0.99, rate(bundler_operation_duration_seconds_bucket[5m]))
+        error_budget:
+          monthly: 43.2m
+
+      # ── Push Server ──────────────────────────────────────────
+      push_server:
+        availability:
+          target: 99.9%
+          sli: rate(push_notifications_total{status="delivered"}[5m]) / rate(push_notifications_total[5m])
+        latency:
+          target: 99% of deliveries < 5s
+          sli: histogram_quantile(0.99, rate(push_delivery_duration_seconds_bucket[5m]))
+        error_budget:
+          monthly: 43.2m
+
+      # ── Keys Server ──────────────────────────────────────────
+      keys_server:
+        availability:
+          target: 99.99%
+          sli: rate(keys_requests_total{status="success"}[5m]) / rate(keys_requests_total[5m])
+        latency:
+          target: 99.9% of requests < 50ms
+          sli: histogram_quantile(0.999, rate(keys_request_duration_seconds_bucket[5m]))
+        error_budget:
+          monthly: 4.32m
+
+    burn_rate_alerts:
+      # Fast burn — 14.4x error budget consumed in 1 hour
+      - window: 1h
+        factor: 14.4
+        severity: critical
+        page: true
+
+      # Medium burn — 6x error budget consumed in 6 hours
+      - window: 6h
+        factor: 6
+        severity: critical
+        page: true
+
+      # Slow burn — 3x error budget consumed in 1 day
+      - window: 1d
+        factor: 3
+        severity: warning
+        page: false
+
+      # Long burn — 1x error budget consumed in 3 days
+      - window: 3d
+        factor: 1
+        severity: warning
+        page: false

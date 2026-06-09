@@ -1,0 +1,36 @@
+name = "cinacoin-verify"
+main = "src/index.ts"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Custom Domain
+[[routes]]
+pattern = "verify.cinacoin.com"
+zone_name = "cinacoin.com"
+
+# KV Namespace for verification cache
+[[kv_namespaces]]
+binding = "VERIFY_KV"
+id = "9ecdd7b3a993408893e6bddc3d7fa0b1"
+
+# Secrets (set via `wrangler secret put`)
+# ADMIN_API_KEY  - Shared secret for /verify/register admin access
+# DNS_OVER_HTTPS_PROVIDER - Optional: "cloudflare" | "google" (default: cloudflare)
+
+[vars]
+CORS_ORIGIN = "https://cinacoin.com"
+ENVIRONMENT = "production"
+DNS_TXT_PREFIX = "_cinacoin-verify"
+CACHE_TTL_SECONDS = "3600"
+MAX_REGISTERED_DOMAINS = "10000"
+
+[env.staging]
+name = "cinacoin-verify-staging"
+
+[[env.staging.kv_namespaces]]
+binding = "VERIFY_KV"
+id = "${KV_VERIFY_STAGING_NAMESPACE_ID}"
+
+[env.staging.vars]
+CORS_ORIGIN = "https://staging.cinacoin.com"
+ENVIRONMENT = "staging"

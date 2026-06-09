@@ -1,39 +1,22 @@
 import type { Metadata } from "next";
-import { GeistSans, GeistMono } from "geist/font";
 import "./globals.css";
 
-
-
 export const metadata: Metadata = {
-  metadataBase: new URL('https://wallet.cinacoin.com'),
-  title: "Wallet Explorer — Cinacoin",
-  description:
-    "Browse, search, and discover 100+ crypto wallets. Filter by chain, platform, and type.",
-  keywords: "wallet explorer, crypto wallets, web3, Cinacoin, wallet discovery",
-  icons: { icon: "/favicon.ico" },
-  openGraph: {
-    title: "Wallet Explorer — Cinacoin",
-    description: "Browse, search, and discover 100+ crypto wallets. Filter by chain, platform, and type.",
-    type: "website",
-    url: "https://wallet.cinacoin.com",
-    siteName: "Cinacoin Wallet Explorer",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Wallet Explorer — Cinacoin",
-    description: "Browse, search, and discover 100+ crypto wallets. Filter by chain, platform, and type.",
-  },
+  title: "CinaCoin Wallet Explorer",
+  description: "Explore wallets, transactions, and balances on the CinaCoin blockchain",
 };
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`min-h-screen antialiased ${GeistSans.variable} ${GeistMono.variable}`} style={{ fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif' }}>
-        {children}
+    <html lang="en">
+      <body className="min-h-screen bg-canvas-soft text-ink antialiased">
+        <div className="mx-auto max-w-6xl px-4 py-8">
+          {children}
+        </div>
       </body>
     </html>
   );

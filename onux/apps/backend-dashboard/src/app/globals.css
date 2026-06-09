@@ -1,0 +1,212 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Canonical Cinacoin design system — tokens + .cc-* primitives.
+   Single source of truth: packages/design-tokens/css/cinacoin.css */
+@import "@cinacoin/design-tokens/css/cinacoin.css";
+
+/* ── Vercel-style Design System — Backend Dashboard ──
+   Applies the Vercel design language to the admin dashboard:
+   - 6px radius for in-app buttons (overrides marketing pill)
+   - Sidebar active indicator (3px left bar)
+   - Data table headers (mono uppercase)
+   - Stacked shadows on cards
+   - Canvas-soft (#fafafa) page background
+*/
+
+/* ── Font Stack ── */
+body {
+  font-family: var(--font-geist-sans), 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: #fafafa;
+}
+
+/* ── Dashboard Button Overrides (6px radius for in-app) ── */
+.cc-btn-primary,
+.cc-btn-primary-sm,
+.cc-btn-secondary,
+.cc-btn-secondary-sm {
+  border-radius: 6px;
+}
+
+/* ── Card stacked shadow + inset hairline override ── */
+.cc-card {
+  box-shadow:
+    0px 1px 1px rgba(0, 0, 0, 0.02),
+    0px 2px 2px rgba(0, 0, 0, 0.04),
+    inset 0 0 0 1px #ebebeb;
+}
+
+.cc-card:hover {
+  box-shadow:
+    0px 2px 2px rgba(0, 0, 0, 0.04),
+    0px 8px 8px -8px rgba(0, 0, 0, 0.04),
+    inset 0 0 0 1px #ebebeb;
+}
+
+/* ── Sidebar Active Indicator ── */
+.sidebar-nav-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  color: var(--cc-body);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.28px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.sidebar-nav-link:hover {
+  color: var(--cc-ink);
+}
+
+.sidebar-nav-link[aria-current='page'] {
+  color: var(--cc-ink);
+  font-weight: 600;
+}
+
+.sidebar-nav-link[aria-current='page']::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 20px;
+  background: var(--cc-ink);
+  border-radius: 0 3px 3px 0;
+}
+
+/* ── Data Table Headers (mono uppercase) ── */
+.ds-table-header {
+  font-family: var(--font-geist-mono), 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0px;
+  color: var(--cc-muted);
+  background: var(--cc-canvas-soft);
+  padding: 8px 16px;
+  text-align: left;
+  font-weight: 500;
+}
+
+/* ── Data Table Cells ── */
+.ds-table-cell {
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: -0.28px;
+  color: var(--cc-ink);
+  background: var(--cc-canvas);
+}
+
+/* ── Data Table Row ── */
+.ds-table-row {
+  border-bottom: 1px solid var(--cc-hairline);
+  transition: background 0.15s ease;
+}
+
+.ds-table-row:hover {
+  background: var(--cc-canvas-soft);
+}
+
+.ds-table-row:last-child {
+  border-bottom: none;
+}
+
+/* ── Stat Card (Vercel-style) ── */
+.ds-stat-card {
+  background: var(--cc-canvas);
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow:
+    0px 1px 1px rgba(0, 0, 0, 0.02),
+    0px 2px 2px rgba(0, 0, 0, 0.04),
+    inset 0 0 0 1px #ebebeb;
+  transition: box-shadow 0.2s ease;
+}
+
+.ds-stat-card:hover {
+  box-shadow:
+    0px 2px 2px rgba(0, 0, 0, 0.04),
+    0px 8px 8px -8px rgba(0, 0, 0, 0.04),
+    inset 0 0 0 1px #ebebeb;
+}
+
+.ds-stat-value {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 28px;
+  letter-spacing: -0.6px;
+  color: var(--cc-ink);
+}
+
+.ds-stat-label {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  color: var(--cc-muted);
+}
+
+/* ── Status Badge (pill shape) ── */
+.ds-badge {
+  display: inline-flex;
+  align-items: center;
+  background: var(--cc-canvas-soft);
+  color: var(--cc-body);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  border-radius: 9999px;
+  padding: 2px 8px;
+}
+
+/* ── Backend-dashboard-specific overrides — light + dark themes. */
+:root, :root[data-theme="light"] {
+  --bg-primary: var(--cc-canvas-soft);
+  --bg-card: var(--cc-canvas);
+  --border: var(--cc-hairline);
+  --text-primary: var(--cc-ink);
+  --text-secondary: var(--cc-body);
+  --green: var(--cc-success);
+  --green-bg: rgba(0, 112, 243, 0.10);
+  --yellow: var(--cc-warning);
+  --yellow-bg: rgba(245, 166, 35, 0.10);
+  --red: var(--cc-error);
+  --red-bg: rgba(238, 0, 0, 0.10);
+  --blue: var(--cc-link);
+  --blue-bg: rgba(0, 112, 243, 0.10);
+}
+
+:root[data-theme="dark"] {
+  --bg-primary: var(--cc-canvas-soft);
+  --bg-card: var(--cc-canvas);
+  --border: var(--cc-hairline);
+  --text-primary: var(--cc-ink);
+  --text-secondary: var(--cc-body);
+  --green: var(--cc-cyan);
+  --green-bg: rgba(80, 227, 194, 0.15);
+  --yellow: var(--cc-warning);
+  --yellow-bg: rgba(245, 166, 35, 0.15);
+  --red: var(--cc-error);
+  --red-bg: rgba(255, 77, 77, 0.15);
+  --blue: var(--cc-link);
+  --blue-bg: rgba(50, 145, 255, 0.15);
+}
+
+/* Touch-friendly minimums for dashboard */
+@media (max-width: 768px) {
+  button, a {
+    min-height: 44px;
+  }
+  input, select, textarea {
+    min-height: 44px;
+  }
+}

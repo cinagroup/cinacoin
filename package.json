@@ -1,75 +1,45 @@
 {
-  "name": "cinacoin",
+  "name": "analytics-dashboard",
+  "version": "0.1.0",
   "private": true,
-  "version": "1.0.0",
-  "description": "Cinacoin — Self-hosted wallet connection toolkit",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/cinagroup/Cinacoin.git"
-  },
+  "description": "Cinacoin Analytics Dashboard — on-ramp conversion analytics",
   "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev --concurrency 20",
-    "lint": "turbo run lint",
-    "lint:fix": "turbo run lint -- --fix",
-    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
-    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
-    "typecheck": "turbo run typecheck",
-    "test": "turbo run test",
-    "clean": "turbo run clean && rm -rf node_modules",
-    "changeset": "changeset",
-    "changeset:version": "changeset version",
-    "changeset:publish": "changeset publish",
-    "check-bundle": "tsx scripts/check-bundle-size.ts",
-    "ci": "turbo run build lint typecheck test",
-    "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs",
-    "typedoc": "typedoc",
-    "typedoc:watch": "typedoc --watch",
-    "dashboard": "turbo run dev --filter=backend-dashboard",
-    "dashboard:build": "turbo run build --filter=backend-dashboard",
-    "publish:all": "node scripts/publish-all.js",
-    "publish:all:sh": "bash scripts/publish-all.sh",
-    "publish:dry-run": "node scripts/publish-all.js --dry-run",
-    "publish:all:force": "node scripts/publish-all.js --publish",
-    "release:npm": "bash packages/release-tools/publish.sh",
-    "release:npm:dry-run": "bash packages/release-tools/publish.sh --dry-run",
-    "release:npm:changeset": "bash packages/release-tools/publish.sh --changeset",
-    "release:android": "bash packages/release-tools/publish-android.sh",
-    "release:android:snapshot": "bash packages/release-tools/publish-android.sh --snapshot",
-    "release:android:local": "bash packages/release-tools/publish-android.sh --local",
-    "release:ios": "bash packages/release-tools/publish-ios.sh",
-    "release:ios:validate": "bash packages/release-tools/publish-ios.sh --validate-only",
-    "release:dotnet": "bash packages/release-tools/publish-dotnet.sh",
-    "release:dotnet:dry-run": "bash packages/release-tools/publish-dotnet.sh --dry-run",
-    "release:all": "bash packages/release-tools/publish.sh --changeset && bash packages/release-tools/publish-android.sh && bash packages/release-tools/publish-ios.sh && bash packages/release-tools/publish-dotnet.sh",
-    "release:all:dry-run": "bash packages/release-tools/publish.sh --dry-run && bash packages/release-tools/publish-android.sh --dry-run && bash packages/release-tools/publish-ios.sh --dry-run && bash packages/release-tools/publish-dotnet.sh --dry-run"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "build:cf": "opennextjs-cloudflare",
+    "deploy:cf": "opennextjs-cloudflare && wrangler deploy"
+  },
+  "dependencies": {
+    "next": "^15.5.18",
+    "playwright": "^1.60.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.27.1",
-    "@playwright/test": "^1.60.0",
-    "@testing-library/jest-dom": "^6.9.1",
-    "@testing-library/react": "^14.0.0",
-    "@types/node": "^22.0.0",
-    "@types/ws": "^8.5.0",
-    "@vitest/coverage-v8": "2",
-    "esbuild": "^0.25.0",
-    "jsdom": "^24.0.0",
-    "prettier": "^3.4.0",
-    "tsx": "^4.19.0",
-    "turbo": "^2.3.0",
-    "typescript": "^5.7.0",
-    "vitest": "2"
+    "@types/node": "^20.0.0",
+    "@types/react": "19.2.16",
+    "@types/react-dom": "19.2.3",
+    "autoprefixer": "^10.5.0",
+    "postcss": "^8.5.15",
+    "tailwindcss": "^3.4.19",
+    "typescript": "^5.6.0"
   },
-  "packageManager": "pnpm@9.15.0",
-  "engines": {
-    "node": ">=18.0.0"
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
   },
-  "pnpm": {
-    "overrides": {
-      "@types/react": "18.3.12",
-      "@types/react-dom": "18.3.1"
-    }
-  }
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cinagroup/cinacoin.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cinagroup/cinacoin/issues"
+  },
+  "homepage": "https://github.com/cinagroup/cinacoin#readme"
 }

@@ -1,0 +1,17 @@
+syntax = "proto3";
+package cina.icsdns;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+import "cina/icsdns/params.proto";
+
+option go_package = "cina/x/icsdns/types";
+
+// GenesisState defines the icsdns module's genesis state.
+message GenesisState {
+  // params defines all the parameters of the module.
+  Params params = 1 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true
+  ];
+}

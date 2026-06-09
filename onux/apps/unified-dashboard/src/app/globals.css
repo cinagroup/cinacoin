@@ -1,0 +1,215 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Design Tokens (CSS Custom Properties) ──────────────────────────── */
+:root {
+  /* Surfaces */
+  --cc-canvas: #ffffff;
+  --cc-canvas-soft: #fafafa;
+  --cc-canvas-soft2: #f5f5f5;
+
+  /* Text */
+  --cc-ink: #171717;
+  --cc-ink-soft: #4d4d4d;
+  --cc-muted: #888888;
+
+  /* Borders */
+  --cc-hairline: #ebebeb;
+  --cc-hairline-strong: #a1a1a1;
+
+  /* Brand accent */
+  --cc-brand: #3b82f6;
+  --cc-brand-dark: #2563eb;
+  --cc-brand-light: #eff6ff;
+
+  /* Semantic */
+  --cc-success: #16a34a;
+  --cc-warning: #f5a623;
+  --cc-danger: #ee0000;
+  --cc-info: #3b82f6;
+
+  /* Layout */
+  --cc-radius-sm: 6px;
+  --cc-radius-md: 8px;
+  --cc-radius-lg: 12px;
+  --cc-radius-xl: 16px;
+
+  /* Sidebar */
+  --cc-sidebar-width: 260px;
+
+  /* Header */
+  --cc-header-height: 56px;
+
+  /* Shadows */
+  --cc-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --cc-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
+  --cc-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.08);
+
+  /* Transitions */
+  --cc-transition-fast: 150ms ease;
+  --cc-transition-base: 200ms ease;
+}
+
+/* Dark theme */
+[data-theme="dark"] {
+  --cc-canvas: #0a0a0a;
+  --cc-canvas-soft: #111111;
+  --cc-canvas-soft2: #1a1a1a;
+  --cc-ink: #f5f5f5;
+  --cc-ink-soft: #a1a1a1;
+  --cc-muted: #666666;
+  --cc-hairline: #262626;
+  --cc-hairline-strong: #404040;
+  --cc-brand: #60a5fa;
+  --cc-brand-dark: #3b82f6;
+  --cc-brand-light: #1e3a5f;
+  --cc-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --cc-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --cc-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* ─── Base ────────────────────────────────────────────────────────────── */
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--cc-canvas-soft);
+    color: var(--cc-ink);
+    font-family: var(--font-geist-sans), Inter, system-ui, -apple-system, sans-serif;
+  }
+
+  /* Skip link for accessibility */
+  .cc-skip-link {
+    @apply sr-only;
+  }
+  .cc-skip-link:focus {
+    @apply not-sr-only fixed top-2 left-2 z-[9999] px-4 py-2 bg-[var(--cc-brand)] text-white rounded-[var(--cc-radius-md)];
+  }
+}
+
+/* ─── Component Classes ───────────────────────────────────────────────── */
+@layer components {
+  /* Caption mono for section labels */
+  .cc-caption-mono {
+    @apply text-[11px] font-medium uppercase tracking-wider;
+  }
+
+  .cc-caption {
+    @apply text-xs;
+  }
+
+  /* Card base */
+  .cc-card {
+    @apply bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-lg)];
+    box-shadow: var(--cc-shadow-sm);
+  }
+
+  .cc-card-hover {
+    @apply cc-card transition-shadow;
+  }
+  .cc-card-hover:hover {
+    box-shadow: var(--cc-shadow-md);
+  }
+
+  /* Button base */
+  .cc-btn {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium
+           rounded-[var(--cc-radius-md)] transition-colors min-h-[36px];
+  }
+
+  .cc-btn-primary {
+    @apply cc-btn bg-[var(--cc-ink)] text-[var(--cc-canvas)] hover:opacity-90;
+  }
+
+  .cc-btn-secondary {
+    @apply cc-btn border border-[var(--cc-hairline)] text-[var(--cc-ink)]
+           hover:bg-[var(--cc-canvas-soft)];
+  }
+
+  .cc-btn-ghost {
+    @apply cc-btn text-[var(--cc-ink-soft)] hover:bg-[var(--cc-canvas-soft2)] hover:text-[var(--cc-ink)];
+  }
+
+  .cc-btn-icon {
+    @apply p-2 rounded-[var(--cc-radius-md)] text-[var(--cc-muted)]
+           hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft2)] transition-colors
+           min-h-[36px] min-w-[36px] flex items-center justify-center;
+  }
+
+  /* Sidebar nav link */
+  .sidebar-nav-link {
+    @apply flex items-center gap-3 px-3 py-1.5 text-sm rounded-[var(--cc-radius-sm)]
+           text-[var(--cc-ink-soft)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft)]
+           transition-colors min-h-[36px];
+  }
+
+  /* Badge */
+  .cc-badge {
+    @apply inline-flex items-center px-2 py-0.5 text-[11px] font-medium rounded-full;
+  }
+
+  .cc-badge-success {
+    @apply cc-badge bg-green-50 text-green-700;
+  }
+
+  .cc-badge-warning {
+    @apply cc-badge bg-amber-50 text-amber-700;
+  }
+
+  .cc-badge-danger {
+    @apply cc-badge bg-red-50 text-red-700;
+  }
+
+  .cc-badge-info {
+    @apply cc-badge bg-blue-50 text-blue-700;
+  }
+
+  /* Metric value */
+  .cc-metric-value {
+    @apply text-2xl font-semibold tracking-tight text-[var(--cc-ink)];
+  }
+
+  .cc-metric-label {
+    @apply text-sm text-[var(--cc-muted)];
+  }
+
+  .cc-metric-delta {
+    @apply text-xs font-medium;
+  }
+
+  /* Notification dot */
+  .cc-notification-dot {
+    @apply w-2 h-2 rounded-full bg-[var(--cc-danger)] animate-pulse-dot;
+  }
+
+  /* Scrollbar styling */
+  .cc-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .cc-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .cc-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--cc-hairline-strong);
+    border-radius: 3px;
+  }
+  .cc-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--cc-muted);
+  }
+}
+
+/* ─── Utilities ───────────────────────────────────────────────────────── */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

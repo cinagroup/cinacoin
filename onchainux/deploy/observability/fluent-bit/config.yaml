@@ -1,0 +1,60 @@
+# Fluent Bit Configuration
+# Collects container logs → Loki
+
+service:
+  flush: 1
+  daemon: false
+  log_level: info
+  parsers_file: parsers.conf
+
+inputs:
+  - name: tail
+    path: /var/log/containers/*.log
+    parser: docker
+    tag: kube.*
+    refresh_interval: 5
+    rotate_wait: 30
+    mem_buf_limit: 25MB
+    skip_long_lines: true
+    db: /var/log/flb_kube.db
+
+filters:
+  - name: kubernetes
+    match: kube.*
+    merge_log: true
+    keep_log: false
+    k8s_logging_parser: true
+    k8s_logging_exclude: true
+    annotations: true
+    labels: true
+
+  - name: nest
+    match: kube.*
+    operation: lift
+    nested_under: kubernetes
+    add_prefix: kubernetes_
+
+  - name: grep
+    match: kube.*
+    regex: kubernetes_namespace_name onchainux
+
+outputs:
+  - name: loki
+    match: kube.*
+    host: loki
+    port: 3100
+    labels:
+      job: fluent-bit
+      namespace: $kubernetes_namespace_name
+      pod: $kubernetes_pod_name
+      container: $kubernetes_container_name
+    line_format: json
+    auto_kubernetes_labels: true
+    remove_keys: kubernetes_host,kubernetes_container_hash
+
+parsers:
+  - name: docker
+    format: regex
+    regex: ^(?<time>[^ ]+) (?<stream>stdout|stderr) (?<logtag>[^ ]*) (?<log>.*)$
+    time_key: time
+    time_format: "%Y-%m-%dT%H:%M:%S.%L%z"

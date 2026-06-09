@@ -1,0 +1,89 @@
+{
+  "color": {
+    "primary": {
+      "value": "#171717",
+      "type": "color",
+      "description": "Primary brand color, headlines, primary buttons, and key text elements"
+    },
+    "ink": {
+      "value": "#171717",
+      "type": "color",
+      "description": "Alias for primary — used for headline and display text"
+    },
+    "on-primary": {
+      "value": "#ffffff",
+      "type": "color",
+      "description": "Text and icons placed on primary-colored backgrounds"
+    },
+    "canvas": {
+      "value": "#ffffff",
+      "type": "color",
+      "description": "Default page background"
+    },
+    "canvas-soft": {
+      "value": "#fafafa",
+      "type": "color",
+      "description": "Subtle section background for alternating bands"
+    },
+    "canvas-soft-2": {
+      "value": "#f5f5f5",
+      "type": "color",
+      "description": "Slightly deeper section background, also used for badge/tag fills"
+    },
+    "body": {
+      "value": "#4d4d4d",
+      "type": "color",
+      "description": "Default body text color — never use pure black for body copy"
+    },
+    "mute": {
+      "value": "#888888",
+      "type": "color",
+      "description": "Muted or secondary text, placeholders, captions"
+    },
+    "hairline": {
+      "value": "#ebebeb",
+      "type": "color",
+      "description": "Default border and divider color"
+    },
+    "hairline-strong": {
+      "value": "#a1a1a1",
+      "type": "color",
+      "description": "Emphasized border for focus states or visual weight"
+    },
+    "link": {
+      "value": "#0070f3",
+      "type": "color",
+      "description": "Interactive links and focus indicators"
+    },
+    "success": {
+      "value": "#0070f3",
+      "type": "color",
+      "description": "Success states and positive confirmations"
+    },
+    "error": {
+      "value": "#ee0000",
+      "type": "color",
+      "description": "Error states and destructive actions"
+    },
+    "warning": {
+      "value": "#f5a623",
+      "type": "color",
+      "description": "Warning states and caution indicators"
+    },
+    "violet": {
+      "value": "#7928ca",
+      "type": "color",
+      "description": "Accent color for feature highlights and badges"
+    },
+    "cyan": {
+      "value": "#50e3c2",
+      "type": "color",
+      "description": "Secondary accent color"
+    },
+    "highlight-pink": {
+      "value": "#ff0080",
+      "type": "color",
+      "description": "Call-to-action highlights and attention-grabbing accents"
+    }
+  }
+}

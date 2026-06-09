@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Canonical Cinacoin design system — tokens + .cc-* primitives.
+   Single source of truth: packages/design-tokens/css/cinacoin.css
+   (kept after @tailwind so base/body overrides win, matching prior cascade) */
+@import "@cinacoin/design-tokens/css/cinacoin.css";

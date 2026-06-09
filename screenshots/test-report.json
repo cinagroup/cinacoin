@@ -1,0 +1,1063 @@
+{
+  "timestamp": "2026-06-04T13:11:36.551Z",
+  "summary": {
+    "total": 32,
+    "passed": 11,
+    "warnings": 20,
+    "errors": 1
+  },
+  "results": [
+    {
+      "site": "Demo App",
+      "path": "/",
+      "url": "https://cinacoin-demo.pages.dev/",
+      "status": "warning",
+      "httpStatus": 200,
+      "title": "Cinacoin — Wallet Connection Toolkit",
+      "jsErrors": [],
+      "failedRequests": [
+        "https://rpc.cinacoin.com/health",
+        "https://keys.cinacoin.com/health",
+        "https://notify.cinacoin.com/health",
+        "https://relay.cinacoin.com/health",
+        "https://push.cinacoin.com/health"
+      ],
+      "hasErrorText": false,
+      "hasDarkMode": true,
+      "mobileOverflow": true,
+      "perfMetrics": {
+        "domContentLoaded": 5287,
+        "loadComplete": 12109,
+        "domInteractive": 5287
+      },
+      "metaTags": {
+        "hasViewport": true,
+        "hasDescription": true
+      },
+      "issues": [
+        "Mobile horizontal overflow"
+      ]
+    },
+    {
+      "site": "Demo App",
+      "path": "/swap",
+      "url": "https://cinacoin-demo.pages.dev/swap",
+      "status": "warning",
+      "httpStatus": 200,
+      "title": "Cinacoin — Wallet Connection Toolkit",
+      "jsErrors": [],
+      "failedRequests": [
+        "https://push.cinacoin.com/health",
+        "https://notify.cinacoin.com/health",
+        "https://keys.cinacoin.com/health",
+        "https://rpc.cinacoin.com/health",
+        "https://relay.cinacoin.com/health"
+      ],
+      "hasErrorText": false,
+      "hasDarkMode": true,
+      "mobileOverflow": false,
+      "perfMetrics": {
+        "domContentLoaded": 378,
+        "loadComplete": 424,
+        "domInteractive": 378
+      },
+      "metaTags": {
+        "hasViewport": true,
+        "hasDescription": true
+      },
+      "issues": [
+        "5 failed resource requests"
+      ]
+    },
+    {
+      "site": "Demo App",
+      "path": "/tokens",
+      "url": "https://cinacoin-demo.pages.dev/tokens",
+      "status": "warning",
+      "httpStatus": 200,
+      "title": "Cinacoin — Wallet Connection Toolkit",
+      "jsErrors": [],
+      "failedRequests": [
+        "https://keys.cinacoin.com/health",
+        "https://push.cinacoin.com/health",
+        "https://rpc.cinacoin.com/health",
+        "https://relay.cinacoin.com/health",
+        "https://notify.cinacoin.com/health"
+      ],
+      "hasErrorText": false,
+      "hasDarkMode": true,
+      "mobileOverflow": false,
+      "perfMetrics": {
+        "domContentLoaded": 360,
+        "loadComplete": 1182,
+        "domInteractive": 360
+      },
+      "metaTags": {
+        "hasViewport": true,
+        "hasDescription": true
+      },
+      "issues": [
+        "4 failed resource requests"
+      ]
+    },
+    {
+      "site": "Demo App",
+      "path": "/multi-chain",
+      "url": "https://cinacoin-demo.pages.dev/multi-chain",
+      "status": "warning",
+      "httpStatus": 200,
+      "title": "Cinacoin — Wallet Connection Toolkit",
+      "jsErrors": [],
+      "failedRequests": [
+        "https://notify.cinacoin.com/health",
+        "https://rpc.cinacoin.com/health",
+        "https://keys.cinacoin.com/health",
+        "https://relay.cinacoin.com/health",
+        "https://push.cinacoin.com/health",
+        "https://eth.llamarpc.com/",
+        "https://arbitrum.llamarpc.com/",
+        "https://optimism.llamarpc.com/"
+      ],
+      "hasErrorText": false,
+      "hasDarkMode": true,
+      "mobileOverflow": false,
+      "perfMetrics": {
+        "domContentLoaded": 1229,
+        "loadComplete": 1230,
+        "domInteractive": 1229
+      },
+      "metaTags": {
+        "hasViewport": true,
+        "hasDescription": true
+      },
+      "issues": [
+        "6 failed resource requests"
+      ]
+    },
+    {
+      "site": "Demo App",
+      "path": "/batch",
+      "url": "https://cinacoin-demo.pages.dev/batch",
+      "status": "warning",
+      "httpStatus": 200,
+      "title": "Cinacoin — Wallet Connection Toolkit",
+      "jsErrors": [],
+      "failedRequests": [
+        "https://rpc.cinacoin.com/health",
+        "https://push.cinacoin.com/health",
+        "https://keys.cinacoin.com/health",
+        "https://notify.cinacoin.com/health",
+        "https://relay.cinacoin.com/health"
+      ],
+      "hasErrorText": false,
+      "hasDarkMode": true,
+      "mobileOverflow": false,
+      "perfMetrics": {
+        "domContentLoaded": 559,
+        "loadComplete": 878,
+        "domInteractive": 559
+      },
+      "metaTags": {
+        "hasViewport": true,
+        "hasDescription": true
+      },
+      "issues": [
+        "5 failed resource requests"
+      ]
+    },
+    {
+      "site": "Demo App",
+      "path": "/auth",
+      "url": "https://cinacoin-demo.pages.dev/auth",
+      "status": "warning",
+      "httpStatus": 200,
+      "title": "Cinacoin — Wallet Connection Toolkit",
+      "jsErrors": [],
+      "failedRequests": [
+        "https://rpc.cinacoin.com/health",
+        "https://notify.cinacoin.com/health",
+        "https://relay.cinacoin.com/health",
+        "https://keys.cinacoin.com/health",
+        "https://push.cinacoin.com/health"
+      ],
+      "hasErrorText": false,
+      "hasDarkMode": true,
+      "mobileOverflow": false,
+      "perfMetrics": {
+        "domContentLoaded": 391,
+        "loadComplete": 391,
+        "domInteractive": 391
+      },
+      "metaTags": {
+        "hasViewport": true,
+        "hasDescription": true
+      },
+      "issues": [
+        "5 failed resource requests"
+      ]
+    },
+    {
+      "site": "Demo App",
+      "path": "/profile",
+      "url": "https://cinacoin-demo.pages.dev/profile",
+      "status": "warning",
+      "httpStatus": 200,
+      "title": "Cinacoin — Wallet Connection Toolkit",
+      "jsErrors": [],
+      "failedRequests": [
+        "https://relay.cinacoin.com/health",
+        "https://keys.cinacoin.com/health",
+        "https://notify.cinacoin.com/health",
+        "https://push.cinacoin.com/health",
+        "https://rpc.cinacoin.com/health"
+      ],
+      "hasErrorText": false,
+      "hasDarkMode": true,
+      "mobileOverflow": false,
+      "perfMetrics": {
+        "domContentLoaded": 358,
+        "loadComplete": 616,
+        "domInteractive": 358
+      },
+      "metaTags": {
+        "hasViewport": true,
+        "hasDescription": true
+      },
+      "issues": [
+        "5 failed resource requests"
+      ]
+    },
+    {
+      "site": "Demo App",
+      "path": "/settings",
+      "url": "https://cinacoin-demo.pages.dev/settings",
+      "status": "warning",
+      "httpStatus": 200,
+      "title": "Cinacoin — Wallet Connection Toolkit",
+      "jsErrors": [],
+      "failedRequests": [
+        "https://keys.cinacoin.com/health",
+        "https://rpc.cinacoin.com/health",
+        "https://notify.cinacoin.com/health",
+        "https://push.cinacoin.com/health",
+        "https://relay.cinacoin.com/health"
+      ],
+      "hasErrorText": false,
+      "hasDarkMode": true,
+      "mobileOverflow": false,
+      "perfMetrics": {
+        "domContentLoaded": 613,
+        "loadComplete": 1612,
+        "domInteractive": 613
+      },
+      "metaTags": {
+        "hasViewport": true,
+        "hasDescription": true
+      },
+      "issues": [
+        "5 failed resource requests"
+      ]
+    },
+    {
+      "site": "Demo App",
+      "path": "/activity",
+      "url": "https://cinacoin-demo.pages.dev/activity",
+      "status": "warning",
+      "httpStatus": 200,
+      "title": "Cinacoin — Wallet Connection Toolkit",
+      "jsErrors": [],
+      "failedRequests": [
+        "https://keys.cinacoin.com/health",
+        "https://relay.cinacoin.com/health",
+        "https://push.cinacoin.com/health",
+        "https://rpc.cinacoin.com/health",
+        "https://notify.cinacoin.com/health"
+      ],
+      "hasErrorText": false,
+      "hasDarkMode": true,
+      "mobileOverflow": false,
+      "perfMetrics": {
+        "domContentLoaded": 579,
+        "loadComplete": 854,
+        "domInteractive": 578
+      },
+      "metaTags": {
+        "hasViewport": true,
+        "hasDescription": true
+      },
+      "issues": [
+        "5 failed resource requests"
+      ]
+    },
+    {
+      "site": "Demo App",
+      "path": "/aa-demo",
+      "url": "https://cinacoin-demo.pages.dev/aa-demo",
+      "status": "warning",
+      "httpStatus": 200,
+      "title": "Cinacoin — Wallet Connection Toolkit",
+      "jsErrors": [],
+      "failedRequests": [
+        "https://keys.cinacoin.com/health",
+        "https://push.cinacoin.com/health",
+        "https://notify.cinacoin.com/health",
+        "https://rpc.cinacoin.com/health",
+        "https://relay.cinacoin.com/health"
+      ],
+      "hasErrorText": false,
+      "hasDarkMode": true,
+      "mobileOverflow": false,
+      "perfMetrics": {
+        "domContentLoaded": 579,
+        "loadComplete": 1939,
+        "domInteractive": 579
+      },
+      "metaTags": {
+        "hasViewport": true,
+        "hasDescription": true
+      },
+      "issues": [
+        "5 failed resource requests"
+      ]
+    },
+    {
+      "site": "Demo App",
+      "path": "/onramp",
+      "url": "https://cinacoin-demo.pages.dev/onramp",
+      "status": "warning",
+      "httpStatus": 200,
+      "title": "Cinacoin — Wallet Connection Toolkit",
+      "jsErrors": [],
+      "failedRequests": [
+        "https://keys.cinacoin.com/health",
+        "https://rpc.cinacoin.com/health",
+        "https://notify.cinacoin.com/health",
+        "https://push.cinacoin.com/health",
+        "https://relay.cinacoin.com/health"
+      ],
+      "hasErrorText": false,
+      "hasDarkMode": true,
+      "mobileOverflow": false,
+      "perfMetrics": {
+        "domContentLoaded": 669,
+        "loadComplete": 1149,
+        "domInteractive": 669
+      },
+      "metaTags": {
+        "hasViewport": true,
+        "hasDescription": true
+      },
+      "issues": [
+        "5 failed resource requests"
+      ]
+    },
+    {
+      "site": "Demo App",
+      "path": "/components",
+      "url": "https://cinacoin-demo.pages.dev/components",
+      "status": "warning",
+      "httpStatus": 200,
+      "title": "Cinacoin — Wallet Connection Toolkit",
+      "jsErrors": [],
+      "failedRequests": [
+        "https://keys.cinacoin.com/health",
+        "https://rpc.cinacoin.com/health",
+        "https://push.cinacoin.com/health",
+        "https://relay.cinacoin.com/health",
+        "https://notify.cinacoin.com/health"
+      ],
+      "hasErrorText": false,
+      "hasDarkMode": true,
+      "mobileOverflow": false,
+      "perfMetrics": {
+        "domContentLoaded": 640,
+        "loadComplete": 1117,
+        "domInteractive": 640
+      },
+      "metaTags": {
+        "hasViewport": true,
+        "hasDescription": true
+      },
+      "issues": [
+        "5 failed resource requests"
+      ]
+    },
+    {
+      "site": "Backend Dashboard",
+      "path": "/",
+      "url": "https://backend-dashboard.pages.dev/",
+      "status": "pass",
+      "httpStatus": 200,
+      "title": "Cinacoin — Backend Dashboard",
+      "jsErrors": [],
+      "failedRequests": [],
+      "hasErrorText": false,
+      "hasDarkMode": true,
+      "mobileOverflow": false,
+      "perfMetrics": {
+        "domContentLoaded": 1972,
+        "loadComplete": 0,
+        "domInteractive": 1972
+      },
+      "metaTags": {
+        "hasViewport": true,
+        "hasDescription": true
+      }
+    },
+    {
+      "site": "Backend Dashboard",
+      "path": "/login",
+      "url": "https://backend-dashboard.pages.dev/login",
+      "status": "pass",
+      "httpStatus": 200,
+      "title": "Cinacoin — Backend Dashboard",
+      "jsErrors": [],
+      "failedRequests": [],
+      "hasErrorText": false,
+      "hasDarkMode": true,
+      "mobileOverflow": false,
+      "perfMetrics": {
+        "domContentLoaded": 340,
+        "loadComplete": 2424,
+        "domInteractive": 340
+      },
+      "metaTags": {
+        "hasViewport": true,
+        "hasDescription": true
+      }
+    },
+    {
+      "site": "Backend Dashboard",
+      "path": "/analytics",
+      "url": "https://backend-dashboard.pages.dev/analytics",
+      "status": "error",
+      "httpStatus": 200,
+      "title": "Loading https://backend-dashboard.pages.dev/login",
+      "jsErrors": [],
+      "failedRequests": [
+        "https://push.cinacoin.com/health",
+        "https://notify.cinacoin.com/health",
+        "https://relay.cinacoin.com/health",
+        "https://keys.cinacoin.com/health",
+        "https://backend-dashboard.pages.dev/index.txt?_rsc=NN3u892zjhTVatbF",
+        "https://rpc.cinacoin.com/health",
+        "https://backend-dashboard.pages.dev/relay-server.txt?_rsc=NN3u892zjhTVatbF",
+        "https://backend-dashboard.pages.dev/rpc-proxy.txt?_rsc=NN3u892zjhTVatbF",
+        "https://backend-dashboard.pages.dev/keys-server.txt?_rsc=NN3u892zjhTVatbF",
+        "https://backend-dashboard.pages.dev/notify-server.txt?_rsc=NN3u892zjhTVatbF"
+      ],
+      "error": "page.evaluate: Execution context was destroyed, most likely because of a navigation"
+    },
+    {
+      "site": "Backend Dashboard",
+      "path": "/chains",
+      "url": "https://backend-dashboard.pages.dev/chains",
+      "status": "warning",
+      "httpStatus": 200,
+      "title": "Cinacoin — Backend Dashboard",
+      "jsErrors": [],
+      "failedRequests": [
+        "https://relay.cinacoin.com/health",
+        "https://push.cinacoin.com/health",
+        "https://notify.cinacoin.com/health",
+        "https://keys.cinacoin.com/health",
+        "https://backend-dashboard.pages.dev/relay-server.txt?_rsc=QHKFIXUoVmT7nPNl",
+        "https://backend-dashboard.pages.dev/keys-server.txt?_rsc=QHKFIXUoVmT7nPNl",
+        "https://backend-dashboard.pages.dev/index.txt?_rsc=QHKFIXUoVmT7nPNl",
+        "https://rpc.cinacoin.com/health",
+        "https://backend-dashboard.pages.dev/rpc-proxy.txt?_rsc=QHKFIXUoVmT7nPNl"
+      ],
+      "hasErrorText": false,
+      "hasDarkMode": true,
+      "mobileOverflow": false,
+      "perfMetrics": {
+        "domContentLoaded": 850,
+        "loadComplete": 850,
+        "domInteractive": 850
+      },
+      "metaTags": {
+        "hasViewport": true,
+        "hasDescription": true
+      },
+      "issues": [
+        "9 failed resource requests"
+      ]
+    },
+    {
+      "site": "Backend Dashboard",
+      "path": "/keys-server",
+      "url": "https://backend-dashboard.pages.dev/keys-server",
+      "status": "warning",
+      "httpStatus": 200,
+      "title": "Cinacoin — Backend Dashboard",
+      "jsErrors": [],
+      "failedRequests": [
+        "https://relay.cinacoin.com/health",
+        "https://keys.cinacoin.com/health",
+        "https://rpc.cinacoin.com/health",
+        "https://push.cinacoin.com/health",
+        "https://notify.cinacoin.com/health",
+        "https://backend-dashboard.pages.dev/index.txt?_rsc=hj9XnIU7l-hc4F6Y",
+        "https://backend-dashboard.pages.dev/rpc-proxy.txt?_rsc=hj9XnIU7l-hc4F6Y",
+        "https://backend-dashboard.pages.dev/relay-server.txt?_rsc=hj9XnIU7l-hc4F6Y",
+        "https://backend-dashboard.pages.dev/notify-server.txt?_rsc=hj9XnIU7l-hc4F6Y"
+      ],
+      "hasErrorText": false,
+      "hasDarkMode": true,
+      "mobileOverflow": false,
+      "perfMetrics": {
+        "domContentLoaded": 310,
+        "loadComplete": 314,
+        "domInteractive": 310
+      },
+      "metaTags": {
+        "hasViewport": true,
+        "hasDescription": true
+      },
+      "issues": [
+        "9 failed resource requests"
+      ]
+    },
+    {
+      "site": "Backend Dashboard",
+      "path": "/notify-server",
+      "url": "https://backend-dashboard.pages.dev/notify-server",
+      "status": "warning",
+      "httpStatus": 200,
+      "title": "Cinacoin — Backend Dashboard",
+      "jsErrors": [],
+      "failedRequests": [
+        "https://relay.cinacoin.com/health",
+        "https://push.cinacoin.com/health",
+        "https://notify.cinacoin.com/health",
+        "https://rpc.cinacoin.com/health",
+        "https://keys.cinacoin.com/health",
+        "https://backend-dashboard.pages.dev/rpc-proxy.txt?_rsc=lGxNOG1lb7rfBUFJ",
+        "https://backend-dashboard.pages.dev/keys-server.txt?_rsc=lGxNOG1lb7rfBUFJ",
+        "https://backend-dashboard.pages.dev/relay-server.txt?_rsc=lGxNOG1lb7rfBUFJ",
+        "https://backend-dashboard.pages.dev/index.txt?_rsc=lGxNOG1lb7rfBUFJ"
+      ],
+      "hasErrorText": false,
+      "hasDarkMode": true,
+      "mobileOverflow": false,
+      "perfMetrics": {
+        "domContentLoaded": 333,
+        "loadComplete": 333,
+        "domInteractive": 332
+      },
+      "metaTags": {
+        "hasViewport": true,
+        "hasDescription": true
+      },
+      "issues": [
+        "9 failed resource requests"
+      ]
+    },
+    {
+      "site": "Backend Dashboard",
+      "path": "/project",
+      "url": "https://backend-dashboard.pages.dev/project",
+      "status": "warning",
+      "httpStatus": 200,
+      "title": "Cinacoin — Backend Dashboard",
+      "jsErrors": [],
+      "failedRequests": [
+        "https://relay.cinacoin.com/health",
+        "https://notify.cinacoin.com/health",
+        "https://push.cinacoin.com/health",
+        "https://rpc.cinacoin.com/health",
+        "https://backend-dashboard.pages.dev/index.txt?_rsc=QUnZuHUUoOyMqOCV",
+        "https://backend-dashboard.pages.dev/keys-server.txt?_rsc=QUnZuHUUoOyMqOCV",
+        "https://keys.cinacoin.com/health",
+        "https://backend-dashboard.pages.dev/rpc-proxy.txt?_rsc=QUnZuHUUoOyMqOCV",
+        "https://backend-dashboard.pages.dev/relay-server.txt?_rsc=QUnZuHUUoOyMqOCV"
+      ],
+      "hasErrorText": false,
+      "hasDarkMode": true,
+      "mobileOverflow": false,
+      "perfMetrics": {
+        "domContentLoaded": 350,
+        "loadComplete": 352,
+        "domInteractive": 350
+      },
+      "metaTags": {
+        "hasViewport": true,
+        "hasDescription": true
+      },
+      "issues": [
+        "9 failed resource requests"
+      ]
+    },
+    {
+      "site": "Backend Dashboard",
+      "path": "/push-server",
+      "url": "https://backend-dashboard.pages.dev/push-server",
+      "status": "warning",
+      "httpStatus": 200,
+      "title": "Cinacoin — Backend Dashboard",
+      "jsErrors": [],
+      "failedRequests": [
+        "https://relay.cinacoin.com/health",
+        "https://keys.cinacoin.com/health",
+        "https://rpc.cinacoin.com/health",
+        "https://push.cinacoin.com/health",
+        "https://backend-dashboard.pages.dev/rpc-proxy.txt?_rsc=-qB-0_2WBi3YGM4q",
+        "https://backend-dashboard.pages.dev/keys-server.txt?_rsc=-qB-0_2WBi3YGM4q",
+        "https://backend-dashboard.pages.dev/relay-server.txt?_rsc=-qB-0_2WBi3YGM4q",
+        "https://notify.cinacoin.com/health",
+        "https://backend-dashboard.pages.dev/index.txt?_rsc=-qB-0_2WBi3YGM4q"
+      ],
+      "hasErrorText": false,
+      "hasDarkMode": true,
+      "mobileOverflow": false,
+      "perfMetrics": {
+        "domContentLoaded": 1127,
+        "loadComplete": 1127,
+        "domInteractive": 1126
+      },
+      "metaTags": {
+        "hasViewport": true,
+        "hasDescription": true
+      },
+      "issues": [
+        "9 failed resource requests"
+      ]
+    },
+    {
+      "site": "Backend Dashboard",
+      "path": "/relay-server",
+      "url": "https://backend-dashboard.pages.dev/relay-server",
+      "status": "warning",
+      "httpStatus": 200,
+      "title": "Cinacoin — Backend Dashboard",
+      "jsErrors": [],
+      "failedRequests": [
+        "https://push.cinacoin.com/health",
+        "https://keys.cinacoin.com/health",
+        "https://relay.cinacoin.com/health",
+        "https://rpc.cinacoin.com/health",
+        "https://notify.cinacoin.com/health",
+        "https://backend-dashboard.pages.dev/keys-server.txt?_rsc=i_CPsx4QCPZo8Owz",
+        "https://backend-dashboard.pages.dev/push-server.txt?_rsc=i_CPsx4QCPZo8Owz",
+        "https://backend-dashboard.pages.dev/_next/static/chunks/app/rpc-proxy/page-e850dfd547d736cd.js",
+        "https://backend-dashboard.pages.dev/notify-server.txt?_rsc=i_CPsx4QCPZo8Owz",
+        "https://backend-dashboard.pages.dev/project.txt?_rsc=i_CPsx4QCPZo8Owz",
+        "https://backend-dashboard.pages.dev/chains.txt?_rsc=i_CPsx4QCPZo8Owz"
+      ],
+      "hasErrorText": false,
+      "hasDarkMode": true,
+      "mobileOverflow": false,
+      "perfMetrics": {
+        "domContentLoaded": 1115,
+        "loadComplete": 1117,
+        "domInteractive": 1115
+      },
+      "metaTags": {
+        "hasViewport": true,
+        "hasDescription": true
+      },
+      "issues": [
+        "11 failed resource requests"
+      ]
+    },
+    {
+      "site": "Backend Dashboard",
+      "path": "/rpc-proxy",
+      "url": "https://backend-dashboard.pages.dev/rpc-proxy",
+      "status": "warning",
+      "httpStatus": 200,
+      "title": "Cinacoin — Backend Dashboard",
+      "jsErrors": [],
+      "failedRequests": [
+        "https://relay.cinacoin.com/health",
+        "https://keys.cinacoin.com/health",
+        "https://rpc.cinacoin.com/health",
+        "https://backend-dashboard.pages.dev/notify-server.txt?_rsc=88AaS6r8_28TwPBN",
+        "https://push.cinacoin.com/health",
+        "https://backend-dashboard.pages.dev/keys-server.txt?_rsc=88AaS6r8_28TwPBN",
+        "https://notify.cinacoin.com/health",
+        "https://backend-dashboard.pages.dev/index.txt?_rsc=88AaS6r8_28TwPBN",
+        "https://backend-dashboard.pages.dev/relay-server.txt?_rsc=88AaS6r8_28TwPBN"
+      ],
+      "hasErrorText": false,
+      "hasDarkMode": true,
+      "mobileOverflow": false,
+      "perfMetrics": {
+        "domContentLoaded": 567,
+        "loadComplete": 568,
+        "domInteractive": 567
+      },
+      "metaTags": {
+        "hasViewport": true,
+        "hasDescription": true
+      },
+      "issues": [
+        "9 failed resource requests"
+      ]
+    },
+    {
+      "site": "Backend Dashboard",
+      "path": "/settings",
+      "url": "https://backend-dashboard.pages.dev/settings",
+      "status": "warning",
+      "httpStatus": 200,
+      "title": "Cinacoin — Backend Dashboard",
+      "jsErrors": [],
+      "failedRequests": [
+        "https://keys.cinacoin.com/health",
+        "https://relay.cinacoin.com/health",
+        "https://push.cinacoin.com/health",
+        "https://rpc.cinacoin.com/health",
+        "https://backend-dashboard.pages.dev/keys-server.txt?_rsc=3OjXOvR16xTJgvu1",
+        "https://backend-dashboard.pages.dev/index.txt?_rsc=3OjXOvR16xTJgvu1",
+        "https://backend-dashboard.pages.dev/rpc-proxy.txt?_rsc=3OjXOvR16xTJgvu1",
+        "https://notify.cinacoin.com/health",
+        "https://backend-dashboard.pages.dev/relay-server.txt?_rsc=3OjXOvR16xTJgvu1"
+      ],
+      "hasErrorText": false,
+      "hasDarkMode": true,
+      "mobileOverflow": false,
+      "perfMetrics": {
+        "domContentLoaded": 797,
+        "loadComplete": 798,
+        "domInteractive": 797
+      },
+      "metaTags": {
+        "hasViewport": true,
+        "hasDescription": true
+      },
+      "issues": [
+        "9 failed resource requests"
+      ]
+    },
+    {
+      "site": "Health Status",
+      "path": "/",
+      "url": "https://cinacoin-health-status.pages.dev/",
+      "status": "pass",
+      "httpStatus": 200,
+      "title": "Cinacoin — Service Status",
+      "jsErrors": [],
+      "failedRequests": [
+        "https://relay.cinacoin.com/health",
+        "https://www.npmjs.com/package/@cinacoin/core-sdk"
+      ],
+      "hasErrorText": false,
+      "hasDarkMode": true,
+      "mobileOverflow": false,
+      "perfMetrics": {
+        "domContentLoaded": 2475,
+        "loadComplete": 5375,
+        "domInteractive": 2475
+      },
+      "metaTags": {
+        "hasViewport": true,
+        "hasDescription": true
+      }
+    },
+    {
+      "site": "Docs",
+      "path": "/",
+      "url": "https://cinacoin-docs.pages.dev/",
+      "status": "pass",
+      "httpStatus": 200,
+      "title": "Cinacoin",
+      "jsErrors": [],
+      "failedRequests": [],
+      "hasErrorText": false,
+      "hasDarkMode": true,
+      "mobileOverflow": false,
+      "perfMetrics": {
+        "domContentLoaded": 5048,
+        "loadComplete": 5866,
+        "domInteractive": 4313
+      },
+      "metaTags": {
+        "hasViewport": true,
+        "hasDescription": true
+      }
+    },
+    {
+      "site": "Docs",
+      "path": "/guide/quick-start",
+      "url": "https://cinacoin-docs.pages.dev/guide/quick-start",
+      "status": "pass",
+      "httpStatus": 200,
+      "title": "Quick Start | Cinacoin",
+      "jsErrors": [],
+      "failedRequests": [],
+      "hasErrorText": false,
+      "hasDarkMode": true,
+      "mobileOverflow": false,
+      "perfMetrics": {
+        "domContentLoaded": 1624,
+        "loadComplete": 2230,
+        "domInteractive": 1609
+      },
+      "metaTags": {
+        "hasViewport": true,
+        "hasDescription": true
+      }
+    },
+    {
+      "site": "Docs",
+      "path": "/guide/installation",
+      "url": "https://cinacoin-docs.pages.dev/guide/installation",
+      "status": "pass",
+      "httpStatus": 200,
+      "title": "Installation | Cinacoin",
+      "jsErrors": [],
+      "failedRequests": [],
+      "hasErrorText": false,
+      "hasDarkMode": true,
+      "mobileOverflow": false,
+      "perfMetrics": {
+        "domContentLoaded": 2299,
+        "loadComplete": 3073,
+        "domInteractive": 2115
+      },
+      "metaTags": {
+        "hasViewport": true,
+        "hasDescription": true
+      }
+    },
+    {
+      "site": "Docs",
+      "path": "/guide/configuration",
+      "url": "https://cinacoin-docs.pages.dev/guide/configuration",
+      "status": "pass",
+      "httpStatus": 200,
+      "title": "Configuration | Cinacoin",
+      "jsErrors": [],
+      "failedRequests": [],
+      "hasErrorText": false,
+      "hasDarkMode": true,
+      "mobileOverflow": false,
+      "perfMetrics": {
+        "domContentLoaded": 1371,
+        "loadComplete": 1597,
+        "domInteractive": 1148
+      },
+      "metaTags": {
+        "hasViewport": true,
+        "hasDescription": true
+      }
+    },
+    {
+      "site": "Docs",
+      "path": "/api/core-sdk",
+      "url": "https://cinacoin-docs.pages.dev/api/core-sdk",
+      "status": "pass",
+      "httpStatus": 200,
+      "title": "Core SDK | Cinacoin",
+      "jsErrors": [],
+      "failedRequests": [],
+      "hasErrorText": false,
+      "hasDarkMode": true,
+      "mobileOverflow": false,
+      "perfMetrics": {
+        "domContentLoaded": 960,
+        "loadComplete": 1654,
+        "domInteractive": 896
+      },
+      "metaTags": {
+        "hasViewport": true,
+        "hasDescription": true
+      }
+    },
+    {
+      "site": "Docs",
+      "path": "/api/react",
+      "url": "https://cinacoin-docs.pages.dev/api/react",
+      "status": "pass",
+      "httpStatus": 200,
+      "title": "React | Cinacoin",
+      "jsErrors": [],
+      "failedRequests": [],
+      "hasErrorText": false,
+      "hasDarkMode": true,
+      "mobileOverflow": false,
+      "perfMetrics": {
+        "domContentLoaded": 905,
+        "loadComplete": 1111,
+        "domInteractive": 844
+      },
+      "metaTags": {
+        "hasViewport": true,
+        "hasDescription": true
+      }
+    },
+    {
+      "site": "Docs",
+      "path": "/zh/",
+      "url": "https://cinacoin-docs.pages.dev/zh/",
+      "status": "pass",
+      "httpStatus": 200,
+      "title": "Cinacoin — 链上访问，化繁为简 | Cinacoin",
+      "jsErrors": [],
+      "failedRequests": [],
+      "hasErrorText": false,
+      "hasDarkMode": true,
+      "mobileOverflow": false,
+      "perfMetrics": {
+        "domContentLoaded": 1613,
+        "loadComplete": 1948,
+        "domInteractive": 1198
+      },
+      "metaTags": {
+        "hasViewport": true,
+        "hasDescription": true
+      }
+    },
+    {
+      "site": "Docs",
+      "path": "/zh/guide/quick-start",
+      "url": "https://cinacoin-docs.pages.dev/zh/guide/quick-start",
+      "status": "pass",
+      "httpStatus": 200,
+      "title": "快速开始 | Cinacoin",
+      "jsErrors": [],
+      "failedRequests": [],
+      "hasErrorText": false,
+      "hasDarkMode": true,
+      "mobileOverflow": false,
+      "perfMetrics": {
+        "domContentLoaded": 924,
+        "loadComplete": 2060,
+        "domInteractive": 858
+      },
+      "metaTags": {
+        "hasViewport": true,
+        "hasDescription": true
+      }
+    }
+  ],
+  "issues": [
+    {
+      "url": "Demo App/",
+      "issues": [
+        "Mobile horizontal overflow"
+      ]
+    },
+    {
+      "url": "Demo App/swap",
+      "issues": [
+        "5 failed resource requests"
+      ]
+    },
+    {
+      "url": "Demo App/tokens",
+      "issues": [
+        "4 failed resource requests"
+      ]
+    },
+    {
+      "url": "Demo App/multi-chain",
+      "issues": [
+        "6 failed resource requests"
+      ]
+    },
+    {
+      "url": "Demo App/batch",
+      "issues": [
+        "5 failed resource requests"
+      ]
+    },
+    {
+      "url": "Demo App/auth",
+      "issues": [
+        "5 failed resource requests"
+      ]
+    },
+    {
+      "url": "Demo App/profile",
+      "issues": [
+        "5 failed resource requests"
+      ]
+    },
+    {
+      "url": "Demo App/settings",
+      "issues": [
+        "5 failed resource requests"
+      ]
+    },
+    {
+      "url": "Demo App/activity",
+      "issues": [
+        "5 failed resource requests"
+      ]
+    },
+    {
+      "url": "Demo App/aa-demo",
+      "issues": [
+        "5 failed resource requests"
+      ]
+    },
+    {
+      "url": "Demo App/onramp",
+      "issues": [
+        "5 failed resource requests"
+      ]
+    },
+    {
+      "url": "Demo App/components",
+      "issues": [
+        "5 failed resource requests"
+      ]
+    },
+    {
+      "url": "Backend Dashboard/analytics",
+      "issues": [
+        "page.evaluate: Execution context was destroyed, most likely because of a navigation"
+      ]
+    },
+    {
+      "url": "Backend Dashboard/chains",
+      "issues": [
+        "9 failed resource requests"
+      ]
+    },
+    {
+      "url": "Backend Dashboard/keys-server",
+      "issues": [
+        "9 failed resource requests"
+      ]
+    },
+    {
+      "url": "Backend Dashboard/notify-server",
+      "issues": [
+        "9 failed resource requests"
+      ]
+    },
+    {
+      "url": "Backend Dashboard/project",
+      "issues": [
+        "9 failed resource requests"
+      ]
+    },
+    {
+      "url": "Backend Dashboard/push-server",
+      "issues": [
+        "9 failed resource requests"
+      ]
+    },
+    {
+      "url": "Backend Dashboard/relay-server",
+      "issues": [
+        "11 failed resource requests"
+      ]
+    },
+    {
+      "url": "Backend Dashboard/rpc-proxy",
+      "issues": [
+        "9 failed resource requests"
+      ]
+    },
+    {
+      "url": "Backend Dashboard/settings",
+      "issues": [
+        "9 failed resource requests"
+      ]
+    }
+  ]
+}

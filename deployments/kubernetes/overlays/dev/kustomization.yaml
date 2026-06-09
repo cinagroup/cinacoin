@@ -1,0 +1,68 @@
+# Development Overlay
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: cinacoin-dev
+
+namePrefix: dev-
+
+resources:
+  - ../../base
+
+patches:
+  # Reduce replicas for dev
+  - target:
+      kind: Deployment
+      name: auth-service
+    patch: |
+      - op: replace
+        path: /spec/replicas
+        value: 1
+  - target:
+      kind: Deployment
+      name: user-service
+    patch: |
+      - op: replace
+        path: /spec/replicas
+        value: 1
+  - target:
+      kind: Deployment
+      name: api-gateway
+    patch: |
+      - op: replace
+        path: /spec/replicas
+        value: 1
+  - target:
+      kind: Deployment
+      name: unified-dashboard
+    patch: |
+      - op: replace
+        path: /spec/replicas
+        value: 1
+  
+  # Reduce resource limits for dev
+  - target:
+      kind: Deployment
+      name: auth-service
+    patch: |
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/memory
+        value: "128Mi"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/limits/memory
+        value: "512Mi"
+  
+  # Use dev config
+  - target:
+      kind: ConfigMap
+      name: cinacoin-config
+    patch: |
+      - op: replace
+        path: /data/NODE_ENV
+        value: "development"
+      - op: replace
+        path: /data/LOG_LEVEL
+        value: "debug"
+
+commonLabels:
+  environment: development

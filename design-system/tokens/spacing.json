@@ -1,0 +1,59 @@
+{
+  "spacing": {
+    "xxs": {
+      "value": "4px",
+      "type": "spacing",
+      "description": "Micro gaps — icon-to-text spacing, minimal padding"
+    },
+    "xs": {
+      "value": "8px",
+      "type": "spacing",
+      "description": "Tight spacing — tag padding, inline element gaps"
+    },
+    "sm": {
+      "value": "12px",
+      "type": "spacing",
+      "description": "Compact padding — input vertical padding, tight component gaps"
+    },
+    "md": {
+      "value": "16px",
+      "type": "spacing",
+      "description": "Default padding — card padding, standard gutters"
+    },
+    "lg": {
+      "value": "24px",
+      "type": "spacing",
+      "description": "Component spacing — card internal padding, grid gutters"
+    },
+    "xl": {
+      "value": "32px",
+      "type": "spacing",
+      "description": "Section padding — vertical section padding"
+    },
+    "2xl": {
+      "value": "40px",
+      "type": "spacing",
+      "description": "Larger section gaps"
+    },
+    "3xl": {
+      "value": "48px",
+      "type": "spacing",
+      "description": "Major section separation — app page sections"
+    },
+    "4xl": {
+      "value": "64px",
+      "type": "spacing",
+      "description": "Page-level spacing — hero top/bottom padding"
+    },
+    "5xl": {
+      "value": "96px",
+      "type": "spacing",
+      "description": "Hero spacing — large hero section padding"
+    },
+    "section": {
+      "value": "192px",
+      "type": "spacing",
+      "description": "Full section breaks — landing page vertical rhythm between major sections"
+    }
+  }
+}

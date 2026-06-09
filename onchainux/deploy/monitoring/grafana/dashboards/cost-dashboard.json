@@ -1,0 +1,159 @@
+{
+  "dashboard": {
+    "id": null,
+    "uid": "cost-tracking",
+    "title": "Cost Tracking — OnChainUX",
+    "tags": ["onchainux", "cost"],
+    "timezone": "browser",
+    "refresh": "5m",
+    "time": {
+      "from": "now-7d",
+      "to": "now"
+    },
+    "panels": [
+      {
+        "id": 1,
+        "title": "External RPC Calls (24h)",
+        "type": "timeseries",
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
+        "targets": [
+          {
+            "expr": "sum(increase(rpc_requests_total{provider!=\"local\"}[1h])) by (provider)",
+            "legendFormat": "{{provider}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short"
+          }
+        }
+      },
+      {
+        "id": 2,
+        "title": "Estimated Daily Cost",
+        "type": "stat",
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0},
+        "targets": [
+          {
+            "expr": "sum(increase(rpc_requests_total{provider!=\"local\"}[24h])) * 0.001",
+            "legendFormat": "Daily Est. ($)"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "currencyUSD",
+            "thresholds": {
+              "steps": [
+                {"color": "green", "value": 0},
+                {"color": "yellow", "value": 30},
+                {"color": "red", "value": 50}
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": 3,
+        "title": "K8s Resource Requests vs Usage",
+        "type": "timeseries",
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 8},
+        "targets": [
+          {
+            "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=\"onchainux\"}[5m])) * 100",
+            "legendFormat": "CPU Used %"
+          },
+          {
+            "expr": "sum(container_memory_working_set_bytes{namespace=\"onchainux\"}) / sum(kube_pod_container_resource_limits{resource=\"memory\", namespace=\"onchainux\"}) * 100",
+            "legendFormat": "Memory Used %"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "percent"
+          }
+        }
+      },
+      {
+        "id": 4,
+        "title": "Storage Utilization",
+        "type": "gauge",
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 8},
+        "targets": [
+          {
+            "expr": "sum(kubelet_volume_stats_used_bytes) / sum(kubelet_volume_stats_capacity_bytes) * 100",
+            "legendFormat": "Storage %"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "percent",
+            "min": 0,
+            "max": 100,
+            "thresholds": {
+              "steps": [
+                {"color": "green", "value": 0},
+                {"color": "yellow", "value": 70},
+                {"color": "red", "value": 85}
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": 5,
+        "title": "Spot vs On-Demand Instances",
+        "type": "piechart",
+        "gridPos": {"h": 8, "w": 8, "x": 0, "y": 16},
+        "targets": [
+          {
+            "expr": "count(kube_node_labels{label_lifecycle=\"spot\"})",
+            "legendFormat": "Spot"
+          },
+          {
+            "expr": "count(kube_node_labels{label_lifecycle=\"ondemand\"})",
+            "legendFormat": "On-Demand"
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "title": "Cache Efficiency Savings",
+        "type": "stat",
+        "gridPos": {"h": 8, "w": 8, "x": 8, "y": 16},
+        "targets": [
+          {
+            "expr": "sum(rate(rpc_cache_hit_total[1h])) * 0.001",
+            "legendFormat": "Est. Savings ($/h)"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "currencyUSD"
+          }
+        }
+      },
+      {
+        "id": 7,
+        "title": "Budget Burn Rate",
+        "type": "timeseries",
+        "gridPos": {"h": 8, "w": 8, "x": 16, "y": 16},
+        "targets": [
+          {
+            "expr": "sum(increase(rpc_requests_total{provider!=\"local\"}[1d])) * 0.001 / 50",
+            "legendFormat": "Budget %"
+          }
+        ],
+        "thresholds": [
+          {"value": 0.8, "color": "yellow"},
+          {"value": 1.0, "color": "red"}
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "percentunit"
+          }
+        }
+      }
+    ]
+  },
+  "overwrite": true
+}

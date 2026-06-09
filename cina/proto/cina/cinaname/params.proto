@@ -1,0 +1,15 @@
+syntax = "proto3";
+package cina.cinaname;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "cina/x/cinaname/types";
+
+// Params defines the parameters for the module.
+message Params {
+  option (amino.name) = "cina/x/cinaname/Params";
+  option (gogoproto.equal) = true;
+
+  
+}

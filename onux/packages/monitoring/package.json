@@ -1,0 +1,16 @@
+{
+  "name": "@cinacoin/monitoring",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cloudflare Workers monitoring and alerting for Cinacoin services",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240117.0",
+    "typescript": "^5.7.0",
+    "wrangler": "^3.0.0"
+  }
+}

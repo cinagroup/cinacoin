@@ -1,0 +1,172 @@
+# Spot Instance Deployment for Relay and RPC Proxy
+# Reduces compute costs by 60-70% with graceful interruption handling
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: relay-server-spot
+  namespace: onchainux
+  labels:
+    app: relay-server-spot
+    component: core
+    lifecycle: spot
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: relay-server-spot
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: relay-server-spot
+        lifecycle: spot
+    spec:
+      tolerations:
+        - key: "spot-instance"
+          operator: "Exists"
+          effect: "NoSchedule"
+      terminationGracePeriodSeconds: 60
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: lifecycle
+                    operator: In
+                    values:
+                      - Spot
+      containers:
+        - name: relay
+          image: ghcr.io/onchainux/relay-server:1.0.0
+          ports:
+            - name: ws
+              containerPort: 8080
+              protocol: TCP
+            - name: http
+              containerPort: 8081
+              protocol: TCP
+            - name: metrics
+              containerPort: 9090
+              protocol: TCP
+          env:
+            - name: RUST_LOG
+              value: "info,relay=debug"
+            - name: NATS_URL
+              value: "nats://nats-cluster:4222"
+            - name: NODE_LIFECYCLE
+              value: "spot"
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "512Mi"
+            limits:
+              cpu: "2000m"
+              memory: "2Gi"
+          lifecycle:
+            preStop:
+              exec:
+                command:
+                  - sh
+                  - -c
+                  - |
+                    echo "Spot preStop: draining connections..."
+                    sleep 30
+          livenessProbe:
+            httpGet:
+              path: /v1/health
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /v1/health
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: tmp
+          emptyDir: {}
+---
+# On-demand instances (minimum 1 for reliability)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: relay-server-ondemand
+  namespace: onchainux
+  labels:
+    app: relay-server-ondemand
+    component: core
+    lifecycle: ondemand
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: relay-server-ondemand
+  template:
+    metadata:
+      labels:
+        app: relay-server-ondemand
+        lifecycle: ondemand
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: lifecycle
+                    operator: In
+                    values:
+                      - OnDemand
+      containers:
+        - name: relay
+          image: ghcr.io/onchainux/relay-server:1.0.0
+          ports:
+            - name: ws
+              containerPort: 8080
+              protocol: TCP
+            - name: http
+              containerPort: 8081
+              protocol: TCP
+            - name: metrics
+              containerPort: 9090
+              protocol: TCP
+          env:
+            - name: RUST_LOG
+              value: "info,relay=debug"
+            - name: NATS_URL
+              value: "nats://nats-cluster:4222"
+            - name: NODE_LIFECYCLE
+              value: "ondemand"
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "512Mi"
+            limits:
+              cpu: "2000m"
+              memory: "2Gi"
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: tmp
+          emptyDir: {}

@@ -1,0 +1,120 @@
+# OnChainUX — Redis Backup CronJob
+# Automated daily RDB snapshots with 30-day retention
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: redis-backup
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "onchainux.labels" . | nindent 4 }}
+    component: backup
+spec:
+  schedule: "0 3 * * *"  # Daily at 3:00 AM UTC (after postgres backup)
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 7
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      activeDeadlineSeconds: 1800
+      backoffLimit: 2
+      template:
+        metadata:
+          labels:
+            {{- include "onchainux.labels" . | nindent 12 }}
+            component: redis-backup
+        spec:
+          restartPolicy: Never
+          serviceAccountName: backup-sa
+          containers:
+            - name: redis-backup
+              image: bitnami/redis:7.2
+              command:
+                - /bin/bash
+                - -c
+                - |
+                  set -euo pipefail
+                  TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+                  BACKUP_DIR="/backups"
+                  BACKUP_FILE="${BACKUP_DIR}/redis_${TIMESTAMP}.rdb"
+
+                  echo "Starting Redis backup at $(date -u)"
+
+                  # Trigger BGSAVE on Redis master
+                  redis-cli -h ${REDIS_HOST} -p ${REDIS_PORT} -a ${REDIS_PASSWORD} BGSAVE
+
+                  # Wait for background save to complete
+                  echo "Waiting for BGSAVE to complete..."
+                  for i in $(seq 1 60); do
+                    LASTSAVE=$(redis-cli -h ${REDIS_HOST} -p ${REDIS_PORT} -a ${REDIS_PASSWORD} LASTSAVE)
+                    sleep 5
+                    if [ "$LASTSAVE" -gt "$START_TIME" ]; then
+                      echo "BGSAVE completed after ${i} attempts"
+                      break
+                    fi
+                  done
+
+                  # Copy RDB file
+                  cp /data/dump.rdb "${BACKUP_FILE}" || {
+                    echo "✗ Failed to copy RDB file"
+                    exit 1
+                  }
+
+                  # Compress
+                  gzip "${BACKUP_FILE}"
+
+                  # Verify
+                  if gzip -t "${BACKUP_FILE}.gz"; then
+                    echo "✓ Backup verified successfully"
+                    echo "Size: $(du -h "${BACKUP_FILE}.gz" | cut -f1)"
+                  else
+                    echo "✗ Backup verification failed"
+                    exit 1
+                  fi
+
+                  # Upload to S3
+                  aws s3 cp "${BACKUP_FILE}.gz" \
+                    s3://${BACKUP_BUCKET}/redis/ \
+                    --sse AES256
+
+                  # Clean old backups (keep 30 days)
+                  find "${BACKUP_DIR}" -name "*.rdb.gz" -mtime +30 -delete
+
+                  echo "Redis backup completed at $(date -u)"
+              env:
+                - name: REDIS_HOST
+                  value: "redis-cluster"
+                - name: REDIS_PORT
+                  value: "6379"
+                - name: REDIS_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: redis-password
+                      key: password
+                - name: BACKUP_BUCKET
+                  valueFrom:
+                    configMapKeyRef:
+                      name: backup-config
+                      key: s3-bucket
+                - name: START_TIME
+                  value: "0"
+              resources:
+                requests:
+                  cpu: "100m"
+                  memory: "256Mi"
+                limits:
+                  cpu: "250m"
+                  memory: "512Mi"
+              volumeMounts:
+                - name: backup-storage
+                  mountPath: /backups
+                - name: redis-data
+                  mountPath: /data
+                  readOnly: true
+          volumes:
+            - name: backup-storage
+              emptyDir:
+                sizeLimit: 5Gi
+            - name: redis-data
+              persistentVolumeClaim:
+                claimName: redis-data

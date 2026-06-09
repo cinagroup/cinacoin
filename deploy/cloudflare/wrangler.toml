@@ -1,0 +1,32 @@
+# ============================================================
+# Cloudflare Wrangler Configuration
+# Project: cinacoin-auth
+# ============================================================
+
+name = "cinacoin-auth"
+main = "src/index.ts"
+compatibility_date = "2026-06-01"
+
+# D1 Database Binding
+[[d1_databases]]
+binding = "DB"
+database_name = "cinacoin-auth"
+database_id = ""  # ← Run `wrangler d1 create cinacoin-auth` then paste the ID here
+
+# Environment: Production
+[env.production]
+name = "cinacoin-auth-production"
+
+[[env.production.d1_databases]]
+binding = "DB"
+database_name = "cinacoin-auth-production"
+database_id = ""  # ← Production D1 database ID
+
+# Environment: Staging
+[env.staging]
+name = "cinacoin-auth-staging"
+
+[[env.staging.d1_databases]]
+binding = "DB"
+database_name = "cinacoin-auth-staging"
+database_id = ""  # ← Staging D1 database ID

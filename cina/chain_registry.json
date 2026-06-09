@@ -1,0 +1,106 @@
+{
+  "$schema": "../../chain.schema.json",
+  "chain_name": "cina",
+  "status": "live",
+  "network_type": "mainnet",
+  "website": "https://cinachain.com",
+  "pretty_name": "Cina Chain",
+  "chain_id": "cina",
+  "bech32_prefix": "cosmos",
+  "slip44": 118,
+  "fees": {
+    "fee_tokens": [
+      {
+        "denom": "stake",
+        "fixed_min_gas_price": 0,
+        "low_gas_price": 0.01,
+        "average_gas_price": 0.025,
+        "high_gas_price": 0.03
+      }
+    ]
+  },
+  "staking": {
+    "staking_tokens": [
+      {
+        "denom": "stake"
+      }
+    ],
+    "lock_duration": {
+      "time": "1814400s"
+    }
+  },
+  "codebase": {
+    "git_repo": "https://github.com/cinachain/cina",
+    "recommended_version": "v1.0.0",
+    "compatible_versions": [
+      "v1.0.0"
+    ],
+    "binaries": {
+      "linux/amd64": "https://github.com/cinachain/cina/releases/download/v1.0.0/cina-linux-amd64",
+      "darwin/amd64": "https://github.com/cinachain/cina/releases/download/v1.0.0/cina-darwin-amd64"
+    },
+    "cosmos_sdk_version": "0.50",
+    "consensus": {
+      "type": "cometbft",
+      "version": "0.38"
+    },
+    "ibc": {
+      "type": "go",
+      "version": "v8",
+      "ics_enabled": [
+        "ics20-1",
+        "ics27-1"
+      ]
+    }
+  },
+  "images": [
+    {
+      "png": "https://raw.githubusercontent.com/cinachain/cina/main/assets/logo.png",
+      "svg": "https://raw.githubusercontent.com/cinachain/cina/main/assets/logo.svg",
+      "theme": {
+        "primary_color_hex": "#4A90E2"
+      }
+    }
+  ],
+  "peers": {
+    "seeds": [],
+    "persistent_peers": []
+  },
+  "apis": {
+    "rpc": [
+      {
+        "address": "https://rpc.cinachain.com",
+        "provider": "cina"
+      }
+    ],
+    "rest": [
+      {
+        "address": "https://api.cinachain.com",
+        "provider": "cina"
+      }
+    ],
+    "grpc": [
+      {
+        "address": "grpc.cinachain.com:443",
+        "provider": "cina"
+      }
+    ]
+  },
+  "explorers": [
+    {
+      "kind": "Mintscan",
+      "url": "https://mintscan.io/cina",
+      "tx_page": "https://mintscan.io/cina/txs/${txHash}",
+      "account_page": "https://mintscan.io/cina/account/${accountAddress}"
+    }
+  ],
+  "keywords": [
+    "ics-dns",
+    "starname",
+    "domain",
+    "name-service"
+  ],
+  "extra_codecs": [
+    "ethermint"
+  ]
+}

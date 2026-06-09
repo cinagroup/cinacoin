@@ -1,0 +1,52 @@
+name = "cinacoin-auth"
+main = "src/index.ts"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Custom Domain
+[[routes]]
+pattern = "auth.cinacoin.com"
+zone_name = "cinacoin.com"
+
+# D1 Database
+[[d1_databases]]
+binding = "DB"
+database_name = "cinacoin-auth"
+database_id = "dbb6063f-86ca-4ac2-b960-25bbb752b73d"
+
+# KV Namespace for rate limiting and sessions
+[[kv_namespaces]]
+binding = "KV"
+id = "dceb86e5cb4c4a008013c8cf21d7181c"
+
+# Secrets (set via `wrangler secret put`)
+# JWT_SECRET          - HMAC-SHA256 secret for access tokens (min 64 chars)
+# JWT_REFRESH_SECRET  - HMAC-SHA256 secret for refresh tokens (min 64 chars)
+# JWT_PRIVATE_KEY     - (optional) RSA private key for RS256 migration
+# JWT_PUBLIC_KEY      - (optional) RSA public key for RS256 migration
+
+[vars]
+JWT_ISSUER = "https://auth.cinacoin.com"
+JWT_AUDIENCE = "cinacoin"
+JWT_EXPIRES_IN = "900"
+JWT_REFRESH_EXPIRES_IN = "604800"
+CORS_ORIGIN = "https://cinacoin.com"
+ENVIRONMENT = "production"
+
+[env.staging]
+name = "cinacoin-auth-staging"
+
+[[env.staging.d1_databases]]
+binding = "DB"
+database_name = "cinacoin-auth-staging"
+database_id = "${D1_STAGING_DATABASE_ID}"
+
+[[env.staging.kv_namespaces]]
+binding = "KV"
+id = "${KV_STAGING_NAMESPACE_ID}"
+
+[env.staging.vars]
+JWT_ISSUER = "https://auth-staging.cinacoin.com"
+JWT_AUDIENCE = "cinacoin-staging"
+CORS_ORIGIN = "https://staging.cinacoin.com"
+ENVIRONMENT = "staging"

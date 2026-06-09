@@ -1,0 +1,4 @@
+# Root wrangler.toml - Cloudflare Pages requires this at repo root
+# Per-app configs are in apps/*/wrangler.toml
+name = "cinacoin-monorepo"
+compatibility_date = "2025-01-01"

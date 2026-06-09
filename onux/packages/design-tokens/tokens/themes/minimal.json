@@ -1,0 +1,86 @@
+{
+  "theme": {
+    "name": "minimal",
+    "mode": "dark",
+    "colors": {
+      "--ocx-color-accent-100": "#E2E8F0",
+      "--ocx-color-accent-500": "#94A3B8",
+      "--ocx-color-accent-600": "#64748B",
+      "--ocx-color-accent-glow": "rgba(148, 163, 184, 0.1)",
+      "--ocx-color-bg-primary": "#000000",
+      "--ocx-color-bg-secondary": "#0A0A0A",
+      "--ocx-color-bg-tertiary": "#171717",
+      "--ocx-color-bg-overlay": "rgba(0, 0, 0, 0.8)",
+      "--ocx-color-bg-card": "#0A0A0A",
+      "--ocx-color-bg-card-hover": "#171717",
+      "--ocx-color-bg-input": "#0A0A0A",
+      "--ocx-color-text-primary": "#FAFAFA",
+      "--ocx-color-text-secondary": "#A3A3A3",
+      "--ocx-color-text-tertiary": "#737373",
+      "--ocx-color-text-inverse": "#FFFFFF",
+      "--ocx-color-text-brand": "#D4D4D4",
+      "--ocx-color-success": "#4ADE80",
+      "--ocx-color-success-bg": "rgba(74, 222, 128, 0.1)",
+      "--ocx-color-warning": "#FACC15",
+      "--ocx-color-warning-bg": "rgba(250, 204, 21, 0.1)",
+      "--ocx-color-error": "#F87171",
+      "--ocx-color-error-bg": "rgba(248, 113, 113, 0.1)",
+      "--ocx-color-info": "#94A3B8",
+      "--ocx-color-info-bg": "rgba(148, 163, 184, 0.1)",
+      "--ocx-color-border": "#262626",
+      "--ocx-color-border-hover": "#404040",
+      "--ocx-color-border-focus": "#94A3B8"
+    },
+    "radii": {
+      "--ocx-radius-sm": "0.25rem",
+      "--ocx-radius-md": "0.375rem",
+      "--ocx-radius-lg": "0.5rem",
+      "--ocx-radius-xl": "0.75rem",
+      "--ocx-radius-full": "9999px"
+    },
+    "shadows": {
+      "--ocx-shadow-sm": "0 1px 2px 0 rgba(0, 0, 0, 0.5)",
+      "--ocx-shadow-md": "0 4px 6px -1px rgba(0, 0, 0, 0.5)",
+      "--ocx-shadow-lg": "0 10px 15px -3px rgba(0, 0, 0, 0.5)",
+      "--ocx-shadow-glow": "none"
+    },
+    "typography": {
+      "--ocx-font-family": "'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+      "--ocx-font-family-mono": "'JetBrains Mono', 'Fira Code', ui-monospace, monospace",
+      "--ocx-font-size-xs": "0.75rem",
+      "--ocx-font-size-sm": "0.875rem",
+      "--ocx-font-size-md": "1rem",
+      "--ocx-font-size-lg": "1.125rem",
+      "--ocx-font-size-xl": "1.25rem",
+      "--ocx-font-size-2xl": "1.5rem",
+      "--ocx-font-weight-normal": "400",
+      "--ocx-font-weight-medium": "500",
+      "--ocx-font-weight-semibold": "500",
+      "--ocx-font-weight-bold": "600"
+    },
+    "spacing": {
+      "--ocx-space-1": "0.25rem",
+      "--ocx-space-2": "0.5rem",
+      "--ocx-space-3": "0.75rem",
+      "--ocx-space-4": "1rem",
+      "--ocx-space-6": "1.5rem",
+      "--ocx-space-8": "2rem",
+      "--ocx-space-10": "2.5rem",
+      "--ocx-space-12": "3rem"
+    },
+    "animations": {
+      "--ocx-duration-fast": "100ms",
+      "--ocx-duration-normal": "200ms",
+      "--ocx-duration-slow": "300ms",
+      "--ocx-easing-default": "cubic-bezier(0.4, 0, 0.2, 1)",
+      "--ocx-easing-spring": "cubic-bezier(0.4, 0, 0.2, 1)"
+    },
+    "z-index": {
+      "--ocx-z-dropdown": "1000",
+      "--ocx-z-modal-backdrop": "2000",
+      "--ocx-z-modal": "2100",
+      "--ocx-z-toast": "3000",
+      "--ocx-z-tooltip": "4000"
+    }
+  }
+}

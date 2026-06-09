@@ -1,0 +1,36 @@
+{
+  "name": "@cinacoin/design-system",
+  "version": "1.0.0",
+  "description": "CINAcoin shared design system — Vercel-style monochrome components and tokens",
+  "main": "components/index.css",
+  "files": [
+    "tokens.css",
+    "components/",
+    "tailwind.config.js",
+    "README.md"
+  ],
+  "exports": {
+    ".": "./components/index.css",
+    "./tokens": "./tokens.css",
+    "./tailwind": "./tailwind.config.js",
+    "./components/button": "./components/button.css",
+    "./components/card": "./components/card.css",
+    "./components/input": "./components/input.css",
+    "./components/badge": "./components/badge.css",
+    "./components/typography": "./components/typography.css"
+  },
+  "keywords": [
+    "design-system",
+    "cinacoin",
+    "css",
+    "tailwind",
+    "components",
+    "vercel-style"
+  ],
+  "license": "UNLICENSED",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cinacoin/design-system.git"
+  }
+}

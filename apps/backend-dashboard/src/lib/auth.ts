@@ -1,266 +1,124 @@
-// Client-side SIWE-like wallet authentication for static-export Next.js dashboard.
-// No server-side verification — address ownership is proven via personal_sign.
+import crypto from "crypto";
+import type { Request, Response, NextFunction } from "express";
 
-const SESSION_KEY = "cinacoin_auth_session";
-const SESSION_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
-const CSRF_COOKIE_NAME = "cinacoin_csrf_token";
-const CSRF_HEADER_NAME = "X-CSRF-Token";
-
-export interface AuthSession {
-  address: string;
-  signature: string;
-  nonce: string;
-  timestamp: number;
-  expiresAt: number;
-}
-
-// ---------- EIP-4361 (SIWE) message construction ----------
+// ---------------------------------------------------------------------------
+// CSRF Token helpers
+// ---------------------------------------------------------------------------
 
 /**
- * Generate an EIP-4361 compliant Sign-In With Ethereum message.
- */
-export function createSiweMessage(
-  address: string,
-  nonce: string
-): string {
-  const domain = typeof window !== "undefined" ? window.location.hostname : "cinacoin.local";
-  const uri = typeof window !== "undefined" ? window.location.origin : "https://cinacoin.local";
-  const now = new Date();
-  const issuedAt = now.toISOString();
-  const expiresAt = new Date(now.getTime() + SESSION_TTL_MS).toISOString();
-
-  return (
-    `${domain} wants you to sign in with your Ethereum account:\n` +
-    `${address}\n\n` +
-    `Sign in to the Cinacoin Backend Dashboard.\n\n` +
-    `URI: ${uri}\n` +
-    `Version: 1\n` +
-    `Chain ID: 1\n` +
-    `Nonce: ${nonce}\n` +
-    `Issued At: ${issuedAt}\n` +
-    `Expiration Time: ${expiresAt}`
-  );
-}
-
-/**
- * Generate a cryptographically random nonce (32 hex chars).
- */
-export function generateNonce(): string {
-  const bytes = new Uint8Array(16);
-  if (typeof crypto !== "undefined" && crypto.getRandomValues) {
-    crypto.getRandomValues(bytes);
-  } else {
-    // Fallback for edge cases: deterministic hash (nonce is not security-critical here,
-    // the actual security comes from the personal_sign verification)
-    const fallback = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
-    let hash = 0;
-    for (let i = 0; i < fallback.length; i++) {
-      hash = ((hash << 5) - hash + fallback.charCodeAt(i)) | 0;
-    }
-    return hash.toString(16).padStart(8, '0').repeat(4).slice(0, 32);
-  }
-  return Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("");
-}
-
-// ---------- Wallet connection ----------
-
-/**
- * Request wallet connection via EIP-1193. Returns the selected address.
- */
-export async function connectWallet(): Promise<string> {
-  const eth = getEthereum();
-  if (!eth) {
-    throw new Error("No Ethereum wallet detected. Please install MetaMask or another Web3 wallet.");
-  }
-
-  const accounts = (await eth.request({
-    method: "eth_requestAccounts",
-  })) as string[];
-
-  if (!accounts || accounts.length === 0) {
-    throw new Error("No accounts returned. Please approve the connection in your wallet.");
-  }
-
-  return accounts[0].toLowerCase();
-}
-
-/**
- * Check if a wallet extension is available.
- */
-export function isWalletAvailable(): boolean {
-  return typeof window !== "undefined" && !!getEthereum();
-}
-
-function getEthereum(): any {
-  if (typeof window === "undefined") return null;
-  return (window as any).ethereum;
-}
-
-// ---------- Signing ----------
-
-/**
- * Sign a message via personal_sign and verify the recovered address matches.
- * Returns the signature hex string.
- */
-export async function signAndVerify(message: string, address: string): Promise<string> {
-  const eth = getEthereum();
-  if (!eth) {
-    throw new Error("Wallet disconnected. Please reconnect.");
-  }
-
-  // personal_sign expects (message, address) — message must be hex-encoded
-  const hexMessage = "0x" + Array.from(new TextEncoder().encode(message))
-    .map((b) => b.toString(16).padStart(2, "0"))
-    .join("");
-
-  const signature = (await eth.request({
-    method: "personal_sign",
-    params: [hexMessage, address],
-  })) as string;
-
-  // Client-side verification: confirm the wallet still holds the address
-  const currentAccounts = (await eth.request({
-    method: "eth_accounts",
-  })) as string[];
-
-  const stillConnected = currentAccounts.some(
-    (a: string) => a.toLowerCase() === address.toLowerCase()
-  );
-  if (!stillConnected) {
-    throw new Error("Wallet disconnected during signing.");
-  }
-
-  return signature;
-}
-
-// ---------- CSRF Protection ----------
-
-/**
- * Generate a cryptographically secure CSRF token using crypto.getRandomValues.
+ * Generate a cryptographically-secure CSRF token.
+ * Uses `crypto.randomUUID()` under the hood.
  */
 export function generateCsrfToken(): string {
-  const bytes = new Uint8Array(32);
-  if (typeof crypto !== "undefined" && crypto.getRandomValues) {
-    crypto.getRandomValues(bytes);
-  } else {
-    // Fallback for SSR/edge cases — deterministic hash is acceptable for CSRF tokens
-    // as long as the token is bound to a server session
-    const fallback = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
-    let hash = 0;
-    for (let i = 0; i < fallback.length; i++) {
-      hash = ((hash << 5) - hash + fallback.charCodeAt(i)) | 0;
-    }
-    return hash.toString(16).padStart(8, '0').repeat(8).slice(0, 64);
+  return crypto.randomUUID();
+}
+
+/**
+ * Store a freshly generated CSRF token in a secure httpOnly cookie.
+ * Also makes it available on `res.locals` for templating / initial-render.
+ */
+export function setCsrfCookie(req: Request, res: Response): void {
+  const token = generateCsrfToken();
+  res.cookie("csrf_token", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    maxAge: 60 * 60 * 1000, // 1 hour
+    path: "/",
+  });
+  // Expose to view layer (e.g. injected into HTML meta tag for SPA forms)
+  res.locals.csrfToken = token;
+}
+
+// ---------------------------------------------------------------------------
+// CSRF Verification
+// ---------------------------------------------------------------------------
+
+/**
+ * Verify that the CSRF token submitted in the request body / header matches
+ * the one stored in the httpOnly cookie.
+ *
+ * Throws an Error (which downstream error-handling middleware should catch)
+ * when validation fails.
+ */
+export function verifyCsrfToken(req: Request): boolean {
+  const cookieToken = req.cookies?.csrf_token;
+  if (!cookieToken || typeof cookieToken !== "string") {
+    throw new Error("CSRF token missing from cookie");
   }
-  return Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("");
-}
 
-/**
- * Store a CSRF token in a cookie (for browser environments).
- */
-export function setCsrfCookie(token: string): void {
-  if (typeof document === "undefined") return;
-  document.cookie = `${CSRF_COOKIE_NAME}=${token}; Path=/; SameSite=Strict; Secure; Max-Age=3600`;
-}
+  // Accept token from header (preferred for SPA / AJAX) or body field.
+  const headerToken =
+    (req.headers["x-csrf-token"] as string | undefined) ??
+    (req.headers["x-xsrf-token"] as string | undefined);
+  const bodyToken =
+    typeof req.body === "object" && req.body !== null
+      ? (req.body.csrf_token as string | undefined)
+      : undefined;
 
-/**
- * Read the CSRF token from the cookie.
- */
-export function getCsrfCookie(): string | null {
-  if (typeof document === "undefined") return null;
-  const match = document.cookie.match(
-    new RegExp(`(?:^|; )${CSRF_COOKIE_NAME}=([^;]*)`)
+  const submittedToken = headerToken || bodyToken;
+
+  if (!submittedToken || typeof submittedToken !== "string") {
+    throw new Error("CSRF token missing from request");
+  }
+
+  // Constant-time comparison to prevent timing attacks
+  const isValid = crypto.timingSafeEqual(
+    Buffer.from(submittedToken, "utf8"),
+    Buffer.from(cookieToken, "utf8")
   );
-  return match ? decodeURIComponent(match[1]) : null;
-}
 
-/**
- * Verify that a submitted CSRF token matches the cookie value.
- * Returns true if valid, false otherwise.
- */
-export function verifyCsrfToken(submitted: string | null): boolean {
-  if (!submitted) return false;
-  const cookieToken = getCsrfCookie();
-  return cookieToken !== null && submitted === cookieToken;
-}
-
-/**
- * Initialize CSRF token — generate one if not present and store it in a cookie.
- * Call this on page load before any form submission.
- */
-export function initCsrfToken(): string {
-  let token = getCsrfCookie();
-  if (!token) {
-    token = generateCsrfToken();
-    setCsrfCookie(token);
+  if (!isValid) {
+    throw new Error("CSRF token mismatch");
   }
-  return token;
+
+  return true;
 }
 
-// ---------- Session management ----------
+// ---------------------------------------------------------------------------
+// Express middleware
+// ---------------------------------------------------------------------------
 
 /**
- * Full login flow: connect wallet → sign SIWE message → save session.
+ * Middleware: attach a fresh CSRF cookie to every response.
+ * Mount near the top of the middleware chain so it runs before any route.
+ *
+ * Usage:
+ *   app.use(attachCsrfCookie);
  */
-export async function login(): Promise<AuthSession> {
-  const address = await connectWallet();
-  const nonce = generateNonce();
-  const message = createSiweMessage(address, nonce);
-  const signature = await signAndVerify(message, address);
-
-  const session: AuthSession = {
-    address,
-    signature,
-    nonce,
-    timestamp: Date.now(),
-    expiresAt: Date.now() + SESSION_TTL_MS,
-  };
-
-  // Sanitize before storing to prevent XSS if address is ever rendered
-  const sanitized: AuthSession = {
-    ...session,
-    address: session.address.toLowerCase(),
-  };
-
-  localStorage.setItem(SESSION_KEY, JSON.stringify(sanitized));
-  return sanitized;
+export function attachCsrfCookie(
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void {
+  setCsrfCookie(req, res);
+  next();
 }
 
 /**
- * Clear the stored session.
+ * Middleware: enforce CSRF token validation on all state-changing requests.
+ * Mount after body-parser / cookie-parser so `req.cookies` and `req.body`
+ * are populated.
+ *
+ * Usage:
+ *   app.use("/api", csrfProtection);
  */
-export function logout(): void {
-  localStorage.removeItem(SESSION_KEY);
-}
-
-/**
- * Save a session to localStorage.
- */
-export function saveSession(session: AuthSession): void {
-  localStorage.setItem(SESSION_KEY, JSON.stringify(session));
-}
-
-/**
- * Retrieve the current session from localStorage, or null if none / expired.
- */
-export function getSession(): AuthSession | null {
-  try {
-    const raw = localStorage.getItem(SESSION_KEY);
-    if (!raw) return null;
-    const session: AuthSession = JSON.parse(raw);
-    if (Date.now() > session.expiresAt) {
-      localStorage.removeItem(SESSION_KEY);
-      return null;
+export function csrfProtection(
+  req: Request,
+  _res: Response,
+  next: NextFunction
+): void {
+  // Only enforce on methods that mutate state.
+  if (["POST", "PUT", "PATCH", "DELETE"].includes(req.method.toUpperCase())) {
+    try {
+      verifyCsrfToken(req);
+    } catch (err) {
+      const message =
+        err instanceof Error ? err.message : "CSRF validation failed";
+      return next(
+        Object.assign(new Error(message), { status: 403, code: "CSRF_INVALID" })
+      );
     }
-    return session;
-  } catch {
-    return null;
   }
-}
-
-/**
- * Check if a valid (non-expired) session exists.
- */
-export function isLoggedIn(): boolean {
-  return getSession() !== null;
+  next();
 }

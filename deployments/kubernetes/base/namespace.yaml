@@ -1,0 +1,10 @@
+# Cinacoin Platform - Kubernetes Namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cinacoin
+  labels:
+    app.kubernetes.io/part-of: cinacoin-platform
+    environment: production
+  annotations:
+    description: "Cinacoin Web3 Infrastructure Platform"

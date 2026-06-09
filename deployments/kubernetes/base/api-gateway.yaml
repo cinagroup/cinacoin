@@ -1,0 +1,114 @@
+# API Gateway Deployment (Kong)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-gateway
+  namespace: cinacoin
+  labels:
+    app.kubernetes.io/name: api-gateway
+    app.kubernetes.io/part-of: cinacoin-platform
+    app.kubernetes.io/component: gateway
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: api-gateway
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: api-gateway
+        app.kubernetes.io/part-of: cinacoin-platform
+        app.kubernetes.io/component: gateway
+    spec:
+      serviceAccountName: default
+      securityContext:
+        fsGroup: 1000
+        runAsNonRoot: true
+        runAsUser: 1000
+      containers:
+        - name: api-gateway
+          image: kong:3.5-alpine
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+              name: proxy
+              protocol: TCP
+            - containerPort: 8443
+              name: proxy-ssl
+              protocol: TCP
+            - containerPort: 8001
+              name: admin
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: kong-config
+          env:
+            - name: KONG_NGINX_WORKER_PROCESSES
+              value: "2"
+            - name: KONG_NGINX_WORKER_CONNECTIONS
+              value: "8192"
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "2Gi"
+              cpu: "2000m"
+          livenessProbe:
+            httpGet:
+              path: /status
+              port: 8001
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            timeoutSeconds: 10
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /status
+              port: 8001
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          volumeMounts:
+            - name: kong-declarative-config
+              mountPath: /etc/kong
+            - name: tmp
+              mountPath: /tmp
+            - name: kong-temp
+              mountPath: /usr/local/kong
+      volumes:
+        - name: kong-declarative-config
+          configMap:
+            name: kong-declarative-config
+        - name: tmp
+          emptyDir: {}
+        - name: kong-temp
+          emptyDir: {}
+---
+# API Gateway Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-gateway
+  namespace: cinacoin
+  labels:
+    app.kubernetes.io/name: api-gateway
+    app.kubernetes.io/part-of: cinacoin-platform
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8000
+      targetPort: 8000
+      protocol: TCP
+      name: proxy
+    - port: 8443
+      targetPort: 8443
+      protocol: TCP
+      name: proxy-ssl
+    - port: 8001
+      targetPort: 8001
+      protocol: TCP
+      name: admin
+  selector:
+    app.kubernetes.io/name: api-gateway

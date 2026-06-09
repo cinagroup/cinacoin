@@ -1,0 +1,3 @@
+# Consolidation: this app's canonical home is cinacoin.com/analytics/.
+# 301 the standalone subdomain root to the canonical subpath (SEO consolidation).
+/  https://cinacoin.com/analytics/  301

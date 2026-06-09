@@ -1,0 +1,136 @@
+# OnChainUX — Error Budget Tracking Configuration
+# Integrates with Prometheus/Grafana for real-time error budget monitoring
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: onchainux-error-budget
+  namespace: monitoring
+  labels:
+    project: onchainux
+    component: error-budget
+data:
+  error-budget-rules.yaml: |
+    groups:
+      - name: onchainux-error-budget
+        rules:
+          # ── Relay Server Error Budget ──────────────────────────
+          - record: relay_error_budget_remaining
+            expr: |
+              1 - (
+                sum(rate(relay_requests_total{status="error"}[30d]))
+                /
+                sum(rate(relay_requests_total[30d]))
+              ) / (1 - 0.9995)
+
+          - record: relay_error_budget_remaining_7d
+            expr: |
+              1 - (
+                sum(rate(relay_requests_total{status="error"}[7d]))
+                /
+                sum(rate(relay_requests_total[7d]))
+              ) / (1 - 0.9995)
+
+          # ── RPC Proxy Error Budget ────────────────────────────
+          - record: rpc_error_budget_remaining
+            expr: |
+              1 - (
+                sum(rate(rpc_requests_total{status="error"}[30d]))
+                /
+                sum(rate(rpc_requests_total[30d]))
+              ) / (1 - 0.9999)
+
+          - record: rpc_error_budget_remaining_7d
+            expr: |
+              1 - (
+                sum(rate(rpc_requests_total{status="error"}[7d]))
+                /
+                sum(rate(rpc_requests_total[7d]))
+              ) / (1 - 0.9999)
+
+          # ── Bundler Error Budget ──────────────────────────────
+          - record: bundler_error_budget_remaining
+            expr: |
+              1 - (
+                sum(rate(bundler_operations_total{status="error"}[30d]))
+                /
+                sum(rate(bundler_operations_total[30d]))
+              ) / (1 - 0.999)
+
+          # ── Push Server Error Budget ──────────────────────────
+          - record: push_error_budget_remaining
+            expr: |
+              1 - (
+                sum(rate(push_notifications_total{status!="delivered"}[30d]))
+                /
+                sum(rate(push_notifications_total[30d]))
+              ) / (1 - 0.999)
+
+          # ── Keys Server Error Budget ──────────────────────────
+          - record: keys_error_budget_remaining
+            expr: |
+              1 - (
+                sum(rate(keys_requests_total{status="error"}[30d]))
+                /
+                sum(rate(keys_requests_total[30d]))
+              ) / (1 - 0.9999)
+
+      - name: onchainux-error-budget-alerts
+        rules:
+          # Fast burn alerts (critical)
+          - alert: RelayErrorBudgetFastBurn
+            expr: |
+              sum(rate(relay_requests_total{status="error"}[5m]))
+              / sum(rate(relay_requests_total[5m]))
+              > (1 - 0.9995) * 14.4
+            for: 2m
+            labels:
+              severity: critical
+              team: onchainux
+              budget: relay
+            annotations:
+              summary: "Relay server error budget fast burn"
+              description: "Relay error budget burning at 14.4x rate. Immediate action required."
+
+          - alert: RPCErrorBudgetFastBurn
+            expr: |
+              sum(rate(rpc_requests_total{status="error"}[5m]))
+              / sum(rate(rpc_requests_total[5m]))
+              > (1 - 0.9999) * 14.4
+            for: 2m
+            labels:
+              severity: critical
+              team: onchainux
+              budget: rpc-proxy
+            annotations:
+              summary: "RPC proxy error budget fast burn"
+              description: "RPC error budget burning at 14.4x rate. Immediate action required."
+
+          # Slow burn alerts (warning)
+          - alert: RelayErrorBudgetSlowBurn
+            expr: |
+              sum(rate(relay_requests_total{status="error"}[1h]))
+              / sum(rate(relay_requests_total[1h]))
+              > (1 - 0.9995) * 3
+            for: 15m
+            labels:
+              severity: warning
+              team: onchainux
+              budget: relay
+            annotations:
+              summary: "Relay server error budget slow burn"
+              description: "Relay error budget burning at 3x rate. Investigate soon."
+
+          # Budget exhaustion warning
+          - alert: ErrorBudgetExhaustionWarning
+            expr: |
+              relay_error_budget_remaining < 0.25
+              or
+              rpc_error_budget_remaining < 0.25
+            for: 5m
+            labels:
+              severity: warning
+              team: onchainux
+            annotations:
+              summary: "Error budget below 25%"
+              description: "{{ $labels.budget }} error budget has less than 25% remaining."

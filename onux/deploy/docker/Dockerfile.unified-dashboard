@@ -1,0 +1,76 @@
+# =============================================================================
+# Cinacoin Unified Dashboard - Production Dockerfile
+# Multi-stage build with Next.js standalone output
+# =============================================================================
+
+# --- Stage 1: Dependencies ---
+FROM node:22-alpine AS deps
+WORKDIR /app
+
+RUN corepack enable && corepack prepare pnpm@9.15.0 --activate
+
+COPY package.json pnpm-lock.yaml* ./
+COPY apps/unified-dashboard/package.json ./apps/unified-dashboard/
+
+RUN pnpm install --frozen-lockfile --prod=false
+
+# --- Stage 2: Build ---
+FROM node:22-alpine AS builder
+WORKDIR /app
+
+RUN corepack enable && corepack prepare pnpm@9.15.0 --activate
+
+COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps /app/apps/unified-dashboard/node_modules ./apps/unified-dashboard/node_modules
+
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml* turbo.json tsconfig.json ./
+COPY apps/unified-dashboard ./apps/unified-dashboard
+COPY packages/ packages/
+
+# Build args for public env vars (baked at build time)
+ARG NEXT_PUBLIC_APP_URL
+ARG NEXT_PUBLIC_API_URL
+ARG NEXT_PUBLIC_WS_URL
+ARG NEXT_PUBLIC_ENVIRONMENT=production
+ARG NEXT_PUBLIC_DEFAULT_CHAIN_ID=1
+ARG NEXT_PUBLIC_SUPPORTED_CHAINS=1,42161,137,8453
+
+ENV NEXT_PUBLIC_APP_URL=$NEXT_PUBLIC_APP_URL
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_WS_URL=$NEXT_PUBLIC_WS_URL
+ENV NEXT_PUBLIC_ENVIRONMENT=$NEXT_PUBLIC_ENVIRONMENT
+ENV NEXT_PUBLIC_DEFAULT_CHAIN_ID=$NEXT_PUBLIC_DEFAULT_CHAIN_ID
+ENV NEXT_PUBLIC_SUPPORTED_CHAINS=$NEXT_PUBLIC_SUPPORTED_CHAINS
+
+RUN pnpm --filter unified-dashboard build
+
+# --- Stage 3: Production Runtime ---
+FROM node:22-alpine AS runner
+LABEL maintainer="Cinacoin Team <dev@cinacoin.com>"
+
+# Security: run as non-root
+RUN addgroup --system --gid 1001 cinacoin \
+    && adduser --system --uid 1001 dashboard
+
+WORKDIR /app
+
+ENV NODE_ENV=production
+ENV PORT=3000
+ENV HOSTNAME=0.0.0.0
+
+# Install curl for healthcheck
+RUN apk add --no-cache curl
+
+# Copy built assets (Next.js standalone)
+COPY --from=builder --chown=dashboard:cinacoin /app/apps/unified-dashboard/.next/standalone ./
+COPY --from=builder --chown=dashboard:cinacoin /app/apps/unified-dashboard/.next/static ./apps/unified-dashboard/.next/static
+COPY --from=builder --chown=dashboard:cinacoin /app/apps/unified-dashboard/public ./apps/unified-dashboard/public
+
+USER dashboard
+
+EXPOSE 3000
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD curl -f http://localhost:3000/ || exit 1
+
+CMD ["node", "apps/unified-dashboard/server.js"]

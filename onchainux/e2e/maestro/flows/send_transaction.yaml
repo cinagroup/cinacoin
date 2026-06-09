@@ -1,0 +1,8 @@
+appId: com.onchainux.demo
+---
+- runFlow: subflows/launch.yaml
+- tapOn: { id: "send_button" }
+- inputText: { id: "recipient", text: "0x1234..." }
+- inputText: { id: "amount", text: "0.1" }
+- tapOn: { id: "confirm" }
+- assertVisible: { text: "Transaction sent" }

@@ -1,14 +1,8 @@
-name = "backend-dashboard"
-compatibility_date = "2025-01-01"
+name = "cinacoin-backend-dashboard"
+compatibility_date = "2024-01-01"
+pages_build_output_dir = ".vercel/output/static"
 
-[build]
-command = "rm -rf cache/ && pnpm install --frozen-lockfile && npx turbo run build --filter=backend-dashboard --no-cache && rm -rf cache/ apps/backend-dashboard/.next/cache"
-cwd = "../.."
-output_directory = "apps/backend-dashboard/out"
-watch_dir = "apps/backend-dashboard/src"
-
-[env.production]
-name = "backend-dashboard"
-
-[env.preview]
-name = "backend-dashboard-preview"
+[vars]
+NEXT_PUBLIC_API_URL = "https://api.cinacoin.com"
+NEXT_PUBLIC_WS_URL = "wss://ws.cinacoin.com"
+NEXT_PUBLIC_APP_NAME = "CinaCoin Backend Dashboard"

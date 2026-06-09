@@ -1,123 +1,117 @@
 "use client";
 
 import Link from "next/link";
-import { useState, type FormEvent } from "next/navigation";
+import { useState } from "react";
 
 export default function RegisterPage() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
-
     if (password !== confirmPassword) {
-      setError("Passwords do not match");
+      alert("Passwords do not match");
       return;
     }
-
-    if (password.length < 8) {
-      setError("Password must be at least 8 characters");
-      return;
-    }
-
-    setLoading(true);
-
-    // TODO: Replace with actual auth service call
-    setTimeout(() => {
-      setLoading(false);
-      setError("Registration service not yet configured");
-    }, 1000);
+    // TODO: Implement actual registration logic
+    console.log("Register:", { name, email, password });
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[var(--cc-canvas-soft)] px-4">
+    <div className="min-h-screen flex items-center justify-center bg-canvas-soft px-4">
       <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <h1 className="text-2xl font-semibold text-[var(--cc-ink)] mb-2">
-            Create your account
-          </h1>
-          <p className="text-sm text-[var(--cc-muted)]">
-            Start building with Cinacoin Cloud
-          </p>
-        </div>
+        <div className="bg-canvas rounded-md shadow-level-2 p-8">
+          <div className="mb-8">
+            <h1 className="text-heading-2 text-ink">Create your account</h1>
+            <p className="text-body-sm text-body mt-2">
+              Get started with CinaCoin Cloud in minutes.
+            </p>
+          </div>
 
-        <div className="bg-[var(--cc-canvas)] border border-[var(--cc-border)] rounded-lg shadow-sm p-8">
           <form onSubmit={handleSubmit} className="space-y-5">
-            {error && (
-              <div className="p-3 bg-red-50 border border-red-200 rounded-md text-sm text-red-800">
-                {error}
-              </div>
-            )}
-
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-[var(--cc-ink)] mb-2">
-                Email address
+              <label htmlFor="name" className="block text-body-sm font-medium text-ink mb-2">
+                Full Name
               </label>
               <input
-                id="email"
-                type="email"
+                id="name"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="John Doe"
+                className="input"
                 required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-3 py-2 border border-[var(--cc-border)] rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-[var(--cc-link)] focus:border-transparent"
-                placeholder="you@example.com"
+                autoFocus
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-[var(--cc-ink)] mb-2">
+              <label htmlFor="email" className="block text-body-sm font-medium text-ink mb-2">
+                Email Address
+              </label>
+              <input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="you@example.com"
+                className="input"
+                required
+              />
+            </div>
+
+            <div>
+              <label htmlFor="password" className="block text-body-sm font-medium text-ink mb-2">
                 Password
               </label>
               <input
                 id="password"
                 type="password"
-                required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-3 py-2 border border-[var(--cc-border)] rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-[var(--cc-link)] focus:border-transparent"
                 placeholder="••••••••"
+                className="input"
+                required
+                minLength={8}
               />
+              <p className="text-caption text-mute mt-1">Minimum 8 characters</p>
             </div>
 
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-[var(--cc-ink)] mb-2">
-                Confirm password
+              <label htmlFor="confirmPassword" className="block text-body-sm font-medium text-ink mb-2">
+                Confirm Password
               </label>
               <input
                 id="confirmPassword"
                 type="password"
-                required
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full px-3 py-2 border border-[var(--cc-border)] rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-[var(--cc-link)] focus:border-transparent"
                 placeholder="••••••••"
+                className="input"
+                required
               />
             </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-[var(--cc-ink)] text-[var(--cc-canvas)] py-2 px-4 rounded-md text-sm font-medium hover:bg-[var(--cc-ink-soft)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-            >
-              {loading ? "Creating account..." : "Create account"}
+            <button type="submit" className="btn-primary w-full py-2.5">
+              Create Account
             </button>
           </form>
 
-          <div className="mt-6 text-center text-sm text-[var(--cc-muted)]">
-            Already have an account?{" "}
-            <Link href="/login" className="text-[var(--cc-link)] hover:underline font-medium">
-              Sign in
-            </Link>
+          <div className="mt-6 text-center">
+            <p className="text-body-sm text-body">
+              Already have an account?{" "}
+              <Link href="/login" className="text-link hover:underline">
+                Sign in
+              </Link>
+            </p>
           </div>
         </div>
 
         <div className="mt-6 text-center">
-          <Link href="/" className="text-sm text-[var(--cc-muted)] hover:text-[var(--cc-ink)] transition-colors">
-            ← Back to dashboard
+          <Link href="/" className="text-body-sm text-mute hover:text-ink transition-colors">
+            ← Back to Dashboard
           </Link>
         </div>
       </div>

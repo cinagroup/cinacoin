@@ -1,0 +1,803 @@
+{
+  "version": 1,
+  "updatedAt": "2026-06-09T05:19:48.667Z",
+  "entries": {
+    "memory:memory/2026-04-03.md:1:40": {
+      "key": "memory:memory/2026-04-03.md:1:40",
+      "path": "memory/2026-04-03.md",
+      "startLine": 1,
+      "endLine": 40,
+      "source": "memory",
+      "snippet": "# Memory Log - 2026-04-03 ## 📝 Session Notes ### 2026-04-03 14:40 UTC - **Task**: 更新 OpenClaw 并安装记忆系统 - **Source**: QQBot (direct message) - **Status**: ✅ Completed #### Actions Taken: 1. Updated OpenClaw to latest version via `npm install -g openclaw@latest` 2. Cloned cinaskill repository from https://github.com/cinagroup/cinaskill 3. Installed memory-system skill to `~/.npm-global/lib/node_modules/openclaw/skills/memory-system/` 4. Created configuration files: - `.memory-config.json` - Memory system paths and security whitelist - `.memory-notify-config.json` - Notification settings for QQBot - `.memory-backup-config.json` - Backup configuration with encryption 5. Created direc",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-17T04:04:27.204Z",
+      "lastRecalledAt": "2026-05-27T08:01:49.156Z",
+      "queryHashes": [
+        "9472379e4577",
+        "91cdc239335f"
+      ],
+      "recallDays": [
+        "2026-05-17",
+        "2026-05-27"
+      ],
+      "conceptTags": [
+        "backup",
+        "github.com/cinagroup/cinaskill",
+        "memory-system",
+        "memory-config.json",
+        "memory-notify-config.json",
+        "memory-backup-config.json",
+        "log",
+        "utc"
+      ]
+    },
+    "memory:memory/2026-04-04.md:1:48": {
+      "key": "memory:memory/2026-04-04.md:1:48",
+      "path": "memory/2026-04-04.md",
+      "startLine": 1,
+      "endLine": 48,
+      "source": "memory",
+      "snippet": "# Memory Log - 2026-04-04 ## 📝 Session Notes ### 2026-04-04 02:21 UTC - **Task**: 克隆并更新记忆系统到最新版本 - **Source**: QQBot (direct message) - **Status**: ✅ Completed #### Actions Taken: 1. 重新克隆 cinaskill 仓库：`git clone https://github.com/cinagroup/cinaskill.git` 2. 检查最新版本：`v3.1.0` (commit: c761537) 3. 使用 rsync 同步到 OpenClaw 技能目录 4. 更新内容： - 删除了旧文件：INSTALL.md, docs/ARCHITECTURE.md, templates/scene-block.md, templates/MEMORY.md - 新增文件：docs/MEMORY_CRON_CONFIG.md, templates/MEMORY_RECALL_PROMPT.md, templates/MEMORY_SYSTEM_STATUS.md - 更新了 SKILL.md、README.md、package.json - 更新了 memory-dashboard 文件 #### v3.1.0 新特性： - ✅ Cron 自动化支持（定时备份、热度衰减、周报） - ✅ 更新的文档结构 - ✅ Dashboard 路径调整 #### 目录结构： ``` ~",
+      "recallCount": 3,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 3,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-18T04:19:11.284Z",
+      "lastRecalledAt": "2026-05-27T08:01:49.156Z",
+      "queryHashes": [
+        "88aedc001e7e",
+        "052786d16d06",
+        "91cdc239335f"
+      ],
+      "recallDays": [
+        "2026-05-18",
+        "2026-05-21",
+        "2026-05-27"
+      ],
+      "conceptTags": [
+        "备份",
+        "v3.1.0",
+        "install.md",
+        "docs/architecture.md",
+        "templates/scene-block.md",
+        "templates/memory.md",
+        "docs/memory-cron-config.md",
+        "skill.md"
+      ]
+    },
+    "memory:memory/2026-05-18.md:102:155": {
+      "key": "memory:memory/2026-05-18.md:102:155",
+      "path": "memory/2026-05-18.md",
+      "startLine": 102,
+      "endLine": 155,
+      "source": "memory",
+      "snippet": "2. Workers Metrics (5/5) 3. Frontend Pages - Homepages (4/4) 4. Backend Dashboard Pages (6/6) 5. API Documentation Pages (4/4) ### 测试脚本 - `scripts/test-all-deployed.sh` - 完整测试脚本 - `scripts/health-check-workers.sh` - 快速健康检查 --- ## 🔧 后端仪表板修复 ### 问题 仪表板显示 \"Demo Mode\"，无法连接到真实 Workers ### 原因 1. 静态导出限制 2. 客户端健康检查需要时间 3. Workers URL 配置需要更新 ### 解决方案 1. 更新 `getBaseUrl()` 函数使用正确的 Workers URLs 2. 重新部署仪表板 3. 等待健康检查完成（5-10 秒） ### 文档 - `apps/backend-dashboard/DEMO_MODE_FIX.md` - 详细说明文档 --- ## 📈 产品对比分析 ### CinaSeek vs Reown **结论**: 完全不同领域的产品 | 维度 | CinaSeek | Reown | |------|----------|-------| | 领域 | DevOps 运维 | Web3 钱包连接 | | 完成度 | ~10% (设计阶段) | ~98%+ (生产就绪) | | 目标用户 | 开发者/运维人员 | Web3 应用开发者 |",
+      "recallCount": 3,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 3,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-21T12:48:01.831Z",
+      "lastRecalledAt": "2026-06-03T12:00:44.892Z",
+      "queryHashes": [
+        "052786d16d06",
+        "999057a7d9e2",
+        "653f0343b46c"
+      ],
+      "recallDays": [
+        "2026-05-21",
+        "2026-05-31",
+        "2026-06-03"
+      ],
+      "conceptTags": [
+        "5/5",
+        "4/4",
+        "6/6",
+        "scripts/test-all-deployed.sh",
+        "scripts/health-check-workers.sh",
+        "5-10",
+        "开发者/运维人员",
+        "workers"
+      ]
+    },
+    "memory:memory/2026-04-03.md:30:46": {
+      "key": "memory:memory/2026-04-03.md:30:46",
+      "path": "memory/2026-04-03.md",
+      "startLine": 30,
+      "endLine": 46,
+      "source": "memory",
+      "snippet": "- Heat score management with time-based decay - Notification system (QQBot integration) - Web dashboard for memory management - Encrypted backup support --- ## 🔗 Related Files - `MEMORY.md` - Long-term memory index - `.memory-config.json` - System configuration - `.memory-notify-config.json` - Notification configuration - `.memory-backup-config.json` - Backup configuration --- *Auto-generated by OpenClaw Memory System*",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-21T12:48:01.831Z",
+      "lastRecalledAt": "2026-05-21T12:48:01.831Z",
+      "queryHashes": [
+        "052786d16d06"
+      ],
+      "recallDays": [
+        "2026-05-21"
+      ],
+      "conceptTags": [
+        "backup",
+        "time-based",
+        "memory.md",
+        "long-term",
+        "memory-config.json",
+        "memory-notify-config.json",
+        "memory-backup-config.json",
+        "auto-generated"
+      ]
+    },
+    "memory:memory/2026-03-27.md:37:82": {
+      "key": "memory:memory/2026-03-27.md:37:82",
+      "path": "memory/2026-03-27.md",
+      "startLine": 37,
+      "endLine": 82,
+      "source": "memory",
+      "snippet": "├── FINAL_SUMMARY.md # 完整项目总结 ├── FUNCTIONAL_TEST_REPORT.md # 功能测试报告 ├── EXPLORER_SETUP.md # 浏览器部署指南 ├── TUNNEL_DIAGNOSTIC.md # Tunnel 诊断报告 └── PUBLIC_ACCESS_SETUP.md # 公网访问配置 ``` ### 🔑 关键配置信息 **Cloudflare**: - API Token: `REDACTED_CLOUDFLARE_TOKEN` - Account ID: `7ea8e46d8210bad342fa7595f7935fea` - Tunnel ID: `a0448517-a975-4df0-9a4d-e7fd54377117` **区块链账户**: - alice 地址：`cosmos1psvqlxd0e4zfxhqmuhg3venykrrmzlf5qz0rrp` - 助记词：`box kick easy empty notable laundry horror promote enact permit rural december pause drink enough crawl vote school final glad paddle know couple rack` **端点**: - 本地 RPC: http://localhost:26",
+      "recallCount": 3,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 3,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-21T12:48:01.831Z",
+      "lastRecalledAt": "2026-06-08T12:48:55.493Z",
+      "queryHashes": [
+        "052786d16d06",
+        "6066c6715161",
+        "e51bf811591f"
+      ],
+      "recallDays": [
+        "2026-05-21",
+        "2026-06-01",
+        "2026-06-08"
+      ],
+      "conceptTags": [
+        "final-summary.md",
+        "functional-test-report.md",
+        "explorer-setup.md",
+        "tunnel-diagnostic.md",
+        "public-access-setup.md",
+        "完整",
+        "项目",
+        "总结"
+      ]
+    },
+    "memory:memory/2026-05-27.md:1:22": {
+      "key": "memory:memory/2026-05-27.md:1:22",
+      "path": "memory/2026-05-27.md",
+      "startLine": 1,
+      "endLine": 22,
+      "source": "memory",
+      "snippet": "# Cinacoin Security Audit and Fixes - May 27, 2026 ## Round 1 (P0) - Critical Security Fixes - **CORS Restriction**: Limited tx-indexer CORS to authorized origins (cinacoin.com, dashboard.cinacoin.com, localhost) - **SQL Injection Prevention**: Fixed parameter binding in tx-indexer storage, added batch size limits - **Rate Limiting Enhancement**: Implemented production-grade rate limiter with metadata and proper error handling - **Error Logging**: Replaced empty catch blocks with warning logs in aa-sdk - **E2E Testing Framework**: Created comprehensive end-to-end testing framework - **Production Configuration**: Added wrangler.production.toml with security headers and rate limiting ## Roun",
+      "recallCount": 4,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 4,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-27T03:29:17.893Z",
+      "lastRecalledAt": "2026-05-31T04:05:37.590Z",
+      "queryHashes": [
+        "9dc7827c5993",
+        "946f06c5374f",
+        "28d9afbea855"
+      ],
+      "recallDays": [
+        "2026-05-27",
+        "2026-05-29",
+        "2026-05-31"
+      ],
+      "conceptTags": [
+        "tx-indexer",
+        "cinacoin.com",
+        "dashboard.cinacoin.com",
+        "production-grade",
+        "aa-sdk",
+        "end-to-end",
+        "wrangler.production.toml",
+        "cinacoin"
+      ]
+    },
+    "memory:memory/2026-05-27.md:18:38": {
+      "key": "memory:memory/2026-05-27.md:18:38",
+      "path": "memory/2026-05-27.md",
+      "startLine": 18,
+      "endLine": 38,
+      "source": "memory",
+      "snippet": "- **Type Safety**: Eliminated major any types in batch-transaction, svelte, core-sdk, and XRPL - **Pagination Implementation**: Implemented proper cursor-based pagination in blockchain-api - **JWT Verification**: Replaced base64 session tokens with production-grade JWT verification using jose library - **New Type Modules**: Created extension types for wallets, XRPL responses, and adapter interfaces ## Round 4 (P2) - Remaining Issues - **Svelte Event Types**: Working on typed event handlers for svelte stores - **Adapter Type Safety**: Creating proper adapter interfaces to eliminate type casting - **Core SDK Type Safety**: Fixing remaining any types in connector and adapter creation ## Curre",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-27T03:29:17.893Z",
+      "lastRecalledAt": "2026-06-05T04:02:51.117Z",
+      "queryHashes": [
+        "9dc7827c5993",
+        "e627dcce9a32"
+      ],
+      "recallDays": [
+        "2026-05-27",
+        "2026-06-05"
+      ],
+      "conceptTags": [
+        "batch-transaction",
+        "core-sdk",
+        "cursor-based",
+        "blockchain-api",
+        "production-grade",
+        "type",
+        "safety",
+        "eliminated"
+      ]
+    },
+    "memory:memory/2026-05-18.md:148:208": {
+      "key": "memory:memory/2026-05-18.md:148:208",
+      "path": "memory/2026-05-18.md",
+      "startLine": 148,
+      "endLine": 208,
+      "source": "memory",
+      "snippet": "|------|-------------|-------| | NPM 发布率 | **97.2% (70/72)** | ~100% | | 跨平台支持 | 13 个平台 | 6 个平台 | | 后端服务 | ✅ 5 个 Workers | ❌ 无 | | 总完成度 | ~98.5% | 100% | **CinaConnect 优势**: - 跨平台支持更全面（Flutter, Android, iOS, Unity, .NET） - 完整后端服务基础设施 - 白标授权适合企业需求 **Reown 优势**: - 开源免费 - 生态成熟，钱包支持广 - 协议标准 --- ## 📦 NPM 发布状态修正 ### 修正前 - 1/64 packages published (1.6%) ### 修正后 - **70/72 packages published (97.2%)** ### 未发布包 (2 个) 1. `@cinaconnect/cinaconnect-i18n` 2. `@cinaconnect/unity-csharp` --- ## 🎯 重要里程碑 1. ✅ 所有 5 个 Cloudflare Workers 部署完成 2. ✅ 所有 4 个 Cloudflare Pages 部署完成 3. ✅ Workers Metrics 端点全部实现 4. ✅ 完整功能测试 100% 通过 5. ✅ 后端仪表板修复并重新部署 6. ✅ NPM 发布率 97.2%（70/72） --- ## 📝 下一步计划 1. 发布剩余 2 个 NPM",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-27T08:01:49.156Z",
+      "lastRecalledAt": "2026-05-31T04:02:50.389Z",
+      "queryHashes": [
+        "91cdc239335f",
+        "d5fc33d59f87"
+      ],
+      "recallDays": [
+        "2026-05-27",
+        "2026-05-31"
+      ],
+      "conceptTags": [
+        "97.2",
+        "70/72",
+        "98.5",
+        "1/64",
+        "1.6",
+        "cinaconnect/cinaconnect-i18n",
+        "cinaconnect/unity-csharp",
+        "npm"
+      ]
+    },
+    "memory:memory/2026-05-18.md:48:115": {
+      "key": "memory:memory/2026-05-18.md:48:115",
+      "path": "memory/2026-05-18.md",
+      "startLine": 48,
+      "endLine": 115,
+      "source": "memory",
+      "snippet": "- 8 页后端管理仪表板 - 服务监控、健康检查、设置 3. **Health Status Page** - `cinaconnect-health-status.pages.dev` - 公开状态页 - 5 个服务健康检查 4. **API Documentation Site** - `cinaconnect-docs.pages.dev` - 72 个包的完整 API 文档 - VitePress 构建 --- ## 📊 Workers Metrics 端点实现 为所有 5 个 Workers 添加了 `/metrics` 端点： ### RPC Proxy Metrics - 请求计数、错误计数 - 缓存命中率 - 链使用量统计 - 运行时间 ### Keys Server Metrics - 请求计数、错误计数 - Keypair 创建/查询计数 - Session 创建计数 ### Relay Server Metrics - 请求计数、错误计数 - 消息存储/检索计数 - 活跃会话数 ### Notify Server Metrics - 订阅数量 - 投递日志大小 ### Push Server Metrics - 投递日志大小 - 成功/失败计数 - 成功率 --- ## ✅ 完整功能测试 ### 测试结果 - **总测试数**: 24 - **通过**: 24 - **失败**: 0 - **通过率**: **100%** ### 测试覆盖 1. Workers Health Checks",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-31T04:02:46.132Z",
+      "lastRecalledAt": "2026-05-31T04:05:37.590Z",
+      "queryHashes": [
+        "999057a7d9e2",
+        "28d9afbea855"
+      ],
+      "recallDays": [
+        "2026-05-31"
+      ],
+      "conceptTags": [
+        "cinaconnect-docs.pages.dev",
+        "创建/查询计数",
+        "消息存储/检索计数",
+        "成功/失败计数",
+        "管理",
+        "仪表",
+        "服务",
+        "健康"
+      ]
+    },
+    "memory:memory/2026-03-27.md:1:46": {
+      "key": "memory:memory/2026-03-27.md:1:46",
+      "path": "memory/2026-03-27.md",
+      "startLine": 1,
+      "endLine": 46,
+      "source": "memory",
+      "snippet": "# cina 区块链项目 - 持久化记忆 ## 📊 项目状态总结 ### ✅ 已完成的核心功能 1. **区块链创建** - 使用 Ignite CLI v28.11.2 创建 - Chain ID: `cina` - 当前高度：3800+ - 验证者：1 个 (alice) 2. **Cloudflare Tunnel 配置** - Tunnel ID: `a0448517-a975-4df0-9a4d-e7fd54377117` - Account ID: `7ea8e46d8210bad342fa7595f7935fea` - 状态：运行中 (4 个边缘节点连接) - DNS 已配置：rpc.cinachain.com, api.cinachain.com, grpc.cinachain.com - ⚠️ 需要在 Cloudflare Dashboard 配置 Public Hostnames 3. **区块链浏览器** - Ping.pub 已部署在 /tmp/cina-ping - 本地访问：http://localhost:5173 4. **功能测试** - ✅ 转账测试通过 (10000 stake) - ✅ 质押测试通过 (5000 stake) - ✅ 治理提案创建 (ID: 1) - ✅ 治理投票测试通过 ### 📁 重要文件位置 ``` /home/cina/.openclaw/workspace/cina/ ├── cinad",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1.9746453348311006,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-06-01T04:17:53.079Z",
+      "lastRecalledAt": "2026-06-08T12:48:55.493Z",
+      "queryHashes": [
+        "6066c6715161",
+        "e51bf811591f"
+      ],
+      "recallDays": [
+        "2026-06-01",
+        "2026-06-08"
+      ],
+      "conceptTags": [
+        "v28.11.2",
+        "rpc.cinachain.com",
+        "api.cinachain.com",
+        "grpc.cinachain.com",
+        "ping.pub",
+        "tmp/cina-ping",
+        "home/cina",
+        "openclaw/workspace/cina"
+      ]
+    },
+    "memory:memory/2026-05-31.md:1:38": {
+      "key": "memory:memory/2026-05-31.md:1:38",
+      "path": "memory/2026-05-31.md",
+      "startLine": 1,
+      "endLine": 38,
+      "source": "memory",
+      "snippet": "# 2026-05-31 Cinacoin 全面审计与优化报告 ## ✅ Status Page v2 改进 (5项) ### 1. Incident 报告系统 - `incidents.json` — 标准化 incident 数据格式 - 支持 severity: critical/major/minor/maintenance - 支持 status: investigating/identified/monitoring/resolved - UI: 时间线展示，活跃/已解决分组，严重性标签 - 首次 incident: docs.cinacoin.com & status.cinacoin.com DNS 配置 ### 2. 改进的历史记录可视化 - ServiceCard 可展开查看 72 槽位历史 (~6小时) - 密集柱状图 (每槽代表 5 分钟) - 颜色编码: green/yellow/red/gray - 保留原 HistoryChart 组件作为概览 ### 3. JSON API 端点 - `/incidents.json` — 外部集成用 incident 数据 - `/service-status.json` — 服务配置 - Footer 添加 API 链接 ### 4. 移动端响应式优化 - Header flex-wrap + sm:py-12 - max-w-4xl 容器 - 隐藏分隔符 (hidden sm:inline) - Footer 多行 flex-wrap ### 5. Uptime 精度提升 - UptimeBad",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-06-02T04:04:40.751Z",
+      "lastRecalledAt": "2026-06-03T04:08:58.269Z",
+      "queryHashes": [
+        "a3874bf1bacf",
+        "bf03c417e2bf"
+      ],
+      "recallDays": [
+        "2026-06-02",
+        "2026-06-03"
+      ],
+      "conceptTags": [
+        "incidents.json",
+        "critical/major/minor/maintenance",
+        "活跃/已解决分组",
+        "docs.cinacoin.com",
+        "status.cinacoin.com",
+        "green/yellow/red/gray",
+        "service-status.json",
+        "flex-wrap"
+      ]
+    },
+    "memory:memory/2026-06-01.md:1:46": {
+      "key": "memory:memory/2026-06-01.md:1:46",
+      "path": "memory/2026-06-01.md",
+      "startLine": 1,
+      "endLine": 46,
+      "source": "memory",
+      "snippet": "# 全站测试与修复 — 2026-06-01 ## 发现的问题及修复 ### 1. Logo 显示异常 ✅ - **根因**：Next.js `<Image>` 在静态导出模式下生成 `/_next/image` URL（404） - **修复**：添加 `unoptimized` prop 到 Navbar.tsx - **验证**：所有站点 logo 正确显示 ### 2. Logo 替换为新图标 ✅ - 用户提供的新 logo（黑色 stylized \"e\"） - 替换全部 5 个站点的 logo.png、favicon.ico、favicon.png - Git 提交：`a087c88` ### 3. Twitter/X 链接更新 ✅ - `twitter.com/cinacoin` → `x.com/cinacoin` - 更新 Footer 和 Contact 页面 ### 4. Canonical URL 修复 ✅ - **问题**：所有子页面的 canonical 都指向首页 - **修复**：为 7 个子页面添加 `alternates.canonical` - Git 提交：`a51bab5` ### 5. Docs 多语言 ✅ - 添加 EN/ZH-CN 双语支持 - 启用暗色模式切换 - Logo 从 \"0\" 改为 \"C\"（后替换为新 logo） ### 6. Legal 页面完善 ✅ - 新增 `/privacy`（隐私政策） - 新增 `/terms`（服务条款） - 新增 `/cookies`（Cookie 政策） - Git 提交：",
+      "recallCount": 4,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 4,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-06-02T07:14:21.517Z",
+      "lastRecalledAt": "2026-06-03T12:00:38.137Z",
+      "queryHashes": [
+        "06579bd4320f",
+        "e06512233839",
+        "0ae81cb20504",
+        "db9b1d624285"
+      ],
+      "recallDays": [
+        "2026-06-02",
+        "2026-06-03"
+      ],
+      "conceptTags": [
+        "next.js",
+        "next/image",
+        "navbar.tsx",
+        "logo.png",
+        "favicon.ico",
+        "favicon.png",
+        "twitter/x",
+        "twitter.com/cinacoin"
+      ]
+    },
+    "memory:memory/2026-06-04.md:113:134": {
+      "key": "memory:memory/2026-06-04.md:113:134",
+      "path": "memory/2026-06-04.md",
+      "startLine": 113,
+      "endLine": 134,
+      "source": "memory",
+      "snippet": "| SIWX 跨链认证 | ✅ EVM+Solana+Bitcoin 统一 | ⚠️ 仅 SIWE | Cinacoin | | 嵌入式钱包 | ✅ 邮箱/社交/手机 | ✅ Reown Embedded | 持平 | | Passkey 认证 | ✅ WebAuthn 生物识别 | ❌ 不支持 | Cinacoin | | 账户抽象 | ✅ 完整 AA（SDK+Bundler+Paymaster） | ⚠️ 仅集成 | Cinacoin | | Gas 赞助 | ✅ 企业级 | ❌ 无 | Cinacoin | | Session Keys | ✅ 临时密钥+社交恢复 | ❌ 无 | Cinacoin | | Swap 聚合 | ✅ 多 DEX 路由 | ❌ 无 | Cinacoin | | On-Ramp 聚合 | ✅ 多提供商 | ✅ 集成第三方 | 持平 | | 支付 UI | ✅ 完整买/发/收 | ❌ 无 | Cinacoin | | 跨链桥接 | ✅ HTLC 原子交换 | ❌ 无 | Cinacoin | | KYC/旅行规则 | ✅ FATF 合规引擎 | ❌ 无 | Cinacoin | | 合约安全扫描 | ✅ Verify SDK | ✅ Reown Verify | 持平 | | Wallet Recovery | ✅ Shamir 秘密分享 | ❌ 无 | Cinacoin | | Push 通知 | ✅ 自建 Push Network | ✅ Reown Cloud | 持平 | | Analytics | ✅ GDPR 合规 | ✅ Reown",
+      "recallCount": 11,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 11,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-06-08T02:41:30.421Z",
+      "lastRecalledAt": "2026-06-09T04:19:08.591Z",
+      "queryHashes": [
+        "19b20c7e336e",
+        "a95f216d69c8",
+        "72b207d2e51e",
+        "c32b0d846de8",
+        "54a459b238fd",
+        "9c5799bd95ef",
+        "b5be3d18e697",
+        "dabe1921e9a5",
+        "75f6d256fb49",
+        "59371370554b",
+        "037836a4410d"
+      ],
+      "recallDays": [
+        "2026-06-08",
+        "2026-06-09"
+      ],
+      "conceptTags": [
+        "network",
+        "邮箱/社交/手机",
+        "on-ramp",
+        "完整买/发/收",
+        "kyc/旅行规则",
+        "siwx",
+        "认证",
+        "evm"
+      ]
+    },
+    "memory:memory/2026-06-06.md:1:31": {
+      "key": "memory:memory/2026-06-06.md:1:31",
+      "path": "memory/2026-06-06.md",
+      "startLine": 1,
+      "endLine": 31,
+      "source": "memory",
+      "snippet": "# 2026-06-06 — CINAcoin Production Audit Complete ## 04:00 UTC — Cron Task Check & Audit Completion The ongoing task check cron identified that the CINAcoin production-level audit was still in progress from the previous day. 4 of 8 sites had been audited (website, demo, react demo, backend dashboard). ### Actions Taken - Audited **cloud.cinacoin.com** (3.7/5) — Clean Next.js app, excellent CSS variable compliance, needs ARIA landmarks and theme toggle - Audited **wallet.cinacoin.com** (3.4/5) — 104 wallets with rich metadata, needs pagination and search - Audited **status.cinacoin.com** (4.2/5) — Best site, full SEO/OG/Twitter meta, minor CSS variable naming inconsistency - Confirmed **an",
+      "recallCount": 10,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 10,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-06-08T02:41:30.421Z",
+      "lastRecalledAt": "2026-06-08T16:08:49.472Z",
+      "queryHashes": [
+        "19b20c7e336e",
+        "a95f216d69c8",
+        "72b207d2e51e",
+        "c32b0d846de8",
+        "54a459b238fd",
+        "9c5799bd95ef",
+        "b5be3d18e697",
+        "dabe1921e9a5",
+        "75f6d256fb49",
+        "59371370554b"
+      ],
+      "recallDays": [
+        "2026-06-08"
+      ],
+      "conceptTags": [
+        "production-level",
+        "cloud.cinacoin.com",
+        "3.7/5",
+        "next.js",
+        "wallet.cinacoin.com",
+        "3.4/5",
+        "status.cinacoin.com",
+        "4.2/5"
+      ]
+    },
+    "memory:memory/2026-06-05.md:1:35": {
+      "key": "memory:memory/2026-06-05.md:1:35",
+      "path": "memory/2026-06-05.md",
+      "startLine": 1,
+      "endLine": 35,
+      "source": "memory",
+      "snippet": "# 2026-06-05 — CINAcoin Design Audit & Fixes COMPLETE ## Final Status — All 8 Sites Audited + Fixed ### Round 3 Live Verification | Site | Previous → Now | Status | |------|---------------|--------| | cinacoin.com | 3.5 → 4.5/5 | ✅ emoji→SVG, spacing, dark CTA border | | cloud.cinacoin.com | 3.0 → 4.5/5 | ✅ 40 stale .js files deleted, 0 hardcoded colors | | demo.cinacoin.com | 1.5 → 4.0/5 | ✅ 0 violations (brand-* gradients intentional) | | react.cinacoin.com | 1.5 → 4.0/5 | ✅ Dark→light migration, 156 violations→0 | | dash.cinacoin.com | 3.4 → 6.5/10 | ✅ Form inputs, login hex colors fixed | ### Key Lessons - **Stale .js files in src/** shadow .tsx — always check for compiled artifacts -",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-06-08T02:41:30.421Z",
+      "lastRecalledAt": "2026-06-08T02:41:30.421Z",
+      "queryHashes": [
+        "19b20c7e336e"
+      ],
+      "recallDays": [
+        "2026-06-08"
+      ],
+      "conceptTags": [
+        "cinacoin.com",
+        "3.5",
+        "4.5/5",
+        "cloud.cinacoin.com",
+        "3.0",
+        "demo.cinacoin.com",
+        "1.5",
+        "4.0/5"
+      ]
+    },
+    "memory:memory/2026-06-04.md:130:162": {
+      "key": "memory:memory/2026-06-04.md:130:162",
+      "path": "memory/2026-06-04.md",
+      "startLine": 130,
+      "endLine": 162,
+      "source": "memory",
+      "snippet": "| 多钱包同时连接 | ✅ | ⚠️ 有限 | Cinacoin | | Codemod 迁移工具 | ✅ Web3Modal→Cinacoin | ❌ 无 | Cinacoin | | 开源/零锁定 | ✅ MIT，完全自托管 | ⚠️ 开源但强依赖 Reown 云 | Cinacoin | | 性能基准测试 | ✅ P50/P95/P99 | ❌ 无 | Cinacoin | | 集成测试 | ✅ 真实测试网 | ⚠️ 有限 | Cinacoin | | Wallet Recommender | ✅ 智能推荐 | ❌ 无 | Cinacoin | | 部署方式 | Cloudflare Workers/Pages | SaaS | Cinacoin | | 商业成熟度 | ⚠️ 新项目 | ✅ 行业标杆 | Reown | | 社区规模 | ⚠️ 新 | ✅ 大 | Reown | | 文档完善度 | ⚠️ 新构建中 | ✅ 成熟 | Reown | ### 3.2 Dynamic / Privy / Thirdweb 对比 | 维度 | Cinacoin | Dynamic | Privy | Thirdweb | |------|----------|---------|-------|----------| | 自托管 | ✅ | ❌ SaaS | ❌ SaaS | ⚠️ 部分 | | 非 EVM | ✅ 10 条 | ⚠️ 5-6 条 | ⚠️ 有限 | ✅ 多链 | | 嵌入式钱包 | ✅ | ✅ | ✅ | ✅ | | AA/智能账户 | ✅ 完整 | ✅",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-06-08T02:41:30.421Z",
+      "lastRecalledAt": "2026-06-08T02:41:30.421Z",
+      "queryHashes": [
+        "19b20c7e336e"
+      ],
+      "recallDays": [
+        "2026-06-08"
+      ],
+      "conceptTags": [
+        "开源/零锁定",
+        "p50/p95/p99",
+        "workers/pages",
+        "3.2",
+        "5-6",
+        "aa/智能账户",
+        "钱包",
+        "同时"
+      ]
+    },
+    "memory:memory/2026-05-18.md:1:60": {
+      "key": "memory:memory/2026-05-18.md:1:60",
+      "path": "memory/2026-05-18.md",
+      "startLine": 1,
+      "endLine": 60,
+      "source": "memory",
+      "snippet": "# 2026-05-18 工作日志 ## 时间 2026-05-18 15:44 UTC --- ## 🚀 Cloudflare 部署完成 ### Workers (5/5) 所有后端服务成功部署到 Cloudflare Workers： 1. **RPC Proxy** - `cinaconnect-rpc-proxy.cinagroup.workers.dev` - RPC 请求代理，KV 缓存 - 支持 6 条 EVM 链 2. **Keys Server** - `cinaconnect-keys-server.cinagroup.workers.dev` - 密钥管理，D1 存储 - 会话管理 3. **Relay Server** - `cinaconnect-relay-server.cinagroup.workers.dev` - WebSocket 中继，Durable Objects - 支持钱包连接信号 4. **Notify Server** - `cinaconnect-notify-server.cinagroup.workers.dev` - 通知服务 - 支持推送、邮件、Webhook 5. **Push Server** - `cinaconnect-push-server.cinagroup.workers.dev` - 推送通知服务 - 支持 APNs 和 FCM **Cloudflare 资源**： - 2 个 KV Namespaces - 2 个 D1",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-06-08T12:48:55.493Z",
+      "lastRecalledAt": "2026-06-08T12:48:55.493Z",
+      "queryHashes": [
+        "e51bf811591f"
+      ],
+      "recallDays": [
+        "2026-06-08"
+      ],
+      "conceptTags": [
+        "5/5",
+        "工作",
+        "日志",
+        "时间",
+        "utc",
+        "cloudflare",
+        "部署",
+        "完成"
+      ]
+    },
+    "memory:memory/2026-06-09.md:1:53": {
+      "key": "memory:memory/2026-06-09.md:1:53",
+      "path": "memory/2026-06-09.md",
+      "startLine": 1,
+      "endLine": 53,
+      "source": "memory",
+      "snippet": "# 2026-06-09 Daily Notes ## Cloudflare 部署完成 (01:30 UTC) ### 任务完成状态 ✅ **任务 1: 配置自定义域名** - 完成 ✅ **任务 3: 验证部署** - 完成 ✅ **任务 4: 集成测试** - 完成 --- ## 基础设施部署 ### D1 数据库 | 数据库 | ID | 表数量 | 状态 | |--------|-----|--------|------| | cinacoin-auth | dbb6063f-86ca-4ac2-b960-25bbb752b73d | 12 | ✅ | | cinacoin-users | 1772bf0d-5e3b-4a18-b143-1bb2c3d29b62 | 5 | ✅ | ### KV 命名空间 | 名称 | ID | 用途 | |------|-----|------| | RATE_LIMIT_KV | dceb86e5cb4c4a008013c8cf21d7181c | API 限流 | | SESSION_KV | 4a9aca26d37c4f9babb340b3865219c0 | 会话存储 | ### R2 存储桶 | 名称 | 用途 | 状态 | |------|------|------| | cinacoin-avatars | 用户头像 | ✅ | | cinacoin-backups | 数据备份 | ✅ | --- ## Workers 部署 ### 服务列表 | 服务 | 自定义域名 | 状态 | |----",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-06-09T04:16:49.269Z",
+      "lastRecalledAt": "2026-06-09T04:16:49.269Z",
+      "queryHashes": [
+        "84fef1d16bbf"
+      ],
+      "recallDays": [
+        "2026-06-09"
+      ],
+      "conceptTags": [
+        "backup",
+        "backups",
+        "备份",
+        "cinacoin-auth",
+        "cinacoin-users",
+        "rate-limit-kv",
+        "session-kv",
+        "cinacoin-avatars"
+      ]
+    },
+    "memory:memory/2026-06-09.md:161:219": {
+      "key": "memory:memory/2026-06-09.md:161:219",
+      "path": "memory/2026-06-09.md",
+      "startLine": 161,
+      "endLine": 219,
+      "source": "memory",
+      "snippet": "| 01:02 | Pages 部署完成 (8 个应用) | | 01:14 | 基础设施部署完成 | | 01:19 | 自定义域名配置完成 | | 01:25 | 路由修复完成 | | 01:30 | 集成测试完成 | **总耗时**: ~52 分钟 --- ## 架构优势 | 特性 | K8s 部署 | Cloudflare 原生 | |------|----------|-----------------| | 延迟 | 50-200ms | <10ms (边缘计算) | | 扩展性 | 手动 HPA | 自动扩展 (0→∞) | | 成本 | $500+/月 | $0-50/月 | | 运维 | 复杂 | 零运维 | | 全球分发 | 需 CDN | 内置 (300+ 节点) | --- ## 状态总结 ✅ **部署完成度**: 95% - Workers: 3/3 ✅ - Pages: 8/8 ✅ - D1: 2/2 ✅ - KV: 2/2 ✅ - R2: 2/2 ✅ - 自定义域名: 11/13 ✅ (2 个 DNS 验证中) ⚠️ **待配置**: OAuth 凭证、JWT 密钥 # 2026-06-09 Daily Notes ## Cloudflare 部署完成 (01:30 UTC) ### 任务完成状态 ✅ **任务 1: 配置自定义域名** - 完成 ✅ **任务 3: 验证部署** - 完成 ✅ **任务 4: 集成测试** - 完成 --- ## 基础设施部署 ### D1 数据库 | 数据库 | ID | 表数量",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-06-09T04:16:49.269Z",
+      "lastRecalledAt": "2026-06-09T04:16:49.269Z",
+      "queryHashes": [
+        "84fef1d16bbf"
+      ],
+      "recallDays": [
+        "2026-06-09"
+      ],
+      "conceptTags": [
+        "50-200ms",
+        "0-50/月",
+        "3/3",
+        "8/8",
+        "2/2",
+        "11/13",
+        "pages",
+        "部署"
+      ]
+    },
+    "memory:memory/2026-06-08.md:157:183": {
+      "key": "memory:memory/2026-06-08.md:157:183",
+      "path": "memory/2026-06-08.md",
+      "startLine": 157,
+      "endLine": 183,
+      "source": "memory",
+      "snippet": "✅ **Phase 2 实施阶段完全结束** ⏳ **等待用户指示下一步行动** ### 建议的下一步 1. **集成测试**（高优先级）- 端到端测试所有认证流程 2. **生产部署准备**（高优先级）- 配置环境变量、数据库迁移、域名 SSL 3. **Phase 3 规划**（中优先级）- 监控/安全/性能/测试 ## 5 子 Agent 并行推进 (16:05 UTC) 叶海涛指示启动 5 个子 agent 同步推进下一步工作。 ### 任务分配 1. **Auth 认证流程集成测试** - 端到端测试所有认证流程 2. **API 和权限系统集成测试** - 测试 API 网关、权限控制、跨服务通信 3. **生产环境配置** - 环境变量、数据库迁移、Docker/K8s 4. **生产基础设施配置** - 域名、SSL、CDN、负载均衡、监控 5. **Phase 3 规划** - 监控/安全/性能/测试详细规划 ### 完成情况 (16:33 UTC) **全部 5 个任务完成！** | 任务 | 状态 | 耗时 | 关键成果 | |------|------|------|----------| | Auth 认证流程集成测试 | ✅ | 12m18s | 70/70 测试通过，发现 3 Critical + 4 High 问题 | | API 和权限系统集成测试 | ✅ | 13m45s | 65% 覆盖率，发现 5 Critical + 6 High 问题 | | Phase 3 规划 | ✅ | 14m22s | 78KB 详细规划文档（监控",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-06-09T04:16:49.269Z",
+      "lastRecalledAt": "2026-06-09T04:16:49.269Z",
+      "queryHashes": [
+        "84fef1d16bbf"
+      ],
+      "recallDays": [
+        "2026-06-09"
+      ],
+      "conceptTags": [
+        "网关",
+        "监控/安全/性能/测试",
+        "docker/k8s",
+        "监控/安全/性能/测试详细规划",
+        "70/70",
+        "phase",
+        "实施",
+        "阶段"
+      ]
+    },
+    "memory:memory/2026-06-09.md:247:290": {
+      "key": "memory:memory/2026-06-09.md:247:290",
+      "path": "memory/2026-06-09.md",
+      "startLine": 247,
+      "endLine": 290,
+      "source": "memory",
+      "snippet": "✅ auth.cinacoin.com/health → {\"status\":\"ok\",\"service\":\"cinacoin-auth\",\"version\":\"1.0.0\"} ✅ users.cinacoin.com/health → {\"status\":\"healthy\",\"checks\":{\"database\":{\"status\":\"ok\"}}} ✅ /auth/me → 401 Unauthorized (正确) ✅ /users/me → 401 Authentication required (正确) ✅ /teams → 401 Authentication required (正确) ``` --- ## Pages 部署 ### 应用列表 | 应用 | 自定义域名 | 状态 | |------|-----------|------| | website | cinacoin.com | ✅ 已部署 | | health-status | status.cinacoin.com | ✅ 已部署 | | backend-dashboard | backend.cinacoin.com, dash.cinacoin.com | ✅ 已部署 | | wallet-explorer | wallet.cinacoin.com | ✅ 已部署 | | cloud-dashboard | cloud.cinacoin.com | ✅ 已部署 | | demo | demo.cinacoin.com | ✅ 已部署 | | unified-dashboard | app",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-06-09T04:19:08.591Z",
+      "lastRecalledAt": "2026-06-09T04:19:08.591Z",
+      "queryHashes": [
+        "037836a4410d"
+      ],
+      "recallDays": [
+        "2026-06-09"
+      ],
+      "conceptTags": [
+        "auth.cinacoin.com/health",
+        "cinacoin-auth",
+        "1.0.0",
+        "users.cinacoin.com/health",
+        "auth/me",
+        "users/me",
+        "cinacoin.com",
+        "health-status"
+      ]
+    },
+    "memory:memory/2026-06-09.md:45:83": {
+      "key": "memory:memory/2026-06-09.md:45:83",
+      "path": "memory/2026-06-09.md",
+      "startLine": 45,
+      "endLine": 83,
+      "source": "memory",
+      "snippet": "- **问题**: API Gateway 代理路径与后端路由不匹配 - **修复**: - `/auth/*` → Auth Service（保持 `/auth/*` 路径） - `/users/*` → User Service（映射为 `/api/users/*`） - `/teams/*` → User Service（映射为 `/api/teams/*`） ### 验证结果 ```bash ✅ api.cinacoin.com/health → {\"status\":\"healthy\",\"service\":\"api-gateway\",\"version\":\"v1\"} ✅ auth.cinacoin.com/health → {\"status\":\"ok\",\"service\":\"cinacoin-auth\",\"version\":\"1.0.0\"} ✅ users.cinacoin.com/health → {\"status\":\"healthy\",\"checks\":{\"database\":{\"status\":\"ok\"}}} ✅ /auth/me → 401 Unauthorized (正确) ✅ /users/me → 401 Authentication required (正确) ✅ /teams → 401 Authentication required (正确) ``` --- ## Pages 部署 ### 应用列表 | 应用 | 自定义域名 | 状态 | |------|-----------|------| | website | cinaco",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-06-09T04:19:08.591Z",
+      "lastRecalledAt": "2026-06-09T04:19:08.591Z",
+      "queryHashes": [
+        "037836a4410d"
+      ],
+      "recallDays": [
+        "2026-06-09"
+      ],
+      "conceptTags": [
+        "gateway",
+        "api/users",
+        "api/teams",
+        "api.cinacoin.com/health",
+        "api-gateway",
+        "auth.cinacoin.com/health",
+        "cinacoin-auth",
+        "1.0.0"
+      ]
+    },
+    "memory:memory/2026-06-09.md:114:174": {
+      "key": "memory:memory/2026-06-09.md:114:174",
+      "path": "memory/2026-06-09.md",
+      "startLine": 114,
+      "endLine": 174,
+      "source": "memory",
+      "snippet": "--- ## 待办事项 ### 高优先级 1. **配置 OAuth 凭证** - Google/GitHub/Discord Client ID & Secret 2. **配置 JWT 密钥** - 生成 RSA 2048 密钥对并设置环境变量 3. **等待 DNS 验证** - app.cinacoin.com 和 data.cinacoin.com 域名验证 ### 中优先级 4. **前端环境变量** - 更新所有 Pages 应用的 API 端点配置 5. **SSL 证书** - 确认所有自定义域名的 SSL 证书自动签发 ### 低优先级 6. **监控告警** - 配置 Cloudflare 监控和告警规则 7. **性能优化** - 配置缓存策略和 CDN 优化 --- ## 技术栈 ### 前端 - Next.js 14 (静态导出) - React 18 + Tailwind CSS + TypeScript - Recharts (数据可视化) ### 后端 - Hono 框架 - Web Crypto API - jose (JWT) + Zod (验证) ### 数据库 - Cloudflare D1 (SQLite) - 17 个表，22 个索引 ### 存储 - Cloudflare KV (缓存/会话) - Cloudflare R2 (对象存储) --- ## 部署时间线 | 时间 | 事件 | |------|------| | 00:38 | 开始 Cloudflare 迁移 | | 00:51 | Work",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-06-09T04:30:02.906Z",
+      "lastRecalledAt": "2026-06-09T05:19:48.667Z",
+      "queryHashes": [
+        "54025a0068a8",
+        "6599855d74f1"
+      ],
+      "recallDays": [
+        "2026-06-09"
+      ],
+      "conceptTags": [
+        "google/github/discord",
+        "app.cinacoin.com",
+        "data.cinacoin.com",
+        "next.js",
+        "缓存/会话",
+        "事项",
+        "优先",
+        "配置"
+      ]
+    },
+    "memory:memory/2026-06-09.md:318:385": {
+      "key": "memory:memory/2026-06-09.md:318:385",
+      "path": "memory/2026-06-09.md",
+      "startLine": 318,
+      "endLine": 385,
+      "source": "memory",
+      "snippet": "5. **SSL 证书** - 确认所有自定义域名的 SSL 证书自动签发 ### 低优先级 6. **监控告警** - 配置 Cloudflare 监控和告警规则 7. **性能优化** - 配置缓存策略和 CDN 优化 --- ## 技术栈 ### 前端 - Next.js 14 (静态导出) - React 18 + Tailwind CSS + TypeScript - Recharts (数据可视化) ### 后端 - Hono 框架 - Web Crypto API - jose (JWT) + Zod (验证) ### 数据库 - Cloudflare D1 (SQLite) - 17 个表，22 个索引 ### 存储 - Cloudflare KV (缓存/会话) - Cloudflare R2 (对象存储) --- ## 部署时间线 | 时间 | 事件 | |------|------| | 00:38 | 开始 Cloudflare 迁移 | | 00:51 | Workers 部署完成 | | 01:02 | Pages 部署完成 (8 个应用) | | 01:14 | 基础设施部署完成 | | 01:19 | 自定义域名配置完成 | | 01:25 | 路由修复完成 | | 01:30 | 集成测试完成 | **总耗时**: ~52 分钟 --- ## 架构优势 | 特性 | K8s 部署 | Cloudflare 原生 | |------|----------|-----------------| | 延迟 | 50-200",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-06-09T04:30:02.906Z",
+      "lastRecalledAt": "2026-06-09T05:19:48.667Z",
+      "queryHashes": [
+        "54025a0068a8",
+        "6599855d74f1"
+      ],
+      "recallDays": [
+        "2026-06-09"
+      ],
+      "conceptTags": [
+        "next.js",
+        "缓存/会话",
+        "50-200",
+        "ssl",
+        "证书",
+        "确认",
+        "所有",
+        "定义"
+      ]
+    }
+  }
+}

@@ -1,0 +1,58 @@
+# OnChainUX Bundler Configuration
+# All environment variables from config.rs are also supported as fallbacks.
+
+# --- Network ---
+rpc_url: "${RPC_URL}"
+chain_id: 1
+entry_point_address: "0x0000000071727De22E5E9d8BAf0edAc6f37da032"
+
+# --- Signer ---
+signer_private_key: "${SIGNER_PRIVATE_KEY}"
+beneficiary: "${BUNDLER_BENEFICIARY}"
+
+# --- Server ---
+listen_addr: "0.0.0.0:3000"
+
+# --- Mempool ---
+max_ops_per_bundle: 128
+bundle_interval_ms: 2000
+bundle_timeout_ms: 5000
+min_gas_limit: 21000
+redis_url: "${REDIS_URL}"
+
+# --- Gas ---
+min_profit_margin_bps: 500  # 5%
+
+# --- Reputation ---
+reputation:
+  # After this many violations, sender gets throttled
+  throttle_threshold: 5
+  # After this many violations, sender gets banned
+  ban_threshold: 20
+  # How long (seconds) a throttle penalty lasts
+  throttle_duration_sec: 3600
+  # How long (seconds) a ban lasts (0 = permanent)
+  ban_duration_sec: 86400
+  # Max pending ops per sender
+  max_pending_per_sender: 16
+
+# --- Blacklist ---
+blacklisted_senders: []
+
+# --- Simulation ---
+simulation:
+  # Use state override during simulation
+  enabled: true
+  # Max gas to allow in simulation (prevents DoS)
+  max_simulation_gas: 30_000_000
+
+# --- Metrics ---
+metrics:
+  enabled: true
+  # Expose Prometheus metrics at /metrics
+  path: "/metrics"
+
+# --- Health Check ---
+health:
+  enabled: true
+  path: "/health"

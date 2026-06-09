@@ -1,0 +1,23 @@
+name = "cinacoin-bundler"
+main = "src/worker.ts"
+compatibility_date = "2024-01-01"
+workers_dev = true
+
+routes = [
+  { pattern = "bundler.cinacoin.com", custom_domain = true }
+]
+
+[vars]
+LOG_LEVEL = "info"
+ENTRY_POINT = "0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789"
+PAYMASTER_ADDRESS = ""
+BUNDLER_PRIVATE_KEY = ""
+
+[[kv_namespaces]]
+binding = "BUNDLER_CACHE"
+id = "72abfbb0d08b4846b97002e85a587ad1"
+
+[[d1_databases]]
+binding = "BUNDLER_DB"
+database_name = "cinacoin-bundler"
+database_id = "5f43114d-b4c9-4592-bd91-04db441bdf34"

@@ -1,0 +1,16 @@
+{
+  "name": "@onchainux/travel-rule-demo",
+  "version": "0.1.0",
+  "description": "Travel Rule compliance demo for VASP integration",
+  "scripts": {
+    "demo": "ts-node src/index.ts"
+  },
+  "dependencies": {
+    "ethers": "^6.13",
+    "axios": "^1.7"
+  },
+  "devDependencies": {
+    "ts-node": "^10",
+    "typescript": "^5.7"
+  }
+}

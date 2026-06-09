@@ -1,0 +1,29 @@
+name = "cinacoin-router"
+main = "src/index.js"
+compatibility_date = "2026-06-04"
+account_id = "7ea8e46d8210bad342fa7595f7935fea"
+
+# Narrowly scoped routes — only intercept the consolidated subpaths so the
+# apex (cinacoin.com/) keeps being served directly by the website Pages
+# project until the full cutover. Expand this list as more zones are added.
+routes = [
+  { pattern = "cinacoin.com/wallets", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+  { pattern = "cinacoin.com/wallets/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+  { pattern = "cinacoin.com/docs", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+  { pattern = "cinacoin.com/docs/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+  { pattern = "cinacoin.com/demo", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+  { pattern = "cinacoin.com/demo/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+  { pattern = "cinacoin.com/dashboard", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+  { pattern = "cinacoin.com/dashboard/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+  { pattern = "cinacoin.com/analytics", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+  { pattern = "cinacoin.com/analytics/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+
+  # Retired subdomains — the Worker 301s every path to the canonical
+  # cinacoin.com/<zone>/. Requires the Pages custom domain to be removed
+  # from each project + a proxied DNS record so the route attaches.
+  { pattern = "demo.cinacoin.com/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+  { pattern = "wallet.cinacoin.com/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+  { pattern = "cloud.cinacoin.com/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+  { pattern = "analytics.cinacoin.com/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+  { pattern = "docs.cinacoin.com/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+]

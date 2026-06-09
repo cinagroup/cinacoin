@@ -1,0 +1,121 @@
+[
+  {
+    "name": "Cinacoin Health Status",
+    "slug": "status",
+    "url": "https://status.cinacoin.com",
+    "pages": [
+      {
+        "label": "desktop",
+        "title": "Cinacoin — Service Status",
+        "status": 200,
+        "h1s": [
+          "Cinacoin"
+        ],
+        "links": 3,
+        "hasNav": true,
+        "hasFooter": true,
+        "jsErrors": [
+          "Access to fetch at 'https://www.npmjs.com/package/@cinacoin/core-sdk' from origin 'https://status.cinacoin.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+          "Failed to load resource: net::ERR_FAILED",
+          "Failed to load resource: net::ERR_BLOCKED_BY_RESPONSE.NotSameOrigin",
+          "Failed to load resource: net::ERR_BLOCKED_BY_RESPONSE.NotSameOrigin",
+          "Failed to load resource: net::ERR_BLOCKED_BY_RESPONSE.NotSameOrigin",
+          "Failed to load resource: net::ERR_BLOCKED_BY_RESPONSE.NotSameOrigin"
+        ],
+        "bodyText": "Cinacoin\n\nService Status\n\nEN\n中文\nAuto-refresh\nRefresh\nSystem Outage\n\nLast checked at 11:15:54 PM\n\nServices\nMain Website\n\nCinaCoin official website — product overview and documentation\n\nstatusHealthy\nResponse Time\n\n701ms\n\nUptime (7d)\n\n100.00%\n\nLast Check\n\n11:15:54 PM\n\nDemo App\n\nInteractive demo — wall",
+        "screenshot": "/home/cina/.openclaw/workspace/screenshots/audit/status-desktop.png"
+      },
+      {
+        "label": "mobile",
+        "title": "Cinacoin — Service Status",
+        "status": 200,
+        "h1s": [
+          "Cinacoin"
+        ],
+        "links": 3,
+        "hasNav": true,
+        "hasFooter": true,
+        "jsErrors": [
+          "Access to fetch at 'https://www.npmjs.com/package/@cinacoin/core-sdk' from origin 'https://status.cinacoin.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+          "Failed to load resource: net::ERR_FAILED",
+          "Failed to load resource: net::ERR_BLOCKED_BY_RESPONSE.NotSameOrigin",
+          "Failed to load resource: net::ERR_BLOCKED_BY_RESPONSE.NotSameOrigin",
+          "Failed to load resource: net::ERR_BLOCKED_BY_RESPONSE.NotSameOrigin",
+          "Failed to load resource: net::ERR_BLOCKED_BY_RESPONSE.NotSameOrigin"
+        ],
+        "bodyText": "Cinacoin\n\nService Status\n\nEN\n中文\nAuto-refresh\nRefresh\nSystem Outage\n\nLast checked at 11:15:58 PM\n\nServices\nMain Website\n\nCinaCoin official website — product overview and documentation\n\nstatusHealthy\nResponse Time\n\n692ms\n\nUptime (7d)\n\n100.00%\n\nLast Check\n\n11:15:58 PM\n\nDemo App\n\nInteractive demo — wall",
+        "screenshot": "/home/cina/.openclaw/workspace/screenshots/audit/status-mobile.png"
+      },
+      {
+        "label": "dark",
+        "title": "Cinacoin — Service Status",
+        "status": 200,
+        "h1s": [
+          "Cinacoin"
+        ],
+        "links": 3,
+        "hasNav": true,
+        "hasFooter": true,
+        "jsErrors": [
+          "Access to fetch at 'https://www.npmjs.com/package/@cinacoin/core-sdk' from origin 'https://status.cinacoin.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+          "Failed to load resource: net::ERR_FAILED",
+          "Failed to load resource: net::ERR_BLOCKED_BY_RESPONSE.NotSameOrigin",
+          "Failed to load resource: net::ERR_BLOCKED_BY_RESPONSE.NotSameOrigin",
+          "Failed to load resource: net::ERR_BLOCKED_BY_RESPONSE.NotSameOrigin",
+          "Failed to load resource: net::ERR_BLOCKED_BY_RESPONSE.NotSameOrigin"
+        ],
+        "bodyText": "Cinacoin\n\nService Status\n\nEN\n中文\nAuto-refresh\nRefresh\nSystem Outage\n\nLast checked at 11:16:03 PM\n\nServices\nMain Website\n\nCinaCoin official website — product overview and documentation\n\nstatusHealthy\nResponse Time\n\n867ms\n\nUptime (7d)\n\n100.00%\n\nLast Check\n\n11:16:02 PM\n\nDemo App\n\nInteractive demo — wall",
+        "screenshot": "/home/cina/.openclaw/workspace/screenshots/audit/status-dark.png"
+      }
+    ]
+  },
+  {
+    "name": "Cinacoin Website",
+    "slug": "website",
+    "url": "https://cinacoin.com",
+    "pages": [
+      {
+        "label": "desktop",
+        "title": "Cinacoin — Onchain Access, Simplified",
+        "status": 200,
+        "h1s": [
+          "Connect any wallet, to any chain."
+        ],
+        "links": 20,
+        "hasNav": true,
+        "hasFooter": true,
+        "jsErrors": [],
+        "bodyText": "Cinacoin\nProducts\nPricing\nDocs\nGitHub\nDashboard\nEN\nGet Started\nIntroducing Cinacoin SDK v2.0\n→\nConnect any wallet, to any chain.\n\nThe onchain infrastructure for seamless cross-chain experiences. One SDK for authentication, transactions, and wallet connectivity.\n\nStart Building →\nView on GitHub\nimpor",
+        "screenshot": "/home/cina/.openclaw/workspace/screenshots/audit/website-desktop.png"
+      },
+      {
+        "label": "mobile",
+        "title": "Cinacoin — Onchain Access, Simplified",
+        "status": 200,
+        "h1s": [
+          "Connect any wallet, to any chain."
+        ],
+        "links": 20,
+        "hasNav": true,
+        "hasFooter": true,
+        "jsErrors": [],
+        "bodyText": "Cinacoin\nEN\nIntroducing Cinacoin SDK v2.0\n→\nConnect any wallet, to any chain.\n\nThe onchain infrastructure for seamless cross-chain experiences. One SDK for authentication, transactions, and wallet connectivity.\n\nStart Building →\nView on GitHub\nimport { CinacoinProvider } from '@cinacoin/react'\n\n<Cin",
+        "screenshot": "/home/cina/.openclaw/workspace/screenshots/audit/website-mobile.png"
+      },
+      {
+        "label": "dark",
+        "title": "Cinacoin — Onchain Access, Simplified",
+        "status": 200,
+        "h1s": [
+          "Connect any wallet, to any chain."
+        ],
+        "links": 20,
+        "hasNav": true,
+        "hasFooter": true,
+        "jsErrors": [],
+        "bodyText": "Cinacoin\nProducts\nPricing\nDocs\nGitHub\nDashboard\nEN\nGet Started\nIntroducing Cinacoin SDK v2.0\n→\nConnect any wallet, to any chain.\n\nThe onchain infrastructure for seamless cross-chain experiences. One SDK for authentication, transactions, and wallet connectivity.\n\nStart Building →\nView on GitHub\nimpor",
+        "screenshot": "/home/cina/.openclaw/workspace/screenshots/audit/website-dark.png"
+      }
+    ]
+  }
+]

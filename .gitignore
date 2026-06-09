@@ -1,62 +1,72 @@
-# Node.js
+# Dependencies
 node_modules/
-**/node_modules/
-*.local
-.env
+.pnpm-store/
 
-# Build output
+# Build outputs
 dist/
-**/dist/
+out/
 .next/
-.turbo/
+.wrangler/
 
-# Build cache
-cache/
-**/cache/
+# Environment and secrets
+.env
+.env.local
+.env.production
+.dev.vars
+*.key
+*.pem
+
+# OpenClaw internal
+.openclaw/
+.memory-*.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
 
 # OS
 .DS_Store
 Thumbs.db
 
-# IDE
-.vscode/*
-!.vscode/extensions.json
-!.vscode/settings.json
-
 # Logs
 *.log
 npm-debug.log*
 
-# Coverage
+# Test coverage
 coverage/
-**/coverage/
-.wrangler/
+.nyc_output/
 
-# Large generated build artifacts
-apps/demo/test-results/
-apps/demo/tests/playwright-report/
-packages/*/dist/
-packages/push-server/target/
-*/target/
-packages/nuxt/.nuxt/
-.open-next/
-apps/*/out/
+# Temporary files
+*.tmp
+*.bak
+*.cache
 
-# Compiled TS output must never be committed next to source. These shadow
-# fresh builds (esbuild/tsup prefer an existing .js over the .ts) and serve
-# stale/broken code (e.g. ens.js importing "./types.js.js"). Only .js and
-# source-map output is ignored — authored ambient declarations (vite-env.d.ts,
-# shims-vue.d.ts, native module shims) use .d.ts and are kept. The single
-# authored .js under src/ is the router Worker (negated).
-**/src/**/*.js
-**/src/**/*.js.map
-**/src/**/*.d.ts.map
-!workers/router/src/**/*.js
+# Keys and credentials
+keys/
+secrets/
 
-# Docusaurus
-apps/docs-site/.docusaurus/
-apps/docs-site/build/
+# Screenshots (too large for GitHub)
+*.png
+*.jpg
+*.jpeg
+*.gif
 
-# Production secrets
-.env.production
-.env.production.new
+# Memory reports (keep in workspace only)
+memory/working/*.md
+# Binaries
+cinad
+*.exe
+*.dll
+*.so
+*.dylib
+*.node
+
+# Build cache
+.next/
+.cache/
+
+# Lock files (too large)
+pnpm-lock.yaml
+package-lock.json

@@ -1,0 +1,44 @@
+{
+  "name": "@cinacoin/multiwallet",
+  "version": "0.2.0",
+  "description": "Multi-wallet linking: manage multiple wallet connections simultaneously across namespaces.",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc --build",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "18.3.12",
+    "react": "^18.2.0"
+  },
+  "dependencies": {
+    "@cinacoin/core-sdk": "^0.2.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cinagroup/Cinacoin.git",
+    "directory": "packages/multiwallet"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  }
+}
