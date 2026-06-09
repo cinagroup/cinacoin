@@ -69,4 +69,3 @@ cinad
 
 # Lock files (too large)
 pnpm-lock.yaml
-package-lock.json
