@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { NewsletterForm } from './NewsletterForm';
 
 const footerLinks = {
   Product: [
@@ -56,6 +57,15 @@ export default function Footer() {
               </ul>
             </div>
           ))}
+        </div>
+
+        {/* Newsletter in Footer */}
+        <div className="mb-12 pb-12 border-b border-[#ebebeb]">
+          <div className="max-w-md mx-auto text-center">
+            <h4 className="text-[14px] font-semibold text-[#171717] mb-2">Stay Updated</h4>
+            <p className="text-[12px] text-[#888888] mb-4">Get the latest news and updates</p>
+            <NewsletterForm source="footer" />
+          </div>
         </div>
 
         {/* Bottom Bar */}

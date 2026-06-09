@@ -13,6 +13,11 @@ zone_name = "cinacoin.com"
 binding = "RATE_LIMIT_KV"
 id = "dceb86e5cb4c4a008013c8cf21d7181c"
 
+# KV Namespace for A/B testing & analytics
+[[kv_namespaces]]
+binding = "ANALYTICS_KV"
+id = "7d875f79c8c745b2bc4b313062b8be88"
+
 # Service Bindings
 [[services]]
 binding = "AUTH_SERVICE"

@@ -17,6 +17,7 @@ import users from './routes/users';
 import teams from './routes/teams';
 import permissions from './routes/permissions';
 import apiKeys from './routes/api-keys';
+import newsletter from './routes/newsletter';
 import { withRateLimit } from './middleware/rate-limit';
 
 // ─── App Setup ────────────────────────────────────────────────────────────────
@@ -126,6 +127,7 @@ app.route('/api/users', users);
 app.route('/api/teams', teams);
 app.route('/api/permissions', permissions);
 app.route('/api/api-keys', apiKeys);
+app.route('/api/newsletter', newsletter);
 
 // ─── Error Handling ───────────────────────────────────────────────────────────
 

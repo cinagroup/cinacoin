@@ -454,6 +454,24 @@ const translations: Record<Locale, Record<string, string>> = {
     'cookies-s7-p': 'We may update this Cookie Policy periodically. Changes will be posted on this page with an updated "Last updated" date.',
     'cookies-s8-title': '8. Contact Us',
     'cookies-s8-p': 'If you have questions about our use of cookies, please contact us at <a href="/contact">our Contact page</a>.',
+    // Search
+    'search.placeholder': 'Search...',
+    'search.min_chars': 'Type at least 2 characters',
+    'search.no_results': 'No results found',
+    'search.navigate': 'Navigate',
+    'search.select': 'Select',
+    'search.close': 'Close',
+    'search.loading': 'Searching...',
+    // Newsletter
+    'newsletter.title': 'Stay in the Loop',
+    'newsletter.subtitle': 'Get the latest CINAcoin news, product updates, and insights delivered to your inbox.',
+    'newsletter.subscribe': 'Subscribe',
+    'newsletter.subscribing': 'Subscribing...',
+    'newsletter.name_placeholder': 'Name (optional)',
+    'newsletter.email_placeholder': 'Email address',
+    'newsletter.check_email': 'Check your email to verify your subscription!',
+    'newsletter.already_subscribed': 'You are already subscribed!',
+    'newsletter.error': 'Something went wrong. Please try again.',
   },
   zh: {
     // Navigation
@@ -897,6 +915,24 @@ const translations: Record<Locale, Record<string, string>> = {
     'cookies-s7-p': '我们可能会定期更新本 Cookie 政策。变更将发布在本页面并附带更新的"最后更新"日期。',
     'cookies-s8-title': '8. 联系我们',
     'cookies-s8-p': '如果您对我们使用 Cookie 有任何疑问，请通过<a href="/contact">联系页面</a>联系我们。',
+    // Search
+    'search.placeholder': '搜索...',
+    'search.min_chars': '请输入至少 2 个字符',
+    'search.no_results': '未找到结果',
+    'search.navigate': '导航',
+    'search.select': '选择',
+    'search.close': '关闭',
+    'search.loading': '搜索中...',
+    // Newsletter
+    'newsletter.title': '保持联系',
+    'newsletter.subtitle': '获取最新的 CINAcoin 新闻、产品更新和行业洞察，直接发送到您的邮箱。',
+    'newsletter.subscribe': '订阅',
+    'newsletter.subscribing': '订阅中...',
+    'newsletter.name_placeholder': '姓名（可选）',
+    'newsletter.email_placeholder': '邮箱地址',
+    'newsletter.check_email': '请查看邮箱以验证您的订阅！',
+    'newsletter.already_subscribed': '您已经订阅过了！',
+    'newsletter.error': '出现错误，请重试。',
   },
 }
 

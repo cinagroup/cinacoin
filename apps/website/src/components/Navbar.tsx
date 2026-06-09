@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import { Brand } from '@cinacoin/ui'
 import { useTheme } from '@/providers/ThemeProvider'
 import { useI18n, type Locale } from '@/providers/I18nProvider'
+import { GlobalSearch } from './GlobalSearch'
 
 export default function Navbar() {
   const pathname = usePathname()
@@ -77,6 +78,7 @@ export default function Navbar() {
 
         {/* Desktop actions */}
         <div className="hidden sm:flex items-center gap-1">
+          <GlobalSearch />
 
           {/* Theme toggle */}
           <button

@@ -4,6 +4,7 @@ import { useAuth } from "@/lib/AuthProvider";
 import { aggregateStatusLabel, useWorkerHealth } from "@/hooks/useWorkerHealth";
 import { useTheme } from "@/providers/ThemeProvider";
 import { Brand } from "@cinacoin/ui";
+import { GlobalSearch } from "./GlobalSearch";
 
 interface HeaderProps {
   onMenuToggle: () => void;
@@ -53,6 +54,8 @@ export default function Header({ onMenuToggle, refreshInterval = 15000 }: Header
       </div>
 
       <div className="flex items-center gap-2 sm:gap-3">
+        <GlobalSearch />
+
         {/* Health status badge */}
         <span className="cc-badge">
           <span className={`w-1.5 h-1.5 rounded-full mr-1.5 ${dotColor}`} />

@@ -2,11 +2,15 @@ import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { logger } from 'hono/logger'
 import { withRateLimit, globalRateLimit } from './middleware/rate-limit'
+import abTesting from './routes/ab-testing'
+import search from './routes/search'
+import webVitals from './routes/analytics/web-vitals'
 
 export interface Env {
   AUTH_SERVICE: Fetcher
   USER_SERVICE: Fetcher
   RATE_LIMIT_KV: KVNamespace
+  ANALYTICS_KV: KVNamespace
   ENVIRONMENT: string
   API_VERSION: string
 }
@@ -54,6 +58,9 @@ app.get('/health', (c) => {
 })
 
 // API Routes
+app.route('/', search);
+app.route('/', webVitals);
+
 app.get('/', (c) => {
   return c.json({
     message: 'Cinacoin API Gateway',
@@ -92,6 +99,9 @@ app.all('/teams/*', withRateLimit('teams'), async (c) => {
   const request = new Request(url.toString(), c.req.raw)
   return c.env.USER_SERVICE.fetch(request)
 })
+
+// A/B Testing routes
+app.route('/', abTesting)
 
 // 404 handler
 app.notFound((c) => {

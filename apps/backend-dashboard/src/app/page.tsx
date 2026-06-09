@@ -2,6 +2,7 @@
 
 import { Sidebar } from "@/components/Sidebar";
 import { UserManagement } from "@/components/UserManagement";
+import { NewsletterSubscribers } from "@/components/NewsletterSubscribers";
 import { PermissionManagement } from "@/components/PermissionManagement";
 import { SystemConfig } from "@/components/SystemConfig";
 import { TwoFactorAuth } from "@/components/TwoFactorAuth";
@@ -73,6 +74,7 @@ export default function Home() {
           </header>
 
           {activeTab === "users" && <UserManagement />}
+          {activeTab === "newsletter" && <NewsletterSubscribers />}
           {activeTab === "permissions" && <PermissionManagement />}
           {activeTab === "2fa" && <TwoFactorAuth />}
           {activeTab === "audit" && <AuditLog />}

@@ -8,6 +8,7 @@ interface SidebarProps {
 
 const navItems = [
   { id: "users", name: "User Management", icon: "👥" },
+  { id: "newsletter", name: "Newsletter", icon: "📧" },
   { id: "permissions", name: "Permissions", icon: "🔐" },
   { id: "2fa", name: "Two-Factor Auth", icon: "🛡️" },
   { id: "audit", name: "Audit Log", icon: "📋" },
