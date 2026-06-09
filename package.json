@@ -50,7 +50,7 @@
     "@changesets/cli": "^2.27.1",
     "@playwright/test": "^1.60.0",
     "@testing-library/jest-dom": "^6.9.1",
-    "@testing-library/react": "^14.0.0",
+    "@testing-library/react": "^16.3.2",
     "@types/node": "^22.0.0",
     "@types/ws": "^8.5.0",
     "@vitest/coverage-v8": "2",
