@@ -34,6 +34,12 @@ export interface UserRecord {
   role: UserRole;
   status: UserStatus;
   auth_type: AuthType;
+  mfa_enabled: number;
+  mfa_required: number;
+  two_factor_secret: string | null;
+  two_factor_backup_codes: string | null;
+  two_factor_enforced_at: string | null;
+  two_factor_grace_period_days: number;
   email_verified_at: string | null;
   last_login_at: string | null;
   created_at: string;
@@ -70,6 +76,7 @@ export interface TokenPayload {
   sub: string;
   email: string;
   role: string;
+  jti: string;
   type: 'access' | 'refresh';
   iss: string;
   aud: string;

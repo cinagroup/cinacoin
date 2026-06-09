@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Sidebar from "@/components/Sidebar";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import ServiceStatus from "@/components/ServiceStatus";
 import ResourceTable from "@/components/ResourceTable";
 import QuotaUsage from "@/components/QuotaUsage";
@@ -51,6 +52,7 @@ export default function Home() {
             </div>
           </div>
         </header>
+        <Breadcrumbs />
 
         {/* Page Content */}
         <main className="flex-1 p-6 overflow-auto">

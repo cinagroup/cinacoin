@@ -51,43 +51,36 @@ auth.post('/login', withRateLimit('login'), async (c) => {
       return c.json({ error: 'Unauthorized', message: 'Invalid email or password' }, 401);
     }
 
-    // Check if MFA is enabled
+    // 2FA is now MANDATORY for all users
     const totpMethod = await getUserTotpMethod(c.env.DB, user.id);
 
     if (totpMethod && totpMethod.is_enabled) {
-      // MFA required - create temporary session token
+      // User has 2FA enabled - require MFA verification
       const mfaToken = await createMfaSession(c.env.DB, user.id);
 
       return c.json({
         success: true,
         data: {
           mfaRequired: true,
+          mfaSetupRequired: false,
           mfaToken,
           mfaTokenExpiresIn: 300,
         },
       });
     }
 
-    // No MFA - issue tokens directly
-    await updateLastLogin(c.env.DB, user.id);
-
-    const tokens = await generateTokenPair(
-      { sub: user.id, email: user.email, role: user.role },
-      c.env
-    );
-
-    // Record refresh token for rotation
-    await recordTokenIssuance(c.env.DB, user.id, tokens.refreshToken, {
-      ipAddress: c.req.header('x-forwarded-for') || c.req.header('x-real-ip'),
-      userAgent: c.req.header('user-agent'),
-    });
+    // 2FA is mandatory but not set up — require setup before issuing tokens
+    // Create a temporary MFA session for the setup flow
+    const mfaToken = await createMfaSession(c.env.DB, user.id);
 
     return c.json({
       success: true,
       data: {
-        ...tokens,
-        tokenType: 'Bearer' as const,
-        user: toPublicUser(user),
+        mfaRequired: true,
+        mfaSetupRequired: true,
+        mfaToken,
+        mfaTokenExpiresIn: 300,
+        message: 'Two-factor authentication is required. Please set up 2FA to continue.',
       },
     });
   } catch (error) {

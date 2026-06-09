@@ -13,11 +13,16 @@ import registerRoute from './routes/auth/register.js';
 import logoutRoute from './routes/auth/logout.js';
 import refreshRoute from './routes/auth/refresh.js';
 import meRoute from './routes/auth/me.js';
+import sessionsRoute from './routes/auth/sessions.js';
 import changePasswordRoute from './routes/auth/change-password.js';
 import mfaRoutes from './routes/mfa/index.js';
 import oauthRoutes from './routes/oauth/index.js';
+import twoFaStatusRoute from './routes/auth/2fa-status.js';
 import { oneClickAuthRoutes } from './one-click-auth/index.js';
+import { enforceTwoFactor } from './middleware/2fa-enforce.js';
+import csrfTokenRoute from './routes/auth/csrf-token.js';
 import { requireCsrf } from './middleware/csrf.js';
+import { withRateLimit } from './middleware/rate-limit.js';
 
 const app = new Hono<{ Bindings: Env }>();
 
@@ -44,7 +49,7 @@ app.use('*', async (c, next) => {
   const corsMiddleware = cors({
     origin: ['https://cinacoin.com', 'https://wallet.cinacoin.com', 'https://backend.cinacoin.com'],
     allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowHeaders: ['Content-Type', 'Authorization', 'X-CSRF-Token'],
+    allowHeaders: ['Content-Type', 'Authorization', 'X-CSRF-Token', 'X-Session-ID'],
     credentials: true,
   });
   return corsMiddleware(c, next);
@@ -64,12 +69,22 @@ app.get('/health', (c) => {
 // CSRF protection for state-changing authenticated requests
 app.use('/auth/*', requireCsrf);
 
-// Mount routes
+// Rate limiting for sensitive endpoints
+app.post('/auth/login', withRateLimit('login'));
+app.post('/auth/register', withRateLimit('register'));
+app.post('/auth/password-reset', withRateLimit('passwordReset'));
+app.post('/auth/mfa/verify', withRateLimit('mfaVerify'));
+app.use('/auth/oauth/*', withRateLimit('oauth'));
+
+// Mount routes (csrf-token must be before requireCsrf middleware)
+app.route('/auth', csrfTokenRoute);
 app.route('/auth', loginRoute);
 app.route('/auth', registerRoute);
 app.route('/auth', logoutRoute);
 app.route('/auth', refreshRoute);
+app.route('/auth', twoFaStatusRoute);
 app.route('/auth', meRoute);
+app.route('/auth', sessionsRoute);
 app.route('/auth', changePasswordRoute);
 app.route('/auth/mfa', mfaRoutes);
 app.route('/auth/oauth', oauthRoutes);

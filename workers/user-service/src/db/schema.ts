@@ -19,6 +19,11 @@ export interface User {
   avatar_url: string | null;
   auth_type: AuthType;
   status: UserStatus;
+  two_factor_enabled: boolean;
+  two_factor_secret: string | null;
+  two_factor_backup_codes: string | null; // JSON array
+  two_factor_enforced_at: string | null;
+  two_factor_grace_period_days: number;
   created_at: number; // Unix timestamp (seconds)
   updated_at: number;
 }

@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
   // correct under the subpath.
   basePath: '/demo',
   assetPrefix: '/demo',
+  trailingSlash: true,
   transpilePackages: ['@cinacoin/core-sdk', '@cinacoin/core-ui', '@cinacoin/react'],
 
   async headers() {

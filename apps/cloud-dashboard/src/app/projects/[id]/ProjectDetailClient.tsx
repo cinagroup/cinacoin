@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { ApiKeyManager } from "@/components/ApiKeyManager";
 import { UsageChart } from "@/components/UsageChart";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { getUsageStats } from "@/lib/api";
 
 interface UsageDataPoint {
@@ -56,6 +57,7 @@ export function ProjectDetailClient({ projectId, project }: ProjectDetailClientP
 
   return (
     <main id="main-content" className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <Breadcrumbs />
         <div className="mb-6">
           <a href="/projects" className="text-sm text-[var(--cc-muted)] hover:text-[var(--cc-ink)]">
             ← Back to Projects

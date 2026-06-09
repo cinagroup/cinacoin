@@ -1,7 +1,7 @@
 /**
  * CSRF protection middleware for Hono
- * Validates X-CSRF-Token header for state-changing requests (POST/PUT/DELETE)
- * on authenticated routes. Self-contained: extracts user from JWT independently.
+ * Validates X-CSRF-Token header for state-changing requests (POST/PUT/DELETE/PATCH)
+ * Uses session-based CSRF tokens stored in KV.
  */
 import { Context, Next } from 'hono';
 import type { Env } from '../lib/types.js';
@@ -17,7 +17,7 @@ export type CsrfContext = Context<{
 const SAFE_METHODS = ['GET', 'HEAD', 'OPTIONS'];
 
 // Public endpoints that don't need CSRF (no existing session to hijack)
-const CSRF_EXEMPT_PATHS = ['/auth/login', '/auth/register'];
+const CSRF_EXEMPT_PATHS = ['/auth/login', '/auth/register', '/auth/csrf-token'];
 
 /**
  * Generate a cryptographically random CSRF token
@@ -31,15 +31,15 @@ export async function generateCsrfToken(): Promise<string> {
 }
 
 /**
- * Store a CSRF token in KV, tied to a user ID
+ * Store a CSRF token in KV, tied to a session ID
  */
 export async function storeCsrfToken(
   kv: KVNamespace,
-  userId: string,
+  sessionId: string,
   token: string,
-  ttlSeconds: number = 604800 // 7 days
+  ttlSeconds: number = 86400 // 24 hours
 ): Promise<void> {
-  await kv.put(`csrf:${userId}`, token, { expirationTtl: ttlSeconds });
+  await kv.put(`csrf:${sessionId}`, token, { expirationTtl: ttlSeconds });
 }
 
 /**
@@ -47,10 +47,10 @@ export async function storeCsrfToken(
  */
 export async function validateCsrfToken(
   kv: KVNamespace,
-  userId: string,
+  sessionId: string,
   token: string
 ): Promise<boolean> {
-  const stored = await kv.get(`csrf:${userId}`);
+  const stored = await kv.get(`csrf:${sessionId}`);
   if (!stored) return false;
   if (stored.length !== token.length) return false;
   let mismatch = 0;
@@ -61,10 +61,22 @@ export async function validateCsrfToken(
 }
 
 /**
+ * Delete a CSRF token from KV (one-time use)
+ */
+export async function deleteCsrfToken(
+  kv: KVNamespace,
+  sessionId: string
+): Promise<void> {
+  await kv.delete(`csrf:${sessionId}`);
+}
+
+/**
  * CSRF protection middleware
  * - Skips safe methods (GET, HEAD, OPTIONS)
- * - Skips exempt paths (login, register — no session to hijack)
- * - For other state-changing requests: extracts user from JWT, validates CSRF token against KV
+ * - Skips exempt paths (login, register, csrf-token — no session to hijack)
+ * - For state-changing requests: validates CSRF token against session ID in KV
+ * - Falls back to JWT user ID validation for backward compatibility
+ * - Deletes token after successful validation (one-time use)
  */
 export async function requireCsrf(c: CsrfContext, next: Next) {
   // Skip CSRF check for safe methods
@@ -73,7 +85,7 @@ export async function requireCsrf(c: CsrfContext, next: Next) {
     return;
   }
 
-  // Skip CSRF for public endpoints (login/register have no existing session)
+  // Skip CSRF for public endpoints (login/register/csrf-token have no existing session)
   const path = new URL(c.req.url).pathname;
   if (CSRF_EXEMPT_PATHS.some((p) => path.endsWith(p))) {
     await next();
@@ -81,43 +93,47 @@ export async function requireCsrf(c: CsrfContext, next: Next) {
   }
 
   const csrfToken = c.req.header('X-CSRF-Token');
+  const sessionId = c.req.header('X-Session-ID');
 
-  if (!csrfToken) {
+  if (!csrfToken || !sessionId) {
     return c.json(
-      { error: 'Forbidden', message: 'Missing CSRF token' },
+      { error: 'Forbidden', message: 'Missing CSRF token or session ID' },
       403
     );
   }
 
-  // Extract user from JWT to look up CSRF token in KV
-  const authHeader = c.req.header('Authorization');
-  if (!authHeader) {
-    // No auth header means requireAuth will reject it anyway; let it pass through
-    await next();
-    return;
-  }
-
-  const [scheme, token] = authHeader.split(' ');
-  if (scheme !== 'Bearer' || !token) {
-    await next();
-    return;
-  }
-
-  try {
-    const payload = await verifyAccessToken(token, c.env);
-    const isValid = await validateCsrfToken(c.env.KV, payload.sub, csrfToken);
-    if (!isValid) {
-      return c.json(
-        { error: 'Forbidden', message: 'Invalid CSRF token' },
-        403
-      );
-    }
+  // Try session-based validation first
+  const isValid = await validateCsrfToken(c.env.KV, sessionId, csrfToken);
+  if (isValid) {
+    // Delete token after successful validation (one-time use)
+    await deleteCsrfToken(c.env.KV, sessionId);
     c.set('csrfValidated', true);
-  } catch {
-    // If JWT is invalid, let requireAuth handle the 401
     await next();
     return;
   }
 
-  await next();
+  // Fallback: try JWT user ID-based validation for backward compatibility
+  const authHeader = c.req.header('Authorization');
+  if (authHeader) {
+    const [scheme, token] = authHeader.split(' ');
+    if (scheme === 'Bearer' && token) {
+      try {
+        const payload = await verifyAccessToken(token, c.env);
+        const isValidUser = await validateCsrfToken(c.env.KV, payload.sub, csrfToken);
+        if (isValidUser) {
+          await deleteCsrfToken(c.env.KV, payload.sub);
+          c.set('csrfValidated', true);
+          await next();
+          return;
+        }
+      } catch {
+        // JWT invalid, fall through to rejection
+      }
+    }
+  }
+
+  return c.json(
+    { error: 'Forbidden', message: 'Invalid or expired CSRF token' },
+    403
+  );
 }

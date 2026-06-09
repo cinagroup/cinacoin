@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
+import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { useI18n } from '@/providers/I18nProvider'
 
 type FormStatus = 'idle' | 'submitting' | 'success' | 'error'
@@ -44,6 +45,7 @@ export default function ContactContent() {
   return (
     <>
       <Navbar />
+      <Breadcrumbs />
 
       {/* Hero */}
       <section className="relative pt-32 pb-16 sm:pt-40 sm:pb-20">

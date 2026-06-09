@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Sidebar from "@/components/Sidebar";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 interface Invoice {
   id: string;
@@ -49,6 +50,7 @@ export default function BillingPage() {
           </button>
           <h1 className="text-body-sm font-medium text-ink">Billing</h1>
         </header>
+        <Breadcrumbs />
 
         <main className="flex-1 p-6 overflow-auto">
           <div className="max-w-4xl">

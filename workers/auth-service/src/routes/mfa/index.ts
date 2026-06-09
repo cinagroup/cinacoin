@@ -194,10 +194,28 @@ mfa.post('/verify-login', withRateLimit('mfaVerify'), async (c) => {
       c.env
     );
 
+    // Store active session in KV for session management & revocation
+    const nowSec = Math.floor(Date.now() / 1000);
+    const accessExpiresIn = parseInt(c.env.JWT_EXPIRES_IN) || 900;
+    const sessionData = JSON.stringify({
+      jti: tokens.accessJti,
+      userId: user.id,
+      email: user.email,
+      issuedAt: new Date(nowSec * 1000).toISOString(),
+      expiresAt: new Date((nowSec + accessExpiresIn) * 1000).toISOString(),
+      ipAddress: c.req.header('x-forwarded-for') || c.req.header('x-real-ip'),
+      userAgent: c.req.header('user-agent'),
+    });
+    await c.env.KV.put(`session:${user.id}:${tokens.accessJti}`, sessionData, {
+      expirationTtl: accessExpiresIn,
+    });
+
     return c.json({
       success: true,
       data: {
-        ...tokens,
+        accessToken: tokens.accessToken,
+        refreshToken: tokens.refreshToken,
+        expiresIn: tokens.expiresIn,
         tokenType: 'Bearer' as const,
         user: toPublicUser(user),
       },
@@ -318,10 +336,28 @@ async function handleMfaLoginVerification(
     c.env
   );
 
+  // Store active session in KV for session management & revocation
+  const nowSec = Math.floor(Date.now() / 1000);
+  const accessExpiresIn = parseInt(c.env.JWT_EXPIRES_IN) || 900;
+  const sessionData = JSON.stringify({
+    jti: tokens.accessJti,
+    userId: user.id,
+    email: user.email,
+    issuedAt: new Date(nowSec * 1000).toISOString(),
+    expiresAt: new Date((nowSec + accessExpiresIn) * 1000).toISOString(),
+    ipAddress: c.req.header('x-forwarded-for') || c.req.header('x-real-ip'),
+    userAgent: c.req.header('user-agent'),
+  });
+  await c.env.KV.put(`session:${user.id}:${tokens.accessJti}`, sessionData, {
+    expirationTtl: accessExpiresIn,
+  });
+
   return c.json({
     success: true,
     data: {
-      ...tokens,
+      accessToken: tokens.accessToken,
+      refreshToken: tokens.refreshToken,
+      expiresIn: tokens.expiresIn,
       tokenType: 'Bearer' as const,
       user: toPublicUser(user),
     },

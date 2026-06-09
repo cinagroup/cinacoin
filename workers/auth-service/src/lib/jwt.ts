@@ -4,6 +4,7 @@
  */
 import { SignJWT, jwtVerify } from 'jose';
 import type { Env, TokenPayload } from './types.js';
+import { uuidv4 } from './utils.js';
 
 export interface AccessTokenPayload extends Omit<TokenPayload, 'type'> {
   type: 'access';
@@ -16,6 +17,8 @@ export interface RefreshTokenPayload extends Omit<TokenPayload, 'type'> {
 export interface TokenPair {
   accessToken: string;
   refreshToken: string;
+  accessJti: string;
+  refreshJti: string;
   expiresIn: number;
 }
 
@@ -25,11 +28,12 @@ export interface TokenPair {
 export async function generateAccessToken(
   payload: { sub: string; email: string; role: string },
   env: Env
-): Promise<string> {
+): Promise<{ token: string; jti: string }> {
   const secret = new TextEncoder().encode(env.JWT_SECRET);
   const expiresIn = parseInt(env.JWT_EXPIRES_IN) || 900; // 15 minutes default
+  const jti = uuidv4();
 
-  const token = await new SignJWT({ ...payload, type: 'access' })
+  const token = await new SignJWT({ ...payload, type: 'access', jti })
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
     .setIssuer(env.JWT_ISSUER)
@@ -37,7 +41,7 @@ export async function generateAccessToken(
     .setExpirationTime(Math.floor(Date.now() / 1000) + expiresIn)
     .sign(secret);
 
-  return token;
+  return { token, jti };
 }
 
 /**
@@ -46,11 +50,12 @@ export async function generateAccessToken(
 export async function generateRefreshToken(
   payload: { sub: string; email: string; role: string },
   env: Env
-): Promise<string> {
+): Promise<{ token: string; jti: string }> {
   const secret = new TextEncoder().encode(env.JWT_REFRESH_SECRET);
   const expiresIn = parseInt(env.JWT_REFRESH_EXPIRES_IN) || 604800; // 7 days default
+  const jti = uuidv4();
 
-  const token = await new SignJWT({ ...payload, type: 'refresh' })
+  const token = await new SignJWT({ ...payload, type: 'refresh', jti })
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
     .setIssuer(env.JWT_ISSUER)
@@ -58,7 +63,7 @@ export async function generateRefreshToken(
     .setExpirationTime(Math.floor(Date.now() / 1000) + expiresIn)
     .sign(secret);
 
-  return token;
+  return { token, jti };
 }
 
 /**
@@ -68,11 +73,17 @@ export async function generateTokenPair(
   payload: { sub: string; email: string; role: string },
   env: Env
 ): Promise<TokenPair> {
-  const accessToken = await generateAccessToken(payload, env);
-  const refreshToken = await generateRefreshToken(payload, env);
+  const accessResult = await generateAccessToken(payload, env);
+  const refreshResult = await generateRefreshToken(payload, env);
   const expiresIn = parseInt(env.JWT_EXPIRES_IN) || 900;
 
-  return { accessToken, refreshToken, expiresIn };
+  return {
+    accessToken: accessResult.token,
+    refreshToken: refreshResult.token,
+    accessJti: accessResult.jti,
+    refreshJti: refreshResult.jti,
+    expiresIn,
+  };
 }
 
 /**

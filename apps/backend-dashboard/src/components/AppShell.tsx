@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import { Sidebar } from "@/components/Sidebar";
 import Header from "@/components/Header";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { useState, useEffect } from "react";
 
 /**
@@ -60,6 +61,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
       <div className="flex-1 min-w-0">
         <Header onMenuToggle={() => setMobileSidebarOpen(!mobileSidebarOpen)} refreshInterval={refreshInterval} />
+        <Breadcrumbs />
         <main id="main-content" className="p-4 sm:p-6" role="main">{children}</main>
       </div>
     </div>

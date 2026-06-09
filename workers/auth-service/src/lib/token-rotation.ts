@@ -71,10 +71,11 @@ export async function rotateRefreshToken(
     .run();
 
   // Generate new refresh token
-  const newToken = await generateRefreshToken(
+  const newTokenResult = await generateRefreshToken(
     { sub: payload.sub, email: payload.email, role: payload.role },
     env
   );
+  const newToken = newTokenResult.token;
   const newTokenHash = await hashToken(newToken);
   const expiresAt = new Date(Date.now() + REFRESH_TTL_MS).toISOString();
 

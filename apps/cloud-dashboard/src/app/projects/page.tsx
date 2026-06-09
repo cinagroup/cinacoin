@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { listProjects } from "@/lib/api";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import type { Project } from "@/types";
 
 export default function ProjectsPage() {
@@ -22,6 +23,7 @@ export default function ProjectsPage() {
 
   return (
     <main id="main-content" className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <Breadcrumbs />
         <div className="mb-6 flex items-center justify-between">
           <div>
             <h1 className="cc-display-md text-[var(--cc-ink)]">Projects</h1>

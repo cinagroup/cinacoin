@@ -12,6 +12,7 @@ interface LocaleContextValue {
 
 const translations: Record<Locale, Record<string, string>> = {
   en: {
+    "nav-home": "Home",
     "nav-dashboard": "Dashboard",
     "nav-services": "Services",
     "nav-configuration": "Configuration",
@@ -25,6 +26,7 @@ const translations: Record<Locale, Record<string, string>> = {
     "nav-relay-server": "Relay Server",
     "nav-notify-server": "Notify Server",
     "nav-push-server": "Push Server",
+    "nav-chains": "Chains",
     "theme-light": "Light",
     "theme-dark": "Dark",
     "lang-en": "EN",
@@ -64,6 +66,7 @@ const translations: Record<Locale, Record<string, string>> = {
     "confirm": "Confirm",
   },
   zh: {
+    "nav-home": "\u9996\u9875",
     "nav-dashboard": "\u4eea\u8868\u76d8",
     "nav-services": "\u670d\u52a1",
     "nav-configuration": "\u914d\u7f6e",
@@ -77,6 +80,7 @@ const translations: Record<Locale, Record<string, string>> = {
     "nav-relay-server": "\u4e2d\u7ee7\u670d\u52a1\u5668",
     "nav-notify-server": "\u901a\u77e5\u670d\u52a1\u5668",
     "nav-push-server": "\u63a8\u9001\u670d\u52a1\u5668",
+    "nav-chains": "\u94fe",
     "theme-light": "\u6d45\u8272",
     "theme-dark": "\u6df1\u8272",
     "lang-en": "EN",

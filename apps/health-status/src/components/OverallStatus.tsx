@@ -7,9 +7,9 @@ interface OverallStatusProps {
 const config: Record<OverallStatusType, { label: string; color: string; bg: string; border: string; icon: string }> = {
   "all-operational": {
     label: "All Systems Operational",
-    color: "text-[var(--cc-success)]",
-    bg: "bg-[var(--cc-success)]/10",
-    border: "border-[var(--cc-success)]/20",
+    color: "text-[var(--color-operational)]",
+    bg: "bg-[var(--color-operational)]/10",
+    border: "border-[var(--color-operational)]/20",
     icon: "✓",
   },
   "partial-outage": {

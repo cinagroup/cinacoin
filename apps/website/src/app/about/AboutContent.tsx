@@ -4,6 +4,7 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
 import AnimatedNumber from '@/components/AnimatedNumber'
+import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { useI18n } from '@/providers/I18nProvider'
 
 const timelineData = [
@@ -21,6 +22,7 @@ export default function AboutContent() {
   return (
     <>
       <Navbar />
+      <Breadcrumbs />
 
       {/* Hero */}
       <section className="relative pt-32 pb-16 sm:pt-40 sm:pb-20">

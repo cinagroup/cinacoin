@@ -17,6 +17,7 @@ import users from './routes/users';
 import teams from './routes/teams';
 import permissions from './routes/permissions';
 import apiKeys from './routes/api-keys';
+import { withRateLimit } from './middleware/rate-limit';
 
 // ─── App Setup ────────────────────────────────────────────────────────────────
 
@@ -111,6 +112,13 @@ app.get('/health', async (c) => {
     );
   }
 });
+
+// ─── Rate Limiting ─────────────────────────────────────────────────────────────
+
+app.use('/api/users/*', withRateLimit('users'));
+app.use('/api/teams/*', withRateLimit('teams'));
+app.use('/api/api-keys/*', withRateLimit('apiKeys'));
+app.use('/api/*', withRateLimit('default'));
 
 // ─── API Routes ───────────────────────────────────────────────────────────────
 

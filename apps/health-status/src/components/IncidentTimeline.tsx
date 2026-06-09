@@ -16,7 +16,7 @@ interface Incident {
 }
 
 const statusColors: Record<IncidentStatus, { text: string; bg: string }> = {
-  resolved: { text: "text-[var(--cc-success)]", bg: "bg-[var(--cc-success)]/10" },
+  resolved: { text: "text-[var(--color-operational)]", bg: "bg-[var(--color-operational)]/10" },
   investigating: { text: "text-[var(--cc-warning)]", bg: "bg-[var(--cc-warning)]/10" },
   monitoring: { text: "text-[var(--cc-link)]", bg: "bg-[var(--cc-link)]/10" },
   identified: { text: "text-[var(--cc-warning)]", bg: "bg-[var(--cc-warning)]/10" },

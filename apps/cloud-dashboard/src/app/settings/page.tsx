@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Sidebar from "@/components/Sidebar";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export default function SettingsPage() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -32,6 +33,7 @@ export default function SettingsPage() {
           </button>
           <h1 className="text-body-sm font-medium text-ink">Settings</h1>
         </header>
+        <Breadcrumbs />
 
         <main className="flex-1 p-6 overflow-auto">
           <div className="max-w-3xl">

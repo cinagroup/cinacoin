@@ -3,6 +3,7 @@
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
+import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { useI18n } from '@/providers/I18nProvider'
 
 const tiers = [
@@ -75,6 +76,7 @@ export default function PricingContent() {
   return (
     <>
       <Navbar />
+      <Breadcrumbs />
 
       {/* Hero */}
       <section className="relative pt-32 pb-16 sm:pt-40 sm:pb-20">

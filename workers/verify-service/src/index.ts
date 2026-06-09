@@ -11,6 +11,7 @@ import type { Env } from './lib/types.js';
 import registerRoute from './routes/verify/register.js';
 import checkRoute from './routes/verify/check.js';
 import domainRoute from './routes/verify/domain.js';
+import { withRateLimit } from './middleware/rate-limit.js';
 
 const app = new Hono<{ Bindings: Env }>();
 
@@ -59,6 +60,11 @@ app.get('/', (c) => {
 app.get('/health', (c) => {
   return c.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
+
+// Rate limiting for verify endpoints
+app.use('/verify/check', withRateLimit('verifyCheck'));
+app.use('/verify/register', withRateLimit('verifyRegister'));
+app.use('/verify/domain', withRateLimit('verifyDomain'));
 
 // Register routes
 registerRoute(app);

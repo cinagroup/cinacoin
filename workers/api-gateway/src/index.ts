@@ -1,6 +1,7 @@
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { logger } from 'hono/logger'
+import { withRateLimit, globalRateLimit } from './middleware/rate-limit'
 
 export interface Env {
   AUTH_SERVICE: Fetcher
@@ -38,19 +39,8 @@ app.use('*', cors({
   credentials: true,
 }))
 
-// Rate limiting middleware
-async function rateLimit(kv: KVNamespace, key: string, max: number, windowMs: number) {
-  const now = Date.now()
-  const windowKey = `${key}:${Math.floor(now / windowMs)}`
-  const count = parseInt(await kv.get(windowKey) || '0')
-  
-  if (count >= max) {
-    return { allowed: false, remaining: 0, resetAt: Math.ceil((Math.floor(now / windowMs) + 1) * windowMs) }
-  }
-  
-  await kv.put(windowKey, String(count + 1), { expirationTtl: Math.ceil(windowMs / 1000) * 2 })
-  return { allowed: true, remaining: max - count - 1, resetAt: Math.ceil((Math.floor(now / windowMs) + 1) * windowMs) }
-}
+// Global rate limiting (1000 req/hour per IP)
+app.use('*', globalRateLimit())
 
 // Health check
 app.get('/health', (c) => {
@@ -78,12 +68,7 @@ app.get('/', (c) => {
 })
 
 // Auth routes - proxy to Auth Service (keeps /auth/* path)
-app.all('/auth/*', async (c) => {
-  const limit = await rateLimit(c.env.RATE_LIMIT_KV, `auth:${c.req.header('cf-connecting-ip') || 'unknown'}`, 100, 60000)
-  if (!limit.allowed) {
-    return c.json({ error: 'Rate limit exceeded', resetAt: limit.resetAt }, 429)
-  }
-  
+app.all('/auth/*', withRateLimit('auth'), async (c) => {
   const url = new URL(c.req.url)
   // Auth Service routes are mounted at /auth, keep path as-is
   const request = new Request(url.toString(), c.req.raw)
@@ -91,12 +76,7 @@ app.all('/auth/*', async (c) => {
 })
 
 // Users routes - proxy to User Service (map to /api/users/*)
-app.all('/users/*', async (c) => {
-  const limit = await rateLimit(c.env.RATE_LIMIT_KV, `users:${c.req.header('cf-connecting-ip') || 'unknown'}`, 200, 60000)
-  if (!limit.allowed) {
-    return c.json({ error: 'Rate limit exceeded', resetAt: limit.resetAt }, 429)
-  }
-  
+app.all('/users/*', withRateLimit('users'), async (c) => {
   const url = new URL(c.req.url)
   // User Service routes are at /api/users/*, map /users/* → /api/users/*
   url.pathname = '/api' + url.pathname
@@ -105,12 +85,7 @@ app.all('/users/*', async (c) => {
 })
 
 // Teams routes - proxy to User Service (map to /api/teams/*)
-app.all('/teams/*', async (c) => {
-  const limit = await rateLimit(c.env.RATE_LIMIT_KV, `teams:${c.req.header('cf-connecting-ip') || 'unknown'}`, 200, 60000)
-  if (!limit.allowed) {
-    return c.json({ error: 'Rate limit exceeded', resetAt: limit.resetAt }, 429)
-  }
-  
+app.all('/teams/*', withRateLimit('teams'), async (c) => {
   const url = new URL(c.req.url)
   // User Service routes are at /api/teams/*, map /teams/* → /api/teams/*
   url.pathname = '/api' + url.pathname

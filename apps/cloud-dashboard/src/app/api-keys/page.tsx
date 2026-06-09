@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Sidebar from "@/components/Sidebar";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 interface ApiKey {
   id: string;
@@ -73,6 +74,7 @@ export default function ApiKeysPage() {
           </button>
           <h1 className="text-body-sm font-medium text-ink">API Keys</h1>
         </header>
+        <Breadcrumbs />
 
         <main className="flex-1 p-6 overflow-auto">
           <div className="max-w-4xl">
