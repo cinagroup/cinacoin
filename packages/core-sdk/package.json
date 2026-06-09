@@ -33,11 +33,11 @@
     "@noble/ciphers": "^2.2.0",
     "@noble/curves": "^2.2.0",
     "@noble/hashes": "^2.2.0",
-    "viem": "^2.9.0",
+    "viem": "^2.52.2",
     "zustand": "^4.5.0"
   },
   "devDependencies": {
-    "@types/node": "^20.11.0",
+    "@types/node": "^20.19.42",
     "@vitest/coverage-v8": "1",
     "eslint": "^8.56.0",
     "jsdom": "^24.0.0",
