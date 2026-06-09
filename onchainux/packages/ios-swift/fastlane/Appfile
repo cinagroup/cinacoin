@@ -1,3 +1,0 @@
-app_identifier("com.onchainux.ios")
-itunes_conn_id(ENV["ITUNES_CONNECT_ID"])
-developer_portal_id(ENV["DEV_PORTAL_ID"])

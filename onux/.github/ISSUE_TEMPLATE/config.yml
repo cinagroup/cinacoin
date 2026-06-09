@@ -1,8 +1,0 @@
-blank_issues_enabled: true
-contact_links:
-  - name: 📖 Documentation
-    url: https://docs.cinacoin.io
-    about: Check our documentation for guides, API references, and examples.
-  - name: 💬 Discord Community
-    url: https://discord.gg/cinacoin
-    about: Ask questions and chat with the community.

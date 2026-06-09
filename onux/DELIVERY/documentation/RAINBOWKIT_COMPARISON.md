@@ -1,1 +1,0 @@
-../../RAINBOWKIT_COMPARISON.md

@@ -1,1 +1,0 @@
-../../OPENFORT_COMPARISON.md
