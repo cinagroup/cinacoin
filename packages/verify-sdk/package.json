@@ -33,6 +33,6 @@
     "tsc-alias": "^1.8.0",
     "eslint": "^8.56.0",
     "@typescript-eslint/eslint-plugin": "^6.19.0",
-    "@typescript-eslint/parser": "^6.19.0"
+    "@typescript-eslint/parser": "^8.61.0"
   }
 }
