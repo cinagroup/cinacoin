@@ -1,4 +1,14 @@
-import pino from 'pino';
+// Detect environment: Cloudflare Workers vs Node.js
+const isWorkers = typeof process === 'undefined' || !process?.env;
+
+let pinoModule: any = null;
+if (!isWorkers) {
+  try {
+    pinoModule = require('pino');
+  } catch {
+    // pino not available, will use fallback
+  }
+}
 
 /**
  * Logger configuration options
@@ -19,28 +29,61 @@ export interface Logger {
   child: (bindings: Record<string, unknown>) => Logger;
 }
 
+const LOG_LEVELS = { debug: 0, info: 1, warn: 2, error: 3 };
+
+function getLogLevel(): string {
+  if (typeof process !== 'undefined' && process?.env?.LOG_LEVEL) {
+    return process.env.LOG_LEVEL;
+  }
+  return 'info';
+}
+
+/**
+ * Fallback logger for Cloudflare Workers (no pino dependency)
+ */
+function createFallbackLogger(options: LoggerOptions): Logger {
+  const { name, level = 'info' } = options;
+  const minLevel = LOG_LEVELS[level] ?? LOG_LEVELS.info;
+
+  function log(lvl: string, msg: string, data?: unknown) {
+    if ((LOG_LEVELS as any)[lvl] < minLevel) return;
+    const entry: Record<string, unknown> = { level: lvl, name, msg, time: new Date().toISOString() };
+    if (data && typeof data === 'object') Object.assign(entry, data);
+    else if (data !== undefined) entry.data = data;
+    const output = JSON.stringify(entry);
+    if (lvl === 'error') console.error(output);
+    else if (lvl === 'warn') console.warn(output);
+    else console.log(output);
+  }
+
+  return {
+    debug: (msg, data) => log('debug', msg, data),
+    info: (msg, data) => log('info', msg, data),
+    warn: (msg, data) => log('warn', msg, data),
+    error: (msg, error) => {
+      if (error instanceof Error) log('error', msg, { error: error.message, stack: error.stack });
+      else if (error !== undefined) log('error', msg, { error: String(error) });
+      else log('error', msg);
+    },
+    child: (bindings) => createFallbackLogger({ name: `${name}:${Object.values(bindings).join(':')}`, level }),
+  };
+}
+
 /**
  * Default logger instance for the Cinacoin SDK.
- *
- * Uses pino with pretty-print in development and structured JSON in production.
- * Configure log level via the `LOG_LEVEL` environment variable.
+ * Uses pino in Node.js, fallback structured logger in Workers.
  */
-export const logger = pino({
-  level: process.env.LOG_LEVEL || 'info',
-  transport:
-    process.env.NODE_ENV !== 'production'
-      ? {
-          target: 'pino-pretty',
-          options: {
-            colorize: true,
-            translateTime: 'SYS:standard',
-            ignore: 'pid,hostname',
-          },
-        }
-      : undefined,
-});
+export const logger: Logger & { level?: string } = isWorkers || !pinoModule
+  ? createFallbackLogger({ name: 'app', level: getLogLevel() })
+  : pinoModule({
+      level: getLogLevel(),
+      transport:
+        (typeof process !== 'undefined' && process?.env?.NODE_ENV !== 'production')
+          ? { target: 'pino-pretty', options: { colorize: true, translateTime: 'SYS:standard', ignore: 'pid,hostname' } }
+          : undefined,
+    });
 
-export type PinoLogger = pino.Logger;
+export type PinoLogger = Logger;
 
 /**
  * Create a logger with the specified options.
