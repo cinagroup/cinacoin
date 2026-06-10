@@ -33,15 +33,15 @@ function evaluatePassword(password: string): StrengthInfo {
   score = Math.min(score, 4);
 
   if (score <= 1) {
-    return { level: 'weak', score, label: 'Weak', color: '#ef4444', width: '25%' };
+    return { level: 'weak', score, label: 'Weak', color: 'var(--color-error)', width: '25%' };
   }
   if (score === 2) {
-    return { level: 'fair', score, label: 'Fair', color: '#f59e0b', width: '50%' };
+    return { level: 'fair', score, label: 'Fair', color: 'var(--color-warning)', width: '50%' };
   }
   if (score === 3) {
-    return { level: 'strong', score, label: 'Strong', color: '#22c55e', width: '75%' };
+    return { level: 'strong', score, label: 'Strong', color: 'var(--color-success)', width: '75%' };
   }
-  return { level: 'very-strong', score, label: 'Very Strong', color: '#10b981', width: '100%' };
+  return { level: 'very-strong', score, label: 'Very Strong', color: 'var(--color-success)', width: '100%' };
 }
 
 /**
