@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@cinacoin/farcaster-miniapp": "workspace:*",
-    "next": "^15.5.18",
+    "next": "14.2.29",
     "react": "^19.2.6",
     "react-dom": "^19.2.6"
   },
