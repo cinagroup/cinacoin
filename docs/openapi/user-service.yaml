@@ -1,0 +1,996 @@
+openapi: 3.0.3
+info:
+  title: Cinacoin User Service
+  description: |
+    User, team, permission, and API key management service for the Cinacoin platform.
+    Runs on Cloudflare Workers with D1 (SQLite) for persistence and KV for caching.
+
+    ## Authentication
+    All endpoints require authentication via:
+    - **Bearer Token** — JWT access token from Auth Service
+    - **API Key** — `Authorization: Bearer ck_...` (Cinacoin API key)
+
+    ## Authorization
+    Endpoints are protected by scope-based RBAC:
+    - `users:read` — Read user data
+    - `users:write` — Create/update users
+    - `users:admin` — Delete users
+    - `teams:read` — Read team data
+    - `teams:write` — Create/update teams and members
+    - `teams:admin` — Delete teams
+    - `api_keys:read` — List API keys
+    - `api_keys:write` — Create/delete API keys
+
+    ## Rate Limiting
+    Per-resource rate limits apply:
+    - `/api/users/*` — user-tier limits
+    - `/api/teams/*` — team-tier limits
+    - `/api/api-keys/*` — API key-tier limits
+  version: 1.0.0
+  contact:
+    name: Cinacoin Developer Support
+    url: https://cinacoin.com/resources#support
+
+servers:
+  - url: https://users.cinacoin.com
+    description: Production (direct)
+  - url: https://api.cinacoin.com
+    description: Via API Gateway
+  - url: http://localhost:8789
+    description: Local development
+
+tags:
+  - name: Health
+    description: Service health checks
+  - name: Users
+    description: User CRUD operations
+  - name: Teams
+    description: Team management and membership
+  - name: API Keys
+    description: API key lifecycle management
+  - name: Permissions
+    description: Permission and scope management
+  - name: Newsletter
+    description: Newsletter subscription
+
+security:
+  - BearerAuth: []
+  - ApiKeyAuth: []
+
+paths:
+  /:
+    get:
+      tags: [Health]
+      summary: Service info
+      security: []
+      responses:
+        '200':
+          description: Service information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  service:
+                    type: string
+                    example: cinacoin-users
+                  status:
+                    type: string
+                    example: healthy
+                  timestamp:
+                    type: string
+                    format: date-time
+                  environment:
+                    type: string
+
+  /health:
+    get:
+      tags: [Health]
+      summary: Health check with DB connectivity
+      security: []
+      responses:
+        '200':
+          description: Service and database are healthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+        '503':
+          description: Service unhealthy (database unreachable)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+
+  # ─── Users ──────────────────────────────────────────────────────────────────
+
+  /api/users:
+    get:
+      tags: [Users]
+      summary: List users
+      description: Returns a paginated list of users with optional status filtering.
+      parameters:
+        - $ref: '#/components/parameters/LimitParam'
+        - $ref: '#/components/parameters/OffsetParam'
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [active, suspended, deleted]
+          description: Filter by user status
+      responses:
+        '200':
+          description: Paginated user list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/User'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+    post:
+      tags: [Users]
+      summary: Create user
+      description: Creates a new user account. Checks email and username uniqueness.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+            example:
+              email: bob@example.com
+              username: bob
+              display_name: Bob Smith
+              auth_type: password
+      responses:
+        '201':
+          description: User created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          description: Email or username already in use
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                email:
+                  summary: Email conflict
+                  value:
+                    error: Email already in use
+                username:
+                  summary: Username conflict
+                  value:
+                    error: Username already taken
+
+  /api/users/{id}:
+    get:
+      tags: [Users]
+      summary: Get user by ID
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          description: User details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+    patch:
+      tags: [Users]
+      summary: Update user
+      description: Partially update a user's profile fields.
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserRequest'
+            example:
+              display_name: Robert Smith
+              avatar_url: https://cdn.cinacoin.com/avatars/bob.png
+      responses:
+        '200':
+          description: User updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          description: Username already taken
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    delete:
+      tags: [Users]
+      summary: Delete user (soft-delete)
+      description: Soft-deletes a user by setting status to 'deleted'.
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          description: User deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      deleted:
+                        type: boolean
+                        example: true
+                      id:
+                        type: string
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  # ─── Teams ──────────────────────────────────────────────────────────────────
+
+  /api/teams:
+    get:
+      tags: [Teams]
+      summary: List teams
+      parameters:
+        - $ref: '#/components/parameters/LimitParam'
+        - $ref: '#/components/parameters/OffsetParam'
+      responses:
+        '200':
+          description: Paginated team list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Team'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+    post:
+      tags: [Teams]
+      summary: Create team
+      description: Creates a new team. The authenticated user becomes the owner unless `owner_id` is specified.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTeamRequest'
+            example:
+              name: Engineering
+              description: Core engineering team
+      responses:
+        '201':
+          description: Team created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Team'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /api/teams/{teamId}:
+    get:
+      tags: [Teams]
+      summary: Get team by ID
+      parameters:
+        - $ref: '#/components/parameters/TeamId'
+      responses:
+        '200':
+          description: Team details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Team'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+    patch:
+      tags: [Teams]
+      summary: Update team
+      description: Update team name/description. Requires team admin role.
+      parameters:
+        - $ref: '#/components/parameters/TeamId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                  nullable: true
+      responses:
+        '200':
+          description: Team updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Team'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+    delete:
+      tags: [Teams]
+      summary: Delete team
+      description: Permanently deletes a team. Requires team owner role.
+      parameters:
+        - $ref: '#/components/parameters/TeamId'
+      responses:
+        '200':
+          description: Team deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      deleted:
+                        type: boolean
+                      id:
+                        type: string
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /api/teams/{teamId}/members:
+    get:
+      tags: [Teams]
+      summary: List team members
+      parameters:
+        - $ref: '#/components/parameters/TeamId'
+      responses:
+        '200':
+          description: Team members list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TeamMember'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+    post:
+      tags: [Teams]
+      summary: Add team member
+      description: Adds a user to the team. Requires team admin role.
+      parameters:
+        - $ref: '#/components/parameters/TeamId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddMemberRequest'
+            example:
+              user_id: usr_abc123
+              role: member
+      responses:
+        '201':
+          description: Member added
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/TeamMember'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          description: User is already a member
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/teams/{teamId}/members/{userId}:
+    patch:
+      tags: [Teams]
+      summary: Update member role
+      description: Changes a team member's role. Cannot modify the owner role. Requires team admin.
+      parameters:
+        - $ref: '#/components/parameters/TeamId'
+        - $ref: '#/components/parameters/MemberUserId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [role]
+              properties:
+                role:
+                  $ref: '#/components/schemas/TeamRole'
+            example:
+              role: admin
+      responses:
+        '200':
+          description: Role updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      team_id:
+                        type: string
+                      user_id:
+                        type: string
+                      role:
+                        $ref: '#/components/schemas/TeamRole'
+        '400':
+          description: Invalid role or attempt to change owner
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+    delete:
+      tags: [Teams]
+      summary: Remove team member
+      description: Removes a user from the team. Cannot remove the owner. Requires team admin.
+      parameters:
+        - $ref: '#/components/parameters/TeamId'
+        - $ref: '#/components/parameters/MemberUserId'
+      responses:
+        '200':
+          description: Member removed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      removed:
+                        type: boolean
+                        example: true
+                      team_id:
+                        type: string
+                      user_id:
+                        type: string
+        '400':
+          description: Cannot remove team owner
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  # ─── API Keys ───────────────────────────────────────────────────────────────
+
+  /api/api-keys:
+    get:
+      tags: [API Keys]
+      summary: List API keys
+      description: |
+        Lists API keys for the authenticated user. Admins can query other users' keys
+        via the `user_id` query parameter. Key hashes are never exposed.
+      parameters:
+        - name: user_id
+          in: query
+          schema:
+            type: string
+          description: Filter by user ID (admin only)
+      responses:
+        '200':
+          description: API keys list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ApiKey'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+    post:
+      tags: [API Keys]
+      summary: Create API key
+      description: |
+        Creates a new API key. The plaintext key (`ck_...`) is returned **only once**
+        at creation time. Store it securely — it cannot be retrieved again.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateApiKeyRequest'
+            example:
+              name: Production API Key
+              scopes:
+                - users:read
+                - teams:read
+              expires_at: "2027-01-01T00:00:00Z"
+      responses:
+        '201':
+          description: API key created (plaintext shown once)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    allOf:
+                      - $ref: '#/components/schemas/ApiKey'
+                      - type: object
+                        properties:
+                          key:
+                            type: string
+                            description: Plaintext API key (shown only once)
+                            example: ck_a1b2c3d4e5f6...
+                  warning:
+                    type: string
+                    example: Store this key securely. It will not be shown again.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          description: Cannot create keys for other users (non-admin)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/api-keys/{id}:
+    delete:
+      tags: [API Keys]
+      summary: Delete API key
+      description: Deletes an API key. Non-admin users can only delete their own keys.
+      parameters:
+        - $ref: '#/components/parameters/ApiKeyId'
+      responses:
+        '200':
+          description: API key deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      deleted:
+                        type: boolean
+                        example: true
+                      id:
+                        type: string
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  # ─── Permissions ────────────────────────────────────────────────────────────
+
+  /api/permissions:
+    get:
+      tags: [Permissions]
+      summary: List available permissions
+      description: Returns all available permission scopes in the system.
+      responses:
+        '200':
+          description: Available permissions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        scope:
+                          type: string
+                          example: users:read
+                        description:
+                          type: string
+
+  # ─── Newsletter ─────────────────────────────────────────────────────────────
+
+  /api/newsletter:
+    post:
+      tags: [Newsletter]
+      summary: Subscribe to newsletter
+      description: Subscribe an email address to the Cinacoin newsletter.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email]
+              properties:
+                email:
+                  type: string
+                  format: email
+      responses:
+        '200':
+          description: Subscribed
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT access token from Auth Service
+    ApiKeyAuth:
+      type: http
+      scheme: bearer
+      description: Cinacoin API key (prefix `ck_`)
+
+  parameters:
+    UserId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: User ID (UUID)
+    TeamId:
+      name: teamId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Team ID (UUID)
+    MemberUserId:
+      name: userId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: User ID of the team member
+    ApiKeyId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: API key ID (UUID)
+    LimitParam:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 50
+        minimum: 1
+        maximum: 100
+      description: Maximum number of results
+    OffsetParam:
+      name: offset
+      in: query
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
+      description: Number of results to skip
+
+  schemas:
+    HealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [healthy, unhealthy]
+        checks:
+          type: object
+          properties:
+            database:
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum: [ok, error]
+                latency_ms:
+                  type: integer
+        timestamp:
+          type: string
+          format: date-time
+
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        username:
+          type: string
+        display_name:
+          type: string
+          nullable: true
+        avatar_url:
+          type: string
+          format: uri
+          nullable: true
+        auth_type:
+          type: string
+          enum: [password, oauth, api_key, sso]
+        role:
+          type: string
+          enum: [user, admin, super_admin]
+        status:
+          type: string
+          enum: [active, suspended, deleted]
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    CreateUserRequest:
+      type: object
+      required: [email, auth_type]
+      properties:
+        email:
+          type: string
+          format: email
+        username:
+          type: string
+          minLength: 3
+          maxLength: 30
+        display_name:
+          type: string
+        avatar_url:
+          type: string
+          format: uri
+        auth_type:
+          type: string
+          enum: [password, oauth, api_key, sso]
+
+    UpdateUserRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        display_name:
+          type: string
+        avatar_url:
+          type: string
+          format: uri
+        status:
+          type: string
+          enum: [active, suspended, deleted]
+
+    Team:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        owner_id:
+          type: string
+          format: uuid
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    CreateTeamRequest:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        owner_id:
+          type: string
+          format: uuid
+          description: Defaults to authenticated user if not provided
+
+    TeamMember:
+      type: object
+      properties:
+        team_id:
+          type: string
+          format: uuid
+        user_id:
+          type: string
+          format: uuid
+        role:
+          $ref: '#/components/schemas/TeamRole'
+        joined_at:
+          type: string
+          format: date-time
+
+    TeamRole:
+      type: string
+      enum: [owner, admin, member, viewer]
+      description: Team membership role
+
+    AddMemberRequest:
+      type: object
+      required: [user_id, role]
+      properties:
+        user_id:
+          type: string
+          format: uuid
+        role:
+          $ref: '#/components/schemas/TeamRole'
+
+    ApiKey:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        user_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          description: Human-readable key name
+        scopes:
+          type: array
+          items:
+            type: string
+          description: Permission scopes granted to this key
+          example: [users:read, teams:read]
+        expires_at:
+          type: string
+          format: date-time
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+
+    CreateApiKeyRequest:
+      type: object
+      required: [name, scopes]
+      properties:
+        name:
+          type: string
+          description: Human-readable key name
+        scopes:
+          type: array
+          items:
+            type: string
+          minItems: 1
+          description: Permission scopes to grant
+        user_id:
+          type: string
+          format: uuid
+          description: Create key for another user (admin only)
+        expires_at:
+          type: string
+          format: date-time
+          description: Optional expiration date
+
+    PaginationMeta:
+      type: object
+      properties:
+        limit:
+          type: integer
+        offset:
+          type: integer
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+
+  responses:
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: name is required
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: Authentication required
+    Forbidden:
+      description: Insufficient permissions
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: Insufficient scope
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: User not found
