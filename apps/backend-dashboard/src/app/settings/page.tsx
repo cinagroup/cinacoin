@@ -167,11 +167,11 @@ export default function SettingsPage() {
         <div className="space-y-4">
           <div>
             <label htmlFor="apiUrl" className="cc-body-sm text-[var(--cc-muted)] block mb-1">RPC API URL</label>
-            <input id="apiUrl" type="text" value={apiUrl} onChange={(e) => setApiUrl(e.target.value)} className="cc-form-input font-mono" />
+            <input id="apiUrl" type="text" value={apiUrl} onChange={(e) => setApiUrl(e.target.value)} className="cc-form-input text-code" />
           </div>
           <div>
             <label htmlFor="wsUrl" className="cc-body-sm text-[var(--cc-muted)] block mb-1">WebSocket URL</label>
-            <input id="wsUrl" type="text" value={wsUrl} onChange={(e) => setWsUrl(e.target.value)} className="cc-form-input font-mono" />
+            <input id="wsUrl" type="text" value={wsUrl} onChange={(e) => setWsUrl(e.target.value)} className="cc-form-input text-code" />
           </div>
         </div>
       </div>

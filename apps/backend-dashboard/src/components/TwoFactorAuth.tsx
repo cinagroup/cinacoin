@@ -268,7 +268,7 @@ export function TwoFactorAuth() {
                   Enter this secret key manually in your authenticator app:
                 </p>
                 <div className="bg-canvas-soft rounded-md p-3 mb-lg">
-                  <code className="font-mono text-body text-ink tracking-wider">
+                  <code className="text-code text-body text-ink tracking-wider">
                     {secretKey || "Loading…"}
                   </code>
                 </div>
@@ -403,7 +403,7 @@ export function TwoFactorAuth() {
                       key={index}
                       className="flex items-center justify-between bg-canvas border border-hairline rounded-sm px-3 py-2"
                     >
-                      <code className="font-mono text-body-sm text-ink">
+                      <code className="text-code text-body-sm text-ink">
                         {rc.code}
                       </code>
                       <button

@@ -306,7 +306,7 @@ export function AuditLog() {
                   <td>
                     <div className="flex items-center gap-1.5">
                       <span className="text-sm">{categoryIcons[entry.category]}</span>
-                      <code className="font-mono text-caption bg-canvas-soft-2 px-1.5 py-0.5 rounded">
+                      <code className="text-code text-caption bg-canvas-soft-2 px-1.5 py-0.5 rounded">
                         {entry.action}
                       </code>
                     </div>
@@ -317,7 +317,7 @@ export function AuditLog() {
                     </p>
                   </td>
                   <td>
-                    <code className="font-mono text-caption text-body-color">
+                    <code className="text-code text-caption text-body-color">
                       {entry.ipAddress}
                     </code>
                   </td>

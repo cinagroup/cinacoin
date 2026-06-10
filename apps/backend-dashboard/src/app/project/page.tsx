@@ -71,7 +71,7 @@ export default function ProjectPage() {
         <div>
           <label className="cc-body-sm text-[var(--cc-muted)] block mb-1">Project ID</label>
           <div className="flex items-center gap-2">
-            <code className="flex-1 bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-sm)] px-3 py-2 cc-body-sm text-[var(--cc-ink)] font-mono">
+            <code className="flex-1 bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-sm)] px-3 py-2 cc-body-sm text-[var(--cc-ink)] text-code">
               {showProjectId ? projectId : "•".repeat(projectId.length)}
             </code>
             <button onClick={() => setShowProjectId(!showProjectId)} aria-label={showProjectId ? "Hide Project ID" : "Show Project ID"} className="cc-btn-secondary-sm">
