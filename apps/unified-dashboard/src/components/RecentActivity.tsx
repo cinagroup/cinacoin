@@ -46,7 +46,13 @@ export function RecentActivity() {
         Recent Activity
       </h3>
       <div className="space-y-3">
-        {activities.map((activity, index) => (
+        {activities.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-12 px-4 text-center">
+            <div className="mb-3 text-3xl" aria-hidden="true">📋</div>
+            <h3 className="text-body-md font-semibold text-ink">No recent activity</h3>
+            <p className="text-caption text-mute mt-1">Activity will appear here as events occur.</p>
+          </div>
+        ) : activities.map((activity, index) => (
           <div
             key={index}
             className="flex items-start gap-3 py-2 border-b border-hairline last:border-0"

@@ -33,7 +33,13 @@ const severityColors: Record<string, string> = {
 export default React.memo(function IncidentTimeline({ incidents }: { incidents: Incident[] }) {
   return (
     <div className="space-y-4">
-      {incidents.map((incident) => {
+      {incidents.length === 0 ? (
+        <div className="flex flex-col items-center justify-center py-12 px-4 text-center rounded-[8px] border border-[var(--cc-hairline)] bg-[var(--cc-canvas)]">
+          <div className="mb-3 text-3xl" aria-hidden="true">✅</div>
+          <h3 className="font-semibold text-[var(--cc-ink)]">No incidents reported</h3>
+          <p className="mt-1 text-body-sm text-[var(--cc-body)]">All systems are running smoothly. Incidents will appear here if any occur.</p>
+        </div>
+      ) : incidents.map((incident) => {
         const colors = statusColors[incident.status];
         return (
           <div 

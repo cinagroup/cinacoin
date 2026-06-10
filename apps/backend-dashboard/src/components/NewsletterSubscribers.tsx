@@ -98,7 +98,17 @@ export function NewsletterSubscribers() {
                 </tr>
               </thead>
               <tbody>
-                {subscribers.map((subscriber) => (
+                {subscribers.length === 0 ? (
+                  <tr>
+                    <td colSpan={4} className="px-6 py-12 text-center">
+                      <div className="flex flex-col items-center justify-center">
+                        <div className="text-4xl mb-4" aria-hidden="true">📧</div>
+                        <h3 className="text-heading-3 text-ink mb-1">No subscribers yet</h3>
+                        <p className="text-body-sm text-mute max-w-sm">Newsletter subscribers will appear here once people sign up.</p>
+                      </div>
+                    </td>
+                  </tr>
+                ) : subscribers.map((subscriber) => (
                   <tr
                     key={subscriber.id}
                     className="border-b border-hairline last:border-b-0"

@@ -274,7 +274,17 @@ export function AuditLog() {
               </tr>
             </thead>
             <tbody>
-              {filteredLogs.map((entry) => (
+              {filteredLogs.length === 0 ? (
+                <tr>
+                  <td colSpan={7} className="px-6 py-12 text-center">
+                    <div className="flex flex-col items-center justify-center">
+                      <div className="text-4xl mb-4" aria-hidden="true">📜</div>
+                      <h3 className="text-heading-3 text-ink mb-1">No audit logs found</h3>
+                      <p className="text-body-sm text-mute max-w-sm">No audit entries match your current filters.</p>
+                    </div>
+                  </td>
+                </tr>
+              ) : filteredLogs.map((entry) => (
                 <tr
                   key={entry.id}
                   className={`${selectedEntries.has(entry.id) ? "bg-[var(--color-link-bg-soft)]/50" : ""}`}

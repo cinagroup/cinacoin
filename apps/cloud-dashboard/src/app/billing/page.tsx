@@ -113,7 +113,17 @@ export default function BillingPage() {
                 </tr>
               </thead>
               <tbody>
-                {mockInvoices.map((invoice) => (
+                {mockInvoices.length === 0 ? (
+                  <tr>
+                    <td colSpan={5} className="px-6 py-12 text-center">
+                      <div className="flex flex-col items-center justify-center">
+                        <div className="text-4xl mb-4" aria-hidden="true">📄</div>
+                        <h3 className="text-heading-3 text-ink mb-1">No invoices yet</h3>
+                        <p className="text-body-sm text-body max-w-sm">Your invoice history will appear here once you have billing activity.</p>
+                      </div>
+                    </td>
+                  </tr>
+                ) : mockInvoices.map((invoice) => (
                   <tr key={invoice.id} className="border-b border-hairline last:border-b-0 hover:bg-canvas-soft transition-colors">
                     <td className="px-6 py-4 text-body-sm text-ink font-medium">{invoice.id}</td>
                     <td className="px-6 py-4 text-body-sm text-body">{invoice.date}</td>

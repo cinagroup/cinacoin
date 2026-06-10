@@ -97,7 +97,17 @@ export default function ResourceTable() {
             </tr>
           </thead>
           <tbody className="divide-y divide-hairline">
-            {resources.map((resource) => (
+            {resources.length === 0 ? (
+              <tr>
+                <td colSpan={6} className="px-6 py-12 text-center">
+                  <div className="flex flex-col items-center justify-center">
+                    <div className="text-4xl mb-4" aria-hidden="true">🖥️</div>
+                    <h3 className="text-heading-3 text-ink mb-1">No resources</h3>
+                    <p className="text-body-sm text-body max-w-sm">Create your first cloud resource to get started.</p>
+                  </div>
+                </td>
+              </tr>
+            ) : resources.map((resource) => (
               <tr key={resource.id} className="hover:bg-canvas-soft transition-colors duration-fast">
                 <td className="px-6 py-4">
                   <div>

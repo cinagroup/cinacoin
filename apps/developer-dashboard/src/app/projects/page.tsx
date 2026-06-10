@@ -82,7 +82,17 @@ export default function ProjectsPage() {
             </tr>
           </thead>
           <tbody>
-            {projects.map((project) => (
+            {projects.length === 0 ? (
+              <tr>
+                <td colSpan={6} className="px-6 py-12 text-center">
+                  <div className="flex flex-col items-center justify-center">
+                    <div className="text-4xl mb-4" aria-hidden="true">📁</div>
+                    <h3 className="text-heading-3 text-ink mb-1">No projects created</h3>
+                    <p className="text-body-sm text-ink-body max-w-sm">Create your first project to start building with Cinacoin.</p>
+                  </div>
+                </td>
+              </tr>
+            ) : projects.map((project) => (
               <tr key={project.id} className="hover:bg-canvas-soft transition-colors">
                 <td className="font-medium text-ink">{project.name}</td>
                 <td>

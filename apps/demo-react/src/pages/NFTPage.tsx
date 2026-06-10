@@ -54,7 +54,13 @@ export function NFTPage() {
         <p style={{ color: 'var(--cc-demo-text-muted)', marginBottom: 24 }}>展示多链 NFT 收藏，点击查看详情。</p>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
-          {MOCK_NFTS.map((nft) => (
+          {MOCK_NFTS.length === 0 ? (
+            <div style={{ gridColumn: '1 / -1', padding: '48px 16px', textAlign: 'center' }}>
+              <div style={{ fontSize: 48, marginBottom: 16 }}>🖼️</div>
+              <h3 style={{ fontSize: "var(--cc-text-lg)", fontWeight: "var(--cc-weight-semibold)", marginBottom: 8 }}>No NFTs yet</h3>
+              <p style={{ fontSize: "var(--cc-text-sm)", color: 'var(--cc-demo-text-muted)' }}>Your NFT collection will appear here once you mint or receive NFTs.</p>
+            </div>
+          ) : MOCK_NFTS.map((nft) => (
             <div
               key={nft.id}
               onClick={() => setSelectedNFT(nft)}

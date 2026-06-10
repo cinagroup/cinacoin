@@ -4,3 +4,5 @@ export { SiteHeader } from './SiteHeader';
 export type { SiteHeaderProps, NavLink } from './SiteHeader';
 export { SiteFooter } from './SiteFooter';
 export type { SiteFooterProps, FooterColumn, FooterLink } from './SiteFooter';
+export { EmptyState } from './EmptyState';
+export type { EmptyStateProps } from './EmptyState';

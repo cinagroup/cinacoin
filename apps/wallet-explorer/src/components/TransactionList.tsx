@@ -37,7 +37,13 @@ export default function TransactionList({ transactions }: { transactions: Transa
         <h2 className="text-heading-3 text-ink">Transactions</h2>
       </div>
       <div>
-        {transactions.map((tx) => (
+        {transactions.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
+            <div className="mb-4 text-4xl" aria-hidden="true">📭</div>
+            <h3 className="text-heading-3 text-ink mb-1">No transactions yet</h3>
+            <p className="text-body-sm text-mute max-w-sm">Your transaction history will appear here once you make your first transaction.</p>
+          </div>
+        ) : transactions.map((tx) => (
           <div key={tx.hash} className="p-5 border-b border-hairline last:border-b-0 transition-colors hover:bg-canvas-soft">
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-3">

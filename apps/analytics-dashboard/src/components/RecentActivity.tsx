@@ -62,7 +62,13 @@ const activities = [
 export default function RecentActivity() {
   return (
     <div className="space-y-sm max-h-80 overflow-y-auto pr-xs">
-      {activities.map((activity) => (
+      {activities.length === 0 ? (
+        <div className="flex flex-col items-center justify-center py-12 px-4 text-center">
+          <div className="mb-3 text-3xl" aria-hidden="true">📋</div>
+          <h3 className="text-body font-semibold text-ink">No recent activity</h3>
+          <p className="text-body-sm text-ink-mute mt-1">Activity will appear here as events occur.</p>
+        </div>
+      ) : activities.map((activity) => (
         <div
           key={activity.id}
           className="flex items-start gap-sm p-sm rounded-md hover:bg-canvas-soft transition-colors"

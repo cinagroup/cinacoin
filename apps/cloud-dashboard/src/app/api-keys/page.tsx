@@ -54,7 +54,17 @@ export default function ApiKeysPage() {
                 </tr>
               </thead>
               <tbody>
-                {mockKeys.map((apiKey) => (
+                {mockKeys.length === 0 ? (
+                  <tr>
+                    <td colSpan={6} className="px-6 py-12 text-center">
+                      <div className="flex flex-col items-center justify-center">
+                        <div className="text-4xl mb-4" aria-hidden="true">🔑</div>
+                        <h3 className="text-heading-3 text-ink mb-1">No API keys</h3>
+                        <p className="text-body-sm text-body max-w-sm">Create your first API key to authenticate your requests.</p>
+                      </div>
+                    </td>
+                  </tr>
+                ) : mockKeys.map((apiKey) => (
                   <tr key={apiKey.id} className="border-b border-hairline last:border-b-0 hover:bg-canvas-soft transition-colors">
                     <td className="px-6 py-4 text-body-sm text-ink font-medium">{apiKey.name}</td>
                     <td className="px-6 py-4">

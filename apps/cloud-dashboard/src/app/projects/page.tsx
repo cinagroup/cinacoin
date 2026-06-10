@@ -54,7 +54,13 @@ export default function ProjectsPage() {
           </div>
 
           <div className="grid gap-4">
-            {mockProjects.map((project) => (
+            {mockProjects.length === 0 ? (
+              <div className="bg-canvas border border-hairline rounded-md p-12 text-center">
+                <div className="text-4xl mb-4" aria-hidden="true">📁</div>
+                <h3 className="text-heading-3 text-ink mb-1">No projects yet</h3>
+                <p className="text-body-sm text-body max-w-sm">Create your first project to get started with cloud services.</p>
+              </div>
+            ) : mockProjects.map((project) => (
               <div key={project.id} className="bg-canvas border border-hairline rounded-md p-6 hover:shadow-level-2 transition-shadow">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
