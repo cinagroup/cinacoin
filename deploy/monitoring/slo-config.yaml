@@ -1,6 +1,11 @@
 # Cinacoin — SLO/SLI Configuration
 # Service Level Objectives for all critical services
 # Based on Google SRE methodology
+#
+# Global SLO Targets:
+#   - Availability: 99.95% (monthly)
+#   - Latency: p95 < 200ms, p99 < 500ms
+#   - Error Rate: < 0.1% (5xx errors)
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
@@ -32,6 +37,18 @@ data:
     service: cinacoin
     environment: production
 
+    # ── Global SLO Targets ──────────────────────────────────────
+    global_targets:
+      availability:
+        target: 99.95%      # ~21.6 min downtime/month
+        window: 30d
+      latency:
+        p95_target: 200ms   # 95th percentile < 200ms
+        p99_target: 500ms   # 99th percentile < 500ms
+      error_rate:
+        target: 0.1%        # 5xx errors < 0.1%
+        window: 5m
+
     slo_targets:
       # ── Relay Server ─────────────────────────────────────────
       relay_server:
@@ -39,8 +56,12 @@ data:
           target: 99.95%  # ~21.6 min downtime/month
           sli: rate(relay_requests_total{status="success"}[5m]) / rate(relay_requests_total[5m])
         latency:
-          target: 99.9% of requests < 100ms
-          sli: histogram_quantile(0.999, rate(relay_request_duration_seconds_bucket[5m]))
+          p95_target: 200ms
+          p99_target: 500ms
+          sli: histogram_quantile(0.99, rate(relay_request_duration_seconds_bucket[5m]))
+        error_rate:
+          target: 0.1%
+          sli: rate(relay_requests_total{status="error"}[5m]) / rate(relay_requests_total[5m])
         error_budget:
           monthly: 21.6m
 
@@ -50,8 +71,12 @@ data:
           target: 99.99%  # ~4.32 min downtime/month
           sli: rate(rpc_requests_total{status="success"}[5m]) / rate(rpc_requests_total[5m])
         latency:
-          target: 99.9% of requests < 200ms
-          sli: histogram_quantile(0.999, rate(rpc_proxy_request_duration_seconds_bucket[5m]))
+          p95_target: 200ms
+          p99_target: 500ms
+          sli: histogram_quantile(0.99, rate(rpc_proxy_request_duration_seconds_bucket[5m]))
+        error_rate:
+          target: 0.1%
+          sli: rate(rpc_requests_total{status="error"}[5m]) / rate(rpc_requests_total[5m])
         error_budget:
           monthly: 4.32m
 
@@ -61,8 +86,12 @@ data:
           target: 99.9%  # ~43.2 min downtime/month
           sli: rate(bundler_operations_total{status="success"}[5m]) / rate(bundler_operations_total[5m])
         latency:
-          target: 99% of operations < 2s
+          p95_target: 200ms
+          p99_target: 2000ms  # Bundler operations can be slower
           sli: histogram_quantile(0.99, rate(bundler_operation_duration_seconds_bucket[5m]))
+        error_rate:
+          target: 0.1%
+          sli: rate(bundler_operations_total{status="error"}[5m]) / rate(bundler_operations_total[5m])
         error_budget:
           monthly: 43.2m
 
@@ -72,8 +101,12 @@ data:
           target: 99.9%
           sli: rate(push_notifications_total{status="delivered"}[5m]) / rate(push_notifications_total[5m])
         latency:
-          target: 99% of deliveries < 5s
+          p95_target: 200ms
+          p99_target: 5000ms  # Push delivery can tolerate higher latency
           sli: histogram_quantile(0.99, rate(push_delivery_duration_seconds_bucket[5m]))
+        error_rate:
+          target: 0.1%
+          sli: rate(push_notifications_total{status="failed"}[5m]) / rate(push_notifications_total[5m])
         error_budget:
           monthly: 43.2m
 
@@ -83,10 +116,29 @@ data:
           target: 99.99%
           sli: rate(keys_requests_total{status="success"}[5m]) / rate(keys_requests_total[5m])
         latency:
-          target: 99.9% of requests < 50ms
-          sli: histogram_quantile(0.999, rate(keys_request_duration_seconds_bucket[5m]))
+          p95_target: 50ms   # Keys server should be very fast
+          p99_target: 200ms
+          sli: histogram_quantile(0.99, rate(keys_request_duration_seconds_bucket[5m]))
+        error_rate:
+          target: 0.1%
+          sli: rate(keys_requests_total{status="error"}[5m]) / rate(keys_requests_total[5m])
         error_budget:
           monthly: 4.32m
+
+      # ── Notify Server ────────────────────────────────────────
+      notify_server:
+        availability:
+          target: 99.95%
+          sli: rate(notify_requests_total{status="success"}[5m]) / rate(notify_requests_total[5m])
+        latency:
+          p95_target: 200ms
+          p99_target: 500ms
+          sli: histogram_quantile(0.99, rate(notify_request_duration_seconds_bucket[5m]))
+        error_rate:
+          target: 0.1%
+          sli: rate(notify_requests_total{status="error"}[5m]) / rate(notify_requests_total[5m])
+        error_budget:
+          monthly: 21.6m
 
     burn_rate_alerts:
       # Fast burn — 14.4x error budget consumed in 1 hour
@@ -112,3 +164,35 @@ data:
         factor: 1
         severity: warning
         page: false
+
+    # ── Recording Rules for SLO Metrics ────────────────────────
+    recording_rules:
+      # Global availability
+      - record: cinacoin:slo_availability:rate5m
+        expr: |
+          1 - (
+            sum(rate(cinacoin_http_errors_total{status_code=~"5.."}[5m]))
+            /
+            sum(rate(cinacoin_http_requests_total[5m]))
+          )
+
+      # Global latency P95
+      - record: cinacoin:slo_latency_p95:rate5m
+        expr: |
+          histogram_quantile(0.95,
+            sum(rate(cinacoin_http_request_duration_seconds_bucket[5m])) by (le)
+          )
+
+      # Global latency P99
+      - record: cinacoin:slo_latency_p99:rate5m
+        expr: |
+          histogram_quantile(0.99,
+            sum(rate(cinacoin_http_request_duration_seconds_bucket[5m])) by (le)
+          )
+
+      # Global error rate
+      - record: cinacoin:slo_error_rate:rate5m
+        expr: |
+          sum(rate(cinacoin_http_errors_total{status_code=~"5.."}[5m]))
+          /
+          sum(rate(cinacoin_http_requests_total[5m]))

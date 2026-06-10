@@ -1,0 +1,338 @@
+# Cinacoin — Unified Prometheus Alerting Rules
+# Covers Critical, Warning, and Info severity levels
+# Applied via PrometheusRule CRD in Kubernetes
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: cinacoin-unified-alerts
+  namespace: monitoring
+  labels:
+    project: cinacoin
+    component: alerting-rules
+    role: alert-rules
+spec:
+  groups:
+    # ═══════════════════════════════════════════════════════════
+    # CRITICAL ALERTS — Immediate action required
+    # ═══════════════════════════════════════════════════════════
+    - name: cinacoin-critical
+      interval: 30s
+      rules:
+        # Service Down
+        - alert: ServiceDown
+          expr: cinacoin_service_up == 0
+          for: 1m
+          labels:
+            severity: critical
+            team: cinacoin
+            category: availability
+          annotations:
+            summary: "🚨 Service {{ $labels.service }} is DOWN"
+            description: "Service {{ $labels.service }} has been unreachable for over 1 minute. Immediate investigation required."
+            runbook_url: "https://wiki.cinacoin.com/runbooks/service-down"
+
+        # Error Rate > 5%
+        - alert: HighErrorRateCritical
+          expr: |
+            (
+              sum(rate(cinacoin_http_errors_total{status_code=~"5.."}[5m])) by (service)
+              /
+              sum(rate(cinacoin_http_requests_total[5m])) by (service)
+            ) * 100 > 5
+          for: 2m
+          labels:
+            severity: critical
+            team: cinacoin
+            category: errors
+          annotations:
+            summary: "🚨 Error rate > 5% on {{ $labels.service }}"
+            description: "Service {{ $labels.service }} has an error rate of {{ $value | printf \"%.2f\" }}% (threshold: 5%). Active incident likely."
+            runbook_url: "https://wiki.cinacoin.com/runbooks/high-error-rate"
+
+        # Latency P99 > 2s
+        - alert: HighLatencyP99Critical
+          expr: |
+            histogram_quantile(0.99,
+              sum(rate(cinacoin_http_request_duration_seconds_bucket[5m])) by (le, service)
+            ) > 2
+          for: 2m
+          labels:
+            severity: critical
+            team: cinacoin
+            category: latency
+          annotations:
+            summary: "🚨 P99 latency > 2s on {{ $labels.service }}"
+            description: "Service {{ $labels.service }} P99 latency is {{ $value | printf \"%.2f\" }}s (threshold: 2s)."
+            runbook_url: "https://wiki.cinacoin.com/runbooks/high-latency"
+
+        # Blockchain Node Not Syncing
+        - alert: ChainSyncCritical
+          expr: cinacoin_chain_sync_status == 0
+          for: 5m
+          labels:
+            severity: critical
+            team: cinacoin
+            category: blockchain
+          annotations:
+            summary: "🚨 Chain {{ $labels.chain }} not syncing in {{ $labels.region }}"
+            description: "Blockchain node for {{ $labels.chain }} in {{ $labels.region }} has been out of sync for 5 minutes."
+
+        # NATS Cluster Down
+        - alert: NATSClusterDownCritical
+          expr: nats_server_connections == 0
+          for: 1m
+          labels:
+            severity: critical
+            team: cinacoin
+            category: infrastructure
+          annotations:
+            summary: "🚨 NATS cluster is unreachable"
+            description: "NATS message broker has 0 connections. Relay messaging is impacted."
+
+        # Pod CrashLooping
+        - alert: PodCrashLooping
+          expr: increase(kube_pod_container_status_restarts_total{namespace="cinacoin"}[15m]) > 3
+          for: 1m
+          labels:
+            severity: critical
+            team: cinacoin
+            category: infrastructure
+          annotations:
+            summary: "🚨 Pod {{ $labels.pod }} is crash looping"
+            description: "Pod {{ $labels.pod }} has restarted {{ $value }} times in 15 minutes."
+
+        # Disk Full Critical
+        - alert: DiskFullCritical
+          expr: cinacoin_disk_usage_percent > 95
+          for: 2m
+          labels:
+            severity: critical
+            team: cinacoin
+            category: infrastructure
+          annotations:
+            summary: "🚨 Disk usage > 95% on {{ $labels.instance }}"
+            description: "Disk {{ $labels.device }} on {{ $labels.instance }} is at {{ $value | printf \"%.1f\" }}%. Immediate action needed."
+
+    # ═══════════════════════════════════════════════════════════
+    # WARNING ALERTS — Investigate soon
+    # ═══════════════════════════════════════════════════════════
+    - name: cinacoin-warning
+      interval: 1m
+      rules:
+        # Error Rate > 1%
+        - alert: HighErrorRateWarning
+          expr: |
+            (
+              sum(rate(cinacoin_http_errors_total{status_code=~"5.."}[5m])) by (service)
+              /
+              sum(rate(cinacoin_http_requests_total[5m])) by (service)
+            ) * 100 > 1
+          for: 5m
+          labels:
+            severity: warning
+            team: cinacoin
+            category: errors
+          annotations:
+            summary: "⚠️ Error rate > 1% on {{ $labels.service }}"
+            description: "Service {{ $labels.service }} error rate is {{ $value | printf \"%.2f\" }}% (threshold: 1%)."
+
+        # Latency P95 > 500ms
+        - alert: HighLatencyP95Warning
+          expr: |
+            histogram_quantile(0.95,
+              sum(rate(cinacoin_http_request_duration_seconds_bucket[5m])) by (le, service)
+            ) > 0.5
+          for: 5m
+          labels:
+            severity: warning
+            team: cinacoin
+            category: latency
+          annotations:
+            summary: "⚠️ P95 latency > 500ms on {{ $labels.service }}"
+            description: "Service {{ $labels.service }} P95 latency is {{ $value | printf \"%.3f\" }}s (threshold: 500ms)."
+
+        # Disk Usage > 80%
+        - alert: DiskUsageWarning
+          expr: cinacoin_disk_usage_percent > 80
+          for: 10m
+          labels:
+            severity: warning
+            team: cinacoin
+            category: infrastructure
+          annotations:
+            summary: "⚠️ Disk usage > 80% on {{ $labels.instance }}"
+            description: "Disk {{ $labels.device }} on {{ $labels.instance }} is at {{ $value | printf \"%.1f\" }}%."
+
+        # Memory Usage > 85%
+        - alert: MemoryUsageWarning
+          expr: cinacoin_memory_usage_percent > 85
+          for: 10m
+          labels:
+            severity: warning
+            team: cinacoin
+            category: infrastructure
+          annotations:
+            summary: "⚠️ Memory usage > 85% on {{ $labels.container }}"
+            description: "Container {{ $labels.container }} on {{ $labels.instance }} memory at {{ $value | printf \"%.1f\" }}%."
+
+        # CPU Usage > 80%
+        - alert: CPUUsageWarning
+          expr: cinacoin_cpu_usage_percent > 80
+          for: 10m
+          labels:
+            severity: warning
+            team: cinacoin
+            category: infrastructure
+          annotations:
+            summary: "⚠️ CPU usage > 80% on {{ $labels.container }}"
+            description: "Container {{ $labels.container }} on {{ $labels.instance }} CPU at {{ $value | printf \"%.1f\" }}%."
+
+        # Low Peer Count
+        - alert: LowPeerCountWarning
+          expr: cinacoin_node_peer_count < 10
+          for: 10m
+          labels:
+            severity: warning
+            team: cinacoin
+            category: blockchain
+          annotations:
+            summary: "⚠️ Low peer count on {{ $labels.chain }}"
+            description: "{{ $labels.chain }} in {{ $labels.region }} has only {{ $value }} P2P peers (threshold: 10)."
+
+        # RPC Cache Hit Rate Low
+        - alert: LowCacheHitRateWarning
+          expr: |
+            sum(rate(cinacoin_rpc_cache_hit_total[5m])) by (provider)
+            /
+            (sum(rate(cinacoin_rpc_cache_hit_total[5m])) by (provider) + sum(rate(cinacoin_rpc_cache_miss_total[5m])) by (provider))
+            < 0.6
+          for: 10m
+          labels:
+            severity: warning
+            team: cinacoin
+            category: performance
+          annotations:
+            summary: "⚠️ RPC cache hit rate < 60% for {{ $labels.provider }}"
+            description: "Provider {{ $labels.provider }} cache hit rate is {{ $value | printf \"%.1f\" }}%."
+
+        # Error Budget Burn Rate (Slow)
+        - alert: ErrorBudgetSlowBurn
+          expr: |
+            sum(rate(cinacoin_http_errors_total{status_code=~"5.."}[1h]))
+            / sum(rate(cinacoin_http_requests_total[1h]))
+            > (1 - 0.9995) * 3
+          for: 15m
+          labels:
+            severity: warning
+            team: cinacoin
+            category: slo
+          annotations:
+            summary: "⚠️ Error budget burning at 3x rate"
+            description: "SLO error budget is being consumed at 3x the sustainable rate. At this pace, the monthly budget will be exhausted in ~10 days."
+
+        # HPA Maxed Out
+        - alert: HPAMaxedOut
+          expr: |
+            kube_horizontalpodautoscaler_status_current_replicas{namespace="cinacoin"}
+            >=
+            kube_horizontalpodautoscaler_spec_max_replicas{namespace="cinacoin"}
+          for: 10m
+          labels:
+            severity: warning
+            team: cinacoin
+            category: scaling
+          annotations:
+            summary: "⚠️ HPA {{ $labels.horizontalpodautoscaler }} at max replicas"
+            description: "HPA has reached maximum replicas ({{ $value }}). Service may not handle additional load."
+
+        # Network Errors
+        - alert: NetworkErrorsWarning
+          expr: rate(cinacoin_network_receive_errors_total[5m]) + rate(cinacoin_network_transmit_errors_total[5m]) > 10
+          for: 5m
+          labels:
+            severity: warning
+            team: cinacoin
+            category: infrastructure
+          annotations:
+            summary: "⚠️ Network errors on {{ $labels.instance }}"
+            description: "Interface {{ $labels.interface }} experiencing {{ $value }}/s errors."
+
+    # ═══════════════════════════════════════════════════════════
+    # INFO ALERTS — Awareness only
+    # ═══════════════════════════════════════════════════════════
+    - name: cinacoin-info
+      interval: 5m
+      rules:
+        # Deployment Events
+        - alert: DeploymentEvent
+          expr: increase(kube_deployment_status_observed_generation{namespace="cinacoin"}[5m]) > 0
+          for: 0m
+          labels:
+            severity: info
+            team: cinacoin
+            category: deployment
+          annotations:
+            summary: "ℹ️ Deployment {{ $labels.deployment }} updated"
+            description: "Deployment {{ $labels.deployment }} in namespace {{ $labels.namespace }} has been updated."
+
+        # Certificate Expiry < 30 days
+        - alert: CertificateExpiryWarning
+          expr: |
+            (cert_manager_certificate_expiration_timestamp_seconds - time()) / 86400 < 30
+          for: 1h
+          labels:
+            severity: info
+            team: cinacoin
+            category: security
+          annotations:
+            summary: "ℹ️ TLS certificate expires in {{ $value | printf \"%.0f\" }} days"
+            description: "Certificate for {{ $labels.namespace }}/{{ $labels.name }} expires in less than 30 days."
+
+        # New SDK Version Detected
+        - alert: NewSDKVersion
+          expr: count(count by (sdk_version) (cinacoin_sdk_requests_total)) > count(count by (sdk_version) (cinacoin_sdk_requests_total offset 1d))
+          for: 0m
+          labels:
+            severity: info
+            team: cinacoin
+            category: sdk
+          annotations:
+            summary: "ℹ️ New SDK version detected"
+            description: "A new SDK version has started making requests."
+
+        # High Wallet Connection Rate
+        - alert: HighConnectionRate
+          expr: sum(rate(cinacoin_wallet_connections_total[5m])) > 100
+          for: 5m
+          labels:
+            severity: info
+            team: cinacoin
+            category: business
+          annotations:
+            summary: "ℹ️ High wallet connection rate: {{ $value }}/s"
+            description: "Wallet connections are arriving at {{ $value }}/s, above normal baseline."
+
+        # Gas Price Spike
+        - alert: GasPriceSpike
+          expr: cinacoin_gas_price_gwei{priority="standard"} > 200
+          for: 5m
+          labels:
+            severity: info
+            team: cinacoin
+            category: blockchain
+          annotations:
+            summary: "ℹ️ Gas price spike: {{ $value }} Gwei on {{ $labels.chain }}"
+            description: "Standard gas price on {{ $labels.chain }} is {{ $value }} Gwei."
+
+        # Block Height Stalled
+        - alert: BlockHeightStalled
+          expr: increase(cinacoin_chain_block_height[10m]) == 0
+          for: 10m
+          labels:
+            severity: info
+            team: cinacoin
+            category: blockchain
+          annotations:
+            summary: "ℹ️ Block height stalled on {{ $labels.chain }}"
+            description: "{{ $labels.chain }} in {{ $labels.region }} has not produced a new block in 10 minutes."
