@@ -14,15 +14,15 @@ export default [
   },
   {
     path: '/docs/',
-    component: ComponentCreator('/docs/', '0ff'),
+    component: ComponentCreator('/docs/', 'd4e'),
     routes: [
       {
         path: '/docs/',
-        component: ComponentCreator('/docs/', 'a15'),
+        component: ComponentCreator('/docs/', '4d4'),
         routes: [
           {
             path: '/docs/',
-            component: ComponentCreator('/docs/', 'ba4'),
+            component: ComponentCreator('/docs/', 'f6a'),
             routes: [
               {
                 path: '/docs/api/aa-sdk',
@@ -219,6 +219,12 @@ export default [
               {
                 path: '/docs/api/erc6492',
                 component: ComponentCreator('/docs/api/erc6492', '655'),
+                exact: true,
+                sidebar: "apiSidebar"
+              },
+              {
+                path: '/docs/api/errors',
+                component: ComponentCreator('/docs/api/errors', '8b3'),
                 exact: true,
                 sidebar: "apiSidebar"
               },

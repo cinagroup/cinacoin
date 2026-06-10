@@ -176,6 +176,11 @@
               "sidebar": "apiSidebar"
             },
             {
+              "id": "api/errors",
+              "path": "/docs/api/errors",
+              "sidebar": "apiSidebar"
+            },
+            {
               "id": "api/explorer",
               "path": "/docs/api/explorer",
               "sidebar": "apiSidebar"

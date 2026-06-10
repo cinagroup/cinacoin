@@ -20,7 +20,8 @@
     "@cinacoin/core-sdk": "workspace:*"
   },
   "dependencies": {
-    "@cinacoin/core-sdk": "workspace:*"
+    "@cinacoin/core-sdk": "workspace:*",
+    "@cinacoin/logger": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.0",

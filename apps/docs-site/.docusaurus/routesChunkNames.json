@@ -15,17 +15,17 @@
     "items": [],
     "__props": "7da13d82"
   },
-  "/docs/-0ff": {
+  "/docs/-d4e": {
     "__comp": "5e95c892",
     "__context": {
       "plugin": "aba21aa0"
     }
   },
-  "/docs/-a15": {
+  "/docs/-4d4": {
     "__comp": "a7bd4aaa",
     "__props": "11b43341"
   },
-  "/docs/-ba4": {
+  "/docs/-f6a": {
     "__comp": "a94703ab"
   },
   "/docs/api/aa-sdk-745": {
@@ -159,6 +159,10 @@
   "/docs/api/erc6492-655": {
     "__comp": "17896441",
     "content": "c9b17c9b"
+  },
+  "/docs/api/errors-8b3": {
+    "__comp": "17896441",
+    "content": "807786b3"
   },
   "/docs/api/explorer-5c8": {
     "__comp": "17896441",

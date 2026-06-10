@@ -1,0 +1,28 @@
+{
+  "id": "api/errors",
+  "title": "Error Codes",
+  "description": "Complete error reference for Cinacoin APIs",
+  "source": "@site/docs/api/errors.md",
+  "sourceDirName": "api",
+  "slug": "/api/errors",
+  "permalink": "/docs/api/errors",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/errors.md",
+  "tags": [],
+  "version": "current",
+  "lastUpdatedAt": 1781099392000,
+  "frontMatter": {
+    "title": "Error Codes",
+    "description": "Complete error reference for Cinacoin APIs"
+  },
+  "sidebar": "apiSidebar",
+  "previous": {
+    "title": "ERC-6492",
+    "permalink": "/docs/api/erc6492"
+  },
+  "next": {
+    "title": "Explorer",
+    "permalink": "/docs/api/explorer"
+  }
+}

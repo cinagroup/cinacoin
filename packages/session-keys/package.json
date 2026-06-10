@@ -12,7 +12,8 @@
     "test": "vitest"
   },
   "dependencies": {
-    "viem": "^2.21.0"
+    "viem": "^2.21.0",
+    "@cinacoin/logger": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.3.0",

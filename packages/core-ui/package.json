@@ -29,7 +29,8 @@
     "@types/qrcode": "^1.5.6",
     "jsdom": "^24.0.0",
     "typescript": "^5.8.3",
-    "vitest": "^2.1.0"
+    "vitest": "^2.1.0",
+    "tsup": "^8.0.0"
   },
   "license": "MIT",
   "publishConfig": {

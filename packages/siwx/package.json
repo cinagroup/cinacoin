@@ -20,13 +20,15 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@cinacoin/siwe": "workspace:*"
+    "@cinacoin/siwe": "workspace:*",
+    "@cinacoin/logger": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^20.11.0",
     "typescript": "^5.8.3",
     "eslint": "^8.56.0",
-    "vitest": "^1.2.0"
+    "vitest": "^1.2.0",
+    "tsup": "^8.0.0"
   },
   "files": [
     "dist"

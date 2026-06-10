@@ -21,7 +21,8 @@
   },
   "dependencies": {
     "@cosmjs/stargate": "^0.32.0",
-    "@cosmjs/proto-signing": "^0.32.0"
+    "@cosmjs/proto-signing": "^0.32.0",
+    "@cinacoin/logger": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.0",

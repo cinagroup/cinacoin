@@ -43,5 +43,8 @@
       "types": "./dist/cdn.d.ts"
     }
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "dependencies": {
+    "@cinacoin/logger": "workspace:*"
+  }
 }

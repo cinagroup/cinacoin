@@ -42,5 +42,8 @@
   "sideEffects": false,
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "@cinacoin/logger": "workspace:*"
   }
 }

@@ -21,7 +21,8 @@
   },
   "dependencies": {
     "@cinacoin/core-sdk": "workspace:*",
-    "tronweb": "^6.3.0"
+    "tronweb": "^6.3.0",
+    "@cinacoin/logger": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.0",

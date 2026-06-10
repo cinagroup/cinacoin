@@ -24,12 +24,14 @@
   "license": "MIT",
   "dependencies": {
     "@cinacoin/core-sdk": "workspace:*",
-    "@cinacoin/chain-registry": "workspace:*"
+    "@cinacoin/chain-registry": "workspace:*",
+    "@cinacoin/logger": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^20.11.0",
     "typescript": "^5.8.3",
-    "vitest": "^1.2.0"
+    "vitest": "^1.2.0",
+    "tsup": "^8.0.0"
   },
   "sideEffects": false,
   "publishConfig": {

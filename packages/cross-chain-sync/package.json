@@ -20,7 +20,8 @@
   },
   "dependencies": {
     "@noble/hashes": "^2.2.0",
-    "viem": "^2.21.0"
+    "viem": "^2.21.0",
+    "@cinacoin/logger": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^19.0.0",

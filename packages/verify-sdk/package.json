@@ -28,7 +28,8 @@
   "license": "MIT",
   "dependencies": {
     "node-fetch": "^3.3.0",
-    "eventemitter3": "^5.0.1"
+    "eventemitter3": "^5.0.1",
+    "@cinacoin/logger": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^20.11.0",

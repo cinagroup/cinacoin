@@ -41,5 +41,11 @@
     "dist"
   ],
   "type": "module",
-  "sideEffects": false
+  "sideEffects": false,
+  "dependencies": {
+    "@cinacoin/logger": "workspace:*"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.0"
+  }
 }

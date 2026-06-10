@@ -50,7 +50,8 @@
     "@noble/curves": "^2.2.0",
     "@noble/hashes": "^2.2.0",
     "viem": "^2.9.0",
-    "zustand": "^4.5.0"
+    "zustand": "^4.5.0",
+    "@cinacoin/logger": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^20.11.0",
@@ -58,7 +59,8 @@
     "eslint": "^8.56.0",
     "jsdom": "^24.0.0",
     "typescript": "^5.8.3",
-    "vitest": "^1.2.0"
+    "vitest": "^1.2.0",
+    "tsup": "^8.0.0"
   },
   "files": [
     "dist"

@@ -26,12 +26,14 @@
   "license": "MIT",
   "dependencies": {
     "@cinacoin/core-sdk": "workspace:*",
-    "@cinacoin/walletconnect-v2": "workspace:*"
+    "@cinacoin/walletconnect-v2": "workspace:*",
+    "@cinacoin/logger": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^20.11.0",
     "@types/ws": "^8.5.0",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "tsup": "^8.0.0"
   },
   "publishConfig": {
     "access": "public"

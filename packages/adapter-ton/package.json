@@ -23,7 +23,8 @@
     "@cinacoin/core-sdk": "workspace:*",
     "@ton/ton": "^15.0.0",
     "@ton/core": "^0.60.0",
-    "@ton/crypto": "^3.3.0"
+    "@ton/crypto": "^3.3.0",
+    "@cinacoin/logger": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.0",

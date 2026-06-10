@@ -45,6 +45,7 @@ export default {
   "7d4685ea": [() => import(/* webpackChunkName: "7d4685ea" */ "@site/docs/guide/index.md"), "@site/docs/guide/index.md", require.resolveWeak("@site/docs/guide/index.md")],
   "7d9f02be": [() => import(/* webpackChunkName: "7d9f02be" */ "@site/docs/api/pay-ui.md"), "@site/docs/api/pay-ui.md", require.resolveWeak("@site/docs/api/pay-ui.md")],
   "7da13d82": [() => import(/* webpackChunkName: "7da13d82" */ "@generated/docusaurus-plugin-content-blog/default/p/docs-blog-48b.json"), "@generated/docusaurus-plugin-content-blog/default/p/docs-blog-48b.json", require.resolveWeak("@generated/docusaurus-plugin-content-blog/default/p/docs-blog-48b.json")],
+  "807786b3": [() => import(/* webpackChunkName: "807786b3" */ "@site/docs/api/errors.md"), "@site/docs/api/errors.md", require.resolveWeak("@site/docs/api/errors.md")],
   "812697b3": [() => import(/* webpackChunkName: "812697b3" */ "@site/docs/api/aa-sdk.md"), "@site/docs/api/aa-sdk.md", require.resolveWeak("@site/docs/api/aa-sdk.md")],
   "814f3328": [() => import(/* webpackChunkName: "814f3328" */ "~blog/default/blog-post-list-prop-default.json"), "~blog/default/blog-post-list-prop-default.json", require.resolveWeak("~blog/default/blog-post-list-prop-default.json")],
   "81ce1bdf": [() => import(/* webpackChunkName: "81ce1bdf" */ "@site/docs/api/telegram-miniapp.md"), "@site/docs/api/telegram-miniapp.md", require.resolveWeak("@site/docs/api/telegram-miniapp.md")],

@@ -15,8 +15,8 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "ERC-6492",
-    "permalink": "/docs/api/erc6492"
+    "title": "Error Codes",
+    "permalink": "/docs/api/errors"
   },
   "next": {
     "title": "Farcaster Mini App",

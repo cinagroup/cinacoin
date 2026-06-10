@@ -19,7 +19,7 @@
     "permalink": "/docs/api/ens-resolver"
   },
   "next": {
-    "title": "Explorer",
-    "permalink": "/docs/api/explorer"
+    "title": "Error Codes",
+    "permalink": "/docs/api/errors"
   }
 }

@@ -24,11 +24,15 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "tsup": "^8.0.0"
   },
   "publishConfig": {
     "access": "public"
   },
   "type": "module",
-  "sideEffects": false
+  "sideEffects": false,
+  "dependencies": {
+    "@cinacoin/logger": "workspace:*"
+  }
 }

@@ -32,5 +32,11 @@
   "license": "MIT",
   "engines": {
     "node": ">=22.0.0"
+  },
+  "dependencies": {
+    "@cinacoin/logger": "workspace:*"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.0"
   }
 }

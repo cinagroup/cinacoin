@@ -21,7 +21,8 @@
     "react": "^18.2.0"
   },
   "dependencies": {
-    "@cinacoin/core-sdk": "^0.2.0"
+    "@cinacoin/core-sdk": "^0.2.0",
+    "@cinacoin/logger": "workspace:*"
   },
   "license": "MIT",
   "repository": {

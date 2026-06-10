@@ -23,13 +23,15 @@
   },
   "dependencies": {
     "vue": "^3.5.0",
-    "@cinacoin/core-sdk": "^0.2.0"
+    "@cinacoin/core-sdk": "^0.2.0",
+    "@cinacoin/logger": "workspace:*"
   },
   "peerDependencies": {
     "vue": ">=3.4.0"
   },
   "devDependencies": {
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "tsup": "^8.0.0"
   },
   "license": "MIT",
   "publishConfig": {
