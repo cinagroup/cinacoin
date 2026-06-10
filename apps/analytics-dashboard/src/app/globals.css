@@ -155,7 +155,7 @@
   .badge {
     @apply inline-flex items-center font-semibold rounded-full;
     font-size: var(--text-caption-size);
-    padding: 2px 8px;
+    padding: 4px 8px;
   }
 
   .badge-success {
