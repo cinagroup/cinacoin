@@ -46,7 +46,7 @@ export interface SessionManagerConfig {
 
 /** Pending request entry. */
 interface PendingRequest {
-  resolve: (result: any) => void;
+  resolve: (result: unknown) => void;
   reject: (error: Error) => void;
   timeout: ReturnType<typeof setTimeout>;
 }

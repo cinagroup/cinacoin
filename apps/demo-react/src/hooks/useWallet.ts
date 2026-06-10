@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect, useRef } from 'react'
 
 declare global {
   interface Window {
-    ethereum?: any
+    ethereum?: unknown
   }
 }
 

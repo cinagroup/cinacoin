@@ -18,14 +18,14 @@ import { privateKeyToAccount } from 'viem/accounts';
 interface JsonRpcRequest {
   jsonrpc: string;
   method: string;
-  params?: any[];
+  params?: unknown[];
   id: number | string;
 }
 
 interface JsonRpcResponse {
   jsonrpc: string;
-  result?: any;
-  error?: { code: number; message: string; data?: any };
+  result?: unknown;
+  error?: { code: number; message: string; data?: unknown };
   id: number | string | null;
 }
 

@@ -87,9 +87,9 @@ export class EvmAdapter extends BaseAdapter {
           method: 'wallet_switchEthereumChain',
           params: [{ chainId: targetChainIdHex }],
         });
-      } catch (err: any) {
+      } catch (err: unknown) {
         // Chain not added, try to add it
-        if (err.code === 4902) {
+        if ((err as { code?: number }).code === 4902) {
           await this.provider.request({
             method: 'wallet_addEthereumChain',
             params: [
@@ -256,8 +256,8 @@ export class EvmAdapter extends BaseAdapter {
         method: 'wallet_switchEthereumChain',
         params: [{ chainId: targetChainIdHex }],
       });
-    } catch (err: any) {
-      if (err.code === 4902) {
+    } catch (err: unknown) {
+      if ((err as { code?: number }).code === 4902) {
         await this.provider.request({
           method: 'wallet_addEthereumChain',
           params: [

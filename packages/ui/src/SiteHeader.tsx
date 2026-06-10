@@ -21,8 +21,7 @@ export interface SiteHeaderProps {
   theme?: 'light' | 'dark';
   onToggleTheme?: () => void;
   /** Extra node rendered just left of the CTA (e.g. a language selector). */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  rightSlot?: any;
+  rightSlot?: unknown;
 }
 
 /**

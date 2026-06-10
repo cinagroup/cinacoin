@@ -117,7 +117,7 @@ const baseConfig: NextConfig = {
             value: [
               "default-src 'self'",
               "script-src 'self'",
-              "style-src 'self' 'unsafe-inline'",
+              "style-src 'self'",
               "img-src 'self' data: blob:",
               "font-src 'self'",
               "connect-src 'self' https://*.cinacoin.com https://*.walletconnect.com",

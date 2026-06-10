@@ -26,7 +26,6 @@ function TransferForm() {
       value: amount,
       chainId: 'eip155:1',
     });
-    console.log('Transaction hash:', result.hash);
   };
 
   return (

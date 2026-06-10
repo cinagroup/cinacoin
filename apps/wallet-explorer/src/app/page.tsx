@@ -10,7 +10,7 @@ export default function WalletExplorerPage() {
   const { connected, address, balance, tokenBalance, txCount, firstSeen, connect } = useWallet();
 
   const handleSearch = (query: string) => {
-    console.log("Searching for:", query);
+    // Search handler - query processing
   };
 
   if (!connected) {

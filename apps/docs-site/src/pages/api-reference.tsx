@@ -38,7 +38,7 @@ function SwaggerViewer() {
         const mod = (await import(
           /* webpackIgnore: true */
           'https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/+esm'
-        )) as { SwaggerUIBundle?: any; default?: any };
+        )) as { SwaggerUIBundle?: unknown; default?: unknown };
         setSwaggerUI(() => mod.SwaggerUIBundle || mod.default);
       } catch {
         // Fallback: inject script tag
@@ -83,7 +83,7 @@ function SwaggerViewer() {
       showExtensions: true,
       showCommonExtensions: true,
       tryItOutEnabled: true,
-      requestInterceptor: (req: any) => {
+      requestInterceptor: (req: { headers: Record<string, string> }) => {
         // Allow users to set a custom Bearer token
         const token = (document.getElementById('bearer-token-input') as HTMLInputElement)?.value;
         if (token) {

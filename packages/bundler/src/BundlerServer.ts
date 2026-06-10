@@ -10,7 +10,7 @@ import {
   type PublicClient,
 } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
-import { Server, type IncomingMessage } from 'http';
+import { Server, type IncomingMessage, type ServerResponse } from 'http';
 import type { Readable } from 'stream';
 
 import type { BundlerServerConfig, JsonRpcRequest, JsonRpcResponse, HealthResponse, PimlicoGasPrice, PimlicoUserOpStatus, RawUserOperation, BundlerMetrics } from './server-types';
@@ -150,7 +150,7 @@ function isAllowedOrigin(origin: string | undefined): boolean {
   return BUNDLER_ALLOWED_ORIGINS.includes(origin);
 }
 
-function setCorsHeaders(res: any, req: IncomingMessage): void {
+function setCorsHeaders(res: ServerResponse, req: IncomingMessage): void {
   const origin = req.headers.origin;
   if (isAllowedOrigin(origin)) {
     res.setHeader('Access-Control-Allow-Origin', origin);
@@ -311,7 +311,7 @@ export class BundlerServer {
 
   // ── HTTP Request Router ───────────────────────────────────────────
 
-  private async handleRequest(req: IncomingMessage, res: any): Promise<void> {
+  private async handleRequest(req: IncomingMessage, res: ServerResponse): Promise<void> {
     // CORS headers (origin-validated, no wildcard)
     setCorsHeaders(res, req);
 
@@ -353,7 +353,7 @@ export class BundlerServer {
     res.end(JSON.stringify({ error: 'Not Found' }));
   }
 
-  private handleHealth(res: any): void {
+  private handleHealth(res: ServerResponse): void {
     const health: HealthResponse = {
       status: 'ok',
       version: '0.2.0',
@@ -367,7 +367,7 @@ export class BundlerServer {
     res.end(JSON.stringify(health));
   }
 
-  private handleMetrics(res: any): void {
+  private handleMetrics(res: ServerResponse): void {
     const lines = [
       '# HELP bundler_ops_total Total UserOperations processed',
       '# TYPE bundler_ops_total counter',
@@ -390,7 +390,7 @@ export class BundlerServer {
     res.end(lines.join('\n') + '\n');
   }
 
-  private async handleJsonRpc(req: IncomingMessage, res: any): Promise<void> {
+  private async handleJsonRpc(req: IncomingMessage, res: ServerResponse): Promise<void> {
     let body = '';
     for await (const chunk of req as Readable) {
       body += chunk;
@@ -800,7 +800,7 @@ export class BundlerServer {
 }
 
 // ── Node.js http.Server wrapper ─────────────────────────────────────
-function createServer(handler: (req: IncomingMessage, res: any) => Promise<void>): Server {
+function createServer(handler: (req: IncomingMessage, res: ServerResponse) => Promise<void>): Server {
   return new Server(async (req, res) => {
     try {
       await handler(req, res);

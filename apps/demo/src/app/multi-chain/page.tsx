@@ -381,7 +381,7 @@ const tx = await client.transfer({
 
 // 📡 Listen to events on all chains
 client.on('transaction', (event) => {
-  console.log(\`[\${event.chain}] \${event.type}: \${event.hash}\`);
+  // Handle transaction event
 });`;
 
   const handleCopy = useCallback(async () => {

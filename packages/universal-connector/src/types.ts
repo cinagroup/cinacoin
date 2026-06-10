@@ -208,7 +208,7 @@ export interface AccountsChangedEventPayload {
 /**
  * Generic event callback type.
  */
-export type EventCallback = (...args: any[]) => void;
+export type EventCallback = (...args: unknown[]) => void;
 
 /* ------------------------------------------------------------------ */
 /*  Main Interface                                                      */

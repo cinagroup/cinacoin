@@ -152,8 +152,7 @@ export default defineNuxtModule<CinacoinModuleOptions>({
     })
 
     // Inject generated CSS into the app
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    nuxt.hook('app:resolve', (app: any) => {
+    nuxt.hook('app:resolve', (app) => {
       app.css.push('#build/cinacoin-theme.css')
     })
 

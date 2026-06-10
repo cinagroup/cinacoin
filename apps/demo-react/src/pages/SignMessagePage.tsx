@@ -14,7 +14,6 @@ function SignMessage() {
     const message = 'Hello from Cinacoin!'
     const signature = await signMessage(message)
     
-    console.log('Signature:', signature)
     // Verify on backend: ethers.verifyMessage(message, signature)
   }
 
@@ -33,7 +32,6 @@ const { signMessage, address } = useWallet()
 const handleSign = async () => {
   const message = 'Hello from Cinacoin!'
   const signature = await signMessage(message)
-  console.log('Signature:', signature)
 }
 </script>
 
@@ -52,7 +50,6 @@ export default function SignMessage() {
   const handleSign = async () => {
     const message = 'Hello from Cinacoin!'
     const signature = await signMessage(message)
-    console.log('Signature:', signature)
   }
 
   return (
@@ -96,7 +93,6 @@ function SignTypedData() {
 
   const handleSign = async () => {
     const signature = await signTypedData(typedData)
-    console.log('EIP-712 Signature:', signature)
   }
 
   return <button onClick={handleSign}>Sign Typed Data</button>
@@ -112,7 +108,6 @@ const typedData = {
 
 const handleSign = async () => {
   const signature = await signTypedData(typedData)
-  console.log('EIP-712 Signature:', signature)
 }
 </script>
 
@@ -131,7 +126,6 @@ export default function SignTypedData() {
 
   const handleSign = async () => {
     const signature = await signTypedData(typedData)
-    console.log('EIP-712 Signature:', signature)
   }
 
   return <button onClick={handleSign}>Sign Typed Data</button>

@@ -461,7 +461,7 @@ export function observeLongTasks(callback: (task: LongTask) => void): () => void
         callback({
           startTime: entry.startTime,
           duration: entry.duration,
-          attribution: (entry as unknown).attribution?.map((a: any) => a.name) || [],
+          attribution: (entry as unknown as { attribution?: Array<{ name: string }> }).attribution?.map((a) => a.name) || [],
         });
       }
     }

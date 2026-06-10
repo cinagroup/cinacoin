@@ -612,9 +612,7 @@ const userOp = await bundler.sendUserOperation({
   ],
   paymaster: true,  // ⛽ Gas sponsored
   sessionKey: '0xabcd',  // 🔑 Session key
-});
-
-console.log('UserOp hash:', userOp.hash);`}
+});`
           </pre>
         </div>
       </div>

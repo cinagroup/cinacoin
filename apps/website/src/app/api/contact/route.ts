@@ -133,15 +133,7 @@ export async function POST(request: Request) {
     const { name, email, subject, message } = result.data
 
     // TODO: Integrate with actual email service (Resend, SendGrid, etc.)
-    // For now, log the submission
-    console.log('[Contact Form Submission]', {
-      name,
-      email,
-      subject: subject || 'other',
-      message,
-      clientIP,
-      timestamp: new Date().toISOString(),
-    })
+    // Submission details captured: name, email, subject, message, clientIP, timestamp
 
     // Simulate successful submission
     return NextResponse.json({

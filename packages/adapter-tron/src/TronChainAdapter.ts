@@ -124,7 +124,7 @@ export class TronChainAdapter implements ChainAdapter {
   readonly id = 'tron-adapter';
   readonly name = 'TRON Chain Adapter';
 
-  private tronWeb: any | null = null;
+  private tronWeb: unknown | null = null;
   private chains: Chain[] = [];
   private _connector: Connector | null = null;
   private _connectedAddress: string | null = null;
@@ -430,7 +430,7 @@ export class TronChainAdapter implements ChainAdapter {
   /* ---- Internal Helpers ---- */
 
   /** Ensure a TronWeb client is available. */
-  private _ensureClient(): any {
+  private _ensureClient(): unknown {
     if (!this.tronWeb) {
       throw new CinacoinError(SDK.NOT_INITIALIZED, 'TronWeb client not initialized');
     }

@@ -66,7 +66,6 @@ export function SystemConfig() {
   };
 
   const handleSave = () => {
-    console.log('Saving config:', config);
     setSaved(true);
     setTimeout(() => setSaved(false), 3000);
   };

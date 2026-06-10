@@ -929,7 +929,7 @@ class InMemoryStorageFallback implements StateStorage {
     return this.get("bridge-state");
   }
 
-  async setState(state: any): Promise<void> {
+  async setState(state: unknown): Promise<void> {
     await this.set("bridge-state", state);
   }
 }

@@ -12,7 +12,21 @@ export function AddressDisplay({ address, truncate = false }: { address: string;
   )
 }
 
-export function ChainBadge({ chain }: { chain?: any }) {
+interface ChainInfo {
+  color?: string;
+  icon?: string;
+  name?: string;
+  symbol?: string;
+  usdPrice?: number;
+}
+
+interface Transaction {
+  hash: string;
+  status: 'success' | 'pending' | 'failed';
+  [key: string]: unknown;
+}
+
+export function ChainBadge({ chain }: { chain?: ChainInfo }) {
   if (!chain) return null
   return (
     <span className={`inline-flex items-center px-3 py-1 rounded-full text-caption font-medium
@@ -22,7 +36,7 @@ export function ChainBadge({ chain }: { chain?: any }) {
   )
 }
 
-export function BalanceCard({ balance, chain }: { balance: string; chain?: any }) {
+export function BalanceCard({ balance, chain }: { balance: string; chain?: ChainInfo }) {
   return (
     <div className="p-4 bg-gradient-to-br from-[var(--cc-canvas-soft)] to-[var(--cc-canvas)]
       rounded-lg border border-[var(--cc-hairline)]">
@@ -41,7 +55,7 @@ export function BalanceCard({ balance, chain }: { balance: string; chain?: any }
   )
 }
 
-export function TransactionList({ transactions }: { transactions: any[] }) {
+export function TransactionList({ transactions }: { transactions: Transaction[] }) {
   return (
     <div>
       <h4 className="cc-body mb-3">最近交易</h4>

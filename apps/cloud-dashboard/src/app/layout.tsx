@@ -32,7 +32,9 @@ export default function RootLayout({
           Skip to main content
         </a>
         <Providers>
-          {children}
+          <main id="main-content">
+            {children}
+          </main>
         </Providers>
       </body>
     </html>

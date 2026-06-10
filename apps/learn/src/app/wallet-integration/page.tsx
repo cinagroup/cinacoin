@@ -152,12 +152,9 @@ async function sendTransaction() {
     data: '0x...', // ABI-encoded function call
   });
 
-  console.log('Transaction hash:', tx.hash);
-
   // Wait for confirmation
   const receipt = await tx.wait();
-  console.log('Confirmed in block:', receipt.blockNumber);
-}`}
+}`
         />
       </section>
 
@@ -175,19 +172,18 @@ async function sendTransaction() {
 
 // Listen for account changes
 cinacoin.on('accountsChanged', (accounts: string[]) => {
-  console.log('Active account changed:', accounts[0]);
+  // Handle account change
 });
 
 // Listen for chain switches
 cinacoin.on('chainChanged', (chainId: string) => {
-  console.log('Switched to chain:', chainId);
+  // Handle chain change
 });
 
 // Listen for disconnection
 cinacoin.on('disconnect', () => {
-  console.log('Wallet disconnected');
   // Clean up your app state
-});`}
+});`
         />
       </section>
 

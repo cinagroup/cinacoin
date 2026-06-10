@@ -201,7 +201,6 @@ import { polygon } from '@/config/chains';
 async function switchToPolygon() {
   try {
     await cinacoin.switchChain(polygon.id);
-    console.log('Switched to Polygon!');
   } catch (error) {
     if (error.code === 4902) {
       // Chain not added to wallet — request to add it
@@ -212,10 +211,9 @@ async function switchToPolygon() {
 
 // Listen for chain changes
 cinacoin.on('chainChanged', (chainId) => {
-  console.log('User switched to chain:', chainId);
   // Refetch data for the new chain
   refreshData(chainId);
-});`}
+});`
         />
       </section>
 

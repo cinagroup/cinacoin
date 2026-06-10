@@ -129,6 +129,7 @@ import { t as translateFn, isRTL as isRTLCheck } from './translator.js';
  * ```
  */
 // Mixin constructor rest params must be `any[]` per TypeScript spec.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function I18nMixin<TBase extends new (...args: any[]) => LitElement>(Base: TBase) {
   abstract class I18nElement extends Base {
     /**

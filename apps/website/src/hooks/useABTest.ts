@@ -5,7 +5,7 @@ interface Assignment {
   experimentId: string;
   variantId: string;
   variantName: string;
-  value: any;
+  value: unknown;
 }
 
 export function useABTest(experimentId: string) {
@@ -30,7 +30,7 @@ export function useABTest(experimentId: string) {
     fetchAssignment();
   }, [experimentId]);
 
-  const trackConversion = async (eventName: string, metadata?: any) => {
+  const trackConversion = async (eventName: string, metadata?: unknown) => {
     if (!assignment) return;
 
     try {

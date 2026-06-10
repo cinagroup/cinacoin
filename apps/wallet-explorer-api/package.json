@@ -20,5 +20,8 @@
     "@cloudflare/workers-types": "^4.20250000.0",
     "typescript": "^5.7.0",
     "wrangler": "^3.90.0"
+  },
+  "engines": {
+    "node": ">=22.0.0"
   }
 }

@@ -234,7 +234,7 @@ async function handleSend(request: Request, env: Env): Promise<Response> {
     results.push(result);
   }
 
-  const succeeded = results.filter((r: any) => r.success).length;
+  const succeeded = results.filter((r) => r.success).length;
   return jsonResponse({ total: results.length, succeeded, failed: results.length - succeeded, results }, origin);
 }
 

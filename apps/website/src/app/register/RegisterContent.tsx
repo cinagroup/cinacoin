@@ -60,8 +60,8 @@ export default function RegisterContent() {
         }
         router.push('/dashboard')
       }
-    } catch (err: any) {
-      setError(err.message || 'Registration failed')
+    } catch (err: unknown) {
+      setError((err as Error).message || 'Registration failed')
     } finally {
       setLoading(false)
     }

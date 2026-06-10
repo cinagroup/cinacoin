@@ -58,8 +58,8 @@ export default function LoginContent() {
         })
         router.push('/dashboard')
       }
-    } catch (err: any) {
-      setError(err.message || 'Login failed')
+    } catch (err: unknown) {
+      setError((err as Error).message || 'Login failed')
     } finally {
       setLoading(false)
     }

@@ -54,7 +54,9 @@ export default function RootLayout({
           Skip to main content
         </a>
         <CinacoinClientProvider>
-          {children}
+          <main id="main-content">
+            {children}
+          </main>
         </CinacoinClientProvider>
       </body>
     </html>

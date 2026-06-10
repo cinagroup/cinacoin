@@ -38,6 +38,14 @@ import type { SwapQuote } from '@cinacoin/swap-sdk';
 
 export type PaymentType = 'buy' | 'swap' | 'deposit';
 
+export interface OnRampAggregatorLike {
+  getQuotes(params: Record<string, unknown>): Promise<OnRampQuote[]>;
+}
+
+export interface SwapRouterLike {
+  getQuotes(params: Record<string, unknown>): Promise<SwapQuote[]>;
+}
+
 export interface PaymentRouteRequest {
   type: PaymentType;
   fiatAmount?: number;
@@ -77,8 +85,8 @@ export interface PaymentRouterConfig {
 
 export class PaymentRouter {
   private config: PaymentRouterConfig;
-  private aggregator: any; // OnRampAggregator - avoid circular dependency
-  private swapRouter: any; // SwapRouter - avoid circular dependency
+  private aggregator: OnRampAggregatorLike | null = null; // OnRampAggregator - avoid circular dependency
+  private swapRouter: SwapRouterLike | null = null; // SwapRouter - avoid circular dependency
 
   constructor(config: PaymentRouterConfig = {}) {
     this.config = {
@@ -93,14 +101,14 @@ export class PaymentRouter {
   /**
    * Set the onramp aggregator instance.
    */
-  setAggregator(aggregator: any): void {
+  setAggregator(aggregator: OnRampAggregatorLike): void {
     this.aggregator = aggregator;
   }
 
   /**
    * Set the swap router instance.
    */
-  setSwapRouter(router: any): void {
+  setSwapRouter(router: SwapRouterLike): void {
     this.swapRouter = router;
   }
 

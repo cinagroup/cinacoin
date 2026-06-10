@@ -44,7 +44,7 @@ export class InMemoryStorage implements StateStorage {
     }
   }
 
-  async setState(state: any): Promise<void> {
+  async setState(state: unknown): Promise<void> {
     this.store.set("session-state", JSON.stringify(state));
   }
 }
@@ -85,7 +85,7 @@ export class LocalStorage implements StateStorage {
     }
   }
 
-  async setState(state: any): Promise<void> {
+  async setState(state: unknown): Promise<void> {
     localStorage.setItem("session-state", JSON.stringify(state));
   }
 }

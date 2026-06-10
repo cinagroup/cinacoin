@@ -31,7 +31,7 @@ export function formatAddress(addr: string): string {
 
 declare global {
  interface Window {
- ethereum?: any
+ ethereum?: unknown
  }
 }
 

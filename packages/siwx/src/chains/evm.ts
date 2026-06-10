@@ -40,8 +40,7 @@ export function createEvmSignInMessage(params: SIWXParams): string {
  */
 export async function verifyEvmSignature(
   input: SIWXVerifyInput,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  provider: any
+  provider: unknown
 ): Promise<SIWXResult> {
   const result = await verifyMessage(input.message, input.signature, provider as unknown);
 

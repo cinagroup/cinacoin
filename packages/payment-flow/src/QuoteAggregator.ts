@@ -85,15 +85,23 @@ interface CacheEntry {
 // QuoteAggregator
 // ============================================================
 
+export interface OnRampAggregatorLike {
+  getQuotes(params: Record<string, unknown>): Promise<OnRampQuote[]>;
+}
+
+export interface SwapRouterLike {
+  getQuotes(params: Record<string, unknown>): Promise<SwapQuote[]>;
+}
+
 export class QuoteAggregator {
-  private onrampAggregator: any; // OnRampAggregator
-  private swapRouter: any; // SwapRouter
+  private onrampAggregator: OnRampAggregatorLike | null; // OnRampAggregator
+  private swapRouter: SwapRouterLike | null; // SwapRouter
   private config: Required<QuoteAggregatorConfig>;
   private cache: Map<string, CacheEntry> = new Map();
 
   constructor(
-    onrampAggregator: any,
-    swapRouter: any,
+    onrampAggregator: OnRampAggregatorLike | null,
+    swapRouter: SwapRouterLike | null,
     config: QuoteAggregatorConfig = {}
   ) {
     this.onrampAggregator = onrampAggregator;

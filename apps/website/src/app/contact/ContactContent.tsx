@@ -36,9 +36,9 @@ export default function ContactContent() {
 
       setStatus('success')
       form.reset()
-    } catch (err: any) {
+    } catch (err: unknown) {
       setStatus('error')
-      setErrorMsg(err.message || 'Something went wrong')
+      setErrorMsg((err as Error).message || 'Something went wrong')
     }
   }
 

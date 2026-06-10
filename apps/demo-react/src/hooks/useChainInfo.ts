@@ -106,8 +106,8 @@ export function useChainInfo(chainId: number | null, address: string | null): Ch
         setBalanceWei(null)
         setBalanceEth(null)
       }
-    } catch (err: any) {
-      setError(err.message || 'Failed to fetch chain info')
+    } catch (err: unknown) {
+      setError((err as Error).message || 'Failed to fetch chain info')
     } finally {
       setLoading(false)
     }
