@@ -103,7 +103,7 @@ function ToastContainer() {
             className={`pointer-events-auto ${s.bg} ${s.border} border rounded-md p-4 shadow-[var(--cc-level5)] backdrop-blur-sm animate-slide-in}`}
           >
             <div className="flex items-start gap-3">
-              <span className={`text-[18px] font-semibold flex-shrink-0 ${
+              <span className={`text-body-lg font-semibold flex-shrink-0 ${
                 toast.type === 'success' ? 'text-[var(--cc-success)]' :
                 toast.type === 'error' ? 'text-[var(--cc-error)]' :
                 toast.type === 'warning' ? 'text-[var(--cc-warning)]' :
@@ -112,8 +112,8 @@ function ToastContainer() {
                 {s.icon}
               </span>
               <div className="flex-1 min-w-0">
-                <p className="text-[14px] font-semibold text-[var(--cc-ink)]">{toast.title}</p>
-                {toast.message && <p className="text-[12px] text-[var(--cc-muted)] mt-1">{toast.message}</p>}
+                <p className="text-body-sm font-semibold text-[var(--cc-ink)]">{toast.title}</p>
+                {toast.message && <p className="text-caption text-[var(--cc-muted)] mt-1">{toast.message}</p>}
               </div>
               <button
                 onClick={() => removeToast(toast.id)}

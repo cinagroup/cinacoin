@@ -91,7 +91,7 @@ export default function ApiKeysPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-[24px] font-semibold text-ink">API Keys</h1>
+          <h1 className="text-display-md font-semibold text-ink">API Keys</h1>
           <p className="text-ink-body mt-1">
             Manage API keys for authenticating with Cinacoin services.
           </p>
@@ -103,7 +103,7 @@ export default function ApiKeysPage() {
 
       {/* Info Banner */}
       <div className="card bg-canvas-soft border-hairline">
-        <p className="text-[14px] text-ink-body">
+        <p className="text-body-sm text-ink-body">
           🔐 <strong>Security:</strong> API keys carry privileges. Use the minimum
           permission level needed. Rotate keys regularly and never commit them to
           version control.
@@ -113,16 +113,16 @@ export default function ApiKeysPage() {
       {/* Usage Summary */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className="card">
-          <div className="text-[14px] text-ink-mute">Total Keys</div>
-          <div className="text-[24px] font-semibold text-ink mt-1">{keys.length}</div>
+          <div className="text-body-sm text-ink-mute">Total Keys</div>
+          <div className="text-display-md font-semibold text-ink mt-1">{keys.length}</div>
         </div>
         <div className="card">
-          <div className="text-[14px] text-ink-mute">Total Requests (All Keys)</div>
-          <div className="text-[24px] font-semibold text-ink mt-1">{totalUsage.toLocaleString()}</div>
+          <div className="text-body-sm text-ink-mute">Total Requests (All Keys)</div>
+          <div className="text-display-md font-semibold text-ink mt-1">{totalUsage.toLocaleString()}</div>
         </div>
         <div className="card">
-          <div className="text-[14px] text-ink-mute">Active Keys</div>
-          <div className="text-[24px] font-semibold text-ink mt-1">
+          <div className="text-body-sm text-ink-mute">Active Keys</div>
+          <div className="text-display-md font-semibold text-ink mt-1">
             {keys.filter((k) => k.status === "active").length}
           </div>
         </div>
@@ -133,26 +133,26 @@ export default function ApiKeysPage() {
         <div className="card bg-[#ecfdf5] border-[#00875a]/30">
           <div className="flex items-start justify-between">
             <div>
-              <p className="text-[14px] font-medium text-[#00875a] mb-1">
+              <p className="text-body-sm font-medium text-[#00875a] mb-1">
                 ✅ New API key generated!
               </p>
-              <p className="text-[12px] text-ink-body mb-2">
+              <p className="text-caption text-ink-body mb-2">
                 Copy this key now. You won't be able to see it again.
               </p>
-              <code className="text-[14px] font-[var(--font-mono)] bg-[var(--color-canvas)] px-3 py-2 rounded border border-[#00875a]/20 block">
+              <code className="text-body-sm font-[var(--font-mono)] bg-[var(--color-canvas)] px-3 py-2 rounded border border-[#00875a]/20 block">
                 {showNewKey}
               </code>
             </div>
             <div className="flex gap-2">
               <button
                 onClick={() => navigator.clipboard.writeText(showNewKey).catch(() => {})}
-                className="btn-primary text-[12px]"
+                className="btn-primary text-caption"
               >
                 📋 Copy
               </button>
               <button
                 onClick={() => setShowNewKey(null)}
-                className="text-ink-mute hover:text-ink text-[18px] leading-none"
+                className="text-ink-mute hover:text-ink text-body-lg leading-none"
               >
                 ×
               </button>

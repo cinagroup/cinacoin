@@ -26,10 +26,10 @@ export default function NewProjectPage() {
   return (
     <div className="space-y-6 max-w-2xl">
       <div>
-        <Link href="/projects" className="text-[14px] text-link hover:text-link-hover">
+        <Link href="/projects" className="text-body-sm text-link hover:text-link-hover">
           ← Back to Projects
         </Link>
-        <h1 className="text-[24px] font-semibold text-ink mt-2">Create New Project</h1>
+        <h1 className="text-display-md font-semibold text-ink mt-2">Create New Project</h1>
         <p className="text-ink-body mt-1">
           Set up a new project to start integrating with Cinacoin.
         </p>
@@ -37,7 +37,7 @@ export default function NewProjectPage() {
 
       <form onSubmit={handleSubmit} className="card space-y-5">
         <div>
-          <label className="block text-[14px] font-medium text-ink mb-1">
+          <label className="block text-body-sm font-medium text-ink mb-1">
             Project Name
           </label>
           <input
@@ -52,7 +52,7 @@ export default function NewProjectPage() {
         </div>
 
         <div>
-          <label className="block text-[14px] font-medium text-ink mb-1">
+          <label className="block text-body-sm font-medium text-ink mb-1">
             Description
           </label>
           <textarea
@@ -66,7 +66,7 @@ export default function NewProjectPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-[14px] font-medium text-ink mb-1">Network</label>
+            <label className="block text-body-sm font-medium text-ink mb-1">Network</label>
             <select
               name="network"
               className="input"
@@ -80,7 +80,7 @@ export default function NewProjectPage() {
           </div>
 
           <div>
-            <label className="block text-[14px] font-medium text-ink mb-1">SDK Version</label>
+            <label className="block text-body-sm font-medium text-ink mb-1">SDK Version</label>
             <select
               name="sdkVersion"
               className="input"

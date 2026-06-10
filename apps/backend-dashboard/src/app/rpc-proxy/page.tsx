@@ -56,7 +56,7 @@ export default function RPCProxyPage() {
       {/* Demo data banner */}
       {isDemo && (
         <div className="cc-card border-l-4 border-[var(--cc-warning)] px-4 py-3 flex items-center gap-3" role="alert">
-          <span className="text-[var(--cc-warning)] text-[18px]">⚠️</span>
+          <span className="text-[var(--cc-warning)] text-body-lg">⚠️</span>
           <div>
             <p className="cc-body-sm-strong text-[var(--cc-ink)]">Demo Mode</p>
             <p className="cc-caption text-[var(--cc-muted)]">{error}</p>
@@ -110,7 +110,7 @@ export default function RPCProxyPage() {
           <h3 className="cc-body-md-strong text-[var(--cc-ink)]">Top RPC Methods (24h)</h3>
         </div>
         <div className="overflow-x-auto">
-          <table className="w-full text-[14px]">
+          <table className="w-full text-body-sm">
             <thead>
               <tr className="border-b border-[var(--cc-hairline)]">
                 <th scope="col" className="ds-table-header">Method</th>
@@ -146,7 +146,7 @@ export default function RPCProxyPage() {
           <h3 className="cc-body-md-strong text-[var(--cc-ink)]">RPC Provider Status</h3>
         </div>
         <div className="overflow-x-auto">
-          <table className="w-full text-[14px]">
+          <table className="w-full text-body-sm">
             <thead>
               <tr className="border-b border-[var(--cc-hairline)]">
                 <th scope="col" className="ds-table-header">Provider</th>

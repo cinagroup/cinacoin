@@ -109,7 +109,7 @@ export default function LoginContent() {
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-[var(--cc-hairline)]"></div>
               </div>
-              <div className="relative flex justify-center text-[12px]">
+              <div className="relative flex justify-center text-caption">
                 <span className="px-3 bg-[var(--cc-canvas)] text-[var(--cc-muted)]">{t('login-or')}</span>
               </div>
             </div>

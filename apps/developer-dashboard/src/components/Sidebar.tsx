@@ -24,10 +24,10 @@ export default function Sidebar() {
     <aside className="sidebar hidden md:flex flex-col py-4 px-3 shrink-0" aria-label="Main navigation">
       {/* Logo */}
       <Link href="/" className="flex items-center gap-2 px-3 mb-6">
-        <span className="text-[24px]" aria-hidden="true">🔢</span>
+        <span className="text-display-md" aria-hidden="true">🔢</span>
         <div>
-          <div className="text-[14px] font-semibold text-ink leading-tight">Cinacoin</div>
-          <div className="text-[12px] text-ink-mute leading-tight">Developer Portal</div>
+          <div className="text-body-sm font-semibold text-ink leading-tight">Cinacoin</div>
+          <div className="text-caption text-ink-mute leading-tight">Developer Portal</div>
         </div>
       </Link>
 
@@ -48,12 +48,12 @@ export default function Sidebar() {
 
       {/* Footer */}
       <div className="px-3 pt-4 border-t border-hairline mt-4">
-        <div className="text-[12px] text-ink-mute">v2.4.1</div>
+        <div className="text-caption text-ink-mute">v2.4.1</div>
         <a
           href="https://docs.cinacoin.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-[12px] text-link hover:text-link-hover mt-1 block"
+          className="text-caption text-link hover:text-link-hover mt-1 block"
         >
           📖 Documentation
         </a>

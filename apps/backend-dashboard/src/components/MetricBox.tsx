@@ -19,7 +19,7 @@ export default function MetricBox({ label, value, icon, trend, color = "text-[va
       <div className="flex items-end gap-1 sm:gap-2">
         <span className={`cc-display-sm ${color} break-all`}>{value}</span>
         {trend && (
-          <span className={`text-[12px] mb-1 ${
+          <span className={`text-caption mb-1 ${
             trend === "up" ? "text-[var(--cc-success)]" :
             trend === "down" ? "text-[var(--cc-error)]" : "text-[var(--cc-muted)]"
           }`} aria-label={`Trend: ${trendLabel}`}>

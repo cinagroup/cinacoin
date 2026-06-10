@@ -200,7 +200,7 @@ export default function AnalyticsPage() {
       <div className="cc-card">
         <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Top Projects by MAU</h3>
         <div className="overflow-x-auto">
-          <table className="w-full text-[14px]">
+          <table className="w-full text-body-sm">
             <thead>
               <tr className="border-b border-[var(--cc-hairline)]">
                 <th scope="col" className="text-left px-4 py-3 cc-caption text-[var(--cc-muted)] font-normal">#</th>

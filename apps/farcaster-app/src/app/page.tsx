@@ -21,10 +21,10 @@ export default function HomePage() {
     <main className="flex min-h-screen flex-col items-center justify-center p-8">
       <div className="max-w-lg w-full space-y-8 text-center">
         <div className="space-y-2">
-          <h1 className="text-[48px] font-bold bg-gradient-to-r from-[var(--color-violet)] to-[var(--color-link)] bg-clip-text text-transparent">
+          <h1 className="text-display-xl font-bold bg-gradient-to-r from-[var(--color-violet)] to-[var(--color-link)] bg-clip-text text-transparent">
             Cinacoin
           </h1>
-          <p className="text-[var(--color-mute)] text-[18px]">Farcaster Mini App</p>
+          <p className="text-[var(--color-mute)] text-body-lg">Farcaster Mini App</p>
         </div>
 
         <div className="bg-[var(--color-canvas-soft-2)] rounded-2xl p-6 border border-[var(--color-hairline)] space-y-4">
@@ -60,7 +60,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        <p className="text-[var(--color-mute)] text-[14px]">
+        <p className="text-[var(--color-mute)] text-body-sm">
           Open this page inside Farcaster to use the Frame experience.
         </p>
       </div>

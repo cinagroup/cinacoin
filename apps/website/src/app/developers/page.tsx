@@ -18,7 +18,7 @@ export default function DevelopersPage() {
         <h1 className="text-5xl md:text-[64px] font-semibold mb-6 tracking-tight text-[var(--cc-ink)] leading-[1.05]">
           {t('dev-hero-title')}
         </h1>
-        <p className="text-[18px] text-[var(--cc-body)] max-w-2xl mx-auto leading-relaxed">
+        <p className="text-body-lg text-[var(--cc-body)] max-w-2xl mx-auto leading-relaxed">
           {t('dev-hero-subtitle')}
         </p>
       </section>
@@ -26,8 +26,8 @@ export default function DevelopersPage() {
       {/* Quick Start */}
       <section className="max-w-[1200px] mx-auto px-6 pb-16">
         <div className="p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] shadow-[var(--cc-level1)]">
-          <h2 className="text-[24px] font-semibold mb-4 text-[var(--cc-ink)]">{t('dev-quickstart-title')}</h2>
-          <p className="text-[var(--cc-body)] text-[14px] leading-relaxed mb-6">
+          <h2 className="text-display-md font-semibold mb-4 text-[var(--cc-ink)]">{t('dev-quickstart-title')}</h2>
+          <p className="text-[var(--cc-body)] text-body-sm leading-relaxed mb-6">
             {t('dev-quickstart-desc')}
           </p>
           <div className="text-code bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] p-4 text-[var(--cc-ink)] overflow-x-auto">
@@ -46,51 +46,51 @@ export default function DevelopersPage() {
       <section className="max-w-[1200px] mx-auto px-6 pb-24">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div id="api" className="p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] shadow-[var(--cc-level1)]">
-            <h3 className="text-[20px] font-semibold mb-2 text-[var(--cc-ink)]">{t('dev-api-title')}</h3>
-            <p className="text-[var(--cc-body)] text-[14px] leading-relaxed mb-4">
+            <h3 className="text-display-sm font-semibold mb-2 text-[var(--cc-ink)]">{t('dev-api-title')}</h3>
+            <p className="text-[var(--cc-body)] text-body-sm leading-relaxed mb-4">
               {t('dev-api-desc')}
             </p>
-            <span className="text-[14px] font-medium text-[var(--cc-link)]">{t('dev-api-cta')}</span>
+            <span className="text-body-sm font-medium text-[var(--cc-link)]">{t('dev-api-cta')}</span>
           </div>
 
           <div id="sdks" className="p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] shadow-[var(--cc-level1)]">
-            <h3 className="text-[20px] font-semibold mb-2 text-[var(--cc-ink)]">{t('dev-sdks-title')}</h3>
-            <p className="text-[var(--cc-body)] text-[14px] leading-relaxed mb-4">
+            <h3 className="text-display-sm font-semibold mb-2 text-[var(--cc-ink)]">{t('dev-sdks-title')}</h3>
+            <p className="text-[var(--cc-body)] text-body-sm leading-relaxed mb-4">
               {t('dev-sdks-desc')}
             </p>
-            <span className="text-[14px] font-medium text-[var(--cc-link)]">{t('dev-sdks-cta')}</span>
+            <span className="text-body-sm font-medium text-[var(--cc-link)]">{t('dev-sdks-cta')}</span>
           </div>
 
           <div id="github" className="p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] shadow-[var(--cc-level1)]">
-            <h3 className="text-[20px] font-semibold mb-2 text-[var(--cc-ink)]">{t('dev-github-title')}</h3>
-            <p className="text-[var(--cc-body)] text-[14px] leading-relaxed mb-4">
+            <h3 className="text-display-sm font-semibold mb-2 text-[var(--cc-ink)]">{t('dev-github-title')}</h3>
+            <p className="text-[var(--cc-body)] text-body-sm leading-relaxed mb-4">
               {t('dev-github-desc')}
             </p>
-            <span className="text-[14px] font-medium text-[var(--cc-link)]">{t('dev-github-cta')}</span>
+            <span className="text-body-sm font-medium text-[var(--cc-link)]">{t('dev-github-cta')}</span>
           </div>
 
           <div className="p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] shadow-[var(--cc-level1)]">
-            <h3 className="text-[20px] font-semibold mb-2 text-[var(--cc-ink)]">{t('dev-tutorials-title')}</h3>
-            <p className="text-[var(--cc-body)] text-[14px] leading-relaxed mb-4">
+            <h3 className="text-display-sm font-semibold mb-2 text-[var(--cc-ink)]">{t('dev-tutorials-title')}</h3>
+            <p className="text-[var(--cc-body)] text-body-sm leading-relaxed mb-4">
               {t('dev-tutorials-desc')}
             </p>
-            <span className="text-[14px] font-medium text-[var(--cc-link)]">{t('dev-tutorials-cta')}</span>
+            <span className="text-body-sm font-medium text-[var(--cc-link)]">{t('dev-tutorials-cta')}</span>
           </div>
 
           <div className="p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] shadow-[var(--cc-level1)]">
-            <h3 className="text-[20px] font-semibold mb-2 text-[var(--cc-ink)]">{t('dev-contracts-title')}</h3>
-            <p className="text-[var(--cc-body)] text-[14px] leading-relaxed mb-4">
+            <h3 className="text-display-sm font-semibold mb-2 text-[var(--cc-ink)]">{t('dev-contracts-title')}</h3>
+            <p className="text-[var(--cc-body)] text-body-sm leading-relaxed mb-4">
               {t('dev-contracts-desc')}
             </p>
-            <span className="text-[14px] font-medium text-[var(--cc-link)]">{t('dev-contracts-cta')}</span>
+            <span className="text-body-sm font-medium text-[var(--cc-link)]">{t('dev-contracts-cta')}</span>
           </div>
 
           <div className="p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] shadow-[var(--cc-level1)]">
-            <h3 className="text-[20px] font-semibold mb-2 text-[var(--cc-ink)]">{t('dev-testnet-title')}</h3>
-            <p className="text-[var(--cc-body)] text-[14px] leading-relaxed mb-4">
+            <h3 className="text-display-sm font-semibold mb-2 text-[var(--cc-ink)]">{t('dev-testnet-title')}</h3>
+            <p className="text-[var(--cc-body)] text-body-sm leading-relaxed mb-4">
               {t('dev-testnet-desc')}
             </p>
-            <span className="text-[14px] font-medium text-[var(--cc-link)]">{t('dev-testnet-cta')}</span>
+            <span className="text-body-sm font-medium text-[var(--cc-link)]">{t('dev-testnet-cta')}</span>
           </div>
         </div>
       </section>

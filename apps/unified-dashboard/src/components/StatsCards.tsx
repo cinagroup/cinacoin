@@ -38,18 +38,18 @@ export function StatsCards() {
         <div key={stat.title} className="stat-card">
           <div className="flex items-center justify-between">
             <p className="stat-label">{stat.title}</p>
-            <span className="text-[24px]">{stat.icon}</span>
+            <span className="text-display-md">{stat.icon}</span>
           </div>
           <p className="stat-value">{stat.value}</p>
           <div className="flex items-center mt-2">
             <span
-              className={`text-[14px] font-medium ${
+              className={`text-body-sm font-medium ${
                 stat.positive ? "text-link" : "text-error"
               }`}
             >
               {stat.change}
             </span>
-            <span className="text-[14px] text-mute ml-2">vs last week</span>
+            <span className="text-body-sm text-mute ml-2">vs last week</span>
           </div>
         </div>
       ))}

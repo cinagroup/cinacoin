@@ -121,7 +121,7 @@ export function CodeExample({
                 <button
                   key={f.id}
                   onClick={() => setActiveFramework(f.id)}
-                  className={`cc-tab-ghost !h-6 !px-3 text-[12px] rounded-md focus-ring transition-colors ${
+                  className={`cc-tab-ghost !h-6 !px-3 text-caption rounded-md focus-ring transition-colors ${
                     activeFramework === f.id
                       ? 'bg-[var(--cc-link)]/10 text-[var(--cc-link)] font-medium'
                       : 'text-[var(--cc-muted)] hover:text-[var(--cc-ink)]'
@@ -174,7 +174,7 @@ export function CodeExample({
       {!collapsed && (
         <pre
           ref={codeRef}
-          className="cc-code-block !m-0 !rounded-none overflow-x-auto text-[14px] leading-relaxed"
+          className="cc-code-block !m-0 !rounded-none overflow-x-auto text-body-sm leading-relaxed"
           tabIndex={0}
           role="region"
           aria-label="Code example"
@@ -188,7 +188,7 @@ export function CodeExample({
                   key={i}
                   className={`flex ${isHighlighted ? 'bg-[var(--cc-link)]/8 -mx-4 px-4 border-l-2 border-[var(--cc-link)]' : ''}`}
                 >
-                  <span className="select-none text-[var(--cc-muted)] text-[12px] w-8 shrink-0 text-right pr-3 py-1 opacity-50">
+                  <span className="select-none text-[var(--cc-muted)] text-caption w-8 shrink-0 text-right pr-3 py-1 opacity-50">
                     {lineNum}
                   </span>
                   <span className="py-1">

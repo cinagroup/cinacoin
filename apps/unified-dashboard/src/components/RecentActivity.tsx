@@ -42,7 +42,7 @@ const activities = [
 export function RecentActivity() {
   return (
     <div className="card">
-      <h3 className="text-[16px] font-semibold text-ink mb-4">
+      <h3 className="text-body-md font-semibold text-ink mb-4">
         Recent Activity
       </h3>
       <div className="space-y-3">
@@ -51,14 +51,14 @@ export function RecentActivity() {
             key={index}
             className="flex items-start gap-3 py-2 border-b border-hairline last:border-0"
           >
-            <span className="text-[18px] mt-1">{activity.icon}</span>
+            <span className="text-body-lg mt-1">{activity.icon}</span>
             <div className="flex-1 min-w-0">
-              <p className="text-[14px] font-medium text-ink">
+              <p className="text-body-sm font-medium text-ink">
                 {activity.action}
               </p>
-              <p className="text-[12px] text-mute truncate">{activity.user}</p>
+              <p className="text-caption text-mute truncate">{activity.user}</p>
             </div>
-            <span className="text-[12px] text-mute whitespace-nowrap">
+            <span className="text-caption text-mute whitespace-nowrap">
               {activity.time}
             </span>
           </div>

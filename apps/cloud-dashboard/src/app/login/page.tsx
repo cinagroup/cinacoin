@@ -79,7 +79,7 @@ export default function LoginPage() {
           </div>
 
           {error && (
-            <div className="mb-4 p-3 bg-[var(--color-error-soft)] border border-[var(--color-error)]/20 rounded text-[14px] text-[var(--color-error-deep)]">
+            <div className="mb-4 p-3 bg-[var(--color-error-soft)] border border-[var(--color-error)]/20 rounded text-body-sm text-[var(--color-error-deep)]">
               {error}
             </div>
           )}
@@ -131,7 +131,7 @@ export default function LoginPage() {
                   value={twoFactorCode}
                   onChange={(e) => setTwoFactorCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
                   placeholder="000000"
-                  className="input text-center text-[24px] tracking-widest"
+                  className="input text-center text-display-md tracking-widest"
                   required
                   autoFocus
                   maxLength={6}
@@ -161,7 +161,7 @@ export default function LoginPage() {
                   <div className="absolute inset-0 flex items-center">
                     <div className="w-full border-t border-hairline"></div>
                   </div>
-                  <div className="relative flex justify-center text-[14px]">
+                  <div className="relative flex justify-center text-body-sm">
                     <span className="px-2 bg-canvas text-body">Or continue with</span>
                   </div>
                 </div>

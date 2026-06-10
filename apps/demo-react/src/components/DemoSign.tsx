@@ -79,7 +79,7 @@ export function DemoSignMessage() {
           {signature && (
             <div className="mt-6 p-4 bg-[var(--cc-success)/10] rounded-lg">
               <p className="cc-body-xs text-[var(--cc-body)] mb-1">签名结果</p>
-              <div className="cc-mono break-all text-[14px]">
+              <div className="cc-mono break-all text-body-sm">
                 {signature}
               </div>
             </div>
@@ -154,7 +154,7 @@ export function DemoSignTypedData() {
           <div className="mb-4">
             <label className="cc-label mb-2 block">Typed Data (JSON)</label>
             <textarea
-              className="cc-input !h-[200px] !font-[var(--font-mono)] text-[12px]"
+              className="cc-input !h-[200px] !font-[var(--font-mono)] text-caption"
               value={typedData}
               readOnly
             />
@@ -173,7 +173,7 @@ export function DemoSignTypedData() {
           {signature && (
             <div className="mt-6 p-4 bg-[var(--cc-success)/10] rounded-lg">
               <p className="cc-body-xs text-[var(--cc-body)] mb-1">签名结果</p>
-              <div className="cc-mono break-all text-[14px]">
+              <div className="cc-mono break-all text-body-sm">
                 {signature}
               </div>
             </div>

@@ -20,7 +20,7 @@ export function Sidebar({ activeTab = "users", onTabChange = () => {}, onClose }
     <aside className="fixed left-0 top-0 h-full w-60 bg-canvas border-r border-hairline flex flex-col">
       <div className="p-lg border-b border-hairline">
         <h2 className="text-heading-3 text-ink flex items-center gap-2">
-          <span className="text-[24px]">🪙</span>
+          <span className="text-display-md">🪙</span>
           CinaCoin
         </h2>
         <p className="text-caption text-mute mt-1">Backend Admin Panel</p>
@@ -37,7 +37,7 @@ export function Sidebar({ activeTab = "users", onTabChange = () => {}, onClose }
                 : "text-body hover:bg-canvas-soft-2 hover:text-ink"
             }`}
           >
-            <span className="text-[18px]">{item.icon}</span>
+            <span className="text-body-lg">{item.icon}</span>
             {item.name}
           </button>
         ))}
@@ -45,7 +45,7 @@ export function Sidebar({ activeTab = "users", onTabChange = () => {}, onClose }
 
       <div className="p-md border-t border-hairline">
         <div className="flex items-center gap-3 px-4 py-2">
-          <div className="w-8 h-8 rounded-full bg-canvas-soft-2 flex items-center justify-center text-[14px] font-medium text-ink">
+          <div className="w-8 h-8 rounded-full bg-canvas-soft-2 flex items-center justify-center text-body-sm font-medium text-ink">
             S
           </div>
           <div>

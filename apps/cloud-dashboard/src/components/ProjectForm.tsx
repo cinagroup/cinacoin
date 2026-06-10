@@ -34,7 +34,7 @@ export function ProjectForm() {
           </svg>
         </div>
         <h3 className="cc-display-sm text-[var(--cc-ink)]">Project Created!</h3>
-        <p className="text-[14px] text-[var(--cc-muted)]">Your project has been created successfully.</p>
+        <p className="text-body-sm text-[var(--cc-muted)]">Your project has been created successfully.</p>
         <div className="flex items-center justify-center gap-3">
           <a href="/projects" className="cc-btn-secondary-sm px-4">
             Back to Projects

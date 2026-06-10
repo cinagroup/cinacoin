@@ -102,7 +102,7 @@ export default function BillingPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-[24px] font-semibold text-ink">Billing & Quotas</h1>
+        <h1 className="text-display-md font-semibold text-ink">Billing & Quotas</h1>
         <p className="text-ink-body mt-1">
           Manage your subscription and monitor usage limits.
         </p>
@@ -113,17 +113,17 @@ export default function BillingPage() {
         <div className="flex items-start justify-between">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <h2 className="text-[18px] font-semibold text-ink">Current Plan</h2>
+              <h2 className="text-body-lg font-semibold text-ink">Current Plan</h2>
               <span className="badge badge-success">Active</span>
             </div>
             <div className="flex items-baseline gap-1 mb-2">
-              <span className="text-[32px] font-bold text-ink">{currentPlan.price}</span>
+              <span className="text-display-lg font-bold text-ink">{currentPlan.price}</span>
               <span className="text-ink-mute">{currentPlan.period}</span>
             </div>
-            <p className="text-[14px] text-ink-body mb-3">{currentPlan.description}</p>
+            <p className="text-body-sm text-ink-body mb-3">{currentPlan.description}</p>
             <ul className="space-y-1">
               {currentPlan.features.map((feature) => (
-                <li key={feature} className="text-[14px] text-ink-body flex items-center gap-2">
+                <li key={feature} className="text-body-sm text-ink-body flex items-center gap-2">
                   <span className="text-success">✓</span>
                   {feature}
                 </li>
@@ -131,8 +131,8 @@ export default function BillingPage() {
             </ul>
           </div>
           <div className="text-right">
-            <div className="text-[14px] text-ink-mute mb-2">Next billing date</div>
-            <div className="text-[14px] font-medium text-ink">July 10, 2026</div>
+            <div className="text-body-sm text-ink-mute mb-2">Next billing date</div>
+            <div className="text-body-sm font-medium text-ink">July 10, 2026</div>
             <button
               onClick={() => setShowUpgradeModal(true)}
               className="btn-primary mt-4"
@@ -145,15 +145,15 @@ export default function BillingPage() {
 
       {/* Usage vs Quota */}
       <div>
-        <h2 className="text-[18px] font-semibold text-ink mb-4">Usage vs Quota</h2>
+        <h2 className="text-body-lg font-semibold text-ink mb-4">Usage vs Quota</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {usageStats.map((stat) => {
             const percentage = (stat.used / stat.total) * 100;
             return (
               <div key={stat.label} className="card">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-[14px] font-medium text-ink">{stat.label}</span>
-                  <span className="text-[14px] text-ink-mute">
+                  <span className="text-body-sm font-medium text-ink">{stat.label}</span>
+                  <span className="text-body-sm text-ink-mute">
                     {stat.used.toLocaleString()} / {stat.total.toLocaleString()} {stat.unit}
                   </span>
                 </div>
@@ -166,16 +166,16 @@ export default function BillingPage() {
                   />
                 </div>
                 <div className="flex items-center justify-between mt-2">
-                  <span className="text-[12px] text-ink-mute">
+                  <span className="text-caption text-ink-mute">
                     {percentage.toFixed(1)}% used
                   </span>
                   {stat.warning && (
-                    <span className="text-[12px] text-warning font-medium">
+                    <span className="text-caption text-warning font-medium">
                       ⚠️ Approaching limit
                     </span>
                   )}
                   {percentage > 90 && (
-                    <span className="text-[12px] text-danger font-medium">
+                    <span className="text-caption text-danger font-medium">
                       ⚠️ Near quota
                     </span>
                   )}
@@ -188,7 +188,7 @@ export default function BillingPage() {
 
       {/* Billing History */}
       <div className="card">
-        <h2 className="text-[18px] font-semibold text-ink mb-4">Recent Invoices</h2>
+        <h2 className="text-body-lg font-semibold text-ink mb-4">Recent Invoices</h2>
         <div className="table-container">
           <table>
             <thead>
@@ -209,7 +209,7 @@ export default function BillingPage() {
                   <span className="badge badge-success">Paid</span>
                 </td>
                 <td>
-                  <button className="text-link hover:text-link-hover text-[14px] font-medium">
+                  <button className="text-link hover:text-link-hover text-body-sm font-medium">
                     Download
                   </button>
                 </td>
@@ -222,7 +222,7 @@ export default function BillingPage() {
                   <span className="badge badge-success">Paid</span>
                 </td>
                 <td>
-                  <button className="text-link hover:text-link-hover text-[14px] font-medium">
+                  <button className="text-link hover:text-link-hover text-body-sm font-medium">
                     Download
                   </button>
                 </td>
@@ -235,7 +235,7 @@ export default function BillingPage() {
                   <span className="badge badge-success">Paid</span>
                 </td>
                 <td>
-                  <button className="text-link hover:text-link-hover text-[14px] font-medium">
+                  <button className="text-link hover:text-link-hover text-body-sm font-medium">
                     Download
                   </button>
                 </td>
@@ -250,10 +250,10 @@ export default function BillingPage() {
         <div className="modal-overlay" onClick={() => setShowUpgradeModal(false)}>
           <div className="modal-content max-w-4xl" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-[20px] font-semibold text-ink">Choose Your Plan</h2>
+              <h2 className="text-display-sm font-semibold text-ink">Choose Your Plan</h2>
               <button
                 onClick={() => setShowUpgradeModal(false)}
-                className="text-ink-mute hover:text-ink text-[24px] leading-none"
+                className="text-ink-mute hover:text-ink text-display-md leading-none"
               >
                 ×
               </button>
@@ -270,17 +270,17 @@ export default function BillingPage() {
                   }`}
                 >
                   {plan.current && (
-                    <div className="text-[12px] font-medium text-ink mb-2">Current Plan</div>
+                    <div className="text-caption font-medium text-ink mb-2">Current Plan</div>
                   )}
-                  <h3 className="text-[18px] font-semibold text-ink mb-1">{plan.name}</h3>
+                  <h3 className="text-body-lg font-semibold text-ink mb-1">{plan.name}</h3>
                   <div className="flex items-baseline gap-1 mb-2">
-                    <span className="text-[24px] font-bold text-ink">{plan.price}</span>
-                    <span className="text-[14px] text-ink-mute">{plan.period}</span>
+                    <span className="text-display-md font-bold text-ink">{plan.price}</span>
+                    <span className="text-body-sm text-ink-mute">{plan.period}</span>
                   </div>
-                  <p className="text-[14px] text-ink-body mb-4">{plan.description}</p>
+                  <p className="text-body-sm text-ink-body mb-4">{plan.description}</p>
                   <ul className="space-y-2 mb-4">
                     {plan.features.map((feature) => (
-                      <li key={feature} className="text-[14px] text-ink-body flex items-start gap-2">
+                      <li key={feature} className="text-body-sm text-ink-body flex items-start gap-2">
                         <span className="text-success mt-1">✓</span>
                         <span>{feature}</span>
                       </li>

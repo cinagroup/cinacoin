@@ -25,17 +25,17 @@ export default function TutorialCard({
     <Link href={href} className="block group">
       <div className="bg-bg-card border border-border-color rounded-xl p-6 hover:border-accent-blue/50 hover:bg-bg-hover transition-all duration-200">
         <div className="flex items-start justify-between mb-3">
-          <h3 className="text-[18px] font-semibold text-text-primary group-hover:text-accent-blue transition-colors">
+          <h3 className="text-body-lg font-semibold text-text-primary group-hover:text-accent-blue transition-colors">
             {title}
           </h3>
-          <span className={`text-[12px] font-medium ${difficultyColors[difficulty]}`}>
+          <span className={`text-caption font-medium ${difficultyColors[difficulty]}`}>
             {difficulty}
           </span>
         </div>
-        <p className="text-[14px] text-text-secondary mb-4 line-clamp-2">
+        <p className="text-body-sm text-text-secondary mb-4 line-clamp-2">
           {description}
         </p>
-        <div className="flex items-center text-[12px] text-text-muted">
+        <div className="flex items-center text-caption text-text-muted">
           <svg
             className="w-4 h-4 mr-1"
             fill="none"

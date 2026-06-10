@@ -21,16 +21,16 @@ export default function CodeBlock({ code, language = "typescript", title }: Code
     <div className="bg-bg-card border border-border-color rounded-lg overflow-hidden my-6">
       {title && (
         <div className="px-4 py-2 bg-bg-hover border-b border-border-color flex items-center justify-between">
-          <span className="text-[14px] text-text-secondary font-[var(--font-mono)]">{title}</span>
+          <span className="text-body-sm text-text-secondary font-[var(--font-mono)]">{title}</span>
           <button
             onClick={handleCopy}
-            className="text-[12px] text-text-muted hover:text-accent-blue transition-colors"
+            className="text-caption text-text-muted hover:text-accent-blue transition-colors"
           >
             {copied ? "✓ Copied" : "Copy"}
           </button>
         </div>
       )}
-      <pre className="p-4 overflow-x-auto text-[14px]">
+      <pre className="p-4 overflow-x-auto text-body-sm">
         <code className={`language-${language} text-text-primary`}>{code}</code>
       </pre>
     </div>

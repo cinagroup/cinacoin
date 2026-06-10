@@ -27,9 +27,9 @@
   --color-warning: #f5a623;
   
   /* Shadows */
-  --shadow-1: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
-  --shadow-2: 0 1px 2px rgba(0, 0, 0, 0.04), inset 0 0 0 1px rgba(0, 0, 0, 0.08);
-  --shadow-3: 0 2px 4px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04), inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+  --shadow-level-1: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+  --shadow-level-2: 0 1px 2px rgba(0, 0, 0, 0.04), inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+  --shadow-level-3: 0 2px 4px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04), inset 0 0 0 1px rgba(0, 0, 0, 0.08);
   
   /* Typography — uses next/font CSS variables when available */
   --font-sans: var(--font-geist-sans, 'Geist'), 'Inter', system-ui, sans-serif;
@@ -360,4 +360,34 @@ code, .mono {
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+}
+
+
+/* ── Accessibility: Focus Visible ─────────────────────── */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-link);
+  outline-offset: 2px;
+}
+
+/* ── Accessibility: Minimum Touch Target ──────────────── */
+button, a, [role="button"] {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* ── Accessibility: Screen Reader Only ────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

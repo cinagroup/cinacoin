@@ -71,10 +71,10 @@ export default function HealthStatusPage() {
     <div className="space-y-8">
       {/* Header */}
       <div className="text-center">
-        <h1 className="text-[32px] font-semibold tracking-tighter text-[var(--cc-ink)]">
+        <h1 className="text-display-lg font-semibold tracking-tighter text-[var(--cc-ink)]">
           CinaCoin Status
         </h1>
-        <p className="mt-2 text-[var(--cc-body)] text-[14px]">
+        <p className="mt-2 text-[var(--cc-body)] text-body-sm">
           Real-time system health and incident reports
         </p>
       </div>
@@ -84,7 +84,7 @@ export default function HealthStatusPage() {
 
       {/* Services */}
       <section>
-        <h2 className="mb-4 text-[18px] font-semibold tracking-tighter text-[var(--cc-ink)]">Services</h2>
+        <h2 className="mb-4 text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Services</h2>
         <div className="grid gap-3 sm:grid-cols-2">
           {services.map((service) => (
             <ServiceCard key={service.name} {...service} />
@@ -94,12 +94,12 @@ export default function HealthStatusPage() {
 
       {/* 90-Day Status Bars */}
       <section>
-        <h2 className="mb-4 text-[18px] font-semibold tracking-tighter text-[var(--cc-ink)]">90-Day History</h2>
+        <h2 className="mb-4 text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">90-Day History</h2>
         <div className="space-y-4 rounded-[8px] border border-[var(--cc-hairline)] bg-[var(--cc-canvas)] p-5" style={{ boxShadow: 'inset 0 0 0 1px var(--cc-hairline)' }}>
           {services.map((service) => (
             <div key={service.name}>
               <div className="mb-1 flex items-center justify-between">
-                <span className="text-[14px] text-[var(--cc-body)]">{service.name}</span>
+                <span className="text-body-sm text-[var(--cc-body)]">{service.name}</span>
                 <span className="text-code text-[var(--cc-muted)]">{service.uptime}</span>
               </div>
               <StatusBar90Days days={generate90Days()} serviceName={service.name} />
@@ -110,12 +110,12 @@ export default function HealthStatusPage() {
 
       {/* Incident Timeline */}
       <section>
-        <h2 className="mb-4 text-[18px] font-semibold tracking-tighter text-[var(--cc-ink)]">Recent Incidents</h2>
+        <h2 className="mb-4 text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Recent Incidents</h2>
         <IncidentTimeline incidents={incidents} />
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-[var(--cc-hairline)] pt-6 text-center text-[14px] text-[var(--cc-muted)]">
+      <footer className="border-t border-[var(--cc-hairline)] pt-6 text-center text-body-sm text-[var(--cc-muted)]">
         <p>© 2026 CinaCoin. All rights reserved.</p>
         <p className="mt-1">Powered by CinaCoin Infrastructure</p>
       </footer>

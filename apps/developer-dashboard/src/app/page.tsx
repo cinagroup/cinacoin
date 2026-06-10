@@ -41,7 +41,7 @@ export default function HomePage() {
     <div className="space-y-8">
       {/* Welcome */}
       <div>
-        <h1 className="text-[24px] font-semibold text-ink">Welcome back, Developer</h1>
+        <h1 className="text-display-md font-semibold text-ink">Welcome back, Developer</h1>
         <p className="text-ink-body mt-1">
           Here&apos;s an overview of your Cinacoin projects and usage.
         </p>
@@ -57,7 +57,7 @@ export default function HomePage() {
       {/* Recent Projects */}
       <div>
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-[18px] font-semibold text-ink">Recent Projects</h2>
+          <h2 className="text-body-lg font-semibold text-ink">Recent Projects</h2>
           <Link href="/projects/new" className="btn-primary">
             + New Project
           </Link>
@@ -71,7 +71,7 @@ export default function HomePage() {
 
       {/* Quick Links */}
       <div className="card">
-        <h3 className="text-[14px] font-semibold text-ink mb-3">Quick Links</h3>
+        <h3 className="text-body-sm font-semibold text-ink mb-3">Quick Links</h3>
         <div className="flex flex-wrap gap-3">
           <Link href="/api-keys" className="btn-secondary">🔑 Manage API Keys</Link>
           <Link href="/analytics" className="btn-secondary">📈 View Analytics</Link>

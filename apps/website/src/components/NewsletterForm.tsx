@@ -58,7 +58,7 @@ export function NewsletterForm({ source = 'website' }: { source?: string }) {
           value={name}
           name="name"
           onChange={(e) => setName(e.target.value)}
-          className="px-4 py-3 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-sm)] text-[var(--cc-ink)] placeholder:text-[var(--cc-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-link)] focus:border-transparent text-[14px]"
+          className="px-4 py-3 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-sm)] text-[var(--cc-ink)] placeholder:text-[var(--cc-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-link)] focus:border-transparent text-body-sm"
         />
         <input
           type="email"
@@ -67,18 +67,18 @@ export function NewsletterForm({ source = 'website' }: { source?: string }) {
           name="email"
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="px-4 py-3 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-sm)] text-[var(--cc-ink)] placeholder:text-[var(--cc-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-link)] focus:border-transparent text-[14px]"
+          className="px-4 py-3 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-sm)] text-[var(--cc-ink)] placeholder:text-[var(--cc-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-link)] focus:border-transparent text-body-sm"
         />
       </div>
       <button
         type="submit"
         disabled={status === 'loading'}
-        className="w-full px-8 py-3 bg-[var(--cc-ink)] hover:opacity-90 text-[var(--cc-canvas)] rounded-[var(--cc-radius-sm)] font-medium text-[14px] transition-colors duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full px-8 py-3 bg-[var(--cc-ink)] hover:opacity-90 text-[var(--cc-canvas)] rounded-[var(--cc-radius-sm)] font-medium text-body-sm transition-colors duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {status === 'loading' ? t('newsletter.subscribing') : t('newsletter.subscribe')}
       </button>
       {status === 'error' && (
-        <p className="text-[var(--cc-error)] text-[14px] text-center">{message}</p>
+        <p className="text-[var(--cc-error)] text-body-sm text-center">{message}</p>
       )}
     </form>
   );

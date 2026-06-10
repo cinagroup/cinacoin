@@ -189,46 +189,46 @@ function ProviderCard({
     >
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
-          <span className="text-[20px]">{quote.icon}</span>
+          <span className="text-display-sm">{quote.icon}</span>
           <span className="font-semibold tracking-tighter text-[var(--cc-ink)]">{quote.providerName}</span>
         </div>
         {quote.isBest && (
-          <span className="text-[12px] font-semibold uppercase tracking-normal px-2 py-1 rounded-full bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-[var(--cc-success)]/30">
+          <span className="text-caption font-semibold uppercase tracking-normal px-2 py-1 rounded-full bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-[var(--cc-success)]/30">
             Best Rate
           </span>
         )}
       </div>
 
-      <div className="grid grid-cols-2 gap-2 text-[14px]">
+      <div className="grid grid-cols-2 gap-2 text-body-sm">
         <div>
-          <span className="text-[var(--cc-body)] text-[12px]">You receive</span>
+          <span className="text-[var(--cc-body)] text-caption">You receive</span>
           <p className="text-[var(--cc-ink)] font-semibold">
             {quote.cryptoAmount.toFixed(6)}{' '}
-            <span className="text-[var(--cc-muted)] text-[12px]">{quote.token}</span>
+            <span className="text-[var(--cc-muted)] text-caption">{quote.token}</span>
           </p>
         </div>
         <div>
-          <span className="text-[var(--cc-body)] text-[12px]">Total cost</span>
+          <span className="text-[var(--cc-body)] text-caption">Total cost</span>
           <p className="text-[var(--cc-ink)] font-semibold">${quote.totalCost.toFixed(2)}</p>
         </div>
         <div>
-          <span className="text-[var(--cc-body)] text-[12px]">Fee</span>
+          <span className="text-[var(--cc-body)] text-caption">Fee</span>
           <p className="text-[var(--cc-body)]">{quote.fees.totalFeePercent}% + ${quote.fees.fixedFee}</p>
         </div>
         <div>
-          <span className="text-[var(--cc-body)] text-[12px]">Time</span>
+          <span className="text-[var(--cc-body)] text-caption">Time</span>
           <p className="text-[var(--cc-body)]">~{quote.estimatedTime} min</p>
         </div>
       </div>
 
       <div className="mt-3 flex items-center gap-2 flex-wrap">
         {quote.requiresKyc && (
-          <span className="text-[12px] px-2 py-1 rounded bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border border-[var(--cc-warning)]/25">
+          <span className="text-caption px-2 py-1 rounded bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border border-[var(--cc-warning)]/25">
             KYC Required
           </span>
         )}
         {quote.paymentMethods.slice(0, 3).map((m) => (
-          <span key={m} className="text-[12px] px-2 py-1 rounded bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)]">
+          <span key={m} className="text-caption px-2 py-1 rounded bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)]">
             {m.replace('_', ' ')}
           </span>
         ))}
@@ -292,22 +292,22 @@ export default function OnrampPage() {
 
         {/* ── Header ─────────────────────────────────────── */}
         <div className="text-center space-y-2">
-          <h1 className="text-[32px] font-semibold tracking-tighter bg-gradient-to-r from-[var(--cc-link)]/80 via-[var(--cc-link)] to-[var(--cc-link)]/60 bg-clip-text text-transparent">
+          <h1 className="text-display-lg font-semibold tracking-tighter bg-gradient-to-r from-[var(--cc-link)]/80 via-[var(--cc-link)] to-[var(--cc-link)]/60 bg-clip-text text-transparent">
             Fiat On-Ramp
           </h1>
-          <p className="text-[var(--cc-muted)] text-[14px]">
+          <p className="text-[var(--cc-muted)] text-body-sm">
             Buy crypto with fiat — compare MoonPay, Ramp &amp; Transak rates
           </p>
         </div>
 
         {/* ── Input Form ─────────────────────────────────── */}
         <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 p-6 space-y-5">
-          <h2 className="text-[18px] font-semibold tracking-tighter text-[var(--cc-ink)]">Configure Purchase</h2>
+          <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Configure Purchase</h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Amount Input */}
             <div>
-              <label className="block text-[14px] text-[var(--cc-muted)] mb-2">Amount</label>
+              <label className="block text-body-sm text-[var(--cc-muted)] mb-2">Amount</label>
               <div className="flex items-center bg-[var(--cc-canvas)]/60 rounded-md border border-[var(--cc-hairline-strong)]/50 overflow-hidden">
                 <input
                   type="text"
@@ -318,12 +318,12 @@ export default function OnrampPage() {
                     if (v === '' || /^\d*\.?\d*$/.test(v)) setFiatAmount(v);
                   }}
                   placeholder="100"
-                  className="flex-1 bg-transparent px-4 py-3 text-[var(--cc-ink)] text-[18px] font-semibold outline-none placeholder:text-[var(--cc-body)]"
+                  className="flex-1 bg-transparent px-4 py-3 text-[var(--cc-ink)] text-body-lg font-semibold outline-none placeholder:text-[var(--cc-body)]"
                 />
                 <select
                   value={currency}
                   onChange={(e) => setCurrency(e.target.value)}
-                  className="bg-[var(--cc-canvas-soft-2)]/80 text-[var(--cc-ink)] text-[14px] px-3 py-3 border-l border-[var(--cc-hairline-strong)]/50 outline-none cursor-pointer"
+                  className="bg-[var(--cc-canvas-soft-2)]/80 text-[var(--cc-ink)] text-body-sm px-3 py-3 border-l border-[var(--cc-hairline-strong)]/50 outline-none cursor-pointer"
                 >
                   {CURRENCIES.map((c) => (
                     <option key={c} value={c}>{c}</option>
@@ -334,12 +334,12 @@ export default function OnrampPage() {
 
             {/* Token Selection */}
             <div>
-              <label className="block text-[14px] text-[var(--cc-muted)] mb-2">Token</label>
+              <label className="block text-body-sm text-[var(--cc-muted)] mb-2">Token</label>
               <div className="flex items-center bg-[var(--cc-canvas)]/60 rounded-md border border-[var(--cc-hairline-strong)]/50 overflow-hidden">
                 <select
                   value={token}
                   onChange={(e) => setToken(e.target.value)}
-                  className="flex-1 bg-transparent px-4 py-3 text-[var(--cc-ink)] text-[18px] font-semibold outline-none cursor-pointer"
+                  className="flex-1 bg-transparent px-4 py-3 text-[var(--cc-ink)] text-body-lg font-semibold outline-none cursor-pointer"
                 >
                   {TOKENS.map((t) => (
                     <option key={t.symbol} value={t.symbol}>{t.icon} {t.symbol} — {t.name}</option>
@@ -350,11 +350,11 @@ export default function OnrampPage() {
 
             {/* Region Selection */}
             <div>
-              <label className="block text-[14px] text-[var(--cc-muted)] mb-2">Region</label>
+              <label className="block text-body-sm text-[var(--cc-muted)] mb-2">Region</label>
               <select
                 value={region}
                 onChange={(e) => setRegion(e.target.value)}
-                className="w-full bg-[var(--cc-canvas)]/60 text-[var(--cc-ink)] text-[14px] px-4 py-3 rounded-md border border-[var(--cc-hairline-strong)]/50 outline-none cursor-pointer"
+                className="w-full bg-[var(--cc-canvas)]/60 text-[var(--cc-ink)] text-body-sm px-4 py-3 rounded-md border border-[var(--cc-hairline-strong)]/50 outline-none cursor-pointer"
               >
                 {REGIONS.map((r) => (
                   <option key={r.code} value={r.code}>{r.code} — {r.name}</option>
@@ -364,13 +364,13 @@ export default function OnrampPage() {
 
             {/* Quick Amount Buttons */}
             <div>
-              <label className="block text-[14px] text-[var(--cc-muted)] mb-2">Quick Select</label>
+              <label className="block text-body-sm text-[var(--cc-muted)] mb-2">Quick Select</label>
               <div className="flex gap-2">
                 {[50, 100, 250, 500, 1000].map((v) => (
                   <button
                     key={v}
                     onClick={() => setFiatAmount(v.toString())}
-                    className={`flex-1 py-2 rounded-lg text-[14px] font-semibold transition-all ${
+                    className={`flex-1 py-2 rounded-lg text-body-sm font-semibold transition-all ${
                       fiatAmount === v.toString()
                         ? 'bg-[var(--cc-link)]/20 text-[var(--cc-link)] border border-[var(--cc-primary)]/40'
                         : 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] hover:bg-[var(--cc-muted)]/50 border border-transparent'
@@ -387,7 +387,7 @@ export default function OnrampPage() {
           <button
             onClick={handleGetQuotes}
             disabled={!isValidAmount || loading}
-            className={`w-full py-4 rounded-md font-semibold text-[16px] transition-all ${
+            className={`w-full py-4 rounded-md font-semibold text-body-md transition-all ${
               isValidAmount && !loading
                 ? 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 shadow-[var(--cc-level3)] active:scale-[0.98]'
                 : 'bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-body)] cursor-not-allowed'
@@ -410,10 +410,10 @@ export default function OnrampPage() {
         {/* ── Provider Comparison ────────────────────────── */}
         {hasSearched && (
           <div className="space-y-4">
-            <h2 className="text-[18px] font-semibold tracking-tighter text-[var(--cc-ink)]">
+            <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">
               Provider Comparison
               {quotes.length > 0 && (
-                <span className="ml-2 text-[14px] text-[var(--cc-body)] font-normal">
+                <span className="ml-2 text-body-sm text-[var(--cc-body)] font-normal">
                   ({quotes.length} provider{quotes.length !== 1 ? 's' : ''})
                 </span>
               )}
@@ -449,16 +449,16 @@ export default function OnrampPage() {
               <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 p-6 space-y-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="text-[18px] font-semibold tracking-tighter text-[var(--cc-ink)]">
+                    <h3 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">
                       {selectedQuote.icon} {selectedQuote.providerName}
                     </h3>
-                    <p className="text-[14px] text-[var(--cc-muted)]">
+                    <p className="text-body-sm text-[var(--cc-muted)]">
                       Receive {selectedQuote.cryptoAmount.toFixed(6)} {token} for ${selectedQuote.totalCost.toFixed(2)} {currency}
                     </p>
                   </div>
                   <button
                     onClick={handleOpenWidget}
-                    className="px-6 py-3 rounded-[6px] font-semibold text-[14px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 shadow-[var(--cc-level3)] transition-all active:scale-[0.98]"
+                    className="px-6 py-3 rounded-[6px] font-semibold text-body-sm bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 shadow-[var(--cc-level3)] transition-all active:scale-[0.98]"
                   >
                     Buy Now
                   </button>
@@ -466,11 +466,11 @@ export default function OnrampPage() {
 
                 {/* SDK Usage Example */}
                 <details className="group">
-                  <summary className="text-[12px] text-[var(--cc-body)] cursor-pointer hover:text-[var(--cc-body)] transition-colors select-none">
+                  <summary className="text-caption text-[var(--cc-body)] cursor-pointer hover:text-[var(--cc-body)] transition-colors select-none">
                     <span className="group-open:hidden">Show SDK integration code ▸</span>
                     <span className="hidden group-open:inline">Hide code ▾</span>
                   </summary>
-                  <pre className="mt-3 p-4 bg-[var(--cc-canvas)]/80 rounded-md text-[12px] text-[var(--cc-body)] overflow-x-auto font-[var(--font-mono)]">
+                  <pre className="mt-3 p-4 bg-[var(--cc-canvas)]/80 rounded-md text-caption text-[var(--cc-body)] overflow-x-auto font-[var(--font-mono)]">
 {`import { OnRampAggregator, MoonPayProvider, RampProvider, TransakProvider } from '@cinacoin/onramp-sdk';
 
 const aggregator = new OnRampAggregator();
@@ -505,8 +505,8 @@ const quote = await aggregator.getBestQuote({
             <div className="flex items-center justify-between px-5 py-3 border-b border-[var(--cc-hairline-strong)]/50">
               <div className="flex items-center gap-2">
                 <span>{selectedQuote.icon}</span>
-                <span className="font-semibold tracking-tighter text-[var(--cc-ink)] text-[14px]">{selectedQuote.providerName}</span>
-                <span className="text-[12px] text-[var(--cc-body)]">— On-Ramp Widget</span>
+                <span className="font-semibold tracking-tighter text-[var(--cc-ink)] text-body-sm">{selectedQuote.providerName}</span>
+                <span className="text-caption text-[var(--cc-body)]">— On-Ramp Widget</span>
               </div>
               <button
                 onClick={() => setShowWidget(false)}
@@ -528,7 +528,7 @@ const quote = await aggregator.getBestQuote({
               />
             </div>
             <div className="px-5 py-3 border-t border-[var(--cc-hairline-strong)]/50">
-              <p className="text-[12px] text-[var(--cc-body)]">
+              <p className="text-caption text-[var(--cc-body)]">
                 Widget URL: <code className="text-[var(--cc-muted)] break-all">{buildWidgetUrl(amountNum, currency, token)}</code>
               </p>
             </div>
@@ -555,20 +555,20 @@ const quote = await aggregator.getBestQuote({
             },
           ].map((card) => (
             <div key={card.title} className="bg-[var(--cc-canvas-soft-2)]/40 rounded-md border border-[var(--cc-hairline-strong)]/40 p-5 text-center">
-              <span className="text-[24px]">{card.icon}</span>
+              <span className="text-display-md">{card.icon}</span>
               <h3 className="text-[var(--cc-ink)] font-semibold mt-2">{card.title}</h3>
-              <p className="text-[var(--cc-muted)] text-[14px] mt-1">{card.desc}</p>
+              <p className="text-[var(--cc-muted)] text-body-sm mt-1">{card.desc}</p>
             </div>
           ))}
         </div>
 
         {/* ── Footer ───────────────────────────────────── */}
         <div className="text-center space-y-1 pt-4">
-          <div className="flex items-center justify-center gap-2 text-[var(--cc-body)] text-[12px]">
+          <div className="flex items-center justify-center gap-2 text-[var(--cc-body)] text-caption">
             <span className="inline-block w-2 h-2 rounded-full bg-gradient-to-r from-[var(--cc-link)] to-[var(--cc-violet)]" />
             <span>Powered by <span className="text-[var(--cc-body)] font-semibold">@cinacoin/onramp-sdk</span></span>
           </div>
-          <p className="text-[var(--cc-body)] text-[12px]">
+          <p className="text-[var(--cc-body)] text-caption">
             Aggregating MoonPay, Ramp, and Transak for the best on-ramp rates
           </p>
         </div>

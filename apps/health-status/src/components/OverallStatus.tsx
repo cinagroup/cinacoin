@@ -39,9 +39,9 @@ export default function OverallStatus({ status }: OverallStatusProps) {
   const c = config[status];
   return (
     <div className={`rounded-[8px] border ${c.border} ${c.bg} p-6 text-center`}>
-      <div className={`text-[48px] ${c.color}`}>{c.icon}</div>
-      <h2 className={`mt-2 text-[20px] font-semibold ${c.color}`}>{c.label}</h2>
-      <p className="mt-1 text-[14px] text-[var(--cc-body)]">Last updated: just now</p>
+      <div className={`text-display-xl ${c.color}`}>{c.icon}</div>
+      <h2 className={`mt-2 text-display-sm font-semibold ${c.color}`}>{c.label}</h2>
+      <p className="mt-1 text-body-sm text-[var(--cc-body)]">Last updated: just now</p>
     </div>
   );
 }

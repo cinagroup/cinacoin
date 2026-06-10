@@ -20,15 +20,15 @@ export default function SettingsPage() {
   return (
     <div className="space-y-6 max-w-2xl">
       <div>
-        <h1 className="text-[24px] font-semibold text-ink">Account Settings</h1>
+        <h1 className="text-display-md font-semibold text-ink">Account Settings</h1>
         <p className="text-ink-body mt-1">Manage your account preferences and security.</p>
       </div>
 
       {/* Profile */}
       <div className="card space-y-4">
-        <h2 className="text-[18px] font-semibold text-ink">Profile</h2>
+        <h2 className="text-body-lg font-semibold text-ink">Profile</h2>
         <div>
-          <label className="block text-[14px] font-medium text-ink mb-1">Display Name</label>
+          <label className="block text-body-sm font-medium text-ink mb-1">Display Name</label>
           <input
             name="name"
             type="text"
@@ -38,7 +38,7 @@ export default function SettingsPage() {
           />
         </div>
         <div>
-          <label className="block text-[14px] font-medium text-ink mb-1">Email</label>
+          <label className="block text-body-sm font-medium text-ink mb-1">Email</label>
           <input
             name="email"
             type="email"
@@ -48,7 +48,7 @@ export default function SettingsPage() {
           />
         </div>
         <div>
-          <label className="block text-[14px] font-medium text-ink mb-1">Company / Organization</label>
+          <label className="block text-body-sm font-medium text-ink mb-1">Company / Organization</label>
           <input
             name="company"
             type="text"
@@ -62,11 +62,11 @@ export default function SettingsPage() {
 
       {/* Security */}
       <div className="card space-y-4">
-        <h2 className="text-[18px] font-semibold text-ink">Security</h2>
+        <h2 className="text-body-lg font-semibold text-ink">Security</h2>
         <div className="flex items-center justify-between p-4 bg-canvas-soft rounded-lg">
           <div>
-            <div className="text-[14px] font-medium text-ink">Two-Factor Authentication</div>
-            <div className="text-[14px] text-ink-mute">
+            <div className="text-body-sm font-medium text-ink">Two-Factor Authentication</div>
+            <div className="text-body-sm text-ink-mute">
               {profile.twoFactor ? "Enabled" : "Not enabled — recommended for security"}
             </div>
           </div>
@@ -84,8 +84,8 @@ export default function SettingsPage() {
 
         <div className="flex items-center justify-between p-4 bg-canvas-soft rounded-lg">
           <div>
-            <div className="text-[14px] font-medium text-ink">Email Notifications</div>
-            <div className="text-[14px] text-ink-mute">Receive alerts for key events</div>
+            <div className="text-body-sm font-medium text-ink">Email Notifications</div>
+            <div className="text-body-sm text-ink-mute">Receive alerts for key events</div>
           </div>
           <label className="relative inline-flex items-center cursor-pointer">
             <input
@@ -104,13 +104,13 @@ export default function SettingsPage() {
 
       {/* Connected Wallets */}
       <div className="card space-y-4">
-        <h2 className="text-[18px] font-semibold text-ink">Connected Wallets</h2>
+        <h2 className="text-body-lg font-semibold text-ink">Connected Wallets</h2>
         <div className="p-4 bg-canvas-soft rounded-lg flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <span className="text-[24px]">🦊</span>
+            <span className="text-display-md">🦊</span>
             <div>
-              <div className="text-[14px] font-medium text-ink">MetaMask</div>
-              <div className="text-[14px] text-ink-mute font-[var(--font-mono)]">0x1234...5678</div>
+              <div className="text-body-sm font-medium text-ink">MetaMask</div>
+              <div className="text-body-sm text-ink-mute font-[var(--font-mono)]">0x1234...5678</div>
             </div>
           </div>
           <span className="badge badge-success">Connected</span>
@@ -120,8 +120,8 @@ export default function SettingsPage() {
 
       {/* Danger Zone */}
       <div className="card border-danger/30">
-        <h2 className="text-[18px] font-semibold text-danger mb-3">Danger Zone</h2>
-        <p className="text-[14px] text-ink-body mb-4">
+        <h2 className="text-body-lg font-semibold text-danger mb-3">Danger Zone</h2>
+        <p className="text-body-sm text-ink-body mb-4">
           Permanently delete your account and all associated projects, API keys, and data.
         </p>
         <button className="btn-danger">Delete Account</button>

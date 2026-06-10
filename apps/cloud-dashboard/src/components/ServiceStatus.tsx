@@ -18,7 +18,7 @@ export default function ServiceStatus() {
           className="resource-card"
         >
           <div className="flex items-center justify-between mb-2">
-            <span className="text-[20px]">{service.icon}</span>
+            <span className="text-display-sm">{service.icon}</span>
             <span
               className={`status-dot ${
                 service.status === "operational"

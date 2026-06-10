@@ -18,7 +18,7 @@ const statusColors: Record<string, string> = {
 export function SystemOverview() {
   return (
     <div className="card">
-      <h3 className="text-[16px] font-semibold text-ink mb-4">
+      <h3 className="text-body-md font-semibold text-ink mb-4">
         System Overview
       </h3>
       <div className="space-y-3">
@@ -31,13 +31,13 @@ export function SystemOverview() {
               <div
                 className={`w-2.5 h-2.5 rounded-full ${statusColors[service.status]}`}
               />
-              <span className="text-[14px] font-medium text-ink">
+              <span className="text-body-sm font-medium text-ink">
                 {service.name}
               </span>
             </div>
             <div className="flex items-center gap-4">
-              <span className="text-[12px] text-mute">{service.latency}</span>
-              <span className="text-[12px] font-medium text-body-color">
+              <span className="text-caption text-mute">{service.latency}</span>
+              <span className="text-caption font-medium text-body-color">
                 {service.uptime}
               </span>
             </div>

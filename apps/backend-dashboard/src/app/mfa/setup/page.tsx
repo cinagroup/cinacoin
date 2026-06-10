@@ -23,7 +23,7 @@ export default function MfaSetupPage() {
         {/* Card */}
         <div className="bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] p-6 shadow-[var(--cc-level3)] text-center">
           {error && (
-            <div className="mb-4 p-3 rounded-[var(--cc-radius-sm)] bg-[var(--cc-error)]/10 border border-[var(--cc-error)]/30 text-[var(--cc-error)] text-[14px]">
+            <div className="mb-4 p-3 rounded-[var(--cc-radius-sm)] bg-[var(--cc-error)]/10 border border-[var(--cc-error)]/30 text-[var(--cc-error)] text-body-sm">
               {error}
             </div>
           )}
@@ -35,7 +35,7 @@ export default function MfaSetupPage() {
           </div>
 
           <h2 className="cc-display-sm text-[var(--cc-ink)] mb-2">2FA Setup Required</h2>
-          <p className="text-[14px] text-[var(--cc-muted)] mb-6">
+          <p className="text-body-sm text-[var(--cc-muted)] mb-6">
             Your account requires two-factor authentication to be set up before you can access the dashboard.
             Please contact your administrator or visit the account settings page to configure 2FA.
           </p>

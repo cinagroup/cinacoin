@@ -33,7 +33,7 @@ export function DemoBridge() {
             <AddressDisplay address={address!} />
             {chain && (
               <div className="mt-2">
-                <span className={`inline-block px-2 py-1 rounded text-[12px] ${chain.color}`}>
+                <span className={`inline-block px-2 py-1 rounded text-caption ${chain.color}`}>
                   {chain.name} (ID: {chain.chainId})
                 </span>
               </div>
@@ -81,7 +81,7 @@ export function DemoBridge() {
               </div>
             </div>
 
-            <div className="p-4 bg-[var(--cc-warning)/10] rounded-lg text-[14px]">
+            <div className="p-4 bg-[var(--cc-warning)/10] rounded-lg text-body-sm">
               <p className="text-[var(--cc-body)]">
                 ⚠️ 模拟功能：实际跨链桥接需配置Bridge adapter
               </p>

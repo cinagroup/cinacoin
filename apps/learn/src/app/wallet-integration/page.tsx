@@ -12,14 +12,14 @@ export default function WalletIntegrationPage() {
     <div className="max-w-3xl mx-auto">
       <StepIndicator currentStep={2} totalSteps={4} />
 
-      <h1 className="text-[32px] font-bold mb-4">Wallet Integration</h1>
+      <h1 className="text-display-lg font-bold mb-4">Wallet Integration</h1>
       <p className="text-text-secondary mb-8">
         Connect wallets, sign messages, and interact with smart contracts using the Cinacoin SDK.
       </p>
 
       {/* Step 1 */}
       <section className="mb-12">
-        <h2 className="text-[24px] font-semibold mb-4">1. Install the SDK</h2>
+        <h2 className="text-display-md font-semibold mb-4">1. Install the SDK</h2>
         <p className="text-text-secondary mb-4">
           Start by installing the Cinacoin SDK in your project. It provides a unified interface
           for connecting to multiple wallets and chains.
@@ -33,7 +33,7 @@ export default function WalletIntegrationPage() {
 
       {/* Step 2 */}
       <section className="mb-12">
-        <h2 className="text-[24px] font-semibold mb-4">2. Initialize the Client</h2>
+        <h2 className="text-display-md font-semibold mb-4">2. Initialize the Client</h2>
         <p className="text-text-secondary mb-4">
           Create a Cinacoin client instance with your project configuration. You can get your
           project ID from the Cinacoin dashboard.
@@ -58,7 +58,7 @@ export const cinacoin = new CinaCoin({
 
       {/* Step 3 */}
       <section className="mb-12">
-        <h2 className="text-[24px] font-semibold mb-4">3. Connect a Wallet</h2>
+        <h2 className="text-display-md font-semibold mb-4">3. Connect a Wallet</h2>
         <p className="text-text-secondary mb-4">
           Use the SDK to connect a user's wallet. The SDK handles WalletConnect, MetaMask,
           and other popular wallets automatically.
@@ -101,7 +101,7 @@ export function useWallet() {
 
       {/* Step 4 */}
       <section className="mb-12">
-        <h2 className="text-[24px] font-semibold mb-4">4. Sign a Message</h2>
+        <h2 className="text-display-md font-semibold mb-4">4. Sign a Message</h2>
         <p className="text-text-secondary mb-4">
           Once connected, you can ask the user to sign messages for authentication or
           other purposes. This proves ownership of the wallet address.
@@ -132,7 +132,7 @@ async function signMessage(message: string) {
 
       {/* Step 5 */}
       <section className="mb-12">
-        <h2 className="text-[24px] font-semibold mb-4">5. Send a Transaction</h2>
+        <h2 className="text-display-md font-semibold mb-4">5. Send a Transaction</h2>
         <p className="text-text-secondary mb-4">
           Send transactions to interact with smart contracts or transfer tokens.
           The SDK handles gas estimation, nonce management, and confirmation tracking.
@@ -162,7 +162,7 @@ async function sendTransaction() {
 
       {/* Step 6 */}
       <section className="mb-12">
-        <h2 className="text-[24px] font-semibold mb-4">6. Listen for Events</h2>
+        <h2 className="text-display-md font-semibold mb-4">6. Listen for Events</h2>
         <p className="text-text-secondary mb-4">
           React to wallet and chain events in real-time. The SDK emits events for
           account changes, chain switches, and disconnections.
@@ -194,13 +194,13 @@ cinacoin.on('disconnect', () => {
       <div className="flex justify-between items-center pt-8 border-t border-border-color">
         <Link
           href="/basics"
-          className="text-text-secondary hover:text-accent-blue transition-colors text-[14px]"
+          className="text-text-secondary hover:text-accent-blue transition-colors text-body-sm"
         >
           ← Previous: Web3 Basics
         </Link>
         <Link
           href="/multichain"
-          className="px-4 py-2 bg-accent-blue hover:bg-accent-blue/80 text-[var(--color-on-primary)] rounded-lg text-[14px] font-medium transition-colors"
+          className="px-4 py-2 bg-accent-blue hover:bg-accent-blue/80 text-[var(--color-on-primary)] rounded-lg text-body-sm font-medium transition-colors"
         >
           Next: Multichain Development →
         </Link>

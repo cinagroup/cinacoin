@@ -14,7 +14,7 @@ const statusConfig: Record<StatusType, { label: string; color: string; bg: strin
 export default function StatusBadge({ status }: StatusBadgeProps) {
   const config = statusConfig[status];
   return (
-    <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-[12px] font-medium ${config.color} ${config.bg}`}>
+    <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-caption font-medium ${config.color} ${config.bg}`}>
       <span className={`h-2 w-2 rounded-full ${config.dot}`} />
       {config.label}
     </span>

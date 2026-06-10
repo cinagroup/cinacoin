@@ -29,7 +29,7 @@ const data = [
 export function UserGrowthChart() {
   return (
     <div className="card">
-      <h3 className="text-[16px] font-semibold text-ink mb-4">
+      <h3 className="text-body-md font-semibold text-ink mb-4">
         User Growth
       </h3>
       <ResponsiveContainer width="100%" height={300}>

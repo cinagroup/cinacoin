@@ -81,7 +81,7 @@ export default function ChainSelector({
         type="button"
         onClick={() => setOpen((o) => !o)}
         onKeyDown={handleKeyDown}
-        className={`w-full flex items-center  gap-3 px-4 py-3 bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-ink)] text-[14px] rounded-md border border-[var(--cc-hairline-strong)]/40 outline-none cursor-pointer appearance-none transition-all duration-200 ${
+        className={`w-full flex items-center  gap-3 px-4 py-3 bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-ink)] text-body-sm rounded-md border border-[var(--cc-hairline-strong)]/40 outline-none cursor-pointer appearance-none transition-all duration-200 ${
           open
             ? 'ring-2 ring-[var(--cc-link)]/40 border-[var(--cc-link)]/50'
             : 'hover:border-[var(--cc-hairline-strong)]/60 hover:bg-[var(--cc-canvas-soft-2)]/80'
@@ -99,7 +99,7 @@ export default function ChainSelector({
             }}
           />
         )}
-        <span className="text-[16px] leading-none">{selected.icon}</span>
+        <span className="text-body-md leading-none">{selected.icon}</span>
         <span className="flex-1 text-left font-medium truncate">{selected.name}</span>
         <svg
           className={`w-4 h-4 text-[var(--cc-muted)] transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
@@ -119,7 +119,7 @@ export default function ChainSelector({
         >
           {/* Dropdown header */}
           <div className="px-4 py-3 border-b border-[var(--cc-hairline-strong)]/50">
-            <p className="text-[12px] text-[var(--cc-body)] font-semibold uppercase tracking-normal">
+            <p className="text-caption text-[var(--cc-body)] font-semibold uppercase tracking-normal">
               Select Chain
             </p>
           </div>
@@ -149,7 +149,7 @@ export default function ChainSelector({
                 >
                   {/* Chain icon with glow */}
                   <div className="relative">
-                    <span className="text-[18px] leading-none">{chain.icon}</span>
+                    <span className="text-body-lg leading-none">{chain.icon}</span>
                     {chain.color && (
                       <span
                         className="absolute -inset-0.5 rounded-full opacity-0 transition-opacity duration-300"
@@ -161,7 +161,7 @@ export default function ChainSelector({
                     )}
                   </div>
 
-                  <span className="flex-1 text-[14px] text-[var(--cc-ink)] font-medium">{chain.name}</span>
+                  <span className="flex-1 text-body-sm text-[var(--cc-ink)] font-medium">{chain.name}</span>
 
                   {/* Active checkmark */}
                   {isSelected && (

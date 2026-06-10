@@ -62,7 +62,7 @@ export default function RegisterPage() {
           </div>
 
           {error && (
-            <div className="mb-4 p-3 bg-[var(--color-error-soft)] border border-[var(--color-error)]/20 rounded text-[14px] text-[var(--color-error-deep)]">
+            <div className="mb-4 p-3 bg-[var(--color-error-soft)] border border-[var(--color-error)]/20 rounded text-body-sm text-[var(--color-error-deep)]">
               {error}
             </div>
           )}
@@ -145,7 +145,7 @@ export default function RegisterPage() {
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-hairline"></div>
               </div>
-              <div className="relative flex justify-center text-[14px]">
+              <div className="relative flex justify-center text-body-sm">
                 <span className="px-2 bg-canvas text-body">Or continue with</span>
               </div>
             </div>

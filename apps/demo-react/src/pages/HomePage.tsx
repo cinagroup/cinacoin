@@ -18,56 +18,56 @@ export function HomePage() {
       {/* Feature Navigation */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         <a href="/wallet-connect" className="cc-card p-6 hover:bg-[var(--cc-canvas-soft)] transition-colors">
-          <div className="text-[32px] mb-3">🔗</div>
+          <div className="text-display-lg mb-3">🔗</div>
           <h3 className="cc-title-sm mb-2">钱包连接</h3>
           <p className="cc-body-xs text-[var(--cc-body)]">
             支持 MetaMask / WalletConnect / Coinbase
           </p>
         </a>
         <a href="/sign-message" className="cc-card p-6 hover:bg-[var(--cc-canvas-soft)] transition-colors">
-          <div className="text-[32px] mb-3"> ✍️</div>
+          <div className="text-display-lg mb-3"> ✍️</div>
           <h3 className="cc-title-sm mb-2">签名</h3>
           <p className="cc-body-xs text-[var(--cc-body)]">
             普通消息 / EIP-712 签名
           </p>
         </a>
         <a href="/transfer" className="cc-card p-6 hover:bg-[var(--cc-canvas-soft)] transition-colors">
-          <div className="text-[32px] mb-3">💸</div>
+          <div className="text-display-lg mb-3">💸</div>
           <h3 className="cc-title-sm mb-2">转账</h3>
           <p className="cc-body-xs text-[var(--cc-body)]">
             以太坊转账模拟
           </p>
         </a>
         <a href="/nft" className="cc-card p-6 hover:bg-[var(--cc-canvas-soft)] transition-colors">
-          <div className="text-[32px] mb-3">🖼️</div>
+          <div className="text-display-lg mb-3">🖼️</div>
           <h3 className="cc-title-sm mb-2">NFT</h3>
           <p className="cc-body-xs text-[var(--cc-body)]">
             NFT 资产展示
           </p>
         </a>
         <a href="/bridge" className="cc-card p-6 hover:bg-[var(--cc-canvas-soft)] transition-colors">
-          <div className="text-[32px] mb-3">🌉</div>
+          <div className="text-display-lg mb-3">🌉</div>
           <h3 className="cc-title-sm mb-2">跨链桥接</h3>
           <p className="cc-body-xs text-[var(--cc-body)]">
             跨链资金转移
           </p>
         </a>
         <a href="/defi" className="cc-card p-6 hover:bg-[var(--cc-canvas-soft)] transition-colors">
-          <div className="text-[32px] mb-3">🏦</div>
+          <div className="text-display-lg mb-3">🏦</div>
           <h3 className="cc-title-sm mb-2">DeFi</h3>
           <p className="cc-body-xs text-[var(--cc-body)]">
             流动性池和收益
           </p>
         </a>
         <a href="/swap" className="cc-card p-6 hover:bg-[var(--cc-canvas-soft)] transition-colors">
-          <div className="text-[32px] mb-3"> swapping </div>
+          <div className="text-display-lg mb-3"> swapping </div>
           <h3 className="cc-title-sm mb-2">Swap</h3>
           <p className="cc-body-xs text-[var(--cc-body)]">
             去中心化交易所
           </p>
         </a>
         <a href="/multichain" className="cc-card p-6 hover:bg-[var(--cc-canvas-soft)] transition-colors">
-          <div className="text-[32px] mb-3">🌐</div>
+          <div className="text-display-lg mb-3">🌐</div>
           <h3 className="cc-title-sm mb-2">多链</h3>
           <p className="cc-body-xs text-[var(--cc-body)]">
             多链间切换

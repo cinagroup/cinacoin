@@ -115,12 +115,12 @@ export function LoginForm() {
               placeholder="Enter 6-digit code"
               maxLength={6}
               required
-              className="w-full px-4 py-3 bg-canvas border border-hairline rounded-lg text-center text-[18px] tracking-widest focus:outline-none focus:ring-2 focus:ring-link"
+              className="w-full px-4 py-3 bg-canvas border border-hairline rounded-lg text-center text-body-lg tracking-widest focus:outline-none focus:ring-2 focus:ring-link"
             />
           </div>
 
           {error && (
-            <div className="p-3 bg-error/10 border border-error/20 rounded-lg text-error text-[14px]">
+            <div className="p-3 bg-error/10 border border-error/20 rounded-lg text-error text-body-sm">
               {error}
             </div>
           )}
@@ -160,12 +160,12 @@ export function LoginForm() {
               maxLength={6}
               required
               autoFocus
-              className="w-full px-4 py-3 bg-canvas border border-hairline rounded-lg text-center text-[18px] tracking-widest focus:outline-none focus:ring-2 focus:ring-link"
+              className="w-full px-4 py-3 bg-canvas border border-hairline rounded-lg text-center text-body-lg tracking-widest focus:outline-none focus:ring-2 focus:ring-link"
             />
           </div>
 
           {error && (
-            <div className="p-3 bg-error/10 border border-error/20 rounded-lg text-error text-[14px]">
+            <div className="p-3 bg-error/10 border border-error/20 rounded-lg text-error text-body-sm">
               {error}
             </div>
           )}
@@ -199,7 +199,7 @@ export function LoginForm() {
     <div className="space-y-6">
       <form onSubmit={handleLogin} className="space-y-4">
         {error && (
-          <div className="p-3 bg-error/10 border border-error/20 rounded-lg text-error text-[14px]">
+          <div className="p-3 bg-error/10 border border-error/20 rounded-lg text-error text-body-sm">
             {error}
           </div>
         )}

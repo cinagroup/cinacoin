@@ -11,7 +11,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 bg-[var(--cc-canvas)]/80 backdrop-blur-md border-b border-[var(--cc-hairline)]">
       <div className="max-w-[1200px] mx-auto px-6 flex items-center justify-between h-16">
-        <Link href="/" className="flex items-center gap-2 text-[var(--cc-ink)] font-semibold text-[16px] tracking-tight hover:opacity-70 transition-opacity duration-150">
+        <Link href="/" className="flex items-center gap-2 text-[var(--cc-ink)] font-semibold text-body-md tracking-tight hover:opacity-70 transition-opacity duration-150">
           <img src="/logo.png" alt="Cinacoin logo" width={24} height={24} style={{ height: 24, width: 24 }} />
           Cinacoin
         </Link>
@@ -27,7 +27,7 @@ export default function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className="px-3 py-2 text-[14px] font-medium text-[var(--cc-body)] hover:text-[var(--cc-ink)] rounded-[var(--cc-radius-sm)] hover:bg-[var(--cc-canvas-soft-2)] transition-all duration-150"
+              className="px-3 py-2 text-body-sm font-medium text-[var(--cc-body)] hover:text-[var(--cc-ink)] rounded-[var(--cc-radius-sm)] hover:bg-[var(--cc-canvas-soft-2)] transition-all duration-150"
             >
               {link.label}
             </Link>
@@ -37,13 +37,13 @@ export default function Header() {
         <div className="hidden md:flex items-center gap-2">
           <Link
             href="/login"
-            className="px-4 py-2 text-[14px] font-medium text-[var(--cc-body)] hover:text-[var(--cc-ink)] transition-colors duration-150"
+            className="px-4 py-2 text-body-sm font-medium text-[var(--cc-body)] hover:text-[var(--cc-ink)] transition-colors duration-150"
           >
             {t('nav-login')}
           </Link>
           <Link
             href="/register"
-            className="px-4 py-2 text-[14px] font-medium bg-[var(--cc-ink)] text-[var(--cc-canvas)] rounded-[var(--cc-radius-sm)] hover:opacity-90 transition-colors duration-150"
+            className="px-4 py-2 text-body-sm font-medium bg-[var(--cc-ink)] text-[var(--cc-canvas)] rounded-[var(--cc-radius-sm)] hover:opacity-90 transition-colors duration-150"
           >
             {t('nav-signup')}
           </Link>
@@ -73,7 +73,7 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="px-3 py-2 text-[14px] font-medium text-[var(--cc-body)] hover:text-[var(--cc-ink)] rounded-[var(--cc-radius-sm)] hover:bg-[var(--cc-canvas-soft-2)] transition-all duration-150"
+                className="px-3 py-2 text-body-sm font-medium text-[var(--cc-body)] hover:text-[var(--cc-ink)] rounded-[var(--cc-radius-sm)] hover:bg-[var(--cc-canvas-soft-2)] transition-all duration-150"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {link.label}
@@ -82,14 +82,14 @@ export default function Header() {
             <div className="mt-4 pt-4 border-t border-[var(--cc-hairline)] flex flex-col gap-2">
               <Link
                 href="/login"
-                className="px-3 py-2 text-[14px] font-medium text-[var(--cc-body)] hover:text-[var(--cc-ink)] rounded-[var(--cc-radius-sm)] hover:bg-[var(--cc-canvas-soft-2)] transition-all duration-150"
+                className="px-3 py-2 text-body-sm font-medium text-[var(--cc-body)] hover:text-[var(--cc-ink)] rounded-[var(--cc-radius-sm)] hover:bg-[var(--cc-canvas-soft-2)] transition-all duration-150"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {t('nav-login')}
               </Link>
               <Link
                 href="/register"
-                className="px-4 py-2 text-[14px] font-medium bg-[var(--cc-ink)] text-[var(--cc-canvas)] rounded-[var(--cc-radius-sm)] hover:opacity-90 transition-colors duration-150 text-center"
+                className="px-4 py-2 text-body-sm font-medium bg-[var(--cc-ink)] text-[var(--cc-canvas)] rounded-[var(--cc-radius-sm)] hover:opacity-90 transition-colors duration-150 text-center"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {t('nav-signup')}

@@ -51,8 +51,8 @@ export default function MultiChainPage() {
               aria-pressed={selected === c.id}
             >
               <div className="flex items-center gap-3 mb-3">
-                <span className="w-8 h-8 rounded-full flex items-center justify-center text-[14px] font-semibold text-[var(--cc-ink)]" style={{ backgroundColor: c.color + '20' }}>{c.icon}</span>
-                <span className="font-semibold text-[14px] text-[var(--cc-ink)]">{c.name}</span>
+                <span className="w-8 h-8 rounded-full flex items-center justify-center text-body-sm font-semibold text-[var(--cc-ink)]" style={{ backgroundColor: c.color + '20' }}>{c.icon}</span>
+                <span className="font-semibold text-body-sm text-[var(--cc-ink)]">{c.name}</span>
               </div>
               <div className="flex gap-1 flex-wrap">
                 {c.wallets.slice(0, 3).map(w => (
@@ -66,7 +66,7 @@ export default function MultiChainPage() {
         {chain && (
           <div className="cc-card-lg mb-8 animate-slide-up border border-[var(--cc-link)]/10">
             <div className="flex items-center gap-4 mb-4">
-              <span className="w-12 h-12 rounded-full flex items-center justify-center text-[24px] font-semibold text-[var(--cc-ink)]" style={{ backgroundColor: chain.color + '20' }}>{chain.icon}</span>
+              <span className="w-12 h-12 rounded-full flex items-center justify-center text-display-md font-semibold text-[var(--cc-ink)]" style={{ backgroundColor: chain.color + '20' }}>{chain.icon}</span>
               <div>
                 <h2 className="cc-display-sm text-[var(--cc-ink)]">{chain.name}</h2>
                 <p className="cc-body-sm text-[var(--cc-muted)] mt-1">{chain.wallets.join(' · ')}</p>
@@ -84,13 +84,13 @@ export default function MultiChainPage() {
               <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4 text-center border border-[var(--cc-hairline)] flex flex-col justify-center items-center">
                 <div className="flex items-center gap-2 justify-center">
                   <span className="w-2 h-2 bg-[var(--cc-success)] rounded-full animate-pulse" />
-                  <span className="text-[var(--cc-success)] text-[14px] font-semibold">Active</span>
+                  <span className="text-[var(--cc-success)] text-body-sm font-semibold">Active</span>
                 </div>
                 <div className="cc-caption-mono text-[var(--cc-muted)] mt-1">Status</div>
               </div>
             </div>
             <button
-              className="cc-btn-primary w-full text-[16px] font-semibold focus-ring"
+              className="cc-btn-primary w-full text-body-md font-semibold focus-ring"
               onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); } }}
               aria-label={`Connect to ${chain.name} chain`}
               onClick={() => { /* Demo: would trigger chain connection flow */ }}
@@ -105,23 +105,23 @@ export default function MultiChainPage() {
           <h2 className="cc-display-sm mb-4">Cross-chain bridge</h2>
           <div className="flex items-center justify-center gap-3 flex-wrap">
             <div className="bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] rounded-lg px-6 py-4 text-center min-w-[120px]">
-              <span className="text-[24px]">Ξ</span>
+              <span className="text-display-md">Ξ</span>
               <p className="cc-body-sm-strong mt-1">Ethereum</p>
             </div>
-            <span className="text-[24px] text-[var(--cc-muted)]">→</span>
+            <span className="text-display-md text-[var(--cc-muted)]">→</span>
             <div className="bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] rounded-lg px-6 py-4 text-center min-w-[120px]">
-              <span className="text-[24px]">🌉</span>
+              <span className="text-display-md">🌉</span>
               <p className="cc-body-sm-strong mt-1">Relay</p>
-              <p className="text-[12px] text-[var(--cc-muted)] cc-caption">Cinacoin</p>
+              <p className="text-caption text-[var(--cc-muted)] cc-caption">Cinacoin</p>
             </div>
-            <span className="text-[24px] text-[var(--cc-muted)]">→</span>
+            <span className="text-display-md text-[var(--cc-muted)]">→</span>
             <div className="bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] rounded-lg px-6 py-4 text-center min-w-[120px]">
-              <span className="text-[24px]">◎</span>
+              <span className="text-display-md">◎</span>
               <p className="cc-body-sm-strong mt-1">Solana</p>
             </div>
-            <span className="text-[24px] text-[var(--cc-muted)]">→</span>
+            <span className="text-display-md text-[var(--cc-muted)]">→</span>
             <div className="bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] rounded-lg px-6 py-4 text-center min-w-[120px]">
-              <span className="text-[24px]">₿</span>
+              <span className="text-display-md">₿</span>
               <p className="cc-body-sm-strong mt-1">Bitcoin</p>
             </div>
           </div>

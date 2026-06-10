@@ -66,7 +66,7 @@ function OAuthCallbackContent() {
             </svg>
           </div>
           <h2 className="cc-display-sm text-[var(--cc-ink)] mb-2">Authentication Failed</h2>
-          <p className="text-[14px] text-[var(--cc-muted)] mb-6">
+          <p className="text-body-sm text-[var(--cc-muted)] mb-6">
             {searchParams.get("error_description") || "OAuth authentication was cancelled or failed."}
           </p>
           <button
@@ -82,7 +82,7 @@ function OAuthCallbackContent() {
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
           </svg>
-          <p className="text-[14px] text-[var(--cc-muted)]">
+          <p className="text-body-sm text-[var(--cc-muted)]">
             Completing authentication…
           </p>
         </>
@@ -95,7 +95,7 @@ function OAuthCallbackContent() {
             </svg>
           </div>
           <h2 className="cc-display-sm text-[var(--cc-ink)] mb-2">Authentication Failed</h2>
-          <p className="text-[14px] text-[var(--cc-error)] mb-6">{error}</p>
+          <p className="text-body-sm text-[var(--cc-error)] mb-6">{error}</p>
           <button
             onClick={() => router.replace("/login")}
             className="cc-btn-primary w-full"
@@ -109,7 +109,7 @@ function OAuthCallbackContent() {
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
           </svg>
-          <p className="text-[14px] text-[var(--cc-muted)]">Redirecting…</p>
+          <p className="text-body-sm text-[var(--cc-muted)]">Redirecting…</p>
         </>
       )}
     </div>
@@ -133,7 +133,7 @@ export default function OAuthCallbackPage() {
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
             </svg>
-            <p className="text-[14px] text-[var(--cc-muted)]">Loading…</p>
+            <p className="text-body-sm text-[var(--cc-muted)]">Loading…</p>
           </div>
         }>
           <OAuthCallbackContent />

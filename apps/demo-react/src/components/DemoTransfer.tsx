@@ -83,7 +83,7 @@ export function DemoTransfer() {
           {resultHash && (
             <div className="mt-6 p-4 bg-[var(--cc-success)/10] rounded-lg">
               <p className="cc-body-xs text-[var(--cc-body)] mb-1">交易哈希</p>
-              <div className="cc-mono break-all text-[14px]">
+              <div className="cc-mono break-all text-body-sm">
                 {resultHash}
               </div>
               <p className="cc-body-xs text-[var(--cc-body)] mt-2">

@@ -267,7 +267,7 @@ function chainLabel(chainIdHex: string): string {
 function CapBadge({ label, supported }: { label: string; supported: boolean }) {
   return (
     <span
-      className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-[12px] font-semibold ${
+      className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-caption font-semibold ${
         supported
           ? 'bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-[var(--cc-success)]/25'
           : 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/30'
@@ -287,7 +287,7 @@ function StatusBadge({ status }: { status: string }) {
     COMPLETE: 'bg-[var(--cc-success)]/15 text-[var(--cc-success)] border-[var(--cc-success)]/25',
   };
   return (
-    <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-[12px] font-semibold border ${colors[status] ?? 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] border-[var(--cc-hairline-strong)]/30'}`}>
+    <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-caption font-semibold border ${colors[status] ?? 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] border-[var(--cc-hairline-strong)]/30'}`}>
       {status === 'PENDING' && <span className="size-2 rounded-full bg-[var(--cc-warning)] animate-pulse" />}
       {status === 'CONFIRMED' && <span className="size-2 rounded-full bg-[var(--cc-success)]" />}
       {status === 'REVERTED' && <span className="size-2 rounded-full bg-[var(--cc-error)]" />}
@@ -522,10 +522,10 @@ export default function BatchPage() {
 
         {/* ── Header ─────────────────────────────────────── */}
         <div className="text-center space-y-2">
-          <h1 className="text-[32px] font-semibold tracking-tighter bg-gradient-to-r from-[var(--cc-link)]/80 via-[var(--cc-link)] to-[var(--cc-link)]/60 bg-clip-text text-transparent">
+          <h1 className="text-display-lg font-semibold tracking-tighter bg-gradient-to-r from-[var(--cc-link)]/80 via-[var(--cc-link)] to-[var(--cc-link)]/60 bg-clip-text text-transparent">
             EIP-5792 Atomic Batch
           </h1>
-          <p className="text-[var(--cc-muted)] text-[14px]">
+          <p className="text-[var(--cc-muted)] text-body-sm">
             Send multiple transactions atomically via wallet_sendCalls — with real gas estimation
           </p>
         </div>
@@ -534,7 +534,7 @@ export default function BatchPage() {
         <div className="flex items-center justify-end gap-3">
           {isConnected ? (
             <div className="flex items-center gap-3">
-              <span className="text-[12px] text-[var(--cc-muted)]">
+              <span className="text-caption text-[var(--cc-muted)]">
                 <span className="text-[var(--cc-ink)] font-semibold">{shortenAddress(account.address ?? '')}</span>
                 {currentChainHex && (
                   <span className="text-[var(--cc-body)] ml-1">· {chainLabel(currentChainHex)}</span>
@@ -542,7 +542,7 @@ export default function BatchPage() {
               </span>
               <button
                 onClick={() => disconnect()}
-                className="px-3 py-2 rounded-md text-[12px] font-semibold bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all"
+                className="px-3 py-2 rounded-md text-caption font-semibold bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all"
               >
                 Disconnect
               </button>
@@ -551,7 +551,7 @@ export default function BatchPage() {
             <button
               onClick={() => connect(connectors.find((c) => c.id === 'io.metamask')?.id ?? connectors[0]?.id ?? 'io.metamask')}
               disabled={isConnecting}
-              className="px-4 py-2 rounded-[6px] text-[14px] font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all disabled:opacity-50"
+              className="px-4 py-2 rounded-[6px] text-body-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all disabled:opacity-50"
             >
               {isConnecting ? 'Connecting...' : 'Connect Wallet'}
             </button>
@@ -559,7 +559,7 @@ export default function BatchPage() {
         </div>
 
         {error && (
-          <div className="text-center text-[14px] text-[var(--cc-error)] bg-[var(--cc-error)]/10 border border-[var(--cc-error)]/20 rounded-md px-4 py-2">
+          <div className="text-center text-body-sm text-[var(--cc-error)] bg-[var(--cc-error)]/10 border border-[var(--cc-error)]/20 rounded-md px-4 py-2">
             {error}
           </div>
         )}
@@ -567,24 +567,24 @@ export default function BatchPage() {
         {/* ── Wallet Capabilities ────────────────────────── */}
         <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 shadow-[var(--cc-level4)] overflow-hidden">
           <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50 flex items-center justify-between">
-            <h2 className="text-[18px] font-semibold tracking-tighter text-[var(--cc-ink)]">Wallet Capabilities</h2>
+            <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Wallet Capabilities</h2>
             <button
               onClick={() => capabilities.refetch()}
               disabled={!isConnected}
-              className="text-[12px] text-[var(--cc-muted)] hover:text-[var(--cc-ink)] transition-colors disabled:opacity-40"
+              className="text-caption text-[var(--cc-muted)] hover:text-[var(--cc-ink)] transition-colors disabled:opacity-40"
             >
               ↻ Refresh
             </button>
           </div>
 
           {!isConnected && (
-            <div className="p-6 text-center text-[14px] text-[var(--cc-body)]">
+            <div className="p-6 text-center text-body-sm text-[var(--cc-body)]">
               Connect a wallet to discover capabilities
             </div>
           )}
 
           {isConnected && capabilities.isLoading && (
-            <div className="p-6 text-center text-[14px] text-[var(--cc-muted)]">
+            <div className="p-6 text-center text-body-sm text-[var(--cc-muted)]">
               <span className="inline-flex items-center gap-2">
                 <Spinner /> Fetching capabilities…
               </span>
@@ -595,12 +595,12 @@ export default function BatchPage() {
             <div className="p-5 space-y-4">
               {capabilities.supportedChains.length > 0 ? (
                 <div>
-                  <p className="text-[12px] text-[var(--cc-muted)] uppercase tracking-normal mb-2">Supported Chains</p>
+                  <p className="text-caption text-[var(--cc-muted)] uppercase tracking-normal mb-2">Supported Chains</p>
                   <div className="flex flex-wrap gap-2">
                     {capabilities.supportedChains.map((cid) => (
                       <span
                         key={cid}
-                        className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline-strong)]/40 text-[12px] text-[var(--cc-body)] font-[var(--font-mono)]"
+                        className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline-strong)]/40 text-caption text-[var(--cc-body)] font-[var(--font-mono)]"
                       >
                         <span className="size-2 rounded-full bg-[var(--cc-success)]" />
                         {chainLabel(cid)}
@@ -611,7 +611,7 @@ export default function BatchPage() {
               ) : (
                 <div className="flex flex-wrap gap-2">
                   <CapBadge label="wallet_getCapabilities" supported={false} />
-                  <span className="text-[12px] text-[var(--cc-body)] self-center">
+                  <span className="text-caption text-[var(--cc-body)] self-center">
                     {capabilities.error
                       ? `Not supported (${capabilities.error.message.slice(0, 60)}…)`
                       : 'Method not available on this wallet'}
@@ -628,8 +628,8 @@ export default function BatchPage() {
 
               {currentChainHex && (
                 <div className="flex items-center gap-2 p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/40">
-                  <span className="text-[12px] text-[var(--cc-muted)]">Current chain:</span>
-                  <span className="text-[12px] font-[var(--font-mono)] text-[var(--cc-body)]">{chainLabel(currentChainHex)} ({currentChainHex})</span>
+                  <span className="text-caption text-[var(--cc-muted)]">Current chain:</span>
+                  <span className="text-caption font-[var(--font-mono)] text-[var(--cc-body)]">{chainLabel(currentChainHex)} ({currentChainHex})</span>
                   <span className="ml-auto">
                     {eip5792Supported === true ? (
                       <CapBadge label="EIP-5792 ✓" supported />
@@ -647,11 +647,11 @@ export default function BatchPage() {
         {isConnected && (
           <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 shadow-[var(--cc-level4)] overflow-hidden">
             <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50 flex items-center justify-between">
-              <h2 className="text-[18px] font-semibold tracking-tighter text-[var(--cc-ink)]">Gas Estimation</h2>
+              <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Gas Estimation</h2>
               <button
                 onClick={handleEstimateGas}
                 disabled={estimatingGas || batchCalls.length === 0}
-                className="px-3 py-2 rounded-lg text-[12px] font-semibold bg-[var(--cc-primary)]/20 text-[var(--cc-link)] border border-[var(--cc-primary)]/30 hover:bg-[var(--cc-primary)]/30 transition-all disabled:opacity-50"
+                className="px-3 py-2 rounded-lg text-caption font-semibold bg-[var(--cc-primary)]/20 text-[var(--cc-link)] border border-[var(--cc-primary)]/30 hover:bg-[var(--cc-primary)]/30 transition-all disabled:opacity-50"
               >
                 {estimatingGas ? (
                   <span className="inline-flex items-center gap-2"><Spinner /> Estimating…</span>
@@ -664,22 +664,22 @@ export default function BatchPage() {
               {gasEstimate ? (
                 <>
                   <div className="flex items-center justify-between p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/40">
-                    <span className="text-[12px] text-[var(--cc-muted)]">Total Gas</span>
-                    <span className="text-[14px] font-[var(--font-mono)] text-[var(--cc-success)] font-semibold">
+                    <span className="text-caption text-[var(--cc-muted)]">Total Gas</span>
+                    <span className="text-body-sm font-[var(--font-mono)] text-[var(--cc-success)] font-semibold">
                       {gasEstimate.totalDecimal.toLocaleString()} gas
                     </span>
                   </div>
                   {gasEstimate.individual.map((g, i) => (
                     <div key={i} className="flex items-center justify-between px-4 py-2 rounded-lg bg-[var(--cc-canvas)]/30">
-                      <span className="text-[12px] text-[var(--cc-body)]">Call #{i + 1}</span>
-                      <span className="text-[12px] font-[var(--font-mono)] text-[var(--cc-muted)]">
+                      <span className="text-caption text-[var(--cc-body)]">Call #{i + 1}</span>
+                      <span className="text-caption font-[var(--font-mono)] text-[var(--cc-muted)]">
                         {g === '0x0' ? 'N/A (default 21k)' : `${parseInt(g, 16).toLocaleString()} gas`}
                       </span>
                     </div>
                   ))}
                 </>
               ) : (
-                <p className="text-[14px] text-[var(--cc-body)] text-center py-2">
+                <p className="text-body-sm text-[var(--cc-body)] text-center py-2">
                   Click "Estimate Gas" to calculate real gas costs for this batch
                 </p>
               )}
@@ -690,19 +690,19 @@ export default function BatchPage() {
         {/* ── Batch Transaction Builder ──────────────────── */}
         <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 shadow-[var(--cc-level4)] overflow-hidden">
           <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
-            <h2 className="text-[18px] font-semibold tracking-tighter text-[var(--cc-ink)]">Batch Transaction Builder</h2>
-            <p className="text-[12px] text-[var(--cc-body)] mt-1">Add multiple calls to send atomically</p>
+            <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Batch Transaction Builder</h2>
+            <p className="text-caption text-[var(--cc-body)] mt-1">Add multiple calls to send atomically</p>
           </div>
 
           <div className="p-5 space-y-3">
             {batchCalls.map((call, index) => (
               <div key={index} className="p-4 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/40 space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-[12px] font-semibold text-[var(--cc-muted)] uppercase tracking-normal">Call #{index + 1}</span>
+                  <span className="text-caption font-semibold text-[var(--cc-muted)] uppercase tracking-normal">Call #{index + 1}</span>
                   {batchCalls.length > 1 && (
                     <button
                       onClick={() => handleRemoveCall(index)}
-                      className="text-[12px] text-[var(--cc-error)] hover:text-[var(--cc-error-deep)] transition-colors px-2 py-1 rounded bg-[var(--cc-error)]/10 hover:bg-[var(--cc-error)]/20"
+                      className="text-caption text-[var(--cc-error)] hover:text-[var(--cc-error-deep)] transition-colors px-2 py-1 rounded bg-[var(--cc-error)]/10 hover:bg-[var(--cc-error)]/20"
                     >
                       Remove
                     </button>
@@ -710,40 +710,40 @@ export default function BatchPage() {
                 </div>
 
                 <div>
-                  <label htmlFor={`batch-to-${index}`} className="text-[12px] text-[var(--cc-body)] mb-1 block">To (address)</label>
+                  <label htmlFor={`batch-to-${index}`} className="text-caption text-[var(--cc-body)] mb-1 block">To (address)</label>
                   <input
                     id={`batch-to-${index}`}
                     type="text"
                     value={call.to}
                     onChange={(e) => handleUpdateCall(index, 'to', e.target.value)}
                     placeholder="0x…"
-                    className="w-full px-3 h-[40px] bg-[var(--cc-canvas-soft-2)]/80 border border-[var(--cc-hairline-strong)]/50 rounded-lg text-[14px] font-[var(--font-mono)] text-[var(--cc-body)] placeholder:text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-success)]/40 focus:border-[var(--cc-success)]/50"
+                    className="w-full px-3 h-[40px] bg-[var(--cc-canvas-soft-2)]/80 border border-[var(--cc-hairline-strong)]/50 rounded-lg text-body-sm font-[var(--font-mono)] text-[var(--cc-body)] placeholder:text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-success)]/40 focus:border-[var(--cc-success)]/50"
                     aria-label={`Call ${index + 1} destination address`}
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label htmlFor={`batch-value-${index}`} className="text-[12px] text-[var(--cc-body)] mb-1 block">Value (hex wei)</label>
+                    <label htmlFor={`batch-value-${index}`} className="text-caption text-[var(--cc-body)] mb-1 block">Value (hex wei)</label>
                     <input
                       id={`batch-value-${index}`}
                       type="text"
                       value={call.value}
                       onChange={(e) => handleUpdateCall(index, 'value', e.target.value)}
                       placeholder="0x0"
-                      className="w-full px-3 h-[40px] bg-[var(--cc-canvas-soft-2)]/80 border border-[var(--cc-hairline-strong)]/50 rounded-lg text-[14px] font-[var(--font-mono)] text-[var(--cc-body)] placeholder:text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-success)]/40 focus:border-[var(--cc-success)]/50"
+                      className="w-full px-3 h-[40px] bg-[var(--cc-canvas-soft-2)]/80 border border-[var(--cc-hairline-strong)]/50 rounded-lg text-body-sm font-[var(--font-mono)] text-[var(--cc-body)] placeholder:text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-success)]/40 focus:border-[var(--cc-success)]/50"
                       aria-label={`Call ${index + 1} value in hex wei`}
                     />
                   </div>
                   <div>
-                    <label htmlFor={`batch-data-${index}`} className="text-[12px] text-[var(--cc-body)] mb-1 block">Data (hex)</label>
+                    <label htmlFor={`batch-data-${index}`} className="text-caption text-[var(--cc-body)] mb-1 block">Data (hex)</label>
                     <input
                       id={`batch-data-${index}`}
                       type="text"
                       value={call.data}
                       onChange={(e) => handleUpdateCall(index, 'data', e.target.value)}
                       placeholder="0x"
-                      className="w-full px-3 h-[40px] bg-[var(--cc-canvas-soft-2)]/80 border border-[var(--cc-hairline-strong)]/50 rounded-lg text-[14px] font-[var(--font-mono)] text-[var(--cc-body)] placeholder:text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-success)]/40 focus:border-[var(--cc-success)]/50"
+                      className="w-full px-3 h-[40px] bg-[var(--cc-canvas-soft-2)]/80 border border-[var(--cc-hairline-strong)]/50 rounded-lg text-body-sm font-[var(--font-mono)] text-[var(--cc-body)] placeholder:text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-success)]/40 focus:border-[var(--cc-success)]/50"
                       aria-label={`Call ${index + 1} transaction data`}
                     />
                   </div>
@@ -753,7 +753,7 @@ export default function BatchPage() {
 
             <button
               onClick={handleAddCall}
-              className="w-full py-3 rounded-md text-[14px] font-semibold border border-dashed border-[var(--cc-hairline-strong)] text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all"
+              className="w-full py-3 rounded-md text-body-sm font-semibold border border-dashed border-[var(--cc-hairline-strong)] text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all"
             >
               + Add Call
             </button>
@@ -762,14 +762,14 @@ export default function BatchPage() {
               <button
                 onClick={handlePreview}
                 disabled={!isConnected}
-                className="flex-1 px-4 py-3 rounded-md text-[14px] font-semibold bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 px-4 py-3 rounded-md text-body-sm font-semibold bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Preview Batch
               </button>
               <button
                 onClick={handleSendBatch}
                 disabled={!isConnected || executing || callsStatus.isPolling}
-                className="flex-1 px-4 py-3 rounded-[6px] text-[14px] font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 shadow-[var(--cc-level3)] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 px-4 py-3 rounded-[6px] text-body-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 shadow-[var(--cc-level3)] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {executing && lastAction === 'send' ? (
                   <span className="inline-flex items-center gap-2"><Spinner /> Sending…</span>
@@ -780,7 +780,7 @@ export default function BatchPage() {
               <button
                 onClick={handleAtomicBatch}
                 disabled={!isConnected || executing || callsStatus.isPolling}
-                className="flex-1 px-4 py-3 rounded-[6px] text-[14px] font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 shadow-[var(--cc-level3)] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 px-4 py-3 rounded-[6px] text-body-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 shadow-[var(--cc-level3)] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {executing && lastAction === 'batch' ? (
                   <span className="inline-flex items-center gap-2"><Spinner /> Executing…</span>
@@ -792,7 +792,7 @@ export default function BatchPage() {
 
             {batchResult && !batchResult.success && (
               <div className="p-3 rounded-md bg-[var(--cc-error)]/10 border border-[var(--cc-error)]/20">
-                <p className="text-[14px] text-[var(--cc-error)]">{batchResult.error ?? 'Unknown error'}</p>
+                <p className="text-body-sm text-[var(--cc-error)]">{batchResult.error ?? 'Unknown error'}</p>
               </div>
             )}
           </div>
@@ -802,10 +802,10 @@ export default function BatchPage() {
         {showPreview && (
           <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 shadow-[var(--cc-level4)] overflow-hidden">
             <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50 flex items-center justify-between">
-              <h2 className="text-[18px] font-semibold tracking-tighter text-[var(--cc-ink)]">Batch Preview</h2>
+              <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Batch Preview</h2>
               <button
                 onClick={() => setShowPreview(false)}
-                className="text-[12px] text-[var(--cc-muted)] hover:text-[var(--cc-ink)] transition-colors"
+                className="text-caption text-[var(--cc-muted)] hover:text-[var(--cc-ink)] transition-colors"
               >
                 ✕
               </button>
@@ -813,26 +813,26 @@ export default function BatchPage() {
             <div className="p-5 space-y-3">
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-2">
-                  <span className="text-[12px] text-[var(--cc-muted)]">Total calls:</span>
-                  <span className="text-[12px] font-semibold text-[var(--cc-success)]">{batchCalls.length}</span>
+                  <span className="text-caption text-[var(--cc-muted)]">Total calls:</span>
+                  <span className="text-caption font-semibold text-[var(--cc-success)]">{batchCalls.length}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-[12px] text-[var(--cc-muted)]">Atomic:</span>
+                  <span className="text-caption text-[var(--cc-muted)]">Atomic:</span>
                   {eip5792Supported ? (
-                    <span className="text-[12px] font-semibold text-[var(--cc-success)]">Yes ✓</span>
+                    <span className="text-caption font-semibold text-[var(--cc-success)]">Yes ✓</span>
                   ) : (
-                    <span className="text-[12px] font-semibold text-[var(--cc-warning)]">Sequential fallback</span>
+                    <span className="text-caption font-semibold text-[var(--cc-warning)]">Sequential fallback</span>
                   )}
                 </div>
                 {gasEstimate && (
                   <div className="flex items-center gap-2">
-                    <span className="text-[12px] text-[var(--cc-muted)]">Est. gas:</span>
-                    <span className="text-[12px] font-[var(--font-mono)] text-[var(--cc-link)]">{gasEstimate.totalDecimal.toLocaleString()}</span>
+                    <span className="text-caption text-[var(--cc-muted)]">Est. gas:</span>
+                    <span className="text-caption font-[var(--font-mono)] text-[var(--cc-link)]">{gasEstimate.totalDecimal.toLocaleString()}</span>
                   </div>
                 )}
               </div>
               {batchCalls.map((call, index) => (
-                <div key={index} className="p-3 rounded-lg bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/40 font-[var(--font-mono)] text-[12px] text-[var(--cc-muted)] space-y-1">
+                <div key={index} className="p-3 rounded-lg bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/40 font-[var(--font-mono)] text-caption text-[var(--cc-muted)] space-y-1">
                   <div><span className="text-[var(--cc-body)]">to:</span> {call.to || '(empty)'}</div>
                   <div><span className="text-[var(--cc-body)]">value:</span> {call.value}</div>
                   <div><span className="text-[var(--cc-body)]">data:</span> {call.data || '0x (empty)'}</div>
@@ -849,23 +849,23 @@ export default function BatchPage() {
         {(callsStatus.isPolling || callsStatus.result || batchResult) && (
           <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 shadow-[var(--cc-level4)] overflow-hidden">
             <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
-              <h2 className="text-[18px] font-semibold tracking-tighter text-[var(--cc-ink)]">Transaction Status</h2>
+              <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Transaction Status</h2>
             </div>
             <div className="p-5 space-y-4">
               {/* EIP-5792 call ID */}
               {batchResult?.callId && (
                 <div className="p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/40">
-                  <p className="text-[12px] text-[var(--cc-body)] mb-1">Batch ID (EIP-5792)</p>
-                  <p className="text-[14px] font-[var(--font-mono)] text-[var(--cc-body)] break-all">{batchResult.callId}</p>
+                  <p className="text-caption text-[var(--cc-body)] mb-1">Batch ID (EIP-5792)</p>
+                  <p className="text-body-sm font-[var(--font-mono)] text-[var(--cc-body)] break-all">{batchResult.callId}</p>
                 </div>
               )}
 
               {/* Sequential tx hashes */}
               {batchResult?.txHashes && batchResult.txHashes.length > 0 && (
                 <div className="space-y-2">
-                  <p className="text-[12px] text-[var(--cc-muted)] uppercase tracking-normal">Transaction Hashes</p>
+                  <p className="text-caption text-[var(--cc-muted)] uppercase tracking-normal">Transaction Hashes</p>
                   {batchResult.txHashes.map((hash, i) => (
-                    <div key={i} className="p-3 rounded-lg bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/40 font-[var(--font-mono)] text-[12px] text-[var(--cc-muted)]">
+                    <div key={i} className="p-3 rounded-lg bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/40 font-[var(--font-mono)] text-caption text-[var(--cc-muted)]">
                       <span className="text-[var(--cc-body)]">#{i + 1}:</span> {hash}
                     </div>
                   ))}
@@ -873,52 +873,52 @@ export default function BatchPage() {
               )}
 
               {callsStatus.isPolling && (
-                <div className="flex items-center gap-2 text-[14px] text-[var(--cc-warning)]">
+                <div className="flex items-center gap-2 text-body-sm text-[var(--cc-warning)]">
                   <Spinner /> Polling status…
                 </div>
               )}
 
               {callsStatus.status && (
                 <div className="flex items-center gap-3">
-                  <span className="text-[12px] text-[var(--cc-muted)]">Status:</span>
+                  <span className="text-caption text-[var(--cc-muted)]">Status:</span>
                   <StatusBadge status={callsStatus.status} />
                 </div>
               )}
 
               {callsStatus.allSucceeded && (
                 <div className="p-3 rounded-md bg-[var(--cc-success)]/10 border border-[var(--cc-success)]/20">
-                  <p className="text-[14px] text-[var(--cc-success)] font-semibold">✓ All calls succeeded!</p>
+                  <p className="text-body-sm text-[var(--cc-success)] font-semibold">✓ All calls succeeded!</p>
                 </div>
               )}
 
               {(callsStatus.failedReceipts?.length ?? 0) > 0 && (
                 <div className="p-3 rounded-md bg-[var(--cc-error)]/10 border border-[var(--cc-error)]/20">
-                  <p className="text-[14px] text-[var(--cc-error)] font-semibold mb-1">✗ {callsStatus.failedReceipts?.length} call(s) failed</p>
+                  <p className="text-body-sm text-[var(--cc-error)] font-semibold mb-1">✗ {callsStatus.failedReceipts?.length} call(s) failed</p>
                   {callsStatus.failedReceipts?.map((r, i) => (
-                    <p key={i} className="text-[12px] font-[var(--font-mono)] text-[var(--cc-error)]/80">tx: {r.transactionHash ?? 'pending'}</p>
+                    <p key={i} className="text-caption font-[var(--font-mono)] text-[var(--cc-error)]/80">tx: {r.transactionHash ?? 'pending'}</p>
                   ))}
                 </div>
               )}
 
               {callsStatus.error && (
                 <div className="p-3 rounded-md bg-[var(--cc-error)]/10 border border-[var(--cc-error)]/20">
-                  <p className="text-[14px] text-[var(--cc-error)]">{callsStatus.error.message}</p>
+                  <p className="text-body-sm text-[var(--cc-error)]">{callsStatus.error.message}</p>
                 </div>
               )}
 
               {callsStatus.result?.receipts && callsStatus.result.receipts.length > 0 && (
                 <div className="space-y-2">
-                  <p className="text-[12px] text-[var(--cc-muted)] uppercase tracking-normal">Receipts</p>
+                  <p className="text-caption text-[var(--cc-muted)] uppercase tracking-normal">Receipts</p>
                   {callsStatus.result.receipts.map((r, i) => (
                     <div key={i} className="p-3 rounded-lg bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/40 space-y-1">
                       <div className="flex items-center gap-2">
-                        <span className="text-[12px] text-[var(--cc-body)]">Call #{i + 1}</span>
-                        <span className={`text-[12px] px-2 py-1 rounded font-semibold ${r.receipt.status === '0x1' ? 'bg-[var(--cc-success)]/15 text-[var(--cc-success)]' : 'bg-[var(--cc-error)]/15 text-[var(--cc-error)]'}`}>
+                        <span className="text-caption text-[var(--cc-body)]">Call #{i + 1}</span>
+                        <span className={`text-caption px-2 py-1 rounded font-semibold ${r.receipt.status === '0x1' ? 'bg-[var(--cc-success)]/15 text-[var(--cc-success)]' : 'bg-[var(--cc-error)]/15 text-[var(--cc-error)]'}`}>
                           {r.receipt.status === '0x1' ? 'SUCCESS' : 'FAILED'}
                         </span>
                       </div>
                       {r.transactionHash && (
-                        <p className="text-[12px] font-[var(--font-mono)] text-[var(--cc-body)] break-all">tx: {r.transactionHash}</p>
+                        <p className="text-caption font-[var(--font-mono)] text-[var(--cc-body)] break-all">tx: {r.transactionHash}</p>
                       )}
                     </div>
                   ))}
@@ -928,7 +928,7 @@ export default function BatchPage() {
               {callsStatus.isPolling && (
                 <button
                   onClick={() => callsStatus.stopPolling()}
-                  className="w-full py-3 rounded-md text-[14px] font-semibold bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all"
+                  className="w-full py-3 rounded-md text-body-sm font-semibold bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all"
                 >
                   Stop Polling
                 </button>
@@ -939,8 +939,8 @@ export default function BatchPage() {
 
         {/* ── Info ───────────────────────────────────────── */}
         <div className="text-center space-y-2 bg-[var(--cc-link)]/5 border border-[var(--cc-primary)]/20 rounded-md px-6 py-4">
-          <p className="text-[14px] text-[var(--cc-link)] font-semibold">EIP-5792 Wallet Call API</p>
-          <p className="text-[12px] text-[var(--cc-body)]">
+          <p className="text-body-sm text-[var(--cc-link)] font-semibold">EIP-5792 Wallet Call API</p>
+          <p className="text-caption text-[var(--cc-body)]">
             This page demonstrates atomic batch transactions using EIP-5792{' '}
             <code className="text-[var(--cc-muted)] font-[var(--font-mono)]">wallet_sendCalls</code>.
             Requires a wallet that supports the Wallet Call API (e.g. Coinbase Smart Wallet, Biconomy, Zerodev).

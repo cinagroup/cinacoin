@@ -31,7 +31,7 @@ export default function QuickActions() {
           key={index}
           className="resource-card text-left hover:shadow-level-3 transition-shadow duration-fast"
         >
-          <span className="text-[24px]">{action.icon}</span>
+          <span className="text-display-md">{action.icon}</span>
           <h3 className="text-body-sm font-semibold text-ink mt-2">{action.name}</h3>
           <p className="text-caption text-body mt-1">{action.description}</p>
         </button>

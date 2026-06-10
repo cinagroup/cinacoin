@@ -18,11 +18,11 @@ export default function ServiceCard({ name, status, uptime, description }: Servi
       <div className="flex items-center justify-between">
         <div>
           <h3 className="font-semibold text-[var(--cc-ink)]">{name}</h3>
-          <p className="mt-1 text-[14px] text-[var(--cc-body)]">{description}</p>
+          <p className="mt-1 text-body-sm text-[var(--cc-body)]">{description}</p>
         </div>
         <StatusBadge status={status} />
       </div>
-      <div className="mt-3 flex items-center gap-2 text-[12px] text-[var(--cc-muted)]">
+      <div className="mt-3 flex items-center gap-2 text-caption text-[var(--cc-muted)]">
         <span>Uptime:</span>
         <span className="text-code text-[var(--cc-body)]">{uptime}</span>
       </div>

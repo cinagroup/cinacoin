@@ -51,10 +51,10 @@ export default function ApiKeyModal({ onCreate, onClose }: ApiKeyModalProps) {
     <div className="modal-overlay" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="modal-title">
       <div className="modal-content" onClick={(e) => e.stopPropagation()} ref={modalRef}>
         <div className="flex items-center justify-between mb-4">
-          <h2 id="modal-title" className="text-[18px] font-semibold text-ink">Generate API Key</h2>
+          <h2 id="modal-title" className="text-body-lg font-semibold text-ink">Generate API Key</h2>
           <button
             onClick={onClose}
-            className="text-ink-mute hover:text-ink text-[20px] leading-none"
+            className="text-ink-mute hover:text-ink text-display-sm leading-none"
             aria-label="Close dialog"
           >
             ×
@@ -63,7 +63,7 @@ export default function ApiKeyModal({ onCreate, onClose }: ApiKeyModalProps) {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-[14px] font-medium text-ink mb-1">Key Name</label>
+            <label className="block text-body-sm font-medium text-ink mb-1">Key Name</label>
             <input
               type="text"
               placeholder="e.g. Production Key"
@@ -76,7 +76,7 @@ export default function ApiKeyModal({ onCreate, onClose }: ApiKeyModalProps) {
           </div>
 
           <div>
-            <label className="block text-[14px] font-medium text-ink mb-2">Permissions</label>
+            <label className="block text-body-sm font-medium text-ink mb-2">Permissions</label>
             <div className="space-y-2">
               {[
                 {
@@ -112,8 +112,8 @@ export default function ApiKeyModal({ onCreate, onClose }: ApiKeyModalProps) {
                     className="mt-1"
                   />
                   <div>
-                    <div className="text-[14px] font-medium text-ink">{option.label}</div>
-                    <div className="text-[12px] text-ink-mute">{option.desc}</div>
+                    <div className="text-body-sm font-medium text-ink">{option.label}</div>
+                    <div className="text-caption text-ink-mute">{option.desc}</div>
                   </div>
                 </label>
               ))}

@@ -120,11 +120,11 @@ export function FarcasterConnect({
           <p className="text-[var(--color-on-primary)] font-medium">
             {user.display_name ?? user.username}
           </p>
-          <p className="text-[14px] text-[var(--color-mute)]">@{user.username}</p>
+          <p className="text-body-sm text-[var(--color-mute)]">@{user.username}</p>
         </div>
         <button
           onClick={handleDisconnect}
-          className="ml-auto text-[14px] text-[var(--color-mute)] hover:text-[var(--color-on-primary)]"
+          className="ml-auto text-body-sm text-[var(--color-mute)] hover:text-[var(--color-on-primary)]"
         >
           Disconnect
         </button>
@@ -157,11 +157,11 @@ export function FarcasterConnect({
       </button>
 
       {error && (
-        <p className="text-[var(--color-error)] text-[14px] text-center">{error}</p>
+        <p className="text-[var(--color-error)] text-body-sm text-center">{error}</p>
       )}
 
       {!provider?.isInFarcaster && (
-        <p className="text-[var(--color-mute)] text-[12px] text-center">
+        <p className="text-[var(--color-mute)] text-caption text-center">
           Open in Farcaster to connect
         </p>
       )}

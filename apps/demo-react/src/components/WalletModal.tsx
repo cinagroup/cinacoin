@@ -234,7 +234,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  <button
  onClick={() => setActiveTab('popular')}
  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActiveTab('popular'); } }}
- className={`px-4 py-2 rounded-[100px] text-[14px] font-medium transition-all focus-ring ${
+ className={`px-4 py-2 rounded-[100px] text-body-sm font-medium transition-all focus-ring ${
  activeTab === 'popular'
  ? 'bg-[var(--cc-link)]/20 text-[var(--cc-link)]'
  : 'text-[var(--cc-muted)] hover:text-[var(--cc-ink)]'
@@ -245,7 +245,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  <button
  onClick={() => setActiveTab('all')}
  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActiveTab('all'); } }}
- className={`px-4 py-2 rounded-[100px] text-[14px] font-medium transition-all focus-ring ${
+ className={`px-4 py-2 rounded-[100px] text-body-sm font-medium transition-all focus-ring ${
  activeTab === 'all'
  ? 'bg-[var(--cc-link)]/20 text-[var(--cc-link)]'
  : 'text-[var(--cc-muted)] hover:text-[var(--cc-ink)]'
@@ -279,7 +279,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  </div>
  <span className="flex-1 text-left font-medium">{wallet.name}</span>
  {detected && (
- <span className="text-[12px] px-2 py-1 rounded-full bg-[var(--cc-success)]/20 text-[var(--cc-success)]" role="status">
+ <span className="text-caption px-2 py-1 rounded-full bg-[var(--cc-success)]/20 text-[var(--cc-success)]" role="status">
  Detected
  </span>
  )}
@@ -331,16 +331,16 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  className="absolute inset-0 w-20 h-20 rounded-full border-2 border-transparent border-t-[var(--cc-link)] animate-spin-slow"
  />
  <div
- className="absolute inset-2 w-16 h-16 rounded-md flex items-center justify-center text-[24px]"
+ className="absolute inset-2 w-16 h-16 rounded-md flex items-center justify-center text-display-md"
  style={{ backgroundColor: selectedWallet.color + '20' }}
  >
  {selectedWallet.emoji}
  </div>
  </div>
- <p className="text-[var(--cc-muted)] text-[14px] mb-4">
+ <p className="text-[var(--cc-muted)] text-body-sm mb-4">
  Opening {selectedWallet.name}...
  </p>
- <p className="text-[var(--cc-muted)] text-[12px]">
+ <p className="text-[var(--cc-muted)] text-caption">
  Confirm connection in your wallet popup
  </p>
  </div>
@@ -355,11 +355,11 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  </svg>
  </div>
  <h3 className="cc-display-sm mb-2">Wallet Connected</h3>
- <p className="text-[var(--cc-muted)] text-[14px] mb-2">
+ <p className="text-[var(--cc-muted)] text-body-sm mb-2">
  Connected via injected provider
  </p>
  {address && (
- <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[var(--cc-canvas-soft)]/50 text-[14px] text-[var(--cc-body)] font-[var(--font-mono)]">
+ <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[var(--cc-canvas-soft)]/50 text-body-sm text-[var(--cc-body)] font-[var(--font-mono)]">
  <span>{displayAddress}</span>
  <button
  onClick={() => navigator.clipboard.writeText(address)}
@@ -377,7 +377,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  <button
  onClick={handleDisconnect}
  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleDisconnect(); } }}
- className="mt-4 px-4 py-2 rounded-lg bg-[var(--cc-canvas-soft)]/50 text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft)] transition-colors text-[14px] focus-ring"
+ className="mt-4 px-4 py-2 rounded-lg bg-[var(--cc-canvas-soft)]/50 text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft)] transition-colors text-body-sm focus-ring"
  aria-label="Disconnect wallet"
  >
  Disconnect
@@ -394,13 +394,13 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  </svg>
  </div>
  <h3 className="cc-display-sm mb-2">Connection Failed</h3>
- <p className="text-[var(--cc-muted)] text-[14px] mb-6 text-center max-w-xs">
+ <p className="text-[var(--cc-muted)] text-body-sm mb-6 text-center max-w-xs">
  {error || 'Something went wrong while connecting your wallet.'}
  </p>
  <button
  onClick={handleRetry}
  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleRetry(); } }}
- className="cc-btn-primary px-6 py-3 text-[14px] font-medium focus-ring"
+ className="cc-btn-primary px-6 py-3 text-body-sm font-medium focus-ring"
  >
  Try Again
  </button>
@@ -411,14 +411,14 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  <div className="flex flex-col items-center justify-center py-12 px-6">
  {/* Wallet not found icon */}
  <div className="w-20 h-20 rounded-full bg-[var(--cc-warning)]/15 flex items-center justify-center mb-6 animate-bounce-in">
- <div className="text-[48px]">{selectedWallet.emoji}</div>
+ <div className="text-display-xl">{selectedWallet.emoji}</div>
  </div>
  <h3 className="cc-display-sm mb-2">
  {selectedWallet.id === 'walletconnect'
  ? 'WalletConnect — QR Code Not Available'
  : `${selectedWallet.name} Not Installed`}
  </h3>
- <p className="text-[var(--cc-muted)] text-[14px] mb-6 text-center max-w-xs">
+ <p className="text-[var(--cc-muted)] text-body-sm mb-6 text-center max-w-xs">
  {selectedWallet.id === 'walletconnect'
  ? 'WalletConnect QR scanning requires a real provider setup. For now, try MetaMask or another injected wallet.'
  : `You don't have ${selectedWallet.name} installed. Install it to connect your wallet.`}
@@ -429,7 +429,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  href="https://metamask.io/download/"
  target="_blank"
  rel="noopener noreferrer"
- className="btn-primary px-6 py-3 rounded-[100px] text-[14px] font-medium text-center"
+ className="btn-primary px-6 py-3 rounded-[100px] text-body-sm font-medium text-center"
  >
  Install MetaMask →
  </a>
@@ -439,7 +439,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  href="https://www.coinbase.com/wallet"
  target="_blank"
  rel="noopener noreferrer"
- className="btn-primary px-6 py-3 rounded-[100px] text-[14px] font-medium text-center"
+ className="btn-primary px-6 py-3 rounded-[100px] text-body-sm font-medium text-center"
  >
  Install Coinbase Wallet →
  </a>
@@ -449,7 +449,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  href="https://rainbow.me/"
  target="_blank"
  rel="noopener noreferrer"
- className="btn-primary px-6 py-3 rounded-[100px] text-[14px] font-medium text-center"
+ className="btn-primary px-6 py-3 rounded-[100px] text-body-sm font-medium text-center"
  >
  Install Rainbow →
  </a>
@@ -459,7 +459,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  href="https://phantom.app/"
  target="_blank"
  rel="noopener noreferrer"
- className="btn-primary px-6 py-3 rounded-[100px] text-[14px] font-medium text-center"
+ className="btn-primary px-6 py-3 rounded-[100px] text-body-sm font-medium text-center"
  >
  Install Phantom →
  </a>
@@ -469,7 +469,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  href="https://trustwallet.com/"
  target="_blank"
  rel="noopener noreferrer"
- className="btn-primary px-6 py-3 rounded-[100px] text-[14px] font-medium text-center"
+ className="btn-primary px-6 py-3 rounded-[100px] text-body-sm font-medium text-center"
  >
  Install Trust Wallet →
  </a>
@@ -477,7 +477,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  <button
  onClick={handleBack}
  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleBack(); } }}
- className="px-6 py-3 rounded-[100px] text-[14px] font-medium text-[var(--cc-muted)] hover:text-[var(--cc-ink)] transition-colors focus-ring"
+ className="px-6 py-3 rounded-[100px] text-body-sm font-medium text-[var(--cc-muted)] hover:text-[var(--cc-ink)] transition-colors focus-ring"
  >
  ← Back to wallets
  </button>
@@ -488,7 +488,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
 
  {/* Footer */}
  {modalState === 'open' && (
- <div className="px-6 py-3 border-t border-[var(--cc-hairline)] flex items-center justify-between text-[12px] text-[var(--cc-muted)]">
+ <div className="px-6 py-3 border-t border-[var(--cc-hairline)] flex items-center justify-between text-caption text-[var(--cc-muted)]">
  <span>New to wallets?</span>
  <a
  href="https://ethereum.org/en/wallets/"

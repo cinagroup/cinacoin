@@ -57,11 +57,11 @@ export function DemoDeFi() {
             <AddressDisplay address={address!} />
             <div className="flex gap-4 mt-3">
               <div>
-                <p className="text-[var(--cc-body)] text-[12px]">总 TVL (模拟)</p>
+                <p className="text-[var(--cc-body)] text-caption">总 TVL (模拟)</p>
                 <p className="cc-title-sm">$89.8M</p>
               </div>
               <div>
-                <p className="text-[var(--cc-body)] text-[12px]">您的收益 (24h)</p>
+                <p className="text-[var(--cc-body)] text-caption">您的收益 (24h)</p>
                 <p className="cc-title-sm text-[var(--cc-success)]">+0.12 ETH</p>
               </div>
             </div>
