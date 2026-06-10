@@ -589,7 +589,7 @@ export default function AADemoPage() {
               <div className="flex gap-2">
                 <div className="w-3 h-3 rounded-full bg-[var(--cc-error)]/70" />
                 <div className="w-3 h-3 rounded-full bg-[var(--cc-warning)]/70" />
-                <div className="w-3 h-3 rounded-full bg-green-500/70" />
+                <div className="w-3 h-3 rounded-full bg-[var(--color-success)]/70" />
               </div>
               <span className="text-[12px] text-[var(--cc-body)] font-[var(--font-mono)]">userop-example.ts</span>
             </div>

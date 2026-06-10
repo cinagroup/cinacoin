@@ -68,7 +68,7 @@ function ChainCard({ chain, balance, health, isWalletConnected, isCurrentChain, 
       isCurrentChain
         ? 'border-[var(--cc-link)]/50 ring-1 ring-[var(--cc-link)]/20'
         : justSwitched
-        ? 'border-green-500/50 ring-1 ring-green-500/20'
+        ? 'border-[var(--color-success)]/50 ring-1 ring-green-500/20'
         : 'border-[var(--cc-hairline-strong)]/60'
     } overflow-hidden hover:border-[var(--cc-hairline-strong)]/60 transition-all duration-300 hover:shadow-[var(--cc-level4)] hover:-translate-y-0.5 ${
       justSwitched ? 'animate-chain-switch-flash' : ''
@@ -397,7 +397,7 @@ client.on('transaction', (event) => {
           <div className="flex  gap-2">
             <div className="w-3 h-3 rounded-full bg-[var(--cc-error)]/70" />
             <div className="w-3 h-3 rounded-full bg-[var(--cc-warning)]/70" />
-            <div className="w-3 h-3 rounded-full bg-green-500/70" />
+            <div className="w-3 h-3 rounded-full bg-[var(--color-success)]/70" />
           </div>
           <span className="text-[14px] text-[var(--cc-muted)] font-[var(--font-mono)]">unified-api.ts</span>
         </div>

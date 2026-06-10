@@ -570,7 +570,7 @@ export default function AuthPage() {
             </h2>
 
             {!webAuthnSupported && (
-              <div className="mb-4 p-3 rounded-lg bg-[var(--cc-warning)]/10 border border-yellow-500/20">
+              <div className="mb-4 p-3 rounded-lg bg-[var(--cc-warning)]/10 border border-[var(--color-warning)]/20">
                 <p className="text-[12px] text-[var(--cc-warning)]">
                   ⚠ WebAuthn is not supported in this browser. Try Chrome, Safari, or Firefox with a security key.
                 </p>
@@ -595,7 +595,7 @@ export default function AuthPage() {
                     <button
                       onClick={handleRegisterPasskey}
                       disabled={!webAuthnSupported || !passkeyUsername.trim()}
-                      className="px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-500 text-[var(--cc-ink)] text-[14px] font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+                      className="px-4 py-2 rounded-lg bg-[var(--color-violet)] hover:bg-[var(--color-violet)] text-[var(--cc-ink)] text-[14px] font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
                     >
                       Register
                     </button>
@@ -740,7 +740,7 @@ export default function AuthPage() {
                   <p className="text-[12px] text-[var(--cc-body)] mb-1">Passkey User</p>
                   <p className="text-[14px] text-[var(--cc-body)] font-semibold">{session.passkey.username}</p>
                   <p className="text-[12px] text-[var(--cc-body)] mt-1">
-                    <span className="inline-flex items-center gap-1 px-2 py-1 rounded bg-purple-500/15 text-[var(--cc-violet)] text-[12px]">Passkey</span>
+                    <span className="inline-flex items-center gap-1 px-2 py-1 rounded bg-[var(--color-violet)]/15 text-[var(--cc-violet)] text-[12px]">Passkey</span>
                   </p>
                 </div>
               )}

@@ -87,10 +87,10 @@ export default function RealtimeDashboard() {
         <div
           className={`w-2 h-2 rounded-full ${
             connectionState === "connected"
-              ? "bg-green-500"
+              ? "bg-[var(--color-success)]"
               : connectionState === "connecting" || connectionState === "reconnecting"
-              ? "bg-yellow-500"
-              : "bg-red-500"
+              ? "bg-[var(--color-warning)]"
+              : "bg-[var(--color-error)]"
           }`}
         />
         <span className="text-body-sm text-ink-mute capitalize">{connectionState}</span>

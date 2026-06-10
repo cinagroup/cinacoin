@@ -21,7 +21,7 @@ export default function TransferFramePage() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-8">
       <div className="max-w-lg w-full space-y-6 text-center">
-        <h1 className="text-[32px] font-bold text-blue-400">💸 Transfer</h1>
+        <h1 className="text-[32px] font-bold text-[var(--color-link)]">💸 Transfer</h1>
         <div className="bg-[var(--color-canvas-soft-2)] rounded-2xl p-6 border border-[var(--color-hairline)] space-y-4">
           <p className="text-[var(--color-body)]">
             Send Cinacoin tokens to any Ethereum address.

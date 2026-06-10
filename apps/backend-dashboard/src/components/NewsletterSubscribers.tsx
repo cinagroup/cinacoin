@@ -113,11 +113,11 @@ export function NewsletterSubscribers() {
                     </td>
                     <td className="py-4">
                       {subscriber.verified_at ? (
-                        <span className="inline-flex items-center px-2 py-1 rounded-sm text-caption font-medium bg-green-50 text-green-700">
+                        <span className="inline-flex items-center px-2 py-1 rounded-sm text-caption font-medium bg-green-50 text-[var(--color-success)]">
                           Verified
                         </span>
                       ) : (
-                        <span className="inline-flex items-center px-2 py-1 rounded-sm text-caption font-medium bg-yellow-50 text-yellow-700">
+                        <span className="inline-flex items-center px-2 py-1 rounded-sm text-caption font-medium bg-yellow-50 text-[var(--color-warning)]">
                           Pending
                         </span>
                       )}

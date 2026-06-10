@@ -138,7 +138,7 @@ export function FarcasterConnect({
       <button
         onClick={handleConnect}
         disabled={loading}
-        className="w-full bg-purple-600 hover:bg-purple-700 disabled:bg-[var(--color-hairline-strong)] disabled:cursor-not-allowed text-white px-6 py-3 rounded-xl font-medium transition-colors flex items-center justify-center space-x-2"
+        className="w-full bg-[var(--color-violet)] hover:bg-[var(--color-violet-deep)] disabled:bg-[var(--color-hairline-strong)] disabled:cursor-not-allowed text-white px-6 py-3 rounded-xl font-medium transition-colors flex items-center justify-center space-x-2"
       >
         {loading ? (
           <>
@@ -157,7 +157,7 @@ export function FarcasterConnect({
       </button>
 
       {error && (
-        <p className="text-red-400 text-[14px] text-center">{error}</p>
+        <p className="text-[var(--color-error)] text-[14px] text-center">{error}</p>
       )}
 
       {!provider?.isInFarcaster && (

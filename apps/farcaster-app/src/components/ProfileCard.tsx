@@ -70,7 +70,7 @@ export function ProfileCard({
           <h3 className="text-[20px] font-bold text-white flex items-center space-x-2">
             <span>{displayName}</span>
             {user.verified && (
-              <span className="text-blue-400" title="Verified">✓</span>
+              <span className="text-[var(--color-link)]" title="Verified">✓</span>
             )}
           </h3>
           <p className="text-[var(--color-mute)]">@{user.username}</p>
@@ -103,7 +103,7 @@ export function ProfileCard({
         <div className="bg-[var(--color-canvas-soft-2)] rounded-xl p-3 space-y-2">
           <p className="text-[12px] text-[var(--color-mute)]">Verified Addresses</p>
           {verifiedAddress && (
-            <p className="text-[14px] text-green-400 font-[var(--font-mono)] truncate">
+            <p className="text-[14px] text-[var(--color-success)] font-[var(--font-mono)] truncate">
               {verifiedAddress}
             </p>
           )}
@@ -121,7 +121,7 @@ export function ProfileCard({
           href={user.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="block text-center text-[14px] text-purple-400 hover:text-purple-300 transition-colors"
+          className="block text-center text-[14px] text-[var(--color-violet)] hover:text-[var(--color-violet)] transition-colors"
         >
           🔗 {user.url.replace(/^https?:\/\//, '')}
         </a>

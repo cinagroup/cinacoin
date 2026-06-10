@@ -32,7 +32,7 @@ export default function TxProgress({ steps }: { steps: TxStep[] }) {
                       : isActive
                       ? 'bg-[var(--cc-link)]/20 border-[var(--cc-primary)]/60 text-[var(--cc-link)]'
                       : isError
-                      ? 'bg-[var(--cc-error)]/20 border-red-500/60 text-[var(--cc-error)]'
+                      ? 'bg-[var(--cc-error)]/20 border-[var(--color-error)]/60 text-[var(--cc-error)]'
                       : 'bg-[var(--cc-canvas-soft-2)] border-[var(--cc-hairline-strong)]/50 text-[var(--cc-body)]'
                   }`}
                 >

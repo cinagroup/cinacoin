@@ -16,7 +16,7 @@ const dayColors: Record<DayStatus, string> = {
 export default function StatusBar90Days({ days, serviceName }: StatusBar90DaysProps) {
   return (
     <div className="mt-2">
-      <div className="flex gap-[2px]" title={serviceName}>
+      <div className="flex gap-1" title={serviceName}>
         {days.map((day, i) => (
           <div
             key={i}

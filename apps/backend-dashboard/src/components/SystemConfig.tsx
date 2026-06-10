@@ -150,7 +150,7 @@ export function SystemConfig() {
           Reset to Defaults
         </button>
         {saved && (
-          <span className="text-body-sm font-medium text-green-600">
+          <span className="text-body-sm font-medium text-[var(--color-success)]">
             ✓ Configuration saved successfully
           </span>
         )}

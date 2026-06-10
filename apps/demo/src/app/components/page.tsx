@@ -371,7 +371,7 @@ export default function ComponentsPage() {
                   <span className="size-3 rounded-full bg-[var(--cc-success)] animate-pulse" />
                   Connected
                 </span>
-                <span className="inline-flex items-center gap-2 px-3 py-2 rounded-full text-[12px] font-semibold bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border border-yellow-500/25">
+                <span className="inline-flex items-center gap-2 px-3 py-2 rounded-full text-[12px] font-semibold bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border border-[var(--color-warning)]/25">
                   <span className="size-3 rounded-full bg-[var(--cc-warning)] animate-pulse" />
                   Connecting...
                 </span>

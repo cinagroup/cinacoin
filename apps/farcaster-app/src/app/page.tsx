@@ -35,7 +35,7 @@ export default function HomePage() {
           <div className="grid grid-cols-2 gap-3">
             <a
               href="/frame/wallet/"
-              className="bg-purple-600 hover:bg-purple-700 text-white py-3 px-4 rounded-xl font-medium transition-colors"
+              className="bg-[var(--color-violet)] hover:bg-[var(--color-violet-deep)] text-white py-3 px-4 rounded-xl font-medium transition-colors"
             >
               🔗 Wallet
             </a>
@@ -47,7 +47,7 @@ export default function HomePage() {
             </a>
             <a
               href="/frame/sign/"
-              className="bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-xl font-medium transition-colors"
+              className="bg-[var(--color-success)] hover:bg-[var(--color-success-deep)] text-white py-3 px-4 rounded-xl font-medium transition-colors"
             >
               ✍️ Sign
             </a>

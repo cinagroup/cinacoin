@@ -10,9 +10,9 @@ const services = [
 ];
 
 const statusColors: Record<string, string> = {
-  operational: "bg-green-500",
-  degraded: "bg-yellow-500",
-  down: "bg-red-500",
+  operational: "bg-[var(--color-success)]",
+  degraded: "bg-[var(--color-warning)]",
+  down: "bg-[var(--color-error)]",
 };
 
 export function SystemOverview() {

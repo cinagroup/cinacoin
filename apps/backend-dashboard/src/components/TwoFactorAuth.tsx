@@ -173,7 +173,7 @@ export function TwoFactorAuth() {
       {/* Error display */}
       {error && (
         <div className="bg-red-50 border border-red-200 rounded-md p-3 flex items-start gap-2">
-          <svg className="w-4 h-4 mt-1 flex-shrink-0 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+          <svg className="w-4 h-4 mt-1 flex-shrink-0 text-[var(--color-error)]" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
           </svg>
           <p className="text-body-sm text-red-800">{error}</p>
@@ -440,7 +440,7 @@ export function TwoFactorAuth() {
             <div className="border border-hairline rounded-md p-lg bg-canvas-soft">
               <div className="flex items-start gap-md">
                 <div className="w-10 h-10 rounded-md bg-green-100 flex items-center justify-center flex-shrink-0">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-green-600">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-[var(--color-success)]">
                     <path d="M9 12l2 2 4-4" />
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                   </svg>

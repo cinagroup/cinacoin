@@ -145,7 +145,7 @@ const chainBadgeStyle: React.CSSProperties = {
   color: '#e0e0e0',
   fontSize: '10px',
   fontWeight: 600,
-  padding: '3px 8px',
+  padding: '4px 8px',
   borderRadius: '6px',
   backdropFilter: 'blur(8px)',
 };
