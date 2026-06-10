@@ -1183,7 +1183,7 @@ describe('SuiChainAdapter request method', () => {
 
 describe('SuiChainAdapter with mock provider', () => {
   let adapter: SuiChainAdapter;
-  let mockProvider: any;
+  let mockProvider: unknown;
 
   beforeEach(() => {
     adapter = new SuiChainAdapter();

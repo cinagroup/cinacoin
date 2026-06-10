@@ -18,7 +18,7 @@ class MockWebSocket {
   onmessage: ((event: MessageEvent) => void) | null = null;
   onclose: ((event: CloseEvent) => void) | null = null;
   onerror: (() => void) | null = null;
-  _sentMessages: any[] = [];
+  _sentMessages: unknown[] = [];
 
   constructor(_url: string) {
     // Start in CONNECTING state
@@ -40,7 +40,7 @@ class MockWebSocket {
     if (this.onopen) this.onopen();
   }
 
-  simulateMessage(data: any) {
+  simulateMessage(data: unknown) {
     if (this.onmessage) {
       this.onmessage({ data: JSON.stringify(data) } as MessageEvent);
     }

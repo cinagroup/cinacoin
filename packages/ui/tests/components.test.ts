@@ -272,7 +272,7 @@ class TransactionList extends MockComponent {
   private _page = 0;
   private _pageSize = 10;
 
-  addTransaction(tx: any): void {
+  addTransaction(tx: unknown): void {
     this._transactions.unshift(tx);
     this.emit('transactionAdded', tx);
   }
@@ -304,7 +304,7 @@ class TransactionList extends MockComponent {
     return this._page;
   }
 
-  get visibleTransactions(): any[] {
+  get visibleTransactions(): unknown[] {
     const start = this._page * this._pageSize;
     return this._transactions.slice(start, start + this._pageSize);
   }

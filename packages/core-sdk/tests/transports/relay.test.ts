@@ -21,7 +21,7 @@ class MockWebSocket {
   onmessage: ((event: MessageEvent) => void) | null = null;
   onclose: ((event: CloseEvent) => void) | null = null;
   onerror: (() => void) | null = null;
-  sent: any[] = [];
+  sent: unknown[] = [];
 
   constructor(url: string) {
     this.url = url;

@@ -693,7 +693,7 @@ describe('HederaChainAdapter — connector', () => {
 describe('HederaChainAdapter — provider', () => {
   it('setProvider and getProvider', () => {
     const adapter = new HederaChainAdapter();
-    const mockProvider: any = { name: 'test' };
+    const mockProvider: unknown = { name: 'test' };
     adapter.setProvider(mockProvider);
     expect(adapter.getProvider()).toBe(mockProvider);
   });

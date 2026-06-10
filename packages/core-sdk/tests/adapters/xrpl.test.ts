@@ -1131,7 +1131,7 @@ describe('XrplChainAdapter request method', () => {
 
 describe('XrplChainAdapter with mock provider', () => {
   let adapter: XrplChainAdapter;
-  let mockProvider: any;
+  let mockProvider: unknown;
 
   beforeEach(() => {
     adapter = new XrplChainAdapter();
@@ -1485,8 +1485,8 @@ describe('XrplChainAdapter with mocked RPC', () => {
 
 describe('XrplChainAdapter sendXrp', () => {
   let adapter: XrplChainAdapter;
-  let mockProvider: any;
-  let mockRpcClient: any;
+  let mockProvider: unknown;
+  let mockRpcClient: unknown;
 
   beforeEach(() => {
     adapter = new XrplChainAdapter();
@@ -1596,8 +1596,8 @@ describe('XrplChainAdapter sendXrp', () => {
 
 describe('XrplChainAdapter DEX operations', () => {
   let adapter: XrplChainAdapter;
-  let mockProvider: any;
-  let mockRpcClient: any;
+  let mockProvider: unknown;
+  let mockRpcClient: unknown;
 
   beforeEach(() => {
     adapter = new XrplChainAdapter();
@@ -1696,8 +1696,8 @@ describe('XrplChainAdapter DEX operations', () => {
 
 describe('XrplChainAdapter NFT operations', () => {
   let adapter: XrplChainAdapter;
-  let mockProvider: any;
-  let mockRpcClient: any;
+  let mockProvider: unknown;
+  let mockRpcClient: unknown;
 
   beforeEach(() => {
     adapter = new XrplChainAdapter();

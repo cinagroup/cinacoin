@@ -198,7 +198,7 @@ describe('AdapterRegistry', () => {
 
   it('concurrent get calls resolve to same value', async () => {
     vi.useFakeTimers();
-    let resolveFn: (v: any) => void;
+    let resolveFn: (v: unknown) => void;
     const promise = new Promise((r) => { resolveFn = r; });
     const loader = vi.fn().mockReturnValue(promise);
     registry.register('concurrent', loader);

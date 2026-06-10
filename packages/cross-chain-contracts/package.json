@@ -20,6 +20,6 @@
     "@openzeppelin/contracts-upgradeable": "^5.1.0",
     "hardhat": "^2.22.0",
     "hardhat-contract-sizer": "^2.10.0",
-    "typescript": "^5.5.0"
+    "typescript": "^5.8.3"
   }
 }

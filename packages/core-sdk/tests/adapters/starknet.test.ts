@@ -1276,7 +1276,7 @@ describe('StarknetChainAdapter.getStorageAt', () => {
 
 describe('StarknetChainAdapter.wallet operations', () => {
   let adapter: StarknetChainAdapter;
-  let mockProvider: any;
+  let mockProvider: unknown;
 
   beforeEach(() => {
     global.fetch = mockFetch;
@@ -1584,7 +1584,7 @@ describe('StarknetChainAdapter.request', () => {
 
 describe('StarknetChainAdapter error handling', () => {
   let adapter: StarknetChainAdapter;
-  let mockProvider: any;
+  let mockProvider: unknown;
 
   beforeEach(() => {
     global.fetch = mockFetch;

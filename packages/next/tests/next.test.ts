@@ -8,21 +8,21 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
 vi.mock('react', () => ({
   createContext: vi.fn(() => ({
-    Provider: vi.fn(({ children }: { children: any }) => children),
+    Provider: vi.fn(({ children }: { children: unknown }) => children),
     Consumer: vi.fn(),
   })),
   useContext: vi.fn(() => null),
-  useState: vi.fn((init: any) => [init, vi.fn()]),
+  useState: vi.fn((init: unknown) => [init, vi.fn()]),
   useEffect: vi.fn(),
-  useCallback: vi.fn((fn: any) => fn),
-  useMemo: vi.fn((fn: any) => fn()),
+  useCallback: vi.fn((fn: unknown) => fn),
+  useMemo: vi.fn((fn: () => unknown) => fn()),
   useRef: vi.fn(() => ({ current: null })),
 }));
 
 // ─── Mock @cinacoin/react ─────────────────────────────────────────────────
 
 vi.mock('@cinacoin/react', () => ({
-  CinacoinProvider: vi.fn(({ children }: { children: any }) => children),
+  CinacoinProvider: vi.fn(({ children }: { children: unknown }) => children),
   ConnectButton: vi.fn(() => null),
   useCinacoin: vi.fn(() => ({ connect: vi.fn(), disconnect: vi.fn() })),
   useCinacoinContext: vi.fn(() => ({})),
@@ -170,7 +170,7 @@ describe('server/core', () => {
       expect(typeof client.getSession).toBe('function');
       expect(typeof client.verifySiweMessage).toBe('function');
       expect(typeof client.withAuth).toBe('function');
-    } catch (e: any) {
+    } catch (e: unknown) {
       // If viem or next/server is not available, at least verify the export exists
       expect(e).toBeDefined();
     }
@@ -181,7 +181,7 @@ describe('server/core', () => {
       const { getCinacoinServer } = await import('../src/server/core.js');
       const client = getCinacoinServer({ projectId: 'test' });
       expect(client).toBeDefined();
-    } catch (e: any) {
+    } catch (e: unknown) {
       expect(e).toBeDefined();
     }
   });

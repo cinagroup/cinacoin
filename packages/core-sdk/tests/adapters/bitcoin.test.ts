@@ -368,7 +368,7 @@ describe('BitcoinChainAdapter balance and UTXOs', () => {
 
 describe('BitcoinChainAdapter signing and sending', () => {
   let adapter: BitcoinChainAdapter;
-  let mockProvider: any;
+  let mockProvider: unknown;
 
   beforeEach(() => {
     adapter = new BitcoinChainAdapter();
