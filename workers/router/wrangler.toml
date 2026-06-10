@@ -3,27 +3,58 @@ main = "src/index.ts"
 compatibility_date = "2026-06-04"
 account_id = "7ea8e46d8210bad342fa7595f7935fea"
 
-# Narrowly scoped routes — only intercept the consolidated subpaths so the
-# apex (cinacoin.com/) keeps being served directly by the website Pages
-# project until the full cutover. Expand this list as more zones are added.
+# Route patterns for all consolidated subpaths under cinacoin.com
+# Each zone gets both exact and wildcard patterns
 routes = [
-  { pattern = "cinacoin.com/wallets", zone_id = "9e9b0140baac8f501ded715128fa5415" },
-  { pattern = "cinacoin.com/wallets/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+  # Documentation
   { pattern = "cinacoin.com/docs", zone_id = "9e9b0140baac8f501ded715128fa5415" },
   { pattern = "cinacoin.com/docs/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+
+  # Developer Portal
+  { pattern = "cinacoin.com/developer", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+  { pattern = "cinacoin.com/developer/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+
+  # Learn Platform
+  { pattern = "cinacoin.com/learn", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+  { pattern = "cinacoin.com/learn/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+
+  # Demo dApp
   { pattern = "cinacoin.com/demo", zone_id = "9e9b0140baac8f501ded715128fa5415" },
   { pattern = "cinacoin.com/demo/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
-  { pattern = "cinacoin.com/dashboard", zone_id = "9e9b0140baac8f501ded715128fa5415" },
-  { pattern = "cinacoin.com/dashboard/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+
+  # Telegram Mini App
+  { pattern = "cinacoin.com/telegram", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+  { pattern = "cinacoin.com/telegram/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+
+  # Farcaster Frame
+  { pattern = "cinacoin.com/farcaster", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+  { pattern = "cinacoin.com/farcaster/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+
+  # Analytics Dashboard
   { pattern = "cinacoin.com/analytics", zone_id = "9e9b0140baac8f501ded715128fa5415" },
   { pattern = "cinacoin.com/analytics/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
 
-  # Retired subdomains — the Worker 301s every path to the canonical
-  # cinacoin.com/<zone>/. Requires the Pages custom domain to be removed
-  # from each project + a proxied DNS record so the route attaches.
+  # Cloud Dashboard
+  { pattern = "cinacoin.com/dashboard", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+  { pattern = "cinacoin.com/dashboard/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+
+  # Wallet Explorer
+  { pattern = "cinacoin.com/wallets", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+  { pattern = "cinacoin.com/wallets/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+
+  # Health check endpoints
+  { pattern = "cinacoin.com/_health", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+  { pattern = "cinacoin.com/_routes", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+
+  # Retired subdomains — 301 redirect every path to canonical cinacoin.com/<zone>/
+  # Requires Pages custom domain removed from each project + proxied DNS record
   { pattern = "demo.cinacoin.com/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
   { pattern = "wallet.cinacoin.com/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
   { pattern = "cloud.cinacoin.com/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
   { pattern = "analytics.cinacoin.com/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
   { pattern = "docs.cinacoin.com/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+  { pattern = "developer.cinacoin.com/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+  { pattern = "learn.cinacoin.com/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+  { pattern = "telegram.cinacoin.com/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
+  { pattern = "farcaster.cinacoin.com/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
 ]

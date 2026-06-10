@@ -1,0 +1,20 @@
+{
+  "name": "cinacoin-router-worker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cinacoin Router Worker — unified reverse-proxy for all front-end apps",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240620.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.0.0",
+    "wrangler": "^3.60.0"
+  }
+}
