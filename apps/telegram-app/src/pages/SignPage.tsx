@@ -70,9 +70,9 @@ export default function SignPage({ provider, account }: SignPageProps) {
 
       provider.triggerHaptic('medium');
 
-      // Generate SIWE message
+      // Generate SIWE message for verification
       const nonce = Math.random().toString(36).slice(2);
-      const siweMessage = generateSignInMessage(user, 'cinacoin.com', nonce);
+      generateSignInMessage(user, 'cinacoin.com', nonce);
 
       // Simulate signing
       await new Promise((resolve) => setTimeout(resolve, 1500));
