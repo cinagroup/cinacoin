@@ -179,7 +179,7 @@ export class ConnectButton extends BaseLitElement {
           border-left: 4px solid transparent;
           border-right: 4px solid transparent;
           border-top: 4px solid currentColor;
-          margin-left: 2px;
+          margin-left: 0px;
         }
 
         .dropdown {
@@ -202,7 +202,7 @@ export class ConnectButton extends BaseLitElement {
 
         :host([dir="rtl"]) .dropdown-arrow {
           margin-left: 0;
-          margin-right: 2px;
+          margin-right: 0px;
         }
 
         .dropdown button {

@@ -156,7 +156,7 @@ export function generateDashboard(
       border-bottom: 1px solid var(--border);
     }
     .service-name { font-weight: 600; font-size: 15px; }
-    .service-url { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+    .service-url { font-size: 11px; color: var(--text-muted); margin-top: 0px; }
     .status-dot {
       width: 10px; height: 10px;
       border-radius: 50%;

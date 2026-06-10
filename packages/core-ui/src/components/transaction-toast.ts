@@ -53,7 +53,7 @@ export class TransactionToast extends BaseLitElement {
         .icon {
           font-size: var(--ocx-font-size-lg, 1.125rem);
           flex-shrink: 0;
-          margin-top: 2px;
+          margin-top: 0px;
         }
 
         .content {
@@ -64,7 +64,7 @@ export class TransactionToast extends BaseLitElement {
         .title {
           font-size: var(--ocx-font-size-sm, 0.875rem);
           font-weight: var(--ocx-font-weight-medium, 500);
-          margin-bottom: 2px;
+          margin-bottom: 0px;
         }
 
         .subtitle {
