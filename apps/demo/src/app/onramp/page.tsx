@@ -181,7 +181,7 @@ function ProviderCard({
       onClick={() => onSelect(quote.providerId)}
       className={`w-full text-left p-4 rounded-md border transition-all ${
         quote.isBest
-          ? 'border-[var(--cc-success)]/50 bg-[var(--cc-success)]/5 ring-1 ring-emerald-500/20'
+          ? 'border-[var(--cc-success)]/50 bg-[var(--cc-success)]/5 ring-1 ring-[var(--cc-success)]/20'
           : selected
           ? 'border-[var(--cc-primary)]/50 bg-[var(--cc-link)]/5 ring-1 ring-[var(--color-link)]/20'
           : 'border-[var(--cc-hairline-strong)]/50 bg-[var(--cc-canvas-soft-2)]/40 hover:border-[var(--cc-hairline-strong)]/50 hover:bg-[var(--cc-canvas-soft-2)]/60'

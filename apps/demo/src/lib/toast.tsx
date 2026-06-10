@@ -68,7 +68,7 @@ function ToastContainer() {
 
   const typeStyles: Record<ToastType, { bg: string; border: string; icon: string; progress: string }> = {
     success: {
-      bg: 'bg-emerald-950/90',
+      bg: 'bg-[var(--cc-success)]/20',
       border: 'border-[var(--cc-success)]/30',
       icon: '✓',
       progress: 'bg-[var(--cc-success)]',
@@ -86,7 +86,7 @@ function ToastContainer() {
       progress: 'bg-[var(--cc-link)]',
     },
     warning: {
-      bg: 'bg-amber-950/90',
+      bg: 'bg-[var(--cc-warning)]/20',
       border: 'border-[var(--cc-warning)]/30',
       icon: '⚠',
       progress: 'bg-[var(--cc-warning)]',

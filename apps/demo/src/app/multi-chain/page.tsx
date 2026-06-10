@@ -18,7 +18,7 @@ import {
 function StatusIndicator({ healthy }: { healthy: boolean }) {
   const color = healthy
     ? 'bg-[var(--cc-success)] shadow-[var(--cc-success)]/60'
-    : 'bg-[var(--cc-error)] shadow-red-500/60';
+    : 'bg-[var(--cc-error)] shadow-[var(--cc-error)]/60';
 
   return (
     <span className="relative flex h-3 w-3">

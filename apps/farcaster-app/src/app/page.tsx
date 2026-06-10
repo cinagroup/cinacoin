@@ -21,7 +21,7 @@ export default function HomePage() {
     <main className="flex min-h-screen flex-col items-center justify-center p-8">
       <div className="max-w-lg w-full space-y-8 text-center">
         <div className="space-y-2">
-          <h1 className="text-[48px] font-bold bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent">
+          <h1 className="text-[48px] font-bold bg-gradient-to-r from-[var(--color-violet)] to-[var(--color-link)] bg-clip-text text-transparent">
             Cinacoin
           </h1>
           <p className="text-[var(--color-mute)] text-[18px]">Farcaster Mini App</p>

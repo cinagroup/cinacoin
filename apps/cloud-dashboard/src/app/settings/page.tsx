@@ -149,7 +149,7 @@ export default function SettingsPage() {
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input type="checkbox" defaultChecked={idx < 2} className="sr-only peer" />
-                      <div className="w-11 h-6 bg-canvas-soft-2 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-link/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-canvas after:border-hairline after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-link"></div>
+                      <div className="w-11 h-6 bg-canvas-soft-2 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-link/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-[var(--color-canvas)] after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-canvas after:border-hairline after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-link"></div>
                     </label>
                   </div>
                 ))}

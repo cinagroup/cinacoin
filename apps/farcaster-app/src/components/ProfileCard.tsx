@@ -62,7 +62,7 @@ export function ProfileCard({
             className="w-16 h-16 rounded-full ring-2 ring-[var(--color-violet)]"
           />
         ) : (
-          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-[24px]">
+          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[var(--color-violet)] to-[var(--color-link)] flex items-center justify-center text-[24px]">
             {displayName.charAt(0).toUpperCase()}
           </div>
         )}

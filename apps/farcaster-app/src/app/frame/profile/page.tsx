@@ -23,7 +23,7 @@ export default function ProfileFramePage() {
         <h1 className="text-[32px] font-bold text-[var(--color-ink)]">👤 Profile</h1>
         <div className="bg-[var(--color-canvas-soft-2)] rounded-2xl p-6 border border-[var(--color-hairline)] space-y-4">
           <div className="flex items-center justify-center space-x-4">
-            <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-[24px]">
+            <div className="w-16 h-16 bg-gradient-to-br from-[var(--color-violet)] to-[var(--color-link)] rounded-full flex items-center justify-center text-[24px]">
               ?
             </div>
             <div className="text-left">

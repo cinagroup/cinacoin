@@ -465,7 +465,7 @@ export default function AuthPage() {
             {authStep === 'signed' && siweMessage && signature && (
               <div className="space-y-3">
                 <p className="text-[14px] text-[var(--cc-success)] font-semibold">✓ Message Signed</p>
-                <div className="rounded-lg bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] p-3">
+                <div className="rounded-[var(--cc-radius-md)] bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] p-3">
                   <p className="text-[12px] text-[var(--cc-body)] mb-1">SIWE Message:</p>
                   <pre className="font-[var(--font-mono)] text-[12px] text-[var(--cc-body)] overflow-x-auto whitespace-pre leading-relaxed select-all max-h-40 overflow-y-auto">
                     {siweMessage}
@@ -504,7 +504,7 @@ export default function AuthPage() {
                   try {
                     const parsed = parseMessage(siweMessage);
                     return (
-                      <div className="rounded-lg bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] p-3 space-y-1 text-[12px] font-[var(--font-mono)] text-[var(--cc-muted)]">
+                      <div className="rounded-[var(--cc-radius-md)] bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] p-3 space-y-1 text-[12px] font-[var(--font-mono)] text-[var(--cc-muted)]">
                         <div className="flex justify-between"><span>Domain:</span><span className="text-[var(--cc-body)]">{parsed.domain}</span></div>
                         <div className="flex justify-between"><span>Nonce:</span><span className="text-[var(--cc-body)]">{parsed.nonce}</span></div>
                         <div className="flex justify-between"><span>Chain ID:</span><span className="text-[var(--cc-body)]">{parsed.chainId}</span></div>
@@ -553,7 +553,7 @@ export default function AuthPage() {
             </button>
 
             {showSessionInfo && siweMessage && (
-              <div className="mt-3 rounded-lg bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] p-3">
+              <div className="mt-3 rounded-[var(--cc-radius-md)] bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] p-3">
                 <pre className="font-[var(--font-mono)] text-[12px] text-[var(--cc-body)] overflow-x-auto whitespace-pre leading-relaxed select-all max-h-60 overflow-y-auto">
                   {siweMessage}
                 </pre>
@@ -684,7 +684,7 @@ export default function AuthPage() {
                   <p className="text-[14px] font-semibold text-[var(--cc-success)]">✓ Authentication Successful</p>
                   <p className="text-[12px] text-[var(--cc-muted)] mt-1">Authenticated via passkey</p>
                 </div>
-                <div className="rounded-lg bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] p-4 space-y-3">
+                <div className="rounded-[var(--cc-radius-md)] bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] p-4 space-y-3">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-md bg-gradient-to-br from-[var(--cc-link)]/80 to-[var(--cc-link)] flex items-center justify-center text-[14px] font-semibold shadow-[var(--cc-level2)]">
                       {passkeyResult.username[0]?.toUpperCase()}
@@ -775,7 +775,7 @@ export default function AuthPage() {
             </div>
 
             {showSessionInfo && (
-              <div className="mt-4 rounded-lg bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] p-4">
+              <div className="mt-4 rounded-[var(--cc-radius-md)] bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] p-4">
                 <pre className="font-[var(--font-mono)] text-[12px] text-[var(--cc-muted)] overflow-x-auto whitespace-pre-wrap max-h-48 overflow-y-auto">
                   {JSON.stringify(session, null, 2)}
                 </pre>
