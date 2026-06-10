@@ -85,15 +85,16 @@ jobs:
         working-directory: apps/docs-site
         run: npm run build
 
-      - name: Nest output under /docs (base path layout)
+      - name: Prepare deployment directory
         run: |
+          # Docusaurus with baseUrl: '/docs/' generates correct asset paths
+          # Router strips /docs prefix before proxying to Pages
           rm -rf apps/docs-site/dist_deploy
-          mkdir -p apps/docs-site/dist_deploy/docs
-          cp -r apps/docs-site/build/. apps/docs-site/dist_deploy/docs/
-          # Redirect root to /docs/
-          printf '/  https://cinacoin.com/docs/  301\n' > apps/docs-site/dist_deploy/_redirects
-          test -f apps/docs-site/dist_deploy/docs/index.html || { echo "✗ nested index missing"; exit 1; }
-          echo "✓ nested output at /docs"
+          cp -r apps/docs-site/build apps/docs-site/dist_deploy
+          # Add empty _redirects to override any cached version
+          echo "# No redirects needed" > apps/docs-site/dist_deploy/_redirects
+          test -f apps/docs-site/dist_deploy/index.html || { echo "✗ index missing"; exit 1; }
+          echo "✓ deployment ready"
 
       - name: Install Wrangler
         run: npm install -g wrangler@3
