@@ -12,6 +12,8 @@
  *   cinacoin doctor     — Diagnose project setup
  *   cinacoin build      — Build the SDK packages
  *   cinacoin test       — Run unit + E2E tests
+ *   cinacoin dev        — Start local mock chain dev server
+ *   cinacoin deploy     — Deploy dApp to Cloudflare/Vercel
  *
  * Usage:
  *   npx @cinacoin/cli init
@@ -29,6 +31,8 @@ import { addCommand } from './commands/add.js';
 import { doctorCommand } from './commands/doctor.js';
 import { buildCommand } from './commands/build.js';
 import { testCommand } from './commands/test.js';
+import { devCommand } from './commands/dev.js';
+import { deployCommand } from './commands/deploy.js';
 import { VERSION } from './utils/fs.js';
 
 program
@@ -43,6 +47,8 @@ addCommand(program);
 doctorCommand(program);
 buildCommand(program);
 testCommand(program);
+devCommand(program);
+deployCommand(program);
 
 // Handle unknown commands
 program.on('command:*', (operands) => {

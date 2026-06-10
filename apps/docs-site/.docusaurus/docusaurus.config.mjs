@@ -140,14 +140,22 @@ export default {
       "title": "Cinacoin",
       "logo": {
         "alt": "Cinacoin",
-        "src": "img/logo.svg"
+        "src": "img/logo.svg",
+        "width": 24,
+        "height": 24
       },
       "items": [
+        {
+          "href": "https://cinacoin.com",
+          "label": "Home",
+          "position": "left",
+          "target": "_self"
+        },
         {
           "type": "docSidebar",
           "sidebarId": "guideSidebar",
           "position": "left",
-          "label": "Guide"
+          "label": "Docs"
         },
         {
           "type": "docSidebar",
@@ -168,29 +176,104 @@ export default {
       "style": "light",
       "links": [
         {
-          "title": "Docs",
+          "title": "Product",
           "items": [
             {
-              "label": "Quick Start",
-              "to": "/guide/quick-start"
+              "label": "Overview",
+              "href": "https://cinacoin.com/products"
             },
             {
-              "label": "API",
-              "to": "/api/core-sdk"
+              "label": "Wallet",
+              "href": "https://cinacoin.com/products#wallet"
+            },
+            {
+              "label": "Exchange",
+              "href": "https://cinacoin.com/products#exchange"
+            },
+            {
+              "label": "Staking",
+              "href": "https://cinacoin.com/products#staking"
             }
           ]
         },
         {
-          "title": "More",
+          "title": "Solutions",
           "items": [
             {
-              "label": "Cinacoin",
-              "href": "https://cinacoin.com"
+              "label": "Enterprise",
+              "href": "https://cinacoin.com/solutions#enterprise"
+            },
+            {
+              "label": "DeFi",
+              "href": "https://cinacoin.com/solutions#defi"
+            },
+            {
+              "label": "Payments",
+              "href": "https://cinacoin.com/solutions#payments"
+            }
+          ]
+        },
+        {
+          "title": "Developers",
+          "items": [
+            {
+              "label": "Documentation",
+              "to": "/"
+            },
+            {
+              "label": "API Reference",
+              "to": "/api/core-sdk"
+            },
+            {
+              "label": "SDKs",
+              "href": "https://github.com/cinagroup/cinacoin"
+            },
+            {
+              "label": "GitHub",
+              "href": "https://github.com/cinagroup/cinacoin"
+            }
+          ]
+        },
+        {
+          "title": "Resources",
+          "items": [
+            {
+              "label": "Blog",
+              "href": "https://cinacoin.com/resources"
+            },
+            {
+              "label": "Whitepaper",
+              "href": "https://cinacoin.com/resources#whitepaper"
+            },
+            {
+              "label": "Community",
+              "href": "https://cinacoin.com/resources#community"
+            },
+            {
+              "label": "Support",
+              "href": "https://cinacoin.com/resources#support"
+            }
+          ]
+        },
+        {
+          "title": "Company",
+          "items": [
+            {
+              "label": "About",
+              "href": "https://cinacoin.com/about"
+            },
+            {
+              "label": "Careers",
+              "href": "https://cinacoin.com/about#careers"
+            },
+            {
+              "label": "Contact",
+              "href": "https://cinacoin.com/about#contact"
             }
           ]
         }
       ],
-      "copyright": "© 2026 Cinacoin"
+      "copyright": "<div class=\"footer-newsletter\">\n  <h4>Stay Updated</h4>\n  <p>Get the latest news and updates</p>\n  <form class=\"footer-newsletter-form\" onsubmit=\"event.preventDefault()\">\n    <input type=\"email\" placeholder=\"Enter your email\" aria-label=\"Email for newsletter\" />\n    <button type=\"submit\">Subscribe</button>\n  </form>\n</div>\n<div class=\"footer-bottom-bar\">\n  <div class=\"footer-bottom-logo\">\n    <svg width=\"20\" height=\"20\" viewBox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n      <rect width=\"32\" height=\"32\" rx=\"6\" fill=\"currentColor\"/>\n      <text x=\"16\" y=\"22\" font-family=\"Inter,system-ui,sans-serif\" font-size=\"18\" font-weight=\"600\" fill=\"var(--ifm-background-color)\" text-anchor=\"middle\">C</text>\n    </svg>\n    <span>CinaCoin</span>\n  </div>\n  <span class=\"footer-bottom-copyright\">&copy; 2026 CinaCoin. All rights reserved.</span>\n</div>"
     },
     "prism": {
       "theme": {
