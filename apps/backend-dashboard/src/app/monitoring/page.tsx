@@ -21,17 +21,26 @@ export default function MonitoringPage() {
   const [metrics, setMetrics] = useState<Metric[]>([]);
   const [alerts, setAlerts] = useState<Alert[]>([]);
   const [selectedService, setSelectedService] = useState('api-gateway');
+  const [error, setError] = useState<string | null>(null);
 
   const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'https://api.cinacoin.com';
 
   useEffect(() => {
     fetch(`${API_BASE}/monitoring/metrics/${selectedService}?hours=24`)
       .then(res => res.json())
-      .then(data => setMetrics(data.metrics || []));
+      .then(data => setMetrics(data.metrics || []))
+      .catch(err => {
+        console.error('Failed to fetch metrics:', err);
+        setError(err.message);
+      });
     
     fetch(`${API_BASE}/monitoring/alerts?limit=20`)
       .then(res => res.json())
-      .then(data => setAlerts(data.alerts || []));
+      .then(data => setAlerts(data.alerts || []))
+      .catch(err => {
+        console.error('Failed to fetch alerts:', err);
+        setError(err.message);
+      });
   }, [selectedService]);
 
   return (

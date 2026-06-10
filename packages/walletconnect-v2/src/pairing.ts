@@ -10,6 +10,7 @@
 import { generateSymKey, generateTopic, bytesToHex, hexToBytes, encrypt, decrypt } from './crypto.js';
 import type { Pairing, ParsedWcUri, RelayConfig, JsonRpcRequest, JsonRpcResponse } from './types.js';
 import { WcRelay } from './relay.js';
+import { logger } from '@cinacoin/logger';
 
 /** Configuration for creating a pairing. */
 export interface PairingConfig {
@@ -267,7 +268,9 @@ export async function pairingPing(
             result: {},
           };
           const pongEncrypted = encryptPairingMessage(symKey, pong);
-          relay.publish(topic, pongEncrypted).catch(() => {});
+          relay.publish(topic, pongEncrypted).catch(err => {
+            logger.warn('[pairing] Failed to send pairing pong:', err?.message ?? err);
+          });
         }
       } catch {
         // Ignore decryption failures
@@ -278,7 +281,9 @@ export async function pairingPing(
 
     // Send ping
     const encrypted = encryptPairingMessage(symKey, request);
-    relay.publish(topic, encrypted).catch(() => {});
+    relay.publish(topic, encrypted).catch(err => {
+      logger.warn('[pairing] Failed to publish pairing ping:', err?.message ?? err);
+    });
 
     // Timeout
     setTimeout(() => {

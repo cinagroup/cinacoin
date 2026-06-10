@@ -328,7 +328,9 @@ export class WcSessionManager extends EventEmitter {
               result: {},
             };
             const pongEncrypted = encrypt(this.sessionSharedSecret!, new TextEncoder().encode(JSON.stringify(pong)));
-            this.relay!.publish(this.activeSession!.topic, pongEncrypted).catch(() => {});
+            this.relay!.publish(this.activeSession!.topic, pongEncrypted).catch(err => {
+              logger.warn('[WcSessionManager] Failed to send session pong:', err?.message ?? err);
+            });
           }
         } catch {
           // Ignore
@@ -338,7 +340,9 @@ export class WcSessionManager extends EventEmitter {
       this.relay!.subscribe(this.activeSession!.topic, handler);
 
       const encrypted = encrypt(this.sessionSharedSecret!, new TextEncoder().encode(JSON.stringify(request)));
-      this.relay!.publish(this.activeSession!.topic, encrypted).catch(() => {});
+      this.relay!.publish(this.activeSession!.topic, encrypted).catch(err => {
+        logger.warn('[WcSessionManager] Failed to publish session ping:', err?.message ?? err);
+      });
 
       setTimeout(() => {
         this.relay!.unsubscribe(this.activeSession!.topic, handler);

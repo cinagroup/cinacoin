@@ -11,12 +11,17 @@ interface PerformanceData {
 
 export default function PerformancePage() {
   const [data, setData] = useState<Record<string, PerformanceData[]>>({});
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'https://api.cinacoin.com';
     fetch(`${API_BASE}/analytics/performance?days=7`)
       .then(res => res.json())
-      .then(data => setData(data.results));
+      .then(data => setData(data.results))
+      .catch(err => {
+        console.error('Failed to fetch performance data:', err);
+        setError(err.message);
+      });
   }, []);
 
   const metrics = [

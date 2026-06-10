@@ -158,7 +158,9 @@ export class WcConnector extends Connector {
 
     // Auto-restore sessions if configured
     if (config.autoRestore !== false) {
-      this.restore().catch(() => {});
+      this.restore().catch(err => {
+        logger.warn('[WcConnector] Failed to auto-restore sessions:', err?.message ?? err);
+      });
     }
 
     // Initialize heartbeat if not disabled

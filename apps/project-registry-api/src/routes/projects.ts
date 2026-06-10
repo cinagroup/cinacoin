@@ -189,10 +189,12 @@ export function projectRoutes() {
       return c.json({ error: 'Project not found' }, 404);
     }
 
-    // Delete associated API keys first (cascade should handle it, but be explicit)
-    await db.prepare('DELETE FROM api_keys WHERE project_id = ?').bind(id).run();
-    await db.prepare('DELETE FROM usage_stats WHERE project_id = ?').bind(id).run();
-    await db.prepare('DELETE FROM projects WHERE id = ?').bind(id).run();
+    // Delete associated data atomically using batch to ensure transaction safety
+    await db.batch([
+      db.prepare('DELETE FROM api_keys WHERE project_id = ?').bind(id),
+      db.prepare('DELETE FROM usage_stats WHERE project_id = ?').bind(id),
+      db.prepare('DELETE FROM projects WHERE id = ?').bind(id),
+    ]);
     return c.json({ message: 'Project deleted successfully' });
   });
 

@@ -189,7 +189,9 @@ export class MultiSessionManager extends EventEmitter {
   async disconnect(): Promise<void> {
     // Send delete notifications for all sessions
     for (const topic of this.sessions.keys()) {
-      await this.sendSessionDelete(topic).catch(() => {});
+      await this.sendSessionDelete(topic).catch(err => {
+        logger.warn(`[MultiSessionManager] Failed to send session delete for ${topic}:`, err?.message ?? err);
+      });
     }
 
     this.sessions.clear();
@@ -320,7 +322,9 @@ export class MultiSessionManager extends EventEmitter {
 
     // Subscribe to the session topic for incoming messages
     this.relay?.subscribe(session.topic, (payload: string) => {
-      this.handleSessionMessage(session.topic, payload).catch(() => {});
+      this.handleSessionMessage(session.topic, payload).catch(err => {
+        logger.warn(`[MultiSessionManager] Failed to handle session message for ${session.topic}:`, err?.message ?? err);
+      });
     });
 
     return managed;
@@ -346,7 +350,9 @@ export class MultiSessionManager extends EventEmitter {
 
     // Subscribe via our relay
     await this.relay!.subscribe(pairing.topic, (payload: string) => {
-      this.handlePairingMessage(pairing.topic, payload, pairing.symKey!).catch(() => {});
+      this.handlePairingMessage(pairing.topic, payload, pairing.symKey!).catch(err => {
+        logger.warn(`[MultiSessionManager] Failed to handle pairing message for ${pairing.topic}:`, err?.message ?? err);
+      });
     });
 
     // Save pairing
@@ -411,7 +417,9 @@ export class MultiSessionManager extends EventEmitter {
 
     // Subscribe to pairing topic
     await this.relay!.subscribe(parsed.topic, (payload: string) => {
-      this.handlePairingMessage(parsed.topic, payload, parsed.symKey).catch(() => {});
+      this.handlePairingMessage(parsed.topic, payload, parsed.symKey).catch(err => {
+        logger.warn(`[MultiSessionManager] Failed to handle pairing message for ${parsed.topic}:`, err?.message ?? err);
+      });
     });
 
     // Send session proposal
@@ -667,7 +675,9 @@ export class MultiSessionManager extends EventEmitter {
 
   /** Disconnect a specific session. */
   async disconnectSession(topic: string): Promise<void> {
-    await this.sendSessionDelete(topic).catch(() => {});
+    await this.sendSessionDelete(topic).catch(err => {
+      logger.warn(`[MultiSessionManager] Failed to send session delete for ${topic}:`, err?.message ?? err);
+    });
     this.removeSession(topic);
   }
 
@@ -826,7 +836,9 @@ export class MultiSessionManager extends EventEmitter {
 
     // Subscribe to session topic
     await this.relay?.subscribe(sessionTopic, (payload: string) => {
-      this.handleSessionMessage(sessionTopic, payload).catch(() => {});
+      this.handleSessionMessage(sessionTopic, payload).catch(err => {
+        logger.warn(`[MultiSessionManager] Failed to handle session message for ${sessionTopic}:`, err?.message ?? err);
+      });
     });
 
     // Build session object

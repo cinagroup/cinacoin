@@ -20,6 +20,7 @@ interface Stats {
 export default function ABTestingPage() {
   const [experiments, setExperiments] = useState<Experiment[]>([]);
   const [results, setResults] = useState<Record<string, Stats[]>>({});
+  const [error, setError] = useState<string | null>(null);
 
   const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'https://api.cinacoin.com';
 
@@ -27,7 +28,11 @@ export default function ABTestingPage() {
     // 获取所有实验
     fetch(`${API_BASE}/ab/admin/experiments`)
       .then(res => res.json())
-      .then(data => setExperiments(data.experiments || []));
+      .then(data => setExperiments(data.experiments || []))
+      .catch(err => {
+        console.error('Failed to fetch experiments:', err);
+        setError(err.message);
+      });
   }, []);
 
   useEffect(() => {
