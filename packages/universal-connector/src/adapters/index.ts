@@ -7,6 +7,16 @@
 
 import type { ChainNamespace } from '@cinacoin/core-sdk';
 import { BaseAdapter } from './BaseAdapter.js';
+import { EvmAdapter } from './EvmAdapter.js';
+import { SolanaAdapter } from './SolanaAdapter.js';
+import { BitcoinAdapter } from './BitcoinAdapter.js';
+import { CosmosAdapter } from './CosmosAdapter.js';
+import { SuiAdapter } from './SuiAdapter.js';
+import { NearAdapter } from './NearAdapter.js';
+import { TonAdapter } from './TonAdapter.js';
+import { TronAdapter } from './TronAdapter.js';
+import { StarknetAdapter } from './StarknetAdapter.js';
+import { HederaAdapter } from './HederaAdapter.js';
 
 /**
  * AdapterRegistry — manages all registered chain adapters.
@@ -179,3 +189,44 @@ export class AdapterRegistry {
 
 // Export BaseAdapter for convenience
 export { BaseAdapter } from './BaseAdapter.js';
+
+// Export all adapter implementations
+export { EvmAdapter } from './EvmAdapter.js';
+export { SolanaAdapter } from './SolanaAdapter.js';
+export { BitcoinAdapter } from './BitcoinAdapter.js';
+export { CosmosAdapter } from './CosmosAdapter.js';
+export { SuiAdapter } from './SuiAdapter.js';
+export { NearAdapter } from './NearAdapter.js';
+export { TonAdapter } from './TonAdapter.js';
+export { TronAdapter } from './TronAdapter.js';
+export { StarknetAdapter } from './StarknetAdapter.js';
+export { HederaAdapter } from './HederaAdapter.js';
+
+/**
+ * Create a default registry with all built-in adapters pre-registered.
+ *
+ * @example
+ * ```ts
+ * import { createDefaultRegistry } from '@cinacoin/universal-connector';
+ *
+ * const registry = createDefaultRegistry();
+ * const ethAdapter = registry.getAdapterForChain('eip155:1');
+ * ```
+ */
+export function createDefaultRegistry(): AdapterRegistry {
+  const registry = new AdapterRegistry();
+
+  // Register all built-in adapters
+  registry.register(new EvmAdapter());
+  registry.register(new SolanaAdapter());
+  registry.register(new BitcoinAdapter());
+  registry.register(new CosmosAdapter());
+  registry.register(new SuiAdapter());
+  registry.register(new NearAdapter());
+  registry.register(new TonAdapter());
+  registry.register(new TronAdapter());
+  registry.register(new StarknetAdapter());
+  registry.register(new HederaAdapter());
+
+  return registry;
+}

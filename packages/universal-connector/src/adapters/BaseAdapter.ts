@@ -14,6 +14,7 @@ import type {
   ConnectionResult,
   SignatureResult,
   TxResult,
+  BalanceResult,
   ChainConnectionState,
   AdapterConfig,
 } from '../types.js';
@@ -30,7 +31,7 @@ import type {
  * @example
  * ```ts
  * class EvmAdapter extends BaseAdapter {
- *   async connect(chainId: string, options?: ConnectOptions): Promise<ConnectionResult> {
+ *   async connect(options?: ConnectOptions): Promise<ConnectionResult> {
  *     // EVM-specific connection logic
  *   }
  *   // ... implement other abstract methods
@@ -47,6 +48,9 @@ export abstract class BaseAdapter {
   /** Supported chain namespaces. */
   readonly namespaces: string[];
 
+  /** Adapter-specific options. */
+  protected readonly options: Record<string, unknown>;
+
   /** Event emitter for adapter-specific events. */
   protected readonly emitter: EventEmitter;
 
@@ -56,10 +60,14 @@ export abstract class BaseAdapter {
   /** Connection state per chain. */
   protected readonly connectionStates: Map<string, ChainConnectionState> = new Map();
 
+  /** Currently active chain ID for this adapter. */
+  protected _activeChainId: string | null = null;
+
   constructor(config: AdapterConfig) {
     this.id = config.id;
-    this.name = config.id; // Can be overridden
+    this.name = config.name ?? config.id;
     this.namespaces = config.namespaces;
+    this.options = config.options ?? {};
     this.emitter = new EventEmitter();
   }
 
@@ -91,7 +99,6 @@ export abstract class BaseAdapter {
    * Get a registered chain by ID.
    *
    * @param chainId - Chain identifier.
-   * @returns Chain info or undefined.
    */
   getChain(chainId: string): ChainInfo | undefined {
     return this.chains.get(chainId);
@@ -136,8 +143,10 @@ export abstract class BaseAdapter {
    *
    * @param chainId - Chain identifier.
    */
-  isConnected(chainId: string): boolean {
-    return this.getConnectionState(chainId).connected;
+  isConnected(chainId?: string): boolean {
+    const target = chainId ?? this._activeChainId;
+    if (!target) return false;
+    return this.getConnectionState(target).connected;
   }
 
   /**
@@ -157,6 +166,13 @@ export abstract class BaseAdapter {
    */
   protected clearConnectionState(chainId: string): void {
     this.connectionStates.delete(chainId);
+  }
+
+  /**
+   * Get the currently active chain ID.
+   */
+  getActiveChainId(): string | null {
+    return this._activeChainId;
   }
 
   /* ------------------------------------------------------------------ */
@@ -194,53 +210,100 @@ export abstract class BaseAdapter {
   }
 
   /* ------------------------------------------------------------------ */
+  /*  Helpers                                                             */
+  /* ------------------------------------------------------------------ */
+
+  /**
+   * Generate a unique session ID.
+   */
+  protected generateSessionId(): string {
+    return `${this.id}-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+  }
+
+  /**
+   * Resolve the target chain ID from options or active chain.
+   *
+   * @param options - Connect options that may contain chainId.
+   */
+  protected resolveChainId(options?: ConnectOptions): string {
+    const fromOptions = options?.chainId;
+    if (fromOptions && typeof fromOptions === 'string') {
+      return fromOptions;
+    }
+    if (this._activeChainId) return this._activeChainId;
+    // Default to first registered chain
+    const first = this.chains.keys().next();
+    if (!first.done && first.value) return first.value;
+    throw new Error(`[${this.id}] No chain specified and no active chain`);
+  }
+
+  /**
+   * Require connection to a chain, throwing if not connected.
+   *
+   * @param chainId - Optional chain to check. Defaults to active chain.
+   */
+  protected requireConnection(chainId?: string): ChainConnectionState {
+    const target = chainId ?? this._activeChainId;
+    if (!target) {
+      throw new Error(`[${this.id}] Not connected. Call connect() first.`);
+    }
+    const state = this.getConnectionState(target);
+    if (!state.connected) {
+      throw new Error(`[${this.id}] Not connected to chain "${target}". Call connect() first.`);
+    }
+    return state;
+  }
+
+  /* ------------------------------------------------------------------ */
   /*  Abstract Methods (must be implemented by subclasses)                */
   /* ------------------------------------------------------------------ */
 
   /**
    * Connect to a chain.
    *
-   * @param chainId - Chain identifier.
-   * @param options - Connection options.
+   * @param options - Connection options (may include chainId, provider, etc.).
    * @returns Connection result.
    */
-  abstract connect(chainId: string, options?: ConnectOptions): Promise<ConnectionResult>;
+  abstract connect(options?: ConnectOptions): Promise<ConnectionResult>;
 
   /**
-   * Disconnect from a chain.
-   *
-   * @param chainId - Chain identifier.
+   * Disconnect from the current chain (or all chains managed by this adapter).
    */
-  abstract disconnect(chainId: string): Promise<void>;
+  abstract disconnect(): Promise<void>;
 
   /**
-   * Sign a message.
+   * Sign a message on the active chain.
    *
    * @param message - Message to sign.
-   * @param chainId - Chain context.
    * @returns Signature result.
    */
-  abstract signMessage(message: string, chainId: string): Promise<SignatureResult>;
+  abstract signMessage(message: string): Promise<SignatureResult>;
 
   /**
-   * Sign a transaction.
+   * Sign a transaction on the active chain.
    *
-   * @param tx - Transaction request.
-   * @param chainId - Chain context.
+   * @param tx - Transaction request (chain-specific shape).
    * @returns Transaction result.
    */
-  abstract signTransaction(tx: unknown, chainId: string): Promise<TxResult>;
+  abstract signTransaction(tx: unknown): Promise<TxResult>;
 
   /**
-   * Get connected accounts.
+   * Get balance for an address on the active chain.
    *
-   * @param chainId - Chain identifier.
+   * @param address - Account address. If omitted, uses connected account.
+   * @returns Balance result.
+   */
+  abstract getBalance(address?: string): Promise<BalanceResult>;
+
+  /**
+   * Get connected accounts for the active chain.
+   *
    * @returns Array of account addresses.
    */
-  abstract getAccounts(chainId: string): Promise<string[]>;
+  abstract getAccounts(): Promise<string[]>;
 
   /**
-   * Switch to a different chain.
+   * Switch to a different chain within this adapter's namespace.
    *
    * @param chainId - Target chain identifier.
    */

@@ -69,6 +69,8 @@ export interface ChainInfo {
  * Options for connecting to a chain.
  */
 export interface ConnectOptions {
+  /** Target chain ID (CAIP-2). Overrides adapter default. */
+  chainId?: string;
   /** Specific wallet provider to use (e.g. "metamask", "phantom"). */
   provider?: string;
   /** Requested accounts / addresses. */
@@ -136,6 +138,26 @@ export interface TxResult {
 }
 
 /* ------------------------------------------------------------------ */
+/*  Balance Types                                                       */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Result of a balance query.
+ */
+export interface BalanceResult {
+  /** The queried address. */
+  address: string;
+  /** Balance in smallest unit (wei, lamports, satoshis, etc.). */
+  balance: string;
+  /** Human-readable formatted balance. */
+  formatted: string;
+  /** Native currency symbol. */
+  symbol: string;
+  /** The chain context. */
+  chainId: string;
+}
+
+/* ------------------------------------------------------------------ */
 /*  Events                                                              */
 /* ------------------------------------------------------------------ */
 
@@ -183,6 +205,11 @@ export interface AccountsChangedEventPayload {
   previousAccounts: string[];
 }
 
+/**
+ * Generic event callback type.
+ */
+export type EventCallback = (...args: any[]) => void;
+
 /* ------------------------------------------------------------------ */
 /*  Main Interface                                                      */
 /* ------------------------------------------------------------------ */
@@ -211,6 +238,15 @@ export interface IUniversalConnector {
   connect(chainId: string, options?: ConnectOptions): Promise<ConnectionResult>;
 
   /**
+   * Connect to multiple chains in parallel.
+   *
+   * @param chainIds - Array of CAIP-2 chain identifiers.
+   * @param options - Optional connection parameters applied to all.
+   * @returns Array of connection results (settled, not all-settled — rejects on first failure).
+   */
+  connectMultiple(chainIds: string[], options?: ConnectOptions): Promise<ConnectionResult[]>;
+
+  /**
    * Disconnect from a chain, or all chains if no chainId specified.
    *
    * @param chainId - Optional chain to disconnect from. Omit to disconnect all.
@@ -234,6 +270,15 @@ export interface IUniversalConnector {
    * @returns Transaction result with hash.
    */
   signTransaction(tx: TransactionRequest, chainId?: string): Promise<TxResult>;
+
+  /**
+   * Get balance for an address on a specific chain.
+   *
+   * @param address - Account address. If omitted, uses the connected account.
+   * @param chainId - Optional chain context. Uses current chain if omitted.
+   * @returns Balance result.
+   */
+  getBalance(address?: string, chainId?: string): Promise<BalanceResult>;
 
   /**
    * Get all registered / available chains.
@@ -279,6 +324,8 @@ export interface IUniversalConnector {
 export interface AdapterConfig {
   /** Adapter identifier (e.g. "evm", "solana", "bitcoin"). */
   id: string;
+  /** Human-readable adapter display name. */
+  name?: string;
   /** Supported chain namespaces. */
   namespaces: ChainNamespace[];
   /** Adapter-specific options. */
@@ -297,4 +344,16 @@ export interface ChainConnectionState {
   connectedAt?: number;
   /** Session identifier. */
   sessionId?: string;
+}
+
+/**
+ * Adapter registry interface (for type exports).
+ */
+export interface AdapterRegistry {
+  register(adapter: import('./adapters/BaseAdapter').BaseAdapter): void;
+  unregister(adapterId: string): void;
+  getAdapter(adapterId: string): import('./adapters/BaseAdapter').BaseAdapter | undefined;
+  getAdapterForChain(chainId: string): import('./adapters/BaseAdapter').BaseAdapter | undefined;
+  getAllAdapters(): import('./adapters/BaseAdapter').BaseAdapter[];
+  isChainSupported(chainId: string): boolean;
 }
