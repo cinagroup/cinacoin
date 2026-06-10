@@ -335,7 +335,7 @@ export default function ProjectDetailPage() {
               <button
                 key={tab}
                 onClick={() => setSdkTab(tab)}
-                className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors ${
+                className={`px-3 py-1.5 text-sm font-medium rounded-full transition-colors ${
                   sdkTab === tab
                     ? "bg-ink text-white"
                     : "bg-canvas-soft text-ink-body hover:text-ink"
