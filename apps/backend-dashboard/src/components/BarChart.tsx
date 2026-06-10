@@ -1,3 +1,5 @@
+import React from 'react';
+
 interface BarChartProps {
   data: number[];
   labels: string[];
@@ -6,7 +8,7 @@ interface BarChartProps {
   ariaLabelledBy?: string;
 }
 
-export default function BarChart({ data, labels, color = "var(--cc-primary)", height = 120, ariaLabelledBy }: BarChartProps) {
+export default React.memo(function BarChart({ data, labels, color = "var(--cc-primary)", height = 120, ariaLabelledBy }: BarChartProps) {
   if (!data.length) return null;
   const max = Math.max(...data, 1);
 
@@ -53,4 +55,4 @@ export default function BarChart({ data, labels, color = "var(--cc-primary)", he
       </div>
     </div>
   );
-}
+});

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 import { setupMfa, enableMfa, disableMfa, apiRequest, AUTH_BASE_URL } from "@/lib/api";
 
 type TwoFAStatus = "disabled" | "loading" | "setup" | "verify" | "enabled" | "showRecovery";
@@ -249,7 +250,7 @@ export function TwoFactorAuth() {
                 </p>
                 <div className="w-48 h-48 bg-canvas border border-hairline rounded-md p-3 mb-md">
                   {qrCodeUrl ? (
-                    <img src={qrCodeUrl} alt="2FA QR Code" className="w-full h-full" />
+                    <Image src={qrCodeUrl} alt="2FA QR Code" fill style={{ objectFit: 'cover' }} unoptimized />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-mute text-caption">
                       Loading QR…

@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 
 interface FrameRendererProps {
   /** Frame image URL */
@@ -42,10 +43,12 @@ export function FrameRenderer({
       <div className="bg-[var(--color-canvas-soft-2)] rounded-2xl overflow-hidden border border-[var(--color-hairline)] shadow-2xl">
         {/* Frame Image */}
         <div className={`relative ${aspectClass} bg-[var(--color-canvas-soft-2)]`}>
-          <img
+          <Image
             src={imageUrl}
             alt={title ?? 'Frame'}
-            className="w-full h-full object-cover"
+            fill
+            style={{ objectFit: 'cover' }}
+            unoptimized
           />
           {title && (
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">

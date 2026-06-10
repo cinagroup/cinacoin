@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import type { FarcasterUser } from '@cinacoin/farcaster-miniapp';
 
 interface ProfileCardProps {
@@ -56,11 +57,15 @@ export function ProfileCard({
       {/* Header */}
       <div className="flex items-center space-x-4">
         {user.pfp_url ? (
-          <img
-            src={user.pfp_url}
-            alt={displayName}
-            className="w-16 h-16 rounded-full ring-2 ring-[var(--color-violet)]"
-          />
+          <div className="relative w-16 h-16 rounded-full overflow-hidden ring-2 ring-[var(--color-violet)]">
+            <Image
+              src={user.pfp_url}
+              alt={displayName}
+              fill
+              style={{ objectFit: 'cover' }}
+              unoptimized
+            />
+          </div>
         ) : (
           <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[var(--color-violet)] to-[var(--color-link)] flex items-center justify-center text-display-md">
             {displayName.charAt(0).toUpperCase()}

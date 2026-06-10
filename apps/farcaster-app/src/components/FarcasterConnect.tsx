@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { FarcasterProvider, FarcasterAuth } from '@cinacoin/farcaster-miniapp';
 import type { FarcasterUser, FarcasterContext } from '@cinacoin/farcaster-miniapp';
 
@@ -110,11 +111,15 @@ export function FarcasterConnect({
     return (
       <div className="flex items-center space-x-3">
         {user.pfp_url && (
-          <img
-            src={user.pfp_url}
-            alt={user.display_name ?? user.username}
-            className="w-10 h-10 rounded-full"
-          />
+          <div className="relative w-10 h-10 rounded-full overflow-hidden">
+            <Image
+              src={user.pfp_url}
+              alt={user.display_name ?? user.username}
+              fill
+              style={{ objectFit: 'cover' }}
+              unoptimized
+            />
+          </div>
         )}
         <div>
           <p className="text-[var(--color-on-primary)] font-medium">

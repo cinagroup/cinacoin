@@ -1,3 +1,4 @@
+import React from 'react';
 import { HealthCheck, ServiceDefinition } from "@/lib/services";
 import { statusColor, formatLatency } from "@/lib/utils";
 
@@ -33,7 +34,7 @@ function statusDotColor(status: string): string {
   }
 }
 
-export default function ServiceCard({ service, health, demoMode = false }: ServiceCardProps) {
+export default React.memo(function ServiceCard({ service, health, demoMode = false }: ServiceCardProps) {
   const isDown = health.status === "down";
   const isDegraded = health.status === "degraded";
 
@@ -96,4 +97,4 @@ export default function ServiceCard({ service, health, demoMode = false }: Servi
       )}
     </div>
   );
-}
+});

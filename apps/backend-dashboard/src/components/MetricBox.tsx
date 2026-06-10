@@ -1,3 +1,5 @@
+import React from 'react';
+
 interface MetricBoxProps {
   label: string;
   value: string | number;
@@ -6,7 +8,7 @@ interface MetricBoxProps {
   color?: string;
 }
 
-export default function MetricBox({ label, value, icon, trend, color = "text-[var(--cc-ink)]" }: MetricBoxProps) {
+export default React.memo(function MetricBox({ label, value, icon, trend, color = "text-[var(--cc-ink)]" }: MetricBoxProps) {
   const trendLabel = trend === "up" ? "increasing" : trend === "down" ? "decreasing" : "stable";
   const labelId = `metric-label-${label.toLowerCase().replace(/\s+/g, '-')}`;
   return (
@@ -29,4 +31,4 @@ export default function MetricBox({ label, value, icon, trend, color = "text-[va
       </div>
     </div>
   );
-}
+});

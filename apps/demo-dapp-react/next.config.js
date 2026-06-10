@@ -1,6 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  images: {
+    unoptimized: true,
+    remotePatterns: [
+      { protocol: 'https', hostname: 'picsum.photos' },
+    ],
+  },
   transpilePackages: [
     '@cinacoin/react',
     '@cinacoin/core-sdk',

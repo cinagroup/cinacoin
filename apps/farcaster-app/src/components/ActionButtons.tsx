@@ -46,7 +46,7 @@ const sizeClasses: Record<string, string> = {
  *
  * Supports multiple variants, sizes, and layouts. Can render as buttons or links.
  */
-export function ActionButtons({
+export const ActionButtons = React.memo(function ActionButtons({
   buttons,
   direction = 'horizontal',
   size = 'md',
@@ -112,4 +112,4 @@ export function ActionButtons({
       })}
     </div>
   );
-}
+});

@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { useCinacoinContext } from '@cinacoin/react';
 
 interface NftItem {
@@ -81,11 +82,13 @@ export function DemoNFTGallery(): JSX.Element {
         {MOCK_NFTS.map((nft) => (
           <article key={nft.id} className="cc-card cc-hover-card" style={cardStyle} tabIndex={0} role="img" aria-label={`${nft.name} from ${nft.collection} on ${getChainName(nft.chainId)}`}>
             <div style={imageContainerStyle}>
-              <img
+              <Image
                 src={nft.image}
                 alt={nft.name}
-                style={imageStyle}
+                fill
+                style={{ objectFit: 'cover' }}
                 loading="lazy"
+                unoptimized
               />
               <span className="cc-badge" style={chainBadgeStyle} aria-label={`Chain: ${getChainName(nft.chainId)}`}>
                 {getChainName(nft.chainId)}

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { api } from '@/lib/api';
 
@@ -96,10 +97,12 @@ export function RegisterForm() {
 
         {totpUri && (
           <div className="flex justify-center">
-            <img
+            <Image
               src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(totpUri)}`}
               alt="Two-factor authentication QR code"
-              className="w-48 h-48"
+              width={192}
+              height={192}
+              unoptimized
             />
           </div>
         )}
