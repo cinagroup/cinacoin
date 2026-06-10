@@ -8,12 +8,12 @@ import SiteFooter from '../components/SiteFooter';
  * (e.g. 1inch, Jupiter, CoW Protocol, or on-chain oracles).
  */
 const TOKENS = [
-  { symbol: 'ETH', name: 'Ethereum', balance: '2.4821', price: 2995.67, icon: 'Ξ', color: '#627EEA', chain: 'Ethereum' },
-  { symbol: 'USDC', name: 'USD Coin', balance: '12,450.00', price: 1.00, icon: '$', color: '#2775CA', chain: 'Ethereum' },
-  { symbol: 'SOL', name: 'Solana', balance: '45.82', price: 178.34, icon: '◎', color: '#9945FF', chain: 'Solana' },
-  { symbol: 'BTC', name: 'Bitcoin', balance: '0.1234', price: 104820, icon: '₿', color: '#F7931A', chain: 'Bitcoin' },
-  { symbol: 'ARB', name: 'Arbitrum', balance: '5,200.00', price: 0.89, icon: 'λ', color: '#28A0F0', chain: 'Arbitrum' },
-  { symbol: 'POL', name: 'Polygon', balance: '8,500.00', price: 0.24, icon: '⬡', color: '#8247E5', chain: 'Polygon' },
+  { symbol: 'ETH', name: 'Ethereum', balance: '2.4821', price: 2995.67, icon: 'Ξ', color: 'var(--cc-demo-chain-ethereum)', chain: 'Ethereum' },
+  { symbol: 'USDC', name: 'USD Coin', balance: '12,450.00', price: 1.00, icon: '$', color: 'var(--cc-demo-token-usdc)', chain: 'Ethereum' },
+  { symbol: 'SOL', name: 'Solana', balance: '45.82', price: 178.34, icon: '◎', color: 'var(--cc-demo-chain-solana)', chain: 'Solana' },
+  { symbol: 'BTC', name: 'Bitcoin', balance: '0.1234', price: 104820, icon: '₿', color: 'var(--cc-demo-chain-bitcoin)', chain: 'Bitcoin' },
+  { symbol: 'ARB', name: 'Arbitrum', balance: '5,200.00', price: 0.89, icon: 'λ', color: 'var(--cc-demo-chain-arbitrum)', chain: 'Arbitrum' },
+  { symbol: 'POL', name: 'Polygon', balance: '8,500.00', price: 0.24, icon: '⬡', color: 'var(--cc-demo-chain-polygon)', chain: 'Polygon' },
 ];
 
 const RECENT_SWAPS = [

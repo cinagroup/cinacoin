@@ -8,11 +8,11 @@ import { useState, useCallback } from 'react';
 import { CodeExample } from '../components/CodeExample';
 
 const CHAINS = [
-  { id: 'eip155:1', name: 'Ethereum', icon: '⟠', color: '#627EEA' },
-  { id: 'eip155:137', name: 'Polygon', icon: '⬡', color: '#8247E5' },
-  { id: 'eip155:56', name: 'BSC', icon: '◆', color: '#F3BA2F' },
-  { id: 'eip155:42161', name: 'Arbitrum', icon: '🔵', color: '#28A0F0' },
-  { id: 'eip155:10', name: 'Optimism', icon: '🔴', color: '#FF0420' },
+  { id: 'eip155:1', name: 'Ethereum', icon: '⟠', color: 'var(--cc-demo-chain-ethereum)' },
+  { id: 'eip155:137', name: 'Polygon', icon: '⬡', color: 'var(--cc-demo-chain-polygon)' },
+  { id: 'eip155:56', name: 'BSC', icon: '◆', color: 'var(--cc-demo-bridge-bsc)' },
+  { id: 'eip155:42161', name: 'Arbitrum', icon: '🔵', color: 'var(--cc-demo-chain-arbitrum)' },
+  { id: 'eip155:10', name: 'Optimism', icon: '🔴', color: 'var(--cc-demo-chain-optimism)' },
 ];
 
 const CODE_EXAMPLE = `import { useBridge, useCoinAccount } from '@cinacoin/core-sdk';
@@ -119,14 +119,14 @@ export function BridgePage() {
       {/* Left: Bridge UI */}
       <div>
         <h2 style={{ fontSize: "var(--cc-text-xl)", fontWeight: "var(--cc-weight-bold)", marginBottom: 8 }}>跨链桥接</h2>
-        <p style={{ color: '#888', marginBottom: 24 }}>在不同链之间安全转移资产。</p>
+        <p style={{ color: 'var(--cc-demo-text-muted)', marginBottom: 24 }}>在不同链之间安全转移资产。</p>
 
-        <div style={{ background: '#1a1a2e', borderRadius: 12, padding: 24 }}>
+        <div style={{ background: 'var(--cc-demo-surface-dark)', borderRadius: 12, padding: 24 }}>
           {step === 'input' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
               {/* Source Chain */}
               <div>
-                <label style={{ fontSize: "var(--cc-text-xs)", color: '#aaa', marginBottom: 8, display: 'block' }}>从</label>
+                <label style={{ fontSize: "var(--cc-text-xs)", color: 'var(--cc-demo-text-light)', marginBottom: 8, display: 'block' }}>从</label>
                 <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                   {CHAINS.map((chain) => (
                     <button
@@ -153,8 +153,8 @@ export function BridgePage() {
                 <button
                   onClick={handleSwapChains}
                   style={{
-                    padding: '8px 16px', borderRadius: 20, border: '0px solid #333',
-                    background: 'transparent', color: '#fff', cursor: 'pointer', fontSize: "var(--cc-text-md)",
+                    padding: '8px 16px', borderRadius: 20, border: '0px solid var(--cc-demo-border)',
+                    background: 'transparent', color: 'var(--cc-on-primary, #fff)', cursor: 'pointer', fontSize: "var(--cc-text-md)",
                   }}
                 >
                   ⇅
@@ -163,7 +163,7 @@ export function BridgePage() {
 
               {/* Dest Chain */}
               <div>
-                <label style={{ fontSize: "var(--cc-text-xs)", color: '#aaa', marginBottom: 8, display: 'block' }}>到</label>
+                <label style={{ fontSize: "var(--cc-text-xs)", color: 'var(--cc-demo-text-light)', marginBottom: 8, display: 'block' }}>到</label>
                 <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                   {CHAINS.map((chain) => (
                     <button
@@ -187,7 +187,7 @@ export function BridgePage() {
 
               {/* Amount */}
               <div>
-                <label style={{ fontSize: "var(--cc-text-xs)", color: '#aaa', marginBottom: 8, display: 'block' }}>金额 (USDC)</label>
+                <label style={{ fontSize: "var(--cc-text-xs)", color: 'var(--cc-demo-text-light)', marginBottom: 8, display: 'block' }}>金额 (USDC)</label>
                 <input
                   type="number"
                   step="0.01"
@@ -196,7 +196,7 @@ export function BridgePage() {
                   onChange={(e) => setAmount(e.target.value)}
                   style={{
                     width: '100%', padding: '12px 16px', borderRadius: 8,
-                    border: '2px solid #333', background: '#0d0d1a', color: '#fff',
+                    border: '2px solid var(--cc-demo-border)', background: 'var(--cc-demo-surface-darker)', color: 'var(--cc-on-primary, #fff)',
                     fontSize: "var(--cc-text-sm)", outline: 'none', boxSizing: 'border-box',
                   }}
                 />
@@ -204,14 +204,14 @@ export function BridgePage() {
 
               {/* Estimate */}
               {amount && (
-                <div style={{ background: '#0d0d1a', borderRadius: 8, padding: 12 }}>
+                <div style={{ background: 'var(--cc-demo-surface-darker)', borderRadius: 8, padding: 12 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: "var(--cc-text-xs)" }}>
-                    <span style={{ color: '#888' }}>预估接收</span>
-                    <span style={{ color: '#4ade80', fontWeight: "var(--cc-weight-semibold)" }}>{estimatedOutput} USDC</span>
+                    <span style={{ color: 'var(--cc-demo-text-muted)' }}>预估接收</span>
+                    <span style={{ color: 'var(--cc-demo-success)', fontWeight: "var(--cc-weight-semibold)" }}>{estimatedOutput} USDC</span>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: "var(--cc-text-xs)", marginTop: 4 }}>
-                    <span style={{ color: '#888' }}>手续费 (0.3%)</span>
-                    <span style={{ color: '#f87171' }}>{fee} USDC</span>
+                    <span style={{ color: 'var(--cc-demo-text-muted)' }}>手续费 (0.3%)</span>
+                    <span style={{ color: 'var(--cc-demo-error)' }}>{fee} USDC</span>
                   </div>
                 </div>
               )}
@@ -222,7 +222,7 @@ export function BridgePage() {
                 style={{
                   padding: '12px 24px', borderRadius: 8, border: 'none',
                   background: amount && sourceChain !== destChain ? '#6366f1' : '#333',
-                  color: '#fff', fontSize: "var(--cc-text-md)", fontWeight: "var(--cc-weight-semibold)",
+                  color: 'var(--cc-on-primary, #fff)', fontSize: "var(--cc-text-md)", fontWeight: "var(--cc-weight-semibold)",
                   cursor: amount && sourceChain !== destChain ? 'pointer' : 'not-allowed',
                 }}
               >
@@ -263,10 +263,10 @@ export function BridgePage() {
             <div style={{ textAlign: 'center', padding: 20 }}>
               <div style={{ fontSize: 48, marginBottom: 16 }}>🎉</div>
               <h3 style={{ fontSize: "var(--cc-text-lg)", marginBottom: 8 }}>桥接完成!</h3>
-              <p style={{ color: '#888', fontSize: "var(--cc-text-xs)", marginBottom: 4 }}>
+              <p style={{ color: 'var(--cc-demo-text-muted)', fontSize: "var(--cc-text-xs)", marginBottom: 4 }}>
                 {srcChain.name} → {dstChain.name}
               </p>
-              <p style={{ color: '#888', fontSize: "var(--cc-text-xs)", marginBottom: 4 }}>
+              <p style={{ color: 'var(--cc-demo-text-muted)', fontSize: "var(--cc-text-xs)", marginBottom: 4 }}>
                 {amount} USDC → {estimatedOutput} USDC
               </p>
               <p style={{ color: '#555', fontSize: 12, marginBottom: 16 }}>
@@ -276,7 +276,7 @@ export function BridgePage() {
                 onClick={handleReset}
                 style={{
                   padding: '12px 20px', borderRadius: 8, border: 'none',
-                  background: '#6366f1', color: '#fff', cursor: 'pointer',
+                  background: 'var(--cc-demo-accent)', color: 'var(--cc-on-primary, #fff)', cursor: 'pointer',
                 }}
               >
                 新桥接

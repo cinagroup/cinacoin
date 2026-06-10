@@ -255,3 +255,42 @@
   line-height: 48px;
   letter-spacing: -2.4px;
 }
+
+/* === Additional color tokens for demo-react === */
+:root {
+  --cc-demo-surface-dark: #1a1a2e;
+  --cc-demo-surface-darker: #0d0d1a;
+  --cc-demo-text-muted: #888;
+  --cc-demo-text-light: #aaa;
+  --cc-demo-border: #333;
+  --cc-demo-accent: #6366f1;
+  --cc-demo-success: #4ade80;
+  --cc-demo-error: #f87171;
+  --cc-demo-chain-ethereum: #627EEA;
+  --cc-demo-chain-polygon: #8247E5;
+  --cc-demo-chain-arbitrum: #28A0F0;
+  --cc-demo-chain-base: #0052FF;
+  --cc-demo-chain-optimism: #FF0420;
+  --cc-demo-chain-bnb: #F0B90B;
+  --cc-demo-chain-avalanche: #E84142;
+  --cc-demo-chain-solana: #9945FF;
+  --cc-demo-chain-bitcoin: #F7931A;
+  --cc-demo-chain-ton: #0098EA;
+  --cc-demo-chain-tron: #FF0013;
+  --cc-demo-chain-cosmos: #2E3148;
+  --cc-demo-chain-sui: #4DA2FF;
+  --cc-demo-chain-starknet: #EF6D39;
+  --cc-demo-chain-near: #00C08B;
+  --cc-demo-chain-hedera: #161E3B;
+  --cc-demo-chain-xrpl: #23292F;
+  --cc-demo-token-usdc: #2775CA;
+  --cc-demo-wallet-metamask: #F6851B;
+  --cc-demo-wallet-walletconnect: #3B99FC;
+  --cc-demo-wallet-coinbase: #0052FF;
+  --cc-demo-wallet-rainbow: #8B5CF6;
+  --cc-demo-wallet-phantom: #AB9FF2;
+  --cc-demo-wallet-trust: #3375BB;
+  --cc-demo-wallet-ledger: #000000;
+  --cc-demo-wallet-zerion: #2C60F5;
+  --cc-demo-bridge-bsc: #F3BA2F;
+}

@@ -51,7 +51,7 @@ export function NFTPage() {
       {/* Left: NFT Grid */}
       <div>
         <h2 style={{ fontSize: "var(--cc-text-xl)", fontWeight: "var(--cc-weight-bold)", marginBottom: 8 }}>NFT 收藏</h2>
-        <p style={{ color: '#888', marginBottom: 24 }}>展示多链 NFT 收藏，点击查看详情。</p>
+        <p style={{ color: 'var(--cc-demo-text-muted)', marginBottom: 24 }}>展示多链 NFT 收藏，点击查看详情。</p>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
           {MOCK_NFTS.map((nft) => (
@@ -59,7 +59,7 @@ export function NFTPage() {
               key={nft.id}
               onClick={() => setSelectedNFT(nft)}
               style={{
-                background: '#1a1a2e',
+                background: 'var(--cc-demo-surface-dark)',
                 borderRadius: 12,
                 padding: 16,
                 cursor: 'pointer',
@@ -67,11 +67,11 @@ export function NFTPage() {
                 transition: 'border 0.2s',
               }}
             >
-              <div style={{ fontSize: 48, textAlign: 'center', marginBottom: 12, background: '#0d0d1a', borderRadius: 8, padding: 20 }}>
+              <div style={{ fontSize: 48, textAlign: 'center', marginBottom: 12, background: 'var(--cc-demo-surface-darker)', borderRadius: 8, padding: 20 }}>
                 {nft.image}
               </div>
               <h3 style={{ fontSize: "var(--cc-text-sm)", fontWeight: "var(--cc-weight-semibold)", marginBottom: 4 }}>{nft.name}</h3>
-              <p style={{ fontSize: 12, color: '#888' }}>{nft.collection}</p>
+              <p style={{ fontSize: 12, color: 'var(--cc-demo-text-muted)' }}>{nft.collection}</p>
             </div>
           ))}
         </div>
@@ -93,7 +93,7 @@ export function NFTPage() {
             <div
               onClick={(e) => e.stopPropagation()}
               style={{
-                background: '#1a1a2e',
+                background: 'var(--cc-demo-surface-dark)',
                 borderRadius: 16,
                 padding: 32,
                 maxWidth: 400,
@@ -102,14 +102,14 @@ export function NFTPage() {
             >
               <div style={{ fontSize: 80, textAlign: 'center', marginBottom: 16 }}>{selectedNFT.image}</div>
               <h3 style={{ fontSize: "var(--cc-text-lg)", fontWeight: "var(--cc-weight-bold)", marginBottom: 4 }}>{selectedNFT.name}</h3>
-              <p style={{ color: '#888', marginBottom: 16 }}>{selectedNFT.collection}</p>
+              <p style={{ color: 'var(--cc-demo-text-muted)', marginBottom: 16 }}>{selectedNFT.collection}</p>
 
-              <div style={{ background: '#0d0d1a', borderRadius: 8, padding: 16 }}>
-                <h4 style={{ fontSize: "var(--cc-text-xs)", color: '#aaa', marginBottom: 8 }}>属性</h4>
+              <div style={{ background: 'var(--cc-demo-surface-darker)', borderRadius: 8, padding: 16 }}>
+                <h4 style={{ fontSize: "var(--cc-text-xs)", color: 'var(--cc-demo-text-light)', marginBottom: 8 }}>属性</h4>
                 {selectedNFT.traits.map((trait) => (
                   <div key={trait.key} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
-                    <span style={{ color: '#888', fontSize: "var(--cc-text-xs)" }}>{trait.key}</span>
-                    <span style={{ color: '#fff', fontSize: "var(--cc-text-xs)", fontWeight: "var(--cc-weight-semibold)" }}>{trait.value}</span>
+                    <span style={{ color: 'var(--cc-demo-text-muted)', fontSize: "var(--cc-text-xs)" }}>{trait.key}</span>
+                    <span style={{ color: 'var(--cc-on-primary, #fff)', fontSize: "var(--cc-text-xs)", fontWeight: "var(--cc-weight-semibold)" }}>{trait.value}</span>
                   </div>
                 ))}
               </div>
@@ -122,8 +122,8 @@ export function NFTPage() {
                   padding: '12px 20px',
                   borderRadius: 8,
                   border: 'none',
-                  background: '#6366f1',
-                  color: '#fff',
+                  background: 'var(--cc-demo-accent)',
+                  color: 'var(--cc-on-primary, #fff)',
                   fontWeight: "var(--cc-weight-semibold)",
                   cursor: 'pointer',
                 }}

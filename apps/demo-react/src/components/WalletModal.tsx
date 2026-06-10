@@ -10,14 +10,14 @@ interface WalletOption {
 }
 
 const WALLETS: WalletOption[] = [
- { id: 'metamask', name: 'MetaMask', emoji: '🦊', color: '#F6851B', popular: true },
- { id: 'walletconnect', name: 'WalletConnect', emoji: '🔗', color: '#3B99FC', popular: true },
- { id: 'coinbase', name: 'Coinbase Wallet', emoji: '🔵', color: '#0052FF', popular: true },
- { id: 'rainbow', name: 'Rainbow', emoji: '🌈', color: '#8B5CF6', popular: true },
- { id: 'phantom', name: 'Phantom', emoji: '👻', color: '#AB9FF2', popular: true },
- { id: 'trust', name: 'Trust Wallet', emoji: '🛡️', color: '#3375BB', popular: true },
- { id: 'ledger', name: 'Ledger', emoji: '🔒', color: '#000000', popular: false },
- { id: 'zerion', name: 'Zerion', emoji: '💜', color: '#2C60F5', popular: false },
+ { id: 'metamask', name: 'MetaMask', emoji: '🦊', color: 'var(--cc-demo-wallet-metamask)', popular: true },
+ { id: 'walletconnect', name: 'WalletConnect', emoji: '🔗', color: 'var(--cc-demo-wallet-walletconnect)', popular: true },
+ { id: 'coinbase', name: 'Coinbase Wallet', emoji: '🔵', color: 'var(--cc-demo-wallet-coinbase)', popular: true },
+ { id: 'rainbow', name: 'Rainbow', emoji: '🌈', color: 'var(--cc-demo-wallet-rainbow)', popular: true },
+ { id: 'phantom', name: 'Phantom', emoji: '👻', color: 'var(--cc-demo-wallet-phantom)', popular: true },
+ { id: 'trust', name: 'Trust Wallet', emoji: '🛡️', color: 'var(--cc-demo-wallet-trust)', popular: true },
+ { id: 'ledger', name: 'Ledger', emoji: '🔒', color: 'var(--cc-demo-wallet-ledger)', popular: false },
+ { id: 'zerion', name: 'Zerion', emoji: '💜', color: 'var(--cc-demo-wallet-zerion)', popular: false },
 ]
 
 type ModalState = 'closed' | 'open' | 'connecting' | 'success' | 'error' | 'no-wallet'

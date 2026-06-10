@@ -3,22 +3,22 @@ import SiteHeader from '../components/SiteHeader';
 import SiteFooter from '../components/SiteFooter';
 
 const CHAINS = [
-  { id: 'eth', name: 'Ethereum', symbol: 'ETH', color: '#627EEA', icon: 'Ξ', wallets: ['MetaMask', 'WalletConnect', 'Coinbase'], txs: '1.2M', tvl: '$45B' },
-  { id: 'arb', name: 'Arbitrum', symbol: 'ARB', color: '#28A0F0', icon: 'λ', wallets: ['MetaMask', 'Rabby'], txs: '3.8M', tvl: '$12B' },
-  { id: 'base', name: 'Base', symbol: 'BASE', color: '#0052FF', icon: 'B', wallets: ['Coinbase', 'MetaMask'], txs: '5.1M', tvl: '$8B' },
-  { id: 'polygon', name: 'Polygon', symbol: 'POL', color: '#8247E5', icon: '⬡', wallets: ['MetaMask', 'WalletConnect'], txs: '4.2M', tvl: '$5B' },
-  { id: 'op', name: 'Optimism', symbol: 'OP', color: '#FF0420', icon: 'O', wallets: ['MetaMask', 'Coinbase'], txs: '2.1M', tvl: '$3B' },
-  { id: 'bsc', name: 'BNB Chain', symbol: 'BNB', color: '#F0B90B', icon: 'B', wallets: ['MetaMask', 'Trust Wallet'], txs: '6.3M', tvl: '$7B' },
-  { id: 'solana', name: 'Solana', symbol: 'SOL', color: '#9945FF', icon: '◎', wallets: ['Phantom', 'Solflare', 'Backpack'], txs: '8.5M', tvl: '$15B' },
-  { id: 'bitcoin', name: 'Bitcoin', symbol: 'BTC', color: '#F7931A', icon: '₿', wallets: ['Xverse', 'Leather', 'Unisat'], txs: '320K', tvl: '$120B' },
-  { id: 'ton', name: 'TON', symbol: 'TON', color: '#0098EA', icon: 'T', wallets: ['Tonkeeper', 'OpenMask'], txs: '2.3M', tvl: '$1.5B' },
-  { id: 'tron', name: 'TRON', symbol: 'TRX', color: '#FF0013', icon: 'T', wallets: ['TronLink', 'TronPay'], txs: '4.8M', tvl: '$8B' },
-  { id: 'cosmos', name: 'Cosmos', symbol: 'ATOM', color: '#2E3148', icon: 'C', wallets: ['Keplr', 'Leap'], txs: '1.1M', tvl: '$2.5B' },
-  { id: 'sui', name: 'Sui', symbol: 'SUI', color: '#4DA2FF', icon: 'S', wallets: ['Sui Wallet', 'Ethos', 'Suiet'], txs: '3.2M', tvl: '$1.2B' },
-  { id: 'starknet', name: 'Starknet', symbol: 'STRK', color: '#EF6D39', icon: 'S', wallets: ['Argent X', 'Braavos'], txs: '890K', tvl: '$450M' },
-  { id: 'near', name: 'NEAR', symbol: 'NEAR', color: '#00C08B', icon: 'N', wallets: ['NEAR Wallet', 'Here Wallet'], txs: '1.5M', tvl: '$800M' },
-  { id: 'hedera', name: 'Hedera', symbol: 'HBAR', color: '#161E3B', icon: 'H', wallets: ['HashPack', 'Blade'], txs: '920K', py: '1' },
-  { id: 'xrpl', name: 'XRPL', symbol: 'XRP', color: '#23292F', icon: 'X', wallets: ['Xaman', 'Fireblocks'], txs: '650K', tvl: '$200M' },
+  { id: 'eth', name: 'Ethereum', symbol: 'ETH', color: 'var(--cc-demo-chain-ethereum)', icon: 'Ξ', wallets: ['MetaMask', 'WalletConnect', 'Coinbase'], txs: '1.2M', tvl: '$45B' },
+  { id: 'arb', name: 'Arbitrum', symbol: 'ARB', color: 'var(--cc-demo-chain-arbitrum)', icon: 'λ', wallets: ['MetaMask', 'Rabby'], txs: '3.8M', tvl: '$12B' },
+  { id: 'base', name: 'Base', symbol: 'BASE', color: 'var(--cc-demo-chain-base)', icon: 'B', wallets: ['Coinbase', 'MetaMask'], txs: '5.1M', tvl: '$8B' },
+  { id: 'polygon', name: 'Polygon', symbol: 'POL', color: 'var(--cc-demo-chain-polygon)', icon: '⬡', wallets: ['MetaMask', 'WalletConnect'], txs: '4.2M', tvl: '$5B' },
+  { id: 'op', name: 'Optimism', symbol: 'OP', color: 'var(--cc-demo-chain-optimism)', icon: 'O', wallets: ['MetaMask', 'Coinbase'], txs: '2.1M', tvl: '$3B' },
+  { id: 'bsc', name: 'BNB Chain', symbol: 'BNB', color: 'var(--cc-demo-chain-bnb)', icon: 'B', wallets: ['MetaMask', 'Trust Wallet'], txs: '6.3M', tvl: '$7B' },
+  { id: 'solana', name: 'Solana', symbol: 'SOL', color: 'var(--cc-demo-chain-solana)', icon: '◎', wallets: ['Phantom', 'Solflare', 'Backpack'], txs: '8.5M', tvl: '$15B' },
+  { id: 'bitcoin', name: 'Bitcoin', symbol: 'BTC', color: 'var(--cc-demo-chain-bitcoin)', icon: '₿', wallets: ['Xverse', 'Leather', 'Unisat'], txs: '320K', tvl: '$120B' },
+  { id: 'ton', name: 'TON', symbol: 'TON', color: 'var(--cc-demo-chain-ton)', icon: 'T', wallets: ['Tonkeeper', 'OpenMask'], txs: '2.3M', tvl: '$1.5B' },
+  { id: 'tron', name: 'TRON', symbol: 'TRX', color: 'var(--cc-demo-chain-tron)', icon: 'T', wallets: ['TronLink', 'TronPay'], txs: '4.8M', tvl: '$8B' },
+  { id: 'cosmos', name: 'Cosmos', symbol: 'ATOM', color: 'var(--cc-demo-chain-cosmos)', icon: 'C', wallets: ['Keplr', 'Leap'], txs: '1.1M', tvl: '$2.5B' },
+  { id: 'sui', name: 'Sui', symbol: 'SUI', color: 'var(--cc-demo-chain-sui)', icon: 'S', wallets: ['Sui Wallet', 'Ethos', 'Suiet'], txs: '3.2M', tvl: '$1.2B' },
+  { id: 'starknet', name: 'Starknet', symbol: 'STRK', color: 'var(--cc-demo-chain-starknet)', icon: 'S', wallets: ['Argent X', 'Braavos'], txs: '890K', tvl: '$450M' },
+  { id: 'near', name: 'NEAR', symbol: 'NEAR', color: 'var(--cc-demo-chain-near)', icon: 'N', wallets: ['NEAR Wallet', 'Here Wallet'], txs: '1.5M', tvl: '$800M' },
+  { id: 'hedera', name: 'Hedera', symbol: 'HBAR', color: 'var(--cc-demo-chain-hedera)', icon: 'H', wallets: ['HashPack', 'Blade'], txs: '920K', py: '1' },
+  { id: 'xrpl', name: 'XRPL', symbol: 'XRP', color: 'var(--cc-demo-chain-xrpl)', icon: 'X', wallets: ['Xaman', 'Fireblocks'], txs: '650K', tvl: '$200M' },
 ];
 
 export default function MultiChainPage() {
