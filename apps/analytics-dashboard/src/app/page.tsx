@@ -32,6 +32,11 @@ export default function Home() {
               <h1 className="text-heading-3 text-ink">CinaCoin Analytics</h1>
             </div>
             <div className="flex items-center gap-lg">
+              <nav className="flex items-center gap-md">
+                <a href="/" className="text-body-sm text-ink font-medium">Overview</a>
+                <a href="/realtime" className="text-body-sm text-ink-mute hover:text-ink transition-colors">Realtime</a>
+                <a href="/behavior" className="text-body-sm text-ink-mute hover:text-ink transition-colors">Behavior</a>
+              </nav>
               <div className="flex bg-canvas-soft-2 rounded-md p-xxs">
                 {["24h", "7d", "30d", "90d"].map((range) => (
                   <button
