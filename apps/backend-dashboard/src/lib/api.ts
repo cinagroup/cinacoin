@@ -4,8 +4,11 @@
  * Supports 2FA, OAuth, and session management.
  */
 
-const AUTH_BASE_URL = process.env.NEXT_PUBLIC_AUTH_URL || 'https://auth.cinacoin.com';
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.cinacoin.com';
+import { getEnv } from '../env';
+
+const env = getEnv();
+const AUTH_BASE_URL = env.NEXT_PUBLIC_AUTH_URL;
+const API_BASE_URL = env.NEXT_PUBLIC_API_URL;
 
 let csrfToken: string | null = null;
 let sessionId: string | null = null;

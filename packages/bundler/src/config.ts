@@ -1,5 +1,6 @@
 import type { BundlerServerConfig } from './server-types';
 import type { Hex, Address } from 'viem';
+import { getEnv } from './env';
 
 /**
  * Load bundler configuration from a JSON file.
@@ -17,8 +18,9 @@ export async function loadConfig(path: string): Promise<BundlerServerConfig> {
  * Unset variables remain as-is (empty string fallback).
  */
 function interpolateEnv(template: string): string {
+  const env = getEnv();
   return template.replace(/\$\{([^}]+)\}/g, (_match, name: string) => {
-    return process.env[name] ?? '';
+    return (env as Record<string, unknown>)[name] ?? '';
   });
 }
 
@@ -27,7 +29,8 @@ function interpolateEnv(template: string): string {
  */
 export function resolveSignerKey(config?: { signerKey?: Hex }): Hex {
   if (config?.signerKey) return config.signerKey;
-  const fromEnv = process.env.BUNDLER_SIGNER_PRIVATE_KEY;
+  const env = getEnv();
+  const fromEnv = env.BUNDLER_SIGNER_PRIVATE_KEY;
   if (fromEnv) return fromEnv as Hex;
   throw new Error('Signer private key not provided. Set BUNDLER_SIGNER_PRIVATE_KEY or pass signerKey in config.');
 }
@@ -37,7 +40,8 @@ export function resolveSignerKey(config?: { signerKey?: Hex }): Hex {
  */
 export function resolveBeneficiary(config?: { beneficiary?: Address }): Address {
   if (config?.beneficiary) return config.beneficiary;
-  const fromEnv = process.env.BUNDLER_BENEFICIARY;
+  const env = getEnv();
+  const fromEnv = env.BUNDLER_BENEFICIARY;
   if (fromEnv) return fromEnv as Address;
   throw new Error('Beneficiary address not provided. Set BUNDLER_BENEFICIARY or pass beneficiary in config.');
 }

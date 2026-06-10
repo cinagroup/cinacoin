@@ -1,5 +1,8 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.cinacoin.com';
-const AUTH_URL = process.env.NEXT_PUBLIC_AUTH_URL || 'https://auth.cinacoin.com';
+import { getEnv } from '../env';
+
+const env = getEnv();
+const API_URL = env.NEXT_PUBLIC_API_URL;
+const AUTH_URL = env.NEXT_PUBLIC_AUTH_URL;
 
 interface LoginResponse {
   accessToken?: string;

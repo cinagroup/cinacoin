@@ -35,8 +35,11 @@ export const demoProjects: Project[] = [
   },
 ];
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8787";
-const AUTH_BASE = process.env.NEXT_PUBLIC_AUTH_URL || "https://auth.cinacoin.com";
+import { getEnv } from '../env';
+
+const env = getEnv();
+const API_BASE = env.NEXT_PUBLIC_API_URL;
+const AUTH_BASE = env.NEXT_PUBLIC_AUTH_URL;
 
 interface ApiOptions extends Omit<RequestInit, "headers"> {
   ownerId?: string;

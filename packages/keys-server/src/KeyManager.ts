@@ -1,5 +1,6 @@
 import { logger } from '@cinacoin/logger';
 import { createCipheriv, createDecipheriv, randomBytes, scryptSync } from 'crypto';
+import { getEnv } from './env';
 
 export interface KeyManagerConfig {
   /** Encryption key for at-rest key storage */
@@ -48,7 +49,8 @@ export class KeyManager {
 
   constructor(config?: KeyManagerConfig) {
     // [S-002] Fix: Require encryption key in production
-    const isProduction = process.env.NODE_ENV === 'production';
+    const env = getEnv();
+    const isProduction = env.NODE_ENV === 'production';
     
     if (!config?.encryptionKey) {
       if (isProduction) {
@@ -111,7 +113,8 @@ export class KeyManager {
     // If salt differs from current, derive key with the provided salt
     let decryptionKey = this.encryptionKey;
     if (saltHex && saltHex !== this.salt.toString('hex')) {
-      const keyPhrase = process.env.ENCRYPTION_KEY;
+      const env = getEnv();
+      const keyPhrase = env.ENCRYPTION_KEY;
       if (!keyPhrase) {
         throw new Error(
           'ENCRYPTION_KEY is required to decrypt data encrypted with a different salt. ' +
@@ -134,7 +137,8 @@ export class KeyManager {
    * production if the key is missing.
    */
   async migrateLegacyKey(id: string, label: string, legacyEncrypted: string): Promise<StoredKey> {
-    const keyPhrase = process.env.ENCRYPTION_KEY;
+    const env = getEnv();
+    const keyPhrase = env.ENCRYPTION_KEY;
     if (!keyPhrase) {
       throw new Error(
         'ENCRYPTION_KEY is required for legacy key migration. ' +

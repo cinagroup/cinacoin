@@ -8,6 +8,7 @@
 import type { NextRequest, NextResponse } from 'next/server';
 import type { ChainConfig } from '@cinacoin/react';
 import { getSession, verifySiweMessage } from './middleware.js';
+import { getEnv } from '../env.js';
 
 // Re-export types so consumers of core.ts get the full type surface
 export type { ServerSession } from './middleware.js';
@@ -90,11 +91,12 @@ const defaultChain: ChainConfig = {
  * @returns A ServerClient instance with auth utilities.
  */
 export function createServerClient(options: import('./middleware.js').ServerClientOptions): ServerClient {
+  const env = getEnv();
   const resolvedOptions: import('./middleware.js').ServerClientOptions = {
     projectId: options.projectId,
     chains: options.chains ?? [defaultChain],
     cookieName: options.cookieName ?? 'cinacoin-session',
-    domain: options.domain ?? process.env.NEXT_PUBLIC_URL ?? 'localhost',
+    domain: options.domain ?? env.NEXT_PUBLIC_URL ?? 'localhost',
     secret: options.secret ?? '',
   };
 

@@ -11,6 +11,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { BlockchainApiClient } from "../client.js";
+import { getEnv } from "../env.js";
 
 // ---------------------------------------------------------------------------
 // Security Configuration
@@ -56,11 +57,12 @@ const DEFAULT_CHAIN_ID = 1;
  * In production you may want a shared instance per process.
  */
 function getClient(): BlockchainApiClient {
+  const env = getEnv();
   return new BlockchainApiClient({
-    rpcUrls: process.env.RPC_URLS ? JSON.parse(process.env.RPC_URLS) : {},
-    metadataBaseUrl: process.env.METADATA_BASE_URL,
-    defaultChainId: process.env.DEFAULT_CHAIN_ID
-      ? Number(process.env.DEFAULT_CHAIN_ID)
+    rpcUrls: env.RPC_URLS ? JSON.parse(env.RPC_URLS) : {},
+    metadataBaseUrl: env.METADATA_BASE_URL,
+    defaultChainId: env.DEFAULT_CHAIN_ID
+      ? Number(env.DEFAULT_CHAIN_ID)
       : DEFAULT_CHAIN_ID,
   });
 }

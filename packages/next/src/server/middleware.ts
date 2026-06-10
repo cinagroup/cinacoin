@@ -2,6 +2,7 @@ import type { NextRequest, NextResponse } from 'next/server';
 import type { ChainConfig } from '@cinacoin/react';
 import { verifySessionToken } from './jwt.js';
 import { logger } from '@cinacoin/logger';
+import { getEnv } from '../env.js';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -516,12 +517,13 @@ export function withCinacoinAuth<
   handler: (req: T, session: ServerSession) => Promise<R>,
   options?: Partial<ServerClientOptions>
 ): (req: T) => Promise<R> {
+  const env = getEnv();
   const client = createServerClient({
-    projectId: options?.projectId ?? process.env.CINACOIN_PROJECT_ID ?? '',
+    projectId: options?.projectId ?? env.CINACOIN_PROJECT_ID ?? '',
     cookieName: options?.cookieName ?? 'cinacoin-session',
-    secret: options?.secret ?? process.env.CINACOIN_SECRET,
+    secret: options?.secret ?? env.CINACOIN_SECRET,
     chains: options?.chains,
-    domain: options?.domain ?? process.env.NEXT_PUBLIC_URL,
+    domain: options?.domain ?? env.NEXT_PUBLIC_URL,
   });
   return client.withAuth(handler);
 }

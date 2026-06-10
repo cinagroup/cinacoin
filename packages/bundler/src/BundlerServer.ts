@@ -22,6 +22,7 @@ import { GasOracle } from './GasOracle';
 import { ReputationTracker } from './ReputationTracker';
 import { computeUserOpHash, toViemUserOp } from './utils';
 import { logger } from '@cinacoin/logger';
+import { getEnv } from './env';
 
 // ── Default configs for known chains ────────────────────────────────
 
@@ -169,12 +170,13 @@ function setCorsHeaders(res: ServerResponse, req: IncomingMessage): void {
  * Environment: BUNDLER_API_KEYS (comma-separated list), BUNDLER_SKIP_AUTH=true to skip
  */
 function verifyApiKey(req: IncomingMessage): boolean {
+  const env = getEnv();
   // Skip auth in development mode
-  if (process.env.BUNDLER_SKIP_AUTH === 'true') {
+  if (env.BUNDLER_SKIP_AUTH === 'true') {
     return true;
   }
 
-  const apiKeysEnv = process.env.BUNDLER_API_KEYS;
+  const apiKeysEnv = env.BUNDLER_API_KEYS;
   if (!apiKeysEnv) {
     // No keys configured = reject all (fail secure)
     return false;

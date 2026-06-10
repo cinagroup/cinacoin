@@ -18,6 +18,7 @@ import { cookies } from 'next/headers';
 import type { Address } from 'viem';
 import type { ServerSession } from './middleware.js';
 import { verifySiweMessage } from './middleware.js';
+import { getEnv } from '../env.js';
 import { createSessionCookieHeader } from './edge.js';
 import { logger } from '@cinacoin/logger';
 
@@ -114,9 +115,10 @@ export async function createSiweSession(
     maxAge?: number;
   } = {},
 ): Promise<CreateSiweSessionResult> {
+  const env = getEnv();
   const nonce = generateNonce();
-  const domain = options.domain ?? process.env.NEXT_PUBLIC_URL ?? 'localhost';
-  const uri = process.env.NEXT_PUBLIC_URL ?? `https://${domain}`;
+  const domain = options.domain ?? env.NEXT_PUBLIC_URL ?? 'localhost';
+  const uri = env.NEXT_PUBLIC_URL ?? `https://${domain}`;
   const maxAge = options.maxAge ?? 86400;
   const expiresAt = Math.floor(Date.now() / 1000) + maxAge;
   const issuedAt = new Date().toISOString();
@@ -174,8 +176,9 @@ export async function authenticateWithWallet(
   params: AuthenticateWithWalletParams,
 ): Promise<AuthenticateResult> {
   try {
-    const domain = params.domain ?? process.env.NEXT_PUBLIC_URL;
-    const projectId = params.projectId ?? process.env.CINACOIN_PROJECT_ID ?? '';
+    const env = getEnv();
+    const domain = params.domain ?? env.NEXT_PUBLIC_URL;
+    const projectId = params.projectId ?? env.CINACOIN_PROJECT_ID ?? '';
 
     // Verify the SIWE message and recover the address
     const recoveredAddress = await verifySiweMessage(params.message, params.signature, {
