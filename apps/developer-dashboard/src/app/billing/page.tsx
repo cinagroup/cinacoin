@@ -281,7 +281,7 @@ export default function BillingPage() {
                   <ul className="space-y-2 mb-4">
                     {plan.features.map((feature) => (
                       <li key={feature} className="text-[14px] text-ink-body flex items-start gap-2">
-                        <span className="text-success mt-0.5">✓</span>
+                        <span className="text-success mt-1">✓</span>
                         <span>{feature}</span>
                       </li>
                     ))}

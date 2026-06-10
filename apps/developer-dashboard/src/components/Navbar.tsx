@@ -41,7 +41,7 @@ export default function Navbar() {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex flex-col items-center gap-0.5 text-[12px] ${
+              className={`flex flex-col items-center gap-1 text-[12px] ${
                 isActive ? "text-ink font-medium" : "text-ink-mute"
               }`}
             >

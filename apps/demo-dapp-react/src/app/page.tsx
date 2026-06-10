@@ -102,7 +102,7 @@ export default function Home(): JSX.Element {
           >
             A comprehensive demo showcasing the full Cinacoin SDK — connect, sign, send, batch, and display NFTs.
           </p>
-          <p style={{ fontSize: 'var(--cc-text-[12px])', color: 'var(--cc-muted)' }}>
+          <p style={{ fontSize: 'var(--cc-text-xs)', color: 'var(--cc-muted)' }}>
             8 components · Full wallet lifecycle · EIP-5792 support
           </p>
         </div>
@@ -134,7 +134,7 @@ export default function Home(): JSX.Element {
             textAlign: 'center',
             padding: 'var(--cc-space-lg)',
             color: 'var(--cc-muted)',
-            fontSize: 'var(--cc-text-[12px])',
+            fontSize: 'var(--cc-text-xs)',
             borderTop: '1px solid var(--cc-hairline)',
             marginTop: 'var(--cc-space-xs)',
           }}

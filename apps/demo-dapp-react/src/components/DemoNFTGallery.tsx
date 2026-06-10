@@ -92,10 +92,10 @@ export function DemoNFTGallery(): JSX.Element {
               </span>
             </div>
             <div style={cardBodyStyle}>
-              <div style={{ fontWeight: 'var(--cc-weight-semibold)', fontSize: 'var(--cc-text-[14px])', marginBottom: 'var(--cc-space-xxs)', color: 'var(--cc-ink)' }}>
+              <div style={{ fontWeight: 'var(--cc-weight-semibold)', fontSize: 'var(--cc-text-sm)', marginBottom: 'var(--cc-space-xxs)', color: 'var(--cc-ink)' }}>
                 {nft.name}
               </div>
-              <div style={{ fontSize: 'var(--cc-text-[12px])', color: 'var(--cc-body)' }}>
+              <div style={{ fontSize: 'var(--cc-text-xs)', color: 'var(--cc-body)' }}>
                 {nft.collection}
               </div>
             </div>
@@ -103,7 +103,7 @@ export function DemoNFTGallery(): JSX.Element {
         ))}
       </div>
 
-      <div style={{ marginTop: 'var(--cc-space-md)', fontSize: 'var(--cc-text-[12px])', color: 'var(--cc-muted)' }}>
+      <div style={{ marginTop: 'var(--cc-space-md)', fontSize: 'var(--cc-text-xs)', color: 'var(--cc-muted)' }}>
         Showing {MOCK_NFTS.length} demo NFTs across {chainCount} chains
       </div>
     </section>

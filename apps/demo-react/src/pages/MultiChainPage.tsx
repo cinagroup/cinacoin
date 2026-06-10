@@ -56,7 +56,7 @@ export default function MultiChainPage() {
               </div>
               <div className="flex gap-1 flex-wrap">
                 {c.wallets.slice(0, 3).map(w => (
-                  <span key={w} className="cc-badge !bg-[var(--cc-canvas-soft-2)] text-[10px] py-0.5 px-1.5">{w}</span>
+                  <span key={w} className="cc-badge !bg-[var(--cc-canvas-soft-2)] text-[10px] py-1 px-2">{w}</span>
                 ))}
               </div>
             </button>
@@ -69,20 +69,20 @@ export default function MultiChainPage() {
               <span className="w-12 h-12 rounded-full flex items-center justify-center text-[24px] font-semibold text-[var(--cc-ink)]" style={{ backgroundColor: chain.color + '20' }}>{chain.icon}</span>
               <div>
                 <h2 className="cc-display-sm text-[var(--cc-ink)]">{chain.name}</h2>
-                <p className="cc-body-sm text-[var(--cc-muted)] mt-0.5">{chain.wallets.join(' · ')}</p>
+                <p className="cc-body-sm text-[var(--cc-muted)] mt-1">{chain.wallets.join(' · ')}</p>
               </div>
             </div>
             <div className="grid grid-cols-3 gap-4 mb-6">
-              <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-3.5 text-center border border-[var(--cc-hairline)]">
+              <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4 text-center border border-[var(--cc-hairline)]">
                 <div className="cc-display-sm text-[var(--cc-link)]">{chain.txs}</div>
                 <div className="cc-caption-mono text-[var(--cc-muted)] mt-1">TXs/day</div>
               </div>
-              <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-3.5 text-center border border-[var(--cc-hairline)]">
+              <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4 text-center border border-[var(--cc-hairline)]">
                 <div className="cc-display-sm text-[var(--cc-link)]">{chain.tvl || 'N/A'}</div>
                 <div className="cc-caption-mono text-[var(--cc-muted)] mt-1">TVL</div>
               </div>
-              <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-3.5 text-center border border-[var(--cc-hairline)] flex flex-col justify-center items-center">
-                <div className="flex items-center gap-1.5 justify-center">
+              <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4 text-center border border-[var(--cc-hairline)] flex flex-col justify-center items-center">
+                <div className="flex items-center gap-2 justify-center">
                   <span className="w-2 h-2 bg-[var(--cc-success)] rounded-full animate-pulse" />
                   <span className="text-[var(--cc-success)] text-[14px] font-semibold">Active</span>
                 </div>

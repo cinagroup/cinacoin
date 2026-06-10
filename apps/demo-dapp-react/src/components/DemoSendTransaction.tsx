@@ -123,7 +123,7 @@ export function DemoSendTransaction(): JSX.Element {
           </button>
         </div>
         {balance && (
-          <p style={{ fontSize: 'var(--cc-text-[12px])', color: 'var(--cc-muted)', marginTop: 'var(--cc-space-xxs)' }}>
+          <p style={{ fontSize: 'var(--cc-text-xs)', color: 'var(--cc-muted)', marginTop: 'var(--cc-space-xxs)' }}>
             Available: {balance} {symbol}
           </p>
         )}
@@ -140,7 +140,7 @@ export function DemoSendTransaction(): JSX.Element {
           Estimate Gas
         </button>
         {estimatedGas && (
-          <p style={{ marginTop: 'var(--cc-space-xs)', fontSize: 'var(--cc-text-[14px])', color: 'var(--cc-body)' }} aria-live="polite">
+          <p style={{ marginTop: 'var(--cc-space-xs)', fontSize: 'var(--cc-text-sm)', color: 'var(--cc-body)' }} aria-live="polite">
             Gas: {estimatedGas} {gasFee && ` · Fee: ${gasFee}`}
           </p>
         )}
@@ -173,10 +173,10 @@ export function DemoSendTransaction(): JSX.Element {
       {/* Transaction status */}
       {txHash && (
         <div style={{ marginTop: 'var(--cc-space-md)', padding: 'var(--cc-space-sm)', background: 'var(--cc-success-soft)', border: '1px solid var(--cc-success-border)', borderRadius: 'var(--cc-radius-md)' }}>
-          <div style={{ fontSize: 'var(--cc-text-[14px])', color: 'var(--cc-success)', marginBottom: 'var(--cc-space-xs)' }}>
+          <div style={{ fontSize: 'var(--cc-text-sm)', color: 'var(--cc-success)', marginBottom: 'var(--cc-space-xs)' }}>
             {txStatus}
           </div>
-          <div style={{ fontSize: 'var(--cc-text-[12px])', fontFamily: 'var(--cc-font-[var(--font-mono)])', wordBreak: 'break-all', color: 'var(--cc-body)' }}>
+          <div style={{ fontSize: 'var(--cc-text-xs)', fontFamily: 'var(--cc-font-mono)', wordBreak: 'break-all', color: 'var(--cc-body)' }}>
             {txHash}
           </div>
           {explorerUrl && (
@@ -184,7 +184,7 @@ export function DemoSendTransaction(): JSX.Element {
               href={`${explorerUrl}/tx/${txHash}`}
               target="_blank"
               rel="noopener noreferrer"
-              style={{ display: 'inline-flex', marginTop: 'var(--cc-space-xs)', fontSize: 'var(--cc-text-[14px])', color: 'var(--cc-accent-soft)', textDecoration: 'none' }}
+              style={{ display: 'inline-flex', marginTop: 'var(--cc-space-xs)', fontSize: 'var(--cc-text-sm)', color: 'var(--cc-accent-soft)', textDecoration: 'none' }}
             >
               View on Explorer <span aria-hidden="true">→</span>
             </a>

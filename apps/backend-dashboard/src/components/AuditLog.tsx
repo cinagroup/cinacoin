@@ -187,7 +187,7 @@ export function AuditLog() {
                   onClick={() => handleExport("csv")}
                   className="btn btn-secondary text-caption"
                 >
-                  <svg className="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+                  <svg className="w-3.5 h-3.5 mr-2" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
                   </svg>
                   Export CSV
@@ -197,7 +197,7 @@ export function AuditLog() {
                 onClick={() => handleExport("json")}
                 className="btn btn-secondary text-caption"
               >
-                <svg className="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+                <svg className="w-3.5 h-3.5 mr-2" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
                 </svg>
                 Export JSON
@@ -234,7 +234,7 @@ export function AuditLog() {
               <option value="failure">Failure</option>
               <option value="warning">Warning</option>
             </select>
-            <div className="flex items-center gap-1 bg-canvas-soft rounded-md p-0.5">
+            <div className="flex items-center gap-1 bg-canvas-soft rounded-md p-1">
               {["1h", "24h", "7d", "30d"].map((range) => (
                 <button
                   key={range}
@@ -304,9 +304,9 @@ export function AuditLog() {
                     </div>
                   </td>
                   <td>
-                    <div className="flex items-center gap-1.5">
+                    <div className="flex items-center gap-2">
                       <span className="text-[14px]">{categoryIcons[entry.category]}</span>
-                      <code className="text-code text-caption bg-canvas-soft-2 px-1.5 py-0.5 rounded">
+                      <code className="text-code text-caption bg-canvas-soft-2 px-2 py-1 rounded">
                         {entry.action}
                       </code>
                     </div>

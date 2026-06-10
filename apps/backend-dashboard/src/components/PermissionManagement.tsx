@@ -97,7 +97,7 @@ export function PermissionManagement() {
                 {role.permissions.slice(0, 3).map((perm) => (
                   <span
                     key={perm}
-                    className="text-caption bg-canvas-soft-2 text-body-color px-2 py-0.5 rounded"
+                    className="text-caption bg-canvas-soft-2 text-body-color px-2 py-1 rounded"
                   >
                     {perm}
                   </span>

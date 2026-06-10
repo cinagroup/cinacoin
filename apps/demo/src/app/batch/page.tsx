@@ -267,7 +267,7 @@ function chainLabel(chainIdHex: string): string {
 function CapBadge({ label, supported }: { label: string; supported: boolean }) {
   return (
     <span
-      className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[12px] font-semibold ${
+      className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-[12px] font-semibold ${
         supported
           ? 'bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-[var(--cc-success)]/25'
           : 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/30'
@@ -287,7 +287,7 @@ function StatusBadge({ status }: { status: string }) {
     COMPLETE: 'bg-[var(--cc-success)]/15 text-[var(--cc-success)] border-[var(--cc-success)]/25',
   };
   return (
-    <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[12px] font-semibold border ${colors[status] ?? 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] border-[var(--cc-hairline-strong)]/30'}`}>
+    <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-[12px] font-semibold border ${colors[status] ?? 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] border-[var(--cc-hairline-strong)]/30'}`}>
       {status === 'PENDING' && <span className="size-2 rounded-full bg-[var(--cc-warning)] animate-pulse" />}
       {status === 'CONFIRMED' && <span className="size-2 rounded-full bg-[var(--cc-success)]" />}
       {status === 'REVERTED' && <span className="size-2 rounded-full bg-[var(--cc-error)]" />}
@@ -600,7 +600,7 @@ export default function BatchPage() {
                     {capabilities.supportedChains.map((cid) => (
                       <span
                         key={cid}
-                        className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline-strong)]/40 text-[12px] text-[var(--cc-body)] font-[var(--font-mono)]"
+                        className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline-strong)]/40 text-[12px] text-[var(--cc-body)] font-[var(--font-mono)]"
                       >
                         <span className="size-2 rounded-full bg-[var(--cc-success)]" />
                         {chainLabel(cid)}
@@ -654,7 +654,7 @@ export default function BatchPage() {
                 className="px-3 py-2 rounded-lg text-[12px] font-semibold bg-[var(--cc-primary)]/20 text-[var(--cc-link)] border border-[var(--cc-primary)]/30 hover:bg-[var(--cc-primary)]/30 transition-all disabled:opacity-50"
               >
                 {estimatingGas ? (
-                  <span className="inline-flex items-center gap-1.5"><Spinner /> Estimating…</span>
+                  <span className="inline-flex items-center gap-2"><Spinner /> Estimating…</span>
                 ) : (
                   '↻ Estimate Gas'
                 )}

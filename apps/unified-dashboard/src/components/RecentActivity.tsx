@@ -51,7 +51,7 @@ export function RecentActivity() {
             key={index}
             className="flex items-start gap-3 py-2 border-b border-hairline last:border-0"
           >
-            <span className="text-[18px] mt-0.5">{activity.icon}</span>
+            <span className="text-[18px] mt-1">{activity.icon}</span>
             <div className="flex-1 min-w-0">
               <p className="text-[14px] font-medium text-ink">
                 {activity.action}

@@ -89,13 +89,13 @@ export function GlobalSearch() {
     return (
       <button
         onClick={() => setIsOpen(true)}
-        className="flex items-center gap-2 px-3 py-1.5 text-[14px] text-[var(--cc-body)] bg-[var(--cc-canvas-soft)] border border-[var(--cc-hairline)] rounded-lg hover:border-[var(--cc-link)] transition-colors"
+        className="flex items-center gap-2 px-3 py-2 text-[14px] text-[var(--cc-body)] bg-[var(--cc-canvas-soft)] border border-[var(--cc-hairline)] rounded-lg hover:border-[var(--cc-link)] transition-colors"
       >
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
         <span>{t('search.placeholder')}</span>
-        <kbd className="hidden md:inline-flex px-1.5 py-0.5 text-[12px] bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded">⌘K</kbd>
+        <kbd className="hidden md:inline-flex px-2 py-1 text-[12px] bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded">⌘K</kbd>
       </button>
     );
   }

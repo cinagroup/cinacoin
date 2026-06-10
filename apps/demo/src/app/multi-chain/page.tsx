@@ -91,7 +91,7 @@ function ChainCard({ chain, balance, health, isWalletConnected, isCurrentChain, 
             </div>
             <div>
               <h3 className="font-semibold text-[var(--cc-ink)]">{chain.name}</h3>
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center  gap-2">
                 <StatusIndicator healthy={isHealthy} />
                 <span className="text-[12px] text-[var(--cc-muted)]">
                   {isHealthy ? 'Operational' : 'Offline'}
@@ -152,7 +152,7 @@ function ChainCard({ chain, balance, health, isWalletConnected, isCurrentChain, 
         {/* Connect / Switch */}
         {isWalletConnected && isCurrentChain ? (
           <div className="w-full py-3 rounded-md text-center font-semibold text-[14px] bg-gradient-to-r from-[var(--cc-primary)]/10 to-[var(--cc-primary)]/5 text-[var(--cc-primary)] border border-[var(--cc-primary)]/30 animate-status-transition">
-            <span className="inline-flex items-center gap-1.5">
+            <span className="inline-flex items-center  gap-2">
               <span className="size-2 rounded-full bg-[var(--cc-link)] animate-pulse" />
               Active Chain
             </span>
@@ -335,7 +335,7 @@ function CrossChainFlow() {
                 <div className={`text-[14px] font-semibold ${i <= activeStep ? 'text-[var(--cc-ink)]' : 'text-[var(--cc-body)]'}`}>
                   {step.label}
                 </div>
-                <div className="text-[12px] text-[var(--cc-body)] mt-0.5">{step.detail}</div>
+                <div className="text-[12px] text-[var(--cc-body)] mt-1">{step.detail}</div>
               </div>
             </div>
           ))}
@@ -394,7 +394,7 @@ client.on('transaction', (event) => {
     <div className="bg-[var(--cc-canvas-soft-2)]/40 backdrop-blur rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
       <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--cc-hairline-strong)]/40">
         <div className="flex items-center gap-3">
-          <div className="flex gap-1.5">
+          <div className="flex  gap-2">
             <div className="w-3 h-3 rounded-full bg-[var(--cc-error)]/70" />
             <div className="w-3 h-3 rounded-full bg-[var(--cc-warning)]/70" />
             <div className="w-3 h-3 rounded-full bg-green-500/70" />
@@ -647,7 +647,7 @@ export default function MultiChainPage() {
           </div>
           <div className="flex items-center gap-3">
             {loadingBalances && (
-              <span className="inline-flex items-center gap-1.5 text-[12px] text-[var(--cc-muted)]">
+              <span className="inline-flex items-center  gap-2 text-[12px] text-[var(--cc-muted)]">
                 <Spinner /> Fetching balances…
               </span>
             )}

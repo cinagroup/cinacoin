@@ -151,7 +151,7 @@ export default function ChainsPage() {
                   <div className="flex items-center gap-2">
                     <span className="cc-body-sm-strong text-[var(--cc-ink)]">{chain.name}</span>
                     <span
-                      className="cc-caption px-1.5 py-0.5 rounded"
+                      className="cc-caption px-2 py-1 rounded"
                       style={{ backgroundColor: `${NETWORK_COLORS[chain.network]}20`, color: NETWORK_COLORS[chain.network] }}
                     >
                       {chain.network}

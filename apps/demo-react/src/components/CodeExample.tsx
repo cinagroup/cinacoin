@@ -116,12 +116,12 @@ export function CodeExample({
           )}
           {/* Framework tabs */}
           {availableFrameworks.length > 1 && (
-            <div className="flex gap-0.5 bg-[var(--cc-canvas)] p-0.5 rounded-md border border-[var(--cc-hairline)]">
+            <div className="flex gap-1 bg-[var(--cc-canvas)] p-1 rounded-md border border-[var(--cc-hairline)]">
               {availableFrameworks.map(f => (
                 <button
                   key={f.id}
                   onClick={() => setActiveFramework(f.id)}
-                  className={`cc-tab-ghost !h-6 !px-2.5 text-[12px] rounded-md focus-ring transition-colors ${
+                  className={`cc-tab-ghost !h-6 !px-3 text-[12px] rounded-md focus-ring transition-colors ${
                     activeFramework === f.id
                       ? 'bg-[var(--cc-link)]/10 text-[var(--cc-link)] font-medium'
                       : 'text-[var(--cc-muted)] hover:text-[var(--cc-ink)]'
@@ -137,7 +137,7 @@ export function CodeExample({
           {/* Copy button */}
           <button
             onClick={handleCopy}
-            className="p-1.5 rounded-md hover:bg-[var(--cc-canvas-soft)] transition-colors text-[var(--cc-muted)] hover:text-[var(--cc-ink)] focus-ring"
+            className="p-2 rounded-md hover:bg-[var(--cc-canvas-soft)] transition-colors text-[var(--cc-muted)] hover:text-[var(--cc-ink)] focus-ring"
             aria-label={copied ? 'Copied!' : 'Copy code'}
             title={copied ? 'Copied!' : 'Copy code'}
           >
@@ -154,7 +154,7 @@ export function CodeExample({
           {/* Collapse toggle */}
           <button
             onClick={() => setCollapsed(!collapsed)}
-            className="p-1.5 rounded-md hover:bg-[var(--cc-canvas-soft)] transition-colors text-[var(--cc-muted)] hover:text-[var(--cc-ink)] focus-ring"
+            className="p-2 rounded-md hover:bg-[var(--cc-canvas-soft)] transition-colors text-[var(--cc-muted)] hover:text-[var(--cc-ink)] focus-ring"
             aria-label={collapsed ? 'Expand code' : 'Collapse code'}
             aria-expanded={!collapsed}
           >
@@ -188,10 +188,10 @@ export function CodeExample({
                   key={i}
                   className={`flex ${isHighlighted ? 'bg-[var(--cc-link)]/8 -mx-4 px-4 border-l-2 border-[var(--cc-link)]' : ''}`}
                 >
-                  <span className="select-none text-[var(--cc-muted)] text-[12px] w-8 shrink-0 text-right pr-3 py-0.5 opacity-50">
+                  <span className="select-none text-[var(--cc-muted)] text-[12px] w-8 shrink-0 text-right pr-3 py-1 opacity-50">
                     {lineNum}
                   </span>
-                  <span className="py-0.5">
+                  <span className="py-1">
                     {line ? highlightLine(line) : '\u00A0'}
                   </span>
                 </div>

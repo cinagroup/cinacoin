@@ -143,7 +143,7 @@ export default function LoginPage() {
               </div>
             )}
 
-            <button type="submit" className="btn-primary w-full py-2.5" disabled={loading}>
+            <button type="submit" className="btn-primary w-full py-3" disabled={loading}>
               {loading
                 ? showTwoFactor
                   ? "Verifying..."

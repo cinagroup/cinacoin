@@ -41,7 +41,7 @@ export default function ServiceCard({ service, health, demoMode = false }: Servi
     <div className="cc-card relative transition-shadow duration-200 hover:shadow-[var(--cc-level3)] hover:-translate-y-0.5">
       {/* Status indicator - top right */}
       <div className="absolute top-3 right-3">
-        <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-[12px] font-medium cc-badge ${statusBadgeBg(health.status)}`}>
+        <div className={`flex items-center gap-2 px-3 py-1 rounded-full border text-[12px] font-medium cc-badge ${statusBadgeBg(health.status)}`}>
           <span className={`inline-block w-2 h-2 rounded-full ${statusDotColor(health.status)}`} />
           <span className={statusColor(health.status)}>
             {health.status === "unknown" ? "Checking..." : health.status.charAt(0).toUpperCase() + health.status.slice(1)}
@@ -71,7 +71,7 @@ export default function ServiceCard({ service, health, demoMode = false }: Servi
         )}
 
         {health.error && (
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-2">
             <svg className="w-3.5 h-3.5 flex-shrink-0 text-[var(--cc-error)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
             <span className="cc-caption text-[var(--cc-error)]/80 truncate">{health.error}</span>
           </div>

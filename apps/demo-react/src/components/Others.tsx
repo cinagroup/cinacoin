@@ -15,7 +15,7 @@ export function AddressDisplay({ address, truncate = false }: { address: string;
 export function ChainBadge({ chain }: { chain?: any }) {
   if (!chain) return null
   return (
-    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[12px] font-medium
+    <span className={`inline-flex items-center px-3 py-1 rounded-full text-[12px] font-medium
       ${chain.color || 'bg-[var(--cc-canvas-soft)] text-[var(--cc-body)]'}`}>
       {chain.icon} {chain.name}
     </span>
@@ -70,7 +70,7 @@ export function TransactionList({ transactions }: { transactions: any[] }) {
               </div>
               <div className="text-right">
                 <p className="cc-title-sm">{tx.value} ETH</p>
-                <span className={`inline-block px-1.5 py-0.5 rounded text-[10px]
+                <span className={`inline-block px-2 py-1 rounded text-[10px]
                   ${tx.status === 'success' ? 'bg-[var(--cc-success)/20] text-[var(--cc-success)]' :
                     tx.status === 'pending' ? 'bg-[var(--cc-accent)/20] text-[var(--cc-accent)]' :
                     'bg-[var(--cc-error)/20] text-[var(--cc-error)]'}`}>

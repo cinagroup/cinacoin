@@ -304,7 +304,7 @@ export default function ProfilePage() {
                     )}
                     <p className="text-[12px] text-[var(--cc-body)] font-[var(--font-mono)] mt-1">{account.address}</p>
                     {ensName && (
-                      <p className="text-[12px] text-[var(--cc-body)] font-[var(--font-mono)] mt-0.5">{account.address}</p>
+                      <p className="text-[12px] text-[var(--cc-body)] font-[var(--font-mono)] mt-1">{account.address}</p>
                     )}
                   </div>
                   <button

@@ -113,7 +113,7 @@ export function LiveDemo({
             <span className="cc-caption-mono text-[var(--cc-muted)] uppercase tracking-wider">Code</span>
             <button
               onClick={handleCopy}
-              className="p-1.5 rounded-md hover:bg-[var(--cc-canvas-soft)] transition-colors text-[var(--cc-muted)] hover:text-[var(--cc-ink)] focus-ring"
+              className="p-2 rounded-md hover:bg-[var(--cc-canvas-soft)] transition-colors text-[var(--cc-muted)] hover:text-[var(--cc-ink)] focus-ring"
               aria-label={copied ? 'Copied!' : 'Copy code'}
               title={copied ? 'Copied!' : 'Copy code'}
             >
@@ -148,10 +148,10 @@ export function LiveDemo({
                         : ''
                     }`}
                   >
-                    <span className="select-none text-[var(--cc-muted)] text-[12px] w-8 shrink-0 text-right pr-3 py-0.5 opacity-50">
+                    <span className="select-none text-[var(--cc-muted)] text-[12px] w-8 shrink-0 text-right pr-3 py-1 opacity-50">
                       {lineNum}
                     </span>
-                    <span className="py-0.5">
+                    <span className="py-1">
                       {line ? highlightLine(line) : '\u00A0'}
                     </span>
                   </div>

@@ -228,7 +228,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
                   onClick={() => handleSocialLogin(p.id)}
                   onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleSocialLogin(p.id); } }}
                   disabled={socialLoading}
-                  className={`flex items-center gap-3 p-3.5 rounded-lg border transition-all focus-ring ${
+                  className={`flex items-center gap-3 p-4 rounded-lg border transition-all focus-ring ${
                     selectedSocial === p.id
                       ? 'border-[var(--cc-link)] ring-2 ring-[var(--cc-link)]/10 bg-[var(--cc-canvas-soft-2)]'
                       : 'border-[var(--cc-hairline)] bg-[var(--cc-canvas)] hover:border-[var(--cc-muted)]'
@@ -279,7 +279,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
               <div className="w-12 h-12 rounded-full bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] flex items-center justify-center text-[18px] font-semibold text-[var(--cc-ink)]" aria-hidden="true">0x</div>
               <div>
                 <p className="font-[var(--font-mono)] text-[14px] text-[var(--cc-ink)] font-semibold">{address}</p>
-                <p className="text-[12px] text-[var(--cc-muted)] mt-0.5">{authMethod === 'social' ? `Signed in via ${SOCIAL_PROVIDERS.find(s => s.id === selectedSocial)?.name}` : 'Signed in with Ethereum'}</p>
+                <p className="text-[12px] text-[var(--cc-muted)] mt-1">{authMethod === 'social' ? `Signed in via ${SOCIAL_PROVIDERS.find(s => s.id === selectedSocial)?.name}` : 'Signed in with Ethereum'}</p>
               </div>
             </div>
             <button

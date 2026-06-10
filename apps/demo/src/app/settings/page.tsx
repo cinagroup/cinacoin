@@ -211,7 +211,7 @@ export default function SettingsPage() {
                         }`}
                       >
                         <p className="text-[14px]">{preset.label.split(' ')[0]}</p>
-                        <p className="text-[12px] mt-0.5">{preset.desc}</p>
+                        <p className="text-[12px] mt-1">{preset.desc}</p>
                       </button>
                     ))}
                   </div>

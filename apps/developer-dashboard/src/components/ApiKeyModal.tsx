@@ -109,7 +109,7 @@ export default function ApiKeyModal({ onCreate, onClose }: ApiKeyModalProps) {
                     value={option.value}
                     checked={permissions === option.value}
                     onChange={() => setPermissions(option.value)}
-                    className="mt-0.5"
+                    className="mt-1"
                   />
                   <div>
                     <div className="text-[14px] font-medium text-ink">{option.label}</div>

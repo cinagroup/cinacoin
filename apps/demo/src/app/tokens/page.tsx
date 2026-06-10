@@ -109,7 +109,7 @@ function TokenRow({
           <span className="text-[14px] font-semibold text-[var(--cc-ink)]">{token.symbol}</span>
           <span className="text-[12px] text-[var(--cc-body)]">{token.name}</span>
         </div>
-        <div className="flex items-center gap-2 mt-0.5">
+        <div className="flex items-center gap-2 mt-1">
           <span className="text-[12px] text-[var(--cc-muted)]">${priceInfo.usd.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
           <SimulatedBadge size="xs" />
           <span className={`text-[12px] ${priceInfo.change24h >= 0 ? 'text-[var(--cc-success)]' : 'text-[var(--cc-error)]'}`}>
@@ -334,7 +334,7 @@ function SwapWidget({
 
         {swapState === 'quoting' && (
           <div className="flex items-center justify-center text-[12px] text-[var(--cc-link)]">
-            <svg className="animate-spin h-3 w-3 mr-1.5" viewBox="0 0 24 24" fill="none">
+            <svg className="animate-spin h-3 w-3 mr-2" viewBox="0 0 24 24" fill="none">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
             </svg>

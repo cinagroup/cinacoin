@@ -202,21 +202,21 @@ export default function ContactContent() {
                   <h3 className="cc-display-sm mb-4">{t('contact-response-title')}</h3>
                   <ul className="space-y-3">
                     <li className="flex items-start gap-2 cc-body-md">
-                      <span className="mt-1.5 h-2 w-2 rounded-full bg-[var(--cc-success)] flex-shrink-0" aria-hidden="true" />
+                      <span className="mt-2 h-2 w-2 rounded-full bg-[var(--cc-success)] flex-shrink-0" aria-hidden="true" />
                       <span>
                         <strong className="text-[var(--cc-ink)]">{t('contact-response-sales')}:</strong>{' '}
                         <span className="text-[var(--cc-body)]">{t('contact-response-sales-time')}</span>
                       </span>
                     </li>
                     <li className="flex items-start gap-2 cc-body-md">
-                      <span className="mt-1.5 h-2 w-2 rounded-full bg-[var(--cc-success)] flex-shrink-0" aria-hidden="true" />
+                      <span className="mt-2 h-2 w-2 rounded-full bg-[var(--cc-success)] flex-shrink-0" aria-hidden="true" />
                       <span>
                         <strong className="text-[var(--cc-ink)]">{t('contact-response-support')}:</strong>{' '}
                         <span className="text-[var(--cc-body)]">{t('contact-response-support-time')}</span>
                       </span>
                     </li>
                     <li className="flex items-start gap-2 cc-body-md">
-                      <span className="mt-1.5 h-2 w-2 rounded-full bg-[var(--cc-success)] flex-shrink-0" aria-hidden="true" />
+                      <span className="mt-2 h-2 w-2 rounded-full bg-[var(--cc-success)] flex-shrink-0" aria-hidden="true" />
                       <span>
                         <strong className="text-[var(--cc-ink)]">{t('contact-response-community')}:</strong>{' '}
                         <span className="text-[var(--cc-body)]">{t('contact-response-community-time')}</span>

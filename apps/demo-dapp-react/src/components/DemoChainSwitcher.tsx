@@ -126,7 +126,7 @@ export function DemoChainSwitcher(): JSX.Element {
         </div>
       )}
       {isSwitching && (
-        <p style={{ marginTop: 'var(--cc-space-xs)', fontSize: 'var(--cc-text-[14px])', color: 'var(--cc-warning)' }} aria-live="polite">
+        <p style={{ marginTop: 'var(--cc-space-xs)', fontSize: 'var(--cc-text-sm)', color: 'var(--cc-warning)' }} aria-live="polite">
           Switching chain...
         </p>
       )}
@@ -139,12 +139,12 @@ const infoRowStyle: React.CSSProperties = {
   justifyContent: 'space-between',
   alignItems: 'center',
   padding: '8px 0',
-  fontSize: 'var(--cc-text-[14px])',
+  fontSize: 'var(--cc-text-sm)',
   borderBottom: '1px solid var(--cc-hairline)',
 };
 
 const monoStyle: React.CSSProperties = {
-  fontFamily: 'var(--cc-font-[var(--font-mono)])',
-  fontSize: 'var(--cc-text-[14px])',
+  fontFamily: 'var(--cc-font-mono)',
+  fontSize: 'var(--cc-text-sm)',
   color: 'var(--cc-ink-soft)',
 };

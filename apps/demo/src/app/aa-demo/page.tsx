@@ -223,10 +223,10 @@ export default function AADemoPage() {
           <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50 flex items-center justify-between">
             <div>
               <h2 className="text-[18px] font-semibold tracking-tighter text-[var(--cc-ink)]">🏦 Smart Account</h2>
-              <p className="text-[12px] text-[var(--cc-body)] mt-0.5">ERC-4337 Account Abstraction wallet</p>
+              <p className="text-[12px] text-[var(--cc-body)] mt-1">ERC-4337 Account Abstraction wallet</p>
             </div>
             {accountCreated && smartAccount && (
-              <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-[12px] font-semibold bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-[var(--cc-success)]/25">
+              <span className="inline-flex items-center gap-2 px-3 py-2 rounded-full text-[12px] font-semibold bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-[var(--cc-success)]/25">
                 <span className="size-2 rounded-full bg-[var(--cc-success)] animate-pulse" />
                 Deployed
               </span>
@@ -262,7 +262,7 @@ export default function AADemoPage() {
                 <button
                   onClick={handleCreateSmartAccount}
                   disabled={creatingAccount}
-                  className={`w-full py-3.5 rounded-md font-semibold text-[14px] transition-all ${
+                  className={`w-full py-4 rounded-md font-semibold text-[14px] transition-all ${
                     creatingAccount
                       ? 'bg-violet-500/60 text-[var(--cc-ink)] cursor-wait'
                       : 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 shadow-[var(--cc-level3)]'
@@ -311,7 +311,7 @@ export default function AADemoPage() {
           <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50 flex items-center justify-between">
             <div>
               <h2 className="text-[18px] font-semibold tracking-tighter text-[var(--cc-ink)]">🔑 Session Keys</h2>
-              <p className="text-[12px] text-[var(--cc-body)] mt-0.5">Temporary keys with limited permissions</p>
+              <p className="text-[12px] text-[var(--cc-body)] mt-1">Temporary keys with limited permissions</p>
             </div>
             <button
               onClick={() => setShowCreateKey(!showCreateKey)}
@@ -413,7 +413,7 @@ export default function AADemoPage() {
           <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50 flex items-center justify-between">
             <div>
               <h2 className="text-[18px] font-semibold tracking-tighter text-[var(--cc-ink)]">⛽ Gas Sponsorship</h2>
-              <p className="text-[12px] text-[var(--cc-body)] mt-0.5">Paymaster coverage — users don't pay gas</p>
+              <p className="text-[12px] text-[var(--cc-body)] mt-1">Paymaster coverage — users don't pay gas</p>
             </div>
             <ToggleSwitch checked={gasSponsored} onChange={setGasSponsored} label="Toggle gas sponsorship" />
           </div>
@@ -425,7 +425,7 @@ export default function AADemoPage() {
                   <span className="text-[24px]">✓</span>
                   <div>
                     <p className="text-[14px] font-semibold text-[var(--cc-success)]">Gas Sponsorship Active</p>
-                    <p className="text-[12px] text-[var(--cc-muted)] mt-0.5">All transactions will be sponsored by the paymaster</p>
+                    <p className="text-[12px] text-[var(--cc-muted)] mt-1">All transactions will be sponsored by the paymaster</p>
                   </div>
                 </div>
               </div>
@@ -441,7 +441,7 @@ export default function AADemoPage() {
                   }`}>
                     {s.status === 'active' ? '✓ Active' : '⚠ Limited'}
                   </p>
-                  <p className="text-[12px] text-[var(--cc-body)] mt-0.5">Covers: {s.covered}</p>
+                  <p className="text-[12px] text-[var(--cc-body)] mt-1">Covers: {s.covered}</p>
                 </div>
               ))}
             </div>
@@ -477,7 +477,7 @@ export default function AADemoPage() {
         <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
           <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
             <h2 className="text-[18px] font-semibold tracking-tighter text-[var(--cc-ink)]">📦 Batch Transaction Demo</h2>
-            <p className="text-[12px] text-[var(--cc-body)] mt-0.5">Execute multiple transactions in a single user operation</p>
+            <p className="text-[12px] text-[var(--cc-body)] mt-1">Execute multiple transactions in a single user operation</p>
           </div>
 
           <div className="p-5 space-y-3">
@@ -525,7 +525,7 @@ export default function AADemoPage() {
             <button
               onClick={handleExecuteBatch}
               disabled={batchExecuting || !smartAccount}
-              className={`w-full py-3.5 rounded-md font-semibold text-[14px] transition-all ${
+              className={`w-full py-4 rounded-md font-semibold text-[14px] transition-all ${
                 batchExecuting
                   ? 'bg-violet-500/60 text-[var(--cc-ink)] cursor-wait'
                   : smartAccount
@@ -576,7 +576,7 @@ export default function AADemoPage() {
               <div key={f.title} className="p-3 rounded-md bg-[var(--cc-canvas)]/40 border border-[var(--cc-hairline)]/40">
                 <div className="text-[18px] mb-1">{f.icon}</div>
                 <p className="text-[12px] font-semibold text-[var(--cc-body)]">{f.title}</p>
-                <p className="text-[12px] text-[var(--cc-body)] mt-0.5">{f.desc}</p>
+                <p className="text-[12px] text-[var(--cc-body)] mt-1">{f.desc}</p>
               </div>
             ))}
           </div>
@@ -586,7 +586,7 @@ export default function AADemoPage() {
         <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
           <div className="flex items-center justify-between px-5 py-3 border-b border-[var(--cc-hairline-strong)]/40">
             <div className="flex items-center gap-3">
-              <div className="flex gap-1.5">
+              <div className="flex gap-2">
                 <div className="w-3 h-3 rounded-full bg-[var(--cc-error)]/70" />
                 <div className="w-3 h-3 rounded-full bg-[var(--cc-warning)]/70" />
                 <div className="w-3 h-3 rounded-full bg-green-500/70" />

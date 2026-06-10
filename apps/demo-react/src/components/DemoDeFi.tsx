@@ -96,7 +96,7 @@ export function DemoDeFi() {
                   <div className="cc-title-sm text-[var(--cc-success)]">
                     {pool.apy} APY
                   </div>
-                  <span className={`inline-block px-2 py-0.5 rounded text-[10px]
+                  <span className={`inline-block px-2 py-1 rounded text-[10px]
                     ${pool.risk === 'Low' ? 'bg-[var(--cc-success)/20] text-[var(--cc-success)]' :
                       pool.risk === 'Medium' ? 'bg-[var(--cc-accent)/20] text-[var(--cc-accent)]' :
                       'bg-[var(--cc-danger)/20] text-[var(--cc-danger)]'}`}>

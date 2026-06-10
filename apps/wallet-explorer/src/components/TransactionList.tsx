@@ -70,7 +70,7 @@ export default function TransactionList({ transactions }: { transactions: Transa
                 <p className={`amount text-body-sm-strong ${tx.type === "send" ? "amount-negative" : "amount-positive"}`}>
                   {tx.type === "send" ? "-" : "+"}{tx.value} CINA
                 </p>
-                <p className="mt-0.5 text-caption text-mute">{tx.timestamp}</p>
+                <p className="mt-1 text-caption text-mute">{tx.timestamp}</p>
               </div>
             </div>
             <div className="mt-3 flex items-center gap-4 text-caption text-mute">

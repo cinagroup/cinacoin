@@ -162,7 +162,7 @@ export default function RPCProxyPage() {
                   <td className="ds-table-cell">{formatNumber(p.requests)}</td>
                   <td className="ds-table-cell text-[var(--cc-muted)]">{p.latency}</td>
                   <td className="ds-table-cell">
-                    <span className={`inline-flex items-center px-2 py-0.5 rounded-full cc-caption font-medium ${
+                    <span className={`inline-flex items-center px-2 py-1 rounded-full cc-caption font-medium ${
                       p.status === "healthy" ? "bg-[var(--cc-success)]/10 text-[var(--cc-success)]" : "bg-[var(--cc-error)]/10 text-[var(--cc-error)]"
                     }`}>
                       {p.status}

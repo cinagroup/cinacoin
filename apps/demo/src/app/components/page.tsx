@@ -135,7 +135,7 @@ function ComponentShowcase({
       <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/30 flex items-center justify-between">
         <div>
           <h3 className={`text-[18px] font-semibold tracking-tight ${theme.text}`}>{title}</h3>
-          <p className="text-[12px] text-[var(--cc-body)] mt-0.5">{description}</p>
+          <p className="text-[12px] text-[var(--cc-body)] mt-1">{description}</p>
         </div>
         <button
           onClick={() => setShowCode(!showCode)}
@@ -367,15 +367,15 @@ export default function ComponentsPage() {
             <div className="space-y-4">
               <div className="flex flex-wrap gap-3">
                 {/* Connection status */}
-                <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-[12px] font-semibold bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-[var(--cc-success)]/25">
+                <span className="inline-flex items-center gap-2 px-3 py-2 rounded-full text-[12px] font-semibold bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-[var(--cc-success)]/25">
                   <span className="size-3 rounded-full bg-[var(--cc-success)] animate-pulse" />
                   Connected
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-[12px] font-semibold bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border border-yellow-500/25">
+                <span className="inline-flex items-center gap-2 px-3 py-2 rounded-full text-[12px] font-semibold bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border border-yellow-500/25">
                   <span className="size-3 rounded-full bg-[var(--cc-warning)] animate-pulse" />
                   Connecting...
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-[12px] font-semibold bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/40">
+                <span className="inline-flex items-center gap-2 px-3 py-2 rounded-full text-[12px] font-semibold bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/40">
                   <span className="size-3 rounded-full bg-[var(--cc-muted)]" />
                   Disconnected
                 </span>
@@ -383,34 +383,34 @@ export default function ComponentsPage() {
 
               {/* Transaction status */}
               <div className="flex flex-wrap gap-3">
-                <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-[12px] font-semibold bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-[var(--cc-success)]/25">
+                <span className="inline-flex items-center gap-2 px-3 py-2 rounded-full text-[12px] font-semibold bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-[var(--cc-success)]/25">
                   ✓ Completed
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-[12px] font-semibold bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border border-[var(--cc-warning)]/25">
+                <span className="inline-flex items-center gap-2 px-3 py-2 rounded-full text-[12px] font-semibold bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border border-[var(--cc-warning)]/25">
                   <span className="size-3 rounded-full bg-[var(--cc-warning)] animate-pulse" />
                   Pending
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-[12px] font-semibold bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-[var(--cc-error)]/25">
+                <span className="inline-flex items-center gap-2 px-3 py-2 rounded-full text-[12px] font-semibold bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-[var(--cc-error)]/25">
                   ✗ Failed
                 </span>
               </div>
 
               {/* Health badges */}
               <div className="flex flex-wrap gap-3">
-                <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-[12px] font-semibold bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-[var(--cc-success)]/25">
+                <span className="inline-flex items-center gap-2 px-3 py-2 rounded-full text-[12px] font-semibold bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-[var(--cc-success)]/25">
                   ✓ Operational
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-[12px] font-semibold bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-[var(--cc-error)]/25">
+                <span className="inline-flex items-center gap-2 px-3 py-2 rounded-full text-[12px] font-semibold bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-[var(--cc-error)]/25">
                   ✗ Down
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-[12px] font-[var(--font-mono)] bg-[var(--cc-link)]/15 text-[var(--cc-link)] border border-[var(--cc-link)]/25">
+                <span className="inline-flex items-center gap-2 px-3 py-2 rounded-full text-[12px] font-[var(--font-mono)] bg-[var(--cc-link)]/15 text-[var(--cc-link)] border border-[var(--cc-link)]/25">
                   142ms
                 </span>
               </div>
             </div>
           }
           code={`// Connected Status
-<span className="inline-flex items-center gap-1.5 px-3 py-2
+<span className="inline-flex items-center gap-2 px-3 py-2
   rounded-full text-[12px] font-semibold
   bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-[var(--cc-success)]/25">
   <span className="size-3 rounded-full bg-[var(--cc-success)] animate-pulse" />
@@ -418,7 +418,7 @@ export default function ComponentsPage() {
 </span>
 
 // Pending Transaction
-<span className="inline-flex items-center gap-1.5 px-3 py-2
+<span className="inline-flex items-center gap-2 px-3 py-2
   rounded-full text-[12px] font-semibold
   bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border border-[var(--cc-warning)]/25">
   <span className="size-3 rounded-full bg-[var(--cc-warning)] animate-pulse" />
@@ -426,7 +426,7 @@ export default function ComponentsPage() {
 </span>
 
 // Latency Badge
-<span className="inline-flex items-center gap-1.5 px-3 py-2
+<span className="inline-flex items-center gap-2 px-3 py-2
   rounded-full text-[12px] font-[var(--font-mono)]
   bg-[var(--cc-link)]/15 text-[var(--cc-link)] border border-[var(--cc-link)]/25">
   142ms
@@ -742,7 +742,7 @@ function ToggleSwitch({ checked, onChange }) {
                   <span className={`text-[18px] ${t.text}`}>{t.icon}</span>
                   <div>
                     <p className={`text-[14px] font-semibold ${t.text}`}>{t.type}</p>
-                    <p className="text-[12px] text-[var(--cc-muted)] mt-0.5">{t.desc}</p>
+                    <p className="text-[12px] text-[var(--cc-muted)] mt-1">{t.desc}</p>
                   </div>
                 </div>
               ))}

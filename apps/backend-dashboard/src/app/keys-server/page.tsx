@@ -132,7 +132,7 @@ export default function KeysServerPage() {
                   <td className="px-5 py-3 text-[var(--cc-muted)]">{s.chain}</td>
                   <td className="px-5 py-3 text-[var(--cc-muted)]">{s.age}</td>
                   <td className="px-5 py-3">
-                    <span className={`inline-flex items-center px-2 py-0.5 rounded-full cc-caption font-medium ${
+                    <span className={`inline-flex items-center px-2 py-1 rounded-full cc-caption font-medium ${
                       s.status === "active" ? "bg-[var(--cc-success)]/10 text-[var(--cc-success)]" : "bg-[var(--cc-muted)]/10 text-[var(--cc-muted)]"
                     }`}>
                       {s.status}

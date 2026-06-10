@@ -123,7 +123,7 @@ export default function RelayServerPage() {
               {RECENT_EVENTS.map((e, i) => (
                 <tr key={i} className="border-b border-[var(--cc-hairline)]/30 hover:bg-[var(--cc-canvas-soft)] transition-colors">
                   <td className="px-5 py-3">
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-full cc-caption bg-[var(--cc-canvas-soft-2)] text-[var(--cc-ink)]">
+                    <span className="inline-flex items-center px-2 py-1 rounded-full cc-caption bg-[var(--cc-canvas-soft-2)] text-[var(--cc-ink)]">
                       {e.event}
                     </span>
                   </td>

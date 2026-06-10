@@ -77,7 +77,7 @@ export function DemoConnectSection(): JSX.Element {
           ))}
         </div>
         {selectedConnector && (
-          <p style={{ fontSize: 'var(--cc-text-[12px])', color: 'var(--cc-body)', marginTop: 'var(--cc-space-xxs)' }} aria-live="polite">
+          <p style={{ fontSize: 'var(--cc-text-xs)', color: 'var(--cc-body)', marginTop: 'var(--cc-space-xxs)' }} aria-live="polite">
             Attempting: {selectedConnector}
           </p>
         )}
@@ -98,7 +98,7 @@ export function DemoConnectSection(): JSX.Element {
       )}
 
       {/* Connection status */}
-      <div style={{ marginTop: 'var(--cc-space-md)', padding: 'var(--cc-space-sm)', background: 'var(--cc-surface)', borderRadius: 'var(--cc-radius-md)', fontSize: 'var(--cc-text-[14px])' }} aria-label="Connection details">
+      <div style={{ marginTop: 'var(--cc-space-md)', padding: 'var(--cc-space-sm)', background: 'var(--cc-surface)', borderRadius: 'var(--cc-radius-md)', fontSize: 'var(--cc-text-sm)' }} aria-label="Connection details">
         <strong>Status:</strong> {status}
         {account.address && (
           <>
@@ -118,6 +118,6 @@ export function DemoConnectSection(): JSX.Element {
 }
 
 const monoStyle: React.CSSProperties = {
-  fontFamily: 'var(--cc-font-[var(--font-mono)])',
-  fontSize: 'var(--cc-text-[12px])',
+  fontFamily: 'var(--cc-font-mono)',
+  fontSize: 'var(--cc-text-xs)',
 };

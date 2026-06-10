@@ -59,7 +59,7 @@ export default function Header({ onMenuToggle, refreshInterval = 15000 }: Header
 
         {/* Health status badge */}
         <span className="cc-badge">
-          <span className={`w-1.5 h-1.5 rounded-full mr-1.5 ${dotColor}`} />
+          <span className={`w-1.5 h-1.5 rounded-full mr-2 ${dotColor}`} />
           <span className="hidden sm:inline">{statusBadge.label}</span>
           <span className="sm:hidden">
             {downCount > 0 ? 'Down' : degradedCount > 0 ? 'Degraded' : 'OK'}
@@ -69,7 +69,7 @@ export default function Header({ onMenuToggle, refreshInterval = 15000 }: Header
         {isAuthenticated && (
           <>
             <span className="cc-badge hidden sm:inline-flex">
-              <span className="w-1.5 h-1.5 rounded-full mr-1.5 bg-[var(--cc-success)]" />
+              <span className="w-1.5 h-1.5 rounded-full mr-2 bg-[var(--cc-success)]" />
               <span className="cc-caption-mono">{displayName}</span>
             </span>
             <button

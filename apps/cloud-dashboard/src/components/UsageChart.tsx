@@ -32,7 +32,7 @@ export function UsageChart({ data }: { data: UsageDataPoint[] }) {
         })}
       </div>
       <div className="flex items-center gap-4 cc-caption text-[var(--cc-muted)]">
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-2">
           <div className="h-3 w-3 rounded-sm bg-[var(--cc-link)]" />
           <span>Requests</span>
         </div>

@@ -182,7 +182,7 @@ export default function Navbar() {
             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={mobileOpen}
             aria-controls="mobile-menu"
-            className="rounded-full p-2.5 text-[var(--cc-body)] transition-colors hover:text-[var(--cc-ink)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cc-link)] focus-visible:ring-offset-2 md:hidden"
+            className="rounded-full p-3 text-[var(--cc-body)] transition-colors hover:text-[var(--cc-ink)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cc-link)] focus-visible:ring-offset-2 md:hidden"
             onClick={() => setMobileOpen((v) => !v)}
           >
             {mobileOpen ? (

@@ -42,7 +42,7 @@ export function DemoHeader(): JSX.Element {
       <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--cc-space-xs)', flexWrap: 'wrap' }}>
         <h1
           style={{
-            fontSize: 'var(--cc-text-[18px])',
+            fontSize: 'var(--cc-text-lg)',
             fontWeight: 'var(--cc-weight-semibold)',
             letterSpacing: 'var(--cc-tracking-tight)',
             margin: 0,
@@ -71,8 +71,8 @@ export function DemoHeader(): JSX.Element {
               background: 'var(--cc-surface)',
               padding: '8px var(--cc-space-sm)',
               borderRadius: 'var(--cc-radius-md)',
-              fontSize: 'var(--cc-text-[12px])',
-              fontFamily: 'var(--cc-font-[var(--font-mono)])',
+              fontSize: 'var(--cc-text-xs)',
+              fontFamily: 'var(--cc-font-mono)',
             }}
           >
             <span
@@ -95,7 +95,7 @@ export function DemoHeader(): JSX.Element {
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
-            fontSize: 'var(--cc-text-[12px])',
+            fontSize: 'var(--cc-text-xs)',
             fontWeight: 'var(--cc-weight-medium)',
           }}
           role="status"

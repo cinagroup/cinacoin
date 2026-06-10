@@ -63,7 +63,7 @@ export default function ApiKeyTable({ keys, onRevoke, onRotate, rotatingId }: Ap
               <tr key={key.id} className="hover:bg-canvas-soft transition-colors">
                 <td className="font-medium text-ink">{key.name}</td>
                 <td>
-                  <code className="text-[12px] text-ink-body bg-canvas-soft px-2 py-0.5 rounded">
+                  <code className="text-[12px] text-ink-body bg-canvas-soft px-2 py-1 rounded">
                     {key.prefix}
                   </code>
                 </td>

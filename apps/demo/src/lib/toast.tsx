@@ -113,7 +113,7 @@ function ToastContainer() {
               </span>
               <div className="flex-1 min-w-0">
                 <p className="text-[14px] font-semibold text-[var(--cc-ink)]">{toast.title}</p>
-                {toast.message && <p className="text-[12px] text-[var(--cc-muted)] mt-0.5">{toast.message}</p>}
+                {toast.message && <p className="text-[12px] text-[var(--cc-muted)] mt-1">{toast.message}</p>}
               </div>
               <button
                 onClick={() => removeToast(toast.id)}

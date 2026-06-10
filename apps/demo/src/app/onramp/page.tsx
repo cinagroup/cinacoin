@@ -307,7 +307,7 @@ export default function OnrampPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Amount Input */}
             <div>
-              <label className="block text-[14px] text-[var(--cc-muted)] mb-1.5">Amount</label>
+              <label className="block text-[14px] text-[var(--cc-muted)] mb-2">Amount</label>
               <div className="flex items-center bg-[var(--cc-canvas)]/60 rounded-md border border-[var(--cc-hairline-strong)]/50 overflow-hidden">
                 <input
                   type="text"
@@ -334,7 +334,7 @@ export default function OnrampPage() {
 
             {/* Token Selection */}
             <div>
-              <label className="block text-[14px] text-[var(--cc-muted)] mb-1.5">Token</label>
+              <label className="block text-[14px] text-[var(--cc-muted)] mb-2">Token</label>
               <div className="flex items-center bg-[var(--cc-canvas)]/60 rounded-md border border-[var(--cc-hairline-strong)]/50 overflow-hidden">
                 <select
                   value={token}
@@ -350,7 +350,7 @@ export default function OnrampPage() {
 
             {/* Region Selection */}
             <div>
-              <label className="block text-[14px] text-[var(--cc-muted)] mb-1.5">Region</label>
+              <label className="block text-[14px] text-[var(--cc-muted)] mb-2">Region</label>
               <select
                 value={region}
                 onChange={(e) => setRegion(e.target.value)}
@@ -364,7 +364,7 @@ export default function OnrampPage() {
 
             {/* Quick Amount Buttons */}
             <div>
-              <label className="block text-[14px] text-[var(--cc-muted)] mb-1.5">Quick Select</label>
+              <label className="block text-[14px] text-[var(--cc-muted)] mb-2">Quick Select</label>
               <div className="flex gap-2">
                 {[50, 100, 250, 500, 1000].map((v) => (
                   <button
@@ -387,7 +387,7 @@ export default function OnrampPage() {
           <button
             onClick={handleGetQuotes}
             disabled={!isValidAmount || loading}
-            className={`w-full py-3.5 rounded-md font-semibold text-[16px] transition-all ${
+            className={`w-full py-4 rounded-md font-semibold text-[16px] transition-all ${
               isValidAmount && !loading
                 ? 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 shadow-[var(--cc-level3)] active:scale-[0.98]'
                 : 'bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-body)] cursor-not-allowed'

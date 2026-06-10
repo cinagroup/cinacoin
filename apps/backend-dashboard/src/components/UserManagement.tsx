@@ -118,13 +118,13 @@ export function UserManagement() {
           <div className="flex items-center gap-2">
             <button
               onClick={handleBatchDisable}
-              className="px-3 py-1.5 bg-canvas/10 hover:bg-canvas/20 text-white text-caption font-medium rounded-sm transition-colors"
+              className="px-3 py-2 bg-canvas/10 hover:bg-canvas/20 text-white text-caption font-medium rounded-sm transition-colors"
             >
               Disable Selected
             </button>
             <button
               onClick={handleBatchDelete}
-              className="px-3 py-1.5 bg-error hover:opacity-90 text-white text-caption font-medium rounded-sm transition-colors"
+              className="px-3 py-2 bg-error hover:opacity-90 text-white text-caption font-medium rounded-sm transition-colors"
             >
               Delete Selected
             </button>

@@ -46,7 +46,7 @@ export default function SettingsPage() {
           <p className="cc-body-sm text-[var(--cc-muted)] mt-1">Configure dashboard preferences and API endpoints</p>
         </div>
         {saved && (
-          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 cc-badge text-[var(--cc-success)] border border-[var(--cc-success)]/30">
+          <span className="inline-flex items-center gap-2 px-3 py-2 cc-badge text-[var(--cc-success)] border border-[var(--cc-success)]/30">
             ✓ Saved
           </span>
         )}

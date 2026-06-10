@@ -68,7 +68,7 @@ export default function ResourceTable() {
     <div className="bg-canvas rounded-md shadow-level-2 overflow-hidden">
       <div className="px-6 py-4 border-b border-hairline flex items-center justify-between">
         <h2 className="text-heading-3 text-ink">Resources</h2>
-        <button className="btn-primary px-3 py-1.5 text-body-sm rounded-sm transition-colors duration-fast">
+        <button className="btn-primary px-3 py-2 text-body-sm rounded-sm transition-colors duration-fast">
           + Create Resource
         </button>
       </div>
@@ -109,7 +109,7 @@ export default function ResourceTable() {
                 <td className="px-6 py-4 text-body-sm text-body">{resource.region}</td>
                 <td className="px-6 py-4">
                   <span
-                    className={`inline-flex items-center px-2 py-0.5 rounded-pill text-caption font-medium ${
+                    className={`inline-flex items-center px-2 py-1 rounded-pill text-caption font-medium ${
                       resource.status === "running" || resource.status === "active"
                         ? "badge-success"
                         : resource.status === "stopped"

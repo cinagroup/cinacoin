@@ -12,7 +12,7 @@ export default function StatCard({ label, value, icon }: StatCardProps) {
       </div>
       <div className="mt-3">
         <div className="text-[24px] font-semibold text-ink">{value}</div>
-        <div className="text-[14px] text-ink-mute mt-0.5">{label}</div>
+        <div className="text-[14px] text-ink-mute mt-1">{label}</div>
       </div>
     </div>
   );

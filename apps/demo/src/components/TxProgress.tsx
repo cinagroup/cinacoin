@@ -63,7 +63,7 @@ export default function TxProgress({ steps }: { steps: TxStep[] }) {
                 )}
               </div>
               {/* Step label */}
-              <div className={`pt-1.5 transition-colors duration-300 ${
+              <div className={` pt-2 transition-colors duration-300 ${
                 isDone ? 'text-[var(--cc-success)]' : isActive ? 'text-[var(--cc-link)]' : isError ? 'text-[var(--cc-error)]' : 'text-[var(--cc-body)]'
               }`}>
                 <span className="text-[14px] font-medium">{step.label}</span>

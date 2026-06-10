@@ -81,7 +81,7 @@ export default function ChainSelector({
         type="button"
         onClick={() => setOpen((o) => !o)}
         onKeyDown={handleKeyDown}
-        className={`w-full flex items-center gap-2.5 px-4 py-3 bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-ink)] text-[14px] rounded-md border border-[var(--cc-hairline-strong)]/40 outline-none cursor-pointer appearance-none transition-all duration-200 ${
+        className={`w-full flex items-center  gap-3 px-4 py-3 bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-ink)] text-[14px] rounded-md border border-[var(--cc-hairline-strong)]/40 outline-none cursor-pointer appearance-none transition-all duration-200 ${
           open
             ? 'ring-2 ring-[var(--cc-link)]/40 border-[var(--cc-link)]/50'
             : 'hover:border-[var(--cc-hairline-strong)]/60 hover:bg-[var(--cc-canvas-soft-2)]/80'
@@ -125,7 +125,7 @@ export default function ChainSelector({
           </div>
 
           {/* Chain options */}
-          <div className="p-1.5 max-h-72 overflow-y-auto">
+          <div className="p-2 max-h-72 overflow-y-auto">
             {chains.map((chain, i) => {
               const isSelected = chain.id === value;
               const isHovered = chain.id === hovered;

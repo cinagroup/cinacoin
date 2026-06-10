@@ -15,7 +15,7 @@ export function SimulatedBadge({ size = 'sm' }: { size?: 'xs' | 'sm' }) {
 
   return (
     <span
-      className={`inline-flex items-center gap-0.5 rounded ${cls} bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border border-[var(--cc-warning)]/25 font-semibold uppercase tracking-normal`}
+      className={`inline-flex items-center gap-1 rounded ${cls} bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border border-[var(--cc-warning)]/25 font-semibold uppercase tracking-normal`}
       title="Simulated value — not from a live API"
     >
       Simulated
@@ -75,12 +75,12 @@ export function DemoDisclaimer({ compact = false }: { compact?: boolean }) {
   return (
     <div className="mx-auto max-w-6xl px-4 pt-6">
       <div className="flex items-start gap-3 rounded-md bg-[var(--cc-warning)]/10 border border-[var(--cc-warning)]/25 px-5 py-4 text-[14px] text-[var(--cc-warning)] shadow-[var(--cc-level3)]">
-        <span className="text-[20px] leading-none mt-0.5">⚠️</span>
+        <span className="text-[20px] leading-none mt-1">⚠️</span>
         <div className="flex-1">
           <p className="font-semibold text-[var(--cc-warning)]">
             Demo Environment
           </p>
-          <p className="text-[var(--cc-warning-deep)]/90 mt-0.5">
+          <p className="text-[var(--cc-warning-deep)]/90 mt-1">
             All wallet connections, balances, and transactions are simulated.
             No real blockchain interaction occurs. Do not send real funds.
           </p>

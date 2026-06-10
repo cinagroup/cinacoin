@@ -139,14 +139,14 @@ export function NewsletterSubscribers() {
               <button
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
                 disabled={page === 1}
-                className="px-3 py-1.5 text-caption font-medium text-ink bg-canvas-soft-2 hover:bg-canvas-soft rounded-sm disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="px-3 py-2 text-caption font-medium text-ink bg-canvas-soft-2 hover:bg-canvas-soft rounded-sm disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 Previous
               </button>
               <button
                 onClick={() => setPage((p) => p + 1)}
                 disabled={subscribers.length < 20}
-                className="px-3 py-1.5 text-caption font-medium text-ink bg-canvas-soft-2 hover:bg-canvas-soft rounded-sm disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="px-3 py-2 text-caption font-medium text-ink bg-canvas-soft-2 hover:bg-canvas-soft rounded-sm disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 Next
               </button>

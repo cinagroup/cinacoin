@@ -105,7 +105,7 @@ export function DemoBatchTransactions(): JSX.Element {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: 'var(--cc-text-[12px])',
+                fontSize: 'var(--cc-text-xs)',
                 fontWeight: 'var(--cc-weight-semibold)',
                 flexShrink: 0,
                 color: '#fff',
@@ -115,8 +115,8 @@ export function DemoBatchTransactions(): JSX.Element {
               {i + 1}
             </div>
             <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ fontWeight: 'var(--cc-weight-semibold)', fontSize: 'var(--cc-text-[14px])', color: 'var(--cc-ink)' }}>{step.label}</div>
-              <div style={{ fontSize: 'var(--cc-text-[12px])', color: 'var(--cc-body)' }}>{step.description}</div>
+              <div style={{ fontWeight: 'var(--cc-weight-semibold)', fontSize: 'var(--cc-text-sm)', color: 'var(--cc-ink)' }}>{step.label}</div>
+              <div style={{ fontSize: 'var(--cc-text-xs)', color: 'var(--cc-body)' }}>{step.description}</div>
             </div>
             {batchStatus === 'CONFIRMED' && allSucceeded && (
               <span style={{ fontSize: '18px' }} aria-label="Step completed">✅</span>
@@ -132,7 +132,7 @@ export function DemoBatchTransactions(): JSX.Element {
       {isPolling && (
         <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--cc-space-sm)', padding: 'var(--cc-space-xs) var(--cc-space-sm)', background: 'var(--cc-warning-soft)', borderRadius: 'var(--cc-radius-md)', marginBottom: 'var(--cc-space-md)' }}>
           <span className="cc-spinner" style={{ color: 'var(--cc-warning)' }} />
-          <span style={{ fontSize: 'var(--cc-text-[14px])', color: 'var(--cc-body)' }}>Processing batch...</span>
+          <span style={{ fontSize: 'var(--cc-text-sm)', color: 'var(--cc-body)' }}>Processing batch...</span>
         </div>
       )}
 
@@ -162,7 +162,7 @@ export function DemoBatchTransactions(): JSX.Element {
       )}
 
       {lastCallId && (
-        <div style={{ marginTop: 'var(--cc-space-xs)', fontSize: 'var(--cc-text-[12px])', fontFamily: 'var(--cc-font-[var(--font-mono)])', color: 'var(--cc-muted)' }}>
+        <div style={{ marginTop: 'var(--cc-space-xs)', fontSize: 'var(--cc-text-xs)', fontFamily: 'var(--cc-font-mono)', color: 'var(--cc-muted)' }}>
           Batch ID: {lastCallId}
         </div>
       )}

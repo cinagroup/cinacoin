@@ -116,7 +116,7 @@ export function ApiKeyManager({ projectId }: { projectId: string }) {
             >
               <div>
                 <div className="text-[14px] font-medium text-[var(--cc-ink)]">{key.name || 'Unnamed key'}</div>
-                <div className="mt-0.5 text-[12px] text-[var(--cc-muted)]">
+                <div className="mt-1 text-[12px] text-[var(--cc-muted)]">
                   {key.permissions.join(', ')} • Created {key.createdAt.slice(0, 10)}
                   {key.expiresAt && ` • Expires ${key.expiresAt.slice(0, 10)}`}
                 </div>
