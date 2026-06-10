@@ -105,7 +105,7 @@ export default function Home() {
           {t('home-products-subtitle')}
         </p>
         <div className="grid md:grid-cols-2 gap-6">
-          <Link href="/products#wallet" className="group p-8 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-lg)] shadow-[var(--cc-level1)] hover:shadow-[var(--cc-level3)] transition-shadow duration-200">
+          <Link href="/products#wallet" className="group p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] shadow-[var(--cc-level1)] hover:shadow-[var(--cc-level3)] transition-shadow duration-200">
             <h3 className="text-[24px] font-semibold mb-2 text-[var(--cc-ink)]">{t('home-p1-title')}</h3>
             <p className="text-[var(--cc-body)] text-[14px] leading-relaxed mb-4">
               {t('home-p1-desc')}
@@ -114,7 +114,7 @@ export default function Home() {
               {t('home-p1-cta')}
             </span>
           </Link>
-          <Link href="/products#exchange" className="group p-8 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-lg)] shadow-[var(--cc-level1)] hover:shadow-[var(--cc-level3)] transition-shadow duration-200">
+          <Link href="/products#exchange" className="group p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] shadow-[var(--cc-level1)] hover:shadow-[var(--cc-level3)] transition-shadow duration-200">
             <h3 className="text-[24px] font-semibold mb-2 text-[var(--cc-ink)]">{t('home-p2-title')}</h3>
             <p className="text-[var(--cc-body)] text-[14px] leading-relaxed mb-4">
               {t('home-p2-desc')}
@@ -123,7 +123,7 @@ export default function Home() {
               {t('home-p2-cta')}
             </span>
           </Link>
-          <Link href="/products#staking" className="group p-8 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-lg)] shadow-[var(--cc-level1)] hover:shadow-[var(--cc-level3)] transition-shadow duration-200">
+          <Link href="/products#staking" className="group p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] shadow-[var(--cc-level1)] hover:shadow-[var(--cc-level3)] transition-shadow duration-200">
             <h3 className="text-[24px] font-semibold mb-2 text-[var(--cc-ink)]">{t('home-p3-title')}</h3>
             <p className="text-[var(--cc-body)] text-[14px] leading-relaxed mb-4">
               {t('home-p3-desc')}
@@ -132,7 +132,7 @@ export default function Home() {
               {t('home-p3-cta')}
             </span>
           </Link>
-          <Link href="/developers" className="group p-8 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-lg)] shadow-[var(--cc-level1)] hover:shadow-[var(--cc-level3)] transition-shadow duration-200">
+          <Link href="/developers" className="group p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] shadow-[var(--cc-level1)] hover:shadow-[var(--cc-level3)] transition-shadow duration-200">
             <h3 className="text-[24px] font-semibold mb-2 text-[var(--cc-ink)]">{t('home-p4-title')}</h3>
             <p className="text-[var(--cc-body)] text-[14px] leading-relaxed mb-4">
               {t('home-p4-desc')}

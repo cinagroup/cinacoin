@@ -25,7 +25,7 @@ export default function DevelopersPage() {
 
       {/* Quick Start */}
       <section className="max-w-[1200px] mx-auto px-6 pb-16">
-        <div className="p-8 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-lg)] shadow-[var(--cc-level1)]">
+        <div className="p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] shadow-[var(--cc-level1)]">
           <h2 className="text-[24px] font-semibold mb-4 text-[var(--cc-ink)]">{t('dev-quickstart-title')}</h2>
           <p className="text-[var(--cc-body)] text-[14px] leading-relaxed mb-6">
             {t('dev-quickstart-desc')}

@@ -56,7 +56,7 @@ function OAuthCallbackContent() {
   const oauthError = searchParams.get("error");
 
   return (
-    <div className="bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-sm)] p-8 shadow-[var(--cc-level3)] text-center">
+    <div className="bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] p-6 shadow-[var(--cc-level3)] text-center">
       {oauthError ? (
         <>
           <div className="w-16 h-16 rounded-full bg-[var(--cc-error)]/10 flex items-center justify-center mx-auto mb-4">
@@ -128,7 +128,7 @@ export default function OAuthCallbackPage() {
         </div>
 
         <Suspense fallback={
-          <div className="bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-sm)] p-8 shadow-[var(--cc-level3)] text-center">
+          <div className="bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] p-6 shadow-[var(--cc-level3)] text-center">
             <svg className="animate-spin h-8 w-8 text-[var(--cc-link)] mx-auto mb-4" viewBox="0 0 24 24" fill="none">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />

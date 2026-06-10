@@ -64,7 +64,7 @@ export default function LoginContent() {
       <Navbar />
       <main className="min-h-screen bg-[var(--cc-canvas-soft)] pt-24 pb-16">
         <div className="max-w-md mx-auto px-6">
-          <div className="bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] p-8 shadow-[var(--cc-level3)]">
+          <div className="bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] p-6 shadow-[var(--cc-level3)]">
             <h1 className="cc-display-md text-center mb-2">{t('login-title')}</h1>
             <p className="cc-body-sm text-center text-[var(--cc-body)] mb-6">
               {t('login-subtitle')}

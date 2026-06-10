@@ -26,7 +26,7 @@ export default function ProductsPage() {
       {/* Products Grid */}
       <section className="max-w-[1200px] mx-auto px-6 pb-24">
         <div className="grid md:grid-cols-2 gap-6">
-          <div id="wallet" className="p-8 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-lg)] shadow-[var(--cc-level1)]">
+          <div id="wallet" className="p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] shadow-[var(--cc-level1)]">
             <h2 className="text-[24px] font-semibold mb-3 text-[var(--cc-ink)]">{t('products-wallet-title')}</h2>
             <p className="text-[var(--cc-body)] text-[14px] leading-relaxed mb-6">
               {t('products-wallet-desc')}
@@ -43,7 +43,7 @@ export default function ProductsPage() {
             </Link>
           </div>
 
-          <div id="exchange" className="p-8 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-lg)] shadow-[var(--cc-level1)]">
+          <div id="exchange" className="p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] shadow-[var(--cc-level1)]">
             <h2 className="text-[24px] font-semibold mb-3 text-[var(--cc-ink)]">{t('products-exchange-title')}</h2>
             <p className="text-[var(--cc-body)] text-[14px] leading-relaxed mb-6">
               {t('products-exchange-desc')}
@@ -60,7 +60,7 @@ export default function ProductsPage() {
             </Link>
           </div>
 
-          <div id="staking" className="p-8 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-lg)] shadow-[var(--cc-level1)]">
+          <div id="staking" className="p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] shadow-[var(--cc-level1)]">
             <h2 className="text-[24px] font-semibold mb-3 text-[var(--cc-ink)]">{t('products-staking-title')}</h2>
             <p className="text-[var(--cc-body)] text-[14px] leading-relaxed mb-6">
               {t('products-staking-desc')}
@@ -77,7 +77,7 @@ export default function ProductsPage() {
             </Link>
           </div>
 
-          <div id="explorer" className="p-8 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-lg)] shadow-[var(--cc-level1)]">
+          <div id="explorer" className="p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] shadow-[var(--cc-level1)]">
             <h2 className="text-[24px] font-semibold mb-3 text-[var(--cc-ink)]">{t('products-explorer-title')}</h2>
             <p className="text-[var(--cc-body)] text-[14px] leading-relaxed mb-6">
               {t('products-explorer-desc')}

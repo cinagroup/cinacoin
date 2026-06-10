@@ -26,7 +26,7 @@ export default function ResourcesPage() {
       {/* Resources Grid */}
       <section className="max-w-[1200px] mx-auto px-6 pb-24">
         <div className="grid md:grid-cols-2 gap-6">
-          <div id="whitepaper" className="p-8 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-lg)] shadow-[var(--cc-level1)]">
+          <div id="whitepaper" className="p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] shadow-[var(--cc-level1)]">
             <h2 className="text-[24px] font-semibold mb-3 text-[var(--cc-ink)]">{t('resources-whitepaper-title')}</h2>
             <p className="text-[var(--cc-body)] text-[14px] leading-relaxed mb-4">
               {t('resources-whitepaper-desc')}
@@ -36,7 +36,7 @@ export default function ResourcesPage() {
             </span>
           </div>
 
-          <div id="blog" className="p-8 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-lg)] shadow-[var(--cc-level1)]">
+          <div id="blog" className="p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] shadow-[var(--cc-level1)]">
             <h2 className="text-[24px] font-semibold mb-3 text-[var(--cc-ink)]">{t('resources-blog-title')}</h2>
             <p className="text-[var(--cc-body)] text-[14px] leading-relaxed mb-4">
               {t('resources-blog-desc')}
@@ -46,7 +46,7 @@ export default function ResourcesPage() {
             </span>
           </div>
 
-          <div id="community" className="p-8 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-lg)] shadow-[var(--cc-level1)]">
+          <div id="community" className="p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] shadow-[var(--cc-level1)]">
             <h2 className="text-[24px] font-semibold mb-3 text-[var(--cc-ink)]">{t('resources-community-title')}</h2>
             <p className="text-[var(--cc-body)] text-[14px] leading-relaxed mb-4">
               {t('resources-community-desc')}
@@ -58,7 +58,7 @@ export default function ResourcesPage() {
             </div>
           </div>
 
-          <div id="support" className="p-8 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-lg)] shadow-[var(--cc-level1)]">
+          <div id="support" className="p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] shadow-[var(--cc-level1)]">
             <h2 className="text-[24px] font-semibold mb-3 text-[var(--cc-ink)]">{t('resources-support-title')}</h2>
             <p className="text-[var(--cc-body)] text-[14px] leading-relaxed mb-4">
               {t('resources-support-desc')}
