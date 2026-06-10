@@ -1,6 +1,17 @@
 import { Hono } from 'hono';
 import type { Env, UsageStat } from '../db/types';
 import { apiKeyAuth } from '../middleware/apiKeyAuth';
+import { z } from 'zod';
+
+// ─── Zod Schemas ────────────────────────────────────────────────────────────
+
+const recordUsageSchema = z.object({
+  project_id: z.string().uuid().optional(),
+  api_key_id: z.string().uuid().optional(),
+  endpoint: z.string().max(200).optional(),
+  is_error: z.boolean().optional(),
+  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+});
 
 export function usageRoutes() {
   const app = new Hono<{ Bindings: Env }>();
@@ -8,13 +19,14 @@ export function usageRoutes() {
   // POST /api/usage/record — Record a usage event (protected)
   app.post('/usage/record', apiKeyAuth, async (c) => {
     const db = c.env.DB;
-    const body = await c.req.json<{
-      project_id?: string;
-      api_key_id?: string;
-      endpoint?: string;
-      is_error?: boolean;
-      date?: string;
-    }>();
+    const rawBody = await c.req.json();
+    const validation = recordUsageSchema.safeParse(rawBody);
+
+    if (!validation.success) {
+      return c.json({ error: validation.error.flatten() }, 400);
+    }
+
+    const body = validation.data;
 
     // Use authenticated project if not specified
     const projectId = body.project_id || c.get('projectId');

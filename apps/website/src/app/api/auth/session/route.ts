@@ -5,18 +5,26 @@
  * This prevents XSS attacks from stealing auth tokens.
  */
 import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
+
+const sessionSchema = z.object({
+  accessToken: z.string().min(1, 'accessToken is required'),
+  refreshToken: z.string().optional(),
+});
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { accessToken, refreshToken } = body;
+    const result = sessionSchema.safeParse(body);
 
-    if (!accessToken) {
+    if (!result.success) {
       return NextResponse.json(
-        { error: 'accessToken is required' },
+        { error: result.error.flatten() },
         { status: 400 }
       );
     }
+
+    const { accessToken, refreshToken } = result.data;
 
     const response = NextResponse.json({ success: true });
 

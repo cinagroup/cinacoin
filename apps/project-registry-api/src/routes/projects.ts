@@ -2,6 +2,29 @@ import type { Env, Project } from '../db/types';
 import { hashApiKey, generateApiKey } from '../middleware/auth';
 import { apiKeyAuth } from '../middleware/apiKeyAuth';
 import { Hono } from 'hono';
+import { z } from 'zod';
+
+// ─── Zod Schemas ────────────────────────────────────────────────────────────
+
+const createProjectSchema = z.object({
+  name: z.string().min(1, 'name is required').max(100),
+  description: z.string().max(500).optional(),
+  owner_address: z.string().max(100).optional(),
+  chain_ids: z.array(z.string()).optional(),
+  redirect_uris: z.array(z.string()).optional(),
+  icon_url: z.string().optional(),
+  website_url: z.string().optional(),
+});
+
+const updateProjectSchema = createProjectSchema.partial().extend({
+  status: z.enum(['active', 'inactive', 'suspended']).optional(),
+});
+
+const createApiKeySchema = z.object({
+  label: z.string().max(100).optional(),
+  permissions: z.array(z.enum(['read', 'write', 'admin'])).optional(),
+  expires_at: z.string().datetime().optional(),
+});
 
 export function projectRoutes() {
   const app = new Hono<{ Bindings: Env }>();
@@ -9,22 +32,17 @@ export function projectRoutes() {
   // POST /api/projects — Create a project (protected)
   app.post('/', apiKeyAuth, async (c) => {
     const db = c.env.DB;
-    const body = await c.req.json<{
-      name: string;
-      description?: string;
-      owner_address?: string;
-      chain_ids?: string[];
-      redirect_uris?: string[];
-      icon_url?: string;
-      website_url?: string;
-    }>();
+    const body = await c.req.json();
+    const validation = createProjectSchema.safeParse(body);
 
-    if (!body.name) {
-      return c.json({ error: 'name is required' }, 400);
+    if (!validation.success) {
+      return c.json({ error: validation.error.flatten() }, 400);
     }
 
+    const { name, description, owner_address, chain_ids, redirect_uris, icon_url, website_url } = validation.data;
+
     // Use authenticated user's project context, or explicit owner_address
-    const ownerAddress = body.owner_address || c.req.header('X-Owner-Address');
+    const ownerAddress = owner_address || c.req.header('X-Owner-Address');
     if (!ownerAddress) {
       return c.json({ error: 'owner_address is required' }, 400);
     }
@@ -39,13 +57,13 @@ export function projectRoutes() {
       )
       .bind(
         id,
-        body.name,
-        body.description || '',
+        name,
+        description || '',
         ownerAddress,
-        JSON.stringify(body.chain_ids || []),
-        JSON.stringify(body.redirect_uris || []),
-        body.icon_url || '',
-        body.website_url || '',
+        JSON.stringify(chain_ids || []),
+        JSON.stringify(redirect_uris || []),
+        icon_url || '',
+        website_url || '',
         now,
         now
       )
@@ -114,15 +132,14 @@ export function projectRoutes() {
   app.patch('/:id', apiKeyAuth, async (c) => {
     const db = c.env.DB;
     const id = c.req.param('id');
-    const body = await c.req.json<{
-      name?: string;
-      description?: string;
-      chain_ids?: string[];
-      redirect_uris?: string[];
-      icon_url?: string;
-      website_url?: string;
-      status?: string;
-    }>();
+    const rawBody = await c.req.json();
+    const validation = updateProjectSchema.safeParse(rawBody);
+
+    if (!validation.success) {
+      return c.json({ error: validation.error.flatten() }, 400);
+    }
+
+    const body = validation.data;
 
     const existing = await db.prepare('SELECT * FROM projects WHERE id = ?').bind(id).first<Project>();
     if (!existing) {
@@ -181,7 +198,14 @@ export function projectRoutes() {
       return c.json({ error: 'Project not found' }, 404);
     }
 
-    const body = await c.req.json<{ label?: string; permissions?: string[]; expires_at?: string }>();
+    const rawBody = await c.req.json();
+    const validation = createApiKeySchema.safeParse(rawBody);
+
+    if (!validation.success) {
+      return c.json({ error: validation.error.flatten() }, 400);
+    }
+
+    const body = validation.data;
 
     // Validate expires_at if provided
     if (body.expires_at) {

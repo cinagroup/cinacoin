@@ -2,6 +2,16 @@ import { Hono } from 'hono';
 import type { Env, ApiKey } from '../db/types';
 import { apiKeyAuth } from '../middleware/apiKeyAuth';
 import { hashApiKey, generateApiKey } from '../middleware/auth';
+import { z } from 'zod';
+
+// ─── Zod Schemas ────────────────────────────────────────────────────────────
+
+const updateApiKeySchema = z.object({
+  label: z.string().max(100).optional(),
+  permissions: z.array(z.enum(['read', 'write', 'admin'])).optional(),
+  expires_at: z.string().datetime().nullable().optional(),
+  is_active: z.boolean().optional(),
+});
 
 export function keyRoutes() {
   const app = new Hono<{ Bindings: Env }>();
@@ -26,12 +36,14 @@ export function keyRoutes() {
   app.put('/keys/:id', apiKeyAuth, async (c) => {
     const db = c.env.DB;
     const keyId = c.req.param('id');
-    const body = await c.req.json<{
-      label?: string;
-      permissions?: string[];
-      expires_at?: string | null;
-      is_active?: boolean;
-    }>();
+    const rawBody = await c.req.json();
+    const validation = updateApiKeySchema.safeParse(rawBody);
+
+    if (!validation.success) {
+      return c.json({ error: validation.error.flatten() }, 400);
+    }
+
+    const body = validation.data;
 
     const existing = await db.prepare('SELECT * FROM api_keys WHERE id = ?').bind(keyId).first<ApiKey>();
     if (!existing) {
