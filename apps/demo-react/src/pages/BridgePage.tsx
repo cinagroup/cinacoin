@@ -126,7 +126,7 @@ export function BridgePage() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
               {/* Source Chain */}
               <div>
-                <label style={{ fontSize: 13, color: '#aaa', marginBottom: 6, display: 'block' }}>从</label>
+                <label style={{ fontSize: 13, color: '#aaa', marginBottom: 8, display: 'block' }}>从</label>
                 <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                   {CHAINS.map((chain) => (
                     <button
@@ -163,7 +163,7 @@ export function BridgePage() {
 
               {/* Dest Chain */}
               <div>
-                <label style={{ fontSize: 13, color: '#aaa', marginBottom: 6, display: 'block' }}>到</label>
+                <label style={{ fontSize: 13, color: '#aaa', marginBottom: 8, display: 'block' }}>到</label>
                 <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                   {CHAINS.map((chain) => (
                     <button
@@ -187,7 +187,7 @@ export function BridgePage() {
 
               {/* Amount */}
               <div>
-                <label style={{ fontSize: 13, color: '#aaa', marginBottom: 6, display: 'block' }}>金额 (USDC)</label>
+                <label style={{ fontSize: 13, color: '#aaa', marginBottom: 8, display: 'block' }}>金额 (USDC)</label>
                 <input
                   type="number"
                   step="0.01"
