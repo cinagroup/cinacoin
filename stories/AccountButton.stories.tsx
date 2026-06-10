@@ -36,8 +36,8 @@ function AccountButton({
   onClick,
 }: AccountButtonProps) {
   const sizeMap: Record<string, { padding: string; fontSize: string; avatarSize: string }> = {
-    sm: { padding: '4px 8px', fontSize: '13px', avatarSize: '20px' },
-    md: { padding: '6px 12px', fontSize: '14px', avatarSize: '24px' },
+    sm: { padding: '4px 8px', fontSize: 'var(--text-body-sm)', avatarSize: '20px' },
+    md: { padding: '6px 12px', fontSize: 'var(--text-body-sm)', avatarSize: '24px' },
     lg: { padding: '8px 16px', fontSize: '15px', avatarSize: '28px' },
   };
   const s = sizeMap[size];
@@ -74,7 +74,7 @@ function AccountButton({
             justifyContent: 'center',
             color: '#fff',
             fontSize: parseInt(s.avatarSize) * 0.5,
-            fontWeight: 600,
+            fontWeight: "var(--weight-semibold)",
           }}
         >
           {address ? address.slice(2, 4) : '?'}

@@ -80,12 +80,12 @@
 }
 
 .tab-icon {
-  font-size: 20px;
+  font-size: var(--text-display-sm);
   line-height: 1;
 }
 
 .tab-label {
-  font-size: 10px;
-  font-weight: 500;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
   letter-spacing: 0.02em;
 }

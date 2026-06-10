@@ -190,7 +190,7 @@ export const CustomRender: Story = {
               marginLeft: 'auto',
               fontSize: 11,
               color: '#16a34a',
-              fontWeight: 500,
+              fontWeight: "var(--weight-medium)",
             }}
           >
             ● Active

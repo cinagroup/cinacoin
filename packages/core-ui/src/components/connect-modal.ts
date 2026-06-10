@@ -585,7 +585,7 @@ export class ConnectModal extends BaseLitElement {
           <div class="chain-bar-icon">
             ${this._getActiveChainIcon()
               ? html`<img src="${this._getActiveChainIcon()}" alt="" />`
-              : html`<span style="font-size:12px;">🌐</span>`
+              : html`<span style="font-size: var(--text-caption);">🌐</span>`
             }
           </div>
           <span class="chain-bar-name">${this._getActiveChainName()}</span>

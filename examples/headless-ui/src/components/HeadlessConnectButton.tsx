@@ -71,7 +71,7 @@ export function HeadlessConnectButton({
             borderRadius: 8,
             cursor: connecting ? 'not-allowed' : 'pointer',
             fontSize: 14,
-            fontWeight: 600,
+            fontWeight: "var(--weight-semibold)",
           }}
         >
           {connecting ? 'Connecting...' : 'Connect Wallet'}
@@ -87,7 +87,7 @@ export function HeadlessConnectButton({
             borderRadius: 8,
             cursor: 'pointer',
             fontSize: 14,
-            fontWeight: 600,
+            fontWeight: "var(--weight-semibold)",
           }}
         >
           Disconnect

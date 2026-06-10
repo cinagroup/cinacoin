@@ -21,8 +21,8 @@ const styles = {
     gap: '4px',
   },
   title: {
-    fontSize: '12px',
-    fontWeight: 500,
+    fontSize: 'var(--text-caption)',
+    fontWeight: "var(--weight-medium)",
     color: 'var(--cc-ink, #1a1a2e)',
     opacity: 0.5,
     textTransform: 'uppercase' as const,
@@ -54,7 +54,7 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    fontSize: '16px',
+    fontSize: 'var(--text-body-md)',
     flexShrink: 0,
   },
   chainInfo: {
@@ -64,16 +64,16 @@ const styles = {
     gap: '0px',
   },
   chainName: {
-    fontSize: '14px',
-    fontWeight: 500,
+    fontSize: 'var(--text-body-sm)',
+    fontWeight: "var(--weight-medium)",
   },
   chainTicker: {
-    fontSize: '12px',
+    fontSize: 'var(--text-caption)',
     opacity: 0.5,
   },
   selectedBadge: {
-    fontSize: '10px',
-    fontWeight: 600,
+    fontSize: 'var(--text-caption)',
+    fontWeight: "var(--weight-semibold)",
     color: 'var(--cc-accent, #3b82f6)',
     backgroundColor: 'color-mix(in srgb, var(--cc-accent, #3b82f6) 12%, transparent)',
     padding: '0px 8px',
@@ -81,8 +81,8 @@ const styles = {
     textTransform: 'uppercase' as const,
   },
   testnetBadge: {
-    fontSize: '10px',
-    fontWeight: 500,
+    fontSize: 'var(--text-caption)',
+    fontWeight: "var(--weight-medium)",
     color: 'var(--cc-warning, #f59e0b)',
     backgroundColor: 'color-mix(in srgb, var(--cc-warning, #f59e0b) 12%, transparent)',
     padding: '0px 4px',
@@ -105,8 +105,8 @@ const styles = {
     gap: '4px',
   },
   balanceText: {
-    fontSize: '12px',
-    fontWeight: 600,
+    fontSize: 'var(--text-caption)',
+    fontWeight: "var(--weight-semibold)",
     color: 'var(--cc-ink, #1a1a2e)',
   },
   statusDot: {
@@ -121,8 +121,8 @@ const styles = {
     gap: '4px',
   },
   statusLabel: {
-    fontSize: '10px',
-    fontWeight: 500,
+    fontSize: 'var(--text-caption)',
+    fontWeight: "var(--weight-medium)",
     textTransform: 'uppercase' as const,
     letterSpacing: '0.03em',
   },
@@ -303,7 +303,7 @@ export function ChainSelector({
                 {chainStatus?.error && (
                   <span
                     style={{
-                      fontSize: '10px',
+                      fontSize: 'var(--text-caption)',
                       color: 'var(--cc-danger, #ef4444)',
                     }}
                   >
@@ -331,7 +331,7 @@ export function ChainSelector({
       {isMulti && (
         <div
           style={{
-            fontSize: '11px',
+            fontSize: 'var(--text-caption)',
             color: 'var(--cc-muted, #6b7280)',
             textAlign: 'center',
             marginTop: '8px',

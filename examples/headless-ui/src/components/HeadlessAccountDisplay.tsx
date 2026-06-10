@@ -138,13 +138,13 @@ export function HeadlessAccountDisplay({
               justifyContent: 'center',
               color: 'white',
               fontSize: 12,
-              fontWeight: 700,
+              fontWeight: "var(--weight-bold)",
             }}
           >
             {shortAddress.slice(0, 2)}
           </div>
           <div>
-            <div style={{ fontWeight: 600, fontSize: 14, color: '#1e293b' }}>
+            <div style={{ fontWeight: "var(--weight-semibold)", fontSize: 14, color: '#1e293b' }}>
               {shortAddress}
             </div>
             <div style={{ fontSize: 12, color: '#64748b' }}>
@@ -163,7 +163,7 @@ export function HeadlessAccountDisplay({
         }}
       >
         <span style={{ color: '#64748b' }}>Balance</span>
-        <span style={{ fontWeight: 600, color: '#1e293b' }}>
+        <span style={{ fontWeight: "var(--weight-semibold)", color: '#1e293b' }}>
           {balance} ETH
         </span>
       </div>

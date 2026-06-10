@@ -51,9 +51,9 @@ function MockWalletButton({
   if (!wallet) return null;
 
   const sizeMap: Record<string, { padding: string; icon: string; fontSize: string; gap: string; borderRadius: string }> = {
-    sm: { padding: '6px 10px', icon: '20px', fontSize: '13px', gap: '6px', borderRadius: '8px' },
+    sm: { padding: '6px 10px', icon: '20px', fontSize: 'var(--text-body-sm)', gap: '6px', borderRadius: '8px' },
     md: { padding: '10px 16px', icon: '24px', fontSize: '15px', gap: '8px', borderRadius: '10px' },
-    lg: { padding: '14px 24px', icon: '28px', fontSize: '16px', gap: '10px', borderRadius: '12px' },
+    lg: { padding: '14px 24px', icon: '28px', fontSize: 'var(--text-body-md)', gap: '10px', borderRadius: '12px' },
   };
   const sizes = sizeMap[size];
   const isRound = variant === 'round';
@@ -75,7 +75,7 @@ function MockWalletButton({
     opacity: disabled || isLoading ? 0.6 : 1,
     transition: 'all 0.15s ease',
     fontFamily: 'inherit',
-    fontWeight: 500,
+    fontWeight: "var(--weight-medium)",
     width: isRound ? sizes.icon : 'auto',
     height: isRound ? sizes.icon : 'auto',
     position: 'relative',

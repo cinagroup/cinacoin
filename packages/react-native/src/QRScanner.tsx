@@ -348,7 +348,7 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: 'var(--weight-semibold)',
   },
   closeBtn: {
     padding: 12,
@@ -448,7 +448,7 @@ const styles = StyleSheet.create({
   scanBtnText: {
     color: '#fff',
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: 'var(--weight-semibold)',
   },
   copyUriBtn: {
     marginTop: 16,
@@ -474,7 +474,7 @@ const styles = StyleSheet.create({
   },
   cameraPlaceholderText: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: 'var(--weight-semibold)',
     marginBottom: 8,
   },
   cameraPlaceholderSubtext: {

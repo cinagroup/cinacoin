@@ -225,7 +225,7 @@ export class ChainSwitcher extends BaseLitElement {
       <span class="chain-icon">
         ${chain.iconUrl
           ? html`<img src="${chain.iconUrl}" alt="" />`
-          : html`<span style="font-size:12px;">⛓</span>`
+          : html`<span style="font-size: var(--text-caption);">⛓</span>`
         }
       </span>
     `;

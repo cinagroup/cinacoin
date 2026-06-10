@@ -303,7 +303,7 @@ export function OnRampWidget(props: OnRampWidgetProps): React.ReactElement {
                     {quote.providerName}
                   </span>
                   {quote.requiresKyc && (
-                    <span style={{ marginLeft: "8px", fontSize: "11px", color: "var(--ocx-warning)", background: "var(--ocx-warning-bg)", padding: "0px 4px", borderRadius: "4px" }}>
+                    <span style={{ marginLeft: "8px", fontSize: "var(--text-caption)", color: "var(--ocx-warning)", background: "var(--ocx-warning-bg)", padding: "0px 4px", borderRadius: "4px" }}>
                       KYC
                     </span>
                   )}

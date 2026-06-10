@@ -71,8 +71,8 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
           <h2
             style={{
               margin: '0 0 8px',
-              fontSize: '18px',
-              fontWeight: 600,
+              fontSize: 'var(--text-body-lg)',
+              fontWeight: "var(--weight-semibold)",
               color: '#ef4444',
             }}
           >
@@ -81,7 +81,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
           <p
             style={{
               margin: '0 0 16px',
-              fontSize: '14px',
+              fontSize: 'var(--text-body-sm)',
               color: '#a1a1aa',
             }}
           >
@@ -95,8 +95,8 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
               border: 'none',
               background: '#6366f1',
               color: '#fff',
-              fontSize: '14px',
-              fontWeight: 600,
+              fontSize: 'var(--text-body-sm)',
+              fontWeight: "var(--weight-semibold)",
               cursor: 'pointer',
             }}
           >

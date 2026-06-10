@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   text: {
-    fontWeight: '600', // design-token: connect-button.font-weight
+    fontWeight: 'var(--weight-semibold)', // design-token: connect-button.font-weight
     textAlign: 'center',
   },
   connectedContent: {
@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
   },
   addressText: {
     fontFamily: 'monospace',
-    fontWeight: '500',
+    fontWeight: 'var(--weight-medium)',
   },
   balanceText: {
     fontSize: 12, // design-token: semantic.typography.size-xs
@@ -255,7 +255,7 @@ const styles = StyleSheet.create({
   },
   networkBadgeText: {
     fontSize: 12, // design-token: network-badge.text-font-size
-    fontWeight: '600',
+    fontWeight: 'var(--weight-semibold)',
   },
 });
 

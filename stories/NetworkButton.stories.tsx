@@ -42,9 +42,9 @@ function NetworkButton({
   const meta = NETWORK_META[network] ?? { name: network, chainId: 0, color: '#6b7280', symbol: '?' };
   const displayName = label ?? meta.name;
   const sizeMap: Record<string, { padding: string; fontSize: string; dotSize: string }> = {
-    sm: { padding: '4px 10px', fontSize: '12px', dotSize: '8px' },
-    md: { padding: '6px 14px', fontSize: '13px', dotSize: '10px' },
-    lg: { padding: '8px 18px', fontSize: '14px', dotSize: '12px' },
+    sm: { padding: '4px 10px', fontSize: 'var(--text-caption)', dotSize: '8px' },
+    md: { padding: '6px 14px', fontSize: 'var(--text-body-sm)', dotSize: '10px' },
+    lg: { padding: '8px 18px', fontSize: 'var(--text-body-sm)', dotSize: '12px' },
   };
   const s = sizeMap[size];
 
@@ -60,7 +60,7 @@ function NetworkButton({
         padding: s.padding,
         fontSize: s.fontSize,
         fontFamily: 'system-ui, sans-serif',
-        fontWeight: 500,
+        fontWeight: "var(--weight-medium)",
         borderRadius: '8px',
         border: isActive ? `2px solid ${meta.color}` : '1px solid #e2e8f0',
         background: isActive ? `${meta.color}15` : '#ffffff',

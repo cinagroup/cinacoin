@@ -264,7 +264,7 @@ function SendForm({ chainId }) {
         style={{ width: '100%', padding: '0.75rem', background: '#0d0d1a', border: '1px solid #333', borderRadius: '8px', color: 'white', marginBottom: '0.5rem', boxSizing: 'border-box' }} />
       <input placeholder="Amount" type="number" value={amount} onChange={e => setAmount(e.target.value)}
         style={{ width: '100%', padding: '0.75rem', background: '#0d0d1a', border: '1px solid #333', borderRadius: '8px', color: 'white', marginBottom: '1rem', boxSizing: 'border-box' }} />
-      <button style={{ width: '100%', padding: '0.75rem', background: '#6366f1', border: 'none', borderRadius: '8px', color: 'white', fontWeight: '600', cursor: 'pointer' }}>
+      <button style={{ width: '100%', padding: '0.75rem', background: '#6366f1', border: 'none', borderRadius: '8px', color: 'white', fontWeight: 'var(--weight-semibold)', cursor: 'pointer' }}>
         Send
       </button>
     </div>
@@ -481,7 +481,7 @@ export default function SwapPanel() {
         </select>
       </div>
 
-      <button style={{ width: '100%', padding: '1rem', background: '#10b981', border: 'none', borderRadius: '12px', color: 'white', fontWeight: '600', fontSize: '1rem', cursor: 'pointer' }}>
+      <button style={{ width: '100%', padding: '1rem', background: '#10b981', border: 'none', borderRadius: '12px', color: 'white', fontWeight: 'var(--weight-semibold)', fontSize: '1rem', cursor: 'pointer' }}>
         Swap
       </button>
     </div>
@@ -512,7 +512,7 @@ export default function LiquidityPanel() {
           {POOLS.map(pool => (
             <div key={pool.name} onClick={() => setSelectedPool(pool)}
               style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem', background: '#0d0d1a', borderRadius: '8px', marginBottom: '0.5rem', cursor: 'pointer' }}>
-              <span style={{ fontWeight: '600' }}>{pool.name}</span>
+              <span style={{ fontWeight: 'var(--weight-semibold)' }}>{pool.name}</span>
               <div style={{ textAlign: 'right' }}>
                 <div style={{ color: '#888', fontSize: '0.85rem' }}>TVL: {pool.tvl}</div>
                 <div style={{ color: '#10b981', fontSize: '0.85rem' }}>APR: {pool.apr}</div>
@@ -527,14 +527,14 @@ export default function LiquidityPanel() {
           <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
             <div style={{ flex: 1, background: '#0d0d1a', borderRadius: '8px', padding: '1rem', textAlign: 'center' }}>
               <div style={{ color: '#888', fontSize: '0.85rem' }}>TVL</div>
-              <div style={{ fontWeight: '600' }}>{selectedPool.tvl}</div>
+              <div style={{ fontWeight: 'var(--weight-semibold)' }}>{selectedPool.tvl}</div>
             </div>
             <div style={{ flex: 1, background: '#0d0d1a', borderRadius: '8px', padding: '1rem', textAlign: 'center' }}>
               <div style={{ color: '#888', fontSize: '0.85rem' }}>APR</div>
-              <div style={{ color: '#10b981', fontWeight: '600' }}>{selectedPool.apr}</div>
+              <div style={{ color: '#10b981', fontWeight: 'var(--weight-semibold)' }}>{selectedPool.apr}</div>
             </div>
           </div>
-          <button style={{ width: '100%', padding: '1rem', background: '#10b981', border: 'none', borderRadius: '12px', color: 'white', fontWeight: '600', cursor: 'pointer' }}>
+          <button style={{ width: '100%', padding: '1rem', background: '#10b981', border: 'none', borderRadius: '12px', color: 'white', fontWeight: 'var(--weight-semibold)', cursor: 'pointer' }}>
             Add Liquidity
           </button>
         </>
@@ -682,9 +682,9 @@ export default function App() {
               <h4 style={{ margin: '0 0 0.25rem' }}>{nft.name}</h4>
               <p style={{ color: '#888', margin: '0 0 0.5rem', fontSize: '0.85rem' }}>{nft.collection}</p>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontWeight: '600' }}>{nft.price} ETH</span>
+                <span style={{ fontWeight: 'var(--weight-semibold)' }}>{nft.price} ETH</span>
                 {view === 'market' && (
-                  <button style={{ background: '#f59e0b', border: 'none', borderRadius: '6px', padding: '0.4rem 1rem', color: 'black', fontWeight: '600', cursor: 'pointer' }}>
+                  <button style={{ background: '#f59e0b', border: 'none', borderRadius: '6px', padding: '0.4rem 1rem', color: 'black', fontWeight: 'var(--weight-semibold)', cursor: 'pointer' }}>
                     Buy
                   </button>
                 )}
@@ -908,7 +908,7 @@ export default function SessionKeyManager({ onReady }) {
 
       {status === 'idle' && (
         <button onClick={createSession}
-          style={{ background: '#8b5cf6', border: 'none', borderRadius: '8px', padding: '0.75rem 2rem', color: 'white', fontWeight: '600', cursor: 'pointer', marginTop: '1rem' }}>
+          style={{ background: '#8b5cf6', border: 'none', borderRadius: '8px', padding: '0.75rem 2rem', color: 'white', fontWeight: 'var(--weight-semibold)', cursor: 'pointer', marginTop: '1rem' }}>
           Create Session Key
         </button>
       )}
@@ -917,7 +917,7 @@ export default function SessionKeyManager({ onReady }) {
 
       {status === 'active' && (
         <div style={{ marginTop: '1rem', background: '#1a1a2e', borderRadius: '12px', padding: '1.5rem' }}>
-          <p style={{ color: '#22c55e', fontWeight: '600' }}>✓ Session Key Active</p>
+          <p style={{ color: '#22c55e', fontWeight: 'var(--weight-semibold)' }}>✓ Session Key Active</p>
           <code style={{ display: 'block', background: '#0d0d1a', padding: '0.75rem', borderRadius: '4px', marginTop: '0.5rem', fontSize: '0.8rem', wordBreak: 'break-all' }}>
             {sessionKey}
           </code>

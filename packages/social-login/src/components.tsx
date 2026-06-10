@@ -553,9 +553,9 @@ export function SocialLoginButton({
   };
 
   const sizes = {
-    sm: { height: '36px', fontSize: '13px', iconSize: '16px' },
-    md: { height: '44px', fontSize: '15px', iconSize: '18px' },
-    lg: { height: '52px', fontSize: '16px', iconSize: '20px' },
+    sm: { height: '36px', fontSize: 'var(--text-body-sm)', iconSize: '16px' },
+    md: { height: '44px', fontSize: 'var(--text-body-sm)', iconSize: '18px' },
+    lg: { height: '52px', fontSize: 'var(--text-body-md)', iconSize: '20px' },
   };
 
   const btnStyle: CSSProperties = {
@@ -566,7 +566,7 @@ export function SocialLoginButton({
     width: '100%',
     height: sizes[size].height,
     fontSize: sizes[size].fontSize,
-    fontWeight: 500,
+    fontWeight: "var(--weight-medium)",
     fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
     border: provider === 'email' || provider === 'phone' || provider === 'google'
       ? '1px solid #dadce0'
@@ -676,7 +676,7 @@ export function SocialLoginModal({
     gap: '16px',
     margin: '20px 0',
     color: '#6b7280',
-    fontSize: '13px',
+    fontSize: 'var(--text-body-sm)',
   };
 
   const dividerLineStyle: CSSProperties = {
@@ -698,7 +698,7 @@ export function SocialLoginModal({
       >
         {/* Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-          <h2 style={{ margin: 0, fontSize: '20px', fontWeight: 600, color: '#111827' }}>
+          <h2 style={{ margin: 0, fontSize: 'var(--text-display-sm)', fontWeight: "var(--weight-semibold)", color: '#111827' }}>
             {title}
           </h2>
           <button
@@ -706,7 +706,7 @@ export function SocialLoginModal({
             style={{
               background: 'none',
               border: 'none',
-              fontSize: '20px',
+              fontSize: 'var(--text-display-sm)',
               cursor: 'pointer',
               color: '#6b7280',
               padding: '4px 8px',
@@ -727,7 +727,7 @@ export function SocialLoginModal({
               border: '1px solid #fecaca',
               borderRadius: '8px',
               color: '#dc2626',
-              fontSize: '13px',
+              fontSize: 'var(--text-body-sm)',
               marginBottom: '16px',
             }}
           >
@@ -737,7 +737,7 @@ export function SocialLoginModal({
 
         {/* Loading indicator */}
         {loading && (
-          <div style={{ textAlign: 'center', padding: '12px', color: '#6b7280', fontSize: '12px' }}>
+          <div style={{ textAlign: 'center', padding: '12px', color: '#6b7280', fontSize: 'var(--text-caption)' }}>
             Redirecting to provider...
           </div>
         )}
@@ -764,7 +764,7 @@ export function SocialLoginModal({
         <p style={{
           margin: '0 0 16px',
           textAlign: 'center',
-          fontSize: '12px',
+          fontSize: 'var(--text-caption)',
           color: '#9ca3af',
           lineHeight: 1.5,
         }}>
@@ -778,7 +778,7 @@ export function SocialLoginModal({
             padding: '8px 12px',
             backgroundColor: '#f0fdf4',
             borderRadius: '6px',
-            fontSize: '12px',
+            fontSize: 'var(--text-caption)',
             color: '#16a34a',
           }}>
             Signed in as {userEmail}

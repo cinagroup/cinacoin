@@ -173,7 +173,7 @@ export function SwapWidget(props: SwapWidgetProps): React.ReactElement {
     <div className={`ocx-swap-widget ${className}`} style={{ ...widgetCssVars, ...cardCss, maxWidth: "480px" }}>
       {/* Header */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
-        <h2 style={{ margin: 0, fontSize: "var(--cc-text-md)", fontWeight: 600, color: "var(--ocx-text-primary)" }}>
+        <h2 style={{ margin: 0, fontSize: "var(--cc-text-md)", fontWeight: "var(--weight-semibold)", color: "var(--ocx-text-primary)" }}>
           Swap
         </h2>
         <button
@@ -339,7 +339,7 @@ function TokenInput({ label, token, amount, onAmountChange, onTokenClick, readOn
             padding: "4px 12px",
             cursor: "pointer",
             fontSize: "var(--cc-text-sm)",
-            fontWeight: 600,
+            fontWeight: "var(--weight-semibold)",
             color: "var(--ocx-text-primary)",
           }}
         >
@@ -362,7 +362,7 @@ function TokenInput({ label, token, amount, onAmountChange, onTokenClick, readOn
             border: "none",
             background: "transparent",
             fontSize: "var(--cc-text-xl)",
-            fontWeight: 600,
+            fontWeight: "var(--weight-semibold)",
             padding: "4px 0",
             textAlign: "right",
             width: "100%",
@@ -481,7 +481,7 @@ function TokenSelectionModal({ tokens, onSelect, onClose, selected }: TokenSelec
             >
               {token.logoURI && <img src={token.logoURI} alt="" style={{ width: "32px", height: "32px", borderRadius: "50%" }} />}
               <div style={{ textAlign: "left" }}>
-                <div style={{ fontWeight: 600, fontSize: "var(--cc-text-sm)", color: "var(--ocx-text-primary)" }}>{token.symbol}</div>
+                <div style={{ fontWeight: "var(--weight-semibold)", fontSize: "var(--cc-text-sm)", color: "var(--ocx-text-primary)" }}>{token.symbol}</div>
                 <div style={{ fontSize: "var(--cc-text-xs)", color: "var(--ocx-text-muted)" }}>{token.name}</div>
               </div>
             </button>
@@ -507,7 +507,7 @@ function TransactionStatus({ receipt }: TransactionStatusProps) {
     <div style={{ marginTop: "12px", padding: "16px", background: "var(--ocx-success-bg)", borderRadius: "12px" }}>
       <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
         <span style={{ fontSize: "var(--cc-text-lg)" }}>✅</span>
-        <span style={{ fontWeight: 600, color: "var(--ocx-success)" }}>Swap Successful</span>
+        <span style={{ fontWeight: "var(--weight-semibold)", color: "var(--ocx-success)" }}>Swap Successful</span>
       </div>
       <div style={{ fontSize: "var(--cc-text-xs)", color: "var(--ocx-text-secondary)" }}>
         <div>TX: {receipt.txHash.slice(0, 10)}…{receipt.txHash.slice(-8)}</div>

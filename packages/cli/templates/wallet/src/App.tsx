@@ -99,7 +99,7 @@ export default function App() {
           padding: '0.75rem 1.5rem',
           borderRadius: '8px',
           cursor: 'pointer',
-          fontWeight: '600',
+          fontWeight: 'var(--weight-semibold)',
           width: '100%',
         }}
       >

@@ -47,8 +47,8 @@ const styles = {
     padding: "12px",
   } as React.CSSProperties,
   title: {
-    fontSize: "14px",
-    fontWeight: 600,
+    fontSize: "var(--text-body-sm)",
+    fontWeight: "var(--weight-semibold)",
     color: "#e2e8f0",
     margin: "0 0 4px 0",
     whiteSpace: "nowrap" as const,
@@ -56,7 +56,7 @@ const styles = {
     textOverflow: "ellipsis",
   } as React.CSSProperties,
   subtitle: {
-    fontSize: "12px",
+    fontSize: "var(--text-caption)",
     color: "#94a3b8",
     margin: "0 0 8px 0",
   } as React.CSSProperties,
@@ -64,8 +64,8 @@ const styles = {
     display: "inline-block",
     padding: "0px 8px",
     borderRadius: "9999px",
-    fontSize: "10px",
-    fontWeight: 600,
+    fontSize: "var(--text-caption)",
+    fontWeight: "var(--weight-semibold)",
     background: "rgba(99,102,241,0.15)",
     color: "#818cf8",
     marginRight: "4px",
@@ -147,7 +147,7 @@ export function NftCard({
               alignItems: "center",
               justifyContent: "center",
               color: "#64748b",
-              fontSize: "14px",
+              fontSize: "var(--text-body-sm)",
             }}
           >
             {placeholderText}
@@ -331,18 +331,18 @@ export function NftDetail({
 
       {/* Info */}
       <div>
-        <h2 style={{ margin: "0 0 4px 0", color: "#e2e8f0", fontSize: "20px" }}>
+        <h2 style={{ margin: "0 0 4px 0", color: "#e2e8f0", fontSize: "var(--text-display-sm)" }}>
           {nft.name || `#${nft.tokenId}`}
         </h2>
 
         {nft.contractName && (
-          <p style={{ margin: "0 0 12px 0", color: "#818cf8", fontSize: "12px" }}>
+          <p style={{ margin: "0 0 12px 0", color: "#818cf8", fontSize: "var(--text-caption)" }}>
             {nft.contractName}
           </p>
         )}
 
         {nft.description && (
-          <p style={{ margin: "0 0 12px 0", color: "#94a3b8", fontSize: "12px", lineHeight: 1.6 }}>
+          <p style={{ margin: "0 0 12px 0", color: "#94a3b8", fontSize: "var(--text-caption)", lineHeight: 1.6 }}>
             {nft.description}
           </p>
         )}
@@ -356,7 +356,7 @@ export function NftDetail({
 
         {/* Token ID */}
         <div style={{
-          fontSize: "12px",
+          fontSize: "var(--text-caption)",
           color: "#64748b",
           fontFamily: "monospace",
           wordBreak: "break-all",
@@ -377,7 +377,7 @@ export function NftDetail({
               borderRadius: "8px",
               color: "#818cf8",
               cursor: "pointer",
-              fontSize: "13px",
+              fontSize: "var(--text-body-sm)",
             }}
           >
             View on {chainInfo?.name} Explorer →
@@ -388,7 +388,7 @@ export function NftDetail({
       {/* Attributes */}
       {showAttributes && nft.attributes.length > 0 && (
         <div>
-          <h3 style={{ margin: "0 0 8px 0", color: "#e2e8f0", fontSize: "16px" }}>
+          <h3 style={{ margin: "0 0 8px 0", color: "#e2e8f0", fontSize: "var(--text-body-md)" }}>
             Attributes ({nft.attributes.length})
           </h3>
           <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
@@ -402,8 +402,8 @@ export function NftDetail({
                   border: "1px solid rgba(255,255,255,0.08)",
                 }}
               >
-                <div style={{ fontSize: "10px", color: "#64748b" }}>{attr.trait_type}</div>
-                <div style={{ fontSize: "13px", color: "#e2e8f0", fontWeight: 600 }}>
+                <div style={{ fontSize: "var(--text-caption)", color: "#64748b" }}>{attr.trait_type}</div>
+                <div style={{ fontSize: "var(--text-body-sm)", color: "#e2e8f0", fontWeight: "var(--weight-semibold)" }}>
                   {String(attr.value)}
                 </div>
               </div>

@@ -78,8 +78,8 @@ export function KycBadge({
           borderRadius: '9999px',
           background: 'transparent',
           color,
-          fontSize: '13px',
-          fontWeight: 600,
+          fontSize: 'var(--text-body-sm)',
+          fontWeight: "var(--weight-semibold)",
           cursor: 'pointer',
           lineHeight: 1,
           textTransform: 'capitalize',
@@ -97,7 +97,7 @@ export function KycBadge({
         />
         {label}
         {showScore && result != null && (
-          <span style={{ opacity: 0.7, fontWeight: 400 }}>/ {result.riskScore}</span>
+          <span style={{ opacity: 0.7, fontWeight: "var(--weight-regular)" }}>/ {result.riskScore}</span>
         )}
       </button>
 
@@ -116,22 +116,22 @@ export function KycBadge({
             border: '1px solid #e5e7eb',
             borderRadius: '8px',
             boxShadow: '0 4px 12px rgba(0,0,0,0.12)',
-            fontSize: '13px',
+            fontSize: 'var(--text-body-sm)',
             color: '#111827',
           }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
             <strong>Compliance Details</strong>
-            <button onClick={handleDismiss} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '16px' }}>✕</button>
+            <button onClick={handleDismiss} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 'var(--text-body-md)' }}>✕</button>
           </div>
-          <div style={{ fontFamily: 'monospace', fontSize: '11px', wordBreak: 'break-all', marginBottom: '8px' }}>
+          <div style={{ fontFamily: 'monospace', fontSize: 'var(--text-caption)', wordBreak: 'break-all', marginBottom: '8px' }}>
             {address}
           </div>
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <tbody>
               <tr>
                 <td style={{ padding: '0px 0', color: '#6b7280' }}>Risk Level</td>
-                <td style={{ padding: '0px 0', textTransform: 'capitalize', fontWeight: 600, color }}>{label}</td>
+                <td style={{ padding: '0px 0', textTransform: 'capitalize', fontWeight: "var(--weight-semibold)", color }}>{label}</td>
               </tr>
               <tr>
                 <td style={{ padding: '0px 0', color: '#6b7280' }}>Risk Score</td>
@@ -147,7 +147,7 @@ export function KycBadge({
               </tr>
             </tbody>
           </table>
-          <div style={{ marginTop: '8px', fontSize: '11px', color: '#9ca3af' }}>
+          <div style={{ marginTop: '8px', fontSize: 'var(--text-caption)', color: '#9ca3af' }}>
             Screened at: {new Date(result.screenedAt).toLocaleString()}
           </div>
         </div>

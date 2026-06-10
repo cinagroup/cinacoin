@@ -314,7 +314,7 @@ export class ChainSelector extends BaseLitElement {
                     <div class="chain-icon">
                       ${chain.iconUrl
                         ? html`<img src="${chain.iconUrl}" alt="" />`
-                        : html`<span style="font-size:14px;">⛓</span>`
+                        : html`<span style="font-size: var(--text-body-sm);">⛓</span>`
                       }
                     </div>
                     <div class="chain-info">

@@ -198,8 +198,8 @@ function formatRelativeDate(date: Date): string {
 const styles: Record<string, React.CSSProperties> = {
   title: {
     margin: "0 0 16px",
-    fontSize: "16px",
-    fontWeight: 600,
+    fontSize: "var(--text-body-md)",
+    fontWeight: "var(--weight-semibold)",
     color: "#111827",
   },
   summaryGrid: {
@@ -218,15 +218,15 @@ const styles: Record<string, React.CSSProperties> = {
     border: "1px solid #f3f4f6",
   },
   statIcon: {
-    fontSize: "20px",
+    fontSize: "var(--text-display-sm)",
   },
   statValue: {
-    fontSize: "16px",
-    fontWeight: 600,
+    fontSize: "var(--text-body-md)",
+    fontWeight: "var(--weight-semibold)",
     color: "#111827",
   },
   statLabel: {
-    fontSize: "11px",
+    fontSize: "var(--text-caption)",
     color: "#6b7280",
     marginTop: "0px",
   },
@@ -235,8 +235,8 @@ const styles: Record<string, React.CSSProperties> = {
   },
   detailTitle: {
     margin: "0 0 12px",
-    fontSize: "14px",
-    fontWeight: 600,
+    fontSize: "var(--text-body-sm)",
+    fontWeight: "var(--weight-semibold)",
     color: "#374151",
   },
   nsRow: {
@@ -244,11 +244,11 @@ const styles: Record<string, React.CSSProperties> = {
     alignItems: "center",
     gap: "8px",
     marginBottom: "8px",
-    fontSize: "13px",
+    fontSize: "var(--text-body-sm)",
   },
   nsLabel: {
     width: "60px",
-    fontWeight: 500,
+    fontWeight: "var(--weight-medium)",
     color: "#4b5563",
   },
   barContainer: {
@@ -267,7 +267,7 @@ const styles: Record<string, React.CSSProperties> = {
   nsCount: {
     width: "20px",
     textAlign: "right" as const,
-    fontSize: "12px",
+    fontSize: "var(--text-caption)",
     color: "#6b7280",
   },
   recommendations: {
@@ -278,8 +278,8 @@ const styles: Record<string, React.CSSProperties> = {
   },
   recommendationsTitle: {
     margin: "0 0 8px",
-    fontSize: "14px",
-    fontWeight: 600,
+    fontSize: "var(--text-body-sm)",
+    fontWeight: "var(--weight-semibold)",
     color: "#92400e",
   },
   recommendationsList: {
@@ -287,7 +287,7 @@ const styles: Record<string, React.CSSProperties> = {
     paddingLeft: "16px",
   },
   recommendationItem: {
-    fontSize: "13px",
+    fontSize: "var(--text-body-sm)",
     color: "#78350f",
     marginBottom: "4px",
     lineHeight: 1.5,

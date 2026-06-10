@@ -265,7 +265,7 @@ function DepositPlaceholder({ walletAddress, theme }: DepositPlaceholderProps) {
             padding: "12px",
             background: "var(--ocx-bg-surface)",
             borderRadius: "8px",
-            fontSize: "12px",
+            fontSize: "var(--text-caption)",
             fontFamily: "monospace",
             wordBreak: "break-all",
           }}

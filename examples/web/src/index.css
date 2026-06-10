@@ -100,7 +100,7 @@ body {
   padding: 10px 20px;
   border-radius: var(--radius-sm);
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   cursor: pointer;
   border: none;
   transition: background 0.2s;
@@ -230,7 +230,7 @@ body {
 
 .wallet-name {
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: var(--weight-medium);
 }
 
 /* Swap Styles */
@@ -355,7 +355,7 @@ body {
 }
 
 .quote-row span:last-child {
-  font-weight: 500;
+  font-weight: var(--weight-medium);
 }
 
 /* Transaction Status */
@@ -416,7 +416,7 @@ body {
 .total-balance .total-value {
   display: block;
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   color: var(--accent);
 }
 
@@ -452,7 +452,7 @@ body {
 }
 
 .chain-name {
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   font-size: 0.875rem;
 }
 
@@ -464,7 +464,7 @@ body {
 
 .chain-usd {
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   color: var(--text-primary);
 }
 
@@ -507,7 +507,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   font-size: 0.875rem;
   flex-shrink: 0;
 }
@@ -531,7 +531,7 @@ body {
 
 .step-success {
   color: var(--success);
-  font-weight: 500;
+  font-weight: var(--weight-medium);
   font-size: 0.875rem;
 }
 
@@ -579,7 +579,7 @@ body {
 }
 
 .session-text {
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   color: var(--success);
 }
 

@@ -85,7 +85,7 @@ h1.vp-doc-title,
 /* Marketing CTAs = 100px pill */
 .VPButton {
   border-radius: 100px !important;
-  font-weight: 500;
+  font-weight: var(--weight-medium);
 }
 
 /* Home feature cards: white + hairline + subtle stacked shadow (Level 2) */

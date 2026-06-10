@@ -4,6 +4,22 @@
 
 /* ── Design System Variables ──────────────────────────── */
 :root {
+  /* Typography Scale */
+  --text-display-xl: 48px;
+  --text-display-lg: 32px;
+  --text-display-md: 24px;
+  --text-display-sm: 20px;
+  --text-body-lg: 18px;
+  --text-body-md: 16px;
+  --text-body-sm: 14px;
+  --text-caption: 12px;
+  
+  /* Font Weights */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
   /* ── Colors ─────────────────────────────────────────── */
   --color-primary: #171717;
   --color-primary-hover: #2a2a2a;
@@ -129,75 +145,75 @@ body {
 /* ── Typography Utilities ──────────────────────────────── */
 
 .text-display-xl {
-  font-size: 48px;
-  font-weight: 600;
+  font-size: var(--text-display-xl);
+  font-weight: var(--weight-semibold);
   line-height: 48px;
   letter-spacing: -2.4px;
 }
 
 .text-display-lg {
-  font-size: 32px;
-  font-weight: 600;
+  font-size: var(--text-display-lg);
+  font-weight: var(--weight-semibold);
   line-height: 1.2;
   letter-spacing: -1.28px;
 }
 
 .text-display-md {
-  font-size: 24px;
-  font-weight: 600;
+  font-size: var(--text-display-md);
+  font-weight: var(--weight-semibold);
   line-height: 1.3;
   letter-spacing: -0.96px;
 }
 
 .text-display-sm {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: var(--text-display-sm);
+  font-weight: var(--weight-semibold);
   line-height: 1.4;
   letter-spacing: -0.6px;
 }
 
 .text-body-lg {
-  font-size: 18px;
-  font-weight: 400;
+  font-size: var(--text-body-lg);
+  font-weight: var(--weight-regular);
   line-height: 1.5;
 }
 
 .text-body-md {
-  font-size: 16px;
-  font-weight: 400;
+  font-size: var(--text-body-md);
+  font-weight: var(--weight-regular);
   line-height: 1.5;
 }
 
 .text-body-md-strong {
-  font-size: 16px;
-  font-weight: 500;
+  font-size: var(--text-body-md);
+  font-weight: var(--weight-medium);
   line-height: 1.5;
 }
 
 .text-body-sm {
-  font-size: 14px;
-  font-weight: 400;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-regular);
   line-height: 1.5;
   letter-spacing: -0.28px;
 }
 
 .text-body-sm-strong {
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
   line-height: 1.5;
   letter-spacing: -0.28px;
 }
 
 .text-caption {
-  font-size: 12px;
-  font-weight: 400;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-regular);
   line-height: 1.4;
 }
 
 .text-code {
   font-family: var(--font-mono);
-  font-size: 14px;
-  font-weight: 400;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-regular);
   line-height: 1.5;
 }
 
@@ -233,7 +249,7 @@ body {
   background-color: var(--color-primary);
   color: var(--color-on-primary);
   border-radius: 100px;
-  font-weight: 500;
+  font-weight: var(--weight-medium);
   transition: background-color var(--transition-fast);
 }
 
@@ -246,7 +262,7 @@ body {
   color: var(--color-ink);
   border: 1px solid var(--color-hairline-strong);
   border-radius: 100px;
-  font-weight: 500;
+  font-weight: var(--weight-medium);
   transition: border-color var(--transition-fast);
 }
 
@@ -347,80 +363,80 @@ body {
 
 /* ── Typography ─────────────────────────────────────────── */
 .cc-display-xl {
-  font-size: 48px;
-  font-weight: 600;
+  font-size: var(--text-display-xl);
+  font-weight: var(--weight-semibold);
   line-height: 1.1;
   letter-spacing: -2.4px;
   color: var(--cc-ink);
 }
 
 .cc-display-lg {
-  font-size: 32px;
-  font-weight: 600;
+  font-size: var(--text-display-lg);
+  font-weight: var(--weight-semibold);
   line-height: 1.2;
   letter-spacing: -1.28px;
   color: var(--cc-ink);
 }
 
 .cc-display-md {
-  font-size: 24px;
-  font-weight: 600;
+  font-size: var(--text-display-md);
+  font-weight: var(--weight-semibold);
   line-height: 1.3;
   letter-spacing: -0.96px;
   color: var(--cc-ink);
 }
 
 .cc-display-sm {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: var(--text-display-sm);
+  font-weight: var(--weight-semibold);
   line-height: 1.4;
   letter-spacing: -0.6px;
   color: var(--cc-ink);
 }
 
 .cc-body-lg {
-  font-size: 18px;
-  font-weight: 400;
+  font-size: var(--text-body-lg);
+  font-weight: var(--weight-regular);
   line-height: 1.6;
 }
 
 .cc-body-md {
-  font-size: 16px;
-  font-weight: 400;
+  font-size: var(--text-body-md);
+  font-weight: var(--weight-regular);
   line-height: 1.5;
 }
 
 .cc-body-md-strong {
-  font-size: 16px;
-  font-weight: 500;
+  font-size: var(--text-body-md);
+  font-weight: var(--weight-medium);
   line-height: 1.5;
   color: var(--cc-ink);
 }
 
 .cc-body-sm {
-  font-size: 14px;
-  font-weight: 400;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-regular);
   line-height: 1.5;
   letter-spacing: -0.28px;
 }
 
 .cc-body-sm-strong {
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
   line-height: 1.5;
   letter-spacing: -0.28px;
   color: var(--cc-ink);
 }
 
 .cc-caption {
-  font-size: 12px;
-  font-weight: 400;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-regular);
   line-height: 1.4;
 }
 
 .cc-caption-mono {
-  font-size: 12px;
-  font-weight: 500;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
   line-height: 1.4;
   font-family: var(--font-mono);
 }
@@ -468,8 +484,8 @@ body {
   color: var(--cc-on-primary);
   border: none;
   border-radius: 100px;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
   cursor: pointer;
   transition: background-color var(--transition-fast);
   text-decoration: none;
@@ -491,8 +507,8 @@ body {
   color: var(--cc-on-primary);
   border: none;
   border-radius: 100px;
-  font-size: 13px;
-  font-weight: 500;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
   cursor: pointer;
   transition: background-color var(--transition-fast);
   text-decoration: none;
@@ -514,8 +530,8 @@ body {
   color: var(--cc-ink);
   border: 1px solid var(--cc-hairline-strong);
   border-radius: 100px;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
   cursor: pointer;
   transition: border-color var(--transition-fast);
   text-decoration: none;
@@ -537,8 +553,8 @@ body {
   color: var(--cc-ink);
   border: 1px solid var(--cc-hairline-strong);
   border-radius: 100px;
-  font-size: 13px;
-  font-weight: 500;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
   cursor: pointer;
   transition: border-color var(--transition-fast);
   text-decoration: none;
@@ -555,8 +571,8 @@ body {
   display: inline-flex;
   align-items: center;
   padding: 8px 12px;
-  font-size: 14px;
-  font-weight: 400;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-regular);
   color: var(--cc-body);
   border-radius: 8px;
   transition: color var(--transition-fast), background-color var(--transition-fast);
@@ -575,8 +591,8 @@ body {
   justify-content: center;
   height: 36px;
   padding: 0 16px;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
   color: var(--cc-ink);
   border-radius: 100px;
   transition: background-color var(--transition-fast);
@@ -594,8 +610,8 @@ body {
   justify-content: center;
   height: 36px;
   padding: 0 16px;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
   background-color: var(--cc-primary);
   color: var(--cc-on-primary);
   border-radius: 100px;
@@ -614,8 +630,8 @@ body {
   display: inline-flex;
   align-items: center;
   padding: 4px 12px;
-  font-size: 12px;
-  font-weight: 600;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-semibold);
   border-radius: 100px;
   line-height: 1;
 }
@@ -628,7 +644,7 @@ body {
   background-color: var(--cc-canvas);
   border: 1px solid var(--cc-hairline);
   border-radius: 6px;
-  font-size: 14px;
+  font-size: var(--text-body-sm);
   color: var(--cc-ink);
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
   outline: none;
@@ -666,7 +682,7 @@ input:focus, select:focus, textarea:focus {
 /* ── Code ───────────────────────────────────────────────── */
 .cc-code {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: var(--text-body-sm);
   padding: 4px 8px;
   background-color: var(--cc-canvas-soft-2);
   border-radius: 4px;
@@ -675,10 +691,10 @@ input:focus, select:focus, textarea:focus {
 
 .cc-code-block {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: var(--text-body-sm);
   padding: 16px;
-  background-color: #1a1a2e;
-  color: #e0e0e0;
+  background-color: var(--color-canvas-soft-2);
+  color: var(--color-body);
   border-radius: 8px;
   overflow-x: auto;
   line-height: 1.6;

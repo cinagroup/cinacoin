@@ -70,9 +70,9 @@ function getStatusColor(status: string): string {
 // ============================================================================
 
 const SIZE_STYLES: Record<string, React.CSSProperties> = {
-  sm: { padding: '4px 12px', fontSize: '12px', borderRadius: '4px' },
-  md: { padding: '8px 16px', fontSize: '12px', borderRadius: '8px' },
-  lg: { padding: '8px 20px', fontSize: '16px', borderRadius: '8px' },
+  sm: { padding: '4px 12px', fontSize: 'var(--text-caption)', borderRadius: '4px' },
+  md: { padding: '8px 16px', fontSize: 'var(--text-caption)', borderRadius: '8px' },
+  lg: { padding: '8px 20px', fontSize: 'var(--text-body-md)', borderRadius: '8px' },
 };
 
 function getVariantStyles(variant: string): React.CSSProperties {
@@ -147,7 +147,7 @@ export function ConnectButton({
           ...SIZE_STYLES[size],
           ...getVariantStyles(variant),
           cursor: 'pointer',
-          fontWeight: 600,
+          fontWeight: "var(--weight-semibold)",
           display: 'inline-flex',
           alignItems: 'center',
           gap: '8px',
@@ -184,7 +184,7 @@ export function ConnectButton({
         ...SIZE_STYLES[size],
         ...getVariantStyles('ghost'),
         cursor: 'pointer',
-        fontWeight: 500,
+        fontWeight: "var(--weight-medium)",
         display: 'inline-flex',
         alignItems: 'center',
         gap: '8px',
@@ -220,7 +220,7 @@ export function ConnectButton({
       {/* Chain name */}
       {showChain && (
         <span style={{
-          fontSize: '11px',
+          fontSize: 'var(--text-caption)',
           opacity: 0.6,
           background: 'var(--cc-surface, rgba(255,255,255,0.05))',
           padding: '0px 4px',

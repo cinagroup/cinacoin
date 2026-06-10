@@ -35,8 +35,8 @@ export function Brand({
       />
       <span
         style={{
-          fontSize: '16px',
-          fontWeight: 600,
+          fontSize: 'var(--text-body-md)',
+          fontWeight: "var(--weight-semibold)",
           letterSpacing: '-0.3px',
           color: 'var(--cc-ink, #171717)',
           whiteSpace: 'nowrap',
@@ -44,7 +44,7 @@ export function Brand({
       >
         Cinacoin
         {sublabel ? (
-          <span style={{ color: 'var(--cc-muted, #888888)', fontWeight: 400 }}> {sublabel}</span>
+          <span style={{ color: 'var(--cc-muted, #888888)', fontWeight: "var(--weight-regular)" }}> {sublabel}</span>
         ) : null}
       </span>
     </>

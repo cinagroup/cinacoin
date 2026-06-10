@@ -87,11 +87,11 @@ export function generateDashboard(
       gap: 12px;
     }
     .header h1 {
-      font-size: 24px;
+      font-size: var(--text-display-md);
       font-weight: 600;
     }
     .header .badge {
-      font-size: 12px;
+      font-size: var(--text-caption);
       padding: 4px 12px;
       border-radius: 999px;
       font-weight: 600;
@@ -100,7 +100,7 @@ export function generateDashboard(
     .badge-degraded { background: rgba(234,179,8,0.15); color: var(--yellow); }
     .badge-down { background: rgba(239,68,68,0.15); color: var(--red); }
     .last-updated {
-      font-size: 12px;
+      font-size: var(--text-caption);
       color: var(--text-muted);
       margin-bottom: 24px;
     }
@@ -118,16 +118,16 @@ export function generateDashboard(
       text-align: center;
     }
     .summary-card .value {
-      font-size: 36px;
+      font-size: var(--text-display-lg);
       font-weight: 600;
     }
     .summary-card .label {
-      font-size: 13px;
+      font-size: var(--text-body-sm);
       color: var(--text-muted);
       margin-top: 4px;
     }
     .section-title {
-      font-size: 18px;
+      font-size: var(--text-body-lg);
       font-weight: 600;
       margin-bottom: 16px;
       display: flex;
@@ -155,8 +155,8 @@ export function generateDashboard(
       padding: 16px 20px;
       border-bottom: 1px solid var(--border);
     }
-    .service-name { font-weight: 600; font-size: 15px; }
-    .service-url { font-size: 11px; color: var(--text-muted); margin-top: 0px; }
+    .service-name { font-weight: 600; font-size: var(--text-body-sm); }
+    .service-url { font-size: var(--text-caption); color: var(--text-muted); margin-top: 0px; }
     .status-dot {
       width: 10px; height: 10px;
       border-radius: 50%;
@@ -173,7 +173,7 @@ export function generateDashboard(
       justify-content: space-between;
       align-items: center;
       padding: 4px 0;
-      font-size: 13px;
+      font-size: var(--text-body-sm);
     }
     .metric-label { color: var(--text-muted); }
     .metric-value { font-weight: 600; font-variant-numeric: tabular-nums; }
@@ -200,12 +200,12 @@ export function generateDashboard(
       padding: 8px 16px;
       text-align: left;
       border-bottom: 1px solid var(--border);
-      font-size: 13px;
+      font-size: var(--text-body-sm);
     }
     .alert-table th {
       color: var(--text-muted);
       font-weight: 500;
-      font-size: 11px;
+      font-size: var(--text-caption);
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
@@ -213,7 +213,7 @@ export function generateDashboard(
       display: inline-block;
       padding: 0px 8px;
       border-radius: 4px;
-      font-size: 11px;
+      font-size: var(--text-caption);
       font-weight: 600;
       text-transform: uppercase;
     }
@@ -222,7 +222,7 @@ export function generateDashboard(
     .severity-info { background: rgba(59,130,246,0.2); color: var(--blue); }
     .severity-resolved { background: rgba(34,197,94,0.15); color: var(--green); }
     .uptime-pct {
-      font-size: 14px;
+      font-size: var(--text-body-sm);
       font-weight: 600;
       font-variant-numeric: tabular-nums;
     }
@@ -234,7 +234,7 @@ export function generateDashboard(
       margin-bottom: 16px;
     }
     .chart-section h3 {
-      font-size: 14px;
+      font-size: var(--text-body-sm);
       font-weight: 600;
       margin-bottom: 12px;
     }
@@ -246,7 +246,7 @@ export function generateDashboard(
     }
     .chart-bar-label {
       width: 140px;
-      font-size: 12px;
+      font-size: var(--text-caption);
       color: var(--text-muted);
       text-align: right;
       flex-shrink: 0;
@@ -265,7 +265,7 @@ export function generateDashboard(
       display: flex;
       align-items: center;
       padding-left: 8px;
-      font-size: 11px;
+      font-size: var(--text-caption);
       font-weight: 600;
       color: white;
       min-width: fit-content;
@@ -273,7 +273,7 @@ export function generateDashboard(
     }
     .chart-bar-value {
       width: 60px;
-      font-size: 12px;
+      font-size: var(--text-caption);
       font-weight: 600;
       text-align: right;
       flex-shrink: 0;
@@ -386,7 +386,7 @@ export function generateDashboard(
           </div>
           <div class="metric-row">
             <span class="metric-label">Last Checked</span>
-            <span class="metric-value" style="font-size: 11px; color: var(--text-muted)">${s.lastChecked}</span>
+            <span class="metric-value" style="font-size: var(--text-caption); color: var(--text-muted)">${s.lastChecked}</span>
           </div>
         </div>
       </div>`;
@@ -459,7 +459,7 @@ export function generateDashboard(
     </div>`}
   </div>
 
-  <div style="margin-top: 32px; text-align: center; color: var(--text-muted); font-size: 12px;">
+  <div style="margin-top: 32px; text-align: center; color: var(--text-muted); font-size: var(--text-caption);">
     Cinacoin Monitoring Dashboard · Generated at ${now} · Auto-refresh enabled
   </div>
 

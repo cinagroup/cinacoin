@@ -144,7 +144,7 @@ export const Modal: React.FC<ModalProps> = ({
                     style={{
                       margin: 0,
                       fontSize: 'var(--cc-text-lg)',
-                      fontWeight: 600,
+                      fontWeight: "var(--weight-semibold)",
                       color: '#111827',
                     }}
                   >
@@ -159,7 +159,7 @@ export const Modal: React.FC<ModalProps> = ({
                       background: 'none',
                       border: 'none',
                       cursor: 'pointer',
-                      fontSize: '20px',
+                      fontSize: 'var(--text-display-sm)',
                       color: '#6b7280',
                       padding: '4px 8px',
                       borderRadius: '6px',

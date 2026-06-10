@@ -15,9 +15,9 @@ const SIZE_MAP: Record<
   NonNullable<WalletButtonProps['size']>,
   { padding: string; icon: string; fontSize: string; gap: string; borderRadius: string }
 > = {
-  sm: { padding: '4px 8px', icon: '20px', fontSize: '12px', gap: '4px', borderRadius: '8px' },
-  md: { padding: '8px 16px', icon: '24px', fontSize: '16px', gap: '8px', borderRadius: '8px' },
-  lg: { padding: '12px 24px', icon: '28px', fontSize: '16px', gap: '8px', borderRadius: '12px' },
+  sm: { padding: '4px 8px', icon: '20px', fontSize: 'var(--text-caption)', gap: '4px', borderRadius: '8px' },
+  md: { padding: '8px 16px', icon: '24px', fontSize: 'var(--text-body-md)', gap: '8px', borderRadius: '8px' },
+  lg: { padding: '12px 24px', icon: '28px', fontSize: 'var(--text-body-md)', gap: '8px', borderRadius: '12px' },
 };
 
 export const WalletButton: React.FC<WalletButtonProps> = ({
@@ -74,7 +74,7 @@ export const WalletButton: React.FC<WalletButtonProps> = ({
     opacity: disabled || isLoading ? 0.6 : 1,
     transition: 'all 0.15s ease',
     fontFamily: 'inherit',
-    fontWeight: 500,
+    fontWeight: "var(--weight-medium)",
     letterSpacing: '-0.01em',
     lineHeight: 1,
     width: isRound ? sizes.icon : 'auto',

@@ -166,9 +166,9 @@ function getButtonStyles(
   };
 
   const sizes = {
-    sm: { padding: "4px 12px", fontSize: "12px" },
-    md: { padding: "8px 16px", fontSize: "12px" },
-    lg: { padding: "12px 24px", fontSize: "16px" },
+    sm: { padding: "4px 12px", fontSize: "var(--text-caption)" },
+    md: { padding: "8px 16px", fontSize: "var(--text-caption)" },
+    lg: { padding: "12px 24px", fontSize: "var(--text-body-md)" },
   };
 
   return {
@@ -177,7 +177,7 @@ function getButtonStyles(
     color: colors.text,
     border: `1px solid ${colors.border}`,
     borderRadius: "8px",
-    fontWeight: "600",
+    fontWeight: "var(--weight-semibold)",
     cursor: "pointer",
     fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
     transition: "all 150ms ease",

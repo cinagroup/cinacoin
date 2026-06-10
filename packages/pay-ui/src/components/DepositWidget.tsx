@@ -207,7 +207,7 @@ export function DepositWidget(props: DepositWidgetProps): React.ReactElement {
         style={{
           margin: "0 0 16px 0",
           fontSize: "var(--cc-text-lg)",
-          fontWeight: 600,
+          fontWeight: "var(--weight-semibold)",
           color: "var(--ocx-text-primary)",
         }}
       >
@@ -220,7 +220,7 @@ export function DepositWidget(props: DepositWidgetProps): React.ReactElement {
           style={{
             display: "block",
             fontSize: "var(--cc-text-sm)",
-            fontWeight: 500,
+            fontWeight: "var(--weight-medium)",
             color: "var(--ocx-text-secondary)",
             marginBottom: "8px",
           }}
@@ -273,7 +273,7 @@ export function DepositWidget(props: DepositWidgetProps): React.ReactElement {
           style={{
             display: "block",
             fontSize: "var(--cc-text-sm)",
-            fontWeight: 500,
+            fontWeight: "var(--weight-medium)",
             color: "var(--ocx-text-secondary)",
             marginBottom: "8px",
           }}
@@ -403,7 +403,7 @@ export function DepositWidget(props: DepositWidgetProps): React.ReactElement {
               <div
                 style={{
                   fontSize: "var(--cc-text-sm)",
-                  fontWeight: 600,
+                  fontWeight: "var(--weight-semibold)",
                   color:
                     depositStatus === "completed"
                       ? "var(--ocx-success)"

@@ -58,7 +58,7 @@
   --ifm-font-family-monospace: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
   --ifm-heading-font-family: var(--ifm-font-family-base);
 
-  --ifm-heading-font-weight: 600;
+  --ifm-heading-font-weight: var(--weight-semibold);
   --ifm-font-weight-semibold: 500;
 
   --ifm-h1-font-size: 2.5rem;
@@ -249,14 +249,14 @@ html[data-theme='dark'] .navbar {
 }
 
 .navbar__title {
-  font-weight: 600;
-  font-size: 14px;
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-body-sm);
   letter-spacing: -0.02em;
 }
 
 .navbar__item {
-  font-size: 14px;
-  font-weight: 400;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-regular);
   border-radius: 9999px;
   transition: background-color 0.15s ease, color 0.15s ease;
 }
@@ -271,15 +271,15 @@ html[data-theme='dark'] .navbar__item:hover {
 
 /* Pill-shaped navbar CTA buttons */
 .navbar__items--right .navbar__item {
-  font-weight: 500;
+  font-weight: var(--weight-medium);
 }
 
 /* GitHub nav CTA — pill button per DESIGN.md nav-cta pattern */
 .navbar-github-link {
   background-color: var(--cc-ink);
   color: var(--cc-canvas) !important;
-  font-weight: 500;
-  font-size: 14px;
+  font-weight: var(--weight-medium);
+  font-size: var(--text-body-sm);
   line-height: 20px;
   padding: 4px 12px;
   border-radius: 6px;
@@ -311,7 +311,7 @@ html[data-theme='dark'] .theme-doc-sidebar-container {
 }
 
 .menu__link {
-  font-size: 14px;
+  font-size: var(--text-body-sm);
   line-height: 1.4;
   border-radius: 6px;
   padding: 8px 12px;
@@ -336,7 +336,7 @@ html[data-theme='dark'] .menu__link:hover {
 .menu__link--active {
   background-color: var(--cc-canvas-soft);
   color: var(--cc-ink);
-  font-weight: 500;
+  font-weight: var(--weight-medium);
 }
 
 html[data-theme='dark'] .menu__link--active {
@@ -369,7 +369,7 @@ html[data-theme='dark'] .menu__caret:hover {
 }
 
 .table-of-contents__link {
-  font-size: 13px;
+  font-size: var(--text-body-sm);
   color: var(--cc-muted);
   border-radius: 6px;
   padding: 4px 8px;
@@ -383,7 +383,7 @@ html[data-theme='dark'] .menu__caret:hover {
 
 .table-of-contents__link--active {
   color: var(--cc-ink);
-  font-weight: 500;
+  font-weight: var(--weight-medium);
 }
 
 /* ──────────────────────────────────────────────
@@ -438,7 +438,7 @@ html[data-theme='dark'] .markdown a:hover {
   border: 1px solid var(--cc-hairline);
   border-radius: 6px;
   font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
-  font-size: 13px;
+  font-size: var(--text-body-sm);
   line-height: 1.5;
   color: var(--cc-ink);
   padding: 4px 8px;
@@ -455,7 +455,7 @@ html[data-theme='dark'] .markdown code {
    ────────────────────────────────────────────── */
 .prism-code {
   font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace !important;
-  font-size: 13px !important;
+  font-size: var(--text-body-sm) !important;
   line-height: 1.6 !important;
   border-radius: 8px !important;
 }
@@ -512,14 +512,14 @@ html[data-theme='dark'] thead {
 table th {
   border-bottom: 1px solid var(--cc-hairline);
   color: var(--cc-ink);
-  font-weight: 500;
-  font-size: 14px;
+  font-weight: var(--weight-medium);
+  font-size: var(--text-body-sm);
 }
 
 table td {
   border-top: 1px solid var(--cc-canvas-soft-2);
   color: var(--cc-body);
-  font-size: 14px;
+  font-size: var(--text-body-sm);
 }
 
 html[data-theme='dark'] table th {
@@ -555,15 +555,15 @@ html[data-theme='dark'] .pagination-nav__link:hover {
 }
 
 .pagination-nav__sublabel {
-  font-size: 12px;
+  font-size: var(--text-caption);
   font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
   color: var(--cc-muted);
   margin-bottom: 4px;
 }
 
 .pagination-nav__label {
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
   color: var(--cc-ink);
 }
 
@@ -575,7 +575,7 @@ html[data-theme='dark'] .pagination-nav__label {
    Breadcrumbs
    ────────────────────────────────────────────── */
 .breadcrumbs__link {
-  font-size: 13px;
+  font-size: var(--text-body-sm);
   color: var(--cc-body);
   border-radius: 6px;
   padding: 4px 8px;
@@ -590,7 +590,7 @@ html[data-theme='dark'] .pagination-nav__label {
 .breadcrumbs__item--active .breadcrumbs__link {
   background-color: transparent;
   color: var(--cc-ink);
-  font-weight: 500;
+  font-weight: var(--weight-medium);
 }
 
 html[data-theme='dark'] .breadcrumbs__link {
@@ -652,9 +652,9 @@ html[data-theme='dark'] .footer {
 }
 
 .footer__title {
-  font-size: 12px;
+  font-size: var(--text-caption);
   font-family: var(--ifm-font-family-base);
-  font-weight: 500;
+  font-weight: var(--weight-medium);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--cc-muted);
@@ -662,7 +662,7 @@ html[data-theme='dark'] .footer {
 }
 
 .footer__item {
-  font-size: 14px;
+  font-size: var(--text-body-sm);
   margin-bottom: 12px;
 }
 
@@ -695,14 +695,14 @@ html[data-theme='dark'] .footer__link-item:hover {
 }
 
 .footer-newsletter h4 {
-  font-size: 14px;
-  font-weight: 600;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
   color: var(--cc-ink);
   margin-bottom: 8px;
 }
 
 .footer-newsletter p {
-  font-size: 12px;
+  font-size: var(--text-caption);
   color: var(--cc-muted);
   margin-bottom: 16px;
 }
@@ -715,7 +715,7 @@ html[data-theme='dark'] .footer__link-item:hover {
 .footer-newsletter-form input[type="email"] {
   flex: 1;
   padding: 8px 12px;
-  font-size: 14px;
+  font-size: var(--text-body-sm);
   border: 1px solid var(--cc-hairline);
   border-radius: 6px;
   background-color: var(--cc-canvas);
@@ -740,8 +740,8 @@ html[data-theme='dark'] .footer-newsletter-form input[type="email"]:focus {
 
 .footer-newsletter-form button {
   padding: 8px 16px;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
   background-color: var(--cc-ink);
   color: var(--cc-canvas);
   border: none;
@@ -773,18 +773,18 @@ html[data-theme='dark'] .footer-newsletter-form button {
   align-items: center;
   gap: 8px;
   color: var(--cc-ink);
-  font-weight: 600;
-  font-size: 14px;
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-body-sm);
 }
 
 .footer-bottom-copyright {
-  font-size: 12px;
+  font-size: var(--text-caption);
   color: var(--cc-muted);
 }
 
 /* Copyright row cleanup */
 .footer__copyright {
-  font-size: 12px;
+  font-size: var(--text-caption);
   color: var(--cc-muted);
   margin-top: 0;
   padding-top: 0;
@@ -832,8 +832,8 @@ html[data-theme='dark'] .clean-btn.theme-back-to-top-button {
 }
 
 .tabs__item {
-  font-size: 14px;
-  font-weight: 400;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-regular);
   border-radius: 64px;
   padding: 8px 16px;
   color: var(--cc-body);
@@ -849,7 +849,7 @@ html[data-theme='dark'] .clean-btn.theme-back-to-top-button {
 .tabs__item--active {
   background-color: var(--cc-canvas-soft-2);
   color: var(--cc-ink);
-  font-weight: 500;
+  font-weight: var(--weight-medium);
 }
 
 html[data-theme='dark'] .tabs {
@@ -912,10 +912,10 @@ html[data-theme='dark'] ::-webkit-scrollbar-thumb:hover {
    Badge / Pill
    ────────────────────────────────────────────── */
 .badge {
-  font-size: 12px;
+  font-size: var(--text-caption);
   border-radius: 9999px;
   padding: 4px 12px;
-  font-weight: 400;
+  font-weight: var(--weight-regular);
 }
 
 /* ──────────────────────────────────────────────
@@ -941,7 +941,7 @@ html[data-theme='dark'] ::-webkit-scrollbar-thumb:hover {
 
 .landing-hero h1 {
   font-size: 2.75rem;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   letter-spacing: -0.05em;
   line-height: 1.1;
   color: var(--cc-ink);
@@ -974,8 +974,8 @@ html[data-theme='dark'] .landing-hero p {
   padding: 0 16px;
   height: 40px;
   line-height: 40px;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
   border-radius: 100px;
   text-decoration: none;
   transition: opacity 0.15s ease, background-color 0.15s ease, color 0.15s ease;
@@ -1060,14 +1060,14 @@ html[data-theme='dark'] .landing-btn--secondary:hover {
 
 .landing-card h3 {
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   color: var(--cc-ink);
   margin: 0 0 8px;
   letter-spacing: -0.02em;
 }
 
 .landing-card p {
-  font-size: 14px;
+  font-size: var(--text-body-sm);
   color: var(--cc-body);
   margin: 0;
   line-height: 1.5;

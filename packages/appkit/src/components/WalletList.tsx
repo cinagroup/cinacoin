@@ -19,8 +19,8 @@ const styles = {
     marginBottom: '16px',
   },
   sectionTitle: {
-    fontSize: '12px',
-    fontWeight: 500,
+    fontSize: 'var(--text-caption)',
+    fontWeight: "var(--weight-medium)",
     color: 'var(--cc-ink, #1a1a2e)',
     opacity: 0.5,
     textTransform: 'uppercase' as const,
@@ -83,15 +83,15 @@ const styles = {
     backgroundColor: 'var(--cc-surface, #f5f5f5)',
   },
   walletName: {
-    fontSize: '13px',
-    fontWeight: 500,
+    fontSize: 'var(--text-body-sm)',
+    fontWeight: "var(--weight-medium)",
     textAlign: 'center' as const,
     lineHeight: 1.2,
     wordBreak: 'break-word' as const,
   },
   walletNameRow: {
-    fontSize: '14px',
-    fontWeight: 500,
+    fontSize: 'var(--text-body-sm)',
+    fontWeight: "var(--weight-medium)",
     flex: 1,
     textAlign: 'left' as const,
   },
@@ -105,8 +105,8 @@ const styles = {
     backgroundColor: 'var(--cc-success, #22c55e)',
   },
   installedBadge: {
-    fontSize: '10px',
-    fontWeight: 600,
+    fontSize: 'var(--text-caption)',
+    fontWeight: "var(--weight-semibold)",
     color: 'var(--cc-success, #22c55e)',
     backgroundColor: 'color-mix(in srgb, var(--cc-success, #22c55e) 12%, transparent)',
     padding: '0px 4px',
@@ -127,7 +127,7 @@ const styles = {
     padding: '24px 16px',
     color: 'var(--cc-ink, #1a1a2e)',
     opacity: 0.5,
-    fontSize: '14px',
+    fontSize: 'var(--text-body-sm)',
   },
   footer: {
     textAlign: 'center' as const,
@@ -136,7 +136,7 @@ const styles = {
     marginTop: '12px',
   },
   footerText: {
-    fontSize: '13px',
+    fontSize: 'var(--text-body-sm)',
     color: 'var(--cc-ink, #1a1a2e)',
     opacity: 0.5,
     margin: 0,
@@ -144,11 +144,11 @@ const styles = {
   footerLink: {
     color: 'var(--cc-accent, #3b82f6)',
     textDecoration: 'none',
-    fontWeight: 500,
+    fontWeight: "var(--weight-medium)",
     cursor: 'pointer',
     border: 'none',
     background: 'none',
-    fontSize: '13px',
+    fontSize: 'var(--text-body-sm)',
     fontFamily: 'inherit',
     padding: 0,
   },
@@ -191,7 +191,7 @@ function WalletGridItem({
       {isConnecting ? (
         <div style={styles.spinner} />
       ) : imgError ? (
-        <div style={{ ...styles.walletIcon, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px' }}>
+        <div style={{ ...styles.walletIcon, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 'var(--text-display-sm)' }}>
           🦊
         </div>
       ) : (
@@ -242,7 +242,7 @@ function WalletListItem({
           <div style={styles.spinner} />
         </div>
       ) : imgError ? (
-        <div style={{ ...styles.walletIconSmall, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px' }}>
+        <div style={{ ...styles.walletIconSmall, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 'var(--text-body-md)' }}>
           🦊
         </div>
       ) : (

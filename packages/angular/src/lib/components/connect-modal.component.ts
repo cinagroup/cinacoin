@@ -110,14 +110,14 @@ const DEFAULT_WALLETS: WalletOption[] = [
     .cina-modal-header h2 {
       margin: 0;
       color: #fff;
-      font-size: 18px;
+      font-size: var(--text-body-lg);
       font-weight: 600;
     }
     .cina-close-btn {
       background: none;
       border: none;
       color: #888;
-      font-size: 24px;
+      font-size: var(--text-display-md);
       cursor: pointer;
       padding: 4px 8px;
       border-radius: 6px;
@@ -148,17 +148,17 @@ const DEFAULT_WALLETS: WalletOption[] = [
       background: rgba(255, 255, 255, 0.08);
     }
     .cina-wallet-icon {
-      font-size: 24px;
+      font-size: var(--text-display-md);
       width: 32px;
       text-align: center;
     }
     .cina-wallet-name {
       flex: 1;
-      font-size: 15px;
+      font-size: var(--text-body-sm);
       font-weight: 500;
     }
     .cina-badge {
-      font-size: 11px;
+      font-size: var(--text-caption);
       padding: 0px 8px;
       background: rgba(59, 130, 246, 0.2);
       color: #60a5fa;
@@ -171,7 +171,7 @@ const DEFAULT_WALLETS: WalletOption[] = [
     }
     .cina-footer-text {
       margin: 0;
-      font-size: 12px;
+      font-size: var(--text-caption);
       color: #666;
     }
   `],

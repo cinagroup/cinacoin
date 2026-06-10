@@ -91,7 +91,7 @@ function DonutChart({ data, size = 200 }: { data: ChainData[]; size?: number }) 
         y={cy - 6}
         textAnchor="middle"
         className="fill-ink"
-        style={{ fontSize: "var(--cc-text-lg)", fontWeight: 600 }}
+        style={{ fontSize: "var(--cc-text-lg)", fontWeight: "var(--weight-semibold)" }}
       >
         {total}%
       </text>

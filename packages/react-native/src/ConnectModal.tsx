@@ -481,11 +481,11 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#334155', // design-token: semantic.border (dark)
   },
-  headerTitle: { fontSize: 20, fontWeight: '600' },
+  headerTitle: { fontSize: 20, fontWeight: 'var(--weight-semibold)' },
   closeBtn: { padding: 12, minHeight: 44, minWidth: 44 }, // a11y: min touch target 44×44
   tabBar: { flexDirection: 'row', gap: 8, padding: 16 },
   tab: { flex: 1, padding: 8, minHeight: 44, borderWidth: 1, borderRadius: 8, justifyContent: 'center', alignItems: 'center' }, // a11y: min touch target
-  tabText: { fontSize: 14, fontWeight: '500' },
+  tabText: { fontSize: 14, fontWeight: 'var(--weight-medium)' },
   content: { padding: 16 },
   walletGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 12 },
   walletCard: {
@@ -507,12 +507,12 @@ const styles = StyleSheet.create({
   },
   walletIconImage: { width: 24, height: 24 },
   walletIconFallback: { fontSize: 20 },
-  walletName: { fontSize: 14, fontWeight: '500', textAlign: 'center' },
+  walletName: { fontSize: 14, fontWeight: 'var(--weight-medium)', textAlign: 'center' },
   walletDesc: { fontSize: 12, textAlign: 'center' },
-  recommendedBadge: { fontSize: 12, fontWeight: '500' },
+  recommendedBadge: { fontSize: 12, fontWeight: 'var(--weight-medium)' },
   altActions: { gap: 12 },
   altBtn: { padding: 12, minHeight: 44, borderWidth: 1, borderRadius: 12, alignItems: 'center' }, // a11y: min touch target
-  altBtnText: { fontSize: 14, fontWeight: '500' },
+  altBtnText: { fontSize: 14, fontWeight: 'var(--weight-medium)' },
   emailInput: { padding: 12, minHeight: 44, borderWidth: 1, borderRadius: 12, fontSize: 14 }, // a11y: min touch target
   scanContainer: { alignItems: 'center', padding: 32 },
   scanTitle: { fontSize: 18, marginBottom: 16 },

@@ -131,17 +131,17 @@ export function KycModal({
         <div style={{ textAlign: 'center', padding: '24px 0' }}>
           <div
             style={{
-              fontSize: '48px',
+              fontSize: 'var(--text-display-xl)',
               marginBottom: '12px',
               color: STATUS_COLORS[stage],
             }}
           >
             {stage === 'verified' ? '✅' : '❌'}
           </div>
-          <p style={{ fontSize: '16px', fontWeight: 600, marginBottom: '8px' }}>
+          <p style={{ fontSize: 'var(--text-body-md)', fontWeight: "var(--weight-semibold)", marginBottom: '8px' }}>
             {STATUS_LABELS[stage]}
           </p>
-          <p style={{ fontSize: '13px', color: '#6b7280' }}>
+          <p style={{ fontSize: 'var(--text-body-sm)', color: '#6b7280' }}>
             {stage === 'verified'
               ? 'Your identity has been verified. You can transact freely.'
               : 'Verification was not successful. Please contact support for next steps.'}
@@ -157,17 +157,17 @@ export function KycModal({
         <div style={{ textAlign: 'center', padding: '24px 0' }}>
           <div
             style={{
-              fontSize: '48px',
+              fontSize: 'var(--text-display-xl)',
               marginBottom: '12px',
               color: STATUS_COLORS[stage],
             }}
           >
             {stage === 'submitted' ? '📤' : '🔍'}
           </div>
-          <p style={{ fontSize: '16px', fontWeight: 600, marginBottom: '8px' }}>
+          <p style={{ fontSize: 'var(--text-body-md)', fontWeight: "var(--weight-semibold)", marginBottom: '8px' }}>
             {STATUS_LABELS[stage]}
           </p>
-          <p style={{ fontSize: '13px', color: '#6b7280' }}>
+          <p style={{ fontSize: 'var(--text-body-sm)', color: '#6b7280' }}>
             {stage === 'submitted'
               ? 'Documents submitted successfully. We will review them shortly.'
               : 'Your documents are under review. This typically takes 1–3 business days.'}
@@ -182,7 +182,7 @@ export function KycModal({
   return (
     <ModalShell title="KYC Verification" onClose={onClose}>
       <div style={{ padding: '16px 0' }}>
-        <p style={{ fontSize: '13px', color: '#6b7280', marginBottom: '16px' }}>
+        <p style={{ fontSize: 'var(--text-body-sm)', color: '#6b7280', marginBottom: '16px' }}>
           Please upload the documents below to verify your identity. We partner
           with SumSub / Onfido to process your verification securely.
         </p>
@@ -241,15 +241,15 @@ export function KycModal({
             color: '#fff',
             border: 'none',
             borderRadius: '6px',
-            fontSize: '14px',
-            fontWeight: 600,
+            fontSize: 'var(--text-body-sm)',
+            fontWeight: "var(--weight-semibold)",
             cursor: allRequired ? 'pointer' : 'not-allowed',
           }}
         >
           Submit for Verification
         </button>
 
-        <p style={{ fontSize: '11px', color: '#9ca3af', marginTop: '12px', textAlign: 'center' }}>
+        <p style={{ fontSize: 'var(--text-caption)', color: '#9ca3af', marginTop: '12px', textAlign: 'center' }}>
           Powered by SumSub / Onfido. Your data is encrypted and processed in compliance with GDPR.
         </p>
       </div>
@@ -302,13 +302,13 @@ function ModalShell({ title, onClose, children }: ModalShellProps): React.ReactE
             borderBottom: '1px solid #e5e7eb',
           }}
         >
-          <h2 style={{ margin: 0, fontSize: '16px', fontWeight: 600 }}>{title}</h2>
+          <h2 style={{ margin: 0, fontSize: 'var(--text-body-md)', fontWeight: "var(--weight-semibold)" }}>{title}</h2>
           <button
             onClick={onClose}
             style={{
               background: 'none',
               border: 'none',
-              fontSize: '20px',
+              fontSize: 'var(--text-display-sm)',
               cursor: 'pointer',
               color: '#6b7280',
             }}
@@ -332,7 +332,7 @@ interface FileFieldProps {
 function FileField({ label, file, onChange, accept }: FileFieldProps): React.ReactElement {
   return (
     <div style={{ marginBottom: '12px' }}>
-      <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, marginBottom: '4px' }}>
+      <label style={{ display: 'block', fontSize: 'var(--text-body-sm)', fontWeight: "var(--weight-semibold)", marginBottom: '4px' }}>
         {label}
       </label>
       <label
@@ -344,7 +344,7 @@ function FileField({ label, file, onChange, accept }: FileFieldProps): React.Rea
           border: '1px dashed #d1d5db',
           borderRadius: '6px',
           cursor: 'pointer',
-          fontSize: '13px',
+          fontSize: 'var(--text-body-sm)',
           color: file ? '#111827' : '#6b7280',
           background: file ? '#f0fdf4' : '#f9fafb',
         }}

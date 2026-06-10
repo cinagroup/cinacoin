@@ -13,7 +13,7 @@ const btnStyle: React.CSSProperties = {
   background: "linear-gradient(135deg, #0f3460, #16213e)",
   color: "#fff",
   fontSize: 14,
-  fontWeight: 600,
+  fontWeight: "var(--weight-semibold)",
   cursor: "pointer",
   transition: "transform 0.1s, box-shadow 0.2s",
 };

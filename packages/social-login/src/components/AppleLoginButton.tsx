@@ -173,9 +173,9 @@ export function AppleLoginButton({
   }, [clientId, redirectUri, teamId, keyId, privateKey, scopes, disabled, loading, redirect, onSuccess, onError, onStart]);
 
   const sizes = {
-    sm: { height: '36px', fontSize: '13px', iconSize: 16, padding: '0 12px' },
-    md: { height: '44px', fontSize: '14px', iconSize: 20, padding: '0 16px' },
-    lg: { height: '52px', fontSize: '16px', iconSize: 24, padding: '0 20px' },
+    sm: { height: '36px', fontSize: 'var(--text-body-sm)', iconSize: 16, padding: '0 12px' },
+    md: { height: '44px', fontSize: 'var(--text-body-sm)', iconSize: 20, padding: '0 16px' },
+    lg: { height: '52px', fontSize: 'var(--text-body-md)', iconSize: 24, padding: '0 20px' },
   };
 
   const s = sizes[size];
@@ -189,7 +189,7 @@ export function AppleLoginButton({
     height: s.height,
     fontSize: s.fontSize,
     fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-    fontWeight: 500,
+    fontWeight: "var(--weight-medium)",
     padding: s.padding,
     borderRadius: '8px',
     border: isDark ? 'none' : `1px solid ${APPLE_COLORS.border}`,

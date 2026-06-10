@@ -492,7 +492,7 @@ if (typeof document !== 'undefined') {
         margin-top: 8px;
       }
       .cinacoin-appkit-section-title {
-        font-size: 12px;
+        font-size: var(--text-caption);
         font-weight: 600;
         color: var(--cc-muted, #6b7280);
         text-transform: uppercase;
@@ -505,7 +505,7 @@ if (typeof document !== 'undefined') {
         text-align: center;
       }
       .cinacoin-appkit-footer a {
-        font-size: 13px;
+        font-size: var(--text-body-sm);
         color: var(--cc-link, #3b82f6);
         text-decoration: none;
       }
@@ -524,18 +524,18 @@ if (typeof document !== 'undefined') {
         to { transform: rotate(360deg); }
       }
       .cinacoin-appkit-connecting-text {
-        font-size: 16px;
+        font-size: var(--text-body-md);
         font-weight: 500;
         color: var(--cc-ink, #111827);
         margin: 0;
       }
       .cinacoin-appkit-connecting-subtext {
-        font-size: 13px;
+        font-size: var(--text-body-sm);
         color: var(--cc-muted, #6b7280);
         margin: 4px 0 0;
       }
       .cinacoin-appkit-qr-text {
-        font-size: 14px;
+        font-size: var(--text-body-sm);
         color: var(--cc-body, #374151);
         text-align: center;
       }
@@ -547,7 +547,7 @@ if (typeof document !== 'undefined') {
       .cinacoin-appkit-btn {
         padding: 8px 16px;
         border-radius: 8px;
-        font-size: 14px;
+        font-size: var(--text-body-sm);
         font-weight: 500;
         cursor: pointer;
         transition: background-color 0.15s, color 0.15s;

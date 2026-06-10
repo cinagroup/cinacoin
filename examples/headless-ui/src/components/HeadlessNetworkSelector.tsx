@@ -125,7 +125,7 @@ export function HeadlessNetworkSelector({
           borderRadius: 8,
           cursor: 'pointer',
           fontSize: 14,
-          fontWeight: 500,
+          fontWeight: "var(--weight-medium)",
           color: '#1e293b',
         }}
       >
@@ -201,7 +201,7 @@ export function HeadlessNetworkSelector({
                     </span>
                   )}
                   {isCurrent && !isSwitching && (
-                    <span style={{ color: '#22c55e', fontWeight: 700 }}>
+                    <span style={{ color: '#22c55e', fontWeight: "var(--weight-bold)" }}>
                       ✓
                     </span>
                   )}

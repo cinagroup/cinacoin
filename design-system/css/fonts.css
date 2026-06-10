@@ -4,7 +4,7 @@
 @font-face {
   font-family: 'Geist';
   src: url('https://cdn.jsdelivr.net/npm/@vercel/geist-sans@1.0.0/fonts/geist-sans/Geist-Regular.woff2') format('woff2');
-  font-weight: 400;
+  font-weight: var(--weight-regular);
   font-style: normal;
   font-display: swap;
 }
@@ -12,7 +12,7 @@
 @font-face {
   font-family: 'Geist';
   src: url('https://cdn.jsdelivr.net/npm/@vercel/geist-sans@1.0.0/fonts/geist-sans/Geist-Medium.woff2') format('woff2');
-  font-weight: 500;
+  font-weight: var(--weight-medium);
   font-style: normal;
   font-display: swap;
 }
@@ -20,7 +20,7 @@
 @font-face {
   font-family: 'Geist';
   src: url('https://cdn.jsdelivr.net/npm/@vercel/geist-sans@1.0.0/fonts/geist-sans/Geist-SemiBold.woff2') format('woff2');
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   font-style: normal;
   font-display: swap;
 }
@@ -30,7 +30,7 @@
 @font-face {
   font-family: 'Geist Mono';
   src: url('https://cdn.jsdelivr.net/npm/@vercel/geist-mono@1.0.0/fonts/geist-mono/GeistMono-Regular.woff2') format('woff2');
-  font-weight: 400;
+  font-weight: var(--weight-regular);
   font-style: normal;
   font-display: swap;
 }
@@ -38,7 +38,7 @@
 @font-face {
   font-family: 'Geist Mono';
   src: url('https://cdn.jsdelivr.net/npm/@vercel/geist-mono@1.0.0/fonts/geist-mono/GeistMono-Medium.woff2') format('woff2');
-  font-weight: 500;
+  font-weight: var(--weight-medium);
   font-style: normal;
   font-display: swap;
 }
@@ -46,7 +46,7 @@
 @font-face {
   font-family: 'Geist Mono';
   src: url('https://cdn.jsdelivr.net/npm/@vercel/geist-mono@1.0.0/fonts/geist-mono/GeistMono-SemiBold.woff2') format('woff2');
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   font-style: normal;
   font-display: swap;
 }

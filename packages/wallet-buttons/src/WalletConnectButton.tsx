@@ -70,9 +70,9 @@ const SIZE_MAP: Record<
   WalletButtonSize,
   { padding: string; icon: string; fontSize: string; gap: string; borderRadius: string }
 > = {
-  sm: { padding: '4px 12px', icon: '16px', fontSize: '12px', gap: '4px', borderRadius: '8px' },
-  md: { padding: '8px 16px', icon: '20px', fontSize: '16px', gap: '8px', borderRadius: '8px' },
-  lg: { padding: '12px 24px', icon: '24px', fontSize: '16px', gap: '8px', borderRadius: '12px' },
+  sm: { padding: '4px 12px', icon: '16px', fontSize: 'var(--text-caption)', gap: '4px', borderRadius: '8px' },
+  md: { padding: '8px 16px', icon: '20px', fontSize: 'var(--text-body-md)', gap: '8px', borderRadius: '8px' },
+  lg: { padding: '12px 24px', icon: '24px', fontSize: 'var(--text-body-md)', gap: '8px', borderRadius: '12px' },
 };
 
 export const WalletConnectButton: React.FC<WalletConnectButtonProps> = ({
@@ -113,7 +113,7 @@ export const WalletConnectButton: React.FC<WalletConnectButtonProps> = ({
           borderRadius: sizes.borderRadius,
           backgroundColor: `#${WALLETCONNECT_BRAND}`,
           color: '#ffffff',
-          fontWeight: 500,
+          fontWeight: "var(--weight-medium)",
           fontFamily: 'inherit',
           cursor: disabled || isLoading ? 'not-allowed' : 'pointer',
           opacity: disabled || isLoading ? 0.6 : 1,
@@ -179,7 +179,7 @@ export const WalletConnectButton: React.FC<WalletConnectButtonProps> = ({
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            <h3 style={{ margin: '0 0 16px', fontSize: '16px' }}>Scan with your wallet</h3>
+            <h3 style={{ margin: '0 0 16px', fontSize: 'var(--text-body-md)' }}>Scan with your wallet</h3>
             <div style={{ width: '200px', height: '200px', margin: '0 auto 16px' }}>
               {/*
                 QR code rendering is delegated to the consuming app.
@@ -196,7 +196,7 @@ export const WalletConnectButton: React.FC<WalletConnectButtonProps> = ({
                   alignItems: 'center',
                   justifyContent: 'center',
                   color: '#64748b',
-                  fontSize: '14px',
+                  fontSize: 'var(--text-body-sm)',
                 }}
               >
                 QR Code Area
@@ -210,7 +210,7 @@ export const WalletConnectButton: React.FC<WalletConnectButtonProps> = ({
                 border: '1px solid #e2e8f0',
                 backgroundColor: '#ffffff',
                 cursor: 'pointer',
-                fontSize: '14px',
+                fontSize: 'var(--text-body-sm)',
               }}
             >
               Close

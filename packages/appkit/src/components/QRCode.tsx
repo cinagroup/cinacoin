@@ -40,7 +40,7 @@ const styles = {
   },
   instructions: {
     textAlign: 'center' as const,
-    fontSize: '13px',
+    fontSize: 'var(--text-body-sm)',
     color: 'var(--cc-ink, #1a1a2e)',
     opacity: 0.6,
     lineHeight: 1.5,
@@ -56,7 +56,7 @@ const styles = {
     backgroundColor: 'transparent',
     cursor: 'pointer',
     fontFamily: 'inherit',
-    fontSize: '12px',
+    fontSize: 'var(--text-caption)',
     color: 'var(--cc-ink, #1a1a2e)',
     opacity: 0.6,
     transition: 'opacity 0.15s ease',
@@ -189,7 +189,7 @@ export function QRCode({
   if (error) {
     return (
       <div style={styles.container}>
-        <div style={{ color: 'var(--cc-danger, #ef4444)', fontSize: '14px' }}>
+        <div style={{ color: 'var(--cc-danger, #ef4444)', fontSize: 'var(--text-body-sm)' }}>
           {error}
         </div>
       </div>

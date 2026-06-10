@@ -99,7 +99,7 @@ export const PasswordStrengthIndicator: React.FC<PasswordStrengthIndicatorProps>
         transition={{ duration: 0.2 }}
         style={{
           fontSize: 'var(--cc-text-xs)',
-          fontWeight: 500,
+          fontWeight: "var(--weight-medium)",
           color: strength.color,
         }}
       >

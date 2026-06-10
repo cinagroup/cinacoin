@@ -84,8 +84,8 @@ const styles = {
   },
   label: {
     display: 'block',
-    fontSize: '13px',
-    fontWeight: 500,
+    fontSize: 'var(--text-body-sm)',
+    fontWeight: "var(--weight-medium)",
     color: 'var(--cc-ink, #1a1a2e)',
     marginBottom: '8px',
     opacity: 0.7,
@@ -97,8 +97,8 @@ const styles = {
   },
   quickAmountButton: {
     padding: '12px 8px',
-    fontSize: '14px',
-    fontWeight: 600,
+    fontSize: 'var(--text-body-sm)',
+    fontWeight: "var(--weight-semibold)",
     border: '1px solid var(--cc-border, rgba(0,0,0,0.1))',
     borderRadius: '8px',
     background: 'var(--cc-surface, #f5f5f5)',
@@ -115,8 +115,8 @@ const styles = {
   customAmountInput: {
     width: '100%',
     padding: '12px',
-    fontSize: '16px',
-    fontWeight: 600,
+    fontSize: 'var(--text-body-md)',
+    fontWeight: "var(--weight-semibold)",
     border: '1px solid var(--cc-border, rgba(0,0,0,0.1))',
     borderRadius: '8px',
     background: 'var(--cc-surface, #f5f5f5)',
@@ -127,7 +127,7 @@ const styles = {
   tokenSelect: {
     width: '100%',
     padding: '12px',
-    fontSize: '14px',
+    fontSize: 'var(--text-body-sm)',
     border: '1px solid var(--cc-border, rgba(0,0,0,0.1))',
     borderRadius: '8px',
     background: 'var(--cc-surface, #f5f5f5)',
@@ -145,8 +145,8 @@ const styles = {
     alignItems: 'center',
     gap: '12px',
     padding: '12px',
-    fontSize: '14px',
-    fontWeight: 500,
+    fontSize: 'var(--text-body-sm)',
+    fontWeight: "var(--weight-medium)",
     border: '2px solid var(--cc-border, rgba(0,0,0,0.1))',
     borderRadius: '8px',
     background: 'var(--cc-surface, #f5f5f5)',
@@ -162,13 +162,13 @@ const styles = {
     color: 'white',
   },
   paymentMethodIcon: {
-    fontSize: '20px',
+    fontSize: 'var(--text-display-sm)',
   },
   buyButton: {
     width: '100%',
     padding: '12px',
-    fontSize: '16px',
-    fontWeight: 600,
+    fontSize: 'var(--text-body-md)',
+    fontWeight: "var(--weight-semibold)",
     border: 'none',
     borderRadius: '12px',
     background: 'var(--cc-accent, #6366f1)',
@@ -188,11 +188,11 @@ const styles = {
     opacity: 0.6,
   },
   notConnectedIcon: {
-    fontSize: '48px',
+    fontSize: 'var(--text-display-xl)',
     marginBottom: '12px',
   },
   notConnectedText: {
-    fontSize: '14px',
+    fontSize: 'var(--text-body-sm)',
     lineHeight: 1.5,
   },
 };

@@ -96,7 +96,7 @@ export default function ConnectButton({ className, label = 'Connect Wallet' }: C
         borderRadius: '8px',
         padding: '0.5rem 1.5rem',
         cursor: 'pointer',
-        fontWeight: '600',
+        fontWeight: 'var(--weight-semibold)',
       }}
     >
       {label}
@@ -174,7 +174,7 @@ export default function ConnectModal({ isOpen, onClose }: ConnectModalProps) {
                 }}>
                 <span style={{ fontSize: '1.5rem' }}>{wallet.icon}</span>
                 <div>
-                  <div style={{ fontWeight: '600' }}>{wallet.name}</div>
+                  <div style={{ fontWeight: 'var(--weight-semibold)' }}>{wallet.name}</div>
                   <div style={{ fontSize: '0.8rem', color: '#888' }}>{wallet.description}</div>
                 </div>
               </button>
@@ -383,12 +383,12 @@ export default function WalletModal({ isOpen, onClose, projectId }: WalletModalP
         color: 'var(--cc-text-primary, #e6edf3)', boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
       }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-          <h2 style={{ margin: 0, fontSize: '16px', fontWeight: 600 }}>
+          <h2 style={{ margin: 0, fontSize: 'var(--text-body-md)', fontWeight: "var(--weight-semibold)" }}>
             {isConnected ? 'Account' : 'Connect Wallet'}
           </h2>
           <button onClick={onClose} style={{
             background: 'none', border: 'none', color: 'var(--cc-text-muted, #6e7681)',
-            fontSize: '20px', cursor: 'pointer', padding: '4px',
+            fontSize: 'var(--text-display-sm)', cursor: 'pointer', padding: '4px',
           }}>✕</button>
         </div>
 
@@ -398,16 +398,16 @@ export default function WalletModal({ isOpen, onClose, projectId }: WalletModalP
               background: 'var(--cc-bg-secondary, #21262d)', borderRadius: '12px',
               padding: '16px', marginBottom: '16px',
             }}>
-              <p style={{ margin: '0 0 8px', fontSize: '12px', color: 'var(--cc-text-secondary)' }}>Connected</p>
+              <p style={{ margin: '0 0 8px', fontSize: 'var(--text-caption)', color: 'var(--cc-text-secondary)' }}>Connected</p>
               <code style={{
-                fontFamily: 'monospace', fontSize: '14px',
+                fontFamily: 'monospace', fontSize: 'var(--text-body-sm)',
                 wordBreak: 'break-all', color: 'var(--cc-text-primary)',
               }}>{address}</code>
             </div>
             <button onClick={() => { disconnect(); onClose(); }} style={{
               width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid var(--cc-error, #ef4444)',
               background: 'transparent', color: 'var(--cc-error, #ef4444)', cursor: 'pointer',
-              fontWeight: 600, fontSize: '14px',
+              fontWeight: "var(--weight-semibold)", fontSize: 'var(--text-body-sm)',
             }}>Disconnect</button>
           </div>
         ) : (
@@ -415,7 +415,7 @@ export default function WalletModal({ isOpen, onClose, projectId }: WalletModalP
             {error && (
               <div style={{
                 background: 'rgba(239,68,68,0.1)', border: '1px solid var(--cc-error, #ef4444)',
-                borderRadius: '8px', padding: '8px', fontSize: '12px', color: 'var(--cc-error, #ef4444)',
+                borderRadius: '8px', padding: '8px', fontSize: 'var(--text-caption)', color: 'var(--cc-error, #ef4444)',
                 marginBottom: '8px',
               }}>{error}</div>
             )}
@@ -427,12 +427,12 @@ export default function WalletModal({ isOpen, onClose, projectId }: WalletModalP
                   padding: '12px 16px', borderRadius: '12px', border: '1px solid var(--cc-border-primary, #30363d)',
                   background: 'var(--cc-bg-secondary, #21262d)', color: 'var(--cc-text-primary)',
                   cursor: isConnecting ? 'wait' : 'pointer', textAlign: 'left',
-                  transition: 'all 0.15s ease', fontSize: '14px',
+                  transition: 'all 0.15s ease', fontSize: 'var(--text-body-sm)',
                 }}>
-                <span style={{ fontSize: '24px' }}>{wallet.icon}</span>
+                <span style={{ fontSize: 'var(--text-display-md)' }}>{wallet.icon}</span>
                 <div>
-                  <div style={{ fontWeight: 600 }}>{wallet.name}</div>
-                  <div style={{ fontSize: '12px', color: 'var(--cc-text-muted, #6e7681)' }}>{wallet.description}</div>
+                  <div style={{ fontWeight: "var(--weight-semibold)" }}>{wallet.name}</div>
+                  <div style={{ fontSize: 'var(--text-caption)', color: 'var(--cc-text-muted, #6e7681)' }}>{wallet.description}</div>
                 </div>
               </button>
             ))}
@@ -518,8 +518,8 @@ export default function ChainSelector({ chains = DEFAULT_CHAINS, className, onCh
           border: '1px solid var(--cc-border-primary, #30363d)',
           borderRadius: '10px',
           padding: '8px 36px 8px 12px',
-          fontSize: '14px',
-          fontWeight: 500,
+          fontSize: 'var(--text-body-sm)',
+          fontWeight: "var(--weight-medium)",
           cursor: isConnected ? 'pointer' : 'not-allowed',
           opacity: isConnected ? 1 : 0.5,
           minWidth: '160px',
@@ -630,12 +630,12 @@ export default function SignIn({
         border: '1px solid var(--cc-success, #22c55e)',
         textAlign: 'center',
       }}>
-        <span style={{ fontSize: '24px' }}>✅</span>
-        <p style={{ margin: '8px 0 0', color: 'var(--cc-success, #22c55e)', fontWeight: 600 }}>
+        <span style={{ fontSize: 'var(--text-display-md)' }}>✅</span>
+        <p style={{ margin: '8px 0 0', color: 'var(--cc-success, #22c55e)', fontWeight: "var(--weight-semibold)" }}>
           Signed in successfully
         </p>
         <code style={{
-          display: 'block', marginTop: '8px', fontSize: '11px',
+          display: 'block', marginTop: '8px', fontSize: 'var(--text-caption)',
           color: 'var(--cc-text-muted)', wordBreak: 'break-all',
         }}>{signature.slice(0, 20)}...{signature.slice(-10)}</code>
       </div>
@@ -650,7 +650,7 @@ export default function SignIn({
       style={{
         padding: '12px 24px', borderRadius: '8px', border: 'none',
         background: isLoading ? 'var(--cc-text-muted, #6e7681)' : 'var(--cc-primary, #58a6ff)',
-        color: 'white', fontWeight: 600, fontSize: '14px',
+        color: 'white', fontWeight: "var(--weight-semibold)", fontSize: 'var(--text-body-sm)',
         cursor: isLoading ? 'wait' : 'pointer', transition: 'all 0.15s ease',
         display: 'flex', alignItems: 'center', gap: '8px',
       }}
@@ -667,7 +667,7 @@ export default function SignIn({
       ) : (
         <>✍️ Sign In with Ethereum</>
       )}
-      {error && <span style={{ fontSize: '12px', opacity: 0.8 }}>({error})</span>}
+      {error && <span style={{ fontSize: 'var(--text-caption)', opacity: 0.8 }}>({error})</span>}
     </button>
   );
 }
@@ -746,10 +746,10 @@ export default function NftGallery({ nfts, className, onBuy, columns = 3 }: NftG
               <h4 style={{ margin: '0 0 0.25rem' }}>{nft.name}</h4>
               <p style={{ color: '#888', margin: '0 0 0.75rem', fontSize: '0.85rem' }}>{nft.collection}</p>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontWeight: '600' }}>{nft.price} {nft.currency || 'ETH'}</span>
+                <span style={{ fontWeight: 'var(--weight-semibold)' }}>{nft.price} {nft.currency || 'ETH'}</span>
                 {onBuy && (
                   <button onClick={() => onBuy(nft)}
-                    style={{ background: '#6366f1', border: 'none', borderRadius: '6px', padding: '0.4rem 1rem', color: 'white', fontWeight: '600', cursor: 'pointer' }}>
+                    style={{ background: '#6366f1', border: 'none', borderRadius: '6px', padding: '0.4rem 1rem', color: 'white', fontWeight: 'var(--weight-semibold)', cursor: 'pointer' }}>
                     Buy
                   </button>
                 )}

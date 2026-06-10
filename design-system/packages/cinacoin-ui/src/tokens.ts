@@ -40,14 +40,14 @@ export const fonts = {
 } as const;
 
 export const typography = {
-  displayXL: { fontSize: 48, fontWeight: 600, lineHeight: 48, letterSpacing: -2.4 },
-  displayLG: { fontSize: 32, fontWeight: 600, lineHeight: 40, letterSpacing: -1.28 },
-  displayMD: { fontSize: 24, fontWeight: 600, lineHeight: 32, letterSpacing: -0.96 },
-  displaySM: { fontSize: 20, fontWeight: 600, lineHeight: 28, letterSpacing: -0.6 },
-  bodyLG: { fontSize: 18, fontWeight: 400, lineHeight: 28 },
-  bodyMD: { fontSize: 16, fontWeight: 400, lineHeight: 24 },
-  bodySM: { fontSize: 14, fontWeight: 400, lineHeight: 20, letterSpacing: -0.28 },
-  caption: { fontSize: 12, fontWeight: 400, lineHeight: 16 },
-  buttonMD: { fontSize: 14, fontWeight: 500 },
-  buttonLG: { fontSize: 16, fontWeight: 500 },
+  displayXL: { fontSize: 48, fontWeight: "var(--weight-semibold)", lineHeight: 48, letterSpacing: -2.4 },
+  displayLG: { fontSize: 32, fontWeight: "var(--weight-semibold)", lineHeight: 40, letterSpacing: -1.28 },
+  displayMD: { fontSize: 24, fontWeight: "var(--weight-semibold)", lineHeight: 32, letterSpacing: -0.96 },
+  displaySM: { fontSize: 20, fontWeight: "var(--weight-semibold)", lineHeight: 28, letterSpacing: -0.6 },
+  bodyLG: { fontSize: 18, fontWeight: "var(--weight-regular)", lineHeight: 28 },
+  bodyMD: { fontSize: 16, fontWeight: "var(--weight-regular)", lineHeight: 24 },
+  bodySM: { fontSize: 14, fontWeight: "var(--weight-regular)", lineHeight: 20, letterSpacing: -0.28 },
+  caption: { fontSize: 12, fontWeight: "var(--weight-regular)", lineHeight: 16 },
+  buttonMD: { fontSize: 14, fontWeight: "var(--weight-medium)" },
+  buttonLG: { fontSize: 16, fontWeight: "var(--weight-medium)" },
 } as const;

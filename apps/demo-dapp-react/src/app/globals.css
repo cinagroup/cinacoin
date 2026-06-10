@@ -5,6 +5,22 @@
  */
 
 :root {
+  /* Typography Scale */
+  --text-display-xl: 48px;
+  --text-display-lg: 32px;
+  --text-display-md: 24px;
+  --text-display-sm: 20px;
+  --text-body-lg: 18px;
+  --text-body-md: 16px;
+  --text-body-sm: 14px;
+  --text-caption: 12px;
+  
+  /* Font Weights */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
   /* === Colors (dark theme mapping) === */
   --cc-ink: #ffffff;
   --cc-ink-soft: #e0e0e0;
@@ -445,7 +461,7 @@ a:focus:not(:focus-visible) {
 }
 
 .text-display-sm {
-  font-size: 20px;
+  font-size: var(--text-display-sm);
   font-weight: var(--cc-weight-semibold);
   line-height: 1.4;
   letter-spacing: -0.6px;

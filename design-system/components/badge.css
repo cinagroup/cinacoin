@@ -128,7 +128,7 @@
 /* Size variants */
 .badge-sm {
   padding: 1px 6px;
-  font-size: 11px;
+  font-size: var(--text-caption);
 }
 
 .badge-lg {
