@@ -94,48 +94,37 @@ function SwaggerViewer() {
   }, [SwaggerUI, activeSpec]);
 
   return (
-    <div style={{ padding: '1rem 0' }}>
-      <div style={{ marginBottom: '1.5rem', display: 'flex', gap: '0.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
-        <strong style={{ marginRight: '0.5rem' }}>Service:</strong>
+    <div className="py-4">
+      <div className="mb-6 flex gap-2 flex-wrap items-center">
+        <strong className="mr-2">Service:</strong>
         {Object.entries(SPECS).map(([key, { label }]) => (
           <button
             key={key}
             onClick={() => setActiveSpec(key as keyof typeof SPECS)}
-            style={{
-              padding: '0.4rem 1rem',
-              borderRadius: '6px',
-              border: activeSpec === key ? '2px solid var(--ifm-color-primary)' : '1px solid var(--ifm-color-emphasis-300)',
-              background: activeSpec === key ? 'var(--ifm-color-primary-lightest, #e8f0fe)' : 'transparent',
-              color: activeSpec === key ? 'var(--ifm-color-primary-dark)' : 'inherit',
-              cursor: 'pointer',
-              fontWeight: activeSpec === key ? 600 : 400,
-              fontSize: '0.9rem',
-            }}
+            className={`px-4 py-1.5 rounded-md cursor-pointer text-sm ${
+              activeSpec === key
+                ? 'border-2 border-[var(--ifm-color-primary)] bg-[var(--ifm-color-primary-lightest,#e8f0fe)] text-[var(--ifm-color-primary-dark)] font-semibold'
+                : 'border border-[var(--ifm-color-emphasis-300)] bg-transparent text-inherit font-normal'
+            }`}
           >
             {label}
           </button>
         ))}
-        <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <label htmlFor="bearer-token-input" style={{ fontSize: '0.85rem', color: 'var(--ifm-color-emphasis-600)' }}>
+        <div className="ml-auto flex items-center gap-2">
+          <label htmlFor="bearer-token-input" className="text-sm text-[var(--ifm-color-emphasis-600)]">
             Bearer Token:
           </label>
           <input
             id="bearer-token-input"
             type="password"
             placeholder="Paste token for Try It Out"
-            style={{
-              padding: '0.3rem 0.6rem',
-              borderRadius: '4px',
-              border: '1px solid var(--ifm-color-emphasis-300)',
-              fontSize: '0.85rem',
-              width: '240px',
-            }}
+            className="py-1.5 px-2.5 rounded border border-[var(--ifm-color-emphasis-300)] text-sm w-60"
           />
         </div>
       </div>
 
       {loading && (
-        <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--ifm-color-emphasis-600)' }}>
+        <div className="text-center py-12 text-[var(--ifm-color-emphasis-600)]">
           Loading API specification…
         </div>
       )}
@@ -161,9 +150,9 @@ export default function ApiReferencePage() {
       title="API Reference"
       description="Interactive API reference for Cinacoin services — API Gateway, Auth Service, and User Service."
     >
-      <main style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem 1rem' }}>
+      <main className="max-w-screen-xl mx-auto py-8 px-4">
         <h1>API Reference</h1>
-        <p style={{ fontSize: '1.1rem', color: 'var(--ifm-color-emphasis-700)', marginBottom: '1.5rem' }}>
+        <p className="text-lg text-[var(--ifm-color-emphasis-700)] mb-6">
           Interactive documentation for all Cinacoin REST APIs. Select a service above to explore endpoints,
           view request/response schemas, and try requests directly from your browser.
         </p>

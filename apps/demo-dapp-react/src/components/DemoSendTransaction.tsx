@@ -65,7 +65,7 @@ export function DemoSendTransaction(): JSX.Element {
     return (
       <section className="cc-card cc-fade-in" aria-labelledby="send-heading">
         <h3 id="send-heading" className="cc-section-title">
-          <span style={{ fontSize: 'var(--cc-text-lg)' }} aria-hidden="true">📤</span> Send Transaction
+          <span className="text-[var(--cc-text-lg)]" aria-hidden="true">📤</span> Send Transaction
         </h3>
         <p className="cc-section-desc">Connect a wallet to send transactions.</p>
       </section>
@@ -75,14 +75,14 @@ export function DemoSendTransaction(): JSX.Element {
   return (
     <section className="cc-card cc-fade-in" aria-labelledby="send-heading">
       <h3 id="send-heading" className="cc-section-title">
-        <span style={{ fontSize: 'var(--cc-text-lg)' }} aria-hidden="true">📤</span> Send Transaction
+        <span className="text-[var(--cc-text-lg)]" aria-hidden="true">📤</span> Send Transaction
       </h3>
       <p className="cc-section-desc">
         Send {symbol} to another address with gas estimation and status tracking.
       </p>
 
       {/* Recipient */}
-      <div style={{ marginBottom: 'var(--cc-space-md)' }}>
+      <div className="mb-[var(--cc-space-md)]">
         <label className="cc-label" htmlFor="recipient-input">Recipient Address</label>
         <input
           id="recipient-input"
@@ -96,11 +96,11 @@ export function DemoSendTransaction(): JSX.Element {
       </div>
 
       {/* Amount */}
-      <div style={{ marginBottom: 'var(--cc-space-md)' }}>
+      <div className="mb-[var(--cc-space-md)]">
         <label className="cc-label" htmlFor="amount-input">
           Amount ({symbol})
         </label>
-        <div style={{ display: 'flex', gap: 'var(--cc-space-xs)' }}>
+        <div className="flex gap-[var(--cc-space-xs)]">
           <input
             id="amount-input"
             type="text"
@@ -108,13 +108,11 @@ export function DemoSendTransaction(): JSX.Element {
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             placeholder="0.0"
-            className="cc-input"
-            style={{ flex: 1 }}
+            className="cc-input flex-1"
             aria-required="true"
           />
           <button
-            className="cc-btn cc-btn--ghost"
-            style={{ minWidth: 'var(--cc-touch-target)' }}
+            className="cc-btn cc-btn--ghost min-w-[var(--cc-touch-target)]"
             onClick={setMax}
             title="Set maximum balance"
             aria-label="Set maximum balance"
@@ -123,14 +121,14 @@ export function DemoSendTransaction(): JSX.Element {
           </button>
         </div>
         {balance && (
-          <p style={{ fontSize: 'var(--cc-text-xs)', color: 'var(--cc-muted)', marginTop: 'var(--cc-space-xxs)' }}>
+          <p className="text-[var(--cc-text-xs)] text-[var(--cc-muted)] mt-[var(--cc-space-xxs)]">
             Available: {balance} {symbol}
           </p>
         )}
       </div>
 
       {/* Gas estimation */}
-      <div style={{ marginBottom: 'var(--cc-space-md)' }}>
+      <div className="mb-[var(--cc-space-md)]">
         <button
           className="cc-btn cc-btn--ghost"
           onClick={estimateGas}
@@ -140,7 +138,7 @@ export function DemoSendTransaction(): JSX.Element {
           Estimate Gas
         </button>
         {estimatedGas && (
-          <p style={{ marginTop: 'var(--cc-space-xs)', fontSize: 'var(--cc-text-sm)', color: 'var(--cc-body)' }} aria-live="polite">
+          <p className="mt-[var(--cc-space-xs)] text-[var(--cc-text-sm)] text-[var(--cc-body)]" aria-live="polite">
             Gas: {estimatedGas} {gasFee && ` · Fee: ${gasFee}`}
           </p>
         )}
@@ -148,14 +146,13 @@ export function DemoSendTransaction(): JSX.Element {
 
       {/* Send button */}
       <button
-        className="cc-btn cc-btn--primary"
-        style={{ width: '100%' }}
+        className="cc-btn cc-btn--primary w-full"
         onClick={handleSend}
         disabled={isPending || sending || !isFormValid}
         aria-label={`Send ${amount} ${symbol} to ${recipient}`}
       >
         {sending ? (
-          <span style={{ display: 'flex', alignItems: 'center', gap: 'var(--cc-space-xs)' }}>
+          <span className="flex items-center gap-[var(--cc-space-xs)]">
             <span className="cc-spinner" /> Sending...
           </span>
         ) : (
@@ -172,11 +169,11 @@ export function DemoSendTransaction(): JSX.Element {
 
       {/* Transaction status */}
       {txHash && (
-        <div style={{ marginTop: 'var(--cc-space-md)', padding: 'var(--cc-space-sm)', background: 'var(--cc-success-soft)', border: '1px solid var(--cc-success-border)', borderRadius: 'var(--cc-radius-md)' }}>
-          <div style={{ fontSize: 'var(--cc-text-sm)', color: 'var(--cc-success)', marginBottom: 'var(--cc-space-xs)' }}>
+        <div className="mt-[var(--cc-space-md)] p-[var(--cc-space-sm)] bg-[var(--cc-success-soft)] border border-[var(--cc-success-border)] rounded-[var(--cc-radius-md)]">
+          <div className="text-[var(--cc-text-sm)] text-[var(--cc-success)] mb-[var(--cc-space-xs)]">
             {txStatus}
           </div>
-          <div style={{ fontSize: 'var(--cc-text-xs)', fontFamily: 'var(--cc-font-mono)', wordBreak: 'break-all', color: 'var(--cc-body)' }}>
+          <div className="text-[var(--cc-text-xs)] font-mono break-all text-[var(--cc-body)]">
             {txHash}
           </div>
           {explorerUrl && (
@@ -184,7 +181,7 @@ export function DemoSendTransaction(): JSX.Element {
               href={`${explorerUrl}/tx/${txHash}`}
               target="_blank"
               rel="noopener noreferrer"
-              style={{ display: 'inline-flex', marginTop: 'var(--cc-space-xs)', fontSize: 'var(--cc-text-sm)', color: 'var(--cc-accent-soft)', textDecoration: 'none' }}
+              className="inline-flex mt-[var(--cc-space-xs)] text-[var(--cc-text-sm)] text-[var(--cc-accent-soft)] no-underline"
             >
               View on Explorer <span aria-hidden="true">→</span>
             </a>

@@ -38,7 +38,7 @@ export function DemoChainSwitcher(): JSX.Element {
     return (
       <section className="cc-card cc-fade-in" aria-labelledby="chain-heading">
         <h3 id="chain-heading" className="cc-section-title">
-          <span style={{ fontSize: 'var(--cc-text-lg)' }} aria-hidden="true">⛓️</span> Chain Switcher
+          <span className="text-[var(--cc-text-lg)]" aria-hidden="true">⛓️</span> Chain Switcher
         </h3>
         <p className="cc-section-desc">Connect a wallet to switch between chains.</p>
       </section>
@@ -48,66 +48,62 @@ export function DemoChainSwitcher(): JSX.Element {
   return (
     <section className="cc-card cc-fade-in" aria-labelledby="chain-heading">
       <h3 id="chain-heading" className="cc-section-title">
-        <span style={{ fontSize: 'var(--cc-text-lg)' }} aria-hidden="true">⛓️</span> Chain Switcher
+        <span className="text-[var(--cc-text-lg)]" aria-hidden="true">⛓️</span> Chain Switcher
       </h3>
       <p className="cc-section-desc">
         Switch between supported networks and view current chain details.
       </p>
 
       {/* ChainSwitcher Web Component */}
-      <div style={{ marginBottom: 'var(--cc-space-lg)' }}>
+      <div className="mb-[var(--cc-space-lg)]">
         <label className="cc-label" id="chain-component-label">ChainSwitcher Component</label>
-        <div style={{ marginTop: 'var(--cc-space-xs)' }}>
+        <div className="mt-[var(--cc-space-xs)]">
           <ChainSwitcher />
         </div>
       </div>
 
       {/* Current chain info */}
       {currentInfo && (
-        <div style={{ background: 'var(--cc-surface)', borderRadius: 'var(--cc-radius-md)', padding: 'var(--cc-space-md)', marginTop: 'var(--cc-space-sm)' }} aria-label="Current chain information">
-          <div style={infoRowStyle}>
-            <span style={{ color: 'var(--cc-body)' }}>Current Chain</span>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--cc-space-xs)' }}>
+        <div className="bg-[var(--cc-surface)] rounded-[var(--cc-radius-md)] p-[var(--cc-space-md)] mt-[var(--cc-space-sm)]" aria-label="Current chain information">
+          <div className={infoRowClass}>
+            <span className="text-[var(--cc-body)]">Current Chain</span>
+            <div className="flex items-center gap-[var(--cc-space-xs)]">
               <span
+                className="w-2.5 h-2.5 rounded-full inline-block"
                 style={{
-                  width: '10px',
-                  height: '10px',
-                  borderRadius: '50%',
                   background: currentInfo.color,
                   boxShadow: `0 0 8px ${currentInfo.color}`,
-                  display: 'inline-block',
                 }}
                 aria-hidden="true"
               />
-              <span style={{ fontWeight: 'var(--cc-weight-semibold)', color: 'var(--cc-ink)' }}>{currentInfo.name}</span>
+              <span className="font-semibold text-[var(--cc-ink)]">{currentInfo.name}</span>
             </div>
           </div>
-          <div style={infoRowStyle}>
-            <span style={{ color: 'var(--cc-body)' }}>Chain ID</span>
-            <span style={monoStyle}>{currentChainId}</span>
+          <div className={infoRowClass}>
+            <span className="text-[var(--cc-body)]">Chain ID</span>
+            <span className={monoClass}>{currentChainId}</span>
           </div>
-          <div style={infoRowStyle}>
-            <span style={{ color: 'var(--cc-body)' }}>Native Currency</span>
-            <span style={{ color: 'var(--cc-ink-soft)' }}>{currentInfo.symbol}</span>
+          <div className={infoRowClass}>
+            <span className="text-[var(--cc-body)]">Native Currency</span>
+            <span className="text-[var(--cc-ink-soft)]">{currentInfo.symbol}</span>
           </div>
-          <div style={{ ...infoRowStyle, borderBottom: 'none' }}>
-            <span style={{ color: 'var(--cc-body)' }}>Hex ID</span>
-            <span style={monoStyle}>0x{(currentChainId ?? 0).toString(16)}</span>
+          <div className={`${infoRowClass} border-b-0`}>
+            <span className="text-[var(--cc-body)]">Hex ID</span>
+            <span className={monoClass}>0x{(currentChainId ?? 0).toString(16)}</span>
           </div>
         </div>
       )}
 
       {/* Quick switch buttons */}
-      <div style={{ marginTop: 'var(--cc-space-md)' }}>
+      <div className="mt-[var(--cc-space-md)]">
         <label className="cc-label" id="chain-switch-label">Quick Switch</label>
-        <div style={{ display: 'flex', gap: 'var(--cc-space-xs)', marginTop: 'var(--cc-space-xs)', flexWrap: 'wrap' }} role="group" aria-labelledby="chain-switch-label">
+        <div className="flex gap-[var(--cc-space-xs)] mt-[var(--cc-space-xs)] flex-wrap" role="group" aria-labelledby="chain-switch-label">
           {chains.map((chain) => {
             const isCurrent = chain.id === currentChainId;
             return (
               <button
                 key={chain.id}
-                className={`cc-btn ${isCurrent ? 'cc-btn--primary' : 'cc-btn--ghost'}`}
-                style={{ minWidth: 'var(--cc-touch-target)' }}
+                className={`cc-btn ${isCurrent ? 'cc-btn--primary' : 'cc-btn--ghost'} min-w-[var(--cc-touch-target)]`}
                 onClick={() => handleSwitch(chain.id)}
                 disabled={isSwitching || isCurrent}
                 aria-label={`Switch to ${chain.name}${isCurrent ? ' (current)' : ''}`}
@@ -121,12 +117,12 @@ export function DemoChainSwitcher(): JSX.Element {
       </div>
 
       {error && (
-        <div className="cc-error" role="alert" style={{ marginTop: 'var(--cc-space-sm)' }}>
+        <div className="cc-error mt-[var(--cc-space-sm)]" role="alert">
           Switch error: {error.message}
         </div>
       )}
       {isSwitching && (
-        <p style={{ marginTop: 'var(--cc-space-xs)', fontSize: 'var(--cc-text-sm)', color: 'var(--cc-warning)' }} aria-live="polite">
+        <p className="mt-[var(--cc-space-xs)] text-[var(--cc-text-sm)] text-[var(--cc-warning)]" aria-live="polite">
           Switching chain...
         </p>
       )}
@@ -134,17 +130,5 @@ export function DemoChainSwitcher(): JSX.Element {
   );
 }
 
-const infoRowStyle: React.CSSProperties = {
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  padding: '8px 0',
-  fontSize: 'var(--cc-text-sm)',
-  borderBottom: '1px solid var(--cc-hairline)',
-};
-
-const monoStyle: React.CSSProperties = {
-  fontFamily: 'var(--cc-font-mono)',
-  fontSize: 'var(--cc-text-sm)',
-  color: 'var(--cc-ink-soft)',
-};
+const infoRowClass = 'flex justify-between items-center py-2 text-[var(--cc-text-sm)] border-b border-[var(--cc-hairline)]';
+const monoClass = 'font-mono text-[var(--cc-text-sm)] text-[var(--cc-ink-soft)]';

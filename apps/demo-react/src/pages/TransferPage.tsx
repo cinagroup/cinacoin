@@ -87,32 +87,28 @@ export function TransferPage() {
   }, []);
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, padding: 24 }}>
+    <div className="grid grid-cols-2 gap-6 p-6">
       {/* Left: Interactive Demo */}
       <div>
-        <h2 style={{ fontSize: "var(--cc-text-xl)", fontWeight: "var(--cc-weight-bold)", marginBottom: 16 }}>Token 转账</h2>
-        <p style={{ color: 'var(--cc-demo-text-muted)', marginBottom: 24 }}>选择链和 Token，输入收款地址和金额，完成转账。</p>
+        <h2 className="text-[var(--cc-text-xl)] font-bold mb-4">Token 转账</h2>
+        <p className="text-[var(--cc-demo-text-muted)] mb-6">选择链和 Token，输入收款地址和金额，完成转账。</p>
 
-        <div style={{ background: '#1a1a2e', borderRadius: 12, padding: 24 }}>
+        <div className="bg-[#1a1a2e] rounded-xl p-6">
           {state.step === 'input' && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <div className="flex flex-col gap-4">
               {/* Chain selector */}
               <div>
-                <label style={{ fontSize: "var(--cc-text-xs)", color: 'var(--cc-demo-text-light)', marginBottom: 8, display: 'block' }}>选择链</label>
-                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                <label className="block text-[var(--cc-text-xs)] text-[var(--cc-demo-text-light)] mb-2">选择链</label>
+                <div className="flex gap-2 flex-wrap">
                   {CHAINS.map((chain) => (
                     <button
                       key={chain.id}
                       onClick={() => setState((s) => ({ ...s, chain: chain.id, token: chain.tokens[0] }))}
-                      style={{
-                        padding: '8px 16px',
-                        borderRadius: 8,
-                        border: state.chain === chain.id ? '2px solid #6366f1' : '2px solid #333',
-                        background: state.chain === chain.id ? '#6366f120' : '#0d0d1a',
-                        color: 'var(--cc-on-primary, #fff)',
-                        cursor: 'pointer',
-                        fontSize: "var(--cc-text-sm)",
-                      }}
+                      className={`px-4 py-2 rounded-lg border-2 cursor-pointer text-[var(--cc-text-sm)] ${
+                        state.chain === chain.id
+                          ? 'border-[#6366f1] bg-[#6366f120]'
+                          : 'border-[#333] bg-[#0d0d1a]'
+                      } text-[var(--cc-on-primary,#fff)]`}
                     >
                       {chain.icon} {chain.name}
                     </button>
@@ -122,21 +118,17 @@ export function TransferPage() {
 
               {/* Token selector */}
               <div>
-                <label style={{ fontSize: "var(--cc-text-xs)", color: 'var(--cc-demo-text-light)', marginBottom: 8, display: 'block' }}>选择 Token</label>
-                <div style={{ display: 'flex', gap: 8 }}>
+                <label className="block text-[var(--cc-text-xs)] text-[var(--cc-demo-text-light)] mb-2">选择 Token</label>
+                <div className="flex gap-2">
                   {selectedChain.tokens.map((token) => (
                     <button
                       key={token}
                       onClick={() => setState((s) => ({ ...s, token }))}
-                      style={{
-                        padding: '8px 16px',
-                        borderRadius: 6,
-                        border: state.token === token ? '2px solid #6366f1' : '2px solid #333',
-                        background: state.token === token ? '#6366f120' : '#0d0d1a',
-                        color: 'var(--cc-on-primary, #fff)',
-                        cursor: 'pointer',
-                        fontSize: "var(--cc-text-xs)",
-                      }}
+                      className={`px-4 py-2 rounded-md border-2 cursor-pointer text-[var(--cc-text-xs)] ${
+                        state.token === token
+                          ? 'border-[#6366f1] bg-[#6366f120]'
+                          : 'border-[#333] bg-[#0d0d1a]'
+                      } text-[var(--cc-on-primary,#fff)]`}
                     >
                       {token}
                     </button>
@@ -146,63 +138,37 @@ export function TransferPage() {
 
               {/* Recipient */}
               <div>
-                <label style={{ fontSize: "var(--cc-text-xs)", color: 'var(--cc-demo-text-light)', marginBottom: 8, display: 'block' }}>收款地址</label>
+                <label className="block text-[var(--cc-text-xs)] text-[var(--cc-demo-text-light)] mb-2">收款地址</label>
                 <input
                   type="text"
                   placeholder="0x..."
                   value={state.to}
                   onChange={(e) => setState((s) => ({ ...s, to: e.target.value }))}
-                  style={{
-                    width: '100%',
-                    padding: '12px 16px',
-                    borderRadius: 8,
-                    border: '2px solid var(--cc-demo-border)',
-                    background: 'var(--cc-demo-surface-darker)',
-                    color: 'var(--cc-on-primary, #fff)',
-                    fontSize: "var(--cc-text-sm)",
-                    outline: 'none',
-                    boxSizing: 'border-box',
-                  }}
+                  className="w-full py-3 px-4 rounded-lg border-2 border-[var(--cc-demo-border)] bg-[var(--cc-demo-surface-darker)] text-[var(--cc-text-sm)] text-[var(--cc-on-primary,#fff)] outline-none box-border"
                 />
               </div>
 
               {/* Amount */}
               <div>
-                <label style={{ fontSize: "var(--cc-text-xs)", color: 'var(--cc-demo-text-light)', marginBottom: 8, display: 'block' }}>金额</label>
+                <label className="block text-[var(--cc-text-xs)] text-[var(--cc-demo-text-light)] mb-2">金额</label>
                 <input
                   type="number"
                   step="0.001"
                   placeholder="0.0"
                   value={state.amount}
                   onChange={(e) => setState((s) => ({ ...s, amount: e.target.value }))}
-                  style={{
-                    width: '100%',
-                    padding: '12px 16px',
-                    borderRadius: 8,
-                    border: '2px solid var(--cc-demo-border)',
-                    background: 'var(--cc-demo-surface-darker)',
-                    color: 'var(--cc-on-primary, #fff)',
-                    fontSize: "var(--cc-text-sm)",
-                    outline: 'none',
-                    boxSizing: 'border-box',
-                  }}
+                  className="w-full py-3 px-4 rounded-lg border-2 border-[var(--cc-demo-border)] bg-[var(--cc-demo-surface-darker)] text-[var(--cc-text-sm)] text-[var(--cc-on-primary,#fff)] outline-none box-border"
                 />
               </div>
 
               <button
                 onClick={handleConfirm}
                 disabled={!state.to || !state.amount}
-                style={{
-                  padding: '12px 24px',
-                  borderRadius: 8,
-                  border: 'none',
-                  background: state.to && state.amount ? '#6366f1' : '#333',
-                  color: 'var(--cc-on-primary, #fff)',
-                  fontSize: "var(--cc-text-md)",
-                  fontWeight: "var(--cc-weight-semibold)",
-                  cursor: state.to && state.amount ? 'pointer' : 'not-allowed',
-                  marginTop: 8,
-                }}
+                className={`py-3 px-6 rounded-lg border-none text-[var(--cc-text-md)] font-semibold mt-2 ${
+                  state.to && state.amount
+                    ? 'bg-[#6366f1] cursor-pointer'
+                    : 'bg-[#333] cursor-not-allowed'
+                } text-[var(--cc-on-primary,#fff)]`}
               >
                 确认转账
               </button>
@@ -210,24 +176,24 @@ export function TransferPage() {
           )}
 
           {state.step === 'confirm' && (
-            <div style={{ textAlign: 'center', padding: 20 }}>
-              <h3 style={{ fontSize: "var(--cc-text-lg)", marginBottom: 16 }}>确认交易</h3>
-              <div style={{ background: 'var(--cc-demo-surface-darker)', borderRadius: 8, padding: 16, marginBottom: 16, textAlign: 'left' }}>
-                <p style={{ color: 'var(--cc-demo-text-muted)', fontSize: "var(--cc-text-xs)" }}>链: {selectedChain.name}</p>
-                <p style={{ color: 'var(--cc-demo-text-muted)', fontSize: "var(--cc-text-xs)" }}>Token: {state.token}</p>
-                <p style={{ color: 'var(--cc-demo-text-muted)', fontSize: "var(--cc-text-xs)" }}>收款: {state.to.slice(0, 10)}...{state.to.slice(-8)}</p>
-                <p style={{ color: 'var(--cc-on-primary, #fff)', fontSize: "var(--cc-text-lg)", fontWeight: "var(--cc-weight-bold)", marginTop: 8 }}>{state.amount} {state.token}</p>
+            <div className="text-center p-5">
+              <h3 className="text-[var(--cc-text-lg)] mb-4">确认交易</h3>
+              <div className="bg-[var(--cc-demo-surface-darker)] rounded-lg p-4 mb-4 text-left">
+                <p className="text-[var(--cc-demo-text-muted)] text-[var(--cc-text-xs)]">链: {selectedChain.name}</p>
+                <p className="text-[var(--cc-demo-text-muted)] text-[var(--cc-text-xs)]">Token: {state.token}</p>
+                <p className="text-[var(--cc-demo-text-muted)] text-[var(--cc-text-xs)]">收款: {state.to.slice(0, 10)}...{state.to.slice(-8)}</p>
+                <p className="text-[var(--cc-on-primary,#fff)] text-[var(--cc-text-lg)] font-bold mt-2">{state.amount} {state.token}</p>
               </div>
-              <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
+              <div className="flex gap-3 justify-center">
                 <button
                   onClick={() => setState((s) => ({ ...s, step: 'input' }))}
-                  style={{ padding: '12px 20px', borderRadius: 8, border: '0px solid #333', background: 'transparent', color: 'var(--cc-on-primary, #fff)', cursor: 'pointer' }}
+                  className="py-3 px-5 rounded-lg border-0 border-[#333] bg-transparent text-[var(--cc-on-primary,#fff)] cursor-pointer"
                 >
                   取消
                 </button>
                 <button
                   onClick={handleSend}
-                  style={{ padding: '12px 20px', borderRadius: 8, border: 'none', background: 'var(--cc-demo-accent)', color: 'var(--cc-on-primary, #fff)', fontWeight: "var(--cc-weight-semibold)", cursor: 'pointer' }}
+                  className="py-3 px-5 rounded-lg border-none bg-[var(--cc-demo-accent)] text-[var(--cc-on-primary,#fff)] font-semibold cursor-pointer"
                 >
                   确认发送
                 </button>
@@ -236,22 +202,22 @@ export function TransferPage() {
           )}
 
           {state.step === 'sending' && (
-            <div style={{ textAlign: 'center', padding: 40 }}>
-              <div style={{ fontSize: 40, marginBottom: 16, animation: 'spin 1s linear infinite' }}>⟳</div>
-              <p style={{ color: 'var(--cc-demo-text-muted)' }}>交易发送中...</p>
+            <div className="text-center p-10">
+              <div className="text-4xl mb-4 animate-spin">⟳</div>
+              <p className="text-[var(--cc-demo-text-muted)]">交易发送中...</p>
             </div>
           )}
 
           {state.step === 'success' && (
-            <div style={{ textAlign: 'center', padding: 20 }}>
-              <div style={{ fontSize: 48, marginBottom: 16 }}>✅</div>
-              <h3 style={{ fontSize: "var(--cc-text-lg)", marginBottom: 8 }}>交易成功!</h3>
-              <p style={{ color: 'var(--cc-demo-text-muted)', fontSize: "var(--cc-text-xs)", marginBottom: 16 }}>
+            <div className="text-center p-5">
+              <div className="text-5xl mb-4">✅</div>
+              <h3 className="text-[var(--cc-text-lg)] mb-2">交易成功!</h3>
+              <p className="text-[var(--cc-demo-text-muted)] text-[var(--cc-text-xs)] mb-4">
                 TX: {state.txHash.slice(0, 16)}...{state.txHash.slice(-8)}
               </p>
               <button
                 onClick={handleReset}
-                style={{ padding: '12px 20px', borderRadius: 8, border: 'none', background: 'var(--cc-demo-accent)', color: 'var(--cc-on-primary, #fff)', cursor: 'pointer' }}
+                className="py-3 px-5 rounded-lg border-none bg-[var(--cc-demo-accent)] text-[var(--cc-on-primary,#fff)] cursor-pointer"
               >
                 发起新转账
               </button>

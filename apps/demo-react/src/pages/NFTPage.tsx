@@ -47,37 +47,32 @@ export function NFTPage() {
   const [selectedNFT, setSelectedNFT] = useState<typeof MOCK_NFTS[0] | null>(null);
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, padding: 24 }}>
+    <div className="grid grid-cols-2 gap-6 p-6">
       {/* Left: NFT Grid */}
       <div>
-        <h2 style={{ fontSize: "var(--cc-text-xl)", fontWeight: "var(--cc-weight-bold)", marginBottom: 8 }}>NFT 收藏</h2>
-        <p style={{ color: 'var(--cc-demo-text-muted)', marginBottom: 24 }}>展示多链 NFT 收藏，点击查看详情。</p>
+        <h2 className="text-[var(--cc-text-xl)] font-bold mb-2">NFT 收藏</h2>
+        <p className="text-[var(--cc-demo-text-muted)] mb-6">展示多链 NFT 收藏，点击查看详情。</p>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+        <div className="grid grid-cols-3 gap-4">
           {MOCK_NFTS.length === 0 ? (
-            <div style={{ gridColumn: '1 / -1', padding: '48px 16px', textAlign: 'center' }}>
-              <div style={{ fontSize: 48, marginBottom: 16 }}>🖼️</div>
-              <h3 style={{ fontSize: "var(--cc-text-lg)", fontWeight: "var(--cc-weight-semibold)", marginBottom: 8 }}>No NFTs yet</h3>
-              <p style={{ fontSize: "var(--cc-text-sm)", color: 'var(--cc-demo-text-muted)' }}>Your NFT collection will appear here once you mint or receive NFTs.</p>
+            <div className="col-span-full py-12 px-4 text-center">
+              <div className="text-5xl mb-4">🖼️</div>
+              <h3 className="text-[var(--cc-text-lg)] font-semibold mb-2">No NFTs yet</h3>
+              <p className="text-[var(--cc-text-sm)] text-[var(--cc-demo-text-muted)]">Your NFT collection will appear here once you mint or receive NFTs.</p>
             </div>
           ) : MOCK_NFTS.map((nft) => (
             <div
               key={nft.id}
               onClick={() => setSelectedNFT(nft)}
-              style={{
-                background: 'var(--cc-demo-surface-dark)',
-                borderRadius: 12,
-                padding: 16,
-                cursor: 'pointer',
-                border: selectedNFT?.id === nft.id ? '2px solid #6366f1' : '2px solid transparent',
-                transition: 'border 0.2s',
-              }}
+              className={`bg-[var(--cc-demo-surface-dark)] rounded-xl p-4 cursor-pointer transition-[border] duration-200 border-2 ${
+                selectedNFT?.id === nft.id ? 'border-[#6366f1]' : 'border-transparent'
+              }`}
             >
-              <div style={{ fontSize: 48, textAlign: 'center', marginBottom: 12, background: 'var(--cc-demo-surface-darker)', borderRadius: 8, padding: 20 }}>
+              <div className="text-5xl text-center mb-3 bg-[var(--cc-demo-surface-darker)] rounded-lg p-5">
                 {nft.image}
               </div>
-              <h3 style={{ fontSize: "var(--cc-text-sm)", fontWeight: "var(--cc-weight-semibold)", marginBottom: 4 }}>{nft.name}</h3>
-              <p style={{ fontSize: 12, color: 'var(--cc-demo-text-muted)' }}>{nft.collection}</p>
+              <h3 className="text-[var(--cc-text-sm)] font-semibold mb-1">{nft.name}</h3>
+              <p className="text-xs text-[var(--cc-demo-text-muted)]">{nft.collection}</p>
             </div>
           ))}
         </div>
@@ -86,53 +81,29 @@ export function NFTPage() {
         {selectedNFT && (
           <div
             onClick={() => setSelectedNFT(null)}
-            style={{
-              position: 'fixed',
-              inset: 0,
-              background: 'rgba(0,0,0,0.7)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              zIndex: 1000,
-            }}
+            className="fixed inset-0 bg-black/70 flex items-center justify-center z-[1000]"
           >
             <div
               onClick={(e) => e.stopPropagation()}
-              style={{
-                background: 'var(--cc-demo-surface-dark)',
-                borderRadius: 16,
-                padding: 32,
-                maxWidth: 400,
-                width: '90%',
-              }}
+              className="bg-[var(--cc-demo-surface-dark)] rounded-2xl p-8 max-w-[400px] w-[90%]"
             >
-              <div style={{ fontSize: 80, textAlign: 'center', marginBottom: 16 }}>{selectedNFT.image}</div>
-              <h3 style={{ fontSize: "var(--cc-text-lg)", fontWeight: "var(--cc-weight-bold)", marginBottom: 4 }}>{selectedNFT.name}</h3>
-              <p style={{ color: 'var(--cc-demo-text-muted)', marginBottom: 16 }}>{selectedNFT.collection}</p>
+              <div className="text-8xl text-center mb-4">{selectedNFT.image}</div>
+              <h3 className="text-[var(--cc-text-lg)] font-bold mb-1">{selectedNFT.name}</h3>
+              <p className="text-[var(--cc-demo-text-muted)] mb-4">{selectedNFT.collection}</p>
 
-              <div style={{ background: 'var(--cc-demo-surface-darker)', borderRadius: 8, padding: 16 }}>
-                <h4 style={{ fontSize: "var(--cc-text-xs)", color: 'var(--cc-demo-text-light)', marginBottom: 8 }}>属性</h4>
+              <div className="bg-[var(--cc-demo-surface-darker)] rounded-lg p-4">
+                <h4 className="text-[var(--cc-text-xs)] text-[var(--cc-demo-text-light)] mb-2">属性</h4>
                 {selectedNFT.traits.map((trait) => (
-                  <div key={trait.key} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
-                    <span style={{ color: 'var(--cc-demo-text-muted)', fontSize: "var(--cc-text-xs)" }}>{trait.key}</span>
-                    <span style={{ color: 'var(--cc-on-primary, #fff)', fontSize: "var(--cc-text-xs)", fontWeight: "var(--cc-weight-semibold)" }}>{trait.value}</span>
+                  <div key={trait.key} className="flex justify-between mb-2">
+                    <span className="text-[var(--cc-demo-text-muted)] text-[var(--cc-text-xs)]">{trait.key}</span>
+                    <span className="text-[var(--cc-on-primary,#fff)] text-[var(--cc-text-xs)] font-semibold">{trait.value}</span>
                   </div>
                 ))}
               </div>
 
               <button
                 onClick={() => setSelectedNFT(null)}
-                style={{
-                  width: '100%',
-                  marginTop: 16,
-                  padding: '12px 20px',
-                  borderRadius: 8,
-                  border: 'none',
-                  background: 'var(--cc-demo-accent)',
-                  color: 'var(--cc-on-primary, #fff)',
-                  fontWeight: "var(--cc-weight-semibold)",
-                  cursor: 'pointer',
-                }}
+                className="w-full mt-4 py-3 px-5 rounded-lg border-none bg-[var(--cc-demo-accent)] text-[var(--cc-on-primary,#fff)] font-semibold cursor-pointer"
               >
                 关闭
               </button>

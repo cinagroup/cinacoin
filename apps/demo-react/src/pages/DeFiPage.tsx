@@ -111,23 +111,21 @@ export function DeFiPage() {
   };
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, padding: 24 }}>
+    <div className="grid grid-cols-2 gap-6 p-6">
       {/* Left: DeFi UI */}
       <div>
-        <h2 style={{ fontSize: "var(--cc-text-xl)", fontWeight: "var(--cc-weight-bold)", marginBottom: 8 }}>DeFi 交互</h2>
-        <p style={{ color: 'var(--cc-demo-text-muted)', marginBottom: 24 }}>LP 质押、Token 兑换。</p>
+        <h2 className="text-[var(--cc-text-xl)] font-bold mb-2">DeFi 交互</h2>
+        <p className="text-[var(--cc-demo-text-muted)] mb-6">LP 质押、Token 兑换。</p>
 
         {/* Tab switcher */}
-        <div style={{ display: 'flex', gap: 4, marginBottom: 20, background: 'var(--cc-demo-surface-darker)', borderRadius: 8, padding: 4, width: 'fit-content' }}>
+        <div className="flex gap-1 mb-5 bg-[var(--cc-demo-surface-darker)] rounded-lg p-1 w-fit">
           {(['pools', 'swap'] as Tab[]).map((t) => (
             <button
               key={t}
               onClick={() => setTab(t)}
-              style={{
-                padding: '8px 20px', borderRadius: 6, border: 'none',
-                background: tab === t ? '#6366f1' : 'transparent',
-                color: 'var(--cc-on-primary, #fff)', cursor: 'pointer', fontSize: "var(--cc-text-sm)", fontWeight: "var(--cc-weight-medium)",
-              }}
+              className={`px-5 py-2 rounded-md border-none cursor-pointer text-[var(--cc-text-sm)] font-medium ${
+                tab === t ? 'bg-[#6366f1]' : 'bg-transparent'
+              } text-[var(--cc-on-primary,#fff)]`}
             >
               {t === 'pools' ? 'LP 池' : 'Swap'}
             </button>
@@ -135,55 +133,46 @@ export function DeFiPage() {
         </div>
 
         {tab === 'pools' && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <div className="flex flex-col gap-3">
             {pools.map((pool) => (
-              <div key={pool.id} style={{ background: 'var(--cc-demo-surface-dark)', borderRadius: 12, padding: 20 }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+              <div key={pool.id} className="bg-[var(--cc-demo-surface-dark)] rounded-xl p-5">
+                <div className="flex justify-between items-center mb-3">
                   <div>
-                    <span style={{ fontSize: "var(--cc-text-lg)", marginRight: 8 }}>{pool.icon}</span>
-                    <span style={{ fontSize: "var(--cc-text-md)", fontWeight: "var(--cc-weight-semibold)" }}>{pool.name}</span>
+                    <span className="text-[var(--cc-text-lg)] mr-2">{pool.icon}</span>
+                    <span className="text-[var(--cc-text-md)] font-semibold">{pool.name}</span>
                   </div>
-                  <div style={{ textAlign: 'right' }}>
-                    <div style={{ color: 'var(--cc-demo-success)', fontSize: "var(--cc-text-lg)", fontWeight: "var(--cc-weight-bold)" }}>{pool.apy}% APY</div>
-                    <div style={{ color: 'var(--cc-demo-text-muted)', fontSize: 12 }}>TVL: {formatTVL(pool.tvl)}</div>
+                  <div className="text-right">
+                    <div className="text-[var(--cc-demo-success)] text-[var(--cc-text-lg)] font-bold">{pool.apy}% APY</div>
+                    <div className="text-[var(--cc-demo-text-muted)] text-xs">TVL: {formatTVL(pool.tvl)}</div>
                   </div>
                 </div>
 
                 {pool.staked > 0 ? (
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ color: 'var(--cc-demo-text-muted)', fontSize: "var(--cc-text-xs)" }}>已质押: {pool.staked} LP</span>
+                  <div className="flex justify-between items-center">
+                    <span className="text-[var(--cc-demo-text-muted)] text-[var(--cc-text-xs)]">已质押: {pool.staked} LP</span>
                     <button
                       onClick={() => handleUnstake(pool.id)}
                       disabled={stakingPool === pool.id}
-                      style={{
-                        padding: '8px 16px', borderRadius: 6, border: '0px solid var(--cc-demo-error)',
-                        background: 'transparent', color: 'var(--cc-demo-error)', cursor: 'pointer', fontSize: "var(--cc-text-xs)",
-                      }}
+                      className="px-4 py-2 rounded-md border-0 border-[var(--cc-demo-error)] bg-transparent text-[var(--cc-demo-error)] cursor-pointer text-[var(--cc-text-xs)]"
                     >
                       {stakingPool === pool.id ? '处理中...' : 'Unstake'}
                     </button>
                   </div>
                 ) : (
-                  <div style={{ display: 'flex', gap: 8 }}>
+                  <div className="flex gap-2">
                     <input
                       type="number"
                       placeholder="LP 数量"
                       value={stakeAmount[pool.id] || ''}
                       onChange={(e) => setStakeAmount((prev) => ({ ...prev, [pool.id]: e.target.value }))}
-                      style={{
-                        flex: 1, padding: '8px 12px', borderRadius: 6,
-                        border: '2px solid var(--cc-demo-border)', background: 'var(--cc-demo-surface-darker)', color: 'var(--cc-on-primary, #fff)',
-                        fontSize: "var(--cc-text-xs)", outline: 'none',
-                      }}
+                      className="flex-1 px-3 py-2 rounded-md border-2 border-[var(--cc-demo-border)] bg-[var(--cc-demo-surface-darker)] text-[var(--cc-on-primary,#fff)] text-[var(--cc-text-xs)] outline-none"
                     />
                     <button
                       onClick={() => handleStake(pool.id)}
                       disabled={stakingPool === pool.id || !stakeAmount[pool.id]}
-                      style={{
-                        padding: '8px 16px', borderRadius: 6, border: 'none',
-                        background: 'var(--cc-demo-accent)', color: 'var(--cc-on-primary, #fff)', cursor: 'pointer', fontSize: "var(--cc-text-xs)",
-                        opacity: !stakeAmount[pool.id] ? 0.5 : 1,
-                      }}
+                      className={`px-4 py-2 rounded-md border-none bg-[var(--cc-demo-accent)] text-[var(--cc-on-primary,#fff)] cursor-pointer text-[var(--cc-text-xs)] ${
+                        !stakeAmount[pool.id] ? 'opacity-50' : 'opacity-100'
+                      }`}
                     >
                       {stakingPool === pool.id ? '处理中...' : 'Stake'}
                     </button>
@@ -195,18 +184,15 @@ export function DeFiPage() {
         )}
 
         {tab === 'swap' && (
-          <div style={{ background: 'var(--cc-demo-surface-dark)', borderRadius: 12, padding: 24 }}>
+          <div className="bg-[var(--cc-demo-surface-dark)] rounded-xl p-6">
             {/* From */}
-            <div style={{ marginBottom: 16 }}>
-              <label style={{ fontSize: "var(--cc-text-xs)", color: 'var(--cc-demo-text-light)', marginBottom: 8, display: 'block' }}>从</label>
-              <div style={{ display: 'flex', gap: 8 }}>
+            <div className="mb-4">
+              <label className="block text-[var(--cc-text-xs)] text-[var(--cc-demo-text-light)] mb-2">从</label>
+              <div className="flex gap-2">
                 <select
                   value={swapFrom}
                   onChange={(e) => setSwapFrom(e.target.value)}
-                  style={{
-                    padding: '8px 12px', borderRadius: 6, border: '0px solid #333',
-                    background: 'var(--cc-demo-surface-darker)', color: 'var(--cc-on-primary, #fff)', fontSize: "var(--cc-text-sm)", outline: 'none',
-                  }}
+                  className="px-3 py-2 rounded-md border-0 border-[#333] bg-[var(--cc-demo-surface-darker)] text-[var(--cc-on-primary,#fff)] text-[var(--cc-text-sm)] outline-none"
                 >
                   {SWAP_TOKENS.map((t) => <option key={t} value={t}>{t}</option>)}
                 </select>
@@ -216,47 +202,35 @@ export function DeFiPage() {
                   placeholder="0.0"
                   value={swapAmount}
                   onChange={(e) => setSwapAmount(e.target.value)}
-                  style={{
-                    flex: 1, padding: '8px 12px', borderRadius: 6,
-                    border: '2px solid var(--cc-demo-border)', background: 'var(--cc-demo-surface-darker)', color: 'var(--cc-on-primary, #fff)',
-                    fontSize: "var(--cc-text-sm)", outline: 'none',
-                  }}
+                  className="flex-1 px-3 py-2 rounded-md border-2 border-[var(--cc-demo-border)] bg-[var(--cc-demo-surface-darker)] text-[var(--cc-on-primary,#fff)] text-[var(--cc-text-sm)] outline-none"
                 />
               </div>
             </div>
 
             {/* Swap direction */}
-            <div style={{ textAlign: 'center', margin: '8px 0' }}>
+            <div className="text-center my-2">
               <button
                 onClick={() => { setSwapFrom(swapTo); setSwapTo(swapFrom); }}
-                style={{
-                  padding: '4px 12px', borderRadius: 20, border: '0px solid #333',
-                  background: 'transparent', color: 'var(--cc-on-primary, #fff)', cursor: 'pointer', fontSize: "var(--cc-text-md)",
-                }}
+                className="px-3 py-1 rounded-full border-0 border-[#333] bg-transparent text-[var(--cc-on-primary,#fff)] cursor-pointer text-[var(--cc-text-md)]"
               >
                 ⇅
               </button>
             </div>
 
             {/* To */}
-            <div style={{ marginBottom: 16 }}>
-              <label style={{ fontSize: "var(--cc-text-xs)", color: 'var(--cc-demo-text-light)', marginBottom: 8, display: 'block' }}>到</label>
-              <div style={{ display: 'flex', gap: 8 }}>
+            <div className="mb-4">
+              <label className="block text-[var(--cc-text-xs)] text-[var(--cc-demo-text-light)] mb-2">到</label>
+              <div className="flex gap-2">
                 <select
                   value={swapTo}
                   onChange={(e) => setSwapTo(e.target.value)}
-                  style={{
-                    padding: '8px 12px', borderRadius: 6, border: '0px solid #333',
-                    background: 'var(--cc-demo-surface-darker)', color: 'var(--cc-on-primary, #fff)', fontSize: "var(--cc-text-sm)", outline: 'none',
-                  }}
+                  className="px-3 py-2 rounded-md border-0 border-[#333] bg-[var(--cc-demo-surface-darker)] text-[var(--cc-on-primary,#fff)] text-[var(--cc-text-sm)] outline-none"
                 >
                   {SWAP_TOKENS.map((t) => <option key={t} value={t}>{t}</option>)}
                 </select>
-                <div style={{
-                  flex: 1, padding: '8px 12px', borderRadius: 6,
-                  background: 'var(--cc-demo-surface-darker)', color: estimatedReceive ? '#4ade80' : '#555',
-                  fontSize: "var(--cc-text-sm)", display: 'flex', alignItems: 'center',
-                }}>
+                <div className={`flex-1 px-3 py-2 rounded-md bg-[var(--cc-demo-surface-darker)] text-[var(--cc-text-sm)] flex items-center ${
+                  estimatedReceive ? 'text-[#4ade80]' : 'text-[#555]'
+                }`}>
                   {estimatedReceive || '0.0'}
                 </div>
               </div>
@@ -264,7 +238,7 @@ export function DeFiPage() {
 
             {/* Rate info */}
             {swapAmount && (
-              <div style={{ background: 'var(--cc-demo-surface-darker)', borderRadius: 8, padding: 12, marginBottom: 16, fontSize: 12, color: 'var(--cc-demo-text-muted)' }}>
+              <div className="bg-[var(--cc-demo-surface-darker)] rounded-lg p-3 mb-4 text-xs text-[var(--cc-demo-text-muted)]">
                 1 {swapFrom} = {mockRate} {swapTo} · 滑点 0.5%
               </div>
             )}
@@ -272,18 +246,15 @@ export function DeFiPage() {
             <button
               onClick={handleSwap}
               disabled={!swapAmount}
-              style={{
-                width: '100%', padding: '12px 24px', borderRadius: 8, border: 'none',
-                background: swapAmount ? '#6366f1' : '#333',
-                color: 'var(--cc-on-primary, #fff)', fontSize: "var(--cc-text-md)", fontWeight: "var(--cc-weight-semibold)",
-                cursor: swapAmount ? 'pointer' : 'not-allowed',
-              }}
+              className={`w-full py-3 px-6 rounded-lg border-none text-[var(--cc-text-md)] font-semibold ${
+                swapAmount ? 'bg-[#6366f1] cursor-pointer' : 'bg-[#333] cursor-not-allowed'
+              } text-[var(--cc-on-primary,#fff)]`}
             >
               Swap
             </button>
 
             {swapResult && (
-              <div style={{ marginTop: 16, padding: 12, background: 'rgba(74, 222, 128, 0.06)', borderRadius: 8, color: 'var(--cc-demo-success)', fontSize: "var(--cc-text-sm)", textAlign: 'center' }}>
+              <div className="mt-4 p-3 bg-[rgba(74,222,128,0.06)] rounded-lg text-[var(--cc-demo-success)] text-[var(--cc-text-sm)] text-center">
                 ✅ {swapResult}
               </div>
             )}

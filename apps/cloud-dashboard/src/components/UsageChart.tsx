@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 interface UsageDataPoint {
   date: string;
   requests: number;
@@ -5,7 +7,10 @@ interface UsageDataPoint {
 }
 
 export function UsageChart({ data }: { data: UsageDataPoint[] }) {
-  const maxRequests = data.length > 0 ? Math.max(...data.map((d) => d.requests), 1) : 1;
+  const maxRequests = useMemo(
+    () => data.length > 0 ? Math.max(...data.map((d) => d.requests), 1) : 1,
+    [data]
+  );
 
   return (
     <div className="cc-card space-y-4">
