@@ -250,7 +250,7 @@ code, .mono {
 .badge {
   display: inline-flex;
   align-items: center;
-  padding: 2px 8px;
+  padding: 4px 8px;
   font-size: 12px;
   font-weight: 500;
   border-radius: 100px;

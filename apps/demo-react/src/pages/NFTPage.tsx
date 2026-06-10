@@ -107,7 +107,7 @@ export function NFTPage() {
               <div style={{ background: '#0d0d1a', borderRadius: 8, padding: 16 }}>
                 <h4 style={{ fontSize: 13, color: '#aaa', marginBottom: 8 }}>属性</h4>
                 {selectedNFT.traits.map((trait) => (
-                  <div key={trait.key} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+                  <div key={trait.key} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
                     <span style={{ color: '#888', fontSize: 13 }}>{trait.key}</span>
                     <span style={{ color: '#fff', fontSize: 13, fontWeight: 600 }}>{trait.value}</span>
                   </div>
