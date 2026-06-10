@@ -94,7 +94,7 @@ export function SystemConfig() {
                       type="text"
                       value={field.value as string}
                       onChange={(e) => handleFieldChange(section.id, field.key, e.target.value)}
-                      className="input"
+                      className="cc-form-input"
                     />
                   )}
                   {field.type === "number" && (
@@ -102,7 +102,7 @@ export function SystemConfig() {
                       type="number"
                       value={field.value as number}
                       onChange={(e) => handleFieldChange(section.id, field.key, Number(e.target.value))}
-                      className="input"
+                      className="cc-form-input"
                     />
                   )}
                   {field.type === "toggle" && (
@@ -142,11 +142,11 @@ export function SystemConfig() {
       <div className="flex items-center gap-md">
         <button
           onClick={handleSave}
-          className="btn btn-primary"
+          className="cc-btn-primary"
         >
           Save All Changes
         </button>
-        <button className="btn btn-secondary" onClick={handleReset}>
+        <button className="cc-btn-secondary" onClick={handleReset}>
           Reset to Defaults
         </button>
         {saved && (

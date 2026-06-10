@@ -67,7 +67,7 @@ export default function ApiKeyModal({ onCreate, onClose }: ApiKeyModalProps) {
             <input
               type="text"
               placeholder="e.g. Production Key"
-              className="input"
+              className="cc-form-input"
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
@@ -121,13 +121,13 @@ export default function ApiKeyModal({ onCreate, onClose }: ApiKeyModalProps) {
           </div>
 
           <div className="flex gap-3 pt-2">
-            <button type="submit" className="btn-primary flex-1 justify-center" disabled={loading}>
+            <button type="submit" className="cc-btn-primary flex-1 justify-center" disabled={loading}>
               {loading ? "Generating..." : "Generate Key"}
             </button>
             <button
               type="button"
               onClick={onClose}
-              className="btn-secondary flex-1 justify-center"
+              className="cc-btn-secondary flex-1 justify-center"
             >
               Cancel
             </button>

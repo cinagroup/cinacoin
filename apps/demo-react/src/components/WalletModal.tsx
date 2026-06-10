@@ -429,7 +429,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  href="https://metamask.io/download/"
  target="_blank"
  rel="noopener noreferrer"
- className="btn-primary px-6 py-3 rounded-[100px] text-body-sm font-medium text-center"
+ className="cc-btn-primary px-6 py-3 rounded-[100px] text-body-sm font-medium text-center"
  >
  Install MetaMask →
  </a>
@@ -439,7 +439,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  href="https://www.coinbase.com/wallet"
  target="_blank"
  rel="noopener noreferrer"
- className="btn-primary px-6 py-3 rounded-[100px] text-body-sm font-medium text-center"
+ className="cc-btn-primary px-6 py-3 rounded-[100px] text-body-sm font-medium text-center"
  >
  Install Coinbase Wallet →
  </a>
@@ -449,7 +449,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  href="https://rainbow.me/"
  target="_blank"
  rel="noopener noreferrer"
- className="btn-primary px-6 py-3 rounded-[100px] text-body-sm font-medium text-center"
+ className="cc-btn-primary px-6 py-3 rounded-[100px] text-body-sm font-medium text-center"
  >
  Install Rainbow →
  </a>
@@ -459,7 +459,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  href="https://phantom.app/"
  target="_blank"
  rel="noopener noreferrer"
- className="btn-primary px-6 py-3 rounded-[100px] text-body-sm font-medium text-center"
+ className="cc-btn-primary px-6 py-3 rounded-[100px] text-body-sm font-medium text-center"
  >
  Install Phantom →
  </a>
@@ -469,7 +469,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  href="https://trustwallet.com/"
  target="_blank"
  rel="noopener noreferrer"
- className="btn-primary px-6 py-3 rounded-[100px] text-body-sm font-medium text-center"
+ className="cc-btn-primary px-6 py-3 rounded-[100px] text-body-sm font-medium text-center"
  >
  Install Trust Wallet →
  </a>

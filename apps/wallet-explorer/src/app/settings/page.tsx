@@ -41,14 +41,14 @@ export default function SettingsPage() {
               <span className="text-body-sm text-mute">Network</span>
               <span className="text-body-sm text-ink capitalize">{chain}</span>
             </div>
-            <button onClick={disconnect} className="btn btn-secondary mt-2">
+            <button onClick={disconnect} className="cc-btn-secondary mt-2">
               Disconnect Wallet
             </button>
           </div>
         ) : (
           <div className="text-center py-4">
             <p className="text-body-sm text-mute mb-3">No wallet connected.</p>
-            <button onClick={connect} className="btn btn-primary">
+            <button onClick={connect} className="cc-btn-primary">
               Connect Wallet
             </button>
           </div>
@@ -98,13 +98,13 @@ export default function SettingsPage() {
       <div className="cc-card">
         <h2 className="text-heading-3 text-ink mb-4">Actions</h2>
         <div className="space-y-3">
-          <button className="btn btn-secondary w-full justify-start">
+          <button className="cc-btn-secondary w-full justify-start">
             Export Transaction History
           </button>
-          <button className="btn btn-secondary w-full justify-start">
+          <button className="cc-btn-secondary w-full justify-start">
             View Recovery Phrase
           </button>
-          <button className="btn btn-secondary w-full justify-start" style={{ color: 'var(--color-error)' }}>
+          <button className="cc-btn-secondary w-full justify-start" style={{ color: 'var(--color-error)' }}>
             Reset Wallet
           </button>
         </div>
@@ -116,7 +116,7 @@ export default function SettingsPage() {
         </div>
       )}
 
-      <button onClick={handleSave} className="btn btn-primary w-full py-3">
+      <button onClick={handleSave} className="cc-btn-primary w-full py-3">
         Save Settings
       </button>
     </div>

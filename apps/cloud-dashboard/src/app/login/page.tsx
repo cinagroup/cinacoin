@@ -97,7 +97,7 @@ export default function LoginPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@example.com"
-                    className="input"
+                    className="cc-form-input"
                     required
                     autoFocus
                     disabled={loading}
@@ -114,7 +114,7 @@ export default function LoginPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="input"
+                    className="cc-form-input"
                     required
                     disabled={loading}
                   />
@@ -131,7 +131,7 @@ export default function LoginPage() {
                   value={twoFactorCode}
                   onChange={(e) => setTwoFactorCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
                   placeholder="000000"
-                  className="input text-center text-display-md tracking-widest"
+                  className="cc-form-input text-center text-display-md tracking-widest"
                   required
                   autoFocus
                   maxLength={6}
@@ -143,7 +143,7 @@ export default function LoginPage() {
               </div>
             )}
 
-            <button type="submit" className="btn-primary w-full py-3" disabled={loading}>
+            <button type="submit" className="cc-btn-primary w-full py-3" disabled={loading}>
               {loading
                 ? showTwoFactor
                   ? "Verifying..."

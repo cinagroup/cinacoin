@@ -106,7 +106,7 @@ export default function WalletPage({
           {error && <div className="error-message">{error}</div>}
 
           <button
-            className="btn btn-primary btn-large"
+            className="cc-btn-primary btn-large"
             onClick={handleConnect}
             disabled={connecting}
           >
@@ -148,17 +148,17 @@ export default function WalletPage({
           </div>
 
           <div className="wallet-actions">
-            <button className="btn btn-secondary" onClick={handleCopyAddress}>
+            <button className="cc-btn-secondary" onClick={handleCopyAddress}>
               📋 Copy Address
             </button>
             <button
-              className="btn btn-secondary"
+              className="cc-btn-secondary"
               onClick={handleFetchBalance}
               disabled={fetchingBalance}
             >
               {fetchingBalance ? '⟳ Fetching...' : '↻ Refresh Balance'}
             </button>
-            <button className="btn btn-danger" onClick={handleDisconnect}>
+            <button className="cc-btn-danger" onClick={handleDisconnect}>
               Disconnect
             </button>
           </div>

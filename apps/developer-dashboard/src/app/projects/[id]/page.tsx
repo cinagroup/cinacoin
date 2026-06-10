@@ -165,21 +165,21 @@ export default function ProjectDetailPage() {
                 type="text"
                 value={editName}
                 onChange={(e) => setEditName(e.target.value)}
-                className="input text-display-md font-semibold"
+                className="cc-form-input text-display-md font-semibold"
                 placeholder="Project name"
               />
               <input
                 type="text"
                 value={editDesc}
                 onChange={(e) => setEditDesc(e.target.value)}
-                className="input"
+                className="cc-form-input"
                 placeholder="Description"
               />
               <div className="flex gap-2">
-                <button onClick={handleSaveProject} className="btn-primary">
+                <button onClick={handleSaveProject} className="cc-btn-primary">
                   Save Changes
                 </button>
-                <button onClick={() => setIsEditing(false)} className="btn-secondary">
+                <button onClick={() => setIsEditing(false)} className="cc-btn-secondary">
                   Cancel
                 </button>
               </div>
@@ -200,7 +200,7 @@ export default function ProjectDetailPage() {
           )}
         </div>
         {!isEditing && (
-          <button onClick={() => setIsEditing(true)} className="btn-secondary">
+          <button onClick={() => setIsEditing(true)} className="cc-btn-secondary">
             ✏️ Edit Project
           </button>
         )}
@@ -281,7 +281,7 @@ export default function ProjectDetailPage() {
           <div>
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-body-lg font-semibold text-ink">API Keys</h2>
-              <button className="btn-primary">+ Generate Key</button>
+              <button className="cc-btn-primary">+ Generate Key</button>
             </div>
             <div className="table-container">
               <table>
@@ -386,7 +386,7 @@ export default function ProjectDetailPage() {
                   Configure environment variables for your project. Secret values are masked.
                 </p>
               </div>
-              <button onClick={() => setShowAddEnv(true)} className="btn-primary">
+              <button onClick={() => setShowAddEnv(true)} className="cc-btn-primary">
                 + Add Variable
               </button>
             </div>
@@ -437,7 +437,7 @@ export default function ProjectDetailPage() {
                     type="text"
                     value={newEnvKey}
                     onChange={(e) => setNewEnvKey(e.target.value.toUpperCase().replace(/[^A-Z0-9_]/g, ""))}
-                    className="input font-[var(--font-mono)]"
+                    className="cc-form-input font-[var(--font-mono)]"
                     placeholder="MY_VARIABLE_KEY"
                   />
                 </div>
@@ -447,7 +447,7 @@ export default function ProjectDetailPage() {
                     type="text"
                     value={newEnvValue}
                     onChange={(e) => setNewEnvValue(e.target.value)}
-                    className="input font-[var(--font-mono)]"
+                    className="cc-form-input font-[var(--font-mono)]"
                     placeholder="variable value"
                   />
                 </div>
@@ -460,10 +460,10 @@ export default function ProjectDetailPage() {
                   Mark as secret (value will be masked)
                 </label>
                 <div className="flex gap-2">
-                  <button onClick={handleAddEnvVar} className="btn-primary">
+                  <button onClick={handleAddEnvVar} className="cc-btn-primary">
                     Add Variable
                   </button>
-                  <button onClick={() => setShowAddEnv(false)} className="btn-secondary">
+                  <button onClick={() => setShowAddEnv(false)} className="cc-btn-secondary">
                     Cancel
                   </button>
                 </div>

@@ -57,7 +57,7 @@ export default function SwapPage() {
       <div className="cc-card text-center py-12">
         <h2 className="text-heading-2 text-ink">Swap Tokens</h2>
         <p className="mt-2 text-body text-mute">Connect your wallet to swap tokens.</p>
-        <button onClick={connect} className="btn btn-primary mt-6">
+        <button onClick={connect} className="cc-btn-primary mt-6">
           Connect Wallet
         </button>
       </div>
@@ -172,7 +172,7 @@ export default function SwapPage() {
           <button
             type="submit"
             disabled={swapping || !fromAmount || !toAmount}
-            className="btn btn-primary w-full py-3"
+            className="cc-btn-primary w-full py-3"
           >
             {swapping ? 'Swapping...' : 'Swap'}
           </button>

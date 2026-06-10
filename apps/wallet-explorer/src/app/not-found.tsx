@@ -11,7 +11,7 @@ export default function NotFound() {
           <p className="text-body-lg text-body mb-8 max-w-md">
             Page not found. The wallet explorer page you&apos;re looking for doesn&apos;t exist.
           </p>
-          <Link href="/" className="btn btn-primary">
+          <Link href="/" className="cc-btn-primary">
             ← Back to Wallet Explorer
           </Link>
         </div>

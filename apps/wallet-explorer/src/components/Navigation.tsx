@@ -30,12 +30,12 @@ export default function Navigation() {
               <code className="text-caption-mono text-mute">
                 {address?.slice(0, 6)}...{address?.slice(-4)}
               </code>
-              <button onClick={disconnect} className="btn btn-secondary">
+              <button onClick={disconnect} className="cc-btn-secondary">
                 Disconnect
               </button>
             </div>
           ) : (
-            <button onClick={connect} className="btn btn-primary">
+            <button onClick={connect} className="cc-btn-primary">
               Connect Wallet
             </button>
           )}

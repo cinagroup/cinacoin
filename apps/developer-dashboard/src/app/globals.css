@@ -341,3 +341,5 @@ tr:last-child td {
   border-color: var(--cc-hairline-dark);
   box-shadow: 0 1px 3px rgba(0,0,0,0.06);
 }
+.cc-btn-danger { display: inline-flex; align-items: center; justify-content: center; height: 40px; padding: 0 20px; background-color: var(--cc-error, #dc2626); color: white; border: none; border-radius: 100px; font-size: var(--text-body-sm); font-weight: var(--weight-medium); cursor: pointer; transition: opacity 150ms; text-decoration: none; }
+.cc-btn-danger:hover { opacity: 0.9; }

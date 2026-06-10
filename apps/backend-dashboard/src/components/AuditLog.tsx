@@ -185,7 +185,7 @@ export function AuditLog() {
               <div className="relative">
                 <button
                   onClick={() => handleExport("csv")}
-                  className="btn btn-secondary text-caption"
+                  className="cc-btn-secondary text-caption"
                 >
                   <svg className="w-3.5 h-3.5 mr-2" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
@@ -195,7 +195,7 @@ export function AuditLog() {
               </div>
               <button
                 onClick={() => handleExport("json")}
-                className="btn btn-secondary text-caption"
+                className="cc-btn-secondary text-caption"
               >
                 <svg className="w-3.5 h-3.5 mr-2" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
@@ -212,7 +212,7 @@ export function AuditLog() {
               placeholder="Search actions, users, IPs..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="input max-w-xs"
+              className="cc-form-input max-w-xs"
             />
             <select
               value={categoryFilter}
@@ -339,10 +339,10 @@ export function AuditLog() {
             {selectedEntries.size > 0 && ` · ${selectedEntries.size} selected`}
           </p>
           <div className="flex gap-2">
-            <button className="btn btn-secondary text-caption" disabled>
+            <button className="cc-btn-secondary text-caption" disabled>
               Previous
             </button>
-            <button className="btn btn-secondary text-caption">
+            <button className="cc-btn-secondary text-caption">
               Next
             </button>
           </div>

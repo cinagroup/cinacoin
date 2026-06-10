@@ -48,7 +48,7 @@ export default function ProjectsPage() {
               <h1 className="text-heading-2 text-ink">Projects</h1>
               <p className="text-body-sm text-body mt-1">Manage your cloud projects</p>
             </div>
-            <button className="btn-primary px-4 py-2">
+            <button className="cc-btn-primary px-4 py-2">
               + New Project
             </button>
           </div>

@@ -85,7 +85,7 @@ export default function HomePage({ user, account, balance, onNavigate }: HomePag
         ) : (
           <div className="empty-state">
             <p>Connect your wallet to see transactions</p>
-            <button className="btn btn-primary" onClick={() => onNavigate('wallet')}>
+            <button className="cc-btn-primary" onClick={() => onNavigate('wallet')}>
               Connect Wallet
             </button>
           </div>

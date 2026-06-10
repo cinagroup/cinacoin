@@ -44,7 +44,7 @@ export default function NewProjectPage() {
             name="name"
             type="text"
             placeholder="My Awesome dApp"
-            className="input"
+            className="cc-form-input"
             value={formData.name}
             onChange={handleChange}
             required
@@ -58,7 +58,7 @@ export default function NewProjectPage() {
           <textarea
             name="description"
             placeholder="Brief description of your project..."
-            className="input min-h-[100px] resize-y"
+            className="cc-form-input min-h-[100px] resize-y"
             value={formData.description}
             onChange={handleChange}
           />
@@ -69,7 +69,7 @@ export default function NewProjectPage() {
             <label className="block text-body-sm font-medium text-ink mb-1">Network</label>
             <select
               name="network"
-              className="input"
+              className="cc-form-input"
               value={formData.network}
               onChange={handleChange}
             >
@@ -83,7 +83,7 @@ export default function NewProjectPage() {
             <label className="block text-body-sm font-medium text-ink mb-1">SDK Version</label>
             <select
               name="sdkVersion"
-              className="input"
+              className="cc-form-input"
               value={formData.sdkVersion}
               onChange={handleChange}
             >
@@ -94,10 +94,10 @@ export default function NewProjectPage() {
         </div>
 
         <div className="flex gap-3 pt-2">
-          <button type="submit" className="btn-primary">
+          <button type="submit" className="cc-btn-primary">
             Create Project
           </button>
-          <Link href="/projects" className="btn-secondary">
+          <Link href="/projects" className="cc-btn-secondary">
             Cancel
           </Link>
         </div>

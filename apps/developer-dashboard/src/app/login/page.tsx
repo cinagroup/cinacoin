@@ -15,7 +15,7 @@ export default function LoginPage() {
               <input
                 type="email"
                 placeholder="developer@example.com"
-                className="input"
+                className="cc-form-input"
               />
             </div>
             <div>
@@ -23,10 +23,10 @@ export default function LoginPage() {
               <input
                 type="password"
                 placeholder="••••••••"
-                className="input"
+                className="cc-form-input"
               />
             </div>
-            <button type="submit" className="btn-primary w-full justify-center">
+            <button type="submit" className="cc-btn-primary w-full justify-center">
               Sign In
             </button>
           </form>
@@ -40,7 +40,7 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <button className="btn-secondary w-full justify-center">
+          <button className="cc-btn-secondary w-full justify-center">
             🦊 Sign in with Ethereum (SIWE)
           </button>
         </div>

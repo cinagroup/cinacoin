@@ -28,7 +28,7 @@ export default function SendPage() {
       <div className="cc-card text-center py-12">
         <h2 className="text-heading-2 text-ink">Send CINA</h2>
         <p className="mt-2 text-body text-mute">Connect your wallet to send tokens.</p>
-        <button onClick={connect} className="btn btn-primary mt-6">
+        <button onClick={connect} className="cc-btn-primary mt-6">
           Connect Wallet
         </button>
       </div>
@@ -107,7 +107,7 @@ export default function SendPage() {
           <button
             type="submit"
             disabled={sending || !recipient || !amount}
-            className="btn btn-primary w-full py-3"
+            className="cc-btn-primary w-full py-3"
           >
             {sending ? 'Sending...' : 'Send'}
           </button>

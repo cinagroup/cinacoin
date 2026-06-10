@@ -28,7 +28,7 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
         />
         <button
           type="submit"
-          className="btn btn-primary absolute right-2 top-1/2 -translate-y-1/2"
+          className="cc-btn-primary absolute right-2 top-1/2 -translate-y-1/2"
         >
           Search
         </button>

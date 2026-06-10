@@ -666,3 +666,72 @@
   word-break: break-all;
   line-height: 1.6;
 }
+.cc-btn-danger { display: inline-flex; align-items: center; justify-content: center; height: 40px; padding: 0 20px; background-color: var(--cc-error, #dc2626); color: white; border: none; border-radius: 100px; font-size: var(--text-body-sm); font-weight: var(--weight-medium); cursor: pointer; transition: opacity 150ms; text-decoration: none; }
+.cc-btn-danger:hover { opacity: 0.9; }
+
+/* ── CC Button Components ──────────────────────── */
+.cc-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  padding: 0 24px;
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 100px;
+  font-size: var(--text-body-md, 16px);
+  font-weight: var(--weight-medium, 500);
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.cc-btn-primary:hover {
+  opacity: 0.85;
+}
+
+.cc-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  padding: 0 24px;
+  background-color: transparent;
+  color: var(--color-ink, #171717);
+  border: 1px solid var(--color-hairline, #ebebeb);
+  border-radius: 100px;
+  font-size: var(--text-body-md, 16px);
+  font-weight: var(--weight-medium, 500);
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.cc-btn-secondary:hover {
+  border-color: var(--color-ink, #171717);
+}
+
+.cc-btn-secondary-sm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  padding: 0 16px;
+  background-color: transparent;
+  color: var(--color-ink, #171717);
+  border: 1px solid var(--color-hairline-strong, #a1a1a1);
+  border-radius: 6px;
+  font-size: var(--text-body-sm, 14px);
+  font-weight: var(--weight-medium, 500);
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.cc-btn-secondary-sm:hover {
+  border-color: var(--color-ink, #171717);
+}

@@ -24,7 +24,7 @@ export default function Navbar() {
           ).join(" / ")}
         </div>
         <div className="flex items-center gap-3">
-          <Link href="/projects/new" className="btn-primary text-caption">
+          <Link href="/projects/new" className="cc-btn-primary text-caption">
             + New Project
           </Link>
           <div className="w-8 h-8 rounded-full bg-ink text-[var(--color-on-primary)] flex items-center justify-center text-body-sm font-medium">

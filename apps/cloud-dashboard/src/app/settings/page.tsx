@@ -61,7 +61,7 @@ export default function SettingsPage() {
                     <input
                       type="text"
                       defaultValue="Admin"
-                      className="input"
+                      className="cc-form-input"
                     />
                   </div>
                   <div>
@@ -69,7 +69,7 @@ export default function SettingsPage() {
                     <input
                       type="text"
                       defaultValue="User"
-                      className="input"
+                      className="cc-form-input"
                     />
                   </div>
                 </div>
@@ -78,7 +78,7 @@ export default function SettingsPage() {
                   <input
                     type="email"
                     defaultValue="admin@cinacoin.com"
-                    className="input"
+                    className="cc-form-input"
                   />
                 </div>
                 <div>
@@ -86,12 +86,12 @@ export default function SettingsPage() {
                   <input
                     type="text"
                     defaultValue="CinaCoin"
-                    className="input"
+                    className="cc-form-input"
                   />
                 </div>
                 <div className="flex justify-end gap-3 pt-4 border-t border-hairline">
-                  <button type="button" className="btn-secondary px-4 py-2">Cancel</button>
-                  <button type="submit" className="btn-primary px-4 py-2">Save Changes</button>
+                  <button type="button" className="cc-btn-secondary px-4 py-2">Cancel</button>
+                  <button type="submit" className="cc-btn-primary px-4 py-2">Save Changes</button>
                 </div>
               </form>
             </div>
@@ -105,18 +105,18 @@ export default function SettingsPage() {
                 <form className="space-y-4">
                   <div>
                     <label className="block text-body-sm font-medium text-ink mb-2">Current Password</label>
-                    <input type="password" className="input" />
+                    <input type="password" className="cc-form-input" />
                   </div>
                   <div>
                     <label className="block text-body-sm font-medium text-ink mb-2">New Password</label>
-                    <input type="password" className="input" />
+                    <input type="password" className="cc-form-input" />
                   </div>
                   <div>
                     <label className="block text-body-sm font-medium text-ink mb-2">Confirm New Password</label>
-                    <input type="password" className="input" />
+                    <input type="password" className="cc-form-input" />
                   </div>
                   <div className="flex justify-end pt-4 border-t border-hairline">
-                    <button type="submit" className="btn-primary px-4 py-2">Update Password</button>
+                    <button type="submit" className="cc-btn-primary px-4 py-2">Update Password</button>
                   </div>
                 </form>
               </div>
@@ -126,7 +126,7 @@ export default function SettingsPage() {
                 <p className="text-body-sm text-body mb-4">
                   Add an extra layer of security to your account by enabling two-factor authentication.
                 </p>
-                <button className="btn-secondary px-4 py-2">Enable 2FA</button>
+                <button className="cc-btn-secondary px-4 py-2">Enable 2FA</button>
               </div>
             </div>
           )}
@@ -168,7 +168,7 @@ export default function SettingsPage() {
                     type="text"
                     value="https://api.cinacoin.com/v1"
                     readOnly
-                    className="input bg-canvas-soft-2"
+                    className="cc-form-input bg-canvas-soft-2"
                   />
                 </div>
                 <div>
@@ -177,7 +177,7 @@ export default function SettingsPage() {
                     type="text"
                     value="wss://ws.cinacoin.com"
                     readOnly
-                    className="input bg-canvas-soft-2"
+                    className="cc-form-input bg-canvas-soft-2"
                   />
                 </div>
                 <div className="pt-4 border-t border-hairline">

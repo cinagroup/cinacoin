@@ -122,7 +122,7 @@ export default function SignPage({ provider, account }: SignPageProps) {
           Verify your identity by signing a message with your Telegram account
         </p>
         <button
-          className="btn btn-primary"
+          className="cc-btn-primary"
           onClick={handleSignInWithTelegram}
           disabled={signing}
         >
@@ -151,7 +151,7 @@ export default function SignPage({ provider, account }: SignPageProps) {
           />
         </div>
         <button
-          className="btn btn-secondary"
+          className="cc-btn-secondary"
           onClick={handleSignMessage}
           disabled={signing || !message}
         >
@@ -172,7 +172,7 @@ export default function SignPage({ provider, account }: SignPageProps) {
         <div className="signature-result">
           <div className="signature-header">
             <h3>Signature</h3>
-            <button className="btn btn-small" onClick={handleCopySignature}>
+            <button className="cc-btn-secondary-sm" onClick={handleCopySignature}>
               📋 Copy
             </button>
           </div>

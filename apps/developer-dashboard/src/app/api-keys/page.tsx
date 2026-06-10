@@ -96,7 +96,7 @@ export default function ApiKeysPage() {
             Manage API keys for authenticating with Cinacoin services.
           </p>
         </div>
-        <button onClick={() => setShowModal(true)} className="btn-primary">
+        <button onClick={() => setShowModal(true)} className="cc-btn-primary">
           + Generate Key
         </button>
       </div>
@@ -146,7 +146,7 @@ export default function ApiKeysPage() {
             <div className="flex gap-2">
               <button
                 onClick={() => navigator.clipboard.writeText(showNewKey).catch(() => {})}
-                className="btn-primary text-caption"
+                className="cc-btn-primary text-caption"
               >
                 📋 Copy
               </button>

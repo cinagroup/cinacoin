@@ -146,7 +146,7 @@ export function UserManagement() {
             <div className="flex gap-md justify-end">
               <button
                 onClick={() => setConfirmAction(null)}
-                className="btn btn-secondary"
+                className="cc-btn-secondary"
               >
                 Cancel
               </button>
@@ -172,7 +172,7 @@ export function UserManagement() {
                 <input
                   type="text"
                   defaultValue={editingUser.name}
-                  className="input"
+                  className="cc-form-input"
                   id="edit-name"
                 />
               </div>
@@ -181,7 +181,7 @@ export function UserManagement() {
                 <input
                   type="email"
                   defaultValue={editingUser.email}
-                  className="input"
+                  className="cc-form-input"
                   id="edit-email"
                 />
               </div>
@@ -206,7 +206,7 @@ export function UserManagement() {
             <div className="flex gap-md justify-end mt-lg">
               <button
                 onClick={() => setEditingUser(null)}
-                className="btn btn-secondary"
+                className="cc-btn-secondary"
               >
                 Cancel
               </button>
@@ -222,7 +222,7 @@ export function UserManagement() {
                   ));
                   setEditingUser(null);
                 }}
-                className="btn btn-primary"
+                className="cc-btn-primary"
               >
                 Save Changes
               </button>
@@ -239,11 +239,11 @@ export function UserManagement() {
             <div className="space-y-md">
               <div>
                 <label className="label">Name</label>
-                <input type="text" className="input" id="add-name" placeholder="John Doe" />
+                <input type="text" className="cc-form-input" id="add-name" placeholder="John Doe" />
               </div>
               <div>
                 <label className="label">Email</label>
-                <input type="email" className="input" id="add-email" placeholder="john@example.com" />
+                <input type="email" className="cc-form-input" id="add-email" placeholder="john@example.com" />
               </div>
               <div>
                 <label className="label">Role</label>
@@ -258,7 +258,7 @@ export function UserManagement() {
             <div className="flex gap-md justify-end mt-lg">
               <button
                 onClick={() => setShowAddUser(false)}
-                className="btn btn-secondary"
+                className="cc-btn-secondary"
               >
                 Cancel
               </button>
@@ -281,7 +281,7 @@ export function UserManagement() {
                     setShowAddUser(false);
                   }
                 }}
-                className="btn btn-primary"
+                className="cc-btn-primary"
               >
                 Add User
               </button>
@@ -294,7 +294,7 @@ export function UserManagement() {
         <div className="p-md border-b border-hairline">
           <div className="flex items-center justify-between">
             <h2 className="text-heading-3 text-ink">User Management</h2>
-            <button className="btn btn-primary" onClick={handleAddUser}>
+            <button className="cc-btn-primary" onClick={handleAddUser}>
               + Add User
             </button>
           </div>
@@ -304,12 +304,12 @@ export function UserManagement() {
               placeholder="Search users..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="input max-w-md"
+              className="cc-form-input max-w-md"
             />
             {filteredUsers.length > 0 && (
               <button
                 onClick={handleSelectAll}
-                className="btn btn-secondary text-caption"
+                className="cc-btn-secondary text-caption"
               >
                 {allSelected ? "Deselect All" : "Select All"}
               </button>
@@ -415,10 +415,10 @@ export function UserManagement() {
             {selectedUsers.size > 0 && ` · ${selectedUsers.size} selected`}
           </p>
           <div className="flex gap-2">
-            <button className="btn btn-secondary text-caption" disabled>
+            <button className="cc-btn-secondary text-caption" disabled>
               Previous
             </button>
-            <button className="btn btn-secondary text-caption">
+            <button className="cc-btn-secondary text-caption">
               Next
             </button>
           </div>

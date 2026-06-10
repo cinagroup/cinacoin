@@ -79,7 +79,7 @@ function OAuthCallbackContent() {
               <p className="text-body-sm text-body mb-6">{error}</p>
               <button
                 onClick={() => router.push("/login")}
-                className="btn-primary w-full py-3"
+                className="cc-btn-primary w-full py-3"
               >
                 Return to Login
               </button>

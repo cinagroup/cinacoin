@@ -36,7 +36,7 @@ export default function ApiKeysPage() {
               <h1 className="text-heading-2 text-ink">API Keys</h1>
               <p className="text-body-sm text-body mt-1">Manage your API keys for authentication</p>
             </div>
-            <button className="btn-primary px-4 py-2">
+            <button className="cc-btn-primary px-4 py-2">
               + Create API Key
             </button>
           </div>

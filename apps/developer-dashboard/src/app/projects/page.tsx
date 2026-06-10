@@ -64,7 +64,7 @@ export default function ProjectsPage() {
           <h1 className="text-display-md font-semibold text-ink">Projects</h1>
           <p className="text-ink-body mt-1">Manage your Cinacoin projects</p>
         </div>
-        <Link href="/projects/new" className="btn-primary">
+        <Link href="/projects/new" className="cc-btn-primary">
           + New Project
         </Link>
       </div>

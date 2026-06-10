@@ -113,7 +113,7 @@ export default function TransferPage({ provider, account, balance }: TransferPag
               step="0.0001"
               min="0"
             />
-            <button className="btn btn-small" onClick={handleMaxAmount} disabled={sending}>
+            <button className="cc-btn-secondary-sm" onClick={handleMaxAmount} disabled={sending}>
               MAX
             </button>
           </div>
@@ -124,7 +124,7 @@ export default function TransferPage({ provider, account, balance }: TransferPag
         {success && <div className="success-message">{success}</div>}
 
         <button
-          className="btn btn-primary btn-large"
+          className="cc-btn-primary btn-large"
           onClick={handleSend}
           disabled={sending || !to || !amount}
         >

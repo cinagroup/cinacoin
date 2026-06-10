@@ -212,7 +212,7 @@ export function TwoFactorAuth() {
                 <button
                   onClick={handleStartSetup}
                   disabled={isSubmitting}
-                  className="btn btn-primary disabled:opacity-50"
+                  className="cc-btn-primary disabled:opacity-50"
                 >
                   {isSubmitting ? "Setting up…" : "Enable 2FA"}
                 </button>
@@ -287,11 +287,11 @@ export function TwoFactorAuth() {
               <button
                 onClick={handleProceedToVerify}
                 disabled={isSubmitting}
-                className="btn btn-primary"
+                className="cc-btn-primary"
               >
                 I&apos;ve scanned the code — Next
               </button>
-              <button onClick={handleCancel} className="btn btn-secondary">
+              <button onClick={handleCancel} className="cc-btn-secondary">
                 Cancel
               </button>
             </div>
@@ -352,7 +352,7 @@ export function TwoFactorAuth() {
             </div>
 
             <div className="flex gap-md justify-center pt-md border-t border-hairline">
-              <button onClick={() => setStatus("setup")} className="btn btn-secondary">
+              <button onClick={() => setStatus("setup")} className="cc-btn-secondary">
                 Back
               </button>
             </div>
@@ -390,7 +390,7 @@ export function TwoFactorAuth() {
                 </div>
                 <button
                   onClick={handleCopyAllCodes}
-                  className="btn btn-secondary text-caption flex-shrink-0"
+                  className="cc-btn-secondary text-caption flex-shrink-0"
                 >
                   {allCopied ? "✓ Copied" : "Copy All"}
                 </button>
@@ -428,7 +428,7 @@ export function TwoFactorAuth() {
             </div>
 
             <div className="flex items-center justify-end pt-md border-t border-hairline">
-              <button onClick={handleDone} className="btn btn-primary">
+              <button onClick={handleDone} className="cc-btn-primary">
                 Done — I&apos;ve Saved My Recovery Codes
               </button>
             </div>
@@ -453,7 +453,7 @@ export function TwoFactorAuth() {
                   <button
                     onClick={handleDisable}
                     disabled={isSubmitting}
-                    className="btn btn-danger disabled:opacity-50"
+                    className="cc-btn-danger disabled:opacity-50"
                   >
                     {isSubmitting ? "Disabling…" : "Disable 2FA"}
                   </button>

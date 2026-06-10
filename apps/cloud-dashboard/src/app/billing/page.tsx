@@ -43,7 +43,7 @@ export default function BillingPage() {
                 <h2 className="text-heading-3 text-ink mb-1">Current Plan</h2>
                 <p className="text-body-sm text-body">Professional Plan</p>
               </div>
-              <button className="btn-secondary px-4 py-2">
+              <button className="cc-btn-secondary px-4 py-2">
                 Upgrade Plan
               </button>
             </div>

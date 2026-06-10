@@ -70,7 +70,7 @@ export function PermissionManagement() {
       <div className="cc-card p-md">
         <div className="flex items-center justify-between mb-md">
           <h2 className="text-heading-3 text-ink">Roles & Permissions</h2>
-          <button className="btn btn-primary">
+          <button className="cc-btn-primary">
             + Create Role
           </button>
         </div>
@@ -135,10 +135,10 @@ export function PermissionManagement() {
             ))}
           </div>
           <div className="mt-md flex gap-3">
-            <button className="btn btn-primary">
+            <button className="cc-btn-primary">
               Save Changes
             </button>
-            <button className="btn btn-secondary">
+            <button className="cc-btn-secondary">
               Cancel
             </button>
           </div>

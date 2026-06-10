@@ -135,7 +135,7 @@ export default function BillingPage() {
             <div className="text-body-sm font-medium text-ink">July 10, 2026</div>
             <button
               onClick={() => setShowUpgradeModal(true)}
-              className="btn-primary mt-4"
+              className="cc-btn-primary mt-4"
             >
               Upgrade Plan
             </button>

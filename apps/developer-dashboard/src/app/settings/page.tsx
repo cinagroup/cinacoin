@@ -32,7 +32,7 @@ export default function SettingsPage() {
           <input
             name="name"
             type="text"
-            className="input"
+            className="cc-form-input"
             value={profile.name}
             onChange={handleChange}
           />
@@ -42,7 +42,7 @@ export default function SettingsPage() {
           <input
             name="email"
             type="email"
-            className="input"
+            className="cc-form-input"
             value={profile.email}
             onChange={handleChange}
           />
@@ -52,12 +52,12 @@ export default function SettingsPage() {
           <input
             name="company"
             type="text"
-            className="input"
+            className="cc-form-input"
             value={profile.company}
             onChange={handleChange}
           />
         </div>
-        <button className="btn-primary">Save Changes</button>
+        <button className="cc-btn-primary">Save Changes</button>
       </div>
 
       {/* Security */}
@@ -99,7 +99,7 @@ export default function SettingsPage() {
           </label>
         </div>
 
-        <button className="btn-secondary">Change Password</button>
+        <button className="cc-btn-secondary">Change Password</button>
       </div>
 
       {/* Connected Wallets */}
@@ -115,7 +115,7 @@ export default function SettingsPage() {
           </div>
           <span className="badge badge-success">Connected</span>
         </div>
-        <button className="btn-secondary">+ Connect Wallet</button>
+        <button className="cc-btn-secondary">+ Connect Wallet</button>
       </div>
 
       {/* Danger Zone */}
@@ -124,7 +124,7 @@ export default function SettingsPage() {
         <p className="text-body-sm text-ink-body mb-4">
           Permanently delete your account and all associated projects, API keys, and data.
         </p>
-        <button className="btn-danger">Delete Account</button>
+        <button className="cc-btn-danger">Delete Account</button>
       </div>
     </div>
   );

@@ -78,7 +78,7 @@ export default function RegisterPage() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="John Doe"
-                className="input"
+                className="cc-form-input"
                 required
                 autoFocus
                 disabled={loading}
@@ -95,7 +95,7 @@ export default function RegisterPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                className="input"
+                className="cc-form-input"
                 required
                 disabled={loading}
               />
@@ -111,7 +111,7 @@ export default function RegisterPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="input"
+                className="cc-form-input"
                 required
                 minLength={8}
                 disabled={loading}
@@ -129,13 +129,13 @@ export default function RegisterPage() {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="••••••••"
-                className="input"
+                className="cc-form-input"
                 required
                 disabled={loading}
               />
             </div>
 
-            <button type="submit" className="btn-primary w-full py-3" disabled={loading}>
+            <button type="submit" className="cc-btn-primary w-full py-3" disabled={loading}>
               {loading ? "Creating Account..." : "Create Account"}
             </button>
           </form>
