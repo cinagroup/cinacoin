@@ -29,7 +29,7 @@
     "@cinacoin/logger": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "^20.11.0",
+    "@types/node": "^20.19.42",
     "typescript": "^5.8.3",
     "tsup": "^8.0.0"
   },
