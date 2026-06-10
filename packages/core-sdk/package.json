@@ -11,6 +11,22 @@
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
+    "./react": {
+      "import": "./dist/react/index.js",
+      "types": "./dist/react/index.d.ts"
+    },
+    "./chains": {
+      "import": "./dist/chains.js",
+      "types": "./dist/chains.d.ts"
+    },
+    "./utils/signature": {
+      "import": "./dist/utils/signature.js",
+      "types": "./dist/utils/signature.d.ts"
+    },
+    "./utils/chain": {
+      "import": "./dist/utils/chain.js",
+      "types": "./dist/utils/chain.d.ts"
+    },
     "./utils/circuitBreaker.js": {
       "import": "./dist/utils/circuitBreaker.js",
       "types": "./dist/utils/circuitBreaker.d.ts"

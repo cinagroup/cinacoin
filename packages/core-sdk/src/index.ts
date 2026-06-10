@@ -575,6 +575,16 @@ export type {
   UniversalLinkParams,
 } from './links/index.js';
 
+// React Integration (optional — requires React peer dep)
+export * from './react/index.js';
+
+// Chain Registry
+export * from './chains.js';
+
+// Utility Functions
+export * from './utils/signature.js';
+export * from './utils/chain.js';
+
 /**
  * SDK version.
  */

@@ -1,11 +1,19 @@
 import { Suspense, lazy, useEffect, Component, type ReactNode, type ErrorInfo } from 'react'
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 import { WalletProvider } from './contexts/WalletContext'
+import { Navbar } from '../components/SiteHeader'
+import { Footer } from '../components/SiteFooter'
 
 const HomePage = lazy(() => import('./pages/HomePage'))
 const SwapPage = lazy(() => import('./pages/SwapPage'))
 const MultiChainPage = lazy(() => import('./pages/MultiChainPage'))
 const AuthPage = lazy(() => import('./pages/AuthPage'))
+const WalletConnectPage = lazy(() => import('./pages/WalletConnectPage'))
+const SignMessagePage = lazy(() => import('./pages/SignMessagePage'))
+const TransferPage = lazy(() => import('./pages/TransferPage'))
+const NFTPage = lazy(() => import('./pages/NFTPage'))
+const BridgePage = lazy(() => import('./pages/BridgePage'))
+const DeFiPage = lazy(() => import('./pages/DeFiPage'))
 
 /* ── Lazy route fallback with loading spinner ── */
 const RouteFallback = () => (
@@ -83,22 +91,32 @@ function NotFoundFallback() {
 }
 
 function App() {
- return (
- <WalletProvider>
- <PageErrorBoundary>
- <ScrollToTop />
- <Suspense fallback={<RouteFallback />}>
- <Routes>
- <Route path="/" element={<HomePage />} />
- <Route path="/swap" element={<SwapPage />} />
- <Route path="/multichain" element={<MultiChainPage />} />
- <Route path="/auth" element={<AuthPage />} />
- <Route path="*" element={<NotFoundFallback />} />
- </Routes>
- </Suspense>
- </PageErrorBoundary>
- </WalletProvider>
- )
+  return (
+    <WalletProvider>
+      <PageErrorBoundary>
+        <ScrollToTop />
+        <div className="min-h-screen flex flex-col">
+          <Navbar />
+          <Suspense fallback={<RouteFallback />}>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/swap" element={<SwapPage />} />
+              <Route path="/multichain" element={<MultiChainPage />} />
+              <Route path="/auth" element={<AuthPage />} />
+              <Route path="/wallet-connect" element={<WalletConnectPage />} />
+              <Route path="/sign-message" element={<SignMessagePage />} />
+              <Route path="/transfer" element={<TransferPage />} />
+              <Route path="/nft" element={<NFTPage />} />
+              <Route path="/bridge" element={<BridgePage />} />
+              <Route path="/defi" element={<DeFiPage />} />
+              <Route path="*" element={<NotFoundFallback />} />
+            </Routes>
+          </Suspense>
+          <Footer />
+        </div>
+      </PageErrorBoundary>
+    </WalletProvider>
+  )
 }
 
 export default App

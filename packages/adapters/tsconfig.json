@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "declaration": true,
+    "outDir": "dist",
+    "rootDir": ".",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "jsx": "react-jsx"
+  },
+  "include": ["*.ts", "metamask/*.ts", "walletconnect/*.ts", "coinbase/*.ts", "phantom/*.ts", "btc/*.ts"],
+  "exclude": ["node_modules", "dist", "**/*.test.ts"]
+}

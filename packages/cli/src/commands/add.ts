@@ -336,6 +336,364 @@ export default function WalletDisplay({ className, showBalance = true }: WalletD
 `,
   },
 
+  'wallet-modal': {
+    description: 'Full wallet connection modal with QR code and multi-wallet support',
+    files: {
+      'src/components/WalletModal.tsx': `import { useState, useCallback } from 'react';
+import { useCoinConnect, useCoinAccount } from '@cinacoin/core-sdk/react';
+
+interface WalletModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  projectId?: string;
+}
+
+const WALLETS = [
+  { id: 'metamask', name: 'MetaMask', icon: '🦊', description: 'Connect using MetaMask wallet' },
+  { id: 'walletconnect', name: 'WalletConnect', icon: '🔗', description: 'Scan with your mobile wallet' },
+  { id: 'coinbase', name: 'Coinbase Wallet', icon: '🔵', description: 'Connect with Coinbase' },
+  { id: 'phantom', name: 'Phantom', icon: '👻', description: 'Solana & multi-chain wallet' },
+  { id: 'bitcoin', name: 'Bitcoin', icon: '₿', description: 'BTC wallet (Leather, Xverse)' },
+];
+
+export default function WalletModal({ isOpen, onClose, projectId }: WalletModalProps) {
+  const { connect, isConnecting, error, connectors } = useCoinConnect();
+  const { address, isConnected, disconnect } = useCoinAccount();
+  const [showQR, setShowQR] = useState(false);
+
+  const handleConnect = useCallback(async (walletId: string) => {
+    try {
+      await connect(walletId);
+      onClose();
+    } catch (err) {
+      // Error handled by hook
+    }
+  }, [connect, onClose]);
+
+  if (!isOpen) return null;
+
+  return (
+    <div style={{
+      position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.7)',
+      display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999,
+    }} onClick={onClose}>
+      <div onClick={e => e.stopPropagation()} style={{
+        background: 'var(--cc-surface-primary, #161b22)',
+        borderRadius: '16px', padding: '24px', width: '100%', maxWidth: '400px',
+        color: 'var(--cc-text-primary, #e6edf3)', boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
+      }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+          <h2 style={{ margin: 0, fontSize: '18px', fontWeight: 600 }}>
+            {isConnected ? 'Account' : 'Connect Wallet'}
+          </h2>
+          <button onClick={onClose} style={{
+            background: 'none', border: 'none', color: 'var(--cc-text-muted, #6e7681)',
+            fontSize: '20px', cursor: 'pointer', padding: '4px',
+          }}>✕</button>
+        </div>
+
+        {isConnected && address ? (
+          <div>
+            <div style={{
+              background: 'var(--cc-bg-secondary, #21262d)', borderRadius: '12px',
+              padding: '16px', marginBottom: '16px',
+            }}>
+              <p style={{ margin: '0 0 8px', fontSize: '13px', color: 'var(--cc-text-secondary)' }}>Connected</p>
+              <code style={{
+                fontFamily: 'monospace', fontSize: '14px',
+                wordBreak: 'break-all', color: 'var(--cc-text-primary)',
+              }}>{address}</code>
+            </div>
+            <button onClick={() => { disconnect(); onClose(); }} style={{
+              width: '100%', padding: '12px', borderRadius: '10px', border: '1px solid var(--cc-error, #ef4444)',
+              background: 'transparent', color: 'var(--cc-error, #ef4444)', cursor: 'pointer',
+              fontWeight: 600, fontSize: '14px',
+            }}>Disconnect</button>
+          </div>
+        ) : (
+          <div style={{ display: 'grid', gap: '8px' }}>
+            {error && (
+              <div style={{
+                background: 'rgba(239,68,68,0.1)', border: '1px solid var(--cc-error, #ef4444)',
+                borderRadius: '8px', padding: '10px', fontSize: '13px', color: 'var(--cc-error, #ef4444)',
+                marginBottom: '8px',
+              }}>{error}</div>
+            )}
+            {WALLETS.map(wallet => (
+              <button key={wallet.id} onClick={() => handleConnect(wallet.id)}
+                disabled={isConnecting}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: '12px', width: '100%',
+                  padding: '14px 16px', borderRadius: '12px', border: '1px solid var(--cc-border-primary, #30363d)',
+                  background: 'var(--cc-bg-secondary, #21262d)', color: 'var(--cc-text-primary)',
+                  cursor: isConnecting ? 'wait' : 'pointer', textAlign: 'left',
+                  transition: 'all 0.15s ease', fontSize: '14px',
+                }}>
+                <span style={{ fontSize: '24px' }}>{wallet.icon}</span>
+                <div>
+                  <div style={{ fontWeight: 600 }}>{wallet.name}</div>
+                  <div style={{ fontSize: '12px', color: 'var(--cc-text-muted, #6e7681)' }}>{wallet.description}</div>
+                </div>
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+`,
+    },
+    dependencies: { '@cinacoin/core-sdk': '^0.2.0' },
+    usage: `import { useState } from 'react';
+import WalletModal from './components/WalletModal';
+
+function App() {
+  const [modalOpen, setModalOpen] = useState(false);
+  return (
+    <>
+      <button onClick={() => setModalOpen(true)}>Connect Wallet</button>
+      <WalletModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+    </>
+  );
+}
+`,
+  },
+
+  'chain-selector': {
+    description: 'Multi-chain selector component with EVM, Solana, and Bitcoin support',
+    files: {
+      'src/components/ChainSelector.tsx': `import { useCoinConnect, useCoinAccount } from '@cinacoin/core-sdk/react';
+
+interface ChainOption {
+  id: number;
+  name: string;
+  icon: string;
+  namespace?: string;
+}
+
+interface ChainSelectorProps {
+  chains?: ChainOption[];
+  className?: string;
+  onChange?: (chainId: number) => void;
+}
+
+const DEFAULT_CHAINS: ChainOption[] = [
+  { id: 1, name: 'Ethereum', icon: '💎', namespace: 'eip155' },
+  { id: 137, name: 'Polygon', icon: '🟣', namespace: 'eip155' },
+  { id: 42161, name: 'Arbitrum', icon: '🔷', namespace: 'eip155' },
+  { id: 10, name: 'Optimism', icon: '🔴', namespace: 'eip155' },
+  { id: 8453, name: 'Base', icon: '🔵', namespace: 'eip155' },
+  { id: 56, name: 'BNB Chain', icon: '🟡', namespace: 'eip155' },
+  { id: 101, name: 'Solana', icon: '◎', namespace: 'solana' },
+  { id: 0, name: 'Bitcoin', icon: '₿', namespace: 'bip122' },
+];
+
+export default function ChainSelector({ chains = DEFAULT_CHAINS, className, onChange }: ChainSelectorProps) {
+  const { switchChain } = useCoinConnect();
+  const { chainId, isConnected } = useCoinAccount();
+
+  const currentChain = chains.find(c => c.id === chainId);
+
+  const handleSwitch = async (newChainId: number) => {
+    if (!isConnected) return;
+    try {
+      await switchChain(newChainId);
+      onChange?.(newChainId);
+    } catch (err) {
+      console.error('Failed to switch chain:', err);
+    }
+  };
+
+  return (
+    <div className={className} style={{ position: 'relative' }}>
+      <select
+        value={chainId ?? ''}
+        onChange={(e) => handleSwitch(Number(e.target.value))}
+        disabled={!isConnected}
+        style={{
+          appearance: 'none',
+          background: 'var(--cc-bg-secondary, #21262d)',
+          color: 'var(--cc-text-primary, #e6edf3)',
+          border: '1px solid var(--cc-border-primary, #30363d)',
+          borderRadius: '10px',
+          padding: '8px 36px 8px 12px',
+          fontSize: '14px',
+          fontWeight: 500,
+          cursor: isConnected ? 'pointer' : 'not-allowed',
+          opacity: isConnected ? 1 : 0.5,
+          minWidth: '160px',
+          backgroundImage: \\\`url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%238b949e' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E")\\\`,
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'right 12px center',
+        }}
+      >
+        {!currentChain && <option value="">Select Chain</option>}
+        {chains.map(chain => (
+          <option key={chain.id} value={chain.id}>
+            {chain.icon} {chain.name}{chain.id === chainId ? ' ✓' : ''}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+}
+`,
+    },
+    dependencies: { '@cinacoin/core-sdk': '^0.2.0' },
+    usage: `import ChainSelector from './components/ChainSelector';
+
+// Default chains (Ethereum, Polygon, Arbitrum, Optimism, Base, BNB, Solana, Bitcoin):
+<ChainSelector />
+
+// Custom chains:
+<ChainSelector chains={[
+  { id: 1, name: 'Ethereum', icon: '💎' },
+  { id: 8453, name: 'Base', icon: '🔵' },
+]} onChange={(chainId) => console.log('Switched to', chainId)} />
+`,
+  },
+
+  'signature': {
+    description: 'Sign-In With Ethereum (SIWE) component with nonce and verification',
+    files: {
+      'src/components/SignIn.tsx': `import { useState, useCallback } from 'react';
+import { useCoinAccount, useCoinSign } from '@cinacoin/core-sdk/react';
+import { createSIWEMessage, generateNonce } from '@cinacoin/core-sdk/utils/signature';
+
+interface SignInProps {
+  /** Domain for the SIWE message (defaults to window.location.host) */
+  domain?: string;
+  /** Statement shown to the user */
+  statement?: string;
+  /** Callback after successful signature */
+  onSuccess?: (data: { message: string; signature: string; address: string }) => void;
+  /** Callback on error */
+  onError?: (error: Error) => void;
+  /** Custom className */
+  className?: string;
+}
+
+export default function SignIn({
+  domain,
+  statement = 'Sign in to verify your identity',
+  onSuccess,
+  onError,
+  className,
+}: SignInProps) {
+  const { address, isConnected, chainId } = useCoinAccount();
+  const { signMessage, isLoading, error } = useCoinSign();
+  const [signature, setSignature] = useState<string | null>(null);
+
+  const handleSignIn = useCallback(async () => {
+    if (!address || !isConnected) return;
+
+    try {
+      const nonce = generateNonce();
+      const message = createSIWEMessage({
+        domain: domain || (typeof window !== 'undefined' ? window.location.host : 'localhost'),
+        address,
+        statement,
+        uri: typeof window !== 'undefined' ? window.location.origin : 'http://localhost',
+        chainId: chainId || 1,
+        nonce,
+      });
+
+      const sig = await signMessage(message);
+      setSignature(sig);
+
+      onSuccess?.({ message, signature: sig, address });
+    } catch (err) {
+      const error = err instanceof Error ? err : new Error(String(err));
+      onError?.(error);
+    }
+  }, [address, isConnected, chainId, domain, statement, signMessage, onSuccess, onError]);
+
+  if (!isConnected) {
+    return (
+      <div className={className} style={{
+        padding: '16px', borderRadius: '12px',
+        background: 'var(--cc-bg-secondary, #21262d)',
+        border: '1px solid var(--cc-border-primary, #30363d)',
+        textAlign: 'center', color: 'var(--cc-text-muted, #6e7681)',
+      }}>
+        Connect your wallet to sign in
+      </div>
+    );
+  }
+
+  if (signature) {
+    return (
+      <div className={className} style={{
+        padding: '16px', borderRadius: '12px',
+        background: 'rgba(34,197,94,0.1)',
+        border: '1px solid var(--cc-success, #22c55e)',
+        textAlign: 'center',
+      }}>
+        <span style={{ fontSize: '24px' }}>✅</span>
+        <p style={{ margin: '8px 0 0', color: 'var(--cc-success, #22c55e)', fontWeight: 600 }}>
+          Signed in successfully
+        </p>
+        <code style={{
+          display: 'block', marginTop: '8px', fontSize: '11px',
+          color: 'var(--cc-text-muted)', wordBreak: 'break-all',
+        }}>{signature.slice(0, 20)}...{signature.slice(-10)}</code>
+      </div>
+    );
+  }
+
+  return (
+    <button
+      className={className}
+      onClick={handleSignIn}
+      disabled={isLoading}
+      style={{
+        padding: '12px 24px', borderRadius: '10px', border: 'none',
+        background: isLoading ? 'var(--cc-text-muted, #6e7681)' : 'var(--cc-primary, #58a6ff)',
+        color: 'white', fontWeight: 600, fontSize: '14px',
+        cursor: isLoading ? 'wait' : 'pointer', transition: 'all 0.15s ease',
+        display: 'flex', alignItems: 'center', gap: '8px',
+      }}
+    >
+      {isLoading ? (
+        <>
+          <span style={{
+            width: '14px', height: '14px', border: '2px solid white',
+            borderTopColor: 'transparent', borderRadius: '50%',
+            animation: 'spin 0.8s linear infinite', display: 'inline-block',
+          }} />
+          Signing...
+        </>
+      ) : (
+        <>✍️ Sign In with Ethereum</>
+      )}
+      {error && <span style={{ fontSize: '12px', opacity: 0.8 }}>({error})</span>}
+    </button>
+  );
+}
+`,
+    },
+    dependencies: { '@cinacoin/core-sdk': '^0.2.0' },
+    usage: `import SignIn from './components/SignIn';
+
+// Basic usage:
+<SignIn />
+
+// With callbacks:
+<SignIn
+  statement="Sign in to My dApp"
+  onSuccess={({ message, signature, address }) => {
+    // Send to backend for verification
+    fetch('/api/auth/verify', {
+      method: 'POST',
+      body: JSON.stringify({ message, signature, address }),
+    });
+  }}
+  onError={(err) => console.error('Sign-in failed:', err)}
+/>
+`,
+  },
+
   'nft-gallery': {
     description: 'NFT gallery grid component for displaying collections',
     files: {
