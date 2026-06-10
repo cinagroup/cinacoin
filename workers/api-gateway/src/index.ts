@@ -1,7 +1,7 @@
 import { Hono } from 'hono'
-import { cors } from 'hono/cors'
 import { logger } from 'hono/logger'
-import { withRateLimit, globalRateLimit } from './middleware/rate-limit'
+import { globalRateLimit, authRateLimit, withRateLimit } from './middleware/rateLimiter'
+import { envCorsMiddleware } from './middleware/cors'
 import { metricsMiddleware } from './middleware/metrics'
 import { cacheMiddleware } from './middleware/cache'
 import abTesting from './routes/ab-testing'
@@ -44,12 +44,8 @@ app.use('*', cacheMiddleware)
 
 // Middleware
 app.use('*', logger())
-app.use('*', cors({
-  origin: ['https://cinacoin.com', 'https://wallet.cinacoin.com', 'https://backend.cinacoin.com'],
-  allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowHeaders: ['Content-Type', 'Authorization', 'X-CSRF-Token'],
-  credentials: true,
-}))
+// Secure CORS middleware (allowlist-based)
+app.use('*', envCorsMiddleware(process.env.ENVIRONMENT))
 
 // Global rate limiting (1000 req/hour per IP)
 app.use('*', globalRateLimit())

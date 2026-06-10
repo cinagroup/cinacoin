@@ -1,0 +1,387 @@
+# Cinacoin WAF Rules Configuration
+# Cloudflare WAF rules for production deployment
+# Reference: https://developers.cloudflare.com/waf/
+
+---
+# ==============================================================================
+# OWASP Top 10 Protection Rules
+# ==============================================================================
+
+# Enable OWASP Core Ruleset (managed rules)
+managed_challenge:
+  - name: "OWASP Managed Rules - High Sensitivity"
+    description: "Block common web attacks (SQLi, XSS, RCE)"
+    enabled: true
+    action: "block"
+    expression: |
+      (http.request.uri.path contains "/api/" or 
+       http.request.uri.path contains "/auth/" or
+       http.request.uri.path contains "/graphql") and
+      (cf.waf.score eq "attack_high" or cf.waf.score eq "attack_medium")
+    priority: 100
+
+# SQL Injection Protection
+  - name: "SQL Injection Protection"
+    description: "Block SQL injection attempts"
+    enabled: true
+    action: "block"
+    expression: |
+      (http.request.body.raw contains "SELECT" or
+       http.request.body.raw contains "UNION" or
+       http.request.body.raw contains "INSERT" or
+       http.request.body.raw contains "UPDATE" or
+       http.request.body.raw contains "DELETE" or
+       http.request.body.raw contains "DROP" or
+       http.request.uri.query contains "SELECT" or
+       http.request.uri.query contains "UNION") and
+      not http.request.uri.path starts_with "/admin/internal/"
+    priority: 110
+
+# XSS Protection
+  - name: "XSS Protection"
+    description: "Block cross-site scripting attempts"
+    enabled: true
+    action: "block"
+    expression: |
+      (http.request.body.raw contains "<script" or
+       http.request.body.raw contains "javascript:" or
+       http.request.body.raw contains "onerror=" or
+       http.request.body.raw contains "onload=" or
+       http.request.uri.query contains "<script" or
+       http.request.uri.query contains "javascript:")
+    priority: 120
+
+# Path Traversal Protection
+  - name: "Path Traversal Protection"
+    description: "Block directory traversal attempts"
+    enabled: true
+    action: "block"
+    expression: |
+      http.request.uri.path contains ".." or
+      http.request.uri.path contains "/etc/passwd" or
+      http.request.uri.path contains "/proc/self" or
+      http.request.uri.query contains ".."
+    priority: 130
+
+# Remote Code Execution Protection
+  - name: "RCE Protection"
+    description: "Block remote code execution attempts"
+    enabled: true
+    action: "block"
+    expression: |
+      (http.request.body.raw contains "eval(" or
+       http.request.body.raw contains "system(" or
+       http.request.body.raw contains "exec(" or
+       http.request.body.raw contains "shell_exec(" or
+       http.request.uri.query contains "eval(" or
+       http.request.uri.query contains "system(")
+    priority: 140
+
+# ==============================================================================
+# Rate Limiting Rules
+# ==============================================================================
+
+rate_limiting:
+  # Global rate limit (per IP)
+  - name: "Global Rate Limit - Per IP"
+    description: "Limit overall requests per IP"
+    enabled: true
+    action: "challenge"
+    expression: "true"
+    requests_per_period: 1000
+    period: 3600  # 1 hour
+    mit_timeout: 60  # Challenge timeout in seconds
+    priority: 200
+
+  # Authentication endpoints (stricter)
+  - name: "Auth Endpoints Rate Limit"
+    description: "Strict rate limit for login/signup"
+    enabled: true
+    action: "block"
+    expression: |
+      http.request.uri.path matches "^/auth/(login|signup|reset-password)"
+    requests_per_period: 10
+    period: 60  # 1 minute
+    priority: 210
+
+  # API endpoints (moderate)
+  - name: "API Rate Limit - Per IP"
+    description: "Rate limit for API endpoints"
+    enabled: true
+    action: "challenge"
+    expression: |
+      http.request.uri.path starts_with "/api/" or
+      http.request.uri.path starts_with "/graphql"
+    requests_per_period: 300
+    period: 60  # 1 minute
+    priority: 220
+
+  # Transaction endpoints (very strict)
+  - name: "Transaction Rate Limit"
+    description: "Very strict limit for transaction operations"
+    enabled: true
+    action: "block"
+    expression: |
+      http.request.uri.path matches "^/(api/transactions|api/transfer|api/withdraw)"
+    requests_per_period: 30
+    period: 60  # 1 minute
+    priority: 230
+
+  # WebSocket connections
+  - name: "WebSocket Connection Limit"
+    description: "Limit concurrent WebSocket connections per IP"
+    enabled: true
+    action: "block"
+    expression: |
+      http.request.method eq "CONNECT" or
+      (http.request.headers["Upgrade"] eq "websocket")
+    requests_per_period: 50
+    period: 60
+    priority: 240
+
+# ==============================================================================
+# Bot Detection & Management
+# ==============================================================================
+
+bot_management:
+  # Enable Cloudflare Bot Management
+  enabled: true
+  
+  # Challenge suspicious bots
+  - name: "Challenge Suspicious Bots"
+    description: "JS challenge for bot-like behavior"
+    enabled: true
+    action: "challenge"
+    expression: |
+      (cf.client.bot and not cf.verified_bot_category) or
+      (cf.threat_score gt 10)
+    priority: 300
+
+  # Block known bad bots
+  - name: "Block Malicious Bots"
+    description: "Block known malicious bot user agents"
+    enabled: true
+    action: "block"
+    expression: |
+      http.user_agent contains "sqlmap" or
+      http.user_agent contains "nikto" or
+      http.user_agent contains "nmap" or
+      http.user_agent contains "masscan" or
+      http.user_agent contains "dirbuster" or
+      http.user_agent contains "havij" or
+      http.user_agent contains "w3af"
+    priority: 310
+
+  # Allow verified good bots
+  - name: "Allow Verified Good Bots"
+    description: "Skip challenges for verified bots"
+    enabled: true
+    action: "allow"
+    expression: |
+      cf.verified_bot_category eq "search_engine" or
+      cf.verified_bot_category eq "social_media" or
+      cf.verified_bot_category eq "monitoring"
+    priority: 320
+
+  # Challenge headless browsers
+  - name: "Headless Browser Detection"
+    description: "Challenge headless browser automation"
+    enabled: true
+    action: "challenge"
+    expression: |
+      (http.user_agent contains "HeadlessChrome" or
+       http.user_agent contains "PhantomJS" or
+       http.user_agent contains "Selenium" or
+       http.user_agent contains "Puppeteer") and
+      not cf.verified_bot_category
+    priority: 330
+
+# ==============================================================================
+# Geographic Restrictions (Optional - Enable as needed)
+# ==============================================================================
+
+geo_restrictions:
+  # Block high-risk countries (optional)
+  - name: "Block High-Risk Countries"
+    description: "Block traffic from high-risk regions"
+    enabled: false  # Disabled by default, enable as needed
+    action: "block"
+    expression: |
+      ip.geoip.country in {"XX", "YY", "ZZ"}  # Replace with actual country codes
+    priority: 400
+
+  # Challenge unusual geolocations
+  - name: "Challenge Unusual Geolocations"
+    description: "Challenge traffic from unusual regions"
+    enabled: false
+    action: "challenge"
+    expression: |
+      ip.geoip.country in {"AA", "BB"}  # Replace with actual country codes
+    priority: 410
+
+# ==============================================================================
+# API Endpoint Protection
+# ==============================================================================
+
+api_protection:
+  # Block requests without required headers
+  - name: "Require Content-Type for POST"
+    description: "Block POST requests without proper Content-Type"
+    enabled: true
+    action: "block"
+    expression: |
+      http.request.method eq "POST" and
+      not http.request.headers["Content-Type"] contains "application/json" and
+      not http.request.headers["Content-Type"] contains "multipart/form-data" and
+      not http.request.uri.path starts_with "/webhook/"
+    priority: 500
+
+  # Block oversized requests
+  - name: "Request Size Limit"
+    description: "Block requests exceeding size limits"
+    enabled: true
+    action: "block"
+    expression: |
+      http.request.body.size gt 1048576  # 1MB
+    priority: 510
+
+  # Protect sensitive endpoints
+  - name: "Protect Admin Endpoints"
+    description: "Additional protection for admin routes"
+    enabled: true
+    action: "challenge"
+    expression: |
+      http.request.uri.path starts_with "/admin" or
+      http.request.uri.path starts_with "/internal"
+    priority: 520
+
+  # Block GraphQL introspection in production
+  - name: "Block GraphQL Introspection"
+    description: "Prevent schema discovery attacks"
+    enabled: true
+    action: "block"
+    expression: |
+      http.request.uri.path eq "/graphql" and
+      (http.request.body.raw contains "__schema" or
+       http.request.body.raw contains "__type")
+    priority: 530
+
+  # Require authentication for protected routes
+  - name: "Require Auth Header"
+    description: "Block requests without Authorization header"
+    enabled: true
+    action: "block"
+    expression: |
+      (http.request.uri.path starts_with "/api/users" or
+       http.request.uri.path starts_with "/api/teams" or
+       http.request.uri.path starts_with "/api/transactions") and
+      not http.request.headers["Authorization"]
+    priority: 540
+
+# ==============================================================================
+# DDoS Protection
+# ==============================================================================
+
+ddos_protection:
+  # Enable L3/L4 DDoS protection (always on)
+  l3_l4_enabled: true
+  
+  # Enable L7 DDoS protection
+  l7_enabled: true
+  
+  # Challenge high request rates
+  - name: "DDoS Rate Spike Detection"
+    description: "Challenge sudden traffic spikes"
+    enabled: true
+    action: "challenge"
+    expression: |
+      cf.threat_score gt 30 or
+      (cf.bot_management.score lt 30 and not cf.verified_bot_category)
+    priority: 600
+
+  # Block known DDoS attack patterns
+  - name: "Block DDoS Patterns"
+    description: "Block common DDoS attack signatures"
+    enabled: true
+    action: "block"
+    expression: |
+      (http.request.method eq "POST" and http.request.body.size eq 0) or
+      (http.request.headers["Content-Length"] and 
+       http.request.headers["Content-Length"] ne http.request.body.size)
+    priority: 610
+
+# ==============================================================================
+# Custom Security Rules
+# ==============================================================================
+
+custom_rules:
+  # Block common exploit paths
+  - name: "Block Exploit Paths"
+    description: "Block known exploit file paths"
+    enabled: true
+    action: "block"
+    expression: |
+      http.request.uri.path matches "\.(php|asp|aspx|jsp|cgi)$" or
+      http.request.uri.path contains "/wp-admin" or
+      http.request.uri.path contains "/wp-login" or
+      http.request.uri.path contains "/.env" or
+      http.request.uri.path contains "/.git" or
+      http.request.uri.path contains "/.svn" or
+      http.request.uri.path contains "/backup" or
+      http.request.uri.path contains "/config.php"
+    priority: 700
+
+  # Block suspicious user agents
+  - name: "Block Suspicious User Agents"
+    description: "Block requests with suspicious user agents"
+    enabled: true
+    action: "block"
+    expression: |
+      not http.request.headers["User-Agent"] or
+      http.request.headers["User-Agent"] eq "" or
+      http.request.headers["User-Agent"] contains "curl" or
+      http.request.headers["User-Agent"] contains "wget" or
+      http.request.headers["User-Agent"] contains "python-requests"
+    priority: 710
+
+  # Require HTTPS
+  - name: "Enforce HTTPS"
+    description: "Redirect HTTP to HTTPS"
+    enabled: true
+    action: "redirect"
+    expression: "not ssl"
+    redirect_url: "https://{http.host}{http.request.uri}"
+    priority: 720
+
+  # Block empty host headers
+  - name: "Block Empty Host"
+    description: "Block requests with missing Host header"
+    enabled: true
+    action: "block"
+    expression: |
+      not http.request.headers["Host"] or
+      http.request.headers["Host"] eq ""
+    priority: 730
+
+# ==============================================================================
+# Logging & Monitoring
+# ==============================================================================
+
+logging:
+  # Enable WAF logging
+  enabled: true
+  
+  # Log all blocked requests
+  log_blocked: true
+  
+  # Log all challenged requests
+  log_challenged: true
+  
+  # Sample rate for allowed requests (1 = 100%)
+  allowed_sample_rate: 0.1  # 10% sampling for allowed requests
+  
+  # Send logs to SIEM
+  siem_integration:
+    enabled: true
+    endpoint: "${SIEM_WEBHOOK_URL}"  # Replace with actual SIEM endpoint
+    format: "json"

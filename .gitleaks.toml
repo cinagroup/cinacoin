@@ -1,0 +1,61 @@
+# Gitleaks configuration
+# https://github.com/gitleaks/gitleaks
+
+title = "Cinacoin Gitleaks Config"
+
+# Allowlisted paths (not scanned)
+[allowlist]
+description = "Global allowlist"
+paths = [
+  '''node_modules''',
+  '''\.next''',
+  '''\.wrangler''',
+  '''dist''',
+  '''build''',
+  '''coverage''',
+  '''pnpm-lock\.yaml''',
+  '''\.git/''',
+  '''vendor/''',
+]
+
+# Allowlist specific regexes (false positives)
+regexes = [
+  # Example: ignore test/demo keys
+  # {description = "Test API key", regex = '''sk_test_0{20,}'''},
+]
+
+# Custom rules for Cinacoin-specific secrets
+[[rules]]
+description = "Cinacoin Private Key"
+id = "cinacoin-private-key"
+regex = '''(?i)(cinacoin|cina)[_-]?(private|secret)[_-]?(key|token)[\s]*[:=][\s]*['\"]?[A-Za-z0-9+/=]{20,}['\"]?'''
+tags = ["cinacoin", "private-key"]
+severity = "CRITICAL"
+
+[[rules]]
+description = "Generic API Key"
+id = "generic-api-key"
+regex = '''(?i)(api[_-]?key|apikey)[\s]*[:=][\s]*['\"][A-Za-z0-9]{20,}['\"]'''
+tags = ["api-key"]
+severity = "HIGH"
+
+[[rules]]
+description = "JWT Token"
+id = "jwt-token"
+regex = '''eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}'''
+tags = ["jwt", "token"]
+severity = "HIGH"
+
+[[rules]]
+description = "AWS Access Key"
+id = "aws-access-key"
+regex = '''AKIA[0-9A-Z]{16}'''
+tags = ["aws", "access-key"]
+severity = "CRITICAL"
+
+[[rules]]
+description = "AWS Secret Key"
+id = "aws-secret-key"
+regex = '''(?i)aws[_-]?secret[_-]?access[_-]?key[\s]*[:=][\s]*['\"][A-Za-z0-9/+=]{40}['\"]'''
+tags = ["aws", "secret-key"]
+severity = "CRITICAL"

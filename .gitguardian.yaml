@@ -1,0 +1,47 @@
+# GitGuardian configuration
+# https://docs.gitguardian.com/ggshield-docs/reference/configuration.html
+
+# Exclude files and paths from scanning
+paths-ignore:
+  - "node_modules/**"
+  - "dist/**"
+  - "build/**"
+  - ".next/**"
+  - ".wrangler/**"
+  - "coverage/**"
+  - "*.lock"
+  - "pnpm-lock.yaml"
+  - "apps/*/node_modules/**"
+  - "packages/*/node_modules/**"
+  - "workers/*/node_modules/**"
+
+# Ignore specific secrets (false positives)
+# Use secret SHA256 from scan output to add specific ignores
+ignored-matches:
+  # Example: ignore a known test key
+  # - name: "Test API key in fixtures"
+  #   match: "sk_test_00000000000000000000000000"
+  #   type: "api_key"
+
+# Secret detection configuration
+secret:
+  # Show secrets in plain text in output (for debugging only)
+  show-secrets: false
+
+  # Enforce detection of:
+  enforced:
+    - "Slack Token"
+    - "GitHub Token"
+    - "AWS Keys"
+    - "Google API Key"
+    - "Private Key"
+    - "JWT"
+    - "Stripe API Key"
+    - "Generic API Key"
+    - "Generic Secret"
+
+# Policy configuration
+policies:
+  - name: "Default Policy"
+    severity: high
+    ignore-detected-secrets: false

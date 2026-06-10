@@ -1,0 +1,310 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_PROMETHEUS",
+      "label": "Prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "uid": "wallet-analytics",
+  "title": "Cinacoin — Wallet Analytics",
+  "description": "Wallet connection analysis, active users, and SDK usage metrics.",
+  "tags": ["cinacoin", "wallet", "analytics"],
+  "timezone": "browser",
+  "editable": true,
+  "graphTooltip": 1,
+  "time": { "from": "now-24h", "to": "now" },
+  "refresh": "1m",
+  "templating": {
+    "list": [
+      {
+        "name": "datasource",
+        "type": "datasource",
+        "query": "prometheus",
+        "current": { "selected": true, "text": "Prometheus", "value": "Prometheus" },
+        "hide": 0
+      },
+      {
+        "name": "wallet_type",
+        "type": "custom",
+        "query": "metamask,walletconnect,coinbase,trust,phantom",
+        "multi": true,
+        "includeAll": true,
+        "current": { "text": "All", "value": "$__all" }
+      },
+      {
+        "name": "chain",
+        "type": "custom",
+        "query": "ethereum,polygon,arbitrum,optimism",
+        "multi": true,
+        "includeAll": true,
+        "current": { "text": "All", "value": "$__all" }
+      }
+    ]
+  },
+  "panels": [
+    {
+      "id": 1,
+      "title": "🔗 Active Wallet Connections",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 6, "x": 0, "y": 0 },
+      "datasource": "${datasource}",
+      "targets": [
+        {
+          "expr": "sum(cinacoin_wallet_connections_active{wallet_type=~\"$wallet_type\",chain=~\"$chain\"})",
+          "legendFormat": "Active Connections"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": 2,
+      "title": "👥 Daily Active Users",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 6, "x": 6, "y": 0 },
+      "datasource": "${datasource}",
+      "targets": [
+        {
+          "expr": "cinacoin_daily_active_users",
+          "legendFormat": "DAU"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "blue", "value": null }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": 3,
+      "title": "📈 New Connections (1h)",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 6, "x": 12, "y": 0 },
+      "datasource": "${datasource}",
+      "targets": [
+        {
+          "expr": "sum(increase(cinacoin_wallet_connections_total{wallet_type=~\"$wallet_type\",chain=~\"$chain\"}[1h]))",
+          "legendFormat": "New (1h)"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": 4,
+      "title": "❌ Connection Errors (1h)",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 6, "x": 18, "y": 0 },
+      "datasource": "${datasource}",
+      "targets": [
+        {
+          "expr": "sum(increase(cinacoin_wallet_connection_errors_total{wallet_type=~\"$wallet_type\"}[1h]))",
+          "legendFormat": "Errors"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 10 },
+              { "color": "red", "value": 50 }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": 10,
+      "title": "Active Connections Over Time",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 4 },
+      "datasource": "${datasource}",
+      "targets": [
+        {
+          "expr": "sum(cinacoin_wallet_connections_active{wallet_type=~\"$wallet_type\",chain=~\"$chain\"}) by (wallet_type)",
+          "legendFormat": "{{wallet_type}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "custom": { "drawStyle": "line", "fillOpacity": 20, "lineWidth": 2 }
+        }
+      }
+    },
+    {
+      "id": 11,
+      "title": "New Connections Rate",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 4 },
+      "datasource": "${datasource}",
+      "targets": [
+        {
+          "expr": "sum(rate(cinacoin_wallet_connections_total{wallet_type=~\"$wallet_type\",chain=~\"$chain\"}[5m])) by (wallet_type) * 60",
+          "legendFormat": "{{wallet_type}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "custom": { "drawStyle": "bars", "fillOpacity": 50 }
+        }
+      }
+    },
+    {
+      "id": 12,
+      "title": "Connection Duration Distribution",
+      "type": "histogram",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 12 },
+      "datasource": "${datasource}",
+      "targets": [
+        {
+          "expr": "sum(increase(cinacoin_wallet_connection_duration_seconds_bucket{wallet_type=~\"$wallet_type\"}[1h])) by (le)",
+          "format": "heatmap",
+          "legendFormat": "{{le}}"
+        }
+      ],
+      "options": {
+        "calculate": false,
+        "cellGap": 1,
+        "color": { "mode": "scheme", "scheme": "Oranges" }
+      }
+    },
+    {
+      "id": 13,
+      "title": "User Growth (DAU / WAU / MAU)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 12 },
+      "datasource": "${datasource}",
+      "targets": [
+        { "expr": "cinacoin_daily_active_users", "legendFormat": "DAU" },
+        { "expr": "cinacoin_weekly_active_users", "legendFormat": "WAU" },
+        { "expr": "cinacoin_monthly_active_users", "legendFormat": "MAU" }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "custom": { "drawStyle": "line", "fillOpacity": 10, "lineWidth": 2 }
+        }
+      }
+    },
+    {
+      "id": 20,
+      "title": "Wallet Type Distribution",
+      "type": "piechart",
+      "gridPos": { "h": 8, "w": 8, "x": 0, "y": 20 },
+      "datasource": "${datasource}",
+      "targets": [
+        {
+          "expr": "sum(cinacoin_wallet_connections_active) by (wallet_type)",
+          "legendFormat": "{{wallet_type}}",
+          "instant": true
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "title": "Chain Distribution",
+      "type": "piechart",
+      "gridPos": { "h": 8, "w": 8, "x": 8, "y": 20 },
+      "datasource": "${datasource}",
+      "targets": [
+        {
+          "expr": "sum(cinacoin_wallet_connections_active) by (chain)",
+          "legendFormat": "{{chain}}",
+          "instant": true
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "title": "Connection Errors by Type",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 8, "x": 16, "y": 20 },
+      "datasource": "${datasource}",
+      "targets": [
+        {
+          "expr": "sum(rate(cinacoin_wallet_connection_errors_total{wallet_type=~\"$wallet_type\"}[5m])) by (error_type) * 60",
+          "legendFormat": "{{error_type}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "custom": { "drawStyle": "line", "fillOpacity": 20, "lineWidth": 2 }
+        }
+      }
+    },
+    {
+      "id": 30,
+      "title": "SDK Requests by Version",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 28 },
+      "datasource": "${datasource}",
+      "targets": [
+        {
+          "expr": "sum(rate(cinacoin_sdk_requests_total[5m])) by (sdk_version)",
+          "legendFormat": "v{{sdk_version}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "reqps",
+          "custom": { "drawStyle": "line", "fillOpacity": 10, "lineWidth": 2 }
+        }
+      }
+    },
+    {
+      "id": 31,
+      "title": "SDK Request Duration (P95)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 28 },
+      "datasource": "${datasource}",
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum(rate(cinacoin_sdk_request_duration_seconds_bucket[5m])) by (le, sdk_version)) * 1000",
+          "legendFormat": "v{{sdk_version}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ms",
+          "custom": { "drawStyle": "line", "fillOpacity": 10, "lineWidth": 2 }
+        }
+      }
+    }
+  ],
+  "schemaVersion": 39,
+  "version": 1
+}

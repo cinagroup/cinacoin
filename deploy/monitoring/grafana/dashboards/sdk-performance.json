@@ -1,0 +1,184 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_PROMETHEUS",
+      "label": "Prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "uid": "sdk-performance",
+  "title": "Cinacoin — SDK Performance",
+  "description": "SDK request latency, error rates, version distribution, and method breakdown.",
+  "tags": ["cinacoin", "sdk", "performance"],
+  "timezone": "browser",
+  "editable": true,
+  "graphTooltip": 1,
+  "time": { "from": "now-6h", "to": "now" },
+  "refresh": "1m",
+  "templating": {
+    "list": [
+      {
+        "name": "datasource",
+        "type": "datasource",
+        "query": "prometheus",
+        "current": { "selected": true, "text": "Prometheus", "value": "Prometheus" },
+        "hide": 0
+      },
+      {
+        "name": "sdk_version",
+        "type": "custom",
+        "query": "*",
+        "multi": true,
+        "includeAll": true,
+        "current": { "text": "All", "value": "$__all" }
+      }
+    ]
+  },
+  "panels": [
+    {
+      "id": 1,
+      "title": "📦 SDK Requests/sec",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 6, "x": 0, "y": 0 },
+      "datasource": "${datasource}",
+      "targets": [
+        {
+          "expr": "sum(rate(cinacoin_sdk_requests_total{sdk_version=~\"$sdk_version\"}[5m]))",
+          "legendFormat": "QPS"
+        }
+      ],
+      "fieldConfig": { "defaults": { "unit": "reqps", "thresholds": { "mode": "absolute", "steps": [{ "color": "green", "value": null }] } } }
+    },
+    {
+      "id": 2,
+      "title": "⏱️ SDK P95 Latency",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 6, "x": 6, "y": 0 },
+      "datasource": "${datasource}",
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum(rate(cinacoin_sdk_request_duration_seconds_bucket{sdk_version=~\"$sdk_version\"}[5m])) by (le)) * 1000",
+          "legendFormat": "P95"
+        }
+      ],
+      "fieldConfig": { "defaults": { "unit": "ms", "thresholds": { "mode": "absolute", "steps": [{ "color": "green", "value": null }, { "color": "yellow", "value": 200 }, { "color": "red", "value": 500 }] } } }
+    },
+    {
+      "id": 3,
+      "title": "❌ SDK Error Rate",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 6, "x": 12, "y": 0 },
+      "datasource": "${datasource}",
+      "targets": [
+        {
+          "expr": "sum(rate(cinacoin_sdk_requests_total{sdk_version=~\"$sdk_version\",status=\"error\"}[5m])) / sum(rate(cinacoin_sdk_requests_total{sdk_version=~\"$sdk_version\"}[5m])) * 100",
+          "legendFormat": "Error %"
+        }
+      ],
+      "fieldConfig": { "defaults": { "unit": "percent", "thresholds": { "mode": "absolute", "steps": [{ "color": "green", "value": null }, { "color": "yellow", "value": 0.5 }, { "color": "red", "value": 2 }] } } }
+    },
+    {
+      "id": 4,
+      "title": "📊 Active SDK Versions",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 6, "x": 18, "y": 0 },
+      "datasource": "${datasource}",
+      "targets": [
+        {
+          "expr": "count(count by (sdk_version) (cinacoin_sdk_requests_total))",
+          "legendFormat": "Versions"
+        }
+      ],
+      "fieldConfig": { "defaults": { "unit": "short", "thresholds": { "mode": "absolute", "steps": [{ "color": "blue", "value": null }] } } }
+    },
+    {
+      "id": 10,
+      "title": "SDK Latency Percentiles",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 4 },
+      "datasource": "${datasource}",
+      "targets": [
+        { "expr": "histogram_quantile(0.50, sum(rate(cinacoin_sdk_request_duration_seconds_bucket{sdk_version=~\"$sdk_version\"}[5m])) by (le)) * 1000", "legendFormat": "P50" },
+        { "expr": "histogram_quantile(0.90, sum(rate(cinacoin_sdk_request_duration_seconds_bucket{sdk_version=~\"$sdk_version\"}[5m])) by (le)) * 1000", "legendFormat": "P90" },
+        { "expr": "histogram_quantile(0.95, sum(rate(cinacoin_sdk_request_duration_seconds_bucket{sdk_version=~\"$sdk_version\"}[5m])) by (le)) * 1000", "legendFormat": "P95" },
+        { "expr": "histogram_quantile(0.99, sum(rate(cinacoin_sdk_request_duration_seconds_bucket{sdk_version=~\"$sdk_version\"}[5m])) by (le)) * 1000", "legendFormat": "P99" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "ms", "custom": { "drawStyle": "line", "fillOpacity": 5, "lineWidth": 2 } } }
+    },
+    {
+      "id": 11,
+      "title": "SDK QPS by Version",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 4 },
+      "datasource": "${datasource}",
+      "targets": [
+        {
+          "expr": "sum(rate(cinacoin_sdk_requests_total{sdk_version=~\"$sdk_version\"}[5m])) by (sdk_version)",
+          "legendFormat": "v{{sdk_version}}"
+        }
+      ],
+      "fieldConfig": { "defaults": { "unit": "reqps", "custom": { "drawStyle": "line", "fillOpacity": 15, "lineWidth": 2 } } }
+    },
+    {
+      "id": 12,
+      "title": "SDK Requests by Method",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 12 },
+      "datasource": "${datasource}",
+      "targets": [
+        {
+          "expr": "topk(10, sum(rate(cinacoin_sdk_requests_total{sdk_version=~\"$sdk_version\"}[5m])) by (method))",
+          "legendFormat": "{{method}}"
+        }
+      ],
+      "fieldConfig": { "defaults": { "unit": "reqps", "custom": { "drawStyle": "line", "fillOpacity": 10, "lineWidth": 2 } } }
+    },
+    {
+      "id": 13,
+      "title": "SDK Error Rate by Method",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 12 },
+      "datasource": "${datasource}",
+      "targets": [
+        {
+          "expr": "sum(rate(cinacoin_sdk_requests_total{sdk_version=~\"$sdk_version\",status=\"error\"}[5m])) by (method) / sum(rate(cinacoin_sdk_requests_total{sdk_version=~\"$sdk_version\"}[5m])) by (method) * 100",
+          "legendFormat": "{{method}}"
+        }
+      ],
+      "fieldConfig": { "defaults": { "unit": "percent", "custom": { "drawStyle": "line", "fillOpacity": 10, "lineWidth": 2 } } }
+    },
+    {
+      "id": 20,
+      "title": "Version Distribution",
+      "type": "piechart",
+      "gridPos": { "h": 8, "w": 8, "x": 0, "y": 20 },
+      "datasource": "${datasource}",
+      "targets": [
+        {
+          "expr": "sum(rate(cinacoin_sdk_requests_total[1h])) by (sdk_version)",
+          "legendFormat": "v{{sdk_version}}",
+          "instant": true
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "title": "Method Latency Heatmap",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 16, "x": 8, "y": 20 },
+      "datasource": "${datasource}",
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum(rate(cinacoin_sdk_request_duration_seconds_bucket{sdk_version=~\"$sdk_version\"}[5m])) by (le, method)) * 1000",
+          "legendFormat": "{{method}}"
+        }
+      ],
+      "fieldConfig": { "defaults": { "unit": "ms", "custom": { "drawStyle": "line", "fillOpacity": 5, "lineWidth": 1 } } }
+    }
+  ],
+  "schemaVersion": 39,
+  "version": 1
+}
