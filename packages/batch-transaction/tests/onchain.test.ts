@@ -1,4 +1,3 @@
-// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for on-chain batch execution with mock WalletClient.
  */

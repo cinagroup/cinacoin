@@ -1,4 +1,3 @@
-// eslint-disable @typescript-eslint/no-explicit-any
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { GasEstimator, GasPriceCache, DEFAULT_CHAINS } from '../src/index.js';
 import { EVMEstimator } from '../src/chains/evm.js';

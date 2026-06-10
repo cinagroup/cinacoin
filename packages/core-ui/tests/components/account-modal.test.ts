@@ -1,4 +1,3 @@
-// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for AccountModal component.
  * Tests rendering, address formatting, actions, and events.

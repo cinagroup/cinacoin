@@ -1,4 +1,3 @@
-// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for @cinacoin/react-native — EIP-5792, ENS, Biometric, and Push.
  */

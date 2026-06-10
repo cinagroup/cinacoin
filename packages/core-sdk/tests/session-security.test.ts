@@ -1,4 +1,3 @@
-// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * @vitest-environment jsdom
  * Security unit tests for session hardening in @cinacoin/core-sdk.

@@ -1,4 +1,3 @@
-// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Starknet Chain Adapter tests.
  *

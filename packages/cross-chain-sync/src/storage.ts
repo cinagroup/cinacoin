@@ -4,7 +4,7 @@
  * Provides a pluggable storage backend for cross-chain state.
  */
 
-import type { StateStorage } from "./types";
+import type { StateStorage, BridgeState } from "./types";
 
 /**
  * In-memory storage implementation (for testing and server-side use).
@@ -34,11 +34,11 @@ export class InMemoryStorage implements StateStorage {
     this.store.clear();
   }
 
-  async getState(): Promise<any> {
+  async getState(): Promise<BridgeState> {
     const raw = this.store.get("session-state");
     if (raw === undefined) return { accounts: [] };
     try {
-      return JSON.parse(raw);
+      return JSON.parse(raw) as BridgeState;
     } catch {
       return { accounts: [] };
     }
@@ -75,11 +75,11 @@ export class LocalStorage implements StateStorage {
     localStorage.clear();
   }
 
-  async getState(): Promise<any> {
+  async getState(): Promise<BridgeState> {
     const raw = localStorage.getItem("session-state");
     if (raw === null) return { accounts: [] };
     try {
-      return JSON.parse(raw);
+      return JSON.parse(raw) as BridgeState;
     } catch {
       return { accounts: [] };
     }

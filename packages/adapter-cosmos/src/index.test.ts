@@ -1,4 +1,3 @@
-// eslint-disable @typescript-eslint/no-explicit-any
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import type { CosmosAdapterConfig } from './CosmosAdapter.js';
 import { CosmosAdapter, COSMOS_CHAINS, COSMOS_CHAIN_INFO } from './index.js';

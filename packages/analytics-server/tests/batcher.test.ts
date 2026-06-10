@@ -1,4 +1,3 @@
-// eslint-disable @typescript-eslint/no-explicit-any
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { EventBatcher } from "../src/batcher.js";
 import type { AnalyticsEvent } from "../src/validator.js";

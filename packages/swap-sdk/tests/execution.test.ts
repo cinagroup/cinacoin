@@ -1,4 +1,3 @@
-// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * End-to-End Gas Estimator + Swap SDK Integration Tests
  *

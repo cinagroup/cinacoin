@@ -1,4 +1,3 @@
-// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for SIWE message validation per EIP-4361 specification.
  * Covers parameter validation, domain matching, expiration, and full validation pipeline.

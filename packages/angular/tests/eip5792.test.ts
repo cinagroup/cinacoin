@@ -1,4 +1,3 @@
-// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for EIP-5792 service, standalone components, and exports — @cinacoin/angular.
  *

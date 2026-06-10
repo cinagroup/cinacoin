@@ -188,8 +188,8 @@ export function useTransactionHistory(
     return () => {
       abortRef.current?.abort();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [address, chainId, limit]);
+    // fetchHistory is stable via useCallback; intentionally omitted from deps
+  }, [address, chainId, limit, fetchHistory]);
 
   const loadMore = useCallback(() => {
     if (hasMore && !isLoading) fetchHistory(true);

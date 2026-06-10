@@ -1,4 +1,3 @@
-// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for EVM adapter chain switching, address validation, and RPC methods.
  */

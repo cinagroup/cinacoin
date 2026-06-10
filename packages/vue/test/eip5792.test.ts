@@ -1,4 +1,3 @@
-// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Basic tests for EIP-5792 Vue composables.
  *

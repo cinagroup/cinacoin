@@ -70,7 +70,7 @@ export function CinacoinProvider({ config, children }: CinacoinProviderProps): R
   const appkit = useMemo<CinacoinAppKitInstance>(
     () => createCinacoinAppKit(config),
     // Re-create only when identity-critical fields change
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // config is intentionally omitted: only projectId/defaultChain affect identity
     [config.projectId, config.defaultChain],
   );
 

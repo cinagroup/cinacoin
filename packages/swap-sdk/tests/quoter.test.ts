@@ -1,4 +1,3 @@
-// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for SwapQuoter — quote aggregation, best price selection.
  * Uses mock executors to avoid real HTTP calls.

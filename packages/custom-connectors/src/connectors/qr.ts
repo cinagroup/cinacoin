@@ -79,8 +79,7 @@ export class QRConnector implements ConnectorConfig {
   async init(): Promise<void> {
     if (this._signClient) return;
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-    const coreSdk = await import('@cinacoin/core-sdk') as unknown as { SignClient: { init: (config: Record<string, unknown>) => Promise<SignClientInstance> } };
+    const coreSdk = await import('@cinacoin/core-sdk') as { SignClient: { init: (config: Record<string, unknown>) => Promise<SignClientInstance> } };
     const SignClient = coreSdk.SignClient;
     this._signClient = await SignClient.init({
       projectId: this._projectId,

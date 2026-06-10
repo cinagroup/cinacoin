@@ -186,8 +186,10 @@ export class ConfigManager {
     if (!this.listeners.has(flag)) {
       this.listeners.set(flag, new Set());
     }
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    this.listeners.get(flag)!.add(callback);
+    const listenerSet = this.listeners.get(flag);
+    if (listenerSet) {
+      listenerSet.add(callback);
+    }
 
     // Immediate invocation with current value
     callback(flag, this.getFeature(flag));

@@ -33,7 +33,6 @@ import TronWeb from 'tronweb';
 import { logger } from '@cinacoin/logger';
 
 // TronWeb lacks proper TypeScript types
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const TronWebAny = TronWeb as unknown;
 
 /* ------------------------------------------------------------------ */

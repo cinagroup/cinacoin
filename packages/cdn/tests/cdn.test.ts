@@ -1,4 +1,3 @@
-// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * CDN Package Tests — CDN loading, config, loader, connect, modal.
  */

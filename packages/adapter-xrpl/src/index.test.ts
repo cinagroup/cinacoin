@@ -1,4 +1,3 @@
-// eslint-disable @typescript-eslint/no-explicit-any
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { XrplAdapter, announceXrplProviders } from './index.js';
 import type { XrplConnector, XrplNetwork, XrplConnectionResult } from './types.js';

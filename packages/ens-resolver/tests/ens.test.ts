@@ -1,4 +1,3 @@
-// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * ENS Resolver — 20+ comprehensive tests
  * Covers constructor, validation, cache, error handling, type exports, and functional API.

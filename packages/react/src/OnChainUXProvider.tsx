@@ -201,8 +201,7 @@ export function CinaCoinProvider({ config, children }: CinaCoinProviderProps): J
     // We access InjectedProvider directly from core-sdk
     try {
       // Lazy require — core-sdk is a workspace dependency
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const { InjectedProvider } = require('@cinacoin/core-sdk') as Record<string, unknown>;
+      const { InjectedProvider } = require('@cinacoin/core-sdk') as { InjectedProvider: unknown };
 
       // InjectedProvider is a class: new InjectedProvider(id, name, icon, provider?)
       const Ctor = InjectedProvider as new (

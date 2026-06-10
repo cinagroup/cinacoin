@@ -1,4 +1,3 @@
-// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for @cinacoin/svelte EIP-5792 stores — sendCalls, atomicBatch, callsStatus,
  * walletCapabilities, and helpers (has, getChainCaps, filterBy, allSucceeded, failedReceipts).

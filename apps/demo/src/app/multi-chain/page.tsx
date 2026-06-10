@@ -528,8 +528,8 @@ export default function MultiChainPage() {
     } else {
       setBalances([]);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isConnected, account.address]);
+    // fetchBalances is stable via useCallback; intentionally omitted from deps
+  }, [isConnected, account.address, fetchBalances]);
 
   // Auto-refresh every 30 seconds
   useEffect(() => {

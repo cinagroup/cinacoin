@@ -1,4 +1,3 @@
-// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * core-sdk/tests/adapters/hedera.test.ts
  *

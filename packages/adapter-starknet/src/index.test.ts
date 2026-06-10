@@ -1,4 +1,3 @@
-// eslint-disable @typescript-eslint/no-explicit-any
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { StarknetChainAdapter, STARKNET_CHAINS, STARKNET_WALLETS } from './index.js';
 

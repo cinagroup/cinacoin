@@ -1,4 +1,3 @@
-// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for ChainSwitcher component.
  * Tests dropdown toggle, chain selection, events, and rendering.

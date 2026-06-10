@@ -45,8 +45,7 @@ function SwaggerViewer() {
         const script = document.createElement('script');
         script.src = 'https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui-bundle.js';
         script.onload = () => {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          setSwaggerUI(() => (window as unknown as Window & typeof globalThis).SwaggerUIBundle);
+          setSwaggerUI(() => (window as unknown as { SwaggerUIBundle?: unknown }).SwaggerUIBundle);
         };
         document.head.appendChild(script);
       }
@@ -72,8 +71,7 @@ function SwaggerViewer() {
       url: SPECS[activeSpec].url,
       deepLinking: true,
       presets: [
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (SwaggerUI as unknown).presets?.apis || (SwaggerUI as unknown).APIS,
+        (SwaggerUI as { presets?: { apis?: unknown }; APIS?: unknown }).presets?.apis || (SwaggerUI as { APIS?: unknown }).APIS,
       ],
       layout: 'BaseLayout',
       defaultModelsExpandDepth: 1,

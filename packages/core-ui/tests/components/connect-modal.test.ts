@@ -1,4 +1,3 @@
-// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for ConnectModal component.
  * Tests rendering logic, view switching, wallet selection, and events.

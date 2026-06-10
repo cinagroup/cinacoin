@@ -90,6 +90,7 @@ export function GlobalSearch() {
     return (
       <button
         onClick={() => setIsOpen(true)}
+        aria-label="Open search (Cmd+K)"
         className="flex items-center gap-2 px-3 py-2 text-body-sm text-[var(--cc-body)] bg-[var(--cc-canvas-soft)] border border-[var(--cc-hairline)] rounded-lg hover:border-[var(--cc-link)] transition-colors"
       >
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -115,6 +116,8 @@ export function GlobalSearch() {
           <input
             ref={inputRef}
             type="text"
+            role="searchbox"
+            aria-label="Search site content"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
@@ -124,6 +127,7 @@ export function GlobalSearch() {
           />
           <button
             onClick={() => setIsOpen(false)}
+            aria-label="Close search"
             className="text-[var(--cc-muted)] hover:text-[var(--cc-ink)]"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

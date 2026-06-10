@@ -383,7 +383,8 @@ export default function BatchPage() {
     if (address && batchCalls.length === 1 && batchCalls[0].to === '0x0000000000000000000000000000000000000000') {
       setBatchCalls((prev) => prev.map((c) => ({ ...c, to: address })));
     }
-  }, [address]); // eslint-disable-line react-hooks/exhaustive-deps
+    // batchCalls intentionally omitted: we only want to run when address changes
+  }, [address]);
 
   useEffect(() => () => callsStatus.stopPolling(), [callsStatus.stopPolling]);
 

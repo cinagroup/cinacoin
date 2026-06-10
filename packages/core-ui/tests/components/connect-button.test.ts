@@ -1,4 +1,3 @@
-// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for ConnectButton component.
  * Tests rendering logic, click handling, and state changes.

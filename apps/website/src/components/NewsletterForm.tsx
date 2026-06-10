@@ -40,8 +40,8 @@ export function NewsletterForm({ source = 'website' }: { source?: string }) {
 
   if (status === 'success') {
     return (
-      <div className="bg-[var(--cc-success)]/10 border border-[var(--cc-success)]/30 rounded-[var(--cc-radius-md)] p-6 text-center">
-        <svg className="w-12 h-12 text-[var(--cc-success)] mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div className="bg-[var(--cc-success)]/10 border border-[var(--cc-success)]/30 rounded-[var(--cc-radius-md)] p-6 text-center" role="status">
+        <svg className="w-12 h-12 text-[var(--cc-success)] mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
         </svg>
         <p className="text-[var(--cc-success)] font-medium">{message}</p>
@@ -57,7 +57,9 @@ export function NewsletterForm({ source = 'website' }: { source?: string }) {
           placeholder={t('newsletter.name_placeholder')}
           value={name}
           name="name"
+          aria-label={t('newsletter.name_placeholder')}
           onChange={(e) => setName(e.target.value)}
+          autoComplete="name"
           className="px-4 py-3 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-sm)] text-[var(--cc-ink)] placeholder:text-[var(--cc-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-link)] focus:border-transparent text-body-sm"
         />
         <input
@@ -65,8 +67,11 @@ export function NewsletterForm({ source = 'website' }: { source?: string }) {
           placeholder={t('newsletter.email_placeholder')}
           value={email}
           name="email"
+          aria-label={t('newsletter.email_placeholder')}
+          aria-required="true"
           onChange={(e) => setEmail(e.target.value)}
           required
+          autoComplete="email"
           className="px-4 py-3 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-sm)] text-[var(--cc-ink)] placeholder:text-[var(--cc-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-link)] focus:border-transparent text-body-sm"
         />
       </div>
@@ -78,7 +83,7 @@ export function NewsletterForm({ source = 'website' }: { source?: string }) {
         {status === 'loading' ? t('newsletter.subscribing') : t('newsletter.subscribe')}
       </button>
       {status === 'error' && (
-        <p className="text-[var(--cc-error)] text-body-sm text-center">{message}</p>
+        <p className="text-[var(--cc-error)] text-body-sm text-center" role="alert">{message}</p>
       )}
     </form>
   );

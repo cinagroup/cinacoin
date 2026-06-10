@@ -96,7 +96,8 @@ export function ThemeProvider({ children, initialTheme, initialMode }: ThemeProv
     if (initialMode && store.mode === 'light' && !persisted?.mode) {
       store.setMode(initialMode);
     }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    // store is stable from useStore; intentionally omitted from deps
+  }, [store]);
 
   const value: ThemeContextValue = {
     theme: store.theme,

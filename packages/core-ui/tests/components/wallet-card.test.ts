@@ -1,4 +1,3 @@
-// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for WalletCard component.
  * Tests rendering, wallet info display, and install detection.

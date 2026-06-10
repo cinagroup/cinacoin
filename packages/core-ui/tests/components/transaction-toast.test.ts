@@ -1,4 +1,3 @@
-// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for TransactionToast component.
  * Tests rendering for all statuses, actions, events, and progress bar.
