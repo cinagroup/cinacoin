@@ -51,3 +51,31 @@ export type { ProfilePageProps, LinkedProvider } from "./components/Profile/Prof
 /** Connected (account overview) page */
 export { ConnectedPage } from "./components/Connected/ConnectedPage";
 export type { ConnectedPageProps } from "./components/Connected/ConnectedPage";
+
+// ---- New Payment Infrastructure ----
+
+/** Payment Router — automatic optimal payment path selection */
+export { PaymentRouter } from "./PaymentRouter";
+export type {
+  PaymentRouteRequest,
+  PaymentRoute,
+  PaymentRouterConfig,
+} from "./PaymentRouter";
+
+/** Quote Aggregator — multi-provider quote aggregation */
+export { QuoteAggregator } from "./QuoteAggregator";
+export type {
+  UnifiedQuote,
+  QuoteRequest,
+  SelectionStrategy,
+  QuoteAggregatorConfig,
+} from "./QuoteAggregator";
+
+/** Payment History — transaction history tracking */
+export { PaymentHistory } from "./PaymentHistory";
+export type {
+  PaymentHistoryEntry,
+  PaymentHistoryQuery,
+  PaymentHistoryStats,
+  PaymentHistoryConfig,
+} from "./PaymentHistory";
