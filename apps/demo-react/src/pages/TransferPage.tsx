@@ -99,7 +99,7 @@ export function TransferPage() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
               {/* Chain selector */}
               <div>
-                <label style={{ fontSize: 13, color: '#aaa', marginBottom: 6, display: 'block' }}>选择链</label>
+                <label style={{ fontSize: 13, color: '#aaa', marginBottom: 8, display: 'block' }}>选择链</label>
                 <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                   {CHAINS.map((chain) => (
                     <button
@@ -123,7 +123,7 @@ export function TransferPage() {
 
               {/* Token selector */}
               <div>
-                <label style={{ fontSize: 13, color: '#aaa', marginBottom: 6, display: 'block' }}>选择 Token</label>
+                <label style={{ fontSize: 13, color: '#aaa', marginBottom: 8, display: 'block' }}>选择 Token</label>
                 <div style={{ display: 'flex', gap: 8 }}>
                   {selectedChain.tokens.map((token) => (
                     <button
@@ -147,7 +147,7 @@ export function TransferPage() {
 
               {/* Recipient */}
               <div>
-                <label style={{ fontSize: 13, color: '#aaa', marginBottom: 6, display: 'block' }}>收款地址</label>
+                <label style={{ fontSize: 13, color: '#aaa', marginBottom: 8, display: 'block' }}>收款地址</label>
                 <input
                   type="text"
                   placeholder="0x..."
@@ -169,7 +169,7 @@ export function TransferPage() {
 
               {/* Amount */}
               <div>
-                <label style={{ fontSize: 13, color: '#aaa', marginBottom: 6, display: 'block' }}>金额</label>
+                <label style={{ fontSize: 13, color: '#aaa', marginBottom: 8, display: 'block' }}>金额</label>
                 <input
                   type="number"
                   step="0.001"

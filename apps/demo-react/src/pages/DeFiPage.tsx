@@ -198,7 +198,7 @@ export function DeFiPage() {
           <div style={{ background: '#1a1a2e', borderRadius: 12, padding: 24 }}>
             {/* From */}
             <div style={{ marginBottom: 16 }}>
-              <label style={{ fontSize: 13, color: '#aaa', marginBottom: 6, display: 'block' }}>从</label>
+              <label style={{ fontSize: 13, color: '#aaa', marginBottom: 8, display: 'block' }}>从</label>
               <div style={{ display: 'flex', gap: 8 }}>
                 <select
                   value={swapFrom}
@@ -240,7 +240,7 @@ export function DeFiPage() {
 
             {/* To */}
             <div style={{ marginBottom: 16 }}>
-              <label style={{ fontSize: 13, color: '#aaa', marginBottom: 6, display: 'block' }}>到</label>
+              <label style={{ fontSize: 13, color: '#aaa', marginBottom: 8, display: 'block' }}>到</label>
               <div style={{ display: 'flex', gap: 8 }}>
                 <select
                   value={swapTo}
@@ -264,7 +264,7 @@ export function DeFiPage() {
 
             {/* Rate info */}
             {swapAmount && (
-              <div style={{ background: '#0d0d1a', borderRadius: 8, padding: 10, marginBottom: 16, fontSize: 12, color: '#888' }}>
+              <div style={{ background: '#0d0d1a', borderRadius: 8, padding: 12, marginBottom: 16, fontSize: 12, color: '#888' }}>
                 1 {swapFrom} = {mockRate} {swapTo} · 滑点 0.5%
               </div>
             )}
