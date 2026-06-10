@@ -13,6 +13,21 @@ const recordUsageSchema = z.object({
   date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
 });
 
+const getUsageQuerySchema = z.object({
+  start_date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+  end_date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+  granularity: z.enum(['daily', 'hourly']).default('daily'),
+});
+
+const getUsageSummaryQuerySchema = z.object({
+  days: z.string().regex(/^\d+$/).transform(Number).pipe(z.number().int().min(1).max(365)).default('30'),
+});
+
+const getUsageStatsQuerySchema = z.object({
+  limit: z.string().regex(/^\d+$/).transform(Number).pipe(z.number().int().min(1).max(1000)).default('100'),
+  offset: z.string().regex(/^\d+$/).transform(Number).pipe(z.number().int().min(0)).default('0'),
+});
+
 export function usageRoutes() {
   const app = new Hono<{ Bindings: Env }>();
 
@@ -64,20 +79,22 @@ export function usageRoutes() {
   app.get('/usage/:project_id', apiKeyAuth, async (c) => {
     const db = c.env.DB;
     const projectId = c.req.param('project_id');
-    const startDate = c.req.query('start_date');
-    const endDate = c.req.query('end_date');
-    const granularity = c.req.query('granularity') || 'daily'; // daily, hourly
+    const parsed = getUsageQuerySchema.safeParse(c.req.query());
+    if (!parsed.success) {
+      return c.json({ error: 'Invalid query parameters', details: parsed.error.flatten() }, 400);
+    }
+    const { start_date, end_date, granularity } = parsed.data;
 
     let query = 'SELECT * FROM usage_stats WHERE project_id = ?';
     const params: (string | number)[] = [projectId];
 
-    if (startDate) {
+    if (start_date) {
       query += ' AND date >= ?';
-      params.push(startDate);
+      params.push(start_date);
     }
-    if (endDate) {
+    if (end_date) {
       query += ' AND date <= ?';
-      params.push(endDate);
+      params.push(end_date);
     }
     query += ' ORDER BY date DESC';
 
@@ -93,9 +110,10 @@ export function usageRoutes() {
         totalRequests,
         totalErrors,
         errorRate: totalRequests > 0 ? (totalErrors / totalRequests * 100).toFixed(2) : '0',
+        granularity,
         dateRange: {
-          start: startDate || (results.length > 0 ? results[results.length - 1].date : null),
-          end: endDate || (results.length > 0 ? results[0].date : null),
+          start: start_date || (results.length > 0 ? results[results.length - 1].date : null),
+          end: end_date || (results.length > 0 ? results[0].date : null),
         },
       },
     });
@@ -105,7 +123,11 @@ export function usageRoutes() {
   app.get('/usage/:project_id/summary', apiKeyAuth, async (c) => {
     const db = c.env.DB;
     const projectId = c.req.param('project_id');
-    const days = parseInt(c.req.query('days') || '30');
+    const parsed = getUsageSummaryQuerySchema.safeParse(c.req.query());
+    if (!parsed.success) {
+      return c.json({ error: 'Invalid query parameters', details: parsed.error.flatten() }, 400);
+    }
+    const { days } = parsed.data;
 
     const startDate = new Date();
     startDate.setDate(startDate.getDate() - days);
@@ -173,8 +195,11 @@ export function usageRoutes() {
   // GET /api/usage/stats — Get all usage stats (admin, protected)
   app.get('/usage/stats', apiKeyAuth, async (c) => {
     const db = c.env.DB;
-    const limit = Math.min(parseInt(c.req.query('limit') || '100'), 1000);
-    const offset = parseInt(c.req.query('offset') || '0');
+    const parsed = getUsageStatsQuerySchema.safeParse(c.req.query());
+    if (!parsed.success) {
+      return c.json({ error: 'Invalid query parameters', details: parsed.error.flatten() }, 400);
+    }
+    const { limit, offset } = parsed.data;
 
     const query = `
       SELECT us.*, p.name as project_name

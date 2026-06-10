@@ -26,6 +26,13 @@ const createApiKeySchema = z.object({
   expires_at: z.string().datetime().optional(),
 });
 
+const listProjectsQuerySchema = z.object({
+  owner_address: z.string().max(100).optional(),
+  status: z.enum(['active', 'inactive', 'suspended']).optional(),
+  limit: z.string().regex(/^\d+$/).transform(Number).pipe(z.number().int().min(1).max(100)).default('50'),
+  offset: z.string().regex(/^\d+$/).transform(Number).pipe(z.number().int().min(0)).default('0'),
+});
+
 export function projectRoutes() {
   const app = new Hono<{ Bindings: Env }>();
 
@@ -76,17 +83,18 @@ export function projectRoutes() {
   // GET /api/projects — List projects (public)
   app.get('/', async (c) => {
     const db = c.env.DB;
-    const ownerAddress = c.req.query('owner_address');
-    const status = c.req.query('status');
-    const limit = Math.min(parseInt(c.req.query('limit') || '50'), 100);
-    const offset = parseInt(c.req.query('offset') || '0');
+    const parsed = listProjectsQuerySchema.safeParse(c.req.query());
+    if (!parsed.success) {
+      return c.json({ error: 'Invalid query parameters', details: parsed.error.flatten() }, 400);
+    }
+    const { owner_address, status, limit, offset } = parsed.data;
 
     let query = 'SELECT * FROM projects WHERE 1=1';
     const params: (string | number)[] = [];
 
-    if (ownerAddress) {
+    if (owner_address) {
       query += ' AND owner_address = ?';
-      params.push(ownerAddress);
+      params.push(owner_address);
     }
     if (status) {
       query += ' AND status = ?';
@@ -101,9 +109,9 @@ export function projectRoutes() {
     // Get actual total count
     let countQuery = 'SELECT COUNT(*) as count FROM projects WHERE 1=1';
     const countParams: string[] = [];
-    if (ownerAddress) {
+    if (owner_address) {
       countQuery += ' AND owner_address = ?';
-      countParams.push(ownerAddress);
+      countParams.push(owner_address);
     }
     if (status) {
       countQuery += ' AND status = ?';

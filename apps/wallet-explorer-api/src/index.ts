@@ -19,6 +19,7 @@
 
 import { Hono } from "hono";
 import { cors } from "hono/cors";
+import { z } from "zod";
 import {
   getAllWallets,
   getWalletById,
@@ -28,6 +29,36 @@ import {
   WALLET_COUNT,
 } from "@cinacoin/wallet-registry";
 import type { WalletRegistryEntry, WalletPlatform, WalletChainFamily } from "@cinacoin/wallet-registry";
+
+// ─── Zod Query Schemas ─────────────────────────────────────────────────────
+
+const walletsListQuerySchema = z.object({
+  limit: z.string().regex(/^\d+$/).transform(Number).pipe(z.number().int().min(1).max(200)).default("50"),
+  offset: z.string().regex(/^\d+$/).transform(Number).pipe(z.number().int().min(0)).default("0"),
+  sort: z.enum(["popularity", "name"]).optional(),
+  order: z.enum(["asc", "desc"]).default("desc"),
+});
+
+const walletsSearchQuerySchema = z.object({
+  q: z.string().min(1, "Query parameter 'q' is required").max(200),
+  limit: z.string().regex(/^\d+$/).transform(Number).pipe(z.number().int().min(1).max(200)).default("20"),
+});
+
+const walletsFilterQuerySchema = z.object({
+  chainFamily: z.string().max(50).optional(),
+  chain: z.string().max(50).optional(),
+  platform: z.string().max(50).optional(),
+  walletType: z.string().max(50).optional(),
+  walletConnectV2: z.string().optional(),
+  eip6963: z.string().optional(),
+  accountAbstraction: z.string().optional(),
+  openSource: z.string().optional(),
+  developer: z.string().max(100).optional(),
+  search: z.string().max(200).optional(),
+  limit: z.string().regex(/^\d+$/).transform(Number).pipe(z.number().int().min(1).max(200)).default("50"),
+  sort: z.enum(["popularity", "name"]).optional(),
+  order: z.enum(["asc", "desc"]).default("desc"),
+});
 
 // ============================================================
 // App Setup
@@ -113,10 +144,11 @@ app.get("/api/health", (c) =>
 // ============================================================
 
 app.get("/api/wallets", (c) => {
-  const limit = parseInt(c.req.query("limit") ?? "50");
-  const offset = parseInt(c.req.query("offset") ?? "0");
-  const sortField = c.req.query("sort") as "popularity" | "name" | undefined;
-  const sortDir = (c.req.query("order") ?? "desc") as "asc" | "desc";
+  const parsed = walletsListQuerySchema.safeParse(c.req.query());
+  if (!parsed.success) {
+    return c.json({ error: "Invalid query parameters", details: parsed.error.flatten() }, 400);
+  }
+  const { limit, offset, sort: sortField, order: sortDir } = parsed.data;
 
   let wallets: WalletRegistryEntry[] = [...getAllWallets()];
 
@@ -160,20 +192,19 @@ app.get("/api/wallets/:id", (c) => {
 // ============================================================
 
 app.get("/api/wallets/search", (c) => {
-  const query = c.req.query("q");
-
-  if (!query || query.trim().length === 0) {
-    return c.json({ error: "Query parameter 'q' is required" }, 400);
+  const parsed = walletsSearchQuerySchema.safeParse(c.req.query());
+  if (!parsed.success) {
+    return c.json({ error: "Invalid query parameters", details: parsed.error.flatten() }, 400);
   }
+  const { q, limit } = parsed.data;
 
-  const results = searchWallets(query.trim());
-  const limit = parseInt(c.req.query("limit") ?? "20");
+  const results = searchWallets(q.trim());
 
   return c.json({
     data: results.slice(0, limit),
     meta: {
       total: results.length,
-      query,
+      query: q,
       limit,
     },
   });
@@ -184,8 +215,12 @@ app.get("/api/wallets/search", (c) => {
 // ============================================================
 
 app.get("/api/wallets/filter", (c) => {
-  const params = c.req.query();
-  const limit = parseInt(params.limit ?? "50");
+  const parsed = walletsFilterQuerySchema.safeParse(c.req.query());
+  if (!parsed.success) {
+    return c.json({ error: "Invalid query parameters", details: parsed.error.flatten() }, 400);
+  }
+  const params = parsed.data;
+  const { limit } = params;
 
   const filter: Parameters<typeof filterWallets>[0] = {};
 
@@ -202,15 +237,15 @@ app.get("/api/wallets/filter", (c) => {
 
   const results = filterWallets(filter);
   const sorted = sortWallets(results, {
-    field: (params.sort as "popularity" | "name") ?? "popularity",
-    direction: (params.order as "asc" | "desc") ?? "desc",
+    field: params.sort ?? "popularity",
+    direction: params.order,
   });
 
   return c.json({
     data: sorted.slice(0, limit),
     meta: {
       total: sorted.length,
-      filters: Object.fromEntries(Object.entries(params).filter(([k]) => !["limit", "sort", "order"].includes(k))),
+      filters: Object.fromEntries(Object.entries(c.req.query()).filter(([k]) => !["limit", "sort", "order"].includes(k))),
     },
   });
 });
