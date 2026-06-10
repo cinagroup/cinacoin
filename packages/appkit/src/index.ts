@@ -33,6 +33,8 @@ export { WalletSearch } from './components/WalletSearch';
 export { ChainSelector } from './components/ChainSelector';
 export { AccountPanel } from './components/AccountPanel';
 export { QRCode } from './components/QRCode';
+export { PaymentTab } from './components/PaymentTab';
+export type { PaymentTabProps } from './components/PaymentTab';
 
 export type {
   // Config
@@ -61,3 +63,5 @@ export type {
   AccountPanelProps,
   QRCodeProps,
 } from './types';
+
+export type { PaymentTabProps } from './components/PaymentTab';
