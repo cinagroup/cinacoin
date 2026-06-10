@@ -8,6 +8,16 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
+  experimental: {
+    optimizePackageImports: [
+      '@heroicons/react',
+      'lucide-react',
+      '@cinacoin/ui',
+      '@cinacoin/core-sdk',
+      'lodash',
+      'date-fns',
+    ],
+  },
   // Base path if deployed under a subpath (e.g., /status)
   // basePath: process.env.BASE_PATH || "",
 };

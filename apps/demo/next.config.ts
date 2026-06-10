@@ -10,6 +10,19 @@ const nextConfig: NextConfig = {
   assetPrefix: '/demo',
   trailingSlash: true,
   transpilePackages: ['@cinacoin/core-sdk', '@cinacoin/core-ui', '@cinacoin/react'],
+  images: {
+    unoptimized: true,
+  },
+  experimental: {
+    optimizePackageImports: [
+      '@heroicons/react',
+      'lucide-react',
+      '@cinacoin/ui',
+      '@cinacoin/core-sdk',
+      'lodash',
+      'date-fns',
+    ],
+  },
 
   async headers() {
     return [
