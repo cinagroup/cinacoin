@@ -23,7 +23,7 @@ export default function TransactionDetail({ tx }: { tx: TransactionDetailProps }
   const status = statusConfig[tx.status];
 
   return (
-    <div className="card">
+    <div className="cc-card">
       <div className="flex items-start justify-between">
         <h2 className="text-heading-3 text-ink">Transaction Details</h2>
         <span className={`badge ${status.badge}`}>

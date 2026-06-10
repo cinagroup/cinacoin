@@ -45,7 +45,7 @@ export default function ABTestingPage() {
       
       <div className="space-y-6">
         {experiments.map(exp => (
-          <div key={exp.id} className="card p-6">
+          <div key={exp.id} className="cc-card p-6">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-heading-2">{exp.name}</h2>
               <span className={`px-3 py-1 rounded-full text-caption ${

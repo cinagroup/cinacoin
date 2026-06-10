@@ -237,7 +237,7 @@ export default function ProjectDetailPage() {
           </div>
 
           {/* Usage Chart */}
-          <div className="card">
+          <div className="cc-card">
             <h2 className="text-body-lg font-semibold text-ink mb-4">API Requests (Last 30 Days)</h2>
             <div className="h-52 flex items-end gap-2 px-2">
               {usageData.map((d) => (
@@ -256,7 +256,7 @@ export default function ProjectDetailPage() {
           </div>
 
           {/* Active Users Chart */}
-          <div className="card">
+          <div className="cc-card">
             <h2 className="text-body-lg font-semibold text-ink mb-4">Active Users (Last 30 Days)</h2>
             <div className="h-52 flex items-end gap-2 px-2">
               {usageData.map((d) => {
@@ -323,7 +323,7 @@ export default function ProjectDetailPage() {
 
       {/* SDK Setup Tab */}
       {activeTab === "sdk" && (
-        <div className="card">
+        <div className="cc-card">
           <h2 className="text-body-lg font-semibold text-ink mb-2">SDK Integration</h2>
           <p className="text-body-sm text-ink-body mb-4">
             Add the Cinacoin SDK to your project. Copy the snippet below for your framework.
@@ -378,7 +378,7 @@ export default function ProjectDetailPage() {
       {/* Environment Variables Tab */}
       {activeTab === "env" && (
         <div className="space-y-4">
-          <div className="card">
+          <div className="cc-card">
             <div className="flex items-center justify-between mb-4">
               <div>
                 <h2 className="text-body-lg font-semibold text-ink">Environment Variables</h2>
@@ -428,7 +428,7 @@ export default function ProjectDetailPage() {
 
           {/* Add Env Var Form */}
           {showAddEnv && (
-            <div className="card">
+            <div className="cc-card">
               <h3 className="text-body-sm font-semibold text-ink mb-3">Add Environment Variable</h3>
               <div className="space-y-3">
                 <div>

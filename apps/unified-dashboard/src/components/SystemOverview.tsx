@@ -17,7 +17,7 @@ const statusColors: Record<string, string> = {
 
 export function SystemOverview() {
   return (
-    <div className="card">
+    <div className="cc-card">
       <h3 className="text-body-md font-semibold text-ink mb-4">
         System Overview
       </h3>

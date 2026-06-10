@@ -6,7 +6,7 @@ interface StatCardProps {
 
 export default function StatCard({ label, value, icon }: StatCardProps) {
   return (
-    <div className="card">
+    <div className="cc-card">
       <div className="flex items-center justify-between">
         <span className="text-display-md">{icon}</span>
       </div>

@@ -103,7 +103,7 @@ export function UserManagement() {
     <div className="space-y-md">
       {/* Batch action bar */}
       {selectedUsers.size > 0 && (
-        <div className="card p-md bg-primary text-primary-foreground flex items-center justify-between">
+        <div className="cc-card p-md bg-primary text-primary-foreground flex items-center justify-between">
           <div className="flex items-center gap-3">
             <span className="text-body-sm font-medium">
               {selectedUsers.size} user{selectedUsers.size > 1 ? "s" : ""} selected
@@ -135,7 +135,7 @@ export function UserManagement() {
       {/* Confirmation modal */}
       {confirmAction && (
         <div className="fixed inset-0 bg-[var(--color-ink)]/50 flex items-center justify-center z-50">
-          <div className="card p-lg max-w-md w-full mx-4">
+          <div className="cc-card p-lg max-w-md w-full mx-4">
             <h3 className="text-heading-3 text-ink mb-2">
               {confirmAction.type === "delete" ? "Delete Users" : "Disable Users"}
             </h3>
@@ -164,7 +164,7 @@ export function UserManagement() {
       {/* Edit user modal */}
       {editingUser && (
         <div className="fixed inset-0 bg-[var(--color-ink)]/50 flex items-center justify-center z-50">
-          <div className="card p-lg max-w-md w-full mx-4">
+          <div className="cc-card p-lg max-w-md w-full mx-4">
             <h3 className="text-heading-3 text-ink mb-4">Edit User</h3>
             <div className="space-y-md">
               <div>
@@ -234,7 +234,7 @@ export function UserManagement() {
       {/* Add user modal */}
       {showAddUser && (
         <div className="fixed inset-0 bg-[var(--color-ink)]/50 flex items-center justify-center z-50">
-          <div className="card p-lg max-w-md w-full mx-4">
+          <div className="cc-card p-lg max-w-md w-full mx-4">
             <h3 className="text-heading-3 text-ink mb-4">Add New User</h3>
             <div className="space-y-md">
               <div>
@@ -290,7 +290,7 @@ export function UserManagement() {
         </div>
       )}
 
-      <div className="card">
+      <div className="cc-card">
         <div className="p-md border-b border-hairline">
           <div className="flex items-center justify-between">
             <h2 className="text-heading-3 text-ink">User Management</h2>

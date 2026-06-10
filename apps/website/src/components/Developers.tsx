@@ -62,7 +62,7 @@ export default function Developers() {
                 className="flex items-center gap-2 pb-3 mb-3"
                 style={{ borderBottom: '1px solid var(--cc-hairline-strong)' }}
               >
-                {['#ff5f57', '#febc2e', '#28c840'].map((color, dot) => (
+                {['var(--color-terminal-close)', 'var(--color-terminal-minimize)', 'var(--color-terminal-maximize)'].map((color, dot) => (
                   <div
                     key={dot}
                     className="h-2.5 w-2.5 rounded-full"

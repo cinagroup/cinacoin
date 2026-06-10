@@ -391,3 +391,16 @@ button, a, [role="button"] {
   white-space: nowrap;
   border: 0;
 }
+
+/* ── Card Component (Standard) ──────────────────────── */
+.cc-card {
+  background: var(--color-canvas);
+  border: 1px solid var(--color-hairline);
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: var(--shadow-1);
+}
+
+.cc-card:hover {
+  box-shadow: var(--shadow-2);
+}

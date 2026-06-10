@@ -33,7 +33,7 @@ export default function PerformancePage() {
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {metrics.map(metric => (
-          <div key={metric.name} className="card p-6">
+          <div key={metric.name} className="cc-card p-6">
             <h3 className="text-body font-medium mb-2">{metric.label}</h3>
             <p className="text-heading-2 text-link mb-4">
               {data[metric.name]?.[0]?.avg || '-'} {metric.unit}

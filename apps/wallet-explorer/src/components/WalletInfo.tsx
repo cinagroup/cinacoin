@@ -8,7 +8,7 @@ interface WalletInfoProps {
 
 export default function WalletInfo({ address, balance, tokenBalance, txCount, firstSeen }: WalletInfoProps) {
   return (
-    <div className="card">
+    <div className="cc-card">
       <div className="flex items-start justify-between">
         <div>
           <h2 className="text-heading-3 text-ink">Wallet Details</h2>

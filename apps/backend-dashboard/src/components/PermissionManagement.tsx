@@ -67,7 +67,7 @@ export function PermissionManagement() {
 
   return (
     <div className="space-y-lg">
-      <div className="card p-md">
+      <div className="cc-card p-md">
         <div className="flex items-center justify-between mb-md">
           <h2 className="text-heading-3 text-ink">Roles & Permissions</h2>
           <button className="btn btn-primary">
@@ -114,7 +114,7 @@ export function PermissionManagement() {
       </div>
 
       {selectedRole && (
-        <div className="card p-md">
+        <div className="cc-card p-md">
           <h3 className="text-heading-3 text-ink mb-md">
             Edit Permissions: {selectedRole.name}
           </h3>

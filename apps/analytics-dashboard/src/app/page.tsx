@@ -83,11 +83,11 @@ export default function Home() {
 
         {/* Bottom Row */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-lg">
-          <div className="lg:col-span-1 card p-lg">
+          <div className="lg:col-span-1 cc-card p-lg">
             <h2 className="text-heading-3 text-ink mb-lg">Region Distribution</h2>
             <RegionDistribution />
           </div>
-          <div className="lg:col-span-2 card p-lg">
+          <div className="lg:col-span-2 cc-card p-lg">
             <h2 className="text-heading-3 text-ink mb-lg">Recent Activity</h2>
             <RecentActivity />
           </div>

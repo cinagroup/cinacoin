@@ -39,7 +39,7 @@ export default function HistoryPage() {
 
   if (!connected) {
     return (
-      <div className="card text-center py-12">
+      <div className="cc-card text-center py-12">
         <h2 className="text-heading-2 text-ink">Transaction History</h2>
         <p className="mt-2 text-body text-mute">Connect your wallet to view your transaction history.</p>
         <button onClick={connect} className="btn btn-primary mt-6">
@@ -56,7 +56,7 @@ export default function HistoryPage() {
         <p className="mt-1 text-body text-mute">Complete record of all your transactions.</p>
       </div>
 
-      <div className="card p-0 overflow-hidden">
+      <div className="cc-card p-0 overflow-hidden">
         {mockHistory.map((tx) => (
           <div
             key={tx.hash}

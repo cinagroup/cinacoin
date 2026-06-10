@@ -21,7 +21,7 @@ export default function ReceivePage() {
 
   if (!connected) {
     return (
-      <div className="card text-center py-12">
+      <div className="cc-card text-center py-12">
         <h2 className="text-heading-2 text-ink">Receive CINA</h2>
         <p className="mt-2 text-body text-mute">Connect your wallet to view your receive address.</p>
         <button onClick={connect} className="btn btn-primary mt-6">
@@ -38,7 +38,7 @@ export default function ReceivePage() {
         <p className="mt-1 text-body text-mute">Share your address to receive tokens.</p>
       </div>
 
-      <div className="card text-center">
+      <div className="cc-card text-center">
         {/* QR Code placeholder */}
         <div className="mx-auto mb-6 flex h-48 w-48 items-center justify-center rounded-lg bg-canvas-soft-2 border border-hairline">
           <div className="grid grid-cols-5 gap-1 p-4">

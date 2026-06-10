@@ -79,7 +79,7 @@ export function SystemConfig() {
   return (
     <div className="space-y-lg">
       {config.map((section) => (
-        <div key={section.id} className="card p-md">
+        <div key={section.id} className="cc-card p-md">
           <h2 className="text-heading-3 text-ink mb-lg">{section.title}</h2>
           <div className="space-y-lg">
             {section.fields.map((field) => (

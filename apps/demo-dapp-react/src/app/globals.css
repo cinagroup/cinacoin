@@ -44,6 +44,10 @@
   --cc-status-error: #f87171;
   --cc-status-default: #64748b;
 
+  /* Chain brand colors */
+  --cc-chain-ethereum: #627eea;
+  --cc-chain-polygon: #8247e5;
+
   /* Action colors */
   --cc-danger: #dc2626;
   --cc-danger-on: #ffffff;

@@ -27,7 +27,7 @@ function StatusBadge({ status }: { status: ProjectCardProps["project"]["status"]
 export default function ProjectCard({ project }: ProjectCardProps) {
   return (
     <Link href={`/projects/${project.id}`}>
-      <div className="card card-hover cursor-pointer transition-all">
+      <div className="cc-card card-hover cursor-pointer transition-all">
         <div className="flex items-start justify-between mb-3">
           <h3 className="font-semibold text-ink">{project.name}</h3>
           <StatusBadge status={project.status} />

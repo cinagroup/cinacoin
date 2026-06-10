@@ -142,26 +142,26 @@ export function AuditLog() {
     <div className="space-y-lg">
       {/* Summary cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-md">
-        <div className="card p-md">
+        <div className="cc-card p-md">
           <p className="text-caption text-mute uppercase tracking-wider mb-1">Total Events</p>
           <p className="text-heading-2 text-ink">{mockAuditLogs.length}</p>
           <p className="text-caption text-body-color mt-1">Last 24 hours</p>
         </div>
-        <div className="card p-md">
+        <div className="cc-card p-md">
           <p className="text-caption text-mute uppercase tracking-wider mb-1">Failed Attempts</p>
           <p className="text-heading-2 text-error">
             {mockAuditLogs.filter((e) => e.status === "failure").length}
           </p>
           <p className="text-caption text-body-color mt-1">Requires attention</p>
         </div>
-        <div className="card p-md">
+        <div className="cc-card p-md">
           <p className="text-caption text-mute uppercase tracking-wider mb-1">Auth Events</p>
           <p className="text-heading-2 text-ink">
             {mockAuditLogs.filter((e) => e.category === "auth").length}
           </p>
           <p className="text-caption text-body-color mt-1">Logins & 2FA</p>
         </div>
-        <div className="card p-md">
+        <div className="cc-card p-md">
           <p className="text-caption text-mute uppercase tracking-wider mb-1">System Changes</p>
           <p className="text-heading-2 text-ink">
             {mockAuditLogs.filter((e) => e.category === "system").length}
@@ -171,7 +171,7 @@ export function AuditLog() {
       </div>
 
       {/* Main log table */}
-      <div className="card">
+      <div className="cc-card">
         {/* Toolbar */}
         <div className="p-md border-b border-hairline">
           <div className="flex items-center justify-between mb-md">

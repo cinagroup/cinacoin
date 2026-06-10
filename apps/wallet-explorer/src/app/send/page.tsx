@@ -25,7 +25,7 @@ export default function SendPage() {
 
   if (!connected) {
     return (
-      <div className="card text-center py-12">
+      <div className="cc-card text-center py-12">
         <h2 className="text-heading-2 text-ink">Send CINA</h2>
         <p className="mt-2 text-body text-mute">Connect your wallet to send tokens.</p>
         <button onClick={connect} className="btn btn-primary mt-6">
@@ -42,7 +42,7 @@ export default function SendPage() {
         <p className="mt-1 text-body text-mute">Transfer tokens to another address.</p>
       </div>
 
-      <div className="card">
+      <div className="cc-card">
         <div className="mb-6 flex items-center justify-between rounded-lg bg-canvas-soft-2 p-4">
           <div>
             <p className="text-caption text-mute">Available Balance</p>

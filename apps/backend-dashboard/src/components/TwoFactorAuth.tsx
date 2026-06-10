@@ -156,7 +156,7 @@ export function TwoFactorAuth() {
 
   if (status === "loading") {
     return (
-      <div className="card p-lg flex items-center justify-center">
+      <div className="cc-card p-lg flex items-center justify-center">
         <div className="flex items-center gap-3 text-[var(--cc-muted)]">
           <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
@@ -181,7 +181,7 @@ export function TwoFactorAuth() {
       )}
 
       {/* Status Card */}
-      <div className="card p-lg">
+      <div className="cc-card p-lg">
         <div className="flex items-start justify-between mb-lg">
           <div>
             <h2 className="text-heading-3 text-ink mb-1">Two-Factor Authentication</h2>
@@ -465,7 +465,7 @@ export function TwoFactorAuth() {
       </div>
 
       {/* Additional info card */}
-      <div className="card p-lg">
+      <div className="cc-card p-lg">
         <h3 className="text-body font-medium text-ink mb-md">About Two-Factor Authentication</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-md">
           <div className="p-md border border-hairline rounded-md">

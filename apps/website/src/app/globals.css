@@ -42,6 +42,11 @@
   --color-gradient-ship-start: #ff4d4d;
   --color-gradient-ship-end: #f9cb28;
 
+  /* Terminal window dots */
+  --color-terminal-close: #ff5f57;
+  --color-terminal-minimize: #febc2e;
+  --color-terminal-maximize: #28c840;
+
   /* ── Typography ─────────────────────────────────────── */
   --font-sans: 'Geist', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
@@ -99,6 +104,11 @@
   --color-gradient-preview-end: #f472b6;
   --color-gradient-ship-start: #f87171;
   --color-gradient-ship-end: #fbbf24;
+
+  /* Terminal window dots */
+  --color-terminal-close: #ff5f57;
+  --color-terminal-minimize: #febc2e;
+  --color-terminal-maximize: #28c840;
 
   /* ── Shadows (darker for dark mode) ────────────────── */
   --shadow-level-0: none;

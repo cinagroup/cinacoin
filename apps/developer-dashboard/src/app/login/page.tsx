@@ -8,7 +8,7 @@ export default function LoginPage() {
           <p className="text-ink-body mt-1">Sign in to manage your projects</p>
         </div>
 
-        <div className="card">
+        <div className="cc-card">
           <form className="space-y-4">
             <div>
               <label className="block text-body-sm font-medium text-ink mb-1">Email</label>

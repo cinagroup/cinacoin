@@ -22,7 +22,7 @@ const data = [
 
 export function ApiCallsChart() {
   return (
-    <div className="card">
+    <div className="cc-card">
       <h3 className="text-body-md font-semibold text-ink mb-4">
         API Calls (This Week)
       </h3>

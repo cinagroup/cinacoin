@@ -109,7 +109,7 @@ export default function BillingPage() {
       </div>
 
       {/* Current Plan */}
-      <div className="card">
+      <div className="cc-card">
         <div className="flex items-start justify-between">
           <div>
             <div className="flex items-center gap-2 mb-2">
@@ -150,7 +150,7 @@ export default function BillingPage() {
           {usageStats.map((stat) => {
             const percentage = (stat.used / stat.total) * 100;
             return (
-              <div key={stat.label} className="card">
+              <div key={stat.label} className="cc-card">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-body-sm font-medium text-ink">{stat.label}</span>
                   <span className="text-body-sm text-ink-mute">
@@ -187,7 +187,7 @@ export default function BillingPage() {
       </div>
 
       {/* Billing History */}
-      <div className="card">
+      <div className="cc-card">
         <h2 className="text-body-lg font-semibold text-ink mb-4">Recent Invoices</h2>
         <div className="table-container">
           <table>

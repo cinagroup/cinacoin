@@ -41,7 +41,7 @@ const activities = [
 
 export function RecentActivity() {
   return (
-    <div className="card">
+    <div className="cc-card">
       <h3 className="text-body-md font-semibold text-ink mb-4">
         Recent Activity
       </h3>

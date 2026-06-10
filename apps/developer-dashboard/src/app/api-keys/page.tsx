@@ -102,7 +102,7 @@ export default function ApiKeysPage() {
       </div>
 
       {/* Info Banner */}
-      <div className="card bg-canvas-soft border-hairline">
+      <div className="cc-card bg-canvas-soft border-hairline">
         <p className="text-body-sm text-ink-body">
           🔐 <strong>Security:</strong> API keys carry privileges. Use the minimum
           permission level needed. Rotate keys regularly and never commit them to
@@ -112,15 +112,15 @@ export default function ApiKeysPage() {
 
       {/* Usage Summary */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="card">
+        <div className="cc-card">
           <div className="text-body-sm text-ink-mute">Total Keys</div>
           <div className="text-display-md font-semibold text-ink mt-1">{keys.length}</div>
         </div>
-        <div className="card">
+        <div className="cc-card">
           <div className="text-body-sm text-ink-mute">Total Requests (All Keys)</div>
           <div className="text-display-md font-semibold text-ink mt-1">{totalUsage.toLocaleString()}</div>
         </div>
-        <div className="card">
+        <div className="cc-card">
           <div className="text-body-sm text-ink-mute">Active Keys</div>
           <div className="text-display-md font-semibold text-ink mt-1">
             {keys.filter((k) => k.status === "active").length}
@@ -130,7 +130,7 @@ export default function ApiKeysPage() {
 
       {/* Newly Generated Key Alert */}
       {showNewKey && (
-        <div className="card bg-[#ecfdf5] border-[#00875a]/30">
+        <div className="cc-card bg-[#ecfdf5] border-[#00875a]/30">
           <div className="flex items-start justify-between">
             <div>
               <p className="text-body-sm font-medium text-[#00875a] mb-1">

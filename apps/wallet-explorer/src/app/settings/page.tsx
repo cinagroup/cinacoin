@@ -23,7 +23,7 @@ export default function SettingsPage() {
       </div>
 
       {/* Connection Status */}
-      <div className="card">
+      <div className="cc-card">
         <h2 className="text-heading-3 text-ink mb-4">Connection</h2>
         {connected ? (
           <div className="space-y-3">
@@ -56,7 +56,7 @@ export default function SettingsPage() {
       </div>
 
       {/* Preferences */}
-      <div className="card">
+      <div className="cc-card">
         <h2 className="text-heading-3 text-ink mb-4">Preferences</h2>
         <div className="space-y-5">
           <div>
@@ -95,7 +95,7 @@ export default function SettingsPage() {
       </div>
 
       {/* Actions */}
-      <div className="card">
+      <div className="cc-card">
         <h2 className="text-heading-3 text-ink mb-4">Actions</h2>
         <div className="space-y-3">
           <button className="btn btn-secondary w-full justify-start">

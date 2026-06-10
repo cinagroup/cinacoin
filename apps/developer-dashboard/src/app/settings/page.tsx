@@ -25,7 +25,7 @@ export default function SettingsPage() {
       </div>
 
       {/* Profile */}
-      <div className="card space-y-4">
+      <div className="cc-card space-y-4">
         <h2 className="text-body-lg font-semibold text-ink">Profile</h2>
         <div>
           <label className="block text-body-sm font-medium text-ink mb-1">Display Name</label>
@@ -61,7 +61,7 @@ export default function SettingsPage() {
       </div>
 
       {/* Security */}
-      <div className="card space-y-4">
+      <div className="cc-card space-y-4">
         <h2 className="text-body-lg font-semibold text-ink">Security</h2>
         <div className="flex items-center justify-between p-4 bg-canvas-soft rounded-lg">
           <div>
@@ -103,7 +103,7 @@ export default function SettingsPage() {
       </div>
 
       {/* Connected Wallets */}
-      <div className="card space-y-4">
+      <div className="cc-card space-y-4">
         <h2 className="text-body-lg font-semibold text-ink">Connected Wallets</h2>
         <div className="p-4 bg-canvas-soft rounded-lg flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -119,7 +119,7 @@ export default function SettingsPage() {
       </div>
 
       {/* Danger Zone */}
-      <div className="card border-danger/30">
+      <div className="cc-card border-danger/30">
         <h2 className="text-body-lg font-semibold text-danger mb-3">Danger Zone</h2>
         <p className="text-body-sm text-ink-body mb-4">
           Permanently delete your account and all associated projects, API keys, and data.

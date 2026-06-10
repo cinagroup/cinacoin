@@ -44,7 +44,7 @@ export default function AnalyticsPage() {
       </div>
 
       {/* Request Trend */}
-      <div className="card">
+      <div className="cc-card">
         <h2 className="text-body-lg font-semibold text-ink mb-4">Request Trend (Last 10 Days)</h2>
         <div className="space-y-2">
           {dailyRequests.map((day) => (
@@ -77,7 +77,7 @@ export default function AnalyticsPage() {
       </div>
 
       {/* Top Chains */}
-      <div className="card">
+      <div className="cc-card">
         <h2 className="text-body-lg font-semibold text-ink mb-4">Top Chains</h2>
         <div className="space-y-3">
           {topChains.map((chain) => (
@@ -98,7 +98,7 @@ export default function AnalyticsPage() {
       </div>
 
       {/* Error Rate */}
-      <div className="card">
+      <div className="cc-card">
         <h2 className="text-body-lg font-semibold text-ink mb-4">Error Rate Breakdown</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="p-4 bg-canvas-soft rounded-lg">

@@ -35,7 +35,7 @@ export default function NewProjectPage() {
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="card space-y-5">
+      <form onSubmit={handleSubmit} className="cc-card space-y-5">
         <div>
           <label className="block text-body-sm font-medium text-ink mb-1">
             Project Name

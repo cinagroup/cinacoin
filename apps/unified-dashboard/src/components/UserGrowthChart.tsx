@@ -28,7 +28,7 @@ const data = [
 
 export function UserGrowthChart() {
   return (
-    <div className="card">
+    <div className="cc-card">
       <h3 className="text-body-md font-semibold text-ink mb-4">
         User Growth
       </h3>

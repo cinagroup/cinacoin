@@ -70,7 +70,7 @@ export default function HomePage() {
       </div>
 
       {/* Quick Links */}
-      <div className="card">
+      <div className="cc-card">
         <h3 className="text-body-sm font-semibold text-ink mb-3">Quick Links</h3>
         <div className="flex flex-wrap gap-3">
           <Link href="/api-keys" className="btn-secondary">🔑 Manage API Keys</Link>

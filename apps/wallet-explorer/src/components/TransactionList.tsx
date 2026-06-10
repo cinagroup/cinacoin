@@ -32,7 +32,7 @@ const statusColors: Record<string, string> = {
 
 export default function TransactionList({ transactions }: { transactions: Transaction[] }) {
   return (
-    <div className="card p-0 overflow-hidden">
+    <div className="cc-card p-0 overflow-hidden">
       <div className="border-b border-hairline p-5">
         <h2 className="text-heading-3 text-ink">Transactions</h2>
       </div>

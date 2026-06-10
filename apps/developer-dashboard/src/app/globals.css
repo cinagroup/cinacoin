@@ -311,3 +311,17 @@ tr:last-child td {
   line-height: 48px;
   letter-spacing: -2.4px;
 }
+
+/* ── Card Component (Standard) ──────────────────────── */
+.cc-card {
+  border: 1px solid var(--cc-hairline);
+  border-radius: 8px;
+  background: var(--cc-canvas);
+  padding: 24px;
+  box-shadow: var(--cc-level1);
+}
+
+.cc-card:hover {
+  border-color: var(--cc-hairline-dark);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
