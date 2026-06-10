@@ -14,6 +14,10 @@
   "lastUpdatedAt": 1780817605000,
   "frontMatter": {},
   "sidebar": "apiSidebar",
+  "previous": {
+    "title": "Rate Limiting",
+    "permalink": "/docs/api/rate-limiting"
+  },
   "next": {
     "title": "Bitcoin Adapter",
     "permalink": "/docs/api/adapter-bitcoin"

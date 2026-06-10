@@ -20,7 +20,8 @@
     "@cinacoin/core-sdk": "workspace:*"
   },
   "dependencies": {
-    "@sats-connect/core": "^0.2.0"
+    "@sats-connect/core": "^0.2.0",
+    "@cinacoin/logger": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.0",

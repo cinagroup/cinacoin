@@ -76,6 +76,11 @@
               "sidebar": "apiSidebar"
             },
             {
+              "id": "api/authentication",
+              "path": "/docs/api/authentication",
+              "sidebar": "apiSidebar"
+            },
+            {
               "id": "api/batch-transaction",
               "path": "/docs/api/batch-transaction",
               "sidebar": "apiSidebar"
@@ -246,6 +251,11 @@
               "sidebar": "apiSidebar"
             },
             {
+              "id": "api/overview",
+              "path": "/docs/api/overview",
+              "sidebar": "apiSidebar"
+            },
+            {
               "id": "api/passkey-auth",
               "path": "/docs/api/passkey-auth",
               "sidebar": "apiSidebar"
@@ -278,6 +288,11 @@
             {
               "id": "api/push-server",
               "path": "/docs/api/push-server",
+              "sidebar": "apiSidebar"
+            },
+            {
+              "id": "api/rate-limiting",
+              "path": "/docs/api/rate-limiting",
               "sidebar": "apiSidebar"
             },
             {
@@ -444,8 +459,8 @@
             },
             "apiSidebar": {
               "link": {
-                "path": "/docs/api/aa-sdk",
-                "label": "api/aa-sdk"
+                "path": "/docs/api/overview",
+                "label": "api/overview"
               }
             }
           }

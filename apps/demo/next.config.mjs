@@ -1,6 +1,6 @@
-import type { NextConfig } from 'next';
 
-const nextConfig: NextConfig = {
+
+const nextConfig = {
   reactStrictMode: true,
   output: 'export',
   // Served under cinacoin.com/demo via the consolidation router Worker

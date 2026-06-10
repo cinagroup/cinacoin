@@ -3,21 +3,26 @@ import ComponentCreator from '@docusaurus/ComponentCreator';
 
 export default [
   {
+    path: '/docs/api-reference',
+    component: ComponentCreator('/docs/api-reference', '44b'),
+    exact: true
+  },
+  {
     path: '/docs/blog',
     component: ComponentCreator('/docs/blog', 'ccc'),
     exact: true
   },
   {
     path: '/docs/',
-    component: ComponentCreator('/docs/', '61c'),
+    component: ComponentCreator('/docs/', '0ff'),
     routes: [
       {
         path: '/docs/',
-        component: ComponentCreator('/docs/', 'a83'),
+        component: ComponentCreator('/docs/', 'a15'),
         routes: [
           {
             path: '/docs/',
-            component: ComponentCreator('/docs/', '733'),
+            component: ComponentCreator('/docs/', 'ba4'),
             routes: [
               {
                 path: '/docs/api/aa-sdk',
@@ -94,6 +99,12 @@ export default [
               {
                 path: '/docs/api/auth',
                 component: ComponentCreator('/docs/api/auth', 'b97'),
+                exact: true,
+                sidebar: "apiSidebar"
+              },
+              {
+                path: '/docs/api/authentication',
+                component: ComponentCreator('/docs/api/authentication', 'daf'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
@@ -302,6 +313,12 @@ export default [
                 sidebar: "apiSidebar"
               },
               {
+                path: '/docs/api/overview',
+                component: ComponentCreator('/docs/api/overview', '69c'),
+                exact: true,
+                sidebar: "apiSidebar"
+              },
+              {
                 path: '/docs/api/passkey-auth',
                 component: ComponentCreator('/docs/api/passkey-auth', 'e15'),
                 exact: true,
@@ -340,6 +357,12 @@ export default [
               {
                 path: '/docs/api/push-server',
                 component: ComponentCreator('/docs/api/push-server', '51a'),
+                exact: true,
+                sidebar: "apiSidebar"
+              },
+              {
+                path: '/docs/api/rate-limiting',
+                component: ComponentCreator('/docs/api/rate-limiting', '1b6'),
                 exact: true,
                 sidebar: "apiSidebar"
               },

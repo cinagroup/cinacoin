@@ -72,12 +72,13 @@ async function checkService(config: ServiceConfig, timeoutMs: number = 8000): Pr
 
     // Try to parse health status from response
     let status: ServiceStatus = "healthy";
-    if (data) {
-      if (data.status === "ok" || data.healthy === true || data.status === "healthy") {
+    if (data && typeof data === 'object') {
+      const healthData = data as Record<string, unknown>;
+      if (healthData.status === "ok" || healthData.healthy === true || healthData.status === "healthy") {
         status = "healthy";
-      } else if (data.status === "degraded" || data.healthy === "degraded") {
+      } else if (healthData.status === "degraded" || healthData.healthy === "degraded") {
         status = "degraded";
-      } else if (data.status === "down" || data.healthy === false) {
+      } else if (healthData.status === "down" || healthData.healthy === false) {
         status = "down";
       }
     }

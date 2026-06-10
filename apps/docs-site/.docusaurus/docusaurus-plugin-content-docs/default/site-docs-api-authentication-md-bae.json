@@ -1,0 +1,30 @@
+{
+  "id": "api/authentication",
+  "title": "Authentication",
+  "description": "Complete guide to authenticating with the Cinacoin API",
+  "source": "@site/docs/api/authentication.md",
+  "sourceDirName": "api",
+  "slug": "/api/authentication",
+  "permalink": "/docs/api/authentication",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/authentication.md",
+  "tags": [],
+  "version": "current",
+  "lastUpdatedAt": 1781067219000,
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "sidebar_position": 2,
+    "title": "Authentication",
+    "description": "Complete guide to authenticating with the Cinacoin API"
+  },
+  "sidebar": "apiSidebar",
+  "previous": {
+    "title": "API Overview",
+    "permalink": "/docs/api/overview"
+  },
+  "next": {
+    "title": "Rate Limiting",
+    "permalink": "/docs/api/rate-limiting"
+  }
+}
