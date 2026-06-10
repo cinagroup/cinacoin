@@ -9,27 +9,27 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
 // ─── Mock Angular core ───────────────────────────────────────────────────────
 
-const mockComponent = vi.fn((meta: any) => (cls: any) => {
+const mockComponent = vi.fn((meta: unknown) => (cls: unknown) => {
   // Attach metadata so we can assert on standalone/imports
   (cls as unknown).__ngComponentMeta = meta;
   return cls;
 });
 
 vi.mock('@angular/core', () => ({
-  Injectable: () => (cls: any) => cls,
-  Inject: () => (target: any, propertyKey: string, parameterIndex: number) => {},
-  NgModule: () => (cls: any) => cls,
+  Injectable: () => (cls: unknown) => cls,
+  Inject: () => (target: unknown, propertyKey: string, parameterIndex: number) => {},
+  NgModule: () => (cls: unknown) => cls,
   InjectionToken: (name: string) => name,
   OnDestroy: class {},
   ModuleWithProviders: class {},
   PLATFORM_ID: 'platformId',
   Component: mockComponent,
-  Input: () => (target: any, propertyKey: string) => {},
-  HostListener: () => (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {},
+  Input: () => (target: unknown, propertyKey: string) => {},
+  HostListener: () => (target: unknown, propertyKey: string, descriptor: PropertyDescriptor) => {},
   ElementRef: class {},
   Renderer2: class {},
-  Pipe: () => (cls: any) => cls,
-  Directive: () => (cls: any) => cls,
+  Pipe: () => (cls: unknown) => cls,
+  Directive: () => (cls: unknown) => cls,
 }));
 
 vi.mock('@angular/common', () => ({
@@ -64,8 +64,8 @@ class MockBehaviorSubject<T> {
 }
 
 const mockTimer = vi.fn(() => ({ pipe: vi.fn(() => ({ subscribe: vi.fn() })) }));
-const mockFrom = vi.fn((p: Promise<any>) => p);
-const mockDefer = vi.fn((factory: () => Promise<any>) => ({
+const mockFrom = vi.fn((p: Promise<unknown>) => p);
+const mockDefer = vi.fn((factory: () => Promise<unknown>) => ({
   pipe: vi.fn(() => ({
     subscribe: vi.fn(),
   })),
@@ -76,8 +76,8 @@ const mockThrowError = vi.fn((fn: () => Error) => ({ pipe: vi.fn() }));
 vi.mock('rxjs', () => ({
   Observable: class {},
   ReplaySubject: vi.fn(() => new MockReplaySubject()),
-  BehaviorSubject: vi.fn((val: any) => new MockBehaviorSubject(val)),
-  from: (...args: any[]) => mockFrom(...args),
+  BehaviorSubject: vi.fn((val: unknown) => new MockBehaviorSubject(val)),
+  from: (...args: unknown[]) => mockFrom(...args),
   timer: mockTimer,
   EMPTY: mockEmpty,
   throwError: mockThrowError,
@@ -85,12 +85,12 @@ vi.mock('rxjs', () => ({
 }));
 
 vi.mock('rxjs/operators', () => ({
-  switchMap: vi.fn((fn: any) => fn),
-  catchError: vi.fn((fn: any) => fn),
+  switchMap: vi.fn((fn: unknown) => fn),
+  catchError: vi.fn((fn: unknown) => fn),
   takeWhile: vi.fn(),
-  tap: vi.fn((fn: any) => fn),
+  tap: vi.fn((fn: unknown) => fn),
   shareReplay: vi.fn(),
-  map: vi.fn((fn: any) => fn),
+  map: vi.fn((fn: unknown) => fn),
   filter: vi.fn(),
   take: vi.fn(),
 }));
@@ -116,7 +116,7 @@ const mockConnector = {
   getProvider: vi.fn().mockReturnValue(mockProvider),
 };
 
-const mockCapabilities: any = {
+const mockCapabilities: unknown = {
   '0x1': {
     paymasterService: { supported: true },
     atomicBatch: { supported: true },
@@ -144,13 +144,13 @@ vi.mock('@cinacoin/core-sdk', async () => {
     }),
     executeAtomicBatch: vi.fn().mockResolvedValue({ id: 'atomic-batch-456' }),
     supportsAtomicBatch: vi.fn((chainId: string) => chainId === '0x1' || chainId === '0x89'),
-    hasCapability: vi.fn((caps: any, chainId: string, cap: string) => {
+    hasCapability: vi.fn((caps: unknown, chainId: string, cap: string) => {
       return caps[chainId]?.[cap]?.supported === true;
     }),
-    getChainCapabilities: vi.fn((caps: any, chainId: string) => caps[chainId] ?? {}),
-    getSupportedChains: vi.fn((caps: any) => Object.keys(caps)),
-    filterByCapability: vi.fn((caps: any, cap: string) => {
-      const result: any = {};
+    getChainCapabilities: vi.fn((caps: unknown, chainId: string) => caps[chainId] ?? {}),
+    getSupportedChains: vi.fn((caps: unknown) => Object.keys(caps)),
+    filterByCapability: vi.fn((caps: unknown, cap: string) => {
+      const result: unknown = {};
       for (const [chainId, chainCaps] of Object.entries(caps)) {
         if ((chainCaps as unknown)[cap]?.supported) {
           result[chainId] = chainCaps;
@@ -158,14 +158,14 @@ vi.mock('@cinacoin/core-sdk', async () => {
       }
       return result;
     }),
-    allCallsSucceeded: vi.fn((result: any) => {
+    allCallsSucceeded: vi.fn((result: unknown) => {
       if (result.status !== 'CONFIRMED') return false;
       if (!result.receipts || result.receipts.length === 0) return false;
-      return result.receipts.every((r: any) => r.receipt.status === '0x1');
+      return result.receipts.every((r: unknown) => r.receipt.status === '0x1');
     }),
-    getFailedReceipts: vi.fn((result: any) => {
+    getFailedReceipts: vi.fn((result: unknown) => {
       if (result.status !== 'CONFIRMED' || !result.receipts) return [];
-      return result.receipts.filter((r: any) => r.receipt.status === '0x0');
+      return result.receipts.filter((r: unknown) => r.receipt.status === '0x0');
     }),
   };
 });

@@ -277,7 +277,7 @@ class TransactionList extends MockComponent {
     this.emit('transactionAdded', tx);
   }
 
-  updateTransaction(hash: string, updates: Partial<any>): void {
+  updateTransaction(hash: string, updates: Partial<unknown>): void {
     const tx = this._transactions.find(t => t.hash === hash);
     if (tx) {
       Object.assign(tx, updates);

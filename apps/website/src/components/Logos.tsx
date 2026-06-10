@@ -14,8 +14,7 @@ export default function Logos() {
 
   return (
     <section
-      className="relative py-16"
-      style={{ borderTop: '1px solid var(--cc-hairline)' }}
+      className="relative py-16 border-t border-[var(--cc-hairline)]"
       aria-label={t('logos-label')}
     >
       <FadeIn>
@@ -29,8 +28,7 @@ export default function Logos() {
           {logos.map((name, i) => (
             <FadeIn key={name} delay={i * 80} direction="up" duration={500}>
               <li
-                className="text-body-md sm:text-body-lg font-medium cursor-default transition-colors hover:text-[var(--cc-body)]"
-                style={{ color: 'var(--cc-hairline-strong)' }}
+                className="text-body-md sm:text-body-lg font-medium cursor-default transition-colors hover:text-[var(--cc-body)] text-[var(--cc-hairline-strong)]"
               >
                 {name}
               </li>

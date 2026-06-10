@@ -94,7 +94,7 @@ describe('createLazyLoader', () => {
 /* ------------------------------------------------------------------ */
 
 describe('AdapterRegistry', () => {
-  let registry: AdapterRegistry<any>;
+  let registry: AdapterRegistry<unknown>;
 
   beforeEach(() => {
     registry = new AdapterRegistry();

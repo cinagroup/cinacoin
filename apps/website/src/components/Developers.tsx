@@ -30,8 +30,7 @@ export default function Developers() {
                   <FadeIn key={i} delay={200 + i * 100} direction="right" duration={500}>
                     <div className="flex items-start gap-3">
                       <span
-                        className="mt-1"
-                        style={{ color: 'var(--cc-cyan)' }}
+                        className="mt-1 text-[var(--cc-cyan)]"
                         aria-hidden="true"
                       >
                         <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
@@ -59,8 +58,7 @@ export default function Developers() {
           <FadeIn direction="left" duration={800}>
             <div className="cc-code-block">
               <div
-                className="flex items-center gap-2 pb-3 mb-3"
-                style={{ borderBottom: '1px solid var(--cc-hairline-strong)' }}
+                className="flex items-center gap-2 pb-3 mb-3 border-b border-[var(--cc-hairline-strong)]"
               >
                 {['var(--color-terminal-close)', 'var(--color-terminal-minimize)', 'var(--color-terminal-maximize)'].map((color, dot) => (
                   <div
@@ -70,60 +68,59 @@ export default function Developers() {
                   />
                 ))}
                 <span
-                  className="ml-2 text-code"
-                  style={{ color: 'var(--cc-muted)' }}
+                  className="ml-2 text-code text-[var(--cc-muted)]"
                 >
                   example.tsx
                 </span>
               </div>
               <pre className="text-code leading-relaxed">
                 <code>
-                  <span style={{ color: 'var(--cc-violet)' }}>import</span>{' '}
-                  <span style={{ color: 'var(--cc-cyan)' }}>{'{ useCinacoin, ConnectButton }'}</span>{' '}
-                  <span style={{ color: 'var(--cc-violet)' }}>from</span>{' '}
-                  <span style={{ color: 'var(--cc-highlight-pink)' }}>&apos;@cinacoin/react&apos;</span>
+                  <span className="text-[var(--cc-violet)]">import</span>{' '}
+                  <span className="text-[var(--cc-cyan)]">{'{ useCinacoin, ConnectButton }'}</span>{' '}
+                  <span className="text-[var(--cc-violet)]">from</span>{' '}
+                  <span className="text-[var(--cc-highlight-pink)]">&apos;@cinacoin/react&apos;</span>
                   {'\n\n'}
-                  <span style={{ color: 'var(--cc-violet)' }}>function</span>{' '}
-                  <span style={{ color: 'var(--cc-highlight-pink)' }}>MyApp</span>
-                  <span style={{ color: 'var(--cc-muted)' }}>() {'{'}</span>
+                  <span className="text-[var(--cc-violet)]">function</span>{' '}
+                  <span className="text-[var(--cc-highlight-pink)]">MyApp</span>
+                  <span className="text-[var(--cc-muted)]">() {'{'}</span>
                   {'\n'}
-                  {'  '}<span style={{ color: 'var(--cc-violet)' }}>const</span>{' '}
-                  <span style={{ color: 'var(--cc-muted)' }}>{'{'}</span>
-                  <span style={{ color: 'var(--cc-cyan)' }}> address</span>
-                  <span style={{ color: 'var(--cc-muted)' }}>,</span>{' '}
-                  <span style={{ color: 'var(--cc-cyan)' }}> isConnected</span>
-                  <span style={{ color: 'var(--cc-muted)' }}>,</span>{' '}
-                  <span style={{ color: 'var(--cc-cyan)' }}> chain</span>
-                  <span style={{ color: 'var(--cc-muted)' }}> {'}'} =</span>{' '}
-                  <span style={{ color: 'var(--cc-highlight-pink)' }}>useCinacoin</span>
-                  <span style={{ color: 'var(--cc-muted)' }}>()</span>
+                  {'  '}<span className="text-[var(--cc-violet)]">const</span>{' '}
+                  <span className="text-[var(--cc-muted)]">{'{'}</span>
+                  <span className="text-[var(--cc-cyan)]"> address</span>
+                  <span className="text-[var(--cc-muted)]">,</span>{' '}
+                  <span className="text-[var(--cc-cyan)]"> isConnected</span>
+                  <span className="text-[var(--cc-muted)]">,</span>{' '}
+                  <span className="text-[var(--cc-cyan)]"> chain</span>
+                  <span className="text-[var(--cc-muted)]"> {'}'} =</span>{' '}
+                  <span className="text-[var(--cc-highlight-pink)]">useCinacoin</span>
+                  <span className="text-[var(--cc-muted)]">()</span>
                   {'\n\n'}
-                  {'  '}<span style={{ color: 'var(--cc-violet)' }}>return</span>{' '}
-                  <span style={{ color: 'var(--cc-muted)' }}>(</span>
+                  {'  '}<span className="text-[var(--cc-violet)]">return</span>{' '}
+                  <span className="text-[var(--cc-muted)]">(</span>
                   {'\n'}
-                  {'    '}<span style={{ color: 'var(--cc-muted)' }}>{'<'}</span>
-                  <span style={{ color: 'var(--cc-highlight-pink)' }}>div</span>
-                  <span style={{ color: 'var(--cc-muted)' }}>{'>'}</span>
+                  {'    '}<span className="text-[var(--cc-muted)]">{'<'}</span>
+                  <span className="text-[var(--cc-highlight-pink)]">div</span>
+                  <span className="text-[var(--cc-muted)]">{'>'}</span>
                   {'\n'}
-                  {'      '}<span style={{ color: 'var(--cc-muted)' }}>{'<'}</span>
-                  <span style={{ color: 'var(--cc-highlight-pink)' }}>ConnectButton</span>{' '}
-                  <span style={{ color: 'var(--cc-muted)' }}>{'/>'}</span>
+                  {'      '}<span className="text-[var(--cc-muted)]">{'<'}</span>
+                  <span className="text-[var(--cc-highlight-pink)]">ConnectButton</span>{' '}
+                  <span className="text-[var(--cc-muted)]">{'/>'}</span>
                   {'\n'}
-                  {'      '}<span style={{ color: 'var(--cc-muted)' }}>{'{'}</span>
-                  <span style={{ color: 'var(--cc-cyan)' }}>isConnected</span>
-                  <span style={{ color: 'var(--cc-muted)' }}>{' ?'}</span>{' '}
-                  <span style={{ color: 'var(--cc-highlight-pink)' }}>{`Connected: \${address}`}</span>
-                  <span style={{ color: 'var(--cc-muted)' }}>{' :'}</span>{' '}
-                  <span style={{ color: 'var(--cc-highlight-pink)' }}>&apos;Not connected&apos;</span>
-                  <span style={{ color: 'var(--cc-muted)' }}>{'}'}</span>
+                  {'      '}<span className="text-[var(--cc-muted)]">{'{'}</span>
+                  <span className="text-[var(--cc-cyan)]">isConnected</span>
+                  <span className="text-[var(--cc-muted)]">{' ?'}</span>{' '}
+                  <span className="text-[var(--cc-highlight-pink)]">{`Connected: \${address}`}</span>
+                  <span className="text-[var(--cc-muted)]">{' :'}</span>{' '}
+                  <span className="text-[var(--cc-highlight-pink)]">&apos;Not connected&apos;</span>
+                  <span className="text-[var(--cc-muted)]">{'}'}</span>
                   {'\n'}
-                  {'    '}<span style={{ color: 'var(--cc-muted)' }}>{'<'}/</span>
-                  <span style={{ color: 'var(--cc-highlight-pink)' }}>div</span>
-                  <span style={{ color: 'var(--cc-muted)' }}>{'>'}</span>
+                  {'    '}<span className="text-[var(--cc-muted)]">{'<'}/</span>
+                  <span className="text-[var(--cc-highlight-pink)]">div</span>
+                  <span className="text-[var(--cc-muted)]">{'>'}</span>
                   {'\n'}
-                  {'  '}<span style={{ color: 'var(--cc-muted)' }}>)</span>
+                  {'  '}<span className="text-[var(--cc-muted)]">)</span>
                   {'\n'}
-                  <span style={{ color: 'var(--cc-muted)' }}>{'}'}</span>
+                  <span className="text-[var(--cc-muted)]">{'}'}</span>
                 </code>
               </pre>
             </div>

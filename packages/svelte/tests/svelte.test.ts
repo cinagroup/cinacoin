@@ -6,33 +6,33 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
 // ─── Mock svelte/store ───────────────────────────────────────────────────────
 
-const createdStores: { value: any; subscribers: Array<(v: any) => void> }[] = [];
+const createdStores: { value: unknown; subscribers: Array<(v: unknown) => void> }[] = [];
 
-const mockWritable = vi.fn((initial: any) => {
-  const store = { value: initial, subscribers: [] as Array<(v: any) => void> };
+const mockWritable = vi.fn((initial: unknown) => {
+  const store = { value: initial, subscribers: [] as Array<(v: unknown) => void> };
   createdStores.push(store);
   return {
-    subscribe: vi.fn((cb: (v: any) => void) => {
+    subscribe: vi.fn((cb: (v: unknown) => void) => {
       store.subscribers.push(cb);
       cb(store.value);
       return () => {
         store.subscribers = store.subscribers.filter((s) => s !== cb);
       };
     }),
-    set: vi.fn((v: any) => {
+    set: vi.fn((v: unknown) => {
       store.value = v;
       store.subscribers.forEach((cb) => cb(v));
     }),
-    update: vi.fn((fn: (v: any) => any) => {
+    update: vi.fn((fn: (v: unknown) => any) => {
       store.value = fn(store.value);
       store.subscribers.forEach((cb) => cb(store.value));
     }),
   };
 });
 
-const mockDerived = vi.fn((sources: any, fn: any) => {
+const mockDerived = vi.fn((sources: unknown, fn: unknown) => {
   return {
-    subscribe: vi.fn((cb: (v: any) => void) => {
+    subscribe: vi.fn((cb: (v: unknown) => void) => {
       cb(null);
       return () => {};
     }),

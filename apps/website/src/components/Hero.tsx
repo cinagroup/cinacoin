@@ -23,8 +23,7 @@ export default function Hero() {
           className="cc-badge inline-flex items-center gap-2 rounded-full px-4 py-2 no-underline transition-colors hover:text-[var(--cc-ink)]"
         >
           <span
-            className="inline-block h-1.5 w-1.5 rounded-full"
-            style={{ backgroundColor: 'var(--cc-success)' }}
+            className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--cc-success)]"
             aria-hidden="true"
           />
           <span>{t('hero-badge')}</span>
@@ -64,31 +63,31 @@ export default function Hero() {
           <div className="cc-code-block">
             <pre className="cc-code">
               <code>
-                <span style={{ color: 'var(--cc-violet)' }}>import</span>{' '}
-                <span style={{ color: 'var(--cc-cyan)' }}>{'{ CinacoinProvider }'}</span>{' '}
-                <span style={{ color: 'var(--cc-violet)' }}>from</span>{' '}
-                <span style={{ color: 'var(--cc-highlight-pink)' }}>&apos;@cinacoin/react&apos;</span>
+                <span className="text-[var(--cc-violet)]">import</span>{' '}
+                <span className="text-[var(--cc-cyan)]">{'{ CinacoinProvider }'}</span>{' '}
+                <span className="text-[var(--cc-violet)]">from</span>{' '}
+                <span className="text-[var(--cc-highlight-pink)]">&apos;@cinacoin/react&apos;</span>
                 {'\n\n'}
-                <span style={{ color: 'var(--cc-muted)' }}>{'<'}</span>
-                <span style={{ color: 'var(--cc-highlight-pink)' }}>CinacoinProvider</span>
+                <span className="text-[var(--cc-muted)]">{'<'}</span>
+                <span className="text-[var(--cc-highlight-pink)]">CinacoinProvider</span>
                 {'\n'}
-                {'  '}<span style={{ color: 'var(--cc-cyan)' }}>projectId</span>{' '}
-                <span style={{ color: 'var(--cc-muted)' }}>=</span>{' '}
-                <span style={{ color: 'var(--cc-highlight-pink)' }}>&quot;your-project-id&quot;</span>
+                {'  '}<span className="text-[var(--cc-cyan)]">projectId</span>{' '}
+                <span className="text-[var(--cc-muted)]">=</span>{' '}
+                <span className="text-[var(--cc-highlight-pink)]">&quot;your-project-id&quot;</span>
                 {'\n'}
-                {'  '}<span style={{ color: 'var(--cc-cyan)' }}>theme</span>{' '}
-                <span style={{ color: 'var(--cc-muted)' }}>=</span>{' '}
-                <span style={{ color: 'var(--cc-highlight-pink)' }}>&quot;dark&quot;</span>
+                {'  '}<span className="text-[var(--cc-cyan)]">theme</span>{' '}
+                <span className="text-[var(--cc-muted)]">=</span>{' '}
+                <span className="text-[var(--cc-highlight-pink)]">&quot;dark&quot;</span>
                 {'\n'}
-                <span style={{ color: 'var(--cc-muted)' }}>{'>'}</span>
+                <span className="text-[var(--cc-muted)]">{'>'}</span>
                 {'\n'}
-                {'  '}<span style={{ color: 'var(--cc-muted)' }}>{'<'}</span>
-                <span style={{ color: 'var(--cc-highlight-pink)' }}>App</span>{' '}
-                <span style={{ color: 'var(--cc-muted)' }}>{'/>'}</span>
+                {'  '}<span className="text-[var(--cc-muted)]">{'<'}</span>
+                <span className="text-[var(--cc-highlight-pink)]">App</span>{' '}
+                <span className="text-[var(--cc-muted)]">{'/>'}</span>
                 {'\n'}
-                <span style={{ color: 'var(--cc-muted)' }}>{'</'}</span>
-                <span style={{ color: 'var(--cc-highlight-pink)' }}>CinacoinProvider</span>
-                <span style={{ color: 'var(--cc-muted)' }}>{'>'}</span>
+                <span className="text-[var(--cc-muted)]">{'</'}</span>
+                <span className="text-[var(--cc-highlight-pink)]">CinacoinProvider</span>
+                <span className="text-[var(--cc-muted)]">{'>'}</span>
               </code>
             </pre>
           </div>

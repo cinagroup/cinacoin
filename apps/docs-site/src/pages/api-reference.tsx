@@ -27,7 +27,7 @@ const SPECS: Record<string, { label: string; url: string }> = {
 
 function SwaggerViewer() {
   const [activeSpec, setActiveSpec] = useState<keyof typeof SPECS>('gateway');
-  const [SwaggerUI, setSwaggerUI] = useState<any>(null);
+  const [SwaggerUI, setSwaggerUI] = useState<unknown>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

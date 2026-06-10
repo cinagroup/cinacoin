@@ -35,26 +35,26 @@ const _buildAtomicBatch = vi.fn().mockReturnValue({
 });
 const _executeAtomicBatch = vi.fn().mockResolvedValue(mockAtomicBatchResult);
 const _supportsAtomicBatch = vi.fn((chainId: string) => chainId === '0x1' || chainId === '0x89');
-const _hasCapability = vi.fn((caps: any, cid: string, cap: string) => caps[cid]?.[cap]?.supported === true);
-const _getChainCapabilities = vi.fn((caps: any, cid: string) => caps[cid] ?? {});
-const _getSupportedChains = vi.fn((caps: any) => Object.keys(caps));
-const _filterByCapability = vi.fn((caps: any, cap: string) => {
-  const r: any = {};
+const _hasCapability = vi.fn((caps: unknown, cid: string, cap: string) => caps[cid]?.[cap]?.supported === true);
+const _getChainCapabilities = vi.fn((caps: unknown, cid: string) => caps[cid] ?? {});
+const _getSupportedChains = vi.fn((caps: unknown) => Object.keys(caps));
+const _filterByCapability = vi.fn((caps: unknown, cap: string) => {
+  const r: unknown = {};
   for (const [k, v] of Object.entries(caps)) if ((v as unknown)[cap]?.supported) r[k] = v;
   return r;
 });
 
 vi.mock('@cinacoin/core-sdk', () => ({
-  walletGetCapabilities: (...a: any[]) => _walletGetCapabilities(...a),
-  walletSendCalls: (...a: any[]) => _walletSendCalls(...a),
-  walletGetCallsStatus: (...a: any[]) => _walletGetCallsStatus(...a),
-  buildAtomicBatch: (...a: any[]) => _buildAtomicBatch(...a),
-  executeAtomicBatch: (...a: any[]) => _executeAtomicBatch(...a),
-  supportsAtomicBatch: (...a: any[]) => _supportsAtomicBatch(...a),
-  hasCapability: (...a: any[]) => _hasCapability(...a),
-  getChainCapabilities: (...a: any[]) => _getChainCapabilities(...a),
-  getSupportedChains: (...a: any[]) => _getSupportedChains(...a),
-  filterByCapability: (...a: any[]) => _filterByCapability(...a),
+  walletGetCapabilities: (...a: unknown[]) => _walletGetCapabilities(...a),
+  walletSendCalls: (...a: unknown[]) => _walletSendCalls(...a),
+  walletGetCallsStatus: (...a: unknown[]) => _walletGetCallsStatus(...a),
+  buildAtomicBatch: (...a: unknown[]) => _buildAtomicBatch(...a),
+  executeAtomicBatch: (...a: unknown[]) => _executeAtomicBatch(...a),
+  supportsAtomicBatch: (...a: unknown[]) => _supportsAtomicBatch(...a),
+  hasCapability: (...a: unknown[]) => _hasCapability(...a),
+  getChainCapabilities: (...a: unknown[]) => _getChainCapabilities(...a),
+  getSupportedChains: (...a: unknown[]) => _getSupportedChains(...a),
+  filterByCapability: (...a: unknown[]) => _filterByCapability(...a),
 }));
 
 // ---------------------------------------------------------------------------
@@ -94,11 +94,11 @@ beforeEach(() => {
   });
   _executeAtomicBatch.mockReset().mockResolvedValue(mockAtomicBatchResult);
   _supportsAtomicBatch.mockReset().mockImplementation((chainId: string) => chainId === '0x1' || chainId === '0x89');
-  _hasCapability.mockReset().mockImplementation((caps: any, cid: string, cap: string) => caps[cid]?.[cap]?.supported === true);
-  _getChainCapabilities.mockReset().mockImplementation((caps: any, cid: string) => caps[cid] ?? {});
-  _getSupportedChains.mockReset().mockImplementation((caps: any) => Object.keys(caps));
-  _filterByCapability.mockReset().mockImplementation((caps: any, cap: string) => {
-    const r: any = {};
+  _hasCapability.mockReset().mockImplementation((caps: unknown, cid: string, cap: string) => caps[cid]?.[cap]?.supported === true);
+  _getChainCapabilities.mockReset().mockImplementation((caps: unknown, cid: string) => caps[cid] ?? {});
+  _getSupportedChains.mockReset().mockImplementation((caps: unknown) => Object.keys(caps));
+  _filterByCapability.mockReset().mockImplementation((caps: unknown, cap: string) => {
+    const r: unknown = {};
     for (const [k, v] of Object.entries(caps)) if ((v as unknown)[cap]?.supported) r[k] = v;
     return r;
   });

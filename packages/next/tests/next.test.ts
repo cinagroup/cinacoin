@@ -226,7 +226,7 @@ describe('server/middleware', () => {
         get: () => undefined,
       },
       headers: new Headers(),
-    } as any;
+    } as Record<string, unknown>;
 
     const response = await handler(mockReq);
     expect(response.status).toBe(401);
@@ -245,7 +245,7 @@ describe('server/middleware', () => {
         get: () => undefined,
       },
       headers: new Headers(),
-    } as any;
+    } as Record<string, unknown>;
 
     const session = await getSession(mockReq);
     expect(session).toBeNull();

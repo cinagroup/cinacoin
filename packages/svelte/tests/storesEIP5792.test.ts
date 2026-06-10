@@ -16,35 +16,35 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 // Mock svelte/store
 // ---------------------------------------------------------------------------
 
-const createdStores: { value: any; subscribers: Array<(v: any) => void> }[] = [];
+const createdStores: { value: unknown; subscribers: Array<(v: unknown) => void> }[] = [];
 
-const mockWritable = vi.fn((initial: any) => {
-  const store = { value: initial, subscribers: [] as Array<(v: any) => void> };
+const mockWritable = vi.fn((initial: unknown) => {
+  const store = { value: initial, subscribers: [] as Array<(v: unknown) => void> };
   createdStores.push(store);
   return {
-    subscribe: vi.fn((cb: (v: any) => void) => {
+    subscribe: vi.fn((cb: (v: unknown) => void) => {
       store.subscribers.push(cb);
       cb(store.value);
       return () => {
         store.subscribers = store.subscribers.filter((s) => s !== cb);
       };
     }),
-    set: vi.fn((v: any) => {
+    set: vi.fn((v: unknown) => {
       store.value = v;
       store.subscribers.forEach((cb) => cb(v));
     }),
-    update: vi.fn((fn: (v: any) => any) => {
+    update: vi.fn((fn: (v: unknown) => unknown) => {
       store.value = fn(store.value);
       store.subscribers.forEach((cb) => cb(store.value));
     }),
   };
 });
 
-const mockReadable = vi.fn((initial: any, _start: any) => {
-  const store = { value: initial, subscribers: [] as Array<(v: any) => void> };
+const mockReadable = vi.fn((initial: unknown, _start: unknown) => {
+  const store = { value: initial, subscribers: [] as Array<(v: unknown) => void> };
   createdStores.push(store);
   return {
-    subscribe: vi.fn((cb: (v: any) => void) => {
+    subscribe: vi.fn((cb: (v: unknown) => void) => {
       store.subscribers.push(cb);
       cb(store.value);
       return () => {
@@ -54,9 +54,9 @@ const mockReadable = vi.fn((initial: any, _start: any) => {
   };
 });
 
-const mockDerived = vi.fn((sources: any, fn: any) => {
+const mockDerived = vi.fn((sources: unknown, fn: unknown) => {
   return {
-    subscribe: vi.fn((cb: (v: any) => void) => {
+    subscribe: vi.fn((cb: (v: unknown) => void) => {
       cb(null);
       return () => {};
     }),
@@ -102,14 +102,18 @@ const mockSupportsAtomicBatch = vi.fn((chainId: string) => {
   return chainId === '0x1' || chainId === '0x89';
 });
 const mockHasCapability = vi.fn(
-  (caps: any, chainId: string, cap: string) => caps[chainId]?.[cap]?.supported === true,
+  (caps: Record<string, unknown>, chainId: string, cap: string) => {
+    const chain = caps[chainId] as Record<string, unknown> | undefined;
+    const capObj = chain?.[cap] as { supported?: boolean } | undefined;
+    return capObj?.supported === true;
+  },
 );
-const mockGetChainCapabilities = vi.fn((caps: any, chainId: string) => caps[chainId] ?? {});
-const mockGetSupportedChains = vi.fn((caps: any) => Object.keys(caps));
-const mockFilterByCapability = vi.fn((caps: any, cap: string) => {
-  const result: any = {};
+const mockGetChainCapabilities = vi.fn((caps: Record<string, unknown>, chainId: string) => caps[chainId] ?? {});
+const mockGetSupportedChains = vi.fn((caps: Record<string, unknown>) => Object.keys(caps));
+const mockFilterByCapability = vi.fn((caps: Record<string, unknown>, cap: string) => {
+  const result: Record<string, unknown> = {};
   for (const [cid, chainCaps] of Object.entries(caps)) {
-    if ((chainCaps as unknown)[cap]?.supported) {
+    if ((chainCaps as Record<string, unknown>)[cap] && ((chainCaps as Record<string, unknown>)[cap] as { supported?: boolean }).supported) {
       result[cid] = chainCaps;
     }
   }
@@ -117,16 +121,16 @@ const mockFilterByCapability = vi.fn((caps: any, cap: string) => {
 });
 
 vi.mock('@cinacoin/core-sdk', () => ({
-  walletGetCapabilities: (...args: any[]) => mockWalletGetCapabilities(...args),
-  walletSendCalls: (...args: any[]) => mockWalletSendCalls(...args),
-  walletGetCallsStatus: (...args: any[]) => mockWalletGetCallsStatus(...args),
-  buildAtomicBatch: (...args: any[]) => mockBuildAtomicBatch(...args),
-  executeAtomicBatch: (...args: any[]) => mockExecuteAtomicBatch(...args),
-  supportsAtomicBatch: (...args: any[]) => mockSupportsAtomicBatch(...args),
-  hasCapability: (...args: any[]) => mockHasCapability(...args),
-  getChainCapabilities: (...args: any[]) => mockGetChainCapabilities(...args),
-  getSupportedChains: (...args: any[]) => mockGetSupportedChains(...args),
-  filterByCapability: (...args: any[]) => mockFilterByCapability(...args),
+  walletGetCapabilities: (...args: unknown[]) => mockWalletGetCapabilities(...args),
+  walletSendCalls: (...args: unknown[]) => mockWalletSendCalls(...args),
+  walletGetCallsStatus: (...args: unknown[]) => mockWalletGetCallsStatus(...args),
+  buildAtomicBatch: (...args: unknown[]) => mockBuildAtomicBatch(...args),
+  executeAtomicBatch: (...args: unknown[]) => mockExecuteAtomicBatch(...args),
+  supportsAtomicBatch: (...args: unknown[]) => mockSupportsAtomicBatch(...args),
+  hasCapability: (...args: unknown[]) => mockHasCapability(...args),
+  getChainCapabilities: (...args: unknown[]) => mockGetChainCapabilities(...args),
+  getSupportedChains: (...args: unknown[]) => mockGetSupportedChains(...args),
+  filterByCapability: (...args: unknown[]) => mockFilterByCapability(...args),
 }));
 
 // ---------------------------------------------------------------------------

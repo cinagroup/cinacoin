@@ -99,32 +99,31 @@ export default function PricingContent() {
                 {tier.popular ? (
                   <div className="cc-card-lg relative h-full bg-[var(--cc-primary)] text-[var(--cc-on-primary)] border-[var(--cc-on-primary-hairline-soft)]">
                     <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                      <span className="cc-badge" style={{ background: 'var(--cc-on-primary)', color: 'var(--cc-primary)' }}>
+                      <span className="cc-badge bg-[var(--cc-on-primary)] text-[var(--cc-primary)]">
                         {t('pricing-tier-pro-badge')}
                       </span>
                     </div>
 
                     <h3 className="cc-display-md">{t(tier.nameKey)}</h3>
-                    <p className="mt-1 cc-body-md" style={{ opacity: 0.8 }}>{t(tier.descKey)}</p>
+                    <p className="mt-1 cc-body-md opacity-80">{t(tier.descKey)}</p>
 
                     <div className="mt-6 flex items-baseline gap-1">
                       <span className="cc-display-xl">{tier.price}</span>
                       {tier.periodKey && (
-                        <span className="cc-body-md" style={{ opacity: 0.7 }}>{t(tier.periodKey)}</span>
+                        <span className="cc-body-md opacity-70">{t(tier.periodKey)}</span>
                       )}
                     </div>
 
                     <a
                       href={tier.href}
-                      className="cc-btn-secondary-sm mt-6 w-full"
-                      style={{ backgroundColor: 'var(--cc-on-primary)', color: 'var(--cc-primary)', borderColor: 'transparent' }}
+                      className="cc-btn-secondary-sm mt-6 w-full bg-[var(--cc-on-primary)] text-[var(--cc-primary)] border-transparent"
                     >
                       {t(tier.ctaKey)}
                     </a>
 
                     <ul className="mt-8 space-y-3">
                       {tier.features.map((feature) => (
-                        <li key={feature} className="flex items-start gap-3 cc-body-sm" style={{ opacity: 0.85 }}>
+                        <li key={feature} className="flex items-start gap-3 cc-body-sm opacity-[0.85]">
                           <span className="mt-1" aria-hidden="true"><svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg></span>
                           {feature}
                         </li>

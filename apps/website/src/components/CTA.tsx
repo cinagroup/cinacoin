@@ -14,8 +14,7 @@ export default function CTA() {
       {/* Mesh gradient */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] cc-mesh-gradient-strong"
-          style={{ opacity: 0.08 }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] cc-mesh-gradient-strong opacity-[0.08]"
         />
       </div>
 
@@ -26,7 +25,7 @@ export default function CTA() {
           </h2>
         </FadeIn>
         <FadeIn delay={200}>
-          <p className="mt-4 cc-body-lg" style={{ color: 'var(--cc-on-primary)', opacity: 0.7 }}>
+          <p className="mt-4 cc-body-lg text-[var(--cc-on-primary)] opacity-70">
             {t('cta-subtitle')}
           </p>
         </FadeIn>
@@ -34,16 +33,14 @@ export default function CTA() {
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <a
               href="https://docs.cinacoin.com"
-              className="cc-btn-primary"
-              style={{ backgroundColor: 'var(--cc-on-primary)', color: 'var(--cc-primary)' }}
+              className="cc-btn-primary bg-[var(--cc-on-primary)] text-[var(--cc-primary)]"
               target="_blank" rel="noopener noreferrer"
             >
               {t('cta-start')}
             </a>
             <a
               href="https://github.com/cinagroup/cinacoin"
-              className="cc-btn-secondary no-underline"
-              style={{ backgroundColor: 'transparent', color: 'var(--cc-on-primary)', borderColor: 'rgba(255,255,255,0.4)' }}
+              className="cc-btn-secondary no-underline bg-transparent text-[var(--cc-on-primary)] border-[rgba(255,255,255,0.4)]"
             >
               {t('cta-github')}
             </a>

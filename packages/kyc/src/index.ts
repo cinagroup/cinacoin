@@ -63,3 +63,19 @@ export type {
   KycModalProps,
   KycSubmissionPayload,
 } from './components/KycModal.js';
+
+/* ── file validation ───────────────────────────────────────────── */
+
+export {
+  validateFile,
+  validateBase64Document,
+  validateDocumentUrl,
+  ALLOWED_MIMES,
+  MAX_FILE_SIZE,
+} from './file-validator.js';
+
+export type {
+  FileValidationResult,
+  FileInput,
+  AllowedMime,
+} from './file-validator.js';

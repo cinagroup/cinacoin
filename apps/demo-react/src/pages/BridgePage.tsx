@@ -115,31 +115,30 @@ export function BridgePage() {
   }, []);
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, padding: 24 }}>
+    <div className="grid grid-cols-2 gap-6 p-6">
       {/* Left: Bridge UI */}
       <div>
-        <h2 style={{ fontSize: "var(--cc-text-xl)", fontWeight: "var(--cc-weight-bold)", marginBottom: 8 }}>跨链桥接</h2>
-        <p style={{ color: 'var(--cc-demo-text-muted)', marginBottom: 24 }}>在不同链之间安全转移资产。</p>
+        <h2 className="text-[var(--cc-text-xl)] font-[var(--cc-weight-bold)] mb-2">跨链桥接</h2>
+        <p className="text-[var(--cc-demo-text-muted)] mb-6">在不同链之间安全转移资产。</p>
 
-        <div style={{ background: 'var(--cc-demo-surface-dark)', borderRadius: 12, padding: 24 }}>
+        <div className="bg-[var(--cc-demo-surface-dark)] rounded-xl p-6">
           {step === 'input' && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <div className="flex flex-col gap-4">
               {/* Source Chain */}
               <div>
-                <label style={{ fontSize: "var(--cc-text-xs)", color: 'var(--cc-demo-text-light)', marginBottom: 8, display: 'block' }}>从</label>
-                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                <label className="text-[var(--cc-text-xs)] text-[var(--cc-demo-text-light)] mb-2 block">从</label>
+                <div className="flex gap-2 flex-wrap">
                   {CHAINS.map((chain) => (
                     <button
                       key={chain.id}
                       onClick={() => setSourceChain(chain.id)}
                       disabled={chain.id === destChain}
+                      className="px-4 py-2 rounded-lg text-[var(--cc-text-xs)]"
                       style={{
-                        padding: '8px 16px', borderRadius: 8,
                         border: sourceChain === chain.id ? `2px solid ${chain.color}` : '2px solid #333',
                         background: sourceChain === chain.id ? `${chain.color}20` : '#0d0d1a',
                         color: chain.id === destChain ? '#555' : '#fff',
                         cursor: chain.id === destChain ? 'not-allowed' : 'pointer',
-                        fontSize: "var(--cc-text-xs)",
                       }}
                     >
                       {chain.icon} {chain.name}
@@ -149,13 +148,10 @@ export function BridgePage() {
               </div>
 
               {/* Swap button */}
-              <div style={{ textAlign: 'center' }}>
+              <div className="text-center">
                 <button
                   onClick={handleSwapChains}
-                  style={{
-                    padding: '8px 16px', borderRadius: 20, border: '0px solid var(--cc-demo-border)',
-                    background: 'transparent', color: 'var(--cc-on-primary, #fff)', cursor: 'pointer', fontSize: "var(--cc-text-md)",
-                  }}
+                  className="px-4 py-2 rounded-full border-0 bg-transparent text-[var(--cc-on-primary,#fff)] cursor-pointer text-[var(--cc-text-md)]"
                 >
                   ⇅
                 </button>
@@ -163,20 +159,19 @@ export function BridgePage() {
 
               {/* Dest Chain */}
               <div>
-                <label style={{ fontSize: "var(--cc-text-xs)", color: 'var(--cc-demo-text-light)', marginBottom: 8, display: 'block' }}>到</label>
-                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                <label className="text-[var(--cc-text-xs)] text-[var(--cc-demo-text-light)] mb-2 block">到</label>
+                <div className="flex gap-2 flex-wrap">
                   {CHAINS.map((chain) => (
                     <button
                       key={chain.id}
                       onClick={() => setDestChain(chain.id)}
                       disabled={chain.id === sourceChain}
+                      className="px-4 py-2 rounded-lg text-[var(--cc-text-xs)]"
                       style={{
-                        padding: '8px 16px', borderRadius: 8,
                         border: destChain === chain.id ? `2px solid ${chain.color}` : '2px solid #333',
                         background: destChain === chain.id ? `${chain.color}20` : '#0d0d1a',
                         color: chain.id === sourceChain ? '#555' : '#fff',
                         cursor: chain.id === sourceChain ? 'not-allowed' : 'pointer',
-                        fontSize: "var(--cc-text-xs)",
                       }}
                     >
                       {chain.icon} {chain.name}
@@ -187,31 +182,27 @@ export function BridgePage() {
 
               {/* Amount */}
               <div>
-                <label style={{ fontSize: "var(--cc-text-xs)", color: 'var(--cc-demo-text-light)', marginBottom: 8, display: 'block' }}>金额 (USDC)</label>
+                <label className="text-[var(--cc-text-xs)] text-[var(--cc-demo-text-light)] mb-2 block">金额 (USDC)</label>
                 <input
                   type="number"
                   step="0.01"
                   placeholder="0.0"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
-                  style={{
-                    width: '100%', padding: '12px 16px', borderRadius: 8,
-                    border: '2px solid var(--cc-demo-border)', background: 'var(--cc-demo-surface-darker)', color: 'var(--cc-on-primary, #fff)',
-                    fontSize: "var(--cc-text-sm)", outline: 'none', boxSizing: 'border-box',
-                  }}
+                  className="w-full p-3 px-4 rounded-lg border-2 border-[var(--cc-demo-border)] bg-[var(--cc-demo-surface-darker)] text-[var(--cc-on-primary,#fff)] text-[var(--cc-text-sm)] outline-none box-border"
                 />
               </div>
 
               {/* Estimate */}
               {amount && (
-                <div style={{ background: 'var(--cc-demo-surface-darker)', borderRadius: 8, padding: 12 }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: "var(--cc-text-xs)" }}>
-                    <span style={{ color: 'var(--cc-demo-text-muted)' }}>预估接收</span>
-                    <span style={{ color: 'var(--cc-demo-success)', fontWeight: "var(--cc-weight-semibold)" }}>{estimatedOutput} USDC</span>
+                <div className="bg-[var(--cc-demo-surface-darker)] rounded-lg p-3">
+                  <div className="flex justify-between text-[var(--cc-text-xs)]">
+                    <span className="text-[var(--cc-demo-text-muted)]">预估接收</span>
+                    <span className="text-[var(--cc-demo-success)] font-[var(--cc-weight-semibold)]">{estimatedOutput} USDC</span>
                   </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: "var(--cc-text-xs)", marginTop: 4 }}>
-                    <span style={{ color: 'var(--cc-demo-text-muted)' }}>手续费 (0.3%)</span>
-                    <span style={{ color: 'var(--cc-demo-error)' }}>{fee} USDC</span>
+                  <div className="flex justify-between text-[var(--cc-text-xs)] mt-1">
+                    <span className="text-[var(--cc-demo-text-muted)]">手续费 (0.3%)</span>
+                    <span className="text-[var(--cc-demo-error)]">{fee} USDC</span>
                   </div>
                 </div>
               )}
@@ -219,10 +210,9 @@ export function BridgePage() {
               <button
                 onClick={handleBridge}
                 disabled={!amount || sourceChain === destChain}
+                className="p-3 px-6 rounded-lg border-0 text-[var(--cc-on-primary,#fff)] text-[var(--cc-text-md)] font-[var(--cc-weight-semibold)]"
                 style={{
-                  padding: '12px 24px', borderRadius: 8, border: 'none',
                   background: amount && sourceChain !== destChain ? '#6366f1' : '#333',
-                  color: 'var(--cc-on-primary, #fff)', fontSize: "var(--cc-text-md)", fontWeight: "var(--cc-weight-semibold)",
                   cursor: amount && sourceChain !== destChain ? 'pointer' : 'not-allowed',
                 }}
               >
@@ -232,9 +222,9 @@ export function BridgePage() {
           )}
 
           {step === 'bridging' && (
-            <div style={{ padding: 20 }}>
-              <h3 style={{ fontSize: "var(--cc-text-lg)", marginBottom: 20, textAlign: 'center' }}>桥接进行中</h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <div className="p-5">
+              <h3 className="text-[var(--cc-text-lg)] mb-5 text-center">桥接进行中</h3>
+              <div className="flex flex-col gap-3">
                 {PROGRESS_STEPS.map((s, i) => {
                   const currentIdx = PROGRESS_STEPS.findIndex((p) => p.key === progress);
                   const isDone = i < currentIdx;
@@ -242,16 +232,15 @@ export function BridgePage() {
                   return (
                     <div
                       key={s.key}
+                      className="flex items-center gap-3 p-3 px-4 rounded-lg"
                       style={{
-                        display: 'flex', alignItems: 'center', gap: 12,
-                        padding: '12px 16px', borderRadius: 8,
                         background: isCurrent ? '#6366f120' : isDone ? '#4ade8010' : '#0d0d1a',
                         border: isCurrent ? '1px solid #6366f1' : '1px solid transparent',
                       }}
                     >
-                      <span style={{ fontSize: "var(--cc-text-lg)" }}>{isDone ? '✅' : s.icon}</span>
-                      <span style={{ color: isDone || isCurrent ? '#fff' : '#555', fontSize: "var(--cc-text-sm)" }}>{s.label}</span>
-                      {isCurrent && <span style={{ marginLeft: 'auto', color: '#6366f1', fontSize: 12 }}>处理中...</span>}
+                      <span className="text-[var(--cc-text-lg)]">{isDone ? '✅' : s.icon}</span>
+                      <span className={`text-[var(--cc-text-sm)] ${isDone || isCurrent ? 'text-white' : 'text-[#555]'}`}>{s.label}</span>
+                      {isCurrent && <span className="ml-auto text-[#6366f1] text-xs">处理中...</span>}
                     </div>
                   );
                 })}
@@ -260,24 +249,21 @@ export function BridgePage() {
           )}
 
           {step === 'complete' && (
-            <div style={{ textAlign: 'center', padding: 20 }}>
-              <div style={{ fontSize: 48, marginBottom: 16 }}>🎉</div>
-              <h3 style={{ fontSize: "var(--cc-text-lg)", marginBottom: 8 }}>桥接完成!</h3>
-              <p style={{ color: 'var(--cc-demo-text-muted)', fontSize: "var(--cc-text-xs)", marginBottom: 4 }}>
+            <div className="text-center p-5">
+              <div className="text-5xl mb-4">🎉</div>
+              <h3 className="text-[var(--cc-text-lg)] mb-2">桥接完成!</h3>
+              <p className="text-[var(--cc-demo-text-muted)] text-[var(--cc-text-xs)] mb-1">
                 {srcChain.name} → {dstChain.name}
               </p>
-              <p style={{ color: 'var(--cc-demo-text-muted)', fontSize: "var(--cc-text-xs)", marginBottom: 4 }}>
+              <p className="text-[var(--cc-demo-text-muted)] text-[var(--cc-text-xs)] mb-1">
                 {amount} USDC → {estimatedOutput} USDC
               </p>
-              <p style={{ color: '#555', fontSize: 12, marginBottom: 16 }}>
+              <p className="text-[#555] text-xs mb-4">
                 TX: {txHash.slice(0, 16)}...{txHash.slice(-8)}
               </p>
               <button
                 onClick={handleReset}
-                style={{
-                  padding: '12px 20px', borderRadius: 8, border: 'none',
-                  background: 'var(--cc-demo-accent)', color: 'var(--cc-on-primary, #fff)', cursor: 'pointer',
-                }}
+                className="p-3 px-5 rounded-lg border-0 bg-[var(--cc-demo-accent)] text-[var(--cc-on-primary,#fff)] cursor-pointer"
               >
                 新桥接
               </button>

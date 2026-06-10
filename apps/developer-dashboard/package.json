@@ -11,8 +11,8 @@
   "dependencies": {
     "@next/bundle-analyzer": "^14.2.29",
     "next": "14.2.29",
-    "react": "^19.2.6",
-    "react-dom": "^19.2.6",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "@cinacoin/ui": "workspace:*",
     "@cinacoin/ui-theme": "workspace:*",
     "@cinacoin/siwe": "workspace:*",

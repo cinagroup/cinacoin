@@ -116,14 +116,14 @@ describe('Cinacoin Nuxt Module', () => {
 
     const mockNuxt = {
       options: {
-        runtimeConfig: { public: {} as any },
+        runtimeConfig: { public: {} as Record<string, unknown> },
       },
       hook: vi.fn(),
     };
 
     mod.default.setup(
       { projectId: 'test-id', networks: ['mainnet'] },
-      mockNuxt as any
+      mockNuxt as unknown
     );
 
     expect(addPlugin).toHaveBeenCalled();
@@ -137,13 +137,13 @@ describe('Cinacoin Nuxt Module', () => {
     const mod = await import('../src/module.js');
 
     const mockNuxt = {
-      options: { runtimeConfig: { public: {} as any } },
+      options: { runtimeConfig: { public: {} as Record<string, unknown> } },
       hook: vi.fn(),
     };
 
     mod.default.setup(
       { projectId: 'my-project-id', networks: ['mainnet', 'arbitrum'] },
-      mockNuxt as any
+      mockNuxt as unknown
     );
 
     expect(mockNuxt.options.runtimeConfig.public.cinacoin).toBeDefined();
@@ -216,7 +216,7 @@ describe('Nuxt runtime plugin', () => {
       provide: vi.fn(),
     };
 
-    const result = plugin.default(mockNuxtApp as any);
+    const result = plugin.default(mockNuxtApp as unknown);
 
     expect(mockNuxtApp.provide).toHaveBeenCalledWith('cinaConnect', expect.anything());
     expect(result).toHaveProperty('provide');

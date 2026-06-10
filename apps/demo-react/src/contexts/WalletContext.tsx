@@ -48,7 +48,7 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
  error: null,
  })
 
- const wcProviderRef = useRef<any>(null)
+ const wcProviderRef = useRef<unknown>(null)
  const mmListenersRef = useRef<{ accountsChanged: (a: string[]) => void; chainChanged: (c: string) => void } | null>(null)
 
  // Remove MetaMask listeners on disconnect

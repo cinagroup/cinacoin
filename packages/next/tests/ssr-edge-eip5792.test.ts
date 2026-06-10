@@ -42,7 +42,7 @@ describe('Edge Runtime — decodeEdgeSessionToken', () => {
       cookies: {
         get: vi.fn(() => ({ value: 'not-valid-base64' })),
       },
-    } as any;
+    } as Record<string, unknown>;
 
     const result = await getEdgeSession(mockReq, { cookieName: 'test-session' });
     expect(result).toBeNull();
@@ -62,7 +62,7 @@ describe('Edge Runtime — decodeEdgeSessionToken', () => {
       cookies: {
         get: vi.fn(() => ({ value: token })),
       },
-    } as any;
+    } as Record<string, unknown>;
 
     const result = await getEdgeSession(mockReq, { cookieName: 'test-session' });
     expect(result).toBeNull();
@@ -82,7 +82,7 @@ describe('Edge Runtime — decodeEdgeSessionToken', () => {
       cookies: {
         get: vi.fn(() => ({ value: token })),
       },
-    } as any;
+    } as Record<string, unknown>;
 
     const result = await getEdgeSession(mockReq, { cookieName: 'test-session' });
     expect(result).not.toBeNull();
@@ -125,7 +125,7 @@ describe('Edge Runtime — withCinacoinAuthEdge', () => {
 
     const mockReq = {
       cookies: { get: vi.fn(() => null) },
-    } as any;
+    } as Record<string, unknown>;
 
     const handler = withCinacoinAuthEdge(async (req, session) => {
       return new Response(JSON.stringify({ address: session.address }));
@@ -148,7 +148,7 @@ describe('Edge Runtime — withCinacoinAuthEdge', () => {
 
     const mockReq = {
       cookies: { get: vi.fn(() => ({ value: token })) },
-    } as any;
+    } as Record<string, unknown>;
 
     let receivedSession: unknown;
     const handler = withCinacoinAuthEdge(async (req, session) => {
@@ -169,7 +169,7 @@ describe('Edge Runtime — requireAuthEdge', () => {
     const mockReq = {
       nextUrl: { pathname: '/dashboard', origin: 'https://example.com' },
       cookies: { get: vi.fn(() => null) },
-    } as any;
+    } as Record<string, unknown>;
 
     const middleware = requireAuthEdge({ loginUrl: '/login' });
     // NextResponse.redirect is mocked — check it was called
@@ -185,7 +185,7 @@ describe('Edge Runtime — requireAuthEdge', () => {
     const mockReq = {
       nextUrl: { pathname: '/api/health' },
       cookies: { get: vi.fn(() => null) },
-    } as any;
+    } as Record<string, unknown>;
 
     const { NextResponse } = await import('next/server');
     const middleware = requireAuthEdge({ publicPaths: ['/api/health'] });

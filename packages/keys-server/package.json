@@ -27,7 +27,8 @@
   "dependencies": {
     "@cinacoin/core-sdk": "workspace:*",
     "@noble/ciphers": "^2.2.0",
-    "@noble/hashes": "^2.2.0"
+    "@noble/hashes": "^2.2.0",
+    "zod": "^3.24.0"
   },
   "devDependencies": {
     "@types/node": "^20.11.0",

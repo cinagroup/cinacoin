@@ -19,7 +19,7 @@ function makeD1Mock(): D1Database {
                 error: null,
               } as unknown as D1Result;
             },
-            async first(): Promise<any> {
+            async first(): Promise<unknown> {
               return null;
             },
             async all(): Promise<D1Result> {
@@ -29,7 +29,7 @@ function makeD1Mock(): D1Database {
                 results: [],
               } as unknown as D1Result;
             },
-            async raw(): Promise<any[][]> {
+            async raw(): Promise<unknown[][]> {
               return [];
             },
           };

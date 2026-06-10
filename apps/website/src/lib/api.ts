@@ -236,7 +236,7 @@ class ApiClient {
   }
 
   async getMe() {
-    return this.request<any>(`${AUTH_URL}/auth/me`);
+    return this.request<Record<string, unknown>>(`${AUTH_URL}/auth/me`);
   }
 
   // OAuth
@@ -266,20 +266,20 @@ class ApiClient {
 
   // Users
   async getUsers() {
-    return this.request<any>(`${API_URL}/users`);
+    return this.request<Record<string, unknown>[]>(`${API_URL}/users`);
   }
 
   async getUser(id: string) {
-    return this.request<any>(`${API_URL}/users/${id}`);
+    return this.request<Record<string, unknown>>(`${API_URL}/users/${id}`);
   }
 
   // Teams
   async getTeams() {
-    return this.request<any>(`${API_URL}/teams`);
+    return this.request<Record<string, unknown>[]>(`${API_URL}/teams`);
   }
 
   async createTeam(name: string) {
-    return this.request<any>(`${API_URL}/teams`, {
+    return this.request<Record<string, unknown>>(`${API_URL}/teams`, {
       method: 'POST',
       body: JSON.stringify({ name }),
     });
@@ -287,17 +287,17 @@ class ApiClient {
 
   // Sessions
   async getSessions() {
-    return this.request<any>(`${AUTH_URL}/auth/sessions`);
+    return this.request<Record<string, unknown>[]>(`${AUTH_URL}/auth/sessions`);
   }
 
   async revokeSession(sessionId: string) {
-    return this.request<any>(`${AUTH_URL}/auth/sessions/${sessionId}`, {
+    return this.request<Record<string, unknown>>(`${AUTH_URL}/auth/sessions/${sessionId}`, {
       method: 'DELETE',
     });
   }
 
   async revokeAllOtherSessions() {
-    return this.request<any>(`${AUTH_URL}/auth/sessions`, {
+    return this.request<Record<string, unknown>>(`${AUTH_URL}/auth/sessions`, {
       method: 'DELETE',
     });
   }

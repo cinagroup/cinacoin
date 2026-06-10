@@ -7,19 +7,19 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 // ─── Mock Angular core ───────────────────────────────────────────────────────
 
 vi.mock('@angular/core', () => ({
-  Injectable: () => (cls: any) => cls,
-  Inject: () => (target: any, propertyKey: string, parameterIndex: number) => {},
-  NgModule: () => (cls: any) => cls,
+  Injectable: () => (cls: unknown) => cls,
+  Inject: () => (target: unknown, propertyKey: string, parameterIndex: number) => {},
+  NgModule: () => (cls: unknown) => cls,
   InjectionToken: class {
     constructor(public name: string) {}
   },
   OnDestroy: class {},
   ModuleWithProviders: class {},
-  Component: (meta: any) => (cls: any) => cls,
-  Input: () => (target: any, propertyKey: string) => {},
-  HostListener: () => (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {},
-  Directive: () => (cls: any) => cls,
-  Pipe: () => (cls: any) => cls,
+  Component: (meta: unknown) => (cls: unknown) => cls,
+  Input: () => (target: unknown, propertyKey: string) => {},
+  HostListener: () => (target: unknown, propertyKey: string, descriptor: PropertyDescriptor) => {},
+  Directive: () => (cls: unknown) => cls,
+  Pipe: () => (cls: unknown) => cls,
   PLATFORM_ID: 'platformId',
   ElementRef: class {},
   Renderer2: class {},
@@ -31,7 +31,7 @@ vi.mock('@angular/common', () => ({
 
 // ─── Mock RxJS ───────────────────────────────────────────────────────────────
 
-const mockSubject = (initialValue?: any) => ({
+const mockSubject = (initialValue?: unknown) => ({
   asObservable: vi.fn(() => ({ subscribe: vi.fn() })),
   next: vi.fn(),
   complete: vi.fn(),
@@ -41,7 +41,7 @@ const mockSubject = (initialValue?: any) => ({
 vi.mock('rxjs', () => ({
   Observable: class {},
   ReplaySubject: vi.fn(() => mockSubject()),
-  BehaviorSubject: vi.fn((val: any) => mockSubject(val)),
+  BehaviorSubject: vi.fn((val: unknown) => mockSubject(val)),
   from: vi.fn(),
   EMPTY: {},
 }));
@@ -118,7 +118,7 @@ describe('CinacoinModule', () => {
     const result = CinacoinModule.forRoot(config as unknown);
 
     const optionsProvider = result.providers.find(
-      (p: any) => p.provide === CINA_CONNECT_OPTIONS || (p.provide && p.provide.name === 'CINA_CONNECT_OPTIONS')
+      (p: unknown) => p.provide === CINA_CONNECT_OPTIONS || (p.provide && p.provide.name === 'CINA_CONNECT_OPTIONS')
     );
     expect(optionsProvider).toBeDefined();
     expect(optionsProvider.useValue).toEqual(config);
@@ -131,7 +131,7 @@ describe('CinacoinModule', () => {
     const result = CinacoinModule.forRoot(config as unknown);
 
     const instanceProvider = result.providers.find(
-      (p: any) => p.provide === CINA_CONNECT_INSTANCE || (p.provide && p.provide.name === 'CINA_CONNECT_INSTANCE')
+      (p: unknown) => p.provide === CINA_CONNECT_INSTANCE || (p.provide && p.provide.name === 'CINA_CONNECT_INSTANCE')
     );
     expect(instanceProvider).toBeDefined();
     expect(typeof instanceProvider.useFactory).toBe('function');
@@ -146,7 +146,7 @@ describe('CinacoinModule', () => {
 
     const { CINA_CONNECT_INSTANCE } = await import('../src/lib/cinacoin.tokens.js');
     const instanceProvider = result.providers.find(
-      (p: any) => p.provide === CINA_CONNECT_INSTANCE || (p.provide && p.provide.name === 'CINA_CONNECT_INSTANCE')
+      (p: unknown) => p.provide === CINA_CONNECT_INSTANCE || (p.provide && p.provide.name === 'CINA_CONNECT_INSTANCE')
     );
     const factoryResult = instanceProvider.useFactory(config);
     expect(factoryResult).toBe(customConnector);

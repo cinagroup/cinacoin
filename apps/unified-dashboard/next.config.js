@@ -1,6 +1,6 @@
 const ContentSecurityPolicy = `
   default-src 'self';
-  script-src 'self' 'unsafe-eval';
+  script-src 'self';
   style-src 'self';
   img-src 'self' data: https:;
   font-src 'self' data:;

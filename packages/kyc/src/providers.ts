@@ -6,6 +6,7 @@
  */
 
 import type { KycStatus } from "./types.js";
+import { validateFile, type FileInput } from "./file-validator.js";
 
 // ============================================================
 // Types
@@ -192,6 +193,18 @@ export class SumSubProvider implements KycProvider {
     if (documents.proofOfAddress) {
       await this._uploadDocument(applicantId, { ...documents, front: documents.proofOfAddress }, "additional");
     }
+  }
+
+  /**
+   * Validate a file before uploading.
+   * Checks MIME type, size, and magic bytes.
+   */
+  validateDocument(file: FileInput): { valid: boolean; error?: string } {
+    const result = validateFile(file);
+    if (!result.valid) {
+      return { valid: false, error: result.error };
+    }
+    return { valid: true };
   }
 
   async getApplicantStatus(applicantId: string): Promise<KycProviderResult> {

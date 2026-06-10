@@ -252,7 +252,7 @@ describe('WcRelay subscriptions', () => {
     relay.subscribe(topic);
 
     const sent = getMockWs()._sentMessages;
-    const subMsg = sent.find((m: any) => m.type === 'subscribe' && m.topic === topic);
+    const subMsg = sent.find((m: unknown) => m.type === 'subscribe' && m.topic === topic);
     expect(subMsg).toBeDefined();
   });
 
@@ -274,7 +274,7 @@ describe('WcRelay subscriptions', () => {
     relay.unsubscribe(topic);
 
     const sent = getMockWs()._sentMessages;
-    const unsubMsg = sent.find((m: any) => m.type === 'unsubscribe' && m.topic === topic);
+    const unsubMsg = sent.find((m: unknown) => m.type === 'unsubscribe' && m.topic === topic);
     expect(unsubMsg).toBeDefined();
   });
 
@@ -316,7 +316,7 @@ describe('WcRelay publish', () => {
     await relay.publish(topic, 'encrypted-payload');
 
     const sent = getMockWs()._sentMessages;
-    const pubMsg = sent.find((m: any) => m.type === 'publish' && m.topic === topic && m.payload === 'encrypted-payload');
+    const pubMsg = sent.find((m: unknown) => m.type === 'publish' && m.topic === topic && m.payload === 'encrypted-payload');
     expect(pubMsg).toBeDefined();
   });
 
@@ -337,7 +337,7 @@ describe('WcRelay publish', () => {
     await publishPromise;
 
     const sent = getMockWs()._sentMessages;
-    const pubMsg = sent.find((m: any) => m.type === 'publish' && m.topic === topic);
+    const pubMsg = sent.find((m: unknown) => m.type === 'publish' && m.topic === topic);
     expect(pubMsg).toBeDefined();
   });
 });
@@ -499,7 +499,7 @@ describe('WcRelay heartbeat', () => {
     await vi.advanceTimersByTimeAsync(1100);
 
     const sent = getMockWs()._sentMessages;
-    const pingMsg = sent.find((m: any) => m.type === 'ping');
+    const pingMsg = sent.find((m: unknown) => m.type === 'ping');
     expect(pingMsg).toBeDefined();
   });
 });

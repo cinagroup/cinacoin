@@ -134,7 +134,7 @@ describe('CSRF Token Extraction', () => {
 describe('CSRF Fetch Wrapper', () => {
   beforeEach(() => {
     // Mock document.cookie and fetch
-    (globalThis as any).__mockCookies = 'cinacoin-csrf=test-token';
+    (globalThis as Record<string, unknown>).__mockCookies = 'cinacoin-csrf=test-token';
   });
 
   it('attaches CSRF token to POST requests', async () => {
@@ -148,7 +148,7 @@ describe('CSRF Fetch Wrapper', () => {
     });
 
     let capturedHeaders: Headers | undefined;
-    (globalThis as any).fetch = (_url: string, init: RequestInit) => {
+    (globalThis as Record<string, unknown>).fetch = (_url: string, init: RequestInit) => {
       capturedHeaders = new Headers(init.headers);
       return Promise.resolve(new Response('ok'));
     };
@@ -177,7 +177,7 @@ describe('CSRF Fetch Wrapper', () => {
     });
 
     let capturedHeaders: Headers | undefined;
-    (globalThis as any).fetch = (_url: string, init: RequestInit) => {
+    (globalThis as Record<string, unknown>).fetch = (_url: string, init: RequestInit) => {
       capturedHeaders = new Headers(init.headers);
       return Promise.resolve(new Response('ok'));
     };

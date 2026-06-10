@@ -20,11 +20,7 @@ export default function Stats() {
     >
       <FadeIn direction="none" duration={800}>
         <div
-          className="mx-auto mb-16 h-px w-full max-w-7xl"
-          style={{
-            background:
-              'linear-gradient(to right, transparent, var(--cc-hairline-strong), transparent)',
-          }}
+          className="mx-auto mb-16 h-px w-full max-w-7xl bg-gradient-to-r from-transparent via-[var(--cc-hairline-strong)] to-transparent"
         />
       </FadeIn>
 

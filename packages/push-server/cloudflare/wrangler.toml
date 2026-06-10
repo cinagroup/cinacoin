@@ -22,6 +22,11 @@ DEFAULT_TIMEOUT_MS = "5000"
 binding = "DEVICE_TOKENS"
 id = "10680718388843678a48f5f2ed045cc0"
 
+# KV namespace for rate limiting (distributed, replaces in-memory store)
+[[kv_namespaces]]
+binding = "RATE_LIMITS"
+id = "10680718388843678a48f5f2ed045cc0"
+
 # D1 database for push log (optional)
 [[d1_databases]]
 binding = "PUSH_LOG_DB"
