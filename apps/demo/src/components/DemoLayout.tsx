@@ -69,7 +69,7 @@ function Sidebar({ links, mobileOpen, onClose }: { links: NavLink[]; mobileOpen:
       {/* Mobile overlay */}
       {mobileOpen && (
         <div className="lg:hidden fixed inset-0 z-50">
-          <div className="absolute inset-0 bg-black/20" onClick={onClose} />
+          <div className="absolute inset-0 bg-[var(--color-ink)]/20" onClick={onClose} />
           <aside className="relative w-[240px] h-full bg-[var(--cc-canvas)] shadow-[var(--cc-level5)]">
             <button onClick={onClose} className="absolute top-4 right-4 p-1 text-[var(--cc-body)] hover:text-[var(--cc-ink)]" aria-label="Close menu">
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

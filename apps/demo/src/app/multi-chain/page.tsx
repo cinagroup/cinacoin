@@ -68,7 +68,7 @@ function ChainCard({ chain, balance, health, isWalletConnected, isCurrentChain, 
       isCurrentChain
         ? 'border-[var(--cc-link)]/50 ring-1 ring-[var(--cc-link)]/20'
         : justSwitched
-        ? 'border-[var(--color-success)]/50 ring-1 ring-green-500/20'
+        ? 'border-[var(--color-success)]/50 ring-1 ring-[var(--color-success)]/20'
         : 'border-[var(--cc-hairline-strong)]/60'
     } overflow-hidden hover:border-[var(--cc-hairline-strong)]/60 transition-all duration-300 hover:shadow-[var(--cc-level4)] hover:-translate-y-0.5 ${
       justSwitched ? 'animate-chain-switch-flash' : ''

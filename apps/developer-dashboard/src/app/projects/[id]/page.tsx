@@ -337,7 +337,7 @@ export default function ProjectDetailPage() {
                 onClick={() => setSdkTab(tab)}
                 className={`px-3 py-2 text-[14px] font-medium rounded-full transition-colors ${
                   sdkTab === tab
-                    ? "bg-ink text-white"
+                    ? "bg-ink text-[var(--color-on-primary)]"
                     : "bg-canvas-soft text-ink-body hover:text-ink"
                 }`}
               >
@@ -355,7 +355,7 @@ export default function ProjectDetailPage() {
             </pre>
             <button
               onClick={() => navigator.clipboard.writeText(sdkSnippets[sdkTab]).catch(() => {})}
-              className="absolute top-3 right-3 px-2 py-1 text-[12px] bg-[var(--color-canvas)]/10 hover:bg-[var(--color-canvas)]/20 text-white rounded transition-colors"
+              className="absolute top-3 right-3 px-2 py-1 text-[12px] bg-[var(--color-canvas)]/10 hover:bg-[var(--color-canvas)]/20 text-[var(--color-on-primary)] rounded transition-colors"
             >
               📋 Copy
             </button>

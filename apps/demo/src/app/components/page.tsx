@@ -66,10 +66,10 @@ const THEMES: Record<string, { name: string; bg: string; card: string; border: s
     name: 'Rose',
     bg: 'bg-[var(--cc-canvas)]',
     card: 'bg-[var(--cc-canvas)]/60',
-    border: 'border-pink-500/30',
+    border: 'border-[var(--color-highlight-pink)]/30',
     primary: 'from-pink-500 to-rose-600',
-    text: 'text-pink-100',
-    accent: 'text-pink-400',
+    text: 'text-[var(--color-highlight-pink)]/80',
+    accent: 'text-[var(--color-highlight-pink)]',
   },
   minimal: {
     name: 'Minimal',

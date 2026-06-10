@@ -96,8 +96,8 @@ export default function MonitoringPage() {
                   </div>
                   <span className={`px-2 py-1 rounded text-caption ${
                     alert.severity === 'critical'
-                      ? 'bg-error text-white'
-                      : 'bg-warning text-black'
+                      ? 'bg-error text-[var(--color-on-primary)]'
+                      : 'bg-warning text-[var(--color-ink)]'
                   }`}>
                     {alert.severity}
                   </span>

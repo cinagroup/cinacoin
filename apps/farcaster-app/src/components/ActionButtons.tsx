@@ -29,10 +29,10 @@ interface ActionButtonsProps {
 }
 
 const variantClasses: Record<string, string> = {
-  primary: 'bg-[var(--color-violet)] hover:bg-[var(--color-violet-deep)] text-white',
-  secondary: 'bg-[var(--color-hairline-strong)] hover:bg-[var(--color-mute)] text-white',
-  success: 'bg-[var(--color-success)] hover:bg-[var(--color-success-deep)] text-white',
-  danger: 'bg-[var(--color-error)] hover:bg-[var(--color-error-deep)] text-white',
+  primary: 'bg-[var(--color-violet)] hover:bg-[var(--color-violet-deep)] text-[var(--color-on-primary)]',
+  secondary: 'bg-[var(--color-hairline-strong)] hover:bg-[var(--color-mute)] text-[var(--color-on-primary)]',
+  success: 'bg-[var(--color-success)] hover:bg-[var(--color-success-deep)] text-[var(--color-on-primary)]',
+  danger: 'bg-[var(--color-error)] hover:bg-[var(--color-error-deep)] text-[var(--color-on-primary)]',
 };
 
 const sizeClasses: Record<string, string> = {

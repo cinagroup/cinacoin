@@ -175,7 +175,7 @@ export default function ChainDistribution() {
                     minWidth: "40px",
                   }}
                 >
-                  <span className="text-caption font-medium text-white">
+                  <span className="text-caption font-medium text-[var(--color-on-primary)]">
                     {item.txCount.toLocaleString()}
                   </span>
                 </div>

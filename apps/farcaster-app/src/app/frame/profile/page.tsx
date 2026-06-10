@@ -27,18 +27,18 @@ export default function ProfileFramePage() {
               ?
             </div>
             <div className="text-left">
-              <p className="text-[18px] font-medium text-white">Not Connected</p>
+              <p className="text-[18px] font-medium text-[var(--color-on-primary)]">Not Connected</p>
               <p className="text-[14px] text-[var(--color-mute)]">Connect via Farcaster</p>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3 text-[14px]">
             <div className="bg-[var(--color-canvas-soft-2)] rounded-lg p-3">
               <p className="text-[var(--color-mute)]">FID</p>
-              <p className="text-white font-[var(--font-mono)]">—</p>
+              <p className="text-[var(--color-on-primary)] font-[var(--font-mono)]">—</p>
             </div>
             <div className="bg-[var(--color-canvas-soft-2)] rounded-lg p-3">
               <p className="text-[var(--color-mute)]">Wallet</p>
-              <p className="text-white font-[var(--font-mono)] text-[12px]">Not linked</p>
+              <p className="text-[var(--color-on-primary)] font-[var(--font-mono)] text-[12px]">Not linked</p>
             </div>
           </div>
           <div className="bg-[var(--color-canvas-soft-2)] rounded-lg p-3 text-[14px]">

@@ -27,7 +27,7 @@ export default function Navbar() {
           <Link href="/projects/new" className="btn-primary text-[12px]">
             + New Project
           </Link>
-          <div className="w-8 h-8 rounded-full bg-ink text-white flex items-center justify-center text-[14px] font-medium">
+          <div className="w-8 h-8 rounded-full bg-ink text-[var(--color-on-primary)] flex items-center justify-center text-[14px] font-medium">
             D
           </div>
         </div>

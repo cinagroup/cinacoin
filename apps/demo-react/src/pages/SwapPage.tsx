@@ -69,7 +69,7 @@ function TokenSelector({ show, onClose, onSelect, label }: TokenSelectorProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label={label}>
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} aria-hidden="true" />
+      <div className="absolute inset-0 bg-[var(--color-ink)]/50 backdrop-blur-sm" onClick={onClose} aria-hidden="true" />
       <div ref={modalRef} className="relative w-full max-w-sm cc-card-lg !p-6">
         <h3 className="cc-display-sm mb-4" id="token-selector-title">{label}</h3>
         <div className="space-y-2 max-h-64 overflow-y-auto pr-1" role="listbox" aria-labelledby="token-selector-title">

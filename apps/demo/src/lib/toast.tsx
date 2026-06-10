@@ -74,7 +74,7 @@ function ToastContainer() {
       progress: 'bg-[var(--cc-success)]',
     },
     error: {
-      bg: 'bg-red-950/90',
+      bg: 'bg-[var(--color-error-deep)]/90',
       border: 'border-[var(--color-error)]/30',
       icon: '✕',
       progress: 'bg-[var(--cc-error)]',

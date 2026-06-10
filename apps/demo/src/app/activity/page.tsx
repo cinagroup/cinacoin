@@ -218,7 +218,7 @@ export default function ActivityPage() {
         <div className="flex items-center justify-between bg-[var(--cc-canvas)] rounded-[8px] border border-[var(--cc-hairline)] px-5 py-4" style={{ boxShadow: '0px 1px 1px rgba(0, 0, 0, 0.03), 0px 2px 2px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.08) inset' }}>
           {isConnected ? (
             <div className="flex items-center gap-3">
-              <div className="size-8 rounded-full bg-gradient-to-br from-[var(--cc-link)] to-[var(--cc-violet-deep)] flex items-center justify-center text-[12px] font-semibold text-white">
+              <div className="size-8 rounded-full bg-gradient-to-br from-[var(--cc-link)] to-[var(--cc-violet-deep)] flex items-center justify-center text-[12px] font-semibold text-[var(--color-on-primary)]">
                 {account.address?.slice(2, 4).toUpperCase()}
               </div>
               <div>

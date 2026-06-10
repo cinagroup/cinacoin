@@ -35,25 +35,25 @@ export default function HomePage() {
           <div className="grid grid-cols-2 gap-3">
             <a
               href="/frame/wallet/"
-              className="bg-[var(--color-violet)] hover:bg-[var(--color-violet-deep)] text-white py-3 px-4 rounded-xl font-medium transition-colors"
+              className="bg-[var(--color-violet)] hover:bg-[var(--color-violet-deep)] text-[var(--color-on-primary)] py-3 px-4 rounded-xl font-medium transition-colors"
             >
               🔗 Wallet
             </a>
             <a
               href="/frame/transfer/"
-              className="bg-[var(--color-link)] hover:bg-[var(--color-link-deep)] text-white py-3 px-4 rounded-xl font-medium transition-colors"
+              className="bg-[var(--color-link)] hover:bg-[var(--color-link-deep)] text-[var(--color-on-primary)] py-3 px-4 rounded-xl font-medium transition-colors"
             >
               💸 Transfer
             </a>
             <a
               href="/frame/sign/"
-              className="bg-[var(--color-success)] hover:bg-[var(--color-success-deep)] text-white py-3 px-4 rounded-xl font-medium transition-colors"
+              className="bg-[var(--color-success)] hover:bg-[var(--color-success-deep)] text-[var(--color-on-primary)] py-3 px-4 rounded-xl font-medium transition-colors"
             >
               ✍️ Sign
             </a>
             <a
               href="/frame/profile/"
-              className="bg-[var(--color-hairline-strong)] hover:bg-[var(--color-mute)] text-white py-3 px-4 rounded-xl font-medium transition-colors"
+              className="bg-[var(--color-hairline-strong)] hover:bg-[var(--color-mute)] text-[var(--color-on-primary)] py-3 px-4 rounded-xl font-medium transition-colors"
             >
               👤 Profile
             </a>

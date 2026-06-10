@@ -59,7 +59,7 @@ export function ProfileCard({
           <img
             src={user.pfp_url}
             alt={displayName}
-            className="w-16 h-16 rounded-full ring-2 ring-purple-500"
+            className="w-16 h-16 rounded-full ring-2 ring-[var(--color-violet)]"
           />
         ) : (
           <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-[24px]">
@@ -67,7 +67,7 @@ export function ProfileCard({
           </div>
         )}
         <div>
-          <h3 className="text-[20px] font-bold text-white flex items-center space-x-2">
+          <h3 className="text-[20px] font-bold text-[var(--color-on-primary)] flex items-center space-x-2">
             <span>{displayName}</span>
             {user.verified && (
               <span className="text-[var(--color-link)]" title="Verified">✓</span>
@@ -86,11 +86,11 @@ export function ProfileCard({
       <div className="grid grid-cols-2 gap-3">
         <div className="bg-[var(--color-canvas-soft-2)] rounded-xl p-3">
           <p className="text-[12px] text-[var(--color-mute)] mb-1">Farcaster FID</p>
-          <p className="text-white font-[var(--font-mono)]">{user.fid}</p>
+          <p className="text-[var(--color-on-primary)] font-[var(--font-mono)]">{user.fid}</p>
         </div>
         <div className="bg-[var(--color-canvas-soft-2)] rounded-xl p-3">
           <p className="text-[12px] text-[var(--color-mute)] mb-1">Wallet</p>
-          <p className="text-white font-[var(--font-mono)] text-[12px] truncate">
+          <p className="text-[var(--color-on-primary)] font-[var(--font-mono)] text-[12px] truncate">
             {walletAddress
               ? `${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}`
               : 'Not connected'}

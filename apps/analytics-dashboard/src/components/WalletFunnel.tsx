@@ -91,7 +91,7 @@ export default function WalletFunnel() {
           onClick={() => setSelectedWallet("all")}
           className={`px-sm py-xxs text-body-sm rounded-md transition-all ${
             selectedWallet === "all"
-              ? "bg-primary text-white font-medium"
+              ? "bg-primary text-[var(--color-on-primary)] font-medium"
               : "bg-canvas-soft-2 text-ink-body hover:bg-canvas-soft"
           }`}
         >
@@ -103,7 +103,7 @@ export default function WalletFunnel() {
             onClick={() => setSelectedWallet(w.wallet)}
             className={`px-sm py-xxs text-body-sm rounded-md transition-all ${
               selectedWallet === w.wallet
-                ? "bg-primary text-white font-medium"
+                ? "bg-primary text-[var(--color-on-primary)] font-medium"
                 : "bg-canvas-soft-2 text-ink-body hover:bg-canvas-soft"
             }`}
           >
@@ -160,7 +160,7 @@ export default function WalletFunnel() {
                       opacity: 1 - i * 0.15,
                     }}
                   >
-                    <span className="text-caption font-medium text-white whitespace-nowrap">
+                    <span className="text-caption font-medium text-[var(--color-on-primary)] whitespace-nowrap">
                       {step.count.toLocaleString()}
                     </span>
                   </div>

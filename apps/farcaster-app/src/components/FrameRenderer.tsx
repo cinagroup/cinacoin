@@ -49,7 +49,7 @@ export function FrameRenderer({
           />
           {title && (
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-              <h3 className="text-white font-semibold text-[18px]">{title}</h3>
+              <h3 className="text-[var(--color-on-primary)] font-semibold text-[18px]">{title}</h3>
             </div>
           )}
         </div>
@@ -62,7 +62,7 @@ export function FrameRenderer({
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               placeholder={inputPlaceholder}
-              className="w-full bg-[var(--color-canvas-soft-2)] text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="w-full bg-[var(--color-canvas-soft-2)] text-[var(--color-on-primary)] px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-violet)]"
             />
           </div>
         )}
@@ -76,7 +76,7 @@ export function FrameRenderer({
               <button
                 key={idx}
                 onClick={button.onClick}
-                className="bg-[var(--color-canvas-soft-2)] hover:bg-[var(--color-hairline-strong)] text-white px-4 py-3 rounded-xl font-medium transition-colors text-[14px]"
+                className="bg-[var(--color-canvas-soft-2)] hover:bg-[var(--color-hairline-strong)] text-[var(--color-on-primary)] px-4 py-3 rounded-xl font-medium transition-colors text-[14px]"
               >
                 {button.label}
               </button>

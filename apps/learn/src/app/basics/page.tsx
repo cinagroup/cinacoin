@@ -126,7 +126,7 @@ contract SimpleStorage {
         </Link>
         <Link
           href="/wallet-integration"
-          className="px-4 py-2 bg-accent-blue hover:bg-accent-blue/80 text-white rounded-lg text-[14px] font-medium transition-colors"
+          className="px-4 py-2 bg-accent-blue hover:bg-accent-blue/80 text-[var(--color-on-primary)] rounded-lg text-[14px] font-medium transition-colors"
         >
           Next: Wallet Integration →
         </Link>

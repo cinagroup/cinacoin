@@ -110,7 +110,7 @@ export function UserManagement() {
             </span>
             <button
               onClick={() => setSelectedUsers(new Set())}
-              className="text-caption text-[var(--color-body)] hover:text-white underline"
+              className="text-caption text-[var(--color-body)] hover:text-[var(--color-on-primary)] underline"
             >
               Clear selection
             </button>
@@ -118,13 +118,13 @@ export function UserManagement() {
           <div className="flex items-center gap-2">
             <button
               onClick={handleBatchDisable}
-              className="px-3 py-2 bg-canvas/10 hover:bg-canvas/20 text-white text-caption font-medium rounded-sm transition-colors"
+              className="px-3 py-2 bg-canvas/10 hover:bg-canvas/20 text-[var(--color-on-primary)] text-caption font-medium rounded-sm transition-colors"
             >
               Disable Selected
             </button>
             <button
               onClick={handleBatchDelete}
-              className="px-3 py-2 bg-error hover:opacity-90 text-white text-caption font-medium rounded-sm transition-colors"
+              className="px-3 py-2 bg-error hover:opacity-90 text-[var(--color-on-primary)] text-caption font-medium rounded-sm transition-colors"
             >
               Delete Selected
             </button>
@@ -134,7 +134,7 @@ export function UserManagement() {
 
       {/* Confirmation modal */}
       {confirmAction && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-[var(--color-ink)]/50 flex items-center justify-center z-50">
           <div className="card p-lg max-w-md w-full mx-4">
             <h3 className="text-heading-3 text-ink mb-2">
               {confirmAction.type === "delete" ? "Delete Users" : "Disable Users"}
@@ -163,7 +163,7 @@ export function UserManagement() {
 
       {/* Edit user modal */}
       {editingUser && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-[var(--color-ink)]/50 flex items-center justify-center z-50">
           <div className="card p-lg max-w-md w-full mx-4">
             <h3 className="text-heading-3 text-ink mb-4">Edit User</h3>
             <div className="space-y-md">
@@ -233,7 +233,7 @@ export function UserManagement() {
 
       {/* Add user modal */}
       {showAddUser && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-[var(--color-ink)]/50 flex items-center justify-center z-50">
           <div className="card p-lg max-w-md w-full mx-4">
             <h3 className="text-heading-3 text-ink mb-4">Add New User</h3>
             <div className="space-y-md">

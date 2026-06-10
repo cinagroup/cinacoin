@@ -25,7 +25,7 @@ export default function InteractiveEditor({
         <span className="text-[14px] text-text-secondary font-[var(--font-mono)]">Interactive Editor</span>
         <button
           onClick={handleRun}
-          className="px-3 py-1 text-[12px] font-medium bg-accent-blue hover:bg-accent-blue/80 text-white rounded transition-colors"
+          className="px-3 py-1 text-[12px] font-medium bg-accent-blue hover:bg-accent-blue/80 text-[var(--color-on-primary)] rounded transition-colors"
         >
           Run Code
         </button>

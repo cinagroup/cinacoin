@@ -21,7 +21,7 @@ export function Sidebar() {
           <span className="text-[24px]">🪙</span>
           CinaCoin
         </h2>
-        <p className="text-[12px] text-white/60 mt-1">Unified Dashboard</p>
+        <p className="text-[12px] text-[var(--color-on-primary)]/60 mt-1">Unified Dashboard</p>
       </div>
 
       <nav className="flex-1 p-4 space-y-1">
@@ -46,7 +46,7 @@ export function Sidebar() {
           </div>
           <div>
             <p className="text-[14px] font-medium">Admin</p>
-            <p className="text-[12px] text-white/60">admin@cinacoin.com</p>
+            <p className="text-[12px] text-[var(--color-on-primary)]/60">admin@cinacoin.com</p>
           </div>
         </div>
       </div>

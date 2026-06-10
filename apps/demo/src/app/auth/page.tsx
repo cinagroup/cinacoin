@@ -363,7 +363,7 @@ export default function AuthPage() {
                         isDone || (authStep === 'verified' && i === 3)
                           ? 'bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-[var(--cc-success)]/25'
                           : isCurrent
-                          ? 'bg-[var(--cc-link)]/15 text-[var(--cc-link)] border border-[var(--cc-primary)]/30 ring-2 ring-blue-500/20'
+                          ? 'bg-[var(--cc-link)]/15 text-[var(--cc-link)] border border-[var(--cc-primary)]/30 ring-2 ring-[var(--color-link)]/20'
                           : 'bg-[var(--cc-canvas-soft-2)]/40 text-[var(--cc-body)] border border-[var(--cc-hairline)]'
                       }`}>
                         {isDone || (authStep === 'verified' && i === 3) ? (

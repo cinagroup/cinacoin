@@ -33,7 +33,7 @@ export default function ResponsiveShell({ children }: { children: React.ReactNod
       {/* Overlay */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-30 lg:hidden"
+          className="fixed inset-0 bg-[var(--color-ink)]/50 z-30 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}

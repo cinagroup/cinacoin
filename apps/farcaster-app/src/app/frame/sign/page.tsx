@@ -31,10 +31,10 @@ export default function SignFramePage() {
             <textarea
               placeholder="Enter message to sign..."
               rows={4}
-              className="w-full bg-[var(--color-hairline-strong)] rounded-lg px-3 py-2 text-white text-[14px] focus:outline-none focus:ring-2 focus:ring-green-500 resize-none"
+              className="w-full bg-[var(--color-hairline-strong)] rounded-lg px-3 py-2 text-[var(--color-on-primary)] text-[14px] focus:outline-none focus:ring-2 focus:ring-[var(--color-success)] resize-none"
             />
           </div>
-          <button className="w-full bg-[var(--color-success)] hover:bg-[var(--color-success-deep)] text-white py-3 rounded-xl font-medium transition-colors">
+          <button className="w-full bg-[var(--color-success)] hover:bg-[var(--color-success-deep)] text-[var(--color-on-primary)] py-3 rounded-xl font-medium transition-colors">
             Sign Message
           </button>
         </div>

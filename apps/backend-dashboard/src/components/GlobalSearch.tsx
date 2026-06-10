@@ -100,7 +100,7 @@ export function GlobalSearch() {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 bg-black/50" onClick={() => setIsOpen(false)}>
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 bg-[var(--color-ink)]/50" onClick={() => setIsOpen(false)}>
       <div 
         className="w-full max-w-2xl bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-xl shadow-2xl"
         onClick={(e) => e.stopPropagation()}

@@ -97,7 +97,7 @@ export default function Header() {
       {mobileOpen && (
         <>
           <div
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 sm:hidden"
+            className="fixed inset-0 bg-[var(--color-ink)]/60 backdrop-blur-sm z-40 sm:hidden"
             onClick={() => setMobileOpen(false)}
             role="presentation"
             aria-hidden="true"

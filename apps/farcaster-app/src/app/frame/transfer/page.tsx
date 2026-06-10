@@ -32,7 +32,7 @@ export default function TransferFramePage() {
               <input
                 type="text"
                 placeholder="0x..."
-                className="w-full bg-[var(--color-hairline-strong)] rounded-lg px-3 py-2 text-white font-[var(--font-mono)] text-[14px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full bg-[var(--color-hairline-strong)] rounded-lg px-3 py-2 text-[var(--color-on-primary)] font-[var(--font-mono)] text-[14px] focus:outline-none focus:ring-2 focus:ring-[var(--color-link)]"
               />
             </div>
             <div className="bg-[var(--color-canvas-soft-2)] rounded-xl p-4 text-left">
@@ -40,11 +40,11 @@ export default function TransferFramePage() {
               <input
                 type="text"
                 placeholder="0.00"
-                className="w-full bg-[var(--color-hairline-strong)] rounded-lg px-3 py-2 text-white font-[var(--font-mono)] text-[14px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full bg-[var(--color-hairline-strong)] rounded-lg px-3 py-2 text-[var(--color-on-primary)] font-[var(--font-mono)] text-[14px] focus:outline-none focus:ring-2 focus:ring-[var(--color-link)]"
               />
             </div>
           </div>
-          <button className="w-full bg-[var(--color-link)] hover:bg-[var(--color-link-deep)] text-white py-3 rounded-xl font-medium transition-colors">
+          <button className="w-full bg-[var(--color-link)] hover:bg-[var(--color-link-deep)] text-[var(--color-on-primary)] py-3 rounded-xl font-medium transition-colors">
             Send Transfer
           </button>
         </div>

@@ -33,11 +33,11 @@ export default function WalletFramePage() {
           <div className="grid grid-cols-2 gap-3 text-[14px]">
             <div className="bg-[var(--color-canvas-soft-2)] rounded-lg p-3">
               <p className="text-[var(--color-mute)]">Chain</p>
-              <p className="text-white font-medium">Base (8453)</p>
+              <p className="text-[var(--color-on-primary)] font-medium">Base (8453)</p>
             </div>
             <div className="bg-[var(--color-canvas-soft-2)] rounded-lg p-3">
               <p className="text-[var(--color-mute)]">Balance</p>
-              <p className="text-white font-medium">— CINA</p>
+              <p className="text-[var(--color-on-primary)] font-medium">— CINA</p>
             </div>
           </div>
         </div>
