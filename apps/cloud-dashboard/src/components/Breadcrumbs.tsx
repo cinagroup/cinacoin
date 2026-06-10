@@ -38,7 +38,7 @@ export function Breadcrumbs() {
 
   return (
     <nav className="border-b border-hairline bg-canvas px-4 py-2">
-      <ol className="flex items-center space-x-2 text-sm text-mute">
+      <ol className="flex items-center space-x-2 text-[14px] text-mute">
         {breadcrumbs.map((crumb, index) => (
           <li key={crumb.href} className="flex items-center">
             {index > 0 && (

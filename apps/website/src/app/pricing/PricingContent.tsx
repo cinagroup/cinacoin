@@ -183,7 +183,7 @@ export default function PricingContent() {
                 <summary className="flex cursor-pointer items-center justify-between cc-body-md-strong transition-colors hover:text-[var(--cc-link)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cc-link)] focus-visible:ring-offset-2 rounded">
                   {t(faq.qKey)}
                   <span
-                    className="ml-4 text-[var(--cc-muted)] transition-transform group-open:rotate-45 text-xl"
+                    className="ml-4 text-[var(--cc-muted)] transition-transform group-open:rotate-45 text-[20px]"
                     aria-hidden="true"
                   >
                     +

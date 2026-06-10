@@ -53,8 +53,8 @@ function TokenSelector({
         onClick={() => setOpen(!open)}
         className="flex items-center gap-2 bg-[var(--cc-canvas-soft-2)]/80 hover:bg-[var(--cc-muted)]/80 rounded-md px-3 py-2 transition-colors border border-[var(--cc-hairline-strong)]/50"
       >
-        <span className="text-xl leading-none">{selected.icon}</span>
-        <span className="font-semibold text-[var(--cc-ink)] text-sm">{selected.symbol}</span>
+        <span className="text-[20px] leading-none">{selected.icon}</span>
+        <span className="font-semibold text-[var(--cc-ink)] text-[14px]">{selected.symbol}</span>
         <svg className={`w-4 h-4 text-[var(--cc-muted)] transition-transform ${open ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
         </svg>
@@ -65,7 +65,7 @@ function TokenSelector({
           <div className="fixed inset-0 z-10" onClick={() => setOpen(false)} />
           <div className="absolute z-20 top-full mt-2 left-0 w-64 bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline-strong)] rounded-md shadow-[var(--cc-level5)] overflow-hidden">
             <div className="p-2 border-b border-[var(--cc-hairline-strong)]">
-              <p className="text-xs text-[var(--cc-muted)] px-2 py-1 font-semibold uppercase tracking-normal">Select Token</p>
+              <p className="text-[12px] text-[var(--cc-muted)] px-2 py-1 font-semibold uppercase tracking-normal">Select Token</p>
             </div>
             {tokens.map((t) => (
               <button
@@ -75,13 +75,13 @@ function TokenSelector({
                   t.address === selected.address ? 'bg-[var(--cc-canvas-soft-2)]/40' : ''
                 }`}
               >
-                <span className="text-2xl leading-none">{t.icon}</span>
+                <span className="text-[24px] leading-none">{t.icon}</span>
                 <div className="text-left flex-1 min-w-0">
-                  <div className="font-semibold text-[var(--cc-ink)] text-sm">{t.symbol}</div>
-                  <div className="text-xs text-[var(--cc-muted)] truncate">{t.name}</div>
+                  <div className="font-semibold text-[var(--cc-ink)] text-[14px]">{t.symbol}</div>
+                  <div className="text-[12px] text-[var(--cc-muted)] truncate">{t.name}</div>
                 </div>
                 <div className="text-right">
-                  <div className="text-sm text-[var(--cc-ink)]">{getBalance(t)}</div>
+                  <div className="text-[14px] text-[var(--cc-ink)]">{getBalance(t)}</div>
                 </div>
               </button>
             ))}
@@ -113,8 +113,8 @@ function DetailRow({
 
   return (
     <div className="flex justify-between items-center py-2">
-      <span className="text-sm text-[var(--cc-muted)]">{label}</span>
-      <span className={`text-sm font-medium ${color}`}>{value}</span>
+      <span className="text-[14px] text-[var(--cc-muted)]">{label}</span>
+      <span className={`text-[14px] font-medium ${color}`}>{value}</span>
     </div>
   );
 }
@@ -469,10 +469,10 @@ export default function SwapPage() {
 
         {/* ── Header ─────────────────────────────────────── */}
         <div className="text-center space-y-2">
-          <h1 className="text-3xl font-semibold tracking-tighter text-[var(--cc-ink)]">
+          <h1 className="text-[32px] font-semibold tracking-tighter text-[var(--cc-ink)]">
             Token swap.
           </h1>
-          <p className="text-[var(--cc-muted)] text-sm">Swap tokens with real DEX aggregator rates</p>
+          <p className="text-[var(--cc-muted)] text-[14px]">Swap tokens with real DEX aggregator rates</p>
         </div>
 
         {/* ── Wallet Connect + Chain Selector ────────────── */}
@@ -482,7 +482,7 @@ export default function SwapPage() {
             value={chainId}
             onChange={(e) => handleChainChange(Number(e.target.value))}
             aria-label="Select blockchain network"
-            className="bg-[var(--cc-canvas-soft-2)]/80 text-[var(--cc-ink)] text-sm rounded-md px-3 py-2 border border-[var(--cc-hairline-strong)]/50 outline-none cursor-pointer"
+            className="bg-[var(--cc-canvas-soft-2)]/80 text-[var(--cc-ink)] text-[14px] rounded-md px-3 py-2 border border-[var(--cc-hairline-strong)]/50 outline-none cursor-pointer"
           >
             {SUPPORTED_CHAINS.map((c) => (
               <option key={c.chainId} value={c.chainId}>{c.name}</option>
@@ -491,13 +491,13 @@ export default function SwapPage() {
 
           {isConnected ? (
             <div className="flex items-center gap-3">
-              <span className="text-xs text-[var(--cc-muted)]">
+              <span className="text-[12px] text-[var(--cc-muted)]">
                 Balance: <span className="text-[var(--cc-ink)] font-semibold">{account.balance} {account.chainSymbol}</span>
               </span>
-              <span className="text-xs text-[var(--cc-body)] font-mono">{account.chainName} · {shortenAddress(account.address ?? '')}</span>
+              <span className="text-[12px] text-[var(--cc-body)] font-[var(--font-mono)]">{account.chainName} · {shortenAddress(account.address ?? '')}</span>
               <button
                 onClick={() => disconnect()}
-                className="px-3 py-2 rounded-[6px] text-xs font-semibold bg-[var(--cc-canvas)] text-[var(--cc-body)] border border-[var(--cc-hairline)] hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all"
+                className="px-3 py-2 rounded-[6px] text-[12px] font-semibold bg-[var(--cc-canvas)] text-[var(--cc-body)] border border-[var(--cc-hairline)] hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all"
               >
                 Disconnect
               </button>
@@ -505,14 +505,14 @@ export default function SwapPage() {
           ) : (
             <button
               onClick={() => connect(primaryConnector?.id ?? 'io.metamask')}
-              className="px-4 py-2 rounded-[6px] text-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all"
+              className="px-4 py-2 rounded-[6px] text-[14px] font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all"
             >
               Connect Wallet
             </button>
           )}
         </div>
         {error && (
-          <div className="text-center text-sm text-[var(--cc-error)] bg-[var(--cc-error)]/10 border border-[var(--cc-error)]/20 rounded-md px-4 py-2">
+          <div className="text-center text-[14px] text-[var(--cc-error)] bg-[var(--cc-error)]/10 border border-[var(--cc-error)]/20 rounded-md px-4 py-2">
             {error}
           </div>
         )}
@@ -523,14 +523,14 @@ export default function SwapPage() {
           {/* FROM */}
           <div className="p-5 pb-3">
             <div className="flex justify-between items-center mb-3">
-              <span className="text-sm font-medium text-[var(--cc-muted)]">From</span>
+              <span className="text-[14px] font-medium text-[var(--cc-muted)]">From</span>
               <div className="flex items-center gap-2">
-                <span className="text-xs text-[var(--cc-body)]">
+                <span className="text-[12px] text-[var(--cc-body)]">
                   Balance: <span className="text-[var(--cc-body)]">{fromToken.address === 'native' && isConnected ? account.balance : '—'}</span>
                 </span>
                 <button
                   onClick={handleMax}
-                  className="text-xs font-semibold text-[var(--cc-link)] hover:text-[var(--cc-link)] transition-colors px-2 py-1 rounded bg-[var(--cc-link)]/10 hover:bg-[var(--cc-link)]/20"
+                  className="text-[12px] font-semibold text-[var(--cc-link)] hover:text-[var(--cc-link)] transition-colors px-2 py-1 rounded bg-[var(--cc-link)]/10 hover:bg-[var(--cc-link)]/20"
                 >
                   MAX
                 </button>
@@ -556,11 +556,11 @@ export default function SwapPage() {
                   }
                 }}
                 placeholder="0.0"
-                className="flex-1 bg-transparent text-right text-3xl font-semibold text-[var(--cc-ink)] outline-none placeholder:text-[var(--cc-body)]"
+                className="flex-1 bg-transparent text-right text-[32px] font-semibold text-[var(--cc-ink)] outline-none placeholder:text-[var(--cc-body)]"
               />
             </div>
             <div className="text-right mt-1">
-              <span className="text-xs text-[var(--cc-body)]">{usdValue}</span>
+              <span className="text-[12px] text-[var(--cc-body)]">{usdValue}</span>
             </div>
           </div>
 
@@ -581,8 +581,8 @@ export default function SwapPage() {
           {/* TO */}
           <div className="p-5 pt-3">
             <div className="flex justify-between items-center mb-3">
-              <span className="text-sm font-medium text-[var(--cc-muted)]">To</span>
-              <span className="text-xs text-[var(--cc-body)]">
+              <span className="text-[14px] font-medium text-[var(--cc-muted)]">To</span>
+              <span className="text-[12px] text-[var(--cc-body)]">
                 Balance: <span className="text-[var(--cc-body)]">—</span>
               </span>
             </div>
@@ -594,12 +594,12 @@ export default function SwapPage() {
                 label="To"
                 nativeBalance={isConnected ? account.balance : undefined}
               />
-              <div className="flex-1 text-right text-3xl font-semibold text-[var(--cc-ink)] truncate">
+              <div className="flex-1 text-right text-[32px] font-semibold text-[var(--cc-ink)] truncate">
                 {displayToAmount || <span className="text-[var(--cc-body)]">0.0</span>}
               </div>
             </div>
             <div className="text-right mt-1">
-              <span className="text-xs text-[var(--cc-body)]">
+              <span className="text-[12px] text-[var(--cc-body)]">
                 {displayToAmount ? `$${parseFloat(displayToAmount.replace(/,/g, '')).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : '$0.00'}
               </span>
             </div>
@@ -608,13 +608,13 @@ export default function SwapPage() {
           {/* ── Slippage Tolerance ─────────────────────── */}
           <div className="px-5 pb-3">
             <div className="flex items-center gap-2">
-              <span className="text-xs text-[var(--cc-muted)]">Slippage</span>
+              <span className="text-[12px] text-[var(--cc-muted)]">Slippage</span>
               <div className="flex gap-1">
                 {[0.1, 0.5, 1.0].map((s) => (
                   <button
                     key={s}
                     onClick={() => setSlippage(s)}
-                    className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
+                    className={`px-3 py-1 rounded-lg text-[12px] font-semibold transition-all ${
                       slippage === s
                         ? 'bg-[var(--cc-link)]/15 text-[var(--cc-link)] border border-[var(--cc-link)]/25'
                         : 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] hover:bg-[var(--cc-muted)]/50 border border-transparent'
@@ -636,7 +636,7 @@ export default function SwapPage() {
                   <svg className="w-3.5 h-3.5 text-[var(--cc-warning)]" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                   </svg>
-                  <span className="text-xs text-[var(--cc-warning)] font-medium">Simulated Quote — 1inch API unavailable</span>
+                  <span className="text-[12px] text-[var(--cc-warning)] font-medium">Simulated Quote — 1inch API unavailable</span>
                 </div>
               )}
               {displayRate && <DetailRow label="Rate" value={displayRate} />}
@@ -655,7 +655,7 @@ export default function SwapPage() {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                   </svg>
-                  <span className="text-xs text-[var(--cc-link)]">Fetching best rate from 1inch...</span>
+                  <span className="text-[12px] text-[var(--cc-link)]">Fetching best rate from 1inch...</span>
                 </div>
               )}
             </div>
@@ -671,7 +671,7 @@ export default function SwapPage() {
             <button
               onClick={isConnected ? handleSwap : () => connect(primaryConnector?.id ?? 'io.metamask')}
               disabled={buttonDisabled}
-              className={`w-full py-4 rounded-[6px] font-semibold text-lg transition-all ${
+              className={`w-full py-4 rounded-[6px] font-semibold text-[18px] transition-all ${
                 swapState === 'success'
                   ? 'bg-[var(--cc-success)] text-[var(--cc-ink)] shadow-[var(--cc-level3)]'
                   : swapState === 'swapping' || swapState === 'approving'
@@ -700,22 +700,22 @@ export default function SwapPage() {
         {/* ── Recent Swaps History ─────────────────────── */}
         <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
           <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
-            <h2 className="text-lg font-semibold tracking-tighter text-[var(--cc-ink)]">
+            <h2 className="text-[18px] font-semibold tracking-tighter text-[var(--cc-ink)]">
               Swap History
               {swapHistory.length > 0 && (
-                <span className="ml-2 text-xs text-[var(--cc-body)] font-normal">({swapHistory.length})</span>
+                <span className="ml-2 text-[12px] text-[var(--cc-body)] font-normal">({swapHistory.length})</span>
               )}
             </h2>
           </div>
           {swapHistory.length === 0 ? (
-            <div className="px-5 py-8 text-center text-[var(--cc-body)] text-sm">
+            <div className="px-5 py-8 text-center text-[var(--cc-body)] text-[14px]">
               No swaps yet. Connect your wallet and make your first swap!
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full text-sm">
+              <table className="w-full text-[14px]">
                 <thead>
-                  <tr className="text-[var(--cc-body)] text-xs uppercase tracking-normal font-mono">
+                  <tr className="text-[var(--cc-body)] text-[12px] uppercase tracking-normal font-[var(--font-mono)]">
                     <th className="text-left px-5 py-3 font-semibold">Tx</th>
                     <th className="text-left px-5 py-3 font-semibold">From → To</th>
                     <th className="text-right px-5 py-3 font-semibold">Amount</th>
@@ -735,12 +735,12 @@ export default function SwapPage() {
                               href={getBlockExplorerUrl(chainId, swap.txHash!)}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-[var(--cc-link)] font-mono text-xs hover:underline"
+                              className="text-[var(--cc-link)] font-[var(--font-mono)] text-[12px] hover:underline"
                             >
                               {shortenAddress(swap.txHash)}
                             </a>
                           ) : (
-                            <span className="text-[var(--cc-link)] font-mono text-xs">{swap.id.slice(0, 8)}</span>
+                            <span className="text-[var(--cc-link)] font-[var(--font-mono)] text-[12px]">{swap.id.slice(0, 8)}</span>
                           )}
                         </td>
                         <td className="px-5 py-3">
@@ -750,14 +750,14 @@ export default function SwapPage() {
                         </td>
                         <td className="px-5 py-3 text-right">
                           <div className="text-[var(--cc-ink)]">{swap.fromAmount} {swap.from}</div>
-                          <div className="text-[var(--cc-body)] text-xs">→ {swap.toAmount} {swap.to}</div>
+                          <div className="text-[var(--cc-body)] text-[12px]">→ {swap.toAmount} {swap.to}</div>
                         </td>
-                        <td className="px-5 py-3 text-right text-[var(--cc-muted)] text-xs hidden sm:table-cell">
+                        <td className="px-5 py-3 text-right text-[var(--cc-muted)] text-[12px] hidden sm:table-cell">
                           {swap.route}
                         </td>
                         <td className="px-5 py-3 text-center">
                           <span
-                            className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-semibold ${
+                            className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-[12px] font-semibold ${
                               swap.status === 'completed'
                                 ? 'bg-[var(--cc-success)]/15 text-[var(--cc-success)]'
                                 : swap.status === 'pending'
@@ -777,7 +777,7 @@ export default function SwapPage() {
                             {swap.status}
                           </span>
                         </td>
-                        <td className="px-5 py-3 text-right text-[var(--cc-body)] text-xs">{timeAgo}</td>
+                        <td className="px-5 py-3 text-right text-[var(--cc-body)] text-[12px]">{timeAgo}</td>
                       </tr>
                     );
                   })}
@@ -789,11 +789,11 @@ export default function SwapPage() {
 
         {/* ── Footer ───────────────────────────────────── */}
         <div className="text-center space-y-1">
-          <div className="flex items-center justify-center gap-2 text-[var(--cc-body)] text-xs">
+          <div className="flex items-center justify-center gap-2 text-[var(--cc-body)] text-[12px]">
             <span className="inline-block w-2 h-2 rounded-full bg-[var(--cc-primary)]" />
             <span>Powered by <span className="text-[var(--cc-body)] font-semibold">1inch DEX Aggregator</span></span>
           </div>
-          <p className="text-[var(--cc-body)] text-xs">
+          <p className="text-[var(--cc-body)] text-[12px]">
             Best execution across Uniswap, SushiSwap, Curve, Balancer & more
           </p>
         </div>

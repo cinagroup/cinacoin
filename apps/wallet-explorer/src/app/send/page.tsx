@@ -94,11 +94,11 @@ export default function SendPage() {
           <div className="rounded-lg bg-canvas-soft-2 p-4 space-y-2">
             <div className="flex justify-between text-body-sm">
               <span className="text-mute">Network Fee (est.)</span>
-              <span className="text-ink font-mono">~0.0021 CINA</span>
+              <span className="text-ink font-[var(--font-mono)]">~0.0021 CINA</span>
             </div>
             <div className="flex justify-between text-body-sm">
               <span className="text-mute">Total</span>
-              <span className="text-ink font-medium font-mono">
+              <span className="text-ink font-medium font-[var(--font-mono)]">
                 {amount ? `${(parseFloat(amount) + 0.0021).toFixed(4)}` : '0.00'} CINA
               </span>
             </div>

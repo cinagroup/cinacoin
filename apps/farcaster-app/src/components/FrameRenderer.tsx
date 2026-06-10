@@ -49,7 +49,7 @@ export function FrameRenderer({
           />
           {title && (
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-              <h3 className="text-white font-semibold text-lg">{title}</h3>
+              <h3 className="text-white font-semibold text-[18px]">{title}</h3>
             </div>
           )}
         </div>
@@ -76,7 +76,7 @@ export function FrameRenderer({
               <button
                 key={idx}
                 onClick={button.onClick}
-                className="bg-[var(--color-canvas-soft-2)] hover:bg-[var(--color-hairline-strong)] text-white px-4 py-3 rounded-xl font-medium transition-colors text-sm"
+                className="bg-[var(--color-canvas-soft-2)] hover:bg-[var(--color-hairline-strong)] text-white px-4 py-3 rounded-xl font-medium transition-colors text-[14px]"
               >
                 {button.label}
               </button>
@@ -86,7 +86,7 @@ export function FrameRenderer({
       </div>
 
       {/* Frame Metadata */}
-      <div className="mt-4 text-xs text-[var(--color-mute)] text-center">
+      <div className="mt-4 text-[12px] text-[var(--color-mute)] text-center">
         Farcaster Frame Preview
       </div>
     </div>

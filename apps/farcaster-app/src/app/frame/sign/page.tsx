@@ -21,17 +21,17 @@ export default function SignFramePage() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-8">
       <div className="max-w-lg w-full space-y-6 text-center">
-        <h1 className="text-3xl font-bold text-green-400">✍️ Sign Message</h1>
+        <h1 className="text-[32px] font-bold text-green-400">✍️ Sign Message</h1>
         <div className="bg-[var(--color-canvas-soft-2)] rounded-2xl p-6 border border-[var(--color-hairline)] space-y-4">
           <p className="text-[var(--color-body)]">
             Sign a message with your connected wallet to prove ownership.
           </p>
           <div className="bg-[var(--color-canvas-soft-2)] rounded-xl p-4 text-left">
-            <label className="text-sm text-[var(--color-mute)] block mb-1">Message</label>
+            <label className="text-[14px] text-[var(--color-mute)] block mb-1">Message</label>
             <textarea
               placeholder="Enter message to sign..."
               rows={4}
-              className="w-full bg-[var(--color-hairline-strong)] rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:ring-2 focus:ring-green-500 resize-none"
+              className="w-full bg-[var(--color-hairline-strong)] rounded-lg px-3 py-2 text-white text-[14px] focus:outline-none focus:ring-2 focus:ring-green-500 resize-none"
             />
           </div>
           <button className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-medium transition-colors">

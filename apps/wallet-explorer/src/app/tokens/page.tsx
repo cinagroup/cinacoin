@@ -63,7 +63,7 @@ export default function TokensPage() {
               </div>
             </div>
             <div className="text-right">
-              <p className="text-body font-mono text-ink">{token.balance}</p>
+              <p className="text-body font-[var(--font-mono)] text-ink">{token.balance}</p>
               <div className="flex items-center justify-end gap-2">
                 <p className="text-body-sm text-mute">{token.value}</p>
                 <span className={`text-body-sm ${token.changePositive ? 'text-success' : 'text-error'}`}>

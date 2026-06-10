@@ -208,33 +208,33 @@ export default function ActivityPage() {
 
         {/* ── Header ── */}
         <div className="text-center space-y-2">
-          <h1 className="text-3xl font-semibold tracking-tighter bg-gradient-to-r from-[var(--cc-link)] via-[var(--cc-cyan)] to-[var(--cc-success)] bg-clip-text text-transparent">
+          <h1 className="text-[32px] font-semibold tracking-tighter bg-gradient-to-r from-[var(--cc-link)] via-[var(--cc-cyan)] to-[var(--cc-success)] bg-clip-text text-transparent">
             Activity History
           </h1>
-          <p className="text-[var(--cc-muted)] text-sm">Track all your wallet interactions and transactions</p>
+          <p className="text-[var(--cc-muted)] text-[14px]">Track all your wallet interactions and transactions</p>
         </div>
 
         {/* ── Wallet connect bar ── */}
         <div className="flex items-center justify-between bg-[var(--cc-canvas)] rounded-[8px] border border-[var(--cc-hairline)] px-5 py-4" style={{ boxShadow: '0px 1px 1px rgba(0, 0, 0, 0.03), 0px 2px 2px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.08) inset' }}>
           {isConnected ? (
             <div className="flex items-center gap-3">
-              <div className="size-8 rounded-full bg-gradient-to-br from-[var(--cc-link)] to-[var(--cc-violet-deep)] flex items-center justify-center text-xs font-semibold text-white">
+              <div className="size-8 rounded-full bg-gradient-to-br from-[var(--cc-link)] to-[var(--cc-violet-deep)] flex items-center justify-center text-[12px] font-semibold text-white">
                 {account.address?.slice(2, 4).toUpperCase()}
               </div>
               <div>
-                <p className="text-sm font-mono text-[var(--cc-body)]">{shortenAddress(account.address ?? '')}</p>
-                <p className="text-xs text-[var(--cc-body)]">{account.chainName} · Balance: {account.balance} {account.chainSymbol}</p>
+                <p className="text-[14px] font-[var(--font-mono)] text-[var(--cc-body)]">{shortenAddress(account.address ?? '')}</p>
+                <p className="text-[12px] text-[var(--cc-body)]">{account.chainName} · Balance: {account.balance} {account.chainSymbol}</p>
               </div>
             </div>
           ) : (
             <button
               onClick={handleConnect}
-              className="px-5 py-3 rounded-[6px] text-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all"
+              className="px-5 py-3 rounded-[6px] text-[14px] font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all"
             >
               Connect Wallet
             </button>
           )}
-          <span className="text-xs text-[var(--cc-body)]">{activities.length} activities</span>
+          <span className="text-[12px] text-[var(--cc-body)]">{activities.length} activities</span>
         </div>
 
         {/* ── Stats bar ── */}
@@ -246,8 +246,8 @@ export default function ActivityPage() {
             { label: 'Failed', value: stats.failed, color: 'text-[var(--cc-error)]' },
           ].map((s) => (
             <div key={s.label} className="text-center p-4 rounded-md bg-[var(--cc-canvas-soft-2)]/40 border border-[var(--cc-hairline-strong)]/40">
-              <div className={`text-2xl font-semibold tracking-tighter ${s.color}`}>{s.value}</div>
-              <div className="text-xs text-[var(--cc-body)] mt-1">{s.label}</div>
+              <div className={`text-[24px] font-semibold tracking-tighter ${s.color}`}>{s.value}</div>
+              <div className="text-[12px] text-[var(--cc-body)] mt-1">{s.label}</div>
             </div>
           ))}
         </div>
@@ -260,7 +260,7 @@ export default function ActivityPage() {
               <button
                 key={f.value}
                 onClick={() => { setTypeFilter(f.value); setPage(0); }}
-                className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-all ${
+                className={`flex items-center gap-2 px-3 py-2 rounded-md text-[14px] font-medium transition-all ${
                   typeFilter === f.value
                     ? 'bg-[var(--cc-link)]/15 text-[var(--cc-link)] border border-[var(--cc-primary)]/30'
                     : 'bg-[var(--cc-canvas-soft-2)]/40 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)]'
@@ -277,22 +277,22 @@ export default function ActivityPage() {
             <select
               value={chainFilter}
               onChange={(e) => { setChainFilter(e.target.value); setPage(0); }}
-              className="w-full px-4 py-3 bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline-strong)]/50 rounded-md text-sm text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-primary)]/40 appearance-none cursor-pointer"
+              className="w-full px-4 py-3 bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline-strong)]/50 rounded-md text-[14px] text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-primary)]/40 appearance-none cursor-pointer"
             >
               {CHAINS.map((c) => (
                 <option key={c} value={c}>{c === 'All' ? 'All Chains' : c}</option>
               ))}
             </select>
-            <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[var(--cc-body)] text-xs">▾</span>
+            <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[var(--cc-body)] text-[12px]">▾</span>
           </div>
         </div>
 
         {/* ── Activity List ── */}
         {paginated.length === 0 ? (
           <div className="text-center py-16 bg-[var(--cc-canvas-soft-2)]/30 rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/40">
-            <p className="text-3xl mb-3">🔍</p>
-            <p className="text-[var(--cc-muted)] text-sm">No activities found</p>
-            <p className="text-[var(--cc-body)] text-xs mt-1">Connect your wallet and start interacting to see activity here.</p>
+            <p className="text-[32px] mb-3">🔍</p>
+            <p className="text-[var(--cc-muted)] text-[14px]">No activities found</p>
+            <p className="text-[var(--cc-body)] text-[12px] mt-1">Connect your wallet and start interacting to see activity here.</p>
           </div>
         ) : (
           <div className="space-y-2">
@@ -305,10 +305,10 @@ export default function ActivityPage() {
                   aria-label={`${item.title} - ${item.status}`}
                 >
                   <div className="flex items-center gap-3">
-                    <span className="text-lg">{typeIcon(item.type)}</span>
+                    <span className="text-[18px]">{typeIcon(item.type)}</span>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-[var(--cc-body)] truncate">{item.title}</p>
-                      <p className="text-xs text-[var(--cc-body)] truncate">{item.description}</p>
+                      <p className="text-[14px] font-medium text-[var(--cc-body)] truncate">{item.title}</p>
+                      <p className="text-[12px] text-[var(--cc-body)] truncate">{item.description}</p>
                     </div>
                     <div className="flex items-center gap-2 shrink-0">
                       {item.chain && (
@@ -330,7 +330,7 @@ export default function ActivityPage() {
                 {/* Expanded detail */}
                 {expandedId === item.id && (
                   <div className="mt-1 p-4 rounded-md bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/30 space-y-2 ml-8">
-                    <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div className="grid grid-cols-2 gap-2 text-[12px]">
                       <div>
                         <span className="text-[var(--cc-body)]">Type:</span>
                         <span className="text-[var(--cc-body)] ml-2 capitalize">{item.type.replace('_', ' ')}</span>
@@ -355,7 +355,7 @@ export default function ActivityPage() {
                     {item.hash && (
                       <div className="pt-2 border-t border-[var(--cc-hairline)]/50">
                         <span className="text-[12px] text-[var(--cc-body)]">Transaction Hash:</span>
-                        <p className="font-mono text-xs text-[var(--cc-link)] break-all mt-1">{item.hash}</p>
+                        <p className="font-[var(--font-mono)] text-[12px] text-[var(--cc-link)] break-all mt-1">{item.hash}</p>
                       </div>
                     )}
                     {item.metadata && Object.keys(item.metadata).length > 0 && (
@@ -363,9 +363,9 @@ export default function ActivityPage() {
                         <span className="text-[12px] text-[var(--cc-body)]">Details:</span>
                         <div className="mt-1 space-y-1">
                           {Object.entries(item.metadata).map(([k, v]) => (
-                            <div key={k} className="flex text-xs">
+                            <div key={k} className="flex text-[12px]">
                               <span className="text-[var(--cc-body)] w-24 shrink-0">{k}:</span>
-                              <span className="text-[var(--cc-body)] font-mono">{v}</span>
+                              <span className="text-[var(--cc-body)] font-[var(--font-mono)]">{v}</span>
                             </div>
                           ))}
                         </div>
@@ -381,14 +381,14 @@ export default function ActivityPage() {
         {/* ── Pagination ── */}
         {totalPages > 1 && (
           <div className="flex items-center justify-between bg-[var(--cc-canvas-soft-2)]/30 rounded-md border border-[var(--cc-hairline-strong)]/40 px-5 py-3">
-            <span className="text-xs text-[var(--cc-body)]">
+            <span className="text-[12px] text-[var(--cc-body)]">
               Page {page + 1} of {totalPages} · {filtered.length} items
             </span>
             <div className="flex gap-2">
               <button
                 onClick={() => setPage((p) => Math.max(0, p - 1))}
                 disabled={page === 0}
-                className="px-3 py-2 rounded-lg text-xs font-medium bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                className="px-3 py-2 rounded-lg text-[12px] font-medium bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
                 aria-label="Previous page"
               >
                 ← Prev
@@ -396,7 +396,7 @@ export default function ActivityPage() {
               <button
                 onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
                 disabled={page >= totalPages - 1}
-                className="px-3 py-2 rounded-lg text-xs font-medium bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                className="px-3 py-2 rounded-lg text-[12px] font-medium bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
                 aria-label="Next page"
               >
                 Next →

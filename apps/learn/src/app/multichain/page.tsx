@@ -12,7 +12,7 @@ export default function MultichainPage() {
     <div className="max-w-3xl mx-auto">
       <StepIndicator currentStep={3} totalSteps={4} />
 
-      <h1 className="text-3xl font-bold mb-4">Multichain Development</h1>
+      <h1 className="text-[32px] font-bold mb-4">Multichain Development</h1>
       <p className="text-text-secondary mb-8">
         Build applications that seamlessly work across multiple blockchains using Cinacoin's
         unified multichain infrastructure.
@@ -20,7 +20,7 @@ export default function MultichainPage() {
 
       {/* Section 1 */}
       <section className="mb-12">
-        <h2 className="text-2xl font-semibold mb-4">Why Multichain?</h2>
+        <h2 className="text-[24px] font-semibold mb-4">Why Multichain?</h2>
         <p className="text-text-secondary mb-4">
           The blockchain ecosystem is multi-chain by nature. Users hold assets on Ethereum,
           Polygon, BSC, Arbitrum, and dozens of other chains. Your application should meet
@@ -34,7 +34,7 @@ export default function MultichainPage() {
 
       {/* Section 2 */}
       <section className="mb-12">
-        <h2 className="text-2xl font-semibold mb-4">Configure Supported Chains</h2>
+        <h2 className="text-[24px] font-semibold mb-4">Configure Supported Chains</h2>
         <p className="text-text-secondary mb-4">
           Define which chains your application supports. Cinacoin handles RPC management,
           chain switching, and fallback providers automatically.
@@ -89,7 +89,7 @@ export const supportedChains = [ethereum, polygon, bsc];`}
 
       {/* Section 3 */}
       <section className="mb-12">
-        <h2 className="text-2xl font-semibold mb-4">Chain-Agnostic Interactions</h2>
+        <h2 className="text-[24px] font-semibold mb-4">Chain-Agnostic Interactions</h2>
         <p className="text-text-secondary mb-4">
           Use the same API regardless of which chain you're interacting with.
           The SDK automatically routes requests to the correct chain.
@@ -129,7 +129,7 @@ const bscBalance = await getBalance(address, 56);`}
 
       {/* Section 4 */}
       <section className="mb-12">
-        <h2 className="text-2xl font-semibold mb-4">Cross-Chain State</h2>
+        <h2 className="text-[24px] font-semibold mb-4">Cross-Chain State</h2>
         <p className="text-text-secondary mb-4">
           Track user state across chains with Cinacoin's unified state management.
           This is essential for dashboards, portfolio trackers, and multichain DeFi apps.
@@ -186,7 +186,7 @@ function Portfolio({ address }: { address: string }) {
 
       {/* Section 5 */}
       <section className="mb-12">
-        <h2 className="text-2xl font-semibold mb-4">Chain Switching</h2>
+        <h2 className="text-[24px] font-semibold mb-4">Chain Switching</h2>
         <p className="text-text-secondary mb-4">
           Let users switch between chains seamlessly. The SDK handles prompting the wallet
           to add/switch networks and updates your app state automatically.
@@ -223,13 +223,13 @@ cinacoin.on('chainChanged', (chainId) => {
       <div className="flex justify-between items-center pt-8 border-t border-border-color">
         <Link
           href="/wallet-integration"
-          className="text-text-secondary hover:text-accent-blue transition-colors text-sm"
+          className="text-text-secondary hover:text-accent-blue transition-colors text-[14px]"
         >
           ← Previous: Wallet Integration
         </Link>
         <Link
           href="/best-practices"
-          className="px-4 py-2 bg-accent-blue hover:bg-accent-blue/80 text-white rounded-lg text-sm font-medium transition-colors"
+          className="px-4 py-2 bg-accent-blue hover:bg-accent-blue/80 text-white rounded-lg text-[14px] font-medium transition-colors"
         >
           Next: Best Practices →
         </Link>

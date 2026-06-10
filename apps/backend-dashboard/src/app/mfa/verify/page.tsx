@@ -57,7 +57,7 @@ export default function MfaVerifyPage() {
         {/* Card */}
         <div className="bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-sm)] p-8 shadow-[var(--cc-level3)]">
           {error && (
-            <div className="mb-4 p-3 rounded-[var(--cc-radius-sm)] bg-[var(--cc-error)]/10 border border-[var(--cc-error)]/30 text-[var(--cc-error)] text-sm">
+            <div className="mb-4 p-3 rounded-[var(--cc-radius-sm)] bg-[var(--cc-error)]/10 border border-[var(--cc-error)]/30 text-[var(--cc-error)] text-[14px]">
               {error}
             </div>
           )}
@@ -65,7 +65,7 @@ export default function MfaVerifyPage() {
           {!useRecovery ? (
             <>
               <h2 className="cc-display-sm text-[var(--cc-ink)] mb-2 text-center">Enter verification code</h2>
-              <p className="text-sm text-[var(--cc-muted)] mb-6 text-center">
+              <p className="text-[14px] text-[var(--cc-muted)] mb-6 text-center">
                 Enter the 6-digit code from your authenticator app
               </p>
 
@@ -81,7 +81,7 @@ export default function MfaVerifyPage() {
                     onChange={(e) => handleCodeChange(index, e.target.value)}
                     onKeyDown={(e) => handleKeyDown(index, e)}
                     disabled={isLoading}
-                    className="w-12 h-14 text-center text-xl font-medium bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--cc-link)] focus:border-transparent transition-all disabled:opacity-50"
+                    className="w-12 h-14 text-center text-[20px] font-medium bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--cc-link)] focus:border-transparent transition-all disabled:opacity-50"
                     autoFocus={index === 0}
                   />
                 ))}
@@ -93,11 +93,11 @@ export default function MfaVerifyPage() {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                   </svg>
-                  <span className="text-sm text-[var(--cc-link)]">Verifying…</span>
+                  <span className="text-[14px] text-[var(--cc-link)]">Verifying…</span>
                 </div>
               )}
 
-              <p className="text-xs text-[var(--cc-muted)] text-center mb-4">
+              <p className="text-[12px] text-[var(--cc-muted)] text-center mb-4">
                 Code changes every 30 seconds. Make sure your device time is synchronized.
               </p>
 
@@ -106,7 +106,7 @@ export default function MfaVerifyPage() {
                   setUseRecovery(true);
                   clearError();
                 }}
-                className="w-full text-sm text-[var(--cc-link)] hover:underline text-center"
+                className="w-full text-[14px] text-[var(--cc-link)] hover:underline text-center"
               >
                 Lost your device? Use a recovery code
               </button>
@@ -114,7 +114,7 @@ export default function MfaVerifyPage() {
           ) : (
             <>
               <h2 className="cc-display-sm text-[var(--cc-ink)] mb-2 text-center">Use recovery code</h2>
-              <p className="text-sm text-[var(--cc-muted)] mb-6 text-center">
+              <p className="text-[14px] text-[var(--cc-muted)] mb-6 text-center">
                 Enter one of your recovery codes to access your account
               </p>
 
@@ -142,7 +142,7 @@ export default function MfaVerifyPage() {
                   setUseRecovery(false);
                   clearError();
                 }}
-                className="w-full text-sm text-[var(--cc-link)] hover:underline text-center mt-4"
+                className="w-full text-[14px] text-[var(--cc-link)] hover:underline text-center mt-4"
               >
                 Back to authenticator code
               </button>
@@ -154,7 +154,7 @@ export default function MfaVerifyPage() {
         <div className="text-center mt-6">
           <button
             onClick={() => router.replace("/login")}
-            className="text-sm text-[var(--cc-body)] hover:text-[var(--cc-ink)] transition-colors"
+            className="text-[14px] text-[var(--cc-body)] hover:text-[var(--cc-ink)] transition-colors"
           >
             ← Back to login
           </button>

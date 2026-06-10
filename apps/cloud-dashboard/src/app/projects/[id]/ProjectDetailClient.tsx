@@ -59,11 +59,11 @@ export function ProjectDetailClient({ projectId, project }: ProjectDetailClientP
     <main id="main-content" className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <Breadcrumbs />
         <div className="mb-6">
-          <a href="/projects" className="text-sm text-[var(--cc-muted)] hover:text-[var(--cc-ink)]">
+          <a href="/projects" className="text-[14px] text-[var(--cc-muted)] hover:text-[var(--cc-ink)]">
             ← Back to Projects
           </a>
           <h1 className="mt-2 cc-display-md text-[var(--cc-ink)]">{project.name}</h1>
-          <p className="mt-1 text-sm text-[var(--cc-muted)]">{project.description}</p>
+          <p className="mt-1 text-[14px] text-[var(--cc-muted)]">{project.description}</p>
         </div>
 
         <div className="mb-6 border-b border-[var(--cc-hairline)]">
@@ -121,13 +121,13 @@ export function ProjectDetailClient({ projectId, project }: ProjectDetailClientP
               </div>
             </div>
             {usageLoading ? (
-              <div className="cc-card text-sm text-[var(--cc-muted)]">
+              <div className="cc-card text-[14px] text-[var(--cc-muted)]">
                 Loading usage…
               </div>
             ) : usageData.some((d) => d.requests > 0) ? (
               <UsageChart data={usageData} />
             ) : (
-              <div className="cc-card text-sm text-[var(--cc-muted)]">
+              <div className="cc-card text-[14px] text-[var(--cc-muted)]">
                 No usage recorded yet. Traffic from your API keys will appear here.
               </div>
             )}
@@ -185,7 +185,7 @@ export function ProjectDetailClient({ projectId, project }: ProjectDetailClientP
                     Save Changes
                   </button>
                   {isSaved && (
-                    <span className="text-sm font-medium text-[var(--cc-success)]">Saved</span>
+                    <span className="text-[14px] font-medium text-[var(--cc-success)]">Saved</span>
                   )}
                 </div>
               </form>

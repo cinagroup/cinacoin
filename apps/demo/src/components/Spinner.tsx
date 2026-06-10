@@ -45,7 +45,7 @@ export function LoadingOverlay({ message = 'Loading...' }: { message?: string })
   return (
     <div className="flex flex-col items-center justify-center py-16 gap-4" role="status" aria-label={message}>
       <SpinnerPulse size="lg" />
-      <p className="text-sm text-[var(--cc-muted)] animate-pulse">{message}</p>
+      <p className="text-[14px] text-[var(--cc-muted)] animate-pulse">{message}</p>
     </div>
   );
 }

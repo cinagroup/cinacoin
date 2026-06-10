@@ -29,7 +29,7 @@ export default function AnalyticsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold text-ink">Analytics</h1>
+        <h1 className="text-[24px] font-semibold text-ink">Analytics</h1>
         <p className="text-ink-body mt-1">
           Monitor your API usage, performance, and error rates.
         </p>
@@ -45,11 +45,11 @@ export default function AnalyticsPage() {
 
       {/* Request Trend */}
       <div className="card">
-        <h2 className="text-lg font-semibold text-ink mb-4">Request Trend (Last 10 Days)</h2>
+        <h2 className="text-[18px] font-semibold text-ink mb-4">Request Trend (Last 10 Days)</h2>
         <div className="space-y-2">
           {dailyRequests.map((day) => (
             <div key={day.date} className="flex items-center gap-3">
-              <span className="text-xs text-ink-mute w-12 shrink-0">{day.date}</span>
+              <span className="text-[12px] text-ink-mute w-12 shrink-0">{day.date}</span>
               <div className="flex-1 h-6 bg-canvas-soft-2 rounded overflow-hidden relative">
                 <div
                   className="h-full bg-link/20 rounded"
@@ -60,13 +60,13 @@ export default function AnalyticsPage() {
                   style={{ width: `${(day.errors / maxRequests) * 100}%`, minWidth: day.errors > 0 ? "2px" : "0" }}
                 />
               </div>
-              <span className="text-xs text-ink-body w-16 text-right shrink-0">
+              <span className="text-[12px] text-ink-body w-16 text-right shrink-0">
                 {(day.requests / 1000).toFixed(1)}k
               </span>
             </div>
           ))}
         </div>
-        <div className="flex gap-4 mt-3 text-xs text-ink-mute">
+        <div className="flex gap-4 mt-3 text-[12px] text-ink-mute">
           <span className="flex items-center gap-1">
             <span className="w-3 h-3 bg-link/20 rounded inline-block"></span> Requests
           </span>
@@ -78,18 +78,18 @@ export default function AnalyticsPage() {
 
       {/* Top Chains */}
       <div className="card">
-        <h2 className="text-lg font-semibold text-ink mb-4">Top Chains</h2>
+        <h2 className="text-[18px] font-semibold text-ink mb-4">Top Chains</h2>
         <div className="space-y-3">
           {topChains.map((chain) => (
             <div key={chain.name} className="flex items-center gap-4">
-              <span className="text-sm text-ink w-48 shrink-0">{chain.name}</span>
+              <span className="text-[14px] text-ink w-48 shrink-0">{chain.name}</span>
               <div className="flex-1 h-3 bg-canvas-soft-2 rounded overflow-hidden">
                 <div
                   className="h-full bg-link rounded"
                   style={{ width: `${chain.percentage}%` }}
                 />
               </div>
-              <span className="text-sm text-ink-body w-28 text-right shrink-0">
+              <span className="text-[14px] text-ink-body w-28 text-right shrink-0">
                 {chain.requests.toLocaleString()} ({chain.percentage}%)
               </span>
             </div>
@@ -99,19 +99,19 @@ export default function AnalyticsPage() {
 
       {/* Error Rate */}
       <div className="card">
-        <h2 className="text-lg font-semibold text-ink mb-4">Error Rate Breakdown</h2>
+        <h2 className="text-[18px] font-semibold text-ink mb-4">Error Rate Breakdown</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="p-4 bg-canvas-soft rounded-lg">
-            <div className="text-2xl font-semibold text-ink">0.08%</div>
-            <div className="text-sm text-ink-mute mt-1">4xx Client Errors</div>
+            <div className="text-[24px] font-semibold text-ink">0.08%</div>
+            <div className="text-[14px] text-ink-mute mt-1">4xx Client Errors</div>
           </div>
           <div className="p-4 bg-canvas-soft rounded-lg">
-            <div className="text-2xl font-semibold text-ink">0.03%</div>
-            <div className="text-sm text-ink-mute mt-1">5xx Server Errors</div>
+            <div className="text-[24px] font-semibold text-ink">0.03%</div>
+            <div className="text-[14px] text-ink-mute mt-1">5xx Server Errors</div>
           </div>
           <div className="p-4 bg-canvas-soft rounded-lg">
-            <div className="text-2xl font-semibold text-ink">0.01%</div>
-            <div className="text-sm text-ink-mute mt-1">Timeout Errors</div>
+            <div className="text-[24px] font-semibold text-ink">0.01%</div>
+            <div className="text-[14px] text-ink-mute mt-1">Timeout Errors</div>
           </div>
         </div>
       </div>

@@ -16,10 +16,10 @@ export function ProjectCard({ project }: { project: Project }) {
       <h3 className="mb-1 cc-body-md-strong text-[var(--cc-ink)] transition-colors group-hover:text-[var(--cc-link)]">
         {project.name}
       </h3>
-      <p className="mb-3 text-sm text-[var(--cc-muted)] line-clamp-2">
+      <p className="mb-3 text-[14px] text-[var(--cc-muted)] line-clamp-2">
         {project.description || "No description"}
       </p>
-      <div className="flex items-center justify-between text-xs text-[var(--cc-muted)]">
+      <div className="flex items-center justify-between text-[12px] text-[var(--cc-muted)]">
         <span>Updated {new Date(project.updatedAt).toLocaleDateString()}</span>
       </div>
     </a>

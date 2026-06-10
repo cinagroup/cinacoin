@@ -53,7 +53,7 @@ export function DemoBalance(): JSX.Element {
         aria-live="polite"
         aria-label={`${symbol} balance`}
       >
-        <div style={{ fontSize: 'var(--cc-text-xs)', color: 'var(--cc-body)', marginBottom: 'var(--cc-space-xxs)' }}>
+        <div style={{ fontSize: 'var(--cc-text-[12px])', color: 'var(--cc-body)', marginBottom: 'var(--cc-space-xxs)' }}>
           {symbol} Balance
         </div>
         <div
@@ -74,7 +74,7 @@ export function DemoBalance(): JSX.Element {
           ) : balance ? (
             <>
               {balance}{' '}
-              <span style={{ fontSize: 'var(--cc-text-lg)', color: 'var(--cc-body)', fontWeight: 'var(--cc-weight-normal)' }}>
+              <span style={{ fontSize: 'var(--cc-text-[18px])', color: 'var(--cc-body)', fontWeight: 'var(--cc-weight-normal)' }}>
                 {symbol}
               </span>
             </>
@@ -85,7 +85,7 @@ export function DemoBalance(): JSX.Element {
       </div>
 
       {/* Address */}
-      <p style={{ fontSize: 'var(--cc-text-xs)', fontFamily: 'var(--cc-font-mono)', color: 'var(--cc-muted)', marginTop: 'var(--cc-space-xs)', wordBreak: 'break-all' }}>
+      <p style={{ fontSize: 'var(--cc-text-[12px])', fontFamily: 'var(--cc-font-[var(--font-mono)])', color: 'var(--cc-muted)', marginTop: 'var(--cc-space-xs)', wordBreak: 'break-all' }}>
         {account.address}
       </p>
 
@@ -106,14 +106,14 @@ export function DemoBalance(): JSX.Element {
           )}
         </button>
         {lastRefresh && (
-          <span style={{ fontSize: 'var(--cc-text-xs)', color: 'var(--cc-muted)' }}>
+          <span style={{ fontSize: 'var(--cc-text-[12px])', color: 'var(--cc-muted)' }}>
             Last refreshed: {lastRefresh}
           </span>
         )}
       </div>
 
       {/* Auto-refresh notice */}
-      <p style={{ marginTop: 'var(--cc-space-sm)', fontSize: 'var(--cc-text-xs)', color: 'var(--cc-muted)' }}>
+      <p style={{ marginTop: 'var(--cc-space-sm)', fontSize: 'var(--cc-text-[12px])', color: 'var(--cc-muted)' }}>
         Auto-refreshes when account or chain changes.
       </p>
     </section>

@@ -89,7 +89,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
           <button
             onClick={() => { setAuthMethod('wallet'); setStep(1); }}
             onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setAuthMethod('wallet'); setStep(1); } }}
-            className="cc-tab-ghost flex-1 !h-9 text-sm rounded-full focus-ring"
+            className="cc-tab-ghost flex-1 !h-9 text-[14px] rounded-full focus-ring"
             role="tab"
             aria-selected={authMethod === 'wallet'}
             id="tab-wallet"
@@ -99,7 +99,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
           <button
             onClick={() => { setAuthMethod('social'); setStep(1); }}
             onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setAuthMethod('social'); setStep(1); } }}
-            className="cc-tab-ghost flex-1 !h-9 text-sm rounded-full focus-ring"
+            className="cc-tab-ghost flex-1 !h-9 text-[14px] rounded-full focus-ring"
             role="tab"
             aria-selected={authMethod === 'social'}
             id="tab-social"
@@ -139,7 +139,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
                       key={c}
                       onClick={() => setSelectedChain(c)}
                       onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedChain(c); } }}
-                      className="cc-tab-ghost !h-8 text-xs focus-ring"
+                      className="cc-tab-ghost !h-8 text-[12px] focus-ring"
                       role="radio"
                       aria-checked={selectedChain === c}
                     >
@@ -155,10 +155,10 @@ Issued At: 2026-05-17T13:45:00.000Z`;
                       onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleConnect(); } }}
                       className="w-full flex items-center gap-4 p-4 rounded-lg bg-[var(--cc-canvas-soft-2)] hover:bg-[var(--cc-canvas-soft)] border border-[var(--cc-hairline)] transition-all text-left group focus-ring"
                     >
-                      <span className="text-2xl" aria-hidden="true">{w.icon}</span>
+                      <span className="text-[24px]" aria-hidden="true">{w.icon}</span>
                       <div className="flex-1">
-                        <span className="font-semibold text-sm text-[var(--cc-ink)]">{w.name}</span>
-                        <p className="text-xs text-[var(--cc-muted)]">Connect with {w.name}</p>
+                        <span className="font-semibold text-[14px] text-[var(--cc-ink)]">{w.name}</span>
+                        <p className="text-[12px] text-[var(--cc-muted)]">Connect with {w.name}</p>
                       </div>
                       <span className="text-[var(--cc-muted)] group-hover:translate-x-0.5 transition-transform" aria-hidden="true">→</span>
                     </button>
@@ -171,12 +171,12 @@ Issued At: 2026-05-17T13:45:00.000Z`;
             {step === 2 && (
               <div className="cc-card space-y-4" role="tabpanel" aria-labelledby="tab-wallet">
                 <h2 className="cc-display-sm text-center">Sign message</h2>
-                <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4 font-mono text-xs text-[var(--cc-body)] whitespace-pre-wrap border border-[var(--cc-hairline)] max-h-48 overflow-y-auto" role="region" aria-label="SIWE message to sign" tabIndex={0}>{siweMessage}</div>
+                <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4 font-[var(--font-mono)] text-[12px] text-[var(--cc-body)] whitespace-pre-wrap border border-[var(--cc-hairline)] max-h-48 overflow-y-auto" role="region" aria-label="SIWE message to sign" tabIndex={0}>{siweMessage}</div>
                 <button
                   onClick={handleSign}
                   onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleSign(); } }}
                   disabled={signing}
-                  className="cc-btn-primary w-full text-base font-semibold disabled:opacity-40 disabled:cursor-not-allowed focus-ring"
+                  className="cc-btn-primary w-full text-[16px] font-semibold disabled:opacity-40 disabled:cursor-not-allowed focus-ring"
                   aria-label="Sign SIWE message"
                 >
                   {signing ? (
@@ -195,15 +195,15 @@ Issued At: 2026-05-17T13:45:00.000Z`;
             {step === 3 && (
               <div className="cc-card space-y-4" role="tabpanel" aria-labelledby="tab-wallet">
                 <h2 className="cc-display-sm text-center">Verify signature</h2>
-                <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4 border border-[var(--cc-hairline)] text-sm space-y-2">
-                  <div className="flex justify-between"><span className="text-[var(--cc-muted)]">Address</span><span className="font-mono text-xs text-[var(--cc-body)]">{address}</span></div>
-                  <div className="flex justify-between"><span className="text-[var(--cc-muted)]">Signature</span><span className="font-mono text-xs text-[var(--cc-body)]">0x1a2b3c4d...</span></div>
-                  <div className="flex justify-between"><span className="text-[var(--cc-muted)]">Nonce</span><span className="font-mono text-xs text-[var(--cc-body)]">8b3f9a2c</span></div>
+                <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4 border border-[var(--cc-hairline)] text-[14px] space-y-2">
+                  <div className="flex justify-between"><span className="text-[var(--cc-muted)]">Address</span><span className="font-[var(--font-mono)] text-[12px] text-[var(--cc-body)]">{address}</span></div>
+                  <div className="flex justify-between"><span className="text-[var(--cc-muted)]">Signature</span><span className="font-[var(--font-mono)] text-[12px] text-[var(--cc-body)]">0x1a2b3c4d...</span></div>
+                  <div className="flex justify-between"><span className="text-[var(--cc-muted)]">Nonce</span><span className="font-[var(--font-mono)] text-[12px] text-[var(--cc-body)]">8b3f9a2c</span></div>
                 </div>
                 <button
                   onClick={handleVerify}
                   onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleVerify(); } }}
-                  className="cc-btn-primary w-full text-base font-semibold focus-ring"
+                  className="cc-btn-primary w-full text-[16px] font-semibold focus-ring"
                   aria-label="Verify signature"
                 >
                   Verify
@@ -236,7 +236,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
                   aria-label={`Sign in with ${p.name}`}
                 >
                   <span aria-hidden="true">{p.icon}</span>
-                  <span className="font-medium text-sm text-[var(--cc-ink)]">{p.name}</span>
+                  <span className="font-medium text-[14px] text-[var(--cc-ink)]">{p.name}</span>
                 </button>
               ))}
             </div>
@@ -244,25 +244,25 @@ Issued At: 2026-05-17T13:45:00.000Z`;
             {socialLoading && (
               <div className="flex flex-col items-center gap-3 py-6" role="status" aria-live="polite">
                 <div className="w-10 h-10 border-2 border-[var(--cc-hairline)] border-t-[var(--cc-link)] rounded-full animate-spin" aria-hidden="true" />
-                <p className="text-sm text-[var(--cc-muted)]">Connecting to {SOCIAL_PROVIDERS.find(s => s.id === selectedSocial)?.name}...</p>
+                <p className="text-[14px] text-[var(--cc-muted)]">Connecting to {SOCIAL_PROVIDERS.find(s => s.id === selectedSocial)?.name}...</p>
               </div>
             )}
 
             {selectedSocial && !socialLoading && step === 4 && (
               <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4 border border-[var(--cc-success)]/20">
                 <div className="text-center mb-3">
-                  <div className="w-12 h-12 mx-auto rounded-full bg-[var(--cc-success)]/10 border border-[var(--cc-success)]/20 flex items-center justify-center text-xl mb-2" aria-hidden="true">✓</div>
-                  <h3 className="text-lg font-semibold text-[var(--cc-success)]">Authenticated!</h3>
+                  <div className="w-12 h-12 mx-auto rounded-full bg-[var(--cc-success)]/10 border border-[var(--cc-success)]/20 flex items-center justify-center text-[20px] mb-2" aria-hidden="true">✓</div>
+                  <h3 className="text-[18px] font-semibold text-[var(--cc-success)]">Authenticated!</h3>
                 </div>
-                <div className="space-y-2 text-sm">
+                <div className="space-y-2 text-[14px]">
                   <div className="flex justify-between"><span className="text-[var(--cc-muted)]">Provider</span><span className="font-semibold">{SOCIAL_PROVIDERS.find(s => s.id === selectedSocial)?.name}</span></div>
-                  <div className="flex justify-between"><span className="text-[var(--cc-muted)]">Wallet</span><span className="font-mono text-xs">{address}</span></div>
+                  <div className="flex justify-between"><span className="text-[var(--cc-muted)]">Wallet</span><span className="font-[var(--font-mono)] text-[12px]">{address}</span></div>
                   <div className="flex justify-between"><span className="text-[var(--cc-muted)]">Verified</span><span className="text-[var(--cc-success)] font-semibold">✓ True</span></div>
                 </div>
                 <button
                   onClick={handleReset}
                   onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleReset(); } }}
-                  className="cc-btn-secondary w-full text-base font-medium mt-4 focus-ring"
+                  className="cc-btn-secondary w-full text-[16px] font-medium mt-4 focus-ring"
                   aria-label="Reset authentication"
                 >
                   Reset
@@ -276,16 +276,16 @@ Issued At: 2026-05-17T13:45:00.000Z`;
         {step === 4 && verified && (
           <div className="cc-card mt-6 border-t-2 border-t-[var(--cc-success)]">
             <div className="flex items-center gap-4 mb-4">
-              <div className="w-12 h-12 rounded-full bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] flex items-center justify-center text-lg font-semibold text-[var(--cc-ink)]" aria-hidden="true">0x</div>
+              <div className="w-12 h-12 rounded-full bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] flex items-center justify-center text-[18px] font-semibold text-[var(--cc-ink)]" aria-hidden="true">0x</div>
               <div>
-                <p className="font-mono text-sm text-[var(--cc-ink)] font-semibold">{address}</p>
-                <p className="text-xs text-[var(--cc-muted)] mt-0.5">{authMethod === 'social' ? `Signed in via ${SOCIAL_PROVIDERS.find(s => s.id === selectedSocial)?.name}` : 'Signed in with Ethereum'}</p>
+                <p className="font-[var(--font-mono)] text-[14px] text-[var(--cc-ink)] font-semibold">{address}</p>
+                <p className="text-[12px] text-[var(--cc-muted)] mt-0.5">{authMethod === 'social' ? `Signed in via ${SOCIAL_PROVIDERS.find(s => s.id === selectedSocial)?.name}` : 'Signed in with Ethereum'}</p>
               </div>
             </div>
             <button
               onClick={handleReset}
               onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleReset(); } }}
-              className="cc-btn-secondary w-full text-base font-medium focus-ring"
+              className="cc-btn-secondary w-full text-[16px] font-medium focus-ring"
               aria-label="Disconnect"
             >
               Disconnect
@@ -297,9 +297,9 @@ Issued At: 2026-05-17T13:45:00.000Z`;
         <div className="cc-card mt-8">
           <h2 className="cc-display-sm mb-4">Cinacoin vs Reown</h2>
           <div className="overflow-x-auto">
-            <table className="w-full text-sm" role="table" aria-label="Feature comparison between Cinacoin and Reown">
+            <table className="w-full text-[14px]" role="table" aria-label="Feature comparison between Cinacoin and Reown">
               <thead>
-                <tr className="border-b border-[var(--cc-hairline)] text-[var(--cc-muted)] text-xs bg-[var(--cc-canvas-soft-2)]">
+                <tr className="border-b border-[var(--cc-hairline)] text-[var(--cc-muted)] text-[12px] bg-[var(--cc-canvas-soft-2)]">
                   <th scope="col" className="text-left p-3 font-semibold cc-caption-mono">Feature</th>
                   <th scope="col" className="text-center p-3 font-semibold cc-caption-mono">Cinacoin</th>
                   <th scope="col" className="text-center p-3 font-semibold cc-caption-mono">Reown</th>

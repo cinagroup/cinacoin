@@ -17,14 +17,14 @@ export default function Sidebar() {
     <aside className="fixed left-0 top-0 h-screen w-64 bg-bg-card border-r border-border-color overflow-y-auto">
       <div className="p-6">
         <Link href="/" className="block mb-8">
-          <h1 className="text-2xl font-bold text-accent-blue">Cinacoin</h1>
-          <p className="text-sm text-text-secondary">Learn Platform</p>
+          <h1 className="text-[24px] font-bold text-accent-blue">Cinacoin</h1>
+          <p className="text-[14px] text-text-secondary">Learn Platform</p>
         </Link>
 
         <nav className="space-y-6">
           {["Fundamentals", "Advanced"].map((category) => (
             <div key={category}>
-              <h3 className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-3">
+              <h3 className="text-[12px] font-semibold text-text-muted uppercase tracking-wider mb-3">
                 {category}
               </h3>
               <ul className="space-y-1">
@@ -36,7 +36,7 @@ export default function Sidebar() {
                       <li key={tutorial.href}>
                         <Link
                           href={tutorial.href}
-                          className={`block px-3 py-2 rounded-lg text-sm transition-colors ${
+                          className={`block px-3 py-2 rounded-lg text-[14px] transition-colors ${
                             isActive
                               ? "bg-accent-blue/10 text-accent-blue font-medium"
                               : "text-text-secondary hover:bg-bg-hover hover:text-text-primary"
@@ -55,7 +55,7 @@ export default function Sidebar() {
         <div className="mt-8 pt-6 border-t border-border-color">
           <a
             href="https://cinacoin.com"
-            className="text-sm text-text-secondary hover:text-accent-blue transition-colors"
+            className="text-[14px] text-text-secondary hover:text-accent-blue transition-colors"
           >
             ← Back to Cinacoin
           </a>

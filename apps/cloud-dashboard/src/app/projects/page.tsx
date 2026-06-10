@@ -35,7 +35,7 @@ export default function ProjectsPage() {
               <input
                 type="text"
                 placeholder="Search projects..."
-                className="pl-10 pr-4 py-2 bg-canvas-soft border border-hairline rounded-sm text-sm w-80 focus:outline-none focus:border-link focus:ring-2 focus:ring-link/10 transition-colors"
+                className="pl-10 pr-4 py-2 bg-canvas-soft border border-hairline rounded-sm text-[14px] w-80 focus:outline-none focus:border-link focus:ring-2 focus:ring-link/10 transition-colors"
               />
             </div>
           </div>

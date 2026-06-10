@@ -31,13 +31,13 @@ export function SystemOverview() {
               <div
                 className={`w-2.5 h-2.5 rounded-full ${statusColors[service.status]}`}
               />
-              <span className="text-sm font-medium text-ink">
+              <span className="text-[14px] font-medium text-ink">
                 {service.name}
               </span>
             </div>
             <div className="flex items-center gap-4">
-              <span className="text-xs text-mute">{service.latency}</span>
-              <span className="text-xs font-medium text-body-color">
+              <span className="text-[12px] text-mute">{service.latency}</span>
+              <span className="text-[12px] font-medium text-body-color">
                 {service.uptime}
               </span>
             </div>

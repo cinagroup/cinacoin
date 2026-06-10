@@ -34,7 +34,7 @@ export function ProjectForm() {
           </svg>
         </div>
         <h3 className="cc-display-sm text-[var(--cc-ink)]">Project Created!</h3>
-        <p className="text-sm text-[var(--cc-muted)]">Your project has been created successfully.</p>
+        <p className="text-[14px] text-[var(--cc-muted)]">Your project has been created successfully.</p>
         <div className="flex items-center justify-center gap-3">
           <a href="/projects" className="cc-btn-secondary-sm px-4">
             Back to Projects
@@ -82,7 +82,7 @@ export function ProjectForm() {
           required
           value={formData.ownerAddress}
           onChange={(e) => setFormData({ ...formData, ownerAddress: e.target.value })}
-          className="cc-form-input font-mono"
+          className="cc-form-input font-[var(--font-mono)]"
           placeholder="0x..."
         />
       </div>

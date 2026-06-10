@@ -82,13 +82,13 @@ function TokenSelector({ show, onClose, onSelect, label }: TokenSelectorProps) {
               role="option"
               aria-selected={false}
             >
-              <span className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium text-[var(--cc-ink)]" style={{ backgroundColor: t.color + '20' }} aria-hidden="true">{t.icon}</span>
+              <span className="w-8 h-8 rounded-full flex items-center justify-center text-[14px] font-medium text-[var(--cc-ink)]" style={{ backgroundColor: t.color + '20' }} aria-hidden="true">{t.icon}</span>
               <div className="flex-1">
-                <p className="font-medium text-sm text-[var(--cc-ink)]">{t.symbol}</p>
-                <p className="text-xs text-[var(--cc-muted)]">{t.name}</p>
+                <p className="font-medium text-[14px] text-[var(--cc-ink)]">{t.symbol}</p>
+                <p className="text-[12px] text-[var(--cc-muted)]">{t.name}</p>
               </div>
               <div className="text-right">
-                <p className="text-sm text-[var(--cc-ink)]">{t.balance}</p>
+                <p className="text-[14px] text-[var(--cc-ink)]">{t.balance}</p>
               </div>
             </button>
           ))}
@@ -154,9 +154,9 @@ export default function SwapPage() {
                 className="flex items-center gap-2 px-3 py-1.5 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-full hover:bg-[var(--cc-canvas-soft-2)] transition-colors shrink-0 focus-ring"
                 aria-label={`Select token to swap from, currently ${from.symbol}`}
               >
-                <span className="w-5 h-5 rounded-full flex items-center justify-center text-xs font-medium text-[var(--cc-ink)]" style={{ backgroundColor: from.color + '20' }} aria-hidden="true">{from.icon}</span>
-                <span className="font-medium text-sm text-[var(--cc-ink)]">{from.symbol}</span>
-                <span className="text-[var(--cc-muted)] text-xs" aria-hidden="true">▾</span>
+                <span className="w-5 h-5 rounded-full flex items-center justify-center text-[12px] font-medium text-[var(--cc-ink)]" style={{ backgroundColor: from.color + '20' }} aria-hidden="true">{from.icon}</span>
+                <span className="font-medium text-[14px] text-[var(--cc-ink)]">{from.symbol}</span>
+                <span className="text-[var(--cc-muted)] text-[12px]" aria-hidden="true">▾</span>
               </button>
               <input
                 type="number"
@@ -166,11 +166,11 @@ export default function SwapPage() {
                 value={fromAmount}
                 onChange={e => setFromAmount(e.target.value)}
                 placeholder="0.0"
-                className="flex-1 bg-transparent text-right text-2xl font-medium text-[var(--cc-ink)] outline-none placeholder:text-[var(--cc-muted)] w-24 focus-ring"
+                className="flex-1 bg-transparent text-right text-[24px] font-medium text-[var(--cc-ink)] outline-none placeholder:text-[var(--cc-muted)] w-24 focus-ring"
                 aria-label="Amount to swap from"
               />
             </div>
-            {amount > 0 && <p className="text-xs text-[var(--cc-muted)] mt-2 text-right">{usdValue}</p>}
+            {amount > 0 && <p className="text-[12px] text-[var(--cc-muted)] mt-2 text-right">{usdValue}</p>}
           </div>
 
           {/* Flip Arrow */}
@@ -198,11 +198,11 @@ export default function SwapPage() {
                 className="flex items-center gap-2 px-3 py-1.5 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-full hover:bg-[var(--cc-canvas-soft-2)] transition-colors shrink-0 focus-ring"
                 aria-label={`Select token to swap to, currently ${to.symbol}`}
               >
-                <span className="w-5 h-5 rounded-full flex items-center justify-center text-xs font-medium text-[var(--cc-ink)]" style={{ backgroundColor: to.color + '20' }} aria-hidden="true">{to.icon}</span>
-                <span className="font-medium text-sm text-[var(--cc-ink)]">{to.symbol}</span>
-                <span className="text-[var(--cc-muted)] text-xs" aria-hidden="true">▾</span>
+                <span className="w-5 h-5 rounded-full flex items-center justify-center text-[12px] font-medium text-[var(--cc-ink)]" style={{ backgroundColor: to.color + '20' }} aria-hidden="true">{to.icon}</span>
+                <span className="font-medium text-[14px] text-[var(--cc-ink)]">{to.symbol}</span>
+                <span className="text-[var(--cc-muted)] text-[12px]" aria-hidden="true">▾</span>
               </button>
-              <div className="flex-1 text-right text-2xl font-medium text-[var(--cc-muted)] truncate">{toAmount || '0.0'}</div>
+              <div className="flex-1 text-right text-[24px] font-medium text-[var(--cc-muted)] truncate">{toAmount || '0.0'}</div>
             </div>
           </div>
 
@@ -228,13 +228,13 @@ export default function SwapPage() {
         {amount > 0 && (
           <div className="cc-card-soft mt-4 space-y-3">
             <div className="flex items-center gap-2 mb-2">
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[var(--cc-warning)]/10 border border-[var(--cc-warning)]/20 text-[var(--cc-warning)] text-xs font-medium" role="alert">
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[var(--cc-warning)]/10 border border-[var(--cc-warning)]/20 text-[var(--cc-warning)] text-[12px] font-medium" role="alert">
                 ⚠️ Mock prices — not live data
               </span>
             </div>
-            <div className="flex justify-between text-sm"><span className="text-[var(--cc-muted)] cc-body-sm">Rate</span><span className="font-mono text-xs">{rate}</span></div>
-            <div className="flex justify-between text-sm"><span className="text-[var(--cc-muted)] cc-body-sm">Network fee</span><span className="text-[var(--cc-success)] font-medium">~$2.34</span></div>
-            <div className="flex justify-between items-center text-sm">
+            <div className="flex justify-between text-[14px]"><span className="text-[var(--cc-muted)] cc-body-sm">Rate</span><span className="font-[var(--font-mono)] text-[12px]">{rate}</span></div>
+            <div className="flex justify-between text-[14px]"><span className="text-[var(--cc-muted)] cc-body-sm">Network fee</span><span className="text-[var(--cc-success)] font-medium">~$2.34</span></div>
+            <div className="flex justify-between items-center text-[14px]">
               <span className="text-[var(--cc-muted)] cc-body-sm">Slippage</span>
               <div className="flex gap-1 bg-[var(--cc-canvas)] p-0.5 rounded-md border border-[var(--cc-hairline)]">
                 {['0.1', '0.5', '1.0'].map(s => (
@@ -242,7 +242,7 @@ export default function SwapPage() {
                     key={s}
                     onClick={() => setSlippage(s)}
                     onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSlippage(s); } }}
-                    className="cc-tab-ghost !h-6 !px-2.5 text-xs rounded-md focus-ring"
+                    className="cc-tab-ghost !h-6 !px-2.5 text-[12px] rounded-md focus-ring"
                     data-active={slippage === s}
                     role="radio"
                     aria-checked={slippage === s}
@@ -253,14 +253,14 @@ export default function SwapPage() {
                 ))}
               </div>
             </div>
-            <div className="flex justify-between text-sm"><span className="text-[var(--cc-muted)] cc-body-sm">Price impact</span><span className="text-[var(--cc-success)] font-medium">0.02%</span></div>
-            <div className="flex justify-between text-sm"><span className="text-[var(--cc-muted)] cc-body-sm">Minimum received</span><span className="font-medium">{(parseFloat(toAmount || '0') * 0.995).toFixed(2)} {to.symbol}</span></div>
-            <div className="pt-2 border-t border-[var(--cc-hairline)] text-xs text-[var(--cc-muted)] cc-caption">Route: {from.symbol} → {to.symbol} via Uniswap V3</div>
+            <div className="flex justify-between text-[14px]"><span className="text-[var(--cc-muted)] cc-body-sm">Price impact</span><span className="text-[var(--cc-success)] font-medium">0.02%</span></div>
+            <div className="flex justify-between text-[14px]"><span className="text-[var(--cc-muted)] cc-body-sm">Minimum received</span><span className="font-medium">{(parseFloat(toAmount || '0') * 0.995).toFixed(2)} {to.symbol}</span></div>
+            <div className="pt-2 border-t border-[var(--cc-hairline)] text-[12px] text-[var(--cc-muted)] cc-caption">Route: {from.symbol} → {to.symbol} via Uniswap V3</div>
           </div>
         )}
 
         {/* Powered by */}
-        <p className="text-center text-xs text-[var(--cc-muted)] cc-caption mt-4">
+        <p className="text-center text-[12px] text-[var(--cc-muted)] cc-caption mt-4">
           Powered by <span className="font-medium text-[var(--cc-body)]">Cinacoin Swap SDK</span>
           {' · '}<span className="text-[var(--cc-warning)]/70">Demo mode — prices are illustrative</span>
         </p>
@@ -270,9 +270,9 @@ export default function SwapPage() {
           <h2 className="cc-display-sm mb-4">Recent swaps</h2>
           <div className="cc-card !p-0 overflow-hidden">
             <div className="overflow-x-auto">
-              <table className="w-full text-sm">
+              <table className="w-full text-[14px]">
                 <thead>
-                  <tr className="border-b border-[var(--cc-hairline)] text-[var(--cc-muted)] text-xs bg-[var(--cc-canvas-soft-2)]">
+                  <tr className="border-b border-[var(--cc-hairline)] text-[var(--cc-muted)] text-[12px] bg-[var(--cc-canvas-soft-2)]">
                     <th scope="col" className="text-left p-3.5 font-medium cc-caption-mono">Pair</th>
                     <th scope="col" className="text-left p-3.5 font-medium cc-caption-mono">Route</th>
                     <th scope="col" className="text-left p-3.5 font-medium cc-caption-mono">Status</th>
@@ -283,9 +283,9 @@ export default function SwapPage() {
                   {RECENT_SWAPS.map((s, i) => (
                     <tr key={i} className="border-b border-[var(--cc-hairline)]/50 hover:bg-[var(--cc-canvas-soft-2)]/30 transition-colors">
                       <td className="p-3.5 text-[var(--cc-ink)]"><span className="font-medium">{s.from}</span><span className="text-[var(--cc-muted)] mx-1">→</span><span className="font-medium">{s.to}</span></td>
-                      <td className="p-3.5 text-[var(--cc-body)] font-medium text-xs">{s.route}</td>
+                      <td className="p-3.5 text-[var(--cc-body)] font-medium text-[12px]">{s.route}</td>
                       <td className="p-3.5">
-                        <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium ${s.status === 'completed' ? 'bg-[var(--cc-success)]/10 text-[var(--cc-success)]' : 'bg-[var(--cc-warning)]/10 text-[var(--cc-warning)]'}`}>
+                        <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[12px] font-medium ${s.status === 'completed' ? 'bg-[var(--cc-success)]/10 text-[var(--cc-success)]' : 'bg-[var(--cc-warning)]/10 text-[var(--cc-warning)]'}`}>
                           <span className={`w-1.5 h-1.5 rounded-full ${s.status === 'completed' ? 'bg-[var(--cc-success)] animate-pulse' : 'bg-[var(--cc-warning)]'}`} />
                           {s.status}
                         </span>

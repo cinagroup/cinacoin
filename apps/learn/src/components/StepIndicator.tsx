@@ -14,7 +14,7 @@ export default function StepIndicator({ currentStep, totalSteps }: StepIndicator
           }`}
         />
       ))}
-      <span className="text-sm text-text-secondary ml-2">
+      <span className="text-[14px] text-text-secondary ml-2">
         Step {currentStep} of {totalSteps}
       </span>
     </div>

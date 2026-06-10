@@ -117,7 +117,7 @@ export default function RegisterContent() {
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-[var(--cc-hairline)]"></div>
               </div>
-              <div className="relative flex justify-center text-xs">
+              <div className="relative flex justify-center text-[12px]">
                 <span className="px-3 bg-[var(--cc-canvas)] text-[var(--cc-muted)]">{t('register-or')}</span>
               </div>
             </div>

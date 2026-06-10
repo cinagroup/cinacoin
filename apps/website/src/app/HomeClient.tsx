@@ -29,10 +29,10 @@ export default function Home() {
         <h1 className="text-5xl md:text-[64px] font-semibold mb-6 tracking-tight text-[var(--cc-ink)] leading-[1.05]">
           {t('home-hero-title')}
         </h1>
-        <p className="text-xl md:text-2xl text-[var(--cc-body)] mb-8 max-w-3xl mx-auto leading-relaxed">
+        <p className="text-[20px] md:text-[24px] text-[var(--cc-body)] mb-8 max-w-3xl mx-auto leading-relaxed">
           {t('home-hero-subtitle')}
         </p>
-        <p className="text-lg text-[var(--cc-muted)] mb-12 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-[18px] text-[var(--cc-muted)] mb-12 max-w-2xl mx-auto leading-relaxed">
           {t('home-hero-desc')}
         </p>
         <div className="flex gap-4 justify-center flex-wrap">
@@ -55,16 +55,16 @@ export default function Home() {
       {/* Features Section */}
       <section className="bg-[var(--cc-canvas)] border-y border-[var(--cc-hairline)]">
         <div className="max-w-[1200px] mx-auto px-6 py-24">
-          <h2 className="text-3xl md:text-[48px] font-semibold text-center mb-4 tracking-tight text-[var(--cc-ink)] leading-[1.1]">
+          <h2 className="text-[32px] md:text-[48px] font-semibold text-center mb-4 tracking-tight text-[var(--cc-ink)] leading-[1.1]">
             {t('home-features-title')}
           </h2>
-          <p className="text-center text-[var(--cc-muted)] text-lg mb-16 max-w-2xl mx-auto">
+          <p className="text-center text-[var(--cc-muted)] text-[18px] mb-16 max-w-2xl mx-auto">
             {t('home-features-subtitle')}
           </p>
           <div className="grid md:grid-cols-3 gap-6">
             <Link href="/solutions#performance" className="group p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] shadow-[var(--cc-level1)] hover:shadow-[var(--cc-level3)] transition-shadow duration-200">
-              <div className="text-4xl mb-4">⚡</div>
-              <h3 className="text-xl font-semibold mb-2 text-[var(--cc-ink)]">{t('home-f1-title')}</h3>
+              <div className="text-[48px] mb-4">⚡</div>
+              <h3 className="text-[20px] font-semibold mb-2 text-[var(--cc-ink)]">{t('home-f1-title')}</h3>
               <p className="text-[var(--cc-body)] text-[14px] leading-relaxed">
                 {t('home-f1-desc')}
               </p>
@@ -73,8 +73,8 @@ export default function Home() {
               </span>
             </Link>
             <Link href="/solutions#security" className="group p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] shadow-[var(--cc-level1)] hover:shadow-[var(--cc-level3)] transition-shadow duration-200">
-              <div className="text-4xl mb-4">🔒</div>
-              <h3 className="text-xl font-semibold mb-2 text-[var(--cc-ink)]">{t('home-f2-title')}</h3>
+              <div className="text-[48px] mb-4">🔒</div>
+              <h3 className="text-[20px] font-semibold mb-2 text-[var(--cc-ink)]">{t('home-f2-title')}</h3>
               <p className="text-[var(--cc-body)] text-[14px] leading-relaxed">
                 {t('home-f2-desc')}
               </p>
@@ -83,8 +83,8 @@ export default function Home() {
               </span>
             </Link>
             <Link href="/solutions#scale" className="group p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] shadow-[var(--cc-level1)] hover:shadow-[var(--cc-level3)] transition-shadow duration-200">
-              <div className="text-4xl mb-4">🌐</div>
-              <h3 className="text-xl font-semibold mb-2 text-[var(--cc-ink)]">{t('home-f3-title')}</h3>
+              <div className="text-[48px] mb-4">🌐</div>
+              <h3 className="text-[20px] font-semibold mb-2 text-[var(--cc-ink)]">{t('home-f3-title')}</h3>
               <p className="text-[var(--cc-body)] text-[14px] leading-relaxed">
                 {t('home-f3-desc')}
               </p>
@@ -98,10 +98,10 @@ export default function Home() {
 
       {/* Products Preview Section */}
       <section className="max-w-[1200px] mx-auto px-6 py-24">
-        <h2 className="text-3xl md:text-[48px] font-semibold text-center mb-4 tracking-tight text-[var(--cc-ink)] leading-[1.1]">
+        <h2 className="text-[32px] md:text-[48px] font-semibold text-center mb-4 tracking-tight text-[var(--cc-ink)] leading-[1.1]">
           {t('home-products-title')}
         </h2>
-        <p className="text-center text-[var(--cc-muted)] text-lg mb-16 max-w-2xl mx-auto">
+        <p className="text-center text-[var(--cc-muted)] text-[18px] mb-16 max-w-2xl mx-auto">
           {t('home-products-subtitle')}
         </p>
         <div className="grid md:grid-cols-2 gap-6">
@@ -148,10 +148,10 @@ export default function Home() {
       <section className="bg-[var(--cc-canvas-soft-2)] border-y border-[var(--cc-hairline)]">
         <div className="max-w-[1200px] mx-auto px-6 py-24">
           <div className="max-w-2xl mx-auto">
-            <h2 className="text-3xl md:text-[48px] font-semibold text-center mb-4 tracking-tight text-[var(--cc-ink)] leading-[1.1]">
+            <h2 className="text-[32px] md:text-[48px] font-semibold text-center mb-4 tracking-tight text-[var(--cc-ink)] leading-[1.1]">
               {t('newsletter.title')}
             </h2>
-            <p className="text-center text-[var(--cc-muted)] text-lg mb-12">
+            <p className="text-center text-[var(--cc-muted)] text-[18px] mb-12">
               {t('newsletter.subtitle')}
             </p>
             <NewsletterForm source="homepage" />
@@ -162,10 +162,10 @@ export default function Home() {
       {/* CTA Section */}
       <section className="bg-[var(--cc-canvas)] border-y border-[var(--cc-hairline)]">
         <div className="max-w-[1200px] mx-auto px-6 py-24 text-center">
-          <h2 className="text-3xl md:text-[48px] font-semibold mb-6 tracking-tight text-[var(--cc-ink)] leading-[1.1]">
+          <h2 className="text-[32px] md:text-[48px] font-semibold mb-6 tracking-tight text-[var(--cc-ink)] leading-[1.1]">
             {t('home-cta-title')}
           </h2>
-          <p className="text-lg text-[var(--cc-body)] mb-8 max-w-xl mx-auto leading-relaxed">
+          <p className="text-[18px] text-[var(--cc-body)] mb-8 max-w-xl mx-auto leading-relaxed">
             {t('home-cta-subtitle')}
           </p>
           <div className="flex gap-4 justify-center flex-wrap">

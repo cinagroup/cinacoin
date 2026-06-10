@@ -158,13 +158,13 @@ export default function SwapPage() {
             <div className="rounded-lg bg-canvas-soft-2 p-4 space-y-2">
               <div className="flex justify-between text-body-sm">
                 <span className="text-mute">Exchange Rate</span>
-                <span className="text-ink font-mono">
+                <span className="text-ink font-[var(--font-mono)]">
                   1 {fromToken} = {rates[`${fromToken}-${toToken}`]} {toToken}
                 </span>
               </div>
               <div className="flex justify-between text-body-sm">
                 <span className="text-mute">Network Fee (est.)</span>
-                <span className="text-ink font-mono">~0.005 CINA</span>
+                <span className="text-ink font-[var(--font-mono)]">~0.005 CINA</span>
               </div>
             </div>
           )}

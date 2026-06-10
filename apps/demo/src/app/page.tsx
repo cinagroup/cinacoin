@@ -25,7 +25,7 @@ export default function Home() {
           /* Connect Prompt */
           <div className="text-center py-20">
             <div className="text-6xl mb-6">🔗</div>
-            <h2 className="text-3xl font-semibold tracking-tighter text-[var(--cc-ink)] mb-4">
+            <h2 className="text-[32px] font-semibold tracking-tighter text-[var(--cc-ink)] mb-4">
               Welcome to CinaCoin Demo
             </h2>
             <p className="text-[var(--cc-body)] mb-8 max-w-md mx-auto">
@@ -45,16 +45,16 @@ export default function Home() {
             {/* Header */}
             <div className="flex items-center justify-between">
               <div>
-                <h1 className="text-3xl font-semibold tracking-tighter text-[var(--cc-ink)]">
+                <h1 className="text-[32px] font-semibold tracking-tighter text-[var(--cc-ink)]">
                   Dashboard
                 </h1>
-                <p className="text-[var(--cc-body)] text-sm mt-1">
+                <p className="text-[var(--cc-body)] text-[14px] mt-1">
                   {account.chainName} · {shortenAddress(account.address ?? "")}
                 </p>
               </div>
               <button
                 onClick={disconnect}
-                className="px-4 py-2 text-sm font-semibold text-[var(--cc-body)] border border-[var(--cc-hairline)] rounded-[6px] hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all"
+                className="px-4 py-2 text-[14px] font-semibold text-[var(--cc-body)] border border-[var(--cc-hairline)] rounded-[6px] hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all"
               >
                 Disconnect
               </button>
@@ -64,27 +64,27 @@ export default function Home() {
             <div className="grid md:grid-cols-2 gap-6">
               {/* Balance Card */}
               <div className="p-6 border border-[var(--cc-hairline)] rounded-[8px] bg-[var(--cc-canvas)] hover:shadow-[var(--cc-level2)] transition-shadow">
-                <p className="text-[var(--cc-muted)] text-sm mb-2">Your Balance</p>
-                <p className="text-4xl font-semibold tracking-tighter text-[var(--cc-ink)] mb-1">
-                  {account.balance} <span className="text-lg text-[var(--cc-muted)]">{account.chainSymbol}</span>
+                <p className="text-[var(--cc-muted)] text-[14px] mb-2">Your Balance</p>
+                <p className="text-[48px] font-semibold tracking-tighter text-[var(--cc-ink)] mb-1">
+                  {account.balance} <span className="text-[18px] text-[var(--cc-muted)]">{account.chainSymbol}</span>
                 </p>
-                <p className="text-[var(--cc-body)] text-sm">≈ ${(parseFloat(account.balance) * 0.42).toFixed(2)} USD</p>
+                <p className="text-[var(--cc-body)] text-[14px]">≈ ${(parseFloat(account.balance) * 0.42).toFixed(2)} USD</p>
               </div>
 
               {/* Network Info */}
               <div className="p-6 border border-[var(--cc-hairline)] rounded-[8px] bg-[var(--cc-canvas)] hover:shadow-[var(--cc-level2)] transition-shadow">
-                <p className="text-[var(--cc-muted)] text-sm mb-2">Network</p>
-                <p className="text-xl font-semibold text-[var(--cc-ink)] mb-1">{account.chainName}</p>
+                <p className="text-[var(--cc-muted)] text-[14px] mb-2">Network</p>
+                <p className="text-[20px] font-semibold text-[var(--cc-ink)] mb-1">{account.chainName}</p>
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 bg-[var(--cc-success)] rounded-full animate-pulse"></span>
-                  <span className="text-[var(--cc-success)] text-sm">Connected</span>
+                  <span className="text-[var(--cc-success)] text-[14px]">Connected</span>
                 </div>
               </div>
             </div>
 
             {/* Quick Actions */}
             <div className="p-6 border border-[var(--cc-hairline)] rounded-[8px] bg-[var(--cc-canvas)]">
-              <h3 className="text-xl font-semibold tracking-tighter text-[var(--cc-ink)] mb-6">
+              <h3 className="text-[20px] font-semibold tracking-tighter text-[var(--cc-ink)] mb-6">
                 Quick Actions
               </h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -92,29 +92,29 @@ export default function Home() {
                   href="/tokens"
                   className="p-4 border border-[var(--cc-hairline)] rounded-[6px] hover:border-[var(--cc-hairline-strong)] hover:shadow-[var(--cc-level1)] transition-all text-center group"
                 >
-                  <div className="text-2xl mb-2 group-hover:scale-110 transition-transform">📥</div>
-                  <span className="text-sm font-medium text-[var(--cc-ink)]">Tokens</span>
+                  <div className="text-[24px] mb-2 group-hover:scale-110 transition-transform">📥</div>
+                  <span className="text-[14px] font-medium text-[var(--cc-ink)]">Tokens</span>
                 </Link>
                 <Link
                   href="/swap"
                   className="p-4 border border-[var(--cc-hairline)] rounded-[6px] hover:border-[var(--cc-hairline-strong)] hover:shadow-[var(--cc-level1)] transition-all text-center group"
                 >
-                  <div className="text-2xl mb-2 group-hover:scale-110 transition-transform">🔄</div>
-                  <span className="text-sm font-medium text-[var(--cc-ink)]">Swap</span>
+                  <div className="text-[24px] mb-2 group-hover:scale-110 transition-transform">🔄</div>
+                  <span className="text-[14px] font-medium text-[var(--cc-ink)]">Swap</span>
                 </Link>
                 <Link
                   href="/multi-chain"
                   className="p-4 border border-[var(--cc-hairline)] rounded-[6px] hover:border-[var(--cc-hairline-strong)] hover:shadow-[var(--cc-level1)] transition-all text-center group"
                 >
-                  <div className="text-2xl mb-2 group-hover:scale-110 transition-transform">📊</div>
-                  <span className="text-sm font-medium text-[var(--cc-ink)]">Multi-Chain</span>
+                  <div className="text-[24px] mb-2 group-hover:scale-110 transition-transform">📊</div>
+                  <span className="text-[14px] font-medium text-[var(--cc-ink)]">Multi-Chain</span>
                 </Link>
                 <Link
                   href="/activity"
                   className="p-4 border border-[var(--cc-hairline)] rounded-[6px] hover:border-[var(--cc-hairline-strong)] hover:shadow-[var(--cc-level1)] transition-all text-center group"
                 >
-                  <div className="text-2xl mb-2 group-hover:scale-110 transition-transform">📜</div>
-                  <span className="text-sm font-medium text-[var(--cc-ink)]">Activity</span>
+                  <div className="text-[24px] mb-2 group-hover:scale-110 transition-transform">📜</div>
+                  <span className="text-[14px] font-medium text-[var(--cc-ink)]">Activity</span>
                 </Link>
               </div>
             </div>

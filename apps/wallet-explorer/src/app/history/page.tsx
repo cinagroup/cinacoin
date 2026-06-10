@@ -64,7 +64,7 @@ export default function HistoryPage() {
           >
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-canvas-soft-2 text-lg">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-canvas-soft-2 text-[18px]">
                   {typeIcons[tx.type]}
                 </div>
                 <div>
@@ -95,8 +95,8 @@ export default function HistoryPage() {
               </div>
             </div>
             <div className="mt-3 flex items-center gap-4 text-caption text-mute">
-              <span>Block: <span className="text-body font-mono">{tx.block.toLocaleString()}</span></span>
-              <span>Fee: <span className="text-body font-mono">{tx.fee} CINA</span></span>
+              <span>Block: <span className="text-body font-[var(--font-mono)]">{tx.block.toLocaleString()}</span></span>
+              <span>Fee: <span className="text-body font-[var(--font-mono)]">{tx.fee} CINA</span></span>
             </div>
           </div>
         ))}

@@ -12,14 +12,14 @@ export default function BestPracticesPage() {
     <div className="max-w-3xl mx-auto">
       <StepIndicator currentStep={4} totalSteps={4} />
 
-      <h1 className="text-3xl font-bold mb-4">Best Practices</h1>
+      <h1 className="text-[32px] font-bold mb-4">Best Practices</h1>
       <p className="text-text-secondary mb-8">
         Production-ready patterns for building secure, performant, and user-friendly Web3 applications.
       </p>
 
       {/* Section 1 */}
       <section className="mb-12">
-        <h2 className="text-2xl font-semibold mb-4">1. Security First</h2>
+        <h2 className="text-[24px] font-semibold mb-4">1. Security First</h2>
         <p className="text-text-secondary mb-4">
           Web3 applications handle real money. Security isn't optional — it's the foundation.
           Follow these rules to protect your users.
@@ -56,7 +56,7 @@ const tx = await cinacoin.sendTransaction({
 
       {/* Section 2 */}
       <section className="mb-12">
-        <h2 className="text-2xl font-semibold mb-4">2. Error Handling</h2>
+        <h2 className="text-[24px] font-semibold mb-4">2. Error Handling</h2>
         <p className="text-text-secondary mb-4">
           Blockchain transactions can fail in many ways. Good error handling makes the
           difference between a frustrating and a delightful user experience.
@@ -100,7 +100,7 @@ async function handleTransaction() {
 
       {/* Section 3 */}
       <section className="mb-12">
-        <h2 className="text-2xl font-semibold mb-4">3. Performance Optimization</h2>
+        <h2 className="text-[24px] font-semibold mb-4">3. Performance Optimization</h2>
         <p className="text-text-secondary mb-4">
           Web3 apps can be slow due to RPC calls and block times. Optimize for speed
           with caching, parallel requests, and optimistic updates.
@@ -163,7 +163,7 @@ function useTokenTransfer() {
 
       {/* Section 4 */}
       <section className="mb-12">
-        <h2 className="text-2xl font-semibold mb-4">4. User Experience</h2>
+        <h2 className="text-[24px] font-semibold mb-4">4. User Experience</h2>
         <p className="text-text-secondary mb-4">
           Web3 UX has a reputation for being confusing. Bridge the gap between
           crypto-native and mainstream users with clear feedback and sensible defaults.
@@ -200,7 +200,7 @@ function formatBalance(value: string, decimals = 4): string {
 
       {/* Section 5 */}
       <section className="mb-12">
-        <h2 className="text-2xl font-semibold mb-4">5. Testing Your Integration</h2>
+        <h2 className="text-[24px] font-semibold mb-4">5. Testing Your Integration</h2>
         <p className="text-text-secondary mb-4">
           Test your Web3 integration thoroughly before deploying to production.
           Use testnets, mock providers, and automated tests.
@@ -238,13 +238,13 @@ describe('Wallet Integration', () => {
       <div className="flex justify-between items-center pt-8 border-t border-border-color">
         <Link
           href="/multichain"
-          className="text-text-secondary hover:text-accent-blue transition-colors text-sm"
+          className="text-text-secondary hover:text-accent-blue transition-colors text-[14px]"
         >
           ← Previous: Multichain Development
         </Link>
         <Link
           href="/"
-          className="px-4 py-2 border border-border-color hover:border-accent-blue/50 text-text-secondary hover:text-text-primary rounded-lg text-sm font-medium transition-colors"
+          className="px-4 py-2 border border-border-color hover:border-accent-blue/50 text-text-secondary hover:text-text-primary rounded-lg text-[14px] font-medium transition-colors"
         >
           Back to Home
         </Link>

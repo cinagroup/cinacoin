@@ -78,7 +78,7 @@ export function NewsletterForm({ source = 'website' }: { source?: string }) {
         {status === 'loading' ? t('newsletter.subscribing') : t('newsletter.subscribe')}
       </button>
       {status === 'error' && (
-        <p className="text-[var(--cc-error)] text-sm text-center">{message}</p>
+        <p className="text-[var(--cc-error)] text-[14px] text-center">{message}</p>
       )}
     </form>
   );

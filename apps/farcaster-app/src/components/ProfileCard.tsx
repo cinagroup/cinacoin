@@ -39,11 +39,11 @@ export function ProfileCard({
   if (!user) {
     return (
       <div className="bg-[var(--color-canvas-soft-2)] rounded-2xl p-6 border border-[var(--color-hairline)] text-center">
-        <div className="w-16 h-16 mx-auto bg-[var(--color-canvas-soft-2)] rounded-full flex items-center justify-center text-2xl mb-4">
+        <div className="w-16 h-16 mx-auto bg-[var(--color-canvas-soft-2)] rounded-full flex items-center justify-center text-[24px] mb-4">
           👤
         </div>
         <p className="text-[var(--color-mute)]">Not connected</p>
-        <p className="text-sm text-[var(--color-mute)] mt-1">Sign in with Farcaster to view profile</p>
+        <p className="text-[14px] text-[var(--color-mute)] mt-1">Sign in with Farcaster to view profile</p>
       </div>
     );
   }
@@ -62,12 +62,12 @@ export function ProfileCard({
             className="w-16 h-16 rounded-full ring-2 ring-purple-500"
           />
         ) : (
-          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-2xl">
+          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-[24px]">
             {displayName.charAt(0).toUpperCase()}
           </div>
         )}
         <div>
-          <h3 className="text-xl font-bold text-white flex items-center space-x-2">
+          <h3 className="text-[20px] font-bold text-white flex items-center space-x-2">
             <span>{displayName}</span>
             {user.verified && (
               <span className="text-blue-400" title="Verified">✓</span>
@@ -79,18 +79,18 @@ export function ProfileCard({
 
       {/* Bio */}
       {user.bio && (
-        <p className="text-[var(--color-body)] text-sm">{user.bio}</p>
+        <p className="text-[var(--color-body)] text-[14px]">{user.bio}</p>
       )}
 
       {/* Stats Grid */}
       <div className="grid grid-cols-2 gap-3">
         <div className="bg-[var(--color-canvas-soft-2)] rounded-xl p-3">
-          <p className="text-xs text-[var(--color-mute)] mb-1">Farcaster FID</p>
-          <p className="text-white font-mono">{user.fid}</p>
+          <p className="text-[12px] text-[var(--color-mute)] mb-1">Farcaster FID</p>
+          <p className="text-white font-[var(--font-mono)]">{user.fid}</p>
         </div>
         <div className="bg-[var(--color-canvas-soft-2)] rounded-xl p-3">
-          <p className="text-xs text-[var(--color-mute)] mb-1">Wallet</p>
-          <p className="text-white font-mono text-xs truncate">
+          <p className="text-[12px] text-[var(--color-mute)] mb-1">Wallet</p>
+          <p className="text-white font-[var(--font-mono)] text-[12px] truncate">
             {walletAddress
               ? `${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}`
               : 'Not connected'}
@@ -101,14 +101,14 @@ export function ProfileCard({
       {/* Verified Addresses */}
       {(verifiedAddress || user.custody_address) && (
         <div className="bg-[var(--color-canvas-soft-2)] rounded-xl p-3 space-y-2">
-          <p className="text-xs text-[var(--color-mute)]">Verified Addresses</p>
+          <p className="text-[12px] text-[var(--color-mute)]">Verified Addresses</p>
           {verifiedAddress && (
-            <p className="text-sm text-green-400 font-mono truncate">
+            <p className="text-[14px] text-green-400 font-[var(--font-mono)] truncate">
               {verifiedAddress}
             </p>
           )}
           {user.custody_address && user.custody_address !== verifiedAddress && (
-            <p className="text-sm text-[var(--color-mute)] font-mono truncate">
+            <p className="text-[14px] text-[var(--color-mute)] font-[var(--font-mono)] truncate">
               Custody: {user.custody_address}
             </p>
           )}
@@ -121,7 +121,7 @@ export function ProfileCard({
           href={user.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="block text-center text-sm text-purple-400 hover:text-purple-300 transition-colors"
+          className="block text-center text-[14px] text-purple-400 hover:text-purple-300 transition-colors"
         >
           🔗 {user.url.replace(/^https?:\/\//, '')}
         </a>

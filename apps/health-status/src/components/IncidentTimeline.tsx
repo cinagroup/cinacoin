@@ -42,9 +42,9 @@ export default function IncidentTimeline({ incidents }: { incidents: Incident[] 
             <div className="flex items-start justify-between">
               <div>
                 <h3 className="font-semibold text-[var(--cc-ink)]">{incident.title}</h3>
-                <p className="mt-0.5 text-sm text-[var(--cc-body)]">{incident.date}</p>
+                <p className="mt-0.5 text-[14px] text-[var(--cc-body)]">{incident.date}</p>
               </div>
-              <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium capitalize ${colors.text} ${colors.bg}`}>
+              <span className={`rounded-full px-2.5 py-0.5 text-[12px] font-medium capitalize ${colors.text} ${colors.bg}`}>
                 {incident.status}
               </span>
             </div>
@@ -52,8 +52,8 @@ export default function IncidentTimeline({ incidents }: { incidents: Incident[] 
               {incident.updates.map((update, idx) => (
                 <div key={idx} className="relative">
                   <div className="absolute -left-[21px] top-1 h-3 w-3 rounded-full border-2 border-[var(--cc-canvas)] bg-[var(--cc-muted)]" />
-                  <p className="text-sm text-[var(--cc-body)]">{update.message}</p>
-                  <p className="mt-0.5 text-xs text-[var(--cc-muted)]">{update.timestamp}</p>
+                  <p className="text-[14px] text-[var(--cc-body)]">{update.message}</p>
+                  <p className="mt-0.5 text-[12px] text-[var(--cc-muted)]">{update.timestamp}</p>
                 </div>
               ))}
             </div>

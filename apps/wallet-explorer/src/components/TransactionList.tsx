@@ -41,7 +41,7 @@ export default function TransactionList({ transactions }: { transactions: Transa
           <div key={tx.hash} className="p-5 border-b border-hairline last:border-b-0 transition-colors hover:bg-canvas-soft">
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-3">
-                <div className={`flex h-10 w-10 items-center justify-center rounded-lg text-lg ${typeColors[tx.type]}`}>
+                <div className={`flex h-10 w-10 items-center justify-center rounded-lg text-[18px] ${typeColors[tx.type]}`}>
                   {typeIcons[tx.type]}
                 </div>
                 <div>
@@ -49,7 +49,7 @@ export default function TransactionList({ transactions }: { transactions: Transa
                     <code className="text-link cursor-pointer hover:underline" style={{ fontSize: '13px' }}>
                       {tx.hash.slice(0, 10)}...{tx.hash.slice(-8)}
                     </code>
-                    <span className={`text-xs ${statusColors[tx.status]}`}>
+                    <span className={`text-[12px] ${statusColors[tx.status]}`}>
                       {tx.status === "success" && "✓"}
                       {tx.status === "failed" && "✕"}
                       {tx.status === "pending" && "⏳"}

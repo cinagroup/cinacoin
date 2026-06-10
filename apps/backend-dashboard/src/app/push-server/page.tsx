@@ -116,7 +116,7 @@ export default function PushServerPage() {
           <h3 className="cc-body-md-strong text-[var(--cc-ink)]">Push Topics</h3>
         </div>
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="w-full text-[14px]">
             <thead>
               <tr className="border-b border-[var(--cc-hairline)]/50 cc-caption text-[var(--cc-muted)]">
                 <th scope="col" className="text-left px-5 py-3 font-normal">Topic</th>

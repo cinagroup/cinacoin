@@ -47,7 +47,7 @@ export default function Header() {
             <Link
               key={item.href}
               href={item.href}
-              className={`text-sm font-medium transition-colors px-2 py-1 rounded-[var(--app-radius)] ${
+              className={`text-[14px] font-medium transition-colors px-2 py-1 rounded-[var(--app-radius)] ${
                 isActive
                   ? "text-[var(--cc-ink)] bg-[var(--cc-canvas-soft-2)]"
                   : "text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft)]"
@@ -110,7 +110,7 @@ export default function Header() {
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
-                  className={`block px-4 py-3 rounded-[var(--cc-radius-sm)] text-sm font-medium transition-colors min-h-[44px] flex items-center ${
+                  className={`block px-4 py-3 rounded-[var(--cc-radius-sm)] text-[14px] font-medium transition-colors min-h-[44px] flex items-center ${
                     isActive
                       ? "text-[var(--cc-ink)] bg-[var(--cc-canvas-soft-2)]"
                       : "text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft)]"

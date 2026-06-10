@@ -51,14 +51,14 @@ export function RecentActivity() {
             key={index}
             className="flex items-start gap-3 py-2 border-b border-hairline last:border-0"
           >
-            <span className="text-lg mt-0.5">{activity.icon}</span>
+            <span className="text-[18px] mt-0.5">{activity.icon}</span>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-ink">
+              <p className="text-[14px] font-medium text-ink">
                 {activity.action}
               </p>
-              <p className="text-xs text-mute truncate">{activity.user}</p>
+              <p className="text-[12px] text-mute truncate">{activity.user}</p>
             </div>
-            <span className="text-xs text-mute whitespace-nowrap">
+            <span className="text-[12px] text-mute whitespace-nowrap">
               {activity.time}
             </span>
           </div>

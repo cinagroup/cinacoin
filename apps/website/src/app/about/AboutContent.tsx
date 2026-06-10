@@ -56,7 +56,7 @@ export default function AboutContent() {
             ].map((p, i) => (
               <FadeIn key={p.titleKey} delay={i * 100} direction="up" duration={600}>
                 <article className="cc-card h-full">
-                  <div className="text-2xl mb-3" role="img" aria-label={t(p.titleKey)}>
+                  <div className="text-[24px] mb-3" role="img" aria-label={t(p.titleKey)}>
                     {t(p.iconKey)}
                   </div>
                   <h3 className="cc-display-sm mb-2">{t(p.titleKey)}</h3>

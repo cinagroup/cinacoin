@@ -134,7 +134,7 @@ export default function ChainsPage() {
 
       {/* Chain list */}
       <div className="cc-card-soft overflow-hidden">
-        <table className="w-full text-sm">
+        <table className="w-full text-[14px]">
           <thead>
             <tr className="border-b border-[var(--cc-hairline)]">
               <th scope="col" className="ds-table-header">Network</th>

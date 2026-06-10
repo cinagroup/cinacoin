@@ -236,7 +236,7 @@ export default function Navbar() {
                 <button
                   key={l.code}
                   onClick={() => { setLocale(l.code); closeMobile() }}
-                  className={`rounded-full px-3 py-1 text-xs transition-colors ${
+                  className={`rounded-full px-3 py-1 text-[12px] transition-colors ${
                     locale === l.code
                       ? 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)]'
                       : 'bg-[var(--cc-canvas-soft-2)] text-[var(--cc-body)] hover:text-[var(--cc-ink)]'

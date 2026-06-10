@@ -102,7 +102,7 @@ export default function ResourceTable() {
                 <td className="px-6 py-4">
                   <div>
                     <p className="text-body-sm font-medium text-ink">{resource.name}</p>
-                    <p className="text-caption font-mono text-mute">{resource.id}</p>
+                    <p className="text-caption font-[var(--font-mono)] text-mute">{resource.id}</p>
                   </div>
                 </td>
                 <td className="px-6 py-4 text-body-sm text-body">{resource.type}</td>

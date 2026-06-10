@@ -15,7 +15,7 @@ export function AddressDisplay({ address, truncate = false }: { address: string;
 export function ChainBadge({ chain }: { chain?: any }) {
   if (!chain) return null
   return (
-    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[12px] font-medium
       ${chain.color || 'bg-[var(--cc-canvas-soft)] text-[var(--cc-body)]'}`}>
       {chain.icon} {chain.name}
     </span>
@@ -31,7 +31,7 @@ export function BalanceCard({ balance, chain }: { balance: string; chain?: any }
         <span className="cc-title-lg">{balance}</span>
         <span className="cc-title-sm text-[var(--cc-body)]">{chain?.symbol || 'ETH'}</span>
       </div>
-      <div className="mt-2 flex items-center gap-2 text-xs">
+      <div className="mt-2 flex items-center gap-2 text-[12px]">
         <span className="text-[var(--cc-body)]">≈</span>
         <span className="text-[var(--cc-ink)]">
           ${(parseFloat(balance) * (chain?.usdPrice || 3000)).toLocaleString()}
@@ -54,7 +54,7 @@ export function TransactionList({ transactions }: { transactions: any[] }) {
           transactions.slice(0, 5).map((tx) => (
             <div
               key={tx.hash}
-              className="cc-card p-3 flex items-center justify-between text-sm"
+              className="cc-card p-3 flex items-center justify-between text-[14px]"
             >
               <div className="flex items-center gap-3">
                 <div className={`w-2 h-2 rounded-full
@@ -62,8 +62,8 @@ export function TransactionList({ transactions }: { transactions: any[] }) {
                     tx.status === 'pending' ? 'bg-[var(--cc-accent)]' :
                     'bg-[var(--cc-error)]'}`} />
                 <div>
-                  <p className="cc-mono text-xs">{tx.hash.slice(0, 8)}...</p>
-                  <p className="text-[var(--cc-body)] text-xs">
+                  <p className="cc-mono text-[12px]">{tx.hash.slice(0, 8)}...</p>
+                  <p className="text-[var(--cc-body)] text-[12px]">
                     {new Date(tx.timestamp).toLocaleTimeString()}
                   </p>
                 </div>

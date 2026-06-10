@@ -65,7 +65,7 @@ export function DemoNFT() {
                 </div>
                 <h4 className="cc-title-sm mb-1">{nft.name}</h4>
                 <p className="cc-body-xs text-[var(--cc-body)] mb-2">{nft.collection}</p>
-                <div className="flex justify-between text-xs">
+                <div className="flex justify-between text-[12px]">
                   <div>
                     <p className="text-[var(--cc-body)]">Token ID</p>
                     <p className="cc-mono">{nft.tokenId}</p>

@@ -90,7 +90,7 @@ export default function Sidebar({ isOpen }: SidebarProps) {
                 <li key={itemIdx}>
                   <Link
                     href={item.href}
-                    className={`flex items-center px-4 py-2 text-sm transition-colors duration-fast rounded-sm mx-2 ${
+                    className={`flex items-center px-4 py-2 text-[14px] transition-colors duration-fast rounded-sm mx-2 ${
                       isActive(item.href)
                         ? "bg-canvas-soft-2 text-ink font-medium"
                         : "text-body hover:bg-canvas-soft-2 hover:text-ink"
@@ -113,7 +113,7 @@ export default function Sidebar({ isOpen }: SidebarProps) {
             <span className="text-caption font-medium text-ink">AD</span>
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-ink truncate">Admin</p>
+            <p className="text-[14px] font-medium text-ink truncate">Admin</p>
             <p className="text-caption text-mute truncate">admin@cinacoin.com</p>
           </div>
         </Link>

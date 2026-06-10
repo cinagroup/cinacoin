@@ -29,7 +29,7 @@ export default function Logos() {
           {logos.map((name, i) => (
             <FadeIn key={name} delay={i * 80} direction="up" duration={500}>
               <li
-                className="text-base sm:text-lg font-medium cursor-default transition-colors hover:text-[var(--cc-body)]"
+                className="text-[16px] sm:text-[18px] font-medium cursor-default transition-colors hover:text-[var(--cc-body)]"
                 style={{ color: 'var(--cc-hairline-strong)' }}
               >
                 {name}

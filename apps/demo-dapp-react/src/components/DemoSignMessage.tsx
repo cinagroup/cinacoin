@@ -102,14 +102,14 @@ export function DemoSignMessage(): JSX.Element {
             <span className="cc-label" style={{ marginBottom: 0 }} id="signature-label">Signature</span>
             <div style={{ display: 'flex', gap: 'var(--cc-space-xs)', alignItems: 'center' }}>
               {isValidSignature && (
-                <span style={{ fontSize: 'var(--cc-text-xs)', color: 'var(--cc-success)' }}>✓ Valid format</span>
+                <span style={{ fontSize: 'var(--cc-text-[12px])', color: 'var(--cc-success)' }}>✓ Valid format</span>
               )}
               <button className="cc-btn cc-btn--ghost" onClick={handleCopy} aria-label="Copy signature to clipboard">
                 Copy
               </button>
             </div>
           </div>
-          <div style={{ background: 'var(--cc-surface)', border: '1px solid var(--cc-hairline)', borderRadius: 'var(--cc-radius-md)', padding: 'var(--cc-space-sm)', fontFamily: 'var(--cc-font-mono)', fontSize: 'var(--cc-text-xs)', wordBreak: 'break-all', lineHeight: 1.6, color: 'var(--cc-success)' }} aria-labelledby="signature-label">
+          <div style={{ background: 'var(--cc-surface)', border: '1px solid var(--cc-hairline)', borderRadius: 'var(--cc-radius-md)', padding: 'var(--cc-space-sm)', fontFamily: 'var(--cc-font-[var(--font-mono)])', fontSize: 'var(--cc-text-[12px])', wordBreak: 'break-all', lineHeight: 1.6, color: 'var(--cc-success)' }} aria-labelledby="signature-label">
             {sigResult.slice(0, 66)}
             <br />
             ...
@@ -120,7 +120,7 @@ export function DemoSignMessage(): JSX.Element {
       )}
 
       {/* Info */}
-      <p style={{ marginTop: 'var(--cc-space-md)', fontSize: 'var(--cc-text-xs)', color: 'var(--cc-muted)' }}>
+      <p style={{ marginTop: 'var(--cc-space-md)', fontSize: 'var(--cc-text-[12px])', color: 'var(--cc-muted)' }}>
         Uses <code className="cc-code">personal_sign</code> — the wallet will prompt for user confirmation.
       </p>
     </section>

@@ -32,7 +32,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           <h3 className="font-semibold text-ink">{project.name}</h3>
           <StatusBadge status={project.status} />
         </div>
-        <div className="space-y-1 text-sm">
+        <div className="space-y-1 text-[14px]">
           <div className="flex justify-between text-ink-body">
             <span>Network</span>
             <span>{project.network}</span>
@@ -41,7 +41,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             <span>Requests</span>
             <span>{project.requests.toLocaleString()}</span>
           </div>
-          <div className="flex justify-between text-ink-mute text-xs">
+          <div className="flex justify-between text-ink-mute text-[12px]">
             <span>Created {project.createdAt}</span>
           </div>
         </div>

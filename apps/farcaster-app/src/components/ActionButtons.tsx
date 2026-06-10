@@ -36,9 +36,9 @@ const variantClasses: Record<string, string> = {
 };
 
 const sizeClasses: Record<string, string> = {
-  sm: 'px-3 py-2 text-sm',
-  md: 'px-4 py-3 text-base',
-  lg: 'px-6 py-4 text-lg',
+  sm: 'px-3 py-2 text-[14px]',
+  md: 'px-4 py-3 text-[16px]',
+  lg: 'px-6 py-4 text-[18px]',
 };
 
 /**

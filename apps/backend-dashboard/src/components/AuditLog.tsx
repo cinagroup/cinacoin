@@ -305,7 +305,7 @@ export function AuditLog() {
                   </td>
                   <td>
                     <div className="flex items-center gap-1.5">
-                      <span className="text-sm">{categoryIcons[entry.category]}</span>
+                      <span className="text-[14px]">{categoryIcons[entry.category]}</span>
                       <code className="text-code text-caption bg-canvas-soft-2 px-1.5 py-0.5 rounded">
                         {entry.action}
                       </code>

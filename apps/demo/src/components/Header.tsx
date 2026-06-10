@@ -66,7 +66,7 @@ export default function Header({
           {/* Logo */}
           <Link
             href="/"
-            className="flex items-center gap-2 text-xl font-semibold text-[var(--cc-ink)] shrink-0"
+            className="flex items-center gap-2 text-[20px] font-semibold text-[var(--cc-ink)] shrink-0"
           >
             <img src="/demo/logo.png" alt="Cinacoin" className="h-8 w-8 rounded-md" />
             Cinacoin
@@ -83,7 +83,7 @@ export default function Header({
                   key={item.href}
                   href={item.href}
                   aria-current={isActive ? 'page' : undefined}
-                  className={`relative px-3 py-2 rounded-[6px] text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cc-link)] focus-visible:ring-offset-2 ${
+                  className={`relative px-3 py-2 rounded-[6px] text-[14px] font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cc-link)] focus-visible:ring-offset-2 ${
                     isActive
                       ? 'text-[var(--cc-ink)]'
                       : 'text-[var(--cc-body)] hover:text-[var(--cc-ink)]'
@@ -122,7 +122,7 @@ export default function Header({
             <div className="relative">
               <button
                 onClick={() => setLangOpen(!langOpen)}
-                className="px-2 py-2 rounded-[var(--cc-radius-lg)] text-sm font-medium text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-hairline)]/50 transition-colors"
+                className="px-2 py-2 rounded-[var(--cc-radius-lg)] text-[14px] font-medium text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-hairline)]/50 transition-colors"
                 aria-label="Select language"
                 aria-expanded={langOpen}
                 aria-haspopup="listbox"
@@ -135,7 +135,7 @@ export default function Header({
                   <div className="absolute right-0 top-full mt-1 z-50 w-36 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-lg)] shadow-[var(--cc-level5)] overflow-hidden animate-dropdown-in">
                     <button
                       onClick={() => { setLocale('en'); setLangOpen(false); }}
-                      className={`w-full px-4 py-3 text-sm text-left transition-colors ${
+                      className={`w-full px-4 py-3 text-[14px] text-left transition-colors ${
                         locale === 'en' ? 'bg-[var(--cc-hairline)] text-[var(--cc-ink)]' : 'text-[var(--cc-body)] hover:bg-[var(--cc-hairline)]/50'
                       }`}
                     >
@@ -143,7 +143,7 @@ export default function Header({
                     </button>
                     <button
                       onClick={() => { setLocale('zh'); setLangOpen(false); }}
-                      className={`w-full px-4 py-3 text-sm text-left transition-colors ${
+                      className={`w-full px-4 py-3 text-[14px] text-left transition-colors ${
                         locale === 'zh' ? 'bg-[var(--cc-hairline)] text-[var(--cc-ink)]' : 'text-[var(--cc-body)] hover:bg-[var(--cc-hairline)]/50'
                       }`}
                     >
@@ -157,7 +157,7 @@ export default function Header({
             {onConnectWallet && (
               <button
                 onClick={onConnectWallet}
-                className="hidden sm:inline-flex px-4 py-2 rounded-[6px] text-sm font-semibold bg-[var(--cc-primary)] hover:bg-[var(--cc-primary)]/80 text-[var(--cc-on-primary)] transition-all"
+                className="hidden sm:inline-flex px-4 py-2 rounded-[6px] text-[14px] font-semibold bg-[var(--cc-primary)] hover:bg-[var(--cc-primary)]/80 text-[var(--cc-on-primary)] transition-all"
               >
                 {walletLabel}
               </button>
@@ -196,7 +196,7 @@ export default function Header({
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors ${
+                  className={`flex items-center gap-3 px-4 py-3 rounded-md text-[14px] font-medium transition-colors ${
                     pathname === item.href
                       ? 'bg-[var(--cc-hairline)] text-[var(--cc-ink)]'
                       : 'text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-hairline)]/50'
@@ -215,7 +215,7 @@ export default function Header({
                   onConnectWallet();
                   setMobileOpen(false);
                 }}
-                className="w-full mt-2 px-4 py-3 rounded-[6px] text-sm font-semibold bg-[var(--cc-primary)] hover:bg-[var(--cc-primary)]/80 text-[var(--cc-on-primary)] transition-all"
+                className="w-full mt-2 px-4 py-3 rounded-[6px] text-[14px] font-semibold bg-[var(--cc-primary)] hover:bg-[var(--cc-primary)]/80 text-[var(--cc-on-primary)] transition-all"
               >
                 {walletLabel}
               </button>

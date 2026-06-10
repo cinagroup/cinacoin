@@ -22,7 +22,7 @@ export default function Footer({
     <footer className="border-t border-[var(--cc-hairline)] mt-auto">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="flex flex-wrap items-center justify-between gap-4">
-          <p className="text-xs text-[var(--cc-body)]">
+          <p className="text-[12px] text-[var(--cc-body)]">
             © {copyrightYear} {brand}. Open source under MIT License.
           </p>
           <div className="flex items-center gap-4">
@@ -30,17 +30,17 @@ export default function Footer({
               <Link
                 key={l.href}
                 href={l.href}
-                className="text-xs text-[var(--cc-body)] hover:text-[var(--cc-ink)] transition-colors"
+                className="text-[12px] text-[var(--cc-body)] hover:text-[var(--cc-ink)] transition-colors"
               >
                 {l.label}
               </Link>
             ))}
-            <span className="text-xs text-[var(--cc-muted)]">|</span>
+            <span className="text-[12px] text-[var(--cc-muted)]">|</span>
             <a
               href={githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs text-[var(--cc-body)] hover:text-[var(--cc-ink)] transition-colors"
+              className="text-[12px] text-[var(--cc-body)] hover:text-[var(--cc-ink)] transition-colors"
             >
               GitHub
             </a>

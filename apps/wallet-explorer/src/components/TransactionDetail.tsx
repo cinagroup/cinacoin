@@ -39,7 +39,7 @@ export default function TransactionDetail({ tx }: { tx: TransactionDetailProps }
           </div>
           <div>
             <p className="text-caption text-mute">Block</p>
-            <p className="mt-1 text-body font-mono text-ink">{tx.block.toLocaleString()}</p>
+            <p className="mt-1 text-body font-[var(--font-mono)] text-ink">{tx.block.toLocaleString()}</p>
           </div>
         </div>
 
@@ -72,11 +72,11 @@ export default function TransactionDetail({ tx }: { tx: TransactionDetailProps }
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <p className="text-caption text-mute">Gas Used</p>
-            <p className="mt-1 text-body font-mono text-ink">{tx.gasUsed}</p>
+            <p className="mt-1 text-body font-[var(--font-mono)] text-ink">{tx.gasUsed}</p>
           </div>
           <div>
             <p className="text-caption text-mute">Gas Price</p>
-            <p className="mt-1 text-body font-mono text-ink">{tx.gasPrice} Gwei</p>
+            <p className="mt-1 text-body font-[var(--font-mono)] text-ink">{tx.gasPrice} Gwei</p>
           </div>
         </div>
 

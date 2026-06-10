@@ -103,16 +103,16 @@ function TokenRow({
           : 'bg-[var(--cc-canvas-soft-2)]/30 border border-[var(--cc-hairline-strong)]/30 hover:bg-[var(--cc-canvas-soft-2)]/50 hover:border-[var(--cc-hairline-strong)]'
       }`}
     >
-      <span className="text-2xl">{token.icon}</span>
+      <span className="text-[24px]">{token.icon}</span>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">
-          <span className="text-sm font-semibold text-[var(--cc-ink)]">{token.symbol}</span>
-          <span className="text-xs text-[var(--cc-body)]">{token.name}</span>
+          <span className="text-[14px] font-semibold text-[var(--cc-ink)]">{token.symbol}</span>
+          <span className="text-[12px] text-[var(--cc-body)]">{token.name}</span>
         </div>
         <div className="flex items-center gap-2 mt-0.5">
-          <span className="text-xs text-[var(--cc-muted)]">${priceInfo.usd.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+          <span className="text-[12px] text-[var(--cc-muted)]">${priceInfo.usd.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
           <SimulatedBadge size="xs" />
-          <span className={`text-xs ${priceInfo.change24h >= 0 ? 'text-[var(--cc-success)]' : 'text-[var(--cc-error)]'}`}>
+          <span className={`text-[12px] ${priceInfo.change24h >= 0 ? 'text-[var(--cc-success)]' : 'text-[var(--cc-error)]'}`}>
             {priceInfo.change24h >= 0 ? '+' : ''}{priceInfo.change24h}%
           </span>
         </div>
@@ -120,7 +120,7 @@ function TokenRow({
       <Sparkline data={sparkData} positive={priceInfo.change24h >= 0} />
       {balance && (
         <div className="text-right shrink-0 ml-2">
-          <p className="text-sm text-[var(--cc-ink)]">{balance}</p>
+          <p className="text-[14px] text-[var(--cc-ink)]">{balance}</p>
         </div>
       )}
     </button>
@@ -139,10 +139,10 @@ function TokenDetailPanel({ token, onClose }: { token: TokenInfo; onClose: () =>
     <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
       <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <span className="text-3xl">{token.icon}</span>
+          <span className="text-[32px]">{token.icon}</span>
           <div>
-            <h3 className="text-lg font-semibold tracking-tighter text-[var(--cc-ink)]">{token.symbol}</h3>
-            <p className="text-xs text-[var(--cc-body)]">{token.name}</p>
+            <h3 className="text-[18px] font-semibold tracking-tighter text-[var(--cc-ink)]">{token.symbol}</h3>
+            <p className="text-[12px] text-[var(--cc-body)]">{token.name}</p>
           </div>
         </div>
         <button
@@ -157,11 +157,11 @@ function TokenDetailPanel({ token, onClose }: { token: TokenInfo; onClose: () =>
       <div className="p-5 space-y-4">
         {/* Price */}
         <div className="text-center">
-          <p className="text-4xl font-semibold tracking-tighter text-[var(--cc-ink)] inline-flex items-center gap-3">
+          <p className="text-[48px] font-semibold tracking-tighter text-[var(--cc-ink)] inline-flex items-center gap-3">
             ${priceInfo.usd.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             <SimulatedBadge size="sm" />
           </p>
-          <p className={`text-sm font-semibold ${priceInfo.change24h >= 0 ? 'text-[var(--cc-success)]' : 'text-[var(--cc-error)]'}`}>
+          <p className={`text-[14px] font-semibold ${priceInfo.change24h >= 0 ? 'text-[var(--cc-success)]' : 'text-[var(--cc-error)]'}`}>
             {priceInfo.change24h >= 0 ? '▲' : '▼'} {Math.abs(priceInfo.change24h)}% (24h)
           </p>
         </div>
@@ -175,21 +175,21 @@ function TokenDetailPanel({ token, onClose }: { token: TokenInfo; onClose: () =>
         <div className="grid grid-cols-2 gap-3">
           <div className="p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/30">
             <p className="text-[12px] text-[var(--cc-body)] uppercase tracking-normal">Volume (24h)</p>
-            <p className="text-sm font-semibold text-[var(--cc-body)] mt-1">{priceInfo.volume24h}</p>
+            <p className="text-[14px] font-semibold text-[var(--cc-body)] mt-1">{priceInfo.volume24h}</p>
           </div>
           <div className="p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/30">
             <p className="text-[12px] text-[var(--cc-body)] uppercase tracking-normal">Market Cap</p>
-            <p className="text-sm font-semibold text-[var(--cc-body)] mt-1">{priceInfo.marketCap}</p>
+            <p className="text-[14px] font-semibold text-[var(--cc-body)] mt-1">{priceInfo.marketCap}</p>
           </div>
           <div className="p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/30">
             <p className="text-[12px] text-[var(--cc-body)] uppercase tracking-normal">Address</p>
-            <p className="text-xs font-mono text-[var(--cc-body)] mt-1 truncate">
+            <p className="text-[12px] font-[var(--font-mono)] text-[var(--cc-body)] mt-1 truncate">
               {token.address === 'native' ? 'Native Token' : shortenAddress(token.address)}
             </p>
           </div>
           <div className="p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/30">
             <p className="text-[12px] text-[var(--cc-body)] uppercase tracking-normal">Chain</p>
-            <p className="text-sm font-semibold text-[var(--cc-body)] mt-1">
+            <p className="text-[14px] font-semibold text-[var(--cc-body)] mt-1">
               {SUPPORTED_CHAINS.find((c) => c.chainId === token.chainId)?.name ?? `Chain ${token.chainId}`}
             </p>
           </div>
@@ -254,7 +254,7 @@ function SwapWidget({
   if (!fromToken || !toToken) {
     return (
       <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 p-8 text-center">
-        <p className="text-[var(--cc-muted)] text-sm">Select tokens to swap</p>
+        <p className="text-[var(--cc-muted)] text-[14px]">Select tokens to swap</p>
       </div>
     );
   }
@@ -262,13 +262,13 @@ function SwapWidget({
   return (
     <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
       <div className="px-5 py-3 border-b border-[var(--cc-hairline-strong)]/50">
-        <h3 className="text-sm font-semibold tracking-tighter text-[var(--cc-ink)]">Quick Swap</h3>
+        <h3 className="text-[14px] font-semibold tracking-tighter text-[var(--cc-ink)]">Quick Swap</h3>
       </div>
       <div className="p-5 space-y-3">
         {/* From */}
         <div className="flex items-center gap-2 bg-[var(--cc-canvas)]/50 rounded-md p-3 border border-[var(--cc-hairline-strong)]/30">
-          <span className="text-xl">{fromToken.icon}</span>
-          <span className="text-sm font-semibold text-[var(--cc-ink)] w-16">{fromToken.symbol}</span>
+          <span className="text-[20px]">{fromToken.icon}</span>
+          <span className="text-[14px] font-semibold text-[var(--cc-ink)] w-16">{fromToken.symbol}</span>
           <input
             type="text"
             inputMode="decimal"
@@ -278,7 +278,7 @@ function SwapWidget({
               if (v === '' || /^\d*\.?\d*$/.test(v)) setFromAmount(v);
             }}
             placeholder="0.0"
-            className="flex-1 bg-transparent text-right text-lg font-semibold text-[var(--cc-ink)] outline-none placeholder:text-[var(--cc-body)]"
+            className="flex-1 bg-transparent text-right text-[18px] font-semibold text-[var(--cc-ink)] outline-none placeholder:text-[var(--cc-body)]"
           />
         </div>
 
@@ -294,9 +294,9 @@ function SwapWidget({
 
         {/* To */}
         <div className="flex items-center gap-2 bg-[var(--cc-canvas)]/50 rounded-md p-3 border border-[var(--cc-hairline-strong)]/30">
-          <span className="text-xl">{toToken.icon}</span>
-          <span className="text-sm font-semibold text-[var(--cc-ink)] w-16">{toToken.symbol}</span>
-          <div className="flex-1 text-right text-lg font-semibold text-[var(--cc-body)]">
+          <span className="text-[20px]">{toToken.icon}</span>
+          <span className="text-[14px] font-semibold text-[var(--cc-ink)] w-16">{toToken.symbol}</span>
+          <div className="flex-1 text-right text-[18px] font-semibold text-[var(--cc-body)]">
             {toAmount || '0.0'}
           </div>
         </div>
@@ -315,7 +315,7 @@ function SwapWidget({
               }, 2000);
             }}
             disabled={swapState !== 'idle' || !fromAmount || parseFloat(fromAmount) <= 0}
-            className={`w-full py-3 rounded-[6px] font-semibold text-sm transition-all ${
+            className={`w-full py-3 rounded-[6px] font-semibold text-[14px] transition-all ${
               swapState === 'success'
                 ? 'bg-[var(--cc-success)] text-[var(--cc-ink)]'
                 : 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)] disabled:opacity-40 disabled:cursor-not-allowed hover:opacity-90'
@@ -326,14 +326,14 @@ function SwapWidget({
         ) : (
           <button
             onClick={() => connect(connectors.find((c) => c.id === 'io.metamask')?.id ?? 'io.metamask')}
-            className="w-full py-3 rounded-[6px] font-semibold text-sm bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all"
+            className="w-full py-3 rounded-[6px] font-semibold text-[14px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all"
           >
             Connect Wallet to Swap
           </button>
         )}
 
         {swapState === 'quoting' && (
-          <div className="flex items-center justify-center text-xs text-[var(--cc-link)]">
+          <div className="flex items-center justify-center text-[12px] text-[var(--cc-link)]">
             <svg className="animate-spin h-3 w-3 mr-1.5" viewBox="0 0 24 24" fill="none">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
@@ -389,10 +389,10 @@ export default function TokensPage() {
 
         {/* ── Header ── */}
         <div className="text-center space-y-2">
-          <h1 className="text-3xl font-semibold tracking-tighter bg-gradient-to-r from-[var(--cc-link)]/80 via-[var(--cc-link)] to-[var(--cc-link)]/60 bg-clip-text text-transparent">
+          <h1 className="text-[32px] font-semibold tracking-tighter bg-gradient-to-r from-[var(--cc-link)]/80 via-[var(--cc-link)] to-[var(--cc-link)]/60 bg-clip-text text-transparent">
             Token Search & Swap
           </h1>
-          <p className="text-[var(--cc-muted)] text-sm">Search tokens, view details, and swap in one place</p>
+          <p className="text-[var(--cc-muted)] text-[14px]">Search tokens, view details, and swap in one place</p>
         </div>
 
         {/* ── Wallet connect bar ── */}
@@ -400,18 +400,18 @@ export default function TokensPage() {
           <div className="flex items-center gap-3">
             {isConnected ? (
               <>
-                <div className="size-8 rounded-full bg-gradient-to-br from-[var(--cc-link)] to-[var(--cc-violet-deep)] flex items-center justify-center text-xs font-semibold text-[var(--cc-ink)]">
+                <div className="size-8 rounded-full bg-gradient-to-br from-[var(--cc-link)] to-[var(--cc-violet-deep)] flex items-center justify-center text-[12px] font-semibold text-[var(--cc-ink)]">
                   {account.address?.slice(2, 4).toUpperCase()}
                 </div>
                 <div>
-                  <p className="text-sm font-mono text-[var(--cc-body)]">{shortenAddress(account.address ?? '')}</p>
-                  <p className="text-xs text-[var(--cc-body)]">{account.chainName} · {account.balance} {account.chainSymbol}</p>
+                  <p className="text-[14px] font-[var(--font-mono)] text-[var(--cc-body)]">{shortenAddress(account.address ?? '')}</p>
+                  <p className="text-[12px] text-[var(--cc-body)]">{account.chainName} · {account.balance} {account.chainSymbol}</p>
                 </div>
               </>
             ) : (
               <button
                 onClick={() => connect(connectors.find((c) => c.id === 'io.metamask')?.id ?? 'io.metamask')}
-                className="px-5 py-3 rounded-[6px] text-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all"
+                className="px-5 py-3 rounded-[6px] text-[14px] font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all"
               >
                 Connect Wallet
               </button>
@@ -422,7 +422,7 @@ export default function TokensPage() {
           <select
             value={chainId}
             onChange={(e) => { setChainId(Number(e.target.value)); setSelectedToken(null); }}
-            className="bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-ink)] text-sm rounded-md px-3 py-2 border border-[var(--cc-hairline-strong)]/40 outline-none cursor-pointer"
+            className="bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-ink)] text-[14px] rounded-md px-3 py-2 border border-[var(--cc-hairline-strong)]/40 outline-none cursor-pointer"
           >
             {SUPPORTED_CHAINS.map((c) => (
               <option key={c.chainId} value={c.chainId}>{c.name}</option>
@@ -441,7 +441,7 @@ export default function TokensPage() {
                 placeholder="Search by name, symbol, or address..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-className="w-full h-[40px] px-4 pl-10 bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline-strong)]/50 rounded-[6px] text-sm text-[var(--cc-body)] placeholder:text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-primary)]/40"
+className="w-full h-[40px] px-4 pl-10 bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline-strong)]/50 rounded-[6px] text-[14px] text-[var(--cc-body)] placeholder:text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-primary)]/40"
                 aria-label="Search tokens"
               />
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--cc-body)]">🔍</span>
@@ -458,7 +458,7 @@ className="w-full h-[40px] px-4 pl-10 bg-[var(--cc-canvas-soft-2)]/60 border bor
                 />
               ))}
               {filteredTokens.length === 0 && (
-                <div className="text-center py-12 text-sm text-[var(--cc-body)]">
+                <div className="text-center py-12 text-[14px] text-[var(--cc-body)]">
                   No tokens found matching &quot;{searchQuery}&quot;
                 </div>
               )}

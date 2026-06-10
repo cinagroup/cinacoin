@@ -57,7 +57,7 @@ export default function ReceivePage() {
 
         <p className="text-caption text-mute mb-3">Your Wallet Address</p>
         <div className="flex items-center justify-center gap-3">
-          <code className="rounded-lg bg-canvas-soft-2 px-4 py-3 text-body font-mono text-ink break-all">
+          <code className="rounded-lg bg-canvas-soft-2 px-4 py-3 text-body font-[var(--font-mono)] text-ink break-all">
             {address}
           </code>
         </div>

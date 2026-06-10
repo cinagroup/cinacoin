@@ -54,7 +54,7 @@ test.describe('Wallet Connection Flow', () => {
   });
 
   test('chain badges show 16 chains', async ({ page }) => {
-    const chainBadges = page.locator('.group .text-xs.font-medium');
+    const chainBadges = page.locator('.group .text-[12px].font-medium');
     // We should have many chain badges visible
     const count = await chainBadges.count();
     expect(count).toBeGreaterThanOrEqual(10);

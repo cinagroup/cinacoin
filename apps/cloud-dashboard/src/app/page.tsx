@@ -36,7 +36,7 @@ export default function Home() {
               <input
                 type="text"
                 placeholder="Search resources..."
-                className="pl-10 pr-4 py-2 bg-canvas-soft border border-hairline rounded-sm text-sm w-80 focus:outline-none focus:border-link focus:ring-2 focus:ring-link/10 transition-colors duration-fast"
+                className="pl-10 pr-4 py-2 bg-canvas-soft border border-hairline rounded-sm text-[14px] w-80 focus:outline-none focus:border-link focus:ring-2 focus:ring-link/10 transition-colors duration-fast"
               />
             </div>
           </div>
@@ -48,7 +48,7 @@ export default function Home() {
               <span className="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span>
             </button>
             <div className="w-8 h-8 bg-canvas-soft-2 rounded-full flex items-center justify-center">
-              <span className="text-sm font-medium text-ink">C</span>
+              <span className="text-[14px] font-medium text-ink">C</span>
             </div>
           </div>
         </header>

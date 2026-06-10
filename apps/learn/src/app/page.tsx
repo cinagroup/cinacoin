@@ -39,18 +39,18 @@ export default function HomePage() {
   return (
     <div className="max-w-4xl mx-auto">
       <div className="mb-12">
-        <h1 className="text-4xl font-bold mb-4">
+        <h1 className="text-[48px] font-bold mb-4">
           Welcome to{" "}
           <span className="text-accent-blue">Cinacoin Learn</span>
         </h1>
-        <p className="text-lg text-text-secondary max-w-2xl">
+        <p className="text-[18px] text-text-secondary max-w-2xl">
           Master Web3 development with hands-on tutorials, code examples, and
           step-by-step guides. Build decentralized applications with confidence.
         </p>
       </div>
 
       <section className="mb-12">
-        <h2 className="text-2xl font-semibold mb-6">Tutorials</h2>
+        <h2 className="text-[24px] font-semibold mb-6">Tutorials</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {tutorials.map((tutorial) => (
             <TutorialCard key={tutorial.href} {...tutorial} />
@@ -59,7 +59,7 @@ export default function HomePage() {
       </section>
 
       <section className="bg-bg-card border border-border-color rounded-xl p-8">
-        <h2 className="text-xl font-semibold mb-4">🚀 Getting Started</h2>
+        <h2 className="text-[20px] font-semibold mb-4">🚀 Getting Started</h2>
         <p className="text-text-secondary mb-4">
           New to Web3? Start with the basics and work your way up. Each tutorial
           builds on the previous one, so follow the recommended order for the
@@ -68,13 +68,13 @@ export default function HomePage() {
         <div className="flex gap-4">
           <a
             href="/basics"
-            className="px-4 py-2 bg-accent-blue hover:bg-accent-blue/80 text-white rounded-lg text-sm font-medium transition-colors"
+            className="px-4 py-2 bg-accent-blue hover:bg-accent-blue/80 text-white rounded-lg text-[14px] font-medium transition-colors"
           >
             Start Learning →
           </a>
           <a
             href="https://cinacoin.com/docs"
-            className="px-4 py-2 border border-border-color hover:border-accent-blue/50 text-text-secondary hover:text-text-primary rounded-lg text-sm font-medium transition-colors"
+            className="px-4 py-2 border border-border-color hover:border-accent-blue/50 text-text-secondary hover:text-text-primary rounded-lg text-[14px] font-medium transition-colors"
           >
             View Docs
           </a>

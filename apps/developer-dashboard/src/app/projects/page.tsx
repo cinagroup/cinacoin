@@ -61,7 +61,7 @@ export default function ProjectsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-ink">Projects</h1>
+          <h1 className="text-[24px] font-semibold text-ink">Projects</h1>
           <p className="text-ink-body mt-1">Manage your Cinacoin projects</p>
         </div>
         <Link href="/projects/new" className="btn-primary">
@@ -94,7 +94,7 @@ export default function ProjectsPage() {
                 <td>
                   <Link
                     href={`/projects/${project.id}`}
-                    className="text-link hover:text-link-hover text-sm font-medium"
+                    className="text-link hover:text-link-hover text-[14px] font-medium"
                   >
                     View →
                   </Link>

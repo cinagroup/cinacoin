@@ -48,15 +48,15 @@ export const SiteHeader: React.FC = () => {
           <div className="hidden sm:block">
             {isConnected ? (
               <div className="flex items-center gap-2 sm:gap-3">
-                <span className="hidden sm:inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full bg-[var(--cc-success)]/10 text-[var(--cc-success)] font-medium border border-[var(--cc-success)]/20" role="status">
+                <span className="hidden sm:inline-flex items-center gap-1.5 text-[12px] px-2.5 py-1 rounded-full bg-[var(--cc-success)]/10 text-[var(--cc-success)] font-medium border border-[var(--cc-success)]/20" role="status">
                   <span className="w-1.5 h-1.5 rounded-full bg-[var(--cc-success)] animate-pulse" />
                   Connected
                 </span>
-                <span className="text-sm font-mono text-[var(--cc-body)] bg-[var(--cc-canvas-soft-2)] px-2.5 py-1 rounded-md border border-[var(--cc-hairline)]">{formatAddress(address)}</span>
+                <span className="text-[14px] font-[var(--font-mono)] text-[var(--cc-body)] bg-[var(--cc-canvas-soft-2)] px-2.5 py-1 rounded-md border border-[var(--cc-hairline)]">{formatAddress(address)}</span>
                 <button
                   onClick={disconnect}
                   onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); disconnect(); } }}
-                  className="cc-btn-secondary-sm text-xs px-2 py-1 rounded-lg focus-ring"
+                  className="cc-btn-secondary-sm text-[12px] px-2 py-1 rounded-lg focus-ring"
                   aria-label="Disconnect wallet"
                 >
                   Disconnect
@@ -66,7 +66,7 @@ export const SiteHeader: React.FC = () => {
               <button
                 onClick={() => setWalletModalOpen(true)}
                 onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setWalletModalOpen(true); } }}
-                className="cc-btn-primary-sm text-sm focus-ring"
+                className="cc-btn-primary-sm text-[14px] focus-ring"
                 aria-label="Connect wallet"
               >
                 Connect Wallet
@@ -77,7 +77,7 @@ export const SiteHeader: React.FC = () => {
           {/* Mobile controls */}
           <div className="flex items-center gap-1 sm:hidden">
             {isConnected ? (
-              <span className="text-xs font-mono text-[var(--cc-body)] bg-[var(--cc-canvas-soft-2)] px-2 py-1 rounded-md border border-[var(--cc-hairline)]" aria-label="Wallet connected">{formatAddress(address)}</span>
+              <span className="text-[12px] font-[var(--font-mono)] text-[var(--cc-body)] bg-[var(--cc-canvas-soft-2)] px-2 py-1 rounded-md border border-[var(--cc-hairline)]" aria-label="Wallet connected">{formatAddress(address)}</span>
             ) : null}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
@@ -108,7 +108,7 @@ export const SiteHeader: React.FC = () => {
               <Link
                 to="/swap"
                 onClick={() => setMobileOpen(false)}
-                className={`block px-4 py-3 rounded-[var(--cc-radius-sm)] text-sm font-medium transition-colors min-h-[44px] flex items-center ${
+                className={`block px-4 py-3 rounded-[var(--cc-radius-sm)] text-[14px] font-medium transition-colors min-h-[44px] flex items-center ${
                   location.pathname === '/swap'
                     ? "text-[var(--cc-ink)] bg-[var(--cc-canvas-soft-2)]"
                     : "text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft)]"
@@ -120,7 +120,7 @@ export const SiteHeader: React.FC = () => {
               <Link
                 to="/multichain"
                 onClick={() => setMobileOpen(false)}
-                className={`block px-4 py-3 rounded-[var(--cc-radius-sm)] text-sm font-medium transition-colors min-h-[44px] flex items-center ${
+                className={`block px-4 py-3 rounded-[var(--cc-radius-sm)] text-[14px] font-medium transition-colors min-h-[44px] flex items-center ${
                   location.pathname === '/multichain'
                     ? "text-[var(--cc-ink)] bg-[var(--cc-canvas-soft-2)]"
                     : "text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft)]"
@@ -132,7 +132,7 @@ export const SiteHeader: React.FC = () => {
               <Link
                 to="/auth"
                 onClick={() => setMobileOpen(false)}
-                className={`block px-4 py-3 rounded-[var(--cc-radius-sm)] text-sm font-medium transition-colors min-h-[44px] flex items-center ${
+                className={`block px-4 py-3 rounded-[var(--cc-radius-sm)] text-[14px] font-medium transition-colors min-h-[44px] flex items-center ${
                   location.pathname === '/auth'
                     ? "text-[var(--cc-ink)] bg-[var(--cc-canvas-soft-2)]"
                     : "text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft)]"
@@ -145,14 +145,14 @@ export const SiteHeader: React.FC = () => {
               {isConnected ? (
                 <button
                   onClick={() => { disconnect(); setMobileOpen(false); }}
-                  className="block w-full px-4 py-3 rounded-[var(--cc-radius-sm)] text-sm font-medium text-[var(--cc-error)] transition-colors min-h-[44px] flex items-center hover:bg-[var(--cc-canvas-soft)]"
+                  className="block w-full px-4 py-3 rounded-[var(--cc-radius-sm)] text-[14px] font-medium text-[var(--cc-error)] transition-colors min-h-[44px] flex items-center hover:bg-[var(--cc-canvas-soft)]"
                 >
                   Disconnect
                 </button>
               ) : (
                 <button
                   onClick={() => { setWalletModalOpen(true); setMobileOpen(false); }}
-                  className="block w-full px-4 py-3 rounded-[var(--cc-radius-sm)] text-sm font-medium text-[var(--cc-link)] transition-colors min-h-[44px] flex items-center hover:bg-[var(--cc-canvas-soft)]"
+                  className="block w-full px-4 py-3 rounded-[var(--cc-radius-sm)] text-[14px] font-medium text-[var(--cc-link)] transition-colors min-h-[44px] flex items-center hover:bg-[var(--cc-canvas-soft)]"
                 >
                   Connect Wallet
                 </button>

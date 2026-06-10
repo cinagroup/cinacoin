@@ -57,7 +57,7 @@ export default function SolutionsPage() {
         <h1 className="text-5xl md:text-[64px] font-semibold mb-6 tracking-tight text-[var(--cc-ink)] leading-[1.05]">
           {t('solutions-hero-title')}
         </h1>
-        <p className="text-lg text-[var(--cc-body)] max-w-2xl mx-auto leading-relaxed">
+        <p className="text-[18px] text-[var(--cc-body)] max-w-2xl mx-auto leading-relaxed">
           {t('solutions-hero-subtitle')}
         </p>
       </section>
@@ -87,7 +87,7 @@ export default function SolutionsPage() {
           <h2 className="text-[32px] font-semibold mb-4 tracking-tight text-[var(--cc-ink)]">
             {t('solutions-cta-title')}
           </h2>
-          <p className="text-[var(--cc-body)] text-lg mb-8 max-w-xl mx-auto">
+          <p className="text-[var(--cc-body)] text-[18px] mb-8 max-w-xl mx-auto">
             {t('solutions-cta-subtitle')}
           </p>
           <Link href="/about" className="inline-flex items-center justify-center px-8 py-3 bg-[var(--cc-ink)] hover:opacity-90 text-[var(--cc-canvas)] rounded-[var(--cc-radius-sm)] font-medium text-[14px] transition-colors duration-150 h-10">

@@ -3,15 +3,15 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-canvas-soft-2 -m-6 p-6">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="text-4xl mb-3">🔢</div>
-          <h1 className="text-2xl font-semibold text-ink">Cinacoin Developer Portal</h1>
+          <div className="text-[48px] mb-3">🔢</div>
+          <h1 className="text-[24px] font-semibold text-ink">Cinacoin Developer Portal</h1>
           <p className="text-ink-body mt-1">Sign in to manage your projects</p>
         </div>
 
         <div className="card">
           <form className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-ink mb-1">Email</label>
+              <label className="block text-[14px] font-medium text-ink mb-1">Email</label>
               <input
                 type="email"
                 placeholder="developer@example.com"
@@ -19,7 +19,7 @@ export default function LoginPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-ink mb-1">Password</label>
+              <label className="block text-[14px] font-medium text-ink mb-1">Password</label>
               <input
                 type="password"
                 placeholder="••••••••"
@@ -35,7 +35,7 @@ export default function LoginPage() {
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-hairline"></div>
             </div>
-            <div className="relative flex justify-center text-sm">
+            <div className="relative flex justify-center text-[14px]">
               <span className="px-2 bg-[var(--color-canvas)] text-ink-mute">or</span>
             </div>
           </div>
@@ -45,7 +45,7 @@ export default function LoginPage() {
           </button>
         </div>
 
-        <p className="text-center text-sm text-ink-mute mt-4">
+        <p className="text-center text-[14px] text-ink-mute mt-4">
           Don&apos;t have an account?{" "}
           <a href="#" className="text-link hover:text-link-hover font-medium">
             Create one

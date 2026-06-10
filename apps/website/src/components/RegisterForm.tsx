@@ -122,12 +122,12 @@ export function RegisterForm() {
               maxLength={6}
               required
               autoFocus
-              className="w-full px-4 py-3 bg-canvas border border-hairline rounded-lg text-center text-lg tracking-widest focus:outline-none focus:ring-2 focus:ring-link"
+              className="w-full px-4 py-3 bg-canvas border border-hairline rounded-lg text-center text-[18px] tracking-widest focus:outline-none focus:ring-2 focus:ring-link"
             />
           </div>
 
           {error && (
-            <div className="p-3 bg-error/10 border border-error/20 rounded-lg text-error text-sm">
+            <div className="p-3 bg-error/10 border border-error/20 rounded-lg text-error text-[14px]">
               {error}
             </div>
           )}
@@ -149,7 +149,7 @@ export function RegisterForm() {
     <div className="space-y-6">
       <form onSubmit={handleSubmit} className="space-y-4">
         {error && (
-          <div className="p-3 bg-error/10 border border-error/20 rounded-lg text-error text-sm">
+          <div className="p-3 bg-error/10 border border-error/20 rounded-lg text-error text-[14px]">
             {error}
           </div>
         )}

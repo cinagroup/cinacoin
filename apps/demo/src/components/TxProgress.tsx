@@ -50,7 +50,7 @@ export default function TxProgress({ steps }: { steps: TxStep[] }) {
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                     </svg>
                   ) : (
-                    <span className="text-xs">{step.icon}</span>
+                    <span className="text-[12px]">{step.icon}</span>
                   )}
                 </div>
                 {/* Connector line */}
@@ -66,7 +66,7 @@ export default function TxProgress({ steps }: { steps: TxStep[] }) {
               <div className={`pt-1.5 transition-colors duration-300 ${
                 isDone ? 'text-[var(--cc-success)]' : isActive ? 'text-[var(--cc-link)]' : isError ? 'text-[var(--cc-error)]' : 'text-[var(--cc-body)]'
               }`}>
-                <span className="text-sm font-medium">{step.label}</span>
+                <span className="text-[14px] font-medium">{step.label}</span>
               </div>
             </div>
           );

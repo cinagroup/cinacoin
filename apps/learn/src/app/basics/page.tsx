@@ -12,14 +12,14 @@ export default function BasicsPage() {
     <div className="max-w-3xl mx-auto">
       <StepIndicator currentStep={1} totalSteps={4} />
 
-      <h1 className="text-3xl font-bold mb-4">Web3 Basics</h1>
+      <h1 className="text-[32px] font-bold mb-4">Web3 Basics</h1>
       <p className="text-text-secondary mb-8">
         Understand the core concepts of Web3 and how Cinacoin fits into the decentralized ecosystem.
       </p>
 
       {/* Section 1 */}
       <section className="mb-12">
-        <h2 className="text-2xl font-semibold mb-4">What is Web3?</h2>
+        <h2 className="text-[24px] font-semibold mb-4">What is Web3?</h2>
         <p className="text-text-secondary mb-4">
           Web3 represents the next evolution of the internet — a decentralized network where users
           control their own data, identity, and assets. Unlike Web2, where centralized companies
@@ -39,7 +39,7 @@ export default function BasicsPage() {
 
       {/* Section 2 */}
       <section className="mb-12">
-        <h2 className="text-2xl font-semibold mb-4">Blockchain Fundamentals</h2>
+        <h2 className="text-[24px] font-semibold mb-4">Blockchain Fundamentals</h2>
         <p className="text-text-secondary mb-4">
           A blockchain is a distributed, immutable ledger that records transactions across a network
           of nodes. Each block contains a set of transactions, and once added to the chain, it cannot
@@ -64,7 +64,7 @@ Block #2
 
       {/* Section 3 */}
       <section className="mb-12">
-        <h2 className="text-2xl font-semibold mb-4">Wallets & Identity</h2>
+        <h2 className="text-[24px] font-semibold mb-4">Wallets & Identity</h2>
         <p className="text-text-secondary mb-4">
           In Web3, your wallet is your identity. It consists of a cryptographic key pair:
           a public key (your address) and a private key (your secret). You use the private key
@@ -90,7 +90,7 @@ const isValid = verify(message, signature, address);
 
       {/* Section 4 */}
       <section className="mb-12">
-        <h2 className="text-2xl font-semibold mb-4">Smart Contracts</h2>
+        <h2 className="text-[24px] font-semibold mb-4">Smart Contracts</h2>
         <p className="text-text-secondary mb-4">
           Smart contracts are self-executing programs deployed on the blockchain. They run
           exactly as programmed without downtime, censorship, or third-party interference.
@@ -120,13 +120,13 @@ contract SimpleStorage {
       <div className="flex justify-between items-center pt-8 border-t border-border-color">
         <Link
           href="/"
-          className="text-text-secondary hover:text-accent-blue transition-colors text-sm"
+          className="text-text-secondary hover:text-accent-blue transition-colors text-[14px]"
         >
           ← Back to Home
         </Link>
         <Link
           href="/wallet-integration"
-          className="px-4 py-2 bg-accent-blue hover:bg-accent-blue/80 text-white rounded-lg text-sm font-medium transition-colors"
+          className="px-4 py-2 bg-accent-blue hover:bg-accent-blue/80 text-white rounded-lg text-[14px] font-medium transition-colors"
         >
           Next: Wallet Integration →
         </Link>

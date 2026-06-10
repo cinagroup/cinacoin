@@ -130,7 +130,7 @@ export function LiveDemo({
           </div>
           <pre
             ref={codeRef}
-            className="overflow-auto max-h-[400px] p-4 text-sm leading-relaxed font-mono"
+            className="overflow-auto max-h-[400px] p-4 text-[14px] leading-relaxed font-[var(--font-mono)]"
             tabIndex={0}
             role="region"
             aria-label="Code panel"
@@ -148,7 +148,7 @@ export function LiveDemo({
                         : ''
                     }`}
                   >
-                    <span className="select-none text-[var(--cc-muted)] text-xs w-8 shrink-0 text-right pr-3 py-0.5 opacity-50">
+                    <span className="select-none text-[var(--cc-muted)] text-[12px] w-8 shrink-0 text-right pr-3 py-0.5 opacity-50">
                       {lineNum}
                     </span>
                     <span className="py-0.5">

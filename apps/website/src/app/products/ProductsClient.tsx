@@ -18,7 +18,7 @@ export default function ProductsPage() {
         <h1 className="text-5xl md:text-[64px] font-semibold mb-6 tracking-tight text-[var(--cc-ink)] leading-[1.05]">
           {t('products-hero-title')}
         </h1>
-        <p className="text-lg text-[var(--cc-body)] max-w-2xl mx-auto leading-relaxed">
+        <p className="text-[18px] text-[var(--cc-body)] max-w-2xl mx-auto leading-relaxed">
           {t('products-hero-subtitle')}
         </p>
       </section>
