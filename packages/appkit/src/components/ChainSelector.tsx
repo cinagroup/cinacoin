@@ -1,9 +1,14 @@
 /**
  * ChainSelector component — select/switch blockchain networks
+ *
+ * Supports two modes:
+ * - `single` (default): select one chain at a time
+ * - `multi`: parallel connection — each chain shows its own balance
+ *   and connection status indicator
  */
 
 import React, { useState } from 'react';
-import type { ChainSelectorProps, ChainConfig } from '../types';
+import type { ChainSelectorProps, ChainConfig, ChainConnectionStatus, ChainMode } from '../types';
 
 // ============================================================================
 // Styles
@@ -92,6 +97,35 @@ const styles = {
     borderRadius: '50%',
     animation: 'cinacoin-spin 0.6s linear infinite',
   },
+  // ── Multi-chain mode styles ──
+  multiChainRight: {
+    display: 'flex',
+    flexDirection: 'column' as const,
+    alignItems: 'flex-end' as const,
+    gap: '4px',
+  },
+  balanceText: {
+    fontSize: '12px',
+    fontWeight: 600,
+    color: 'var(--cc-ink, #1a1a2e)',
+  },
+  statusDot: {
+    width: '8px',
+    height: '8px',
+    borderRadius: '50%',
+    flexShrink: 0,
+  },
+  statusRow: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '6px',
+  },
+  statusLabel: {
+    fontSize: '10px',
+    fontWeight: 500,
+    textTransform: 'uppercase' as const,
+    letterSpacing: '0.03em',
+  },
 } as const;
 
 // ============================================================================
@@ -111,43 +145,104 @@ const CHAIN_ICONS: Record<number, string> = {
 };
 
 // ============================================================================
+// Helpers
+// ============================================================================
+
+/** Status dot color by connection status */
+function statusColor(status: string | undefined): string {
+  switch (status) {
+    case 'connected':
+      return 'var(--cc-success, #22c55e)';
+    case 'connecting':
+      return 'var(--cc-warning, #f59e0b)';
+    case 'error':
+      return 'var(--cc-danger, #ef4444)';
+    default:
+      return 'var(--cc-border, rgba(0,0,0,0.15))';
+  }
+}
+
+function statusLabel(status: string | undefined): string {
+  switch (status) {
+    case 'connected':
+      return 'Connected';
+    case 'connecting':
+      return 'Connecting';
+    case 'error':
+      return 'Error';
+    default:
+      return 'Disconnected';
+  }
+}
+
+// ============================================================================
 // Component
 // ============================================================================
 
 /**
- * Chain selector component for switching networks
+ * Chain selector component for switching networks.
+ *
+ * In `single` mode (default), shows a list of chains with the selected one
+ * highlighted. In `multi` mode, each chain shows its own balance and
+ * connection status indicator, allowing parallel connections.
  */
 export function ChainSelector({
   chains,
   selectedChainId,
   onSelect,
   isSwitching = false,
+  mode = 'single',
+  chainStatuses = [],
 }: ChainSelectorProps): React.ReactElement {
   const [hoveredId, setHoveredId] = useState<number | null>(null);
 
+  const isMulti = mode === 'multi';
+
   const handleSelect = (chain: ChainConfig) => {
-    if (chain.id !== selectedChainId && !isSwitching) {
+    if (isMulti) {
+      // In multi mode, selecting a chain toggles its connection
+      onSelect(chain.id);
+    } else if (chain.id !== selectedChainId && !isSwitching) {
       onSelect(chain.id);
     }
   };
 
+  /** Look up per-chain status from the chainStatuses array */
+  const getChainStatus = (chainId: number): ChainConnectionStatus | undefined => {
+    return chainStatuses.find((s) => s.chainId === chainId);
+  };
+
   return (
     <div style={styles.container}>
-      <div style={styles.title}>Select Network</div>
-      {chains.map(chain => {
+      <div style={styles.title}>
+        {isMulti ? 'Multi-Chain Networks' : 'Select Network'}
+      </div>
+      {chains.map((chain) => {
         const isSelected = chain.id === selectedChainId;
         const isHovered = hoveredId === chain.id;
+        const chainStatus = isMulti ? getChainStatus(chain.id) : undefined;
+        const isConnected = chainStatus?.status === 'connected';
 
         return (
           <button
             key={chain.id}
             style={{
               ...styles.chainButton,
-              ...(isHovered && !isSelected ? { backgroundColor: 'var(--cc-surface, #f5f5f5)' } : {}),
-              ...(isSelected
+              ...(isHovered && !isSelected
+                ? { backgroundColor: 'var(--cc-surface, #f5f5f5)' }
+                : {}),
+              ...(isSelected && !isMulti
                 ? {
                     borderColor: 'var(--cc-accent, #3b82f6)',
-                    backgroundColor: 'color-mix(in srgb, var(--cc-accent, #3b82f6) 5%, transparent)',
+                    backgroundColor:
+                      'color-mix(in srgb, var(--cc-accent, #3b82f6) 5%, transparent)',
+                  }
+                : {}),
+              ...(isMulti && isConnected
+                ? {
+                    borderColor: 'var(--cc-success, #22c55e)',
+                    backgroundColor:
+                      'color-mix(in srgb, var(--cc-success, #22c55e) 4%, transparent)',
                   }
                 : {}),
             }}
@@ -155,8 +250,9 @@ export function ChainSelector({
             onMouseEnter={() => setHoveredId(chain.id)}
             onMouseLeave={() => setHoveredId(null)}
             type="button"
-            disabled={isSwitching && isSelected}
+            disabled={!isMulti && isSwitching && isSelected}
           >
+            {/* Chain Icon */}
             {chain.iconUrl ? (
               <img
                 src={chain.iconUrl}
@@ -165,26 +261,108 @@ export function ChainSelector({
                 loading="lazy"
               />
             ) : (
-              <div style={styles.chainIcon}>
-                {CHAIN_ICONS[chain.id] ?? '⬡'}
-              </div>
+              <div style={styles.chainIcon}>{CHAIN_ICONS[chain.id] ?? '⬡'}</div>
             )}
+
+            {/* Chain Info */}
             <div style={styles.chainInfo}>
               <span style={styles.chainName}>{chain.name}</span>
               <span style={styles.chainTicker}>{chain.ticker}</span>
             </div>
-            {isSwitching && isSelected ? (
-              <div style={styles.spinner} />
-            ) : isSelected ? (
-              <span style={styles.selectedBadge}>Connected</span>
-            ) : chain.testnet ? (
-              <span style={styles.testnetBadge}>Testnet</span>
-            ) : null}
+
+            {/* Right side: status / balance / badges */}
+            {isMulti ? (
+              <div style={styles.multiChainRight}>
+                {/* Balance (shown when connected) */}
+                {chainStatus?.balance && (
+                  <span style={styles.balanceText}>
+                    {chainStatus.balance} {chain.ticker}
+                  </span>
+                )}
+                {/* Status indicator row */}
+                <div style={styles.statusRow}>
+                  <div
+                    style={{
+                      ...styles.statusDot,
+                      backgroundColor: statusColor(chainStatus?.status),
+                      ...(chainStatus?.status === 'connecting'
+                        ? { animation: 'cinacoin-pulse 1.2s ease-in-out infinite' }
+                        : {}),
+                    }}
+                  />
+                  <span
+                    style={{
+                      ...styles.statusLabel,
+                      color: statusColor(chainStatus?.status),
+                    }}
+                  >
+                    {statusLabel(chainStatus?.status)}
+                  </span>
+                </div>
+                {/* Error message */}
+                {chainStatus?.error && (
+                  <span
+                    style={{
+                      fontSize: '10px',
+                      color: 'var(--cc-danger, #ef4444)',
+                    }}
+                  >
+                    {chainStatus.error}
+                  </span>
+                )}
+              </div>
+            ) : (
+              /* Single-mode badges */
+              <>
+                {isSwitching && isSelected ? (
+                  <div style={styles.spinner} />
+                ) : isSelected ? (
+                  <span style={styles.selectedBadge}>Connected</span>
+                ) : chain.testnet ? (
+                  <span style={styles.testnetBadge}>Testnet</span>
+                ) : null}
+              </>
+            )}
           </button>
         );
       })}
+
+      {/* Multi-mode footer hint */}
+      {isMulti && (
+        <div
+          style={{
+            fontSize: '11px',
+            color: 'var(--cc-muted, #6b7280)',
+            textAlign: 'center',
+            marginTop: '8px',
+            padding: '0 4px',
+          }}
+        >
+          Click a chain to connect or switch. Multiple chains can be active
+          simultaneously.
+        </div>
+      )}
     </div>
   );
+}
+
+// ============================================================================
+// CSS: pulse animation for connecting status dot
+// ============================================================================
+
+if (typeof document !== 'undefined') {
+  const styleId = 'cinacoin-chain-selector-styles';
+  if (!document.getElementById(styleId)) {
+    const style = document.createElement('style');
+    style.id = styleId;
+    style.textContent = `
+      @keyframes cinacoin-pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.4; }
+      }
+    `;
+    document.head.appendChild(style);
+  }
 }
 
 export default ChainSelector;

@@ -77,6 +77,29 @@ export interface ChainConfig {
 }
 
 /**
+ * Multi-chain connection mode
+ * - 'single': Connect to one chain at a time (default)
+ * - 'multi': Connect to multiple chains in parallel
+ */
+export type ChainMode = 'single' | 'multi';
+
+/**
+ * Per-chain connection status (for multi-chain mode)
+ */
+export interface ChainConnectionStatus {
+  /** Chain ID */
+  chainId: number;
+  /** Connection status for this chain */
+  status: ConnectionStatus;
+  /** Connected account on this chain (if connected) */
+  account: ConnectedAccount | null;
+  /** Account balance on this chain (formatted) */
+  balance: string | null;
+  /** Error message (if status is 'error') */
+  error: string | null;
+}
+
+/**
  * Main configuration for createCinacoinAppKit
  */
 export interface CinacoinAppKitConfig {
@@ -100,6 +123,14 @@ export interface CinacoinAppKitConfig {
   termsOfServiceUrl?: string;
   /** Custom privacy policy URL */
   privacyPolicyUrl?: string;
+  /**
+   * Chain connection mode.
+   * - `'single'` (default): connect to one chain at a time
+   * - `'multi'`: connect to multiple chains in parallel, showing
+   *    balance + status per chain in the modal
+   * @default 'single'
+   */
+  mode?: ChainMode;
 }
 
 // ============================================================================
@@ -264,6 +295,16 @@ export interface ChainSelectorProps {
   onSelect: (chainId: number) => void;
   /** Whether switching is in progress */
   isSwitching?: boolean;
+  /**
+   * Chain connection mode — when `'multi'`, each chain shows
+   * its own balance and connection status indicator.
+   * @default 'single'
+   */
+  mode?: ChainMode;
+  /**
+   * Per-chain connection statuses (used in multi-chain mode)
+   */
+  chainStatuses?: ChainConnectionStatus[];
 }
 
 /**

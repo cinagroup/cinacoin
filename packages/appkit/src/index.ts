@@ -42,6 +42,7 @@ export type {
   ChainConfig,
   ThemeMode,
   ThemeVariables,
+  ChainMode,
   // Wallets
   WalletInfo,
   WalletPlatform,
@@ -51,6 +52,7 @@ export type {
   ConnectionStatus,
   ConnectedAccount,
   ConnectionActions,
+  ChainConnectionStatus,
   // Props
   ModalProps,
   WalletListProps,
