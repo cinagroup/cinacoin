@@ -98,20 +98,20 @@ export default function RealtimeDashboard() {
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-lg">
-        <div className="card p-lg">
+        <div className="cc-card p-lg">
           <p className="text-body-sm text-ink-mute mb-xs">Active Users</p>
           <p className="text-display-lg text-ink text-code tabular-nums">
             {formatNumber(data.activeUsers)}
           </p>
         </div>
-        <div className="card p-lg">
+        <div className="cc-card p-lg">
           <p className="text-body-sm text-ink-mute mb-xs">Transactions Per Second</p>
           <p className="text-display-lg text-ink text-code tabular-nums">{data.tps}</p>
         </div>
       </div>
 
       {/* Realtime Transaction Stream */}
-      <div className="card p-lg">
+      <div className="cc-card p-lg">
         <h3 className="text-heading-3 text-ink mb-md">Live Transaction Stream</h3>
         <div className="space-y-xs max-h-96 overflow-y-auto">
           {data.transactions.length === 0 ? (
@@ -148,7 +148,7 @@ export default function RealtimeDashboard() {
       </div>
 
       {/* Global Heatmap */}
-      <div className="card p-lg">
+      <div className="cc-card p-lg">
         <h3 className="text-heading-3 text-ink mb-md">Global Request Distribution</h3>
         <div className="space-y-sm">
           {data.heatmap.map((item) => (

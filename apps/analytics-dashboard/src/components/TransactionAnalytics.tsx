@@ -72,7 +72,7 @@ function VolumeChart({ data }: { data: TransactionData[] }) {
         return (
           <g key={pct}>
             <line x1={padding.left} y1={y} x2={width - padding.right} y2={y} stroke="#ebebeb" strokeDasharray="3 3" />
-            <text x={padding.left - 8} y={y + 4} textAnchor="end" className="fill-ink-mute" style={{ fontSize: "10px" }}>
+            <text x={padding.left - 8} y={y + 4} textAnchor="end" className="fill-ink-mute" style={{ fontSize: "var(--cc-text-xs)" }}>
               {'$'}{value.toFixed(1)}M
             </text>
           </g>
@@ -84,7 +84,7 @@ function VolumeChart({ data }: { data: TransactionData[] }) {
         if (i % 2 !== 0) return null;
         const x = padding.left + (i / (data.length - 1)) * chartW;
         return (
-          <text key={i} x={x} y={height - 8} textAnchor="middle" className="fill-ink-mute" style={{ fontSize: "10px" }}>
+          <text key={i} x={x} y={height - 8} textAnchor="middle" className="fill-ink-mute" style={{ fontSize: "var(--cc-text-xs)" }}>
             {d.date}
           </text>
         );
@@ -114,32 +114,32 @@ export default function TransactionAnalytics() {
     <div className="space-y-lg">
       {/* Summary Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-sm">
-        <div className="card p-md">
+        <div className="cc-card p-md">
           <p className="text-caption text-ink-mute mb-xxs">Total Volume</p>
           <p className="text-display-sm text-ink">{`$${(totalVolume / 1000000).toFixed(2)}M`}</p>
         </div>
-        <div className="card p-md">
+        <div className="cc-card p-md">
           <p className="text-caption text-ink-mute mb-xxs">Total Transactions</p>
           <p className="text-display-sm text-ink">{totalTx.toLocaleString()}</p>
         </div>
-        <div className="card p-md">
+        <div className="cc-card p-md">
           <p className="text-caption text-ink-mute mb-xxs">Avg Gas Cost</p>
           <p className="text-display-sm text-ink">{`$${avgGasCost.toFixed(2)}`}</p>
         </div>
-        <div className="card p-md">
+        <div className="cc-card p-md">
           <p className="text-caption text-ink-mute mb-xxs">Failed Transactions</p>
           <p className="text-display-sm text-error">{totalFailed.toLocaleString()}</p>
         </div>
       </div>
 
       {/* Volume Trend Chart */}
-      <div className="card p-lg">
+      <div className="cc-card p-lg">
         <h3 className="text-heading-3 text-ink mb-md">Transaction Volume Trend</h3>
         <VolumeChart data={transactionData} />
       </div>
 
       {/* Gas Statistics */}
-      <div className="card p-lg">
+      <div className="cc-card p-lg">
         <h3 className="text-heading-3 text-ink mb-md">Gas Usage Statistics</h3>
         <div className="space-y-sm">
           {transactionData.slice(-5).map((d) => (
@@ -164,7 +164,7 @@ export default function TransactionAnalytics() {
       </div>
 
       {/* Failed Transactions Analysis */}
-      <div className="card p-lg">
+      <div className="cc-card p-lg">
         <h3 className="text-heading-3 text-ink mb-md">Failed Transactions by Reason</h3>
         <div className="space-y-sm">
           {failedTransactions.map((f) => (

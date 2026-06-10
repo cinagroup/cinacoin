@@ -70,9 +70,9 @@ function getStatusColor(status: string): string {
 // ============================================================================
 
 const SIZE_STYLES: Record<string, React.CSSProperties> = {
-  sm: { padding: '6px 12px', fontSize: '13px', borderRadius: '6px' },
-  md: { padding: '8px 16px', fontSize: '14px', borderRadius: '8px' },
-  lg: { padding: '10px 20px', fontSize: '15px', borderRadius: '10px' },
+  sm: { padding: '4px 12px', fontSize: '12px', borderRadius: '4px' },
+  md: { padding: '8px 16px', fontSize: '12px', borderRadius: '8px' },
+  lg: { padding: '8px 20px', fontSize: '16px', borderRadius: '8px' },
 };
 
 function getVariantStyles(variant: string): React.CSSProperties {
@@ -223,7 +223,7 @@ export function ConnectButton({
           fontSize: '11px',
           opacity: 0.6,
           background: 'var(--cc-surface, rgba(255,255,255,0.05))',
-          padding: '2px 6px',
+          padding: '0px 4px',
           borderRadius: '4px',
         }}>
           Chain {account.chainId}

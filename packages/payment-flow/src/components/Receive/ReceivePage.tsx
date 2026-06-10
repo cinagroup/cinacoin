@@ -128,7 +128,7 @@ export function ReceivePage({ walletAddress = "0x0000000000000000000000000000000
           onClick={handleCopy}
           className={`flex-1 py-3 rounded-xl font-medium transition-colors flex items-center justify-center gap-2 ${
             copied
-              ? "bg-green-600 text-white"
+              ? "bg-[var(--color-success)] text-white"
               : "bg-[var(--color-link)] hover:bg-[var(--color-link)] text-white"
           }`}
         >

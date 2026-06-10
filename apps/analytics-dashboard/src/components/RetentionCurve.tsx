@@ -60,7 +60,7 @@ function RetentionLineChart({ cohorts, labels }: { cohorts: CohortData[]; labels
         return (
           <g key={pct}>
             <line x1={padding.left} y1={y} x2={width - padding.right} y2={y} stroke="#ebebeb" strokeDasharray="3 3" />
-            <text x={padding.left - 8} y={y + 4} textAnchor="end" className="fill-ink-mute" style={{ fontSize: "10px" }}>
+            <text x={padding.left - 8} y={y + 4} textAnchor="end" className="fill-ink-mute" style={{ fontSize: "var(--cc-text-xs)" }}>
               {pct}%
             </text>
           </g>
@@ -71,7 +71,7 @@ function RetentionLineChart({ cohorts, labels }: { cohorts: CohortData[]; labels
       {labels.map((label, i) => {
         const x = padding.left + (i / (labels.length - 1)) * chartW;
         return (
-          <text key={i} x={x} y={height - 8} textAnchor="middle" className="fill-ink-mute" style={{ fontSize: "10px" }}>
+          <text key={i} x={x} y={height - 8} textAnchor="middle" className="fill-ink-mute" style={{ fontSize: "var(--cc-text-xs)" }}>
             {label}
           </text>
         );
@@ -152,24 +152,24 @@ export default function RetentionCurve() {
 
       {/* Summary Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-sm">
-        <div className="card p-sm text-center">
+        <div className="cc-card p-sm text-center">
           <p className="text-caption text-ink-mute">Day-1 Retention</p>
           <p className="text-display-sm text-ink">{avgRetention[1] || 0}%</p>
         </div>
-        <div className="card p-sm text-center">
+        <div className="cc-card p-sm text-center">
           <p className="text-caption text-ink-mute">
             {period === "daily" ? "Day-3" : period === "weekly" ? "Week-3" : "Month-3"} Retention
           </p>
           <p className="text-display-sm text-ink">{avgRetention[3] || 0}%</p>
         </div>
-        <div className="card p-sm text-center">
+        <div className="cc-card p-sm text-center">
           <p className="text-caption text-ink-mute">Latest Period</p>
           <p className="text-display-sm text-ink">{avgRetention[avgRetention.length - 1] || 0}%</p>
         </div>
       </div>
 
       {/* Line Chart */}
-      <div className="card p-md">
+      <div className="cc-card p-md">
         <RetentionLineChart cohorts={cohorts} labels={labels} />
         <div className="flex flex-wrap gap-sm mt-sm justify-center">
           {cohorts.map((c, i) => (

@@ -24,7 +24,7 @@ export function DemoBalance(): JSX.Element {
     return (
       <section className="cc-card cc-fade-in" aria-labelledby="balance-heading">
         <h3 id="balance-heading" className="cc-section-title">
-          <span style={{ fontSize: '20px' }} aria-hidden="true">💰</span> Balance
+          <span style={{ fontSize: 'var(--cc-text-lg)' }} aria-hidden="true">💰</span> Balance
         </h3>
         <p className="cc-section-desc">Connect a wallet to view your balance.</p>
       </section>
@@ -34,7 +34,7 @@ export function DemoBalance(): JSX.Element {
   return (
     <section className="cc-card cc-fade-in" aria-labelledby="balance-heading">
       <h3 id="balance-heading" className="cc-section-title">
-        <span style={{ fontSize: '20px' }} aria-hidden="true">💰</span> Balance
+        <span style={{ fontSize: 'var(--cc-text-lg)' }} aria-hidden="true">💰</span> Balance
       </h3>
       <p className="cc-section-desc">
         Real-time native token balance for the connected account.
@@ -43,8 +43,8 @@ export function DemoBalance(): JSX.Element {
       {/* Balance display */}
       <div
         style={{
-          background: 'linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(99,102,241,0.02) 100%)',
-          border: '1px solid rgba(99,102,241,0.2)',
+          background: 'linear-gradient(135deg, var(--cc-balance-gradient-1) 0%, var(--cc-balance-gradient-2) 100%)',
+          border: '1px solid var(--cc-balance-border)',
           borderRadius: 'var(--cc-radius-lg)',
           padding: 'var(--cc-space-lg)',
           textAlign: 'center',
@@ -58,7 +58,7 @@ export function DemoBalance(): JSX.Element {
         </div>
         <div
           style={{
-            fontSize: '36px',
+            fontSize: 'var(--cc-text-2xl)',
             fontWeight: 'var(--cc-weight-semibold)',
             letterSpacing: 'var(--cc-tracking-tight)',
             color: 'var(--cc-ink)',

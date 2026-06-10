@@ -41,7 +41,7 @@ export function DemoSignMessage(): JSX.Element {
     return (
       <section className="cc-card cc-fade-in" aria-labelledby="sign-heading">
         <h3 id="sign-heading" className="cc-section-title">
-          <span style={{ fontSize: '20px' }} aria-hidden="true">✍️</span> Sign Message
+          <span style={{ fontSize: 'var(--cc-text-lg)' }} aria-hidden="true">✍️</span> Sign Message
         </h3>
         <p className="cc-section-desc">Connect a wallet to sign messages.</p>
       </section>
@@ -51,7 +51,7 @@ export function DemoSignMessage(): JSX.Element {
   return (
     <section className="cc-card cc-fade-in" aria-labelledby="sign-heading">
       <h3 id="sign-heading" className="cc-section-title">
-        <span style={{ fontSize: '20px' }} aria-hidden="true">✍️</span> Sign Message
+        <span style={{ fontSize: 'var(--cc-text-lg)' }} aria-hidden="true">✍️</span> Sign Message
       </h3>
       <p className="cc-section-desc">
         Sign arbitrary messages with your wallet using personal_sign.

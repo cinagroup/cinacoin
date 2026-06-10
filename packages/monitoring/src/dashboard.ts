@@ -172,7 +172,7 @@ export function generateDashboard(
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 6px 0;
+      padding: 4px 0;
       font-size: 13px;
     }
     .metric-label { color: var(--text-muted); }
@@ -197,7 +197,7 @@ export function generateDashboard(
       border-collapse: collapse;
     }
     .alert-table th, .alert-table td {
-      padding: 10px 16px;
+      padding: 8px 16px;
       text-align: left;
       border-bottom: 1px solid var(--border);
       font-size: 13px;
@@ -211,7 +211,7 @@ export function generateDashboard(
     }
     .severity-badge {
       display: inline-block;
-      padding: 2px 8px;
+      padding: 0px 8px;
       border-radius: 4px;
       font-size: 11px;
       font-weight: 600;

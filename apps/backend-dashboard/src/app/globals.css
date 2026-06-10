@@ -240,23 +240,28 @@
   }
 
   .badge-success {
-    @apply bg-green-100 text-green-800;
+    background-color: color-mix(in srgb, var(--color-success) 15%, transparent);
+    color: var(--color-success);
   }
 
   .badge-error {
-    @apply bg-red-100 text-red-800;
+    background-color: color-mix(in srgb, var(--color-error) 15%, transparent);
+    color: var(--color-error);
   }
 
   .badge-warning {
-    @apply bg-yellow-100 text-yellow-800;
+    background-color: color-mix(in srgb, var(--color-warning) 15%, transparent);
+    color: var(--color-warning);
   }
 
   .badge-info {
-    @apply bg-blue-100 text-blue-800;
+    background-color: color-mix(in srgb, var(--color-link) 15%, transparent);
+    color: var(--color-link);
   }
 
   .badge-neutral {
-    @apply bg-gray-100 text-gray-600;
+    background-color: color-mix(in srgb, var(--color-mute) 15%, transparent);
+    color: var(--color-body);
   }
 
   /* Toggle switch */

@@ -228,7 +228,7 @@ const styles: Record<string, React.CSSProperties> = {
   statLabel: {
     fontSize: "11px",
     color: "#6b7280",
-    marginTop: "2px",
+    marginTop: "0px",
   },
   detailSection: {
     marginBottom: "20px",
@@ -242,7 +242,7 @@ const styles: Record<string, React.CSSProperties> = {
   nsRow: {
     display: "flex",
     alignItems: "center",
-    gap: "10px",
+    gap: "8px",
     marginBottom: "8px",
     fontSize: "13px",
   },
@@ -284,7 +284,7 @@ const styles: Record<string, React.CSSProperties> = {
   },
   recommendationsList: {
     margin: 0,
-    paddingLeft: "18px",
+    paddingLeft: "16px",
   },
   recommendationItem: {
     fontSize: "13px",

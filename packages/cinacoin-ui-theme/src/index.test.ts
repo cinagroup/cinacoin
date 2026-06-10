@@ -289,8 +289,8 @@ describe('calculatePasswordStrength', () => {
 
   it('has correct color classes', () => {
     expect(calculatePasswordStrength('').color).toBe('bg-[var(--color-canvas-soft-2)]');
-    expect(calculatePasswordStrength('weak').color).toBe('bg-red-500');
-    expect(calculatePasswordStrength('Abcdefg1!@').color).toBe('bg-green-500');
+    expect(calculatePasswordStrength('weak').color).toBe('bg-[var(--color-error)]');
+    expect(calculatePasswordStrength('Abcdefg1!@').color).toBe('bg-[var(--color-success)]');
   });
 
   it('has correct label for score 3', () => {

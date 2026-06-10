@@ -38,7 +38,7 @@ export function DemoChainSwitcher(): JSX.Element {
     return (
       <section className="cc-card cc-fade-in" aria-labelledby="chain-heading">
         <h3 id="chain-heading" className="cc-section-title">
-          <span style={{ fontSize: '20px' }} aria-hidden="true">⛓️</span> Chain Switcher
+          <span style={{ fontSize: 'var(--cc-text-lg)' }} aria-hidden="true">⛓️</span> Chain Switcher
         </h3>
         <p className="cc-section-desc">Connect a wallet to switch between chains.</p>
       </section>
@@ -48,7 +48,7 @@ export function DemoChainSwitcher(): JSX.Element {
   return (
     <section className="cc-card cc-fade-in" aria-labelledby="chain-heading">
       <h3 id="chain-heading" className="cc-section-title">
-        <span style={{ fontSize: '20px' }} aria-hidden="true">⛓️</span> Chain Switcher
+        <span style={{ fontSize: 'var(--cc-text-lg)' }} aria-hidden="true">⛓️</span> Chain Switcher
       </h3>
       <p className="cc-section-desc">
         Switch between supported networks and view current chain details.

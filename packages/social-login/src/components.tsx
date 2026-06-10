@@ -737,7 +737,7 @@ export function SocialLoginModal({
 
         {/* Loading indicator */}
         {loading && (
-          <div style={{ textAlign: 'center', padding: '12px', color: '#6b7280', fontSize: '14px' }}>
+          <div style={{ textAlign: 'center', padding: '12px', color: '#6b7280', fontSize: '12px' }}>
             Redirecting to provider...
           </div>
         )}

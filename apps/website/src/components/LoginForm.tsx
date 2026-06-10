@@ -115,7 +115,7 @@ export function LoginForm() {
               placeholder="Enter 6-digit code"
               maxLength={6}
               required
-              className="w-full px-4 py-3 bg-canvas border border-hairline rounded-lg text-center text-body-lg tracking-widest focus:outline-none focus:ring-2 focus:ring-link"
+              className="cc-form-input text-center text-body-lg tracking-widest"
             />
           </div>
 
@@ -128,7 +128,7 @@ export function LoginForm() {
           <button
             type="submit"
             disabled={loading || totpCode.length !== 6}
-            className="w-full btn btn-primary"
+            className="w-full cc-btn-primary"
           >
             {loading ? 'Verifying...' : 'Verify & Continue'}
           </button>
@@ -160,7 +160,7 @@ export function LoginForm() {
               maxLength={6}
               required
               autoFocus
-              className="w-full px-4 py-3 bg-canvas border border-hairline rounded-lg text-center text-body-lg tracking-widest focus:outline-none focus:ring-2 focus:ring-link"
+              className="cc-form-input text-center text-body-lg tracking-widest"
             />
           </div>
 
@@ -173,7 +173,7 @@ export function LoginForm() {
           <button
             type="submit"
             disabled={loading || totpCode.length !== 6}
-            className="w-full btn btn-primary"
+            className="w-full cc-btn-primary"
           >
             {loading ? 'Verifying...' : 'Verify'}
           </button>
@@ -212,7 +212,7 @@ export function LoginForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full px-4 py-3 bg-canvas border border-hairline rounded-lg focus:outline-none focus:ring-2 focus:ring-link"
+            className="cc-form-input"
           />
         </div>
 
@@ -224,14 +224,14 @@ export function LoginForm() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="w-full px-4 py-3 bg-canvas border border-hairline rounded-lg focus:outline-none focus:ring-2 focus:ring-link"
+            className="cc-form-input"
           />
         </div>
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full btn btn-primary"
+          className="w-full cc-btn-primary"
         >
           {loading ? 'Logging in...' : 'Login'}
         </button>

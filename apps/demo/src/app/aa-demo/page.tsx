@@ -201,7 +201,7 @@ export default function AADemoPage() {
           ) : (
             <button
               onClick={handleConnect}
-              className="px-5 py-3 rounded-md text-body-sm font-semibold bg-violet-600 hover:bg-violet-500 text-[var(--cc-ink)] transition-all"
+              className="px-5 py-3 rounded-md text-body-sm font-semibold bg-[var(--cc-violet)] hover:bg-[var(--cc-violet-deep)] text-[var(--cc-ink)] transition-all"
             >
               Connect Wallet
             </button>
@@ -250,7 +250,7 @@ export default function AADemoPage() {
                     { step: '3', title: 'Use', desc: 'Gasless, batched transactions' },
                   ].map((s) => (
                     <div key={s.step} className="text-center p-3 rounded-md bg-[var(--cc-canvas)]/40 border border-[var(--cc-hairline)]/40">
-                      <div className="size-8 rounded-full bg-violet-500/20 text-violet-400 flex items-center justify-center text-body-sm font-semibold mx-auto mb-2">
+                      <div className="size-8 rounded-full bg-[var(--cc-violet)]/20 text-[var(--cc-violet)] flex items-center justify-center text-body-sm font-semibold mx-auto mb-2">
                         {s.step}
                       </div>
                       <p className="text-body-sm font-semibold text-[var(--cc-body)]">{s.title}</p>
@@ -264,7 +264,7 @@ export default function AADemoPage() {
                   disabled={creatingAccount}
                   className={`w-full py-4 rounded-md font-semibold text-body-sm transition-all ${
                     creatingAccount
-                      ? 'bg-violet-500/60 text-[var(--cc-ink)] cursor-wait'
+                      ? 'bg-[var(--cc-violet)]/60 text-[var(--cc-ink)] cursor-wait'
                       : 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 shadow-[var(--cc-level3)]'
                   }`}
                 >
@@ -287,7 +287,7 @@ export default function AADemoPage() {
               <div className="space-y-4">
                 <div className="p-4 rounded-md bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/40">
                   <p className="text-caption text-[var(--cc-body)] mb-1">Smart Account Address</p>
-                  <p className="font-[var(--font-mono)] text-body-sm text-violet-400">{smartAccount}</p>
+                  <p className="font-[var(--font-mono)] text-body-sm text-[var(--cc-violet)]">{smartAccount}</p>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div className="p-3 rounded-md bg-[var(--cc-canvas)]/40 border border-[var(--cc-hairline)]/40">
@@ -315,7 +315,7 @@ export default function AADemoPage() {
             </div>
             <button
               onClick={() => setShowCreateKey(!showCreateKey)}
-              className="px-3 py-2 rounded-lg text-caption font-semibold bg-violet-500/15 text-violet-400 border border-violet-500/30 hover:bg-violet-500/25 transition-all"
+              className="px-3 py-2 rounded-lg text-caption font-semibold bg-[var(--cc-violet)]/15 text-[var(--cc-violet)] border border-[var(--cc-violet)]/30 hover:bg-[var(--cc-violet-deep)]/25 transition-all"
             >
               + New Key
             </button>
@@ -336,7 +336,7 @@ export default function AADemoPage() {
                   <button
                     onClick={handleCreateSessionKey}
                     disabled={!newKeyName.trim()}
-                    className="px-4 py-2 rounded-lg text-body-sm font-semibold bg-violet-600 hover:bg-violet-500 text-[var(--cc-ink)] disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+                    className="px-4 py-2 rounded-lg text-body-sm font-semibold bg-[var(--cc-violet)] hover:bg-[var(--cc-violet-deep)] text-[var(--cc-ink)] disabled:opacity-40 disabled:cursor-not-allowed transition-all"
                   >
                     Create
                   </button>
@@ -357,7 +357,7 @@ export default function AADemoPage() {
                 key={key.id}
                 className={`p-4 rounded-md border transition-all ${
                   key.active
-                    ? 'bg-violet-500/5 border-violet-500/30'
+                    ? 'bg-[var(--cc-violet)]/5 border-[var(--cc-violet)]/30'
                     : 'bg-[var(--cc-canvas)]/30 border-[var(--cc-hairline)]/40'
                 }`}
               >
@@ -365,7 +365,7 @@ export default function AADemoPage() {
                   <div className="flex items-center gap-3">
                     <div className={`size-8 rounded-md flex items-center justify-center text-body-sm font-semibold ${
                       key.active
-                        ? 'bg-violet-500/20 text-violet-400'
+                        ? 'bg-[var(--cc-violet)]/20 text-[var(--cc-violet)]'
                         : 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-body)]'
                     }`}>
                       🔑
@@ -387,7 +387,7 @@ export default function AADemoPage() {
                 </div>
                 <div className="flex flex-wrap gap-2 mt-3">
                   {key.permissions.map((p) => (
-                    <span key={p} className="px-2 py-1 rounded text-caption font-medium bg-violet-500/10 text-violet-400 border border-violet-500/20">
+                    <span key={p} className="px-2 py-1 rounded text-caption font-medium bg-[var(--cc-violet)]/10 text-[var(--cc-violet)] border border-[var(--cc-violet)]/20">
                       {p}
                     </span>
                   ))}
@@ -527,7 +527,7 @@ export default function AADemoPage() {
               disabled={batchExecuting || !smartAccount}
               className={`w-full py-4 rounded-md font-semibold text-body-sm transition-all ${
                 batchExecuting
-                  ? 'bg-violet-500/60 text-[var(--cc-ink)] cursor-wait'
+                  ? 'bg-[var(--cc-violet)]/60 text-[var(--cc-ink)] cursor-wait'
                   : smartAccount
                   ? 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 shadow-[var(--cc-level3)]'
                   : 'bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-body)] cursor-not-allowed'
@@ -560,8 +560,8 @@ export default function AADemoPage() {
         </div>
 
         {/* ── Info Section ── */}
-        <div className="bg-violet-500/5 border border-violet-500/20 rounded-[var(--cc-radius-md)] p-6 space-y-4">
-          <h3 className="text-body-md font-semibold tracking-tighter text-violet-400">What is Account Abstraction?</h3>
+        <div className="bg-[var(--cc-violet)]/5 border border-[var(--cc-violet)]/20 rounded-[var(--cc-radius-md)] p-6 space-y-4">
+          <h3 className="text-body-md font-semibold tracking-tighter text-[var(--cc-violet)]">What is Account Abstraction?</h3>
           <p className="text-body-sm text-[var(--cc-muted)] leading-relaxed">
             ERC-4337 enables smart contract wallets that replace EOAs. Users get features like social recovery,
             session keys, batched transactions, and gas sponsorship — all without changing the Ethereum consensus layer.

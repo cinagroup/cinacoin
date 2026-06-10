@@ -173,7 +173,7 @@ export function SwapWidget(props: SwapWidgetProps): React.ReactElement {
     <div className={`ocx-swap-widget ${className}`} style={{ ...widgetCssVars, ...cardCss, maxWidth: "480px" }}>
       {/* Header */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
-        <h2 style={{ margin: 0, fontSize: "18px", fontWeight: 600, color: "var(--ocx-text-primary)" }}>
+        <h2 style={{ margin: 0, fontSize: "16px", fontWeight: 600, color: "var(--ocx-text-primary)" }}>
           Swap
         </h2>
         <button
@@ -275,7 +275,7 @@ export function SwapWidget(props: SwapWidgetProps): React.ReactElement {
 
       {/* Error Display */}
       {error && (
-        <div style={{ marginTop: "12px", padding: "12px", background: "var(--ocx-error-bg)", borderRadius: "8px", color: "var(--ocx-error)", fontSize: "14px" }}>
+        <div style={{ marginTop: "12px", padding: "12px", background: "var(--ocx-error-bg)", borderRadius: "8px", color: "var(--ocx-error)", fontSize: "12px" }}>
           {error}
         </div>
       )}
@@ -332,11 +332,11 @@ function TokenInput({ label, token, amount, onAmountChange, onTokenClick, readOn
           style={{
             display: "flex",
             alignItems: "center",
-            gap: "6px",
+            gap: "4px",
             background: "var(--ocx-bg-elevated)",
             border: "none",
             borderRadius: "20px",
-            padding: "6px 12px",
+            padding: "4px 12px",
             cursor: "pointer",
             fontSize: "14px",
             fontWeight: 600,
@@ -475,7 +475,7 @@ function TokenSelectionModal({ tokens, onSelect, onClose, selected }: TokenSelec
               onClick={() => onSelect(token)}
               style={{
                 display: "flex", alignItems: "center", gap: "12px", width: "100%",
-                padding: "10px 12px", background: token.address === selected?.address ? "var(--ocx-bg-elevated)" : "transparent",
+                padding: "8px 12px", background: token.address === selected?.address ? "var(--ocx-bg-elevated)" : "transparent",
                 border: "none", borderRadius: "8px", cursor: "pointer", marginBottom: "4px",
               }}
             >

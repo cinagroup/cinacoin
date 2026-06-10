@@ -49,7 +49,7 @@ const styles = {
   copyButton: {
     display: 'flex',
     alignItems: 'center',
-    gap: '6px',
+    gap: '4px',
     padding: '8px 16px',
     borderRadius: '8px',
     border: '1px solid var(--cc-border, rgba(0,0,0,0.08))',
@@ -78,7 +78,7 @@ async function generateQRMatrix(data: string): Promise<boolean[][]> {
     const QRCode = await import('qrcode');
     const matrix = await QRCode.create(data, {
       errorCorrectionLevel: 'M',
-      margin: 2,
+      margin: 0,
     });
 
     const size = matrix.modules.size;

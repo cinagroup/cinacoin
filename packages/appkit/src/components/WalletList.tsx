@@ -13,7 +13,7 @@ const styles = {
   container: {
     display: 'flex',
     flexDirection: 'column' as const,
-    gap: '2px',
+    gap: '0px',
   },
   section: {
     marginBottom: '16px',
@@ -36,7 +36,7 @@ const styles = {
   list: {
     display: 'flex',
     flexDirection: 'column' as const,
-    gap: '2px',
+    gap: '0px',
   },
   walletButton: {
     display: 'flex',
@@ -57,7 +57,7 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     gap: '12px',
-    padding: '10px 12px',
+    padding: '8px 12px',
     borderRadius: '12px',
     border: '1px solid transparent',
     backgroundColor: 'transparent',
@@ -109,7 +109,7 @@ const styles = {
     fontWeight: 600,
     color: 'var(--cc-success, #22c55e)',
     backgroundColor: 'color-mix(in srgb, var(--cc-success, #22c55e) 12%, transparent)',
-    padding: '2px 6px',
+    padding: '0px 4px',
     borderRadius: '6px',
     textTransform: 'uppercase' as const,
     letterSpacing: '0.3px',

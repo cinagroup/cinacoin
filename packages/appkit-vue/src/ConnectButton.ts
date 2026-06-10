@@ -57,7 +57,7 @@ export const ConnectButton = defineComponent({
 
     return () => {
       const style = {
-        padding: '10px 20px',
+        padding: '8px 20px',
         borderRadius: '12px',
         border: isConnected.value ? '1px solid var(--cc-border, rgba(0,0,0,0.08))' : 'none',
         backgroundColor: isConnected.value ? 'var(--cc-surface, #f3f4f6)' : 'var(--cc-accent, #3b82f6)',

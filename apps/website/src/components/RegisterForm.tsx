@@ -122,7 +122,7 @@ export function RegisterForm() {
               maxLength={6}
               required
               autoFocus
-              className="w-full px-4 py-3 bg-canvas border border-hairline rounded-lg text-center text-body-lg tracking-widest focus:outline-none focus:ring-2 focus:ring-link"
+              className="cc-form-input text-center text-body-lg tracking-widest"
             />
           </div>
 
@@ -135,7 +135,7 @@ export function RegisterForm() {
           <button
             type="submit"
             disabled={loading || totpCode.length !== 6}
-            className="w-full btn btn-primary"
+            className="w-full cc-btn-primary"
           >
             {loading ? 'Verifying...' : 'Verify & Continue'}
           </button>
@@ -162,7 +162,7 @@ export function RegisterForm() {
             value={formData.email}
             onChange={handleChange}
             required
-            className="w-full px-4 py-3 bg-canvas border border-hairline rounded-lg focus:outline-none focus:ring-2 focus:ring-link"
+            className="cc-form-input"
           />
         </div>
 
@@ -174,7 +174,7 @@ export function RegisterForm() {
             value={formData.username}
             onChange={handleChange}
             required
-            className="w-full px-4 py-3 bg-canvas border border-hairline rounded-lg focus:outline-none focus:ring-2 focus:ring-link"
+            className="cc-form-input"
           />
         </div>
 
@@ -187,7 +187,7 @@ export function RegisterForm() {
             onChange={handleChange}
             required
             minLength={8}
-            className="w-full px-4 py-3 bg-canvas border border-hairline rounded-lg focus:outline-none focus:ring-2 focus:ring-link"
+            className="cc-form-input"
           />
         </div>
 
@@ -200,14 +200,14 @@ export function RegisterForm() {
             onChange={handleChange}
             required
             minLength={8}
-            className="w-full px-4 py-3 bg-canvas border border-hairline rounded-lg focus:outline-none focus:ring-2 focus:ring-link"
+            className="cc-form-input"
           />
         </div>
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full btn btn-primary"
+          className="w-full cc-btn-primary"
         >
           {loading ? 'Creating account...' : 'Register'}
         </button>

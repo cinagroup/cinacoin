@@ -53,12 +53,12 @@ const styles: Record<string, React.CSSProperties> = {
     display: "block",
     fontSize: 13,
     color: "#aaa",
-    marginBottom: 6,
+    marginBottom: 4,
     marginTop: 16,
   },
   select: {
     width: "100%",
-    padding: "10px 12px",
+    padding: "8px 12px",
     borderRadius: 8,
     border: "1px solid #333",
     background: "#16213e",
@@ -67,7 +67,7 @@ const styles: Record<string, React.CSSProperties> = {
   },
   input: {
     width: "100%",
-    padding: "10px 12px",
+    padding: "8px 12px",
     borderRadius: 8,
     border: "1px solid #333",
     background: "#16213e",
@@ -78,7 +78,7 @@ const styles: Record<string, React.CSSProperties> = {
   exchangeOption: {
     display: "flex",
     alignItems: "center",
-    gap: 10,
+    gap: 8,
   },
   logo: {
     width: 24,

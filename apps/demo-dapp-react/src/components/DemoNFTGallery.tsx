@@ -57,7 +57,7 @@ export function DemoNFTGallery(): JSX.Element {
     return (
       <section className="cc-card cc-fade-in" aria-labelledby="nft-heading">
         <h3 id="nft-heading" className="cc-section-title">
-          <span style={{ fontSize: '20px' }} aria-hidden="true">🖼️</span> NFT Gallery
+          <span style={{ fontSize: 'var(--cc-text-lg)' }} aria-hidden="true">🖼️</span> NFT Gallery
         </h3>
         <p className="cc-section-desc">Connect a wallet to view your NFT collection.</p>
       </section>
@@ -69,7 +69,7 @@ export function DemoNFTGallery(): JSX.Element {
   return (
     <section className="cc-card cc-fade-in" aria-labelledby="nft-heading">
       <h3 id="nft-heading" className="cc-section-title">
-        <span style={{ fontSize: '20px' }} aria-hidden="true">🖼️</span> NFT Gallery
+        <span style={{ fontSize: 'var(--cc-text-lg)' }} aria-hidden="true">🖼️</span> NFT Gallery
       </h3>
       <p className="cc-section-desc">
         Browse your multi-chain NFT collection. Powered by{' '}
@@ -128,7 +128,7 @@ const cardStyle: React.CSSProperties = {
 const imageContainerStyle: React.CSSProperties = {
   position: 'relative',
   aspectRatio: '1',
-  background: '#111',
+  background: 'var(--cc-image-placeholder)',
 };
 
 const imageStyle: React.CSSProperties = {
@@ -141,10 +141,10 @@ const chainBadgeStyle: React.CSSProperties = {
   position: 'absolute',
   top: '8px',
   right: '8px',
-  background: 'rgba(0,0,0,0.7)',
-  color: '#e0e0e0',
-  fontSize: '10px',
-  fontWeight: 600,
+  background: 'var(--cc-overlay-dark)',
+  color: 'var(--cc-overlay-text)',
+  fontSize: 'var(--cc-text-xs)',
+  fontWeight: "var(--cc-weight-semibold)",
   padding: '4px 8px',
   borderRadius: '6px',
   backdropFilter: 'blur(8px)',

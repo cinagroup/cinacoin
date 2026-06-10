@@ -10,16 +10,16 @@ function truncateAddress(addr: string): string {
 }
 
 const STATUS_COLORS: Record<string, string> = {
-  disconnected: '#f87171',
-  connecting: '#facc15',
-  connected: '#34d399',
-  error: '#f87171',
+  disconnected: 'var(--cc-status-disconnected)',
+  connecting: 'var(--cc-status-connecting)',
+  connected: 'var(--cc-status-connected)',
+  error: 'var(--cc-status-error)',
 };
 
 /** DemoHeader — App header with Cinacoin branding and connection status. */
 export function DemoHeader(): JSX.Element {
   const { account, status } = useCinacoinContext();
-  const dotColor = STATUS_COLORS[status] ?? '#64748b';
+  const dotColor = STATUS_COLORS[status] ?? 'var(--cc-status-default)';
 
   return (
     <header

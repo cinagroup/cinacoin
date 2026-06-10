@@ -41,18 +41,18 @@ export default function BehaviorPage() {
         </div>
 
         {/* Wallet Funnel */}
-        <div className="card p-lg mb-xl">
+        <div className="cc-card p-lg mb-xl">
           <h3 className="text-heading-3 text-ink mb-lg">Wallet Connection Funnel</h3>
           <WalletFunnel />
         </div>
 
         {/* Chain Distribution */}
-        <div className="card p-lg mb-xl">
+        <div className="cc-card p-lg mb-xl">
           <ChainDistribution />
         </div>
 
         {/* Retention Curve */}
-        <div className="card p-lg mb-xl">
+        <div className="cc-card p-lg mb-xl">
           <RetentionCurve />
         </div>
 

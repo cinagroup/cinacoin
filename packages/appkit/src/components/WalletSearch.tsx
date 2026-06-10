@@ -26,7 +26,7 @@ const styles = {
   },
   input: {
     width: '100%',
-    padding: '10px 12px 10px 36px',
+    padding: '8px 12px 8px 36px',
     borderRadius: '12px',
     border: '1px solid var(--cc-border, rgba(0,0,0,0.08))',
     backgroundColor: 'var(--cc-surface, #f5f5f5)',

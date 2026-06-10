@@ -114,7 +114,7 @@ export function DeFiPage() {
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, padding: 24 }}>
       {/* Left: DeFi UI */}
       <div>
-        <h2 style={{ fontSize: 24, fontWeight: 700, marginBottom: 8 }}>DeFi 交互</h2>
+        <h2 style={{ fontSize: "var(--cc-text-xl)", fontWeight: "var(--cc-weight-bold)", marginBottom: 8 }}>DeFi 交互</h2>
         <p style={{ color: '#888', marginBottom: 24 }}>LP 质押、Token 兑换。</p>
 
         {/* Tab switcher */}
@@ -126,7 +126,7 @@ export function DeFiPage() {
               style={{
                 padding: '8px 20px', borderRadius: 6, border: 'none',
                 background: tab === t ? '#6366f1' : 'transparent',
-                color: '#fff', cursor: 'pointer', fontSize: 14, fontWeight: 500,
+                color: '#fff', cursor: 'pointer', fontSize: "var(--cc-text-sm)", fontWeight: "var(--cc-weight-medium)",
               }}
             >
               {t === 'pools' ? 'LP 池' : 'Swap'}
@@ -140,24 +140,24 @@ export function DeFiPage() {
               <div key={pool.id} style={{ background: '#1a1a2e', borderRadius: 12, padding: 20 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
                   <div>
-                    <span style={{ fontSize: 20, marginRight: 8 }}>{pool.icon}</span>
-                    <span style={{ fontSize: 16, fontWeight: 600 }}>{pool.name}</span>
+                    <span style={{ fontSize: "var(--cc-text-lg)", marginRight: 8 }}>{pool.icon}</span>
+                    <span style={{ fontSize: "var(--cc-text-md)", fontWeight: "var(--cc-weight-semibold)" }}>{pool.name}</span>
                   </div>
                   <div style={{ textAlign: 'right' }}>
-                    <div style={{ color: '#4ade80', fontSize: 18, fontWeight: 700 }}>{pool.apy}% APY</div>
+                    <div style={{ color: '#4ade80', fontSize: "var(--cc-text-lg)", fontWeight: "var(--cc-weight-bold)" }}>{pool.apy}% APY</div>
                     <div style={{ color: '#888', fontSize: 12 }}>TVL: {formatTVL(pool.tvl)}</div>
                   </div>
                 </div>
 
                 {pool.staked > 0 ? (
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ color: '#888', fontSize: 13 }}>已质押: {pool.staked} LP</span>
+                    <span style={{ color: '#888', fontSize: "var(--cc-text-xs)" }}>已质押: {pool.staked} LP</span>
                     <button
                       onClick={() => handleUnstake(pool.id)}
                       disabled={stakingPool === pool.id}
                       style={{
-                        padding: '8px 16px', borderRadius: 6, border: '2px solid #f87171',
-                        background: 'transparent', color: '#f87171', cursor: 'pointer', fontSize: 13,
+                        padding: '8px 16px', borderRadius: 6, border: '0px solid #f87171',
+                        background: 'transparent', color: '#f87171', cursor: 'pointer', fontSize: "var(--cc-text-xs)",
                       }}
                     >
                       {stakingPool === pool.id ? '处理中...' : 'Unstake'}
@@ -173,7 +173,7 @@ export function DeFiPage() {
                       style={{
                         flex: 1, padding: '8px 12px', borderRadius: 6,
                         border: '2px solid #333', background: '#0d0d1a', color: '#fff',
-                        fontSize: 13, outline: 'none',
+                        fontSize: "var(--cc-text-xs)", outline: 'none',
                       }}
                     />
                     <button
@@ -181,7 +181,7 @@ export function DeFiPage() {
                       disabled={stakingPool === pool.id || !stakeAmount[pool.id]}
                       style={{
                         padding: '8px 16px', borderRadius: 6, border: 'none',
-                        background: '#6366f1', color: '#fff', cursor: 'pointer', fontSize: 13,
+                        background: '#6366f1', color: '#fff', cursor: 'pointer', fontSize: "var(--cc-text-xs)",
                         opacity: !stakeAmount[pool.id] ? 0.5 : 1,
                       }}
                     >
@@ -198,14 +198,14 @@ export function DeFiPage() {
           <div style={{ background: '#1a1a2e', borderRadius: 12, padding: 24 }}>
             {/* From */}
             <div style={{ marginBottom: 16 }}>
-              <label style={{ fontSize: 13, color: '#aaa', marginBottom: 8, display: 'block' }}>从</label>
+              <label style={{ fontSize: "var(--cc-text-xs)", color: '#aaa', marginBottom: 8, display: 'block' }}>从</label>
               <div style={{ display: 'flex', gap: 8 }}>
                 <select
                   value={swapFrom}
                   onChange={(e) => setSwapFrom(e.target.value)}
                   style={{
-                    padding: '8px 12px', borderRadius: 6, border: '2px solid #333',
-                    background: '#0d0d1a', color: '#fff', fontSize: 14, outline: 'none',
+                    padding: '8px 12px', borderRadius: 6, border: '0px solid #333',
+                    background: '#0d0d1a', color: '#fff', fontSize: "var(--cc-text-sm)", outline: 'none',
                   }}
                 >
                   {SWAP_TOKENS.map((t) => <option key={t} value={t}>{t}</option>)}
@@ -219,7 +219,7 @@ export function DeFiPage() {
                   style={{
                     flex: 1, padding: '8px 12px', borderRadius: 6,
                     border: '2px solid #333', background: '#0d0d1a', color: '#fff',
-                    fontSize: 14, outline: 'none',
+                    fontSize: "var(--cc-text-sm)", outline: 'none',
                   }}
                 />
               </div>
@@ -230,8 +230,8 @@ export function DeFiPage() {
               <button
                 onClick={() => { setSwapFrom(swapTo); setSwapTo(swapFrom); }}
                 style={{
-                  padding: '4px 12px', borderRadius: 20, border: '2px solid #333',
-                  background: 'transparent', color: '#fff', cursor: 'pointer', fontSize: 16,
+                  padding: '4px 12px', borderRadius: 20, border: '0px solid #333',
+                  background: 'transparent', color: '#fff', cursor: 'pointer', fontSize: "var(--cc-text-md)",
                 }}
               >
                 ⇅
@@ -240,14 +240,14 @@ export function DeFiPage() {
 
             {/* To */}
             <div style={{ marginBottom: 16 }}>
-              <label style={{ fontSize: 13, color: '#aaa', marginBottom: 8, display: 'block' }}>到</label>
+              <label style={{ fontSize: "var(--cc-text-xs)", color: '#aaa', marginBottom: 8, display: 'block' }}>到</label>
               <div style={{ display: 'flex', gap: 8 }}>
                 <select
                   value={swapTo}
                   onChange={(e) => setSwapTo(e.target.value)}
                   style={{
-                    padding: '8px 12px', borderRadius: 6, border: '2px solid #333',
-                    background: '#0d0d1a', color: '#fff', fontSize: 14, outline: 'none',
+                    padding: '8px 12px', borderRadius: 6, border: '0px solid #333',
+                    background: '#0d0d1a', color: '#fff', fontSize: "var(--cc-text-sm)", outline: 'none',
                   }}
                 >
                   {SWAP_TOKENS.map((t) => <option key={t} value={t}>{t}</option>)}
@@ -255,7 +255,7 @@ export function DeFiPage() {
                 <div style={{
                   flex: 1, padding: '8px 12px', borderRadius: 6,
                   background: '#0d0d1a', color: estimatedReceive ? '#4ade80' : '#555',
-                  fontSize: 14, display: 'flex', alignItems: 'center',
+                  fontSize: "var(--cc-text-sm)", display: 'flex', alignItems: 'center',
                 }}>
                   {estimatedReceive || '0.0'}
                 </div>
@@ -275,7 +275,7 @@ export function DeFiPage() {
               style={{
                 width: '100%', padding: '12px 24px', borderRadius: 8, border: 'none',
                 background: swapAmount ? '#6366f1' : '#333',
-                color: '#fff', fontSize: 16, fontWeight: 600,
+                color: '#fff', fontSize: "var(--cc-text-md)", fontWeight: "var(--cc-weight-semibold)",
                 cursor: swapAmount ? 'pointer' : 'not-allowed',
               }}
             >
@@ -283,7 +283,7 @@ export function DeFiPage() {
             </button>
 
             {swapResult && (
-              <div style={{ marginTop: 16, padding: 12, background: '#4ade8010', borderRadius: 8, color: '#4ade80', fontSize: 14, textAlign: 'center' }}>
+              <div style={{ marginTop: 16, padding: 12, background: '#4ade8010', borderRadius: 8, color: '#4ade80', fontSize: "var(--cc-text-sm)", textAlign: 'center' }}>
                 ✅ {swapResult}
               </div>
             )}

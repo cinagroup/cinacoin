@@ -96,7 +96,7 @@ export class WalletCard extends BaseLitElement {
         .badge {
           font-size: var(--ocx-font-size-xs, 0.75rem);
           font-weight: var(--ocx-font-weight-medium, 500);
-          padding: 2px 8px;
+          padding: 0px 8px;
           border-radius: var(--ocx-radius-full, 9999px);
           white-space: nowrap;
         }

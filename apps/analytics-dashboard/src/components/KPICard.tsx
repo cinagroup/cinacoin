@@ -12,7 +12,7 @@ export default function KPICard({ title, value, change, trend }: KPICardProps) {
   const isGood = title === "Avg Response Time" ? !isPositive : isPositive;
 
   return (
-    <div className="card p-lg hover:shadow-cinacoin-3 transition-shadow">
+    <div className="cc-card p-lg hover:shadow-cinacoin-3 transition-shadow">
       <div className="flex items-center justify-between mb-xs">
         <span className="text-body font-medium text-ink-body">{title}</span>
         <span

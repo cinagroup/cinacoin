@@ -72,8 +72,8 @@ export function KycBadge({
         style={{
           display: 'inline-flex',
           alignItems: 'center',
-          gap: '6px',
-          padding: '4px 10px',
+          gap: '4px',
+          padding: '4px 8px',
           border: `1px solid ${color}`,
           borderRadius: '9999px',
           background: 'transparent',
@@ -130,20 +130,20 @@ export function KycBadge({
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <tbody>
               <tr>
-                <td style={{ padding: '2px 0', color: '#6b7280' }}>Risk Level</td>
-                <td style={{ padding: '2px 0', textTransform: 'capitalize', fontWeight: 600, color }}>{label}</td>
+                <td style={{ padding: '0px 0', color: '#6b7280' }}>Risk Level</td>
+                <td style={{ padding: '0px 0', textTransform: 'capitalize', fontWeight: 600, color }}>{label}</td>
               </tr>
               <tr>
-                <td style={{ padding: '2px 0', color: '#6b7280' }}>Risk Score</td>
-                <td style={{ padding: '2px 0' }}>{result.riskScore} / 100</td>
+                <td style={{ padding: '0px 0', color: '#6b7280' }}>Risk Score</td>
+                <td style={{ padding: '0px 0' }}>{result.riskScore} / 100</td>
               </tr>
               <tr>
-                <td style={{ padding: '2px 0', color: '#6b7280' }}>Sanctioned</td>
-                <td style={{ padding: '2px 0' }}>{result.isSanctioned ? '⚠️ Yes' : 'No'}</td>
+                <td style={{ padding: '0px 0', color: '#6b7280' }}>Sanctioned</td>
+                <td style={{ padding: '0px 0' }}>{result.isSanctioned ? '⚠️ Yes' : 'No'}</td>
               </tr>
               <tr>
-                <td style={{ padding: '2px 0', color: '#6b7280' }}>Matched Lists</td>
-                <td style={{ padding: '2px 0' }}>{result.matchedLists.length > 0 ? result.matchedLists.join(', ') : '—'}</td>
+                <td style={{ padding: '0px 0', color: '#6b7280' }}>Matched Lists</td>
+                <td style={{ padding: '0px 0' }}>{result.matchedLists.length > 0 ? result.matchedLists.join(', ') : '—'}</td>
               </tr>
             </tbody>
           </table>

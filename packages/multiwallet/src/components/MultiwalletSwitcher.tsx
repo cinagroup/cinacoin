@@ -326,11 +326,11 @@ const styles: Record<string, React.CSSProperties> = {
     fontWeight: 500,
     background: "#dcfce7",
     color: "#166534",
-    padding: "2px 8px",
+    padding: "0px 8px",
     borderRadius: "9999px",
   },
   addButton: {
-    padding: "6px 12px",
+    padding: "4px 12px",
     fontSize: "13px",
     fontWeight: 500,
     background: "#3b82f6",
@@ -347,7 +347,7 @@ const styles: Record<string, React.CSSProperties> = {
     alignItems: "center",
     justifyContent: "space-between",
     width: "100%",
-    padding: "10px 16px",
+    padding: "8px 16px",
     background: "transparent",
     border: "none",
     cursor: "pointer",
@@ -385,7 +385,7 @@ const styles: Record<string, React.CSSProperties> = {
   walletInfo: {
     display: "flex",
     alignItems: "center",
-    gap: "10px",
+    gap: "8px",
   },
   walletIcon: {
     width: "24px",
@@ -413,7 +413,7 @@ const styles: Record<string, React.CSSProperties> = {
     color: "#16a34a",
   },
   switchButton: {
-    padding: "4px 10px",
+    padding: "4px 8px",
     fontSize: "12px",
     background: "#e0e7ff",
     color: "#3730a3",
@@ -467,7 +467,7 @@ const styles: Record<string, React.CSSProperties> = {
     color: "#374151",
   },
   input: {
-    padding: "8px 10px",
+    padding: "8px 8px",
     fontSize: "14px",
     border: "1px solid #d1d5db",
     borderRadius: "6px",

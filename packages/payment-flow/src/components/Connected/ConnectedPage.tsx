@@ -64,7 +64,7 @@ export function ConnectedPage({
             onClick={action.onClick}
             className="flex flex-col items-center gap-2 group"
           >
-            <div className="w-14 h-14 rounded-2xl bg-[var(--color-link)]/20 group-hover:bg-[var(--color-link)]/30 flex items-center justify-center text-2xl text-blue-400 transition-colors">
+            <div className="w-14 h-14 rounded-2xl bg-[var(--color-link)]/20 group-hover:bg-[var(--color-link)]/30 flex items-center justify-center text-2xl text-[var(--color-link)] transition-colors">
               {action.icon}
             </div>
             <span className="text-[var(--color-mute)] text-xs">{action.label}</span>
@@ -93,10 +93,10 @@ export function ConnectedPage({
                   <div
                     className={`w-8 h-8 rounded-full flex items-center justify-center text-sm ${
                       tx.type === "buy"
-                        ? "bg-green-500/20 text-green-400"
+                        ? "bg-[var(--color-success)]/20 text-[var(--color-success)]"
                         : tx.type === "send"
-                        ? "bg-red-500/20 text-red-400"
-                        : "bg-[var(--color-link)]/20 text-blue-400"
+                        ? "bg-[var(--color-error)]/20 text-[var(--color-error)]"
+                        : "bg-[var(--color-link)]/20 text-[var(--color-link)]"
                     }`}
                   >
                     {tx.type === "buy" ? "↓" : tx.type === "send" ? "↑" : "↙"}
@@ -115,10 +115,10 @@ export function ConnectedPage({
                   <p
                     className={`text-xs ${
                       tx.status === "confirmed"
-                        ? "text-green-400"
+                        ? "text-[var(--color-success)]"
                         : tx.status === "failed"
-                        ? "text-red-400"
-                        : "text-yellow-400"
+                        ? "text-[var(--color-error)]"
+                        : "text-[var(--color-warning)]"
                     }`}
                   >
                     {tx.status}

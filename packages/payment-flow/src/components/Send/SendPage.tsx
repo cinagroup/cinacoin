@@ -92,7 +92,7 @@ export function SendPage({ tokens = DEFAULT_TOKENS, onSend }: SendPageProps) {
       <div className="flex flex-col items-center justify-center min-h-[400px] rounded-2xl bg-[var(--color-canvas)]/5 p-8">
         {txStatus === "pending" && (
           <>
-            <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mb-4" />
+            <div className="w-12 h-12 border-4 border-[var(--color-link)] border-t-transparent rounded-full animate-spin mb-4" />
             <h2 className="text-xl font-semibold text-white mb-2">Sending…</h2>
             <p className="text-[var(--color-mute)] text-sm mb-4">Waiting for network confirmation</p>
           </>
@@ -104,7 +104,7 @@ export function SendPage({ tokens = DEFAULT_TOKENS, onSend }: SendPageProps) {
             <p className="text-[var(--color-mute)] text-sm mb-2">
               {amount} {selectedToken.symbol} sent to
             </p>
-            <code className="bg-black/30 text-green-400 px-3 py-1 rounded text-xs mb-4 break-all">
+            <code className="bg-black/30 text-[var(--color-success)] px-3 py-1 rounded text-xs mb-4 break-all">
               {recipientAddress}
             </code>
             <p className="text-[var(--color-mute)] text-xs mb-6 break-all max-w-xs">
@@ -115,7 +115,7 @@ export function SendPage({ tokens = DEFAULT_TOKENS, onSend }: SendPageProps) {
         {txStatus === "failed" && (
           <>
             <div className="text-5xl mb-4">❌</div>
-            <h2 className="text-xl font-semibold text-red-400 mb-2">Transaction Failed</h2>
+            <h2 className="text-xl font-semibold text-[var(--color-error)] mb-2">Transaction Failed</h2>
             <p className="text-[var(--color-mute)] text-sm mb-4">Something went wrong. Please try again.</p>
           </>
         )}
@@ -149,7 +149,7 @@ export function SendPage({ tokens = DEFAULT_TOKENS, onSend }: SendPageProps) {
           </div>
           <div className="flex justify-between text-sm">
             <span className="text-[var(--color-mute)]">Network Fee</span>
-            <span className="text-yellow-400">{estimatedFee}</span>
+            <span className="text-[var(--color-warning)]">{estimatedFee}</span>
           </div>
           <div className="flex justify-between text-sm">
             <span className="text-[var(--color-mute)]">Network</span>
@@ -197,11 +197,11 @@ export function SendPage({ tokens = DEFAULT_TOKENS, onSend }: SendPageProps) {
           onChange={(e) => setRecipientAddress(e.target.value)}
           placeholder="0x… or Solana address"
           className={`w-full bg-black/20 text-white rounded-xl p-3 outline-none transition-colors ${
-            recipientAddress.length > 0 && !isValidAddress ? "ring-2 ring-red-500" : "focus:ring-2 focus:ring-blue-600"
+            recipientAddress.length > 0 && !isValidAddress ? "ring-2 ring-[var(--color-error)]" : "focus:ring-2 focus:ring-[var(--color-link)]"
           }`}
         />
         {recipientAddress.length > 0 && !isValidAddress && (
-          <p className="text-red-400 text-xs mt-1">Invalid address format</p>
+          <p className="text-[var(--color-error)] text-xs mt-1">Invalid address format</p>
         )}
       </div>
 
@@ -237,7 +237,7 @@ export function SendPage({ tokens = DEFAULT_TOKENS, onSend }: SendPageProps) {
       {/* Fee estimate */}
       <div className="mb-6 flex justify-between text-sm">
         <span className="text-[var(--color-mute)]">Network Fee (est.)</span>
-        <span className="text-yellow-400">{estimatedFee}</span>
+        <span className="text-[var(--color-warning)]">{estimatedFee}</span>
       </div>
 
       <button

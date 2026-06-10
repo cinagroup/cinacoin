@@ -46,7 +46,7 @@ export default function TransactionList({ transactions }: { transactions: Transa
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <code className="text-link cursor-pointer hover:underline" style={{ fontSize: '13px' }}>
+                    <code className="text-link cursor-pointer hover:underline" style={{ fontSize: 'var(--cc-text-xs)' }}>
                       {tx.hash.slice(0, 10)}...{tx.hash.slice(-8)}
                     </code>
                     <span className={`text-caption ${statusColors[tx.status]}`}>

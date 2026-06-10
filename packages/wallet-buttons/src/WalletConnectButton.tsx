@@ -70,9 +70,9 @@ const SIZE_MAP: Record<
   WalletButtonSize,
   { padding: string; icon: string; fontSize: string; gap: string; borderRadius: string }
 > = {
-  sm: { padding: '6px 12px', icon: '18px', fontSize: '13px', gap: '6px', borderRadius: '8px' },
-  md: { padding: '10px 18px', icon: '22px', fontSize: '15px', gap: '8px', borderRadius: '10px' },
-  lg: { padding: '14px 26px', icon: '26px', fontSize: '16px', gap: '10px', borderRadius: '12px' },
+  sm: { padding: '4px 12px', icon: '16px', fontSize: '12px', gap: '4px', borderRadius: '8px' },
+  md: { padding: '8px 16px', icon: '20px', fontSize: '16px', gap: '8px', borderRadius: '8px' },
+  lg: { padding: '12px 24px', icon: '24px', fontSize: '16px', gap: '8px', borderRadius: '12px' },
 };
 
 export const WalletConnectButton: React.FC<WalletConnectButtonProps> = ({
@@ -179,7 +179,7 @@ export const WalletConnectButton: React.FC<WalletConnectButtonProps> = ({
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            <h3 style={{ margin: '0 0 16px', fontSize: '18px' }}>Scan with your wallet</h3>
+            <h3 style={{ margin: '0 0 16px', fontSize: '16px' }}>Scan with your wallet</h3>
             <div style={{ width: '200px', height: '200px', margin: '0 auto 16px' }}>
               {/*
                 QR code rendering is delegated to the consuming app.

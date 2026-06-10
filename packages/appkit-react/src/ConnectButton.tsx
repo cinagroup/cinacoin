@@ -33,7 +33,7 @@ export interface ConnectButtonProps {
 // ============================================================================
 
 const defaultStyle: CSSProperties = {
-  padding: '10px 20px',
+  padding: '8px 20px',
   borderRadius: '12px',
   border: 'none',
   backgroundColor: 'var(--cc-accent, #3b82f6)',

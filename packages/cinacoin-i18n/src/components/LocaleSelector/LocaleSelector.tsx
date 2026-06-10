@@ -124,7 +124,7 @@ export const LocaleSelector: React.FC<{
                 aria-selected={isActive}
                 className={`flex w-full items-center px-4 py-2 text-left text-sm transition-colors ${
                   isActive
-                    ? 'bg-[var(--color-link-bg-soft)] text-blue-600 dark:bg-[var(--color-link-deep)]/30 dark:text-blue-400'
+                    ? 'bg-[var(--color-link-bg-soft)] text-[var(--color-link)] dark:bg-[var(--color-link-deep)]/30'
                     : 'text-[var(--color-ink)] hover:bg-[var(--color-canvas-soft)] dark:text-[var(--color-body)] dark:hover:bg-[var(--color-canvas-soft-2)]'
                 }`}
                 onClick={() => handleSelect(l)}

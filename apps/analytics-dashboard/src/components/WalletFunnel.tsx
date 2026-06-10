@@ -114,17 +114,17 @@ export default function WalletFunnel() {
 
       {/* Overall Conversion Rate */}
       <div className="flex items-center gap-lg">
-        <div className="card p-md flex-1">
+        <div className="cc-card p-md flex-1">
           <p className="text-body-sm text-ink-mute mb-xxs">Overall Conversion</p>
           <p className="text-display-sm text-success">{overallConversion}%</p>
         </div>
-        <div className="card p-md flex-1">
+        <div className="cc-card p-md flex-1">
           <p className="text-body-sm text-ink-mute mb-xxs">Total Attempts</p>
           <p className="text-display-sm text-ink">
             {aggregatedSteps[0]?.count.toLocaleString() || 0}
           </p>
         </div>
-        <div className="card p-md flex-1">
+        <div className="cc-card p-md flex-1">
           <p className="text-body-sm text-ink-mute mb-xxs">Completed</p>
           <p className="text-display-sm text-ink">
             {aggregatedSteps[aggregatedSteps.length - 1]?.count.toLocaleString() || 0}
@@ -184,7 +184,7 @@ export default function WalletFunnel() {
               const last = w.steps[w.steps.length - 1].count;
               const rate = ((last / first) * 100).toFixed(1);
               return (
-                <div key={w.wallet} className="card p-sm">
+                <div key={w.wallet} className="cc-card p-sm">
                   <div className="flex items-center justify-between">
                     <span className="text-body-sm font-medium text-ink">{w.wallet}</span>
                     <span className="text-body-sm font-medium" style={{ color: w.steps[0].color }}>

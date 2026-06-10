@@ -76,9 +76,9 @@ const tabStyles = {
   },
   tab: {
     flex: 1,
-    padding: "10px 16px",
-    fontSize: "14px",
-    fontWeight: 600,
+    padding: "8px 16px",
+    fontSize: "var(--cc-text-sm)",
+    fontWeight: "var(--cc-weight-semibold)",
     border: "none",
     borderRadius: "8px",
     cursor: "pointer",
@@ -149,8 +149,8 @@ export function UnifiedPayment(props: UnifiedPaymentProps): React.ReactElement {
       <h2
         style={{
           margin: "0 0 16px 0",
-          fontSize: "18px",
-          fontWeight: 600,
+          fontSize: "var(--cc-text-lg)",
+          fontWeight: "var(--cc-weight-semibold)",
           color: "var(--ocx-text-primary)",
         }}
       >
@@ -244,18 +244,18 @@ function DepositPlaceholder({ walletAddress, theme }: DepositPlaceholderProps) {
         color: "var(--ocx-text-secondary)",
       }}
     >
-      <div style={{ fontSize: "48px", marginBottom: "16px" }}>🏦</div>
+      <div style={{ fontSize: "var(--cc-text-3xl)", marginBottom: "16px" }}>🏦</div>
       <h3
         style={{
           margin: "0 0 8px 0",
-          fontSize: "16px",
-          fontWeight: 600,
+          fontSize: "var(--cc-text-md)",
+          fontWeight: "var(--cc-weight-semibold)",
           color: "var(--ocx-text-primary)",
         }}
       >
         Deposit from Exchange
       </h3>
-      <p style={{ margin: 0, fontSize: "14px", lineHeight: 1.5 }}>
+      <p style={{ margin: 0, fontSize: "var(--cc-text-sm)", lineHeight: 1.5 }}>
         Generate deposit addresses and track incoming transfers from major exchanges.
       </p>
       {walletAddress && (

@@ -74,9 +74,9 @@ export default function Home(): JSX.Element {
           style={{
             textAlign: 'center',
             padding: 'var(--cc-space-2xl) var(--cc-space-lg)',
-            background: 'linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(139,92,246,0.08) 50%, rgba(236,72,153,0.05) 100%)',
+            background: 'linear-gradient(135deg, var(--cc-hero-gradient-1) 0%, var(--cc-hero-gradient-2) 50%, var(--cc-hero-gradient-3) 100%)',
             borderRadius: 'var(--cc-radius-xl)',
-            border: '1px solid rgba(99,102,241,0.15)',
+            border: '1px solid var(--cc-hero-border)',
           }}
         >
           <h2

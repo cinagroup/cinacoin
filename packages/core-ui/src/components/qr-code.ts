@@ -222,7 +222,7 @@ export class QrCode extends BaseLitElement {
       const svg = await QRCode.toString(this.uri, {
         type: 'svg',
         width: this.size,
-        margin: 2,
+        margin: 0,
         color: {
           dark: this.fgColor,
           light: this.bgColor,

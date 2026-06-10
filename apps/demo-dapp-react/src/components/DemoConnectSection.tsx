@@ -23,7 +23,7 @@ export function DemoConnectSection(): JSX.Element {
   return (
     <section className="cc-card cc-fade-in" aria-labelledby="connect-heading">
       <h3 id="connect-heading" className="cc-section-title">
-        <span style={{ fontSize: '20px' }} aria-hidden="true">🔗</span> Connect
+        <span style={{ fontSize: 'var(--cc-text-lg)' }} aria-hidden="true">🔗</span> Connect
       </h3>
       <p className="cc-section-desc">
         Connect your wallet using any of the supported methods below.
@@ -88,7 +88,7 @@ export function DemoConnectSection(): JSX.Element {
         <div>
           <button
             className="cc-btn"
-            style={{ background: '#dc2626', color: '#fff' }}
+            style={{ background: 'var(--cc-danger)', color: 'var(--cc-danger-on)' }}
             onClick={() => disconnect().catch(() => {})}
             aria-label="Disconnect wallet"
           >

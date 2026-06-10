@@ -87,7 +87,7 @@ export function ProfilePage({
           <button
             onClick={handleCopyAddress}
             className={`text-xs px-3 py-1 rounded-lg transition-colors ${
-              copied ? "bg-green-600 text-white" : "bg-black/30 text-[var(--color-body)] hover:bg-black/40"
+              copied ? "bg-[var(--color-success)] text-white" : "bg-black/30 text-[var(--color-body)] hover:bg-black/40"
             }`}
           >
             {copied ? "Copied!" : "Copy"}
@@ -107,7 +107,7 @@ export function ProfilePage({
               <div className="flex items-center gap-3">
                 <div
                   className={`w-3 h-3 rounded-full ${
-                    provider.connected ? "bg-green-500" : "bg-[var(--color-mute)]"
+                    provider.connected ? "bg-[var(--color-success)]" : "bg-[var(--color-mute)]"
                   }`}
                 />
                 <span className="text-white text-sm">{provider.name}</span>
@@ -115,7 +115,7 @@ export function ProfilePage({
               {provider.connected && (
                 <button
                   onClick={() => handleRemoveProvider(provider.id)}
-                  className="text-xs text-red-400 hover:text-red-300 transition-colors px-2 py-1 rounded-lg hover:bg-red-400/10"
+                  className="text-xs text-[var(--color-error)] hover:text-[var(--color-error)]/80 transition-colors px-2 py-1 rounded-lg hover:bg-[var(--color-error)]/10"
                 >
                   Remove
                 </button>
@@ -129,14 +129,14 @@ export function ProfilePage({
       <div className="border-t border-[var(--color-hairline-strong)] pt-4">
         <h3 className="text-sm font-semibold text-[var(--color-body)] mb-3">Security</h3>
         {showConfirmExport ? (
-          <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4">
-            <p className="text-red-400 text-sm mb-3">
+          <div className="bg-[var(--color-error)]/10 border border-[var(--color-error)]/20 rounded-xl p-4">
+            <p className="text-[var(--color-error)] text-sm mb-3">
               ⚠️ Are you sure? This will export your private key. Never share it with anyone.
             </p>
             <div className="flex gap-2">
               <button
                 onClick={handleExportKey}
-                className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-500 text-white text-sm font-medium transition-colors"
+                className="px-4 py-2 rounded-lg bg-[var(--color-error)] hover:bg-[var(--color-error)]/90 text-white text-sm font-medium transition-colors"
               >
                 Yes, Export Key
               </button>

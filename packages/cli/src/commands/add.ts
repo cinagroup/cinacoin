@@ -306,13 +306,13 @@ export default function WalletDisplay({ className, showBalance = true }: WalletD
 
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '1rem' }}>
         <code style={{
-          background: '#0d0d1a', padding: '0.5rem 1rem', borderRadius: '6px',
+          background: '#0d0d1a', padding: '0.5rem 1rem', borderRadius: '4px',
           fontSize: '0.85rem', flex: 1, fontFamily: 'monospace',
         }}>
           {address}
         </code>
         <button onClick={copyAddress}
-          style={{ background: copied ? '#22c55e' : '#333', border: 'none', color: 'white', padding: '0.5rem', borderRadius: '6px', cursor: 'pointer' }}>
+          style={{ background: copied ? '#22c55e' : '#333', border: 'none', color: 'white', padding: '0.5rem', borderRadius: '4px', cursor: 'pointer' }}>
           {copied ? '✓' : '📋'}
         </button>
       </div>
@@ -383,7 +383,7 @@ export default function WalletModal({ isOpen, onClose, projectId }: WalletModalP
         color: 'var(--cc-text-primary, #e6edf3)', boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
       }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-          <h2 style={{ margin: 0, fontSize: '18px', fontWeight: 600 }}>
+          <h2 style={{ margin: 0, fontSize: '16px', fontWeight: 600 }}>
             {isConnected ? 'Account' : 'Connect Wallet'}
           </h2>
           <button onClick={onClose} style={{
@@ -398,14 +398,14 @@ export default function WalletModal({ isOpen, onClose, projectId }: WalletModalP
               background: 'var(--cc-bg-secondary, #21262d)', borderRadius: '12px',
               padding: '16px', marginBottom: '16px',
             }}>
-              <p style={{ margin: '0 0 8px', fontSize: '13px', color: 'var(--cc-text-secondary)' }}>Connected</p>
+              <p style={{ margin: '0 0 8px', fontSize: '12px', color: 'var(--cc-text-secondary)' }}>Connected</p>
               <code style={{
                 fontFamily: 'monospace', fontSize: '14px',
                 wordBreak: 'break-all', color: 'var(--cc-text-primary)',
               }}>{address}</code>
             </div>
             <button onClick={() => { disconnect(); onClose(); }} style={{
-              width: '100%', padding: '12px', borderRadius: '10px', border: '1px solid var(--cc-error, #ef4444)',
+              width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid var(--cc-error, #ef4444)',
               background: 'transparent', color: 'var(--cc-error, #ef4444)', cursor: 'pointer',
               fontWeight: 600, fontSize: '14px',
             }}>Disconnect</button>
@@ -415,7 +415,7 @@ export default function WalletModal({ isOpen, onClose, projectId }: WalletModalP
             {error && (
               <div style={{
                 background: 'rgba(239,68,68,0.1)', border: '1px solid var(--cc-error, #ef4444)',
-                borderRadius: '8px', padding: '10px', fontSize: '13px', color: 'var(--cc-error, #ef4444)',
+                borderRadius: '8px', padding: '8px', fontSize: '12px', color: 'var(--cc-error, #ef4444)',
                 marginBottom: '8px',
               }}>{error}</div>
             )}
@@ -424,7 +424,7 @@ export default function WalletModal({ isOpen, onClose, projectId }: WalletModalP
                 disabled={isConnecting}
                 style={{
                   display: 'flex', alignItems: 'center', gap: '12px', width: '100%',
-                  padding: '14px 16px', borderRadius: '12px', border: '1px solid var(--cc-border-primary, #30363d)',
+                  padding: '12px 16px', borderRadius: '12px', border: '1px solid var(--cc-border-primary, #30363d)',
                   background: 'var(--cc-bg-secondary, #21262d)', color: 'var(--cc-text-primary)',
                   cursor: isConnecting ? 'wait' : 'pointer', textAlign: 'left',
                   transition: 'all 0.15s ease', fontSize: '14px',
@@ -648,7 +648,7 @@ export default function SignIn({
       onClick={handleSignIn}
       disabled={isLoading}
       style={{
-        padding: '12px 24px', borderRadius: '10px', border: 'none',
+        padding: '12px 24px', borderRadius: '8px', border: 'none',
         background: isLoading ? 'var(--cc-text-muted, #6e7681)' : 'var(--cc-primary, #58a6ff)',
         color: 'white', fontWeight: 600, fontSize: '14px',
         cursor: isLoading ? 'wait' : 'pointer', transition: 'all 0.15s ease',

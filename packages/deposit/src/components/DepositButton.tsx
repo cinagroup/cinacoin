@@ -7,7 +7,7 @@ const btnStyle: React.CSSProperties = {
   display: "inline-flex",
   alignItems: "center",
   gap: 8,
-  padding: "10px 20px",
+  padding: "8px 20px",
   borderRadius: 8,
   border: "none",
   background: "linear-gradient(135deg, #0f3460, #16213e)",

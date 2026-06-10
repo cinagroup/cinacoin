@@ -166,8 +166,8 @@ function getButtonStyles(
   };
 
   const sizes = {
-    sm: { padding: "6px 12px", fontSize: "12px" },
-    md: { padding: "8px 16px", fontSize: "14px" },
+    sm: { padding: "4px 12px", fontSize: "12px" },
+    md: { padding: "8px 16px", fontSize: "12px" },
     lg: { padding: "12px 24px", fontSize: "16px" },
   };
 

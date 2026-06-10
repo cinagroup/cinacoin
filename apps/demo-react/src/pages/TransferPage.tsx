@@ -91,7 +91,7 @@ export function TransferPage() {
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, padding: 24 }}>
       {/* Left: Interactive Demo */}
       <div>
-        <h2 style={{ fontSize: 24, fontWeight: 700, marginBottom: 16 }}>Token 转账</h2>
+        <h2 style={{ fontSize: "var(--cc-text-xl)", fontWeight: "var(--cc-weight-bold)", marginBottom: 16 }}>Token 转账</h2>
         <p style={{ color: '#888', marginBottom: 24 }}>选择链和 Token，输入收款地址和金额，完成转账。</p>
 
         <div style={{ background: '#1a1a2e', borderRadius: 12, padding: 24 }}>
@@ -99,7 +99,7 @@ export function TransferPage() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
               {/* Chain selector */}
               <div>
-                <label style={{ fontSize: 13, color: '#aaa', marginBottom: 8, display: 'block' }}>选择链</label>
+                <label style={{ fontSize: "var(--cc-text-xs)", color: '#aaa', marginBottom: 8, display: 'block' }}>选择链</label>
                 <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                   {CHAINS.map((chain) => (
                     <button
@@ -112,7 +112,7 @@ export function TransferPage() {
                         background: state.chain === chain.id ? '#6366f120' : '#0d0d1a',
                         color: '#fff',
                         cursor: 'pointer',
-                        fontSize: 14,
+                        fontSize: "var(--cc-text-sm)",
                       }}
                     >
                       {chain.icon} {chain.name}
@@ -123,7 +123,7 @@ export function TransferPage() {
 
               {/* Token selector */}
               <div>
-                <label style={{ fontSize: 13, color: '#aaa', marginBottom: 8, display: 'block' }}>选择 Token</label>
+                <label style={{ fontSize: "var(--cc-text-xs)", color: '#aaa', marginBottom: 8, display: 'block' }}>选择 Token</label>
                 <div style={{ display: 'flex', gap: 8 }}>
                   {selectedChain.tokens.map((token) => (
                     <button
@@ -136,7 +136,7 @@ export function TransferPage() {
                         background: state.token === token ? '#6366f120' : '#0d0d1a',
                         color: '#fff',
                         cursor: 'pointer',
-                        fontSize: 13,
+                        fontSize: "var(--cc-text-xs)",
                       }}
                     >
                       {token}
@@ -147,7 +147,7 @@ export function TransferPage() {
 
               {/* Recipient */}
               <div>
-                <label style={{ fontSize: 13, color: '#aaa', marginBottom: 8, display: 'block' }}>收款地址</label>
+                <label style={{ fontSize: "var(--cc-text-xs)", color: '#aaa', marginBottom: 8, display: 'block' }}>收款地址</label>
                 <input
                   type="text"
                   placeholder="0x..."
@@ -160,7 +160,7 @@ export function TransferPage() {
                     border: '2px solid #333',
                     background: '#0d0d1a',
                     color: '#fff',
-                    fontSize: 14,
+                    fontSize: "var(--cc-text-sm)",
                     outline: 'none',
                     boxSizing: 'border-box',
                   }}
@@ -169,7 +169,7 @@ export function TransferPage() {
 
               {/* Amount */}
               <div>
-                <label style={{ fontSize: 13, color: '#aaa', marginBottom: 8, display: 'block' }}>金额</label>
+                <label style={{ fontSize: "var(--cc-text-xs)", color: '#aaa', marginBottom: 8, display: 'block' }}>金额</label>
                 <input
                   type="number"
                   step="0.001"
@@ -183,7 +183,7 @@ export function TransferPage() {
                     border: '2px solid #333',
                     background: '#0d0d1a',
                     color: '#fff',
-                    fontSize: 14,
+                    fontSize: "var(--cc-text-sm)",
                     outline: 'none',
                     boxSizing: 'border-box',
                   }}
@@ -199,8 +199,8 @@ export function TransferPage() {
                   border: 'none',
                   background: state.to && state.amount ? '#6366f1' : '#333',
                   color: '#fff',
-                  fontSize: 16,
-                  fontWeight: 600,
+                  fontSize: "var(--cc-text-md)",
+                  fontWeight: "var(--cc-weight-semibold)",
                   cursor: state.to && state.amount ? 'pointer' : 'not-allowed',
                   marginTop: 8,
                 }}
@@ -212,23 +212,23 @@ export function TransferPage() {
 
           {state.step === 'confirm' && (
             <div style={{ textAlign: 'center', padding: 20 }}>
-              <h3 style={{ fontSize: 18, marginBottom: 16 }}>确认交易</h3>
+              <h3 style={{ fontSize: "var(--cc-text-lg)", marginBottom: 16 }}>确认交易</h3>
               <div style={{ background: '#0d0d1a', borderRadius: 8, padding: 16, marginBottom: 16, textAlign: 'left' }}>
-                <p style={{ color: '#888', fontSize: 13 }}>链: {selectedChain.name}</p>
-                <p style={{ color: '#888', fontSize: 13 }}>Token: {state.token}</p>
-                <p style={{ color: '#888', fontSize: 13 }}>收款: {state.to.slice(0, 10)}...{state.to.slice(-8)}</p>
-                <p style={{ color: '#fff', fontSize: 20, fontWeight: 700, marginTop: 8 }}>{state.amount} {state.token}</p>
+                <p style={{ color: '#888', fontSize: "var(--cc-text-xs)" }}>链: {selectedChain.name}</p>
+                <p style={{ color: '#888', fontSize: "var(--cc-text-xs)" }}>Token: {state.token}</p>
+                <p style={{ color: '#888', fontSize: "var(--cc-text-xs)" }}>收款: {state.to.slice(0, 10)}...{state.to.slice(-8)}</p>
+                <p style={{ color: '#fff', fontSize: "var(--cc-text-lg)", fontWeight: "var(--cc-weight-bold)", marginTop: 8 }}>{state.amount} {state.token}</p>
               </div>
               <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
                 <button
                   onClick={() => setState((s) => ({ ...s, step: 'input' }))}
-                  style={{ padding: '12px 20px', borderRadius: 8, border: '2px solid #333', background: 'transparent', color: '#fff', cursor: 'pointer' }}
+                  style={{ padding: '12px 20px', borderRadius: 8, border: '0px solid #333', background: 'transparent', color: '#fff', cursor: 'pointer' }}
                 >
                   取消
                 </button>
                 <button
                   onClick={handleSend}
-                  style={{ padding: '12px 20px', borderRadius: 8, border: 'none', background: '#6366f1', color: '#fff', fontWeight: 600, cursor: 'pointer' }}
+                  style={{ padding: '12px 20px', borderRadius: 8, border: 'none', background: '#6366f1', color: '#fff', fontWeight: "var(--cc-weight-semibold)", cursor: 'pointer' }}
                 >
                   确认发送
                 </button>
@@ -246,8 +246,8 @@ export function TransferPage() {
           {state.step === 'success' && (
             <div style={{ textAlign: 'center', padding: 20 }}>
               <div style={{ fontSize: 48, marginBottom: 16 }}>✅</div>
-              <h3 style={{ fontSize: 18, marginBottom: 8 }}>交易成功!</h3>
-              <p style={{ color: '#888', fontSize: 13, marginBottom: 16 }}>
+              <h3 style={{ fontSize: "var(--cc-text-lg)", marginBottom: 8 }}>交易成功!</h3>
+              <p style={{ color: '#888', fontSize: "var(--cc-text-xs)", marginBottom: 16 }}>
                 TX: {state.txHash.slice(0, 16)}...{state.txHash.slice(-8)}
               </p>
               <button

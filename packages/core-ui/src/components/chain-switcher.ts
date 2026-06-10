@@ -136,7 +136,7 @@ export class ChainSwitcher extends BaseLitElement {
 
         .testnet-badge {
           font-size: var(--ocx-font-size-xs, 0.75rem);
-          padding: 1px 6px;
+          padding: 1px 4px;
           background: var(--ocx-color-warning-bg, rgba(234,179,8,0.15));
           color: var(--ocx-color-warning, #EAB308);
           border-radius: var(--ocx-radius-sm, 0.25rem);

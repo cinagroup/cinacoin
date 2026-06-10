@@ -236,7 +236,7 @@ export function KycModal({
           style={{
             marginTop: '20px',
             width: '100%',
-            padding: '10px',
+            padding: '8px',
             background: allRequired ? '#3b82f6' : '#9ca3af',
             color: '#fff',
             border: 'none',
@@ -302,7 +302,7 @@ function ModalShell({ title, onClose, children }: ModalShellProps): React.ReactE
             borderBottom: '1px solid #e5e7eb',
           }}
         >
-          <h2 style={{ margin: 0, fontSize: '18px', fontWeight: 600 }}>{title}</h2>
+          <h2 style={{ margin: 0, fontSize: '16px', fontWeight: 600 }}>{title}</h2>
           <button
             onClick={onClose}
             style={{
@@ -331,8 +331,8 @@ interface FileFieldProps {
 
 function FileField({ label, file, onChange, accept }: FileFieldProps): React.ReactElement {
   return (
-    <div style={{ marginBottom: '14px' }}>
-      <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, marginBottom: '6px' }}>
+    <div style={{ marginBottom: '12px' }}>
+      <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, marginBottom: '4px' }}>
         {label}
       </label>
       <label
@@ -340,7 +340,7 @@ function FileField({ label, file, onChange, accept }: FileFieldProps): React.Rea
           display: 'flex',
           alignItems: 'center',
           gap: '8px',
-          padding: '10px 12px',
+          padding: '8px 12px',
           border: '1px dashed #d1d5db',
           borderRadius: '6px',
           cursor: 'pointer',

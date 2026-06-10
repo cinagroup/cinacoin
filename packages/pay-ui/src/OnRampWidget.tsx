@@ -166,7 +166,7 @@ export function OnRampWidget(props: OnRampWidgetProps): React.ReactElement {
     <div className={`ocx-onramp-widget ${className}`} style={{ ...widgetCssVars, ...cardCss, maxWidth: "480px" }}>
       {/* Header */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
-        <h2 style={{ margin: 0, fontSize: "18px", fontWeight: 600, color: "var(--ocx-text-primary)" }}>
+        <h2 style={{ margin: 0, fontSize: "16px", fontWeight: 600, color: "var(--ocx-text-primary)" }}>
           Buy Crypto
         </h2>
         <button
@@ -187,9 +187,9 @@ export function OnRampWidget(props: OnRampWidgetProps): React.ReactElement {
           <button
             onClick={() => setShowCurrencyModal(true)}
             style={{
-              display: "flex", alignItems: "center", gap: "6px",
+              display: "flex", alignItems: "center", gap: "4px",
               background: "var(--ocx-bg-elevated)", border: "none", borderRadius: "20px",
-              padding: "6px 12px", cursor: "pointer", fontSize: "14px", fontWeight: 600,
+              padding: "4px 12px", cursor: "pointer", fontSize: "12px", fontWeight: 600,
               color: "var(--ocx-text-primary)",
             }}
           >
@@ -219,7 +219,7 @@ export function OnRampWidget(props: OnRampWidgetProps): React.ReactElement {
           value={cryptoToken}
           onChange={(e) => setCryptoToken(e.target.value)}
           style={{
-            width: "100%", padding: "10px 12px", fontSize: "16px",
+            width: "100%", padding: "8px 12px", fontSize: "16px",
             border: `1px solid var(--ocx-border)`, borderRadius: "8px",
             background: "var(--ocx-bg-base)", color: "var(--ocx-text-primary)",
             cursor: "pointer",
@@ -247,7 +247,7 @@ export function OnRampWidget(props: OnRampWidgetProps): React.ReactElement {
                 key={c}
                 onClick={() => handleCurrencySelect(c)}
                 style={{
-                  display: "block", width: "100%", padding: "10px 12px", textAlign: "left",
+                  display: "block", width: "100%", padding: "8px 12px", textAlign: "left",
                   background: c === fiatCurrency ? "var(--ocx-bg-elevated)" : "transparent",
                   border: "none", borderRadius: "8px", cursor: "pointer", marginBottom: "4px",
                   fontSize: "14px", color: "var(--ocx-text-primary)",
@@ -303,7 +303,7 @@ export function OnRampWidget(props: OnRampWidgetProps): React.ReactElement {
                     {quote.providerName}
                   </span>
                   {quote.requiresKyc && (
-                    <span style={{ marginLeft: "8px", fontSize: "11px", color: "var(--ocx-warning)", background: "var(--ocx-warning-bg)", padding: "2px 6px", borderRadius: "4px" }}>
+                    <span style={{ marginLeft: "8px", fontSize: "11px", color: "var(--ocx-warning)", background: "var(--ocx-warning-bg)", padding: "0px 4px", borderRadius: "4px" }}>
                       KYC
                     </span>
                   )}
@@ -357,7 +357,7 @@ export function OnRampWidget(props: OnRampWidgetProps): React.ReactElement {
 
       {/* Error Display */}
       {error && (
-        <div style={{ marginTop: "12px", padding: "12px", background: "var(--ocx-error-bg)", borderRadius: "8px", color: "var(--ocx-error)", fontSize: "14px" }}>
+        <div style={{ marginTop: "12px", padding: "12px", background: "var(--ocx-error-bg)", borderRadius: "8px", color: "var(--ocx-error)", fontSize: "12px" }}>
           {error}
         </div>
       )}

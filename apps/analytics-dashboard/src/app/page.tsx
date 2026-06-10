@@ -71,11 +71,11 @@ export default function Home() {
 
         {/* Charts Row */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-lg mb-xl">
-          <div className="card p-lg">
+          <div className="cc-card p-lg">
             <h2 className="text-heading-3 text-ink mb-lg">User Growth</h2>
             <UserGrowthChart />
           </div>
-          <div className="card p-lg">
+          <div className="cc-card p-lg">
             <h2 className="text-heading-3 text-ink mb-lg">API Calls Trend</h2>
             <APICallsChart />
           </div>

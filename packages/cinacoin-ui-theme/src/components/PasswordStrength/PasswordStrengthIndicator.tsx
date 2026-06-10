@@ -38,11 +38,11 @@ export function calculatePasswordStrength(password: string): PasswordStrength {
   if (hasLower && hasUpper && hasDigit && hasSpecial && length >= 12) score++;
 
   const strengths: Record<number, Omit<PasswordStrength, 'bgColor'>> = {
-    0: { score: 0, label: 'Weak', color: 'bg-red-500' },
-    1: { score: 1, label: 'Fair', color: 'bg-orange-500' },
-    2: { score: 2, label: 'Good', color: 'bg-yellow-500' },
-    3: { score: 3, label: 'Strong', color: 'bg-green-500' },
-    4: { score: 4, label: 'Very Strong', color: 'bg-emerald-500' },
+    0: { score: 0, label: 'Weak', color: 'bg-[var(--color-error)]' },
+    1: { score: 1, label: 'Fair', color: 'bg-[var(--color-warning)]' },
+    2: { score: 2, label: 'Good', color: 'bg-[var(--color-warning)]' },
+    3: { score: 3, label: 'Strong', color: 'bg-[var(--color-success)]' },
+    4: { score: 4, label: 'Very Strong', color: 'bg-[var(--color-success)]' },
   };
 
   const strength = strengths[score];
@@ -115,10 +115,10 @@ export const PasswordStrengthIndicator: React.FC<PasswordStrengthIndicatorProps>
           <span
             className={
               strength.score <= 1
-                ? 'text-red-500'
+                ? 'text-[var(--color-error)]'
                 : strength.score === 2
-                ? 'text-yellow-600'
-                : 'text-green-600'
+                ? 'text-[var(--color-warning)]'
+                : 'text-[var(--color-success)]'
             }
           >
             {strength.label}

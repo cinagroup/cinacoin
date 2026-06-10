@@ -65,7 +65,7 @@ export function DemoSendTransaction(): JSX.Element {
     return (
       <section className="cc-card cc-fade-in" aria-labelledby="send-heading">
         <h3 id="send-heading" className="cc-section-title">
-          <span style={{ fontSize: '20px' }} aria-hidden="true">📤</span> Send Transaction
+          <span style={{ fontSize: 'var(--cc-text-lg)' }} aria-hidden="true">📤</span> Send Transaction
         </h3>
         <p className="cc-section-desc">Connect a wallet to send transactions.</p>
       </section>
@@ -75,7 +75,7 @@ export function DemoSendTransaction(): JSX.Element {
   return (
     <section className="cc-card cc-fade-in" aria-labelledby="send-heading">
       <h3 id="send-heading" className="cc-section-title">
-        <span style={{ fontSize: '20px' }} aria-hidden="true">📤</span> Send Transaction
+        <span style={{ fontSize: 'var(--cc-text-lg)' }} aria-hidden="true">📤</span> Send Transaction
       </h3>
       <p className="cc-section-desc">
         Send {symbol} to another address with gas estimation and status tracking.

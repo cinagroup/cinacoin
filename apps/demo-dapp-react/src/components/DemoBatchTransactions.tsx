@@ -64,7 +64,7 @@ export function DemoBatchTransactions(): JSX.Element {
     return (
       <section className="cc-card cc-fade-in" aria-labelledby="batch-heading">
         <h3 id="batch-heading" className="cc-section-title">
-          <span style={{ fontSize: '20px' }} aria-hidden="true">📦</span> Batch Transactions
+          <span style={{ fontSize: 'var(--cc-text-lg)' }} aria-hidden="true">📦</span> Batch Transactions
         </h3>
         <p className="cc-section-desc">Connect a wallet to execute batch transactions.</p>
       </section>
@@ -74,7 +74,7 @@ export function DemoBatchTransactions(): JSX.Element {
   return (
     <section className="cc-card cc-fade-in" aria-labelledby="batch-heading">
       <h3 id="batch-heading" className="cc-section-title">
-        <span style={{ fontSize: '20px' }} aria-hidden="true">📦</span> Batch Transactions
+        <span style={{ fontSize: 'var(--cc-text-lg)' }} aria-hidden="true">📦</span> Batch Transactions
       </h3>
       <p className="cc-section-desc">
         Execute multiple calls atomically via EIP-5792 <code className="cc-code">wallet_sendCalls</code>.
@@ -108,7 +108,7 @@ export function DemoBatchTransactions(): JSX.Element {
                 fontSize: 'var(--cc-text-xs)',
                 fontWeight: 'var(--cc-weight-semibold)',
                 flexShrink: 0,
-                color: '#fff',
+                color: 'var(--cc-on-primary)',
               }}
               aria-hidden="true"
             >
@@ -119,7 +119,7 @@ export function DemoBatchTransactions(): JSX.Element {
               <div style={{ fontSize: 'var(--cc-text-xs)', color: 'var(--cc-body)' }}>{step.description}</div>
             </div>
             {batchStatus === 'CONFIRMED' && allSucceeded && (
-              <span style={{ fontSize: '18px' }} aria-label="Step completed">✅</span>
+              <span style={{ fontSize: 'var(--cc-text-lg)' }} aria-label="Step completed">✅</span>
             )}
             {isPolling && (
               <span className="cc-spinner" style={{ color: 'var(--cc-warning)' }} aria-label="Processing" />

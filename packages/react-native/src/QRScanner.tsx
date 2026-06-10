@@ -416,7 +416,7 @@ const styles = StyleSheet.create({
     opacity: 0.8,
   },
   instructions: {
-    marginTop: 30,
+    marginTop: 28,
     alignItems: 'center',
   },
   instructionsText: {

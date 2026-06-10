@@ -166,7 +166,7 @@ const styles = {
   },
   buyButton: {
     width: '100%',
-    padding: '14px',
+    padding: '12px',
     fontSize: '16px',
     fontWeight: 600,
     border: 'none',

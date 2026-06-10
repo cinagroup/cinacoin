@@ -62,7 +62,7 @@ const styles = {
   } as React.CSSProperties,
   badge: {
     display: "inline-block",
-    padding: "2px 8px",
+    padding: "0px 8px",
     borderRadius: "9999px",
     fontSize: "10px",
     fontWeight: 600,
@@ -336,13 +336,13 @@ export function NftDetail({
         </h2>
 
         {nft.contractName && (
-          <p style={{ margin: "0 0 12px 0", color: "#818cf8", fontSize: "14px" }}>
+          <p style={{ margin: "0 0 12px 0", color: "#818cf8", fontSize: "12px" }}>
             {nft.contractName}
           </p>
         )}
 
         {nft.description && (
-          <p style={{ margin: "0 0 12px 0", color: "#94a3b8", fontSize: "14px", lineHeight: 1.6 }}>
+          <p style={{ margin: "0 0 12px 0", color: "#94a3b8", fontSize: "12px", lineHeight: 1.6 }}>
             {nft.description}
           </p>
         )}
@@ -396,7 +396,7 @@ export function NftDetail({
               <div
                 key={i}
                 style={{
-                  padding: "6px 12px",
+                  padding: "4px 12px",
                   background: "rgba(255,255,255,0.05)",
                   borderRadius: "8px",
                   border: "1px solid rgba(255,255,255,0.08)",

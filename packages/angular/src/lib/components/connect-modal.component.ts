@@ -159,7 +159,7 @@ const DEFAULT_WALLETS: WalletOption[] = [
     }
     .cina-badge {
       font-size: 11px;
-      padding: 2px 8px;
+      padding: 0px 8px;
       background: rgba(59, 130, 246, 0.2);
       color: #60a5fa;
       border-radius: 4px;

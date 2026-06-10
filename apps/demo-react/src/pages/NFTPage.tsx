@@ -50,7 +50,7 @@ export function NFTPage() {
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, padding: 24 }}>
       {/* Left: NFT Grid */}
       <div>
-        <h2 style={{ fontSize: 24, fontWeight: 700, marginBottom: 8 }}>NFT 收藏</h2>
+        <h2 style={{ fontSize: "var(--cc-text-xl)", fontWeight: "var(--cc-weight-bold)", marginBottom: 8 }}>NFT 收藏</h2>
         <p style={{ color: '#888', marginBottom: 24 }}>展示多链 NFT 收藏，点击查看详情。</p>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
@@ -70,7 +70,7 @@ export function NFTPage() {
               <div style={{ fontSize: 48, textAlign: 'center', marginBottom: 12, background: '#0d0d1a', borderRadius: 8, padding: 20 }}>
                 {nft.image}
               </div>
-              <h3 style={{ fontSize: 14, fontWeight: 600, marginBottom: 4 }}>{nft.name}</h3>
+              <h3 style={{ fontSize: "var(--cc-text-sm)", fontWeight: "var(--cc-weight-semibold)", marginBottom: 4 }}>{nft.name}</h3>
               <p style={{ fontSize: 12, color: '#888' }}>{nft.collection}</p>
             </div>
           ))}
@@ -101,15 +101,15 @@ export function NFTPage() {
               }}
             >
               <div style={{ fontSize: 80, textAlign: 'center', marginBottom: 16 }}>{selectedNFT.image}</div>
-              <h3 style={{ fontSize: 20, fontWeight: 700, marginBottom: 4 }}>{selectedNFT.name}</h3>
+              <h3 style={{ fontSize: "var(--cc-text-lg)", fontWeight: "var(--cc-weight-bold)", marginBottom: 4 }}>{selectedNFT.name}</h3>
               <p style={{ color: '#888', marginBottom: 16 }}>{selectedNFT.collection}</p>
 
               <div style={{ background: '#0d0d1a', borderRadius: 8, padding: 16 }}>
-                <h4 style={{ fontSize: 13, color: '#aaa', marginBottom: 8 }}>属性</h4>
+                <h4 style={{ fontSize: "var(--cc-text-xs)", color: '#aaa', marginBottom: 8 }}>属性</h4>
                 {selectedNFT.traits.map((trait) => (
                   <div key={trait.key} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
-                    <span style={{ color: '#888', fontSize: 13 }}>{trait.key}</span>
-                    <span style={{ color: '#fff', fontSize: 13, fontWeight: 600 }}>{trait.value}</span>
+                    <span style={{ color: '#888', fontSize: "var(--cc-text-xs)" }}>{trait.key}</span>
+                    <span style={{ color: '#fff', fontSize: "var(--cc-text-xs)", fontWeight: "var(--cc-weight-semibold)" }}>{trait.value}</span>
                   </div>
                 ))}
               </div>
@@ -124,7 +124,7 @@ export function NFTPage() {
                   border: 'none',
                   background: '#6366f1',
                   color: '#fff',
-                  fontWeight: 600,
+                  fontWeight: "var(--cc-weight-semibold)",
                   cursor: 'pointer',
                 }}
               >

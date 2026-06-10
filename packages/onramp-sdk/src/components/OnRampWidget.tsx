@@ -221,11 +221,11 @@ export function OnRampWidget({
           alignItems: "center",
         }}
       >
-        <h2 style={{ margin: 0, fontSize: "18px", fontWeight: 600 }}>Buy Crypto</h2>
+        <h2 style={{ margin: 0, fontSize: "var(--cc-text-lg)", fontWeight: "var(--cc-weight-semibold)" }}>Buy Crypto</h2>
         {onClose && (
           <button
             onClick={onClose}
-            style={{ background: "none", border: "none", fontSize: "20px", cursor: "pointer", color: "#6b7280" }}
+            style={{ background: "none", border: "none", fontSize: "var(--cc-text-lg)", cursor: "pointer", color: "#6b7280" }}
           >
             ✕
           </button>
@@ -234,7 +234,7 @@ export function OnRampWidget({
 
       {/* Input section */}
       <div style={{ padding: "16px 20px" }}>
-        <label style={{ fontSize: "13px", fontWeight: 600, color: "#6b7280", marginBottom: "6px", display: "block" }}>
+        <label style={{ fontSize: "var(--cc-text-xs)", fontWeight: "var(--cc-weight-semibold)", color: "#6b7280", marginBottom: "4px", display: "block" }}>
           You pay
         </label>
         <div style={{ display: "flex", gap: "8px", marginBottom: "12px" }}>
@@ -245,22 +245,22 @@ export function OnRampWidget({
             min={1}
             style={{
               flex: 1,
-              padding: "10px 12px",
+              padding: "8px 12px",
               border: "1px solid #d1d5db",
               borderRadius: "8px",
-              fontSize: "16px",
-              fontWeight: 600,
+              fontSize: "var(--cc-text-md)",
+              fontWeight: "var(--cc-weight-semibold)",
             }}
           />
           <select
             value={fiatCurrency}
             onChange={(e) => setFiatCurrency(e.target.value)}
             style={{
-              padding: "10px 12px",
+              padding: "8px 12px",
               border: "1px solid #d1d5db",
               borderRadius: "8px",
-              fontSize: "14px",
-              fontWeight: 600,
+              fontSize: "var(--cc-text-sm)",
+              fontWeight: "var(--cc-weight-semibold)",
               background: "#f9fafb",
             }}
           >
@@ -270,7 +270,7 @@ export function OnRampWidget({
           </select>
         </div>
 
-        <label style={{ fontSize: "13px", fontWeight: 600, color: "#6b7280", marginBottom: "6px", display: "block" }}>
+        <label style={{ fontSize: "var(--cc-text-xs)", fontWeight: "var(--cc-weight-semibold)", color: "#6b7280", marginBottom: "4px", display: "block" }}>
           You receive
         </label>
         <div style={{ display: "flex", gap: "8px", marginBottom: "16px" }}>
@@ -279,11 +279,11 @@ export function OnRampWidget({
             onChange={(e) => setCryptoToken(e.target.value)}
             style={{
               flex: 1,
-              padding: "10px 12px",
+              padding: "8px 12px",
               border: "1px solid #d1d5db",
               borderRadius: "8px",
-              fontSize: "14px",
-              fontWeight: 600,
+              fontSize: "var(--cc-text-sm)",
+              fontWeight: "var(--cc-weight-semibold)",
               background: "#f9fafb",
             }}
           >
@@ -295,14 +295,14 @@ export function OnRampWidget({
 
         {/* Quote list */}
         {error && (
-          <div style={{ padding: "8px 12px", background: "#fef2f2", border: "1px solid #fecaca", borderRadius: "8px", color: "#dc2626", fontSize: "13px", marginBottom: "12px" }}>
+          <div style={{ padding: "8px 12px", background: "#fef2f2", border: "1px solid #fecaca", borderRadius: "8px", color: "#dc2626", fontSize: "var(--cc-text-xs)", marginBottom: "12px" }}>
             {error}
           </div>
         )}
 
         {isLoading ? (
           <div style={{ textAlign: "center", padding: "24px 0", color: "#6b7280" }}>
-            <span style={{ fontSize: "14px" }}>Fetching best rates...</span>
+            <span style={{ fontSize: "var(--cc-text-sm)" }}>Fetching best rates...</span>
           </div>
         ) : (
           <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginBottom: "16px" }}>
@@ -315,7 +315,7 @@ export function OnRampWidget({
               />
             ))}
             {quotes.length === 0 && !isLoading && (
-              <div style={{ textAlign: "center", padding: "16px 0", color: "#6b7280", fontSize: "13px" }}>
+              <div style={{ textAlign: "center", padding: "16px 0", color: "#6b7280", fontSize: "var(--cc-text-xs)" }}>
                 No providers available for your region
               </div>
             )}
@@ -333,8 +333,8 @@ export function OnRampWidget({
             color: "#fff",
             border: "none",
             borderRadius: "10px",
-            fontSize: "15px",
-            fontWeight: 600,
+            fontSize: "var(--cc-text-sm)",
+            fontWeight: "var(--cc-weight-semibold)",
             cursor: selectedQuote && !isLoading ? "pointer" : "not-allowed",
           }}
         >
@@ -371,17 +371,17 @@ function QuoteCard({ quote, isSelected, onSelect }: QuoteCardProps) {
       }}
     >
       <div>
-        <div style={{ fontWeight: 600, fontSize: "14px" }}>{quote.providerName}</div>
-        <div style={{ fontSize: "12px", color: "#6b7280" }}>
+        <div style={{ fontWeight: "var(--cc-weight-semibold)", fontSize: "var(--cc-text-sm)" }}>{quote.providerName}</div>
+        <div style={{ fontSize: "var(--cc-text-xs)", color: "#6b7280" }}>
           {quote.fees.totalFeePercent}% fee · ~{quote.estimatedTime} min
           {quote.requiresKyc && " · KYC required"}
         </div>
       </div>
       <div style={{ textAlign: "right" }}>
-        <div style={{ fontWeight: 600, fontSize: "14px", color: "#111827" }}>
+        <div style={{ fontWeight: "var(--cc-weight-semibold)", fontSize: "var(--cc-text-sm)", color: "#111827" }}>
           {quote.cryptoAmount.toFixed(6)} {quote.cryptoToken}
         </div>
-        <div style={{ fontSize: "12px", color: "#6b7280" }}>
+        <div style={{ fontSize: "var(--cc-text-xs)", color: "#6b7280" }}>
           ${quote.totalCost.toFixed(2)} total
         </div>
       </div>

@@ -214,7 +214,7 @@ export default function App() {
           <select
             value={chainId}
             onChange={e => switchChain(parseInt(e.target.value))}
-            style={{ background: '#1a1a2e', color: 'white', border: '1px solid #333', padding: '0.5rem', borderRadius: '6px' }}
+            style={{ background: '#1a1a2e', color: 'white', border: '1px solid #333', padding: '0.5rem', borderRadius: '4px' }}
           >
             {chains.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
           </select>
@@ -511,7 +511,7 @@ export default function LiquidityPanel() {
         <>
           {POOLS.map(pool => (
             <div key={pool.name} onClick={() => setSelectedPool(pool)}
-              style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem', background: '#0d0d1a', borderRadius: '10px', marginBottom: '0.5rem', cursor: 'pointer' }}>
+              style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem', background: '#0d0d1a', borderRadius: '8px', marginBottom: '0.5rem', cursor: 'pointer' }}>
               <span style={{ fontWeight: '600' }}>{pool.name}</span>
               <div style={{ textAlign: 'right' }}>
                 <div style={{ color: '#888', fontSize: '0.85rem' }}>TVL: {pool.tvl}</div>
@@ -918,7 +918,7 @@ export default function SessionKeyManager({ onReady }) {
       {status === 'active' && (
         <div style={{ marginTop: '1rem', background: '#1a1a2e', borderRadius: '12px', padding: '1.5rem' }}>
           <p style={{ color: '#22c55e', fontWeight: '600' }}>✓ Session Key Active</p>
-          <code style={{ display: 'block', background: '#0d0d1a', padding: '0.75rem', borderRadius: '6px', marginTop: '0.5rem', fontSize: '0.8rem', wordBreak: 'break-all' }}>
+          <code style={{ display: 'block', background: '#0d0d1a', padding: '0.75rem', borderRadius: '4px', marginTop: '0.5rem', fontSize: '0.8rem', wordBreak: 'break-all' }}>
             {sessionKey}
           </code>
           <button onClick={revokeSession}
