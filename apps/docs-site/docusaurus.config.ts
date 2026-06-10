@@ -8,6 +8,7 @@ const config: Config = {
   favicon: 'img/logo.svg',
   url: 'https://cinacoin.com',
   baseUrl: '/docs/',
+  trailingSlash: false,
   organizationName: 'cinagroup',
   projectName: 'cinacoin',
   onBrokenLinks: 'throw',

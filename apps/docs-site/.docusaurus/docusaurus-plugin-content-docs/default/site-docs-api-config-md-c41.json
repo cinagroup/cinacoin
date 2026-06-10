@@ -1,0 +1,25 @@
+{
+  "id": "api/config",
+  "title": "Config",
+  "description": "@cinacoin/config — Configuration management for Cinacoin.",
+  "source": "@site/docs/api/config.md",
+  "sourceDirName": "api",
+  "slug": "/api/config",
+  "permalink": "/docs/api/config",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/config.md",
+  "tags": [],
+  "version": "current",
+  "lastUpdatedAt": 1780817605000,
+  "frontMatter": {},
+  "sidebar": "apiSidebar",
+  "previous": {
+    "title": "Codemod",
+    "permalink": "/docs/api/codemod"
+  },
+  "next": {
+    "title": "Core SDK",
+    "permalink": "/docs/api/core-sdk"
+  }
+}

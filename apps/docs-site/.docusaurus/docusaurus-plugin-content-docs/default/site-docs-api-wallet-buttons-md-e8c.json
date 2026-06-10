@@ -1,0 +1,25 @@
+{
+  "id": "api/wallet-buttons",
+  "title": "Wallet Buttons",
+  "description": "@cinacoin/wallet-buttons — Pre-built wallet connection button components.",
+  "source": "@site/docs/api/wallet-buttons.md",
+  "sourceDirName": "api",
+  "slug": "/api/wallet-buttons",
+  "permalink": "/docs/api/wallet-buttons",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/wallet-buttons.md",
+  "tags": [],
+  "version": "current",
+  "lastUpdatedAt": 1780817605000,
+  "frontMatter": {},
+  "sidebar": "apiSidebar",
+  "previous": {
+    "title": "Vue",
+    "permalink": "/docs/api/vue"
+  },
+  "next": {
+    "title": "Wallet Recommender",
+    "permalink": "/docs/api/wallet-recommender"
+  }
+}

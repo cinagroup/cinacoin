@@ -1,0 +1,25 @@
+{
+  "id": "api/travel-rule-demo",
+  "title": "Travel Rule Demo",
+  "description": "@cinacoin/travel-rule-demo — Travel Rule compliance demo for Cinacoin.",
+  "source": "@site/docs/api/travel-rule-demo.md",
+  "sourceDirName": "api",
+  "slug": "/api/travel-rule-demo",
+  "permalink": "/docs/api/travel-rule-demo",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/travel-rule-demo.md",
+  "tags": [],
+  "version": "current",
+  "lastUpdatedAt": 1780817605000,
+  "frontMatter": {},
+  "sidebar": "apiSidebar",
+  "previous": {
+    "title": "Token List",
+    "permalink": "/docs/api/token-list"
+  },
+  "next": {
+    "title": "UI Theme",
+    "permalink": "/docs/api/ui-theme"
+  }
+}

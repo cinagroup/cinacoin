@@ -1,0 +1,25 @@
+{
+  "id": "api/gas-sponsorship",
+  "title": "Gas Sponsorship",
+  "description": "@cinacoin/gas-sponsorship — Gas sponsorship management for Cinacoin.",
+  "source": "@site/docs/api/gas-sponsorship.md",
+  "sourceDirName": "api",
+  "slug": "/api/gas-sponsorship",
+  "permalink": "/docs/api/gas-sponsorship",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/gas-sponsorship.md",
+  "tags": [],
+  "version": "current",
+  "lastUpdatedAt": 1780817605000,
+  "frontMatter": {},
+  "sidebar": "apiSidebar",
+  "previous": {
+    "title": "Gas Estimator",
+    "permalink": "/docs/api/gas-estimator"
+  },
+  "next": {
+    "title": "i18n",
+    "permalink": "/docs/api/i18n"
+  }
+}

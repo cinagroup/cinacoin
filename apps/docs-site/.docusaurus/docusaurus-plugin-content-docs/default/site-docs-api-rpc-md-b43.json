@@ -1,0 +1,25 @@
+{
+  "id": "api/rpc",
+  "title": "RPC Proxy",
+  "description": "Unified RPC endpoint with automatic routing.",
+  "source": "@site/docs/api/rpc.md",
+  "sourceDirName": "api",
+  "slug": "/api/rpc",
+  "permalink": "/docs/api/rpc",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/rpc.md",
+  "tags": [],
+  "version": "current",
+  "lastUpdatedAt": 1780817605000,
+  "frontMatter": {},
+  "sidebar": "apiSidebar",
+  "previous": {
+    "title": "RPC Proxy",
+    "permalink": "/docs/api/rpc-proxy"
+  },
+  "next": {
+    "title": "Safe Decoder",
+    "permalink": "/docs/api/safe-decoder"
+  }
+}

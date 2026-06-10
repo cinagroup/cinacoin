@@ -1,0 +1,25 @@
+{
+  "id": "api/cli",
+  "title": "CLI",
+  "description": "@cinacoin/cli — Command-line interface for Cinacoin.",
+  "source": "@site/docs/api/cli.md",
+  "sourceDirName": "api",
+  "slug": "/api/cli",
+  "permalink": "/docs/api/cli",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/cli.md",
+  "tags": [],
+  "version": "current",
+  "lastUpdatedAt": 1780817605000,
+  "frontMatter": {},
+  "sidebar": "apiSidebar",
+  "previous": {
+    "title": "Cinacoin UI Theme",
+    "permalink": "/docs/api/cinacoin-ui-theme"
+  },
+  "next": {
+    "title": "Codemod",
+    "permalink": "/docs/api/codemod"
+  }
+}

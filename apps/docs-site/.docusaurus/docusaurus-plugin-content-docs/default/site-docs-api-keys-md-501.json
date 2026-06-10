@@ -1,0 +1,25 @@
+{
+  "id": "api/keys",
+  "title": "Keys",
+  "description": "Decentralized key management infrastructure.",
+  "source": "@site/docs/api/keys.md",
+  "sourceDirName": "api",
+  "slug": "/api/keys",
+  "permalink": "/docs/api/keys",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/keys.md",
+  "tags": [],
+  "version": "current",
+  "lastUpdatedAt": 1780817605000,
+  "frontMatter": {},
+  "sidebar": "apiSidebar",
+  "previous": {
+    "title": "Keys Server",
+    "permalink": "/docs/api/keys-server"
+  },
+  "next": {
+    "title": "KYC",
+    "permalink": "/docs/api/kyc"
+  }
+}

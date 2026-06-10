@@ -1,0 +1,25 @@
+{
+  "id": "api/wallet-recovery",
+  "title": "Wallet Recovery",
+  "description": "@cinacoin/wallet-recovery — Wallet recovery mechanisms for Cinacoin.",
+  "source": "@site/docs/api/wallet-recovery.md",
+  "sourceDirName": "api",
+  "slug": "/api/wallet-recovery",
+  "permalink": "/docs/api/wallet-recovery",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/wallet-recovery.md",
+  "tags": [],
+  "version": "current",
+  "lastUpdatedAt": 1780817605000,
+  "frontMatter": {},
+  "sidebar": "apiSidebar",
+  "previous": {
+    "title": "Wallet Recommender",
+    "permalink": "/docs/api/wallet-recommender"
+  },
+  "next": {
+    "title": "WalletConnect V2",
+    "permalink": "/docs/api/walletconnect-v2"
+  }
+}

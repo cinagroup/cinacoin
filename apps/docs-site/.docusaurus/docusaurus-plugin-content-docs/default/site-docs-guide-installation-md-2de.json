@@ -1,0 +1,16 @@
+{
+  "id": "guide/installation",
+  "title": "Installation",
+  "description": "Install Cinacoin packages for your framework.",
+  "source": "@site/docs/guide/installation.md",
+  "sourceDirName": "guide",
+  "slug": "/guide/installation",
+  "permalink": "/docs/guide/installation",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/guide/installation.md",
+  "tags": [],
+  "version": "current",
+  "lastUpdatedAt": 1780817605000,
+  "frontMatter": {}
+}

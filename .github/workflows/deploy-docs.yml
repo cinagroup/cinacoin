@@ -89,10 +89,9 @@ jobs:
         run: |
           # Docusaurus with baseUrl: '/docs/' generates correct asset paths
           # Router strips /docs prefix before proxying to Pages
+          # trailingSlash: false prevents 308 redirects that lose the /docs/ prefix
           rm -rf apps/docs-site/dist_deploy
           cp -r apps/docs-site/build apps/docs-site/dist_deploy
-          # Add empty _redirects to override any cached version
-          echo "# No redirects needed" > apps/docs-site/dist_deploy/_redirects
           test -f apps/docs-site/dist_deploy/index.html || { echo "✗ index missing"; exit 1; }
           echo "✓ deployment ready"
 

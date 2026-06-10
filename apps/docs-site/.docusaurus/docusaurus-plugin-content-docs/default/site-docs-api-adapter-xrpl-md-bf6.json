@@ -1,0 +1,25 @@
+{
+  "id": "api/adapter-xrpl",
+  "title": "XRPL Adapter",
+  "description": "@cinacoin/adapter-xrpl — XRP Ledger adapter for Cinacoin.",
+  "source": "@site/docs/api/adapter-xrpl.md",
+  "sourceDirName": "api",
+  "slug": "/api/adapter-xrpl",
+  "permalink": "/docs/api/adapter-xrpl",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/adapter-xrpl.md",
+  "tags": [],
+  "version": "current",
+  "lastUpdatedAt": 1780817605000,
+  "frontMatter": {},
+  "sidebar": "apiSidebar",
+  "previous": {
+    "title": "Sui Adapter",
+    "permalink": "/docs/api/adapter-sui"
+  },
+  "next": {
+    "title": "Analytics",
+    "permalink": "/docs/api/analytics"
+  }
+}

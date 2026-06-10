@@ -1,0 +1,25 @@
+{
+  "id": "api/analytics",
+  "title": "Analytics",
+  "description": "@cinacoin/analytics — Analytics and metrics SDK for Cinacoin.",
+  "source": "@site/docs/api/analytics.md",
+  "sourceDirName": "api",
+  "slug": "/api/analytics",
+  "permalink": "/docs/api/analytics",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/analytics.md",
+  "tags": [],
+  "version": "current",
+  "lastUpdatedAt": 1780817605000,
+  "frontMatter": {},
+  "sidebar": "apiSidebar",
+  "previous": {
+    "title": "XRPL Adapter",
+    "permalink": "/docs/api/adapter-xrpl"
+  },
+  "next": {
+    "title": "Android Kotlin",
+    "permalink": "/docs/api/android-kotlin"
+  }
+}

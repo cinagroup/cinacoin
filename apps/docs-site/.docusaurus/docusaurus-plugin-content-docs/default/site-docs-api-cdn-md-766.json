@@ -1,0 +1,25 @@
+{
+  "id": "api/cdn",
+  "title": "CDN",
+  "description": "@cinacoin/cdn — CDN distribution for Cinacoin SDK assets.",
+  "source": "@site/docs/api/cdn.md",
+  "sourceDirName": "api",
+  "slug": "/api/cdn",
+  "permalink": "/docs/api/cdn",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/cdn.md",
+  "tags": [],
+  "version": "current",
+  "lastUpdatedAt": 1780817605000,
+  "frontMatter": {},
+  "sidebar": "apiSidebar",
+  "previous": {
+    "title": "Bundler",
+    "permalink": "/docs/api/bundler"
+  },
+  "next": {
+    "title": "i18n React",
+    "permalink": "/docs/api/cinacoin-i18n"
+  }
+}

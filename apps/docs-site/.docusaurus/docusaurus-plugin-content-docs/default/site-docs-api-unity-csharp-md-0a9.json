@@ -1,0 +1,25 @@
+{
+  "id": "api/unity-csharp",
+  "title": "Unity C",
+  "description": "@cinacoin/unity-types — Unity game engine integration for Cinacoin.",
+  "source": "@site/docs/api/unity-csharp.md",
+  "sourceDirName": "api",
+  "slug": "/api/unity-csharp",
+  "permalink": "/docs/api/unity-csharp",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/unity-csharp.md",
+  "tags": [],
+  "version": "current",
+  "lastUpdatedAt": 1780817605000,
+  "frontMatter": {},
+  "sidebar": "apiSidebar",
+  "previous": {
+    "title": "UI Theme",
+    "permalink": "/docs/api/ui-theme"
+  },
+  "next": {
+    "title": "Vue",
+    "permalink": "/docs/api/vue"
+  }
+}
