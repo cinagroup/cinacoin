@@ -1,0 +1,76 @@
+:root {
+  --tg-bg: var(--tg-theme-bg-color, #1a1a2e);
+  --tg-text: var(--tg-theme-text-color, #ffffff);
+  --tg-hint: var(--tg-theme-hint-color, #8a8a9e);
+  --tg-link: var(--tg-theme-link-color, #6c63ff);
+  --tg-button: var(--tg-theme-button-color, #6c63ff);
+  --tg-button-text: var(--tg-theme-button-text-color, #ffffff);
+  --tg-secondary-bg: var(--tg-theme-secondary-bg-color, #16213e);
+  --tg-header-bg: var(--tg-theme-header-bg-color, #0f3460);
+
+  --color-primary: #6c63ff;
+  --color-primary-light: #8b83ff;
+  --color-success: #00c853;
+  --color-warning: #ffab00;
+  --color-error: #ff5252;
+  --color-bg: var(--tg-bg);
+  --color-surface: var(--tg-secondary-bg);
+  --color-text: var(--tg-text);
+  --color-text-secondary: var(--tg-hint);
+  --color-border: rgba(255, 255, 255, 0.08);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font-family: inherit;
+}
+
+input, textarea {
+  font-family: inherit;
+  outline: none;
+}
+
+a {
+  color: var(--tg-link);
+  text-decoration: none;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
