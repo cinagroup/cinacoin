@@ -1,3 +1,4 @@
+import { logger } from '@cinacoin/logger';
 /**
  * Account representation within a virtual testnet.
  */
@@ -148,8 +149,8 @@ const DEFAULT_RPC_URL = "https://rpc.ankr.com/eth";
  *   forkBlock: 19_000_000,
  * });
  *
- * console.log(testnet.rpcUrl); // forked RPC endpoint
- * console.log(testnet.accounts[0].address); // pre-funded account
+ * logger.info(testnet.rpcUrl); // forked RPC endpoint
+ * logger.info(testnet.accounts[0].address); // pre-funded account
  *
  * // … run your tests …
  *

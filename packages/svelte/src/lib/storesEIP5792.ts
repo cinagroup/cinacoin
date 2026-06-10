@@ -37,6 +37,7 @@ import type {
   AtomicBatchResult,
 } from '@cinacoin/core-sdk';
 import {
+import { logger } from '@cinacoin/logger';
   walletGetCapabilities,
   walletSendCalls,
   walletGetCallsStatus,
@@ -330,7 +331,7 @@ export function filterBy(capability: keyof ChainCapabilities): WalletCapabilitie
  *     const callId = await batch.send([
  *       { to: '0x...', value: '0x0', data: '0x...' },
  *     ]);
- *     console.log('Batch ID:', callId);
+ *     logger.info('Batch ID:', callId);
  *   }
  * </script>
  *
@@ -400,7 +401,7 @@ export function sendCalls(): SendCallsStore {
  *
  *   // Preview
  *   const preview = batch.build([approveCall, swapCall]);
- *   console.log('Is atomic?', preview.isAtomic);
+ *   logger.info('Is atomic?', preview.isAtomic);
  *
  *   // Execute
  *   const callId = await batch.execute([approveCall, swapCall]);

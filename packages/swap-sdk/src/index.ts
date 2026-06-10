@@ -1,3 +1,4 @@
+import { logger } from '@cinacoin/logger';
 /**
  * @cinacoin/swap-sdk
  *
@@ -25,7 +26,7 @@
  *   slippageBps: 50,
  * });
  *
- * console.log(`Best: ${best.quote.provider} → ${best.quote.toAmount}`);
+ * logger.info(`Best: ${best.quote.provider} → ${best.quote.toAmount}`);
  * ```
  */
 

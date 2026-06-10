@@ -4,6 +4,7 @@
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { createLogger } from '../src/logger.js';
+import { logger } from '@cinacoin/logger';
 
 describe('createLogger', () => {
   let logSpy: ReturnType<typeof vi.spyOn>;

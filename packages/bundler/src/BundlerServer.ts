@@ -21,6 +21,7 @@ import { BundleBuilder } from './BundleBuilder';
 import { GasOracle } from './GasOracle';
 import { ReputationTracker } from './ReputationTracker';
 import { computeUserOpHash, toViemUserOp } from './utils';
+import { logger } from '@cinacoin/logger';
 
 // ── Default configs for known chains ────────────────────────────────
 
@@ -285,7 +286,7 @@ export class BundlerServer {
       });
     });
 
-    console.log(`[BundlerServer] Listening on ${this.config.listen}`);
+    logger.info(`[BundlerServer] Listening on ${this.config.listen}`);
 
     // Start bundle creation interval
     this.bundleInterval = setInterval(() => this.processBundle(), this.config.bundleIntervalMs);

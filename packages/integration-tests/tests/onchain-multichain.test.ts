@@ -1,5 +1,6 @@
 import { describe, it, expect, test } from 'vitest';
 import { createPublicClient, http, defineChain } from 'viem';
+import { logger } from '@cinacoin/logger';
 
 // ── Chain Definitions ──────────────────────────────────────────────────────
 
@@ -138,7 +139,7 @@ describe('On-Chain Multichain (Sepolia + Amoy)', () => {
       const elapsed = Date.now() - start;
 
       expect(elapsed).toBeLessThan(3000);
-      console.log(`  Sepolia latency: ${elapsed}ms`);
+      logger.info(`  Sepolia latency: ${elapsed}ms`);
     });
 
     it('measures and reports Amoy latency', async () => {
@@ -147,7 +148,7 @@ describe('On-Chain Multichain (Sepolia + Amoy)', () => {
       const elapsed = Date.now() - start;
 
       expect(elapsed).toBeLessThan(3000);
-      console.log(`  Amoy latency: ${elapsed}ms`);
+      logger.info(`  Amoy latency: ${elapsed}ms`);
     });
 
     it('both chains respond within acceptable latency', async () => {

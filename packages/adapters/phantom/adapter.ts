@@ -14,7 +14,7 @@
  * });
  *
  * const result = await adapter.connect();
- * console.log(result.accounts); // [base58 address]
+ * logger.info(result.accounts); // [base58 address]
  * ```
  */
 
@@ -22,6 +22,7 @@ import type { ConnectParams, ConnectionResult, TransactionRequest } from '@cinac
 import { Connector } from '@cinacoin/core-sdk';
 import type { PhantomConfig, PhantomSolanaProvider, PhantomEthereumProvider } from './types.js';
 import {
+import { logger } from '@cinacoin/logger';
   detectPhantomSolana,
   detectPhantomEthereum,
   getPhantomInstallLink,

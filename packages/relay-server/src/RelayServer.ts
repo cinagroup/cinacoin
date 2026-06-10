@@ -2,6 +2,7 @@ import { createServer, type Server, type ServerResponse } from 'http';
 import { WebSocketServer, WebSocket } from 'ws';
 import { createDeflate, createInflate, type Deflate, type Inflate } from 'zlib';
 import type { IncomingMessage } from 'http';
+import { logger } from '@cinacoin/logger';
 
 export interface RelayServerConfig {
   port: number;
@@ -364,7 +365,7 @@ export class RelayServer {
    * Graceful shutdown handler.
    */
   async gracefulShutdown(): Promise<void> {
-    console.log('Shutting down...');
+    logger.info('Shutting down...');
     this.shuttingDown = true;
 
     this.server?.closeAllConnections?.();

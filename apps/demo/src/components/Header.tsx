@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useTheme } from '@/providers/ThemeProvider';
 import { useI18n } from '@/providers/I18nProvider';
@@ -68,7 +69,7 @@ export default function Header({
             href="/"
             className="flex items-center gap-2 text-display-sm font-semibold text-[var(--cc-ink)] shrink-0"
           >
-            <img src="/demo/logo.png" alt="Cinacoin" className="h-8 w-8 rounded-md" />
+            <Image src="/demo/logo.png" alt="Cinacoin" width={32} height={32} className="h-8 w-8 rounded-md" />
             Cinacoin
           </Link>
 

@@ -1,4 +1,5 @@
 import type {
+import { logger } from '@cinacoin/logger';
   HederaConnector,
   HederaPlatform,
   HederaFeature,
@@ -43,7 +44,7 @@ declare global {
  * const hashpack = new HashPackConnector();
  * if (hashpack.isAvailable()) {
  *   const result = await hashpack.connect();
- *   console.log(result.accounts); // ["0.0.12345"]
+ *   logger.info(result.accounts); // ["0.0.12345"]
  * }
  * ```
  */

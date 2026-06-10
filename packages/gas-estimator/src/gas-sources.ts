@@ -11,6 +11,7 @@
  */
 
 import type { GasPriceData, RpcResponse } from './types.js';
+import { logger } from '@cinacoin/logger';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -413,8 +414,8 @@ export function aggregateGasPrices(
  * });
  *
  * const result = await aggregator.fetch();
- * console.log(`Aggregated gas price: ${result.gasPrice} wei`);
- * console.log(`Sources: ${result.sourceCount}`);
+ * logger.info(`Aggregated gas price: ${result.gasPrice} wei`);
+ * logger.info(`Sources: ${result.sourceCount}`);
  * ```
  */
 export class MultiSourceGasAggregator {

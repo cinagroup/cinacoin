@@ -16,7 +16,7 @@
  *
  * await adapter.connect();
  * const balance = await adapter.getBalance(adapter.getAddress()!);
- * console.log(`Balance: ${balance} SUI`);
+ * logger.info(`Balance: ${balance} SUI`);
  * ```
  *
  * @packageDocumentation
@@ -45,6 +45,7 @@ import { MartianConnector } from './connectors/martian.js';
 import type { SuiConnector } from './types.js';
 
 import {
+import { logger } from '@cinacoin/logger';
   buildMoveCallTransaction,
   buildBatchMoveCallTransaction,
   buildStakeSuiTx,

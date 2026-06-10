@@ -19,6 +19,7 @@
 
 import type { Hex, Address } from 'viem';
 import type {
+import { logger } from '@cinacoin/logger';
   WalletCapabilities,
   ChainCapabilities,
   CallsStatus,
@@ -162,9 +163,9 @@ export async function getWalletCapabilitiesOnServer(
  * });
  *
  * if (verification.allSucceeded) {
- *   console.log('All calls succeeded!');
+ *   logger.info('All calls succeeded!');
  *   for (const receipt of verification.receipts) {
- *     console.log(`  TX: ${receipt.receipt.transactionHash}`);
+ *     logger.info(`  TX: ${receipt.receipt.transactionHash}`);
  *   }
  * }
  * ```

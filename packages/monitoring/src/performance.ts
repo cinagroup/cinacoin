@@ -1,3 +1,4 @@
+import { logger } from '@cinacoin/logger';
 /**
  * Cinacoin Performance Monitoring — Web Vitals Collection
  *
@@ -256,7 +257,7 @@ function generateSessionId(): string {
 function reportMetric(name: string, value: number, sessionId: string): void {
   // Log to console in development
   if (process.env.NODE_ENV === 'development') {
-    console.log(`[Cinacoin] ${name}: ${value.toFixed(2)}ms (session: ${sessionId})`);
+    logger.info(`[Cinacoin] ${name}: ${value.toFixed(2)}ms (session: ${sessionId})`);
   }
 
   // Send to monitoring endpoint (if configured)

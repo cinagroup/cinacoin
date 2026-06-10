@@ -20,6 +20,7 @@ import type {
 import type { BaseAdapter } from './adapters/BaseAdapter';
 import { getAdapter, listAdapters } from './adapters';
 import { ChainManager, getAllChains } from './chains';
+import { logger } from '@cinacoin/logger';
 
 /* ------------------------------------------------------------------ */
 /*  UniversalConnector                                                  */
@@ -237,7 +238,7 @@ export class UniversalConnector implements IUniversalConnector {
    * ```ts
    * const balances = await connector.getBalancesAcrossChains('0x123...');
    * for (const b of balances) {
-   *   console.log(`${b.chainId}: ${b.formatted} ${b.symbol}`);
+   *   logger.info(`${b.chainId}: ${b.formatted} ${b.symbol}`);
    * }
    * ```
    */

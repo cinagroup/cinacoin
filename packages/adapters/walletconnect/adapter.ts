@@ -20,7 +20,7 @@
  * });
  *
  * const result = await adapter.connect();
- * console.log(result.uri); // QR code URI
+ * logger.info(result.uri); // QR code URI
  * ```
  */
 
@@ -28,6 +28,7 @@ import type { ConnectParams, ConnectionResult, TransactionRequest } from '@cinac
 import { Connector } from '@cinacoin/core-sdk';
 import type { WalletConnectConfig, WalletConnectSession } from './types.js';
 import {
+import { logger } from '@cinacoin/logger';
   DEFAULT_RELAY_URL,
   buildRequiredNamespaces,
   parseSessionAccounts,

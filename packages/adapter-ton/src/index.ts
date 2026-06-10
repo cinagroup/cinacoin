@@ -1,3 +1,4 @@
+import { logger } from '@cinacoin/logger';
 /**
  * Cinacoin TON Adapter — TON chain adapter package.
  *
@@ -13,10 +14,10 @@
  * adapter.registerChains(TON_CHAINS);
  *
  * const balance = await adapter.getBalance('EQCD39VS5jcptHL8vMjEXrzGaRcCVYto7HUn4bpAOg8xqB2N');
- * console.log(`${balance} nanotons`);
+ * logger.info(`${balance} nanotons`);
  *
  * const jettonBal = await adapter.getJettonBalance(walletAddr, jettonMaster);
- * console.log(`${jettonBal} jetton units`);
+ * logger.info(`${jettonBal} jetton units`);
  * ```
  *
  * @packageDocumentation

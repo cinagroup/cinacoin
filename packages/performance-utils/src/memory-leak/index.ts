@@ -1,3 +1,4 @@
+import { logger } from '@cinacoin/logger';
 /**
  * Memory Leak Detection Utilities
  *
@@ -169,7 +170,7 @@ export function createMemoryTracker(options?: {
  *   const instance = new MyClass();
  *   tracker.track(instance);
  *   // Later: check how many are still alive
- *   console.log(tracker.count());
+ *   logger.info(tracker.count());
  */
 export function createObjectTracker(label: string = 'object') {
   const tracked = new Set<WeakRef<object>>();

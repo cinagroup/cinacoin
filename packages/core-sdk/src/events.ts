@@ -6,6 +6,7 @@
  */
 
 import type { EventHandler } from './types.js';
+import { logger } from '@cinacoin/logger';
 
 /**
  * Lightweight event emitter.
@@ -17,7 +18,7 @@ import type { EventHandler } from './types.js';
  * @example
  * ```ts
  * const emitter = new EventEmitter();
- * emitter.on('connect', (account) => console.log('Connected:', account));
+ * emitter.on('connect', (account) => logger.info('Connected:', account));
  * emitter.emit('connect', '0xabc...');
  * ```
  */

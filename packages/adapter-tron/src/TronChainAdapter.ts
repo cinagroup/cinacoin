@@ -21,15 +21,16 @@
  * adapter.registerChains(TRON_CHAINS);
  *
  * const balance = await adapter.getBalance('TNA2B...');
- * console.log(`${balance} sun`);
+ * logger.info(`${balance} sun`);
  * ```
  *
  * @packageDocumentation
  */
 
 import type { Connector, Chain, ChainAdapter } from '@cinacoin/core-sdk';
-import { CinacoinError } from '@cinacoin/core-sdk';
+import { CinacoinError, SDK, CHAIN, TRANSACTION, SIGNING } from '@cinacoin/core-sdk';
 import TronWeb from 'tronweb';
+import { logger } from '@cinacoin/logger';
 
 // TronWeb lacks proper TypeScript types
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -114,7 +115,7 @@ export const TRON_CHAINS = [TRON_MAINNET, TRON_SHASTA, TRON_NILE];
  * adapter.registerChains(TRON_CHAINS);
  *
  * const balance = await adapter.getBalance('TNA2B...');
- * console.log(`${balance} sun`);
+ * logger.info(`${balance} sun`);
  * ```
  *
  * @packageDocumentation
@@ -147,7 +148,7 @@ export class TronChainAdapter implements ChainAdapter {
       // Accept duck-typed TronWeb-like object
       this.tronWeb = client;
     } else {
-      throw new CinacoinError('Client must be a TronWeb-compatible object', 'INVALID_CLIENT');
+      throw new CinacoinError(SDK.INVALID_ARGUMENT, 'Client must be a TronWeb-compatible object');
     }
   }
 
@@ -204,7 +205,7 @@ export class TronChainAdapter implements ChainAdapter {
   /** Get native balance for an address. */
   async getBalance(address: string): Promise<string> {
     if (!isValidTRONAddress(address)) {
-      throw new CinacoinError(`Invalid TRON address: ${address}`, 'INVALID_ADDRESS');
+      throw new CinacoinError(SDK.INVALID_ARGUMENT, `Invalid TRON address: ${address}`);
     }
 
     const client = this._ensureClient();
@@ -213,8 +214,9 @@ export class TronChainAdapter implements ChainAdapter {
       return String(balance);
     } catch (err) {
       throw new CinacoinError(
+        CHAIN.RPC_ERROR,
         `Failed to get balance for ${address}: ${err instanceof Error ? err.message : String(err)}`,
-        'RPC_ERROR'
+        { cause: err instanceof Error ? err : undefined },
       );
     }
   }
@@ -227,7 +229,7 @@ export class TronChainAdapter implements ChainAdapter {
     const amount = params.amount;
     
     if (!isValidTRONAddress(to)) {
-      throw new CinacoinError(`Invalid recipient address: ${to}`, 'INVALID_ADDRESS');
+      throw new CinacoinError(SDK.INVALID_ARGUMENT, `Invalid recipient address: ${to}`);
     }
 
     const client = this._ensureClient();
@@ -243,7 +245,7 @@ export class TronChainAdapter implements ChainAdapter {
         if (result.result) {
           return result.transaction.txID;
         } else {
-          throw new CinacoinError(`Transaction failed: ${result.message}`, 'TX_FAILED');
+          throw new CinacoinError(TRANSACTION.TRANSACTION_REVERTED, `Transaction failed: ${result.message}`);
         }
       } else {
         // Browser environment: delegate to TronLink or similar
@@ -256,8 +258,9 @@ export class TronChainAdapter implements ChainAdapter {
       }
     } catch (err) {
       throw new CinacoinError(
+        TRANSACTION.TRANSACTION_REVERTED,
         `Failed to send transaction: ${err instanceof Error ? err.message : String(err)}`,
-        'TX_ERROR'
+        { cause: err instanceof Error ? err : undefined },
       );
     }
   }
@@ -265,7 +268,7 @@ export class TronChainAdapter implements ChainAdapter {
   /** Sign a message. */
   async signMessage(message: string): Promise<string> {
     if (!this._connectedAddress) {
-      throw new CinacoinError('No wallet connected', 'NOT_CONNECTED');
+      throw new CinacoinError(SDK.NOT_INITIALIZED, 'No wallet connected');
     }
 
     const client = this._ensureClient();
@@ -275,8 +278,9 @@ export class TronChainAdapter implements ChainAdapter {
       return signature;
     } catch (err) {
       throw new CinacoinError(
+        SIGNING.SIGNING_FAILED,
         `Failed to sign message: ${err instanceof Error ? err.message : String(err)}`,
-        'SIGN_ERROR'
+        { cause: err instanceof Error ? err : undefined },
       );
     }
   }
@@ -285,7 +289,7 @@ export class TronChainAdapter implements ChainAdapter {
   async switchChain(chainId: number): Promise<void> {
     const chain = this.findChain(chainId);
     if (!chain) {
-      throw new CinacoinError(`Unsupported chain ID: ${chainId}`, 'UNSUPPORTED_CHAIN');
+      throw new CinacoinError(CHAIN.UNSUPPORTED_CHAIN, `Unsupported chain ID: ${chainId}`);
     }
     
     // Update client RPC URL if needed
@@ -304,8 +308,9 @@ export class TronChainAdapter implements ChainAdapter {
       return block.block_header.raw_data.number;
     } catch (err) {
       throw new CinacoinError(
+        CHAIN.RPC_ERROR,
         `Failed to get latest block: ${err instanceof Error ? err.message : String(err)}`,
-        'RPC_ERROR'
+        { cause: err instanceof Error ? err : undefined },
       );
     }
   }
@@ -318,7 +323,7 @@ export class TronChainAdapter implements ChainAdapter {
     const amount = params.amount;
     
     if (!isValidTRONAddress(to)) {
-      throw new CinacoinError(`Invalid recipient address: ${to}`, 'INVALID_ADDRESS');
+      throw new CinacoinError(SDK.INVALID_ARGUMENT, `Invalid recipient address: ${to}`);
     }
 
     const client = this._ensureClient();
@@ -331,8 +336,9 @@ export class TronChainAdapter implements ChainAdapter {
       return BigInt(Math.max(energy, 10000)); // Minimum fee
     } catch (err) {
       throw new CinacoinError(
+        TRANSACTION.GAS_ESTIMATION_FAILED,
         `Failed to estimate fee: ${err instanceof Error ? err.message : String(err)}`,
-        'ESTIMATE_ERROR'
+        { cause: err instanceof Error ? err : undefined },
       );
     }
   }
@@ -348,10 +354,10 @@ export class TronChainAdapter implements ChainAdapter {
    */
   async getTRC20Balance(address: string, contractAddress: string): Promise<string> {
     if (!isValidTRONAddress(address)) {
-      throw new CinacoinError(`Invalid wallet address: ${address}`, 'INVALID_ADDRESS');
+      throw new CinacoinError(SDK.INVALID_ARGUMENT, `Invalid wallet address: ${address}`);
     }
     if (!isValidTRONAddress(contractAddress)) {
-      throw new CinacoinError(`Invalid contract address: ${contractAddress}`, 'INVALID_ADDRESS');
+      throw new CinacoinError(SDK.INVALID_ARGUMENT, `Invalid contract address: ${contractAddress}`);
     }
 
     const client = this._ensureClient();
@@ -361,8 +367,9 @@ export class TronChainAdapter implements ChainAdapter {
       return String(balance);
     } catch (err) {
       throw new CinacoinError(
+        CHAIN.RPC_ERROR,
         `Failed to get TRC-20 balance: ${err instanceof Error ? err.message : String(err)}`,
-        'TOKEN_ERROR'
+        { cause: err instanceof Error ? err : undefined },
       );
     }
   }
@@ -381,7 +388,7 @@ export class TronChainAdapter implements ChainAdapter {
     params: Record<string, unknown> = {}
   ): Promise<string> {
     if (!isValidTRONAddress(contractAddress)) {
-      throw new CinacoinError(`Invalid contract address: ${contractAddress}`, 'INVALID_ADDRESS');
+      throw new CinacoinError(SDK.INVALID_ARGUMENT, `Invalid contract address: ${contractAddress}`);
     }
 
     const client = this._ensureClient();
@@ -391,8 +398,9 @@ export class TronChainAdapter implements ChainAdapter {
       return tx.txID;
     } catch (err) {
       throw new CinacoinError(
+        CHAIN.RPC_ERROR,
         `Failed to trigger contract: ${err instanceof Error ? err.message : String(err)}`,
-        'CONTRACT_ERROR'
+        { cause: err instanceof Error ? err : undefined },
       );
     }
   }
@@ -424,7 +432,7 @@ export class TronChainAdapter implements ChainAdapter {
   /** Ensure a TronWeb client is available. */
   private _ensureClient(): any {
     if (!this.tronWeb) {
-      throw new CinacoinError('TronWeb client not initialized', 'CLIENT_NOT_READY');
+      throw new CinacoinError(SDK.NOT_INITIALIZED, 'TronWeb client not initialized');
     }
     return this.tronWeb;
   }

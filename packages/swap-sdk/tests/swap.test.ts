@@ -8,6 +8,7 @@ import type { SwapQuote, SwapQuoteParams, SwapRoute, SwapTransaction, TokenInfo 
 import { SwapQuoter } from '../src/quoter.js';
 import { SwapRouter, type SwapExecutor } from '../src/router.js';
 import { calculateMinimumReceived, calculatePriceImpact, classifyPriceImpact, getExchangeRate, percentDiff, isPriceImpactAcceptable } from '../src/slippage.js';
+import { logger } from '@cinacoin/logger';
 
 function assert(condition: boolean, msg: string) {
   if (!condition) throw new Error(`Assertion failed: ${msg}`);
@@ -30,7 +31,7 @@ function testCalculateMinimumReceived() {
   const min3 = calculateMinimumReceived(500n, 0);
   assert(min3 === 500n, `0 slippage should return full amount, got ${min3}`);
 
-  console.log('✓ calculateMinimumReceived');
+  logger.info('✓ calculateMinimumReceived');
 }
 
 function testCalculatePriceImpact() {
@@ -40,7 +41,7 @@ function testCalculatePriceImpact() {
   const impact = calculatePriceImpact(55n, 100n, 2.0);
   assert(impact.percentage > 0, 'impact should be positive');
   assert(impact.percentage < 100, 'impact should be under 100%');
-  console.log(`✓ calculatePriceImpact (${impact.percentage.toFixed(2)}%)`);
+  logger.info(`✓ calculatePriceImpact (${impact.percentage.toFixed(2)}%)`);
 }
 
 function testClassifyPriceImpact() {
@@ -48,7 +49,7 @@ function testClassifyPriceImpact() {
   assert(classifyPriceImpact(1.5) === 'medium', '1.5% → medium');
   assert(classifyPriceImpact(4) === 'high', '4% → high');
   assert(classifyPriceImpact(10) === 'critical', '10% → critical');
-  console.log('✓ classifyPriceImpact');
+  logger.info('✓ classifyPriceImpact');
 }
 
 function testIsPriceImpactAcceptable() {
@@ -60,14 +61,14 @@ function testIsPriceImpactAcceptable() {
   });
   assert(isPriceImpactAcceptable(makeQuote(0.5), 100) === true, '0.5% < 1% max → acceptable');
   assert(isPriceImpactAcceptable(makeQuote(2), 100) === false, '2% > 1% max → not acceptable');
-  console.log('✓ isPriceImpactAcceptable');
+  logger.info('✓ isPriceImpactAcceptable');
 }
 
 function testExchangeRate() {
   const rate = getExchangeRate(1n * 10n ** 6n, 1n * 10n ** 18n);
   assert(rate === 1e12, 'rate should be 1e12 (10^18 / 10^6)');
   assert(getExchangeRate(0n, 100n) === 0, '0 input → 0 rate');
-  console.log('✓ getExchangeRate');
+  logger.info('✓ getExchangeRate');
 }
 
 function testPercentDiff() {
@@ -75,7 +76,7 @@ function testPercentDiff() {
   // (120 - 100) / 100 * 100 = 20
   const diff = percentDiff(120n, 100n);
   assert(diff === 20, 'percent diff between 120 and 100 should be 20');
-  console.log('✓ percentDiff');
+  logger.info('✓ percentDiff');
 }
 
 // ---------------------------------------------------------------------------
@@ -142,7 +143,7 @@ async function testQuoterBestQuote() {
   assert(best.quote.provider === '1inch', `Best quote should be from 1inch, got ${best.quote.provider}`);
   assert(best.quote.toAmount === 995000n, '1inch should have highest output');
   assert(best.allQuotes.length === 3, 'Should return 3 quotes');
-  console.log('✓ quoter best quote');
+  logger.info('✓ quoter best quote');
 }
 
 async function testQuoterNoValidQuotes() {
@@ -167,7 +168,7 @@ async function testQuoterNoValidQuotes() {
   } catch (e: any) {
     assert(e.message.includes('No valid swap quotes'), `Expected error, got: ${e.message}`);
   }
-  console.log('✓ quoter no valid quotes');
+  logger.info('✓ quoter no valid quotes');
 }
 
 async function testQuoterAddRemoveExecutor() {
@@ -183,7 +184,7 @@ async function testQuoterAddRemoveExecutor() {
   quoter.removeExecutor('Uniswap');
   assert(quoter.getAvailableProviders().length === 1, '1 provider after remove');
   assert(!quoter.getAvailableProviders().includes('Uniswap'), 'Uniswap should be removed');
-  console.log('✓ quoter add/remove executor');
+  logger.info('✓ quoter add/remove executor');
 }
 
 async function testQuoterUnknownProvider() {
@@ -194,7 +195,7 @@ async function testQuoterUnknownProvider() {
   } catch (e: any) {
     assert(e.message.includes('Unknown provider'), `Expected error, got: ${e.message}`);
   }
-  console.log('✓ quoter unknown provider');
+  logger.info('✓ quoter unknown provider');
 }
 
 // ---------------------------------------------------------------------------
@@ -216,7 +217,7 @@ async function testRouterCompareQuotes() {
     slippageBps: 50,
   });
   assert(quotes.length === 2, 'Should get 2 quotes');
-  console.log('✓ router compare quotes');
+  logger.info('✓ router compare quotes');
 }
 
 async function testRouterExecutionDisabled() {
@@ -235,7 +236,7 @@ async function testRouterExecutionDisabled() {
   } catch (e: any) {
     assert(e.message.includes('disabled'), `Expected disabled error, got: ${e.message}`);
   }
-  console.log('✓ router execution disabled');
+  logger.info('✓ router execution disabled');
 }
 
 async function testRouterExecutionEnabled() {
@@ -252,7 +253,7 @@ async function testRouterExecutionEnabled() {
   });
   assert(receipt.success === true, 'Receipt should show success');
   assert(receipt.fromAmount === 1_000n, 'Receipt should have correct fromAmount');
-  console.log('✓ router execution enabled');
+  logger.info('✓ router execution enabled');
 }
 
 async function testRouteHopValidation() {
@@ -267,7 +268,7 @@ async function testRouteHopValidation() {
   assert(route.protocol === 'Uniswap', 'route protocol');
   assert(route.toAmount > 0n, 'toAmount should be positive');
   assert(route.fromAmount > route.toAmount, 'fromAmount > toAmount for this swap');
-  console.log('✓ route hop validation');
+  logger.info('✓ route hop validation');
 }
 
 // ---------------------------------------------------------------------------
@@ -305,7 +306,7 @@ async function run() {
     }
   }
 
-  console.log(`\nResults: ${passed} passed, ${failed} failed (${tests.length} total)`);
+  logger.info(`\nResults: ${passed} passed, ${failed} failed (${tests.length} total)`);
   if (failed > 0) process.exit(1);
 }
 

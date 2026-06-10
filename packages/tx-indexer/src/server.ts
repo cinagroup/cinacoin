@@ -8,6 +8,7 @@
 import http from 'node:http';
 import { TxIndexer } from './indexer.js';
 import type {
+import { logger } from '@cinacoin/logger';
   IndexerConfig,
   ApiHealthStatus,
   RestApiConfig,
@@ -100,7 +101,7 @@ export class IndexerServer {
 
     await new Promise<void>((resolve) => {
       this.httpServer!.listen(port, host, () => {
-        console.log(`[IndexerServer] Listening on ${host}:${port}${this.config.basePath ?? '/api/v1'}`);
+        logger.info(`[IndexerServer] Listening on ${host}:${port}${this.config.basePath ?? '/api/v1'}`);
         resolve();
       });
     });
@@ -125,7 +126,7 @@ export class IndexerServer {
    * 5. Exits with code 0
    */
   async gracefulShutdown(): Promise<void> {
-    console.log('Shutting down...');
+    logger.info('Shutting down...');
     this.shuttingDown = true;
 
     // Stop accepting new connections

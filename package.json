@@ -63,5 +63,13 @@
   "engines": {
     "node": ">=20.0.0",
     "pnpm": ">=9.0.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "react": "18.3.1",
+      "react-dom": "18.3.1",
+      "typescript": "5.5.4",
+      "vitest": "2.1.5"
+    }
   }
 }

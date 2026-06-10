@@ -12,6 +12,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { logger } from '@cinacoin/logger';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, '..');
@@ -87,9 +88,9 @@ export { cssVariables, cssVariablesLight, cssVariablesMinimal, themes, tokens, g
 `;
   writeFileSync(join(distDir, 'index.js'), indexContent, 'utf-8');
 
-  console.log('✅  design-tokens build complete');
-  console.log(`   → ${join(cssDir, 'variables.css')}`);
-  console.log(`   → ${join(distDir, 'index.js')}`);
+  logger.info('✅  design-tokens build complete');
+  logger.info(`   → ${join(cssDir, 'variables.css')}`);
+  logger.info(`   → ${join(distDir, 'index.js')}`);
 }
 
 build();

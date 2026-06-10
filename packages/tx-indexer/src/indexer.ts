@@ -30,6 +30,7 @@ import type {
   ChainConfig,
 } from './types.js';
 import { ERC20_TRANSFER_ABI, UNISWAP_V2_SWAP_ABI, BRIDGE_DEPOSIT_ABI, BRIDGE_WITHDRAWAL_ABI } from './types.js';
+import { logger } from '@cinacoin/logger';
 
 // ---------------------------------------------------------------------------
 // Structured logger
@@ -37,13 +38,13 @@ import { ERC20_TRANSFER_ABI, UNISWAP_V2_SWAP_ABI, BRIDGE_DEPOSIT_ABI, BRIDGE_WIT
 
 const logger = {
   info: (msg: string, ctx?: Record<string, unknown>) => {
-    console.log(JSON.stringify({ level: 'info', msg, ts: new Date().toISOString(), component: 'tx-indexer', ...ctx }));
+    logger.info(JSON.stringify({ level: 'info', msg, ts: new Date().toISOString(), component: 'tx-indexer', ...ctx }));
   },
   warn: (msg: string, ctx?: Record<string, unknown>) => {
-    console.log(JSON.stringify({ level: 'warn', msg, ts: new Date().toISOString(), component: 'tx-indexer', ...ctx }));
+    logger.info(JSON.stringify({ level: 'warn', msg, ts: new Date().toISOString(), component: 'tx-indexer', ...ctx }));
   },
   error: (msg: string, ctx?: Record<string, unknown>) => {
-    console.log(JSON.stringify({ level: 'error', msg, ts: new Date().toISOString(), component: 'tx-indexer', ...ctx }));
+    logger.info(JSON.stringify({ level: 'error', msg, ts: new Date().toISOString(), component: 'tx-indexer', ...ctx }));
   },
 };
 

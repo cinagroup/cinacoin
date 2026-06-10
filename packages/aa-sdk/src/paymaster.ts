@@ -21,6 +21,7 @@
 
 import type { Hex, Address } from 'viem';
 import type {
+import { logger } from '@cinacoin/logger';
   PaymasterConfig,
   PaymasterRequest,
   PaymasterResponse,
@@ -325,7 +326,7 @@ export interface PaymasterDepositInfo {
  *   emitEvents: true,
  * });
  *
- * pm.on('sponsorship_approved', (e) => console.log('Sponsored!', e.data));
+ * pm.on('sponsorship_approved', (e) => logger.info('Sponsored!', e.data));
  *
  * const result = await pm.sponsor({ userOperation, entryPoint, chainId });
  * ```
@@ -729,7 +730,7 @@ export class PaymasterClient {
    *
    * ```ts
    * pm.on('sponsorship_approved', (e) => {
-   *   console.log(`Sponsored: ${e.data.paymasterAndData}`);
+   *   logger.info(`Sponsored: ${e.data.paymasterAndData}`);
    * });
    * ```
    */

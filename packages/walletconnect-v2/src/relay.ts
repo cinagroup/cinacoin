@@ -10,6 +10,7 @@
 
 import { EventEmitter } from '@cinacoin/core-sdk';
 import type { RelayConfig, RelayMessage } from './types.js';
+import { logger } from '@cinacoin/logger';
 
 /** Relay client state. */
 export type RelayState = 'disconnected' | 'connecting' | 'connected' | 'error';
@@ -271,7 +272,7 @@ export class WcRelay extends EventEmitter {
   private reconnect(): void {
     this.reconnectAttempts++;
     const delay = Math.min(1000 * 2 ** this.reconnectAttempts, 30_000);
-    console.log(
+    logger.info(
       `[WcRelay] Reconnecting in ${delay}ms (attempt ${this.reconnectAttempts}/${this.config.maxReconnectAttempts})`,
     );
     setTimeout(() => {

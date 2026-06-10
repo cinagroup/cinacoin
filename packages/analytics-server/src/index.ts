@@ -11,6 +11,7 @@ import { GdprAnonymizer } from "./anonymizer.js";
 import { EventDeduplicator } from "./deduplicator.js";
 import { EventBatcher } from "./batcher.js";
 import { PrometheusMetrics } from "./metrics.js";
+import { logger } from '@cinacoin/logger';
 
 export interface Env {
   DB: D1Database;
@@ -330,7 +331,7 @@ if (typeof process !== 'undefined' && typeof process.on === 'function') {
   const gracefulShutdown = async () => {
     if (shuttingDown) return;
     shuttingDown = true;
-    console.log('Shutting down...');
+    logger.info('Shutting down...');
 
     // Wait up to 10 s for in-flight requests to drain
     const deadline = Date.now() + 10_000;

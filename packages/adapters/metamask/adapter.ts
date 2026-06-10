@@ -10,7 +10,7 @@
  *
  * const adapter = new MetaMaskAdapter({ chains: [1, 137] });
  * const result = await adapter.connect();
- * console.log(result.accounts); // ['0x...']
+ * logger.info(result.accounts); // ['0x...']
  * ```
  */
 
@@ -18,6 +18,7 @@ import type { ConnectParams, ConnectionResult, TransactionRequest } from '@cinac
 import { Connector } from '@cinacoin/core-sdk';
 import type { MetaMaskProvider, MetaMaskConfig } from './types.js';
 import { detectMetaMask, toHexChainId, fromHexChainId, getMetaMaskInstallLink } from './utils.js';
+import { logger } from '@cinacoin/logger';
 
 export class MetaMaskAdapter extends Connector {
   readonly id = 'metamask';

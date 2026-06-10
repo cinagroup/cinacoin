@@ -22,7 +22,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsup src/index.ts --format esm,cjs --dts",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "clean": "rm -rf dist",
     "lint": "eslint src/",

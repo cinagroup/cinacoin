@@ -1,3 +1,4 @@
+import { logger } from '@cinacoin/logger';
 /**
  * Cinacoin Solana Adapter — Solana chain adapter package.
  *
@@ -15,11 +16,11 @@
  *
  * // Connect to the first available wallet
  * const address = await adapter.connect('phantom');
- * console.log('Connected:', address);
+ * logger.info('Connected:', address);
  *
  * // Query balance
  * const balance = await adapter.getBalance(address);
- * console.log(`${balance} SOL`);
+ * logger.info(`${balance} SOL`);
  *
  * // Transfer SOL
  * const sig = await adapter.transferSOL('recipient...', 0.01);

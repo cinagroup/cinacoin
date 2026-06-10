@@ -29,6 +29,7 @@ import { NonceManager } from './signature-verification.js';
 import { parseWcUri, isValidWcUri } from './pairing.js';
 import { HeartbeatManager, createHeartbeat } from './heartbeat.js';
 import type { HeartbeatConfig, HeartbeatStatus } from './heartbeat.js';
+import { logger } from '@cinacoin/logger';
 
 // ============================================================
 // WC Connector Configuration
@@ -89,11 +90,11 @@ export interface WcConnectorConfig extends Partial<MultiSessionManagerConfig> {
  *
  * // Create pairing and display QR code
  * const uri = await connector.connect();
- * console.log(uri); // wc:abc123...@2?...
+ * logger.info(uri); // wc:abc123...@2?...
  *
  * // Or connect from a scanned URI
  * const result = await connector.connect({ uri: 'wc:...' });
- * console.log(result.accounts);
+ * logger.info(result.accounts);
  * ```
  */
 export class WcConnector extends Connector {

@@ -45,6 +45,7 @@ import {
   type AtomicBatchResult,
 } from '@cinacoin/core-sdk';
 import { CINA_CONNECT_INSTANCE } from '../cinacoin.tokens.js';
+import { logger } from '@cinacoin/logger';
 
 /** EIP-1193 provider shape used for EIP-5792 RPC calls. */
 interface Eip1193Provider {
@@ -330,7 +331,7 @@ export class Eip5792Service implements OnDestroy {
    * this.eip5792.sendCalls([
    *   { to: '0x...', value: '0x0', data: '0x...' },
    * ]).subscribe(result => {
-   *   console.log('Batch ID:', result.id);
+   *   logger.info('Batch ID:', result.id);
    * });
    * ```
    *
@@ -377,7 +378,7 @@ export class Eip5792Service implements OnDestroy {
    *
    * ```ts
    * const preview = this.eip5792.buildBatch(calls);
-   * console.log('Is atomic?', preview.isAtomic);
+   * logger.info('Is atomic?', preview.isAtomic);
    * ```
    */
   buildBatch(calls: Call[], options?: AtomicBatchOptions): AtomicBatchResult {
@@ -406,7 +407,7 @@ export class Eip5792Service implements OnDestroy {
    *
    * ```ts
    * this.eip5792.atomicBatch([approveCall, swapCall]).subscribe(result => {
-   *   console.log('Batch ID:', result.id);
+   *   logger.info('Batch ID:', result.id);
    * });
    * ```
    *
@@ -466,9 +467,9 @@ export class Eip5792Service implements OnDestroy {
    *
    * ```ts
    * this.eip5792.getCallsStatus(batchId).subscribe(status => {
-   *   console.log('Status:', status.status);
+   *   logger.info('Status:', status.status);
    *   if (status.status === 'CONFIRMED') {
-   *     console.log('All succeeded:', status.result ? allSucceeded(status.result) : false);
+   *     logger.info('All succeeded:', status.result ? allSucceeded(status.result) : false);
    *   }
    * });
    * ```

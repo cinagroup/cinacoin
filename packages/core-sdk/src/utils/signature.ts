@@ -1,3 +1,4 @@
+import { logger } from '@cinacoin/logger';
 /**
  * Signature verification utilities.
  *
@@ -390,7 +391,7 @@ export interface BatchSignResult {
  *   signFn: (msg) => wallet.signMessage(msg),
  *   concurrency: 3,
  * });
- * console.log(`${result.successful}/${result.total} signed`);
+ * logger.info(`${result.successful}/${result.total} signed`);
  * ```
  */
 export async function signBatch(params: BatchSignParams): Promise<BatchSignResult> {

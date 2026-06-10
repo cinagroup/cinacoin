@@ -22,11 +22,11 @@
  *   entryPoint: '0x...',
  * });
  *
- * console.log(`UserOp sent: ${result.userOpHash}`);
+ * logger.info(`UserOp sent: ${result.userOpHash}`);
  *
  * // Wait for on-chain confirmation
  * const receipt = await bundler.waitForUserOperationReceipt(result.userOpHash);
- * console.log(`Tx hash: ${receipt.transactionHash}`);
+ * logger.info(`Tx hash: ${receipt.transactionHash}`);
  * ```
  */
 
@@ -42,6 +42,7 @@ import { UserOperationStatus } from './types.js';
 import { BundlerClient as RawBundlerClient } from './bundler.js';
 import { PaymasterClient } from './paymaster.js';
 import type { PaymasterResponse } from './types.js';
+import { logger } from '@cinacoin/logger';
 
 // ============================================================
 // Enhanced BundlerClient

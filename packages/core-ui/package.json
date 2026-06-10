@@ -16,7 +16,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsup src/index.ts --format esm,cjs --dts",
     "clean": "rm -rf dist",
     "test": "vitest run",
     "lint": "eslint src --ext .ts,.tsx,.js,.jsx"

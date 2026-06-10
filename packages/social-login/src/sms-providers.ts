@@ -9,6 +9,7 @@
  */
 
 import type { SMSProvider } from './auth/phone-otp.js';
+import { logger } from '@cinacoin/logger';
 
 // ─── Twilio Provider ────────────────────────────────────────────────────
 
@@ -379,7 +380,7 @@ export type OnMessageCaptured = (to: string, message: string) => void;
  * });
  *
  * await mock.send('+1234567890', 'Test message');
- * console.log(messages[0].message); // "Test message"
+ * logger.info(messages[0].message); // "Test message"
  * ```
  */
 export class MockSMSProvider implements SMSProvider {

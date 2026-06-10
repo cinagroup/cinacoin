@@ -25,7 +25,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsup src/index.ts --format esm,cjs --dts",
     "check": "tsc --noEmit",
     "fetch-chains": "tsx scripts/fetch-chains.ts",
     "test": "vitest run",

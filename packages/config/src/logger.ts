@@ -1,3 +1,4 @@
+import { logger } from '@cinacoin/logger';
 /**
  * Structured logging utility for Cinacoin services.
  *
@@ -77,7 +78,7 @@ function emit(level: LogLevel, service: string, msg: string, ctx?: Record<string
 
   if (isProduction()) {
     // Single-line JSON for production (Cloudflare Workers, Node.js prod)
-    console.log(JSON.stringify(enriched));
+    logger.info(JSON.stringify(enriched));
   } else {
     // Pretty-print for development
     const ctxEntries = ctx
@@ -98,7 +99,7 @@ function emit(level: LogLevel, service: string, msg: string, ctx?: Record<string
         console.warn(line);
         break;
       default:
-        console.log(line);
+        logger.info(line);
     }
   }
 }

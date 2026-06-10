@@ -1,4 +1,5 @@
 import type {
+import { logger } from '@cinacoin/logger';
   HederaConnector,
   HederaPlatform,
   HederaFeature,
@@ -41,7 +42,7 @@ declare global {
  * const kantara = new KantaraWalletConnector();
  * if (kantara.isAvailable()) {
  *   const result = await kantara.connect();
- *   console.log(result.accounts); // ["0.0.12345"]
+ *   logger.info(result.accounts); // ["0.0.12345"]
  * }
  * ```
  */

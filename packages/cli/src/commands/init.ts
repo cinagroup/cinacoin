@@ -51,10 +51,10 @@ async function ask(rl: readline.Interface, question: string, defaultVal?: string
 }
 
 async function pick(rl: readline.Interface, question: string, choices: readonly string[], defaultIdx?: number): Promise<string> {
-  console.log(`  ${question}`);
+  logger.info(`  ${question}`);
   choices.forEach((c, i) => {
     const marker = defaultIdx === i ? ' ◀ default' : '';
-    console.log(`    ${i + 1}. ${c}${marker}`);
+    logger.info(`    ${i + 1}. ${c}${marker}`);
   });
   const answer = await ask(rl, `  Choice (1-${choices.length})`);
   const idx = parseInt(answer, 10) - 1;
@@ -138,17 +138,17 @@ export function initCommand(cli: Command): void {
         // ── Dry run ───────────────────────────────────────────
         if (dryRun) {
           header('Dry Run — Would create:');
-          console.log(`  Project:     ${projectName}`);
-          console.log(`  Framework:   ${framework}`);
-          console.log(`  Language:    ${language}`);
-          console.log(`  Template:    ${template}`);
-          console.log(`  Pkg Manager: ${packageManager}`);
-          console.log(`  Location:    ${targetDir}\n`);
+          logger.info(`  Project:     ${projectName}`);
+          logger.info(`  Framework:   ${framework}`);
+          logger.info(`  Language:    ${language}`);
+          logger.info(`  Template:    ${template}`);
+          logger.info(`  Pkg Manager: ${packageManager}`);
+          logger.info(`  Location:    ${targetDir}\n`);
 
           const tree = generateFileTree(projectName, framework as Framework, template as Template, language as Language);
-          console.log('  Files:');
-          for (const f of tree) console.log(`    ${f}`);
-          console.log();
+          logger.info('  Files:');
+          for (const f of tree) logger.info(`    ${f}`);
+          logger.info();
           rl.close();
           return;
         }
@@ -233,14 +233,14 @@ export function initCommand(cli: Command): void {
 
           // ── Show next steps ─────────────────────────────────
           header('Next Steps');
-          console.log(`    cd ${projectName}`);
+          logger.info(`    cd ${projectName}`);
           if (skipInstall) {
-            console.log(`    ${packageManager} install`);
+            logger.info(`    ${packageManager} install`);
           }
-          console.log(`    ${packageManager} dev`);
-          console.log();
+          logger.info(`    ${packageManager} dev`);
+          logger.info();
           info(`Docs: https://cinacoin.dev/guide`);
-          console.log();
+          logger.info();
 
         } catch (err) {
           s.fail(`Failed to scaffold project: ${err instanceof Error ? err.message : String(err)}`);
@@ -532,9 +532,9 @@ const cinacoin = new Cinacoin(config);
 
 // Initialize and connect
 async function main() {
-  console.log('Cinacoin initialized');
+  logger.info('Cinacoin initialized');
   const chains = cinacoin.getChains();
-  console.log('Available chains:', chains);
+  logger.info('Available chains:', chains);
 }
 
 main().catch(console.error);
@@ -674,6 +674,7 @@ function generateDemoComponent(framework: Framework, language: Language): string
   if (isReact) {
     return `import React, { useState } from 'react';
 import { useAccount, useBalance, useDisconnect } from '@cinacoin/react';
+import { logger } from '@cinacoin/logger';
 
 export default function DemoWallet() {
   const { address, isConnected } = useAccount();

@@ -1,3 +1,4 @@
+import { logger } from '@cinacoin/logger';
 // ============================================================
 // Colored logger with spinner for @cinacoin/cli
 // ============================================================
@@ -13,7 +14,7 @@ const GRAY = '\x1b[90m';
 
 /** Log a success message with a green checkmark. */
 export function success(message: string): void {
-  console.log(`  ${GREEN}✔${RESET} ${message}`);
+  logger.info(`  ${GREEN}✔${RESET} ${message}`);
 }
 
 /** Log an error message with a red cross. */
@@ -23,22 +24,22 @@ export function error(message: string): void {
 
 /** Log a warning with a yellow triangle. */
 export function warn(message: string): void {
-  console.log(`  ${YELLOW}⚠${RESET} ${YELLOW}${message}${RESET}`);
+  logger.info(`  ${YELLOW}⚠${RESET} ${YELLOW}${message}${RESET}`);
 }
 
 /** Log an info message with a cyan bullet. */
 export function info(message: string): void {
-  console.log(`  ${CYAN}ℹ${RESET} ${message}`);
+  logger.info(`  ${CYAN}ℹ${RESET} ${message}`);
 }
 
 /** Log a debug message in gray. */
 export function debug(message: string): void {
-  console.log(`  ${GRAY}›${RESET} ${GRAY}${message}${RESET}`);
+  logger.info(`  ${GRAY}›${RESET} ${GRAY}${message}${RESET}`);
 }
 
 /** Log a bold header. */
 export function header(text: string): void {
-  console.log(`\n  ${BOLD}${text}${RESET}\n`);
+  logger.info(`\n  ${BOLD}${text}${RESET}\n`);
 }
 
 /**

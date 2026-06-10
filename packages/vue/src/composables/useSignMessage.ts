@@ -7,7 +7,7 @@
  *
  * const handleSign = async () => {
  *   const sig = await signMessage('Hello, world!')
- *   console.log('Signature:', sig)
+ *   logger.info('Signature:', sig)
  * }
  * </script>
  * ```
@@ -15,6 +15,7 @@
 
 import { ref, type Ref } from 'vue'
 import { useCinacoin } from '../composables.js'
+import { logger } from '@cinacoin/logger';
 
 export interface UseSignMessageReturn {
   signMessage: (message: string) => Promise<string>

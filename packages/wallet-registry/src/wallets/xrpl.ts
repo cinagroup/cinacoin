@@ -1,0 +1,21 @@
+export const xrplWallets = [
+  {
+    id: "xumm",
+    name: "Xaman (XUMM)",
+    logo: "https://registry.walletconnect.com/api/v2/logo/md/xumm",
+    homepage: "https://xaman.app",
+    supportedChainFamilies: ["xrpl"],
+    platforms: ["mobile"],
+    deepLink: "xumm://",
+    universalLink: "https://xaman.app",
+    appStoreUrl: "https://apps.apple.com/app/xumm/id1470248019",
+    playStoreUrl: "https://play.google.com/store/apps/details?id=com.xrplfoundation.xumm",
+    supportsWalletConnectV2: true,
+    walletType: "hot",
+    popularity: 36,
+    description: "The premier XRPL wallet for signing transactions.",
+    developer: "XRPL Foundation / Wietse Wind",
+    yearFounded: 2019,
+    social: { twitter: "https://twitter.com/xumm" },
+  },
+];

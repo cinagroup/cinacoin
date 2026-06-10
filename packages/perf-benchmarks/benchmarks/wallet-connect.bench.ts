@@ -1,3 +1,4 @@
+import { logger } from '@cinacoin/logger';
 /**
  * WalletConnect v2 Benchmark
  *
@@ -122,7 +123,7 @@ export default {
     const samples: BenchmarkResult[] = [];
     const iterations = 50;
 
-    console.log(`   Running ${iterations} iterations per operation...`);
+    logger.info(`   Running ${iterations} iterations per operation...`);
 
     // Simulate different network conditions
     const conditions: Array<{ name: string; config: WcConfig }> = [
@@ -150,7 +151,7 @@ export default {
     for (const { name: conditionName, config } of conditions) {
       for (const { label, fn } of operations) {
         const sampleLabel = conditionName === "typical-network" ? label : `${label}-${conditionName}`;
-        console.log(`     ${sampleLabel}...`);
+        logger.info(`     ${sampleLabel}...`);
 
         for (let i = 0; i < iterations; i++) {
           const duration = await fn(config);

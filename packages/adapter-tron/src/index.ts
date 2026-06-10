@@ -1,3 +1,4 @@
+import { logger } from '@cinacoin/logger';
 /**
  * Cinacoin TRON Adapter — TRON chain adapter package.
  *
@@ -13,10 +14,10 @@
  * adapter.registerChains(TRON_CHAINS);
  *
  * const balance = await adapter.getBalance('TNA2B...');
- * console.log(`${balance} sun`);
+ * logger.info(`${balance} sun`);
  *
  * const trc20Bal = await adapter.getTRC20Balance(walletAddr, contractAddr);
- * console.log(`${trc20Bal} token units`);
+ * logger.info(`${trc20Bal} token units`);
  * ```
  *
  * @packageDocumentation

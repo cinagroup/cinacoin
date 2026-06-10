@@ -19,6 +19,7 @@ import type { Address } from 'viem';
 import type { ServerSession } from './middleware.js';
 import { verifySiweMessage } from './middleware.js';
 import { createSessionCookieHeader } from './edge.js';
+import { logger } from '@cinacoin/logger';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -161,7 +162,7 @@ export async function createSiweSession(
  *   });
  *
  *   if (result.success) {
- *     console.log('Logged in as:', result.address);
+ *     logger.info('Logged in as:', result.address);
  *   }
  * }
  * ```

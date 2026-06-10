@@ -1,3 +1,4 @@
+import { logger } from '@cinacoin/logger';
 // Cinacoin RPC Proxy — Cloudflare Worker
 // Routes: POST /rpc/:chainId, GET /health, GET /metrics
 // Caches read-only JSON-RPC calls in KV with configurable TTL.
@@ -6,7 +7,7 @@
 function createLogger(serviceName: string) {
   return {
     debug: (msg: string, ctx?: Record<string, unknown>) => console.debug(`[${serviceName}] ${msg}`, JSON.stringify(ctx)),
-    info: (msg: string, ctx?: Record<string, unknown>) => console.log(`[${serviceName}] ${msg}`, JSON.stringify(ctx)),
+    info: (msg: string, ctx?: Record<string, unknown>) => logger.info(`[${serviceName}] ${msg}`, JSON.stringify(ctx)),
     warn: (msg: string, ctx?: Record<string, unknown>) => console.warn(`[${serviceName}] ${msg}`, JSON.stringify(ctx)),
     error: (msg: string, ctx?: Record<string, unknown>) => console.error(`[${serviceName}] ${msg}`, JSON.stringify(ctx)),
   };

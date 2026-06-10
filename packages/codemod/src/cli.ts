@@ -16,6 +16,7 @@ import { readFileSync, writeFileSync, statSync } from "fs";
 import { join, relative, extname, dirname } from "path";
 import { sync as globSync } from "glob";
 import { TRANSFORMS, listTransforms, applyTransforms } from "./index.js";
+import { logger } from '@cinacoin/logger';
 
 interface CliOptions {
   srcDir: string;
@@ -101,16 +102,16 @@ function main(): void {
 
   // --list
   if (argv.list) {
-    console.log("Available transforms:\n");
+    logger.info("Available transforms:\n");
     for (const name of listTransforms()) {
       const fn = TRANSFORMS[name];
       // Try to get description from the function name
       const desc = name
         .replace(/-/g, " → ")
         .replace(/to/g, "to");
-      console.log(`  ${name.padEnd(30)} ${desc}`);
+      logger.info(`  ${name.padEnd(30)} ${desc}`);
     }
-    console.log();
+    logger.info();
     return;
   }
 
@@ -141,11 +142,11 @@ function main(): void {
   const files = findFiles(absPath, argv.pattern);
 
   if (files.length === 0) {
-    console.log(`No files matching "${argv.pattern}" found in ${absPath}`);
+    logger.info(`No files matching "${argv.pattern}" found in ${absPath}`);
     return;
   }
 
-  console.log(`Found ${files.length} file(s) in ${targetPath}\n`);
+  logger.info(`Found ${files.length} file(s) in ${targetPath}\n`);
 
   let totalChanges = 0;
   let modifiedFiles = 0;
@@ -168,31 +169,31 @@ function main(): void {
       const relPath = relative(process.cwd(), filePath);
 
       if (argv.dryRun) {
-        console.log(`🔍 ${relPath} (${result.changes.length} change(s))`);
+        logger.info(`🔍 ${relPath} (${result.changes.length} change(s))`);
       } else {
         writeFileSync(filePath, result.output, "utf-8");
-        console.log(`✅ ${relPath} (${result.changes.length} change(s))`);
+        logger.info(`✅ ${relPath} (${result.changes.length} change(s))`);
       }
 
       if (argv.verbose) {
         for (const change of result.changes) {
-          console.log(`   ${change}`);
+          logger.info(`   ${change}`);
         }
-        console.log();
+        logger.info();
       }
     } else {
       if (argv.verbose) {
-        console.log(`   ${relative(process.cwd(), filePath)} — no changes`);
+        logger.info(`   ${relative(process.cwd(), filePath)} — no changes`);
       }
     }
   }
 
   // Summary
-  console.log();
+  logger.info();
   if (argv.dryRun) {
-    console.log(`📋 Dry run complete: ${totalChanges} change(s) in ${modifiedFiles} file(s)`);
+    logger.info(`📋 Dry run complete: ${totalChanges} change(s) in ${modifiedFiles} file(s)`);
   } else {
-    console.log(`✅ Done: ${totalChanges} change(s) in ${modifiedFiles} file(s)`);
+    logger.info(`✅ Done: ${totalChanges} change(s) in ${modifiedFiles} file(s)`);
   }
 }
 

@@ -8,6 +8,7 @@
  */
 
 import type {
+import { logger } from '@cinacoin/logger';
   SolanaConnector,
   SolanaPlatform,
   SolanaFeature,
@@ -23,7 +24,7 @@ import type {
  * const connector = new SolflareWalletConnector();
  * if (connector.isAvailable()) {
  *   const { publicKey } = await connector.connect();
- *   console.log('Connected:', publicKey);
+ *   logger.info('Connected:', publicKey);
  * }
  * ```
  */

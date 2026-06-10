@@ -8,6 +8,7 @@
  */
 
 import type {
+import { logger } from '@cinacoin/logger';
   GasPricePrediction,
   FeeHistoryEntry,
   AggregatedGasPrice,
@@ -38,9 +39,9 @@ import type {
  *   currentGasPrice: 35_000_000_000n,
  * });
  *
- * console.log('Fast:', prediction.fast);
- * console.log('Standard:', prediction.standard);
- * console.log('Slow:', prediction.slow);
+ * logger.info('Fast:', prediction.fast);
+ * logger.info('Standard:', prediction.standard);
+ * logger.info('Slow:', prediction.slow);
  * ```
  */
 export class GasPricePredictor {

@@ -21,6 +21,7 @@ import { privateKeyToAccount } from "viem/accounts";
 import { sepolia, mainnet, base, arbitrum, optimism } from "viem/chains";
 import * as fs from "fs";
 import * as path from "path";
+import { logger } from '@cinacoin/logger';
 
 // ============================================================
 // Configuration
@@ -83,9 +84,9 @@ const ENTRY_POINTS: Record<number, Address> = {
 // ============================================================
 
 async function deploy(config: DeployConfig) {
-  console.log("=".repeat(60));
-  console.log("Cinacoin Paymaster Deployment");
-  console.log("=".repeat(60));
+  logger.info("=".repeat(60));
+  logger.info("Cinacoin Paymaster Deployment");
+  logger.info("=".repeat(60));
 
   const chain = config.chain || sepolia;
   const rpcUrl = config.rpcUrl || chain.rpcUrls.default.http[0];
@@ -108,19 +109,19 @@ async function deploy(config: DeployConfig) {
     transport: http(rpcUrl),
   });
 
-  console.log(`\nNetwork: ${chain.name} (ID: ${chain.id})`);
-  console.log(`Deployer: ${account.address}`);
-  console.log(`EntryPoint: ${entryPoint}`);
+  logger.info(`\nNetwork: ${chain.name} (ID: ${chain.id})`);
+  logger.info(`Deployer: ${account.address}`);
+  logger.info(`EntryPoint: ${entryPoint}`);
 
   // Check deployer balance
   const balance = await publicClient.getBalance({ address: account.address });
-  console.log(`Balance: ${balance} wei\n`);
+  logger.info(`Balance: ${balance} wei\n`);
 
   // Read compiled bytecode
   const bytecode = readBytecode("CinacoinPaymaster");
 
   // Deploy CinacoinPaymaster
-  console.log("Deploying CinacoinPaymaster...");
+  logger.info("Deploying CinacoinPaymaster...");
   const paymasterHash = await walletClient.deployContract({
     abi: paymasterAbi,
     bytecode: bytecode as `0x${string}`,
@@ -132,10 +133,10 @@ async function deploy(config: DeployConfig) {
   });
 
   const paymasterAddress = paymasterReceipt.contractAddress as Address;
-  console.log(`✅ CinacoinPaymaster deployed at: ${paymasterAddress}`);
+  logger.info(`✅ CinacoinPaymaster deployed at: ${paymasterAddress}`);
 
   // Deploy VerifyingPaymaster
-  console.log("\nDeploying VerifyingPaymaster...");
+  logger.info("\nDeploying VerifyingPaymaster...");
   const verifyingBytecode = readBytecode("VerifyingPaymaster");
   const trustedSigner = config.trustedSigner || account.address;
 
@@ -150,10 +151,10 @@ async function deploy(config: DeployConfig) {
   });
 
   const verifyingAddress = verifyingReceipt.contractAddress as Address;
-  console.log(`✅ VerifyingPaymaster deployed at: ${verifyingAddress}`);
+  logger.info(`✅ VerifyingPaymaster deployed at: ${verifyingAddress}`);
 
   // Deploy TokenPaymaster
-  console.log("\nDeploying TokenPaymaster...");
+  logger.info("\nDeploying TokenPaymaster...");
   const tokenBytecode = readBytecode("TokenPaymaster");
 
   const tokenHash = await walletClient.deployContract({
@@ -167,7 +168,7 @@ async function deploy(config: DeployConfig) {
   });
 
   const tokenAddress = tokenReceipt.contractAddress as Address;
-  console.log(`✅ TokenPaymaster deployed at: ${tokenAddress}`);
+  logger.info(`✅ TokenPaymaster deployed at: ${tokenAddress}`);
 
   // Write deployment addresses
   const deploymentInfo = {
@@ -191,10 +192,10 @@ async function deploy(config: DeployConfig) {
   fs.mkdirSync(path.dirname(outputPath), { recursive: true });
   fs.writeFileSync(outputPath, JSON.stringify(deploymentInfo, null, 2));
 
-  console.log(`\n📄 Deployment info saved to: ${outputPath}`);
-  console.log("\n" + "=".repeat(60));
-  console.log("Deployment complete!");
-  console.log("=".repeat(60));
+  logger.info(`\n📄 Deployment info saved to: ${outputPath}`);
+  logger.info("\n" + "=".repeat(60));
+  logger.info("Deployment complete!");
+  logger.info("=".repeat(60));
 
   return deploymentInfo;
 }

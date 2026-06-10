@@ -9,6 +9,7 @@
  */
 
 import { SignJWT, jwtVerify, type JWTPayload } from 'jose';
+import { logger } from '@cinacoin/logger';
 
 // ─── Types ──────────────────────────────────────────────────────────────
 
@@ -127,7 +128,7 @@ const ACTIVE_SESSIONS = new Map<string, SessionRecord>();
  * // Later, validate a request
  * const result = await sessionManager.validate(session.accessToken);
  * if (result.valid) {
- *   console.log('User:', result.payload?.email);
+ *   logger.info('User:', result.payload?.email);
  * }
  * ```
  */

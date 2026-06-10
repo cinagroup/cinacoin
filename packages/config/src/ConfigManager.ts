@@ -1,3 +1,4 @@
+import { logger } from '@cinacoin/logger';
 /**
  * Remote configuration options for initializing the feature flag system.
  */
@@ -80,7 +81,7 @@ function resolveConfigUrl(projectId: string): string {
  * }
  *
  * config.onFeatureChange("swap_enabled", (flag, value) => {
- *   console.log(`${flag} is now ${value}`);
+ *   logger.info(`${flag} is now ${value}`);
  * });
  * ```
  */

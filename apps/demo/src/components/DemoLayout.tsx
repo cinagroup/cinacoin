@@ -2,6 +2,7 @@
 
 import { ReactNode, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { NavLink } from './Header';
 import Footer from './Footer';
@@ -29,7 +30,7 @@ function Sidebar({ links, mobileOpen, onClose }: { links: NavLink[]; mobileOpen:
     <div className="flex flex-col h-full">
       {/* Logo */}
       <Link href="/" className="flex items-center gap-2 px-4 h-16 border-b border-[var(--cc-hairline)] shrink-0" onClick={onClose}>
-        <img src="/demo/logo.png" alt="Cinacoin" className="h-6 w-6 rounded-[4px]" />
+        <Image src="/demo/logo.png" alt="Cinacoin" width={24} height={24} className="h-6 w-6 rounded-[4px]" />
         <span className="text-[14px] font-semibold text-[var(--cc-ink)] tracking-[-0.28px]">Cinacoin</span>
       </Link>
 
@@ -104,7 +105,7 @@ export default function DemoLayout({ children }: { children: ReactNode }) {
             </svg>
           </button>
           <Link href="/" className="flex items-center gap-2 ml-3">
-            <img src="/demo/logo.png" alt="Cinacoin" className="h-5 w-5 rounded-[4px]" />
+            <Image src="/demo/logo.png" alt="Cinacoin" width={20} height={20} className="h-5 w-5 rounded-[4px]" />
             <span className="text-[14px] font-semibold text-[var(--cc-ink)]">Cinacoin</span>
           </Link>
         </div>

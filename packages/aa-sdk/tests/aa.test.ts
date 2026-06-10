@@ -11,6 +11,7 @@ import { PaymasterClient } from '../src/paymaster.js';
 import { BundlerClient } from '../src/bundler.js';
 import type { SmartAccountConfig, UserOperation, BatchTransaction } from '../src/types.js';
 import { sepolia } from 'viem/chains';
+import { logger } from '@cinacoin/logger';
 
 function assert(condition: boolean, msg: string) {
   if (!condition) throw new Error(`Assertion failed: ${msg}`);
@@ -44,7 +45,7 @@ function testSmartAccountInit() {
   assert(account.config.entryPoint === config.entryPoint, 'entryPoint matches');
   assert(account.config.chainId === config.chainId, 'chainId matches');
   assert(account.config.rpcUrl === config.rpcUrl, 'rpcUrl matches');
-  console.log('✓ SmartAccount init');
+  logger.info('✓ SmartAccount init');
 }
 
 function testSmartAccountWithOptionalFields() {
@@ -55,13 +56,13 @@ function testSmartAccountWithOptionalFields() {
   });
   assert(account.config.factoryAddress === '0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0', 'factory address');
   assert(account.config.index === 0n, 'index');
-  console.log('✓ SmartAccount with optional fields');
+  logger.info('✓ SmartAccount with optional fields');
 }
 
 function testSmartAccountDefaultIndex() {
   const account = new SmartAccount(config);
   assert(account.config.index === undefined, 'default index should be undefined');
-  console.log('✓ SmartAccount default index');
+  logger.info('✓ SmartAccount default index');
 }
 
 async function testBuildUserOperation() {
@@ -84,7 +85,7 @@ async function testBuildUserOperation() {
   assert(userOp.maxPriorityFeePerGas >= 0n, 'maxPriorityFeePerGas should be set');
   assert(userOp.paymasterAndData === '0x', 'paymasterAndData default');
   assert(userOp.signature === '0x', 'signature default');
-  console.log('✓ buildUserOperation');
+  logger.info('✓ buildUserOperation');
 }
 
 async function testBuildUserOperationSingleTx() {
@@ -95,7 +96,7 @@ async function testBuildUserOperationSingleTx() {
   ]);
 
   assert(userOp.callData.length > 0, 'callData should not be empty');
-  console.log('✓ buildUserOperation single tx');
+  logger.info('✓ buildUserOperation single tx');
 }
 
 async function testBuildUserOperationEmptyBatch() {
@@ -103,7 +104,7 @@ async function testBuildUserOperationEmptyBatch() {
 
   const userOp = await account.buildUserOperation([]);
   assert(userOp.sender !== undefined, 'sender exists');
-  console.log('✓ buildUserOperation empty batch');
+  logger.info('✓ buildUserOperation empty batch');
 }
 
 async function testSignUserOperation() {
@@ -126,7 +127,7 @@ async function testSignUserOperation() {
   const signed = await account.signUserOp(userOp);
   assert(signed.signature !== '0x', 'signature should be set');
   assert(signed.signature.startsWith('0x'), 'signature should be hex');
-  console.log('✓ signUserOperation');
+  logger.info('✓ signUserOperation');
 }
 
 async function testExecuteReturnsUserOp() {
@@ -140,7 +141,7 @@ async function testExecuteReturnsUserOp() {
   assert(userOpHash !== undefined, 'userOpHash returned');
   assert(userOpHash.startsWith('0x'), 'userOpHash is hex');
   assert(userOp.signature !== '0x', 'userOp is signed');
-  console.log('✓ execute returns userOp');
+  logger.info('✓ execute returns userOp');
 }
 
 async function testGetState() {
@@ -152,14 +153,14 @@ async function testGetState() {
   assert(typeof state.balance === 'bigint', 'balance is bigint');
   assert(typeof state.nonce === 'bigint', 'nonce is bigint');
   assert(typeof state.isDeployed === 'boolean', 'isDeployed is boolean');
-  console.log('✓ getState');
+  logger.info('✓ getState');
 }
 
 async function testGetAddress() {
   const account = new SmartAccount(config);
   const address = account.getAddress();
   assert(address.startsWith('0x'), 'address starts with 0x');
-  console.log('✓ getAddress');
+  logger.info('✓ getAddress');
 }
 
 // ---------------------------------------------------------------------------
@@ -175,7 +176,7 @@ function testFactoryInit() {
   });
   assert(factory.config.address === '0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0', 'factory address');
   assert(factory.config.entryPoint === '0x0000000071727De22E5E9d8BAf0edAc6f37da032', 'entry point');
-  console.log('✓ SmartAccountFactory init');
+  logger.info('✓ SmartAccountFactory init');
 }
 
 function testFactoryWithSaltNonce() {
@@ -187,7 +188,7 @@ function testFactoryWithSaltNonce() {
     chain: sepolia,
   });
   assert(factory.config.saltNonce === 42n, 'salt nonce');
-  console.log('✓ SmartAccountFactory with saltNonce');
+  logger.info('✓ SmartAccountFactory with saltNonce');
 }
 
 async function testComputeAddress() {
@@ -201,7 +202,7 @@ async function testComputeAddress() {
   const address = await factory.computeAddress('0x1234567890123456789012345678901234567890');
   assert(address.startsWith('0x'), 'computed address should be hex');
   assert(address.length > 2, 'address should have content');
-  console.log('✓ computeAddress');
+  logger.info('✓ computeAddress');
 }
 
 // ---------------------------------------------------------------------------
@@ -214,7 +215,7 @@ function testPaymasterInit() {
     sponsorType: 'gasless',
   });
   assert(paymaster.sponsorType === 'gasless', 'sponsor type');
-  console.log('✓ PaymasterClient init');
+  logger.info('✓ PaymasterClient init');
 }
 
 function testPaymasterWithApiKey() {
@@ -224,7 +225,7 @@ function testPaymasterWithApiKey() {
     sponsorType: 'partial',
   });
   assert(paymaster.sponsorType === 'partial', 'sponsor type');
-  console.log('✓ PaymasterClient with apiKey');
+  logger.info('✓ PaymasterClient with apiKey');
 }
 
 async function testPaymasterSponsorOp() {
@@ -256,7 +257,7 @@ async function testPaymasterSponsorOp() {
   } catch (_e: any) {
     assert(true, 'should attempt to call paymaster');
   }
-  console.log('✓ PaymasterClient sponsorOp (network error expected)');
+  logger.info('✓ PaymasterClient sponsorOp (network error expected)');
 }
 
 // ---------------------------------------------------------------------------
@@ -267,7 +268,7 @@ function testBundlerInit() {
   const bundler = new BundlerClient({
     url: 'https://bundler.example.com',
   });
-  console.log('✓ BundlerClient init');
+  logger.info('✓ BundlerClient init');
 }
 
 function testBundlerWithApiKey() {
@@ -275,7 +276,7 @@ function testBundlerWithApiKey() {
     url: 'https://bundler.example.com',
     apiKey: 'bundler-key',
   });
-  console.log('✓ BundlerClient with apiKey');
+  logger.info('✓ BundlerClient with apiKey');
 }
 
 async function testBundlerEstimateGas() {
@@ -302,7 +303,7 @@ async function testBundlerEstimateGas() {
   } catch (_e: any) {
     assert(true, 'should attempt to estimate');
   }
-  console.log('✓ BundlerClient estimateGas (network error expected)');
+  logger.info('✓ BundlerClient estimateGas (network error expected)');
 }
 
 async function testBundlerSendUserOperation() {
@@ -329,7 +330,7 @@ async function testBundlerSendUserOperation() {
   } catch (_e: any) {
     assert(true, 'should attempt to send');
   }
-  console.log('✓ BundlerClient sendUserOperation (network error expected)');
+  logger.info('✓ BundlerClient sendUserOperation (network error expected)');
 }
 
 async function testBundlerGetUserOperationReceipt() {
@@ -342,7 +343,7 @@ async function testBundlerGetUserOperationReceipt() {
   } catch (_e: any) {
     assert(true, 'should attempt to get receipt');
   }
-  console.log('✓ BundlerClient getUserOperationReceipt (network error expected)');
+  logger.info('✓ BundlerClient getUserOperationReceipt (network error expected)');
 }
 
 // ---------------------------------------------------------------------------
@@ -368,7 +369,7 @@ function testUserOperationShape() {
   assert(typeof userOp.nonce === 'bigint', 'nonce is bigint');
   assert(typeof userOp.callGasLimit === 'bigint', 'callGasLimit is bigint');
   assert(typeof userOp.paymasterAndData === 'string', 'paymasterAndData is string');
-  console.log('✓ UserOperation shape');
+  logger.info('✓ UserOperation shape');
 }
 
 // ---------------------------------------------------------------------------
@@ -414,7 +415,7 @@ async function run() {
     }
   }
 
-  console.log(`\nResults: ${passed} passed, ${failed} failed (${tests.length} total)`);
+  logger.info(`\nResults: ${passed} passed, ${failed} failed (${tests.length} total)`);
   if (failed > 0) process.exit(1);
 }
 

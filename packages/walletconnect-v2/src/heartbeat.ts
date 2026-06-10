@@ -1,3 +1,4 @@
+import { logger } from '@cinacoin/logger';
 /**
  * WalletConnect v2 Heartbeat & Reconnection Manager
  *
@@ -25,7 +26,7 @@
  *
  * // Listen for status changes
  * heartbeat.on('status', (status) => {
- *   console.log(`WC connection: ${status}`);
+ *   logger.info(`WC connection: ${status}`);
  * });
  *
  * // Stop when done

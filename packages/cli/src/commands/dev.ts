@@ -14,6 +14,7 @@
 import type { Command } from 'commander';
 import { createServer } from 'node:http';
 import { EventEmitter } from 'node:events';
+import { logger } from '@cinacoin/logger';
 
 // ============================================================
 // Mock Chain State
@@ -315,29 +316,29 @@ export function devCommand(cli: Command): void {
       const chainId = parseInt(opts.chain, 10);
 
       if (opts.reset) {
-        console.log('  Mock state reset');
+        logger.info('  Mock state reset');
       }
 
       const { server, events } = createMockServer(port, chainId);
 
       server.listen(port, () => {
-        console.log('');
-        console.log('  🔢 Cinacoin Mock Dev Server');
-        console.log('  ─────────────────────────');
-        console.log(`  Port:      ${port}`);
-        console.log(`  Chain:     ${chainId}`);
-        console.log(`  RPC:       http://localhost:${port}/rpc`);
-        console.log(`  Dashboard: http://localhost:${port}/`);
-        console.log(`  Status:    http://localhost:${port}/status`);
-        console.log('');
-        console.log('  Test Accounts:');
+        logger.info('');
+        logger.info('  🔢 Cinacoin Mock Dev Server');
+        logger.info('  ─────────────────────────');
+        logger.info(`  Port:      ${port}`);
+        logger.info(`  Chain:     ${chainId}`);
+        logger.info(`  RPC:       http://localhost:${port}/rpc`);
+        logger.info(`  Dashboard: http://localhost:${port}/`);
+        logger.info(`  Status:    http://localhost:${port}/status`);
+        logger.info('');
+        logger.info('  Test Accounts:');
         const chain = MOCK_CHAINS[chainId];
         chain?.accounts.forEach((a, i) => {
-          console.log(`    ${i + 1}. ${a.address} (${a.balance} ETH)`);
+          logger.info(`    ${i + 1}. ${a.address} (${a.balance} ETH)`);
         });
-        console.log('');
-        console.log('  Press Ctrl+C to stop');
-        console.log('');
+        logger.info('');
+        logger.info('  Press Ctrl+C to stop');
+        logger.info('');
       });
 
       events.on('newBlock', (block: number) => {
@@ -348,7 +349,7 @@ export function devCommand(cli: Command): void {
       process.on('SIGINT', () => {
         if (mockBlockInterval) clearInterval(mockBlockInterval);
         server.close(() => {
-          console.log('\n  Mock server stopped');
+          logger.info('\n  Mock server stopped');
           process.exit(0);
         });
       });

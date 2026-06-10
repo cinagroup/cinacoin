@@ -1,4 +1,5 @@
 import type {
+import { logger } from '@cinacoin/logger';
   BitcoinConnector,
   BitcoinPlatform,
   BitcoinFeature,
@@ -41,7 +42,7 @@ interface SatsConnectAddressEntry {
  * const connector = new SatsConnectConnector();
  * if (connector.isAvailable()) {
  *   const result = await connector.connect();
- *   console.log(result.accounts);
+ *   logger.info(result.accounts);
  * }
  * ```
  */

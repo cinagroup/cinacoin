@@ -1,3 +1,4 @@
+import { logger } from '@cinacoin/logger';
 /**
  * @cinacoin/onramp-sdk
  *
@@ -36,7 +37,7 @@
  *   userRegion: 'US',
  * });
  *
- * console.log(`Best on-ramp: ${bestQuote.providerName} — ${bestQuote.cryptoAmount} ETH`);
+ * logger.info(`Best on-ramp: ${bestQuote.providerName} — ${bestQuote.cryptoAmount} ETH`);
  * ```
  */
 

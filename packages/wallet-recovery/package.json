@@ -13,7 +13,7 @@
     }
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsup src/index.ts --format esm,cjs --dts",
     "check": "tsc --noEmit",
     "lint": "eslint src/",
     "test": "vitest run"

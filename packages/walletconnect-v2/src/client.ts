@@ -24,6 +24,7 @@ import { WcRelay } from './relay.js';
 import { WcSessionManager } from './session.js';
 import { parseWcUri, isValidWcUri, createPairing, approvePairing, deletePairing, pairingPing } from './pairing.js';
 import { getDefaultRequiredNamespaces } from './methods.js';
+import { logger } from '@cinacoin/logger';
 
 // ============================================================
 // Client Configuration
@@ -96,7 +97,7 @@ export class WcClientError extends Error {
  *
  * // Create a pairing QR code
  * const uri = await client.connect();
- * console.log(uri); // wc:abc123...@2?...
+ * logger.info(uri); // wc:abc123...@2?...
  *
  * // Or connect from a scanned URI
  * const session = await client.connect({ uri: 'wc:...' });

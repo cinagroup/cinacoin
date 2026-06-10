@@ -1,3 +1,4 @@
+import { logger } from '@cinacoin/logger';
 /**
  * @cinacoin/adapter-cosmos
  *
@@ -23,14 +24,14 @@
  * });
  *
  * const { address } = await cosmos.connect();
- * console.log('Connected:', address);
+ * logger.info('Connected:', address);
  *
  * const tx = await cosmos.sendTransfer({
  *   to: 'cosmos1...',
  *   amount: 1000000,
  *   denom: 'uatom',
  * });
- * console.log('TX hash:', tx.transactionHash);
+ * logger.info('TX hash:', tx.transactionHash);
  * ```
  *
  * @packageDocumentation

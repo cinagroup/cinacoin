@@ -1,4 +1,5 @@
 import type {
+import { logger } from '@cinacoin/logger';
   BitcoinConnector,
   BitcoinPlatform,
   BitcoinFeature,
@@ -69,11 +70,11 @@ type BitcoinFeatureNamespace = (typeof BITCOIN_FEATURES)[number];
  * ```ts
  * const ws = new WalletStandardConnector();
  * const wallets = ws.getAvailableWallets();
- * console.log(wallets.map(w => w.name));
+ * logger.info(wallets.map(w => w.name));
  *
  * if (wallets.length > 0) {
  *   const result = await ws.connect();
- *   console.log(result.accounts);
+ *   logger.info(result.accounts);
  * }
  * ```
  */

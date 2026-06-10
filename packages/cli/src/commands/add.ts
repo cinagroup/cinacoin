@@ -550,7 +550,7 @@ export default function ChainSelector({ chains = DEFAULT_CHAINS, className, onCh
 <ChainSelector chains={[
   { id: 1, name: 'Ethereum', icon: '💎' },
   { id: 8453, name: 'Base', icon: '🔵' },
-]} onChange={(chainId) => console.log('Switched to', chainId)} />
+]} onChange={(chainId) => logger.info('Switched to', chainId)} />
 `,
   },
 
@@ -560,6 +560,7 @@ export default function ChainSelector({ chains = DEFAULT_CHAINS, className, onCh
       'src/components/SignIn.tsx': `import { useState, useCallback } from 'react';
 import { useCoinAccount, useCoinSign } from '@cinacoin/core-sdk/react';
 import { createSIWEMessage, generateNonce } from '@cinacoin/core-sdk/utils/signature';
+import { logger } from '@cinacoin/logger';
 
 interface SignInProps {
   /** Domain for the SIWE message (defaults to window.location.host) */
@@ -771,7 +772,7 @@ export default function NftGallery({ nfts, className, onBuy, columns = 3 }: NftG
   nfts={[
     { id: 1, name: 'NFT #1', collection: 'My Collection', price: '0.5', image: '🎨' },
   ]}
-  onBuy={(nft) => console.log('Buy', nft.name)}
+  onBuy={(nft) => logger.info('Buy', nft.name)}
 />
 `,
   },
@@ -789,14 +790,14 @@ function listCommand(cli: Command): void {
     .action(() => {
       header('Available Addons (packages)');
       for (const [name, info] of Object.entries(ADDONS)) {
-        console.log(`  ${name.padEnd(32)} ${info.description}`);
+        logger.info(`  ${name.padEnd(32)} ${info.description}`);
       }
-      console.log();
+      logger.info();
       header('Available Components');
       for (const [name, info] of Object.entries(COMPONENTS)) {
-        console.log(`  ${name.padEnd(32)} ${info.description}`);
+        logger.info(`  ${name.padEnd(32)} ${info.description}`);
       }
-      console.log();
+      logger.info();
     });
 }
 
@@ -830,19 +831,19 @@ export function addCommand(cli: Command): void {
 
         if (opts.dryRun) {
           header(`Dry Run — Would add component '${name}'`);
-          console.log(`  ${compDef.description}\n`);
-          console.log('  Files:');
+          logger.info(`  ${compDef.description}\n`);
+          logger.info('  Files:');
           for (const [path] of Object.entries(compDef.files)) {
-            console.log(`    ${path}`);
+            logger.info(`    ${path}`);
           }
           if (Object.keys(compDef.dependencies).length > 0) {
-            console.log('\n  Dependencies:');
+            logger.info('\n  Dependencies:');
             for (const [dep, ver] of Object.entries(compDef.dependencies)) {
-              console.log(`    ${dep}: ${ver}`);
+              logger.info(`    ${dep}: ${ver}`);
             }
           }
-          console.log(`\n  Usage:\n${compDef.usage}`);
-          console.log();
+          logger.info(`\n  Usage:\n${compDef.usage}`);
+          logger.info();
           return;
         }
 
@@ -878,8 +879,8 @@ export function addCommand(cli: Command): void {
           s.succeed(`Component '${name}' added successfully!`);
 
           header('Usage');
-          console.log(compDef.usage);
-          console.log();
+          logger.info(compDef.usage);
+          logger.info();
 
         } catch (err) {
           s.fail(`Failed to add component: ${err instanceof Error ? err.message : String(err)}`);
@@ -907,7 +908,7 @@ export function addCommand(cli: Command): void {
 
           s.succeed(`Added ${name} to ${depKey}`);
           info(`Import and use ${name} in your project.`);
-          console.log();
+          logger.info();
         } catch (err) {
           s.fail(`Failed to add ${name}: ${err instanceof Error ? err.message : String(err)}`);
           process.exit(1);
@@ -917,17 +918,17 @@ export function addCommand(cli: Command): void {
 
       // ── Unknown ───────────────────────────────────────────
       error(`Unknown component or package '${name}'`);
-      console.log();
+      logger.info();
       info('Available components:');
       for (const [cn] of Object.entries(COMPONENTS)) {
-        console.log(`    ${cn}`);
+        logger.info(`    ${cn}`);
       }
-      console.log();
+      logger.info();
       info('Available packages:');
       for (const [pn] of Object.entries(ADDONS)) {
-        console.log(`    ${pn}`);
+        logger.info(`    ${pn}`);
       }
-      console.log();
+      logger.info();
       process.exit(1);
     });
 }

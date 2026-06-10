@@ -16,7 +16,7 @@
  *
  * await adapter.connect('phantom');
  * const balance = await adapter.getBalance(adapter.getAddress()!);
- * console.log(`Balance: ${balance} SOL`);
+ * logger.info(`Balance: ${balance} SOL`);
  * ```
  *
  * @packageDocumentation
@@ -55,6 +55,7 @@ import {
 import { PhantomWalletConnector } from './connectors/phantom.js';
 import { SolflareWalletConnector } from './connectors/solflare.js';
 import { WalletStandardConnector } from './connectors/wallet-standard.js';
+import { logger } from '@cinacoin/logger';
 
 /* ------------------------------------------------------------------ */
 /*  Solana chain presets                                                */

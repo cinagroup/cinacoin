@@ -16,6 +16,7 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { execSync } from 'node:child_process';
 import { spinner, header, info, success, warn, error } from '../utils/logger.js';
+import { logger } from '@cinacoin/logger';
 
 // ============================================================
 // Platform Detection
@@ -149,12 +150,12 @@ pages_build_output_dir = "${config.outputDir}"
     execSync(deployCmd, { cwd, stdio: 'pipe' });
     s.succeed(`Deployed to Cloudflare Pages (${env})`);
 
-    console.log('');
+    logger.info('');
     info(`Preview: https://cinacoin-app.pages.dev`);
     if (env === 'prod') {
       info(`Production: https://cinacoin.com`);
     }
-    console.log('');
+    logger.info('');
 
   } catch (err) {
     s.fail(`Cloudflare deployment failed: ${err instanceof Error ? err.message : String(err)}`);
@@ -227,28 +228,28 @@ export function deployCommand(cli: Command): void {
       const env = opts.env;
 
       header('Cinacoin Deployment');
-      console.log(`  Directory:  ${cwd}`);
-      console.log(`  Platform:   ${platform}`);
-      console.log(`  Environment: ${env}`);
-      console.log('');
+      logger.info(`  Directory:  ${cwd}`);
+      logger.info(`  Platform:   ${platform}`);
+      logger.info(`  Environment: ${env}`);
+      logger.info('');
 
       // Detect project config
       const config = getProjectConfig(cwd, platform);
-      console.log(`  Framework:  ${config.framework}`);
-      console.log(`  Build Cmd:  ${config.buildCommand}`);
-      console.log(`  Output Dir: ${config.outputDir}`);
-      console.log(`  Detected:   ${config.platform}`);
-      console.log('');
+      logger.info(`  Framework:  ${config.framework}`);
+      logger.info(`  Build Cmd:  ${config.buildCommand}`);
+      logger.info(`  Output Dir: ${config.outputDir}`);
+      logger.info(`  Detected:   ${config.platform}`);
+      logger.info('');
 
       // Dry run
       if (opts.dryRun) {
         header('Dry Run — Deployment Plan');
         if (!opts.skipBuild) {
-          console.log(`  1. Run: ${config.buildCommand}`);
+          logger.info(`  1. Run: ${config.buildCommand}`);
         }
-        console.log(`  2. Deploy to ${config.platform} (${env})`);
-        console.log(`  3. Output: ${config.outputDir}`);
-        console.log('');
+        logger.info(`  2. Deploy to ${config.platform} (${env})`);
+        logger.info(`  3. Output: ${config.outputDir}`);
+        logger.info('');
         info('Run without --dry-run to execute');
         return;
       }

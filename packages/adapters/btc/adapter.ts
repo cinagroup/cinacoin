@@ -14,7 +14,7 @@
  * });
  *
  * const result = await adapter.connect();
- * console.log(result.accounts); // [btc address]
+ * logger.info(result.accounts); // [btc address]
  * ```
  */
 
@@ -22,6 +22,7 @@ import type { ConnectParams, ConnectionResult, TransactionRequest } from '@cinac
 import { Connector } from '@cinacoin/core-sdk';
 import type { BitcoinWalletConfig, BitcoinProvider } from './types.js';
 import {
+import { logger } from '@cinacoin/logger';
   detectBitcoinWallet,
   getBitcoinWalletInstallLinks,
   isValidBitcoinAddress,

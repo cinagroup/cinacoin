@@ -14,6 +14,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { execSync } from 'node:child_process';
 import { header, success, error, warn, info } from '../utils/logger.js';
+import { logger } from '@cinacoin/logger';
 
 // ============================================================
 // doctor command
@@ -25,7 +26,7 @@ export function doctorCommand(cli: Command): void {
     .description('Diagnose project setup and Cinacoin connectivity')
     .action(async () => {
       header('Cinacoin Doctor — Diagnostic Report');
-      console.log();
+      logger.info();
 
       const cwd = process.cwd();
       let issues = 0;
@@ -131,7 +132,7 @@ export function doctorCommand(cli: Command): void {
       }
 
       // ── Network connectivity ──────────────────────────────
-      console.log();
+      logger.info();
       info('Testing RPC connectivity...');
 
       const rpcEndpoints = [
@@ -162,7 +163,7 @@ export function doctorCommand(cli: Command): void {
       }
 
       // ── TypeScript config ─────────────────────────────────
-      console.log();
+      logger.info();
       process.stdout.write('  tsconfig.json      ');
       if (existsSync(join(cwd, 'tsconfig.json'))) {
         success('✓ Found');
@@ -174,8 +175,8 @@ export function doctorCommand(cli: Command): void {
       }
 
       // ── Summary ───────────────────────────────────────────
-      console.log();
-      console.log('  ── Summary ──');
+      logger.info();
+      logger.info('  ── Summary ──');
       if (issues === 0 && warnings === 0) {
         success('All checks passed! 🎉');
       } else {
@@ -186,7 +187,7 @@ export function doctorCommand(cli: Command): void {
           warn(`${warnings} warning(s) — consider addressing`);
         }
       }
-      console.log();
+      logger.info();
     });
 }
 

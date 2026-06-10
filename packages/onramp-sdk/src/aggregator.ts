@@ -14,6 +14,7 @@ import type {
   UserPreferences,
 } from "./types.js";
 import { CircuitBreaker, CircuitBreakerError } from "@cinacoin/core-sdk/utils/circuitBreaker.js";
+import { logger } from '@cinacoin/logger';
 
 // ============================================================
 // Provider Interface
@@ -312,7 +313,7 @@ export class OnRampAggregator {
    */
   handleWidgetResult(result: OnRampResult): void {
     if (result.completed) {
-      console.log(
+      logger.info(
         `On-ramp purchase completed: ${result.cryptoAmount} via ${result.provider}`,
       );
     } else {

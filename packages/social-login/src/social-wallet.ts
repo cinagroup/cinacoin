@@ -16,6 +16,7 @@ import { WalletManager } from './embedded-wallet-shim.js';
 import type { AuthMethod, LinkedProvider, WalletSession, WalletBackup } from './embedded-wallet-shim.js';
 import { TokenVerifier, type TokenProvider } from './token-verifier.js';
 import { SessionManager } from './session-manager.js';
+import { logger } from '@cinacoin/logger';
 
 // ─── Types ──────────────────────────────────────────────────────────────
 
@@ -117,8 +118,8 @@ export {
  *   idToken: idTokenFromGoogle,
  * });
  *
- * console.log(result.walletAddress); // "0x..."
- * console.log(result.jwtToken);      // JWT session token
+ * logger.info(result.walletAddress); // "0x..."
+ * logger.info(result.jwtToken);      // JWT session token
  * ```
  */
 export class SocialWalletManager {

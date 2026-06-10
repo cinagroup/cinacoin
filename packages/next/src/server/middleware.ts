@@ -1,6 +1,7 @@
 import type { NextRequest, NextResponse } from 'next/server';
 import type { ChainConfig } from '@cinacoin/react';
 import { verifySessionToken } from './jwt.js';
+import { logger } from '@cinacoin/logger';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -200,7 +201,7 @@ interface GetSessionOptions {
  * ```ts
  * const session = await getSession(req);
  * if (session) {
- *   console.log('Connected address:', session.address);
+ *   logger.info('Connected address:', session.address);
  * }
  * ```
  *

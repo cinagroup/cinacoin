@@ -6,16 +6,17 @@
 import { execSync } from "node:child_process";
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
+import { logger } from '@cinacoin/logger';
 
 const PACKAGE_ROOT = join(import.meta.dirname, "..");
 const WRANGLER_TOML = join(PACKAGE_ROOT, "wrangler.toml");
 
 function log(msg: string) {
-  console.log(`\x1b[32m→\x1b[0m ${msg}`);
+  logger.info(`\x1b[32m→\x1b[0m ${msg}`);
 }
 
 function warn(msg: string) {
-  console.log(`\x1b[33m⚠\x1b[0m ${msg}`);
+  logger.info(`\x1b[33m⚠\x1b[0m ${msg}`);
 }
 
 function error(msg: string) {

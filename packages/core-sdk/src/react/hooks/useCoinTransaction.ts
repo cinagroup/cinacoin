@@ -13,7 +13,7 @@
  *       to: '0x...',
  *       value: '0xDE0B6B3A7640000', // 1 ETH in wei
  *     });
- *     console.log('TX hash:', txHash);
+ *     logger.info('TX hash:', txHash);
  *   };
  *
  *   return (
@@ -28,6 +28,7 @@
 import { useState, useCallback, useMemo } from 'react';
 import { useCoinContext } from '../CoinProvider.js';
 import type { TransactionRequest } from '../../types.js';
+import { logger } from '@cinacoin/logger';
 
 // ============================================================================
 // Types

@@ -8,6 +8,7 @@
  */
 
 import type { SuiConnector, SuiPlatform, SuiFeature, SuiWalletProvider } from '../types.js';
+import { logger } from '@cinacoin/logger';
 
 /**
  * Connector for the Martian Wallet browser extension.
@@ -17,7 +18,7 @@ import type { SuiConnector, SuiPlatform, SuiFeature, SuiWalletProvider } from '.
  * const connector = new MartianConnector();
  * if (connector.isAvailable()) {
  *   const { accounts } = await connector.connect();
- *   console.log('Connected:', accounts[0]);
+ *   logger.info('Connected:', accounts[0]);
  * }
  * ```
  */

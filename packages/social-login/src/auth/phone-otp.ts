@@ -15,6 +15,7 @@
 
 import { randomBytes, createHash } from 'crypto';
 import type { SocialLoginResult } from '../types.js';
+import { logger } from '@cinacoin/logger';
 
 // ─── Types ──────────────────────────────────────────────────────────────
 
@@ -223,8 +224,8 @@ export function isValidPhoneNumber(phone: string): boolean {
  *   { phone: '+1234567890' },
  *   twilioSmsProvider
  * );
- * console.log(result.sessionId);  // use for verification step
- * console.log(result.expiresAt);  // OTP expiry timestamp
+ * logger.info(result.sessionId);  // use for verification step
+ * logger.info(result.expiresAt);  // OTP expiry timestamp
  * ```
  */
 export async function sendPhoneOTP(
@@ -459,7 +460,7 @@ export async function loginWithPhoneOTP(
  *   phone: '+1234567890',
  *   derivationKey: 'my-app-secret' // optional
  * });
- * console.log(wallet.address); // "0x..."
+ * logger.info(wallet.address); // "0x..."
  * ```
  */
 export async function createWalletFromPhone(

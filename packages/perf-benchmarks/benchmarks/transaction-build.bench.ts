@@ -1,3 +1,4 @@
+import { logger } from '@cinacoin/logger';
 /**
  * Transaction Build Benchmark
  *
@@ -119,7 +120,7 @@ function doCpuWork(microseconds: number): void {
   while (performance.now() * 1000 < end) {
     sum += Math.sqrt(microseconds);
   }
-  if (sum < 0) console.log("impossible");
+  if (sum < 0) logger.info("impossible");
 }
 
 // ── Benchmark runner ───────────────────────────────────────────────────
@@ -138,7 +139,7 @@ export default {
     const samples: BenchmarkResult[] = [];
     const iterations = 50;
 
-    console.log(`   Running ${iterations} iterations per operation...`);
+    logger.info(`   Running ${iterations} iterations per operation...`);
 
     const txConfigs: Array<{ name: string; config: TxConfig }> = [
       {
@@ -157,7 +158,7 @@ export default {
 
     for (const { name, config } of txConfigs) {
       // Transaction build
-      console.log(`     build-${name}...`);
+      logger.info(`     build-${name}...`);
       for (let i = 0; i < iterations; i++) {
         const duration = await simulateTransactionBuild(config);
         samples.push({
@@ -168,7 +169,7 @@ export default {
       }
 
       // Gas estimation
-      console.log(`     gas-estimate-${name}...`);
+      logger.info(`     gas-estimate-${name}...`);
       for (let i = 0; i < iterations; i++) {
         const duration = await simulateGasEstimation(config);
         samples.push({
@@ -179,7 +180,7 @@ export default {
       }
 
       // Transaction signing
-      console.log(`     sign-${name}...`);
+      logger.info(`     sign-${name}...`);
       for (let i = 0; i < iterations; i++) {
         const duration = await simulateTransactionSigning(config);
         samples.push({
@@ -190,7 +191,7 @@ export default {
       }
 
       // Full pipeline
-      console.log(`     pipeline-${name}...`);
+      logger.info(`     pipeline-${name}...`);
       const pipelineIterations = 30;
       for (let i = 0; i < pipelineIterations; i++) {
         const duration = await simulateFullPipeline(config);

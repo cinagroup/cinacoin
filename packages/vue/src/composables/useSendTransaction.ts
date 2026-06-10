@@ -10,7 +10,7 @@
  *     to: '0x...',
  *     value: '0x16345785d8a0000',
  *   })
- *   console.log('Tx hash:', hash)
+ *   logger.info('Tx hash:', hash)
  * }
  * </script>
  * ```
@@ -18,6 +18,7 @@
 
 import { ref, type Ref } from 'vue'
 import { useCinacoin } from '../composables.js'
+import { logger } from '@cinacoin/logger';
 
 export interface SendTransactionArgs {
   to: string

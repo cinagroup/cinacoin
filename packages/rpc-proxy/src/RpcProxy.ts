@@ -1,5 +1,6 @@
 import { createServer, type Server, IncomingMessage, ServerResponse } from 'http';
 import { Agent } from 'http';
+import { logger } from '@cinacoin/logger';
 
 export interface RpcProxyConfig {
   port: number;
@@ -177,7 +178,7 @@ export class RpcProxy {
    * 5. Exits with code 0
    */
   async gracefulShutdown(): Promise<void> {
-    console.log('Shutting down...');
+    logger.info('Shutting down...');
     this.shuttingDown = true;
 
     // Stop accepting new connections

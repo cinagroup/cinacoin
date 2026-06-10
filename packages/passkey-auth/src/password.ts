@@ -11,6 +11,7 @@
 import { pbkdf2Async } from '@noble/hashes/pbkdf2.js';
 import { sha256 } from '@noble/hashes/sha2.js';
 import { bytesToHex, randomBytes } from '@noble/hashes/utils.js';
+import { logger } from '@cinacoin/logger';
 
 // ─── Types ──────────────────────────────────────────────────────────────
 
@@ -118,7 +119,7 @@ export async function hashPassword(
  * @example
  * ```ts
  * const entry = await setPassword('wallet-abc123', 'MyP@ssw0rd!');
- * console.log(entry.hash); // "a3f8b2..."
+ * logger.info(entry.hash); // "a3f8b2..."
  * ```
  */
 export async function setPassword(

@@ -8,6 +8,7 @@
  */
 
 import { jwtVerify, createRemoteJWKSet, type JWTPayload } from 'jose';
+import { logger } from '@cinacoin/logger';
 
 // ─── Types ──────────────────────────────────────────────────────────────
 
@@ -77,7 +78,7 @@ const TWITTER_ME_URL = 'https://api.twitter.com/2/users/me';
  *
  * const result = await verifier.verify('google', idTokenFromClient);
  * if (result.valid) {
- *   console.log('User ID:', result.userId);
+ *   logger.info('User ID:', result.userId);
  * }
  * ```
  */

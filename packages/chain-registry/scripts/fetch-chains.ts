@@ -115,6 +115,7 @@ function generate(chains: ChainSource[]): string {
  */
 
 import type { ChainRegistryEntry, ChainCategory } from './types.js';
+import { logger } from '@cinacoin/logger';
 
 /* ------------------------------------------------------------------ */
 /*  Chain Registry Data                                                */
@@ -164,19 +165,19 @@ export function getChainsByCategory(category: ChainCategory): ChainRegistryEntry
 }
 
 async function main() {
-  console.log('🔗 Fetching chain data from chainid.network...');
+  logger.info('🔗 Fetching chain data from chainid.network...');
   const chains = await fetchChains();
-  console.log(`📦 Received ${chains.length} chains`);
+  logger.info(`📦 Received ${chains.length} chains`);
 
   const output = generate(chains);
   writeFileSync(OUT_FILE, output, 'utf-8');
 
   const lines = output.split('\n').length;
-  console.log(`✅ Generated ${OUT_FILE} (${lines} lines)`);
+  logger.info(`✅ Generated ${OUT_FILE} (${lines} lines)`);
 
   // Count
   const count = (output.match(/id: \d+/g) ?? []).length;
-  console.log(`📊 Total chains in registry: ${count}`);
+  logger.info(`📊 Total chains in registry: ${count}`);
 }
 
 main().catch(err => {

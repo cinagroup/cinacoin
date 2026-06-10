@@ -1,3 +1,4 @@
+import { logger } from '@cinacoin/logger';
 /**
  * @cinacoin/session-keys
  *
@@ -27,8 +28,8 @@
  * const keyManager = new SessionKeyManager();
  * const sessionKey = keyManager.generateKey(dexPolicy, 'dapp-session');
  *
- * console.log(`Session key: ${sessionKey.publicKey}`);
- * console.log(`Expires: ${new Date(sessionKey.expiresAt * 1000).toISOString()}`);
+ * logger.info(`Session key: ${sessionKey.publicKey}`);
+ * logger.info(`Expires: ${new Date(sessionKey.expiresAt * 1000).toISOString()}`);
  * ```
  */
 

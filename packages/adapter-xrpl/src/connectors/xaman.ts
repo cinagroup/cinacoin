@@ -1,4 +1,5 @@
 import type {
+import { logger } from '@cinacoin/logger';
   XrplConnector,
   XrplPlatform,
   XrplFeature,
@@ -50,7 +51,7 @@ declare global {
  * const xaman = new XamanConnector();
  * if (xaman.isAvailable()) {
  *   const result = await xaman.connect();
- *   console.log(result.accounts); // ["rPEPPER7kfTD9w2To4CQk6UCfuHM9c6GDH"]
+ *   logger.info(result.accounts); // ["rPEPPER7kfTD9w2To4CQk6UCfuHM9c6GDH"]
  * }
  * ```
  */

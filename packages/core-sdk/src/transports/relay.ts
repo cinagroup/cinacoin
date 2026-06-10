@@ -6,6 +6,7 @@
 
 import type { EventHandler } from '../types.js';
 import { EventEmitter } from '../events.js';
+import { logger } from '@cinacoin/logger';
 
 /** Relay transport configuration. */
 export interface RelayTransportConfig {
@@ -215,7 +216,7 @@ export class RelayTransport extends EventEmitter {
   private reconnect(): void {
     this.reconnectAttempts++;
     const delay = Math.min(1000 * 2 ** this.reconnectAttempts, 30_000);
-    console.log(
+    logger.info(
       `[Cinacoin] Reconnecting in ${delay}ms (attempt ${this.reconnectAttempts}/${this.config.maxReconnectAttempts})`,
     );
     setTimeout(() => {

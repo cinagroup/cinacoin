@@ -4,7 +4,7 @@
   "description": "Travel Rule compliance demo for VASP integration",
   "scripts": {
     "demo": "tsx src/index.ts",
-    "build": "tsc",
+    "build": "tsup src/index.ts --format esm,cjs --dts",
     "clean": "rm -rf dist",
     "lint": "eslint src --ext .ts,.tsx,.js,.jsx",
     "test": "vitest run"

@@ -1,4 +1,5 @@
 import type {
+import { logger } from '@cinacoin/logger';
   BitcoinConnector,
   BitcoinPlatform,
   BitcoinFeature,
@@ -56,7 +57,7 @@ declare global {
  * const leather = new LeatherConnector();
  * if (leather.isAvailable()) {
  *   const result = await leather.connect();
- *   console.log(result.accounts);
+ *   logger.info(result.accounts);
  * }
  * ```
  */

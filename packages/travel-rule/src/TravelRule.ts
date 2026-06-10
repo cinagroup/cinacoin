@@ -1,3 +1,4 @@
+import { logger } from '@cinacoin/logger';
 /**
  * @cinacoin/travel-rule
  *
@@ -26,7 +27,7 @@
  *   asset: 'ETH',
  * });
  *
- * console.log(result.status); // 'approved' | 'rejected' | 'review'
+ * logger.info(result.status); // 'approved' | 'rejected' | 'review'
  * ```
  *
  * ## Compliance Notes

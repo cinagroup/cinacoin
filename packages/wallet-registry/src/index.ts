@@ -1,3 +1,4 @@
+import { logger } from '@cinacoin/logger';
 /**
  * @cinacoin/wallet-registry
  *
@@ -10,7 +11,7 @@
  *
  * // Get all wallets
  * const wallets = getAllWallets();
- * console.log(wallets.length); // 100+
+ * logger.info(wallets.length); // 100+
  *
  * // Look up a wallet
  * const mm = getWalletById('metamask');

@@ -32,6 +32,7 @@
 
 import type { H3Event, EventHandlerRequest } from 'h3';
 import {
+import { logger } from '@cinacoin/logger';
   defineEventHandler,
   getHeader as getRequestHeader,
   getRequestURL,
@@ -392,7 +393,7 @@ export async function verifySiweMessage(
  * ```ts
  * const session = await getNuxtSession(event);
  * if (session) {
- *   console.log('Connected address:', session.address);
+ *   logger.info('Connected address:', session.address);
  * }
  * ```
  *

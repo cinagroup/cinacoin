@@ -1,3 +1,4 @@
+import { logger } from '@cinacoin/logger';
 /**
  * Travel Rule Demo - VASP Compliance Integration
  * Demonstrates FATF Travel Rule compliance for crypto transfers
@@ -43,11 +44,11 @@ const demoTravelRule: TravelRulePayload = {
   txId: "0xabcd...",
 };
 
-console.log("Travel Rule Demo");
-console.log(JSON.stringify(demoTravelRule, null, 2));
-console.log("\nVASP Integration Steps:");
-console.log("1. Identify transfer above threshold ($1000 USD)");
-console.log("2. Collect originator PII");
-console.log("3. Collect beneficiary PII");
-console.log("4. Exchange data with beneficiary VASP");
-console.log("5. Record compliance metadata");
+logger.info("Travel Rule Demo");
+logger.info(JSON.stringify(demoTravelRule, null, 2));
+logger.info("\nVASP Integration Steps:");
+logger.info("1. Identify transfer above threshold ($1000 USD)");
+logger.info("2. Collect originator PII");
+logger.info("3. Collect beneficiary PII");
+logger.info("4. Exchange data with beneficiary VASP");
+logger.info("5. Record compliance metadata");

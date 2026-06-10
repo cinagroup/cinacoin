@@ -16,7 +16,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsup src/index.ts --format esm,cjs --dts",
     "clean": "rm -rf dist",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",

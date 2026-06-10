@@ -9,6 +9,7 @@
  */
 
 import { useState, useCallback, useRef } from 'react';
+import { logger } from '@cinacoin/logger';
 
 // ─── Types ──────────────────────────────────────────────────────────────
 
@@ -151,7 +152,7 @@ interface UsePasskeyRegisterState {
  * const handleRegister = async () => {
  *   const result = await register('user-123', 'alice', 'Alice Smith');
  *   if (result.success) {
- *     console.log('Passkey registered:', result.credentialId);
+ *     logger.info('Passkey registered:', result.credentialId);
  *   }
  * };
  * ```
@@ -289,7 +290,7 @@ interface UsePasskeyLoginState {
  * const handleLogin = async () => {
  *   const result = await login('user-123'); // optional userId
  *   if (result.success) {
- *     console.log('Logged in as:', result.userHandle);
+ *     logger.info('Logged in as:', result.userHandle);
  *   }
  * };
  * ```

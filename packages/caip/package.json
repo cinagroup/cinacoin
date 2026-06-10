@@ -33,7 +33,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsup src/index.ts --format esm,cjs --dts",
     "test": "vitest run",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit"

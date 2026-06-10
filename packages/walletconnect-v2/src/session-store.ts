@@ -17,6 +17,7 @@
 
 import { sha256 } from '@noble/hashes/sha2.js';
 import type { Pairing, Session, WcClientEvent, JsonRpcRequest, SessionNamespace } from './types.js';
+import { logger } from '@cinacoin/logger';
 
 // ============================================================
 // Constants
@@ -496,7 +497,7 @@ export class SessionStore {
       return currentVersion;
     }
 
-    console.log(
+    logger.info(
       `[SessionStore] Migrating schema from v${currentVersion} to v${CURRENT_SCHEMA_VERSION}`,
     );
 

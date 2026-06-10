@@ -1,3 +1,4 @@
+import { logger } from '@cinacoin/logger';
 /**
  * Cinacoin Push Network SDK — Client library for web, iOS, Android.
  *
@@ -240,7 +241,7 @@ export class PushNetworkClient {
    * @example
    * ```ts
    * const status = await client.getDeliveryStatus();
-   * console.log(status.totalDelivered, status.totalFailed);
+   * logger.info(status.totalDelivered, status.totalFailed);
    * ```
    */
   async getDeliveryStatus(deviceId?: string): Promise<DeliveryStatus> {

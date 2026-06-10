@@ -1,3 +1,4 @@
+import { logger } from '@cinacoin/logger';
 /**
  * @module @cinacoin/verify-sdk
  *
@@ -9,7 +10,7 @@
  *
  * const sdk = new VerifySDK();
  * const report = await sdk.verifyContract('0x...', 1);
- * console.log(sdk.getRiskSummary(report));
+ * logger.info(sdk.getRiskSummary(report));
  * ```
  */
 

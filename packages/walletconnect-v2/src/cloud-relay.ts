@@ -19,6 +19,7 @@
 
 import { EventEmitter } from '@cinacoin/core-sdk';
 import type { RelayConfig, RelayMessage, JsonRpcRequest, JsonRpcResponse, JsonRpcError } from './types.js';
+import { logger } from '@cinacoin/logger';
 
 // ============================================================
 // Constants
@@ -644,7 +645,7 @@ export class CloudRelay extends EventEmitter {
     this.state = 'reconnecting';
 
     const delay = Math.min(1000 * 2 ** this.reconnectAttempts, 30_000);
-    console.log(
+    logger.info(
       `[CloudRelay] Reconnecting in ${delay}ms (attempt ${this.reconnectAttempts}/${this.config.maxReconnectAttempts})`,
     );
 

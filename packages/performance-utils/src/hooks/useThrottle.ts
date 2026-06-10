@@ -9,7 +9,7 @@
  *     const throttledScrollY = useThrottle(scrollY, 100);
  *
  *     useEffect(() => {
- *       console.log('Scroll position (throttled):', throttledScrollY);
+ *       logger.info('Scroll position (throttled):', throttledScrollY);
  *     }, [throttledScrollY]);
  *
  *     return <div onScroll={e => setScrollY(e.currentTarget.scrollTop)} />;
@@ -17,6 +17,7 @@
  */
 
 import { useState, useEffect, useRef } from 'react';
+import { logger } from '@cinacoin/logger';
 
 export function useThrottle<T>(value: T, intervalMs: number = 100): T {
   const [throttledValue, setThrottledValue] = useState<T>(value);

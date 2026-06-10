@@ -1,3 +1,4 @@
+import { logger } from '@cinacoin/logger';
 /**
  * @cinacoin/pay-ui
  *
@@ -15,7 +16,7 @@
  *   chainId={1}
  *   walletAddress={address}
  *   supportedTokens={tokens}
- *   onSwapComplete={(receipt) => console.log(receipt.txHash)}
+ *   onSwapComplete={(receipt) => logger.info(receipt.txHash)}
  * />
  *
  * // On-Ramp widget
@@ -23,7 +24,7 @@
  *   destinationAddress={address}
  *   defaultFiatAmount={100}
  *   defaultFiatCurrency="USD"
- *   onComplete={(result) => console.log(result.orderId)}
+ *   onComplete={(result) => logger.info(result.orderId)}
  * />
  * ```
  */

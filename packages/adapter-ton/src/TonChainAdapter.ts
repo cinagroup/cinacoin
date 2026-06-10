@@ -19,16 +19,17 @@
  * adapter.registerChains(TON_CHAINS);
  *
  * const balance = await adapter.getBalance('EQCD39VS5jcptHL8vMjEXrzGaRcCVYto7HUn4bpAOg8xqB2N');
- * console.log(`${balance} nanotons`);
+ * logger.info(`${balance} nanotons`);
  * ```
  *
  * @packageDocumentation
  */
 
 import type { Connector, Chain, ChainAdapter } from '@cinacoin/core-sdk';
-import { CinacoinError } from '@cinacoin/core-sdk';
+import { CinacoinError, SDK, CHAIN, TRANSACTION, SIGNING } from '@cinacoin/core-sdk';
 import { TonClient, JettonMaster, JettonWallet } from '@ton/ton';
 import { Address, beginCell, Cell, toNano } from '@ton/core';
+import { logger } from '@cinacoin/logger';
 
 /* ------------------------------------------------------------------ */
 /*  TON Address helpers                                                 */
@@ -139,7 +140,7 @@ export class TonChainAdapter implements ChainAdapter {
     if (client instanceof TonClient) {
       this.client = client;
     } else {
-      throw new CinacoinError('Client must be an instance of TonClient', 'INVALID_CLIENT');
+      throw new CinacoinError(SDK.INVALID_ARGUMENT, 'Client must be an instance of TonClient');
     }
   }
 
@@ -178,7 +179,7 @@ export class TonChainAdapter implements ChainAdapter {
    */
   async getBalance(address: string): Promise<string> {
     if (!isValidTONAddress(address)) {
-      throw new CinacoinError(`Invalid TON address: ${address}`, 'INVALID_ADDRESS');
+      throw new CinacoinError(SDK.INVALID_ARGUMENT, `Invalid TON address: ${address}`);
     }
 
     const client = this._ensureClient();
@@ -189,8 +190,9 @@ export class TonChainAdapter implements ChainAdapter {
       return balance.toString();
     } catch (err) {
       throw new CinacoinError(
+        CHAIN.RPC_ERROR,
         `Failed to get balance: ${err instanceof Error ? err.message : String(err)}`,
-        'RPC_ERROR',
+        { cause: err instanceof Error ? err : undefined },
       );
     }
   }
@@ -209,7 +211,7 @@ export class TonChainAdapter implements ChainAdapter {
     const to = params.to;
     const amount = params.amount;
     if (!isValidTONAddress(to)) {
-      throw new CinacoinError(`Invalid recipient address: ${to}`, 'INVALID_ADDRESS');
+      throw new CinacoinError(SDK.INVALID_ARGUMENT, `Invalid recipient address: ${to}`);
     }
 
     const client = this._ensureClient();
@@ -242,8 +244,9 @@ export class TonChainAdapter implements ChainAdapter {
       return messageCell.hash().toString('hex');
     } catch (err) {
       throw new CinacoinError(
+        TRANSACTION.TRANSACTION_REVERTED,
         `Failed to build transaction: ${err instanceof Error ? err.message : String(err)}`,
-        'TX_BUILD_ERROR',
+        { cause: err instanceof Error ? err : undefined },
       );
     }
   }
@@ -261,8 +264,9 @@ export class TonChainAdapter implements ChainAdapter {
       return (masterchainInfo as { last?: { seqno?: number } }).last?.seqno ?? 0;
     } catch (err) {
       throw new CinacoinError(
+        CHAIN.RPC_ERROR,
         `Failed to get latest block: ${err instanceof Error ? err.message : String(err)}`,
-        'RPC_ERROR',
+        { cause: err instanceof Error ? err : undefined },
       );
     }
   }
@@ -301,12 +305,12 @@ export class TonChainAdapter implements ChainAdapter {
     jettonMasterAddress: string,
   ): Promise<string> {
     if (!isValidTONAddress(address)) {
-      throw new CinacoinError(`Invalid wallet address: ${address}`, 'INVALID_ADDRESS');
+      throw new CinacoinError(SDK.INVALID_ARGUMENT, `Invalid wallet address: ${address}`);
     }
     if (!isValidTONAddress(jettonMasterAddress)) {
       throw new CinacoinError(
+        SDK.INVALID_ARGUMENT,
         `Invalid jetton master address: ${jettonMasterAddress}`,
-        'INVALID_ADDRESS',
       );
     }
 
@@ -326,8 +330,9 @@ export class TonChainAdapter implements ChainAdapter {
       return balance.toString();
     } catch (err) {
       throw new CinacoinError(
+        CHAIN.RPC_ERROR,
         `Failed to get jetton balance: ${err instanceof Error ? err.message : String(err)}`,
-        'JETTON_ERROR',
+        { cause: err instanceof Error ? err : undefined },
       );
     }
   }
@@ -341,7 +346,7 @@ export class TonChainAdapter implements ChainAdapter {
    */
   async signMessage(message: string): Promise<string> {
     if (!this._connectedAddress) {
-      throw new CinacoinError('No wallet connected', 'NOT_CONNECTED');
+      throw new CinacoinError(SDK.NOT_INITIALIZED, 'No wallet connected');
     }
 
     // In production, signing is delegated to the connected wallet provider
@@ -356,8 +361,9 @@ export class TonChainAdapter implements ChainAdapter {
       return cell.hash().toString('hex');
     } catch (err) {
       throw new CinacoinError(
+        SIGNING.SIGNING_FAILED,
         `Failed to sign message: ${err instanceof Error ? err.message : String(err)}`,
-        'SIGN_ERROR',
+        { cause: err instanceof Error ? err : undefined },
       );
     }
   }
@@ -377,7 +383,7 @@ export class TonChainAdapter implements ChainAdapter {
   /** Set the connected address (called after wallet connection). */
   setAddress(address: string): void {
     if (!isValidTONAddress(address)) {
-      throw new CinacoinError(`Invalid address: ${address}`, 'INVALID_ADDRESS');
+      throw new CinacoinError(SDK.INVALID_ARGUMENT, `Invalid address: ${address}`);
     }
     this._connectedAddress = normalizeTONAddress(address);
   }

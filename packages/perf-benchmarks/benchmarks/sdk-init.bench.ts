@@ -1,3 +1,4 @@
+import { logger } from '@cinacoin/logger';
 /**
  * SDK Initialization Benchmark
  *
@@ -118,7 +119,7 @@ export default {
     const samples: BenchmarkResult[] = [];
     const iterations = 100;
 
-    console.log(`   Running ${iterations} iterations per variant...`);
+    logger.info(`   Running ${iterations} iterations per variant...`);
 
     // Test matrix: 3 variants × 2 cache states = 6 groups
     const variants: Array<{
@@ -136,7 +137,7 @@ export default {
 
     for (const { variant, warm, initFn } of variants) {
       const label = warm ? `${variant}-warm` : variant;
-      console.log(`     ${label}...`);
+      logger.info(`     ${label}...`);
 
       for (let i = 0; i < iterations; i++) {
         const config: InitConfig = {

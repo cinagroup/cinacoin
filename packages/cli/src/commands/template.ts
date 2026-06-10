@@ -782,6 +782,7 @@ createRoot(document.getElementById('root')!).render(
 import { ConnectButton, useAccount } from '@cinacoin/react';
 import GameBoard from './components/GameBoard.jsx';
 import SessionKeyManager from './components/SessionKeyManager.jsx';
+import { logger } from '@cinacoin/logger';
 
 export default function App() {
   const { isConnected, address } = useAccount();
@@ -992,9 +993,9 @@ export function templateCommand(cli: Command): void {
       if (opts.list) {
         header('Available Templates');
         for (const [key, tpl] of Object.entries(TEMPLATES)) {
-          console.log(`  ${key.padEnd(12)} ${tpl.description}`);
+          logger.info(`  ${key.padEnd(12)} ${tpl.description}`);
         }
-        console.log();
+        logger.info();
         return;
       }
 
@@ -1053,11 +1054,11 @@ export function templateCommand(cli: Command): void {
         s.succeed(`Template '${def.name}' downloaded successfully!`);
 
         header('Next Steps');
-        console.log('    pnpm install');
-        console.log('    pnpm dev');
-        console.log();
+        logger.info('    pnpm install');
+        logger.info('    pnpm dev');
+        logger.info();
         info(`Template: ${def.description}`);
-        console.log();
+        logger.info();
 
       } catch (err) {
         s.fail(`Failed to download template: ${err instanceof Error ? err.message : String(err)}`);

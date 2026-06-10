@@ -15,6 +15,7 @@
 import { ethers } from 'hardhat';
 import * as fs from 'fs';
 import * as path from 'path';
+import { logger } from '@cinacoin/logger';
 
 // Default EntryPoint v0.7 address
 const DEFAULT_ENTRY_POINT = '0x0000000071727De22E5E9d8BAf0edAc6f37da032';
@@ -37,61 +38,61 @@ async function main(): Promise<void> {
   const network = await ethers.provider.getNetwork();
   const chainId = Number(network.chainId);
 
-  console.log('='.repeat(60));
-  console.log('Cinacoin Paymaster Deployment (Hardhat)');
-  console.log('='.repeat(60));
-  console.log(`Network: ${network.name} (Chain ID: ${chainId})`);
-  console.log(`Deployer: ${deployer.address}`);
+  logger.info('='.repeat(60));
+  logger.info('Cinacoin Paymaster Deployment (Hardhat)');
+  logger.info('='.repeat(60));
+  logger.info(`Network: ${network.name} (Chain ID: ${chainId})`);
+  logger.info(`Deployer: ${deployer.address}`);
 
   // Check balance
   const balance = await ethers.provider.getBalance(deployer.address);
-  console.log(`Deployer balance: ${ethers.formatEther(balance)} ETH\n`);
+  logger.info(`Deployer balance: ${ethers.formatEther(balance)} ETH\n`);
 
   const entryPoint = process.env.ENTRY_POINT || DEFAULT_ENTRY_POINT;
   const trustedSigner = process.env.TRUSTED_SIGNER || deployer.address;
 
-  console.log(`EntryPoint: ${entryPoint}`);
-  console.log(`Trusted Signer: ${trustedSigner}\n`);
+  logger.info(`EntryPoint: ${entryPoint}`);
+  logger.info(`Trusted Signer: ${trustedSigner}\n`);
 
   // Deploy CinacoinPaymaster
-  console.log('Deploying CinacoinPaymaster...');
+  logger.info('Deploying CinacoinPaymaster...');
   const CinacoinPaymaster = await ethers.getContractFactory('CinacoinPaymaster');
   const cinacoinPaymaster = await CinacoinPaymaster.deploy(entryPoint);
   await cinacoinPaymaster.waitForDeployment();
   const cinacoinPaymasterAddress = await cinacoinPaymaster.getAddress();
-  console.log(`✅ CinacoinPaymaster deployed at: ${cinacoinPaymasterAddress}`);
+  logger.info(`✅ CinacoinPaymaster deployed at: ${cinacoinPaymasterAddress}`);
 
   // Deploy VerifyingPaymaster
-  console.log('\nDeploying VerifyingPaymaster...');
+  logger.info('\nDeploying VerifyingPaymaster...');
   const VerifyingPaymaster = await ethers.getContractFactory('VerifyingPaymaster');
   const verifyingPaymaster = await VerifyingPaymaster.deploy(entryPoint, trustedSigner);
   await verifyingPaymaster.waitForDeployment();
   const verifyingPaymasterAddress = await verifyingPaymaster.getAddress();
-  console.log(`✅ VerifyingPaymaster deployed at: ${verifyingPaymasterAddress}`);
+  logger.info(`✅ VerifyingPaymaster deployed at: ${verifyingPaymasterAddress}`);
 
   // Deploy TokenPaymaster
-  console.log('\nDeploying TokenPaymaster...');
+  logger.info('\nDeploying TokenPaymaster...');
   const TokenPaymaster = await ethers.getContractFactory('TokenPaymaster');
   const tokenPaymaster = await TokenPaymaster.deploy(entryPoint);
   await tokenPaymaster.waitForDeployment();
   const tokenPaymasterAddress = await tokenPaymaster.getAddress();
-  console.log(`✅ TokenPaymaster deployed at: ${tokenPaymasterAddress}`);
+  logger.info(`✅ TokenPaymaster deployed at: ${tokenPaymasterAddress}`);
 
   // Fund paymasters with some ETH for gas
   const fundAmount = ethers.parseEther('0.01');
-  console.log(`\nFunding paymasters with ${ethers.formatEther(fundAmount)} ETH each...`);
+  logger.info(`\nFunding paymasters with ${ethers.formatEther(fundAmount)} ETH each...`);
 
   await (await deployer.sendTransaction({
     to: cinacoinPaymasterAddress,
     value: fundAmount,
   })).wait();
-  console.log(`  CinacoinPaymaster funded ✅`);
+  logger.info(`  CinacoinPaymaster funded ✅`);
 
   await (await deployer.sendTransaction({
     to: verifyingPaymasterAddress,
     value: fundAmount,
   })).wait();
-  console.log(`  VerifyingPaymaster funded ✅`);
+  logger.info(`  VerifyingPaymaster funded ✅`);
 
   // Write deployment output
   const output: DeploymentOutput = {
@@ -111,10 +112,10 @@ async function main(): Promise<void> {
   fs.mkdirSync(path.dirname(outputPath), { recursive: true });
   fs.writeFileSync(outputPath, JSON.stringify(output, null, 2));
 
-  console.log(`\n📄 Deployment saved to: ${outputPath}`);
-  console.log('\n' + '='.repeat(60));
-  console.log('Deployment complete!');
-  console.log('='.repeat(60));
+  logger.info(`\n📄 Deployment saved to: ${outputPath}`);
+  logger.info('\n' + '='.repeat(60));
+  logger.info('Deployment complete!');
+  logger.info('='.repeat(60));
 }
 
 main().catch((error) => {

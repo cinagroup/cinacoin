@@ -22,6 +22,7 @@ import type {
   CrossChainRoute,
 } from "./cross-chain.js";
 import { CrossChainSwapRouter } from "./cross-chain.js";
+import { logger } from '@cinacoin/logger';
 
 // ============================================================
 // useSwap Hook
@@ -70,7 +71,7 @@ export interface UseSwapReturn {
  *
  * const handleSwap = async () => {
  *   const receipt = await executeSwap({ walletClient, publicClient });
- *   console.log('Swap complete:', receipt.txHash);
+ *   logger.info('Swap complete:', receipt.txHash);
  * };
  * ```
  */

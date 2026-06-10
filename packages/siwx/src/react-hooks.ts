@@ -12,6 +12,7 @@ import { createSignInMessage, verifySignIn } from './siwx.js';
 import type { EvmProvider } from './siwx.js';
 import type { SIWXSession } from './siwx-session.js';
 import { SIWXSessionManager, defaultSessionManager } from './siwx-session.js';
+import { logger } from '@cinacoin/logger';
 
 // ---------------------------------------------------------------------------
 // useSIWX
@@ -57,7 +58,7 @@ import { SIWXSessionManager, defaultSessionManager } from './siwx-session.js';
  *     });
  *
  *     if (result.valid) {
- *       console.log('Signed in!', session);
+ *       logger.info('Signed in!', session);
  *     }
  *   };
  *

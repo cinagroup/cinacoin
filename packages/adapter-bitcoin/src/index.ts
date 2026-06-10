@@ -1,3 +1,4 @@
+import { logger } from '@cinacoin/logger';
 /**
  * @cinacoin/adapter-bitcoin
  *
@@ -31,7 +32,7 @@
  * const unisat = new UnisatConnector();
  * if (unisat.isAvailable()) {
  *   const result = await unisat.connect();
- *   console.log(result.accounts);
+ *   logger.info(result.accounts);
  * }
  * ```
  *

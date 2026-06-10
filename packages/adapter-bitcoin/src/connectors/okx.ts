@@ -1,4 +1,5 @@
 import type {
+import { logger } from '@cinacoin/logger';
   BitcoinConnector,
   BitcoinPlatform,
   BitcoinFeature,
@@ -43,7 +44,7 @@ declare global {
  * const okxBtc = new OKXBitcoinConnector();
  * if (okxBtc.isAvailable()) {
  *   const result = await okxBtc.connect();
- *   console.log(result.accounts); // ["bc1q...", ...]
+ *   logger.info(result.accounts); // ["bc1q...", ...]
  * }
  * ```
  */

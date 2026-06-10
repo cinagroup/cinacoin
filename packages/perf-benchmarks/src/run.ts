@@ -13,6 +13,7 @@ import type {
   BenchmarkSuite,
 } from "./results.ts";
 import {
+import { logger } from '@cinacoin/logger';
   aggregateSuite,
   allResultsToMarkdown,
   compareAgainstBaseline,
@@ -132,8 +133,8 @@ async function runAll(cli: CliArgs): Promise<AllResults> {
   };
 
   for (const mod of filtered) {
-    console.log(`\n🏃 Running: ${mod.name}`);
-    console.log(`   ${mod.description}`);
+    logger.info(`\n🏃 Running: ${mod.name}`);
+    logger.info(`   ${mod.description}`);
 
     const startedAt = new Date().toISOString();
     const t0 = performance.now();
@@ -157,7 +158,7 @@ async function runAll(cli: CliArgs): Promise<AllResults> {
 
     // Print summary
     for (const lr of result.byLabel) {
-      console.log(
+      logger.info(
         `   ${lr.label}: P50=${lr.stats.p50.toFixed(1)}ms  P95=${lr.stats.p95.toFixed(1)}ms  P99=${lr.stats.p99.toFixed(1)}ms  (n=${lr.stats.count})`,
       );
     }
@@ -169,10 +170,10 @@ async function runAll(cli: CliArgs): Promise<AllResults> {
 
   // Print Reown comparison
   if (reownComparisons.length > 0) {
-    console.log("\n📊 vs Reown AppKit targets:");
+    logger.info("\n📊 vs Reown AppKit targets:");
     for (const c of reownComparisons) {
       const flag = c.regression ? "🔴" : "✅";
-      console.log(
+      logger.info(
         `   ${c.label} P50: ${c.current.toFixed(1)}ms / ${c.baseline}ms target ${flag}`,
       );
     }
@@ -199,7 +200,7 @@ async function runAll(cli: CliArgs): Promise<AllResults> {
       }
       // Don't exit immediately — we still want to save results
     } else {
-      console.log("\n✅ No regressions vs baseline.");
+      logger.info("\n✅ No regressions vs baseline.");
     }
   }
 
@@ -211,12 +212,12 @@ async function runAll(cli: CliArgs): Promise<AllResults> {
 async function main() {
   const cli = parseArgs();
 
-  console.log("🔬 Cinacoin Performance Benchmarks");
-  console.log(`   Date: ${new Date().toISOString()}`);
-  console.log(`   Node: ${process.version}`);
-  console.log(`   Platform: ${process.platform} ${process.arch}`);
-  if (cli.filter) console.log(`   Filter: ${cli.filter}`);
-  if (cli.ci) console.log(`   CI mode: threshold=${cli.regressionThreshold}%`);
+  logger.info("🔬 Cinacoin Performance Benchmarks");
+  logger.info(`   Date: ${new Date().toISOString()}`);
+  logger.info(`   Node: ${process.version}`);
+  logger.info(`   Platform: ${process.platform} ${process.arch}`);
+  if (cli.filter) logger.info(`   Filter: ${cli.filter}`);
+  if (cli.ci) logger.info(`   CI mode: threshold=${cli.regressionThreshold}%`);
 
   const allResults = await runAll(cli);
 
@@ -225,11 +226,11 @@ async function main() {
 
   const jsonPath = `${cli.outputDir}/latest.json`;
   writeFileSync(jsonPath, serializeResults(allResults));
-  console.log(`\n📄 Results written to ${jsonPath}`);
+  logger.info(`\n📄 Results written to ${jsonPath}`);
 
   const mdPath = `${cli.outputDir}/report.md`;
   writeFileSync(mdPath, allResultsToMarkdown(allResults));
-  console.log(`📄 Markdown report written to ${mdPath}`);
+  logger.info(`📄 Markdown report written to ${mdPath}`);
 
   // Save baseline if requested
   if (cli.saveBaseline) {
@@ -246,7 +247,7 @@ async function main() {
       }
     }
     writeFileSync(cli.saveBaseline, JSON.stringify(baseline, null, 2));
-    console.log(`💾 Baseline saved to ${cli.saveBaseline}`);
+    logger.info(`💾 Baseline saved to ${cli.saveBaseline}`);
   }
 
   // Exit with error if CI mode has regressions

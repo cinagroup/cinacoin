@@ -1,3 +1,4 @@
+import { logger } from '@cinacoin/logger';
 /**
  * Chain Switch Benchmark
  *
@@ -143,12 +144,12 @@ export default {
     const samples: BenchmarkResult[] = [];
     const iterations = 50;
 
-    console.log(`   Testing ${EVM_CHAINS.length} EVM chains...`);
+    logger.info(`   Testing ${EVM_CHAINS.length} EVM chains...`);
 
     // 1. Cold vs warm chain switch
     for (const warm of [false, true]) {
       const label = warm ? "switch" : "cold-switch";
-      console.log(`     ${label}...`);
+      logger.info(`     ${label}...`);
 
       const config: SwitchConfig = { warmCache: warm, chains: EVM_CHAINS };
 
@@ -171,7 +172,7 @@ export default {
     }
 
     // 2. Rapid switching (A→B→A→B loop)
-    console.log("     rapid-switch...");
+    logger.info("     rapid-switch...");
     const rapidIterations = 20;
     for (let i = 0; i < rapidIterations; i++) {
       const chainA = EVM_CHAINS[i % EVM_CHAINS.length];
@@ -192,7 +193,7 @@ export default {
     }
 
     // 3. RPC response time per chain (sample from each chain)
-    console.log("     rpc-response...");
+    logger.info("     rpc-response...");
     const rpcIterations = 10;
     for (const chain of EVM_CHAINS) {
       for (let i = 0; i < rpcIterations; i++) {

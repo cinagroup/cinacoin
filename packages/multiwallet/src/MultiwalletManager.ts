@@ -1,6 +1,7 @@
 import type { SessionState } from "@cinacoin/core-sdk";
 import type { ConnectionRecord, Namespace } from "./types.js";
 import { MultiwalletStore } from "./store.js";
+import { logger } from '@cinacoin/logger';
 
 /** Event callback signature for connection lifecycle events. */
 export type ConnectionCallback = (record: ConnectionRecord) => void;
@@ -14,7 +15,7 @@ export type ConnectionCallback = (record: ConnectionRecord) => void;
  * @example
  * ```ts
  * const manager = new MultiwalletManager();
- * manager.onConnectionAdded((r) => console.log("Connected:", r.walletName));
+ * manager.onConnectionAdded((r) => logger.info("Connected:", r.walletName));
  * await manager.connect("metamask", "eip155");
  * ```
  */

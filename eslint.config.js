@@ -48,7 +48,7 @@ export default [
   {
     rules: {
       // TypeScript specific
-      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/no-unused-vars': [
         'error',
         { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
@@ -61,7 +61,7 @@ export default [
       '@typescript-eslint/no-unsafe-call': 'warn',
 
       // General
-      'no-console': ['warn', { allow: ['warn', 'error'] }],
+      'no-console': ['error', { allow: ['warn', 'error'] }],
       'no-debugger': 'error',
       'prefer-const': 'error',
       'no-var': 'error',
