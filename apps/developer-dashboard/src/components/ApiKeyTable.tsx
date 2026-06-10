@@ -7,11 +7,15 @@ interface ApiKey {
   permissions: "read" | "write" | "admin";
   lastUsed: string;
   createdAt: string;
+  usage: number;
+  status: "active" | "revoked";
 }
 
 interface ApiKeyTableProps {
   keys: ApiKey[];
   onRevoke: (id: string) => void;
+  onRotate?: (id: string) => void;
+  rotatingId?: string | null;
 }
 
 function PermBadge({ perm }: { perm: ApiKey["permissions"] }) {
@@ -27,7 +31,7 @@ function PermBadge({ perm }: { perm: ApiKey["permissions"] }) {
   );
 }
 
-export default function ApiKeyTable({ keys, onRevoke }: ApiKeyTableProps) {
+export default function ApiKeyTable({ keys, onRevoke, onRotate, rotatingId }: ApiKeyTableProps) {
   const handleCopy = (prefix: string) => {
     navigator.clipboard.writeText(prefix).catch(() => {});
   };
@@ -40,15 +44,17 @@ export default function ApiKeyTable({ keys, onRevoke }: ApiKeyTableProps) {
             <th>Name</th>
             <th>Key</th>
             <th>Permissions</th>
+            <th>Usage</th>
             <th>Last Used</th>
             <th>Created</th>
+            <th>Status</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {keys.length === 0 ? (
             <tr>
-              <td colSpan={6} className="text-center text-ink-mute py-8">
+              <td colSpan={8} className="text-center text-ink-mute py-8">
                 No API keys yet. Generate one to get started.
               </td>
             </tr>
@@ -64,19 +70,39 @@ export default function ApiKeyTable({ keys, onRevoke }: ApiKeyTableProps) {
                 <td>
                   <PermBadge perm={key.permissions} />
                 </td>
+                <td className="text-ink-body text-sm">
+                  {key.usage.toLocaleString()}
+                </td>
                 <td className="text-ink-mute">{key.lastUsed}</td>
                 <td className="text-ink-mute">{key.createdAt}</td>
+                <td>
+                  <span className={`badge ${key.status === "active" ? "badge-success" : "badge-neutral"}`}>
+                    {key.status.charAt(0).toUpperCase() + key.status.slice(1)}
+                  </span>
+                </td>
                 <td>
                   <div className="flex gap-2">
                     <button
                       onClick={() => handleCopy(key.prefix)}
                       className="text-sm text-link hover:text-link-hover font-medium"
+                      title="Copy key prefix"
                     >
                       Copy
                     </button>
+                    {onRotate && (
+                      <button
+                        onClick={() => onRotate(key.id)}
+                        disabled={rotatingId === key.id}
+                        className="text-sm text-warning hover:text-warning/80 font-medium disabled:opacity-50"
+                        title="Rotate key (generates new key, revokes old one)"
+                      >
+                        {rotatingId === key.id ? "Rotating..." : "Rotate"}
+                      </button>
+                    )}
                     <button
                       onClick={() => onRevoke(key.id)}
                       className="text-sm text-danger hover:underline font-medium"
+                      title="Revoke this key"
                     >
                       Revoke
                     </button>

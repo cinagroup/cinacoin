@@ -8,6 +8,7 @@ const navItems = [
   { href: "/projects", label: "Projects", icon: "📦" },
   { href: "/api-keys", label: "API Keys", icon: "🔑" },
   { href: "/analytics", label: "Analytics", icon: "📈" },
+  { href: "/billing", label: "Billing", icon: "💳" },
   { href: "/settings", label: "Settings", icon: "⚙️" },
 ];
 

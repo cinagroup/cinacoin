@@ -12,6 +12,8 @@ const initialKeys = [
     permissions: "admin" as const,
     lastUsed: "2026-06-09",
     createdAt: "2025-03-15",
+    usage: 584_210,
+    status: "active" as const,
   },
   {
     id: "key-2",
@@ -20,6 +22,8 @@ const initialKeys = [
     permissions: "write" as const,
     lastUsed: "2026-06-08",
     createdAt: "2025-06-20",
+    usage: 212_890,
+    status: "active" as const,
   },
   {
     id: "key-3",
@@ -28,12 +32,16 @@ const initialKeys = [
     permissions: "read" as const,
     lastUsed: "2026-06-07",
     createdAt: "2025-09-01",
+    usage: 45_201,
+    status: "active" as const,
   },
 ];
 
 export default function ApiKeysPage() {
   const [keys, setKeys] = useState(initialKeys);
   const [showModal, setShowModal] = useState(false);
+  const [rotatingId, setRotatingId] = useState<string | null>(null);
+  const [showNewKey, setShowNewKey] = useState<string | null>(null);
 
   const handleCreate = (name: string, permissions: "read" | "write" | "admin") => {
     const newKey = {
@@ -43,14 +51,41 @@ export default function ApiKeysPage() {
       permissions,
       lastUsed: "Never",
       createdAt: new Date().toISOString().split("T")[0],
+      usage: 0,
+      status: "active" as const,
     };
     setKeys([newKey, ...keys]);
     setShowModal(false);
+    // Show the newly generated key
+    setShowNewKey(`cc_live_sk1_${Math.random().toString(36).slice(2, 34)}`);
   };
 
   const handleRevoke = (id: string) => {
     setKeys(keys.filter((k) => k.id !== id));
   };
+
+  const handleRotate = (id: string) => {
+    setRotatingId(id);
+    // Simulate rotation
+    setTimeout(() => {
+      setKeys(
+        keys.map((k) =>
+          k.id === id
+            ? {
+                ...k,
+                prefix: `cc_live_sk1_...${Math.random().toString(36).slice(2, 6)}`,
+                createdAt: new Date().toISOString().split("T")[0],
+                lastUsed: "Never",
+              }
+            : k
+        )
+      );
+      setRotatingId(null);
+      setShowNewKey(`cc_live_sk1_${Math.random().toString(36).slice(2, 34)}`);
+    }, 1000);
+  };
+
+  const totalUsage = keys.reduce((sum, k) => sum + k.usage, 0);
 
   return (
     <div className="space-y-6">
@@ -75,7 +110,58 @@ export default function ApiKeysPage() {
         </p>
       </div>
 
-      <ApiKeyTable keys={keys} onRevoke={handleRevoke} />
+      {/* Usage Summary */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="card">
+          <div className="text-sm text-ink-mute">Total Keys</div>
+          <div className="text-2xl font-semibold text-ink mt-1">{keys.length}</div>
+        </div>
+        <div className="card">
+          <div className="text-sm text-ink-mute">Total Requests (All Keys)</div>
+          <div className="text-2xl font-semibold text-ink mt-1">{totalUsage.toLocaleString()}</div>
+        </div>
+        <div className="card">
+          <div className="text-sm text-ink-mute">Active Keys</div>
+          <div className="text-2xl font-semibold text-ink mt-1">
+            {keys.filter((k) => k.status === "active").length}
+          </div>
+        </div>
+      </div>
+
+      {/* Newly Generated Key Alert */}
+      {showNewKey && (
+        <div className="card bg-[#ecfdf5] border-[#00875a]/30">
+          <div className="flex items-start justify-between">
+            <div>
+              <p className="text-sm font-medium text-[#00875a] mb-1">
+                ✅ New API key generated!
+              </p>
+              <p className="text-xs text-ink-body mb-2">
+                Copy this key now. You won't be able to see it again.
+              </p>
+              <code className="text-sm font-mono bg-white px-3 py-1.5 rounded border border-[#00875a]/20 block">
+                {showNewKey}
+              </code>
+            </div>
+            <div className="flex gap-2">
+              <button
+                onClick={() => navigator.clipboard.writeText(showNewKey).catch(() => {})}
+                className="btn-primary text-xs"
+              >
+                📋 Copy
+              </button>
+              <button
+                onClick={() => setShowNewKey(null)}
+                className="text-ink-mute hover:text-ink text-lg leading-none"
+              >
+                ×
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <ApiKeyTable keys={keys} onRevoke={handleRevoke} onRotate={handleRotate} rotatingId={rotatingId} />
 
       {showModal && (
         <ApiKeyModal

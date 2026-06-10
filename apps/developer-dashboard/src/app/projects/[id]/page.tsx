@@ -1,8 +1,11 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import StatCard from "@/components/StatCard";
 
 // Mock project detail
-const project = {
+const initialProject = {
   id: "proj-1",
   name: "Cinacoin Wallet",
   description: "Official Cinacoin wallet application with multi-chain support",
@@ -32,7 +35,119 @@ const apiKeys = [
   },
 ];
 
+// Mock usage data for chart
+const usageData = [
+  { date: "May 11", requests: 22400, users: 1200 },
+  { date: "May 14", requests: 26100, users: 1340 },
+  { date: "May 17", requests: 28300, users: 1410 },
+  { date: "May 20", requests: 24700, users: 1280 },
+  { date: "May 23", requests: 31200, users: 1520 },
+  { date: "May 26", requests: 29800, users: 1480 },
+  { date: "May 29", requests: 33500, users: 1610 },
+  { date: "Jun 01", requests: 35100, users: 1700 },
+  { date: "Jun 04", requests: 32400, users: 1650 },
+  { date: "Jun 07", requests: 37800, users: 1820 },
+];
+
+const initialEnvVars = [
+  { key: "CINACOIN_NETWORK", value: "mainnet", secret: false },
+  { key: "CINACOIN_API_KEY", value: "cc_live_sk1_••••••••a8f2", secret: true },
+  { key: "CINACOIN_WEBHOOK_SECRET", value: "whsec_••••••••••••", secret: true },
+];
+
+type SdkTab = "react" | "vue" | "nextjs";
+
+const sdkSnippets: Record<SdkTab, string> = {
+  react: `import { CinacoinProvider, useCinacoin } from "@cinacoin/sdk-react";
+
+// Wrap your app
+function App() {
+  return (
+    <CinacoinProvider
+      projectId="${initialProject.projectId}"
+      network="${initialProject.network.toLowerCase()}"
+    >
+      <YourApp />
+    </CinacoinProvider>
+  );
+}
+
+// Use in components
+function Wallet() {
+  const { connect, account, balance } = useCinacoin();
+  return <button onClick={connect}>Connect ({balance})</button>;
+}`,
+  vue: `import { createCinacoinPlugin } from "@cinacoin/sdk-vue";
+
+// main.ts
+const app = createApp(App);
+app.use(createCinacoinPlugin({
+  projectId: "${initialProject.projectId}",
+  network: "${initialProject.network.toLowerCase()}",
+}));
+
+// In components
+<script setup>
+import { useCinacoin } from "@cinacoin/sdk-vue";
+const { connect, account, balance } = useCinacoin();
+</script>`,
+  nextjs: `// app/providers.tsx
+"use client";
+import { CinacoinProvider } from "@cinacoin/sdk-next";
+
+export function Providers({ children }) {
+  return (
+    <CinacoinProvider
+      projectId="${initialProject.projectId}"
+      network="${initialProject.network.toLowerCase()}"
+    >
+      {children}
+    </CinacoinProvider>
+  );
+}
+
+// app/layout.tsx
+import { Providers } from "./providers";
+export default function Layout({ children }) {
+  return <Providers>{children}</Providers>;
+}`,
+};
+
 export default function ProjectDetailPage() {
+  const [project, setProject] = useState(initialProject);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editName, setEditName] = useState(project.name);
+  const [editDesc, setEditDesc] = useState(project.description);
+  const [sdkTab, setSdkTab] = useState<SdkTab>("react");
+  const [envVars, setEnvVars] = useState(initialEnvVars);
+  const [showAddEnv, setShowAddEnv] = useState(false);
+  const [newEnvKey, setNewEnvKey] = useState("");
+  const [newEnvValue, setNewEnvValue] = useState("");
+  const [newEnvSecret, setNewEnvSecret] = useState(false);
+  const [activeTab, setActiveTab] = useState<"overview" | "sdk" | "env">("overview");
+
+  const handleSaveProject = () => {
+    setProject({ ...project, name: editName, description: editDesc });
+    setIsEditing(false);
+  };
+
+  const handleAddEnvVar = () => {
+    if (newEnvKey.trim() && newEnvValue.trim()) {
+      setEnvVars([...envVars, { key: newEnvKey.trim(), value: newEnvValue.trim(), secret: newEnvSecret }]);
+      setNewEnvKey("");
+      setNewEnvValue("");
+      setNewEnvSecret(false);
+      setShowAddEnv(false);
+    }
+  };
+
+  const handleRemoveEnvVar = (key: string) => {
+    setEnvVars(envVars.filter((v) => v.key !== key));
+  };
+
+  // Simple bar chart rendering
+  const maxRequests = Math.max(...usageData.map((d) => d.requests));
+
   return (
     <div className="space-y-6">
       <div>
@@ -44,77 +159,319 @@ export default function ProjectDetailPage() {
       {/* Project Header */}
       <div className="flex items-start justify-between">
         <div>
-          <div className="flex items-center gap-3">
-            <h1 className="text-2xl font-semibold text-ink">{project.name}</h1>
-            <span className="badge badge-success">Active</span>
-          </div>
-          <p className="text-ink-body mt-1">{project.description}</p>
-          <div className="flex gap-4 mt-2 text-sm text-ink-mute">
-            <span>Project ID: <code className="text-ink font-mono text-xs">{project.projectId}</code></span>
-            <span>Network: {project.network}</span>
-            <span>SDK: {project.sdkVersion}</span>
-          </div>
+          {isEditing ? (
+            <div className="space-y-2">
+              <input
+                type="text"
+                value={editName}
+                onChange={(e) => setEditName(e.target.value)}
+                className="input text-2xl font-semibold"
+                placeholder="Project name"
+              />
+              <input
+                type="text"
+                value={editDesc}
+                onChange={(e) => setEditDesc(e.target.value)}
+                className="input"
+                placeholder="Description"
+              />
+              <div className="flex gap-2">
+                <button onClick={handleSaveProject} className="btn-primary">
+                  Save Changes
+                </button>
+                <button onClick={() => setIsEditing(false)} className="btn-secondary">
+                  Cancel
+                </button>
+              </div>
+            </div>
+          ) : (
+            <>
+              <div className="flex items-center gap-3">
+                <h1 className="text-2xl font-semibold text-ink">{project.name}</h1>
+                <span className="badge badge-success">Active</span>
+              </div>
+              <p className="text-ink-body mt-1">{project.description}</p>
+              <div className="flex gap-4 mt-2 text-sm text-ink-mute">
+                <span>Project ID: <code className="text-ink font-mono text-xs">{project.projectId}</code></span>
+                <span>Network: {project.network}</span>
+                <span>SDK: {project.sdkVersion}</span>
+              </div>
+            </>
+          )}
         </div>
-        <button className="btn-secondary">⚙️ Edit Project</button>
+        {!isEditing && (
+          <button onClick={() => setIsEditing(true)} className="btn-secondary">
+            ✏️ Edit Project
+          </button>
+        )}
       </div>
 
-      {/* Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
-        <StatCard label="Total Requests" value="842,301" icon="📊" />
-        <StatCard label="Avg Latency" value="42ms" icon="⚡" />
-        <StatCard label="Error Rate" value="0.12%" icon="⚠️" />
-        <StatCard label="API Keys" value="2" icon="🔑" />
+      {/* Tab Navigation */}
+      <div className="flex gap-1 border-b border-hairline">
+        {(["overview", "sdk", "env"] as const).map((tab) => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            className={`px-4 py-2 text-sm font-medium border-b-2 -mb-px transition-colors ${
+              activeTab === tab
+                ? "border-ink text-ink"
+                : "border-transparent text-ink-mute hover:text-ink"
+            }`}
+          >
+            {tab === "overview" && "📊 Overview"}
+            {tab === "sdk" && "💻 SDK Setup"}
+            {tab === "env" && "🔧 Environment Variables"}
+          </button>
+        ))}
       </div>
 
-      {/* API Keys */}
-      <div>
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-ink">API Keys</h2>
-          <button className="btn-primary">+ Generate Key</button>
-        </div>
-        <div className="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Key</th>
-                <th>Permissions</th>
-                <th>Last Used</th>
-                <th>Created</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {apiKeys.map((key) => (
-                <tr key={key.id} className="hover:bg-canvas-soft transition-colors">
-                  <td className="font-medium text-ink">{key.name}</td>
-                  <td className="font-mono text-xs text-ink-body">{key.prefix}</td>
-                  <td>
-                    <span className="badge badge-neutral">
-                      {key.permissions.charAt(0).toUpperCase() + key.permissions.slice(1)}
-                    </span>
-                  </td>
-                  <td className="text-ink-mute">{key.lastUsed}</td>
-                  <td className="text-ink-mute">{key.createdAt}</td>
-                  <td>
-                    <button className="text-danger text-sm font-medium hover:underline">
-                      Revoke
-                    </button>
-                  </td>
-                </tr>
+      {/* Overview Tab */}
+      {activeTab === "overview" && (
+        <>
+          {/* Stats */}
+          <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+            <StatCard label="Total Requests" value="842,301" icon="📊" />
+            <StatCard label="Avg Latency" value="42ms" icon="⚡" />
+            <StatCard label="Error Rate" value="0.12%" icon="⚠️" />
+            <StatCard label="API Keys" value="2" icon="🔑" />
+          </div>
+
+          {/* Usage Chart */}
+          <div className="card">
+            <h2 className="text-lg font-semibold text-ink mb-4">API Requests (Last 30 Days)</h2>
+            <div className="h-52 flex items-end gap-2 px-2">
+              {usageData.map((d) => (
+                <div key={d.date} className="flex-1 flex flex-col items-center gap-1">
+                  <div
+                    className="w-full bg-link/80 rounded-t-sm hover:bg-link transition-colors min-h-[4px]"
+                    style={{ height: `${(d.requests / maxRequests) * 180}px` }}
+                    title={`${d.date}: ${d.requests.toLocaleString()} requests`}
+                  />
+                  <span className="text-[10px] text-ink-mute rotate-[-30deg] origin-top-left whitespace-nowrap">
+                    {d.date}
+                  </span>
+                </div>
               ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+            </div>
+          </div>
 
-      {/* Usage Chart Placeholder */}
-      <div className="card">
-        <h2 className="text-lg font-semibold text-ink mb-4">Usage (Last 30 Days)</h2>
-        <div className="h-48 flex items-center justify-center bg-canvas-soft rounded-lg border border-dashed border-hairline-dark">
-          <p className="text-ink-mute text-sm">📈 Chart loads with client-side recharts</p>
+          {/* Active Users Chart */}
+          <div className="card">
+            <h2 className="text-lg font-semibold text-ink mb-4">Active Users (Last 30 Days)</h2>
+            <div className="h-52 flex items-end gap-2 px-2">
+              {usageData.map((d) => {
+                const maxUsers = Math.max(...usageData.map((u) => u.users));
+                return (
+                  <div key={d.date} className="flex-1 flex flex-col items-center gap-1">
+                    <div
+                      className="w-full bg-success/80 rounded-t-sm hover:bg-success transition-colors min-h-[4px]"
+                      style={{ height: `${(d.users / maxUsers) * 180}px` }}
+                      title={`${d.date}: ${d.users.toLocaleString()} users`}
+                    />
+                    <span className="text-[10px] text-ink-mute rotate-[-30deg] origin-top-left whitespace-nowrap">
+                      {d.date}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* API Keys */}
+          <div>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-semibold text-ink">API Keys</h2>
+              <button className="btn-primary">+ Generate Key</button>
+            </div>
+            <div className="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Key</th>
+                    <th>Permissions</th>
+                    <th>Last Used</th>
+                    <th>Created</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {apiKeys.map((key) => (
+                    <tr key={key.id} className="hover:bg-canvas-soft transition-colors">
+                      <td className="font-medium text-ink">{key.name}</td>
+                      <td className="font-mono text-xs text-ink-body">{key.prefix}</td>
+                      <td>
+                        <span className="badge badge-neutral">
+                          {key.permissions.charAt(0).toUpperCase() + key.permissions.slice(1)}
+                        </span>
+                      </td>
+                      <td className="text-ink-mute">{key.lastUsed}</td>
+                      <td className="text-ink-mute">{key.createdAt}</td>
+                      <td>
+                        <button className="text-danger text-sm font-medium hover:underline">
+                          Revoke
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* SDK Setup Tab */}
+      {activeTab === "sdk" && (
+        <div className="card">
+          <h2 className="text-lg font-semibold text-ink mb-2">SDK Integration</h2>
+          <p className="text-sm text-ink-body mb-4">
+            Add the Cinacoin SDK to your project. Copy the snippet below for your framework.
+          </p>
+
+          {/* Framework Tabs */}
+          <div className="flex gap-1 mb-4">
+            {(["react", "vue", "nextjs"] as const).map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setSdkTab(tab)}
+                className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors ${
+                  sdkTab === tab
+                    ? "bg-ink text-white"
+                    : "bg-canvas-soft text-ink-body hover:text-ink"
+                }`}
+              >
+                {tab === "react" && "⚛️ React"}
+                {tab === "vue" && "💚 Vue"}
+                {tab === "nextjs" && "▲ Next.js"}
+              </button>
+            ))}
+          </div>
+
+          {/* Code Block */}
+          <div className="relative">
+            <pre className="bg-[#1a1a1a] text-[#e5e5e5] p-4 rounded-lg overflow-x-auto text-sm font-mono leading-relaxed">
+              <code>{sdkSnippets[sdkTab]}</code>
+            </pre>
+            <button
+              onClick={() => navigator.clipboard.writeText(sdkSnippets[sdkTab]).catch(() => {})}
+              className="absolute top-3 right-3 px-2 py-1 text-xs bg-white/10 hover:bg-white/20 text-white rounded transition-colors"
+            >
+              📋 Copy
+            </button>
+          </div>
+
+          {/* Install Command */}
+          <div className="mt-4 p-3 bg-canvas-soft rounded-lg border border-hairline">
+            <p className="text-xs text-ink-mute mb-1">Install the package:</p>
+            <code className="text-sm font-mono text-ink">
+              {sdkTab === "vue"
+                ? "npm install @cinacoin/sdk-vue"
+                : sdkTab === "nextjs"
+                ? "npm install @cinacoin/sdk-next"
+                : "npm install @cinacoin/sdk-react"}
+            </code>
+          </div>
         </div>
-      </div>
+      )}
+
+      {/* Environment Variables Tab */}
+      {activeTab === "env" && (
+        <div className="space-y-4">
+          <div className="card">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <h2 className="text-lg font-semibold text-ink">Environment Variables</h2>
+                <p className="text-sm text-ink-body mt-1">
+                  Configure environment variables for your project. Secret values are masked.
+                </p>
+              </div>
+              <button onClick={() => setShowAddEnv(true)} className="btn-primary">
+                + Add Variable
+              </button>
+            </div>
+
+            <div className="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Key</th>
+                    <th>Value</th>
+                    <th>Type</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {envVars.map((env) => (
+                    <tr key={env.key} className="hover:bg-canvas-soft transition-colors">
+                      <td className="font-mono text-sm font-medium text-ink">{env.key}</td>
+                      <td className="font-mono text-xs text-ink-body">{env.value}</td>
+                      <td>
+                        <span className={`badge ${env.secret ? "badge-warning" : "badge-neutral"}`}>
+                          {env.secret ? "Secret" : "Plain"}
+                        </span>
+                      </td>
+                      <td>
+                        <button
+                          onClick={() => handleRemoveEnvVar(env.key)}
+                          className="text-danger text-sm font-medium hover:underline"
+                        >
+                          Remove
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Add Env Var Form */}
+          {showAddEnv && (
+            <div className="card">
+              <h3 className="text-sm font-semibold text-ink mb-3">Add Environment Variable</h3>
+              <div className="space-y-3">
+                <div>
+                  <label className="block text-sm text-ink-body mb-1">Key</label>
+                  <input
+                    type="text"
+                    value={newEnvKey}
+                    onChange={(e) => setNewEnvKey(e.target.value.toUpperCase().replace(/[^A-Z0-9_]/g, ""))}
+                    className="input font-mono"
+                    placeholder="MY_VARIABLE_KEY"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm text-ink-body mb-1">Value</label>
+                  <input
+                    type="text"
+                    value={newEnvValue}
+                    onChange={(e) => setNewEnvValue(e.target.value)}
+                    className="input font-mono"
+                    placeholder="variable value"
+                  />
+                </div>
+                <label className="flex items-center gap-2 text-sm text-ink-body cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={newEnvSecret}
+                    onChange={(e) => setNewEnvSecret(e.target.checked)}
+                  />
+                  Mark as secret (value will be masked)
+                </label>
+                <div className="flex gap-2">
+                  <button onClick={handleAddEnvVar} className="btn-primary">
+                    Add Variable
+                  </button>
+                  <button onClick={() => setShowAddEnv(false)} className="btn-secondary">
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
