@@ -295,7 +295,7 @@ a:focus:not(:focus-visible) {
   align-items: center;
   font-size: var(--cc-text-xs);
   font-weight: var(--cc-weight-semibold);
-  padding: 2px var(--cc-space-xs);
+  padding: 4px var(--cc-space-xs);
   border-radius: var(--cc-radius-pill);
   letter-spacing: 0.05em;
   text-transform: uppercase;
