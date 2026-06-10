@@ -4,6 +4,7 @@
  * Executes a metrics query and returns time-series aggregation results.
  */
 
+import { logger } from '@cinacoin/logger';
 import { NextRequest, NextResponse } from "next/server";
 import { AnalyticsEngine, type QueryParams } from "../../../../lib/analytics";
 
@@ -25,7 +26,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ results });
   } catch (err) {
-    console.error("[analytics/query] Error:", err);
+    logger.error("[analytics/query] Error:", err);
     return NextResponse.json(
       { error: "Failed to execute metrics query" },
       { status: 500 },

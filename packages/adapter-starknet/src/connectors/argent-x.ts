@@ -5,6 +5,7 @@
  * Argent X natively supports account abstraction via the Argent account contract.
  */
 
+import { logger } from '@cinacoin/logger';
 import type { StarknetCall, StarknetTransactionResult, StarknetWalletConnector } from '../types.js';
 
 /** Minimal Argent X provider type declarations. */
@@ -84,7 +85,7 @@ export class ArgentXConnector implements StarknetWalletConnector {
     if (this.provider) {
       try {
         await this.provider.disconnect();
-      } catch (err) { console.warn('[argent-x] Operation failed:', err instanceof Error ? err.message : String(err));
+      } catch (err) { logger.warn('[argent-x] Operation failed:', err instanceof Error ? err.message : String(err));
         // Wallet may already be disconnected
       }
       this.provider = null;

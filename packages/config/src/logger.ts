@@ -93,10 +93,10 @@ function emit(level: LogLevel, service: string, msg: string, ctx?: Record<string
 
     switch (level) {
       case 'error':
-        console.error(line);
+        logger.error(line);
         break;
       case 'warn':
-        console.warn(line);
+        logger.warn(line);
         break;
       default:
         logger.info(line);

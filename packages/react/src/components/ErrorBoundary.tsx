@@ -1,5 +1,6 @@
 'use client';
 
+import { logger } from '@cinacoin/logger';
 import { Component, type ErrorInfo, type ReactNode } from 'react';
 
 interface ErrorBoundaryProps {
@@ -39,7 +40,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-    console.error('[ErrorBoundary] Caught a React error:', error, errorInfo);
+    logger.error('[ErrorBoundary] Caught a React error:', error, errorInfo);
   }
 
   resetError = (): void => {

@@ -296,7 +296,7 @@ export class TronChainAdapter implements ChainAdapter {
     if (this.tronWeb && chain.rpcUrl) {
       // Note: TronWeb doesn't easily support dynamic RPC switching
       // This would require creating a new instance
-      console.warn('Chain switching not fully supported in TronWeb');
+      logger.warn('Chain switching not fully supported in TronWeb');
     }
   }
 

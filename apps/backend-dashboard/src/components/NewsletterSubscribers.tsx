@@ -1,5 +1,6 @@
 "use client";
 
+import { logger } from '@cinacoin/logger';
 import { useState, useEffect } from "react";
 
 interface Subscriber {
@@ -29,7 +30,7 @@ export function NewsletterSubscribers() {
       setSubscribers(data.subscribers || []);
       setTotal(data.subscribers?.length || 0);
     } catch (error) {
-      console.error("Failed to fetch subscribers:", error);
+      logger.error("Failed to fetch subscribers:", error);
     } finally {
       setLoading(false);
     }

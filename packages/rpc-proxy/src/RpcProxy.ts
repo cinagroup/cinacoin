@@ -136,7 +136,7 @@ export class RpcProxy {
         });
         this.connectionPools.set(chainName, agent);
       } catch (err) {
-        console.error(`Failed to create connection pool for ${chainName}:`, err);
+        logger.error(`Failed to create connection pool for ${chainName}:`, err);
       }
     }
   }

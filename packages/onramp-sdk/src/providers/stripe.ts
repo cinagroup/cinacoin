@@ -5,6 +5,7 @@
  * Documentation: https://docs.stripe.com/crypto-onramp
  */
 
+import { logger } from '@cinacoin/logger';
 import type { OnRampProviderAdapter } from "../aggregator.js";
 import type { OnRampProvider, OnRampQuote, OnRampQuoteParams, OnRampWidgetParams } from "../types.js";
 
@@ -143,14 +144,14 @@ export class StripeProvider implements OnRampProviderAdapter {
 
       if (!res.ok) {
         const error = await res.text();
-        console.error("[onramp-sdk/stripe] Checkout Session creation failed:", error);
+        logger.error("[onramp-sdk/stripe] Checkout Session creation failed:", error);
         return null;
       }
 
       const data = await res.json();
       return data.id || data.url || null;
     } catch (err) {
-      console.error("[onramp-sdk/stripe] Checkout Session error:", err);
+      logger.error("[onramp-sdk/stripe] Checkout Session error:", err);
       return null;
     }
   }

@@ -24,6 +24,7 @@
  * @packageDocumentation
  */
 
+import { logger } from '@cinacoin/logger';
 import type { Connector } from '@cinacoin/core-sdk';
 import type { Chain } from '@cinacoin/core-sdk';
 import { KeplrConnector } from './connectors/keplr.js';
@@ -358,7 +359,7 @@ export class CosmosAdapter {
           const data = await response.json();
           return (data.balances ?? []) as Coin[];
         }
-      } catch (err) { console.warn('[Cosmos] Operation failed:', err instanceof Error ? err.message : String(err));
+      } catch (err) { logger.warn('[Cosmos] Operation failed:', err instanceof Error ? err.message : String(err));
         // Fall through to RPC
       }
     }
@@ -616,7 +617,7 @@ export class CosmosAdapter {
             sequence: parseInt(account.sequence ?? '0', 10),
           };
         }
-      } catch (err) { console.warn('[Cosmos] Operation failed:', err instanceof Error ? err.message : String(err));
+      } catch (err) { logger.warn('[Cosmos] Operation failed:', err instanceof Error ? err.message : String(err));
         // Fall through
       }
     }
@@ -683,7 +684,7 @@ export class CosmosAdapter {
       try {
         const parsed = JSON.parse(decoded);
         return (parsed.balances ?? []) as Coin[];
-      } catch (err) { console.warn('[Cosmos] Operation failed:', err instanceof Error ? err.message : String(err));
+      } catch (err) { logger.warn('[Cosmos] Operation failed:', err instanceof Error ? err.message : String(err));
         return [];
       }
     }
@@ -1084,7 +1085,7 @@ export class CosmosAdapter {
             balance: (d.balance as Coin) ?? { denom: '', amount: '0' },
           }));
         }
-      } catch (err) { console.warn('[Cosmos] getDelegations failed:', err instanceof Error ? err.message : String(err)); }
+      } catch (err) { logger.warn('[Cosmos] getDelegations failed:', err instanceof Error ? err.message : String(err)); }
     }
     return [];
   }
@@ -1121,7 +1122,7 @@ export class CosmosAdapter {
             }>;
           }>;
         }
-      } catch (err) { console.warn('[Cosmos] getUnbondingDelegations failed:', err instanceof Error ? err.message : String(err)); }
+      } catch (err) { logger.warn('[Cosmos] getUnbondingDelegations failed:', err instanceof Error ? err.message : String(err)); }
     }
     return [];
   }
@@ -1153,7 +1154,7 @@ export class CosmosAdapter {
             description: { moniker: string; website: string; identity: string };
           }>;
         }
-      } catch (err) { console.warn('[Cosmos] getValidators failed:', err instanceof Error ? err.message : String(err)); }
+      } catch (err) { logger.warn('[Cosmos] getValidators failed:', err instanceof Error ? err.message : String(err)); }
     }
     return [];
   }
@@ -1189,7 +1190,7 @@ export class CosmosAdapter {
             };
           }
         }
-      } catch (err) { console.warn('[Cosmos] getRewards failed:', err instanceof Error ? err.message : String(err)); }
+      } catch (err) { logger.warn('[Cosmos] getRewards failed:', err instanceof Error ? err.message : String(err)); }
     }
     return { total: [] };
   }
@@ -1232,7 +1233,7 @@ export class CosmosAdapter {
             },
           };
         }
-      } catch (err) { console.warn('[Cosmos] getTransactionHistory failed:', err instanceof Error ? err.message : String(err)); }
+      } catch (err) { logger.warn('[Cosmos] getTransactionHistory failed:', err instanceof Error ? err.message : String(err)); }
     }
 
     return { transactions: [], pagination: { nextKey: null, total: '0' } };
@@ -1249,7 +1250,7 @@ export class CosmosAdapter {
           const data = await response.json();
           return parseTxRecord(data);
         }
-      } catch (err) { console.warn('[Cosmos] getTransaction failed:', err instanceof Error ? err.message : String(err)); }
+      } catch (err) { logger.warn('[Cosmos] getTransaction failed:', err instanceof Error ? err.message : String(err)); }
     }
     return null;
   }

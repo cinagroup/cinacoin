@@ -36,6 +36,7 @@
  * ```
  */
 
+import { logger } from '@cinacoin/logger';
 import { Platform, AppState, type AppStateStatus } from 'react-native';
 
 // ---------------------------------------------------------------------------
@@ -246,7 +247,7 @@ export class PushNotificationManager {
 
       return token;
     } catch (error) {
-      console.warn('[PushNotificationManager] Failed to register token:', error);
+      logger.warn('[PushNotificationManager] Failed to register token:', error);
       return null;
     }
   }
@@ -292,7 +293,7 @@ export class PushNotificationManager {
       try {
         this._config.onNotification(enriched);
       } catch (error) {
-        console.warn('[PushNotificationManager] onNotification handler threw:', error);
+        logger.warn('[PushNotificationManager] onNotification handler threw:', error);
       }
     }
 
@@ -423,7 +424,7 @@ export class PushNotificationManager {
       }
     } catch {
       // Notification modules not available — use basic setup
-      console.warn('[PushNotificationManager] Push notification modules not available');
+      logger.warn('[PushNotificationManager] Push notification modules not available');
     }
   }
 
@@ -512,7 +513,7 @@ export class PushNotificationManager {
       this._tokenRefreshSub = { remove: unsubToken };
     } catch {
       // FCM not available
-      console.warn('[PushNotificationManager] FCM messaging not available');
+      logger.warn('[PushNotificationManager] FCM messaging not available');
     }
   }
 

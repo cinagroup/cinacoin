@@ -5,6 +5,7 @@
  * providing real wallet connection logic instead of mock implementations.
  */
 
+import { logger } from '@cinacoin/logger';
 import {
   Connector,
   InjectedProvider,
@@ -225,7 +226,7 @@ export class ConnectorManager {
     // from @cinacoin/core-sdk to establish WC v2 connections.
     // For now, this logs the intent and the injected provider path
     // handles the common browser wallet case.
-    console.warn(
+    logger.warn(
       '[Cinacoin] WalletConnect relay connector requires @cinacoin/core-sdk ' +
         'RelayTransport configuration. Configure relayUrl and projectId in config.',
     );

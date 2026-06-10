@@ -1,3 +1,4 @@
+import { logger } from '@cinacoin/logger';
 import CodeBlock from "@/components/CodeBlock";
 import StepIndicator from "@/components/StepIndicator";
 import Link from "next/link";
@@ -82,7 +83,7 @@ export function useWallet() {
       setAddress(session.address);
       setChainId(session.chainId);
     } catch (error) {
-      console.error('Connection failed:', error);
+      logger.error('Connection failed:', error);
     } finally {
       setConnecting(false);
     }

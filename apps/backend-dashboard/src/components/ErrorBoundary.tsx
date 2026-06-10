@@ -1,5 +1,6 @@
 "use client";
 
+import { logger } from '@cinacoin/logger';
 import { Component, type ErrorInfo, type ReactNode } from "react";
 
 interface Props {
@@ -24,7 +25,7 @@ export default class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error("[ErrorBoundary]", error, errorInfo);
+    logger.error("[ErrorBoundary]", error, errorInfo);
   }
 
   handleRetry = () => {

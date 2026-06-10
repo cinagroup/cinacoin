@@ -209,7 +209,7 @@ export class ConfigManager {
       });
 
       if (!response.ok) {
-        console.warn(
+        logger.warn(
           `[ConfigManager] Remote fetch returned ${response.status} for project ${this.config.projectId}; using fallback.`
         );
         return;
@@ -221,7 +221,7 @@ export class ConfigManager {
       this.notifyChanges(previous);
     } catch (err: unknown) {
       // Network error — keep using fallback.
-      console.warn(
+      logger.warn(
         `[ConfigManager] Failed to fetch remote flags:`,
         err instanceof Error ? err.message : err
       );
@@ -266,7 +266,7 @@ export class ConfigManager {
           try {
             cb(flag, curr ?? false);
           } catch (err) {
-            console.error(
+            logger.error(
               `[ConfigManager] Error in listener for "${flag}":`,
               err
             );

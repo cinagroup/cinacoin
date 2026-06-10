@@ -10,6 +10,7 @@
  * - Bitcoin: monitor via mempool/blockchain APIs
  */
 
+import { logger } from '@cinacoin/logger';
 import type { DepositResult } from "./types.js";
 import { DepositStatus } from "./types.js";
 
@@ -154,7 +155,7 @@ export class DepositDetector {
         }
       }
     } catch (err) {
-      console.warn(`[DepositDetector] Poll failed for ${key}:`, err);
+      logger.warn(`[DepositDetector] Poll failed for ${key}:`, err);
     }
   }
 

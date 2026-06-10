@@ -1,3 +1,4 @@
+import { logger } from '@cinacoin/logger';
 import { useState, useEffect } from 'react';
 
 interface Assignment {
@@ -20,7 +21,7 @@ export function useABTest(experimentId: string) {
         const expAssignment = data.assignments[experimentId];
         setAssignment(expAssignment || null);
       } catch (error) {
-        console.error('Failed to fetch A/B test assignment:', error);
+        logger.error('Failed to fetch A/B test assignment:', error);
       } finally {
         setLoading(false);
       }
@@ -44,7 +45,7 @@ export function useABTest(experimentId: string) {
         }),
       });
     } catch (error) {
-      console.error('Failed to track conversion:', error);
+      logger.error('Failed to track conversion:', error);
     }
   };
 

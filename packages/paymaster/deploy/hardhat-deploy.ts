@@ -119,6 +119,6 @@ async function main(): Promise<void> {
 }
 
 main().catch((error) => {
-  console.error('Deployment failed:', error);
+  logger.error('Deployment failed:', error);
   process.exitCode = 1;
 });

@@ -5,6 +5,7 @@
  * manages the connection lifecycle for wallet scanning.
  */
 
+import { logger } from '@cinacoin/logger';
 import { Connector } from '../connector.js';
 import { EventEmitter } from '../events.js';
 import { SDK } from '../errors/codes.js';
@@ -66,7 +67,7 @@ export class QRTransport extends Connector {
         const data = JSON.parse(payload as string);
         this.emit('message', data);
       } catch (err) {
-        console.warn(`[core-sdk:setupRelayListeners] error:`, err);
+        logger.warn(`[core-sdk:setupRelayListeners] error:`, err);
         // Encrypted payload — will be decrypted at the session layer
         this.emit('encryptedMessage', payload);
       }
@@ -142,7 +143,7 @@ export class QRTransport extends Connector {
             reject(createError(WALLET_CONNECT.SESSION_PROPOSAL_REJECTED.code, 'Session proposal received — handle approval in UI layer'));
           }
         } catch (err) {
-          console.warn(`[core-sdk:connect] error:`, err);
+          logger.warn(`[core-sdk:connect] error:`, err);
           // Encrypted — ignore at transport level
         }
       };

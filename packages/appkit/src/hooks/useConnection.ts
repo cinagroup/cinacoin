@@ -2,6 +2,7 @@
  * useConnection hook — manages wallet connection state and actions
  */
 
+import { logger } from '@cinacoin/logger';
 import { useState, useCallback, useEffect, useRef } from 'react';
 import type {
   ConnectionState,
@@ -222,7 +223,7 @@ export function useConnection(options: UseConnectionOptions): UseConnectionRetur
           setStatus('connected');
         } catch (err) {
           // Auto-reconnect failed, clear stored state
-          console.warn('[useConnection] Auto-reconnect failed:', err);
+          logger.warn('[useConnection] Auto-reconnect failed:', err);
           setAccount(null);
           setStatus('disconnected');
           saveStoredState({ account: null, walletId: null });

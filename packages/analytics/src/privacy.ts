@@ -4,6 +4,7 @@
  * Manages user consent, data minimization, and retention policies.
  */
 
+import { logger } from '@cinacoin/logger';
 import { AnalyticsEvent } from './types.js';
 
 export interface PrivacyConfig {
@@ -104,7 +105,7 @@ export class PrivacyManager {
         this.consent = JSON.parse(raw) as ConsentRecord;
       }
     } catch (err) {
-      console.warn('[analytics/privacy] Failed to load consent:', err);
+      logger.warn('[analytics/privacy] Failed to load consent:', err);
     }
   }
 
@@ -115,7 +116,7 @@ export class PrivacyManager {
         this.getStorage()?.setItem(CONSENT_KEY, JSON.stringify(this.consent));
       }
     } catch (err) {
-      console.warn('[analytics/privacy] Failed to persist consent:', err);
+      logger.warn('[analytics/privacy] Failed to persist consent:', err);
     }
   }
 

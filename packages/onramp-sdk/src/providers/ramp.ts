@@ -5,6 +5,7 @@
  * Documentation: https://ramp.network/
  */
 
+import { logger } from '@cinacoin/logger';
 import type { OnRampProviderAdapter } from "../aggregator.js";
 import type { OnRampProvider, OnRampQuote, OnRampQuoteParams, OnRampWidgetParams } from "../types.js";
 
@@ -85,7 +86,7 @@ export class RampProvider implements OnRampProviderAdapter {
         expiresAt: Date.now() + 60_000,
       };
     } catch (err) {
-      console.warn('[onramp-sdk/ramp] Quote API failed, falling back to estimate:', err);
+      logger.warn('[onramp-sdk/ramp] Quote API failed, falling back to estimate:', err);
       return this.estimateQuote(params, info);
     }
   }

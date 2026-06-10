@@ -1,3 +1,4 @@
+import { logger } from '@cinacoin/logger';
 import { createCipheriv, createDecipheriv, randomBytes, scryptSync } from 'crypto';
 
 export interface KeyManagerConfig {
@@ -57,7 +58,7 @@ export class KeyManager {
         );
       }
       // Development fallback with warning
-      console.warn(
+      logger.warn(
         '[SECURITY WARNING] ENCRYPTION_KEY not set. Using insecure development key. ' +
         'This MUST NOT be used in production!'
       );

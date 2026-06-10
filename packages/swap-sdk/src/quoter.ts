@@ -5,6 +5,7 @@
  * and returns the best route for the user.
  */
 
+import { logger } from '@cinacoin/logger';
 import type { BestQuote, SwapQuote, SwapQuoteParams, SwapRoute, SwapTransaction } from "./types.js";
 import type { SwapExecutor } from "./router.js";
 import { calculatePriceImpact, classifyPriceImpact, calculateMinimumReceived } from "./slippage.js";
@@ -121,7 +122,7 @@ export class SwapQuoter {
         return this.enrichQuote(quote, params.slippageBps);
       } catch (err) {
         // Log and skip failed providers
-        console.warn(`Quote failed for ${executor.name}:`, err);
+        logger.warn(`Quote failed for ${executor.name}:`, err);
         return null;
       }
     });

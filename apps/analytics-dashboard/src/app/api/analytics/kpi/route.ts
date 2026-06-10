@@ -4,6 +4,7 @@
  * Computes dashboard KPIs for a given time range with period-over-period comparison.
  */
 
+import { logger } from '@cinacoin/logger';
 import { NextRequest, NextResponse } from "next/server";
 import { AnalyticsEngine, type TimeRange } from "../../../../lib/analytics";
 
@@ -26,7 +27,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ kpis });
   } catch (err) {
-    console.error("[analytics/kpi] Error:", err);
+    logger.error("[analytics/kpi] Error:", err);
     return NextResponse.json(
       { error: "Failed to compute KPIs" },
       { status: 500 },

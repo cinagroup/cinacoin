@@ -5,6 +5,7 @@
  * Returns stage-by-stage conversion rates and dropoff analysis.
  */
 
+import { logger } from '@cinacoin/logger';
 import { NextRequest, NextResponse } from "next/server";
 import { AnalyticsEngine, type FunnelQuery } from "../../../../lib/analytics";
 
@@ -25,7 +26,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ funnel: result });
   } catch (err) {
-    console.error("[funnel/analyze] Error:", err);
+    logger.error("[funnel/analyze] Error:", err);
     return NextResponse.json(
       { error: "Failed to analyze funnel" },
       { status: 500 },

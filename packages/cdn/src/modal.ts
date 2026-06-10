@@ -13,6 +13,7 @@
  * ```
  */
 
+import { logger } from '@cinacoin/logger';
 import { getConfig, validateConfig } from "./config.js";
 import type { CinacoinConfig } from "./config.js";
 
@@ -65,14 +66,14 @@ export function renderConnectModal(
 ): void {
   const element = document.querySelector(selector);
   if (!element) {
-    console.error(`[Cinacoin] Element "${selector}" not found`);
+    logger.error(`[Cinacoin] Element "${selector}" not found`);
     return;
   }
 
   const config = { ...getConfig(), ...options };
   const missing = validateConfig(config);
   if (missing.length > 0) {
-    console.warn(`[Cinacoin] Missing config: ${missing.join(", ")}`);
+    logger.warn(`[Cinacoin] Missing config: ${missing.join(", ")}`);
   }
 
   _isOpen = false;

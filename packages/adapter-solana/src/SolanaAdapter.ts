@@ -266,7 +266,7 @@ export class SolanaChainAdapter implements ChainAdapter {
       const result = await this._rpcCall<{ value: number }>('getBalance', [address]);
       return lamportsToSol(result.value);
     } catch (err) {
-      console.warn('[Solana] getBalance failed:', err instanceof Error ? err.message : String(err));
+      logger.warn('[Solana] getBalance failed:', err instanceof Error ? err.message : String(err));
       return '0';
     }
   }
@@ -542,7 +542,7 @@ export class SolanaChainAdapter implements ChainAdapter {
         };
       });
     } catch (err) {
-      console.warn('[Solana] getTokenAccounts failed:', err instanceof Error ? err.message : String(err));
+      logger.warn('[Solana] getTokenAccounts failed:', err instanceof Error ? err.message : String(err));
       return [];
     }
   }
@@ -714,7 +714,7 @@ export class SolanaChainAdapter implements ChainAdapter {
         confirmationStatus: item.confirmationStatus,
       }));
     } catch (err) {
-      console.warn(
+      logger.warn(
         '[Solana] getTransactionHistory failed:',
         err instanceof Error ? err.message : String(err),
       );
@@ -1048,7 +1048,7 @@ export class SolanaChainAdapter implements ChainAdapter {
         }
       } catch (err) {
         // Network error — retry
-        console.warn('[Solana] Confirmation poll error:', err instanceof Error ? err.message : String(err));
+        logger.warn('[Solana] Confirmation poll error:', err instanceof Error ? err.message : String(err));
       }
 
       await new Promise((resolve) => setTimeout(resolve, intervalMs));

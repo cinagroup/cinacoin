@@ -16,6 +16,7 @@
  * - Wallet Selector pattern for multi-wallet support
  */
 
+import { logger } from '@cinacoin/logger';
 import type { Connector } from '../connector.js';
 import type { Chain } from '../types.js';
 
@@ -1348,7 +1349,7 @@ export class NearChainAdapter {
       try {
         await this.provider.signOut();
       } catch (err) {
-        console.warn(`[core-sdk:disconnect] error:`, err);
+        logger.warn(`[core-sdk:disconnect] error:`, err);
       }
     }
     this.provider = null;
@@ -1369,7 +1370,7 @@ export class NearChainAdapter {
       const accounts = await this.provider.getAccounts();
       this._accounts = accounts.map((a) => normalizeNearAccount(a.accountId));
     } catch (err) {
-      console.warn(`[core-sdk:getAccounts] error:`, err);
+      logger.warn(`[core-sdk:getAccounts] error:`, err);
       // Use cached accounts
     }
 
@@ -1424,7 +1425,7 @@ export class NearChainAdapter {
     try {
       return await this._getRpcClient().getBalance(normalized);
     } catch (err) {
-      console.warn(`[core-sdk:getBalance] error:`, err);
+      logger.warn(`[core-sdk:getBalance] error:`, err);
       return '0';
     }
   }
@@ -1453,7 +1454,7 @@ export class NearChainAdapter {
     try {
       return await this._getRpcClient().viewAccount(normalized);
     } catch (err) {
-      console.warn(`[core-sdk:getAccountInfo] error:`, err);
+      logger.warn(`[core-sdk:getAccountInfo] error:`, err);
       return null;
     }
   }
@@ -1477,7 +1478,7 @@ export class NearChainAdapter {
           : JSON.stringify(k.access_key.permission),
       }));
     } catch (err) {
-      console.warn(`[core-sdk:getAccessKeys] error:`, err);
+      logger.warn(`[core-sdk:getAccessKeys] error:`, err);
       return [];
     }
   }
@@ -1499,7 +1500,7 @@ export class NearChainAdapter {
         const result = await this._getRpcClient().broadcastTx(encoded);
         return result.transaction.hash;
       } catch (err) {
-        console.warn(`[core-sdk:sendTransaction] error:`, err);
+        logger.warn(`[core-sdk:sendTransaction] error:`, err);
         // Fall through to wallet-based sending
       }
     }
@@ -1621,7 +1622,7 @@ export class NearChainAdapter {
       const decoded = atob(((result as unknown) as Record<string, unknown>).result as string ?? '');
       return JSON.parse(decoded);
     } catch (err) {
-      console.warn(`[core-sdk:viewContract] error:`, err);
+      logger.warn(`[core-sdk:viewContract] error:`, err);
       return ((result as unknown) as Record<string, unknown>).result ?? null;
     }
   }
@@ -1798,7 +1799,7 @@ export class NearChainAdapter {
         return (tokens as Array<string | Record<string, unknown>>).map((t) => String((t as Record<string, unknown>).token_id ?? t));
       }
     } catch (err) {
-      console.warn(`[core-sdk:nftTokensForOwner] error:`, err);
+      logger.warn(`[core-sdk:nftTokensForOwner] error:`, err);
     }
 
     return [];
@@ -1820,7 +1821,7 @@ export class NearChainAdapter {
       });
       return parseInt(String(result), 10) || 0;
     } catch (err) {
-      console.warn(`[core-sdk:nftBalance] error:`, err);
+      logger.warn(`[core-sdk:nftBalance] error:`, err);
       return 0;
     }
   }
@@ -2002,7 +2003,7 @@ export class NearChainAdapter {
         receipts: result.receipts,
       };
     } catch (err) {
-      console.warn(`[core-sdk:getTransactionStatus] error:`, err);
+      logger.warn(`[core-sdk:getTransactionStatus] error:`, err);
       return null;
     }
   }

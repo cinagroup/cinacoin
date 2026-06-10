@@ -553,7 +553,7 @@ export class Eip5792Service implements OnDestroy {
     this.fetchWalletCapabilities().subscribe({
       error: (err) => {
         if (!(err instanceof Error) || !err.message.includes('-32601')) {
-          console.warn('[Eip5792] Capability refresh failed:', err);
+          logger.warn('[Eip5792] Capability refresh failed:', err);
         }
       },
     });

@@ -17,6 +17,7 @@
  *   GET  /health           — health check
  */
 
+import { logger } from '@cinacoin/logger';
 import { DeviceRegistry } from "./device-registry.js";
 import { NotificationDelivery } from "./notification-delivery.js";
 import { RateLimiter, type RateLimitConfig } from "./rate-limiter.js";
@@ -368,7 +369,7 @@ export default {
 
       return jsonError("Not found", 404, origin);
     } catch (error) {
-      console.error("[push-server] Internal error:", error);
+      logger.error("[push-server] Internal error:", error);
       return jsonError("Internal server error", 500, origin);
     }
   },

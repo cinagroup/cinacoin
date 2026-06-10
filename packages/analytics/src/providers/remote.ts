@@ -4,6 +4,7 @@
  * Sends analytics events to a remote endpoint.
  */
 
+import { logger } from '@cinacoin/logger';
 import type { AnalyticsEvent, AnalyticsProvider } from "../types.js";
 
 export interface RemoteProviderConfig {
@@ -67,7 +68,7 @@ export class RemoteProvider implements AnalyticsProvider {
         this.queue.unshift(...events);
       }
     } catch (err) {
-      console.error('[analytics/remote] Flush failed, re-queuing events:', err);
+      logger.error('[analytics/remote] Flush failed, re-queuing events:', err);
       // Re-queue on network failure
       this.queue.unshift(...events);
     }

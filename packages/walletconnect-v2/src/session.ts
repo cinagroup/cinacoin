@@ -6,6 +6,7 @@
  * establishing an encrypted session channel on top of pairing.
  */
 
+import { logger } from '@cinacoin/logger';
 import { EventEmitter } from '@cinacoin/core-sdk';
 import { generateKeypair, sharedSecret, bytesToHex, hexToBytes, encrypt, decrypt } from './crypto.js';
 import { sha256 } from '@noble/hashes/sha2.js';
@@ -466,7 +467,7 @@ export class WcSessionManager extends EventEmitter {
         this.emitEvent({ type: 'pairing_delete', topic: this.pairingTopic ?? '' });
       }
     } catch (error) {
-      console.warn('[WcSessionManager] Failed to handle pairing message:', error);
+      logger.warn('[WcSessionManager] Failed to handle pairing message:', error);
     }
   }
 
@@ -605,7 +606,7 @@ export class WcSessionManager extends EventEmitter {
         }
       }
     } catch (error) {
-      console.warn('[WcSessionManager] Failed to handle session message:', error);
+      logger.warn('[WcSessionManager] Failed to handle session message:', error);
     }
   }
 

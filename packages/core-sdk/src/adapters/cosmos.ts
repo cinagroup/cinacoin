@@ -8,6 +8,7 @@
  * Cosmos SDK chains.
  */
 
+import { logger } from '@cinacoin/logger';
 import type { Connector } from '../connector.js';
 import type { Chain } from '../types.js';
 
@@ -703,7 +704,7 @@ export class CosmosChainAdapter {
     try {
       return await this._getRpcClient().getBalance(address, targetDenom);
     } catch (err) {
-      console.warn(`[core-sdk:getBalance] error:`, err);
+      logger.warn(`[core-sdk:getBalance] error:`, err);
       return '0';
     }
   }
@@ -733,7 +734,7 @@ export class CosmosChainAdapter {
     try {
       return await this._getRpcClient().getAllBalances(address);
     } catch (err) {
-      console.warn(`[core-sdk:getAllBalances] error:`, err);
+      logger.warn(`[core-sdk:getAllBalances] error:`, err);
       return [];
     }
   }

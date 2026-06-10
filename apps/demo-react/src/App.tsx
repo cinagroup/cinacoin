@@ -1,3 +1,4 @@
+import { logger } from '@cinacoin/logger';
 import { Suspense, lazy, useEffect, Component, type ReactNode, type ErrorInfo } from 'react'
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 import { WalletProvider } from './contexts/WalletContext'
@@ -37,7 +38,7 @@ class PageErrorBoundary extends Component<
   }
 
   componentDidCatch(error: Error, info: ErrorInfo) {
-    console.error('Page load failed:', error, info)
+    logger.error('Page load failed:', error, info)
   }
 
   render() {

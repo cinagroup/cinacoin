@@ -20,7 +20,7 @@ function warn(msg: string) {
 }
 
 function error(msg: string) {
-  console.error(`\x1b[31m✗\x1b[0m ${msg}`);
+  logger.error(`\x1b[31m✗\x1b[0m ${msg}`);
 }
 
 async function main() {

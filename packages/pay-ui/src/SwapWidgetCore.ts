@@ -5,6 +5,7 @@
  * for the SwapWidget UI.
  */
 
+import { logger } from '@cinacoin/logger';
 import type {
   SwapQuote,
   SwapQuoteParams,
@@ -272,7 +273,7 @@ export class SwapWidgetCore {
       try {
         listener();
       } catch (err) {
-        console.warn('[pay-ui/swap] Listener callback threw:', err);
+        logger.warn('[pay-ui/swap] Listener callback threw:', err);
       }
     }
   }

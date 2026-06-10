@@ -8,6 +8,7 @@
  * @packageDocumentation
  */
 
+import { logger } from '@cinacoin/logger';
 import type { SIWXVerifyInput, SIWXResult } from './types.js';
 
 // ---------------------------------------------------------------------------
@@ -354,7 +355,7 @@ export class VerifierRegistry {
     if (existing?.source === 'builtin') {
       // Shadowing a built-in — log warning in dev
       if (typeof console !== 'undefined' && process.env?.NODE_ENV !== 'production') {
-        console.warn(
+        logger.warn(
           `[VerifierRegistry] Shadowing built-in verifier for "${namespace}" ` +
           `(${existing.name} v${existing.version}) with custom verifier`
         );
@@ -413,7 +414,7 @@ export class VerifierRegistry {
     if (!descriptor) return false;
     if (descriptor.source === 'builtin') {
       if (typeof console !== 'undefined') {
-        console.warn(
+        logger.warn(
           `[VerifierRegistry] Cannot remove built-in verifier for "${namespace}". ` +
           `Use registerVerifier() to shadow it instead.`
         );

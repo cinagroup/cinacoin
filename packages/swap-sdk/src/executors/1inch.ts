@@ -5,6 +5,7 @@
  * Documentation: https://docs.1inch.io/docs/aggregation-protocol/introduction
  */
 
+import { logger } from '@cinacoin/logger';
 import type { SwapExecutor } from "../router.js";
 import type { SwapQuote, SwapQuoteParams, SwapRoute, SwapTransaction, TokenInfo } from "../types.js";
 import { calculateMinimumReceived } from "../slippage.js";
@@ -185,7 +186,7 @@ export class OneInchExecutor implements SwapExecutor {
       recoveryTimeout: 30_000,
       halfOpenMaxAttempts: 3,
       onStateChange: (from, to, error) => {
-        console.warn(
+        logger.warn(
           `[1inch executor] Circuit breaker: ${from} → ${to}${error ? ` (cause: ${error.message})` : ""}`,
         );
       },

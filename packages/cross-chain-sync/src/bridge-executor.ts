@@ -15,6 +15,7 @@
  *   - Generic Lock-Mint bridge
  */
 
+import { logger } from '@cinacoin/logger';
 import {
   createPublicClient,
   createWalletClient,
@@ -475,7 +476,7 @@ export class BridgeExecutor {
         try {
           await this.rollback(params, sourceResult);
         } catch (rollbackErr) {
-          console.error(
+          logger.error(
             `[BridgeExecutor] Rollback also failed: ${rollbackErr instanceof Error ? rollbackErr.message : String(rollbackErr)}`,
           );
         }

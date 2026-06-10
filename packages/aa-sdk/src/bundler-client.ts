@@ -164,7 +164,7 @@ export class BundlerClient {
 
         sponsored = true;
       } catch (err) {
-        console.warn('[BundlerClient] Paymaster sponsorship failed, proceeding without paymaster:', err);
+        logger.warn('[BundlerClient] Paymaster sponsorship failed, proceeding without paymaster:', err);
       }
     }
 

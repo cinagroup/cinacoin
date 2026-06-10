@@ -24,6 +24,7 @@
  *   npx @cinacoin/cli test --e2e
  */
 
+import { logger } from '@cinacoin/logger';
 import { program } from 'commander';
 import { initCommand } from './commands/init.js';
 import { templateCommand } from './commands/template.js';
@@ -53,7 +54,7 @@ deployCommand(program);
 // Handle unknown commands
 program.on('command:*', (operands) => {
   const [cmd] = operands as string[];
-  console.error(`\n  error: unknown command '${cmd}'\n`);
+  logger.error(`\n  error: unknown command '${cmd}'\n`);
   program.outputHelp();
   process.exit(1);
 });

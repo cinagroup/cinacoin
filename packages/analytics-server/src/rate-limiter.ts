@@ -1,3 +1,4 @@
+import { logger } from '@cinacoin/logger';
 /**
  * Production Rate Limiter using Cloudflare KV
  * Per-app/user sliding window rate limiting with atomic operations
@@ -100,7 +101,7 @@ export class RateLimiter {
       };
     } catch (err) {
       // Fail open: if KV is unavailable, allow request but log
-      console.error(`[RateLimiter] KV error for key "${key}":`, err instanceof Error ? err.message : String(err));
+      logger.error(`[RateLimiter] KV error for key "${key}":`, err instanceof Error ? err.message : String(err));
       return {
         limited: false,
         remaining: this.maxRequests,

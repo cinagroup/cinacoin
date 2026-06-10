@@ -109,7 +109,7 @@ async function runAll(cli: CliArgs): Promise<AllResults> {
       const mod = await loadModule(file);
       allModules.push(mod);
     } catch (e) {
-      console.warn(`⚠️  Could not load ${file}:`, (e as Error).message);
+      logger.warn(`⚠️  Could not load ${file}:`, (e as Error).message);
     }
   }
 
@@ -119,7 +119,7 @@ async function runAll(cli: CliArgs): Promise<AllResults> {
     : allModules;
 
   if (filtered.length === 0) {
-    console.error("No benchmark modules found matching filter.");
+    logger.error("No benchmark modules found matching filter.");
     process.exit(1);
   }
 
@@ -192,9 +192,9 @@ async function runAll(cli: CliArgs): Promise<AllResults> {
 
     const regressions = blComparisons.filter((c) => c.regression);
     if (regressions.length > 0) {
-      console.error("\n❌ REGRESSION DETECTED:");
+      logger.error("\n❌ REGRESSION DETECTED:");
       for (const r of regressions) {
-        console.error(
+        logger.error(
           `   ${r.label} ${r.metric.toUpperCase()}: ${r.baseline.toFixed(1)}ms → ${r.current.toFixed(1)}ms (+${r.deltaPct.toFixed(1)}%)`,
         );
       }
@@ -254,13 +254,13 @@ async function main() {
   if (cli.ci) {
     const regressions = allResults.comparisons.filter((c) => c.regression);
     if (regressions.length > 0) {
-      console.error(`\n❌ ${regressions.length} regression(s) detected. Failing CI.`);
+      logger.error(`\n❌ ${regressions.length} regression(s) detected. Failing CI.`);
       process.exit(1);
     }
   }
 }
 
 main().catch((err) => {
-  console.error("Benchmark runner failed:", err);
+  logger.error("Benchmark runner failed:", err);
   process.exit(1);
 });

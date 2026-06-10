@@ -5,6 +5,7 @@
  * Uses the Uniswap QuoterV2 contract for on-chain price estimation.
  */
 
+import { logger } from '@cinacoin/logger';
 import type { SwapExecutor } from "../router.js";
 import type { SwapQuote, SwapQuoteParams, SwapRoute, SwapTransaction, TokenInfo } from "../types.js";
 import { calculateMinimumReceived } from "../slippage.js";
@@ -172,7 +173,7 @@ export class UniswapExecutor implements SwapExecutor {
       try {
         return await this.getQuoteOnChain(params);
       } catch (err) {
-        console.warn(`Uniswap on-chain quote failed, falling back:`, err);
+        logger.warn(`Uniswap on-chain quote failed, falling back:`, err);
       }
     }
 

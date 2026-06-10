@@ -8,6 +8,7 @@
  *   i18n.getMessage('common.loading');
  */
 
+import { logger } from '@cinacoin/logger';
 import type { NestedLocaleMap } from './types';
 
 /** ------------------------------------------------------------------ */
@@ -114,7 +115,7 @@ export function createI18n(
       if (locales[code]) {
         current = code;
       } else {
-        console.warn(
+        logger.warn(
           `[i18n] Locale "${code}" not found. Falling back to "${fallback}".`,
         );
         current = fallback;

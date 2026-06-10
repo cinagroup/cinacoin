@@ -1,4 +1,15 @@
+import { logger } from '@cinacoin/logger';
 import { NextResponse } from 'next/server'
+import { z } from 'zod'
+
+// ─── Zod Validation Schema ──────────────────────────────────────────────────
+
+const contactSchema = z.object({
+  name: z.string().min(1, 'Name is required').max(100, 'Name too long'),
+  email: z.string().email('Invalid email format'),
+  subject: z.string().max(200).optional(),
+  message: z.string().min(1, 'Message is required').max(5000, 'Message too long'),
+})
 
 // ─── Rate Limiting ──────────────────────────────────────────────────────────
 
@@ -110,24 +121,16 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json()
-    const { name, email, subject, message } = body
+    const result = contactSchema.safeParse(body)
 
-    // Validate required fields
-    if (!name || !email || !message) {
+    if (!result.success) {
       return NextResponse.json(
-        { error: 'Missing required fields' },
+        { error: result.error.flatten() },
         { status: 400 }
       )
     }
 
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(email)) {
-      return NextResponse.json(
-        { error: 'Invalid email format' },
-        { status: 400 }
-      )
-    }
+    const { name, email, subject, message } = result.data
 
     // TODO: Integrate with actual email service (Resend, SendGrid, etc.)
     // For now, log the submission
@@ -146,7 +149,7 @@ export async function POST(request: Request) {
       message: 'Form submitted successfully',
     })
   } catch (error) {
-    console.error('[Contact Form Error]', error)
+    logger.error('[Contact Form Error]', error)
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

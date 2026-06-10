@@ -9,6 +9,7 @@
  * MoveCall, and Publish operations.
  */
 
+import { logger } from '@cinacoin/logger';
 import type { Connector } from '../connector.js';
 import type { Chain } from '../types.js';
 
@@ -1174,7 +1175,7 @@ export class SuiChainAdapter {
       });
       this._accounts = result.accounts.map((a) => a.address);
     } catch (err) {
-      console.warn(`[core-sdk:connect] error:`, err);
+      logger.warn(`[core-sdk:connect] error:`, err);
       // Fallback: try getAccounts directly
       const accounts = await this.provider.getAccounts();
       this._accounts = accounts.map((a) => a.address);
@@ -1189,7 +1190,7 @@ export class SuiChainAdapter {
       try {
         await this.provider.disconnect();
       } catch (err) {
-        console.warn(`[core-sdk:disconnect] error:`, err);
+        logger.warn(`[core-sdk:disconnect] error:`, err);
       }
     }
     this.provider = null;
@@ -1246,7 +1247,7 @@ export class SuiChainAdapter {
       );
       return result.totalBalance;
     } catch (err) {
-      console.warn(`[core-sdk:getBalance] error:`, err);
+      logger.warn(`[core-sdk:getBalance] error:`, err);
       // Fallback: query coins and sum
       try {
         const coins = await this._getRpcClient().getCoins(
@@ -1260,7 +1261,7 @@ export class SuiChainAdapter {
         }
         return total.toString();
       } catch (err) {
-        console.warn(`[core-sdk:getBalance] fallback error:`, err);
+        logger.warn(`[core-sdk:getBalance] fallback error:`, err);
         return '0';
       }
     }
@@ -1291,7 +1292,7 @@ export class SuiChainAdapter {
         normalizeSuiAddress(address),
       );
     } catch (err) {
-      console.warn(`[core-sdk:getAllBalances] error:`, err);
+      logger.warn(`[core-sdk:getAllBalances] error:`, err);
       return [];
     }
   }
@@ -1317,7 +1318,7 @@ export class SuiChainAdapter {
       );
       return result.data;
     } catch (err) {
-      console.warn(`[core-sdk:getCoins] error:`, err);
+      logger.warn(`[core-sdk:getCoins] error:`, err);
       return [];
     }
   }
@@ -1363,7 +1364,7 @@ export class SuiChainAdapter {
         const effects = result.effects;
         if (effects?.transactionDigest) return effects.transactionDigest;
       } catch (err) {
-        console.warn(`[core-sdk:sendTransaction] error:`, err);
+        logger.warn(`[core-sdk:sendTransaction] error:`, err);
         // Fall through to manual sign + execute
       }
     }
@@ -1505,7 +1506,7 @@ export class SuiChainAdapter {
         previousTransaction: result.data.previousTransaction,
       };
     } catch (err) {
-      console.warn(`[core-sdk:getObject] error:`, err);
+      logger.warn(`[core-sdk:getObject] error:`, err);
       return null;
     }
   }
@@ -1528,7 +1529,7 @@ export class SuiChainAdapter {
       );
       return result.data;
     } catch (err) {
-      console.warn(`[core-sdk:getOwnedObjects] error:`, err);
+      logger.warn(`[core-sdk:getOwnedObjects] error:`, err);
       return [];
     }
   }

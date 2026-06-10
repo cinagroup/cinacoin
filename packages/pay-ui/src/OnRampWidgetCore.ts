@@ -5,6 +5,7 @@
  * for the OnRampWidget UI.
  */
 
+import { logger } from '@cinacoin/logger';
 import type {
   OnRampQuote,
   OnRampQuoteParams,
@@ -223,7 +224,7 @@ export class OnRampWidgetCore {
       try {
         listener();
       } catch (err) {
-        console.warn('[pay-ui/onramp] Listener callback threw:', err);
+        logger.warn('[pay-ui/onramp] Listener callback threw:', err);
       }
     }
   }

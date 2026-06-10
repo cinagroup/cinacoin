@@ -5,6 +5,7 @@
  * NEAR Wallet Selector or direct browser redirect flow.
  */
 
+import { logger } from '@cinacoin/logger';
 import type { NearFunctionCall, NearTransferAction, NearTransaction, NearTransactionResult, NearWalletConnector as NearWalletConnectorInterface } from '../types.js';
 
 /** Minimal NEAR Wallet provider declarations. */
@@ -109,7 +110,7 @@ export class NearWalletConnector implements NearWalletConnectorInterface {
     if (this.provider) {
       try {
         await this.provider.signOut();
-      } catch (err) { console.warn('[near] Operation failed:', err instanceof Error ? err.message : String(err));
+      } catch (err) { logger.warn('[near] Operation failed:', err instanceof Error ? err.message : String(err));
         // May already be signed out
       }
       this.provider = null;

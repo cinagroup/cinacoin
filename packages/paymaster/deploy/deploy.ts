@@ -269,11 +269,11 @@ const config: DeployConfig = {
 };
 
 if (!config.privateKey) {
-  console.error("Error: PRIVATE_KEY or --private-key is required");
+  logger.error("Error: PRIVATE_KEY or --private-key is required");
   process.exit(1);
 }
 
 deploy(config).catch((err) => {
-  console.error("Deployment failed:", err);
+  logger.error("Deployment failed:", err);
   process.exit(1);
 });

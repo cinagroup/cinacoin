@@ -2,6 +2,7 @@
  * QRCode component — generates and displays a QR code for WalletConnect URIs
  */
 
+import { logger } from '@cinacoin/logger';
 import React, { useEffect, useRef, useState } from 'react';
 import type { QRCodeProps } from '../types';
 
@@ -130,7 +131,7 @@ export function QRCode({
       } catch (err) {
         if (!cancelled) {
           setError('Failed to generate QR code');
-          console.error('QR generation error:', err);
+          logger.error('QR generation error:', err);
         }
       }
     }

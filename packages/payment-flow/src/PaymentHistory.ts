@@ -32,6 +32,7 @@
  * ```
  */
 
+import { logger } from '@cinacoin/logger';
 import type { PaymentType } from './PaymentRouter';
 
 // ============================================================
@@ -401,10 +402,10 @@ export class PaymentHistory {
       } else if (this.config.storageType === 'indexedDB') {
         // IndexedDB implementation would go here
         // For now, just log a warning
-        console.warn('[PaymentHistory] IndexedDB persistence not yet implemented');
+        logger.warn('[PaymentHistory] IndexedDB persistence not yet implemented');
       }
     } catch (error) {
-      console.error('[PaymentHistory] Failed to persist:', error);
+      logger.error('[PaymentHistory] Failed to persist:', error);
     }
   }
 
@@ -416,7 +417,7 @@ export class PaymentHistory {
         data = localStorage.getItem(this.config.storageKey);
       } else if (this.config.storageType === 'indexedDB') {
         // IndexedDB implementation would go here
-        console.warn('[PaymentHistory] IndexedDB loading not yet implemented');
+        logger.warn('[PaymentHistory] IndexedDB loading not yet implemented');
         return;
       }
 
@@ -424,7 +425,7 @@ export class PaymentHistory {
         this.import(data);
       }
     } catch (error) {
-      console.error('[PaymentHistory] Failed to load from storage:', error);
+      logger.error('[PaymentHistory] Failed to load from storage:', error);
     }
   }
 

@@ -9,6 +9,7 @@
  * @packageDocumentation
  */
 
+import { logger } from '@cinacoin/logger';
 import {
   writable,
   derived,
@@ -224,7 +225,7 @@ export function initCinacoin(
   options?: { chains?: Chain[] },
 ): void {
   if (_sdkInitialized) {
-    console.warn('[Cinacoin] initCinacoin called more than once; reusing existing instance.');
+    logger.warn('[Cinacoin] initCinacoin called more than once; reusing existing instance.');
     return;
   }
 

@@ -6,6 +6,7 @@
  * queries and transaction broadcasting.
  */
 
+import { logger } from '@cinacoin/logger';
 import type { Connector } from '../connector.js';
 import type { Chain, TransactionRequest } from '../types.js';
 
@@ -160,7 +161,7 @@ export function parseTONAddress(address: TONAddress): {
       },
     };
   } catch (err) {
-    console.warn(`[core-sdk:parseTONAddress] error:`, err);
+    logger.warn(`[core-sdk:parseTONAddress] error:`, err);
     return null;
   }
 }

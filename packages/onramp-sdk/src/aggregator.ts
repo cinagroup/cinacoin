@@ -155,7 +155,7 @@ export class OnRampAggregator {
         recoveryTimeout: 30_000,
         halfOpenMaxAttempts: 3,
         onStateChange: (from, to, error) => {
-          console.warn(
+          logger.warn(
             `[onramp-sdk/aggregator] Provider ${provider.id} circuit breaker: ${from} → ${to}${error ? ` (cause: ${error.message})` : ""}`,
           );
         },
@@ -185,7 +185,7 @@ export class OnRampAggregator {
         }
         results.push(info);
       } catch (err) {
-        console.warn('[onramp-sdk/aggregator] Provider info failed:', err);
+        logger.warn('[onramp-sdk/aggregator] Provider info failed:', err);
       }
     }
 
@@ -216,7 +216,7 @@ export class OnRampAggregator {
         if (err instanceof CircuitBreakerError) {
           return null;
         }
-        console.warn(`Quote failed for ${provider.id}:`, err);
+        logger.warn(`Quote failed for ${provider.id}:`, err);
         return null;
       }
     });
@@ -301,7 +301,7 @@ export class OnRampAggregator {
       try {
         return adapter.getWidgetUrl(params);
       } catch (err) {
-        console.warn('[onramp-sdk/aggregator] getWidgetUrl failed for provider:', err);
+        logger.warn('[onramp-sdk/aggregator] getWidgetUrl failed for provider:', err);
       }
     }
 
@@ -317,7 +317,7 @@ export class OnRampAggregator {
         `On-ramp purchase completed: ${result.cryptoAmount} via ${result.provider}`,
       );
     } else {
-      console.warn(
+      logger.warn(
         `On-ramp purchase failed or cancelled: ${result.error}`,
       );
     }

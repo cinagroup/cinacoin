@@ -940,7 +940,7 @@ export class PaymasterClient {
           listener(event);
         } catch (err) {
           // Don't let listener errors break the sponsorship flow
-          console.warn('[PaymasterClient] Event listener error:', err);
+          logger.warn('[PaymasterClient] Event listener error:', err);
         }
       }
     }

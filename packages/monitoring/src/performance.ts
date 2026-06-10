@@ -200,7 +200,7 @@ export async function initWebVitals(reporter: PerformanceReporter): Promise<void
       };
 
       reporter(report).catch((err) => {
-        console.error('[Cinacoin] Failed to report performance metrics:', err);
+        logger.error('[Cinacoin] Failed to report performance metrics:', err);
       });
     }, 2000);
   });

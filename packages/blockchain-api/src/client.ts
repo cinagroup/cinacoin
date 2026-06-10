@@ -1,3 +1,4 @@
+import { logger } from '@cinacoin/logger';
 import {
   createPublicClient,
   http,
@@ -246,7 +247,7 @@ async function fetchMetadata(uri: string): Promise<Record<string, unknown> | nul
       _metadataCache.set(uri, { data, ts: Date.now() });
       return data;
     } catch (err) {
-      console.warn(`[blockchain-api:fetchMetadata] error:`, err);
+      logger.warn(`[blockchain-api:fetchMetadata] error:`, err);
       return null;
     }
   }
@@ -262,7 +263,7 @@ async function fetchMetadata(uri: string): Promise<Record<string, unknown> | nul
       _metadataCache.set(uri, { data, ts: Date.now() });
       return data;
     } catch (err) {
-      console.warn(`[blockchain-api:fetchMetadata] gateway error:`, err);
+      logger.warn(`[blockchain-api:fetchMetadata] gateway error:`, err);
       // Gateway unreachable — try the next one
       continue;
     }
@@ -457,7 +458,7 @@ export class BlockchainApiClient {
       const nativeBalance = await this.getBalance(address, cid);
       results.unshift(nativeBalance);
     } catch (err) {
-      console.warn(`[blockchain-api:getTokenBalances] native balance error:`, err);
+      logger.warn(`[blockchain-api:getTokenBalances] native balance error:`, err);
     }
 
     return results;
@@ -492,7 +493,7 @@ export class BlockchainApiClient {
       try {
         return await this._getTxsViaAlchemy(address, cid, limit, cursor);
       } catch (err) {
-        console.warn(`[blockchain-api:getTransactionHistory] Alchemy error:`, err);
+        logger.warn(`[blockchain-api:getTransactionHistory] Alchemy error:`, err);
         // Fall through to on-chain scan
       }
     }
@@ -502,7 +503,7 @@ export class BlockchainApiClient {
       try {
         return await this._getTxsViaCovalent(address, cid, limit, cursor);
       } catch (err) {
-        console.warn(`[blockchain-api:getTransactionHistory] Covalent error:`, err);
+        logger.warn(`[blockchain-api:getTransactionHistory] Covalent error:`, err);
         // Fall through to on-chain scan
       }
     }
@@ -629,7 +630,7 @@ export class BlockchainApiClient {
       try {
         return await this._getTxsViaAlchemy(address, chainId, limit, cursor, filters);
       } catch (err) {
-        console.warn(`[blockchain-api:_getSingleChainTransactions] Alchemy error:`, err);
+        logger.warn(`[blockchain-api:_getSingleChainTransactions] Alchemy error:`, err);
         // Fall through
       }
     }
@@ -638,7 +639,7 @@ export class BlockchainApiClient {
       try {
         return await this._getTxsViaCovalent(address, chainId, limit, cursor, filters);
       } catch (err) {
-        console.warn(`[blockchain-api:_getSingleChainTransactions] Covalent error:`, err);
+        logger.warn(`[blockchain-api:_getSingleChainTransactions] Covalent error:`, err);
         // Fall through
       }
     }
@@ -882,7 +883,7 @@ export class BlockchainApiClient {
       const block = await client.getBlockNumber();
       startBlock = Number(block);
     } catch (err) {
-      console.warn(`[blockchain-api:_getTxsOnChain] getBlockNumber error:`, err);
+      logger.warn(`[blockchain-api:_getTxsOnChain] getBlockNumber error:`, err);
       return { items: [], hasMore: false };
     }
 
@@ -918,7 +919,7 @@ export class BlockchainApiClient {
               status = receipt?.status === "success" ? "success" : "failed";
               gasUsed = receipt?.gasUsed;
             } catch (err) {
-              console.warn(`[blockchain-api:_getTxsOnChain] receipt error:`, err);
+              logger.warn(`[blockchain-api:_getTxsOnChain] receipt error:`, err);
             }
 
             // Apply status filter
@@ -940,7 +941,7 @@ export class BlockchainApiClient {
           }
         }
       } catch (err) {
-        console.warn(`[blockchain-api:_getTxsOnChain] block error:`, err);
+        logger.warn(`[blockchain-api:_getTxsOnChain] block error:`, err);
       }
     }
 
@@ -1014,7 +1015,7 @@ export class BlockchainApiClient {
       const address = await client.getEnsAddress({ name });
       return address ?? null;
     } catch (err) {
-      console.warn(`[blockchain-api:resolveENS] error:`, err);
+      logger.warn(`[blockchain-api:resolveENS] error:`, err);
       return null;
     }
   }
@@ -1035,7 +1036,7 @@ export class BlockchainApiClient {
       const name = await client.getEnsName({ address: address as Address });
       return name ?? null;
     } catch (err) {
-      console.warn(`[blockchain-api:reverseENS] error:`, err);
+      logger.warn(`[blockchain-api:reverseENS] error:`, err);
       return null;
     }
   }
@@ -1199,7 +1200,7 @@ export class BlockchainApiClient {
               items.push({ ...meta, contractAddress: contract, tokenId: tid, tokenType: "ERC721" });
             }
           } catch (err) {
-            console.warn(`[blockchain-api:_scanErc721] ownerOf error:`, err);
+            logger.warn(`[blockchain-api:_scanErc721] ownerOf error:`, err);
           }
         }
       } else {
@@ -1222,12 +1223,12 @@ export class BlockchainApiClient {
               items.push({ ...meta, contractAddress: contract, tokenId: String(tid), tokenType: "ERC721" });
             }
           } catch (err) {
-            console.warn(`[blockchain-api:_scanErc721] scan error:`, err);
+            logger.warn(`[blockchain-api:_scanErc721] scan error:`, err);
           }
         }
       }
     } catch (err) {
-      console.warn(`[blockchain-api:_scanErc721] contract error:`, err);
+      logger.warn(`[blockchain-api:_scanErc721] contract error:`, err);
     }
     return items;
   }
@@ -1271,11 +1272,11 @@ export class BlockchainApiClient {
             });
           }
         } catch (err) {
-          console.warn(`[blockchain-api:_scanErc1155] balanceOf error:`, err);
+          logger.warn(`[blockchain-api:_scanErc1155] balanceOf error:`, err);
         }
       }
     } catch (err) {
-      console.warn(`[blockchain-api:_scanErc1155] contract error:`, err);
+      logger.warn(`[blockchain-api:_scanErc1155] contract error:`, err);
     }
     return items;
   }
@@ -1295,7 +1296,7 @@ export class BlockchainApiClient {
       });
       return result as boolean;
     } catch (err) {
-      console.warn(`[blockchain-api:_supportsInterface] error:`, err);
+      logger.warn(`[blockchain-api:_supportsInterface] error:`, err);
       return false;
     }
   }
@@ -1326,7 +1327,7 @@ export class BlockchainApiClient {
         }) as string;
       }
     } catch (err) {
-      console.warn(`[blockchain-api:_fetchNftMetadata] URI error:`, err);
+      logger.warn(`[blockchain-api:_fetchNftMetadata] URI error:`, err);
     }
 
     if (!uri) {
@@ -1339,7 +1340,7 @@ export class BlockchainApiClient {
         }) as string;
         return { name };
       } catch (err) {
-        console.warn(`[blockchain-api:_fetchNftMetadata] name error:`, err);
+        logger.warn(`[blockchain-api:_fetchNftMetadata] name error:`, err);
         return {};
       }
     }

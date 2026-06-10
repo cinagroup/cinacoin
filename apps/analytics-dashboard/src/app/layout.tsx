@@ -23,7 +23,12 @@ export default function RootLayout({
           href="https://cdn.jsdelivr.net/npm/@fontsource/geist-mono@5.0.0/index.css"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-50 px-4 py-2 bg-[var(--cc-primary)] text-white rounded">
+          Skip to main content
+        </a>
+        {children}
+      </body>
     </html>
   );
 }

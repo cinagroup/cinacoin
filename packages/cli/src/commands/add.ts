@@ -501,7 +501,7 @@ export default function ChainSelector({ chains = DEFAULT_CHAINS, className, onCh
       await switchChain(newChainId);
       onChange?.(newChainId);
     } catch (err) {
-      console.error('Failed to switch chain:', err);
+      logger.error('Failed to switch chain:', err);
     }
   };
 
@@ -690,7 +690,7 @@ export default function SignIn({
       body: JSON.stringify({ message, signature, address }),
     });
   }}
-  onError={(err) => console.error('Sign-in failed:', err)}
+  onError={(err) => logger.error('Sign-in failed:', err)}
 />
 `,
   },

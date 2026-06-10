@@ -3,6 +3,7 @@
  * Uses jose library for production-grade JWT handling.
  */
 
+import { logger } from '@cinacoin/logger';
 import { jwtVerify, decodeJwt } from 'jose';
 
 export interface SessionTokenPayload {
@@ -36,7 +37,7 @@ export async function verifySessionToken(token: string, secret: string): Promise
     
     return null;
   } catch (error) {
-    console.warn('JWT verification failed:', error);
+    logger.warn('JWT verification failed:', error);
     return null;
   }
 }
@@ -51,7 +52,7 @@ export function decodeSessionTokenUnsafe(token: string): SessionTokenPayload | n
     const { payload } = decodeJwt(token);
     return payload as SessionTokenPayload;
   } catch (error) {
-    console.warn('JWT decode failed:', error);
+    logger.warn('JWT decode failed:', error);
     return null;
   }
 }

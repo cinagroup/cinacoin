@@ -8,6 +8,7 @@
  * Registry API: https://registry.walletconnect.com/api/v2/wallets
  */
 
+import { logger } from '@cinacoin/logger';
 import type { WalletRegistryEntry } from './types.js';
 
 // ─── Constants ──────────────────────────────────────────────────
@@ -235,7 +236,7 @@ export async function fetchWallets(
     writeCache(wallets); // cache the full set, not the filtered subset
     return filtered;
   } catch (err) {
-    console.warn('[wallet-registry] Registry fetch failed, trying cache:', err);
+    logger.warn('[wallet-registry] Registry fetch failed, trying cache:', err);
   }
 
   // Step 3: Fall back to stale cache

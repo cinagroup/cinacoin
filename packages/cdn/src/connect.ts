@@ -13,6 +13,7 @@
  * ```
  */
 
+import { logger } from '@cinacoin/logger';
 import { getConfig, validateConfig } from "./config.js";
 import type { CinacoinConfig } from "./config.js";
 
@@ -59,7 +60,7 @@ export function renderConnectButton(
 ): void {
   const element = document.querySelector(selector);
   if (!element) {
-    console.error(`[Cinacoin] Element "${selector}" not found`);
+    logger.error(`[Cinacoin] Element "${selector}" not found`);
     return;
   }
 
@@ -68,7 +69,7 @@ export function renderConnectButton(
 
   const missing = validateConfig(config);
   if (missing.length > 0) {
-    console.warn(`[Cinacoin] Missing config: ${missing.join(", ")}`);
+    logger.warn(`[Cinacoin] Missing config: ${missing.join(", ")}`);
   }
 
   const btn = document.createElement("button");
@@ -137,7 +138,7 @@ async function handleConnect(btn: HTMLElement, config: CinacoinConfig & ConnectB
     btn.textContent = config.label ?? "Connect Wallet";
     btn.style.opacity = "1";
     btn.style.pointerEvents = "auto";
-    console.error("[Cinacoin] Connection failed:", err);
+    logger.error("[Cinacoin] Connection failed:", err);
   }
 }
 

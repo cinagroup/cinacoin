@@ -1,3 +1,4 @@
+import { logger } from '@cinacoin/logger';
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CinacoinService, type Account } from '../cinacoin.service.js';
@@ -124,6 +125,6 @@ export class AccountButtonComponent implements OnInit, OnDestroy {
   }
 
   disconnect(): void {
-    this._service.disconnect().catch(console.error);
+    this._service.disconnect().catch((e) => logger.error(e));
   }
 }

@@ -6,6 +6,7 @@
  * balance queries and transaction broadcasting. Supports TRX and TRC-20 tokens.
  */
 
+import { logger } from '@cinacoin/logger';
 import type { Connector } from '../connector.js';
 import type { Chain, TransactionRequest } from '../types.js';
 
@@ -412,7 +413,7 @@ export class TRONChainAdapter {
         const result = await contract.methods.balanceOf(address).call();
         return String(result);
       } catch (err) {
-        console.warn(`[core-sdk:getTokenBalance] error:`, err);
+        logger.warn(`[core-sdk:getTokenBalance] error:`, err);
         // Fallback to API
       }
     }

@@ -317,7 +317,7 @@ async function decodeSessionToken(token: string, secret?: string): Promise<Serve
     
     return null;
   } catch (error) {
-    console.warn('Session token decode failed:', error);
+    logger.warn('Session token decode failed:', error);
     return null;
   }
 }

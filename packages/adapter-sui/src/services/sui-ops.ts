@@ -10,6 +10,7 @@
  * - Real JSON-RPC execution (sui_executeTransactionBlock)
  */
 
+import { logger } from '@cinacoin/logger';
 import type { SuiTransactionCall, SuiTransferSui } from '../types.js';
 
 /* ─────────────────────────────────────────────────────────────── */
@@ -1148,7 +1149,7 @@ export async function executeMoveCall(
     const txBytes = btoa(JSON.stringify(tx));
     await dryRunTransaction(rpcUrl, txBytes);
   } catch (err) {
-    console.warn('[Sui] Dry-run failed:', err instanceof Error ? err.message : String(err));
+    logger.warn('[Sui] Dry-run failed:', err instanceof Error ? err.message : String(err));
     // Continue anyway — wallet may handle this differently
   }
 
@@ -1178,7 +1179,7 @@ export async function executeTransfer(
     const txBytes = btoa(JSON.stringify(tx));
     await dryRunTransaction(rpcUrl, txBytes);
   } catch (err) {
-    console.warn('[Sui] Dry-run failed:', err instanceof Error ? err.message : String(err));
+    logger.warn('[Sui] Dry-run failed:', err instanceof Error ? err.message : String(err));
   }
 
   return tx;

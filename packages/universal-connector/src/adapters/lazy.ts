@@ -5,6 +5,7 @@
  * and improve startup performance. Adapters are loaded only when first accessed.
  */
 
+import { logger } from '@cinacoin/logger';
 import type { BaseAdapter } from './BaseAdapter.js';
 import type { ChainNamespace } from '@cinacoin/core-sdk';
 
@@ -106,7 +107,7 @@ export class LazyAdapterRegistry {
         entry.instance = instance;
         return instance;
       } catch (error) {
-        console.error(`Failed to load adapter ${id}:`, error);
+        logger.error(`Failed to load adapter ${id}:`, error);
         throw error;
       } finally {
         entry.loading = undefined;

@@ -1,5 +1,6 @@
 "use client";
 
+import { logger } from '@cinacoin/logger';
 import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { exchangeOAuthCode } from "@/lib/api";
@@ -45,7 +46,7 @@ function OAuthCallbackContent() {
         
         router.push(returnUrl);
       } catch (err) {
-        console.error("OAuth callback error:", err);
+        logger.error("OAuth callback error:", err);
         setError(err instanceof Error ? err.message : "Authentication failed");
         setIsProcessing(false);
       }

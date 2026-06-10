@@ -11,6 +11,7 @@
  * Response: { valid: boolean, recoveredAddress?: string, error?: string }
  */
 
+import { logger } from '@cinacoin/logger';
 import { NextResponse } from 'next/server';
 import { recoverMessageAddress } from 'viem';
 
@@ -72,7 +73,7 @@ export async function POST(request: Request): Promise<NextResponse<VerifySiweRes
       recoveredAddress,
     });
   } catch (error) {
-    console.error('[SIWE Verification Error]', error);
+    logger.error('[SIWE Verification Error]', error);
 
     const errorMessage = error instanceof Error ? error.message : 'Unknown verification error';
 

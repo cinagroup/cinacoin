@@ -9,6 +9,7 @@
  * @packageDocumentation
  */
 
+import { logger } from '@cinacoin/logger';
 import { EventEmitter } from '@cinacoin/core-sdk';
 import type { AppMetadata, RequiredNamespace } from '@cinacoin/core-sdk';
 import type {
@@ -236,7 +237,7 @@ export class MultiSessionManager extends EventEmitter {
           sessions.push(managed.session);
         }
       } catch (err) {
-        console.warn(`[MultiSessionManager] Failed to restore session ${stored.topic}:`, err);
+        logger.warn(`[MultiSessionManager] Failed to restore session ${stored.topic}:`, err);
         this.store.deleteSession(stored.topic);
       }
     }
@@ -776,7 +777,7 @@ export class MultiSessionManager extends EventEmitter {
         } as WcClientEvent);
       }
     } catch (err) {
-      console.warn(`[MultiSessionManager] Failed to handle pairing message:`, err);
+      logger.warn(`[MultiSessionManager] Failed to handle pairing message:`, err);
     }
   }
 
@@ -787,7 +788,7 @@ export class MultiSessionManager extends EventEmitter {
   ): Promise<void> {
     const pending = this.pendingProposals.get(pairingTopic);
     if (!pending) {
-      console.warn(`[MultiSessionManager] No pending proposal for topic ${pairingTopic}`);
+      logger.warn(`[MultiSessionManager] No pending proposal for topic ${pairingTopic}`);
       return;
     }
 
@@ -979,7 +980,7 @@ export class MultiSessionManager extends EventEmitter {
         }
       }
     } catch (err) {
-      console.warn(`[MultiSessionManager] Failed to handle message on ${topic}:`, err);
+      logger.warn(`[MultiSessionManager] Failed to handle message on ${topic}:`, err);
     }
   }
 

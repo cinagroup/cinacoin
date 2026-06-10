@@ -96,7 +96,7 @@ export class RelayTransport extends EventEmitter {
             const data = JSON.parse(event.data as string);
             this.handleMessage(data);
           } catch {
-            console.warn('[Cinacoin] Failed to parse relay message:', event.data);
+            logger.warn('[Cinacoin] Failed to parse relay message:', event.data);
           }
         };
 
@@ -190,7 +190,7 @@ export class RelayTransport extends EventEmitter {
         this.emit('ack', msg.topic);
         break;
       case 'error':
-        console.error('[Cinacoin] Relay error:', msg.message);
+        logger.error('[Cinacoin] Relay error:', msg.message);
         this.emit('error', new Error(msg.message as string));
         break;
     }

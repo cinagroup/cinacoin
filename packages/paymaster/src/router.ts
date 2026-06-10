@@ -12,6 +12,7 @@
  * @packageDocumentation
  */
 
+import { logger } from '@cinacoin/logger';
 import type { Address, Hex } from 'viem';
 import type {
   PaymasterData,
@@ -316,13 +317,13 @@ export class PaymasterRouter {
             const balance = await this.config.balanceManager!.checkBalance(pm.address);
             if (!balance.isHealthy) {
               pm.isActive = false;
-              console.warn(
+              logger.warn(
                 `[PaymasterRouter] Deactivated unhealthy paymaster: ${pm.address}`,
               );
             }
           } catch {
             pm.isActive = false;
-            console.warn(
+            logger.warn(
               `[PaymasterRouter] Deactivated unreachable paymaster: ${pm.address}`,
             );
           }

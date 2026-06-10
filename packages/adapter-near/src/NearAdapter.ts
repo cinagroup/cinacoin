@@ -5,6 +5,7 @@
  * Implements the ChainAdapter interface from @cinacoin/core-sdk.
  */
 
+import { logger } from '@cinacoin/logger';
 import type { ChainAdapter } from '@cinacoin/core-sdk';
 import type { Connector } from '@cinacoin/core-sdk';
 import type { Chain } from '@cinacoin/core-sdk';
@@ -78,7 +79,7 @@ class MeteorWalletConnector implements NearWalletConnector {
     if (this.provider) {
       try {
         await this.provider.disconnect();
-      } catch (err) { console.warn('[Near] Operation failed:', err instanceof Error ? err.message : String(err));
+      } catch (err) { logger.warn('[Near] Operation failed:', err instanceof Error ? err.message : String(err));
         // Already disconnected
       }
       this.provider = null;

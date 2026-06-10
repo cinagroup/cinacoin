@@ -5,6 +5,7 @@
  * Documentation: https://docs.transak.com/
  */
 
+import { logger } from '@cinacoin/logger';
 import type { OnRampProviderAdapter } from "../aggregator.js";
 import type { OnRampProvider, OnRampQuote, OnRampQuoteParams, OnRampWidgetParams } from "../types.js";
 
@@ -58,7 +59,7 @@ export class TransakProvider implements OnRampProviderAdapter {
         // In production, parse response for token-specific pricing
       }
     } catch (err) {
-      console.warn('[onramp-sdk/transak] API fetch failed, continuing to estimate:', err);
+      logger.warn('[onramp-sdk/transak] API fetch failed, continuing to estimate:', err);
     }
 
     return this.estimateQuote(params, info);

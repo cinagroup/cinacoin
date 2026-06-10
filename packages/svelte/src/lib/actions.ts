@@ -17,6 +17,7 @@
  * @packageDocumentation
  */
 
+import { logger } from '@cinacoin/logger';
 import type { Action } from 'svelte/action';
 import { open, close, switchChain, isConnected, getConnector } from './stores.js';
 
@@ -71,7 +72,7 @@ export const cinaConnectConnect: Action<
     // The core connect() params do not include a connector selector, so the
     // wallet picker decides; open() is called without connect params.
     open().catch((err: unknown) => {
-      console.error('[Cinacoin] Connection failed:', err);
+      logger.error('[Cinacoin] Connection failed:', err);
     });
   }
 
@@ -157,7 +158,7 @@ export const cinaConnectNetwork: Action<
   function handleClick(_e: MouseEvent) {
     if (!enabled) return;
     switchChain(targetChainId).catch((err: unknown) => {
-      console.error(`[Cinacoin] Failed to switch to chain ${targetChainId}:`, err);
+      logger.error(`[Cinacoin] Failed to switch to chain ${targetChainId}:`, err);
     });
   }
 

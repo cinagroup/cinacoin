@@ -27,6 +27,7 @@
  * ```
  */
 
+import { logger } from '@cinacoin/logger';
 import type { OnRampQuote, OnRampProviderId } from '@cinacoin/onramp-sdk';
 import type { SwapQuote } from '@cinacoin/swap-sdk';
 
@@ -136,7 +137,7 @@ export class QuoteAggregator {
 
       return quotes;
     } catch (error) {
-      console.error('[QuoteAggregator] Failed to fetch quotes:', error);
+      logger.error('[QuoteAggregator] Failed to fetch quotes:', error);
       throw error;
     }
   }
@@ -162,7 +163,7 @@ export class QuoteAggregator {
 
       return onrampQuotes.map((quote) => this.normalizeOnrampQuote(quote));
     } catch (error) {
-      console.warn('[QuoteAggregator] Failed to fetch onramp quotes:', error);
+      logger.warn('[QuoteAggregator] Failed to fetch onramp quotes:', error);
       return [];
     }
   }
@@ -186,7 +187,7 @@ export class QuoteAggregator {
 
       return swapQuotes.map((quote) => this.normalizeSwapQuote(quote));
     } catch (error) {
-      console.warn('[QuoteAggregator] Failed to fetch swap quotes:', error);
+      logger.warn('[QuoteAggregator] Failed to fetch swap quotes:', error);
       return [];
     }
   }

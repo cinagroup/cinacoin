@@ -168,7 +168,7 @@ export class CloudRelay extends EventEmitter {
         await this.connectTo(url);
         return;
       } catch (err) {
-        console.warn(`[CloudRelay] Failed to connect to ${url}:`, err);
+        logger.warn(`[CloudRelay] Failed to connect to ${url}:`, err);
       }
     }
 
@@ -214,7 +214,7 @@ export class CloudRelay extends EventEmitter {
             const data = JSON.parse(event.data as string);
             this.handleMessage(data);
           } catch {
-            console.warn('[CloudRelay] Failed to parse relay message:', event.data);
+            logger.warn('[CloudRelay] Failed to parse relay message:', event.data);
           }
         };
 
@@ -389,7 +389,7 @@ export class CloudRelay extends EventEmitter {
         const subId = await this.sendSubscribe(topic);
         this.activeTopicIds.set(topic, subId);
       } catch (err) {
-        console.warn(`[CloudRelay] Failed to resubscribe to ${topic}:`, err);
+        logger.warn(`[CloudRelay] Failed to resubscribe to ${topic}:`, err);
       }
     }
   }
@@ -514,7 +514,7 @@ export class CloudRelay extends EventEmitter {
       const params = msg.params as { code?: number; message?: string } | undefined;
       const err = new Error(`[IRN] ${params?.message ?? 'Unknown error'}`);
       this.emit('error', err);
-      console.warn('[CloudRelay] IRN error:', params);
+      logger.warn('[CloudRelay] IRN error:', params);
       return;
     }
 
@@ -545,7 +545,7 @@ export class CloudRelay extends EventEmitter {
 
     // Check for pending publish ack (some relays respond to publishes)
     if (response.error) {
-      console.warn(`[CloudRelay] Publish error (id=${response.id}):`, response.error.message);
+      logger.warn(`[CloudRelay] Publish error (id=${response.id}):`, response.error.message);
       this.emit('publish_error', { id: response.id, error: response.error });
     }
   }
@@ -599,7 +599,7 @@ export class CloudRelay extends EventEmitter {
       // Check if we've missed too many pongs
       const timeSincePong = Date.now() - this.lastPongAt;
       if (timeSincePong > this.config.heartbeatInterval * 3) {
-        console.warn(
+        logger.warn(
           `[CloudRelay] No pong received in ${timeSincePong}ms — relay may be dead`,
         );
         this.emit('stale');

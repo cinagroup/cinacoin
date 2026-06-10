@@ -5,6 +5,7 @@
  * through viem's client API.
  */
 
+import { logger } from '@cinacoin/logger';
 import type { Connector } from '../connector.js';
 import type { TransactionRequest, Chain } from '../types.js';
 import { DEFAULT_EVM_CHAINES, getChainById, type EvmChainConfig } from '../configs/evm-chains.js';
@@ -205,7 +206,7 @@ export class EvmAdapter {
         const id = parseInt(c.id, 16) || parseInt(c.id, 10);
         return id === chainId;
       } catch (err) {
-        console.warn(`[core-sdk:findChain] error:`, err);
+        logger.warn(`[core-sdk:findChain] error:`, err);
         return false;
       }
     });

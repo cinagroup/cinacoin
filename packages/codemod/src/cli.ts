@@ -123,15 +123,15 @@ function main(): void {
   ].filter(Boolean) as string[];
 
   if (transforms.length === 0) {
-    console.error("Error: A transform is required. Use --list to see available transforms.");
-    console.error("Usage: npx @cinacoin/codemod <transform> <path>");
+    logger.error("Error: A transform is required. Use --list to see available transforms.");
+    logger.error("Usage: npx @cinacoin/codemod <transform> <path>");
     process.exit(1);
   }
 
   // Validate transforms
   for (const t of transforms) {
     if (!isValidTransform(t)) {
-      console.error(`Error: Unknown transform "${t}". Available: ${listTransforms().join(", ")}`);
+      logger.error(`Error: Unknown transform "${t}". Available: ${listTransforms().join(", ")}`);
       process.exit(1);
     }
   }
@@ -156,7 +156,7 @@ function main(): void {
     try {
       source = readFileSync(filePath, "utf-8");
     } catch (err) {
-      console.warn(`⚠ Skipping unreadable: ${filePath}`);
+      logger.warn(`⚠ Skipping unreadable: ${filePath}`);
       continue;
     }
 

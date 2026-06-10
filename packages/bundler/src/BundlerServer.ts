@@ -777,7 +777,7 @@ export class BundlerServer {
 
       this.metrics.pendingOps = this.pool.pendingCount();
     } catch (err) {
-      console.error('[BundlerServer] Bundle processing error:', err);
+      logger.error('[BundlerServer] Bundle processing error:', err);
     }
   }
 
@@ -805,7 +805,7 @@ function createServer(handler: (req: IncomingMessage, res: any) => Promise<void>
     try {
       await handler(req, res);
     } catch (err) {
-      console.error('[BundlerServer] Unhandled request error:', err);
+      logger.error('[BundlerServer] Unhandled request error:', err);
       res.writeHead(500, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ error: 'Internal server error' }));
     }

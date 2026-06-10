@@ -86,7 +86,7 @@ export class EventEmitter {
         try {
           handler(...args);
         } catch (err) {
-          console.error(`[core-sdk:EventEmitter] Event handler error for "${event}":`, err);
+          logger.error(`[core-sdk:EventEmitter] Event handler error for "${event}":`, err);
         }
       }
     }

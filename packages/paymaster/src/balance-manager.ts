@@ -7,6 +7,7 @@
  * @packageDocumentation
  */
 
+import { logger } from '@cinacoin/logger';
 import type { Address, Hex } from 'viem';
 
 /** Paymaster balance information. */
@@ -57,7 +58,7 @@ export const DEFAULT_TOP_UP_AMOUNT = 100_000_000_000_000_000n; // 0.1 ETH
  * const manager = new PaymasterBalanceManager({
  *   publicClient,
  *   walletClient,
- *   alertFn: (alert) => console.warn(alert.message),
+ *   alertFn: (alert) => logger.warn(alert.message),
  * });
  *
  * const balance = await manager.checkBalance(paymasterAddress);

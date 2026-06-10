@@ -10,6 +10,7 @@
  * This is the production-ready service layer for Bitcoin operations.
  */
 
+import { logger } from '@cinacoin/logger';
 import type { BitcoinConnector } from '../types.js';
 import { BlockstreamClient, type BlockstreamNetwork, type BlockstreamUTXO, type BlockstreamTransaction, type BlockstreamTxStatus, type BlockstreamFeeEstimate } from './blockstream.js';
 import { selectCoins, prepareUtxos, type CoinSelectionUTXO, type CoinSelectionResult, type CoinSelectionConfig } from './coin-selection.js';
@@ -388,7 +389,7 @@ export class BitcoinService {
         return result.txid;
       } catch (err) {
         // Fall through to PSBT method
-        console.warn('[BitcoinService] Native sendTransfer failed, falling back to PSBT:', err instanceof Error ? err.message : String(err));
+        logger.warn('[BitcoinService] Native sendTransfer failed, falling back to PSBT:', err instanceof Error ? err.message : String(err));
       }
     }
 

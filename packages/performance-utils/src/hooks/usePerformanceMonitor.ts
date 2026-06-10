@@ -9,6 +9,7 @@
  *   }
  */
 
+import { logger } from '@cinacoin/logger';
 import { useRef, useEffect, useCallback } from 'react';
 
 export interface PerformanceMonitorOptions {
@@ -72,7 +73,7 @@ export function usePerformanceMonitor(options: PerformanceMonitorOptions = {}): 
 
         if (warningCountRef.current < maxWarnings) {
           if (logToConsole) {
-            console.warn(
+            logger.warn(
               `[Performance] ${componentName} render took ${duration.toFixed(2)}ms ` +
               `(threshold: ${thresholdMs}ms) — render #${metrics.renderCount}`
             );

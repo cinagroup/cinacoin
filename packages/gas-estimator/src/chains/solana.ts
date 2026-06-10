@@ -1,3 +1,4 @@
+import { logger } from '@cinacoin/logger';
 import type { SolanaGasEstimate, GasCache, RpcResponse } from '../types.js';
 
 const DEFAULT_COMPUTE_UNITS = 200_000;
@@ -65,7 +66,7 @@ export class SolanaEstimator {
       });
       return price;
     } catch (err) {
-      console.warn(`Solana RPC call failed for ${url}, returning default:`, err);
+      logger.warn(`Solana RPC call failed for ${url}, returning default:`, err);
       return DEFAULT_COMPUTE_UNIT_PRICE;
     }
   }

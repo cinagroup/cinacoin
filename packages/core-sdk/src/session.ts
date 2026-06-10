@@ -22,6 +22,7 @@
  *    to detect tampering.
  */
 
+import { logger } from '@cinacoin/logger';
 import type { ConnectParams, ConnectionResult } from './types.js';
 import type { Connector } from './connector.js';
 import type { EventHandler } from './types.js';
@@ -139,7 +140,7 @@ export class SessionManager extends EventEmitter {
         this.emit('stateChange', this.state);
       }
     } catch (err) {
-      console.warn(`[core-sdk:restore] error:`, err);
+      logger.warn(`[core-sdk:restore] error:`, err);
       // Corrupted storage — ignore
     }
 
@@ -218,7 +219,7 @@ export class SessionManager extends EventEmitter {
       try {
         await this._connector.disconnect();
       } catch (err) {
-        console.warn(`[core-sdk:terminate] error:`, err);
+        logger.warn(`[core-sdk:terminate] error:`, err);
       }
       this._connector = null;
     }

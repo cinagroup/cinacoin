@@ -109,7 +109,7 @@ export class WcRelay extends EventEmitter {
             const data = JSON.parse(event.data as string) as RelayMessage;
             this.handleMessage(data);
           } catch {
-            console.warn('[WcRelay] Failed to parse relay message:', event.data);
+            logger.warn('[WcRelay] Failed to parse relay message:', event.data);
           }
         };
 
@@ -246,7 +246,7 @@ export class WcRelay extends EventEmitter {
         this.emit('ack', data.topic);
         break;
       case 'error':
-        console.error('[WcRelay] Relay error:', data.message);
+        logger.error('[WcRelay] Relay error:', data.message);
         this.emit('error', new Error(data.message));
         break;
     }

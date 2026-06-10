@@ -101,7 +101,7 @@ export class KantaraWalletConnector implements HederaConnector {
     if (provider) {
       try {
         await provider.request({ method: 'disconnect' });
-      } catch (err) { console.warn('[kantara] Operation failed:', err instanceof Error ? err.message : String(err));
+      } catch (err) { logger.warn('[kantara] Operation failed:', err instanceof Error ? err.message : String(err));
         // Kantara may not support programmatic disconnect
       }
     }

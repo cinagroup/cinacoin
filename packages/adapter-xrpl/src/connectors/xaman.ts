@@ -112,7 +112,7 @@ export class XamanConnector implements XrplConnector {
     if (provider) {
       try {
         await provider.request({ method: 'disconnect' });
-      } catch (err) { console.warn('[xaman] Operation failed:', err instanceof Error ? err.message : String(err));
+      } catch (err) { logger.warn('[xaman] Operation failed:', err instanceof Error ? err.message : String(err));
         // Xaman may not support programmatic disconnect
       }
     }

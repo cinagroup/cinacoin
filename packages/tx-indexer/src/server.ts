@@ -228,7 +228,7 @@ export class IndexerServer {
       // Not found
       jsonResponse(res, 404, { error: 'Not found', path: pathname }, origin);
     } catch (err) {
-      console.error('[IndexerServer] Error:', err);
+      logger.error('[IndexerServer] Error:', err);
       jsonResponse(res, 500, { error: 'Internal server error' }, origin);
     }
   }

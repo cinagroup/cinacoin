@@ -1,3 +1,4 @@
+import { logger } from '@cinacoin/logger';
 import { Directive, HostListener, Input, ElementRef, Renderer2 } from '@angular/core';
 import { CinacoinService } from '../cinacoin.service.js';
 
@@ -47,7 +48,7 @@ export class ConnectDirective {
     try {
       await this._service.connect(this.connectorId);
     } catch (error) {
-      console.error('[cinaConnect] Connection failed:', error);
+      logger.error('[cinaConnect] Connection failed:', error);
     }
   }
 }

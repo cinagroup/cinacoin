@@ -380,7 +380,7 @@ export class UniversalConnector implements IUniversalConnector {
         try {
           cb(data);
         } catch (err) {
-          console.error(`[UniversalConnector] Event handler error for "${event}":`, err);
+          logger.error(`[UniversalConnector] Event handler error for "${event}":`, err);
         }
       }
     }

@@ -295,7 +295,7 @@ export class HeartbeatManager {
           return;
         }
       } catch (err) {
-        console.warn('[Heartbeat] Reconnect attempt failed:', err);
+        logger.warn('[Heartbeat] Reconnect attempt failed:', err);
       }
 
       // Exponential backoff
@@ -328,7 +328,7 @@ export class HeartbeatManager {
 
     // Start automatic reconnection
     this.reconnect().catch((err) => {
-      console.error('[Heartbeat] Automatic reconnection failed:', err);
+      logger.error('[Heartbeat] Automatic reconnection failed:', err);
     });
   }
 
@@ -356,7 +356,7 @@ export class HeartbeatManager {
         try {
           listener(event);
         } catch (err) {
-          console.error('[Heartbeat] Event listener error:', err);
+          logger.error('[Heartbeat] Event listener error:', err);
         }
       }
     }

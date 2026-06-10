@@ -168,6 +168,6 @@ async function main() {
 
 // Run with ethers exception handling
 main().catch((error) => {
-  console.error(error);
+  logger.error(error);
   process.exitCode = 1;
 });

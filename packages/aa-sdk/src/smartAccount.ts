@@ -4,6 +4,7 @@
  * Uses viem for real cryptographic signing of UserOperations.
  */
 
+import { logger } from '@cinacoin/logger';
 import {
   type Address,
   type Hex,
@@ -107,7 +108,7 @@ export class SmartAccount {
       this.state.nonce = nonce;
       return nonce;
     } catch (err) {
-      console.warn(`[SmartAccount] Failed to fetch nonce, using local value:`, err instanceof Error ? err.message : String(err));
+      logger.warn(`[SmartAccount] Failed to fetch nonce, using local value:`, err instanceof Error ? err.message : String(err));
       return this.state.nonce;
     }
   }
@@ -123,7 +124,7 @@ export class SmartAccount {
       this.state.balance = balance;
       return balance;
     } catch (err) {
-      console.warn(`[SmartAccount] Failed to fetch balance, using local value:`, err instanceof Error ? err.message : String(err));
+      logger.warn(`[SmartAccount] Failed to fetch balance, using local value:`, err instanceof Error ? err.message : String(err));
       return this.state.balance;
     }
   }

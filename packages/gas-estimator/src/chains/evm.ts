@@ -1,3 +1,4 @@
+import { logger } from '@cinacoin/logger';
 import type {
   EvmGasEstimate,
   FeeHistoryEntry,
@@ -103,7 +104,7 @@ export class EVMEstimator {
       // If we have a cached entry that's slightly stale, return it
       const stale = this.cache.get(cacheKey);
       if (stale) {
-        console.warn(`Gas RPC call failed for ${url}, returning stale cached data:`, err);
+        logger.warn(`Gas RPC call failed for ${url}, returning stale cached data:`, err);
         return stale;
       }
       throw new Error(`Failed to fetch gas price from ${url}: ${err instanceof Error ? err.message : String(err)}`);
@@ -139,7 +140,7 @@ export class EVMEstimator {
     try {
       return await this.fetchFeeHistory(url, blockCount, newestBlock, rewardPercentiles);
     } catch (err) {
-      console.warn(`Fee history RPC call failed for ${url}, returning defaults:`, err);
+      logger.warn(`Fee history RPC call failed for ${url}, returning defaults:`, err);
       // Return simulated data based on current gas price
       const price = await this.getGasPrice(url);
       return [

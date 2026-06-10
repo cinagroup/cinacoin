@@ -28,6 +28,7 @@
  * ```
  */
 
+import { logger } from '@cinacoin/logger';
 import type { OnRampQuote, OnRampProviderId, UserPreferences } from '@cinacoin/onramp-sdk';
 import type { SwapQuote } from '@cinacoin/swap-sdk';
 
@@ -181,7 +182,7 @@ export class PaymentRouter {
         confidence,
       };
     } catch (error) {
-      console.error('[PaymentRouter] Failed to find buy route:', error);
+      logger.error('[PaymentRouter] Failed to find buy route:', error);
       throw error;
     }
   }
@@ -244,7 +245,7 @@ export class PaymentRouter {
         confidence,
       };
     } catch (error) {
-      console.error('[PaymentRouter] Failed to find swap route:', error);
+      logger.error('[PaymentRouter] Failed to find swap route:', error);
       throw error;
     }
   }

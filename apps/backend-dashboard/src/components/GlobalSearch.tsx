@@ -1,5 +1,6 @@
 'use client';
 
+import { logger } from '@cinacoin/logger';
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 
@@ -54,7 +55,7 @@ export function GlobalSearch() {
         setResults(data.results);
         setSelectedIndex(0);
       } catch (err) {
-        console.error('Search error:', err);
+        logger.error('Search error:', err);
         setResults([]);
       } finally {
         setLoading(false);

@@ -18,6 +18,7 @@
  * ```
  */
 
+import { logger } from '@cinacoin/logger';
 import type { ChainAdapter, ChainAdapterMethods } from './types.js';
 import type { Connector } from '../connector.js';
 import type { TransactionRequest, Chain } from '../types.js';
@@ -109,7 +110,7 @@ export class ViemChainAdapter implements ChainAdapter {
         const id = parseInt(c.id, 16) || parseInt(c.id, 10);
         return id === chainId;
       } catch (err) {
-        console.warn(`[core-sdk:findChain] error:`, err);
+        logger.warn(`[core-sdk:findChain] error:`, err);
         return false;
       }
     });
@@ -201,7 +202,7 @@ export class ViemChainAdapter implements ChainAdapter {
         params: [{ chainId: hexChainId }],
       });
     } catch (err) {
-      console.warn(`[core-sdk:switchChain] error:`, err);
+      logger.warn(`[core-sdk:switchChain] error:`, err);
       // Fallback to connector switchChain
       if (this.connector) {
         return this.connector.switchChain(chainId);

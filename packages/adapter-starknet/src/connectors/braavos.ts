@@ -5,6 +5,7 @@
  * Braavos natively supports account abstraction with hardware-enclave signing.
  */
 
+import { logger } from '@cinacoin/logger';
 import type { StarknetCall, StarknetTransactionResult, StarknetWalletConnector } from '../types.js';
 
 /** Minimal Braavos provider type declarations. */
@@ -84,7 +85,7 @@ export class BraavosConnector implements StarknetWalletConnector {
     if (this.provider) {
       try {
         await this.provider.disconnect();
-      } catch (err) { console.warn('[braavos] Operation failed:', err instanceof Error ? err.message : String(err));
+      } catch (err) { logger.warn('[braavos] Operation failed:', err instanceof Error ? err.message : String(err));
         // Wallet may already be disconnected
       }
       this.provider = null;

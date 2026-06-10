@@ -1,15 +1,18 @@
 /**
  * Backend Dashboard Middleware
  * Applies security headers with stricter CSP for admin interface
+ * 
+ * SECURITY: Uses nonce-based CSP (auto-generated per request).
  */
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { securityHeadersMiddleware } from '@cinacoin/next/server';
 
+// SECURITY: Uses nonce-based CSP (auto-generated per request)
 export const middleware = securityHeadersMiddleware({
   cspOverrides: {
-    'script-src': ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
-    'style-src': ["'self'", "'unsafe-inline'"],
+    'script-src': ["'self'"],
+    'style-src': ["'self'"],
     'img-src': ["'self'", 'data:', 'blob:'],
     'connect-src': [
       "'self'",

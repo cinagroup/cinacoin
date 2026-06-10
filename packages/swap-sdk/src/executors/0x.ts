@@ -5,6 +5,7 @@
  * Documentation: https://0x.org/docs/api
  */
 
+import { logger } from '@cinacoin/logger';
 import type { SwapExecutor } from "../router.js";
 import type { SwapQuote, SwapQuoteParams, SwapRoute, SwapTransaction, TokenInfo } from "../types.js";
 import { calculateMinimumReceived } from "../slippage.js";
@@ -180,7 +181,7 @@ export class ZeroxExecutor implements SwapExecutor {
       recoveryTimeout: 30_000,
       halfOpenMaxAttempts: 3,
       onStateChange: (from, to, error) => {
-        console.warn(
+        logger.warn(
           `[0x executor] Circuit breaker: ${from} → ${to}${error ? ` (cause: ${error.message})` : ""}`,
         );
       },

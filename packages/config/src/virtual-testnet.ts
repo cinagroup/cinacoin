@@ -98,7 +98,7 @@ function getDefaultAccounts(): VirtualTestnetAccount[] {
   
   // Fallback for local development only - these are well-known Hardhat/Anvil test keys
   // NEVER use these in production
-  console.warn('⚠️  Using hardcoded test accounts. Set TEST_ACCOUNTS env var for production.');
+  logger.warn('⚠️  Using hardcoded test accounts. Set TEST_ACCOUNTS env var for production.');
   return [
     {
       address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
