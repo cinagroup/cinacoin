@@ -1,0 +1,7 @@
+name = "cinacoin-farcaster-app"
+compatibility_date = "2024-09-01"
+pages_build_output_dir = "./out"
+
+[vars]
+NEXT_PUBLIC_APP_NAME = "Cinacoin Farcaster App"
+NEXT_PUBLIC_APP_URL = "https://cinacoin-farcaster-app.pages.dev"

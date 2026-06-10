@@ -1,0 +1,30 @@
+{
+  "name": "cinacoin-farcaster-app",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Cinacoin Farcaster Frame Mini App",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "deploy:cf": "next build && wrangler pages deploy out"
+  },
+  "dependencies": {
+    "@cinacoin/farcaster-miniapp": "workspace:*",
+    "next": "^15.5.18",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "19.2.16",
+    "@types/react-dom": "19.2.3",
+    "autoprefixer": "^10.5.0",
+    "postcss": "^8.5.15",
+    "tailwindcss": "^3.4.19",
+    "typescript": "^5.6.0",
+    "wrangler": "^3.0.0"
+  }
+}
