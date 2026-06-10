@@ -97,7 +97,7 @@ export const Modal: React.FC<ModalProps> = ({
             {/* Header */}
             {title && (
               <div className="mb-4 flex items-center justify-between">
-                <h2 className="text-lg font-semibold">{title}</h2>
+                <h2 className="text-[var(--cc-text-lg)] font-semibold">{title}</h2>
                 <button
                   type="button"
                   onClick={onClose}

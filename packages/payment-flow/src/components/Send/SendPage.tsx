@@ -93,30 +93,30 @@ export function SendPage({ tokens = DEFAULT_TOKENS, onSend }: SendPageProps) {
         {txStatus === "pending" && (
           <>
             <div className="w-12 h-12 border-4 border-[var(--color-link)] border-t-transparent rounded-full animate-spin mb-4" />
-            <h2 className="text-xl font-semibold text-white mb-2">Sending…</h2>
-            <p className="text-[var(--color-mute)] text-sm mb-4">Waiting for network confirmation</p>
+            <h2 className="text-[var(--cc-text-xl)] font-semibold text-white mb-2">Sending…</h2>
+            <p className="text-[var(--color-mute)] text-[var(--cc-text-sm)] mb-4">Waiting for network confirmation</p>
           </>
         )}
         {txStatus === "confirmed" && (
           <>
-            <div className="text-5xl mb-4">✅</div>
-            <h2 className="text-xl font-semibold text-white mb-2">Transaction Confirmed</h2>
-            <p className="text-[var(--color-mute)] text-sm mb-2">
+            <div className="text-[var(--cc-text-5xl)] mb-4">✅</div>
+            <h2 className="text-[var(--cc-text-xl)] font-semibold text-white mb-2">Transaction Confirmed</h2>
+            <p className="text-[var(--color-mute)] text-[var(--cc-text-sm)] mb-2">
               {amount} {selectedToken.symbol} sent to
             </p>
-            <code className="bg-black/30 text-[var(--color-success)] px-3 py-1 rounded text-xs mb-4 break-all">
+            <code className="bg-black/30 text-[var(--color-success)] px-3 py-1 rounded text-[var(--cc-text-xs)] mb-4 break-all">
               {recipientAddress}
             </code>
-            <p className="text-[var(--color-mute)] text-xs mb-6 break-all max-w-xs">
+            <p className="text-[var(--color-mute)] text-[var(--cc-text-xs)] mb-6 break-all max-w-xs">
               Tx: {txHash}
             </p>
           </>
         )}
         {txStatus === "failed" && (
           <>
-            <div className="text-5xl mb-4">❌</div>
-            <h2 className="text-xl font-semibold text-[var(--color-error)] mb-2">Transaction Failed</h2>
-            <p className="text-[var(--color-mute)] text-sm mb-4">Something went wrong. Please try again.</p>
+            <div className="text-[var(--cc-text-5xl)] mb-4">❌</div>
+            <h2 className="text-[var(--cc-text-xl)] font-semibold text-[var(--color-error)] mb-2">Transaction Failed</h2>
+            <p className="text-[var(--color-mute)] text-[var(--cc-text-sm)] mb-4">Something went wrong. Please try again.</p>
           </>
         )}
         <button
@@ -136,27 +136,27 @@ export function SendPage({ tokens = DEFAULT_TOKENS, onSend }: SendPageProps) {
   if (step === "confirm") {
     return (
       <div className="max-w-md mx-auto rounded-2xl bg-[var(--color-canvas)]/5 p-6 backdrop-blur">
-        <h2 className="text-xl font-semibold text-white mb-6">Confirm Transaction</h2>
+        <h2 className="text-[var(--cc-text-xl)] font-semibold text-white mb-6">Confirm Transaction</h2>
 
         <div className="space-y-4 mb-6">
-          <div className="flex justify-between text-sm">
+          <div className="flex justify-between text-[var(--cc-text-sm)]">
             <span className="text-[var(--color-mute)]">To</span>
-            <code className="text-white text-xs break-all max-w-[200px]">{recipientAddress}</code>
+            <code className="text-white text-[var(--cc-text-xs)] break-all max-w-[200px]">{recipientAddress}</code>
           </div>
-          <div className="flex justify-between text-sm">
+          <div className="flex justify-between text-[var(--cc-text-sm)]">
             <span className="text-[var(--color-mute)]">Amount</span>
             <span className="text-white font-medium">{amount} {selectedToken.symbol}</span>
           </div>
-          <div className="flex justify-between text-sm">
+          <div className="flex justify-between text-[var(--cc-text-sm)]">
             <span className="text-[var(--color-mute)]">Network Fee</span>
             <span className="text-[var(--color-warning)]">{estimatedFee}</span>
           </div>
-          <div className="flex justify-between text-sm">
+          <div className="flex justify-between text-[var(--cc-text-sm)]">
             <span className="text-[var(--color-mute)]">Network</span>
             <span className="text-white capitalize">{selectedToken.chain}</span>
           </div>
           <hr className="border-[var(--color-hairline-strong)]" />
-          <div className="flex justify-between text-base font-semibold">
+          <div className="flex justify-between text-[var(--cc-text-md)] font-semibold">
             <span className="text-[var(--color-body)]">Total</span>
             <span className="text-white">{amount} {selectedToken.symbol}</span>
           </div>
@@ -186,11 +186,11 @@ export function SendPage({ tokens = DEFAULT_TOKENS, onSend }: SendPageProps) {
 
   return (
     <div className="max-w-md mx-auto rounded-2xl bg-[var(--color-canvas)]/5 p-6 backdrop-blur">
-      <h2 className="text-xl font-semibold text-white mb-6">Send</h2>
+      <h2 className="text-[var(--cc-text-xl)] font-semibold text-white mb-6">Send</h2>
 
       {/* Recipient address */}
       <div className="mb-4">
-        <label className="block text-sm text-[var(--color-mute)] mb-1">Recipient Address</label>
+        <label className="block text-[var(--cc-text-sm)] text-[var(--color-mute)] mb-1">Recipient Address</label>
         <input
           type="text"
           value={recipientAddress}
@@ -201,20 +201,20 @@ export function SendPage({ tokens = DEFAULT_TOKENS, onSend }: SendPageProps) {
           }`}
         />
         {recipientAddress.length > 0 && !isValidAddress && (
-          <p className="text-[var(--color-error)] text-xs mt-1">Invalid address format</p>
+          <p className="text-[var(--color-error)] text-[var(--cc-text-xs)] mt-1">Invalid address format</p>
         )}
       </div>
 
       {/* Token + Amount */}
       <div className="mb-4">
-        <label className="block text-sm text-[var(--color-mute)] mb-1">Amount</label>
+        <label className="block text-[var(--cc-text-sm)] text-[var(--color-mute)] mb-1">Amount</label>
         <div className="flex items-center gap-2 bg-black/20 rounded-xl p-3">
           <input
             type="number"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             placeholder="0.00"
-            className="flex-1 bg-transparent text-white text-lg outline-none"
+            className="flex-1 bg-transparent text-white text-[var(--cc-text-lg)] outline-none"
             min="0"
           />
           <select
@@ -223,7 +223,7 @@ export function SendPage({ tokens = DEFAULT_TOKENS, onSend }: SendPageProps) {
               const token = tokens.find((t) => t.symbol === e.target.value);
               if (token) setSelectedToken(token);
             }}
-            className="bg-black/30 text-white rounded-lg px-3 py-1 text-sm outline-none"
+            className="bg-black/30 text-white rounded-lg px-3 py-1 text-[var(--cc-text-sm)] outline-none"
           >
             {tokens.map((t) => (
               <option key={t.symbol} value={t.symbol} className="bg-[var(--color-canvas-soft-2)]">
@@ -235,7 +235,7 @@ export function SendPage({ tokens = DEFAULT_TOKENS, onSend }: SendPageProps) {
       </div>
 
       {/* Fee estimate */}
-      <div className="mb-6 flex justify-between text-sm">
+      <div className="mb-6 flex justify-between text-[var(--cc-text-sm)]">
         <span className="text-[var(--color-mute)]">Network Fee (est.)</span>
         <span className="text-[var(--color-warning)]">{estimatedFee}</span>
       </div>
@@ -243,7 +243,7 @@ export function SendPage({ tokens = DEFAULT_TOKENS, onSend }: SendPageProps) {
       <button
         onClick={handleConfirm}
         disabled={!canProceed}
-        className={`w-full py-3 rounded-xl font-semibold text-lg transition-colors ${
+        className={`w-full py-3 rounded-xl font-semibold text-[var(--cc-text-lg)] transition-colors ${
           canProceed ? "bg-[var(--color-link)] hover:bg-[var(--color-link)] text-white" : "bg-[var(--color-hairline-strong)] text-[var(--color-mute)] cursor-not-allowed"
         }`}
       >

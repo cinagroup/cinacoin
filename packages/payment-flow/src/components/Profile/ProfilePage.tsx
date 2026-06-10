@@ -77,16 +77,16 @@ export function ProfilePage({
 
   return (
     <div className="max-w-md mx-auto rounded-2xl bg-[var(--color-canvas)]/5 p-6 backdrop-blur">
-      <h2 className="text-xl font-semibold text-white mb-6">Profile</h2>
+      <h2 className="text-[var(--cc-text-xl)] font-semibold text-white mb-6">Profile</h2>
 
       {/* Connected address */}
       <div className="mb-6 bg-black/20 rounded-xl p-4">
-        <p className="text-[var(--color-mute)] text-xs mb-1">Connected Address</p>
+        <p className="text-[var(--color-mute)] text-[var(--cc-text-xs)] mb-1">Connected Address</p>
         <div className="flex items-center justify-between">
-          <code className="text-white text-sm">{shortAddress}</code>
+          <code className="text-white text-[var(--cc-text-sm)]">{shortAddress}</code>
           <button
             onClick={handleCopyAddress}
-            className={`text-xs px-3 py-1 rounded-lg transition-colors ${
+            className={`text-[var(--cc-text-xs)] px-3 py-1 rounded-lg transition-colors ${
               copied ? "bg-[var(--color-success)] text-white" : "bg-black/30 text-[var(--color-body)] hover:bg-black/40"
             }`}
           >
@@ -97,7 +97,7 @@ export function ProfilePage({
 
       {/* Linked providers */}
       <div className="mb-6">
-        <h3 className="text-sm font-semibold text-[var(--color-body)] mb-3">Linked Providers</h3>
+        <h3 className="text-[var(--cc-text-sm)] font-semibold text-[var(--color-body)] mb-3">Linked Providers</h3>
         <div className="space-y-2">
           {linkedProviders.map((provider) => (
             <div
@@ -110,12 +110,12 @@ export function ProfilePage({
                     provider.connected ? "bg-[var(--color-success)]" : "bg-[var(--color-mute)]"
                   }`}
                 />
-                <span className="text-white text-sm">{provider.name}</span>
+                <span className="text-white text-[var(--cc-text-sm)]">{provider.name}</span>
               </div>
               {provider.connected && (
                 <button
                   onClick={() => handleRemoveProvider(provider.id)}
-                  className="text-xs text-[var(--color-error)] hover:text-[var(--color-error)]/80 transition-colors px-2 py-1 rounded-lg hover:bg-[var(--color-error)]/10"
+                  className="text-[var(--cc-text-xs)] text-[var(--color-error)] hover:text-[var(--color-error)]/80 transition-colors px-2 py-1 rounded-lg hover:bg-[var(--color-error)]/10"
                 >
                   Remove
                 </button>
@@ -127,22 +127,22 @@ export function ProfilePage({
 
       {/* Export key */}
       <div className="border-t border-[var(--color-hairline-strong)] pt-4">
-        <h3 className="text-sm font-semibold text-[var(--color-body)] mb-3">Security</h3>
+        <h3 className="text-[var(--cc-text-sm)] font-semibold text-[var(--color-body)] mb-3">Security</h3>
         {showConfirmExport ? (
           <div className="bg-[var(--color-error)]/10 border border-[var(--color-error)]/20 rounded-xl p-4">
-            <p className="text-[var(--color-error)] text-sm mb-3">
+            <p className="text-[var(--color-error)] text-[var(--cc-text-sm)] mb-3">
               ⚠️ Are you sure? This will export your private key. Never share it with anyone.
             </p>
             <div className="flex gap-2">
               <button
                 onClick={handleExportKey}
-                className="px-4 py-2 rounded-lg bg-[var(--color-error)] hover:bg-[var(--color-error)]/90 text-white text-sm font-medium transition-colors"
+                className="px-4 py-2 rounded-lg bg-[var(--color-error)] hover:bg-[var(--color-error)]/90 text-white text-[var(--cc-text-sm)] font-medium transition-colors"
               >
                 Yes, Export Key
               </button>
               <button
                 onClick={() => setShowConfirmExport(false)}
-                className="px-4 py-2 rounded-lg bg-black/20 text-[var(--color-body)] text-sm hover:bg-black/30 transition-colors"
+                className="px-4 py-2 rounded-lg bg-black/20 text-[var(--color-body)] text-[var(--cc-text-sm)] hover:bg-black/30 transition-colors"
               >
                 Cancel
               </button>

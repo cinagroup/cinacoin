@@ -67,7 +67,7 @@ export const LocaleSelector: React.FC<{
       {/* Trigger button */}
       <button
         type="button"
-        className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors hover:bg-[var(--color-canvas-soft-2)] dark:hover:bg-[var(--color-canvas-soft-2)] ${buttonClassName}`}
+        className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-[var(--cc-text-sm)] font-medium transition-colors hover:bg-[var(--color-canvas-soft-2)] dark:hover:bg-[var(--color-canvas-soft-2)] ${buttonClassName}`}
         onClick={() => setOpen((prev) => !prev)}
         aria-expanded={open}
         aria-haspopup="listbox"
@@ -122,7 +122,7 @@ export const LocaleSelector: React.FC<{
                 type="button"
                 role="option"
                 aria-selected={isActive}
-                className={`flex w-full items-center px-4 py-2 text-left text-sm transition-colors ${
+                className={`flex w-full items-center px-4 py-2 text-left text-[var(--cc-text-sm)] transition-colors ${
                   isActive
                     ? 'bg-[var(--color-link-bg-soft)] text-[var(--color-link)] dark:bg-[var(--color-link-deep)]/30'
                     : 'text-[var(--color-ink)] hover:bg-[var(--color-canvas-soft)] dark:text-[var(--color-body)] dark:hover:bg-[var(--color-canvas-soft-2)]'

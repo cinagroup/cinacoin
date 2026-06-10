@@ -88,13 +88,13 @@ export function generateDashboard(
     }
     .header h1 {
       font-size: var(--text-display-md);
-      font-weight: 600;
+      font-weight: var(--cc-weight-semibold);
     }
     .header .badge {
       font-size: var(--text-caption);
       padding: 4px 12px;
       border-radius: 999px;
-      font-weight: 600;
+      font-weight: var(--cc-weight-semibold);
     }
     .badge-healthy { background: rgba(34,197,94,0.15); color: var(--green); }
     .badge-degraded { background: rgba(234,179,8,0.15); color: var(--yellow); }
@@ -119,7 +119,7 @@ export function generateDashboard(
     }
     .summary-card .value {
       font-size: var(--text-display-lg);
-      font-weight: 600;
+      font-weight: var(--cc-weight-semibold);
     }
     .summary-card .label {
       font-size: var(--text-body-sm);
@@ -128,7 +128,7 @@ export function generateDashboard(
     }
     .section-title {
       font-size: var(--text-body-lg);
-      font-weight: 600;
+      font-weight: var(--cc-weight-semibold);
       margin-bottom: 16px;
       display: flex;
       align-items: center;
@@ -155,7 +155,7 @@ export function generateDashboard(
       padding: 16px 20px;
       border-bottom: 1px solid var(--border);
     }
-    .service-name { font-weight: 600; font-size: var(--text-body-sm); }
+    .service-name { font-weight: var(--cc-weight-semibold); font-size: var(--text-body-sm); }
     .service-url { font-size: var(--text-caption); color: var(--text-muted); margin-top: 0px; }
     .status-dot {
       width: 10px; height: 10px;
@@ -176,7 +176,7 @@ export function generateDashboard(
       font-size: var(--text-body-sm);
     }
     .metric-label { color: var(--text-muted); }
-    .metric-value { font-weight: 600; font-variant-numeric: tabular-nums; }
+    .metric-value { font-weight: var(--cc-weight-semibold); font-variant-numeric: tabular-nums; }
     .latency-bar {
       height: 6px;
       border-radius: 3px;
@@ -204,7 +204,7 @@ export function generateDashboard(
     }
     .alert-table th {
       color: var(--text-muted);
-      font-weight: 500;
+      font-weight: var(--cc-weight-medium);
       font-size: var(--text-caption);
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -214,7 +214,7 @@ export function generateDashboard(
       padding: 0px 8px;
       border-radius: 4px;
       font-size: var(--text-caption);
-      font-weight: 600;
+      font-weight: var(--cc-weight-semibold);
       text-transform: uppercase;
     }
     .severity-critical { background: rgba(239,68,68,0.2); color: var(--red); }
@@ -223,7 +223,7 @@ export function generateDashboard(
     .severity-resolved { background: rgba(34,197,94,0.15); color: var(--green); }
     .uptime-pct {
       font-size: var(--text-body-sm);
-      font-weight: 600;
+      font-weight: var(--cc-weight-semibold);
       font-variant-numeric: tabular-nums;
     }
     .chart-section {
@@ -235,7 +235,7 @@ export function generateDashboard(
     }
     .chart-section h3 {
       font-size: var(--text-body-sm);
-      font-weight: 600;
+      font-weight: var(--cc-weight-semibold);
       margin-bottom: 12px;
     }
     .chart-bar-row {
@@ -266,7 +266,7 @@ export function generateDashboard(
       align-items: center;
       padding-left: 8px;
       font-size: var(--text-caption);
-      font-weight: 600;
+      font-weight: var(--cc-weight-semibold);
       color: white;
       min-width: fit-content;
       transition: width 0.5s;
@@ -274,7 +274,7 @@ export function generateDashboard(
     .chart-bar-value {
       width: 60px;
       font-size: var(--text-caption);
-      font-weight: 600;
+      font-weight: var(--cc-weight-semibold);
       text-align: right;
       flex-shrink: 0;
     }

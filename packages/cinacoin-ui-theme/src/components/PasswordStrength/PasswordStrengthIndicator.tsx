@@ -107,7 +107,7 @@ export const PasswordStrengthIndicator: React.FC<PasswordStrengthIndicatorProps>
       {/* Text label */}
       {showLabel && password && (
         <MotionDiv
-          className="text-xs font-medium"
+          className="text-[var(--cc-text-xs)] font-medium"
           initial={animate ? { opacity: 0, y: 4 } : false}
           animate={animate ? { opacity: 1, y: 0 } : false}
           transition={{ duration: 0.2 }}

@@ -24,7 +24,7 @@ export default function Home() {
         {!isConnected ? (
           /* Connect Prompt */
           <div className="text-center py-20">
-            <div className="text-6xl mb-6">🔗</div>
+            <div className="text-[var(--cc-text-6xl)] mb-6">🔗</div>
             <h2 className="text-display-lg font-semibold tracking-tighter text-[var(--cc-ink)] mb-4">
               Welcome to CinaCoin Demo
             </h2>

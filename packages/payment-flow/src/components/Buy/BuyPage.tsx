@@ -65,8 +65,8 @@ export function BuyPage({ tokens = DEFAULT_TOKENS, providers = DEFAULT_PROVIDERS
   if (status === "success") {
     return (
       <div className="flex flex-col items-center justify-center min-h-[400px] rounded-2xl bg-[var(--color-canvas)]/5 p-8">
-        <div className="text-6xl mb-4">✅</div>
-        <h2 className="text-2xl font-semibold text-white mb-2">Purchase Initiated</h2>
+        <div className="text-[var(--cc-text-6xl)] mb-4">✅</div>
+        <h2 className="text-[var(--cc-text-2xl)] font-semibold text-white mb-2">Purchase Initiated</h2>
         <p className="text-[var(--color-mute)] text-center mb-6">
           Your {selectedToken.symbol} purchase is being processed.
           <br />
@@ -84,24 +84,24 @@ export function BuyPage({ tokens = DEFAULT_TOKENS, providers = DEFAULT_PROVIDERS
 
   return (
     <div className="max-w-md mx-auto rounded-2xl bg-[var(--color-canvas)]/5 p-6 backdrop-blur">
-      <h2 className="text-xl font-semibold text-white mb-6">Buy Crypto</h2>
+      <h2 className="text-[var(--cc-text-xl)] font-semibold text-white mb-6">Buy Crypto</h2>
 
       {/* Fiat amount */}
       <div className="mb-4">
-        <label className="block text-sm text-[var(--color-mute)] mb-1">You Pay</label>
+        <label className="block text-[var(--cc-text-sm)] text-[var(--color-mute)] mb-1">You Pay</label>
         <div className="flex items-center gap-2 bg-black/20 rounded-xl p-3">
           <input
             type="number"
             value={fiatAmount}
             onChange={(e) => setFiatAmount(e.target.value)}
             placeholder="0.00"
-            className="flex-1 bg-transparent text-white text-lg outline-none"
+            className="flex-1 bg-transparent text-white text-[var(--cc-text-lg)] outline-none"
             min="0"
           />
           <select
             value={currency}
             onChange={(e) => setCurrency(e.target.value)}
-            className="bg-black/30 text-white rounded-lg px-3 py-1 text-sm outline-none"
+            className="bg-black/30 text-white rounded-lg px-3 py-1 text-[var(--cc-text-sm)] outline-none"
           >
             <option value="USD">USD</option>
             <option value="EUR">EUR</option>
@@ -112,7 +112,7 @@ export function BuyPage({ tokens = DEFAULT_TOKENS, providers = DEFAULT_PROVIDERS
 
       {/* Token selector */}
       <div className="mb-4">
-        <label className="block text-sm text-[var(--color-mute)] mb-1">You Receive</label>
+        <label className="block text-[var(--cc-text-sm)] text-[var(--color-mute)] mb-1">You Receive</label>
         <div className="bg-black/20 rounded-xl p-3">
           <select
             value={selectedToken.symbol}
@@ -120,7 +120,7 @@ export function BuyPage({ tokens = DEFAULT_TOKENS, providers = DEFAULT_PROVIDERS
               const token = tokens.find((t) => t.symbol === e.target.value);
               if (token) setSelectedToken(token);
             }}
-            className="w-full bg-transparent text-white text-lg outline-none"
+            className="w-full bg-transparent text-white text-[var(--cc-text-lg)] outline-none"
           >
             {tokens.map((t) => (
               <option key={t.symbol} value={t.symbol} className="bg-[var(--color-canvas-soft-2)]">
@@ -133,13 +133,13 @@ export function BuyPage({ tokens = DEFAULT_TOKENS, providers = DEFAULT_PROVIDERS
 
       {/* Provider selector */}
       <div className="mb-6">
-        <label className="block text-sm text-[var(--color-mute)] mb-1">Payment Provider</label>
+        <label className="block text-[var(--cc-text-sm)] text-[var(--color-mute)] mb-1">Payment Provider</label>
         <div className="grid grid-cols-3 gap-2">
           {compatibleProviders.map((p) => (
             <button
               key={p.id}
               onClick={() => setSelectedProvider(p.id)}
-              className={`rounded-xl p-3 text-sm font-medium transition-colors ${
+              className={`rounded-xl p-3 text-[var(--cc-text-sm)] font-medium transition-colors ${
                 selectedProvider === p.id
                   ? "bg-[var(--color-link)] text-white"
                   : "bg-black/20 text-[var(--color-body)] hover:bg-black/30"
@@ -155,7 +155,7 @@ export function BuyPage({ tokens = DEFAULT_TOKENS, providers = DEFAULT_PROVIDERS
       <button
         onClick={handleBuy}
         disabled={!fiatAmount || parseFloat(fiatAmount) <= 0 || status === "processing"}
-        className={`w-full py-3 rounded-xl font-semibold text-lg transition-colors ${
+        className={`w-full py-3 rounded-xl font-semibold text-[var(--cc-text-lg)] transition-colors ${
           !fiatAmount || parseFloat(fiatAmount) <= 0 || status === "processing"
             ? "bg-[var(--color-hairline-strong)] text-[var(--color-mute)] cursor-not-allowed"
             : "bg-[var(--color-link)] hover:bg-[var(--color-link)] text-white"

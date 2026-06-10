@@ -23,9 +23,9 @@ export function AssetInventory({ balances = [] }: AssetInventoryProps) {
   if (balances.length === 0) {
     return (
       <div className="max-w-lg mx-auto rounded-2xl bg-[var(--color-canvas)]/5 p-8 backdrop-blur text-center">
-        <div className="text-5xl mb-4">📭</div>
-        <h3 className="text-xl font-semibold text-white mb-2">No assets available</h3>
-        <p className="text-[var(--color-mute)] text-sm">
+        <div className="text-[var(--cc-text-5xl)] mb-4">📭</div>
+        <h3 className="text-[var(--cc-text-xl)] font-semibold text-white mb-2">No assets available</h3>
+        <p className="text-[var(--color-mute)] text-[var(--cc-text-sm)]">
           Connect a wallet or make your first purchase to see your assets here.
         </p>
       </div>
@@ -40,8 +40,8 @@ export function AssetInventory({ balances = [] }: AssetInventoryProps) {
   return (
     <div className="max-w-lg mx-auto rounded-2xl bg-[var(--color-canvas)]/5 p-6 backdrop-blur">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-semibold text-white">Assets</h2>
-        <span className="text-lg font-semibold text-[var(--color-link)]">
+        <h2 className="text-[var(--cc-text-xl)] font-semibold text-white">Assets</h2>
+        <span className="text-[var(--cc-text-lg)] font-semibold text-[var(--color-link)]">
           ${totalFiatValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
         </span>
       </div>
@@ -54,12 +54,12 @@ export function AssetInventory({ balances = [] }: AssetInventoryProps) {
           >
             <div className="flex items-center gap-3">
               {/* Token icon placeholder */}
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[var(--color-link)] to-[var(--cc-violet)] flex items-center justify-center text-white font-semibold text-sm">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[var(--color-link)] to-[var(--cc-violet)] flex items-center justify-center text-white font-semibold text-[var(--cc-text-sm)]">
                 {asset.token.symbol.slice(0, 2)}
               </div>
               <div>
                 <p className="text-white font-medium">{asset.token.name}</p>
-                <p className="text-[var(--color-mute)] text-xs capitalize">{asset.token.chain}</p>
+                <p className="text-[var(--color-mute)] text-[var(--cc-text-xs)] capitalize">{asset.token.chain}</p>
               </div>
             </div>
             <div className="text-right">
@@ -67,7 +67,7 @@ export function AssetInventory({ balances = [] }: AssetInventoryProps) {
                 {parseFloat(asset.balance).toFixed(asset.token.decimals > 6 ? 4 : 2)}{" "}
                 {asset.token.symbol}
               </p>
-              <p className="text-[var(--color-mute)] text-sm">${parseFloat(asset.fiatValue).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+              <p className="text-[var(--color-mute)] text-[var(--cc-text-sm)]">${parseFloat(asset.fiatValue).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
             </div>
           </div>
         ))}
