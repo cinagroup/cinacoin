@@ -134,7 +134,7 @@ export function BridgePage() {
                       onClick={() => setSourceChain(chain.id)}
                       disabled={chain.id === destChain}
                       style={{
-                        padding: '8px 14px', borderRadius: 8,
+                        padding: '8px 16px', borderRadius: 8,
                         border: sourceChain === chain.id ? `2px solid ${chain.color}` : '2px solid #333',
                         background: sourceChain === chain.id ? `${chain.color}20` : '#0d0d1a',
                         color: chain.id === destChain ? '#555' : '#fff',
@@ -153,7 +153,7 @@ export function BridgePage() {
                 <button
                   onClick={handleSwapChains}
                   style={{
-                    padding: '6px 16px', borderRadius: 20, border: '2px solid #333',
+                    padding: '8px 16px', borderRadius: 20, border: '2px solid #333',
                     background: 'transparent', color: '#fff', cursor: 'pointer', fontSize: 16,
                   }}
                 >
@@ -171,7 +171,7 @@ export function BridgePage() {
                       onClick={() => setDestChain(chain.id)}
                       disabled={chain.id === sourceChain}
                       style={{
-                        padding: '8px 14px', borderRadius: 8,
+                        padding: '8px 16px', borderRadius: 8,
                         border: destChain === chain.id ? `2px solid ${chain.color}` : '2px solid #333',
                         background: destChain === chain.id ? `${chain.color}20` : '#0d0d1a',
                         color: chain.id === sourceChain ? '#555' : '#fff',
@@ -195,7 +195,7 @@ export function BridgePage() {
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
                   style={{
-                    width: '100%', padding: '10px 14px', borderRadius: 8,
+                    width: '100%', padding: '12px 16px', borderRadius: 8,
                     border: '2px solid #333', background: '#0d0d1a', color: '#fff',
                     fontSize: 14, outline: 'none', boxSizing: 'border-box',
                   }}
@@ -244,7 +244,7 @@ export function BridgePage() {
                       key={s.key}
                       style={{
                         display: 'flex', alignItems: 'center', gap: 12,
-                        padding: '10px 14px', borderRadius: 8,
+                        padding: '12px 16px', borderRadius: 8,
                         background: isCurrent ? '#6366f120' : isDone ? '#4ade8010' : '#0d0d1a',
                         border: isCurrent ? '1px solid #6366f1' : '1px solid transparent',
                       }}
@@ -275,7 +275,7 @@ export function BridgePage() {
               <button
                 onClick={handleReset}
                 style={{
-                  padding: '10px 20px', borderRadius: 8, border: 'none',
+                  padding: '12px 20px', borderRadius: 8, border: 'none',
                   background: '#6366f1', color: '#fff', cursor: 'pointer',
                 }}
               >

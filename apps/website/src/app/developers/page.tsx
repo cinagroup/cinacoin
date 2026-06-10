@@ -30,7 +30,7 @@ export default function DevelopersPage() {
           <p className="text-[var(--cc-body)] text-[14px] leading-relaxed mb-6">
             {t('dev-quickstart-desc')}
           </p>
-          <div className="bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] p-4 font-mono text-[14px] text-[var(--cc-ink)] overflow-x-auto">
+          <div className="text-code bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] p-4 text-[var(--cc-ink)] overflow-x-auto">
             <p className="text-[var(--cc-muted)]">{t('dev-quickstart-comment1')}</p>
             <p>npm install @cinacoin/sdk</p>
             <br />

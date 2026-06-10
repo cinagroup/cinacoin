@@ -70,13 +70,13 @@ export default function Developers() {
                   />
                 ))}
                 <span
-                  className="ml-2 text-[12px] font-mono"
+                  className="ml-2 text-code"
                   style={{ color: 'var(--cc-muted)' }}
                 >
                   example.tsx
                 </span>
               </div>
-              <pre className="font-mono text-sm leading-relaxed">
+              <pre className="text-code leading-relaxed">
                 <code>
                   <span style={{ color: 'var(--cc-violet)' }}>import</span>{' '}
                   <span style={{ color: 'var(--cc-cyan)' }}>{'{ useCinacoin, ConnectButton }'}</span>{' '}

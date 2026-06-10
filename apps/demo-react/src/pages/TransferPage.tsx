@@ -130,7 +130,7 @@ export function TransferPage() {
                       key={token}
                       onClick={() => setState((s) => ({ ...s, token }))}
                       style={{
-                        padding: '6px 14px',
+                        padding: '8px 16px',
                         borderRadius: 6,
                         border: state.token === token ? '2px solid #6366f1' : '2px solid #333',
                         background: state.token === token ? '#6366f120' : '#0d0d1a',
@@ -155,7 +155,7 @@ export function TransferPage() {
                   onChange={(e) => setState((s) => ({ ...s, to: e.target.value }))}
                   style={{
                     width: '100%',
-                    padding: '10px 14px',
+                    padding: '12px 16px',
                     borderRadius: 8,
                     border: '2px solid #333',
                     background: '#0d0d1a',
@@ -178,7 +178,7 @@ export function TransferPage() {
                   onChange={(e) => setState((s) => ({ ...s, amount: e.target.value }))}
                   style={{
                     width: '100%',
-                    padding: '10px 14px',
+                    padding: '12px 16px',
                     borderRadius: 8,
                     border: '2px solid #333',
                     background: '#0d0d1a',
@@ -222,13 +222,13 @@ export function TransferPage() {
               <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
                 <button
                   onClick={() => setState((s) => ({ ...s, step: 'input' }))}
-                  style={{ padding: '10px 20px', borderRadius: 8, border: '2px solid #333', background: 'transparent', color: '#fff', cursor: 'pointer' }}
+                  style={{ padding: '12px 20px', borderRadius: 8, border: '2px solid #333', background: 'transparent', color: '#fff', cursor: 'pointer' }}
                 >
                   取消
                 </button>
                 <button
                   onClick={handleSend}
-                  style={{ padding: '10px 20px', borderRadius: 8, border: 'none', background: '#6366f1', color: '#fff', fontWeight: 600, cursor: 'pointer' }}
+                  style={{ padding: '12px 20px', borderRadius: 8, border: 'none', background: '#6366f1', color: '#fff', fontWeight: 600, cursor: 'pointer' }}
                 >
                   确认发送
                 </button>
@@ -252,7 +252,7 @@ export function TransferPage() {
               </p>
               <button
                 onClick={handleReset}
-                style={{ padding: '10px 20px', borderRadius: 8, border: 'none', background: '#6366f1', color: '#fff', cursor: 'pointer' }}
+                style={{ padding: '12px 20px', borderRadius: 8, border: 'none', background: '#6366f1', color: '#fff', cursor: 'pointer' }}
               >
                 发起新转账
               </button>

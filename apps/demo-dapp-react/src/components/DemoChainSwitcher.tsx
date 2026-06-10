@@ -138,7 +138,7 @@ const infoRowStyle: React.CSSProperties = {
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  padding: '6px 0',
+  padding: '8px 0',
   fontSize: 'var(--cc-text-sm)',
   borderBottom: '1px solid var(--cc-hairline)',
 };

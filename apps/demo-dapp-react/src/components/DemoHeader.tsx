@@ -69,7 +69,7 @@ export function DemoHeader(): JSX.Element {
               alignItems: 'center',
               gap: 'var(--cc-space-xs)',
               background: 'var(--cc-surface)',
-              padding: '6px var(--cc-space-sm)',
+              padding: '8px var(--cc-space-sm)',
               borderRadius: 'var(--cc-radius-md)',
               fontSize: 'var(--cc-text-xs)',
               fontFamily: 'var(--cc-font-mono)',
@@ -94,7 +94,7 @@ export function DemoHeader(): JSX.Element {
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '6px',
+            gap: '8px',
             fontSize: 'var(--cc-text-xs)',
             fontWeight: 'var(--cc-weight-medium)',
           }}

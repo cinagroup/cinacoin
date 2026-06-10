@@ -24,7 +24,7 @@ export default function ServiceCard({ name, status, uptime, description }: Servi
       </div>
       <div className="mt-3 flex items-center gap-2 text-xs text-[var(--cc-muted)]">
         <span>Uptime:</span>
-        <span className="font-mono text-[var(--cc-body)]">{uptime}</span>
+        <span className="text-code text-[var(--cc-body)]">{uptime}</span>
       </div>
     </div>
   );

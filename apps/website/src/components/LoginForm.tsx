@@ -100,7 +100,7 @@ export function LoginForm() {
         {totpSecret && (
           <div className="p-3 bg-canvas-soft rounded-lg text-center">
             <p className="text-caption text-mute mb-1">Manual entry code:</p>
-            <code className="text-body-sm font-mono">{totpSecret}</code>
+            <code className="text-code">{totpSecret}</code>
           </div>
         )}
 

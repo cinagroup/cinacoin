@@ -119,7 +119,7 @@ export function NFTPage() {
                 style={{
                   width: '100%',
                   marginTop: 16,
-                  padding: '10px 20px',
+                  padding: '12px 20px',
                   borderRadius: 8,
                   border: 'none',
                   background: '#6366f1',

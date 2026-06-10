@@ -59,6 +59,7 @@ body {
   border-radius: 0.75rem;
   background: var(--cc-canvas);
   padding: 1.5rem;
+  box-shadow: var(--cc-level1);
 }
 
 .card-hover:hover {
@@ -125,7 +126,9 @@ body {
 }
 
 .input:focus {
-  border-color: var(--cc-ink);
+  border-color: var(--cc-link);
+  box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.1);
+  outline: none;
 }
 
 /* Table */
@@ -211,8 +214,9 @@ tr:last-child td {
 
 /* Focus ring for interactive elements */
 .input:focus-visible {
-  outline: 2px solid var(--cc-link);
-  outline-offset: 2px;
+  border-color: var(--cc-link);
+  box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.1);
+  outline: none;
 }
 
 .btn-primary:focus-visible,

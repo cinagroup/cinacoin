@@ -314,7 +314,7 @@ html[data-theme='dark'] .theme-doc-sidebar-container {
   font-size: 14px;
   line-height: 1.4;
   border-radius: 6px;
-  padding: 6px 12px;
+  padding: 8px 12px;
   color: var(--cc-body);
   transition: background-color 0.12s ease, color 0.12s ease;
 }
@@ -350,7 +350,7 @@ html[data-theme='dark'] .menu__link--active {
 
 .menu__caret {
   border-radius: 6px;
-  padding: 6px;
+  padding: 8px;
 }
 
 .menu__caret:hover {
@@ -441,7 +441,7 @@ html[data-theme='dark'] .markdown a:hover {
   font-size: 13px;
   line-height: 1.5;
   color: var(--cc-ink);
-  padding: 2px 6px;
+  padding: 4px 8px;
 }
 
 html[data-theme='dark'] .markdown code {
@@ -834,7 +834,7 @@ html[data-theme='dark'] .clean-btn.theme-back-to-top-button {
   font-size: 14px;
   font-weight: 400;
   border-radius: 64px;
-  padding: 6px 16px;
+  padding: 8px 16px;
   color: var(--cc-body);
   border-bottom: none;
   transition: background-color 0.12s ease, color 0.12s ease;
@@ -913,7 +913,7 @@ html[data-theme='dark'] ::-webkit-scrollbar-thumb:hover {
 .badge {
   font-size: 12px;
   border-radius: 9999px;
-  padding: 2px 10px;
+  padding: 4px 12px;
   font-weight: 400;
 }
 

@@ -135,7 +135,7 @@
 }
 
 .balance-card-inner {
-  background: linear-gradient(135deg, var(--color-primary) 0%, #4834d4 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
   border-radius: var(--radius-lg);
   padding: var(--spacing-lg);
   color: white;
@@ -194,7 +194,7 @@
   margin-top: var(--spacing-sm);
   background: rgba(255, 255, 255, 0.15);
   color: white;
-  padding: 6px 12px;
+  padding: 8px 12px;
   border-radius: var(--radius-sm);
   font-size: 12px;
   transition: background 0.2s;

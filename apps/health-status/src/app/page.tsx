@@ -100,7 +100,7 @@ export default function HealthStatusPage() {
             <div key={service.name}>
               <div className="mb-1 flex items-center justify-between">
                 <span className="text-sm text-[var(--cc-body)]">{service.name}</span>
-                <span className="text-xs text-[var(--cc-muted)] font-mono">{service.uptime}</span>
+                <span className="text-code text-[var(--cc-muted)]">{service.uptime}</span>
               </div>
               <StatusBar90Days days={generate90Days()} serviceName={service.name} />
             </div>

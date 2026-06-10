@@ -100,13 +100,13 @@ export default function RealtimeDashboard() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-lg">
         <div className="card p-lg">
           <p className="text-body-sm text-ink-mute mb-xs">Active Users</p>
-          <p className="text-display-lg text-ink font-mono tabular-nums">
+          <p className="text-display-lg text-ink text-code tabular-nums">
             {formatNumber(data.activeUsers)}
           </p>
         </div>
         <div className="card p-lg">
           <p className="text-body-sm text-ink-mute mb-xs">Transactions Per Second</p>
-          <p className="text-display-lg text-ink font-mono tabular-nums">{data.tps}</p>
+          <p className="text-display-lg text-ink text-code tabular-nums">{data.tps}</p>
         </div>
       </div>
 
@@ -130,7 +130,7 @@ export default function RealtimeDashboard() {
                   </div>
                   <div>
                     <p className="text-body-sm font-medium text-ink">{tx.chain}</p>
-                    <p className="text-caption text-ink-mute font-mono">
+                    <p className="text-caption text-ink-mute text-code">
                       {tx.from} → {tx.to}
                     </p>
                   </div>

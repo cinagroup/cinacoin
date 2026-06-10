@@ -156,7 +156,7 @@ export function DeFiPage() {
                       onClick={() => handleUnstake(pool.id)}
                       disabled={stakingPool === pool.id}
                       style={{
-                        padding: '6px 16px', borderRadius: 6, border: '2px solid #f87171',
+                        padding: '8px 16px', borderRadius: 6, border: '2px solid #f87171',
                         background: 'transparent', color: '#f87171', cursor: 'pointer', fontSize: 13,
                       }}
                     >

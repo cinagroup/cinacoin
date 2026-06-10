@@ -125,7 +125,7 @@ export default function MfaVerifyPage() {
                   onChange={(e) => setRecoveryCodeInput(e.target.value)}
                   placeholder="XXXX-XXXX-XXXX"
                   disabled={isLoading}
-                  className="w-full px-3 py-2 border border-[var(--cc-hairline)] rounded-[var(--cc-radius-sm)] bg-[var(--cc-canvas)] text-[var(--cc-ink)] placeholder:text-[var(--cc-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-link)] focus:border-transparent mb-4 font-mono"
+                  className="w-full px-3 py-2 border border-[var(--cc-hairline)] rounded-[var(--cc-radius-sm)] bg-[var(--cc-canvas)] text-[var(--cc-ink)] placeholder:text-[var(--cc-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-link)] focus:border-transparent mb-4 text-code"
                   autoFocus
                 />
                 <button
