@@ -26,23 +26,9 @@
  */
 
 import type { Connector, Chain, ChainAdapter } from '@cinacoin/core-sdk';
+import { CinacoinError } from '@cinacoin/core-sdk';
 import { TonClient, JettonMaster, JettonWallet } from '@ton/ton';
 import { Address, beginCell, Cell, toNano } from '@ton/core';
-
-/* ------------------------------------------------------------------ */
-/*  CinacoinError — standardised error class                           */
-/* ------------------------------------------------------------------ */
-
-/** Standard Cinacoin error with an optional error code. */
-export class CinacoinError extends Error {
-  code?: string;
-
-  constructor(message: string, code?: string) {
-    super(message);
-    this.name = 'CinacoinError';
-    this.code = code;
-  }
-}
 
 /* ------------------------------------------------------------------ */
 /*  TON Address helpers                                                 */

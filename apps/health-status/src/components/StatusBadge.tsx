@@ -1,3 +1,5 @@
+import React from 'react';
+
 type StatusType = "operational" | "degraded" | "outage" | "maintenance";
 
 interface StatusBadgeProps {
@@ -11,7 +13,7 @@ const statusConfig: Record<StatusType, { label: string; color: string; bg: strin
   maintenance: { label: "Maintenance", color: "text-[var(--color-maintenance)]", bg: "bg-[var(--color-maintenance)]/10", dot: "bg-[var(--color-maintenance)]" },
 };
 
-export default function StatusBadge({ status }: StatusBadgeProps) {
+export default React.memo(function StatusBadge({ status }: StatusBadgeProps) {
   const config = statusConfig[status];
   return (
     <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-caption font-medium ${config.color} ${config.bg}`}>
@@ -19,4 +21,4 @@ export default function StatusBadge({ status }: StatusBadgeProps) {
       {config.label}
     </span>
   );
-}
+});

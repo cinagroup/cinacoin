@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useWallet } from '@/hooks/useWallet';
 
@@ -21,7 +22,7 @@ export default function Navigation() {
     <nav className="mb-8 border-b border-hairline pb-4">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <img src="/logo.png" alt="CinaCoin" className="h-6 w-auto" />
+          <Image src="/logo.png" alt="CinaCoin" width={24} height={24} className="h-6 w-auto" />
           <span className="text-heading-3 text-ink">Wallet Explorer</span>
         </div>
         <div>

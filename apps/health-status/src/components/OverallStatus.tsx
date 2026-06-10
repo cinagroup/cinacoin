@@ -1,3 +1,5 @@
+import React from 'react';
+
 type OverallStatusType = "all-operational" | "partial-outage" | "major-outage" | "maintenance";
 
 interface OverallStatusProps {
@@ -35,7 +37,7 @@ const config: Record<OverallStatusType, { label: string; color: string; bg: stri
   },
 };
 
-export default function OverallStatus({ status }: OverallStatusProps) {
+export default React.memo(function OverallStatus({ status }: OverallStatusProps) {
   const c = config[status];
   return (
     <div className={`rounded-[8px] border ${c.border} ${c.bg} p-6 text-center`}>
@@ -44,4 +46,4 @@ export default function OverallStatus({ status }: OverallStatusProps) {
       <p className="mt-1 text-body-sm text-[var(--cc-body)]">Last updated: just now</p>
     </div>
   );
-}
+});

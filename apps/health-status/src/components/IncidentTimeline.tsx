@@ -1,3 +1,5 @@
+import React from 'react';
+
 type IncidentStatus = "resolved" | "investigating" | "monitoring" | "identified";
 
 interface IncidentUpdate {
@@ -28,7 +30,7 @@ const severityColors: Record<string, string> = {
   critical: "border-[var(--cc-error)]/50",
 };
 
-export default function IncidentTimeline({ incidents }: { incidents: Incident[] }) {
+export default React.memo(function IncidentTimeline({ incidents }: { incidents: Incident[] }) {
   return (
     <div className="space-y-4">
       {incidents.map((incident) => {
@@ -62,4 +64,4 @@ export default function IncidentTimeline({ incidents }: { incidents: Incident[] 
       })}
     </div>
   );
-}
+});

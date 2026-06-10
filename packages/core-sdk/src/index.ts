@@ -581,6 +581,39 @@ export * from './react/index.js';
 // Chain Registry
 export * from './chains.js';
 
+// Error System
+export {
+  CinacoinError,
+  ConnectionError,
+  AuthenticationError,
+  ChainError,
+  TransactionError,
+  WalletConnectError,
+  SigningError,
+  NetworkError,
+  SdkError,
+  SecurityError,
+  createError,
+  resolveCodeDef,
+} from './errors/index.js';
+export type {
+  ErrorSeverity,
+  ErrorCodeDefinition,
+} from './errors/index.js';
+export {
+  CONNECTION,
+  AUTHENTICATION,
+  CHAIN,
+  TRANSACTION,
+  WALLET_CONNECT,
+  SIGNING,
+  NETWORK,
+  SDK,
+  SECURITY,
+  getErrorCode,
+  getErrorByIdentifier,
+} from './errors/index.js';
+
 // Utility Functions
 export * from './utils/signature.js';
 export * from './utils/chain.js';

@@ -6,6 +6,7 @@ import FadeIn from '@/components/FadeIn'
 import AnimatedNumber from '@/components/AnimatedNumber'
 import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { useI18n } from '@/providers/I18nProvider'
+import { sanitizeHtml } from '@/lib/sanitize'
 
 const timelineData = [
   { date: '2024 Q1', event: 'Project founded', detail: 'Started as an internal toolkit for cross-chain dApps' },
@@ -35,7 +36,7 @@ export default function AboutContent() {
             </h1>
             <p
               className="mt-6 cc-body-lg text-[var(--cc-body)] max-w-2xl mx-auto"
-              dangerouslySetInnerHTML={{ __html: t('about-hero-subtitle') }}
+              dangerouslySetInnerHTML={{ __html: sanitizeHtml(t('about-hero-subtitle')) }}
             />
           </div>
         </FadeIn>

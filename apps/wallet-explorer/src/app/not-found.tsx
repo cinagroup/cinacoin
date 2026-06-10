@@ -1,6 +1,7 @@
 "use client";
 
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function NotFound() {
   return (
@@ -22,7 +23,7 @@ export default function NotFound() {
           <div className="flex flex-wrap gap-12 justify-between">
             <div className="max-w-[280px] flex flex-col gap-3">
               <div className="flex items-center gap-2">
-                <img src="/logo.png" alt="CinaCoin" className="h-5 w-auto" />
+                <Image src="/logo.png" alt="CinaCoin" width={20} height={20} className="h-5 w-auto" />
                 <span className="text-body-sm font-medium text-ink">CinaCoin</span>
               </div>
               <p className="text-body-sm text-mute">

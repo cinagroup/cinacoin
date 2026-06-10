@@ -28,26 +28,12 @@
  */
 
 import type { Connector, Chain, ChainAdapter } from '@cinacoin/core-sdk';
+import { CinacoinError } from '@cinacoin/core-sdk';
 import TronWeb from 'tronweb';
 
 // TronWeb lacks proper TypeScript types
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const TronWebAny = TronWeb as unknown;
-
-/* ------------------------------------------------------------------ */
-/*  CinacoinError — standardised error class                           */
-/* ------------------------------------------------------------------ */
-
-/** Standard Cinacoin error with an optional error code. */
-export class CinacoinError extends Error {
-  code?: string;
-
-  constructor(message: string, code?: string) {
-    super(message);
-    this.name = 'CinacoinError';
-    this.code = code;
-  }
-}
 
 /* ------------------------------------------------------------------ */
 /*  Address validation                                                */

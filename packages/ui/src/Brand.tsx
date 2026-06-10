@@ -1,3 +1,5 @@
+import React from 'react';
+
 export interface BrandProps {
   /** Logo image src. Defaults to /logo.png (each app serves its own copy). */
   logoSrc?: string;
@@ -16,7 +18,7 @@ export interface BrandProps {
  * Canonical Cinacoin brand lockup: square logo + "Cinacoin" ink wordmark,
  * with an optional muted sub-label. Used in every app's header/footer.
  */
-export function Brand({
+export const Brand = React.memo(function Brand({
   logoSrc = '/logo.png',
   href = 'https://cinacoin.com',
   sublabel,
@@ -69,4 +71,4 @@ export function Brand({
       {inner}
     </a>
   );
-}
+});

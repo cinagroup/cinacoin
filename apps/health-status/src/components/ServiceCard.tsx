@@ -1,3 +1,4 @@
+import React from 'react';
 import StatusBadge from "./StatusBadge";
 
 type StatusType = "operational" | "degraded" | "outage" | "maintenance";
@@ -9,7 +10,7 @@ interface ServiceCardProps {
   description: string;
 }
 
-export default function ServiceCard({ name, status, uptime, description }: ServiceCardProps) {
+export default React.memo(function ServiceCard({ name, status, uptime, description }: ServiceCardProps) {
   return (
     <div 
       className="rounded-[8px] border border-[var(--cc-hairline)] bg-[var(--cc-canvas)] p-5 transition-all duration-200 hover:shadow-[var(--cc-level2)]"
@@ -28,4 +29,4 @@ export default function ServiceCard({ name, status, uptime, description }: Servi
       </div>
     </div>
   );
-}
+});

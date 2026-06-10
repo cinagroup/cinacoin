@@ -46,10 +46,16 @@ export default function LoginContent() {
       }
 
       if (data.accessToken) {
-        localStorage.setItem('access_token', data.accessToken)
-        if (data.refreshToken) {
-          localStorage.setItem('refresh_token', data.refreshToken)
-        }
+        // SECURITY: Store tokens in httpOnly cookies via server API instead of localStorage
+        // This prevents XSS attacks from stealing auth tokens
+        await fetch('/api/auth/session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            accessToken: data.accessToken,
+            refreshToken: data.refreshToken,
+          }),
+        })
         router.push('/dashboard')
       }
     } catch (err: any) {

@@ -28,16 +28,18 @@ export default function TransferFramePage() {
           </p>
           <div className="space-y-3">
             <div className="bg-[var(--color-canvas-soft-2)] rounded-xl p-4 text-left">
-              <label className="text-body-sm text-[var(--color-mute)] block mb-1">To</label>
+              <label htmlFor="transfer-to" className="text-body-sm text-[var(--color-mute)] block mb-1">To</label>
               <input
+                id="transfer-to"
                 type="text"
                 placeholder="0x..."
                 className="w-full bg-[var(--color-hairline-strong)] rounded-lg px-3 py-2 text-[var(--color-on-primary)] font-[var(--font-mono)] text-body-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-link)]"
               />
             </div>
             <div className="bg-[var(--color-canvas-soft-2)] rounded-xl p-4 text-left">
-              <label className="text-body-sm text-[var(--color-mute)] block mb-1">Amount</label>
+              <label htmlFor="transfer-amount" className="text-body-sm text-[var(--color-mute)] block mb-1">Amount</label>
               <input
+                id="transfer-amount"
                 type="text"
                 placeholder="0.00"
                 className="w-full bg-[var(--color-hairline-strong)] rounded-lg px-3 py-2 text-[var(--color-on-primary)] font-[var(--font-mono)] text-body-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-link)]"

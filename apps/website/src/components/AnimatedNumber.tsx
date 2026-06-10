@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useInView } from '@/hooks/useInView'
 
 interface AnimatedNumberProps {
@@ -19,7 +19,7 @@ function parseNumber(value: string): { prefix: string; num: number; suffix: stri
   }
 }
 
-export default function AnimatedNumber({ value, duration = 2000 }: AnimatedNumberProps) {
+export default React.memo(function AnimatedNumber({ value, duration = 2000 }: AnimatedNumberProps) {
   const [ref, inView] = useInView({ threshold: 0.3 })
   const [displayed, setDisplayed] = useState(value)
   const { prefix, num, suffix } = parseNumber(value)
@@ -68,4 +68,4 @@ export default function AnimatedNumber({ value, duration = 2000 }: AnimatedNumbe
       {displayed}
     </span>
   )
-}
+})

@@ -1,3 +1,5 @@
+import React from 'react';
+
 type DayStatus = "operational" | "degraded" | "outage" | "maintenance" | "none";
 
 interface StatusBar90DaysProps {
@@ -13,7 +15,7 @@ const dayColors: Record<DayStatus, string> = {
   none: "bg-[var(--cc-hairline-strong)]",
 };
 
-export default function StatusBar90Days({ days, serviceName }: StatusBar90DaysProps) {
+export default React.memo(function StatusBar90Days({ days, serviceName }: StatusBar90DaysProps) {
   return (
     <div className="mt-2">
       <div className="flex gap-1" title={serviceName}>
@@ -31,4 +33,4 @@ export default function StatusBar90Days({ days, serviceName }: StatusBar90DaysPr
       </div>
     </div>
   );
-}
+});

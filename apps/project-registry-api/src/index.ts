@@ -9,7 +9,21 @@ import type { Env } from './db/types';
 
 const app = new Hono<{ Bindings: Env }>();
 
-app.use('*', cors());
+// SECURITY: Restrict CORS to specific origins
+const ALLOWED_ORIGINS = [
+  'https://cinacoin.com',
+  'https://www.cinacoin.com',
+  'https://cloud.cinacoin.com',
+  'https://backend.cinacoin.com',
+  'https://analytics.cinacoin.com',
+];
+
+app.use('*', cors({
+  origin: ALLOWED_ORIGINS,
+  allowMethods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowHeaders: ['Content-Type', 'Authorization', 'X-API-Key', 'X-Owner-Address'],
+  maxAge: 86400,
+}));
 
 // Apply rate limiting to all API routes
 app.use('/api/*', createRateLimiter({ windowMs: 60_000, limit: 100 }));

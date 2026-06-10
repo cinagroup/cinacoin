@@ -168,7 +168,7 @@ export function UserManagement() {
             <h3 className="text-heading-3 text-ink mb-4">Edit User</h3>
             <div className="space-y-md">
               <div>
-                <label className="label">Name</label>
+                <label htmlFor="name" className="label">Name</label>
                 <input
                   type="text"
                   defaultValue={editingUser.name}
@@ -177,7 +177,7 @@ export function UserManagement() {
                 />
               </div>
               <div>
-                <label className="label">Email</label>
+                <label htmlFor="email" className="label">Email</label>
                 <input
                   type="email"
                   defaultValue={editingUser.email}
@@ -186,7 +186,7 @@ export function UserManagement() {
                 />
               </div>
               <div>
-                <label className="label">Role</label>
+                <label htmlFor="role" className="label">Role</label>
                 <select defaultValue={editingUser.role} className="select" id="edit-role">
                   <option value="User">User</option>
                   <option value="Editor">Editor</option>
@@ -195,7 +195,7 @@ export function UserManagement() {
                 </select>
               </div>
               <div>
-                <label className="label">Status</label>
+                <label htmlFor="status" className="label">Status</label>
                 <select defaultValue={editingUser.status} className="select" id="edit-status">
                   <option value="active">Active</option>
                   <option value="suspended">Suspended</option>
@@ -238,15 +238,15 @@ export function UserManagement() {
             <h3 className="text-heading-3 text-ink mb-4">Add New User</h3>
             <div className="space-y-md">
               <div>
-                <label className="label">Name</label>
+                <label htmlFor="name" className="label">Name</label>
                 <input type="text" className="cc-form-input" id="add-name" placeholder="John Doe" />
               </div>
               <div>
-                <label className="label">Email</label>
+                <label htmlFor="email" className="label">Email</label>
                 <input type="email" className="cc-form-input" id="add-email" placeholder="john@example.com" />
               </div>
               <div>
-                <label className="label">Role</label>
+                <label htmlFor="role" className="label">Role</label>
                 <select className="select" id="add-role" defaultValue="User">
                   <option value="User">User</option>
                   <option value="Editor">Editor</option>

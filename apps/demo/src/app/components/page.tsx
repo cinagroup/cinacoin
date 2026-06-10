@@ -529,7 +529,7 @@ function ToggleSwitch({ checked, onChange }) {
             <div className="space-y-4">
               {/* Text input */}
               <div>
-                <label className="text-body-sm text-[var(--cc-muted)] mb-1 block">Wallet Address</label>
+                <label htmlFor="wallet-address" className="text-body-sm text-[var(--cc-muted)] mb-1 block">Wallet Address</label>
                 <input
                   type="text"
                   placeholder="0x..."
@@ -541,7 +541,7 @@ function ToggleSwitch({ checked, onChange }) {
 
               {/* Search input */}
               <div className="relative">
-                <label className="text-body-sm text-[var(--cc-muted)] mb-1 block">Search Tokens</label>
+                <label htmlFor="search-tokens" className="text-body-sm text-[var(--cc-muted)] mb-1 block">Search Tokens</label>
                 <input
                   type="text"
                   placeholder="Search by name, symbol, or address..."
@@ -552,8 +552,8 @@ function ToggleSwitch({ checked, onChange }) {
 
               {/* Select */}
               <div className="relative">
-                <label className="text-body-sm text-[var(--cc-muted)] mb-1 block">Network</label>
-                <select className="w-full px-4 py-3 bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/50 rounded-md text-body-sm text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-link)]/40 appearance-none cursor-pointer">
+                <label htmlFor="network" className="text-body-sm text-[var(--cc-muted)] mb-1 block">Network</label>
+                <select id="search-tokens" className="w-full px-4 py-3 bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/50 rounded-md text-body-sm text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-link)]/40 appearance-none cursor-pointer">
                   <option>Ethereum</option>
                   <option>Polygon</option>
                   <option>Arbitrum</option>

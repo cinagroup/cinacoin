@@ -27,8 +27,9 @@ export default function SignFramePage() {
             Sign a message with your connected wallet to prove ownership.
           </p>
           <div className="bg-[var(--color-canvas-soft-2)] rounded-xl p-4 text-left">
-            <label className="text-body-sm text-[var(--color-mute)] block mb-1">Message</label>
+            <label htmlFor="sign-message" className="text-body-sm text-[var(--color-mute)] block mb-1">Message</label>
             <textarea
+              id="sign-message"
               placeholder="Enter message to sign..."
               rows={4}
               className="w-full bg-[var(--color-hairline-strong)] rounded-lg px-3 py-2 text-[var(--color-on-primary)] text-body-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-success)] resize-none"

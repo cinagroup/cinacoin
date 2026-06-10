@@ -65,7 +65,7 @@ export function DemoBridge() {
 
           <div className="space-y-4">
             <div>
-              <label className="cc-label mb-2 block">金额</label>
+              <label htmlFor="金额" className="cc-label mb-2 block">金额</label>
               <div className="flex gap-2">
                 <input
                   type="number"
@@ -73,7 +73,7 @@ export function DemoBridge() {
                   placeholder="0.00"
                   defaultValue="0.1"
                 />
-                <select className="cc-input w-24">
+                <select id="金额" className="cc-input w-24">
                   <option value="ETH">ETH</option>
                   <option value="USDC">USDC</option>
                   <option value="USDT">USDT</option>

@@ -1,12 +1,14 @@
 'use client';
 
+import Image from 'next/image';
+
 export default function NotFound() {
   return (
     <div className="min-h-screen bg-[var(--cc-canvas-soft)]">
       <header className="sticky top-0 z-50 h-16 bg-[var(--cc-canvas)] border-b border-[var(--cc-hairline)]">
         <div className="cc-container px-4 h-16 flex items-center justify-between">
           <a href="https://cinacoin.com" className="flex items-center gap-2" aria-label="Cinacoin home">
-            <img src="/logo.png" alt="Cinacoin" width={28} height={28} className="h-7 w-7 rounded-md" loading="lazy" />
+            <Image src="/logo.png" alt="Cinacoin" width={28} height={28} className="h-7 w-7 rounded-md" loading="lazy" />
             <span className="cc-body-md-strong text-[var(--cc-ink)]">
               Cinacoin <span className="cc-body-md text-[var(--cc-muted)] font-normal">Status</span>
             </span>

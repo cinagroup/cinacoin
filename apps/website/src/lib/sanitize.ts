@@ -1,7 +1,8 @@
 /**
  * HTML Sanitization utility for safe rendering of translated content
+ * Uses isomorphic-dompurify for both client and server-side sanitization
  */
-import DOMPurify from 'dompurify';
+import DOMPurify from 'isomorphic-dompurify';
 
 // Allowed tags for legal/content pages
 const ALLOWED_TAGS = ['b', 'i', 'em', 'strong', 'a', 'p', 'br', 'ul', 'ol', 'li', 'span'];
@@ -10,14 +11,9 @@ const ALLOWED_ATTR = ['href', 'target', 'rel'];
 /**
  * Sanitize HTML content to prevent XSS attacks
  * Use this for any content rendered with dangerouslySetInnerHTML
+ * Works on both client and server (SSR)
  */
 export function sanitizeHtml(html: string): string {
-  if (typeof window === 'undefined') {
-    // Server-side rendering - return as-is (DOMPurify requires DOM)
-    // In production, consider using isomorphic-dompurify
-    return html;
-  }
-  
   return DOMPurify.sanitize(html, {
     ALLOWED_TAGS,
     ALLOWED_ATTR,
@@ -28,12 +24,8 @@ export function sanitizeHtml(html: string): string {
 
 /**
  * Strip all HTML tags - use when you only need plain text
+ * Works on both client and server (SSR)
  */
 export function stripHtml(html: string): string {
-  if (typeof window === 'undefined') {
-    // Simple server-side strip
-    return html.replace(/<[^>]*>/g, '');
-  }
-  
   return DOMPurify.sanitize(html, { ALLOWED_TAGS: [] });
 }

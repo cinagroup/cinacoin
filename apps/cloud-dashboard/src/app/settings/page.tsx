@@ -57,7 +57,7 @@ export default function SettingsPage() {
               <form className="space-y-6">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-body-sm font-medium text-ink mb-2">First Name</label>
+                    <label htmlFor="first-name" className="block text-body-sm font-medium text-ink mb-2">First Name</label>
                     <input
                       type="text"
                       defaultValue="Admin"
@@ -65,7 +65,7 @@ export default function SettingsPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-body-sm font-medium text-ink mb-2">Last Name</label>
+                    <label htmlFor="last-name" className="block text-body-sm font-medium text-ink mb-2">Last Name</label>
                     <input
                       type="text"
                       defaultValue="User"
@@ -74,7 +74,7 @@ export default function SettingsPage() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-body-sm font-medium text-ink mb-2">Email Address</label>
+                  <label htmlFor="email-address" className="block text-body-sm font-medium text-ink mb-2">Email Address</label>
                   <input
                     type="email"
                     defaultValue="admin@cinacoin.com"
@@ -82,7 +82,7 @@ export default function SettingsPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-body-sm font-medium text-ink mb-2">Company</label>
+                  <label htmlFor="company" className="block text-body-sm font-medium text-ink mb-2">Company</label>
                   <input
                     type="text"
                     defaultValue="CinaCoin"
@@ -104,16 +104,16 @@ export default function SettingsPage() {
                 <h2 className="text-heading-3 text-ink mb-6">Change Password</h2>
                 <form className="space-y-4">
                   <div>
-                    <label className="block text-body-sm font-medium text-ink mb-2">Current Password</label>
-                    <input type="password" className="cc-form-input" />
+                    <label htmlFor="current-password" className="block text-body-sm font-medium text-ink mb-2">Current Password</label>
+                    <input id="current-password" type="password" className="cc-form-input" />
                   </div>
                   <div>
-                    <label className="block text-body-sm font-medium text-ink mb-2">New Password</label>
-                    <input type="password" className="cc-form-input" />
+                    <label htmlFor="new-password" className="block text-body-sm font-medium text-ink mb-2">New Password</label>
+                    <input id="new-password" type="password" className="cc-form-input" />
                   </div>
                   <div>
-                    <label className="block text-body-sm font-medium text-ink mb-2">Confirm New Password</label>
-                    <input type="password" className="cc-form-input" />
+                    <label htmlFor="confirm-new-password" className="block text-body-sm font-medium text-ink mb-2">Confirm New Password</label>
+                    <input id="confirm-new-password" type="password" className="cc-form-input" />
                   </div>
                   <div className="flex justify-end pt-4 border-t border-hairline">
                     <button type="submit" className="cc-btn-primary px-4 py-2">Update Password</button>
@@ -147,8 +147,8 @@ export default function SettingsPage() {
                       <p className="text-body-sm font-medium text-ink">{item.label}</p>
                       <p className="text-caption text-mute mt-1">{item.desc}</p>
                     </div>
-                    <label className="relative inline-flex items-center cursor-pointer">
-                      <input type="checkbox" defaultChecked={idx < 2} className="sr-only peer" />
+                    <label htmlFor="field-149" className="relative inline-flex items-center cursor-pointer">
+                      <input id="field-149" type="checkbox" defaultChecked={idx < 2} className="sr-only peer" />
                       <div className="w-11 h-6 bg-canvas-soft-2 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-link/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-[var(--color-canvas)] after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-canvas after:border-hairline after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-link"></div>
                     </label>
                   </div>
@@ -163,7 +163,7 @@ export default function SettingsPage() {
               <h2 className="text-heading-3 text-ink mb-6">API Configuration</h2>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-body-sm font-medium text-ink mb-2">API Endpoint</label>
+                  <label htmlFor="api-endpoint" className="block text-body-sm font-medium text-ink mb-2">API Endpoint</label>
                   <input
                     type="text"
                     value="https://api.cinacoin.com/v1"
@@ -172,7 +172,7 @@ export default function SettingsPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-body-sm font-medium text-ink mb-2">WebSocket Endpoint</label>
+                  <label htmlFor="websocket-endpoint" className="block text-body-sm font-medium text-ink mb-2">WebSocket Endpoint</label>
                   <input
                     type="text"
                     value="wss://ws.cinacoin.com"
