@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { logger } from '@/lib/logger';
 
 interface PerformanceData {
   date: string;
@@ -19,7 +20,7 @@ export default function PerformancePage() {
       .then(res => res.json())
       .then(data => setData(data.results))
       .catch(err => {
-        console.error('Failed to fetch performance data:', err);
+        logger.error('Failed to fetch performance data', err);
         setError(err.message);
       });
   }, []);

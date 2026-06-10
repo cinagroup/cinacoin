@@ -1,11 +1,14 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
+import { createLogger } from '@cinacoin/logger';
 import { SCHEMA } from './db/schema';
 import { projectRoutes } from './routes/projects';
 import { keyRoutes } from './routes/keys';
 import { usageRoutes } from './routes/usage';
 import { createRateLimiter } from './middleware/rateLimiter';
 import type { Env } from './db/types';
+
+const logger = createLogger({ name: 'project-registry-api', level: 'info' });
 
 const app = new Hono<{ Bindings: Env }>();
 

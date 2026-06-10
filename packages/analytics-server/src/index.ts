@@ -11,7 +11,9 @@ import { GdprAnonymizer } from "./anonymizer.js";
 import { EventDeduplicator } from "./deduplicator.js";
 import { EventBatcher } from "./batcher.js";
 import { PrometheusMetrics } from "./metrics.js";
-import { logger } from '@cinacoin/logger';
+import { createLogger } from '@cinacoin/logger';
+
+const logger = createLogger({ name: 'analytics-server', level: 'info' });
 
 export interface Env {
   DB: D1Database;

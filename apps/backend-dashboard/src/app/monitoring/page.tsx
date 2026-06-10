@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { logger } from '@/lib/logger';
 
 interface Metric {
   timestamp: string;
@@ -30,7 +31,7 @@ export default function MonitoringPage() {
       .then(res => res.json())
       .then(data => setMetrics(data.metrics || []))
       .catch(err => {
-        console.error('Failed to fetch metrics:', err);
+        logger.error('Failed to fetch metrics', err);
         setError(err.message);
       });
     
@@ -38,7 +39,7 @@ export default function MonitoringPage() {
       .then(res => res.json())
       .then(data => setAlerts(data.alerts || []))
       .catch(err => {
-        console.error('Failed to fetch alerts:', err);
+        logger.error('Failed to fetch alerts', err);
         setError(err.message);
       });
   }, [selectedService]);

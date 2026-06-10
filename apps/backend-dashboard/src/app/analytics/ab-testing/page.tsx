@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { logger } from '@/lib/logger';
 
 interface Experiment {
   id: string;
@@ -30,7 +31,7 @@ export default function ABTestingPage() {
       .then(res => res.json())
       .then(data => setExperiments(data.experiments || []))
       .catch(err => {
-        console.error('Failed to fetch experiments:', err);
+        logger.error('Failed to fetch experiments', err);
         setError(err.message);
       });
   }, []);

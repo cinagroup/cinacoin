@@ -20,6 +20,7 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { z } from "zod";
+import { createLogger } from '@cinacoin/logger';
 import {
   getAllWallets,
   getWalletById,
@@ -29,6 +30,8 @@ import {
   WALLET_COUNT,
 } from "@cinacoin/wallet-registry";
 import type { WalletRegistryEntry, WalletPlatform, WalletChainFamily } from "@cinacoin/wallet-registry";
+
+const logger = createLogger({ name: 'wallet-explorer-api', level: 'info' });
 
 // ─── Zod Query Schemas ─────────────────────────────────────────────────────
 
