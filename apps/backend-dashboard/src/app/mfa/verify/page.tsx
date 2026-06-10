@@ -58,7 +58,7 @@ export default function MfaVerifyPage() {
         {/* Card */}
         <div className="bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] p-6 shadow-[var(--cc-level3)]">
           {error && (
-            <div className="mb-4 p-3 rounded-[var(--cc-radius-sm)] bg-[var(--cc-error)]/10 border border-[var(--cc-error)]/30 text-[var(--cc-error)] text-body-sm">
+            <div id="mfa-error" role="alert" className="mb-4 p-3 rounded-[var(--cc-radius-sm)] bg-[var(--cc-error)]/10 border border-[var(--cc-error)]/30 text-[var(--cc-error)] text-body-sm">
               {error}
             </div>
           )}
@@ -82,6 +82,10 @@ export default function MfaVerifyPage() {
                     onChange={(e) => handleCodeChange(index, e.target.value)}
                     onKeyDown={(e) => handleKeyDown(index, e)}
                     disabled={isLoading}
+                    aria-label={`Digit ${index + 1}`}
+                    aria-required="true"
+                    aria-invalid={!!error}
+                    aria-describedby={error ? "mfa-error" : "mfa-help"}
                     className="w-12 h-14 text-center text-display-sm font-medium bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--cc-link)] focus:border-transparent transition-all disabled:opacity-50"
                     autoFocus={index === 0}
                   />
@@ -98,7 +102,7 @@ export default function MfaVerifyPage() {
                 </div>
               )}
 
-              <p className="text-caption text-[var(--cc-muted)] text-center mb-4">
+              <p id="mfa-help" className="text-caption text-[var(--cc-muted)] text-center mb-4">
                 Code changes every 30 seconds. Make sure your device time is synchronized.
               </p>
 
@@ -120,12 +124,18 @@ export default function MfaVerifyPage() {
               </p>
 
               <form onSubmit={handleRecoverySubmit}>
+                <label htmlFor="recovery-code" className="sr-only">Recovery code</label>
                 <input
+                  id="recovery-code"
                   type="text"
                   value={recoveryCodeInput}
                   onChange={(e) => setRecoveryCodeInput(e.target.value)}
                   placeholder="XXXX-XXXX-XXXX"
                   disabled={isLoading}
+                  aria-required="true"
+                  aria-invalid={!!error}
+                  aria-describedby={error ? "mfa-error" : undefined}
+                  autoComplete="one-time-code"
                   className="w-full px-3 py-2 border border-[var(--cc-hairline)] rounded-[var(--cc-radius-sm)] bg-[var(--cc-canvas)] text-[var(--cc-ink)] placeholder:text-[var(--cc-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-link)] focus:border-transparent mb-4 text-code"
                   autoFocus
                 />

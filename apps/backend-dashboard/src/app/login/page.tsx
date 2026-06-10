@@ -85,7 +85,7 @@ export default function LoginPage() {
 
           {/* Error message */}
           {error && (
-            <div className="mb-4 p-3 rounded-[var(--cc-radius-sm)] bg-[var(--cc-error)]/10 border border-[var(--cc-error)]/30 text-[var(--cc-error)] text-body-sm">
+            <div id="login-error" role="alert" className="mb-4 p-3 rounded-[var(--cc-radius-sm)] bg-[var(--cc-error)]/10 border border-[var(--cc-error)]/30 text-[var(--cc-error)] text-body-sm">
               {error}
             </div>
           )}
@@ -132,6 +132,9 @@ export default function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="admin@cinacoin.com"
                 required
+                aria-required="true"
+                aria-invalid={!!error}
+                aria-describedby={error ? "login-error" : undefined}
                 autoComplete="email"
                 className="w-full px-3 py-2 border border-[var(--cc-hairline)] rounded-[var(--cc-radius-sm)] bg-[var(--cc-canvas)] text-[var(--cc-ink)] placeholder:text-[var(--cc-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-link)] focus:border-transparent"
               />
@@ -148,6 +151,9 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
                 required
+                aria-required="true"
+                aria-invalid={!!error}
+                aria-describedby={error ? "login-error" : undefined}
                 autoComplete="current-password"
                 className="w-full px-3 py-2 border border-[var(--cc-hairline)] rounded-[var(--cc-radius-sm)] bg-[var(--cc-canvas)] text-[var(--cc-ink)] placeholder:text-[var(--cc-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-link)] focus:border-transparent"
               />
