@@ -151,7 +151,7 @@ describe('Edge Runtime — withCinacoinAuthEdge', () => {
       cookies: { get: vi.fn(() => ({ value: token })) },
     } as any;
 
-    let receivedSession: any;
+    let receivedSession: unknown;
     const handler = withCinacoinAuthEdge(async (req, session) => {
       receivedSession = session;
       return new Response(JSON.stringify({ ok: true }));

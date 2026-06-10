@@ -165,7 +165,7 @@ async function testQuoterNoValidQuotes() {
       slippageBps: 50,
     });
     assert(false, 'Should throw when no valid quotes');
-  } catch (e: any) {
+  } catch (e: unknown) {
     assert(e.message.includes('No valid swap quotes'), `Expected error, got: ${e.message}`);
   }
   logger.info('✓ quoter no valid quotes');
@@ -192,7 +192,7 @@ async function testQuoterUnknownProvider() {
   try {
     await quoter.getQuoteFrom('UnknownProvider', {} as SwapQuoteParams);
     assert(false, 'Should throw for unknown provider');
-  } catch (e: any) {
+  } catch (e: unknown) {
     assert(e.message.includes('Unknown provider'), `Expected error, got: ${e.message}`);
   }
   logger.info('✓ quoter unknown provider');
@@ -233,7 +233,7 @@ async function testRouterExecutionDisabled() {
       slippageBps: 50,
     });
     assert(false, 'Should throw when execution disabled');
-  } catch (e: any) {
+  } catch (e: unknown) {
     assert(e.message.includes('disabled'), `Expected disabled error, got: ${e.message}`);
   }
   logger.info('✓ router execution disabled');
@@ -300,7 +300,7 @@ async function run() {
     try {
       await fn();
       passed++;
-    } catch (e: any) {
+    } catch (e: unknown) {
       console.error(`✗ ${fn.name}: ${e.message}`);
       failed++;
     }

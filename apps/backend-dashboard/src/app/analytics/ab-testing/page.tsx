@@ -6,7 +6,7 @@ interface Experiment {
   id: string;
   name: string;
   status: string;
-  variants: any[];
+  variants: unknown[];
 }
 
 interface Stats {

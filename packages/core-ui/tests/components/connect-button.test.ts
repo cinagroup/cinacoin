@@ -7,7 +7,7 @@
 import { describe, it, expect, vi, beforeAll } from 'vitest';
 
 describe('ConnectButton component', () => {
-  let ConnectButton: any;
+  let ConnectButton: unknown;
 
   beforeAll(async () => {
     // Import dynamically to register custom element

@@ -658,7 +658,7 @@ describe('Risk Scoring', () => {
 describe('Notification Callbacks', () => {
   it('notifies guardians when recovery is initiated', () => {
     const notifications: Array<{ type: string; guardianId: string }> = [];
-    const notify = (type: string, guardian: any, details: any) => {
+    const notify = (type: string, guardian: { id: string }, details: unknown) => {
       notifications.push({ type, guardianId: guardian.id });
     };
 
@@ -681,7 +681,7 @@ describe('Notification Callbacks', () => {
 
   it('notifies remaining guardians after approval', () => {
     const notifications: Array<{ type: string; guardianId: string }> = [];
-    const notify = (type: string, guardian: any) => {
+    const notify = (type: string, guardian: { id: string }) => {
       notifications.push({ type, guardianId: guardian.id });
     };
 

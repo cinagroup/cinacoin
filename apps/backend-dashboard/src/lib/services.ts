@@ -151,11 +151,11 @@ export async function checkHealth(
     } else {
       return { status: "degraded", latency, lastChecked: Date.now(), error: `HTTP ${response.status}` };
     }
-  } catch (err: any) {
+  } catch (err: unknown) {
     const latency = Date.now() - start;
     return {
       status: "down",
-      latency: err.name === "AbortError" ? null : latency,
+      latency: (err as Error).name === "AbortError" ? null : latency,
       lastChecked: Date.now(),
       error: err.message || "Connection failed",
     };

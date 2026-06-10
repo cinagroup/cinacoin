@@ -8,8 +8,8 @@ import { PaymentRouter } from '../src/PaymentRouter';
 
 describe('PaymentRouter', () => {
   let router: PaymentRouter;
-  let mockAggregator: any;
-  let mockSwapRouter: any;
+  let mockAggregator: unknown;
+  let mockSwapRouter: unknown;
 
   beforeEach(() => {
     router = new PaymentRouter({

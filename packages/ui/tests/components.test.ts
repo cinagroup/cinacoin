@@ -13,7 +13,7 @@ interface ComponentState {
   disabled: boolean;
   loading: boolean;
   error: string | null;
-  data: any;
+  data: unknown;
 }
 
 class MockComponent {
@@ -44,7 +44,7 @@ class MockComponent {
     this._eventHandlers.set(event, handlers);
   }
 
-  emit(event: string, data?: any): void {
+  emit(event: string, data?: unknown): void {
     const handlers = this._eventHandlers.get(event) ?? [];
     handlers.forEach(h => h(data));
   }

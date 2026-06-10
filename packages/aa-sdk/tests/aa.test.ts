@@ -254,7 +254,7 @@ async function testPaymasterSponsorOp() {
       entryPoint: '0x0000000071727De22E5E9d8BAf0edAc6f37da032',
       chainId: 1,
     });
-  } catch (_e: any) {
+  } catch (_e: unknown) {
     assert(true, 'should attempt to call paymaster');
   }
   logger.info('✓ PaymasterClient sponsorOp (network error expected)');
@@ -300,7 +300,7 @@ async function testBundlerEstimateGas() {
 
   try {
     await bundler.estimateUserOperationGas(userOp, '0x0000000071727De22E5E9d8BAf0edAc6f37da032');
-  } catch (_e: any) {
+  } catch (_e: unknown) {
     assert(true, 'should attempt to estimate');
   }
   logger.info('✓ BundlerClient estimateGas (network error expected)');
@@ -327,7 +327,7 @@ async function testBundlerSendUserOperation() {
 
   try {
     await bundler.sendUserOperation(userOp, '0x0000000071727De22E5E9d8BAf0edAc6f37da032');
-  } catch (_e: any) {
+  } catch (_e: unknown) {
     assert(true, 'should attempt to send');
   }
   logger.info('✓ BundlerClient sendUserOperation (network error expected)');
@@ -340,7 +340,7 @@ async function testBundlerGetUserOperationReceipt() {
 
   try {
     await bundler.getUserOperationReceipt('0xUserOpHash123');
-  } catch (_e: any) {
+  } catch (_e: unknown) {
     assert(true, 'should attempt to get receipt');
   }
   logger.info('✓ BundlerClient getUserOperationReceipt (network error expected)');
@@ -409,7 +409,7 @@ async function run() {
     try {
       await fn();
       passed++;
-    } catch (e: any) {
+    } catch (e: unknown) {
       console.error(`✗ ${fn.name}: ${e.message}`);
       failed++;
     }

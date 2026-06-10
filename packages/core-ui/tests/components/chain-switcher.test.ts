@@ -19,7 +19,7 @@ const sampleChains = [
 ];
 
 describe('ChainSwitcher component', () => {
-  let ChainSwitcher: any;
+  let ChainSwitcher: unknown;
 
   beforeAll(async () => {
     const mod = await import('../../src/components/chain-switcher.js');

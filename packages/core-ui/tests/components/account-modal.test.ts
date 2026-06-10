@@ -7,7 +7,7 @@
 import { describe, it, expect, vi, beforeAll } from 'vitest';
 
 describe('AccountModal component', () => {
-  let AccountModal: any;
+  let AccountModal: unknown;
 
   beforeAll(async () => {
     const mod = await import('../../src/components/account-modal.js');

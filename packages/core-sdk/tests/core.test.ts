@@ -134,8 +134,8 @@ describe('Connector', () => {
   });
 
   it('connect event', async () => {
-    let connectData: any;
-    connector.on('connect', (data: any) => { connectData = data; });
+    let connectData: unknown;
+    connector.on('connect', (data: unknown) => { connectData = data; });
     await connector.connect();
     expect(connectData.chainId).toBe(1);
   });

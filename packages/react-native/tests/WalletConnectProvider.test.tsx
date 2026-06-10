@@ -102,11 +102,11 @@ describe('WalletConnectProvider', () => {
     it('should throw when used outside provider', async () => {
       // Mock createContext to return null
       vi.mock('react', async (importOriginal) => {
-        const actual: any = await importOriginal();
+        const actual: unknown = await importOriginal();
         return {
           ...actual,
           createContext: () => ({
-            Provider: ({ children }: { children: any }) => children,
+            Provider: ({ children }: { children: unknown }) => children,
           }),
           useContext: () => null,
         };

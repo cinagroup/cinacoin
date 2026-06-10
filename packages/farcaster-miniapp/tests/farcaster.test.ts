@@ -255,8 +255,8 @@ describe('FarcasterProvider', () => {
       const ctx = createMockContext();
       const provider = new FarcasterProvider({ context: ctx });
       await provider.initialize();
-      let state: any = null;
-      provider.on('walletConnected', (s: any) => { state = s; });
+      let state: unknown = null;
+      provider.on('walletConnected', (s: unknown) => { state = s; });
       provider.connect(MOCK_ADDRESS);
       expect(state?.connected).toBe(true);
     });

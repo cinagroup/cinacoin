@@ -9,16 +9,16 @@ import { describe, it, expect } from 'vitest';
 import { vi } from 'vitest';
 
 vi.mock('@angular/core', () => ({
-  Pipe: (meta: any) => (cls: any) => {
+  Pipe: (meta: unknown) => (cls: unknown) => {
     // Attach metadata for inspection
-    (cls as unknown).__pipeMeta = meta;
+    (cls as Record<string, unknown>).__pipeMeta = meta;
     return cls;
   },
   PipeTransform: class {},
 }));
 
 describe('BalancePipe', () => {
-  let BalancePipe: any;
+  let BalancePipe: unknown;
 
   beforeEach(async () => {
     vi.resetModules();
@@ -100,7 +100,7 @@ describe('BalancePipe', () => {
 });
 
 describe('AddressPipe', () => {
-  let AddressPipe: any;
+  let AddressPipe: unknown;
 
   beforeEach(async () => {
     vi.resetModules();

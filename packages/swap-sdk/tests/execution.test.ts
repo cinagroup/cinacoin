@@ -391,7 +391,7 @@ describe("GasEstimator + Swap SDK Integration", () => {
 
         // All used different RPC URLs
         const calls = mockFetch.mock.calls;
-        const urls = calls.map((c: any) => c[0]);
+        const urls = calls.map((c) => c[0]);
         expect(urls).toContain("https://eth.llamarpc.com");
         expect(urls).toContain("https://polygon-rpc.com");
         expect(urls).toContain("https://arb1.arbitrum.io/rpc");

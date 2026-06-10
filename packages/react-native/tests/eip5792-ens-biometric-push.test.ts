@@ -325,11 +325,11 @@ describe('PushNotificationManager — handleNotification', () => {
     PM.resetInstance();
     const manager = PM.getInstance();
 
-    let receivedNotification: any = null;
+    let receivedNotification: unknown = null;
 
     await manager.init({
       requestPermissionOnInit: false,
-      onNotification: (n: any) => {
+      onNotification: (n: unknown) => {
         receivedNotification = n;
       },
     });

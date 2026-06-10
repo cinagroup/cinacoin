@@ -6,8 +6,8 @@
 import { describe, it, expect, beforeAll } from 'vitest';
 
 describe('BaseLitElement', () => {
-  let BaseLitElement: any;
-  let TestElement: any;
+  let BaseLitElement: unknown;
+  let TestElement: unknown;
 
   beforeAll(async () => {
     const mod = await import('../../src/foundation/base-element.js');

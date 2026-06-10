@@ -160,9 +160,9 @@ describe("MockProvider", () => {
       try {
         await p.request({ method: "err_with_data" });
         fail("should throw");
-      } catch (e: any) {
-        expect(e.code).toBe(-32603);
-        expect(e.data).toEqual({ reason: "test" });
+      } catch (e: unknown) {
+        expect((e as { code: number }).code).toBe(-32603);
+        expect((e as { data: unknown }).data).toEqual({ reason: "test" });
       }
     });
   });

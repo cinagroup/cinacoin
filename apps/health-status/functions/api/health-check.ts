@@ -136,8 +136,8 @@ export const onRequest: PagesFunction = async (context) => {
         ...corsHeaders(origin),
       },
     });
-  } catch (e: any) {
-    return new Response(JSON.stringify({ error: e.message }), {
+  } catch (e: unknown) {
+    return new Response(JSON.stringify({ error: (e as Error).message }), {
       status: 502,
       headers: { 'Content-Type': 'application/json', ...corsHeaders(origin) },
     });

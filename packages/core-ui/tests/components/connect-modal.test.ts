@@ -7,7 +7,7 @@
 import { describe, it, expect, vi, beforeAll } from 'vitest';
 
 describe('ConnectModal component', () => {
-  let ConnectModal: any;
+  let ConnectModal: unknown;
 
   beforeAll(async () => {
     const mod = await import('../../src/components/connect-modal.js');

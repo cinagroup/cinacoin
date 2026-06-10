@@ -67,7 +67,7 @@ function mockReadContractSeq(...values: unknown[]) {
   });
 }
 
-function mockReadContractFn(fn: (...args: any[]) => Promise<unknown>) {
+function mockReadContractFn(fn: (...args: unknown[]) => Promise<unknown>) {
   (createPublicClient as unknown).mockReturnValue({
     readContract: vi.fn().mockImplementation(fn),
   });

@@ -7,7 +7,7 @@
 import { describe, it, expect, beforeAll } from 'vitest';
 
 describe('WalletCard component', () => {
-  let WalletCard: any;
+  let WalletCard: unknown;
 
   beforeAll(async () => {
     const mod = await import('../../src/components/wallet-card.js');

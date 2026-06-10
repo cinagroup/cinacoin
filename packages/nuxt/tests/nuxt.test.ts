@@ -8,7 +8,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 // ─── Mock @nuxt/kit ──────────────────────────────────────────────────────────
 
 vi.mock('@nuxt/kit', () => ({
-  defineNuxtModule: vi.fn((config: any) => {
+  defineNuxtModule: vi.fn((config: unknown) => {
     // Simulate what defineNuxtModule does — return an object with setup
     return {
       meta: config.meta,
@@ -52,7 +52,7 @@ vi.mock('#imports', () => ({
       },
     },
   })),
-  defineNuxtPlugin: vi.fn((fn: any) => fn),
+  defineNuxtPlugin: vi.fn((fn: unknown) => fn),
 }));
 
 // ─── Mock @cinacoin/vue ───────────────────────────────────────────────────

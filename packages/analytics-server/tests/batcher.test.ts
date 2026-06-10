@@ -4,12 +4,12 @@ import { EventBatcher } from "../src/batcher.js";
 import type { AnalyticsEvent } from "../src/validator.js";
 
 function makeD1Mock(): D1Database {
-  const inserted: any[] = [];
+  const inserted: unknown[] = [];
 
   return {
     prepare(sql: string) {
       return {
-        bind(...values: any[]) {
+        bind(...values: unknown[]) {
           return {
             async run(): Promise<D1Result> {
               inserted.push({ sql, values });

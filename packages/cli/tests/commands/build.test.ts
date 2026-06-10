@@ -107,7 +107,7 @@ describe('buildCommand', () => {
       command: vi.fn().mockReturnThis(),
       description: vi.fn().mockReturnThis(),
       option: vi.fn().mockReturnThis(),
-      action: vi.fn((cb: (opts: any) => void) => cb({})),
+      action: vi.fn((cb: (opts: unknown) => void) => cb({})),
     };
     const mockCli = {
       command: vi.fn().mockReturnValue(mockCommand),
@@ -128,7 +128,7 @@ describe('buildCommand', () => {
       command: vi.fn().mockReturnThis(),
       description: vi.fn().mockReturnThis(),
       option: vi.fn().mockReturnThis(),
-      action: vi.fn((cb: (opts: any) => void) => cb({ scope: '@cinacoin/core-sdk' })),
+      action: vi.fn((cb: (opts: unknown) => void) => cb({ scope: '@cinacoin/core-sdk' })),
     };
     const mockCli = {
       command: vi.fn().mockReturnValue(mockCommand),

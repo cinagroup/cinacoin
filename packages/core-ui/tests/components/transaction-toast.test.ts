@@ -7,7 +7,7 @@
 import { describe, it, expect, vi, beforeAll } from 'vitest';
 
 describe('TransactionToast component', () => {
-  let TransactionToast: any;
+  let TransactionToast: unknown;
 
   beforeAll(async () => {
     const mod = await import('../../src/components/transaction-toast.js');

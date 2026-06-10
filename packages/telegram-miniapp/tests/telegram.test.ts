@@ -228,8 +228,8 @@ describe('TelegramProvider', () => {
       const mockWebApp = createMockWebApp();
       const provider = new TelegramProvider({ webApp: mockWebApp });
       await provider.initialize();
-      let emitted: any = null;
-      provider.on('connected', (state: any) => { emitted = state; });
+      let emitted: unknown = null;
+      provider.on('connected', (state: unknown) => { emitted = state; });
       provider.connect('0x1234');
       expect(emitted?.connected).toBe(true);
     });
