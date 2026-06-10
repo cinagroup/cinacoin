@@ -35,6 +35,13 @@ export type { SwapWidgetProps } from "./types.js";
 export { OnRampWidget } from "./OnRampWidget.js";
 export type { OnRampWidgetProps } from "./types.js";
 
+// Unified Payment Components
+export { UnifiedPayment } from "./components/UnifiedPayment.js";
+export type { UnifiedPaymentProps, PaymentTab } from "./components/UnifiedPayment.js";
+
+export { DepositWidget } from "./components/DepositWidget.js";
+export type { DepositWidgetProps, ChainOption } from "./components/DepositWidget.js";
+
 // Framework-agnostic core controllers
 export { SwapWidgetCore } from "./SwapWidgetCore.js";
 export { OnRampWidgetCore } from "./OnRampWidgetCore.js";

@@ -1,47 +1,46 @@
 {
-  "name": "analytics-dashboard",
-  "version": "0.1.0",
+  "name": "cinacoin-monorepo",
+  "version": "0.0.0",
   "private": true,
-  "description": "Cinacoin Analytics Dashboard — on-ramp conversion analytics",
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "typecheck": "tsc --noEmit",
-    "build:cf": "opennextjs-cloudflare",
-    "deploy:cf": "opennextjs-cloudflare && wrangler deploy"
-  },
-  "dependencies": {
-    "next": "^15.5.18",
-    "playwright": "^1.60.0",
-    "react": "^19.2.6",
-    "react-dom": "^19.2.6"
-  },
-  "devDependencies": {
-    "@types/node": "^20.0.0",
-    "@types/react": "19.2.16",
-    "@types/react-dom": "19.2.3",
-    "autoprefixer": "^10.5.0",
-    "postcss": "^8.5.15",
-    "tailwindcss": "^3.4.19",
-    "typescript": "^5.6.0"
-  },
-  "main": "index.js",
-  "directories": {
-    "doc": "docs",
-    "example": "examples",
-    "test": "tests"
-  },
+  "description": "Cinacoin — Self-hosted wallet connection toolkit (monorepo)",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cinagroup/cinacoin.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/cinagroup/cinacoin/issues"
   },
-  "homepage": "https://github.com/cinagroup/cinacoin#readme"
+  "homepage": "https://github.com/cinagroup/cinacoin#readme",
+  "license": "MIT",
+  "scripts": {
+    "dev": "echo 'Use app-specific dev scripts (e.g. pnpm --filter @cinacoin/website dev)'",
+    "build": "pnpm -r --stream build",
+    "build:all": "pnpm -r --stream build",
+    "test": "pnpm -r --stream test",
+    "test:all": "pnpm -r --stream test",
+    "test:coverage": "pnpm -r --stream test:coverage",
+    "lint": "pnpm -r --stream lint",
+    "lint:all": "pnpm -r --stream lint",
+    "typecheck": "pnpm -r --stream typecheck",
+    "clean": "pnpm -r exec rm -rf dist node_modules/.cache",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "tsx scripts/release.ts",
+    "release:dry-run": "tsx scripts/release.ts --dry-run",
+    "sync-versions": "tsx scripts/sync-versions.ts",
+    "generate-changelog": "tsx scripts/generate-changelog.ts",
+    "package-graph": "tsx scripts/package-graph.ts",
+    "prepublishOnly": "pnpm run build:all"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.0",
+    "@changesets/changelog-github": "^0.5.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.6.0"
+  },
+  "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  }
 }

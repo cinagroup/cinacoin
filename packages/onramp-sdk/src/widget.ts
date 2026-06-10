@@ -5,8 +5,9 @@
  * Can be embedded in a web page via iframe or opened as a popup.
  */
 
-import type { OnRampResult, OnRampWidgetParams } from "./types.js";
+import type { OnRampResult, OnRampWidgetParams, OnRampProviderId, OnRampQuote } from "./types.js";
 import type { OnRampAggregator } from "./aggregator.js";
+import type { KycStatus } from "@cinacoin/kyc";
 
 // ============================================================
 // Events emitted by the widget
@@ -18,13 +19,48 @@ export type OnRampWidgetEvent =
   | { type: "success"; result: OnRampResult }
   | { type: "error"; error: string }
   | { type: "payment_initiated" }
-  | { type: "payment_completed" }
-  | { type: "kyc_started" };
+  | { type: "payment_completed"; orderId: string }
+  | { type: "kyc_started" }
+  | { type: "kyc_completed" }
+  | { type: "provider_selected"; provider: OnRampProviderId }
+  | { type: "order_created"; orderId: string }
+  | { type: "order_updated"; orderId: string; status: OrderStatus };
 
 /**
  * Callback type for widget events.
  */
 export type OnRampWidgetCallback = (event: OnRampWidgetEvent) => void;
+
+// ============================================================
+// Order Tracking Types
+// ============================================================
+
+export type OrderStatus =
+  | "pending"
+  | "processing"
+  | "completed"
+  | "failed"
+  | "cancelled";
+
+export interface OrderInfo {
+  orderId: string;
+  provider: OnRampProviderId;
+  status: OrderStatus;
+  fiatAmount: number;
+  fiatCurrency: string;
+  cryptoAmount: number;
+  cryptoToken: string;
+  createdAt: number;
+  updatedAt: number;
+  txHash?: string;
+}
+
+export interface KycCheckResult {
+  status: KycStatus;
+  provider: OnRampProviderId;
+  requiresKyc: boolean;
+  message?: string;
+}
 
 // ============================================================
 // Widget Configuration
@@ -59,6 +95,9 @@ export class OnRampWidget {
   private widgetUrl: string | null = null;
   private _popupMessageHandler: ((event: MessageEvent) => void) | null = null;
   private _embeddedMessageHandler: ((event: MessageEvent) => void) | null = null;
+  private _orders: Map<string, OrderInfo> = new Map();
+  private _selectedProvider: OnRampProviderId | null = null;
+  private _kycStatus: Map<OnRampProviderId, KycCheckResult> = new Map();
 
   constructor(aggregator: OnRampAggregator, config?: WidgetConfig) {
     this.aggregator = aggregator;
@@ -211,5 +250,175 @@ export class OnRampWidget {
    */
   private emitEvent(event: OnRampWidgetEvent): void {
     this.config.onEvent?.(event);
+  }
+
+  // ============================================================
+  // Provider Selection
+  // ============================================================
+
+  /**
+   * Select a specific provider for the widget.
+   */
+  selectProvider(provider: OnRampProviderId): void {
+    this._selectedProvider = provider;
+    this.emitEvent({ type: "provider_selected", provider });
+  }
+
+  /**
+   * Get the currently selected provider.
+   */
+  getSelectedProvider(): OnRampProviderId | null {
+    return this._selectedProvider;
+  }
+
+  /**
+   * Get available providers for the given parameters.
+   */
+  getAvailableProviders(params: OnRampWidgetParams): OnRampProviderId[] {
+    const providers = this.aggregator.getProviders(params.userRegion);
+    return providers.map((p) => p.id as OnRampProviderId);
+  }
+
+  // ============================================================
+  // KYC Status
+  // ============================================================
+
+  /**
+   * Check KYC status for a provider.
+   * In production, this would call a backend API.
+   */
+  async checkKycStatus(
+    provider: OnRampProviderId,
+    walletAddress: string
+  ): Promise<KycCheckResult> {
+    // Check cache first
+    const cached = this._kycStatus.get(provider);
+    if (cached) {
+      return cached;
+    }
+
+    // Simulate KYC check (in production, call backend API)
+    const result: KycCheckResult = {
+      status: "unverified",
+      provider,
+      requiresKyc: true,
+      message: "KYC verification required for this provider",
+    };
+
+    this._kycStatus.set(provider, result);
+    return result;
+  }
+
+  /**
+   * Update KYC status for a provider.
+   */
+  updateKycStatus(provider: OnRampProviderId, status: KycStatus): void {
+    const existing = this._kycStatus.get(provider);
+    if (existing) {
+      existing.status = status;
+      this._kycStatus.set(provider, existing);
+
+      if (status === "verified") {
+        this.emitEvent({ type: "kyc_completed" });
+      }
+    }
+  }
+
+  // ============================================================
+  // Order Tracking
+  // ============================================================
+
+  /**
+   * Create a new order.
+   */
+  createOrder(
+    provider: OnRampProviderId,
+    fiatAmount: number,
+    fiatCurrency: string,
+    cryptoAmount: number,
+    cryptoToken: string
+  ): string {
+    const orderId = `order_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+    const now = Date.now();
+
+    const order: OrderInfo = {
+      orderId,
+      provider,
+      status: "pending",
+      fiatAmount,
+      fiatCurrency,
+      cryptoAmount,
+      cryptoToken,
+      createdAt: now,
+      updatedAt: now,
+    };
+
+    this._orders.set(orderId, order);
+    this.emitEvent({ type: "order_created", orderId });
+
+    return orderId;
+  }
+
+  /**
+   * Get order information by ID.
+   */
+  getOrder(orderId: string): OrderInfo | undefined {
+    return this._orders.get(orderId);
+  }
+
+  /**
+   * Get all orders.
+   */
+  getAllOrders(): OrderInfo[] {
+    return Array.from(this._orders.values());
+  }
+
+  /**
+   * Update order status.
+   */
+  updateOrderStatus(orderId: string, status: OrderStatus, txHash?: string): void {
+    const order = this._orders.get(orderId);
+    if (!order) {
+      throw new Error(`Order ${orderId} not found`);
+    }
+
+    order.status = status;
+    order.updatedAt = Date.now();
+    if (txHash) {
+      order.txHash = txHash;
+    }
+
+    this._orders.set(orderId, order);
+    this.emitEvent({ type: "order_updated", orderId, status });
+
+    if (status === "completed") {
+      this.emitEvent({ type: "payment_completed", orderId });
+    }
+  }
+
+  /**
+   * Track order status (polling simulation).
+   * In production, this would poll a backend API or use webhooks.
+   */
+  async trackOrder(
+    orderId: string,
+    onStatusChange?: (status: OrderStatus) => void
+  ): Promise<OrderInfo> {
+    const order = this._orders.get(orderId);
+    if (!order) {
+      throw new Error(`Order ${orderId} not found`);
+    }
+
+    // Simulate status progression
+    const statusFlow: OrderStatus[] = ["pending", "processing", "completed"];
+    const currentIndex = statusFlow.indexOf(order.status);
+
+    if (currentIndex < statusFlow.length - 1) {
+      const nextStatus = statusFlow[currentIndex + 1];
+      this.updateOrderStatus(orderId, nextStatus);
+      onStatusChange?.(nextStatus);
+    }
+
+    return this._orders.get(orderId)!;
   }
 }

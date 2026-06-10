@@ -16,6 +16,10 @@
     "@types/react": "18.3.12",
     "react": "19.2.6"
   },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "license": "MIT",
   "sideEffects": false
 }

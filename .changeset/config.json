@@ -1,14 +1,26 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@3.0.0/schema.json",
-  "changelog": "@changesets/cli/changelog",
+  "changelog": [
+    "@changesets/changelog-github",
+    { "repo": "cinagroup/cinacoin" }
+  ],
   "commit": false,
   "fixed": [],
   "linked": [],
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": [],
+  "ignore": [
+    "@cinacoin/analytics-server",
+    "@cinacoin/cross-chain-contracts",
+    "@cinacoin/integration-tests",
+    "@cinacoin/monitoring",
+    "@cinacoin/perf-benchmarks",
+    "@cinacoin/release-tools",
+    "com.cinacoin.unity"
+  ],
   "___experimentalUnsafeOptions_WILL_CHANGE_IN_PATCH": {
-    "onlyUpdatePeerDependentsWhenOutOfRange": true
+    "onlyUpdatePeerDependentsWhenOutOfRange": true,
+    "updateInternalDependents": "out-of-range"
   }
 }

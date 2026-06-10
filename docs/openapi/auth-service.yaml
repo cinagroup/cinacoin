@@ -1,0 +1,1002 @@
+openapi: 3.0.3
+info:
+  title: Cinacoin Auth Service
+  description: |
+    Authentication and authorization service for the Cinacoin platform.
+    Handles user registration, login, token management, MFA/TOTP, OAuth, and session management.
+
+    ## Security Features
+    - JWT access tokens with short expiry (default 15 min)
+    - Refresh token rotation with reuse detection
+    - Mandatory TOTP-based 2FA for all users
+    - CSRF protection via X-CSRF-Token header
+    - PKCE (S256) for OAuth flows
+    - Rate limiting on sensitive endpoints
+
+    ## Authentication
+    Endpoints marked with 🔒 require a valid JWT Bearer token.
+  version: 1.0.0
+  contact:
+    name: Cinacoin Security Team
+    url: https://cinacoin.com/resources#support
+
+servers:
+  - url: https://auth.cinacoin.com
+    description: Production (direct)
+  - url: https://api.cinacoin.com
+    description: Via API Gateway
+  - url: http://localhost:8788
+    description: Local development
+
+tags:
+  - name: Authentication
+    description: Login, register, logout, token refresh
+  - name: MFA
+    description: Multi-factor authentication (TOTP)
+  - name: OAuth
+    description: Third-party OAuth providers (Google, GitHub, Discord)
+  - name: Session
+    description: Session and user profile management
+  - name: CSRF
+    description: CSRF token management
+
+security:
+  - BearerAuth: []
+
+paths:
+  /health:
+    get:
+      tags: [Authentication]
+      summary: Health check
+      security: []
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+                  service:
+                    type: string
+                    example: cinacoin-auth
+                  version:
+                    type: string
+                  environment:
+                    type: string
+                  timestamp:
+                    type: string
+                    format: date-time
+
+  /auth/csrf-token:
+    get:
+      tags: [CSRF]
+      summary: Get CSRF token
+      description: |
+        Generates a CSRF token tied to a session ID. The token must be included
+        in the `X-CSRF-Token` header for all state-changing authenticated requests.
+      security: []
+      parameters:
+        - name: X-Session-ID
+          in: header
+          required: false
+          schema:
+            type: string
+          description: Optional session ID; one will be generated if not provided.
+      responses:
+        '200':
+          description: CSRF token generated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  csrfToken:
+                    type: string
+                    example: a1b2c3d4e5f6...
+                  sessionId:
+                    type: string
+                  expiresIn:
+                    type: integer
+                    example: 86400
+
+  /auth/register:
+    post:
+      tags: [Authentication]
+      summary: Register a new user
+      description: |
+        Creates a new user account and returns JWT tokens.
+        Rate-limited to prevent abuse.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+            example:
+              email: alice@example.com
+              username: alice
+              password: SecureP@ss123
+              displayName: Alice
+      responses:
+        '201':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisterResponse'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '409':
+          description: Conflict — email or username already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                emailTaken:
+                  summary: Email already registered
+                  value:
+                    error: Conflict
+                    message: Email already registered
+                usernameTaken:
+                  summary: Username already taken
+                  value:
+                    error: Conflict
+                    message: Username already taken
+        '429':
+          $ref: '#/components/responses/RateLimited'
+
+  /auth/login:
+    post:
+      tags: [Authentication]
+      summary: Login with email and password
+      description: |
+        Authenticates a user. Since 2FA is mandatory, this always returns an MFA challenge.
+        Use the returned `mfaToken` with `POST /auth/mfa/verify-login` to complete login.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+            example:
+              email: alice@example.com
+              password: SecureP@ss123
+      responses:
+        '200':
+          description: Login successful — MFA verification required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    $ref: '#/components/schemas/MfaChallenge'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+
+  /auth/logout:
+    post:
+      tags: [Authentication]
+      summary: Logout
+      description: |
+        Revokes the current access token by adding its JTI to a KV blacklist.
+        The token's remaining TTL is used as the blacklist entry TTL.
+      responses:
+        '200':
+          description: Logged out successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Logged out successfully
+                  userId:
+                    type: string
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /auth/refresh:
+    post:
+      tags: [Authentication]
+      summary: Refresh access token
+      description: |
+        Exchanges a refresh token for a new access/refresh token pair.
+        Implements refresh token rotation — each refresh token can only be used once.
+        Reuse of a refresh token triggers a security alert and revokes all tokens for the user.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshRequest'
+            example:
+              refreshToken: eyJhbGciOi...
+      responses:
+        '200':
+          description: Tokens refreshed with rotation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          description: Invalid, expired, or reused refresh token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                expired:
+                  summary: Expired token
+                  value:
+                    error: Unauthorized
+                    message: Invalid or expired refresh token
+                reused:
+                  summary: Token reuse detected (all tokens revoked)
+                  value:
+                    error: Unauthorized
+                    message: Token has been revoked
+
+  /auth/me:
+    get:
+      tags: [Session]
+      summary: Get current user profile
+      description: Returns the authenticated user's profile from the database.
+      responses:
+        '200':
+          description: Current user profile
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    $ref: '#/components/schemas/PublicUser'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /auth/sessions:
+    get:
+      tags: [Session]
+      summary: List active sessions
+      description: Lists all active (non-revoked) sessions for the authenticated user.
+      responses:
+        '200':
+          description: Active sessions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                    properties:
+                      sessions:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Session'
+                      count:
+                        type: integer
+                        example: 3
+
+  /auth/change-password:
+    post:
+      tags: [Authentication]
+      summary: Change password
+      description: Changes the authenticated user's password after verifying the current one.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [currentPassword, newPassword]
+              properties:
+                currentPassword:
+                  type: string
+                  minLength: 1
+                newPassword:
+                  type: string
+                  minLength: 8
+            example:
+              currentPassword: OldP@ss123
+              newPassword: NewSecureP@ss456
+      responses:
+        '200':
+          description: Password changed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Password changed successfully
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          description: Current password is incorrect
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: Unauthorized
+                message: Current password is incorrect
+
+  /auth/2fa-status:
+    get:
+      tags: [MFA]
+      summary: Check 2FA status
+      description: Check if the user needs to set up 2FA.
+      responses:
+        '200':
+          description: 2FA status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+
+  /auth/mfa/enable:
+    post:
+      tags: [MFA]
+      summary: Enable MFA (start TOTP setup)
+      description: |
+        Generates a TOTP secret and recovery codes. The user must scan the QR code
+        (from the `uri` field) and verify with `POST /auth/mfa/verify` to complete setup.
+      responses:
+        '200':
+          description: MFA setup initiated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                    properties:
+                      methodId:
+                        type: string
+                        format: uuid
+                      secret:
+                        type: string
+                        description: Base32-encoded TOTP secret
+                        example: JBSWY3DPEHPK3PXP
+                      uri:
+                        type: string
+                        description: otpauth:// URI for QR code
+                        example: "otpauth://totp/Cinacoin:alice@example.com?secret=JBSWY3DPEHPK3PXP&issuer=Cinacoin"
+                      recoveryCodes:
+                        type: array
+                        items:
+                          type: string
+                        description: One-time recovery codes (store securely)
+                        example: ["abcd-1234", "efgh-5678"]
+
+  /auth/mfa/verify:
+    post:
+      tags: [MFA]
+      summary: Verify MFA code
+      description: |
+        Verifies a TOTP code. Used for both initial setup verification and general MFA verification.
+        If a `sessionToken` is provided, this handles the login MFA flow.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: '#/components/schemas/MfaVerifySetup'
+                - $ref: '#/components/schemas/MfaVerifyLogin'
+            examples:
+              setup:
+                summary: Initial setup verification
+                value:
+                  code: "123456"
+              login:
+                summary: Login MFA verification
+                value:
+                  code: "123456"
+                  sessionToken: mfa_tok_abc123...
+                  method: totp
+      responses:
+        '200':
+          description: MFA verified successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                    properties:
+                      verified:
+                        type: boolean
+                      mfaEnabled:
+                        type: boolean
+                      message:
+                        type: string
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /auth/mfa/verify-login:
+    post:
+      tags: [MFA]
+      summary: Complete login MFA verification
+      description: |
+        Verifies MFA during the login flow and issues JWT tokens upon success.
+        Uses the `mfaToken` returned by `POST /auth/login`.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MfaVerifyLogin'
+            example:
+              mfaToken: mfa_tok_abc123...
+              code: "123456"
+              method: totp
+      responses:
+        '200':
+          description: MFA verified, tokens issued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginCompleteResponse'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          description: Invalid MFA token or code
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /auth/mfa/disable:
+    post:
+      tags: [MFA]
+      summary: Disable MFA
+      description: |
+        Disables MFA for the authenticated user. Requires explicit confirmation.
+        Optionally verifies a TOTP code before disabling.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [confirmDisable]
+              properties:
+                code:
+                  type: string
+                  description: TOTP code (optional but recommended)
+                confirmDisable:
+                  type: boolean
+                  description: Must be true to confirm disable
+                  example: true
+      responses:
+        '200':
+          description: MFA disabled
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                    properties:
+                      mfaEnabled:
+                        type: boolean
+                        example: false
+                      message:
+                        type: string
+                        example: MFA has been disabled
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /auth/mfa/status:
+    get:
+      tags: [MFA]
+      summary: Get MFA status
+      description: Returns the current MFA configuration for the authenticated user.
+      responses:
+        '200':
+          description: MFA status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    $ref: '#/components/schemas/MfaStatus'
+
+  /auth/oauth/{provider}:
+    get:
+      tags: [OAuth]
+      summary: Start OAuth flow
+      description: |
+        Redirects the user to the specified OAuth provider's authorization page.
+        Uses PKCE (S256) for security. Generates a random state parameter stored in KV.
+      security: []
+      parameters:
+        - $ref: '#/components/parameters/OAuthProvider'
+      responses:
+        '302':
+          description: Redirect to OAuth provider
+          headers:
+            Location:
+              schema:
+                type: string
+              description: OAuth provider authorization URL
+        '400':
+          description: Invalid provider
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /auth/oauth/{provider}/callback:
+    get:
+      tags: [OAuth]
+      summary: OAuth callback
+      description: |
+        Handles the OAuth provider callback. Exchanges the authorization code for tokens,
+        finds or creates the user, then redirects with a short-lived authorization code.
+        The frontend exchanges this code via `POST /auth/oauth/token`.
+      security: []
+      parameters:
+        - $ref: '#/components/parameters/OAuthProvider'
+        - name: code
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: state
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: return_url
+          in: query
+          schema:
+            type: string
+          description: URL to redirect to after authentication (validated against allowed origins)
+      responses:
+        '302':
+          description: Redirect with authorization code
+          headers:
+            Location:
+              schema:
+                type: string
+              description: Return URL with `?code=<auth_code>` appended
+        '400':
+          $ref: '#/components/responses/ValidationError'
+
+  /auth/oauth/token:
+    post:
+      tags: [OAuth]
+      summary: Exchange authorization code for tokens
+      description: |
+        Second step of the OAuth flow. Exchanges the short-lived authorization code
+        (received via redirect) for JWT access and refresh tokens.
+        The code is single-use and expires after 2 minutes.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [code]
+              properties:
+                code:
+                  type: string
+                  description: Authorization code from OAuth callback redirect
+            example:
+              code: a1b2c3d4...
+      responses:
+        '200':
+          description: Tokens issued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+        '400':
+          description: Invalid or expired authorization code
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /auth/oauth/accounts:
+    get:
+      tags: [OAuth]
+      summary: List linked OAuth accounts
+      description: Returns all OAuth provider accounts linked to the authenticated user.
+      responses:
+        '200':
+          description: Linked OAuth accounts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/OAuthAccount'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: |
+        JWT access token. Include in the `Authorization` header.
+        Tokens expire after 15 minutes by default.
+
+  parameters:
+    OAuthProvider:
+      name: provider
+      in: path
+      required: true
+      schema:
+        type: string
+        enum: [google, github, discord]
+      description: OAuth provider name
+
+  schemas:
+    RegisterRequest:
+      type: object
+      required: [email, username, password]
+      properties:
+        email:
+          type: string
+          format: email
+          example: alice@example.com
+        username:
+          type: string
+          minLength: 3
+          maxLength: 30
+          pattern: '^[a-zA-Z0-9_-]+$'
+          example: alice
+        password:
+          type: string
+          minLength: 8
+          example: SecureP@ss123
+        displayName:
+          type: string
+          example: Alice
+
+    RegisterResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          allOf:
+            - $ref: '#/components/schemas/TokenPair'
+            - type: object
+              properties:
+                tokenType:
+                  type: string
+                  example: Bearer
+                user:
+                  $ref: '#/components/schemas/PublicUser'
+
+    LoginRequest:
+      type: object
+      required: [email, password]
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 8
+
+    MfaChallenge:
+      type: object
+      properties:
+        mfaRequired:
+          type: boolean
+          example: true
+        mfaSetupRequired:
+          type: boolean
+          description: True if user hasn't set up 2FA yet
+          example: false
+        mfaToken:
+          type: string
+          description: Temporary token for MFA verification (expires in 5 minutes)
+        mfaTokenExpiresIn:
+          type: integer
+          example: 300
+        message:
+          type: string
+          description: Present when MFA setup is required
+
+    MfaVerifySetup:
+      type: object
+      required: [code]
+      properties:
+        code:
+          type: string
+          minLength: 6
+          maxLength: 20
+          description: TOTP code from authenticator app
+
+    MfaVerifyLogin:
+      type: object
+      required: [mfaToken, code]
+      properties:
+        mfaToken:
+          type: string
+          description: MFA session token from login response
+        code:
+          type: string
+          minLength: 6
+          maxLength: 20
+          description: TOTP or recovery code
+        method:
+          type: string
+          enum: [totp, recovery_code]
+          default: totp
+
+    LoginCompleteResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          allOf:
+            - $ref: '#/components/schemas/TokenPair'
+            - type: object
+              properties:
+                user:
+                  $ref: '#/components/schemas/PublicUser'
+
+    RefreshRequest:
+      type: object
+      required: [refreshToken]
+      properties:
+        refreshToken:
+          type: string
+          description: Refresh token from a previous token response
+
+    TokenResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          $ref: '#/components/schemas/TokenPair'
+
+    TokenPair:
+      type: object
+      properties:
+        accessToken:
+          type: string
+          description: JWT access token (short-lived, default 15 min)
+        refreshToken:
+          type: string
+          description: Refresh token (single-use, rotated on each refresh)
+        expiresIn:
+          type: integer
+          description: Access token TTL in seconds
+          example: 900
+        tokenType:
+          type: string
+          example: Bearer
+
+    PublicUser:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        username:
+          type: string
+        displayName:
+          type: string
+          nullable: true
+        avatarUrl:
+          type: string
+          format: uri
+          nullable: true
+        role:
+          type: string
+          enum: [user, admin, super_admin]
+        status:
+          type: string
+          enum: [active, suspended, deleted]
+        createdAt:
+          type: string
+          format: date-time
+
+    Session:
+      type: object
+      properties:
+        jti:
+          type: string
+          description: JWT ID (unique token identifier)
+        revokedAt:
+          type: string
+          format: date-time
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+          nullable: true
+        expiresAt:
+          type: string
+          format: date-time
+          nullable: true
+
+    MfaStatus:
+      type: object
+      properties:
+        mfaEnabled:
+          type: boolean
+        totp:
+          type: object
+          properties:
+            enabled:
+              type: boolean
+            verified:
+              type: boolean
+        recoveryCodes:
+          type: object
+          properties:
+            remaining:
+              type: integer
+              description: Number of unused recovery codes
+
+    OAuthAccount:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        provider:
+          type: string
+          enum: [google, github, discord]
+        providerUserId:
+          type: string
+        providerEmail:
+          type: string
+          format: email
+        scope:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error type/category
+        message:
+          type: string
+          description: Human-readable error description
+        details:
+          type: array
+          items:
+            type: string
+          description: Validation error details
+
+  responses:
+    ValidationError:
+      description: Request validation failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: Validation failed
+            message: Invalid input
+            details:
+              - "email: Invalid email format"
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: Unauthorized
+            message: Invalid email or password
+    Forbidden:
+      description: Account suspended or access denied
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: Forbidden
+            message: Account is suspended or deleted
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: Not found
+            message: User not found
+    RateLimited:
+      description: Rate limit exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: Too Many Requests
+            message: Rate limit exceeded
+      headers:
+        Retry-After:
+          schema:
+            type: integer

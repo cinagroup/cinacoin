@@ -21,6 +21,10 @@
     "blockchain",
     "cinacoin"
   ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "license": "MIT",
   "dependencies": {
     "node-fetch": "^3.3.0",

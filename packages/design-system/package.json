@@ -18,5 +18,12 @@
   "devDependencies": {
     "typescript": "^5.3.0"
   },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "license": "MIT"
 }

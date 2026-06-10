@@ -1,12 +1,40 @@
 /**
- * @cinacoin/universal-connector — Adapter registry.
+ * @cinacoin/universal-connector — Adapter registry and global adapter management.
  *
  * Central registry for all chain adapters. Manages registration,
  * lookup, and lifecycle of adapters.
+ *
+ * Exports all 10 chain adapter implementations:
+ * - EvmAdapter (Ethereum, Polygon, BSC, Arbitrum, Optimism, etc.)
+ * - SolanaAdapter (Solana mainnet + devnet)
+ * - BitcoinAdapter (BTC mainnet + testnet)
+ * - CosmosAdapter (Cosmos Hub + IBC chains)
+ * - SuiAdapter (Sui mainnet + testnet)
+ * - NearAdapter (NEAR mainnet + testnet)
+ * - TonAdapter (TON mainnet + testnet)
+ * - TronAdapter (TRON mainnet + testnet)
+ * - StarknetAdapter (Starknet mainnet + testnet)
+ * - HederaAdapter (Hedera mainnet + testnet)
+ *
+ * @example
+ * ```ts
+ * import { registerAdapter, getAdapter, listAdapters } from './adapters';
+ * import { EvmAdapter, SolanaAdapter } from './adapters';
+ *
+ * registerAdapter(new EvmAdapter());
+ * registerAdapter(new SolanaAdapter());
+ *
+ * const adapter = getAdapter('eip155:1');
+ * ```
  */
 
 import type { ChainNamespace } from '@cinacoin/core-sdk';
 import { BaseAdapter } from './BaseAdapter.js';
+
+/* ------------------------------------------------------------------ */
+/*  Imports — All 10 chain adapters                                     */
+/* ------------------------------------------------------------------ */
+
 import { EvmAdapter } from './EvmAdapter.js';
 import { SolanaAdapter } from './SolanaAdapter.js';
 import { BitcoinAdapter } from './BitcoinAdapter.js';
@@ -17,6 +45,10 @@ import { TonAdapter } from './TonAdapter.js';
 import { TronAdapter } from './TronAdapter.js';
 import { StarknetAdapter } from './StarknetAdapter.js';
 import { HederaAdapter } from './HederaAdapter.js';
+
+/* ------------------------------------------------------------------ */
+/*  AdapterRegistry                                                     */
+/* ------------------------------------------------------------------ */
 
 /**
  * AdapterRegistry — manages all registered chain adapters.
@@ -42,6 +74,9 @@ export class AdapterRegistry {
   /** Chain-to-adapter mapping for fast lookup. */
   private readonly chainAdapterMap: Map<string, string> = new Map();
 
+  /** Namespace-to-adapter mapping. */
+  private readonly namespaceAdapterMap: Map<string, Set<string>> = new Map();
+
   /* ------------------------------------------------------------------ */
   /*  Registration                                                        */
   /* ------------------------------------------------------------------ */
@@ -63,6 +98,14 @@ export class AdapterRegistry {
     for (const chain of adapter.getChains()) {
       this.chainAdapterMap.set(chain.id, adapter.id);
     }
+
+    // Map namespaces
+    for (const ns of adapter.namespaces) {
+      if (!this.namespaceAdapterMap.has(ns)) {
+        this.namespaceAdapterMap.set(ns, new Set());
+      }
+      this.namespaceAdapterMap.get(ns)!.add(adapter.id);
+    }
   }
 
   /**
@@ -77,6 +120,11 @@ export class AdapterRegistry {
     // Remove chain mappings
     for (const chain of adapter.getChains()) {
       this.chainAdapterMap.delete(chain.id);
+    }
+
+    // Remove namespace mappings
+    for (const ns of adapter.namespaces) {
+      this.namespaceAdapterMap.get(ns)?.delete(adapterId);
     }
 
     this.adapters.delete(adapterId);
@@ -137,9 +185,11 @@ export class AdapterRegistry {
    * @param namespace - Chain namespace (e.g. "eip155", "solana").
    */
   getAdaptersByNamespace(namespace: ChainNamespace): BaseAdapter[] {
-    return Array.from(this.adapters.values()).filter(adapter =>
-      adapter.namespaces.includes(namespace),
-    );
+    const adapterIds = this.namespaceAdapterMap.get(namespace);
+    if (!adapterIds) return [];
+    return Array.from(adapterIds)
+      .map(id => this.adapters.get(id))
+      .filter((a): a is BaseAdapter => a !== undefined);
   }
 
   /**
@@ -170,7 +220,7 @@ export class AdapterRegistry {
       // Disconnect all chains for this adapter
       for (const chain of adapter.getChains()) {
         if (adapter.isConnected(chain.id)) {
-          await adapter.disconnect(chain.id);
+          await adapter.disconnect();
         }
       }
     });
@@ -184,13 +234,92 @@ export class AdapterRegistry {
   clear(): void {
     this.adapters.clear();
     this.chainAdapterMap.clear();
+    this.namespaceAdapterMap.clear();
   }
 }
 
-// Export BaseAdapter for convenience
-export { BaseAdapter } from './BaseAdapter.js';
+/* ------------------------------------------------------------------ */
+/*  Global Singleton                                                    */
+/* ------------------------------------------------------------------ */
 
-// Export all adapter implementations
+/**
+ * Global adapter registry instance.
+ * All adapters are registered here by default.
+ */
+const globalRegistry = new AdapterRegistry();
+
+/**
+ * Register all 10 chain adapters into the global registry.
+ */
+function registerDefaultAdapters(): void {
+  const adapters = [
+    new EvmAdapter(),
+    new SolanaAdapter(),
+    new BitcoinAdapter(),
+    new CosmosAdapter(),
+    new SuiAdapter(),
+    new NearAdapter(),
+    new TonAdapter(),
+    new TronAdapter(),
+    new StarknetAdapter(),
+    new HederaAdapter(),
+  ];
+
+  for (const adapter of adapters) {
+    globalRegistry.register(adapter);
+  }
+}
+
+// Auto-register default adapters
+registerDefaultAdapters();
+
+/* ------------------------------------------------------------------ */
+/*  Convenience Functions                                               */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Register an adapter into the global registry.
+ *
+ * @param adapter - Adapter instance to register.
+ */
+export function registerAdapter(adapter: BaseAdapter): void {
+  globalRegistry.register(adapter);
+}
+
+/**
+ * Get an adapter by chain ID or adapter ID.
+ *
+ * @param identifier - Chain ID (e.g. "eip155:1") or adapter ID (e.g. "evm").
+ * @returns Adapter instance or undefined.
+ */
+export function getAdapter(identifier: string): BaseAdapter | undefined {
+  // Try direct chain lookup first
+  const byChain = globalRegistry.getAdapterForChain(identifier);
+  if (byChain) return byChain;
+
+  // Try adapter ID lookup
+  return globalRegistry.getAdapter(identifier);
+}
+
+/**
+ * List all registered adapters.
+ */
+export function listAdapters(): BaseAdapter[] {
+  return globalRegistry.getAllAdapters();
+}
+
+/**
+ * Get the global adapter registry.
+ */
+export function getRegistry(): AdapterRegistry {
+  return globalRegistry;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Re-exports                                                          */
+/* ------------------------------------------------------------------ */
+
+export { BaseAdapter } from './BaseAdapter.js';
 export { EvmAdapter } from './EvmAdapter.js';
 export { SolanaAdapter } from './SolanaAdapter.js';
 export { BitcoinAdapter } from './BitcoinAdapter.js';
@@ -201,32 +330,3 @@ export { TonAdapter } from './TonAdapter.js';
 export { TronAdapter } from './TronAdapter.js';
 export { StarknetAdapter } from './StarknetAdapter.js';
 export { HederaAdapter } from './HederaAdapter.js';
-
-/**
- * Create a default registry with all built-in adapters pre-registered.
- *
- * @example
- * ```ts
- * import { createDefaultRegistry } from '@cinacoin/universal-connector';
- *
- * const registry = createDefaultRegistry();
- * const ethAdapter = registry.getAdapterForChain('eip155:1');
- * ```
- */
-export function createDefaultRegistry(): AdapterRegistry {
-  const registry = new AdapterRegistry();
-
-  // Register all built-in adapters
-  registry.register(new EvmAdapter());
-  registry.register(new SolanaAdapter());
-  registry.register(new BitcoinAdapter());
-  registry.register(new CosmosAdapter());
-  registry.register(new SuiAdapter());
-  registry.register(new NearAdapter());
-  registry.register(new TonAdapter());
-  registry.register(new TronAdapter());
-  registry.register(new StarknetAdapter());
-  registry.register(new HederaAdapter());
-
-  return registry;
-}

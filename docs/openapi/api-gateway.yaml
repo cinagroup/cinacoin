@@ -1,0 +1,872 @@
+openapi: 3.0.3
+info:
+  title: Cinacoin API Gateway
+  description: |
+    Main API gateway for the Cinacoin platform. Routes requests to internal microservices
+    (Auth Service, User Service) and provides health checks, monitoring, and rate limiting.
+
+    ## Authentication
+    Most endpoints require a Bearer token obtained from the Auth Service.
+    Include it in the `Authorization` header:
+    ```
+    Authorization: Bearer <access_token>
+    ```
+
+    ## Rate Limiting
+    - Global: 1000 requests/hour per IP
+    - Auth endpoints: stricter limits (login, register, password-reset, MFA)
+    - User/Team endpoints: per-user limits
+
+    ## Error Format
+    All errors follow a consistent JSON structure:
+    ```json
+    {
+      "error": "Error Type",
+      "message": "Human-readable description"
+    }
+    ```
+  version: 1.0.0
+  contact:
+    name: Cinacoin Developer Support
+    url: https://cinacoin.com/resources#support
+  license:
+    name: Proprietary
+
+servers:
+  - url: https://api.cinacoin.com
+    description: Production
+  - url: http://localhost:8787
+    description: Local development
+
+tags:
+  - name: Health
+    description: Service health and status
+  - name: Auth
+    description: Authentication endpoints (proxied to Auth Service)
+  - name: Users
+    description: User management endpoints (proxied to User Service)
+  - name: Teams
+    description: Team management endpoints (proxied to User Service)
+
+security:
+  - BearerAuth: []
+
+paths:
+  /health:
+    get:
+      tags: [Health]
+      summary: Health check
+      description: Returns the health status of the API Gateway.
+      security: []
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              example:
+                status: healthy
+                service: api-gateway
+                version: "1.0.0"
+                environment: production
+                timestamp: "2026-06-10T04:00:00.000Z"
+
+  /:
+    get:
+      tags: [Health]
+      summary: API information
+      description: Returns basic API information and available endpoint groups.
+      security: []
+      responses:
+        '200':
+          description: API information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Cinacoin API Gateway
+                  version:
+                    type: string
+                    example: "1.0.0"
+                  endpoints:
+                    type: object
+                    properties:
+                      auth:
+                        type: string
+                        example: /auth/*
+                      users:
+                        type: string
+                        example: /users/*
+                      teams:
+                        type: string
+                        example: /teams/*
+                      health:
+                        type: string
+                        example: /health
+
+  /auth/login:
+    post:
+      tags: [Auth]
+      summary: Login
+      description: |
+        Authenticate a user with email and password. Returns MFA challenge if 2FA is enabled.
+        Proxied to Auth Service.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+            example:
+              email: user@example.com
+              password: securePassword123
+      responses:
+        '200':
+          description: Login successful (MFA required)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+
+  /auth/register:
+    post:
+      tags: [Auth]
+      summary: Register
+      description: Register a new user account. Proxied to Auth Service.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+      responses:
+        '201':
+          description: User registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisterResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '409':
+          description: Email or username already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: Conflict
+                message: Email already registered
+
+  /auth/logout:
+    post:
+      tags: [Auth]
+      summary: Logout
+      description: Revoke the current access token. Proxied to Auth Service.
+      responses:
+        '200':
+          description: Logged out successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Logged out successfully
+                  userId:
+                    type: string
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /auth/refresh:
+    post:
+      tags: [Auth]
+      summary: Refresh tokens
+      description: |
+        Exchange a refresh token for a new token pair. Implements token rotation
+        with reuse detection. Proxied to Auth Service.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshRequest'
+      responses:
+        '200':
+          description: Tokens refreshed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /auth/me:
+    get:
+      tags: [Auth]
+      summary: Get current user
+      description: Returns the authenticated user's profile. Proxied to Auth Service.
+      responses:
+        '200':
+          description: Current user profile
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    $ref: '#/components/schemas/PublicUser'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /auth/sessions:
+    get:
+      tags: [Auth]
+      summary: List active sessions
+      description: List all active sessions for the authenticated user. Proxied to Auth Service.
+      responses:
+        '200':
+          description: Active sessions list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                    properties:
+                      sessions:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Session'
+                      count:
+                        type: integer
+
+  /auth/change-password:
+    post:
+      tags: [Auth]
+      summary: Change password
+      description: Change the authenticated user's password. Proxied to Auth Service.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [currentPassword, newPassword]
+              properties:
+                currentPassword:
+                  type: string
+                  minLength: 1
+                newPassword:
+                  type: string
+                  minLength: 8
+      responses:
+        '200':
+          description: Password changed
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /auth/csrf-token:
+    get:
+      tags: [Auth]
+      summary: Get CSRF token
+      description: Generate a CSRF token tied to a session ID. Proxied to Auth Service.
+      security: []
+      responses:
+        '200':
+          description: CSRF token generated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  csrfToken:
+                    type: string
+                  sessionId:
+                    type: string
+                  expiresIn:
+                    type: integer
+                    example: 86400
+
+  /auth/mfa/enable:
+    post:
+      tags: [Auth]
+      summary: Enable MFA
+      description: Start TOTP MFA setup. Returns secret and recovery codes. Proxied to Auth Service.
+      responses:
+        '200':
+          description: MFA setup initiated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                    properties:
+                      methodId:
+                        type: string
+                      secret:
+                        type: string
+                      uri:
+                        type: string
+                        description: TOTP URI for QR code generation
+                      recoveryCodes:
+                        type: array
+                        items:
+                          type: string
+
+  /auth/mfa/verify:
+    post:
+      tags: [Auth]
+      summary: Verify MFA code
+      description: Verify a TOTP code for setup or general verification. Proxied to Auth Service.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [code]
+              properties:
+                code:
+                  type: string
+                  minLength: 6
+                  maxLength: 20
+                method:
+                  type: string
+                  enum: [totp, recovery_code]
+                  default: totp
+                sessionToken:
+                  type: string
+                  description: MFA session token (for login verification flow)
+      responses:
+        '200':
+          description: MFA verified
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /auth/mfa/verify-login:
+    post:
+      tags: [Auth]
+      summary: Verify MFA during login
+      description: Complete login MFA verification and receive tokens. Proxied to Auth Service.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [mfaToken, code]
+              properties:
+                mfaToken:
+                  type: string
+                code:
+                  type: string
+                  minLength: 6
+                  maxLength: 20
+                method:
+                  type: string
+                  enum: [totp, recovery_code]
+                  default: totp
+      responses:
+        '200':
+          description: MFA verified, tokens issued
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/TokenResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          user:
+                            $ref: '#/components/schemas/PublicUser'
+
+  /auth/mfa/disable:
+    post:
+      tags: [Auth]
+      summary: Disable MFA
+      description: Disable MFA for the authenticated user. Proxied to Auth Service.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [confirmDisable]
+              properties:
+                code:
+                  type: string
+                  description: TOTP code for verification
+                confirmDisable:
+                  type: boolean
+                  example: true
+      responses:
+        '200':
+          description: MFA disabled
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+  /auth/mfa/status:
+    get:
+      tags: [Auth]
+      summary: Get MFA status
+      description: Get MFA configuration status. Proxied to Auth Service.
+      responses:
+        '200':
+          description: MFA status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                    properties:
+                      mfaEnabled:
+                        type: boolean
+                      totp:
+                        type: object
+                        properties:
+                          enabled:
+                            type: boolean
+                          verified:
+                            type: boolean
+                      recoveryCodes:
+                        type: object
+                        properties:
+                          remaining:
+                            type: integer
+
+  /auth/oauth/{provider}:
+    get:
+      tags: [Auth]
+      summary: Start OAuth flow
+      description: Redirect to OAuth provider for authentication. Proxied to Auth Service.
+      security: []
+      parameters:
+        - name: provider
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [google, github, discord]
+      responses:
+        '302':
+          description: Redirect to OAuth provider
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+  /auth/oauth/{provider}/callback:
+    get:
+      tags: [Auth]
+      summary: OAuth callback
+      description: OAuth provider callback. Returns authorization code for token exchange. Proxied to Auth Service.
+      security: []
+      parameters:
+        - name: provider
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [google, github, discord]
+        - name: code
+          in: query
+          schema:
+            type: string
+        - name: state
+          in: query
+          schema:
+            type: string
+      responses:
+        '302':
+          description: Redirect with authorization code
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+  /auth/oauth/token:
+    post:
+      tags: [Auth]
+      summary: Exchange OAuth code for tokens
+      description: Exchange an authorization code for access/refresh tokens. Proxied to Auth Service.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [code]
+              properties:
+                code:
+                  type: string
+      responses:
+        '200':
+          description: Tokens issued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+
+  /auth/oauth/accounts:
+    get:
+      tags: [Auth]
+      summary: List linked OAuth accounts
+      description: Get OAuth accounts linked to the authenticated user. Proxied to Auth Service.
+      responses:
+        '200':
+          description: Linked accounts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/OAuthAccount'
+
+  /users/{path}:
+    get:
+      tags: [Users]
+      summary: User service proxy
+      description: |
+        All `/users/*` requests are proxied to the User Service at `/api/users/*`.
+        See User Service OpenAPI spec for full endpoint documentation.
+      parameters:
+        - name: path
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Response from User Service
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /teams/{path}:
+    get:
+      tags: [Teams]
+      summary: Team service proxy
+      description: |
+        All `/teams/*` requests are proxied to the User Service at `/api/teams/*`.
+        See User Service OpenAPI spec for full endpoint documentation.
+      parameters:
+        - name: path
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Response from User Service
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT access token obtained from Auth Service
+
+  schemas:
+    HealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: healthy
+        service:
+          type: string
+          example: api-gateway
+        version:
+          type: string
+          example: "1.0.0"
+        environment:
+          type: string
+          example: production
+        timestamp:
+          type: string
+          format: date-time
+
+    LoginRequest:
+      type: object
+      required: [email, password]
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 8
+
+    LoginResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            mfaRequired:
+              type: boolean
+              example: true
+            mfaSetupRequired:
+              type: boolean
+            mfaToken:
+              type: string
+              description: Temporary token for MFA verification
+            mfaTokenExpiresIn:
+              type: integer
+              example: 300
+              description: MFA token expiry in seconds
+            message:
+              type: string
+
+    RegisterRequest:
+      type: object
+      required: [email, username, password]
+      properties:
+        email:
+          type: string
+          format: email
+        username:
+          type: string
+          minLength: 3
+          maxLength: 30
+          pattern: '^[a-zA-Z0-9_-]+$'
+        password:
+          type: string
+          minLength: 8
+        displayName:
+          type: string
+
+    RegisterResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          allOf:
+            - $ref: '#/components/schemas/TokenPair'
+            - type: object
+              properties:
+                tokenType:
+                  type: string
+                  example: Bearer
+                user:
+                  $ref: '#/components/schemas/PublicUser'
+
+    RefreshRequest:
+      type: object
+      required: [refreshToken]
+      properties:
+        refreshToken:
+          type: string
+
+    TokenResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          $ref: '#/components/schemas/TokenPair'
+
+    TokenPair:
+      type: object
+      properties:
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+        expiresIn:
+          type: integer
+          description: Access token expiry in seconds
+          example: 900
+        tokenType:
+          type: string
+          example: Bearer
+
+    PublicUser:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        username:
+          type: string
+        displayName:
+          type: string
+        avatarUrl:
+          type: string
+          format: uri
+        role:
+          type: string
+          enum: [user, admin, super_admin]
+        status:
+          type: string
+          enum: [active, suspended, deleted]
+        createdAt:
+          type: string
+          format: date-time
+
+    Session:
+      type: object
+      properties:
+        jti:
+          type: string
+          description: JWT ID
+        revokedAt:
+          type: string
+          format: date-time
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+          nullable: true
+        expiresAt:
+          type: string
+          format: date-time
+          nullable: true
+
+    OAuthAccount:
+      type: object
+      properties:
+        id:
+          type: string
+        provider:
+          type: string
+          enum: [google, github, discord]
+        providerUserId:
+          type: string
+        providerEmail:
+          type: string
+        scope:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error type/category
+        message:
+          type: string
+          description: Human-readable error description
+        details:
+          type: array
+          items:
+            type: string
+          description: Additional validation error details
+
+  responses:
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: Validation failed
+            message: Invalid input
+    Unauthorized:
+      description: Authentication required or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: Unauthorized
+            message: Invalid email or password
+    Forbidden:
+      description: Access denied
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: Forbidden
+            message: Account is suspended or deleted
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: Not Found
+            message: The requested endpoint does not exist
+    RateLimited:
+      description: Too many requests
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: Too Many Requests
+            message: Rate limit exceeded. Try again later.
+      headers:
+        Retry-After:
+          schema:
+            type: integer
+          description: Seconds until the rate limit resets
