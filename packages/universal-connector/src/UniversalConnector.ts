@@ -224,6 +224,116 @@ export class UniversalConnector implements IUniversalConnector {
     return this._currentChain;
   }
 
+  /**
+   * Get balances across all connected chains for a given address.
+   * Queries each registered adapter to fetch the balance.
+   *
+   * @param address - Account address to query balances for.
+   * @param chainIds - Optional list of specific chain IDs to query.
+   *   If omitted, queries all registered chains.
+   * @returns Array of balance results with chain info.
+   *
+   * @example
+   * ```ts
+   * const balances = await connector.getBalancesAcrossChains('0x123...');
+   * for (const b of balances) {
+   *   console.log(`${b.chainId}: ${b.formatted} ${b.symbol}`);
+   * }
+   * ```
+   */
+  async getBalancesAcrossChains(
+    address: string,
+    chainIds?: string[],
+  ): Promise<
+    Array<{
+      chainId: string;
+      address: string;
+      balance: string;
+      formatted: string;
+      symbol: string;
+      success: boolean;
+      error?: string;
+    }>
+  > {
+    const targets = chainIds ?? this.chainManager.getAll().map(c => c.id);
+
+    const results = await Promise.allSettled(
+      targets.map(async chainId => {
+        const adapter = this.resolveAdapter(chainId);
+        if (!adapter) {
+          return {
+            chainId,
+            address,
+            balance: '0',
+            formatted: '0',
+            symbol: 'UNKNOWN',
+            success: false,
+            error: `No adapter for chain "${chainId}"`,
+          };
+        }
+
+        try {
+          const balanceResult = await adapter.getBalance(address);
+          return {
+            chainId,
+            address: balanceResult.address,
+            balance: balanceResult.balance,
+            formatted: balanceResult.formatted,
+            symbol: balanceResult.symbol,
+            success: true,
+          };
+        } catch (err) {
+          return {
+            chainId,
+            address,
+            balance: '0',
+            formatted: '0',
+            symbol: 'UNKNOWN',
+            success: false,
+            error: err instanceof Error ? err.message : 'Unknown error',
+          };
+        }
+      }),
+    );
+
+    return results.map(r => {
+      if (r.status === 'fulfilled') return r.value;
+      return {
+        chainId: 'unknown',
+        address,
+        balance: '0',
+        formatted: '0',
+        symbol: 'UNKNOWN',
+        success: false,
+        error: 'Query failed',
+      };
+    });
+  }
+
+  /**
+   * Get the total USD value of balances across chains.
+   * Requires price feeds for each token.
+   *
+   * @param balances - Array of balance results from getBalancesAcrossChains.
+   * @returns Total estimated USD value.
+   */
+  async getTotalPortfolioValue(
+    balances: Awaited<ReturnType<typeof this.getBalancesAcrossChains>>,
+  ): Promise<{ totalUsd: number; perChain: Array<{ chainId: string; usd: number; symbol: string }> }> {
+    // In production, fetch prices from a price oracle or CoinGecko API
+    // This is a placeholder implementation
+    const perChain = balances.map(b => ({
+      chainId: b.chainId,
+      usd: b.success ? parseFloat(b.formatted) * 0 : 0, // Placeholder
+      symbol: b.symbol,
+    }));
+
+    return {
+      totalUsd: perChain.reduce((sum, c) => sum + c.usd, 0),
+      perChain,
+    };
+  }
+
   /* ── Events ── */
 
   /**
