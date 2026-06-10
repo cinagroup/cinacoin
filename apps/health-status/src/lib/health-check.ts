@@ -91,7 +91,7 @@ async function checkService(config: ServiceConfig, timeoutMs: number = 8000): Pr
       responseTime: elapsed,
       lastChecked: new Date().toISOString(),
       uptime: 99, // will be updated from history
-      error: data?.error,
+      error: (data as Record<string, unknown>)?.error as string | undefined,
     };
   } catch (err: unknown) {
     const elapsed = Math.round(performance.now() - start);
