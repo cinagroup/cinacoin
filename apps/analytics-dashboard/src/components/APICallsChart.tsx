@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import {
   BarChart,
   Bar,
@@ -26,7 +27,7 @@ const data = [
   { hour: "22:00", calls: 110000, errors: 155 },
 ];
 
-export default function APICallsChart() {
+export default React.memo(function APICallsChart() {
   return (
     <div className="h-72">
       <ResponsiveContainer width="100%" height="100%">
@@ -49,4 +50,4 @@ export default function APICallsChart() {
       </ResponsiveContainer>
     </div>
   );
-}
+});

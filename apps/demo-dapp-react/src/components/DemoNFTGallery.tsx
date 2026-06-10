@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import Image from 'next/image';
 import { useCinacoinContext } from '@cinacoin/react';
 
@@ -50,9 +50,39 @@ function getChainName(chainId: number): string {
   return `Chain ${chainId}`;
 }
 
+const NFTCard = React.memo(function NFTCard({ nft }: { nft: NftItem }) {
+  return (
+    <article className="cc-card cc-hover-card" style={cardStyle} tabIndex={0} role="img" aria-label={`${nft.name} from ${nft.collection} on ${getChainName(nft.chainId)}`}>
+      <div style={imageContainerStyle}>
+        <Image
+          src={nft.image}
+          alt={nft.name}
+          fill
+          style={{ objectFit: 'cover' }}
+          loading="lazy"
+          unoptimized
+        />
+        <span className="cc-badge" style={chainBadgeStyle} aria-label={`Chain: ${getChainName(nft.chainId)}`}>
+          {getChainName(nft.chainId)}
+        </span>
+      </div>
+      <div style={cardBodyStyle}>
+        <div style={{ fontWeight: 'var(--cc-weight-semibold)', fontSize: 'var(--cc-text-sm)', marginBottom: 'var(--cc-space-xxs)', color: 'var(--cc-ink)' }}>
+          {nft.name}
+        </div>
+        <div style={{ fontSize: 'var(--cc-text-xs)', color: 'var(--cc-body)' }}>
+          {nft.collection}
+        </div>
+      </div>
+    </article>
+  );
+});
+
 /** DemoNFTGallery — display the connected account's NFT collection. */
 export function DemoNFTGallery(): JSX.Element {
   const { status } = useCinacoinContext();
+
+  const chainCount = useMemo(() => new Set(MOCK_NFTS.map((n) => n.chainId)).size, []);
 
   if (status !== 'connected') {
     return (
@@ -64,8 +94,6 @@ export function DemoNFTGallery(): JSX.Element {
       </section>
     );
   }
-
-  const chainCount = new Set(MOCK_NFTS.map((n) => n.chainId)).size;
 
   return (
     <section className="cc-card cc-fade-in" aria-labelledby="nft-heading">
@@ -80,29 +108,7 @@ export function DemoNFTGallery(): JSX.Element {
       {/* NFT Grid */}
       <div style={gridStyle}>
         {MOCK_NFTS.map((nft) => (
-          <article key={nft.id} className="cc-card cc-hover-card" style={cardStyle} tabIndex={0} role="img" aria-label={`${nft.name} from ${nft.collection} on ${getChainName(nft.chainId)}`}>
-            <div style={imageContainerStyle}>
-              <Image
-                src={nft.image}
-                alt={nft.name}
-                fill
-                style={{ objectFit: 'cover' }}
-                loading="lazy"
-                unoptimized
-              />
-              <span className="cc-badge" style={chainBadgeStyle} aria-label={`Chain: ${getChainName(nft.chainId)}`}>
-                {getChainName(nft.chainId)}
-              </span>
-            </div>
-            <div style={cardBodyStyle}>
-              <div style={{ fontWeight: 'var(--cc-weight-semibold)', fontSize: 'var(--cc-text-sm)', marginBottom: 'var(--cc-space-xxs)', color: 'var(--cc-ink)' }}>
-                {nft.name}
-              </div>
-              <div style={{ fontSize: 'var(--cc-text-xs)', color: 'var(--cc-body)' }}>
-                {nft.collection}
-              </div>
-            </div>
-          </article>
+          <NFTCard key={nft.id} nft={nft} />
         ))}
       </div>
 
@@ -132,12 +138,6 @@ const imageContainerStyle: React.CSSProperties = {
   position: 'relative',
   aspectRatio: '1',
   background: 'var(--cc-image-placeholder)',
-};
-
-const imageStyle: React.CSSProperties = {
-  width: '100%',
-  height: '100%',
-  objectFit: 'cover',
 };
 
 const chainBadgeStyle: React.CSSProperties = {

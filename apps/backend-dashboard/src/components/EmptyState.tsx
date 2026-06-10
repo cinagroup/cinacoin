@@ -1,5 +1,7 @@
 "use client";
 
+import React from "react";
+
 interface EmptyStateProps {
   title?: string;
   description?: string;
@@ -21,7 +23,7 @@ const DefaultInboxIcon = (
  * Empty state component for tables, lists, and data views.
  * Follows DESIGN.md: body-sm text, canvas-soft background, canvas border.
  */
-export default function EmptyState({
+export default React.memo(function EmptyState({
   title = "Nothing here yet",
   description = "No data available.",
   icon = DefaultInboxIcon,
@@ -42,4 +44,4 @@ export default function EmptyState({
       )}
     </div>
   );
-}
+});

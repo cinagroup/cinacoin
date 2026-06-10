@@ -1,5 +1,7 @@
 "use client";
 
+import React from "react";
+
 interface KPICardProps {
   title: string;
   value: string;
@@ -7,7 +9,7 @@ interface KPICardProps {
   trend: "up" | "down";
 }
 
-export default function KPICard({ title, value, change, trend }: KPICardProps) {
+export default React.memo(function KPICard({ title, value, change, trend }: KPICardProps) {
   const isPositive = trend === "up";
   const isGood = title === "Avg Response Time" ? !isPositive : isPositive;
 
@@ -37,4 +39,4 @@ export default function KPICard({ title, value, change, trend }: KPICardProps) {
       <p className="text-display-md text-ink">{value}</p>
     </div>
   );
-}
+});

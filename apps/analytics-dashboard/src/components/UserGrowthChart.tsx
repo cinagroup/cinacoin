@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import {
   LineChart,
   Line,
@@ -27,7 +28,7 @@ const data = [
   { date: "Mar 19", users: 128456, newUsers: 3256 },
 ];
 
-export default function UserGrowthChart() {
+export default React.memo(function UserGrowthChart() {
   return (
     <div className="h-72">
       <ResponsiveContainer width="100%" height="100%">
@@ -61,4 +62,4 @@ export default function UserGrowthChart() {
       </ResponsiveContainer>
     </div>
   );
-}
+});

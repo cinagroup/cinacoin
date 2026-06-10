@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 
 const data = [
@@ -10,7 +11,7 @@ const data = [
   { name: "Others", value: 5, color: "#737373" },
 ];
 
-export default function RegionDistribution() {
+export default React.memo(function RegionDistribution() {
   return (
     <div>
       <div className="h-48">
@@ -56,4 +57,4 @@ export default function RegionDistribution() {
       </div>
     </div>
   );
-}
+});

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 import useWebSocket from "@/hooks/useWebSocket";
 
 interface Transaction {
@@ -76,9 +76,14 @@ export default function RealtimeDashboard() {
     return () => clearInterval(interval);
   }, []);
 
-  const formatNumber = (num: number) => {
+  const formatNumber = useCallback((num: number) => {
     return new Intl.NumberFormat("en-US").format(num);
-  };
+  }, []);
+
+  const maxHeatmapRequests = useMemo(
+    () => Math.max(...data.heatmap.map((h) => h.requests), 1),
+    [data.heatmap]
+  );
 
   return (
     <div className="space-y-lg">
@@ -118,30 +123,7 @@ export default function RealtimeDashboard() {
             <p className="text-body text-ink-mute text-center py-lg">Waiting for transactions...</p>
           ) : (
             data.transactions.map((tx) => (
-              <div
-                key={tx.id}
-                className="flex items-center justify-between p-sm bg-canvas-soft rounded-md hover:bg-canvas-soft-2 transition-colors"
-              >
-                <div className="flex items-center gap-sm">
-                  <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
-                    <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p className="text-body-sm font-medium text-ink">{tx.chain}</p>
-                    <p className="text-caption text-ink-mute text-code">
-                      {tx.from} → {tx.to}
-                    </p>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <p className="text-body-sm font-medium text-ink">{tx.amount.toFixed(4)}</p>
-                  <p className="text-caption text-ink-mute">
-                    {new Date(tx.timestamp).toLocaleTimeString()}
-                  </p>
-                </div>
-              </div>
+              <TransactionRow key={tx.id} tx={tx} />
             ))
           )}
         </div>
@@ -152,25 +134,59 @@ export default function RealtimeDashboard() {
         <h3 className="text-heading-3 text-ink mb-md">Global Request Distribution</h3>
         <div className="space-y-sm">
           {data.heatmap.map((item) => (
-            <div key={item.region}>
-              <div className="flex items-center justify-between mb-xs">
-                <span className="text-body-sm text-ink-body">{item.region}</span>
-                <span className="text-body-sm font-medium text-ink">
-                  {formatNumber(item.requests)} req
-                </span>
-              </div>
-              <div className="h-2 bg-canvas-soft-2 rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-gradient-to-r from-primary to-primary/60 transition-all duration-500"
-                  style={{
-                    width: `${(item.requests / Math.max(...data.heatmap.map((h) => h.requests))) * 100}%`,
-                  }}
-                />
-              </div>
-            </div>
+            <HeatmapRow key={item.region} item={item} maxRequests={maxHeatmapRequests} formatNumber={formatNumber} />
           ))}
         </div>
       </div>
     </div>
   );
 }
+
+const TransactionRow = React.memo(function TransactionRow({ tx }: { tx: Transaction }) {
+  return (
+    <div
+      className="flex items-center justify-between p-sm bg-canvas-soft rounded-md hover:bg-canvas-soft-2 transition-colors"
+    >
+      <div className="flex items-center gap-sm">
+        <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
+          <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+          </svg>
+        </div>
+        <div>
+          <p className="text-body-sm font-medium text-ink">{tx.chain}</p>
+          <p className="text-caption text-ink-mute text-code">
+            {tx.from} → {tx.to}
+          </p>
+        </div>
+      </div>
+      <div className="text-right">
+        <p className="text-body-sm font-medium text-ink">{tx.amount.toFixed(4)}</p>
+        <p className="text-caption text-ink-mute">
+          {new Date(tx.timestamp).toLocaleTimeString()}
+        </p>
+      </div>
+    </div>
+  );
+});
+
+const HeatmapRow = React.memo(function HeatmapRow({ item, maxRequests, formatNumber }: { item: { region: string; requests: number }; maxRequests: number; formatNumber: (n: number) => string }) {
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-xs">
+        <span className="text-body-sm text-ink-body">{item.region}</span>
+        <span className="text-body-sm font-medium text-ink">
+          {formatNumber(item.requests)} req
+        </span>
+      </div>
+      <div className="h-2 bg-canvas-soft-2 rounded-full overflow-hidden">
+        <div
+          className="h-full bg-gradient-to-r from-primary to-primary/60 transition-all duration-500"
+          style={{
+            width: `${(item.requests / maxRequests) * 100}%`,
+          }}
+        />
+      </div>
+    </div>
+  );
+});

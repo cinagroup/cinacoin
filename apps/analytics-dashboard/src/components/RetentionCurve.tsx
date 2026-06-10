@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 
 type CohortPeriod = "daily" | "weekly" | "monthly";
 
@@ -107,7 +107,7 @@ function RetentionLineChart({ cohorts, labels }: { cohorts: CohortData[]; labels
   );
 }
 
-export default function RetentionCurve() {
+export default React.memo(function RetentionCurve() {
   const [period, setPeriod] = useState<CohortPeriod>("weekly");
   const cohorts = cohortData[period];
   const labels = periodLabels[period];
@@ -234,4 +234,4 @@ export default function RetentionCurve() {
       </div>
     </div>
   );
-}
+});

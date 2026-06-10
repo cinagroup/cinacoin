@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 
 interface ChainData {
   name: string;
@@ -108,7 +108,7 @@ function DonutChart({ data, size = 200 }: { data: ChainData[]; size?: number }) 
   );
 }
 
-export default function ChainDistribution() {
+export default React.memo(function ChainDistribution() {
   const [period, setPeriod] = useState<"24h" | "7d" | "30d">("7d");
   const data = dataByPeriod[period];
 
@@ -186,4 +186,4 @@ export default function ChainDistribution() {
       </div>
     </div>
   );
-}
+});

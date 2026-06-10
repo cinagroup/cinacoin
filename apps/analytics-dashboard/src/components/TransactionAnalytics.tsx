@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 
 interface TransactionData {
   date: string;
@@ -45,16 +45,16 @@ function VolumeChart({ data }: { data: TransactionData[] }) {
   const chartW = width - padding.left - padding.right;
   const chartH = height - padding.top - padding.bottom;
 
-  const maxVolume = Math.max(...data.map((d) => d.volume));
+  const maxVolume = useMemo(() => Math.max(...data.map((d) => d.volume)), [data]);
 
-  const points = data.map((d, i) => {
+  const points = useMemo(() => data.map((d, i) => {
     const x = padding.left + (i / (data.length - 1)) * chartW;
     const y = padding.top + chartH - (d.volume / maxVolume) * chartH;
     return { x, y, ...d };
-  });
+  }), [data, maxVolume, chartW, chartH]);
 
-  const pathD = points.map((p, i) => `${i === 0 ? "M" : "L"} ${p.x} ${p.y}`).join(" ");
-  const areaD = `${pathD} L ${points[points.length - 1].x} ${padding.top + chartH} L ${points[0].x} ${padding.top + chartH} Z`;
+  const pathD = useMemo(() => points.map((p, i) => `${i === 0 ? "M" : "L"} ${p.x} ${p.y}`).join(" "), [points]);
+  const areaD = useMemo(() => `${pathD} L ${points[points.length - 1].x} ${padding.top + chartH} L ${points[0].x} ${padding.top + chartH} Z`, [pathD, points, chartH]);
 
   return (
     <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-auto">
@@ -104,7 +104,7 @@ function VolumeChart({ data }: { data: TransactionData[] }) {
   );
 }
 
-export default function TransactionAnalytics() {
+export default React.memo(function TransactionAnalytics() {
   const totalVolume = useMemo(() => transactionData.reduce((sum, d) => sum + d.volume, 0), []);
   const totalTx = useMemo(() => transactionData.reduce((sum, d) => sum + d.count, 0), []);
   const avgGasCost = useMemo(() => transactionData.reduce((sum, d) => sum + d.gasCost, 0) / transactionData.length, []);
@@ -201,4 +201,4 @@ export default function TransactionAnalytics() {
       </div>
     </div>
   );
-}
+});

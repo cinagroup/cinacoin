@@ -1,3 +1,5 @@
+import React from "react";
+
 interface ProgressRingProps {
   value: number; // 0-100
   size?: number;
@@ -6,7 +8,7 @@ interface ProgressRingProps {
   label?: string;
 }
 
-export default function ProgressRing({ value, size = 80, strokeWidth = 6, color = "var(--cc-link)", label }: ProgressRingProps) {
+export default React.memo(function ProgressRing({ value, size = 80, strokeWidth = 6, color = "var(--cc-link)", label }: ProgressRingProps) {
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (value / 100) * circumference;
@@ -43,4 +45,4 @@ export default function ProgressRing({ value, size = 80, strokeWidth = 6, color 
       {label && <span className="cc-caption text-[var(--cc-muted)] mt-1">{label}</span>}
     </div>
   );
-}
+});

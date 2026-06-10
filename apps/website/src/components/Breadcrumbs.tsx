@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useI18n } from '@/providers/I18nProvider';
@@ -32,7 +33,7 @@ export function Breadcrumbs() {
     return breadcrumbs;
   };
   
-  const breadcrumbs = getPathBreadcrumbs();
+  const breadcrumbs = React.useMemo(() => getPathBreadcrumbs(), [pathname, t]);
   
   if (pathname === '/') return null;
   

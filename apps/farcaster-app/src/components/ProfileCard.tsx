@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import Image from 'next/image';
 import type { FarcasterUser } from '@cinacoin/farcaster-miniapp';
 
@@ -18,7 +18,7 @@ interface ProfileCardProps {
  *
  * Shows user avatar, username, FID, verified addresses, and wallet status.
  */
-export function ProfileCard({
+export const ProfileCard = React.memo(function ProfileCard({
   user,
   walletAddress,
   loading = false,
@@ -133,4 +133,4 @@ export function ProfileCard({
       )}
     </div>
   );
-}
+});

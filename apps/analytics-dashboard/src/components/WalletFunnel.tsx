@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 
 interface FunnelStep {
   label: string;
@@ -52,35 +52,32 @@ const funnelData: WalletFunnelData[] = [
   },
 ];
 
-export default function WalletFunnel() {
+export default React.memo(function WalletFunnel() {
   const [selectedWallet, setSelectedWallet] = useState<string>("all");
 
-  const filteredData =
-    selectedWallet === "all"
-      ? funnelData
-      : funnelData.filter((d) => d.wallet === selectedWallet);
-
-  // Aggregate steps if showing all wallets
-  const aggregatedSteps: FunnelStep[] =
-    selectedWallet === "all"
-      ? funnelData[0].steps.map((_, i) => ({
-          label: funnelData[0].steps[i].label,
-          count: funnelData.reduce((sum, w) => sum + w.steps[i].count, 0),
-          color: "#0070f3",
-        }))
-      : filteredData[0]?.steps || [];
+  const aggregatedSteps: FunnelStep[] = useMemo(() => {
+    if (selectedWallet === "all") {
+      return funnelData[0].steps.map((_, i) => ({
+        label: funnelData[0].steps[i].label,
+        count: funnelData.reduce((sum, w) => sum + w.steps[i].count, 0),
+        color: "#0070f3",
+      }));
+    }
+    const filtered = funnelData.filter((d) => d.wallet === selectedWallet);
+    return filtered[0]?.steps || [];
+  }, [selectedWallet]);
 
   const maxCount = aggregatedSteps[0]?.count || 1;
 
-  const getDropoff = (current: number, previous: number) => {
+  const getDropoff = useCallback((current: number, previous: number) => {
     if (previous === 0) return 0;
     return ((previous - current) / previous) * 100;
-  };
+  }, []);
 
-  const overallConversion =
-    aggregatedSteps.length >= 2
-      ? ((aggregatedSteps[aggregatedSteps.length - 1].count / aggregatedSteps[0].count) * 100).toFixed(1)
-      : "0";
+  const overallConversion = useMemo(() => {
+    if (aggregatedSteps.length < 2) return "0";
+    return ((aggregatedSteps[aggregatedSteps.length - 1].count / aggregatedSteps[0].count) * 100).toFixed(1);
+  }, [aggregatedSteps]);
 
   return (
     <div className="space-y-lg">
@@ -211,4 +208,4 @@ export default function WalletFunnel() {
       )}
     </div>
   );
-}
+});
