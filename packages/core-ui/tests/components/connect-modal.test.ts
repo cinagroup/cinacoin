@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for ConnectModal component.
  * Tests rendering logic, view switching, wallet selection, and events.
@@ -22,7 +23,7 @@ describe('ConnectModal component', () => {
   });
 
   it('should accept property changes', () => {
-    const modal = document.createElement('ocx-connect-modal') as any;
+    const modal = document.createElement('ocx-connect-modal') as unknown;
     modal.isOpen = true;
     modal.defaultView = 'social';
     modal.wallets = [
@@ -38,7 +39,7 @@ describe('ConnectModal component', () => {
   });
 
   it('should set current view to defaultView on connectedCallback', () => {
-    const modal = document.createElement('ocx-connect-modal') as any;
+    const modal = document.createElement('ocx-connect-modal') as unknown;
     modal.defaultView = 'email';
     modal.connectedCallback();
     expect(modal._currentView).toBe('email');
@@ -46,14 +47,14 @@ describe('ConnectModal component', () => {
   });
 
   it('should not render when isOpen is false', () => {
-    const modal = document.createElement('ocx-connect-modal') as any;
+    const modal = document.createElement('ocx-connect-modal') as unknown;
     modal.isOpen = false;
     const result = modal.render();
     expect(result).toBe(undefined);
   });
 
   it('should render when isOpen is true', () => {
-    const modal = document.createElement('ocx-connect-modal') as any;
+    const modal = document.createElement('ocx-connect-modal') as unknown;
     modal.isOpen = true;
     modal.wallets = [];
     modal._currentView = 'wallets';
@@ -62,7 +63,7 @@ describe('ConnectModal component', () => {
   });
 
   it('should render wallet grid view when currentView is wallets', () => {
-    const modal = document.createElement('ocx-connect-modal') as any;
+    const modal = document.createElement('ocx-connect-modal') as unknown;
     modal.isOpen = true;
     modal.wallets = [
       { id: 'metamask', name: 'MetaMask', icon: '' },
@@ -75,7 +76,7 @@ describe('ConnectModal component', () => {
   });
 
   it('should render social login view when currentView is social', () => {
-    const modal = document.createElement('ocx-connect-modal') as any;
+    const modal = document.createElement('ocx-connect-modal') as unknown;
     modal.isOpen = true;
     modal.wallets = [];
     modal._currentView = 'social';
@@ -84,7 +85,7 @@ describe('ConnectModal component', () => {
   });
 
   it('should render email view when currentView is email', () => {
-    const modal = document.createElement('ocx-connect-modal') as any;
+    const modal = document.createElement('ocx-connect-modal') as unknown;
     modal.isOpen = true;
     modal.wallets = [];
     modal._currentView = 'email';
@@ -93,7 +94,7 @@ describe('ConnectModal component', () => {
   });
 
   it('should render scan view when currentView is scan', () => {
-    const modal = document.createElement('ocx-connect-modal') as any;
+    const modal = document.createElement('ocx-connect-modal') as unknown;
     modal.isOpen = true;
     modal.wallets = [];
     modal._currentView = 'scan';
@@ -102,7 +103,7 @@ describe('ConnectModal component', () => {
   });
 
   it('should dispatch ocx-wallet-select event on wallet selection', () => {
-    const modal = document.createElement('ocx-connect-modal') as any;
+    const modal = document.createElement('ocx-connect-modal') as unknown;
     const handler = vi.fn();
     modal.addEventListener('ocx-wallet-select', handler);
 
@@ -114,7 +115,7 @@ describe('ConnectModal component', () => {
   });
 
   it('should dispatch ocx-close event on close', () => {
-    const modal = document.createElement('ocx-connect-modal') as any;
+    const modal = document.createElement('ocx-connect-modal') as unknown;
     const handler = vi.fn();
     modal.addEventListener('ocx-close', handler);
 
@@ -126,7 +127,7 @@ describe('ConnectModal component', () => {
   });
 
   it('should close on Escape key when open', () => {
-    const modal = document.createElement('ocx-connect-modal') as any;
+    const modal = document.createElement('ocx-connect-modal') as unknown;
     modal.isOpen = true;
 
     modal.connectedCallback();
@@ -138,7 +139,7 @@ describe('ConnectModal component', () => {
   });
 
   it('should not close on Escape key when not open', () => {
-    const modal = document.createElement('ocx-connect-modal') as any;
+    const modal = document.createElement('ocx-connect-modal') as unknown;
     modal.isOpen = false;
 
     modal.connectedCallback();
@@ -151,7 +152,7 @@ describe('ConnectModal component', () => {
   });
 
   it('should close when clicking overlay', () => {
-    const modal = document.createElement('ocx-connect-modal') as any;
+    const modal = document.createElement('ocx-connect-modal') as unknown;
     modal.isOpen = true;
 
     // Simulate overlay click
@@ -163,7 +164,7 @@ describe('ConnectModal component', () => {
   });
 
   it('should not close when clicking modal content (not overlay)', () => {
-    const modal = document.createElement('ocx-connect-modal') as any;
+    const modal = document.createElement('ocx-connect-modal') as unknown;
     modal.isOpen = true;
 
     const overlay = { classList: { contains: (c: string) => c !== 'overlay' } };
@@ -174,7 +175,7 @@ describe('ConnectModal component', () => {
   });
 
   it('should render view tabs with correct active state', () => {
-    const modal = document.createElement('ocx-connect-modal') as any;
+    const modal = document.createElement('ocx-connect-modal') as unknown;
     modal.isOpen = true;
     modal.wallets = [];
     modal._currentView = 'social';
@@ -185,7 +186,7 @@ describe('ConnectModal component', () => {
   });
 
   it('should render alternative action buttons in wallets view', () => {
-    const modal = document.createElement('ocx-connect-modal') as any;
+    const modal = document.createElement('ocx-connect-modal') as unknown;
     modal.isOpen = true;
     modal.wallets = [];
     modal._currentView = 'wallets';
@@ -197,7 +198,7 @@ describe('ConnectModal component', () => {
   });
 
   it('should render footer with powered by text', () => {
-    const modal = document.createElement('ocx-connect-modal') as any;
+    const modal = document.createElement('ocx-connect-modal') as unknown;
     modal.isOpen = true;
     modal.wallets = [];
     modal._currentView = 'wallets';
@@ -206,7 +207,7 @@ describe('ConnectModal component', () => {
   });
 
   it('should render recommended badge for recommended wallets', () => {
-    const modal = document.createElement('ocx-connect-modal') as any;
+    const modal = document.createElement('ocx-connect-modal') as unknown;
     modal.isOpen = true;
     modal.wallets = [
       { id: 'metamask', name: 'MetaMask', icon: '' },
@@ -218,7 +219,7 @@ describe('ConnectModal component', () => {
   });
 
   it('should render close button with aria-label', () => {
-    const modal = document.createElement('ocx-connect-modal') as any;
+    const modal = document.createElement('ocx-connect-modal') as unknown;
     modal.isOpen = true;
     modal.wallets = [];
     modal._currentView = 'wallets';
@@ -227,13 +228,13 @@ describe('ConnectModal component', () => {
   });
 
   it('should define CSS styles', () => {
-    const styles = (ConnectModal as any).styles;
+    const styles = (ConnectModal as unknown).styles;
     expect(Array.isArray(styles)).toBe(true);
     expect(styles.length).toBeGreaterThanOrEqual(1);
   });
 
   it('should set RTL direction when locale is RTL', () => {
-    const modal = document.createElement('ocx-connect-modal') as any;
+    const modal = document.createElement('ocx-connect-modal') as unknown;
     modal.connectedCallback();
     // RTL depends on locale; default en is not RTL
     expect(modal.hasAttribute('dir')).toBe(false);
@@ -241,7 +242,7 @@ describe('ConnectModal component', () => {
   });
 
   it('should render Google, Apple, and X buttons in social view', () => {
-    const modal = document.createElement('ocx-connect-modal') as any;
+    const modal = document.createElement('ocx-connect-modal') as unknown;
     modal.isOpen = true;
     modal.wallets = [];
     modal._currentView = 'social';

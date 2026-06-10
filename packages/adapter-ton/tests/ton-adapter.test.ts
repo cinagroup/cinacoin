@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * TonChainAdapter unit tests.
  *
@@ -79,7 +80,7 @@ describe('TonChainAdapter', () => {
   });
 
   it('implements setConnector without throwing', () => {
-    expect(() => adapter.setConnector({} as any)).not.toThrow();
+    expect(() => adapter.setConnector({} as unknown)).not.toThrow();
   });
 
   it('registers chains', () => {

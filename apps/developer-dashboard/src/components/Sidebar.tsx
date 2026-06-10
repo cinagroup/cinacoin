@@ -21,10 +21,10 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className="sidebar hidden md:flex flex-col py-4 px-3 shrink-0">
+    <aside className="sidebar hidden md:flex flex-col py-4 px-3 shrink-0" aria-label="Main navigation">
       {/* Logo */}
       <Link href="/" className="flex items-center gap-2 px-3 mb-6">
-        <span className="text-2xl">🔢</span>
+        <span className="text-2xl" aria-hidden="true">🔢</span>
         <div>
           <div className="text-sm font-semibold text-ink leading-tight">Cinacoin</div>
           <div className="text-xs text-ink-mute leading-tight">Developer Portal</div>
@@ -38,8 +38,9 @@ export default function Sidebar() {
             key={item.href}
             href={item.href}
             className={`sidebar-link ${isActive(item.href) ? "active" : ""}`}
+            aria-current={isActive(item.href) ? "page" : undefined}
           >
-            <span>{item.icon}</span>
+            <span aria-hidden="true">{item.icon}</span>
             <span>{item.label}</span>
           </Link>
         ))}

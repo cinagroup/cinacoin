@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * MockProvider test suite — 20+ tests
  */
@@ -90,7 +91,7 @@ describe("MockProvider", () => {
     test("wallet_requestPermissions returns permissions", async () => {
       const res = await p.request({ method: "wallet_requestPermissions" });
       expect(Array.isArray(res)).toBe(true);
-      expect((res as any)[0].parentCapability).toBe("eth_accounts");
+      expect((res as unknown)[0].parentCapability).toBe("eth_accounts");
     });
 
     test("wallet_getPermissions returns permissions", async () => {

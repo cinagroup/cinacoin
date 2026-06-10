@@ -193,7 +193,7 @@ function publicKeyToAddress(publicKey: Uint8Array): string {
     // Compressed: decompress
     // Decompress the point and get uncompressed form
     const hexKey = bytesToHex(publicKey);
-    pubKeyBytes = (secp256k1 as any).Point.fromHex(hexKey).toBytes(false).slice(1);
+    pubKeyBytes = (secp256k1 as unknown).Point.fromHex(hexKey).toBytes(false).slice(1);
   } else {
     throw new Error(`Invalid public key length: ${publicKey.length}`);
   }

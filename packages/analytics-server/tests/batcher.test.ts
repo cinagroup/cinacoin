@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { EventBatcher } from "../src/batcher.js";
 import type { AnalyticsEvent } from "../src/validator.js";
@@ -15,7 +16,7 @@ function makeD1Mock(): D1Database {
               return {
                 success: true,
                 meta: { duration: 1, changes: values.length / 8, size_after: 0, rows_read: 0, rows_written: 0, last_row_id: 0, changed_db: true },
-                results: null as any,
+                results: null as unknown,
                 error: null,
               } as unknown as D1Result;
             },

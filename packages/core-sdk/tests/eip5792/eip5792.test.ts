@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for EIP-5792: Wallet Call API types and utilities.
  */
@@ -76,7 +77,7 @@ function createMockClient(overrides: Record<string, unknown> = {}) {
       throw new Error(`Unknown method: ${method}`);
     }),
     ...overrides,
-  } as any;
+  } as unknown;
 }
 
 // ---------------------------------------------------------------------------
@@ -174,7 +175,7 @@ describe('walletGetCapabilities', () => {
   it('should return empty object when wallet does not support EIP-5792', async () => {
     const client = createMockClient();
     client.request = vi.fn(async () => {
-      const err = new Error('Method not found') as any;
+      const err = new Error('Method not found') as unknown;
       err.code = -32601;
       throw err;
     });
@@ -327,7 +328,7 @@ describe('walletSendCalls', () => {
     await walletSendCalls(client, {
       version: '1.0.0',
       calls: [{ to: MOCK_ADDRESS }],
-    } as any);
+    } as unknown);
     expect(client.request).toHaveBeenCalled();
   });
 
@@ -337,14 +338,14 @@ describe('walletSendCalls', () => {
       walletSendCalls(client, {
         version: '1.0.0',
         calls: [{ to: MOCK_ADDRESS }],
-      } as any),
+      } as unknown),
     ).rejects.toThrow('wallet_sendCalls requires a "from" address');
   });
 
   it('should throw descriptive error when wallet does not support sendCalls', async () => {
     const client = createMockClient();
     client.request = vi.fn(async () => {
-      const err = new Error('Not found') as any;
+      const err = new Error('Not found') as unknown;
       err.code = -32601;
       throw err;
     });
@@ -442,7 +443,7 @@ describe('walletGetCallsStatus', () => {
   it('should throw when wallet does not support getCallsStatus', async () => {
     const client = createMockClient();
     client.request = vi.fn(async () => {
-      const err = new Error('Not found') as any;
+      const err = new Error('Not found') as unknown;
       err.code = -32601;
       throw err;
     });
@@ -675,17 +676,17 @@ describe('validateBatchConfig', () => {
   });
 
   it('should throw when chainId is missing', () => {
-    const config = { from: MOCK_ADDRESS, calls: [{ to: MOCK_ADDRESS }] } as any;
+    const config = { from: MOCK_ADDRESS, calls: [{ to: MOCK_ADDRESS }] } as unknown;
     expect(() => validateBatchConfig(config)).toThrow('chainId is required');
   });
 
   it('should throw when from is missing', () => {
-    const config = { chainId: '0x1', calls: [{ to: MOCK_ADDRESS }] } as any;
+    const config = { chainId: '0x1', calls: [{ to: MOCK_ADDRESS }] } as unknown;
     expect(() => validateBatchConfig(config)).toThrow('from address is required');
   });
 
   it('should throw when calls is empty', () => {
-    const config = { chainId: '0x1', from: MOCK_ADDRESS, calls: [] } as any;
+    const config = { chainId: '0x1', from: MOCK_ADDRESS, calls: [] } as unknown;
     expect(() => validateBatchConfig(config)).toThrow('at least one call is required');
   });
 
@@ -702,7 +703,7 @@ describe('validateBatchConfig', () => {
     const config: AtomicBatchConfig = {
       chainId: '0x1',
       from: MOCK_ADDRESS,
-      calls: [{ to: MOCK_ADDRESS, value: 'not-hex' as any }],
+      calls: [{ to: MOCK_ADDRESS, value: 'not-hex' as unknown }],
     };
     expect(() => validateBatchConfig(config)).toThrow('invalid hex value');
   });
@@ -711,18 +712,18 @@ describe('validateBatchConfig', () => {
     const config: AtomicBatchConfig = {
       chainId: '0x1',
       from: MOCK_ADDRESS,
-      calls: [{ to: MOCK_ADDRESS, data: 'not-hex' as any }],
+      calls: [{ to: MOCK_ADDRESS, data: 'not-hex' as unknown }],
     };
     expect(() => validateBatchConfig(config)).toThrow('invalid hex data');
   });
 
   it('should throw when calls is null', () => {
-    const config = { chainId: '0x1', from: MOCK_ADDRESS, calls: null } as any;
+    const config = { chainId: '0x1', from: MOCK_ADDRESS, calls: null } as unknown;
     expect(() => validateBatchConfig(config)).toThrow('at least one call is required');
   });
 
   it('should throw when calls is undefined', () => {
-    const config = { chainId: '0x1', from: MOCK_ADDRESS } as any;
+    const config = { chainId: '0x1', from: MOCK_ADDRESS } as unknown;
     expect(() => validateBatchConfig(config)).toThrow('at least one call is required');
   });
 
@@ -744,20 +745,20 @@ describe('validateBatchConfig', () => {
       from: MOCK_ADDRESS,
       calls: [
         { to: MOCK_ADDRESS, value: '0x0' },
-        { to: MOCK_ADDRESS_2, value: 'zzz' as any },
+        { to: MOCK_ADDRESS_2, value: 'zzz' as unknown },
       ],
     };
     expect(() => validateBatchConfig(config)).toThrow("call[1]: invalid hex value");
   });
 
   it('should throw when chainId is empty string', () => {
-    const config = { chainId: '', from: MOCK_ADDRESS, calls: [{ to: MOCK_ADDRESS }] } as any;
+    const config = { chainId: '', from: MOCK_ADDRESS, calls: [{ to: MOCK_ADDRESS }] } as unknown;
     // empty string is falsy so chainId is required error
     expect(() => validateBatchConfig(config)).toThrow('chainId is required');
   });
 
   it('should throw when from is empty string', () => {
-    const config = { chainId: '0x1', from: '', calls: [{ to: MOCK_ADDRESS }] } as any;
+    const config = { chainId: '0x1', from: '', calls: [{ to: MOCK_ADDRESS }] } as unknown;
     expect(() => validateBatchConfig(config)).toThrow('from address is required');
   });
 });
@@ -838,7 +839,7 @@ describe('walletSendCalls (extended)', () => {
       calls: [{ to: MOCK_ADDRESS }],
       from: MOCK_ADDRESS,
       chainId: '0x1',
-    } as any);
+    } as unknown);
     expect(client.request).toHaveBeenCalledWith({
       method: 'wallet_sendCalls',
       params: [{
@@ -856,7 +857,7 @@ describe('walletSendCalls (extended)', () => {
       version: '1.0.0',
       calls: [{ to: MOCK_ADDRESS }],
       from: MOCK_ADDRESS,
-    } as any);
+    } as unknown);
     expect(client.request).toHaveBeenCalledWith({
       method: 'wallet_sendCalls',
       params: [{
@@ -880,14 +881,14 @@ describe('walletSendCalls (extended)', () => {
       from: MOCK_ADDRESS,
     });
     expect(result.id).toBe('batch-123');
-    const callArgs = (client.request as any).mock.calls[0][0];
+    const callArgs = (client.request as unknown).mock.calls[0][0];
     expect(callArgs.params[0].calls).toHaveLength(2);
   });
 
   it('should throw user rejected error (-32005) as-is', async () => {
     const client = createMockClient();
     client.request = vi.fn(async () => {
-      const err = new Error('User rejected the request') as any;
+      const err = new Error('User rejected the request') as unknown;
       err.code = -32005;
       throw err;
     });
@@ -970,7 +971,7 @@ describe('sendBatch (extended)', () => {
       '0x1',
       caps,
     );
-    const callArgs = (client.request as any).mock.calls[0][0];
+    const callArgs = (client.request as unknown).mock.calls[0][0];
     expect(callArgs.params[0].capabilities).toEqual(caps);
   });
 });
@@ -1132,9 +1133,9 @@ describe('supportsAtomicBatch (extended)', () => {
   });
 
   it('should handle mixed-case hex input', () => {
-    expect(supportsAtomicBatch('0XA' as any)).toBe(true);
+    expect(supportsAtomicBatch('0XA' as unknown)).toBe(true);
     expect(supportsAtomicBatch('0x2105')).toBe(true);
-    expect(supportsAtomicBatch('0X2105' as any)).toBe(true);
+    expect(supportsAtomicBatch('0X2105' as unknown)).toBe(true);
   });
 });
 
@@ -1212,7 +1213,7 @@ describe('executeAtomicBatch', () => {
       calls: [{ to: MOCK_ADDRESS }],
       capabilities: caps,
     });
-    const callArgs = (client.request as any).mock.calls[0][0];
+    const callArgs = (client.request as unknown).mock.calls[0][0];
     expect(callArgs.params[0].capabilities).toEqual(caps);
   });
 
@@ -1224,7 +1225,7 @@ describe('executeAtomicBatch', () => {
       calls: [{ to: MOCK_ADDRESS }],
       version: '2.0.0',
     });
-    const callArgs = (client.request as any).mock.calls[0][0];
+    const callArgs = (client.request as unknown).mock.calls[0][0];
     expect(callArgs.params[0].version).toBe('2.0.0');
   });
 });
@@ -1360,7 +1361,7 @@ describe('sendErc20Transfer (extended)', () => {
       100n,
       MOCK_ADDRESS,
     );
-    const callArgs = (client.request as any).mock.calls[0][0];
+    const callArgs = (client.request as unknown).mock.calls[0][0];
     // chainId defaults to '0x1' in walletSendCalls
     expect(callArgs.params[0].chainId).toBe('0x1');
   });
@@ -1391,7 +1392,7 @@ describe('sendSingleCall (extended)', () => {
       '0x1',
       caps,
     );
-    const callArgs = (client.request as any).mock.calls[0][0];
+    const callArgs = (client.request as unknown).mock.calls[0][0];
     expect(callArgs.params[0].capabilities).toEqual(caps);
   });
 });
@@ -1491,7 +1492,7 @@ describe('Error handling — user rejected', () => {
   it('walletGetCapabilities should re-throw user rejected (-32005)', async () => {
     const client = createMockClient();
     client.request = vi.fn(async () => {
-      const err = new Error('User rejected') as any;
+      const err = new Error('User rejected') as unknown;
       err.code = -32005;
       throw err;
     });
@@ -1501,7 +1502,7 @@ describe('Error handling — user rejected', () => {
   it('walletGetCallsStatus should re-throw user rejected (-32005)', async () => {
     const client = createMockClient();
     client.request = vi.fn(async () => {
-      const err = new Error('User rejected') as any;
+      const err = new Error('User rejected') as unknown;
       err.code = -32005;
       throw err;
     });

@@ -159,7 +159,7 @@ export async function approvePairing(
     topic: parsed.topic,
     uri,
     active: true,
-    expiry: Date.now() + ((config as any)?.expiry ?? 300) * 1000,
+    expiry: Date.now() + ((config as unknown)?.expiry ?? 300) * 1000,
     symKey: parsed.symKey,
   };
 

@@ -34,19 +34,19 @@ function SwaggerViewer() {
     // Dynamically import swagger-ui-dist (only runs in browser)
     async function loadSwaggerUI() {
       try {
-        // @ts-ignore — loaded from CDN at runtime
-        const mod = await import(
+        // Dynamic import from CDN
+        const mod = (await import(
           /* webpackIgnore: true */
           'https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/+esm'
-        );
+        )) as { SwaggerUIBundle?: any; default?: any };
         setSwaggerUI(() => mod.SwaggerUIBundle || mod.default);
       } catch {
         // Fallback: inject script tag
         const script = document.createElement('script');
         script.src = 'https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui-bundle.js';
         script.onload = () => {
-          // @ts-ignore
-          setSwaggerUI(() => window.SwaggerUIBundle);
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          setSwaggerUI(() => (window as unknown as Window & typeof globalThis).SwaggerUIBundle);
         };
         document.head.appendChild(script);
       }
@@ -72,8 +72,8 @@ function SwaggerViewer() {
       url: SPECS[activeSpec].url,
       deepLinking: true,
       presets: [
-        // @ts-ignore
-        SwaggerUI.presets?.apis || SwaggerUI.APIS,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (SwaggerUI as unknown).presets?.apis || (SwaggerUI as unknown).APIS,
       ],
       layout: 'BaseLayout',
       defaultModelsExpandDepth: 1,

@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Basic tests for EIP-5792 Vue composables.
  *
@@ -36,7 +37,7 @@ describe('useWalletCapabilities', () => {
       chainIdHex: null,
       isConnected: false,
     };
-    (globalThis as any).__ocx_eip5792_context = () => mockContext;
+    (globalThis as unknown).__ocx_eip5792_context = () => mockContext;
 
     const result = useWalletCapabilities();
 
@@ -53,7 +54,7 @@ describe('useWalletCapabilities', () => {
     expect(typeof result.getChainCaps).toBe('function');
     expect(typeof result.filterBy).toBe('function');
 
-    delete (globalThis as any).__ocx_eip5792_context;
+    delete (globalThis as unknown).__ocx_eip5792_context;
   });
 });
 
@@ -65,7 +66,7 @@ describe('useSendCalls', () => {
       chainIdHex: null,
       isConnected: false,
     };
-    (globalThis as any).__ocx_eip5792_context = () => mockContext;
+    (globalThis as unknown).__ocx_eip5792_context = () => mockContext;
 
     const result = useSendCalls();
 
@@ -75,7 +76,7 @@ describe('useSendCalls', () => {
     expect(result).toHaveProperty('lastCallId');
     expect(typeof result.sendCalls).toBe('function');
 
-    delete (globalThis as any).__ocx_eip5792_context;
+    delete (globalThis as unknown).__ocx_eip5792_context;
   });
 
   it('throws when no wallet is connected', async () => {
@@ -85,13 +86,13 @@ describe('useSendCalls', () => {
       chainIdHex: '0x1',
       isConnected: false,
     };
-    (globalThis as any).__ocx_eip5792_context = () => mockContext;
+    (globalThis as unknown).__ocx_eip5792_context = () => mockContext;
 
     const { sendCalls } = useSendCalls();
 
     await expect(sendCalls([])).rejects.toThrow('No wallet connected');
 
-    delete (globalThis as any).__ocx_eip5792_context;
+    delete (globalThis as unknown).__ocx_eip5792_context;
   });
 });
 
@@ -103,7 +104,7 @@ describe('useAtomicBatch', () => {
       chainIdHex: '0x1',
       isConnected: false,
     };
-    (globalThis as any).__ocx_eip5792_context = () => mockContext;
+    (globalThis as unknown).__ocx_eip5792_context = () => mockContext;
 
     const result = useAtomicBatch();
 
@@ -118,7 +119,7 @@ describe('useAtomicBatch', () => {
     // 0x1 is in KNOWN_ATOMIC_CHAINS
     expect(result.isAtomicSupported.value).toBe(true);
 
-    delete (globalThis as any).__ocx_eip5792_context;
+    delete (globalThis as unknown).__ocx_eip5792_context;
   });
 });
 
@@ -130,7 +131,7 @@ describe('useCallsStatus', () => {
       chainIdHex: null,
       isConnected: false,
     };
-    (globalThis as any).__ocx_eip5792_context = () => mockContext;
+    (globalThis as unknown).__ocx_eip5792_context = () => mockContext;
 
     const result = useCallsStatus();
 
@@ -145,7 +146,7 @@ describe('useCallsStatus', () => {
     expect(typeof result.startPolling).toBe('function');
     expect(typeof result.stopPolling).toBe('function');
 
-    delete (globalThis as any).__ocx_eip5792_context;
+    delete (globalThis as unknown).__ocx_eip5792_context;
   });
 
   it('stopPolling clears the polling state', () => {
@@ -155,12 +156,12 @@ describe('useCallsStatus', () => {
       chainIdHex: null,
       isConnected: false,
     };
-    (globalThis as any).__ocx_eip5792_context = () => mockContext;
+    (globalThis as unknown).__ocx_eip5792_context = () => mockContext;
 
     const { stopPolling, isPolling } = useCallsStatus();
     stopPolling();
     expect(isPolling.value).toBe(false);
 
-    delete (globalThis as any).__ocx_eip5792_context;
+    delete (globalThis as unknown).__ocx_eip5792_context;
   });
 });

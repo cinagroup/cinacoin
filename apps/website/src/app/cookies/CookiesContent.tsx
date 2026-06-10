@@ -2,6 +2,7 @@
 
 import FadeIn from '@/components/FadeIn'
 import { useI18n } from '@/providers/I18nProvider'
+import { sanitizeHtml } from '@/lib/sanitize'
 
 function Section({ titleId, contentId }: { titleId: string; contentId: string }) {
   const { t } = useI18n()
@@ -10,7 +11,7 @@ function Section({ titleId, contentId }: { titleId: string; contentId: string })
       <h2 className="cc-display-sm text-[var(--cc-ink)] mb-4">{t(titleId)}</h2>
       <div
         className="cc-body-md text-[var(--cc-body)]"
-        dangerouslySetInnerHTML={{ __html: t(contentId) }}
+        dangerouslySetInnerHTML={{ __html: sanitizeHtml(t(contentId)) }}
       />
     </div>
   )
@@ -29,10 +30,10 @@ function SectionWithList({
   return (
     <div className="mb-12">
       <h2 className="cc-display-sm text-[var(--cc-ink)] mb-4">{t(titleId)}</h2>
-      <p className="cc-body-md text-[var(--cc-body)] mb-4" dangerouslySetInnerHTML={{ __html: t(paragraphId) }} />
+      <p className="cc-body-md text-[var(--cc-body)] mb-4" dangerouslySetInnerHTML={{ __html: sanitizeHtml(t(paragraphId)) }} />
       <ul className="cc-body-md text-[var(--cc-body)] list-disc pl-6 space-y-2">
         {listItems.map((key) => (
-          <li key={key} dangerouslySetInnerHTML={{ __html: t(key) }} />
+          <li key={key} dangerouslySetInnerHTML={{ __html: sanitizeHtml(t(key)) }} />
         ))}
       </ul>
     </div>
@@ -52,7 +53,7 @@ function CookieCategory({
   return (
     <div className="mb-8 ml-4 border-l-2 border-[var(--cc-hairline)] pl-4">
       <h3 className="cc-display-sm text-[var(--cc-ink)] mb-3">{t(catTitleId)}</h3>
-      <p className="cc-body-md text-[var(--cc-body)] mb-3" dangerouslySetInnerHTML={{ __html: t(catParaId) }} />
+      <p className="cc-body-md text-[var(--cc-body)] mb-3" dangerouslySetInnerHTML={{ __html: sanitizeHtml(t(catParaId)) }} />
       <ul className="cc-body-md text-[var(--cc-body)] list-disc pl-6 space-y-2">
         {listItems.map((key) => (
           <li key={key}>{t(key)}</li>
@@ -94,7 +95,7 @@ export default function CookiesContent() {
 
             <div className="mb-12">
               <h2 className="cc-display-sm text-[var(--cc-ink)] mb-4">{t('cookies-s2-title')}</h2>
-              <p className="cc-body-md text-[var(--cc-body)] mb-8" dangerouslySetInnerHTML={{ __html: t('cookies-s2-p') }} />
+              <p className="cc-body-md text-[var(--cc-body)] mb-8" dangerouslySetInnerHTML={{ __html: sanitizeHtml(t('cookies-s2-p')) }} />
 
               <CookieCategory
                 catTitleId="cookies-s2-cat1"
@@ -123,21 +124,21 @@ export default function CookiesContent() {
 
             <div className="mb-12">
               <h2 className="cc-display-sm text-[var(--cc-ink)] mb-4">{t('cookies-s5-title')}</h2>
-              <p className="cc-body-md text-[var(--cc-body)] mb-4" dangerouslySetInnerHTML={{ __html: t('cookies-s5-p') }} />
+              <p className="cc-body-md text-[var(--cc-body)] mb-4" dangerouslySetInnerHTML={{ __html: sanitizeHtml(t('cookies-s5-p')) }} />
               <ul className="cc-body-md text-[var(--cc-body)] list-disc pl-6 space-y-2 mb-6">
                 {['cookies-s5-l1', 'cookies-s5-l2', 'cookies-s5-l3', 'cookies-s5-l4'].map((key) => (
                   <li key={key}>{t(key)}</li>
                 ))}
               </ul>
-              <p className="cc-body-md text-[var(--cc-body)]" dangerouslySetInnerHTML={{ __html: t('cookies-s5-p2') }} />
+              <p className="cc-body-md text-[var(--cc-body)]" dangerouslySetInnerHTML={{ __html: sanitizeHtml(t('cookies-s5-p2')) }} />
             </div>
 
             <div className="mb-12">
               <h2 className="cc-display-sm text-[var(--cc-ink)] mb-4">{t('cookies-s6-title')}</h2>
-              <p className="cc-body-md text-[var(--cc-body)] mb-4" dangerouslySetInnerHTML={{ __html: t('cookies-s6-p') }} />
+              <p className="cc-body-md text-[var(--cc-body)] mb-4" dangerouslySetInnerHTML={{ __html: sanitizeHtml(t('cookies-s6-p')) }} />
               <ul className="cc-body-md text-[var(--cc-body)] list-disc pl-6 space-y-2">
                 {['cookies-s6-l1', 'cookies-s6-l2'].map((key) => (
-                  <li key={key} dangerouslySetInnerHTML={{ __html: t(key) }} />
+                  <li key={key} dangerouslySetInnerHTML={{ __html: sanitizeHtml(t(key)) }} />
                 ))}
               </ul>
             </div>

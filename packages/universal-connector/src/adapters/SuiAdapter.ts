@@ -204,6 +204,37 @@ export class SuiAdapter extends BaseAdapter {
     this.emit('chainChanged', { chainId });
   }
 
+  /**
+   * Build and execute a Programmable Transaction Block (PTB).
+   * PTBs allow complex multi-step transactions in Sui.
+   *
+   * @param builder - PTB builder function that constructs the transaction.
+   * @returns Transaction result.
+   */
+  async executePTB(
+    builder: (tx: PTBBuilder) => void
+  ): Promise<TxResult> {
+    const state = this.requireConnection();
+    if (!this.provider) throw new Error('[SuiAdapter] No provider');
+
+    const txBuilder = new PTBBuilder();
+    builder(txBuilder);
+
+    const ptb = txBuilder.build();
+
+    const { digest } = await this.provider.signAndExecuteTransactionBlock({
+      transactionBlock: ptb,
+      options: { showEffects: true, showEvents: true },
+    });
+
+    return {
+      hash: digest,
+      chainId: this._activeChainId!,
+      from: state.accounts[0],
+      broadcast: true,
+    };
+  }
+
   /* ------------------------------------------------------------------ */
   /*  Internal Helpers                                                    */
   /* ------------------------------------------------------------------ */
@@ -213,7 +244,7 @@ export class SuiAdapter extends BaseAdapter {
    */
   private detectProvider(): SuiProvider | null {
     if (typeof window === 'undefined') return null;
-    return (window as any).suiWallet ?? (window as any).suiWallets?.[0] ?? null;
+    return (window as unknown as Window & typeof globalThis).suiWallet ?? (window as unknown as Window & typeof globalThis).suiWallets?.[0] ?? null;
   }
 
   /**
@@ -247,5 +278,87 @@ export class SuiAdapter extends BaseAdapter {
 
     const fractionalStr = fractionalPart.toString().padStart(decimals, '0').slice(0, 9);
     return `${integerPart}.${fractionalStr}`;
+  }
+}
+
+/**
+ * PTBBuilder - Programmable Transaction Block builder for Sui.
+ * Allows constructing complex multi-step transactions.
+ */
+export class PTBBuilder {
+  private commands: unknown[] = [];
+  private inputs: unknown[] = [];
+
+  /**
+   * Add a Move call to the PTB.
+   */
+  moveCall(params: {
+    target: string;
+    arguments?: unknown[];
+    typeArguments?: string[];
+  }): this {
+    this.commands.push({
+      kind: 'MoveCall',
+      target: params.target,
+      arguments: params.arguments ?? [],
+      typeArguments: params.typeArguments ?? [],
+    });
+    return this;
+  }
+
+  /**
+   * Transfer objects to recipients.
+   */
+  transferObjects(objects: unknown[], recipient: string): this {
+    this.commands.push({
+      kind: 'TransferObjects',
+      objects,
+      recipient,
+    });
+    return this;
+  }
+
+  /**
+   * Split a coin into multiple coins.
+   */
+  splitCoins(coin: unknown, amounts: unknown[]): this {
+    this.commands.push({
+      kind: 'SplitCoins',
+      coin,
+      amounts,
+    });
+    return this;
+  }
+
+  /**
+   * Merge multiple coins into one.
+   */
+  mergeCoins(destination: unknown, sources: unknown[]): this {
+    this.commands.push({
+      kind: 'MergeCoins',
+      destination,
+      sources,
+    });
+    return this;
+  }
+
+  /**
+   * Add an input (pure value or object reference).
+   */
+  input(value: unknown): unknown {
+    const index = this.inputs.length;
+    this.inputs.push(value);
+    return { kind: 'Input', index };
+  }
+
+  /**
+   * Build the PTB into a transaction block.
+   */
+  build(): unknown {
+    return {
+      version: 1,
+      commands: this.commands,
+      inputs: this.inputs,
+    };
   }
 }

@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * XRPL (XRP Ledger) Chain Adapter tests.
  *
@@ -595,7 +596,7 @@ describe('buildOfferCreate', () => {
     expect(tx.TransactionType).toBe(XrplTxType.OfferCreate);
     expect(tx.Account).toBe('RDNHXJ2SMFWJHXGFKFDGZCGFDNKVGVLWZQ');
     expect(tx.TakerPays).toBe('10000000');
-    expect((tx.TakerGets as any).currency).toBe('USD');
+    expect((tx.TakerGets as unknown).currency).toBe('USD');
   });
 
   it('sets expiration when provided', () => {
@@ -636,8 +637,8 @@ describe('buildTrustSet', () => {
     });
 
     expect(tx.TransactionType).toBe(XrplTxType.TrustSet);
-    expect((tx.LimitAmount as any).currency).toBe('USD');
-    expect((tx.LimitAmount as any).value).toBe('1000');
+    expect((tx.LimitAmount as unknown).currency).toBe('USD');
+    expect((tx.LimitAmount as unknown).value).toBe('1000');
   });
 
   it('sets flags when provided', () => {
@@ -855,7 +856,7 @@ describe('XrplChainAdapter setConnector', () => {
   });
 
   it('setConnector accepts a connector', () => {
-    const mockConnector = { id: 'test' } as any;
+    const mockConnector = { id: 'test' } as unknown;
     expect(() => adapter.setConnector(mockConnector)).not.toThrow();
   });
 });
@@ -1259,7 +1260,7 @@ describe('XrplChainAdapter with mock provider', () => {
       generateTxBlob: vi.fn().mockResolvedValue({ tx_blob: 'test' }),
       getBalance: vi.fn().mockResolvedValue('1000000000'),
       call: vi.fn().mockResolvedValue({}),
-    } as any;
+    } as unknown;
 
     const tx = buildPayment({
       account: 'rDNHxJ2sMfWjHxGfKfDgZcGfDnKvGvLwZQ',
@@ -1390,7 +1391,7 @@ describe('XrplChainAdapter with mocked RPC', () => {
       }),
       generateTxBlob: vi.fn().mockResolvedValue({ tx_blob: 'test' }),
       call: vi.fn().mockResolvedValue({}),
-    } as any;
+    } as unknown;
   });
 
   it('getBalance returns balance from mock', async () => {

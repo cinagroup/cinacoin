@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for @cinacoin/react-native — EIP-5792, ENS, Biometric, and Push.
  */
@@ -205,7 +206,7 @@ describe('PushNotificationManager — exports', () => {
 describe('PushNotificationManager — parsePayload', () => {
   it('should parse basic notification payload', async () => {
     const mod = await import('../src/push.js');
-    const PushNotificationManager = mod.PushNotificationManager as any;
+    const PushNotificationManager = mod.PushNotificationManager as unknown;
 
     const payload = {
       title: 'New Session Proposal',
@@ -226,7 +227,7 @@ describe('PushNotificationManager — parsePayload', () => {
 
   it('should handle minimal payload', async () => {
     const mod = await import('../src/push.js');
-    const PushNotificationManager = mod.PushNotificationManager as any;
+    const PushNotificationManager = mod.PushNotificationManager as unknown;
 
     const notification = PushNotificationManager.parsePayload({});
 
@@ -236,7 +237,7 @@ describe('PushNotificationManager — parsePayload', () => {
 
   it('should extract WalletConnect-specific fields', async () => {
     const mod = await import('../src/push.js');
-    const PushNotificationManager = mod.PushNotificationManager as any;
+    const PushNotificationManager = mod.PushNotificationManager as unknown;
 
     const notification = PushNotificationManager.parsePayload({
       topic: 'topic-xyz',
@@ -257,7 +258,7 @@ describe('PushNotificationManager — parsePayload', () => {
 describe('PushNotificationManager — singleton', () => {
   it('should return same instance', async () => {
     const mod = await import('../src/push.js');
-    const PM = mod.PushNotificationManager as any;
+    const PM = mod.PushNotificationManager as unknown;
 
     const instance1 = PM.getInstance();
     const instance2 = PM.getInstance();
@@ -267,7 +268,7 @@ describe('PushNotificationManager — singleton', () => {
 
   it('should reset singleton', async () => {
     const mod = await import('../src/push.js');
-    const PM = mod.PushNotificationManager as any;
+    const PM = mod.PushNotificationManager as unknown;
 
     const instance1 = PM.getInstance();
     PM.resetInstance();
@@ -280,7 +281,7 @@ describe('PushNotificationManager — singleton', () => {
 describe('PushNotificationManager — state', () => {
   it('should have initial state', async () => {
     const mod = await import('../src/push.js');
-    const PM = mod.PushNotificationManager as any;
+    const PM = mod.PushNotificationManager as unknown;
 
     PM.resetInstance();
     const manager = PM.getInstance();
@@ -299,7 +300,7 @@ describe('PushNotificationManager — state', () => {
 describe('PushNotificationManager — handleNotification', () => {
   it('should store last notification', async () => {
     const mod = await import('../src/push.js');
-    const PM = mod.PushNotificationManager as any;
+    const PM = mod.PushNotificationManager as unknown;
 
     PM.resetInstance();
     const manager = PM.getInstance();
@@ -319,7 +320,7 @@ describe('PushNotificationManager — handleNotification', () => {
 
   it('should call onNotification callback', async () => {
     const mod = await import('../src/push.js');
-    const PM = mod.PushNotificationManager as any;
+    const PM = mod.PushNotificationManager as unknown;
 
     PM.resetInstance();
     const manager = PM.getInstance();
@@ -346,7 +347,7 @@ describe('PushNotificationManager — handleNotification', () => {
 describe('PushNotificationManager — detectNotificationType', () => {
   it('should detect session_proposal type', async () => {
     const mod = await import('../src/push.js');
-    const PM = mod.PushNotificationManager as any;
+    const PM = mod.PushNotificationManager as unknown;
 
     PM.resetInstance();
     const manager = PM.getInstance();
@@ -363,7 +364,7 @@ describe('PushNotificationManager — detectNotificationType', () => {
 
   it('should detect session_request type', async () => {
     const mod = await import('../src/push.js');
-    const PM = mod.PushNotificationManager as any;
+    const PM = mod.PushNotificationManager as unknown;
 
     PM.resetInstance();
     const manager = PM.getInstance();

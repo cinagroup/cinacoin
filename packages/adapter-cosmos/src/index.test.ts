@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import type { CosmosAdapterConfig } from './CosmosAdapter.js';
 import { CosmosAdapter, COSMOS_CHAINS, COSMOS_CHAIN_INFO } from './index.js';
@@ -57,7 +58,7 @@ describe('@cinacoin/adapter-cosmos', () => {
 
     it('should throw when no RPC URL can be resolved for unknown chain', () => {
       expect(() => {
-        new CosmosAdapter({ chainId: 'unknown-chain-999' as any });
+        new CosmosAdapter({ chainId: 'unknown-chain-999' as unknown });
       }).toThrow('No RPC URL configured');
     });
   });
@@ -93,7 +94,7 @@ describe('@cinacoin/adapter-cosmos', () => {
 
     it('should setConnector without error (no-op for cosmos)', () => {
       const adapter = new CosmosAdapter(config);
-      expect(() => adapter.setConnector({} as any)).not.toThrow();
+      expect(() => adapter.setConnector({} as unknown)).not.toThrow();
     });
 
     it('should setClient without error (no-op for cosmos)', () => {
@@ -155,8 +156,8 @@ describe('@cinacoin/adapter-cosmos', () => {
         chainId: 'osmosis-1',
       };
       const adapter2 = new CosmosAdapter(config2);
-      (adapter2 as any)._rpcUrl = '';
-      (adapter2 as any)._restUrl = '';
+      (adapter2 as unknown)._rpcUrl = '';
+      (adapter2 as unknown)._restUrl = '';
 
       await expect(adapter2.getBalance('osmo1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq4r0q4w')).rejects.toThrow('No RPC or REST endpoint configured');
     });
@@ -205,7 +206,7 @@ describe('@cinacoin/adapter-cosmos', () => {
     it('should throw when switching to unknown chain without custom URLs', async () => {
       const adapter = new CosmosAdapter(config);
       await expect(
-        adapter.switchChain('unknown-chain-999' as any),
+        adapter.switchChain('unknown-chain-999' as unknown),
       ).rejects.toThrow('Unknown chain');
     });
 
@@ -230,7 +231,7 @@ describe('@cinacoin/adapter-cosmos', () => {
     it('should handle empty wallet preference', () => {
       const adapter = new CosmosAdapter({
         chainId: 'cosmoshub-4',
-        wallet: undefined as any,
+        wallet: undefined as unknown,
       });
       expect(adapter.id).toBe('cosmos-adapter');
     });

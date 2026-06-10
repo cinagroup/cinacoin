@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Cosmos Chain Adapter tests.
  *
@@ -240,7 +241,7 @@ describe('CosmosChainAdapter configuration', () => {
   });
 
   it('accepts setConnector', () => {
-    const mockConnector = { id: 'test' } as any;
+    const mockConnector = { id: 'test' } as unknown;
     adapter.setConnector(mockConnector);
     // Connector stored internally
   });
@@ -304,13 +305,13 @@ describe('CosmosChainAdapter connection with mock Keplr', () => {
     };
 
     // Attach mock to window
-    (globalThis as any).window = { keplr: mockKeplr };
+    (globalThis as unknown).window = { keplr: mockKeplr };
 
     const accounts = await adapter.connect('keplr', 'cosmoshub-4');
     expect(accounts).toEqual(['cosmos1pkptre7fdkl6gfrzlesjjvhxhlc3r4gmmk8rs6']);
     expect(adapter.getAddress()).toBe('cosmos1pkptre7fdkl6gfrzlesjjvhxhlc3r4gmmk8rs6');
 
-    delete (globalThis as any).window;
+    delete (globalThis as unknown).window;
   });
 
   it('getAccounts returns connected accounts', async () => {
@@ -324,13 +325,13 @@ describe('CosmosChainAdapter connection with mock Keplr', () => {
       sendTx: vi.fn(),
     };
 
-    (globalThis as any).window = { keplr: mockKeplr };
+    (globalThis as unknown).window = { keplr: mockKeplr };
     await adapter.connect('keplr', 'cosmoshub-4');
 
     const accounts = await adapter.getAccounts();
     expect(accounts).toEqual(['cosmos1pkptre7fdkl6gfrzlesjjvhxhlc3r4gmmk8rs6']);
 
-    delete (globalThis as any).window;
+    delete (globalThis as unknown).window;
   });
 
   it('disconnect clears accounts', async () => {
@@ -345,7 +346,7 @@ describe('CosmosChainAdapter connection with mock Keplr', () => {
       disconnect: vi.fn().mockResolvedValue(undefined),
     };
 
-    (globalThis as any).window = { keplr: mockKeplr };
+    (globalThis as unknown).window = { keplr: mockKeplr };
     await adapter.connect('keplr', 'cosmoshub-4');
     expect(adapter.getAddress()).not.toBeNull();
 
@@ -353,7 +354,7 @@ describe('CosmosChainAdapter connection with mock Keplr', () => {
     expect(adapter.getAddress()).toBeNull();
     expect(adapter.getKeplr()).toBeNull();
 
-    delete (globalThis as any).window;
+    delete (globalThis as unknown).window;
   });
 });
 
@@ -613,12 +614,12 @@ describe('CosmosChainAdapter message signing', () => {
       signArbitrary: vi.fn(),
     };
 
-    (globalThis as any).window = { keplr: mockKeplr };
+    (globalThis as unknown).window = { keplr: mockKeplr };
     await adapter.connect('keplr', 'cosmoshub-4');
 
     await expect(adapter.signMessage('hello')).rejects.toThrow('No connected address');
 
-    delete (globalThis as any).window;
+    delete (globalThis as unknown).window;
   });
 
   it('signMessage uses signArbitrary when available', async () => {
@@ -637,14 +638,14 @@ describe('CosmosChainAdapter message signing', () => {
       }),
     };
 
-    (globalThis as any).window = { keplr: mockKeplr };
+    (globalThis as unknown).window = { keplr: mockKeplr };
     await adapter.connect('keplr', 'cosmoshub-4');
 
     const result = await adapter.signMessage('hello world');
     expect(result).toBe('base64sig==');
     expect(mockKeplr.signArbitrary).toHaveBeenCalled();
 
-    delete (globalThis as any).window;
+    delete (globalThis as unknown).window;
   });
 
   it('signMessage accepts Uint8Array', async () => {
@@ -663,14 +664,14 @@ describe('CosmosChainAdapter message signing', () => {
       }),
     };
 
-    (globalThis as any).window = { keplr: mockKeplr };
+    (globalThis as unknown).window = { keplr: mockKeplr };
     await adapter.connect('keplr', 'cosmoshub-4');
 
     const msgBytes = new TextEncoder().encode('hello world');
     const result = await adapter.signMessage(msgBytes);
     expect(result).toBe('base64sig==');
 
-    delete (globalThis as any).window;
+    delete (globalThis as unknown).window;
   });
 });
 

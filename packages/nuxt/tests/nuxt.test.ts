@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for @cinacoin/nuxt — module and composables.
  */

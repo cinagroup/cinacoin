@@ -5,7 +5,9 @@
   "scripts": {
     "demo": "tsx src/index.ts",
     "build": "tsc",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "lint": "eslint src --ext .ts,.tsx,.js,.jsx",
+    "test": "vitest run"
   },
   "dependencies": {
     "ethers": "^6.13",

@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * NEAR Chain Adapter tests.
  *
@@ -696,7 +697,7 @@ describe('NearChainAdapter configuration', () => {
   });
 
   it('accepts setConnector', () => {
-    const mockConnector = { id: 'test' } as any;
+    const mockConnector = { id: 'test' } as unknown;
     adapter.setConnector(mockConnector);
     // Connector stored internally
   });
@@ -721,7 +722,7 @@ describe('NearChainAdapter connection', () => {
   });
 
   afterEach(() => {
-    delete (globalThis as any).window;
+    delete (globalThis as unknown).window;
   });
 
   it('returns null address before connection', () => {
@@ -761,7 +762,7 @@ describe('NearChainAdapter connection with mock provider', () => {
   });
 
   afterEach(() => {
-    delete (globalThis as any).window;
+    delete (globalThis as unknown).window;
   });
 
   it('connect succeeds with mock provider', async () => {
@@ -773,13 +774,13 @@ describe('NearChainAdapter connection with mock provider', () => {
       signAndSendTransaction: vi.fn(),
     };
 
-    (globalThis as any).window = { nearWallet: mockProvider };
+    (globalThis as unknown).window = { nearWallet: mockProvider };
 
     const accounts = await adapter.connect('mynearwallet');
     expect(accounts).toEqual(['alice.near']);
     expect(adapter.getAddress()).toBe('alice.near');
 
-    delete (globalThis as any).window;
+    delete (globalThis as unknown).window;
   });
 
   it('getAccounts returns connected accounts', async () => {
@@ -791,7 +792,7 @@ describe('NearChainAdapter connection with mock provider', () => {
       signAndSendTransaction: vi.fn(),
     };
 
-    (globalThis as any).window = { nearWallet: mockProvider };
+    (globalThis as unknown).window = { nearWallet: mockProvider };
     await adapter.connect('mynearwallet');
 
     const accounts = await adapter.getAccounts();
@@ -807,7 +808,7 @@ describe('NearChainAdapter connection with mock provider', () => {
       signAndSendTransaction: vi.fn(),
     };
 
-    (globalThis as any).window = { nearWallet: mockProvider };
+    (globalThis as unknown).window = { nearWallet: mockProvider };
     await adapter.connect('mynearwallet');
     expect(adapter.getAddress()).not.toBeNull();
 
@@ -825,7 +826,7 @@ describe('NearChainAdapter connection with mock provider', () => {
       signAndSendTransaction: vi.fn(),
     };
 
-    (globalThis as any).window = { nearWallet: mockProvider };
+    (globalThis as unknown).window = { nearWallet: mockProvider };
     await adapter.connect('mynearwallet');
     expect(adapter.getAddress()).toBe('alice.near');
   });
@@ -953,7 +954,7 @@ describe('NearChainAdapter transaction sending', () => {
 
   it('sendTransaction requires receiverId and actions', async () => {
     await expect(
-      adapter.sendTransaction({ receiverId: '' as any, actions: [] as any }),
+      adapter.sendTransaction({ receiverId: '' as unknown, actions: [] as unknown }),
     ).rejects.toThrow('Invalid transaction');
   });
 
@@ -1031,7 +1032,7 @@ describe('NearChainAdapter contract calls', () => {
     const result = await adapter.viewContract('token.near', 'ft_balance_of', {
       account_id: 'alice.near',
     });
-    expect((result as any).balance).toBe('1000');
+    expect((result as unknown).balance).toBe('1000');
   });
 
   it('viewContract returns null on parse failure', async () => {
@@ -1736,7 +1737,7 @@ describe('NearChainAdapter request (EIP-1193)', () => {
       method: 'near_ft_metadata',
       params: ['token.near'],
     });
-    expect((result as any).name).toBe('Token');
+    expect((result as unknown).name).toBe('Token');
   });
 
   it('near_getBlock returns block info', async () => {
@@ -1752,7 +1753,7 @@ describe('NearChainAdapter request (EIP-1193)', () => {
     const result = await adapter.request({
       method: 'near_getBlock',
     });
-    expect((result as any).height).toBe(42);
+    expect((result as unknown).height).toBe(42);
   });
 
   it('near_getGasPrice returns gas price', async () => {
@@ -1804,7 +1805,7 @@ describe('NearChainAdapter request (EIP-1193)', () => {
       method: 'near_nft_token',
       params: ['nft.near', 't1'],
     });
-    expect((result as any).token_id).toBe('t1');
+    expect((result as unknown).token_id).toBe('t1');
   });
 });
 

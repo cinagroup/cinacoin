@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { StarknetChainAdapter, STARKNET_CHAINS, STARKNET_WALLETS } from './index.js';
 
@@ -60,7 +61,7 @@ describe('@cinacoin/adapter-starknet', () => {
 
     it('should set a core connector without error', () => {
       const adapter = new StarknetChainAdapter();
-      expect(() => adapter.setConnector({} as any)).not.toThrow();
+      expect(() => adapter.setConnector({} as unknown)).not.toThrow();
     });
 
     it('should setClient without error (no-op for Starknet)', () => {

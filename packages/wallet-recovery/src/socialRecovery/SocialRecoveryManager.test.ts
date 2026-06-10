@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Comprehensive tests for SocialRecoveryManager.
  *
@@ -113,7 +114,7 @@ describe('Guardian Set Management', () => {
     it('rejects invalid guardian type', () => {
       const guardians = [{
         id: 'g1',
-        type: 'invalid-type' as any,
+        type: 'invalid-type' as unknown,
         label: 'Invalid',
         active: true,
         addedAt: Date.now(),

@@ -17,7 +17,8 @@
   "scripts": {
     "build": "tsc",
     "test": "jest --config jest.config.js",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "lint": "eslint src --ext .ts,.tsx,.js,.jsx"
   },
   "keywords": [
     "cinacoin",

@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for SwapQuoter — quote aggregation, best price selection.
  * Uses mock executors to avoid real HTTP calls.
@@ -260,7 +261,7 @@ describe('SwapQuoter', () => {
       enablePriceImpactCheck: false,
       minOutputThreshold: 500_000n,
     });
-    const config = (customQuoter as any).config;
+    const config = (customQuoter as unknown).config;
     expect(config.quoteTimeoutMs).toBe(2000);
     expect(config.defaultSlippageBps).toBe(100);
     expect(config.enablePriceImpactCheck).toBe(false);
@@ -268,7 +269,7 @@ describe('SwapQuoter', () => {
   });
 
   it('should use default config when not provided', () => {
-    const config = (quoter as any).config;
+    const config = (quoter as unknown).config;
     expect(config.quoteTimeoutMs).toBe(5000);
     expect(config.defaultSlippageBps).toBe(50);
     expect(config.enablePriceImpactCheck).toBe(true);

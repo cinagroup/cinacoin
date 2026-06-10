@@ -289,7 +289,7 @@ export class EvmAdapter extends BaseAdapter {
   private async detectProvider(preferred?: string): Promise<EvmProvider | null> {
     if (typeof window === 'undefined') return null;
 
-    const ethereum = (window as any).ethereum;
+    const ethereum = (window as unknown as Window & typeof globalThis).ethereum;
     if (!ethereum) return null;
 
     // EIP-6963: Check for multiple providers

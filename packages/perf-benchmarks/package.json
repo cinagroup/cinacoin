@@ -12,7 +12,9 @@
     "bench:tx": "tsx src/run.ts --filter=transaction-build",
     "bench:ci": "tsx src/run.ts --ci --baseline-file baseline.json --regression-threshold 20",
     "baseline:save": "tsx src/run.ts --save-baseline baseline.json",
-    "report": "tsx src/report.ts"
+    "report": "tsx src/report.ts",
+    "lint": "eslint src --ext .ts,.tsx,.js,.jsx",
+    "test": "vitest run"
   },
   "devDependencies": {
     "@cinacoin/core-sdk": "workspace:*",

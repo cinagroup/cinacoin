@@ -1,7 +1,7 @@
 {
   "name": "@cinacoin/adapter-solana",
   "version": "1.0.0",
-  "description": "Solana chain adapter for Cinacoin \u2014 Phantom, Solflare, and Wallet Standard connectors",
+  "description": "Solana chain adapter for Cinacoin — Phantom, Solflare, and Wallet Standard connectors",
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -13,7 +13,8 @@
     "build": "tsup src/index.ts --format esm,cjs --dts",
     "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
     "test": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --ext .ts,.tsx,.js,.jsx"
   },
   "peerDependencies": {
     "@cinacoin/core-sdk": "workspace:*"

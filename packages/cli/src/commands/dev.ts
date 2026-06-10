@@ -117,7 +117,7 @@ function handleRpc(method: string, params: unknown[], chainId: number): unknown 
       ).join('');
 
     case 'wallet_switchEthereumChain':
-      const newChainId = parseInt(((params as any[])[0] as any).chainId, 16);
+      const newChainId = parseInt(((params as unknown[])[0] as unknown).chainId, 16);
       if (!MOCK_CHAINS[newChainId]) {
         return { error: `Chain ${newChainId} not supported in mock mode` };
       }
@@ -171,7 +171,7 @@ function createMockServer(port: number, chainId: number) {
               ? null
               : result,
             error: result && typeof result === 'object' && 'error' in result
-              ? { code: -32000, message: (result as any).error }
+              ? { code: -32000, message: (result as unknown).error }
               : null,
           };
 

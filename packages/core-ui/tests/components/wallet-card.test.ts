@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for WalletCard component.
  * Tests rendering, wallet info display, and install detection.
@@ -14,20 +15,20 @@ describe('WalletCard component', () => {
   });
 
   it('should have correct default property values', () => {
-    const card = document.createElement('ocx-wallet-card') as any;
+    const card = document.createElement('ocx-wallet-card') as unknown;
     expect(card.wallet).toBeNull();
     expect(card.installed).toBe(false);
     expect(card.recommended).toBe(false);
   });
 
   it('should render null when wallet is null', () => {
-    const card = document.createElement('ocx-wallet-card') as any;
+    const card = document.createElement('ocx-wallet-card') as unknown;
     const result = card.render();
     expect(result).toBeNull();
   });
 
   it('should render wallet info when wallet is provided', () => {
-    const card = document.createElement('ocx-wallet-card') as any;
+    const card = document.createElement('ocx-wallet-card') as unknown;
     card.wallet = {
       id: 'metamask',
       name: 'MetaMask',
@@ -40,7 +41,7 @@ describe('WalletCard component', () => {
   });
 
   it('should render icon when wallet has icon URL', () => {
-    const card = document.createElement('ocx-wallet-card') as any;
+    const card = document.createElement('ocx-wallet-card') as unknown;
     card.wallet = {
       id: 'mm',
       name: 'MetaMask',
@@ -51,7 +52,7 @@ describe('WalletCard component', () => {
   });
 
   it('should render fallback icon when wallet has no icon', () => {
-    const card = document.createElement('ocx-wallet-card') as any;
+    const card = document.createElement('ocx-wallet-card') as unknown;
     card.wallet = {
       id: 'mm',
       name: 'MetaMask',
@@ -63,7 +64,7 @@ describe('WalletCard component', () => {
   });
 
   it('should show Recommended badge when recommended is true', () => {
-    const card = document.createElement('ocx-wallet-card') as any;
+    const card = document.createElement('ocx-wallet-card') as unknown;
     card.wallet = {
       id: 'mm',
       name: 'MetaMask',
@@ -77,7 +78,7 @@ describe('WalletCard component', () => {
   });
 
   it('should show Installed badge when installed is true and not recommended', () => {
-    const card = document.createElement('ocx-wallet-card') as any;
+    const card = document.createElement('ocx-wallet-card') as unknown;
     card.wallet = {
       id: 'mm',
       name: 'MetaMask',
@@ -91,7 +92,7 @@ describe('WalletCard component', () => {
   });
 
   it('should prioritize Recommended badge over Installed', () => {
-    const card = document.createElement('ocx-wallet-card') as any;
+    const card = document.createElement('ocx-wallet-card') as unknown;
     card.wallet = {
       id: 'mm',
       name: 'MetaMask',
@@ -106,7 +107,7 @@ describe('WalletCard component', () => {
   });
 
   it('should show no badges when neither recommended nor installed', () => {
-    const card = document.createElement('ocx-wallet-card') as any;
+    const card = document.createElement('ocx-wallet-card') as unknown;
     card.wallet = {
       id: 'mm',
       name: 'MetaMask',
@@ -120,7 +121,7 @@ describe('WalletCard component', () => {
   });
 
   it('should render wallet description when provided', () => {
-    const card = document.createElement('ocx-wallet-card') as any;
+    const card = document.createElement('ocx-wallet-card') as unknown;
     card.wallet = {
       id: 'mm',
       name: 'MetaMask',
@@ -132,7 +133,7 @@ describe('WalletCard component', () => {
   });
 
   it('should not render description when not provided', () => {
-    const card = document.createElement('ocx-wallet-card') as any;
+    const card = document.createElement('ocx-wallet-card') as unknown;
     card.wallet = {
       id: 'mm',
       name: 'MetaMask',
@@ -145,7 +146,7 @@ describe('WalletCard component', () => {
   });
 
   it('should apply iconBackground style when provided', () => {
-    const card = document.createElement('ocx-wallet-card') as any;
+    const card = document.createElement('ocx-wallet-card') as unknown;
     card.wallet = {
       id: 'mm',
       name: 'MetaMask',
@@ -157,7 +158,7 @@ describe('WalletCard component', () => {
   });
 
   it('should define CSS styles', () => {
-    const styles = (WalletCard as any).styles;
+    const styles = (WalletCard as unknown).styles;
     expect(Array.isArray(styles)).toBe(true);
     expect(styles.length).toBeGreaterThanOrEqual(1);
   });

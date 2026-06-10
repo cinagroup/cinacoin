@@ -30,7 +30,9 @@
   "scripts": {
     "build": "tsup src/index.ts src/fetcher.ts src/components.tsx src/hooks.ts --format cjs,esm --dts --external react",
     "dev": "tsup src/index.ts src/fetcher.ts src/components.tsx src/hooks.ts --format cjs,esm --dts --external react --watch",
-    "check": "tsc --noEmit"
+    "check": "tsc --noEmit",
+    "lint": "eslint src --ext .ts,.tsx,.js,.jsx",
+    "test": "vitest run"
   },
   "dependencies": {
     "viem": "^2.21.0"
@@ -48,7 +50,9 @@
     "typescript": "^5.6.0"
   },
   "license": "MIT",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "type": "module",
   "sideEffects": false,
   "publishConfig": {

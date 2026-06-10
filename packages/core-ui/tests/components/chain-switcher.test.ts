@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for ChainSwitcher component.
  * Tests dropdown toggle, chain selection, events, and rendering.
@@ -32,7 +33,7 @@ describe('ChainSwitcher component', () => {
   });
 
   it('should accept chain data and activeChainId', () => {
-    const el = document.createElement('ocx-chain-switcher') as any;
+    const el = document.createElement('ocx-chain-switcher') as unknown;
     el.chains = sampleChains;
     el.activeChainId = 137;
     expect(el.chains).toHaveLength(3);
@@ -40,13 +41,13 @@ describe('ChainSwitcher component', () => {
   });
 
   it('should start with dropdown closed', () => {
-    const el = document.createElement('ocx-chain-switcher') as any;
+    const el = document.createElement('ocx-chain-switcher') as unknown;
     el.chains = sampleChains;
     expect(el._open).toBe(false);
   });
 
   it('should toggle dropdown open on click', () => {
-    const el = document.createElement('ocx-chain-switcher') as any;
+    const el = document.createElement('ocx-chain-switcher') as unknown;
     el.chains = sampleChains;
     el._toggle();
     expect(el._open).toBe(true);
@@ -55,7 +56,7 @@ describe('ChainSwitcher component', () => {
   });
 
   it('should close dropdown when clicking outside', () => {
-    const el = document.createElement('ocx-chain-switcher') as any;
+    const el = document.createElement('ocx-chain-switcher') as unknown;
     el.chains = sampleChains;
     el._open = true;
 
@@ -71,7 +72,7 @@ describe('ChainSwitcher component', () => {
   });
 
   it('should not close dropdown when clicking inside', () => {
-    const el = document.createElement('ocx-chain-switcher') as any;
+    const el = document.createElement('ocx-chain-switcher') as unknown;
     el.chains = sampleChains;
     el._open = true;
 
@@ -86,7 +87,7 @@ describe('ChainSwitcher component', () => {
   });
 
   it('should dispatch ocx-chain-change event on chain selection', () => {
-    const el = document.createElement('ocx-chain-switcher') as any;
+    const el = document.createElement('ocx-chain-switcher') as unknown;
     el.chains = sampleChains;
     el.activeChainId = 1;
 
@@ -101,7 +102,7 @@ describe('ChainSwitcher component', () => {
   });
 
   it('should NOT dispatch event when selecting already active chain', () => {
-    const el = document.createElement('ocx-chain-switcher') as any;
+    const el = document.createElement('ocx-chain-switcher') as unknown;
     el.chains = sampleChains;
     el.activeChainId = 1;
 
@@ -115,7 +116,7 @@ describe('ChainSwitcher component', () => {
   });
 
   it('should render active chain name in trigger', () => {
-    const el = document.createElement('ocx-chain-switcher') as any;
+    const el = document.createElement('ocx-chain-switcher') as unknown;
     el.chains = sampleChains;
     el.activeChainId = 137;
     const result = el.render();
@@ -123,7 +124,7 @@ describe('ChainSwitcher component', () => {
   });
 
   it('should render select_network when active chain not found', () => {
-    const el = document.createElement('ocx-chain-switcher') as any;
+    const el = document.createElement('ocx-chain-switcher') as unknown;
     el.chains = sampleChains;
     el.activeChainId = 999;
     const result = el.render();
@@ -131,7 +132,7 @@ describe('ChainSwitcher component', () => {
   });
 
   it('should render all chains in dropdown when open', () => {
-    const el = document.createElement('ocx-chain-switcher') as any;
+    const el = document.createElement('ocx-chain-switcher') as unknown;
     el.chains = sampleChains;
     el.activeChainId = 1;
     el._open = true;
@@ -143,7 +144,7 @@ describe('ChainSwitcher component', () => {
   });
 
   it('should mark active chain as active in dropdown', () => {
-    const el = document.createElement('ocx-chain-switcher') as any;
+    const el = document.createElement('ocx-chain-switcher') as unknown;
     el.chains = sampleChains;
     el.activeChainId = 137;
     el._open = true;
@@ -154,7 +155,7 @@ describe('ChainSwitcher component', () => {
   });
 
   it('should render testnet badge for testnet chains', () => {
-    const el = document.createElement('ocx-chain-switcher') as any;
+    const el = document.createElement('ocx-chain-switcher') as unknown;
     el.chains = sampleChains;
     el.activeChainId = 1;
     el._open = true;
@@ -163,7 +164,7 @@ describe('ChainSwitcher component', () => {
   });
 
   it('should have correct aria attributes on trigger', () => {
-    const el = document.createElement('ocx-chain-switcher') as any;
+    const el = document.createElement('ocx-chain-switcher') as unknown;
     el.chains = sampleChains;
     el._open = true;
     const result = el.render();
@@ -172,7 +173,7 @@ describe('ChainSwitcher component', () => {
   });
 
   it('should render dropdown with listbox role', () => {
-    const el = document.createElement('ocx-chain-switcher') as any;
+    const el = document.createElement('ocx-chain-switcher') as unknown;
     el.chains = sampleChains;
     el.activeChainId = 1;
     el._open = true;
@@ -181,7 +182,7 @@ describe('ChainSwitcher component', () => {
   });
 
   it('should render chain items with option role and aria-selected', () => {
-    const el = document.createElement('ocx-chain-switcher') as any;
+    const el = document.createElement('ocx-chain-switcher') as unknown;
     el.chains = sampleChains;
     el.activeChainId = 137;
     el._open = true;
@@ -192,7 +193,7 @@ describe('ChainSwitcher component', () => {
   });
 
   it('should render checkmark for active chain', () => {
-    const el = document.createElement('ocx-chain-switcher') as any;
+    const el = document.createElement('ocx-chain-switcher') as unknown;
     el.chains = sampleChains;
     el.activeChainId = 1;
     el._open = true;
@@ -201,13 +202,13 @@ describe('ChainSwitcher component', () => {
   });
 
   it('should define CSS styles', () => {
-    const styles = (ChainSwitcher as any).styles;
+    const styles = (ChainSwitcher as unknown).styles;
     expect(Array.isArray(styles)).toBe(true);
     expect(styles.length).toBeGreaterThanOrEqual(1);
   });
 
   it('should handle keyboard Enter to select chain', () => {
-    const el = document.createElement('ocx-chain-switcher') as any;
+    const el = document.createElement('ocx-chain-switcher') as unknown;
     el.chains = sampleChains;
     el.activeChainId = 1;
 
@@ -227,7 +228,7 @@ describe('ChainSwitcher component', () => {
     const chainsWithIcons = [
       { id: 1, name: 'Ethereum', nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 }, iconUrl: 'https://example.com/eth.svg' },
     ];
-    const el = document.createElement('ocx-chain-switcher') as any;
+    const el = document.createElement('ocx-chain-switcher') as unknown;
     el.chains = chainsWithIcons;
     el.activeChainId = 1;
     const result = el.render();
@@ -235,7 +236,7 @@ describe('ChainSwitcher component', () => {
   });
 
   it('should render fallback chain icon when no iconUrl', () => {
-    const el = document.createElement('ocx-chain-switcher') as any;
+    const el = document.createElement('ocx-chain-switcher') as unknown;
     el.chains = sampleChains;
     el.activeChainId = 1;
     const result = el.render();

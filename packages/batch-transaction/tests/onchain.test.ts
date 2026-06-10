@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for on-chain batch execution with mock WalletClient.
  */
@@ -36,8 +37,8 @@ function createMockWalletClient(
 
   return {
     account,
-    chain: undefined as any,
-    transport: undefined as any,
+    chain: undefined as unknown,
+    transport: undefined as unknown,
     sendTransaction: vi.fn().mockImplementation(async () => {
       if (overrides.sendTxError) {
         throw overrides.sendTxError;
@@ -368,7 +369,7 @@ describe('BatchExecutor On-Chain', () => {
 
   it('should handle EIP-5792 failure gracefully', async () => {
     const walletClient = createMockWalletClient({
-      requestError: { code: -32601, message: 'Method not found' } as any,
+      requestError: { code: -32601, message: 'Method not found' } as unknown,
     });
 
     const ops = [

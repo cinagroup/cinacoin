@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * E2E Test — Full Wallet Connection Lifecycle
  *
@@ -222,7 +223,7 @@ describe('E2E — Full Wallet Connection Lifecycle', () => {
   it('should generate unique pairing topics', async () => {
     const p1 = await connector.createPairing();
     // Reset pairing to create another
-    (connector as any)._pairingTopic = '';
+    (connector as unknown)._pairingTopic = '';
     const p2 = await connector.createPairing();
     expect(p1.topic).not.toBe(p2.topic);
   });

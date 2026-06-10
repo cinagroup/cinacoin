@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Starknet Chain Adapter tests.
  *
@@ -694,7 +695,7 @@ describe('StarknetChainAdapter basics', () => {
 describe('StarknetChainAdapter.setConnector', () => {
   it('accepts a connector', () => {
     const adapter = new StarknetChainAdapter();
-    const mockConnector = { getProvider: () => null } as any;
+    const mockConnector = { getProvider: () => null } as unknown;
     expect(() => adapter.setConnector(mockConnector)).not.toThrow();
   });
 });
@@ -795,7 +796,7 @@ describe('StarknetChainAdapter.disconnect', () => {
       isConnected: true,
       enable: async () => ['0x123'],
       request: async () => null,
-    } as any;
+    } as unknown;
     await adapter.connect();
     await expect(adapter.disconnect()).resolves.not.toThrow();
   });
@@ -1532,7 +1533,7 @@ describe('StarknetChainAdapter.request', () => {
       request: vi.fn().mockResolvedValue(null),
     };
     adapter.setProvider(mockProvider);
-    (adapter as any)._accounts = ['0x0000000000000000000000000000000000000000000000000000000000000123'];
+    (adapter as unknown)._accounts = ['0x0000000000000000000000000000000000000000000000000000000000000123'];
   });
 
   afterEach(() => {
@@ -1570,7 +1571,7 @@ describe('StarknetChainAdapter.request', () => {
       method: 'starknet_getTransactionStatus',
       params: ['0xabc'],
     });
-    expect((result as any).status).toBe('ACCEPTED_ON_L2');
+    expect((result as unknown).status).toBe('ACCEPTED_ON_L2');
   });
 
   it('throws on unsupported method', async () => {
@@ -1597,7 +1598,7 @@ describe('StarknetChainAdapter error handling', () => {
       request: vi.fn().mockResolvedValue(null),
     };
     adapter.setProvider(mockProvider);
-    (adapter as any)._accounts = ['0x123'];
+    (adapter as unknown)._accounts = ['0x123'];
   });
 
   afterEach(() => {
@@ -1667,7 +1668,7 @@ describe('createAdapter factory (starknet)', () => {
     const { createAdapter } = await import('../../src/index.js');
     const adapter = await createAdapter({ type: 'starknet' });
     expect(adapter).toBeDefined();
-    expect((adapter as any).id).toBe('starknet-adapter');
+    expect((adapter as unknown).id).toBe('starknet-adapter');
   });
 
   it('registers custom chains via factory', async () => {
@@ -1683,6 +1684,6 @@ describe('createAdapter factory (starknet)', () => {
         },
       ],
     });
-    expect((adapter as any).findChainById('starknet:custom')).toBeDefined();
+    expect((adapter as unknown).findChainById('starknet:custom')).toBeDefined();
   });
 });

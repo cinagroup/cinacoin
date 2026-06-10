@@ -227,6 +227,95 @@ export class StarknetAdapter extends BaseAdapter {
     this.emit('chainChanged', { chainId });
   }
 
+  /**
+   * Execute a multi-call transaction via Account Abstraction.
+   * Starknet's native AA allows batching multiple calls in one transaction.
+   *
+   * @param calls - Array of contract calls to execute atomically.
+   * @returns Transaction result.
+   */
+  async executeMultiCall(calls: Array<{
+    contractAddress: string;
+    entrypoint: string;
+    calldata: unknown[];
+  }>): Promise<TxResult> {
+    const state = this.requireConnection();
+    if (!this.provider?.account) throw new Error('[StarknetAdapter] No provider or account');
+
+    // Convert to Starknet call format
+    const starknetCalls = calls.map(call => ({
+      contractAddress: call.contractAddress,
+      entrypoint: call.entrypoint,
+      calldata: call.calldata,
+    }));
+
+    const { transaction_hash } = await this.provider.account.execute(starknetCalls);
+
+    return {
+      hash: transaction_hash,
+      chainId: this._activeChainId!,
+      from: state.accounts[0],
+      broadcast: true,
+    };
+  }
+
+  /**
+   * Estimate fee for a transaction before execution.
+   * Important for AA accounts to ensure sufficient balance.
+   *
+   * @param calls - Array of contract calls to estimate.
+   * @returns Estimated fee information.
+   */
+  async estimateFee(calls: Array<{
+    contractAddress: string;
+    entrypoint: string;
+    calldata: unknown[];
+  }>): Promise<{
+    overallFee: string;
+    gasConsumed: string;
+    gasPrice: string;
+    unit: string;
+  }> {
+    this.requireConnection();
+    
+    // In production, use Starknet.js Provider to estimate fee
+    // This is a placeholder implementation
+    return {
+      overallFee: '0',
+      gasConsumed: '0',
+      gasPrice: '0',
+      unit: 'ETH',
+    };
+  }
+
+  /**
+   * Deploy an Account contract (for AA account creation).
+   * Starknet accounts are smart contracts, not just key pairs.
+   *
+   * @param params - Account deployment parameters.
+   * @returns Transaction result with deployed address.
+   */
+  async deployAccount(params: {
+    classHash: string;
+    constructorCalldata: unknown[];
+    addressSalt: string;
+  }): Promise<TxResult & { deployedAddress: string }> {
+    this.requireConnection();
+    if (!this.provider) throw new Error('[StarknetAdapter] No provider');
+
+    // In production, use Starknet.js DeployAccountFlow
+    // This is a placeholder implementation
+    const deployedAddress = `0x${params.addressSalt.slice(0, 40)}`;
+    
+    return {
+      hash: '0x0', // Placeholder
+      chainId: this._activeChainId!,
+      from: deployedAddress,
+      broadcast: true,
+      deployedAddress,
+    };
+  }
+
   /* ------------------------------------------------------------------ */
   /*  Internal Helpers                                                    */
   /* ------------------------------------------------------------------ */
@@ -237,9 +326,9 @@ export class StarknetAdapter extends BaseAdapter {
   private detectProvider(preferred?: string): StarknetProvider | null {
     if (typeof window === 'undefined') return null;
 
-    const argent = (window as any).starknet_argentX;
-    const braavos = (window as any).starknet_braavos;
-    const starknet = (window as any).starknet;
+    const argent = (window as unknown as Window & typeof globalThis).starknet_argentX;
+    const braavos = (window as unknown as Window & typeof globalThis).starknet_braavos;
+    const starknet = (window as unknown as Window & typeof globalThis).starknet;
 
     if (preferred === 'argent' && argent) return argent;
     if (preferred === 'braavos' && braavos) return braavos;

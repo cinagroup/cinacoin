@@ -965,8 +965,8 @@ export class BridgeExecutor {
   private computeGasCost(receipt: TransactionReceipt): bigint {
     const gasUsed = receipt.gasUsed ?? 0n;
     const gasPrice =
-      (receipt as any).effectiveGasPrice ??
-      (receipt as any).gasPrice ??
+      (receipt as unknown).effectiveGasPrice ??
+      (receipt as unknown).gasPrice ??
       0n;
     return gasUsed * gasPrice;
   }

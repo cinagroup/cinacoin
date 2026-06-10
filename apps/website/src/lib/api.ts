@@ -121,7 +121,8 @@ class ApiClient {
     const data: LoginResponse = await response.json();
 
     if (!response.ok) {
-      throw new Error((data as any).error || 'Login failed');
+      const errorData = data as Record<string, unknown>;
+      throw new Error((errorData.error as string) || 'Login failed');
     }
 
     // If MFA is required, don't store tokens yet
@@ -154,7 +155,8 @@ class ApiClient {
     const data: LoginResponse = await response.json();
 
     if (!response.ok) {
-      throw new Error((data as any).error || 'Registration failed');
+      const errorData = data as Record<string, unknown>;
+      throw new Error((errorData.error as string) || 'Registration failed');
     }
 
     // If MFA setup is required

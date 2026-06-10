@@ -33,7 +33,8 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "test": "vitest run"
+    "test": "vitest run",
+    "lint": "eslint src --ext .ts,.tsx,.js,.jsx"
   },
   "dependencies": {
     "framer-motion": "^11.0.0",

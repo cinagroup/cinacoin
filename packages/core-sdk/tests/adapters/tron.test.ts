@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * TRON Chain Adapter tests.
  *
@@ -270,7 +271,7 @@ describe('TRONChainAdapter provider and connection', () => {
 
   it('accepts and returns provider', () => {
     const mockProvider = { request: vi.fn(), tronWeb: {} };
-    adapter.setProvider(mockProvider as any);
+    adapter.setProvider(mockProvider as unknown);
     expect(adapter.getProvider()).toBe(mockProvider);
   });
 
@@ -284,7 +285,7 @@ describe('TRONChainAdapter provider and connection', () => {
 
   it('disconnect clears state', async () => {
     const mockProvider = { request: vi.fn(), tronWeb: {} };
-    adapter.setProvider(mockProvider as any);
+    adapter.setProvider(mockProvider as unknown);
     await adapter.disconnect();
     expect(adapter.getAddress()).toBeNull();
   });
@@ -319,7 +320,7 @@ describe('TRONChainAdapter getTokenBalance', () => {
         })),
       },
     };
-    adapter.setProvider(mockProvider as any);
+    adapter.setProvider(mockProvider as unknown);
     const result = await adapter.getTokenBalance(
       'TN2Y7e5RLkKz6kBPZHMoCjLpQJvGvCqTjZ',
       'T9yD14Nj9j7xAB4dbGeiX9h8zzNUFroF6m',
@@ -357,7 +358,7 @@ describe('TRONChainAdapter sendTransaction via provider', () => {
 
   it('throws when tronWeb is missing', async () => {
     const mockProvider = { request: vi.fn() };
-    adapter.setProvider(mockProvider as any);
+    adapter.setProvider(mockProvider as unknown);
     await expect(
       adapter.sendTransaction({ to: 'TN2Y7e5RLkKz6kBPZHMoCjLpQJvGvCqTjZ', value: '1000' }),
     ).rejects.toThrow('No provider connected');

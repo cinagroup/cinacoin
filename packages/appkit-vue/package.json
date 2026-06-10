@@ -17,7 +17,8 @@
     "build": "tsc",
     "check": "tsc --noEmit",
     "lint": "eslint src/",
-    "dev": "tsc --watch"
+    "dev": "tsc --watch",
+    "test": "vitest run"
   },
   "license": "MIT",
   "dependencies": {

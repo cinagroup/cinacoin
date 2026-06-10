@@ -13,6 +13,8 @@ interface UseWebSocketOptions {
   reconnectInterval?: number;
   maxReconnectAttempts?: number;
   enabled?: boolean;
+  exponentialBackoff?: boolean;
+  maxReconnectInterval?: number;
 }
 
 interface UseWebSocketReturn {
@@ -31,6 +33,8 @@ export function useWebSocket({
   reconnectInterval = 3000,
   maxReconnectAttempts = 5,
   enabled = true,
+  exponentialBackoff = true,
+  maxReconnectInterval = 30000,
 }: UseWebSocketOptions): UseWebSocketReturn {
   const [connectionState, setConnectionState] = useState<ConnectionState>("disconnected");
   const [lastMessage, setLastMessage] = useState<unknown | null>(null);
@@ -98,13 +102,23 @@ export function useWebSocket({
         setConnectionState("disconnected");
         onCloseRef.current?.();
 
-        // Auto-reconnect if under max attempts
+        // Auto-reconnect with exponential backoff
         if (reconnectAttemptsRef.current < maxReconnectAttempts) {
           reconnectAttemptsRef.current += 1;
           setConnectionState("reconnecting");
+          
+          // Calculate delay with exponential backoff
+          let delay = reconnectInterval;
+          if (exponentialBackoff) {
+            delay = Math.min(
+              reconnectInterval * Math.pow(2, reconnectAttemptsRef.current - 1),
+              maxReconnectInterval
+            );
+          }
+          
           reconnectTimerRef.current = setTimeout(() => {
             connect();
-          }, reconnectInterval);
+          }, delay);
         }
       };
 
@@ -114,7 +128,7 @@ export function useWebSocket({
     } catch {
       setConnectionState("disconnected");
     }
-  }, [url, enabled, reconnectInterval, maxReconnectAttempts, cleanup]);
+  }, [url, enabled, reconnectInterval, maxReconnectAttempts, cleanup, exponentialBackoff, maxReconnectInterval]);
 
   const sendMessage = useCallback((data: string | ArrayBuffer | Blob) => {
     if (wsRef.current?.readyState === WebSocket.OPEN) {

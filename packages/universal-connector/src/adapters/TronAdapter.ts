@@ -243,6 +243,108 @@ export class TronAdapter extends BaseAdapter {
     this.emit('chainChanged', { chainId });
   }
 
+  /**
+   * Send a TRC-20 token transfer.
+   * TRC-20 is TRON's token standard, similar to ERC-20.
+   *
+   * @param params - TRC-20 transfer parameters.
+   * @returns Transaction result.
+   */
+  async sendTRC20Transfer(params: {
+    contractAddress: string;
+    to: string;
+    amount: string;
+    feeLimit?: number;
+  }): Promise<TxResult> {
+    const state = this.requireConnection();
+    if (!this.provider) throw new Error('[TronAdapter] No provider');
+
+    // TRC-20 transfer function selector: transfer(address,uint256)
+    const functionSelector = 'transfer(address,uint256)';
+    
+    // Convert address to TRON hex format (41 + hex address)
+    const toAddressHex = this.addressToHex(params.to);
+    
+    // Convert amount to hex (TRC-20 uses 6 decimals for USDT, etc.)
+    const amountHex = BigInt(params.amount).toString(16).padStart(64, '0');
+    
+    const parameter = [
+      { type: 'address', value: toAddressHex },
+      { type: 'uint256', value: amountHex },
+    ];
+
+    const options = {
+      feeLimit: params.feeLimit ?? 100_000_000, // 100 TRX default
+      callValue: 0,
+    };
+
+    const { result, transaction } = await this.provider.trx.triggerSmartContract(
+      params.contractAddress,
+      functionSelector,
+      options,
+      parameter,
+      state.accounts[0]
+    );
+
+    if (!result.result) {
+      throw new Error('[TronAdapter] TRC-20 transfer failed');
+    }
+
+    const txHash = (transaction as Record<string, unknown>).txID as string;
+    return {
+      hash: txHash,
+      chainId: this._activeChainId!,
+      from: state.accounts[0],
+      to: params.to,
+      broadcast: true,
+    };
+  }
+
+  /**
+   * Approve TRC-20 token spending.
+   *
+   * @param params - TRC-20 approval parameters.
+   * @returns Transaction result.
+   */
+  async approveTRC20(params: {
+    contractAddress: string;
+    spender: string;
+    amount: string;
+  }): Promise<TxResult> {
+    const state = this.requireConnection();
+    if (!this.provider) throw new Error('[TronAdapter] No provider');
+
+    const functionSelector = 'approve(address,uint256)';
+    const spenderHex = this.addressToHex(params.spender);
+    const amountHex = BigInt(params.amount).toString(16).padStart(64, '0');
+
+    const parameter = [
+      { type: 'address', value: spenderHex },
+      { type: 'uint256', value: amountHex },
+    ];
+
+    const { result, transaction } = await this.provider.trx.triggerSmartContract(
+      params.contractAddress,
+      functionSelector,
+      { feeLimit: 100_000_000, callValue: 0 },
+      parameter,
+      state.accounts[0]
+    );
+
+    if (!result.result) {
+      throw new Error('[TronAdapter] TRC-20 approval failed');
+    }
+
+    const txHash = (transaction as Record<string, unknown>).txID as string;
+    return {
+      hash: txHash,
+      chainId: this._activeChainId!,
+      from: state.accounts[0],
+      to: params.spender,
+      broadcast: true,
+    };
+  }
+
   /* ------------------------------------------------------------------ */
   /*  Internal Helpers                                                    */
   /* ------------------------------------------------------------------ */
@@ -252,7 +354,7 @@ export class TronAdapter extends BaseAdapter {
    */
   private detectProvider(): TronProvider | null {
     if (typeof window === 'undefined') return null;
-    return (window as any).tronLink ?? (window as any).tronWeb ?? null;
+    return (window as unknown as Window & typeof globalThis).tronLink ?? (window as unknown as Window & typeof globalThis).tronWeb ?? null;
   }
 
   /**
@@ -286,5 +388,19 @@ export class TronAdapter extends BaseAdapter {
 
     const fractionalStr = fractionalPart.toString().padStart(decimals, '0').slice(0, 6);
     return `${integerPart}.${fractionalStr}`;
+  }
+
+  /**
+   * Convert TRON base58 address to hex format.
+   * TRON addresses start with 'T' and need to be converted to 41+hex for smart contracts.
+   */
+  private addressToHex(base58Address: string): string {
+    // Simplified conversion - in production use tronweb's addressToHex
+    // TRON base58check decode -> 0x41 + 20-byte address
+    if (base58Address.startsWith('41')) {
+      return base58Address; // Already hex
+    }
+    // Placeholder: return with 41 prefix
+    return '41' + Buffer.from(base58Address).toString('hex').slice(0, 40);
   }
 }

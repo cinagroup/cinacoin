@@ -345,6 +345,113 @@ export function generateNonce(length = 16): string {
 }
 
 // ============================================================================
+// Batch Signing
+// ============================================================================
+
+export interface BatchSignParams {
+  /** Array of messages to sign */
+  messages: string[];
+  /** Signing function (injected by connector) */
+  signFn: (message: string) => Promise<{ signature: string; address: string }>;
+  /** Maximum concurrent signatures (default: 5) */
+  concurrency?: number;
+  /** Abort signal for cancellation */
+  abortSignal?: AbortSignal;
+}
+
+export interface BatchSignResult {
+  /** Individual signature results */
+  results: Array<{
+    message: string;
+    signature: string;
+    address: string;
+    index: number;
+    success: boolean;
+    error?: string;
+  }>;
+  /** Total number of messages */
+  total: number;
+  /** Number of successful signatures */
+  successful: number;
+  /** Number of failed signatures */
+  failed: number;
+}
+
+/**
+ * Sign multiple messages in batch.
+ *
+ * Provides concurrent signing with configurable parallelism,
+ * progress tracking, and abort support.
+ *
+ * @example
+ * ```ts
+ * const result = await signBatch({
+ *   messages: ['msg1', 'msg2', 'msg3'],
+ *   signFn: (msg) => wallet.signMessage(msg),
+ *   concurrency: 3,
+ * });
+ * console.log(`${result.successful}/${result.total} signed`);
+ * ```
+ */
+export async function signBatch(params: BatchSignParams): Promise<BatchSignResult> {
+  const { messages, signFn, concurrency = 5, abortSignal } = params;
+
+  const results: BatchSignResult['results'] = new Array(messages.length);
+  let successful = 0;
+  let failed = 0;
+
+  // Process messages with bounded concurrency
+  const queue = messages.map((message, index) => ({ message, index }));
+  const workers: Promise<void>[] = [];
+
+  const workerCount = Math.min(concurrency, messages.length);
+
+  for (let w = 0; w < workerCount; w++) {
+    workers.push(
+      (async () => {
+        while (queue.length > 0) {
+          if (abortSignal?.aborted) break;
+
+          const item = queue.shift();
+          if (!item) break;
+
+          try {
+            const { signature, address } = await signFn(item.message);
+            results[item.index] = {
+              message: item.message,
+              signature,
+              address,
+              index: item.index,
+              success: true,
+            };
+            successful++;
+          } catch (err) {
+            results[item.index] = {
+              message: item.message,
+              signature: '',
+              address: '',
+              index: item.index,
+              success: false,
+              error: err instanceof Error ? err.message : 'Signing failed',
+            };
+            failed++;
+          }
+        }
+      })(),
+    );
+  }
+
+  await Promise.allSettled(workers);
+
+  return {
+    results,
+    total: messages.length,
+    successful,
+    failed,
+  };
+}
+
+// ============================================================================
 // Internal helpers
 // ============================================================================
 

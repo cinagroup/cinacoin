@@ -72,7 +72,7 @@ test.describe('Sign Message Flow', () => {
   test('should handle signature rejection', async ({ page }) => {
     // Mock rejection
     await page.evaluate(() => {
-      (window as any).mockProvider.rejectNextSignature = true;
+      (window as unknown).mockProvider.rejectNextSignature = true;
     });
     
     await page.getByRole('button', { name: /sign message/i }).click();

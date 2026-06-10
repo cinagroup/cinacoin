@@ -133,14 +133,14 @@ export async function initWebVitals(reporter: PerformanceReporter): Promise<void
   };
 
   // Collect connection info
-  const connection = (navigator as any).connection;
+  const connection = (navigator as unknown).connection;
   if (connection) {
     metrics.connectionType = connection.type;
     metrics.effectiveConnectionType = connection.effectiveType;
   }
 
   // Collect device info
-  const deviceMemory = (navigator as any).deviceMemory;
+  const deviceMemory = (navigator as unknown).deviceMemory;
   const hardwareConcurrency = navigator.hardwareConcurrency;
   const viewport = {
     width: window.innerWidth,
@@ -260,8 +260,8 @@ function reportMetric(name: string, value: number, sessionId: string): void {
   }
 
   // Send to monitoring endpoint (if configured)
-  if (typeof window !== 'undefined' && (window as any).__CINACOIN_MONITORING__) {
-    const endpoint = (window as any).__CINACOIN_MONITORING__.endpoint;
+  if (typeof window !== 'undefined' && (window as unknown as Window & typeof globalThis).__CINACOIN_MONITORING__) {
+    const endpoint = (window as unknown as Window & typeof globalThis).__CINACOIN_MONITORING__.endpoint;
     if (endpoint) {
       fetch(endpoint, {
         method: 'POST',
@@ -460,7 +460,7 @@ export function observeLongTasks(callback: (task: LongTask) => void): () => void
         callback({
           startTime: entry.startTime,
           duration: entry.duration,
-          attribution: (entry as any).attribution?.map((a: any) => a.name) || [],
+          attribution: (entry as unknown).attribution?.map((a: any) => a.name) || [],
         });
       }
     }

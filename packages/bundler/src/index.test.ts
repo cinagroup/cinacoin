@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { BundlerClient } from './BundlerClient';
 import { UserOperationStatus, type UserOperation, type BundlerConfig } from './types';
@@ -27,7 +28,7 @@ describe('BundlerClient', () => {
       name: 'Ethereum',
       nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
       rpcUrls: { default: { http: ['https://eth.rpc'] } },
-    } as any,
+    } as unknown,
     entryPoint: '0x0000000071727De22E5E9d8BAf0edAc6f37da032',
   };
 

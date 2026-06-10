@@ -10,7 +10,8 @@
     "test:watch": "vitest",
     "db:migrate": "wrangler d1 migrations apply CinacoinAnalytics --local",
     "db:migrate:prod": "wrangler d1 migrations apply CinacoinAnalytics --remote",
-    "db:create": "wrangler d1 create CinacoinAnalytics"
+    "db:create": "wrangler d1 create CinacoinAnalytics",
+    "lint": "eslint src --ext .ts,.tsx,.js,.jsx"
   },
   "dependencies": {
     "hono": "^4.6.0"

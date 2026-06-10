@@ -12,11 +12,15 @@
       "types": "./dist/index.d.ts"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc",
     "check": "tsc --noEmit",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "lint": "eslint src --ext .ts,.tsx,.js,.jsx",
+    "test": "vitest run"
   },
   "license": "MIT",
   "devDependencies": {

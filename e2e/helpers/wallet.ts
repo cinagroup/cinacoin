@@ -92,11 +92,11 @@ export async function injectMockProvider(page: Page): Promise<void> {
  */
 export async function resetMockProvider(page: Page): Promise<void> {
   await page.evaluate(() => {
-    // @ts-ignore
-    delete window.ethereum;
-    // @ts-ignore
-    delete window.__MOCK_WALLET;
-    // @ts-ignore
-    delete window.__MOCK_WC_URI;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    delete (window as unknown).ethereum;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    delete (window as unknown).__MOCK_WALLET;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    delete (window as unknown).__MOCK_WC_URI;
   });
 }

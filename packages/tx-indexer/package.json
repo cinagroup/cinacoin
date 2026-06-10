@@ -22,7 +22,8 @@
     "check": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "lint": "eslint src --ext .ts,.tsx,.js,.jsx"
   },
   "license": "MIT",
   "dependencies": {

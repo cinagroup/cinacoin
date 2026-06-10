@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "deploy:cf": "npm run build && wrangler pages deploy out"
+    "deploy:cf": "npm run build && wrangler pages deploy out",
+    "test": "vitest run"
   },
   "dependencies": {
     "next": "14.2.29",

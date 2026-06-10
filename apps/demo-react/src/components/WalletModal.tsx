@@ -36,8 +36,8 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  const [activeTab, setActiveTab] = useState<'popular' | 'all'>('popular')
 
  // Detect installed wallets
- const isMetaMaskInstalled = typeof window !== 'undefined' && !!(window as any).ethereum?.isMetaMask
- const isCoinbaseInstalled = typeof window !== 'undefined' && !!(window as any).ethereum?.isCoinbaseWallet
+ const isMetaMaskInstalled = typeof window !== 'undefined' && !!(window as unknown as Window & typeof globalThis).ethereum?.isMetaMask
+ const isCoinbaseInstalled = typeof window !== 'undefined' && !!(window as unknown as Window & typeof globalThis).ethereum?.isCoinbaseWallet
 
  // Keyboard handler: Escape to close from any state
  useEffect(() => {

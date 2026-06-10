@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Sui Chain Adapter tests.
  *
@@ -893,7 +894,7 @@ describe('SuiChainAdapter setConnector', () => {
   });
 
   it('setConnector accepts a connector', () => {
-    const mockConnector = { id: 'test' } as any;
+    const mockConnector = { id: 'test' } as unknown;
     expect(() => adapter.setConnector(mockConnector)).not.toThrow();
   });
 });

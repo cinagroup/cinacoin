@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Unit tests for adapter-near — NEAR operations service.
  */
@@ -44,14 +45,14 @@ describe('buildFunctionCallTx', () => {
     );
     expect(tx.actions).toHaveLength(1);
     expect(tx.actions[0].kind).toBe('FunctionCall');
-    const fc = tx.actions[0] as any;
+    const fc = tx.actions[0] as unknown;
     expect(fc.methodName).toBe('transfer');
     expect(JSON.parse(fc.args)).toEqual({ receiver_id: 'bob.near', amount: '100' });
   });
 
   it('should use default gas and deposit', () => {
     const tx = buildFunctionCallTx('alice.near', 'contract.near', 'ed25519:abc', 'view');
-    const fc = tx.actions[0] as any;
+    const fc = tx.actions[0] as unknown;
     expect(fc.gas).toBe('30000000000000');
     expect(fc.deposit).toBe('0');
   });
@@ -85,7 +86,7 @@ describe('buildAddKeyTx', () => {
       methodNames: ['view'],
       allowance: '1000000000000000000000000',
     });
-    const action = tx.actions[0] as any;
+    const action = tx.actions[0] as unknown;
     expect(action.accessKey.permission).not.toBe('FullAccess');
   });
 });

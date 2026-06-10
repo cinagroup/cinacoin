@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 let keccakCounter = 0;
@@ -51,8 +52,8 @@ import type { BundlerServerConfig, RawUserOperation } from './server-types';
 function makeMockConfig(): BundlerServerConfig {
   return {
     listen: '0.0.0.0:4337',
-    beneficiary: '0xbeneficiary' as any,
-    entryPoints: ['0xentrypoint' as any],
+    beneficiary: '0xbeneficiary' as unknown,
+    entryPoints: ['0xentrypoint' as unknown],
     maxOpsPerBundle: 128,
     bundleIntervalMs: 2000,
     bundleTimeoutMs: 5000,
@@ -185,7 +186,7 @@ describe('UserOpPool', () => {
     await pool.add(makeMockUserOp({ sender: '0xpurge', nonce: '0x1' }));
     await pool.add(makeMockUserOp({ sender: '0xother', nonce: '0x0' }));
 
-    const purged = pool.purgeSender('0xpurge' as any);
+    const purged = pool.purgeSender('0xpurge' as unknown);
     expect(purged).toBe(2);
     expect(pool.pendingCount()).toBe(1);
   });
@@ -207,7 +208,7 @@ describe('ReputationTracker', () => {
   });
 
   it('should start with no reputation data', () => {
-    const rep = tracker.getReputation('0xunknown' as any);
+    const rep = tracker.getReputation('0xunknown' as unknown);
     expect(rep.score).toBe(0);
     expect(rep.violations).toBe(0);
     expect(rep.throttled).toBe(false);
@@ -215,56 +216,56 @@ describe('ReputationTracker', () => {
   });
 
   it('should increase score on success', () => {
-    tracker.recordSuccess('0xsender' as any);
-    tracker.recordSuccess('0xsender' as any);
-    const rep = tracker.getReputation('0xsender' as any);
+    tracker.recordSuccess('0xsender' as unknown);
+    tracker.recordSuccess('0xsender' as unknown);
+    const rep = tracker.getReputation('0xsender' as unknown);
     expect(rep.successes).toBe(2);
     expect(rep.score).toBe(2);
   });
 
   it('should decrease score on violation', () => {
-    tracker.recordViolation('0xsender' as any, 'test violation');
-    const rep = tracker.getReputation('0xsender' as any);
+    tracker.recordViolation('0xsender' as unknown, 'test violation');
+    const rep = tracker.getReputation('0xsender' as unknown);
     expect(rep.violations).toBe(1);
     expect(rep.score).toBe(0); // Math.max(0, 0 - 10)
   });
 
   it('should throttle after threshold', () => {
     for (let i = 0; i < 5; i++) {
-      tracker.recordViolation('0xsender' as any);
+      tracker.recordViolation('0xsender' as unknown);
     }
-    tracker.enforce('0xsender' as any);
-    expect(tracker.isThrottled('0xsender' as any)).toBe(true);
+    tracker.enforce('0xsender' as unknown);
+    expect(tracker.isThrottled('0xsender' as unknown)).toBe(true);
   });
 
   it('should ban after ban threshold', () => {
     for (let i = 0; i < 20; i++) {
-      tracker.recordViolation('0xsender' as any);
+      tracker.recordViolation('0xsender' as unknown);
     }
-    tracker.enforce('0xsender' as any);
-    expect(tracker.isBanned('0xsender' as any)).toBe(true);
+    tracker.enforce('0xsender' as unknown);
+    expect(tracker.isBanned('0xsender' as unknown)).toBe(true);
   });
 
   it('should return lower priority multiplier for bad senders', () => {
     // Good sender
     for (let i = 0; i < 100; i++) {
-      tracker.recordSuccess('0xgood' as any);
+      tracker.recordSuccess('0xgood' as unknown);
     }
-    expect(tracker.priorityMultiplier('0xgood' as any)).toBeGreaterThanOrEqual(1.0);
+    expect(tracker.priorityMultiplier('0xgood' as unknown)).toBeGreaterThanOrEqual(1.0);
 
     // Bad sender
     for (let i = 0; i < 5; i++) {
-      tracker.recordViolation('0xbad' as any);
+      tracker.recordViolation('0xbad' as unknown);
     }
-    tracker.enforce('0xbad' as any);
-    expect(tracker.priorityMultiplier('0xbad' as any)).toBe(0.5);
+    tracker.enforce('0xbad' as unknown);
+    expect(tracker.priorityMultiplier('0xbad' as unknown)).toBe(0.5);
 
     // Banned sender
     for (let i = 0; i < 20; i++) {
-      tracker.recordViolation('0xbanned' as any);
+      tracker.recordViolation('0xbanned' as unknown);
     }
-    tracker.enforce('0xbanned' as any);
-    expect(tracker.priorityMultiplier('0xbanned' as any)).toBe(0);
+    tracker.enforce('0xbanned' as unknown);
+    expect(tracker.priorityMultiplier('0xbanned' as unknown)).toBe(0);
   });
 });
 
@@ -331,7 +332,7 @@ describe('UserOpValidator', () => {
 
   it('should reject blacklisted sender', async () => {
     const config = makeMockConfig();
-    config.blacklistedSenders = ['0x1234567890abcdef1234567890abcdef12345678' as any];
+    config.blacklistedSenders = ['0x1234567890abcdef1234567890abcdef12345678' as unknown];
     const mod = await import('./BundlerServer');
     const sepolia = mod.KNOWN_CHAINS.sepolia;
     const validator2 = new UserOpValidator(config, sepolia.chain, sepolia.rpcUrl);
@@ -355,7 +356,7 @@ describe('UserOpValidator', () => {
     const sepolia = mod.KNOWN_CHAINS.sepolia;
     const validator2 = new UserOpValidator(config, sepolia.chain, sepolia.rpcUrl);
 
-    const addr = '0xdeadbeef' as any;
+    const addr = '0xdeadbeef' as unknown;
     validator2.blacklist(addr);
     expect(validator2.getBlacklist()).toContain(addr);
 

@@ -64,7 +64,7 @@ export function useSendTransaction(): UseSendTransactionReturn {
         tx.gas = typeof args.gas === 'bigint' ? '0x' + args.gas.toString(16) : args.gas
       }
 
-      const provider = (window as any).ethereum
+      const provider = (window as unknown as Window & typeof globalThis).ethereum
       if (!provider) {
         throw new Error('No EIP-1193 provider found.')
       }

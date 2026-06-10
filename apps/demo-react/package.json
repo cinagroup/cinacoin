@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint src --ext .ts,.tsx,.js,.jsx",
+    "test": "vitest run"
   },
   "dependencies": {
     "@cinacoin/design-tokens": "workspace:*",

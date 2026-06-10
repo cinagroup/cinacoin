@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
@@ -58,7 +59,7 @@ describe('themes data', () => {
     for (const [id, theme] of Object.entries(themes)) {
       for (const field of required) {
         expect(theme).toHaveProperty(field);
-        expect((theme as any)[field]).toBeDefined();
+        expect((theme as unknown)[field]).toBeDefined();
       }
     }
   });
@@ -150,7 +151,7 @@ describe('animation variants', () => {
 
   it('staggerContainer has staggered transition config', () => {
     expect(staggerContainer.animate).toBeDefined();
-    expect((staggerContainer.animate as any).transition.staggerChildren).toBe(0.07);
+    expect((staggerContainer.animate as unknown).transition.staggerChildren).toBe(0.07);
   });
 
   it('staggerItem has initial/animate/exit states', () => {

@@ -31,7 +31,8 @@ import type { Connector, Chain, ChainAdapter } from '@cinacoin/core-sdk';
 import TronWeb from 'tronweb';
 
 // TronWeb lacks proper TypeScript types
-const TronWebAny = TronWeb as any;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TronWebAny = TronWeb as unknown;
 
 /* ------------------------------------------------------------------ */
 /*  CinacoinError — standardised error class                           */
@@ -156,7 +157,7 @@ export class TronChainAdapter implements ChainAdapter {
 
   /** Set the TronWeb client or any compatible client object. */
   setClient(client: unknown): void {
-    if (client && typeof (client as any).trx === 'object') {
+    if (client && typeof (client as Record<string, unknown>).trx === 'object') {
       // Accept duck-typed TronWeb-like object
       this.tronWeb = client;
     } else {

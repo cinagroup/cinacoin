@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for EIP-5792 service, standalone components, and exports — @cinacoin/angular.
  *
@@ -11,7 +12,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
 const mockComponent = vi.fn((meta: any) => (cls: any) => {
   // Attach metadata so we can assert on standalone/imports
-  (cls as any).__ngComponentMeta = meta;
+  (cls as unknown).__ngComponentMeta = meta;
   return cls;
 });
 
@@ -152,7 +153,7 @@ vi.mock('@cinacoin/core-sdk', async () => {
     filterByCapability: vi.fn((caps: any, cap: string) => {
       const result: any = {};
       for (const [chainId, chainCaps] of Object.entries(caps)) {
-        if ((chainCaps as any)[cap]?.supported) {
+        if ((chainCaps as unknown)[cap]?.supported) {
           result[chainId] = chainCaps;
         }
       }
@@ -186,19 +187,19 @@ describe('Eip5792Service', () => {
   describe('Constructor & initialization', () => {
     it('should create Eip5792Service in browser mode', async () => {
       const { Eip5792Service } = await import('../src/lib/eip5792/eip5792.service.js');
-      const service = new Eip5792Service(mockConnector as any, 'browser');
+      const service = new Eip5792Service(mockConnector as unknown, 'browser');
       expect(service).toBeDefined();
     });
 
     it('should create Eip5792Service in SSR mode', async () => {
       const { Eip5792Service } = await import('../src/lib/eip5792/eip5792.service.js');
-      const service = new Eip5792Service(mockConnector as any, 'server');
+      const service = new Eip5792Service(mockConnector as unknown, 'server');
       expect(service).toBeDefined();
     });
 
     it('should set up event listeners in browser mode', async () => {
       const { Eip5792Service } = await import('../src/lib/eip5792/eip5792.service.js');
-      new Eip5792Service(mockConnector as any, 'browser');
+      new Eip5792Service(mockConnector as unknown, 'browser');
       expect(mockProvider.on).toHaveBeenCalledWith('accountsChanged', expect.any(Function));
       expect(mockProvider.on).toHaveBeenCalledWith('chainChanged', expect.any(Function));
       expect(mockProvider.on).toHaveBeenCalledWith('disconnect', expect.any(Function));
@@ -207,7 +208,7 @@ describe('Eip5792Service', () => {
     it('should not set up event listeners in SSR mode', async () => {
       vi.clearAllMocks();
       const { Eip5792Service } = await import('../src/lib/eip5792/eip5792.service.js');
-      new Eip5792Service(mockConnector as any, 'server');
+      new Eip5792Service(mockConnector as unknown, 'server');
       expect(mockProvider.on).not.toHaveBeenCalled();
     });
   });
@@ -215,25 +216,25 @@ describe('Eip5792Service', () => {
   describe('Reactive observables', () => {
     it('should expose walletCapabilities$', async () => {
       const { Eip5792Service } = await import('../src/lib/eip5792/eip5792.service.js');
-      const service = new Eip5792Service(mockConnector as any, 'browser');
+      const service = new Eip5792Service(mockConnector as unknown, 'browser');
       expect(service.walletCapabilities$).toBeDefined();
     });
 
     it('should expose address$', async () => {
       const { Eip5792Service } = await import('../src/lib/eip5792/eip5792.service.js');
-      const service = new Eip5792Service(mockConnector as any, 'browser');
+      const service = new Eip5792Service(mockConnector as unknown, 'browser');
       expect(service.address$).toBeDefined();
     });
 
     it('should expose chainIdHex$', async () => {
       const { Eip5792Service } = await import('../src/lib/eip5792/eip5792.service.js');
-      const service = new Eip5792Service(mockConnector as any, 'browser');
+      const service = new Eip5792Service(mockConnector as unknown, 'browser');
       expect(service.chainIdHex$).toBeDefined();
     });
 
     it('should expose isConnected$', async () => {
       const { Eip5792Service } = await import('../src/lib/eip5792/eip5792.service.js');
-      const service = new Eip5792Service(mockConnector as any, 'browser');
+      const service = new Eip5792Service(mockConnector as unknown, 'browser');
       expect(service.isConnected$).toBeDefined();
     });
   });
@@ -241,28 +242,28 @@ describe('Eip5792Service', () => {
   describe('SSR guards', () => {
     it('fetchWalletCapabilities should return EMPTY on server', async () => {
       const { Eip5792Service } = await import('../src/lib/eip5792/eip5792.service.js');
-      const service = new Eip5792Service(mockConnector as any, 'server');
+      const service = new Eip5792Service(mockConnector as unknown, 'server');
       const result = service.fetchWalletCapabilities();
       expect(result).toBe(mockEmpty);
     });
 
     it('sendCalls should return EMPTY on server', async () => {
       const { Eip5792Service } = await import('../src/lib/eip5792/eip5792.service.js');
-      const service = new Eip5792Service(mockConnector as any, 'server');
+      const service = new Eip5792Service(mockConnector as unknown, 'server');
       const result = service.sendCalls([]);
       expect(result).toBe(mockEmpty);
     });
 
     it('atomicBatch should return EMPTY on server', async () => {
       const { Eip5792Service } = await import('../src/lib/eip5792/eip5792.service.js');
-      const service = new Eip5792Service(mockConnector as any, 'server');
+      const service = new Eip5792Service(mockConnector as unknown, 'server');
       const result = service.atomicBatch([]);
       expect(result).toBe(mockEmpty);
     });
 
     it('getCallsStatus should return EMPTY on server', async () => {
       const { Eip5792Service } = await import('../src/lib/eip5792/eip5792.service.js');
-      const service = new Eip5792Service(mockConnector as any, 'server');
+      const service = new Eip5792Service(mockConnector as unknown, 'server');
       const result = service.getCallsStatus('batch-123');
       expect(result).toBe(mockEmpty);
     });
@@ -271,28 +272,28 @@ describe('Eip5792Service', () => {
   describe('Helper methods', () => {
     it('has() should return true when capability is supported', async () => {
       const { Eip5792Service } = await import('../src/lib/eip5792/eip5792.service.js');
-      const service = new Eip5792Service(mockConnector as any, 'browser');
+      const service = new Eip5792Service(mockConnector as unknown, 'browser');
       const result = service.has(mockCapabilities, '0x1', 'paymasterService');
       expect(result).toBe(true);
     });
 
     it('has() should return false when capability is not supported', async () => {
       const { Eip5792Service } = await import('../src/lib/eip5792/eip5792.service.js');
-      const service = new Eip5792Service(mockConnector as any, 'browser');
+      const service = new Eip5792Service(mockConnector as unknown, 'browser');
       const result = service.has(mockCapabilities, '0x89', 'paymasterService');
       expect(result).toBe(false);
     });
 
     it('has() should return false for null capabilities', async () => {
       const { Eip5792Service } = await import('../src/lib/eip5792/eip5792.service.js');
-      const service = new Eip5792Service(mockConnector as any, 'browser');
+      const service = new Eip5792Service(mockConnector as unknown, 'browser');
       const result = service.has(null, '0x1', 'atomicBatch');
       expect(result).toBe(false);
     });
 
     it('getChainCaps() should return chain-specific capabilities', async () => {
       const { Eip5792Service } = await import('../src/lib/eip5792/eip5792.service.js');
-      const service = new Eip5792Service(mockConnector as any, 'browser');
+      const service = new Eip5792Service(mockConnector as unknown, 'browser');
       const result = service.getChainCaps(mockCapabilities, '0x1');
       expect(result).toEqual({
         paymasterService: { supported: true },
@@ -302,14 +303,14 @@ describe('Eip5792Service', () => {
 
     it('getChainCaps() should return empty for unknown chain', async () => {
       const { Eip5792Service } = await import('../src/lib/eip5792/eip5792.service.js');
-      const service = new Eip5792Service(mockConnector as any, 'browser');
+      const service = new Eip5792Service(mockConnector as unknown, 'browser');
       const result = service.getChainCaps(mockCapabilities, '0x999');
       expect(result).toEqual({});
     });
 
     it('filterBy() should return only chains with the capability', async () => {
       const { Eip5792Service } = await import('../src/lib/eip5792/eip5792.service.js');
-      const service = new Eip5792Service(mockConnector as any, 'browser');
+      const service = new Eip5792Service(mockConnector as unknown, 'browser');
       const result = service.filterBy(mockCapabilities, 'paymasterService');
       expect(Object.keys(result)).toContain('0x1');
       expect(Object.keys(result)).not.toContain('0x89');
@@ -317,14 +318,14 @@ describe('Eip5792Service', () => {
 
     it('filterBy() should return empty for null capabilities', async () => {
       const { Eip5792Service } = await import('../src/lib/eip5792/eip5792.service.js');
-      const service = new Eip5792Service(mockConnector as any, 'browser');
+      const service = new Eip5792Service(mockConnector as unknown, 'browser');
       const result = service.filterBy(null, 'atomicBatch');
       expect(result).toEqual({});
     });
 
     it('getSupportedChains() should return all chain keys', async () => {
       const { Eip5792Service } = await import('../src/lib/eip5792/eip5792.service.js');
-      const service = new Eip5792Service(mockConnector as any, 'browser');
+      const service = new Eip5792Service(mockConnector as unknown, 'browser');
       const result = service.getSupportedChains(mockCapabilities);
       expect(result).toContain('0x1');
       expect(result).toContain('0x89');
@@ -332,7 +333,7 @@ describe('Eip5792Service', () => {
 
     it('getSupportedChains() should return empty for null', async () => {
       const { Eip5792Service } = await import('../src/lib/eip5792/eip5792.service.js');
-      const service = new Eip5792Service(mockConnector as any, 'browser');
+      const service = new Eip5792Service(mockConnector as unknown, 'browser');
       const result = service.getSupportedChains(null);
       expect(result).toEqual([]);
     });
@@ -341,13 +342,13 @@ describe('Eip5792Service', () => {
   describe('isAtomicSupported', () => {
     it('should return true for supported chain', async () => {
       const { Eip5792Service } = await import('../src/lib/eip5792/eip5792.service.js');
-      const service = new Eip5792Service(mockConnector as any, 'browser');
+      const service = new Eip5792Service(mockConnector as unknown, 'browser');
       expect(service.isAtomicSupported('0x1')).toBe(true);
     });
 
     it('should return false for unsupported chain', async () => {
       const { Eip5792Service } = await import('../src/lib/eip5792/eip5792.service.js');
-      const service = new Eip5792Service(mockConnector as any, 'browser');
+      const service = new Eip5792Service(mockConnector as unknown, 'browser');
       expect(service.isAtomicSupported('0x999')).toBe(false);
     });
   });
@@ -355,9 +356,9 @@ describe('Eip5792Service', () => {
   describe('buildBatch', () => {
     it('should build atomic batch params', async () => {
       const { Eip5792Service } = await import('../src/lib/eip5792/eip5792.service.js');
-      const service = new Eip5792Service(mockConnector as any, 'browser');
+      const service = new Eip5792Service(mockConnector as unknown, 'browser');
       // Simulate a connected address
-      (service as any)._address.next('0x1234567890abcdef1234567890abcdef12345678');
+      (service as unknown)._address.next('0x1234567890abcdef1234567890abcdef12345678');
       const result = service.buildBatch([]);
       expect(result).toBeDefined();
       expect(result.isAtomic).toBe(true);
@@ -368,7 +369,7 @@ describe('Eip5792Service', () => {
   describe('allSucceeded helper', () => {
     it('should return true for confirmed batch with all successes', async () => {
       const { Eip5792Service } = await import('../src/lib/eip5792/eip5792.service.js');
-      const service = new Eip5792Service(mockConnector as any, 'browser');
+      const service = new Eip5792Service(mockConnector as unknown, 'browser');
       const result = service.allSucceeded({
         status: 'CONFIRMED',
         receipts: [
@@ -380,7 +381,7 @@ describe('Eip5792Service', () => {
 
     it('should return false for pending batch', async () => {
       const { Eip5792Service } = await import('../src/lib/eip5792/eip5792.service.js');
-      const service = new Eip5792Service(mockConnector as any, 'browser');
+      const service = new Eip5792Service(mockConnector as unknown, 'browser');
       const result = service.allSucceeded({
         status: 'PENDING',
         receipts: [],
@@ -390,7 +391,7 @@ describe('Eip5792Service', () => {
 
     it('should return false for null result', async () => {
       const { Eip5792Service } = await import('../src/lib/eip5792/eip5792.service.js');
-      const service = new Eip5792Service(mockConnector as any, 'browser');
+      const service = new Eip5792Service(mockConnector as unknown, 'browser');
       const result = service.allSucceeded(null);
       expect(result).toBe(false);
     });
@@ -399,7 +400,7 @@ describe('Eip5792Service', () => {
   describe('failedReceipts helper', () => {
     it('should return failed receipts', async () => {
       const { Eip5792Service } = await import('../src/lib/eip5792/eip5792.service.js');
-      const service = new Eip5792Service(mockConnector as any, 'browser');
+      const service = new Eip5792Service(mockConnector as unknown, 'browser');
       const result = service.failedReceipts({
         status: 'CONFIRMED',
         receipts: [
@@ -413,7 +414,7 @@ describe('Eip5792Service', () => {
 
     it('should return empty for null result', async () => {
       const { Eip5792Service } = await import('../src/lib/eip5792/eip5792.service.js');
-      const service = new Eip5792Service(mockConnector as any, 'browser');
+      const service = new Eip5792Service(mockConnector as unknown, 'browser');
       const result = service.failedReceipts(null);
       expect(result).toEqual([]);
     });
@@ -422,7 +423,7 @@ describe('Eip5792Service', () => {
   describe('ngOnDestroy', () => {
     it('should call ngOnDestroy without error', async () => {
       const { Eip5792Service } = await import('../src/lib/eip5792/eip5792.service.js');
-      const service = new Eip5792Service(mockConnector as any, 'browser');
+      const service = new Eip5792Service(mockConnector as unknown, 'browser');
       expect(() => service.ngOnDestroy()).not.toThrow();
     });
   });

@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for BaseLitElement theming and utilities.
  */
@@ -76,7 +77,7 @@ describe('BaseLitElement', () => {
   });
 
   it('should return styles from subclass get styles', () => {
-    const styles = (TestElement as any).styles;
+    const styles = (TestElement as unknown).styles;
     expect(Array.isArray(styles)).toBe(true);
     expect(styles.length).toBeGreaterThanOrEqual(1);
   });

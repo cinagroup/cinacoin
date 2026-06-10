@@ -10,7 +10,9 @@
     "check": "tsc --noEmit",
     "typecheck": "tsc --noEmit",
     "db:migrate": "wrangler d1 migrations apply cinacoin-project-registry --local",
-    "db:migrate:prod": "wrangler d1 migrations apply cinacoin-project-registry --remote"
+    "db:migrate:prod": "wrangler d1 migrations apply cinacoin-project-registry --remote",
+    "lint": "eslint src --ext .ts,.tsx,.js,.jsx",
+    "test": "vitest run"
   },
   "dependencies": {
     "hono": "^4.6.0",

@@ -33,7 +33,7 @@ export function useBalance(): UseBalanceReturn {
     error.value = null
 
     try {
-      const provider = (window as any).ethereum
+      const provider = (window as unknown as Window & typeof globalThis).ethereum
       if (!provider) { balance.value = account.value.balance; return }
 
       const result = await provider.request({

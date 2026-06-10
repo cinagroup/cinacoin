@@ -41,3 +41,10 @@ export {
   type RequestInterceptor,
   type RetryConfig,
 } from './connection-pool.js';
+
+// Performance metrics collection
+export {
+  MetricsCollector,
+  metricsCollector,
+  type PerformanceMetrics,
+} from './metrics.js';

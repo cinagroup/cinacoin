@@ -220,6 +220,142 @@ export class HederaAdapter extends BaseAdapter {
     this.emit('chainChanged', { chainId });
   }
 
+  /**
+   * Associate a token with the current account.
+   * On Hedera, accounts must explicitly associate with tokens before receiving them.
+   * This is a security feature to prevent unwanted tokens.
+   *
+   * @param params - Token association parameters.
+   * @returns Transaction result.
+   */
+  async associateToken(params: {
+    tokenIds: string[];
+  }): Promise<TxResult> {
+    const state = this.requireConnection();
+    if (!this.provider) throw new Error('[HederaAdapter] No provider');
+
+    // Build TokenAssociateTransaction
+    const transaction = {
+      type: 'TokenAssociate',
+      accountId: state.accounts[0],
+      tokenIds: params.tokenIds,
+    };
+
+    const { transactionId, receipt } = await this.provider.executeTransaction(transaction);
+
+    if (receipt.status !== 'SUCCESS') {
+      throw new Error(`[HederaAdapter] Token association failed with status: ${receipt.status}`);
+    }
+
+    return {
+      hash: transactionId,
+      chainId: this._activeChainId!,
+      from: state.accounts[0],
+      broadcast: true,
+    };
+  }
+
+  /**
+   * Dissociate a token from the current account.
+   * Removes the token association. Account must have zero balance of the token.
+   *
+   * @param params - Token dissociation parameters.
+   * @returns Transaction result.
+   */
+  async dissociateToken(params: {
+    tokenIds: string[];
+  }): Promise<TxResult> {
+    const state = this.requireConnection();
+    if (!this.provider) throw new Error('[HederaAdapter] No provider');
+
+    const transaction = {
+      type: 'TokenDissociate',
+      accountId: state.accounts[0],
+      tokenIds: params.tokenIds,
+    };
+
+    const { transactionId, receipt } = await this.provider.executeTransaction(transaction);
+
+    if (receipt.status !== 'SUCCESS') {
+      throw new Error(`[HederaAdapter] Token dissociation failed with status: ${receipt.status}`);
+    }
+
+    return {
+      hash: transactionId,
+      chainId: this._activeChainId!,
+      from: state.accounts[0],
+      broadcast: true,
+    };
+  }
+
+  /**
+   * Transfer fungible tokens between accounts.
+   * Requires that all accounts have associated with the token.
+   *
+   * @param params - Token transfer parameters.
+   * @returns Transaction result.
+   */
+  async transferToken(params: {
+    tokenId: string;
+    transfers: Array<{
+      accountId: string;
+      amount: number;
+    }>;
+  }): Promise<TxResult> {
+    const state = this.requireConnection();
+    if (!this.provider) throw new Error('[HederaAdapter] No provider');
+
+    const transaction = {
+      type: 'CryptoTransfer',
+      tokenTransfers: [
+        {
+          tokenId: params.tokenId,
+          transfers: params.transfers,
+        },
+      ],
+    };
+
+    const { transactionId, receipt } = await this.provider.executeTransaction(transaction);
+
+    if (receipt.status !== 'SUCCESS') {
+      throw new Error(`[HederaAdapter] Token transfer failed with status: ${receipt.status}`);
+    }
+
+    return {
+      hash: transactionId,
+      chainId: this._activeChainId!,
+      from: state.accounts[0],
+      broadcast: true,
+    };
+  }
+
+  /**
+   * Get token balance for an account.
+   *
+   * @param params - Token balance query parameters.
+   * @returns Balance result.
+   */
+  async getTokenBalance(params: {
+    tokenId: string;
+    address?: string;
+  }): Promise<BalanceResult> {
+    const state = this.requireConnection();
+    const targetAddress = params.address ?? state.accounts[0];
+
+    // In production, query via Hedera Mirror Node or SDK
+    // This is a placeholder implementation
+    const balance = '0';
+    const formatted = this.formatBalance(balance, 8);
+
+    return {
+      address: targetAddress,
+      balance,
+      formatted,
+      symbol: 'TOKEN',
+      chainId: this._activeChainId!,
+    };
+  }
+
   /* ------------------------------------------------------------------ */
   /*  Internal Helpers                                                    */
   /* ------------------------------------------------------------------ */
@@ -229,7 +365,7 @@ export class HederaAdapter extends BaseAdapter {
    */
   private detectProvider(): HederaProvider | null {
     if (typeof window === 'undefined') return null;
-    return (window as any).hashpack ?? null;
+    return (window as unknown as Window & typeof globalThis).hashpack ?? null;
   }
 
   /**

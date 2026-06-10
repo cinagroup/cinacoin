@@ -20,8 +20,11 @@ function assert(condition: boolean, msg: string) {
 // Fixtures
 // ---------------------------------------------------------------------------
 
-const TEST_PRIVATE_KEY = '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80';
-const TEST_OWNER = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266';
+// SECURITY: Test keys loaded from environment variables to prevent accidental use in production.
+// Set TEST_PRIVATE_KEY env var before running tests (e.g. via .env.test or CI secrets).
+const TEST_PRIVATE_KEY = process.env.TEST_PRIVATE_KEY
+  || (() => { throw new Error('TEST_PRIVATE_KEY environment variable is required. Use a Hardhat/Anvil test key.'); })();
+const TEST_OWNER = process.env.TEST_OWNER || '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266';
 
 const config: SmartAccountConfig & { privateKey: string } = {
   owner: TEST_OWNER,

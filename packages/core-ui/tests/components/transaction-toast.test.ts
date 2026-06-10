@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for TransactionToast component.
  * Tests rendering for all statuses, actions, events, and progress bar.
@@ -25,7 +26,7 @@ describe('TransactionToast component', () => {
   });
 
   it('should accept transaction data', () => {
-    const toast = document.createElement('ocx-transaction-toast') as any;
+    const toast = document.createElement('ocx-transaction-toast') as unknown;
     toast.hash = '0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890';
     toast.chainId = 137;
     toast.status = 'confirmed';
@@ -41,7 +42,7 @@ describe('TransactionToast component', () => {
   });
 
   it('should render pending status with correct icon', () => {
-    const toast = document.createElement('ocx-transaction-toast') as any;
+    const toast = document.createElement('ocx-transaction-toast') as unknown;
     toast.hash = '0x1234567890abcdef';
     toast.status = 'pending';
     toast.confirmations = 3;
@@ -54,7 +55,7 @@ describe('TransactionToast component', () => {
   });
 
   it('should render confirmed status with correct icon', () => {
-    const toast = document.createElement('ocx-transaction-toast') as any;
+    const toast = document.createElement('ocx-transaction-toast') as unknown;
     toast.hash = '0x1234567890abcdef';
     toast.status = 'confirmed';
     const result = toast.render();
@@ -63,7 +64,7 @@ describe('TransactionToast component', () => {
   });
 
   it('should render failed status with retry button', () => {
-    const toast = document.createElement('ocx-transaction-toast') as any;
+    const toast = document.createElement('ocx-transaction-toast') as unknown;
     toast.hash = '0x1234567890abcdef';
     toast.status = 'failed';
     const result = toast.render();
@@ -74,7 +75,7 @@ describe('TransactionToast component', () => {
   });
 
   it('should render replaced status with correct icon', () => {
-    const toast = document.createElement('ocx-transaction-toast') as any;
+    const toast = document.createElement('ocx-transaction-toast') as unknown;
     toast.hash = '0x1234567890abcdef';
     toast.status = 'replaced';
     const result = toast.render();
@@ -83,7 +84,7 @@ describe('TransactionToast component', () => {
   });
 
   it('should truncate long transaction hashes', () => {
-    const toast = document.createElement('ocx-transaction-toast') as any;
+    const toast = document.createElement('ocx-transaction-toast') as unknown;
     toast.hash = '0x1234567890abcdef1234567890abcdef12345678';
     toast.status = 'pending';
     const result = toast.render();
@@ -91,7 +92,7 @@ describe('TransactionToast component', () => {
   });
 
   it('should not truncate short transaction hashes', () => {
-    const toast = document.createElement('ocx-transaction-toast') as any;
+    const toast = document.createElement('ocx-transaction-toast') as unknown;
     toast.hash = '0x1234';
     toast.status = 'pending';
     const result = toast.render();
@@ -100,7 +101,7 @@ describe('TransactionToast component', () => {
   });
 
   it('should render explorer link when explorerUrl is set', () => {
-    const toast = document.createElement('ocx-transaction-toast') as any;
+    const toast = document.createElement('ocx-transaction-toast') as unknown;
     toast.hash = '0x1234';
     toast.status = 'confirmed';
     toast.explorerUrl = 'https://etherscan.io/tx/0x1234';
@@ -109,7 +110,7 @@ describe('TransactionToast component', () => {
   });
 
   it('should not render explorer link when explorerUrl is empty', () => {
-    const toast = document.createElement('ocx-transaction-toast') as any;
+    const toast = document.createElement('ocx-transaction-toast') as unknown;
     toast.hash = '0x1234';
     toast.status = 'confirmed';
     toast.explorerUrl = '';
@@ -118,7 +119,7 @@ describe('TransactionToast component', () => {
   });
 
   it('should dispatch ocx-dismiss event on dismiss', () => {
-    const toast = document.createElement('ocx-transaction-toast') as any;
+    const toast = document.createElement('ocx-transaction-toast') as unknown;
     const handler = vi.fn();
     toast.addEventListener('ocx-dismiss', handler);
 
@@ -128,7 +129,7 @@ describe('TransactionToast component', () => {
   });
 
   it('should dispatch ocx-retry event on retry', () => {
-    const toast = document.createElement('ocx-transaction-toast') as any;
+    const toast = document.createElement('ocx-transaction-toast') as unknown;
     const handler = vi.fn();
     toast.addEventListener('ocx-retry', handler);
 
@@ -138,7 +139,7 @@ describe('TransactionToast component', () => {
   });
 
   it('should dispatch ocx-view-explorer event with hash and url', () => {
-    const toast = document.createElement('ocx-transaction-toast') as any;
+    const toast = document.createElement('ocx-transaction-toast') as unknown;
     const handler = vi.fn();
     toast.addEventListener('ocx-view-explorer', handler);
     toast.hash = '0xabc123';
@@ -154,7 +155,7 @@ describe('TransactionToast component', () => {
   });
 
   it('should render progress bar for pending status', () => {
-    const toast = document.createElement('ocx-transaction-toast') as any;
+    const toast = document.createElement('ocx-transaction-toast') as unknown;
     toast.hash = '0x1234';
     toast.status = 'pending';
     const result = toast.render();
@@ -162,7 +163,7 @@ describe('TransactionToast component', () => {
   });
 
   it('should not render progress bar for confirmed status', () => {
-    const toast = document.createElement('ocx-transaction-toast') as any;
+    const toast = document.createElement('ocx-transaction-toast') as unknown;
     toast.hash = '0x1234';
     toast.status = 'confirmed';
     const result = toast.render();
@@ -170,7 +171,7 @@ describe('TransactionToast component', () => {
   });
 
   it('should have role="alert" for accessibility', () => {
-    const toast = document.createElement('ocx-transaction-toast') as any;
+    const toast = document.createElement('ocx-transaction-toast') as unknown;
     toast.hash = '0x1234';
     toast.status = 'pending';
     const result = toast.render();
@@ -179,13 +180,13 @@ describe('TransactionToast component', () => {
   });
 
   it('should define CSS styles', () => {
-    const styles = (TransactionToast as any).styles;
+    const styles = (TransactionToast as unknown).styles;
     expect(Array.isArray(styles)).toBe(true);
     expect(styles.length).toBeGreaterThanOrEqual(1);
   });
 
   it('should return empty status message for confirmed status', () => {
-    const toast = document.createElement('ocx-transaction-toast') as any;
+    const toast = document.createElement('ocx-transaction-toast') as unknown;
     toast.status = 'confirmed';
     toast.confirmations = 12;
     toast.targetConfirmations = 12;
@@ -193,8 +194,8 @@ describe('TransactionToast component', () => {
   });
 
   it('should have correct default status icon fallback', () => {
-    const toast = document.createElement('ocx-transaction-toast') as any;
-    toast.status = 'unknown' as any;
+    const toast = document.createElement('ocx-transaction-toast') as unknown;
+    toast.status = 'unknown' as unknown;
     expect(toast._statusIcon).toBe('⏳');
     expect(toast._statusTitle).toBe('transaction_pending');
   });

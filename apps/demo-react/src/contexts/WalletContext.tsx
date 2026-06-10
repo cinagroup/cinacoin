@@ -36,7 +36,7 @@ declare global {
 }
 
 // WalletConnect provider singleton
-let wcProvider: any = null
+let wcProvider: unknown = null
 
 export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
  const [state, setState] = useState<WalletState>({

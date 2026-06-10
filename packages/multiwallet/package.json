@@ -9,7 +9,9 @@
   "scripts": {
     "build": "tsc --build",
     "clean": "rm -rf dist",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --ext .ts,.tsx,.js,.jsx",
+    "test": "vitest run"
   },
   "peerDependencies": {
     "react": ">=18.0.0"

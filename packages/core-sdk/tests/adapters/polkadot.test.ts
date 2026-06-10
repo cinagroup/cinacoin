@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Polkadot Chain Adapter tests.
  *
@@ -280,7 +281,7 @@ describe('PolkadotChainAdapter signMessage', () => {
       subscribe: vi.fn(),
       disconnect: vi.fn(),
     };
-    adapter.setProvider(mockProvider as any);
+    adapter.setProvider(mockProvider as unknown);
     await expect(adapter.signMessage('hello')).rejects.toThrow('No connected address');
   });
 
@@ -291,7 +292,7 @@ describe('PolkadotChainAdapter signMessage', () => {
       subscribe: vi.fn(),
       disconnect: vi.fn(),
     };
-    adapter.setProvider(mockProvider as any);
+    adapter.setProvider(mockProvider as unknown);
     // signMessage requires a connected address (set via connect()),
     // so without connection it throws 'No connected address'
     await expect(adapter.signMessage('hello')).rejects.toThrow('No connected address');
@@ -317,7 +318,7 @@ describe('PolkadotChainAdapter provider and API', () => {
       subscribe: vi.fn(),
       disconnect: vi.fn(),
     };
-    adapter.setProvider(mockProvider as any);
+    adapter.setProvider(mockProvider as unknown);
     expect(adapter.getProvider()).toBe(mockProvider);
   });
 
@@ -336,7 +337,7 @@ describe('PolkadotChainAdapter provider and API', () => {
       subscribe: vi.fn(),
       disconnect: vi.fn().mockResolvedValue(undefined),
     };
-    adapter.setProvider(mockProvider as any);
+    adapter.setProvider(mockProvider as unknown);
     await adapter.disconnect();
     expect(adapter.getAddress()).toBeNull();
   });
@@ -378,7 +379,7 @@ describe('SCALE Compact decoding', () => {
   let adapter: PolkadotChainAdapter;
   beforeEach(() => { adapter = new PolkadotChainAdapter(); });
   const _decodeCompact = (bytes: Uint8Array, offset?: number) =>
-    (adapter as any)._scaleDecodeCompact(bytes, offset ?? 0);
+    (adapter as unknown)._scaleDecodeCompact(bytes, offset ?? 0);
 
   it('decodes single-byte mode (mode 00)', () => {
     // value 0 << 2 = 0, mode 00
@@ -438,7 +439,7 @@ describe('SCALE u128 decoding', () => {
   let adapter: PolkadotChainAdapter;
   beforeEach(() => { adapter = new PolkadotChainAdapter(); });
   const _decodeU128 = (bytes: Uint8Array, offset?: number) =>
-    (adapter as any)._scaleDecodeU128(bytes, offset ?? 0);
+    (adapter as unknown)._scaleDecodeU128(bytes, offset ?? 0);
 
   it('decodes zero', () => {
     const bytes = new Uint8Array(16);
@@ -497,7 +498,7 @@ describe('SCALE AccountInfo decoding', () => {
   let adapter: PolkadotChainAdapter;
   beforeEach(() => { adapter = new PolkadotChainAdapter(); });
   const _decodeAccountInfo = (bytes: Uint8Array) =>
-    (adapter as any)._decodeAccountInfo(bytes);
+    (adapter as unknown)._decodeAccountInfo(bytes);
 
   function buildAccountInfoBytes({
     nonce = 1,
@@ -597,7 +598,7 @@ describe('SCALE storage key building', () => {
   let adapter: PolkadotChainAdapter;
   beforeEach(() => { adapter = new PolkadotChainAdapter(); });
   const _buildStorageKey = (addr: string) =>
-    (adapter as any)._buildStorageKey(addr);
+    (adapter as unknown)._buildStorageKey(addr);
 
   it('builds a storage key for a valid SS58 address', () => {
     const key = _buildStorageKey('5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY');

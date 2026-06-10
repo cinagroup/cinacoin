@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Unit tests for adapter-xrpl — XRPL operations service.
  */
@@ -110,8 +111,8 @@ describe('buildTrustSetTx', () => {
     });
 
     expect(tx.TransactionType).toBe('TrustSet');
-    expect((tx as any).LimitAmount.currency).toBe('USD');
-    expect((tx as any).LimitAmount.value).toBe('1000');
+    expect((tx as unknown).LimitAmount.currency).toBe('USD');
+    expect((tx as unknown).LimitAmount.value).toBe('1000');
   });
 });
 
@@ -127,7 +128,7 @@ describe('buildOfferCreateTx', () => {
     });
 
     expect(tx.TransactionType).toBe('OfferCreate');
-    expect((tx as any).TakerGets).toBe('1000000');
+    expect((tx as unknown).TakerGets).toBe('1000000');
   });
 });
 
@@ -142,7 +143,7 @@ describe('buildOfferCancelTx', () => {
     });
 
     expect(tx.TransactionType).toBe('OfferCancel');
-    expect((tx as any).OfferSequence).toBe(5);
+    expect((tx as unknown).OfferSequence).toBe(5);
   });
 });
 

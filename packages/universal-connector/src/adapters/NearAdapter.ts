@@ -210,6 +210,91 @@ export class NearAdapter extends BaseAdapter {
     this.emit('chainChanged', { chainId });
   }
 
+  /**
+   * Call a smart contract function with Function Call permission.
+   * This is NEAR's native way to interact with smart contracts.
+   *
+   * @param params - Function call parameters.
+   * @returns Transaction result.
+   */
+  async functionCall(params: {
+    contractId: string;
+    methodName: string;
+    args: Record<string, unknown>;
+    gas?: string;
+    deposit?: string;
+  }): Promise<TxResult> {
+    const state = this.requireConnection();
+    if (!this.provider) throw new Error('[NearAdapter] No provider');
+
+    const action = {
+      type: 'FunctionCall',
+      params: {
+        methodName: params.methodName,
+        args: params.args,
+        gas: params.gas ?? '30000000000000', // 30 TGas default
+        deposit: params.deposit ?? '0',
+      },
+    };
+
+    const { transaction } = await this.provider.sendTransaction({
+      receiverId: params.contractId,
+      actions: [action],
+    });
+
+    return {
+      hash: transaction.hash,
+      chainId: this._activeChainId!,
+      from: state.accounts[0],
+      to: params.contractId,
+      broadcast: true,
+    };
+  }
+
+  /**
+   * Add a Function Call access key to an account.
+   * Allows delegated transactions without full access.
+   *
+   * @param params - Access key parameters.
+   * @returns Transaction result.
+   */
+  async addFunctionCallKey(params: {
+    publicKey: string;
+    contractId: string;
+    methodNames?: string[];
+    allowance?: string;
+  }): Promise<TxResult> {
+    const state = this.requireConnection();
+    if (!this.provider) throw new Error('[NearAdapter] No provider');
+
+    const action = {
+      type: 'AddKey',
+      params: {
+        publicKey: params.publicKey,
+        accessKey: {
+          permission: {
+            receiverId: params.contractId,
+            methodNames: params.methodNames ?? [],
+            allowance: params.allowance ?? '250000000000000000000000', // 0.25 NEAR
+          },
+        },
+      },
+    };
+
+    const { transaction } = await this.provider.sendTransaction({
+      receiverId: state.accounts[0],
+      actions: [action],
+    });
+
+    return {
+      hash: transaction.hash,
+      chainId: this._activeChainId!,
+      from: state.accounts[0],
+      to: state.accounts[0],
+      broadcast: true,
+    };
+  }
+
   /* ------------------------------------------------------------------ */
   /*  Internal Helpers                                                    */
   /* ------------------------------------------------------------------ */
@@ -220,7 +305,7 @@ export class NearAdapter extends BaseAdapter {
   private detectProvider(): NearProvider | null {
     if (typeof window === 'undefined') return null;
     // In production, use @near-wallet-selector/core
-    return (window as any).nearWallet ?? null;
+    return (window as unknown as Window & typeof globalThis).nearWallet ?? null;
   }
 
   /**

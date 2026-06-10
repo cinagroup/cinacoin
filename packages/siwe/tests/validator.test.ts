@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for SIWE message validation per EIP-4361 specification.
  * Covers parameter validation, domain matching, expiration, and full validation pipeline.
@@ -55,7 +56,7 @@ describe('validateSIWEParams', () => {
 
   it('should report error for missing domain', () => {
     const params = makeParams();
-    delete (params as any).domain;
+    delete (params as unknown).domain;
     const errors = validateSIWEParams(params as SIWEParams);
     expect(errors.some((e) => e.field === 'domain')).toBe(true);
   });
@@ -68,7 +69,7 @@ describe('validateSIWEParams', () => {
 
   it('should report error for missing address', () => {
     const params = makeParams();
-    delete (params as any).address;
+    delete (params as unknown).address;
     const errors = validateSIWEParams(params as SIWEParams);
     expect(errors.some((e) => e.field === 'address')).toBe(true);
   });
@@ -81,7 +82,7 @@ describe('validateSIWEParams', () => {
 
   it('should report error for missing URI', () => {
     const params = makeParams();
-    delete (params as any).uri;
+    delete (params as unknown).uri;
     const errors = validateSIWEParams(params as SIWEParams);
     expect(errors.some((e) => e.field === 'uri')).toBe(true);
   });
@@ -106,7 +107,7 @@ describe('validateSIWEParams', () => {
 
   it('should report error for missing chainId', () => {
     const params = makeParams();
-    delete (params as any).chainId;
+    delete (params as unknown).chainId;
     const errors = validateSIWEParams(params as SIWEParams);
     expect(errors.some((e) => e.field === 'chainId')).toBe(true);
   });

@@ -18,7 +18,8 @@
   "scripts": {
     "build": "tsc",
     "check": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "lint": "eslint src --ext .ts,.tsx,.js,.jsx"
   },
   "license": "MIT",
   "dependencies": {

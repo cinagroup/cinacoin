@@ -223,7 +223,7 @@ async function handleSend(request: Request, env: Env): Promise<Response> {
 
     // Deliver
     const result = await delivery.send(device, {
-      type: type as any,
+      type: type as unknown,
       title,
       body: msgBody,
       data: data as Record<string, string> | undefined,
@@ -271,7 +271,7 @@ async function handleSendBatch(request: Request, env: Env): Promise<Response> {
     const devices = await registry.getAllDevicesForAddress(address);
     for (const device of devices) {
       const result = await delivery.send(device, {
-        type: type as any,
+        type: type as unknown,
         title,
         body: msgBody,
         data: data as Record<string, string> | undefined,
@@ -306,7 +306,7 @@ async function handlePreferences(request: Request, env: Env): Promise<Response> 
     return jsonError("Missing deviceId or preferences", 400, origin);
   }
 
-  const result = await registry.updatePreferences(String(deviceId), preferences as any);
+  const result = await registry.updatePreferences(String(deviceId), preferences as unknown as Parameters<typeof registry.updatePreferences>[1]);
   return jsonResponse(result, origin, result.success ? 200 : 404);
 }
 

@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * TronChainAdapter unit tests.
  *
@@ -85,7 +86,7 @@ describe('TronChainAdapter', () => {
   });
 
   it('implements setConnector without throwing', () => {
-    expect(() => adapter.setConnector({} as any)).not.toThrow();
+    expect(() => adapter.setConnector({} as unknown)).not.toThrow();
   });
 
   it('registers chains', () => {
@@ -153,7 +154,7 @@ describe('TronChainAdapter', () => {
       },
       fullNode: { host: 'https://api.trongrid.io' },
       setPrivateKey: () => {},
-    } as any;
+    } as unknown;
 
     expect(() => adapter.setClient(mockClient)).not.toThrow();
     expect(adapter.getClient()).toBe(mockClient);

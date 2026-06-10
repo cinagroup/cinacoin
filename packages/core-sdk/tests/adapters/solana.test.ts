@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Solana Chain Adapter tests.
  *
@@ -326,7 +327,7 @@ describe('SolanaChainAdapter message signing', () => {
       on: vi.fn(),
       off: vi.fn(),
     };
-    adapter.setProvider(mockProvider as any);
+    adapter.setProvider(mockProvider as unknown);
     await expect(adapter.signMessage('hello')).rejects.toThrow(
       'Connected wallet does not support message signing',
     );
@@ -345,7 +346,7 @@ describe('SolanaChainAdapter message signing', () => {
       on: vi.fn(),
       off: vi.fn(),
     };
-    adapter.setProvider(mockProvider as any);
+    adapter.setProvider(mockProvider as unknown);
 
     const result = await adapter.signMessage('hello');
     expect(result).toBeDefined();
@@ -366,7 +367,7 @@ describe('SolanaChainAdapter message signing', () => {
       on: vi.fn(),
       off: vi.fn(),
     };
-    adapter.setProvider(mockProvider as any);
+    adapter.setProvider(mockProvider as unknown);
 
     const msgBytes = new TextEncoder().encode('test');
     const result = await adapter.signMessage(msgBytes);
@@ -470,7 +471,7 @@ describe('SolanaChainAdapter internal base58 encoding', () => {
       on: vi.fn(),
       off: vi.fn(),
     };
-    adapter.setProvider(mockProvider as any);
+    adapter.setProvider(mockProvider as unknown);
 
     const result = await adapter.signMessage('test');
     expect(result).toBe('1');

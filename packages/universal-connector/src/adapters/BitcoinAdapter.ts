@@ -217,9 +217,9 @@ export class BitcoinAdapter extends BaseAdapter {
   private detectProvider(preferred?: string): BitcoinProvider | null {
     if (typeof window === 'undefined') return null;
 
-    const leather = (window as any).LeatherProvider;
-    const xverse = (window as any).XverseProviders?.BitcoinProvider;
-    const unisat = (window as any).unisat;
+    const leather = (window as unknown as Window & typeof globalThis).LeatherProvider;
+    const xverse = (window as unknown as Window & typeof globalThis).XverseProviders?.BitcoinProvider;
+    const unisat = (window as unknown as Window & typeof globalThis).unisat;
 
     if (preferred === 'leather' && leather) return leather;
     if (preferred === 'xverse' && xverse) return xverse;

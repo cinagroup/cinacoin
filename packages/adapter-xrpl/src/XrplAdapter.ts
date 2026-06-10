@@ -436,6 +436,74 @@ export class XrplAdapter implements XrplConnector {
     const { getLedgerViaRpc } = await import('./services/xrpl-ops.js');
     return getLedgerViaRpc(network, ledgerIndex);
   }
+
+  /**
+   * Prepare a PaymentChannelCreate transaction via RPC.
+   * Payment Channels enable off-chain micropayments with on-chain settlement.
+   *
+   * @param network - XRPL network (mainnet/testnet/devnet).
+   * @param account - Source account address.
+   * @param destination - Destination account address.
+   * @param amount - Amount in drops to fund the channel.
+   * @param settleDelay - Settlement delay in seconds.
+   * @returns Prepared transaction ready for signing.
+   */
+  async preparePaymentChannelCreateViaRpc(
+    network: import('./types.js').XrplNetwork,
+    account: string,
+    destination: string,
+    amount: string,
+    settleDelay: number,
+  ): Promise<{ txJson: import('./services/xrpl-ops.js').XrplTransaction; sequence: number; fee: string; lastLedgerSequence: number }> {
+    const { preparePaymentChannelCreateViaRpc } = await import('./services/xrpl-ops.js');
+    return preparePaymentChannelCreateViaRpc(network, account, destination, amount, settleDelay);
+  }
+
+  /**
+   * Prepare a PaymentChannelClaim transaction via RPC.
+   * Claims funds from a payment channel.
+   *
+   * @param network - XRPL network.
+   * @param account - Claimant account address.
+   * @param channel - Payment channel ID.
+   * @param amount - Amount to claim in drops.
+   * @param signature - Channel authorization signature.
+   * @returns Prepared transaction ready for signing.
+   */
+  async preparePaymentChannelClaimViaRpc(
+    network: import('./types.js').XrplNetwork,
+    account: string,
+    channel: string,
+    amount: string,
+    signature?: string,
+  ): Promise<{ txJson: import('./services/xrpl-ops.js').XrplTransaction; sequence: number; fee: string; lastLedgerSequence: number }> {
+    const { preparePaymentChannelClaimViaRpc } = await import('./services/xrpl-ops.js');
+    return preparePaymentChannelClaimViaRpc(network, account, channel, amount, signature);
+  }
+
+  /**
+   * Query payment channels for an account via `account_channels` RPC.
+   *
+   * @param network - XRPL network.
+   * @param account - Account address.
+   * @returns Array of payment channels.
+   */
+  async getPaymentChannelsViaRpc(
+    network: import('./types.js').XrplNetwork,
+    account: string,
+  ): Promise<{
+    channels: Array<{
+      account: string;
+      channel_id: string;
+      destination: string;
+      amount: string;
+      balance: string;
+      settle_delay: number;
+    }>;
+  }> {
+    const { getPaymentChannelsViaRpc } = await import('./services/xrpl-ops.js');
+    return getPaymentChannelsViaRpc(network, account);
+  }
 }
 
 /**

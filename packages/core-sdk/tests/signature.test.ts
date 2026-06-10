@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Core SDK - Signature Tests
  *
@@ -228,7 +229,7 @@ describe('Signature Operations', () => {
     });
 
     it('should reject invalid typed data (missing types)', async () => {
-      const invalid = { ...validTypedData, types: {} as any };
+      const invalid = { ...validTypedData, types: {} as unknown };
       await expect(connector.signTypedData(invalid)).rejects.toThrow('Missing EIP712Domain type');
     });
 

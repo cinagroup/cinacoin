@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "deploy:cf": "next build && wrangler pages deploy out"
+    "deploy:cf": "next build && wrangler pages deploy out",
+    "test": "vitest run"
   },
   "dependencies": {
     "@cinacoin/farcaster-miniapp": "workspace:*",

@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * @vitest-environment jsdom
  * Security tests — CSRF protection, CSP headers, and session hardening.

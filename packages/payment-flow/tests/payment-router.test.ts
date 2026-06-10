@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * PaymentRouter tests
  */
@@ -114,7 +115,7 @@ describe('PaymentRouter', () => {
     it('throws error for unknown payment type', async () => {
       await expect(
         router.findBestRoute({
-          type: 'unknown' as any,
+          type: 'unknown' as unknown,
           cryptoToken: 'ETH',
           chainId: 1,
           destinationAddress: '0x1234567890123456789012345678901234567890',

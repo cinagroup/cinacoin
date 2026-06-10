@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * TON Chain Adapter tests.
  *
@@ -295,7 +296,7 @@ describe('TONChainAdapter provider and connection', () => {
       on: vi.fn(),
       off: vi.fn(),
     };
-    adapter.setProvider(mockProvider as any);
+    adapter.setProvider(mockProvider as unknown);
     expect(adapter.getProvider()).toBe(mockProvider);
   });
 
@@ -311,7 +312,7 @@ describe('TONChainAdapter provider and connection', () => {
       on: vi.fn(),
       off: vi.fn(),
     };
-    adapter.setProvider(mockProvider as any);
+    adapter.setProvider(mockProvider as unknown);
     await adapter.disconnect();
     expect(adapter.getAddress()).toBeNull();
     expect(adapter.getProvider()).toBeNull();

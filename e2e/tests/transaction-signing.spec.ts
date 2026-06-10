@@ -21,7 +21,7 @@ test.describe('Transaction Signing E2E', () => {
     await page.goto(BASE_URL);
     // Inject mock provider
     await page.evaluate(() => {
-      (window as any).ethereum = {
+      (window as unknown).ethereum = {
         isMetaMask: true,
         request: async ({ method, params }: { method: string; params?: unknown[] }) => {
           switch (method) {
@@ -66,8 +66,8 @@ test.describe('Transaction Signing E2E', () => {
 
     // Mock a sign transaction request
     await page.evaluate(() => {
-      (window as any).__mockSignTx = async () => {
-        return (window as any).ethereum.request({
+      (window as unknown).__mockSignTx = async () => {
+        return (window as unknown).ethereum.request({
           method: 'eth_signTransaction',
           params: [{ from: '0x1234', to: '0x4567', value: '0x0' }],
         });
@@ -80,8 +80,8 @@ test.describe('Transaction Signing E2E', () => {
 
     // Mock send transaction
     await page.evaluate(() => {
-      (window as any).__mockSendTx = async () => {
-        return (window as any).ethereum.request({
+      (window as unknown).__mockSendTx = async () => {
+        return (window as unknown).ethereum.request({
           method: 'eth_sendTransaction',
           params: [{ from: '0x1234', to: '0x4567', value: '0x0' }],
         });
@@ -104,11 +104,11 @@ test.describe('Transaction Signing E2E', () => {
 
     // Override with rejecting provider
     await page.evaluate(() => {
-      (window as any).ethereum = {
+      (window as unknown).ethereum = {
         isMetaMask: true,
         request: async () => {
           const error = new Error('User rejected the request');
-          (error as any).code = 4001;
+          (error as unknown).code = 4001;
           throw error;
         },
         on: () => {},

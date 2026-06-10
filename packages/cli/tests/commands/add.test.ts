@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for @cinacoin/cli add command.
  */
@@ -35,7 +36,7 @@ vi.mock('../utils/logger.js', () => ({
 describe('addCommand', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    process.exit = vi.fn() as any;
+    process.exit = vi.fn() as unknown;
   });
 
   it('should register an add command', async () => {
@@ -49,7 +50,7 @@ describe('addCommand', () => {
     };
     const mockCli = {
       command: vi.fn().mockReturnValue(mockCommand),
-    } as any;
+    } as unknown;
 
     const { addCommand } = await import('../src/commands/add.js');
     addCommand(mockCli);
@@ -68,7 +69,7 @@ describe('addCommand', () => {
     };
     const mockCli = {
       command: vi.fn().mockReturnValue(mockCommand),
-    } as any;
+    } as unknown;
 
     const { addCommand } = await import('../src/commands/add.js');
     addCommand(mockCli);
@@ -88,7 +89,7 @@ describe('addCommand', () => {
     };
     const mockCli = {
       command: vi.fn().mockReturnValue(mockCommand),
-    } as any;
+    } as unknown;
 
     const { addCommand } = await import('../src/commands/add.js');
     addCommand(mockCli);
@@ -107,7 +108,7 @@ describe('addCommand', () => {
     };
     const mockCli = {
       command: vi.fn().mockReturnValue(mockCommand),
-    } as any;
+    } as unknown;
 
     const { addCommand } = await import('../src/commands/add.js');
     addCommand(mockCli);
@@ -127,7 +128,7 @@ describe('addCommand', () => {
     };
     const mockCli = {
       command: vi.fn().mockReturnValue(mockCommand),
-    } as any;
+    } as unknown;
 
     listCommand(mockCli);
     expect(mockCommand.command).toHaveBeenCalledWith('list');
@@ -145,7 +146,7 @@ describe('addCommand', () => {
     };
     const mockCli = {
       command: vi.fn().mockReturnValue(mockCommand),
-    } as any;
+    } as unknown;
 
     // This would require triggering the action with unknown addon
     // For now, verify the structure

@@ -1,22 +1,16 @@
+@import "@cinacoin/design-tokens/css/cinacoin.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --cc-ink: #171717;
-  --cc-body: #4d4d4d;
-  --cc-mute: #888888;
-  --cc-canvas: #ffffff;
-  --cc-canvas-soft: #fafafa;
-  --cc-canvas-soft-2: #f5f5f5;
-  --cc-hairline: #ebebeb;
-  --cc-hairline-dark: #d4d4d4;
-  --cc-link: #0066ff;
-  --cc-link-hover: #0052cc;
-  --cc-success: #00875a;
-  --cc-warning: #ff991f;
-  --cc-danger: #de350b;
   --cc-sidebar-width: 240px;
+  /* App-specific aliases for backward compat */
+  --cc-mute: var(--cc-muted);
+  --cc-hairline-dark: var(--cc-hairline-strong);
+  --cc-link-hover: var(--cc-link-deep);
+  --cc-danger: var(--cc-error);
 }
 
 * {
@@ -207,10 +201,55 @@ tr:last-child td {
 }
 
 .modal-content {
-  background: white;
-  border-radius: 0.75rem;
+  background: var(--cc-canvas);
+  border-radius: 12px;
   padding: 1.5rem;
   max-width: 28rem;
   width: 100%;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  box-shadow: var(--cc-level5);
+}
+
+/* Focus ring for interactive elements */
+.input:focus-visible {
+  outline: 2px solid var(--cc-link);
+  outline-offset: 2px;
+}
+
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible,
+.btn-danger:focus-visible {
+  outline: 2px solid var(--cc-link);
+  outline-offset: 2px;
+}
+
+.sidebar-link:focus-visible {
+  outline: 2px solid var(--cc-link);
+  outline-offset: 2px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--cc-primary);
+  color: var(--cc-on-primary);
+  padding: 8px 16px;
+  z-index: 9999;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 0 0 var(--cc-radius-sm) 0;
+  transition: top 0.2s ease;
+}
+.skip-link:focus {
+  top: 0;
 }

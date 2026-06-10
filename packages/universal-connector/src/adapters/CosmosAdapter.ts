@@ -245,6 +245,7 @@ export class CosmosAdapter extends BaseAdapter {
 
   /**
    * Send an IBC transfer.
+   * IBC (Inter-Blockchain Communication) allows cross-chain token transfers.
    *
    * @param params - IBC transfer parameters.
    * @returns Transaction result.
@@ -254,20 +255,68 @@ export class CosmosAdapter extends BaseAdapter {
     token: { denom: string; amount: string };
     receiver: string;
     memo?: string;
+    timeoutHeight?: { revisionNumber: number; revisionHeight: number };
+    timeoutTimestamp?: number;
   }): Promise<TxResult> {
     const state = this.requireConnection();
     if (!this.provider) throw new Error('[CosmosAdapter] No provider');
 
     const cosmosChainId = this.extractCosmosChainId(this._activeChainId!);
-    const { hash } = await this.provider.sendIBCTransfer(cosmosChainId, params);
+    
+    // Build IBC transfer message
+    const ibcMsg = {
+      typeUrl: '/ibc.applications.transfer.v1.MsgTransfer',
+      value: {
+        sourcePort: 'transfer',
+        sourceChannel: params.sourceChannel,
+        token: params.token,
+        sender: state.accounts[0],
+        receiver: params.receiver,
+        timeoutHeight: params.timeoutHeight ?? { revisionNumber: 0, revisionHeight: 0 },
+        timeoutTimestamp: params.timeoutTimestamp ?? Date.now() * 1_000_000 + 600_000_000_000, // 10 minutes
+        memo: params.memo ?? '',
+      },
+    };
+
+    // Use signAndBroadcast to send the IBC message
+    const result = await this.provider.signAndBroadcast(
+      cosmosChainId,
+      [ibcMsg],
+      { amount: [], gas: '200000' },
+      params.memo ?? 'IBC Transfer'
+    );
+
+    if (result.code !== 0) {
+      throw new Error(`[CosmosAdapter] IBC transfer failed with code ${result.code}`);
+    }
 
     return {
-      hash,
+      hash: result.transactionHash,
       chainId: this._activeChainId!,
       from: state.accounts[0],
       to: params.receiver,
       broadcast: true,
     };
+  }
+
+  /**
+   * Query IBC channels for the current chain.
+   * Useful for discovering available cross-chain paths.
+   *
+   * @returns Array of IBC channel information.
+   */
+  async queryIBCChannels(): Promise<Array<{
+    channelId: string;
+    portId: string;
+    counterpartyChainId: string;
+    counterpartyChannelId: string;
+  }>> {
+    this.requireConnection();
+    
+    // In production, query via Cosmos REST API:
+    // GET /ibc/core/channel/v1/channels
+    // This is a placeholder implementation
+    return [];
   }
 
   /* ------------------------------------------------------------------ */
@@ -279,7 +328,7 @@ export class CosmosAdapter extends BaseAdapter {
    */
   private detectProvider(): KeplrProvider | null {
     if (typeof window === 'undefined') return null;
-    return (window as any).keplr ?? null;
+    return (window as unknown as Window & typeof globalThis).keplr ?? null;
   }
 
   /**

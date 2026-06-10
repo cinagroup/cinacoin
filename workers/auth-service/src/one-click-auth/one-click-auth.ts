@@ -3,6 +3,8 @@
  * Combines wallet connection + SIWE signature + session creation in one step
  */
 import { Hono } from 'hono';
+import { secp256k1 } from '@noble/curves/secp256k1';
+import { keccak_256 } from '@noble/hashes/sha3';
 import type { Env } from '../lib/types.js';
 import { generateTokenPair } from '../lib/jwt.js';
 import { withRateLimit } from '../middleware/rate-limit.js';
@@ -53,6 +55,64 @@ function generateSIWEMessage(params: {
 }
 
 /**
+ * Hash message with Ethereum prefix: keccak256("\x19Ethereum Signed Message:\n" + len + message)
+ */
+function hashMessage(message: string): Uint8Array {
+  const messageBytes = new TextEncoder().encode(message);
+  const prefix = `\x19Ethereum Signed Message:\n${messageBytes.length}`;
+  const prefixBytes = new TextEncoder().encode(prefix);
+  
+  const combined = new Uint8Array(prefixBytes.length + messageBytes.length);
+  combined.set(prefixBytes);
+  combined.set(messageBytes, prefixBytes.length);
+  
+  return keccak_256(combined);
+}
+
+/**
+ * Recover Ethereum address from signature
+ */
+function recoverAddress(messageHash: Uint8Array, signature: string): string {
+  const sigHex = signature.startsWith('0x') ? signature.slice(2) : signature;
+  
+  if (sigHex.length !== 130) {
+    throw new Error('Invalid signature length');
+  }
+  
+  const r = sigHex.slice(0, 64);
+  const s = sigHex.slice(64, 128);
+  const v = parseInt(sigHex.slice(128, 130), 16);
+  
+  // Normalize v value (27/28 or 0/1)
+  const recovery = v >= 27 ? v - 27 : v;
+  
+  if (recovery !== 0 && recovery !== 1) {
+    throw new Error('Invalid signature v value');
+  }
+  
+  const signatureBytes = new Uint8Array(64);
+  for (let i = 0; i < 64; i++) {
+    signatureBytes[i] = parseInt(sigHex.slice(i * 2, i * 2 + 2), 16);
+  }
+  
+  // Recover public key
+  const signature_ = new secp256k1.Signature(
+    BigInt('0x' + r),
+    BigInt('0x' + s)
+  ).addRecoveryBit(recovery);
+  
+  const publicKey = signature_.recoverPublicKey(messageHash).toRawBytes(false);
+  
+  // Get address from public key (keccak256 of uncompressed public key without prefix)
+  const addressHash = keccak_256(publicKey.slice(1));
+  const address = '0x' + Array.from(addressHash.slice(-20))
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('');
+  
+  return address;
+}
+
+/**
  * Verify Ethereum signature and recover address
  * Uses ecrecover to verify the signature matches the claimed address
  */
@@ -62,26 +122,14 @@ async function verifySignature(
   claimedAddress: string
 ): Promise<boolean> {
   try {
-    // Convert message to hash
-    const messageBytes = new TextEncoder().encode(message);
-    const messageHash = await crypto.subtle.digest('SHA-256', messageBytes);
+    // Hash the message with Ethereum prefix
+    const messageHash = hashMessage(message);
     
-    // For production, use a proper ecrecover library
-    // This is a simplified verification - in production, use ethers.js or viem
-    // const recoveredAddress = ethers.verifyMessage(message, signature);
-    // return recoveredAddress.toLowerCase() === claimedAddress.toLowerCase();
+    // Recover address from signature
+    const recoveredAddress = recoverAddress(messageHash, signature);
     
-    // For now, we'll trust the signature format is valid
-    // In production, implement proper ecrecover
-    console.warn('⚠️  Signature verification is simplified - implement proper ecrecover in production');
-    
-    // Basic signature format validation (65 bytes = 130 hex chars + 0x prefix)
-    const sigHex = signature.startsWith('0x') ? signature.slice(2) : signature;
-    if (sigHex.length !== 130) {
-      return false;
-    }
-    
-    return true;
+    // Compare addresses (case-insensitive)
+    return recoveredAddress.toLowerCase() === claimedAddress.toLowerCase();
   } catch (error) {
     console.error('Signature verification error:', error);
     return false;

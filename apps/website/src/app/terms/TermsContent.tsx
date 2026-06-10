@@ -2,6 +2,7 @@
 
 import FadeIn from '@/components/FadeIn'
 import { useI18n } from '@/providers/I18nProvider'
+import { sanitizeHtml } from '@/lib/sanitize'
 
 function Section({ titleId, contentId, disclaimer }: { titleId: string; contentId: string; disclaimer?: boolean }) {
   const { t } = useI18n()
@@ -10,7 +11,7 @@ function Section({ titleId, contentId, disclaimer }: { titleId: string; contentI
       <h2 className="cc-display-sm text-[var(--cc-ink)] mb-4">{t(titleId)}</h2>
       <div
         className={`cc-body-md ${disclaimer ? 'text-[var(--cc-muted)] italic' : 'text-[var(--cc-body)]'}`}
-        dangerouslySetInnerHTML={{ __html: t(contentId) }}
+        dangerouslySetInnerHTML={{ __html: sanitizeHtml(t(contentId)) }}
       />
     </div>
   )
@@ -29,7 +30,7 @@ function SectionWithList({
   return (
     <div className="mb-12">
       <h2 className="cc-display-sm text-[var(--cc-ink)] mb-4">{t(titleId)}</h2>
-      <p className="cc-body-md text-[var(--cc-body)] mb-4" dangerouslySetInnerHTML={{ __html: t(paragraphId) }} />
+      <p className="cc-body-md text-[var(--cc-body)] mb-4" dangerouslySetInnerHTML={{ __html: sanitizeHtml(t(paragraphId)) }} />
       <ul className="cc-body-md text-[var(--cc-body)] list-disc pl-6 space-y-2">
         {listItems.map((key) => (
           <li key={key}>{t(key)}</li>

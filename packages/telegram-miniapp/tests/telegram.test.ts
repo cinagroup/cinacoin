@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for Telegram Mini App integration.
  */
@@ -75,7 +76,7 @@ function createMockWebApp(overrides: Record<string, unknown> = {}) {
       selectionChanged: vi.fn(),
     },
     ...overrides,
-  } as any;
+  } as unknown;
 }
 
 // ---------------------------------------------------------------------------

@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for @cinacoin/next — AppKitProvider, server utils, and hooks re-exports.
  */

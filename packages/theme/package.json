@@ -1,0 +1,33 @@
+{
+  "name": "@cinacoin/theme",
+  "version": "0.1.0",
+  "description": "Theme management for Cinacoin apps — dark mode, system preference, persistence.",
+  "type": "module",
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./use-theme": "./src/use-theme.ts",
+    "./theme-provider": "./src/theme-provider.tsx",
+    "./theme-toggle": "./src/theme-toggle.tsx",
+    "./cinacoin-theme.css": "./css/cinacoin-theme.css"
+  },
+  "files": [
+    "src",
+    "css"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "react": "^18 || ^19"
+  },
+  "dependencies": {
+    "@cinacoin/design-tokens": "workspace:*"
+  },
+  "scripts": {
+    "lint": "eslint src --ext .ts,.tsx,.js,.jsx",
+    "test": "vitest run"
+  }
+}

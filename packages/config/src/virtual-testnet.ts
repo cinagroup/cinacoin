@@ -82,39 +82,52 @@ export interface VirtualTestnet {
 }
 
 // ─── Default test accounts ────────────────────────────────────
+// SECURITY: Test accounts loaded from environment variables to prevent accidental use in production.
 
-const DEFAULT_ACCOUNTS: VirtualTestnetAccount[] = [
-  {
-    address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-    privateKey:
-      "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80",
-    balance: "100000000000000000000", // 100 ETH
-  },
-  {
-    address: "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
-    privateKey:
-      "0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d",
-    balance: "100000000000000000000",
-  },
-  {
-    address: "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
-    privateKey:
-      "0x5de4111afa1a4b94908f83103eb1f1706367c2e68ca870fc3fb9a804cdab365a",
-    balance: "100000000000000000000",
-  },
-  {
-    address: "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
-    privateKey:
-      "0x7c852118294e51e653712a81e05800f419141751be58f605c371e15141b007a6",
-    balance: "100000000000000000000",
-  },
-  {
-    address: "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
-    privateKey:
-      "0x47e179ec197488593b187f80a00eb0da91f1b9d0b13f8733639f19c30a34926a",
-    balance: "100000000000000000000",
-  },
-];
+function getDefaultAccounts(): VirtualTestnetAccount[] {
+  // In production, this should be loaded from environment or test configuration
+  const testAccounts = process.env.TEST_ACCOUNTS;
+  if (testAccounts) {
+    try {
+      return JSON.parse(testAccounts);
+    } catch (e) {
+      throw new Error('TEST_ACCOUNTS environment variable must be valid JSON');
+    }
+  }
+  
+  // Fallback for local development only - these are well-known Hardhat/Anvil test keys
+  // NEVER use these in production
+  console.warn('⚠️  Using hardcoded test accounts. Set TEST_ACCOUNTS env var for production.');
+  return [
+    {
+      address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+      privateKey: "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80",
+      balance: "100000000000000000000", // 100 ETH
+    },
+    {
+      address: "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      privateKey: "0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d",
+      balance: "100000000000000000000",
+    },
+    {
+      address: "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      privateKey: "0x5de4111afa1a4b94908f83103eb1f1706367c2e68ca870fc3fb9a804cdab365a",
+      balance: "100000000000000000000",
+    },
+    {
+      address: "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+      privateKey: "0x7c852118294e51e653712a81e05800f419141751be58f605c371e15141b007a6",
+      balance: "100000000000000000000",
+    },
+    {
+      address: "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+      privateKey: "0x47e179ec197488593b187f80a00eb0da91f1b9d0b13f8733639f19c30a34926a",
+      balance: "100000000000000000000",
+    },
+  ];
+}
+
+const DEFAULT_ACCOUNTS = getDefaultAccounts();
 
 const DEFAULT_RPC_URL = "https://rpc.ankr.com/eth";
 

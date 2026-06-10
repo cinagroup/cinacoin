@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for @cinacoin/svelte — stores, hooks, createCinacoin, and actions.
  */
@@ -89,7 +90,7 @@ describe('createCinacoin', () => {
 
   it('should accept a connector option', async () => {
     const { createCinacoin } = await import('../src/lib/createCinacoin.js');
-    const ctx = createCinacoin({ connector: mockConnector as any });
+    const ctx = createCinacoin({ connector: mockConnector as unknown });
 
     expect(ctx).toBeDefined();
     expect(ctx.getConnector()).toBeTruthy();
@@ -101,7 +102,7 @@ describe('createCinacoin', () => {
 
   it('should accept a createConnector function', async () => {
     const { createCinacoin } = await import('../src/lib/createCinacoin.js');
-    const ctx = createCinacoin({ createConnector: () => mockConnector as any });
+    const ctx = createCinacoin({ createConnector: () => mockConnector as unknown });
     expect(ctx.getConnector()).toBeTruthy();
   });
 });
@@ -166,7 +167,7 @@ describe('stores', () => {
   it('should initCinacoin and getConnector returns connector after init', async () => {
     const { initCinacoin, getConnector, resetCinacoin } = await import('../src/lib/stores.js');
     resetCinacoin();
-    initCinacoin(mockConnector as any, { chains: [{ id: '1', name: 'Ethereum' }] as any });
+    initCinacoin(mockConnector as unknown, { chains: [{ id: '1', name: 'Ethereum' }] as unknown });
     expect(getConnector()).toBeTruthy();
   });
 });

@@ -58,7 +58,7 @@ export function useBalance(): UseBalanceReturn {
 
     try {
       // Use the window.ethereum provider for eth_getBalance
-      const provider = (window as any).ethereum;
+      const provider = (window as unknown as Window & typeof globalThis).ethereum;
       if (!provider) {
         // Fallback: fetch from a public RPC if chain config is available
         balance.value = account.value.balance;
@@ -363,7 +363,7 @@ export function useSendTransaction(): UseSendTransactionReturn {
       }
 
       // Send via provider (EIP-1193 eth_sendTransaction)
-      const provider = (window as any).ethereum;
+      const provider = (window as unknown as Window & typeof globalThis).ethereum;
       if (!provider) {
         throw new Error(
           'No EIP-1193 provider found. Use an injected wallet or WalletConnect.',
@@ -441,7 +441,7 @@ export function useSignMessage(): UseSignMessageReturn {
     error.value = null;
 
     try {
-      const provider = (window as any).ethereum;
+      const provider = (window as unknown as Window & typeof globalThis).ethereum;
       if (!provider) {
         throw new Error(
           'No EIP-1193 provider found. Use an injected wallet or WalletConnect.',
@@ -489,7 +489,7 @@ async function resolveEnsName(address: string): Promise<string | null> {
   // Reverse ENS: addr.reverse → name
   const reverseName = address.toLowerCase().replace('0x', '') + '.addr.reverse';
 
-  const provider = (window as any).ethereum;
+  const provider = (window as unknown as Window & typeof globalThis).ethereum;
   if (!provider) {
     // If no provider, fall back to ENS public resolver API
     return resolveViaEnsApi(address);
@@ -524,7 +524,7 @@ async function resolveViaEnsApi(address: string): Promise<string | null> {
  * Resolve an ENS name to its address.
  */
 async function resolveEnsAddress(name: string): Promise<string | null> {
-  const provider = (window as any).ethereum;
+  const provider = (window as unknown as Window & typeof globalThis).ethereum;
   if (!provider) {
     // Use ENS public resolver API
     return resolveNameViaEnsApi(name);

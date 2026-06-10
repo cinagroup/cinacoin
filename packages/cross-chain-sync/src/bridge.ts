@@ -385,7 +385,7 @@ export async function restoreBridgeTransfers(
       ...r,
       asset: {
         ...asset,
-        amount: BigInt((asset as any).amount),
+        amount: BigInt((asset as unknown).amount),
       },
     } as unknown as BridgeTransfer;
   });

@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for @cinacoin/angular — pipes (BalancePipe, AddressPipe).
  */
@@ -10,7 +11,7 @@ import { vi } from 'vitest';
 vi.mock('@angular/core', () => ({
   Pipe: (meta: any) => (cls: any) => {
     // Attach metadata for inspection
-    (cls as any).__pipeMeta = meta;
+    (cls as unknown).__pipeMeta = meta;
     return cls;
   },
   PipeTransform: class {},
@@ -27,7 +28,7 @@ describe('BalancePipe', () => {
 
   it('should be defined with pipe metadata', () => {
     expect(BalancePipe).toBeDefined();
-    expect((BalancePipe as any).__pipeMeta.name).toBe('cinaBalance');
+    expect((BalancePipe as unknown).__pipeMeta.name).toBe('cinaBalance');
   });
 
   it('should return "0 ETH" for null', () => {
@@ -109,7 +110,7 @@ describe('AddressPipe', () => {
 
   it('should be defined with pipe metadata', () => {
     expect(AddressPipe).toBeDefined();
-    expect((AddressPipe as any).__pipeMeta.name).toBe('cinaAddress');
+    expect((AddressPipe as unknown).__pipeMeta.name).toBe('cinaAddress');
   });
 
   it('should return empty string for null', () => {

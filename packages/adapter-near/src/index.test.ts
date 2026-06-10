@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { NearChainAdapter, NEAR_CHAINS, NEAR_WALLETS } from './index.js';
 
@@ -61,7 +62,7 @@ describe('@cinacoin/adapter-near', () => {
 
     it('should set a core connector without error', () => {
       const adapter = new NearChainAdapter();
-      expect(() => adapter.setConnector({} as any)).not.toThrow();
+      expect(() => adapter.setConnector({} as unknown)).not.toThrow();
     });
 
     it('should setClient without error (no-op for NEAR)', () => {

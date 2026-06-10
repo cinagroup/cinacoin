@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for Vue component event listener lifecycle.
  *
@@ -121,7 +122,7 @@ describe('EventListener leak — fix pattern (after fix)', () => {
       detail = { id: 'metamask' };
     })('ocx-wallet-select');
     // Manually invoke the stored handler
-    (el as any)._listeners.get('ocx-wallet-select')?.forEach((h: Function) => h(mockEvent));
+    (el as unknown)._listeners.get('ocx-wallet-select')?.forEach((h: Function) => h(mockEvent));
 
     expect(calls).toContain('metamask');
 
@@ -243,7 +244,7 @@ describe('Component handler reference pattern', () => {
 
     // Verify handlers work
     const clickHandlers = Array.from(
-      (el as any)._listeners.get('ocx-click') || [],
+      (el as unknown)._listeners.get('ocx-click') || [],
     );
     expect(clickHandlers.length).toBe(1);
 

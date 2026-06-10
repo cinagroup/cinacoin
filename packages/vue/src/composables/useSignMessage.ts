@@ -39,7 +39,7 @@ export function useSignMessage(): UseSignMessageReturn {
     error.value = null
 
     try {
-      const provider = (window as any).ethereum
+      const provider = (window as unknown as Window & typeof globalThis).ethereum
       if (!provider) {
         throw new Error('No EIP-1193 provider found.')
       }

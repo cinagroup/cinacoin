@@ -28,7 +28,8 @@
     "build": "tsc",
     "check": "tsc --noEmit",
     "fetch-chains": "tsx scripts/fetch-chains.ts",
-    "test": "vitest run"
+    "test": "vitest run",
+    "lint": "eslint src --ext .ts,.tsx,.js,.jsx"
   },
   "devDependencies": {
     "typescript": "^5.7.0",

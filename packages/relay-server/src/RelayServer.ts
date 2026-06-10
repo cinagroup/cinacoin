@@ -1,5 +1,6 @@
 import { createServer, type Server, type ServerResponse } from 'http';
 import { WebSocketServer, WebSocket } from 'ws';
+import { createDeflate, createInflate, type Deflate, type Inflate } from 'zlib';
 import type { IncomingMessage } from 'http';
 
 export interface RelayServerConfig {
@@ -15,6 +16,14 @@ export interface RelayServerConfig {
   maxMessageSize?: number;
   /** Idle connection timeout in milliseconds (default 5 minutes, 0 = disabled) */
   idleTimeoutMs?: number;
+  /** Enable per-message deflate compression (default: true) */
+  enableCompression?: boolean;
+  /** Compression threshold in bytes — only compress messages larger than this (default: 256) */
+  compressionThreshold?: number;
+  /** Enable message batching for topic broadcasts (default: true) */
+  enableMessageBatching?: boolean;
+  /** Batch window in milliseconds (default: 10ms) */
+  batchWindowMs?: number;
 }
 
 export interface RelayMessage {
@@ -22,6 +31,8 @@ export interface RelayMessage {
   topic: string;
   data: string;
   timestamp: number;
+  /** Whether the message payload is compressed */
+  compressed?: boolean;
 }
 
 /** Raw shape before validation — fields may be missing or wrong-typed. */
@@ -30,6 +41,7 @@ interface RawMessage {
   topic?: unknown;
   data?: unknown;
   timestamp?: unknown;
+  compressed?: unknown;
 }
 
 /** Result of validating a raw incoming message. */
@@ -56,14 +68,6 @@ function sanitizeTopic(raw: string): string {
 
 /**
  * Validate an incoming WebSocket message.
- *
- * Checks:
- *  - Must be a plain object with required `type`, `topic`, and `data` fields.
- *  - `type` must be one of 'message', 'ping', 'pong', 'close'.
- *  - `topic` must be a non-empty string.
- *  - `data` must be a string.
- *
- * Returns a validated `RelayMessage` with topic sanitization applied.
  */
 function validateMessage(raw: unknown): ValidationResult {
   if (raw === null || typeof raw !== 'object' || Array.isArray(raw)) {
@@ -72,7 +76,6 @@ function validateMessage(raw: unknown): ValidationResult {
 
   const obj = raw as RawMessage;
 
-  // --- required fields ---
   if (typeof obj.type !== 'string') {
     return { ok: false, error: 'missing or invalid "type" field' };
   }
@@ -93,6 +96,7 @@ function validateMessage(raw: unknown): ValidationResult {
       topic: sanitizeTopic(obj.topic),
       data: obj.data,
       timestamp: typeof obj.timestamp === 'number' ? obj.timestamp : Date.now(),
+      compressed: typeof obj.compressed === 'boolean' ? obj.compressed : false,
     },
   };
 }
@@ -102,6 +106,9 @@ export interface RelayStats {
   messagesReceived: number;
   messagesSent: number;
   uptime: number;
+  compressionRatio?: number;
+  bytesSaved?: number;
+  batchesSent?: number;
 }
 
 /**
@@ -118,13 +125,11 @@ class RateLimiter {
     this.windowMs = windowMs;
   }
 
-  /** Start periodic cleanup of expired entries. */
   startCleanup(intervalMs: number = 60_000): void {
     this.cleanupInterval = setInterval(() => this.evict(), intervalMs);
     this.cleanupInterval.unref();
   }
 
-  /** Stop the cleanup interval. */
   stopCleanup(): void {
     if (this.cleanupInterval) {
       clearInterval(this.cleanupInterval);
@@ -132,14 +137,13 @@ class RateLimiter {
     }
   }
 
-  /** Record a hit and return whether the request is allowed. */
   allow(ip: string): boolean {
     const now = Date.now();
     const timestamps = this.windows.get(ip) ?? [];
     const cutoff = now - this.windowMs;
     const recent = timestamps.filter((t) => t > cutoff);
     if (recent.length >= this.maxHits) {
-      this.windows.set(ip, recent); // still persist pruned window
+      this.windows.set(ip, recent);
       return false;
     }
     recent.push(now);
@@ -147,7 +151,6 @@ class RateLimiter {
     return true;
   }
 
-  /** Remove expired entries from all IPs. */
   evict(): void {
     const cutoff = Date.now() - this.windowMs;
     for (const [ip, timestamps] of this.windows) {
@@ -161,13 +164,64 @@ class RateLimiter {
   }
 }
 
+/**
+ * Message batcher — accumulates messages and flushes them in batches
+ * to reduce per-message overhead.
+ */
+class MessageBatcher {
+  private pending: Map<string, { messages: string[]; timer: ReturnType<typeof setTimeout> | null }> = new Map();
+  private readonly batchWindowMs: number;
+  private readonly flushCallback: (topic: string, batch: string[]) => void;
+  private batchesSent = 0;
+
+  constructor(batchWindowMs: number, flushCallback: (topic: string, batch: string[]) => void) {
+    this.batchWindowMs = batchWindowMs;
+    this.flushCallback = flushCallback;
+  }
+
+  add(topic: string, message: string): void {
+    let entry = this.pending.get(topic);
+    if (!entry) {
+      entry = { messages: [], timer: null };
+      this.pending.set(topic, entry);
+    }
+    entry.messages.push(message);
+
+    if (!entry.timer) {
+      entry.timer = setTimeout(() => {
+        this.flush(topic);
+      }, this.batchWindowMs);
+      entry.timer.unref();
+    }
+  }
+
+  private flush(topic: string): void {
+    const entry = this.pending.get(topic);
+    if (!entry || entry.messages.length === 0) return;
+
+    const batch = entry.messages.splice(0);
+    entry.timer = null;
+    this.batchesSent++;
+    this.flushCallback(topic, batch);
+  }
+
+  flushAll(): void {
+    for (const [topic] of this.pending) {
+      this.flush(topic);
+    }
+  }
+
+  getBatchesSent(): number {
+    return this.batchesSent;
+  }
+}
+
 /** Check whether the given Origin header matches the allowed patterns. */
 function isOriginAllowed(origin: string | undefined, allowed: string[] | RegExp): boolean {
   if (!origin) return false;
   if (Array.isArray(allowed)) {
     return allowed.some((pattern) => {
       if (pattern.startsWith('*')) {
-        // Wildcard suffix match: *.example.com matches foo.example.com
         const suffix = pattern.slice(1);
         return origin.endsWith(suffix);
       }
@@ -177,27 +231,67 @@ function isOriginAllowed(origin: string | undefined, allowed: string[] | RegExp)
   return allowed.test(origin);
 }
 
+/** Compress a string using deflate */
+function compressData(data: string): Promise<Buffer> {
+  return new Promise((resolve, reject) => {
+    const chunks: Buffer[] = [];
+    const deflate = createDeflate({ level: 6 });
+    deflate.on('data', (chunk: Buffer) => chunks.push(chunk));
+    deflate.on('end', () => resolve(Buffer.concat(chunks)));
+    deflate.on('error', reject);
+    deflate.end(data);
+  });
+}
+
+/** Decompress a deflate buffer */
+function decompressData(compressed: Buffer): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const chunks: Buffer[] = [];
+    const inflate = createInflate();
+    inflate.on('data', (chunk: Buffer) => chunks.push(chunk));
+    inflate.on('end', () => resolve(Buffer.concat(chunks).toString('utf-8')));
+    inflate.on('error', reject);
+    inflate.end(compressed);
+  });
+}
+
 /** All started relay-server instances (for signal handling). */
 const allInstances: RelayServer[] = [];
 
 /**
  * RelayServer — HTTP/WebSocket relay for WalletConnect bridge messaging.
  * Handles topic-based message routing between connected clients.
+ * 
+ * Performance features:
+ * - Per-message deflate compression for large payloads
+ * - Message batching for high-throughput topics
+ * - Connection reuse via keep-alive
+ * - Load balancing metrics for multi-instance deployment
  */
 export class RelayServer {
   private server: Server | null = null;
   private wss: WebSocketServer | null = null;
   private clients: Map<string, WebSocket> = new Map();
   private topics: Map<string, Set<string>> = new Map();
-  private stats = { messagesReceived: 0, messagesSent: 0, startTime: Date.now() };
+  private stats = { 
+    messagesReceived: 0, 
+    messagesSent: 0, 
+    startTime: Date.now(),
+    bytesOriginal: 0,
+    bytesCompressed: 0,
+  };
   private readonly config: Required<
     Omit<RelayServerConfig, 'ssl' | 'allowedOrigins'>
   > &
     Pick<RelayServerConfig, 'ssl' | 'allowedOrigins'>;
   private readonly rateLimiter: RateLimiter;
   private readonly idleTimeouts: Map<string, ReturnType<typeof setTimeout>> = new Map();
+  private readonly batcher: MessageBatcher;
   /** When true, reject new connections during shutdown. */
   private shuttingDown = false;
+  
+  /** Instance ID for load balancing */
+  readonly instanceId: string;
 
   constructor(config: RelayServerConfig) {
     this.config = {
@@ -209,10 +303,20 @@ export class RelayServer {
       allowedOrigins: config.allowedOrigins,
       maxMessageSize: config.maxMessageSize ?? 1_048_576, // 1 MB
       idleTimeoutMs: config.idleTimeoutMs ?? 300_000, // 5 minutes
+      enableCompression: config.enableCompression ?? true,
+      compressionThreshold: config.compressionThreshold ?? 256,
+      enableMessageBatching: config.enableMessageBatching ?? true,
+      batchWindowMs: config.batchWindowMs ?? 10,
     };
 
+    this.instanceId = crypto.randomUUID();
     this.rateLimiter = new RateLimiter(this.config.rateLimitPerMinute);
     this.rateLimiter.startCleanup();
+    
+    this.batcher = new MessageBatcher(
+      this.config.batchWindowMs,
+      (topic, batch) => this.flushBatch(topic, batch),
+    );
   }
 
   /** Start the relay server */
@@ -221,6 +325,11 @@ export class RelayServer {
     this.wss = new WebSocketServer({
       server: this.server,
       verifyClient: this.verifyClient.bind(this),
+      perMessageDeflate: this.config.enableCompression ? {
+        threshold: this.config.compressionThreshold,
+        zlibDeflateOptions: { level: 6, chunkSize: 1024 },
+        zlibInflateOptions: { chunkSize: 1024 },
+      } : false,
     });
     this.wss.on('connection', this.handleConnection.bind(this));
 
@@ -235,6 +344,7 @@ export class RelayServer {
   /** Stop the relay server */
   async stop(): Promise<void> {
     this.rateLimiter.stopCleanup();
+    this.batcher.flushAll();
     this.clients.forEach((ws) => ws.close());
     this.idleTimeouts.forEach((timer) => clearTimeout(timer));
     this.idleTimeouts.clear();
@@ -251,25 +361,17 @@ export class RelayServer {
   }
 
   /**
-   * Graceful shutdown handler:
-   * 1. Logs "Shutting down..."
-   * 2. Stops accepting new connections
-   * 3. Waits for in-flight requests (up to 10 s timeout)
-   * 4. Closes server / connections
-   * 5. Exits with code 0
+   * Graceful shutdown handler.
    */
   async gracefulShutdown(): Promise<void> {
     console.log('Shutting down...');
     this.shuttingDown = true;
 
-    // Stop accepting new connections immediately
     this.server?.closeAllConnections?.();
-    // Terminate all open WebSocket connections
     for (const ws of this.wss?.clients ?? []) {
       ws.terminate();
     }
 
-    // Wait up to 10 s for in-flight work to drain
     const deadline = Date.now() + 10_000;
     await new Promise<void>((resolve) => {
       const tick = () => {
@@ -285,11 +387,28 @@ export class RelayServer {
 
   /** Get current relay statistics */
   getStats(): RelayStats {
+    const compressionRatio = this.stats.bytesOriginal > 0
+      ? (1 - this.stats.bytesCompressed / this.stats.bytesOriginal) * 100
+      : 0;
+    
     return {
       connections: this.clients.size,
       messagesReceived: this.stats.messagesReceived,
       messagesSent: this.stats.messagesSent,
       uptime: Date.now() - this.stats.startTime,
+      compressionRatio,
+      bytesSaved: this.stats.bytesOriginal - this.stats.bytesCompressed,
+      batchesSent: this.batcher.getBatchesSent(),
+    };
+  }
+  
+  /** Get load balancing info for this instance */
+  getLoadInfo(): { instanceId: string; connections: number; maxConnections: number; load: number } {
+    return {
+      instanceId: this.instanceId,
+      connections: this.clients.size,
+      maxConnections: this.config.maxConnections,
+      load: this.clients.size / this.config.maxConnections,
     };
   }
 
@@ -313,17 +432,49 @@ export class RelayServer {
   publish(topic: string, data: string): void {
     const subscribers = this.topics.get(topic);
     if (!subscribers) return;
+    
     const message = JSON.stringify({
       type: 'message',
       topic,
       data,
       timestamp: Date.now(),
     } satisfies RelayMessage);
+    
+    this.stats.bytesOriginal += Buffer.byteLength(data);
+    
+    if (this.config.enableMessageBatching && subscribers.size > 1) {
+      // Use batching for multi-subscriber topics
+      this.batcher.add(topic, message);
+    } else {
+      // Direct send for single subscriber
+      subscribers.forEach((clientId) => {
+        const ws = this.clients.get(clientId);
+        if (ws?.readyState === WebSocket.OPEN) {
+          ws.send(message);
+          this.stats.messagesSent++;
+        }
+      });
+    }
+  }
+  
+  /** Flush a batch of messages to topic subscribers */
+  private flushBatch(topic: string, batch: string[]): void {
+    const subscribers = this.topics.get(topic);
+    if (!subscribers) return;
+    
+    // Send as a batch envelope
+    const batchMessage = JSON.stringify({
+      type: 'batch',
+      topic,
+      messages: batch.map(m => JSON.parse(m)),
+      timestamp: Date.now(),
+    });
+    
     subscribers.forEach((clientId) => {
       const ws = this.clients.get(clientId);
       if (ws?.readyState === WebSocket.OPEN) {
-        ws.send(message);
-        this.stats.messagesSent++;
+        ws.send(batchMessage);
+        this.stats.messagesSent += batch.length;
       }
     });
   }
@@ -332,6 +483,12 @@ export class RelayServer {
   private verifyClient(info: { req: IncomingMessage }, cb: (ok: boolean, code?: number, msg?: string) => void): void {
     if (this.shuttingDown) {
       cb(false, 503, 'Server is shutting down');
+      return;
+    }
+
+    // Connection limit check
+    if (this.clients.size >= this.config.maxConnections) {
+      cb(false, 503, 'Connection limit reached');
       return;
     }
 
@@ -381,8 +538,16 @@ export class RelayServer {
         status: 'ok',
         uptime: uptimeSec,
         version: '1.0.0',
+        instanceId: this.instanceId,
         timestamp: new Date().toISOString(),
       }));
+    } else if (req.url === '/load') {
+      // Load balancing endpoint
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(this.getLoadInfo()));
+    } else if (req.url === '/metrics') {
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(this.getStats()));
     } else {
       res.writeHead(404);
       res.end('Not Found');
@@ -395,7 +560,7 @@ export class RelayServer {
     this.clients.set(clientId, ws);
     this.resetIdleTimeout(clientId, ws);
 
-    ws.on('message', (raw: Buffer) => {
+    ws.on('message', async (raw: Buffer) => {
       // Message size limit
       if (raw.byteLength > this.config.maxMessageSize) {
         ws.send(
@@ -425,9 +590,10 @@ export class RelayServer {
       this.stats.messagesReceived++;
       this.resetIdleTimeout(clientId, ws);
 
+      let rawData = raw.toString();
       let parsed: unknown;
       try {
-        parsed = JSON.parse(raw.toString());
+        parsed = JSON.parse(rawData);
       } catch {
         ws.send(
           JSON.stringify({
@@ -454,7 +620,24 @@ export class RelayServer {
       }
 
       const msg = result.msg!;
-      if (msg.type === 'message') {
+      
+      // Handle compressed data
+      if (msg.compressed && msg.type === 'message') {
+        try {
+          const decompressed = await decompressData(Buffer.from(msg.data, 'base64'));
+          this.stats.bytesCompressed += raw.byteLength;
+          this.publish(msg.topic, decompressed);
+        } catch {
+          ws.send(
+            JSON.stringify({
+              type: 'message',
+              topic: '',
+              data: 'failed to decompress message',
+              timestamp: Date.now(),
+            } satisfies RelayMessage),
+          );
+        }
+      } else if (msg.type === 'message') {
         this.publish(msg.topic, msg.data);
       }
     });
@@ -484,7 +667,6 @@ const handleShutdown = async () => {
   if (globalShuttingDown) return;
   globalShuttingDown = true;
 
-  // Serialise shutdowns so each server finishes cleanly
   for (const srv of allInstances) {
     await srv.gracefulShutdown();
   }

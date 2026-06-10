@@ -21,7 +21,9 @@
     "start": "node dist/index.js",
     "deploy": "wrangler deploy",
     "dev": "wrangler dev",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "lint": "eslint src --ext .ts,.tsx,.js,.jsx",
+    "test": "vitest run"
   },
   "license": "MIT",
   "dependencies": {

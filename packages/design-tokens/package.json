@@ -23,7 +23,9 @@
   ],
   "scripts": {
     "build": "tsx scripts/build.ts",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "lint": "eslint src --ext .ts,.tsx,.js,.jsx",
+    "test": "vitest run"
   },
   "dependencies": {},
   "devDependencies": {

@@ -43,7 +43,7 @@ export async function verifyEvmSignature(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   provider: any
 ): Promise<SIWXResult> {
-  const result = await verifyMessage(input.message, input.signature, provider as any);
+  const result = await verifyMessage(input.message, input.signature, provider as unknown);
 
   return {
     chainType: 'evm',

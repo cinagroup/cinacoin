@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * core-sdk/tests/adapters/hedera.test.ts
  *
@@ -679,7 +680,7 @@ describe('HederaChainAdapter — chains', () => {
 describe('HederaChainAdapter — connector', () => {
   it('setConnector stores the connector', () => {
     const adapter = new HederaChainAdapter();
-    const mockConnector = { getProvider: () => null } as any;
+    const mockConnector = { getProvider: () => null } as unknown;
     adapter.setConnector(mockConnector);
     // No public getter, but setConnector should not throw
     expect(() => adapter.setConnector(mockConnector)).not.toThrow();
@@ -1374,7 +1375,7 @@ describe('HederaChainAdapter — request method', () => {
       method: 'hedera_getAccountInfo',
       params: [TEST_ACCOUNT_ID],
     });
-    expect((info as any).account).toBe(TEST_ACCOUNT_ID);
+    expect((info as unknown).account).toBe(TEST_ACCOUNT_ID);
   });
 
   it('hedera_getAccountInfo returns null on failure', async () => {
@@ -1394,7 +1395,7 @@ describe('HederaChainAdapter — request method', () => {
       method: 'hedera_getTokenInfo',
       params: [TEST_TOKEN_ID],
     });
-    expect((info as any)?.name).toBe('TestToken');
+    expect((info as unknown)?.name).toBe('TestToken');
   });
 
   it('hedera_signMessage delegates to signMessage', async () => {

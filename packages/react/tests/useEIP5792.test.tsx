@@ -40,7 +40,7 @@ const _getChainCapabilities = vi.fn((caps: any, cid: string) => caps[cid] ?? {})
 const _getSupportedChains = vi.fn((caps: any) => Object.keys(caps));
 const _filterByCapability = vi.fn((caps: any, cap: string) => {
   const r: any = {};
-  for (const [k, v] of Object.entries(caps)) if ((v as any)[cap]?.supported) r[k] = v;
+  for (const [k, v] of Object.entries(caps)) if ((v as unknown)[cap]?.supported) r[k] = v;
   return r;
 });
 
@@ -77,7 +77,7 @@ function resetContext() {
 
 beforeEach(() => {
   resetContext();
-  (window as any).__ocx_eip5792_context = () => ({
+  (window as unknown).__ocx_eip5792_context = () => ({
     provider: _ctxProvider,
     address: _ctxAddress,
     chainIdHex: _ctxChainIdHex,
@@ -99,13 +99,13 @@ beforeEach(() => {
   _getSupportedChains.mockReset().mockImplementation((caps: any) => Object.keys(caps));
   _filterByCapability.mockReset().mockImplementation((caps: any, cap: string) => {
     const r: any = {};
-    for (const [k, v] of Object.entries(caps)) if ((v as any)[cap]?.supported) r[k] = v;
+    for (const [k, v] of Object.entries(caps)) if ((v as unknown)[cap]?.supported) r[k] = v;
     return r;
   });
 });
 
 afterEach(() => {
-  delete (window as any).__ocx_eip5792_context;
+  delete (window as unknown).__ocx_eip5792_context;
   vi.useRealTimers();
 });
 
@@ -197,7 +197,7 @@ describe('useWalletCapabilities', () => {
 
   it('has() returns false for null capabilities', () => {
     vi.useFakeTimers();
-    _walletGetCapabilities.mockReset().mockResolvedValue(null as any);
+    _walletGetCapabilities.mockReset().mockResolvedValue(null as unknown);
     const { result } = renderHook(() => useWalletCapabilities());
 
     expect(result.current.has('0x1', 'atomicBatch')).toBe(false);

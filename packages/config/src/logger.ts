@@ -57,7 +57,6 @@ function isProduction(): boolean {
   }
   // Cloudflare Workers: check for __ENV__ or DurableObject/ExecutionContext presence
   // Safe fallback: if we can detect CF runtime
-  // @ts-ignore — Cloudflare Workers inject `navigator` or `cf` context
   if (typeof (globalThis as { WebSocketPair?: typeof WebSocket }).WebSocketPair !== 'undefined') return true;
   return false;
 }

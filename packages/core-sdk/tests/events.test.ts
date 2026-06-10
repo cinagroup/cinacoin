@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * core-sdk/tests/events.test.ts
  *
@@ -56,7 +57,7 @@ describe('EventEmitter', () => {
     ee.emit('multi', 1, 'two', { three: true });
     expect(a).toBe(1);
     expect(b).toBe('two');
-    expect((c as any).three).toBe(true);
+    expect((c as unknown).three).toBe(true);
   });
 
   it('listenerCount', () => {

@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for @cinacoin/svelte EIP-5792 stores — sendCalls, atomicBatch, callsStatus,
  * walletCapabilities, and helpers (has, getChainCaps, filterBy, allSucceeded, failedReceipts).
@@ -109,7 +110,7 @@ const mockGetSupportedChains = vi.fn((caps: any) => Object.keys(caps));
 const mockFilterByCapability = vi.fn((caps: any, cap: string) => {
   const result: any = {};
   for (const [cid, chainCaps] of Object.entries(caps)) {
-    if ((chainCaps as any)[cap]?.supported) {
+    if ((chainCaps as unknown)[cap]?.supported) {
       result[cid] = chainCaps;
     }
   }
@@ -174,7 +175,7 @@ beforeEach(() => {
     isConnected: true,
   };
 
-  (global as any).window = {
+  (global as unknown).window = {
     get __ocx_eip5792_context() {
       return () => mockContextValue;
     },
@@ -185,7 +186,7 @@ afterEach(() => {
   vi.resetModules();
   vi.restoreAllMocks();
   vi.useRealTimers();
-  delete (global as any).window;
+  delete (global as unknown).window;
 });
 
 // ---------------------------------------------------------------------------

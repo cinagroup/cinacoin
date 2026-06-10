@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * @vitest-environment jsdom
  * Security unit tests for session hardening in @cinacoin/core-sdk.
@@ -27,7 +28,7 @@ describe('SessionManager — Security Hardening', () => {
     };
 
     const sm = new SessionManager();
-    await sm.initiate(connector as any);
+    await sm.initiate(connector as unknown);
     await new Promise(r => setTimeout(r, 100));
 
     const stored = localStorage.getItem('cinacoin_session');

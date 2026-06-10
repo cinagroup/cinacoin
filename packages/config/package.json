@@ -34,7 +34,8 @@
     "build": "tsup",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
-    "test": "vitest"
+    "test": "vitest",
+    "lint": "eslint src --ext .ts,.tsx,.js,.jsx"
   },
   "dependencies": {
     "@cinacoin/core-sdk": "workspace:*"

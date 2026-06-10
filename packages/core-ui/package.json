@@ -18,7 +18,8 @@
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf dist",
-    "test": "vitest run"
+    "test": "vitest run",
+    "lint": "eslint src --ext .ts,.tsx,.js,.jsx"
   },
   "dependencies": {
     "lit": "^3.2.0",

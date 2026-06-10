@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for EVM adapter chain switching, address validation, and RPC methods.
  */
@@ -156,7 +157,7 @@ describe('EvmAdapter', () => {
     const connector = new MockConnector({
       request: async ({ method, params }: { method: string; params?: unknown[] }) => {
         if (method === 'eth_call') {
-          capturedData = (params as any)[0].data;
+          capturedData = (params as unknown)[0].data;
           return '0x00000000000000000000000000000000000000000000000000000000000003e8';
         }
         return null;

@@ -15,7 +15,8 @@
   "scripts": {
     "build": "tsc --build",
     "clean": "rm -rf dist",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "test": "vitest run"
   },
   "dependencies": {
     "@cinacoin/core-sdk": "workspace:*"

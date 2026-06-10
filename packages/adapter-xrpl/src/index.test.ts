@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { XrplAdapter, announceXrplProviders } from './index.js';
 import type { XrplConnector, XrplNetwork, XrplConnectionResult } from './types.js';
@@ -264,7 +265,7 @@ describe('@cinacoin/adapter-xrpl', () => {
 
     it('should handle setConnector without error', () => {
       const adapter = new XrplAdapter();
-      expect(() => adapter.setConnector({} as any)).not.toThrow();
+      expect(() => adapter.setConnector({} as unknown)).not.toThrow();
     });
 
     it('should return empty recommended connectors when none available', () => {

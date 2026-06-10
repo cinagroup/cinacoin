@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { HederaAdapter, announceHederaProviders } from './index.js';
 import type { HederaConnector, HederaNetwork, HederaConnectionResult } from './types.js';
@@ -256,7 +257,7 @@ describe('@cinacoin/adapter-hedera', () => {
 
     it('should handle setConnector without error', () => {
       const adapter = new HederaAdapter();
-      expect(() => adapter.setConnector({} as any)).not.toThrow();
+      expect(() => adapter.setConnector({} as unknown)).not.toThrow();
     });
 
     it('should return empty recommended connectors when none available', () => {

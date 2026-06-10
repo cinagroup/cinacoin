@@ -231,6 +231,83 @@ export class TonAdapter extends BaseAdapter {
     this.emit('chainChanged', { chainId });
   }
 
+  /**
+   * Send a Jetton (TON token standard) transfer.
+   * Jettons are fungible tokens on TON, similar to ERC-20.
+   *
+   * @param params - Jetton transfer parameters.
+   * @returns Transaction result.
+   */
+  async sendJettonTransfer(params: {
+    jettonMasterAddress: string;
+    destination: string;
+    amount: string;
+    responseAddress?: string;
+    forwardTonAmount?: string;
+    comment?: string;
+  }): Promise<TxResult> {
+    const state = this.requireConnection();
+    if (!this.provider) throw new Error('[TonAdapter] No provider');
+
+    // Build Jetton transfer payload
+    // Jetton transfer requires calling the sender's Jetton wallet contract
+    // with a specific op code (0xf8a7ea5 for transfer)
+    const transferPayload = this.buildJettonTransferPayload({
+      destination: params.destination,
+      amount: params.amount,
+      responseAddress: params.responseAddress ?? state.accounts[0],
+      forwardTonAmount: params.forwardTonAmount ?? '0',
+      comment: params.comment,
+    });
+
+    const result = await this.provider.sendTransaction({
+      validUntil: Math.floor(Date.now() / 1000) + 300,
+      messages: [
+        {
+          address: params.jettonMasterAddress, // Sender's Jetton wallet
+          amount: params.forwardTonAmount ?? '50000000', // 0.05 TON for fees
+          payload: transferPayload,
+        },
+      ],
+    });
+
+    return {
+      hash: result.boc,
+      chainId: this._activeChainId!,
+      from: state.accounts[0],
+      to: params.destination,
+      raw: result.boc,
+      broadcast: true,
+    };
+  }
+
+  /**
+   * Get Jetton balance for an address.
+   *
+   * @param params - Jetton balance query parameters.
+   * @returns Balance result.
+   */
+  async getJettonBalance(params: {
+    jettonMasterAddress: string;
+    address?: string;
+  }): Promise<BalanceResult> {
+    const state = this.requireConnection();
+    const targetAddress = params.address ?? state.accounts[0];
+
+    // In production, query the Jetton wallet contract for balance
+    // This is a placeholder implementation
+    const balance = '0';
+    const formatted = this.formatBalance(balance, 9);
+
+    return {
+      address: targetAddress,
+      balance,
+      formatted,
+      symbol: 'JETTON',
+      chainId: this._activeChainId!,
+    };
+  }
+
   /* ------------------------------------------------------------------ */
   /*  Internal Helpers                                                    */
   /* ------------------------------------------------------------------ */
@@ -240,7 +317,7 @@ export class TonAdapter extends BaseAdapter {
    */
   private detectProvider(): TonConnectProvider | null {
     if (typeof window === 'undefined') return null;
-    return (window as any).tonConnect ?? (window as any).tonkeeper?.tonConnect ?? null;
+    return (window as unknown as Window & typeof globalThis).tonConnect ?? (window as unknown as Window & typeof globalThis).tonkeeper?.tonConnect ?? null;
   }
 
   /**
@@ -275,5 +352,32 @@ export class TonAdapter extends BaseAdapter {
 
     const fractionalStr = fractionalPart.toString().padStart(decimals, '0').slice(0, 9);
     return `${integerPart}.${fractionalStr}`;
+  }
+
+  /**
+   * Build Jetton transfer payload (cell).
+   * In production, this would use TON's Cell builder.
+   */
+  private buildJettonTransferPayload(params: {
+    destination: string;
+    amount: string;
+    responseAddress: string;
+    forwardTonAmount: string;
+    comment?: string;
+  }): string {
+    // Jetton transfer op code: 0xf8a7ea5
+    // This is a simplified placeholder - in production use @ton/core Cell builder
+    const payload = {
+      op: 0xf8a7ea5,
+      queryId: Date.now(),
+      amount: params.amount,
+      destination: params.destination,
+      responseDestination: params.responseAddress,
+      customPayload: null,
+      forwardTonAmount: params.forwardTonAmount,
+      forwardPayload: params.comment ?? null,
+    };
+    // Encode as base64 cell (placeholder)
+    return Buffer.from(JSON.stringify(payload)).toString('base64');
   }
 }

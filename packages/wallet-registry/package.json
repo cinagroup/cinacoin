@@ -1,7 +1,7 @@
 {
   "name": "@cinacoin/wallet-registry",
   "version": "0.1.0",
-  "description": "Cinacoin Wallet Registry \u2014 standardized wallet metadata for 100+ wallets with type-safe query APIs",
+  "description": "Cinacoin Wallet Registry — standardized wallet metadata for 100+ wallets with type-safe query APIs",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -26,7 +26,8 @@
     "build": "tsup src/index.ts --format cjs,esm --dts",
     "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
     "lint": "eslint src/",
-    "check": "tsc --noEmit"
+    "check": "tsc --noEmit",
+    "test": "vitest run"
   },
   "devDependencies": {
     "tsup": "^8.3.0",

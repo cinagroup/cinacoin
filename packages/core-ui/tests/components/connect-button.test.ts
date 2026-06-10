@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for ConnectButton component.
  * Tests rendering logic, click handling, and state changes.
@@ -26,7 +27,7 @@ describe('ConnectButton component', () => {
   });
 
   it('should accept property changes', () => {
-    const btn = document.createElement('ocx-connect-button') as any;
+    const btn = document.createElement('ocx-connect-button') as unknown;
     btn.variant = 'secondary';
     btn.size = 'lg';
     btn.label = 'Sign In';
@@ -58,7 +59,7 @@ describe('ConnectButton component', () => {
   });
 
   it('should NOT dispatch ocx-click when in connecting state', () => {
-    const btn = document.createElement('ocx-connect-button') as any;
+    const btn = document.createElement('ocx-connect-button') as unknown;
     btn.state = 'connecting';
     const handler = vi.fn();
     btn.addEventListener('ocx-click', handler);
@@ -71,7 +72,7 @@ describe('ConnectButton component', () => {
   });
 
   it('should toggle internal menu when in connected state', () => {
-    const btn = document.createElement('ocx-connect-button') as any;
+    const btn = document.createElement('ocx-connect-button') as unknown;
     btn.state = 'connected';
     btn.address = '0xabcdef1234567890abcdef1234567890abcdef12';
 
@@ -88,7 +89,7 @@ describe('ConnectButton component', () => {
   });
 
   it('should dispatch ocx-disconnect event on disconnect action', () => {
-    const btn = document.createElement('ocx-connect-button') as any;
+    const btn = document.createElement('ocx-connect-button') as unknown;
     const handler = vi.fn();
     btn.addEventListener('ocx-disconnect', handler);
 
@@ -99,7 +100,7 @@ describe('ConnectButton component', () => {
   });
 
   it('should close menu and stop propagation on disconnect', () => {
-    const btn = document.createElement('ocx-connect-button') as any;
+    const btn = document.createElement('ocx-connect-button') as unknown;
     btn._menuOpen = true;
 
     const fakeEvent = new Event('click');
@@ -111,7 +112,7 @@ describe('ConnectButton component', () => {
   });
 
   it('should handle Escape key to close menu', () => {
-    const btn = document.createElement('ocx-connect-button') as any;
+    const btn = document.createElement('ocx-connect-button') as unknown;
     btn._menuOpen = true;
 
     btn.connectedCallback();
@@ -123,28 +124,28 @@ describe('ConnectButton component', () => {
   });
 
   it('should render spinner content in connecting state', () => {
-    const btn = document.createElement('ocx-connect-button') as any;
+    const btn = document.createElement('ocx-connect-button') as unknown;
     btn.state = 'connecting';
     const content = btn._renderContent();
     expect(String(content)).toContain('Connecting');
   });
 
   it('should render warning content in wrong_network state', () => {
-    const btn = document.createElement('ocx-connect-button') as any;
+    const btn = document.createElement('ocx-connect-button') as unknown;
     btn.state = 'wrong_network';
     const content = btn._renderContent();
     expect(String(content)).toContain('Switch Network');
   });
 
   it('should render error content in error state', () => {
-    const btn = document.createElement('ocx-connect-button') as any;
+    const btn = document.createElement('ocx-connect-button') as unknown;
     btn.state = 'error';
     const content = btn._renderContent();
     expect(String(content)).toContain('Error');
   });
 
   it('should render label in disconnected state', () => {
-    const btn = document.createElement('ocx-connect-button') as any;
+    const btn = document.createElement('ocx-connect-button') as unknown;
     btn.state = 'disconnected';
     btn.label = 'Connect Wallet';
     const content = btn._renderContent();
@@ -152,13 +153,13 @@ describe('ConnectButton component', () => {
   });
 
   it('should format address using inherited formatAddress', () => {
-    const btn = document.createElement('ocx-connect-button') as any;
+    const btn = document.createElement('ocx-connect-button') as unknown;
     const formatted = btn.formatAddress('0x1234567890abcdef1234567890abcdef12345678');
     expect(formatted).toBe('0x12...5678');
   });
 
   it('should return correct aria labels for all states', () => {
-    const btn = document.createElement('ocx-connect-button') as any;
+    const btn = document.createElement('ocx-connect-button') as unknown;
     btn.label = 'Connect';
 
     btn.state = 'disconnected';
@@ -179,7 +180,7 @@ describe('ConnectButton component', () => {
   });
 
   it('should define CSS styles', () => {
-    const styles = (ConnectButton as any).styles;
+    const styles = (ConnectButton as unknown).styles;
     expect(Array.isArray(styles)).toBe(true);
     expect(styles.length).toBeGreaterThanOrEqual(1);
   });

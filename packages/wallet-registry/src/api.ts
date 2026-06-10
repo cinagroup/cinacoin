@@ -151,7 +151,7 @@ export function sortWallets(
 /** Get wallets supporting a specific chain family. */
 export function getWalletsForChainFamily(chainFamily: string): WalletRegistryEntry[] {
   return WALLET_REGISTRY.filter((w) =>
-    w.supportedChainFamilies.includes(chainFamily as any)
+    w.supportedChainFamilies.includes(chainFamily as unknown)
   );
 }
 
@@ -182,7 +182,7 @@ export function getRecommendedWalletOrder(): WalletRegistryEntry[] {
 
 /** Get wallets by platform. */
 export function getWalletsByPlatform(platform: string): WalletRegistryEntry[] {
-  return WALLET_REGISTRY.filter((w) => w.platforms.includes(platform as any));
+  return WALLET_REGISTRY.filter((w) => w.platforms.includes(platform as unknown));
 }
 
 /** Get wallets by type. */

@@ -25,7 +25,8 @@
     "dev:build": "nuxi build playground",
     "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
     "lint": "eslint .",
-    "typecheck": "nuxi typecheck"
+    "typecheck": "nuxi typecheck",
+    "test": "vitest run"
   },
   "dependencies": {
     "@cinacoin/core-sdk": "workspace:*",

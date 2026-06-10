@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * CDN Package Tests — CDN loading, config, loader, connect, modal.
  */
@@ -9,7 +10,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 describe("CDN Config", () => {
   beforeEach(() => {
     if (typeof window !== "undefined") {
-      delete (window as any).Cinacoin;
+      delete (window as unknown).Cinacoin;
     }
     vi.resetModules();
   });
@@ -23,7 +24,7 @@ describe("CDN Config", () => {
   });
 
   it("merges user config with defaults", async () => {
-    (window as any).Cinacoin = {
+    (window as unknown).Cinacoin = {
       projectId: "test-123",
       theme: "dark",
       chains: [1, 10],

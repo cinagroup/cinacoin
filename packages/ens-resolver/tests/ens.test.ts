@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * ENS Resolver — 20+ comprehensive tests
  * Covers constructor, validation, cache, error handling, type exports, and functional API.
@@ -50,14 +51,14 @@ vi.mock("viem/chains", () => ({
 import { createPublicClient } from "viem";
 
 function mockReadContract(value: unknown) {
-  (createPublicClient as any).mockReturnValue({
+  (createPublicClient as unknown).mockReturnValue({
     readContract: vi.fn().mockResolvedValue(value),
   });
 }
 
 function mockReadContractSeq(...values: unknown[]) {
   let idx = 0;
-  (createPublicClient as any).mockReturnValue({
+  (createPublicClient as unknown).mockReturnValue({
     readContract: vi.fn().mockImplementation(() => {
       const v = values[idx];
       idx++;
@@ -67,7 +68,7 @@ function mockReadContractSeq(...values: unknown[]) {
 }
 
 function mockReadContractFn(fn: (...args: any[]) => Promise<unknown>) {
-  (createPublicClient as any).mockReturnValue({
+  (createPublicClient as unknown).mockReturnValue({
     readContract: vi.fn().mockImplementation(fn),
   });
 }
@@ -357,7 +358,7 @@ describe("ENSResolver", () => {
 
   // 31. resolveName — returns error code on failure
   it("resolveName throws ENSResolverError with RESOLVE_FAILED code on RPC error", async () => {
-    (createPublicClient as any).mockReturnValue({
+    (createPublicClient as unknown).mockReturnValue({
       readContract: vi.fn().mockRejectedValue(new Error("RPC timeout")),
     });
     await expect(resolver.resolveName("test.eth")).rejects.toSatisfy((err: unknown) => {
@@ -370,7 +371,7 @@ describe("ENSResolver", () => {
 
   // 32. reverseLookup — throws ENSResolverError with LOOKUP_FAILED code
   it("reverseLookup throws LOOKUP_FAILED on RPC error", async () => {
-    (createPublicClient as any).mockReturnValue({
+    (createPublicClient as unknown).mockReturnValue({
       readContract: vi.fn().mockRejectedValue(new Error("RPC error")),
     });
     await expect(
@@ -385,7 +386,7 @@ describe("ENSResolver", () => {
 
   // 33. getAvatar — throws AVATAR_NOT_FOUND on error
   it("getAvatar throws AVATAR_NOT_FOUND on error", async () => {
-    (createPublicClient as any).mockReturnValue({
+    (createPublicClient as unknown).mockReturnValue({
       readContract: vi.fn().mockRejectedValue(new Error("RPC")),
     });
     await expect(resolver.getAvatar("test.eth")).rejects.toSatisfy((err: unknown) => {
@@ -398,7 +399,7 @@ describe("ENSResolver", () => {
 
   // 34. getText — throws RESOLVE_FAILED on error
   it("getText throws RESOLVE_FAILED on error", async () => {
-    (createPublicClient as any).mockReturnValue({
+    (createPublicClient as unknown).mockReturnValue({
       readContract: vi.fn().mockRejectedValue(new Error("RPC")),
     });
     await expect(resolver.getText("test.eth", "url")).rejects.toSatisfy((err: unknown) => {
@@ -430,7 +431,7 @@ describe("ENSResolver", () => {
       .mockResolvedValueOnce("0x4976fb03C32e5B8cfe2b6cCB31c09Ba78EBaBa41") // call 4: resolver (getText email)
       .mockResolvedValueOnce("https://example.com")                   // call 5: text url
       .mockResolvedValueOnce("test@email.com");                      // call 6: text email
-    (createPublicClient as any).mockReturnValue({ readContract: readContractFn });
+    (createPublicClient as unknown).mockReturnValue({ readContract: readContractFn });
     const result = await resolver.resolveWithRecords("test.eth", ["url", "email"]);
     expect(result.address).toBe("0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045");
     expect(result.records["url"]).toBe("https://example.com");

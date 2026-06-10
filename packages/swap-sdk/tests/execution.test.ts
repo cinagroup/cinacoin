@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * End-to-End Gas Estimator + Swap SDK Integration Tests
  *
@@ -183,7 +184,7 @@ describe("GasEstimator + Swap SDK Integration", () => {
         });
         router.setExecutionEnabled(true);
 
-        const publicClient = createMockPublicClient() as any;
+        const publicClient = createMockPublicClient() as unknown;
         const walletClient = createMockWalletClient();
 
         const receipt = await router.executeSwap(
@@ -252,7 +253,7 @@ describe("GasEstimator + Swap SDK Integration", () => {
         });
         router.setExecutionEnabled(true);
 
-        const publicClient = createMockPublicClient() as any;
+        const publicClient = createMockPublicClient() as unknown;
         const walletClient = createMockWalletClient();
 
         // Set maxGasPrice very low (1 gwei) — should reject 20 gwei
@@ -321,7 +322,7 @@ describe("GasEstimator + Swap SDK Integration", () => {
         });
         router.setExecutionEnabled(true);
 
-        const publicClient = createMockPublicClient() as any;
+        const publicClient = createMockPublicClient() as unknown;
         const walletClient = createMockWalletClient();
 
         // Set maxGasPrice very high (100 gwei) — should accept 20 gwei
@@ -412,7 +413,7 @@ describe("GasEstimator + Swap SDK Integration", () => {
         receiptGasUsed: 210_000n,
         receiptBlockNumber: 19_500_000n,
         receiptEffectiveGasPrice: 22_000_000_000n,
-      }) as any;
+      }) as unknown;
 
       const walletClient = createMockWalletClient({
         sendTxHash: "0xe2e_tx_success_123456789012345678901234567890123456789012345678901234abcd",
@@ -475,7 +476,7 @@ describe("GasEstimator + Swap SDK Integration", () => {
         receiptStatus: "reverted",
         receiptGasUsed: 50_000n,
         receiptBlockNumber: 19_500_000n,
-      }) as any;
+      }) as unknown;
 
       const walletClient = createMockWalletClient({
         sendTxHash: "0xfail_tx_123456789012345678901234567890123456789012345678901234abcd",

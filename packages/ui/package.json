@@ -21,5 +21,9 @@
     "registry": "https://registry.npmjs.org/"
   },
   "license": "MIT",
-  "sideEffects": false
+  "sideEffects": false,
+  "scripts": {
+    "lint": "eslint src --ext .ts,.tsx,.js,.jsx",
+    "test": "vitest run"
+  }
 }

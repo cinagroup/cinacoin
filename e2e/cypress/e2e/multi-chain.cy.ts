@@ -115,7 +115,7 @@ describe('Multi-Chain Support', () => {
     it('should not crash when wallet is on unsupported chain', () => {
       // Simulate wallet connected to an unsupported chain
       cy.window().then((win) => {
-        (win as any).ethereum = {
+        (win as unknown).ethereum = {
           request: cy.stub().resolves(['0x742d35Cc6634C0532925a3b844Bc9e7595f2bD18']),
           on: cy.stub().callsFake((event: string, cb: Function) => {
             if (event === 'chainChanged') {

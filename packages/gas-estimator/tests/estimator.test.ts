@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { GasEstimator, GasPriceCache, DEFAULT_CHAINS } from '../src/index.js';
 import { EVMEstimator } from '../src/chains/evm.js';
@@ -22,7 +23,7 @@ function mockFetchResponse(result: unknown, ok = true, status = 200) {
 
 function withMockFetch(mockFn: ReturnType<typeof vi.fn>, fn: () => Promise<void>) {
   const originalFetch = globalThis.fetch;
-  globalThis.fetch = mockFn as any;
+  globalThis.fetch = mockFn as unknown;
   return fn().finally(() => { globalThis.fetch = originalFetch; });
 }
 

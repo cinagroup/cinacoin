@@ -14,7 +14,7 @@ import { toPublicUser } from '../../lib/types.js';
 
 /** Allowed redirect origins – set via ALLOWED_REDIRECT_ORIGINS env var (comma-separated). */
 function getAllowedOrigins(env: Env): string[] {
-  const raw = (env as any).ALLOWED_REDIRECT_ORIGINS;
+  const raw = (env as unknown).ALLOWED_REDIRECT_ORIGINS;
   if (!raw) return [];
   return raw.split(',').map((o: string) => o.trim()).filter(Boolean);
 }

@@ -21,7 +21,7 @@ test.describe('Error Recovery', () => {
 
   test('should handle connection timeout', async ({ page }) => {
     await page.evaluate(() => {
-      (window as any).mockProvider.connectionDelay = 10000;
+      (window as unknown).mockProvider.connectionDelay = 10000;
     });
     
     await page.goto('/');
@@ -39,7 +39,7 @@ test.describe('Error Recovery', () => {
 
   test('should handle network error', async ({ page }) => {
     await page.evaluate(() => {
-      (window as any).mockProvider.networkError = true;
+      (window as unknown).mockProvider.networkError = true;
     });
     
     await page.goto('/');
@@ -60,7 +60,7 @@ test.describe('Error Recovery', () => {
     
     // Simulate disconnection
     await page.evaluate(() => {
-      (window as any).mockProvider.disconnect();
+      (window as unknown).mockProvider.disconnect();
     });
     
     await assertDisconnected(page);
@@ -79,7 +79,7 @@ test.describe('Error Recovery', () => {
     await waitForConnected(page);
     
     await page.evaluate(() => {
-      (window as any).mockProvider.rejectChainSwitch = true;
+      (window as unknown).mockProvider.rejectChainSwitch = true;
     });
     
     // Try to switch chain
@@ -102,7 +102,7 @@ test.describe('Error Recovery', () => {
     await waitForConnected(page);
     
     await page.evaluate(() => {
-      (window as any).mockProvider.rejectTransaction = true;
+      (window as unknown).mockProvider.rejectTransaction = true;
     });
     
     // Try to send transaction
@@ -141,7 +141,7 @@ test.describe('Error Recovery', () => {
 
   test('should handle multiple connection attempts', async ({ page }) => {
     await page.evaluate(() => {
-      (window as any).mockProvider.failCount = 2;
+      (window as unknown).mockProvider.failCount = 2;
     });
     
     await page.goto('/');
@@ -164,7 +164,7 @@ test.describe('Error Recovery', () => {
     
     // Third attempt - succeed
     await page.evaluate(() => {
-      (window as any).mockProvider.failCount = 0;
+      (window as unknown).mockProvider.failCount = 0;
     });
     
     await openConnectModal(page);

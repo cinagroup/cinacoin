@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Unit tests for adapter-sui — Sui operations service.
  */
@@ -34,7 +35,7 @@ describe('TransactionBlock builder', () => {
     transferObjects(tx, ['0xobj1', '0xobj2'], '0xrecipient');
     expect(tx.transactions).toHaveLength(1);
     expect(tx.transactions[0].kind).toBe('TransferObjects');
-    expect((tx.transactions[0] as any).objects).toEqual(['0xobj1', '0xobj2']);
+    expect((tx.transactions[0] as unknown).objects).toEqual(['0xobj1', '0xobj2']);
   });
 
   it('should add a SplitCoin command', () => {
@@ -91,7 +92,7 @@ describe('buildSuiTransferTx', () => {
     const tx = buildSuiTransferTx('0xsender', '0xrecipient', '1000000000', '1000000');
     expect(tx.transactions).toHaveLength(1);
     expect(tx.transactions[0].kind).toBe('MoveCall');
-    expect((tx.transactions[0] as any).target).toBe('0x2::pay::split_and_transfer');
+    expect((tx.transactions[0] as unknown).target).toBe('0x2::pay::split_and_transfer');
     expect(tx.gasConfig?.budget).toBe('1000000');
   });
 });
@@ -100,8 +101,8 @@ describe('buildCoinTransferTx', () => {
   it('should build a custom coin transfer', () => {
     const tx = buildCoinTransferTx('0xsender', '0xrecipient', '500', '0x2::sui::SUI', '1000000');
     expect(tx.transactions[0].kind).toBe('MoveCall');
-    expect((tx.transactions[0] as any).target).toBe('0x2::coin::transfer');
-    expect((tx.transactions[0] as any).typeArguments).toContain('0x2::sui::SUI');
+    expect((tx.transactions[0] as unknown).target).toBe('0x2::coin::transfer');
+    expect((tx.transactions[0] as unknown).typeArguments).toContain('0x2::sui::SUI');
   });
 });
 

@@ -16,10 +16,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="flex min-h-screen">
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
         <Sidebar />
         <div className="flex-1 flex flex-col">
           <Navbar />
-          <main className="flex-1 p-6 bg-canvas-soft-2">{children}</main>
+          <main id="main-content" className="flex-1 p-6 bg-canvas-soft-2">{children}</main>
         </div>
       </body>
     </html>

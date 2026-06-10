@@ -18,7 +18,7 @@ const SESSION_KEY = "cinacoin_backend_session";
  */
 export function isWalletAvailable(): boolean {
   if (typeof window === "undefined") return false;
-  return !!(window as any).ethereum;
+  return !!(window as unknown as Window & typeof globalThis).ethereum;
 }
 
 /**
@@ -60,7 +60,7 @@ export async function connectWallet(): Promise<string> {
     throw new Error("No Ethereum wallet detected. Please install MetaMask.");
   }
 
-  const ethereum = (window as any).ethereum;
+  const ethereum = (window as unknown as Window & typeof globalThis).ethereum;
   const accounts: string[] = await ethereum.request({
     method: "eth_requestAccounts",
   });
@@ -81,7 +81,7 @@ export async function signAndVerify(message: string, address: string): Promise<s
     throw new Error("No Ethereum wallet detected.");
   }
 
-  const ethereum = (window as any).ethereum;
+  const ethereum = (window as unknown as Window & typeof globalThis).ethereum;
   const signature: string = await ethereum.request({
     method: "personal_sign",
     params: [message, address],

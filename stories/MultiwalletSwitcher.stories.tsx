@@ -16,9 +16,9 @@ function MockMultiwalletProvider({
     const s = new MultiwalletStore();
     for (const [ns, conns] of Object.entries(initialConnections)) {
       for (const c of conns) {
-        s.addConnection(c.walletId, c.walletName, ns as any, c.address, null, null);
+        s.addConnection(c.walletId, c.walletName, ns as unknown, c.address, null, null);
         if (c.isActive) {
-          s.setActiveConnection(c.walletId, ns as any);
+          s.setActiveConnection(c.walletId, ns as unknown);
         }
       }
     }
@@ -27,7 +27,7 @@ function MockMultiwalletProvider({
 
   // Expose store globally so useMultiwallet picks it up
   React.useEffect(() => {
-    (window as any).__mockMultiwalletStore = store;
+    (window as unknown).__mockMultiwalletStore = store;
   }, [store]);
 
   return <>{children}</>;

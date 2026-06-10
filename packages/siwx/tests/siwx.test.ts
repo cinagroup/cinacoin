@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for SIWX (Sign-In with Cross-chain) core functions.
  */
@@ -62,7 +63,7 @@ describe('createSignInMessage', () => {
   });
 
   it('should enrich with nonce and issuedAt when not provided', () => {
-    const params = createParams({ nonce: undefined as any });
+    const params = createParams({ nonce: undefined as unknown });
     const message = createSignInMessage(params, 'evm');
     // The adapter will generate defaults
     expect(message).toBeDefined();

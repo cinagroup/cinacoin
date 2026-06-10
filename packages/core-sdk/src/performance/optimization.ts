@@ -40,7 +40,7 @@ export class ResultCache<K = string, T = unknown> {
   private _defaultTtl: number;
 
   constructor(options: CacheOptions = {}) {
-    this._defaultTtl = options.ttl ?? 5000;
+    this._defaultTtl = options.ttl ?? 10000; // Increased from 5s to 10s
     this._maxSize = options.maxSize ?? 100;
   }
 

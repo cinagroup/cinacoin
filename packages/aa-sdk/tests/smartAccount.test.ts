@@ -12,10 +12,11 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
 // ── Test key (anvil / hardhat default) ──────────────────────────
+// SECURITY: Test keys loaded from environment variables to prevent accidental use in production.
 
-const TEST_PRIVATE_KEY =
-  '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80';
-const TEST_OWNER = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266';
+const TEST_PRIVATE_KEY = process.env.TEST_PRIVATE_KEY
+  || (() => { throw new Error('TEST_PRIVATE_KEY environment variable is required. Use a Hardhat/Anvil test key.'); })();
+const TEST_OWNER = process.env.TEST_OWNER || '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266';
 const ENTRY_POINT = '0x0000000071727De22E5E9d8BAf0edAc6f37da032';
 const FACTORY_ADDRESS = '0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0';
 

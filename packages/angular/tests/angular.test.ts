@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for @cinacoin/angular — module, service, tokens, and exports.
  */
@@ -104,7 +105,7 @@ describe('CinacoinModule', () => {
       chains: [{ id: '1', name: 'Ethereum', nativeCurrency: { symbol: 'ETH' } }],
     };
 
-    const result = CinacoinModule.forRoot(config as any);
+    const result = CinacoinModule.forRoot(config as unknown);
     expect(result).toBeDefined();
     expect(result.ngModule).toBe(CinacoinModule);
     expect(result.providers).toBeDefined();
@@ -115,7 +116,7 @@ describe('CinacoinModule', () => {
     const { CinacoinModule } = await import('../src/lib/cinacoin.module.js');
     const { CINA_CONNECT_OPTIONS } = await import('../src/lib/cinacoin.tokens.js');
     const config = { projectId: 'abc123' };
-    const result = CinacoinModule.forRoot(config as any);
+    const result = CinacoinModule.forRoot(config as unknown);
 
     const optionsProvider = result.providers.find(
       (p: any) => p.provide === CINA_CONNECT_OPTIONS || (p.provide && p.provide.name === 'CINA_CONNECT_OPTIONS')
@@ -128,7 +129,7 @@ describe('CinacoinModule', () => {
     const { CinacoinModule } = await import('../src/lib/cinacoin.module.js');
     const { CINA_CONNECT_INSTANCE, CINA_CONNECT_OPTIONS } = await import('../src/lib/cinacoin.tokens.js');
     const config = { projectId: 'abc123', chains: [] };
-    const result = CinacoinModule.forRoot(config as any);
+    const result = CinacoinModule.forRoot(config as unknown);
 
     const instanceProvider = result.providers.find(
       (p: any) => p.provide === CINA_CONNECT_INSTANCE || (p.provide && p.provide.name === 'CINA_CONNECT_INSTANCE')
@@ -142,7 +143,7 @@ describe('CinacoinModule', () => {
     const { CinacoinModule } = await import('../src/lib/cinacoin.module.js');
     const customConnector = { custom: true };
     const config = { projectId: 'abc123', connector: customConnector };
-    const result = CinacoinModule.forRoot(config as any);
+    const result = CinacoinModule.forRoot(config as unknown);
 
     const { CINA_CONNECT_INSTANCE } = await import('../src/lib/cinacoin.tokens.js');
     const instanceProvider = result.providers.find(
@@ -165,8 +166,8 @@ describe('CinacoinService', () => {
   it('should have account$, network$, isOpen$ observables', async () => {
     const { CinacoinService } = await import('../src/lib/cinacoin.service.js');
     const service = new CinacoinService(
-      { projectId: 'test', chains: [] } as any,
-      mockConnector as any
+      { projectId: 'test', chains: [] } as unknown,
+      mockConnector as unknown
     );
 
     expect(service.account$).toBeDefined();
@@ -177,8 +178,8 @@ describe('CinacoinService', () => {
   it('should have open() and close() methods', async () => {
     const { CinacoinService } = await import('../src/lib/cinacoin.service.js');
     const service = new CinacoinService(
-      { projectId: 'test', chains: [] } as any,
-      mockConnector as any
+      { projectId: 'test', chains: [] } as unknown,
+      mockConnector as unknown
     );
 
     expect(typeof service.open).toBe('function');
@@ -191,8 +192,8 @@ describe('CinacoinService', () => {
   it('should have connect() method', async () => {
     const { CinacoinService } = await import('../src/lib/cinacoin.service.js');
     const service = new CinacoinService(
-      { projectId: 'test', chains: [] } as any,
-      mockConnector as any
+      { projectId: 'test', chains: [] } as unknown,
+      mockConnector as unknown
     );
 
     expect(typeof service.connect).toBe('function');
@@ -203,8 +204,8 @@ describe('CinacoinService', () => {
   it('should have disconnect() method', async () => {
     const { CinacoinService } = await import('../src/lib/cinacoin.service.js');
     const service = new CinacoinService(
-      { projectId: 'test', chains: [] } as any,
-      mockConnector as any
+      { projectId: 'test', chains: [] } as unknown,
+      mockConnector as unknown
     );
 
     expect(typeof service.disconnect).toBe('function');
@@ -215,8 +216,8 @@ describe('CinacoinService', () => {
   it('should have switchChain() method', async () => {
     const { CinacoinService } = await import('../src/lib/cinacoin.service.js');
     const service = new CinacoinService(
-      { projectId: 'test', chains: [] } as any,
-      mockConnector as any
+      { projectId: 'test', chains: [] } as unknown,
+      mockConnector as unknown
     );
 
     expect(typeof service.switchChain).toBe('function');
@@ -226,8 +227,8 @@ describe('CinacoinService', () => {
   it('should have signMessage() method', async () => {
     const { CinacoinService } = await import('../src/lib/cinacoin.service.js');
     const service = new CinacoinService(
-      { projectId: 'test', chains: [] } as any,
-      mockConnector as any
+      { projectId: 'test', chains: [] } as unknown,
+      mockConnector as unknown
     );
 
     expect(typeof service.signMessage).toBe('function');
@@ -236,8 +237,8 @@ describe('CinacoinService', () => {
   it('should have sendTransaction() method', async () => {
     const { CinacoinService } = await import('../src/lib/cinacoin.service.js');
     const service = new CinacoinService(
-      { projectId: 'test', chains: [] } as any,
-      mockConnector as any
+      { projectId: 'test', chains: [] } as unknown,
+      mockConnector as unknown
     );
 
     expect(typeof service.sendTransaction).toBe('function');
@@ -246,8 +247,8 @@ describe('CinacoinService', () => {
   it('should have request() method', async () => {
     const { CinacoinService } = await import('../src/lib/cinacoin.service.js');
     const service = new CinacoinService(
-      { projectId: 'test', chains: [] } as any,
-      mockConnector as any
+      { projectId: 'test', chains: [] } as unknown,
+      mockConnector as unknown
     );
 
     expect(typeof service.request).toBe('function');
@@ -256,8 +257,8 @@ describe('CinacoinService', () => {
   it('should have ngOnDestroy lifecycle hook', async () => {
     const { CinacoinService } = await import('../src/lib/cinacoin.service.js');
     const service = new CinacoinService(
-      { projectId: 'test', chains: [] } as any,
-      mockConnector as any
+      { projectId: 'test', chains: [] } as unknown,
+      mockConnector as unknown
     );
 
     expect(typeof service.ngOnDestroy).toBe('function');

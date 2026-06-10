@@ -221,8 +221,8 @@ export class SolanaAdapter extends BaseAdapter {
   private detectProvider(preferred?: string): SolanaProvider | null {
     if (typeof window === 'undefined') return null;
 
-    const phantom = (window as any).phantom?.solana;
-    const solflare = (window as any).solflare;
+    const phantom = (window as unknown as Window & typeof globalThis).phantom?.solana;
+    const solflare = (window as unknown as Window & typeof globalThis).solflare;
 
     if (preferred === 'phantom' && phantom) return phantom;
     if (preferred === 'solflare' && solflare) return solflare;

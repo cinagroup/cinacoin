@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for OnRamp Aggregator SDK.
  */
@@ -11,7 +12,7 @@ function createMockProvider(id: string, feeBps: number, deliveryMin: number): On
   return {
     id,
     getProviderInfo: (): OnRampProvider => ({
-      id: id as any,
+      id: id as unknown,
       name: id.charAt(0).toUpperCase() + id.slice(1),
       icon: `https://${id}.com/icon.png`,
       supportedCurrencies: ['USD', 'EUR'],
@@ -24,7 +25,7 @@ function createMockProvider(id: string, feeBps: number, deliveryMin: number): On
       requiresKyc: id === 'moonpay',
     }),
     getQuote: async (params: OnRampQuoteParams): Promise<OnRampQuote> => ({
-      provider: id as any,
+      provider: id as unknown,
       providerName: id.charAt(0).toUpperCase() + id.slice(1),
       fiatAmount: params.fiatAmount,
       fiatCurrency: params.fiatCurrency,

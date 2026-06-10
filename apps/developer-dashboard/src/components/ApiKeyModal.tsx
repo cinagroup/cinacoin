@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 interface ApiKeyModalProps {
   onCreate: (name: string, permissions: "read" | "write" | "admin") => void;
@@ -10,22 +10,52 @@ interface ApiKeyModalProps {
 export default function ApiKeyModal({ onCreate, onClose }: ApiKeyModalProps) {
   const [name, setName] = useState("");
   const [permissions, setPermissions] = useState<"read" | "write" | "admin">("read");
+  const [loading, setLoading] = useState(false);
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  // Focus trap
+  useEffect(() => {
+    if (!modalRef.current) return;
+    const modal = modalRef.current;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") { e.preventDefault(); onClose(); return; }
+      if (e.key !== "Tab") return;
+      const focusable = modal.querySelectorAll<HTMLElement>(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault(); last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault(); first.focus();
+      }
+    };
+    modal.addEventListener("keydown", handleKeyDown);
+    // Focus first input on open
+    const firstInput = modal.querySelector<HTMLElement>('input, button');
+    firstInput?.focus();
+    return () => modal.removeEventListener("keydown", handleKeyDown);
+  }, [onClose]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (name.trim()) {
+      setLoading(true);
       onCreate(name.trim(), permissions);
     }
   };
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+    <div className="modal-overlay" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div className="modal-content" onClick={(e) => e.stopPropagation()} ref={modalRef}>
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-ink">Generate API Key</h2>
+          <h2 id="modal-title" className="text-lg font-semibold text-ink">Generate API Key</h2>
           <button
             onClick={onClose}
             className="text-ink-mute hover:text-ink text-xl leading-none"
+            aria-label="Close dialog"
           >
             ×
           </button>
@@ -91,8 +121,8 @@ export default function ApiKeyModal({ onCreate, onClose }: ApiKeyModalProps) {
           </div>
 
           <div className="flex gap-3 pt-2">
-            <button type="submit" className="btn-primary flex-1 justify-center">
-              Generate Key
+            <button type="submit" className="btn-primary flex-1 justify-center" disabled={loading}>
+              {loading ? "Generating..." : "Generate Key"}
             </button>
             <button
               type="button"

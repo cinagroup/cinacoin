@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 /**
  * Tests for @cinacoin/cli init command.
  */
@@ -27,7 +28,7 @@ vi.mock('../utils/logger.js', () => ({
 describe('initCommand', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    process.exit = vi.fn() as any;
+    process.exit = vi.fn() as unknown;
   });
 
   it('should register an init command', async () => {
@@ -40,7 +41,7 @@ describe('initCommand', () => {
     };
     const mockCli = {
       command: vi.fn().mockReturnValue(mockCommand),
-    } as any;
+    } as unknown;
 
     const { initCommand } = await import('../src/commands/init.js');
     initCommand(mockCli);
@@ -58,7 +59,7 @@ describe('initCommand', () => {
     };
     const mockCli = {
       command: vi.fn().mockReturnValue(mockCommand),
-    } as any;
+    } as unknown;
 
     const { initCommand } = await import('../src/commands/init.js');
     initCommand(mockCli);
@@ -80,7 +81,7 @@ describe('initCommand', () => {
     };
     const mockCli = {
       command: vi.fn().mockReturnValue(mockCommand),
-    } as any;
+    } as unknown;
 
     const { initCommand } = await import('../src/commands/init.js');
     initCommand(mockCli);
@@ -102,7 +103,7 @@ describe('initCommand', () => {
     };
     const mockCli = {
       command: vi.fn().mockReturnValue(mockCommand),
-    } as any;
+    } as unknown;
 
     const { initCommand } = await import('../src/commands/init.js');
     initCommand(mockCli);
@@ -124,7 +125,7 @@ describe('initCommand', () => {
     };
     const mockCli = {
       command: vi.fn().mockReturnValue(mockCommand),
-    } as any;
+    } as unknown;
 
     const { initCommand } = await import('../src/commands/init.js');
     initCommand(mockCli);

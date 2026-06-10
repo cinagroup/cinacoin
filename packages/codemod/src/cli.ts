@@ -115,7 +115,7 @@ function main(): void {
   }
 
   // Get transform from positional arg or --transform flag
-  const positionalTransform = (argv as any)._?.[0] as string | undefined;
+  const positionalTransform = (argv as Record<string, unknown>)._?.[0] as string | undefined;
   const transforms = [
     ...(positionalTransform ? [positionalTransform] : []),
     ...(Array.isArray(argv.transform) ? argv.transform : []),
@@ -136,7 +136,7 @@ function main(): void {
   }
 
   // Discover files
-  const targetPath = (argv as any)._?.[1] as string | undefined || argv.srcDir || "src";
+  const targetPath = (argv as Record<string, unknown>)._?.[1] as string | undefined || argv.srcDir || "src";
   const absPath = join(process.cwd(), targetPath);
   const files = findFiles(absPath, argv.pattern);
 
