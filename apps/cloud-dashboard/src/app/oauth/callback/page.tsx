@@ -3,7 +3,14 @@
 import { logger } from '@cinacoin/logger';
 import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { z } from "zod";
 import { exchangeOAuthCode } from "@/lib/api";
+
+/** Zod schema for OAuth callback query parameters */
+const OAuthCallbackParamsSchema = z.object({
+  code: z.string().min(1).optional(),
+  error: z.string().optional(),
+});
 
 /**
  * OAuth Callback Page
@@ -20,8 +27,20 @@ function OAuthCallbackContent() {
   useEffect(() => {
     const handleCallback = async () => {
       try {
-        const code = searchParams.get("code");
-        const oauthError = searchParams.get("error");
+        // Validate search params with Zod
+        const rawParams = {
+          code: searchParams.get("code") ?? undefined,
+          error: searchParams.get("error") ?? undefined,
+        };
+        const parsed = OAuthCallbackParamsSchema.safeParse(rawParams);
+
+        if (!parsed.success) {
+          setError("Invalid callback parameters");
+          setIsProcessing(false);
+          return;
+        }
+
+        const { code, error: oauthError } = parsed.data;
 
         // Handle OAuth error response
         if (oauthError) {

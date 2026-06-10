@@ -34,13 +34,13 @@ import {
 // ---------------------------------------------------------------------------
 
 function mockWindow(wallets: Record<string, unknown> = {}): void {
-  // @ts-ignore — test environment
-  globalThis.window = { ...wallets };
+  // Test environment: mock window for wallet resolution
+  (globalThis as { window: Record<string, unknown> }).window = { ...wallets };
 }
 
 function clearWindow(): void {
-  // @ts-ignore
-  delete globalThis.window;
+  // Test environment: clean up window mock
+  delete (globalThis as { window?: unknown }).window;
 }
 
 // ---------------------------------------------------------------------------

@@ -3,7 +3,16 @@
 import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
+import { z } from "zod";
 import { useAuth } from "@/lib/AuthProvider";
+
+/** Zod schema for OAuth callback query parameters */
+const OAuthCallbackParamsSchema = z.object({
+  code: z.string().min(1).optional(),
+  state: z.string().min(1).optional(),
+  error: z.string().optional(),
+  error_description: z.string().optional(),
+});
 
 function OAuthCallbackContent() {
   const { doOAuthCallback, status, error } = useAuth();
@@ -15,9 +24,22 @@ function OAuthCallbackContent() {
   useEffect(() => {
     if (processed) return;
 
-    const code = searchParams.get("code");
-    const state = searchParams.get("state");
-    const oauthError = searchParams.get("error");
+    // Validate search params with Zod
+    const rawParams = {
+      code: searchParams.get("code") ?? undefined,
+      state: searchParams.get("state") ?? undefined,
+      error: searchParams.get("error") ?? undefined,
+      error_description: searchParams.get("error_description") ?? undefined,
+    };
+    const parsed = OAuthCallbackParamsSchema.safeParse(rawParams);
+
+    if (!parsed.success) {
+      setIsProcessing(false);
+      setProcessed(true);
+      return;
+    }
+
+    const { code, state, error: oauthError } = parsed.data;
 
     if (oauthError) {
       setIsProcessing(false);
@@ -55,6 +77,7 @@ function OAuthCallbackContent() {
   }, [status, router]);
 
   const oauthError = searchParams.get("error");
+  const errorDescription = searchParams.get("error_description");
 
   return (
     <div className="bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] p-6 shadow-[var(--cc-level3)] text-center">
@@ -68,7 +91,7 @@ function OAuthCallbackContent() {
           </div>
           <h2 className="cc-display-sm text-[var(--cc-ink)] mb-2">Authentication Failed</h2>
           <p className="text-body-sm text-[var(--cc-muted)] mb-6">
-            {searchParams.get("error_description") || "OAuth authentication was cancelled or failed."}
+            {errorDescription || "OAuth authentication was cancelled or failed."}
           </p>
           <button
             onClick={() => router.replace("/login")}

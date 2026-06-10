@@ -6,10 +6,9 @@ interface RateLimitEntry {
 }
 
 // In-memory store for Cloudflare Workers
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const store: Record<string, RateLimitEntry> = (globalThis as unknown as Record<string, unknown>)._rateLimitStore || {};
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-(globalThis as unknown as Record<string, unknown>)._rateLimitStore = store;
+const g = globalThis as Record<string, unknown>;
+const store: Record<string, RateLimitEntry> = (g._rateLimitStore as Record<string, RateLimitEntry>) || {};
+g._rateLimitStore = store;
 
 /**
  * Simple rate limiter middleware for Cloudflare Workers.

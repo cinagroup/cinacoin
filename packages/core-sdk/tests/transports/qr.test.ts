@@ -57,13 +57,13 @@ let mockWs: MockWebSocket | null = null;
 
 beforeEach(() => {
   mockWs = new MockWebSocket('wss://relay.example.com');
-  // @ts-ignore
-  globalThis.WebSocket = class extends MockWebSocket {
+  // Test environment: mock WebSocket for testing
+  (globalThis as { WebSocket: typeof MockWebSocket }).WebSocket = class extends MockWebSocket {
     constructor(url: string) {
       super(url);
       return mockWs!;
     }
-  } as unknown as typeof WebSocket;
+  };
 
   // Mock crypto.getRandomValues via vi.spyOn
   vi.spyOn(crypto, 'getRandomValues').mockImplementation((arr: Uint8Array) => {
@@ -286,13 +286,13 @@ describe('QRTransport', () => {
     const uri1 = await p1;
 
     mockWs = new MockWebSocket('wss://relay2.example.com');
-    // @ts-ignore
-    globalThis.WebSocket = class extends MockWebSocket {
+    // Test environment: mock WebSocket for testing
+    (globalThis as { WebSocket: typeof MockWebSocket }).WebSocket = class extends MockWebSocket {
       constructor(url: string) {
         super(url);
         return mockWs!;
       }
-    } as unknown as typeof WebSocket;
+    };
 
     const p2 = transport2.generatePairingUri();
     mockWs!.simulateOpen();

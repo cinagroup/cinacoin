@@ -308,9 +308,9 @@ export class RpcProxy {
         'Connection': 'keep-alive',
       },
       body,
-      // @ts-ignore - Node.js fetch supports agent
-      agent: agent || undefined,
-    });
+      // Node.js fetch supports the `agent` option (undici dispatcher)
+      ...(agent ? { agent } : {}),
+    } as RequestInit);
   }
   
   /** Set cache entry with LRU eviction */

@@ -54,8 +54,8 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  // @ts-ignore
-  delete globalThis.window;
+  // Test environment: clean up window mock
+  delete (globalThis as { window?: unknown }).window;
   vi.useRealTimers();
 });
 
@@ -79,8 +79,8 @@ describe('InjectedProvider', () => {
   it('detects window.ethereum provider', async () => {
     const { InjectedProvider } = await importInjected();
     const provider = createMockProvider();
-    // @ts-ignore
-    globalThis.window = { ethereum: provider };
+    // Test environment: mock window.ethereum
+    (globalThis as { window: { ethereum: unknown } }).window = { ethereum: provider };
 
     const injected = new InjectedProvider('io.metamask', 'MetaMask', 'icon.svg');
 
@@ -89,8 +89,8 @@ describe('InjectedProvider', () => {
 
   it('returns false when no window.ethereum', async () => {
     const { InjectedProvider } = await importInjected();
-    // @ts-ignore
-    globalThis.window = {};
+    // Test environment: mock empty window
+    (globalThis as { window: Record<string, unknown> }).window = {};
 
     const injected = new InjectedProvider('io.metamask', 'MetaMask', 'icon.svg');
 
@@ -99,8 +99,8 @@ describe('InjectedProvider', () => {
 
   it('returns false when window is undefined', async () => {
     const { InjectedProvider } = await importInjected();
-    // @ts-ignore
-    delete globalThis.window;
+    // Test environment: remove window
+    delete (globalThis as { window?: unknown }).window;
 
     const injected = new InjectedProvider('io.metamask', 'MetaMask', 'icon.svg');
 

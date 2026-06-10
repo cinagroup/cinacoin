@@ -66,8 +66,8 @@ const RealWebSocket = globalThis.WebSocket;
 
 beforeEach(() => {
   MockWebSocket.instances = [];
-  // @ts-ignore
-  globalThis.WebSocket = MockWebSocket as unknown as typeof WebSocket;
+  // Test environment: mock WebSocket for testing
+  (globalThis as { WebSocket: typeof MockWebSocket }).WebSocket = MockWebSocket;
   vi.useFakeTimers();
 });
 
