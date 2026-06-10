@@ -166,11 +166,11 @@ export function OnRampWidget(props: OnRampWidgetProps): React.ReactElement {
     <div className={`ocx-onramp-widget ${className}`} style={{ ...widgetCssVars, ...cardCss, maxWidth: "480px" }}>
       {/* Header */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
-        <h2 style={{ margin: 0, fontSize: "16px", fontWeight: 600, color: "var(--ocx-text-primary)" }}>
+        <h2 style={{ margin: 0, fontSize: "var(--cc-text-md)", fontWeight: "var(--cc-weight-semibold)", color: "var(--ocx-text-primary)" }}>
           Buy Crypto
         </h2>
         <button
-          style={{ background: "none", border: "none", cursor: "pointer", fontSize: "20px", color: "var(--ocx-text-muted)" }}
+          style={{ background: "none", border: "none", cursor: "pointer", fontSize: "var(--cc-text-lg)", color: "var(--ocx-text-muted)" }}
           onClick={handleReset}
           title="Reset"
         >
@@ -181,7 +181,7 @@ export function OnRampWidget(props: OnRampWidgetProps): React.ReactElement {
       {/* Fiat Amount Input */}
       <div style={{ background: "var(--ocx-bg-surface)", borderRadius: "12px", padding: "16px", marginBottom: "12px" }}>
         <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px" }}>
-          <span style={{ fontSize: "14px", color: "var(--ocx-text-secondary)" }}>You pay</span>
+          <span style={{ fontSize: "var(--cc-text-sm)", color: "var(--ocx-text-secondary)" }}>You pay</span>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
           <button
@@ -189,12 +189,12 @@ export function OnRampWidget(props: OnRampWidgetProps): React.ReactElement {
             style={{
               display: "flex", alignItems: "center", gap: "4px",
               background: "var(--ocx-bg-elevated)", border: "none", borderRadius: "20px",
-              padding: "4px 12px", cursor: "pointer", fontSize: "12px", fontWeight: 600,
+              padding: "4px 12px", cursor: "pointer", fontSize: "var(--cc-text-xs)", fontWeight: "var(--cc-weight-semibold)",
               color: "var(--ocx-text-primary)",
             }}
           >
             {getCurrencySymbol(fiatCurrency)} {fiatCurrency}
-            <span style={{ fontSize: "10px" }}>▼</span>
+            <span style={{ fontSize: "var(--cc-text-xs)" }}>▼</span>
           </button>
           <input
             type="number"
@@ -204,7 +204,7 @@ export function OnRampWidget(props: OnRampWidgetProps): React.ReactElement {
             step="0.01"
             style={{
               ...inputStyles(), border: "none", background: "transparent",
-              fontSize: "24px", fontWeight: 600, padding: "4px 0", textAlign: "right", width: "100%",
+              fontSize: "var(--cc-text-xl)", fontWeight: "var(--cc-weight-semibold)", padding: "4px 0", textAlign: "right", width: "100%",
             }}
           />
         </div>
@@ -213,13 +213,13 @@ export function OnRampWidget(props: OnRampWidgetProps): React.ReactElement {
       {/* Crypto Token Selection */}
       <div style={{ background: "var(--ocx-bg-surface)", borderRadius: "12px", padding: "16px", marginBottom: "12px" }}>
         <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px" }}>
-          <span style={{ fontSize: "14px", color: "var(--ocx-text-secondary)" }}>You receive</span>
+          <span style={{ fontSize: "var(--cc-text-sm)", color: "var(--ocx-text-secondary)" }}>You receive</span>
         </div>
         <select
           value={cryptoToken}
           onChange={(e) => setCryptoToken(e.target.value)}
           style={{
-            width: "100%", padding: "8px 12px", fontSize: "16px",
+            width: "100%", padding: "8px 12px", fontSize: "var(--cc-text-md)",
             border: `1px solid var(--ocx-border)`, borderRadius: "8px",
             background: "var(--ocx-bg-base)", color: "var(--ocx-text-primary)",
             cursor: "pointer",
@@ -241,7 +241,7 @@ export function OnRampWidget(props: OnRampWidgetProps): React.ReactElement {
         }} onClick={() => setShowCurrencyModal(false)}>
           <div style={{ background: "var(--ocx-bg-base)", borderRadius: "16px", padding: "24px", minWidth: "280px" }}
             onClick={(e) => e.stopPropagation()}>
-            <h3 style={{ margin: "0 0 12px", fontSize: "16px" }}>Select Currency</h3>
+            <h3 style={{ margin: "0 0 12px", fontSize: "var(--cc-text-md)" }}>Select Currency</h3>
             {FIAT_CURRENCIES.map((c) => (
               <button
                 key={c}
@@ -250,7 +250,7 @@ export function OnRampWidget(props: OnRampWidgetProps): React.ReactElement {
                   display: "block", width: "100%", padding: "8px 12px", textAlign: "left",
                   background: c === fiatCurrency ? "var(--ocx-bg-elevated)" : "transparent",
                   border: "none", borderRadius: "8px", cursor: "pointer", marginBottom: "4px",
-                  fontSize: "14px", color: "var(--ocx-text-primary)",
+                  fontSize: "var(--cc-text-sm)", color: "var(--ocx-text-primary)",
                 }}
               >
                 {getCurrencySymbol(c)} {c}
@@ -280,7 +280,7 @@ export function OnRampWidget(props: OnRampWidgetProps): React.ReactElement {
       {/* Provider Comparison */}
       {showProviders && quotes.length > 0 && (
         <div style={{ marginTop: "12px" }}>
-          <h3 style={{ fontSize: "14px", fontWeight: 600, color: "var(--ocx-text-primary)", marginBottom: "8px" }}>
+          <h3 style={{ fontSize: "var(--cc-text-sm)", fontWeight: "var(--cc-weight-semibold)", color: "var(--ocx-text-primary)", marginBottom: "8px" }}>
             Compare Providers
           </h3>
           {quotes.map((quote) => (
@@ -299,7 +299,7 @@ export function OnRampWidget(props: OnRampWidgetProps): React.ReactElement {
             >
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <div>
-                  <span style={{ fontWeight: 600, fontSize: "14px", color: "var(--ocx-text-primary)" }}>
+                  <span style={{ fontWeight: "var(--cc-weight-semibold)", fontSize: "var(--cc-text-sm)", color: "var(--ocx-text-primary)" }}>
                     {quote.providerName}
                   </span>
                   {quote.requiresKyc && (
@@ -309,10 +309,10 @@ export function OnRampWidget(props: OnRampWidgetProps): React.ReactElement {
                   )}
                 </div>
                 <div style={{ textAlign: "right" }}>
-                  <div style={{ fontWeight: 600, fontSize: "14px", color: "var(--ocx-text-primary)" }}>
+                  <div style={{ fontWeight: "var(--cc-weight-semibold)", fontSize: "var(--cc-text-sm)", color: "var(--ocx-text-primary)" }}>
                     {quote.cryptoAmount.toFixed(6)} {quote.cryptoToken}
                   </div>
-                  <div style={{ fontSize: "12px", color: "var(--ocx-text-muted)" }}>
+                  <div style={{ fontSize: "var(--cc-text-xs)", color: "var(--ocx-text-muted)" }}>
                     Fee: {quote.fees.totalFeePercent}% · {quote.estimatedTime}min
                   </div>
                 </div>
@@ -323,13 +323,13 @@ export function OnRampWidget(props: OnRampWidgetProps): React.ReactElement {
           {/* Selected Quote Summary */}
           {selectedQuote && (
             <div style={{ padding: "12px", background: "var(--ocx-bg-surface)", borderRadius: "8px", marginBottom: "12px" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", fontSize: "14px", marginBottom: "4px" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", fontSize: "var(--cc-text-sm)", marginBottom: "4px" }}>
                 <span style={{ color: "var(--ocx-text-secondary)" }}>Rate</span>
                 <span style={{ color: "var(--ocx-text-primary)" }}>
                   1 {fiatCurrency} = {(selectedQuote.cryptoAmount / selectedQuote.fiatAmount).toFixed(8)} {cryptoToken}
                 </span>
               </div>
-              <div style={{ display: "flex", justifyContent: "space-between", fontSize: "14px" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", fontSize: "var(--cc-text-sm)" }}>
                 <span style={{ color: "var(--ocx-text-secondary)" }}>Total cost</span>
                 <span style={{ color: "var(--ocx-text-primary)" }}>
                   {selectedQuote.totalCost.toFixed(2)} {fiatCurrency}
@@ -357,7 +357,7 @@ export function OnRampWidget(props: OnRampWidgetProps): React.ReactElement {
 
       {/* Error Display */}
       {error && (
-        <div style={{ marginTop: "12px", padding: "12px", background: "var(--ocx-error-bg)", borderRadius: "8px", color: "var(--ocx-error)", fontSize: "12px" }}>
+        <div style={{ marginTop: "12px", padding: "12px", background: "var(--ocx-error-bg)", borderRadius: "8px", color: "var(--ocx-error)", fontSize: "var(--cc-text-xs)" }}>
           {error}
         </div>
       )}
@@ -366,16 +366,16 @@ export function OnRampWidget(props: OnRampWidgetProps): React.ReactElement {
       {state === "completed" && lastResult && (
         <div style={{ marginTop: "12px", padding: "16px", background: "var(--ocx-success-bg)", borderRadius: "12px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
-            <span style={{ fontSize: "20px" }}>✅</span>
-            <span style={{ fontWeight: 600, color: "var(--ocx-success)" }}>Purchase Successful</span>
+            <span style={{ fontSize: "var(--cc-text-lg)" }}>✅</span>
+            <span style={{ fontWeight: "var(--cc-weight-semibold)", color: "var(--ocx-success)" }}>Purchase Successful</span>
           </div>
           {lastResult.orderId && (
-            <div style={{ fontSize: "12px", color: "var(--ocx-text-secondary)" }}>
+            <div style={{ fontSize: "var(--cc-text-xs)", color: "var(--ocx-text-secondary)" }}>
               Order: {lastResult.orderId}
             </div>
           )}
           {lastResult.cryptoAmount && (
-            <div style={{ fontSize: "12px", color: "var(--ocx-text-secondary)" }}>
+            <div style={{ fontSize: "var(--cc-text-xs)", color: "var(--ocx-text-secondary)" }}>
               Received: {lastResult.cryptoAmount} {cryptoToken}
             </div>
           )}

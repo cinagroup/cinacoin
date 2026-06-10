@@ -206,7 +206,7 @@ export function DepositWidget(props: DepositWidgetProps): React.ReactElement {
       <h2
         style={{
           margin: "0 0 16px 0",
-          fontSize: "18px",
+          fontSize: "var(--cc-text-lg)",
           fontWeight: 600,
           color: "var(--ocx-text-primary)",
         }}
@@ -219,7 +219,7 @@ export function DepositWidget(props: DepositWidgetProps): React.ReactElement {
         <label
           style={{
             display: "block",
-            fontSize: "14px",
+            fontSize: "var(--cc-text-sm)",
             fontWeight: 500,
             color: "var(--ocx-text-secondary)",
             marginBottom: "8px",
@@ -240,7 +240,7 @@ export function DepositWidget(props: DepositWidgetProps): React.ReactElement {
               onClick={() => handleChainChange(chain.id)}
               style={{
                 padding: "12px 8px",
-                fontSize: "13px",
+                fontSize: "var(--cc-text-xs)",
                 fontWeight: selectedChain === chain.id ? 600 : 400,
                 border: `2px solid ${
                   selectedChain === chain.id ? "var(--ocx-primary)" : "var(--ocx-border)"
@@ -272,7 +272,7 @@ export function DepositWidget(props: DepositWidgetProps): React.ReactElement {
         <label
           style={{
             display: "block",
-            fontSize: "14px",
+            fontSize: "var(--cc-text-sm)",
             fontWeight: 500,
             color: "var(--ocx-text-secondary)",
             marginBottom: "8px",
@@ -286,7 +286,7 @@ export function DepositWidget(props: DepositWidgetProps): React.ReactElement {
           style={{
             width: "100%",
             padding: "12px",
-            fontSize: "14px",
+            fontSize: "var(--cc-text-sm)",
             border: "1px solid var(--ocx-border)",
             borderRadius: "8px",
             background: "var(--ocx-bg-base)",
@@ -338,7 +338,7 @@ export function DepositWidget(props: DepositWidgetProps): React.ReactElement {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                fontSize: "12px",
+                fontSize: "var(--cc-text-xs)",
                 color: "var(--ocx-text-muted)",
               }}
             >
@@ -357,7 +357,7 @@ export function DepositWidget(props: DepositWidgetProps): React.ReactElement {
           >
             <div
               style={{
-                fontSize: "12px",
+                fontSize: "var(--cc-text-xs)",
                 color: "var(--ocx-text-muted)",
                 marginBottom: "4px",
               }}
@@ -366,7 +366,7 @@ export function DepositWidget(props: DepositWidgetProps): React.ReactElement {
             </div>
             <div
               style={{
-                fontSize: "13px",
+                fontSize: "var(--cc-text-xs)",
                 fontFamily: "monospace",
                 wordBreak: "break-all",
                 color: "var(--ocx-text-primary)",
@@ -402,7 +402,7 @@ export function DepositWidget(props: DepositWidgetProps): React.ReactElement {
             >
               <div
                 style={{
-                  fontSize: "14px",
+                  fontSize: "var(--cc-text-sm)",
                   fontWeight: 600,
                   color:
                     depositStatus === "completed"
@@ -446,7 +446,7 @@ export function DepositWidget(props: DepositWidgetProps): React.ReactElement {
             padding: "12px",
             background: "var(--ocx-warning-bg)",
             borderRadius: "8px",
-            fontSize: "12px",
+            fontSize: "var(--cc-text-xs)",
             color: "var(--ocx-text-secondary)",
             lineHeight: 1.5,
           }}

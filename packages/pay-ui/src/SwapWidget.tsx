@@ -173,11 +173,11 @@ export function SwapWidget(props: SwapWidgetProps): React.ReactElement {
     <div className={`ocx-swap-widget ${className}`} style={{ ...widgetCssVars, ...cardCss, maxWidth: "480px" }}>
       {/* Header */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
-        <h2 style={{ margin: 0, fontSize: "16px", fontWeight: 600, color: "var(--ocx-text-primary)" }}>
+        <h2 style={{ margin: 0, fontSize: "var(--cc-text-md)", fontWeight: 600, color: "var(--ocx-text-primary)" }}>
           Swap
         </h2>
         <button
-          style={{ background: "none", border: "none", cursor: "pointer", fontSize: "20px", color: "var(--ocx-text-muted)" }}
+          style={{ background: "none", border: "none", cursor: "pointer", fontSize: "var(--cc-text-lg)", color: "var(--ocx-text-muted)" }}
           onClick={handleReset}
           title="Reset"
         >
@@ -227,13 +227,13 @@ export function SwapWidget(props: SwapWidgetProps): React.ReactElement {
       {/* Price & Route Info */}
       {selectedQuote && (
         <div style={{ marginTop: "12px", padding: "12px", background: "var(--ocx-bg-surface)", borderRadius: "8px" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "14px", marginBottom: "4px" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "var(--cc-text-sm)", marginBottom: "4px" }}>
             <span style={{ color: "var(--ocx-text-secondary)" }}>Rate</span>
             <span style={{ color: "var(--ocx-text-primary)" }}>
               {formatExchangeRate(selectedQuote)}
             </span>
           </div>
-          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "14px", marginBottom: "4px" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "var(--cc-text-sm)", marginBottom: "4px" }}>
             <span style={{ color: "var(--ocx-text-secondary)" }}>Slippage</span>
             <span
               style={{ color: getSlippageColor(slippage.slippageBps), cursor: "pointer" }}
@@ -242,7 +242,7 @@ export function SwapWidget(props: SwapWidgetProps): React.ReactElement {
               {(slippage.slippageBps / 100).toFixed(2)}%
             </span>
           </div>
-          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "14px" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "var(--cc-text-sm)" }}>
             <span style={{ color: "var(--ocx-text-secondary)" }}>Min. received</span>
             <span style={{ color: "var(--ocx-text-primary)" }}>
               {formatAmount(selectedQuote.minimumReceived, toToken?.decimals ?? 18)} {toToken?.symbol ?? ""}
@@ -275,7 +275,7 @@ export function SwapWidget(props: SwapWidgetProps): React.ReactElement {
 
       {/* Error Display */}
       {error && (
-        <div style={{ marginTop: "12px", padding: "12px", background: "var(--ocx-error-bg)", borderRadius: "8px", color: "var(--ocx-error)", fontSize: "12px" }}>
+        <div style={{ marginTop: "12px", padding: "12px", background: "var(--ocx-error-bg)", borderRadius: "8px", color: "var(--ocx-error)", fontSize: "var(--cc-text-xs)" }}>
           {error}
         </div>
       )}
@@ -324,7 +324,7 @@ function TokenInput({ label, token, amount, onAmountChange, onTokenClick, readOn
   return (
     <div style={{ background: "var(--ocx-bg-surface)", borderRadius: "12px", padding: "16px", marginBottom: "4px" }}>
       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px" }}>
-        <span style={{ fontSize: "14px", color: "var(--ocx-text-secondary)" }}>{label}</span>
+        <span style={{ fontSize: "var(--cc-text-sm)", color: "var(--ocx-text-secondary)" }}>{label}</span>
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
         <button
@@ -338,7 +338,7 @@ function TokenInput({ label, token, amount, onAmountChange, onTokenClick, readOn
             borderRadius: "20px",
             padding: "4px 12px",
             cursor: "pointer",
-            fontSize: "14px",
+            fontSize: "var(--cc-text-sm)",
             fontWeight: 600,
             color: "var(--ocx-text-primary)",
           }}
@@ -349,7 +349,7 @@ function TokenInput({ label, token, amount, onAmountChange, onTokenClick, readOn
               {token.symbol}
             </>
           ) : "Select token"}
-          <span style={{ fontSize: "10px" }}>▼</span>
+          <span style={{ fontSize: "var(--cc-text-xs)" }}>▼</span>
         </button>
         <input
           type="text"
@@ -361,7 +361,7 @@ function TokenInput({ label, token, amount, onAmountChange, onTokenClick, readOn
             ...inputStyles(),
             border: "none",
             background: "transparent",
-            fontSize: "24px",
+            fontSize: "var(--cc-text-xl)",
             fontWeight: 600,
             padding: "4px 0",
             textAlign: "right",
@@ -379,7 +379,7 @@ interface RouteDisplayProps {
 
 function RouteDisplay({ route }: RouteDisplayProps) {
   return (
-    <div style={{ marginTop: "8px", fontSize: "12px", color: "var(--ocx-text-muted)" }}>
+    <div style={{ marginTop: "8px", fontSize: "var(--cc-text-xs)", color: "var(--ocx-text-muted)" }}>
       <span style={{ marginRight: "4px" }}>Route:</span>
       {route.map((hop, i) => (
         <span key={i}>
@@ -405,7 +405,7 @@ function SlippageModal({ slippage, onSelect, onClose }: SlippageModalProps) {
     }} onClick={onClose}>
       <div style={{ background: "var(--ocx-bg-base)", borderRadius: "16px", padding: "24px", minWidth: "300px" }}
         onClick={(e) => e.stopPropagation()}>
-        <h3 style={{ margin: "0 0 16px", fontSize: "16px" }}>Slippage Tolerance</h3>
+        <h3 style={{ margin: "0 0 16px", fontSize: "var(--cc-text-md)" }}>Slippage Tolerance</h3>
         <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
           {slippage.presets.map((bps) => (
             <button
@@ -457,7 +457,7 @@ function TokenSelectionModal({ tokens, onSelect, onClose, selected }: TokenSelec
     }} onClick={onClose}>
       <div style={{ background: "var(--ocx-bg-base)", borderRadius: "16px", padding: "24px", minWidth: "340px", maxHeight: "500px", overflow: "auto" }}
         onClick={(e) => e.stopPropagation()}>
-        <h3 style={{ margin: "0 0 12px", fontSize: "16px" }}>Select Token</h3>
+        <h3 style={{ margin: "0 0 12px", fontSize: "var(--cc-text-md)" }}>Select Token</h3>
         <input
           type="text"
           value={search}
@@ -467,7 +467,7 @@ function TokenSelectionModal({ tokens, onSelect, onClose, selected }: TokenSelec
         />
         <div style={{ marginTop: "12px" }}>
           {filtered.length === 0 && (
-            <p style={{ color: "var(--ocx-text-muted)", fontSize: "14px", textAlign: "center" }}>No tokens found</p>
+            <p style={{ color: "var(--ocx-text-muted)", fontSize: "var(--cc-text-sm)", textAlign: "center" }}>No tokens found</p>
           )}
           {filtered.map((token) => (
             <button
@@ -481,8 +481,8 @@ function TokenSelectionModal({ tokens, onSelect, onClose, selected }: TokenSelec
             >
               {token.logoURI && <img src={token.logoURI} alt="" style={{ width: "32px", height: "32px", borderRadius: "50%" }} />}
               <div style={{ textAlign: "left" }}>
-                <div style={{ fontWeight: 600, fontSize: "14px", color: "var(--ocx-text-primary)" }}>{token.symbol}</div>
-                <div style={{ fontSize: "12px", color: "var(--ocx-text-muted)" }}>{token.name}</div>
+                <div style={{ fontWeight: 600, fontSize: "var(--cc-text-sm)", color: "var(--ocx-text-primary)" }}>{token.symbol}</div>
+                <div style={{ fontSize: "var(--cc-text-xs)", color: "var(--ocx-text-muted)" }}>{token.name}</div>
               </div>
             </button>
           ))}
@@ -506,10 +506,10 @@ function TransactionStatus({ receipt }: TransactionStatusProps) {
   return (
     <div style={{ marginTop: "12px", padding: "16px", background: "var(--ocx-success-bg)", borderRadius: "12px" }}>
       <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
-        <span style={{ fontSize: "20px" }}>✅</span>
+        <span style={{ fontSize: "var(--cc-text-lg)" }}>✅</span>
         <span style={{ fontWeight: 600, color: "var(--ocx-success)" }}>Swap Successful</span>
       </div>
-      <div style={{ fontSize: "12px", color: "var(--ocx-text-secondary)" }}>
+      <div style={{ fontSize: "var(--cc-text-xs)", color: "var(--ocx-text-secondary)" }}>
         <div>TX: {receipt.txHash.slice(0, 10)}…{receipt.txHash.slice(-8)}</div>
         <div>Block: {receipt.blockNumber.toString()}</div>
       </div>

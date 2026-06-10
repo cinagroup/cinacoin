@@ -98,7 +98,7 @@ export const PasswordStrengthIndicator: React.FC<PasswordStrengthIndicatorProps>
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.2 }}
         style={{
-          fontSize: '12px',
+          fontSize: 'var(--cc-text-xs)',
           fontWeight: 500,
           color: strength.color,
         }}
