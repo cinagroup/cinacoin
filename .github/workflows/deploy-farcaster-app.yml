@@ -1,62 +1,33 @@
-name: Deploy Farcaster App to Cloudflare Pages
+name: Deploy Farcaster App
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
     paths:
-      - "apps/farcaster-app/**"
-      - "packages/farcaster-miniapp/**"
-      - ".github/workflows/deploy-farcaster-app.yml"
-  workflow_dispatch:
-
-env:
-  NODE_VERSION: "22"
+      - 'apps/farcaster-app/**'
+      - '.github/workflows/deploy-farcaster-app.yml'
 
 jobs:
   deploy:
-    name: Build & Deploy Farcaster App
     runs-on: ubuntu-latest
-    concurrency:
-      group: deploy-farcaster-app-production
-      cancel-in-progress: false
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: ${{ env.NODE_VERSION }}
-
-      - uses: pnpm/action-setup@v4
+          node-version: '20'
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm ci
+        working-directory: apps/farcaster-app
 
-      - name: Build Farcaster Mini App SDK
-        run: pnpm --filter @cinacoin/farcaster-miniapp build
-
-      - name: Build Farcaster App
-        run: pnpm --filter cinacoin-farcaster-app build
-        env:
-          NODE_ENV: production
-          NEXT_PUBLIC_APP_URL: https://cinacoin-farcaster-app.pages.dev
-          NEXT_PUBLIC_APP_NAME: "Cinacoin Farcaster App"
-
-      - name: Verify Output
-        run: |
-          test -d apps/farcaster-app/out || { echo "✗ out/ directory missing"; exit 1; }
-          test -f apps/farcaster-app/out/index.html || { echo "✗ out/index.html missing"; exit 1; }
-          echo "✓ static output exists"
-          echo "Files in out/:"
-          find apps/farcaster-app/out -type f | head -20
-
-      - name: Install Wrangler
-        run: npm install -g wrangler@3
+      - name: Build
+        run: npm run build
+        working-directory: apps/farcaster-app
 
       - name: Deploy to Cloudflare Pages
-        run: wrangler pages deploy apps/farcaster-app/out --project-name=cinacoin-farcaster-app --branch=main
-        env:
-          NODE_ENV: production
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: 7ea8e46d8210bad342fa7595f7935fea
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy out --project-name=cinacoin-farcaster
