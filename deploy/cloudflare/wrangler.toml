@@ -13,7 +13,97 @@ binding = "DB"
 database_name = "cinacoin-auth"
 database_id = ""  # ← Run `wrangler d1 create cinacoin-auth` then paste the ID here
 
-# Environment: Production
+# ── Performance: Cache Rules ────────────────────────────────────────
+# These rules apply to the Worker itself. For Pages/Assets, see pages rules below.
+
+[vars]
+ENVIRONMENT = "production"
+
+# ── Performance: Compression ────────────────────────────────────────
+# Cloudflare automatically compresses text-based assets (HTML, CSS, JS, JSON)
+# with Brotli/Gzip at the edge. No additional configuration needed.
+
+# ── Performance: HTTP/2 & HTTP/3 ────────────────────────────────────
+# Enabled by default on Cloudflare. Ensure your DNS records are proxied (orange cloud).
+
+# ── Performance: Browser Cache TTL ──────────────────────────────────
+# Configure via Page Rules or Cache Rules in Cloudflare Dashboard:
+# - Static assets (_next/static/*): 1 year, immutable
+# - Images: 1 week, stale-while-revalidate
+# - HTML: 0 seconds, must-revalidate (or use SWR)
+# - API responses: no-cache, private
+
+# ── Performance: Edge Cache TTL ─────────────────────────────────────
+# Configure via Page Rules in Cloudflare Dashboard:
+# - Static assets: 1 year
+# - HTML pages: 60 seconds with stale-while-revalidate=300
+# - API responses: bypass cache (or use Cache-Tag based invalidation)
+
+# ── Page Rules (configure in Cloudflare Dashboard) ──────────────────
+# Example Page Rules for cinacoin.com:
+#
+# 1. Static Assets (Immutable Caching)
+#    URL: cinacoin.com/_next/static/*
+#    Cache Level: Cache Everything
+#    Edge Cache TTL: 1 year
+#    Browser Cache TTL: 1 year
+#    Cache Key: Include all query params
+#
+# 2. HTML Pages (SWR)
+#    URL: cinacoin.com/*
+#    Cache Level: Cache Everything
+#    Edge Cache TTL: 60 seconds
+#    Browser Cache TTL: 0 seconds
+#    stale-while-revalidate: 300 seconds
+#
+# 3. Images
+#    URL: cinacoin.com/images/*
+#    Cache Level: Cache Everything
+#    Edge Cache TTL: 1 week
+#    Browser Cache TTL: 1 week
+#    stale-while-revalidate: 1 day
+#
+# 4. API Routes (No Cache)
+#    URL: cinacoin.com/api/*
+#    Cache Level: Bypass
+#    Browser Cache TTL: 0 seconds
+
+# ── Cache Rules (alternative to Page Rules, more flexible) ──────────
+# Can be configured via Cloudflare Dashboard > Rules > Cache Rules
+# Example:
+# - Expression: (http.request.uri.path contains "/_next/static/")
+#   Cache eligibility: Eligible for cache
+#   Edge TTL: 31536000 (1 year), respect origin
+#   Browser TTL: 31536000 (1 year), override origin
+
+# ── Performance: Minification ───────────────────────────────────────
+# Enable in Cloudflare Dashboard > Speed > Optimization:
+# - Auto Minify: JavaScript, CSS, HTML (enable all)
+# - Brotli compression: Enable
+# - Early Hints: Enable (for preloading critical resources)
+# - 0-RTT Connection Resumption: Enable
+
+# ── Performance: Image Optimization ─────────────────────────────────
+# Enable Cloudflare Image Resizing (if on Pro/Business/Enterprise):
+# - Polish: Lossless or Lossy
+# - WebP conversion: Enable
+# - AVIF conversion: Enable (if available)
+
+# ── Performance: Network Settings ───────────────────────────────────
+# Configure in Cloudflare Dashboard > Network:
+# - HTTP/2: Enable
+# - HTTP/2 to Origin: Enable
+# - HTTP/3 (QUIC): Enable
+# - 0-RTT: Enable
+# - WebSockets: Enable (for real-time features)
+
+# ── Performance: Worker-specific optimizations ──────────────────────
+# For this auth Worker:
+# - Keep-alive connections to origin
+# - Connection pooling (handled by Cloudflare automatically)
+# - Response streaming (use ReadableStream for large responses)
+
+# ── Environment: Production ─────────────────────────────────────────
 [env.production]
 name = "cinacoin-auth-production"
 
@@ -22,7 +112,7 @@ binding = "DB"
 database_name = "cinacoin-auth-production"
 database_id = ""  # ← Production D1 database ID
 
-# Environment: Staging
+# ── Environment: Staging ────────────────────────────────────────────
 [env.staging]
 name = "cinacoin-auth-staging"
 
@@ -30,3 +120,19 @@ name = "cinacoin-auth-staging"
 binding = "DB"
 database_name = "cinacoin-auth-staging"
 database_id = ""  # ← Staging D1 database ID
+
+# ── Performance: Analytics ──────────────────────────────────────────
+# Enable in Cloudflare Dashboard > Analytics:
+# - Web Analytics: Enable for client-side metrics
+# - GraphQL Analytics API: Enable for programmatic access
+# - Real User Monitoring (RUM): Enable if available
+
+# ── Performance: Security Headers (already in next.config) ──────────
+# Additional headers can be set via Workers:
+# - X-Frame-Options: DENY
+# - X-Content-Type-Options: nosniff
+# - X-XSS-Protection: 0
+# - Referrer-Policy: strict-origin-when-cross-origin
+# - Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+# - Strict-Transport-Security: max-age=31536000; includeSubDomains
+# - Content-Security-Policy: (configured in next.config)

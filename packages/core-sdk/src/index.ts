@@ -585,6 +585,31 @@ export * from './chains.js';
 export * from './utils/signature.js';
 export * from './utils/chain.js';
 
+// Performance Utilities
+export {
+  ResultCache,
+  RequestBatcher,
+  debounce,
+  throttle,
+  memoize,
+  createLazyLoader,
+  AdapterRegistry,
+  conditionalLoad,
+  loadWithTimeout,
+  ConnectionPool,
+  createInterceptedFetch,
+  createRetryFetch,
+} from './performance/index.js';
+export type {
+  CacheOptions,
+  BatchHandler,
+  ModuleLoader,
+  AdapterRegistration,
+  ConnectionPoolConfig,
+  RequestInterceptor,
+  RetryConfig,
+} from './performance/index.js';
+
 /**
  * SDK version.
  */
