@@ -113,7 +113,7 @@ export default function TransactionAnalytics() {
   return (
     <div className="space-y-lg">
       {/* Summary Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-sm">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-sm">
         <div className="card p-md">
           <p className="text-caption text-ink-mute mb-xxs">Total Volume</p>
           <p className="text-display-sm text-ink">{`$${(totalVolume / 1000000).toFixed(2)}M`}</p>

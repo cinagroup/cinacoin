@@ -24,12 +24,12 @@ export function ProfileCard({
 }: ProfileCardProps) {
   if (loading) {
     return (
-      <div className="bg-gray-900 rounded-2xl p-6 border border-gray-800 animate-pulse">
+      <div className="bg-[var(--color-canvas-soft-2)] rounded-2xl p-6 border border-[var(--color-hairline)] animate-pulse">
         <div className="flex items-center space-x-4">
-          <div className="w-16 h-16 bg-gray-800 rounded-full" />
+          <div className="w-16 h-16 bg-[var(--color-canvas-soft-2)] rounded-full" />
           <div className="space-y-2">
-            <div className="h-4 w-32 bg-gray-800 rounded" />
-            <div className="h-3 w-24 bg-gray-800 rounded" />
+            <div className="h-4 w-32 bg-[var(--color-canvas-soft-2)] rounded" />
+            <div className="h-3 w-24 bg-[var(--color-canvas-soft-2)] rounded" />
           </div>
         </div>
       </div>
@@ -38,12 +38,12 @@ export function ProfileCard({
 
   if (!user) {
     return (
-      <div className="bg-gray-900 rounded-2xl p-6 border border-gray-800 text-center">
-        <div className="w-16 h-16 mx-auto bg-gray-800 rounded-full flex items-center justify-center text-2xl mb-4">
+      <div className="bg-[var(--color-canvas-soft-2)] rounded-2xl p-6 border border-[var(--color-hairline)] text-center">
+        <div className="w-16 h-16 mx-auto bg-[var(--color-canvas-soft-2)] rounded-full flex items-center justify-center text-2xl mb-4">
           👤
         </div>
-        <p className="text-gray-400">Not connected</p>
-        <p className="text-sm text-gray-500 mt-1">Sign in with Farcaster to view profile</p>
+        <p className="text-[var(--color-mute)]">Not connected</p>
+        <p className="text-sm text-[var(--color-mute)] mt-1">Sign in with Farcaster to view profile</p>
       </div>
     );
   }
@@ -52,7 +52,7 @@ export function ProfileCard({
   const displayName = user.display_name ?? user.username;
 
   return (
-    <div className="bg-gray-900 rounded-2xl p-6 border border-gray-800 space-y-4">
+    <div className="bg-[var(--color-canvas-soft-2)] rounded-2xl p-6 border border-[var(--color-hairline)] space-y-4">
       {/* Header */}
       <div className="flex items-center space-x-4">
         {user.pfp_url ? (
@@ -73,23 +73,23 @@ export function ProfileCard({
               <span className="text-blue-400" title="Verified">✓</span>
             )}
           </h3>
-          <p className="text-gray-400">@{user.username}</p>
+          <p className="text-[var(--color-mute)]">@{user.username}</p>
         </div>
       </div>
 
       {/* Bio */}
       {user.bio && (
-        <p className="text-gray-300 text-sm">{user.bio}</p>
+        <p className="text-[var(--color-body)] text-sm">{user.bio}</p>
       )}
 
       {/* Stats Grid */}
       <div className="grid grid-cols-2 gap-3">
-        <div className="bg-gray-800 rounded-xl p-3">
-          <p className="text-xs text-gray-500 mb-1">Farcaster FID</p>
+        <div className="bg-[var(--color-canvas-soft-2)] rounded-xl p-3">
+          <p className="text-xs text-[var(--color-mute)] mb-1">Farcaster FID</p>
           <p className="text-white font-mono">{user.fid}</p>
         </div>
-        <div className="bg-gray-800 rounded-xl p-3">
-          <p className="text-xs text-gray-500 mb-1">Wallet</p>
+        <div className="bg-[var(--color-canvas-soft-2)] rounded-xl p-3">
+          <p className="text-xs text-[var(--color-mute)] mb-1">Wallet</p>
           <p className="text-white font-mono text-xs truncate">
             {walletAddress
               ? `${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}`
@@ -100,15 +100,15 @@ export function ProfileCard({
 
       {/* Verified Addresses */}
       {(verifiedAddress || user.custody_address) && (
-        <div className="bg-gray-800 rounded-xl p-3 space-y-2">
-          <p className="text-xs text-gray-500">Verified Addresses</p>
+        <div className="bg-[var(--color-canvas-soft-2)] rounded-xl p-3 space-y-2">
+          <p className="text-xs text-[var(--color-mute)]">Verified Addresses</p>
           {verifiedAddress && (
             <p className="text-sm text-green-400 font-mono truncate">
               {verifiedAddress}
             </p>
           )}
           {user.custody_address && user.custody_address !== verifiedAddress && (
-            <p className="text-sm text-gray-400 font-mono truncate">
+            <p className="text-sm text-[var(--color-mute)] font-mono truncate">
               Custody: {user.custody_address}
             </p>
           )}

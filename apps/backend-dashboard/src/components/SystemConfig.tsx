@@ -108,7 +108,7 @@ export function SystemConfig() {
                   {field.type === "toggle" && (
                     <button
                       className={`toggle ${
-                        field.value ? "bg-primary" : "bg-gray-200"
+                        field.value ? "bg-primary" : "bg-[var(--color-canvas-soft-2)]"
                       }`}
                       onClick={() => handleFieldChange(section.id, field.key, !field.value)}
                     >

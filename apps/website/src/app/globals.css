@@ -6,7 +6,9 @@
 :root {
   /* ── Colors ─────────────────────────────────────────── */
   --color-primary: #171717;
+  --color-primary-hover: #2a2a2a;
   --color-on-primary: #ffffff;
+  --color-secondary-hover: #f0f0f0;
   --color-ink: #171717;
   --color-body: #4d4d4d;
   --color-mute: #888888;
@@ -62,9 +64,11 @@
 [data-theme="dark"] {
   /* ── Colors ─────────────────────────────────────────── */
   --color-primary: #ffffff;
+  --color-primary-hover: #e0e0e0;
   --color-on-primary: #171717;
+  --color-secondary-hover: #1a1a1a;
   --color-ink: #f5f5f5;
-  --color-body: #a3a3a3;
+  --color-body: #b3b3b3;
   --color-mute: #737373;
   --color-hairline: #2e2e2e;
   --color-hairline-strong: #404040;
@@ -217,7 +221,7 @@ body {
 }
 
 .btn-primary:hover {
-  background-color: #2a2a2a;
+  background-color: var(--color-primary-hover);
 }
 
 .btn-secondary {
@@ -233,12 +237,25 @@ body {
   border-color: var(--color-ink);
 }
 
+/* Button utilities */
+.btn-pill { border-radius: 100px; }
+.btn-sm { border-radius: 6px; }
+
 /* ── Card Utilities ───────────────────────────────────── */
 
 .card {
   background-color: var(--color-canvas);
   border: 1px solid var(--color-hairline);
   border-radius: 8px;
+  box-shadow: var(--shadow-level-1);
+}
+
+/* Card utilities */
+.card-standard {
+  background-color: var(--color-canvas);
+  border: 1px solid var(--color-hairline);
+  border-radius: 8px;
+  padding: 24px;
   box-shadow: var(--shadow-level-1);
 }
 
@@ -270,6 +287,7 @@ body {
   --cc-hairline: var(--color-hairline);
   --cc-hairline-strong: var(--color-hairline-strong);
   --cc-primary: var(--color-primary);
+  --cc-primary-hover: var(--color-primary-hover);
   --cc-on-primary: var(--color-on-primary);
   --cc-link: var(--color-link);
   --cc-link-deep: var(--color-link-deep);
@@ -440,7 +458,7 @@ body {
 }
 
 .cc-btn-primary:hover {
-  background-color: #2a2a2a;
+  background-color: var(--cc-primary-hover);
   color: var(--cc-on-primary);
   text-decoration: none;
 }
@@ -450,7 +468,7 @@ body {
   align-items: center;
   justify-content: center;
   height: 32px;
-  padding: 0 14px;
+  padding: 0 16px;
   background-color: var(--cc-primary);
   color: var(--cc-on-primary);
   border: none;
@@ -463,7 +481,7 @@ body {
 }
 
 .cc-btn-primary-sm:hover {
-  background-color: #2a2a2a;
+  background-color: var(--cc-primary-hover);
   color: var(--cc-on-primary);
   text-decoration: none;
 }
@@ -496,7 +514,7 @@ body {
   align-items: center;
   justify-content: center;
   height: 32px;
-  padding: 0 14px;
+  padding: 0 16px;
   background-color: transparent;
   color: var(--cc-ink);
   border: 1px solid var(--cc-hairline-strong);
@@ -518,11 +536,11 @@ body {
 .cc-navbar-link {
   display: inline-flex;
   align-items: center;
-  padding: 6px 12px;
+  padding: 8px 12px;
   font-size: 14px;
   font-weight: 400;
   color: var(--cc-body);
-  border-radius: 6px;
+  border-radius: 8px;
   transition: color var(--transition-fast), background-color var(--transition-fast);
   text-decoration: none;
 }
@@ -538,11 +556,11 @@ body {
   align-items: center;
   justify-content: center;
   height: 36px;
-  padding: 0 14px;
+  padding: 0 16px;
   font-size: 14px;
   font-weight: 500;
   color: var(--cc-ink);
-  border-radius: 6px;
+  border-radius: 8px;
   transition: background-color var(--transition-fast);
   text-decoration: none;
 }
@@ -557,18 +575,18 @@ body {
   align-items: center;
   justify-content: center;
   height: 36px;
-  padding: 0 14px;
+  padding: 0 16px;
   font-size: 14px;
   font-weight: 500;
   background-color: var(--cc-primary);
   color: var(--cc-on-primary);
-  border-radius: 6px;
+  border-radius: 8px;
   transition: background-color var(--transition-fast);
   text-decoration: none;
 }
 
 .cc-nav-cta-signup:hover {
-  background-color: #2a2a2a;
+  background-color: var(--cc-primary-hover);
   color: var(--cc-on-primary);
   text-decoration: none;
 }
@@ -577,7 +595,7 @@ body {
 .cc-badge {
   display: inline-flex;
   align-items: center;
-  padding: 4px 10px;
+  padding: 4px 12px;
   font-size: 12px;
   font-weight: 600;
   border-radius: 100px;
@@ -611,7 +629,7 @@ body {
 .cc-code {
   font-family: var(--font-mono);
   font-size: 13px;
-  padding: 2px 6px;
+  padding: 4px 8px;
   background-color: var(--cc-canvas-soft-2);
   border-radius: 4px;
   color: var(--cc-ink);
@@ -635,6 +653,14 @@ body {
     radial-gradient(ellipse at 80% 20%, rgba(121, 40, 202, 0.06) 0%, transparent 50%),
     radial-gradient(ellipse at 50% 80%, rgba(255, 0, 128, 0.04) 0%, transparent 50%);
 }
+
+/* ── Spacing Utilities (4px grid) ─────────────────────── */
+.spacing-xxs { padding: 4px; gap: 4px; }
+.spacing-xs  { padding: 8px; gap: 8px; }
+.spacing-sm  { padding: 12px; gap: 12px; }
+.spacing-md  { padding: 16px; gap: 16px; }
+.spacing-lg  { padding: 24px; gap: 24px; }
+.spacing-xl  { padding: 32px; gap: 32px; }
 
 @layer utilities {
   .text-balance {

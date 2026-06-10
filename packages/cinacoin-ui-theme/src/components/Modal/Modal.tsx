@@ -87,7 +87,7 @@ export const Modal: React.FC<ModalProps> = ({
           {/* Card */}
           <motion.div
             ref={cardRef}
-            className={`relative z-10 w-full max-w-lg rounded-2xl bg-white p-6 shadow-2xl dark:bg-gray-900 dark:text-white ${cardClassName}`}
+            className={`relative z-10 w-full max-w-lg rounded-2xl bg-[var(--color-canvas)] p-6 shadow-2xl dark:bg-[var(--color-canvas-soft-2)] dark:text-white ${cardClassName}`}
             initial={{ opacity: 0, scale: 0.95, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 10 }}
@@ -101,7 +101,7 @@ export const Modal: React.FC<ModalProps> = ({
                 <button
                   type="button"
                   onClick={onClose}
-                  className="rounded-lg p-1.5 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-300"
+                  className="rounded-lg p-1.5 text-[var(--color-mute)] transition-colors hover:bg-[var(--color-canvas-soft-2)] hover:text-[var(--color-body)] dark:hover:bg-[var(--color-canvas-soft-2)] dark:hover:text-[var(--color-body)]"
                   aria-label="Close modal"
                 >
                   <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

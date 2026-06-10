@@ -22,10 +22,10 @@ export function AssetInventory({ balances = [] }: AssetInventoryProps) {
   // If no balances passed, show empty state
   if (balances.length === 0) {
     return (
-      <div className="max-w-lg mx-auto rounded-2xl bg-white/5 p-8 backdrop-blur text-center">
+      <div className="max-w-lg mx-auto rounded-2xl bg-[var(--color-canvas)]/5 p-8 backdrop-blur text-center">
         <div className="text-5xl mb-4">📭</div>
         <h3 className="text-xl font-semibold text-white mb-2">No assets available</h3>
-        <p className="text-gray-400 text-sm">
+        <p className="text-[var(--color-mute)] text-sm">
           Connect a wallet or make your first purchase to see your assets here.
         </p>
       </div>
@@ -38,7 +38,7 @@ export function AssetInventory({ balances = [] }: AssetInventoryProps) {
   );
 
   return (
-    <div className="max-w-lg mx-auto rounded-2xl bg-white/5 p-6 backdrop-blur">
+    <div className="max-w-lg mx-auto rounded-2xl bg-[var(--color-canvas)]/5 p-6 backdrop-blur">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-xl font-semibold text-white">Assets</h2>
         <span className="text-lg font-semibold text-blue-400">
@@ -59,7 +59,7 @@ export function AssetInventory({ balances = [] }: AssetInventoryProps) {
               </div>
               <div>
                 <p className="text-white font-medium">{asset.token.name}</p>
-                <p className="text-gray-400 text-xs capitalize">{asset.token.chain}</p>
+                <p className="text-[var(--color-mute)] text-xs capitalize">{asset.token.chain}</p>
               </div>
             </div>
             <div className="text-right">
@@ -67,7 +67,7 @@ export function AssetInventory({ balances = [] }: AssetInventoryProps) {
                 {parseFloat(asset.balance).toFixed(asset.token.decimals > 6 ? 4 : 2)}{" "}
                 {asset.token.symbol}
               </p>
-              <p className="text-gray-400 text-sm">${parseFloat(asset.fiatValue).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+              <p className="text-[var(--color-mute)] text-sm">${parseFloat(asset.fiatValue).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
             </div>
           </div>
         ))}

@@ -36,7 +36,7 @@ export default function LoginPage() {
               <div className="w-full border-t border-hairline"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-ink-mute">or</span>
+              <span className="px-2 bg-[var(--color-canvas)] text-ink-mute">or</span>
             </div>
           </div>
 

@@ -46,12 +46,12 @@ export function ConnectedPage({
   const displayActions = actions ?? defaultActions;
 
   return (
-    <div className="max-w-md mx-auto rounded-2xl bg-white/5 p-6 backdrop-blur">
+    <div className="max-w-md mx-auto rounded-2xl bg-[var(--color-canvas)]/5 p-6 backdrop-blur">
       {/* Account overview */}
       <div className="text-center mb-8">
-        <p className="text-gray-400 text-sm mb-1">Total Balance</p>
+        <p className="text-[var(--color-mute)] text-sm mb-1">Total Balance</p>
         <h1 className="text-4xl font-semibold text-white mb-3">{totalBalance}</h1>
-        <code className="bg-black/20 text-gray-300 text-xs px-3 py-1 rounded-lg">
+        <code className="bg-black/20 text-[var(--color-body)] text-xs px-3 py-1 rounded-lg">
           {shortAddress}
         </code>
       </div>
@@ -64,21 +64,21 @@ export function ConnectedPage({
             onClick={action.onClick}
             className="flex flex-col items-center gap-2 group"
           >
-            <div className="w-14 h-14 rounded-2xl bg-blue-600/20 group-hover:bg-blue-600/30 flex items-center justify-center text-2xl text-blue-400 transition-colors">
+            <div className="w-14 h-14 rounded-2xl bg-[var(--color-link)]/20 group-hover:bg-[var(--color-link)]/30 flex items-center justify-center text-2xl text-blue-400 transition-colors">
               {action.icon}
             </div>
-            <span className="text-gray-400 text-xs">{action.label}</span>
+            <span className="text-[var(--color-mute)] text-xs">{action.label}</span>
           </button>
         ))}
       </div>
 
       {/* Recent transactions */}
       <div>
-        <h3 className="text-sm font-semibold text-gray-300 mb-3">Recent Transactions</h3>
+        <h3 className="text-sm font-semibold text-[var(--color-body)] mb-3">Recent Transactions</h3>
         {recentTransactions.length === 0 ? (
           <div className="bg-black/20 rounded-xl p-6 text-center">
-            <p className="text-gray-500 text-sm">No transactions yet</p>
-            <p className="text-gray-600 text-xs mt-1">
+            <p className="text-[var(--color-mute)] text-sm">No transactions yet</p>
+            <p className="text-[var(--color-body)] text-xs mt-1">
               Your transaction history will appear here
             </p>
           </div>
@@ -96,14 +96,14 @@ export function ConnectedPage({
                         ? "bg-green-500/20 text-green-400"
                         : tx.type === "send"
                         ? "bg-red-500/20 text-red-400"
-                        : "bg-blue-500/20 text-blue-400"
+                        : "bg-[var(--color-link)]/20 text-blue-400"
                     }`}
                   >
                     {tx.type === "buy" ? "↓" : tx.type === "send" ? "↑" : "↙"}
                   </div>
                   <div>
                     <p className="text-white text-sm font-medium capitalize">{tx.type}</p>
-                    <p className="text-gray-500 text-xs">
+                    <p className="text-[var(--color-mute)] text-xs">
                       {new Date(tx.timestamp).toLocaleDateString()}
                     </p>
                   </div>

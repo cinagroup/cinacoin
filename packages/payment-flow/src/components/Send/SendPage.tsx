@@ -89,25 +89,25 @@ export function SendPage({ tokens = DEFAULT_TOKENS, onSend }: SendPageProps) {
 
   if (step === "status") {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[400px] rounded-2xl bg-white/5 p-8">
+      <div className="flex flex-col items-center justify-center min-h-[400px] rounded-2xl bg-[var(--color-canvas)]/5 p-8">
         {txStatus === "pending" && (
           <>
             <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mb-4" />
             <h2 className="text-xl font-semibold text-white mb-2">Sending…</h2>
-            <p className="text-gray-400 text-sm mb-4">Waiting for network confirmation</p>
+            <p className="text-[var(--color-mute)] text-sm mb-4">Waiting for network confirmation</p>
           </>
         )}
         {txStatus === "confirmed" && (
           <>
             <div className="text-5xl mb-4">✅</div>
             <h2 className="text-xl font-semibold text-white mb-2">Transaction Confirmed</h2>
-            <p className="text-gray-400 text-sm mb-2">
+            <p className="text-[var(--color-mute)] text-sm mb-2">
               {amount} {selectedToken.symbol} sent to
             </p>
             <code className="bg-black/30 text-green-400 px-3 py-1 rounded text-xs mb-4 break-all">
               {recipientAddress}
             </code>
-            <p className="text-gray-500 text-xs mb-6 break-all max-w-xs">
+            <p className="text-[var(--color-mute)] text-xs mb-6 break-all max-w-xs">
               Tx: {txHash}
             </p>
           </>
@@ -116,12 +116,12 @@ export function SendPage({ tokens = DEFAULT_TOKENS, onSend }: SendPageProps) {
           <>
             <div className="text-5xl mb-4">❌</div>
             <h2 className="text-xl font-semibold text-red-400 mb-2">Transaction Failed</h2>
-            <p className="text-gray-400 text-sm mb-4">Something went wrong. Please try again.</p>
+            <p className="text-[var(--color-mute)] text-sm mb-4">Something went wrong. Please try again.</p>
           </>
         )}
         <button
           onClick={handleReset}
-          className="px-6 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-medium transition-colors"
+          className="px-6 py-2 rounded-lg bg-[var(--color-link)] hover:bg-[var(--color-link)] text-white font-medium transition-colors"
         >
           Send Again
         </button>
@@ -135,29 +135,29 @@ export function SendPage({ tokens = DEFAULT_TOKENS, onSend }: SendPageProps) {
 
   if (step === "confirm") {
     return (
-      <div className="max-w-md mx-auto rounded-2xl bg-white/5 p-6 backdrop-blur">
+      <div className="max-w-md mx-auto rounded-2xl bg-[var(--color-canvas)]/5 p-6 backdrop-blur">
         <h2 className="text-xl font-semibold text-white mb-6">Confirm Transaction</h2>
 
         <div className="space-y-4 mb-6">
           <div className="flex justify-between text-sm">
-            <span className="text-gray-400">To</span>
+            <span className="text-[var(--color-mute)]">To</span>
             <code className="text-white text-xs break-all max-w-[200px]">{recipientAddress}</code>
           </div>
           <div className="flex justify-between text-sm">
-            <span className="text-gray-400">Amount</span>
+            <span className="text-[var(--color-mute)]">Amount</span>
             <span className="text-white font-medium">{amount} {selectedToken.symbol}</span>
           </div>
           <div className="flex justify-between text-sm">
-            <span className="text-gray-400">Network Fee</span>
+            <span className="text-[var(--color-mute)]">Network Fee</span>
             <span className="text-yellow-400">{estimatedFee}</span>
           </div>
           <div className="flex justify-between text-sm">
-            <span className="text-gray-400">Network</span>
+            <span className="text-[var(--color-mute)]">Network</span>
             <span className="text-white capitalize">{selectedToken.chain}</span>
           </div>
-          <hr className="border-gray-700" />
+          <hr className="border-[var(--color-hairline-strong)]" />
           <div className="flex justify-between text-base font-semibold">
-            <span className="text-gray-300">Total</span>
+            <span className="text-[var(--color-body)]">Total</span>
             <span className="text-white">{amount} {selectedToken.symbol}</span>
           </div>
         </div>
@@ -165,13 +165,13 @@ export function SendPage({ tokens = DEFAULT_TOKENS, onSend }: SendPageProps) {
         <div className="flex gap-3">
           <button
             onClick={() => setStep("input")}
-            className="flex-1 py-3 rounded-xl font-medium bg-black/20 text-gray-300 hover:bg-black/30 transition-colors"
+            className="flex-1 py-3 rounded-xl font-medium bg-black/20 text-[var(--color-body)] hover:bg-black/30 transition-colors"
           >
             Back
           </button>
           <button
             onClick={handleSend}
-            className="flex-1 py-3 rounded-xl font-semibold bg-blue-600 hover:bg-blue-500 text-white transition-colors"
+            className="flex-1 py-3 rounded-xl font-semibold bg-[var(--color-link)] hover:bg-[var(--color-link)] text-white transition-colors"
           >
             Confirm &amp; Send
           </button>
@@ -185,12 +185,12 @@ export function SendPage({ tokens = DEFAULT_TOKENS, onSend }: SendPageProps) {
   // ------------------------------------------------------------------
 
   return (
-    <div className="max-w-md mx-auto rounded-2xl bg-white/5 p-6 backdrop-blur">
+    <div className="max-w-md mx-auto rounded-2xl bg-[var(--color-canvas)]/5 p-6 backdrop-blur">
       <h2 className="text-xl font-semibold text-white mb-6">Send</h2>
 
       {/* Recipient address */}
       <div className="mb-4">
-        <label className="block text-sm text-gray-400 mb-1">Recipient Address</label>
+        <label className="block text-sm text-[var(--color-mute)] mb-1">Recipient Address</label>
         <input
           type="text"
           value={recipientAddress}
@@ -207,7 +207,7 @@ export function SendPage({ tokens = DEFAULT_TOKENS, onSend }: SendPageProps) {
 
       {/* Token + Amount */}
       <div className="mb-4">
-        <label className="block text-sm text-gray-400 mb-1">Amount</label>
+        <label className="block text-sm text-[var(--color-mute)] mb-1">Amount</label>
         <div className="flex items-center gap-2 bg-black/20 rounded-xl p-3">
           <input
             type="number"
@@ -226,7 +226,7 @@ export function SendPage({ tokens = DEFAULT_TOKENS, onSend }: SendPageProps) {
             className="bg-black/30 text-white rounded-lg px-3 py-1 text-sm outline-none"
           >
             {tokens.map((t) => (
-              <option key={t.symbol} value={t.symbol} className="bg-gray-800">
+              <option key={t.symbol} value={t.symbol} className="bg-[var(--color-canvas-soft-2)]">
                 {t.symbol}
               </option>
             ))}
@@ -236,7 +236,7 @@ export function SendPage({ tokens = DEFAULT_TOKENS, onSend }: SendPageProps) {
 
       {/* Fee estimate */}
       <div className="mb-6 flex justify-between text-sm">
-        <span className="text-gray-400">Network Fee (est.)</span>
+        <span className="text-[var(--color-mute)]">Network Fee (est.)</span>
         <span className="text-yellow-400">{estimatedFee}</span>
       </div>
 
@@ -244,7 +244,7 @@ export function SendPage({ tokens = DEFAULT_TOKENS, onSend }: SendPageProps) {
         onClick={handleConfirm}
         disabled={!canProceed}
         className={`w-full py-3 rounded-xl font-semibold text-lg transition-colors ${
-          canProceed ? "bg-blue-600 hover:bg-blue-500 text-white" : "bg-gray-700 text-gray-500 cursor-not-allowed"
+          canProceed ? "bg-[var(--color-link)] hover:bg-[var(--color-link)] text-white" : "bg-[var(--color-hairline-strong)] text-[var(--color-mute)] cursor-not-allowed"
         }`}
       >
         Continue

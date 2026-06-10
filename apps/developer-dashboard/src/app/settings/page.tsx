@@ -78,7 +78,7 @@ export default function SettingsPage() {
               checked={profile.twoFactor}
               onChange={handleChange}
             />
-            <div className="w-11 h-6 bg-hairline-dark peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-success"></div>
+            <div className="w-11 h-6 bg-hairline-dark peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-[var(--color-canvas)] after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-success"></div>
           </label>
         </div>
 
@@ -95,7 +95,7 @@ export default function SettingsPage() {
               checked={profile.notifications}
               onChange={handleChange}
             />
-            <div className="w-11 h-6 bg-hairline-dark peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-success"></div>
+            <div className="w-11 h-6 bg-hairline-dark peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-[var(--color-canvas)] after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-success"></div>
           </label>
         </div>
 

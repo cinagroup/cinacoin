@@ -110,7 +110,7 @@ export function UserManagement() {
             </span>
             <button
               onClick={() => setSelectedUsers(new Set())}
-              className="text-caption text-gray-300 hover:text-white underline"
+              className="text-caption text-[var(--color-body)] hover:text-white underline"
             >
               Clear selection
             </button>
@@ -357,7 +357,7 @@ export function UserManagement() {
               ) : filteredUsers.map((user) => (
                 <tr
                   key={user.id}
-                  className={`${selectedUsers.has(user.id) ? "bg-blue-50/50" : ""}`}
+                  className={`${selectedUsers.has(user.id) ? "bg-[var(--color-link-bg-soft)]/50" : ""}`}
                 >
                   <td>
                     <input

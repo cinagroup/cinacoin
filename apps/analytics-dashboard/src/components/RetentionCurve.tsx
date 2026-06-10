@@ -151,7 +151,7 @@ export default function RetentionCurve() {
       </div>
 
       {/* Summary Stats */}
-      <div className="grid grid-cols-3 gap-sm">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-sm">
         <div className="card p-sm text-center">
           <p className="text-caption text-ink-mute">Day-1 Retention</p>
           <p className="text-display-sm text-ink">{avgRetention[1] || 0}%</p>

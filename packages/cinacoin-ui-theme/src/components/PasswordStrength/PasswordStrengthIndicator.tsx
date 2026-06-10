@@ -22,7 +22,7 @@ export interface PasswordStrength {
  */
 export function calculatePasswordStrength(password: string): PasswordStrength {
   if (!password) {
-    return { score: 0, label: 'Weak', color: 'bg-gray-200', bgColor: 'bg-gray-100' };
+    return { score: 0, label: 'Weak', color: 'bg-[var(--color-canvas-soft-2)]', bgColor: 'bg-[var(--color-canvas-soft-2)]' };
   }
 
   let score = 0;
@@ -48,7 +48,7 @@ export function calculatePasswordStrength(password: string): PasswordStrength {
   const strength = strengths[score];
   return {
     ...strength,
-    bgColor: score === 0 ? 'bg-gray-100' : 'bg-gray-200 dark:bg-gray-700',
+    bgColor: score === 0 ? 'bg-[var(--color-canvas-soft-2)]' : 'bg-[var(--color-canvas-soft-2)] dark:bg-[var(--color-hairline-strong)]',
   };
 }
 

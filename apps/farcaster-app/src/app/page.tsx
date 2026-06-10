@@ -24,11 +24,11 @@ export default function HomePage() {
           <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent">
             Cinacoin
           </h1>
-          <p className="text-gray-400 text-lg">Farcaster Mini App</p>
+          <p className="text-[var(--color-mute)] text-lg">Farcaster Mini App</p>
         </div>
 
-        <div className="bg-gray-900 rounded-2xl p-6 border border-gray-800 space-y-4">
-          <p className="text-gray-300">
+        <div className="bg-[var(--color-canvas-soft-2)] rounded-2xl p-6 border border-[var(--color-hairline)] space-y-4">
+          <p className="text-[var(--color-body)]">
             Welcome! Interact with Cinacoin directly from your Farcaster feed.
           </p>
 
@@ -41,7 +41,7 @@ export default function HomePage() {
             </a>
             <a
               href="/frame/transfer/"
-              className="bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-xl font-medium transition-colors"
+              className="bg-[var(--color-link)] hover:bg-[var(--color-link-deep)] text-white py-3 px-4 rounded-xl font-medium transition-colors"
             >
               💸 Transfer
             </a>
@@ -53,14 +53,14 @@ export default function HomePage() {
             </a>
             <a
               href="/frame/profile/"
-              className="bg-gray-700 hover:bg-gray-600 text-white py-3 px-4 rounded-xl font-medium transition-colors"
+              className="bg-[var(--color-hairline-strong)] hover:bg-[var(--color-mute)] text-white py-3 px-4 rounded-xl font-medium transition-colors"
             >
               👤 Profile
             </a>
           </div>
         </div>
 
-        <p className="text-gray-500 text-sm">
+        <p className="text-[var(--color-mute)] text-sm">
           Open this page inside Farcaster to use the Frame experience.
         </p>
       </div>

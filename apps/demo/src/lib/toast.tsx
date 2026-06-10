@@ -80,7 +80,7 @@ function ToastContainer() {
       progress: 'bg-[var(--cc-error)]',
     },
     info: {
-      bg: 'bg-blue-950/90',
+      bg: 'bg-[var(--color-link-deep)]/90',
       border: 'border-[var(--cc-primary)]/30',
       icon: 'ℹ',
       progress: 'bg-[var(--cc-link)]',

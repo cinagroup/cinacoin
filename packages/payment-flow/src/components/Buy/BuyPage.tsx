@@ -64,17 +64,17 @@ export function BuyPage({ tokens = DEFAULT_TOKENS, providers = DEFAULT_PROVIDERS
 
   if (status === "success") {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[400px] rounded-2xl bg-white/5 p-8">
+      <div className="flex flex-col items-center justify-center min-h-[400px] rounded-2xl bg-[var(--color-canvas)]/5 p-8">
         <div className="text-6xl mb-4">✅</div>
         <h2 className="text-2xl font-semibold text-white mb-2">Purchase Initiated</h2>
-        <p className="text-gray-400 text-center mb-6">
+        <p className="text-[var(--color-mute)] text-center mb-6">
           Your {selectedToken.symbol} purchase is being processed.
           <br />
           You&apos;ll receive {selectedToken.symbol} at your connected wallet once complete.
         </p>
         <button
           onClick={() => setStatus("idle")}
-          className="px-6 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-medium transition-colors"
+          className="px-6 py-2 rounded-lg bg-[var(--color-link)] hover:bg-[var(--color-link)] text-white font-medium transition-colors"
         >
           Make Another Purchase
         </button>
@@ -83,12 +83,12 @@ export function BuyPage({ tokens = DEFAULT_TOKENS, providers = DEFAULT_PROVIDERS
   }
 
   return (
-    <div className="max-w-md mx-auto rounded-2xl bg-white/5 p-6 backdrop-blur">
+    <div className="max-w-md mx-auto rounded-2xl bg-[var(--color-canvas)]/5 p-6 backdrop-blur">
       <h2 className="text-xl font-semibold text-white mb-6">Buy Crypto</h2>
 
       {/* Fiat amount */}
       <div className="mb-4">
-        <label className="block text-sm text-gray-400 mb-1">You Pay</label>
+        <label className="block text-sm text-[var(--color-mute)] mb-1">You Pay</label>
         <div className="flex items-center gap-2 bg-black/20 rounded-xl p-3">
           <input
             type="number"
@@ -112,7 +112,7 @@ export function BuyPage({ tokens = DEFAULT_TOKENS, providers = DEFAULT_PROVIDERS
 
       {/* Token selector */}
       <div className="mb-4">
-        <label className="block text-sm text-gray-400 mb-1">You Receive</label>
+        <label className="block text-sm text-[var(--color-mute)] mb-1">You Receive</label>
         <div className="bg-black/20 rounded-xl p-3">
           <select
             value={selectedToken.symbol}
@@ -123,7 +123,7 @@ export function BuyPage({ tokens = DEFAULT_TOKENS, providers = DEFAULT_PROVIDERS
             className="w-full bg-transparent text-white text-lg outline-none"
           >
             {tokens.map((t) => (
-              <option key={t.symbol} value={t.symbol} className="bg-gray-800">
+              <option key={t.symbol} value={t.symbol} className="bg-[var(--color-canvas-soft-2)]">
                 {t.name} ({t.symbol})
               </option>
             ))}
@@ -133,7 +133,7 @@ export function BuyPage({ tokens = DEFAULT_TOKENS, providers = DEFAULT_PROVIDERS
 
       {/* Provider selector */}
       <div className="mb-6">
-        <label className="block text-sm text-gray-400 mb-1">Payment Provider</label>
+        <label className="block text-sm text-[var(--color-mute)] mb-1">Payment Provider</label>
         <div className="grid grid-cols-3 gap-2">
           {compatibleProviders.map((p) => (
             <button
@@ -141,8 +141,8 @@ export function BuyPage({ tokens = DEFAULT_TOKENS, providers = DEFAULT_PROVIDERS
               onClick={() => setSelectedProvider(p.id)}
               className={`rounded-xl p-3 text-sm font-medium transition-colors ${
                 selectedProvider === p.id
-                  ? "bg-blue-600 text-white"
-                  : "bg-black/20 text-gray-300 hover:bg-black/30"
+                  ? "bg-[var(--color-link)] text-white"
+                  : "bg-black/20 text-[var(--color-body)] hover:bg-black/30"
               }`}
             >
               {p.name}
@@ -157,8 +157,8 @@ export function BuyPage({ tokens = DEFAULT_TOKENS, providers = DEFAULT_PROVIDERS
         disabled={!fiatAmount || parseFloat(fiatAmount) <= 0 || status === "processing"}
         className={`w-full py-3 rounded-xl font-semibold text-lg transition-colors ${
           !fiatAmount || parseFloat(fiatAmount) <= 0 || status === "processing"
-            ? "bg-gray-700 text-gray-500 cursor-not-allowed"
-            : "bg-blue-600 hover:bg-blue-500 text-white"
+            ? "bg-[var(--color-hairline-strong)] text-[var(--color-mute)] cursor-not-allowed"
+            : "bg-[var(--color-link)] hover:bg-[var(--color-link)] text-white"
         }`}
       >
         {status === "processing" ? (

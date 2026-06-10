@@ -67,7 +67,7 @@ export const LocaleSelector: React.FC<{
       {/* Trigger button */}
       <button
         type="button"
-        className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 ${buttonClassName}`}
+        className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors hover:bg-[var(--color-canvas-soft-2)] dark:hover:bg-[var(--color-canvas-soft-2)] ${buttonClassName}`}
         onClick={() => setOpen((prev) => !prev)}
         aria-expanded={open}
         aria-haspopup="listbox"
@@ -110,7 +110,7 @@ export const LocaleSelector: React.FC<{
       {/* Dropdown menu */}
       {open && (
         <div
-          className={`absolute right-0 z-50 mt-2 w-48 rounded-xl border border-gray-200 bg-white py-1 shadow-lg dark:border-gray-700 dark:bg-gray-900 ${dropdownClassName}`}
+          className={`absolute right-0 z-50 mt-2 w-48 rounded-xl border border-[var(--color-hairline)] bg-[var(--color-canvas)] py-1 shadow-lg dark:border-[var(--color-hairline-strong)] dark:bg-[var(--color-canvas-soft-2)] ${dropdownClassName}`}
           role="listbox"
           aria-label="Languages"
         >
@@ -124,8 +124,8 @@ export const LocaleSelector: React.FC<{
                 aria-selected={isActive}
                 className={`flex w-full items-center px-4 py-2 text-left text-sm transition-colors ${
                   isActive
-                    ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400'
-                    : 'text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-800'
+                    ? 'bg-[var(--color-link-bg-soft)] text-blue-600 dark:bg-[var(--color-link-deep)]/30 dark:text-blue-400'
+                    : 'text-[var(--color-ink)] hover:bg-[var(--color-canvas-soft)] dark:text-[var(--color-body)] dark:hover:bg-[var(--color-canvas-soft-2)]'
                 }`}
                 onClick={() => handleSelect(l)}
               >

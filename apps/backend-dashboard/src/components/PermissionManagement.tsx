@@ -82,7 +82,7 @@ export function PermissionManagement() {
               onClick={() => setSelectedRole(role)}
               className={`p-md rounded-md cursor-pointer transition-all border ${
                 selectedRole?.id === role.id
-                  ? "border-link bg-blue-50"
+                  ? "border-link bg-[var(--color-link-bg-soft)]"
                   : "border-hairline hover:border-hairline-dark"
               }`}
             >

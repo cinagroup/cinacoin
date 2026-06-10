@@ -30,7 +30,7 @@ interface ActionButtonsProps {
 
 const variantClasses: Record<string, string> = {
   primary: 'bg-purple-600 hover:bg-purple-700 text-white',
-  secondary: 'bg-gray-700 hover:bg-gray-600 text-white',
+  secondary: 'bg-[var(--color-hairline-strong)] hover:bg-[var(--color-mute)] text-white',
   success: 'bg-green-600 hover:bg-green-700 text-white',
   danger: 'bg-red-600 hover:bg-red-700 text-white',
 };

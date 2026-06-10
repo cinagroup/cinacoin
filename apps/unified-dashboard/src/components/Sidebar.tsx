@@ -41,7 +41,7 @@ export function Sidebar() {
 
       <div className="p-4 border-t border-white/10">
         <div className="flex items-center gap-3 px-4 py-2">
-          <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-sm font-semibold">
+          <div className="w-8 h-8 rounded-full bg-[var(--color-canvas)]/20 flex items-center justify-center text-sm font-semibold">
             A
           </div>
           <div>

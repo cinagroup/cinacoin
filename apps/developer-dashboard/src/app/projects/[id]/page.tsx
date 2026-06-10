@@ -355,7 +355,7 @@ export default function ProjectDetailPage() {
             </pre>
             <button
               onClick={() => navigator.clipboard.writeText(sdkSnippets[sdkTab]).catch(() => {})}
-              className="absolute top-3 right-3 px-2 py-1 text-xs bg-white/10 hover:bg-white/20 text-white rounded transition-colors"
+              className="absolute top-3 right-3 px-2 py-1 text-xs bg-[var(--color-canvas)]/10 hover:bg-[var(--color-canvas)]/20 text-white rounded transition-colors"
             >
               📋 Copy
             </button>

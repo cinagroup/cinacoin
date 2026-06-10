@@ -277,7 +277,7 @@ export function AuditLog() {
               {filteredLogs.map((entry) => (
                 <tr
                   key={entry.id}
-                  className={`${selectedEntries.has(entry.id) ? "bg-blue-50/50" : ""}`}
+                  className={`${selectedEntries.has(entry.id) ? "bg-[var(--color-link-bg-soft)]/50" : ""}`}
                 >
                   <td>
                     <input

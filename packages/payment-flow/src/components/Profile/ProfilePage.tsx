@@ -76,18 +76,18 @@ export function ProfilePage({
   }, [showConfirmExport, onExportKey]);
 
   return (
-    <div className="max-w-md mx-auto rounded-2xl bg-white/5 p-6 backdrop-blur">
+    <div className="max-w-md mx-auto rounded-2xl bg-[var(--color-canvas)]/5 p-6 backdrop-blur">
       <h2 className="text-xl font-semibold text-white mb-6">Profile</h2>
 
       {/* Connected address */}
       <div className="mb-6 bg-black/20 rounded-xl p-4">
-        <p className="text-gray-400 text-xs mb-1">Connected Address</p>
+        <p className="text-[var(--color-mute)] text-xs mb-1">Connected Address</p>
         <div className="flex items-center justify-between">
           <code className="text-white text-sm">{shortAddress}</code>
           <button
             onClick={handleCopyAddress}
             className={`text-xs px-3 py-1 rounded-lg transition-colors ${
-              copied ? "bg-green-600 text-white" : "bg-black/30 text-gray-300 hover:bg-black/40"
+              copied ? "bg-green-600 text-white" : "bg-black/30 text-[var(--color-body)] hover:bg-black/40"
             }`}
           >
             {copied ? "Copied!" : "Copy"}
@@ -97,7 +97,7 @@ export function ProfilePage({
 
       {/* Linked providers */}
       <div className="mb-6">
-        <h3 className="text-sm font-semibold text-gray-300 mb-3">Linked Providers</h3>
+        <h3 className="text-sm font-semibold text-[var(--color-body)] mb-3">Linked Providers</h3>
         <div className="space-y-2">
           {linkedProviders.map((provider) => (
             <div
@@ -107,7 +107,7 @@ export function ProfilePage({
               <div className="flex items-center gap-3">
                 <div
                   className={`w-3 h-3 rounded-full ${
-                    provider.connected ? "bg-green-500" : "bg-gray-600"
+                    provider.connected ? "bg-green-500" : "bg-[var(--color-mute)]"
                   }`}
                 />
                 <span className="text-white text-sm">{provider.name}</span>
@@ -126,8 +126,8 @@ export function ProfilePage({
       </div>
 
       {/* Export key */}
-      <div className="border-t border-gray-700 pt-4">
-        <h3 className="text-sm font-semibold text-gray-300 mb-3">Security</h3>
+      <div className="border-t border-[var(--color-hairline-strong)] pt-4">
+        <h3 className="text-sm font-semibold text-[var(--color-body)] mb-3">Security</h3>
         {showConfirmExport ? (
           <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4">
             <p className="text-red-400 text-sm mb-3">
@@ -142,7 +142,7 @@ export function ProfilePage({
               </button>
               <button
                 onClick={() => setShowConfirmExport(false)}
-                className="px-4 py-2 rounded-lg bg-black/20 text-gray-300 text-sm hover:bg-black/30 transition-colors"
+                className="px-4 py-2 rounded-lg bg-black/20 text-[var(--color-body)] text-sm hover:bg-black/30 transition-colors"
               >
                 Cancel
               </button>
@@ -151,7 +151,7 @@ export function ProfilePage({
         ) : (
           <button
             onClick={handleExportKey}
-            className="w-full py-3 rounded-xl font-medium bg-black/20 text-gray-300 hover:bg-black/30 transition-colors"
+            className="w-full py-3 rounded-xl font-medium bg-black/20 text-[var(--color-body)] hover:bg-black/30 transition-colors"
           >
             Export Key
           </button>

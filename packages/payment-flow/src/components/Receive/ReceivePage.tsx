@@ -35,9 +35,9 @@ function QRCodePlaceholder({ data }: { data: string }) {
   }
 
   return (
-    <div className="inline-grid bg-white p-2 rounded-xl" style={{ gridTemplateColumns: `repeat(${gridSize}, 1fr)`, width: "200px", height: "200px" }}>
+    <div className="inline-grid bg-[var(--color-canvas)] p-2 rounded-xl" style={{ gridTemplateColumns: `repeat(${gridSize}, 1fr)`, width: "200px", height: "200px" }}>
       {cells.map((filled, i) => (
-        <div key={i} className={filled ? "bg-black" : "bg-white"} />
+        <div key={i} className={filled ? "bg-black" : "bg-[var(--color-canvas)]"} />
       ))}
     </div>
   );
@@ -105,9 +105,9 @@ export function ReceivePage({ walletAddress = "0x0000000000000000000000000000000
   const shortAddress = `${displayAddress.slice(0, 6)}…${displayAddress.slice(-4)}`;
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[400px] max-w-md mx-auto rounded-2xl bg-white/5 p-8 backdrop-blur">
+    <div className="flex flex-col items-center justify-center min-h-[400px] max-w-md mx-auto rounded-2xl bg-[var(--color-canvas)]/5 p-8 backdrop-blur">
       <h2 className="text-xl font-semibold text-white mb-2">Receive</h2>
-      <p className="text-gray-400 text-sm mb-6">
+      <p className="text-[var(--color-mute)] text-sm mb-6">
         Share this address or scan the QR code to receive funds
       </p>
 
@@ -118,7 +118,7 @@ export function ReceivePage({ walletAddress = "0x0000000000000000000000000000000
 
       {/* Address */}
       <div className="w-full bg-black/20 rounded-xl p-3 mb-4">
-        <p className="text-gray-400 text-xs mb-1">Your Address</p>
+        <p className="text-[var(--color-mute)] text-xs mb-1">Your Address</p>
         <code className="text-white text-sm break-all">{shortAddress}</code>
       </div>
 
@@ -129,7 +129,7 @@ export function ReceivePage({ walletAddress = "0x0000000000000000000000000000000
           className={`flex-1 py-3 rounded-xl font-medium transition-colors flex items-center justify-center gap-2 ${
             copied
               ? "bg-green-600 text-white"
-              : "bg-blue-600 hover:bg-blue-500 text-white"
+              : "bg-[var(--color-link)] hover:bg-[var(--color-link)] text-white"
           }`}
         >
           {copied ? (
@@ -146,7 +146,7 @@ export function ReceivePage({ walletAddress = "0x0000000000000000000000000000000
         </button>
         <button
           onClick={handleShare}
-          className="flex-1 py-3 rounded-xl font-medium bg-black/20 text-gray-300 hover:bg-black/30 transition-colors flex items-center justify-center gap-2"
+          className="flex-1 py-3 rounded-xl font-medium bg-black/20 text-[var(--color-body)] hover:bg-black/30 transition-colors flex items-center justify-center gap-2"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342A8.889 8.889 0 0119 12a8.889 8.889 0 0110.316-1.342M15 12a3 3 0 11-6 0 3 3 0 016 0zm6 0a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
           Share

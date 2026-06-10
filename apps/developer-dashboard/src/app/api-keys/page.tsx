@@ -139,7 +139,7 @@ export default function ApiKeysPage() {
               <p className="text-xs text-ink-body mb-2">
                 Copy this key now. You won't be able to see it again.
               </p>
-              <code className="text-sm font-mono bg-white px-3 py-1.5 rounded border border-[#00875a]/20 block">
+              <code className="text-sm font-mono bg-[var(--color-canvas)] px-3 py-1.5 rounded border border-[#00875a]/20 block">
                 {showNewKey}
               </code>
             </div>

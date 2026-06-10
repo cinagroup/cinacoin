@@ -21,7 +21,7 @@ const typeIcons: Record<TxType, string> = {
 const typeColors: Record<TxType, string> = {
   send: "text-error bg-error-light",
   receive: "text-success bg-success-light",
-  contract: "text-link bg-blue-100",
+  contract: "text-link bg-[var(--color-link-bg-soft)]",
 };
 
 const statusColors: Record<string, string> = {
