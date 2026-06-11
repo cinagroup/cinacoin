@@ -1,10 +1,11 @@
 /**
- * TransferPage — Token 转账演示
+ * TransferPage — Token transfer demo
  *
- * 演示: 选择链 → 选择 Token → 输入地址/金额 → 确认 → 发送
+ * Select chain → Select token → Enter address/amount → Confirm → Send
  */
 
 import { useState, useCallback } from 'react';
+import { CheckCircle2 } from 'lucide-react';
 import { CodeExample } from '../components/CodeExample';
 
 const CHAINS = [
@@ -87,30 +88,31 @@ export function TransferPage() {
   }, []);
 
   return (
-    <div className="grid grid-cols-2 gap-6 p-6">
+    <div className="max-w-5xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
       {/* Left: Interactive Demo */}
       <div>
-        <h2 className="text-[var(--cc-text-xl)] font-semibold mb-4">Token 转账</h2>
-        <p className="text-[var(--cc-demo-text-muted)] mb-6">选择链和 Token，输入收款地址和金额，完成转账。</p>
+        <p className="cc-caption-mono text-[var(--cc-muted)] mb-2">TRANSFER</p>
+        <h2 className="cc-display-lg mb-2">Token transfer.</h2>
+        <p className="cc-body-md text-[var(--cc-muted)] mb-6">Select chain and token, enter recipient address and amount, complete transfer.</p>
 
-        <div className="bg-[#1a1a2e] rounded-xl p-6">
+        <div className="cc-card">
           {state.step === 'input' && (
             <div className="flex flex-col gap-4">
               {/* Chain selector */}
               <div>
-                <label className="block text-[var(--cc-text-xs)] text-[var(--cc-demo-text-light)] mb-2">选择链</label>
+                <label className="cc-caption-mono text-[var(--cc-muted)] mb-2 block">Select chain</label>
                 <div className="flex gap-2 flex-wrap">
                   {CHAINS.map((chain) => (
                     <button
                       key={chain.id}
                       onClick={() => setState((s) => ({ ...s, chain: chain.id, token: chain.tokens[0] }))}
-                      className={`px-4 py-2 rounded-lg border-2 cursor-pointer text-[var(--cc-text-sm)] ${
+                      className={`px-3 py-2 rounded-lg text-caption font-medium transition-all focus-ring ${
                         state.chain === chain.id
-                          ? 'border-[#6366f1] bg-[#6366f120]'
-                          : 'border-[#333] bg-[#0d0d1a]'
-                      } text-[var(--cc-on-primary,#fff)]`}
+                          ? 'bg-[var(--cc-canvas-soft-2)] border-2 border-[var(--cc-link)]'
+                          : 'bg-[var(--cc-canvas-soft)] border border-[var(--cc-hairline)] hover:border-[var(--cc-muted)]'
+                      }`}
                     >
-                      {chain.icon} {chain.name}
+                      <span className="mr-1">{chain.icon}</span> {chain.name}
                     </button>
                   ))}
                 </div>
@@ -118,17 +120,17 @@ export function TransferPage() {
 
               {/* Token selector */}
               <div>
-                <label className="block text-[var(--cc-text-xs)] text-[var(--cc-demo-text-light)] mb-2">选择 Token</label>
+                <label className="cc-caption-mono text-[var(--cc-muted)] mb-2 block">Select token</label>
                 <div className="flex gap-2">
                   {selectedChain.tokens.map((token) => (
                     <button
                       key={token}
                       onClick={() => setState((s) => ({ ...s, token }))}
-                      className={`px-4 py-2 rounded-md border-2 cursor-pointer text-[var(--cc-text-xs)] ${
+                      className={`px-3 py-2 rounded-lg text-caption font-medium transition-all focus-ring ${
                         state.token === token
-                          ? 'border-[#6366f1] bg-[#6366f120]'
-                          : 'border-[#333] bg-[#0d0d1a]'
-                      } text-[var(--cc-on-primary,#fff)]`}
+                          ? 'bg-[var(--cc-canvas-soft-2)] border-2 border-[var(--cc-link)]'
+                          : 'bg-[var(--cc-canvas-soft)] border border-[var(--cc-hairline)] hover:border-[var(--cc-muted)]'
+                      }`}
                     >
                       {token}
                     </button>
@@ -138,64 +140,60 @@ export function TransferPage() {
 
               {/* Recipient */}
               <div>
-                <label className="block text-[var(--cc-text-xs)] text-[var(--cc-demo-text-light)] mb-2">收款地址</label>
+                <label className="cc-caption-mono text-[var(--cc-muted)] mb-2 block">Recipient address</label>
                 <input
                   type="text"
                   placeholder="0x..."
                   value={state.to}
                   onChange={(e) => setState((s) => ({ ...s, to: e.target.value }))}
-                  className="w-full py-3 px-4 rounded-lg border-2 border-[var(--cc-demo-border)] bg-[var(--cc-demo-surface-darker)] text-[var(--cc-text-sm)] text-[var(--cc-on-primary,#fff)] outline-none box-border"
+                  className="cc-form-input"
                 />
               </div>
 
               {/* Amount */}
               <div>
-                <label className="block text-[var(--cc-text-xs)] text-[var(--cc-demo-text-light)] mb-2">金额</label>
+                <label className="cc-caption-mono text-[var(--cc-muted)] mb-2 block">Amount</label>
                 <input
                   type="number"
                   step="0.001"
                   placeholder="0.0"
                   value={state.amount}
                   onChange={(e) => setState((s) => ({ ...s, amount: e.target.value }))}
-                  className="w-full py-3 px-4 rounded-lg border-2 border-[var(--cc-demo-border)] bg-[var(--cc-demo-surface-darker)] text-[var(--cc-text-sm)] text-[var(--cc-on-primary,#fff)] outline-none box-border"
+                  className="cc-form-input"
                 />
               </div>
 
               <button
                 onClick={handleConfirm}
                 disabled={!state.to || !state.amount}
-                className={`py-3 px-6 rounded-lg border-none text-[var(--cc-text-md)] font-semibold mt-2 ${
-                  state.to && state.amount
-                    ? 'bg-[#6366f1] cursor-pointer'
-                    : 'bg-[#333] cursor-not-allowed'
-                } text-[var(--cc-on-primary,#fff)]`}
+                className="cc-btn-primary w-full disabled:opacity-40 disabled:cursor-not-allowed"
               >
-                确认转账
+                Confirm transfer
               </button>
             </div>
           )}
 
           {state.step === 'confirm' && (
             <div className="text-center p-5">
-              <h3 className="text-[var(--cc-text-lg)] mb-4">确认交易</h3>
-              <div className="bg-[var(--cc-demo-surface-darker)] rounded-lg p-4 mb-4 text-left">
-                <p className="text-[var(--cc-demo-text-muted)] text-[var(--cc-text-xs)]">链: {selectedChain.name}</p>
-                <p className="text-[var(--cc-demo-text-muted)] text-[var(--cc-text-xs)]">Token: {state.token}</p>
-                <p className="text-[var(--cc-demo-text-muted)] text-[var(--cc-text-xs)]">收款: {state.to.slice(0, 10)}...{state.to.slice(-8)}</p>
-                <p className="text-[var(--cc-on-primary,#fff)] text-[var(--cc-text-lg)] font-semibold mt-2">{state.amount} {state.token}</p>
+              <h3 className="cc-display-sm mb-4">Confirm transaction.</h3>
+              <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4 mb-4 text-left border border-[var(--cc-hairline)]">
+                <p className="text-body-sm text-[var(--cc-muted)] mb-1">Chain: {selectedChain.name}</p>
+                <p className="text-body-sm text-[var(--cc-muted)] mb-1">Token: {state.token}</p>
+                <p className="text-body-sm text-[var(--cc-muted)] mb-1">Recipient: {state.to.slice(0, 10)}...{state.to.slice(-8)}</p>
+                <p className="text-body-lg text-[var(--cc-ink)] font-semibold mt-2">{state.amount} {state.token}</p>
               </div>
               <div className="flex gap-3 justify-center">
                 <button
                   onClick={() => setState((s) => ({ ...s, step: 'input' }))}
-                  className="py-3 px-5 rounded-lg border-0 border-[#333] bg-transparent text-[var(--cc-on-primary,#fff)] cursor-pointer"
+                  className="cc-btn-secondary"
                 >
-                  取消
+                  Cancel
                 </button>
                 <button
                   onClick={handleSend}
-                  className="py-3 px-5 rounded-lg border-none bg-[var(--cc-demo-accent)] text-[var(--cc-on-primary,#fff)] font-semibold cursor-pointer"
+                  className="cc-btn-primary"
                 >
-                  确认发送
+                  Confirm send
                 </button>
               </div>
             </div>
@@ -203,23 +201,25 @@ export function TransferPage() {
 
           {state.step === 'sending' && (
             <div className="text-center p-10">
-              <div className="text-4xl mb-4 animate-spin">⟳</div>
-              <p className="text-[var(--cc-demo-text-muted)]">交易发送中...</p>
+              <div className="w-12 h-12 mx-auto mb-4 border-2 border-[var(--cc-hairline)] border-t-[var(--cc-link)] rounded-full animate-spin" />
+              <p className="cc-body-md text-[var(--cc-muted)]">Transaction sending...</p>
             </div>
           )}
 
           {state.step === 'success' && (
             <div className="text-center p-5">
-              <div className="text-5xl mb-4">✅</div>
-              <h3 className="text-[var(--cc-text-lg)] mb-2">交易成功!</h3>
-              <p className="text-[var(--cc-demo-text-muted)] text-[var(--cc-text-xs)] mb-4">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[var(--cc-success-bg)] flex items-center justify-center">
+                <CheckCircle2 className="w-8 h-8 text-[var(--cc-success)]" />
+              </div>
+              <h3 className="cc-display-sm mb-2">Transaction successful.</h3>
+              <p className="text-caption text-[var(--cc-muted)] mb-4 font-[var(--font-mono)]">
                 TX: {state.txHash.slice(0, 16)}...{state.txHash.slice(-8)}
               </p>
               <button
                 onClick={handleReset}
-                className="py-3 px-5 rounded-lg border-none bg-[var(--cc-demo-accent)] text-[var(--cc-on-primary,#fff)] cursor-pointer"
+                className="cc-btn-primary"
               >
-                发起新转账
+                New transfer
               </button>
             </div>
           )}
@@ -227,7 +227,7 @@ export function TransferPage() {
       </div>
 
       {/* Right: Code Example */}
-      <div>
+      <div className="lg:pt-16">
         <CodeExample code={{ react: CODE_EXAMPLE }} title="useCoinTransaction" />
       </div>
     </div>

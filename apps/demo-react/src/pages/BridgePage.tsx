@@ -1,7 +1,7 @@
 /**
- * BridgePage — 跨链桥接演示
+ * BridgePage — Cross-chain bridge demo
  *
- * 演示: 源链 → 目标链选择 → Token + 金额 → 预估接收 → 桥接进度
+ * Source chain → Dest chain → Token + amount → Estimated output → Bridge progress
  */
 
 import { useState, useCallback } from 'react';
@@ -12,8 +12,8 @@ const CHAINS = [
   { id: 'eip155:1', name: 'Ethereum', icon: '⟠', color: 'var(--cc-demo-chain-ethereum)' },
   { id: 'eip155:137', name: 'Polygon', icon: '⬡', color: 'var(--cc-demo-chain-polygon)' },
   { id: 'eip155:56', name: 'BSC', icon: '◆', color: 'var(--cc-demo-bridge-bsc)' },
-  { id: 'eip155:42161', name: 'Arbitrum', icon: <Circle className="w-5 h-5 text-[var(--cc-demo-chain-arbitrum)]" />, color: 'var(--cc-demo-chain-arbitrum)' },
-  { id: 'eip155:10', name: 'Optimism', icon: <Circle className="w-5 h-5 text-[var(--cc-demo-chain-optimism)]" />, color: 'var(--cc-demo-chain-optimism)' },
+  { id: 'eip155:42161', name: 'Arbitrum', icon: 'λ', color: 'var(--cc-demo-chain-arbitrum)' },
+  { id: 'eip155:10', name: 'Optimism', icon: 'O', color: 'var(--cc-demo-chain-optimism)' },
 ];
 
 const CODE_EXAMPLE = `import { useBridge, useCoinAccount } from '@cinacoin/core-sdk';
@@ -62,11 +62,11 @@ type BridgeStep = 'input' | 'bridging' | 'complete';
 type BridgeProgress = 'approving' | 'locking' | 'confirming' | 'minting' | 'complete';
 
 const PROGRESS_STEPS: { key: BridgeProgress; label: string; icon: React.FC<{className?: string}> }[] = [
-  { key: 'approving', label: '授权 Token', icon: Unlock },
-  { key: 'locking', label: '锁定源链资产', icon: Lock },
-  { key: 'confirming', label: '跨链确认', icon: Link2 },
-  { key: 'minting', label: '铸造目标资产', icon: Coins },
-  { key: 'complete', label: '桥接完成', icon: CheckCircle2 },
+  { key: 'approving', label: 'Approve token', icon: Unlock },
+  { key: 'locking', label: 'Lock source assets', icon: Lock },
+  { key: 'confirming', label: 'Cross-chain confirmation', icon: Link2 },
+  { key: 'minting', label: 'Mint destination assets', icon: Coins },
+  { key: 'complete', label: 'Bridge complete', icon: CheckCircle2 },
 ];
 
 export function BridgePage() {
@@ -116,33 +116,32 @@ export function BridgePage() {
   }, []);
 
   return (
-    <div className="grid grid-cols-2 gap-6 p-6">
+    <div className="max-w-5xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
       {/* Left: Bridge UI */}
       <div>
-        <h2 className="text-[var(--cc-text-xl)] font-[var(--cc-weight-bold)] mb-2">跨链桥接</h2>
-        <p className="text-[var(--cc-demo-text-muted)] mb-6">在不同链之间安全转移资产。</p>
+        <p className="cc-caption-mono text-[var(--cc-muted)] mb-2">CROSS-CHAIN</p>
+        <h2 className="cc-display-lg mb-2">Cross-chain bridge.</h2>
+        <p className="cc-body-md text-[var(--cc-muted)] mb-6">Transfer assets securely between different chains.</p>
 
-        <div className="bg-[var(--cc-demo-surface-dark)] rounded-xl p-6">
+        <div className="cc-card">
           {step === 'input' && (
             <div className="flex flex-col gap-4">
               {/* Source Chain */}
               <div>
-                <label className="text-[var(--cc-text-xs)] text-[var(--cc-demo-text-light)] mb-2 block">从</label>
+                <label className="cc-caption-mono text-[var(--cc-muted)] mb-2 block">From</label>
                 <div className="flex gap-2 flex-wrap">
                   {CHAINS.map((chain) => (
                     <button
                       key={chain.id}
                       onClick={() => setSourceChain(chain.id)}
                       disabled={chain.id === destChain}
-                      className="px-4 py-2 rounded-lg text-[var(--cc-text-xs)]"
-                      style={{
-                        border: sourceChain === chain.id ? `2px solid ${chain.color}` : '2px solid #333',
-                        background: sourceChain === chain.id ? `${chain.color}20` : '#0d0d1a',
-                        color: chain.id === destChain ? '#555' : '#fff',
-                        cursor: chain.id === destChain ? 'not-allowed' : 'pointer',
-                      }}
+                      className={`px-3 py-2 rounded-lg text-caption font-medium transition-all focus-ring ${
+                        sourceChain === chain.id
+                          ? 'bg-[var(--cc-canvas-soft-2)] border-2 border-[var(--cc-link)]'
+                          : 'bg-[var(--cc-canvas-soft)] border border-[var(--cc-hairline)] hover:border-[var(--cc-muted)]'
+                      } ${chain.id === destChain ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}`}
                     >
-                      {chain.icon} {chain.name}
+                      <span className="mr-1">{chain.icon}</span> {chain.name}
                     </button>
                   ))}
                 </div>
@@ -152,7 +151,8 @@ export function BridgePage() {
               <div className="text-center">
                 <button
                   onClick={handleSwapChains}
-                  className="px-4 py-2 rounded-full border-0 bg-transparent text-[var(--cc-on-primary,#fff)] cursor-pointer text-[var(--cc-text-md)]"
+                  className="w-9 h-9 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-full flex items-center justify-center hover:bg-[var(--cc-canvas-soft-2)] transition-all shadow-[var(--cc-level2)] focus-ring"
+                  aria-label="Swap source and destination chains"
                 >
                   ⇅
                 </button>
@@ -160,22 +160,20 @@ export function BridgePage() {
 
               {/* Dest Chain */}
               <div>
-                <label className="text-[var(--cc-text-xs)] text-[var(--cc-demo-text-light)] mb-2 block">到</label>
+                <label className="cc-caption-mono text-[var(--cc-muted)] mb-2 block">To</label>
                 <div className="flex gap-2 flex-wrap">
                   {CHAINS.map((chain) => (
                     <button
                       key={chain.id}
                       onClick={() => setDestChain(chain.id)}
                       disabled={chain.id === sourceChain}
-                      className="px-4 py-2 rounded-lg text-[var(--cc-text-xs)]"
-                      style={{
-                        border: destChain === chain.id ? `2px solid ${chain.color}` : '2px solid #333',
-                        background: destChain === chain.id ? `${chain.color}20` : '#0d0d1a',
-                        color: chain.id === sourceChain ? '#555' : '#fff',
-                        cursor: chain.id === sourceChain ? 'not-allowed' : 'pointer',
-                      }}
+                      className={`px-3 py-2 rounded-lg text-caption font-medium transition-all focus-ring ${
+                        destChain === chain.id
+                          ? 'bg-[var(--cc-canvas-soft-2)] border-2 border-[var(--cc-link)]'
+                          : 'bg-[var(--cc-canvas-soft)] border border-[var(--cc-hairline)] hover:border-[var(--cc-muted)]'
+                      } ${chain.id === sourceChain ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}`}
                     >
-                      {chain.icon} {chain.name}
+                      <span className="mr-1">{chain.icon}</span> {chain.name}
                     </button>
                   ))}
                 </div>
@@ -183,27 +181,27 @@ export function BridgePage() {
 
               {/* Amount */}
               <div>
-                <label className="text-[var(--cc-text-xs)] text-[var(--cc-demo-text-light)] mb-2 block">金额 (USDC)</label>
+                <label className="cc-caption-mono text-[var(--cc-muted)] mb-2 block">Amount (USDC)</label>
                 <input
                   type="number"
                   step="0.01"
                   placeholder="0.0"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
-                  className="w-full p-3 px-4 rounded-lg border-2 border-[var(--cc-demo-border)] bg-[var(--cc-demo-surface-darker)] text-[var(--cc-on-primary,#fff)] text-[var(--cc-text-sm)] outline-none box-border"
+                  className="cc-form-input"
                 />
               </div>
 
               {/* Estimate */}
               {amount && (
-                <div className="bg-[var(--cc-demo-surface-darker)] rounded-lg p-3">
-                  <div className="flex justify-between text-[var(--cc-text-xs)]">
-                    <span className="text-[var(--cc-demo-text-muted)]">预估接收</span>
-                    <span className="text-[var(--cc-demo-success)] font-[var(--cc-weight-semibold)]">{estimatedOutput} USDC</span>
+                <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-3 border border-[var(--cc-hairline)]">
+                  <div className="flex justify-between text-body-sm">
+                    <span className="text-[var(--cc-muted)]">Estimated receive</span>
+                    <span className="text-[var(--cc-success)] font-semibold">{estimatedOutput} USDC</span>
                   </div>
-                  <div className="flex justify-between text-[var(--cc-text-xs)] mt-1">
-                    <span className="text-[var(--cc-demo-text-muted)]">手续费 (0.3%)</span>
-                    <span className="text-[var(--cc-demo-error)]">{fee} USDC</span>
+                  <div className="flex justify-between text-body-sm mt-1">
+                    <span className="text-[var(--cc-muted)]">Fee (0.3%)</span>
+                    <span className="text-[var(--cc-error)]">{fee} USDC</span>
                   </div>
                 </div>
               )}
@@ -211,20 +209,16 @@ export function BridgePage() {
               <button
                 onClick={handleBridge}
                 disabled={!amount || sourceChain === destChain}
-                className="p-3 px-6 rounded-lg border-0 text-[var(--cc-on-primary,#fff)] text-[var(--cc-text-md)] font-[var(--cc-weight-semibold)]"
-                style={{
-                  background: amount && sourceChain !== destChain ? '#6366f1' : '#333',
-                  cursor: amount && sourceChain !== destChain ? 'pointer' : 'not-allowed',
-                }}
+                className="cc-btn-primary w-full disabled:opacity-40 disabled:cursor-not-allowed"
               >
-                开始桥接
+                Start bridge
               </button>
             </div>
           )}
 
           {step === 'bridging' && (
-            <div className="p-5">
-              <h3 className="text-[var(--cc-text-lg)] mb-5 text-center">桥接进行中</h3>
+            <div className="p-4">
+              <h3 className="cc-display-sm mb-5 text-center">Bridge in progress.</h3>
               <div className="flex flex-col gap-3">
                 {PROGRESS_STEPS.map((s, i) => {
                   const currentIdx = PROGRESS_STEPS.findIndex((p) => p.key === progress);
@@ -234,19 +228,21 @@ export function BridgePage() {
                   return (
                     <div
                       key={s.key}
-                      className="flex items-center gap-3 p-3 px-4 rounded-lg"
-                      style={{
-                        background: isCurrent ? '#6366f120' : isDone ? '#4ade8010' : '#0d0d1a',
-                        border: isCurrent ? '1px solid #6366f1' : '1px solid transparent',
-                      }}
+                      className={`flex items-center gap-3 p-3 px-4 rounded-lg border transition-all ${
+                        isCurrent
+                          ? 'bg-[var(--cc-link-bg-soft)] border-[var(--cc-link)]'
+                          : isDone
+                          ? 'bg-[var(--cc-success-bg)] border-transparent'
+                          : 'bg-[var(--cc-canvas-soft)] border-transparent'
+                      }`}
                     >
                       {isDone ? (
-                        <CheckCircle2 className="w-5 h-5 text-[var(--cc-demo-success)]" />
+                        <CheckCircle2 className="w-5 h-5 text-[var(--cc-success)] shrink-0" />
                       ) : (
-                        <Icon className="w-5 h-5 text-white" />
+                        <Icon className={`w-5 h-5 shrink-0 ${isCurrent ? 'text-[var(--cc-link)]' : 'text-[var(--cc-muted)]'}`} />
                       )}
-                      <span className={`text-[var(--cc-text-sm)] ${isDone || isCurrent ? 'text-white' : 'text-[#555]'}`}>{s.label}</span>
-                      {isCurrent && <span className="ml-auto text-[#6366f1] text-xs">处理中...</span>}
+                      <span className={`text-body-sm ${isDone || isCurrent ? 'text-[var(--cc-ink)] font-medium' : 'text-[var(--cc-muted)]'}`}>{s.label}</span>
+                      {isCurrent && <span className="ml-auto text-[var(--cc-link)] text-caption font-medium">Processing...</span>}
                     </div>
                   );
                 })}
@@ -256,22 +252,22 @@ export function BridgePage() {
 
           {step === 'complete' && (
             <div className="text-center p-5">
-              <PartyPopper className="w-12 h-12 mx-auto mb-4 text-[var(--cc-demo-success)]" />
-              <h3 className="text-[var(--cc-text-lg)] mb-2">桥接完成!</h3>
-              <p className="text-[var(--cc-demo-text-muted)] text-[var(--cc-text-xs)] mb-1">
+              <PartyPopper className="w-12 h-12 mx-auto mb-4 text-[var(--cc-success)]" />
+              <h3 className="cc-display-sm mb-2">Bridge complete.</h3>
+              <p className="cc-body-sm text-[var(--cc-muted)] mb-1">
                 {srcChain.name} → {dstChain.name}
               </p>
-              <p className="text-[var(--cc-demo-text-muted)] text-[var(--cc-text-xs)] mb-1">
+              <p className="cc-body-sm text-[var(--cc-muted)] mb-1">
                 {amount} USDC → {estimatedOutput} USDC
               </p>
-              <p className="text-[#555] text-xs mb-4">
+              <p className="text-caption text-[var(--cc-muted)] mb-4 font-[var(--font-mono)]">
                 TX: {txHash.slice(0, 16)}...{txHash.slice(-8)}
               </p>
               <button
                 onClick={handleReset}
-                className="p-3 px-5 rounded-lg border-0 bg-[var(--cc-demo-accent)] text-[var(--cc-on-primary,#fff)] cursor-pointer"
+                className="cc-btn-primary"
               >
-                新桥接
+                New bridge
               </button>
             </div>
           )}
@@ -279,7 +275,7 @@ export function BridgePage() {
       </div>
 
       {/* Right: Code */}
-      <div>
+      <div className="lg:pt-16">
         <CodeExample code={{ react: CODE_EXAMPLE }} title="useBridge" />
       </div>
     </div>

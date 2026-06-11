@@ -1,11 +1,11 @@
 /**
- * DeFiPage — DeFi 交互演示
+ * DeFiPage — DeFi interaction demo
  *
- * 演示: LP 池列表、Stake/Unstake、Swap
+ * LP pool list, Stake/Unstake, Token swap
  */
 
 import { useState, useCallback } from 'react';
-import { TrendingUp, ArrowLeftRight, CheckCircle2 } from 'lucide-react';
+import { TrendingUp, CheckCircle2 } from 'lucide-react';
 import { CodeExample } from '../components/CodeExample';
 
 const POOLS = [
@@ -112,23 +112,24 @@ export function DeFiPage() {
   };
 
   return (
-    <div className="grid grid-cols-2 gap-6 p-6">
+    <div className="max-w-5xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
       {/* Left: DeFi UI */}
       <div>
-        <h2 className="text-[var(--cc-text-xl)] font-semibold mb-2">DeFi 交互</h2>
-        <p className="text-[var(--cc-demo-text-muted)] mb-6">LP 质押、Token 兑换。</p>
+        <p className="cc-caption-mono text-[var(--cc-muted)] mb-2">DEFI</p>
+        <h2 className="cc-display-lg mb-2">DeFi interaction.</h2>
+        <p className="cc-body-md text-[var(--cc-muted)] mb-6">LP staking and token swaps.</p>
 
         {/* Tab switcher */}
-        <div className="flex gap-1 mb-5 bg-[var(--cc-demo-surface-darker)] rounded-lg p-1 w-fit">
+        <div className="flex gap-1 mb-5 bg-[var(--cc-canvas-soft-2)] rounded-lg p-1 w-fit border border-[var(--cc-hairline)]">
           {(['pools', 'swap'] as Tab[]).map((t) => (
             <button
               key={t}
               onClick={() => setTab(t)}
-              className={`px-5 py-2 rounded-md border-none cursor-pointer text-[var(--cc-text-sm)] font-medium ${
-                tab === t ? 'bg-[#6366f1]' : 'bg-transparent'
-              } text-[var(--cc-on-primary,#fff)]`}
+              className={`px-5 py-2 rounded-md border-none cursor-pointer text-body-sm font-medium transition-all focus-ring ${
+                tab === t ? 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)]' : 'bg-transparent text-[var(--cc-body)] hover:text-[var(--cc-ink)]'
+              }`}
             >
-              {t === 'pools' ? 'LP 池' : 'Swap'}
+              {t === 'pools' ? 'LP Pools' : 'Swap'}
             </button>
           ))}
         </div>
@@ -136,46 +137,44 @@ export function DeFiPage() {
         {tab === 'pools' && (
           <div className="flex flex-col gap-3">
             {pools.map((pool) => (
-              <div key={pool.id} className="bg-[var(--cc-demo-surface-dark)] rounded-xl p-5">
+              <div key={pool.id} className="cc-card">
                 <div className="flex justify-between items-center mb-3">
                   <div>
-                    <TrendingUp className="w-5 h-5 inline-block mr-2 text-[var(--cc-demo-success)]" />
-                    <span className="text-[var(--cc-text-md)] font-semibold">{pool.name}</span>
+                    <TrendingUp className="w-5 h-5 inline-block mr-2 text-[var(--cc-success)]" />
+                    <span className="text-body-md font-semibold text-[var(--cc-ink)]">{pool.name}</span>
                   </div>
                   <div className="text-right">
-                    <div className="text-[var(--cc-demo-success)] text-[var(--cc-text-lg)] font-semibold">{pool.apy}% APY</div>
-                    <div className="text-[var(--cc-demo-text-muted)] text-xs">TVL: {formatTVL(pool.tvl)}</div>
+                    <div className="text-body-lg text-[var(--cc-success)] font-semibold">{pool.apy}% APY</div>
+                    <div className="text-caption text-[var(--cc-muted)]">TVL: {formatTVL(pool.tvl)}</div>
                   </div>
                 </div>
 
                 {pool.staked > 0 ? (
                   <div className="flex justify-between items-center">
-                    <span className="text-[var(--cc-demo-text-muted)] text-[var(--cc-text-xs)]">已质押: {pool.staked} LP</span>
+                    <span className="text-body-sm text-[var(--cc-muted)]">Staked: {pool.staked} LP</span>
                     <button
                       onClick={() => handleUnstake(pool.id)}
                       disabled={stakingPool === pool.id}
-                      className="px-4 py-2 rounded-md border-0 border-[var(--cc-demo-error)] bg-transparent text-[var(--cc-demo-error)] cursor-pointer text-[var(--cc-text-xs)]"
+                      className="cc-btn-secondary-sm text-caption"
                     >
-                      {stakingPool === pool.id ? '处理中...' : 'Unstake'}
+                      {stakingPool === pool.id ? 'Processing...' : 'Unstake'}
                     </button>
                   </div>
                 ) : (
                   <div className="flex gap-2">
                     <input
                       type="number"
-                      placeholder="LP 数量"
+                      placeholder="LP amount"
                       value={stakeAmount[pool.id] || ''}
                       onChange={(e) => setStakeAmount((prev) => ({ ...prev, [pool.id]: e.target.value }))}
-                      className="flex-1 px-3 py-2 rounded-md border-2 border-[var(--cc-demo-border)] bg-[var(--cc-demo-surface-darker)] text-[var(--cc-on-primary,#fff)] text-[var(--cc-text-xs)] outline-none"
+                      className="cc-form-input flex-1"
                     />
                     <button
                       onClick={() => handleStake(pool.id)}
                       disabled={stakingPool === pool.id || !stakeAmount[pool.id]}
-                      className={`px-4 py-2 rounded-md border-none bg-[var(--cc-demo-accent)] text-[var(--cc-on-primary,#fff)] cursor-pointer text-[var(--cc-text-xs)] ${
-                        !stakeAmount[pool.id] ? 'opacity-50' : 'opacity-100'
-                      }`}
+                      className="cc-btn-primary-sm disabled:opacity-50"
                     >
-                      {stakingPool === pool.id ? '处理中...' : 'Stake'}
+                      {stakingPool === pool.id ? 'Processing...' : 'Stake'}
                     </button>
                   </div>
                 )}
@@ -185,15 +184,16 @@ export function DeFiPage() {
         )}
 
         {tab === 'swap' && (
-          <div className="bg-[var(--cc-demo-surface-dark)] rounded-xl p-6">
+          <div className="cc-card">
             {/* From */}
             <div className="mb-4">
-              <label className="block text-[var(--cc-text-xs)] text-[var(--cc-demo-text-light)] mb-2">从</label>
+              <label className="cc-caption-mono text-[var(--cc-muted)] mb-2 block">From</label>
               <div className="flex gap-2">
                 <select
                   value={swapFrom}
                   onChange={(e) => setSwapFrom(e.target.value)}
-                  className="px-3 py-2 rounded-md border-0 border-[#333] bg-[var(--cc-demo-surface-darker)] text-[var(--cc-on-primary,#fff)] text-[var(--cc-text-sm)] outline-none"
+                  className="cc-form-input"
+                  style={{ maxWidth: '120px' }}
                 >
                   {SWAP_TOKENS.map((t) => <option key={t} value={t}>{t}</option>)}
                 </select>
@@ -203,7 +203,7 @@ export function DeFiPage() {
                   placeholder="0.0"
                   value={swapAmount}
                   onChange={(e) => setSwapAmount(e.target.value)}
-                  className="flex-1 px-3 py-2 rounded-md border-2 border-[var(--cc-demo-border)] bg-[var(--cc-demo-surface-darker)] text-[var(--cc-on-primary,#fff)] text-[var(--cc-text-sm)] outline-none"
+                  className="cc-form-input flex-1"
                 />
               </div>
             </div>
@@ -212,7 +212,8 @@ export function DeFiPage() {
             <div className="text-center my-2">
               <button
                 onClick={() => { setSwapFrom(swapTo); setSwapTo(swapFrom); }}
-                className="px-3 py-1 rounded-full border-0 border-[#333] bg-transparent text-[var(--cc-on-primary,#fff)] cursor-pointer text-[var(--cc-text-md)]"
+                className="w-9 h-9 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-full flex items-center justify-center hover:bg-[var(--cc-canvas-soft-2)] transition-all shadow-[var(--cc-level2)] focus-ring"
+                aria-label="Swap from and to tokens"
               >
                 ⇅
               </button>
@@ -220,18 +221,17 @@ export function DeFiPage() {
 
             {/* To */}
             <div className="mb-4">
-              <label className="block text-[var(--cc-text-xs)] text-[var(--cc-demo-text-light)] mb-2">到</label>
+              <label className="cc-caption-mono text-[var(--cc-muted)] mb-2 block">To</label>
               <div className="flex gap-2">
                 <select
                   value={swapTo}
                   onChange={(e) => setSwapTo(e.target.value)}
-                  className="px-3 py-2 rounded-md border-0 border-[#333] bg-[var(--cc-demo-surface-darker)] text-[var(--cc-on-primary,#fff)] text-[var(--cc-text-sm)] outline-none"
+                  className="cc-form-input"
+                  style={{ maxWidth: '120px' }}
                 >
                   {SWAP_TOKENS.map((t) => <option key={t} value={t}>{t}</option>)}
                 </select>
-                <div className={`flex-1 px-3 py-2 rounded-md bg-[var(--cc-demo-surface-darker)] text-[var(--cc-text-sm)] flex items-center ${
-                  estimatedReceive ? 'text-[#4ade80]' : 'text-[#555]'
-                }`}>
+                <div className={`cc-form-input flex-1 flex items-center ${estimatedReceive ? 'text-[var(--cc-success)] font-medium' : 'text-[var(--cc-muted)]'}`}>
                   {estimatedReceive || '0.0'}
                 </div>
               </div>
@@ -239,23 +239,21 @@ export function DeFiPage() {
 
             {/* Rate info */}
             {swapAmount && (
-              <div className="bg-[var(--cc-demo-surface-darker)] rounded-lg p-3 mb-4 text-xs text-[var(--cc-demo-text-muted)]">
-                1 {swapFrom} = {mockRate} {swapTo} · 滑点 0.5%
+              <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-3 mb-4 text-caption text-[var(--cc-muted)] border border-[var(--cc-hairline)]">
+                1 {swapFrom} = {mockRate} {swapTo} · Slippage 0.5%
               </div>
             )}
 
             <button
               onClick={handleSwap}
               disabled={!swapAmount}
-              className={`w-full py-3 px-6 rounded-lg border-none text-[var(--cc-text-md)] font-semibold ${
-                swapAmount ? 'bg-[#6366f1] cursor-pointer' : 'bg-[#333] cursor-not-allowed'
-              } text-[var(--cc-on-primary,#fff)]`}
+              className="cc-btn-primary w-full disabled:opacity-40 disabled:cursor-not-allowed"
             >
               Swap
             </button>
 
             {swapResult && (
-              <div className="mt-4 p-3 bg-[rgba(74,222,128,0.06)] rounded-lg text-[var(--cc-demo-success)] text-[var(--cc-text-sm)] text-center flex items-center justify-center gap-2">
+              <div className="mt-4 p-3 bg-[var(--cc-success-bg)] rounded-lg text-[var(--cc-success)] text-body-sm text-center flex items-center justify-center gap-2 border border-[var(--cc-success)]/20">
                 <CheckCircle2 className="w-4 h-4" /> {swapResult}
               </div>
             )}
@@ -264,7 +262,7 @@ export function DeFiPage() {
       </div>
 
       {/* Right: Code */}
-      <div>
+      <div className="lg:pt-16">
         <CodeExample code={{ react: CODE_EXAMPLE }} title="useDeFi" />
       </div>
     </div>

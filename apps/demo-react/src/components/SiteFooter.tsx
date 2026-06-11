@@ -3,7 +3,7 @@ import { SiteFooter as SharedFooter } from '@cinacoin/ui'
 
 export const SiteFooter: React.FC = () => (
   <SharedFooter
-    tagline="Interactive Cinacoin SDK demo."
+    tagline="Interactive CinaCoin SDK demo."
     columns={[
       {
         heading: 'Demo',
@@ -22,7 +22,7 @@ export const SiteFooter: React.FC = () => (
       },
       {
         heading: 'Company',
-        links: [{ label: 'Back to Cinacoin', href: 'https://cinacoin.com' }],
+        links: [{ label: 'Back to CinaCoin', href: 'https://cinacoin.com' }],
       },
     ]}
   />
