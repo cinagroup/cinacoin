@@ -9,9 +9,13 @@
  * Or copy the handler bodies if you need custom auth / middleware.
  */
 
-import { NextRequest, NextResponse } from "next/server";
-import { BlockchainApiClient } from "../client.js";
-import { getEnv } from "../env.js";
+import { timingSafeEqual } from 'crypto';
+
+import type { NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
+
+import { BlockchainApiClient } from '../client.js';
+import { getEnv } from '../env.js';
 
 // ---------------------------------------------------------------------------
 // Security Configuration
@@ -61,21 +65,110 @@ function getClient(): BlockchainApiClient {
   return new BlockchainApiClient({
     rpcUrls: env.RPC_URLS ? JSON.parse(env.RPC_URLS) : {},
     metadataBaseUrl: env.METADATA_BASE_URL,
-    defaultChainId: env.DEFAULT_CHAIN_ID
-      ? Number(env.DEFAULT_CHAIN_ID)
-      : DEFAULT_CHAIN_ID,
+    defaultChainId: env.DEFAULT_CHAIN_ID ? Number(env.DEFAULT_CHAIN_ID) : DEFAULT_CHAIN_ID,
   });
 }
 
 /** Parse JSON body safely. */
-async function parseBody<T = Record<string, unknown>>(
-  req: NextRequest
-): Promise<T> {
+async function parseBody<T = Record<string, unknown>>(req: NextRequest): Promise<T> {
   return (await req.json()) as T;
 }
 
 function errorResponse(message: string, status = 400) {
   return NextResponse.json({ error: message }, { status });
+}
+
+// ---------------------------------------------------------------------------
+// Security: API Key Authentication
+// ---------------------------------------------------------------------------
+
+/**
+ * Verify API key using constant-time comparison to prevent timing attacks.
+ */
+function verifyApiKey(req: NextRequest): boolean {
+  const env = getEnv();
+  const expectedKey = env.BLOCKCHAIN_API_KEY;
+
+  // If no key configured, reject all requests (fail secure)
+  if (!expectedKey) {
+    return false;
+  }
+
+  // Check Authorization: Bearer <key>
+  const authHeader = req.headers.get('authorization');
+  if (authHeader?.startsWith('Bearer ')) {
+    const providedKey = authHeader.slice(7);
+    return safeCompare(providedKey, expectedKey);
+  }
+
+  // Check X-API-Key header
+  const apiKeyHeader = req.headers.get('x-api-key');
+  if (apiKeyHeader) {
+    return safeCompare(apiKeyHeader, expectedKey);
+  }
+
+  return false;
+}
+
+/**
+ * Constant-time string comparison to prevent timing attacks.
+ */
+function safeCompare(a: string, b: string): boolean {
+  if (a.length !== b.length) {
+    // Still do a comparison to avoid leaking length info
+    const bufA = Buffer.from(a.padEnd(b.length, ' '));
+    const bufB = Buffer.from(b);
+    timingSafeEqual(bufA, bufB);
+    return false;
+  }
+  return timingSafeEqual(Buffer.from(a), Buffer.from(b));
+}
+
+// ---------------------------------------------------------------------------
+// Security: Rate Limiting (in-memory, per-process)
+// ---------------------------------------------------------------------------
+
+interface RateLimitEntry {
+  count: number;
+  resetAt: number;
+}
+
+const rateLimitStore = new Map<string, RateLimitEntry>();
+const RATE_LIMIT_WINDOW_MS = 60_000; // 1 minute
+const RATE_LIMIT_MAX_REQUESTS = 100; // 100 requests per minute
+
+/**
+ * Check if request is rate limited.
+ * Returns true if allowed, false if rate limited.
+ */
+function checkRateLimit(req: NextRequest): boolean {
+  const env = getEnv();
+  const maxRequests = parseInt(env.BLOCKCHAIN_RATE_LIMIT ?? String(RATE_LIMIT_MAX_REQUESTS), 10);
+
+  // Get client IP (X-Forwarded-For for proxied requests, or socket address)
+  const clientIp =
+    req.headers.get('x-forwarded-for')?.split(',')[0].trim() ||
+    req.headers.get('x-real-ip') ||
+    'unknown';
+
+  const now = Date.now();
+  const entry = rateLimitStore.get(clientIp);
+
+  if (!entry || now > entry.resetAt) {
+    // New window
+    rateLimitStore.set(clientIp, {
+      count: 1,
+      resetAt: now + RATE_LIMIT_WINDOW_MS,
+    });
+    return true;
+  }
+
+  if (entry.count >= maxRequests) {
+    return false;
+  }
+
+  entry.count++;
+  return true;
 }
 
 // ---------------------------------------------------------------------------
@@ -89,6 +182,19 @@ function errorResponse(message: string, status = 400) {
  *   { balances: Balance[] }
  */
 export async function POST_balance(req: NextRequest) {
+  // Security: Authentication
+  if (!verifyApiKey(req)) {
+    return withCors(
+      errorResponse('Unauthorized: Invalid or missing API key', 401),
+      req.headers.get('origin')
+    );
+  }
+
+  // Security: Rate limiting
+  if (!checkRateLimit(req)) {
+    return withCors(errorResponse('Rate limit exceeded', 429), req.headers.get('origin'));
+  }
+
   try {
     const body = await parseBody<{
       address: string;
@@ -97,19 +203,15 @@ export async function POST_balance(req: NextRequest) {
     }>(req);
 
     if (!body.address) {
-      return errorResponse("Missing required field: address");
+      return errorResponse('Missing required field: address');
     }
 
     const client = getClient();
-    const balances = await client.getTokenBalances(
-      body.address,
-      body.chainId,
-      body.tokenAddresses
-    );
+    const balances = await client.getTokenBalances(body.address, body.chainId, body.tokenAddresses);
 
     return NextResponse.json({ balances });
   } catch (err: unknown) {
-    const msg = err instanceof Error ? err.message : "Unknown error";
+    const msg = err instanceof Error ? err.message : 'Unknown error';
     return errorResponse(msg, 500);
   }
 }
@@ -125,6 +227,19 @@ export async function POST_balance(req: NextRequest) {
  *   { transactions: Transaction[]; nextCursor?: string; hasMore: boolean }
  */
 export async function POST_history(req: NextRequest) {
+  // Security: Authentication
+  if (!verifyApiKey(req)) {
+    return withCors(
+      errorResponse('Unauthorized: Invalid or missing API key', 401),
+      req.headers.get('origin')
+    );
+  }
+
+  // Security: Rate limiting
+  if (!checkRateLimit(req)) {
+    return withCors(errorResponse('Rate limit exceeded', 429), req.headers.get('origin'));
+  }
+
   try {
     const body = await parseBody<{
       address: string;
@@ -134,7 +249,7 @@ export async function POST_history(req: NextRequest) {
     }>(req);
 
     if (!body.address) {
-      return errorResponse("Missing required field: address");
+      return errorResponse('Missing required field: address');
     }
 
     const client = getClient();
@@ -147,7 +262,7 @@ export async function POST_history(req: NextRequest) {
 
     return NextResponse.json(result);
   } catch (err: unknown) {
-    const msg = err instanceof Error ? err.message : "Unknown error";
+    const msg = err instanceof Error ? err.message : 'Unknown error';
     return errorResponse(msg, 500);
   }
 }
@@ -165,6 +280,19 @@ export async function POST_history(req: NextRequest) {
  *   { name: string | null }
  */
 export async function POST_ens_resolve(req: NextRequest) {
+  // Security: Authentication
+  if (!verifyApiKey(req)) {
+    return withCors(
+      errorResponse('Unauthorized: Invalid or missing API key', 401),
+      req.headers.get('origin')
+    );
+  }
+
+  // Security: Rate limiting
+  if (!checkRateLimit(req)) {
+    return withCors(errorResponse('Rate limit exceeded', 429), req.headers.get('origin'));
+  }
+
   try {
     const body = await parseBody<{
       name?: string;
@@ -186,7 +314,7 @@ export async function POST_ens_resolve(req: NextRequest) {
 
     return errorResponse("Provide either 'name' or 'address'");
   } catch (err: unknown) {
-    const msg = err instanceof Error ? err.message : "Unknown error";
+    const msg = err instanceof Error ? err.message : 'Unknown error';
     return errorResponse(msg, 500);
   }
 }
@@ -202,6 +330,19 @@ export async function POST_ens_resolve(req: NextRequest) {
  *   { metadata: TokenMetadata }
  */
 export async function POST_token_metadata(req: NextRequest) {
+  // Security: Authentication
+  if (!verifyApiKey(req)) {
+    return withCors(
+      errorResponse('Unauthorized: Invalid or missing API key', 401),
+      req.headers.get('origin')
+    );
+  }
+
+  // Security: Rate limiting
+  if (!checkRateLimit(req)) {
+    return withCors(errorResponse('Rate limit exceeded', 429), req.headers.get('origin'));
+  }
+
   try {
     const body = await parseBody<{
       tokenAddress: string;
@@ -209,18 +350,15 @@ export async function POST_token_metadata(req: NextRequest) {
     }>(req);
 
     if (!body.tokenAddress) {
-      return errorResponse("Missing required field: tokenAddress");
+      return errorResponse('Missing required field: tokenAddress');
     }
 
     const client = getClient();
-    const metadata = await client.getTokenMetadata(
-      body.tokenAddress,
-      body.chainId
-    );
+    const metadata = await client.getTokenMetadata(body.tokenAddress, body.chainId);
 
     return NextResponse.json({ metadata });
   } catch (err: unknown) {
-    const msg = err instanceof Error ? err.message : "Unknown error";
+    const msg = err instanceof Error ? err.message : 'Unknown error';
     return errorResponse(msg, 500);
   }
 }

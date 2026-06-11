@@ -1,6 +1,5 @@
-import { WebAuthnClient, buildRegistrationOptions, buildAuthenticationOptions } from './webauthn.js';
-import { generateChallenge, encodeChallenge, deriveAddress, generateKeypair } from './crypto.js';
-import { MemoryStorage, defaultStorage } from './storage.js';
+import { generateChallenge, deriveAddress } from './crypto.js';
+import { defaultStorage } from './storage.js';
 import type {
   PasskeyConfig,
   PasskeyStorage,
@@ -8,6 +7,11 @@ import type {
   RegistrationResult,
   AuthenticationResult,
 } from './types.js';
+import {
+  WebAuthnClient,
+  buildRegistrationOptions,
+  buildAuthenticationOptions,
+} from './webauthn.js';
 
 /**
  * Passkey — High-level passkey authentication manager.
@@ -34,7 +38,7 @@ export class PasskeyManager {
   async register(
     userId: string,
     userName: string,
-    displayName: string,
+    displayName: string
   ): Promise<RegistrationResult> {
     try {
       const challenge = generateChallenge(this.config.challengeLength);
@@ -50,21 +54,15 @@ export class PasskeyManager {
       });
 
       if (!WebAuthnClient.isAvailable()) {
-        // Fallback: generate a keypair locally for server-side registration
-        const keypair = generateKeypair();
-        const credentialId = encodeChallenge(challenge);
-        const stored: StoredPasskey = {
-          id: credentialId,
-          publicKey: keypair.publicKey,
-          name: displayName,
-          createdAt: Date.now(),
-        };
-        await this.storage.save(stored);
-
+        // SECURITY FIX: Do NOT fall back to unauthenticated keypair generation.
+        // WebAuthn unavailability must result in registration failure,
+        // not a bypass that creates credentials without a hardware authenticator.
         return {
-          success: true,
-          credentialId,
-          publicKey: keypair.publicKey,
+          success: false,
+          credentialId: '',
+          publicKey: '',
+          error:
+            'WebAuthn is not available in this environment; registration requires a hardware authenticator',
         };
       }
 
@@ -125,7 +123,8 @@ export class PasskeyManager {
           signature: '',
           authenticatorData: '',
           clientDataJSON: '',
-          error: 'WebAuthn is not available in this environment; authentication requires a hardware authenticator',
+          error:
+            'WebAuthn is not available in this environment; authentication requires a hardware authenticator',
         };
       }
 
