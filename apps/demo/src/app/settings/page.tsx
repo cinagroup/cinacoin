@@ -76,10 +76,10 @@ export default function SettingsPage() {
   const [personalizedOffers, setPersonalizedOffers] = useState(false);
   // Connected apps
   const [connectedApps] = useState([
-    { name: 'Uniswap', icon: '🦄', connected: '2 days ago', permissions: ['Wallet Connect', 'Sign Transactions'] },
-    { name: 'OpenSea', icon: '🌊', connected: '1 week ago', permissions: ['Wallet Connect', 'Sign Messages'] },
-    { name: 'Aave', icon: '👻', connected: '3 days ago', permissions: ['Wallet Connect', 'Sign Transactions'] },
-    { name: 'Lens Protocol', icon: '📡', connected: '2 weeks ago', permissions: ['Wallet Connect', 'Sign Messages', 'Profile Update'] },
+    { name: 'Uniswap', icon: '🔄', connected: '2 days ago', permissions: ['Wallet Connect', 'Sign Transactions'] },
+    { name: 'OpenSea', icon: '🎨', connected: '1 week ago', permissions: ['Wallet Connect', 'Sign Messages'] },
+    { name: 'Aave', icon: '🏦', connected: '3 days ago', permissions: ['Wallet Connect', 'Sign Transactions'] },
+    { name: 'Lens Protocol', icon: '📷', connected: '2 weeks ago', permissions: ['Wallet Connect', 'Sign Messages', 'Profile Update'] },
   ]);
   // Network
   const [rpcEndpoint, setRpcEndpoint] = useState('');

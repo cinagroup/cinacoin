@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useCallback, createContext, useContext, type ReactNode } from 'react';
+import { Check, X, Info, AlertTriangle } from 'lucide-react';
 
 export type ToastType = 'success' | 'error' | 'info' | 'warning';
 
@@ -66,29 +67,29 @@ function ToastContainer() {
 
   if (toasts.length === 0) return null;
 
-  const typeStyles: Record<ToastType, { bg: string; border: string; icon: string; progress: string }> = {
+  const typeStyles: Record<ToastType, { bg: string; border: string; icon: typeof Check; progress: string }> = {
     success: {
       bg: 'bg-[var(--cc-success)]/20',
       border: 'border-[var(--cc-success)]/30',
-      icon: '✓',
+      icon: Check,
       progress: 'bg-[var(--cc-success)]',
     },
     error: {
       bg: 'bg-[var(--color-error-deep)]/90',
       border: 'border-[var(--color-error)]/30',
-      icon: '✕',
+      icon: X,
       progress: 'bg-[var(--cc-error)]',
     },
     info: {
       bg: 'bg-[var(--color-link-deep)]/90',
       border: 'border-[var(--cc-primary)]/30',
-      icon: 'ℹ',
+      icon: Info,
       progress: 'bg-[var(--cc-link)]',
     },
     warning: {
       bg: 'bg-[var(--cc-warning)]/20',
       border: 'border-[var(--cc-warning)]/30',
-      icon: '⚠',
+      icon: AlertTriangle,
       progress: 'bg-[var(--cc-warning)]',
     },
   };
@@ -109,7 +110,7 @@ function ToastContainer() {
                 toast.type === 'warning' ? 'text-[var(--cc-warning)]' :
                 'text-[var(--cc-link)]'
               }`}>
-                {s.icon}
+                <s.icon className="w-5 h-5" />
               </span>
               <div className="flex-1 min-w-0">
                 <p className="text-body-sm font-semibold text-[var(--cc-ink)]">{toast.title}</p>
@@ -120,7 +121,7 @@ function ToastContainer() {
                 className="text-[var(--cc-body)] hover:text-[var(--cc-ink)] transition-colors flex-shrink-0"
                 aria-label="Dismiss"
               >
-                ✕
+                <X className="w-4 h-4" />
               </button>
             </div>
             {/* Progress bar */}

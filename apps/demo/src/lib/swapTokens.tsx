@@ -5,6 +5,9 @@
  * Each token includes: address (or "native"), symbol, name, decimals, chainId.
  */
 
+import type { ComponentType } from 'react';
+import { Circle, Diamond, DollarSign } from 'lucide-react';
+
 export interface TokenInfo {
   symbol: string;
   name: string;
@@ -12,7 +15,7 @@ export interface TokenInfo {
   address: string;
   decimals: number;
   chainId: number;
-  icon: string;
+  icon: ComponentType<{ className?: string }>;
 }
 
 export const SUPPORTED_CHAINS = [
@@ -53,20 +56,20 @@ const ARBITRUM: TokenInfo[] = [
   { symbol: 'WETH', name: 'Wrapped Ether', address: '0x82aF49447D8a07e3bd95BD0d56f35241523fBab1', decimals: 18, chainId: 42161, icon: '⟠' },
   { symbol: 'USDC', name: 'USD Coin',   address: '0xaf88d065e77c8cC2239327C5EDb3A432268e5831', decimals: 6,  chainId: 42161, icon: '◎' },
   { symbol: 'USDT', name: 'Tether USD', address: '0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9', decimals: 6,  chainId: 42161, icon: '₮' },
-  { symbol: 'ARB',  name: 'Arbitrum',   address: '0x912CE59144191C1204E64559FE8253a0e49E6548', decimals: 18, chainId: 42161, icon: '🔵' },
+  { symbol: 'ARB',  name: 'Arbitrum',   address: '0x912CE59144191C1204E64559FE8253a0e49E6548', decimals: 18, chainId: 42161, icon: (props: {className?: string}) => <Circle {...props} className={`${props.className ?? ''} text-blue-500`} fill="currentColor" /> },
 ];
 
 const BASE: TokenInfo[] = [
   { symbol: 'ETH',  name: 'Ethereum',   address: 'native', decimals: 18, chainId: 8453, icon: '⟠' },
   { symbol: 'WETH', name: 'Wrapped Ether', address: '0x4200000000000000000000000000000000000006', decimals: 18, chainId: 8453, icon: '⟠' },
   { symbol: 'USDC', name: 'USD Coin',   address: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913', decimals: 6,  chainId: 8453, icon: '◎' },
-  { symbol: 'cbETH',name: 'Coinbase Wrapped Staked ETH', address: '0x2Ae3F1Ec7F1F5012CFEab0185bfc7aa3cf0DEc22', decimals: 18, chainId: 8453, icon: '🔷' },
+  { symbol: 'cbETH',name: 'Coinbase Wrapped Staked ETH', address: '0x2Ae3F1Ec7F1F5012CFEab0185bfc7aa3cf0DEc22', decimals: 18, chainId: 8453, icon: (props: {className?: string}) => <Diamond {...props} className={`${props.className ?? ''} text-blue-500`} fill="currentColor" /> },
 ];
 
 const BSC: TokenInfo[] = [
-  { symbol: 'BNB',  name: 'BNB',        address: 'native', decimals: 18, chainId: 56, icon: '🔶' },
-  { symbol: 'WBNB', name: 'Wrapped BNB',address: '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c', decimals: 18, chainId: 56, icon: '🔶' },
-  { symbol: 'BUSD', name: 'BUSD',       address: '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56', decimals: 18, chainId: 56, icon: '💲' },
+  { symbol: 'BNB',  name: 'BNB',        address: 'native', decimals: 18, chainId: 56, icon: (props: {className?: string}) => <Diamond {...props} className={`${props.className ?? ''} text-amber-500`} fill="currentColor" /> },
+  { symbol: 'WBNB', name: 'Wrapped BNB',address: '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c', decimals: 18, chainId: 56, icon: (props: {className?: string}) => <Diamond {...props} className={`${props.className ?? ''} text-amber-500`} fill="currentColor" /> },
+  { symbol: 'BUSD', name: 'BUSD',       address: '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56', decimals: 18, chainId: 56, icon: DollarSign },
   { symbol: 'USDT', name: 'Tether USD', address: '0x55d398326f99059fF775485246999027B3197955', decimals: 18, chainId: 56, icon: '₮' },
 ];
 
@@ -75,7 +78,7 @@ const OPTIMISM: TokenInfo[] = [
   { symbol: 'WETH', name: 'Wrapped Ether', address: '0x4200000000000000000000000000000000000006', decimals: 18, chainId: 10, icon: '⟠' },
   { symbol: 'USDC', name: 'USD Coin',   address: '0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85', decimals: 6,  chainId: 10, icon: '◎' },
   { symbol: 'USDT', name: 'Tether USD', address: '0x94b008aA00579c1307B0EF2c499aD98a8ce58e58', decimals: 6,  chainId: 10, icon: '₮' },
-  { symbol: 'OP',   name: 'Optimism',   address: '0x4200000000000000000000000000000000000042', decimals: 18, chainId: 10, icon: '🔴' },
+  { symbol: 'OP',   name: 'Optimism',   address: '0x4200000000000000000000000000000000000042', decimals: 18, chainId: 10, icon: (props: {className?: string}) => <Circle {...props} className={`${props.className ?? ''} text-red-500`} fill="currentColor" /> },
 ];
 
 // ─── Aggregated Token Registry ────────────────────────────────────────────

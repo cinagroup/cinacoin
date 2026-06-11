@@ -451,8 +451,9 @@ export default function OnrampPage() {
               <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 p-6 space-y-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">
-                      {selectedQuote.icon} {selectedQuote.providerName}
+                    <h3 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)] flex items-center gap-2">
+                      {selectedQuote.providerName === 'MoonPay' ? <MoonIcon className="w-6 h-6" /> : selectedQuote.providerName === 'Ramp' ? <CircleDotIcon className="w-6 h-6" /> : <DiamondIcon className="w-6 h-6" />}
+                      {selectedQuote.providerName}
                     </h3>
                     <p className="text-body-sm text-[var(--cc-muted)]">
                       Receive {selectedQuote.cryptoAmount.toFixed(6)} {token} for ${selectedQuote.totalCost.toFixed(2)} {currency}
@@ -506,7 +507,7 @@ const quote = await aggregator.getBestQuote({
           <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
             <div className="flex items-center justify-between px-5 py-3 border-b border-[var(--cc-hairline-strong)]/50">
               <div className="flex items-center gap-2">
-                <span>{selectedQuote.icon}</span>
+                {selectedQuote.providerName === 'MoonPay' ? <MoonIcon className="w-5 h-5" /> : selectedQuote.providerName === 'Ramp' ? <CircleDotIcon className="w-5 h-5" /> : <DiamondIcon className="w-5 h-5" />}
                 <span className="font-semibold tracking-tighter text-[var(--cc-ink)] text-body-sm">{selectedQuote.providerName}</span>
                 <span className="text-caption text-[var(--cc-body)]">— On-Ramp Widget</span>
               </div>
