@@ -1,5 +1,22 @@
 import type { Metadata } from 'next';
+import localFont from 'next/font/local';
 import './globals.css';
+
+const geistSans = localFont({
+  src: [
+    { path: '../../../../packages/design-tokens/assets/Geist-Regular.woff2', weight: '400' },
+    { path: '../../../../packages/design-tokens/assets/Geist-Medium.woff2', weight: '500' },
+    { path: '../../../../packages/design-tokens/assets/Geist-SemiBold.woff2', weight: '600' },
+  ],
+  variable: '--font-geist-sans',
+});
+
+const geistMono = localFont({
+  src: [
+    { path: '../../../../packages/design-tokens/assets/GeistMono-Regular.woff2', weight: '400' },
+  ],
+  variable: '--font-geist-mono',
+});
 
 export const metadata: Metadata = {
   title: 'Cinacoin Farcaster App',
@@ -17,8 +34,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className="min-h-screen bg-[var(--color-ink)] text-[var(--color-on-primary)] antialiased">
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={`${geistSans.className} min-h-screen bg-[var(--color-ink)] text-[var(--color-on-primary)] antialiased`}>
         <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-[var(--cc-ink)] focus:rounded">
           Skip to main content
         </a>
