@@ -64,5 +64,5 @@ routes = [
 # instead of being 301-redirected (which converts POST→GET and breaks ingestion)
 [[services]]
 binding = "ANALYTICS_API"
-service = "cinacoin-analytics-prod"
+service = "cinacoin-analytics"
 # environment removed - use default
