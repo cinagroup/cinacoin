@@ -91,7 +91,7 @@ export async function onRequestPost(context: EventContext) {
 }
 
 export async function onRequestGet(context: EventContext) {
-  return context.env.ASSETS.fetch(context.request);
+  return (context.env.ASSETS as { fetch: (req: Request) => Promise<Response> }).fetch(context.request);
 }
 
 interface EventContext {
