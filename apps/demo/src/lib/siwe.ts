@@ -73,7 +73,7 @@ export function createSiweMessage(
   const message = generateMessage({
     domain,
     address,
-    statement: 'Sign in to Cinacoin Demo',
+    statement: 'Sign in to CinaCoin Demo',
     uri,
     version: '1',
     chainId,
@@ -88,7 +88,7 @@ export function createSiweMessage(
     data: {
       domain,
       address,
-      statement: 'Sign in to Cinacoin Demo',
+      statement: 'Sign in to CinaCoin Demo',
       uri,
       version: '1',
       chainId,

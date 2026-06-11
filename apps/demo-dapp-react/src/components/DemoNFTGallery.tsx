@@ -16,7 +16,7 @@ interface NftItem {
 const MOCK_NFTS: NftItem[] = [
   {
     id: '1',
-    name: 'Cinacoin Genesis #001',
+    name: 'CinaCoin Genesis #001',
     image: 'https://picsum.photos/seed/nft1/300/300',
     collection: 'Cinacoin Genesis',
     chainId: 11155111,

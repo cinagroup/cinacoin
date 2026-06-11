@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Multi-Chain — Cinacoin',
+  title: 'Multi-Chain — CinaCoin',
   description: 'Multi-chain connectivity across 16 networks.',
 };
 

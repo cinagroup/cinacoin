@@ -15,11 +15,10 @@
   --text-body-sm: 14px;
   --text-caption: 12px;
   
-  /* Font Weights */
+  /* Font Weights (max 600 per DESIGN.md) */
   --weight-regular: 400;
   --weight-medium: 500;
   --weight-semibold: 600;
-  --weight-bold: 700;
 
   /* === Colors (dark theme mapping) === */
   --cc-ink: #ffffff;
@@ -432,6 +431,24 @@ a:focus:not(:focus-visible) {
 
 .cc-fade-in {
   animation: cc-fade-in 0.3s ease-out;
+}
+
+/* === Section category label (mono uppercase eyebrow) === */
+.cc-eyebrow {
+  font-family: var(--cc-font-mono);
+  font-size: var(--cc-text-xs);
+  font-weight: var(--cc-weight-medium);
+  color: var(--cc-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 var(--cc-space-xs) 0;
+}
+
+/* === Icon helper (inline SVG sizing) === */
+.cc-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
 }
 
 /* ─── Typography Utilities ─── */

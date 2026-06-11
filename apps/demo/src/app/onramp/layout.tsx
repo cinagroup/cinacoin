@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Fiat On-Ramp — Cinacoin',
+  title: 'Fiat On-Ramp — CinaCoin',
   description: 'Buy crypto with fiat — compare MoonPay, Ramp & Transak rates.',
 };
 

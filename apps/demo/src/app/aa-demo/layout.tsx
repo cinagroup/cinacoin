@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Account Abstraction Demo — Cinacoin',
+  title: 'Account Abstraction Demo — CinaCoin',
   description: 'ERC-4337 smart accounts, session keys, gas sponsorship, and batch transactions.',
 };
 

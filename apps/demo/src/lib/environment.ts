@@ -1,5 +1,5 @@
 /**
- * Environment detection for the Cinacoin demo app.
+ * Environment detection for the CinaCoin demo app.
  *
  * Set `NEXT_PUBLIC_ENVIRONMENT=demo` (or omit it — demo is the default)
  * to run in demo mode with mock data and simulated transactions.

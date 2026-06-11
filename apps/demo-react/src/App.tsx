@@ -98,6 +98,7 @@ function App() {
         <ScrollToTop />
         <div className="min-h-screen flex flex-col">
           <Navbar />
+          <main id="main-content" role="main" className="flex-1">
           <Suspense fallback={<RouteFallback />}>
             <Routes>
               <Route path="/" element={<HomePage />} />
@@ -113,6 +114,7 @@ function App() {
               <Route path="*" element={<NotFoundFallback />} />
             </Routes>
           </Suspense>
+          </main>
           <Footer />
         </div>
       </PageErrorBoundary>

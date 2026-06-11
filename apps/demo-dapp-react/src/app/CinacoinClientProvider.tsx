@@ -9,8 +9,8 @@ const projectId = process.env.NEXT_PUBLIC_PROJECT_ID ?? 'demo_project_id';
 const config: CinacoinConfig = {
   projectId,
   metadata: {
-    name: 'Cinacoin Demo dApp',
-    description: 'A comprehensive demo showcasing the full Cinacoin SDK',
+    name: 'CinaCoin Demo dApp',
+    description: 'A comprehensive demo showcasing the full CinaCoin SDK',
     url: 'https://cinacoin.dev',
     icons: ['https://cinacoin.dev/icon.png'],
   },

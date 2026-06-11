@@ -6,7 +6,7 @@
     <div class="app-shell">
       <AppHeader />
 
-      <main class="main-content">
+      <main id="main-content" class="main-content" role="main">
         <div class="container">
           <!-- Wallet Connection (always visible) -->
           <ConnectWallet />
@@ -16,17 +16,17 @@
 
           <div v-if="!isConnected" class="connect-prompt">
             <div class="prompt-card">
-              <span class="prompt-icon">🔗</span>
-              <h2>Connect Your Wallet</h2>
+              <span class="prompt-icon" aria-hidden="true">🔗</span>
+              <h2>Connect your wallet.</h2>
               <p>Connect a wallet above to explore balance, chain info, signing, and transactions.</p>
             </div>
           </div>
         </div>
       </main>
 
-      <footer class="app-footer">
+      <footer class="app-footer" role="contentinfo">
         <div class="container">
-          <p>Built with <code>@cinacoin/vue</code> — Vue 3 + Vite + TypeScript</p>
+          <p>Built with <code>@cinacoin/vue</code> — Vue 3 + Vite + TypeScript.</p>
         </div>
       </footer>
     </div>
@@ -60,14 +60,14 @@ const chains: ChainConfig[] = [
   },
 ]
 
-// ── Cinacoin Configuration ───────────────────────────────────────────────
+// ── CinaCoin Configuration ───────────────────────────────────────────────
 const projectId = import.meta.env.VITE_PROJECT_ID ?? ''
 
 const cinacoinConfig: CinacoinConfig = {
   projectId,
   metadata: {
-    name: 'Cinacoin Vue SDK Demo',
-    description: 'A comprehensive demo showcasing the Cinacoin Vue 3 SDK',
+    name: 'CinaCoin Vue SDK demo.',
+    description: 'A comprehensive demo showcasing the CinaCoin Vue 3 SDK.',
     url: 'https://cinacoin.dev',
   },
   theme: {
@@ -85,7 +85,7 @@ const isConnected = computed(() => status.value === 'connected')
 *, *::before, *::after { box-sizing: border-box; }
 
 html {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'Geist', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -126,7 +126,7 @@ body {
 
 .app-footer p {
   margin: 0;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   color: var(--cc-hairline-strong, #475569);
 }
 
@@ -157,14 +157,30 @@ body {
 
 .prompt-card h2 {
   margin: 0 0 0.5rem;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
+  font-weight: 600;
   color: var(--cc-ink, #e2e8f0);
 }
 
 .prompt-card p {
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   color: var(--cc-body, #94a3b8);
-  line-height: 1.5;
+  line-height: 1.6;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .main-content {
+    padding: 1rem 0.75rem;
+  }
+
+  .container {
+    gap: 1.5rem;
+  }
+
+  .prompt-card {
+    padding: 1.5rem;
+  }
 }
 </style>

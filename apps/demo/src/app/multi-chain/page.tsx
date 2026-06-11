@@ -296,7 +296,7 @@ function CrossChainFlow() {
   const steps = [
     { label: 'Initiate', detail: 'User selects chain A', icon: <LinkIcon className="w-8 h-8" /> },
     { label: 'Lock', detail: 'Assets locked on source', icon: <LockIcon className="w-8 h-8" /> },
-    { label: 'Relay', detail: 'Cinacoin Relay', icon: <ZapIcon className="w-8 h-8" /> },
+    { label: 'Relay', detail: 'CinaCoin Relay', icon: <ZapIcon className="w-8 h-8" /> },
     { label: 'Mint/Release', detail: 'Assets on chain B', icon: <LockOpenIcon className="w-8 h-8" /> },
     { label: 'Complete', detail: 'Cross-chain transfer', icon: <CheckCircleIcon className="w-8 h-8" /> },
   ];
@@ -311,7 +311,7 @@ function CrossChainFlow() {
   return (
     <div className="bg-[var(--cc-canvas-soft-2)]/40 backdrop-blur rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 p-8 overflow-hidden">
       <h2 className="text-display-sm font-semibold tracking-tighter text-[var(--cc-ink)] mb-2">Cross-Chain Flow</h2>
-      <p className="text-body-sm text-[var(--cc-muted)] mb-8">Atomic cross-chain transfers powered by Cinacoin Relay protocol</p>
+      <p className="text-body-sm text-[var(--cc-muted)] mb-8">Atomic cross-chain transfers powered by CinaCoin Relay protocol</p>
 
       <div className="relative">
         <div className="absolute top-10 left-10 right-10 h-0.5 bg-[var(--cc-canvas-soft-2)]">
@@ -352,12 +352,12 @@ function CrossChainFlow() {
 function UnifiedApiExample() {
   const [copied, setCopied] = useState(false);
 
-  const code = `// Cinacoin — Unified Multi-Chain API
+  const code = `// CinaCoin — Unified Multi-Chain API
 // One interface. Every chain. Zero complexity.
 
-import { Cinacoin } from '@cinacoin/sdk';
+import { CinaCoin } from '@cinacoin/sdk';
 
-const client = new Cinacoin();
+const client = new CinaCoin();
 
 // Connect to ANY chain with the same API
 const eth = await client.connect('ethereum', 'MetaMask');
@@ -709,7 +709,7 @@ export default function MultiChainPage() {
         <div className="text-center py-4">
           <p className="text-body-sm text-[var(--cc-body)]">
             Powered by{' '}
-            <span className="text-[var(--cc-muted)] font-semibold">Cinacoin SDK</span>
+            <span className="text-[var(--cc-muted)] font-semibold">CinaCoin SDK</span>
             {' '}— one interface, every chain.
           </p>
         </div>

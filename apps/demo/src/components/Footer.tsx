@@ -13,7 +13,7 @@ const defaultLinks = [
 ];
 
 export default function Footer({
-  brand = 'Cinacoin',
+  brand = 'CinaCoin',
   copyrightYear = 2026,
   links = defaultLinks,
   githubUrl = 'https://github.com/cinaseek/cinacoin',

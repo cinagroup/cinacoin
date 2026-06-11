@@ -28,7 +28,7 @@ const en: Translations = {
   'common.copy': 'Copy',
   'common.copied': '✓ Copied',
   // Footer
-  'footer.copyright': '© {year} Cinacoin. Open source under MIT License.',
+  'footer.copyright': '© {year} CinaCoin. Open source under MIT License.',
   'footer.github': 'GitHub',
   // Home page
   'home.title': 'Wallet Connection Toolkit',
@@ -40,7 +40,7 @@ const en: Translations = {
   'home.viewDocs': 'View Docs',
   'home.features': 'Everything you need to connect wallets',
   'home.readyTitle': 'Ready to get started?',
-  'home.readyDesc': 'Start building with Cinacoin. Open source, self-hosted, and free forever.',
+  'home.readyDesc': 'Start building with CinaCoin. Open source, self-hosted, and free forever.',
   // Swap page
   'swap.title': 'Token Swap',
   'swap.subtitle': 'Swap tokens with real DEX aggregator rates',
@@ -82,7 +82,7 @@ const en: Translations = {
   'settings.subtitle': 'Customize your demo experience',
   // Components page
   'components.title': 'Component Gallery',
-  'components.subtitle': 'Browse all Cinacoin components with live theme previews',
+  'components.subtitle': 'Browse all CinaCoin components with live theme previews',
   // Theme toggle
   'theme.light': 'Light',
   'theme.dark': 'Dark',
@@ -107,7 +107,7 @@ const zh: Translations = {
   'common.disconnected': '未连接',
   'common.copy': '复制',
   'common.copied': '✓ 已复制',
-  'footer.copyright': '© {year} Cinacoin. 开源 MIT 许可。',
+  'footer.copyright': '© {year} CinaCoin. 开源 MIT 许可。',
   'footer.github': 'GitHub',
   'home.title': '钱包连接工具包',
   'home.subtitle': '开源钱包连接工具包',
@@ -118,7 +118,7 @@ const zh: Translations = {
   'home.viewDocs': '查看文档',
   'home.features': '连接钱包所需的一切',
   'home.readyTitle': '准备开始了吗？',
-  'home.readyDesc': '开始使用 Cinacoin。开源、自托管、永远免费。',
+  'home.readyDesc': '开始使用 CinaCoin。开源、自托管、永远免费。',
   'swap.title': '代币兑换',
   'swap.subtitle': '使用真实 DEX 聚合器汇率兑换代币',
   'swap.from': '从',
@@ -149,7 +149,7 @@ const zh: Translations = {
   'settings.title': '设置',
   'settings.subtitle': '自定义您的演示体验',
   'components.title': '组件库',
-  'components.subtitle': '浏览所有 Cinacoin 组件并实时预览主题',
+  'components.subtitle': '浏览所有 CinaCoin 组件并实时预览主题',
   'theme.light': '浅色',
   'theme.dark': '深色',
 };

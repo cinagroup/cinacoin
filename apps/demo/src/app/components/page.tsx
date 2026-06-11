@@ -185,7 +185,7 @@ export default function ComponentsPage() {
           <h1 className="text-display-lg font-semibold tracking-tight bg-gradient-to-r from-[var(--cc-link)]/80 via-[var(--cc-link)]/70 to-[var(--cc-link)]/60 bg-clip-text text-transparent">
             Component Gallery
           </h1>
-          <p className="text-[var(--cc-muted)] text-body-sm">Browse all Cinacoin components with live theme previews</p>
+          <p className="text-[var(--cc-muted)] text-body-sm">Browse all CinaCoin components with live theme previews</p>
         </div>
 
         {/* ── Theme Switcher ── */}
@@ -765,7 +765,7 @@ warning('High Gas', 'Gas prices are above average');`}
         {/* ── Footer ── */}
         <div className="text-center py-8 border-t border-[var(--cc-hairline)]/50">
           <p className="text-body-sm text-[var(--cc-body)]">
-            Cinacoin Component Gallery — {Object.keys(THEMES).length} themes × {8} components
+            CinaCoin Component Gallery — {Object.keys(THEMES).length} themes × {8} components
           </p>
           <p className="text-caption text-[var(--cc-ink)] mt-1">
             All components use Tailwind CSS with consistent design tokens

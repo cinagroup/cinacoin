@@ -1,16 +1,16 @@
 <template>
-  <header class="app-header">
+  <header class="app-header" role="banner">
     <div class="header-content">
       <div class="brand">
-        <span class="logo">🔢</span>
+        <span class="logo" aria-hidden="true">🔢</span>
         <div>
-          <h1 class="title">Cinacoin</h1>
-          <p class="subtitle">Vue SDK Demo</p>
+          <h1 class="title">CinaCoin.</h1>
+          <p class="subtitle">Vue SDK demo.</p>
         </div>
       </div>
 
-      <div class="status-area">
-        <span class="status-dot" :class="statusDotClass"></span>
+      <div class="status-area" role="status" :aria-label="`Connection status: ${statusLabel}`">
+        <span class="status-dot" :class="statusDotClass" aria-hidden="true"></span>
         <span class="status-text">{{ statusLabel }}</span>
       </div>
     </div>
@@ -25,12 +25,12 @@ const { status, account } = useCinacoin()
 
 const statusLabel = computed(() => {
   const labels: Record<string, string> = {
-    disconnected: 'Disconnected',
+    disconnected: 'Disconnected.',
     connecting: 'Connecting...',
-    connected: 'Connected',
-    error: 'Error',
+    connected: 'Connected.',
+    error: 'Error.',
   }
-  return labels[status.value] ?? 'Unknown'
+  return labels[status.value] ?? 'Unknown.'
 })
 
 const statusDotClass = computed(() => {
@@ -94,7 +94,7 @@ const statusDotClass = computed(() => {
   background: rgba(0, 0, 0, 0.2);
   padding: 0.375rem 0.75rem;
   border-radius: 9999px;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   color: var(--cc-body, #cbd5e1);
 }
 
@@ -113,5 +113,29 @@ const statusDotClass = computed(() => {
 @keyframes pulse {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.4; }
+}
+
+/* ── Responsive ───────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .app-header {
+    padding: 0.75rem 1rem;
+  }
+
+  .header-content {
+    gap: 0.75rem;
+  }
+
+  .title {
+    font-size: 1.125rem;
+  }
+
+  .subtitle {
+    font-size: 0.6875rem;
+  }
+
+  .status-area {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+  }
 }
 </style>

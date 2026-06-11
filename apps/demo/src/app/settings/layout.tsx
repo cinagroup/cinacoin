@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Settings — Cinacoin',
-  description: 'Customize your Cinacoin demo experience.',
+  title: 'Settings — CinaCoin',
+  description: 'Customize your CinaCoin demo experience.',
 };
 
 export default function SettingsLayout({ children }: { children: React.ReactNode }) {
