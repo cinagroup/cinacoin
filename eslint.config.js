@@ -26,6 +26,16 @@ export default [
   ...tseslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
 
+  // Parser options for type-aware rules
+  {
+    languageOptions: {
+      parserOptions: {
+        project: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+  },
+
   // Import sorting and organization
   {
     plugins: {

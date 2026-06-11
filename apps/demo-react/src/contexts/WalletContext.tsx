@@ -29,14 +29,8 @@ export function formatAddress(addr: string): string {
  return `${addr.slice(0, 6)}...${addr.slice(-4)}`
 }
 
-declare global {
- interface Window {
- ethereum?: unknown
- }
-}
-
 // WalletConnect provider singleton
-let wcProvider: unknown = null
+let wcProvider: any = null
 
 export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
  const [state, setState] = useState<WalletState>({
