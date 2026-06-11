@@ -81,7 +81,7 @@ function PortfolioSummary({ balances }: { balances: ChainBalance[] }) {
   return (
     <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
       <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50 flex items-center justify-between">
-        <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Portfolio Summary</h2>
+        <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)] inline-flex items-center gap-2"><TrendingUp className="w-5 h-5" /> Portfolio Summary</h2>
         <span className="text-caption text-[var(--cc-body)]">{withBalance.length} chains with balance</span>
       </div>
 

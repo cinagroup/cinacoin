@@ -358,13 +358,13 @@ import { Cinacoin } from '@cinacoin/sdk';
 
 const client = new Cinacoin();
 
-// 🔗 Connect to ANY chain with the same API
+// Connect to ANY chain with the same API
 const eth = await client.connect('ethereum', 'MetaMask');
 const sol = await client.connect('solana', 'Phantom');
 const btc = await client.connect('bitcoin', 'Xverse');
 const ton = await client.connect('ton', 'Tonkeeper');
 
-// 💰 Read balances across chains
+// Read balances across chains
 const balances = await Promise.all([
   client.getBalance('ethereum', eth.address),
   client.getBalance('solana', sol.address),
@@ -372,7 +372,7 @@ const balances = await Promise.all([
   client.getBalance('ton', ton.address),
 ]);
 
-// ⚡ Cross-chain transfer
+// Cross-chain transfer
 const tx = await client.transfer({
   from: { chain: 'ethereum', address: eth.address },
   to:   { chain: 'solana',   address: sol.address },
@@ -380,7 +380,7 @@ const tx = await client.transfer({
   slippage: 0.5,
 });
 
-// 📡 Listen to events on all chains
+// Listen to events on all chains
 client.on('transaction', (event) => {
   // Handle transaction event
 });`;
