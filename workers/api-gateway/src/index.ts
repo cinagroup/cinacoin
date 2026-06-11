@@ -46,7 +46,10 @@ app.use('*', cacheMiddleware)
 // Middleware
 app.use('*', logger())
 // Secure CORS middleware (allowlist-based)
-app.use('*', envCorsMiddleware(process.env.ENVIRONMENT))
+app.use('*', async (c, next) => {
+  const envCors = envCorsMiddleware(c.env.ENVIRONMENT)
+  return envCors(c, next)
+})
 
 // Global rate limiting (1000 req/hour per IP)
 app.use('*', globalRateLimit())
