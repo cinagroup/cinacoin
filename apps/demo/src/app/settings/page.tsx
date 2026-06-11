@@ -1,22 +1,22 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Palette, Globe, Earth, Lock, Smartphone, Bug, HardDrive, Link, Sun, Moon, Square } from 'lucide-react';
+import { Palette, Globe, Earth, Lock, Smartphone, Bug, HardDrive, Link, Sun, Moon, Square, RefreshCw, Landmark, Camera } from 'lucide-react';
 import DemoLayout from '@/components/DemoLayout';
 import { useToast } from '@/lib/toast';
 import { clearConnectionHistory, getConnectionHistory } from '@/lib/connectionHistory';
 
 const LANGUAGES = [
-  { code: 'en', label: 'English', flag: '🇺🇸' },
-  { code: 'zh', label: '中文', flag: '🇨🇳' },
-  { code: 'ja', label: '日本語', flag: '🇯🇵' },
-  { code: 'ko', label: '한국어', flag: '🇰🇷' },
-  { code: 'es', label: 'Español', flag: '🇪🇸' },
-  { code: 'fr', label: 'Français', flag: '🇫🇷' },
-  { code: 'de', label: 'Deutsch', flag: '🇩🇪' },
-  { code: 'ru', label: 'Русский', flag: '🇷🇺' },
-  { code: 'pt', label: 'Português', flag: '🇧🇷' },
-  { code: 'ar', label: 'العربية', flag: '🇸🇦' },
+  { code: 'en', label: 'English', flag: 'EN' },
+  { code: 'zh', label: '中文', flag: '中' },
+  { code: 'ja', label: '日本語', flag: '日' },
+  { code: 'ko', label: '한국어', flag: '한' },
+  { code: 'es', label: 'Español', flag: 'ES' },
+  { code: 'fr', label: 'Français', flag: 'FR' },
+  { code: 'de', label: 'Deutsch', flag: 'DE' },
+  { code: 'ru', label: 'Русский', flag: 'РУ' },
+  { code: 'pt', label: 'Português', flag: 'PT' },
+  { code: 'ar', label: 'العربية', flag: 'عر' },
 ];
 
 const CHAINS_PREF = [
@@ -76,10 +76,10 @@ export default function SettingsPage() {
   const [personalizedOffers, setPersonalizedOffers] = useState(false);
   // Connected apps
   const [connectedApps] = useState([
-    { name: 'Uniswap', icon: '🔄', connected: '2 days ago', permissions: ['Wallet Connect', 'Sign Transactions'] },
-    { name: 'OpenSea', icon: '🎨', connected: '1 week ago', permissions: ['Wallet Connect', 'Sign Messages'] },
-    { name: 'Aave', icon: '🏦', connected: '3 days ago', permissions: ['Wallet Connect', 'Sign Transactions'] },
-    { name: 'Lens Protocol', icon: '📷', connected: '2 weeks ago', permissions: ['Wallet Connect', 'Sign Messages', 'Profile Update'] },
+    { name: 'Uniswap', icon: RefreshCw, connected: '2 days ago', permissions: ['Wallet Connect', 'Sign Transactions'] },
+    { name: 'OpenSea', icon: Palette, connected: '1 week ago', permissions: ['Wallet Connect', 'Sign Messages'] },
+    { name: 'Aave', icon: Landmark, connected: '3 days ago', permissions: ['Wallet Connect', 'Sign Transactions'] },
+    { name: 'Lens Protocol', icon: Camera, connected: '2 weeks ago', permissions: ['Wallet Connect', 'Sign Messages', 'Profile Update'] },
   ]);
   // Network
   const [rpcEndpoint, setRpcEndpoint] = useState('');
@@ -451,7 +451,7 @@ export default function SettingsPage() {
                   <div key={app.name} className="p-4 rounded-md bg-[var(--cc-canvas)]/40 border border-[var(--cc-hairline)]/40">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <span className="text-display-md">{app.icon}</span>
+                        <app.icon className="w-6 h-6 text-[var(--cc-body)]" />
                         <div>
                           <p className="text-body-sm font-semibold text-[var(--cc-body)]">{app.name}</p>
                           <p className="text-caption text-[var(--cc-body)]">Connected {app.connected}</p>
