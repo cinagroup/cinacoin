@@ -65,4 +65,4 @@ routes = [
 [[services]]
 binding = "ANALYTICS_API"
 service = "cinacoin-analytics-prod"
-environment = "production"
+# environment removed - use default

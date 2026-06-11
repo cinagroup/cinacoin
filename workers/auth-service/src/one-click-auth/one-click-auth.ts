@@ -4,7 +4,7 @@
  */
 import { Hono } from 'hono';
 import { secp256k1 } from '@noble/curves/secp256k1';
-import { keccak_256 } from '@noble/hashes/sha3';
+import { keccak_256 } from '@noble/hashes/sha3.js';
 import type { Env } from '../lib/types.js';
 import { generateTokenPair } from '../lib/jwt.js';
 import { withRateLimit } from '../middleware/rate-limit.js';
