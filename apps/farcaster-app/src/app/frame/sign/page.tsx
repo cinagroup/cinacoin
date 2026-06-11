@@ -11,8 +11,8 @@ export const metadata: Metadata = {
     input: 'Enter message to sign...',
     buttons: [
       { label: '✍️ Sign', action: 'post' },
-      { label: '📝 Template', action: 'post' },
-      { label: '🔙 Back', action: 'post' },
+      { label: 'Template', action: 'post' },
+      { label: 'Back', action: 'post' },
     ],
     postUrl: `${getAppUrl()}/frame/sign/`,
   }),

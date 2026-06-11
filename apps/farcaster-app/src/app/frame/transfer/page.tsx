@@ -10,9 +10,9 @@ export const metadata: Metadata = {
     title: 'Transfer Cinacoin',
     input: 'Recipient address (0x...)',
     buttons: [
-      { label: '💸 Send', action: 'post' },
-      { label: '📋 Recent', action: 'post' },
-      { label: '🔙 Back', action: 'post' },
+      { label: 'Send', action: 'post' },
+      { label: 'Recent', action: 'post' },
+      { label: 'Back', action: 'post' },
     ],
     postUrl: `${getAppUrl()}/frame/transfer/`,
   }),

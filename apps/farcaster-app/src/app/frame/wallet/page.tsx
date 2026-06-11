@@ -9,10 +9,10 @@ export const metadata: Metadata = {
     image: `${getAppUrl()}/og-wallet.png`,
     title: 'Cinacoin Wallet',
     buttons: [
-      { label: '💰 View Balance', action: 'post' },
-      { label: '💸 Transfer', action: 'post' },
+      { label: 'View Balance', action: 'post' },
+      { label: 'Transfer', action: 'post' },
       { label: '✍️ Sign Message', action: 'post' },
-      { label: '🏠 Home', action: 'post' },
+      { label: 'Home', action: 'post' },
     ],
     postUrl: `${getAppUrl()}/frame/wallet/`,
   }),

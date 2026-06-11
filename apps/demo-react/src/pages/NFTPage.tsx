@@ -10,12 +10,12 @@ import { CodeExample } from '../components/CodeExample';
 
 // Mock NFT data
 const MOCK_NFTS = [
-  { id: 1, name: 'Cinacoin Genesis #001', collection: 'Cinacoin Genesis', image: '🎨', traits: [{ key: 'Rarity', value: 'Legendary' }, { key: 'Chain', value: 'Ethereum' }] },
-  { id: 2, name: 'Web3 Explorer #042', collection: 'Web3 Pioneers', image: '🌐', traits: [{ key: 'Level', value: 'Gold' }, { key: 'Chain', value: 'Polygon' }] },
-  { id: 3, name: 'DeFi Master #108', collection: 'DeFi Legends', image: '💎', traits: [{ key: 'Power', value: '9001' }, { key: 'Chain', value: 'Ethereum' }] },
-  { id: 4, name: 'Meta Avatar #555', collection: 'MetaVerse', image: '👤', traits: [{ key: 'Style', value: 'Cyberpunk' }, { key: 'Chain', value: 'Solana' }] },
-  { id: 5, name: 'Crypto Cat #777', collection: 'CryptoKitties', image: '🐱', traits: [{ key: 'Gen', value: '12' }, { key: 'Chain', value: 'Ethereum' }] },
-  { id: 6, name: 'Pixel Land #003', collection: 'PixelWorld', image: '🏰', traits: [{ key: 'Size', value: 'Large' }, { key: 'Chain', value: 'Polygon' }] },
+  { id: 1, name: 'Cinacoin Genesis #001', collection: 'Cinacoin Genesis', image: 'ART', traits: [{ key: 'Rarity', value: 'Legendary' }, { key: 'Chain', value: 'Ethereum' }] },
+  { id: 2, name: 'Web3 Explorer #042', collection: 'Web3 Pioneers', image: 'WEB', traits: [{ key: 'Level', value: 'Gold' }, { key: 'Chain', value: 'Polygon' }] },
+  { id: 3, name: 'DeFi Master #108', collection: 'DeFi Legends', image: 'DIA', traits: [{ key: 'Power', value: '9001' }, { key: 'Chain', value: 'Ethereum' }] },
+  { id: 4, name: 'Meta Avatar #555', collection: 'MetaVerse', image: 'AVT', traits: [{ key: 'Style', value: 'Cyberpunk' }, { key: 'Chain', value: 'Solana' }] },
+  { id: 5, name: 'Crypto Cat #777', collection: 'CryptoKitties', image: 'CAT', traits: [{ key: 'Gen', value: '12' }, { key: 'Chain', value: 'Ethereum' }] },
+  { id: 6, name: 'Pixel Land #003', collection: 'PixelWorld', image: 'LND', traits: [{ key: 'Size', value: 'Large' }, { key: 'Chain', value: 'Polygon' }] },
 ];
 
 const CODE_EXAMPLE = `import { useCoinBalance, useCoinAccount } from '@cinacoin/core-sdk';

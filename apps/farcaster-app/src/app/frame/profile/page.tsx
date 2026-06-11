@@ -9,9 +9,9 @@ export const metadata: Metadata = {
     image: `${getAppUrl()}/og-profile.png`,
     title: 'Your Profile',
     buttons: [
-      { label: '🔗 Connect Wallet', action: 'post' },
-      { label: '🔄 Refresh', action: 'post' },
-      { label: '🏠 Home', action: 'post' },
+      { label: 'Connect Wallet', action: 'post' },
+      { label: 'Refresh', action: 'post' },
+      { label: 'Home', action: 'post' },
     ],
     postUrl: `${getAppUrl()}/frame/profile/`,
   }),
