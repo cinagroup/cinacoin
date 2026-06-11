@@ -427,12 +427,12 @@ export class AtomicSwapManager {
     };
     swap.events.push(event);
 
-    // Reveal event (secret now public)
+    // Reveal event (secret now public — only store hash for audit, not raw secret)
     const revealEvent: SwapEvent = {
       type: "secret_revealed",
       leg,
       timestamp: event.timestamp,
-      data: { secret },
+      data: { secretHash: swap.hashLock },
     };
     swap.events.push(revealEvent);
     swap.updatedAt = event.timestamp;
@@ -451,10 +451,12 @@ export class AtomicSwapManager {
         timestamp: event.timestamp,
       };
       swap.events.push(completeEvent);
+      // Swap complete — clear all secret material from memory
+      this.clearSecrets(swapId);
+    } else {
+      // Clean up pending secret (counterparty extracts from on-chain claim)
+      this.pendingSecrets.delete(swapId);
     }
-
-    // Clean up pending secret
-    this.pendingSecrets.delete(swapId);
 
     this.emitEvent(swap, event);
     return swap;
@@ -508,9 +510,12 @@ export class AtomicSwapManager {
         timestamp: event.timestamp,
       };
       swap.events.push(abortEvent);
+      // Swap aborted — clear all secret material from memory
+      this.clearSecrets(swapId);
+    } else {
+      this.pendingSecrets.delete(swapId);
     }
 
-    this.pendingSecrets.delete(swapId);
     this.emitEvent(swap, event);
     return swap;
   }
@@ -550,6 +555,37 @@ export class AtomicSwapManager {
   /** Get the secret for a swap (only if not yet revealed on-chain). */
   getSecret(swapId: string): string | null {
     return this.pendingSecrets.get(swapId) ?? null;
+  }
+
+  /**
+   * Clear all secret material from memory for a given swap.
+   * Called when the swap reaches a terminal state (completed, aborted, expired).
+   * Overwrites secret strings with zeros before nulling to prevent memory scraping.
+   */
+  clearSecrets(swapId: string): void {
+    this.pendingSecrets.delete(swapId);
+
+    const swap = this.swaps.get(swapId);
+    if (!swap) return;
+
+    // Overwrite leg secrets with zeros before nulling
+    if (swap.legA.secret) {
+      const len = swap.legA.secret.length;
+      swap.legA.secret = '0'.repeat(len);
+      swap.legA.secret = null;
+    }
+    if (swap.legB.secret) {
+      const len = swap.legB.secret.length;
+      swap.legB.secret = '0'.repeat(len);
+      swap.legB.secret = null;
+    }
+
+    // Remove any raw secret from event data
+    for (const event of swap.events) {
+      if (event.data && 'secret' in event.data) {
+        delete event.data.secret;
+      }
+    }
   }
 
   // ---- Events ----

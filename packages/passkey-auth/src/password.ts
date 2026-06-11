@@ -2,8 +2,17 @@
  * Password management for @cinacoin/passkey-auth.
  *
  * Uses PBKDF2-HMAC-SHA256 for secure password hashing with
- * in-memory storage. In production, replace the store with a
- * persistent database.
+ * pluggable storage backends.
+ *
+ * ⚠️  SECURITY WARNING:
+ * The default in-memory store (PASSWORD_STORE) is for development/testing ONLY.
+ * In production, passwords MUST be persisted to a secure database (Postgres, Redis,
+ * or similar) with proper access controls, encryption at rest, and audit logging.
+ * In-memory storage loses all data on process restart and is not shared across
+ * instances in a clustered deployment.
+ *
+ * To use persistent storage, call `configurePasswordStore()` with a custom
+ * PasswordStore implementation backed by your database.
  *
  * @packageDocumentation
  */
@@ -12,6 +21,8 @@ import { pbkdf2Async } from '@noble/hashes/pbkdf2.js';
 import { sha256 } from '@noble/hashes/sha2.js';
 import { bytesToHex, randomBytes } from '@noble/hashes/utils.js';
 import { logger } from '@cinacoin/logger';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 
 // ─── Types ──────────────────────────────────────────────────────────────
 
@@ -69,12 +80,145 @@ const DEFAULT_DK_LEN = 32;
 /** Salt length in bytes. */
 const SALT_LENGTH = 16;
 
-// ─── In-Memory Store ────────────────────────────────────────────────────
+// ─── Storage Backend ────────────────────────────────────────────────────
 
 /**
- * In-memory password store. In production, replace with Redis/Postgres.
+ * Abstract password store interface.
+ * Implement this to plug in a persistent backend (Postgres, Redis, etc.).
  */
-const PASSWORD_STORE = new Map<string, StoredPassword>();
+export interface PasswordStore {
+  get(walletId: string): StoredPassword | undefined;
+  set(walletId: string, entry: StoredPassword): void;
+  delete(walletId: string): boolean;
+  clear(): void;
+}
+
+/**
+ * ⚠️  IN-MEMORY STORE — DEVELOPMENT/TESTING ONLY.
+ *
+ * This store holds password hashes in process memory. It:
+ * - Loses all data on process restart
+ * - Is not shared across cluster instances
+ * - Has no encryption at rest
+ * - Should NEVER be used in production
+ *
+ * For production, implement PasswordStore with a proper database.
+ */
+class InMemoryPasswordStore implements PasswordStore {
+  private store = new Map<string, StoredPassword>();
+  get(walletId: string): StoredPassword | undefined { return this.store.get(walletId); }
+  set(walletId: string, entry: StoredPassword): void { this.store.set(walletId, entry); }
+  delete(walletId: string): boolean { return this.store.delete(walletId); }
+  clear(): void { this.store.clear(); }
+}
+
+/**
+ * File-based password store for environments where a full database is unavailable.
+ *
+ * ⚠️  Still less secure than a proper database. Use only when necessary.
+ * Entries are stored as JSON on disk — ensure file permissions are restrictive (0600).
+ */
+export class FilePasswordStore implements PasswordStore {
+  private filePath: string;
+  private cache: Map<string, StoredPassword> | null = null;
+
+  constructor(filePath: string) {
+    this.filePath = path.resolve(filePath);
+  }
+
+  private load(): Map<string, StoredPassword> {
+    if (this.cache) return this.cache;
+    try {
+      if (fs.existsSync(this.filePath)) {
+        const raw = fs.readFileSync(this.filePath, 'utf-8');
+        const data = JSON.parse(raw) as Record<string, StoredPassword>;
+        this.cache = new Map(Object.entries(data));
+      } else {
+        this.cache = new Map();
+      }
+    } catch {
+      logger.warn('[passkey-auth] Failed to load password store from disk, starting fresh');
+      this.cache = new Map();
+    }
+    return this.cache;
+  }
+
+  private persist(): void {
+    if (!this.cache) return;
+    const dir = path.dirname(this.filePath);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+    const data = Object.fromEntries(this.cache);
+    fs.writeFileSync(this.filePath, JSON.stringify(data, null, 2), { mode: 0o600 });
+  }
+
+  get(walletId: string): StoredPassword | undefined { return this.load().get(walletId); }
+  set(walletId: string, entry: StoredPassword): void { this.load().set(walletId, entry); this.persist(); }
+  delete(walletId: string): boolean { const r = this.load().delete(walletId); this.persist(); return r; }
+  clear(): void { this.load().clear(); this.persist(); }
+}
+
+/**
+ * Active password store. Defaults to in-memory (dev/test only).
+ * Use `configurePasswordStore()` to switch to a persistent backend.
+ *
+ * Can be configured via environment variable:
+ *   PASSWORD_STORE_PATH=/secure/path/passwords.json
+ *
+ * If PASSWORD_STORE_PATH is set, a FilePasswordStore will be used automatically
+ * at module initialization. Otherwise, falls back to in-memory (dev/test only).
+ */
+let activeStore: PasswordStore = (() => {
+  const storePath = process.env.PASSWORD_STORE_PATH;
+  if (storePath) {
+    logger.info(`[passkey-auth] Using file-based password store: ${storePath}`);
+    return new FilePasswordStore(storePath);
+  }
+  // ⚠️  WARNING: In-memory store is for development/testing ONLY
+  if (process.env.NODE_ENV === 'production') {
+    logger.warn(
+      '[passkey-auth] ⚠️  WARNING: Using in-memory password store in production! ' +
+      'Set PASSWORD_STORE_PATH environment variable or call configurePasswordStore() ' +
+      'with a persistent backend. In-memory storage loses all data on restart.'
+    );
+  }
+  return new InMemoryPasswordStore();
+})();
+
+/**
+ * Configure the password storage backend.
+ *
+ * @param store - A PasswordStore implementation (e.g., FilePasswordStore, or a custom DB-backed store).
+ *
+ * @example
+ * ```ts
+ * // Use file-based storage
+ * configurePasswordStore(new FilePasswordStore('/secure/passwords.json'));
+ *
+ * // Use a custom database store
+ * configurePasswordStore(new PostgresPasswordStore(dbConnection));
+ * ```
+ */
+export function configurePasswordStore(store: PasswordStore): void {
+  logger.info('[passkey-auth] Password store reconfigured');
+  activeStore = store;
+}
+
+/**
+ * Get the currently active password store (for testing/admin).
+ */
+export function getActiveStore(): PasswordStore {
+  return activeStore;
+}
+
+// Legacy alias for backward compatibility
+const PASSWORD_STORE_PROXY = {
+  get: (id: string) => activeStore.get(id),
+  set: (id: string, e: StoredPassword) => activeStore.set(id, e),
+  delete: (id: string) => activeStore.delete(id),
+  clear: () => activeStore.clear(),
+};
 
 // ─── Core Functions ─────────────────────────────────────────────────────
 
@@ -145,7 +289,7 @@ export async function setPassword(
     setAt: Date.now(),
   };
 
-  PASSWORD_STORE.set(walletId, entry);
+  activeStore.set(walletId, entry);
   return entry;
 }
 
@@ -168,7 +312,7 @@ export async function verifyPassword(
   walletId: string,
   password: string,
 ): Promise<boolean> {
-  const stored = PASSWORD_STORE.get(walletId);
+  const stored = activeStore.get(walletId);
   if (!stored) {
     return false;
   }
@@ -218,7 +362,7 @@ export async function changePassword(
   }
 
   // Remove old entry and set new one
-  PASSWORD_STORE.delete(walletId);
+  activeStore.delete(walletId);
   return setPassword(walletId, newPassword);
 }
 
@@ -302,7 +446,7 @@ export function calculatePasswordStrength(password: string): PasswordStrength {
  * @returns StoredPassword or undefined if not found.
  */
 export function getPasswordEntry(walletId: string): StoredPassword | undefined {
-  return PASSWORD_STORE.get(walletId);
+  return activeStore.get(walletId);
 }
 
 /**
@@ -312,12 +456,12 @@ export function getPasswordEntry(walletId: string): StoredPassword | undefined {
  * @returns True if the entry was found and removed.
  */
 export function removePassword(walletId: string): boolean {
-  return PASSWORD_STORE.delete(walletId);
+  return activeStore.delete(walletId);
 }
 
 /**
  * Clear all stored passwords.
  */
 export function clearAllPasswords(): void {
-  PASSWORD_STORE.clear();
+  activeStore.clear();
 }

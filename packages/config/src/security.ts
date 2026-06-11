@@ -9,18 +9,43 @@
 // CORS Configuration
 // ============================================================
 
-export const CORS_CONFIG = {
-  /** Allowed origins for API requests */
-  allowedOrigins: [
+/**
+ * Get allowed CORS origins based on environment.
+ * In production, localhost origins are excluded for security.
+ * Additional origins can be specified via CORS_EXTRA_ORIGINS environment variable (comma-separated).
+ */
+function getAllowedOrigins(): string[] {
+  const isProduction = process.env.NODE_ENV === 'production';
+
+  const productionOrigins = [
     'https://cinacoin.com',
     'https://www.cinacoin.com',
     'https://dash.cinacoin.com',
     'https://docs.cinacoin.com',
-    // Development origins (remove in production)
+  ];
+
+  const developmentOrigins = [
     'http://localhost:3000',
     'http://localhost:5173',
     'http://localhost:8080',
-  ],
+  ];
+
+  const extraOrigins = process.env.CORS_EXTRA_ORIGINS
+    ? process.env.CORS_EXTRA_ORIGINS.split(',').map(s => s.trim()).filter(Boolean)
+    : [];
+
+  if (isProduction) {
+    // ⚠️  SECURITY: localhost origins are NOT allowed in production
+    return [...productionOrigins, ...extraOrigins];
+  }
+
+  // Development/test: include localhost for local development
+  return [...productionOrigins, ...developmentOrigins, ...extraOrigins];
+}
+
+export const CORS_CONFIG = {
+  /** Allowed origins for API requests (environment-aware) */
+  allowedOrigins: getAllowedOrigins(),
 
   /** Allowed HTTP methods */
   allowedMethods: ['GET', 'POST', 'OPTIONS'],
