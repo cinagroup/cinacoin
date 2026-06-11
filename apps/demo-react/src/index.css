@@ -1,4 +1,4 @@
-/* Geist font — local */
+/* Geist font family — loaded locally per UI.md §7 */
 @font-face {
   font-family: 'Geist';
   src: url('../../../packages/design-tokens/assets/Geist-Regular.woff2') format('woff2');
@@ -21,11 +21,19 @@
   font-display: swap;
 }
 @font-face {
-  font-family: 'GeistMono';
+  font-family: 'Geist Mono';
   src: url('../../../packages/design-tokens/assets/GeistMono-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
+}
+
+/* Font CSS custom properties — consumed by design tokens (cinacoin.css) */
+:root {
+  --font-geist-sans: 'Geist';
+  --font-geist-mono: 'Geist Mono';
+  /* Alias used by components via font-[var(--font-mono)] */
+  --font-mono: var(--font-geist-mono);
 }
 
 /* Canonical Cinacoin design system — tokens + .cc-* primitives.
@@ -48,7 +56,7 @@
   }
 
   body {
-    font-family: 'Geist', system-ui, -apple-system, sans-serif;
+    font-family: var(--font-geist-sans), Geist, system-ui, -apple-system, sans-serif;
     background-color: var(--cc-canvas-soft, #fafafa);
     color: var(--cc-ink, #171717);
     -webkit-font-smoothing: antialiased;

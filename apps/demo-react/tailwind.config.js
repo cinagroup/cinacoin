@@ -7,7 +7,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        sans: ['var(--font-geist-sans)', 'Geist', 'system-ui', '-apple-system', 'sans-serif'],
+        mono: ['var(--font-geist-mono)', 'Geist Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'monospace'],
       },
       animation: {
         'fade-in': 'fadeIn 0.3s ease-out forwards',
