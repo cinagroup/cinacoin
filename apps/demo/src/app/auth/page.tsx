@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { useWallet, shortenAddress } from '@/lib/useWallet';
 import DemoLayout from '@/components/DemoLayout';
 import { useToast } from '@/lib/toast';
+import { KeyIcon, AlertTriangleIcon, ShieldIcon, ClipboardIcon, PenIcon, LockKeyholeIcon } from 'lucide-react';
 import { parseMessage } from '@cinacoin/siwe';
 import {
   createSiweMessage,
@@ -278,6 +279,7 @@ export default function AuthPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* ── Hero ── */}
         <section className="py-16 sm:py-20 text-center">
+          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">AUTH</p>
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--cc-link)]/10 border border-[var(--cc-primary)]/20 text-[var(--cc-link)] text-body-sm font-medium mb-6">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
@@ -444,7 +446,7 @@ export default function AuthPage() {
                 disabled={isSigningLoading}
                 className="w-full py-3 rounded-[6px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all disabled:opacity-50 text-body-sm"
               >
-                {isSigningLoading ? 'Waiting for wallet...' : '✍️ Sign SIWE Message'}
+                {isSigningLoading ? 'Waiting for wallet...' : <><PenIcon className="w-4 h-4 inline mr-1" />Sign SIWE Message</>}
               </button>
             )}
 
@@ -475,7 +477,7 @@ export default function AuthPage() {
                   onClick={handleVerify}
                   className="w-full py-3 rounded-[6px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all text-body-sm"
                 >
-                  🔐 Verify Signature
+                  <LockKeyholeIcon className="w-4 h-4 inline mr-1" /> Verify Signature
                 </button>
               </div>
             )}
@@ -530,7 +532,7 @@ export default function AuthPage() {
                 onClick={handleSign}
                 className="w-full py-3 rounded-[6px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all text-body-sm"
               >
-                ✍️ Sign SIWE Message
+                <PenIcon className="w-4 h-4 inline mr-1" /> Sign SIWE Message
               </button>
             )}
 
@@ -566,13 +568,13 @@ export default function AuthPage() {
           {/* ═══════════════════════════════════════════ */}
           <div className="rounded-[var(--cc-radius-md)] bg-[var(--cc-canvas)]/80 border border-[var(--cc-hairline)] p-6">
             <h2 className="text-body-lg font-semibold tracking-tighter mb-4 flex items-center gap-2">
-              <span className="text-[var(--cc-violet)]">🔑</span> Passkey Auth
+              <span className="text-[var(--cc-violet)]"><KeyIcon className="w-4 h-4" /></span> Passkey Auth
             </h2>
 
             {!webAuthnSupported && (
               <div className="mb-4 p-3 rounded-lg bg-[var(--cc-warning)]/10 border border-[var(--color-warning)]/20">
-                <p className="text-caption text-[var(--cc-warning)]">
-                  ⚠ WebAuthn is not supported in this browser. Try Chrome, Safari, or Firefox with a security key.
+                <p className="text-caption text-[var(--cc-warning)] flex items-center gap-1">
+                  <AlertTriangleIcon className="w-3 h-3" /> WebAuthn is not supported in this browser. Try Chrome, Safari, or Firefox with a security key.
                 </p>
               </div>
             )}
@@ -618,7 +620,7 @@ export default function AuthPage() {
                       onClick={handleLoginPasskey}
                       className="w-full py-3 rounded-[6px] bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all text-body-sm"
                     >
-                      🔑 Login with Passkey
+                      <KeyIcon className="w-4 h-4 inline mr-1" /> Login with Passkey
                     </button>
                     {/* Show registered usernames */}
                     <div className="mt-2 space-y-1">
@@ -723,7 +725,7 @@ export default function AuthPage() {
         {session?.authenticated && (
           <div className="rounded-[var(--cc-radius-md)] bg-[var(--cc-canvas)]/80 border border-[var(--cc-hairline)] p-6 sm:p-8 mb-16">
             <h3 className="text-display-sm font-semibold tracking-tighter mb-4 flex items-center gap-2">
-              <span className="text-[var(--cc-success)]">🛡️</span> Session Information
+              <span className="text-[var(--cc-success)]"><ShieldIcon className="w-5 h-5" /></span> Session Information
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {session.address && (
@@ -788,7 +790,7 @@ export default function AuthPage() {
         <section className="mb-16">
           <div className="rounded-[var(--cc-radius-md)] bg-[var(--cc-canvas)]/80 border border-[var(--cc-hairline)] p-6 sm:p-8">
             <h3 className="text-display-sm font-semibold tracking-tighter mb-4 flex items-center gap-2">
-              <span className="text-[var(--cc-success)]">📋</span> How It Works
+              <span className="text-[var(--cc-success)]"><ClipboardIcon className="w-5 h-5" /></span> How It Works
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* SIWE */}

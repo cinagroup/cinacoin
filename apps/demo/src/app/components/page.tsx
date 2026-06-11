@@ -4,6 +4,7 @@ import { useState, useCallback } from 'react';
 import DemoLayout from '@/components/DemoLayout';
 import { useWallet, shortenAddress } from '@/lib/useWallet';
 import { useToast } from '@/lib/toast';
+import { PaletteIcon, LinkIcon, RefreshCwIcon, SearchIcon, LockKeyholeIcon, ArrowLeftRightIcon } from 'lucide-react';
 
 /* ── theme presets ── */
 
@@ -180,6 +181,7 @@ export default function ComponentsPage() {
 
         {/* ── Header ── */}
         <div className="text-center space-y-2">
+          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">COMPONENTS</p>
           <h1 className="text-display-lg font-semibold tracking-tight bg-gradient-to-r from-[var(--cc-link)]/80 via-[var(--cc-link)]/70 to-[var(--cc-link)]/60 bg-clip-text text-transparent">
             Component Gallery
           </h1>
@@ -189,7 +191,7 @@ export default function ComponentsPage() {
         {/* ── Theme Switcher ── */}
         <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
           <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
-            <h2 className="text-body-lg font-semibold tracking-tight text-[var(--cc-ink)]">🎨 Theme Preview</h2>
+            <h2 className="text-body-lg font-semibold tracking-tight text-[var(--cc-ink)] flex items-center gap-2"><PaletteIcon className="w-5 h-5" /> Theme Preview</h2>
             <p className="text-caption text-[var(--cc-body)] mt-1">Switch themes to see all components update in real-time</p>
           </div>
           <div className="p-5">
@@ -255,11 +257,11 @@ export default function ComponentsPage() {
 
               {/* Icon buttons */}
               <div className="flex flex-wrap gap-3 items-center">
-                <button className="size-10 rounded-md bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-muted)] transition-all flex items-center justify-center text-body-lg">
-                  🔗
+                <button className="size-10 rounded-md bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-muted)] transition-all flex items-center justify-center">
+                  <LinkIcon className="w-5 h-5" />
                 </button>
-                <button className="size-10 rounded-md bg-[var(--cc-link)]/15 text-[var(--cc-link)] hover:bg-[var(--cc-link)]/25 border border-[var(--cc-primary)]/25 transition-all flex items-center justify-center text-body-lg">
-                  🔄
+                <button className="size-10 rounded-md bg-[var(--cc-link)]/15 text-[var(--cc-link)] hover:bg-[var(--cc-link)]/25 border border-[var(--cc-primary)]/25 transition-all flex items-center justify-center">
+                  <RefreshCwIcon className="w-5 h-5" />
                 </button>
                 <button className="size-10 rounded-md bg-[var(--cc-success)]/15 text-[var(--cc-success)] hover:bg-[var(--cc-success)]/25 border border-[var(--cc-success)]/25 transition-all flex items-center justify-center text-body-lg">
                   ✓
@@ -547,7 +549,7 @@ function ToggleSwitch({ checked, onChange }) {
                   placeholder="Search by name, symbol, or address..."
                   className="w-full px-4 py-3 pl-10 bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/50 rounded-md text-body-sm text-[var(--cc-body)] placeholder:text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-link)]/40"
                 />
-                <span className="absolute left-3 top-9 text-[var(--cc-body)]">🔍</span>
+                <span className="absolute left-3 top-9 text-[var(--cc-body)]"><SearchIcon className="w-4 h-4" /></span>
               </div>
 
               {/* Select */}
@@ -602,13 +604,13 @@ function ToggleSwitch({ checked, onChange }) {
               {/* Feature cards */}
               <div className="grid grid-cols-2 gap-3">
                 {[
-                  { icon: '🔗', title: 'Multi-Chain', desc: '16 chains, one SDK' },
-                  { icon: '🔐', title: 'SIWE Auth', desc: 'Sign-In With Ethereum' },
-                  { icon: '🔄', title: 'Token Swap', desc: 'DEX aggregation' },
-                  { icon: '🌉', title: 'Cross-Chain', desc: 'Unified bridge routing' },
+                  { icon: <LinkIcon className="w-8 h-8" />, title: 'Multi-Chain', desc: '16 chains, one SDK' },
+                  { icon: <LockKeyholeIcon className="w-8 h-8" />, title: 'SIWE Auth', desc: 'Sign-In With Ethereum' },
+                  { icon: <RefreshCwIcon className="w-8 h-8" />, title: 'Token Swap', desc: 'DEX aggregation' },
+                  { icon: <ArrowLeftRightIcon className="w-8 h-8" />, title: 'Cross-Chain', desc: 'Unified bridge routing' },
                 ].map((f) => (
                   <div key={f.title} className="group p-4 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline)] hover:border-[var(--cc-hairline-strong)] hover:bg-[var(--cc-canvas-soft-2)]/60 transition-all cursor-default">
-                    <div className="text-display-md mb-2">{f.icon}</div>
+                    <div className="mb-2 text-[var(--cc-body)]">{f.icon}</div>
                     <h4 className="text-body-sm font-semibold text-[var(--cc-body)]">{f.title}</h4>
                     <p className="text-caption text-[var(--cc-body)] mt-1">{f.desc}</p>
                   </div>

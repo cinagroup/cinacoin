@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useMemo } from 'react';
 import DemoLayout from '@/components/DemoLayout';
+import { LockIcon, ZapIcon, GlobeIcon, MoonIcon, CircleDotIcon, DiamondIcon } from 'lucide-react';
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -76,7 +77,7 @@ function generateMockQuotes(
     {
       providerId: 'moonpay' as const,
       providerName: 'MoonPay',
-      icon: '🌙',
+      icon: 'moonpay',
       feePercent: 4.5,
       fixedFee: 4.99,
       time: 10,
@@ -88,7 +89,7 @@ function generateMockQuotes(
     {
       providerId: 'ramp' as const,
       providerName: 'Ramp',
-      icon: '🟢',
+      icon: 'ramp',
       feePercent: 2.5,
       fixedFee: 1.50,
       time: 5,
@@ -100,7 +101,7 @@ function generateMockQuotes(
     {
       providerId: 'transak' as const,
       providerName: 'Transak',
-      icon: '🔷',
+      icon: 'transak',
       feePercent: 2.0,
       fixedFee: 0.0,
       time: 15,
@@ -189,7 +190,7 @@ function ProviderCard({
     >
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
-          <span className="text-display-sm">{quote.icon}</span>
+          <span className="text-display-sm">{quote.providerName === 'MoonPay' ? <MoonIcon className="w-6 h-6" /> : quote.providerName === 'Ramp' ? <CircleDotIcon className="w-6 h-6" /> : <DiamondIcon className="w-6 h-6" />}</span>
           <span className="font-semibold tracking-tighter text-[var(--cc-ink)]">{quote.providerName}</span>
         </div>
         {quote.isBest && (
@@ -292,6 +293,7 @@ export default function OnrampPage() {
 
         {/* ── Header ─────────────────────────────────────── */}
         <div className="text-center space-y-2">
+          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">ON-RAMP</p>
           <h1 className="text-display-lg font-semibold tracking-tighter bg-gradient-to-r from-[var(--cc-link)]/80 via-[var(--cc-link)] to-[var(--cc-link)]/60 bg-clip-text text-transparent">
             Fiat On-Ramp
           </h1>
@@ -539,23 +541,23 @@ const quote = await aggregator.getBestQuote({
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {[
             {
-              icon: '🔒',
+              icon: <LockIcon className="w-8 h-8" />,
               title: 'Secure',
               desc: 'All providers are regulated and use KYC/AML compliance.',
             },
             {
-              icon: '⚡',
+              icon: <ZapIcon className="w-8 h-8" />,
               title: 'Fast',
               desc: 'Receive crypto in minutes with instant payment methods.',
             },
             {
-              icon: '🌍',
+              icon: <GlobeIcon className="w-8 h-8" />,
               title: 'Global',
               desc: 'Support for 150+ countries and multiple fiat currencies.',
             },
           ].map((card) => (
             <div key={card.title} className="bg-[var(--cc-canvas-soft-2)]/40 rounded-md border border-[var(--cc-hairline-strong)]/40 p-5 text-center">
-              <span className="text-display-md">{card.icon}</span>
+              <span className="text-[var(--cc-body)]">{card.icon}</span>
               <h3 className="text-[var(--cc-ink)] font-semibold mt-2">{card.title}</h3>
               <p className="text-[var(--cc-muted)] text-body-sm mt-1">{card.desc}</p>
             </div>

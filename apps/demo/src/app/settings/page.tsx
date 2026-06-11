@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { Palette, Globe, Earth, Lock, Smartphone, Bug, HardDrive, Link, Sun, Moon, Square } from 'lucide-react';
 import DemoLayout from '@/components/DemoLayout';
 import { useToast } from '@/lib/toast';
 import { clearConnectionHistory, getConnectionHistory } from '@/lib/connectionHistory';
@@ -24,14 +25,14 @@ const CHAINS_PREF = [
 ];
 
 const SETTINGS_SECTIONS = [
-  { id: 'appearance', label: 'Appearance', icon: '🎨' },
-  { id: 'language', label: 'Language', icon: '🌐' },
-  { id: 'network', label: 'Network', icon: '🌍' },
-  { id: 'privacy', label: 'Privacy', icon: '🔒' },
-  { id: 'connectedApps', label: 'Connected Apps', icon: '📱' },
-  { id: 'debug', label: 'Debug', icon: '🐛' },
-  { id: 'storage', label: 'Storage', icon: '💾' },
-  { id: 'connection', label: 'Connection', icon: '🔗' },
+  { id: 'appearance', label: 'Appearance', icon: Palette },
+  { id: 'language', label: 'Language', icon: Globe },
+  { id: 'network', label: 'Network', icon: Earth },
+  { id: 'privacy', label: 'Privacy', icon: Lock },
+  { id: 'connectedApps', label: 'Connected Apps', icon: Smartphone },
+  { id: 'debug', label: 'Debug', icon: Bug },
+  { id: 'storage', label: 'Storage', icon: HardDrive },
+  { id: 'connection', label: 'Connection', icon: Link },
 ] as const;
 
 type SectionId = (typeof SETTINGS_SECTIONS)[number]['id'];
@@ -159,7 +160,7 @@ export default function SettingsPage() {
               : 'bg-[var(--cc-canvas-soft-2)]/40 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)]'
           }`}
         >
-          <span>{(() => { const Icon = s.icon; return <Icon className="h-4 w-4" />; })()}</span>
+          <s.icon className="h-4 w-4" />
           {s.label}
         </button>
       ))}
@@ -171,6 +172,7 @@ export default function SettingsPage() {
       <div className="max-w-2xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-8">
+          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">SETTINGS</p>
           <h1 className="text-display-lg font-semibold tracking-tighter bg-gradient-to-r from-[var(--cc-link)] to-[var(--cc-violet)] bg-clip-text text-transparent">
             Settings
           </h1>
@@ -225,33 +227,33 @@ export default function SettingsPage() {
                   <div className="flex gap-2">
                     <button
                       onClick={() => { setTheme('dark'); success('Theme Updated', 'Switched to dark mode'); }}
-                      className={`px-4 py-2 rounded-md text-body-sm font-medium transition-all ${
+                      className={`px-4 py-2 rounded-md text-body-sm font-medium transition-all flex items-center gap-2 ${
                         theme === 'dark'
                           ? 'bg-[var(--cc-link)]/20 text-[var(--cc-link)] border border-[var(--cc-primary)]/30'
                           : 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)]'
                       }`}
                     >
-                      🌙 Dark
+                      <Moon className="w-4 h-4" /> Dark
                     </button>
                     <button
                       onClick={() => { setTheme('light'); success('Theme Updated', 'Switched to light mode'); }}
-                      className={`px-4 py-2 rounded-md text-body-sm font-medium transition-all ${
+                      className={`px-4 py-2 rounded-md text-body-sm font-medium transition-all flex items-center gap-2 ${
                         theme === 'light'
                           ? 'bg-[var(--cc-link)]/20 text-[var(--cc-link)] border border-[var(--cc-primary)]/30'
                           : 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)]'
                       }`}
                     >
-                      ☀️ Light
+                      <Sun className="w-4 h-4" /> Light
                     </button>
                     <button
                       onClick={() => { setTheme('minimal'); success('Theme Updated', 'Switched to minimal mode'); }}
-                      className={`px-4 py-2 rounded-md text-body-sm font-medium transition-all ${
+                      className={`px-4 py-2 rounded-md text-body-sm font-medium transition-all flex items-center gap-2 ${
                         theme === 'minimal'
                           ? 'bg-[var(--cc-link)]/20 text-[var(--cc-link)] border border-[var(--cc-primary)]/30'
                           : 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)]'
                       }`}
                     >
-                      ◻️ Minimal
+                      <Square className="w-4 h-4" /> Minimal
                     </button>
                   </div>
                 </div>
@@ -273,7 +275,7 @@ export default function SettingsPage() {
           <div className="space-y-6">
             <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
               <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
-                <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">🌐 Language</h2>
+                <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Language</h2>
               </div>
               <div className="p-5 space-y-2">
                 {LANGUAGES.map((lang) => (
@@ -307,7 +309,7 @@ export default function SettingsPage() {
           <div className="space-y-6">
             <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
               <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
-                <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">🌍 Network Settings</h2>
+                <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Network Settings</h2>
               </div>
               <div className="p-5 space-y-4">
                 <div className="flex items-center justify-between">
@@ -376,7 +378,7 @@ export default function SettingsPage() {
           <div className="space-y-6">
             <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
               <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
-                <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">🔒 Privacy & Data</h2>
+                <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Privacy & Data</h2>
               </div>
               <div className="p-5 space-y-4">
                 <div className="flex items-center justify-between">
@@ -441,7 +443,7 @@ export default function SettingsPage() {
           <div className="space-y-6">
             <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
               <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
-                <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">📱 Connected Apps</h2>
+                <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Connected Apps</h2>
                 <p className="text-caption text-[var(--cc-body)] mt-1">Manage wallet connections to external applications</p>
               </div>
               <div className="p-5 space-y-3">
@@ -482,7 +484,7 @@ export default function SettingsPage() {
           <div className="space-y-6">
             <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
               <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
-                <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">🐛 Debug Options</h2>
+                <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Debug Options</h2>
               </div>
               <div className="p-5 space-y-4">
                 <div className="flex items-center justify-between">
@@ -523,7 +525,7 @@ export default function SettingsPage() {
           <div className="space-y-6">
             <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
               <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
-                <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">💾 Storage Management</h2>
+                <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Storage Management</h2>
               </div>
               <div className="p-5 space-y-4">
                 <div className="p-4 rounded-md bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/40">
@@ -566,7 +568,7 @@ export default function SettingsPage() {
           <div className="space-y-6">
             <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
               <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
-                <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">🔗 Connection Preferences</h2>
+                <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Connection Preferences</h2>
               </div>
               <div className="p-5 space-y-4">
                 <div className="flex items-center justify-between">

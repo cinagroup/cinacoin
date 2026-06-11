@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { Wallet, TrendingUp, AlertTriangle } from 'lucide-react';
 import DemoLayout from '@/components/DemoLayout';
 import { useWallet, shortenAddress } from '@/lib/useWallet';
 import { getMultiChainBalances, type ChainBalance } from '@/lib/multiChain';
@@ -80,7 +81,7 @@ function PortfolioSummary({ balances }: { balances: ChainBalance[] }) {
   return (
     <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
       <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50 flex items-center justify-between">
-        <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">💰 Portfolio Summary</h2>
+        <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Portfolio Summary</h2>
         <span className="text-caption text-[var(--cc-body)]">{withBalance.length} chains with balance</span>
       </div>
 
@@ -93,7 +94,7 @@ function PortfolioSummary({ balances }: { balances: ChainBalance[] }) {
             <SimulatedBadge size="xs" />
           </p>
           <p className="text-caption text-[var(--cc-body)] mt-1">Across {withBalance.length} chains</p>
-          <p className="text-caption text-[var(--cc-warning)]/70 mt-1">⚠ Simulated values — not from live market data</p>
+          <p className="text-caption text-[var(--cc-warning)]/70 mt-1 inline-flex items-center gap-1"><AlertTriangle className="w-3 h-3" /> Simulated values — not from live market data</p>
         </div>
 
         {/* Per-chain breakdown */}
@@ -260,6 +261,7 @@ export default function ProfilePage() {
 
         {/* ── Header ── */}
         <div className="text-center space-y-2">
+          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">PROFILE</p>
           <h1 className="text-display-lg font-semibold tracking-tighter bg-gradient-to-r from-[var(--cc-link)]/80 via-[var(--cc-link)]/70 to-[var(--cc-link)]/60 bg-clip-text text-transparent">
             Profile
           </h1>
@@ -336,7 +338,7 @@ export default function ProfilePage() {
             {/* ── Multi-Wallet Display ── */}
             <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
               <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
-                <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">👛 Connected Wallets</h2>
+                <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)] inline-flex items-center gap-2"><Wallet className="w-5 h-5" /> Connected Wallets</h2>
                 <p className="text-caption text-[var(--cc-body)] mt-1">All wallets linked to this profile</p>
               </div>
               <div className="p-5 space-y-3">

@@ -12,6 +12,7 @@ import {
   type ChainBalance,
   type ChainHealthStatus,
 } from '@/lib/multiChain';
+import { LinkIcon, LockIcon, ZapIcon, LockOpenIcon, CheckCircleIcon, CopyIcon } from 'lucide-react';
 
 // ─── Network Status Indicator ─────────────────────────────────────────────────
 
@@ -292,11 +293,11 @@ function CrossChainFlow() {
   const [activeStep, setActiveStep] = useState(0);
 
   const steps = [
-    { label: 'Initiate', detail: 'User selects chain A', icon: '🔗' },
-    { label: 'Lock', detail: 'Assets locked on source', icon: '🔒' },
-    { label: 'Relay', detail: 'Cinacoin Relay', icon: '⚡' },
-    { label: 'Mint/Release', detail: 'Assets on chain B', icon: '🔓' },
-    { label: 'Complete', detail: 'Cross-chain transfer', icon: '✅' },
+    { label: 'Initiate', detail: 'User selects chain A', icon: <LinkIcon className="w-8 h-8" /> },
+    { label: 'Lock', detail: 'Assets locked on source', icon: <LockIcon className="w-8 h-8" /> },
+    { label: 'Relay', detail: 'Cinacoin Relay', icon: <ZapIcon className="w-8 h-8" /> },
+    { label: 'Mint/Release', detail: 'Assets on chain B', icon: <LockOpenIcon className="w-8 h-8" /> },
+    { label: 'Complete', detail: 'Cross-chain transfer', icon: <CheckCircleIcon className="w-8 h-8" /> },
   ];
 
   useEffect(() => {
@@ -323,10 +324,10 @@ function CrossChainFlow() {
           {steps.map((step, i) => (
             <div key={step.label} className="flex flex-col items-center gap-3 z-10 w-20 sm:w-24 md:w-32">
               <div
-                className={`w-20 h-20 rounded-[var(--cc-radius-md)] flex items-center justify-center text-display-lg transition-all duration-500 ${
+                className={`w-20 h-20 rounded-[var(--cc-radius-md)] flex items-center justify-center transition-all duration-500 ${
                   i <= activeStep
-                    ? 'bg-gradient-to-br from-[var(--cc-link)]/20 to-[var(--cc-link)]/10 border-2 border-[var(--cc-link)]/40 shadow-[var(--cc-level3)] scale-105'
-                    : 'bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline-strong)]/60 opacity-50'
+                    ? 'bg-gradient-to-br from-[var(--cc-link)]/20 to-[var(--cc-link)]/10 border-2 border-[var(--cc-link)]/40 shadow-[var(--cc-level3)] scale-105 text-[var(--cc-link)]'
+                    : 'bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline-strong)]/60 opacity-50 text-[var(--cc-body)]'
                 }`}
               >
                 {step.icon}
@@ -409,7 +410,7 @@ client.on('transaction', (event) => {
               : 'bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)]'
           }`}
         >
-          {copied ? '✓ Copied' : '📋 Copy'}
+          {copied ? '✓ Copied' : <><CopyIcon className="w-3 h-3 inline mr-1" />Copy</>}
         </button>
       </div>
 
@@ -583,6 +584,7 @@ export default function MultiChainPage() {
       <div className="max-w-6xl mx-auto space-y-8">
         {/* Hero */}
         <div className="text-center space-y-4 py-6">
+          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">MULTI-CHAIN</p>
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-[var(--cc-link)]/10 border border-[var(--cc-primary)]/20 rounded-full text-body-sm text-[var(--cc-link)] mb-2">
             <span className="w-2 h-2 rounded-full bg-[var(--cc-link)] animate-pulse" />
             {isConnected
