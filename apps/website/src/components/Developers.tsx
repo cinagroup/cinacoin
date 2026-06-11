@@ -60,7 +60,7 @@ export default function Developers() {
               <div
                 className="flex items-center gap-2 pb-3 mb-3 border-b border-[var(--cc-hairline-strong)]"
               >
-                {['var(--color-terminal-close)', 'var(--color-terminal-minimize)', 'var(--color-terminal-maximize)'].map((color, dot) => (
+                {['var(--cc-terminal-close)', 'var(--cc-terminal-minimize)', 'var(--cc-terminal-maximize)'].map((color, dot) => (
                   <div
                     key={dot}
                     className="h-2.5 w-2.5 rounded-full"
