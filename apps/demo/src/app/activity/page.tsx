@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useMemo } from 'react';
+import { ClipboardList, Link, Repeat, Globe, Lock, Search } from 'lucide-react';
 import DemoLayout from '@/components/DemoLayout';
 import { useWallet, shortenAddress } from '@/lib/useWallet';
 import { getConnectionHistory, type ConnectionRecord } from '@/lib/connectionHistory';
@@ -27,12 +28,12 @@ const CHAINS = [
   'BNB Chain', 'Solana', 'Avalanche', 'TON', 'Cosmos',
 ];
 
-const TYPE_FILTERS: { value: ActivityType | 'all'; label: string; icon: string }[] = [
-  { value: 'all', label: 'All', icon: '📋' },
-  { value: 'connection', label: 'Connections', icon: '🔗' },
-  { value: 'swap', label: 'Swaps', icon: '🔄' },
-  { value: 'chain_switch', label: 'Chain Switches', icon: '🌐' },
-  { value: 'auth', label: 'Auth', icon: '🔐' },
+const TYPE_FILTERS: { value: ActivityType | 'all'; label: string; icon: React.ComponentType<{ className?: string }> }[] = [
+  { value: 'all', label: 'All', icon: ClipboardList },
+  { value: 'connection', label: 'Connections', icon: Link },
+  { value: 'swap', label: 'Swaps', icon: Repeat },
+  { value: 'chain_switch', label: 'Chain Switches', icon: Globe },
+  { value: 'auth', label: 'Auth', icon: Lock },
 ];
 
 const PAGE_SIZE = 10;
@@ -55,12 +56,12 @@ function formatDate(ts: number): string {
   return new Date(ts).toLocaleString();
 }
 
-function typeIcon(type: ActivityType): string {
+function typeIcon(type: ActivityType): React.ComponentType<{ className?: string }> {
   switch (type) {
-    case 'connection': return '🔗';
-    case 'swap': return '🔄';
-    case 'chain_switch': return '🌐';
-    case 'auth': return '🔐';
+    case 'connection': return Link;
+    case 'swap': return Repeat;
+    case 'chain_switch': return Globe;
+    case 'auth': return Lock;
   }
 }
 
@@ -208,6 +209,7 @@ export default function ActivityPage() {
 
         {/* ── Header ── */}
         <div className="text-center space-y-2">
+          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">ACTIVITY</p>
           <h1 className="text-display-lg font-semibold tracking-tighter bg-gradient-to-r from-[var(--cc-link)] via-[var(--cc-cyan)] to-[var(--cc-success)] bg-clip-text text-transparent">
             Activity History
           </h1>
@@ -266,7 +268,7 @@ export default function ActivityPage() {
                     : 'bg-[var(--cc-canvas-soft-2)]/40 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)]'
                 }`}
               >
-                <span>{f.icon}</span>
+                <f.icon className="w-4 h-4" />
                 {f.label}
               </button>
             ))}
@@ -290,7 +292,7 @@ export default function ActivityPage() {
         {/* ── Activity List ── */}
         {paginated.length === 0 ? (
           <div className="text-center py-16 bg-[var(--cc-canvas-soft-2)]/30 rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/40">
-            <p className="text-display-lg mb-3">🔍</p>
+            <Search className="w-8 h-8 mx-auto mb-3 text-[var(--cc-muted)]" />
             <p className="text-[var(--cc-muted)] text-body-sm">No activities found</p>
             <p className="text-[var(--cc-body)] text-caption mt-1">Connect your wallet and start interacting to see activity here.</p>
           </div>
@@ -305,7 +307,7 @@ export default function ActivityPage() {
                   aria-label={`${item.title} - ${item.status}`}
                 >
                   <div className="flex items-center gap-3">
-                    <span className="text-body-lg">{typeIcon(item.type)}</span>
+                    {(() => { const Icon = typeIcon(item.type); return <Icon className="w-5 h-5 text-[var(--cc-body)]" />; })()}
                     <div className="flex-1 min-w-0">
                       <p className="text-body-sm font-medium text-[var(--cc-body)] truncate">{item.title}</p>
                       <p className="text-caption text-[var(--cc-body)] truncate">{item.description}</p>

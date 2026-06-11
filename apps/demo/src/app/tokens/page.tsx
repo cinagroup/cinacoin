@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useCallback, useMemo, useEffect } from 'react';
+import { Search } from 'lucide-react';
 import DemoLayout from '@/components/DemoLayout';
 import { useWallet, shortenAddress } from '@/lib/useWallet';
 import { useToast } from '@/lib/toast';
@@ -389,6 +390,7 @@ export default function TokensPage() {
 
         {/* ── Header ── */}
         <div className="text-center space-y-2">
+          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">TOKENS</p>
           <h1 className="text-display-lg font-semibold tracking-tighter bg-gradient-to-r from-[var(--cc-link)]/80 via-[var(--cc-link)] to-[var(--cc-link)]/60 bg-clip-text text-transparent">
             Token Search & Swap
           </h1>
@@ -444,7 +446,7 @@ export default function TokensPage() {
 className="w-full h-[40px] px-4 pl-10 bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline-strong)]/50 rounded-[6px] text-body-sm text-[var(--cc-body)] placeholder:text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-primary)]/40"
                 aria-label="Search tokens"
               />
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--cc-body)]">🔍</span>
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--cc-body)]" />
             </div>
 
             {/* Token list */}

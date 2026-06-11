@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
+import { FileText, Send, Link2, RefreshCw, CheckCircle } from 'lucide-react';
 import DemoLayout from '@/components/DemoLayout';
 import { useWallet, shortenAddress } from '@/lib/useWallet';
 import { useToast } from '@/lib/toast';
@@ -292,10 +293,10 @@ export default function SwapPage() {
 
     setSwapState('swapping');
     setTxSteps([
-      { label: 'Preparing transaction', icon: '📝', status: 'active' },
-      { label: 'Sending to wallet', icon: '📤', status: 'pending' },
-      { label: 'Confirming on-chain', icon: '⛓️', status: 'pending' },
-      { label: 'Swap complete', icon: '✅', status: 'pending' },
+      { label: 'Preparing transaction', icon: 'file-text', status: 'active' },
+      { label: 'Sending to wallet', icon: 'send', status: 'pending' },
+      { label: 'Confirming on-chain', icon: 'link-2', status: 'pending' },
+      { label: 'Swap complete', icon: 'check-circle', status: 'pending' },
     ]);
     info('Swap Initiated', `Swapping ${fromAmount} ${fromToken.symbol} → ${toToken.symbol}`);
 
@@ -339,10 +340,10 @@ export default function SwapPage() {
       if (fromToken.address !== 'native') {
         setSwapState('approving');
         setTxSteps([
-          { label: 'Preparing transaction', icon: '📝', status: 'done' },
-          { label: 'Approving token spend', icon: '🔓', status: 'active' },
-          { label: 'Executing swap', icon: '🔄', status: 'pending' },
-          { label: 'Swap complete', icon: '✅', status: 'pending' },
+          { label: 'Preparing transaction', icon: 'file-text', status: 'done' },
+          { label: 'Approving token spend', icon: 'unlock', status: 'active' },
+          { label: 'Executing swap', icon: 'refresh-cw', status: 'pending' },
+          { label: 'Swap complete', icon: 'check-circle', status: 'pending' },
         ]);
         info('Approval Required', `Approving ${fromToken.symbol} for swap...`);
 
@@ -384,10 +385,10 @@ export default function SwapPage() {
 
       // Execute the swap
       setTxSteps([
-        { label: 'Preparing transaction', icon: '📝', status: 'done' },
-        { label: 'Approving token spend', icon: '🔓', status: fromToken.address === 'native' ? 'done' : 'pending' },
-        { label: 'Executing swap', icon: '🔄', status: 'active' },
-        { label: 'Swap complete', icon: '✅', status: 'pending' },
+        { label: 'Preparing transaction', icon: 'file-text', status: 'done' },
+        { label: 'Approving token spend', icon: 'unlock', status: fromToken.address === 'native' ? 'done' : 'pending' },
+        { label: 'Executing swap', icon: 'refresh-cw', status: 'active' },
+        { label: 'Swap complete', icon: 'check-circle', status: 'pending' },
       ]);
       const txHash = await executeSwap(result.tx);
       info('Swap Sent', `Tx: ${shortenAddress(txHash)}`);
@@ -410,10 +411,10 @@ export default function SwapPage() {
       setSwapHistory(getSwapHistory());
 
       setTxSteps([
-        { label: 'Preparing transaction', icon: '📝', status: 'done' },
-        { label: 'Approving token spend', icon: '🔓', status: 'done' },
-        { label: 'Executing swap', icon: '🔄', status: 'done' },
-        { label: 'Swap complete', icon: '✅', status: 'done' },
+        { label: 'Preparing transaction', icon: 'file-text', status: 'done' },
+        { label: 'Approving token spend', icon: 'unlock', status: 'done' },
+        { label: 'Executing swap', icon: 'refresh-cw', status: 'done' },
+        { label: 'Swap complete', icon: 'check-circle', status: 'done' },
       ]);
       setSwapState('success');
       success('Swap Complete', `${fromAmount} ${fromToken.symbol} → ${quote?.toTokenAmountFormatted ?? displayToAmount} ${toToken.symbol}`);
@@ -469,6 +470,7 @@ export default function SwapPage() {
 
         {/* ── Header ─────────────────────────────────────── */}
         <div className="text-center space-y-2">
+          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">SWAP</p>
           <h1 className="text-display-lg font-semibold tracking-tighter text-[var(--cc-ink)]">
             Token swap.
           </h1>
