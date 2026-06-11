@@ -32,15 +32,15 @@ export default function LoginPage() {
         {/* Login Card */}
         <div className="bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] p-6 shadow-[var(--cc-level2)]">
           {/* Mono eyebrow */}
-          <p className="font-mono text-[12px] text-[var(--cc-muted)] mb-2 tracking-wide">
+          <p className="cc-caption-mono text-[var(--cc-muted)] mb-2 tracking-wide">
             AUTHENTICATION
           </p>
           
           {/* Title — sentence case + period */}
-          <h1 className="text-[20px] font-semibold text-[var(--cc-ink)] mb-1 tracking-[-0.6px]">
+          <h1 className="cc-display-sm text-[var(--cc-ink)] mb-1">
             Log in to your account.
           </h1>
-          <p className="text-[14px] text-[var(--cc-body)] mb-6">
+          <p className="cc-body-sm text-[var(--cc-body)] mb-6">
             Welcome back to CinaCoin.
           </p>
 
@@ -52,7 +52,7 @@ export default function LoginPage() {
             )}
 
             <div>
-              <label htmlFor="email" className="block text-[13px] font-medium text-[var(--cc-ink)] mb-1.5">
+              <label htmlFor="email" className="block cc-body-sm-strong text-[var(--cc-ink)] mb-1.5">
                 Email
               </label>
               <input
@@ -63,13 +63,13 @@ export default function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 autoComplete="email"
-                className="w-full h-10 px-3 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-sm)] text-[14px] text-[var(--cc-ink)] placeholder:text-[var(--cc-muted)] focus:outline-none focus:border-[var(--cc-link)] focus:ring-3 focus:ring-[rgba(0,112,243,0.1)] transition-colors"
+                className="cc-form-input"
                 placeholder="name@example.com"
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-[13px] font-medium text-[var(--cc-ink)] mb-1.5">
+              <label htmlFor="password" className="block cc-body-sm-strong text-[var(--cc-ink)] mb-1.5">
                 Password
               </label>
               <input
@@ -80,7 +80,7 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 autoComplete="current-password"
-                className="w-full h-10 px-3 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-sm)] text-[14px] text-[var(--cc-ink)] placeholder:text-[var(--cc-muted)] focus:outline-none focus:border-[var(--cc-link)] focus:ring-3 focus:ring-[rgba(0,112,243,0.1)] transition-colors"
+                className="cc-form-input"
                 placeholder="••••••••"
               />
             </div>
@@ -88,7 +88,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full h-10 bg-[var(--cc-primary)] text-[var(--cc-on-primary)] rounded-[var(--cc-radius-sm)] text-[14px] font-medium hover:bg-[var(--cc-primary-hover)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="cc-btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? "Logging in..." : "Log in"}
             </button>
@@ -96,7 +96,7 @@ export default function LoginPage() {
         </div>
 
         {/* Footer */}
-        <p className="mt-4 text-center text-[12px] text-[var(--cc-muted)]">
+        <p className="mt-4 text-center cc-caption text-[var(--cc-muted)]">
           Don&apos;t have an account?{" "}
           <a href="/register" className="text-[var(--cc-link)] hover:underline">
             Sign up

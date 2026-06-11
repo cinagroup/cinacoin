@@ -132,8 +132,8 @@ const cinacoinPreset: Config = {
       // TYPOGRAPHY
       // ═══════════════════════════════════════════════════════════════
       fontFamily: {
-        sans: ['Geist', 'Inter', 'system-ui', 'sans-serif'],
-        mono: ['Geist Mono', 'ui-monospace', 'monospace'],
+        sans: ['var(--font-geist-sans)', 'Inter', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-geist-mono)', 'ui-monospace', 'monospace'],
       },
       
       fontWeight: {
