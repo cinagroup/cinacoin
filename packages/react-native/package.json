@@ -28,7 +28,7 @@
     "@cinacoin/logger": "workspace:*"
   },
   "peerDependencies": {
-    "react": ">=18.0.0",
+    "react": "^18.0.0 || ^19.0.0",
     "react-native": ">=0.73.0"
   },
   "devDependencies": {
