@@ -142,7 +142,7 @@ const oneClickAuth = new Hono<{ Bindings: Env }>();
  * POST /auth/one-click/init
  * Initialize one-click auth by generating a pre-filled SIWE message
  */
-oneClickAuth.post('/one-click/init', withRateLimit('api'), async (c) => {
+oneClickAuth.post('/one-click/init', withRateLimit('oauth'), async (c) => {
   try {
     const body = await c.req.json();
     const { address, domain, chainId = 1, statement } = body;

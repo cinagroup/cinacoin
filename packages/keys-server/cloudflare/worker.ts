@@ -325,8 +325,28 @@ export default {
           return methodNotAllowed(origin);
         }
 
-        default:
+        case '/api/keys': {
+          const sessionError = await requireValidSession(request, env, origin);
+          if (sessionError) return sessionError;
+          if (request.method === 'GET') return listApiKeys(request, env, origin);
+          if (request.method === 'POST') return createApiKey(request, env, origin);
+          return methodNotAllowed(origin);
+        }
+
+        default: {
+          // Handle /api/keys/:id routes
+          const apiKeyMatch = url.pathname.match(/^\/api\/keys\/([^/]+)$/);
+          if (apiKeyMatch) {
+            const sessionError = await requireValidSession(request, env, origin);
+            if (sessionError) return sessionError;
+            const keyId = decodeURIComponent(apiKeyMatch[1]);
+            if (request.method === 'GET') return getApiKey(request, env, origin, keyId);
+            if (request.method === 'DELETE') return deleteApiKey(request, env, origin, keyId);
+            if (request.method === 'PATCH') return updateApiKey(request, env, origin, keyId);
+            return methodNotAllowed(origin);
+          }
           return notFound(origin);
+        }
       }
     } catch (err) {
       metrics.errorCount++;
@@ -482,6 +502,157 @@ async function createSession(request: Request, env: Env, origin: string | null):
   return jsonResponse({ id, address, expiresAt }, 201, origin);
 }
 
+// ---------------------------------------------------------------------------
+// API Keys Management
+// ---------------------------------------------------------------------------
+
+async function listApiKeys(request: Request, env: Env, origin: string | null): Promise<Response> {
+  const token = extractSessionToken(request);
+  const session = await validateSession(token!, env);
+  if (!session) {
+    return jsonResponse({ error: 'Unauthorized' }, 401, origin);
+  }
+
+  const result = await env.DB.prepare(
+    'SELECT id, name, key_prefix, permissions, expires_at, last_used_at, created_at, updated_at FROM api_keys WHERE user_id = ?'
+  ).bind(session.address).all();
+
+  return jsonResponse({ keys: result.results }, 200, origin);
+}
+
+async function getApiKey(request: Request, env: Env, origin: string | null, keyId: string): Promise<Response> {
+  const token = extractSessionToken(request);
+  const session = await validateSession(token!, env);
+  if (!session) {
+    return jsonResponse({ error: 'Unauthorized' }, 401, origin);
+  }
+
+  const result = await env.DB.prepare(
+    'SELECT id, name, key_prefix, permissions, expires_at, last_used_at, created_at, updated_at FROM api_keys WHERE id = ? AND user_id = ?'
+  ).bind(keyId, session.address).first();
+
+  if (!result) {
+    return jsonResponse({ error: 'API key not found' }, 404, origin);
+  }
+
+  return jsonResponse({ key: result }, 200, origin);
+}
+
+async function createApiKey(request: Request, env: Env, origin: string | null): Promise<Response> {
+  const token = extractSessionToken(request);
+  const session = await validateSession(token!, env);
+  if (!session) {
+    return jsonResponse({ error: 'Unauthorized' }, 401, origin);
+  }
+
+  let body: unknown;
+  try {
+    body = await request.json();
+  } catch {
+    return jsonResponse({ error: 'Invalid JSON' }, 400, origin);
+  }
+
+  const raw = body as Record<string, unknown>;
+  const name = raw.name;
+  const permissions = raw.permissions;
+
+  if (typeof name !== 'string' || !name || name.length > 100) {
+    return jsonResponse({ error: 'Missing or invalid field: name (max 100 chars)' }, 400, origin);
+  }
+
+  // Generate a new API key
+  const apiKey = 'ck_' + crypto.randomUUID().replace(/-/g, '') + crypto.randomUUID().replace(/-/g, '');
+  const keyHash = await hashApiKey(apiKey);
+  const keyPrefix = apiKey.substring(0, 12);
+
+  const id = crypto.randomUUID();
+  const now = Date.now();
+  const permissionsStr = typeof permissions === 'object' && permissions !== null
+    ? JSON.stringify(permissions)
+    : '{}';
+
+  await env.DB.prepare(
+    'INSERT INTO api_keys (id, user_id, name, key_hash, key_prefix, permissions, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
+  ).bind(id, session.address, name, keyHash, keyPrefix, permissionsStr, now, now).run();
+
+  // Return the full key only on creation
+  return jsonResponse({ id, name, key: apiKey, keyPrefix, permissions: permissionsStr, createdAt: now }, 201, origin);
+}
+
+async function deleteApiKey(request: Request, env: Env, origin: string | null, keyId: string): Promise<Response> {
+  const token = extractSessionToken(request);
+  const session = await validateSession(token!, env);
+  if (!session) {
+    return jsonResponse({ error: 'Unauthorized' }, 401, origin);
+  }
+
+  const result = await env.DB.prepare(
+    'DELETE FROM api_keys WHERE id = ? AND user_id = ?'
+  ).bind(keyId, session.address).run();
+
+  if (!result.meta?.changes || result.meta.changes === 0) {
+    return jsonResponse({ error: 'API key not found' }, 404, origin);
+  }
+
+  return jsonResponse({ success: true, id: keyId }, 200, origin);
+}
+
+async function updateApiKey(request: Request, env: Env, origin: string | null, keyId: string): Promise<Response> {
+  const token = extractSessionToken(request);
+  const session = await validateSession(token!, env);
+  if (!session) {
+    return jsonResponse({ error: 'Unauthorized' }, 401, origin);
+  }
+
+  let body: unknown;
+  try {
+    body = await request.json();
+  } catch {
+    return jsonResponse({ error: 'Invalid JSON' }, 400, origin);
+  }
+
+  const raw = body as Record<string, unknown>;
+  const permissions = raw.permissions;
+  const name = raw.name;
+
+  if (permissions === undefined && name === undefined) {
+    return jsonResponse({ error: 'No fields to update (name or permissions)' }, 400, origin);
+  }
+
+  const now = Date.now();
+  let query = 'UPDATE api_keys SET updated_at = ?';
+  const params: (string | number)[] = [now];
+
+  if (typeof name === 'string' && name.length > 0 && name.length <= 100) {
+    query += ', name = ?';
+    params.push(name);
+  }
+
+  if (typeof permissions === 'object' && permissions !== null) {
+    query += ', permissions = ?';
+    params.push(JSON.stringify(permissions));
+  }
+
+  query += ' WHERE id = ? AND user_id = ?';
+  params.push(keyId, session.address);
+
+  const result = await env.DB.prepare(query).bind(...params).run();
+
+  if (!result.meta?.changes || result.meta.changes === 0) {
+    return jsonResponse({ error: 'API key not found' }, 404, origin);
+  }
+
+  return jsonResponse({ success: true, id: keyId }, 200, origin);
+}
+
+async function hashApiKey(apiKey: string): Promise<string> {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(apiKey);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
 function jsonResponse(data: unknown, status = 200, origin: string | null = null): Response {
   const headers: Record<string, string> = {
     ...corsHeaders(origin),
@@ -523,7 +694,7 @@ function corsHeaders(origin: string | null): Record<string, string> {
   const allowed = isAllowedOrigin(origin) ? origin : ALLOWED_ORIGINS[0];
   return {
     'Access-Control-Allow-Origin': allowed,
-    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Allow-Methods': 'GET, POST, PATCH, DELETE, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     'Access-Control-Max-Age': '86400',
     'Vary': 'Origin',

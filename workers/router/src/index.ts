@@ -97,7 +97,9 @@ const RETIRED_SUBDOMAINS: Record<string, string> = {
   'demo.cinacoin.com': '/demo',
   'wallet.cinacoin.com': '/wallets',
   'cloud.cinacoin.com': '/dashboard',
-  'analytics.cinacoin.com': '/analytics',
+  // analytics.cinacoin.com is NOT retired — it's the analytics API origin.
+  // API requests (/api/*) are proxied to the analytics-server Worker via
+  // service binding; non-API requests are proxied to the Pages project.
   'docs.cinacoin.com': '/docs',
   'developer.cinacoin.com': '/developer',
   'learn.cinacoin.com': '/learn',
@@ -388,11 +390,84 @@ function handleRetiredSubdomain(host: string, url: URL): Response | null {
 }
 
 // ---------------------------------------------------------------------------
+// Analytics API proxy
+// ---------------------------------------------------------------------------
+
+/**
+ * Return the upstream path if the request targets the analytics API.
+ * The analytics-server Worker registers routes at /v1/*, so we strip
+ * the /api prefix before forwarding:
+ *   /api/v1/events → /v1/events
+ *   /api/v1/health → /v1/health
+ *
+ * Matches:
+ *   - analytics.cinacoin.com/api/*  → /v1/*
+ *   - cinacoin.com/analytics/api/*  → /v1/*
+ */
+function getAnalyticsApiPath(host: string, pathname: string): string | null {
+  // Subdomain form: analytics.cinacoin.com/api/*
+  if (host === 'analytics.cinacoin.com' && pathname.startsWith('/api')) {
+    // Strip /api prefix so /api/v1/events → /v1/events
+    return pathname.slice('/api'.length) || '/';
+  }
+  // Canonical form: cinacoin.com/analytics/api/*
+  if (pathname.startsWith('/analytics/api')) {
+    // /analytics/api/v1/events → /v1/events
+    return pathname.slice('/analytics/api'.length) || '/';
+  }
+  return null;
+}
+
+/** Proxy a request to the analytics-server Worker via service binding. */
+async function proxyAnalyticsApi(
+  request: Request,
+  binding: Fetcher,
+  upstreamPath: string,
+): Promise<Response> {
+  const startTime = Date.now();
+
+  // Rebuild the request so the URL matches the analytics-server route pattern
+  const targetUrl = `https://analytics.internal${upstreamPath}`;
+  const upstreamReq = new Request(targetUrl, {
+    method: request.method,
+    headers: request.headers,
+    body: request.body,
+    redirect: 'manual',
+  });
+
+  try {
+    const resp = await binding.fetch(upstreamReq);
+    const durationMs = Date.now() - startTime;
+    logRequest({
+      timestamp: new Date().toISOString(),
+      method: request.method,
+      path: new URL(request.url).pathname,
+      target: `analytics-api:${upstreamPath}`,
+      status: resp.status,
+      durationMs,
+    });
+
+    // Forward response, ensuring CORS headers are present
+    const newHeaders = new Headers(resp.headers);
+    addCorsHeaders(newHeaders);
+    return new Response(resp.body, {
+      status: resp.status,
+      statusText: resp.statusText,
+      headers: newHeaders,
+    });
+  } catch (err) {
+    console.error(`[router] analytics API proxy error: ${err}`);
+    return new Response('Analytics API unavailable', { status: 502 });
+  }
+}
+
+// ---------------------------------------------------------------------------
 // Main handler
 // ---------------------------------------------------------------------------
 
 export interface Env {
-  // No bindings needed — the router proxies to Pages origins directly.
+  // Service binding to the analytics-server Worker for API proxying
+  ANALYTICS_API?: Fetcher;
 }
 
 export default {
@@ -419,6 +494,24 @@ export default {
       const resp = handleRoutesDebug();
       addCorsHeaders(resp.headers);
       return resp;
+    }
+
+    // --- Analytics API proxy ---
+    // analytics.cinacoin.com/api/* and cinacoin.com/analytics/api/* must be
+    // proxied to the analytics-server Worker (not 301-redirected to Pages).
+    // This MUST run before the retired-subdomain redirect so that POST
+    // requests are preserved (301 converts POST → GET, breaking ingestion).
+    const analyticsApiPath = getAnalyticsApiPath(host, pathname);
+    if (analyticsApiPath !== null && env.ANALYTICS_API) {
+      return proxyAnalyticsApi(request, env.ANALYTICS_API, analyticsApiPath);
+    }
+
+    // --- Analytics subdomain frontend proxy ---
+    // Non-API requests to analytics.cinacoin.com (dashboard UI) are proxied
+    // to the analytics Pages project (not 301-redirected).
+    if (host === 'analytics.cinacoin.com') {
+      const targetUrl = new URL(pathname + url.search, 'https://cinacoin-analytics.pages.dev');
+      return proxyWithFallback(request, targetUrl, 'https://cinacoin-analytics.pages.dev');
     }
 
     // --- Retired subdomain redirects ---

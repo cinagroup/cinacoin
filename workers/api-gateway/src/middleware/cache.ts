@@ -1,6 +1,13 @@
 import { Context, Next } from 'hono';
 
 export async function cacheMiddleware(c: Context, next: Next) {
+  // Skip caching for WebSocket upgrades and /ws paths
+  const upgradeHeader = c.req.header('Upgrade');
+  if (upgradeHeader?.toLowerCase() === 'websocket' || c.req.path.startsWith('/ws')) {
+    await next();
+    return;
+  }
+
   const url = new URL(c.req.url);
   const cacheKey = new Request(url.toString(), c.req.raw);
   const cache = caches.default;

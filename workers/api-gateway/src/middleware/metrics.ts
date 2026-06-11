@@ -1,6 +1,13 @@
 import { Context, Next } from 'hono';
 
 export async function metricsMiddleware(c: Context, next: Next) {
+  // Skip metrics for WebSocket upgrade requests
+  const upgradeHeader = c.req.header('Upgrade');
+  if (upgradeHeader?.toLowerCase() === 'websocket' || c.req.path.startsWith('/ws')) {
+    await next();
+    return;
+  }
+
   const startTime = Date.now();
   
   await next();

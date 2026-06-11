@@ -8,15 +8,16 @@ import type { Env } from '../lib/types.js';
 export interface RateLimitConfig {
   max: number;
   windowMs: number;
+  keyType: 'ip' | 'user';
 }
 
 export const RATE_LIMITS = {
-  login: { max: 5, windowMs: 15 * 60 * 1000 },
-  register: { max: 3, windowMs: 60 * 60 * 1000 },
-  oauth: { max: 10, windowMs: 15 * 60 * 1000 },
-  passwordReset: { max: 3, windowMs: 60 * 60 * 1000 },
-  mfaVerify: { max: 5, windowMs: 15 * 60 * 1000 },
-  api: { max: 100, windowMs: 60 * 1000 },
+  register:      { max: 5,  windowMs: 60 * 60 * 1000, keyType: 'ip'   as const }, // 5/hour/IP
+  login:         { max: 10, windowMs: 15 * 60 * 1000, keyType: 'ip'   as const }, // 10/15min/IP
+  refresh:       { max: 30, windowMs: 60 * 60 * 1000, keyType: 'user' as const }, // 30/hour/user
+  passwordReset: { max: 3,  windowMs: 60 * 60 * 1000, keyType: 'ip'   as const }, // 3/hour/IP
+  mfaVerify:     { max: 5,  windowMs: 15 * 60 * 1000, keyType: 'user' as const }, // 5/15min/user
+  oauth:         { max: 10, windowMs: 15 * 60 * 1000, keyType: 'ip'   as const }, // 10/15min/IP
 } as const;
 
 export type RateLimitType = keyof typeof RATE_LIMITS;
@@ -54,7 +55,6 @@ async function slidingWindowLimit(
 }> {
   const now = Date.now();
   const windowStart = now - config.windowMs;
-  const windowEnd = now + config.windowMs;
 
   // Get existing requests in window
   const existing = await kv.get(key, 'json');
@@ -92,8 +92,10 @@ async function slidingWindowLimit(
 export function withRateLimit(limitType: RateLimitType) {
   return async (c: Context<{ Bindings: Env }>, next: Next) => {
     const config = RATE_LIMITS[limitType];
-    const clientIp = getClientIp(c);
-    const key = `ratelimit:${limitType}:${clientIp}`;
+    const keyPart = config.keyType === 'user'
+      ? (c.req.header('x-user-id') ?? getClientIp(c))
+      : getClientIp(c);
+    const key = `ratelimit:${limitType}:${config.keyType}:${keyPart}`;
 
     const result = await slidingWindowLimit(c.env.KV, key, config);
 

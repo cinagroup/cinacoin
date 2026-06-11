@@ -58,3 +58,11 @@ routes = [
   { pattern = "telegram.cinacoin.com/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
   { pattern = "farcaster.cinacoin.com/*", zone_id = "9e9b0140baac8f501ded715128fa5415" },
 ]
+
+# Service binding to the analytics-server Worker for API proxying
+# Requests to analytics.cinacoin.com/api/* are proxied through this binding
+# instead of being 301-redirected (which converts POST→GET and breaks ingestion)
+[[services]]
+binding = "ANALYTICS_API"
+service = "cinacoin-analytics-prod"
+environment = "production"

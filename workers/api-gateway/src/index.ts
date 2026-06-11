@@ -1,6 +1,6 @@
 import { Hono } from 'hono'
 import { logger } from 'hono/logger'
-import { globalRateLimit, authRateLimit, withRateLimit } from './middleware/rateLimiter'
+import { globalRateLimit, withRateLimit } from './middleware/rateLimiter'
 import { envCorsMiddleware } from './middleware/cors'
 import { metricsMiddleware } from './middleware/metrics'
 import { cacheMiddleware } from './middleware/cache'
@@ -8,6 +8,7 @@ import abTesting from './routes/ab-testing'
 import search from './routes/search'
 import webVitals from './routes/analytics/web-vitals'
 import monitoring from './routes/monitoring'
+import websocket from './routes/websocket'
 
 export interface Env {
   AUTH_SERVICE: Fetcher
@@ -68,6 +69,7 @@ app.get('/health', (c) => {
 app.route('/', search);
 app.route('/', webVitals);
 app.route('/', monitoring);
+app.route('/', websocket);
 
 app.get('/', (c) => {
   return c.json({
@@ -100,7 +102,7 @@ app.all('/users/*', withRateLimit('users'), async (c) => {
 })
 
 // Teams routes - proxy to User Service (map to /api/teams/*)
-app.all('/teams/*', withRateLimit('teams'), async (c) => {
+app.all('/teams/*', withRateLimit('users'), async (c) => {
   const url = new URL(c.req.url)
   // User Service routes are at /api/teams/*, map /teams/* → /api/teams/*
   url.pathname = '/api' + url.pathname

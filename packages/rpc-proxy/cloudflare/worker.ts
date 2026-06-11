@@ -439,14 +439,8 @@ async function handleRpc(
     );
   }
 
-  // Block write methods entirely (EVM-specific; non-EVM chains don't use these)
-  if (WRITE_METHODS.has(body.method)) {
-    metrics.errorCount++;
-    return new Response(
-      JSON.stringify({ jsonrpc: "2.0", error: { code: -32000, message: "Write methods not supported on this proxy" }, id: body.id ?? null } as JsonRpcResponse),
-      { status: 403, headers }
-    );
-  }
+  // Write methods are forwarded to upstream (not blocked).
+  // They are never cached regardless of read-only status.
 
   const readOnly = isReadOnly(body.method);
   const ttl = Number(env.CACHE_TTL) || 300;
@@ -546,18 +540,31 @@ export default {
       return handleMetrics(origin);
     }
 
-    // RPC proxy: POST /rpc/:chainId
-    const rpcMatch = url.pathname.match(/^\/rpc\/([A-Za-z0-9-]+)$/);
-    if (rpcMatch && request.method === "POST") {
-      const chainId = rpcMatch[1];
-      const resolved = CHAIN_CONFIG[chainId] ?? CHAIN_CONFIG[chainId.toLowerCase()];
-      if (!resolved) {
-        return new Response(
-          JSON.stringify({ jsonrpc: "2.0", error: { code: -32601, message: `Unsupported chain: ${chainId}` }, id: null } as JsonRpcResponse),
-          { status: 400, headers: { "Content-Type": "application/json", ...makeCorsHeaders(origin) } }
-        );
+    // RPC proxy: POST / or POST /rpc/:chainId
+    if (request.method === "POST") {
+      let chainId: string | null = null;
+
+      // Root path: use X-Chain-Id header or default to Ethereum (1)
+      if (url.pathname === "/" || url.pathname === "") {
+        chainId = request.headers.get("x-chain-id") || "1";
+      } else {
+        // Explicit chain path: /rpc/:chainId
+        const rpcMatch = url.pathname.match(/^\/rpc\/([A-Za-z0-9-]+)$/);
+        if (rpcMatch) {
+          chainId = rpcMatch[1];
+        }
       }
-      return handleRpc(request, env, chainId);
+
+      if (chainId) {
+        const resolved = CHAIN_CONFIG[chainId] ?? CHAIN_CONFIG[chainId.toLowerCase()];
+        if (!resolved) {
+          return new Response(
+            JSON.stringify({ jsonrpc: "2.0", error: { code: -32601, message: `Unsupported chain: ${chainId}` }, id: null } as JsonRpcResponse),
+            { status: 400, headers: { "Content-Type": "application/json", ...makeCorsHeaders(origin) } }
+          );
+        }
+        return handleRpc(request, env, chainId);
+      }
     }
 
     return new Response(JSON.stringify({ error: "Not found" }), {

@@ -25,20 +25,20 @@ export interface RateLimitResult {
 export const RATE_LIMITS = {
   // Global limits
   global: {
-    perIP: { limit: 1000, windowMs: 3600000 },      // 1000/hour per IP
+    perIP: { limit: 2000, windowMs: 3600000 },      // 2000/hour per IP
     perUser: { limit: 5000, windowMs: 3600000 },    // 5000/hour per user
   },
 
-  // Authentication endpoints (strict)
+  // Authentication endpoints
   auth: {
-    perIP: { limit: 10, windowMs: 60000 },          // 10/minute per IP
-    perUser: { limit: 20, windowMs: 60000 },        // 20/minute per user
+    perIP: { limit: 200, windowMs: 15 * 60 * 1000 },  // 200/15min per IP
+    perUser: { limit: 200, windowMs: 15 * 60 * 1000 }, // 200/15min per user
   },
 
-  // API endpoints (moderate)
-  api: {
-    perIP: { limit: 300, windowMs: 60000 },         // 300/minute per IP
-    perUser: { limit: 1000, windowMs: 60000 },      // 1000/minute per user
+  // Users endpoints
+  users: {
+    perIP: { limit: 500, windowMs: 15 * 60 * 1000 },   // 500/15min per IP
+    perUser: { limit: 500, windowMs: 15 * 60 * 1000 }, // 500/15min per user
   },
 
   // Transaction endpoints (very strict)
@@ -161,6 +161,13 @@ function applyRateLimitHeaders(
  */
 export function perIPRateLimit(limitType: RateLimitType = 'global') {
   return async (c: Context<{ Bindings: Env }>, next: Next) => {
+    // Skip rate limiting for WebSocket upgrade requests
+    const upgradeHeader = c.req.header('Upgrade');
+    if (upgradeHeader?.toLowerCase() === 'websocket' || c.req.path.startsWith('/ws')) {
+      await next();
+      return;
+    }
+
     const config = RATE_LIMITS[limitType].perIP;
     const clientIp = getClientIp(c);
     const key = `ratelimit:${limitType}:ip:${clientIp}`;
@@ -248,6 +255,13 @@ export function perEndpointRateLimit(config: RateLimitConfig) {
  */
 export function combinedRateLimit(limitType: RateLimitType = 'global') {
   return async (c: Context<{ Bindings: Env }>, next: Next) => {
+    // Skip rate limiting for WebSocket upgrade requests
+    const upgradeHeader = c.req.header('Upgrade');
+    if (upgradeHeader?.toLowerCase() === 'websocket' || c.req.path.startsWith('/ws')) {
+      await next();
+      return;
+    }
+
     const clientIp = getClientIp(c);
     const userId = getUserId(c);
 
@@ -302,7 +316,7 @@ export function globalRateLimit() {
  * Endpoint-specific rate limiters
  */
 export const authRateLimit = combinedRateLimit('auth');
-export const apiRateLimit = combinedRateLimit('api');
+export const usersRateLimit = combinedRateLimit('users');
 export const transactionRateLimit = combinedRateLimit('transaction');
 export const websocketRateLimit = combinedRateLimit('websocket');
 
