@@ -7,6 +7,14 @@ import AnimatedNumber from '@/components/AnimatedNumber'
 import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { useI18n } from '@/providers/I18nProvider'
 import { sanitizeHtml } from '@/lib/sanitize'
+import { Unlock, Globe, Zap, Shield } from 'lucide-react'
+
+const principleIcons: Record<string, React.ComponentType<{ className?: string }>> = {
+  'unlock': Unlock,
+  'globe': Globe,
+  'zap': Zap,
+  'shield': Shield,
+}
 
 const timelineData = [
   { date: '2024 Q1', event: 'Project founded', detail: 'Started as an internal toolkit for cross-chain dApps' },
@@ -54,17 +62,20 @@ export default function AboutContent() {
               { iconKey: 'about-p2-icon', titleKey: 'about-p2-title', descKey: 'about-p2-desc' },
               { iconKey: 'about-p3-icon', titleKey: 'about-p3-title', descKey: 'about-p3-desc' },
               { iconKey: 'about-p4-icon', titleKey: 'about-p4-title', descKey: 'about-p4-desc' },
-            ].map((p, i) => (
+            ].map((p, i) => {
+              const IconComponent = principleIcons[t(p.iconKey)]
+              return (
               <FadeIn key={p.titleKey} delay={i * 100} direction="up" duration={600}>
                 <article className="cc-card h-full">
-                  <div className="text-[24px] mb-3" role="img" aria-label={t(p.titleKey)}>
-                    {t(p.iconKey)}
+                  <div className="mb-3" aria-hidden="true">
+                    {IconComponent && <IconComponent className="h-6 w-6 text-[var(--cc-ink)]" />}
                   </div>
                   <h3 className="cc-display-sm mb-2">{t(p.titleKey)}</h3>
                   <p className="cc-body-sm text-[var(--cc-body)]">{t(p.descKey)}</p>
                 </article>
               </FadeIn>
-            ))}
+              )
+            })}
           </div>
         </div>
       </section>

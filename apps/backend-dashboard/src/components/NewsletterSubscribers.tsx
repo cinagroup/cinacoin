@@ -2,6 +2,7 @@
 
 import { logger } from '@cinacoin/logger';
 import { useState, useEffect } from "react";
+import { Mail } from 'lucide-react';
 
 interface Subscriber {
   id: string;
@@ -52,7 +53,8 @@ export function NewsletterSubscribers() {
     <div className="bg-canvas border border-hairline rounded-sm p-lg">
       <div className="flex items-center justify-between mb-lg">
         <div>
-          <h2 className="text-heading-2 text-ink">Newsletter Subscribers</h2>
+          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">NEWSLETTER</p>
+          <h2 className="text-heading-2 text-ink">Newsletter subscribers.</h2>
           <p className="text-body text-body-color mt-1">
             Manage newsletter subscriptions
           </p>
@@ -102,7 +104,7 @@ export function NewsletterSubscribers() {
                   <tr>
                     <td colSpan={4} className="px-6 py-12 text-center">
                       <div className="flex flex-col items-center justify-center">
-                        <div className="text-4xl mb-4" aria-hidden="true">📧</div>
+                        <Mail className="w-8 h-8 text-[var(--cc-ink)] mb-4" />
                         <h3 className="text-heading-3 text-ink mb-1">No subscribers yet</h3>
                         <p className="text-body-sm text-mute max-w-sm">Newsletter subscribers will appear here once people sign up.</p>
                       </div>

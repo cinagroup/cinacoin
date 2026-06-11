@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
+import { Wrench } from 'lucide-react';
 
 interface LogEntry {
   id: string;
@@ -99,7 +100,7 @@ export default function DebugPanel() {
     <div className="fixed bottom-0 left-0 right-0 h-72 bg-primary text-on-primary border-t-2 border-warning z-50 flex flex-col font-mono text-caption">
       <div className="flex items-center justify-between px-4 py-2 bg-primary/95 border-b border-on-primary/20">
         <div className="flex items-center gap-4">
-          <span className="font-bold text-warning">🔧 Debug Console</span>
+          <span className="font-bold text-warning flex items-center gap-2"><Wrench className="w-4 h-4" /> Debug Console</span>
           <div className="flex gap-1">
             {(["all", "errors", "slow"] as const).map((f) => (
               <button

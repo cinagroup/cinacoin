@@ -3,6 +3,7 @@
 import { logger } from '@cinacoin/logger';
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import { File, Book, Package, Pen } from 'lucide-react';
 
 interface SearchResult {
   id: string;
@@ -150,10 +151,10 @@ export function GlobalSearch() {
                     }`}
                   >
                     <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-[var(--cc-canvas-soft-2)] flex items-center justify-center text-caption">
-                      {result.type === 'page' && '📄'}
-                      {result.type === 'doc' && '📚'}
-                      {result.type === 'product' && '📦'}
-                      {result.type === 'blog' && '📝'}
+                      {result.type === 'page' && <File className="w-4 h-4 text-[var(--cc-ink)]" />}
+                      {result.type === 'doc' && <Book className="w-4 h-4 text-[var(--cc-ink)]" />}
+                      {result.type === 'product' && <Package className="w-4 h-4 text-[var(--cc-ink)]" />}
+                      {result.type === 'blog' && <Pen className="w-4 h-4 text-[var(--cc-ink)]" />}
                     </span>
                     <div className="flex-1 min-w-0">
                       <p className="text-[var(--cc-ink)] font-medium truncate">{result.title}</p>
