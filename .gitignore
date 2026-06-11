@@ -12,6 +12,9 @@ out/
 .env
 .env.local
 .env.production
+.env.secrets
+*.secrets
+*.secrets*
 .dev.vars
 *.key
 *.pem
