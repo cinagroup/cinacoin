@@ -33,7 +33,7 @@
     "rxjs": "^7.0.0"
   },
   "dependencies": {
-    "@cinacoin/core-sdk": "^0.2.0",
+    "@cinacoin/core-sdk": "workspace:*",
     "tslib": "^2.6.0"
   },
   "devDependencies": {

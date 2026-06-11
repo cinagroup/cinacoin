@@ -12,7 +12,7 @@
   "dependencies": {
     "@cinacoin/logger": "workspace:*",
     "@cinacoin/next": "workspace:^",
-    "@cinacoin/ui": "file:../../packages/ui",
+    "@cinacoin/ui": "workspace:*",
     "dompurify": "^3.0.8",
     "geist": "^1.7.2",
     "isomorphic-dompurify": "^3.16.0",

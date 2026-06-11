@@ -40,8 +40,8 @@
     "react-dom": "^18.0.0 || ^19.0.0"
   },
   "dependencies": {
-    "@cinacoin/core-sdk": "^0.2.0",
-    "@cinacoin/explorer": "^0.2.0"
+    "@cinacoin/core-sdk": "workspace:*",
+    "@cinacoin/explorer": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^19.0.0",

@@ -34,7 +34,7 @@
     "@noble/hashes": "^2.2.0"
   },
   "peerDependencies": {
-    "@cinacoin/core-sdk": ">=0.2.0",
+    "@cinacoin/core-sdk": "workspace:*",
     "starknet": ">=6.0.0"
   },
   "publishConfig": {
