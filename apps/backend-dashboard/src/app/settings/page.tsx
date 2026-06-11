@@ -42,7 +42,7 @@ export default function SettingsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="cc-display-sm text-[var(--cc-ink)]">Settings</h1>
+          <h1 className="cc-display-sm text-[var(--cc-ink)]">Settings.</h1>
           <p className="cc-body-sm text-[var(--cc-muted)] mt-1">Configure dashboard preferences and API endpoints</p>
         </div>
         {saved && (
@@ -108,7 +108,7 @@ export default function SettingsPage() {
 
       {/* Monitoring */}
       <div className="cc-card">
-        <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Monitoring</h3>
+        <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Monitoring.</h3>
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <div>
@@ -178,7 +178,7 @@ export default function SettingsPage() {
 
       {/* Quick stats */}
       <div className="cc-card">
-        <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Dashboard Info</h3>
+        <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Dashboard info.</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div>
             <p className="cc-caption text-[var(--cc-muted)]">Version</p>

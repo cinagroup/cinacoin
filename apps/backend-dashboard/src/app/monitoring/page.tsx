@@ -47,7 +47,7 @@ export default function MonitoringPage() {
   return (
     <div className="p-6 space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-heading-1">Monitoring</h1>
+        <h1 className="text-heading-1">Monitoring.</h1>
         <select
           value={selectedService}
           onChange={(e) => setSelectedService(e.target.value)}
@@ -75,7 +75,7 @@ export default function MonitoringPage() {
           </p>
         </div>
         <div className="cc-card p-6">
-          <h3 className="text-body font-medium mb-2">Total Requests</h3>
+          <h3 className="text-body font-medium mb-2">Total requests.</h3>
           <p className="text-heading-2 text-link">
             {metrics.reduce((sum, m) => sum + m.requestCount, 0)}
           </p>

@@ -60,10 +60,10 @@ export async function connectWallet(): Promise<string> {
     throw new Error("No Ethereum wallet detected. Please install MetaMask.");
   }
 
-  const ethereum = (window as unknown as Window & typeof globalThis).ethereum;
-  const accounts: string[] = await ethereum.request({
+  const ethereum = (window as unknown as Window & typeof globalThis).ethereum!;
+  const accounts = (await ethereum.request({
     method: "eth_requestAccounts",
-  });
+  })) as string[];
 
   if (!accounts || accounts.length === 0) {
     throw new Error("No accounts returned from wallet.");
@@ -81,11 +81,11 @@ export async function signAndVerify(message: string, address: string): Promise<s
     throw new Error("No Ethereum wallet detected.");
   }
 
-  const ethereum = (window as unknown as Window & typeof globalThis).ethereum;
-  const signature: string = await ethereum.request({
+  const ethereum = (window as unknown as Window & typeof globalThis).ethereum!;
+  const signature = (await ethereum.request({
     method: "personal_sign",
     params: [message, address],
-  });
+  })) as string;
 
   return signature;
 }

@@ -177,7 +177,7 @@ export function AuditLog() {
         {/* Toolbar */}
         <div className="p-md border-b border-hairline">
           <div className="flex items-center justify-between mb-md">
-            <h2 className="text-heading-3 text-ink">Audit Log</h2>
+            <h2 className="text-heading-3 text-ink">Audit log.</h2>
             <div className="flex items-center gap-2">
               {selectedEntries.size > 0 && (
                 <span className="text-caption text-body-color mr-2">

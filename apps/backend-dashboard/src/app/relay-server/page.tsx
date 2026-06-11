@@ -48,7 +48,7 @@ export default function RelayServerPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="cc-display-sm text-[var(--cc-ink)]">Relay Server</h1>
+          <h1 className="cc-display-sm text-[var(--cc-ink)]">Relay server.</h1>
           <p className="cc-body-sm text-[var(--cc-muted)] mt-1">WebSocket relay via Durable Objects for real-time chain events</p>
         </div>
         <span className="cc-badge">Durable Objects • WebSocket</span>

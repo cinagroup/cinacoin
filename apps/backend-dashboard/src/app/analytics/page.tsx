@@ -70,7 +70,7 @@ export default function AnalyticsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="cc-display-sm text-[var(--cc-ink)]">Analytics</h1>
+          <h1 className="cc-display-sm text-[var(--cc-ink)]">Analytics.</h1>
           <p className="cc-body-sm text-[var(--cc-muted)] mt-1">
             AppKit usage metrics and connection analytics
           </p>
@@ -111,7 +111,7 @@ export default function AnalyticsPage() {
           <BarChart data={CONNECTIONS_DATA.map((v) => Math.round(v * multiplier))} labels={MONTHS} color="var(--cc-success)" height={160} ariaLabelledBy="connections-chart-heading" />
         </div>
         <div className="cc-card">
-          <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4" id="auth-chart-heading">Authentication Events</h3>
+          <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4" id="auth-chart-heading">Authentication events.</h3>
           <BarChart data={AUTH_DATA.map((v) => Math.round(v * multiplier))} labels={MONTHS} color="var(--cc-violet)" height={160} ariaLabelledBy="auth-chart-heading" />
         </div>
       </div>
@@ -157,7 +157,7 @@ export default function AnalyticsPage() {
 
       {/* Authentication methods */}
       <div className="cc-card">
-        <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Authentication Methods</h3>
+        <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Authentication methods.</h3>
         <div className="grid md:grid-cols-2 gap-6">
           <div className="space-y-3">
             {AUTH_METHODS.map((method) => (

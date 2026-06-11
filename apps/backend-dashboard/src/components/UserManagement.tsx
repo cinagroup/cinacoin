@@ -293,7 +293,7 @@ export function UserManagement() {
       <div className="cc-card">
         <div className="p-md border-b border-hairline">
           <div className="flex items-center justify-between">
-            <h2 className="text-heading-3 text-ink">User Management</h2>
+            <h2 className="text-heading-3 text-ink">User management.</h2>
             <button className="cc-btn-primary" onClick={handleAddUser}>
               + Add User
             </button>

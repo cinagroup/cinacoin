@@ -89,7 +89,7 @@ function OAuthCallbackContent() {
               <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
           </div>
-          <h2 className="cc-display-sm text-[var(--cc-ink)] mb-2">Authentication Failed</h2>
+          <h2 className="cc-display-sm text-[var(--cc-ink)] mb-2">Authentication failed.</h2>
           <p className="text-body-sm text-[var(--cc-muted)] mb-6">
             {errorDescription || "OAuth authentication was cancelled or failed."}
           </p>
@@ -118,7 +118,7 @@ function OAuthCallbackContent() {
               <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
           </div>
-          <h2 className="cc-display-sm text-[var(--cc-ink)] mb-2">Authentication Failed</h2>
+          <h2 className="cc-display-sm text-[var(--cc-ink)] mb-2">Authentication failed.</h2>
           <p className="text-body-sm text-[var(--cc-error)] mb-6">{error}</p>
           <button
             onClick={() => router.replace("/login")}
@@ -148,7 +148,7 @@ export default function OAuthCallbackPage() {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-[var(--cc-radius-sm)] bg-[var(--cc-link)]/10 border border-[var(--cc-link)]/20 mb-4">
             <Image src="/logo.png" alt="CinaCoin logo" width={40} height={40} className="w-10 h-10 rounded-md" />
           </div>
-          <h1 className="cc-display-md text-[var(--cc-ink)]">Authenticating</h1>
+          <h1 className="cc-display-md text-[var(--cc-ink)]">Authenticating.</h1>
         </div>
 
         <Suspense fallback={

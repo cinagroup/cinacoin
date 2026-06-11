@@ -185,7 +185,7 @@ export function TwoFactorAuth() {
       <div className="cc-card p-lg">
         <div className="flex items-start justify-between mb-lg">
           <div>
-            <h2 className="text-heading-3 text-ink mb-1">Two-Factor Authentication</h2>
+            <h2 className="text-heading-3 text-ink mb-1">Two-factor authentication.</h2>
             <p className="text-body text-body-color">
               Add an extra layer of security to your account
             </p>
@@ -320,7 +320,7 @@ export function TwoFactorAuth() {
             </div>
 
             <div className="max-w-sm mx-auto text-center py-lg">
-              <h3 className="text-heading-3 text-ink mb-2">Enter verification code</h3>
+              <h3 className="text-heading-3 text-ink mb-2">Enter verification code.</h3>
               <p className="text-body text-body-color mb-lg">
                 Enter the 6-digit code from your authenticator app
               </p>
@@ -468,7 +468,7 @@ export function TwoFactorAuth() {
 
       {/* Additional info card */}
       <div className="cc-card p-lg">
-        <h3 className="text-body font-medium text-ink mb-md">About Two-Factor Authentication</h3>
+        <h3 className="text-body font-medium text-ink mb-md">About two-factor authentication.</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-md">
           <div className="p-md border border-hairline rounded-md">
             <div className="w-8 h-8 rounded-md bg-canvas-soft-2 flex items-center justify-center mb-2">

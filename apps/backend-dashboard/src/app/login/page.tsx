@@ -78,7 +78,7 @@ export default function LoginPage() {
 
         {/* Login Card */}
         <div className="bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] p-6 shadow-[var(--cc-level3)]">
-          <h2 className="cc-display-sm text-[var(--cc-ink)] mb-2">Sign In</h2>
+          <h2 className="cc-display-sm text-[var(--cc-ink)] mb-2">Sign in.</h2>
           <p className="text-body-sm text-[var(--cc-muted)] mb-6">
             Enter your credentials to access the CinaCoin Backend Dashboard.
           </p>

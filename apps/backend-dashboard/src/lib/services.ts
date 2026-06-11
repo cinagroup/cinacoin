@@ -153,11 +153,12 @@ export async function checkHealth(
     }
   } catch (err: unknown) {
     const latency = Date.now() - start;
+    const error = err as Error;
     return {
       status: "down",
-      latency: (err as Error).name === "AbortError" ? null : latency,
+      latency: error.name === "AbortError" ? null : latency,
       lastChecked: Date.now(),
-      error: err.message || "Connection failed",
+      error: error.message || "Connection failed",
     };
   }
 }

@@ -69,7 +69,7 @@ export function PermissionManagement() {
     <div className="space-y-lg">
       <div className="cc-card p-md">
         <div className="flex items-center justify-between mb-md">
-          <h2 className="text-heading-3 text-ink">Roles & Permissions</h2>
+          <h2 className="text-heading-3 text-ink">Roles & permissions.</h2>
           <button className="cc-btn-primary">
             + Create Role
           </button>

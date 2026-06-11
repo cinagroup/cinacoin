@@ -39,7 +39,7 @@ export default function KeysServerPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="cc-display-sm text-[var(--cc-ink)]">Keys Server</h1>
+          <h1 className="cc-display-sm text-[var(--cc-ink)]">Keys server.</h1>
           <p className="cc-body-sm text-[var(--cc-muted)] mt-1">Session key management with D1 storage</p>
         </div>
         <span className="cc-badge">D1 • Cloudflare Workers</span>

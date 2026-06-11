@@ -51,7 +51,7 @@ export default function MfaVerifyPage() {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-[var(--cc-radius-sm)] bg-[var(--cc-link)]/10 border border-[var(--cc-link)]/20 mb-4">
             <Image src="/logo.png" alt="CinaCoin logo" width={40} height={40} className="w-10 h-10 rounded-md" />
           </div>
-          <h1 className="cc-display-md text-[var(--cc-ink)]">Two-Factor Authentication</h1>
+          <h1 className="cc-display-md text-[var(--cc-ink)]">Two-factor authentication.</h1>
           <p className="text-[var(--cc-muted)] mt-2">Verify your identity</p>
         </div>
 
@@ -65,7 +65,7 @@ export default function MfaVerifyPage() {
 
           {!useRecovery ? (
             <>
-              <h2 className="cc-display-sm text-[var(--cc-ink)] mb-2 text-center">Enter verification code</h2>
+              <h2 className="cc-display-sm text-[var(--cc-ink)] mb-2 text-center">Enter verification code.</h2>
               <p className="text-body-sm text-[var(--cc-muted)] mb-6 text-center">
                 Enter the 6-digit code from your authenticator app
               </p>
@@ -118,7 +118,7 @@ export default function MfaVerifyPage() {
             </>
           ) : (
             <>
-              <h2 className="cc-display-sm text-[var(--cc-ink)] mb-2 text-center">Use recovery code</h2>
+              <h2 className="cc-display-sm text-[var(--cc-ink)] mb-2 text-center">Use recovery code.</h2>
               <p className="text-body-sm text-[var(--cc-muted)] mb-6 text-center">
                 Enter one of your recovery codes to access your account
               </p>

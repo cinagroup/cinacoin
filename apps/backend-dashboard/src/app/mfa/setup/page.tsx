@@ -17,7 +17,7 @@ export default function MfaSetupPage() {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-[var(--cc-radius-sm)] bg-[var(--cc-link)]/10 border border-[var(--cc-link)]/20 mb-4">
             <Image src="/logo.png" alt="CinaCoin logo" width={40} height={40} className="w-10 h-10 rounded-md" />
           </div>
-          <h1 className="cc-display-md text-[var(--cc-ink)]">Setup Required</h1>
+          <h1 className="cc-display-md text-[var(--cc-ink)]">Setup required.</h1>
           <p className="text-[var(--cc-muted)] mt-2">Two-factor authentication setup</p>
         </div>
 
@@ -35,7 +35,7 @@ export default function MfaSetupPage() {
             </svg>
           </div>
 
-          <h2 className="cc-display-sm text-[var(--cc-ink)] mb-2">2FA Setup Required</h2>
+          <h2 className="cc-display-sm text-[var(--cc-ink)] mb-2">2FA setup required.</h2>
           <p className="text-body-sm text-[var(--cc-muted)] mb-6">
             Your account requires two-factor authentication to be set up before you can access the dashboard.
             Please contact your administrator or visit the account settings page to configure 2FA.

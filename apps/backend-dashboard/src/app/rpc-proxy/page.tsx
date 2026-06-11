@@ -47,7 +47,7 @@ export default function RPCProxyPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="cc-display-sm text-[var(--cc-ink)]">RPC Proxy</h1>
+          <h1 className="cc-display-sm text-[var(--cc-ink)]">RPC proxy.</h1>
           <p className="cc-body-sm text-[var(--cc-muted)] mt-1">Multi-chain RPC proxy with KV caching and failover</p>
         </div>
         <span className="cc-badge">KV Cache • Multi-Provider Failover</span>

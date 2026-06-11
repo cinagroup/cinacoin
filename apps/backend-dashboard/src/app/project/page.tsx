@@ -51,7 +51,7 @@ export default function ProjectPage() {
     <div className="space-y-6 max-w-4xl">
       {/* Header */}
       <div>
-        <h1 className="cc-display-sm text-[var(--cc-ink)]">Project Settings</h1>
+        <h1 className="cc-display-sm text-[var(--cc-ink)]">Project settings.</h1>
         <p className="cc-body-sm text-[var(--cc-muted)] mt-1">
           Configure your AppKit project, authentication, and feature flags
         </p>
@@ -111,7 +111,7 @@ export default function ProjectPage() {
 
       {/* Authentication */}
       <div className="cc-card space-y-4">
-        <h2 className="cc-body-md-strong text-[var(--cc-ink)]">Authentication</h2>
+        <h2 className="cc-body-md-strong text-[var(--cc-ink)]">Authentication.</h2>
         <p className="cc-body-sm text-[var(--cc-muted)]">Configure authentication methods for your AppKit integration.</p>
 
         <div className="space-y-3">

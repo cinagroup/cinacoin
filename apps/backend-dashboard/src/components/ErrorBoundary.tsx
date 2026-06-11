@@ -25,7 +25,7 @@ export default class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    logger.error("[ErrorBoundary]", error, errorInfo);
+    logger.error("[ErrorBoundary]", { error: error.message, stack: error.stack, ...errorInfo });
   }
 
   handleRetry = () => {
