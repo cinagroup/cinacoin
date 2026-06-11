@@ -45,15 +45,13 @@ export default memo(function Navigation() {
           )}
         </div>
       </div>
-      <div className="flex gap-2 overflow-x-auto pb-1" role="tablist">
+      <div className="flex gap-2 overflow-x-auto pb-1">
         {navItems.map((item) => {
           const isActive = pathname === item.href;
           return (
             <Link
               key={item.href}
               href={item.href}
-              role="tab"
-              aria-selected={isActive}
               aria-current={isActive ? 'page' : undefined}
               className={`px-4 py-2 rounded-md text-body-sm font-medium transition-colors whitespace-nowrap ${
                 isActive
