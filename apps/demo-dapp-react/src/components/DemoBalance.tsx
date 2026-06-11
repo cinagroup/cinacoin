@@ -63,10 +63,10 @@ export function DemoBalance(): JSX.Element {
         }}
         role="status"
         aria-live="polite"
-        aria-label={`${symbol} balance`}
+        aria-label={`${symbol} balance.`}
       >
         <div style={{ fontSize: 'var(--cc-text-xs)', color: 'var(--cc-body)', marginBottom: 'var(--cc-space-xxs)' }}>
-          {symbol} Balance
+          {symbol} Balance.
         </div>
         <div
           style={{
@@ -79,10 +79,10 @@ export function DemoBalance(): JSX.Element {
         >
           {isLoading ? (
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--cc-space-xs)', color: 'var(--cc-muted)' }}>
-              <span className="cc-spinner" /> Loading
+              <span className="cc-spinner" /> Loading...
             </span>
           ) : error ? (
-            <span style={{ color: 'var(--cc-error)', fontSize: 'var(--cc-text-md)', fontWeight: 'var(--cc-weight-normal)' }}>Failed to fetch</span>
+            <span style={{ color: 'var(--cc-error)', fontSize: 'var(--cc-text-md)', fontWeight: 'var(--cc-weight-normal)' }}>Failed to fetch.</span>
           ) : balance ? (
             <>
               {balance}{' '}
@@ -107,19 +107,19 @@ export function DemoBalance(): JSX.Element {
           className="cc-btn cc-btn--ghost"
           onClick={handleRefresh}
           disabled={isLoading}
-          aria-label="Refresh balance"
+          aria-label="Refresh balance."
         >
           {isLoading ? (
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--cc-space-xs)' }}>
-              <span className="cc-spinner" /> Refreshing
+              <span className="cc-spinner" /> Refreshing...
             </span>
           ) : (
-            '↻ Refresh'
+            '↻ Refresh.'
           )}
         </button>
         {lastRefresh && (
           <span style={{ fontSize: 'var(--cc-text-xs)', color: 'var(--cc-muted)' }}>
-            Last refreshed: {lastRefresh}
+            Last refreshed: {lastRefresh}.
           </span>
         )}
       </div>

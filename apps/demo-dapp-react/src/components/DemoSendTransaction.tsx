@@ -92,8 +92,8 @@ export function DemoSendTransaction(): JSX.Element {
       </p>
 
       {/* Recipient */}
-      <div className="mb-[var(--cc-space-md)]">
-        <label className="cc-label" htmlFor="recipient-input">Recipient Address</label>
+      <div style={{ marginBottom: 'var(--cc-space-md)' }}>
+        <label className="cc-label" htmlFor="recipient-input">Recipient address.</label>
         <input
           id="recipient-input"
           type="text"
@@ -106,11 +106,11 @@ export function DemoSendTransaction(): JSX.Element {
       </div>
 
       {/* Amount */}
-      <div className="mb-[var(--cc-space-md)]">
+      <div style={{ marginBottom: 'var(--cc-space-md)' }}>
         <label className="cc-label" htmlFor="amount-input">
-          Amount ({symbol})
+          Amount ({symbol}).
         </label>
-        <div className="flex gap-[var(--cc-space-xs)]">
+        <div style={{ display: 'flex', gap: 'var(--cc-space-xs)' }}>
           <input
             id="amount-input"
             type="text"
@@ -118,37 +118,39 @@ export function DemoSendTransaction(): JSX.Element {
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             placeholder="0.0"
-            className="cc-input flex-1"
+            className="cc-input"
+            style={{ flex: 1 }}
             aria-required="true"
           />
           <button
-            className="cc-btn cc-btn--ghost min-w-[var(--cc-touch-target)]"
+            className="cc-btn cc-btn--ghost"
+            style={{ minWidth: 'var(--cc-touch-target)' }}
             onClick={setMax}
-            title="Set maximum balance"
-            aria-label="Set maximum balance"
+            title="Set maximum balance."
+            aria-label="Set maximum balance."
           >
             MAX
           </button>
         </div>
         {balance && (
-          <p className="text-[var(--cc-text-xs)] text-[var(--cc-muted)] mt-[var(--cc-space-xxs)]">
-            Available: {balance} {symbol}
+          <p style={{ fontSize: 'var(--cc-text-xs)', color: 'var(--cc-muted)', marginTop: 'var(--cc-space-xxs)' }}>
+            Available: {balance} {symbol}.
           </p>
         )}
       </div>
 
       {/* Gas estimation */}
-      <div className="mb-[var(--cc-space-md)]">
+      <div style={{ marginBottom: 'var(--cc-space-md)' }}>
         <button
           className="cc-btn cc-btn--ghost"
           onClick={estimateGas}
           disabled={!isFormValid}
-          aria-label="Estimate gas fees"
+          aria-label="Estimate gas fees."
         >
-          Estimate Gas
+          Estimate gas.
         </button>
         {estimatedGas && (
-          <p className="mt-[var(--cc-space-xs)] text-[var(--cc-text-sm)] text-[var(--cc-body)]" aria-live="polite">
+          <p style={{ marginTop: 'var(--cc-space-xs)', fontSize: 'var(--cc-text-sm)', color: 'var(--cc-body)' }} aria-live="polite">
             Gas: {estimatedGas} {gasFee && ` · Fee: ${gasFee}`}
           </p>
         )}
@@ -156,17 +158,18 @@ export function DemoSendTransaction(): JSX.Element {
 
       {/* Send button */}
       <button
-        className="cc-btn cc-btn--primary w-full"
+        className="cc-btn cc-btn--primary"
+        style={{ width: '100%' }}
         onClick={handleSend}
         disabled={isPending || sending || !isFormValid}
         aria-label={`Send ${amount} ${symbol} to ${recipient}`}
       >
         {sending ? (
-          <span className="flex items-center gap-[var(--cc-space-xs)]">
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--cc-space-xs)' }}>
             <span className="cc-spinner" /> Sending...
           </span>
         ) : (
-          `Send ${symbol}`
+          `Send ${symbol}.`
         )}
       </button>
 
@@ -179,11 +182,11 @@ export function DemoSendTransaction(): JSX.Element {
 
       {/* Transaction status */}
       {txHash && (
-        <div className="mt-[var(--cc-space-md)] p-[var(--cc-space-sm)] bg-[var(--cc-success-soft)] border border-[var(--cc-success-border)] rounded-[var(--cc-radius-md)]">
-          <div className="text-[var(--cc-text-sm)] text-[var(--cc-success)] mb-[var(--cc-space-xs)]">
+        <div style={{ marginTop: 'var(--cc-space-md)', padding: 'var(--cc-space-sm)', background: 'var(--cc-success-soft)', border: '1px solid var(--cc-success-border)', borderRadius: 'var(--cc-radius-md)' }}>
+          <div style={{ fontSize: 'var(--cc-text-sm)', color: 'var(--cc-success)', marginBottom: 'var(--cc-space-xs)' }}>
             {txStatus}
           </div>
-          <div className="text-[var(--cc-text-xs)] font-mono break-all text-[var(--cc-body)]">
+          <div style={{ fontSize: 'var(--cc-text-xs)', fontFamily: 'var(--cc-font-mono)', wordBreak: 'break-all', color: 'var(--cc-body)' }}>
             {txHash}
           </div>
           {explorerUrl && (
@@ -191,9 +194,10 @@ export function DemoSendTransaction(): JSX.Element {
               href={`${explorerUrl}/tx/${txHash}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex mt-[var(--cc-space-xs)] text-[var(--cc-text-sm)] text-[var(--cc-accent-soft)] no-underline"
+              style={{ display: 'inline-flex', marginTop: 'var(--cc-space-xs)', fontSize: 'var(--cc-text-sm)', color: 'var(--cc-accent-soft)', textDecoration: 'none' }}
+              aria-label="View on explorer (opens in new tab)."
             >
-              View on Explorer <span aria-hidden="true">→</span>
+              View on explorer <span aria-hidden="true">→</span>
             </a>
           )}
         </div>

@@ -8,7 +8,7 @@ export function DemoSignMessage(): JSX.Element {
   const { account, status } = useCinacoinContext();
   const { signMessage, isPending, error, signature } = useSignMessage();
 
-  const [message, setMessage] = useState('Welcome to Cinacoin!');
+  const [message, setMessage] = useState('Welcome to CinaCoin.');
   const [sigResult, setSigResult] = useState<string | null>(null);
   const [sigError, setSigError] = useState<string | null>(null);
 
@@ -41,7 +41,7 @@ export function DemoSignMessage(): JSX.Element {
     return (
       <section className="cc-card cc-fade-in" aria-labelledby="sign-heading">
         <h3 id="sign-heading" className="cc-section-title">
-          <span style={{ fontSize: 'var(--cc-text-lg)' }} aria-hidden="true">✍️</span> Sign Message
+          <span style={{ fontSize: 'var(--cc-text-lg)' }} aria-hidden="true">✍️</span> Sign message.
         </h3>
         <p className="cc-section-desc">Connect a wallet to sign messages.</p>
       </section>
@@ -51,7 +51,7 @@ export function DemoSignMessage(): JSX.Element {
   return (
     <section className="cc-card cc-fade-in" aria-labelledby="sign-heading">
       <h3 id="sign-heading" className="cc-section-title">
-        <span style={{ fontSize: 'var(--cc-text-lg)' }} aria-hidden="true">✍️</span> Sign Message
+        <span style={{ fontSize: 'var(--cc-text-lg)' }} aria-hidden="true">✍️</span> Sign message.
       </h3>
       <p className="cc-section-desc">
         Sign arbitrary messages with your wallet using personal_sign.
@@ -59,7 +59,7 @@ export function DemoSignMessage(): JSX.Element {
 
       {/* Message input */}
       <div style={{ marginBottom: 'var(--cc-space-md)' }}>
-        <label className="cc-label" htmlFor="sign-message-input">Message to Sign</label>
+        <label className="cc-label" htmlFor="sign-message-input">Message to sign.</label>
         <textarea
           id="sign-message-input"
           value={message}
@@ -77,14 +77,14 @@ export function DemoSignMessage(): JSX.Element {
         style={{ width: '100%' }}
         onClick={handleSign}
         disabled={isPending || !message.trim()}
-        aria-label="Sign the message with your wallet"
+        aria-label="Sign the message with your wallet."
       >
         {isPending ? (
-          <span style={{ display: 'flex', alignItems: 'center', gap: 'var(--cc-space-xs)' }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--cc-space-xs)' }}>
             <span className="cc-spinner" /> Signing...
           </span>
         ) : (
-          'Sign Message'
+          'Sign message.'
         )}
       </button>
 
@@ -99,12 +99,12 @@ export function DemoSignMessage(): JSX.Element {
       {sigResult && (
         <div style={{ marginTop: 'var(--cc-space-md)' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--cc-space-xs)', flexWrap: 'wrap', gap: 'var(--cc-space-xs)' }}>
-            <span className="cc-label" style={{ marginBottom: 0 }} id="signature-label">Signature</span>
+            <span className="cc-label" style={{ marginBottom: 0 }} id="signature-label">Signature.</span>
             <div style={{ display: 'flex', gap: 'var(--cc-space-xs)', alignItems: 'center' }}>
               {isValidSignature && (
                 <span style={{ fontSize: 'var(--cc-text-xs)', color: 'var(--cc-success)' }}>✓ Valid format</span>
               )}
-              <button className="cc-btn cc-btn--ghost" onClick={handleCopy} aria-label="Copy signature to clipboard">
+              <button className="cc-btn cc-btn--ghost" onClick={handleCopy} aria-label="Copy signature to clipboard.">
                 Copy
               </button>
             </div>
@@ -121,7 +121,7 @@ export function DemoSignMessage(): JSX.Element {
 
       {/* Info */}
       <p style={{ marginTop: 'var(--cc-space-md)', fontSize: 'var(--cc-text-xs)', color: 'var(--cc-muted)' }}>
-        Uses <code className="cc-code">personal_sign</code> — the wallet will prompt for user confirmation.
+        Uses <code className="cc-code">personal_sign</code>. The wallet will prompt for user confirmation.
       </p>
     </section>
   );

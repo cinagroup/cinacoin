@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { useSendCalls, useCallsStatus, useCinacoinContext } from '@cinacoin/react';
-import { CheckCircle } from 'lucide-react';
 
 type BatchStep = {
   label: string;
@@ -19,7 +18,6 @@ export function DemoBatchTransactions(): JSX.Element {
     status: batchStatus,
     isPolling,
     startPolling,
-    stopPolling,
     allSucceeded,
   } = useCallsStatus({ intervalMs: 2000 });
 
@@ -30,19 +28,19 @@ export function DemoBatchTransactions(): JSX.Element {
       label: 'Step 1: Approval',
       to: defaultTarget,
       data: '0x',
-      description: 'Mock token approval call',
+      description: 'Mock token approval call.',
     },
     {
       label: 'Step 2: Transfer',
       to: defaultTarget,
       data: '0x',
-      description: 'Mock token transfer call',
+      description: 'Mock token transfer call.',
     },
     {
       label: 'Step 3: Swap',
       to: defaultTarget,
       data: '0x',
-      description: 'Mock DEX swap call',
+      description: 'Mock DEX swap call.',
     },
   ]);
 
@@ -94,7 +92,7 @@ export function DemoBatchTransactions(): JSX.Element {
       </p>
 
       {/* Batch steps display */}
-      <div style={{ marginBottom: 'var(--cc-space-lg)' }} role="list" aria-label="Batch transaction steps">
+      <div style={{ marginBottom: 'var(--cc-space-lg)' }} role="list" aria-label="Batch transaction steps.">
         {batchSteps.map((step, i) => (
           <div
             key={i}
@@ -132,10 +130,13 @@ export function DemoBatchTransactions(): JSX.Element {
               <div style={{ fontSize: 'var(--cc-text-xs)', color: 'var(--cc-body)' }}>{step.description}</div>
             </div>
             {batchStatus === 'CONFIRMED' && allSucceeded && (
-              <CheckCircle className="w-5 h-5 text-[var(--cc-success)]" aria-label="Step completed" />
+              <svg style={{ width: '20px', height: '20px', color: 'var(--cc-success)', flexShrink: 0 }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-label="Step completed.">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                <polyline points="22 4 12 14.01 9 11.01" />
+              </svg>
             )}
             {isPolling && (
-              <span className="cc-spinner" style={{ color: 'var(--cc-warning)' }} aria-label="Processing" />
+              <span className="cc-spinner" style={{ color: 'var(--cc-warning)' }} aria-label="Processing." />
             )}
           </div>
         ))}
@@ -155,9 +156,9 @@ export function DemoBatchTransactions(): JSX.Element {
         style={{ width: '100%' }}
         onClick={handleExecuteBatch}
         disabled={isSending || isPolling}
-        aria-label="Execute all batch transaction steps"
+        aria-label="Execute all batch transaction steps."
       >
-        {isSending ? 'Sending Batch...' : isPolling ? 'Processing...' : 'Execute All Steps'}
+        {isSending ? 'Sending batch...' : isPolling ? 'Processing...' : 'Execute all steps.'}
       </button>
 
       {/* Error */}
@@ -169,8 +170,12 @@ export function DemoBatchTransactions(): JSX.Element {
 
       {/* Result */}
       {batchStatus === 'CONFIRMED' && allSucceeded && (
-        <div className="cc-success">
-          <CheckCircle className="w-5 h-5 inline-block mr-1 text-[var(--cc-success)]" /> All {batchSteps.length} batch calls confirmed successfully!
+        <div className="cc-success" style={{ display: 'flex', alignItems: 'center', gap: 'var(--cc-space-xs)' }}>
+          <svg style={{ width: '20px', height: '20px', color: 'var(--cc-success)', flexShrink: 0 }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+            <polyline points="22 4 12 14.01 9 11.01" />
+          </svg>
+          All {batchSteps.length} batch calls confirmed successfully.
         </div>
       )}
 
