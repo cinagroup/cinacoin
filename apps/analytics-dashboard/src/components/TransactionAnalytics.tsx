@@ -134,12 +134,14 @@ export default React.memo(function TransactionAnalytics() {
 
       {/* Volume Trend Chart */}
       <div className="cc-card p-lg">
+        <p className="font-mono text-xs text-mute mb-2">VOLUME</p>
         <h3 className="text-heading-3 text-ink mb-md">Transaction Volume Trend</h3>
         <VolumeChart data={transactionData} />
       </div>
 
       {/* Gas Statistics */}
       <div className="cc-card p-lg">
+        <p className="font-mono text-xs text-mute mb-2">GAS</p>
         <h3 className="text-heading-3 text-ink mb-md">Gas Usage Statistics</h3>
         <div className="space-y-sm">
           {transactionData.slice(-5).map((d) => (
@@ -165,6 +167,7 @@ export default React.memo(function TransactionAnalytics() {
 
       {/* Failed Transactions Analysis */}
       <div className="cc-card p-lg">
+        <p className="font-mono text-xs text-mute mb-2">FAILURES</p>
         <h3 className="text-heading-3 text-ink mb-md">Failed Transactions by Reason</h3>
         <div className="space-y-sm">
           {failedTransactions.map((f) => (

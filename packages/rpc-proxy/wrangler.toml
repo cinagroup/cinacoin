@@ -1,15 +1,23 @@
+workers_dev = true
+
 name = "cinacoin-rpc-proxy"
 main = "cloudflare/worker.ts"
 compatibility_date = "2024-01-01"
-workers_dev = true
 
 routes = [
-  { pattern = "rpc.cinacoin.com/*", zone_name = "cinacoin.com" }
+  { pattern = "rpc.cinacoin.com", custom_domain = true }
 ]
 
 [vars]
-CACHE_TTL = "300"
+# Environment-specific configuration
+RPC_PROXY_URL = "https://rpc.cinacoin.com"
 
 [[kv_namespaces]]
 binding = "RPC_CACHE"
 id = "f91dde2603b44c2f830d42330be9778a"
+
+[dev]
+ip = "localhost"
+port = 8790
+local_protocol = "http"
+upstream_protocol = "https"

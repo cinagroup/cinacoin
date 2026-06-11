@@ -1,36 +1,34 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useWallet } from '@/hooks/useWallet';
+import { isValidAmount } from '@/lib/utils';
+import { SWAP_TOKENS, SWAP_RATES, TOAST_DURATION, SWAP_FEE_ESTIMATE } from '@/lib/constants';
+import type { SwapToken } from '@/lib/constants';
 
 export default function SwapPage() {
   const { connected, address, balance, connect } = useWallet();
-  const [fromToken, setFromToken] = useState('CINA');
-  const [toToken, setToToken] = useState('USDT');
+  const [fromToken, setFromToken] = useState<SwapToken>('CINA');
+  const [toToken, setToToken] = useState<SwapToken>('USDT');
   const [fromAmount, setFromAmount] = useState('');
   const [toAmount, setToAmount] = useState('');
   const [swapping, setSwapping] = useState(false);
   const [swapped, setSwapped] = useState(false);
 
-  // Mock exchange rates
-  const rates: Record<string, number> = {
-    'CINA-USDT': 0.85,
-    'CINA-ETH': 0.00035,
-    'CINA-BTC': 0.000015,
-    'USDT-CINA': 1.18,
-    'ETH-CINA': 2857,
-    'BTC-CINA': 66667,
-  };
+  const rate = SWAP_RATES[`${fromToken}-${toToken}`];
 
-  const handleFromAmountChange = (value: string) => {
-    setFromAmount(value);
-    if (value && rates[`${fromToken}-${toToken}`]) {
-      const converted = parseFloat(value) * rates[`${fromToken}-${toToken}`];
-      setToAmount(converted.toFixed(6));
-    } else {
-      setToAmount('');
-    }
-  };
+  const handleFromAmountChange = useCallback(
+    (value: string) => {
+      setFromAmount(value);
+      if (value && isValidAmount(value) && rate) {
+        const converted = parseFloat(value) * rate;
+        setToAmount(converted.toFixed(6));
+      } else {
+        setToAmount('');
+      }
+    },
+    [rate],
+  );
 
   const handleSwap = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,17 +38,17 @@ export default function SwapPage() {
     await new Promise((r) => setTimeout(r, 1500));
     setSwapping(false);
     setSwapped(true);
-    setTimeout(() => setSwapped(false), 3000);
+    setTimeout(() => setSwapped(false), TOAST_DURATION);
     setFromAmount('');
     setToAmount('');
   };
 
-  const handleReverseTokens = () => {
+  const handleReverseTokens = useCallback(() => {
     setFromToken(toToken);
     setToToken(fromToken);
     setFromAmount(toAmount);
     setToAmount(fromAmount);
-  };
+  }, [fromToken, toToken, fromAmount, toAmount]);
 
   if (!connected) {
     return (
@@ -77,13 +75,13 @@ export default function SwapPage() {
             <p className="text-caption text-mute">Available Balance</p>
             <p className="mt-1 text-display-sm text-ink">{balance} CINA</p>
           </div>
-          <code className="text-caption-mono text-mute">
-            {address?.slice(0, 6)}...{address?.slice(-4)}
+          <code className="text-caption-mono text-mute" title={address || ''}>
+            {address ? `${address.slice(0, 6)}...${address.slice(-4)}` : ''}
           </code>
         </div>
 
         {swapped && (
-          <div className="mb-6 rounded-lg bg-success-light p-4 text-body-sm" style={{ color: 'var(--color-success)' }}>
+          <div className="mb-6 rounded-lg bg-success-light p-4 text-body-sm" role="alert" style={{ color: 'var(--color-success)' }}>
             ✓ Swap submitted successfully!
           </div>
         )}
@@ -91,19 +89,20 @@ export default function SwapPage() {
         <form onSubmit={handleSwap} className="space-y-5">
           {/* From Token */}
           <div>
-            <label className="block text-caption text-mute mb-2">From</label>
+            <label htmlFor="from-token" className="block text-caption text-mute mb-2">From</label>
             <div className="flex gap-3">
               <select
+                id="from-token"
                 value={fromToken}
-                onChange={(e) => setFromToken(e.target.value)}
+                onChange={(e) => setFromToken(e.target.value as SwapToken)}
                 className="search-bar w-32"
               >
-                <option value="CINA">CINA</option>
-                <option value="USDT">USDT</option>
-                <option value="ETH">ETH</option>
-                <option value="BTC">BTC</option>
+                {SWAP_TOKENS.map((t) => (
+                  <option key={t} value={t}>{t}</option>
+                ))}
               </select>
               <input
+                id="from-amount"
                 type="number"
                 value={fromAmount}
                 onChange={(e) => handleFromAmountChange(e.target.value)}
@@ -112,6 +111,7 @@ export default function SwapPage() {
                 step="0.01"
                 min="0"
                 required
+                aria-label="Amount to swap from"
               />
             </div>
           </div>
@@ -122,8 +122,9 @@ export default function SwapPage() {
               type="button"
               onClick={handleReverseTokens}
               className="p-2 rounded-lg bg-canvas-soft-2 hover:bg-canvas-soft transition-colors"
+              aria-label="Reverse token direction"
             >
-              <svg className="w-5 h-5 text-body" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-body" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
               </svg>
             </button>
@@ -131,40 +132,42 @@ export default function SwapPage() {
 
           {/* To Token */}
           <div>
-            <label className="block text-caption text-mute mb-2">To</label>
+            <label htmlFor="to-token" className="block text-caption text-mute mb-2">To</label>
             <div className="flex gap-3">
               <select
+                id="to-token"
                 value={toToken}
-                onChange={(e) => setToToken(e.target.value)}
+                onChange={(e) => setToToken(e.target.value as SwapToken)}
                 className="search-bar w-32"
               >
-                <option value="USDT">USDT</option>
-                <option value="CINA">CINA</option>
-                <option value="ETH">ETH</option>
-                <option value="BTC">BTC</option>
+                {SWAP_TOKENS.map((t) => (
+                  <option key={t} value={t}>{t}</option>
+                ))}
               </select>
               <input
+                id="to-amount"
                 type="text"
                 value={toAmount}
                 placeholder="0.00"
                 className="search-bar flex-1"
                 readOnly
+                aria-label="Amount to receive"
               />
             </div>
           </div>
 
           {/* Exchange Rate Info */}
-          {fromAmount && toAmount && (
+          {fromAmount && toAmount && rate && (
             <div className="rounded-lg bg-canvas-soft-2 p-4 space-y-2">
               <div className="flex justify-between text-body-sm">
                 <span className="text-mute">Exchange Rate</span>
                 <span className="text-ink font-[var(--font-mono)]">
-                  1 {fromToken} = {rates[`${fromToken}-${toToken}`]} {toToken}
+                  1 {fromToken} = {rate} {toToken}
                 </span>
               </div>
               <div className="flex justify-between text-body-sm">
                 <span className="text-mute">Network Fee (est.)</span>
-                <span className="text-ink font-[var(--font-mono)]">~0.005 CINA</span>
+                <span className="text-ink font-[var(--font-mono)]">~{SWAP_FEE_ESTIMATE} CINA</span>
               </div>
             </div>
           )}
@@ -173,6 +176,7 @@ export default function SwapPage() {
             type="submit"
             disabled={swapping || !fromAmount || !toAmount}
             className="cc-btn-primary w-full py-3"
+            aria-busy={swapping}
           >
             {swapping ? 'Swapping...' : 'Swap'}
           </button>

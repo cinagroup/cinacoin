@@ -13,27 +13,27 @@ interface CohortData {
 const cohortData: Record<CohortPeriod, CohortData[]> = {
   daily: [
     { label: "Jun 1", users: 3200, retention: [100, 68, 52, 41, 35, 30, 27] },
-    { label: "Jun 2", users: 3450, retention: [100, 71, 55, 44, 37, 32, null as unknown as number] },
-    { label: "Jun 3", users: 2980, retention: [100, 65, 50, 39, 33, null as unknown as number, null as unknown as number] },
-    { label: "Jun 4", users: 3100, retention: [100, 69, 53, 42, null as unknown as number, null as unknown as number, null as unknown as number] },
-    { label: "Jun 5", users: 3650, retention: [100, 72, 56, null as unknown as number, null as unknown as number, null as unknown as number, null as unknown as number] },
-    { label: "Jun 6", users: 3800, retention: [100, 70, null as unknown as number, null as unknown as number, null as unknown as number, null as unknown as number, null as unknown as number] },
-    { label: "Jun 7", users: 4100, retention: [100, null as unknown as number, null as unknown as number, null as unknown as number, null as unknown as number, null as unknown as number, null as unknown as number] },
+    { label: "Jun 2", users: 3450, retention: [100, 71, 55, 44, 37, 32, -1] },
+    { label: "Jun 3", users: 2980, retention: [100, 65, 50, 39, 33, -1, -1] },
+    { label: "Jun 4", users: 3100, retention: [100, 69, 53, 42, -1, -1, -1] },
+    { label: "Jun 5", users: 3650, retention: [100, 72, 56, -1, -1, -1, -1] },
+    { label: "Jun 6", users: 3800, retention: [100, 70, -1, -1, -1, -1, -1] },
+    { label: "Jun 7", users: 4100, retention: [100, -1, -1, -1, -1, -1, -1] },
   ],
   weekly: [
     { label: "Week 1", users: 22400, retention: [100, 45, 32, 26, 22, 19, 17, 16] },
-    { label: "Week 2", users: 24100, retention: [100, 48, 35, 28, 24, 21, 18, null as unknown as number] },
-    { label: "Week 3", users: 21800, retention: [100, 42, 30, 24, 20, 17, null as unknown as number, null as unknown as number] },
-    { label: "Week 4", users: 25600, retention: [100, 50, 37, 30, 25, null as unknown as number, null as unknown as number, null as unknown as number] },
-    { label: "Week 5", users: 23900, retention: [100, 46, 33, 27, null as unknown as number, null as unknown as number, null as unknown as number, null as unknown as number] },
-    { label: "Week 6", users: 26200, retention: [100, 49, 36, null as unknown as number, null as unknown as number, null as unknown as number, null as unknown as number, null as unknown as number] },
+    { label: "Week 2", users: 24100, retention: [100, 48, 35, 28, 24, 21, 18, -1] },
+    { label: "Week 3", users: 21800, retention: [100, 42, 30, 24, 20, 17, -1, -1] },
+    { label: "Week 4", users: 25600, retention: [100, 50, 37, 30, 25, -1, -1, -1] },
+    { label: "Week 5", users: 23900, retention: [100, 46, 33, 27, -1, -1, -1, -1] },
+    { label: "Week 6", users: 26200, retention: [100, 49, 36, -1, -1, -1, -1, -1] },
   ],
   monthly: [
     { label: "Jan", users: 85000, retention: [100, 42, 35, 30, 27, 25] },
-    { label: "Feb", users: 92000, retention: [100, 44, 37, 32, 29, null as unknown as number] },
-    { label: "Mar", users: 98500, retention: [100, 46, 39, 34, null as unknown as number, null as unknown as number] },
-    { label: "Apr", users: 105000, retention: [100, 48, 41, null as unknown as number, null as unknown as number, null as unknown as number] },
-    { label: "May", users: 112000, retention: [100, 50, null as unknown as number, null as unknown as number, null as unknown as number, null as unknown as number] },
+    { label: "Feb", users: 92000, retention: [100, 44, 37, 32, 29, -1] },
+    { label: "Mar", users: 98500, retention: [100, 46, 39, 34, -1, -1] },
+    { label: "Apr", users: 105000, retention: [100, 48, 41, -1, -1, -1] },
+    { label: "May", users: 112000, retention: [100, 50, -1, -1, -1, -1] },
   ],
 };
 
@@ -81,7 +81,7 @@ function RetentionLineChart({ cohorts, labels }: { cohorts: CohortData[]; labels
       {cohorts.map((cohort, ci) => {
         const points = cohort.retention
           .map((val, i) => {
-            if (val == null) return null;
+            if (val < 0) return null; // -1 means no data available
             const x = padding.left + (i / (labels.length - 1)) * chartW;
             const y = padding.top + chartH - (val / 100) * chartH;
             return { x, y };
@@ -119,7 +119,7 @@ export default React.memo(function RetentionCurve() {
     const counts: number[] = new Array(maxLen).fill(0);
     cohorts.forEach((c) => {
       c.retention.forEach((val, i) => {
-        if (val != null) {
+        if (val >= 0) { // -1 means no data
           sums[i] += val;
           counts[i] += 1;
         }
@@ -132,7 +132,10 @@ export default React.memo(function RetentionCurve() {
     <div className="space-y-lg">
       {/* Period Selector */}
       <div className="flex items-center justify-between flex-wrap gap-sm">
-        <h3 className="text-heading-3 text-ink">User Retention</h3>
+        <div>
+          <p className="font-mono text-xs text-mute mb-2">COHORT</p>
+          <h3 className="text-heading-3 text-ink">User Retention</h3>
+        </div>
         <div className="flex bg-canvas-soft-2 rounded-md p-xxs">
           {(["daily", "weekly", "monthly"] as const).map((p) => (
             <button
@@ -211,7 +214,7 @@ export default React.memo(function RetentionCurve() {
                   <td className="p-xs text-ink-mute">{c.users.toLocaleString()}</td>
                   {c.retention.map((val, i) => (
                     <td key={i} className="p-xs text-center">
-                      {val != null ? (
+                      {val >= 0 ? (
                         <span
                           className="inline-block px-xs py-xxs rounded-sm font-medium"
                           style={{

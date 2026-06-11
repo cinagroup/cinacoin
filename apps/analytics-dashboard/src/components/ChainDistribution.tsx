@@ -116,7 +116,10 @@ export default React.memo(function ChainDistribution() {
     <div className="space-y-lg">
       {/* Period Selector */}
       <div className="flex items-center justify-between">
-        <h3 className="text-heading-3 text-ink">Chain Distribution</h3>
+        <div>
+          <p className="font-mono text-xs text-mute mb-2">NETWORKS</p>
+          <h3 className="text-heading-3 text-ink">Chain Distribution</h3>
+        </div>
         <div className="flex bg-canvas-soft-2 rounded-md p-xxs">
           {(["24h", "7d", "30d"] as const).map((p) => (
             <button

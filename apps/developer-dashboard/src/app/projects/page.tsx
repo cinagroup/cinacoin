@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Folder } from "lucide-react";
 
 const projects = [
   {
@@ -61,8 +62,9 @@ export default function ProjectsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-display-md font-semibold text-ink">Projects</h1>
-          <p className="text-ink-body mt-1">Manage your Cinacoin projects</p>
+          <p className="font-mono text-xs text-ink-mute mb-2">PROJECTS</p>
+          <h1 className="text-display-md font-semibold text-ink">Manage your Cinacoin projects.</h1>
+          <p className="text-ink-body mt-1">Create, view, and manage all your projects in one place.</p>
         </div>
         <Link href="/projects/new" className="cc-btn-primary">
           + New Project
@@ -86,7 +88,7 @@ export default function ProjectsPage() {
               <tr>
                 <td colSpan={6} className="px-6 py-12 text-center">
                   <div className="flex flex-col items-center justify-center">
-                    <div className="text-4xl mb-4" aria-hidden="true">📁</div>
+                    <Folder className="w-12 h-12 mb-4 text-ink-mute" aria-hidden="true" />
                     <h3 className="text-heading-3 text-ink mb-1">No projects created</h3>
                     <p className="text-body-sm text-ink-body max-w-sm">Create your first project to start building with Cinacoin.</p>
                   </div>

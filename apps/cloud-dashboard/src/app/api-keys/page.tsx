@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Sidebar from "@/components/Sidebar";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { KeyRound } from "lucide-react";
 
 export default function ApiKeysPage() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -33,6 +34,7 @@ export default function ApiKeysPage() {
         <main className="flex-1 p-6 overflow-auto">
           <div className="mb-6 flex items-center justify-between">
             <div>
+              <p className="font-mono text-xs text-mute mb-2">AUTHENTICATION</p>
               <h1 className="text-heading-2 text-ink">API Keys</h1>
               <p className="text-body-sm text-body mt-1">Manage your API keys for authentication</p>
             </div>
@@ -58,7 +60,7 @@ export default function ApiKeysPage() {
                   <tr>
                     <td colSpan={6} className="px-6 py-12 text-center">
                       <div className="flex flex-col items-center justify-center">
-                        <div className="text-4xl mb-4" aria-hidden="true">🔑</div>
+                        <KeyRound className="w-8 h-8 text-mute mb-4" />
                         <h3 className="text-heading-3 text-ink mb-1">No API keys</h3>
                         <p className="text-body-sm text-body max-w-sm">Create your first API key to authenticate your requests.</p>
                       </div>

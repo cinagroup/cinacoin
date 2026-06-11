@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkcinacoin_docs=globalThis.webpackChunkcinacoin_docs||[]).push([[9647],{9502(c,s,e){e.r(s),e.d(s,{default:()=>l});e(6540);var a=e(4164),n=e(7559),r=e(5500),i=e(2831),o=e(6250),u=e(4848);function l(c){return(0,u.jsx)(r.e3,{className:(0,a.A)(n.G.wrapper.docsPages),children:(0,u.jsx)(o.A,{children:(0,i.v)(c.route.routes)})})}}}]);

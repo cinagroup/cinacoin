@@ -1,7 +1,15 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useWallet } from '@/hooks/useWallet';
+import { TOAST_DURATION } from '@/lib/constants';
+
+const CURRENCIES = [
+  { value: 'USD', label: 'USD ($)' },
+  { value: 'EUR', label: 'EUR (€)' },
+  { value: 'GBP', label: 'GBP (£)' },
+  { value: 'CNY', label: 'CNY (¥)' },
+];
 
 export default function SettingsPage() {
   const { connected, address, chain, connect, disconnect } = useWallet();
@@ -9,11 +17,11 @@ export default function SettingsPage() {
   const [notifications, setNotifications] = useState(true);
   const [saved, setSaved] = useState(false);
 
-  const handleSave = () => {
-    // TODO: persist settings
+  const handleSave = useCallback(() => {
+    // TODO: persist settings to localStorage or API
     setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
-  };
+    setTimeout(() => setSaved(false), TOAST_DURATION);
+  }, []);
 
   return (
     <div className="space-y-6">
@@ -33,8 +41,8 @@ export default function SettingsPage() {
             </div>
             <div className="flex items-center justify-between">
               <span className="text-body-sm text-mute">Address</span>
-              <code className="text-caption-mono text-ink">
-                {address?.slice(0, 10)}...{address?.slice(-6)}
+              <code className="text-caption-mono text-ink" title={address || ''}>
+                {address ? `${address.slice(0, 10)}...${address.slice(-6)}` : ''}
               </code>
             </div>
             <div className="flex items-center justify-between">
@@ -60,16 +68,16 @@ export default function SettingsPage() {
         <h2 className="text-heading-3 text-ink mb-4">Preferences</h2>
         <div className="space-y-5">
           <div>
-            <label className="block text-caption text-mute mb-2">Display Currency</label>
+            <label htmlFor="currency" className="block text-caption text-mute mb-2">Display Currency</label>
             <select
+              id="currency"
               value={currency}
               onChange={(e) => setCurrency(e.target.value)}
               className="search-bar"
             >
-              <option value="USD">USD ($)</option>
-              <option value="EUR">EUR (€)</option>
-              <option value="GBP">GBP (£)</option>
-              <option value="CNY">CNY (¥)</option>
+              {CURRENCIES.map((c) => (
+                <option key={c.value} value={c.value}>{c.label}</option>
+              ))}
             </select>
           </div>
 
@@ -83,6 +91,9 @@ export default function SettingsPage() {
               className={`relative h-6 w-11 rounded-full transition-colors ${
                 notifications ? 'bg-primary' : 'bg-hairline'
               }`}
+              role="switch"
+              aria-checked={notifications}
+              aria-label="Toggle notifications"
             >
               <span
                 className={`absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-canvas transition-transform ${
@@ -111,7 +122,7 @@ export default function SettingsPage() {
       </div>
 
       {saved && (
-        <div className="rounded-lg bg-success-light p-4 text-body-sm text-center" style={{ color: 'var(--color-success)' }}>
+        <div className="rounded-lg bg-success-light p-4 text-body-sm text-center" role="alert" style={{ color: 'var(--color-success)' }}>
           ✓ Settings saved successfully
         </div>
       )}

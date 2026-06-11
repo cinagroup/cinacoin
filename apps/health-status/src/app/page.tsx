@@ -71,6 +71,7 @@ export default function HealthStatusPage() {
     <div className="space-y-8">
       {/* Header */}
       <div className="text-center">
+        <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">SYSTEM STATUS</p>
         <h1 className="text-display-lg font-semibold tracking-tighter text-[var(--cc-ink)]">
           CinaCoin Status
         </h1>
@@ -84,6 +85,7 @@ export default function HealthStatusPage() {
 
       {/* Services */}
       <section>
+        <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">MONITORED SERVICES</p>
         <h2 className="mb-4 text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Services</h2>
         <div className="grid gap-3 sm:grid-cols-2">
           {services.map((service) => (
@@ -94,10 +96,11 @@ export default function HealthStatusPage() {
 
       {/* 90-Day Status Bars */}
       <section>
+        <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">HISTORICAL UPTIME</p>
         <h2 className="mb-4 text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">90-Day History</h2>
         <div className="space-y-4 rounded-[8px] border border-[var(--cc-hairline)] bg-[var(--cc-canvas)] p-5" style={{ boxShadow: 'inset 0 0 0 1px var(--cc-hairline)' }}>
-          {services.map((service) => (
-            <div key={service.name}>
+          {services.map((service, idx) => (
+            <div key={service.name} className={idx > 0 ? 'pt-4 border-t border-[var(--cc-hairline)]' : ''}>
               <div className="mb-1 flex items-center justify-between">
                 <span className="text-body-sm text-[var(--cc-body)]">{service.name}</span>
                 <span className="text-code text-[var(--cc-muted)]">{service.uptime}</span>
@@ -110,6 +113,7 @@ export default function HealthStatusPage() {
 
       {/* Incident Timeline */}
       <section>
+        <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">INCIDENT LOG</p>
         <h2 className="mb-4 text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Recent Incidents</h2>
         <IncidentTimeline incidents={incidents} />
       </section>

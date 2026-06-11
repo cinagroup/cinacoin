@@ -3,6 +3,7 @@ const nextConfig = {
   output: "export",
   images: {
     unoptimized: true,
+    formats: ['image/avif', 'image/webp'],
   },
   trailingSlash: true,
   eslint: {
@@ -21,44 +22,26 @@ const nextConfig = {
       'date-fns',
     ],
   },
-
-  async headers() {
-    const ContentSecurityPolicy = `
-      default-src 'self';
-      script-src 'self';
-      style-src 'self';
-      img-src 'self' data: https:;
-      font-src 'self' data:;
-      connect-src 'self' https:;
-      frame-ancestors 'none';
-      base-uri 'self';
-      form-action 'self';
-    `;
-
-    return [
-      {
-        source: '/:path*',
-        headers: [
-          {
-            key: 'Content-Security-Policy',
-            value: ContentSecurityPolicy.replace(/\n/g, '').replace(/\s{2,}/g, ' ').trim()
-          },
-          {
-            key: 'X-Frame-Options',
-            value: 'DENY'
-          },
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff'
-          },
-          {
-            key: 'Referrer-Policy',
-            value: 'origin-when-cross-origin'
-          }
-        ]
-      }
-    ];
-  }
+  // Performance: Remove console logs in production
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production' ? {
+      exclude: ['error', 'warn'],
+    } : false,
+  },
+  // Performance: Webpack optimizations
+  webpack: (config, { isServer, dev }) => {
+    if (!dev && !isServer) {
+      config.devtool = false;
+      config.optimization = {
+        ...config.optimization,
+        usedExports: true,
+        // Note: sideEffects: false removed — can break packages that rely on side-effect imports
+      };
+    }
+    return config;
+  },
+  // NOTE: headers() removed — not compatible with output: 'export' (static export).
+  // Security headers are configured via Cloudflare Pages _headers file instead.
 };
 
 export default nextConfig;

@@ -1,12 +1,18 @@
 "use client";
 
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import Sidebar from "@/components/Sidebar";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import ServiceStatus from "@/components/ServiceStatus";
 import ResourceTable from "@/components/ResourceTable";
-import QuotaUsage from "@/components/QuotaUsage";
 import QuickActions from "@/components/QuickActions";
+
+// Lazy-load heavy chart component (recharts is ~500KB)
+const QuotaUsage = dynamic(() => import("@/components/QuotaUsage"), {
+  loading: () => <div className="h-64 flex items-center justify-center text-ink-mute">Loading chart...</div>,
+  ssr: false,
+});
 
 export default function Home() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -57,12 +63,14 @@ export default function Home() {
         {/* Page Content */}
         <main className="flex-1 p-6 overflow-auto">
           <div className="mb-6">
+            <p className="font-mono text-xs text-mute mb-2">OVERVIEW</p>
             <h1 className="text-heading-2 text-ink">Dashboard</h1>
             <p className="text-body-sm text-body mt-1">Overview of your cloud resources and services</p>
           </div>
 
           {/* Service Status */}
           <div className="mb-6">
+            <p className="font-mono text-xs text-mute mb-2">SERVICES</p>
             <h2 className="text-heading-3 text-ink mb-4">Service Status</h2>
             <ServiceStatus />
           </div>

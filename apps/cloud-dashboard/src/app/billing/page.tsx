@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Sidebar from "@/components/Sidebar";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { FileText } from "lucide-react";
 
 export default function BillingPage() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -32,6 +33,7 @@ export default function BillingPage() {
 
         <main className="flex-1 p-6 overflow-auto">
           <div className="mb-6">
+            <p className="font-mono text-xs text-mute mb-2">FINANCE</p>
             <h1 className="text-heading-2 text-ink">Billing</h1>
             <p className="text-body-sm text-body mt-1">Manage your subscription and billing</p>
           </div>
@@ -117,7 +119,7 @@ export default function BillingPage() {
                   <tr>
                     <td colSpan={5} className="px-6 py-12 text-center">
                       <div className="flex flex-col items-center justify-center">
-                        <div className="text-4xl mb-4" aria-hidden="true">📄</div>
+                        <FileText className="w-8 h-8 text-mute mb-4" />
                         <h3 className="text-heading-3 text-ink mb-1">No invoices yet</h3>
                         <p className="text-body-sm text-body max-w-sm">Your invoice history will appear here once you have billing activity.</p>
                       </div>

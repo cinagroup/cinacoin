@@ -224,7 +224,7 @@ async function handleSend(request: Request, env: Env): Promise<Response> {
 
     // Deliver
     const result = await delivery.send(device, {
-      type: type as unknown,
+      type: type as NotificationType,
       title,
       body: msgBody,
       data: data as Record<string, string> | undefined,
@@ -272,7 +272,7 @@ async function handleSendBatch(request: Request, env: Env): Promise<Response> {
     const devices = await registry.getAllDevicesForAddress(address);
     for (const device of devices) {
       const result = await delivery.send(device, {
-        type: type as unknown,
+        type: type as NotificationType,
         title,
         body: msgBody,
         data: data as Record<string, string> | undefined,

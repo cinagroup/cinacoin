@@ -2,14 +2,16 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Home, Folder, Key, BarChart3, BookOpen, CreditCard, Settings } from "lucide-react";
 
 const navItems = [
-  { href: "/", label: "Home", icon: "🏠" },
-  { href: "/projects", label: "Projects", icon: "📦" },
-  { href: "/api-keys", label: "API Keys", icon: "🔑" },
-  { href: "/analytics", label: "Analytics", icon: "📈" },
-  { href: "/billing", label: "Billing", icon: "💳" },
-  { href: "/settings", label: "Settings", icon: "⚙️" },
+  { href: "/", label: "Home", icon: Home },
+  { href: "/projects", label: "Projects", icon: Folder },
+  { href: "/api-keys", label: "API Keys", icon: Key },
+  { href: "/analytics", label: "Analytics", icon: BarChart3 },
+  { href: "/api-reference", label: "API Reference", icon: BookOpen },
+  { href: "/billing", label: "Billing", icon: CreditCard },
+  { href: "/settings", label: "Settings", icon: Settings },
 ];
 
 export default function Sidebar() {
@@ -24,7 +26,9 @@ export default function Sidebar() {
     <aside className="sidebar hidden md:flex flex-col py-4 px-3 shrink-0" aria-label="Main navigation">
       {/* Logo */}
       <Link href="/" className="flex items-center gap-2 px-3 mb-6">
-        <span className="text-display-md" aria-hidden="true">🔢</span>
+        <div className="w-8 h-8 rounded bg-primary flex items-center justify-center">
+          <span className="text-on-primary font-semibold text-body-sm">0</span>
+        </div>
         <div>
           <div className="text-body-sm font-semibold text-ink leading-tight">Cinacoin</div>
           <div className="text-caption text-ink-mute leading-tight">Developer Portal</div>
@@ -40,7 +44,7 @@ export default function Sidebar() {
             className={`sidebar-link ${isActive(item.href) ? "active" : ""}`}
             aria-current={isActive(item.href) ? "page" : undefined}
           >
-            <span aria-hidden="true">{item.icon}</span>
+            <item.icon className="w-4 h-4" aria-hidden="true" />
             <span>{item.label}</span>
           </Link>
         ))}
@@ -53,9 +57,10 @@ export default function Sidebar() {
           href="https://docs.cinacoin.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-caption text-link hover:text-link-hover mt-1 block"
+          className="text-caption text-link hover:text-link-deep mt-1 flex items-center gap-1"
         >
-          📖 Documentation
+          <BookOpen className="w-3 h-3" aria-hidden="true" />
+          Documentation
         </a>
       </div>
     </aside>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useMemo, useCallback } from "react";
+import React, { useEffect, useState, useMemo, useCallback, useRef } from "react";
 import useWebSocket from "@/hooks/useWebSocket";
 
 interface Transaction {
@@ -19,6 +19,9 @@ interface RealtimeData {
   heatmap: { region: string; requests: number; lat: number; lng: number }[];
 }
 
+/** Whether to use simulated data (demo mode) instead of live WebSocket */
+const DEMO_MODE = process.env.NEXT_PUBLIC_DEMO_MODE === "true" || true; // default true until WS backend ready
+
 export default function RealtimeDashboard() {
   const [data, setData] = useState<RealtimeData>({
     activeUsers: 0,
@@ -27,14 +30,18 @@ export default function RealtimeDashboard() {
     heatmap: [],
   });
 
+  const simulationActiveRef = useRef(DEMO_MODE);
+
   const { connectionState, lastMessage } = useWebSocket({
     url: process.env.NEXT_PUBLIC_WS_URL || "wss://analytics.cinacoin.com/ws/realtime",
-    enabled: true,
+    enabled: !DEMO_MODE,
     reconnectInterval: 3000,
     maxReconnectAttempts: 5,
   });
 
+  // Live WebSocket data handler — only processes messages when NOT in demo mode
   useEffect(() => {
+    if (simulationActiveRef.current) return;
     if (lastMessage) {
       const msg = lastMessage as Partial<RealtimeData>;
       setData((prev) => ({
@@ -46,17 +53,19 @@ export default function RealtimeDashboard() {
     }
   }, [lastMessage]);
 
-  // Simulate data for demo
+  // Demo simulation — only runs when DEMO_MODE is true
   useEffect(() => {
+    if (!simulationActiveRef.current) return;
+
     const interval = setInterval(() => {
       setData((prev) => ({
-        activeUsers: prev.activeUsers + Math.floor(Math.random() * 10 - 5),
+        activeUsers: Math.max(0, prev.activeUsers + Math.floor(Math.random() * 10 - 5)),
         tps: Math.floor(Math.random() * 100) + 50,
         transactions: [
           {
-            id: `tx_${Date.now()}`,
-            from: "0x1234...5678",
-            to: "0xabcd...efgh",
+            id: `tx_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+            from: `0x${Math.random().toString(16).slice(2, 6)}...${Math.random().toString(16).slice(2, 6)}`,
+            to: `0x${Math.random().toString(16).slice(2, 6)}...${Math.random().toString(16).slice(2, 6)}`,
             amount: Math.random() * 10,
             chain: ["Ethereum", "Polygon", "Arbitrum"][Math.floor(Math.random() * 3)],
             timestamp: Date.now(),
@@ -64,11 +73,11 @@ export default function RealtimeDashboard() {
           ...prev.transactions.slice(0, 19),
         ],
         heatmap: [
-          { region: "North America", requests: 1250, lat: 40, lng: -100 },
-          { region: "Europe", requests: 980, lat: 50, lng: 10 },
-          { region: "Asia", requests: 1450, lat: 35, lng: 105 },
-          { region: "South America", requests: 420, lat: -15, lng: -60 },
-          { region: "Africa", requests: 280, lat: 0, lng: 25 },
+          { region: "North America", requests: 1250 + Math.floor(Math.random() * 100), lat: 40, lng: -100 },
+          { region: "Europe", requests: 980 + Math.floor(Math.random() * 80), lat: 50, lng: 10 },
+          { region: "Asia", requests: 1450 + Math.floor(Math.random() * 120), lat: 35, lng: 105 },
+          { region: "South America", requests: 420 + Math.floor(Math.random() * 40), lat: -15, lng: -60 },
+          { region: "Africa", requests: 280 + Math.floor(Math.random() * 30), lat: 0, lng: 25 },
         ],
       }));
     }, 1000);
@@ -117,6 +126,7 @@ export default function RealtimeDashboard() {
 
       {/* Realtime Transaction Stream */}
       <div className="cc-card p-lg">
+        <p className="font-mono text-xs text-mute mb-2">STREAM</p>
         <h3 className="text-heading-3 text-ink mb-md">Live Transaction Stream</h3>
         <div className="space-y-xs max-h-96 overflow-y-auto">
           {data.transactions.length === 0 ? (
@@ -131,6 +141,7 @@ export default function RealtimeDashboard() {
 
       {/* Global Heatmap */}
       <div className="cc-card p-lg">
+        <p className="font-mono text-xs text-mute mb-2">GEOGRAPHY</p>
         <h3 className="text-heading-3 text-ink mb-md">Global Request Distribution</h3>
         <div className="space-y-sm">
           {data.heatmap.map((item) => (

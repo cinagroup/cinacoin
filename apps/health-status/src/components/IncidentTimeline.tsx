@@ -1,4 +1,5 @@
 import React from 'react';
+import { CheckCircle } from 'lucide-react';
 
 type IncidentStatus = "resolved" | "investigating" | "monitoring" | "identified";
 
@@ -35,11 +36,11 @@ export default React.memo(function IncidentTimeline({ incidents }: { incidents: 
     <div className="space-y-4">
       {incidents.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-12 px-4 text-center rounded-[8px] border border-[var(--cc-hairline)] bg-[var(--cc-canvas)]">
-          <div className="mb-3 text-3xl" aria-hidden="true">✅</div>
+          <CheckCircle className="mb-3 w-12 h-12 text-[var(--color-operational)]" aria-hidden="true" />
           <h3 className="font-semibold text-[var(--cc-ink)]">No incidents reported</h3>
           <p className="mt-1 text-body-sm text-[var(--cc-body)]">All systems are running smoothly. Incidents will appear here if any occur.</p>
         </div>
-      ) : incidents.map((incident) => {
+      ) : incidents.map((incident, incidentIdx) => {
         const colors = statusColors[incident.status];
         return (
           <div 
@@ -58,7 +59,7 @@ export default React.memo(function IncidentTimeline({ incidents }: { incidents: 
             </div>
             <div className="mt-4 space-y-3 border-l-2 border-[var(--cc-hairline)] pl-4">
               {incident.updates.map((update, idx) => (
-                <div key={idx} className="relative">
+                <div key={idx} className="relative pb-3 border-b border-[var(--cc-hairline)] last:border-b-0 last:pb-0">
                   <div className="absolute -left-[21px] top-1 h-3 w-3 rounded-full border-2 border-[var(--cc-canvas)] bg-[var(--cc-muted)]" />
                   <p className="text-body-sm text-[var(--cc-body)]">{update.message}</p>
                   <p className="mt-1 text-caption text-[var(--cc-muted)]">{update.timestamp}</p>

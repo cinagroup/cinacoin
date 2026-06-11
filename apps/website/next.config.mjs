@@ -44,6 +44,8 @@ const nextConfig = {
         ...config.optimization,
         usedExports: true,
         sideEffects: false,
+        // Minimize bundle size in production
+        minimize: !dev,
         splitChunks: {
           chunks: 'all',
           cacheGroups: {

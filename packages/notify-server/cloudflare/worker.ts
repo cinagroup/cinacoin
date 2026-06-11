@@ -4,7 +4,7 @@
  * Notification delivery service supporting push, email, and webhook channels.
  */
 
-import { NotifyServer } from '../dist/NotifyServer.js';
+import { NotifyServer } from '../dist/index.js';
 import { logger } from '@cinacoin/logger';
 // --- Inlined from @cinacoin/config ---
 function createLogger(serviceName: string) {

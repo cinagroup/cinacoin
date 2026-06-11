@@ -14,8 +14,27 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CinaCoin Demo",
-  description: "Interactive demo for CinaCoin wallet and transactions",
+  title: {
+    default: "CinaCoin Demo",
+    template: "%s | CinaCoin Demo",
+  },
+  description: "Interactive demo showcasing CinaCoin wallet features, transactions, multi-chain support, and DeFi capabilities. Experience the platform risk-free.",
+  keywords: ["CinaCoin", "demo", "wallet", "transactions", "multi-chain", "DeFi", "blockchain demo"],
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    type: "website",
+    siteName: "CinaCoin",
+    title: "CinaCoin Demo",
+    description: "Interactive demo for CinaCoin wallet and transactions",
+  },
+  twitter: {
+    card: "summary",
+    title: "CinaCoin Demo",
+    description: "Interactive demo for CinaCoin wallet and transactions",
+  },
 };
 
 export default function RootLayout({

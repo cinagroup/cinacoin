@@ -10,7 +10,7 @@ interface I18nContextType {
   t: (key: string) => string;
 }
 
-const translations = {
+const translations: Record<Locale, Record<string, string>> = {
   en: enTranslations,
   zh: zhTranslations,
 };
@@ -50,3 +50,4 @@ export function useI18n() {
   }
   return context;
 }
+export type { Locale };

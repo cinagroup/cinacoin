@@ -1,11 +1,20 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { Sidebar } from "@/components/Sidebar";
 import { StatsCards } from "@/components/StatsCards";
-import { UserGrowthChart } from "@/components/UserGrowthChart";
-import { ApiCallsChart } from "@/components/ApiCallsChart";
 import { SystemOverview } from "@/components/SystemOverview";
 import { RecentActivity } from "@/components/RecentActivity";
+
+// Lazy-load heavy chart components (recharts is ~500KB)
+const UserGrowthChart = dynamic(() => import("@/components/UserGrowthChart").then(m => ({ default: m.UserGrowthChart })), {
+  loading: () => <div className="h-64 flex items-center justify-center text-ink-mute">Loading chart...</div>,
+  ssr: false,
+});
+const ApiCallsChart = dynamic(() => import("@/components/ApiCallsChart").then(m => ({ default: m.ApiCallsChart })), {
+  loading: () => <div className="h-64 flex items-center justify-center text-ink-mute">Loading chart...</div>,
+  ssr: false,
+});
 
 export default function Home() {
   return (

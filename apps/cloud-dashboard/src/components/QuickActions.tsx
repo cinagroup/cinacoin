@@ -1,25 +1,27 @@
 "use client";
 
+import { Monitor, Database, Upload, Rocket } from "lucide-react";
+
 const actions = [
   {
     name: "Create VM",
     description: "Launch a new virtual machine",
-    icon: "🖥️",
+    icon: Monitor,
   },
   {
     name: "Create Database",
     description: "Provision a new database",
-    icon: "🗄️",
+    icon: Database,
   },
   {
     name: "Upload Files",
     description: "Upload to object storage",
-    icon: "📤",
+    icon: Upload,
   },
   {
     name: "Deploy App",
     description: "Deploy from container image",
-    icon: "🚀",
+    icon: Rocket,
   },
 ];
 
@@ -31,7 +33,7 @@ export default function QuickActions() {
           key={index}
           className="resource-card text-left hover:shadow-level-3 transition-shadow duration-fast"
         >
-          <span className="text-display-md">{action.icon}</span>
+          <action.icon className="w-6 h-6 text-ink mb-2" />
           <h3 className="text-body-sm font-semibold text-ink mt-2">{action.name}</h3>
           <p className="text-caption text-body mt-1">{action.description}</p>
         </button>

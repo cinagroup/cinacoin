@@ -1,11 +1,16 @@
+import { Hash } from "lucide-react";
+
 export default function LoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-canvas-soft-2 -m-6 p-6">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="text-display-xl mb-3">🔢</div>
-          <h1 className="text-display-md font-semibold text-ink">Cinacoin Developer Portal</h1>
-          <p className="text-ink-body mt-1">Sign in to manage your projects</p>
+          <div className="w-12 h-12 mx-auto mb-3 rounded bg-primary flex items-center justify-center">
+            <Hash className="w-6 h-6 text-on-primary" aria-hidden="true" />
+          </div>
+          <p className="font-mono text-xs text-ink-mute mb-2">DEVELOPER PORTAL</p>
+          <h1 className="text-display-md font-semibold text-ink">Sign in to Cinacoin.</h1>
+          <p className="text-ink-body mt-1">Manage your projects and API keys.</p>
         </div>
 
         <div className="cc-card">
@@ -41,7 +46,7 @@ export default function LoginPage() {
           </div>
 
           <button className="cc-btn-secondary w-full justify-center">
-            🦊 Sign in with Ethereum (SIWE)
+            Sign in with Ethereum (SIWE)
           </button>
         </div>
 

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import StatCard from "@/components/StatCard";
 import ProjectCard from "@/components/ProjectCard";
+import { Folder, BarChart3, Activity, Key, BarChart2, Settings } from "lucide-react";
 
 // Mock data for static export
 const stats = {
@@ -41,17 +42,18 @@ export default function HomePage() {
     <div className="space-y-8">
       {/* Welcome */}
       <div>
-        <h1 className="text-display-md font-semibold text-ink">Welcome back, Developer</h1>
-        <p className="text-ink-body mt-1">
+        <p className="font-mono text-xs text-ink-mute mb-2">DASHBOARD</p>
+        <h1 className="text-display-md font-semibold text-ink">Welcome back, Developer.</h1>
+        <p className="text-body text-ink-body mt-1">
           Here&apos;s an overview of your Cinacoin projects and usage.
         </p>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <StatCard label="Total Projects" value={stats.projects.toString()} icon="📦" />
-        <StatCard label="Total Requests" value={stats.totalRequests.toLocaleString()} icon="📊" />
-        <StatCard label="Active Projects" value={stats.activeProjects.toString()} icon="🟢" />
+        <StatCard label="Total Projects" value={stats.projects.toString()} icon={Folder} />
+        <StatCard label="Total Requests" value={stats.totalRequests.toLocaleString()} icon={BarChart3} />
+        <StatCard label="Active Projects" value={stats.activeProjects.toString()} icon={Activity} />
       </div>
 
       {/* Recent Projects */}
@@ -73,10 +75,22 @@ export default function HomePage() {
       <div className="cc-card">
         <h3 className="text-body-sm font-semibold text-ink mb-3">Quick Links</h3>
         <div className="flex flex-wrap gap-3">
-          <Link href="/api-keys" className="cc-btn-secondary">🔑 Manage API Keys</Link>
-          <Link href="/analytics" className="cc-btn-secondary">📈 View Analytics</Link>
-          <Link href="/projects/new" className="cc-btn-secondary">📦 Create Project</Link>
-          <Link href="/settings" className="cc-btn-secondary">⚙️ Settings</Link>
+          <Link href="/api-keys" className="cc-btn-secondary">
+            <Key className="w-4 h-4 mr-2" />
+            Manage API Keys
+          </Link>
+          <Link href="/analytics" className="cc-btn-secondary">
+            <BarChart2 className="w-4 h-4 mr-2" />
+            View Analytics
+          </Link>
+          <Link href="/projects/new" className="cc-btn-secondary">
+            <Folder className="w-4 h-4 mr-2" />
+            Create Project
+          </Link>
+          <Link href="/settings" className="cc-btn-secondary">
+            <Settings className="w-4 h-4 mr-2" />
+            Settings
+          </Link>
         </div>
       </div>
     </div>

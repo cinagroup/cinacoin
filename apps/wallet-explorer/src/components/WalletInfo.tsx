@@ -1,3 +1,8 @@
+'use client';
+
+import { memo } from 'react';
+import { truncateAddress } from '@/lib/utils';
+
 interface WalletInfoProps {
   address: string;
   balance: string;
@@ -6,7 +11,7 @@ interface WalletInfoProps {
   firstSeen: string;
 }
 
-export default function WalletInfo({ address, balance, tokenBalance, txCount, firstSeen }: WalletInfoProps) {
+export default memo(function WalletInfo({ address, balance, tokenBalance, txCount, firstSeen }: WalletInfoProps) {
   return (
     <div className="cc-card">
       <div className="flex items-start justify-between">
@@ -14,7 +19,7 @@ export default function WalletInfo({ address, balance, tokenBalance, txCount, fi
           <h2 className="text-heading-3 text-ink">Wallet Details</h2>
           <div className="mt-2 flex items-center gap-2">
             <span className="text-body-sm text-mute">Address:</span>
-            <code className="text-link">{address}</code>
+            <code className="text-link" title={address}>{truncateAddress(address, 10, 8)}</code>
           </div>
         </div>
         <div className="badge badge-success">
@@ -48,4 +53,4 @@ export default function WalletInfo({ address, balance, tokenBalance, txCount, fi
       </div>
     </div>
   );
-}
+});

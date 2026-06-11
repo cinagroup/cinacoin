@@ -27,6 +27,7 @@ export default function SettingsPage() {
 
         <main className="flex-1 p-6 overflow-auto">
           <div className="mb-6">
+            <p className="font-mono text-xs text-mute mb-2">CONFIGURATION</p>
             <h1 className="text-heading-2 text-ink">Settings</h1>
             <p className="text-body-sm text-body mt-1">Manage your account settings and preferences</p>
           </div>

@@ -1,0 +1,120 @@
+name = "cinacoin-router"
+main = "index.js"
+compatibility_date = "2024-01-01"
+account_id = "7ea8e46d8210bad342fa7595f7935fea"
+
+# Route bindings for subdomains
+[[routes]]
+pattern = "cinacoin.com/docs"
+zone_name = "cinacoin.com"
+
+[[routes]]
+pattern = "cinacoin.com/docs/*"
+zone_name = "cinacoin.com"
+
+[[routes]]
+pattern = "cinacoin.com/developer"
+zone_name = "cinacoin.com"
+
+[[routes]]
+pattern = "cinacoin.com/developer/*"
+zone_name = "cinacoin.com"
+
+[[routes]]
+pattern = "cinacoin.com/learn"
+zone_name = "cinacoin.com"
+
+[[routes]]
+pattern = "cinacoin.com/learn/*"
+zone_name = "cinacoin.com"
+
+[[routes]]
+pattern = "cinacoin.com/demo"
+zone_name = "cinacoin.com"
+
+[[routes]]
+pattern = "cinacoin.com/demo/*"
+zone_name = "cinacoin.com"
+
+[[routes]]
+pattern = "cinacoin.com/telegram"
+zone_name = "cinacoin.com"
+
+[[routes]]
+pattern = "cinacoin.com/telegram/*"
+zone_name = "cinacoin.com"
+
+[[routes]]
+pattern = "cinacoin.com/farcaster"
+zone_name = "cinacoin.com"
+
+[[routes]]
+pattern = "cinacoin.com/farcaster/*"
+zone_name = "cinacoin.com"
+
+[[routes]]
+pattern = "cinacoin.com/analytics"
+zone_name = "cinacoin.com"
+
+[[routes]]
+pattern = "cinacoin.com/analytics/*"
+zone_name = "cinacoin.com"
+
+[[routes]]
+pattern = "cinacoin.com/dashboard"
+zone_name = "cinacoin.com"
+
+[[routes]]
+pattern = "cinacoin.com/dashboard/*"
+zone_name = "cinacoin.com"
+
+[[routes]]
+pattern = "cinacoin.com/wallets"
+zone_name = "cinacoin.com"
+
+[[routes]]
+pattern = "cinacoin.com/wallets/*"
+zone_name = "cinacoin.com"
+
+[[routes]]
+pattern = "cinacoin.com/_health"
+zone_name = "cinacoin.com"
+
+[[routes]]
+pattern = "cinacoin.com/_routes"
+zone_name = "cinacoin.com"
+
+# Subdomain routes (excluding wallet.cinacoin.com which now uses direct Pages)
+[[routes]]
+pattern = "demo.cinacoin.com/*"
+zone_name = "cinacoin.com"
+
+[[routes]]
+pattern = "cloud.cinacoin.com/*"
+zone_name = "cinacoin.com"
+
+[[routes]]
+pattern = "analytics.cinacoin.com/*"
+zone_name = "cinacoin.com"
+
+[[routes]]
+pattern = "docs.cinacoin.com/*"
+zone_name = "cinacoin.com"
+
+[[routes]]
+pattern = "developer.cinacoin.com/*"
+zone_name = "cinacoin.com"
+
+[[routes]]
+pattern = "learn.cinacoin.com/*"
+zone_name = "cinacoin.com"
+
+[[routes]]
+pattern = "telegram.cinacoin.com/*"
+zone_name = "cinacoin.com"
+
+[[routes]]
+pattern = "farcaster.cinacoin.com/*"
+zone_name = "cinacoin.com"
+
+# Note: wallet.cinacoin.com is NOT included here - it will use direct Pages routing

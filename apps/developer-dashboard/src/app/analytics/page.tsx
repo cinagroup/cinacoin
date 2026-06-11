@@ -1,6 +1,7 @@
 "use client";
 
 import StatCard from "@/components/StatCard";
+import { BarChart3, Zap, AlertTriangle, CheckCircle } from "lucide-react";
 
 // Mock data for charts
 const dailyRequests = [
@@ -29,7 +30,8 @@ export default function AnalyticsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-display-md font-semibold text-ink">Analytics</h1>
+        <p className="font-mono text-xs text-ink-mute mb-2">ANALYTICS</p>
+        <h1 className="text-display-md font-semibold text-ink">API usage and performance.</h1>
         <p className="text-ink-body mt-1">
           Monitor your API usage, performance, and error rates.
         </p>
@@ -37,10 +39,10 @@ export default function AnalyticsPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
-        <StatCard label="Total Requests (30d)" value="1,284,392" icon="📊" />
-        <StatCard label="Avg Latency" value="42ms" icon="⚡" />
-        <StatCard label="Error Rate" value="0.12%" icon="⚠️" />
-        <StatCard label="Uptime" value="99.98%" icon="✅" />
+        <StatCard label="Total Requests (30d)" value="1,284,392" icon={BarChart3} />
+        <StatCard label="Avg Latency" value="42ms" icon={Zap} />
+        <StatCard label="Error Rate" value="0.12%" icon={AlertTriangle} />
+        <StatCard label="Uptime" value="99.98%" icon={CheckCircle} />
       </div>
 
       {/* Request Trend */}

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Sidebar from "@/components/Sidebar";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { FolderOpen } from "lucide-react";
 
 export default function ProjectsPage() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -45,6 +46,7 @@ export default function ProjectsPage() {
         <main className="flex-1 p-6 overflow-auto">
           <div className="mb-6 flex items-center justify-between">
             <div>
+              <p className="font-mono text-xs text-mute mb-2">WORKSPACE</p>
               <h1 className="text-heading-2 text-ink">Projects</h1>
               <p className="text-body-sm text-body mt-1">Manage your cloud projects</p>
             </div>
@@ -56,7 +58,7 @@ export default function ProjectsPage() {
           <div className="grid gap-4">
             {mockProjects.length === 0 ? (
               <div className="bg-canvas border border-hairline rounded-md p-12 text-center">
-                <div className="text-4xl mb-4" aria-hidden="true">📁</div>
+                <FolderOpen className="w-8 h-8 text-mute mb-4 mx-auto" />
                 <h3 className="text-heading-3 text-ink mb-1">No projects yet</h3>
                 <p className="text-body-sm text-body max-w-sm">Create your first project to get started with cloud services.</p>
               </div>

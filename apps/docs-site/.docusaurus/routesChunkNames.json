@@ -6,14 +6,11 @@
     },
     "config": "5e9f5e1a"
   },
-  "/docs/blog-ccc": {
-    "__comp": "a6aa9e1f",
+  "/docs/search-b58": {
+    "__comp": "1a4e3797",
     "__context": {
-      "plugin": "36994c47"
-    },
-    "sidebar": "814f3328",
-    "items": [],
-    "__props": "7da13d82"
+      "plugin": "138e0e15"
+    }
   },
   "/docs/-d4e": {
     "__comp": "5e95c892",

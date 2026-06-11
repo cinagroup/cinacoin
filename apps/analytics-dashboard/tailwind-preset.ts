@@ -126,14 +126,14 @@ const cinacoinPreset: Config = {
       },
 
       fontSize: {
-        'display': ['48px', { lineHeight: '1.1', letterSpacing: '-2.4px', fontWeight: '600' }] as unknown,
-        'heading-1': ['36px', { lineHeight: '1.2', letterSpacing: '-1.5px', fontWeight: '600' }] as unknown,
-        'heading-2': ['24px', { lineHeight: '1.3', letterSpacing: '-0.5px', fontWeight: '600' }] as unknown,
-        'heading-3': ['20px', { lineHeight: '1.4', letterSpacing: '-0.25px', fontWeight: '600' }] as unknown,
-        'body-lg': ['16px', { lineHeight: '1.5', fontWeight: '400' }] as unknown,
-        'body': ['14px', { lineHeight: '1.5', fontWeight: '400' }] as unknown,
-        'body-sm': ['12px', { lineHeight: '1.5', fontWeight: '400' }] as unknown,
-        'caption': ['11px', { lineHeight: '1.4', fontWeight: '500' }] as unknown,
+        'display': ['48px', { lineHeight: '1.1', letterSpacing: '-2.4px', fontWeight: '600' }],
+        'heading-1': ['36px', { lineHeight: '1.2', letterSpacing: '-1.5px', fontWeight: '600' }],
+        'heading-2': ['24px', { lineHeight: '1.3', letterSpacing: '-0.5px', fontWeight: '600' }],
+        'heading-3': ['20px', { lineHeight: '1.4', letterSpacing: '-0.25px', fontWeight: '600' }],
+        'body-lg': ['16px', { lineHeight: '1.5', fontWeight: '400' }],
+        'body': ['14px', { lineHeight: '1.5', fontWeight: '400' }],
+        'body-sm': ['12px', { lineHeight: '1.5', fontWeight: '400' }],
+        'caption': ['11px', { lineHeight: '1.4', fontWeight: '500' }],
       },
 
       // ═══════════════════════════════════════════════════════════════

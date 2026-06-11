@@ -1,23 +1,14 @@
+import type { TransactionDetail as TransactionDetailType } from '@/types';
+
 interface TransactionDetailProps {
-  hash: string;
-  status: "success" | "failed" | "pending";
-  block: number;
-  timestamp: string;
-  from: string;
-  to: string;
-  value: string;
-  fee: string;
-  gasUsed: string;
-  gasPrice: string;
-  input: string;
-  confirmations: number;
+  tx: TransactionDetailType;
 }
 
-export default function TransactionDetail({ tx }: { tx: TransactionDetailProps }) {
+export default function TransactionDetail({ tx }: TransactionDetailProps) {
   const statusConfig = {
-    success: { badge: "badge-success", label: "Success" },
-    failed: { badge: "badge-error", label: "Failed" },
-    pending: { badge: "badge-warning", label: "Pending" },
+    success: { badge: 'badge-success', label: 'Success' },
+    failed: { badge: 'badge-error', label: 'Failed' },
+    pending: { badge: 'badge-warning', label: 'Pending' },
   };
 
   const status = statusConfig[tx.status];

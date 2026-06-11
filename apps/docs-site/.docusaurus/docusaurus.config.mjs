@@ -80,6 +80,110 @@ export default {
       "customElement": false
     },
     {
+      "tagName": "meta",
+      "attributes": {
+        "property": "og:title",
+        "content": "Cinacoin — Onchain UX Toolkit Documentation"
+      },
+      "customElement": false
+    },
+    {
+      "tagName": "meta",
+      "attributes": {
+        "property": "og:description",
+        "content": "Self-hosted Wallet Connection Toolkit. Complete API reference, guides, and SDK documentation for building onchain applications."
+      },
+      "customElement": false
+    },
+    {
+      "tagName": "meta",
+      "attributes": {
+        "property": "og:url",
+        "content": "https://cinacoin.com/docs/"
+      },
+      "customElement": false
+    },
+    {
+      "tagName": "meta",
+      "attributes": {
+        "property": "og:image",
+        "content": "https://cinacoin.com/docs/img/og-image.png"
+      },
+      "customElement": false
+    },
+    {
+      "tagName": "meta",
+      "attributes": {
+        "property": "og:locale",
+        "content": "en_US"
+      },
+      "customElement": false
+    },
+    {
+      "tagName": "meta",
+      "attributes": {
+        "name": "twitter:site",
+        "content": "@cinacoin"
+      },
+      "customElement": false
+    },
+    {
+      "tagName": "meta",
+      "attributes": {
+        "name": "twitter:creator",
+        "content": "@cinacoin"
+      },
+      "customElement": false
+    },
+    {
+      "tagName": "meta",
+      "attributes": {
+        "name": "twitter:title",
+        "content": "Cinacoin — Onchain UX Toolkit Documentation"
+      },
+      "customElement": false
+    },
+    {
+      "tagName": "meta",
+      "attributes": {
+        "name": "twitter:description",
+        "content": "Self-hosted Wallet Connection Toolkit. Complete API reference, guides, and SDK documentation."
+      },
+      "customElement": false
+    },
+    {
+      "tagName": "meta",
+      "attributes": {
+        "name": "twitter:image",
+        "content": "https://cinacoin.com/docs/img/og-image.png"
+      },
+      "customElement": false
+    },
+    {
+      "tagName": "meta",
+      "attributes": {
+        "name": "keywords",
+        "content": "cinacoin, wallet, web3, blockchain, dapp, walletconnect, eip-6963, erc-4337, smart accounts, defi, sdk"
+      },
+      "customElement": false
+    },
+    {
+      "tagName": "meta",
+      "attributes": {
+        "name": "author",
+        "content": "Cinacoin Team"
+      },
+      "customElement": false
+    },
+    {
+      "tagName": "meta",
+      "attributes": {
+        "name": "msapplication-TileColor",
+        "content": "#171717"
+      },
+      "customElement": false
+    },
+    {
       "tagName": "link",
       "attributes": {
         "rel": "preconnect",
@@ -100,15 +204,15 @@ export default {
       "tagName": "link",
       "attributes": {
         "rel": "stylesheet",
-        "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+        "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap"
       },
       "customElement": false
     },
     {
       "tagName": "link",
       "attributes": {
-        "rel": "stylesheet",
-        "href": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap"
+        "rel": "dns-prefetch",
+        "href": "https://github.com"
       },
       "customElement": false
     }
@@ -123,9 +227,89 @@ export default {
           "routeBasePath": "/",
           "showLastUpdateTime": true
         },
+        "blog": false,
         "theme": {
           "customCss": "./src/css/custom.css"
+        },
+        "sitemap": {
+          "changefreq": "weekly",
+          "priority": 0.5
         }
+      }
+    ]
+  ],
+  "plugins": [
+    [
+      "/home/cina/.openclaw/workspace/apps/docs-site/node_modules/@easyops-cn/docusaurus-search-local/dist/server/server/index.js",
+      {
+        "hashed": true,
+        "indexBlog": false,
+        "docsRouteBasePath": "/",
+        "searchResultLimits": 8,
+        "searchResultContextMaxLength": 50,
+        "explicitSearchResultPath": true,
+        "searchBarShortcut": true,
+        "searchBarShortcutHint": true,
+        "indexPages": true,
+        "language": [
+          "en"
+        ],
+        "highlightSearchTermsOnTargetPage": true
+      }
+    ],
+    [
+      "@docusaurus/plugin-pwa",
+      {
+        "debug": false,
+        "offlineModeActivationStrategies": [
+          "appInstalled",
+          "standalone",
+          "queryString"
+        ],
+        "pwaHead": [
+          {
+            "tagName": "link",
+            "attributes": {
+              "rel": "icon",
+              "href": "/docs/img/logo.svg"
+            }
+          },
+          {
+            "tagName": "link",
+            "attributes": {
+              "rel": "manifest",
+              "href": "/docs/manifest.json"
+            }
+          },
+          {
+            "tagName": "meta",
+            "attributes": {
+              "name": "theme-color",
+              "content": "#171717"
+            }
+          },
+          {
+            "tagName": "meta",
+            "attributes": {
+              "name": "apple-mobile-web-app-capable",
+              "content": "yes"
+            }
+          },
+          {
+            "tagName": "meta",
+            "attributes": {
+              "name": "apple-mobile-web-app-status-bar-style",
+              "content": "#171717"
+            }
+          },
+          {
+            "tagName": "link",
+            "attributes": {
+              "rel": "apple-touch-icon",
+              "href": "/docs/img/logo.svg"
+            }
+          }
+        ]
       }
     ]
   ],
@@ -530,7 +714,6 @@ export default {
     "static"
   ],
   "customFields": {},
-  "plugins": [],
   "themes": [],
   "scripts": [],
   "stylesheets": [],

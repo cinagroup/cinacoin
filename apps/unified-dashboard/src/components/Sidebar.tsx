@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useAuth } from "./AuthProvider";
 
 const navItems = [
   { name: "Dashboard", icon: "📊", active: true },
@@ -13,6 +14,7 @@ const navItems = [
 
 export function Sidebar() {
   const [active, setActive] = useState("Dashboard");
+  const { session, logout, isLoading } = useAuth();
 
   return (
     <aside className="sidebar fixed left-0 top-0 h-full w-64 flex flex-col">
@@ -40,15 +42,46 @@ export function Sidebar() {
       </nav>
 
       <div className="p-4 border-t border-[var(--color-on-primary)]/10">
-        <div className="flex items-center gap-3 px-4 py-2">
-          <div className="w-8 h-8 rounded-full bg-[var(--color-canvas)]/20 flex items-center justify-center text-body-sm font-semibold">
-            A
+        {isLoading ? (
+          <div className="flex items-center gap-3 px-4 py-2">
+            <div className="w-8 h-8 rounded-full bg-[var(--color-canvas)]/20 animate-pulse"></div>
+            <div className="flex-1">
+              <div className="h-3 bg-[var(--color-canvas)]/20 rounded w-20 mb-1"></div>
+              <div className="h-2 bg-[var(--color-canvas)]/10 rounded w-32"></div>
+            </div>
           </div>
-          <div>
-            <p className="text-body-sm font-medium">Admin</p>
-            <p className="text-caption text-[var(--color-on-primary)]/60">admin@cinacoin.com</p>
+        ) : session.authenticated ? (
+          <div className="space-y-2">
+            <div className="flex items-center gap-3 px-4 py-2">
+              <div className="w-8 h-8 rounded-full bg-[var(--color-canvas)]/20 flex items-center justify-center text-body-sm font-semibold">
+                {session.user?.name?.charAt(0) || session.user?.email?.charAt(0) || 'U'}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-body-sm font-medium truncate">
+                  {session.user?.name || session.user?.email || 'User'}
+                </p>
+                {session.user?.email && (
+                  <p className="text-caption text-[var(--color-on-primary)]/60 truncate">
+                    {session.user.email}
+                  </p>
+                )}
+              </div>
+            </div>
+            <button
+              onClick={logout}
+              className="w-full px-4 py-2 text-body-sm text-left text-[var(--color-on-primary)]/80 hover:text-[var(--color-on-primary)] hover:bg-[var(--color-canvas)]/10 rounded transition-colors"
+            >
+              🚪 Logout
+            </button>
           </div>
-        </div>
+        ) : (
+          <button
+            onClick={() => window.location.href = 'https://auth.cinacoin.com'}
+            className="w-full px-4 py-2 text-body-sm font-medium text-center bg-[var(--color-canvas)]/20 hover:bg-[var(--color-canvas)]/30 rounded transition-colors"
+          >
+            🔐 Login
+          </button>
+        )}
       </div>
     </aside>
   );

@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { Lock, Users, Shield, Settings, FileText, Plug, ClipboardList } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 interface AuditEntry {
   id: string;
@@ -48,13 +50,13 @@ const statusStyles: Record<string, string> = {
   warning: "badge-warning",
 };
 
-const categoryIcons: Record<string, string> = {
-  auth: "🔐",
-  users: "👥",
-  permissions: "🛡️",
-  system: "⚙️",
-  content: "📝",
-  api: "🔌",
+const categoryIcons: Record<string, LucideIcon> = {
+  auth: Lock,
+  users: Users,
+  permissions: Shield,
+  system: Settings,
+  content: FileText,
+  api: Plug,
 };
 
 function formatTimestamp(iso: string): string {
@@ -278,7 +280,7 @@ export function AuditLog() {
                 <tr>
                   <td colSpan={7} className="px-6 py-12 text-center">
                     <div className="flex flex-col items-center justify-center">
-                      <div className="text-4xl mb-4" aria-hidden="true">📜</div>
+                      <ClipboardList className="w-12 h-12 text-[var(--cc-muted)] mb-4" />
                       <h3 className="text-heading-3 text-ink mb-1">No audit logs found</h3>
                       <p className="text-body-sm text-mute max-w-sm">No audit entries match your current filters.</p>
                     </div>
@@ -315,7 +317,10 @@ export function AuditLog() {
                   </td>
                   <td>
                     <div className="flex items-center gap-2">
-                      <span className="text-body-sm">{categoryIcons[entry.category]}</span>
+                      {(() => {
+                        const Icon = categoryIcons[entry.category];
+                        return <Icon className="w-4 h-4 text-[var(--cc-muted)]" />;
+                      })()}
                       <code className="text-code text-caption bg-canvas-soft-2 px-2 py-1 rounded">
                         {entry.action}
                       </code>

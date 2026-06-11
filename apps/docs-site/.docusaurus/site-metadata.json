@@ -7,11 +7,6 @@
       "name": "@docusaurus/plugin-content-docs",
       "version": "3.10.1"
     },
-    "docusaurus-plugin-content-blog": {
-      "type": "package",
-      "name": "@docusaurus/plugin-content-blog",
-      "version": "3.10.1"
-    },
     "docusaurus-plugin-content-pages": {
       "type": "package",
       "name": "@docusaurus/plugin-content-pages",
@@ -30,6 +25,16 @@
     "docusaurus-theme-classic": {
       "type": "package",
       "name": "@docusaurus/theme-classic",
+      "version": "3.10.1"
+    },
+    "@easyops-cn/docusaurus-search-local": {
+      "type": "package",
+      "name": "@easyops-cn/docusaurus-search-local",
+      "version": "0.44.3"
+    },
+    "docusaurus-plugin-pwa": {
+      "type": "package",
+      "name": "@docusaurus/plugin-pwa",
       "version": "3.10.1"
     }
   }

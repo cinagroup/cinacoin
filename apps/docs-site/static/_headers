@@ -1,0 +1,40 @@
+# Cloudflare Pages cache headers for Cinacoin Docs
+
+# Static assets - cache forever (immutable due to content hash)
+/docs/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Images - cache for 1 year
+/docs/img/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Fonts - cache for 1 year
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Favicon
+/docs/favicon.ico
+  Cache-Control: public, max-age=604800
+
+# HTML pages - cache for 1 hour with revalidation
+/docs/*.html
+  Cache-Control: public, max-age=3600, must-revalidate
+
+# Search index - cache for 5 minutes
+/docs/search-index.json
+  Cache-Control: public, max-age=300, must-revalidate
+
+# Service worker - no cache (must always check for updates)
+/docs/service-worker.js
+  Cache-Control: no-cache, no-store, must-revalidate
+
+# Manifest
+/docs/manifest.json
+  Cache-Control: public, max-age=86400
+
+# Default for all other docs paths
+/docs/*
+  Cache-Control: public, max-age=3600, must-revalidate
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin

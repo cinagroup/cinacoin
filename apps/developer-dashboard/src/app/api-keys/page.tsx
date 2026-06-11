@@ -3,6 +3,7 @@
 import { useState } from "react";
 import ApiKeyTable from "@/components/ApiKeyTable";
 import ApiKeyModal from "@/components/ApiKeyModal";
+import { Shield, Key, CheckCircle, Copy } from "lucide-react";
 
 const initialKeys = [
   {
@@ -91,7 +92,8 @@ export default function ApiKeysPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-display-md font-semibold text-ink">API Keys</h1>
+          <p className="font-mono text-xs text-ink-mute mb-2">SECURITY</p>
+          <h1 className="text-display-md font-semibold text-ink">API Keys.</h1>
           <p className="text-ink-body mt-1">
             Manage API keys for authenticating with Cinacoin services.
           </p>
@@ -103,11 +105,14 @@ export default function ApiKeysPage() {
 
       {/* Info Banner */}
       <div className="cc-card bg-canvas-soft border-hairline">
-        <p className="text-body-sm text-ink-body">
-          🔐 <strong>Security:</strong> API keys carry privileges. Use the minimum
-          permission level needed. Rotate keys regularly and never commit them to
-          version control.
-        </p>
+        <div className="flex items-start gap-3">
+          <Shield className="w-5 h-5 text-ink-body mt-0.5" aria-hidden="true" />
+          <p className="text-body-sm text-ink-body">
+            <strong>Security:</strong> API keys carry privileges. Use the minimum
+            permission level needed. Rotate keys regularly and never commit them to
+            version control.
+          </p>
+        </div>
       </div>
 
       {/* Usage Summary */}
@@ -130,25 +135,29 @@ export default function ApiKeysPage() {
 
       {/* Newly Generated Key Alert */}
       {showNewKey && (
-        <div className="cc-card bg-[#ecfdf5] border-[#00875a]/30">
+        <div className="cc-card bg-success-soft border-success/30">
           <div className="flex items-start justify-between">
-            <div>
-              <p className="text-body-sm font-medium text-[#00875a] mb-1">
-                ✅ New API key generated!
-              </p>
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-1">
+                <CheckCircle className="w-4 h-4 text-success" aria-hidden="true" />
+                <p className="text-body-sm font-medium text-success">
+                  New API key generated!
+                </p>
+              </div>
               <p className="text-caption text-ink-body mb-2">
                 Copy this key now. You won't be able to see it again.
               </p>
-              <code className="text-body-sm font-[var(--font-mono)] bg-[var(--color-canvas)] px-3 py-2 rounded border border-[#00875a]/20 block">
+              <code className="text-body-sm font-mono bg-canvas px-3 py-2 rounded border border-success/20 block">
                 {showNewKey}
               </code>
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-2 ml-4">
               <button
                 onClick={() => navigator.clipboard.writeText(showNewKey).catch(() => {})}
                 className="cc-btn-primary text-caption"
               >
-                📋 Copy
+                <Copy className="w-3 h-3 mr-1" />
+                Copy
               </button>
               <button
                 onClick={() => setShowNewKey(null)}

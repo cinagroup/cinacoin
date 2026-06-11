@@ -41,7 +41,60 @@ const config: Config = {
       tagName: 'meta',
       attributes: { name: 'twitter:card', content: 'summary_large_image' },
     },
-    // Google Fonts: Inter (Geist substitute) + JetBrains Mono (Geist Mono substitute)
+    // ── SEO: Open Graph & Twitter ──
+    {
+      tagName: 'meta',
+      attributes: { property: 'og:title', content: 'Cinacoin — Onchain UX Toolkit Documentation' },
+    },
+    {
+      tagName: 'meta',
+      attributes: { property: 'og:description', content: 'Self-hosted Wallet Connection Toolkit. Complete API reference, guides, and SDK documentation for building onchain applications.' },
+    },
+    {
+      tagName: 'meta',
+      attributes: { property: 'og:url', content: 'https://cinacoin.com/docs/' },
+    },
+    {
+      tagName: 'meta',
+      attributes: { property: 'og:image', content: 'https://cinacoin.com/docs/img/og-image.png' },
+    },
+    {
+      tagName: 'meta',
+      attributes: { property: 'og:locale', content: 'en_US' },
+    },
+    {
+      tagName: 'meta',
+      attributes: { name: 'twitter:site', content: '@cinacoin' },
+    },
+    {
+      tagName: 'meta',
+      attributes: { name: 'twitter:creator', content: '@cinacoin' },
+    },
+    {
+      tagName: 'meta',
+      attributes: { name: 'twitter:title', content: 'Cinacoin — Onchain UX Toolkit Documentation' },
+    },
+    {
+      tagName: 'meta',
+      attributes: { name: 'twitter:description', content: 'Self-hosted Wallet Connection Toolkit. Complete API reference, guides, and SDK documentation.' },
+    },
+    {
+      tagName: 'meta',
+      attributes: { name: 'twitter:image', content: 'https://cinacoin.com/docs/img/og-image.png' },
+    },
+    {
+      tagName: 'meta',
+      attributes: { name: 'keywords', content: 'cinacoin, wallet, web3, blockchain, dapp, walletconnect, eip-6963, erc-4337, smart accounts, defi, sdk' },
+    },
+    {
+      tagName: 'meta',
+      attributes: { name: 'author', content: 'Cinacoin Team' },
+    },
+    {
+      tagName: 'meta',
+      attributes: { name: 'msapplication-TileColor', content: '#171717' },
+    },
+    // ── Font loading optimized: preconnect + single combined request ──
     {
       tagName: 'link',
       attributes: {
@@ -57,18 +110,20 @@ const config: Config = {
         crossorigin: 'anonymous',
       },
     },
+    // Single combined font request with display=swap for optimal loading
     {
       tagName: 'link',
       attributes: {
         rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap',
+        href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap',
       },
     },
+    // DNS prefetch for GitHub (edit links, source code)
     {
       tagName: 'link',
       attributes: {
-        rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap',
+        rel: 'dns-prefetch',
+        href: 'https://github.com',
       },
     },
   ],
@@ -80,8 +135,90 @@ const config: Config = {
       routeBasePath: '/',
       showLastUpdateTime: true,
     },
+    blog: false,
     theme: { customCss: './src/css/custom.css' },
+    sitemap: {
+      changefreq: 'weekly',
+      priority: 0.5,
+    },
   } satisfies Preset.Options]],
+
+  plugins: [
+    // Local search (works offline, no external dependencies)
+    [
+      require.resolve('@easyops-cn/docusaurus-search-local'),
+      /** @type {import('@easyops-cn/docusaurus-search-local').PluginOptions} */
+      ({
+        hashed: true,
+        indexBlog: false,
+        docsRouteBasePath: '/',
+        searchResultLimits: 8,
+        searchResultContextMaxLength: 50,
+        explicitSearchResultPath: true,
+        searchBarShortcut: true,
+        searchBarShortcutHint: true,
+        indexPages: true,
+        language: ['en'],
+        highlightSearchTermsOnTargetPage: true,
+      }),
+    ],
+    // PWA support with offline access
+    [
+      '@docusaurus/plugin-pwa',
+      {
+        debug: process.env.NODE_ENV === 'development',
+        offlineModeActivationStrategies: [
+          'appInstalled',
+          'standalone',
+          'queryString',
+        ],
+        pwaHead: [
+          {
+            tagName: 'link',
+            attributes: {
+              rel: 'icon',
+              href: '/docs/img/logo.svg',
+            },
+          },
+          {
+            tagName: 'link',
+            attributes: {
+              rel: 'manifest',
+              href: '/docs/manifest.json',
+            },
+          },
+          {
+            tagName: 'meta',
+            attributes: {
+              name: 'theme-color',
+              content: '#171717',
+            },
+          },
+          {
+            tagName: 'meta',
+            attributes: {
+              name: 'apple-mobile-web-app-capable',
+              content: 'yes',
+            },
+          },
+          {
+            tagName: 'meta',
+            attributes: {
+              name: 'apple-mobile-web-app-status-bar-style',
+              content: '#171717',
+            },
+          },
+          {
+            tagName: 'link',
+            attributes: {
+              rel: 'apple-touch-icon',
+              href: '/docs/img/logo.svg',
+            },
+          },
+        ],
+      },
+    ],
+  ],
 
   themeConfig: {
     image: 'img/logo.svg',

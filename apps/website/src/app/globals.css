@@ -139,7 +139,7 @@
 body {
   color: var(--color-ink);
   background: var(--color-canvas-soft);
-  font-family: var(--font-sans);
+  font-family: var(--font-sans) !important;
 }
 
 /* ── Typography Utilities ──────────────────────────────── */

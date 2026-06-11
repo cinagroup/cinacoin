@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import StatCard from "@/components/StatCard";
+import { BarChart3, Zap, AlertTriangle, Key, BarChart2, Code2, Settings2, Copy, Pencil } from "lucide-react";
 
 // Mock project detail
 const initialProject = {
@@ -186,13 +187,14 @@ export default function ProjectDetailPage() {
             </div>
           ) : (
             <>
+              <p className="font-mono text-xs text-ink-mute mb-2">PROJECT DETAIL</p>
               <div className="flex items-center gap-3">
                 <h1 className="text-display-md font-semibold text-ink">{project.name}</h1>
                 <span className="badge badge-success">Active</span>
               </div>
               <p className="text-ink-body mt-1">{project.description}</p>
               <div className="flex gap-4 mt-2 text-body-sm text-ink-mute">
-                <span>Project ID: <code className="text-ink font-[var(--font-mono)] text-caption">{project.projectId}</code></span>
+                <span>Project ID: <code className="text-ink font-mono text-caption">{project.projectId}</code></span>
                 <span>Network: {project.network}</span>
                 <span>SDK: {project.sdkVersion}</span>
               </div>
@@ -201,7 +203,8 @@ export default function ProjectDetailPage() {
         </div>
         {!isEditing && (
           <button onClick={() => setIsEditing(true)} className="cc-btn-secondary">
-            ✏️ Edit Project
+            <Pencil className="w-4 h-4 mr-2" />
+            Edit Project
           </button>
         )}
       </div>
@@ -212,15 +215,15 @@ export default function ProjectDetailPage() {
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-4 py-2 text-body-sm font-medium border-b-2 -mb-px transition-colors ${
+            className={`flex items-center gap-2 px-4 py-2 text-body-sm font-medium border-b-2 -mb-px transition-colors ${
               activeTab === tab
                 ? "border-ink text-ink"
                 : "border-transparent text-ink-mute hover:text-ink"
             }`}
           >
-            {tab === "overview" && "📊 Overview"}
-            {tab === "sdk" && "💻 SDK Setup"}
-            {tab === "env" && "🔧 Environment Variables"}
+            {tab === "overview" && <><BarChart2 className="w-4 h-4" /> Overview</>}
+            {tab === "sdk" && <><Code2 className="w-4 h-4" /> SDK Setup</>}
+            {tab === "env" && <><Settings2 className="w-4 h-4" /> Environment Variables</>}
           </button>
         ))}
       </div>
@@ -230,10 +233,10 @@ export default function ProjectDetailPage() {
         <>
           {/* Stats */}
           <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
-            <StatCard label="Total Requests" value="842,301" icon="📊" />
-            <StatCard label="Avg Latency" value="42ms" icon="⚡" />
-            <StatCard label="Error Rate" value="0.12%" icon="⚠️" />
-            <StatCard label="API Keys" value="2" icon="🔑" />
+            <StatCard label="Total Requests" value="842,301" icon={BarChart3} />
+            <StatCard label="Avg Latency" value="42ms" icon={Zap} />
+            <StatCard label="Error Rate" value="0.12%" icon={AlertTriangle} />
+            <StatCard label="API Keys" value="2" icon={Key} />
           </div>
 
           {/* Usage Chart */}
@@ -299,7 +302,7 @@ export default function ProjectDetailPage() {
                   {apiKeys.map((key) => (
                     <tr key={key.id} className="hover:bg-canvas-soft transition-colors">
                       <td className="font-medium text-ink">{key.name}</td>
-                      <td className="font-[var(--font-mono)] text-caption text-ink-body">{key.prefix}</td>
+                      <td className="font-mono text-caption text-ink-body">{key.prefix}</td>
                       <td>
                         <span className="badge badge-neutral">
                           {key.permissions.charAt(0).toUpperCase() + key.permissions.slice(1)}
@@ -337,34 +340,35 @@ export default function ProjectDetailPage() {
                 onClick={() => setSdkTab(tab)}
                 className={`px-3 py-2 text-body-sm font-medium rounded-full transition-colors ${
                   sdkTab === tab
-                    ? "bg-ink text-[var(--color-on-primary)]"
+                    ? "bg-primary text-on-primary"
                     : "bg-canvas-soft text-ink-body hover:text-ink"
                 }`}
               >
-                {tab === "react" && "⚛️ React"}
-                {tab === "vue" && "💚 Vue"}
-                {tab === "nextjs" && "▲ Next.js"}
+                {tab === "react" && "React"}
+                {tab === "vue" && "Vue"}
+                {tab === "nextjs" && "Next.js"}
               </button>
             ))}
           </div>
 
           {/* Code Block */}
           <div className="relative">
-            <pre className="bg-[#1a1a1a] text-[#e5e5e5] p-4 rounded-lg overflow-x-auto text-body-sm font-[var(--font-mono)] leading-relaxed">
+            <pre className="cc-code-block">
               <code>{sdkSnippets[sdkTab]}</code>
             </pre>
             <button
               onClick={() => navigator.clipboard.writeText(sdkSnippets[sdkTab]).catch(() => {})}
-              className="absolute top-3 right-3 px-2 py-1 text-caption bg-[var(--color-canvas)]/10 hover:bg-[var(--color-canvas)]/20 text-[var(--color-on-primary)] rounded transition-colors"
+              className="absolute top-3 right-3 flex items-center gap-1 px-2 py-1 text-caption bg-canvas/10 hover:bg-canvas/20 text-on-primary rounded transition-colors"
             >
-              📋 Copy
+              <Copy className="w-3 h-3" />
+              Copy
             </button>
           </div>
 
           {/* Install Command */}
           <div className="mt-4 p-3 bg-canvas-soft rounded-lg border border-hairline">
             <p className="text-caption text-ink-mute mb-1">Install the package:</p>
-            <code className="text-body-sm font-[var(--font-mono)] text-ink">
+            <code className="text-body-sm font-mono text-ink">
               {sdkTab === "vue"
                 ? "npm install @cinacoin/sdk-vue"
                 : sdkTab === "nextjs"
@@ -404,8 +408,8 @@ export default function ProjectDetailPage() {
                 <tbody>
                   {envVars.map((env) => (
                     <tr key={env.key} className="hover:bg-canvas-soft transition-colors">
-                      <td className="font-[var(--font-mono)] text-body-sm font-medium text-ink">{env.key}</td>
-                      <td className="font-[var(--font-mono)] text-caption text-ink-body">{env.value}</td>
+                      <td className="font-mono text-body-sm font-medium text-ink">{env.key}</td>
+                      <td className="font-mono text-caption text-ink-body">{env.value}</td>
                       <td>
                         <span className={`badge ${env.secret ? "badge-warning" : "badge-neutral"}`}>
                           {env.secret ? "Secret" : "Plain"}
@@ -437,7 +441,7 @@ export default function ProjectDetailPage() {
                     type="text"
                     value={newEnvKey}
                     onChange={(e) => setNewEnvKey(e.target.value.toUpperCase().replace(/[^A-Z0-9_]/g, ""))}
-                    className="cc-form-input font-[var(--font-mono)]"
+                    className="cc-form-input font-mono"
                     placeholder="MY_VARIABLE_KEY"
                   />
                 </div>
@@ -447,7 +451,7 @@ export default function ProjectDetailPage() {
                     type="text"
                     value={newEnvValue}
                     onChange={(e) => setNewEnvValue(e.target.value)}
-                    className="cc-form-input font-[var(--font-mono)]"
+                    className="cc-form-input font-mono"
                     placeholder="variable value"
                   />
                 </div>

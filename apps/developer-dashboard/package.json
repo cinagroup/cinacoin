@@ -9,13 +9,15 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@cinacoin/design-tokens": "workspace:*",
+    "@cinacoin/siwe": "workspace:*",
+    "@cinacoin/ui": "workspace:*",
+    "@cinacoin/ui-theme": "workspace:*",
     "@next/bundle-analyzer": "^14.2.29",
+    "lucide-react": "^1.17.0",
     "next": "14.2.29",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "@cinacoin/ui": "workspace:*",
-    "@cinacoin/ui-theme": "workspace:*",
-    "@cinacoin/siwe": "workspace:*",
     "recharts": "latest"
   },
   "engines": {

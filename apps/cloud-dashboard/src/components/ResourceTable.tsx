@@ -1,5 +1,7 @@
 "use client";
 
+import { Monitor } from "lucide-react";
+
 const resources = [
   {
     id: "vm-001",
@@ -101,7 +103,7 @@ export default function ResourceTable() {
               <tr>
                 <td colSpan={6} className="px-6 py-12 text-center">
                   <div className="flex flex-col items-center justify-center">
-                    <div className="text-4xl mb-4" aria-hidden="true">🖥️</div>
+                    <Monitor className="w-8 h-8 text-mute mb-4" />
                     <h3 className="text-heading-3 text-ink mb-1">No resources</h3>
                     <p className="text-body-sm text-body max-w-sm">Create your first cloud resource to get started.</p>
                   </div>

@@ -159,7 +159,7 @@ export default function SettingsPage() {
               : 'bg-[var(--cc-canvas-soft-2)]/40 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)]'
           }`}
         >
-          <span>{s.icon}</span>
+          <span>{(() => { const Icon = s.icon; return <Icon className="h-4 w-4" />; })()}</span>
           {s.label}
         </button>
       ))}
@@ -184,7 +184,7 @@ export default function SettingsPage() {
           <div className="space-y-6">
             <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
               <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
-                <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">🎨 Theme</h2>
+                <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Theme</h2>
               </div>
               <div className="p-5 space-y-4">
                 {/* Theme Presets */}
@@ -192,14 +192,14 @@ export default function SettingsPage() {
                   <p className="text-body-sm font-medium text-[var(--cc-body)] mb-3">Theme Presets</p>
                   <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
                     {[
-                      { key: 'dark', label: '🌙 Dark', desc: 'Default dark' },
-                      { key: 'light', label: '☀️ Light', desc: 'Clean white' },
-                      { key: 'minimal', label: '◻️ Minimal', desc: 'Distraction-free' },
-                      { key: 'midnight', label: '🌌 Midnight', desc: 'Deep blue' },
-                      { key: 'neon', label: '💚 Neon', desc: 'Hacker green' },
-                      { key: 'sunset', label: '🌅 Sunset', desc: 'Warm orange' },
-                      { key: 'ocean', label: '🌊 Ocean', desc: 'Cool cyan' },
-                      { key: 'rose', label: '🌹 Rose', desc: 'Soft pink' },
+                      { key: 'dark', label: 'Dark', desc: 'Default dark' },
+                      { key: 'light', label: 'Light', desc: 'Clean white' },
+                      { key: 'minimal', label: 'Minimal', desc: 'Distraction-free' },
+                      { key: 'midnight', label: 'Midnight', desc: 'Deep blue' },
+                      { key: 'neon', label: 'Neon', desc: 'Hacker green' },
+                      { key: 'sunset', label: 'Sunset', desc: 'Warm orange' },
+                      { key: 'ocean', label: 'Ocean', desc: 'Cool cyan' },
+                      { key: 'rose', label: 'Rose', desc: 'Soft pink' },
                     ].map((preset) => (
                       <button
                         key={preset.key}
@@ -210,7 +210,7 @@ export default function SettingsPage() {
                             : 'bg-[var(--cc-canvas-soft-2)]/40 border-[var(--cc-hairline-strong)]/40 hover:border-[var(--cc-hairline-strong)] text-[var(--cc-body)]'
                         }`}
                       >
-                        <p className="text-body-sm">{preset.label.split(' ')[0]}</p>
+                        <p className="text-body-sm">{preset.label}</p>
                         <p className="text-caption mt-1">{preset.desc}</p>
                       </button>
                     ))}
@@ -286,12 +286,11 @@ export default function SettingsPage() {
                         : 'bg-[var(--cc-canvas-soft-2)]/40 border border-[var(--cc-hairline-strong)]/40 hover:border-[var(--cc-hairline-strong)]'
                     }`}
                   >
-                    <span className="text-display-sm">{lang.flag}</span>
                     <span className={`text-body-sm font-medium ${language === lang.code ? 'text-[var(--cc-link)]' : 'text-[var(--cc-body)]'}`}>
                       {lang.label}
                     </span>
                     {language === lang.code && (
-                      <span className="ml-auto text-[var(--cc-link)] text-body-sm">✓</span>
+                      <span className="ml-auto text-[var(--cc-link)] text-body-sm">●</span>
                     )}
                   </button>
                 ))}

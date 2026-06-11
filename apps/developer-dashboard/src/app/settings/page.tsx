@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Wallet } from "lucide-react";
 
 export default function SettingsPage() {
   const [profile, setProfile] = useState({
@@ -107,10 +108,12 @@ export default function SettingsPage() {
         <h2 className="text-body-lg font-semibold text-ink">Connected Wallets</h2>
         <div className="p-4 bg-canvas-soft rounded-lg flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <span className="text-display-md">🦊</span>
+            <div className="w-8 h-8 rounded bg-warning/20 flex items-center justify-center">
+              <Wallet className="w-4 h-4 text-warning" aria-hidden="true" />
+            </div>
             <div>
               <div className="text-body-sm font-medium text-ink">MetaMask</div>
-              <div className="text-body-sm text-ink-mute font-[var(--font-mono)]">0x1234...5678</div>
+              <div className="text-body-sm text-ink-mute font-mono">0x1234...5678</div>
             </div>
           </div>
           <span className="badge badge-success">Connected</span>

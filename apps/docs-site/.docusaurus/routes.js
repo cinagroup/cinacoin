@@ -8,8 +8,8 @@ export default [
     exact: true
   },
   {
-    path: '/docs/blog',
-    component: ComponentCreator('/docs/blog', 'ccc'),
+    path: '/docs/search',
+    component: ComponentCreator('/docs/search', 'b58'),
     exact: true
   },
   {

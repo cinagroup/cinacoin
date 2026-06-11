@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Home, Folder, Key, BarChart3, Settings } from "lucide-react";
 
 const mobileNavItems = [
-  { href: "/", label: "Home", icon: "🏠" },
-  { href: "/projects", label: "Projects", icon: "📦" },
-  { href: "/api-keys", label: "Keys", icon: "🔑" },
-  { href: "/analytics", label: "Stats", icon: "📈" },
-  { href: "/settings", label: "Settings", icon: "⚙️" },
+  { href: "/", label: "Home", icon: Home },
+  { href: "/projects", label: "Projects", icon: Folder },
+  { href: "/api-keys", label: "Keys", icon: Key },
+  { href: "/analytics", label: "Stats", icon: BarChart3 },
+  { href: "/settings", label: "Settings", icon: Settings },
 ];
 
 export default function Navbar() {
@@ -24,10 +25,10 @@ export default function Navbar() {
           ).join(" / ")}
         </div>
         <div className="flex items-center gap-3">
-          <Link href="/projects/new" className="cc-btn-primary text-caption">
+          <Link href="/projects/new" className="cc-btn-primary-sm">
             + New Project
           </Link>
-          <div className="w-8 h-8 rounded-full bg-ink text-[var(--color-on-primary)] flex items-center justify-center text-body-sm font-medium">
+          <div className="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center text-body-sm font-medium">
             D
           </div>
         </div>
@@ -37,6 +38,7 @@ export default function Navbar() {
       <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-canvas border-t border-hairline flex justify-around py-2 z-40">
         {mobileNavItems.map((item) => {
           const isActive = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+          const Icon = item.icon;
           return (
             <Link
               key={item.href}
@@ -45,7 +47,7 @@ export default function Navbar() {
                 isActive ? "text-ink font-medium" : "text-ink-mute"
               }`}
             >
-              <span>{item.icon}</span>
+              <Icon className="w-4 h-4" aria-hidden="true" />
               <span>{item.label}</span>
             </Link>
           );

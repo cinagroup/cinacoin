@@ -1,12 +1,14 @@
 "use client";
 
+import { User, TrendingUp, AlertTriangle, Rocket, Target, Lock, Users, Activity } from "lucide-react";
+
 const activities = [
   {
     id: 1,
     type: "user_signup",
     message: "New user registered from San Francisco, US",
     time: "2 minutes ago",
-    icon: "👤",
+    icon: User,
     color: "bg-canvas-soft-2 text-ink",
   },
   {
@@ -14,7 +16,7 @@ const activities = [
     type: "api_spike",
     message: "API call spike detected: /api/v2/transactions (+340%)",
     time: "8 minutes ago",
-    icon: "📈",
+    icon: TrendingUp,
     color: "bg-success-light text-success",
   },
   {
@@ -22,7 +24,7 @@ const activities = [
     type: "error",
     message: "Error rate increased in EU-West region (0.8% → 1.2%)",
     time: "15 minutes ago",
-    icon: "⚠️",
+    icon: AlertTriangle,
     color: "bg-warning-light text-warning",
   },
   {
@@ -30,7 +32,7 @@ const activities = [
     type: "deployment",
     message: "Analytics engine v2.4.1 deployed successfully",
     time: "32 minutes ago",
-    icon: "🚀",
+    icon: Rocket,
     color: "bg-canvas-soft-2 text-ink",
   },
   {
@@ -38,7 +40,7 @@ const activities = [
     type: "milestone",
     message: "Monthly active users exceeded 125,000 milestone",
     time: "1 hour ago",
-    icon: "🎯",
+    icon: Target,
     color: "bg-canvas-soft-2 text-ink",
   },
   {
@@ -46,7 +48,7 @@ const activities = [
     type: "security",
     message: "SSL certificate renewed for api.cinacoin.com",
     time: "2 hours ago",
-    icon: "🔒",
+    icon: Lock,
     color: "bg-canvas-soft-2 text-ink",
   },
   {
@@ -54,7 +56,7 @@ const activities = [
     type: "user_signup",
     message: "Batch import: 1,200 users from partner integration",
     time: "3 hours ago",
-    icon: "👥",
+    icon: Users,
     color: "bg-canvas-soft-2 text-ink",
   },
 ];
@@ -64,26 +66,29 @@ export default function RecentActivity() {
     <div className="space-y-sm max-h-80 overflow-y-auto pr-xs">
       {activities.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-12 px-4 text-center">
-          <div className="mb-3 text-3xl" aria-hidden="true">📋</div>
+          <Activity className="w-8 h-8 text-mute mb-3" />
           <h3 className="text-body font-semibold text-ink">No recent activity</h3>
           <p className="text-body-sm text-ink-mute mt-1">Activity will appear here as events occur.</p>
         </div>
-      ) : activities.map((activity) => (
-        <div
-          key={activity.id}
-          className="flex items-start gap-sm p-sm rounded-md hover:bg-canvas-soft transition-colors"
-        >
+      ) : activities.map((activity) => {
+        const Icon = activity.icon;
+        return (
           <div
-            className={`w-8 h-8 rounded-md flex items-center justify-center text-body-sm flex-shrink-0 ${activity.color}`}
+            key={activity.id}
+            className="flex items-start gap-sm p-sm rounded-md hover:bg-canvas-soft transition-colors"
           >
-            {activity.icon}
+            <div
+              className={`w-8 h-8 rounded-md flex items-center justify-center text-body-sm flex-shrink-0 ${activity.color}`}
+            >
+              <Icon className="w-4 h-4" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-body text-ink-body leading-snug">{activity.message}</p>
+              <p className="text-body-sm text-ink-mute mt-xxs">{activity.time}</p>
+            </div>
           </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-body text-ink-body leading-snug">{activity.message}</p>
-            <p className="text-body-sm text-ink-mute mt-xxs">{activity.time}</p>
-          </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }

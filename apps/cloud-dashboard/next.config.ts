@@ -1,29 +1,21 @@
-import type { NextConfig } from "next";
-import bundleAnalyzer from '@next/bundle-analyzer';
-
-const withBundleAnalyzer = bundleAnalyzer({
-  enabled: process.env.ANALYZE === 'true',
-});
+import type { NextConfig } from 'next';
 
 /**
- * Cloud Dashboard Next.js config with performance optimizations.
- * Served under cinacoin.com/dashboard via the consolidation router Worker.
+ * Cloud Dashboard Next.js config.
+ * Served under cinacoin.com/cloud via the consolidation router Worker.
  */
-const baseConfig: NextConfig = {
-  reactStrictMode: true,
+const nextConfig: NextConfig = {
+  output: 'export',
   images: {
-    unoptimized: true,
     formats: ['image/avif', 'image/webp'],
   },
-  output: 'export',
-  basePath: '/dashboard',
-  assetPrefix: '/dashboard',
+  trailingSlash: true,
+  transpilePackages: ['@cinacoin/ui', '@cinacoin/core-sdk'],
+  basePath: '/cloud',
+  assetPrefix: '/cloud',
 
   // Performance: SWC minification
   swcMinify: true,
-
-  // Performance: Transpile internal packages
-  transpilePackages: ['@cinacoin/ui', '@cinacoin/core-sdk'],
 
   // Performance: Package import optimization
   experimental: {
@@ -34,6 +26,7 @@ const baseConfig: NextConfig = {
       '@cinacoin/core-sdk',
       'lodash',
       'date-fns',
+      'recharts',
     ],
   },
 
@@ -72,6 +65,12 @@ const baseConfig: NextConfig = {
             test: /[\\/]node_modules[\\/]@cinacoin[\\/]core-sdk[\\/]/,
             name: 'cinacoin-sdk',
             priority: 30,
+            reuseExistingChunk: true,
+          },
+          charts: {
+            test: /[\\/]node_modules[\\/](recharts|d3|d3-.*|victory)[\\/]/,
+            name: 'charts',
+            priority: 25,
             reuseExistingChunk: true,
           },
           lib: {
@@ -177,4 +176,4 @@ const baseConfig: NextConfig = {
   },
 };
 
-export default withBundleAnalyzer(baseConfig);
+export default nextConfig;

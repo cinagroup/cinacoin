@@ -102,7 +102,8 @@ export default function BillingPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-display-md font-semibold text-ink">Billing & Quotas</h1>
+        <p className="font-mono text-xs text-ink-mute mb-2">BILLING</p>
+        <h1 className="text-display-md font-semibold text-ink">Billing & quotas.</h1>
         <p className="text-ink-body mt-1">
           Manage your subscription and monitor usage limits.
         </p>
@@ -171,12 +172,12 @@ export default function BillingPage() {
                   </span>
                   {stat.warning && (
                     <span className="text-caption text-warning font-medium">
-                      ⚠️ Approaching limit
+                      Approaching limit
                     </span>
                   )}
                   {percentage > 90 && (
                     <span className="text-caption text-danger font-medium">
-                      ⚠️ Near quota
+                      Near quota
                     </span>
                   )}
                 </div>

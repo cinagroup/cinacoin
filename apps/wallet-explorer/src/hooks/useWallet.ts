@@ -1,15 +1,7 @@
 'use client';
 import { useState, useCallback } from 'react';
-
-interface WalletState {
-  connected: boolean;
-  address: string | null;
-  chain: string;
-  balance: string;
-  tokenBalance: string;
-  txCount: number;
-  firstSeen: string;
-}
+import type { WalletState } from '@/types';
+import { MOCK_WALLET_ADDRESS } from '@/lib/constants';
 
 const initialState: WalletState = {
   connected: false,
@@ -29,7 +21,7 @@ export function useWallet() {
     // 暂时使用模拟连接
     setState({
       connected: true,
-      address: '0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb',
+      address: MOCK_WALLET_ADDRESS,
       chain: 'ethereum',
       balance: '1,234,567.89',
       tokenBalance: '50,000.00',

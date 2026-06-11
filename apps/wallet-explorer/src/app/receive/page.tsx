@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { useWallet } from '@/hooks/useWallet';
+import { copyToClipboard, truncateAddress } from '@/lib/utils';
+import { COPY_FEEDBACK_DURATION } from '@/lib/constants';
 
 export default function ReceivePage() {
   const { connected, address, connect } = useWallet();
@@ -9,13 +11,10 @@ export default function ReceivePage() {
 
   const handleCopy = async () => {
     if (!address) return;
-    try {
-      await navigator.clipboard.writeText(address);
+    const success = await copyToClipboard(address);
+    if (success) {
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // fallback
-      setCopied(false);
+      setTimeout(() => setCopied(false), COPY_FEEDBACK_DURATION);
     }
   };
 
@@ -65,6 +64,7 @@ export default function ReceivePage() {
         <button
           onClick={handleCopy}
           className="cc-btn-primary mt-6"
+          aria-label={copied ? 'Address copied' : 'Copy address to clipboard'}
         >
           {copied ? '✓ Copied!' : 'Copy Address'}
         </button>

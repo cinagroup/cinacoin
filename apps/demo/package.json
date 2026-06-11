@@ -10,12 +10,14 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@cinacoin/logger": "0.0.0",
+    "lucide-react": "^1.17.0",
     "next": "14.2.29",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "@cinacoin/logger": "workspace:*"
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@types/minimatch": "^6.0.0",
     "@types/node": "^20.12.7",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.1",

@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { useWallet } from '@/hooks/useWallet';
+import { isValidAddress, isValidAmount } from '@/lib/utils';
+import { NETWORK_FEE_NUMBER, TOAST_DURATION } from '@/lib/constants';
 
 export default function SendPage() {
   const { connected, address, balance, connect } = useWallet();
@@ -9,18 +11,42 @@ export default function SendPage() {
   const [amount, setAmount] = useState('');
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
+  const [errors, setErrors] = useState<{ recipient?: string; amount?: string }>({});
+
+  const validateForm = (): boolean => {
+    const newErrors: { recipient?: string; amount?: string } = {};
+
+    if (!recipient) {
+      newErrors.recipient = 'Recipient address is required';
+    } else if (!isValidAddress(recipient)) {
+      newErrors.recipient = 'Invalid Ethereum address format';
+    }
+
+    if (!amount) {
+      newErrors.amount = 'Amount is required';
+    } else if (!isValidAmount(amount)) {
+      newErrors.amount = 'Invalid amount';
+    } else if (parseFloat(amount) + NETWORK_FEE_NUMBER > parseFloat(balance.replace(/,/g, ''))) {
+      newErrors.amount = 'Insufficient balance';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!recipient || !amount) return;
+    if (!validateForm()) return;
+
     setSending(true);
     // TODO: 集成真实交易发送
     await new Promise((r) => setTimeout(r, 1500));
     setSending(false);
     setSent(true);
-    setTimeout(() => setSent(false), 3000);
+    setTimeout(() => setSent(false), TOAST_DURATION);
     setRecipient('');
     setAmount('');
+    setErrors({});
   };
 
   if (!connected) {
@@ -48,58 +74,87 @@ export default function SendPage() {
             <p className="text-caption text-mute">Available Balance</p>
             <p className="mt-1 text-display-sm text-ink">{balance} CINA</p>
           </div>
-          <code className="text-caption-mono text-mute">
-            {address?.slice(0, 6)}...{address?.slice(-4)}
+          <code className="text-caption-mono text-mute" title={address || ''}>
+            {address ? `${address.slice(0, 6)}...${address.slice(-4)}` : ''}
           </code>
         </div>
 
         {sent && (
-          <div className="mb-6 rounded-lg bg-success-light p-4 text-body-sm" style={{ color: 'var(--color-success)' }}>
+          <div className="mb-6 rounded-lg bg-success-light p-4 text-body-sm" role="alert" style={{ color: 'var(--color-success)' }}>
             ✓ Transaction submitted successfully!
           </div>
         )}
 
-        <form onSubmit={handleSend} className="space-y-5">
+        <form onSubmit={handleSend} className="space-y-5" noValidate>
           <div>
-            <label className="block text-caption text-mute mb-2">Recipient Address</label>
+            <label htmlFor="recipient" className="block text-caption text-mute mb-2">
+              Recipient Address
+            </label>
             <input
+              id="recipient"
               type="text"
               value={recipient}
-              onChange={(e) => setRecipient(e.target.value)}
+              onChange={(e) => {
+                setRecipient(e.target.value);
+                if (errors.recipient) setErrors({ ...errors, recipient: undefined });
+              }}
               placeholder="0x..."
-              className="search-bar"
+              className={`search-bar ${errors.recipient ? 'border-error' : ''}`}
+              aria-invalid={!!errors.recipient}
+              aria-describedby={errors.recipient ? 'recipient-error' : undefined}
               required
             />
+            {errors.recipient && (
+              <p id="recipient-error" className="mt-1 text-caption text-error" role="alert">
+                {errors.recipient}
+              </p>
+            )}
           </div>
 
           <div>
-            <label className="block text-caption text-mute mb-2">Amount</label>
+            <label htmlFor="amount" className="block text-caption text-mute mb-2">
+              Amount
+            </label>
             <div className="relative">
               <input
+                id="amount"
                 type="number"
                 value={amount}
-                onChange={(e) => setAmount(e.target.value)}
+                onChange={(e) => {
+                  setAmount(e.target.value);
+                  if (errors.amount) setErrors({ ...errors, amount: undefined });
+                }}
                 placeholder="0.00"
-                className="search-bar pr-16"
+                className={`search-bar pr-16 ${errors.amount ? 'border-error' : ''}`}
                 step="0.01"
                 min="0"
+                aria-invalid={!!errors.amount}
+                aria-describedby={errors.amount ? 'amount-error' : undefined}
                 required
               />
               <span className="absolute right-4 top-1/2 -translate-y-1/2 text-body-sm text-mute">
                 CINA
               </span>
             </div>
+            {errors.amount && (
+              <p id="amount-error" className="mt-1 text-caption text-error" role="alert">
+                {errors.amount}
+              </p>
+            )}
           </div>
 
           <div className="rounded-lg bg-canvas-soft-2 p-4 space-y-2">
             <div className="flex justify-between text-body-sm">
               <span className="text-mute">Network Fee (est.)</span>
-              <span className="text-ink font-[var(--font-mono)]">~0.0021 CINA</span>
+              <span className="text-ink font-[var(--font-mono)]">~{NETWORK_FEE_NUMBER} CINA</span>
             </div>
             <div className="flex justify-between text-body-sm">
               <span className="text-mute">Total</span>
               <span className="text-ink font-medium font-[var(--font-mono)]">
-                {amount ? `${(parseFloat(amount) + 0.0021).toFixed(4)}` : '0.00'} CINA
+                {amount && isValidAmount(amount)
+                  ? `${(parseFloat(amount) + NETWORK_FEE_NUMBER).toFixed(4)}`
+                  : '0.00'}{' '}
+                CINA
               </span>
             </div>
           </div>
@@ -108,6 +163,7 @@ export default function SendPage() {
             type="submit"
             disabled={sending || !recipient || !amount}
             className="cc-btn-primary w-full py-3"
+            aria-busy={sending}
           >
             {sending ? 'Sending...' : 'Send'}
           </button>

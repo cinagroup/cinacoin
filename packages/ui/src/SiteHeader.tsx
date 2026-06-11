@@ -21,7 +21,7 @@ export interface SiteHeaderProps {
   theme?: 'light' | 'dark';
   onToggleTheme?: () => void;
   /** Extra node rendered just left of the CTA (e.g. a language selector). */
-  rightSlot?: unknown;
+  rightSlot?: React.ReactNode;
 }
 
 /**

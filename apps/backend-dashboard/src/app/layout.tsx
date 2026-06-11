@@ -1,22 +1,34 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import localFont from 'next/font/local';
 import "./globals.css";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-geist-sans",
-  display: "swap",
+const geistSans = localFont({
+  src: [
+    { path: '../../../packages/design-tokens/assets/Geist-Regular.woff2', weight: '400' },
+    { path: '../../../packages/design-tokens/assets/Geist-Medium.woff2', weight: '500' },
+    { path: '../../../packages/design-tokens/assets/Geist-SemiBold.woff2', weight: '600' },
+  ],
+  variable: '--font-geist-sans',
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-geist-mono",
-  display: "swap",
+const geistMono = localFont({
+  src: [
+    { path: '../../../packages/design-tokens/assets/GeistMono-Regular.woff2', weight: '400' },
+  ],
+  variable: '--font-geist-mono',
 });
 
 export const metadata: Metadata = {
-  title: "CinaCoin Backend Dashboard",
-  description: "Backend administration panel for CinaCoin platform",
+  title: {
+    default: "CinaCoin Backend Dashboard",
+    template: "%s | CinaCoin Backend",
+  },
+  description: "Backend administration panel for CinaCoin platform. Manage users, projects, chains, analytics, and system configuration.",
+  keywords: ["CinaCoin", "backend", "admin", "dashboard", "management"],
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function RootLayout({
@@ -25,8 +37,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.variable} ${jetbrainsMono.variable} text-body-md antialiased`}>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className="text-body-md antialiased font-sans">
         <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-50 px-4 py-2 bg-[var(--cc-primary)] text-white rounded">
           Skip to main content
         </a>

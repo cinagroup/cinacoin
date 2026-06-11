@@ -2,6 +2,24 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import {
+  LayoutDashboard,
+  Settings,
+  Key,
+  CreditCard,
+  Monitor,
+  Box,
+  Zap,
+  HardDrive,
+  Disc,
+  Folder,
+  Scale,
+  Globe,
+  Rocket,
+  Database,
+  Circle,
+  Leaf,
+} from "lucide-react";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -12,42 +30,42 @@ const menuItems = [
   {
     category: "Overview",
     items: [
-      { name: "Dashboard", icon: "📊", href: "/" },
-      { name: "Settings", icon: "⚙️", href: "/settings" },
-      { name: "API Keys", icon: "🔑", href: "/api-keys" },
-      { name: "Billing", icon: "💳", href: "/billing" },
+      { name: "Dashboard", icon: LayoutDashboard, href: "/" },
+      { name: "Settings", icon: Settings, href: "/settings" },
+      { name: "API Keys", icon: Key, href: "/api-keys" },
+      { name: "Billing", icon: CreditCard, href: "/billing" },
     ],
   },
   {
     category: "Compute",
     items: [
-      { name: "Virtual Machines", icon: "🖥️", href: "/compute/vms" },
-      { name: "Containers", icon: "📦", href: "/compute/containers" },
-      { name: "Serverless", icon: "⚡", href: "/compute/serverless" },
+      { name: "Virtual Machines", icon: Monitor, href: "/compute/vms" },
+      { name: "Containers", icon: Box, href: "/compute/containers" },
+      { name: "Serverless", icon: Zap, href: "/compute/serverless" },
     ],
   },
   {
     category: "Storage",
     items: [
-      { name: "Object Storage", icon: "💾", href: "/storage/object" },
-      { name: "Block Storage", icon: "💿", href: "/storage/block" },
-      { name: "File Storage", icon: "📁", href: "/storage/file" },
+      { name: "Object Storage", icon: HardDrive, href: "/storage/object" },
+      { name: "Block Storage", icon: Disc, href: "/storage/block" },
+      { name: "File Storage", icon: Folder, href: "/storage/file" },
     ],
   },
   {
     category: "Network",
     items: [
-      { name: "Load Balancers", icon: "⚖️", href: "/network/load-balancers" },
-      { name: "DNS Zones", icon: "🌐", href: "/network/dns" },
-      { name: "CDN", icon: "🚀", href: "/network/cdn" },
+      { name: "Load Balancers", icon: Scale, href: "/network/load-balancers" },
+      { name: "DNS Zones", icon: Globe, href: "/network/dns" },
+      { name: "CDN", icon: Rocket, href: "/network/cdn" },
     ],
   },
   {
     category: "Database",
     items: [
-      { name: "PostgreSQL", icon: "🐘", href: "/database/postgresql" },
-      { name: "Redis", icon: "🔴", href: "/database/redis" },
-      { name: "MongoDB", icon: "🍃", href: "/database/mongodb" },
+      { name: "PostgreSQL", icon: Database, href: "/database/postgresql" },
+      { name: "Redis", icon: Circle, href: "/database/redis" },
+      { name: "MongoDB", icon: Leaf, href: "/database/mongodb" },
     ],
   },
 ];
@@ -96,7 +114,9 @@ export default function Sidebar({ isOpen }: SidebarProps) {
                         : "text-body hover:bg-canvas-soft-2 hover:text-ink"
                     }`}
                   >
-                    <span className="mr-3">{item.icon}</span>
+                    <span className="mr-3 flex items-center">
+                      <item.icon className="w-4 h-4 text-body" />
+                    </span>
                     <span className="flex-1">{item.name}</span>
                   </Link>
                 </li>

@@ -1,15 +1,10 @@
 import type { NextConfig } from 'next';
-import bundleAnalyzer from '@next/bundle-analyzer';
-
-const withBundleAnalyzer = bundleAnalyzer({
-  enabled: process.env.ANALYZE === 'true',
-});
 
 /**
  * Analytics Dashboard Next.js config with performance optimizations.
  * Served under cinacoin.com/analytics via the consolidation router Worker.
  */
-const baseConfig: NextConfig = {
+const nextConfig: NextConfig = {
   output: 'export',
   images: {
     formats: ['image/avif', 'image/webp'],
@@ -182,4 +177,4 @@ const baseConfig: NextConfig = {
   },
 };
 
-export default withBundleAnalyzer(baseConfig);
+export default nextConfig;
