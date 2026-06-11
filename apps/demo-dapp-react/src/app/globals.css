@@ -103,8 +103,8 @@
   --cc-space-4xl: 64px;
 
   /* === Typography === */
-  --cc-font-sans: 'Geist', 'Inter', system-ui, -apple-system, sans-serif;
-  --cc-font-mono: 'Geist Mono', 'ui-monospace', 'SFMono-Regular', Menlo, Monaco, monospace;
+  --cc-font-sans: var(--font-geist-sans), 'Inter', system-ui, -apple-system, sans-serif;
+  --cc-font-mono: var(--font-geist-mono), 'ui-monospace', 'SFMono-Regular', Menlo, Monaco, monospace;
 
   --cc-text-xs: 12px;
   --cc-text-sm: 14px;

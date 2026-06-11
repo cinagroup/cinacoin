@@ -1,7 +1,24 @@
 import React from 'react';
 import type { Metadata } from 'next';
+import localFont from 'next/font/local';
 import CinacoinClientProvider from './CinacoinClientProvider';
 import './globals.css';
+
+const geistSans = localFont({
+  src: [
+    { path: '../../../../packages/design-tokens/assets/Geist-Regular.woff2', weight: '400' },
+    { path: '../../../../packages/design-tokens/assets/Geist-Medium.woff2', weight: '500' },
+    { path: '../../../../packages/design-tokens/assets/Geist-SemiBold.woff2', weight: '600' },
+  ],
+  variable: '--font-geist-sans',
+});
+
+const geistMono = localFont({
+  src: [
+    { path: '../../../../packages/design-tokens/assets/GeistMono-Regular.woff2', weight: '400' },
+  ],
+  variable: '--font-geist-mono',
+});
 
 export const metadata: Metadata = {
   title: 'Cinacoin SDK Demo - Multi-Chain Wallet Integration',
@@ -49,7 +66,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-[var(--cc-primary)] focus:text-[var(--cc-on-primary)] focus:rounded-md">
           Skip to main content
         </a>
