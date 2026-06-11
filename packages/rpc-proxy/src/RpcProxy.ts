@@ -347,7 +347,7 @@ export class RpcProxy {
       return body.every(item => this.isSingleRequestReadOnly(item));
     }
     
-    return this.isSingleRequestReadOnly(body);
+    return this.isSingleRequestReadOnly(body as unknown as Record<string, unknown>);
   }
   
   private isSingleRequestReadOnly(body: Record<string, unknown>): boolean {

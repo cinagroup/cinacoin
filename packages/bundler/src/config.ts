@@ -20,7 +20,10 @@ export async function loadConfig(path: string): Promise<BundlerServerConfig> {
 function interpolateEnv(template: string): string {
   const env = getEnv();
   return template.replace(/\$\{([^}]+)\}/g, (_match, name: string) => {
-    return (env as Record<string, unknown>)[name] ?? '';
+    const val = (env as Record<string, unknown>)[name];
+    if (val == null) return '';
+    if (typeof val === 'string') return val;
+    return JSON.stringify(val);
   });
 }
 

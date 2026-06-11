@@ -153,7 +153,7 @@ function isAllowedOrigin(origin: string | undefined): boolean {
 
 function setCorsHeaders(res: ServerResponse, req: IncomingMessage): void {
   const origin = req.headers.origin;
-  if (isAllowedOrigin(origin)) {
+  if (isAllowedOrigin(origin) && origin) {
     res.setHeader('Access-Control-Allow-Origin', origin);
   }
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -313,6 +313,34 @@ export class BundlerServer {
 
   // ── HTTP Request Router ───────────────────────────────────────────
 
+  // SECURITY: Rate limiting (in-memory, per-process)
+  private rateLimits = new Map<string, { count: number; resetAt: number }>();
+  private readonly RATE_LIMIT_WINDOW_MS = 60_000; // 1 minute
+  private readonly RATE_LIMIT_MAX_REQUESTS = 60; // 60 requests per minute
+
+  private checkRateLimit(clientIp: string): boolean {
+    const env = getEnv();
+    const maxRequests = parseInt(env.BUNDLER_RATE_LIMIT ?? String(this.RATE_LIMIT_MAX_REQUESTS), 10);
+    
+    const now = Date.now();
+    const entry = this.rateLimits.get(clientIp);
+    
+    if (!entry || now > entry.resetAt) {
+      this.rateLimits.set(clientIp, {
+        count: 1,
+        resetAt: now + this.RATE_LIMIT_WINDOW_MS,
+      });
+      return true;
+    }
+    
+    if (entry.count >= maxRequests) {
+      return false;
+    }
+    
+    entry.count++;
+    return true;
+  }
+
   private async handleRequest(req: IncomingMessage, res: ServerResponse): Promise<void> {
     // CORS headers (origin-validated, no wildcard)
     setCorsHeaders(res, req);
@@ -337,6 +365,27 @@ export class BundlerServer {
 
     // JSON-RPC POST requires API key authentication
     if (req.method === 'POST' && (req.url === '/' || req.url === '/rpc')) {
+      // SECURITY: Rate limiting
+      const fwdFor = req.headers['x-forwarded-for'];
+      const realIp = req.headers['x-real-ip'];
+      const clientIp = (typeof fwdFor === 'string'
+        ? fwdFor.split(',')[0].trim()
+        : Array.isArray(fwdFor)
+          ? fwdFor[0]?.split(',')[0].trim()
+          : undefined)
+        || (typeof realIp === 'string' ? realIp : (Array.isArray(realIp) ? realIp[0] : undefined))
+        || req.socket.remoteAddress
+        || 'unknown';
+      if (!this.checkRateLimit(clientIp)) {
+        res.writeHead(429, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({
+          jsonrpc: '2.0',
+          id: null,
+          error: { code: -32005, message: 'Rate limit exceeded' }
+        }));
+        return;
+      }
+
       // Authenticate request
       if (!verifyApiKey(req)) {
         res.writeHead(401, { 'Content-Type': 'application/json' });
@@ -393,8 +442,22 @@ export class BundlerServer {
   }
 
   private async handleJsonRpc(req: IncomingMessage, res: ServerResponse): Promise<void> {
+    // SECURITY: Body size limit (default 1MB)
+    const MAX_BODY_SIZE = 1_048_576; // 1 MB
     let body = '';
+    let bodySize = 0;
+    
     for await (const chunk of req as Readable) {
+      bodySize += chunk.length;
+      if (bodySize > MAX_BODY_SIZE) {
+        res.writeHead(413, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({
+          jsonrpc: '2.0',
+          id: null,
+          error: { code: -32000, message: 'Request body too large' }
+        }));
+        return;
+      }
       body += chunk;
     }
 

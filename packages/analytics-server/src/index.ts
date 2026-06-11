@@ -5,7 +5,6 @@
 
 import { Hono } from "hono";
 import { cors } from "hono/cors";
-import { timingSafeEqual } from "crypto";
 import { EventValidator, type AnalyticsEvent } from "./validator.js";
 import { RateLimiter } from "./rate-limiter.js";
 import { GdprAnonymizer } from "./anonymizer.js";
@@ -18,16 +17,18 @@ const logger = createLogger({ name: 'analytics-server', level: 'info' });
 
 /**
  * Constant-time string comparison to prevent timing attacks.
+ * Works in both Node.js and browser/Cloudflare Worker environments.
  */
 function safeCompare(a: string, b: string): boolean {
   if (a.length !== b.length) {
-    // Still do a comparison to avoid leaking length info
-    const bufA = Buffer.from(a.padEnd(b.length, ' '));
-    const bufB = Buffer.from(b);
-    timingSafeEqual(bufA, bufB);
     return false;
   }
-  return timingSafeEqual(Buffer.from(a), Buffer.from(b));
+  
+  let result = 0;
+  for (let i = 0; i < a.length; i++) {
+    result |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  }
+  return result === 0;
 }
 
 export interface Env {
