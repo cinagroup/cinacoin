@@ -54,7 +54,7 @@ function TokenSelector({
         onClick={() => setOpen(!open)}
         className="flex items-center gap-2 bg-[var(--cc-canvas-soft-2)]/80 hover:bg-[var(--cc-muted)]/80 rounded-md px-3 py-2 transition-colors border border-[var(--cc-hairline-strong)]/50"
       >
-        <span className="text-display-sm leading-none">{selected.icon}</span>
+        <selected.icon className="w-5 h-5" />
         <span className="font-semibold text-[var(--cc-ink)] text-body-sm">{selected.symbol}</span>
         <svg className={`w-4 h-4 text-[var(--cc-muted)] transition-transform ${open ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -76,7 +76,7 @@ function TokenSelector({
                   t.address === selected.address ? 'bg-[var(--cc-canvas-soft-2)]/40' : ''
                 }`}
               >
-                <span className="text-display-md leading-none">{t.icon}</span>
+                <t.icon className="w-6 h-6" />
                 <div className="text-left flex-1 min-w-0">
                   <div className="font-semibold text-[var(--cc-ink)] text-body-sm">{t.symbol}</div>
                   <div className="text-caption text-[var(--cc-muted)] truncate">{t.name}</div>

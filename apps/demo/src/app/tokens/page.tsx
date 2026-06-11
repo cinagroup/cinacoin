@@ -104,7 +104,7 @@ function TokenRow({
           : 'bg-[var(--cc-canvas-soft-2)]/30 border border-[var(--cc-hairline-strong)]/30 hover:bg-[var(--cc-canvas-soft-2)]/50 hover:border-[var(--cc-hairline-strong)]'
       }`}
     >
-      <span className="text-display-md">{token.icon}</span>
+      <token.icon className="w-6 h-6" />
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">
           <span className="text-body-sm font-semibold text-[var(--cc-ink)]">{token.symbol}</span>
@@ -140,7 +140,7 @@ function TokenDetailPanel({ token, onClose }: { token: TokenInfo; onClose: () =>
     <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
       <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <span className="text-display-lg">{token.icon}</span>
+          <token.icon className="w-8 h-8" />
           <div>
             <h3 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">{token.symbol}</h3>
             <p className="text-caption text-[var(--cc-body)]">{token.name}</p>
@@ -268,7 +268,7 @@ function SwapWidget({
       <div className="p-5 space-y-3">
         {/* From */}
         <div className="flex items-center gap-2 bg-[var(--cc-canvas)]/50 rounded-md p-3 border border-[var(--cc-hairline-strong)]/30">
-          <span className="text-display-sm">{fromToken.icon}</span>
+          <fromToken.icon className="w-5 h-5" />
           <span className="text-body-sm font-semibold text-[var(--cc-ink)] w-16">{fromToken.symbol}</span>
           <input
             type="text"
@@ -295,7 +295,7 @@ function SwapWidget({
 
         {/* To */}
         <div className="flex items-center gap-2 bg-[var(--cc-canvas)]/50 rounded-md p-3 border border-[var(--cc-hairline-strong)]/30">
-          <span className="text-display-sm">{toToken.icon}</span>
+          <toToken.icon className="w-5 h-5" />
           <span className="text-body-sm font-semibold text-[var(--cc-ink)] w-16">{toToken.symbol}</span>
           <div className="flex-1 text-right text-body-lg font-semibold text-[var(--cc-body)]">
             {toAmount || '0.0'}

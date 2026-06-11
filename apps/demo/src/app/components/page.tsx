@@ -4,7 +4,7 @@ import { useState, useCallback } from 'react';
 import DemoLayout from '@/components/DemoLayout';
 import { useWallet, shortenAddress } from '@/lib/useWallet';
 import { useToast } from '@/lib/toast';
-import { PaletteIcon, LinkIcon, RefreshCwIcon, SearchIcon, LockKeyholeIcon, ArrowLeftRightIcon } from 'lucide-react';
+import { PaletteIcon, LinkIcon, RefreshCwIcon, SearchIcon, LockKeyholeIcon, ArrowLeftRightIcon, AlertTriangleIcon } from 'lucide-react';
 
 /* ── theme presets ── */
 
