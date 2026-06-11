@@ -51,17 +51,17 @@ export default React.memo(function SiteHeader({
               className="flex items-center gap-md hover:opacity-80 transition-opacity flex-shrink-0"
               aria-label="CinaCoin Analytics Home"
             >
-              <div className="w-8 h-8 bg-primary rounded-md flex items-center justify-center">
-                <BarChart3 className="w-5 h-5 text-primary-foreground" />
+              <div className="w-8 h-8 bg-[var(--cc-primary)] rounded-md flex items-center justify-center">
+                <BarChart3 className="w-5 h-5 text-[var(--cc-on-primary)]" />
               </div>
-              <h1 className="text-heading-3 text-ink hidden sm:block">CinaCoin Analytics</h1>
+              <h1 className="text-heading-3 text-[var(--cc-ink)] hidden sm:block">CinaCoin Analytics</h1>
             </a>
 
             {/* Breadcrumb for sub-pages */}
             {breadcrumb && (
               <div className="flex items-center gap-sm min-w-0">
-                <span className="text-body-sm text-ink-mute" aria-hidden="true">/</span>
-                <span className="text-body-sm text-ink-body truncate">{breadcrumb}</span>
+                <span className="text-body-sm text-[var(--cc-muted)]" aria-hidden="true">/</span>
+                <span className="text-body-sm text-[var(--cc-body)] truncate">{breadcrumb}</span>
               </div>
             )}
           </div>
@@ -75,8 +75,8 @@ export default React.memo(function SiteHeader({
                   href={item.href}
                   className={`text-body-sm transition-colors ${
                     activePage === item.key
-                      ? "text-ink font-medium"
-                      : "text-ink-mute hover:text-ink"
+                      ? "text-[var(--cc-ink)] font-medium"
+                      : "text-[var(--cc-muted)] hover:text-[var(--cc-ink)]"
                   }`}
                   aria-current={activePage === item.key ? "page" : undefined}
                 >
@@ -94,8 +94,8 @@ export default React.memo(function SiteHeader({
                     onClick={() => onTimeRangeChange(range)}
                     className={`px-sm py-xxs text-body-sm rounded-sm transition-all ${
                       timeRange === range
-                        ? "bg-canvas text-ink font-medium shadow-cinacoin-2"
-                        : "text-ink-mute hover:text-ink"
+                        ? "bg-[var(--cc-canvas)] text-[var(--cc-ink)] font-medium shadow-cinacoin-2"
+                        : "text-[var(--cc-muted)] hover:text-[var(--cc-ink)]"
                     }`}
                     aria-pressed={timeRange === range}
                   >
@@ -107,16 +107,16 @@ export default React.memo(function SiteHeader({
 
             {/* User Avatar */}
             <div
-              className="w-8 h-8 bg-canvas-soft-2 rounded-full flex items-center justify-center"
+              className="w-8 h-8 bg-[var(--cc-canvas-soft-2)] rounded-full flex items-center justify-center"
               aria-label="User menu"
             >
-              <span className="text-body-sm font-medium text-ink">A</span>
+              <span className="text-body-sm font-medium text-[var(--cc-ink)]">A</span>
             </div>
           </nav>
 
           {/* Mobile Hamburger */}
           <button
-            className="md:hidden p-2 -mr-2 text-ink-mute hover:text-ink transition-colors"
+            className="md:hidden p-2 -mr-2 text-[var(--cc-muted)] hover:text-[var(--cc-ink)] transition-colors"
             onClick={toggleMobileMenu}
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-nav-menu"
@@ -141,8 +141,8 @@ export default React.memo(function SiteHeader({
                   href={item.href}
                   className={`text-body-sm px-sm py-xs rounded-md transition-colors ${
                     activePage === item.key
-                      ? "text-ink font-medium bg-canvas-soft-2"
-                      : "text-ink-mute hover:text-ink hover:bg-canvas-soft"
+                      ? "text-[var(--cc-ink)] font-medium bg-[var(--cc-canvas-soft-2)]"
+                      : "text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft)]"
                   }`}
                   aria-current={activePage === item.key ? "page" : undefined}
                   onClick={() => setMobileMenuOpen(false)}
@@ -155,8 +155,8 @@ export default React.memo(function SiteHeader({
             {/* Mobile Time Range */}
             {timeRange && onTimeRangeChange && (
               <div className="mt-sm pt-sm border-t border-hairline">
-                <p className="text-caption text-ink-mute mb-xs px-sm">Time Range</p>
-                <div className="flex bg-canvas-soft-2 rounded-md p-xxs mx-sm" role="group" aria-label="Time range">
+                <p className="text-caption text-[var(--cc-muted)] mb-xs px-sm">Time range.</p>
+                <div className="flex bg-[var(--cc-canvas-soft-2)] rounded-md p-xxs mx-sm" role="group" aria-label="Time range">
                   {timeRanges.map((range) => (
                     <button
                       key={range}
@@ -166,8 +166,8 @@ export default React.memo(function SiteHeader({
                       }}
                       className={`flex-1 px-sm py-xxs text-body-sm rounded-sm transition-all text-center ${
                         timeRange === range
-                          ? "bg-canvas text-ink font-medium shadow-cinacoin-2"
-                          : "text-ink-mute hover:text-ink"
+                          ? "bg-[var(--cc-canvas)] text-[var(--cc-ink)] font-medium shadow-cinacoin-2"
+                          : "text-[var(--cc-muted)] hover:text-[var(--cc-ink)]"
                       }`}
                       aria-pressed={timeRange === range}
                     >

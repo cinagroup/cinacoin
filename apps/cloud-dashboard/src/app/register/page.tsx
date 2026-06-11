@@ -55,7 +55,7 @@ export default function RegisterPage() {
       <div className="w-full max-w-md">
         <div className="bg-canvas rounded-md shadow-level-2 p-8">
           <div className="mb-8">
-            <h1 className="text-heading-2 text-ink">Create your account</h1>
+            <h1 className="text-heading-2 text-ink">Create your account.</h1>
             <p className="text-body-sm text-body mt-2">
               Get started with CinaCoin Cloud in minutes.
             </p>
@@ -70,7 +70,7 @@ export default function RegisterPage() {
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
               <label htmlFor="name" className="block text-body-sm font-medium text-ink mb-2">
-                Full Name
+                Full name.
               </label>
               <input
                 id="name"
@@ -90,7 +90,7 @@ export default function RegisterPage() {
 
             <div>
               <label htmlFor="email" className="block text-body-sm font-medium text-ink mb-2">
-                Email Address
+                Email address.
               </label>
               <input
                 id="email"
@@ -109,7 +109,7 @@ export default function RegisterPage() {
 
             <div>
               <label htmlFor="password" className="block text-body-sm font-medium text-ink mb-2">
-                Password
+                Password.
               </label>
               <input
                 id="password"
@@ -125,12 +125,12 @@ export default function RegisterPage() {
                 minLength={8}
                 disabled={loading}
               />
-              <p id="password-help" className="text-caption text-mute mt-1">Minimum 8 characters</p>
+              <p id="password-help" className="text-caption text-mute mt-1">Minimum 8 characters.</p>
             </div>
 
             <div>
               <label htmlFor="confirmPassword" className="block text-body-sm font-medium text-ink mb-2">
-                Confirm Password
+                Confirm password.
               </label>
               <input
                 id="confirmPassword"
@@ -148,7 +148,7 @@ export default function RegisterPage() {
             </div>
 
             <button type="submit" className="cc-btn-primary w-full py-3" disabled={loading}>
-              {loading ? "Creating Account..." : "Create Account"}
+              {loading ? "Creating account..." : "Create account."}
             </button>
           </form>
 
@@ -158,7 +158,7 @@ export default function RegisterPage() {
                 <div className="w-full border-t border-hairline"></div>
               </div>
               <div className="relative flex justify-center text-body-sm">
-                <span className="px-2 bg-canvas text-body">Or continue with</span>
+                <span className="px-2 bg-canvas text-body">Or continue with.</span>
               </div>
             </div>
 
@@ -203,7 +203,7 @@ export default function RegisterPage() {
             <p className="text-body-sm text-body">
               Already have an account?{" "}
               <Link href="/login" className="text-link hover:underline">
-                Sign in
+                Sign in.
               </Link>
             </p>
           </div>
@@ -211,7 +211,7 @@ export default function RegisterPage() {
 
         <div className="mt-6 text-center">
           <Link href="/" className="text-body-sm text-mute hover:text-ink transition-colors">
-            ← Back to Dashboard
+            ← Back to dashboard.
           </Link>
         </div>
       </div>

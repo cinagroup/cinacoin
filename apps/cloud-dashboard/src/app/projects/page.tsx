@@ -44,11 +44,11 @@ export default function ProjectsPage() {
           <div className="mb-6 flex items-center justify-between">
             <div>
               <p className="font-mono text-xs text-mute mb-2">WORKSPACE</p>
-              <h1 className="text-heading-2 text-ink">Projects</h1>
-              <p className="text-body-sm text-body mt-1">Manage your cloud projects</p>
+              <h1 className="text-heading-2 text-ink">Projects.</h1>
+              <p className="text-body-sm text-body mt-1">Manage your cloud projects.</p>
             </div>
             <button className="cc-btn-primary px-4 py-2">
-              + New Project
+              + New project.
             </button>
           </div>
 
@@ -56,7 +56,7 @@ export default function ProjectsPage() {
             {mockProjects.length === 0 ? (
               <div className="bg-canvas border border-hairline rounded-md p-12 text-center">
                 <FolderOpen className="w-8 h-8 text-mute mb-4 mx-auto" />
-                <h3 className="text-heading-3 text-ink mb-1">No projects yet</h3>
+                <h3 className="text-heading-3 text-ink mb-1">No projects yet.</h3>
                 <p className="text-body-sm text-body max-w-sm">Create your first project to get started with cloud services.</p>
               </div>
             ) : mockProjects.map((project) => (

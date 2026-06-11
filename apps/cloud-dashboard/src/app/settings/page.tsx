@@ -27,8 +27,8 @@ export default function SettingsPage() {
         <main className="flex-1 p-6 overflow-auto">
           <div className="mb-6">
             <p className="font-mono text-xs text-mute mb-2">CONFIGURATION</p>
-            <h1 className="text-heading-2 text-ink">Settings</h1>
-            <p className="text-body-sm text-body mt-1">Manage your account settings and preferences</p>
+            <h1 className="text-heading-2 text-ink">Settings.</h1>
+            <p className="text-body-sm text-body mt-1">Manage your account settings and preferences.</p>
           </div>
 
           {/* Tabs */}
@@ -54,11 +54,11 @@ export default function SettingsPage() {
           {activeTab === "profile" && (
             <div className="bg-canvas border border-hairline rounded-md p-6">
               <p className="font-mono text-xs text-mute mb-2">PROFILE</p>
-              <h2 className="text-heading-3 text-ink mb-6">Profile Information</h2>
+              <h2 className="text-heading-3 text-ink mb-6">Profile information.</h2>
               <form className="space-y-6">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="first-name" className="block text-body-sm font-medium text-ink mb-2">First Name</label>
+                    <label htmlFor="first-name" className="block text-body-sm font-medium text-ink mb-2">First name.</label>
                     <input
                       type="text"
                       defaultValue="Admin"
@@ -66,7 +66,7 @@ export default function SettingsPage() {
                     />
                   </div>
                   <div>
-                    <label htmlFor="last-name" className="block text-body-sm font-medium text-ink mb-2">Last Name</label>
+                    <label htmlFor="last-name" className="block text-body-sm font-medium text-ink mb-2">Last name.</label>
                     <input
                       type="text"
                       defaultValue="User"
@@ -75,7 +75,7 @@ export default function SettingsPage() {
                   </div>
                 </div>
                 <div>
-                  <label htmlFor="email-address" className="block text-body-sm font-medium text-ink mb-2">Email Address</label>
+                  <label htmlFor="email-address" className="block text-body-sm font-medium text-ink mb-2">Email address.</label>
                   <input
                     type="email"
                     defaultValue="admin@cinacoin.com"
@@ -83,7 +83,7 @@ export default function SettingsPage() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="company" className="block text-body-sm font-medium text-ink mb-2">Company</label>
+                  <label htmlFor="company" className="block text-body-sm font-medium text-ink mb-2">Company.</label>
                   <input
                     type="text"
                     defaultValue="CinaCoin"
@@ -103,18 +103,18 @@ export default function SettingsPage() {
             <div className="space-y-6">
               <div className="bg-canvas border border-hairline rounded-md p-6">
                 <p className="font-mono text-xs text-mute mb-2">SECURITY</p>
-                <h2 className="text-heading-3 text-ink mb-6">Change Password</h2>
+                <h2 className="text-heading-3 text-ink mb-6">Change password.</h2>
                 <form className="space-y-4">
                   <div>
-                    <label htmlFor="current-password" className="block text-body-sm font-medium text-ink mb-2">Current Password</label>
+                    <label htmlFor="current-password" className="block text-body-sm font-medium text-ink mb-2">Current password.</label>
                     <input id="current-password" type="password" className="cc-form-input" />
                   </div>
                   <div>
-                    <label htmlFor="new-password" className="block text-body-sm font-medium text-ink mb-2">New Password</label>
+                    <label htmlFor="new-password" className="block text-body-sm font-medium text-ink mb-2">New password.</label>
                     <input id="new-password" type="password" className="cc-form-input" />
                   </div>
                   <div>
-                    <label htmlFor="confirm-new-password" className="block text-body-sm font-medium text-ink mb-2">Confirm New Password</label>
+                    <label htmlFor="confirm-new-password" className="block text-body-sm font-medium text-ink mb-2">Confirm new password.</label>
                     <input id="confirm-new-password" type="password" className="cc-form-input" />
                   </div>
                   <div className="flex justify-end pt-4 border-t border-hairline">
@@ -125,7 +125,7 @@ export default function SettingsPage() {
 
               <div className="bg-canvas border border-hairline rounded-md p-6">
                 <p className="font-mono text-xs text-mute mb-2">2FA</p>
-                <h2 className="text-heading-3 text-ink mb-4">Two-Factor Authentication</h2>
+                <h2 className="text-heading-3 text-ink mb-4">Two-factor authentication.</h2>
                 <p className="text-body-sm text-body mb-4">
                   Add an extra layer of security to your account by enabling two-factor authentication.
                 </p>
@@ -138,7 +138,7 @@ export default function SettingsPage() {
           {activeTab === "notifications" && (
             <div className="bg-canvas border border-hairline rounded-md p-6">
               <p className="font-mono text-xs text-mute mb-2">PREFERENCES</p>
-              <h2 className="text-heading-3 text-ink mb-6">Notification Preferences</h2>
+              <h2 className="text-heading-3 text-ink mb-6">Notification preferences.</h2>
               <div className="space-y-4">
                 {[
                   { label: "Email notifications", desc: "Receive email notifications for important updates" },
@@ -165,10 +165,10 @@ export default function SettingsPage() {
           {activeTab === "api" && (
             <div className="bg-canvas border border-hairline rounded-md p-6">
               <p className="font-mono text-xs text-mute mb-2">ENDPOINTS</p>
-              <h2 className="text-heading-3 text-ink mb-6">API Configuration</h2>
+              <h2 className="text-heading-3 text-ink mb-6">API configuration.</h2>
               <div className="space-y-4">
                 <div>
-                  <label htmlFor="api-endpoint" className="block text-body-sm font-medium text-ink mb-2">API Endpoint</label>
+                  <label htmlFor="api-endpoint" className="block text-body-sm font-medium text-ink mb-2">API endpoint.</label>
                   <input
                     type="text"
                     value="https://api.cinacoin.com/v1"
@@ -177,7 +177,7 @@ export default function SettingsPage() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="websocket-endpoint" className="block text-body-sm font-medium text-ink mb-2">WebSocket Endpoint</label>
+                  <label htmlFor="websocket-endpoint" className="block text-body-sm font-medium text-ink mb-2">WebSocket endpoint.</label>
                   <input
                     type="text"
                     value="wss://ws.cinacoin.com"
@@ -189,7 +189,7 @@ export default function SettingsPage() {
                   <p className="text-caption text-mute">
                     For API documentation, visit{" "}
                     <a href="https://docs.cinacoin.com" className="text-link hover:underline">
-                      docs.cinacoin.com
+                      docs.cinacoin.com.
                     </a>
                   </p>
                 </div>

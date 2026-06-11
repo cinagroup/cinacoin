@@ -115,49 +115,49 @@ export default React.memo(function TransactionAnalytics() {
       {/* Summary Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-sm">
         <div className="cc-card p-md">
-          <p className="text-caption text-ink-mute mb-xxs">Total Volume</p>
-          <p className="text-display-sm text-ink">{`$${(totalVolume / 1000000).toFixed(2)}M`}</p>
+          <p className="text-caption text-[var(--cc-muted)] mb-xxs">Total Volume</p>
+          <p className="text-display-sm text-[var(--cc-ink)]">{`$${(totalVolume / 1000000).toFixed(2)}M`}</p>
         </div>
         <div className="cc-card p-md">
-          <p className="text-caption text-ink-mute mb-xxs">Total Transactions</p>
-          <p className="text-display-sm text-ink">{totalTx.toLocaleString()}</p>
+          <p className="text-caption text-[var(--cc-muted)] mb-xxs">Total Transactions</p>
+          <p className="text-display-sm text-[var(--cc-ink)]">{totalTx.toLocaleString()}</p>
         </div>
         <div className="cc-card p-md">
-          <p className="text-caption text-ink-mute mb-xxs">Avg Gas Cost</p>
-          <p className="text-display-sm text-ink">{`$${avgGasCost.toFixed(2)}`}</p>
+          <p className="text-caption text-[var(--cc-muted)] mb-xxs">Avg Gas Cost</p>
+          <p className="text-display-sm text-[var(--cc-ink)]">{`$${avgGasCost.toFixed(2)}`}</p>
         </div>
         <div className="cc-card p-md">
-          <p className="text-caption text-ink-mute mb-xxs">Failed Transactions</p>
-          <p className="text-display-sm text-error">{totalFailed.toLocaleString()}</p>
+          <p className="text-caption text-[var(--cc-muted)] mb-xxs">Failed Transactions</p>
+          <p className="text-display-sm text-[var(--cc-error)]">{totalFailed.toLocaleString()}</p>
         </div>
       </div>
 
       {/* Volume Trend Chart */}
       <div className="cc-card p-lg">
-        <p className="font-mono text-xs text-mute mb-2">VOLUME</p>
-        <h3 className="text-heading-3 text-ink mb-md">Transaction Volume Trend</h3>
+        <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">VOLUME</p>
+        <h3 className="text-heading-3 text-[var(--cc-ink)] mb-md">Transaction volume trend.</h3>
         <VolumeChart data={transactionData} />
       </div>
 
       {/* Gas Statistics */}
       <div className="cc-card p-lg">
-        <p className="font-mono text-xs text-mute mb-2">GAS</p>
-        <h3 className="text-heading-3 text-ink mb-md">Gas Usage Statistics</h3>
+        <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">GAS</p>
+        <h3 className="text-heading-3 text-[var(--cc-ink)] mb-md">Gas usage statistics.</h3>
         <div className="space-y-sm">
           {transactionData.slice(-5).map((d) => (
-            <div key={d.date} className="flex items-center justify-between p-sm bg-canvas-soft rounded-md">
+            <div key={d.date} className="flex items-center justify-between p-sm bg-[var(--cc-canvas-soft)] rounded-md">
               <div>
-                <p className="text-body-sm font-medium text-ink">{d.date}</p>
-                <p className="text-caption text-ink-mute">{d.count.toLocaleString()} transactions</p>
+                <p className="text-body-sm font-medium text-[var(--cc-ink)]">{d.date}</p>
+                <p className="text-caption text-[var(--cc-muted)]">{d.count.toLocaleString()} transactions</p>
               </div>
               <div className="flex items-center gap-lg">
                 <div className="text-right">
-                  <p className="text-caption text-ink-mute">Gas Used</p>
-                  <p className="text-body-sm font-medium text-ink">{d.gasUsed}M</p>
+                  <p className="text-caption text-[var(--cc-muted)]">Gas Used</p>
+                  <p className="text-body-sm font-medium text-[var(--cc-ink)]">{d.gasUsed}M</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-caption text-ink-mute">Avg Cost</p>
-                  <p className="text-body-sm font-medium text-ink">{`$${d.gasCost}`}</p>
+                  <p className="text-caption text-[var(--cc-muted)]">Avg Cost</p>
+                  <p className="text-body-sm font-medium text-[var(--cc-ink)]">{`$${d.gasCost}`}</p>
                 </div>
               </div>
             </div>
@@ -167,21 +167,21 @@ export default React.memo(function TransactionAnalytics() {
 
       {/* Failed Transactions Analysis */}
       <div className="cc-card p-lg">
-        <p className="font-mono text-xs text-mute mb-2">FAILURES</p>
-        <h3 className="text-heading-3 text-ink mb-md">Failed Transactions by Reason</h3>
+        <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">FAILURES</p>
+        <h3 className="text-heading-3 text-[var(--cc-ink)] mb-md">Failed transactions by reason.</h3>
         <div className="space-y-sm">
           {failedTransactions.map((f) => (
             <div key={f.reason}>
               <div className="flex items-center justify-between mb-xs">
-                <span className="text-body-sm text-ink-body">{f.reason}</span>
+                <span className="text-body-sm text-[var(--cc-body)]">{f.reason}</span>
                 <div className="flex items-center gap-sm">
-                  <span className="text-body-sm text-ink-mute">{f.count.toLocaleString()}</span>
-                  <span className="text-body-sm font-medium text-ink w-12 text-right">{f.percentage}%</span>
+                  <span className="text-body-sm text-[var(--cc-muted)]">{f.count.toLocaleString()}</span>
+                  <span className="text-body-sm font-medium text-[var(--cc-ink)] w-12 text-right">{f.percentage}%</span>
                 </div>
               </div>
-              <div className="h-2 bg-canvas-soft-2 rounded-full overflow-hidden">
+              <div className="h-2 bg-[var(--cc-canvas-soft-2)] rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-error transition-all duration-500"
+                  className="h-full bg-[var(--cc-error)] transition-all duration-500"
                   style={{ width: `${f.percentage}%` }}
                 />
               </div>
@@ -190,13 +190,13 @@ export default React.memo(function TransactionAnalytics() {
         </div>
 
         {/* Failure Rate */}
-        <div className="mt-lg p-md bg-error-light rounded-md">
+        <div className="mt-lg p-md bg-[var(--cc-error-light)] rounded-md">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-body-sm font-medium text-error">Overall Failure Rate</p>
-              <p className="text-caption text-ink-mute">Last 10 days</p>
+              <p className="text-body-sm font-medium text-[var(--cc-error)]">Overall Failure Rate</p>
+              <p className="text-caption text-[var(--cc-muted)]">Last 10 days</p>
             </div>
-            <p className="text-display-sm text-error">
+            <p className="text-display-sm text-[var(--cc-error)]">
               {((totalFailed / totalTx) * 100).toFixed(2)}%
             </p>
           </div>

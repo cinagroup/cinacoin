@@ -5,22 +5,22 @@ import { Monitor, Database, Upload, Rocket } from "lucide-react";
 const actions = [
   {
     name: "Create VM",
-    description: "Launch a new virtual machine",
+    description: "Launch a new virtual machine.",
     icon: Monitor,
   },
   {
-    name: "Create Database",
-    description: "Provision a new database",
+    name: "Create database",
+    description: "Provision a new database.",
     icon: Database,
   },
   {
-    name: "Upload Files",
-    description: "Upload to object storage",
+    name: "Upload files",
+    description: "Upload to object storage.",
     icon: Upload,
   },
   {
-    name: "Deploy App",
-    description: "Deploy from container image",
+    name: "Deploy app",
+    description: "Deploy from container image.",
     icon: Rocket,
   },
 ];

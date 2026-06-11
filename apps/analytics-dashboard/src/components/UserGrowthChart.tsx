@@ -32,20 +32,20 @@ export default React.memo(function UserGrowthChart() {
   return (
     <div className="h-72">
       <ResponsiveContainer width="100%" height="100%">
-        <AreaChart data={data} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
+        <AreaChart data={data} margin={{ top: 5, right: 20, left: 0, bottom: 5 }} aria-label="User growth chart" role="img">
           <defs>
             <linearGradient id="colorUsers" x1="0" y1="0" x2="0" y2="1">
               <stop offset="5%" stopColor="#0070f3" stopOpacity={0.15} />
               <stop offset="95%" stopColor="#0070f3" stopOpacity={0} />
             </linearGradient>
           </defs>
-          <CartesianGrid strokeDasharray="3 3" stroke="#ebebeb" />
-          <XAxis dataKey="date" tick={{ fontSize: 12 }} stroke="#888888" />
-          <YAxis tick={{ fontSize: 12 }} stroke="#888888" />
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--cc-hairline)" />
+          <XAxis dataKey="date" tick={{ fontSize: 12 }} stroke="var(--cc-muted)" />
+          <YAxis tick={{ fontSize: 12 }} stroke="var(--cc-muted)" />
           <Tooltip
             contentStyle={{
-              backgroundColor: "#ffffff",
-              border: "1px solid #ebebeb",
+              backgroundColor: "var(--cc-canvas)",
+              border: "1px solid var(--cc-hairline)",
               borderRadius: "8px",
               boxShadow: "0 2px 4px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04)",
             }}

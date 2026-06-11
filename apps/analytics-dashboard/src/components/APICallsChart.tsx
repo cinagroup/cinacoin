@@ -31,21 +31,21 @@ export default React.memo(function APICallsChart() {
   return (
     <div className="h-72">
       <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={data} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#ebebeb" />
-          <XAxis dataKey="hour" tick={{ fontSize: 12 }} stroke="#888888" />
-          <YAxis tick={{ fontSize: 12 }} stroke="#888888" />
+        <BarChart data={data} margin={{ top: 5, right: 20, left: 0, bottom: 5 }} aria-label="API calls chart" role="img">
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--cc-hairline)" />
+          <XAxis dataKey="hour" tick={{ fontSize: 12 }} stroke="var(--cc-muted)" />
+          <YAxis tick={{ fontSize: 12 }} stroke="var(--cc-muted)" />
           <Tooltip
             contentStyle={{
-              backgroundColor: "#ffffff",
-              border: "1px solid #ebebeb",
+              backgroundColor: "var(--cc-canvas)",
+              border: "1px solid var(--cc-hairline)",
               borderRadius: "8px",
               boxShadow: "0 2px 4px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04)",
             }}
           />
           <Legend />
-          <Bar dataKey="calls" fill="#0070f3" radius={[4, 4, 0, 0]} name="API Calls" />
-          <Bar dataKey="errors" fill="#ee0000" radius={[4, 4, 0, 0]} name="Errors" />
+          <Bar dataKey="calls" fill="var(--cc-link)" radius={[4, 4, 0, 0]} name="API Calls" />
+          <Bar dataKey="errors" fill="var(--cc-error)" radius={[4, 4, 0, 0]} name="Errors" />
         </BarChart>
       </ResponsiveContainer>
     </div>

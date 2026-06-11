@@ -84,13 +84,13 @@ export default React.memo(function WalletFunnel() {
     <div className="space-y-lg">
       {/* Wallet Filter */}
       <div className="flex items-center gap-sm flex-wrap">
-        <span className="text-body-sm text-ink-mute">Filter:</span>
+        <span className="text-body-sm text-[var(--cc-muted)]">Filter:</span>
         <button
           onClick={() => setSelectedWallet("all")}
           className={`px-sm py-xxs text-body-sm rounded-md transition-all ${
             selectedWallet === "all"
-              ? "bg-primary text-[var(--color-on-primary)] font-medium"
-              : "bg-canvas-soft-2 text-ink-body hover:bg-canvas-soft"
+              ? "bg-[var(--cc-primary)] text-[var(--cc-on-primary)] font-medium"
+              : "bg-[var(--cc-canvas-soft-2)] text-[var(--cc-body)] hover:bg-[var(--cc-canvas-soft)]"
           }`}
         >
           All Wallets
@@ -101,8 +101,8 @@ export default React.memo(function WalletFunnel() {
             onClick={() => setSelectedWallet(w.wallet)}
             className={`px-sm py-xxs text-body-sm rounded-md transition-all ${
               selectedWallet === w.wallet
-                ? "bg-primary text-[var(--color-on-primary)] font-medium"
-                : "bg-canvas-soft-2 text-ink-body hover:bg-canvas-soft"
+                ? "bg-[var(--cc-primary)] text-[var(--cc-on-primary)] font-medium"
+                : "bg-[var(--cc-canvas-soft-2)] text-[var(--cc-body)] hover:bg-[var(--cc-canvas-soft)]"
             }`}
           >
             {w.wallet}
@@ -113,18 +113,18 @@ export default React.memo(function WalletFunnel() {
       {/* Overall Conversion Rate */}
       <div className="flex items-center gap-lg">
         <div className="cc-card p-md flex-1">
-          <p className="text-body-sm text-ink-mute mb-xxs">Overall Conversion</p>
-          <p className="text-display-sm text-success">{overallConversion}%</p>
+          <p className="text-body-sm text-[var(--cc-muted)] mb-xxs">Overall Conversion</p>
+          <p className="text-display-sm text-[var(--cc-success)]">{overallConversion}%</p>
         </div>
         <div className="cc-card p-md flex-1">
-          <p className="text-body-sm text-ink-mute mb-xxs">Total Attempts</p>
-          <p className="text-display-sm text-ink">
+          <p className="text-body-sm text-[var(--cc-muted)] mb-xxs">Total Attempts</p>
+          <p className="text-display-sm text-[var(--cc-ink)]">
             {aggregatedSteps[0]?.count.toLocaleString() || 0}
           </p>
         </div>
         <div className="cc-card p-md flex-1">
-          <p className="text-body-sm text-ink-mute mb-xxs">Completed</p>
-          <p className="text-display-sm text-ink">
+          <p className="text-body-sm text-[var(--cc-muted)] mb-xxs">Completed</p>
+          <p className="text-display-sm text-[var(--cc-ink)]">
             {aggregatedSteps[aggregatedSteps.length - 1]?.count.toLocaleString() || 0}
           </p>
         </div>
@@ -139,15 +139,15 @@ export default React.memo(function WalletFunnel() {
             <div key={step.label}>
               {i > 0 && (
                 <div className="flex items-center gap-xs mb-xxs">
-                  <TrendingDown className="w-3 h-3 text-error" />
-                  <span className="text-caption text-error font-medium">
+                  <TrendingDown className="w-3 h-3 text-[var(--cc-error)]" />
+                  <span className="text-caption text-[var(--cc-error)] font-medium">
                     -{dropoff.toFixed(1)}% drop-off
                   </span>
                 </div>
               )}
               <div className="flex items-center gap-sm">
-                <span className="text-body-sm text-ink-body w-40 flex-shrink-0">{step.label}</span>
-                <div className="flex-1 h-8 bg-canvas-soft-2 rounded-md overflow-hidden relative">
+                <span className="text-body-sm text-[var(--cc-body)] w-40 flex-shrink-0">{step.label}</span>
+                <div className="flex-1 h-8 bg-[var(--cc-canvas-soft-2)] rounded-md overflow-hidden relative">
                   <div
                     className="h-full rounded-md transition-all duration-700 flex items-center px-sm"
                     style={{
@@ -156,12 +156,12 @@ export default React.memo(function WalletFunnel() {
                       opacity: 1 - i * 0.15,
                     }}
                   >
-                    <span className="text-caption font-medium text-[var(--color-on-primary)] whitespace-nowrap">
+                    <span className="text-caption font-medium text-[var(--cc-on-primary)] whitespace-nowrap">
                       {step.count.toLocaleString()}
                     </span>
                   </div>
                 </div>
-                <span className="text-body-sm font-medium text-ink w-16 text-right">
+                <span className="text-body-sm font-medium text-[var(--cc-ink)] w-16 text-right">
                   {((step.count / maxCount) * 100).toFixed(1)}%
                 </span>
               </div>
@@ -173,7 +173,7 @@ export default React.memo(function WalletFunnel() {
       {/* Per-Wallet Breakdown */}
       {selectedWallet === "all" && (
         <div>
-          <h4 className="text-body font-medium text-ink mb-sm">By Wallet Type</h4>
+          <h4 className="text-body font-medium text-[var(--cc-ink)] mb-sm">By Wallet Type</h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-sm">
             {funnelData.map((w) => {
               const first = w.steps[0].count;
@@ -182,12 +182,12 @@ export default React.memo(function WalletFunnel() {
               return (
                 <div key={w.wallet} className="cc-card p-sm">
                   <div className="flex items-center justify-between">
-                    <span className="text-body-sm font-medium text-ink">{w.wallet}</span>
+                    <span className="text-body-sm font-medium text-[var(--cc-ink)]">{w.wallet}</span>
                     <span className="text-body-sm font-medium" style={{ color: w.steps[0].color }}>
                       {rate}%
                     </span>
                   </div>
-                  <div className="mt-xs h-1.5 bg-canvas-soft-2 rounded-full overflow-hidden">
+                  <div className="mt-xs h-1.5 bg-[var(--cc-canvas-soft-2)] rounded-full overflow-hidden">
                     <div
                       className="h-full rounded-full"
                       style={{
@@ -196,7 +196,7 @@ export default React.memo(function WalletFunnel() {
                       }}
                     />
                   </div>
-                  <p className="text-caption text-ink-mute mt-xxs">
+                  <p className="text-caption text-[var(--cc-muted)] mt-xxs">
                     {last.toLocaleString()} / {first.toLocaleString()} completed
                   </p>
                 </div>

@@ -15,9 +15,9 @@ export default React.memo(function KPICard({ title, value, change, trend }: KPIC
   const isGood = title === "Avg Response Time" ? !isPositive : isPositive;
 
   return (
-    <div className="cc-card p-lg hover:shadow-cinacoin-3 transition-shadow">
+    <div className="cc-card p-lg hover:shadow-cinacoin-3 transition-shadow" role="region" aria-label={`${title} metric`}>
       <div className="flex items-center justify-between mb-xs">
-        <span className="text-body font-medium text-ink-body">{title}</span>
+        <span className="text-body font-medium text-[var(--cc-body)]">{title}</span>
         <span
           className={`inline-flex items-center gap-xxs text-body-sm font-medium px-xs py-xxs rounded-full ${
             isGood
@@ -33,7 +33,7 @@ export default React.memo(function KPICard({ title, value, change, trend }: KPIC
           {change}
         </span>
       </div>
-      <p className="text-display-md text-ink">{value}</p>
+      <p className="text-display-md text-[var(--cc-ink)]">{value}</p>
     </div>
   );
 });

@@ -98,40 +98,40 @@ export default function RealtimeDashboard() {
   return (
     <div className="space-y-lg">
       {/* Connection Status */}
-      <div className="flex items-center gap-xs">
+      <div className="flex items-center gap-xs" role="status" aria-label={`Connection status: ${connectionState}`}>
         <div
           className={`w-2 h-2 rounded-full ${
             connectionState === "connected"
-              ? "bg-[var(--color-success)]"
+              ? "bg-[var(--cc-success)]"
               : connectionState === "connecting" || connectionState === "reconnecting"
-              ? "bg-[var(--color-warning)]"
-              : "bg-[var(--color-error)]"
+              ? "bg-[var(--cc-warning)]"
+              : "bg-[var(--cc-error)]"
           }`}
         />
-        <span className="text-body-sm text-ink-mute capitalize">{connectionState}</span>
+        <span className="text-body-sm text-[var(--cc-muted)] capitalize">{connectionState}</span>
       </div>
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-lg">
-        <div className="cc-card p-lg">
-          <p className="text-body-sm text-ink-mute mb-xs">Active Users</p>
-          <p className="text-display-lg text-ink text-code tabular-nums">
+        <div className="cc-card p-lg" role="region" aria-label="Active users metric">
+          <p className="text-body-sm text-[var(--cc-muted)] mb-xs">Active Users</p>
+          <p className="text-display-lg text-[var(--cc-ink)] text-code tabular-nums">
             {formatNumber(data.activeUsers)}
           </p>
         </div>
-        <div className="cc-card p-lg">
-          <p className="text-body-sm text-ink-mute mb-xs">Transactions Per Second</p>
-          <p className="text-display-lg text-ink text-code tabular-nums">{data.tps}</p>
+        <div className="cc-card p-lg" role="region" aria-label="Transactions per second metric">
+          <p className="text-body-sm text-[var(--cc-muted)] mb-xs">Transactions Per Second</p>
+          <p className="text-display-lg text-[var(--cc-ink)] text-code tabular-nums">{data.tps}</p>
         </div>
       </div>
 
       {/* Realtime Transaction Stream */}
       <div className="cc-card p-lg">
-        <p className="font-mono text-xs text-mute mb-2">STREAM</p>
-        <h3 className="text-heading-3 text-ink mb-md">Live Transaction Stream</h3>
-        <div className="space-y-xs max-h-96 overflow-y-auto">
+        <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">STREAM</p>
+        <h3 className="text-heading-3 text-[var(--cc-ink)] mb-md">Live transaction stream.</h3>
+        <div className="space-y-xs max-h-96 overflow-y-auto" role="log" aria-label="Live transactions">
           {data.transactions.length === 0 ? (
-            <p className="text-body text-ink-mute text-center py-lg">Waiting for transactions...</p>
+            <p className="text-body text-[var(--cc-muted)] text-center py-lg">Waiting for transactions...</p>
           ) : (
             data.transactions.map((tx) => (
               <TransactionRow key={tx.id} tx={tx} />
@@ -142,8 +142,8 @@ export default function RealtimeDashboard() {
 
       {/* Global Heatmap */}
       <div className="cc-card p-lg">
-        <p className="font-mono text-xs text-mute mb-2">GEOGRAPHY</p>
-        <h3 className="text-heading-3 text-ink mb-md">Global Request Distribution</h3>
+        <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">GEOGRAPHY</p>
+        <h3 className="text-heading-3 text-[var(--cc-ink)] mb-md">Global request distribution.</h3>
         <div className="space-y-sm">
           {data.heatmap.map((item) => (
             <HeatmapRow key={item.region} item={item} maxRequests={maxHeatmapRequests} formatNumber={formatNumber} />
@@ -157,22 +157,22 @@ export default function RealtimeDashboard() {
 const TransactionRow = React.memo(function TransactionRow({ tx }: { tx: Transaction }) {
   return (
     <div
-      className="flex items-center justify-between p-sm bg-canvas-soft rounded-md hover:bg-canvas-soft-2 transition-colors"
+      className="flex items-center justify-between p-sm bg-[var(--cc-canvas-soft)] rounded-md hover:bg-[var(--cc-canvas-soft-2)] transition-colors"
     >
       <div className="flex items-center gap-sm">
-        <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
-          <TrendingUp className="w-4 h-4 text-primary" />
+        <div className="w-8 h-8 bg-[var(--cc-primary)]/10 rounded-full flex items-center justify-center">
+          <TrendingUp className="w-4 h-4 text-[var(--cc-primary)]" />
         </div>
         <div>
-          <p className="text-body-sm font-medium text-ink">{tx.chain}</p>
-          <p className="text-caption text-ink-mute text-code">
+          <p className="text-body-sm font-medium text-[var(--cc-ink)]">{tx.chain}</p>
+          <p className="text-caption text-[var(--cc-muted)] text-code">
             {tx.from} → {tx.to}
           </p>
         </div>
       </div>
       <div className="text-right">
-        <p className="text-body-sm font-medium text-ink">{tx.amount.toFixed(4)}</p>
-        <p className="text-caption text-ink-mute">
+        <p className="text-body-sm font-medium text-[var(--cc-ink)]">{tx.amount.toFixed(4)}</p>
+        <p className="text-caption text-[var(--cc-muted)]">
           {new Date(tx.timestamp).toLocaleTimeString()}
         </p>
       </div>
@@ -184,14 +184,14 @@ const HeatmapRow = React.memo(function HeatmapRow({ item, maxRequests, formatNum
   return (
     <div>
       <div className="flex items-center justify-between mb-xs">
-        <span className="text-body-sm text-ink-body">{item.region}</span>
-        <span className="text-body-sm font-medium text-ink">
+        <span className="text-body-sm text-[var(--cc-body)]">{item.region}</span>
+        <span className="text-body-sm font-medium text-[var(--cc-ink)]">
           {formatNumber(item.requests)} req
         </span>
       </div>
-      <div className="h-2 bg-canvas-soft-2 rounded-full overflow-hidden">
+      <div className="h-2 bg-[var(--cc-canvas-soft-2)] rounded-full overflow-hidden">
         <div
-          className="h-full bg-gradient-to-r from-primary to-primary/60 transition-all duration-500"
+          className="h-full bg-gradient-to-r from-[var(--cc-primary)] to-[var(--cc-primary)]/60 transition-all duration-500"
           style={{
             width: `${(item.requests / maxRequests) * 100}%`,
           }}

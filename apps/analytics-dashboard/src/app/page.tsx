@@ -61,8 +61,8 @@ export default function Home() {
         {/* Page Header */}
         <div className="mb-xl">
           <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">DASHBOARD</p>
-          <h1 className="text-heading-1 text-ink">Analytics Overview</h1>
-          <p className="text-body text-ink-mute mt-xxs">Platform metrics and activity monitoring</p>
+          <h1 className="text-heading-1 text-[var(--cc-ink)]">Analytics overview.</h1>
+          <p className="text-body text-[var(--cc-body)] mt-xxs">Platform metrics and activity monitoring.</p>
         </div>
 
         {/* KPI Cards */}
@@ -75,13 +75,13 @@ export default function Home() {
         {/* Charts Row */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-lg mb-xl">
           <div className="cc-card p-lg">
-            <p className="font-mono text-xs text-mute mb-2">GROWTH</p>
-            <h2 className="text-heading-3 text-ink mb-lg">User Growth</h2>
+            <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">GROWTH</p>
+            <h2 className="text-heading-3 text-[var(--cc-ink)] mb-lg">User growth.</h2>
             <UserGrowthChart />
           </div>
           <div className="cc-card p-lg">
-            <p className="font-mono text-xs text-mute mb-2">API</p>
-            <h2 className="text-heading-3 text-ink mb-lg">API Calls Trend</h2>
+            <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">API</p>
+            <h2 className="text-heading-3 text-[var(--cc-ink)] mb-lg">API calls trend.</h2>
             <APICallsChart />
           </div>
         </div>
@@ -89,13 +89,13 @@ export default function Home() {
         {/* Bottom Row */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-lg">
           <div className="lg:col-span-1 cc-card p-lg">
-            <p className="font-mono text-xs text-mute mb-2">GEOGRAPHY</p>
-            <h2 className="text-heading-3 text-ink mb-lg">Region Distribution</h2>
+            <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">GEOGRAPHY</p>
+            <h2 className="text-heading-3 text-[var(--cc-ink)] mb-lg">Region distribution.</h2>
             <RegionDistribution />
           </div>
           <div className="lg:col-span-2 cc-card p-lg">
-            <p className="font-mono text-xs text-mute mb-2">EVENTS</p>
-            <h2 className="text-heading-3 text-ink mb-lg">Recent Activity</h2>
+            <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">EVENTS</p>
+            <h2 className="text-heading-3 text-[var(--cc-ink)] mb-lg">Recent activity.</h2>
             <RecentActivity />
           </div>
         </div>

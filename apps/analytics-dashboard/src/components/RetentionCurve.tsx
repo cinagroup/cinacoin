@@ -133,18 +133,18 @@ export default React.memo(function RetentionCurve() {
       {/* Period Selector */}
       <div className="flex items-center justify-between flex-wrap gap-sm">
         <div>
-          <p className="font-mono text-xs text-mute mb-2">COHORT</p>
-          <h3 className="text-heading-3 text-ink">User Retention</h3>
+          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">COHORT</p>
+          <h3 className="text-heading-3 text-[var(--cc-ink)]">User retention.</h3>
         </div>
-        <div className="flex bg-canvas-soft-2 rounded-md p-xxs">
+        <div className="flex bg-[var(--cc-canvas-soft-2)] rounded-md p-xxs">
           {(["daily", "weekly", "monthly"] as const).map((p) => (
             <button
               key={p}
               onClick={() => setPeriod(p)}
               className={`px-sm py-xxs text-body-sm rounded-sm transition-all capitalize ${
                 period === p
-                  ? "bg-canvas text-ink font-medium shadow-cinacoin-2"
-                  : "text-ink-mute hover:text-ink"
+                  ? "bg-[var(--cc-canvas)] text-[var(--cc-ink)] font-medium shadow-cinacoin-2"
+                  : "text-[var(--cc-muted)] hover:text-[var(--cc-ink)]"
               }`}
             >
               {p}
@@ -156,18 +156,18 @@ export default React.memo(function RetentionCurve() {
       {/* Summary Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-sm">
         <div className="cc-card p-sm text-center">
-          <p className="text-caption text-ink-mute">Day-1 Retention</p>
-          <p className="text-display-sm text-ink">{avgRetention[1] || 0}%</p>
+          <p className="text-caption text-[var(--cc-muted)]">Day-1 Retention</p>
+          <p className="text-display-sm text-[var(--cc-ink)]">{avgRetention[1] || 0}%</p>
         </div>
         <div className="cc-card p-sm text-center">
-          <p className="text-caption text-ink-mute">
+          <p className="text-caption text-[var(--cc-muted)]">
             {period === "daily" ? "Day-3" : period === "weekly" ? "Week-3" : "Month-3"} Retention
           </p>
-          <p className="text-display-sm text-ink">{avgRetention[3] || 0}%</p>
+          <p className="text-display-sm text-[var(--cc-ink)]">{avgRetention[3] || 0}%</p>
         </div>
         <div className="cc-card p-sm text-center">
-          <p className="text-caption text-ink-mute">Latest Period</p>
-          <p className="text-display-sm text-ink">{avgRetention[avgRetention.length - 1] || 0}%</p>
+          <p className="text-caption text-[var(--cc-muted)]">Latest Period</p>
+          <p className="text-display-sm text-[var(--cc-ink)]">{avgRetention[avgRetention.length - 1] || 0}%</p>
         </div>
       </div>
 
@@ -183,7 +183,7 @@ export default React.memo(function RetentionCurve() {
                   backgroundColor: ["#0070f3", "#7928ca", "#0091ff", "#f5a623", "#059669", "#ee0000", "#737373"][i % 7],
                 }}
               />
-              <span className="text-caption text-ink-mute">
+              <span className="text-caption text-[var(--cc-muted)]">
                 {c.label} ({c.users.toLocaleString()})
               </span>
             </div>
@@ -193,15 +193,15 @@ export default React.memo(function RetentionCurve() {
 
       {/* Heatmap Table */}
       <div>
-        <h4 className="text-body font-medium text-ink mb-sm">Retention Heatmap</h4>
+        <h4 className="text-body font-medium text-[var(--cc-ink)] mb-sm">Retention heatmap.</h4>
         <div className="overflow-x-auto">
           <table className="w-full text-caption">
             <thead>
               <tr>
-                <th className="text-left p-xs text-ink-mute font-medium">Cohort</th>
-                <th className="text-left p-xs text-ink-mute font-medium">Users</th>
+                <th className="text-left p-xs text-[var(--cc-muted)] font-medium">Cohort</th>
+                <th className="text-left p-xs text-[var(--cc-muted)] font-medium">Users</th>
                 {labels.map((l) => (
-                  <th key={l} className="text-center p-xs text-ink-mute font-medium">
+                  <th key={l} className="text-center p-xs text-[var(--cc-muted)] font-medium">
                     {l}
                   </th>
                 ))}
@@ -210,8 +210,8 @@ export default React.memo(function RetentionCurve() {
             <tbody>
               {cohorts.map((c) => (
                 <tr key={c.label}>
-                  <td className="p-xs text-ink-body font-medium">{c.label}</td>
-                  <td className="p-xs text-ink-mute">{c.users.toLocaleString()}</td>
+                  <td className="p-xs text-[var(--cc-body)] font-medium">{c.label}</td>
+                  <td className="p-xs text-[var(--cc-muted)]">{c.users.toLocaleString()}</td>
                   {c.retention.map((val, i) => (
                     <td key={labels[i]} className="p-xs text-center">
                       {val >= 0 ? (
@@ -225,7 +225,7 @@ export default React.memo(function RetentionCurve() {
                           {val}%
                         </span>
                       ) : (
-                        <span className="text-ink-mute">-</span>
+                        <span className="text-[var(--cc-muted)]">-</span>
                       )}
                     </td>
                   ))}

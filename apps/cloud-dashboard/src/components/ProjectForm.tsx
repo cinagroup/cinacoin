@@ -32,7 +32,7 @@ export function ProjectForm() {
         <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[var(--cc-success)]/10">
           <Check className="h-6 w-6 text-[var(--cc-success)]" />
         </div>
-        <h3 className="cc-display-sm text-[var(--cc-ink)]">Project Created!</h3>
+        <h3 className="cc-display-sm text-[var(--cc-ink)]">Project created.</h3>
         <p className="text-body-sm text-[var(--cc-muted)]">Your project has been created successfully.</p>
         <div className="flex items-center justify-center gap-3">
           <a href="/projects" className="cc-btn-secondary-sm px-4">
@@ -49,7 +49,7 @@ export function ProjectForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       <div>
-        <label htmlFor="name" className="cc-body-sm-strong text-[var(--cc-ink)] block mb-1">Project Name <span className="text-[var(--cc-error)]">*</span></label>
+        <label htmlFor="name" className="cc-body-sm-strong text-[var(--cc-ink)] block mb-1">Project name. <span className="text-[var(--cc-error)]">*</span></label>
         <input
           id="name"
           type="text"
@@ -57,12 +57,12 @@ export function ProjectForm() {
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           className="cc-form-input"
-          placeholder="My Awesome Project"
+          placeholder="My awesome project."
         />
       </div>
 
       <div>
-        <label htmlFor="description" className="cc-body-sm-strong text-[var(--cc-ink)] block mb-1">Description</label>
+        <label htmlFor="description" className="cc-body-sm-strong text-[var(--cc-ink)] block mb-1">Description.</label>
         <textarea
           id="description"
           rows={3}
@@ -74,7 +74,7 @@ export function ProjectForm() {
       </div>
 
       <div>
-        <label htmlFor="ownerAddress" className="cc-body-sm-strong text-[var(--cc-ink)] block mb-1">Owner Wallet Address</label>
+        <label htmlFor="ownerAddress" className="cc-body-sm-strong text-[var(--cc-ink)] block mb-1">Owner wallet address.</label>
         <input
           id="ownerAddress"
           type="text"
@@ -87,7 +87,7 @@ export function ProjectForm() {
       </div>
 
       <div>
-        <label htmlFor="websiteUrl" className="cc-body-sm-strong text-[var(--cc-ink)] block mb-1">Website URL (optional)</label>
+        <label htmlFor="websiteUrl" className="cc-body-sm-strong text-[var(--cc-ink)] block mb-1">Website URL (optional).</label>
         <input
           id="websiteUrl"
           type="url"
@@ -99,7 +99,7 @@ export function ProjectForm() {
       </div>
 
       <div>
-        <label htmlFor="redirectUris" className="cc-body-sm-strong text-[var(--cc-ink)] block mb-1">Redirect URIs (comma-separated)</label>
+        <label htmlFor="redirectUris" className="cc-body-sm-strong text-[var(--cc-ink)] block mb-1">Redirect URIs (comma-separated).</label>
         <input
           id="redirectUris"
           type="text"
@@ -119,7 +119,7 @@ export function ProjectForm() {
           disabled={loading}
           className="cc-btn-primary-sm px-4 disabled:opacity-50"
         >
-          {loading ? 'Creating...' : 'Create Project'}
+          {loading ? 'Creating...' : 'Create project.'}
         </button>
       </div>
     </form>

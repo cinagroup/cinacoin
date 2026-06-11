@@ -40,7 +40,7 @@ const quotas = [
 export default function QuotaUsage() {
   return (
     <div className="bg-canvas rounded-md shadow-level-2 p-6">
-      <h2 className="text-heading-3 text-ink mb-4">Quota Usage</h2>
+      <h2 className="text-heading-3 text-ink mb-4">Quota usage.</h2>
       <div className="space-y-5">
         {quotas.map((quota) => (
           <div key={quota.name}>
@@ -67,10 +67,10 @@ export default function QuotaUsage() {
       {/* Summary */}
       <div className="mt-6 pt-6 border-t border-hairline">
         <div className="flex items-center justify-between mb-2">
-          <span className="text-body-sm text-body">Estimated Monthly Cost</span>
+          <span className="text-body-sm text-body">Estimated monthly cost.</span>
           <span className="text-heading-3 text-ink">$677.75</span>
         </div>
-        <p className="text-caption text-mute">Based on current resource usage</p>
+        <p className="text-caption text-mute">Based on current resource usage.</p>
       </div>
     </div>
   );

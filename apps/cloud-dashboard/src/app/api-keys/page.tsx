@@ -34,11 +34,11 @@ export default function ApiKeysPage() {
           <div className="mb-6 flex items-center justify-between">
             <div>
               <p className="font-mono text-xs text-mute mb-2">AUTHENTICATION</p>
-              <h1 className="text-heading-2 text-ink">API Keys</h1>
-              <p className="text-body-sm text-body mt-1">Manage your API keys for authentication</p>
+              <h1 className="text-heading-2 text-ink">API keys.</h1>
+              <p className="text-body-sm text-body mt-1">Manage your API keys for authentication.</p>
             </div>
             <button className="cc-btn-primary px-4 py-2">
-              + Create API Key
+              + Create API key.
             </button>
           </div>
 
@@ -60,7 +60,7 @@ export default function ApiKeysPage() {
                     <td colSpan={6} className="px-6 py-12 text-center">
                       <div className="flex flex-col items-center justify-center">
                         <KeyRound className="w-8 h-8 text-mute mb-4" />
-                        <h3 className="text-heading-3 text-ink mb-1">No API keys</h3>
+                        <h3 className="text-heading-3 text-ink mb-1">No API keys.</h3>
                         <p className="text-body-sm text-body max-w-sm">Create your first API key to authenticate your requests.</p>
                       </div>
                     </td>

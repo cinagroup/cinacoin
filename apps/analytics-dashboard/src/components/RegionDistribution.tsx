@@ -16,7 +16,7 @@ export default React.memo(function RegionDistribution() {
     <div>
       <div className="h-48">
         <ResponsiveContainer width="100%" height="100%">
-          <PieChart>
+          <PieChart aria-label="Region distribution chart" role="img">
             <Pie
               data={data}
               cx="50%"
@@ -32,8 +32,8 @@ export default React.memo(function RegionDistribution() {
             </Pie>
             <Tooltip
               contentStyle={{
-                backgroundColor: "#ffffff",
-                border: "1px solid #ebebeb",
+                backgroundColor: "var(--cc-canvas)",
+                border: "1px solid var(--cc-hairline)",
                 borderRadius: "8px",
                 boxShadow: "0 2px 4px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04)",
               }}
@@ -49,9 +49,9 @@ export default React.memo(function RegionDistribution() {
                 className="w-3 h-3 rounded-full"
                 style={{ backgroundColor: item.color }}
               />
-              <span className="text-body text-ink-body">{item.name}</span>
+              <span className="text-body text-[var(--cc-body)]">{item.name}</span>
             </div>
-            <span className="text-body font-medium text-ink">{item.value}%</span>
+            <span className="text-body font-medium text-[var(--cc-ink)]">{item.value}%</span>
           </div>
         ))}
       </div>

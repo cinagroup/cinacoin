@@ -69,9 +69,9 @@ export default function ResourceTable() {
   return (
     <div className="bg-canvas rounded-md shadow-level-2 overflow-hidden">
       <div className="px-6 py-4 border-b border-hairline flex items-center justify-between">
-        <h2 className="text-heading-3 text-ink">Resources</h2>
+        <h2 className="text-heading-3 text-ink">Resources.</h2>
         <button className="cc-btn-primary px-3 py-2 text-body-sm rounded-sm transition-colors duration-fast">
-          + Create Resource
+          + Create resource
         </button>
       </div>
       <div className="overflow-x-auto">
@@ -104,7 +104,7 @@ export default function ResourceTable() {
                 <td colSpan={6} className="px-6 py-12 text-center">
                   <div className="flex flex-col items-center justify-center">
                     <Monitor className="w-8 h-8 text-mute mb-4" />
-                    <h3 className="text-heading-3 text-ink mb-1">No resources</h3>
+                    <h3 className="text-heading-3 text-ink mb-1">No resources.</h3>
                     <p className="text-body-sm text-body max-w-sm">Create your first cloud resource to get started.</p>
                   </div>
                 </td>

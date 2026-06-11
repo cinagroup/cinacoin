@@ -578,6 +578,94 @@ body {
   line-height: 1.6;
 }
 
+/* ── Resource Cards (Dashboard) ──────────────────────── */
+.resource-card {
+  background-color: var(--cc-canvas);
+  border: 1px solid var(--cc-hairline);
+  border-radius: 8px;
+  padding: 16px;
+  transition: box-shadow var(--transition-fast);
+}
+
+.resource-card:hover {
+  box-shadow: var(--shadow-level-2);
+}
+
+/* ── Stat Cards (Project Detail) ─────────────────────── */
+.stat-card {
+  background-color: var(--cc-canvas);
+  border: 1px solid var(--cc-hairline);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.stat-card-label {
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+  color: var(--cc-muted);
+  margin-bottom: 4px;
+}
+
+.stat-card-value {
+  font-size: var(--text-display-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--cc-ink);
+  letter-spacing: -0.6px;
+}
+
+/* ── Tab (Ghost) ─────────────────────────────────────── */
+.cc-tab-ghost {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
+  border-radius: var(--cc-radius-sm);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition:
+    color var(--transition-fast),
+    background-color var(--transition-fast);
+  min-height: 44px;
+}
+
+.cc-tab-ghost:hover {
+  background-color: var(--cc-canvas-soft);
+  color: var(--cc-ink);
+}
+
+/* ── Badge Base ──────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+  border-radius: 100px;
+  line-height: 1.4;
+}
+
+/* ── Status Dots ─────────────────────────────────────── */
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  flex-shrink: 0;
+}
+
+.status-running {
+  background-color: var(--cc-success);
+}
+
+.status-warning {
+  background-color: var(--cc-warning);
+}
+
+.status-error {
+  background-color: var(--cc-error);
+}
+
 /* ── Accessibility: Focus Visible ─────────────────────── */
 button:focus-visible,
 a:focus-visible,

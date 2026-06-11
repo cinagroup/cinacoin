@@ -69,7 +69,7 @@ export default function LoginPage() {
         <div className="bg-canvas rounded-md shadow-level-2 p-8">
           <div className="mb-8">
             <h1 className="text-heading-2 text-ink">
-              {showTwoFactor ? "Two-Factor Authentication" : "Sign in to CinaCoin Cloud"}
+              {showTwoFactor ? "Two-factor authentication." : "Sign in to CinaCoin Cloud."}
             </h1>
             <p className="text-body-sm text-body mt-2">
               {showTwoFactor
@@ -89,7 +89,7 @@ export default function LoginPage() {
               <>
                 <div>
                   <label htmlFor="email" className="block text-body-sm font-medium text-ink mb-2">
-                    Email Address
+                    Email address.
                   </label>
                   <input
                     id="email"
@@ -109,7 +109,7 @@ export default function LoginPage() {
 
                 <div>
                   <label htmlFor="password" className="block text-body-sm font-medium text-ink mb-2">
-                    Password
+                    Password.
                   </label>
                   <input
                     id="password"
@@ -129,7 +129,7 @@ export default function LoginPage() {
             ) : (
               <div>
                 <label htmlFor="twoFactorCode" className="block text-body-sm font-medium text-ink mb-2">
-                  Authentication Code
+                  Authentication code.
                 </label>
                 <input
                   id="twoFactorCode"
@@ -149,7 +149,7 @@ export default function LoginPage() {
                   disabled={loading}
                 />
                 <p id="cloud-mfa-help" className="text-caption text-mute mt-2 text-center">
-                  Enter the 6-digit code from your authenticator app
+                  Enter the 6-digit code from your authenticator app.
                 </p>
               </div>
             )}
@@ -173,7 +173,7 @@ export default function LoginPage() {
                     <div className="w-full border-t border-hairline"></div>
                   </div>
                   <div className="relative flex justify-center text-body-sm">
-                    <span className="px-2 bg-canvas text-body">Or continue with</span>
+                    <span className="px-2 bg-canvas text-body">Or continue with.</span>
                   </div>
                 </div>
 
@@ -218,7 +218,7 @@ export default function LoginPage() {
                 <p className="text-body-sm text-body">
                   Don't have an account?{" "}
                   <Link href="/register" className="text-link hover:underline">
-                    Create one
+                    Create one.
                   </Link>
                 </p>
               </div>
@@ -237,7 +237,7 @@ export default function LoginPage() {
                 className="text-body-sm text-link hover:underline"
                 disabled={loading}
               >
-                ← Back to login
+                ← Back to login.
               </button>
             </div>
           )}
@@ -245,7 +245,7 @@ export default function LoginPage() {
 
         <div className="mt-6 text-center">
           <Link href="/" className="text-body-sm text-mute hover:text-ink transition-colors">
-            ← Back to Dashboard
+            ← Back to dashboard.
           </Link>
         </div>
       </div>

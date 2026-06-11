@@ -63,19 +63,19 @@ const activities = [
 
 export default function RecentActivity() {
   return (
-    <div className="space-y-sm max-h-80 overflow-y-auto pr-xs">
+    <div className="space-y-sm max-h-80 overflow-y-auto pr-xs" role="log" aria-label="Recent activity">
       {activities.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-12 px-4 text-center">
-          <Activity className="w-8 h-8 text-mute mb-3" />
-          <h3 className="text-body font-semibold text-ink">No recent activity</h3>
-          <p className="text-body-sm text-ink-mute mt-1">Activity will appear here as events occur.</p>
+          <Activity className="w-8 h-8 text-[var(--cc-muted)] mb-3" />
+          <h3 className="text-body font-semibold text-[var(--cc-ink)]">No recent activity.</h3>
+          <p className="text-body-sm text-[var(--cc-muted)] mt-1">Activity will appear here as events occur.</p>
         </div>
       ) : activities.map((activity) => {
         const Icon = activity.icon;
         return (
           <div
             key={activity.id}
-            className="flex items-start gap-sm p-sm rounded-md hover:bg-canvas-soft transition-colors"
+            className="flex items-start gap-sm p-sm rounded-md hover:bg-[var(--cc-canvas-soft)] transition-colors"
           >
             <div
               className={`w-8 h-8 rounded-md flex items-center justify-center text-body-sm flex-shrink-0 ${activity.color}`}
@@ -83,8 +83,8 @@ export default function RecentActivity() {
               <Icon className="w-4 h-4" />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-body text-ink-body leading-snug">{activity.message}</p>
-              <p className="text-body-sm text-ink-mute mt-xxs">{activity.time}</p>
+              <p className="text-body text-[var(--cc-body)] leading-snug">{activity.message}</p>
+              <p className="text-body-sm text-[var(--cc-muted)] mt-xxs">{activity.time}</p>
             </div>
           </div>
         );

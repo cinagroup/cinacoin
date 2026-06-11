@@ -117,18 +117,18 @@ export default React.memo(function ChainDistribution() {
       {/* Period Selector */}
       <div className="flex items-center justify-between">
         <div>
-          <p className="font-mono text-xs text-mute mb-2">NETWORKS</p>
-          <h3 className="text-heading-3 text-ink">Chain Distribution</h3>
+          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">NETWORKS</p>
+          <h3 className="text-heading-3 text-[var(--cc-ink)]">Chain distribution.</h3>
         </div>
-        <div className="flex bg-canvas-soft-2 rounded-md p-xxs">
+        <div className="flex bg-[var(--cc-canvas-soft-2)] rounded-md p-xxs">
           {(["24h", "7d", "30d"] as const).map((p) => (
             <button
               key={p}
               onClick={() => setPeriod(p)}
               className={`px-sm py-xxs text-body-sm rounded-sm transition-all ${
                 period === p
-                  ? "bg-canvas text-ink font-medium shadow-cinacoin-2"
-                  : "text-ink-mute hover:text-ink"
+                  ? "bg-[var(--cc-canvas)] text-[var(--cc-ink)] font-medium shadow-cinacoin-2"
+                  : "text-[var(--cc-muted)] hover:text-[var(--cc-ink)]"
               }`}
             >
               {p}
@@ -147,13 +147,13 @@ export default React.memo(function ChainDistribution() {
             <div key={item.name} className="flex items-center justify-between">
               <div className="flex items-center gap-xs">
                 <div className="w-3 h-3 rounded-full flex-shrink-0" style={{ backgroundColor: item.color }} />
-                <span className="text-body-sm text-ink-body">{item.name}</span>
+                <span className="text-body-sm text-[var(--cc-body)]">{item.name}</span>
               </div>
               <div className="flex items-center gap-md">
-                <span className="text-body-sm text-ink-mute">
+                <span className="text-body-sm text-[var(--cc-muted)]">
                   {item.txCount.toLocaleString()} tx
                 </span>
-                <span className="text-body-sm font-medium text-ink w-10 text-right">
+                <span className="text-body-sm font-medium text-[var(--cc-ink)] w-10 text-right">
                   {item.value}%
                 </span>
               </div>
@@ -164,12 +164,12 @@ export default React.memo(function ChainDistribution() {
 
       {/* Bar Comparison */}
       <div>
-        <h4 className="text-body font-medium text-ink mb-sm">Transaction Volume</h4>
+        <h4 className="text-body font-medium text-[var(--cc-ink)] mb-sm">Transaction Volume</h4>
         <div className="space-y-xs">
           {data.map((item) => (
             <div key={item.name} className="flex items-center gap-sm">
-              <span className="text-caption text-ink-mute w-20 flex-shrink-0">{item.name}</span>
-              <div className="flex-1 h-6 bg-canvas-soft-2 rounded-md overflow-hidden">
+              <span className="text-caption text-[var(--cc-muted)] w-20 flex-shrink-0">{item.name}</span>
+              <div className="flex-1 h-6 bg-[var(--cc-canvas-soft-2)] rounded-md overflow-hidden">
                 <div
                   className="h-full rounded-md flex items-center px-xs transition-all duration-500"
                   style={{
@@ -178,7 +178,7 @@ export default React.memo(function ChainDistribution() {
                     minWidth: "40px",
                   }}
                 >
-                  <span className="text-caption font-medium text-[var(--color-on-primary)]">
+                  <span className="text-caption font-medium text-[var(--cc-on-primary)]">
                     {item.txCount.toLocaleString()}
                   </span>
                 </div>

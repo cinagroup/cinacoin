@@ -9,7 +9,7 @@ export default function NewProjectPage() {
         <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">NEW PROJECT</p>
         <h1 className="cc-display-md text-[var(--cc-ink)]">Create Project</h1>
         <p className="cc-body-sm text-[var(--cc-muted)] mt-1">
-          Set up a new project to get started with Cinacoin.
+          Set up a new project to get started with CinaCoin.
         </p>
       </div>
       <div className="cc-card">

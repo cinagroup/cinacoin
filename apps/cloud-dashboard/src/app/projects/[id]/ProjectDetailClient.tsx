@@ -145,7 +145,7 @@ export function ProjectDetailClient({ projectId, project }: ProjectDetailClientP
           <div className="space-y-6" role="tabpanel" id="panel-settings" aria-labelledby="tab-settings">
             <div className="cc-card">
               <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">CONFIGURATION</p>
-              <h3 className="cc-display-sm text-[var(--cc-ink)] mb-4">Project Settings</h3>
+              <h3 className="cc-display-sm text-[var(--cc-ink)] mb-4">Project settings.</h3>
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -156,7 +156,7 @@ export function ProjectDetailClient({ projectId, project }: ProjectDetailClientP
               >
                 <div>
                   <label htmlFor="projectName" className="cc-body-sm-strong text-[var(--cc-ink)] block mb-1">
-                    Project Name
+                    Project name
                   </label>
                   <input
                     id="projectName"
@@ -169,7 +169,7 @@ export function ProjectDetailClient({ projectId, project }: ProjectDetailClientP
                 </div>
                 <div>
                   <label htmlFor="networkSelect" className="cc-body-sm-strong text-[var(--cc-ink)] block mb-1">
-                    Environment / Network
+                    Environment / network
                   </label>
                   <select
                     id="networkSelect"
@@ -195,7 +195,7 @@ export function ProjectDetailClient({ projectId, project }: ProjectDetailClientP
 
             <div className="cc-card border border-[var(--cc-error)]/30 bg-[var(--cc-error-soft)]/10">
               <p className="font-mono text-xs text-[var(--cc-error)] mb-2">WARNING</p>
-              <h3 className="cc-body-md-strong text-[var(--cc-error)] mb-2">Danger Zone</h3>
+              <h3 className="cc-body-md-strong text-[var(--cc-error)] mb-2">Danger zone.</h3>
               <p className="cc-body-sm text-[var(--cc-body)] mb-4">
                 Once you delete a project, all of its API keys and usage statistics will be permanently removed.
               </p>

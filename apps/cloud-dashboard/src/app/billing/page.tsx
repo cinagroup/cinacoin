@@ -33,8 +33,8 @@ export default function BillingPage() {
         <main className="flex-1 p-6 overflow-auto">
           <div className="mb-6">
             <p className="font-mono text-xs text-mute mb-2">FINANCE</p>
-            <h1 className="text-heading-2 text-ink">Billing</h1>
-            <p className="text-body-sm text-body mt-1">Manage your subscription and billing</p>
+            <h1 className="text-heading-2 text-ink">Billing.</h1>
+            <p className="text-body-sm text-body mt-1">Manage your subscription and billing.</p>
           </div>
 
           {/* Current Plan */}
@@ -42,8 +42,8 @@ export default function BillingPage() {
             <div className="flex items-start justify-between mb-4">
               <div>
                 <p className="font-mono text-xs text-mute mb-2">PLAN</p>
-                <h2 className="text-heading-3 text-ink mb-1">Current Plan</h2>
-                <p className="text-body-sm text-body">Professional Plan</p>
+                <h2 className="text-heading-3 text-ink mb-1">Current plan.</h2>
+                <p className="text-body-sm text-body">Professional plan.</p>
               </div>
               <button className="cc-btn-secondary px-4 py-2">
                 Upgrade Plan
@@ -51,15 +51,15 @@ export default function BillingPage() {
             </div>
             <div className="grid grid-cols-3 gap-4 mt-4 pt-4 border-t border-hairline">
               <div>
-                <p className="text-caption text-mute mb-1">Monthly Cost</p>
+                <p className="text-caption text-mute mb-1">Monthly cost.</p>
                 <p className="text-heading-3 text-ink">$99/mo</p>
               </div>
               <div>
-                <p className="text-caption text-mute mb-1">Next Billing Date</p>
+                <p className="text-caption text-mute mb-1">Next billing date.</p>
                 <p className="text-body-sm text-ink">July 1, 2026</p>
               </div>
               <div>
-                <p className="text-caption text-mute mb-1">Payment Method</p>
+                <p className="text-caption text-mute mb-1">Payment method.</p>
                 <p className="text-body-sm text-ink">Visa •••• 4242</p>
               </div>
             </div>
@@ -68,11 +68,11 @@ export default function BillingPage() {
           {/* Usage */}
           <div className="bg-canvas border border-hairline rounded-md p-6 mb-6">
             <p className="font-mono text-xs text-mute mb-2">USAGE</p>
-            <h2 className="text-heading-3 text-ink mb-4">Current Usage</h2>
+            <h2 className="text-heading-3 text-ink mb-4">Current usage.</h2>
             <div className="space-y-4">
               <div>
                 <div className="flex justify-between text-body-sm mb-2">
-                  <span className="text-body">Compute Resources</span>
+                  <span className="text-body">Compute resources.</span>
                   <span className="text-ink font-medium">8 / 10 vCPUs</span>
                 </div>
                 <div className="w-full bg-canvas-soft-2 rounded-full h-2">
@@ -104,7 +104,7 @@ export default function BillingPage() {
           <div className="bg-canvas border border-hairline rounded-md overflow-hidden">
             <div className="px-6 py-4 border-b border-hairline">
               <p className="font-mono text-xs text-mute mb-2">HISTORY</p>
-              <h2 className="text-heading-3 text-ink">Invoice History</h2>
+              <h2 className="text-heading-3 text-ink">Invoice history.</h2>
             </div>
             <table className="w-full">
               <thead className="bg-canvas-soft-2 border-b border-hairline">
@@ -122,7 +122,7 @@ export default function BillingPage() {
                     <td colSpan={5} className="px-6 py-12 text-center">
                       <div className="flex flex-col items-center justify-center">
                         <FileText className="w-8 h-8 text-mute mb-4" />
-                        <h3 className="text-heading-3 text-ink mb-1">No invoices yet</h3>
+                        <h3 className="text-heading-3 text-ink mb-1">No invoices yet.</h3>
                         <p className="text-body-sm text-body max-w-sm">Your invoice history will appear here once you have billing activity.</p>
                       </div>
                     </td>

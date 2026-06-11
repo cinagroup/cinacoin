@@ -59,14 +59,14 @@ export default function Home() {
         <main className="flex-1 p-6 overflow-auto">
           <div className="mb-6">
             <p className="font-mono text-xs text-mute mb-2">OVERVIEW</p>
-            <h1 className="text-heading-2 text-ink">Dashboard</h1>
-            <p className="text-body-sm text-body mt-1">Overview of your cloud resources and services</p>
+            <h1 className="text-heading-2 text-ink">Dashboard.</h1>
+            <p className="text-body-sm text-body mt-1">Overview of your cloud resources and services.</p>
           </div>
 
           {/* Service Status */}
           <div className="mb-6">
             <p className="font-mono text-xs text-mute mb-2">SERVICES</p>
-            <h2 className="text-heading-3 text-ink mb-4">Service Status</h2>
+            <h2 className="text-heading-3 text-ink mb-4">Service status.</h2>
             <ServiceStatus />
           </div>
 
