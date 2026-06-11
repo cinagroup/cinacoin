@@ -22,9 +22,9 @@ const data = [
 
 export function ApiCallsChart() {
   return (
-    <div className="cc-card">
+    <div className="cc-card" aria-label="API calls chart showing weekly data">
       <h3 className="text-body-md font-semibold text-ink mb-4">
-        API Calls (This Week)
+        API calls this week.
       </h3>
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={data}>

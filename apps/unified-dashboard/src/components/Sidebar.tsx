@@ -18,20 +18,21 @@ export function Sidebar() {
   const { session, logout, isLoading } = useAuth();
 
   return (
-    <aside className="sidebar fixed left-0 top-0 h-full w-64 flex flex-col">
-      <div className="p-6 border-b border-[var(--color-on-primary)]/10">
+    <aside className="sidebar hidden md:flex fixed left-0 top-0 h-full w-64 flex-col">
+      <div className="p-6 border-b border-[var(--cc-on-primary)]/10">
         <h2 className="text-display-sm font-semibold flex items-center gap-2">
           <span className="text-display-md"><CoinIcon className="w-6 h-6" /></span>
           CinaCoin
         </h2>
-        <p className="text-caption text-[var(--color-on-primary)]/60 mt-1">Unified Dashboard</p>
+        <p className="text-caption text-[var(--cc-on-primary)]/60 mt-1">Unified Dashboard</p>
       </div>
 
-      <nav className="flex-1 p-4 space-y-1">
+      <nav className="flex-1 p-4 space-y-1" aria-label="Main navigation">
         {navItems.map((item) => (
           <button
             key={item.name}
             onClick={() => setActive(item.name)}
+            aria-current={active === item.name ? 'page' : undefined}
             className={`sidebar-item w-full ${
               active === item.name ? "active" : ""
             }`}
@@ -42,19 +43,19 @@ export function Sidebar() {
         ))}
       </nav>
 
-      <div className="p-4 border-t border-[var(--color-on-primary)]/10">
+      <div className="p-4 border-t border-[var(--cc-on-primary)]/10" aria-label="User menu">
         {isLoading ? (
           <div className="flex items-center gap-3 px-4 py-2">
-            <div className="w-8 h-8 rounded-full bg-[var(--color-canvas)]/20 animate-pulse"></div>
+            <div className="w-8 h-8 rounded-full bg-[var(--cc-canvas)]/20 animate-pulse"></div>
             <div className="flex-1">
-              <div className="h-3 bg-[var(--color-canvas)]/20 rounded w-20 mb-1"></div>
-              <div className="h-2 bg-[var(--color-canvas)]/10 rounded w-32"></div>
+              <div className="h-3 bg-[var(--cc-canvas)]/20 rounded w-20 mb-1"></div>
+              <div className="h-2 bg-[var(--cc-canvas)]/10 rounded w-32"></div>
             </div>
           </div>
         ) : session.authenticated ? (
           <div className="space-y-2">
             <div className="flex items-center gap-3 px-4 py-2">
-              <div className="w-8 h-8 rounded-full bg-[var(--color-canvas)]/20 flex items-center justify-center text-body-sm font-semibold">
+              <div className="w-8 h-8 rounded-full bg-[var(--cc-canvas)]/20 flex items-center justify-center text-body-sm font-semibold">
                 {session.user?.name?.charAt(0) || session.user?.email?.charAt(0) || 'U'}
               </div>
               <div className="flex-1 min-w-0">
@@ -62,7 +63,7 @@ export function Sidebar() {
                   {session.user?.name || session.user?.email || 'User'}
                 </p>
                 {session.user?.email && (
-                  <p className="text-caption text-[var(--color-on-primary)]/60 truncate">
+                  <p className="text-caption text-[var(--cc-on-primary)]/60 truncate">
                     {session.user.email}
                   </p>
                 )}
@@ -70,7 +71,7 @@ export function Sidebar() {
             </div>
             <button
               onClick={logout}
-              className="w-full px-4 py-2 text-body-sm text-left text-[var(--color-on-primary)]/80 hover:text-[var(--color-on-primary)] hover:bg-[var(--color-canvas)]/10 rounded transition-colors"
+              className="w-full px-4 py-2 text-body-sm text-left text-[var(--cc-on-primary)]/80 hover:text-[var(--cc-on-primary)] hover:bg-[var(--cc-canvas)]/10 rounded transition-colors"
             >
               <LogOut className="w-4 h-4 inline-block mr-1" /> Logout
             </button>
@@ -78,7 +79,7 @@ export function Sidebar() {
         ) : (
           <button
             onClick={() => window.location.href = 'https://auth.cinacoin.com'}
-            className="w-full px-4 py-2 text-body-sm font-medium text-center bg-[var(--color-canvas)]/20 hover:bg-[var(--color-canvas)]/30 rounded transition-colors"
+            className="w-full px-4 py-2 text-body-sm font-medium text-center bg-[var(--cc-canvas)]/20 hover:bg-[var(--cc-canvas)]/30 rounded transition-colors"
           >
             <Lock className="w-4 h-4 inline-block mr-1" /> Login
           </button>

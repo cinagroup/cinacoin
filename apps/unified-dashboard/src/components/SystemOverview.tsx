@@ -10,16 +10,16 @@ const services = [
 ];
 
 const statusColors: Record<string, string> = {
-  operational: "bg-[var(--color-success)]",
-  degraded: "bg-[var(--color-warning)]",
-  down: "bg-[var(--color-error)]",
+  operational: "bg-[var(--cc-success)]",
+  degraded: "bg-[var(--cc-warning)]",
+  down: "bg-[var(--cc-error)]",
 };
 
 export function SystemOverview() {
   return (
-    <div className="cc-card">
+    <div className="cc-card" aria-label="System status overview">
       <h3 className="text-body-md font-semibold text-ink mb-4">
-        System Overview
+        System overview.
       </h3>
       <div className="space-y-3">
         {services.map((service) => (

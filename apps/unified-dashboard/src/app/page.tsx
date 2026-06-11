@@ -20,14 +20,15 @@ export default function Home() {
   return (
     <div className="flex min-h-screen bg-canvas-soft">
       <Sidebar />
-      <main className="flex-1 ml-64 p-8">
+      <main className="flex-1 md:ml-64 p-4 md:p-8">
         <div className="max-w-7xl mx-auto">
           <header className="mb-8">
-            <h1 className="text-display-sm text-ink">
-              Dashboard Overview
+            <p className="cc-caption-mono text-[var(--cc-muted)] mb-2 tracking-wide">DASHBOARD</p>
+            <h1 className="cc-display-sm text-[var(--cc-ink)]">
+              Dashboard overview.
             </h1>
-            <p className="text-body-color mt-1">
-              Welcome to CinaCoin Unified Dashboard
+            <p className="cc-body-sm text-[var(--cc-body)] mt-1">
+              Welcome to CinaCoin Unified Dashboard.
             </p>
           </header>
 

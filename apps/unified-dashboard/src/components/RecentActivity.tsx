@@ -43,7 +43,7 @@ const activities = [
 
 export function RecentActivity() {
   return (
-    <div className="cc-card">
+    <div className="cc-card" aria-label="Recent activity feed">
       <p className="font-mono text-xs text-[var(--cc-muted,#999)] mb-2">ACTIVITY</p>
       <h3 className="text-body-md font-semibold text-ink mb-4">
         Recent activity.
