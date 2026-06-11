@@ -10,7 +10,7 @@ const config: CinacoinConfig = {
   projectId,
   metadata: {
     name: 'CinaCoin Demo dApp',
-    description: 'A comprehensive demo showcasing the full CinaCoin SDK',
+    description: 'A comprehensive demo showcasing the full CinaCoin SDK.',
     url: 'https://cinacoin.dev',
     icons: ['https://cinacoin.dev/icon.png'],
   },

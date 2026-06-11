@@ -88,8 +88,8 @@ export default function Home(): JSX.Element {
               lineHeight: 'var(--cc-leading-tight)',
             }}
           >
-            <span style={{ color: 'var(--cc-accent)' }}>Cinacoin</span>{' '}
-            <span style={{ color: 'var(--cc-ink)' }}>SDK Demo</span>
+            <span style={{ color: 'var(--cc-accent)' }}>CinaCoin</span>{' '}
+            <span style={{ color: 'var(--cc-ink)' }}>SDK demo.</span>
           </h2>
           <p
             style={{
@@ -100,10 +100,10 @@ export default function Home(): JSX.Element {
               marginInline: 'auto',
             }}
           >
-            A comprehensive demo showcasing the full Cinacoin SDK — connect, sign, send, batch, and display NFTs.
+            A comprehensive demo showcasing the full CinaCoin SDK — connect, sign, send, batch, and display NFTs.
           </p>
           <p style={{ fontSize: 'var(--cc-text-xs)', color: 'var(--cc-muted)' }}>
-            8 components · Full wallet lifecycle · EIP-5792 support
+            Eight components. Full wallet lifecycle. EIP-5792 support.
           </p>
         </div>
 
@@ -139,10 +139,13 @@ export default function Home(): JSX.Element {
             marginTop: 'var(--cc-space-xs)',
           }}
         >
-          Cinacoin SDK v0.2 · Self-hosted wallet connection toolkit ·{' '}
+          CinaCoin SDK v0.2. Self-hosted wallet connection toolkit.{' '}
           <a
             href="https://github.com/cinagroup/Cinacoin"
             style={{ color: 'var(--cc-accent-soft)', textDecoration: 'none' }}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="CinaCoin GitHub repository (opens in new tab)."
           >
             GitHub
           </a>
