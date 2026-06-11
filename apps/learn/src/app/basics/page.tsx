@@ -12,7 +12,7 @@ export default function BasicsPage() {
     <div className="max-w-3xl mx-auto">
       <StepIndicator currentStep={1} totalSteps={4} />
 
-      <h1 className="text-display-lg font-bold mb-4">Web3 Basics</h1>
+      <h1 className="text-display-lg font-semibold mb-4">Web3 Basics</h1>
       <p className="text-text-secondary mb-8">
         Understand the core concepts of Web3 and how Cinacoin fits into the decentralized ecosystem.
       </p>

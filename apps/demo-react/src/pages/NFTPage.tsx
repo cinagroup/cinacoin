@@ -50,7 +50,7 @@ export function NFTPage() {
     <div className="grid grid-cols-2 gap-6 p-6">
       {/* Left: NFT Grid */}
       <div>
-        <h2 className="text-[var(--cc-text-xl)] font-bold mb-2">NFT 收藏</h2>
+        <h2 className="text-[var(--cc-text-xl)] font-semibold mb-2">NFT 收藏</h2>
         <p className="text-[var(--cc-demo-text-muted)] mb-6">展示多链 NFT 收藏，点击查看详情。</p>
 
         <div className="grid grid-cols-3 gap-4">
@@ -88,7 +88,7 @@ export function NFTPage() {
               className="bg-[var(--cc-demo-surface-dark)] rounded-2xl p-8 max-w-[400px] w-[90%]"
             >
               <div className="text-8xl text-center mb-4">{selectedNFT.image}</div>
-              <h3 className="text-[var(--cc-text-lg)] font-bold mb-1">{selectedNFT.name}</h3>
+              <h3 className="text-[var(--cc-text-lg)] font-semibold mb-1">{selectedNFT.name}</h3>
               <p className="text-[var(--cc-demo-text-muted)] mb-4">{selectedNFT.collection}</p>
 
               <div className="bg-[var(--cc-demo-surface-darker)] rounded-lg p-4">

@@ -13,7 +13,7 @@ export default function WalletIntegrationPage() {
     <div className="max-w-3xl mx-auto">
       <StepIndicator currentStep={2} totalSteps={4} />
 
-      <h1 className="text-display-lg font-bold mb-4">Wallet Integration</h1>
+      <h1 className="text-display-lg font-semibold mb-4">Wallet Integration</h1>
       <p className="text-text-secondary mb-8">
         Connect wallets, sign messages, and interact with smart contracts using the Cinacoin SDK.
       </p>

@@ -17,7 +17,7 @@ export default function Sidebar() {
     <aside className="fixed left-0 top-0 h-screen w-64 bg-bg-card border-r border-border-color overflow-y-auto">
       <div className="p-6">
         <Link href="/" className="block mb-8">
-          <h1 className="text-display-md font-bold text-accent-blue">Cinacoin</h1>
+          <h1 className="text-display-md font-semibold text-accent-blue">Cinacoin</h1>
           <p className="text-body-sm text-text-secondary">Learn Platform</p>
         </Link>
 

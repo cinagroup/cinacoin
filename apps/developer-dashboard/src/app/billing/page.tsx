@@ -118,7 +118,7 @@ export default function BillingPage() {
               <span className="badge badge-success">Active</span>
             </div>
             <div className="flex items-baseline gap-1 mb-2">
-              <span className="text-display-lg font-bold text-ink">{currentPlan.price}</span>
+              <span className="text-display-lg font-semibold text-ink">{currentPlan.price}</span>
               <span className="text-ink-mute">{currentPlan.period}</span>
             </div>
             <p className="text-body-sm text-ink-body mb-3">{currentPlan.description}</p>
@@ -275,7 +275,7 @@ export default function BillingPage() {
                   )}
                   <h3 className="text-body-lg font-semibold text-ink mb-1">{plan.name}</h3>
                   <div className="flex items-baseline gap-1 mb-2">
-                    <span className="text-display-md font-bold text-ink">{plan.price}</span>
+                    <span className="text-display-md font-semibold text-ink">{plan.price}</span>
                     <span className="text-body-sm text-ink-mute">{plan.period}</span>
                   </div>
                   <p className="text-body-sm text-ink-body mb-4">{plan.description}</p>

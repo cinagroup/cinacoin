@@ -114,7 +114,7 @@ export function DeFiPage() {
     <div className="grid grid-cols-2 gap-6 p-6">
       {/* Left: DeFi UI */}
       <div>
-        <h2 className="text-[var(--cc-text-xl)] font-bold mb-2">DeFi 交互</h2>
+        <h2 className="text-[var(--cc-text-xl)] font-semibold mb-2">DeFi 交互</h2>
         <p className="text-[var(--cc-demo-text-muted)] mb-6">LP 质押、Token 兑换。</p>
 
         {/* Tab switcher */}
@@ -142,7 +142,7 @@ export function DeFiPage() {
                     <span className="text-[var(--cc-text-md)] font-semibold">{pool.name}</span>
                   </div>
                   <div className="text-right">
-                    <div className="text-[var(--cc-demo-success)] text-[var(--cc-text-lg)] font-bold">{pool.apy}% APY</div>
+                    <div className="text-[var(--cc-demo-success)] text-[var(--cc-text-lg)] font-semibold">{pool.apy}% APY</div>
                     <div className="text-[var(--cc-demo-text-muted)] text-xs">TVL: {formatTVL(pool.tvl)}</div>
                   </div>
                 </div>

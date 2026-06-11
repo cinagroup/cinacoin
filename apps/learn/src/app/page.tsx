@@ -39,7 +39,7 @@ export default function HomePage() {
   return (
     <div className="max-w-4xl mx-auto">
       <div className="mb-12">
-        <h1 className="text-display-xl font-bold mb-4">
+        <h1 className="text-display-xl font-semibold mb-4">
           Welcome to{" "}
           <span className="text-accent-blue">Cinacoin Learn</span>
         </h1>

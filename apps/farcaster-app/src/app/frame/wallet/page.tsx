@@ -21,7 +21,7 @@ export default function WalletFramePage() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-8">
       <div className="max-w-lg w-full space-y-6 text-center">
-        <h1 className="text-display-lg font-bold text-[var(--color-violet)]">💰 Wallet</h1>
+        <h1 className="text-display-lg font-semibold text-[var(--color-violet)]">💰 Wallet</h1>
         <div className="bg-[var(--color-canvas-soft-2)] rounded-2xl p-6 border border-[var(--color-hairline)] space-y-4">
           <p className="text-[var(--color-body)]">
             Connect your wallet to view balance, transfer tokens, and sign messages.

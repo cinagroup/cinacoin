@@ -90,7 +90,7 @@ export function TransferPage() {
     <div className="grid grid-cols-2 gap-6 p-6">
       {/* Left: Interactive Demo */}
       <div>
-        <h2 className="text-[var(--cc-text-xl)] font-bold mb-4">Token 转账</h2>
+        <h2 className="text-[var(--cc-text-xl)] font-semibold mb-4">Token 转账</h2>
         <p className="text-[var(--cc-demo-text-muted)] mb-6">选择链和 Token，输入收款地址和金额，完成转账。</p>
 
         <div className="bg-[#1a1a2e] rounded-xl p-6">
@@ -182,7 +182,7 @@ export function TransferPage() {
                 <p className="text-[var(--cc-demo-text-muted)] text-[var(--cc-text-xs)]">链: {selectedChain.name}</p>
                 <p className="text-[var(--cc-demo-text-muted)] text-[var(--cc-text-xs)]">Token: {state.token}</p>
                 <p className="text-[var(--cc-demo-text-muted)] text-[var(--cc-text-xs)]">收款: {state.to.slice(0, 10)}...{state.to.slice(-8)}</p>
-                <p className="text-[var(--cc-on-primary,#fff)] text-[var(--cc-text-lg)] font-bold mt-2">{state.amount} {state.token}</p>
+                <p className="text-[var(--cc-on-primary,#fff)] text-[var(--cc-text-lg)] font-semibold mt-2">{state.amount} {state.token}</p>
               </div>
               <div className="flex gap-3 justify-center">
                 <button

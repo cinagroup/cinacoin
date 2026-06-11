@@ -72,7 +72,7 @@ export const ProfileCard = React.memo(function ProfileCard({
           </div>
         )}
         <div>
-          <h3 className="text-display-sm font-bold text-[var(--color-on-primary)] flex items-center space-x-2">
+          <h3 className="text-display-sm font-semibold text-[var(--color-on-primary)] flex items-center space-x-2">
             <span>{displayName}</span>
             {user.verified && (
               <span className="text-[var(--color-link)]" title="Verified">✓</span>
