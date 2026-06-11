@@ -140,7 +140,7 @@ export default function Header({
                         locale === 'en' ? 'bg-[var(--cc-hairline)] text-[var(--cc-ink)]' : 'text-[var(--cc-body)] hover:bg-[var(--cc-hairline)]/50'
                       }`}
                     >
-                      🇺🇸 English
+                      EN English
                     </button>
                     <button
                       onClick={() => { setLocale('zh'); setLangOpen(false); }}
@@ -148,7 +148,7 @@ export default function Header({
                         locale === 'zh' ? 'bg-[var(--cc-hairline)] text-[var(--cc-ink)]' : 'text-[var(--cc-body)] hover:bg-[var(--cc-hairline)]/50'
                       }`}
                     >
-                      🇨🇳 中文
+                      ZH 中文
                     </button>
                   </div>
                 </>

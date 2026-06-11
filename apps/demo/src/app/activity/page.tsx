@@ -209,9 +209,9 @@ export default function ActivityPage() {
 
         {/* ── Header ── */}
         <div className="text-center space-y-2">
-          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">ACTIVITY</p>
+          <p className="font-mono text-caption text-[var(--cc-muted)] mb-2">01</p>
           <h1 className="text-display-lg font-semibold tracking-tighter bg-gradient-to-r from-[var(--cc-link)] via-[var(--cc-cyan)] to-[var(--cc-success)] bg-clip-text text-transparent">
-            Activity History
+            Activity History.
           </h1>
           <p className="text-[var(--cc-muted)] text-body-sm">Track all your wallet interactions and transactions</p>
         </div>

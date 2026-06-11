@@ -293,7 +293,7 @@ export default function OnrampPage() {
 
         {/* ── Header ─────────────────────────────────────── */}
         <div className="text-center space-y-2">
-          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">ON-RAMP</p>
+          <p className="font-mono text-caption text-[var(--cc-muted)] mb-2">05</p>
           <h1 className="text-display-lg font-semibold tracking-tighter bg-gradient-to-r from-[var(--cc-link)]/80 via-[var(--cc-link)] to-[var(--cc-link)]/60 bg-clip-text text-transparent">
             Fiat On-Ramp
           </h1>

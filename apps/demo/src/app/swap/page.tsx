@@ -470,7 +470,7 @@ export default function SwapPage() {
 
         {/* ── Header ─────────────────────────────────────── */}
         <div className="text-center space-y-2">
-          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">SWAP</p>
+          <p className="font-mono text-caption text-[var(--cc-muted)] mb-2">08</p>
           <h1 className="text-display-lg font-semibold tracking-tighter text-[var(--cc-ink)]">
             Token swap.
           </h1>

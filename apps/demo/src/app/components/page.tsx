@@ -181,7 +181,7 @@ export default function ComponentsPage() {
 
         {/* ── Header ── */}
         <div className="text-center space-y-2">
-          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">COMPONENTS</p>
+          <p className="font-mono text-caption text-[var(--cc-muted)] mb-2">03</p>
           <h1 className="text-display-lg font-semibold tracking-tight bg-gradient-to-r from-[var(--cc-link)]/80 via-[var(--cc-link)]/70 to-[var(--cc-link)]/60 bg-clip-text text-transparent">
             Component Gallery
           </h1>

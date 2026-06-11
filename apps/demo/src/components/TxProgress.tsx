@@ -1,11 +1,28 @@
 'use client';
 
+import { FileText, Send, Link2, RefreshCw, CheckCircle, Unlock } from 'lucide-react';
+
 /** Transaction step progress visualization. */
 
 export interface TxStep {
   label: string;
   icon: string;
   status: 'pending' | 'active' | 'done' | 'error';
+}
+
+const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
+  'file-text': FileText,
+  'send': Send,
+  'link-2': Link2,
+  'refresh-cw': RefreshCw,
+  'check-circle': CheckCircle,
+  'unlock': Unlock,
+};
+
+function StepIcon({ name }: { name: string }) {
+  const Icon = ICON_MAP[name];
+  if (!Icon) return <span className="text-caption">{name}</span>;
+  return <Icon className="w-4 h-4" />;
 }
 
 export default function TxProgress({ steps }: { steps: TxStep[] }) {
@@ -50,7 +67,7 @@ export default function TxProgress({ steps }: { steps: TxStep[] }) {
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                     </svg>
                   ) : (
-                    <span className="text-caption">{step.icon}</span>
+                    <StepIcon name={step.icon} />
                   )}
                 </div>
                 {/* Connector line */}
