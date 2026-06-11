@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { buildFrameMetadata, getAppUrl } from '@/lib/frame-utils';
+import { User } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Cinacoin - Profile',
@@ -20,11 +21,12 @@ export default function ProfileFramePage() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-8">
       <div className="max-w-lg w-full space-y-6 text-center">
-        <h1 className="text-display-lg font-semibold text-[var(--color-ink)]">👤 Profile</h1>
+        <p className="font-mono text-xs text-[var(--color-mute)] mb-2">PROFILE</p>
+        <h1 className="text-display-lg font-semibold text-[var(--color-ink)] flex items-center justify-center gap-2"><User className="w-5 h-5" /> Profile</h1>
         <div className="bg-[var(--color-canvas-soft-2)] rounded-2xl p-6 border border-[var(--color-hairline)] space-y-4">
           <div className="flex items-center justify-center space-x-4">
-            <div className="w-16 h-16 bg-gradient-to-br from-[var(--color-violet)] to-[var(--color-link)] rounded-full flex items-center justify-center text-display-md">
-              ?
+            <div className="w-16 h-16 bg-gradient-to-br from-[var(--color-violet)] to-[var(--color-link)] rounded-full flex items-center justify-center">
+              <User className="w-8 h-8 text-white" />
             </div>
             <div className="text-left">
               <p className="text-body-lg font-medium text-[var(--color-on-primary)]">Not Connected</p>

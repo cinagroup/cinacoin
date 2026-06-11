@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { FarcasterProvider, FarcasterAuth } from '@cinacoin/farcaster-miniapp';
+import { Link } from 'lucide-react';
 import type { FarcasterUser, FarcasterContext } from '@cinacoin/farcaster-miniapp';
 
 interface FarcasterConnectProps {
@@ -155,7 +156,7 @@ export function FarcasterConnect({
           </>
         ) : (
           <>
-            <span>🔗</span>
+            <Link className="w-5 h-5" />
             <span>Sign In with Farcaster</span>
           </>
         )}

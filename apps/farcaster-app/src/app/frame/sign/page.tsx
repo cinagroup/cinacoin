@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { buildFrameMetadata, getAppUrl } from '@/lib/frame-utils';
+import { PenLine } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Cinacoin - Sign',
@@ -21,7 +22,8 @@ export default function SignFramePage() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-8">
       <div className="max-w-lg w-full space-y-6 text-center">
-        <h1 className="text-display-lg font-semibold text-[var(--color-success)]">✍️ Sign Message</h1>
+        <p className="font-mono text-xs text-[var(--color-mute)] mb-2">CRYPTOGRAPHY</p>
+        <h1 className="text-display-lg font-semibold text-[var(--color-success)] flex items-center justify-center gap-2"><PenLine className="w-5 h-5" /> Sign Message</h1>
         <div className="bg-[var(--color-canvas-soft-2)] rounded-2xl p-6 border border-[var(--color-hairline)] space-y-4">
           <p className="text-[var(--color-body)]">
             Sign a message with your connected wallet to prove ownership.

@@ -452,6 +452,9 @@ importers:
       '@cinacoin/farcaster-miniapp':
         specifier: workspace:*
         version: link:../../packages/farcaster-miniapp
+      lucide-react:
+        specifier: ^1.17.0
+        version: 1.17.0(react@18.3.1)
       next:
         specifier: 14.2.29
         version: 14.2.29(@playwright/test@1.60.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.100.0)

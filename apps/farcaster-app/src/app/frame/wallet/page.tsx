@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { buildFrameMetadata, getAppUrl } from '@/lib/frame-utils';
+import { Wallet } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Cinacoin - Wallet',
@@ -21,7 +22,8 @@ export default function WalletFramePage() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-8">
       <div className="max-w-lg w-full space-y-6 text-center">
-        <h1 className="text-display-lg font-semibold text-[var(--color-violet)]">💰 Wallet</h1>
+        <p className="font-mono text-xs text-[var(--color-mute)] mb-2">WALLET</p>
+        <h1 className="text-display-lg font-semibold text-[var(--color-violet)] flex items-center justify-center gap-2"><Wallet className="w-5 h-5" /> Wallet</h1>
         <div className="bg-[var(--color-canvas-soft-2)] rounded-2xl p-6 border border-[var(--color-hairline)] space-y-4">
           <p className="text-[var(--color-body)]">
             Connect your wallet to view balance, transfer tokens, and sign messages.

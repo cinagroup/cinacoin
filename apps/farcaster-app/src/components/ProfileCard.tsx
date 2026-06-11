@@ -3,6 +3,7 @@
 import React, { useMemo } from 'react';
 import Image from 'next/image';
 import type { FarcasterUser } from '@cinacoin/farcaster-miniapp';
+import { User, ExternalLink } from 'lucide-react';
 
 interface ProfileCardProps {
   /** Farcaster user data */
@@ -40,8 +41,8 @@ export const ProfileCard = React.memo(function ProfileCard({
   if (!user) {
     return (
       <div className="bg-[var(--color-canvas-soft-2)] rounded-2xl p-6 border border-[var(--color-hairline)] text-center">
-        <div className="w-16 h-16 mx-auto bg-[var(--color-canvas-soft-2)] rounded-full flex items-center justify-center text-display-md mb-4">
-          👤
+        <div className="w-16 h-16 mx-auto bg-[var(--color-canvas-soft-2)] rounded-full flex items-center justify-center mb-4">
+          <User className="w-8 h-8 text-[var(--color-mute)]" />
         </div>
         <p className="text-[var(--color-mute)]">Not connected</p>
         <p className="text-body-sm text-[var(--color-mute)] mt-1">Sign in with Farcaster to view profile</p>
@@ -128,7 +129,7 @@ export const ProfileCard = React.memo(function ProfileCard({
           rel="noopener noreferrer"
           className="block text-center text-body-sm text-[var(--color-violet)] hover:text-[var(--color-violet)] transition-colors"
         >
-          🔗 {user.url.replace(/^https?:\/\//, '')}
+          <span className="flex items-center justify-center gap-1"><ExternalLink className="w-4 h-4" /> {user.url.replace(/^https?:\/\//, '')}</span>
         </a>
       )}
     </div>

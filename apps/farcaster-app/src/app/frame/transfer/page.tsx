@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { buildFrameMetadata, getAppUrl } from '@/lib/frame-utils';
+import { Send } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Cinacoin - Transfer',
@@ -21,7 +22,8 @@ export default function TransferFramePage() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-8">
       <div className="max-w-lg w-full space-y-6 text-center">
-        <h1 className="text-display-lg font-semibold text-[var(--color-link)]">💸 Transfer</h1>
+        <p className="font-mono text-xs text-[var(--color-mute)] mb-2">TRANSACTION</p>
+        <h1 className="text-display-lg font-semibold text-[var(--color-link)] flex items-center justify-center gap-2"><Send className="w-5 h-5" /> Transfer</h1>
         <div className="bg-[var(--color-canvas-soft-2)] rounded-2xl p-6 border border-[var(--color-hairline)] space-y-4">
           <p className="text-[var(--color-body)]">
             Send Cinacoin tokens to any Ethereum address.
