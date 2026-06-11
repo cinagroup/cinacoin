@@ -245,11 +245,12 @@ function SwapWidget({
       return;
     }
     setSwapState('quoting');
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       const mock = getMockQuote(fromToken.symbol, toToken.symbol, fromAmount);
       setToAmount(mock.toTokenAmountFormatted);
       setSwapState('idle');
     }, 500);
+    return () => clearTimeout(timeoutId);
   }, [fromAmount, fromToken, toToken, isConnected]);
 
   if (!fromToken || !toToken) {

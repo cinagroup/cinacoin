@@ -337,6 +337,7 @@ export function TwoFactorAuth() {
                     onChange={(e) => handleCodeChange(index, e.target.value)}
                     onKeyDown={(e) => handleKeyDown(index, e)}
                     disabled={isSubmitting}
+                    aria-label={`Verification code digit ${index + 1}`}
                     className="w-12 h-14 text-center text-heading-3 font-medium bg-canvas border border-hairline rounded-md focus:outline-none focus:ring-2 focus:ring-link focus:border-transparent transition-all disabled:opacity-50"
                     autoFocus={index === 0}
                   />
@@ -399,9 +400,9 @@ export function TwoFactorAuth() {
 
               <div className="bg-canvas-soft rounded-md p-md">
                 <div className="grid grid-cols-2 gap-2">
-                  {recoveryCodes.map((rc, index) => (
+                  {recoveryCodes.map((rc) => (
                     <div
-                      key={index}
+                      key={rc.code}
                       className="flex items-center justify-between bg-canvas border border-hairline rounded-sm px-3 py-2"
                     >
                       <code className="text-code text-body-sm text-ink">

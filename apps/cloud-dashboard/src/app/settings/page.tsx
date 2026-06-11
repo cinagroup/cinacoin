@@ -146,7 +146,7 @@ export default function SettingsPage() {
                   { label: "Security alerts", desc: "Receive alerts for security-related events" },
                   { label: "Product updates", desc: "Stay informed about new features and improvements" },
                 ].map((item, idx) => (
-                  <div key={idx} className="flex items-start justify-between py-4 border-b border-hairline last:border-b-0">
+                  <div key={item.label} className="flex items-start justify-between py-4 border-b border-hairline last:border-b-0">
                     <div>
                       <p className="text-body-sm font-medium text-ink">{item.label}</p>
                       <p className="text-caption text-mute mt-1">{item.desc}</p>

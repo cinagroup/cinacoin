@@ -116,7 +116,7 @@ export default function SettingsPage() {
               <p className="cc-body-sm text-[var(--cc-muted)]">How often to check worker health (seconds)</p>
             </div>
             <div className="flex items-center gap-2">
-              <input type="number" value={refreshInterval} onChange={(e) => setRefreshInterval(Number(e.target.value))} className="cc-form-input w-20 text-center" min={10} max={300} />
+              <input type="number" value={refreshInterval} onChange={(e) => setRefreshInterval(Number(e.target.value))} aria-label="Health check interval in seconds" className="cc-form-input w-20 text-center" min={10} max={300} />
               <span className="cc-body-sm text-[var(--cc-muted)]">seconds</span>
             </div>
           </div>
@@ -143,7 +143,7 @@ export default function SettingsPage() {
               <p className="cc-body-sm text-[var(--cc-muted)]">Notify after service is down for (seconds)</p>
             </div>
             <div className="flex items-center gap-2">
-              <input type="number" value={downAlertThreshold} onChange={(e) => setDownAlertThreshold(Number(e.target.value))} className="cc-form-input w-20 text-center" min={10} max={600} />
+              <input type="number" value={downAlertThreshold} onChange={(e) => setDownAlertThreshold(Number(e.target.value))} aria-label="Service down alert threshold in seconds" className="cc-form-input w-20 text-center" min={10} max={600} />
               <span className="cc-body-sm text-[var(--cc-muted)]">seconds</span>
             </div>
           </div>
@@ -154,7 +154,7 @@ export default function SettingsPage() {
               <p className="cc-body-sm text-[var(--cc-muted)]">Notify after service is degraded for (seconds)</p>
             </div>
             <div className="flex items-center gap-2">
-              <input type="number" value={degradedAlertThreshold} onChange={(e) => setDegradedAlertThreshold(Number(e.target.value))} className="cc-form-input w-20 text-center" min={10} max={600} />
+              <input type="number" value={degradedAlertThreshold} onChange={(e) => setDegradedAlertThreshold(Number(e.target.value))} aria-label="Service degraded alert threshold in seconds" className="cc-form-input w-20 text-center" min={10} max={600} />
               <span className="cc-body-sm text-[var(--cc-muted)]">seconds</span>
             </div>
           </div>

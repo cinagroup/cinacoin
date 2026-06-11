@@ -84,7 +84,7 @@ function VolumeChart({ data }: { data: TransactionData[] }) {
         if (i % 2 !== 0) return null;
         const x = padding.left + (i / (data.length - 1)) * chartW;
         return (
-          <text key={i} x={x} y={height - 8} textAnchor="middle" className="fill-ink-mute" style={{ fontSize: "var(--cc-text-xs)" }}>
+          <text key={d.date} x={x} y={height - 8} textAnchor="middle" className="fill-ink-mute" style={{ fontSize: "var(--cc-text-xs)" }}>
             {d.date}
           </text>
         );
@@ -95,8 +95,8 @@ function VolumeChart({ data }: { data: TransactionData[] }) {
       <path d={pathD} fill="none" stroke="#0070f3" strokeWidth="2" strokeLinecap="round" />
 
       {/* Points */}
-      {points.map((p, i) => (
-        <circle key={i} cx={p.x} cy={p.y} r="4" fill="#0070f3" stroke="white" strokeWidth="2">
+      {points.map((p) => (
+        <circle key={p.date} cx={p.x} cy={p.y} r="4" fill="#0070f3" stroke="white" strokeWidth="2">
           <title>{`${p.date}: $${(p.volume / 1000000).toFixed(2)}M`}</title>
         </circle>
       ))}

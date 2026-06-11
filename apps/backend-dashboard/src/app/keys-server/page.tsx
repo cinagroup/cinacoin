@@ -89,8 +89,8 @@ export default function KeysServerPage() {
         <div className="cc-card">
           <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Signing Operations (24h)</h3>
           <div className="space-y-3">
-            {SIGNING_STATS.map((stat, i) => (
-              <div key={i} className="flex items-center gap-3">
+            {SIGNING_STATS.map((stat) => (
+              <div key={stat.label} className="flex items-center gap-3">
                 <span className="cc-body-sm text-[var(--cc-muted)] w-36">{stat.label}</span>
                 <div className="flex-1 bg-[var(--cc-hairline)] rounded-full h-3 overflow-hidden">
                   <div

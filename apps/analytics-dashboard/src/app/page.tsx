@@ -67,8 +67,8 @@ export default function Home() {
 
         {/* KPI Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-lg mb-xl">
-          {kpiData.map((kpi, index) => (
-            <KPICard key={index} {...kpi} />
+          {kpiData.map((kpi) => (
+            <KPICard key={kpi.title} {...kpi} />
           ))}
         </div>
 

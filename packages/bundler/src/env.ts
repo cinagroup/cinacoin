@@ -6,6 +6,7 @@ const envSchema = z.object({
   BUNDLER_BENEFICIARY: z.string().optional(),
   BUNDLER_API_KEYS: z.string().optional(),
   BUNDLER_SKIP_AUTH: z.enum(['true', 'false']).optional(),
+  BUNDLER_RATE_LIMIT: z.string().regex(/^\d+$/).optional(),
 });
 
 export type Env = z.infer<typeof envSchema>;

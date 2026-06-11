@@ -74,9 +74,9 @@ function DonutChart({ data, size = 200 }: { data: ChainData[]; size?: number }) 
 
   return (
     <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="mx-auto">
-      {arcs.map((arc, i) => (
+      {arcs.map((arc) => (
         <path
-          key={i}
+          key={arc.name}
           d={arc.path}
           fill={arc.color}
           stroke="white"

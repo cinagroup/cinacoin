@@ -74,6 +74,20 @@ const nextConfig = {
               enforce: true,
               reuseExistingChunk: true,
             },
+            recharts: {
+              test: /[\\/]node_modules[\\/](recharts|recharts-scale|@babel|d3-[^\\/]*|interngraph|victory-vendor)[\\/]/,
+              name: 'recharts',
+              priority: 30,
+              enforce: true,
+              reuseExistingChunk: true,
+            },
+            lucide: {
+              test: /[\\/]node_modules[\\/]lucide-react[\\/]/,
+              name: 'lucide',
+              priority: 20,
+              enforce: true,
+              reuseExistingChunk: true,
+            },
             lib: {
               test: /[\\/]node_modules[\\/]/,
               name: 'lib',

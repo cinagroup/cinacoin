@@ -120,8 +120,8 @@ export default function RPCProxyPage() {
               </tr>
             </thead>
             <tbody>
-              {RPC_METHODS.map((m, i) => (
-                <tr key={i} className="ds-table-row">
+              {RPC_METHODS.map((m) => (
+                <tr key={m.method} className="ds-table-row">
                   <td className="ds-table-cell cc-code text-[var(--cc-link)]">{m.method}</td>
                   <td className="ds-table-cell">{formatNumber(m.count)}</td>
                   <td className="ds-table-cell text-[var(--cc-muted)]">{m.pct}%</td>
@@ -156,8 +156,8 @@ export default function RPCProxyPage() {
               </tr>
             </thead>
             <tbody>
-              {RPC_PROVIDERS.map((p, i) => (
-                <tr key={i} className="ds-table-row">
+              {RPC_PROVIDERS.map((p) => (
+                <tr key={p.name} className="ds-table-row">
                   <td className="ds-table-cell">{p.name}</td>
                   <td className="ds-table-cell">{formatNumber(p.requests)}</td>
                   <td className="ds-table-cell text-[var(--cc-muted)]">{p.latency}</td>
@@ -179,11 +179,11 @@ export default function RPCProxyPage() {
       <div className="cc-card">
         <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Chain Distribution (24h)</h3>
         <div className="space-y-3">
-          {CHAIN_DATA.map((chain, i) => {
+          {CHAIN_DATA.map((chain) => {
             const total = CHAIN_DATA.reduce((a, b) => a + b.count, 0);
             const pct = ((chain.count / total) * 100).toFixed(1);
             return (
-              <div key={i} className="flex items-center gap-3">
+              <div key={chain.name} className="flex items-center gap-3">
                 <span className="cc-body-sm text-[var(--cc-muted)] w-24">{chain.name}</span>
                 <div className="flex-1 bg-[var(--cc-hairline)] rounded-full h-3 overflow-hidden" role="progressbar" aria-valuenow={Number(pct)} aria-valuemin={0} aria-valuemax={100} aria-label={`${chain.name}: ${pct}%`}>
                   <div

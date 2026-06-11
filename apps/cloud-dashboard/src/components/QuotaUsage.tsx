@@ -42,8 +42,8 @@ export default function QuotaUsage() {
     <div className="bg-canvas rounded-md shadow-level-2 p-6">
       <h2 className="text-heading-3 text-ink mb-4">Quota Usage</h2>
       <div className="space-y-5">
-        {quotas.map((quota, index) => (
-          <div key={index}>
+        {quotas.map((quota) => (
+          <div key={quota.name}>
             <div className="flex items-center justify-between mb-2">
               <span className="text-body-sm font-medium text-ink">{quota.name}</span>
               <span className="text-body-sm text-body">

@@ -28,9 +28,9 @@ const actions = [
 export default function QuickActions() {
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-      {actions.map((action, index) => (
+      {actions.map((action) => (
         <button
-          key={index}
+          key={action.name}
           className="resource-card text-left hover:shadow-level-3 transition-shadow duration-fast"
         >
           <action.icon className="w-6 h-6 text-ink mb-2" />

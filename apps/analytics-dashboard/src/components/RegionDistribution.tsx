@@ -26,8 +26,8 @@ export default React.memo(function RegionDistribution() {
               paddingAngle={3}
               dataKey="value"
             >
-              {data.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={entry.color} />
+              {data.map((entry) => (
+                <Cell key={entry.name} fill={entry.color} />
               ))}
             </Pie>
             <Tooltip
@@ -42,8 +42,8 @@ export default React.memo(function RegionDistribution() {
         </ResponsiveContainer>
       </div>
       <div className="mt-lg space-y-xs">
-        {data.map((item, index) => (
-          <div key={index} className="flex items-center justify-between">
+        {data.map((item) => (
+          <div key={item.name} className="flex items-center justify-between">
             <div className="flex items-center gap-xs">
               <div
                 className="w-3 h-3 rounded-full"

@@ -84,11 +84,11 @@ export default function PushServerPage() {
         <div className="cc-card">
           <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Platform Breakdown</h3>
           <div className="space-y-3">
-            {PLATFORMS_DATA.map((platform, i) => {
+            {PLATFORMS_DATA.map((platform) => {
               const total = metrics.deviceTokens || 52890;
               const pct = ((platform.count / total) * 100).toFixed(1);
               return (
-                <div key={i} className="flex items-center gap-3">
+                <div key={platform.label} className="flex items-center gap-3">
                   <span className="cc-body-sm text-[var(--cc-muted)] w-32">{platform.label}</span>
                   <div className="flex-1 bg-[var(--cc-hairline)] rounded-full h-3 overflow-hidden">
                     <div
@@ -126,8 +126,8 @@ export default function PushServerPage() {
               </tr>
             </thead>
             <tbody>
-              {TOPICS.map((t, i) => (
-                <tr key={i} className="border-b border-[var(--cc-hairline)]/30 hover:bg-[var(--cc-canvas-soft)] transition-colors">
+              {TOPICS.map((t) => (
+                <tr key={t.name} className="border-b border-[var(--cc-hairline)]/30 hover:bg-[var(--cc-canvas-soft)] transition-colors">
                   <td className="px-5 py-3 cc-code text-[var(--cc-ink)]">{t.name}</td>
                   <td className="px-5 py-3 text-[var(--cc-ink)]">{formatNumber(t.subscribers)}</td>
                   <td className="px-5 py-3 text-[var(--cc-muted)]">{formatNumber(t.messages24h)}</td>

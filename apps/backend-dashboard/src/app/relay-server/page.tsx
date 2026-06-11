@@ -68,8 +68,8 @@ export default function RelayServerPage() {
         <div className="cc-card">
           <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Durable Objects Status</h3>
           <div className="grid grid-cols-2 gap-4">
-            {DO_STATS.map((s, i) => (
-              <MetricBox key={i} label={s.label} value={s.value} />
+            {DO_STATS.map((s) => (
+              <MetricBox key={s.label} label={s.label} value={s.value} />
             ))}
           </div>
         </div>
@@ -78,11 +78,11 @@ export default function RelayServerPage() {
         <div className="cc-card">
           <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Connection Breakdown</h3>
           <div className="space-y-3">
-            {CHAIN_DATA.map((chain, i) => {
+            {CHAIN_DATA.map((chain) => {
               const total = metrics.activeConnections || 1247;
               const pct = ((chain.count / total) * 100).toFixed(1);
               return (
-                <div key={i} className="flex items-center gap-3">
+                <div key={chain.label} className="flex items-center gap-3">
                   <span className="cc-body-sm text-[var(--cc-muted)] w-36">{chain.label}</span>
                   <div className="flex-1 bg-[var(--cc-hairline)] rounded-full h-3 overflow-hidden" role="progressbar" aria-valuenow={Math.round(Number(pct))} aria-valuemin={0} aria-valuemax={100} aria-label={`${chain.label}: ${pct}%`}>
                     <div
@@ -120,8 +120,8 @@ export default function RelayServerPage() {
               </tr>
             </thead>
             <tbody>
-              {RECENT_EVENTS.map((e, i) => (
-                <tr key={i} className="border-b border-[var(--cc-hairline)]/30 hover:bg-[var(--cc-canvas-soft)] transition-colors">
+              {RECENT_EVENTS.map((e) => (
+                <tr key={`${e.client}-${e.time}`} className="border-b border-[var(--cc-hairline)]/30 hover:bg-[var(--cc-canvas-soft)] transition-colors">
                   <td className="px-5 py-3">
                     <span className="inline-flex items-center px-2 py-1 rounded-full cc-caption bg-[var(--cc-canvas-soft-2)] text-[var(--cc-ink)]">
                       {e.event}

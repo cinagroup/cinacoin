@@ -51,6 +51,7 @@ export default function MonitoringPage() {
         <select
           value={selectedService}
           onChange={(e) => setSelectedService(e.target.value)}
+          aria-label="Select service"
           className="px-4 py-2 bg-canvas border border-hairline rounded-lg"
         >
           <option value="api-gateway">API Gateway</option>
@@ -88,9 +89,9 @@ export default function MonitoringPage() {
           {alerts.length === 0 ? (
             <p className="text-body-color">No alerts</p>
           ) : (
-            alerts.map((alert, index) => (
+            alerts.map((alert) => (
               <div
-                key={index}
+                key={`${alert.timestamp}-${alert.message}`}
                 className={`p-4 rounded-lg border ${
                   alert.severity === 'critical'
                     ? 'bg-error/10 border-error/20'

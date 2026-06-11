@@ -89,8 +89,9 @@ export default function TransferPage({ provider, account, balance }: TransferPag
         </div>
 
         <div className="form-group">
-          <label className="form-label">To</label>
+          <label className="form-label" htmlFor="transfer-to">To</label>
           <input
+            id="transfer-to"
             type="text"
             className="form-input"
             placeholder="0x... or username"
@@ -101,9 +102,10 @@ export default function TransferPage({ provider, account, balance }: TransferPag
         </div>
 
         <div className="form-group">
-          <label className="form-label">Amount</label>
+          <label className="form-label" htmlFor="transfer-amount">Amount</label>
           <div className="input-with-button">
             <input
+              id="transfer-amount"
               type="number"
               className="form-input"
               placeholder="0.00"

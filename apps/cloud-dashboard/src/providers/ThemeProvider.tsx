@@ -41,7 +41,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setTheme(initial);
     document.documentElement.setAttribute('data-theme', initial);
     // Hydration: set mounted true so we avoid FOUC flash
-    requestAnimationFrame(() => setMounted(true));
+    const rafId = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(rafId);
   }, []);
 
   useEffect(() => {

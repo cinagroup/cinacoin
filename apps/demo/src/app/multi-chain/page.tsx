@@ -59,7 +59,8 @@ function ChainCard({ chain, balance, health, isWalletConnected, isCurrentChain, 
   useEffect(() => {
     if (prevChainRef.current !== isCurrentChain && isCurrentChain) {
       setJustSwitched(true);
-      setTimeout(() => setJustSwitched(false), 600);
+      const timeoutId = setTimeout(() => setJustSwitched(false), 600);
+      return () => clearTimeout(timeoutId);
     }
     prevChainRef.current = isCurrentChain;
   }, [isCurrentChain]);

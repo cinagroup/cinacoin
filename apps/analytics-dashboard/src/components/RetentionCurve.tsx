@@ -71,7 +71,7 @@ function RetentionLineChart({ cohorts, labels }: { cohorts: CohortData[]; labels
       {labels.map((label, i) => {
         const x = padding.left + (i / (labels.length - 1)) * chartW;
         return (
-          <text key={i} x={x} y={height - 8} textAnchor="middle" className="fill-ink-mute" style={{ fontSize: "var(--cc-text-xs)" }}>
+          <text key={label} x={x} y={height - 8} textAnchor="middle" className="fill-ink-mute" style={{ fontSize: "var(--cc-text-xs)" }}>
             {label}
           </text>
         );
@@ -93,10 +93,10 @@ function RetentionLineChart({ cohorts, labels }: { cohorts: CohortData[]; labels
         const pathD = points.map((p, i) => `${i === 0 ? "M" : "L"} ${p.x} ${p.y}`).join(" ");
 
         return (
-          <g key={ci}>
+          <g key={cohort.label}>
             <path d={pathD} fill="none" stroke={colors[ci % colors.length]} strokeWidth="2" strokeLinecap="round" />
             {points.map((p, i) => (
-              <circle key={i} cx={p.x} cy={p.y} r="3" fill={colors[ci % colors.length]}>
+              <circle key={`${cohort.label}-${labels[i]}`} cx={p.x} cy={p.y} r="3" fill={colors[ci % colors.length]}>
                 <title>{`${cohort.label} - ${labels[i]}: ${cohort.retention[i]}%`}</title>
               </circle>
             ))}
@@ -213,7 +213,7 @@ export default React.memo(function RetentionCurve() {
                   <td className="p-xs text-ink-body font-medium">{c.label}</td>
                   <td className="p-xs text-ink-mute">{c.users.toLocaleString()}</td>
                   {c.retention.map((val, i) => (
-                    <td key={i} className="p-xs text-center">
+                    <td key={labels[i]} className="p-xs text-center">
                       {val >= 0 ? (
                         <span
                           className="inline-block px-xs py-xxs rounded-sm font-medium"

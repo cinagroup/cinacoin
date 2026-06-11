@@ -14,11 +14,11 @@ const services = [
 export default function ServiceStatus() {
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-      {services.map((service, index) => {
+      {services.map((service) => {
         const Icon = service.icon;
         return (
           <div
-            key={index}
+            key={service.name}
             className="resource-card"
           >
             <div className="flex items-center justify-between mb-2">

@@ -65,6 +65,7 @@ export function FrameRenderer({
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               placeholder={inputPlaceholder}
+              aria-label={inputPlaceholder}
               className="w-full bg-[var(--color-canvas-soft-2)] text-[var(--color-on-primary)] px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-violet)]"
             />
           </div>

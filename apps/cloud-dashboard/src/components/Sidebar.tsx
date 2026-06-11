@@ -96,14 +96,14 @@ export default function Sidebar({ isOpen }: SidebarProps) {
 
       {/* Navigation */}
       <nav className="flex-1 overflow-y-auto py-4">
-        {menuItems.map((category, idx) => (
-          <div key={idx} className="mb-4">
+        {menuItems.map((category) => (
+          <div key={category.category} className="mb-4">
             <h3 className="px-4 text-caption font-medium text-mute uppercase tracking-wider mb-2">
               {category.category}
             </h3>
             <ul>
-              {category.items.map((item, itemIdx) => (
-                <li key={itemIdx}>
+              {category.items.map((item) => (
+                <li key={item.href}>
                   <Link
                     href={item.href}
                     className={`flex items-center px-4 py-2 text-body-sm transition-colors duration-fast rounded-sm mx-2 ${

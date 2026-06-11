@@ -119,6 +119,7 @@ export function GlobalSearch() {
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Search..."
+            aria-label="Search"
             className="flex-1 bg-transparent outline-none text-[var(--cc-ink)]"
             autoFocus
           />

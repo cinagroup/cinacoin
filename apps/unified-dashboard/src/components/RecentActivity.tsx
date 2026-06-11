@@ -55,9 +55,9 @@ export function RecentActivity() {
             <h3 className="text-body-md font-semibold text-ink">No recent activity</h3>
             <p className="text-caption text-mute mt-1">Activity will appear here as events occur.</p>
           </div>
-        ) : activities.map((activity, index) => (
+        ) : activities.map((activity) => (
           <div
-            key={index}
+            key={`${activity.action}-${activity.time}`}
             className="flex items-start gap-3 py-2 border-b border-hairline last:border-0"
           >
             <span className="text-body-lg mt-1"><activity.icon className="w-5 h-5" /></span>

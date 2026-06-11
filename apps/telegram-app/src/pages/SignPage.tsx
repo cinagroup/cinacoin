@@ -143,8 +143,9 @@ export default function SignPage({ provider, account }: SignPageProps) {
       <div className="sign-section">
         <h2 className="section-subtitle">Custom Message</h2>
         <div className="form-group">
-          <label className="form-label">Message to sign</label>
+          <label className="form-label" htmlFor="sign-message">Message to sign</label>
           <textarea
+            id="sign-message"
             className="form-textarea"
             placeholder="Enter your message..."
             value={message}

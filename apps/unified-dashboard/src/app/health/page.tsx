@@ -33,10 +33,12 @@ export default function HealthPage() {
       ],
     };
 
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       setHealth(mockHealth);
       setLoading(false);
     }, 500);
+
+    return () => clearTimeout(timeoutId);
   }, []);
 
   if (loading) {

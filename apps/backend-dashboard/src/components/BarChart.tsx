@@ -27,7 +27,7 @@ export default React.memo(function BarChart({ data, labels, color = "var(--cc-pr
           const pct = (value / max) * 100;
           return (
             <div
-              key={i}
+              key={labels[i] ?? i}
               className="flex-1 rounded-t transition-all hover:opacity-80 group relative"
               style={{
                 height: `${pct}%`,
@@ -46,7 +46,7 @@ export default React.memo(function BarChart({ data, labels, color = "var(--cc-pr
       <div className="flex gap-1 mt-2">
         {labels.map((label, i) => (
           <div
-            key={i}
+            key={`${label}-${i}`}
             className="flex-1 text-center cc-caption text-[var(--cc-muted)] truncate"
           >
             {label}

@@ -83,8 +83,8 @@ export default function NotifyServerPage() {
         <div className="cc-card">
           <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Channel Distribution</h3>
           <div className="space-y-3">
-            {CHANNELS_DATA.map((ch, i) => (
-              <div key={i} className="flex items-center gap-3">
+            {CHANNELS_DATA.map((ch) => (
+              <div key={ch.name} className="flex items-center gap-3">
                 <span className="cc-body-sm text-[var(--cc-muted)] w-20">{ch.name}</span>
                 <div className="flex-1 bg-[var(--cc-hairline)] rounded-full h-3 overflow-hidden">
                   <div
@@ -119,8 +119,8 @@ export default function NotifyServerPage() {
               </tr>
             </thead>
             <tbody>
-              {RECENT_NOTIFICATIONS.map((n, i) => (
-                <tr key={i} className="border-b border-[var(--cc-hairline)]/30 hover:bg-[var(--cc-canvas-soft)] transition-colors">
+              {RECENT_NOTIFICATIONS.map((n) => (
+                <tr key={`${n.to}-${n.subject}`} className="border-b border-[var(--cc-hairline)]/30 hover:bg-[var(--cc-canvas-soft)] transition-colors">
                   <td className="px-5 py-3 text-[var(--cc-muted)]">{n.type}</td>
                   <td className="px-5 py-3 cc-code text-[var(--cc-ink)]">{n.to}</td>
                   <td className="px-5 py-3 text-[var(--cc-ink)] truncate max-w-[200px]">{n.subject}</td>
