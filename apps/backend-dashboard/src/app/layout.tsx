@@ -4,16 +4,16 @@ import "./globals.css";
 
 const geistSans = localFont({
   src: [
-    { path: '../../../packages/design-tokens/assets/Geist-Regular.woff2', weight: '400' },
-    { path: '../../../packages/design-tokens/assets/Geist-Medium.woff2', weight: '500' },
-    { path: '../../../packages/design-tokens/assets/Geist-SemiBold.woff2', weight: '600' },
+    { path: '../../../../packages/design-tokens/assets/Geist-Regular.woff2', weight: '400' },
+    { path: '../../../../packages/design-tokens/assets/Geist-Medium.woff2', weight: '500' },
+    { path: '../../../../packages/design-tokens/assets/Geist-SemiBold.woff2', weight: '600' },
   ],
   variable: '--font-geist-sans',
 });
 
 const geistMono = localFont({
   src: [
-    { path: '../../../packages/design-tokens/assets/GeistMono-Regular.woff2', weight: '400' },
+    { path: '../../../../packages/design-tokens/assets/GeistMono-Regular.woff2', weight: '400' },
   ],
   variable: '--font-geist-mono',
 });

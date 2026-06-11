@@ -6,7 +6,7 @@
 #   ./scripts/deploy-pages.sh website
 #   ./scripts/deploy-pages.sh --all
 
-set -euo pipefail
+set -uo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(dirname "$SCRIPT_DIR")"
@@ -48,11 +48,14 @@ deploy_app() {
 
   # Build the Next.js app (static export)
   echo "🔨 Building..."
-  npx next build
+  if ! npx next build; then
+    echo "❌ Build failed for ${app_name}, skipping deployment"
+    return 1
+  fi
 
   # Deploy to Cloudflare Pages
   echo "☁️  Deploying to Cloudflare Pages..."
-  npx wrangler pages deploy .vercel/output/static --project-name="${project_name}"
+  npx wrangler pages deploy out --project-name="${project_name}"
 
   echo "✅ Successfully deployed: ${app_name}"
   echo ""
