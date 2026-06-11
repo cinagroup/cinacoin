@@ -1,10 +1,10 @@
-# Relay
+# Relay.
 
 Cross-chain message relay infrastructure.
 
-## Overview
+## Overview.
 
-The Cinacoin Relay is a self-hosted WebSocket message relay that enables real-time communication between wallets and dApps. It replaces centralized relay infrastructure with a fully controllable, open-source alternative. The relay supports topic-based subscriptions, message encryption, heartbeats, and automatic reconnection.
+The CinaCoin Relay is a self-hosted WebSocket message relay that enables real-time communication between wallets and dApps. It replaces centralized relay infrastructure with a fully controllable, open-source alternative. The relay supports topic-based subscriptions, message encryption, heartbeats, and automatic reconnection.
 
 **Key capabilities:**
 
@@ -17,25 +17,25 @@ The Cinacoin Relay is a self-hosted WebSocket message relay that enables real-ti
 - Origin-based access control
 - SSL/TLS support
 
-## Installation
+## Installation.
 
-### Client SDK (already included in Core SDK)
+### Client SDK (already included in Core SDK).
 
 ```bash
 npm install @cinacoin/core-sdk
 ```
 
-### Self-Hosted Relay Server
+### Self-hosted relay server.
 
 ```bash
-# The relay server is bundled with the Cinacoin infrastructure packages
+# The relay server is bundled with the CinaCoin infrastructure packages.
 cd packages/relay-server
 npm install
 ```
 
-## Quick Start
+## Quick start.
 
-### Client: RelayTransport
+### Client: RelayTransport.
 
 ```typescript
 import { RelayTransport } from '@cinacoin/core-sdk'
@@ -62,7 +62,7 @@ await transport.publish('topic-id', JSON.stringify({ action: 'connect' }))
 transport.disconnect()
 ```
 
-### Server: RelayServer
+### Server: RelayServer.
 
 ```typescript
 import { RelayServer } from '@cinacoin/relay-server'
@@ -81,9 +81,9 @@ await server.start()
 console.log('Relay server running on ws://localhost:5000')
 ```
 
-## API Reference
+## API reference.
 
-### RelayTransport (Client)
+### RelayTransport (client).
 
 | Method | Description |
 |---|---|
@@ -94,7 +94,7 @@ console.log('Relay server running on ws://localhost:5000')
 | `publish(topic, payload)` | Send an encrypted message to a topic |
 | `isConnected()` | Check if currently connected |
 
-### RelayTransportConfig
+### RelayTransportConfig.
 
 | Property | Type | Default | Description |
 |---|---|---|---|
@@ -103,7 +103,7 @@ console.log('Relay server running on ws://localhost:5000')
 | `heartbeatInterval` | `number` | `30000` | Heartbeat interval (ms) |
 | `maxReconnectAttempts` | `number` | `5` | Max reconnection attempts |
 
-### RelayServer (Server)
+### RelayServer (server).
 
 | Method | Description |
 |---|---|
@@ -112,7 +112,7 @@ console.log('Relay server running on ws://localhost:5000')
 | `getStats()` | Get current connection and message stats |
 | `getActiveTopics()` | List all active subscription topics |
 
-### RelayServerConfig
+### RelayServerConfig.
 
 | Property | Type | Default | Description |
 |---|---|---|---|
@@ -125,7 +125,7 @@ console.log('Relay server running on ws://localhost:5000')
 | `maxMessageSize` | `number` | `1048576` | Max message size in bytes (1 MB) |
 | `idleTimeoutMs` | `number` | `300000` | Idle connection timeout (5 min, 0 = disabled) |
 
-### RelayMessage
+### RelayMessage.
 
 | Field | Type | Description |
 |---|---|---|
@@ -134,7 +134,7 @@ console.log('Relay server running on ws://localhost:5000')
 | `data` | `string` | Message payload (encrypted or plaintext) |
 | `timestamp` | `number` | Message timestamp (Unix ms) |
 
-### RelayStats
+### RelayStats.
 
 | Field | Type | Description |
 |---|---|---|
@@ -144,9 +144,9 @@ console.log('Relay server running on ws://localhost:5000')
 | `messagesReceived` | `number` | Total messages received since start |
 | `uptimeMs` | `number` | Server uptime in milliseconds |
 
-## Advanced Usage
+## Advanced usage.
 
-### Encryption with Relay Messages
+### Encryption with relay messages.
 
 ```typescript
 import { RelayTransport } from '@cinacoin/core-sdk'
@@ -165,7 +165,7 @@ const encrypted = encrypt(secret, new TextEncoder().encode('hello'))
 transport.publish('topic-id', encrypted)
 ```
 
-### Self-Hosted Relay with SSL
+### Self-hosted relay with SSL.
 
 ```typescript
 import { RelayServer } from '@cinacoin/relay-server'
@@ -187,7 +187,7 @@ await server.start()
 console.log('Secure relay running on wss://relay.myapp.com')
 ```
 
-### Custom Message Validation
+### Custom message validation.
 
 The relay server validates all incoming messages:
 - Must be a JSON object with `type`, `topic`, and `data` fields
@@ -196,7 +196,7 @@ The relay server validates all incoming messages:
 - `data` must be a string
 - Invalid messages are rejected with an error response
 
-### Heartbeat Protocol
+### Heartbeat protocol.
 
 ```typescript
 // Client sends ping
@@ -210,7 +210,7 @@ transport.subscribe('heartbeat', (msg) => {
 // Idle connections are closed after idleTimeoutMs
 ```
 
-## Architecture
+## Architecture.
 
 ```
 ┌──────────────┐       WebSocket       ┌──────────────┐
@@ -218,7 +218,7 @@ transport.subscribe('heartbeat', (msg) => {
 │  (browser)    │   wss://relay...     │  (Node.js)    │
 └──────────────┘                       └──────────────┘
        │                                      │
-       │   Topic: wc_1234...                  │   Topic: wc_1234...
+       │   Topic: wc_1234...                  │   Topic: wc_1234..
        │   (encrypted payload)                │   (routes to subscriber)
        │                                      │
        ▼                                      ▼
@@ -230,7 +230,7 @@ transport.subscribe('heartbeat', (msg) => {
 
 Messages are routed by topic. Each topic represents a communication channel between a dApp and a wallet. Messages are encrypted end-to-end using X25519 + ChaCha20-Poly1305.
 
-## Related
+## Related.
 
 - [Cross-Chain Sync](/api/cross-chain-sync) — Cross-chain state synchronization
 - [Bundler](/api/bundler) — Transaction bundling

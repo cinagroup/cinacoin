@@ -25,7 +25,7 @@ interface FarcasterConnectProps {
 export function FarcasterConnect({
   onConnect,
   onError,
-  appName = 'Cinacoin',
+  appName = 'CinaCoin',
   chains = [1, 10, 8453],
 }: FarcasterConnectProps) {
   const [provider, setProvider] = useState<FarcasterProvider | null>(null);
@@ -59,7 +59,7 @@ export function FarcasterConnect({
 
   const handleConnect = async () => {
     if (!provider) {
-      setError('Provider not initialized');
+      setError('Provider not initialized.');
       onError?.(new Error('Provider not initialized'));
       return;
     }
@@ -86,7 +86,7 @@ export function FarcasterConnect({
       const message = FarcasterAuth.createSignInMessage(fcUser, {
         domain: typeof window !== 'undefined' ? window.location.hostname : 'localhost',
         nonce,
-        statement: 'Sign in with Farcaster to Cinacoin',
+        statement: 'Sign in with Farcaster to CinaCoin.',
       });
 
       // In production, request signature from Farcaster client
@@ -94,7 +94,7 @@ export function FarcasterConnect({
       setUser(fcUser);
       onConnect?.(fcUser);
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Connection failed';
+      const errorMessage = err instanceof Error ? err.message : 'Connection failed.';
       setError(errorMessage);
       onError?.(err instanceof Error ? err : new Error(errorMessage));
     } finally {
@@ -123,16 +123,17 @@ export function FarcasterConnect({
           </div>
         )}
         <div>
-          <p className="text-[var(--color-on-primary)] font-medium">
+          <p className="text-[var(--cc-ink)] font-medium">
             {user.display_name ?? user.username}
           </p>
-          <p className="text-body-sm text-[var(--color-mute)]">@{user.username}</p>
+          <p className="text-body-sm text-[var(--cc-mute)]">@{user.username}</p>
         </div>
         <button
           onClick={handleDisconnect}
-          className="ml-auto text-body-sm text-[var(--color-mute)] hover:text-[var(--color-on-primary)]"
+          className="ml-auto text-body-sm text-[var(--cc-mute)] hover:text-[var(--cc-ink)]"
+          aria-label="Disconnect"
         >
-          Disconnect
+          Disconnect.
         </button>
       </div>
     );
@@ -144,11 +145,12 @@ export function FarcasterConnect({
       <button
         onClick={handleConnect}
         disabled={loading}
-        className="w-full bg-[var(--color-violet)] hover:bg-[var(--color-violet-deep)] disabled:bg-[var(--color-hairline-strong)] disabled:cursor-not-allowed text-[var(--color-on-primary)] px-6 py-3 rounded-xl font-medium transition-colors flex items-center justify-center space-x-2"
+        className="w-full bg-[var(--cc-violet)] hover:bg-[var(--cc-violet-deep)] disabled:bg-[var(--cc-hairline-strong)] disabled:cursor-not-allowed text-[var(--cc-on-primary)] px-6 py-3 rounded-xl font-medium transition-colors flex items-center justify-center space-x-2"
+        aria-label="Sign in with Farcaster"
       >
         {loading ? (
           <>
-            <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+            <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24" aria-hidden="true">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
             </svg>
@@ -156,19 +158,19 @@ export function FarcasterConnect({
           </>
         ) : (
           <>
-            <Link className="w-5 h-5" />
-            <span>Sign In with Farcaster</span>
+            <Link className="w-5 h-5" aria-hidden="true" />
+            <span>Sign in with Farcaster.</span>
           </>
         )}
       </button>
 
       {error && (
-        <p className="text-[var(--color-error)] text-body-sm text-center">{error}</p>
+        <p className="text-[var(--cc-error)] text-body-sm text-center" role="alert">{error}</p>
       )}
 
       {!provider?.isInFarcaster && (
-        <p className="text-[var(--color-mute)] text-caption text-center">
-          Open in Farcaster to connect
+        <p className="text-[var(--cc-mute)] text-caption text-center">
+          Open in Farcaster to connect.
         </p>
       )}
     </div>

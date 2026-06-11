@@ -1,7 +1,7 @@
 {
   "id": "guide/index",
-  "title": "Getting Started",
-  "description": "Cinacoin — Onchain Access, Simplified. Self-hosted Wallet Connection Toolkit.",
+  "title": "Getting started.",
+  "description": "CinaCoin — Onchain Access, Simplified. Self-hosted Wallet Connection Toolkit.",
   "source": "@site/docs/guide/index.md",
   "sourceDirName": "guide",
   "slug": "/guide/",

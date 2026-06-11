@@ -1,7 +1,7 @@
 {
   "id": "api/angular",
-  "title": "Angular",
-  "description": "@cinacoin/angular — Angular adapter for Cinacoin.",
+  "title": "Angular.",
+  "description": "@cinacoin/angular — Angular adapter for CinaCoin.",
   "source": "@site/docs/api/angular.md",
   "sourceDirName": "api",
   "slug": "/api/angular",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Android Kotlin",
+    "title": "Android Kotlin.",
     "permalink": "/docs/api/android-kotlin"
   },
   "next": {
-    "title": "AppKit",
+    "title": "AppKit.",
     "permalink": "/docs/api/appkit"
   }
 }

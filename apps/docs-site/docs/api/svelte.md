@@ -1,27 +1,27 @@
-# Svelte
+# Svelte.
 
-> `@cinacoin/svelte` — Svelte adapter for Cinacoin.
+> `@cinacoin/svelte` — Svelte adapter for CinaCoin.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/svelte @cinacoin/core-sdk
 ```
 
-## Usage
+## Usage.
 
 ```svelte
 <script>
-import { useCinacoin } from '@cinacoin/svelte'
+import { useCinaCoin } from '@cinacoin/svelte'
 
-const { connect, account } = useCinacoin()
+const { connect, account } = useCinaCoin()
 </script>
 
 <button on:click={connect}>Connect</button>
 <p>Account: {$account}</p>
 ```
 
-## Related
+## Related.
 
 - [React](/api/react) — React adapter
 - [Vue](/api/vue) — Vue adapter

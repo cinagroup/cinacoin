@@ -1,17 +1,17 @@
-# Testing
+# Testing.
 
-> `@cinacoin/testing` — Testing utilities for Cinacoin.
+> `@cinacoin/testing` — Testing utilities for CinaCoin.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/testing --save-dev
 ```
 
-## Overview
+## Overview.
 
-Mock providers, test wallets, and simulation utilities for testing Cinacoin integrations.
+Mock providers, test wallets, and simulation utilities for testing CinaCoin integrations.
 
-## Related
+## Related.
 
 - [Core SDK](/api/core-sdk)

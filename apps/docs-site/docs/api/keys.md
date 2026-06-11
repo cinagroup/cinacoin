@@ -1,8 +1,8 @@
-# Keys
+# Keys.
 
 Decentralized key management infrastructure.
 
-## Overview
+## Overview.
 
 Secure key storage, rotation, and recovery for on-chain identity management. The Keys system provides AES-256-GCM encrypted key storage with scrypt-derived keys, session-based access control with TTL, and a REST API for remote key management.
 
@@ -15,24 +15,24 @@ Secure key storage, rotation, and recovery for on-chain identity management. The
 - Metadata-only listing (key material never exposed in lists)
 - Redis-backed distributed storage option
 
-## Installation
+## Installation.
 
-### Client SDK
+### Client SDK.
 
 ```bash
 npm install @cinacoin/keys
 ```
 
-### Keys Server
+### Keys server.
 
 ```bash
 cd packages/keys-server
 npm install
 ```
 
-## Quick Start
+## Quick start.
 
-### Basic Key Operations
+### Basic key operations.
 
 ```typescript
 import { createKeys } from '@cinacoin/keys'
@@ -57,7 +57,7 @@ console.log('Algorithm:', key.algorithm)
 const allKeys = await keys.list()
 ```
 
-### Key Rotation
+### Key rotation.
 
 ```typescript
 // Rotate to a new key
@@ -69,7 +69,7 @@ await keys.rotate({
 // The old key is marked as deprecated but retained for recovery
 ```
 
-### Server: KeyManager
+### Server: KeyManager.
 
 ```typescript
 import { KeyManager } from '@cinacoin/keys-server'
@@ -91,9 +91,9 @@ const stored = await keyManager.storeKey(
 const decrypted = keyManager.decryptKey(stored.encrypted)
 ```
 
-## API Reference
+## API reference.
 
-### StoredKey
+### StoredKey.
 
 | Field | Type | Description |
 |---|---|---|
@@ -103,7 +103,7 @@ const decrypted = keyManager.decryptKey(stored.encrypted)
 | `algorithm` | `string` | Encryption algorithm (`aes-256-gcm`) |
 | `createdAt` | `number` | Storage timestamp (Unix ms) |
 
-### Session
+### Session.
 
 | Field | Type | Description |
 |---|---|---|
@@ -112,14 +112,14 @@ const decrypted = keyManager.decryptKey(stored.encrypted)
 | `permissions` | `string[]` | Permission strings |
 | `expiresAt` | `number` | Expiry timestamp (Unix ms) |
 
-### DecryptResult
+### DecryptResult.
 
 | Field | Type | Description |
 |---|---|---|
 | `key` | `Uint8Array` | Decrypted key bytes |
 | `metadata` | `Record<string, string>` | Associated metadata |
 
-### KeyManagerConfig
+### KeyManagerConfig.
 
 | Property | Type | Default | Description |
 |---|---|---|---|
@@ -127,7 +127,7 @@ const decrypted = keyManager.decryptKey(stored.encrypted)
 | `storageUri` | `string` | — | Storage backend URI (e.g., Redis) |
 | `sessionTtlMs` | `number` | `3600000` | Session TTL (1 hour default) |
 
-### KeyManager Methods
+### KeyManager methods.
 
 | Method | Description |
 |---|---|
@@ -140,7 +140,7 @@ const decrypted = keyManager.decryptKey(stored.encrypted)
 | `validateSession(sessionId)` | Validate a session token. Returns Session or null. |
 | `revokeSession(sessionId)` | Revoke a session. Returns boolean. |
 
-### Client Keys API
+### Client keys API.
 
 | Method | Description |
 |---|---|
@@ -150,9 +150,9 @@ const decrypted = keyManager.decryptKey(stored.encrypted)
 | `rotate(config)` | Rotate to a new key pair |
 | `recover(config)` | Recover a key from backup |
 
-## Encryption Details
+## Encryption details.
 
-### How Keys Are Encrypted
+### How keys are encrypted.
 
 1. **Key derivation**: The master `encryptionKey` passphrase is run through **scrypt** with a fixed salt to produce a 32-byte AES key.
 2. **Encryption**: Each key is encrypted with **AES-256-GCM** using a random 16-byte IV.
@@ -166,7 +166,7 @@ const decrypted = keyManager.decryptKey(stored.encrypted)
 └──────────┴──────────┴────────────────────────┘
 ```
 
-### Security Recommendations
+### Security recommendations.
 
 - **Never use the default encryption key in production.** Always set `ENCRYPTION_KEY` via environment variable.
 - **Use a strong passphrase** (256+ bits of entropy) for the master encryption key.
@@ -174,9 +174,9 @@ const decrypted = keyManager.decryptKey(stored.encrypted)
 - **Use Redis with TLS** for distributed storage in production.
 - **Implement audit logging** for all key access operations.
 
-## Advanced Usage
+## Advanced usage.
 
-### Session-Based Access
+### Session-based access.
 
 ```typescript
 // Create a session with specific permissions
@@ -198,7 +198,7 @@ if (!validSession) {
 keyManager.revokeSession(session.id)
 ```
 
-### Key Recovery Workflow
+### Key recovery workflow.
 
 ```typescript
 import { createKeys } from '@cinacoin/keys'
@@ -224,7 +224,7 @@ const recovered = await keys.recover({
 })
 ```
 
-### REST API (Keys Server)
+### REST API (Keys Server).
 
 The keys server exposes a REST API:
 
@@ -239,7 +239,7 @@ The keys server exposes a REST API:
 | `DELETE` | `/sessions/:id` | Revoke a session |
 | `GET` | `/health` | Health check |
 
-## Related
+## Related.
 
 - [Keys Server](/api/keys-server) — Self-hosted keys server details
 - [Session Keys](/api/session-keys) — Ephemeral session key management

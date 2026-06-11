@@ -1,18 +1,18 @@
-# Swap SDK
+# Swap SDK.
 
-> `@cinacoin/swap-sdk` — Swap aggregator SDK for Cinacoin.
+> `@cinacoin/swap-sdk` — Swap aggregator SDK for CinaCoin.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/swap-sdk
 ```
 
-## Overview
+## Overview.
 
 The Swap SDK aggregates liquidity from multiple DEXs (Uniswap, 1inch, 0x, etc.) to find the best swap routes and execute token swaps.
 
-## Usage
+## Usage.
 
 ```typescript
 import { SwapSDK } from '@cinacoin/swap-sdk'
@@ -31,7 +31,7 @@ const route = await swap.getBestRoute({
 await swap.execute(route)
 ```
 
-## Features
+## Features.
 
 - **Multi-DEX Aggregation** — Query multiple DEXs for best price
 - **Route Optimization** — Smart routing through liquidity pools
@@ -39,7 +39,7 @@ await swap.execute(route)
 - **Gas Estimation** — Accurate gas cost estimates
 - **Token Allowance** — Handle ERC-20 approvals
 
-## Related
+## Related.
 
 - [Payment Flow](/api/payment-flow)
 - [On-Ramp SDK](/api/onramp-sdk)

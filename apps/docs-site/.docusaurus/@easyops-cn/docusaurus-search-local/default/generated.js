@@ -1,9 +1,9 @@
-import lunr from "/home/cina/.openclaw/workspace/apps/docs-site/node_modules/lunr/lunr.js";
+import lunr from "/home/cina/.openclaw/workspace/node_modules/.pnpm/lunr@2.3.9/node_modules/lunr/lunr.js";
 export const language = ["en"];
 export const removeDefaultStopWordFilter = false;
 export const removeDefaultStemmer = false;
-export { default as Mark } from "/home/cina/.openclaw/workspace/apps/docs-site/node_modules/mark.js/dist/mark.js"
-export const searchIndexUrl = "search-index{dir}.json?_=0909d8e3";
+export { default as Mark } from "/home/cina/.openclaw/workspace/node_modules/.pnpm/mark.js@8.11.1/node_modules/mark.js/dist/mark.js"
+export const searchIndexUrl = "search-index{dir}.json?_=849f204c";
 export const searchResultLimits = 8;
 export const searchResultContextMaxLength = 50;
 export const explicitSearchResultPath = true;

@@ -1,7 +1,7 @@
 {
   "id": "api/adapter-starknet",
-  "title": "Starknet Adapter",
-  "description": "@cinacoin/adapter-starknet — Starknet L2 adapter for Cinacoin.",
+  "title": "Starknet adapter.",
+  "description": "@cinacoin/adapter-starknet — Starknet L2 adapter for CinaCoin.",
   "source": "@site/docs/api/adapter-starknet.md",
   "sourceDirName": "api",
   "slug": "/api/adapter-starknet",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "NEAR Adapter",
+    "title": "NEAR adapter.",
     "permalink": "/docs/api/adapter-near"
   },
   "next": {
-    "title": "Sui Adapter",
+    "title": "Sui adapter.",
     "permalink": "/docs/api/adapter-sui"
   }
 }

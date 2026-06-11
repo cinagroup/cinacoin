@@ -53,9 +53,9 @@ export default function HomePage({ user, account, balance, onNavigate }: HomePag
   return (
     <div className="page home-page">
       <div className="page-greeting">
-        <p className="font-mono text-xs text-[var(--cc-muted,#999)] mb-2">DASHBOARD</p>
-        <h1 className="font-semibold">Hello, {displayName}</h1>
-        <p className="greeting-subtitle">Your Cinacoin dashboard.</p>
+        <p className="font-mono text-xs mb-2" style={{ color: 'var(--cc-muted)' }}>DASHBOARD</p>
+        <h1 className="font-semibold">Hello, {displayName}.</h1>
+        <p className="greeting-subtitle">Your CinaCoin dashboard.</p>
       </div>
 
       <BalanceCard
@@ -71,8 +71,8 @@ export default function HomePage({ user, account, balance, onNavigate }: HomePag
         disabled={!account}
       />
 
-      <section className="section">
-        <p className="font-mono text-xs text-[var(--cc-muted,#999)] mb-2">ACTIVITY</p>
+      <section className="section" aria-label="Recent activity">
+        <p className="font-mono text-xs mb-2" style={{ color: 'var(--cc-muted)' }}>ACTIVITY</p>
         <h2 className="section-title font-semibold">Recent activity.</h2>
         {account ? (
           <div className="transaction-list">
@@ -86,9 +86,9 @@ export default function HomePage({ user, account, balance, onNavigate }: HomePag
           </div>
         ) : (
           <div className="empty-state">
-            <p>Connect your wallet to see transactions</p>
+            <p>Connect your wallet to see transactions.</p>
             <button className="cc-btn-primary" onClick={() => onNavigate('wallet')}>
-              Connect Wallet
+              Connect wallet.
             </button>
           </div>
         )}

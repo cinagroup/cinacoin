@@ -1,7 +1,7 @@
 {
   "id": "api/token-list",
-  "title": "Token List",
-  "description": "@cinacoin/token-list — Token registry and management for Cinacoin.",
+  "title": "Token list.",
+  "description": "@cinacoin/token-list — Token registry and management for CinaCoin.",
   "source": "@site/docs/api/token-list.md",
   "sourceDirName": "api",
   "slug": "/api/token-list",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Testing",
+    "title": "Testing.",
     "permalink": "/docs/api/testing"
   },
   "next": {
-    "title": "Travel Rule Demo",
+    "title": "Travel rule demo.",
     "permalink": "/docs/api/travel-rule-demo"
   }
 }

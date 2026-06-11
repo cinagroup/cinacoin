@@ -1,17 +1,17 @@
-# KYC
+# KYC.
 
-> `@cinacoin/kyc` — KYC (Know Your Customer) integration for Cinacoin.
+> `@cinacoin/kyc` — KYC (Know Your Customer) integration for CinaCoin.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/kyc
 ```
 
-## Overview
+## Overview.
 
 Integrate KYC providers for identity verification in regulated applications. Supports multiple KYC providers.
 
-## Related
+## Related.
 
 - [On-Ramp SDK](/api/onramp-sdk)

@@ -1,6 +1,6 @@
 {
   "id": "api/paymaster",
-  "title": "Paymaster",
+  "title": "Paymaster.",
   "description": "@cinacoin/paymaster — Self-hosted ERC-4337 Paymaster contract.",
   "source": "@site/docs/api/paymaster.md",
   "sourceDirName": "api",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Pay UI",
+    "title": "Pay UI.",
     "permalink": "/docs/api/pay-ui"
   },
   "next": {
-    "title": "Payment Flow",
+    "title": "Payment flow.",
     "permalink": "/docs/api/payment-flow"
   }
 }

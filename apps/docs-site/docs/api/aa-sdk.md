@@ -1,18 +1,18 @@
-# AA SDK
+# AA SDK.
 
 > `@cinacoin/aa-sdk` — Account Abstraction (ERC-4337) SDK.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/aa-sdk @cinacoin/core-sdk
 ```
 
-## Overview
+## Overview.
 
 The AA SDK provides tools for interacting with ERC-4337 smart accounts, including UserOperation creation, Bundler communication, and Paymaster integration.
 
-## Usage
+## Usage.
 
 ```typescript
 import { AASDK } from '@cinacoin/aa-sdk'
@@ -24,7 +24,7 @@ const aa = new AASDK({
 })
 ```
 
-## Features
+## Features.
 
 - **Smart Account Creation** — Deploy ERC-4337 smart accounts
 - **UserOperations** — Create and send UserOperations
@@ -32,7 +32,7 @@ const aa = new AASDK({
 - **Session Keys** — Temporary signing keys with limits
 - **Social Recovery** — Guardian-based recovery mechanism
 
-## Related
+## Related.
 
 - [Bundler](/api/bundler) — Self-hosted Bundler
 - [Paymaster](/api/paymaster) — Self-hosted Paymaster

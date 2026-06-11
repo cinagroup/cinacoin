@@ -1,18 +1,18 @@
-# Custom Connectors
+# Custom connectors.
 
-> `@cinacoin/custom-connectors` — Custom wallet connector framework for Cinacoin.
+> `@cinacoin/custom-connectors` — Custom wallet connector framework for CinaCoin.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/custom-connectors
 ```
 
-## Overview
+## Overview.
 
 Build custom connectors for wallets not supported out of the box. Define injection patterns, communication protocols, and UI flows.
 
-## Related
+## Related.
 
 - [Core SDK](/api/core-sdk)
 - [WalletConnect V2](/api/walletconnect-v2)

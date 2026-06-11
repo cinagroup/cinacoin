@@ -1,7 +1,7 @@
 {
   "id": "api/cdn",
-  "title": "CDN",
-  "description": "@cinacoin/cdn — CDN distribution for Cinacoin SDK assets.",
+  "title": "CDN.",
+  "description": "@cinacoin/cdn — CDN distribution for CinaCoin SDK assets.",
   "source": "@site/docs/api/cdn.md",
   "sourceDirName": "api",
   "slug": "/api/cdn",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Bundler",
+    "title": "Bundler.",
     "permalink": "/docs/api/bundler"
   },
   "next": {
-    "title": "i18n React",
+    "title": "i18n React.",
     "permalink": "/docs/api/cinacoin-i18n"
   }
 }

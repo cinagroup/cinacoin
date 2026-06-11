@@ -1,7 +1,7 @@
 {
   "id": "api/rate-limiting",
   "title": "Rate Limiting",
-  "description": "Understanding Cinacoin API rate limits and best practices",
+  "description": "Understanding CinaCoin API rate limits and best practices",
   "source": "@site/docs/api/rate-limiting.md",
   "sourceDirName": "api",
   "slug": "/api/rate-limiting",
@@ -16,7 +16,7 @@
   "frontMatter": {
     "sidebar_position": 3,
     "title": "Rate Limiting",
-    "description": "Understanding Cinacoin API rate limits and best practices"
+    "description": "Understanding CinaCoin API rate limits and best practices"
   },
   "sidebar": "apiSidebar",
   "previous": {
@@ -24,7 +24,7 @@
     "permalink": "/docs/api/authentication"
   },
   "next": {
-    "title": "AA SDK",
+    "title": "AA SDK.",
     "permalink": "/docs/api/aa-sdk"
   }
 }

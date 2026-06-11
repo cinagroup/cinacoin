@@ -14,10 +14,10 @@ export default function Root({ children }: { children: React.ReactNode }) {
           {JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'Organization',
-            name: 'Cinacoin',
+            name: 'CinaCoin',
             url: 'https://cinacoin.com',
             logo: 'https://cinacoin.com/img/logo.svg',
-            description: 'Onchain UX Toolkit - Self-hosted Wallet Connection Toolkit',
+            description: 'Onchain UX toolkit - Self-hosted wallet connection toolkit',
             sameAs: [
               'https://github.com/cinagroup/cinacoin',
               'https://twitter.com/cinacoin',
@@ -30,7 +30,7 @@ export default function Root({ children }: { children: React.ReactNode }) {
           {JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'SoftwareApplication',
-            name: 'Cinacoin',
+            name: 'CinaCoin',
             applicationCategory: 'DeveloperApplication',
             operatingSystem: 'Web',
             offers: {
@@ -39,7 +39,7 @@ export default function Root({ children }: { children: React.ReactNode }) {
               priceCurrency: 'USD',
             },
             description:
-              'Self-hosted Wallet Connection Toolkit for Web3 applications. Supports EIP-6963, ERC-4337 smart accounts, multi-chain, and zero license fees.',
+              'Self-hosted wallet connection toolkit for Web3 applications. Supports EIP-6963, ERC-4337 smart accounts, multi-chain, and zero license fees.',
             featureList: [
               'Wallet Connection (EIP-6963)',
               'Smart Accounts (ERC-4337)',
@@ -56,13 +56,13 @@ export default function Root({ children }: { children: React.ReactNode }) {
           {JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'WebSite',
-            name: 'Cinacoin Documentation',
+            name: 'CinaCoin Documentation',
             url: 'https://cinacoin.com/docs/',
             description:
-              'Complete documentation for Cinacoin Onchain UX Toolkit. API reference, guides, and SDK documentation.',
+              'Complete documentation for CinaCoin Onchain UX Toolkit. API reference, guides, and SDK documentation.',
             publisher: {
               '@type': 'Organization',
-              name: 'Cinacoin',
+              name: 'CinaCoin',
               logo: {
                 '@type': 'ImageObject',
                 url: 'https://cinacoin.com/img/logo.svg',

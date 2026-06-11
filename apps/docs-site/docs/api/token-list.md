@@ -1,18 +1,18 @@
-# Token List
+# Token list.
 
-> `@cinacoin/token-list` — Token registry and management for Cinacoin.
+> `@cinacoin/token-list` — Token registry and management for CinaCoin.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/token-list
 ```
 
-## Overview
+## Overview.
 
 Maintain and query token lists with metadata, logos, and verification status across multiple chains.
 
-## Related
+## Related.
 
 - [Swap SDK](/api/swap-sdk)
 - [ENS Resolver](/api/ens-resolver)

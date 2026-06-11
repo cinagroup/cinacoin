@@ -1,7 +1,7 @@
 {
   "id": "api/social-login",
-  "title": "Social Login",
-  "description": "@cinacoin/social-login — Social login integration for Cinacoin.",
+  "title": "Social login.",
+  "description": "@cinacoin/social-login — Social login integration for CinaCoin.",
   "source": "@site/docs/api/social-login.md",
   "sourceDirName": "api",
   "slug": "/api/social-login",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "SIWX",
+    "title": "SIWX.",
     "permalink": "/docs/api/siwx"
   },
   "next": {
-    "title": "Svelte",
+    "title": "Svelte.",
     "permalink": "/docs/api/svelte"
   }
 }

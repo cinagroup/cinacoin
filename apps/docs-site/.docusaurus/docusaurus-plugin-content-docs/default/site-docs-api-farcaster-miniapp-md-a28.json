@@ -1,7 +1,7 @@
 {
   "id": "api/farcaster-miniapp",
-  "title": "Farcaster Mini App",
-  "description": "@cinacoin/farcaster-miniapp — Farcaster Frames/Mini App integration for Cinacoin.",
+  "title": "Farcaster mini app.",
+  "description": "@cinacoin/farcaster-miniapp — Farcaster Frames/Mini App integration for CinaCoin.",
   "source": "@site/docs/api/farcaster-miniapp.md",
   "sourceDirName": "api",
   "slug": "/api/farcaster-miniapp",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Explorer",
+    "title": "Explorer.",
     "permalink": "/docs/api/explorer"
   },
   "next": {
-    "title": "Flutter Dart",
+    "title": "Flutter Dart.",
     "permalink": "/docs/api/flutter-dart"
   }
 }

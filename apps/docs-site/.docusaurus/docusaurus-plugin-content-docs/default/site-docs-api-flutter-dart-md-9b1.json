@@ -1,7 +1,7 @@
 {
   "id": "api/flutter-dart",
-  "title": "Flutter Dart",
-  "description": "@cinacoin/flutter-dart — Flutter/Dart SDK for Cinacoin.",
+  "title": "Flutter Dart.",
+  "description": "@cinacoin/flutter-dart — Flutter/Dart SDK for CinaCoin.",
   "source": "@site/docs/api/flutter-dart.md",
   "sourceDirName": "api",
   "slug": "/api/flutter-dart",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Farcaster Mini App",
+    "title": "Farcaster mini app.",
     "permalink": "/docs/api/farcaster-miniapp"
   },
   "next": {
-    "title": "Gas Estimator",
+    "title": "Gas estimator.",
     "permalink": "/docs/api/gas-estimator"
   }
 }

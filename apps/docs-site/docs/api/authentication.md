@@ -1,14 +1,14 @@
 ---
 sidebar_position: 2
 title: Authentication
-description: Complete guide to authenticating with the Cinacoin API
+description: Complete guide to authenticating with the CinaCoin API
 ---
 
-# Authentication Guide
+# Authentication guide.
 
-The Cinacoin API uses JWT (JSON Web Tokens) for authentication. This guide covers the complete authentication flow, including registration, login, 2FA, and token management.
+The CinaCoin API uses JWT (JSON Web Tokens) for authentication. This guide covers the complete authentication flow, including registration, login, 2FA, and token management.
 
-## Authentication Flow
+## Authentication flow.
 
 ```mermaid
 sequenceDiagram
@@ -35,7 +35,7 @@ sequenceDiagram
     end
 ```
 
-## Registration
+## Registration.
 
 Create a new user account:
 
@@ -78,11 +78,11 @@ curl -X POST https://api.cinacoin.com/auth/register \
 - `password`: Minimum 8 characters
 - `displayName`: Optional, max 100 characters
 
-## Two-Factor Authentication (2FA)
+## Two-Factor authentication (2FA).
 
 **2FA is mandatory for all users.** After registration, you must complete 2FA setup before making authenticated requests.
 
-### Step 1: Enable 2FA
+### Step 1: enable 2FA.
 
 ```bash
 curl -X POST https://api.cinacoin.com/auth/mfa/enable \
@@ -97,7 +97,7 @@ curl -X POST https://api.cinacoin.com/auth/mfa/enable \
   "data": {
     "methodId": "mfa_xyz789",
     "secret": "JBSWY3DPEHPK3PXP",
-    "uri": "otpauth://totp/Cinacoin:alice@example.com?secret=JBSWY3DPEHPK3PXP&issuer=Cinacoin",
+    "uri": "otpauth://totp/CinaCoin:alice@example.com?secret=JBSWY3DPEHPK3PXP&issuer=CinaCoin",
     "recoveryCodes": [
       "abcd-1234-efgh",
       "ijkl-5678-mnop",
@@ -112,7 +112,7 @@ curl -X POST https://api.cinacoin.com/auth/mfa/enable \
 - Save the `recoveryCodes` in a secure location — they're your backup if you lose access to your authenticator
 - The `secret` is shown only once
 
-### Step 2: Verify 2FA Setup
+### Step 2: verify 2FA setup.
 
 ```bash
 curl -X POST https://api.cinacoin.com/auth/mfa/verify \
@@ -136,7 +136,7 @@ curl -X POST https://api.cinacoin.com/auth/mfa/verify \
 }
 ```
 
-### Check 2FA Status
+### Check 2FA status.
 
 ```bash
 curl https://api.cinacoin.com/auth/mfa/status \
@@ -161,9 +161,9 @@ curl https://api.cinacoin.com/auth/mfa/status \
 }
 ```
 
-## Login
+## Login.
 
-### Step 1: Initial Login
+### Step 1: initial login.
 
 ```bash
 curl -X POST https://api.cinacoin.com/auth/login \
@@ -190,7 +190,7 @@ curl -X POST https://api.cinacoin.com/auth/login \
 
 The `mfaToken` is a temporary token (5 minutes) used to complete 2FA verification.
 
-### Step 2: Complete 2FA Verification
+### Step 2: complete 2FA verification.
 
 ```bash
 curl -X POST https://api.cinacoin.com/auth/mfa/verify-login \
@@ -224,7 +224,7 @@ curl -X POST https://api.cinacoin.com/auth/mfa/verify-login \
 }
 ```
 
-### Using Recovery Codes
+### Using recovery codes.
 
 If you lose access to your authenticator app, use a recovery code:
 
@@ -240,9 +240,9 @@ curl -X POST https://api.cinacoin.com/auth/mfa/verify-login \
 
 **Note:** Recovery codes are single-use. After using one, generate new codes.
 
-## Token Management
+## Token management.
 
-### Access Tokens
+### Access tokens.
 
 - **Lifetime:** 15 minutes (900 seconds)
 - **Format:** JWT (HS256)
@@ -263,7 +263,7 @@ curl -X POST https://api.cinacoin.com/auth/mfa/verify-login \
 }
 ```
 
-### Refresh Tokens
+### Refresh tokens.
 
 - **Lifetime:** 30 days
 - **Single-use:** Each refresh returns a new refresh token
@@ -295,7 +295,7 @@ curl -X POST https://api.cinacoin.com/auth/refresh \
 
 **Security:** If a refresh token is reused, all tokens for that user are revoked and a security alert is logged.
 
-### Logout
+### Logout.
 
 Revoke the current access token:
 
@@ -316,21 +316,21 @@ curl -X POST https://api.cinacoin.com/auth/logout \
 
 The token is added to a blacklist in KV storage and cannot be used again.
 
-## OAuth Authentication
+## OAuth authentication.
 
-Cinacoin supports OAuth 2.0 with PKCE for third-party authentication:
+CinaCoin supports OAuth 2.0 with PKCE for third-party authentication:
 
 **Supported Providers:**
 - Google
 - GitHub
 - Discord
 
-### OAuth Flow
+### OAuth flow.
 
 1. **Redirect to Provider:**
 
 ```bash
-# Redirect user to:
+# Redirect user to:.
 https://api.cinacoin.com/auth/oauth/google
 ```
 
@@ -367,7 +367,7 @@ curl -X POST https://api.cinacoin.com/auth/oauth/token \
 }
 ```
 
-### List Linked OAuth Accounts
+### List linked OAuth accounts.
 
 ```bash
 curl https://api.cinacoin.com/auth/oauth/accounts \
@@ -392,9 +392,9 @@ curl https://api.cinacoin.com/auth/oauth/accounts \
 }
 ```
 
-## Session Management
+## Session management.
 
-### List Active Sessions
+### List active sessions.
 
 ```bash
 curl https://api.cinacoin.com/auth/sessions \
@@ -420,11 +420,11 @@ curl https://api.cinacoin.com/auth/sessions \
 }
 ```
 
-## CSRF Protection
+## CSRF protection.
 
 State-changing requests (POST, PUT, DELETE) require a CSRF token:
 
-### Get CSRF Token
+### Get CSRF token.
 
 ```bash
 curl https://api.cinacoin.com/auth/csrf-token \
@@ -441,7 +441,7 @@ curl https://api.cinacoin.com/auth/csrf-token \
 }
 ```
 
-### Use CSRF Token
+### Use CSRF token.
 
 Include the token in the `X-CSRF-Token` header:
 
@@ -456,9 +456,9 @@ curl -X POST https://api.cinacoin.com/auth/change-password \
   }'
 ```
 
-## Password Management
+## Password management.
 
-### Change Password
+### Change password.
 
 ```bash
 curl -X POST https://api.cinacoin.com/auth/change-password \
@@ -480,9 +480,9 @@ curl -X POST https://api.cinacoin.com/auth/change-password \
 }
 ```
 
-## Security Best Practices
+## Security best practices.
 
-### Token Storage
+### Token storage.
 
 **Client-side (Web):**
 - Store access tokens in memory (JavaScript variable)
@@ -498,7 +498,7 @@ curl -X POST https://api.cinacoin.com/auth/change-password \
 - Never log tokens
 - Rotate tokens regularly
 
-### Token Refresh Strategy
+### Token refresh strategy.
 
 Implement automatic token refresh before expiration:
 
@@ -534,7 +534,7 @@ class TokenManager {
 }
 ```
 
-### Handle Token Revocation
+### Handle token revocation.
 
 If you receive a `401 Unauthorized` response:
 
@@ -565,27 +565,27 @@ async function apiRequest(url, options) {
 }
 ```
 
-## Troubleshooting
+## Troubleshooting.
 
-### "Invalid email or password"
+### "Invalid email or password".
 - Check email and password are correct
 - Verify account is active (not suspended/deleted)
 
-### "MFA token expired"
+### "MFA token expired".
 - MFA tokens expire after 5 minutes
 - Request a new login to get a fresh MFA token
 
-### "Token has been revoked"
+### "Token has been revoked".
 - Refresh token was reused (security measure)
 - All tokens have been revoked
 - User must log in again
 
-### "CSRF token invalid"
+### "CSRF token invalid".
 - Ensure `X-CSRF-Token` header is included
 - Verify CSRF token hasn't expired (24 hours)
 - Check `X-Session-ID` matches the one used to generate the token
 
-## Next Steps
+## Next steps.
 
 - [Rate Limiting](./rate-limiting.md) — Understanding API rate limits
 - [Error Codes](./errors.md) — Complete error reference

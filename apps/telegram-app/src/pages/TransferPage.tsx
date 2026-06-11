@@ -67,9 +67,10 @@ export default function TransferPage({ provider, account, balance }: TransferPag
   if (!account) {
     return (
       <div className="page transfer-page">
-        <h1 className="page-title">Transfer</h1>
+        <p className="font-mono text-xs mb-2" style={{ color: 'var(--cc-muted)' }}>TRANSFER</p>
+        <h1 className="page-title font-semibold">Transfer.</h1>
         <div className="empty-state">
-          <p>Connect your wallet to send tokens</p>
+          <p>Connect your wallet to send tokens.</p>
         </div>
       </div>
     );
@@ -77,19 +78,20 @@ export default function TransferPage({ provider, account, balance }: TransferPag
 
   return (
     <div className="page transfer-page">
-      <h1 className="page-title">Transfer</h1>
+      <p className="font-mono text-xs mb-2" style={{ color: 'var(--cc-muted)' }}>TRANSFER</p>
+      <h1 className="page-title font-semibold">Transfer.</h1>
 
       <div className="transfer-form">
         <div className="form-group">
-          <label className="form-label">From</label>
+          <label className="form-label">From.</label>
           <div className="form-value">
             {account.slice(0, 10)}...{account.slice(-8)}
           </div>
-          <div className="form-hint">Balance: {balance} ETH</div>
+          <div className="form-hint">Balance: {balance} ETH.</div>
         </div>
 
         <div className="form-group">
-          <label className="form-label" htmlFor="transfer-to">To</label>
+          <label className="form-label" htmlFor="transfer-to">To.</label>
           <input
             id="transfer-to"
             type="text"
@@ -102,7 +104,7 @@ export default function TransferPage({ provider, account, balance }: TransferPag
         </div>
 
         <div className="form-group">
-          <label className="form-label" htmlFor="transfer-amount">Amount</label>
+          <label className="form-label" htmlFor="transfer-amount">Amount.</label>
           <div className="input-with-button">
             <input
               id="transfer-amount"
@@ -115,11 +117,11 @@ export default function TransferPage({ provider, account, balance }: TransferPag
               step="0.0001"
               min="0"
             />
-            <button className="cc-btn-secondary-sm" onClick={handleMaxAmount} disabled={sending}>
+            <button className="cc-btn-secondary-sm" onClick={handleMaxAmount} disabled={sending} aria-label="Set maximum amount">
               MAX
             </button>
           </div>
-          <div className="form-hint">Available: {balance} ETH</div>
+          <div className="form-hint">Available: {balance} ETH.</div>
         </div>
 
         {error && <div className="error-message">{error}</div>}
@@ -129,14 +131,15 @@ export default function TransferPage({ provider, account, balance }: TransferPag
           className="cc-btn-primary btn-large"
           onClick={handleSend}
           disabled={sending || !to || !amount}
+          aria-busy={sending}
         >
           {sending ? (
             <>
-              <span className="btn-spinner" />
+              <span className="btn-spinner" aria-hidden="true" />
               Sending...
             </>
           ) : (
-            'Send Tokens'
+            'Send tokens.'
           )}
         </button>
       </div>

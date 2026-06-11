@@ -29,10 +29,10 @@ interface ActionButtonsProps {
 }
 
 const variantClasses: Record<string, string> = {
-  primary: 'bg-[var(--color-violet)] hover:bg-[var(--color-violet-deep)] text-[var(--color-on-primary)]',
-  secondary: 'bg-[var(--color-hairline-strong)] hover:bg-[var(--color-mute)] text-[var(--color-on-primary)]',
-  success: 'bg-[var(--color-success)] hover:bg-[var(--color-success-deep)] text-[var(--color-on-primary)]',
-  danger: 'bg-[var(--color-error)] hover:bg-[var(--color-error-deep)] text-[var(--color-on-primary)]',
+  primary: 'bg-[var(--cc-violet)] hover:bg-[var(--cc-violet-deep)] text-[var(--cc-on-primary)]',
+  secondary: 'bg-[var(--cc-hairline-strong)] hover:bg-[var(--cc-mute)] text-[var(--cc-on-primary)]',
+  success: 'bg-[var(--cc-success)] hover:bg-[var(--cc-success-deep)] text-[var(--cc-on-primary)]',
+  danger: 'bg-[var(--cc-error)] hover:bg-[var(--cc-error-deep)] text-[var(--cc-on-primary)]',
 };
 
 const sizeClasses: Record<string, string> = {
@@ -60,7 +60,7 @@ export const ActionButtons = React.memo(function ActionButtons({
     : '';
 
   return (
-    <div className={`${layoutClass} ${gridCols}`}>
+    <div className={`${layoutClass} ${gridCols}`} role="group" aria-label="Action buttons">
       {buttons.map((button, idx) => {
         const variant = button.variant ?? 'primary';
         const classes = `
@@ -74,12 +74,12 @@ export const ActionButtons = React.memo(function ActionButtons({
         const content = (
           <>
             {button.loading ? (
-              <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+              <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24" aria-hidden="true">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
               </svg>
             ) : button.icon ? (
-              <span>{button.icon}</span>
+              <span aria-hidden="true">{button.icon}</span>
             ) : null}
             <span>{button.label}</span>
           </>
@@ -93,6 +93,7 @@ export const ActionButtons = React.memo(function ActionButtons({
               target="_blank"
               rel="noopener noreferrer"
               className={classes}
+              aria-label={button.label}
             >
               {content}
             </a>
@@ -105,6 +106,7 @@ export const ActionButtons = React.memo(function ActionButtons({
             onClick={button.onClick}
             disabled={button.disabled || button.loading}
             className={classes}
+            aria-label={button.label}
           >
             {content}
           </button>

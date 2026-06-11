@@ -3,22 +3,22 @@
 @tailwind utilities;
 
 :root {
-  /* Typography Scale */
-  --text-display-xl: 48px;
-  --text-display-lg: 32px;
-  --text-display-md: 24px;
-  --text-display-sm: 20px;
-  --text-body-lg: 18px;
-  --text-body-md: 16px;
-  --text-body-sm: 14px;
-  --text-caption: 12px;
-  
-  /* Font Weights */
-  --weight-regular: 400;
-  --weight-medium: 500;
-  --weight-semibold: 600;
+  /* ─── Typography Scale ─── */
+  --cc-text-display-xl: 48px;
+  --cc-text-display-lg: 32px;
+  --cc-text-display-md: 24px;
+  --cc-text-display-sm: 20px;
+  --cc-text-body-lg: 18px;
+  --cc-text-body-md: 16px;
+  --cc-text-body-sm: 14px;
+  --cc-text-caption: 12px;
 
-  /* Design system tokens - dark theme */
+  /* ─── Font Weights (max 600) ─── */
+  --cc-weight-regular: 400;
+  --cc-weight-medium: 500;
+  --cc-weight-semibold: 600;
+
+  /* ─── Color Palette (dark theme) ─── */
   --cc-violet: #855DCD;
   --cc-violet-deep: #6B4DB8;
   --cc-success: #22c55e;
@@ -28,9 +28,11 @@
   --cc-warning: #f5a623;
   --cc-link: #0052FF;
   --cc-link-deep: #0041CC;
+
+  /* ─── Surfaces ─── */
   --cc-canvas: #0a0a0a;
   --cc-canvas-soft: #141414;
-  --cc-canvas-soft-2: #1a1a1a;
+  --cc-canvas-soft-2: #1e1e1e;
   --cc-on-primary: #ffffff;
   --cc-ink: #f5f5f5;
   --cc-body: #a3a3a3;
@@ -42,60 +44,59 @@
 body {
   background-color: var(--cc-canvas);
   color: var(--cc-ink);
-  font-family: var(--font-geist-sans), Geist, Inter, system-ui, -apple-system, sans-serif;
-  font-weight: var(--weight-regular);
+  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 /* ─── Typography Utilities ─── */
 .text-caption {
-  font-size: var(--text-caption);
-  font-weight: var(--weight-regular);
+  font-size: var(--cc-text-caption);
+  font-weight: var(--cc-weight-regular);
   line-height: 1.4;
 }
 
 .text-body-sm {
-  font-size: var(--text-body-sm);
-  font-weight: var(--weight-regular);
+  font-size: var(--cc-text-body-sm);
+  font-weight: var(--cc-weight-regular);
   line-height: 1.5;
   letter-spacing: -0.28px;
 }
 
 .text-body-md {
-  font-size: var(--text-body-md);
-  font-weight: var(--weight-regular);
+  font-size: var(--cc-text-body-md);
+  font-weight: var(--cc-weight-regular);
   line-height: 1.5;
 }
 
 .text-body-lg {
-  font-size: var(--text-body-lg);
-  font-weight: var(--weight-regular);
+  font-size: var(--cc-text-body-lg);
+  font-weight: var(--cc-weight-regular);
   line-height: 1.5;
 }
 
 .text-display-sm {
-  font-size: var(--text-display-sm);
-  font-weight: var(--weight-semibold);
+  font-size: var(--cc-text-display-sm);
+  font-weight: var(--cc-weight-semibold);
   line-height: 1.4;
   letter-spacing: -0.6px;
 }
 
 .text-display-md {
-  font-size: var(--text-display-md);
-  font-weight: var(--weight-semibold);
+  font-size: var(--cc-text-display-md);
+  font-weight: var(--cc-weight-semibold);
   line-height: 1.3;
   letter-spacing: -0.96px;
 }
 
 .text-display-lg {
-  font-size: var(--text-display-lg);
-  font-weight: var(--weight-semibold);
+  font-size: var(--cc-text-display-lg);
+  font-weight: var(--cc-weight-semibold);
   line-height: 1.2;
   letter-spacing: -1.28px;
 }
 
 .text-display-xl {
-  font-size: var(--text-display-xl);
-  font-weight: var(--weight-semibold);
+  font-size: var(--cc-text-display-xl);
+  font-weight: var(--cc-weight-semibold);
   line-height: 48px;
   letter-spacing: -2.4px;
 }

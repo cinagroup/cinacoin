@@ -1,7 +1,7 @@
 {
   "id": "api/embedded-wallet",
-  "title": "Embedded Wallet",
-  "description": "@cinacoin/embedded-wallet — Embedded wallet creation for Cinacoin.",
+  "title": "Embedded wallet.",
+  "description": "@cinacoin/embedded-wallet — Embedded wallet creation for CinaCoin.",
   "source": "@site/docs/api/embedded-wallet.md",
   "sourceDirName": "api",
   "slug": "/api/embedded-wallet",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": ".NET C",
+    "title": ".NET C#.",
     "permalink": "/docs/api/dotnet"
   },
   "next": {
-    "title": "ENS Resolver",
+    "title": "ENS resolver.",
     "permalink": "/docs/api/ens-resolver"
   }
 }

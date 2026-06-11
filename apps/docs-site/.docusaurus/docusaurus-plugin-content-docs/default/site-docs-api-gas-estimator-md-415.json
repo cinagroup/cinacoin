@@ -1,7 +1,7 @@
 {
   "id": "api/gas-estimator",
-  "title": "Gas Estimator",
-  "description": "@cinacoin/gas-estimator — Gas estimation utilities for Cinacoin.",
+  "title": "Gas estimator.",
+  "description": "@cinacoin/gas-estimator — Gas estimation utilities for CinaCoin.",
   "source": "@site/docs/api/gas-estimator.md",
   "sourceDirName": "api",
   "slug": "/api/gas-estimator",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Flutter Dart",
+    "title": "Flutter Dart.",
     "permalink": "/docs/api/flutter-dart"
   },
   "next": {
-    "title": "Gas Sponsorship",
+    "title": "Gas sponsorship.",
     "permalink": "/docs/api/gas-sponsorship"
   }
 }

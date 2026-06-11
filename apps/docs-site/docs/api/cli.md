@@ -1,14 +1,14 @@
-# CLI
+# CLI.
 
-> `@cinacoin/cli` — Command-line interface for Cinacoin.
+> `@cinacoin/cli` — Command-line interface for CinaCoin.
 
-## Installation
+## Installation.
 
 ```bash
 npm install -g @cinacoin/cli
 ```
 
-## Usage
+## Usage.
 
 ```bash
 cinacoin init              # Initialize a new project
@@ -17,6 +17,6 @@ cinacoin deploy            # Deploy smart contracts
 cinacoin monitor           # Monitor relay and bundler
 ```
 
-## Related
+## Related.
 
 - [Core SDK](/api/core-sdk)

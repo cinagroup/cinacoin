@@ -1,20 +1,20 @@
-# Vue
+# Vue.
 
-> `@cinacoin/vue` — Vue 3 composition API adapter for Cinacoin.
+> `@cinacoin/vue` — Vue 3 composition API adapter for CinaCoin.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/vue @cinacoin/core-sdk
 ```
 
-## Usage
+## Usage.
 
 ```vue
 <script setup>
-import { useCinacoin } from '@cinacoin/vue'
+import { useCinaCoin } from '@cinacoin/vue'
 
-const { connect, disconnect, account } = useCinacoin()
+const { connect, disconnect, account } = useCinaCoin()
 </script>
 
 <template>
@@ -23,15 +23,15 @@ const { connect, disconnect, account } = useCinacoin()
 </template>
 ```
 
-## Composables
+## Composables.
 
-- `useCinacoin()` — Core SDK instance
+- `useCinaCoin()` — Core SDK instance
 - `useAccount()` — Current account
 - `useConnect()` — Connect helper
 - `useDisconnect()` — Disconnect helper
 - `useSwitchChain()` — Chain switching
 
-## Related
+## Related.
 
 - [React](/api/react) — React adapter
 - [Svelte](/api/svelte) — Svelte adapter

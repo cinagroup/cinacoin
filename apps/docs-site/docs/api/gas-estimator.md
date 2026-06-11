@@ -1,18 +1,18 @@
-# Gas Estimator
+# Gas estimator.
 
-> `@cinacoin/gas-estimator` — Gas estimation utilities for Cinacoin.
+> `@cinacoin/gas-estimator` — Gas estimation utilities for CinaCoin.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/gas-estimator
 ```
 
-## Overview
+## Overview.
 
 Estimate gas costs for transactions across multiple chains, with support for EIP-1559 and legacy gas models.
 
-## Related
+## Related.
 
 - [Gas Sponsorship](/api/gas-sponsorship)
 - [AA SDK](/api/aa-sdk)

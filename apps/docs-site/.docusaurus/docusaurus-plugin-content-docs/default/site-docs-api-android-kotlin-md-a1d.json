@@ -1,7 +1,7 @@
 {
   "id": "api/android-kotlin",
-  "title": "Android Kotlin",
-  "description": "@cinacoin/android-kotlin — Android native SDK for Cinacoin.",
+  "title": "Android Kotlin.",
+  "description": "@cinacoin/android-kotlin — Android native SDK for CinaCoin.",
   "source": "@site/docs/api/android-kotlin.md",
   "sourceDirName": "api",
   "slug": "/api/android-kotlin",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Analytics",
+    "title": "Analytics.",
     "permalink": "/docs/api/analytics"
   },
   "next": {
-    "title": "Angular",
+    "title": "Angular.",
     "permalink": "/docs/api/angular"
   }
 }

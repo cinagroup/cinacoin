@@ -1,7 +1,7 @@
 {
   "id": "api/telegram-miniapp",
-  "title": "Telegram Mini App",
-  "description": "@cinacoin/telegram-miniapp — Telegram Mini App integration for Cinacoin.",
+  "title": "Telegram mini app.",
+  "description": "@cinacoin/telegram-miniapp — Telegram Mini App integration for CinaCoin.",
   "source": "@site/docs/api/telegram-miniapp.md",
   "sourceDirName": "api",
   "slug": "/api/telegram-miniapp",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Swap SDK",
+    "title": "Swap SDK.",
     "permalink": "/docs/api/swap-sdk"
   },
   "next": {
-    "title": "Testing",
+    "title": "Testing.",
     "permalink": "/docs/api/testing"
   }
 }

@@ -1,7 +1,7 @@
 {
   "id": "api/wallet-recommender",
-  "title": "Wallet Recommender",
-  "description": "@cinacoin/wallet-recommender — Intelligent wallet recommendation for Cinacoin.",
+  "title": "Wallet recommender.",
+  "description": "@cinacoin/wallet-recommender — Intelligent wallet recommendation for CinaCoin.",
   "source": "@site/docs/api/wallet-recommender.md",
   "sourceDirName": "api",
   "slug": "/api/wallet-recommender",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Wallet Buttons",
+    "title": "Wallet buttons.",
     "permalink": "/docs/api/wallet-buttons"
   },
   "next": {
-    "title": "Wallet Recovery",
+    "title": "Wallet recovery.",
     "permalink": "/docs/api/wallet-recovery"
   }
 }

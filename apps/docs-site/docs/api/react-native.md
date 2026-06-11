@@ -1,34 +1,34 @@
-# React Native
+# React Native.
 
-> `@cinacoin/react-native` — React Native adapter for Cinacoin.
+> `@cinacoin/react-native` — React Native adapter for CinaCoin.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/react-native @cinacoin/core-sdk
 ```
 
-## Usage
+## Usage.
 
 ```tsx
-import { CinacoinProvider, ConnectButton } from '@cinacoin/react-native'
+import { CinaCoinProvider, ConnectButton } from '@cinacoin/react-native'
 
 function App() {
   return (
-    <CinacoinProvider config={{ projectId: 'your-project-id' }}>
+    <CinaCoinProvider config={{ projectId: 'your-project-id' }}>
       <ConnectButton />
-    </CinacoinProvider>
+    </CinaCoinProvider>
   )
 }
 ```
 
-## Features
+## Features.
 
 - Native wallet deep linking
 - Universal link handling
 - Custom modal for wallet selection
 
-## Related
+## Related.
 
 - [React](/api/react) — Web React adapter
 - [iOS Swift](/api/ios-swift) — iOS native SDK

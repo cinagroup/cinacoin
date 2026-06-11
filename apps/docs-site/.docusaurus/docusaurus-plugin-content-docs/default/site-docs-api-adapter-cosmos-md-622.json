@@ -1,7 +1,7 @@
 {
   "id": "api/adapter-cosmos",
-  "title": "Cosmos Adapter",
-  "description": "@cinacoin/adapter-cosmos — Cosmos blockchain adapter for Cinacoin.",
+  "title": "Cosmos adapter.",
+  "description": "@cinacoin/adapter-cosmos — Cosmos blockchain adapter for CinaCoin.",
   "source": "@site/docs/api/adapter-cosmos.md",
   "sourceDirName": "api",
   "slug": "/api/adapter-cosmos",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Bitcoin Adapter",
+    "title": "Bitcoin adapter.",
     "permalink": "/docs/api/adapter-bitcoin"
   },
   "next": {
-    "title": "Hedera Adapter",
+    "title": "Hedera adapter.",
     "permalink": "/docs/api/adapter-hedera"
   }
 }

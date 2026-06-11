@@ -1,17 +1,17 @@
-# Wallet Recommender
+# Wallet recommender.
 
-> `@cinacoin/wallet-recommender` — Intelligent wallet recommendation for Cinacoin.
+> `@cinacoin/wallet-recommender` — Intelligent wallet recommendation for CinaCoin.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/wallet-recommender
 ```
 
-## Overview
+## Overview.
 
 Analyze user behavior and context to recommend the best wallet options for each user.
 
-## Related
+## Related.
 
 - [Wallet Buttons](/api/wallet-buttons)

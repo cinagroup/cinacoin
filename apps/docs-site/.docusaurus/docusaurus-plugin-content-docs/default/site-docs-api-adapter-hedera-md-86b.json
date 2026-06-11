@@ -1,7 +1,7 @@
 {
   "id": "api/adapter-hedera",
-  "title": "Hedera Adapter",
-  "description": "@cinacoin/adapter-hedera — Hedera Hashgraph adapter for Cinacoin.",
+  "title": "Hedera adapter.",
+  "description": "@cinacoin/adapter-hedera — Hedera Hashgraph adapter for CinaCoin.",
   "source": "@site/docs/api/adapter-hedera.md",
   "sourceDirName": "api",
   "slug": "/api/adapter-hedera",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Cosmos Adapter",
+    "title": "Cosmos adapter.",
     "permalink": "/docs/api/adapter-cosmos"
   },
   "next": {
-    "title": "NEAR Adapter",
+    "title": "NEAR adapter.",
     "permalink": "/docs/api/adapter-near"
   }
 }

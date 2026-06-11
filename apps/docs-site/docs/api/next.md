@@ -1,32 +1,32 @@
-# Next.js
+# Next.js.
 
-> `@cinacoin/next` — Next.js adapter for Cinacoin with App Router support.
+> `@cinacoin/next` — Next.js adapter for CinaCoin with App Router support.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/next @cinacoin/core-sdk
 ```
 
-## Usage
+## Usage.
 
 ```tsx
 // app/providers.tsx
 'use client'
-import { CinacoinProvider } from '@cinacoin/next'
+import { CinaCoinProvider } from '@cinacoin/next'
 
 export function Providers({ children }) {
-  return <CinacoinProvider>{children}</CinacoinProvider>
+  return <CinaCoinProvider>{children}</CinaCoinProvider>
 }
 ```
 
-## Features
+## Features.
 
 - App Router support
 - Server component compatible
 - SSR-safe initialization
 
-## Related
+## Related.
 
 - [React](/api/react) — React adapter
 - [Nuxt](/api/nuxt) — Nuxt adapter

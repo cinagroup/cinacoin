@@ -1,4 +1,9 @@
-/* Geist Font Family */
+/* ==========================================================================
+   CinaCoin Telegram App — Global Styles
+   Design system: design-system/DESIGN.md
+   ========================================================================== */
+
+/* --- Font Faces --- */
 @font-face {
   font-family: 'Geist Sans';
   src: url('/fonts/Geist-Regular.woff2') format('woff2');
@@ -31,54 +36,134 @@
   font-display: swap;
 }
 
+/* --- Design Tokens (cc-* namespace) --- */
 :root {
-  --font-geist-sans: 'Geist Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  --font-geist-mono: 'Geist Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
-  --tg-bg: var(--tg-theme-bg-color, #1a1a2e);
-  --tg-text: var(--tg-theme-text-color, #ffffff);
-  --tg-hint: var(--tg-theme-hint-color, #8a8a9e);
-  --tg-link: var(--tg-theme-link-color, #6c63ff);
-  --tg-button: var(--tg-theme-button-color, #6c63ff);
+  /* Typography */
+  --cc-font-sans: 'Geist Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --cc-font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+
+  /* Weights — max 600 per design system */
+  --cc-weight-regular: 400;
+  --cc-weight-medium: 500;
+  --cc-weight-semibold: 600;
+
+  /* Type scale */
+  --cc-text-display-xl: 36px;
+  --cc-text-display-lg: 28px;
+  --cc-text-display-md: 24px;
+  --cc-text-display-sm: 20px;
+  --cc-text-body-md: 16px;
+  --cc-text-body-sm: 14px;
+  --cc-text-caption: 12px;
+
+  /* Spacing — 4px grid */
+  --cc-space-1: 4px;
+  --cc-space-2: 8px;
+  --cc-space-3: 12px;
+  --cc-space-4: 16px;
+  --cc-space-5: 20px;
+  --cc-space-6: 24px;
+  --cc-space-8: 32px;
+  --cc-space-10: 40px;
+  --cc-space-12: 48px;
+
+  /* Radius */
+  --cc-radius-xs: 4px;
+  --cc-radius-sm: 6px;
+  --cc-radius-md: 8px;
+  --cc-radius-lg: 12px;
+  --cc-radius-xl: 16px;
+  --cc-radius-pill: 100px;
+  --cc-radius-full: 9999px;
+
+  /* Brand / accent (Telegram-themed) */
+  --cc-primary: var(--tg-theme-button-color, #6c63ff);
+  --cc-primary-light: #8b83ff;
+  --cc-primary-dark: #4834d4;
+
+  /* Semantic */
+  --cc-success: #00c853;
+  --cc-warning: #ffab00;
+  --cc-error: #ff5252;
+
+  /* Surfaces (Telegram theme mapped) */
+  --cc-bg: var(--tg-theme-bg-color, #1a1a2e);
+  --cc-surface: var(--tg-theme-secondary-bg-color, #16213e);
+  --cc-text: var(--tg-theme-text-color, #ffffff);
+  --cc-muted: var(--tg-theme-hint-color, #8a8a9e);
+  --cc-link: var(--tg-theme-link-color, #6c63ff);
+  --cc-border: rgba(255, 255, 255, 0.08);
+
+  /* Legacy aliases (backward compat) */
+  --font-geist-sans: var(--cc-font-sans);
+  --font-geist-mono: var(--cc-font-mono);
+  --weight-medium: var(--cc-weight-medium);
+  --weight-semibold: var(--cc-weight-semibold);
+  --weight-bold: var(--cc-weight-semibold);
+  --text-display-xl: var(--cc-text-display-xl);
+  --text-display-lg: var(--cc-text-display-lg);
+  --text-display-md: var(--cc-text-display-md);
+  --text-display-sm: var(--cc-text-display-sm);
+  --text-body-md: var(--cc-text-body-md);
+  --text-body-sm: var(--cc-text-body-sm);
+  --text-caption: var(--cc-text-caption);
+  --color-primary: var(--cc-primary);
+  --color-primary-light: var(--cc-primary-light);
+  --color-primary-dark: var(--cc-primary-dark);
+  --color-success: var(--cc-success);
+  --color-warning: var(--cc-warning);
+  --color-error: var(--cc-error);
+  --color-bg: var(--cc-bg);
+  --color-surface: var(--cc-surface);
+  --color-text: var(--cc-text);
+  --color-text-secondary: var(--cc-muted);
+  --color-border: var(--cc-border);
+  --color-ink: var(--cc-text);
+  --color-hairline: var(--cc-border);
+  --color-hairline-strong: rgba(255, 255, 255, 0.2);
+  --radius-sm: var(--cc-radius-md);
+  --radius-md: var(--cc-radius-lg);
+  --radius-lg: var(--cc-radius-xl);
+  --spacing-xs: var(--cc-space-1);
+  --spacing-sm: var(--cc-space-2);
+  --spacing-md: var(--cc-space-4);
+  --spacing-lg: var(--cc-space-6);
+  --spacing-xl: var(--cc-space-8);
+
+  /* Telegram legacy */
+  --tg-bg: var(--cc-bg);
+  --tg-text: var(--cc-text);
+  --tg-hint: var(--cc-muted);
+  --tg-link: var(--cc-link);
+  --tg-button: var(--cc-primary);
   --tg-button-text: var(--tg-theme-button-text-color, #ffffff);
-  --tg-secondary-bg: var(--tg-theme-secondary-bg-color, #16213e);
-  --tg-header-bg: var(--tg-theme-header-bg-color, #0f3460);
-
-  --color-primary: #6c63ff;
-  --color-primary-light: #8b83ff;
-  --color-primary-dark: #4834d4;
-  --color-success: #00c853;
-  --color-warning: #ffab00;
-  --color-error: #ff5252;
-  --color-bg: var(--tg-bg);
-  --color-surface: var(--tg-secondary-bg);
-  --color-text: var(--tg-text);
-  --color-text-secondary: var(--tg-hint);
-  --color-border: rgba(255, 255, 255, 0.08);
-
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
-
-  --spacing-xs: 4px;
-  --spacing-sm: 8px;
-  --spacing-md: 16px;
-  --spacing-lg: 24px;
-  --spacing-xl: 32px;
+  --tg-secondary-bg: var(--cc-surface);
+  --tg-header-bg: var(--cc-surface);
 }
 
-* {
+/* --- Reset --- */
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
 body {
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  font-family: var(--font-geist-sans);
-  font-size: var(--text-body-sm);
+  background-color: var(--cc-bg);
+  color: var(--cc-text);
+  font-family: var(--cc-font-sans);
+  font-size: var(--cc-text-body-sm);
   line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 button {
@@ -94,11 +179,21 @@ input, textarea {
 }
 
 a {
-  color: var(--tg-link);
+  color: var(--cc-link);
   text-decoration: none;
 }
 
-/* Scrollbar styling */
+a:hover {
+  text-decoration: underline;
+}
+
+/* Focus visible for keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--cc-primary);
+  outline-offset: 2px;
+}
+
+/* Scrollbar */
 ::-webkit-scrollbar {
   width: 4px;
 }
@@ -109,14 +204,35 @@ a {
 
 ::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.15);
-  border-radius: 4px;
+  border-radius: var(--cc-radius-xs);
 }
 
 /* Font utility classes */
 .font-sans {
-  font-family: var(--font-geist-sans);
+  font-family: var(--cc-font-sans);
 }
 
 .font-mono {
-  font-family: var(--font-geist-mono);
+  font-family: var(--cc-font-mono);
+}
+
+.font-semibold {
+  font-weight: var(--cc-weight-semibold);
+}
+
+.font-medium {
+  font-weight: var(--cc-weight-medium);
+}
+
+/* Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }

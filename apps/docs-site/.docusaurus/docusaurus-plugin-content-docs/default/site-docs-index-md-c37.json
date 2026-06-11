@@ -1,6 +1,6 @@
 {
   "id": "index",
-  "title": "Cinacoin — Onchain UX Toolkit",
+  "title": "CinaCoin — Onchain UX Toolkit",
   "description": "Self-hosted Wallet Connection Toolkit — Fully independent from Reown/WalletConnect.",
   "source": "@site/docs/index.md",
   "sourceDirName": ".",
@@ -14,7 +14,7 @@
   "lastUpdatedAt": 1780847418000,
   "frontMatter": {
     "id": "index",
-    "title": "Cinacoin — Onchain UX Toolkit",
+    "title": "CinaCoin — Onchain UX Toolkit",
     "slug": "/",
     "sidebar_label": "Home"
   },

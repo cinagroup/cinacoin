@@ -1,17 +1,17 @@
-# Performance Utils
+# Performance utils.
 
 > `@cinacoin/performance-utils` — Performance optimization utilities.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/performance-utils
 ```
 
-## Overview
+## Overview.
 
 Utilities for caching, memoization, debounce, throttle, and other performance optimizations in web3 interactions.
 
-## Related
+## Related.
 
 - [Core SDK](/api/core-sdk)

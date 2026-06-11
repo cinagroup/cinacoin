@@ -1,7 +1,7 @@
 {
   "id": "api/react",
-  "title": "React",
-  "description": "@cinacoin/react — React hooks, provider, and UI components for Cinacoin.",
+  "title": "React.",
+  "description": "@cinacoin/react — React hooks, provider, and UI components for CinaCoin.",
   "source": "@site/docs/api/react.md",
   "sourceDirName": "api",
   "slug": "/api/react",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "React Native",
+    "title": "React Native.",
     "permalink": "/docs/api/react-native"
   },
   "next": {
-    "title": "Relay Server",
+    "title": "Relay server.",
     "permalink": "/docs/api/relay-server"
   }
 }

@@ -1,6 +1,6 @@
 {
   "id": "api/core-ui",
-  "title": "Core UI",
+  "title": "Core UI.",
   "description": "@cinacoin/core-ui — Framework-agnostic UI components built with Web Components (Lit).",
   "source": "@site/docs/api/core-ui.md",
   "sourceDirName": "api",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Core SDK",
+    "title": "Core SDK.",
     "permalink": "/docs/api/core-sdk"
   },
   "next": {
-    "title": "Cross-Chain Sync",
+    "title": "Cross-chain sync.",
     "permalink": "/docs/api/cross-chain-sync"
   }
 }

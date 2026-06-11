@@ -1,7 +1,7 @@
 {
   "id": "api/ios-swift",
-  "title": "iOS Swift",
-  "description": "@cinacoin/ios-swift — iOS native SDK for Cinacoin.",
+  "title": "iOS Swift.",
+  "description": "@cinacoin/ios-swift — iOS native SDK for CinaCoin.",
   "source": "@site/docs/api/ios-swift.md",
   "sourceDirName": "api",
   "slug": "/api/ios-swift",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "i18n",
+    "title": "i18n.",
     "permalink": "/docs/api/i18n"
   },
   "next": {
-    "title": "Keys Server",
+    "title": "Keys server.",
     "permalink": "/docs/api/keys-server"
   }
 }

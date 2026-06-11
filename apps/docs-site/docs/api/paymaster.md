@@ -1,16 +1,16 @@
-# Paymaster
+# Paymaster.
 
 > `@cinacoin/paymaster` — Self-hosted ERC-4337 Paymaster contract.
 
-## Installation
+## Installation.
 
 Deploy the Paymaster contract to your target chain, then configure the AA SDK with its address.
 
-## Overview
+## Overview.
 
 The Paymaster enables gas sponsorship, allowing dApps to pay gas fees on behalf of users or implement custom gas payment models.
 
-## Features
+## Features.
 
 - Verifying Paymaster pattern
 - Token-based gas payment
@@ -18,7 +18,7 @@ The Paymaster enables gas sponsorship, allowing dApps to pay gas fees on behalf 
 - Rate limiting
 - Multi-chain deployment
 
-## Related
+## Related.
 
 - [AA SDK](/api/aa-sdk)
 - [Bundler](/api/bundler)

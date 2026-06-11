@@ -1,18 +1,18 @@
-# Multiwallet
+# Multiwallet.
 
-> `@cinacoin/multiwallet` — Multi-wallet management for Cinacoin.
+> `@cinacoin/multiwallet` — Multi-wallet management for CinaCoin.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/multiwallet
 ```
 
-## Overview
+## Overview.
 
 Manage connections to multiple wallets simultaneously, enabling complex scenarios like multi-sig, portfolio tracking across wallets, and cross-wallet operations.
 
-## Related
+## Related.
 
 - [WalletConnect V2](/api/walletconnect-v2)
 - [Custom Connectors](/api/custom-connectors)

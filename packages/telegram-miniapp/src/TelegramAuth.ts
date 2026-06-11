@@ -7,7 +7,6 @@
 
 import type { TelegramUser, TelegramLoginResult } from './types.js';
 import type { TelegramProvider } from './TelegramProvider.js';
-import { createHash, createHmac } from 'node:crypto';
 
 /**
  * Validate Telegram init data hash server-side.
@@ -22,7 +21,7 @@ import { createHash, createHmac } from 'node:crypto';
  * @param botToken - Telegram Bot API token (server-side only).
  * @returns True if the data is valid.
  */
-export function validateInitData(initData: string, botToken: string): boolean {
+export async function validateInitData(initData: string, botToken: string): Promise<boolean> {
   const params = new URLSearchParams(initData);
   const hash = params.get('hash');
   if (!hash) return false;
@@ -36,16 +35,30 @@ export function validateInitData(initData: string, botToken: string): boolean {
     .map((key) => `${key}=${params.get(key)}`)
     .join('\n');
 
-  // Compute HMAC
-  const secretKey = createHash('sha256')
-    .update(botToken)
-    .digest();
+  // Use Web Crypto API (works in both browser and Node.js 18+)
+  const encoder = new TextEncoder();
+  const tokenData = encoder.encode(botToken);
+  const tokenHash = await crypto.subtle.digest('SHA-256', tokenData);
+  
+  const key = await crypto.subtle.importKey(
+    'raw',
+    tokenHash,
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign']
+  );
+  
+  const signature = await crypto.subtle.sign(
+    'HMAC',
+    key,
+    encoder.encode(dataCheckString)
+  );
+  
+  const hmacHex = Array.from(new Uint8Array(signature))
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('');
 
-  const hmac = createHmac('sha256', secretKey)
-    .update(dataCheckString)
-    .digest('hex');
-
-  return hmac === hash;
+  return hmacHex === hash;
 }
 
 /**

@@ -1,26 +1,26 @@
-# Auth
+# Auth.
 
 Sign-In With Ethereum (SIWE) authentication with session management.
 
-## Overview
+## Overview.
 
 Authenticate users with their crypto wallet. No passwords, no accounts — just a signature. The Auth package provides EIP-4361 compliant SIWE flows, session management, wallet verification, and SIWX (Sign-In With X) extensibility for multi-chain authentication.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/auth
 ```
 
-### With SIWE package
+### With SIWE package.
 
 ```bash
 npm install @cinacoin/auth @cinacoin/siwe
 ```
 
-## Quick Start
+## Quick start.
 
-### Basic SIWE Sign-In
+### Basic SIWE sign-in.
 
 ```typescript
 import { createAuth } from '@cinacoin/auth'
@@ -33,7 +33,7 @@ const auth = createAuth({
 const { address, session } = await auth.signIn()
 ```
 
-### Using SIWEAuth from Core SDK
+### Using SIWEAuth from Core SDK.
 
 ```typescript
 import { SIWEAuth, Connector } from '@cinacoin/core-sdk'
@@ -56,9 +56,9 @@ console.log('Session token:', result.sessionToken)
 await siwe.signOut()
 ```
 
-## SIWE Message Generation
+## SIWE message generation.
 
-### Generate a SIWE Message
+### Generate a SIWE message.
 
 ```typescript
 import { generateMessage, generateNonce } from '@cinacoin/siwe'
@@ -80,7 +80,7 @@ const message = generateMessage({
 // message is a string per EIP-4361 format
 ```
 
-### Parse a SIWE Message
+### Parse a SIWE message.
 
 ```typescript
 import { parseMessage } from '@cinacoin/siwe'
@@ -92,7 +92,7 @@ console.log(parsed.chainId)   // 1
 console.log(parsed.nonce)     // random nonce
 ```
 
-### Verify a SIWE Signature
+### Verify a SIWE signature.
 
 ```typescript
 import { verifyMessage } from '@cinacoin/siwe'
@@ -107,9 +107,9 @@ console.log(result.valid)  // true or false
 console.log(result.data)   // ParsedSIWE
 ```
 
-## API Reference
+## API reference.
 
-### SIWEAuth Class
+### SIWEAuth class.
 
 | Method | Description |
 |---|---|
@@ -118,7 +118,7 @@ console.log(result.data)   // ParsedSIWE
 | `getSession()` | Get current session state |
 | `isAuthenticated()` | Check if user is currently authenticated |
 
-### SIWEAuthConfig
+### SIWEAuthConfig.
 
 | Property | Type | Default | Description |
 |---|---|---|---|
@@ -129,7 +129,7 @@ console.log(result.data)   // ParsedSIWE
 | `expirationSeconds` | `number` | `86400` | Session TTL in seconds (24h default) |
 | `generateNonce` | `() => string` | crypto random | Custom nonce generator |
 
-### SIWESignInResult
+### SIWESignInResult.
 
 | Property | Type | Description |
 |---|---|---|
@@ -141,7 +141,7 @@ console.log(result.data)   // ParsedSIWE
 | `sessionToken` | `string?` | Session token for authenticated requests |
 | `expiresAt` | `number?` | Session expiration timestamp |
 
-### SIWE Core Functions (`@cinacoin/siwe`)
+### SIWE core functions (`@cinacoin/siwe`).
 
 | Function | Description |
 |---|---|
@@ -151,7 +151,7 @@ console.log(result.data)   // ParsedSIWE
 | `generateNonce()` | Generate cryptographically random nonce |
 | `generateTimestamp()` | Generate ISO 8601 timestamp |
 
-### Validation Functions
+### Validation functions.
 
 | Function | Description |
 |---|---|
@@ -160,7 +160,7 @@ console.log(result.data)   // ParsedSIWE
 | `validateDomainMatch(params)` | Verify domain matches |
 | `fullValidation(params)` | Run all validations |
 
-### Utility Functions
+### Utility functions.
 
 | Function | Description |
 |---|---|
@@ -169,9 +169,9 @@ console.log(result.data)   // ParsedSIWE
 | `normalizeAddress(address)` | Normalize address to lowercase |
 | `getOrigin(url)` | Extract origin from URL |
 
-## Advanced Usage
+## Advanced usage.
 
-### Custom SIWE Statement
+### Custom SIWE statement.
 
 ```typescript
 const siwe = new SIWEAuth(connector, {
@@ -181,7 +181,7 @@ const siwe = new SIWEAuth(connector, {
 })
 ```
 
-### SIWE with Resources
+### SIWE with resources.
 
 ```typescript
 const siwe = new SIWEAuth(connector, {
@@ -197,7 +197,7 @@ const parsed = parseMessage(result.message)
 console.log(parsed.resources)
 ```
 
-### Server-Side Verification
+### Server-side verification.
 
 ```typescript
 import { verifyMessage, parseMessage } from '@cinacoin/siwe'
@@ -227,7 +227,7 @@ async function verifySignIn(message: string, signature: string) {
 }
 ```
 
-## Related
+## Related.
 
 - [SIWE Guide](/api/siwe) — Full SIWE implementation details
 - [Social Login](/api/social-login) — Google/Apple/X authentication

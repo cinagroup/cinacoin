@@ -1,7 +1,7 @@
 {
   "id": "api/multiwallet",
-  "title": "Multiwallet",
-  "description": "@cinacoin/multiwallet — Multi-wallet management for Cinacoin.",
+  "title": "Multiwallet.",
+  "description": "@cinacoin/multiwallet — Multi-wallet management for CinaCoin.",
   "source": "@site/docs/api/multiwallet.md",
   "sourceDirName": "api",
   "slug": "/api/multiwallet",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "KYC",
+    "title": "KYC.",
     "permalink": "/docs/api/kyc"
   },
   "next": {
-    "title": "Next.js",
+    "title": "Next.js.",
     "permalink": "/docs/api/next"
   }
 }

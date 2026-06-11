@@ -1,6 +1,6 @@
 {
   "id": "api/aa-sdk",
-  "title": "AA SDK",
+  "title": "AA SDK.",
   "description": "@cinacoin/aa-sdk — Account Abstraction (ERC-4337) SDK.",
   "source": "@site/docs/api/aa-sdk.md",
   "sourceDirName": "api",
@@ -19,7 +19,7 @@
     "permalink": "/docs/api/rate-limiting"
   },
   "next": {
-    "title": "Bitcoin Adapter",
+    "title": "Bitcoin adapter.",
     "permalink": "/docs/api/adapter-bitcoin"
   }
 }

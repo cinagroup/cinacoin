@@ -1,14 +1,14 @@
-# UI Theme
+# UI theme.
 
-> `@cinacoin/ui-theme` — Theme system for Cinacoin UI components.
+> `@cinacoin/ui-theme` — Theme system for CinaCoin UI components.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/ui-theme
 ```
 
-## Usage
+## Usage.
 
 ```typescript
 import { createTheme } from '@cinacoin/ui-theme'
@@ -23,8 +23,8 @@ const theme = createTheme({
 })
 ```
 
-## Related
+## Related.
 
 - [Core UI](/api/core-ui)
 - [Design Tokens](/api/design-tokens)
-- [Cinacoin UI Theme](/api/cinacoin-ui-theme)
+- [CinaCoin UI Theme](/api/cinacoin-ui-theme)

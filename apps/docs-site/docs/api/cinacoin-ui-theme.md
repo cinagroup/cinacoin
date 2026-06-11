@@ -1,21 +1,21 @@
-# Cinacoin UI Theme
+# CinaCoin UI theme.
 
-> `@cinacoin/cinacoin-ui-theme` — Default theme presets for Cinacoin.
+> `@cinacoin/cinacoin-ui-theme` — Default theme presets for CinaCoin.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/cinacoin-ui-theme
 ```
 
-## Presets
+## Presets.
 
 - `default` — Clean, modern default
 - `dark` — Dark mode optimized
 - `minimal` — Minimalist style
 - `gaming` — Gaming aesthetic
 
-## Related
+## Related.
 
 - [UI Theme](/api/ui-theme)
 - [Design Tokens](/api/design-tokens)

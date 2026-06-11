@@ -1,18 +1,18 @@
-# Safe Decoder
+# Safe decoder.
 
-> `@cinacoin/safe-decoder` — Safe (Gnosis) transaction decoder for Cinacoin.
+> `@cinacoin/safe-decoder` — Safe (Gnosis) transaction decoder for CinaCoin.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/safe-decoder
 ```
 
-## Overview
+## Overview.
 
 Decode and parse Safe multi-sig transactions, enabling human-readable display of complex multi-sig operations.
 
-## Related
+## Related.
 
 - [AA SDK](/api/aa-sdk)
 - [Batch Transaction](/api/batch-transaction)

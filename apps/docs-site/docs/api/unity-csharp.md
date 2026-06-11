@@ -1,26 +1,26 @@
-# Unity C#
+# Unity C#.
 
-> `@cinacoin/unity-types` — Unity game engine integration for Cinacoin.
+> `@cinacoin/unity-types` — Unity game engine integration for CinaCoin.
 
-## Installation
+## Installation.
 
 Install via Unity Package Manager or download the `.unitypackage` from the releases page.
 
-## Usage
+## Usage.
 
 ```csharp
-using Cinacoin.Unity;
+using CinaCoin.Unity;
 
-var cinaConnect = new CinacoinManager(projectId: "your-project-id");
+var cinaConnect = new CinaCoinManager(projectId: "your-project-id");
 await cinaConnect.ConnectAsync();
 ```
 
-## Features
+## Features.
 
 - WebGL wallet connection
 - In-game wallet UI
 - Unity UI components
 
-## Related
+## Related.
 
 - [.NET C#](/api/dotnet)

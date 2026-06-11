@@ -1,7 +1,7 @@
 {
   "id": "api/keys-server",
-  "title": "Keys Server",
-  "description": "@cinacoin/keys-server — Key management server for Cinacoin.",
+  "title": "Keys server.",
+  "description": "@cinacoin/keys-server — Key management server for CinaCoin.",
   "source": "@site/docs/api/keys-server.md",
   "sourceDirName": "api",
   "slug": "/api/keys-server",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "iOS Swift",
+    "title": "iOS Swift.",
     "permalink": "/docs/api/ios-swift"
   },
   "next": {
-    "title": "Keys",
+    "title": "Keys.",
     "permalink": "/docs/api/keys"
   }
 }

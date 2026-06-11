@@ -1,21 +1,21 @@
-# Angular
+# Angular.
 
-> `@cinacoin/angular` — Angular adapter for Cinacoin.
+> `@cinacoin/angular` — Angular adapter for CinaCoin.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/angular @cinacoin/core-sdk
 ```
 
-## Usage
+## Usage.
 
 ```typescript
-import { CinacoinModule } from '@cinacoin/angular'
+import { CinaCoinModule } from '@cinacoin/angular'
 
 @NgModule({
   imports: [
-    CinacoinModule.forRoot({
+    CinaCoinModule.forRoot({
       projectId: 'your-project-id',
     }),
   ],
@@ -23,7 +23,7 @@ import { CinacoinModule } from '@cinacoin/angular'
 export class AppModule {}
 ```
 
-## Related
+## Related.
 
 - [React](/api/react) — React adapter
 - [Vue](/api/vue) — Vue adapter

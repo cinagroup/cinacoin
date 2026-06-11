@@ -1,19 +1,19 @@
-# Bundler
+# Bundler.
 
 > `@cinacoin/bundler` — Self-hosted ERC-4337 Bundler implementation in Rust.
 
-## Installation
+## Installation.
 
 ```bash
-# Requires Rust toolchain
+# Requires Rust toolchain.
 cargo build --release -p bundler
 ```
 
-## Overview
+## Overview.
 
 The Bundler receives UserOperations from dApps, packs them efficiently, and submits them to the EntryPoint contract on-chain.
 
-## Features
+## Features.
 
 - UserOperation pool management
 - Smart packing and batching
@@ -21,7 +21,7 @@ The Bundler receives UserOperations from dApps, packs them efficiently, and subm
 - Multi-chain support
 - Monitoring and analytics
 
-## Related
+## Related.
 
 - [AA SDK](/api/aa-sdk)
 - [Paymaster](/api/paymaster)

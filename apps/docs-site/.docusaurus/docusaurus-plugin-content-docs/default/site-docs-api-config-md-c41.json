@@ -1,7 +1,7 @@
 {
   "id": "api/config",
-  "title": "Config",
-  "description": "@cinacoin/config — Configuration management for Cinacoin.",
+  "title": "Config.",
+  "description": "@cinacoin/config — Configuration management for CinaCoin.",
   "source": "@site/docs/api/config.md",
   "sourceDirName": "api",
   "slug": "/api/config",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Codemod",
+    "title": "Codemod.",
     "permalink": "/docs/api/codemod"
   },
   "next": {
-    "title": "Core SDK",
+    "title": "Core SDK.",
     "permalink": "/docs/api/core-sdk"
   }
 }

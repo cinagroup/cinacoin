@@ -1,17 +1,17 @@
-# ENS Resolver
+# ENS resolver.
 
-> `@cinacoin/ens-resolver` — ENS (Ethereum Name Service) resolver for Cinacoin.
+> `@cinacoin/ens-resolver` — ENS (Ethereum Name Service) resolver for CinaCoin.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/ens-resolver
 ```
 
-## Overview
+## Overview.
 
 Resolve and reverse-resolve ENS names, manage ENS records, and integrate ENS into wallet connections.
 
-## Related
+## Related.
 
 - [Token List](/api/token-list)

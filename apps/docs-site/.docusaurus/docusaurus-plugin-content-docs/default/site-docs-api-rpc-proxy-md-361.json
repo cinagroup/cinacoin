@@ -1,6 +1,6 @@
 {
   "id": "api/rpc-proxy",
-  "title": "RPC Proxy",
+  "title": "RPC proxy.",
   "description": "@cinacoin/rpc-proxy — Self-hosted RPC proxy in Go/Rust.",
   "source": "@site/docs/api/rpc-proxy.md",
   "sourceDirName": "api",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Relay",
+    "title": "Relay.",
     "permalink": "/docs/api/relay"
   },
   "next": {
-    "title": "RPC Proxy",
+    "title": "RPC proxy.",
     "permalink": "/docs/api/rpc"
   }
 }

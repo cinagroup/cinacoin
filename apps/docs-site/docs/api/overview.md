@@ -1,14 +1,14 @@
 ---
 sidebar_position: 1
 title: API Overview
-description: Overview of the Cinacoin REST API architecture and services
+description: Overview of the CinaCoin REST API architecture and services
 ---
 
-# API Overview
+# API overview.
 
-Cinacoin provides a comprehensive REST API for integrating with our platform. The API is organized into three main services:
+CinaCoin provides a comprehensive REST API for integrating with our platform. The API is organized into three main services:
 
-## Architecture
+## Architecture.
 
 ```
 ┌─────────────────┐
@@ -26,9 +26,9 @@ Cinacoin provides a comprehensive REST API for integrating with our platform. Th
 └────────┘ └────────┘ └──────────┘
 ```
 
-## Services
+## Services.
 
-### API Gateway
+### API gateway.
 **Base URL:** `https://api.cinacoin.com`
 
 The main entry point for all API requests. Handles:
@@ -43,7 +43,7 @@ The main entry point for all API requests. Handles:
 - `/users/*` — User management (proxied to User Service)
 - `/teams/*` — Team management (proxied to User Service)
 
-### Auth Service
+### Auth service.
 **Base URL:** `https://auth.cinacoin.com` (direct) or via Gateway
 
 Handles authentication and authorization:
@@ -59,7 +59,7 @@ Handles authentication and authorization:
 - CSRF protection
 - PKCE for OAuth flows
 
-### User Service
+### User service.
 **Base URL:** `https://users.cinacoin.com` (direct) or via Gateway
 
 Manages user data and teams:
@@ -72,7 +72,7 @@ Manages user data and teams:
 - D1 (SQLite) for persistent data
 - KV for caching
 
-## Base URLs
+## Base URLs.
 
 | Environment | URL |
 |-------------|-----|
@@ -80,12 +80,12 @@ Manages user data and teams:
 | Staging | `https://api-staging.cinacoin.com` |
 | Development | `http://localhost:8787` |
 
-## Quick Start
+## Quick start.
 
-### 1. Get API Credentials
+### 1. Get API credentials.
 
 ```bash
-# Register a new account
+# Register a new account.
 curl -X POST https://api.cinacoin.com/auth/register \
   -H "Content-Type: application/json" \
   -d '{
@@ -95,7 +95,7 @@ curl -X POST https://api.cinacoin.com/auth/register \
   }'
 ```
 
-### 2. Complete 2FA Setup
+### 2. Complete 2FA setup.
 
 After registration, you'll receive an MFA challenge:
 
@@ -114,26 +114,26 @@ After registration, you'll receive an MFA challenge:
 Enable TOTP and verify:
 
 ```bash
-# Enable MFA (returns QR code URI)
+# Enable MFA (returns QR code uri).
 curl -X POST https://api.cinacoin.com/auth/mfa/enable \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 
-# Verify with code from authenticator app
+# Verify with code from authenticator app.
 curl -X POST https://api.cinacoin.com/auth/mfa/verify \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"code": "123456"}'
 ```
 
-### 3. Make Authenticated Requests
+### 3. Make authenticated requests.
 
 ```bash
-# Get current user profile
+# Get current user profile.
 curl https://api.cinacoin.com/auth/me \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
-## Authentication
+## Authentication.
 
 All API requests require authentication via Bearer token:
 
@@ -141,7 +141,7 @@ All API requests require authentication via Bearer token:
 Authorization: Bearer <access_token>
 ```
 
-### Token Types
+### Token types.
 
 | Token | Lifetime | Purpose |
 |-------|----------|---------|
@@ -149,7 +149,7 @@ Authorization: Bearer <access_token>
 | Refresh Token | 30 days | Obtain new access tokens |
 | MFA Token | 5 minutes | Complete 2FA verification |
 
-### Token Refresh
+### Token refresh.
 
 Access tokens expire quickly. Use the refresh token to obtain new credentials:
 
@@ -161,7 +161,7 @@ curl -X POST https://api.cinacoin.com/auth/refresh \
 
 **Important:** Refresh tokens are single-use. Each refresh returns a new refresh token.
 
-## Rate Limiting
+## Rate limiting.
 
 Rate limits are enforced per IP address:
 
@@ -187,7 +187,7 @@ Response headers include:
 - `X-RateLimit-Reset` — Unix timestamp when limit resets
 - `Retry-After` — Seconds until you can retry
 
-## Error Handling
+## Error handling.
 
 All errors follow a consistent format:
 
@@ -199,7 +199,7 @@ All errors follow a consistent format:
 }
 ```
 
-### Common Error Codes
+### Common error codes.
 
 | Code | Meaning |
 |------|---------|
@@ -211,7 +211,7 @@ All errors follow a consistent format:
 | 429 | Too Many Requests — Rate limit exceeded |
 | 500 | Internal Server Error — Something went wrong on our end |
 
-## CORS
+## CORS.
 
 The API supports Cross-Origin Resource Sharing (CORS) for web applications:
 
@@ -229,14 +229,14 @@ The API supports Cross-Origin Resource Sharing (CORS) for web applications:
 - `X-CSRF-Token`
 - `X-Session-ID`
 
-## Next Steps
+## Next steps.
 
 - [Authentication Guide](./authentication.md) — Detailed auth flow documentation
 - [Rate Limiting](./rate-limiting.md) — Understanding rate limits
 - [Error Codes](./errors.md) — Complete error reference
 - [Interactive API Reference](/api-reference) — Try the API in your browser
 
-## SDKs & Libraries
+## SDKs & libraries.
 
 Official SDKs are available for popular languages:
 
@@ -247,7 +247,7 @@ Official SDKs are available for popular languages:
 
 See the [SDK documentation](/api/core-sdk) for installation and usage guides.
 
-## Support
+## Support.
 
 - **Documentation:** [https://cinacoin.com/docs](https://cinacoin.com/docs)
 - **API Status:** [https://status.cinacoin.com](https://status.cinacoin.com)

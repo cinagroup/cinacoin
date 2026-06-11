@@ -1,6 +1,6 @@
 {
   "id": "api/bundler",
-  "title": "Bundler",
+  "title": "Bundler.",
   "description": "@cinacoin/bundler — Self-hosted ERC-4337 Bundler implementation in Rust.",
   "source": "@site/docs/api/bundler.md",
   "sourceDirName": "api",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Blockchain API",
+    "title": "Blockchain API.",
     "permalink": "/docs/api/blockchain-api"
   },
   "next": {
-    "title": "CDN",
+    "title": "CDN.",
     "permalink": "/docs/api/cdn"
   }
 }

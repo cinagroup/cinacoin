@@ -1,7 +1,7 @@
 {
   "id": "api/push-server",
-  "title": "Push Server",
-  "description": "@cinacoin/push-server — Push notification delivery server for Cinacoin.",
+  "title": "Push server.",
+  "description": "@cinacoin/push-server — Push notification delivery server for CinaCoin.",
   "source": "@site/docs/api/push-server.md",
   "sourceDirName": "api",
   "slug": "/api/push-server",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Performance Utils",
+    "title": "Performance utils.",
     "permalink": "/docs/api/performance-utils"
   },
   "next": {
-    "title": "Push",
+    "title": "Push.",
     "permalink": "/docs/api/push"
   }
 }

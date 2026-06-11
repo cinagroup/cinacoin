@@ -1,18 +1,18 @@
-# Wallet Recovery
+# Wallet recovery.
 
-> `@cinacoin/wallet-recovery` — Wallet recovery mechanisms for Cinacoin.
+> `@cinacoin/wallet-recovery` — Wallet recovery mechanisms for CinaCoin.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/wallet-recovery
 ```
 
-## Overview
+## Overview.
 
 Provide multiple recovery paths for lost wallets: social recovery with guardians, seed phrase recovery, passkey recovery, and more.
 
-## Related
+## Related.
 
 - [Embedded Wallet](/api/embedded-wallet)
 - [Passkey Auth](/api/passkey-auth)

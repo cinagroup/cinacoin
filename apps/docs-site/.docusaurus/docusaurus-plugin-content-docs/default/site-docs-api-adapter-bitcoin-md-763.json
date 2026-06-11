@@ -1,7 +1,7 @@
 {
   "id": "api/adapter-bitcoin",
-  "title": "Bitcoin Adapter",
-  "description": "@cinacoin/adapter-bitcoin — Bitcoin blockchain adapter for Cinacoin.",
+  "title": "Bitcoin adapter.",
+  "description": "@cinacoin/adapter-bitcoin — Bitcoin blockchain adapter for CinaCoin.",
   "source": "@site/docs/api/adapter-bitcoin.md",
   "sourceDirName": "api",
   "slug": "/api/adapter-bitcoin",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "AA SDK",
+    "title": "AA SDK.",
     "permalink": "/docs/api/aa-sdk"
   },
   "next": {
-    "title": "Cosmos Adapter",
+    "title": "Cosmos adapter.",
     "permalink": "/docs/api/adapter-cosmos"
   }
 }

@@ -1,7 +1,7 @@
 {
   "id": "api/explorer",
-  "title": "Explorer",
-  "description": "@cinacoin/explorer — Transaction and wallet explorer for Cinacoin.",
+  "title": "Explorer.",
+  "description": "@cinacoin/explorer — Transaction and wallet explorer for CinaCoin.",
   "source": "@site/docs/api/explorer.md",
   "sourceDirName": "api",
   "slug": "/api/explorer",
@@ -19,7 +19,7 @@
     "permalink": "/docs/api/errors"
   },
   "next": {
-    "title": "Farcaster Mini App",
+    "title": "Farcaster mini app.",
     "permalink": "/docs/api/farcaster-miniapp"
   }
 }

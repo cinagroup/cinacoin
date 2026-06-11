@@ -1,7 +1,7 @@
 {
   "id": "api/ens-resolver",
-  "title": "ENS Resolver",
-  "description": "@cinacoin/ens-resolver — ENS (Ethereum Name Service) resolver for Cinacoin.",
+  "title": "ENS resolver.",
+  "description": "@cinacoin/ens-resolver — ENS (Ethereum Name Service) resolver for CinaCoin.",
   "source": "@site/docs/api/ens-resolver.md",
   "sourceDirName": "api",
   "slug": "/api/ens-resolver",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Embedded Wallet",
+    "title": "Embedded wallet.",
     "permalink": "/docs/api/embedded-wallet"
   },
   "next": {
-    "title": "ERC-6492",
+    "title": "ERC-6492.",
     "permalink": "/docs/api/erc6492"
   }
 }

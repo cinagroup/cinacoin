@@ -28,8 +28,8 @@ export default function TransactionItem({ transaction, currentAddress }: Transac
   const TypeIcon = type === 'send' ? Send : type === 'receive' ? Download : RefreshCw;
 
   return (
-    <div className={`transaction-item transaction-${status}`}>
-      <div className="tx-icon">
+    <div className={`transaction-item transaction-${status}`} role="listitem">
+      <div className="tx-icon" aria-hidden="true">
         <TypeIcon className="w-5 h-5" />
       </div>
       <div className="tx-details">
@@ -46,7 +46,7 @@ export default function TransactionItem({ transaction, currentAddress }: Transac
             {shortHash}
           </span>
           <span className="tx-meta">
-            <StatusIcon className="w-4 h-4 inline-block mr-1" />{timeAgo}
+            <StatusIcon className="w-4 h-4 inline-block mr-1" aria-hidden="true" />{timeAgo}
           </span>
         </div>
         <div className="tx-address">

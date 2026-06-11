@@ -1,20 +1,20 @@
-# Design Tokens
+# Design tokens.
 
-> `@cinacoin/design-tokens` — Design token system for Cinacoin white-label theming.
+> `@cinacoin/design-tokens` — Design token system for CinaCoin white-label theming.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/design-tokens
 ```
 
-## Usage
+## Usage.
 
 ```css
 @import '@cinacoin/design-tokens/tokens.css';
 ```
 
-## Token Categories
+## Token categories.
 
 - Colors (primary, semantic, neutral)
 - Typography (font families, sizes, weights)
@@ -23,7 +23,7 @@ npm install @cinacoin/design-tokens
 - Shadows
 - Breakpoints
 
-## Related
+## Related.
 
 - [UI Theme](/api/ui-theme)
 - [Core UI](/api/core-ui)

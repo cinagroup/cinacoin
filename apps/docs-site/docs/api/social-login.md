@@ -1,18 +1,18 @@
-# Social Login
+# Social login.
 
-> `@cinacoin/social-login` — Social login integration for Cinacoin.
+> `@cinacoin/social-login` — Social login integration for CinaCoin.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/social-login
 ```
 
-## Overview
+## Overview.
 
 Allow users to connect using existing social accounts (Google, Apple, Twitter/X, Discord) with underlying wallet creation.
 
-## Providers
+## Providers.
 
 - Google
 - Apple
@@ -20,7 +20,7 @@ Allow users to connect using existing social accounts (Google, Apple, Twitter/X,
 - Discord
 - GitHub
 
-## Related
+## Related.
 
 - [SIWE](/api/siwe)
 - [Passkey Auth](/api/passkey-auth)

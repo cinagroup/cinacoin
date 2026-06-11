@@ -1,7 +1,7 @@
 {
   "id": "api/notify-server",
-  "title": "Notify Server",
-  "description": "@cinacoin/notify-server — Notification server for Cinacoin.",
+  "title": "Notify server.",
+  "description": "@cinacoin/notify-server — Notification server for CinaCoin.",
   "source": "@site/docs/api/notify-server.md",
   "sourceDirName": "api",
   "slug": "/api/notify-server",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Next.js",
+    "title": "Next.js.",
     "permalink": "/docs/api/next"
   },
   "next": {
-    "title": "Nuxt",
+    "title": "Nuxt.",
     "permalink": "/docs/api/nuxt"
   }
 }

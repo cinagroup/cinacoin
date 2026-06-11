@@ -1,13 +1,13 @@
-# Configuration
+# Configuration.
 
-> Full configuration options for Cinacoin.
+> Full configuration options for CinaCoin.
 
-## Core Configuration
+## Core configuration.
 
 ```typescript
-import { Cinacoin } from '@cinacoin/core-sdk'
+import { CinaCoin } from '@cinacoin/core-sdk'
 
-const cinacoin = new Cinacoin({
+const cinacoin = new CinaCoin({
   // Required
   projectId: 'your-project-id',
   relayUrl: 'wss://relay.cinacoin.com/v1',
@@ -25,10 +25,10 @@ const cinacoin = new Cinacoin({
 })
 ```
 
-## Relay Server Configuration
+## Relay server configuration.
 
 ```yaml
-# docker-compose.yml
+# docker-compose.yml.
 services:
   relay-server:
     image: cinacoin/relay-server:latest
@@ -40,7 +40,7 @@ services:
       - "443:443"
 ```
 
-## RPC Proxy Configuration
+## RPC proxy configuration.
 
 ```yaml
 services:
@@ -52,7 +52,7 @@ services:
       - RATE_LIMIT=1000
 ```
 
-## Next Steps
+## Next steps.
 
 - [Quick Start](/guide/quick-start)
 - [Migration Guide](/guide/migrate-from-reown)

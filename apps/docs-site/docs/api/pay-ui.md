@@ -1,21 +1,21 @@
-# Pay UI
+# Pay UI.
 
-> `@cinacoin/pay-ui` — Payment UI components for Cinacoin.
+> `@cinacoin/pay-ui` — Payment UI components for CinaCoin.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/pay-ui @cinacoin/core-ui
 ```
 
-## Components
+## Components.
 
 - `<pay-button>` — Payment trigger button
 - `<pay-modal>` — Payment flow modal
 - `<payment-methods>` — Available payment methods list
 - `<transaction-status>` — Transaction status display
 
-## Related
+## Related.
 
 - [Payment Flow](/api/payment-flow)
 - [On-Ramp SDK](/api/onramp-sdk)

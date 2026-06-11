@@ -14,8 +14,14 @@ export default defineConfig({
     host: true,
   },
   build: {
-    outDir: 'dist',
+    outDir: 'out',
     sourcemap: true,
     target: 'esnext',
+    rollupOptions: {
+      external: ['node:crypto'],
+    },
+  },
+  optimizeDeps: {
+    exclude: ['@cinacoin/telegram-miniapp'],
   },
 });

@@ -1,12 +1,12 @@
-# Notify Server
+# Notify server.
 
-> `@cinacoin/notify-server` — Notification server for Cinacoin.
+> `@cinacoin/notify-server` — Notification server for CinaCoin.
 
-## Overview
+## Overview.
 
 Send push notifications, email alerts, and in-app notifications for wallet events, transactions, and security alerts.
 
-## Features
+## Features.
 
 - Push notification delivery
 - Email notifications
@@ -14,7 +14,7 @@ Send push notifications, email alerts, and in-app notifications for wallet event
 - Event-driven architecture
 - Multi-channel support
 
-## Related
+## Related.
 
 - [Push Server](/api/push-server)
 - [Relay Server](/api/relay-server)

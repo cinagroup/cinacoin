@@ -1,7 +1,7 @@
 {
   "id": "api/nuxt",
-  "title": "Nuxt",
-  "description": "@cinacoin/nuxt — Nuxt 3 module for Cinacoin.",
+  "title": "Nuxt.",
+  "description": "@cinacoin/nuxt — Nuxt 3 module for CinaCoin.",
   "source": "@site/docs/api/nuxt.md",
   "sourceDirName": "api",
   "slug": "/api/nuxt",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Notify Server",
+    "title": "Notify server.",
     "permalink": "/docs/api/notify-server"
   },
   "next": {
-    "title": "On-Ramp SDK",
+    "title": "On-ramp SDK.",
     "permalink": "/docs/api/onramp-sdk"
   }
 }

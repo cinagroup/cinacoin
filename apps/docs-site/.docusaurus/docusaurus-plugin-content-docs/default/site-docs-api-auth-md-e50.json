@@ -1,6 +1,6 @@
 {
   "id": "api/auth",
-  "title": "Auth",
+  "title": "Auth.",
   "description": "Sign-In With Ethereum (SIWE) authentication with session management.",
   "source": "@site/docs/api/auth.md",
   "sourceDirName": "api",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "AppKit",
+    "title": "AppKit.",
     "permalink": "/docs/api/appkit"
   },
   "next": {
-    "title": "Batch Transaction",
+    "title": "Batch transaction.",
     "permalink": "/docs/api/batch-transaction"
   }
 }

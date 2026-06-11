@@ -1,13 +1,13 @@
 /**
  * custom.css — Vercel-inspired design system for docs.cinacoin.com
- * Color tokens aligned to Cinacoin main-site design system (--cc-* tokens).
+ * Color tokens aligned to CinaCoin main-site design system (--cc-* tokens).
  */
 
 /* ──────────────────────────────────────────────
    Light Theme (default)
    ────────────────────────────────────────────── */
 :root {
-  /* ── Cinacoin design-system tokens (aligned with main site) ── */
+  /* ── CinaCoin design-system tokens (aligned with main site) ── */
   --cc-ink: #171717;
   --cc-body: #4d4d4d;
   --cc-muted: #888888;
@@ -64,8 +64,8 @@
   --text-heading-lg: 2rem;
 
   /* ── Typography ── */
-  --ifm-font-family-base: 'Inter', system-ui, -apple-system, sans-serif;
-  --ifm-font-family-monospace: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  --ifm-font-family-base: 'Geist', 'Inter', system-ui, -apple-system, sans-serif;
+  --ifm-font-family-monospace: 'Geist Mono', 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
   --ifm-heading-font-family: var(--ifm-font-family-base);
 
   --ifm-heading-font-weight: var(--weight-semibold);
@@ -231,7 +231,17 @@
 
 /* Font display strategy */
 @font-face {
+  font-family: 'Geist';
+  font-display: swap;
+}
+
+@font-face {
   font-family: 'Inter';
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist Mono';
   font-display: swap;
 }
 
@@ -280,7 +290,7 @@ img, video {
    Dark Theme
    ────────────────────────────────────────────── */
 html[data-theme='dark'] {
-  /* ── Cinacoin dark tokens (aligned with main site) ── */
+  /* ── CinaCoin dark tokens (aligned with main site) ── */
   --cc-ink: #f5f5f5;
   --cc-body: #a3a3a3;
   --cc-muted: #737373;
@@ -788,7 +798,7 @@ html[data-theme='dark'] .DocSearch-Button {
 }
 
 /* ──────────────────────────────────────────────
-   Footer — Cinacoin style (matches main site)
+   Footer — CinaCoin style (matches main site)
    ────────────────────────────────────────────── */
 .footer {
   background-color: var(--cc-canvas-soft);

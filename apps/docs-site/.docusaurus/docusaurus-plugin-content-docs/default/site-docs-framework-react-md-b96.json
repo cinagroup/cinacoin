@@ -1,7 +1,7 @@
 {
   "id": "framework/react",
-  "title": "React",
-  "description": "@cinacoin/react — React hooks, provider, and UI components for Cinacoin.",
+  "title": "React.",
+  "description": "@cinacoin/react — React hooks, provider, and UI components for CinaCoin.",
   "source": "@site/docs/framework/react.md",
   "sourceDirName": "framework",
   "slug": "/framework/react",

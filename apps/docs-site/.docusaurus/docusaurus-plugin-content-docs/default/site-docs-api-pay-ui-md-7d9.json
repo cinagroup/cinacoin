@@ -1,7 +1,7 @@
 {
   "id": "api/pay-ui",
-  "title": "Pay UI",
-  "description": "@cinacoin/pay-ui — Payment UI components for Cinacoin.",
+  "title": "Pay UI.",
+  "description": "@cinacoin/pay-ui — Payment UI components for CinaCoin.",
   "source": "@site/docs/api/pay-ui.md",
   "sourceDirName": "api",
   "slug": "/api/pay-ui",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Passkey Auth",
+    "title": "Passkey auth.",
     "permalink": "/docs/api/passkey-auth"
   },
   "next": {
-    "title": "Paymaster",
+    "title": "Paymaster.",
     "permalink": "/docs/api/paymaster"
   }
 }

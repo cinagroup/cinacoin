@@ -1,93 +1,93 @@
-# Installation
+# Installation.
 
-> Install Cinacoin packages for your framework.
+> Install CinaCoin packages for your framework.
 
-## Core SDK (required)
+## Core SDK (required).
 
 ```bash
 npm install @cinacoin/core-sdk
 ```
 
-## Framework Adapters
+## Framework adapters.
 
-### React
+### React.
 
 ```bash
 npm install @cinacoin/react
 ```
 
-### Vue 3
+### Vue 3.
 
 ```bash
 npm install @cinacoin/vue
 ```
 
-### Svelte
+### Svelte.
 
 ```bash
 npm install @cinacoin/svelte
 ```
 
-### Next.js
+### Next.js.
 
 ```bash
 npm install @cinacoin/next
 ```
 
-### Nuxt 3
+### Nuxt 3.
 
 ```bash
 npm install @cinacoin/nuxt
 ```
 
-### Angular
+### Angular.
 
 ```bash
 npm install @cinacoin/angular
 ```
 
-### React Native
+### React Native.
 
 ```bash
 npm install @cinacoin/react-native
 ```
 
-## Mobile SDKs
+## Mobile SDKs.
 
-### iOS (Swift)
+### iOS (Swift).
 
 ```ruby
-pod 'Cinacoin', '~> 1.0'
+pod 'CinaCoin', '~> 1.0'
 ```
 
-### Android (Kotlin)
+### Android (Kotlin).
 
 ```groovy
 implementation 'com.cinacoin:sdk:1.0.0'
 ```
 
-### Flutter
+### Flutter.
 
 ```yaml
 dependencies:
   cinacoin: ^1.0.0
 ```
 
-## Infrastructure
+## Infrastructure.
 
-### Relay Server (Docker)
+### Relay server (Docker).
 
 ```bash
 docker pull cinacoin/relay-server:latest
 ```
 
-### RPC Proxy (Docker)
+### RPC proxy (Docker).
 
 ```bash
 docker pull cinacoin/rpc-proxy:latest
 ```
 
-## Next Steps
+## Next steps.
 
 - [Quick Start](/guide/quick-start)
 - [Configuration](/guide/configuration)

@@ -1,7 +1,7 @@
 {
   "id": "api/codemod",
-  "title": "Codemod",
-  "description": "@cinacoin/codemod — Automated code migration tools for Cinacoin.",
+  "title": "Codemod.",
+  "description": "@cinacoin/codemod — Automated code migration tools for CinaCoin.",
   "source": "@site/docs/api/codemod.md",
   "sourceDirName": "api",
   "slug": "/api/codemod",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "CLI",
+    "title": "CLI.",
     "permalink": "/docs/api/cli"
   },
   "next": {
-    "title": "Config",
+    "title": "Config.",
     "permalink": "/docs/api/config"
   }
 }

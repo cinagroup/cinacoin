@@ -1,7 +1,7 @@
 {
   "id": "guide/installation",
-  "title": "Installation",
-  "description": "Install Cinacoin packages for your framework.",
+  "title": "Installation.",
+  "description": "Install CinaCoin packages for your framework.",
   "source": "@site/docs/guide/installation.md",
   "sourceDirName": "guide",
   "slug": "/guide/installation",

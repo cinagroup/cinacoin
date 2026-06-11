@@ -1,18 +1,18 @@
-# Deposit
+# Deposit.
 
-> `@cinacoin/deposit` — Deposit tracking and management for Cinacoin.
+> `@cinacoin/deposit` — Deposit tracking and management for CinaCoin.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/deposit
 ```
 
-## Overview
+## Overview.
 
 Track and manage deposit transactions, including fiat deposits, crypto deposits, and cross-chain deposits.
 
-## Related
+## Related.
 
 - [On-Ramp SDK](/api/onramp-sdk)
 - [Payment Flow](/api/payment-flow)

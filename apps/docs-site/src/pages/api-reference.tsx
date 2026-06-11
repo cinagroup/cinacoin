@@ -40,19 +40,20 @@ function ErrorFallback({ error, onRetry }: { error: Error; onRetry: () => void }
       style={{
         padding: '2rem',
         textAlign: 'center',
-        border: '1px solid var(--ifm-color-emphasis-300)',
+        border: '1px solid var(--cc-hairline)',
         borderRadius: '8px',
-        background: 'var(--ifm-background-surface-color)',
+        background: 'var(--cc-canvas-soft)',
       }}
     >
-      <h3 style={{ color: 'var(--ifm-color-danger)' }}>Failed to load API Reference</h3>
-      <p style={{ color: 'var(--ifm-color-emphasis-600)', marginBottom: '1rem' }}>
+      <h3 style={{ color: 'var(--cc-ink)' }}>Failed to load API reference.</h3>
+      <p style={{ color: 'var(--cc-muted)', marginBottom: '1rem' }}>
         {error.message || 'Could not load Swagger UI. Please check your connection and try again.'}
       </p>
       <button
         onClick={onRetry}
         className="button button--primary"
         style={{ marginTop: '0.5rem' }}
+        aria-label="Retry loading API reference"
       >
         Retry
       </button>
@@ -174,44 +175,46 @@ function SwaggerViewer() {
 
   return (
     <div className="py-4">
-      <div className="mb-6 flex gap-2 flex-wrap items-center">
+      <div className="mb-6 flex gap-2 flex-wrap items-center" role="toolbar" aria-label="API service selector">
         <strong className="mr-2">Service:</strong>
         {Object.entries(SPECS).map(([key, { label }]) => (
           <button
             key={key}
             onClick={() => setActiveSpec(key as keyof typeof SPECS)}
             onMouseEnter={() => handleSpecHover(key as keyof typeof SPECS)}
+            aria-pressed={activeSpec === key}
+            aria-label={`Switch to ${label}`}
             className={`px-4 py-1.5 rounded-md cursor-pointer text-sm ${
               activeSpec === key
-                ? 'border-2 border-[var(--ifm-color-primary)] bg-[var(--ifm-color-primary-lightest,#e8f0fe)] text-[var(--ifm-color-primary-dark)] font-semibold'
-                : 'border border-[var(--ifm-color-emphasis-300)] bg-transparent text-inherit font-normal'
+                ? 'border-2 border-[var(--cc-ink)] bg-[var(--cc-canvas-soft-2)] text-[var(--cc-ink)] font-semibold'
+                : 'border border-[var(--cc-hairline)] bg-transparent text-inherit font-normal'
             }`}
           >
             {label}
           </button>
         ))}
         <div className="ml-auto flex items-center gap-2">
-          <label htmlFor="bearer-token-input" className="text-sm text-[var(--ifm-color-emphasis-600)]">
+          <label htmlFor="bearer-token-input" className="text-sm text-[var(--cc-muted)]">
             Bearer Token:
           </label>
           <input
             id="bearer-token-input"
             type="password"
             placeholder="Paste token for Try It Out"
-            className="py-1.5 px-2.5 rounded border border-[var(--ifm-color-emphasis-300)] text-sm w-60"
+            className="py-1.5 px-2.5 rounded border border-[var(--cc-hairline)] text-sm w-60"
           />
         </div>
       </div>
 
       {loading && (
-        <div className="text-center py-12 text-[var(--ifm-color-emphasis-600)]">
+        <div className="text-center py-12 text-[var(--cc-muted)]">
           <div
             style={{
               display: 'inline-block',
               width: '24px',
               height: '24px',
-              border: '3px solid var(--ifm-color-emphasis-300)',
-              borderTopColor: 'var(--ifm-color-primary)',
+              border: '3px solid var(--cc-hairline)',
+              borderTopColor: 'var(--cc-ink)',
               borderRadius: '50%',
               animation: 'spin 0.8s linear infinite',
             }}
@@ -224,12 +227,12 @@ function SwaggerViewer() {
 
       <style>{`
         #swagger-ui .swagger-ui { font-family: var(--ifm-font-family-base); }
-        #swagger-ui .info .title { color: var(--ifm-color-primary); }
-        #swagger-ui .scheme-container { background: var(--ifm-background-color); box-shadow: none; border-bottom: 1px solid var(--ifm-color-emphasis-200); }
-        #swagger-ui .opblock .opblock-summary { border-color: var(--ifm-color-emphasis-200); }
-        #swagger-ui .opblock-body { color: var(--ifm-font-color-base); }
-        #swagger-ui section.models { border-color: var(--ifm-color-emphasis-200); }
-        #swagger-ui .model-box { background: var(--ifm-background-color); }
+        #swagger-ui .info .title { color: var(--cc-ink); }
+        #swagger-ui .scheme-container { background: var(--cc-canvas); box-shadow: none; border-bottom: 1px solid var(--cc-hairline); }
+        #swagger-ui .opblock .opblock-summary { border-color: var(--cc-hairline); }
+        #swagger-ui .opblock-body { color: var(--cc-body); }
+        #swagger-ui section.models { border-color: var(--cc-hairline); }
+        #swagger-ui .model-box { background: var(--cc-canvas); }
         #swagger-ui .topbar { display: none; }
         /* Mobile: stack controls vertically */
         @media (max-width: 768px) {
@@ -246,12 +249,12 @@ export default function ApiReferencePage() {
   return (
     <Layout
       title="API Reference"
-      description="Interactive API reference for Cinacoin services — API Gateway, Auth Service, and User Service."
+      description="Interactive API reference for CinaCoin services — API Gateway, Auth Service, and User Service."
     >
       <main className="max-w-screen-xl mx-auto py-8 px-4">
         <h1>API Reference</h1>
-        <p className="text-lg text-[var(--ifm-color-emphasis-700)] mb-6">
-          Interactive documentation for all Cinacoin REST APIs. Select a service above to explore endpoints,
+        <p className="text-lg text-[var(--cc-body)] mb-6">
+          Interactive documentation for all CinaCoin REST APIs. Select a service above to explore endpoints,
           view request/response schemas, and try requests directly from your browser.
         </p>
         <BrowserOnly fallback={<div className="text-center py-12">Loading API Reference…</div>}>

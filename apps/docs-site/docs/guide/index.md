@@ -1,10 +1,10 @@
-# Getting Started
+# Getting started.
 
-> Cinacoin — Onchain Access, Simplified. Self-hosted Wallet Connection Toolkit.
+> CinaCoin — Onchain Access, Simplified. Self-hosted Wallet Connection Toolkit.
 
-Welcome to the Cinacoin documentation. This guide will help you integrate wallet connections into your dApp in minutes.
+Welcome to the CinaCoin documentation. This guide will help you integrate wallet connections into your dApp in minutes.
 
-## Quick Links
+## Quick links.
 
 - [Quick Start](/guide/quick-start) — Get up and running in 5 minutes
 - [Installation](/guide/installation) — Detailed setup for every framework
@@ -12,17 +12,17 @@ Welcome to the Cinacoin documentation. This guide will help you integrate wallet
 - [Migrate from Reown](/guide/migrate-from-reown) — Migration guide for Reown users
 - [Troubleshooting](/guide/troubleshooting) — Common issues and solutions
 
-## What is Cinacoin?
+## What is CinaCoin?
 
-Cinacoin is a self-hosted wallet connection toolkit that lets you connect your dApp to wallets without relying on third-party infrastructure.
+CinaCoin is a self-hosted wallet connection toolkit that lets you connect your dApp to wallets without relying on third-party infrastructure.
 
-### Features
+### Features.
 
 - 🔌 **Core SDK** — Chain-agnostic connection logic
 - ⚛️ **Framework Adapters** — First-class support for React, Vue, Svelte, Next.js, Nuxt, Angular, and React Native
 - 📱 **Mobile & Native** — Native SDKs for iOS and Android
 - 🛡️ **Self-Hosted** — Full control over your relay infrastructure
 
-## Next Steps
+## Next steps.
 
 Start with the [Quick Start](/guide/quick-start) guide, or jump straight to your framework's API reference.

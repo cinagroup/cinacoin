@@ -105,10 +105,10 @@ export default function SignPage({ provider, account }: SignPageProps) {
   if (!account) {
     return (
       <div className="page sign-page">
-        <p className="font-mono text-xs text-[var(--cc-muted,#999)] mb-2">CRYPTOGRAPHY</p>
+        <p className="font-mono text-xs mb-2" style={{ color: 'var(--cc-muted)' }}>CRYPTOGRAPHY</p>
         <h1 className="page-title font-semibold">Sign.</h1>
         <div className="empty-state">
-          <p>Connect your wallet to sign messages</p>
+          <p>Connect your wallet to sign messages.</p>
         </div>
       </div>
     );
@@ -116,34 +116,35 @@ export default function SignPage({ provider, account }: SignPageProps) {
 
   return (
     <div className="page sign-page">
-      <p className="font-mono text-xs text-[var(--cc-muted,#999)] mb-2">CRYPTOGRAPHY</p>
+      <p className="font-mono text-xs mb-2" style={{ color: 'var(--cc-muted)' }}>CRYPTOGRAPHY</p>
       <h1 className="page-title font-semibold">Sign messages.</h1>
 
       <div className="sign-section">
-        <h2 className="section-subtitle">Sign In with Telegram</h2>
+        <h2 className="section-subtitle">Sign in with Telegram.</h2>
         <p className="section-description">
-          Verify your identity by signing a message with your Telegram account
+          Verify your identity by signing a message with your Telegram account.
         </p>
         <button
           className="cc-btn-primary"
           onClick={handleSignInWithTelegram}
           disabled={signing}
+          aria-busy={signing}
         >
           {signing ? (
             <>
-              <span className="btn-spinner" />
+              <span className="btn-spinner" aria-hidden="true" />
               Signing...
             </>
           ) : (
-            <><Lock className="w-4 h-4 inline-block mr-1" /> Sign In with Telegram</>
+            <><Lock className="w-4 h-4 inline-block mr-1" aria-hidden="true" /> Sign in with Telegram.</>
           )}
         </button>
       </div>
 
       <div className="sign-section">
-        <h2 className="section-subtitle">Custom Message</h2>
+        <h2 className="section-subtitle">Custom message.</h2>
         <div className="form-group">
-          <label className="form-label" htmlFor="sign-message">Message to sign</label>
+          <label className="form-label" htmlFor="sign-message">Message to sign.</label>
           <textarea
             id="sign-message"
             className="form-textarea"
@@ -158,14 +159,15 @@ export default function SignPage({ provider, account }: SignPageProps) {
           className="cc-btn-secondary"
           onClick={handleSignMessage}
           disabled={signing || !message}
+          aria-busy={signing}
         >
           {signing ? (
             <>
-              <span className="btn-spinner" />
+              <span className="btn-spinner" aria-hidden="true" />
               Signing...
             </>
           ) : (
-            <><Pencil className="w-4 h-4 inline-block mr-1" /> Sign Message</>
+            <><Pencil className="w-4 h-4 inline-block mr-1" aria-hidden="true" /> Sign message.</>
           )}
         </button>
       </div>
@@ -175,9 +177,9 @@ export default function SignPage({ provider, account }: SignPageProps) {
       {signature && (
         <div className="signature-result">
           <div className="signature-header">
-            <h3>Signature</h3>
-            <button className="cc-btn-secondary-sm" onClick={handleCopySignature}>
-              <ClipboardCopy className="w-4 h-4 inline-block mr-1" /> Copy
+            <h3>Signature.</h3>
+            <button className="cc-btn-secondary-sm" onClick={handleCopySignature} aria-label="Copy signature">
+              <ClipboardCopy className="w-4 h-4 inline-block mr-1" aria-hidden="true" /> Copy.
             </button>
           </div>
           <div className="signature-value">{signature}</div>

@@ -1,7 +1,7 @@
 {
   "id": "api/dotnet",
-  "title": ".NET C",
-  "description": "@cinacoin/dotnet — .NET SDK for Cinacoin.",
+  "title": ".NET C#.",
+  "description": ".",
   "source": "@site/docs/api/dotnet.md",
   "sourceDirName": "api",
   "slug": "/api/dotnet",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Design Tokens",
+    "title": "Design tokens.",
     "permalink": "/docs/api/design-tokens"
   },
   "next": {
-    "title": "Embedded Wallet",
+    "title": "Embedded wallet.",
     "permalink": "/docs/api/embedded-wallet"
   }
 }

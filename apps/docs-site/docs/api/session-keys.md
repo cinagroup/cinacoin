@@ -1,18 +1,18 @@
-# Session Keys
+# Session keys.
 
 > `@cinacoin/session-keys` — Session key management for ERC-4337 smart accounts.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/session-keys
 ```
 
-## Overview
+## Overview.
 
 Session keys enable temporary signing keys with configurable permissions and limits, allowing users to authorize dApp actions without signing every transaction.
 
-## Usage
+## Usage.
 
 ```typescript
 import { SessionKeys } from '@cinacoin/session-keys'
@@ -30,7 +30,7 @@ const key = await sessionKeys.create({
 })
 ```
 
-## Related
+## Related.
 
 - [AA SDK](/api/aa-sdk)
 - [SIWE](/api/siwe)

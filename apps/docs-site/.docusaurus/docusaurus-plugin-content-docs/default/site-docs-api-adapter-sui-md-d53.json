@@ -1,7 +1,7 @@
 {
   "id": "api/adapter-sui",
-  "title": "Sui Adapter",
-  "description": "@cinacoin/adapter-sui — Sui blockchain adapter for Cinacoin.",
+  "title": "Sui adapter.",
+  "description": "@cinacoin/adapter-sui — Sui blockchain adapter for CinaCoin.",
   "source": "@site/docs/api/adapter-sui.md",
   "sourceDirName": "api",
   "slug": "/api/adapter-sui",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Starknet Adapter",
+    "title": "Starknet adapter.",
     "permalink": "/docs/api/adapter-starknet"
   },
   "next": {
-    "title": "XRPL Adapter",
+    "title": "XRPL adapter.",
     "permalink": "/docs/api/adapter-xrpl"
   }
 }

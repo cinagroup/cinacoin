@@ -1,7 +1,7 @@
 {
   "id": "api/testing",
-  "title": "Testing",
-  "description": "@cinacoin/testing — Testing utilities for Cinacoin.",
+  "title": "Testing.",
+  "description": "@cinacoin/testing — Testing utilities for CinaCoin.",
   "source": "@site/docs/api/testing.md",
   "sourceDirName": "api",
   "slug": "/api/testing",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Telegram Mini App",
+    "title": "Telegram mini app.",
     "permalink": "/docs/api/telegram-miniapp"
   },
   "next": {
-    "title": "Token List",
+    "title": "Token list.",
     "permalink": "/docs/api/token-list"
   }
 }

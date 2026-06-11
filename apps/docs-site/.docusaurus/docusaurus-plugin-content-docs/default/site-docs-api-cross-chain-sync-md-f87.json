@@ -1,7 +1,7 @@
 {
   "id": "api/cross-chain-sync",
-  "title": "Cross-Chain Sync",
-  "description": "@cinacoin/cross-chain-sync — Cross-chain synchronization for Cinacoin.",
+  "title": "Cross-chain sync.",
+  "description": "@cinacoin/cross-chain-sync — Cross-chain synchronization for CinaCoin.",
   "source": "@site/docs/api/cross-chain-sync.md",
   "sourceDirName": "api",
   "slug": "/api/cross-chain-sync",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Core UI",
+    "title": "Core UI.",
     "permalink": "/docs/api/core-ui"
   },
   "next": {
-    "title": "Custom Connectors",
+    "title": "Custom connectors.",
     "permalink": "/docs/api/custom-connectors"
   }
 }

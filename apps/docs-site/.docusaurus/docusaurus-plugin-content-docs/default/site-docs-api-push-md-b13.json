@@ -1,6 +1,6 @@
 {
   "id": "api/push",
-  "title": "Push",
+  "title": "Push.",
   "description": "Real-time push notifications for wallet activity.",
   "source": "@site/docs/api/push.md",
   "sourceDirName": "api",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Push Server",
+    "title": "Push server.",
     "permalink": "/docs/api/push-server"
   },
   "next": {
-    "title": "React Native",
+    "title": "React Native.",
     "permalink": "/docs/api/react-native"
   }
 }

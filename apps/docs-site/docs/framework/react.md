@@ -1,48 +1,48 @@
-# React
+# React.
 
-> `@cinacoin/react` — React hooks, provider, and UI components for Cinacoin.
+> `@cinacoin/react` — React hooks, provider, and UI components for CinaCoin.
 
 ::: info Note
 This page is also available at [API → React](/api/react).
 :::
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/react @cinacoin/core-sdk
 ```
 
-## CinacoinProvider
+## CinaCoinProvider.
 
-Wrap your app with `CinacoinProvider` to give all child components access to the Cinacoin context.
+Wrap your app with `CinaCoinProvider` to give all child components access to the CinaCoin context.
 
 ```tsx
-import { CinacoinProvider } from '@cinacoin/react'
+import { CinaCoinProvider } from '@cinacoin/react'
 import { EvmAdapter } from '@cinacoin/core-sdk'
 
 function App() {
   return (
-    <CinacoinProvider
+    <CinaCoinProvider
       adapter={new EvmAdapter({
         projectId: 'your-project-id',
         relayUrl: 'wss://relay.cinacoin.com/v1',
       })}
     >
       {children}
-    </CinacoinProvider>
+    </CinaCoinProvider>
   )
 }
 ```
 
-## useCinacoin
+## useCinaCoin.
 
-Access the Cinacoin context in any child component:
+Access the CinaCoin context in any child component:
 
 ```tsx
-import { useCinacoin } from '@cinacoin/react'
+import { useCinaCoin } from '@cinacoin/react'
 
 function MyComponent() {
-  const { connection, connect, disconnect } = useCinacoin()
+  const { connection, connect, disconnect } = useCinaCoin()
 
   const handleConnect = async () => {
     const conn = await connect()
@@ -57,7 +57,7 @@ function MyComponent() {
 }
 ```
 
-## Connect Button
+## Connect button.
 
 Use the pre-built `ConnectButton` component for a quick integration:
 
@@ -69,9 +69,9 @@ function App() {
 }
 ```
 
-## Other Framework Adapters
+## Other framework adapters.
 
-Cinacoin also provides adapters for other frameworks:
+CinaCoin also provides adapters for other frameworks:
 
 - [Vue](/api/vue)
 - [Svelte](/api/svelte)

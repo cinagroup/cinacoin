@@ -1,6 +1,6 @@
 {
   "id": "api/keys",
-  "title": "Keys",
+  "title": "Keys.",
   "description": "Decentralized key management infrastructure.",
   "source": "@site/docs/api/keys.md",
   "sourceDirName": "api",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Keys Server",
+    "title": "Keys server.",
     "permalink": "/docs/api/keys-server"
   },
   "next": {
-    "title": "KYC",
+    "title": "KYC.",
     "permalink": "/docs/api/kyc"
   }
 }

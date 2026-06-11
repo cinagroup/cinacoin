@@ -1,11 +1,11 @@
 ---
 title: Error Codes
-description: Complete error reference for Cinacoin APIs
+description: Complete error reference for CinaCoin APIs
 ---
 
-# Error Codes
+# Error codes.
 
-## HTTP Status Codes
+## HTTP status codes.
 
 | Code | Status | Description |
 |------|--------|-------------|
@@ -16,7 +16,7 @@ description: Complete error reference for Cinacoin APIs
 | 429 | Too Many Requests | Rate limit exceeded |
 | 500 | Internal Server Error | Unexpected server error |
 
-## API Error Response Format
+## API error response format.
 
 All API errors return a JSON object with the following structure:
 
@@ -30,7 +30,7 @@ All API errors return a JSON object with the following structure:
 }
 ```
 
-## Common Error Codes
+## Common error codes.
 
 | Error Code | Description |
 |------------|-------------|

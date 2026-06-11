@@ -1,17 +1,17 @@
-# Sui Adapter
+# Sui adapter.
 
-> `@cinacoin/adapter-sui` — Sui blockchain adapter for Cinacoin.
+> `@cinacoin/adapter-sui` — Sui blockchain adapter for CinaCoin.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/adapter-sui
 ```
 
-## Overview
+## Overview.
 
 Connect to the Sui network with support for Sui Wallet, Ethos, and other Sui-compatible wallets.
 
-## Related
+## Related.
 
 - [Core SDK](/api/core-sdk)

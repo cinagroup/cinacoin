@@ -1,18 +1,18 @@
-# Push Server
+# Push server.
 
-> `@cinacoin/push-server` — Push notification delivery server for Cinacoin.
+> `@cinacoin/push-server` — Push notification delivery server for CinaCoin.
 
-## Overview
+## Overview.
 
 Handle push notification delivery via APNs, FCM, and web push protocols for mobile and browser notifications.
 
-## Features
+## Features.
 
 - Apple Push Notification Service (APNs)
 - Firebase Cloud Messaging (FCM)
 - Web Push (Service Worker)
 - Delivery tracking and retry
 
-## Related
+## Related.
 
 - [Notify Server](/api/notify-server)

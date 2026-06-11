@@ -1,7 +1,7 @@
 {
   "id": "api/overview",
   "title": "API Overview",
-  "description": "Overview of the Cinacoin REST API architecture and services",
+  "description": "Overview of the CinaCoin REST API architecture and services",
   "source": "@site/docs/api/overview.md",
   "sourceDirName": "api",
   "slug": "/api/overview",
@@ -16,7 +16,7 @@
   "frontMatter": {
     "sidebar_position": 1,
     "title": "API Overview",
-    "description": "Overview of the Cinacoin REST API architecture and services"
+    "description": "Overview of the CinaCoin REST API architecture and services"
   },
   "sidebar": "apiSidebar",
   "next": {

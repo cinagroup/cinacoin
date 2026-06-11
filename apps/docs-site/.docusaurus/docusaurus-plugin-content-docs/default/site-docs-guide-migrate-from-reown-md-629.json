@@ -1,7 +1,7 @@
 {
   "id": "guide/migrate-from-reown",
-  "title": "Migration Guide",
-  "description": "Migrate from Reown/WalletConnect to Cinacoin.",
+  "title": "Migration guide.",
+  "description": "Migrate from Reown/WalletConnect to CinaCoin.",
   "source": "@site/docs/guide/migrate-from-reown.md",
   "sourceDirName": "guide",
   "slug": "/guide/migrate-from-reown",

@@ -1,18 +1,18 @@
-# Keys Server
+# Keys server.
 
-> `@cinacoin/keys-server` — Key management server for Cinacoin.
+> `@cinacoin/keys-server` — Key management server for CinaCoin.
 
-## Overview
+## Overview.
 
-The Keys Server manages cryptographic keys for the Cinacoin ecosystem, including relay key pairs, session keys, and signing keys.
+The Keys Server manages cryptographic keys for the CinaCoin ecosystem, including relay key pairs, session keys, and signing keys.
 
-## Features
+## Features.
 
 - Key generation and rotation
 - Hardware Security Module (HSM) support
 - Key backup and recovery
 - Access control and auditing
 
-## Related
+## Related.
 
 - [Relay Server](/api/relay-server)

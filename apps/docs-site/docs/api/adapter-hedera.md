@@ -1,17 +1,17 @@
-# Hedera Adapter
+# Hedera adapter.
 
-> `@cinacoin/adapter-hedera` — Hedera Hashgraph adapter for Cinacoin.
+> `@cinacoin/adapter-hedera` — Hedera Hashgraph adapter for CinaCoin.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/adapter-hedera
 ```
 
-## Overview
+## Overview.
 
 Enable Hedera network interactions including HBAR transfers, token operations, and smart contract calls.
 
-## Related
+## Related.
 
 - [Core SDK](/api/core-sdk)

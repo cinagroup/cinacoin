@@ -1,25 +1,25 @@
-# Passkey Auth
+# Passkey auth.
 
-> `@cinacoin/passkey-auth` — Passkey-based authentication for Cinacoin.
+> `@cinacoin/passkey-auth` — Passkey-based authentication for CinaCoin.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/passkey-auth
 ```
 
-## Overview
+## Overview.
 
 Enable WebAuthn passkey authentication as an alternative to seed phrase wallets. Users can create and recover accounts using device biometrics.
 
-## Features
+## Features.
 
 - WebAuthn passkey creation
 - Biometric authentication (Face ID, Touch ID)
 - Account recovery
 - Cross-device sync
 
-## Related
+## Related.
 
 - [SIWE](/api/siwe)
 - [Social Login](/api/social-login)

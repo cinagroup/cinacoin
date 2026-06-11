@@ -1,7 +1,7 @@
 {
   "id": "api/blockchain-api",
-  "title": "Blockchain API",
-  "description": "@cinacoin/blockchain-api — Unified blockchain data API for Cinacoin.",
+  "title": "Blockchain API.",
+  "description": "@cinacoin/blockchain-api — Unified blockchain data API for CinaCoin.",
   "source": "@site/docs/api/blockchain-api.md",
   "sourceDirName": "api",
   "slug": "/api/blockchain-api",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Batch Transaction",
+    "title": "Batch transaction.",
     "permalink": "/docs/api/batch-transaction"
   },
   "next": {
-    "title": "Bundler",
+    "title": "Bundler.",
     "permalink": "/docs/api/bundler"
   }
 }

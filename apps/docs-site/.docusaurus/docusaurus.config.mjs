@@ -4,8 +4,8 @@
  * Modify the docusaurus.config.js file at your site's root instead.
  */
 export default {
-  "title": "Cinacoin",
-  "tagline": "Onchain Access, Simplified",
+  "title": "CinaCoin",
+  "tagline": "Onchain access, simplified.",
   "favicon": "img/logo.svg",
   "url": "https://cinacoin.com",
   "baseUrl": "/docs/",
@@ -67,7 +67,7 @@ export default {
       "tagName": "meta",
       "attributes": {
         "property": "og:site_name",
-        "content": "Cinacoin Docs"
+        "content": "CinaCoin Docs"
       },
       "customElement": false
     },
@@ -83,7 +83,7 @@ export default {
       "tagName": "meta",
       "attributes": {
         "property": "og:title",
-        "content": "Cinacoin — Onchain UX Toolkit Documentation"
+        "content": "CinaCoin — Onchain UX Toolkit Documentation"
       },
       "customElement": false
     },
@@ -91,7 +91,7 @@ export default {
       "tagName": "meta",
       "attributes": {
         "property": "og:description",
-        "content": "Self-hosted Wallet Connection Toolkit. Complete API reference, guides, and SDK documentation for building onchain applications."
+        "content": "Self-hosted wallet connection toolkit. Complete API reference, guides, and SDK documentation for building onchain applications."
       },
       "customElement": false
     },
@@ -139,7 +139,7 @@ export default {
       "tagName": "meta",
       "attributes": {
         "name": "twitter:title",
-        "content": "Cinacoin — Onchain UX Toolkit Documentation"
+        "content": "CinaCoin — Onchain UX Toolkit Documentation"
       },
       "customElement": false
     },
@@ -147,7 +147,7 @@ export default {
       "tagName": "meta",
       "attributes": {
         "name": "twitter:description",
-        "content": "Self-hosted Wallet Connection Toolkit. Complete API reference, guides, and SDK documentation."
+        "content": "Self-hosted wallet connection toolkit. Complete API reference, guides, and SDK documentation."
       },
       "customElement": false
     },
@@ -163,7 +163,7 @@ export default {
       "tagName": "meta",
       "attributes": {
         "name": "keywords",
-        "content": "cinacoin, wallet, web3, blockchain, dapp, walletconnect, eip-6963, erc-4337, smart accounts, defi, sdk"
+        "content": "cinacoin, coin, wallet, web3, blockchain, dapp, walletconnect, eip-6963, erc-4337, smart accounts, defi, sdk"
       },
       "customElement": false
     },
@@ -171,7 +171,7 @@ export default {
       "tagName": "meta",
       "attributes": {
         "name": "author",
-        "content": "Cinacoin Team"
+        "content": "CinaCoin Team"
       },
       "customElement": false
     },
@@ -240,7 +240,7 @@ export default {
   ],
   "plugins": [
     [
-      "/home/cina/.openclaw/workspace/apps/docs-site/node_modules/@easyops-cn/docusaurus-search-local/dist/server/server/index.js",
+      "/home/cina/.openclaw/workspace/node_modules/.pnpm/@easyops-cn+docusaurus-search-local@0.44.6_@docusaurus+theme-common@3.10.1_@docusaurus+plugin_r625qv4obwa6d6hqc2ffiv54m4/node_modules/@easyops-cn/docusaurus-search-local/dist/server/server/index.js",
       {
         "hashed": true,
         "indexBlog": false,
@@ -321,9 +321,9 @@ export default {
       "respectPrefersColorScheme": true
     },
     "navbar": {
-      "title": "Cinacoin",
+      "title": "CinaCoin",
       "logo": {
-        "alt": "Cinacoin",
+        "alt": "CinaCoin",
         "src": "img/logo.svg",
         "width": 24,
         "height": 24

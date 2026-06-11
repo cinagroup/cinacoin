@@ -1,18 +1,18 @@
-# Cross-Chain Sync
+# Cross-chain sync.
 
-> `@cinacoin/cross-chain-sync` — Cross-chain synchronization for Cinacoin.
+> `@cinacoin/cross-chain-sync` — Cross-chain synchronization for CinaCoin.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/cross-chain-sync
 ```
 
-## Overview
+## Overview.
 
 Synchronize state and assets across multiple blockchain networks, enabling cross-chain operations and data consistency.
 
-## Related
+## Related.
 
 - [Core SDK](/api/core-sdk)
 - [Blockchain API](/api/blockchain-api)

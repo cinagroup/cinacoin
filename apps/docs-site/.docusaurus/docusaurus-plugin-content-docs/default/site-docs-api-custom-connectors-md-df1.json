@@ -1,7 +1,7 @@
 {
   "id": "api/custom-connectors",
-  "title": "Custom Connectors",
-  "description": "@cinacoin/custom-connectors — Custom wallet connector framework for Cinacoin.",
+  "title": "Custom connectors.",
+  "description": "@cinacoin/custom-connectors — Custom wallet connector framework for CinaCoin.",
   "source": "@site/docs/api/custom-connectors.md",
   "sourceDirName": "api",
   "slug": "/api/custom-connectors",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Cross-Chain Sync",
+    "title": "Cross-chain sync.",
     "permalink": "/docs/api/cross-chain-sync"
   },
   "next": {
-    "title": "Deposit",
+    "title": "Deposit.",
     "permalink": "/docs/api/deposit"
   }
 }

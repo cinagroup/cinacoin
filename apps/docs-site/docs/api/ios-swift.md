@@ -1,24 +1,24 @@
-# iOS Swift
+# iOS Swift.
 
-> `@cinacoin/ios-swift` — iOS native SDK for Cinacoin.
+> `@cinacoin/ios-swift` — iOS native SDK for CinaCoin.
 
-## Installation
+## Installation.
 
 ```ruby
-# Podfile
-pod 'Cinacoin', '~> 1.0'
+# Podfile.
+pod 'CinaCoin', '~> 1.0'
 ```
 
-## Usage
+## Usage.
 
 ```swift
-import Cinacoin
+import CinaCoin
 
-let config = CinacoinConfig(projectId: "your-project-id")
-let cinaConnect = Cinacoin.shared(config: config)
+let config = CinaCoinConfig(projectId: "your-project-id")
+let cinaConnect = CinaCoin.shared(config: config)
 ```
 
-## Related
+## Related.
 
 - [Android Kotlin](/api/android-kotlin)
 - [Flutter Dart](/api/flutter-dart)

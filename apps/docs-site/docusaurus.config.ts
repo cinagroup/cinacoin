@@ -3,8 +3,8 @@ import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
-  title: 'Cinacoin',
-  tagline: 'Onchain Access, Simplified',
+  title: 'CinaCoin',
+  tagline: 'Onchain access, simplified.',
   favicon: 'img/logo.svg',
   url: 'https://cinacoin.com',
   baseUrl: '/docs/',
@@ -35,7 +35,7 @@ const config: Config = {
     },
     {
       tagName: 'meta',
-      attributes: { property: 'og:site_name', content: 'Cinacoin Docs' },
+      attributes: { property: 'og:site_name', content: 'CinaCoin Docs' },
     },
     {
       tagName: 'meta',
@@ -44,11 +44,11 @@ const config: Config = {
     // ── SEO: Open Graph & Twitter ──
     {
       tagName: 'meta',
-      attributes: { property: 'og:title', content: 'Cinacoin — Onchain UX Toolkit Documentation' },
+      attributes: { property: 'og:title', content: 'CinaCoin — Onchain UX Toolkit Documentation' },
     },
     {
       tagName: 'meta',
-      attributes: { property: 'og:description', content: 'Self-hosted Wallet Connection Toolkit. Complete API reference, guides, and SDK documentation for building onchain applications.' },
+      attributes: { property: 'og:description', content: 'Self-hosted wallet connection toolkit. Complete API reference, guides, and SDK documentation for building onchain applications.' },
     },
     {
       tagName: 'meta',
@@ -72,11 +72,11 @@ const config: Config = {
     },
     {
       tagName: 'meta',
-      attributes: { name: 'twitter:title', content: 'Cinacoin — Onchain UX Toolkit Documentation' },
+      attributes: { name: 'twitter:title', content: 'CinaCoin — Onchain UX Toolkit Documentation' },
     },
     {
       tagName: 'meta',
-      attributes: { name: 'twitter:description', content: 'Self-hosted Wallet Connection Toolkit. Complete API reference, guides, and SDK documentation.' },
+      attributes: { name: 'twitter:description', content: 'Self-hosted wallet connection toolkit. Complete API reference, guides, and SDK documentation.' },
     },
     {
       tagName: 'meta',
@@ -84,11 +84,11 @@ const config: Config = {
     },
     {
       tagName: 'meta',
-      attributes: { name: 'keywords', content: 'cinacoin, wallet, web3, blockchain, dapp, walletconnect, eip-6963, erc-4337, smart accounts, defi, sdk' },
+      attributes: { name: 'keywords', content: 'cinacoin, coin, wallet, web3, blockchain, dapp, walletconnect, eip-6963, erc-4337, smart accounts, defi, sdk' },
     },
     {
       tagName: 'meta',
-      attributes: { name: 'author', content: 'Cinacoin Team' },
+      attributes: { name: 'author', content: 'CinaCoin Team' },
     },
     {
       tagName: 'meta',
@@ -228,8 +228,8 @@ const config: Config = {
       respectPrefersColorScheme: true,
     },
     navbar: {
-      title: 'Cinacoin',
-      logo: { alt: 'Cinacoin', src: 'img/logo.svg', width: 24, height: 24 },
+      title: 'CinaCoin',
+      logo: { alt: 'CinaCoin', src: 'img/logo.svg', width: 24, height: 24 },
       items: [
         { href: 'https://cinacoin.com', label: 'Home', position: 'left', target: '_self' },
         { type: 'docSidebar', sidebarId: 'guideSidebar', position: 'left', label: 'Docs' },

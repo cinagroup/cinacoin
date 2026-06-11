@@ -1,14 +1,14 @@
-# Nuxt
+# Nuxt.
 
-> `@cinacoin/nuxt` — Nuxt 3 module for Cinacoin.
+> `@cinacoin/nuxt` — Nuxt 3 module for CinaCoin.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/nuxt @cinacoin/core-sdk
 ```
 
-## Usage
+## Usage.
 
 ```typescript
 // nuxt.config.ts
@@ -17,7 +17,7 @@ export default defineNuxtConfig({
 })
 ```
 
-## Related
+## Related.
 
 - [Vue](/api/vue) — Vue adapter
 - [Next.js](/api/next) — Next.js adapter

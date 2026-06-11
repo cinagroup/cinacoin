@@ -94,13 +94,13 @@ export default function WalletPage({
 
   return (
     <div className="page wallet-page">
-      <p className="font-mono text-xs text-[var(--cc-muted,#999)] mb-2">WALLET</p>
+      <p className="font-mono text-xs mb-2" style={{ color: 'var(--cc-muted)' }}>WALLET</p>
       <h1 className="page-title font-semibold">Wallet.</h1>
 
       {!account ? (
         <div className="connect-section">
           <div className="connect-icon"><CreditCard className="w-8 h-8" /></div>
-          <h2>Connect Your Wallet</h2>
+          <h2>Connect your wallet.</h2>
           <p className="connect-description">
             Link your wallet to send, receive, and manage your tokens directly within Telegram.
           </p>
@@ -111,14 +111,15 @@ export default function WalletPage({
             className="cc-btn-primary btn-large"
             onClick={handleConnect}
             disabled={connecting}
+            aria-busy={connecting}
           >
             {connecting ? (
               <>
-                <span className="btn-spinner" />
+                <span className="btn-spinner" aria-hidden="true" />
                 Connecting...
               </>
             ) : (
-              'Connect Wallet'
+              'Connect wallet.'
             )}
           </button>
 
@@ -150,25 +151,27 @@ export default function WalletPage({
           </div>
 
           <div className="wallet-actions">
-            <button className="cc-btn-secondary" onClick={handleCopyAddress}>
-              <ClipboardCopy className="w-4 h-4 inline-block mr-1" /> Copy Address
+            <button className="cc-btn-secondary" onClick={handleCopyAddress} aria-label="Copy wallet address">
+              <ClipboardCopy className="w-4 h-4 inline-block mr-1" aria-hidden="true" /> Copy address.
             </button>
             <button
               className="cc-btn-secondary"
               onClick={handleFetchBalance}
               disabled={fetchingBalance}
+              aria-label={fetchingBalance ? 'Fetching balance' : 'Refresh balance'}
+              aria-busy={fetchingBalance}
             >
-              {fetchingBalance ? <><RefreshCw className="w-4 h-4 inline-block mr-1 animate-spin" /> Fetching...</> : <><RefreshCw className="w-4 h-4 inline-block mr-1" /> Refresh Balance</>}
+              {fetchingBalance ? <><RefreshCw className="w-4 h-4 inline-block mr-1 animate-spin" aria-hidden="true" /> Fetching...</> : <><RefreshCw className="w-4 h-4 inline-block mr-1" aria-hidden="true" /> Refresh balance.</>}
             </button>
             <button className="cc-btn-danger" onClick={handleDisconnect}>
-              Disconnect
+              Disconnect.
             </button>
           </div>
 
           {error && <div className="error-message">{error}</div>}
 
           <div className="chain-info">
-            <h3>Network</h3>
+            <h3>Network.</h3>
             <div className="chain-badge">
               <span className="chain-dot" />
               Ethereum Mainnet (Chain ID: {provider.getChainId()})

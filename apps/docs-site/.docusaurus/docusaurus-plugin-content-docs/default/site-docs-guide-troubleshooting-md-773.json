@@ -1,7 +1,7 @@
 {
   "id": "guide/troubleshooting",
-  "title": "Troubleshooting",
-  "description": "Common issues and solutions for Cinacoin.",
+  "title": "Troubleshooting.",
+  "description": "Common issues and solutions for CinaCoin.",
   "source": "@site/docs/guide/troubleshooting.md",
   "sourceDirName": "guide",
   "slug": "/guide/troubleshooting",

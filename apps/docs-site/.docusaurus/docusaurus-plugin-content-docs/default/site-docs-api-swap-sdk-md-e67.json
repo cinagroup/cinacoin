@@ -1,7 +1,7 @@
 {
   "id": "api/swap-sdk",
-  "title": "Swap SDK",
-  "description": "@cinacoin/swap-sdk — Swap aggregator SDK for Cinacoin.",
+  "title": "Swap SDK.",
+  "description": "@cinacoin/swap-sdk — Swap aggregator SDK for CinaCoin.",
   "source": "@site/docs/api/swap-sdk.md",
   "sourceDirName": "api",
   "slug": "/api/swap-sdk",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Svelte",
+    "title": "Svelte.",
     "permalink": "/docs/api/svelte"
   },
   "next": {
-    "title": "Telegram Mini App",
+    "title": "Telegram mini app.",
     "permalink": "/docs/api/telegram-miniapp"
   }
 }

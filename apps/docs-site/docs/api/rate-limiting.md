@@ -1,22 +1,22 @@
 ---
 sidebar_position: 3
 title: Rate Limiting
-description: Understanding Cinacoin API rate limits and best practices
+description: Understanding CinaCoin API rate limits and best practices
 ---
 
-# Rate Limiting
+# Rate limiting.
 
-The Cinacoin API enforces rate limits to ensure fair usage and protect against abuse. This document explains the rate limiting strategy, limits per endpoint, and how to handle rate limit responses.
+The CinaCoin API enforces rate limits to ensure fair usage and protect against abuse. This document explains the rate limiting strategy, limits per endpoint, and how to handle rate limit responses.
 
-## Rate Limit Strategy
+## Rate limit strategy.
 
-Cinacoin uses a **sliding window** rate limiting algorithm implemented via Cloudflare KV storage. Limits are enforced at multiple levels:
+CinaCoin uses a **sliding window** rate limiting algorithm implemented via Cloudflare KV storage. Limits are enforced at multiple levels:
 
 1. **Global** — Per-IP address across all endpoints
 2. **Endpoint-specific** — Stricter limits on sensitive operations
 3. **Per-user** — Limits tied to authenticated user identity
 
-## Global Rate Limits
+## Global rate limits.
 
 All requests through the API Gateway are subject to global rate limiting:
 
@@ -25,9 +25,9 @@ All requests through the API Gateway are subject to global rate limiting:
 | Standard | 1,000 | 1 hour | Per IP address |
 | Authenticated | 5,000 | 1 hour | With valid Bearer token |
 
-## Endpoint-Specific Limits
+## Endpoint-specific limits.
 
-### Authentication Endpoints
+### Authentication endpoints.
 
 Stricter limits on auth endpoints to prevent brute-force attacks:
 
@@ -40,7 +40,7 @@ Stricter limits on auth endpoints to prevent brute-force attacks:
 | `/auth/mfa/verify` | POST | 10 | 15 minutes | Prevent MFA bypass |
 | `/auth/oauth/*` | * | 20 | 15 minutes | Prevent OAuth abuse |
 
-### User Service Endpoints
+### User service endpoints.
 
 | Scope | Limit | Window |
 |-------|-------|--------|
@@ -48,7 +48,7 @@ Stricter limits on auth endpoints to prevent brute-force attacks:
 | `/api/teams/*` | 200 | 15 minutes |
 | `/api/api-keys/*` | 50 | 15 minutes |
 
-## Rate Limit Headers
+## Rate limit headers.
 
 When rate limited, the API returns a `429 Too Many Requests` response with these headers:
 
@@ -59,7 +59,7 @@ When rate limited, the API returns a `429 Too Many Requests` response with these
 | `X-RateLimit-Reset` | Unix timestamp when the current window resets |
 | `Retry-After` | Seconds to wait before retrying |
 
-### Example Response
+### Example response.
 
 ```http
 HTTP/1.1 429 Too Many Requests
@@ -75,9 +75,9 @@ Content-Type: application/json
 }
 ```
 
-## Best Practices
+## Best practices.
 
-### 1. Implement Exponential Backoff
+### 1. Implement exponential backoff.
 
 ```javascript
 async function apiRequestWithRetry(url, options, maxRetries = 3) {
@@ -102,7 +102,7 @@ async function apiRequestWithRetry(url, options, maxRetries = 3) {
 }
 ```
 
-### 2. Monitor Rate Limit Headers
+### 2. Monitor rate limit headers.
 
 Check rate limit headers before hitting the limit:
 
@@ -122,7 +122,7 @@ async function apiRequest(url, options) {
 }
 ```
 
-### 3. Cache Responses
+### 3. Cache responses.
 
 Reduce API calls by caching responses:
 
@@ -143,7 +143,7 @@ async function getCachedData(url, ttl = 300000) { // 5 min TTL
 }
 ```
 
-### 4. Use Bulk Endpoints
+### 4. Use bulk endpoints.
 
 When available, use bulk/batch endpoints to reduce the number of API calls:
 
@@ -160,7 +160,7 @@ await fetch('/api/users/batch', {
 });
 ```
 
-### 5. Implement Request Queuing
+### 5. Implement request queuing.
 
 Queue requests to stay within rate limits:
 
@@ -200,9 +200,9 @@ class RequestQueue {
 }
 ```
 
-## Rate Limit Bypasses
+## Rate limit bypasses.
 
-### API Keys
+### API keys.
 
 API keys have higher rate limits than standard authenticated requests:
 
@@ -219,24 +219,24 @@ curl https://api.cinacoin.com/api/users \
   -H "Authorization: Bearer ck_your_api_key_here"
 ```
 
-### Contact Sales
+### Contact sales.
 
 If you need higher rate limits for your application, contact our sales team at [sales@cinacoin.com](mailto:sales@cinacoin.com).
 
-## Troubleshooting
+## Troubleshooting.
 
-### "I'm getting 429 errors but I shouldn't be rate limited"
+### "I'm getting 429 errors but I shouldn't be rate limited".
 
 1. **Check shared IP**: If you're behind a NAT (corporate network, cloud provider), other users may be consuming the shared IP's rate limit.
 2. **Use API keys**: API keys have higher limits and are not affected by shared IP issues.
 3. **Check for infinite loops**: Ensure your code isn't accidentally making repeated requests.
 4. **Check token refresh loops**: A misconfigured token refresh can cause rapid-fire refresh requests.
 
-### "My rate limit counters seem wrong"
+### "My rate limit counters seem wrong".
 
 Rate limits are tracked per-IP (for unauthenticated requests) or per-user (for authenticated requests). If you're using multiple devices or IPs, each has its own limit.
 
-## Next Steps
+## Next steps.
 
 - [Error Codes](./errors.md) — Complete error reference
 - [Authentication](./authentication.md) — Authentication guide

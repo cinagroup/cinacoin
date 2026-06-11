@@ -1,24 +1,24 @@
-# Telegram Mini App
+# Telegram mini app.
 
-> `@cinacoin/telegram-miniapp` — Telegram Mini App integration for Cinacoin.
+> `@cinacoin/telegram-miniapp` — Telegram Mini App integration for CinaCoin.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/telegram-miniapp
 ```
 
-## Overview
+## Overview.
 
-Integrate Cinacoin wallet connections directly into Telegram Mini Apps using the Telegram Web App API.
+Integrate CinaCoin wallet connections directly into Telegram Mini Apps using the Telegram Web App API.
 
-## Features
+## Features.
 
 - Telegram Web App integration
 - TON wallet support
 - Seamless wallet connection via Telegram
 - Native UI components for Telegram
 
-## Related
+## Related.
 
 - [Farcaster Mini App](/api/farcaster-miniapp)

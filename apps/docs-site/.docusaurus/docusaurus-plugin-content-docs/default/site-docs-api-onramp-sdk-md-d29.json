@@ -1,7 +1,7 @@
 {
   "id": "api/onramp-sdk",
-  "title": "On-Ramp SDK",
-  "description": "@cinacoin/onramp-sdk — Fiat on-ramp aggregation SDK for Cinacoin.",
+  "title": "On-ramp SDK.",
+  "description": "@cinacoin/onramp-sdk — Fiat on-ramp aggregation SDK for CinaCoin.",
   "source": "@site/docs/api/onramp-sdk.md",
   "sourceDirName": "api",
   "slug": "/api/onramp-sdk",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Nuxt",
+    "title": "Nuxt.",
     "permalink": "/docs/api/nuxt"
   },
   "next": {
-    "title": "Passkey Auth",
+    "title": "Passkey auth.",
     "permalink": "/docs/api/passkey-auth"
   }
 }

@@ -1,18 +1,18 @@
-# SIWX
+# SIWX.
 
 > `@cinacoin/siwx` — Sign-In with X (SIWX) authentication framework.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/siwx
 ```
 
-## Overview
+## Overview.
 
 SIWX extends SIWE to support multiple blockchain ecosystems (Solana, Bitcoin, etc.) with a unified authentication interface.
 
-## Related
+## Related.
 
 - [SIWE](/api/siwe)
 - [Passkey Auth](/api/passkey-auth)

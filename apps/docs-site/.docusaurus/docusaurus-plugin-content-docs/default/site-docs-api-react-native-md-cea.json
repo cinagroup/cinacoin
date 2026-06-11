@@ -1,7 +1,7 @@
 {
   "id": "api/react-native",
-  "title": "React Native",
-  "description": "@cinacoin/react-native — React Native adapter for Cinacoin.",
+  "title": "React Native.",
+  "description": "@cinacoin/react-native — React Native adapter for CinaCoin.",
   "source": "@site/docs/api/react-native.md",
   "sourceDirName": "api",
   "slug": "/api/react-native",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Push",
+    "title": "Push.",
     "permalink": "/docs/api/push"
   },
   "next": {
-    "title": "React",
+    "title": "React.",
     "permalink": "/docs/api/react"
   }
 }

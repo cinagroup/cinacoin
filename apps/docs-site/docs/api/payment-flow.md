@@ -1,18 +1,18 @@
-# Payment Flow
+# Payment flow.
 
-> `@cinacoin/payment-flow` — Payment flow management for Cinacoin.
+> `@cinacoin/payment-flow` — Payment flow management for CinaCoin.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/payment-flow
 ```
 
-## Overview
+## Overview.
 
 Define and manage payment flows with support for swaps, on-ramps, transfers, and batch payments.
 
-## Related
+## Related.
 
 - [Swap SDK](/api/swap-sdk)
 - [On-Ramp SDK](/api/onramp-sdk)

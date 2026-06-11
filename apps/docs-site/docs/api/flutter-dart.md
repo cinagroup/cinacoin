@@ -1,23 +1,23 @@
-# Flutter Dart
+# Flutter Dart.
 
-> `@cinacoin/flutter-dart` — Flutter/Dart SDK for Cinacoin.
+> `@cinacoin/flutter-dart` — Flutter/Dart SDK for CinaCoin.
 
-## Installation
+## Installation.
 
 ```yaml
 dependencies:
   cinacoin: ^1.0.0
 ```
 
-## Usage
+## Usage.
 
 ```dart
 import 'package:cinacoin/cinacoin.dart';
 
-final cinaConnect = Cinacoin(projectId: 'your-project-id');
+final cinaConnect = CinaCoin(projectId: 'your-project-id');
 ```
 
-## Related
+## Related.
 
 - [iOS Swift](/api/ios-swift)
 - [Android Kotlin](/api/android-kotlin)

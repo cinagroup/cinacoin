@@ -1,18 +1,18 @@
-# Blockchain API
+# Blockchain API.
 
-> `@cinacoin/blockchain-api` — Unified blockchain data API for Cinacoin.
+> `@cinacoin/blockchain-api` — Unified blockchain data API for CinaCoin.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/blockchain-api
 ```
 
-## Overview
+## Overview.
 
 A unified interface for querying blockchain data across multiple chains, abstracting away chain-specific differences.
 
-## Related
+## Related.
 
 - [RPC Proxy](/api/rpc-proxy)
 - [Cross-Chain Sync](/api/cross-chain-sync)

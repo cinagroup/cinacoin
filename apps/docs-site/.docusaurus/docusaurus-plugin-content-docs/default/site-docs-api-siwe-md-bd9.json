@@ -1,7 +1,7 @@
 {
   "id": "api/siwe",
-  "title": "SIWE",
-  "description": "@cinacoin/siwe — Sign-In with Ethereum integration for Cinacoin.",
+  "title": "SIWE.",
+  "description": "@cinacoin/siwe — Sign-In with Ethereum integration for CinaCoin.",
   "source": "@site/docs/api/siwe.md",
   "sourceDirName": "api",
   "slug": "/api/siwe",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Session Keys",
+    "title": "Session keys.",
     "permalink": "/docs/api/session-keys"
   },
   "next": {
-    "title": "SIWX",
+    "title": "SIWX.",
     "permalink": "/docs/api/siwx"
   }
 }

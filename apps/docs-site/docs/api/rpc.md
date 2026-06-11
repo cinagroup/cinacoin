@@ -1,10 +1,10 @@
-# RPC Proxy
+# RPC proxy.
 
 Unified RPC endpoint with automatic routing.
 
-## Overview
+## Overview.
 
-Single endpoint for all chains with rate limiting, failover, and intelligent routing. The Cinacoin RPC Proxy is a lightweight HTTP proxy that forwards JSON-RPC requests to the appropriate chain backend, with built-in response caching for read-only methods, IP-based rate limiting, origin-based access control, and graceful shutdown handling.
+Single endpoint for all chains with rate limiting, failover, and intelligent routing. The CinaCoin RPC Proxy is a lightweight HTTP proxy that forwards JSON-RPC requests to the appropriate chain backend, with built-in response caching for read-only methods, IP-based rate limiting, origin-based access control, and graceful shutdown handling.
 
 **Key capabilities:**
 
@@ -15,9 +15,9 @@ Single endpoint for all chains with rate limiting, failover, and intelligent rou
 - Maximum request body size enforcement
 - Graceful shutdown with in-flight request draining
 
-## Quick Start
+## Quick start.
 
-### Direct Endpoint Usage
+### Direct endpoint usage.
 
 ```
 https://rpc.cinacoin.com/v1/{project-id}
@@ -31,7 +31,7 @@ curl -X POST https://rpc.cinacoin.com/v1/your-project-id \
   -d '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}'
 ```
 
-### Self-Hosted Proxy Server
+### Self-hosted proxy server.
 
 ```bash
 cd packages/rpc-proxy
@@ -61,7 +61,7 @@ await proxy.start()
 console.log('RPC proxy running on http://localhost:8545')
 ```
 
-### Client-Side Usage
+### Client-side usage.
 
 ```typescript
 import { createRpcProxy } from '@cinacoin/rpc'
@@ -81,9 +81,9 @@ const balance = await rpc.request('eth_getBalance', [
 const result = await rpc.request('eth_call', callParams, { chain: 'polygon' })
 ```
 
-## API Reference
+## API reference.
 
-### RpcProxyConfig
+### RpcProxyConfig.
 
 | Property | Type | Default | Description |
 |---|---|---|---|
@@ -96,7 +96,7 @@ const result = await rpc.request('eth_call', callParams, { chain: 'polygon' })
 | `maxBodySize` | `number` | `1048576` | Max request body size in bytes (1 MB) |
 | `allowedOrigins` | `string[] \| RegExp` | — | Allowed request origins (empty = all) |
 
-### RpcProxy Methods
+### RpcProxy methods.
 
 | Method | Description |
 |---|---|
@@ -106,7 +106,7 @@ const result = await rpc.request('eth_call', callParams, { chain: 'polygon' })
 | `getChains()` | Get all configured chains |
 | `gracefulShutdown()` | Graceful shutdown — drain in-flight requests, then exit |
 
-### Client API (`@cinacoin/rpc`)
+### Client API (`@cinacoin/rpc`).
 
 | Method | Description |
 |---|---|
@@ -114,9 +114,9 @@ const result = await rpc.request('eth_call', callParams, { chain: 'polygon' })
 | `setChain(chain)` | Switch the default chain |
 | `getChain()` | Get the current default chain |
 
-## Supported Methods
+## Supported methods.
 
-### Read-Only Methods (Cached)
+### Read-only methods (cached).
 
 The following methods are eligible for response caching when `cacheTtlMs` is configured:
 
@@ -133,13 +133,13 @@ The following methods are eligible for response caching when `cacheTtlMs` is con
 - `net_version`
 - `eth_chainId`
 
-### Write Methods (Not Cached)
+### Write methods (not cached).
 
 - `eth_sendRawTransaction`
 - `eth_sendTransaction`
 - All other methods
 
-## Caching Behavior
+## Caching behavior.
 
 ```
 Request arrives → Is method read-only? → Check cache key (chain + request body)
@@ -156,7 +156,7 @@ Request arrives → Is method read-only? → Check cache key (chain + request bo
 
 Cache keys are computed as `chain:JSON.stringify(body)` to ensure identical requests return identical cached responses.
 
-## Rate Limiting
+## Rate limiting.
 
 Rate limiting is per-IP using a sliding window:
 
@@ -172,9 +172,9 @@ Rate limiting is per-IP using a sliding window:
 
 When a request exceeds the rate limit, a `429 Too Many Requests` response is returned.
 
-## Advanced Usage
+## Advanced usage.
 
-### Multi-Chain with Fallback
+### Multi-chain with fallback.
 
 ```typescript
 const proxy = new RpcProxy({
@@ -190,7 +190,7 @@ const proxy = new RpcProxy({
 })
 ```
 
-### Graceful Shutdown
+### Graceful shutdown.
 
 ```typescript
 import { RpcProxy } from '@cinacoin/rpc-proxy'
@@ -211,7 +211,7 @@ The graceful shutdown process:
 4. Closes the server
 5. Exits with code 0
 
-### Origin-Based Access Control
+### Origin-based access control.
 
 ```typescript
 // Allow specific domains
@@ -240,7 +240,7 @@ const regexProxy = new RpcProxy({
 })
 ```
 
-### Cache Configuration
+### Cache configuration.
 
 ```typescript
 // Enable caching with 30-second TTL
@@ -258,7 +258,7 @@ const noCacheProxy = new RpcProxy({
 })
 ```
 
-## Related
+## Related.
 
 - [RPC Proxy Server](/api/rpc-proxy) — Self-hosted RPC proxy details
 - [Blockchain API](/api/blockchain-api) — Blockchain data API

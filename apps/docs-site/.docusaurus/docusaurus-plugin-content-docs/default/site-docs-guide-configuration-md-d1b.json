@@ -1,7 +1,7 @@
 {
   "id": "guide/configuration",
-  "title": "Configuration",
-  "description": "Full configuration options for Cinacoin.",
+  "title": "Configuration.",
+  "description": "Full configuration options for CinaCoin.",
   "source": "@site/docs/guide/configuration.md",
   "sourceDirName": "guide",
   "slug": "/guide/configuration",

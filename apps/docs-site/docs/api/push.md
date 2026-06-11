@@ -1,10 +1,10 @@
-# Push
+# Push.
 
 Real-time push notifications for wallet activity.
 
-## Overview
+## Overview.
 
-Get notified about transactions, approvals, transfers, and chain events in real-time. The Cinacoin Push system delivers notifications to iOS (via APNs) and Android (via FCM) devices, with support for batch delivery, retry logic, rate limiting, and detailed delivery tracking.
+Get notified about transactions, approvals, transfers, and chain events in real-time. The CinaCoin Push system delivers notifications to iOS (via APNs) and Android (via FCM) devices, with support for batch delivery, retry logic, rate limiting, and detailed delivery tracking.
 
 **Key capabilities:**
 
@@ -15,24 +15,24 @@ Get notified about transactions, approvals, transfers, and chain events in real-
 - Rate limiting and retry logic
 - Custom event subscriptions
 
-## Installation
+## Installation.
 
-### Client SDK
+### Client SDK.
 
 ```bash
 npm install @cinacoin/push
 ```
 
-### Push Server
+### Push server.
 
 ```bash
 cd packages/push-server
 npm install
 ```
 
-## Quick Start
+## Quick start.
 
-### Client: Subscribe to Notifications
+### Client: subscribe to notifications.
 
 ```typescript
 import { createPush } from '@cinacoin/push'
@@ -50,7 +50,7 @@ push.on('notification', (notif) => {
 })
 ```
 
-### Server: Send Push Notifications
+### Server: send push notifications.
 
 ```typescript
 import { PushServer } from '@cinacoin/push-server'
@@ -85,9 +85,9 @@ const result = await pushServer.send({
 console.log('Delivered:', result.success)
 ```
 
-## API Reference
+## API reference.
 
-### PushNotification
+### PushNotification.
 
 | Field | Type | Description |
 |---|---|---|
@@ -97,7 +97,7 @@ console.log('Delivered:', result.success)
 | `body` | `string` | Notification body text (max 4096 chars) |
 | `data` | `Record<string, string>` | Optional key-value payload |
 
-### DeliveryResult
+### DeliveryResult.
 
 | Field | Type | Description |
 |---|---|---|
@@ -105,7 +105,7 @@ console.log('Delivered:', result.success)
 | `message` | `string` | Provider message or error description |
 | `timestamp` | `number` | Delivery timestamp (Unix ms) |
 
-### PushServerConfig
+### PushServerConfig.
 
 | Property | Type | Description |
 |---|---|---|
@@ -113,7 +113,7 @@ console.log('Delivered:', result.success)
 | `fcm` | `FCMConfig` | Firebase Cloud Messaging configuration |
 | `timeoutMs` | `number` | Delivery timeout in milliseconds |
 
-### APNsConfig
+### APNsConfig.
 
 | Property | Type | Description |
 |---|---|---|
@@ -122,14 +122,14 @@ console.log('Delivered:', result.success)
 | `bundleId` | `string` | App bundle identifier |
 | `privateKey` | `string` | APNs private key (P8 format) |
 
-### FCMConfig
+### FCMConfig.
 
 | Property | Type | Description |
 |---|---|---|
 | `projectId` | `string` | Firebase project ID |
 | `serviceAccountKey` | `string` | Service account JSON key |
 
-### PushServer Methods
+### PushServer methods.
 
 | Method | Description |
 |---|---|
@@ -140,7 +140,7 @@ console.log('Delivered:', result.success)
 | `getDeliveryLog()` | Retrieve delivery history |
 | `getRegisteredDevices()` | List all registered devices |
 
-### Client-Side Push API
+### Client-side push API.
 
 | Method | Description |
 |---|---|
@@ -149,9 +149,9 @@ console.log('Delivered:', result.success)
 | `on(event, callback)` | Listen for push events |
 | `off(event, callback)` | Remove event listener |
 
-## Advanced Usage
+## Advanced usage.
 
-### Batch Notifications
+### Batch notifications.
 
 ```typescript
 // Send to multiple devices at once (max 100)
@@ -176,7 +176,7 @@ const delivered = results.filter((r) => r.success).length
 console.log(`${delivered}/${results.length} notifications delivered`)
 ```
 
-### Device Registration
+### Device registration.
 
 ```typescript
 // Register a new device
@@ -192,7 +192,7 @@ devices.forEach((device) => {
 })
 ```
 
-### Delivery Log
+### Delivery log.
 
 ```typescript
 // Get recent delivery results
@@ -206,7 +206,7 @@ failed.forEach((result) => {
 })
 ```
 
-### Event Subscription Types
+### Event subscription types.
 
 | Event | Description |
 |---|---|
@@ -215,7 +215,7 @@ failed.forEach((result) => {
 | `transfer` | ERC-20/ERC-721 transfers |
 | `chain` | Chain switch or network events |
 
-## Architecture
+## Architecture.
 
 ```
 ┌─────────────┐     ┌──────────────┐     ┌─────────┐
@@ -228,7 +228,7 @@ failed.forEach((result) => {
 
 The push server receives wallet activity events from the Relay or indexer, then delivers native push notifications to registered devices via APNs (iOS) or FCM (Android).
 
-## Related
+## Related.
 
 - [Notify Server](/api/notify-server) — Notification event generation
 - [Push Server](/api/push-server) — Self-hosted push server details

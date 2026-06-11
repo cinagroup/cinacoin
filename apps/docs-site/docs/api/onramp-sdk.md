@@ -1,18 +1,18 @@
-# On-Ramp SDK
+# On-ramp SDK.
 
-> `@cinacoin/onramp-sdk` — Fiat on-ramp aggregation SDK for Cinacoin.
+> `@cinacoin/onramp-sdk` — Fiat on-ramp aggregation SDK for CinaCoin.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/onramp-sdk
 ```
 
-## Overview
+## Overview.
 
 Integrate multiple fiat on-ramp providers (MoonPay, Ramp, Transak, Stripe) to allow users to buy crypto with fiat currency.
 
-## Usage
+## Usage.
 
 ```typescript
 import { OnRampSDK } from '@cinacoin/onramp-sdk'
@@ -29,7 +29,7 @@ const url = await onRamp.getCheckoutUrl({
 })
 ```
 
-## Related
+## Related.
 
 - [Swap SDK](/api/swap-sdk)
 - [Payment Flow](/api/payment-flow)

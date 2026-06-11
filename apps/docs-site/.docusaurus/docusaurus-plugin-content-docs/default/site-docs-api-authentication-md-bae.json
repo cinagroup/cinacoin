@@ -1,7 +1,7 @@
 {
   "id": "api/authentication",
   "title": "Authentication",
-  "description": "Complete guide to authenticating with the Cinacoin API",
+  "description": "Complete guide to authenticating with the CinaCoin API",
   "source": "@site/docs/api/authentication.md",
   "sourceDirName": "api",
   "slug": "/api/authentication",
@@ -16,7 +16,7 @@
   "frontMatter": {
     "sidebar_position": 2,
     "title": "Authentication",
-    "description": "Complete guide to authenticating with the Cinacoin API"
+    "description": "Complete guide to authenticating with the CinaCoin API"
   },
   "sidebar": "apiSidebar",
   "previous": {

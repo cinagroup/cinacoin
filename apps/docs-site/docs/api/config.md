@@ -1,14 +1,14 @@
-# Config
+# Config.
 
-> `@cinacoin/config` — Configuration management for Cinacoin.
+> `@cinacoin/config` — Configuration management for CinaCoin.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/config
 ```
 
-## Usage
+## Usage.
 
 ```typescript
 import { Config } from '@cinacoin/config'
@@ -19,6 +19,6 @@ const config = new Config({
 })
 ```
 
-## Related
+## Related.
 
 - [Core SDK](/api/core-sdk)

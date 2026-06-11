@@ -1,10 +1,10 @@
-# Core SDK
+# Core SDK.
 
-> `@cinacoin/core-sdk` — Cinacoin 核心 SDK 参考。
+> `@cinacoin/core-sdk` — CinaCoin 核心 SDK 参考。
 
-## Overview
+## Overview.
 
-The Core SDK is the foundation of the Cinacoin ecosystem. It provides a complete, self-hosted wallet connection toolkit — a drop-in replacement for Reown/WalletConnect infrastructure — with unified chain adapter interfaces, session management, event handling, EIP-6963 wallet discovery, deep linking, EIP-5792 atomic batch transactions, and first-class adapters for 14+ chains.
+The Core SDK is the foundation of the CinaCoin ecosystem. It provides a complete, self-hosted wallet connection toolkit — a drop-in replacement for Reown/WalletConnect infrastructure — with unified chain adapter interfaces, session management, event handling, EIP-6963 wallet discovery, deep linking, EIP-5792 atomic batch transactions, and first-class adapters for 14+ chains.
 
 **Key capabilities:**
 
@@ -15,13 +15,13 @@ The Core SDK is the foundation of the Cinacoin ecosystem. It provides a complete
 - **EIP-6963 wallet discovery** — multi-injected provider detection
 - **Deep linking** — platform-aware redirects with universal link fallback
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/core-sdk
 ```
 
-### Peer Dependencies (optional)
+### Peer dependencies (optional).
 
 Depending on which adapters you need:
 
@@ -32,21 +32,21 @@ npm install ethers@5     # for Ethers5Adapter
 npm install ethers@6     # for Ethers6Adapter
 ```
 
-## Quick Start
+## Quick start.
 
-### Basic Initialization
+### Basic initialization.
 
 ```typescript
-import { Cinacoin } from '@cinacoin/core-sdk'
+import { CinaCoin } from '@cinacoin/core-sdk'
 
-const cinacoin = new Cinacoin({
+const cinacoin = new CinaCoin({
   projectId: 'your-project-id',
   relayUrl: 'wss://relay.cinacoin.com/v1',
   chains: [mainnet, polygon],
 })
 ```
 
-### Connect to a Wallet
+### Connect to a wallet.
 
 ```typescript
 import { Connector, SessionManager } from '@cinacoin/core-sdk'
@@ -63,7 +63,7 @@ session.subscribe((state) => {
 await session.initiate(connector, { chainId: 1 })
 ```
 
-### Dynamic Adapter Creation
+### Dynamic adapter creation.
 
 ```typescript
 import { createAdapter } from '@cinacoin/core-sdk'
@@ -79,9 +79,9 @@ const solanaAdapter = await createAdapter({
 })
 ```
 
-## API Reference
+## API reference.
 
-### Classes
+### Classes.
 
 | Export | Description |
 |---|---|
@@ -90,18 +90,18 @@ const solanaAdapter = await createAdapter({
 | `RedirectHandler` | Platform-aware deep link handler with smart redirect fallback |
 | `EventEmitter` | Internal event system for pub/sub patterns |
 
-### Types
+### Types.
 
 | Export | Description |
 |---|---|
 | `Chain`, `ChainNamespace`, `ChainReference` | Chain identification and grouping |
 | `ConnectParams`, `ConnectionResult` | Connection input/output shapes |
 | `SessionState` | Discriminated union: `'disconnected' \| 'connecting' \| 'connected' \| 'error'` |
-| `CinacoinState`, `ConnectionStatus` | State management types |
+| `CinaCoinState`, `ConnectionStatus` | State management types |
 | `ChainAdapter`, `ChainAdapterMethods` | Unified adapter interface |
 | `EIP6963ProviderInfo`, `EIP1193Provider` | EIP-6963 multi-injected provider types |
 
-### Chain Adapters
+### Chain adapters.
 
 | Adapter | Exported From | Key Features |
 |---|---|---|
@@ -122,7 +122,7 @@ const solanaAdapter = await createAdapter({
 | `NearChainAdapter` | `./adapters/near.js` | NEAR function calls, FT/NFT transfers |
 | `XrplChainAdapter` | `./adapters/xrpl.js` | XRPL payments, offers, NFTs |
 
-### Cryptography
+### Cryptography.
 
 | Export | Description |
 |---|---|
@@ -130,7 +130,7 @@ const solanaAdapter = await createAdapter({
 | `encrypt`, `decrypt`, `deriveSymmetricKey` | Payload encryption utilities |
 | `bytesToHex`, `hexToBytes` | Encoding helpers |
 
-### EIP-5792 (Wallet Call API)
+### EIP-5792 (Wallet Call API).
 
 | Export | Description |
 |---|---|
@@ -141,14 +141,14 @@ const solanaAdapter = await createAdapter({
 | `buildAtomicBatch`, `executeAtomicBatch` | Build and execute atomic batches |
 | `createEthTransferCall`, `createContractCall` | Individual call builders |
 
-### EIP-6963 (Multi-Injected Provider)
+### EIP-6963 (Multi-injected provider).
 
 | Export | Description |
 |---|---|
 | `discoverWallets`, `watchWallets` | Detect injected wallet providers |
 | `findWalletByRdns` | Look up wallet by reverse DNS |
 
-### Deep Linking
+### Deep linking.
 
 | Export | Description |
 |---|---|
@@ -157,9 +157,9 @@ const solanaAdapter = await createAdapter({
 | `generateUniversalLink` | Universal link for mobile |
 | `detectPlatform` | Detect current platform (iOS/Android/Web) |
 
-## Advanced Usage
+## Advanced usage.
 
-### Session Persistence & Security
+### Session persistence & security.
 
 SessionManager persists session state to `localStorage` with automatic expiry (24h) and integrity validation. For production:
 
@@ -180,7 +180,7 @@ const unsubscribe = session.subscribe((state) => {
 unsubscribe()
 ```
 
-### Custom Connector Implementation
+### Custom connector implementation.
 
 ```typescript
 import { Connector } from '@cinacoin/core-sdk'
@@ -227,7 +227,7 @@ class MyWalletConnector extends Connector {
 }
 ```
 
-## Related
+## Related.
 
 - [React Adapter](/api/react) — React hooks and provider
 - [SIWE](/api/siwe) — Sign-In with Ethereum

@@ -1,7 +1,7 @@
 {
   "id": "api/payment-flow",
-  "title": "Payment Flow",
-  "description": "@cinacoin/payment-flow — Payment flow management for Cinacoin.",
+  "title": "Payment flow.",
+  "description": "@cinacoin/payment-flow — Payment flow management for CinaCoin.",
   "source": "@site/docs/api/payment-flow.md",
   "sourceDirName": "api",
   "slug": "/api/payment-flow",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Paymaster",
+    "title": "Paymaster.",
     "permalink": "/docs/api/paymaster"
   },
   "next": {
-    "title": "Performance Utils",
+    "title": "Performance utils.",
     "permalink": "/docs/api/performance-utils"
   }
 }

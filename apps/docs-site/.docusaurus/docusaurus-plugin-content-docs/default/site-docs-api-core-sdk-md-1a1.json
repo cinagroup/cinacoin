@@ -1,7 +1,7 @@
 {
   "id": "api/core-sdk",
-  "title": "Core SDK",
-  "description": "@cinacoin/core-sdk — Cinacoin 核心 SDK 参考。",
+  "title": "Core SDK.",
+  "description": "@cinacoin/core-sdk — CinaCoin 核心 SDK 参考。",
   "source": "@site/docs/api/core-sdk.md",
   "sourceDirName": "api",
   "slug": "/api/core-sdk",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Config",
+    "title": "Config.",
     "permalink": "/docs/api/config"
   },
   "next": {
-    "title": "Core UI",
+    "title": "Core UI.",
     "permalink": "/docs/api/core-ui"
   }
 }

@@ -1,18 +1,18 @@
-# Gas Sponsorship
+# Gas sponsorship.
 
-> `@cinacoin/gas-sponsorship` — Gas sponsorship management for Cinacoin.
+> `@cinacoin/gas-sponsorship` — Gas sponsorship management for CinaCoin.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/gas-sponsorship
 ```
 
-## Overview
+## Overview.
 
 Manage gas sponsorship policies, track gas usage, and configure Paymaster rules for sponsored transactions.
 
-## Related
+## Related.
 
 - [Paymaster](/api/paymaster)
 - [AA SDK](/api/aa-sdk)

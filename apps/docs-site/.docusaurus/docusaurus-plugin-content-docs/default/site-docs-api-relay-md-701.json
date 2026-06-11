@@ -1,6 +1,6 @@
 {
   "id": "api/relay",
-  "title": "Relay",
+  "title": "Relay.",
   "description": "Cross-chain message relay infrastructure.",
   "source": "@site/docs/api/relay.md",
   "sourceDirName": "api",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Relay Server",
+    "title": "Relay server.",
     "permalink": "/docs/api/relay-server"
   },
   "next": {
-    "title": "RPC Proxy",
+    "title": "RPC proxy.",
     "permalink": "/docs/api/rpc-proxy"
   }
 }

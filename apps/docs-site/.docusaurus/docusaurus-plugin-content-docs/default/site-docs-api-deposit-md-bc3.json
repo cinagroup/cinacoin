@@ -1,7 +1,7 @@
 {
   "id": "api/deposit",
-  "title": "Deposit",
-  "description": "@cinacoin/deposit — Deposit tracking and management for Cinacoin.",
+  "title": "Deposit.",
+  "description": "@cinacoin/deposit — Deposit tracking and management for CinaCoin.",
   "source": "@site/docs/api/deposit.md",
   "sourceDirName": "api",
   "slug": "/api/deposit",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Custom Connectors",
+    "title": "Custom connectors.",
     "permalink": "/docs/api/custom-connectors"
   },
   "next": {
-    "title": "Design Tokens",
+    "title": "Design tokens.",
     "permalink": "/docs/api/design-tokens"
   }
 }

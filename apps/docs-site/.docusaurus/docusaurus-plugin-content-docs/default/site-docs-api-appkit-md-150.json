@@ -1,6 +1,6 @@
 {
   "id": "api/appkit",
-  "title": "AppKit",
+  "title": "AppKit.",
   "description": "Universal wallet connection kit. 300+ wallets, 50+ chains.",
   "source": "@site/docs/api/appkit.md",
   "sourceDirName": "api",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Angular",
+    "title": "Angular.",
     "permalink": "/docs/api/angular"
   },
   "next": {
-    "title": "Auth",
+    "title": "Auth.",
     "permalink": "/docs/api/auth"
   }
 }

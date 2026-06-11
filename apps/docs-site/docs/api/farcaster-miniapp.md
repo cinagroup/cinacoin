@@ -1,17 +1,17 @@
-# Farcaster Mini App
+# Farcaster mini app.
 
-> `@cinacoin/farcaster-miniapp` — Farcaster Frames/Mini App integration for Cinacoin.
+> `@cinacoin/farcaster-miniapp` — Farcaster Frames/Mini App integration for CinaCoin.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/farcaster-miniapp
 ```
 
-## Overview
+## Overview.
 
-Integrate Cinacoin wallet connections into Farcaster Frames and Mini Apps for social-first Web3 experiences.
+Integrate CinaCoin wallet connections into Farcaster Frames and Mini Apps for social-first Web3 experiences.
 
-## Related
+## Related.
 
 - [Telegram Mini App](/api/telegram-miniapp)

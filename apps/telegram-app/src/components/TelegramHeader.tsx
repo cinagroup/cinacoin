@@ -20,12 +20,12 @@ export default function TelegramHeader({ user, account }: TelegramHeaderProps) {
     : null;
 
   return (
-    <header className="telegram-header">
+    <header className="telegram-header" role="banner">
       <div className="header-left">
         {avatarUrl ? (
-          <img src={avatarUrl} alt={displayName} className="header-avatar" />
+          <img src={avatarUrl} alt={`${displayName}'s avatar`} className="header-avatar" />
         ) : (
-          <div className="header-avatar-placeholder">
+          <div className="header-avatar-placeholder" aria-hidden="true">
             {displayName.charAt(0).toUpperCase()}
           </div>
         )}
@@ -41,7 +41,7 @@ export default function TelegramHeader({ user, account }: TelegramHeaderProps) {
       </div>
       <div className="header-right">
         {shortAddress && (
-          <div className="header-address" title={account ?? undefined}>
+          <div className="header-address" title={account ?? undefined} aria-label={`Wallet address: ${account}`}>
             {shortAddress}
           </div>
         )}

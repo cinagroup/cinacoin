@@ -1,39 +1,39 @@
-# Quick Start
+# Quick start.
 
-> Get started with Cinacoin in 5 minutes.
+> Get started with CinaCoin in 5 minutes.
 
-## Prerequisites
+## Prerequisites.
 
 - Node.js 18+
 - A project ID (self-hosted Relay Server)
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/core-sdk @cinacoin/react
 ```
 
-## Basic Setup
+## Basic setup.
 
 ```tsx
-import { CinacoinProvider, ConnectButton } from '@cinacoin/react'
+import { CinaCoinProvider, ConnectButton } from '@cinacoin/react'
 import { EvmAdapter } from '@cinacoin/core-sdk'
 
 function App() {
   return (
-    <CinacoinProvider
+    <CinaCoinProvider
       adapter={new EvmAdapter({
         projectId: 'your-project-id',
         relayUrl: 'wss://relay.cinacoin.com/v1',
       })}
     >
       <ConnectButton />
-    </CinacoinProvider>
+    </CinaCoinProvider>
   )
 }
 ```
 
-## Next Steps
+## Next steps.
 
 - [Installation Guide](/guide/installation) — Detailed installation for all frameworks
 - [Configuration](/guide/configuration) — Full configuration options

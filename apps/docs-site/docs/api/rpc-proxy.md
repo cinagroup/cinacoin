@@ -1,12 +1,12 @@
-# RPC Proxy
+# RPC proxy.
 
 > `@cinacoin/rpc-proxy` — Self-hosted RPC proxy in Go/Rust.
 
-## Overview
+## Overview.
 
 The RPC Proxy provides intelligent routing of JSON-RPC requests across multiple blockchain providers, with caching, deduplication, and failover.
 
-## Features
+## Features.
 
 - Multi-provider intelligent routing
 - Response caching (Redis)
@@ -15,7 +15,7 @@ The RPC Proxy provides intelligent routing of JSON-RPC requests across multiple 
 - Provider health monitoring
 - Automatic failover
 
-## Related
+## Related.
 
 - [Relay Server](/api/relay-server)
 - [Blockchain API](/api/blockchain-api)

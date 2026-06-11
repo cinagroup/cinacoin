@@ -1,7 +1,7 @@
 {
   "id": "api/ui-theme",
-  "title": "UI Theme",
-  "description": "@cinacoin/ui-theme — Theme system for Cinacoin UI components.",
+  "title": "UI theme.",
+  "description": "@cinacoin/ui-theme — Theme system for CinaCoin UI components.",
   "source": "@site/docs/api/ui-theme.md",
   "sourceDirName": "api",
   "slug": "/api/ui-theme",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Travel Rule Demo",
+    "title": "Travel rule demo.",
     "permalink": "/docs/api/travel-rule-demo"
   },
   "next": {
-    "title": "Unity C",
+    "title": "Unity C#.",
     "permalink": "/docs/api/unity-csharp"
   }
 }

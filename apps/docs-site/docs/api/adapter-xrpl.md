@@ -1,17 +1,17 @@
-# XRPL Adapter
+# XRPL adapter.
 
-> `@cinacoin/adapter-xrpl` — XRP Ledger adapter for Cinacoin.
+> `@cinacoin/adapter-xrpl` — XRP Ledger adapter for CinaCoin.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/adapter-xrpl
 ```
 
-## Overview
+## Overview.
 
 Enable XRP Ledger interactions including XRP transfers, token operations (issued currencies), and NFT interactions.
 
-## Related
+## Related.
 
 - [Core SDK](/api/core-sdk)

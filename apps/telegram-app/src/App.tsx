@@ -26,7 +26,7 @@ const TABS: TabConfig[] = [
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<TabId>('home');
-  const [provider] = useState(() => new TelegramProvider({ appName: 'Cinacoin Mini App' }));
+  const [provider] = useState(() => new TelegramProvider({ appName: 'CinaCoin Mini App' }));
   const [user, setUser] = useState<TelegramUser | null>(null);
   const [isReady, setIsReady] = useState(false);
   const [account, setAccount] = useState<string | null>(null);
@@ -122,14 +122,15 @@ export default function App() {
       <main className="app-content">
         {renderPage()}
       </main>
-      <nav className="tab-bar">
+      <nav className="tab-bar" aria-label="Main navigation">
         {TABS.map((tab) => (
           <button
             key={tab.id}
             className={`tab-item ${activeTab === tab.id ? 'active' : ''}`}
             onClick={() => handleTabChange(tab.id)}
+            aria-current={activeTab === tab.id ? 'page' : undefined}
           >
-            <span className="tab-icon">{tab.icon}</span>
+            <span className="tab-icon" aria-hidden="true">{tab.icon}</span>
             <span className="tab-label">{tab.label}</span>
           </button>
         ))}

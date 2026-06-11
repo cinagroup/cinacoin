@@ -1,6 +1,6 @@
 {
   "id": "api/performance-utils",
-  "title": "Performance Utils",
+  "title": "Performance utils.",
   "description": "@cinacoin/performance-utils — Performance optimization utilities.",
   "source": "@site/docs/api/performance-utils.md",
   "sourceDirName": "api",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Payment Flow",
+    "title": "Payment flow.",
     "permalink": "/docs/api/payment-flow"
   },
   "next": {
-    "title": "Push Server",
+    "title": "Push server.",
     "permalink": "/docs/api/push-server"
   }
 }

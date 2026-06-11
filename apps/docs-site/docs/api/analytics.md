@@ -1,17 +1,17 @@
-# Analytics
+# Analytics.
 
-> `@cinacoin/analytics` — Analytics and metrics SDK for Cinacoin.
+> `@cinacoin/analytics` — Analytics and metrics SDK for CinaCoin.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/analytics
 ```
 
-## Overview
+## Overview.
 
-Track wallet connections, transaction success rates, user engagement, and other key metrics for your Cinacoin integration.
+Track wallet connections, transaction success rates, user engagement, and other key metrics for your CinaCoin integration.
 
-## Related
+## Related.
 
 - [Explorer](/api/explorer)

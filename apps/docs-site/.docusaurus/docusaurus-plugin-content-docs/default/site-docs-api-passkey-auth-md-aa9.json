@@ -1,7 +1,7 @@
 {
   "id": "api/passkey-auth",
-  "title": "Passkey Auth",
-  "description": "@cinacoin/passkey-auth — Passkey-based authentication for Cinacoin.",
+  "title": "Passkey auth.",
+  "description": "@cinacoin/passkey-auth — Passkey-based authentication for CinaCoin.",
   "source": "@site/docs/api/passkey-auth.md",
   "sourceDirName": "api",
   "slug": "/api/passkey-auth",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "On-Ramp SDK",
+    "title": "On-ramp SDK.",
     "permalink": "/docs/api/onramp-sdk"
   },
   "next": {
-    "title": "Pay UI",
+    "title": "Pay UI.",
     "permalink": "/docs/api/pay-ui"
   }
 }

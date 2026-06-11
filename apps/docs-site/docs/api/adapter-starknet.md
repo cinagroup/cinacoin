@@ -1,17 +1,17 @@
-# Starknet Adapter
+# Starknet adapter.
 
-> `@cinacoin/adapter-starknet` — Starknet L2 adapter for Cinacoin.
+> `@cinacoin/adapter-starknet` — Starknet L2 adapter for CinaCoin.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/adapter-starknet
 ```
 
-## Overview
+## Overview.
 
 Enable Starknet wallet connections using Starknet.js. Supports Argent X, Braavos, and other Starknet wallets.
 
-## Related
+## Related.
 
 - [Core SDK](/api/core-sdk)

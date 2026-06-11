@@ -1,7 +1,7 @@
 {
   "id": "api/i18n",
-  "title": "i18n",
-  "description": "@cinacoin/i18n — Internationalization utilities for Cinacoin.",
+  "title": "i18n.",
+  "description": "@cinacoin/i18n — Internationalization utilities for CinaCoin.",
   "source": "@site/docs/api/i18n.md",
   "sourceDirName": "api",
   "slug": "/api/i18n",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "Gas Sponsorship",
+    "title": "Gas sponsorship.",
     "permalink": "/docs/api/gas-sponsorship"
   },
   "next": {
-    "title": "iOS Swift",
+    "title": "iOS Swift.",
     "permalink": "/docs/api/ios-swift"
   }
 }

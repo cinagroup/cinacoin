@@ -1,14 +1,14 @@
-# SIWE
+# SIWE.
 
-> `@cinacoin/siwe` — Sign-In with Ethereum integration for Cinacoin.
+> `@cinacoin/siwe` — Sign-In with Ethereum integration for CinaCoin.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/siwe @cinacoin/core-sdk
 ```
 
-## Usage
+## Usage.
 
 ```typescript
 import { SIWE } from '@cinacoin/siwe'
@@ -16,18 +16,18 @@ import { SIWE } from '@cinacoin/siwe'
 const siwe = new SIWE({
   domain: 'cinacoin.com',
   uri: 'https://cinacoin.com',
-  statement: 'Sign in to Cinacoin',
+  statement: 'Sign in to CinaCoin',
 })
 ```
 
-## Methods
+## Methods.
 
 - `createMessage()` — Generate the SIWE message
 - `verify(message, signature)` — Verify a signed SIWE message
 - `getSession()` — Get current session
 - `signOut()` — End the session
 
-## Related
+## Related.
 
 - [SIWX](/api/siwx) — Sign-In with X (extended)
 - [Passkey Auth](/api/passkey-auth) — Passkey authentication

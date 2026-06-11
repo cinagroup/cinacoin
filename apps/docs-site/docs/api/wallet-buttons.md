@@ -1,14 +1,14 @@
-# Wallet Buttons
+# Wallet buttons.
 
 > `@cinacoin/wallet-buttons` — Pre-built wallet connection button components.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/wallet-buttons @cinacoin/core-ui
 ```
 
-## Usage
+## Usage.
 
 ```html
 <cina-wallet-buttons
@@ -17,7 +17,7 @@ npm install @cinacoin/wallet-buttons @cinacoin/core-ui
 />
 ```
 
-## Related
+## Related.
 
 - [Core UI](/api/core-ui)
 - [Wallet Recommender](/api/wallet-recommender)

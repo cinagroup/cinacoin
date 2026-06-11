@@ -1,6 +1,6 @@
 {
   "id": "api/rpc",
-  "title": "RPC Proxy",
+  "title": "RPC proxy.",
   "description": "Unified RPC endpoint with automatic routing.",
   "source": "@site/docs/api/rpc.md",
   "sourceDirName": "api",
@@ -15,11 +15,11 @@
   "frontMatter": {},
   "sidebar": "apiSidebar",
   "previous": {
-    "title": "RPC Proxy",
+    "title": "RPC proxy.",
     "permalink": "/docs/api/rpc-proxy"
   },
   "next": {
-    "title": "Safe Decoder",
+    "title": "Safe decoder.",
     "permalink": "/docs/api/safe-decoder"
   }
 }

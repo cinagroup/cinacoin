@@ -1,18 +1,18 @@
-# Batch Transaction
+# Batch transaction.
 
-> `@cinacoin/batch-transaction` — Batch transaction construction for Cinacoin.
+> `@cinacoin/batch-transaction` — Batch transaction construction for CinaCoin.
 
-## Installation
+## Installation.
 
 ```bash
 npm install @cinacoin/batch-transaction
 ```
 
-## Overview
+## Overview.
 
 Combine multiple transactions into a single atomic batch, reducing gas costs and improving user experience.
 
-## Related
+## Related.
 
 - [AA SDK](/api/aa-sdk)
 - [Safe Decoder](/api/safe-decoder)
