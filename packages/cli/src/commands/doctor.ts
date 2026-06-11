@@ -12,7 +12,7 @@
 import type { Command } from 'commander';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { execSync } from 'node:child_process';
+import { spawnSync } from 'node:child_process';
 import { header, success, error, warn, info } from '../utils/logger.js';
 import { logger } from '@cinacoin/logger';
 
@@ -53,7 +53,9 @@ export function doctorCommand(cli: Command): void {
       const pm = detectPackageManager(cwd);
       if (pm) {
         try {
-          const pmVersion = execSync(`${pm} --version`, { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'pipe'] }).trim();
+          const pmVersionResult = spawnSync(pm, ['--version'], { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'pipe'] });
+          if (pmVersionResult.status !== 0) throw new Error('version check failed');
+          const pmVersion = pmVersionResult.stdout.trim();
           success(`${pm} ${pmVersion}`);
         } catch {
           warn(`${pm} detected but version check failed`);
@@ -145,10 +147,17 @@ export function doctorCommand(cli: Command): void {
         process.stdout.write(`    ${rpc.name.padEnd(22)} `);
         try {
           const start = Date.now();
-          const response = execSync(
-            `curl -s -o /dev/null -w "%{http_code}" -m 5 -X POST ${rpc.url} -H "Content-Type: application/json" -d '{"jsonrpc":"2.0","method":"eth_chainId","params":[],"id":1}'`,
-            { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'pipe'] },
-          ).trim();
+          const curlResult = spawnSync('curl', [
+            '-s', '-o', '/dev/null',
+            '-w', '%{http_code}',
+            '-m', '5',
+            '-X', 'POST',
+            rpc.url,
+            '-H', 'Content-Type: application/json',
+            '-d', '{"jsonrpc":"2.0","method":"eth_chainId","params":[],"id":1}',
+          ], { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'pipe'] });
+          if (curlResult.status !== 0) throw new Error('curl failed');
+          const response = curlResult.stdout.trim();
           const elapsed = Date.now() - start;
           if (response === '200') {
             success(`OK (${elapsed}ms)`);
@@ -202,7 +211,7 @@ function detectPackageManager(cwd: string): string | null {
   // Fallback: check which is available
   for (const pm of ['pnpm', 'yarn', 'npm']) {
     try {
-      execSync(`${pm} --version`, { stdio: 'pipe' });
+      spawnSync(pm, ['--version'], { stdio: 'pipe' });
       return pm;
     } catch {
       // continue

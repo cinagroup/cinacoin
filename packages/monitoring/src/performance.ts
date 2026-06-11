@@ -248,7 +248,7 @@ function collectNavigationTiming(): NavigationTimingMetrics | null {
  * Generate a unique session ID.
  */
 function generateSessionId(): string {
-  return `${Date.now()}-${Math.random().toString(36).substring(2, 11)}`;
+  return `${Date.now()}-${crypto.randomUUID().slice(0, 9)}`;
 }
 
 /**

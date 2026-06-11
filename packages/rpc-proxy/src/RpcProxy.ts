@@ -508,7 +508,10 @@ export class RpcProxy {
           if (isJsonErr || errMsg.includes('JSON')) {
             this.sendError(res, 400, 'Invalid JSON');
           } else {
-            this.sendError(res, 502, errMsg);
+            // SECURITY FIX: Do not leak internal error details in production
+            const isProduction = process.env.NODE_ENV === 'production';
+            const safeMessage = isProduction ? 'Bad Gateway' : errMsg;
+            this.sendError(res, 502, safeMessage);
           }
         }
       })();

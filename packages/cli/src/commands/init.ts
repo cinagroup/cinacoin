@@ -14,7 +14,7 @@
 import type { Command } from 'commander';
 import { join } from 'node:path';
 import { existsSync, mkdirSync, writeFileSync, readFileSync } from 'node:fs';
-import { execSync } from 'node:child_process';
+import { spawnSync } from 'node:child_process';
 import { spinner, header, info, success, warn } from '../utils/logger.js';
 import { copyDir } from '../utils/fs.js';
 
@@ -223,8 +223,9 @@ export function initCommand(cli: Command): void {
           if (!skipInstall) {
             const installS = spinner('Installing dependencies...');
             try {
-              const installCmd = getInstallCommand(packageManager);
-              execSync(installCmd, { cwd: targetDir, stdio: 'pipe' });
+              const [installBin, ...installArgs] = getInstallCommand(packageManager);
+              const installResult = spawnSync(installBin, installArgs, { cwd: targetDir, stdio: 'pipe' });
+              if (installResult.status !== 0) throw new Error('install failed');
               installS.succeed('Dependencies installed');
             } catch (installErr) {
               installS.warn(`Dependency install failed — run '${packageManager} install' manually`);
@@ -805,10 +806,10 @@ Copy \`.env.example\` to \`.env.local\` and configure your RPC endpoints.
 // Utility helpers
 // ============================================================
 
-function getInstallCommand(pm: string): string {
+function getInstallCommand(pm: string): [string, string[]] {
   switch (pm) {
-    case 'pnpm': return 'pnpm install';
-    case 'yarn': return 'yarn install';
-    default: return 'npm install';
+    case 'pnpm': return ['pnpm', ['install']];
+    case 'yarn': return ['yarn', ['install']];
+    default: return ['npm', ['install']];
   }
 }

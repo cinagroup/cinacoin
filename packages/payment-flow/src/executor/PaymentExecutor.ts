@@ -45,7 +45,7 @@ const ERC20_ABI = [
 
 /** Generate a unique client-side payment ID. */
 function generatePaymentId(): string {
-  return `pmt_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
+  return `pmt_${Date.now()}_${crypto.randomUUID().slice(0, 10)}`;
 }
 
 /**

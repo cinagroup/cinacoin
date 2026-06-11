@@ -1,5 +1,5 @@
 import type { Command } from 'commander';
-import { execSync } from 'node:child_process';
+import { spawnSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { spinner, warn } from '../utils/logger.js';
@@ -25,7 +25,8 @@ export function buildCommand(cli: Command): void {
       if (opts.force) {
         const s = spinner('Cleaning dist directories...');
         try {
-          execSync('npx turbo run clean', { cwd: rootDir, stdio: 'pipe' });
+          const cleanResult = spawnSync('npx', ['turbo', 'run', 'clean'], { cwd: rootDir, stdio: 'pipe' });
+          if (cleanResult.status !== 0) throw new Error('clean failed');
           s.succeed('Dist directories cleaned');
         } catch {
           s.warn('Clean failed, continuing with build...');
@@ -35,16 +36,23 @@ export function buildCommand(cli: Command): void {
       const s = spinner('Building packages...');
       try {
         if (opts.scope) {
-          execSync(`npx turbo run build --filter=${opts.scope}`, {
+          // Validate scope to prevent injection
+          const safeScope = opts.scope.replace(/[^a-zA-Z0-9@/_-]/g, '');
+          if (safeScope !== opts.scope) {
+            throw new Error('Invalid package scope: only alphanumeric, @, /, _, and hyphens allowed');
+          }
+          const scopeResult = spawnSync('npx', ['turbo', 'run', 'build', `--filter=${safeScope}`], {
             cwd: rootDir,
             stdio: 'pipe',
           });
-          s.succeed(`Built ${opts.scope}`);
+          if (scopeResult.status !== 0) throw new Error('build failed');
+          s.succeed(`Built ${safeScope}`);
         } else {
-          execSync('npx turbo run build', {
+          const buildResult = spawnSync('npx', ['turbo', 'run', 'build'], {
             cwd: rootDir,
             stdio: 'pipe',
           });
+          if (buildResult.status !== 0) throw new Error('build failed');
           s.succeed('All packages built');
         }
       } catch (err) {

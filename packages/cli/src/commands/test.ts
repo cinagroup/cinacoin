@@ -1,5 +1,5 @@
 import type { Command } from 'commander';
-import { execSync } from 'node:child_process';
+import { spawnSync } from 'node:child_process';
 import { spinner, warn } from '../utils/logger.js';
 
 // ============================================================
@@ -31,14 +31,15 @@ export function testCommand(cli: Command): void {
       if (runUnit) {
         const s = spinner('Running unit tests...');
         try {
-          let cmd = 'npx vitest run';
-          if (opts.watch) {
-            cmd = 'npx vitest';
+          const args = ['vitest'];
+          if (!opts.watch) {
+            args.push('run');
           }
           if (opts.coverage) {
-            cmd += ' --coverage';
+            args.push('--coverage');
           }
-          execSync(cmd, { stdio: 'inherit' });
+          const result = spawnSync('npx', args, { stdio: 'inherit' });
+          if (result.status !== 0) throw new Error('vitest failed');
           s.succeed('Unit tests passed');
         } catch (err) {
           s.fail(`Unit tests failed`);
@@ -51,17 +52,23 @@ export function testCommand(cli: Command): void {
       if (runE2e) {
         const s = spinner('Running E2E tests...');
         try {
-          let cmd = 'npx playwright test';
+          const args = ['playwright', 'test'];
           if (opts.project) {
-            cmd += ` --project=${opts.project}`;
+            // Validate project name to prevent injection
+            const safeProject = opts.project.replace(/[^a-zA-Z0-9_-]/g, '');
+            if (safeProject !== opts.project) {
+              throw new Error('Invalid project name: only alphanumeric, hyphens, and underscores allowed');
+            }
+            args.push(`--project=${safeProject}`);
           }
           if (opts.ui) {
-            cmd += ' --ui';
+            args.push('--ui');
           }
           if (opts.coverage) {
-            cmd += ' --reporter=html';
+            args.push('--reporter=html');
           }
-          execSync(cmd, { stdio: 'inherit' });
+          const result = spawnSync('npx', args, { stdio: 'inherit' });
+          if (result.status !== 0) throw new Error('playwright failed');
           s.succeed('E2E tests passed');
         } catch (err) {
           s.fail(`E2E tests failed`);

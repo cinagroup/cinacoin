@@ -61,7 +61,9 @@ export function SendPage({ tokens = DEFAULT_TOKENS, onSend }: SendPageProps) {
   const handleSend = useCallback(() => {
     setStep("status");
     setTxStatus("pending");
-    const hash = `0x${Math.random().toString(16).slice(2, 64)}`;
+    const hashBytes = new Uint8Array(32);
+    crypto.getRandomValues(hashBytes);
+    const hash = `0x${Array.from(hashBytes).map(b => b.toString(16).padStart(2, '0')).join('')}`;
     setTxHash(hash);
     onSend?.({
       recipientAddress,

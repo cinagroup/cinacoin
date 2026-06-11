@@ -86,7 +86,7 @@ export function createCrossChainMessage(options: {
   ttlSeconds?: number;
 }): CrossChainMessage {
   return {
-    messageId: `msg-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`,
+    messageId: `msg-${Date.now()}-${crypto.randomUUID().slice(0, 10)}`,
     type: options.type,
     sourceChain: options.sourceChain,
     sourceChainId: options.sourceChainId,

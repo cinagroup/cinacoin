@@ -5,6 +5,8 @@ const envSchema = z.object({
   RPC_URLS: z.string().optional(),
   METADATA_BASE_URL: z.string().url().optional(),
   DEFAULT_CHAIN_ID: z.string().regex(/^\d+$/).optional(),
+  BLOCKCHAIN_API_KEY: z.string().optional(),
+  BLOCKCHAIN_RATE_LIMIT: z.string().regex(/^\d+$/).optional(),
 });
 
 export type Env = z.infer<typeof envSchema>;

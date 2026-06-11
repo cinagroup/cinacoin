@@ -173,7 +173,7 @@ export function createBridgeTransferRecord(options: {
   protocol: string;
 }): BridgeTransfer {
   const now = Date.now();
-  const bridgeId = options.bridgeId || `bridge-${now}-${Math.random().toString(36).slice(2, 10)}`;
+  const bridgeId = options.bridgeId || `bridge-${now}-${crypto.randomUUID().slice(0, 10)}`;
 
   return {
     bridgeId,

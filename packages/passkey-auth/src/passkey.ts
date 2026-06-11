@@ -116,39 +116,16 @@ export class PasskeyManager {
       });
 
       if (!WebAuthnClient.isAvailable()) {
-        // Fallback: verify against stored passkey
-        if (credentialId) {
-          const stored = await this.storage.load(credentialId);
-          if (!stored) {
-            return {
-              success: false,
-              credentialId,
-              signature: '',
-              authenticatorData: '',
-              clientDataJSON: '',
-              error: 'Passkey not found',
-            };
-          }
-          // Update last used timestamp
-          stored.lastUsed = Date.now();
-          await this.storage.save(stored);
-
-          return {
-            success: true,
-            credentialId,
-            signature: '',
-            authenticatorData: '',
-            clientDataJSON: '',
-            userHandle: credentialId,
-          };
-        }
+        // SECURITY FIX: Do NOT fall back to unauthenticated success.
+        // WebAuthn unavailability must result in authentication failure,
+        // not a bypass that returns success with an empty signature.
         return {
           success: false,
-          credentialId: '',
+          credentialId: credentialId ?? '',
           signature: '',
           authenticatorData: '',
           clientDataJSON: '',
-          error: 'No credential ID provided for fallback authentication',
+          error: 'WebAuthn is not available in this environment; authentication requires a hardware authenticator',
         };
       }
 

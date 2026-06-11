@@ -217,7 +217,7 @@ export abstract class BaseAdapter {
    * Generate a unique session ID.
    */
   protected generateSessionId(): string {
-    return `${this.id}-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+    return `${this.id}-${Date.now()}-${crypto.randomUUID().slice(0, 10)}`;
   }
 
   /**

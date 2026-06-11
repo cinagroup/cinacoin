@@ -247,7 +247,7 @@ export class BatchPayment {
 
     // Generate payment IDs for tracking
     const paymentIds = this.items.map(() => {
-      return `pmt_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
+      return `pmt_${Date.now()}_${crypto.randomUUID().slice(0, 10)}`;
     });
 
     return {

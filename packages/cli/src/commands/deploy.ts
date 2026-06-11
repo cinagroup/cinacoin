@@ -14,7 +14,7 @@
 import type { Command } from 'commander';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { execSync } from 'node:child_process';
+import { spawnSync } from 'node:child_process';
 import { spinner, header, info, success, warn, error } from '../utils/logger.js';
 import { logger } from '@cinacoin/logger';
 
@@ -135,7 +135,8 @@ pages_build_output_dir = "${config.outputDir}"
     // Build
     const buildS = spinner('Building project...');
     try {
-      execSync('npm run build', { cwd, stdio: 'pipe' });
+      const buildResult = spawnSync('npm', ['run', 'build'], { cwd, stdio: 'pipe' });
+      if (buildResult.status !== 0) throw new Error('build failed');
       buildS.succeed('Build completed');
     } catch (buildErr) {
       buildS.fail('Build failed');
@@ -143,11 +144,13 @@ pages_build_output_dir = "${config.outputDir}"
     }
 
     // Deploy
-    const deployCmd = env === 'prod'
-      ? 'npx wrangler pages deploy'
-      : 'npx wrangler pages deploy --branch preview';
+    const deployArgs = ['wrangler', 'pages', 'deploy'];
+    if (env !== 'prod') {
+      deployArgs.push('--branch', 'preview');
+    }
 
-    execSync(deployCmd, { cwd, stdio: 'pipe' });
+    const deployResult = spawnSync('npx', deployArgs, { cwd, stdio: 'pipe' });
+    if (deployResult.status !== 0) throw new Error('deploy failed');
     s.succeed(`Deployed to Cloudflare Pages (${env})`);
 
     logger.info('');
@@ -170,7 +173,8 @@ async function deployVercel(config: ProjectConfig, cwd: string, env: string): Pr
     // Build
     const buildS = spinner('Building project...');
     try {
-      execSync('npm run build', { cwd, stdio: 'pipe' });
+      const buildResult = spawnSync('npm', ['run', 'build'], { cwd, stdio: 'pipe' });
+      if (buildResult.status !== 0) throw new Error('build failed');
       buildS.succeed('Build completed');
     } catch (buildErr) {
       buildS.fail('Build failed');
@@ -178,11 +182,13 @@ async function deployVercel(config: ProjectConfig, cwd: string, env: string): Pr
     }
 
     // Deploy
-    const deployCmd = env === 'prod'
-      ? 'npx vercel --prod --yes'
-      : 'npx vercel --yes';
+    const deployArgs = ['vercel', '--yes'];
+    if (env === 'prod') {
+      deployArgs.push('--prod');
+    }
 
-    execSync(deployCmd, { cwd, stdio: 'pipe' });
+    const deployResult = spawnSync('npx', deployArgs, { cwd, stdio: 'pipe' });
+    if (deployResult.status !== 0) throw new Error('deploy failed');
     s.succeed(`Deployed to Vercel (${env})`);
 
   } catch (err) {
@@ -259,7 +265,8 @@ export function deployCommand(cli: Command): void {
         if (!opts.skipBuild) {
           const buildS = spinner('Building project...');
           try {
-            execSync(config.buildCommand, { cwd, stdio: 'pipe' });
+            const buildResult = spawnSync('npm', ['run', 'build'], { cwd, stdio: 'pipe' });
+            if (buildResult.status !== 0) throw new Error('build failed');
             buildS.succeed('Build completed');
           } catch (buildErr) {
             buildS.fail(`Build failed: ${buildErr instanceof Error ? buildErr.message : String(buildErr)}`);

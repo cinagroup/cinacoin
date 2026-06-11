@@ -142,7 +142,7 @@ export function DepositWidget(props: DepositWidgetProps): React.ReactElement {
       await new Promise((resolve) => setTimeout(resolve, 500));
 
       const result: DepositResult = {
-        depositId: `dep_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+        depositId: `dep_${Date.now()}_${crypto.randomUUID().slice(0, 8)}`,
         status: "pending" as DepositStatus,
         exchangeId: "direct",
         asset: selectedToken,

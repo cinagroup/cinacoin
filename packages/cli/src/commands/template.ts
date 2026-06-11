@@ -891,7 +891,9 @@ export default function SessionKeyManager({ onReady }) {
     setStatus('creating');
     // Simulated session key creation
     await new Promise(r => setTimeout(r, 1500));
-    const key = '0x' + Array.from({ length: 40 }, () => Math.floor(Math.random() * 16).toString(16)).join('');
+    const keyBytes = new Uint8Array(20);
+    crypto.getRandomValues(keyBytes);
+    const key = '0x' + Array.from(keyBytes).map(b => b.toString(16).padStart(2, '0')).join('');
     setSessionKey(key);
     setStatus('active');
     onReady?.();

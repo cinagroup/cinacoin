@@ -391,7 +391,7 @@ export class VerifyingPaymaster {
     return {
       paymaster: this.config.paymasterAddress,
       paymasterData: paymasterAndData,
-      sponsorshipId: `sponsor_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+      sponsorshipId: `sponsor_${Date.now()}_${crypto.randomUUID().slice(0, 8)}`,
     };
   }
 

@@ -567,7 +567,9 @@ export class BridgeExecutor {
   }
 
   private simulateTxHash(prefix: string): string {
-    const hex = Math.random().toString(16).slice(2, 10).padStart(8, "0");
+    const hexBytes = new Uint8Array(4);
+    crypto.getRandomValues(hexBytes);
+    const hex = Array.from(hexBytes).map(b => b.toString(16).padStart(2, '0')).join('');
     return `0x${prefix}${hex}0000000000000000000000000000000000000000000000000000000`;
   }
 }

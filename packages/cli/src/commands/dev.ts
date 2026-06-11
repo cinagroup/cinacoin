@@ -106,16 +106,16 @@ function handleRpc(method: string, params: unknown[], chainId: number): unknown 
 
     case 'eth_sendTransaction':
       // Simulate successful tx
-      const hash = '0x' + Array.from({ length: 64 }, () =>
-        Math.floor(Math.random() * 16).toString(16)
-      ).join('');
+      const hashBytes = new Uint8Array(32);
+      crypto.getRandomValues(hashBytes);
+      const hash = '0x' + Array.from(hashBytes).map(b => b.toString(16).padStart(2, '0')).join('');
       return hash;
 
     case 'personal_sign':
     case 'eth_signTypedData_v4':
-      return '0x' + Array.from({ length: 130 }, () =>
-        Math.floor(Math.random() * 16).toString(16)
-      ).join('');
+      const sigBytes = new Uint8Array(65);
+      crypto.getRandomValues(sigBytes);
+      return '0x' + Array.from(sigBytes).map(b => b.toString(16).padStart(2, '0')).join('');
 
     case 'wallet_switchEthereumChain':
       const newChainId = parseInt(((params as unknown[])[0] as unknown).chainId, 16);

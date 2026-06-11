@@ -115,7 +115,7 @@ export class ComplianceReportGenerator {
     evaluation: TravelRuleResult,
     options?: Partial<ReportContext>,
   ): Promise<ComplianceReport> {
-    const reportId = `report-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+    const reportId = `report-${Date.now()}-${crypto.randomUUID().slice(0, 10)}`;
 
     const context: ReportContext = {
       reportId,

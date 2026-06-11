@@ -338,7 +338,7 @@ export class OnRampWidget {
     cryptoAmount: number,
     cryptoToken: string
   ): string {
-    const orderId = `order_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+    const orderId = `order_${Date.now()}_${crypto.randomUUID().slice(0, 8)}`;
     const now = Date.now();
 
     const order: OrderInfo = {

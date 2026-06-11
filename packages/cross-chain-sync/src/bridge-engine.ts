@@ -282,7 +282,7 @@ export class BridgeEngine {
     }
 
     // Generate transfer ID
-    const transferId = `bridge-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+    const transferId = `bridge-${Date.now()}-${crypto.randomUUID().slice(0, 10)}`;
     const now = Date.now();
 
     // Create transfer record

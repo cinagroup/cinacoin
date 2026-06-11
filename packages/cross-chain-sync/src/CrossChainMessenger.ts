@@ -478,6 +478,6 @@ export class CrossChainMessenger {
   }
 
   private generateBatchId(): string {
-    return `batch-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
+    return `batch-${Date.now().toString(36)}-${crypto.randomUUID().slice(0, 8)}`;
   }
 }
