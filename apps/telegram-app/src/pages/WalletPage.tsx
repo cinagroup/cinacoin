@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import type { TelegramProvider } from '@cinacoin/telegram-miniapp';
+import { CreditCard, Circle, Wallet, Link2, ClipboardCopy, RefreshCw } from 'lucide-react';
 import '../styles/pages.css';
 
 interface WalletPageProps {
@@ -93,11 +94,12 @@ export default function WalletPage({
 
   return (
     <div className="page wallet-page">
-      <h1 className="page-title">Wallet</h1>
+      <p className="font-mono text-xs text-[var(--cc-muted,#999)] mb-2">WALLET</p>
+      <h1 className="page-title font-semibold">Wallet.</h1>
 
       {!account ? (
         <div className="connect-section">
-          <div className="connect-icon">💳</div>
+          <div className="connect-icon"><CreditCard className="w-8 h-8" /></div>
           <h2>Connect Your Wallet</h2>
           <p className="connect-description">
             Link your wallet to send, receive, and manage your tokens directly within Telegram.
@@ -122,15 +124,15 @@ export default function WalletPage({
 
           <div className="wallet-options">
             <div className="wallet-option">
-              <span className="wallet-option-icon">🔵</span>
+              <span className="wallet-option-icon"><Circle className="w-5 h-5" /></span>
               <span>Telegram Wallet</span>
             </div>
             <div className="wallet-option">
-              <span className="wallet-option-icon">🦊</span>
+              <span className="wallet-option-icon"><Wallet className="w-5 h-5" /></span>
               <span>MetaMask</span>
             </div>
             <div className="wallet-option">
-              <span className="wallet-option-icon">🔗</span>
+              <span className="wallet-option-icon"><Link2 className="w-5 h-5" /></span>
               <span>WalletConnect</span>
             </div>
           </div>
@@ -149,14 +151,14 @@ export default function WalletPage({
 
           <div className="wallet-actions">
             <button className="cc-btn-secondary" onClick={handleCopyAddress}>
-              📋 Copy Address
+              <ClipboardCopy className="w-4 h-4 inline-block mr-1" /> Copy Address
             </button>
             <button
               className="cc-btn-secondary"
               onClick={handleFetchBalance}
               disabled={fetchingBalance}
             >
-              {fetchingBalance ? '⟳ Fetching...' : '↻ Refresh Balance'}
+              {fetchingBalance ? <><RefreshCw className="w-4 h-4 inline-block mr-1 animate-spin" /> Fetching...</> : <><RefreshCw className="w-4 h-4 inline-block mr-1" /> Refresh Balance</>}
             </button>
             <button className="cc-btn-danger" onClick={handleDisconnect}>
               Disconnect

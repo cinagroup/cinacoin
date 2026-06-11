@@ -1,23 +1,24 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react'
+import { Link2, CircleDot, ShieldCheck, Palette, Ghost, Lock, Sparkles } from 'lucide-react'
 import { useWallet, formatAddress } from '../contexts/WalletContext'
 
 interface WalletOption {
   id: string
   name: string
-  emoji: string
+  icon: React.FC<{className?: string}>
   color: string
   popular: boolean
 }
 
 const WALLETS: WalletOption[] = [
- { id: 'metamask', name: 'MetaMask', emoji: '🦊', color: 'var(--cc-demo-wallet-metamask)', popular: true },
- { id: 'walletconnect', name: 'WalletConnect', emoji: '🔗', color: 'var(--cc-demo-wallet-walletconnect)', popular: true },
- { id: 'coinbase', name: 'Coinbase Wallet', emoji: '🔵', color: 'var(--cc-demo-wallet-coinbase)', popular: true },
- { id: 'rainbow', name: 'Rainbow', emoji: '🌈', color: 'var(--cc-demo-wallet-rainbow)', popular: true },
- { id: 'phantom', name: 'Phantom', emoji: '👻', color: 'var(--cc-demo-wallet-phantom)', popular: true },
- { id: 'trust', name: 'Trust Wallet', emoji: '🛡️', color: 'var(--cc-demo-wallet-trust)', popular: true },
- { id: 'ledger', name: 'Ledger', emoji: '🔒', color: 'var(--cc-demo-wallet-ledger)', popular: false },
- { id: 'zerion', name: 'Zerion', emoji: '💜', color: 'var(--cc-demo-wallet-zerion)', popular: false },
+ { id: 'metamask', name: 'MetaMask', icon: CircleDot, color: 'var(--cc-demo-wallet-metamask)', popular: true },
+ { id: 'walletconnect', name: 'WalletConnect', icon: Link2, color: 'var(--cc-demo-wallet-walletconnect)', popular: true },
+ { id: 'coinbase', name: 'Coinbase Wallet', icon: CircleDot, color: 'var(--cc-demo-wallet-coinbase)', popular: true },
+ { id: 'rainbow', name: 'Rainbow', icon: Palette, color: 'var(--cc-demo-wallet-rainbow)', popular: true },
+ { id: 'phantom', name: 'Phantom', icon: Ghost, color: 'var(--cc-demo-wallet-phantom)', popular: true },
+ { id: 'trust', name: 'Trust Wallet', icon: ShieldCheck, color: 'var(--cc-demo-wallet-trust)', popular: true },
+ { id: 'ledger', name: 'Ledger', icon: Lock, color: 'var(--cc-demo-wallet-ledger)', popular: false },
+ { id: 'zerion', name: 'Zerion', icon: Sparkles, color: 'var(--cc-demo-wallet-zerion)', popular: false },
 ]
 
 type ModalState = 'closed' | 'open' | 'connecting' | 'success' | 'error' | 'no-wallet'
@@ -275,7 +276,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  style={{ backgroundColor: wallet.color + '20' }}
  aria-hidden="true"
  >
- {wallet.emoji}
+ <wallet.icon className="w-5 h-5" style={{ color: wallet.color }} />
  </div>
  <span className="flex-1 text-left font-medium">{wallet.name}</span>
  {detected && (
@@ -308,7 +309,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  style={{ backgroundColor: wallet.color + '20' }}
  aria-hidden="true"
  >
- {wallet.emoji}
+ <wallet.icon className="w-5 h-5" style={{ color: wallet.color }} />
  </div>
  <span className="flex-1 text-left font-medium">{wallet.name}</span>
  <svg className="w-5 h-5 text-[var(--cc-muted)] group-hover:text-[var(--cc-muted)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -334,7 +335,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  className="absolute inset-2 w-16 h-16 rounded-md flex items-center justify-center text-display-md"
  style={{ backgroundColor: selectedWallet.color + '20' }}
  >
- {selectedWallet.emoji}
+ <selectedWallet.icon className="w-8 h-8" style={{ color: selectedWallet.color }} />
  </div>
  </div>
  <p className="text-[var(--cc-muted)] text-body-sm mb-4">
@@ -411,7 +412,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  <div className="flex flex-col items-center justify-center py-12 px-6">
  {/* Wallet not found icon */}
  <div className="w-20 h-20 rounded-full bg-[var(--cc-warning)]/15 flex items-center justify-center mb-6 animate-bounce-in">
- <div className="text-display-xl">{selectedWallet.emoji}</div>
+ <div className="text-display-xl"><selectedWallet.icon className="w-8 h-8" style={{ color: selectedWallet.color }} /></div>
  </div>
  <h3 className="cc-display-sm mb-2">
  {selectedWallet.id === 'walletconnect'

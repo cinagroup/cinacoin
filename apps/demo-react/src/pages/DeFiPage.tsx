@@ -5,13 +5,14 @@
  */
 
 import { useState, useCallback } from 'react';
+import { TrendingUp, ArrowLeftRight, CheckCircle2 } from 'lucide-react';
 import { CodeExample } from '../components/CodeExample';
 
 const POOLS = [
-  { id: 1, name: 'ETH / USDC', apy: 12.5, tvl: 45200000, staked: 0, icon: '⟠💵' },
-  { id: 2, name: 'BTC / ETH', apy: 8.3, tvl: 32100000, staked: 0, icon: '₿⟠' },
-  { id: 3, name: 'MATIC / USDC', apy: 18.7, tvl: 12800000, staked: 0, icon: '⬡💵' },
-  { id: 4, name: 'LINK / ETH', apy: 15.2, tvl: 8900000, staked: 0, icon: '⬡⟠' },
+  { id: 1, name: 'ETH / USDC', apy: 12.5, tvl: 45200000, staked: 0 },
+  { id: 2, name: 'BTC / ETH', apy: 8.3, tvl: 32100000, staked: 0 },
+  { id: 3, name: 'MATIC / USDC', apy: 18.7, tvl: 12800000, staked: 0 },
+  { id: 4, name: 'LINK / ETH', apy: 15.2, tvl: 8900000, staked: 0 },
 ];
 
 const SWAP_TOKENS = ['ETH', 'USDC', 'USDT', 'DAI', 'WBTC', 'LINK', 'MATIC'];
@@ -138,7 +139,7 @@ export function DeFiPage() {
               <div key={pool.id} className="bg-[var(--cc-demo-surface-dark)] rounded-xl p-5">
                 <div className="flex justify-between items-center mb-3">
                   <div>
-                    <span className="text-[var(--cc-text-lg)] mr-2">{pool.icon}</span>
+                    <TrendingUp className="w-5 h-5 inline-block mr-2 text-[var(--cc-demo-success)]" />
                     <span className="text-[var(--cc-text-md)] font-semibold">{pool.name}</span>
                   </div>
                   <div className="text-right">
@@ -254,8 +255,8 @@ export function DeFiPage() {
             </button>
 
             {swapResult && (
-              <div className="mt-4 p-3 bg-[rgba(74,222,128,0.06)] rounded-lg text-[var(--cc-demo-success)] text-[var(--cc-text-sm)] text-center">
-                ✅ {swapResult}
+              <div className="mt-4 p-3 bg-[rgba(74,222,128,0.06)] rounded-lg text-[var(--cc-demo-success)] text-[var(--cc-text-sm)] text-center flex items-center justify-center gap-2">
+                <CheckCircle2 className="w-4 h-4" /> {swapResult}
               </div>
             )}
           </div>

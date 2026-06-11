@@ -1,3 +1,5 @@
+import { Send, Download, RefreshCw, Check, Loader2, X } from 'lucide-react';
+
 export interface Transaction {
   hash: string;
   from: string;
@@ -22,13 +24,13 @@ export default function TransactionItem({ transaction, currentAddress }: Transac
 
   const timeAgo = getTimeAgo(timestamp);
 
-  const statusIcon = status === 'confirmed' ? '✅' : status === 'pending' ? '⏳' : '❌';
-  const typeIcon = type === 'send' ? '📤' : type === 'receive' ? '📥' : '🔄';
+  const StatusIcon = status === 'confirmed' ? Check : status === 'pending' ? Loader2 : X;
+  const TypeIcon = type === 'send' ? Send : type === 'receive' ? Download : RefreshCw;
 
   return (
     <div className={`transaction-item transaction-${status}`}>
       <div className="tx-icon">
-        {typeIcon}
+        <TypeIcon className="w-5 h-5" />
       </div>
       <div className="tx-details">
         <div className="tx-top">
@@ -44,7 +46,7 @@ export default function TransactionItem({ transaction, currentAddress }: Transac
             {shortHash}
           </span>
           <span className="tx-meta">
-            {statusIcon} {timeAgo}
+            <StatusIcon className="w-4 h-4 inline-block mr-1" />{timeAgo}
           </span>
         </div>
         <div className="tx-address">

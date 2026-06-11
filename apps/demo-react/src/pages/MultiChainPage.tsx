@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ArrowLeftRight } from 'lucide-react';
 import SiteHeader from '../components/SiteHeader';
 import SiteFooter from '../components/SiteFooter';
 
@@ -32,6 +33,7 @@ export default function MultiChainPage() {
       <main id="main-content" role="main">
       <section className="max-w-5xl mx-auto w-full pt-12 pb-24 px-4 flex-1" aria-label="Multi-chain support">
         <div className="text-center mb-10">
+          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">MULTI-CHAIN</p>
           <h1 className="cc-display-lg mb-3">16 chains, one SDK</h1>
           <p className="cc-body-md text-[var(--cc-body)] max-w-lg mx-auto">EVM · Solana · Bitcoin · Layer 2s — unified API, zero fragmentation</p>
         </div>
@@ -110,7 +112,7 @@ export default function MultiChainPage() {
             </div>
             <span className="text-display-md text-[var(--cc-muted)]">→</span>
             <div className="bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] rounded-lg px-6 py-4 text-center min-w-[120px]">
-              <span className="text-display-md">🌉</span>
+              <span className="text-display-md"><ArrowLeftRight className="w-6 h-6 inline" /></span>
               <p className="cc-body-sm-strong mt-1">Relay</p>
               <p className="text-caption text-[var(--cc-muted)] cc-caption">Cinacoin</p>
             </div>

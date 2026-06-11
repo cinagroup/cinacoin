@@ -2,14 +2,15 @@
 
 import { useState } from "react";
 import { useAuth } from "./AuthProvider";
+import { LayoutDashboard, Users, Plug, Coins, TrendingUp, Settings, Coins as CoinIcon, LogOut, Lock } from 'lucide-react';
 
 const navItems = [
-  { name: "Dashboard", icon: "📊", active: true },
-  { name: "Users", icon: "👥", active: false },
-  { name: "API", icon: "🔌", active: false },
-  { name: "Transactions", icon: "💰", active: false },
-  { name: "Analytics", icon: "📈", active: false },
-  { name: "Settings", icon: "⚙️", active: false },
+  { name: "Dashboard", icon: LayoutDashboard, active: true },
+  { name: "Users", icon: Users, active: false },
+  { name: "API", icon: Plug, active: false },
+  { name: "Transactions", icon: Coins, active: false },
+  { name: "Analytics", icon: TrendingUp, active: false },
+  { name: "Settings", icon: Settings, active: false },
 ];
 
 export function Sidebar() {
@@ -20,7 +21,7 @@ export function Sidebar() {
     <aside className="sidebar fixed left-0 top-0 h-full w-64 flex flex-col">
       <div className="p-6 border-b border-[var(--color-on-primary)]/10">
         <h2 className="text-display-sm font-semibold flex items-center gap-2">
-          <span className="text-display-md">🪙</span>
+          <span className="text-display-md"><CoinIcon className="w-6 h-6" /></span>
           CinaCoin
         </h2>
         <p className="text-caption text-[var(--color-on-primary)]/60 mt-1">Unified Dashboard</p>
@@ -35,7 +36,7 @@ export function Sidebar() {
               active === item.name ? "active" : ""
             }`}
           >
-            <span className="text-body-lg">{item.icon}</span>
+            <span className="text-body-lg"><item.icon className="w-5 h-5" /></span>
             {item.name}
           </button>
         ))}
@@ -71,7 +72,7 @@ export function Sidebar() {
               onClick={logout}
               className="w-full px-4 py-2 text-body-sm text-left text-[var(--color-on-primary)]/80 hover:text-[var(--color-on-primary)] hover:bg-[var(--color-canvas)]/10 rounded transition-colors"
             >
-              🚪 Logout
+              <LogOut className="w-4 h-4 inline-block mr-1" /> Logout
             </button>
           </div>
         ) : (
@@ -79,7 +80,7 @@ export function Sidebar() {
             onClick={() => window.location.href = 'https://auth.cinacoin.com'}
             className="w-full px-4 py-2 text-body-sm font-medium text-center bg-[var(--color-canvas)]/20 hover:bg-[var(--color-canvas)]/30 rounded transition-colors"
           >
-            🔐 Login
+            <Lock className="w-4 h-4 inline-block mr-1" /> Login
           </button>
         )}
       </div>

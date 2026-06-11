@@ -274,9 +274,6 @@ importers:
       '@cinacoin/react':
         specifier: workspace:*
         version: link:../../packages/react
-      lucide-react:
-        specifier: ^1.17.0
-        version: 1.17.0(react@18.3.1)
       next:
         specifier: 14.2.29
         version: 14.2.29(@playwright/test@1.60.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.100.0)
@@ -314,6 +311,9 @@ importers:
       '@walletconnect/ethereum-provider':
         specifier: ^2.23.9
         version: 2.23.9(@types/react@18.3.12)(db0@0.3.4(better-sqlite3@11.10.0))(immer@11.1.8)(ioredis@5.11.1)(react@18.3.1)(typescript@5.5.4)(use-sync-external-store@1.6.0(react@18.3.1))(zod@3.25.76)
+      lucide-react:
+        specifier: ^1.17.0
+        version: 1.17.0(react@18.3.1)
       react:
         specifier: 18.3.1
         version: 18.3.1
@@ -335,7 +335,7 @@ importers:
         version: 18.3.1
       '@vitejs/plugin-react':
         specifier: ^4.3.4
-        version: 4.7.0(vite@6.4.3(@types/node@22.19.20)(jiti@2.7.0)(less@4.6.4)(sass@1.100.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0))
+        version: 4.7.0(vite@6.4.3(@types/node@22.19.20)(jiti@1.21.7)(less@4.6.4)(sass@1.100.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0))
       autoprefixer:
         specifier: ^10.4.20
         version: 10.5.0(postcss@8.5.15)
@@ -350,7 +350,7 @@ importers:
         version: 5.5.4
       vite:
         specifier: ^6.0.1
-        version: 6.4.3(@types/node@22.19.20)(jiti@2.7.0)(less@4.6.4)(sass@1.100.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0)
+        version: 6.4.3(@types/node@22.19.20)(jiti@1.21.7)(less@4.6.4)(sass@1.100.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0)
 
   apps/demo-vue:
     dependencies:
@@ -455,9 +455,6 @@ importers:
       '@cinacoin/farcaster-miniapp':
         specifier: workspace:*
         version: link:../../packages/farcaster-miniapp
-      lucide-react:
-        specifier: ^1.17.0
-        version: 1.17.0(react@18.3.1)
       next:
         specifier: 14.2.29
         version: 14.2.29(@playwright/test@1.60.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.100.0)
@@ -27450,7 +27447,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vitejs/plugin-react@4.7.0(vite@6.4.3(@types/node@22.19.20)(jiti@2.7.0)(less@4.6.4)(sass@1.100.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0))':
+  '@vitejs/plugin-react@4.7.0(vite@6.4.3(@types/node@22.19.20)(jiti@1.21.7)(less@4.6.4)(sass@1.100.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0))':
     dependencies:
       '@babel/core': 7.29.7
       '@babel/plugin-transform-react-jsx-self': 7.29.7(@babel/core@7.29.7)
@@ -27458,7 +27455,7 @@ snapshots:
       '@rolldown/pluginutils': 1.0.0-beta.27
       '@types/babel__core': 7.20.5
       react-refresh: 0.17.0
-      vite: 6.4.3(@types/node@22.19.20)(jiti@2.7.0)(less@4.6.4)(sass@1.100.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0)
+      vite: 6.4.3(@types/node@22.19.20)(jiti@1.21.7)(less@4.6.4)(sass@1.100.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -39714,6 +39711,24 @@ snapshots:
       less: 4.6.4
       sass: 1.100.0
       terser: 5.48.0
+
+  vite@6.4.3(@types/node@22.19.20)(jiti@1.21.7)(less@4.6.4)(sass@1.100.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0):
+    dependencies:
+      esbuild: 0.25.12
+      fdir: 6.5.0(picomatch@4.0.4)
+      picomatch: 4.0.4
+      postcss: 8.5.15
+      rollup: 4.61.1
+      tinyglobby: 0.2.16
+    optionalDependencies:
+      '@types/node': 22.19.20
+      fsevents: 2.3.3
+      jiti: 1.21.7
+      less: 4.6.4
+      sass: 1.100.0
+      terser: 5.48.0
+      tsx: 4.22.4
+      yaml: 2.9.0
 
   vite@6.4.3(@types/node@22.19.20)(jiti@2.7.0)(less@4.6.4)(sass@1.100.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0):
     dependencies:

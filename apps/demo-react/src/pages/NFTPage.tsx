@@ -5,6 +5,7 @@
  */
 
 import { useState } from 'react';
+import { Image } from 'lucide-react';
 import { CodeExample } from '../components/CodeExample';
 
 // Mock NFT data
@@ -50,13 +51,14 @@ export function NFTPage() {
     <div className="grid grid-cols-2 gap-6 p-6">
       {/* Left: NFT Grid */}
       <div>
+        <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">NFT GALLERY</p>
         <h2 className="text-[var(--cc-text-xl)] font-semibold mb-2">NFT 收藏</h2>
         <p className="text-[var(--cc-demo-text-muted)] mb-6">展示多链 NFT 收藏，点击查看详情。</p>
 
         <div className="grid grid-cols-3 gap-4">
           {MOCK_NFTS.length === 0 ? (
             <div className="col-span-full py-12 px-4 text-center">
-              <div className="text-5xl mb-4">🖼️</div>
+              <Image className="w-12 h-12 mx-auto mb-4 text-[var(--cc-muted)]" />
               <h3 className="text-[var(--cc-text-lg)] font-semibold mb-2">No NFTs yet</h3>
               <p className="text-[var(--cc-text-sm)] text-[var(--cc-demo-text-muted)]">Your NFT collection will appear here once you mint or receive NFTs.</p>
             </div>

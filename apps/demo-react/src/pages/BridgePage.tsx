@@ -5,14 +5,15 @@
  */
 
 import { useState, useCallback } from 'react';
+import { Unlock, Lock, Link2, Coins, CheckCircle2, PartyPopper, Circle } from 'lucide-react';
 import { CodeExample } from '../components/CodeExample';
 
 const CHAINS = [
   { id: 'eip155:1', name: 'Ethereum', icon: '⟠', color: 'var(--cc-demo-chain-ethereum)' },
   { id: 'eip155:137', name: 'Polygon', icon: '⬡', color: 'var(--cc-demo-chain-polygon)' },
   { id: 'eip155:56', name: 'BSC', icon: '◆', color: 'var(--cc-demo-bridge-bsc)' },
-  { id: 'eip155:42161', name: 'Arbitrum', icon: '🔵', color: 'var(--cc-demo-chain-arbitrum)' },
-  { id: 'eip155:10', name: 'Optimism', icon: '🔴', color: 'var(--cc-demo-chain-optimism)' },
+  { id: 'eip155:42161', name: 'Arbitrum', icon: <Circle className="w-5 h-5 text-[var(--cc-demo-chain-arbitrum)]" />, color: 'var(--cc-demo-chain-arbitrum)' },
+  { id: 'eip155:10', name: 'Optimism', icon: <Circle className="w-5 h-5 text-[var(--cc-demo-chain-optimism)]" />, color: 'var(--cc-demo-chain-optimism)' },
 ];
 
 const CODE_EXAMPLE = `import { useBridge, useCoinAccount } from '@cinacoin/core-sdk';
@@ -60,12 +61,12 @@ function BridgeForm() {
 type BridgeStep = 'input' | 'bridging' | 'complete';
 type BridgeProgress = 'approving' | 'locking' | 'confirming' | 'minting' | 'complete';
 
-const PROGRESS_STEPS: { key: BridgeProgress; label: string; icon: string }[] = [
-  { key: 'approving', label: '授权 Token', icon: '🔓' },
-  { key: 'locking', label: '锁定源链资产', icon: '🔒' },
-  { key: 'confirming', label: '跨链确认', icon: '⛓️' },
-  { key: 'minting', label: '铸造目标资产', icon: '🪙' },
-  { key: 'complete', label: '桥接完成', icon: '✅' },
+const PROGRESS_STEPS: { key: BridgeProgress; label: string; icon: React.FC<{className?: string}> }[] = [
+  { key: 'approving', label: '授权 Token', icon: Unlock },
+  { key: 'locking', label: '锁定源链资产', icon: Lock },
+  { key: 'confirming', label: '跨链确认', icon: Link2 },
+  { key: 'minting', label: '铸造目标资产', icon: Coins },
+  { key: 'complete', label: '桥接完成', icon: CheckCircle2 },
 ];
 
 export function BridgePage() {
@@ -229,6 +230,7 @@ export function BridgePage() {
                   const currentIdx = PROGRESS_STEPS.findIndex((p) => p.key === progress);
                   const isDone = i < currentIdx;
                   const isCurrent = i === currentIdx;
+                  const Icon = s.icon;
                   return (
                     <div
                       key={s.key}
@@ -238,7 +240,11 @@ export function BridgePage() {
                         border: isCurrent ? '1px solid #6366f1' : '1px solid transparent',
                       }}
                     >
-                      <span className="text-[var(--cc-text-lg)]">{isDone ? '✅' : s.icon}</span>
+                      {isDone ? (
+                        <CheckCircle2 className="w-5 h-5 text-[var(--cc-demo-success)]" />
+                      ) : (
+                        <Icon className="w-5 h-5 text-white" />
+                      )}
                       <span className={`text-[var(--cc-text-sm)] ${isDone || isCurrent ? 'text-white' : 'text-[#555]'}`}>{s.label}</span>
                       {isCurrent && <span className="ml-auto text-[#6366f1] text-xs">处理中...</span>}
                     </div>
@@ -250,7 +256,7 @@ export function BridgePage() {
 
           {step === 'complete' && (
             <div className="text-center p-5">
-              <div className="text-5xl mb-4">🎉</div>
+              <PartyPopper className="w-12 h-12 mx-auto mb-4 text-[var(--cc-demo-success)]" />
               <h3 className="text-[var(--cc-text-lg)] mb-2">桥接完成!</h3>
               <p className="text-[var(--cc-demo-text-muted)] text-[var(--cc-text-xs)] mb-1">
                 {srcChain.name} → {dstChain.name}

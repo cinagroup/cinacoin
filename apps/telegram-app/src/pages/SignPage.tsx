@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 import type { TelegramProvider } from '@cinacoin/telegram-miniapp';
 import { generateSignInMessage } from '@cinacoin/telegram-miniapp';
+import { Lock, Pencil, ClipboardCopy } from 'lucide-react';
 import '../styles/pages.css';
 
 interface SignPageProps {
@@ -104,7 +105,8 @@ export default function SignPage({ provider, account }: SignPageProps) {
   if (!account) {
     return (
       <div className="page sign-page">
-        <h1 className="page-title">Sign</h1>
+        <p className="font-mono text-xs text-[var(--cc-muted,#999)] mb-2">CRYPTOGRAPHY</p>
+        <h1 className="page-title font-semibold">Sign.</h1>
         <div className="empty-state">
           <p>Connect your wallet to sign messages</p>
         </div>
@@ -114,7 +116,8 @@ export default function SignPage({ provider, account }: SignPageProps) {
 
   return (
     <div className="page sign-page">
-      <h1 className="page-title">Sign Messages</h1>
+      <p className="font-mono text-xs text-[var(--cc-muted,#999)] mb-2">CRYPTOGRAPHY</p>
+      <h1 className="page-title font-semibold">Sign messages.</h1>
 
       <div className="sign-section">
         <h2 className="section-subtitle">Sign In with Telegram</h2>
@@ -132,7 +135,7 @@ export default function SignPage({ provider, account }: SignPageProps) {
               Signing...
             </>
           ) : (
-            '🔐 Sign In with Telegram'
+            <><Lock className="w-4 h-4 inline-block mr-1" /> Sign In with Telegram</>
           )}
         </button>
       </div>
@@ -161,7 +164,7 @@ export default function SignPage({ provider, account }: SignPageProps) {
               Signing...
             </>
           ) : (
-            '✍️ Sign Message'
+            <><Pencil className="w-4 h-4 inline-block mr-1" /> Sign Message</>
           )}
         </button>
       </div>
@@ -173,7 +176,7 @@ export default function SignPage({ provider, account }: SignPageProps) {
           <div className="signature-header">
             <h3>Signature</h3>
             <button className="cc-btn-secondary-sm" onClick={handleCopySignature}>
-              📋 Copy
+              <ClipboardCopy className="w-4 h-4 inline-block mr-1" /> Copy
             </button>
           </div>
           <div className="signature-value">{signature}</div>

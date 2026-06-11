@@ -1,4 +1,5 @@
 import TutorialCard from "@/components/TutorialCard";
+import { Rocket } from "lucide-react";
 
 const tutorials = [
   {
@@ -39,9 +40,10 @@ export default function HomePage() {
   return (
     <div className="max-w-4xl mx-auto">
       <div className="mb-12">
+        <p className="font-mono text-xs text-[var(--cc-muted,#999)] mb-2">LEARNING HUB</p>
         <h1 className="text-display-xl font-semibold mb-4">
           Welcome to{" "}
-          <span className="text-accent-blue">Cinacoin Learn</span>
+          <span className="text-accent-blue">Cinacoin Learn</span>.
         </h1>
         <p className="text-body-lg text-text-secondary max-w-2xl">
           Master Web3 development with hands-on tutorials, code examples, and
@@ -50,7 +52,8 @@ export default function HomePage() {
       </div>
 
       <section className="mb-12">
-        <h2 className="text-display-md font-semibold mb-6">Tutorials</h2>
+        <p className="font-mono text-xs text-[var(--cc-muted,#999)] mb-2">TUTORIALS</p>
+        <h2 className="text-display-md font-semibold mb-6">Tutorials.</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {tutorials.map((tutorial) => (
             <TutorialCard key={tutorial.href} {...tutorial} />
@@ -59,7 +62,8 @@ export default function HomePage() {
       </section>
 
       <section className="bg-bg-card border border-border-color rounded-xl p-8">
-        <h2 className="text-display-sm font-semibold mb-4">🚀 Getting Started</h2>
+        <p className="font-mono text-xs text-[var(--cc-muted,#999)] mb-2">QUICK START</p>
+        <h2 className="text-display-sm font-semibold mb-4"><Rocket className="w-5 h-5 inline-block mr-1" /> Getting started.</h2>
         <p className="text-text-secondary mb-4">
           New to Web3? Start with the basics and work your way up. Each tutorial
           builds on the previous one, so follow the recommended order for the

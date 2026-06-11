@@ -1,6 +1,7 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, type ReactNode } from 'react';
 import { TelegramProvider } from '@cinacoin/telegram-miniapp';
 import type { TelegramUser } from '@cinacoin/telegram-miniapp';
+import { Home, CreditCard, ArrowRightLeft, Pencil } from 'lucide-react';
 import TelegramHeader from './components/TelegramHeader';
 import HomePage from './pages/HomePage';
 import WalletPage from './pages/WalletPage';
@@ -13,14 +14,14 @@ type TabId = 'home' | 'wallet' | 'transfer' | 'sign';
 interface TabConfig {
   id: TabId;
   label: string;
-  icon: string;
+  icon: ReactNode;
 }
 
 const TABS: TabConfig[] = [
-  { id: 'home', label: 'Home', icon: '🏠' },
-  { id: 'wallet', label: 'Wallet', icon: '💳' },
-  { id: 'transfer', label: 'Transfer', icon: '💸' },
-  { id: 'sign', label: 'Sign', icon: '✍️' },
+  { id: 'home', label: 'Home', icon: <Home className="w-5 h-5" /> },
+  { id: 'wallet', label: 'Wallet', icon: <CreditCard className="w-5 h-5" /> },
+  { id: 'transfer', label: 'Transfer', icon: <ArrowRightLeft className="w-5 h-5" /> },
+  { id: 'sign', label: 'Sign', icon: <Pencil className="w-5 h-5" /> },
 ];
 
 export default function App() {

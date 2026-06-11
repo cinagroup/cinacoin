@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link2, User, Check, X } from 'lucide-react';
 import SiteHeader from '../components/SiteHeader';
 import SiteFooter from '../components/SiteFooter';
 
@@ -30,9 +31,9 @@ const SOCIAL_PROVIDERS = [
 ];
 
 const WALLET_PROVIDERS = [
-  { id: 'metamask', name: 'MetaMask', icon: '🦊' },
-  { id: 'walletconnect', name: 'WalletConnect', icon: '🔗' },
-  { id: 'coinbase', name: 'Coinbase Wallet', icon: '🔵' },
+  { id: 'metamask', name: 'MetaMask', icon: Link2 },
+  { id: 'walletconnect', name: 'WalletConnect', icon: Link2 },
+  { id: 'coinbase', name: 'Coinbase Wallet', icon: Link2 },
 ];
 
 export default function AuthPage() {
@@ -80,6 +81,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
       <main id="main-content" role="main">
       <section className="max-w-xl mx-auto w-full pt-12 pb-24 px-4 flex-1" aria-label="Authentication">
         <div className="text-center mb-8">
+          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">AUTHENTICATION</p>
           <h1 className="cc-display-lg text-[var(--cc-ink)] mb-3">Authentication</h1>
           <p className="cc-body-md text-[var(--cc-muted)]">Sign in with your wallet or social account. No passwords needed.</p>
         </div>
@@ -94,7 +96,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
             aria-selected={authMethod === 'wallet'}
             id="tab-wallet"
           >
-            <span aria-hidden="true">🔗</span> Wallet
+            <Link2 className="w-4 h-4 inline-block mr-1" aria-hidden="true" /> Wallet
           </button>
           <button
             onClick={() => { setAuthMethod('social'); setStep(1); }}
@@ -104,7 +106,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
             aria-selected={authMethod === 'social'}
             id="tab-social"
           >
-            <span aria-hidden="true">👤</span> Social
+            <User className="w-4 h-4 inline-block mr-1" aria-hidden="true" /> Social
           </button>
         </div>
 
@@ -122,7 +124,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
                       ? 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)] shadow-[var(--cc-level2)]'
                       : 'bg-[var(--cc-canvas-soft-2)] text-[var(--cc-muted)] border border-[var(--cc-hairline)]'
                   }`}>
-                    {step > i + 1 ? '✓' : i + 1}
+                    {step > i + 1 ? <Check className="w-4 h-4 inline" /> : i + 1}
                   </div>
                   {i < 3 && <div className={`w-8 h-px ${step > i + 1 ? 'bg-[var(--cc-success)]/30' : 'bg-[var(--cc-hairline)]'}`} />}
                 </div>
@@ -155,7 +157,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
                       onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleConnect(); } }}
                       className="w-full flex items-center gap-4 p-4 rounded-lg bg-[var(--cc-canvas-soft-2)] hover:bg-[var(--cc-canvas-soft)] border border-[var(--cc-hairline)] transition-all text-left group focus-ring"
                     >
-                      <span className="text-display-md" aria-hidden="true">{w.icon}</span>
+                      <w.icon className="w-6 h-6 text-[var(--cc-ink)]" aria-hidden="true" />
                       <div className="flex-1">
                         <span className="font-semibold text-body-sm text-[var(--cc-ink)]">{w.name}</span>
                         <p className="text-caption text-[var(--cc-muted)]">Connect with {w.name}</p>
@@ -251,13 +253,13 @@ Issued At: 2026-05-17T13:45:00.000Z`;
             {selectedSocial && !socialLoading && step === 4 && (
               <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4 border border-[var(--cc-success)]/20">
                 <div className="text-center mb-3">
-                  <div className="w-12 h-12 mx-auto rounded-full bg-[var(--cc-success)]/10 border border-[var(--cc-success)]/20 flex items-center justify-center text-display-sm mb-2" aria-hidden="true">✓</div>
+                  <div className="w-12 h-12 mx-auto rounded-full bg-[var(--cc-success)]/10 border border-[var(--cc-success)]/20 flex items-center justify-center text-display-sm mb-2" aria-hidden="true"><Check className="w-6 h-6 text-[var(--cc-success)]" /></div>
                   <h3 className="text-body-lg font-semibold text-[var(--cc-success)]">Authenticated!</h3>
                 </div>
                 <div className="space-y-2 text-body-sm">
                   <div className="flex justify-between"><span className="text-[var(--cc-muted)]">Provider</span><span className="font-semibold">{SOCIAL_PROVIDERS.find(s => s.id === selectedSocial)?.name}</span></div>
                   <div className="flex justify-between"><span className="text-[var(--cc-muted)]">Wallet</span><span className="font-[var(--font-mono)] text-caption">{address}</span></div>
-                  <div className="flex justify-between"><span className="text-[var(--cc-muted)]">Verified</span><span className="text-[var(--cc-success)] font-semibold">✓ True</span></div>
+                  <div className="flex justify-between"><span className="text-[var(--cc-muted)]">Verified</span><span className="text-[var(--cc-success)] font-semibold"><Check className="w-4 h-4 inline" /> True</span></div>
                 </div>
                 <button
                   onClick={handleReset}
@@ -307,18 +309,18 @@ Issued At: 2026-05-17T13:45:00.000Z`;
               </thead>
               <tbody>
                 {[
-                  ['Wallet login', '✅', '✅'],
-                  ['Social login', '✅', '❌'],
-                  ['Passkey auth', '✅', '❌'],
-                  ['Email login', '✅', '❌'],
-                  ['SIWE', '✅', '✅'],
-                  ['Self-hosted', '✅', '❌'],
-                  ['Open source', '✅', 'Partial'],
-                  ['Free forever', '✅', 'Paid tiers']
+                  ['Wallet login', <Check className="w-4 h-4 inline" />, <Check className="w-4 h-4 inline" />],
+                  ['Social login', <Check className="w-4 h-4 inline" />, <X className="w-4 h-4 inline" />],
+                  ['Passkey auth', <Check className="w-4 h-4 inline" />, <X className="w-4 h-4 inline" />],
+                  ['Email login', <Check className="w-4 h-4 inline" />, <X className="w-4 h-4 inline" />],
+                  ['SIWE', <Check className="w-4 h-4 inline" />, <Check className="w-4 h-4 inline" />],
+                  ['Self-hosted', <Check className="w-4 h-4 inline" />, <X className="w-4 h-4 inline" />],
+                  ['Open source', <Check className="w-4 h-4 inline" />, 'Partial'],
+                  ['Free forever', <Check className="w-4 h-4 inline" />, 'Paid tiers']
                 ].map(([f, a, b], i) => (
                   <tr key={f} className="border-b border-[var(--cc-hairline)]/50 hover:bg-[var(--cc-canvas-soft-2)]/30 transition-colors">
                     <td className="p-3 font-medium text-[var(--cc-body)]">{f}</td>
-                    <td className="p-3 text-center">{a}</td>
+                    <td className="p-3 text-center text-[var(--cc-success)]">{a}</td>
                     <td className="p-3 text-center text-[var(--cc-muted)]">{b}</td>
                   </tr>
                 ))}

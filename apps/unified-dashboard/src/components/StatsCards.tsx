@@ -1,33 +1,35 @@
 "use client";
 
+import { Users, Plug, Coins, Zap } from 'lucide-react';
+
 const stats = [
   {
     title: "Total Users",
     value: "128,430",
     change: "+12.5%",
     positive: true,
-    icon: "👥",
+    icon: Users,
   },
   {
     title: "API Calls (24h)",
     value: "2,847,392",
     change: "+8.2%",
     positive: true,
-    icon: "🔌",
+    icon: Plug,
   },
   {
     title: "Transactions",
     value: "45,892",
     change: "+23.1%",
     positive: true,
-    icon: "💰",
+    icon: Coins,
   },
   {
     title: "Avg Response Time",
     value: "142ms",
     change: "-5.3%",
     positive: true,
-    icon: "⚡",
+    icon: Zap,
   },
 ];
 
@@ -38,7 +40,7 @@ export function StatsCards() {
         <div key={stat.title} className="stat-card">
           <div className="flex items-center justify-between">
             <p className="stat-label">{stat.title}</p>
-            <span className="text-display-md">{stat.icon}</span>
+            <span className="text-display-md"><stat.icon className="w-5 h-5" /></span>
           </div>
           <p className="stat-value">{stat.value}</p>
           <div className="flex items-center mt-2">
