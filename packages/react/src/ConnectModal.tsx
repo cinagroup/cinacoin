@@ -52,7 +52,7 @@ export function ConnectModal({
     const handleWalletSelect = (e: Event) => {
       const detail = (e as CustomEvent).detail;
       if (detail?.id) {
-        connect(detail.id).catch(() => {});
+        connect(detail.id).catch((err) => console.error('[ConnectModal] connect failed:', err));
       }
       onClose();
     };

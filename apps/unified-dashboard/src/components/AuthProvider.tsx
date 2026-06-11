@@ -3,10 +3,17 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { getSession, login, logout, AuthSession } from '@/lib/auth';
 
+interface Credentials {
+  address?: string;
+  signature?: string;
+  email?: string;
+  password?: string;
+}
+
 interface AuthContextType {
   session: AuthSession;
   isLoading: boolean;
-  login: (credentials: any) => Promise<AuthSession>;
+  login: (credentials: Credentials) => Promise<AuthSession>;
   logout: () => Promise<void>;
   refresh: () => Promise<void>;
 }
@@ -33,7 +40,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     refresh();
   }, []);
 
-  const handleLogin = async (credentials: any): Promise<AuthSession> => {
+  const handleLogin = async (credentials: Credentials): Promise<AuthSession> => {
     const result = await login(credentials);
     if ('authenticated' in result && result.authenticated) {
       setSession(result);

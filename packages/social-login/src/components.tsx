@@ -18,6 +18,56 @@ import {
   type CSSProperties,
 } from 'react';
 
+// ─── Sanitization ────────────────────────────────────────────────────────
+
+/**
+ * Sanitize SVG HTML string to prevent XSS attacks.
+ * Allows only safe SVG elements and attributes.
+ */
+function sanitizeSvg(html: string): string {
+  // Allowlist of safe SVG tags
+  const allowedTags = new Set([
+    'svg', 'path', 'circle', 'rect', 'line', 'polyline', 'polygon',
+    'ellipse', 'g', 'defs', 'use', 'symbol', 'text', 'tspan',
+    'linearGradient', 'radialGradient', 'stop', 'clipPath', 'mask',
+  ]);
+  // Allowlist of safe attributes
+  const allowedAttrs = new Set([
+    'width', 'height', 'viewBox', 'xmlns', 'fill', 'stroke', 'stroke-width',
+    'd', 'cx', 'cy', 'r', 'rx', 'ry', 'x', 'y', 'x1', 'y1', 'x2', 'y2',
+    'points', 'transform', 'offset', 'stop-color', 'stop-opacity',
+    'fill-rule', 'fill-opacity', 'stroke-linecap', 'stroke-linejoin',
+    'stroke-dasharray', 'stroke-dashoffset', 'opacity', 'color',
+    'font-size', 'font-family', 'text-anchor', 'dominant-baseline',
+    'clip-path', 'mask', 'id', 'class', 'style',
+  ]);
+
+  // Remove script tags and event handlers
+  let sanitized = html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+  sanitized = sanitized.replace(/\son\w+\s*=\s*("[^"]*"|'[^']*'|[^\s>]*)/gi, '');
+  // Remove javascript: URLs
+  sanitized = sanitized.replace(/href\s*=\s*["']?\s*javascript:/gi, 'href="');
+  sanitized = sanitized.replace(/xlink:href\s*=\s*["']?\s*javascript:/gi, 'xlink:href="');
+
+  // Parse and validate tags
+  sanitized = sanitized.replace(/<\/?([a-zA-Z][a-zA-Z0-9]*)\b/g, (match, tag) => {
+    if (!allowedTags.has(tag)) {
+      return '<!-- removed -->';
+    }
+    return match;
+  });
+
+  // Remove disallowed attributes
+  sanitized = sanitized.replace(/\s([a-zA-Z][a-zA-Z0-9-]*)\s*=\s*("[^"]*"|'[^']*'|[^\s>]*)/g, (match, attr) => {
+    if (!allowedAttrs.has(attr) && !attr.startsWith('data-')) {
+      return '';
+    }
+    return match;
+  });
+
+  return sanitized;
+}
+
 // ─── Types ──────────────────────────────────────────────────────────────
 
 export type SocialProvider = 'google' | 'apple' | 'twitter' | 'github' | 'discord' | 'email' | 'phone';
@@ -595,7 +645,7 @@ export function SocialLoginButton({
       ) : (
         <span
           style={{ width: sizes[size].iconSize, height: sizes[size].iconSize, display: 'flex' }}
-          dangerouslySetInnerHTML={{ __html: config.icon }}
+          dangerouslySetInnerHTML={{ __html: sanitizeSvg(config.icon) }}
         />
       )}
       {customLabel || config.label}

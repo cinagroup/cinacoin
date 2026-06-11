@@ -42,7 +42,7 @@ export function ChainSwitcher({
     const handleChainChange = (e: Event) => {
       const detail = (e as CustomEvent).detail;
       if (detail?.chainId) {
-        switchChain(detail.chainId).catch(() => {});
+        switchChain(detail.chainId).catch((err) => console.error('[ChainSwitcher] switchChain failed:', err));
         onChainChange?.(detail.chainId);
       }
     };

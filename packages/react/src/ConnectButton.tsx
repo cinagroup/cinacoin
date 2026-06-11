@@ -55,12 +55,12 @@ export function ConnectButton({
 
     const handleOCXClick = () => {
       if (status === 'disconnected' || status === 'error') {
-        connect('metamask').catch(() => {});
+        connect('metamask').catch((err) => console.error('[ConnectButton] connect failed:', err));
       }
       onClick?.();
     };
     const handleOCXDisconnect = () => {
-      disconnect().catch(() => {});
+      disconnect().catch((err) => console.error('[ConnectButton] disconnect failed:', err));
       onDisconnect?.();
     };
 
