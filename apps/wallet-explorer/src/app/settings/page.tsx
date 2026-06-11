@@ -27,13 +27,13 @@ export default function SettingsPage() {
     <div className="space-y-6">
       <div>
         <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">SETTINGS</p>
-        <h1 className="text-heading-2 text-ink">Settings</h1>
+        <h1 className="text-heading-2 text-ink">Settings.</h1>
         <p className="mt-1 text-body text-mute">Manage your wallet preferences.</p>
       </div>
 
       {/* Connection Status */}
       <div className="cc-card">
-        <h2 className="text-heading-3 text-ink mb-4">Connection</h2>
+        <h2 className="text-heading-3 text-ink mb-4">Connection.</h2>
         {connected ? (
           <div className="space-y-3">
             <div className="flex items-center justify-between">
@@ -66,7 +66,7 @@ export default function SettingsPage() {
 
       {/* Preferences */}
       <div className="cc-card">
-        <h2 className="text-heading-3 text-ink mb-4">Preferences</h2>
+        <h2 className="text-heading-3 text-ink mb-4">Preferences.</h2>
         <div className="space-y-5">
           <div>
             <label htmlFor="currency" className="block text-caption text-mute mb-2">Display Currency</label>
@@ -108,7 +108,7 @@ export default function SettingsPage() {
 
       {/* Actions */}
       <div className="cc-card">
-        <h2 className="text-heading-3 text-ink mb-4">Actions</h2>
+        <h2 className="text-heading-3 text-ink mb-4">Actions.</h2>
         <div className="space-y-3">
           <button className="cc-btn-secondary w-full justify-start">
             Export Transaction History

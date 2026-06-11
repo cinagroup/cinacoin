@@ -18,26 +18,26 @@ const statusColors: Record<string, string> = {
 export function SystemOverview() {
   return (
     <div className="cc-card" aria-label="System status overview">
-      <h3 className="text-body-md font-semibold text-ink mb-4">
+      <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">
         System overview.
       </h3>
       <div className="space-y-3">
         {services.map((service) => (
           <div
             key={service.name}
-            className="flex items-center justify-between py-2 border-b border-hairline last:border-0"
+            className="flex items-center justify-between py-2 border-b border-[var(--cc-hairline)] last:border-0"
           >
             <div className="flex items-center gap-3">
               <div
                 className={`w-2.5 h-2.5 rounded-full ${statusColors[service.status]}`}
               />
-              <span className="text-body-sm font-medium text-ink">
+              <span className="cc-body-sm-strong text-[var(--cc-ink)]">
                 {service.name}
               </span>
             </div>
             <div className="flex items-center gap-4">
-              <span className="text-caption text-mute">{service.latency}</span>
-              <span className="text-caption font-medium text-body-color">
+              <span className="cc-caption text-[var(--cc-muted)]">{service.latency}</span>
+              <span className="cc-caption font-medium text-[var(--cc-body)]">
                 {service.uptime}
               </span>
             </div>

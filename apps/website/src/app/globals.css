@@ -342,6 +342,11 @@ body {
   --cc-highlight-pink: var(--color-highlight-pink);
   --cc-on-primary-hairline-soft: rgba(255, 255, 255, 0.15);
 
+  /* Terminal dots */
+  --cc-terminal-close: var(--color-terminal-close);
+  --cc-terminal-minimize: var(--color-terminal-minimize);
+  --cc-terminal-maximize: var(--color-terminal-maximize);
+
   /* Shadow aliases */
   --cc-level1: var(--shadow-level-1);
   --cc-level2: var(--shadow-level-2);

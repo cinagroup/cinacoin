@@ -16,7 +16,7 @@ export default function TransactionDetail({ tx }: TransactionDetailProps) {
   return (
     <div className="cc-card">
       <div className="flex items-start justify-between">
-        <h2 className="text-heading-3 text-ink">Transaction Details</h2>
+        <h2 className="text-heading-3 text-ink">Transaction details.</h2>
         <span className={`badge ${status.badge}`}>
           {status.label}
         </span>

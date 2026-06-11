@@ -526,9 +526,12 @@ textarea:focus-visible {
 }
 
 /* ── Accessibility: Minimum Touch Target ──────────────── */
-button, a, [role="button"] {
-  min-height: 44px;
-  min-width: 44px;
+/* Only apply to standalone interactive elements, not inline/nav items */
+.cc-btn-primary,
+.cc-btn-secondary,
+.cc-btn-primary-sm,
+.cc-btn-secondary-sm {
+  min-height: 32px;
 }
 
 /* ── Accessibility: Screen Reader Only ────────────────── */
@@ -542,4 +545,68 @@ button, a, [role="button"] {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* ── Badge ──────────────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+  line-height: 1;
+  border-radius: 100px;
+}
+
+.badge-success {
+  background-color: var(--cc-canvas-soft-2);
+  color: var(--cc-success);
+}
+
+.badge-error {
+  background-color: var(--cc-error-soft);
+  color: var(--cc-error);
+}
+
+.badge-warning {
+  background-color: var(--cc-warning-soft);
+  color: var(--cc-warning-deep);
+}
+
+/* ── Search Bar ─────────────────────────────────────────── */
+.search-bar {
+  width: 100%;
+  height: 40px;
+  padding: 0 12px;
+  background-color: var(--cc-canvas);
+  border: 1px solid var(--cc-hairline);
+  border-radius: 6px;
+  font-size: var(--text-body-sm);
+  font-family: var(--font-sans);
+  color: var(--cc-ink);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  outline: none;
+}
+
+.search-bar:focus {
+  border-color: var(--cc-link);
+  box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.1);
+}
+
+.search-bar::placeholder {
+  color: var(--cc-muted);
+}
+
+/* ── Amount Display ─────────────────────────────────────── */
+.amount {
+  font-family: var(--font-mono);
+  font-weight: var(--weight-medium);
+}
+
+.amount-positive {
+  color: var(--cc-success);
+}
+
+.amount-negative {
+  color: var(--cc-error);
 }

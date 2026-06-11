@@ -5,7 +5,7 @@ import CookiesContent from './CookiesContent'
 
 export const metadata: Metadata = {
   title: 'Cookie Policy',
-  description: 'Cinacoin Cookie Policy — how we use cookies and similar technologies.',
+  description: 'CinaCoin Cookie Policy — how we use cookies and similar technologies.',
   alternates: {
     canonical: '/cookies',
   },

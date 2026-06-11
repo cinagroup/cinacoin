@@ -5,7 +5,7 @@ import TermsContent from './TermsContent'
 
 export const metadata: Metadata = {
   title: 'Terms of Service',
-  description: 'Cinacoin Terms of Service — rules and guidelines for using our Services.',
+  description: 'CinaCoin Terms of Service — rules and guidelines for using our Services.',
   alternates: {
     canonical: '/terms',
   },

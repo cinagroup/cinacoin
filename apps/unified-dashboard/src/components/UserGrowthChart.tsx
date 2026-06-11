@@ -29,7 +29,7 @@ const data = [
 export function UserGrowthChart() {
   return (
     <div className="cc-card" aria-label="User growth chart showing monthly data">
-      <h3 className="text-body-md font-semibold text-ink mb-4">
+      <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">
         User growth.
       </h3>
       <ResponsiveContainer width="100%" height={300}>

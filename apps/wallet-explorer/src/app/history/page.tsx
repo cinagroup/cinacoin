@@ -34,7 +34,7 @@ export default function HistoryPage() {
     return (
       <div className="cc-card text-center py-12">
         <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">TRANSACTIONS</p>
-        <h2 className="text-heading-2 text-ink">Transaction History</h2>
+        <h2 className="text-heading-2 text-ink">Transaction history.</h2>
         <p className="mt-2 text-body text-mute">Connect your wallet to view your transaction history.</p>
         <button onClick={connect} className="cc-btn-primary mt-6">
           Connect Wallet
@@ -47,7 +47,7 @@ export default function HistoryPage() {
     <div className="space-y-6">
       <div>
         <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">TRANSACTIONS</p>
-        <h1 className="text-heading-2 text-ink">Transaction History</h1>
+        <h1 className="text-heading-2 text-ink">Transaction history.</h1>
         <p className="mt-1 text-body text-mute">Complete record of all your transactions.</p>
       </div>
 
@@ -55,7 +55,7 @@ export default function HistoryPage() {
         {mockHistory.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
             <FileText className="mb-4 h-12 w-12 text-mute" aria-hidden="true" />
-            <h3 className="text-heading-3 text-ink mb-1">No transaction history</h3>
+            <h3 className="text-heading-3 text-ink mb-1">No transaction history.</h3>
             <p className="text-body-sm text-mute max-w-sm">Your transaction history will appear here once you make your first transaction.</p>
           </div>
         ) : (

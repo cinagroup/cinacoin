@@ -54,7 +54,7 @@ export default function SwapPage() {
     return (
       <div className="cc-card text-center py-12">
         <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">SWAP</p>
-        <h2 className="text-heading-2 text-ink">Swap Tokens</h2>
+        <h2 className="text-heading-2 text-ink">Swap tokens.</h2>
         <p className="mt-2 text-body text-mute">Connect your wallet to swap tokens.</p>
         <button onClick={connect} className="cc-btn-primary mt-6">
           Connect Wallet
@@ -67,7 +67,7 @@ export default function SwapPage() {
     <div className="space-y-6">
       <div>
         <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">SWAP</p>
-        <h1 className="text-heading-2 text-ink">Swap Tokens</h1>
+        <h1 className="text-heading-2 text-ink">Swap tokens.</h1>
         <p className="mt-1 text-body text-mute">Exchange tokens at the best rates.</p>
       </div>
 

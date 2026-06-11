@@ -70,23 +70,23 @@ export default function HealthStatusPage() {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="text-center">
-        <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">SYSTEM STATUS</p>
-        <h1 className="text-display-lg font-semibold tracking-tighter text-[var(--cc-ink)]">
-          CinaCoin Status
+      <header className="text-center">
+        <p className="cc-caption-mono text-[var(--cc-muted)] mb-2" aria-label="Page section label">System status.</p>
+        <h1 className="cc-display-lg">
+          CinaCoin status.
         </h1>
-        <p className="mt-2 text-[var(--cc-body)] text-body-sm">
-          Real-time system health and incident reports
+        <p className="mt-2 cc-body-sm text-[var(--cc-body)]">
+          Real-time system health and incident reports.
         </p>
-      </div>
+      </header>
 
       {/* Overall Status */}
       <OverallStatus status="partial-outage" />
 
       {/* Services */}
-      <section>
-        <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">MONITORED SERVICES</p>
-        <h2 className="mb-4 text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Services</h2>
+      <section aria-labelledby="services-heading">
+        <p className="cc-caption-mono text-[var(--cc-muted)] mb-2">Monitored services.</p>
+        <h2 id="services-heading" className="mb-4 cc-body-lg font-semibold tracking-tight text-[var(--cc-ink)]">Services.</h2>
         <div className="grid gap-3 sm:grid-cols-2">
           {services.map((service) => (
             <ServiceCard key={service.name} {...service} />
@@ -95,15 +95,15 @@ export default function HealthStatusPage() {
       </section>
 
       {/* 90-Day Status Bars */}
-      <section>
-        <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">HISTORICAL UPTIME</p>
-        <h2 className="mb-4 text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">90-Day History</h2>
+      <section aria-labelledby="history-heading">
+        <p className="cc-caption-mono text-[var(--cc-muted)] mb-2">Historical uptime.</p>
+        <h2 id="history-heading" className="mb-4 cc-body-lg font-semibold tracking-tight text-[var(--cc-ink)]">90-day history.</h2>
         <div className="space-y-4 rounded-[8px] border border-[var(--cc-hairline)] bg-[var(--cc-canvas)] p-5" style={{ boxShadow: 'inset 0 0 0 1px var(--cc-hairline)' }}>
           {services.map((service, idx) => (
             <div key={service.name} className={idx > 0 ? 'pt-4 border-t border-[var(--cc-hairline)]' : ''}>
               <div className="mb-1 flex items-center justify-between">
-                <span className="text-body-sm text-[var(--cc-body)]">{service.name}</span>
-                <span className="text-code text-[var(--cc-muted)]">{service.uptime}</span>
+                <span className="cc-body-sm text-[var(--cc-body)]">{service.name}</span>
+                <span className="font-mono text-[var(--cc-muted)]">{service.uptime}</span>
               </div>
               <StatusBar90Days days={generate90Days()} serviceName={service.name} />
             </div>
@@ -112,16 +112,16 @@ export default function HealthStatusPage() {
       </section>
 
       {/* Incident Timeline */}
-      <section>
-        <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">INCIDENT LOG</p>
-        <h2 className="mb-4 text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Recent Incidents</h2>
+      <section aria-labelledby="incidents-heading">
+        <p className="cc-caption-mono text-[var(--cc-muted)] mb-2">Incident log.</p>
+        <h2 id="incidents-heading" className="mb-4 cc-body-lg font-semibold tracking-tight text-[var(--cc-ink)]">Recent incidents.</h2>
         <IncidentTimeline incidents={incidents} />
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-[var(--cc-hairline)] pt-6 text-center text-body-sm text-[var(--cc-muted)]">
-        <p>© 2026 CinaCoin. All rights reserved.</p>
-        <p className="mt-1">Powered by CinaCoin Infrastructure</p>
+      <footer className="border-t border-[var(--cc-hairline)] pt-6 text-center cc-caption text-[var(--cc-muted)]">
+        <p>&copy; 2026 CinaCoin. All rights reserved.</p>
+        <p className="mt-1">Powered by CinaCoin Infrastructure.</p>
       </footer>
     </div>
   );

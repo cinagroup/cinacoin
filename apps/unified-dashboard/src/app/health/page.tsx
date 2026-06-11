@@ -46,7 +46,7 @@ export default function HealthPage() {
       <div className="min-h-screen flex items-center justify-center bg-[var(--cc-canvas-soft)]">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[var(--cc-primary)] mx-auto" />
-          <p className="mt-4 text-sm text-[var(--cc-body)]">Loading health status...</p>
+          <p className="mt-4 cc-body-sm text-[var(--cc-body)]">Loading health status...</p>
         </div>
       </div>
     );
@@ -69,11 +69,11 @@ export default function HealthPage() {
       <div className="max-w-[1200px] mx-auto px-6 py-12">
         {/* Header */}
         <header className="mb-8">
-          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">MONITORING</p>
-          <h1 className="text-[var(--cc-display-lg)] font-semibold text-[var(--cc-ink)]">
+          <p className="cc-caption-mono text-[var(--cc-muted)] mb-2">MONITORING</p>
+          <h1 className="cc-display-lg text-[var(--cc-ink)]">
             System health.
           </h1>
-          <p className="text-[var(--cc-body)] mt-1">
+          <p className="cc-body-md text-[var(--cc-body)] mt-1">
             Real-time service status and uptime metrics.
           </p>
         </header>
@@ -82,12 +82,12 @@ export default function HealthPage() {
         <div className="bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] p-6 shadow-[var(--cc-level1)] mb-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="font-mono text-xs text-[var(--cc-muted)] mb-1">OVERALL STATUS</p>
-              <p className="text-sm text-[var(--cc-body)]">
+              <p className="cc-caption-mono text-[var(--cc-muted)] mb-1">OVERALL STATUS</p>
+              <p className="cc-body-sm text-[var(--cc-body)]">
                 Last updated: {new Date(health?.timestamp || "").toLocaleString()}
               </p>
             </div>
-            <span className={`px-3 py-1 rounded-[var(--cc-radius-pill-sm)] text-xs font-medium ${statusBadge(health?.status || "")}`}>
+            <span className={`px-3 py-1 rounded-[var(--cc-radius-pill-sm)] cc-caption font-medium ${statusBadge(health?.status || "")}`}>
               {health?.status?.toUpperCase()}
             </span>
           </div>
@@ -104,17 +104,17 @@ export default function HealthPage() {
                 <div className="flex items-center gap-3">
                   <div className={`w-2.5 h-2.5 rounded-full ${statusColor(service.status)}`} />
                   <div>
-                    <h3 className="text-sm font-semibold text-[var(--cc-ink)]">{service.name}</h3>
-                    <p className="text-xs text-[var(--cc-body)]">
+                    <h3 className="cc-body-sm-strong text-[var(--cc-ink)]">{service.name}</h3>
+                    <p className="cc-caption text-[var(--cc-body)]">
                       Latency: {service.latency}ms
                     </p>
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="text-sm font-semibold text-[var(--cc-ink)]">
+                  <p className="cc-body-sm-strong text-[var(--cc-ink)]">
                     {service.uptime}%
                   </p>
-                  <p className="text-xs text-[var(--cc-muted)]">Uptime</p>
+                  <p className="cc-caption text-[var(--cc-muted)]">Uptime</p>
                 </div>
               </div>
             </div>

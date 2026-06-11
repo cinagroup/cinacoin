@@ -76,7 +76,7 @@ export default function Developers() {
               <pre className="text-code leading-relaxed">
                 <code>
                   <span className="text-[var(--cc-violet)]">import</span>{' '}
-                  <span className="text-[var(--cc-cyan)]">{'{ useCinacoin, ConnectButton }'}</span>{' '}
+                  <span className="text-[var(--cc-cyan)]">{'{ useCinaCoin, ConnectButton }'}</span>{' '}
                   <span className="text-[var(--cc-violet)]">from</span>{' '}
                   <span className="text-[var(--cc-highlight-pink)]">&apos;@cinacoin/react&apos;</span>
                   {'\n\n'}
@@ -92,7 +92,7 @@ export default function Developers() {
                   <span className="text-[var(--cc-muted)]">,</span>{' '}
                   <span className="text-[var(--cc-cyan)]"> chain</span>
                   <span className="text-[var(--cc-muted)]"> {'}'} =</span>{' '}
-                  <span className="text-[var(--cc-highlight-pink)]">useCinacoin</span>
+                  <span className="text-[var(--cc-highlight-pink)]">useCinaCoin</span>
                   <span className="text-[var(--cc-muted)]">()</span>
                   {'\n\n'}
                   {'  '}<span className="text-[var(--cc-violet)]">return</span>{' '}

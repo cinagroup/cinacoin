@@ -13,8 +13,8 @@ export default function Header() {
     <header className="sticky top-0 z-50 bg-[var(--cc-canvas)]/80 backdrop-blur-md border-b border-[var(--cc-hairline)]">
       <div className="max-w-[1200px] mx-auto px-6 flex items-center justify-between h-16">
         <Link href="/" className="flex items-center gap-2 text-[var(--cc-ink)] font-semibold text-body-md tracking-tight hover:opacity-70 transition-opacity duration-150">
-          <Image src="/logo.png" alt="Cinacoin logo" width={24} height={24} style={{ height: 24, width: 24 }} />
-          Cinacoin
+          <Image src="/logo.png" alt="CinaCoin logo" width={24} height={24} style={{ height: 24, width: 24 }} />
+          CinaCoin
         </Link>
 
         <nav className="hidden md:flex items-center gap-1">

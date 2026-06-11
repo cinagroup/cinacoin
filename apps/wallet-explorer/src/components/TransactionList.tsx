@@ -31,13 +31,13 @@ export default memo(function TransactionList({ transactions }: TransactionListPr
   return (
     <div className="cc-card p-0 overflow-hidden">
       <div className="border-b border-hairline p-5">
-        <h2 className="text-heading-3 text-ink">Transactions</h2>
+        <h2 className="text-heading-3 text-ink">Transactions.</h2>
       </div>
       <div>
         {transactions.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
             <div className="mb-4 text-4xl text-mute" aria-hidden="true">∅</div>
-            <h3 className="text-heading-3 text-ink mb-1">No transactions yet</h3>
+            <h3 className="text-heading-3 text-ink mb-1">No transactions yet.</h3>
             <p className="text-body-sm text-mute max-w-sm">Your transaction history will appear here once you make your first transaction.</p>
           </div>
         ) : (

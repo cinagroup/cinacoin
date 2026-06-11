@@ -5,7 +5,7 @@ import PrivacyContent from './PrivacyContent'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
-  description: 'Cinacoin Privacy Policy — how we collect, use, and protect your data.',
+  description: 'CinaCoin Privacy Policy — how we collect, use, and protect your data.',
   alternates: {
     canonical: '/privacy',
   },

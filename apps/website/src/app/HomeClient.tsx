@@ -74,7 +74,7 @@ export default function Home() {
           </p>
           <div className="flex items-center justify-center gap-12 flex-wrap opacity-60">
             {/* Placeholder partner logos — replace with real SVGs */}
-            {['Partner A', 'Partner B', 'Partner C', 'Partner D', 'Partner E'].map((name) => (
+            {['Acme Corp', 'Globex', 'Initech', 'Umbrella', 'Wayne Ent'].map((name) => (
               <div
                 key={name}
                 className="h-6 flex items-center"
@@ -116,14 +116,14 @@ export default function Home() {
             
             {/* Second column - spans 2 rows with mockup */}
             <div className="md:row-span-2 p-6 bg-[var(--cc-primary)] text-[var(--cc-on-primary)] rounded-[var(--cc-radius-md)]">
-              <h3 className="text-display-sm font-semibold mb-4">实时数据</h3>
+              <h3 className="text-display-sm font-semibold mb-4">Live data.</h3>
               <div className="bg-white/10 rounded-md p-4 font-mono text-sm mb-4">
                 <p className="mb-2">CINA/USDT: $0.0847</p>
                 <p className="mb-2">24h Vol: $12.4M</p>
                 <p>Market Cap: $84.7M</p>
               </div>
               <p className="text-sm text-white/70">
-                实时市场数据，多链聚合，亚秒级更新.
+                Real-time market data, multi-chain aggregation, sub-second updates.
               </p>
             </div>
             
@@ -159,10 +159,10 @@ export default function Home() {
         <div className="max-w-[1200px] mx-auto px-6">
           <p className="font-mono text-xs text-white/50 mb-2">TECHNOLOGY</p>
           <h2 className="text-display-lg md:text-display-xl font-semibold mb-6 tracking-tight leading-[1.1]">
-            为所有工作负载设计的计算模型.
+            Compute for every workload.
           </h2>
           <p className="text-body-lg text-white/70 mb-12 max-w-2xl">
-            从静态站点到 AI 代理，Cinacoin 的基础设施自动适配你的需求.
+            From static sites to AI agents, CinaCoin infrastructure adapts to your needs.
           </p>
           
           {/* Terminal Mockup */}
@@ -305,9 +305,9 @@ export default function Home() {
                   <div className="w-2 h-2 rounded-full bg-[#28c840]" />
                   <span className="ml-2 font-mono text-[10px] text-white/40">cinacoin-sdk.ts</span>
                 </div>
-                <pre className="font-mono text-xs leading-5 text-white/80"><code>{`import { Cinacoin } from '@cinacoin/sdk';
+                <pre className="font-mono text-xs leading-5 text-white/80"><code>{`import { CinaCoin } from '@cinacoin/sdk';
 
-const cc = new Cinacoin({
+const cc = new CinaCoin({
   network: 'mainnet',
   apiKey: process.env.CC_API_KEY,
 });

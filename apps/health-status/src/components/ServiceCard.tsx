@@ -18,14 +18,14 @@ export default React.memo(function ServiceCard({ name, status, uptime, descripti
     >
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="font-semibold text-[var(--cc-ink)]">{name}</h3>
-          <p className="mt-1 text-body-sm text-[var(--cc-body)]">{description}</p>
+          <h3 className="cc-body-sm-strong">{name}</h3>
+          <p className="mt-1 cc-body-sm text-[var(--cc-body)]">{description}</p>
         </div>
         <StatusBadge status={status} />
       </div>
-      <div className="mt-3 flex items-center gap-2 text-caption text-[var(--cc-muted)]">
+      <div className="mt-3 flex items-center gap-2 cc-caption text-[var(--cc-muted)]">
         <span>Uptime:</span>
-        <span className="text-code text-[var(--cc-body)]">{uptime}</span>
+        <span className="font-mono text-[var(--cc-body)]">{uptime}</span>
       </div>
     </div>
   );

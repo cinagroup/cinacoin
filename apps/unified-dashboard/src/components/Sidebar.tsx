@@ -18,13 +18,13 @@ export function Sidebar() {
   const { session, logout, isLoading } = useAuth();
 
   return (
-    <aside className="sidebar hidden md:flex fixed left-0 top-0 h-full w-64 flex-col">
+    <aside className="sidebar hidden md:flex fixed left-0 top-0 h-full w-64 flex-col" aria-label="CinaCoin sidebar navigation">
       <div className="p-6 border-b border-[var(--cc-on-primary)]/10">
-        <h2 className="text-display-sm font-semibold flex items-center gap-2">
-          <span className="text-display-md"><CoinIcon className="w-6 h-6" /></span>
+        <h2 className="cc-display-sm flex items-center gap-2">
+          <span className="cc-display-md"><CoinIcon className="w-6 h-6" /></span>
           CinaCoin
         </h2>
-        <p className="text-caption text-[var(--cc-on-primary)]/60 mt-1">Unified Dashboard</p>
+        <p className="cc-caption text-[var(--cc-on-primary)]/60 mt-1">Unified dashboard.</p>
       </div>
 
       <nav className="flex-1 p-4 space-y-1" aria-label="Main navigation">
@@ -37,7 +37,7 @@ export function Sidebar() {
               active === item.name ? "active" : ""
             }`}
           >
-            <span className="text-body-lg"><item.icon className="w-5 h-5" /></span>
+            <span className="cc-body-lg"><item.icon className="w-5 h-5" /></span>
             {item.name}
           </button>
         ))}
@@ -55,15 +55,15 @@ export function Sidebar() {
         ) : session.authenticated ? (
           <div className="space-y-2">
             <div className="flex items-center gap-3 px-4 py-2">
-              <div className="w-8 h-8 rounded-full bg-[var(--cc-canvas)]/20 flex items-center justify-center text-body-sm font-semibold">
+              <div className="w-8 h-8 rounded-full bg-[var(--cc-canvas)]/20 flex items-center justify-center cc-body-sm font-semibold">
                 {session.user?.name?.charAt(0) || session.user?.email?.charAt(0) || 'U'}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-body-sm font-medium truncate">
+                <p className="cc-body-sm font-medium truncate">
                   {session.user?.name || session.user?.email || 'User'}
                 </p>
                 {session.user?.email && (
-                  <p className="text-caption text-[var(--cc-on-primary)]/60 truncate">
+                  <p className="cc-caption text-[var(--cc-on-primary)]/60 truncate">
                     {session.user.email}
                   </p>
                 )}
@@ -71,7 +71,7 @@ export function Sidebar() {
             </div>
             <button
               onClick={logout}
-              className="w-full px-4 py-2 text-body-sm text-left text-[var(--cc-on-primary)]/80 hover:text-[var(--cc-on-primary)] hover:bg-[var(--cc-canvas)]/10 rounded transition-colors"
+              className="w-full px-4 py-2 cc-body-sm text-left text-[var(--cc-on-primary)]/80 hover:text-[var(--cc-on-primary)] hover:bg-[var(--cc-canvas)]/10 rounded transition-colors"
             >
               <LogOut className="w-4 h-4 inline-block mr-1" /> Logout
             </button>
@@ -79,7 +79,7 @@ export function Sidebar() {
         ) : (
           <button
             onClick={() => window.location.href = 'https://auth.cinacoin.com'}
-            className="w-full px-4 py-2 text-body-sm font-medium text-center bg-[var(--cc-canvas)]/20 hover:bg-[var(--cc-canvas)]/30 rounded transition-colors"
+            className="w-full px-4 py-2 cc-body-sm font-medium text-center bg-[var(--cc-canvas)]/20 hover:bg-[var(--cc-canvas)]/30 rounded transition-colors"
           >
             <Lock className="w-4 h-4 inline-block mr-1" /> Login
           </button>
