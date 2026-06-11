@@ -339,17 +339,13 @@ export function CinaCoinProvider({ config, children }: CinaCoinProviderProps): J
     };
   }, [account.address, account.chainId, status]);
 
-  // Expose eip5792 context globally for the hooks
+  // Expose eip5792 context via module registry for the hooks
   const eip5792Ref = useRef(eip5792);
   eip5792Ref.current = eip5792;
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      (window as unknown as Record<string, unknown>).__ocx_eip5792_context = () => eip5792Ref.current;
-    }
+    registerEIP5792Context(() => eip5792Ref.current);
     return () => {
-      if (typeof window !== 'undefined') {
-        delete (window as unknown as Record<string, unknown>).__ocx_eip5792_context;
-      }
+      unregisterEIP5792Context();
     };
   }, []);
 

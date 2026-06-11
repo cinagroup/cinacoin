@@ -11,20 +11,20 @@ name = "cinacoin-analytics-prod"
 [[d1_databases]]
 binding = "DB"
 database_name = "CinacoinAnalytics"
-database_id = "YOUR_D1_DATABASE_ID"
+database_id = "cb436ca8-0579-487d-9f1c-260e3b69c971"
 migrations_dir = "migrations"
 
 # KV for rate limiting
 [[kv_namespaces]]
 binding = "RATE_LIMIT_KV"
-id = "YOUR_KV_NAMESPACE_ID"
-preview_id = "YOUR_KV_NAMESPACE_ID"
+id = "dceb86e5cb4c4a008013c8cf21d7181c"
+preview_id = "dceb86e5cb4c4a008013c8cf21d7181c"
 
 # KV for deduplication
 [[kv_namespaces]]
 binding = "DEDUP_KV"
-id = "YOUR_DEDUP_KV_ID"
-preview_id = "YOUR_DEDUP_KV_ID"
+id = "68c1ccdd1e3d422ba534ad2333bfd775"
+preview_id = "68c1ccdd1e3d422ba534ad2333bfd775"
 
 [vars]
 API_KEY = ""

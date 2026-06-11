@@ -15,6 +15,7 @@ KEYS_SERVICE_URL = "https://keys.cinacoin.com"
 [[d1_databases]]
 binding = "KEYS_DB"
 database_name = "cinacoin-keys"
+database_id = "67d98935-9d34-4e3d-b357-af745fa47596"
 
 [[kv_namespaces]]
 binding = "KEYS_CACHE"

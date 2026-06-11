@@ -13,6 +13,7 @@
  */
 
 import { useState, useCallback, useEffect, useRef } from 'react';
+import { getEIP5792Context } from '@cinacoin/core-sdk';
 import type {
   WalletCapabilities,
   ChainCapabilities,
@@ -562,15 +563,7 @@ function getFailedReceiptsHelper(result: GetCallsStatusResult | null) {
 // ---------------------------------------------------------------------------
 
 function useEIP5792Context(): EIP5792Context {
-  const win = window as unknown as Record<string, unknown>;
-  const getter = win.__ocx_eip5792_context as (() => EIP5792Context) | undefined;
-  if (!getter) {
-    throw new Error(
-      'useEIP5792Context requires <CinacoinProvider> with EIP-5792 support. ' +
-      'Make sure you are rendering the provider.',
-    );
-  }
-  return getter();
+  return getEIP5792Context() as EIP5792Context;
 }
 
 // Call, WalletCapabilities, ChainCapabilities, SendCallsParams, SendCallsResult,

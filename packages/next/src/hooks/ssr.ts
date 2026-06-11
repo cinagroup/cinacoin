@@ -26,6 +26,7 @@
  */
 
 import { useState, useEffect, useCallback, useRef } from 'react';
+import { getEIP5792Context } from '@cinacoin/core-sdk';
 
 // ---------------------------------------------------------------------------
 // useAppKitState
@@ -107,24 +108,20 @@ export function useAppKitState(
     if (!isHydrated) return;
 
     try {
-      // Try to read from the global EIP-5792 context (set by CinacoinProvider)
-      const win = window as unknown as Record<string, unknown>;
-      const getter = win.__ocx_eip5792_context as (() => unknown) | undefined;
-      if (getter) {
-        const ctx = getter() as {
-          address?: string | null;
-          isConnected?: boolean;
-          chainIdHex?: string | null;
-          status?: string;
-        } | null;
-        if (ctx) {
-          setClientState({
-            address: ctx.address ?? null,
-            isConnected: ctx.isConnected ?? false,
-            chainId: ctx.chainIdHex ? parseInt(ctx.chainIdHex, 16) : null,
-            status: (ctx.status as AppKitInitialState['status']) ?? 'disconnected',
-          });
-        }
+      // Read from the EIP-5792 context registry (set by CinacoinProvider)
+      const ctx = getEIP5792Context() as {
+        address?: string | null;
+        isConnected?: boolean;
+        chainIdHex?: string | null;
+        status?: string;
+      } | null;
+      if (ctx) {
+        setClientState({
+          address: ctx.address ?? null,
+          isConnected: ctx.isConnected ?? false,
+          chainId: ctx.chainIdHex ? parseInt(ctx.chainIdHex, 16) : null,
+          status: (ctx.status as AppKitInitialState['status']) ?? 'disconnected',
+        });
       }
     } catch {
       // Context not available — use initial state
