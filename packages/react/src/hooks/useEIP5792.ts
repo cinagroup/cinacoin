@@ -24,8 +24,8 @@ import type {
   AtomicBatchConfig,
   AtomicBatchResult,
 } from '@cinacoin/core-sdk';
-import {
 import { logger } from '@cinacoin/logger';
+import {
   walletGetCapabilities,
   walletSendCalls,
   walletGetCallsStatus,

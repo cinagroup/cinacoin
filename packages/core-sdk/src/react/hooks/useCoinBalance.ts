@@ -204,6 +204,7 @@ export function useCoinBalance(options: UseCoinBalanceOptions = {}): UseCoinBala
         if (timerRef.current) clearInterval(timerRef.current);
       };
     }
+    return undefined;
   }, [refreshInterval, isConnected, fetchBalance]);
 
   return useMemo(() => ({

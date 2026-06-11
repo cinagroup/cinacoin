@@ -56,6 +56,10 @@ export interface Chain {
   name: string;
   /** JSON-RPC endpoint URL for on-chain queries. */
   rpcUrl: string;
+  /** CAIP-2 chain reference (e.g., '1' for Ethereum mainnet). */
+  reference?: string;
+  /** CAIP-2 namespace (e.g., 'eip155', 'solana'). */
+  namespace?: string;
   /** Native currency metadata. */
   nativeCurrency?: {
     /** Currency display name (e.g., 'Ether'). */

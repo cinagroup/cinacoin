@@ -19,13 +19,13 @@
 
 import type { Hex, Address } from 'viem';
 import type {
-import { logger } from '@cinacoin/logger';
   WalletCapabilities,
   ChainCapabilities,
   CallsStatus,
   GetCallsStatusResult,
   CallReceipt,
 } from '@cinacoin/core-sdk';
+import { logger } from '@cinacoin/logger';
 
 // ---------------------------------------------------------------------------
 // Types

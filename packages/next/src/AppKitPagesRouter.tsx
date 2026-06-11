@@ -1,7 +1,7 @@
 import React, { type ReactNode } from 'react';
 import {
-  CinaCoinProvider,
-  type CinaCoinConfig,
+  CinacoinProvider,
+  type CinacoinConfig,
   type ChainConfig,
   type ThemeMode,
 } from '@cinacoin/react';
@@ -106,7 +106,7 @@ export function AppKitPagesRouter({
 
   const chains = networks && networks.length > 0 ? networks : [defaultChain];
 
-  const config: CinaCoinConfig = {
+  const config: CinacoinConfig = {
     projectId,
     chains,
     theme: {
@@ -121,12 +121,12 @@ export function AppKitPagesRouter({
   // (address, balance, etc.) won't hydrate until client-side activation.
   // This is safe because CinaCoinProvider initializes with null/default values.
   if (!mounted) {
-    return <CinaCoinProvider config={{ ...config }}>{children}</CinaCoinProvider>;
+    return <CinacoinProvider config={{ ...config }}>{children}</CinacoinProvider>;
   }
 
   return (
-    <CinaCoinProvider config={config}>
+    <CinacoinProvider config={config}>
       {children}
-    </CinaCoinProvider>
+    </CinacoinProvider>
   );
 }

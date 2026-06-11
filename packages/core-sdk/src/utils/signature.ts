@@ -95,9 +95,8 @@ export function verifySignature(params: VerifySignatureParams): boolean {
     }
 
     // EIP-1271 fallback for smart contract wallets
-    if (rpcUrl) {
-      return verifyEIP1271(message, signature, address, rpcUrl);
-    }
+    // Note: verifyEIP1271 is async, so cannot be called here.
+    // Use verifySignatureAsync() for EIP-1271 support.
 
     return false;
   } catch {
