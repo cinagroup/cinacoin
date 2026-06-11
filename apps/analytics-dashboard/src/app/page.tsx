@@ -58,6 +58,13 @@ export default function Home() {
 
       {/* Main Content */}
       <main id="main-content" className="max-w-7xl mx-auto px-lg py-xl">
+        {/* Page Header */}
+        <div className="mb-xl">
+          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">DASHBOARD</p>
+          <h1 className="text-heading-1 text-ink">Analytics Overview</h1>
+          <p className="text-body text-ink-mute mt-xxs">Platform metrics and activity monitoring</p>
+        </div>
+
         {/* KPI Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-lg mb-xl">
           {kpiData.map((kpi, index) => (
