@@ -122,7 +122,7 @@
 
 .header-address {
   font-size: var(--text-caption);
-  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-family: var(--font-geist-mono);
   background: rgba(108, 99, 255, 0.15);
   color: var(--color-primary-light);
   padding: 4px 8px;
@@ -185,7 +185,7 @@
 
 .balance-address {
   font-size: var(--text-caption);
-  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-family: var(--font-geist-mono);
   opacity: 0.6;
   margin-top: var(--spacing-sm);
 }
@@ -290,7 +290,7 @@
 .tx-value {
   font-weight: var(--weight-semibold);
   font-size: var(--text-body-sm);
-  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-family: var(--font-geist-mono);
 }
 
 .tx-value.positive {
@@ -310,7 +310,7 @@
 
 .tx-hash {
   font-size: var(--text-caption);
-  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-family: var(--font-geist-mono);
   color: var(--color-text-secondary);
 }
 
@@ -497,7 +497,7 @@
 }
 
 .wallet-address {
-  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-family: var(--font-geist-mono);
   font-size: var(--text-body-sm);
   font-weight: var(--weight-medium);
 }
@@ -589,7 +589,7 @@
 }
 
 .form-value {
-  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-family: var(--font-geist-mono);
   font-size: var(--text-body-sm);
   padding: var(--spacing-sm) 0;
 }
@@ -660,7 +660,7 @@
 }
 
 .signature-value {
-  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-family: var(--font-geist-mono);
   font-size: var(--text-caption);
   color: var(--color-text-secondary);
   word-break: break-all;
