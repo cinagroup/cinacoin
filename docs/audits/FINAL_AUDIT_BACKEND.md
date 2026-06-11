@@ -1,7 +1,7 @@
 # Final Audit Report — backend-dashboard (admin.cinacoin.com)
 
 **Date:** 2026-06-08  
-**Auditor:** Cinacoin Design Compliance Subagent  
+**Auditor:** Cinacoin Design Compliance Subagent
 
 ---
 
@@ -54,6 +54,7 @@
 ```
 
 **使用位置：**
+
 - `src/app/page.tsx` — 主仪表盘服务表
 - `src/app/chains/page.tsx` — 链列表
 - `src/app/rpc-proxy/page.tsx` — RPC 方法表和 Provider 表
@@ -72,6 +73,7 @@
 ```
 
 **使用位置：**
+
 - `src/app/chains/page.tsx` — 添加链表单
 - `src/app/project/page.tsx` — 项目设置表单
 - `src/app/settings/page.tsx` — 全局设置表单
@@ -96,7 +98,12 @@
 
 ```css
 body {
-  font-family: 'Geist', 'Inter', system-ui, -apple-system, sans-serif;
+  font-family:
+    'Geist',
+    'Inter',
+    system-ui,
+    -apple-system,
+    sans-serif;
 }
 ```
 
@@ -108,13 +115,13 @@ body {
 
 ## 总结
 
-| 优先级 | 检查项 | 状态 |
-|--------|--------|------|
-| P0 | 卡片堆叠阴影 + inset hairline | ✅ PASS |
-| P1 | 表头 Geist Mono 等宽字体 | ✅ PASS |
-| P1 | 输入框高度 40px | ✅ PASS |
-| P2 | Logo 引用 /logo.png | ✅ PASS |
-| P2 | 字体栈顺序 Geist 优先 | ✅ PASS |
-| P2 | Geist 字体文件加载 | ⚠️ PARTIAL |
+| 优先级 | 检查项                        | 状态       |
+| ------ | ----------------------------- | ---------- |
+| P0     | 卡片堆叠阴影 + inset hairline | ✅ PASS    |
+| P1     | 表头 Geist Mono 等宽字体      | ✅ PASS    |
+| P1     | 输入框高度 40px               | ✅ PASS    |
+| P2     | Logo 引用 /logo.png           | ✅ PASS    |
+| P2     | 字体栈顺序 Geist 优先         | ✅ PASS    |
+| P2     | Geist 字体文件加载            | ⚠️ PARTIAL |
 
 **合规率：5/6 通过，1 项部分通过**

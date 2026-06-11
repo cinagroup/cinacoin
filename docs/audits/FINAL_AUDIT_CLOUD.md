@@ -1,7 +1,7 @@
 # Final Audit Report — cloud-dashboard (cloud.cinacoin.com)
 
 **Date:** 2026-06-08  
-**Auditor:** Cinacoin Design Compliance Subagent  
+**Auditor:** Cinacoin Design Compliance Subagent
 
 ---
 
@@ -38,6 +38,7 @@
 ```
 
 **涉及组件：**
+
 - `src/app/page.tsx` — 项目卡片、统计卡片
 - `src/app/settings/page.tsx` — 设置面板
 - `src/app/projects/new/page.tsx` — 新建项目表单
@@ -81,6 +82,7 @@
 ```
 
 **使用位置：**
+
 - `src/app/settings/page.tsx` — API Key 输入、设置表单
 - `src/app/projects/[id]/ProjectDetailClient.tsx` — 项目编辑表单
 - `src/components/ProjectForm.tsx` — 新建项目表单
@@ -107,7 +109,8 @@
 ```css
 :root {
   --font-sans: 'Inter', 'Geist', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  --font-mono:
+    'JetBrains Mono', 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
 }
 ```
 
@@ -118,7 +121,8 @@
 ```css
 :root {
   --font-sans: 'Geist', 'Inter', system-ui, -apple-system, sans-serif;
-  --font-mono: 'Geist Mono', 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  --font-mono:
+    'Geist Mono', 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
 }
 ```
 
@@ -136,6 +140,7 @@ const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mon
 ```
 
 **建议：**
+
 1. 使用 `next/font/local` 加载 Geist 和 Geist Mono 字体文件
 2. 修正字体栈顺序，Geist 优先
 
@@ -143,14 +148,14 @@ const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mon
 
 ## 总结
 
-| 优先级 | 检查项 | 状态 |
-|--------|--------|------|
-| P0 | 卡片堆叠阴影 + inset hairline | ✅ PASS |
-| P1 | 表头 Geist Mono 等宽字体 | ✅ PASS |
-| P1 | 输入框高度 40px | ✅ PASS |
-| P2 | Logo 引用 /logo.png | ⚠️ PARTIAL |
-| P2 | 字体栈顺序 Geist 优先 | ❌ FAIL |
-| P2 | Geist 字体文件加载 | ❌ FAIL |
+| 优先级 | 检查项                        | 状态       |
+| ------ | ----------------------------- | ---------- |
+| P0     | 卡片堆叠阴影 + inset hairline | ✅ PASS    |
+| P1     | 表头 Geist Mono 等宽字体      | ✅ PASS    |
+| P1     | 输入框高度 40px               | ✅ PASS    |
+| P2     | Logo 引用 /logo.png           | ⚠️ PARTIAL |
+| P2     | 字体栈顺序 Geist 优先         | ❌ FAIL    |
+| P2     | Geist 字体文件加载            | ❌ FAIL    |
 
 **合规率：3/6 通过，1 项部分通过，2 项未通过**
 

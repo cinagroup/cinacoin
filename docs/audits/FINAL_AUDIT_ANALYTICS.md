@@ -1,7 +1,7 @@
 # Final Audit Report — analytics-dashboard (analytics.cinacoin.com)
 
 **Date:** 2026-06-08  
-**Auditor:** Cinacoin Design Compliance Subagent  
+**Auditor:** Cinacoin Design Compliance Subagent
 
 ---
 
@@ -97,7 +97,8 @@
 
 ```css
 --v-font-sans: 'Geist', 'Inter', system-ui, -apple-system, sans-serif;
---v-font-mono: 'Geist Mono', var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+--v-font-mono:
+  'Geist Mono', var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
 ```
 
 但 `src/app/layout.tsx` 实际加载的是 **Inter** 和 **JetBrains Mono**（Google Fonts）：
@@ -107,6 +108,7 @@ import { Inter, JetBrains_Mono } from 'next/font/google';
 ```
 
 代码注释明确说明：
+
 > "Note: In production, replace Inter with Geist and JetBrains_Mono with Geist Mono via next/font/local for the full Vercel-style typography experience."
 
 **建议：** 使用 `next/font/local` 加载 Geist 和 Geist Mono 字体文件，替换当前的 Google Fonts 方案。
@@ -115,14 +117,14 @@ import { Inter, JetBrains_Mono } from 'next/font/google';
 
 ## 总结
 
-| 优先级 | 检查项 | 状态 |
-|--------|--------|------|
-| P0 | 卡片堆叠阴影 + inset hairline | ✅ PASS |
-| P1 | 表头 Geist Mono 等宽字体 | ✅ PASS |
-| P1 | 输入框高度 40px | ✅ PASS |
-| P2 | Logo 引用 /logo.png | ❌ FAIL |
-| P2 | 字体栈顺序 Geist 优先 | ✅ PASS（CSS 声明正确） |
-| P2 | Geist 字体文件加载 | ❌ FAIL |
+| 优先级 | 检查项                        | 状态                    |
+| ------ | ----------------------------- | ----------------------- |
+| P0     | 卡片堆叠阴影 + inset hairline | ✅ PASS                 |
+| P1     | 表头 Geist Mono 等宽字体      | ✅ PASS                 |
+| P1     | 输入框高度 40px               | ✅ PASS                 |
+| P2     | Logo 引用 /logo.png           | ❌ FAIL                 |
+| P2     | 字体栈顺序 Geist 优先         | ✅ PASS（CSS 声明正确） |
+| P2     | Geist 字体文件加载            | ❌ FAIL                 |
 
 **合规率：4/6 通过，2 项未通过**
 

@@ -1,7 +1,7 @@
 {
   "name": "@cinacoin/cinacoin-ui-theme",
   "version": "0.2.0",
-  "description": "Theming, animations, and UI components for Cinacoin with framer-motion and Tailwind CSS",
+  "description": "[DEPRECATED] Use @cinacoin/ui-theme instead. Theming, animations, and UI components for Cinacoin with framer-motion and Tailwind CSS",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -45,7 +45,7 @@
     "react-dom": ">=18.0.0"
   },
   "devDependencies": {
-    "@types/react": "^18.2.0",
+    "@types/react": "^18.3.0",
     "@types/react-dom": "^18.2.0",
     "tsup": "^8.0.0",
     "typescript": "^5.8.3"
@@ -53,5 +53,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "deprecated": "Use @cinacoin/ui-theme instead"
 }
