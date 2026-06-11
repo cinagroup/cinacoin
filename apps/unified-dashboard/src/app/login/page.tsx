@@ -27,30 +27,19 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[var(--cc-canvas-soft)] py-12 px-4">
-      <div className="w-full max-w-[400px]">
-        {/* Logo/Brand area */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-[var(--cc-radius-md)] bg-[var(--cc-primary)] mb-4">
-            <span className="text-[var(--cc-on-primary)] font-semibold text-lg">C</span>
-          </div>
-          <p className="font-mono text-xs text-[var(--cc-muted)] tracking-wide">CINACOIN</p>
-        </div>
-
+    <div className="min-h-screen flex items-center justify-center bg-[var(--cc-canvas-soft)]">
+      <div className="w-full max-w-[340px] px-4">
         {/* Login Card */}
-        <div className="bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-lg)] p-8 shadow-[var(--cc-level3)]">
-          {/* Mono eyebrow */}
-          <p className="font-mono text-xs text-[var(--cc-muted)] mb-3 tracking-wide">AUTHENTICATION</p>
-          
-          {/* Title — sentence case + period */}
-          <h1 className="text-[20px] font-semibold text-[var(--cc-ink)] mb-2 tracking-[-0.6px]">
-            Sign in to your account.
+        <div className="bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] p-6 shadow-[var(--cc-level2)]">
+          {/* Title */}
+          <h1 className="text-[20px] font-semibold text-[var(--cc-ink)] mb-1 tracking-[-0.6px]">
+            Log In
           </h1>
-          <p className="text-[14px] text-[var(--cc-body)] mb-8">
-            Access your CinaCoin dashboard.
+          <p className="text-[14px] text-[var(--cc-body)] mb-6">
+            Welcome back to CinaCoin.
           </p>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-4">
             {error && (
               <div className="p-3 bg-[var(--cc-error-soft)] border border-[var(--cc-error)] rounded-[var(--cc-radius-sm)] text-[var(--cc-error-deep)] text-[13px]">
                 {error}
@@ -58,7 +47,7 @@ export default function LoginPage() {
             )}
 
             <div>
-              <label htmlFor="email" className="block text-[14px] font-medium text-[var(--cc-ink)] mb-2">
+              <label htmlFor="email" className="block text-[13px] font-medium text-[var(--cc-ink)] mb-1.5">
                 Email
               </label>
               <input
@@ -70,12 +59,12 @@ export default function LoginPage() {
                 required
                 autoComplete="email"
                 className="w-full h-10 px-3 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-sm)] text-[14px] text-[var(--cc-ink)] placeholder:text-[var(--cc-muted)] focus:outline-none focus:border-[var(--cc-link)] focus:ring-3 focus:ring-[rgba(0,112,243,0.1)] transition-colors"
-                placeholder="admin@cinacoin.com"
+                placeholder="name@example.com"
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-[14px] font-medium text-[var(--cc-ink)] mb-2">
+              <label htmlFor="password" className="block text-[13px] font-medium text-[var(--cc-ink)] mb-1.5">
                 Password
               </label>
               <input
@@ -96,14 +85,17 @@ export default function LoginPage() {
               disabled={loading}
               className="w-full h-10 bg-[var(--cc-primary)] text-[var(--cc-on-primary)] rounded-[var(--cc-radius-sm)] text-[14px] font-medium hover:bg-[var(--cc-primary-hover)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? "Signing in..." : "Sign in"}
+              {loading ? "Logging in..." : "Log In"}
             </button>
           </form>
         </div>
 
-        {/* Footer hint */}
-        <p className="mt-6 text-center text-[12px] font-mono text-[var(--cc-muted)]">
-          demo: admin@cinacoin.com / admin123
+        {/* Footer */}
+        <p className="mt-4 text-center text-[12px] text-[var(--cc-muted)]">
+          Don&apos;t have an account?{" "}
+          <a href="/register" className="text-[var(--cc-link)] hover:underline">
+            Sign up
+          </a>
         </p>
       </div>
     </div>
