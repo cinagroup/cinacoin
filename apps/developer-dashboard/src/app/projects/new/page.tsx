@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import Link from "next/link";
+import Link from 'next/link';
+import { useState } from 'react';
 
 export default function NewProjectPage() {
   const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-    network: "mainnet",
-    sdkVersion: "v2",
+    name: '',
+    description: '',
+    network: 'mainnet',
+    sdkVersion: 'v2',
   });
 
   const handleChange = (
@@ -37,13 +37,12 @@ export default function NewProjectPage() {
 
       <form onSubmit={handleSubmit} className="cc-card space-y-5">
         <div>
-          <label className="block text-body-sm font-medium text-ink mb-1">
-            Project Name
-          </label>
+          <label className="block text-body-sm font-medium text-ink mb-1">Project Name</label>
           <input
             name="name"
             type="text"
             placeholder="My Awesome dApp"
+            aria-label="Project name"
             className="cc-form-input"
             value={formData.name}
             onChange={handleChange}
@@ -52,12 +51,11 @@ export default function NewProjectPage() {
         </div>
 
         <div>
-          <label className="block text-body-sm font-medium text-ink mb-1">
-            Description
-          </label>
+          <label className="block text-body-sm font-medium text-ink mb-1">Description</label>
           <textarea
             name="description"
             placeholder="Brief description of your project..."
+            aria-label="Project description"
             className="cc-form-input min-h-[100px] resize-y"
             value={formData.description}
             onChange={handleChange}
@@ -69,6 +67,7 @@ export default function NewProjectPage() {
             <label className="block text-body-sm font-medium text-ink mb-1">Network</label>
             <select
               name="network"
+              aria-label="Network"
               className="cc-form-input"
               value={formData.network}
               onChange={handleChange}
@@ -83,6 +82,7 @@ export default function NewProjectPage() {
             <label className="block text-body-sm font-medium text-ink mb-1">SDK Version</label>
             <select
               name="sdkVersion"
+              aria-label="SDK version"
               className="cc-form-input"
               value={formData.sdkVersion}
               onChange={handleChange}
