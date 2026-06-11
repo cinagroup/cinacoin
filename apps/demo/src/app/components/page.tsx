@@ -582,7 +582,7 @@ function ToggleSwitch({ checked, onChange }) {
     text-body-sm placeholder:text-[var(--cc-body)] focus:outline-none
     focus:ring-2 focus:ring-[var(--cc-link)]/40" />
   <span className="absolute left-3 top-1/2 -translate-y-1/2
-    text-[var(--cc-body)]">🔍</span>
+    text-[var(--cc-body)]">⌕</span>
 </div>
 
 // Select Dropdown
@@ -738,7 +738,7 @@ function ToggleSwitch({ checked, onChange }) {
                 { type: 'Success', icon: '✓', bg: 'bg-[var(--cc-success)]/15', border: 'border-[var(--cc-success)]/25', text: 'text-[var(--cc-success)]', desc: 'Transaction completed successfully' },
                 { type: 'Error', icon: '✗', bg: 'bg-[var(--cc-error)]/15', border: 'border-[var(--cc-error)]/25', text: 'text-[var(--cc-error)]', desc: 'Connection failed: User rejected' },
                 { type: 'Info', icon: 'ℹ', bg: 'bg-[var(--cc-link)]/15', border: 'border-[var(--cc-primary)]/25', text: 'text-[var(--cc-link)]', desc: 'Switching to Polygon network' },
-                { type: 'Warning', icon: '⚠', bg: 'bg-[var(--cc-warning)]/15', border: 'border-[var(--cc-warning)]/25', text: 'text-[var(--cc-warning)]', desc: 'High gas prices detected' },
+                { type: 'Warning', icon: <AlertTriangleIcon className="w-5 h-5" />, bg: 'bg-[var(--cc-warning)]/15', border: 'border-[var(--cc-warning)]/25', text: 'text-[var(--cc-warning)]', desc: 'High gas prices detected' },
               ].map((t) => (
                 <div key={t.type} className={`p-3 rounded-md ${t.bg} border ${t.border} flex items-start gap-3`}>
                   <span className={`text-body-lg ${t.text}`}>{t.icon}</span>
