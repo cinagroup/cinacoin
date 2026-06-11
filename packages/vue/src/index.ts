@@ -4,8 +4,8 @@
  * Vue 3 adapter for Cinacoin white-label UI toolkit.
  */
 
-export { default as CinaCoinProvider } from './CinaCoinProvider.vue.js';
-export type { CinaCoinProviderProps } from './CinaCoinProvider.vue.js';
+export { default as CinaCoinProvider } from './CinaCoinProvider.vue';
+export type { CinaCoinProviderProps } from './CinaCoinProvider.vue';
 
 export { ONCHAINUX_KEY } from './types.js';
 export type { CinacoinConfig, CinacoinContext, AccountState, Connector, ChainConfig, ThemeMode } from './types.js';
@@ -59,15 +59,15 @@ export type {
 export { ConnectorManager } from './connectorManager.js';
 
 // Native Vue 3 components
-export { default as ConnectModal } from './components/ConnectModal.vue.js'
-export type { ConnectModalProps } from './components/ConnectModal.vue.js'
-export { default as ChainSwitcher } from './components/ChainSwitcher.vue.js'
-export type { ChainSwitcherProps } from './components/ChainSwitcher.vue.js'
-export { default as WalletButton } from './components/WalletButton.vue.js'
-export type { WalletButtonProps } from './components/WalletButton.vue.js'
-export { default as WalletButtonGroup } from './components/WalletButtonGroup.vue.js'
-export type { WalletButtonGroupProps } from './components/WalletButtonGroup.vue.js'
-export { default as AccountModal } from './components/AccountModal.vue.js'
-export type { AccountModalProps } from './components/AccountModal.vue.js'
-export { default as BalanceDisplay } from './components/BalanceDisplay.vue.js'
-export type { BalanceDisplayProps } from './components/BalanceDisplay.vue.js'
+export { default as ConnectModal } from './components/ConnectModal.vue'
+export type { ConnectModalProps } from './components/ConnectModal.vue'
+export { default as ChainSwitcher } from './components/ChainSwitcher.vue'
+export type { ChainSwitcherProps } from './components/ChainSwitcher.vue'
+export { default as WalletButton } from './components/WalletButton.vue'
+export type { WalletButtonProps } from './components/WalletButton.vue'
+export { default as WalletButtonGroup } from './components/WalletButtonGroup.vue'
+export type { WalletButtonGroupProps } from './components/WalletButtonGroup.vue'
+export { default as AccountModal } from './components/AccountModal.vue'
+export type { AccountModalProps } from './components/AccountModal.vue'
+export { default as BalanceDisplay } from './components/BalanceDisplay.vue'
+export type { BalanceDisplayProps } from './components/BalanceDisplay.vue'

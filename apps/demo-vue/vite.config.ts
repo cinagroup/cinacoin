@@ -7,6 +7,8 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
+      // Resolve SDK to source for development (SDK build is broken)
+      '@cinacoin/vue': resolve(__dirname, '../../packages/vue/src'),
     },
   },
   server: {
