@@ -27,13 +27,18 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[var(--cc-canvas-soft)]">
-      <div className="w-full max-w-[340px] px-4">
+    <div className="min-h-screen flex items-center justify-center bg-[var(--cc-canvas-soft)] py-12 px-4">
+      <div className="w-full max-w-[340px]">
         {/* Login Card */}
         <div className="bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] p-6 shadow-[var(--cc-level2)]">
-          {/* Title */}
+          {/* Mono eyebrow */}
+          <p className="font-mono text-[12px] text-[var(--cc-muted)] mb-2 tracking-wide">
+            AUTHENTICATION
+          </p>
+          
+          {/* Title — sentence case + period */}
           <h1 className="text-[20px] font-semibold text-[var(--cc-ink)] mb-1 tracking-[-0.6px]">
-            Log In
+            Log in to your account.
           </h1>
           <p className="text-[14px] text-[var(--cc-body)] mb-6">
             Welcome back to CinaCoin.
@@ -85,7 +90,7 @@ export default function LoginPage() {
               disabled={loading}
               className="w-full h-10 bg-[var(--cc-primary)] text-[var(--cc-on-primary)] rounded-[var(--cc-radius-sm)] text-[14px] font-medium hover:bg-[var(--cc-primary-hover)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? "Logging in..." : "Log In"}
+              {loading ? "Logging in..." : "Log in"}
             </button>
           </form>
         </div>
