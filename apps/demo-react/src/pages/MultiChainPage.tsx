@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { ArrowLeftRight } from 'lucide-react';
-import SiteHeader from '../components/SiteHeader';
-import SiteFooter from '../components/SiteFooter';
 
 const CHAINS = [
   { id: 'eth', name: 'Ethereum', symbol: 'ETH', color: 'var(--cc-demo-chain-ethereum)', icon: 'Ξ', wallets: ['MetaMask', 'WalletConnect', 'Coinbase'], txs: '1.2M', tvl: '$45B' },
@@ -18,7 +16,7 @@ const CHAINS = [
   { id: 'sui', name: 'Sui', symbol: 'SUI', color: 'var(--cc-demo-chain-sui)', icon: 'S', wallets: ['Sui Wallet', 'Ethos', 'Suiet'], txs: '3.2M', tvl: '$1.2B' },
   { id: 'starknet', name: 'Starknet', symbol: 'STRK', color: 'var(--cc-demo-chain-starknet)', icon: 'S', wallets: ['Argent X', 'Braavos'], txs: '890K', tvl: '$450M' },
   { id: 'near', name: 'NEAR', symbol: 'NEAR', color: 'var(--cc-demo-chain-near)', icon: 'N', wallets: ['NEAR Wallet', 'Here Wallet'], txs: '1.5M', tvl: '$800M' },
-  { id: 'hedera', name: 'Hedera', symbol: 'HBAR', color: 'var(--cc-demo-chain-hedera)', icon: 'H', wallets: ['HashPack', 'Blade'], txs: '920K', py: '1' },
+  { id: 'hedera', name: 'Hedera', symbol: 'HBAR', color: 'var(--cc-demo-chain-hedera)', icon: 'H', wallets: ['HashPack', 'Blade'], txs: '920K', tvl: '$200M' },
   { id: 'xrpl', name: 'XRPL', symbol: 'XRP', color: 'var(--cc-demo-chain-xrpl)', icon: 'X', wallets: ['Xaman', 'Fireblocks'], txs: '650K', tvl: '$200M' },
 ];
 
@@ -27,140 +25,132 @@ export default function MultiChainPage() {
   const chain = CHAINS.find(c => c.id === selected);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[var(--cc-canvas-soft)] text-[var(--cc-ink)]">
-      <SiteHeader />
+    <section className="max-w-5xl mx-auto w-full py-12 px-4" aria-label="Multi-chain support">
+      <div className="text-center mb-10">
+        <p className="cc-caption-mono text-[var(--cc-muted)] mb-2">MULTI-CHAIN</p>
+        <h1 className="cc-display-lg mb-3">16 chains, one SDK.</h1>
+        <p className="cc-body-md text-[var(--cc-body)] max-w-lg mx-auto">EVM · Solana · Bitcoin · Layer 2s — unified API, zero fragmentation</p>
+      </div>
 
-      <main id="main-content" role="main">
-      <section className="max-w-5xl mx-auto w-full pt-12 pb-24 px-4 flex-1" aria-label="Multi-chain support">
-        <div className="text-center mb-10">
-          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">MULTI-CHAIN</p>
-          <h1 className="cc-display-lg mb-3">16 chains, one SDK</h1>
-          <p className="cc-body-md text-[var(--cc-body)] max-w-lg mx-auto">EVM · Solana · Bitcoin · Layer 2s — unified API, zero fragmentation</p>
-        </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        {CHAINS.map(c => (
+          <button
+            key={c.id}
+            onClick={() => setSelected(selected === c.id ? null : c.id)}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelected(selected === c.id ? null : c.id); } }}
+            className={`cc-card !p-4 text-left transition-all border focus-ring ${
+              selected === c.id
+                ? 'border-[var(--cc-link)] shadow-[var(--cc-level3)] ring-2 ring-[var(--cc-link)]/10'
+                : 'border-[var(--cc-hairline)] hover:border-[var(--cc-muted)]'
+            }`}
+            aria-label={`Select ${c.name} chain`}
+            aria-pressed={selected === c.id}
+          >
+            <div className="flex items-center gap-3 mb-3">
+              <span className="w-8 h-8 rounded-full flex items-center justify-center text-body-sm font-semibold text-[var(--cc-ink)]" style={{ backgroundColor: c.color + '20' }}>{c.icon}</span>
+              <span className="font-semibold text-body-sm text-[var(--cc-ink)]">{c.name}</span>
+            </div>
+            <div className="flex gap-1 flex-wrap">
+              {c.wallets.slice(0, 3).map(w => (
+                <span key={w} className="cc-badge !bg-[var(--cc-canvas-soft-2)] text-[10px] py-1 px-2">{w}</span>
+              ))}
+            </div>
+          </button>
+        ))}
+      </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
-          {CHAINS.map(c => (
-            <button
-              key={c.id}
-              onClick={() => setSelected(selected === c.id ? null : c.id)}
-              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelected(selected === c.id ? null : c.id); } }}
-              className={`cc-card !p-4 text-left transition-all border focus-ring ${
-                selected === c.id
-                  ? 'border-[var(--cc-link)] shadow-[var(--cc-level3)] ring-2 ring-[var(--cc-link)]/10'
-                  : 'border-[var(--cc-hairline)] hover:border-[var(--cc-muted)]'
-              }`}
-              aria-label={`Select ${c.name} chain`}
-              aria-pressed={selected === c.id}
-            >
-              <div className="flex items-center gap-3 mb-3">
-                <span className="w-8 h-8 rounded-full flex items-center justify-center text-body-sm font-semibold text-[var(--cc-ink)]" style={{ backgroundColor: c.color + '20' }}>{c.icon}</span>
-                <span className="font-semibold text-body-sm text-[var(--cc-ink)]">{c.name}</span>
-              </div>
-              <div className="flex gap-1 flex-wrap">
-                {c.wallets.slice(0, 3).map(w => (
-                  <span key={w} className="cc-badge !bg-[var(--cc-canvas-soft-2)] text-[10px] py-1 px-2">{w}</span>
-                ))}
-              </div>
-            </button>
-          ))}
-        </div>
-
-        {chain && (
-          <div className="cc-card-lg mb-8 animate-slide-up border border-[var(--cc-link)]/10">
-            <div className="flex items-center gap-4 mb-4">
-              <span className="w-12 h-12 rounded-full flex items-center justify-center text-display-md font-semibold text-[var(--cc-ink)]" style={{ backgroundColor: chain.color + '20' }}>{chain.icon}</span>
-              <div>
-                <h2 className="cc-display-sm text-[var(--cc-ink)]">{chain.name}</h2>
-                <p className="cc-body-sm text-[var(--cc-muted)] mt-1">{chain.wallets.join(' · ')}</p>
-              </div>
-            </div>
-            <div className="grid grid-cols-3 gap-4 mb-6">
-              <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4 text-center border border-[var(--cc-hairline)]">
-                <div className="cc-display-sm text-[var(--cc-link)]">{chain.txs}</div>
-                <div className="cc-caption-mono text-[var(--cc-muted)] mt-1">TXs/day</div>
-              </div>
-              <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4 text-center border border-[var(--cc-hairline)]">
-                <div className="cc-display-sm text-[var(--cc-link)]">{chain.tvl || 'N/A'}</div>
-                <div className="cc-caption-mono text-[var(--cc-muted)] mt-1">TVL</div>
-              </div>
-              <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4 text-center border border-[var(--cc-hairline)] flex flex-col justify-center items-center">
-                <div className="flex items-center gap-2 justify-center">
-                  <span className="w-2 h-2 bg-[var(--cc-success)] rounded-full animate-pulse" />
-                  <span className="text-[var(--cc-success)] text-body-sm font-semibold">Active</span>
-                </div>
-                <div className="cc-caption-mono text-[var(--cc-muted)] mt-1">Status</div>
-              </div>
-            </div>
-            <button
-              className="cc-btn-primary w-full text-body-md font-semibold focus-ring"
-              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); } }}
-              aria-label={`Connect to ${chain.name} chain`}
-              onClick={() => { /* Demo: would trigger chain connection flow */ }}
-            >
-              Connect {chain.name}
-            </button>
-          </div>
-        )}
-
-        {/* Cross-Chain Flow */}
-        <div className="cc-card mb-8">
-          <h2 className="cc-display-sm mb-4">Cross-chain bridge</h2>
-          <div className="flex items-center justify-center gap-3 flex-wrap">
-            <div className="bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] rounded-lg px-6 py-4 text-center min-w-[120px]">
-              <span className="text-display-md">Ξ</span>
-              <p className="cc-body-sm-strong mt-1">Ethereum</p>
-            </div>
-            <span className="text-display-md text-[var(--cc-muted)]">→</span>
-            <div className="bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] rounded-lg px-6 py-4 text-center min-w-[120px]">
-              <span className="text-display-md"><ArrowLeftRight className="w-6 h-6 inline" /></span>
-              <p className="cc-body-sm-strong mt-1">Relay</p>
-              <p className="text-caption text-[var(--cc-muted)] cc-caption">Cinacoin</p>
-            </div>
-            <span className="text-display-md text-[var(--cc-muted)]">→</span>
-            <div className="bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] rounded-lg px-6 py-4 text-center min-w-[120px]">
-              <span className="text-display-md">◎</span>
-              <p className="cc-body-sm-strong mt-1">Solana</p>
-            </div>
-            <span className="text-display-md text-[var(--cc-muted)]">→</span>
-            <div className="bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] rounded-lg px-6 py-4 text-center min-w-[120px]">
-              <span className="text-display-md">₿</span>
-              <p className="cc-body-sm-strong mt-1">Bitcoin</p>
+      {chain && (
+        <div className="cc-card-lg mb-8 animate-slide-up border border-[var(--cc-link)]/10">
+          <div className="flex items-center gap-4 mb-4">
+            <span className="w-12 h-12 rounded-full flex items-center justify-center text-display-md font-semibold text-[var(--cc-ink)]" style={{ backgroundColor: chain.color + '20' }}>{chain.icon}</span>
+            <div>
+              <h2 className="cc-display-sm text-[var(--cc-ink)]">{chain.name}.</h2>
+              <p className="cc-body-sm text-[var(--cc-muted)] mt-1">{chain.wallets.join(' · ')}</p>
             </div>
           </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+            <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4 text-center border border-[var(--cc-hairline)]">
+              <div className="cc-display-sm text-[var(--cc-link)]">{chain.txs}</div>
+              <div className="cc-caption-mono text-[var(--cc-muted)] mt-1">TXs/day</div>
+            </div>
+            <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4 text-center border border-[var(--cc-hairline)]">
+              <div className="cc-display-sm text-[var(--cc-link)]">{chain.tvl || 'N/A'}</div>
+              <div className="cc-caption-mono text-[var(--cc-muted)] mt-1">TVL</div>
+            </div>
+            <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4 text-center border border-[var(--cc-hairline)] flex flex-col justify-center items-center">
+              <div className="flex items-center gap-2 justify-center">
+                <span className="w-2 h-2 bg-[var(--cc-success)] rounded-full animate-pulse" />
+                <span className="text-[var(--cc-success)] text-body-sm font-semibold">Active</span>
+              </div>
+              <div className="cc-caption-mono text-[var(--cc-muted)] mt-1">Status</div>
+            </div>
+          </div>
+          <button
+            className="cc-btn-primary w-full text-body-md font-semibold focus-ring"
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); } }}
+            aria-label={`Connect to ${chain.name} chain`}
+            onClick={() => { /* Demo: would trigger chain connection flow */ }}
+          >
+            Connect {chain.name}
+          </button>
         </div>
+      )}
 
-        {/* Unified API */}
-        <div className="cc-card mb-8">
-          <h2 className="cc-display-sm mb-4">Unified API</h2>
-          <pre className="cc-code-block">
-{`import { Cinacoin } from '@cinacoin/core-sdk';
+      {/* Cross-Chain Flow */}
+      <div className="cc-card mb-8">
+        <h2 className="cc-display-sm mb-4">Cross-chain bridge.</h2>
+        <div className="flex items-center justify-center gap-3 flex-wrap">
+          <div className="bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] rounded-lg px-6 py-4 text-center min-w-[120px]">
+            <span className="text-display-md">Ξ</span>
+            <p className="cc-body-sm-strong mt-1">Ethereum</p>
+          </div>
+          <span className="text-display-md text-[var(--cc-muted)]">→</span>
+          <div className="bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] rounded-lg px-6 py-4 text-center min-w-[120px]">
+            <span className="text-display-md"><ArrowLeftRight className="w-6 h-6 inline" /></span>
+            <p className="cc-body-sm-strong mt-1">Relay</p>
+            <p className="text-caption text-[var(--cc-muted)] cc-caption">CinaCoin</p>
+          </div>
+          <span className="text-display-md text-[var(--cc-muted)]">→</span>
+          <div className="bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] rounded-lg px-6 py-4 text-center min-w-[120px]">
+            <span className="text-display-md">◎</span>
+            <p className="cc-body-sm-strong mt-1">Solana</p>
+          </div>
+          <span className="text-display-md text-[var(--cc-muted)]">→</span>
+          <div className="bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] rounded-lg px-6 py-4 text-center min-w-[120px]">
+            <span className="text-display-md">₿</span>
+            <p className="cc-body-sm-strong mt-1">Bitcoin</p>
+          </div>
+        </div>
+      </div>
 
-const cc = new Cinacoin({ projectId: 'YOUR_PROJECT_ID' });
+      {/* Unified API */}
+      <div className="cc-card mb-8">
+        <h2 className="cc-display-sm mb-4">Unified API.</h2>
+        <pre className="cc-code-block">
+{`import { CinaCoin } from '@cinacoin/core-sdk';
+
+const cc = new CinaCoin({ projectId: 'YOUR_PROJECT_ID' });
 
 // Connect to any chain with the same API
 const eth = await cc.connect('ethereum', 'metamask');
 const sol = await cc.connect('solana', 'phantom');
 const btc = await cc.connect('bitcoin', 'xverse');`}</pre>
-        </div>
+      </div>
 
-        {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {[
-            { l: 'Chains', v: '16', c: 'text-[var(--cc-link)]' },
-            { l: 'Wallets', v: '30+', c: 'text-[var(--cc-link)]' },
-            { l: 'Adapters', v: '11', c: 'text-[var(--cc-link)]' },
-            { l: 'Latency', v: '<50ms', c: 'text-[var(--cc-success)]' }
-          ].map(s => (
-            <div key={s.l} className="cc-card !p-6 text-center border border-[var(--cc-hairline)]">
-              <div className={`cc-display-md ${s.c} mb-1`}>{s.v}</div>
-              <div className="cc-caption-mono text-[var(--cc-muted)]">{s.l}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-      </main>
-
-      <SiteFooter />
-    </div>
+      {/* Stats */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {[
+          { l: 'Chains', v: '16', c: 'text-[var(--cc-link)]' },
+          { l: 'Wallets', v: '30+', c: 'text-[var(--cc-link)]' },
+          { l: 'Adapters', v: '11', c: 'text-[var(--cc-link)]' },
+          { l: 'Latency', v: '<50ms', c: 'text-[var(--cc-success)]' }
+        ].map(s => (
+          <div key={s.l} className="cc-card !p-6 text-center border border-[var(--cc-hairline)]">
+            <div className={`cc-display-md ${s.c} mb-1`}>{s.v}</div>
+            <div className="cc-caption-mono text-[var(--cc-muted)]">{s.l}</div>
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }

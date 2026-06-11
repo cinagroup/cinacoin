@@ -21,7 +21,7 @@
 import { computed } from 'vue'
 import { useCinacoin } from '@cinacoin/vue'
 
-const { status, account } = useCinacoin()
+const { status } = useCinacoin()
 
 const statusLabel = computed(() => {
   const labels: Record<string, string> = {

@@ -1,6 +1,4 @@
 import React from 'react'
-import SiteHeader from '../components/SiteHeader'
-import SiteFooter from '../components/SiteFooter'
 import { DemoSignMessage, DemoSignTypedData } from '../components/DemoSign'
 import { CodeExample } from '../components/CodeExample'
 
@@ -11,7 +9,7 @@ function SignMessage() {
   const { signMessage, address } = useWallet()
 
   const handleSign = async () => {
-    const message = 'Hello from Cinacoin!'
+    const message = 'Hello from CinaCoin!'
     const signature = await signMessage(message)
     
     // Verify on backend: ethers.verifyMessage(message, signature)
@@ -30,7 +28,7 @@ import { useWallet } from '@cinacoin/sdk-vue'
 const { signMessage, address } = useWallet()
 
 const handleSign = async () => {
-  const message = 'Hello from Cinacoin!'
+  const message = 'Hello from CinaCoin!'
   const signature = await signMessage(message)
 }
 </script>
@@ -48,7 +46,7 @@ export default function SignMessage() {
   const { signMessage, address } = useWallet()
 
   const handleSign = async () => {
-    const message = 'Hello from Cinacoin!'
+    const message = 'Hello from CinaCoin!'
     const signature = await signMessage(message)
   }
 
@@ -78,7 +76,7 @@ const typedData = {
   },
   primaryType: 'Person',
   domain: {
-    name: 'Cinacoin Demo',
+    name: 'CinaCoin Demo',
     version: '1',
     chainId: 1,
   },
@@ -112,7 +110,7 @@ const handleSign = async () => {
 </script>
 
 <template>
-  <button @click="handleSign">Sign Typed Data</button>
+  <button @click="handleSign}>Sign Typed Data</button>
 </template>`,
   nextjs: `'use client'
 import { useWallet } from '@cinacoin/sdk-react'
@@ -134,37 +132,31 @@ export default function SignTypedData() {
 
 export default function SignMessagePage() {
   return (
-    <div className="min-h-screen flex flex-col bg-[var(--cc-canvas-soft)]">
-      <SiteHeader />
-      <main id="main-content" role="main" className="flex-1">
-        <section className="max-w-5xl mx-auto w-full pt-12 pb-24 px-4 space-y-8">
-          <div className="text-center">
-            <h1 className="cc-display-lg mb-3">Sign Messages</h1>
-            <p className="cc-body-md text-[var(--cc-muted)] max-w-lg mx-auto">
-              Sign plain text messages or EIP-712 typed data for authentication
-            </p>
-          </div>
+    <section className="max-w-5xl mx-auto w-full py-12 px-4 space-y-8">
+      <div className="text-center">
+        <h1 className="cc-display-lg mb-3">Sign messages.</h1>
+        <p className="cc-body-md text-[var(--cc-muted)] max-w-lg mx-auto">
+          Sign plain text messages or EIP-712 typed data for authentication
+        </p>
+      </div>
 
-          <div className="space-y-6">
-            <DemoSignMessage />
-            <CodeExample
-              title="signMessage()"
-              code={CODE}
-              highlightLines={[6, 7]}
-            />
-          </div>
+      <div className="space-y-6">
+        <DemoSignMessage />
+        <CodeExample
+          title="signMessage()"
+          code={CODE}
+          highlightLines={[6, 7]}
+        />
+      </div>
 
-          <div className="space-y-6">
-            <DemoSignTypedData />
-            <CodeExample
-              title="signTypedData() — EIP-712"
-              code={TYPED_DATA_CODE}
-              highlightLines={[29, 30]}
-            />
-          </div>
-        </section>
-      </main>
-      <SiteFooter />
-    </div>
+      <div className="space-y-6">
+        <DemoSignTypedData />
+        <CodeExample
+          title="signTypedData() — EIP-712"
+          code={TYPED_DATA_CODE}
+          highlightLines={[29, 30]}
+        />
+      </div>
+    </section>
   )
 }

@@ -3,7 +3,6 @@
 import React, { useMemo } from 'react';
 import Image from 'next/image';
 import { useCinacoinContext } from '@cinacoin/react';
-import { Images } from 'lucide-react';
 
 interface NftItem {
   id: string;
@@ -18,7 +17,7 @@ const MOCK_NFTS: NftItem[] = [
     id: '1',
     name: 'CinaCoin Genesis #001',
     image: 'https://picsum.photos/seed/nft1/300/300',
-    collection: 'Cinacoin Genesis',
+    collection: 'CinaCoin Genesis',
     chainId: 11155111,
   },
   {
@@ -88,9 +87,14 @@ export function DemoNFTGallery(): JSX.Element {
   if (status !== 'connected') {
     return (
       <section className="cc-card cc-fade-in" aria-labelledby="nft-heading">
-        <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">COLLECTION</p>
+        <p className="cc-eyebrow">Collection.</p>
         <h3 id="nft-heading" className="cc-section-title">
-          <Images className="w-5 h-5" /> NFT Gallery
+          <svg className="cc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+            <circle cx="8.5" cy="8.5" r="1.5" />
+            <polyline points="21 15 16 10 5 21" />
+          </svg>
+          NFT gallery.
         </h3>
         <p className="cc-section-desc">Connect a wallet to view your NFT collection.</p>
       </section>
@@ -99,9 +103,14 @@ export function DemoNFTGallery(): JSX.Element {
 
   return (
     <section className="cc-card cc-fade-in" aria-labelledby="nft-heading">
-      <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">COLLECTION</p>
+      <p className="cc-eyebrow">Collection.</p>
       <h3 id="nft-heading" className="cc-section-title">
-        <Images className="w-5 h-5" /> NFT Gallery
+        <svg className="cc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+          <circle cx="8.5" cy="8.5" r="1.5" />
+          <polyline points="21 15 16 10 5 21" />
+        </svg>
+        NFT gallery.
       </h3>
       <p className="cc-section-desc">
         Browse your multi-chain NFT collection. Powered by{' '}
@@ -116,7 +125,7 @@ export function DemoNFTGallery(): JSX.Element {
       </div>
 
       <div style={{ marginTop: 'var(--cc-space-md)', fontSize: 'var(--cc-text-xs)', color: 'var(--cc-muted)' }}>
-        Showing {MOCK_NFTS.length} demo NFTs across {chainCount} chains
+        Showing {MOCK_NFTS.length} demo NFTs across {chainCount} chains.
       </div>
     </section>
   );
@@ -150,7 +159,7 @@ const chainBadgeStyle: React.CSSProperties = {
   background: 'var(--cc-overlay-dark)',
   color: 'var(--cc-overlay-text)',
   fontSize: 'var(--cc-text-xs)',
-  fontWeight: "var(--cc-weight-semibold)",
+  fontWeight: 'var(--cc-weight-semibold)',
   padding: '4px 8px',
   borderRadius: '6px',
   backdropFilter: 'blur(8px)',

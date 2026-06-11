@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { useBalance, useCinacoinContext } from '@cinacoin/react';
-import { Wallet } from 'lucide-react';
 
 /** DemoBalance — display connected account balance with auto-refresh. */
 export function DemoBalance(): JSX.Element {
@@ -24,9 +23,14 @@ export function DemoBalance(): JSX.Element {
   if (status !== 'connected') {
     return (
       <section className="cc-card cc-fade-in" aria-labelledby="balance-heading">
-        <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">WALLET</p>
+        <p className="cc-eyebrow">Wallet.</p>
         <h3 id="balance-heading" className="cc-section-title">
-          <Wallet className="w-5 h-5" /> Balance
+          <svg className="cc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4" />
+            <path d="M4 6v12c0 1.1.9 2 2 2h14v-4" />
+            <path d="M18 12a2 2 0 0 0-2 2c0 1.1.9 2 2 2h4v-4h-4z" />
+          </svg>
+          Balance.
         </h3>
         <p className="cc-section-desc">Connect a wallet to view your balance.</p>
       </section>
@@ -35,9 +39,14 @@ export function DemoBalance(): JSX.Element {
 
   return (
     <section className="cc-card cc-fade-in" aria-labelledby="balance-heading">
-      <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">WALLET</p>
+      <p className="cc-eyebrow">Wallet.</p>
       <h3 id="balance-heading" className="cc-section-title">
-        <Wallet className="w-5 h-5" /> Balance
+        <svg className="cc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4" />
+          <path d="M4 6v12c0 1.1.9 2 2 2h14v-4" />
+          <path d="M18 12a2 2 0 0 0-2 2c0 1.1.9 2 2 2h4v-4h-4z" />
+        </svg>
+        Balance.
       </h3>
       <p className="cc-section-desc">
         Real-time native token balance for the connected account.

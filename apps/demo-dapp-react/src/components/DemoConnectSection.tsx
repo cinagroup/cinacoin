@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { ConnectButton, ConnectModal, useConnect, useDisconnect, useCinacoinContext } from '@cinacoin/react';
-import { Link } from 'lucide-react';
 
 type ConnectorId = 'metamask' | 'walletconnect' | 'coinbase';
 
@@ -23,9 +22,13 @@ export function DemoConnectSection(): JSX.Element {
 
   return (
     <section className="cc-card cc-fade-in" aria-labelledby="connect-heading">
-      <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">CONNECTION</p>
+      <p className="cc-eyebrow">Connection.</p>
       <h3 id="connect-heading" className="cc-section-title">
-        <Link className="w-5 h-5" /> Connect
+        <svg className="cc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+          <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+        </svg>
+        Connect.
       </h3>
       <p className="cc-section-desc">
         Connect your wallet using any of the supported methods below.
@@ -33,7 +36,7 @@ export function DemoConnectSection(): JSX.Element {
 
       {/* Web Component: ConnectButton (primary variant) */}
       <div style={{ marginBottom: 'var(--cc-space-md)' }}>
-        <label className="cc-label" id="connect-btn-primary-label">ConnectButton Web Component</label>
+        <label className="cc-label" id="connect-btn-primary-label">ConnectButton web component.</label>
         <div style={{ marginTop: 'var(--cc-space-xs)' }}>
           <ConnectButton label="Connect Wallet" variant="primary" size="md" showAvatar showNetwork />
         </div>
@@ -41,7 +44,7 @@ export function DemoConnectSection(): JSX.Element {
 
       {/* Web Component: ConnectButton (secondary variant) */}
       <div style={{ marginBottom: 'var(--cc-space-md)' }}>
-        <label className="cc-label" id="connect-btn-secondary-label">ConnectButton (Secondary)</label>
+        <label className="cc-label" id="connect-btn-secondary-label">ConnectButton (secondary).</label>
         <div style={{ marginTop: 'var(--cc-space-xs)' }}>
           <ConnectButton label="Connect" variant="secondary" size="sm" />
         </div>
@@ -49,7 +52,7 @@ export function DemoConnectSection(): JSX.Element {
 
       {/* ConnectModal trigger */}
       <div style={{ marginBottom: 'var(--cc-space-md)' }}>
-        <label className="cc-label" id="connect-modal-label">ConnectModal</label>
+        <label className="cc-label" id="connect-modal-label">ConnectModal.</label>
         <div style={{ marginTop: 'var(--cc-space-xs)' }}>
           <button
             className="cc-btn cc-btn--primary"
@@ -57,7 +60,7 @@ export function DemoConnectSection(): JSX.Element {
             disabled={status === 'connected'}
             aria-labelledby="connect-modal-label"
           >
-            Open Connect Modal
+            Open connect modal.
           </button>
         </div>
         <ConnectModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
@@ -65,7 +68,7 @@ export function DemoConnectSection(): JSX.Element {
 
       {/* Programmatic connect via useConnect hook */}
       <div style={{ marginBottom: 'var(--cc-space-md)' }}>
-        <label className="cc-label" id="connect-programmatic-label">Programmatic Connect (useConnect)</label>
+        <label className="cc-label" id="connect-programmatic-label">Programmatic connect (useConnect).</label>
         <div style={{ display: 'flex', gap: 'var(--cc-space-xs)', marginTop: 'var(--cc-space-xs)', flexWrap: 'wrap' }} role="group" aria-labelledby="connect-programmatic-label">
           {(['metamask', 'walletconnect', 'coinbase'] as ConnectorId[]).map((id) => (
             <button
@@ -80,7 +83,7 @@ export function DemoConnectSection(): JSX.Element {
         </div>
         {selectedConnector && (
           <p style={{ fontSize: 'var(--cc-text-xs)', color: 'var(--cc-body)', marginTop: 'var(--cc-space-xxs)' }} aria-live="polite">
-            Attempting: {selectedConnector}
+            Attempting: {selectedConnector}.
           </p>
         )}
       </div>
@@ -92,20 +95,20 @@ export function DemoConnectSection(): JSX.Element {
             className="cc-btn"
             style={{ background: 'var(--cc-danger)', color: 'var(--cc-danger-on)' }}
             onClick={() => disconnect().catch(() => {})}
-            aria-label="Disconnect wallet"
+            aria-label="Disconnect wallet."
           >
-            Disconnect
+            Disconnect.
           </button>
         </div>
       )}
 
       {/* Connection status */}
-      <div style={{ marginTop: 'var(--cc-space-md)', padding: 'var(--cc-space-sm)', background: 'var(--cc-surface)', borderRadius: 'var(--cc-radius-md)', fontSize: 'var(--cc-text-sm)' }} aria-label="Connection details">
+      <div style={{ marginTop: 'var(--cc-space-md)', padding: 'var(--cc-space-sm)', background: 'var(--cc-surface)', borderRadius: 'var(--cc-radius-md)', fontSize: 'var(--cc-text-sm)' }} aria-label="Connection details.">
         <strong>Status:</strong> {status}
         {account.address && (
           <>
             <br />
-            <strong>Address:</strong> <code style={monoStyle}>{account.address}</code>
+            <strong>Address:</strong> <code className="cc-code">{account.address}</code>
           </>
         )}
         {account.chainId && (
@@ -118,8 +121,3 @@ export function DemoConnectSection(): JSX.Element {
     </section>
   );
 }
-
-const monoStyle: React.CSSProperties = {
-  fontFamily: 'var(--cc-font-mono)',
-  fontSize: 'var(--cc-text-xs)',
-};

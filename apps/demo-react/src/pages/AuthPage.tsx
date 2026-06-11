@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { Link2, User, Check, X } from 'lucide-react';
-import SiteHeader from '../components/SiteHeader';
-import SiteFooter from '../components/SiteFooter';
 
 const SOCIAL_PROVIDERS = [
   { id: 'google', name: 'Google', icon: (
@@ -75,264 +73,260 @@ Issued At: 2026-05-17T13:45:00.000Z`;
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[var(--cc-canvas-soft)] text-[var(--cc-ink)]">
-      <SiteHeader />
+    <section className="max-w-xl mx-auto w-full py-12 px-4" aria-label="Authentication">
+      <div className="text-center mb-8">
+        <p className="cc-caption-mono text-[var(--cc-muted)] mb-2">AUTHENTICATION</p>
+        <h1 className="cc-display-lg text-[var(--cc-ink)] mb-3">Authentication.</h1>
+        <p className="cc-body-md text-[var(--cc-muted)]">Sign in with your wallet or social account. No passwords needed.</p>
+      </div>
 
-      <main id="main-content" role="main">
-      <section className="max-w-xl mx-auto w-full pt-12 pb-24 px-4 flex-1" aria-label="Authentication">
-        <div className="text-center mb-8">
-          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">AUTHENTICATION</p>
-          <h1 className="cc-display-lg text-[var(--cc-ink)] mb-3">Authentication</h1>
-          <p className="cc-body-md text-[var(--cc-muted)]">Sign in with your wallet or social account. No passwords needed.</p>
-        </div>
+      {/* Auth Method Tabs */}
+      <div className="flex gap-2 mb-8 bg-[var(--cc-canvas-soft-2)] p-1 rounded-full border border-[var(--cc-hairline)] max-w-xs mx-auto" role="tablist" aria-label="Authentication method">
+        <button
+          onClick={() => { setAuthMethod('wallet'); setStep(1); }}
+          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setAuthMethod('wallet'); setStep(1); } }}
+          className="cc-tab-ghost flex-1 !h-9 text-body-sm rounded-full focus-ring"
+          role="tab"
+          aria-selected={authMethod === 'wallet'}
+          id="tab-wallet"
+        >
+          <Link2 className="w-4 h-4 inline-block mr-1" aria-hidden="true" /> Wallet
+        </button>
+        <button
+          onClick={() => { setAuthMethod('social'); setStep(1); }}
+          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setAuthMethod('social'); setStep(1); } }}
+          className="cc-tab-ghost flex-1 !h-9 text-body-sm rounded-full focus-ring"
+          role="tab"
+          aria-selected={authMethod === 'social'}
+          id="tab-social"
+        >
+          <User className="w-4 h-4 inline-block mr-1" aria-hidden="true" /> Social
+        </button>
+      </div>
 
-        {/* Auth Method Tabs */}
-        <div className="flex gap-2 mb-8 bg-[var(--cc-canvas-soft-2)] p-1 rounded-full border border-[var(--cc-hairline)] max-w-xs mx-auto" role="tablist" aria-label="Authentication method">
-          <button
-            onClick={() => { setAuthMethod('wallet'); setStep(1); }}
-            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setAuthMethod('wallet'); setStep(1); } }}
-            className="cc-tab-ghost flex-1 !h-9 text-body-sm rounded-full focus-ring"
-            role="tab"
-            aria-selected={authMethod === 'wallet'}
-            id="tab-wallet"
-          >
-            <Link2 className="w-4 h-4 inline-block mr-1" aria-hidden="true" /> Wallet
-          </button>
-          <button
-            onClick={() => { setAuthMethod('social'); setStep(1); }}
-            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setAuthMethod('social'); setStep(1); } }}
-            className="cc-tab-ghost flex-1 !h-9 text-body-sm rounded-full focus-ring"
-            role="tab"
-            aria-selected={authMethod === 'social'}
-            id="tab-social"
-          >
-            <User className="w-4 h-4 inline-block mr-1" aria-hidden="true" /> Social
-          </button>
-        </div>
-
-        {/* Wallet Auth */}
-        {authMethod === 'wallet' && (
-          <div className="space-y-6 animate-fade-in">
-            {/* Progress Steps */}
-            <div className="flex items-center justify-center gap-2 mb-4" role="progressbar" aria-valuenow={step} aria-valuemin={1} aria-valuemax={4} aria-label="Authentication progress">
-              {['Connect', 'Sign', 'Verify', 'Profile'].map((label, i) => (
-                <div key={label} className="flex items-center gap-2">
-                  <div className={`flex items-center justify-center w-7 h-7 rounded-full cc-caption-mono transition-all ${
-                    step > i + 1
-                      ? 'bg-[var(--cc-success)]/10 text-[var(--cc-success)] border border-[var(--cc-success)]/20'
-                      : step === i + 1
-                      ? 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)] shadow-[var(--cc-level2)]'
-                      : 'bg-[var(--cc-canvas-soft-2)] text-[var(--cc-muted)] border border-[var(--cc-hairline)]'
-                  }`}>
-                    {step > i + 1 ? <Check className="w-4 h-4 inline" /> : i + 1}
-                  </div>
-                  {i < 3 && <div className={`w-8 h-px ${step > i + 1 ? 'bg-[var(--cc-success)]/30' : 'bg-[var(--cc-hairline)]'}`} />}
+      {/* Wallet Auth */}
+      {authMethod === 'wallet' && (
+        <div className="space-y-6 animate-fade-in">
+          {/* Progress Steps */}
+          <div className="flex items-center justify-center gap-2 mb-4" role="progressbar" aria-valuenow={step} aria-valuemin={1} aria-valuemax={4} aria-label="Authentication progress">
+            {['Connect', 'Sign', 'Verify', 'Profile'].map((label, i) => (
+              <div key={label} className="flex items-center gap-2">
+                <div className={`flex items-center justify-center w-7 h-7 rounded-full cc-caption-mono transition-all ${
+                  step > i + 1
+                    ? 'bg-[var(--cc-success)]/10 text-[var(--cc-success)] border border-[var(--cc-success)]/20'
+                    : step === i + 1
+                    ? 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)] shadow-[var(--cc-level2)]'
+                    : 'bg-[var(--cc-canvas-soft-2)] text-[var(--cc-muted)] border border-[var(--cc-hairline)]'
+                }`}>
+                  {step > i + 1 ? <Check className="w-4 h-4 inline" /> : i + 1}
                 </div>
-              ))}
-            </div>
-
-            {/* Step 1 */}
-            {step === 1 && (
-              <div className="cc-card space-y-4" role="tabpanel" aria-labelledby="tab-wallet">
-                <h2 className="cc-display-sm text-center">Connect wallet</h2>
-                <div className="flex gap-2 flex-wrap justify-center mb-4" role="radiogroup" aria-label="Select chain">
-                  {chains.map(c => (
-                    <button
-                      key={c}
-                      onClick={() => setSelectedChain(c)}
-                      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedChain(c); } }}
-                      className="cc-tab-ghost !h-8 text-caption focus-ring"
-                      role="radio"
-                      aria-checked={selectedChain === c}
-                    >
-                      {c}
-                    </button>
-                  ))}
-                </div>
-                <div className="space-y-2 pt-2">
-                  {WALLET_PROVIDERS.map(w => (
-                    <button
-                      key={w.id}
-                      onClick={handleConnect}
-                      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleConnect(); } }}
-                      className="w-full flex items-center gap-4 p-4 rounded-lg bg-[var(--cc-canvas-soft-2)] hover:bg-[var(--cc-canvas-soft)] border border-[var(--cc-hairline)] transition-all text-left group focus-ring"
-                    >
-                      <w.icon className="w-6 h-6 text-[var(--cc-ink)]" aria-hidden="true" />
-                      <div className="flex-1">
-                        <span className="font-semibold text-body-sm text-[var(--cc-ink)]">{w.name}</span>
-                        <p className="text-caption text-[var(--cc-muted)]">Connect with {w.name}</p>
-                      </div>
-                      <span className="text-[var(--cc-muted)] group-hover:translate-x-0.5 transition-transform" aria-hidden="true">→</span>
-                    </button>
-                  ))}
-                </div>
+                {i < 3 && <div className={`w-8 h-px ${step > i + 1 ? 'bg-[var(--cc-success)]/30' : 'bg-[var(--cc-hairline)]'}`} />}
               </div>
-            )}
-
-            {/* Step 2 */}
-            {step === 2 && (
-              <div className="cc-card space-y-4" role="tabpanel" aria-labelledby="tab-wallet">
-                <h2 className="cc-display-sm text-center">Sign message</h2>
-                <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4 font-[var(--font-mono)] text-caption text-[var(--cc-body)] whitespace-pre-wrap border border-[var(--cc-hairline)] max-h-48 overflow-y-auto" role="region" aria-label="SIWE message to sign" tabIndex={0}>{siweMessage}</div>
-                <button
-                  onClick={handleSign}
-                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleSign(); } }}
-                  disabled={signing}
-                  className="cc-btn-primary w-full text-body-md font-semibold disabled:opacity-40 disabled:cursor-not-allowed focus-ring"
-                  aria-label="Sign SIWE message"
-                >
-                  {signing ? (
-                    <span className="flex items-center justify-center gap-2">
-                      <span className="w-5 h-5 border-2 border-[var(--cc-hairline-strong)] border-t-[var(--cc-ink)] rounded-full animate-spin" aria-hidden="true" />
-                      Signing...
-                    </span>
-                  ) : (
-                    'Sign message'
-                  )}
-                </button>
-              </div>
-            )}
-
-            {/* Step 3 */}
-            {step === 3 && (
-              <div className="cc-card space-y-4" role="tabpanel" aria-labelledby="tab-wallet">
-                <h2 className="cc-display-sm text-center">Verify signature</h2>
-                <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4 border border-[var(--cc-hairline)] text-body-sm space-y-2">
-                  <div className="flex justify-between"><span className="text-[var(--cc-muted)]">Address</span><span className="font-[var(--font-mono)] text-caption text-[var(--cc-body)]">{address}</span></div>
-                  <div className="flex justify-between"><span className="text-[var(--cc-muted)]">Signature</span><span className="font-[var(--font-mono)] text-caption text-[var(--cc-body)]">0x1a2b3c4d...</span></div>
-                  <div className="flex justify-between"><span className="text-[var(--cc-muted)]">Nonce</span><span className="font-[var(--font-mono)] text-caption text-[var(--cc-body)]">8b3f9a2c</span></div>
-                </div>
-                <button
-                  onClick={handleVerify}
-                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleVerify(); } }}
-                  className="cc-btn-primary w-full text-body-md font-semibold focus-ring"
-                  aria-label="Verify signature"
-                >
-                  Verify
-                </button>
-              </div>
-            )}
+            ))}
           </div>
-        )}
 
-        {/* Social Auth */}
-        {authMethod === 'social' && (
-          <div className="cc-card space-y-6 animate-fade-in" role="tabpanel" aria-labelledby="tab-social">
-            <div className="text-center">
-              <h2 className="cc-display-sm">Sign in with social</h2>
-              <p className="cc-body-sm text-[var(--cc-muted)] mt-1">Connect with your favorite account. We'll create a wallet for you.</p>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3" role="group" aria-label="Social login providers">
-              {SOCIAL_PROVIDERS.map(p => (
-                <button
-                  key={p.id}
-                  onClick={() => handleSocialLogin(p.id)}
-                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleSocialLogin(p.id); } }}
-                  disabled={socialLoading}
-                  className={`flex items-center gap-3 p-4 rounded-lg border transition-all focus-ring ${
-                    selectedSocial === p.id
-                      ? 'border-[var(--cc-link)] ring-2 ring-[var(--cc-link)]/10 bg-[var(--cc-canvas-soft-2)]'
-                      : 'border-[var(--cc-hairline)] bg-[var(--cc-canvas)] hover:border-[var(--cc-muted)]'
-                  } disabled:opacity-50 disabled:cursor-not-allowed text-left`}
-                  aria-label={`Sign in with ${p.name}`}
-                >
-                  <span aria-hidden="true">{p.icon}</span>
-                  <span className="font-medium text-body-sm text-[var(--cc-ink)]">{p.name}</span>
-                </button>
-              ))}
-            </div>
-
-            {socialLoading && (
-              <div className="flex flex-col items-center gap-3 py-6" role="status" aria-live="polite">
-                <div className="w-10 h-10 border-2 border-[var(--cc-hairline)] border-t-[var(--cc-link)] rounded-full animate-spin" aria-hidden="true" />
-                <p className="text-body-sm text-[var(--cc-muted)]">Connecting to {SOCIAL_PROVIDERS.find(s => s.id === selectedSocial)?.name}...</p>
-              </div>
-            )}
-
-            {selectedSocial && !socialLoading && step === 4 && (
-              <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4 border border-[var(--cc-success)]/20">
-                <div className="text-center mb-3">
-                  <div className="w-12 h-12 mx-auto rounded-full bg-[var(--cc-success)]/10 border border-[var(--cc-success)]/20 flex items-center justify-center text-display-sm mb-2" aria-hidden="true"><Check className="w-6 h-6 text-[var(--cc-success)]" /></div>
-                  <h3 className="text-body-lg font-semibold text-[var(--cc-success)]">Authenticated!</h3>
-                </div>
-                <div className="space-y-2 text-body-sm">
-                  <div className="flex justify-between"><span className="text-[var(--cc-muted)]">Provider</span><span className="font-semibold">{SOCIAL_PROVIDERS.find(s => s.id === selectedSocial)?.name}</span></div>
-                  <div className="flex justify-between"><span className="text-[var(--cc-muted)]">Wallet</span><span className="font-[var(--font-mono)] text-caption">{address}</span></div>
-                  <div className="flex justify-between"><span className="text-[var(--cc-muted)]">Verified</span><span className="text-[var(--cc-success)] font-semibold"><Check className="w-4 h-4 inline" /> True</span></div>
-                </div>
-                <button
-                  onClick={handleReset}
-                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleReset(); } }}
-                  className="cc-btn-secondary w-full text-body-md font-medium mt-4 focus-ring"
-                  aria-label="Reset authentication"
-                >
-                  Reset
-                </button>
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Profile (both methods) */}
-        {step === 4 && verified && (
-          <div className="cc-card mt-6 border-t-2 border-t-[var(--cc-success)]">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-12 h-12 rounded-full bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] flex items-center justify-center text-body-lg font-semibold text-[var(--cc-ink)]" aria-hidden="true">0x</div>
-              <div>
-                <p className="font-[var(--font-mono)] text-body-sm text-[var(--cc-ink)] font-semibold">{address}</p>
-                <p className="text-caption text-[var(--cc-muted)] mt-1">{authMethod === 'social' ? `Signed in via ${SOCIAL_PROVIDERS.find(s => s.id === selectedSocial)?.name}` : 'Signed in with Ethereum'}</p>
-              </div>
-            </div>
-            <button
-              onClick={handleReset}
-              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleReset(); } }}
-              className="cc-btn-secondary w-full text-body-md font-medium focus-ring"
-              aria-label="Disconnect"
-            >
-              Disconnect
-            </button>
-          </div>
-        )}
-
-        {/* Comparison */}
-        <div className="cc-card mt-8">
-          <h2 className="cc-display-sm mb-4">Cinacoin vs Reown</h2>
-          <div className="overflow-x-auto">
-            <table className="w-full text-body-sm" role="table" aria-label="Feature comparison between Cinacoin and Reown">
-              <thead>
-                <tr className="border-b border-[var(--cc-hairline)] text-[var(--cc-muted)] text-caption bg-[var(--cc-canvas-soft-2)]">
-                  <th scope="col" className="text-left p-3 font-semibold cc-caption-mono">Feature</th>
-                  <th scope="col" className="text-center p-3 font-semibold cc-caption-mono">Cinacoin</th>
-                  <th scope="col" className="text-center p-3 font-semibold cc-caption-mono">Reown</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  ['Wallet login', <Check className="w-4 h-4 inline" />, <Check className="w-4 h-4 inline" />],
-                  ['Social login', <Check className="w-4 h-4 inline" />, <X className="w-4 h-4 inline" />],
-                  ['Passkey auth', <Check className="w-4 h-4 inline" />, <X className="w-4 h-4 inline" />],
-                  ['Email login', <Check className="w-4 h-4 inline" />, <X className="w-4 h-4 inline" />],
-                  ['SIWE', <Check className="w-4 h-4 inline" />, <Check className="w-4 h-4 inline" />],
-                  ['Self-hosted', <Check className="w-4 h-4 inline" />, <X className="w-4 h-4 inline" />],
-                  ['Open source', <Check className="w-4 h-4 inline" />, 'Partial'],
-                  ['Free forever', <Check className="w-4 h-4 inline" />, 'Paid tiers']
-                ].map(([f, a, b], i) => (
-                  <tr key={String(f)} className="border-b border-[var(--cc-hairline)]/50 hover:bg-[var(--cc-canvas-soft-2)]/30 transition-colors">
-                    <td className="p-3 font-medium text-[var(--cc-body)]">{f}</td>
-                    <td className="p-3 text-center text-[var(--cc-success)]">{a}</td>
-                    <td className="p-3 text-center text-[var(--cc-muted)]">{b}</td>
-                  </tr>
+          {/* Step 1 */}
+          {step === 1 && (
+            <div className="cc-card space-y-4" role="tabpanel" aria-labelledby="tab-wallet">
+              <h2 className="cc-display-sm text-center">Connect wallet.</h2>
+              <div className="flex gap-2 flex-wrap justify-center mb-4" role="radiogroup" aria-label="Select chain">
+                {chains.map(c => (
+                  <button
+                    key={c}
+                    onClick={() => setSelectedChain(c)}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedChain(c); } }}
+                    className="cc-tab-ghost !h-8 text-caption focus-ring"
+                    role="radio"
+                    aria-checked={selectedChain === c}
+                  >
+                    {c}
+                  </button>
                 ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+              </div>
+              <div className="space-y-2 pt-2">
+                {WALLET_PROVIDERS.map(w => (
+                  <button
+                    key={w.id}
+                    onClick={handleConnect}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleConnect(); } }}
+                    className="w-full flex items-center gap-4 p-4 rounded-lg bg-[var(--cc-canvas-soft-2)] hover:bg-[var(--cc-canvas-soft)] border border-[var(--cc-hairline)] transition-all text-left group focus-ring"
+                  >
+                    <w.icon className="w-6 h-6 text-[var(--cc-ink)]" aria-hidden="true" />
+                    <div className="flex-1">
+                      <span className="font-semibold text-body-sm text-[var(--cc-ink)]">{w.name}</span>
+                      <p className="text-caption text-[var(--cc-muted)]">Connect with {w.name}</p>
+                    </div>
+                    <span className="text-[var(--cc-muted)] group-hover:translate-x-0.5 transition-transform" aria-hidden="true">→</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
 
-        {/* Code Example */}
-        <div className="cc-card mt-8">
-          <h2 className="cc-display-sm mb-4">Implement auth in 3 lines</h2>
-          <pre className="cc-code-block" role="region" aria-label="Code example" tabIndex={0}>
+          {/* Step 2 */}
+          {step === 2 && (
+            <div className="cc-card space-y-4" role="tabpanel" aria-labelledby="tab-wallet">
+              <h2 className="cc-display-sm text-center">Sign message.</h2>
+              <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4 font-[var(--font-mono)] text-caption text-[var(--cc-body)] whitespace-pre-wrap border border-[var(--cc-hairline)] max-h-48 overflow-y-auto" role="region" aria-label="SIWE message to sign" tabIndex={0}>{siweMessage}</div>
+              <button
+                onClick={handleSign}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleSign(); } }}
+                disabled={signing}
+                className="cc-btn-primary w-full text-body-md font-semibold disabled:opacity-40 disabled:cursor-not-allowed focus-ring"
+                aria-label="Sign SIWE message"
+              >
+                {signing ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <span className="w-5 h-5 border-2 border-[var(--cc-hairline-strong)] border-t-[var(--cc-ink)] rounded-full animate-spin" aria-hidden="true" />
+                    Signing...
+                  </span>
+                ) : (
+                  'Sign message'
+                )}
+              </button>
+            </div>
+          )}
+
+          {/* Step 3 */}
+          {step === 3 && (
+            <div className="cc-card space-y-4" role="tabpanel" aria-labelledby="tab-wallet">
+              <h2 className="cc-display-sm text-center">Verify signature.</h2>
+              <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4 border border-[var(--cc-hairline)] text-body-sm space-y-2">
+                <div className="flex justify-between"><span className="text-[var(--cc-muted)]">Address</span><span className="font-[var(--font-mono)] text-caption text-[var(--cc-body)]">{address}</span></div>
+                <div className="flex justify-between"><span className="text-[var(--cc-muted)]">Signature</span><span className="font-[var(--font-mono)] text-caption text-[var(--cc-body)]">0x1a2b3c4d...</span></div>
+                <div className="flex justify-between"><span className="text-[var(--cc-muted)]">Nonce</span><span className="font-[var(--font-mono)] text-caption text-[var(--cc-body)]">8b3f9a2c</span></div>
+              </div>
+              <button
+                onClick={handleVerify}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleVerify(); } }}
+                className="cc-btn-primary w-full text-body-md font-semibold focus-ring"
+                aria-label="Verify signature"
+              >
+                Verify
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Social Auth */}
+      {authMethod === 'social' && (
+        <div className="cc-card space-y-6 animate-fade-in" role="tabpanel" aria-labelledby="tab-social">
+          <div className="text-center">
+            <h2 className="cc-display-sm">Sign in with social.</h2>
+            <p className="cc-body-sm text-[var(--cc-muted)] mt-1">Connect with your favorite account. We'll create a wallet for you.</p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3" role="group" aria-label="Social login providers">
+            {SOCIAL_PROVIDERS.map(p => (
+              <button
+                key={p.id}
+                onClick={() => handleSocialLogin(p.id)}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleSocialLogin(p.id); } }}
+                disabled={socialLoading}
+                className={`flex items-center gap-3 p-4 rounded-lg border transition-all focus-ring ${
+                  selectedSocial === p.id
+                    ? 'border-[var(--cc-link)] ring-2 ring-[var(--cc-link)]/10 bg-[var(--cc-canvas-soft-2)]'
+                    : 'border-[var(--cc-hairline)] bg-[var(--cc-canvas)] hover:border-[var(--cc-muted)]'
+                } disabled:opacity-50 disabled:cursor-not-allowed text-left`}
+                aria-label={`Sign in with ${p.name}`}
+              >
+                <span aria-hidden="true">{p.icon}</span>
+                <span className="font-medium text-body-sm text-[var(--cc-ink)]">{p.name}</span>
+              </button>
+            ))}
+          </div>
+
+          {socialLoading && (
+            <div className="flex flex-col items-center gap-3 py-6" role="status" aria-live="polite">
+              <div className="w-10 h-10 border-2 border-[var(--cc-hairline)] border-t-[var(--cc-link)] rounded-full animate-spin" aria-hidden="true" />
+              <p className="text-body-sm text-[var(--cc-muted)]">Connecting to {SOCIAL_PROVIDERS.find(s => s.id === selectedSocial)?.name}...</p>
+            </div>
+          )}
+
+          {selectedSocial && !socialLoading && step === 4 && (
+            <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4 border border-[var(--cc-success)]/20">
+              <div className="text-center mb-3">
+                <div className="w-12 h-12 mx-auto rounded-full bg-[var(--cc-success)]/10 border border-[var(--cc-success)]/20 flex items-center justify-center text-display-sm mb-2" aria-hidden="true"><Check className="w-6 h-6 text-[var(--cc-success)]" /></div>
+                <h3 className="text-body-lg font-semibold text-[var(--cc-success)]">Authenticated!</h3>
+              </div>
+              <div className="space-y-2 text-body-sm">
+                <div className="flex justify-between"><span className="text-[var(--cc-muted)]">Provider</span><span className="font-semibold">{SOCIAL_PROVIDERS.find(s => s.id === selectedSocial)?.name}</span></div>
+                <div className="flex justify-between"><span className="text-[var(--cc-muted)]">Wallet</span><span className="font-[var(--font-mono)] text-caption">{address}</span></div>
+                <div className="flex justify-between"><span className="text-[var(--cc-muted)]">Verified</span><span className="text-[var(--cc-success)] font-semibold"><Check className="w-4 h-4 inline" /> True</span></div>
+              </div>
+              <button
+                onClick={handleReset}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleReset(); } }}
+                className="cc-btn-secondary w-full text-body-md font-medium mt-4 focus-ring"
+                aria-label="Reset authentication"
+              >
+                Reset
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Profile (both methods) */}
+      {step === 4 && verified && (
+        <div className="cc-card mt-6 border-t-2 border-t-[var(--cc-success)]">
+          <div className="flex items-center gap-4 mb-4">
+            <div className="w-12 h-12 rounded-full bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] flex items-center justify-center text-body-lg font-semibold text-[var(--cc-ink)]" aria-hidden="true">0x</div>
+            <div>
+              <p className="font-[var(--font-mono)] text-body-sm text-[var(--cc-ink)] font-semibold">{address}</p>
+              <p className="text-caption text-[var(--cc-muted)] mt-1">{authMethod === 'social' ? `Signed in via ${SOCIAL_PROVIDERS.find(s => s.id === selectedSocial)?.name}` : 'Signed in with Ethereum'}</p>
+            </div>
+          </div>
+          <button
+            onClick={handleReset}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleReset(); } }}
+            className="cc-btn-secondary w-full text-body-md font-medium focus-ring"
+            aria-label="Disconnect"
+          >
+            Disconnect
+          </button>
+        </div>
+      )}
+
+      {/* Comparison */}
+      <div className="cc-card mt-8">
+        <h2 className="cc-display-sm mb-4">CinaCoin vs Reown.</h2>
+        <div className="overflow-x-auto">
+          <table className="w-full text-body-sm" role="table" aria-label="Feature comparison between CinaCoin and Reown">
+            <thead>
+              <tr className="border-b border-[var(--cc-hairline)] text-[var(--cc-muted)] text-caption bg-[var(--cc-canvas-soft-2)]">
+                <th scope="col" className="text-left p-3 font-semibold cc-caption-mono">Feature</th>
+                <th scope="col" className="text-center p-3 font-semibold cc-caption-mono">CinaCoin</th>
+                <th scope="col" className="text-center p-3 font-semibold cc-caption-mono">Reown</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ['Wallet login', <Check className="w-4 h-4 inline" />, <Check className="w-4 h-4 inline" />],
+                ['Social login', <Check className="w-4 h-4 inline" />, <X className="w-4 h-4 inline" />],
+                ['Passkey auth', <Check className="w-4 h-4 inline" />, <X className="w-4 h-4 inline" />],
+                ['Email login', <Check className="w-4 h-4 inline" />, <X className="w-4 h-4 inline" />],
+                ['SIWE', <Check className="w-4 h-4 inline" />, <Check className="w-4 h-4 inline" />],
+                ['Self-hosted', <Check className="w-4 h-4 inline" />, <X className="w-4 h-4 inline" />],
+                ['Open source', <Check className="w-4 h-4 inline" />, 'Partial'],
+                ['Free forever', <Check className="w-4 h-4 inline" />, 'Paid tiers']
+              ].map(([f, a, b], i) => (
+                <tr key={String(f)} className="border-b border-[var(--cc-hairline)]/50 hover:bg-[var(--cc-canvas-soft-2)]/30 transition-colors">
+                  <td className="p-3 font-medium text-[var(--cc-body)]">{f}</td>
+                  <td className="p-3 text-center text-[var(--cc-success)]">{a}</td>
+                  <td className="p-3 text-center text-[var(--cc-muted)]">{b}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Code Example */}
+      <div className="cc-card mt-8">
+        <h2 className="cc-display-sm mb-4">Implement auth in 3 lines.</h2>
+        <pre className="cc-code-block" role="region" aria-label="Code example" tabIndex={0}>
 {`// Wallet login (SIWE)
 const { address } = await cc.connect('ethereum', 'metamask');
 
@@ -341,11 +335,7 @@ const wallet = await cc.socialLogin('google');
 
 // Passkey login
 const wallet = await cc.passkeyLogin();`}</pre>
-        </div>
-      </section>
-      </main>
-
-      <SiteFooter />
-    </div>
+      </div>
+    </section>
   );
 }

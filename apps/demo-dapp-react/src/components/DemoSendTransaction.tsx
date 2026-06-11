@@ -2,7 +2,6 @@
 
 import React, { useState, useCallback } from 'react';
 import { useSendTransaction, useBalance, useCinacoinContext } from '@cinacoin/react';
-import { Send } from 'lucide-react';
 
 /** DemoSendTransaction — ETH transfer form with gas estimation and tracking. */
 export function DemoSendTransaction(): JSX.Element {
@@ -65,9 +64,13 @@ export function DemoSendTransaction(): JSX.Element {
   if (status !== 'connected') {
     return (
       <section className="cc-card cc-fade-in" aria-labelledby="send-heading">
-        <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">TRANSFER</p>
+        <p className="cc-eyebrow">Transfer.</p>
         <h3 id="send-heading" className="cc-section-title">
-          <Send className="w-5 h-5" /> Send Transaction
+          <svg className="cc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <line x1="22" y1="2" x2="11" y2="13" />
+            <polygon points="22 2 15 22 11 13 2 9 22 2" />
+          </svg>
+          Send transaction.
         </h3>
         <p className="cc-section-desc">Connect a wallet to send transactions.</p>
       </section>
@@ -76,9 +79,13 @@ export function DemoSendTransaction(): JSX.Element {
 
   return (
     <section className="cc-card cc-fade-in" aria-labelledby="send-heading">
-      <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">TRANSFER</p>
+      <p className="cc-eyebrow">Transfer.</p>
       <h3 id="send-heading" className="cc-section-title">
-        <Send className="w-5 h-5" /> Send Transaction
+        <svg className="cc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <line x1="22" y1="2" x2="11" y2="13" />
+          <polygon points="22 2 15 22 11 13 2 9 22 2" />
+        </svg>
+        Send transaction.
       </h3>
       <p className="cc-section-desc">
         Send {symbol} to another address with gas estimation and status tracking.

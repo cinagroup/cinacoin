@@ -31,7 +31,7 @@ export default function Home() {
               </svg>
             </div>
             <h2 className="text-display-lg font-semibold tracking-tighter text-[var(--cc-ink)] mb-4">
-              Welcome to CinaCoin Demo
+              Welcome to the CinaCoin demo.
             </h2>
             <p className="text-[var(--cc-body)] mb-8 max-w-md mx-auto">
               Connect your wallet to explore wallet management, transactions, and more.
@@ -52,7 +52,7 @@ export default function Home() {
               <div>
                 <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">DASHBOARD</p>
                 <h1 className="text-display-lg font-semibold tracking-tighter text-[var(--cc-ink)]">
-                  Dashboard
+                  Dashboard.
                 </h1>
                 <p className="text-[var(--cc-body)] text-body-sm mt-1">
                   {account.chainName} · {shortenAddress(account.address ?? "")}
@@ -91,7 +91,7 @@ export default function Home() {
             {/* Quick Actions */}
             <div className="p-6 border border-[var(--cc-hairline)] rounded-[8px] bg-[var(--cc-canvas)]">
               <h3 className="text-display-sm font-semibold tracking-tighter text-[var(--cc-ink)] mb-6">
-                Quick Actions
+                Quick actions.
               </h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <Link
