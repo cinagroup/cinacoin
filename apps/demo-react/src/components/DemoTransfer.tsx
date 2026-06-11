@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDemo } from '../hooks/useDemo'
-import { AddressDisplay } from './AddressDisplay'
+import { AddressDisplay } from './Others'
 
 export function DemoTransfer() {
   const { isConnected, address, connect, simulateTransaction } = useDemo()

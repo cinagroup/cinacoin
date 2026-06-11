@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDemo } from '../hooks/useDemo'
-import { AddressDisplay } from './AddressDisplay'
+import { AddressDisplay } from './Others'
 
 export function DemoNFT() {
   const { isConnected, address, connect } = useDemo()

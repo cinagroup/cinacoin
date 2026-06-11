@@ -5,7 +5,7 @@ import { useWallet, formatAddress } from '../contexts/WalletContext'
 interface WalletOption {
   id: string
   name: string
-  icon: React.FC<{className?: string}>
+  icon: React.FC<{ className?: string; style?: React.CSSProperties }>
   color: string
   popular: boolean
 }
@@ -37,8 +37,8 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  const [activeTab, setActiveTab] = useState<'popular' | 'all'>('popular')
 
  // Detect installed wallets
- const isMetaMaskInstalled = typeof window !== 'undefined' && !!(window as unknown as Window & typeof globalThis).ethereum?.isMetaMask
- const isCoinbaseInstalled = typeof window !== 'undefined' && !!(window as unknown as Window & typeof globalThis).ethereum?.isCoinbaseWallet
+ const isMetaMaskInstalled = typeof window !== 'undefined' && !!window.ethereum?.isMetaMask
+ const isCoinbaseInstalled = typeof window !== 'undefined' && !!window.ethereum?.isCoinbaseWallet
 
  // Keyboard handler: Escape to close from any state
  useEffect(() => {

@@ -228,7 +228,7 @@ export function TransferPage() {
 
       {/* Right: Code Example */}
       <div>
-        <CodeExample code={CODE_EXAMPLE} language="typescript" title="useCoinTransaction" />
+        <CodeExample code={{ react: CODE_EXAMPLE }} title="useCoinTransaction" />
       </div>
     </div>
   );

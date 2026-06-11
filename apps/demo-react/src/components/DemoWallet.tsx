@@ -1,10 +1,7 @@
 import React from 'react'
 import { useDemo } from '../hooks/useDemo'
-import { AddressDisplay } from './AddressDisplay'
-import { ChainBadge } from './ChainBadge'
-import { BalanceCard } from './BalanceCard'
-import { TransactionList } from './TransactionList'
-import { WalletModal } from '../components/WalletModal'
+import { AddressDisplay, ChainBadge, BalanceCard, TransactionList } from './Others'
+import WalletModal from './WalletModal'
 
 export function DemoWallet() {
   const {

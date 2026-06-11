@@ -265,7 +265,7 @@ export function DeFiPage() {
 
       {/* Right: Code */}
       <div>
-        <CodeExample code={CODE_EXAMPLE} language="typescript" title="useDeFi" />
+        <CodeExample code={{ react: CODE_EXAMPLE }} title="useDeFi" />
       </div>
     </div>
   );

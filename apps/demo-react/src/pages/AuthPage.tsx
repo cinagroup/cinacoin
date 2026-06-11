@@ -318,7 +318,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
                   ['Open source', <Check className="w-4 h-4 inline" />, 'Partial'],
                   ['Free forever', <Check className="w-4 h-4 inline" />, 'Paid tiers']
                 ].map(([f, a, b], i) => (
-                  <tr key={f} className="border-b border-[var(--cc-hairline)]/50 hover:bg-[var(--cc-canvas-soft-2)]/30 transition-colors">
+                  <tr key={String(f)} className="border-b border-[var(--cc-hairline)]/50 hover:bg-[var(--cc-canvas-soft-2)]/30 transition-colors">
                     <td className="p-3 font-medium text-[var(--cc-body)]">{f}</td>
                     <td className="p-3 text-center text-[var(--cc-success)]">{a}</td>
                     <td className="p-3 text-center text-[var(--cc-muted)]">{b}</td>

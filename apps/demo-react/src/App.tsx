@@ -2,19 +2,19 @@ import { logger } from '@cinacoin/logger';
 import { Suspense, lazy, useEffect, Component, type ReactNode, type ErrorInfo } from 'react'
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 import { WalletProvider } from './contexts/WalletContext'
-import { Navbar } from '../components/SiteHeader'
-import { Footer } from '../components/SiteFooter'
+import { SiteHeader as Navbar } from './components/SiteHeader'
+import { SiteFooter as Footer } from './components/SiteFooter'
 
-const HomePage = lazy(() => import('./pages/HomePage'))
+const HomePage = lazy(() => import('./pages/HomePage').then(m => ({ default: m.HomePage })))
 const SwapPage = lazy(() => import('./pages/SwapPage'))
 const MultiChainPage = lazy(() => import('./pages/MultiChainPage'))
 const AuthPage = lazy(() => import('./pages/AuthPage'))
 const WalletConnectPage = lazy(() => import('./pages/WalletConnectPage'))
 const SignMessagePage = lazy(() => import('./pages/SignMessagePage'))
-const TransferPage = lazy(() => import('./pages/TransferPage'))
-const NFTPage = lazy(() => import('./pages/NFTPage'))
-const BridgePage = lazy(() => import('./pages/BridgePage'))
-const DeFiPage = lazy(() => import('./pages/DeFiPage'))
+const TransferPage = lazy(() => import('./pages/TransferPage').then(m => ({ default: m.TransferPage })))
+const NFTPage = lazy(() => import('./pages/NFTPage').then(m => ({ default: m.NFTPage })))
+const BridgePage = lazy(() => import('./pages/BridgePage').then(m => ({ default: m.BridgePage })))
+const DeFiPage = lazy(() => import('./pages/DeFiPage').then(m => ({ default: m.DeFiPage })))
 
 /* ── Lazy route fallback with loading spinner ── */
 const RouteFallback = () => (

@@ -116,7 +116,7 @@ export function NFTPage() {
 
       {/* Right: Code Example */}
       <div>
-        <CodeExample code={CODE_EXAMPLE} language="typescript" title="useCoinBalance (NFT)" />
+        <CodeExample code={{ react: CODE_EXAMPLE }} title="useCoinBalance (NFT)" />
       </div>
     </div>
   );

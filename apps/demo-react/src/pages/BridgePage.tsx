@@ -280,7 +280,7 @@ export function BridgePage() {
 
       {/* Right: Code */}
       <div>
-        <CodeExample code={CODE_EXAMPLE} language="typescript" title="useBridge" />
+        <CodeExample code={{ react: CODE_EXAMPLE }} title="useBridge" />
       </div>
     </div>
   );

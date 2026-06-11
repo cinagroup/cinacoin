@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useDemo } from '../hooks/useDemo'
-import { AddressDisplay } from './AddressDisplay'
-import { serializeTypedData } from '@cinacoin/core-sdk'
+import { AddressDisplay } from './Others'
 
 export function DemoSignMessage() {
   const { isConnected, address, connect, signMessage } = useDemo()

@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { useWallet } from './useWallet'
-import { getChainInfo } from './useChainInfo'
+import { useChainInfo } from './useChainInfo'
 import type { Chain } from '@cinacoin/core-sdk'
 
 // ============================================================================
@@ -31,8 +31,9 @@ export interface DemoState {
 // ============================================================================
 
 export function useDemo() {
-  const { address, isConnected, chainId, disconnect, switchChain } = useWallet()
-  const chainInfo = getChainInfo(chainId)
+  const { address, isConnected, chainId, disconnect } = useWallet()
+  const chainInfoResult = useChainInfo(chainId, address)
+  const chainInfo: Chain | null = chainInfoResult ? { id: `eip155:${chainInfoResult.chainId}`, name: chainInfoResult.chainName, namespace: 'eip155' } as Chain : null
 
   // Mock data
   const [balance, setBalance] = useState<string>('0.00')
@@ -126,6 +127,20 @@ export function useDemo() {
     setCharges(0)
   }, [disconnect])
 
+  // Mock sign message
+  const signMessage = useCallback(async (message: string) => {
+    return { signature: '0x' + Array.from({ length: 130 }, () =>
+      Math.floor(Math.random() * 16).toString(16)
+    ).join('') }
+  }, [])
+
+  // Mock sign typed data
+  const signTypedData = useCallback(async (typedData: any) => {
+    return { signature: '0x' + Array.from({ length: 130 }, () =>
+      Math.floor(Math.random() * 16).toString(16)
+    ).join('') }
+  }, [])
+
   return {
     isConnected,
     isConnecting,
@@ -136,7 +151,8 @@ export function useDemo() {
     charges,
     connect,
     disconnect: handleDisconnect,
-    switchChain,
+    signMessage,
+    signTypedData,
     simulateTransaction,
   }
 }
