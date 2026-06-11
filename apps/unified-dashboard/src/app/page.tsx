@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { Sidebar } from "@/components/Sidebar";
+import { MobileNav } from "@/components/MobileNav";
 import { StatsCards } from "@/components/StatsCards";
 import { SystemOverview } from "@/components/SystemOverview";
 import { RecentActivity } from "@/components/RecentActivity";
@@ -37,31 +38,34 @@ export default function Home() {
   return (
     <div className="flex min-h-screen bg-[var(--cc-canvas-soft)]">
       <Sidebar />
-      <main className="flex-1 md:ml-64 p-4 md:p-8">
-        <div className="max-w-7xl mx-auto">
-          <header className="mb-8">
-            <p className="cc-caption-mono text-[var(--cc-muted)] mb-2 tracking-wide">DASHBOARD</p>
-            <h1 className="cc-display-sm text-[var(--cc-ink)]">
-              Dashboard overview.
-            </h1>
-            <p className="cc-body-sm text-[var(--cc-body)] mt-1">
-              Welcome to CinaCoin Unified Dashboard.
-            </p>
-          </header>
+      <div className="flex-1 md:ml-64">
+        <MobileNav />
+        <main className="p-4 md:p-8">
+          <div className="max-w-7xl mx-auto">
+            <header className="mb-8">
+              <p className="cc-caption-mono text-[var(--cc-muted)] mb-2 tracking-wide">DASHBOARD</p>
+              <h1 className="cc-display-sm text-[var(--cc-ink)]">
+                Dashboard overview.
+              </h1>
+              <p className="cc-body-sm text-[var(--cc-body)] mt-1">
+                Welcome to CinaCoin Unified Dashboard.
+              </p>
+            </header>
 
-          <StatsCards />
+            <StatsCards />
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
-            <UserGrowthChart />
-            <ApiCallsChart />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+              <UserGrowthChart />
+              <ApiCallsChart />
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+              <SystemOverview />
+              <RecentActivity />
+            </div>
           </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
-            <SystemOverview />
-            <RecentActivity />
-          </div>
-        </div>
-      </main>
+        </main>
+      </div>
     </div>
   );
 }
