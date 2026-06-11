@@ -5,6 +5,7 @@ import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { z } from "zod";
 import { exchangeOAuthCode } from "@/lib/api";
+import { AlertTriangle } from "lucide-react";
 
 /** Zod schema for OAuth callback query parameters */
 const OAuthCallbackParamsSchema = z.object({
@@ -81,19 +82,7 @@ function OAuthCallbackContent() {
           <div className="bg-canvas rounded-md shadow-level-2 p-8">
             <div className="text-center">
               <div className="mb-4">
-                <svg
-                  className="mx-auto h-12 w-12 text-error"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                  />
-                </svg>
+                <AlertTriangle className="mx-auto h-12 w-12 text-error" />
               </div>
               <h2 className="text-heading-3 text-ink mb-2">Authentication Error</h2>
               <p className="text-body-sm text-body mb-6">{error}</p>

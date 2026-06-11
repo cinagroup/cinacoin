@@ -523,6 +523,7 @@ export default function BatchPage() {
 
         {/* ── Header ─────────────────────────────────────── */}
         <div className="text-center space-y-2">
+          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">BATCH</p>
           <h1 className="text-display-lg font-semibold tracking-tighter bg-gradient-to-r from-[var(--cc-link)]/80 via-[var(--cc-link)] to-[var(--cc-link)]/60 bg-clip-text text-transparent">
             EIP-5792 Atomic Batch
           </h1>

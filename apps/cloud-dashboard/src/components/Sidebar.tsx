@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  LayoutDashboard,
+import { Cloud, ChevronRight } from "lucide-react";
+import {  LayoutDashboard,
   Settings,
   Key,
   CreditCard,
@@ -88,9 +88,7 @@ export default function Sidebar({ isOpen }: SidebarProps) {
       <div className="h-14 flex items-center px-4 border-b border-hairline">
         <Link href="/" className="flex items-center">
           <div className="w-8 h-8 bg-primary rounded-sm flex items-center justify-center">
-            <svg className="w-5 h-5 text-on-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
-            </svg>
+            <Cloud className="w-5 h-5 text-on-primary" />
           </div>
           <span className="ml-3 font-semibold text-ink">CinaCoin Cloud</span>
         </Link>

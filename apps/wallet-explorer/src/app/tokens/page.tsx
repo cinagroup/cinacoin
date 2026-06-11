@@ -17,6 +17,7 @@ export default function TokensPage() {
   if (!connected) {
     return (
       <div className="cc-card text-center py-12">
+        <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">TOKENS</p>
         <h2 className="text-heading-2 text-ink">Tokens</h2>
         <p className="mt-2 text-body text-mute">Connect your wallet to view your tokens.</p>
         <button onClick={connect} className="cc-btn-primary mt-6">
@@ -29,6 +30,7 @@ export default function TokensPage() {
   return (
     <div className="space-y-6">
       <div>
+        <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">TOKENS</p>
         <h1 className="text-heading-2 text-ink">Tokens</h1>
         <p className="mt-1 text-body text-mute">Your token balances and portfolio.</p>
       </div>

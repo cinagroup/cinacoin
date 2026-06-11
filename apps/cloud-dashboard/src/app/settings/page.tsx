@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Menu } from "lucide-react";
 import Sidebar from "@/components/Sidebar";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 
@@ -18,9 +19,7 @@ export default function SettingsPage() {
             onClick={() => setSidebarOpen(!sidebarOpen)}
             className="p-2 rounded-sm hover:bg-canvas-soft-2 mr-4 transition-colors duration-fast"
           >
-            <svg className="w-5 h-5 text-body" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
+            <Menu className="w-5 h-5 text-body" />
           </button>
         </header>
         <Breadcrumbs />
@@ -54,6 +53,7 @@ export default function SettingsPage() {
           {/* Profile Tab */}
           {activeTab === "profile" && (
             <div className="bg-canvas border border-hairline rounded-md p-6">
+              <p className="font-mono text-xs text-mute mb-2">PROFILE</p>
               <h2 className="text-heading-3 text-ink mb-6">Profile Information</h2>
               <form className="space-y-6">
                 <div className="grid grid-cols-2 gap-4">
@@ -102,6 +102,7 @@ export default function SettingsPage() {
           {activeTab === "security" && (
             <div className="space-y-6">
               <div className="bg-canvas border border-hairline rounded-md p-6">
+                <p className="font-mono text-xs text-mute mb-2">SECURITY</p>
                 <h2 className="text-heading-3 text-ink mb-6">Change Password</h2>
                 <form className="space-y-4">
                   <div>
@@ -123,6 +124,7 @@ export default function SettingsPage() {
               </div>
 
               <div className="bg-canvas border border-hairline rounded-md p-6">
+                <p className="font-mono text-xs text-mute mb-2">2FA</p>
                 <h2 className="text-heading-3 text-ink mb-4">Two-Factor Authentication</h2>
                 <p className="text-body-sm text-body mb-4">
                   Add an extra layer of security to your account by enabling two-factor authentication.
@@ -135,6 +137,7 @@ export default function SettingsPage() {
           {/* Notifications Tab */}
           {activeTab === "notifications" && (
             <div className="bg-canvas border border-hairline rounded-md p-6">
+              <p className="font-mono text-xs text-mute mb-2">PREFERENCES</p>
               <h2 className="text-heading-3 text-ink mb-6">Notification Preferences</h2>
               <div className="space-y-4">
                 {[
@@ -161,6 +164,7 @@ export default function SettingsPage() {
           {/* API Tab */}
           {activeTab === "api" && (
             <div className="bg-canvas border border-hairline rounded-md p-6">
+              <p className="font-mono text-xs text-mute mb-2">ENDPOINTS</p>
               <h2 className="text-heading-3 text-ink mb-6">API Configuration</h2>
               <div className="space-y-4">
                 <div>

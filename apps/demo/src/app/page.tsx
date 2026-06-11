@@ -50,6 +50,7 @@ export default function Home() {
             {/* Header */}
             <div className="flex items-center justify-between">
               <div>
+                <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">DASHBOARD</p>
                 <h1 className="text-display-lg font-semibold tracking-tighter text-[var(--cc-ink)]">
                   Dashboard
                 </h1>

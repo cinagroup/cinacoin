@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, type FormEvent } from 'react';
+import { Check } from 'lucide-react';
 
 export function ProjectForm() {
   const [formData, setFormData] = useState({
@@ -29,9 +30,7 @@ export function ProjectForm() {
     return (
       <div className="space-y-4 text-center">
         <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[var(--cc-success)]/10">
-          <svg className="h-6 w-6 text-[var(--cc-success)]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-          </svg>
+          <Check className="h-6 w-6 text-[var(--cc-success)]" />
         </div>
         <h3 className="cc-display-sm text-[var(--cc-ink)]">Project Created!</h3>
         <p className="text-body-sm text-[var(--cc-muted)]">Your project has been created successfully.</p>

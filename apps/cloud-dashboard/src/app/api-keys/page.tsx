@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Menu, MoreVertical } from "lucide-react";
 import Sidebar from "@/components/Sidebar";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { KeyRound } from "lucide-react";
@@ -24,9 +25,7 @@ export default function ApiKeysPage() {
             onClick={() => setSidebarOpen(!sidebarOpen)}
             className="p-2 rounded-sm hover:bg-canvas-soft-2 mr-4 transition-colors duration-fast"
           >
-            <svg className="w-5 h-5 text-body" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
+            <Menu className="w-5 h-5 text-body" />
           </button>
         </header>
         <Breadcrumbs />
@@ -81,9 +80,7 @@ export default function ApiKeysPage() {
                     </td>
                     <td className="px-6 py-4 text-right">
                       <button className="p-2 hover:bg-canvas-soft-2 rounded transition-colors">
-                        <svg className="w-4 h-4 text-body" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
-                        </svg>
+                        <MoreVertical className="w-4 h-4 text-body" />
                       </button>
                     </td>
                   </tr>

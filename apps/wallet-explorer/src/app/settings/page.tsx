@@ -26,6 +26,7 @@ export default function SettingsPage() {
   return (
     <div className="space-y-6">
       <div>
+        <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">SETTINGS</p>
         <h1 className="text-heading-2 text-ink">Settings</h1>
         <p className="mt-1 text-body text-mute">Manage your wallet preferences.</p>
       </div>

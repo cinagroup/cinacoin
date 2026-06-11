@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Menu, Search, MoreVertical } from "lucide-react";
 import Sidebar from "@/components/Sidebar";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FolderOpen } from "lucide-react";
@@ -24,15 +25,11 @@ export default function ProjectsPage() {
             onClick={() => setSidebarOpen(!sidebarOpen)}
             className="p-2 rounded-sm hover:bg-canvas-soft-2 mr-4 transition-colors duration-fast"
           >
-            <svg className="w-5 h-5 text-body" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
+            <Menu className="w-5 h-5 text-body" />
           </button>
           <div className="flex-1 flex items-center gap-4">
             <div className="relative">
-              <svg className="w-4 h-4 text-mute absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
+              <Search className="w-4 h-4 text-mute absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 placeholder="Search projects..."
@@ -86,9 +83,7 @@ export default function ProjectsPage() {
                     </div>
                   </div>
                   <button className="p-2 hover:bg-canvas-soft-2 rounded transition-colors">
-                    <svg className="w-5 h-5 text-body" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
-                    </svg>
+                    <MoreVertical className="w-5 h-5 text-body" />
                   </button>
                 </div>
               </div>

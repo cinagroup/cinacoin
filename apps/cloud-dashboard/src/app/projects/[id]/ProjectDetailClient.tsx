@@ -62,6 +62,7 @@ export function ProjectDetailClient({ projectId, project }: ProjectDetailClientP
           <a href="/projects" className="text-body-sm text-[var(--cc-muted)] hover:text-[var(--cc-ink)]">
             ← Back to Projects
           </a>
+          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">PROJECT DETAIL</p>
           <h1 className="mt-2 cc-display-md text-[var(--cc-ink)]">{project.name}</h1>
           <p className="mt-1 text-body-sm text-[var(--cc-muted)]">{project.description}</p>
         </div>
@@ -143,6 +144,7 @@ export function ProjectDetailClient({ projectId, project }: ProjectDetailClientP
         {activeTab === "settings" && (
           <div className="space-y-6" role="tabpanel" id="panel-settings" aria-labelledby="tab-settings">
             <div className="cc-card">
+              <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">CONFIGURATION</p>
               <h3 className="cc-display-sm text-[var(--cc-ink)] mb-4">Project Settings</h3>
               <form
                 onSubmit={(e) => {
@@ -192,6 +194,7 @@ export function ProjectDetailClient({ projectId, project }: ProjectDetailClientP
             </div>
 
             <div className="cc-card border border-[var(--cc-error)]/30 bg-[var(--cc-error-soft)]/10">
+              <p className="font-mono text-xs text-[var(--cc-error)] mb-2">WARNING</p>
               <h3 className="cc-body-md-strong text-[var(--cc-error)] mb-2">Danger Zone</h3>
               <p className="cc-body-sm text-[var(--cc-body)] mb-4">
                 Once you delete a project, all of its API keys and usage statistics will be permanently removed.

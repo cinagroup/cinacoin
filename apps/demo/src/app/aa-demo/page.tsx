@@ -38,6 +38,7 @@ export default function AADemoPage() {
       <div className="max-w-4xl mx-auto px-4 py-8 space-y-8">
         {/* ── Header ── */}
         <div className="text-center space-y-2">
+          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">ACCOUNT ABSTRACTION</p>
           <h1 className="text-display-lg font-semibold tracking-tighter bg-gradient-to-r from-[var(--cc-violet)] via-[var(--cc-highlight-pink)] to-[var(--cc-link)] bg-clip-text text-transparent">
             Account Abstraction Demo
           </h1>

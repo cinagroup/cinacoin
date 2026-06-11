@@ -6,6 +6,7 @@ export default function NewProjectPage() {
     <main id="main-content" className="mx-auto max-w-2xl px-4 py-8 sm:px-6 lg:px-8">
       <Breadcrumbs />
       <div className="mb-6">
+        <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">NEW PROJECT</p>
         <h1 className="cc-display-md text-[var(--cc-ink)]">Create Project</h1>
         <p className="cc-body-sm text-[var(--cc-muted)] mt-1">
           Set up a new project to get started with Cinacoin.

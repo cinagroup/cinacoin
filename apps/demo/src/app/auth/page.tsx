@@ -279,7 +279,7 @@ export default function AuthPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* ── Hero ── */}
         <section className="py-16 sm:py-20 text-center">
-          <p className="font-mono text-caption text-[var(--cc-muted)] mb-2">02</p>
+          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">AUTH</p>
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--cc-link)]/10 border border-[var(--cc-primary)]/20 text-[var(--cc-link)] text-body-sm font-medium mb-6">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />

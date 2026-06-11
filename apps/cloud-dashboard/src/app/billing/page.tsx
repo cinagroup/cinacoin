@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Menu } from "lucide-react";
 import Sidebar from "@/components/Sidebar";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FileText } from "lucide-react";
@@ -24,9 +25,7 @@ export default function BillingPage() {
             onClick={() => setSidebarOpen(!sidebarOpen)}
             className="p-2 rounded-sm hover:bg-canvas-soft-2 mr-4 transition-colors duration-fast"
           >
-            <svg className="w-5 h-5 text-body" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
+            <Menu className="w-5 h-5 text-body" />
           </button>
         </header>
         <Breadcrumbs />
@@ -42,6 +41,7 @@ export default function BillingPage() {
           <div className="bg-canvas border border-hairline rounded-md p-6 mb-6">
             <div className="flex items-start justify-between mb-4">
               <div>
+                <p className="font-mono text-xs text-mute mb-2">PLAN</p>
                 <h2 className="text-heading-3 text-ink mb-1">Current Plan</h2>
                 <p className="text-body-sm text-body">Professional Plan</p>
               </div>
@@ -67,6 +67,7 @@ export default function BillingPage() {
 
           {/* Usage */}
           <div className="bg-canvas border border-hairline rounded-md p-6 mb-6">
+            <p className="font-mono text-xs text-mute mb-2">USAGE</p>
             <h2 className="text-heading-3 text-ink mb-4">Current Usage</h2>
             <div className="space-y-4">
               <div>
@@ -102,6 +103,7 @@ export default function BillingPage() {
           {/* Invoices */}
           <div className="bg-canvas border border-hairline rounded-md overflow-hidden">
             <div className="px-6 py-4 border-b border-hairline">
+              <p className="font-mono text-xs text-mute mb-2">HISTORY</p>
               <h2 className="text-heading-3 text-ink">Invoice History</h2>
             </div>
             <table className="w-full">

@@ -390,7 +390,7 @@ export default function TokensPage() {
 
         {/* ── Header ── */}
         <div className="text-center space-y-2">
-          <p className="font-mono text-caption text-[var(--cc-muted)] mb-2">09</p>
+          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">TOKENS</p>
           <h1 className="text-display-lg font-semibold tracking-tighter bg-gradient-to-r from-[var(--cc-link)]/80 via-[var(--cc-link)] to-[var(--cc-link)]/60 bg-clip-text text-transparent">
             Token Search & Swap
           </h1>

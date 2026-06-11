@@ -172,7 +172,7 @@ export default function SettingsPage() {
       <div className="max-w-2xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <p className="font-mono text-caption text-[var(--cc-muted)] mb-2">07</p>
+          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">SETTINGS</p>
           <h1 className="text-display-lg font-semibold tracking-tighter bg-gradient-to-r from-[var(--cc-link)] to-[var(--cc-violet)] bg-clip-text text-transparent">
             Settings
           </h1>

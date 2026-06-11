@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState, useMemo, useCallback, useRef } from "react";
 import useWebSocket from "@/hooks/useWebSocket";
+import { TrendingUp } from "lucide-react";
 
 interface Transaction {
   id: string;
@@ -160,9 +161,7 @@ const TransactionRow = React.memo(function TransactionRow({ tx }: { tx: Transact
     >
       <div className="flex items-center gap-sm">
         <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
-          <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-          </svg>
+          <TrendingUp className="w-4 h-4 text-primary" />
         </div>
         <div>
           <p className="text-body-sm font-medium text-ink">{tx.chain}</p>

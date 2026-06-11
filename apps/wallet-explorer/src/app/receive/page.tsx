@@ -21,6 +21,7 @@ export default function ReceivePage() {
   if (!connected) {
     return (
       <div className="cc-card text-center py-12">
+        <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">RECEIVE</p>
         <h2 className="text-heading-2 text-ink">Receive CINA</h2>
         <p className="mt-2 text-body text-mute">Connect your wallet to view your receive address.</p>
         <button onClick={connect} className="cc-btn-primary mt-6">
@@ -33,6 +34,7 @@ export default function ReceivePage() {
   return (
     <div className="space-y-6">
       <div>
+        <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">RECEIVE</p>
         <h1 className="text-heading-2 text-ink">Receive CINA</h1>
         <p className="mt-1 text-body text-mute">Share your address to receive tokens.</p>
       </div>
