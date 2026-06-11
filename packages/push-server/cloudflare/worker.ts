@@ -4,7 +4,7 @@
  * Push notification delivery via APNs (iOS) and FCM (Android).
  */
 
-import { PushServer } from '../dist/PushServer.js';
+import { PushServer } from '../src/PushServer.js';
 import { logger } from '@cinacoin/logger';
 // --- Inlined from @cinacoin/config ---
 function createLogger(serviceName: string) {
@@ -401,4 +401,20 @@ interface Env {
   DEFAULT_RETRY_ATTEMPTS?: string;
   DEFAULT_TIMEOUT_MS?: string;
   API_KEY?: string;
+}
+
+// ---------------------------------------------------------------------------
+// PushSubscription Durable Object
+// ---------------------------------------------------------------------------
+
+export class PushSubscription {
+  state: DurableObjectState;
+
+  constructor(state: DurableObjectState, _env: Env) {
+    this.state = state;
+  }
+
+  fetch(_request: Request): Promise<Response> {
+    return Promise.resolve(new Response("PushSubscription DO", { status: 200 }));
+  }
 }

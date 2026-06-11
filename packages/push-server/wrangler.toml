@@ -21,6 +21,10 @@ bindings = [
 binding = "PUSH_CACHE"
 id = "10680718388843678a48f5f2ed045cc0"
 
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["PushSubscription"]
+
 [dev]
 ip = "localhost"
 port = 8788
