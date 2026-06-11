@@ -1,6 +1,8 @@
 import TutorialCard from "@/components/TutorialCard";
 import { Rocket } from "lucide-react";
 
+export const dynamic = "force-static";
+
 const tutorials = [
   {
     title: "Web3 basics.",

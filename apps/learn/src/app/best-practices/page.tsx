@@ -1,6 +1,6 @@
 import CodeBlock from "@/components/CodeBlock";
 import StepIndicator from "@/components/StepIndicator";
-import Link from "next/link";
+
 
 export const metadata = {
   title: "Best practices. — CinaCoin Learn",
@@ -12,15 +12,15 @@ export default function BestPracticesPage() {
     <div className="max-w-3xl mx-auto">
       <StepIndicator currentStep={4} totalSteps={4} />
 
-      <h1 className="text-display-lg font-semibold mb-4">Best practices.</h1>
-      <p className="text-cc-text-secondary mb-8">
+      <h1 className="text-display-lg mb-4">Best practices.</h1>
+      <p className="text-body-lg mb-8" style={{ color: 'var(--cc-body)' }}>
         Production-ready patterns for building secure, performant, and user-friendly Web3 applications.
       </p>
 
       {/* Section 1 */}
       <section className="mb-12" aria-labelledby="security-first">
-        <h2 id="security-first" className="text-display-md font-semibold mb-4">1. Security first.</h2>
-        <p className="text-cc-text-secondary mb-4">
+        <h2 id="security-first" className="text-display-md mb-4">1. Security first.</h2>
+        <p className="text-body-md mb-4" style={{ color: 'var(--cc-body)' }}>
           Web3 applications handle real money. Security isn&apos;t optional — it&apos;s the foundation.
           Follow these rules to protect your users.
         </p>
@@ -56,8 +56,8 @@ const tx = await cinacoin.sendTransaction({
 
       {/* Section 2 */}
       <section className="mb-12" aria-labelledby="error-handling">
-        <h2 id="error-handling" className="text-display-md font-semibold mb-4">2. Error handling.</h2>
-        <p className="text-cc-text-secondary mb-4">
+        <h2 id="error-handling" className="text-display-md mb-4">2. Error handling.</h2>
+        <p className="text-body-md mb-4" style={{ color: 'var(--cc-body)' }}>
           Blockchain transactions can fail in many ways. Good error handling makes the
           difference between a frustrating and a delightful user experience.
         </p>
@@ -100,8 +100,8 @@ async function handleTransaction() {
 
       {/* Section 3 */}
       <section className="mb-12" aria-labelledby="performance-optimization">
-        <h2 id="performance-optimization" className="text-display-md font-semibold mb-4">3. Performance optimization.</h2>
-        <p className="text-cc-text-secondary mb-4">
+        <h2 id="performance-optimization" className="text-display-md mb-4">3. Performance optimization.</h2>
+        <p className="text-body-md mb-4" style={{ color: 'var(--cc-body)' }}>
           Web3 apps can be slow due to RPC calls and block times. Optimize for speed
           with caching, parallel requests, and optimistic updates.
         </p>
@@ -163,18 +163,18 @@ function useTokenTransfer() {
 
       {/* Section 4 */}
       <section className="mb-12" aria-labelledby="user-experience">
-        <h2 id="user-experience" className="text-display-md font-semibold mb-4">4. User experience.</h2>
-        <p className="text-cc-text-secondary mb-4">
+        <h2 id="user-experience" className="text-display-md mb-4">4. User experience.</h2>
+        <p className="text-body-md mb-4" style={{ color: 'var(--cc-body)' }}>
           Web3 UX has a reputation for being confusing. Bridge the gap between
           crypto-native and mainstream users with clear feedback and sensible defaults.
         </p>
-        <ul className="list-disc list-inside text-cc-text-secondary space-y-3 mb-4">
-          <li><strong className="text-cc-text-primary">Show pending states</strong> — Always indicate when a transaction is being processed.</li>
-          <li><strong className="text-cc-text-primary">Explain gas fees</strong> — Users should understand what they&apos;re paying for.</li>
-          <li><strong className="text-cc-text-primary">Provide block explorer links</strong> — Let users track transactions independently.</li>
-          <li><strong className="text-cc-text-primary">Handle disconnections gracefully</strong> — Don&apos;t crash; prompt reconnection.</li>
-          <li><strong className="text-cc-text-primary">Use human-readable addresses</strong> — Show ENS names or truncated addresses (0x742d...5678).</li>
-          <li><strong className="text-cc-text-primary">Confirm before signing</strong> — Show users exactly what they&apos;re signing.</li>
+        <ul className="list-disc list-inside space-y-3 mb-4" style={{ color: 'var(--cc-body)' }}>
+          <li><strong className="font-semibold">Show pending states</strong> — Always indicate when a transaction is being processed.</li>
+          <li><strong className="font-semibold">Explain gas fees</strong> — Users should understand what they&apos;re paying for.</li>
+          <li><strong className="font-semibold">Provide block explorer links</strong> — Let users track transactions independently.</li>
+          <li><strong className="font-semibold">Handle disconnections gracefully</strong> — Don&apos;t crash; prompt reconnection.</li>
+          <li><strong className="font-semibold">Use human-readable addresses</strong> — Show ENS names or truncated addresses (0x742d...5678).</li>
+          <li><strong className="font-semibold">Confirm before signing</strong> — Show users exactly what they&apos;re signing.</li>
         </ul>
         <CodeBlock
           language="typescript"
@@ -200,8 +200,8 @@ function formatBalance(value: string, decimals = 4): string {
 
       {/* Section 5 */}
       <section className="mb-12" aria-labelledby="testing-integration">
-        <h2 id="testing-integration" className="text-display-md font-semibold mb-4">5. Testing your integration.</h2>
-        <p className="text-cc-text-secondary mb-4">
+        <h2 id="testing-integration" className="text-display-md mb-4">5. Testing your integration.</h2>
+        <p className="text-body-md mb-4" style={{ color: 'var(--cc-body)' }}>
           Test your Web3 integration thoroughly before deploying to production.
           Use testnets, mock providers, and automated tests.
         </p>
@@ -235,19 +235,20 @@ describe('Wallet Integration', () => {
       </section>
 
       {/* Navigation */}
-      <nav className="flex justify-between items-center pt-8 border-t border-cc-border-color" aria-label="Tutorial navigation">
-        <Link
+      <nav className="flex justify-between items-center pt-8 border-t" style={{ borderColor: 'var(--cc-hairline)' }} aria-label="Tutorial navigation">
+        <a
           href="/multichain"
-          className="text-cc-text-secondary hover:text-cc-accent-blue transition-colors text-body-sm"
+          className="text-body-sm cc-link-hover"
+          style={{ color: 'var(--cc-body)' }}
         >
           ← Previous: Multichain development.
-        </Link>
-        <Link
+        </a>
+        <a
           href="/"
-          className="px-4 py-2 border border-cc-border-color hover:border-cc-accent-blue/50 text-cc-text-secondary hover:text-cc-text-primary rounded-lg text-body-sm font-medium transition-colors"
+          className="cc-btn-secondary"
         >
           Back to home.
-        </Link>
+        </a>
       </nav>
     </div>
   );

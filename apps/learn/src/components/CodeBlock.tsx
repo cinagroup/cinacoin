@@ -18,20 +18,29 @@ export default function CodeBlock({ code, language = "typescript", title }: Code
   };
 
   return (
-    <div className="bg-bg-card border border-border-color rounded-lg overflow-hidden my-6">
+    <div className="cc-card" style={{ padding: 0, marginTop: 'var(--cc-space-lg)', marginBottom: 'var(--cc-space-lg)' }}>
       {title && (
-        <div className="px-4 py-2 bg-bg-hover border-b border-border-color flex items-center justify-between">
-          <span className="text-body-sm text-text-secondary font-[var(--font-mono)]">{title}</span>
+        <div 
+          className="flex items-center justify-between"
+          style={{ 
+            padding: 'var(--cc-space-sm) var(--cc-space-md)',
+            backgroundColor: 'var(--cc-canvas-soft-2)',
+            borderBottom: '1px solid var(--cc-hairline)'
+          }}
+        >
+          <span className="cc-mono text-body-sm" style={{ color: 'var(--cc-body)' }}>{title}</span>
           <button
             onClick={handleCopy}
-            className="text-caption text-text-muted hover:text-accent-blue transition-colors"
+            className="text-caption cc-link-hover"
+            style={{ color: 'var(--cc-mute)', background: 'none', border: 'none', cursor: 'pointer', padding: 'var(--cc-space-xs)' }}
+            aria-label={copied ? "Code copied" : "Copy code"}
           >
             {copied ? "✓ Copied" : "Copy"}
           </button>
         </div>
       )}
-      <pre className="p-4 overflow-x-auto text-body-sm">
-        <code className={`language-${language} text-text-primary`}>{code}</code>
+      <pre className="overflow-x-auto" style={{ padding: 'var(--cc-space-md)' }}>
+        <code className={`language-${language} text-body-sm`}>{code}</code>
       </pre>
     </div>
   );

@@ -12,34 +12,56 @@ export default function InteractiveEditor({
   placeholder = "Write your code here...",
 }: InteractiveEditorProps) {
   const [code, setCode] = useState(initialCode);
-  const [output, setOutput] = useState<string>("");
+  const [output, setOutput] = useState("");
 
   const handleRun = () => {
-    // Placeholder for actual code execution
     setOutput("Code execution would happen here. This is a placeholder for the interactive editor.");
   };
 
   return (
-    <div className="bg-bg-card border border-border-color rounded-lg overflow-hidden my-6">
-      <div className="px-4 py-2 bg-bg-hover border-b border-border-color flex items-center justify-between">
-        <span className="text-body-sm text-text-secondary font-[var(--font-mono)]">Interactive Editor</span>
+    <div className="cc-card" style={{ padding: 0, marginTop: 'var(--cc-space-lg)', marginBottom: 'var(--cc-space-lg)' }}>
+      <div 
+        className="flex items-center justify-between"
+        style={{ 
+          padding: 'var(--cc-space-sm) var(--cc-space-md)',
+          backgroundColor: 'var(--cc-canvas-soft-2)',
+          borderBottom: '1px solid var(--cc-hairline)'
+        }}
+      >
+        <span className="cc-mono text-body-sm" style={{ color: 'var(--cc-body)' }}>Interactive editor.</span>
         <button
           onClick={handleRun}
-          className="px-3 py-1 text-caption font-medium bg-accent-blue hover:bg-accent-blue/80 text-[var(--color-on-primary)] rounded transition-colors"
+          className="cc-btn-primary"
+          style={{ height: '32px', padding: '0 var(--cc-space-sm)' }}
+          aria-label="Run code"
         >
-          Run Code
+          Run code
         </button>
       </div>
       <textarea
         value={code}
         onChange={(e) => setCode(e.target.value)}
         placeholder={placeholder}
-        className="w-full h-48 p-4 bg-bg-primary text-text-primary font-[var(--font-mono)] text-body-sm resize-none focus:outline-none"
+        className="cc-mono text-body-sm resize-none"
+        style={{ 
+          width: '100%', 
+          height: '192px', 
+          padding: 'var(--cc-space-md)',
+          backgroundColor: 'var(--cc-canvas)',
+          color: 'var(--cc-ink)',
+          border: 'none',
+          outline: 'none'
+        }}
+        aria-label="Code editor"
       />
       {output && (
-        <div className="border-t border-border-color p-4 bg-bg-primary">
-          <div className="text-caption text-text-muted mb-2">Output:</div>
-          <pre className="text-body-sm text-accent-green whitespace-pre-wrap">{output}</pre>
+        <div style={{ 
+          padding: 'var(--cc-space-md)',
+          borderTop: '1px solid var(--cc-hairline)',
+          backgroundColor: 'var(--cc-canvas-soft)'
+        }}>
+          <div className="text-caption" style={{ color: 'var(--cc-mute)', marginBottom: 'var(--cc-space-xs)' }}>Output:</div>
+          <pre className="text-body-sm" style={{ color: 'var(--cc-success)', whiteSpace: 'pre-wrap' }}>{output}</pre>
         </div>
       )}
     </div>

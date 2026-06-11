@@ -1,7 +1,6 @@
-import { logger } from '@cinacoin/logger';
 import CodeBlock from "@/components/CodeBlock";
 import StepIndicator from "@/components/StepIndicator";
-import Link from "next/link";
+
 
 export const metadata = {
   title: "Wallet integration. — CinaCoin Learn",
@@ -13,15 +12,15 @@ export default function WalletIntegrationPage() {
     <div className="max-w-3xl mx-auto">
       <StepIndicator currentStep={2} totalSteps={4} />
 
-      <h1 className="text-display-lg font-semibold mb-4">Wallet integration.</h1>
-      <p className="text-cc-text-secondary mb-8">
+      <h1 className="text-display-lg mb-4">Wallet integration.</h1>
+      <p className="text-body-lg mb-8" style={{ color: 'var(--cc-body)' }}>
         Connect wallets, sign messages, and interact with smart contracts using the CinaCoin SDK.
       </p>
 
       {/* Step 1 */}
       <section className="mb-12" aria-labelledby="install-sdk">
-        <h2 id="install-sdk" className="text-display-md font-semibold mb-4">1. Install the SDK.</h2>
-        <p className="text-cc-text-secondary mb-4">
+        <h2 id="install-sdk" className="text-display-md mb-4">1. Install the SDK.</h2>
+        <p className="text-body-md mb-4" style={{ color: 'var(--cc-body)' }}>
           Start by installing the CinaCoin SDK in your project. It provides a unified interface
           for connecting to multiple wallets and chains.
         </p>
@@ -34,8 +33,8 @@ export default function WalletIntegrationPage() {
 
       {/* Step 2 */}
       <section className="mb-12" aria-labelledby="initialize-client">
-        <h2 id="initialize-client" className="text-display-md font-semibold mb-4">2. Initialize the client.</h2>
-        <p className="text-cc-text-secondary mb-4">
+        <h2 id="initialize-client" className="text-display-md mb-4">2. Initialize the client.</h2>
+        <p className="text-body-md mb-4" style={{ color: 'var(--cc-body)' }}>
           Create a CinaCoin client instance with your project configuration. You can get your
           project ID from the CinaCoin dashboard.
         </p>
@@ -59,9 +58,9 @@ export const cinacoin = new CinaCoin({
 
       {/* Step 3 */}
       <section className="mb-12" aria-labelledby="connect-wallet">
-        <h2 id="connect-wallet" className="text-display-md font-semibold mb-4">3. Connect a wallet.</h2>
-        <p className="text-cc-text-secondary mb-4">
-          Use the SDK to connect a user&apos;s wallet. The SDK handles WalletConnect, MetaMask,
+        <h2 id="connect-wallet" className="text-display-md mb-4">3. Connect a wallet.</h2>
+        <p className="text-body-md mb-4" style={{ color: 'var(--cc-body)' }}>
+          Use the SDK to connect a user's wallet. The SDK handles WalletConnect, MetaMask,
           and other popular wallets automatically.
         </p>
         <CodeBlock
@@ -83,7 +82,7 @@ export function useWallet() {
       setAddress(session.address);
       setChainId(session.chainId);
     } catch (error) {
-      logger.error('Connection failed:', error);
+      console.error('Connection failed:', error);
     } finally {
       setConnecting(false);
     }
@@ -102,8 +101,8 @@ export function useWallet() {
 
       {/* Step 4 */}
       <section className="mb-12" aria-labelledby="sign-message">
-        <h2 id="sign-message" className="text-display-md font-semibold mb-4">4. Sign a message.</h2>
-        <p className="text-cc-text-secondary mb-4">
+        <h2 id="sign-message" className="text-display-md mb-4">4. Sign a message.</h2>
+        <p className="text-body-md mb-4" style={{ color: 'var(--cc-body)' }}>
           Once connected, you can ask the user to sign messages for authentication or
           other purposes. This proves ownership of the wallet address.
         </p>
@@ -133,8 +132,8 @@ async function signMessage(message: string) {
 
       {/* Step 5 */}
       <section className="mb-12" aria-labelledby="send-transaction">
-        <h2 id="send-transaction" className="text-display-md font-semibold mb-4">5. Send a transaction.</h2>
-        <p className="text-cc-text-secondary mb-4">
+        <h2 id="send-transaction" className="text-display-md mb-4">5. Send a transaction.</h2>
+        <p className="text-body-md mb-4" style={{ color: 'var(--cc-body)' }}>
           Send transactions to interact with smart contracts or transfer tokens.
           The SDK handles gas estimation, nonce management, and confirmation tracking.
         </p>
@@ -160,8 +159,8 @@ async function sendTransaction() {
 
       {/* Step 6 */}
       <section className="mb-12" aria-labelledby="listen-events">
-        <h2 id="listen-events" className="text-display-md font-semibold mb-4">6. Listen for events.</h2>
-        <p className="text-cc-text-secondary mb-4">
+        <h2 id="listen-events" className="text-display-md mb-4">6. Listen for events.</h2>
+        <p className="text-body-md mb-4" style={{ color: 'var(--cc-body)' }}>
           React to wallet and chain events in real-time. The SDK emits events for
           account changes, chain switches, and disconnections.
         </p>
@@ -188,19 +187,20 @@ cinacoin.on('disconnect', () => {
       </section>
 
       {/* Navigation */}
-      <nav className="flex justify-between items-center pt-8 border-t border-cc-border-color" aria-label="Tutorial navigation">
-        <Link
+      <nav className="flex justify-between items-center pt-8 border-t" style={{ borderColor: 'var(--cc-hairline)' }} aria-label="Tutorial navigation">
+        <a
           href="/basics"
-          className="text-cc-text-secondary hover:text-cc-accent-blue transition-colors text-body-sm"
+          className="text-body-sm cc-link-hover"
+          style={{ color: 'var(--cc-body)' }}
         >
           ← Previous: Web3 basics.
-        </Link>
-        <Link
+        </a>
+        <a
           href="/multichain"
-          className="px-4 py-2 bg-cc-accent-blue hover:bg-cc-accent-blue/80 text-cc-on-primary rounded-lg text-body-sm font-medium transition-colors"
+          className="cc-btn-primary"
         >
           Next: Multichain development. →
-        </Link>
+        </a>
       </nav>
     </div>
   );

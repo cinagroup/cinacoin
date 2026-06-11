@@ -239,6 +239,21 @@ pre {
   font-family: var(--font-geist-mono), Geist Mono, ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
+/* ─── Hover Utilities ─── */
+.cc-link-hover {
+  transition: color var(--cc-duration-fast) var(--cc-ease);
+}
+.cc-link-hover:hover {
+  color: var(--cc-link);
+}
+
+.cc-card-interactive {
+  cursor: pointer;
+}
+.cc-card-interactive:hover {
+  border-color: var(--cc-link);
+}
+
 /* ─── Accessibility ─── */
 
 /* Focus Visible */

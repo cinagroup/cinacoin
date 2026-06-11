@@ -1,6 +1,6 @@
 import CodeBlock from "@/components/CodeBlock";
 import StepIndicator from "@/components/StepIndicator";
-import Link from "next/link";
+
 
 export const metadata = {
   title: "Web3 basics. — CinaCoin Learn",
@@ -118,21 +118,19 @@ contract SimpleStorage {
 
       {/* Navigation */}
       <nav className="flex justify-between items-center pt-8 border-t" style={{ borderColor: 'var(--cc-hairline)' }} aria-label="Tutorial navigation">
-        <Link
+        <a
           href="/"
-          className="text-body-sm transition-colors"
+          className="text-body-sm cc-link-hover"
           style={{ color: 'var(--cc-body)' }}
-          onMouseOver={(e) => e.currentTarget.style.color = 'var(--cc-link)'}
-          onMouseOut={(e) => e.currentTarget.style.color = 'var(--cc-body)'}
         >
           ← Back to home.
-        </Link>
-        <Link
+        </a>
+        <a
           href="/wallet-integration"
           className="cc-btn-primary"
         >
           Next: Wallet integration. →
-        </Link>
+        </a>
       </nav>
     </div>
   );

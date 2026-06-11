@@ -4,27 +4,41 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const tutorials = [
-  { href: "/basics", label: "Web3 Basics", category: "Fundamentals" },
-  { href: "/wallet-integration", label: "Wallet Integration", category: "Fundamentals" },
-  { href: "/multichain", label: "Multichain Development", category: "Advanced" },
-  { href: "/best-practices", label: "Best Practices", category: "Advanced" },
+  { href: "/basics", label: "Web3 basics.", category: "Fundamentals" },
+  { href: "/wallet-integration", label: "Wallet integration.", category: "Fundamentals" },
+  { href: "/multichain", label: "Multichain development.", category: "Advanced" },
+  { href: "/best-practices", label: "Best practices.", category: "Advanced" },
 ];
 
 export default function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="fixed left-0 top-0 h-screen w-64 bg-bg-card border-r border-border-color overflow-y-auto">
-      <div className="p-6">
-        <Link href="/" className="block mb-8">
-          <h1 className="text-display-md font-semibold text-accent-blue">Cinacoin</h1>
-          <p className="text-body-sm text-text-secondary">Learn Platform</p>
+    <aside 
+      className="fixed left-0 top-0 h-screen w-64 overflow-y-auto"
+      style={{ 
+        backgroundColor: 'var(--cc-canvas-soft)',
+        borderRight: '1px solid var(--cc-hairline)'
+      }}
+      aria-label="Tutorial navigation"
+    >
+      <div style={{ padding: 'var(--cc-space-lg)' }}>
+        <Link href="/" className="block" style={{ marginBottom: 'var(--cc-space-xl)' }}>
+          <h1 className="text-display-md" style={{ color: 'var(--cc-link)' }}>CinaCoin</h1>
+          <p className="text-body-sm" style={{ color: 'var(--cc-body)' }}>Learn platform.</p>
         </Link>
 
         <nav className="space-y-6">
           {["Fundamentals", "Advanced"].map((category) => (
             <div key={category}>
-              <h3 className="text-caption font-semibold text-text-muted uppercase tracking-wider mb-3">
+              <h3 
+                className="text-caption uppercase tracking-wider"
+                style={{ 
+                  color: 'var(--cc-mute)',
+                  marginBottom: 'var(--cc-space-sm)',
+                  fontWeight: 500
+                }}
+              >
                 {category}
               </h3>
               <ul className="space-y-1">
@@ -36,11 +50,14 @@ export default function Sidebar() {
                       <li key={tutorial.href}>
                         <Link
                           href={tutorial.href}
-                          className={`block px-3 py-2 rounded-lg text-body-sm transition-colors ${
-                            isActive
-                              ? "bg-accent-blue/10 text-accent-blue font-medium"
-                              : "text-text-secondary hover:bg-bg-hover hover:text-text-primary"
-                          }`}
+                          className={`block text-body-sm transition-colors ${isActive ? 'sidebar-link-active' : 'sidebar-link'}`}
+                          style={{ 
+                            padding: 'var(--cc-space-xs) var(--cc-space-sm)',
+                            borderRadius: 'var(--cc-radius-md)',
+                            backgroundColor: isActive ? 'rgba(0, 112, 243, 0.1)' : 'transparent',
+                            color: isActive ? 'var(--cc-link)' : 'var(--cc-body)',
+                            fontWeight: isActive ? 500 : 400
+                          }}
                         >
                           {tutorial.label}
                         </Link>
@@ -52,12 +69,13 @@ export default function Sidebar() {
           ))}
         </nav>
 
-        <div className="mt-8 pt-6 border-t border-border-color">
+        <div style={{ marginTop: 'var(--cc-space-xl)', paddingTop: 'var(--cc-space-lg)', borderTop: '1px solid var(--cc-hairline)' }}>
           <a
             href="https://cinacoin.com"
-            className="text-body-sm text-text-secondary hover:text-accent-blue transition-colors"
+            className="text-body-sm cc-link-hover"
+            style={{ color: 'var(--cc-body)' }}
           >
-            ← Back to Cinacoin
+            ← Back to CinaCoin
           </a>
         </div>
       </div>
