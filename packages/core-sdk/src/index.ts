@@ -54,8 +54,8 @@ export { EvmAdapter } from './adapters/evm.js';
 export type { EthCallParams } from './adapters/evm.js';
 
 // EVM Chain Configs
-export { EVM_CHAINS, DEFAULT_EVM_CHAINES, getChainById, getChainByName } from './configs/evm-chains.js';
-export type { EvmChainConfig } from './configs/evm-chains.js';
+export { EVM_CHAINS, DEFAULT_EVM_CHAINES, getChainById, getChainByName } from './chains/evm-chains.js';
+export type { EvmChainConfig } from './chains/evm-chains.js';
 
 // viem Adapter (optional — requires viem peer dep)
 export { ViemChainAdapter, createViemAdapter } from './adapters/viem.js';
@@ -579,7 +579,7 @@ export type {
 export * from './react/index.js';
 
 // Chain Registry
-export * from './chains.js';
+export * from './chains/index.js';
 
 // Error System
 export {

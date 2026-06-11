@@ -14,7 +14,7 @@
  * ```
  */
 
-import type { Chain } from './types.js';
+import type { Chain } from '../types.js';
 
 // ============================================================================
 // EVM Chains

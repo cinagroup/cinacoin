@@ -8,7 +8,7 @@
 import { logger } from '@cinacoin/logger';
 import type { Connector } from '../connector.js';
 import type { TransactionRequest, Chain } from '../types.js';
-import { DEFAULT_EVM_CHAINES, getChainById, type EvmChainConfig } from '../configs/evm-chains.js';
+import { DEFAULT_EVM_CHAINES, getChainById, type EvmChainConfig } from '../chains/evm-chains.js';
 
 /** Minimal EIP-1193-like provider interface for internal use. */
 interface EIP1193Like {

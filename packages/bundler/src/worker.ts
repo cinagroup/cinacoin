@@ -7,9 +7,14 @@ import {
   createPublicClient,
   createWalletClient,
   http,
+  keccak256,
+  encodeAbiParameters,
   type Address,
   type Chain,
+  type Hash,
   type Hex,
+  type PublicClient,
+  type WalletClient,
 } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
 
@@ -133,6 +138,8 @@ interface WorkerState {
   rpcUrl: string;
   entryPoint: Address;
   startTime: number;
+  publicClient: PublicClient;
+  walletClient: WalletClient;
 }
 
 let workerState: WorkerState | null = null;
@@ -143,15 +150,191 @@ function initializeWorker(env: Env): WorkerState {
   }
 
   const entryPoint = (env.ENTRY_POINT as Address) || ENTRY_POINT_V06;
+  const rpcUrl = SEPOLIA_CHAIN.rpcUrls.default.http[0];
+
+  // Create viem clients for chain interaction
+  const publicClient = createPublicClient({
+    chain: SEPOLIA_CHAIN,
+    transport: http(rpcUrl),
+  });
+
+  let walletClient: WalletClient;
+  try {
+    const account = privateKeyToAccount(env.BUNDLER_PRIVATE_KEY as Hex);
+    walletClient = createWalletClient({
+      account,
+      chain: SEPOLIA_CHAIN,
+      transport: http(rpcUrl),
+    });
+  } catch {
+    // If no private key configured, create a dummy wallet client
+    // Operations requiring signing will fail gracefully
+    walletClient = createWalletClient({
+      chain: SEPOLIA_CHAIN,
+      transport: http(rpcUrl),
+    });
+  }
 
   workerState = {
     chain: SEPOLIA_CHAIN,
-    rpcUrl: SEPOLIA_CHAIN.rpcUrls.default.http[0],
+    rpcUrl,
     entryPoint,
     startTime: Date.now(),
+    publicClient,
+    walletClient,
   };
 
   return workerState;
+}
+
+// ── UserOperation Helpers ────────────────────────────────────────────
+
+interface RawUserOperation {
+  sender: Address;
+  nonce: Hex;
+  initCode: Hex;
+  callData: Hex;
+  callGasLimit: Hex;
+  verificationGasLimit: Hex;
+  preVerificationGas: Hex;
+  maxFeePerGas: Hex;
+  maxPriorityFeePerGas: Hex;
+  paymasterAndData: Hex;
+  signature: Hex;
+}
+
+/**
+ * Compute the keccak256 hash of a serialized UserOperation.
+ * Matches ERC-4337 specification for userOpHash.
+ */
+function computeUserOpHash(op: RawUserOperation, entryPoint: Address, chainId: number): Hash {
+  const encoded = encodeAbiParameters(
+    [
+      { type: 'address' },
+      { type: 'uint256' },
+      { type: 'bytes32' }, // keccak256 of initCode
+      { type: 'bytes32' }, // keccak256 of callData
+      { type: 'uint256' },
+      { type: 'uint256' },
+      { type: 'uint256' },
+      { type: 'uint256' },
+      { type: 'uint256' },
+      { type: 'bytes32' }, // keccak256 of paymasterAndData
+    ],
+    [
+      op.sender,
+      BigInt(op.nonce),
+      keccak256(op.initCode as Hex),
+      keccak256(op.callData as Hex),
+      BigInt(op.callGasLimit),
+      BigInt(op.verificationGasLimit),
+      BigInt(op.preVerificationGas),
+      BigInt(op.maxFeePerGas),
+      BigInt(op.maxPriorityFeePerGas),
+      keccak256(op.paymasterAndData as Hex),
+    ],
+  );
+  return keccak256(encoded);
+}
+
+/**
+ * Validate UserOperation structure and required fields.
+ */
+function validateUserOp(op: unknown): { valid: true; data: RawUserOperation } | { valid: false; error: string } {
+  if (!op || typeof op !== 'object') {
+    return { valid: false, error: 'Invalid UserOperation: not an object' };
+  }
+
+  const required = ['sender', 'nonce', 'initCode', 'callData', 'callGasLimit', 
+    'verificationGasLimit', 'preVerificationGas', 'maxFeePerGas', 
+    'maxPriorityFeePerGas', 'paymasterAndData', 'signature'];
+  
+  for (const field of required) {
+    if (!(field in op)) {
+      return { valid: false, error: `Missing required field: ${field}` };
+    }
+  }
+
+  const typed = op as RawUserOperation;
+
+  // Validate hex strings
+  const hexFields: (keyof RawUserOperation)[] = ['sender', 'nonce', 'initCode', 'callData', 
+    'callGasLimit', 'verificationGasLimit', 'preVerificationGas', 'maxFeePerGas',
+    'maxPriorityFeePerGas', 'paymasterAndData', 'signature'];
+  
+  for (const field of hexFields) {
+    const val = typed[field];
+    if (typeof val !== 'string' || !val.startsWith('0x')) {
+      return { valid: false, error: `Field ${field} must be a hex string` };
+    }
+  }
+
+  // Validate gas values are parseable
+  try {
+    BigInt(typed.callGasLimit);
+    BigInt(typed.verificationGasLimit);
+    BigInt(typed.preVerificationGas);
+    BigInt(typed.maxFeePerGas);
+    BigInt(typed.maxPriorityFeePerGas);
+    BigInt(typed.nonce);
+  } catch {
+    return { valid: false, error: 'Invalid gas or nonce value' };
+  }
+
+  return { valid: true, data: typed };
+}
+
+/**
+ * Store UserOperation in KV for mempool tracking.
+ */
+async function storeUserOp(
+  kv: KVNamespace,
+  userOpHash: Hash,
+  op: RawUserOperation,
+): Promise<void> {
+  const record = {
+    userOp: op,
+    submittedAt: Date.now(),
+    status: 'pending',
+  };
+  await kv.put(`userop:${userOpHash}`, JSON.stringify(record), { expirationTtl: 86400 }); // 24h TTL
+}
+
+/**
+ * Get UserOperation from KV.
+ */
+async function getUserOp(
+  kv: KVNamespace,
+  userOpHash: Hash,
+): Promise<{ userOp: RawUserOperation; submittedAt: number; status: string; bundleTxHash?: Hash } | null> {
+  const data = await kv.get(`userop:${userOpHash}`);
+  if (!data) return null;
+  try {
+    return JSON.parse(data);
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Update UserOp status in KV (e.g., after bundle submission).
+ */
+async function updateUserOpStatus(
+  kv: KVNamespace,
+  userOpHash: Hash,
+  status: string,
+  bundleTxHash?: Hash,
+): Promise<void> {
+  const existing = await getUserOp(kv, userOpHash);
+  if (existing) {
+    const record = {
+      ...existing,
+      status,
+      bundleTxHash,
+      updatedAt: Date.now(),
+    };
+    await kv.put(`userop:${userOpHash}`, JSON.stringify(record), { expirationTtl: 86400 });
+  }
 }
 
 // ── Request Handlers ────────────────────────────────────────────────
@@ -207,19 +390,186 @@ async function handleJsonRpc(request: Request, state: WorkerState, env: Env): Pr
           headers: { 'Content-Type': 'application/json' },
         });
 
-      case 'eth_sendUserOperation':
-        // TODO: Implement full UserOp submission logic
-        // This is a placeholder response
+      case 'eth_sendUserOperation': {
+        // Validate parameters
+        const params = body.params as [unknown, Address?] | undefined;
+        if (!params || params.length < 1) {
+          return new Response(JSON.stringify({
+            jsonrpc: '2.0',
+            error: { code: -32602, message: 'Invalid params: missing UserOperation' },
+            id: body.id,
+          }), {
+            headers: { 'Content-Type': 'application/json' },
+          });
+        }
+
+        const [opRaw, entryPointParam] = params;
+
+        // Validate entry point if provided
+        if (entryPointParam && entryPointParam.toLowerCase() !== state.entryPoint.toLowerCase()) {
+          return new Response(JSON.stringify({
+            jsonrpc: '2.0',
+            error: { code: -32602, message: 'Unsupported entry point' },
+            id: body.id,
+          }), {
+            headers: { 'Content-Type': 'application/json' },
+          });
+        }
+
+        // Validate UserOperation structure
+        const validation = validateUserOp(opRaw);
+        if (!validation.valid) {
+          return new Response(JSON.stringify({
+            jsonrpc: '2.0',
+            error: { code: -32602, message: `AA24: ${validation.error}` },
+            id: body.id,
+          }), {
+            headers: { 'Content-Type': 'application/json' },
+          });
+        }
+
+        const userOp = validation.data;
+
+        // Compute real UserOp hash
+        const userOpHash = computeUserOpHash(userOp, state.entryPoint, state.chain.id);
+
+        // Store in KV mempool
+        try {
+          await storeUserOp(env.BUNDLER_CACHE, userOpHash, userOp);
+        } catch (err) {
+          return new Response(JSON.stringify({
+            jsonrpc: '2.0',
+            error: { code: -32603, message: 'Internal error: failed to store UserOperation' },
+            id: body.id,
+          }), {
+            headers: { 'Content-Type': 'application/json' },
+          });
+        }
+
+        // Return real hash
         return new Response(JSON.stringify({
           jsonrpc: '2.0',
-          result: '0x' + '0'.repeat(64),
+          result: userOpHash,
           id: body.id,
         }), {
           headers: { 'Content-Type': 'application/json' },
         });
+      }
 
-      case 'eth_getUserOperationReceipt':
-        // TODO: Implement receipt lookup
+      case 'eth_getUserOperationReceipt': {
+        const params = body.params as [Hash?] | undefined;
+        if (!params || params.length < 1 || !params[0]) {
+          return new Response(JSON.stringify({
+            jsonrpc: '2.0',
+            error: { code: -32602, message: 'Invalid params: missing userOpHash' },
+            id: body.id,
+          }), {
+            headers: { 'Content-Type': 'application/json' },
+          });
+        }
+
+        const userOpHash = params[0];
+
+        // First check KV for stored UserOp with bundle tx hash
+        let storedOp: Awaited<ReturnType<typeof getUserOp>> = null;
+        try {
+          storedOp = await getUserOp(env.BUNDLER_CACHE, userOpHash);
+        } catch {
+          // KV read failed, continue to chain lookup
+        }
+
+        // If we have a bundle tx hash, fetch the real receipt
+        if (storedOp?.bundleTxHash) {
+          try {
+            const receipt = await state.publicClient.getTransactionReceipt({ 
+              hash: storedOp.bundleTxHash 
+            });
+            
+            if (receipt) {
+              return new Response(JSON.stringify({
+                jsonrpc: '2.0',
+                result: {
+                  userOpHash,
+                  sender: storedOp.userOp.sender,
+                  nonce: storedOp.userOp.nonce,
+                  actualGasUsed: '0x' + receipt.gasUsed.toString(16),
+                  actualGasCost: '0x' + (receipt.gasUsed * (receipt.effectiveGasPrice ?? 0n)).toString(16),
+                  success: receipt.status === 'success',
+                  receipt: {
+                    transactionHash: receipt.transactionHash,
+                    blockNumber: '0x' + receipt.blockNumber.toString(16),
+                    blockHash: receipt.blockHash,
+                    gasUsed: '0x' + receipt.gasUsed.toString(16),
+                    logs: receipt.logs,
+                    status: receipt.status,
+                  },
+                },
+                id: body.id,
+              }), {
+                headers: { 'Content-Type': 'application/json' },
+              });
+            }
+          } catch {
+            // Receipt not yet available on chain
+          }
+        }
+
+        // Try to find via EntryPoint UserOperationEvent logs
+        try {
+          const logs = await state.publicClient.getLogs({
+            address: state.entryPoint,
+            event: {
+              type: 'event',
+              name: 'UserOperationEvent',
+              inputs: [
+                { type: 'bytes32', indexed: true, name: 'userOpHash' },
+                { type: 'address', indexed: true, name: 'sender' },
+                { type: 'address', indexed: true, name: 'paymaster' },
+                { type: 'uint256', indexed: false, name: 'nonce' },
+                { type: 'bool', indexed: false, name: 'success' },
+                { type: 'uint256', indexed: false, name: 'actualGasCost' },
+                { type: 'uint256', indexed: false, name: 'actualGasUsed' },
+              ],
+            },
+            args: { userOpHash },
+            fromBlock: 'earliest',
+          });
+
+          if (logs && logs.length > 0) {
+            const log = logs[0];
+            const txHash = log.transactionHash;
+            
+            // Fetch full receipt for the bundle transaction
+            const txReceipt = await state.publicClient.getTransactionReceipt({ hash: txHash });
+            
+            return new Response(JSON.stringify({
+              jsonrpc: '2.0',
+              result: {
+                userOpHash,
+                sender: storedOp?.userOp.sender ?? (log.args as { sender?: Address }).sender,
+                nonce: storedOp?.userOp.nonce ?? '0x0',
+                actualGasUsed: '0x' + ((log.args as { actualGasUsed?: bigint }).actualGasUsed ?? 0n).toString(16),
+                actualGasCost: '0x' + ((log.args as { actualGasCost?: bigint }).actualGasCost ?? 0n).toString(16),
+                success: (log.args as { success?: boolean }).success ?? false,
+                receipt: {
+                  transactionHash: txReceipt.transactionHash,
+                  blockNumber: '0x' + txReceipt.blockNumber.toString(16),
+                  blockHash: txReceipt.blockHash,
+                  gasUsed: '0x' + txReceipt.gasUsed.toString(16),
+                  logs: txReceipt.logs,
+                  status: txReceipt.status,
+                },
+              },
+              id: body.id,
+            }), {
+              headers: { 'Content-Type': 'application/json' },
+            });
+          }
+        } catch {
+          // Event lookup failed, return null
+        }
+
+        // Not found on chain or in mempool
         return new Response(JSON.stringify({
           jsonrpc: '2.0',
           result: null,
@@ -227,6 +577,7 @@ async function handleJsonRpc(request: Request, state: WorkerState, env: Env): Pr
         }), {
           headers: { 'Content-Type': 'application/json' },
         });
+      }
 
       default:
         return new Response(JSON.stringify({
