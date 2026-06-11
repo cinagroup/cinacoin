@@ -9,9 +9,9 @@ interface TutorialCardProps {
 }
 
 const difficultyColors = {
-  Beginner: "text-accent-green",
-  Intermediate: "text-accent-yellow",
-  Advanced: "text-accent-red",
+  Beginner: "var(--cc-success)",
+  Intermediate: "var(--cc-warning)",
+  Advanced: "var(--cc-error)",
 };
 
 export default function TutorialCard({
@@ -23,24 +23,25 @@ export default function TutorialCard({
 }: TutorialCardProps) {
   return (
     <Link href={href} className="block group">
-      <div className="bg-bg-card border border-border-color rounded-xl p-6 hover:border-accent-blue/50 hover:bg-bg-hover transition-all duration-200">
+      <div className="cc-card cc-card-interactive">
         <div className="flex items-start justify-between mb-3">
-          <h3 className="text-body-lg font-semibold text-text-primary group-hover:text-accent-blue transition-colors">
+          <h3 className="text-body-lg font-semibold group-hover:text-[var(--cc-link)] transition-colors">
             {title}
           </h3>
-          <span className={`text-caption font-medium ${difficultyColors[difficulty]}`}>
+          <span className="cc-badge" style={{ color: difficultyColors[difficulty] }}>
             {difficulty}
           </span>
         </div>
-        <p className="text-body-sm text-text-secondary mb-4 line-clamp-2">
+        <p className="text-body-sm mb-4 line-clamp-2" style={{ color: 'var(--cc-body)' }}>
           {description}
         </p>
-        <div className="flex items-center text-caption text-text-muted">
+        <div className="flex items-center text-caption" style={{ color: 'var(--cc-mute)' }}>
           <svg
             className="w-4 h-4 mr-1"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
+            aria-hidden="true"
           >
             <path
               strokeLinecap="round"

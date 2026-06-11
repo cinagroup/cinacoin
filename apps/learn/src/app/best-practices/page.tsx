@@ -3,7 +3,7 @@ import StepIndicator from "@/components/StepIndicator";
 import Link from "next/link";
 
 export const metadata = {
-  title: "Best Practices — Cinacoin Learn",
+  title: "Best practices. — CinaCoin Learn",
   description: "Production-ready patterns for security, performance, error handling, and UX in Web3 apps.",
 };
 
@@ -12,21 +12,21 @@ export default function BestPracticesPage() {
     <div className="max-w-3xl mx-auto">
       <StepIndicator currentStep={4} totalSteps={4} />
 
-      <h1 className="text-display-lg font-semibold mb-4">Best Practices</h1>
-      <p className="text-text-secondary mb-8">
+      <h1 className="text-display-lg font-semibold mb-4">Best practices.</h1>
+      <p className="text-cc-text-secondary mb-8">
         Production-ready patterns for building secure, performant, and user-friendly Web3 applications.
       </p>
 
       {/* Section 1 */}
-      <section className="mb-12">
-        <h2 className="text-display-md font-semibold mb-4">1. Security First</h2>
-        <p className="text-text-secondary mb-4">
-          Web3 applications handle real money. Security isn't optional — it's the foundation.
+      <section className="mb-12" aria-labelledby="security-first">
+        <h2 id="security-first" className="text-display-md font-semibold mb-4">1. Security first.</h2>
+        <p className="text-cc-text-secondary mb-4">
+          Web3 applications handle real money. Security isn&apos;t optional — it&apos;s the foundation.
           Follow these rules to protect your users.
         </p>
         <CodeBlock
           language="typescript"
-          title="Security patterns"
+          title="Security patterns."
           code={`// ✅ DO: Validate all addresses before use
 import { isAddress } from '@cinacoin/sdk';
 
@@ -55,15 +55,15 @@ const tx = await cinacoin.sendTransaction({
       </section>
 
       {/* Section 2 */}
-      <section className="mb-12">
-        <h2 className="text-display-md font-semibold mb-4">2. Error Handling</h2>
-        <p className="text-text-secondary mb-4">
+      <section className="mb-12" aria-labelledby="error-handling">
+        <h2 id="error-handling" className="text-display-md font-semibold mb-4">2. Error handling.</h2>
+        <p className="text-cc-text-secondary mb-4">
           Blockchain transactions can fail in many ways. Good error handling makes the
           difference between a frustrating and a delightful user experience.
         </p>
         <CodeBlock
           language="typescript"
-          title="Robust error handling"
+          title="Robust error handling."
           code={`import { CinaCoinError, ErrorCode } from '@cinacoin/sdk';
 
 async function handleTransaction() {
@@ -99,15 +99,15 @@ async function handleTransaction() {
       </section>
 
       {/* Section 3 */}
-      <section className="mb-12">
-        <h2 className="text-display-md font-semibold mb-4">3. Performance Optimization</h2>
-        <p className="text-text-secondary mb-4">
+      <section className="mb-12" aria-labelledby="performance-optimization">
+        <h2 id="performance-optimization" className="text-display-md font-semibold mb-4">3. Performance optimization.</h2>
+        <p className="text-cc-text-secondary mb-4">
           Web3 apps can be slow due to RPC calls and block times. Optimize for speed
           with caching, parallel requests, and optimistic updates.
         </p>
         <CodeBlock
           language="typescript"
-          title="Performance patterns"
+          title="Performance patterns."
           code={`// ✅ DO: Cache RPC responses for read-only data
 import { cinacoin } from '@cinacoin/sdk';
 
@@ -162,23 +162,23 @@ function useTokenTransfer() {
       </section>
 
       {/* Section 4 */}
-      <section className="mb-12">
-        <h2 className="text-display-md font-semibold mb-4">4. User Experience</h2>
-        <p className="text-text-secondary mb-4">
+      <section className="mb-12" aria-labelledby="user-experience">
+        <h2 id="user-experience" className="text-display-md font-semibold mb-4">4. User experience.</h2>
+        <p className="text-cc-text-secondary mb-4">
           Web3 UX has a reputation for being confusing. Bridge the gap between
           crypto-native and mainstream users with clear feedback and sensible defaults.
         </p>
-        <ul className="list-disc list-inside text-text-secondary space-y-3 mb-4">
-          <li><strong className="text-text-primary">Show pending states</strong> — Always indicate when a transaction is being processed</li>
-          <li><strong className="text-text-primary">Explain gas fees</strong> — Users should understand what they're paying for</li>
-          <li><strong className="text-text-primary">Provide block explorer links</strong> — Let users track transactions independently</li>
-          <li><strong className="text-text-primary">Handle disconnections gracefully</strong> — Don't crash; prompt reconnection</li>
-          <li><strong className="text-text-primary">Use human-readable addresses</strong> — Show ENS names or truncated addresses (0x742d...5678)</li>
-          <li><strong className="text-text-primary">Confirm before signing</strong> — Show users exactly what they're signing</li>
+        <ul className="list-disc list-inside text-cc-text-secondary space-y-3 mb-4">
+          <li><strong className="text-cc-text-primary">Show pending states</strong> — Always indicate when a transaction is being processed.</li>
+          <li><strong className="text-cc-text-primary">Explain gas fees</strong> — Users should understand what they&apos;re paying for.</li>
+          <li><strong className="text-cc-text-primary">Provide block explorer links</strong> — Let users track transactions independently.</li>
+          <li><strong className="text-cc-text-primary">Handle disconnections gracefully</strong> — Don&apos;t crash; prompt reconnection.</li>
+          <li><strong className="text-cc-text-primary">Use human-readable addresses</strong> — Show ENS names or truncated addresses (0x742d...5678).</li>
+          <li><strong className="text-cc-text-primary">Confirm before signing</strong> — Show users exactly what they&apos;re signing.</li>
         </ul>
         <CodeBlock
           language="typescript"
-          title="UX helper: format address"
+          title="UX helper: format address."
           code={`function formatAddress(address: string, chars = 4): string {
   return \`\${address.slice(0, chars + 2)}...\${address.slice(-chars)}\`;
 }
@@ -199,15 +199,15 @@ function formatBalance(value: string, decimals = 4): string {
       </section>
 
       {/* Section 5 */}
-      <section className="mb-12">
-        <h2 className="text-display-md font-semibold mb-4">5. Testing Your Integration</h2>
-        <p className="text-text-secondary mb-4">
+      <section className="mb-12" aria-labelledby="testing-integration">
+        <h2 id="testing-integration" className="text-display-md font-semibold mb-4">5. Testing your integration.</h2>
+        <p className="text-cc-text-secondary mb-4">
           Test your Web3 integration thoroughly before deploying to production.
           Use testnets, mock providers, and automated tests.
         </p>
         <CodeBlock
           language="typescript"
-          title="Testing with mock provider"
+          title="Testing with mock provider."
           code={`import { cinacoin } from '@cinacoin/sdk';
 import { describe, it, expect, vi } from 'vitest';
 
@@ -235,20 +235,20 @@ describe('Wallet Integration', () => {
       </section>
 
       {/* Navigation */}
-      <div className="flex justify-between items-center pt-8 border-t border-border-color">
+      <nav className="flex justify-between items-center pt-8 border-t border-cc-border-color" aria-label="Tutorial navigation">
         <Link
           href="/multichain"
-          className="text-text-secondary hover:text-accent-blue transition-colors text-body-sm"
+          className="text-cc-text-secondary hover:text-cc-accent-blue transition-colors text-body-sm"
         >
-          ← Previous: Multichain Development
+          ← Previous: Multichain development.
         </Link>
         <Link
           href="/"
-          className="px-4 py-2 border border-border-color hover:border-accent-blue/50 text-text-secondary hover:text-text-primary rounded-lg text-body-sm font-medium transition-colors"
+          className="px-4 py-2 border border-cc-border-color hover:border-cc-accent-blue/50 text-cc-text-secondary hover:text-cc-text-primary rounded-lg text-body-sm font-medium transition-colors"
         >
-          Back to Home
+          Back to home.
         </Link>
-      </div>
+      </nav>
     </div>
   );
 }

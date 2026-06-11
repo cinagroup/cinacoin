@@ -3,7 +3,7 @@ import { Rocket } from "lucide-react";
 
 const tutorials = [
   {
-    title: "Web3 Basics",
+    title: "Web3 basics.",
     description:
       "Understand the fundamentals of blockchain, wallets, and decentralized applications. Start your Web3 journey here.",
     difficulty: "Beginner" as const,
@@ -11,23 +11,23 @@ const tutorials = [
     href: "/basics",
   },
   {
-    title: "Wallet Integration",
+    title: "Wallet integration.",
     description:
-      "Learn how to connect wallets, sign transactions, and interact with smart contracts using Cinacoin SDK.",
+      "Learn how to connect wallets, sign transactions, and interact with smart contracts using the CinaCoin SDK.",
     difficulty: "Intermediate" as const,
     duration: "25 min read",
     href: "/wallet-integration",
   },
   {
-    title: "Multichain Development",
+    title: "Multichain development.",
     description:
-      "Build applications that work across multiple blockchains with Cinacoin's unified multichain API.",
+      "Build applications that work across multiple blockchains with CinaCoin's unified multichain API.",
     difficulty: "Advanced" as const,
     duration: "30 min read",
     href: "/multichain",
   },
   {
-    title: "Best Practices",
+    title: "Best practices.",
     description:
       "Production-ready patterns for security, performance, error handling, and user experience in Web3 apps.",
     difficulty: "Advanced" as const,
@@ -40,20 +40,20 @@ export default function HomePage() {
   return (
     <div className="max-w-4xl mx-auto">
       <div className="mb-12">
-        <p className="font-mono text-xs text-[var(--cc-muted,#999)] mb-2">LEARNING HUB</p>
-        <h1 className="text-display-xl font-semibold mb-4">
+        <p className="cc-mono text-caption mb-2" style={{ color: 'var(--cc-mute)' }}>Learning hub</p>
+        <h1 className="text-display-xl mb-4">
           Welcome to{" "}
-          <span className="text-accent-blue">Cinacoin Learn</span>.
+          <span style={{ color: 'var(--cc-link)' }}>CinaCoin Learn</span>.
         </h1>
-        <p className="text-body-lg text-text-secondary max-w-2xl">
+        <p className="text-body-lg max-w-2xl" style={{ color: 'var(--cc-body)' }}>
           Master Web3 development with hands-on tutorials, code examples, and
           step-by-step guides. Build decentralized applications with confidence.
         </p>
       </div>
 
-      <section className="mb-12">
-        <p className="font-mono text-xs text-[var(--cc-muted,#999)] mb-2">TUTORIALS</p>
-        <h2 className="text-display-md font-semibold mb-6">Tutorials.</h2>
+      <section className="mb-12" aria-labelledby="tutorials-heading">
+        <p className="cc-mono text-caption mb-2" style={{ color: 'var(--cc-mute)' }}>Tutorials</p>
+        <h2 id="tutorials-heading" className="text-display-md mb-6">Tutorials.</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {tutorials.map((tutorial) => (
             <TutorialCard key={tutorial.href} {...tutorial} />
@@ -61,10 +61,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-bg-card border border-border-color rounded-xl p-8">
-        <p className="font-mono text-xs text-[var(--cc-muted,#999)] mb-2">QUICK START</p>
-        <h2 className="text-display-sm font-semibold mb-4"><Rocket className="w-5 h-5 inline-block mr-1" /> Getting started.</h2>
-        <p className="text-text-secondary mb-4">
+      <section className="cc-card" aria-labelledby="quick-start-heading">
+        <p className="cc-mono text-caption mb-2" style={{ color: 'var(--cc-mute)' }}>Quick start</p>
+        <h2 id="quick-start-heading" className="text-display-sm mb-4">
+          <Rocket className="w-5 h-5 inline-block mr-1" aria-hidden="true" /> Getting started.
+        </h2>
+        <p className="mb-4" style={{ color: 'var(--cc-body)' }}>
           New to Web3? Start with the basics and work your way up. Each tutorial
           builds on the previous one, so follow the recommended order for the
           best learning experience.
@@ -72,15 +74,15 @@ export default function HomePage() {
         <div className="flex gap-4">
           <a
             href="/basics"
-            className="px-4 py-2 bg-accent-blue hover:bg-accent-blue/80 text-[var(--color-on-primary)] rounded-lg text-body-sm font-medium transition-colors"
+            className="cc-btn-primary"
           >
-            Start Learning →
+            Start learning →
           </a>
           <a
             href="https://cinacoin.com/docs"
-            className="px-4 py-2 border border-border-color hover:border-accent-blue/50 text-text-secondary hover:text-text-primary rounded-lg text-body-sm font-medium transition-colors"
+            className="cc-btn-secondary"
           >
-            View Docs
+            View docs
           </a>
         </div>
       </section>

@@ -3,7 +3,7 @@ import StepIndicator from "@/components/StepIndicator";
 import Link from "next/link";
 
 export const metadata = {
-  title: "Web3 Basics — Cinacoin Learn",
+  title: "Web3 basics. — CinaCoin Learn",
   description: "Learn the fundamentals of Web3, blockchain, wallets, and decentralized applications.",
 };
 
@@ -12,42 +12,42 @@ export default function BasicsPage() {
     <div className="max-w-3xl mx-auto">
       <StepIndicator currentStep={1} totalSteps={4} />
 
-      <h1 className="text-display-lg font-semibold mb-4">Web3 Basics</h1>
-      <p className="text-text-secondary mb-8">
-        Understand the core concepts of Web3 and how Cinacoin fits into the decentralized ecosystem.
+      <h1 className="text-display-lg mb-4">Web3 basics.</h1>
+      <p className="text-body-lg mb-8" style={{ color: 'var(--cc-body)' }}>
+        Understand the core concepts of Web3 and how CinaCoin fits into the decentralized ecosystem.
       </p>
 
       {/* Section 1 */}
-      <section className="mb-12">
-        <h2 className="text-display-md font-semibold mb-4">What is Web3?</h2>
-        <p className="text-text-secondary mb-4">
+      <section className="mb-12" aria-labelledby="what-is-web3">
+        <h2 id="what-is-web3" className="text-display-md mb-4">What is Web3?</h2>
+        <p className="text-body-md mb-4" style={{ color: 'var(--cc-body)' }}>
           Web3 represents the next evolution of the internet — a decentralized network where users
           control their own data, identity, and assets. Unlike Web2, where centralized companies
           control the infrastructure, Web3 is built on blockchain technology that enables trustless
           peer-to-peer interactions.
         </p>
-        <p className="text-text-secondary mb-4">
+        <p className="text-body-md mb-4" style={{ color: 'var(--cc-body)' }}>
           Key principles of Web3:
         </p>
-        <ul className="list-disc list-inside text-text-secondary space-y-2 mb-4">
-          <li><strong className="text-text-primary">Decentralization</strong> — No single entity controls the network</li>
-          <li><strong className="text-text-primary">Ownership</strong> — Users own their data and digital assets</li>
-          <li><strong className="text-text-primary">Trustless</strong> — Interactions don't require trusted intermediaries</li>
-          <li><strong className="text-text-primary">Permissionless</strong> — Anyone can participate without approval</li>
+        <ul className="list-disc list-inside space-y-2 mb-4" style={{ color: 'var(--cc-body)' }}>
+          <li><strong className="font-semibold">Decentralization</strong> — No single entity controls the network.</li>
+          <li><strong className="font-semibold">Ownership</strong> — Users own their data and digital assets.</li>
+          <li><strong className="font-semibold">Trustless</strong> — Interactions don&apos;t require trusted intermediaries.</li>
+          <li><strong className="font-semibold">Permissionless</strong> — Anyone can participate without approval.</li>
         </ul>
       </section>
 
       {/* Section 2 */}
-      <section className="mb-12">
-        <h2 className="text-display-md font-semibold mb-4">Blockchain Fundamentals</h2>
-        <p className="text-text-secondary mb-4">
+      <section className="mb-12" aria-labelledby="blockchain-fundamentals">
+        <h2 id="blockchain-fundamentals" className="text-display-md mb-4">Blockchain fundamentals.</h2>
+        <p className="text-body-md mb-4" style={{ color: 'var(--cc-body)' }}>
           A blockchain is a distributed, immutable ledger that records transactions across a network
           of nodes. Each block contains a set of transactions, and once added to the chain, it cannot
           be altered without consensus from the network.
         </p>
         <CodeBlock
           language="text"
-          title="Blockchain Structure"
+          title="Blockchain structure."
           code={`Block #1 (Genesis)
 ├── Timestamp: 2024-01-01T00:00:00Z
 ├── Transactions: [...]
@@ -63,16 +63,16 @@ Block #2
       </section>
 
       {/* Section 3 */}
-      <section className="mb-12">
-        <h2 className="text-display-md font-semibold mb-4">Wallets & Identity</h2>
-        <p className="text-text-secondary mb-4">
+      <section className="mb-12" aria-labelledby="wallets-identity">
+        <h2 id="wallets-identity" className="text-display-md mb-4">Wallets and identity.</h2>
+        <p className="text-body-md mb-4" style={{ color: 'var(--cc-body)' }}>
           In Web3, your wallet is your identity. It consists of a cryptographic key pair:
           a public key (your address) and a private key (your secret). You use the private key
           to sign transactions, proving ownership without revealing the key itself.
         </p>
         <CodeBlock
           language="typescript"
-          title="Wallet Address Generation (Conceptual)"
+          title="Wallet address generation (conceptual)."
           code={`// Your private key generates your public key
 const privateKey = "0x..."; // Keep this secret!
 const publicKey = derivePublicKey(privateKey);
@@ -89,16 +89,16 @@ const isValid = verify(message, signature, address);
       </section>
 
       {/* Section 4 */}
-      <section className="mb-12">
-        <h2 className="text-display-md font-semibold mb-4">Smart Contracts</h2>
-        <p className="text-text-secondary mb-4">
+      <section className="mb-12" aria-labelledby="smart-contracts">
+        <h2 id="smart-contracts" className="text-display-md mb-4">Smart contracts.</h2>
+        <p className="text-body-md mb-4" style={{ color: 'var(--cc-body)' }}>
           Smart contracts are self-executing programs deployed on the blockchain. They run
           exactly as programmed without downtime, censorship, or third-party interference.
-          Cinacoin supports smart contracts across multiple chains.
+          CinaCoin supports smart contracts across multiple chains.
         </p>
         <CodeBlock
           language="solidity"
-          title="Simple Smart Contract"
+          title="Simple smart contract."
           code={`// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
@@ -117,20 +117,23 @@ contract SimpleStorage {
       </section>
 
       {/* Navigation */}
-      <div className="flex justify-between items-center pt-8 border-t border-border-color">
+      <nav className="flex justify-between items-center pt-8 border-t" style={{ borderColor: 'var(--cc-hairline)' }} aria-label="Tutorial navigation">
         <Link
           href="/"
-          className="text-text-secondary hover:text-accent-blue transition-colors text-body-sm"
+          className="text-body-sm transition-colors"
+          style={{ color: 'var(--cc-body)' }}
+          onMouseOver={(e) => e.currentTarget.style.color = 'var(--cc-link)'}
+          onMouseOut={(e) => e.currentTarget.style.color = 'var(--cc-body)'}
         >
-          ← Back to Home
+          ← Back to home.
         </Link>
         <Link
           href="/wallet-integration"
-          className="px-4 py-2 bg-accent-blue hover:bg-accent-blue/80 text-[var(--color-on-primary)] rounded-lg text-body-sm font-medium transition-colors"
+          className="cc-btn-primary"
         >
-          Next: Wallet Integration →
+          Next: Wallet integration. →
         </Link>
-      </div>
+      </nav>
     </div>
   );
 }

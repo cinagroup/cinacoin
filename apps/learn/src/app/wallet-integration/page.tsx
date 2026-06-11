@@ -4,7 +4,7 @@ import StepIndicator from "@/components/StepIndicator";
 import Link from "next/link";
 
 export const metadata = {
-  title: "Wallet Integration — Cinacoin Learn",
+  title: "Wallet integration. — CinaCoin Learn",
   description: "Learn how to connect wallets, sign transactions, and interact with smart contracts.",
 };
 
@@ -13,16 +13,16 @@ export default function WalletIntegrationPage() {
     <div className="max-w-3xl mx-auto">
       <StepIndicator currentStep={2} totalSteps={4} />
 
-      <h1 className="text-display-lg font-semibold mb-4">Wallet Integration</h1>
-      <p className="text-text-secondary mb-8">
-        Connect wallets, sign messages, and interact with smart contracts using the Cinacoin SDK.
+      <h1 className="text-display-lg font-semibold mb-4">Wallet integration.</h1>
+      <p className="text-cc-text-secondary mb-8">
+        Connect wallets, sign messages, and interact with smart contracts using the CinaCoin SDK.
       </p>
 
       {/* Step 1 */}
-      <section className="mb-12">
-        <h2 className="text-display-md font-semibold mb-4">1. Install the SDK</h2>
-        <p className="text-text-secondary mb-4">
-          Start by installing the Cinacoin SDK in your project. It provides a unified interface
+      <section className="mb-12" aria-labelledby="install-sdk">
+        <h2 id="install-sdk" className="text-display-md font-semibold mb-4">1. Install the SDK.</h2>
+        <p className="text-cc-text-secondary mb-4">
+          Start by installing the CinaCoin SDK in your project. It provides a unified interface
           for connecting to multiple wallets and chains.
         </p>
         <CodeBlock
@@ -33,11 +33,11 @@ export default function WalletIntegrationPage() {
       </section>
 
       {/* Step 2 */}
-      <section className="mb-12">
-        <h2 className="text-display-md font-semibold mb-4">2. Initialize the Client</h2>
-        <p className="text-text-secondary mb-4">
-          Create a Cinacoin client instance with your project configuration. You can get your
-          project ID from the Cinacoin dashboard.
+      <section className="mb-12" aria-labelledby="initialize-client">
+        <h2 id="initialize-client" className="text-display-md font-semibold mb-4">2. Initialize the client.</h2>
+        <p className="text-cc-text-secondary mb-4">
+          Create a CinaCoin client instance with your project configuration. You can get your
+          project ID from the CinaCoin dashboard.
         </p>
         <CodeBlock
           language="typescript"
@@ -58,10 +58,10 @@ export const cinacoin = new CinaCoin({
       </section>
 
       {/* Step 3 */}
-      <section className="mb-12">
-        <h2 className="text-display-md font-semibold mb-4">3. Connect a Wallet</h2>
-        <p className="text-text-secondary mb-4">
-          Use the SDK to connect a user's wallet. The SDK handles WalletConnect, MetaMask,
+      <section className="mb-12" aria-labelledby="connect-wallet">
+        <h2 id="connect-wallet" className="text-display-md font-semibold mb-4">3. Connect a wallet.</h2>
+        <p className="text-cc-text-secondary mb-4">
+          Use the SDK to connect a user&apos;s wallet. The SDK handles WalletConnect, MetaMask,
           and other popular wallets automatically.
         </p>
         <CodeBlock
@@ -101,15 +101,15 @@ export function useWallet() {
       </section>
 
       {/* Step 4 */}
-      <section className="mb-12">
-        <h2 className="text-display-md font-semibold mb-4">4. Sign a Message</h2>
-        <p className="text-text-secondary mb-4">
+      <section className="mb-12" aria-labelledby="sign-message">
+        <h2 id="sign-message" className="text-display-md font-semibold mb-4">4. Sign a message.</h2>
+        <p className="text-cc-text-secondary mb-4">
           Once connected, you can ask the user to sign messages for authentication or
           other purposes. This proves ownership of the wallet address.
         </p>
         <CodeBlock
           language="typescript"
-          title="Signing a message"
+          title="Signing a message."
           code={`import { cinacoin } from '@/lib/cinacoin';
 
 async function signMessage(message: string) {
@@ -132,15 +132,15 @@ async function signMessage(message: string) {
       </section>
 
       {/* Step 5 */}
-      <section className="mb-12">
-        <h2 className="text-display-md font-semibold mb-4">5. Send a Transaction</h2>
-        <p className="text-text-secondary mb-4">
+      <section className="mb-12" aria-labelledby="send-transaction">
+        <h2 id="send-transaction" className="text-display-md font-semibold mb-4">5. Send a transaction.</h2>
+        <p className="text-cc-text-secondary mb-4">
           Send transactions to interact with smart contracts or transfer tokens.
           The SDK handles gas estimation, nonce management, and confirmation tracking.
         </p>
         <CodeBlock
           language="typescript"
-          title="Sending a transaction"
+          title="Sending a transaction."
           code={`import { cinacoin } from '@/lib/cinacoin';
 
 async function sendTransaction() {
@@ -154,20 +154,20 @@ async function sendTransaction() {
 
   // Wait for confirmation
   const receipt = await tx.wait();
-}`
+}`}
         />
       </section>
 
       {/* Step 6 */}
-      <section className="mb-12">
-        <h2 className="text-display-md font-semibold mb-4">6. Listen for Events</h2>
-        <p className="text-text-secondary mb-4">
+      <section className="mb-12" aria-labelledby="listen-events">
+        <h2 id="listen-events" className="text-display-md font-semibold mb-4">6. Listen for events.</h2>
+        <p className="text-cc-text-secondary mb-4">
           React to wallet and chain events in real-time. The SDK emits events for
           account changes, chain switches, and disconnections.
         </p>
         <CodeBlock
           language="typescript"
-          title="Event handling"
+          title="Event handling."
           code={`import { cinacoin } from '@/lib/cinacoin';
 
 // Listen for account changes
@@ -183,25 +183,25 @@ cinacoin.on('chainChanged', (chainId: string) => {
 // Listen for disconnection
 cinacoin.on('disconnect', () => {
   // Clean up your app state
-});`
+});`}
         />
       </section>
 
       {/* Navigation */}
-      <div className="flex justify-between items-center pt-8 border-t border-border-color">
+      <nav className="flex justify-between items-center pt-8 border-t border-cc-border-color" aria-label="Tutorial navigation">
         <Link
           href="/basics"
-          className="text-text-secondary hover:text-accent-blue transition-colors text-body-sm"
+          className="text-cc-text-secondary hover:text-cc-accent-blue transition-colors text-body-sm"
         >
-          ← Previous: Web3 Basics
+          ← Previous: Web3 basics.
         </Link>
         <Link
           href="/multichain"
-          className="px-4 py-2 bg-accent-blue hover:bg-accent-blue/80 text-[var(--color-on-primary)] rounded-lg text-body-sm font-medium transition-colors"
+          className="px-4 py-2 bg-cc-accent-blue hover:bg-cc-accent-blue/80 text-cc-on-primary rounded-lg text-body-sm font-medium transition-colors"
         >
-          Next: Multichain Development →
+          Next: Multichain development. →
         </Link>
-      </div>
+      </nav>
     </div>
   );
 }

@@ -20,9 +20,9 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Cinacoin Learn — Web3 Education Platform",
+  title: "CinaCoin Learn — Web3 Education Platform.",
   description:
-    "Learn Web3 development with Cinacoin. Tutorials on wallet integration, multichain development, and best practices.",
+    "Learn Web3 development with CinaCoin. Tutorials on wallet integration, multichain development, and best practices.",
 };
 
 export default function RootLayout({
@@ -32,8 +32,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-bg-primary text-text-primary`}>
-        <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-[var(--cc-ink)] focus:rounded">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`} style={{ backgroundColor: 'var(--cc-canvas)', color: 'var(--cc-ink)' }}>
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-[var(--cc-ink)] focus:rounded-md">
           Skip to main content
         </a>
         <main id="main-content">
