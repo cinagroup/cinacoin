@@ -70,9 +70,9 @@ export default function LoginPage() {
         {/* Logo / Brand */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-[var(--cc-radius-sm)] bg-[var(--cc-link)]/10 border border-[var(--cc-link)]/20 mb-4">
-            <Image src="/logo.png" alt="Cinacoin logo" width={40} height={40} className="w-10 h-10 rounded-md" />
+            <Image src="/logo.png" alt="CinaCoin logo" width={40} height={40} className="w-10 h-10 rounded-md" />
           </div>
-          <h1 className="cc-display-md text-[var(--cc-ink)]">Cinacoin</h1>
+          <h1 className="cc-display-md text-[var(--cc-ink)]">CinaCoin</h1>
           <p className="text-[var(--cc-muted)] mt-2">Backend Dashboard</p>
         </div>
 
@@ -80,7 +80,7 @@ export default function LoginPage() {
         <div className="bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] p-6 shadow-[var(--cc-level3)]">
           <h2 className="cc-display-sm text-[var(--cc-ink)] mb-2">Sign In</h2>
           <p className="text-body-sm text-[var(--cc-muted)] mb-6">
-            Enter your credentials to access the Cinacoin Backend Dashboard.
+            Enter your credentials to access the CinaCoin Backend Dashboard.
           </p>
 
           {/* Error message */}

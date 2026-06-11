@@ -60,16 +60,16 @@ export default function Home() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
-          <h1 className="text-heading-2 text-ink">Backend Admin</h1>
+          <h1 className="text-heading-2 text-ink">Backend admin.</h1>
         </div>
 
         <div className="max-w-7xl mx-auto">
           <header className="mb-lg hidden lg:block">
             <h1 className="text-heading-1 text-ink">
-              Backend Administration
+              Backend administration.
             </h1>
             <p className="text-body text-body-color mt-1">
-              Manage users, permissions, and system configuration
+              Manage users, permissions, and system configuration.
             </p>
           </header>
 

@@ -409,10 +409,10 @@ export function TwoFactorAuth() {
                         {rc.code}
                       </code>
                       <button
-                        onClick={() => handleCopyCode(rc.code, index)}
+                        onClick={() => handleCopyCode(rc.code, recoveryCodes.indexOf(rc))}
                         className="text-caption text-mute hover:text-ink transition-colors"
                       >
-                        {copiedIndex === index ? "✓" : "Copy"}
+                        {copiedIndex === recoveryCodes.indexOf(rc) ? "✓" : "Copy"}
                       </button>
                     </div>
                   ))}

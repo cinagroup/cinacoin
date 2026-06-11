@@ -13,7 +13,7 @@ function escapeHtml(s: string): string {
 }
 
 export default function ProjectPage() {
-  const [projectName, setProjectName] = useState("Cinacoin");
+  const [projectName, setProjectName] = useState("CinaCoin");
   const [projectId, setProjectId] = useState("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6");
   const [projectDescription, setProjectDescription] = useState("Full-stack Web3 SDK — Connect Everything On-Chain");
   const [projectUrl, setProjectUrl] = useState("https://cinacoin.com");

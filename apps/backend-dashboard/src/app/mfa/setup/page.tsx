@@ -15,7 +15,7 @@ export default function MfaSetupPage() {
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-[var(--cc-radius-sm)] bg-[var(--cc-link)]/10 border border-[var(--cc-link)]/20 mb-4">
-            <Image src="/logo.png" alt="Cinacoin logo" width={40} height={40} className="w-10 h-10 rounded-md" />
+            <Image src="/logo.png" alt="CinaCoin logo" width={40} height={40} className="w-10 h-10 rounded-md" />
           </div>
           <h1 className="cc-display-md text-[var(--cc-ink)]">Setup Required</h1>
           <p className="text-[var(--cc-muted)] mt-2">Two-factor authentication setup</p>
