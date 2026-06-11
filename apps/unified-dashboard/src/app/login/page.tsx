@@ -17,12 +17,7 @@ export default function LoginPage() {
 
     try {
       // TODO: Implement actual authentication
-      // For now, just redirect to dashboard
-      console.log("Login attempt:", { email });
-      
-      // Simulate login delay
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
       router.push("/");
     } catch (err) {
       setError("Login failed. Please check your credentials.");
@@ -32,62 +27,83 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-canvas-soft">
-      <div className="max-w-md w-full bg-white rounded-lg shadow-sm border border-border p-8">
-        <div className="mb-8">
-          <h1 className="text-display-sm text-ink mb-2">Sign In</h1>
-          <p className="text-body-color">Access your CinaCoin dashboard</p>
-        </div>
+    <div className="min-h-screen flex items-center justify-center bg-[var(--cc-canvas-soft)]">
+      {/* Mesh gradient — subtle brand atmosphere */}
+      <div
+        className="fixed inset-0 pointer-events-none opacity-30"
+        style={{
+          background: `
+            radial-gradient(ellipse at 30% 20%, #007cf022 0%, transparent 50%),
+            radial-gradient(ellipse at 70% 80%, #7928ca22 0%, transparent 50%)
+          `,
+        }}
+      />
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {error && (
-            <div className="p-4 bg-red-50 border border-red-200 rounded text-red-700 text-sm">
-              {error}
+      <div className="relative max-w-[400px] w-full mx-4">
+        {/* Card */}
+        <div className="bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] p-8 shadow-[var(--cc-level1)]">
+          {/* Mono eyebrow */}
+          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">AUTHENTICATION</p>
+          
+          {/* Title — sentence case + period */}
+          <h1 className="text-[var(--cc-display-sm)] font-semibold text-[var(--cc-ink)] mb-1">
+            Sign in to your account.
+          </h1>
+          <p className="text-[var(--cc-body)] text-sm mb-8">
+            Access your CinaCoin dashboard.
+          </p>
+
+          <form onSubmit={handleSubmit} className="space-y-5">
+            {error && (
+              <div className="p-3 bg-[var(--cc-error-bg, #fef2f2)] border border-[var(--cc-error-border, #fecaca)] rounded-[var(--cc-radius-sm)] text-[var(--cc-error, #dc2626)] text-sm">
+                {error}
+              </div>
+            )}
+
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-[var(--cc-ink)] mb-2">
+                Email
+              </label>
+              <input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="w-full px-3 h-10 border border-[var(--cc-hairline)] rounded-[var(--cc-radius-sm)] bg-[var(--cc-canvas)] text-[var(--cc-ink)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--cc-primary)] focus:border-transparent transition-colors"
+                placeholder="admin@cinacoin.com"
+              />
             </div>
-          )}
 
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-ink mb-2">
-              Email
-            </label>
-            <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-              placeholder="admin@cinacoin.com"
-            />
-          </div>
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-[var(--cc-ink)] mb-2">
+                Password
+              </label>
+              <input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="w-full px-3 h-10 border border-[var(--cc-hairline)] rounded-[var(--cc-radius-sm)] bg-[var(--cc-canvas)] text-[var(--cc-ink)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--cc-primary)] focus:border-transparent transition-colors"
+                placeholder="••••••••"
+              />
+            </div>
 
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-ink mb-2">
-              Password
-            </label>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-              placeholder="••••••••"
-            />
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-primary text-white py-2 px-4 rounded-md hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {loading ? "Signing in..." : "Sign In"}
-          </button>
-        </form>
-
-        <div className="mt-6 text-center text-sm text-body-color">
-          <p>Demo credentials: admin@cinacoin.com / admin123</p>
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-[var(--cc-primary)] text-[var(--cc-on-primary)] rounded-[var(--cc-radius-sm)] h-10 font-medium text-sm hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {loading ? "Signing in..." : "Sign in"}
+            </button>
+          </form>
         </div>
+
+        {/* Footer hint */}
+        <p className="mt-4 text-center text-xs font-mono text-[var(--cc-muted)]">
+          demo: admin@cinacoin.com / admin123
+        </p>
       </div>
     </div>
   );

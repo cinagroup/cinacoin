@@ -2,24 +2,25 @@
 
 import { useEffect, useState } from "react";
 
-interface HealthStatus {
+interface ServiceStatus {
+  name: string;
+  status: "up" | "down" | "degraded";
+  latency: number;
+  uptime: number;
+}
+
+interface HealthData {
   status: "healthy" | "degraded" | "unhealthy";
   timestamp: string;
-  services: {
-    name: string;
-    status: "up" | "down" | "degraded";
-    latency: number;
-    uptime: number;
-  }[];
+  services: ServiceStatus[];
 }
 
 export default function HealthPage() {
-  const [health, setHealth] = useState<HealthStatus | null>(null);
+  const [health, setHealth] = useState<HealthData | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate health check data
-    const mockHealth: HealthStatus = {
+    const mockHealth: HealthData = {
       status: "healthy",
       timestamp: new Date().toISOString(),
       services: [
@@ -40,74 +41,78 @@ export default function HealthPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-canvas-soft">
+      <div className="min-h-screen flex items-center justify-center bg-[var(--cc-canvas-soft)]">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
-          <p className="mt-4 text-body-color">Loading health status...</p>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[var(--cc-primary)] mx-auto" />
+          <p className="mt-4 text-sm text-[var(--cc-body)]">Loading health status...</p>
         </div>
       </div>
     );
   }
 
+  const statusColor = (s: string) => {
+    if (s === "up" || s === "healthy") return "bg-[var(--cc-success, #22c55e)]";
+    if (s === "degraded") return "bg-[var(--cc-warning, #eab308)]";
+    return "bg-[var(--cc-error, #ef4444)]";
+  };
+
+  const statusBadge = (s: string) => {
+    if (s === "healthy") return "bg-[var(--cc-success-bg, #f0fdf4)] text-[var(--cc-success, #16a34a)]";
+    if (s === "degraded") return "bg-[var(--cc-warning-bg, #fefce8)] text-[var(--cc-warning, #ca8a04)]";
+    return "bg-[var(--cc-error-bg, #fef2f2)] text-[var(--cc-error, #dc2626)]";
+  };
+
   return (
-    <div className="min-h-screen bg-canvas-soft p-8">
-      <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen bg-[var(--cc-canvas-soft)]">
+      <div className="max-w-[1200px] mx-auto px-6 py-12">
+        {/* Header */}
         <header className="mb-8">
-          <h1 className="text-display-sm text-ink">System Health</h1>
-          <p className="text-body-color mt-1">Real-time service status</p>
+          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">MONITORING</p>
+          <h1 className="text-[var(--cc-display-lg)] font-semibold text-[var(--cc-ink)]">
+            System health.
+          </h1>
+          <p className="text-[var(--cc-body)] mt-1">
+            Real-time service status and uptime metrics.
+          </p>
         </header>
 
-        <div className="bg-white rounded-lg shadow-sm border border-border p-6 mb-6">
+        {/* Overall status card */}
+        <div className="bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] p-6 shadow-[var(--cc-level1)] mb-6">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-lg font-semibold text-ink">Overall Status</h2>
-              <p className="text-sm text-body-color mt-1">
+              <p className="font-mono text-xs text-[var(--cc-muted)] mb-1">OVERALL STATUS</p>
+              <p className="text-sm text-[var(--cc-body)]">
                 Last updated: {new Date(health?.timestamp || "").toLocaleString()}
               </p>
             </div>
-            <div
-              className={`px-4 py-2 rounded-full font-medium ${
-                health?.status === "healthy"
-                  ? "bg-green-100 text-green-700"
-                  : health?.status === "degraded"
-                  ? "bg-yellow-100 text-yellow-700"
-                  : "bg-red-100 text-red-700"
-              }`}
-            >
+            <span className={`px-3 py-1 rounded-[var(--cc-radius-pill-sm)] text-xs font-medium ${statusBadge(health?.status || "")}`}>
               {health?.status?.toUpperCase()}
-            </div>
+            </span>
           </div>
         </div>
 
-        <div className="grid gap-4">
+        {/* Services grid */}
+        <div className="grid gap-4 md:grid-cols-2">
           {health?.services.map((service) => (
             <div
               key={service.name}
-              className="bg-white rounded-lg shadow-sm border border-border p-6"
+              className="bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] p-5 shadow-[var(--cc-level1)]"
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div
-                    className={`w-3 h-3 rounded-full ${
-                      service.status === "up"
-                        ? "bg-green-500"
-                        : service.status === "degraded"
-                        ? "bg-yellow-500"
-                        : "bg-red-500"
-                    }`}
-                  />
+                  <div className={`w-2.5 h-2.5 rounded-full ${statusColor(service.status)}`} />
                   <div>
-                    <h3 className="font-semibold text-ink">{service.name}</h3>
-                    <p className="text-sm text-body-color">
+                    <h3 className="text-sm font-semibold text-[var(--cc-ink)]">{service.name}</h3>
+                    <p className="text-xs text-[var(--cc-body)]">
                       Latency: {service.latency}ms
                     </p>
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="text-sm font-medium text-ink">
+                  <p className="text-sm font-semibold text-[var(--cc-ink)]">
                     {service.uptime}%
                   </p>
-                  <p className="text-xs text-body-color">Uptime</p>
+                  <p className="text-xs text-[var(--cc-muted)]">Uptime</p>
                 </div>
               </div>
             </div>
