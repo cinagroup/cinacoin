@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useCallback, useMemo, useEffect, useRef, type ReactNode, type CSSProperties } from 'react';
+import { registerEIP5792Context, unregisterEIP5792Context } from '@cinacoin/core-sdk';
 
 /** Supported theme modes. */
 export type ThemeMode = 'dark' | 'light' | 'minimal';

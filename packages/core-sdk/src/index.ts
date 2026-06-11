@@ -687,4 +687,8 @@ export {
   createErc20ApproveCall,
   createApproveAndSwapCalls,
   validateBatchConfig,
+  // Context Registry
+  registerEIP5792Context,
+  unregisterEIP5792Context,
+  getEIP5792Context,
 } from './eip5792/index.js';

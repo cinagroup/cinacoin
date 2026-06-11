@@ -8,8 +8,8 @@
  * - useCallsStatus: poll the status of async call batches
  *
  * All composables require being used within <CinacoinProvider> and
- * require the provider to expose EIP-5792 support via the global context
- * getter (window.__ocx_eip5792_context).
+ * require the provider to expose EIP-5792 support via the module-level
+ * registry from @cinacoin/core-sdk.
  *
  * @see https://eips.ethereum.org/EIPS/eip-5792
  */
@@ -28,7 +28,6 @@ import type {
   AtomicBatchResult,
 } from '@cinacoin/core-sdk';
 import {
-import { logger } from '@cinacoin/logger';
   walletGetCapabilities,
   walletSendCalls,
   walletGetCallsStatus,
@@ -39,7 +38,9 @@ import { logger } from '@cinacoin/logger';
   getChainCapabilities,
   getSupportedChains,
   filterByCapability,
+  getEIP5792Context as getEIP5792ContextFromRegistry,
 } from '@cinacoin/core-sdk';
+import { logger } from '@cinacoin/logger';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -78,17 +79,9 @@ function toWalletClient(
   };
 }
 
-/** Read EIP-5792 context from the global getter. */
+/** Read EIP-5792 context from the registry. */
 function getEIP5792Context(): EIP5792Context {
-  const win = window as unknown as Record<string, unknown>;
-  const getter = win.__ocx_eip5792_context as (() => EIP5792Context) | undefined;
-  if (!getter) {
-    throw new Error(
-      'EIP-5792 composables require <CinacoinProvider> with EIP-5792 support. ' +
-      'Make sure you are rendering the provider.',
-    );
-  }
-  return getter();
+  return getEIP5792ContextFromRegistry() as EIP5792Context;
 }
 
 /** Check all calls in a batch succeeded. */

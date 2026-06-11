@@ -221,23 +221,19 @@ export function useOnChainReady(
     if (hasFired.current) return;
 
     try {
-      const win = window as unknown as Record<string, unknown>;
-      const getter = win.__ocx_eip5792_context as (() => unknown) | undefined;
-      if (getter) {
-        const ctx = getter() as {
-          address?: string | null;
-          chainIdHex?: string | null;
-          isConnected?: boolean;
-        } | null;
+      const ctx = getEIP5792Context() as {
+        address?: string | null;
+        chainIdHex?: string | null;
+        isConnected?: boolean;
+      } | null;
 
-        if (ctx) {
-          hasFired.current = true;
-          callback({
-            address: ctx.address ?? null,
-            chainId: ctx.chainIdHex ? parseInt(ctx.chainIdHex, 16) : null,
-            isConnected: ctx.isConnected ?? false,
-          });
-        }
+      if (ctx) {
+        hasFired.current = true;
+        callback({
+          address: ctx.address ?? null,
+          chainId: ctx.chainIdHex ? parseInt(ctx.chainIdHex, 16) : null,
+          isConnected: ctx.isConnected ?? false,
+        });
       }
     } catch {
       // Context not yet available

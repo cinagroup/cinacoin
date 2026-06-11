@@ -61,3 +61,10 @@ export {
   createApproveAndSwapCalls,
   validateBatchConfig,
 } from './atomic.js';
+
+// Context Registry
+export {
+  registerEIP5792Context,
+  unregisterEIP5792Context,
+  getEIP5792Context,
+} from './context.js';

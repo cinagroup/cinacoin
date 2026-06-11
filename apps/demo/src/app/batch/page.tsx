@@ -16,6 +16,7 @@ import {
   getBatchStatus,
   type EIP1193Provider,
 } from '@/lib/batch';
+import { registerEIP5792Context, unregisterEIP5792Context } from '@cinacoin/core-sdk';
 
 /* ────────────────────────────────────────────────────────
    Inline EIP-5792 hooks (copied from @cinacoin/react)
@@ -46,10 +47,11 @@ interface WalletCapabilities {
 function useEIP5792Context(): EIP5792Context {
   const [ctx, setCtx] = useState<EIP5792Context | null>(null);
   useEffect(() => {
-    const win = window as unknown as Record<string, unknown>;
-    const getter = win.__ocx_eip5792_context as (() => EIP5792Context) | undefined;
-    if (getter) {
-      setCtx(getter());
+    try {
+      const { getEIP5792Context } = require('@cinacoin/core-sdk');
+      setCtx(getEIP5792Context());
+    } catch {
+      // Registry not available
     }
   }, []);
   if (!ctx) {
@@ -340,9 +342,9 @@ function EIP5792Bridge({
       isConnected: connectedRef.current,
     });
 
-    (window as unknown as Record<string, unknown>).__ocx_eip5792_context = getter;
+    registerEIP5792Context(getter);
     return () => {
-      delete (window as unknown as Record<string, unknown>).__ocx_eip5792_context;
+      unregisterEIP5792Context();
     };
   }, []);
 
