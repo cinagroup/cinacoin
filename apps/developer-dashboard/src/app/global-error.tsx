@@ -29,7 +29,7 @@ export default function GlobalRootError({
             maxWidth: "28rem",
             textAlign: "center",
             background: "#ffffff",
-            boxShadow: "0px 1px 1px #00000005, 0px 2px 2px #0000000a, 0 0 0 1px #00000014 inset",
+            boxShadow: "0px 1px 1px #17171705, 0px 2px 2px #1717170a, 0 0 0 1px #17171714 inset",
           }}
         >
           <div style={{ fontSize: "2rem", marginBottom: "1rem" }}>⚠️</div>

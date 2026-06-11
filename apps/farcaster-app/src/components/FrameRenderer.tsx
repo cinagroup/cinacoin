@@ -51,7 +51,7 @@ export function FrameRenderer({
             unoptimized
           />
           {title && (
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#171717]/80 to-transparent p-4">
               <h3 className="text-[var(--color-on-primary)] font-semibold text-body-lg">{title}</h3>
             </div>
           )}

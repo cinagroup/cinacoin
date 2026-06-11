@@ -21,7 +21,7 @@ export default function OfflineBanner() {
 
   return (
     <div
-      className="fixed top-0 left-0 right-0 bg-warning text-black text-center py-2 text-body-sm font-medium z-[100] flex items-center justify-center gap-2"
+      className="fixed top-0 left-0 right-0 bg-warning text-[var(--cc-ink)] text-center py-2 text-body-sm font-medium z-[100] flex items-center justify-center gap-2"
       role="alert"
     >
       <WifiOff className="w-4 h-4" aria-hidden="true" />

@@ -161,7 +161,7 @@ function WalletCard({
           : 'bg-[var(--cc-canvas)]/40 border-[var(--cc-hairline-strong)]/40 hover:border-[var(--cc-hairline-strong)]'
       }`}
       style={{
-        boxShadow: '0px 1px 1px #00000005, 0px 2px 2px #0000000a, inset 0 0 0 1px var(--cc-hairline)'
+        boxShadow: '0px 1px 1px #17171705, 0px 2px 2px #1717170a, inset 0 0 0 1px var(--cc-hairline)'
       }}
     >
       <div className="flex items-center gap-4">

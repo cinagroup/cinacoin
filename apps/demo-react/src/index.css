@@ -290,7 +290,7 @@
   --cc-demo-wallet-rainbow: #8B5CF6;
   --cc-demo-wallet-phantom: #AB9FF2;
   --cc-demo-wallet-trust: #3375BB;
-  --cc-demo-wallet-ledger: #000000;
+  --cc-demo-wallet-ledger: var(--cc-ink);
   --cc-demo-wallet-zerion: #2C60F5;
   --cc-demo-bridge-bsc: #F3BA2F;
 }

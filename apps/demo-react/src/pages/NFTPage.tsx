@@ -81,7 +81,7 @@ export function NFTPage() {
         {selectedNFT && (
           <div
             onClick={() => setSelectedNFT(null)}
-            className="fixed inset-0 bg-black/70 flex items-center justify-center z-[1000]"
+            className="fixed inset-0 bg-[#171717]/70 flex items-center justify-center z-[1000]"
           >
             <div
               onClick={(e) => e.stopPropagation()}
