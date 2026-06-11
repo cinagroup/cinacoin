@@ -27,8 +27,8 @@
 import type { ConnectParams, ConnectionResult, TransactionRequest } from '@cinacoin/core-sdk';
 import { Connector } from '@cinacoin/core-sdk';
 import type { WalletConnectConfig, WalletConnectSession } from './types.js';
-import {
 import { logger } from '@cinacoin/logger';
+import {
   DEFAULT_RELAY_URL,
   buildRequiredNamespaces,
   parseSessionAccounts,
@@ -67,7 +67,11 @@ export class WalletConnectAdapter extends Connector {
     const requiredNamespaces = buildRequiredNamespaces(this.config);
 
     // Simulate QR code generation
-    this.uri = `wc:${Date.now()}@2?relay-protocol=irn&symKey=${Math.random().toString(36).slice(2)}`;
+    // Generate 32 bytes (256-bit) secure random key for symKey
+    const keyBytes = new Uint8Array(32);
+    crypto.getRandomValues(keyBytes);
+    const symKey = Array.from(keyBytes).map(b => b.toString(16).padStart(2, '0')).join('');
+    this.uri = `wc:${Date.now()}@2?relay-protocol=irn&symKey=${symKey}`;
 
     // Emit URI for QR code display
     this.emit('display_uri', this.uri);
