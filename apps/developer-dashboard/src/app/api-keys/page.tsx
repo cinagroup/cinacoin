@@ -93,9 +93,9 @@ export default function ApiKeysPage() {
       <div className="flex items-center justify-between">
         <div>
           <p className="font-mono text-xs text-ink-mute mb-2">SECURITY</p>
-          <h1 className="text-display-md font-semibold text-ink">API Keys.</h1>
+          <h1 className="text-display-md font-semibold text-ink">API keys.</h1>
           <p className="text-ink-body mt-1">
-            Manage API keys for authenticating with Cinacoin services.
+            Manage API keys for authenticating with CinaCoin services.
           </p>
         </div>
         <button onClick={() => setShowModal(true)} className="cc-btn-primary">

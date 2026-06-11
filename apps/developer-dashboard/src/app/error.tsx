@@ -10,7 +10,7 @@ export default function GlobalError({
   reset: () => void;
 }) {
   useEffect(() => {
-    console.error("[Cinacoin Dashboard Error]", error);
+    console.error("[CinaCoin Dashboard Error]", error);
     // In production, report to error tracking service
     // Sentry.captureException(error);
   }, [error]);
@@ -21,7 +21,7 @@ export default function GlobalError({
         <div className="text-4xl" aria-hidden="true">
           ⚠️
         </div>
-        <h1 className="text-display-sm font-semibold text-ink">Something went wrong</h1>
+        <h1 className="text-display-sm font-semibold text-ink">Something went wrong.</h1>
         <p className="text-body-sm text-ink-body">
           {error.digest
             ? `Error ID: ${error.digest}`

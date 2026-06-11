@@ -8,8 +8,8 @@ import { BarChart3, Zap, AlertTriangle, Key, BarChart2, Code2, Settings2, Copy, 
 // Mock project detail
 const initialProject = {
   id: "proj-1",
-  name: "Cinacoin Wallet",
-  description: "Official Cinacoin wallet application with multi-chain support",
+  name: "CinaCoin Wallet",
+  description: "Official CinaCoin wallet application with multi-chain support",
   status: "active",
   network: "Mainnet",
   sdkVersion: "v2.4.1",
@@ -241,7 +241,7 @@ export default function ProjectDetailClient() {
 
           {/* Usage Chart */}
           <div className="cc-card">
-            <h2 className="text-body-lg font-semibold text-ink mb-4">API Requests (Last 30 Days)</h2>
+            <h2 className="text-body-lg font-semibold text-ink mb-4">API requests (last 30 days).</h2>
             <div className="h-52 flex items-end gap-2 px-2">
               {usageData.map((d) => (
                 <div key={d.date} className="flex-1 flex flex-col items-center gap-1">
@@ -260,7 +260,7 @@ export default function ProjectDetailClient() {
 
           {/* Active Users Chart */}
           <div className="cc-card">
-            <h2 className="text-body-lg font-semibold text-ink mb-4">Active Users (Last 30 Days)</h2>
+            <h2 className="text-body-lg font-semibold text-ink mb-4">Active users (last 30 days).</h2>
             <div className="h-52 flex items-end gap-2 px-2">
               {usageData.map((d) => {
                 const maxUsers = Math.max(...usageData.map((u) => u.users));
@@ -283,7 +283,7 @@ export default function ProjectDetailClient() {
           {/* API Keys */}
           <div>
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-body-lg font-semibold text-ink">API Keys</h2>
+              <h2 className="text-body-lg font-semibold text-ink">API keys.</h2>
               <button className="cc-btn-primary">+ Generate Key</button>
             </div>
             <div className="table-container">
@@ -327,9 +327,9 @@ export default function ProjectDetailClient() {
       {/* SDK Setup Tab */}
       {activeTab === "sdk" && (
         <div className="cc-card">
-          <h2 className="text-body-lg font-semibold text-ink mb-2">SDK Integration</h2>
+          <h2 className="text-body-lg font-semibold text-ink mb-2">SDK integration.</h2>
           <p className="text-body-sm text-ink-body mb-4">
-            Add the Cinacoin SDK to your project. Copy the snippet below for your framework.
+            Add the CinaCoin SDK to your project. Copy the snippet below for your framework.
           </p>
 
           {/* Framework Tabs */}
@@ -385,7 +385,7 @@ export default function ProjectDetailClient() {
           <div className="cc-card">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h2 className="text-body-lg font-semibold text-ink">Environment Variables</h2>
+                <h2 className="text-body-lg font-semibold text-ink">Environment variables.</h2>
                 <p className="text-body-sm text-ink-body mt-1">
                   Configure environment variables for your project. Secret values are masked.
                 </p>
@@ -433,7 +433,7 @@ export default function ProjectDetailClient() {
           {/* Add Env Var Form */}
           {showAddEnv && (
             <div className="cc-card">
-              <h3 className="text-body-sm font-semibold text-ink mb-3">Add Environment Variable</h3>
+              <h3 className="text-body-sm font-semibold text-ink mb-3">Add environment variable.</h3>
               <div className="space-y-3">
                 <div>
                   <label className="block text-body-sm text-ink-body mb-1">Key</label>

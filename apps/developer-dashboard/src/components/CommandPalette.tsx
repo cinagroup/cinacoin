@@ -107,22 +107,29 @@ export default function CommandPalette() {
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-[#171717]/50 flex items-start justify-center pt-[20vh]"
+      className="fixed inset-0 z-50 bg-[#171717]/50 flex items-start justify-center pt-[20vh] p-4"
       onClick={() => setOpen(false)}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Command palette"
     >
       <div
         className="bg-canvas border border-hairline rounded-lg shadow-2xl w-full max-w-2xl overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center gap-3 px-4 py-3 border-b border-hairline">
-          <Search className="w-5 h-5 text-ink-mute" />
+          <Search className="w-5 h-5 text-ink-mute" aria-hidden="true" />
           <input
             ref={inputRef}
             type="text"
             placeholder="Type a command..."
+            aria-label="Search commands"
             className="flex-1 bg-transparent outline-none text-body-md text-ink placeholder:text-ink-mute"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Escape') setOpen(false);
+            }}
           />
         </div>
         <div className="max-h-96 overflow-y-auto">

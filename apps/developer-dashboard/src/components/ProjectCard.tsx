@@ -26,26 +26,27 @@ function StatusBadge({ status }: { status: ProjectCardProps["project"]["status"]
 
 export default function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <Link href={`/projects/${project.id}`}>
-      <div className="cc-card card-hover cursor-pointer transition-all">
+    <Link href={`/projects/${project.id}`} className="block">
+      <article className="cc-card card-hover cursor-pointer transition-all">
         <div className="flex items-start justify-between mb-3">
           <h3 className="font-semibold text-ink">{project.name}</h3>
           <StatusBadge status={project.status} />
         </div>
-        <div className="space-y-1 text-body-sm">
+        <dl className="space-y-1 text-body-sm">
           <div className="flex justify-between text-ink-body">
-            <span>Network</span>
-            <span>{project.network}</span>
+            <dt>Network</dt>
+            <dd>{project.network}</dd>
           </div>
           <div className="flex justify-between text-ink-body">
-            <span>Requests</span>
-            <span>{project.requests.toLocaleString()}</span>
+            <dt>Requests</dt>
+            <dd>{project.requests.toLocaleString()}</dd>
           </div>
           <div className="flex justify-between text-ink-mute text-caption">
-            <span>Created {project.createdAt}</span>
+            <dt>Created</dt>
+            <dd>{project.createdAt}</dd>
           </div>
-        </div>
-      </div>
+        </dl>
+      </article>
     </Link>
   );
 }

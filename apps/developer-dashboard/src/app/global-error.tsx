@@ -42,7 +42,7 @@ export default function GlobalRootError({
               letterSpacing: "-0.6px",
             }}
           >
-            Application Error
+            Application error.
           </h1>
           <p
             style={{

@@ -18,8 +18,8 @@ const dailyRequests = [
 ];
 
 const topChains = [
-  { name: "Cinacoin Mainnet", requests: 684_200, percentage: 53.3 },
-  { name: "Cinacoin Testnet", requests: 312_455, percentage: 24.3 },
+  { name: "CinaCoin Mainnet", requests: 684_200, percentage: 53.3 },
+  { name: "CinaCoin Testnet", requests: 312_455, percentage: 24.3 },
   { name: "Ethereum (via bridge)", requests: 186_100, percentage: 14.5 },
   { name: "Polygon (via bridge)", requests: 101_637, percentage: 7.9 },
 ];
@@ -47,7 +47,7 @@ export default function AnalyticsPage() {
 
       {/* Request Trend */}
       <div className="cc-card">
-        <h2 className="text-body-lg font-semibold text-ink mb-4">Request Trend (Last 10 Days)</h2>
+        <h2 className="text-body-lg font-semibold text-ink mb-4">Request trend (last 10 days).</h2>
         <div className="space-y-2">
           {dailyRequests.map((day) => (
             <div key={day.date} className="flex items-center gap-3">
@@ -80,7 +80,7 @@ export default function AnalyticsPage() {
 
       {/* Top Chains */}
       <div className="cc-card">
-        <h2 className="text-body-lg font-semibold text-ink mb-4">Top Chains</h2>
+        <h2 className="text-body-lg font-semibold text-ink mb-4">Top chains.</h2>
         <div className="space-y-3">
           {topChains.map((chain) => (
             <div key={chain.name} className="flex items-center gap-4">
@@ -101,7 +101,7 @@ export default function AnalyticsPage() {
 
       {/* Error Rate */}
       <div className="cc-card">
-        <h2 className="text-body-lg font-semibold text-ink mb-4">Error Rate Breakdown</h2>
+        <h2 className="text-body-lg font-semibold text-ink mb-4">Error rate breakdown.</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="p-4 bg-canvas-soft rounded-lg">
             <div className="text-display-md font-semibold text-ink">0.08%</div>

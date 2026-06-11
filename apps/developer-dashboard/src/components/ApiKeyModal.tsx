@@ -51,7 +51,7 @@ export default function ApiKeyModal({ onCreate, onClose }: ApiKeyModalProps) {
     <div className="modal-overlay" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="modal-title">
       <div className="modal-content" onClick={(e) => e.stopPropagation()} ref={modalRef}>
         <div className="flex items-center justify-between mb-4">
-          <h2 id="modal-title" className="text-body-lg font-semibold text-ink">Generate API Key</h2>
+          <h2 id="modal-title" className="text-body-lg font-semibold text-ink">Generate API key.</h2>
           <button
             onClick={onClose}
             className="text-ink-mute hover:text-ink text-display-sm leading-none"

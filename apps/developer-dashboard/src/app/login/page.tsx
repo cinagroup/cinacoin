@@ -9,7 +9,7 @@ export default function LoginPage() {
             <Hash className="w-6 h-6 text-on-primary" aria-hidden="true" />
           </div>
           <p className="font-mono text-xs text-ink-mute mb-2">DEVELOPER PORTAL</p>
-          <h1 className="text-display-md font-semibold text-ink">Sign in to Cinacoin.</h1>
+          <h1 className="text-display-md font-semibold text-ink">Sign in to CinaCoin.</h1>
           <p className="text-ink-body mt-1">Manage your projects and API keys.</p>
         </div>
 
@@ -41,7 +41,7 @@ export default function LoginPage() {
               <div className="w-full border-t border-hairline"></div>
             </div>
             <div className="relative flex justify-center text-body-sm">
-              <span className="px-2 bg-[var(--color-canvas)] text-ink-mute">or</span>
+              <span className="px-2 bg-canvas text-ink-mute">or</span>
             </div>
           </div>
 

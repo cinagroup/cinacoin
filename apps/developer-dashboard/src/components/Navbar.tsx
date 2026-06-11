@@ -35,7 +35,7 @@ export default function Navbar() {
       </header>
 
       {/* Mobile bottom nav */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-canvas border-t border-hairline flex justify-around py-2 z-40">
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-canvas border-t border-hairline flex justify-around py-2 z-40" aria-label="Mobile navigation">
         {mobileNavItems.map((item) => {
           const isActive = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
           const Icon = item.icon;
@@ -46,6 +46,7 @@ export default function Navbar() {
               className={`flex flex-col items-center gap-1 text-caption ${
                 isActive ? "text-ink font-medium" : "text-ink-mute"
               }`}
+              aria-current={isActive ? "page" : undefined}
             >
               <Icon className="w-4 h-4" aria-hidden="true" />
               <span>{item.label}</span>

@@ -114,7 +114,7 @@ export default function BillingPage() {
         <div className="flex items-start justify-between">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <h2 className="text-body-lg font-semibold text-ink">Current Plan</h2>
+              <h2 className="text-body-lg font-semibold text-ink">Current plan.</h2>
               <span className="badge badge-success">Active</span>
             </div>
             <div className="flex items-baseline gap-1 mb-2">
@@ -146,7 +146,7 @@ export default function BillingPage() {
 
       {/* Usage vs Quota */}
       <div>
-        <h2 className="text-body-lg font-semibold text-ink mb-4">Usage vs Quota</h2>
+        <h2 className="text-body-lg font-semibold text-ink mb-4">Usage vs. quota.</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {usageStats.map((stat) => {
             const percentage = (stat.used / stat.total) * 100;
@@ -189,7 +189,7 @@ export default function BillingPage() {
 
       {/* Billing History */}
       <div className="cc-card">
-        <h2 className="text-body-lg font-semibold text-ink mb-4">Recent Invoices</h2>
+        <h2 className="text-body-lg font-semibold text-ink mb-4">Recent invoices.</h2>
         <div className="table-container">
           <table>
             <thead>
@@ -251,7 +251,7 @@ export default function BillingPage() {
         <div className="modal-overlay" onClick={() => setShowUpgradeModal(false)}>
           <div className="modal-content max-w-4xl" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-display-sm font-semibold text-ink">Choose Your Plan</h2>
+              <h2 className="text-display-sm font-semibold text-ink">Choose your plan.</h2>
               <button
                 onClick={() => setShowUpgradeModal(false)}
                 className="text-ink-mute hover:text-ink text-display-md leading-none"
@@ -288,7 +288,7 @@ export default function BillingPage() {
                     ))}
                   </ul>
                   <button
-                    className={`w-full ${plan.current ? "btn-secondary" : "btn-primary"} justify-center`}
+                    className={`w-full ${plan.current ? "cc-btn-secondary" : "cc-btn-primary"} justify-center`}
                     disabled={plan.current}
                   >
                     {plan.current ? "Current Plan" : plan.name === "Enterprise" ? "Contact Sales" : "Upgrade"}
