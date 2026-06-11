@@ -7,33 +7,68 @@
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     },
     "./react": {
-      "import": "./dist/react/index.js",
-      "types": "./dist/react/index.d.ts"
+      "import": {
+        "types": "./dist/react/index.d.ts",
+        "default": "./dist/react/index.js"
+      },
+      "require": {
+        "types": "./dist/react/index.d.cts",
+        "default": "./dist/react/index.cjs"
+      }
     },
     "./chains": {
-      "import": "./dist/chains.js",
-      "types": "./dist/chains.d.ts"
+      "import": {
+        "types": "./dist/chains.d.ts",
+        "default": "./dist/chains.js"
+      },
+      "require": {
+        "types": "./dist/chains.d.cts",
+        "default": "./dist/chains.cjs"
+      }
     },
     "./utils/signature": {
-      "import": "./dist/utils/signature.js",
-      "types": "./dist/utils/signature.d.ts"
+      "import": {
+        "types": "./dist/utils/signature.d.ts",
+        "default": "./dist/utils/signature.js"
+      },
+      "require": {
+        "types": "./dist/utils/signature.d.cts",
+        "default": "./dist/utils/signature.cjs"
+      }
     },
     "./utils/chain": {
-      "import": "./dist/utils/chain.js",
-      "types": "./dist/utils/chain.d.ts"
+      "import": {
+        "types": "./dist/utils/chain.d.ts",
+        "default": "./dist/utils/chain.js"
+      },
+      "require": {
+        "types": "./dist/utils/chain.d.cts",
+        "default": "./dist/utils/chain.cjs"
+      }
     },
     "./utils/circuitBreaker.js": {
-      "import": "./dist/utils/circuitBreaker.js",
-      "types": "./dist/utils/circuitBreaker.d.ts"
+      "import": {
+        "types": "./dist/utils/circuitBreaker.d.ts",
+        "default": "./dist/utils/circuitBreaker.js"
+      },
+      "require": {
+        "types": "./dist/utils/circuitBreaker.d.cts",
+        "default": "./dist/utils/circuitBreaker.cjs"
+      }
     }
   },
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts",
+    "build": "tsup",
     "check": "tsc --noEmit",
     "lint": "eslint src/",
     "test": "vitest run",
