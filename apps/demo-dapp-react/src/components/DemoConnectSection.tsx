@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { ConnectButton, ConnectModal, useConnect, useDisconnect, useCinacoinContext } from '@cinacoin/react';
+import { Link } from 'lucide-react';
 
 type ConnectorId = 'metamask' | 'walletconnect' | 'coinbase';
 
@@ -22,8 +23,9 @@ export function DemoConnectSection(): JSX.Element {
 
   return (
     <section className="cc-card cc-fade-in" aria-labelledby="connect-heading">
+      <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">CONNECTION</p>
       <h3 id="connect-heading" className="cc-section-title">
-        <span style={{ fontSize: 'var(--cc-text-lg)' }} aria-hidden="true">🔗</span> Connect
+        <Link className="w-5 h-5" /> Connect
       </h3>
       <p className="cc-section-desc">
         Connect your wallet using any of the supported methods below.

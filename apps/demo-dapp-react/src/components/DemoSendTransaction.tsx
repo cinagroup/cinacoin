@@ -2,6 +2,7 @@
 
 import React, { useState, useCallback } from 'react';
 import { useSendTransaction, useBalance, useCinacoinContext } from '@cinacoin/react';
+import { Send } from 'lucide-react';
 
 /** DemoSendTransaction — ETH transfer form with gas estimation and tracking. */
 export function DemoSendTransaction(): JSX.Element {
@@ -64,8 +65,9 @@ export function DemoSendTransaction(): JSX.Element {
   if (status !== 'connected') {
     return (
       <section className="cc-card cc-fade-in" aria-labelledby="send-heading">
+        <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">TRANSFER</p>
         <h3 id="send-heading" className="cc-section-title">
-          <span className="text-[var(--cc-text-lg)]" aria-hidden="true">📤</span> Send Transaction
+          <Send className="w-5 h-5" /> Send Transaction
         </h3>
         <p className="cc-section-desc">Connect a wallet to send transactions.</p>
       </section>
@@ -74,8 +76,9 @@ export function DemoSendTransaction(): JSX.Element {
 
   return (
     <section className="cc-card cc-fade-in" aria-labelledby="send-heading">
+      <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">TRANSFER</p>
       <h3 id="send-heading" className="cc-section-title">
-        <span className="text-[var(--cc-text-lg)]" aria-hidden="true">📤</span> Send Transaction
+        <Send className="w-5 h-5" /> Send Transaction
       </h3>
       <p className="cc-section-desc">
         Send {symbol} to another address with gas estimation and status tracking.

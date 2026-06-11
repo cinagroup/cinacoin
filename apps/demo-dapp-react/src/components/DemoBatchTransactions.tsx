@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useSendCalls, useCallsStatus, useCinacoinContext } from '@cinacoin/react';
+import { Package, CheckCircle } from 'lucide-react';
 
 type BatchStep = {
   label: string;
@@ -63,8 +64,9 @@ export function DemoBatchTransactions(): JSX.Element {
   if (status !== 'connected') {
     return (
       <section className="cc-card cc-fade-in" aria-labelledby="batch-heading">
+        <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">EIP-5792</p>
         <h3 id="batch-heading" className="cc-section-title">
-          <span style={{ fontSize: 'var(--cc-text-lg)' }} aria-hidden="true">📦</span> Batch Transactions
+          <Package className="w-5 h-5" /> Batch Transactions
         </h3>
         <p className="cc-section-desc">Connect a wallet to execute batch transactions.</p>
       </section>
@@ -73,8 +75,9 @@ export function DemoBatchTransactions(): JSX.Element {
 
   return (
     <section className="cc-card cc-fade-in" aria-labelledby="batch-heading">
+      <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">EIP-5792</p>
       <h3 id="batch-heading" className="cc-section-title">
-        <span style={{ fontSize: 'var(--cc-text-lg)' }} aria-hidden="true">📦</span> Batch Transactions
+        <Package className="w-5 h-5" /> Batch Transactions
       </h3>
       <p className="cc-section-desc">
         Execute multiple calls atomically via EIP-5792 <code className="cc-code">wallet_sendCalls</code>.
@@ -119,7 +122,7 @@ export function DemoBatchTransactions(): JSX.Element {
               <div style={{ fontSize: 'var(--cc-text-xs)', color: 'var(--cc-body)' }}>{step.description}</div>
             </div>
             {batchStatus === 'CONFIRMED' && allSucceeded && (
-              <span style={{ fontSize: 'var(--cc-text-lg)' }} aria-label="Step completed">✅</span>
+              <CheckCircle className="w-5 h-5 text-[var(--cc-success)]" aria-label="Step completed" />
             )}
             {isPolling && (
               <span className="cc-spinner" style={{ color: 'var(--cc-warning)' }} aria-label="Processing" />
@@ -157,7 +160,7 @@ export function DemoBatchTransactions(): JSX.Element {
       {/* Result */}
       {batchStatus === 'CONFIRMED' && allSucceeded && (
         <div className="cc-success">
-          ✅ All {batchSteps.length} batch calls confirmed successfully!
+          <CheckCircle className="w-5 h-5 inline-block mr-1 text-[var(--cc-success)]" /> All {batchSteps.length} batch calls confirmed successfully!
         </div>
       )}
 

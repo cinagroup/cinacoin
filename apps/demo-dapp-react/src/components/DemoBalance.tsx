@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useBalance, useCinacoinContext } from '@cinacoin/react';
+import { Wallet } from 'lucide-react';
 
 /** DemoBalance — display connected account balance with auto-refresh. */
 export function DemoBalance(): JSX.Element {
@@ -23,8 +24,9 @@ export function DemoBalance(): JSX.Element {
   if (status !== 'connected') {
     return (
       <section className="cc-card cc-fade-in" aria-labelledby="balance-heading">
+        <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">WALLET</p>
         <h3 id="balance-heading" className="cc-section-title">
-          <span style={{ fontSize: 'var(--cc-text-lg)' }} aria-hidden="true">💰</span> Balance
+          <Wallet className="w-5 h-5" /> Balance
         </h3>
         <p className="cc-section-desc">Connect a wallet to view your balance.</p>
       </section>
@@ -33,8 +35,9 @@ export function DemoBalance(): JSX.Element {
 
   return (
     <section className="cc-card cc-fade-in" aria-labelledby="balance-heading">
+      <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">WALLET</p>
       <h3 id="balance-heading" className="cc-section-title">
-        <span style={{ fontSize: 'var(--cc-text-lg)' }} aria-hidden="true">💰</span> Balance
+        <Wallet className="w-5 h-5" /> Balance
       </h3>
       <p className="cc-section-desc">
         Real-time native token balance for the connected account.

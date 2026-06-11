@@ -3,6 +3,7 @@
 import React, { useMemo } from 'react';
 import Image from 'next/image';
 import { useCinacoinContext } from '@cinacoin/react';
+import { Images } from 'lucide-react';
 
 interface NftItem {
   id: string;
@@ -87,8 +88,9 @@ export function DemoNFTGallery(): JSX.Element {
   if (status !== 'connected') {
     return (
       <section className="cc-card cc-fade-in" aria-labelledby="nft-heading">
+        <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">COLLECTION</p>
         <h3 id="nft-heading" className="cc-section-title">
-          <span style={{ fontSize: 'var(--cc-text-lg)' }} aria-hidden="true">🖼️</span> NFT Gallery
+          <Images className="w-5 h-5" /> NFT Gallery
         </h3>
         <p className="cc-section-desc">Connect a wallet to view your NFT collection.</p>
       </section>
@@ -97,8 +99,9 @@ export function DemoNFTGallery(): JSX.Element {
 
   return (
     <section className="cc-card cc-fade-in" aria-labelledby="nft-heading">
+      <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">COLLECTION</p>
       <h3 id="nft-heading" className="cc-section-title">
-        <span style={{ fontSize: 'var(--cc-text-lg)' }} aria-hidden="true">🖼️</span> NFT Gallery
+        <Images className="w-5 h-5" /> NFT Gallery
       </h3>
       <p className="cc-section-desc">
         Browse your multi-chain NFT collection. Powered by{' '}
