@@ -13,8 +13,8 @@
     "src"
   ],
   "devDependencies": {
-    "@types/react": "18.3.12",
-    "react": "19.2.6"
+    "@types/react": "19.2.17",
+    "react": "19.2.7"
   },
   "publishConfig": {
     "access": "public",
