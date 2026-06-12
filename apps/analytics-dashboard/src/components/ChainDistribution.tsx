@@ -164,7 +164,7 @@ export default React.memo(function ChainDistribution() {
 
       {/* Bar Comparison */}
       <div>
-        <h4 className="text-body font-medium text-[var(--cc-ink)] mb-sm">Transaction Volume</h4>
+        <h4 className="text-body font-medium text-[var(--cc-ink)] mb-sm">Transaction volume.</h4>
         <div className="space-y-xs">
           {data.map((item) => (
             <div key={item.name} className="flex items-center gap-sm">

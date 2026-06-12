@@ -173,7 +173,7 @@ export default React.memo(function WalletFunnel() {
       {/* Per-Wallet Breakdown */}
       {selectedWallet === "all" && (
         <div>
-          <h4 className="text-body font-medium text-[var(--cc-ink)] mb-sm">By Wallet Type</h4>
+          <h4 className="text-body font-medium text-[var(--cc-ink)] mb-sm">By wallet type.</h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-sm">
             {funnelData.map((w) => {
               const first = w.steps[0].count;

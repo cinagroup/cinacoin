@@ -17,7 +17,7 @@ export const demoProjects: Project[] = [
   {
     id: "demo-1",
     name: "Demo Wallet App",
-    description: "A demo wallet application using Cinacoin SDK",
+    description: "A demo wallet application using CinaCoin SDK",
     owner_address: "0xDemo",
     status: "active",
     createdAt: new Date().toISOString(),

@@ -54,7 +54,7 @@ export default React.memo(function SiteHeader({
               <div className="w-8 h-8 bg-[var(--cc-primary)] rounded-md flex items-center justify-center">
                 <BarChart3 className="w-5 h-5 text-[var(--cc-on-primary)]" />
               </div>
-              <h1 className="text-heading-3 text-[var(--cc-ink)] hidden sm:block">CinaCoin Analytics</h1>
+              <h1 className="text-heading-3 text-[var(--cc-ink)] hidden sm:block">CinaCoin analytics.</h1>
             </a>
 
             {/* Breadcrumb for sub-pages */}
