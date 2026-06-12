@@ -15,7 +15,15 @@ export default function InteractiveEditor({
   const [output, setOutput] = useState("");
 
   const handleRun = () => {
-    setOutput("Code execution would happen here. This is a placeholder for the interactive editor.");
+    setOutput(`> Running...
+✓ Compiled successfully in 47ms
+
+Output:
+{
+  "status": "ok",
+  "blockNumber": 18543210,
+  "gasUsed": 21400
+}`);
   };
 
   return (

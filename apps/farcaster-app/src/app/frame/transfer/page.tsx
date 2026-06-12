@@ -28,11 +28,11 @@ export default function TransferFramePage() {
         </h1>
         <div className="bg-[var(--cc-canvas-soft-2)] rounded-2xl p-6 border border-[var(--cc-hairline)] space-y-4">
           <p className="text-[var(--cc-body)]">
-            Send CinaCoin tokens to any Ethereum address.
+            Send CINA to any address. Gas estimated at ~0.0021 CINA.
           </p>
           <div className="space-y-3">
             <div className="bg-[var(--cc-canvas-soft-2)] rounded-xl p-4 text-left">
-              <label htmlFor="transfer-to" className="text-body-sm text-[var(--cc-mute)] block mb-1">To.</label>
+              <label htmlFor="transfer-to" className="text-body-sm text-[var(--cc-mute)] block mb-1">To</label>
               <input
                 id="transfer-to"
                 type="text"
@@ -42,7 +42,7 @@ export default function TransferFramePage() {
               />
             </div>
             <div className="bg-[var(--cc-canvas-soft-2)] rounded-xl p-4 text-left">
-              <label htmlFor="transfer-amount" className="text-body-sm text-[var(--cc-mute)] block mb-1">Amount.</label>
+              <label htmlFor="transfer-amount" className="text-body-sm text-[var(--cc-mute)] block mb-1">Amount</label>
               <input
                 id="transfer-amount"
                 type="text"

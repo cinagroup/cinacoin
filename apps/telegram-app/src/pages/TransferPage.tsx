@@ -67,7 +67,7 @@ export default function TransferPage({ provider, account, balance }: TransferPag
   if (!account) {
     return (
       <div className="page transfer-page">
-        <h1 className="page-title font-semibold">Transfer.</h1>
+        <h1 className="page-title font-semibold">Transfer</h1>
         <div className="empty-state">
           <p>Connect your wallet to send tokens.</p>
         </div>
@@ -77,11 +77,11 @@ export default function TransferPage({ provider, account, balance }: TransferPag
 
   return (
     <div className="page transfer-page">
-      <h1 className="page-title font-semibold">Transfer.</h1>
+      <h1 className="page-title font-semibold">Transfer</h1>
 
       <div className="transfer-form">
         <div className="form-group">
-          <label className="form-label">From.</label>
+          <label className="form-label">From</label>
           <div className="form-value">
             {account.slice(0, 10)}...{account.slice(-8)}
           </div>
@@ -89,7 +89,7 @@ export default function TransferPage({ provider, account, balance }: TransferPag
         </div>
 
         <div className="form-group">
-          <label className="form-label" htmlFor="transfer-to">To.</label>
+          <label className="form-label" htmlFor="transfer-to">To</label>
           <input
             id="transfer-to"
             type="text"
@@ -102,7 +102,7 @@ export default function TransferPage({ provider, account, balance }: TransferPag
         </div>
 
         <div className="form-group">
-          <label className="form-label" htmlFor="transfer-amount">Amount.</label>
+          <label className="form-label" htmlFor="transfer-amount">Amount</label>
           <div className="input-with-button">
             <input
               id="transfer-amount"

@@ -26,12 +26,12 @@ export default function HomePage() {
           <h1 className="text-display-xl font-semibold bg-gradient-to-r from-[var(--cc-violet)] to-[var(--cc-link)] bg-clip-text text-transparent">
             CinaCoin.
           </h1>
-          <p className="text-[var(--cc-mute)] text-body-lg">Farcaster Mini App.</p>
+          <p className="text-[var(--cc-mute)] text-body-lg">Wallet, transfer, sign — from your Farcaster feed.</p>
         </div>
 
         <div className="bg-[var(--cc-canvas-soft-2)] rounded-2xl p-6 border border-[var(--cc-hairline)] space-y-4">
           <p className="text-[var(--cc-body)]">
-            Welcome! Interact with CinaCoin directly from your Farcaster feed.
+            Send CINA, sign messages, and manage your wallet without leaving Warpcast.
           </p>
 
           <nav aria-label="Main navigation">

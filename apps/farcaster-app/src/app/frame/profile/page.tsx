@@ -47,14 +47,14 @@ export default function ProfileFramePage() {
               <p className="text-[var(--cc-ink)] font-[family-name:var(--font-geist-mono)]">—</p>
             </div>
             <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-3">
-              <p className="text-[var(--cc-mute)]">Wallet.</p>
+              <p className="text-[var(--cc-mute)]">Wallet</p>
               <p className="text-[var(--cc-ink)] font-[family-name:var(--font-geist-mono)] text-caption">
                 Not linked.
               </p>
             </div>
           </div>
           <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-3 text-body-sm">
-            <p className="text-[var(--cc-mute)] mb-1">Verified Addresses.</p>
+            <p className="text-[var(--cc-mute)] mb-1">Verified Addresses</p>
             <p className="text-[var(--cc-mute)] font-[family-name:var(--font-geist-mono)] text-caption">
               None.
             </p>

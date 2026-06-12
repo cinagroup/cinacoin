@@ -53,8 +53,8 @@ export default function HomePage({ user, account, balance, onNavigate }: HomePag
   return (
     <div className="page home-page">
       <div className="page-greeting">
-        <h1 className="font-semibold">Hello, {displayName}.</h1>
-        <p className="greeting-subtitle">Your CinaCoin dashboard.</p>
+        <h1 className="font-semibold">{displayName}</h1>
+        <p className="greeting-subtitle">{balance} ETH available</p>
       </div>
 
       <BalanceCard
@@ -71,7 +71,7 @@ export default function HomePage({ user, account, balance, onNavigate }: HomePag
       />
 
       <section className="section" aria-label="Recent activity">
-        <h2 className="section-title font-semibold">Recent activity.</h2>
+        <h2 className="section-title font-semibold">Recent activity</h2>
         {account ? (
           <div className="transaction-list">
             {DEMO_TRANSACTIONS.map((tx) => (

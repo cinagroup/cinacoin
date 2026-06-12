@@ -45,7 +45,7 @@ export default React.memo(function OverallStatus({ status }: OverallStatusProps)
     <div className={`rounded-[8px] border ${c.border} ${c.bg} p-6 text-center`} role="status" aria-live="polite">
       <Icon className={`mx-auto mb-3 w-12 h-12 ${c.color}`} aria-hidden="true" />
       <h2 className={`cc-display-sm ${c.color}`}>{c.label}</h2>
-      <p className="mt-1 cc-body-sm text-[var(--cc-body)]">Last updated: just now.</p>
+      <p className="mt-1 cc-body-sm text-[var(--cc-body)]">Last updated: just now</p>
     </div>
   );
 });

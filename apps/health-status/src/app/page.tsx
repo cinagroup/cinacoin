@@ -5,22 +5,29 @@ import IncidentTimeline from "@/components/IncidentTimeline";
 
 // Mock data
 const services = [
-  { name: "Blockchain Node", status: "operational" as const, uptime: "99.98%", description: "Core blockchain network nodes" },
-  { name: "API Gateway", status: "operational" as const, uptime: "99.95%", description: "REST & WebSocket API endpoints" },
-  { name: "Wallet Service", status: "degraded" as const, uptime: "99.80%", description: "Wallet creation & management" },
-  { name: "Explorer Service", status: "operational" as const, uptime: "99.99%", description: "Block & transaction explorer" },
-  { name: "Mining Pool", status: "operational" as const, uptime: "99.92%", description: "Mining pool coordination" },
-  { name: "DNS / CDN", status: "operational" as const, uptime: "100%", description: "Domain resolution & content delivery" },
+  { name: "Blockchain Node", status: "operational" as const, uptime: "99.98%", description: "Core blockchain network nodes", responseTime: "124ms" },
+  { name: "API Gateway", status: "operational" as const, uptime: "99.95%", description: "REST & WebSocket API endpoints", responseTime: "42ms" },
+  { name: "Wallet Service", status: "degraded" as const, uptime: "99.80%", description: "Wallet creation & management", responseTime: "890ms" },
+  { name: "Explorer Service", status: "operational" as const, uptime: "99.99%", description: "Block & transaction explorer", responseTime: "67ms" },
+  { name: "Mining Pool", status: "operational" as const, uptime: "99.92%", description: "Mining pool coordination", responseTime: "203ms" },
+  { name: "DNS / CDN", status: "operational" as const, uptime: "100%", description: "Domain resolution & content delivery", responseTime: "8ms" },
 ];
 
-function generate90Days(): ("operational" | "degraded" | "outage" | "maintenance" | "none")[] {
+// Deterministic 90-day status pattern (seeded from service name)
+function generate90Days(serviceName: string): ("operational" | "degraded" | "outage" | "maintenance" | "none")[] {
+  let seed = 0;
+  for (let i = 0; i < serviceName.length; i++) seed += serviceName.charCodeAt(i);
+  const rand = (i: number) => {
+    const x = Math.sin(seed * 9301 + i * 49297 + 233280) * 49297;
+    return x - Math.floor(x);
+  };
   const days: ("operational" | "degraded" | "outage" | "maintenance" | "none")[] = [];
   for (let i = 0; i < 90; i++) {
-    const rand = Math.random();
-    if (rand < 0.85) days.push("operational");
-    else if (rand < 0.92) days.push("degraded");
-    else if (rand < 0.96) days.push("outage");
-    else if (rand < 0.99) days.push("maintenance");
+    const r = rand(i);
+    if (r < 0.88) days.push("operational");
+    else if (r < 0.93) days.push("degraded");
+    else if (r < 0.96) days.push("outage");
+    else if (r < 0.99) days.push("maintenance");
     else days.push("none");
   }
   return days;
@@ -71,7 +78,7 @@ export default function HealthStatusPage() {
     <div className="space-y-8">
       {/* Header */}
       <header className="text-center">
-        <p className="cc-caption-mono text-[var(--cc-muted)] mb-2" aria-label="Page section label">System status.</p>
+        <p className="cc-caption-mono text-[var(--cc-muted)] mb-2" aria-label="Page section label">System status</p>
         <h1 className="cc-display-lg">
           CinaCoin status.
         </h1>
@@ -85,8 +92,8 @@ export default function HealthStatusPage() {
 
       {/* Services */}
       <section aria-labelledby="services-heading">
-        <p className="cc-caption-mono text-[var(--cc-muted)] mb-2">Monitored services.</p>
-        <h2 id="services-heading" className="mb-4 cc-body-lg font-semibold tracking-tight text-[var(--cc-ink)]">Services.</h2>
+        <p className="cc-caption-mono text-[var(--cc-muted)] mb-2">Monitored services</p>
+        <h2 id="services-heading" className="mb-4 cc-body-lg font-semibold tracking-tight text-[var(--cc-ink)]">Services</h2>
         <div className="grid gap-3 sm:grid-cols-2">
           {services.map((service) => (
             <ServiceCard key={service.name} {...service} />
@@ -96,8 +103,8 @@ export default function HealthStatusPage() {
 
       {/* 90-Day Status Bars */}
       <section aria-labelledby="history-heading">
-        <p className="cc-caption-mono text-[var(--cc-muted)] mb-2">Historical uptime.</p>
-        <h2 id="history-heading" className="mb-4 cc-body-lg font-semibold tracking-tight text-[var(--cc-ink)]">90-day history.</h2>
+        <p className="cc-caption-mono text-[var(--cc-muted)] mb-2">Historical uptime</p>
+        <h2 id="history-heading" className="mb-4 cc-body-lg font-semibold tracking-tight text-[var(--cc-ink)]">90-day history</h2>
         <div className="space-y-4 rounded-[8px] border border-[var(--cc-hairline)] bg-[var(--cc-canvas)] p-5" style={{ boxShadow: 'inset 0 0 0 1px var(--cc-hairline)' }}>
           {services.map((service, idx) => (
             <div key={service.name} className={idx > 0 ? 'pt-4 border-t border-[var(--cc-hairline)]' : ''}>
@@ -105,7 +112,7 @@ export default function HealthStatusPage() {
                 <span className="cc-body-sm text-[var(--cc-body)]">{service.name}</span>
                 <span className="font-mono text-[var(--cc-muted)]">{service.uptime}</span>
               </div>
-              <StatusBar90Days days={generate90Days()} serviceName={service.name} />
+              <StatusBar90Days days={generate90Days(service.name)} serviceName={service.name} />
             </div>
           ))}
         </div>
@@ -113,8 +120,8 @@ export default function HealthStatusPage() {
 
       {/* Incident Timeline */}
       <section aria-labelledby="incidents-heading">
-        <p className="cc-caption-mono text-[var(--cc-muted)] mb-2">Incident log.</p>
-        <h2 id="incidents-heading" className="mb-4 cc-body-lg font-semibold tracking-tight text-[var(--cc-ink)]">Recent incidents.</h2>
+        <p className="cc-caption-mono text-[var(--cc-muted)] mb-2">Incident log</p>
+        <h2 id="incidents-heading" className="mb-4 cc-body-lg font-semibold tracking-tight text-[var(--cc-ink)]">Recent incidents</h2>
         <IncidentTimeline incidents={incidents} />
       </section>
 

@@ -4,10 +4,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const tutorials = [
-  { href: "/basics", label: "Web3 basics.", category: "Fundamentals" },
-  { href: "/wallet-integration", label: "Wallet integration.", category: "Fundamentals" },
-  { href: "/multichain", label: "Multichain development.", category: "Advanced" },
-  { href: "/best-practices", label: "Best practices.", category: "Advanced" },
+  { href: "/basics", label: "Web3 basics", category: "Fundamentals", progress: 100 },
+  { href: "/wallet-integration", label: "Wallet integration", category: "Fundamentals", progress: 60 },
+  { href: "/multichain", label: "Multichain development", category: "Advanced", progress: 0 },
+  { href: "/best-practices", label: "Best practices", category: "Advanced", progress: 0 },
 ];
 
 export default function Sidebar() {
@@ -25,7 +25,7 @@ export default function Sidebar() {
       <div style={{ padding: 'var(--cc-space-lg)' }}>
         <Link href="/" className="block" style={{ marginBottom: 'var(--cc-space-xl)' }}>
           <h1 className="text-display-md" style={{ color: 'var(--cc-link)' }}>CinaCoin</h1>
-          <p className="text-body-sm" style={{ color: 'var(--cc-body)' }}>Learn platform.</p>
+          <p className="text-body-sm" style={{ color: 'var(--cc-body)' }}>Learn platform</p>
         </Link>
 
         <nav className="space-y-6">
@@ -60,6 +60,12 @@ export default function Sidebar() {
                           }}
                         >
                           {tutorial.label}
+                          {tutorial.progress > 0 && tutorial.progress < 100 && (
+                            <span className="ml-auto text-xs font-mono" style={{ color: 'var(--cc-link)' }}>{tutorial.progress}%</span>
+                          )}
+                          {tutorial.progress === 100 && (
+                            <span className="ml-auto text-xs" style={{ color: 'var(--cc-success)' }}>✓</span>
+                          )}
                         </Link>
                       </li>
                     );

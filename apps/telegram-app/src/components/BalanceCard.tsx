@@ -20,7 +20,7 @@ export default function BalanceCard({
   return (
     <div className="balance-card" role="region" aria-label="Balance information">
       <div className="balance-card-inner">
-        <div className="balance-label">Total balance.</div>
+        <div className="balance-label">Total balance</div>
         <div className="balance-amount">
           {loading ? (
             <span className="balance-loading">···</span>

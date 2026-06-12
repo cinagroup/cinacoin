@@ -28,10 +28,10 @@ export default function SignFramePage() {
         </h1>
         <div className="bg-[var(--cc-canvas-soft-2)] rounded-2xl p-6 border border-[var(--cc-hairline)] space-y-4">
           <p className="text-[var(--cc-body)]">
-            Sign a message with your connected wallet to prove ownership.
+            Prove wallet ownership by signing an arbitrary message.
           </p>
           <div className="bg-[var(--cc-canvas-soft-2)] rounded-xl p-4 text-left">
-            <label htmlFor="sign-message" className="text-body-sm text-[var(--cc-mute)] block mb-1">Message.</label>
+            <label htmlFor="sign-message" className="text-body-sm text-[var(--cc-mute)] block mb-1">Message</label>
             <textarea
               id="sign-message"
               placeholder="Enter message to sign..."

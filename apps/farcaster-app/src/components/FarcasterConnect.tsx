@@ -159,7 +159,7 @@ export function FarcasterConnect({
         ) : (
           <>
             <Link className="w-5 h-5" aria-hidden="true" />
-            <span>Sign in with Farcaster.</span>
+            <span>Sign in with Farcaster</span>
           </>
         )}
       </button>

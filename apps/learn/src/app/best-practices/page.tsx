@@ -12,7 +12,7 @@ export default function BestPracticesPage() {
     <div className="max-w-3xl mx-auto">
       <StepIndicator currentStep={4} totalSteps={4} />
 
-      <h1 className="text-display-lg mb-4">Best practices.</h1>
+      <h1 className="text-display-lg mb-4">Best practices</h1>
       <p className="text-body-lg mb-8" style={{ color: 'var(--cc-body)' }}>
         Production-ready patterns for building secure, performant, and user-friendly Web3 applications.
       </p>

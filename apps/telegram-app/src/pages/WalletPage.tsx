@@ -94,7 +94,7 @@ export default function WalletPage({
 
   return (
     <div className="page wallet-page">
-      <h1 className="page-title font-semibold">Wallet.</h1>
+      <h1 className="page-title font-semibold">Wallet</h1>
 
       {!account ? (
         <div className="connect-section">
@@ -170,7 +170,7 @@ export default function WalletPage({
           {error && <div className="error-message">{error}</div>}
 
           <div className="chain-info">
-            <h3>Network.</h3>
+            <h3>Network</h3>
             <div className="chain-badge">
               <span className="chain-dot" />
               Ethereum Mainnet (Chain ID: {provider.getChainId()})

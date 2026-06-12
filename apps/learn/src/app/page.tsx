@@ -45,7 +45,7 @@ export default function HomePage() {
         <p className="cc-mono text-caption mb-2" style={{ color: 'var(--cc-mute)' }}>Learning hub</p>
         <h1 className="text-display-xl mb-4">
           Welcome to{" "}
-          <span style={{ color: 'var(--cc-link)' }}>CinaCoin Learn</span>.
+          <span style={{ color: 'var(--cc-link)' }}>CinaCoin Learn</span>
         </h1>
         <p className="text-body-lg max-w-2xl" style={{ color: 'var(--cc-body)' }}>
           Master Web3 development with hands-on tutorials, code examples, and
@@ -55,7 +55,7 @@ export default function HomePage() {
 
       <section className="mb-12" aria-labelledby="tutorials-heading">
         <p className="cc-mono text-caption mb-2" style={{ color: 'var(--cc-mute)' }}>Tutorials</p>
-        <h2 id="tutorials-heading" className="text-display-md mb-6">Tutorials.</h2>
+        <h2 id="tutorials-heading" className="text-display-md mb-6">Tutorials</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {tutorials.map((tutorial) => (
             <TutorialCard key={tutorial.href} {...tutorial} />
