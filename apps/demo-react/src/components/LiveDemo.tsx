@@ -102,7 +102,7 @@ export function LiveDemo({
         <div className="p-5 min-h-[200px]">
           <div className="flex items-center gap-2 mb-3">
             <span className="w-2 h-2 rounded-full bg-[var(--cc-success)] animate-pulse" />
-            <span className="cc-caption-mono text-[var(--cc-muted)] uppercase tracking-wider">Live Demo</span>
+            <span className="cc-caption-mono text-[var(--cc-muted)] tracking-wider">Live demo</span>
           </div>
           {children}
         </div>
@@ -110,7 +110,7 @@ export function LiveDemo({
         {/* Right: Code */}
         <div className="relative bg-[var(--cc-canvas-soft-2)] min-h-[200px]">
           <div className="flex items-center justify-between px-4 py-2 border-b border-[var(--cc-hairline)]">
-            <span className="cc-caption-mono text-[var(--cc-muted)] uppercase tracking-wider">Code</span>
+            <span className="cc-caption-mono text-[var(--cc-muted)] tracking-wider">Code</span>
             <button
               onClick={handleCopy}
               className="p-2 rounded-md hover:bg-[var(--cc-canvas-soft)] transition-colors text-[var(--cc-muted)] hover:text-[var(--cc-ink)] focus-ring"

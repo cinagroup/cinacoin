@@ -1,7 +1,10 @@
 /* ==========================================================================
    CinaCoin Telegram App — Global Styles
-   Design system: design-system/DESIGN.md
+   Design system: design-guidelines/DESIGN.md
    ========================================================================== */
+
+/* --- Import Design System Tokens --- */
+@import '@cinacoin/design-tokens/css/cinacoin.css';
 
 /* --- Font Faces --- */
 @font-face {

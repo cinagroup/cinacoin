@@ -209,14 +209,14 @@ async function handleDisconnect() {
   text-align: center;
 }
 .wallet-name { flex: 1; color: var(--cc-ink, #171717); font-weight: 500; }
-.wallet-type { color: var(--cc-muted, #888888); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.02em; }
+.wallet-type { color: var(--cc-muted, #888888); font-size: 0.75rem; letter-spacing: 0.02em; }
 .wallet-badge { padding: 0.125rem 0.5rem; border-radius: 100px; font-size: 0.7rem; font-weight: 500; }
 .badge-blue { background: var(--cc-success-bg, rgba(0, 112, 243, 0.1)); color: var(--cc-success, #0070f3); }
 .badge-gray { background: var(--cc-canvas-soft-2, #f5f5f5); color: var(--cc-muted, #888888); border: 1px solid var(--cc-hairline, #ebebeb); }
 .empty-state { color: var(--cc-muted, #888888); font-size: 0.875rem; }
 .state-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.75rem; }
 .state-item { display: flex; flex-direction: column; gap: 0.25rem; }
-.state-label { font-size: 0.75rem; color: var(--cc-muted, #888888); text-transform: uppercase; letter-spacing: 0.02em; }
+.state-label { font-size: 0.75rem; color: var(--cc-muted, #888888); letter-spacing: 0.02em; }
 .state-value { color: var(--cc-ink, #171717); font-size: 0.9rem; }
 .mono { font-family: var(--font-mono, 'Geist Mono'), monospace; }
 

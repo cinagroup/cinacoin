@@ -153,7 +153,7 @@ async function handleSwitchChain(chainId: number) {
 .badge-warning { background: var(--cc-warning-bg, rgba(245, 166, 35, 0.1)); color: var(--cc-warning, #f5a623); }
 .empty-state { color: var(--cc-muted, #888888); font-size: 0.875rem; }
 .switcher-area { margin-bottom: 1rem; }
-.sub-title { margin: 0.75rem 0 0.5rem; font-size: 0.875rem; font-weight: 600; color: var(--cc-body, #4d4d4d); text-transform: uppercase; letter-spacing: 0.02em; }
+.sub-title { margin: 0.75rem 0 0.5rem; font-size: 0.875rem; font-weight: 600; color: var(--cc-body, #4d4d4d); letter-spacing: 0.02em; }
 .chain-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.375rem; }
 .chain-items { list-style: none; padding: 0; margin: 0; }
 .chain-item {

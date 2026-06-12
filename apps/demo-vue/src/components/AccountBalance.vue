@@ -95,7 +95,7 @@ const formattedBalance = computed(() => {
 .btn-sm:disabled { opacity: 0.5; cursor: not-allowed; }
 .empty-state { color: var(--cc-muted, #64748b); font-style: italic; font-size: 0.875rem; }
 .ens-display { display: flex; align-items: baseline; gap: 0.5rem; margin-bottom: 0.5rem; }
-.ens-label { font-size: 0.75rem; color: var(--cc-muted, #64748b); min-width: 90px; text-transform: uppercase; letter-spacing: 0.05em; }
+.ens-label { font-size: 0.75rem; color: var(--cc-muted, #64748b); min-width: 90px; letter-spacing: 0.05em; }
 .ens-value { color: var(--cc-ink, #e2e8f0); font-size: 0.875rem; }
 .has-name { color: var(--cc-link, #38bdf8); font-weight: 500; }
 .mono { font-family: 'Geist Mono', 'SF Mono', 'Fira Code', monospace; }

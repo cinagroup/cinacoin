@@ -260,7 +260,7 @@ function ethersToWei(eth: number): string {
 }
 .result-box.success { border: 1px solid var(--cc-success, #0070f3); }
 .result-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; }
-.result-label { font-size: 0.75rem; color: var(--cc-muted, #888888); font-weight: 500; text-transform: uppercase; letter-spacing: 0.02em; }
+.result-label { font-size: 0.75rem; color: var(--cc-muted, #888888); font-weight: 500; letter-spacing: 0.02em; }
 .result-value { font-size: 0.75rem; color: var(--cc-success, #0070f3); word-break: break-all; line-height: 1.5; }
 .tx-status { font-size: 0.75rem; font-weight: 600; }
 .tx-actions { display: flex; gap: 0.5rem; margin-top: 0.5rem; }

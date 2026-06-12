@@ -32,7 +32,7 @@
   --cc-canvas-soft-2: #1e1e28;
   --cc-surface: rgba(255, 255, 255, 0.03);
   --cc-on-primary: #ffffff;
-  --cc-primary-cta: #171717;
+  --cc-primary-cta: var(--cc-ink, #171717);
 
   /* Accent colors */
   --cc-accent: #6366f1;
@@ -326,7 +326,6 @@ a:focus:not(:focus-visible) {
   font-size: var(--cc-text-xs);
   font-weight: var(--cc-weight-semibold);
   color: var(--cc-accent-soft);
-  text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: var(--cc-space-xs);
 }
@@ -357,7 +356,6 @@ a:focus:not(:focus-visible) {
   padding: 4px var(--cc-space-xs);
   border-radius: var(--cc-radius-pill);
   letter-spacing: 0.05em;
-  text-transform: uppercase;
 }
 
 .cc-badge--accent {
@@ -433,13 +431,12 @@ a:focus:not(:focus-visible) {
   animation: cc-fade-in 0.3s ease-out;
 }
 
-/* === Section category label (mono uppercase eyebrow) === */
+/* === Section category label (mono eyebrow) === */
 .cc-eyebrow {
   font-family: var(--cc-font-mono);
   font-size: var(--cc-text-xs);
   font-weight: var(--cc-weight-medium);
   color: var(--cc-muted);
-  text-transform: uppercase;
   letter-spacing: 0.05em;
   margin: 0 0 var(--cc-space-xs) 0;
 }
