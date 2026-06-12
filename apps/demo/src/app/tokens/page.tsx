@@ -175,21 +175,21 @@ function TokenDetailPanel({ token, onClose }: { token: TokenInfo; onClose: () =>
         {/* Stats grid */}
         <div className="grid grid-cols-2 gap-3">
           <div className="p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/30">
-            <p className="text-caption text-[var(--cc-body)] uppercase tracking-normal">Volume (24h)</p>
+            <p className="text-caption text-[var(--cc-body)] tracking-normal">Volume (24h)</p>
             <p className="text-body-sm font-semibold text-[var(--cc-body)] mt-1">{priceInfo.volume24h}</p>
           </div>
           <div className="p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/30">
-            <p className="text-caption text-[var(--cc-body)] uppercase tracking-normal">Market Cap</p>
+            <p className="text-caption text-[var(--cc-body)] tracking-normal">Market cap</p>
             <p className="text-body-sm font-semibold text-[var(--cc-body)] mt-1">{priceInfo.marketCap}</p>
           </div>
           <div className="p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/30">
-            <p className="text-caption text-[var(--cc-body)] uppercase tracking-normal">Address</p>
+            <p className="text-caption text-[var(--cc-body)] tracking-normal">Address</p>
             <p className="text-caption font-[var(--font-mono)] text-[var(--cc-body)] mt-1 truncate">
               {token.address === 'native' ? 'Native Token' : shortenAddress(token.address)}
             </p>
           </div>
           <div className="p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/30">
-            <p className="text-caption text-[var(--cc-body)] uppercase tracking-normal">Chain</p>
+            <p className="text-caption text-[var(--cc-body)] tracking-normal">Chain</p>
             <p className="text-body-sm font-semibold text-[var(--cc-body)] mt-1">
               {SUPPORTED_CHAINS.find((c) => c.chainId === token.chainId)?.name ?? `Chain ${token.chainId}`}
             </p>
@@ -198,7 +198,7 @@ function TokenDetailPanel({ token, onClose }: { token: TokenInfo; onClose: () =>
 
         {/* Mock price history */}
         <div className="p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/30">
-          <p className="text-caption text-[var(--cc-body)] uppercase tracking-normal mb-2">Price History</p>
+          <p className="text-caption text-[var(--cc-body)] tracking-normal mb-2">Price history</p>
           <div className="flex gap-1">
             {['1H', '24H', '7D', '30D', '1Y'].map((period) => (
               <button

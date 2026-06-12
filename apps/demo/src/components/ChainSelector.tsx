@@ -119,7 +119,7 @@ export default function ChainSelector({
         >
           {/* Dropdown header */}
           <div className="px-4 py-3 border-b border-[var(--cc-hairline-strong)]/50">
-            <p className="text-caption text-[var(--cc-body)] font-semibold uppercase tracking-normal">
+            <p className="text-caption text-[var(--cc-body)] font-semibold tracking-normal">
               Select Chain
             </p>
           </div>

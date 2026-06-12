@@ -66,7 +66,7 @@ function TokenSelector({
           <div className="fixed inset-0 z-10" onClick={() => setOpen(false)} />
           <div className="absolute z-20 top-full mt-2 left-0 w-64 bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline-strong)] rounded-md shadow-[var(--cc-level5)] overflow-hidden">
             <div className="p-2 border-b border-[var(--cc-hairline-strong)]">
-              <p className="text-caption text-[var(--cc-muted)] px-2 py-1 font-semibold uppercase tracking-normal">Select Token</p>
+              <p className="text-caption text-[var(--cc-muted)] px-2 py-1 font-semibold tracking-normal">Select token</p>
             </div>
             {tokens.map((t) => (
               <button
@@ -717,7 +717,7 @@ export default function SwapPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-body-sm">
                 <thead>
-                  <tr className="text-[var(--cc-body)] text-caption uppercase tracking-normal font-[var(--font-mono)]">
+                  <tr className="text-[var(--cc-body)] text-caption tracking-normal font-[var(--font-mono)]">
                     <th className="text-left px-5 py-3 font-semibold">Tx</th>
                     <th className="text-left px-5 py-3 font-semibold">From → To</th>
                     <th className="text-right px-5 py-3 font-semibold">Amount</th>

@@ -16,7 +16,7 @@ export function SimulatedBadge({ size = 'sm' }: { size?: 'xs' | 'sm' }) {
 
   return (
     <span
-      className={`inline-flex items-center gap-1 rounded ${cls} bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border border-[var(--cc-warning)]/25 font-semibold uppercase tracking-normal`}
+      className={`inline-flex items-center gap-1 rounded ${cls} bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border border-[var(--cc-warning)]/25 font-semibold tracking-normal`}
       title="Simulated value — not from a live API"
     >
       Simulated

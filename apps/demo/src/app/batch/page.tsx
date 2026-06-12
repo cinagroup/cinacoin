@@ -599,7 +599,7 @@ export default function BatchPage() {
             <div className="p-5 space-y-4">
               {capabilities.supportedChains.length > 0 ? (
                 <div>
-                  <p className="text-caption text-[var(--cc-muted)] uppercase tracking-normal mb-2">Supported Chains</p>
+                  <p className="text-caption text-[var(--cc-muted)] tracking-normal mb-2">Supported chains</p>
                   <div className="flex flex-wrap gap-2">
                     {capabilities.supportedChains.map((cid) => (
                       <span
@@ -702,7 +702,7 @@ export default function BatchPage() {
             {batchCalls.map((call, index) => (
               <div key={index} className="p-4 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/40 space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-caption font-semibold text-[var(--cc-muted)] uppercase tracking-normal">Call #{index + 1}</span>
+                  <span className="text-caption font-semibold text-[var(--cc-muted)] tracking-normal">Call #{index + 1}</span>
                   {batchCalls.length > 1 && (
                     <button
                       onClick={() => handleRemoveCall(index)}
@@ -867,7 +867,7 @@ export default function BatchPage() {
               {/* Sequential tx hashes */}
               {batchResult?.txHashes && batchResult.txHashes.length > 0 && (
                 <div className="space-y-2">
-                  <p className="text-caption text-[var(--cc-muted)] uppercase tracking-normal">Transaction Hashes</p>
+                  <p className="text-caption text-[var(--cc-muted)] tracking-normal">Transaction hashes</p>
                   {batchResult.txHashes.map((hash, i) => (
                     <div key={i} className="p-3 rounded-lg bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/40 font-[var(--font-mono)] text-caption text-[var(--cc-muted)]">
                       <span className="text-[var(--cc-body)]">#{i + 1}:</span> {hash}
@@ -912,7 +912,7 @@ export default function BatchPage() {
 
               {callsStatus.result?.receipts && callsStatus.result.receipts.length > 0 && (
                 <div className="space-y-2">
-                  <p className="text-caption text-[var(--cc-muted)] uppercase tracking-normal">Receipts</p>
+                  <p className="text-caption text-[var(--cc-muted)] tracking-normal">Receipts</p>
                   {callsStatus.result.receipts.map((r, i) => (
                     <div key={i} className="p-3 rounded-lg bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/40 space-y-1">
                       <div className="flex items-center gap-2">

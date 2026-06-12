@@ -840,7 +840,7 @@ const auth = await authenticatePasskey();`}</pre>
 
         {/* ── Supported Chains ── */}
         <section className="py-12 border-t border-[var(--cc-hairline)]/50 mb-16">
-          <p className="text-center text-body-sm text-[var(--cc-body)] mb-8 uppercase tracking-normal font-medium">
+          <p className="text-center text-body-sm text-[var(--cc-body)] mb-8 tracking-normal font-medium">
             Supported Chains
           </p>
           <div className="flex flex-wrap justify-center gap-4 sm:gap-6">

@@ -194,7 +194,7 @@ function ProviderCard({
           <span className="font-semibold tracking-tighter text-[var(--cc-ink)]">{quote.providerName}</span>
         </div>
         {quote.isBest && (
-          <span className="text-caption font-semibold uppercase tracking-normal px-2 py-1 rounded-full bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-[var(--cc-success)]/30">
+          <span className="text-caption font-semibold tracking-normal px-2 py-1 rounded-full bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-[var(--cc-success)]/30">
             Best Rate
           </span>
         )}

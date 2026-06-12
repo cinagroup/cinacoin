@@ -40,7 +40,7 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
           {Object.entries(footerLinks).map(([category, links]) => (
             <div key={category}>
-              <h4 className="text-caption font-medium text-[var(--cc-muted)] uppercase tracking-wider mb-4">
+              <h4 className="text-caption font-medium text-[var(--cc-muted)] tracking-wider mb-4">
                 {category}
               </h4>
               <ul className="space-y-3">
