@@ -94,30 +94,8 @@ const config: Config = {
       tagName: 'meta',
       attributes: { name: 'msapplication-TileColor', content: '#171717' },
     },
-    // ── Font loading optimized: preconnect + single combined request ──
-    {
-      tagName: 'link',
-      attributes: {
-        rel: 'preconnect',
-        href: 'https://fonts.googleapis.com',
-      },
-    },
-    {
-      tagName: 'link',
-      attributes: {
-        rel: 'preconnect',
-        href: 'https://fonts.gstatic.com',
-        crossorigin: 'anonymous',
-      },
-    },
-    // Single combined font request with display=swap for optimal loading
-    {
-      tagName: 'link',
-      attributes: {
-        rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap',
-      },
-    },
+    // ── Geist font loaded via @fontsource packages (see package.json) ──
+    // Fonts are imported in custom.css to ensure Geist is used per design system
     // DNS prefetch for GitHub (edit links, source code)
     {
       tagName: 'link',

@@ -52,13 +52,13 @@ export default function Home() {
             <Link
               href="/products"
               onClick={handleCTAClick}
-              className="inline-flex items-center justify-center px-8 py-3 bg-[var(--cc-ink)] hover:opacity-90 text-[var(--cc-canvas)] rounded-[var(--cc-radius-sm)] font-medium text-body-sm transition-colors duration-150 h-10"
+              className="inline-flex items-center justify-center px-8 py-3 bg-[var(--cc-ink)] hover:opacity-90 text-[var(--cc-canvas)] rounded-[var(--cc-radius-pill)] font-medium text-body-sm transition-colors duration-150 h-10"
             >
               {ctaText}
             </Link>
             <Link
               href="/about"
-              className="inline-flex items-center justify-center px-8 py-3 border border-[var(--cc-hairline)] hover:border-[var(--cc-hairline-strong)] rounded-[var(--cc-radius-sm)] font-medium text-body-sm transition-colors duration-150 text-[var(--cc-ink)] bg-[var(--cc-canvas)] h-10"
+              className="inline-flex items-center justify-center px-8 py-3 border border-[var(--cc-hairline)] hover:border-[var(--cc-hairline-strong)] rounded-[var(--cc-radius-pill)] font-medium text-body-sm transition-colors duration-150 text-[var(--cc-ink)] bg-[var(--cc-canvas)] h-10"
             >
               {t('home-hero-secondary')}
             </Link>
@@ -353,13 +353,13 @@ const tx = await cc.transfer({
           <div className="flex gap-4 justify-center flex-wrap">
             <Link
               href="/products"
-              className="inline-flex items-center justify-center px-8 py-3 bg-[var(--cc-ink)] hover:opacity-90 text-[var(--cc-canvas)] rounded-[var(--cc-radius-sm)] font-medium text-body-sm transition-colors duration-150 h-10"
+              className="inline-flex items-center justify-center px-8 py-3 bg-[var(--cc-ink)] hover:opacity-90 text-[var(--cc-canvas)] rounded-[var(--cc-radius-pill)] font-medium text-body-sm transition-colors duration-150 h-10"
             >
               {t('home-cta-primary')}
             </Link>
             <Link
               href="/developers"
-              className="inline-flex items-center justify-center px-8 py-3 border border-[var(--cc-hairline)] hover:border-[var(--cc-hairline-strong)] rounded-[var(--cc-radius-sm)] font-medium text-body-sm transition-colors duration-150 text-[var(--cc-ink)] bg-[var(--cc-canvas)] h-10"
+              className="inline-flex items-center justify-center px-8 py-3 border border-[var(--cc-hairline)] hover:border-[var(--cc-hairline-strong)] rounded-[var(--cc-radius-pill)] font-medium text-body-sm transition-colors duration-150 text-[var(--cc-ink)] bg-[var(--cc-canvas)] h-10"
             >
               {t('home-cta-secondary')}
             </Link>

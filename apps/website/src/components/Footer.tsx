@@ -62,7 +62,7 @@ export default function Footer() {
         {/* Newsletter in Footer */}
         <div className="mb-12 pb-12 border-b border-[var(--cc-hairline)]">
           <div className="max-w-md mx-auto text-center">
-            <h4 className="text-body-sm font-semibold text-[var(--cc-ink)] mb-2">Stay Updated</h4>
+            <h4 className="text-body-sm font-semibold text-[var(--cc-ink)] mb-2">Stay updated.</h4>
             <p className="text-caption text-[var(--cc-muted)] mb-4">Get the latest news and updates</p>
             <NewsletterForm source="footer" />
           </div>

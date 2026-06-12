@@ -4,6 +4,41 @@
  */
 
 /* ──────────────────────────────────────────────
+   Geist Font Loading
+   ────────────────────────────────────────────── */
+@font-face {
+  font-family: 'Geist';
+  src: url('/docs/fonts/Geist-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist';
+  src: url('/docs/fonts/Geist-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist';
+  src: url('/docs/fonts/Geist-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('/docs/fonts/GeistMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ──────────────────────────────────────────────
    Light Theme (default)
    ────────────────────────────────────────────── */
 :root {
@@ -65,7 +100,7 @@
 
   /* ── Typography ── */
   --ifm-font-family-base: 'Geist', 'Inter', system-ui, -apple-system, sans-serif;
-  --ifm-font-family-monospace: 'Geist Mono', 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  --ifm-font-family-monospace: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
   --ifm-heading-font-family: var(--ifm-font-family-base);
 
   --ifm-heading-font-weight: var(--weight-semibold);
@@ -229,24 +264,14 @@
    Performance Optimizations
    ────────────────────────────────────────────── */
 
-/* Font display strategy */
+/* Font display strategy — Geist loaded via local woff2 files */
 @font-face {
   font-family: 'Geist';
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Inter';
-  font-display: swap;
-}
-
-@font-face {
   font-family: 'Geist Mono';
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'JetBrains Mono';
   font-display: swap;
 }
 
@@ -608,7 +633,7 @@ html[data-theme='dark'] .markdown a:hover {
   background-color: var(--cc-canvas-soft-2);
   border: 1px solid var(--cc-hairline);
   border-radius: 6px;
-  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
   font-size: var(--text-body-sm);
   line-height: 1.5;
   color: var(--cc-ink);
@@ -625,7 +650,7 @@ html[data-theme='dark'] .markdown code {
    Code blocks
    ────────────────────────────────────────────── */
 .prism-code {
-  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace !important;
+  font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace !important;
   font-size: var(--text-body-sm) !important;
   line-height: 1.6 !important;
   border-radius: 8px !important;
@@ -727,7 +752,7 @@ html[data-theme='dark'] .pagination-nav__link:hover {
 
 .pagination-nav__sublabel {
   font-size: var(--text-caption);
-  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
   color: var(--cc-muted);
   margin-bottom: 4px;
 }
