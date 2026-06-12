@@ -17,19 +17,19 @@ export default function GlobalRootError({
           minHeight: "100vh",
           fontFamily: "Geist, Inter, system-ui, -apple-system, sans-serif",
           padding: "2rem",
-          background: "#fafafa",
-          color: "#171717",
+          background: "var(--cc-canvas-soft)",
+          color: "var(--cc-ink)",
         }}
       >
         <div
           style={{
-            border: "1px solid #ebebeb",
+            border: "1px solid var(--cc-hairline)",
             borderRadius: "12px",
             padding: "2rem",
             maxWidth: "28rem",
             textAlign: "center",
             background: "#ffffff",
-            boxShadow: "0px 1px 1px #17171705, 0px 2px 2px #1717170a, 0 0 0 1px #17171714 inset",
+            boxShadow: "0px 1px 1px rgba(0,0,0,0.02), 0px 2px 2px rgba(0,0,0,0.04), inset 0 0 0 1px var(--cc-hairline)",
           }}
         >
           <div style={{ fontSize: "2rem", marginBottom: "1rem" }}>⚠️</div>
@@ -46,7 +46,7 @@ export default function GlobalRootError({
           </h1>
           <p
             style={{
-              color: "#4d4d4d",
+              color: "var(--cc-body)",
               fontSize: "14px",
               lineHeight: "20px",
               letterSpacing: "-0.28px",
@@ -59,7 +59,7 @@ export default function GlobalRootError({
             onClick={reset}
             style={{
               padding: "0.5rem 1rem",
-              background: "#171717",
+              background: "var(--cc-primary)",
               color: "white",
               border: "none",
               borderRadius: "100px",

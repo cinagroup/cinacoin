@@ -71,7 +71,7 @@ function VolumeChart({ data }: { data: TransactionData[] }) {
         const value = (maxVolume * pct) / 1000000;
         return (
           <g key={pct}>
-            <line x1={padding.left} y1={y} x2={width - padding.right} y2={y} stroke="#ebebeb" strokeDasharray="3 3" />
+            <line x1={padding.left} y1={y} x2={width - padding.right} y2={y} stroke="var(--cc-hairline)" strokeDasharray="3 3" />
             <text x={padding.left - 8} y={y + 4} textAnchor="end" className="fill-ink-mute" style={{ fontSize: "var(--cc-text-xs)" }}>
               {'$'}{value.toFixed(1)}M
             </text>
