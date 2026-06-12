@@ -2,7 +2,7 @@
   <header class="app-header" role="banner">
     <div class="header-content">
       <div class="brand">
-        <span class="logo" aria-hidden="true">🔢</span>
+        <span class="brand-mark" aria-hidden="true">000</span>
         <div>
           <h1 class="title">CinaCoin.</h1>
           <p class="subtitle">Vue SDK demo.</p>
@@ -37,7 +37,7 @@ const statusDotClass = computed(() => {
   const classes: Record<string, string> = {
     disconnected: 'dot-gray',
     connecting: 'dot-yellow',
-    connected: 'dot-green',
+    connected: 'dot-blue',
     error: 'dot-red',
   }
   return classes[status.value] ?? 'dot-gray'
@@ -46,8 +46,8 @@ const statusDotClass = computed(() => {
 
 <style scoped>
 .app-header {
-  background: linear-gradient(135deg, var(--cc-canvas-soft-2) 0%, var(--cc-canvas) 100%);
-  border-bottom: 1px solid var(--cc-hairline, #334155);
+  background: var(--cc-canvas, #ffffff);
+  border-bottom: 1px solid var(--cc-hairline, #ebebeb);
   padding: 0.75rem 1.5rem;
   position: sticky;
   top: 0;
@@ -68,34 +68,43 @@ const statusDotClass = computed(() => {
   gap: 0.75rem;
 }
 
-.logo {
-  font-size: 2rem;
+.brand-mark {
+  font-family: var(--font-mono, 'Geist Mono'), monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--cc-muted, #888888);
+  letter-spacing: 0.05em;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--cc-hairline, #ebebeb);
+  border-radius: 4px;
 }
 
 .title {
   margin: 0;
   font-size: 1.25rem;
   font-weight: 600;
-  color: var(--cc-ink, #f1f5f9);
+  color: var(--cc-ink, #171717);
   line-height: 1.2;
+  letter-spacing: -0.5px;
 }
 
 .subtitle {
   margin: 0;
   font-size: 0.75rem;
-  color: var(--cc-body, #94a3b8);
-  letter-spacing: 0.05em;
+  color: var(--cc-muted, #888888);
+  letter-spacing: 0.02em;
 }
 
 .status-area {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--cc-canvas-soft-2, #f5f5f5);
   padding: 0.375rem 0.75rem;
-  border-radius: 9999px;
+  border-radius: 100px;
   font-size: 0.875rem;
-  color: var(--cc-body, #cbd5e1);
+  color: var(--cc-body, #4d4d4d);
+  border: 1px solid var(--cc-hairline, #ebebeb);
 }
 
 .status-dot {
@@ -105,10 +114,10 @@ const statusDotClass = computed(() => {
   display: inline-block;
 }
 
-.dot-gray { background: var(--cc-muted, #64748b); }
-.dot-yellow { background: var(--cc-warning, #eab308); animation: pulse 1.5s infinite; }
-.dot-green { background: var(--cc-success, #22c55e); }
-.dot-red { background: var(--cc-error, #ef4444); }
+.dot-gray { background: var(--cc-muted, #888888); }
+.dot-yellow { background: var(--cc-warning, #f5a623); animation: pulse 1.5s infinite; }
+.dot-blue { background: var(--cc-success, #0070f3); }
+.dot-red { background: var(--cc-error, #ee0000); }
 
 @keyframes pulse {
   0%, 100% { opacity: 1; }

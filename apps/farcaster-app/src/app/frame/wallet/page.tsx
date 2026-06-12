@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     buttons: [
       { label: 'View Balance', action: 'post' },
       { label: 'Transfer', action: 'post' },
-      { label: '✍️ Sign Message', action: 'post' },
+      { label: 'Sign Message', action: 'post' },
       { label: 'Home', action: 'post' },
     ],
     postUrl: `${getAppUrl()}/frame/wallet/`,

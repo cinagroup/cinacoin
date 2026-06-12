@@ -80,25 +80,26 @@ export default function Sidebar({ isOpen }: SidebarProps) {
 
   return (
     <aside
-      className={`bg-canvas border-r border-hairline transition-all duration-300 flex flex-col ${
+      className={`bg-[var(--cc-canvas)] border-r border-[var(--cc-hairline)] transition-all duration-300 flex flex-col ${
         isOpen ? "w-64" : "w-0 overflow-hidden"
       }`}
+      aria-label="Cloud navigation"
     >
       {/* Logo */}
-      <div className="h-14 flex items-center px-4 border-b border-hairline">
+      <div className="h-14 flex items-center px-4 border-b border-[var(--cc-hairline)]">
         <Link href="/" className="flex items-center">
-          <div className="w-8 h-8 bg-primary rounded-sm flex items-center justify-center">
-            <Cloud className="w-5 h-5 text-on-primary" />
+          <div className="w-8 h-8 bg-[var(--cc-primary)] rounded-[var(--cc-radius-sm)] flex items-center justify-center">
+            <Cloud className="w-5 h-5 text-[var(--cc-on-primary)]" />
           </div>
-          <span className="ml-3 font-semibold text-ink">CinaCoin Cloud</span>
+          <span className="ml-3 font-semibold text-[var(--cc-ink)]">CinaCoin Cloud</span>
         </Link>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 overflow-y-auto py-4">
+      <nav className="flex-1 overflow-y-auto py-4" aria-label="Main navigation">
         {menuItems.map((category) => (
           <div key={category.category} className="mb-4">
-            <h3 className="px-4 text-caption font-medium text-mute uppercase tracking-wider mb-2">
+            <h3 className="px-4 cc-caption-mono text-[var(--cc-muted)] uppercase tracking-wider mb-2">
               {category.category}
             </h3>
             <ul>
@@ -106,14 +107,15 @@ export default function Sidebar({ isOpen }: SidebarProps) {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className={`flex items-center px-4 py-2 text-body-sm transition-colors duration-fast rounded-sm mx-2 ${
+                    className={`flex items-center px-4 py-2 text-[var(--text-body-sm)] transition-colors rounded-[var(--cc-radius-sm)] mx-2 ${
                       isActive(item.href)
-                        ? "bg-canvas-soft-2 text-ink font-medium"
-                        : "text-body hover:bg-canvas-soft-2 hover:text-ink"
+                        ? "bg-[var(--cc-canvas-soft-2)] text-[var(--cc-ink)] font-medium"
+                        : "text-[var(--cc-body)] hover:bg-[var(--cc-canvas-soft-2)] hover:text-[var(--cc-ink)]"
                     }`}
+                    aria-current={isActive(item.href) ? 'page' : undefined}
                   >
                     <span className="mr-3 flex items-center">
-                      <item.icon className="w-4 h-4 text-body" />
+                      <item.icon className="w-4 h-4 text-[var(--cc-body)]" />
                     </span>
                     <span className="flex-1">{item.name}</span>
                   </Link>
@@ -125,14 +127,14 @@ export default function Sidebar({ isOpen }: SidebarProps) {
       </nav>
 
       {/* Footer */}
-      <div className="p-4 border-t border-hairline">
-        <Link href="/settings" className="flex items-center gap-3 hover:bg-canvas-soft-2 rounded-sm p-2 -m-2 transition-colors">
-          <div className="w-8 h-8 bg-canvas-soft-2 rounded-full flex items-center justify-center">
-            <span className="text-caption font-medium text-ink">AD</span>
+      <div className="p-4 border-t border-[var(--cc-hairline)]">
+        <Link href="/settings" className="flex items-center gap-3 hover:bg-[var(--cc-canvas-soft-2)] rounded-[var(--cc-radius-sm)] p-2 -m-2 transition-colors">
+          <div className="w-8 h-8 bg-[var(--cc-canvas-soft-2)] rounded-full flex items-center justify-center">
+            <span className="text-[var(--text-caption)] font-medium text-[var(--cc-ink)]">AD</span>
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-body-sm font-medium text-ink truncate">Admin</p>
-            <p className="text-caption text-mute truncate">admin@cinacoin.com</p>
+            <p className="text-[var(--text-body-sm)] font-medium text-[var(--cc-ink)] truncate">Admin</p>
+            <p className="text-[var(--text-caption)] text-[var(--cc-muted)] truncate">admin@cinacoin.com</p>
           </div>
         </Link>
       </div>

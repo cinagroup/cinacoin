@@ -56,7 +56,7 @@ export default function ReceivePage() {
           </div>
         </div>
 
-        <p className="text-caption text-mute mb-3">Your Wallet Address</p>
+        <p className="text-caption text-mute mb-3">Your wallet address.</p>
         <div className="flex items-center justify-center gap-3">
           <code className="rounded-lg bg-canvas-soft-2 px-4 py-3 text-body font-[var(--font-mono)] text-ink break-all">
             {address}
@@ -68,7 +68,7 @@ export default function ReceivePage() {
           className="cc-btn-primary mt-6"
           aria-label={copied ? 'Address copied' : 'Copy address to clipboard'}
         >
-          {copied ? '✓ Copied!' : 'Copy Address'}
+          {copied ? 'Copied.' : 'Copy address.'}
         </button>
 
         <p className="mt-6 text-body-sm text-mute">

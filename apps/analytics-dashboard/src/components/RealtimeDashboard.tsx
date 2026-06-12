@@ -114,13 +114,13 @@ export default function RealtimeDashboard() {
       {/* KPI Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-lg">
         <div className="cc-card p-lg" role="region" aria-label="Active users metric">
-          <p className="text-body-sm text-[var(--cc-muted)] mb-xs">Active Users</p>
+          <p className="text-body-sm text-[var(--cc-muted)] mb-xs">Active users.</p>
           <p className="text-display-lg text-[var(--cc-ink)] text-code tabular-nums">
             {formatNumber(data.activeUsers)}
           </p>
         </div>
         <div className="cc-card p-lg" role="region" aria-label="Transactions per second metric">
-          <p className="text-body-sm text-[var(--cc-muted)] mb-xs">Transactions Per Second</p>
+          <p className="text-body-sm text-[var(--cc-muted)] mb-xs">Transactions per second.</p>
           <p className="text-display-lg text-[var(--cc-ink)] text-code tabular-nums">{data.tps}</p>
         </div>
       </div>

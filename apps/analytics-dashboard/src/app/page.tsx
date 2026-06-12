@@ -22,28 +22,28 @@ const RegionDistribution = dynamic(() => import("@/components/RegionDistribution
 
 const kpiDataByRange: Record<string, Array<{ title: string; value: string; change: string; trend: "up" | "down" }>> = {
   "24h": [
-    { title: "Total Users", value: "128,456", change: "+2.1%", trend: "up" },
-    { title: "API Calls (24h)", value: "2.4M", change: "+8.3%", trend: "up" },
-    { title: "Avg Response Time", value: "45ms", change: "-15.2%", trend: "down" },
-    { title: "Active Sessions", value: "8,932", change: "+3.7%", trend: "up" },
+    { title: "Total users.", value: "128,456", change: "+2.1%", trend: "up" },
+    { title: "API calls (24h).", value: "2.4M", change: "+8.3%", trend: "up" },
+    { title: "Avg response time.", value: "45ms", change: "-15.2%", trend: "down" },
+    { title: "Active sessions.", value: "8,932", change: "+3.7%", trend: "up" },
   ],
   "7d": [
-    { title: "Total Users", value: "128,456", change: "+12.5%", trend: "up" },
-    { title: "API Calls (7d)", value: "16.8M", change: "+15.2%", trend: "up" },
-    { title: "Avg Response Time", value: "48ms", change: "-12.8%", trend: "down" },
-    { title: "Active Sessions", value: "9,245", change: "+8.9%", trend: "up" },
+    { title: "Total users.", value: "128,456", change: "+12.5%", trend: "up" },
+    { title: "API calls (7d).", value: "16.8M", change: "+15.2%", trend: "up" },
+    { title: "Avg response time.", value: "48ms", change: "-12.8%", trend: "down" },
+    { title: "Active sessions.", value: "9,245", change: "+8.9%", trend: "up" },
   ],
   "30d": [
-    { title: "Total Users", value: "128,456", change: "+28.3%", trend: "up" },
-    { title: "API Calls (30d)", value: "72.1M", change: "+22.7%", trend: "up" },
-    { title: "Avg Response Time", value: "52ms", change: "-8.4%", trend: "down" },
-    { title: "Active Sessions", value: "10,128", change: "+18.2%", trend: "up" },
+    { title: "Total users.", value: "128,456", change: "+28.3%", trend: "up" },
+    { title: "API calls (30d).", value: "72.1M", change: "+22.7%", trend: "up" },
+    { title: "Avg response time.", value: "52ms", change: "-8.4%", trend: "down" },
+    { title: "Active sessions.", value: "10,128", change: "+18.2%", trend: "up" },
   ],
   "90d": [
-    { title: "Total Users", value: "128,456", change: "+45.7%", trend: "up" },
-    { title: "API Calls (90d)", value: "215.3M", change: "+38.9%", trend: "up" },
-    { title: "Avg Response Time", value: "58ms", change: "-5.2%", trend: "down" },
-    { title: "Active Sessions", value: "11,892", change: "+32.4%", trend: "up" },
+    { title: "Total users.", value: "128,456", change: "+45.7%", trend: "up" },
+    { title: "API calls (90d).", value: "215.3M", change: "+38.9%", trend: "up" },
+    { title: "Avg response time.", value: "58ms", change: "-5.2%", trend: "down" },
+    { title: "Active sessions.", value: "11,892", change: "+32.4%", trend: "up" },
   ],
 };
 

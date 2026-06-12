@@ -37,28 +37,28 @@ export default function SettingsPage() {
         {connected ? (
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-body-sm text-mute">Status</span>
+              <span className="text-body-sm text-mute">Status.</span>
               <span className="badge badge-success">Connected</span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-body-sm text-mute">Address</span>
+              <span className="text-body-sm text-mute">Address.</span>
               <code className="text-caption-mono text-ink" title={address || ''}>
                 {address ? `${address.slice(0, 10)}...${address.slice(-6)}` : ''}
               </code>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-body-sm text-mute">Network</span>
+              <span className="text-body-sm text-mute">Network.</span>
               <span className="text-body-sm text-ink capitalize">{chain}</span>
             </div>
             <button onClick={disconnect} className="cc-btn-secondary mt-2">
-              Disconnect Wallet
+              Disconnect wallet.
             </button>
           </div>
         ) : (
           <div className="text-center py-4">
             <p className="text-body-sm text-mute mb-3">No wallet connected.</p>
             <button onClick={connect} className="cc-btn-primary">
-              Connect Wallet
+              Connect wallet.
             </button>
           </div>
         )}
@@ -69,7 +69,7 @@ export default function SettingsPage() {
         <h2 className="text-heading-3 text-ink mb-4">Preferences.</h2>
         <div className="space-y-5">
           <div>
-            <label htmlFor="currency" className="block text-caption text-mute mb-2">Display Currency</label>
+            <label htmlFor="currency" className="block text-caption text-mute mb-2">Display currency.</label>
             <select
               id="currency"
               value={currency}
@@ -85,7 +85,7 @@ export default function SettingsPage() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-body-sm text-ink">Notifications</p>
-              <p className="text-caption text-mute">Receive alerts for incoming transactions</p>
+              <p className="text-caption text-mute">Receive alerts for incoming transactions.</p>
             </div>
             <button
               onClick={() => setNotifications(!notifications)}
@@ -111,25 +111,25 @@ export default function SettingsPage() {
         <h2 className="text-heading-3 text-ink mb-4">Actions.</h2>
         <div className="space-y-3">
           <button className="cc-btn-secondary w-full justify-start">
-            Export Transaction History
+            Export transaction history.
           </button>
           <button className="cc-btn-secondary w-full justify-start">
-            View Recovery Phrase
+            View recovery phrase.
           </button>
           <button className="cc-btn-secondary w-full justify-start" style={{ color: 'var(--color-error)' }}>
-            Reset Wallet
+            Reset wallet.
           </button>
         </div>
       </div>
 
       {saved && (
         <div className="rounded-lg bg-success-light p-4 text-body-sm text-center" role="alert" style={{ color: 'var(--color-success)' }}>
-          ✓ Settings saved successfully
+          ✓ Settings saved successfully.
         </div>
       )}
 
       <button onClick={handleSave} className="cc-btn-primary w-full py-3">
-        Save Settings
+        Save settings.
       </button>
     </div>
   );

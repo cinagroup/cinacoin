@@ -26,43 +26,44 @@ const navItems: NavItem[] = [
 
 export function Sidebar({ activeTab = "users", onTabChange = () => {}, onClose }: SidebarProps) {
   return (
-    <aside className="fixed left-0 top-0 h-full w-60 bg-[var(--cc-canvas)] border-r border-[var(--cc-hairline)] flex flex-col">
+    <aside className="fixed left-0 top-0 h-full w-60 bg-[var(--cc-canvas)] border-r border-[var(--cc-hairline)] flex flex-col" aria-label="CinaCoin backend navigation">
       <div className="p-6 border-b border-[var(--cc-hairline)]">
-        <h2 className="text-[var(--text-display-sm)] font-semibold text-[var(--cc-ink)] flex items-center gap-2">
-          <span className="font-mono text-[var(--cc-muted)] text-xs">CC</span>
+        <h2 className="cc-display-sm text-[var(--cc-ink)] flex items-center gap-2">
+          <span className="cc-caption-mono text-[var(--cc-muted)]">CC</span>
           CinaCoin
         </h2>
-        <p className="text-[var(--text-caption)] text-[var(--cc-muted)] mt-1 font-mono">BACKEND ADMIN</p>
+        <p className="cc-caption-mono text-[var(--cc-muted)] mt-1 uppercase tracking-wider">Backend admin.</p>
       </div>
 
-      <nav className="flex-1 p-4 space-y-1">
+      <nav className="flex-1 p-4 space-y-1" aria-label="Main navigation">
         {navItems.map((item) => {
           const Icon = item.icon;
           return (
             <button
               key={item.id}
               onClick={() => onTabChange(item.id)}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-[var(--cc-radius-sm)] text-[var(--text-body-sm)] font-medium transition-colors ${
+              aria-current={activeTab === item.id ? 'page' : undefined}
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-[var(--cc-radius-sm)] cc-body-sm font-medium transition-colors ${
                 activeTab === item.id
                   ? "bg-[var(--cc-canvas-soft-2)] text-[var(--cc-ink)]"
                   : "text-[var(--cc-body)] hover:bg-[var(--cc-canvas-soft-2)] hover:text-[var(--cc-ink)]"
               }`}
             >
-              <Icon className="w-4 h-4" />
+              <Icon className="w-4 h-4" aria-hidden="true" />
               {item.name}
             </button>
           );
         })}
       </nav>
 
-      <div className="p-4 border-t border-[var(--cc-hairline)]">
+      <div className="p-4 border-t border-[var(--cc-hairline)]" aria-label="User menu">
         <div className="flex items-center gap-3 px-4 py-2">
-          <div className="w-8 h-8 rounded-full bg-[var(--cc-canvas-soft-2)] flex items-center justify-center text-[var(--text-body-sm)] font-medium text-[var(--cc-ink)]">
+          <div className="w-8 h-8 rounded-full bg-[var(--cc-canvas-soft-2)] flex items-center justify-center cc-body-sm font-medium text-[var(--cc-ink)]">
             S
           </div>
-          <div>
-            <p className="text-[var(--text-body-sm)] font-medium text-[var(--cc-ink)]">Super Admin</p>
-            <p className="text-[var(--text-caption)] text-[var(--cc-muted)]">root@cinacoin.com</p>
+          <div className="min-w-0">
+            <p className="cc-body-sm-strong text-[var(--cc-ink)] truncate">Super Admin</p>
+            <p className="cc-caption text-[var(--cc-muted)] truncate">root@cinacoin.com</p>
           </div>
         </div>
       </div>

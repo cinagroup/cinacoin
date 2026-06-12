@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     title: 'Sign Message',
     input: 'Enter message to sign...',
     buttons: [
-      { label: '✍️ Sign', action: 'post' },
+      { label: 'Sign', action: 'post' },
       { label: 'Template', action: 'post' },
       { label: 'Back', action: 'post' },
     ],

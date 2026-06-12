@@ -39,7 +39,7 @@ export default function TokensPage() {
         <div className="border-b border-hairline p-5">
           <div className="flex items-center justify-between">
             <h2 className="text-heading-3 text-ink">Your tokens.</h2>
-            <span className="text-body-sm text-mute">{mockTokens.length} tokens</span>
+            <span className="text-body-sm text-mute">{mockTokens.length} tokens.</span>
           </div>
         </div>
 

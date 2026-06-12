@@ -67,61 +67,61 @@ const resources = [
 
 export default function ResourceTable() {
   return (
-    <div className="bg-canvas rounded-md shadow-level-2 overflow-hidden">
-      <div className="px-6 py-4 border-b border-hairline flex items-center justify-between">
-        <h2 className="text-heading-3 text-ink">Resources.</h2>
-        <button className="cc-btn-primary px-3 py-2 text-body-sm rounded-sm transition-colors duration-fast">
+    <div className="bg-[var(--cc-canvas)] rounded-[var(--cc-radius-md)] shadow-[var(--cc-level2)] overflow-hidden">
+      <div className="px-6 py-4 border-b border-[var(--cc-hairline)] flex items-center justify-between">
+        <h2 className="cc-body-md-strong text-[var(--cc-ink)]">Resources.</h2>
+        <button className="cc-btn-primary">
           + Create resource
         </button>
       </div>
       <div className="overflow-x-auto">
         <table className="w-full">
-          <thead className="bg-canvas-soft">
+          <thead className="bg-[var(--cc-canvas-soft)]">
             <tr>
-              <th className="px-6 py-3 text-left text-caption font-medium text-mute uppercase tracking-wider">
+              <th className="px-6 py-3 text-left cc-caption-mono text-[var(--cc-muted)] uppercase tracking-wider">
                 Name
               </th>
-              <th className="px-6 py-3 text-left text-caption font-medium text-mute uppercase tracking-wider">
+              <th className="px-6 py-3 text-left cc-caption-mono text-[var(--cc-muted)] uppercase tracking-wider">
                 Type
               </th>
-              <th className="px-6 py-3 text-left text-caption font-medium text-mute uppercase tracking-wider">
+              <th className="px-6 py-3 text-left cc-caption-mono text-[var(--cc-muted)] uppercase tracking-wider">
                 Region
               </th>
-              <th className="px-6 py-3 text-left text-caption font-medium text-mute uppercase tracking-wider">
+              <th className="px-6 py-3 text-left cc-caption-mono text-[var(--cc-muted)] uppercase tracking-wider">
                 Status
               </th>
-              <th className="px-6 py-3 text-left text-caption font-medium text-mute uppercase tracking-wider">
+              <th className="px-6 py-3 text-left cc-caption-mono text-[var(--cc-muted)] uppercase tracking-wider">
                 Specs
               </th>
-              <th className="px-6 py-3 text-left text-caption font-medium text-mute uppercase tracking-wider">
+              <th className="px-6 py-3 text-left cc-caption-mono text-[var(--cc-muted)] uppercase tracking-wider">
                 Cost
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-hairline">
+          <tbody className="divide-y divide-[var(--cc-hairline)]">
             {resources.length === 0 ? (
               <tr>
                 <td colSpan={6} className="px-6 py-12 text-center">
                   <div className="flex flex-col items-center justify-center">
-                    <Monitor className="w-8 h-8 text-mute mb-4" />
-                    <h3 className="text-heading-3 text-ink mb-1">No resources.</h3>
-                    <p className="text-body-sm text-body max-w-sm">Create your first cloud resource to get started.</p>
+                    <Monitor className="w-8 h-8 text-[var(--cc-muted)] mb-4" />
+                    <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-1">No resources.</h3>
+                    <p className="cc-body-sm text-[var(--cc-body)] max-w-sm">Create your first cloud resource to get started.</p>
                   </div>
                 </td>
               </tr>
             ) : resources.map((resource) => (
-              <tr key={resource.id} className="hover:bg-canvas-soft transition-colors duration-fast">
+              <tr key={resource.id} className="hover:bg-[var(--cc-canvas-soft)] transition-colors">
                 <td className="px-6 py-4">
                   <div>
-                    <p className="text-body-sm font-medium text-ink">{resource.name}</p>
-                    <p className="text-caption font-[var(--font-mono)] text-mute">{resource.id}</p>
+                    <p className="cc-body-sm-strong text-[var(--cc-ink)]">{resource.name}</p>
+                    <p className="cc-caption font-[var(--font-mono)] text-[var(--cc-muted)]">{resource.id}</p>
                   </div>
                 </td>
-                <td className="px-6 py-4 text-body-sm text-body">{resource.type}</td>
-                <td className="px-6 py-4 text-body-sm text-body">{resource.region}</td>
+                <td className="px-6 py-4 cc-body-sm text-[var(--cc-body)]">{resource.type}</td>
+                <td className="px-6 py-4 cc-body-sm text-[var(--cc-body)]">{resource.region}</td>
                 <td className="px-6 py-4">
                   <span
-                    className={`inline-flex items-center px-2 py-1 rounded-pill text-caption font-medium ${
+                    className={`inline-flex items-center px-2 py-1 rounded-[var(--cc-radius-pill)] cc-caption font-medium ${
                       resource.status === "running" || resource.status === "active"
                         ? "badge-success"
                         : resource.status === "stopped"
@@ -132,10 +132,10 @@ export default function ResourceTable() {
                     {resource.status}
                   </span>
                 </td>
-                <td className="px-6 py-4 text-body-sm text-body">
+                <td className="px-6 py-4 cc-body-sm text-[var(--cc-body)]">
                   {resource.cpu !== "-" ? `${resource.cpu} / ${resource.memory}` : resource.memory}
                 </td>
-                <td className="px-6 py-4 text-body-sm font-medium text-ink">{resource.cost}</td>
+                <td className="px-6 py-4 cc-body-sm-strong text-[var(--cc-ink)]">{resource.cost}</td>
               </tr>
             ))}
           </tbody>

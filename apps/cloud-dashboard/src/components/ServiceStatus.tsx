@@ -6,7 +6,7 @@ const services = [
   { name: "Compute Engine", status: "operational", uptime: "99.99%", icon: Monitor },
   { name: "Object Storage", status: "operational", uptime: "99.98%", icon: HardDrive },
   { name: "Load Balancer", status: "operational", uptime: "99.97%", icon: Scale },
-  { name: "Database Service", status: "degraded", uptime: "99.85%", icon: Database },
+  { name: "Database service.", status: "degraded", uptime: "99.85%", icon: Database },
   { name: "CDN", status: "operational", uptime: "99.99%", icon: Rocket },
   { name: "DNS", status: "operational", uptime: "100%", icon: Globe },
 ];
@@ -20,9 +20,11 @@ export default function ServiceStatus() {
           <div
             key={service.name}
             className="resource-card"
+            role="status"
+            aria-label={`${service.name}: ${service.status}`}
           >
             <div className="flex items-center justify-between mb-2">
-              <Icon className="w-5 h-5 text-ink" />
+              <Icon className="w-5 h-5 text-[var(--cc-ink)]" aria-hidden="true" />
               <span
                 className={`status-dot ${
                   service.status === "operational"
@@ -31,10 +33,11 @@ export default function ServiceStatus() {
                     ? "status-warning"
                     : "status-error"
                 }`}
+                aria-hidden="true"
               />
             </div>
-            <h3 className="text-body-sm font-medium text-ink truncate">{service.name}</h3>
-            <p className="text-caption text-mute mt-1">Uptime: {service.uptime}</p>
+            <h3 className="cc-body-sm-strong text-[var(--cc-ink)] truncate">{service.name}</h3>
+            <p className="cc-caption text-[var(--cc-muted)] mt-1">Uptime: {service.uptime}</p>
           </div>
         );
       })}

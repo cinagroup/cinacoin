@@ -44,7 +44,7 @@ export default React.memo(function APICallsChart() {
             }}
           />
           <Legend />
-          <Bar dataKey="calls" fill="var(--cc-link)" radius={[4, 4, 0, 0]} name="API Calls" />
+          <Bar dataKey="calls" fill="var(--cc-link)" radius={[4, 4, 0, 0]} name="API calls" />
           <Bar dataKey="errors" fill="var(--cc-error)" radius={[4, 4, 0, 0]} name="Errors" />
         </BarChart>
       </ResponsiveContainer>

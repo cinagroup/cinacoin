@@ -73,7 +73,7 @@ export default function SendPage() {
       <div className="cc-card">
         <div className="mb-6 flex items-center justify-between rounded-lg bg-canvas-soft-2 p-4">
           <div>
-            <p className="text-caption text-mute">Available Balance</p>
+            <p className="text-caption text-mute">Available balance.</p>
             <p className="mt-1 text-display-sm text-ink">{balance} CINA</p>
           </div>
           <code className="text-caption-mono text-mute" title={address || ''}>
@@ -90,7 +90,7 @@ export default function SendPage() {
         <form onSubmit={handleSend} className="space-y-5" noValidate>
           <div>
             <label htmlFor="recipient" className="block text-caption text-mute mb-2">
-              Recipient Address
+              Recipient address.
             </label>
             <input
               id="recipient"
@@ -115,7 +115,7 @@ export default function SendPage() {
 
           <div>
             <label htmlFor="amount" className="block text-caption text-mute mb-2">
-              Amount
+              Amount.
             </label>
             <div className="relative">
               <input
@@ -147,11 +147,11 @@ export default function SendPage() {
 
           <div className="rounded-lg bg-canvas-soft-2 p-4 space-y-2">
             <div className="flex justify-between text-body-sm">
-              <span className="text-mute">Network Fee (est.)</span>
+              <span className="text-mute">Network fee (est.).</span>
               <span className="text-ink font-[var(--font-mono)]">~{NETWORK_FEE_NUMBER} CINA</span>
             </div>
             <div className="flex justify-between text-body-sm">
-              <span className="text-mute">Total</span>
+              <span className="text-mute">Total.</span>
               <span className="text-ink font-medium font-[var(--font-mono)]">
                 {amount && isValidAmount(amount)
                   ? `${(parseFloat(amount) + NETWORK_FEE_NUMBER).toFixed(4)}`

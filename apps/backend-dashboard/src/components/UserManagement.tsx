@@ -103,14 +103,14 @@ export function UserManagement() {
     <div className="space-y-md">
       {/* Batch action bar */}
       {selectedUsers.size > 0 && (
-        <div className="cc-card p-md bg-primary text-primary-foreground flex items-center justify-between">
+        <div className="cc-card p-md bg-[var(--cc-primary)] text-[var(--cc-on-primary)] flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <span className="text-body-sm font-medium">
+            <span className="cc-body-sm font-medium">
               {selectedUsers.size} user{selectedUsers.size > 1 ? "s" : ""} selected
             </span>
             <button
               onClick={() => setSelectedUsers(new Set())}
-              className="text-caption text-[var(--color-body)] hover:text-[var(--color-on-primary)] underline"
+              className="cc-caption text-[var(--cc-body)] hover:text-[var(--cc-on-primary)] underline"
             >
               Clear selection
             </button>
@@ -118,13 +118,13 @@ export function UserManagement() {
           <div className="flex items-center gap-2">
             <button
               onClick={handleBatchDisable}
-              className="px-3 py-2 bg-canvas/10 hover:bg-canvas/20 text-[var(--color-on-primary)] text-caption font-medium rounded-sm transition-colors"
+              className="px-3 py-2 bg-[var(--cc-canvas)]/10 hover:bg-[var(--cc-canvas)]/20 text-[var(--cc-on-primary)] cc-caption font-medium rounded-[var(--cc-radius-sm)] transition-colors"
             >
               Disable Selected
             </button>
             <button
               onClick={handleBatchDelete}
-              className="px-3 py-2 bg-error hover:opacity-90 text-[var(--color-on-primary)] text-caption font-medium rounded-sm transition-colors"
+              className="px-3 py-2 bg-[var(--cc-error)] hover:opacity-90 text-[var(--cc-on-primary)] cc-caption font-medium rounded-[var(--cc-radius-sm)] transition-colors"
             >
               Delete Selected
             </button>
@@ -134,12 +134,12 @@ export function UserManagement() {
 
       {/* Confirmation modal */}
       {confirmAction && (
-        <div className="fixed inset-0 bg-[var(--color-ink)]/50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-[var(--cc-ink)]/50 flex items-center justify-center z-50" role="dialog" aria-modal="true">
           <div className="cc-card p-lg max-w-md w-full mx-4">
-            <h3 className="text-heading-3 text-ink mb-2">
+            <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-2">
               {confirmAction.type === "delete" ? "Delete Users" : "Disable Users"}
             </h3>
-            <p className="text-body text-body-color mb-lg">
+            <p className="cc-body-md text-[var(--cc-body)] mb-lg">
               Are you sure you want to {confirmAction.type} {confirmAction.count} user{confirmAction.count > 1 ? "s" : ""}?
               {confirmAction.type === "delete" && " This action cannot be undone."}
             </p>
@@ -152,7 +152,7 @@ export function UserManagement() {
               </button>
               <button
                 onClick={handleConfirmAction}
-                className={confirmAction.type === "delete" ? "btn btn-danger" : "btn btn-primary"}
+                className={confirmAction.type === "delete" ? "cc-btn-danger" : "cc-btn-primary"}
               >
                 {confirmAction.type === "delete" ? "Delete Users" : "Disable Users"}
               </button>
@@ -163,12 +163,12 @@ export function UserManagement() {
 
       {/* Edit user modal */}
       {editingUser && (
-        <div className="fixed inset-0 bg-[var(--color-ink)]/50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-[var(--cc-ink)]/50 flex items-center justify-center z-50" role="dialog" aria-modal="true">
           <div className="cc-card p-lg max-w-md w-full mx-4">
-            <h3 className="text-heading-3 text-ink mb-4">Edit User</h3>
+            <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Edit User</h3>
             <div className="space-y-md">
               <div>
-                <label htmlFor="name" className="label">Name</label>
+                <label htmlFor="edit-name" className="label">Name</label>
                 <input
                   type="text"
                   defaultValue={editingUser.name}
@@ -177,7 +177,7 @@ export function UserManagement() {
                 />
               </div>
               <div>
-                <label htmlFor="email" className="label">Email</label>
+                <label htmlFor="edit-email" className="label">Email</label>
                 <input
                   type="email"
                   defaultValue={editingUser.email}
@@ -186,7 +186,7 @@ export function UserManagement() {
                 />
               </div>
               <div>
-                <label htmlFor="role" className="label">Role</label>
+                <label htmlFor="edit-role" className="label">Role</label>
                 <select defaultValue={editingUser.role} className="select" id="edit-role">
                   <option value="User">User</option>
                   <option value="Editor">Editor</option>
@@ -195,7 +195,7 @@ export function UserManagement() {
                 </select>
               </div>
               <div>
-                <label htmlFor="status" className="label">Status</label>
+                <label htmlFor="edit-status" className="label">Status</label>
                 <select defaultValue={editingUser.status} className="select" id="edit-status">
                   <option value="active">Active</option>
                   <option value="suspended">Suspended</option>
@@ -233,20 +233,20 @@ export function UserManagement() {
 
       {/* Add user modal */}
       {showAddUser && (
-        <div className="fixed inset-0 bg-[var(--color-ink)]/50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-[var(--cc-ink)]/50 flex items-center justify-center z-50" role="dialog" aria-modal="true">
           <div className="cc-card p-lg max-w-md w-full mx-4">
-            <h3 className="text-heading-3 text-ink mb-4">Add New User</h3>
+            <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Add New User</h3>
             <div className="space-y-md">
               <div>
-                <label htmlFor="name" className="label">Name</label>
+                <label htmlFor="add-name" className="label">Name</label>
                 <input type="text" className="cc-form-input" id="add-name" placeholder="John Doe" />
               </div>
               <div>
-                <label htmlFor="email" className="label">Email</label>
+                <label htmlFor="add-email" className="label">Email</label>
                 <input type="email" className="cc-form-input" id="add-email" placeholder="john@example.com" />
               </div>
               <div>
-                <label htmlFor="role" className="label">Role</label>
+                <label htmlFor="add-role" className="label">Role</label>
                 <select className="select" id="add-role" defaultValue="User">
                   <option value="User">User</option>
                   <option value="Editor">Editor</option>
@@ -291,9 +291,9 @@ export function UserManagement() {
       )}
 
       <div className="cc-card">
-        <div className="p-md border-b border-hairline">
+        <div className="p-md border-b border-[var(--cc-hairline)]">
           <div className="flex items-center justify-between">
-            <h2 className="text-heading-3 text-ink">User management.</h2>
+            <h2 className="cc-body-md-strong text-[var(--cc-ink)]">User management.</h2>
             <button className="cc-btn-primary" onClick={handleAddUser}>
               + Add User
             </button>
@@ -305,11 +305,12 @@ export function UserManagement() {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="cc-form-input max-w-md"
+              aria-label="Search users"
             />
             {filteredUsers.length > 0 && (
               <button
                 onClick={handleSelectAll}
-                className="cc-btn-secondary text-caption"
+                className="cc-btn-secondary cc-caption"
               >
                 {allSelected ? "Deselect All" : "Select All"}
               </button>
@@ -327,6 +328,7 @@ export function UserManagement() {
                     checked={allSelected}
                     onChange={handleSelectAll}
                     className="checkbox"
+                    aria-label="Select all users"
                   />
                 </th>
                 <th>User</th>
@@ -341,13 +343,13 @@ export function UserManagement() {
                 <tr>
                   <td colSpan={6} className="text-center py-12">
                     <div className="flex flex-col items-center gap-2">
-                      <svg className="w-12 h-12 text-mute" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                      <svg className="w-12 h-12 text-[var(--cc-muted)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                       </svg>
-                      <p className="text-body text-body-color">No users found matching "{searchTerm}"</p>
+                      <p className="cc-body-md text-[var(--cc-body)]">No users found matching &quot;{searchTerm}&quot;</p>
                       <button
                         onClick={() => setSearchTerm("")}
-                        className="text-link hover:text-link-hover text-body-sm font-medium mt-2"
+                        className="cc-body-sm font-medium text-[var(--cc-link)] hover:underline mt-2"
                       >
                         Clear search
                       </button>
@@ -357,7 +359,7 @@ export function UserManagement() {
               ) : filteredUsers.map((user) => (
                 <tr
                   key={user.id}
-                  className={`${selectedUsers.has(user.id) ? "bg-[var(--color-link-bg-soft)]/50" : ""}`}
+                  className={`${selectedUsers.has(user.id) ? "bg-[var(--cc-link-bg-soft)]/50" : ""}`}
                 >
                   <td>
                     <input
@@ -365,39 +367,40 @@ export function UserManagement() {
                       checked={selectedUsers.has(user.id)}
                       onChange={() => handleSelectUser(user.id)}
                       className="checkbox"
+                      aria-label={`Select ${user.name}`}
                     />
                   </td>
                   <td>
                     <div className="flex items-center">
-                      <div className="w-8 h-8 rounded-full bg-canvas-soft-2 flex items-center justify-center text-body-sm font-medium text-ink">
+                      <div className="w-8 h-8 rounded-full bg-[var(--cc-canvas-soft-2)] flex items-center justify-center cc-body-sm font-medium text-[var(--cc-ink)]">
                         {user.name.charAt(0)}
                       </div>
                       <div className="ml-3">
-                        <p className="text-body-sm font-medium text-ink">{user.name}</p>
-                        <p className="text-body-sm text-body-color">{user.email}</p>
+                        <p className="cc-body-sm-strong text-[var(--cc-ink)]">{user.name}</p>
+                        <p className="cc-body-sm text-[var(--cc-body)]">{user.email}</p>
                       </div>
                     </div>
                   </td>
                   <td>
-                    <span className="text-body-sm text-ink">{user.role}</span>
+                    <span className="cc-body-sm text-[var(--cc-ink)]">{user.role}</span>
                   </td>
                   <td>
                     <span className={`badge ${statusBadge[user.status]}`}>
                       {user.status}
                     </span>
                   </td>
-                  <td className="text-body-color">
+                  <td className="cc-body-sm text-[var(--cc-body)]">
                     {user.createdAt}
                   </td>
                   <td className="text-right">
                     <button 
-                      className="text-link hover:text-link-hover mr-3 text-body-sm font-medium"
+                      className="text-[var(--cc-link)] hover:underline mr-3 cc-body-sm font-medium"
                       onClick={() => handleEditUser(user)}
                     >
                       Edit
                     </button>
                     <button 
-                      className="text-error hover:opacity-80 text-body-sm font-medium"
+                      className="text-[var(--cc-error)] hover:opacity-80 cc-body-sm font-medium"
                       onClick={() => handleDeleteUser(user.id)}
                     >
                       Delete
@@ -409,16 +412,16 @@ export function UserManagement() {
           </table>
         </div>
 
-        <div className="p-md border-t border-hairline flex items-center justify-between">
-          <p className="text-body-sm text-body-color">
+        <div className="p-md border-t border-[var(--cc-hairline)] flex items-center justify-between">
+          <p className="cc-body-sm text-[var(--cc-body)]">
             Showing {filteredUsers.length} of {users.length} users
             {selectedUsers.size > 0 && ` · ${selectedUsers.size} selected`}
           </p>
           <div className="flex gap-2">
-            <button className="cc-btn-secondary text-caption" disabled>
+            <button className="cc-btn-secondary cc-caption" disabled>
               Previous
             </button>
-            <button className="cc-btn-secondary text-caption">
+            <button className="cc-btn-secondary cc-caption">
               Next
             </button>
           </div>

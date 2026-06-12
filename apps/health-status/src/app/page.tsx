@@ -121,7 +121,9 @@ export default function HealthStatusPage() {
       {/* Footer */}
       <footer className="border-t border-[var(--cc-hairline)] pt-6 text-center cc-caption text-[var(--cc-muted)]">
         <p>&copy; 2026 CinaCoin. All rights reserved.</p>
-        <p className="mt-1">Powered by CinaCoin Infrastructure.</p>
+        <p className="mt-1">
+          Powered by <a href="https://cinacoin.com" className="hover:text-[var(--cc-ink)] transition-colors" aria-label="CinaCoin Infrastructure">CinaCoin Infrastructure</a>.
+        </p>
       </footer>
     </div>
   );

@@ -52,7 +52,7 @@
               :disabled="estimating"
               aria-label="Estimate gas fee"
             >
-              {{ estimating ? 'Estimating...' : '⛽ Estimate gas.' }}
+              {{ estimating ? 'Estimating...' : 'Estimate gas.' }}
             </button>
             <span v-if="gasEstimate" class="gas-value">
               ~{{ gasEstimate }} wei
@@ -84,7 +84,7 @@
           <div class="result-header">
             <span class="result-label">Transaction sent.</span>
             <span class="tx-status">
-              {{ isConfirmed ? '✓ Confirmed.' : '⏳ Pending.' }}
+              {{ isConfirmed ? '✓ Confirmed.' : 'Pending.' }}
             </span>
           </div>
           <div class="result-value mono break-all">{{ txHash }}</div>
@@ -97,16 +97,16 @@
               class="btn btn-xs btn-outline"
               aria-label="View transaction on block explorer"
             >
-              🔗 View on explorer ↗
+              View on explorer ↗
             </a>
             <button class="btn btn-xs btn-outline" @click="copyTxHash" aria-label="Copy transaction hash to clipboard">
-              📋 Copy hash.
+              Copy hash.
             </button>
           </div>
         </div>
 
         <div v-if="status !== 'connected'" class="warning-box" role="status">
-          ⚠️ Connect your wallet first to send transactions.
+          Connect your wallet first to send transactions.
         </div>
       </div>
     </div>
@@ -208,60 +208,66 @@ function ethersToWei(eth: number): string {
 
 <style scoped>
 .send-transaction { display: flex; flex-direction: column; gap: 1.25rem; }
-.section-title { margin: 0; font-size: 1.5rem; font-weight: 600; color: var(--cc-ink, #f1f5f9); }
+.section-title { margin: 0; font-size: 1.5rem; font-weight: 600; color: var(--cc-ink, #171717); letter-spacing: -0.5px; }
 .card {
-  background: var(--cc-canvas, #1e293b);
-  border: 1px solid var(--cc-hairline, #334155);
-  border-radius: 0.75rem;
+  background: var(--cc-canvas, #ffffff);
+  border: 1px solid var(--cc-hairline, #ebebeb);
+  border-radius: 8px;
   padding: 1.25rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), inset 0 0 0 1px rgba(0, 0, 0, 0.08);
 }
-.card-title { margin: 0 0 0.25rem; font-size: 1rem; font-weight: 600; color: var(--cc-ink, #e2e8f0); }
-.card-desc { margin: 0 0 1rem; font-size: 0.875rem; color: var(--cc-body, #94a3b8); line-height: 1.6; }
-.card-desc code { background: var(--cc-canvas-soft-2); padding: 0.125rem 0.375rem; border-radius: 4px; font-size: 0.75rem; color: var(--cc-link, #38bdf8); }
+.card-title { margin: 0 0 0.25rem; font-size: 1rem; font-weight: 600; color: var(--cc-ink, #171717); }
+.card-desc { margin: 0 0 1rem; font-size: 0.875rem; color: var(--cc-body, #4d4d4d); line-height: 1.6; }
+.card-desc code { background: var(--cc-canvas-soft-2, #f5f5f5); padding: 0.125rem 0.375rem; border-radius: 4px; font-size: 0.75rem; color: var(--cc-link, #0070f3); font-family: var(--font-mono, 'Geist Mono'), monospace; }
 .demo-area { min-height: 40px; }
 .input-group { margin-bottom: 0.75rem; }
-.input-label { display: block; font-size: 0.75rem; color: var(--cc-body, #94a3b8); margin-bottom: 0.375rem; font-weight: 500; }
+.input-label { display: block; font-size: 0.75rem; color: var(--cc-body, #4d4d4d); margin-bottom: 0.375rem; font-weight: 500; }
 .text-input {
-  width: 100%; background: var(--cc-canvas-soft-2); border: 1px solid var(--cc-hairline, #334155);
-  border-radius: 0.5rem; padding: 0.625rem 0.75rem; color: var(--cc-ink, #e2e8f0);
+  width: 100%; background: var(--cc-canvas-soft-2, #f5f5f5); border: 1px solid var(--cc-hairline, #ebebeb);
+  border-radius: 6px; padding: 0.625rem 0.75rem; color: var(--cc-ink, #171717);
   font-size: 0.875rem; font-family: inherit;
   box-sizing: border-box;
+  transition: border-color 0.15s;
 }
-.text-input:focus { outline: none; border-color: var(--cc-link, #3b82f6); box-shadow: 0 0 0 2px rgba(59,130,246,0.2); }
-.mono { font-family: 'Geist Mono', 'SF Mono', 'Fira Code', monospace; }
+.text-input:focus { outline: none; border-color: var(--cc-primary, #171717); }
+.mono { font-family: var(--font-mono, 'Geist Mono'), monospace; }
 .amount-row { display: flex; gap: 0.5rem; }
 .amount-input { flex: 1; }
-.btn { padding: 0.5rem 1rem; border-radius: 0.5rem; border: none; font-weight: 600; cursor: pointer; font-size: 0.875rem; transition: all 0.15s; }
-.btn-xs { padding: 0.2rem 0.5rem; font-size: 0.75rem; background: var(--cc-hairline, #334155); color: var(--cc-ink, #e2e8f0); border-radius: 0.375rem; }
-.btn-xs:hover:not(:disabled) { background: var(--cc-hairline-strong, #475569); }
+.btn {
+  padding: 0.5rem 1rem; border-radius: 100px; border: none; font-weight: 500; cursor: pointer;
+  font-size: 0.875rem; font-family: var(--font-geist-sans, 'Geist'), sans-serif;
+  transition: opacity 0.15s;
+}
+.btn:hover:not(:disabled) { opacity: 0.85; }
+.btn-xs { padding: 0.2rem 0.5rem; font-size: 0.75rem; background: var(--cc-canvas-soft-2, #f5f5f5); color: var(--cc-ink, #171717); border: 1px solid var(--cc-hairline, #ebebeb); border-radius: 100px; }
+.btn-xs:hover:not(:disabled) { background: var(--cc-canvas-soft, #fafafa); opacity: 1; }
 .btn-xs:disabled { opacity: 0.5; cursor: not-allowed; }
-.btn-primary { background: var(--cc-success, #22c55e); color: #fff; }
-.btn-primary:hover:not(:disabled) { background: var(--cc-success, #16a34a); }
+.btn-primary { background: var(--cc-primary, #171717); color: var(--cc-on-primary, #ffffff); }
 .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
-.btn-outline { background: transparent; border: 1px solid var(--cc-hairline-strong, #475569); color: var(--cc-ink, #e2e8f0); }
-.btn-outline:hover { background: var(--cc-hairline, #334155); }
+.btn-outline { background: transparent; border: 1px solid var(--cc-hairline, #ebebeb); color: var(--cc-ink, #171717); border-radius: 100px; }
+.btn-outline:hover { background: var(--cc-canvas-soft-2, #f5f5f5); opacity: 1; }
 .gas-display { display: flex; align-items: center; gap: 0.75rem; }
-.gas-value { font-size: 0.875rem; color: var(--cc-link, #38bdf8); font-family: 'Geist Mono', monospace; }
+.gas-value { font-size: 0.875rem; color: var(--cc-link, #0070f3); font-family: var(--font-mono, 'Geist Mono'), monospace; }
 .action-row { margin: 1rem 0; }
 .error-box {
   display: flex; align-items: center; gap: 0.5rem;
-  background: var(--cc-error-soft, #1c1017); border: 1px solid var(--cc-error-deep, #991b1b); border-radius: 0.5rem;
-  padding: 0.625rem 0.75rem; color: var(--cc-error, #fca5a5); font-size: 0.875rem; margin-bottom: 1rem;
+  background: var(--cc-error-bg, rgba(238, 0, 0, 0.1)); border: 1px solid var(--cc-error, #ee0000); border-radius: 6px;
+  padding: 0.625rem 0.75rem; color: var(--cc-error, #ee0000); font-size: 0.875rem; margin-bottom: 1rem;
 }
 .error-icon { font-size: 1rem; }
 .result-box {
-  background: var(--cc-canvas-soft-2); border-radius: 0.5rem; padding: 0.75rem; margin-top: 0.5rem;
+  background: var(--cc-canvas-soft-2, #f5f5f5); border-radius: 6px; padding: 0.75rem; margin-top: 0.5rem;
 }
-.result-box.success { border: 1px solid var(--cc-success, #166534); }
+.result-box.success { border: 1px solid var(--cc-success, #0070f3); }
 .result-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; }
-.result-label { font-size: 0.75rem; color: var(--cc-muted, #64748b); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
-.result-value { font-size: 0.75rem; color: var(--cc-success, #22c55e); word-break: break-all; line-height: 1.5; }
+.result-label { font-size: 0.75rem; color: var(--cc-muted, #888888); font-weight: 500; text-transform: uppercase; letter-spacing: 0.02em; }
+.result-value { font-size: 0.75rem; color: var(--cc-success, #0070f3); word-break: break-all; line-height: 1.5; }
 .tx-status { font-size: 0.75rem; font-weight: 600; }
 .tx-actions { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
 .tx-actions a { text-decoration: none; }
 .warning-box {
-  background: var(--cc-warning-soft, #1c1a0e); border: 1px solid var(--cc-warning-deep, #854d0e); border-radius: 0.5rem;
-  padding: 0.625rem 0.75rem; color: var(--cc-warning, #fde047); font-size: 0.875rem; margin-top: 1rem;
+  background: var(--cc-warning-bg, rgba(245, 166, 35, 0.1)); border: 1px solid var(--cc-warning, #f5a623); border-radius: 6px;
+  padding: 0.625rem 0.75rem; color: var(--cc-warning-deep, #ab570a); font-size: 0.875rem; margin-top: 1rem;
 }
 .break-all { word-break: break-all; }
 .spinner-inline {
@@ -284,21 +290,10 @@ function ethersToWei(eth: number): string {
 
 /* ── Responsive ───────────────────────────────────────────────────── */
 @media (max-width: 640px) {
-  .card {
-    padding: 1rem;
-  }
-
-  .amount-row {
-    flex-direction: column;
-  }
-
-  .tx-actions {
-    flex-direction: column;
-  }
-
+  .card { padding: 1rem; }
+  .amount-row { flex-direction: column; }
+  .tx-actions { flex-direction: column; }
   .tx-actions a,
-  .tx-actions button {
-    width: 100%;
-  }
+  .tx-actions button { width: 100%; }
 }
 </style>

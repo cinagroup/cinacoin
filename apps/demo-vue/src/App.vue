@@ -85,15 +85,15 @@ const isConnected = computed(() => status.value === 'connected')
 *, *::before, *::after { box-sizing: border-box; }
 
 html {
-  font-family: 'Geist', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: var(--font-geist-sans), Geist, system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   margin: 0;
-  background: var(--cc-canvas-soft-2);
-  color: var(--cc-ink, #e2e8f0);
+  background: var(--cc-canvas-soft, #fafafa);
+  color: var(--cc-ink, #171717);
   min-height: 100vh;
 }
 

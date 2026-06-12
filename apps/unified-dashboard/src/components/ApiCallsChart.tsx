@@ -28,19 +28,22 @@ export function ApiCallsChart() {
       </h3>
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#ebebeb" />
-          <XAxis dataKey="day" stroke="#888888" fontSize={12} />
-          <YAxis stroke="#888888" fontSize={12} tickFormatter={(v) => `${(v / 1000000).toFixed(1)}M`} />
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--cc-hairline)" />
+          <XAxis dataKey="day" stroke="var(--cc-muted)" fontSize={12} />
+          <YAxis stroke="var(--cc-muted)" fontSize={12} tickFormatter={(v) => `${(v / 1000000).toFixed(1)}M`} />
           <Tooltip
             contentStyle={{
-              backgroundColor: "#fff",
-              border: "1px solid #ebebeb",
-              borderRadius: "8px",
+              backgroundColor: "var(--cc-canvas)",
+              border: "1px solid var(--cc-hairline)",
+              borderRadius: "var(--cc-radius-md)",
+              boxShadow: "var(--cc-level2)",
             }}
+            labelStyle={{ color: "var(--cc-ink)", fontWeight: 600 }}
+            itemStyle={{ color: "var(--cc-body)" }}
             formatter={(value: number) => [value.toLocaleString(), ""]}
           />
-          <Bar dataKey="calls" fill="#0070f3" radius={[4, 4, 0, 0]} name="API Calls" />
-          <Bar dataKey="errors" fill="#ee0000" radius={[4, 4, 0, 0]} name="Errors" />
+          <Bar dataKey="calls" fill="var(--cc-primary)" radius={[4, 4, 0, 0]} name="API Calls" />
+          <Bar dataKey="errors" fill="var(--cc-error)" radius={[4, 4, 0, 0]} name="Errors" />
         </BarChart>
       </ResponsiveContainer>
     </div>

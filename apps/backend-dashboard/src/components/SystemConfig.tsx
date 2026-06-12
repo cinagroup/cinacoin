@@ -79,7 +79,7 @@ export function SystemConfig() {
     <div className="space-y-lg">
       {config.map((section) => (
         <div key={section.id} className="cc-card p-md">
-          <h2 className="text-heading-3 text-ink mb-lg">{section.title}</h2>
+          <h2 className="cc-body-md-strong text-[var(--cc-ink)] mb-lg">{section.title}</h2>
           <div className="space-y-lg">
             {section.fields.map((field) => (
               <div key={field.key} className="flex items-start justify-between gap-lg">
@@ -107,9 +107,10 @@ export function SystemConfig() {
                   {field.type === "toggle" && (
                     <button
                       className={`toggle ${
-                        field.value ? "bg-primary" : "bg-[var(--color-canvas-soft-2)]"
+                        field.value ? "bg-[var(--cc-primary)]" : "bg-[var(--cc-canvas-soft-2)]"
                       }`}
                       onClick={() => handleFieldChange(section.id, field.key, !field.value)}
+                      aria-pressed={field.value as boolean}
                     >
                       <span
                         className={`toggle-knob ${
@@ -149,7 +150,7 @@ export function SystemConfig() {
           Reset to Defaults
         </button>
         {saved && (
-          <span className="text-body-sm font-medium text-[var(--color-success)]">
+          <span className="cc-body-sm font-medium text-[var(--cc-success)]">
             ✓ Configuration saved successfully
           </span>
         )}

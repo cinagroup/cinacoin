@@ -34,21 +34,24 @@ export function UserGrowthChart() {
       </h3>
       <ResponsiveContainer width="100%" height={300}>
         <LineChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#ebebeb" />
-          <XAxis dataKey="month" stroke="#888888" fontSize={12} />
-          <YAxis stroke="#888888" fontSize={12} />
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--cc-hairline)" />
+          <XAxis dataKey="month" stroke="var(--cc-muted)" fontSize={12} />
+          <YAxis stroke="var(--cc-muted)" fontSize={12} />
           <Tooltip
             contentStyle={{
-              backgroundColor: "#fff",
-              border: "1px solid #ebebeb",
-              borderRadius: "8px",
+              backgroundColor: "var(--cc-canvas)",
+              border: "1px solid var(--cc-hairline)",
+              borderRadius: "var(--cc-radius-md)",
+              boxShadow: "var(--cc-level2)",
             }}
+            labelStyle={{ color: "var(--cc-ink)", fontWeight: 600 }}
+            itemStyle={{ color: "var(--cc-body)" }}
           />
           <Legend />
           <Line
             type="monotone"
             dataKey="users"
-            stroke="#0070f3"
+            stroke="var(--cc-link)"
             strokeWidth={2}
             dot={false}
             name="Total Users"
@@ -56,7 +59,7 @@ export function UserGrowthChart() {
           <Line
             type="monotone"
             dataKey="active"
-            stroke="#50e3c2"
+            stroke="var(--cc-cyan)"
             strokeWidth={2}
             dot={false}
             name="Active Users"

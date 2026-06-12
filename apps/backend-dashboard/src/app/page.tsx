@@ -16,11 +16,11 @@ export default function Home() {
 
   return (
     <ErrorBoundary>
-    <div className="flex min-h-screen bg-canvas-soft">
+    <div className="flex min-h-screen bg-[var(--cc-canvas-soft)]">
       {/* Mobile sidebar overlay */}
       {mobileSidebarOpen && (
         <div
-          className="fixed inset-0 bg-[var(--color-ink)]/60 backdrop-blur-sm z-40 lg:hidden"
+          className="fixed inset-0 bg-[var(--cc-ink)]/60 backdrop-blur-sm z-40 lg:hidden"
           onClick={() => setMobileSidebarOpen(false)}
           role="presentation"
           aria-hidden="true"
@@ -53,22 +53,22 @@ export default function Home() {
         <div className="lg:hidden mb-md flex items-center gap-3">
           <button
             onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)}
-            className="p-2 rounded-sm text-body hover:text-ink hover:bg-canvas-soft transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+            className="p-2 rounded-[var(--cc-radius-sm)] text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft-2)] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
             aria-label="Toggle sidebar"
           >
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
-          <h1 className="text-heading-2 text-ink">Backend admin.</h1>
+          <h1 className="cc-display-sm text-[var(--cc-ink)]">Backend admin.</h1>
         </div>
 
         <div className="max-w-7xl mx-auto">
           <header className="mb-lg hidden lg:block">
-            <h1 className="text-heading-1 text-ink">
+            <h1 className="cc-display-sm text-[var(--cc-ink)]">
               Backend administration.
             </h1>
-            <p className="text-body text-body-color mt-1">
+            <p className="cc-body-md text-[var(--cc-body)] mt-1">
               Manage users, permissions, and system configuration.
             </p>
           </header>

@@ -69,7 +69,7 @@ export function PermissionManagement() {
     <div className="space-y-lg">
       <div className="cc-card p-md">
         <div className="flex items-center justify-between mb-md">
-          <h2 className="text-heading-3 text-ink">Roles & permissions.</h2>
+          <h2 className="cc-body-md-strong text-[var(--cc-ink)]">Roles & permissions.</h2>
           <button className="cc-btn-primary">
             + Create Role
           </button>
@@ -80,30 +80,33 @@ export function PermissionManagement() {
             <div
               key={role.id}
               onClick={() => setSelectedRole(role)}
-              className={`p-md rounded-md cursor-pointer transition-all border ${
+              className={`p-md rounded-[var(--cc-radius-md)] cursor-pointer transition-all border ${
                 selectedRole?.id === role.id
-                  ? "border-link bg-[var(--color-link-bg-soft)]"
-                  : "border-hairline hover:border-hairline-dark"
+                  ? "border-[var(--cc-link)] bg-[var(--cc-link-bg-soft)]"
+                  : "border-[var(--cc-hairline)] hover:border-[var(--cc-hairline-strong)]"
               }`}
+              role="button"
+              tabIndex={0}
+              aria-pressed={selectedRole?.id === role.id}
             >
               <div className="flex items-center justify-between mb-2">
-                <h3 className="text-body-sm-strong text-ink">{role.name}</h3>
+                <h3 className="cc-body-sm-strong text-[var(--cc-ink)]">{role.name}</h3>
                 <span className="badge badge-neutral">
                   {role.userCount.toLocaleString()} users
                 </span>
               </div>
-              <p className="text-body-sm text-body-color mb-3">{role.description}</p>
+              <p className="cc-body-sm text-[var(--cc-body)] mb-3">{role.description}</p>
               <div className="flex flex-wrap gap-1">
                 {role.permissions.slice(0, 3).map((perm) => (
                   <span
                     key={perm}
-                    className="text-caption bg-canvas-soft-2 text-body-color px-2 py-1 rounded"
+                    className="cc-caption bg-[var(--cc-canvas-soft-2)] text-[var(--cc-body)] px-2 py-1 rounded-[var(--cc-radius-xs)]"
                   >
                     {perm}
                   </span>
                 ))}
                 {role.permissions.length > 3 && (
-                  <span className="text-caption text-mute">
+                  <span className="cc-caption text-[var(--cc-muted)]">
                     +{role.permissions.length - 3} more
                   </span>
                 )}
@@ -115,14 +118,14 @@ export function PermissionManagement() {
 
       {selectedRole && (
         <div className="cc-card p-md">
-          <h3 className="text-heading-3 text-ink mb-md">
+          <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-md">
             Edit Permissions: {selectedRole.name}
           </h3>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
             {allPermissions.map((perm) => (
               <label
                 key={perm}
-                className="flex items-center gap-2 p-3 border border-hairline rounded-md cursor-pointer hover:bg-canvas-soft"
+                className="flex items-center gap-2 p-3 border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] cursor-pointer hover:bg-[var(--cc-canvas-soft)]"
               >
                 <input
                   type="checkbox"
@@ -130,7 +133,7 @@ export function PermissionManagement() {
                   className="checkbox"
                   readOnly
                 />
-                <span className="text-body-sm text-ink">{perm}</span>
+                <span className="cc-body-sm text-[var(--cc-ink)]">{perm}</span>
               </label>
             ))}
           </div>

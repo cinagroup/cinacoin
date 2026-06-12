@@ -1,4 +1,5 @@
 import type { TelegramUser } from '@cinacoin/telegram-miniapp';
+import { Star } from 'lucide-react';
 
 interface TelegramHeaderProps {
   user: TelegramUser | null;
@@ -32,7 +33,7 @@ export default function TelegramHeader({ user, account }: TelegramHeaderProps) {
         <div className="header-info">
           <div className="header-name">
             {displayName}
-            {isPremium && <span className="premium-badge">⭐</span>}
+            {isPremium && <Star className="w-3 h-3 text-yellow-400 fill-yellow-400" aria-hidden="true" />}
           </div>
           {user?.username && (
             <div className="header-username">@{user.username}</div>

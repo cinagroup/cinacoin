@@ -63,7 +63,7 @@
             <span class="wallet-type">{{ c.type }}</span>
             <span
               class="wallet-badge"
-              :class="c.installed ? 'badge-green' : 'badge-gray'"
+              :class="c.installed ? 'badge-blue' : 'badge-gray'"
               role="status"
             >
               {{ c.installed ? 'Installed' : 'Not installed' }}
@@ -99,7 +99,7 @@
             <span class="state-value mono">{{ chainIdDisplay }}</span>
           </div>
           <div class="state-item" v-if="status === 'connected'" role="listitem">
-            <button class="btn btn-sm btn-red" @click="handleDisconnect" aria-label="Disconnect wallet">
+            <button class="btn btn-sm btn-error" @click="handleDisconnect" aria-label="Disconnect wallet">
               Disconnect
             </button>
           </div>
@@ -130,12 +130,13 @@ const shortAddress = computed(() => {
 const chainIdDisplay = computed(() => account.value.chainId ?? '—')
 
 function walletIcon(id: string): string {
+  // Use text abbreviations instead of emojis per UI.md anti-patterns
   const icons: Record<string, string> = {
-    metamask: '🦊',
-    walletconnect: '🔗',
-    coinbase: '🔵',
+    metamask: 'MM',
+    walletconnect: 'WC',
+    coinbase: 'CB',
   }
-  return icons[id] ?? '👛'
+  return icons[id] ?? '?'
 }
 
 function onWalletSelect(detail: any) {
@@ -162,53 +163,62 @@ async function handleDisconnect() {
 
 <style scoped>
 .connect-wallet { display: flex; flex-direction: column; gap: 1.25rem; }
-.section-title { margin: 0; font-size: 1.5rem; font-weight: 600; color: var(--cc-ink, #f1f5f9); }
+.section-title { margin: 0; font-size: 1.5rem; font-weight: 600; color: var(--cc-ink, #171717); letter-spacing: -0.5px; }
 .card {
-  background: var(--cc-canvas, #1e293b);
-  border: 1px solid var(--cc-hairline, #334155);
-  border-radius: 0.75rem;
+  background: var(--cc-canvas, #ffffff);
+  border: 1px solid var(--cc-hairline, #ebebeb);
+  border-radius: 8px;
   padding: 1.25rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), inset 0 0 0 1px rgba(0, 0, 0, 0.08);
 }
-.card-title { margin: 0 0 0.25rem; font-size: 1rem; font-weight: 600; color: var(--cc-ink, #e2e8f0); }
-.card-desc { margin: 0 0 1rem; font-size: 0.875rem; color: var(--cc-body, #94a3b8); line-height: 1.6; }
-.card-desc code { background: var(--cc-canvas-soft-2, #0f172a); padding: 0.125rem 0.375rem; border-radius: 4px; font-size: 0.75rem; color: var(--cc-link, #38bdf8); }
+.card-title { margin: 0 0 0.25rem; font-size: 1rem; font-weight: 600; color: var(--cc-ink, #171717); }
+.card-desc { margin: 0 0 1rem; font-size: 0.875rem; color: var(--cc-body, #4d4d4d); line-height: 1.6; }
+.card-desc code { background: var(--cc-canvas-soft-2, #f5f5f5); padding: 0.125rem 0.375rem; border-radius: 4px; font-size: 0.75rem; color: var(--cc-link, #0070f3); font-family: var(--font-mono, 'Geist Mono'), monospace; }
 .demo-area { min-height: 40px; }
 .btn {
   padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
+  border-radius: 100px;
   border: none;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
   font-size: 0.875rem;
-  transition: all 0.15s;
+  font-family: var(--font-geist-sans, 'Geist'), sans-serif;
+  transition: opacity 0.15s;
 }
+.btn:hover { opacity: 0.85; }
 .btn-outline {
   background: transparent;
-  border: 1px solid var(--cc-link, #3b82f6);
-  color: var(--cc-link, #3b82f6);
+  border: 1px solid var(--cc-hairline, #ebebeb);
+  color: var(--cc-ink, #171717);
 }
-.btn-outline:hover { background: var(--cc-link-bg-soft, #1e3a5f); }
-.btn-sm { padding: 0.25rem 0.75rem; font-size: 0.8rem; background: var(--cc-link, #3b82f6); color: #fff; }
-.btn-sm:hover { background: var(--cc-link-deep, #2563eb); }
-.btn-red { background: var(--cc-error, #dc2626); }
-.btn-red:hover { background: #b91c1c; }
+.btn-outline:hover { background: var(--cc-canvas-soft-2, #f5f5f5); opacity: 1; }
+.btn-sm { padding: 0.25rem 0.75rem; font-size: 0.8rem; background: var(--cc-primary, #171717); color: var(--cc-on-primary, #ffffff); border-radius: 100px; }
+.btn-error { background: var(--cc-error, #ee0000); color: #ffffff; border-radius: 100px; }
 .wallet-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
 .wallet-item {
   display: flex; align-items: center; gap: 0.5rem;
-  background: var(--cc-canvas-soft-2, #0f172a); padding: 0.5rem 0.75rem; border-radius: 0.5rem;
+  background: var(--cc-canvas-soft-2, #f5f5f5); padding: 0.5rem 0.75rem; border-radius: 6px;
+  border: 1px solid var(--cc-hairline, #ebebeb);
 }
-.wallet-icon { font-size: 1.25rem; }
-.wallet-name { flex: 1; color: var(--cc-ink, #e2e8f0); font-weight: 500; }
-.wallet-type { color: var(--cc-muted, #64748b); font-size: 0.75rem; text-transform: uppercase; }
-.wallet-badge { padding: 0.125rem 0.5rem; border-radius: 999px; font-size: 0.7rem; font-weight: 600; }
-.badge-green { background: #064e3b; color: var(--cc-success, #34d399); }
-.badge-gray { background: var(--cc-canvas, #1e293b); color: var(--cc-muted, #64748b); }
-.empty-state { color: var(--cc-muted, #64748b); font-style: italic; font-size: 0.875rem; }
+.wallet-icon {
+  font-family: var(--font-mono, 'Geist Mono'), monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--cc-muted, #888888);
+  width: 1.5rem;
+  text-align: center;
+}
+.wallet-name { flex: 1; color: var(--cc-ink, #171717); font-weight: 500; }
+.wallet-type { color: var(--cc-muted, #888888); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.02em; }
+.wallet-badge { padding: 0.125rem 0.5rem; border-radius: 100px; font-size: 0.7rem; font-weight: 500; }
+.badge-blue { background: var(--cc-success-bg, rgba(0, 112, 243, 0.1)); color: var(--cc-success, #0070f3); }
+.badge-gray { background: var(--cc-canvas-soft-2, #f5f5f5); color: var(--cc-muted, #888888); border: 1px solid var(--cc-hairline, #ebebeb); }
+.empty-state { color: var(--cc-muted, #888888); font-size: 0.875rem; }
 .state-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.75rem; }
 .state-item { display: flex; flex-direction: column; gap: 0.25rem; }
-.state-label { font-size: 0.75rem; color: var(--cc-muted, #64748b); text-transform: uppercase; letter-spacing: 0.05em; }
-.state-value { color: var(--cc-ink, #e2e8f0); font-size: 0.9rem; }
-.mono { font-family: 'Geist Mono', 'SF Mono', 'Fira Code', monospace; }
+.state-label { font-size: 0.75rem; color: var(--cc-muted, #888888); text-transform: uppercase; letter-spacing: 0.02em; }
+.state-value { color: var(--cc-ink, #171717); font-size: 0.9rem; }
+.mono { font-family: var(--font-mono, 'Geist Mono'), monospace; }
 
 /* ── Responsive ───────────────────────────────────────────────────── */
 @media (max-width: 640px) {

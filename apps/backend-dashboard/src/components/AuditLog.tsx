@@ -145,59 +145,57 @@ export function AuditLog() {
       {/* Summary cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-md">
         <div className="cc-card p-md">
-          <p className="text-caption text-mute uppercase tracking-wider mb-1">Total Events</p>
-          <p className="text-heading-2 text-ink">{mockAuditLogs.length}</p>
-          <p className="text-caption text-body-color mt-1">Last 24 hours</p>
+          <p className="cc-caption-mono text-[var(--cc-muted)] uppercase tracking-wider mb-1">Total events</p>
+          <p className="cc-display-sm text-[var(--cc-ink)]">{mockAuditLogs.length}</p>
+          <p className="cc-caption text-[var(--cc-body)] mt-1">Last 24 hours</p>
         </div>
         <div className="cc-card p-md">
-          <p className="text-caption text-mute uppercase tracking-wider mb-1">Failed Attempts</p>
-          <p className="text-heading-2 text-error">
+          <p className="cc-caption-mono text-[var(--cc-muted)] uppercase tracking-wider mb-1">Failed attempts</p>
+          <p className="cc-display-sm text-[var(--cc-error)]">
             {mockAuditLogs.filter((e) => e.status === "failure").length}
           </p>
-          <p className="text-caption text-body-color mt-1">Requires attention</p>
+          <p className="cc-caption text-[var(--cc-body)] mt-1">Requires attention</p>
         </div>
         <div className="cc-card p-md">
-          <p className="text-caption text-mute uppercase tracking-wider mb-1">Auth Events</p>
-          <p className="text-heading-2 text-ink">
+          <p className="cc-caption-mono text-[var(--cc-muted)] uppercase tracking-wider mb-1">Auth events</p>
+          <p className="cc-display-sm text-[var(--cc-ink)]">
             {mockAuditLogs.filter((e) => e.category === "auth").length}
           </p>
-          <p className="text-caption text-body-color mt-1">Logins & 2FA</p>
+          <p className="cc-caption text-[var(--cc-body)] mt-1">Logins & 2FA</p>
         </div>
         <div className="cc-card p-md">
-          <p className="text-caption text-mute uppercase tracking-wider mb-1">System Changes</p>
-          <p className="text-heading-2 text-ink">
+          <p className="cc-caption-mono text-[var(--cc-muted)] uppercase tracking-wider mb-1">System changes</p>
+          <p className="cc-display-sm text-[var(--cc-ink)]">
             {mockAuditLogs.filter((e) => e.category === "system").length}
           </p>
-          <p className="text-caption text-body-color mt-1">Config & maintenance</p>
+          <p className="cc-caption text-[var(--cc-body)] mt-1">Config & maintenance</p>
         </div>
       </div>
 
       {/* Main log table */}
       <div className="cc-card">
         {/* Toolbar */}
-        <div className="p-md border-b border-hairline">
+        <div className="p-md border-b border-[var(--cc-hairline)]">
           <div className="flex items-center justify-between mb-md">
-            <h2 className="text-heading-3 text-ink">Audit log.</h2>
+            <h2 className="cc-body-md-strong text-[var(--cc-ink)]">Audit log.</h2>
             <div className="flex items-center gap-2">
               {selectedEntries.size > 0 && (
-                <span className="text-caption text-body-color mr-2">
+                <span className="cc-caption text-[var(--cc-body)] mr-2">
                   {selectedEntries.size} selected
                 </span>
               )}
-              <div className="relative">
-                <button
-                  onClick={() => handleExport("csv")}
-                  className="cc-btn-secondary text-caption"
-                >
-                  <svg className="w-3.5 h-3.5 mr-2" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
-                  </svg>
-                  Export CSV
-                </button>
-              </div>
+              <button
+                onClick={() => handleExport("csv")}
+                className="cc-btn-secondary-sm"
+              >
+                <svg className="w-3.5 h-3.5 mr-2" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+                </svg>
+                Export CSV
+              </button>
               <button
                 onClick={() => handleExport("json")}
-                className="cc-btn-secondary text-caption"
+                className="cc-btn-secondary-sm"
               >
                 <svg className="w-3.5 h-3.5 mr-2" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
@@ -215,11 +213,13 @@ export function AuditLog() {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="cc-form-input max-w-xs"
+              aria-label="Search audit logs"
             />
             <select
               value={categoryFilter}
               onChange={(e) => setCategoryFilter(e.target.value)}
               className="select w-auto"
+              aria-label="Filter by category"
             >
               <option value="all">All Categories</option>
               {Object.entries(categoryLabels).map(([key, label]) => (
@@ -230,22 +230,24 @@ export function AuditLog() {
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
               className="select w-auto"
+              aria-label="Filter by status"
             >
               <option value="all">All Statuses</option>
               <option value="success">Success</option>
               <option value="failure">Failure</option>
               <option value="warning">Warning</option>
             </select>
-            <div className="flex items-center gap-1 bg-canvas-soft rounded-md p-1">
+            <div className="flex items-center gap-1 bg-[var(--cc-canvas-soft)] rounded-[var(--cc-radius-md)] p-1" role="group" aria-label="Time range">
               {["1h", "24h", "7d", "30d"].map((range) => (
                 <button
                   key={range}
                   onClick={() => setDateRange(range)}
-                  className={`px-3 py-1 text-caption font-medium rounded transition-colors ${
+                  className={`px-3 py-1 cc-caption font-medium rounded-[var(--cc-radius-sm)] transition-colors ${
                     dateRange === range
-                      ? "bg-canvas text-ink shadow-sm"
-                      : "text-mute hover:text-ink"
+                      ? "bg-[var(--cc-canvas)] text-[var(--cc-ink)] shadow-sm"
+                      : "text-[var(--cc-muted)] hover:text-[var(--cc-ink)]"
                   }`}
+                  aria-pressed={dateRange === range}
                 >
                   {range}
                 </button>
@@ -265,6 +267,7 @@ export function AuditLog() {
                     checked={allSelected}
                     onChange={handleSelectAll}
                     className="checkbox"
+                    aria-label="Select all entries"
                   />
                 </th>
                 <th>Timestamp</th>
@@ -281,8 +284,8 @@ export function AuditLog() {
                   <td colSpan={7} className="px-6 py-12 text-center">
                     <div className="flex flex-col items-center justify-center">
                       <ClipboardList className="w-12 h-12 text-[var(--cc-muted)] mb-4" />
-                      <h3 className="text-heading-3 text-ink mb-1">No audit logs found</h3>
-                      <p className="text-body-sm text-mute max-w-sm">No audit entries match your current filters.</p>
+                      <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-1">No audit logs found</h3>
+                      <p className="cc-body-sm text-[var(--cc-muted)] max-w-sm">No audit entries match your current filters.</p>
                     </div>
                   </td>
                 </tr>
@@ -297,42 +300,43 @@ export function AuditLog() {
                       checked={selectedEntries.has(entry.id)}
                       onChange={() => handleSelectEntry(entry.id)}
                       className="checkbox"
+                      aria-label={`Select ${entry.action}`}
                     />
                   </td>
                   <td>
                     <div>
-                      <p className="text-body-sm text-ink whitespace-nowrap">
+                      <p className="cc-body-sm text-[var(--cc-ink)] whitespace-nowrap">
                         {formatTimestamp(entry.timestamp)}
                       </p>
-                      <p className="text-caption text-mute">
+                      <p className="cc-caption text-[var(--cc-muted)]">
                         {new Date(entry.timestamp).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })}
                       </p>
                     </div>
                   </td>
                   <td>
                     <div>
-                      <p className="text-body-sm font-medium text-ink">{entry.user}</p>
-                      <p className="text-caption text-mute">{entry.userEmail}</p>
+                      <p className="cc-body-sm-strong text-[var(--cc-ink)]">{entry.user}</p>
+                      <p className="cc-caption text-[var(--cc-muted)]">{entry.userEmail}</p>
                     </div>
                   </td>
                   <td>
                     <div className="flex items-center gap-2">
                       {(() => {
                         const Icon = categoryIcons[entry.category];
-                        return <Icon className="w-4 h-4 text-[var(--cc-muted)]" />;
+                        return <Icon className="w-4 h-4 text-[var(--cc-muted)]" aria-hidden="true" />;
                       })()}
-                      <code className="text-code text-caption bg-canvas-soft-2 px-2 py-1 rounded">
+                      <code className="cc-code">
                         {entry.action}
                       </code>
                     </div>
                   </td>
                   <td>
-                    <p className="text-body-sm text-body-color max-w-xs truncate">
+                    <p className="cc-body-sm text-[var(--cc-body)] max-w-xs truncate">
                       {entry.details}
                     </p>
                   </td>
                   <td>
-                    <code className="text-code text-caption text-body-color">
+                    <code className="cc-code text-[var(--cc-body)]">
                       {entry.ipAddress}
                     </code>
                   </td>
@@ -348,16 +352,16 @@ export function AuditLog() {
         </div>
 
         {/* Footer */}
-        <div className="p-md border-t border-hairline flex items-center justify-between">
-          <p className="text-body-sm text-body-color">
+        <div className="p-md border-t border-[var(--cc-hairline)] flex items-center justify-between">
+          <p className="cc-body-sm text-[var(--cc-body)]">
             Showing {filteredLogs.length} of {mockAuditLogs.length} entries
             {selectedEntries.size > 0 && ` · ${selectedEntries.size} selected`}
           </p>
           <div className="flex gap-2">
-            <button className="cc-btn-secondary text-caption" disabled>
+            <button className="cc-btn-secondary-sm" disabled>
               Previous
             </button>
-            <button className="cc-btn-secondary text-caption">
+            <button className="cc-btn-secondary-sm">
               Next
             </button>
           </div>

@@ -3,6 +3,7 @@
 import React from 'react';
 import { useCinacoinContext } from '@cinacoin/react';
 import { ThemeToggle } from './ThemeToggle';
+import { Terminal } from 'lucide-react';
 
 /** Truncate an Ethereum address for display. */
 function truncateAddress(addr: string): string {
@@ -47,10 +48,11 @@ export function DemoHeader(): JSX.Element {
             letterSpacing: 'var(--cc-tracking-tight)',
             margin: 0,
             display: 'flex',
-            alignItems: 'baseline',
-            gap: '4px',
+            alignItems: 'center',
+            gap: '8px',
           }}
         >
+          <Terminal className="w-5 h-5" style={{ color: 'var(--cc-accent)' }} aria-hidden="true" />
           <span style={{ color: 'var(--cc-accent)' }}>CinaCoin</span>
           <span style={{ color: 'var(--cc-body)', fontWeight: 'var(--cc-weight-normal)' }}>Demo.</span>
         </h1>

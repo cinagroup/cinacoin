@@ -100,8 +100,8 @@ export default function HistoryPage() {
                 </div>
               </div>
               <div className="mt-3 flex items-center gap-4 text-caption text-mute">
-                <span>Block: <span className="text-body font-[var(--font-mono)]">{tx.block.toLocaleString()}</span></span>
-                <span>Fee: <span className="text-body font-[var(--font-mono)]">{tx.fee} CINA</span></span>
+                <span>Block. <span className="text-body font-[var(--font-mono)]">{tx.block.toLocaleString()}</span></span>
+                <span>Fee. <span className="text-body font-[var(--font-mono)]">{tx.fee} CINA</span></span>
               </div>
             </div>
           ))
