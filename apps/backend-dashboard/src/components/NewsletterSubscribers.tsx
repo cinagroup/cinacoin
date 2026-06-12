@@ -82,19 +82,19 @@ export function NewsletterSubscribers() {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-[var(--cc-hairline)]">
-                  <th className="text-left text-caption font-medium text-[var(--cc-muted)] uppercase tracking-wider pb-3">
+                  <th className="text-left text-caption font-medium text-[var(--cc-muted)] tracking-wider pb-3">
                     Email
                   </th>
-                  <th className="text-left text-caption font-medium text-[var(--cc-muted)] uppercase tracking-wider pb-3">
+                  <th className="text-left text-caption font-medium text-[var(--cc-muted)] tracking-wider pb-3">
                     Name
                   </th>
-                  <th className="text-left text-caption font-medium text-[var(--cc-muted)] uppercase tracking-wider pb-3">
+                  <th className="text-left text-caption font-medium text-[var(--cc-muted)] tracking-wider pb-3">
                     Source
                   </th>
-                  <th className="text-left text-caption font-medium text-[var(--cc-muted)] uppercase tracking-wider pb-3">
+                  <th className="text-left text-caption font-medium text-[var(--cc-muted)] tracking-wider pb-3">
                     Status
                   </th>
-                  <th className="text-left text-caption font-medium text-[var(--cc-muted)] uppercase tracking-wider pb-3">
+                  <th className="text-left text-caption font-medium text-[var(--cc-muted)] tracking-wider pb-3">
                     Subscribed
                   </th>
                 </tr>

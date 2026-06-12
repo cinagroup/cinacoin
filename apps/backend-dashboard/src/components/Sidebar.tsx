@@ -32,7 +32,7 @@ export function Sidebar({ activeTab = "users", onTabChange = () => {}, onClose }
           <span className="cc-caption-mono text-[var(--cc-muted)]">CC</span>
           CinaCoin
         </h2>
-        <p className="cc-caption-mono text-[var(--cc-muted)] mt-1 uppercase tracking-wider">Backend admin.</p>
+        <p className="cc-caption-mono text-[var(--cc-muted)] mt-1 tracking-wider">Backend admin.</p>
       </div>
 
       <nav className="flex-1 p-4 space-y-1" aria-label="Main navigation">

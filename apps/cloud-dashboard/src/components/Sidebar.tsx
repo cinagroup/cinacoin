@@ -99,7 +99,7 @@ export default function Sidebar({ isOpen }: SidebarProps) {
       <nav className="flex-1 overflow-y-auto py-4" aria-label="Main navigation">
         {menuItems.map((category) => (
           <div key={category.category} className="mb-4">
-            <h3 className="px-4 cc-caption-mono text-[var(--cc-muted)] uppercase tracking-wider mb-2">
+            <h3 className="px-4 cc-caption-mono text-[var(--cc-muted)] tracking-wider mb-2">
               {category.category}
             </h3>
             <ul>

@@ -30,13 +30,13 @@ const INITIAL_CHAINS: ChainConfig[] = [
   { id: "cosmos", name: "Cosmos Hub", chainId: "cosmoshub-4", rpcUrl: "https://rpc-cosmoshub.blockapsis.com", nativeCurrency: "ATOM", explorerUrl: "https://www.mintscan.io/cosmos", enabled: false, network: "cosmos", mainnet: true },
 ];
 
-const NETWORK_COLORS: Record<string, string> = {
-  evm: "#0070f3",
-  solana: "#7928ca",
-  bitcoin: "#f5a623",
-  ton: "#0070f3",
-  tron: "#ee0000",
-  cosmos: "#888888",
+const NETWORK_COLORS: Record<string, { color: string; bg: string }> = {
+  evm: { color: "var(--cc-link)", bg: "var(--cc-link-bg-soft)" },
+  solana: { color: "var(--cc-violet)", bg: "var(--cc-violet-soft)" },
+  bitcoin: { color: "var(--cc-warning)", bg: "var(--cc-warning-soft)" },
+  ton: { color: "var(--cc-link)", bg: "var(--cc-link-bg-soft)" },
+  tron: { color: "var(--cc-error)", bg: "var(--cc-error-soft)" },
+  cosmos: { color: "var(--cc-muted)", bg: "var(--cc-canvas-soft-2)" },
 };
 
 export default function ChainsPage() {
@@ -68,7 +68,7 @@ export default function ChainsPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="cc-display-sm text-[var(--cc-ink)]">Networks >Networks & Chains< chains.</h1>
+          <h1 className="cc-display-sm text-[var(--cc-ink)]">Networks & Chains.</h1>
           <p className="cc-body-sm text-[var(--cc-muted)] mt-1">
             Configure supported blockchain networks — {enabledCount} of {chains.length} enabled
           </p>
@@ -152,7 +152,7 @@ export default function ChainsPage() {
                     <span className="cc-body-sm-strong text-[var(--cc-ink)]">{chain.name}</span>
                     <span
                       className="cc-caption px-2 py-1 rounded"
-                      style={{ backgroundColor: `${NETWORK_COLORS[chain.network]}20`, color: NETWORK_COLORS[chain.network] }}
+                      style={{ backgroundColor: NETWORK_COLORS[chain.network].bg, color: NETWORK_COLORS[chain.network].color }}
                     >
                       {chain.network}
                     </span>

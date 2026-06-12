@@ -46,12 +46,12 @@ export default function ApiKeysPage() {
             <table className="w-full">
               <thead className="bg-[var(--cc-canvas-soft-2)] border-b border-[var(--cc-hairline)]">
                 <tr>
-                  <th className="text-left px-6 py-3 text-caption font-medium text-[var(--cc-muted)] uppercase">Name</th>
-                  <th className="text-left px-6 py-3 text-caption font-medium text-[var(--cc-muted)] uppercase">Key</th>
-                  <th className="text-left px-6 py-3 text-caption font-medium text-[var(--cc-muted)] uppercase">Created</th>
-                  <th className="text-left px-6 py-3 text-caption font-medium text-[var(--cc-muted)] uppercase">Last Used</th>
-                  <th className="text-left px-6 py-3 text-caption font-medium text-[var(--cc-muted)] uppercase">Status</th>
-                  <th className="text-right px-6 py-3 text-caption font-medium text-[var(--cc-muted)] uppercase">Actions</th>
+                  <th className="text-left px-6 py-3 text-caption font-medium text-[var(--cc-muted)]">Name</th>
+                  <th className="text-left px-6 py-3 text-caption font-medium text-[var(--cc-muted)]">Key</th>
+                  <th className="text-left px-6 py-3 text-caption font-medium text-[var(--cc-muted)]">Created</th>
+                  <th className="text-left px-6 py-3 text-caption font-medium text-[var(--cc-muted)]">Last Used</th>
+                  <th className="text-left px-6 py-3 text-caption font-medium text-[var(--cc-muted)]">Status</th>
+                  <th className="text-right px-6 py-3 text-caption font-medium text-[var(--cc-muted)]">Actions</th>
                 </tr>
               </thead>
               <tbody>

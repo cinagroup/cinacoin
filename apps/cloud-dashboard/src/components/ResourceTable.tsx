@@ -78,22 +78,22 @@ export default function ResourceTable() {
         <table className="w-full">
           <thead className="bg-[var(--cc-canvas-soft)]">
             <tr>
-              <th className="px-6 py-3 text-left cc-caption-mono text-[var(--cc-muted)] uppercase tracking-wider">
+              <th className="px-6 py-3 text-left cc-caption-mono text-[var(--cc-muted)] tracking-wider">
                 Name
               </th>
-              <th className="px-6 py-3 text-left cc-caption-mono text-[var(--cc-muted)] uppercase tracking-wider">
+              <th className="px-6 py-3 text-left cc-caption-mono text-[var(--cc-muted)] tracking-wider">
                 Type
               </th>
-              <th className="px-6 py-3 text-left cc-caption-mono text-[var(--cc-muted)] uppercase tracking-wider">
+              <th className="px-6 py-3 text-left cc-caption-mono text-[var(--cc-muted)] tracking-wider">
                 Region
               </th>
-              <th className="px-6 py-3 text-left cc-caption-mono text-[var(--cc-muted)] uppercase tracking-wider">
+              <th className="px-6 py-3 text-left cc-caption-mono text-[var(--cc-muted)] tracking-wider">
                 Status
               </th>
-              <th className="px-6 py-3 text-left cc-caption-mono text-[var(--cc-muted)] uppercase tracking-wider">
+              <th className="px-6 py-3 text-left cc-caption-mono text-[var(--cc-muted)] tracking-wider">
                 Specs
               </th>
-              <th className="px-6 py-3 text-left cc-caption-mono text-[var(--cc-muted)] uppercase tracking-wider">
+              <th className="px-6 py-3 text-left cc-caption-mono text-[var(--cc-muted)] tracking-wider">
                 Cost
               </th>
             </tr>

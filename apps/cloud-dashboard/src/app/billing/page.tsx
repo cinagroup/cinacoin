@@ -109,11 +109,11 @@ export default function BillingPage() {
             <table className="w-full">
               <thead className="bg-[var(--cc-canvas-soft-2)] border-b border-[var(--cc-hairline)]">
                 <tr>
-                  <th className="text-left px-6 py-3 text-caption font-medium text-[var(--cc-muted)] uppercase">Invoice</th>
-                  <th className="text-left px-6 py-3 text-caption font-medium text-[var(--cc-muted)] uppercase">Date</th>
-                  <th className="text-left px-6 py-3 text-caption font-medium text-[var(--cc-muted)] uppercase">Amount</th>
-                  <th className="text-left px-6 py-3 text-caption font-medium text-[var(--cc-muted)] uppercase">Status</th>
-                  <th className="text-right px-6 py-3 text-caption font-medium text-[var(--cc-muted)] uppercase">Actions</th>
+                  <th className="text-left px-6 py-3 text-caption font-medium text-[var(--cc-muted)]">Invoice</th>
+                  <th className="text-left px-6 py-3 text-caption font-medium text-[var(--cc-muted)]">Date</th>
+                  <th className="text-left px-6 py-3 text-caption font-medium text-[var(--cc-muted)]">Amount</th>
+                  <th className="text-left px-6 py-3 text-caption font-medium text-[var(--cc-muted)]">Status</th>
+                  <th className="text-right px-6 py-3 text-caption font-medium text-[var(--cc-muted)]">Actions</th>
                 </tr>
               </thead>
               <tbody>

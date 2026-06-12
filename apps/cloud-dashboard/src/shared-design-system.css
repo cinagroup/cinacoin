@@ -512,7 +512,7 @@ body {
 
 .badge-warning {
   background-color: var(--cc-warning);
-  color: #171717;
+  color: var(--cc-ink);
 }
 
 .badge-info {
@@ -529,7 +529,7 @@ body {
 }
 
 [data-theme='dark'] .badge-warning {
-  color: #171717;
+  color: var(--cc-ink);
 }
 
 /* ── Form Input ─────────────────────────────────────────── */

@@ -145,26 +145,26 @@ export function AuditLog() {
       {/* Summary cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-md">
         <div className="cc-card p-md">
-          <p className="cc-caption-mono text-[var(--cc-muted)] uppercase tracking-wider mb-1">Total events</p>
+          <p className="cc-caption-mono text-[var(--cc-muted)] tracking-wider mb-1">Total events</p>
           <p className="cc-display-sm text-[var(--cc-ink)]">{mockAuditLogs.length}</p>
           <p className="cc-caption text-[var(--cc-body)] mt-1">Last 24 hours</p>
         </div>
         <div className="cc-card p-md">
-          <p className="cc-caption-mono text-[var(--cc-muted)] uppercase tracking-wider mb-1">Failed attempts</p>
+          <p className="cc-caption-mono text-[var(--cc-muted)] tracking-wider mb-1">Failed attempts</p>
           <p className="cc-display-sm text-[var(--cc-error)]">
             {mockAuditLogs.filter((e) => e.status === "failure").length}
           </p>
           <p className="cc-caption text-[var(--cc-body)] mt-1">Requires attention</p>
         </div>
         <div className="cc-card p-md">
-          <p className="cc-caption-mono text-[var(--cc-muted)] uppercase tracking-wider mb-1">Auth events</p>
+          <p className="cc-caption-mono text-[var(--cc-muted)] tracking-wider mb-1">Auth events</p>
           <p className="cc-display-sm text-[var(--cc-ink)]">
             {mockAuditLogs.filter((e) => e.category === "auth").length}
           </p>
           <p className="cc-caption text-[var(--cc-body)] mt-1">Logins & 2FA</p>
         </div>
         <div className="cc-card p-md">
-          <p className="cc-caption-mono text-[var(--cc-muted)] uppercase tracking-wider mb-1">System changes</p>
+          <p className="cc-caption-mono text-[var(--cc-muted)] tracking-wider mb-1">System changes</p>
           <p className="cc-display-sm text-[var(--cc-ink)]">
             {mockAuditLogs.filter((e) => e.category === "system").length}
           </p>
