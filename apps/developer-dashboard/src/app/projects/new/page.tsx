@@ -29,7 +29,7 @@ export default function NewProjectPage() {
         <Link href="/projects" className="text-body-sm text-link hover:text-link-hover">
           ← Back to Projects
         </Link>
-        <h1 className="text-display-md font-semibold text-[var(--cc-ink)] mt-2">Create new project.</h1>
+        <h1 className="text-display-md font-semibold text-[var(--cc-ink)] mt-2">New project</h1>
         <p className="text-ink-body mt-1">
           Set up a new project to start integrating with CinaCoin.
         </p>

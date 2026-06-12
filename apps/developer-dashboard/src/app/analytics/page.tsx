@@ -30,10 +30,9 @@ export default function AnalyticsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <p className="font-mono text-xs text-ink-mute mb-2">ANALYTICS</p>
-        <h1 className="text-display-md font-semibold text-[var(--cc-ink)]">API usage and performance.</h1>
+        <h1 className="text-display-md font-semibold text-[var(--cc-ink)]">Analytics</h1>
         <p className="text-ink-body mt-1">
-          Monitor your API usage, performance, and error rates.
+          1.28M requests in the last 30 days · p50 42ms · p99 380ms.
         </p>
       </div>
 
@@ -47,7 +46,7 @@ export default function AnalyticsPage() {
 
       {/* Request Trend */}
       <div className="cc-card">
-        <h2 className="text-body-lg font-semibold text-[var(--cc-ink)] mb-4">Request trend (last 10 days).</h2>
+        <h2 className="text-body-lg font-semibold text-[var(--cc-ink)] mb-4">Daily requests</h2>
         <div className="space-y-2">
           {dailyRequests.map((day) => (
             <div key={day.date} className="flex items-center gap-3">
@@ -80,7 +79,7 @@ export default function AnalyticsPage() {
 
       {/* Top Chains */}
       <div className="cc-card">
-        <h2 className="text-body-lg font-semibold text-[var(--cc-ink)] mb-4">Top chains.</h2>
+        <h2 className="text-body-lg font-semibold text-[var(--cc-ink)] mb-4">Traffic by chain</h2>
         <div className="space-y-3">
           {topChains.map((chain) => (
             <div key={chain.name} className="flex items-center gap-4">
@@ -101,7 +100,7 @@ export default function AnalyticsPage() {
 
       {/* Error Rate */}
       <div className="cc-card">
-        <h2 className="text-body-lg font-semibold text-[var(--cc-ink)] mb-4">Error rate breakdown.</h2>
+        <h2 className="text-body-lg font-semibold text-[var(--cc-ink)] mb-4">Error breakdown</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="p-4 bg-[var(--cc-canvas-soft)] rounded-lg">
             <div className="text-display-md font-semibold text-[var(--cc-ink)]">0.08%</div>

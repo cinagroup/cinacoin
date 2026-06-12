@@ -105,7 +105,6 @@ export default function SignPage({ provider, account }: SignPageProps) {
   if (!account) {
     return (
       <div className="page sign-page">
-        <p className="font-mono text-xs mb-2" style={{ color: 'var(--cc-muted)' }}>CRYPTOGRAPHY</p>
         <h1 className="page-title font-semibold">Sign.</h1>
         <div className="empty-state">
           <p>Connect your wallet to sign messages.</p>
@@ -116,7 +115,6 @@ export default function SignPage({ provider, account }: SignPageProps) {
 
   return (
     <div className="page sign-page">
-      <p className="font-mono text-xs mb-2" style={{ color: 'var(--cc-muted)' }}>CRYPTOGRAPHY</p>
       <h1 className="page-title font-semibold">Sign messages.</h1>
 
       <div className="sign-section">

@@ -62,8 +62,7 @@ export default function ProjectsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <p className="font-mono text-xs text-ink-mute mb-2">PROJECTS</p>
-          <h1 className="text-display-md font-semibold text-[var(--cc-ink)]">Manage your CinaCoin projects.</h1>
+          <h1 className="text-display-md font-semibold text-[var(--cc-ink)]">Projects</h1>
           <p className="text-ink-body mt-1">Create, view, and manage all your projects in one place.</p>
         </div>
         <Link href="/projects/new" className="cc-btn-primary">

@@ -16,7 +16,7 @@ export default function TransactionDetail({ tx }: TransactionDetailProps) {
   return (
     <div className="cc-card">
       <div className="flex items-start justify-between">
-        <h2 className="text-heading-3 text-[var(--cc-ink)]">Transaction detail.</h2>
+        <h2 className="text-heading-3 text-[var(--cc-ink)]">Transaction detail</h2>
         <span className={`badge ${status.badge}`}>
           {status.label}
         </span>
@@ -29,18 +29,18 @@ export default function TransactionDetail({ tx }: TransactionDetailProps) {
             <code className="mt-1 block break-all text-link">{tx.hash}</code>
           </div>
           <div>
-            <p className="text-caption text-mute">Block.</p>
+            <p className="text-caption text-mute">Block</p>
             <p className="mt-1 text-body font-[var(--font-mono)] text-[var(--cc-ink)]">{tx.block.toLocaleString()}</p>
           </div>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
-            <p className="text-caption text-mute">From.</p>
+            <p className="text-caption text-mute">From</p>
             <code className="mt-1 block break-all text-link">{tx.from}</code>
           </div>
           <div>
-            <p className="text-caption text-mute">To.</p>
+            <p className="text-caption text-mute">To</p>
             <code className="mt-1 block break-all text-link">{tx.to}</code>
           </div>
         </div>

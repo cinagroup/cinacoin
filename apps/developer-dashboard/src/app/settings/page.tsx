@@ -21,13 +21,13 @@ export default function SettingsPage() {
   return (
     <div className="space-y-6 max-w-2xl">
       <div>
-        <h1 className="text-display-md font-semibold text-[var(--cc-ink)]">Account settings.</h1>
+        <h1 className="text-display-md font-semibold text-[var(--cc-ink)]">Account settings</h1>
         <p className="text-ink-body mt-1">Manage your account preferences and security.</p>
       </div>
 
       {/* Profile */}
       <div className="cc-card space-y-4">
-        <h2 className="text-body-lg font-semibold text-[var(--cc-ink)]">Profile.</h2>
+        <h2 className="text-body-lg font-semibold text-[var(--cc-ink)]">Profile</h2>
         <div>
           <label className="block text-body-sm font-medium text-[var(--cc-ink)] mb-1">Display Name</label>
           <input
@@ -63,7 +63,7 @@ export default function SettingsPage() {
 
       {/* Security */}
       <div className="cc-card space-y-4">
-        <h2 className="text-body-lg font-semibold text-[var(--cc-ink)]">Security.</h2>
+        <h2 className="text-body-lg font-semibold text-[var(--cc-ink)]">Security</h2>
         <div className="flex items-center justify-between p-4 bg-[var(--cc-canvas-soft)] rounded-lg">
           <div>
             <div className="text-body-sm font-medium text-[var(--cc-ink)]">Two-Factor Authentication</div>
@@ -105,7 +105,7 @@ export default function SettingsPage() {
 
       {/* Connected Wallets */}
       <div className="cc-card space-y-4">
-        <h2 className="text-body-lg font-semibold text-[var(--cc-ink)]">Connected wallets.</h2>
+        <h2 className="text-body-lg font-semibold text-[var(--cc-ink)]">Connected wallets</h2>
         <div className="p-4 bg-[var(--cc-canvas-soft)] rounded-lg flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded bg-warning/20 flex items-center justify-center">
@@ -123,7 +123,7 @@ export default function SettingsPage() {
 
       {/* Danger Zone */}
       <div className="cc-card border-danger/30">
-        <h2 className="text-body-lg font-semibold text-danger mb-3">Danger zone.</h2>
+        <h2 className="text-body-lg font-semibold text-danger mb-3">Danger zone</h2>
         <p className="text-body-sm text-ink-body mb-4">
           Permanently delete your account and all associated projects, API keys, and data.
         </p>

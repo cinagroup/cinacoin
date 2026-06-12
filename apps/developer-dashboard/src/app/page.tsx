@@ -8,6 +8,9 @@ const stats = {
   projects: 12,
   totalRequests: 1_284_392,
   activeProjects: 8,
+  avgLatency: '142ms',
+  p99Latency: '380ms',
+  errorRate: '0.03%',
 };
 
 const recentProjects = [
@@ -42,26 +45,28 @@ export default function HomePage() {
     <div className="space-y-8">
       {/* Welcome */}
       <div>
-        <p className="font-mono text-xs text-ink-mute mb-2">DASHBOARD</p>
-        <h1 className="text-display-md font-semibold text-[var(--cc-ink)]">Welcome back, developer.</h1>
+        <h1 className="text-display-md font-semibold text-[var(--cc-ink)]">Dashboard.</h1>
         <p className="text-body text-ink-body mt-1">
-          Here&apos;s an overview of your CinaCoin projects and usage.
+          3 projects active · last request 4s ago.
         </p>
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <StatCard label="Total Projects" value={stats.projects.toString()} icon={Folder} />
-        <StatCard label="Total Requests" value={stats.totalRequests.toLocaleString()} icon={BarChart3} />
-        <StatCard label="Active Projects" value={stats.activeProjects.toString()} icon={Activity} />
+      <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+        <StatCard label="Projects" value={stats.projects.toString()} icon={Folder} />
+        <StatCard label="Requests (30d)" value={stats.totalRequests.toLocaleString()} icon={BarChart3} />
+        <StatCard label="Active" value={stats.activeProjects.toString()} icon={Activity} />
+        <StatCard label="Avg Latency" value={stats.avgLatency} icon={Activity} />
+        <StatCard label="p99 Latency" value={stats.p99Latency} icon={Activity} />
+        <StatCard label="Error Rate" value={stats.errorRate} icon={Activity} />
       </div>
 
       {/* Recent Projects */}
       <div>
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-body-lg font-semibold text-[var(--cc-ink)]">Recent projects.</h2>
+          <h2 className="text-body-lg font-semibold text-[var(--cc-ink)]">Projects</h2>
           <Link href="/projects/new" className="cc-btn-primary">
-            + New Project
+            New project
           </Link>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -73,24 +78,30 @@ export default function HomePage() {
 
       {/* Quick Links */}
       <div className="cc-card">
-        <h3 className="text-body-sm font-semibold text-[var(--cc-ink)] mb-3">Quick links.</h3>
+        <h3 className="text-body-sm font-semibold text-[var(--cc-ink)] mb-3">SDK &amp; resources</h3>
         <div className="flex flex-wrap gap-3">
           <Link href="/api-keys" className="cc-btn-secondary">
             <Key className="w-4 h-4 mr-2" />
-            Manage API Keys
+            API Keys
           </Link>
           <Link href="/analytics" className="cc-btn-secondary">
             <BarChart2 className="w-4 h-4 mr-2" />
-            View Analytics
+            Analytics
           </Link>
-          <Link href="/projects/new" className="cc-btn-secondary">
-            <Folder className="w-4 h-4 mr-2" />
-            Create Project
-          </Link>
+          <a href="https://docs.cinacoin.com" target="_blank" rel="noopener noreferrer" className="cc-btn-secondary">
+            Docs ↗
+          </a>
           <Link href="/settings" className="cc-btn-secondary">
             <Settings className="w-4 h-4 mr-2" />
             Settings
           </Link>
+        </div>
+        <div className="mt-4 flex items-center gap-4 text-body-sm text-[var(--cc-muted)]">
+          <span>SDK v2.4.1</span>
+          <span>·</span>
+          <span>Node.js ≥18.17</span>
+          <span>·</span>
+          <span>API v3</span>
         </div>
       </div>
     </div>

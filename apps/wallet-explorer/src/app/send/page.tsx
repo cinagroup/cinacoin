@@ -52,7 +52,6 @@ export default function SendPage() {
   if (!connected) {
     return (
       <div className="cc-card text-center py-12">
-        <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">SEND</p>
         <h2 className="text-heading-2 text-[var(--cc-ink)]">Send CINA.</h2>
         <p className="mt-2 text-body text-mute">Connect your wallet to send tokens.</p>
         <button onClick={connect} className="cc-btn-primary mt-6">
@@ -65,7 +64,6 @@ export default function SendPage() {
   return (
     <div className="space-y-6">
       <div>
-        <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">SEND</p>
         <h1 className="text-heading-2 text-[var(--cc-ink)]">Send CINA.</h1>
         <p className="mt-1 text-body text-mute">Transfer tokens to another address.</p>
       </div>
@@ -73,7 +71,7 @@ export default function SendPage() {
       <div className="cc-card">
         <div className="mb-6 flex items-center justify-between rounded-lg bg-[var(--cc-canvas-soft-2)] p-4">
           <div>
-            <p className="text-caption text-mute">Available balance.</p>
+            <p className="text-caption text-mute">Available balance</p>
             <p className="mt-1 text-display-sm text-[var(--cc-ink)]">{balance} CINA</p>
           </div>
           <code className="text-caption-mono text-mute" title={address || ''}>
@@ -147,7 +145,7 @@ export default function SendPage() {
 
           <div className="rounded-lg bg-[var(--cc-canvas-soft-2)] p-4 space-y-2">
             <div className="flex justify-between text-body-sm">
-              <span className="text-mute">Network fee (est.).</span>
+              <span className="text-mute">Network fee (est.)</span>
               <span className="text-[var(--cc-ink)] font-[var(--font-mono)]">~{NETWORK_FEE_NUMBER} CINA</span>
             </div>
             <div className="flex justify-between text-body-sm">

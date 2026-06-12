@@ -94,7 +94,6 @@ export default function WalletPage({
 
   return (
     <div className="page wallet-page">
-      <p className="font-mono text-xs mb-2" style={{ color: 'var(--cc-muted)' }}>WALLET</p>
       <h1 className="page-title font-semibold">Wallet.</h1>
 
       {!account ? (

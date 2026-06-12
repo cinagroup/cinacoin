@@ -53,8 +53,7 @@ export default function SwapPage() {
   if (!connected) {
     return (
       <div className="cc-card text-center py-12">
-        <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">SWAP</p>
-        <h2 className="text-heading-2 text-[var(--cc-ink)]">Swap tokens.</h2>
+        <h2 className="text-heading-2 text-[var(--cc-ink)]">Swap tokens</h2>
         <p className="mt-2 text-body text-mute">Connect your wallet to swap tokens.</p>
         <button onClick={connect} className="cc-btn-primary mt-6">
           Connect Wallet
@@ -66,15 +65,14 @@ export default function SwapPage() {
   return (
     <div className="space-y-6">
       <div>
-        <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">SWAP</p>
-        <h1 className="text-heading-2 text-[var(--cc-ink)]">Swap tokens.</h1>
+        <h1 className="text-heading-2 text-[var(--cc-ink)]">Swap tokens</h1>
         <p className="mt-1 text-body text-mute">Exchange tokens at the best rates.</p>
       </div>
 
       <div className="cc-card">
         <div className="mb-6 flex items-center justify-between rounded-lg bg-[var(--cc-canvas-soft-2)] p-4">
           <div>
-            <p className="text-caption text-mute">Available balance.</p>
+            <p className="text-caption text-mute">Available balance</p>
             <p className="mt-1 text-display-sm text-[var(--cc-ink)]">{balance} CINA</p>
           </div>
           <code className="text-caption-mono text-mute" title={address || ''}>
@@ -91,7 +89,7 @@ export default function SwapPage() {
         <form onSubmit={handleSwap} className="space-y-5">
           {/* From Token */}
           <div>
-            <label htmlFor="from-token" className="block text-caption text-mute mb-2">From.</label>
+            <label htmlFor="from-token" className="block text-caption text-mute mb-2">From</label>
             <div className="flex gap-3">
               <select
                 id="from-token"
@@ -134,7 +132,7 @@ export default function SwapPage() {
 
           {/* To Token */}
           <div>
-            <label htmlFor="to-token" className="block text-caption text-mute mb-2">To.</label>
+            <label htmlFor="to-token" className="block text-caption text-mute mb-2">To</label>
             <div className="flex gap-3">
               <select
                 id="to-token"
@@ -162,13 +160,13 @@ export default function SwapPage() {
           {fromAmount && toAmount && rate && (
             <div className="rounded-lg bg-[var(--cc-canvas-soft-2)] p-4 space-y-2">
               <div className="flex justify-between text-body-sm">
-                <span className="text-mute">Exchange rate.</span>
+                <span className="text-mute">Exchange rate</span>
                 <span className="text-[var(--cc-ink)] font-[var(--font-mono)]">
                   1 {fromToken} = {rate} {toToken}
                 </span>
               </div>
               <div className="flex justify-between text-body-sm">
-                <span className="text-mute">Network fee (est.).</span>
+                <span className="text-mute">Network fee (est.)</span>
                 <span className="text-[var(--cc-ink)] font-[var(--font-mono)]">~{SWAP_FEE_ESTIMATE} CINA</span>
               </div>
             </div>

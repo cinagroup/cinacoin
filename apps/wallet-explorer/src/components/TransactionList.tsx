@@ -31,7 +31,7 @@ export default memo(function TransactionList({ transactions }: TransactionListPr
   return (
     <div className="cc-card p-0 overflow-hidden">
       <div className="border-b border-[var(--cc-hairline)] p-5">
-        <h2 className="text-heading-3 text-[var(--cc-ink)]">Transaction history.</h2>
+        <h2 className="text-heading-3 text-[var(--cc-ink)]">Transaction history</h2>
       </div>
       <div>
         {transactions.length === 0 ? (

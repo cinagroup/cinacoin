@@ -102,10 +102,9 @@ export default function BillingPage() {
   return (
     <div className="space-y-6">
       <div>
-        <p className="font-mono text-xs text-ink-mute mb-2">BILLING</p>
-        <h1 className="text-display-md font-semibold text-[var(--cc-ink)]">Billing & quotas.</h1>
+        <h1 className="text-display-md font-semibold text-[var(--cc-ink)]">Billing & quotas</h1>
         <p className="text-ink-body mt-1">
-          Manage your subscription and monitor usage limits.
+          Pro plan · next invoice Jul 1, 2026.
         </p>
       </div>
 
@@ -114,7 +113,7 @@ export default function BillingPage() {
         <div className="flex items-start justify-between">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <h2 className="text-body-lg font-semibold text-[var(--cc-ink)]">Current plan.</h2>
+              <h2 className="text-body-lg font-semibold text-[var(--cc-ink)]">Current plan</h2>
               <span className="badge badge-success">Active</span>
             </div>
             <div className="flex items-baseline gap-1 mb-2">
@@ -146,7 +145,7 @@ export default function BillingPage() {
 
       {/* Usage vs Quota */}
       <div>
-        <h2 className="text-body-lg font-semibold text-[var(--cc-ink)] mb-4">Usage vs. quota.</h2>
+        <h2 className="text-body-lg font-semibold text-[var(--cc-ink)] mb-4">Usage vs. quota</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {usageStats.map((stat) => {
             const percentage = (stat.used / stat.total) * 100;
@@ -189,7 +188,7 @@ export default function BillingPage() {
 
       {/* Billing History */}
       <div className="cc-card">
-        <h2 className="text-body-lg font-semibold text-[var(--cc-ink)] mb-4">Recent invoices.</h2>
+        <h2 className="text-body-lg font-semibold text-[var(--cc-ink)] mb-4">Recent invoices</h2>
         <div className="table-container">
           <table>
             <thead>

@@ -67,7 +67,6 @@ export default function TransferPage({ provider, account, balance }: TransferPag
   if (!account) {
     return (
       <div className="page transfer-page">
-        <p className="font-mono text-xs mb-2" style={{ color: 'var(--cc-muted)' }}>TRANSFER</p>
         <h1 className="page-title font-semibold">Transfer.</h1>
         <div className="empty-state">
           <p>Connect your wallet to send tokens.</p>
@@ -78,7 +77,6 @@ export default function TransferPage({ provider, account, balance }: TransferPag
 
   return (
     <div className="page transfer-page">
-      <p className="font-mono text-xs mb-2" style={{ color: 'var(--cc-muted)' }}>TRANSFER</p>
       <h1 className="page-title font-semibold">Transfer.</h1>
 
       <div className="transfer-form">
