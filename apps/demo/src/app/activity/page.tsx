@@ -1,409 +1,240 @@
-'use client';
+"use client";
 
-import { useState, useEffect, useCallback, useMemo } from 'react';
-import { ClipboardList, Link, Repeat, Globe, Lock, Search } from 'lucide-react';
-import DemoLayout from '@/components/DemoLayout';
-import { useWallet, shortenAddress } from '@/lib/useWallet';
-import { getConnectionHistory, type ConnectionRecord } from '@/lib/connectionHistory';
-import { getSwapHistory, type SwapHistoryEntry } from '@/lib/swap';
+import { useState, useEffect } from "react";
+import { ArrowUpRight, ArrowDownLeft, ArrowRightLeft, Loader2, ExternalLink, Filter } from "lucide-react";
+import DemoLayout from "@/components/DemoLayout";
+import { useWallet, shortenAddress } from "@/lib/useWallet";
 
-/* ── types ── */
-
-type ActivityType = 'connection' | 'swap' | 'chain_switch' | 'auth';
-
-interface ActivityItem {
-  id: string;
-  type: ActivityType;
-  title: string;
-  description: string;
-  chain?: string;
-  status: 'completed' | 'pending' | 'failed';
-  timestamp: number;
-  hash?: string;
-  metadata?: Record<string, string>;
-}
-
-const CHAINS = [
-  'All', 'Ethereum', 'Polygon', 'Arbitrum', 'Base', 'Optimism',
-  'BNB Chain', 'Solana', 'Avalanche', 'TON', 'Cosmos',
+/* ── Mock transaction data with realistic timestamps ── */
+const MOCK_TRANSACTIONS = [
+  {
+    hash: "0x1a2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p7q8r9s0t1u2v3w4x5y6z",
+    type: "send" as const,
+    from: "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
+    to: "0x8ba1f109551bD432803012645Ac136ddd64DBA72",
+    value: "0.5",
+    timestamp: Date.now() - 2 * 60 * 1000, // 2 min ago
+    status: "confirmed" as const,
+  },
+  {
+    hash: "0x2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p7q8r9s0t1u2v3w4x5y6z1a",
+    type: "receive" as const,
+    from: "0x9c1d2e3f4g5h6i7j8k9l0m1n2o3p4q5r6s7t8u9v",
+    to: "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
+    value: "1.25",
+    timestamp: Date.now() - 45 * 60 * 1000, // 45 min ago
+    status: "confirmed" as const,
+  },
+  {
+    hash: "0x3c4d5e6f7g8h9i0j1k2l3m4n5o6p7q8r9s0t1u2v3w4x5y6z1a2b",
+    type: "swap" as const,
+    from: "0xUniswapRouter",
+    to: "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
+    value: "0.1",
+    timestamp: Date.now() - 3 * 60 * 60 * 1000, // 3 hours ago
+    status: "confirmed" as const,
+  },
+  {
+    hash: "0x4d5e6f7g8h9i0j1k2l3m4n5o6p7q8r9s0t1u2v3w4x5y6z1a2b3c",
+    type: "send" as const,
+    from: "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
+    to: "0xAlice1234567890abcdef",
+    value: "0.05",
+    timestamp: Date.now() - 24 * 60 * 60 * 1000, // 1 day ago
+    status: "confirmed" as const,
+  },
+  {
+    hash: "0x5e6f7g8h9i0j1k2l3m4n5o6p7q8r9s0t1u2v3w4x5y6z1a2b3c4d",
+    type: "receive" as const,
+    from: "0xBob9876543210fedcba",
+    to: "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
+    value: "2.0",
+    timestamp: Date.now() - 2 * 24 * 60 * 60 * 1000, // 2 days ago
+    status: "confirmed" as const,
+  },
 ];
 
-const TYPE_FILTERS: { value: ActivityType | 'all'; label: string; icon: React.ComponentType<{ className?: string }> }[] = [
-  { value: 'all', label: 'All', icon: ClipboardList },
-  { value: 'connection', label: 'Connections', icon: Link },
-  { value: 'swap', label: 'Swaps', icon: Repeat },
-  { value: 'chain_switch', label: 'Chain Switches', icon: Globe },
-  { value: 'auth', label: 'Auth', icon: Lock },
-];
+/* ── Relative time formatter ── */
+function formatRelativeTime(timestamp: number): string {
+  const now = Date.now();
+  const diff = now - timestamp;
+  const seconds = Math.floor(diff / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
 
-const PAGE_SIZE = 10;
-
-/* ── helpers ── */
-
-function timeAgo(ts: number): string {
-  const diff = Date.now() - ts;
-  const s = Math.floor(diff / 1000);
-  if (s < 60) return 'Just now';
-  const m = Math.floor(s / 60);
-  if (m < 60) return `${m}m ago`;
-  const h = Math.floor(m / 60);
-  if (h < 24) return `${h}h ago`;
-  const d = Math.floor(h / 24);
-  return `${d}d ago`;
+  if (seconds < 60) return "Just now";
+  if (minutes < 60) return `${minutes} min ago`;
+  if (hours < 24) return `${hours} hr ago`;
+  if (days === 1) return "Yesterday";
+  if (days < 7) return `${days} days ago`;
+  return new Date(timestamp).toLocaleDateString();
 }
 
-function formatDate(ts: number): string {
-  return new Date(ts).toLocaleString();
-}
-
-function typeIcon(type: ActivityType): React.ComponentType<{ className?: string }> {
-  switch (type) {
-    case 'connection': return Link;
-    case 'swap': return Repeat;
-    case 'chain_switch': return Globe;
-    case 'auth': return Lock;
+/* ── Transaction icon ── */
+function TransactionIcon({ type }: { type: "send" | "receive" | "swap" }) {
+  const iconClass = "w-4 h-4";
+  
+  if (type === "send") {
+    return (
+      <div className="w-9 h-9 rounded-full bg-[var(--cc-error)]/15 border border-[var(--cc-error)]/25 flex items-center justify-center">
+        <ArrowUpRight className={`${iconClass} text-[var(--cc-error)]`} />
+      </div>
+    );
   }
-}
-
-function statusColor(status: ActivityItem['status']): string {
-  switch (status) {
-    case 'completed': return 'bg-[var(--cc-success)]/15 text-[var(--cc-success)] border-[var(--cc-success)]/25';
-    case 'pending': return 'bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border-[var(--cc-warning)]/25';
-    case 'failed': return 'bg-[var(--cc-error)]/15 text-[var(--cc-error)] border-[var(--cc-error)]/25';
+  
+  if (type === "receive") {
+    return (
+      <div className="w-9 h-9 rounded-full bg-[var(--cc-success)]/15 border border-[var(--cc-success)]/25 flex items-center justify-center">
+        <ArrowDownLeft className={`${iconClass} text-[var(--cc-success)]`} />
+      </div>
+    );
   }
+  
+  return (
+    <div className="w-9 h-9 rounded-full bg-[var(--cc-link)]/15 border border-[var(--cc-primary)]/25 flex items-center justify-center">
+      <ArrowRightLeft className={`${iconClass} text-[var(--cc-link)]`} />
+    </div>
+  );
 }
-
-/* ── mock data generator ── */
-
-function generateMockActivities(
-  connections: ConnectionRecord[],
-  swaps: SwapHistoryEntry[],
-  walletAddress: string | null,
-): ActivityItem[] {
-  const items: ActivityItem[] = [];
-
-  // Connection history
-  connections.forEach((c, i) => {
-    items.push({
-      id: `conn-${i}`,
-      type: 'connection',
-      title: 'Wallet Connected',
-      description: `${shortenAddress(c.address)} via ${c.connectorName}`,
-      chain: c.chainName,
-      status: 'completed',
-      timestamp: c.connectedAt,
-      metadata: { connector: c.connectorName, chainId: String(c.chainId) },
-    });
-  });
-
-  // Swap history
-  swaps.forEach((s, i) => {
-    items.push({
-      id: `swap-${i}`,
-      type: 'swap',
-      title: `Swap ${s.from} → ${s.to}`,
-      description: `${s.fromAmount} ${s.from} → ${s.toAmount} ${s.to}`,
-      chain: s.chainId ? `Chain ${s.chainId}` : undefined,
-      status: s.status === 'completed' ? 'completed' : s.status === 'pending' ? 'pending' : 'failed',
-      timestamp: new Date(s.timestamp).getTime(),
-      hash: s.txHash,
-      metadata: { rate: s.rate, route: s.route },
-    });
-  });
-
-  // Mock auth activities
-  if (walletAddress) {
-    items.push({
-      id: 'auth-1',
-      type: 'auth',
-      title: 'SIWE Authentication',
-      description: `Wallet ownership verified for ${shortenAddress(walletAddress)}`,
-      status: 'completed',
-      timestamp: Date.now() - 86400000 * 2,
-      metadata: { method: 'SIWE', standard: 'EIP-4361' },
-    });
-    items.push({
-      id: 'auth-2',
-      type: 'auth',
-      title: 'Passkey Registered',
-      description: 'New biometric credential added',
-      status: 'completed',
-      timestamp: Date.now() - 86400000 * 5,
-      metadata: { method: 'WebAuthn' },
-    });
-  }
-
-  // Mock chain switch activities
-  const chainSwitches = [
-    { chain: 'Ethereum', ts: Date.now() - 3600000 },
-    { chain: 'Polygon', ts: Date.now() - 7200000 },
-    { chain: 'Arbitrum', ts: Date.now() - 14400000 },
-  ];
-  chainSwitches.forEach((cs, i) => {
-    items.push({
-      id: `switch-${i}`,
-      type: 'chain_switch',
-      title: `Switched to ${cs.chain}`,
-      description: `Network changed to ${cs.chain}`,
-      chain: cs.chain,
-      status: 'completed',
-      timestamp: cs.ts,
-    });
-  });
-
-  // Sort by timestamp descending
-  items.sort((a, b) => b.timestamp - a.timestamp);
-  return items;
-}
-
-/* ── main page ── */
 
 export default function ActivityPage() {
-  const { account, status, connectors, connect } = useWallet();
-  const isConnected = status === 'connected';
+  const { account, status } = useWallet();
+  const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState<"all" | "send" | "receive" | "swap">("all");
 
-  const [activities, setActivities] = useState<ActivityItem[]>([]);
-  const [chainFilter, setChainFilter] = useState('All');
-  const [typeFilter, setTypeFilter] = useState<ActivityType | 'all'>('all');
-  const [page, setPage] = useState(0);
-  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const isConnected = status === "connected";
 
-  // Load activities
+  // Simulate loading
   useEffect(() => {
-    const conns = getConnectionHistory();
-    const swps = getSwapHistory();
-    const all = generateMockActivities(conns, swps, account.address);
-    setActivities(all);
-  }, [account.address]);
+    const timer = setTimeout(() => setLoading(false), 500);
+    return () => clearTimeout(timer);
+  }, []);
 
-  // Filtered + paginated
-  const filtered = useMemo(() => {
-    let result = activities;
-    if (typeFilter !== 'all') {
-      result = result.filter((a) => a.type === typeFilter);
-    }
-    if (chainFilter !== 'All') {
-      result = result.filter((a) => a.chain === chainFilter);
-    }
-    return result;
-  }, [activities, typeFilter, chainFilter]);
+  const filteredTransactions = MOCK_TRANSACTIONS.filter(
+    (tx) => filter === "all" || tx.type === filter
+  );
 
-  const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
-  const paginated = filtered.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
-
-  // Stats
-  const stats = useMemo(() => ({
-    total: activities.length,
-    completed: activities.filter((a) => a.status === 'completed').length,
-    pending: activities.filter((a) => a.status === 'pending').length,
-    failed: activities.filter((a) => a.status === 'failed').length,
-  }), [activities]);
-
-  const handleConnect = useCallback(() => {
-    connect(connectors.find((c) => c.id === 'io.metamask')?.id ?? 'io.metamask');
-  }, [connect, connectors]);
+  if (!isConnected) {
+    return (
+      <DemoLayout>
+        <div className="max-w-4xl mx-auto px-4 py-12 text-center cc-page-enter">
+          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">ACTIVITY</p>
+          <h1 className="text-display-lg font-semibold tracking-tighter text-[var(--cc-ink)] mb-4">
+            Transaction history.
+          </h1>
+          <p className="text-[var(--cc-body)]">Connect your wallet to view your transaction history.</p>
+        </div>
+      </DemoLayout>
+    );
+  }
 
   return (
     <DemoLayout>
-      <div className="max-w-4xl mx-auto px-4 py-8 space-y-8">
-
-        {/* ── Header ── */}
-        <div className="text-center space-y-2">
+      <div className="max-w-4xl mx-auto px-4 py-12 cc-page-enter">
+        {/* Header */}
+        <div className="mb-8">
           <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">ACTIVITY</p>
-          <h1 className="text-display-lg font-semibold tracking-tighter bg-gradient-to-r from-[var(--cc-link)] via-[var(--cc-cyan)] to-[var(--cc-success)] bg-clip-text text-transparent">
-            Activity History.
+          <h1 className="text-display-lg font-semibold tracking-tighter text-[var(--cc-ink)] mb-2">
+            Transaction history.
           </h1>
-          <p className="text-[var(--cc-muted)] text-body-sm">Track all your wallet interactions and transactions</p>
+          <p className="text-[var(--cc-body)] text-body-sm">
+            {MOCK_TRANSACTIONS.length} transactions · Last activity {formatRelativeTime(MOCK_TRANSACTIONS[0].timestamp)}
+          </p>
         </div>
 
-        {/* ── Wallet connect bar ── */}
-        <div className="flex items-center justify-between bg-[var(--cc-canvas)] rounded-[8px] border border-[var(--cc-hairline)] px-5 py-4" style={{ boxShadow: '0px 1px 1px rgba(0, 0, 0, 0.03), 0px 2px 2px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.08) inset' }}>
-          {isConnected ? (
-            <div className="flex items-center gap-3">
-              <div className="size-8 rounded-full bg-gradient-to-br from-[var(--cc-link)] to-[var(--cc-violet-deep)] flex items-center justify-center text-caption font-semibold text-[var(--color-on-primary)]">
-                {account.address?.slice(2, 4).toUpperCase()}
-              </div>
-              <div>
-                <p className="text-body-sm font-[var(--font-mono)] text-[var(--cc-body)]">{shortenAddress(account.address ?? '')}</p>
-                <p className="text-caption text-[var(--cc-body)]">{account.chainName} · Balance: {account.balance} {account.chainSymbol}</p>
-              </div>
-            </div>
-          ) : (
+        {/* Filters */}
+        <div className="flex items-center gap-2 mb-6 p-1 bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline)] rounded-full w-fit">
+          {(["all", "send", "receive", "swap"] as const).map((type) => (
             <button
-              onClick={handleConnect}
-              className="px-5 py-3 rounded-[6px] text-body-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:bg-[var(--cc-primary-hover)] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--cc-link)] transition-all"
+              key={type}
+              onClick={() => setFilter(type)}
+              className={`px-4 py-1.5 text-caption font-medium rounded-full transition-all ${
+                filter === type
+                  ? 'bg-[var(--cc-canvas)] text-[var(--cc-ink)] shadow-[var(--cc-level1)]'
+                  : 'text-[var(--cc-muted)] hover:text-[var(--cc-body)]'
+              }`}
             >
-              Connect Wallet
+              {type.charAt(0).toUpperCase() + type.slice(1)}
             </button>
-          )}
-          <span className="text-caption text-[var(--cc-body)]">{activities.length} activities</span>
-        </div>
-
-        {/* ── Stats bar ── */}
-        <div className="grid grid-cols-4 gap-3">
-          {[
-            { label: 'Total', value: stats.total, color: 'text-[var(--cc-ink)]' },
-            { label: 'Completed', value: stats.completed, color: 'text-[var(--cc-success)]' },
-            { label: 'Pending', value: stats.pending, color: 'text-[var(--cc-warning)]' },
-            { label: 'Failed', value: stats.failed, color: 'text-[var(--cc-error)]' },
-          ].map((s) => (
-            <div key={s.label} className="text-center p-4 rounded-md bg-[var(--cc-canvas-soft-2)]/40 border border-[var(--cc-hairline-strong)]/40">
-              <div className={`text-display-md font-semibold tracking-tighter ${s.color}`}>{s.value}</div>
-              <div className="text-caption text-[var(--cc-body)] mt-1">{s.label}</div>
-            </div>
           ))}
         </div>
 
-        {/* ── Filters ── */}
-        <div className="space-y-3">
-          {/* Type filter */}
-          <div className="flex flex-wrap gap-2">
-            {TYPE_FILTERS.map((f) => (
-              <button
-                key={f.value}
-                onClick={() => { setTypeFilter(f.value); setPage(0); }}
-                className={`flex items-center gap-2 px-3 py-2 rounded-md text-body-sm font-medium transition-all ${
-                  typeFilter === f.value
-                    ? 'bg-[var(--cc-link)]/15 text-[var(--cc-link)] border border-[var(--cc-primary)]/30'
-                    : 'bg-[var(--cc-canvas-soft-2)]/40 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)]'
-                }`}
-              >
-                <f.icon className="w-4 h-4" />
-                {f.label}
-              </button>
-            ))}
-          </div>
-
-          {/* Chain filter */}
-          <div className="relative">
-            <select
-              value={chainFilter}
-              onChange={(e) => { setChainFilter(e.target.value); setPage(0); }}
-              className="w-full px-4 py-3 bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline-strong)]/50 rounded-md text-body-sm text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-primary)]/40 appearance-none cursor-pointer"
-            >
-              {CHAINS.map((c) => (
-                <option key={c} value={c}>{c === 'All' ? 'All Chains' : c}</option>
-              ))}
-            </select>
-            <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[var(--cc-body)] text-caption">▾</span>
-          </div>
-        </div>
-
-        {/* ── Activity List ── */}
-        {paginated.length === 0 ? (
-          <div className="text-center py-16 bg-[var(--cc-canvas-soft-2)]/30 rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/40">
-            <Search className="w-8 h-8 mx-auto mb-3 text-[var(--cc-muted)]" />
-            <p className="text-[var(--cc-muted)] text-body-sm">No activities found</p>
-            <p className="text-[var(--cc-body)] text-caption mt-1">Connect your wallet and start interacting to see activity here.</p>
-          </div>
-        ) : (
-          <div className="space-y-2">
-            {paginated.map((item) => (
-              <div key={item.id}>
-                <button
-                  onClick={() => setExpandedId(expandedId === item.id ? null : item.id)}
-                  className="w-full text-left p-4 rounded-md bg-[var(--cc-canvas-soft-2)]/40 border border-[var(--cc-hairline-strong)]/40 hover:border-[var(--cc-hairline-strong)]/60 hover:bg-[var(--cc-canvas-soft-2)]/60 transition-all"
-                  aria-expanded={expandedId === item.id}
-                  aria-label={`${item.title} - ${item.status}`}
-                >
-                  <div className="flex items-center gap-3">
-                    {(() => { const Icon = typeIcon(item.type); return <Icon className="w-5 h-5 text-[var(--cc-body)]" />; })()}
-                    <div className="flex-1 min-w-0">
-                      <p className="text-body-sm font-medium text-[var(--cc-body)] truncate">{item.title}</p>
-                      <p className="text-caption text-[var(--cc-body)] truncate">{item.description}</p>
-                    </div>
-                    <div className="flex items-center gap-2 shrink-0">
-                      {item.chain && (
-                        <span className="text-caption px-2 py-1 rounded-full bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-muted)]">
-                          {item.chain}
-                        </span>
-                      )}
-                      <span className={`text-caption px-2 py-1 rounded-full font-semibold border ${statusColor(item.status)}`}>
-                        {item.status}
-                      </span>
-                      <span className="text-caption text-[var(--cc-body)]">{timeAgo(item.timestamp)}</span>
-                      <svg className={`w-4 h-4 text-[var(--cc-body)] transition-transform ${expandedId === item.id ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                      </svg>
-                    </div>
+        {/* Transaction List */}
+        {loading ? (
+          <div className="space-y-3">
+            {[...Array(5)].map((_, i) => (
+              <div key={i} className="p-4 border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] bg-[var(--cc-canvas)]">
+                <div className="flex items-center gap-4">
+                  <div className="cc-skeleton cc-skeleton-circle w-9 h-9" />
+                  <div className="flex-1 space-y-2">
+                    <div className="cc-skeleton cc-skeleton-text w-32" />
+                    <div className="cc-skeleton cc-skeleton-text w-24" />
                   </div>
-                </button>
-
-                {/* Expanded detail */}
-                {expandedId === item.id && (
-                  <div className="mt-1 p-4 rounded-md bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/30 space-y-2 ml-8">
-                    <div className="grid grid-cols-2 gap-2 text-caption">
-                      <div>
-                        <span className="text-[var(--cc-body)]">Type:</span>
-                        <span className="text-[var(--cc-body)] ml-2 capitalize">{item.type.replace('_', ' ')}</span>
-                      </div>
-                      <div>
-                        <span className="text-[var(--cc-body)]">Status:</span>
-                        <span className={`ml-2 font-semibold ${
-                          item.status === 'completed' ? 'text-[var(--cc-success)]' : item.status === 'pending' ? 'text-[var(--cc-warning)]' : 'text-[var(--cc-error)]'
-                        }`}>{item.status}</span>
-                      </div>
-                      <div>
-                        <span className="text-[var(--cc-body)]">Time:</span>
-                        <span className="text-[var(--cc-body)] ml-2">{formatDate(item.timestamp)}</span>
-                      </div>
-                      {item.chain && (
-                        <div>
-                          <span className="text-[var(--cc-body)]">Chain:</span>
-                          <span className="text-[var(--cc-body)] ml-2">{item.chain}</span>
-                        </div>
-                      )}
-                    </div>
-                    {item.hash && (
-                      <div className="pt-2 border-t border-[var(--cc-hairline)]/50">
-                        <span className="text-caption text-[var(--cc-body)]">Transaction Hash:</span>
-                        <p className="font-[var(--font-mono)] text-caption text-[var(--cc-link)] break-all mt-1">{item.hash}</p>
-                      </div>
-                    )}
-                    {item.metadata && Object.keys(item.metadata).length > 0 && (
-                      <div className="pt-2 border-t border-[var(--cc-hairline)]/50">
-                        <span className="text-caption text-[var(--cc-body)]">Details:</span>
-                        <div className="mt-1 space-y-1">
-                          {Object.entries(item.metadata).map(([k, v]) => (
-                            <div key={k} className="flex text-caption">
-                              <span className="text-[var(--cc-body)] w-24 shrink-0">{k}:</span>
-                              <span className="text-[var(--cc-body)] font-[var(--font-mono)]">{v}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
+                  <div className="space-y-2 text-right">
+                    <div className="cc-skeleton cc-skeleton-text w-20" />
+                    <div className="cc-skeleton cc-skeleton-text w-16" />
                   </div>
-                )}
+                </div>
               </div>
             ))}
           </div>
-        )}
-
-        {/* ── Pagination ── */}
-        {totalPages > 1 && (
-          <div className="flex items-center justify-between bg-[var(--cc-canvas-soft-2)]/30 rounded-md border border-[var(--cc-hairline-strong)]/40 px-5 py-3">
-            <span className="text-caption text-[var(--cc-body)]">
-              Page {page + 1} of {totalPages} · {filtered.length} items
-            </span>
-            <div className="flex gap-2">
-              <button
-                onClick={() => setPage((p) => Math.max(0, p - 1))}
-                disabled={page === 0}
-                className="px-3 py-2 rounded-lg text-caption font-medium bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
-                aria-label="Previous page"
-              >
-                ← Prev
-              </button>
-              <button
-                onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
-                disabled={page >= totalPages - 1}
-                className="px-3 py-2 rounded-lg text-caption font-medium bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
-                aria-label="Next page"
-              >
-                Next →
-              </button>
+        ) : filteredTransactions.length === 0 ? (
+          <div className="text-center py-16">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[var(--cc-canvas-soft-2)] mb-4">
+              <Filter className="h-8 w-8 text-[var(--cc-muted)]" />
             </div>
+            <p className="text-[var(--cc-body)] mb-2">No transactions found</p>
+            <p className="text-caption text-[var(--cc-muted)]">Try adjusting your filter</p>
+          </div>
+        ) : (
+          <div className="space-y-2 cc-stagger">
+            {filteredTransactions.map((tx) => (
+              <div
+                key={tx.hash}
+                className="p-4 border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] bg-[var(--cc-canvas)] hover:shadow-[var(--cc-level1)] transition-all group cc-animate-slide-up"
+              >
+                <div className="flex items-center gap-4">
+                  {/* Icon */}
+                  <TransactionIcon type={tx.type} />
+
+                  {/* Details */}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <p className="font-semibold text-body-sm text-[var(--cc-ink)] capitalize">
+                        {tx.type}
+                      </p>
+                      <span className="text-caption text-[var(--cc-muted)]">
+                        {formatRelativeTime(tx.timestamp)}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-1 text-caption text-[var(--cc-body)]">
+                      <span className="font-mono">
+                        {tx.type === "send" ? `To: ${shortenAddress(tx.to)}` :
+                         tx.type === "receive" ? `From: ${shortenAddress(tx.from)}` :
+                         `Via ${shortenAddress(tx.from)}`}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Value & Hash */}
+                  <div className="text-right">
+                    <p className={`font-semibold cc-tabular-nums ${
+                      tx.type === "receive" ? 'text-[var(--cc-success)]' : 'text-[var(--cc-ink)]'
+                    }`}>
+                      {tx.type === "receive" ? "+" : tx.type === "send" ? "-" : ""}
+                      {tx.value} ETH
+                    </p>
+                    <div className="flex items-center justify-end gap-1 mt-1">
+                      <span className="text-caption text-[var(--cc-muted)] font-mono">
+                        {shortenAddress(tx.hash)}
+                      </span>
+                      <ExternalLink className="w-3 h-3 text-[var(--cc-muted)] opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         )}
       </div>

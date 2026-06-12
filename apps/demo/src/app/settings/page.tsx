@@ -148,25 +148,6 @@ export default function SettingsPage() {
     success('History Cleared', 'Connection history removed');
   };
 
-  const SectionNav = () => (
-    <div className="flex flex-wrap gap-2 mb-8">
-      {SETTINGS_SECTIONS.map((s) => (
-        <button
-          key={s.id}
-          onClick={() => setActiveSection(s.id)}
-          className={`flex items-center gap-2 px-4 py-2 rounded-md text-body-sm font-medium transition-all ${
-            activeSection === s.id
-              ? 'bg-[var(--cc-link)]/15 text-[var(--cc-link)] border border-[var(--cc-primary)]/30'
-              : 'bg-[var(--cc-canvas-soft-2)]/40 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)]'
-          }`}
-        >
-          <s.icon className="h-4 w-4" />
-          {s.label}
-        </button>
-      ))}
-    </div>
-  );
-
   return (
     <DemoLayout>
       <div className="max-w-2xl mx-auto px-4 py-8">
@@ -179,7 +160,22 @@ export default function SettingsPage() {
           <p className="text-[var(--cc-muted)] text-body-sm mt-2">Customize your demo experience</p>
         </div>
 
-        <SectionNav />
+        <div className="flex flex-wrap gap-2 mb-8">
+          {SETTINGS_SECTIONS.map((s) => (
+            <button
+              key={s.id}
+              onClick={() => setActiveSection(s.id)}
+              className={`flex items-center gap-2 px-4 py-2 rounded-md text-body-sm font-medium transition-all ${
+                activeSection === s.id
+                  ? 'bg-[var(--cc-link)]/15 text-[var(--cc-link)] border border-[var(--cc-primary)]/30'
+                  : 'bg-[var(--cc-canvas-soft-2)]/40 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)]'
+              }`}
+            >
+              <s.icon className="h-4 w-4" />
+              {s.label}
+            </button>
+          ))}
+        </div>
 
         {/* ── Appearance ── */}
         {activeSection === 'appearance' && (

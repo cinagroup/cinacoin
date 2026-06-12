@@ -1,578 +1,271 @@
-'use client';
+"use client";
 
-import { useState, useCallback, useMemo } from 'react';
-import DemoLayout from '@/components/DemoLayout';
-import { LockIcon, ZapIcon, GlobeIcon, MoonIcon, CircleDotIcon, DiamondIcon } from 'lucide-react';
+import { useState, useEffect } from "react";
+import { CreditCard, ArrowRight, Loader2, CheckCircle2, AlertCircle, RefreshCw } from "lucide-react";
+import DemoLayout from "@/components/DemoLayout";
+import { useWallet, shortenAddress } from "@/lib/useWallet";
+import { useToast } from "@/lib/toast";
 
-// ─── Types ──────────────────────────────────────────────────────────────────
-
-interface ProviderQuote {
-  providerId: string;
-  providerName: string;
-  icon: string;
-  cryptoAmount: number;
-  totalCost: number;
-  fees: { totalFeePercent: number; fixedFee: number };
-  estimatedTime: number;
-  requiresKyc: boolean;
-  paymentMethods: string[];
-  regions: string[];
-  isBest: boolean;
-  token: string;
-}
-
-interface TokenOption {
-  symbol: string;
-  name: string;
-  icon: string;
-}
-
-// ─── Mock Data ──────────────────────────────────────────────────────────────
-
-const TOKENS: TokenOption[] = [
-  { symbol: 'ETH', name: 'Ethereum', icon: '⟠' },
-  { symbol: 'BTC', name: 'Bitcoin', icon: '₿' },
-  { symbol: 'USDC', name: 'USD Coin', icon: '◎' },
-  { symbol: 'MATIC', name: 'Polygon', icon: '⬡' },
-  { symbol: 'SOL', name: 'Solana', icon: '◎' },
+/* ── Mock provider quotes ── */
+const PROVIDERS = [
+  {
+    id: "moonpay",
+    name: "MoonPay",
+    logo: "🌙",
+    amount: 100,
+    receiveAmount: "0.0263",
+    fee: "2.99",
+    rate: "3,802.45",
+    eta: "5-10 min",
+  },
+  {
+    id: "transak",
+    name: "Transak",
+    logo: "⚡",
+    amount: 100,
+    receiveAmount: "0.0261",
+    fee: "3.49",
+    rate: "3,816.79",
+    eta: "3-5 min",
+  },
+  {
+    id: "ramp",
+    name: "Ramp Network",
+    logo: "🔷",
+    amount: 100,
+    receiveAmount: "0.0259",
+    fee: "1.50",
+    rate: "3,861.00",
+    eta: "10-15 min",
+  },
 ];
 
-const CURRENCIES = ['USD', 'EUR', 'GBP', 'CNY', 'JPY'];
+export default function OnRampPage() {
+  const { account, status } = useWallet();
+  const { success, error: showError } = useToast();
 
-const REGIONS = [
-  { code: 'US', name: 'United States' },
-  { code: 'GB', name: 'United Kingdom' },
-  { code: 'DE', name: 'Germany' },
-  { code: 'FR', name: 'France' },
-  { code: 'JP', name: 'Japan' },
-  { code: 'SG', name: 'Singapore' },
-  { code: 'HK', name: 'Hong Kong' },
-  { code: 'CA', name: 'Canada' },
-  { code: 'AU', name: 'Australia' },
-  { code: 'KR', name: 'South Korea' },
-];
+  const isConnected = status === "connected";
 
-/**
- * Simulate provider quotes with deterministic mock data.
- * In production, this would call the OnRampAggregator SDK.
- */
-function generateMockQuotes(
-  fiatAmount: number,
-  currency: string,
-  token: string,
-  region: string,
-): ProviderQuote[] {
-  const rates: Record<string, number> = {
-    ETH: 3000,
-    BTC: 65000,
-    USDC: 1,
-    MATIC: 0.6,
-    SOL: 150,
+  const [amount, setAmount] = useState("100");
+  const [currency, setCurrency] = useState("USD");
+  const [selectedProvider, setSelectedProvider] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [quotesLoading, setQuotesLoading] = useState(true);
+  const [purchaseComplete, setPurchaseComplete] = useState(false);
+
+  // Simulate loading quotes
+  useEffect(() => {
+    setQuotesLoading(true);
+    const timer = setTimeout(() => setQuotesLoading(false), 800);
+    return () => clearTimeout(timer);
+  }, [amount]);
+
+  const handlePurchase = async () => {
+    if (!selectedProvider) {
+      showError("Select provider", "Please choose a payment provider");
+      return;
+    }
+    setLoading(true);
+    // Simulate purchase flow
+    await new Promise((r) => setTimeout(r, 2000));
+    setPurchaseComplete(true);
+    const provider = PROVIDERS.find((p) => p.id === selectedProvider);
+    success(
+      "Purchase initiated",
+      `Buying ~${provider?.receiveAmount} ETH via ${provider?.name}`
+    );
+    setLoading(false);
   };
 
-  const baseRate = rates[token] ?? 3000;
+  const presetAmounts = ["50", "100", "250", "500", "1000"];
 
-  // Provider configs with realistic fee differences
-  const providers = [
-    {
-      providerId: 'moonpay' as const,
-      providerName: 'MoonPay',
-      icon: 'moonpay',
-      feePercent: 4.5,
-      fixedFee: 4.99,
-      time: 10,
-      kyc: true,
-      methods: ['credit_card', 'debit_card', 'bank_transfer', 'apple_pay'],
-      regions: ['US', 'CA', 'GB', 'AU', 'DE', 'FR', 'JP', 'KR', 'SG', 'HK'],
-      spread: 0.998, // slight rate variation
-    },
-    {
-      providerId: 'ramp' as const,
-      providerName: 'Ramp',
-      icon: 'ramp',
-      feePercent: 2.5,
-      fixedFee: 1.50,
-      time: 5,
-      kyc: true,
-      methods: ['credit_card', 'debit_card', 'bank_transfer', 'apple_pay', 'google_pay'],
-      regions: ['US', 'GB', 'DE', 'FR', 'JP', 'SG', 'HK', 'CA', 'AU'],
-      spread: 1.002,
-    },
-    {
-      providerId: 'transak' as const,
-      providerName: 'Transak',
-      icon: 'transak',
-      feePercent: 2.0,
-      fixedFee: 0.0,
-      time: 15,
-      kyc: true,
-      methods: ['credit_card', 'debit_card', 'bank_transfer'],
-      regions: ['US', 'GB', 'DE', 'FR', 'JP', 'KR', 'SG', 'HK', 'CA', 'AU'],
-      spread: 0.995,
-    },
-  ];
-
-  const quotes = providers.map((p) => {
-    const regionSupported = p.regions.includes(region);
-    if (!regionSupported) return null;
-
-    const effectiveRate = baseRate / p.spread;
-    const cryptoAmount = fiatAmount / effectiveRate;
-    const feeAmount = fiatAmount * (p.feePercent / 100) + p.fixedFee;
-    const totalCost = fiatAmount + feeAmount;
-
-    return {
-      providerId: p.providerId,
-      providerName: p.providerName,
-      icon: p.icon,
-      cryptoAmount,
-      totalCost,
-      fees: { totalFeePercent: p.feePercent, fixedFee: p.fixedFee },
-      estimatedTime: p.time,
-      requiresKyc: p.kyc,
-      paymentMethods: p.methods,
-      regions: p.regions,
-      isBest: false,
-      token,
-    };
-  }).filter(Boolean) as ProviderQuote[];
-
-  // Mark the best (lowest total cost)
-  if (quotes.length > 0) {
-    const best = quotes.reduce((a, b) => a.totalCost < b.totalCost ? a : b);
-    best.isBest = true;
-  }
-
-  return quotes;
-}
-
-/** Build a simulated MoonPay widget URL. */
-function buildWidgetUrl(
-  amount: number,
-  currency: string,
-  token: string,
-): string {
-  const apiKey = process.env.NEXT_PUBLIC_MOONPAY_API_KEY;
-  if (!apiKey) {
-    throw new Error('NEXT_PUBLIC_MOONPAY_API_KEY is required');
-  }
-  const url = new URL('https://buy.moonpay.com');
-  url.searchParams.set('apiKey', apiKey);
-  url.searchParams.set('currencyCode', token.toLowerCase());
-  url.searchParams.set('baseCurrencyAmount', amount.toString());
-  url.searchParams.set('baseCurrencyCode', currency.toLowerCase());
-  url.searchParams.set('theme', 'dark');
-  url.searchParams.set('redirectURL', typeof window !== 'undefined' ? window.location.href : '');
-  return url.toString();
-}
-
-// ─── Provider Card ──────────────────────────────────────────────────────────
-
-function ProviderCard({
-  quote,
-  onSelect,
-  selected,
-}: {
-  quote: ProviderQuote;
-  onSelect: (id: string) => void;
-  selected: boolean;
-}) {
-  return (
-    <button
-      onClick={() => onSelect(quote.providerId)}
-      className={`w-full text-left p-4 rounded-md border transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--cc-link)] ${
-        quote.isBest
-          ? 'border-[var(--cc-success)]/50 bg-[var(--cc-success)]/5 ring-1 ring-[var(--cc-success)]/20'
-          : selected
-          ? 'border-[var(--cc-primary)]/50 bg-[var(--cc-link)]/5 ring-1 ring-[var(--color-link)]/20'
-          : 'border-[var(--cc-hairline-strong)]/50 bg-[var(--cc-canvas-soft-2)]/40 hover:border-[var(--cc-hairline-strong)]/50 hover:bg-[var(--cc-canvas-soft-2)]/60'
-      }`}
-    >
-      <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center gap-2">
-          <span className="text-display-sm">{quote.providerName === 'MoonPay' ? <MoonIcon className="w-6 h-6" /> : quote.providerName === 'Ramp' ? <CircleDotIcon className="w-6 h-6" /> : <DiamondIcon className="w-6 h-6" />}</span>
-          <span className="font-semibold tracking-tighter text-[var(--cc-ink)]">{quote.providerName}</span>
+  if (!isConnected) {
+    return (
+      <DemoLayout>
+        <div className="max-w-md mx-auto px-4 py-12 text-center cc-page-enter">
+          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">ONRAMP</p>
+          <h1 className="text-display-lg font-semibold tracking-tighter text-[var(--cc-ink)] mb-4">
+            Buy crypto.
+          </h1>
+          <p className="text-[var(--cc-body)]">Connect your wallet to purchase crypto with fiat.</p>
         </div>
-        {quote.isBest && (
-          <span className="text-caption font-semibold tracking-normal px-2 py-1 rounded-full bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-[var(--cc-success)]/30">
-            Best Rate
-          </span>
-        )}
-      </div>
+      </DemoLayout>
+    );
+  }
 
-      <div className="grid grid-cols-2 gap-2 text-body-sm">
-        <div>
-          <span className="text-[var(--cc-body)] text-caption">You receive</span>
-          <p className="text-[var(--cc-ink)] font-semibold">
-            {quote.cryptoAmount.toFixed(6)}{' '}
-            <span className="text-[var(--cc-muted)] text-caption">{quote.token}</span>
+  if (purchaseComplete) {
+    return (
+      <DemoLayout>
+        <div className="max-w-md mx-auto px-4 py-12 text-center cc-page-enter">
+          <div className="mb-6 flex justify-center">
+            <div className="w-16 h-16 rounded-full bg-[var(--cc-success)]/15 border border-[var(--cc-success)]/25 flex items-center justify-center">
+              <CheckCircle2 className="w-8 h-8 text-[var(--cc-success)]" />
+            </div>
+          </div>
+          <h2 className="text-display-lg font-semibold tracking-tighter text-[var(--cc-ink)] mb-3">
+            Purchase initiated.
+          </h2>
+          <p className="text-[var(--cc-body)] mb-2">
+            Your order is being processed. Funds will arrive in your wallet shortly.
           </p>
+          <p className="text-caption text-[var(--cc-muted)] mb-8">
+            Transaction reference: {`0x${Math.random().toString(16).slice(2, 10)}`}
+          </p>
+          <button
+            onClick={() => {
+              setPurchaseComplete(false);
+              setSelectedProvider(null);
+            }}
+            className="px-6 py-2.5 bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:bg-[var(--cc-primary-hover)] rounded-[var(--cc-radius-sm)] font-semibold text-body-sm transition-all shadow-[var(--cc-level2)] active:scale-[0.98]"
+          >
+            Make another purchase
+          </button>
         </div>
-        <div>
-          <span className="text-[var(--cc-body)] text-caption">Total cost</span>
-          <p className="text-[var(--cc-ink)] font-semibold">${quote.totalCost.toFixed(2)}</p>
-        </div>
-        <div>
-          <span className="text-[var(--cc-body)] text-caption">Fee</span>
-          <p className="text-[var(--cc-body)]">{quote.fees.totalFeePercent}% + ${quote.fees.fixedFee}</p>
-        </div>
-        <div>
-          <span className="text-[var(--cc-body)] text-caption">Time</span>
-          <p className="text-[var(--cc-body)]">~{quote.estimatedTime} min</p>
-        </div>
-      </div>
-
-      <div className="mt-3 flex items-center gap-2 flex-wrap">
-        {quote.requiresKyc && (
-          <span className="text-caption px-2 py-1 rounded bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border border-[var(--cc-warning)]/25">
-            KYC Required
-          </span>
-        )}
-        {quote.paymentMethods.slice(0, 3).map((m) => (
-          <span key={m} className="text-caption px-2 py-1 rounded bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)]">
-            {m.replace('_', ' ')}
-          </span>
-        ))}
-      </div>
-    </button>
-  );
-}
-
-// ─── Main Page ──────────────────────────────────────────────────────────────
-
-export default function OnrampPage() {
-  // Form state
-  const [fiatAmount, setFiatAmount] = useState('100');
-  const [currency, setCurrency] = useState('USD');
-  const [token, setToken] = useState('ETH');
-  const [region, setRegion] = useState('US');
-  const [selectedProvider, setSelectedProvider] = useState<string | null>(null);
-
-  // Results
-  const [quotes, setQuotes] = useState<ProviderQuote[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [hasSearched, setHasSearched] = useState(false);
-
-  // Widget state
-  const [showWidget, setShowWidget] = useState(false);
-
-  // Validate amount
-  const amountNum = parseFloat(fiatAmount);
-  const isValidAmount = !isNaN(amountNum) && amountNum > 0;
-
-  // Fetch quotes (simulated)
-  const handleGetQuotes = useCallback(() => {
-    if (!isValidAmount) return;
-    setLoading(true);
-    setHasSearched(true);
-
-    // Simulate network delay
-    setTimeout(() => {
-      const results = generateMockQuotes(amountNum, currency, token, region);
-      setQuotes(results);
-      if (results.length > 0) {
-        setSelectedProvider(results.find((q) => q.isBest)?.providerId ?? results[0].providerId);
-      }
-      setLoading(false);
-    }, 800);
-  }, [amountNum, currency, token, region, isValidAmount]);
-
-  const selectedQuote = useMemo(
-    () => quotes.find((q) => q.providerId === selectedProvider) ?? null,
-    [quotes, selectedProvider],
-  );
-
-  const handleOpenWidget = useCallback(() => {
-    if (!selectedQuote) return;
-    setShowWidget(true);
-  }, [selectedQuote]);
+      </DemoLayout>
+    );
+  }
 
   return (
     <DemoLayout>
-      <div className="max-w-4xl mx-auto px-4 py-8 space-y-8">
-
-        {/* ── Header ─────────────────────────────────────── */}
-        <div className="text-center space-y-2">
+      <div className="max-w-md mx-auto px-4 py-12 cc-page-enter">
+        {/* Header */}
+        <div className="mb-6">
           <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">ONRAMP</p>
-          <h1 className="text-display-lg font-semibold tracking-tighter bg-gradient-to-r from-[var(--cc-link)]/80 via-[var(--cc-link)] to-[var(--cc-link)]/60 bg-clip-text text-transparent">
-            Fiat On-Ramp
+          <h1 className="text-display-lg font-semibold tracking-tighter text-[var(--cc-ink)] mb-2">
+            Buy crypto.
           </h1>
-          <p className="text-[var(--cc-muted)] text-body-sm">
-            Buy crypto with fiat — compare MoonPay, Ramp &amp; Transak rates
+          <p className="text-[var(--cc-body)] text-body-sm">
+            Purchase ETH with fiat currency · Delivered to {shortenAddress(account.address ?? "")}
           </p>
         </div>
 
-        {/* ── Input Form ─────────────────────────────────── */}
-        <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 p-6 space-y-5">
-          <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Configure purchase.</h2>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {/* Amount Input */}
-            <div>
-              <label className="block text-body-sm text-[var(--cc-muted)] mb-2">Amount</label>
-              <div className="flex items-center bg-[var(--cc-canvas)]/60 rounded-md border border-[var(--cc-hairline-strong)]/50 overflow-hidden">
-                <input
-                  type="text"
-                  inputMode="decimal"
-                  value={fiatAmount}
-                  onChange={(e) => {
-                    const v = e.target.value;
-                    if (v === '' || /^\d*\.?\d*$/.test(v)) setFiatAmount(v);
-                  }}
-                  placeholder="100"
-                  className="flex-1 bg-transparent px-4 py-3 text-[var(--cc-ink)] text-body-lg font-semibold outline-none placeholder:text-[var(--cc-body)]"
-                />
-                <select
-                  value={currency}
-                  onChange={(e) => setCurrency(e.target.value)}
-                  className="bg-[var(--cc-canvas-soft-2)]/80 text-[var(--cc-ink)] text-body-sm px-3 py-3 border-l border-[var(--cc-hairline-strong)]/50 outline-none cursor-pointer"
-                >
-                  {CURRENCIES.map((c) => (
-                    <option key={c} value={c}>{c}</option>
-                  ))}
-                </select>
-              </div>
-            </div>
-
-            {/* Token Selection */}
-            <div>
-              <label className="block text-body-sm text-[var(--cc-muted)] mb-2">Token</label>
-              <div className="flex items-center bg-[var(--cc-canvas)]/60 rounded-md border border-[var(--cc-hairline-strong)]/50 overflow-hidden">
-                <select
-                  value={token}
-                  onChange={(e) => setToken(e.target.value)}
-                  className="flex-1 bg-transparent px-4 py-3 text-[var(--cc-ink)] text-body-lg font-semibold outline-none cursor-pointer"
-                >
-                  {TOKENS.map((t) => (
-                    <option key={t.symbol} value={t.symbol}>{t.icon} {t.symbol} — {t.name}</option>
-                  ))}
-                </select>
-              </div>
-            </div>
-
-            {/* Region Selection */}
-            <div>
-              <label className="block text-body-sm text-[var(--cc-muted)] mb-2">Region</label>
-              <select
-                value={region}
-                onChange={(e) => setRegion(e.target.value)}
-                className="w-full bg-[var(--cc-canvas)]/60 text-[var(--cc-ink)] text-body-sm px-4 py-3 rounded-md border border-[var(--cc-hairline-strong)]/50 outline-none cursor-pointer"
-              >
-                {REGIONS.map((r) => (
-                  <option key={r.code} value={r.code}>{r.code} — {r.name}</option>
-                ))}
-              </select>
-            </div>
-
-            {/* Quick Amount Buttons */}
-            <div>
-              <label className="block text-body-sm text-[var(--cc-muted)] mb-2">Quick Select</label>
-              <div className="flex gap-2">
-                {[50, 100, 250, 500, 1000].map((v) => (
-                  <button
-                    key={v}
-                    onClick={() => setFiatAmount(v.toString())}
-                    className={`flex-1 py-2 rounded-lg text-body-sm font-semibold transition-all ${
-                      fiatAmount === v.toString()
-                        ? 'bg-[var(--cc-link)]/20 text-[var(--cc-link)] border border-[var(--cc-primary)]/40'
-                        : 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] hover:bg-[var(--cc-muted)]/50 border border-transparent'
-                    }`}
-                  >
-                    ${v}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Get Quotes Button */}
-          <button
-            onClick={handleGetQuotes}
-            disabled={!isValidAmount || loading}
-            className={`w-full py-4 rounded-md font-semibold text-body-md transition-all ${
-              isValidAmount && !loading
-                ? 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:bg-[var(--cc-primary-hover)] shadow-[var(--cc-level3)] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--cc-link)]'
-                : 'bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-body)] cursor-not-allowed'
-            }`}
-          >
-            {loading ? (
-              <span className="inline-flex items-center gap-2">
-                <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                </svg>
-                Fetching quotes...
-              </span>
-            ) : (
-              'Compare Providers'
-            )}
-          </button>
-        </div>
-
-        {/* ── Provider Comparison ────────────────────────── */}
-        {hasSearched && (
-          <div className="space-y-4">
-            <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">
-              Provider Comparison
-              {quotes.length > 0 && (
-                <span className="ml-2 text-body-sm text-[var(--cc-body)] font-normal">
-                  ({quotes.length} provider{quotes.length !== 1 ? 's' : ''})
-                </span>
-              )}
-            </h2>
-
-            {loading ? (
-              <div className="space-y-3">
-                {[1, 2, 3].map((i) => (
-                  <div key={i} className="h-36 bg-[var(--cc-canvas-soft-2)]/40 rounded-md animate-pulse border border-[var(--cc-hairline-strong)]/30" />
-                ))}
-              </div>
-            ) : quotes.length === 0 ? (
-              <div className="bg-[var(--cc-canvas-soft-2)]/60 rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 p-8 text-center">
-                <p className="text-[var(--cc-muted)]">
-                  No providers available for your region ({region}). Try selecting a different region.
-                </p>
-              </div>
-            ) : (
-              <div className="space-y-3">
-                {quotes.map((q) => (
-                  <ProviderCard
-                    key={q.providerId}
-                    quote={q}
-                    onSelect={setSelectedProvider}
-                    selected={selectedProvider === q.providerId}
-                  />
-                ))}
-              </div>
-            )}
-
-            {/* Selected Provider Action */}
-            {selectedQuote && !loading && (
-              <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 p-6 space-y-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)] flex items-center gap-2">
-                      {selectedQuote.providerName === 'MoonPay' ? <MoonIcon className="w-6 h-6" /> : selectedQuote.providerName === 'Ramp' ? <CircleDotIcon className="w-6 h-6" /> : <DiamondIcon className="w-6 h-6" />}
-                      {selectedQuote.providerName}
-                    </h3>
-                    <p className="text-body-sm text-[var(--cc-muted)]">
-                      Receive {selectedQuote.cryptoAmount.toFixed(6)} {token} for ${selectedQuote.totalCost.toFixed(2)} {currency}
-                    </p>
-                  </div>
-                  <button
-                    onClick={handleOpenWidget}
-                    className="px-6 py-3 rounded-[6px] font-semibold text-body-sm bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:bg-[var(--cc-primary-hover)] shadow-[var(--cc-level3)] transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--cc-link)]"
-                  >
-                    Buy Now
-                  </button>
-                </div>
-
-                {/* SDK Usage Example */}
-                <details className="group">
-                  <summary className="text-caption text-[var(--cc-body)] cursor-pointer hover:text-[var(--cc-body)] transition-colors select-none">
-                    <span className="group-open:hidden">Show SDK integration code ▸</span>
-                    <span className="hidden group-open:inline">Hide code ▾</span>
-                  </summary>
-                  <pre className="mt-3 p-4 bg-[var(--cc-canvas)]/80 rounded-md text-caption text-[var(--cc-body)] overflow-x-auto font-[var(--font-mono)]">
-{`import { OnRampAggregator, MoonPayProvider, RampProvider, TransakProvider } from '@cinacoin/onramp-sdk';
-
-const aggregator = new OnRampAggregator();
-aggregator.registerProvider(new MoonPayProvider({
-  apiKey: process.env.MOONPAY_API_KEY,
-  environment: 'production',
-}));
-aggregator.registerProvider(new RampProvider({ apiKey: process.env.RAMP_API_KEY }));
-aggregator.registerProvider(new TransakProvider({
-  apiKey: process.env.TRANSAK_API_KEY,
-  environment: 'production',
-}));
-
-const quote = await aggregator.getBestQuote({
-  fiatCurrency: '${currency}',
-  fiatAmount: ${amountNum},
-  cryptoToken: '${token}',
-  chainId: 1,
-  destinationAddress: '0xYourWalletAddress',
-  userRegion: '${region}',
-});`}
-                  </pre>
-                </details>
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* ── Embedded Widget Iframe ─────────────────────── */}
-        {showWidget && selectedQuote && (
-          <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
-            <div className="flex items-center justify-between px-5 py-3 border-b border-[var(--cc-hairline-strong)]/50">
-              <div className="flex items-center gap-2">
-                {selectedQuote.providerName === 'MoonPay' ? <MoonIcon className="w-5 h-5" /> : selectedQuote.providerName === 'Ramp' ? <CircleDotIcon className="w-5 h-5" /> : <DiamondIcon className="w-5 h-5" />}
-                <span className="font-semibold tracking-tighter text-[var(--cc-ink)] text-body-sm">{selectedQuote.providerName}</span>
-                <span className="text-caption text-[var(--cc-body)]">— On-Ramp Widget</span>
-              </div>
-              <button
-                onClick={() => setShowWidget(false)}
-                className="text-[var(--cc-muted)] hover:text-[var(--cc-ink)] transition-colors p-1 rounded hover:bg-[var(--cc-canvas-soft-2)]/50"
-                aria-label="Close widget"
-              >
-                ✕
-              </button>
-            </div>
-            <div className="w-full flex justify-center bg-[var(--cc-canvas)]/50 p-4">
-              <iframe
-                src={buildWidgetUrl(amountNum, currency, token)}
-                title={`${selectedQuote.providerName} On-Ramp Widget`}
-                width="400"
-                height="600"
-                style={{ border: 'none', borderRadius: '12px', maxWidth: '100%' }}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+        {/* Amount Input */}
+        <div className="p-5 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] shadow-[var(--cc-level1)] mb-4">
+          <label className="text-caption text-[var(--cc-muted)] block mb-2">Amount</label>
+          <div className="flex items-center gap-3 mb-4">
+            <div className="flex-1 relative">
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-display-sm font-semibold text-[var(--cc-muted)]">$</span>
+              <input
+                type="text"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value.replace(/[^0-9]/g, ''))}
+                className="w-full pl-8 pr-4 py-3 bg-transparent text-display-sm font-semibold text-[var(--cc-ink)] focus:outline-none cc-tabular-nums"
+                placeholder="100"
               />
             </div>
-            <div className="px-5 py-3 border-t border-[var(--cc-hairline-strong)]/50">
-              <p className="text-caption text-[var(--cc-body)]">
-                Widget URL: <code className="text-[var(--cc-muted)] break-all">{buildWidgetUrl(amountNum, currency, token)}</code>
-              </p>
-            </div>
+            <select
+              value={currency}
+              onChange={(e) => setCurrency(e.target.value)}
+              className="px-3 py-2 bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-sm)] text-body-sm font-medium text-[var(--cc-ink)] focus:outline-none focus:border-[var(--cc-hairline-strong)]"
+            >
+              <option value="USD">USD</option>
+              <option value="EUR">EUR</option>
+              <option value="GBP">GBP</option>
+            </select>
           </div>
-        )}
 
-        {/* ── Info Cards ─────────────────────────────────── */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {[
-            {
-              icon: <LockIcon className="w-8 h-8" />,
-              title: 'Secure',
-              desc: 'All providers are regulated and use KYC/AML compliance.',
-            },
-            {
-              icon: <ZapIcon className="w-8 h-8" />,
-              title: 'Fast',
-              desc: 'Receive crypto in minutes with instant payment methods.',
-            },
-            {
-              icon: <GlobeIcon className="w-8 h-8" />,
-              title: 'Global',
-              desc: 'Support for 150+ countries and multiple fiat currencies.',
-            },
-          ].map((card) => (
-            <div key={card.title} className="bg-[var(--cc-canvas-soft-2)]/40 rounded-md border border-[var(--cc-hairline-strong)]/40 p-5 text-center">
-              <span className="text-[var(--cc-body)]">{card.icon}</span>
-              <h3 className="text-[var(--cc-ink)] font-semibold mt-2">{card.title}</h3>
-              <p className="text-[var(--cc-muted)] text-body-sm mt-1">{card.desc}</p>
-            </div>
-          ))}
+          {/* Preset amounts */}
+          <div className="flex gap-2">
+            {presetAmounts.map((preset) => (
+              <button
+                key={preset}
+                onClick={() => setAmount(preset)}
+                className={`flex-1 py-1.5 text-caption font-medium rounded-full transition-all ${
+                  amount === preset
+                    ? 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)]'
+                    : 'bg-[var(--cc-canvas-soft-2)] text-[var(--cc-muted)] hover:text-[var(--cc-ink)] border border-[var(--cc-hairline)]'
+                }`}
+              >
+                ${preset}
+              </button>
+            ))}
+          </div>
         </div>
 
-        {/* ── Footer ───────────────────────────────────── */}
-        <div className="text-center space-y-1 pt-4">
-          <div className="flex items-center justify-center gap-2 text-[var(--cc-body)] text-caption">
-            <span className="inline-block w-2 h-2 rounded-full bg-gradient-to-r from-[var(--cc-link)] to-[var(--cc-violet)]" />
-            <span>Powered by <span className="text-[var(--cc-body)] font-semibold">@cinacoin/onramp-sdk</span></span>
+        {/* Provider Quotes */}
+        <div className="mb-4">
+          <div className="flex items-center justify-between mb-3">
+            <p className="text-body-sm font-medium text-[var(--cc-ink)]">Select provider</p>
+            {quotesLoading && <RefreshCw className="w-3.5 h-3.5 text-[var(--cc-muted)] animate-spin" />}
           </div>
-          <p className="text-[var(--cc-body)] text-caption">
-            Aggregating MoonPay, Ramp, and Transak for the best on-ramp rates
+
+          {quotesLoading ? (
+            <div className="space-y-2">
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="p-4 border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] bg-[var(--cc-canvas)]">
+                  <div className="flex items-center gap-3">
+                    <div className="cc-skeleton cc-skeleton-circle w-10 h-10" />
+                    <div className="flex-1 space-y-2">
+                      <div className="cc-skeleton cc-skeleton-text w-24" />
+                      <div className="cc-skeleton cc-skeleton-text w-32" />
+                    </div>
+                    <div className="cc-skeleton cc-skeleton-text w-20" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="space-y-2 cc-stagger">
+              {PROVIDERS.map((provider) => (
+                <button
+                  key={provider.id}
+                  onClick={() => setSelectedProvider(provider.id)}
+                  className={`w-full p-4 border rounded-[var(--cc-radius-md)] bg-[var(--cc-canvas)] text-left transition-all cc-animate-slide-up ${
+                    selectedProvider === provider.id
+                      ? 'border-[var(--cc-hairline-strong)] shadow-[var(--cc-level2)]'
+                      : 'border-[var(--cc-hairline)] hover:border-[var(--cc-hairline-strong)] hover:shadow-[var(--cc-level1)]'
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] flex items-center justify-center text-body-lg">
+                      {provider.logo}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2">
+                        <p className="font-semibold text-body-sm text-[var(--cc-ink)]">{provider.name}</p>
+                        <span className="text-caption text-[var(--cc-muted)]">· {provider.eta}</span>
+                      </div>
+                      <p className="text-caption text-[var(--cc-body)] mt-0.5 cc-tabular-nums">
+                        ~{provider.receiveAmount} ETH · Fee ${provider.fee}
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <p className="font-semibold text-body-sm text-[var(--cc-ink)] cc-tabular-nums">${provider.amount}</p>
+                      <p className="text-caption text-[var(--cc-muted)] cc-tabular-nums">${provider.rate}/ETH</p>
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Purchase Button */}
+        <button
+          onClick={handlePurchase}
+          disabled={!selectedProvider || loading || quotesLoading}
+          className="w-full px-6 py-3.5 bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:bg-[var(--cc-primary-hover)] disabled:opacity-40 disabled:cursor-not-allowed rounded-[var(--cc-radius-sm)] font-semibold transition-all shadow-[var(--cc-level3)] hover:shadow-[var(--cc-level4)] active:scale-[0.99] flex items-center justify-center gap-2"
+        >
+          {loading ? (
+            <>
+              <Loader2 className="w-4 h-4 animate-spin" />
+              Processing...
+            </>
+          ) : !selectedProvider ? (
+            "Select a provider"
+          ) : (
+            <>
+              <CreditCard className="w-4 h-4" />
+              Buy with {PROVIDERS.find((p) => p.id === selectedProvider)?.name}
+            </>
+          )}
+        </button>
+
+        {/* Disclaimer */}
+        <div className="mt-4 flex items-start gap-2 p-3 bg-[var(--cc-canvas-soft-2)]/30 border border-[var(--cc-hairline)]/60 rounded-[var(--cc-radius-sm)]">
+          <AlertCircle className="w-3.5 h-3.5 text-[var(--cc-muted)] mt-0.5 shrink-0" />
+          <p className="text-caption text-[var(--cc-muted)]">
+            Demo uses simulated quotes. Real purchases require integration with on-ramp providers like MoonPay, Transak, or Ramp.
           </p>
         </div>
       </div>

@@ -1,954 +1,236 @@
-'use client';
+"use client";
 
-import { useState, useCallback, useEffect, useRef } from 'react';
-import DemoLayout from '@/components/DemoLayout';
-import { useWallet, shortenAddress } from '@/lib/useWallet';
-import { useToast } from '@/lib/toast';
-import {
-  buildBatchTx,
-  estimateBatchGas,
-  executeBatchTx,
-  checkEIP5792Support,
-  type Call,
-  type GasEstimate,
-  type BatchResult,
-  type CallsStatus,
-  getBatchStatus,
-  type EIP1193Provider,
-} from '@/lib/batch';
-import { registerEIP5792Context, unregisterEIP5792Context } from '@cinacoin/core-sdk';
-
-/* ────────────────────────────────────────────────────────
-   Inline EIP-5792 hooks (copied from @cinacoin/react)
-   ────────────────────────────────────────────────────────
-   We inline these to avoid monorepo module-resolution issues
-   where webpack can't resolve @cinacoin/core-sdk from the
-   pre-compiled dist/ of @cinacoin/react.
-   ──────────────────────────────────────────────────────── */
-
-interface EIP5792Context {
-  provider: EIP1193Provider | null;
-  address: string | null;
-  chainIdHex: string | null;
-  isConnected: boolean;
-}
-
-interface ChainCapabilities {
-  atomicBatch?: Record<string, unknown>;
-  paymasterService?: Record<string, unknown>;
-  sessionKeys?: Record<string, unknown>;
-  permissions?: Record<string, unknown>;
-}
-
-interface WalletCapabilities {
-  [chainIdHex: string]: ChainCapabilities;
-}
-
-function useEIP5792Context(): EIP5792Context {
-  const [ctx, setCtx] = useState<EIP5792Context | null>(null);
-  useEffect(() => {
-    try {
-      const { getEIP5792Context } = require('@cinacoin/core-sdk');
-      setCtx(getEIP5792Context());
-    } catch {
-      // Registry not available
-    }
-  }, []);
-  if (!ctx) {
-    return { provider: null, address: null, chainIdHex: null, isConnected: false };
-  }
-  return ctx;
-}
-
-/* ── useWalletCapabilities ── */
-
-interface UseWalletCapabilitiesReturn {
-  capabilities: WalletCapabilities | null;
-  isLoading: boolean;
-  error: Error | null;
-  refetch: () => Promise<void>;
-  has: (chainId: string, capability: keyof ChainCapabilities) => boolean;
-  getChainCaps: (chainId: string) => ChainCapabilities;
-  supportedChains: string[];
-  filterBy: (capability: keyof ChainCapabilities) => WalletCapabilities;
-}
-
-function useWalletCapabilities(): UseWalletCapabilitiesReturn {
-  const ctx = useEIP5792Context();
-  const [capabilities, setCapabilities] = useState<WalletCapabilities | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
-
-  const fetchCapabilities = useCallback(async () => {
-    if (!ctx.provider || !ctx.isConnected) {
-      setCapabilities(null);
-      return;
-    }
-    setIsLoading(true);
-    setError(null);
-    try {
-      const caps = (await ctx.provider.request({
-        method: 'wallet_getCapabilities',
-        params: [ctx.address as `0x${string}`],
-      })) as WalletCapabilities;
-      setCapabilities(caps);
-    } catch (err) {
-      const e = err instanceof Error ? err : new Error(String(err));
-      setError(e);
-      if (e.message.includes('-32601')) {
-        setCapabilities({});
-      }
-    } finally {
-      setIsLoading(false);
-    }
-  }, [ctx.provider, ctx.address, ctx.isConnected]);
-
-  useEffect(() => {
-    if (ctx.isConnected && ctx.provider) {
-      fetchCapabilities();
-    }
-  }, [ctx.isConnected, ctx.provider, fetchCapabilities]);
-
-  const has = useCallback(
-    (chainId: string, capability: keyof ChainCapabilities) => {
-      if (!capabilities) return false;
-      return !!capabilities[chainId]?.[capability];
-    },
-    [capabilities],
-  );
-
-  const getChainCaps = useCallback(
-    (chainId: string) => {
-      if (!capabilities) return {};
-      return capabilities[chainId] ?? {};
-    },
-    [capabilities],
-  );
-
-  const supportedChains = capabilities ? Object.keys(capabilities) : [];
-
-  const filterBy = useCallback(
-    (capability: keyof ChainCapabilities): WalletCapabilities => {
-      if (!capabilities) return {};
-      const result: WalletCapabilities = {};
-      for (const [chainId, caps] of Object.entries(capabilities)) {
-        if (caps?.[capability]) {
-          result[chainId] = caps as ChainCapabilities;
-        }
-      }
-      return result;
-    },
-    [capabilities],
-  );
-
-  return { capabilities, isLoading, error, refetch: fetchCapabilities, has, getChainCaps, supportedChains, filterBy };
-}
-
-/* ── useCallsStatus ── */
-
-interface UseCallsStatusReturn {
-  status: string | null;
-  result: CallsStatus | null;
-  isPolling: boolean;
-  error: Error | null;
-  startPolling: (batchId: string) => void;
-  stopPolling: () => void;
-  allSucceeded: boolean;
-  failedReceipts: CallsStatus['receipts'];
-}
-
-function useCallsStatus(
-  options: { intervalMs?: number; callId?: string } = {},
-): UseCallsStatusReturn {
-  const ctx = useEIP5792Context();
-  const [status, setStatus] = useState<string | null>(null);
-  const [result, setResult] = useState<CallsStatus | null>(null);
-  const [isPolling, setIsPolling] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
-
-  const intervalRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const callIdRef = useRef<string | null>(options.callId ?? null);
-  const intervalMs = options.intervalMs ?? 2000;
-
-  const clearTimer = useCallback(() => {
-    if (intervalRef.current) {
-      clearTimeout(intervalRef.current);
-      intervalRef.current = null;
-    }
-  }, []);
-
-  const pollOnce = useCallback(async () => {
-    if (!callIdRef.current || !ctx.provider) return;
-    try {
-      const res = await getBatchStatus(ctx.provider, callIdRef.current);
-      setResult(res);
-      setStatus(res.status);
-      setError(null);
-      if (res.status === 'CONFIRMED') {
-        clearTimer();
-        setIsPolling(false);
-      }
-    } catch (err) {
-      const e = err instanceof Error ? err : new Error(String(err));
-      setError(e);
-    }
-  }, [ctx.provider, clearTimer]);
-
-  const startPolling = useCallback(
-    (batchId: string) => {
-      callIdRef.current = batchId;
-      clearTimer();
-      setIsPolling(true);
-      setError(null);
-      setResult(null);
-      setStatus(null);
-
-      const tick = async () => {
-        await pollOnce();
-        if (callIdRef.current) {
-          intervalRef.current = setTimeout(tick, intervalMs);
-        }
-      };
-      tick();
-    },
-    [clearTimer, pollOnce, intervalMs],
-  );
-
-  const stopPolling = useCallback(() => {
-    callIdRef.current = null;
-    clearTimer();
-    setIsPolling(false);
-  }, [clearTimer]);
-
-  useEffect(() => {
-    if (options.callId) startPolling(options.callId);
-    return () => clearTimer();
-  }, [options.callId, startPolling, clearTimer]);
-
-  useEffect(() => {
-    return () => clearTimer();
-  }, [clearTimer]);
-
-  const allSucceeded = result
-    ? result.status === 'CONFIRMED' && !!result.receipts && result.receipts.length > 0 && result.receipts.every((r) => r.receipt.status === '0x1')
-    : false;
-
-  const failedReceipts = result && result.status === 'CONFIRMED' && result.receipts
-    ? result.receipts.filter((r) => r.receipt.status === '0x0')
-    : [];
-
-  return { status, result, isPolling, error, startPolling, stopPolling, allSucceeded, failedReceipts };
-}
-
-/* ────────────────────────────────────────────────────────
-   Chain names lookup
-   ──────────────────────────────────────────────────────── */
-
-const CHAIN_NAMES: Record<string, string> = {
-  '0x1': 'Ethereum Mainnet',
-  '0x89': 'Polygon',
-  '0xa4b1': 'Arbitrum One',
-  '0xa': 'Optimism',
-  '0x2105': 'Base',
-  '0x38': 'BNB Chain',
-  '0xa86a': 'Avalanche',
-  '0xaa36a7': 'Sepolia',
-  '0x5': 'Goerli',
-  '0x13881': 'Mumbai',
-  '0x144': 'zkSync Mainnet',
-};
-
-function chainLabel(chainIdHex: string): string {
-  return CHAIN_NAMES[chainIdHex] ?? `Chain ${parseInt(chainIdHex, 16)}`;
-}
-
-/* ────────────────────────────────────────────────────────
-   UI Components
-   ──────────────────────────────────────────────────────── */
-
-function CapBadge({ label, supported }: { label: string; supported: boolean }) {
-  return (
-    <span
-      className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-caption font-semibold ${
-        supported
-          ? 'bg-[var(--cc-success)]/15 text-[var(--cc-success)] border border-[var(--cc-success)]/25'
-          : 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/30'
-      }`}
-    >
-      <span className={`size-2 rounded-full ${supported ? 'bg-[var(--cc-success)] animate-pulse' : 'bg-[var(--cc-muted)]'}`} />
-      {label}
-    </span>
-  );
-}
-
-function StatusBadge({ status }: { status: string }) {
-  const colors: Record<string, string> = {
-    PENDING: 'bg-[var(--cc-warning)]/15 text-[var(--cc-warning)] border-[var(--cc-warning)]/25',
-    CONFIRMED: 'bg-[var(--cc-success)]/15 text-[var(--cc-success)] border-[var(--cc-success)]/25',
-    REVERTED: 'bg-[var(--cc-error)]/15 text-[var(--cc-error)] border-[var(--cc-error)]/25',
-    COMPLETE: 'bg-[var(--cc-success)]/15 text-[var(--cc-success)] border-[var(--cc-success)]/25',
-  };
-  return (
-    <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-caption font-semibold border ${colors[status] ?? 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] border-[var(--cc-hairline-strong)]/30'}`}>
-      {status === 'PENDING' && <span className="size-2 rounded-full bg-[var(--cc-warning)] animate-pulse" />}
-      {status === 'CONFIRMED' && <span className="size-2 rounded-full bg-[var(--cc-success)]" />}
-      {status === 'REVERTED' && <span className="size-2 rounded-full bg-[var(--cc-error)]" />}
-      {status}
-    </span>
-  );
-}
-
-function Spinner() {
-  return (
-    <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
-      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-    </svg>
-  );
-}
-
-/* ────────────────────────────────────────────────────────
-   EIP-5792 Context Bridge
-   ──────────────────────────────────────────────────────── */
-
-function EIP5792Bridge({
-  address,
-  chainId,
-  isConnected,
-}: {
-  address: string | null;
-  chainId: number | null;
-  isConnected: boolean;
-}) {
-  const addressRef = useRef(address);
-  addressRef.current = address;
-  const chainIdRef = useRef(chainId);
-  chainIdRef.current = chainId;
-  const connectedRef = useRef(isConnected);
-  connectedRef.current = isConnected;
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const eth = (window as unknown as Record<string, unknown>).ethereum;
-    const provider =
-      eth && typeof (eth as Record<string, unknown>).request === 'function'
-        ? (eth as EIP1193Provider)
-        : null;
-
-    const getter = () => ({
-      provider,
-      address: addressRef.current,
-      chainIdHex: chainIdRef.current ? `0x${chainIdRef.current.toString(16)}` : null,
-      isConnected: connectedRef.current,
-    });
-
-    registerEIP5792Context(getter);
-    return () => {
-      unregisterEIP5792Context();
-    };
-  }, []);
-
-  return null;
-}
-
-/* ────────────────────────────────────────────────────────
-   Main Page
-   ──────────────────────────────────────────────────────── */
+import { useState } from "react";
+import { Plus, Trash2, Send, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
+import DemoLayout from "@/components/DemoLayout";
+import { useWallet, shortenAddress } from "@/lib/useWallet";
+import { useToast } from "@/lib/toast";
+import { executeBatch, type BatchTransaction } from "@/lib/batch";
 
 export default function BatchPage() {
-  const { account, status, error, connectors, connect, disconnect } = useWallet();
-  const { success, error: toastError, info } = useToast();
-  const isConnected = status === 'connected';
-  const isConnecting = status === 'connecting';
+  const { account, status } = useWallet();
+  const { success, error: showError } = useToast();
 
-  const address = account.address;
-  const chainId = account.chainId;
-  const currentChainHex = chainId ? `0x${chainId.toString(16)}` : null;
+  const isConnected = status === "connected";
 
-  const capabilities = useWalletCapabilities();
-  const callsStatus = useCallsStatus();
-
-  const [batchCalls, setBatchCalls] = useState<{ to: string; value: string; data: string }[]>([
-    { to: address ?? '0x0000000000000000000000000000000000000000', value: '0x0', data: '0x' },
+  const [transactions, setTransactions] = useState<BatchTransaction[]>([
+    {
+      id: "1",
+      to: "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
+      value: "0.1",
+      data: "0x",
+      description: "Payment to Alice",
+    },
+    {
+      id: "2",
+      to: "0x8ba1f109551bD432803012645Ac136ddd64DBA72",
+      value: "0.05",
+      data: "0x",
+      description: "Payment to Bob",
+    },
   ]);
-  const [showPreview, setShowPreview] = useState(false);
-  const [lastAction, setLastAction] = useState<'send' | 'batch' | null>(null);
 
-  // Real batch service state
-  const [gasEstimate, setGasEstimate] = useState<GasEstimate | null>(null);
-  const [estimatingGas, setEstimatingGas] = useState(false);
-  const [batchResult, setBatchResult] = useState<BatchResult | null>(null);
   const [executing, setExecuting] = useState(false);
-  const [eip5792Supported, setEip5792Supported] = useState<boolean | null>(null);
+  const [results, setResults] = useState<Array<{ hash: string; status: "success" | "failed" }>>([]);
 
-  useEffect(() => {
-    if (address && batchCalls.length === 1 && batchCalls[0].to === '0x0000000000000000000000000000000000000000') {
-      setBatchCalls((prev) => prev.map((c) => ({ ...c, to: address })));
-    }
-    // batchCalls intentionally omitted: we only want to run when address changes
-  }, [address]);
+  const addTransaction = () => {
+    const newTx: BatchTransaction = {
+      id: Date.now().toString(),
+      to: "",
+      value: "0.0",
+      data: "0x",
+      description: "",
+    };
+    setTransactions([...transactions, newTx]);
+  };
 
-  useEffect(() => () => callsStatus.stopPolling(), [callsStatus.stopPolling]);
+  const updateTransaction = (id: string, updates: Partial<BatchTransaction>) => {
+    setTransactions(transactions.map((tx) => (tx.id === id ? { ...tx, ...updates } : tx)));
+  };
 
-  // Check EIP-5792 support on connect
-  useEffect(() => {
-    if (!isConnected || !address) {
-      setEip5792Supported(null);
+  const removeTransaction = (id: string) => {
+    if (transactions.length === 1) {
+      showError("Cannot remove", "At least one transaction is required");
       return;
     }
-    const eth = (window as unknown as Record<string, unknown>).ethereum as EIP1193Provider | undefined;
-    if (!eth) return;
-    checkEIP5792Support(eth, address)
-      .then(setEip5792Supported)
-      .catch(() => setEip5792Supported(false));
-  }, [isConnected, address]);
+    setTransactions(transactions.filter((tx) => tx.id !== id));
+  };
 
-  const handleAddCall = useCallback(() => {
-    setBatchCalls((prev) => [...prev, { to: '', value: '0x0', data: '0x' }]);
-    setGasEstimate(null);
-    setBatchResult(null);
-  }, []);
-
-  const handleRemoveCall = useCallback((index: number) => {
-    setBatchCalls((prev) => prev.filter((_, i) => i !== index));
-    setGasEstimate(null);
-    setBatchResult(null);
-  }, []);
-
-  const handleUpdateCall = useCallback((index: number, field: string, value: string) => {
-    setBatchCalls((prev) => prev.map((c, i) => (i === index ? { ...c, [field]: value } : c)));
-    setGasEstimate(null);
-    setBatchResult(null);
-  }, []);
-
-  /** Estimate gas for the current batch via real RPC calls. */
-  const handleEstimateGas = useCallback(async () => {
-    const eth = (window as unknown as Record<string, unknown>).ethereum as EIP1193Provider | undefined;
-    if (!eth || !address) return;
-
-    const calls = batchCalls.map((c) => ({
-      to: c.to as `0x${string}`,
-      value: c.value as `0x${string}`,
-      data: c.data as `0x${string}`,
-    }));
-
-    const validated = buildBatchTx(calls);
-    if (!validated.valid) {
-      toastError(`Invalid batch: ${validated.error}`);
+  const handleExecuteBatch = async () => {
+    // Validate all transactions
+    const invalid = transactions.find((tx) => !tx.to || !tx.to.startsWith("0x"));
+    if (invalid) {
+      showError("Invalid address", "All transactions must have valid recipient addresses");
       return;
     }
 
-    setEstimatingGas(true);
-    try {
-      const estimate = await estimateBatchGas(eth, address, validated.calls);
-      setGasEstimate(estimate);
-    } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : 'Gas estimation failed';
-      toastError(message);
-    } finally {
-      setEstimatingGas(false);
-    }
-  }, [batchCalls, address, toastError]);
-
-  /** Execute batch using the real batch service. */
-  const handleExecuteBatch = useCallback(async (atomic: boolean) => {
-    const eth = (window as unknown as Record<string, unknown>).ethereum as EIP1193Provider | undefined;
-    if (!eth || !address) return;
-
-    setLastAction(atomic ? 'batch' : 'send');
-    setBatchResult(null);
     setExecuting(true);
-
-    const calls = batchCalls.map((c) => ({
-      to: c.to as `0x${string}`,
-      value: c.value as `0x${string}`,
-      data: c.data as `0x${string}`,
-    }));
-
-    const validated = buildBatchTx(calls);
-    if (!validated.valid) {
-      toastError(`Invalid batch: ${validated.error}`);
-      setExecuting(false);
-      return;
-    }
+    setResults([]);
 
     try {
-      const result = await executeBatchTx(eth, address, validated.calls);
-      setBatchResult(result);
-
-      if (result.success) {
-        if (result.callId) {
-          // EIP-5792 atomic batch — start polling
-          callsStatus.startPolling(result.callId);
-          toastSuccess(`Batch submitted! Call ID: ${result.callId.slice(0, 10)}…`);
-        } else if (result.txHashes && result.txHashes.length > 0) {
-          toastSuccess(`Batch executed! ${result.txHashes.length} transaction(s) sent.`);
-        }
-      } else {
-        toastError(result.error ?? 'Batch execution failed');
-      }
-    } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : 'Batch execution failed';
-      setBatchResult({ success: false, error: message });
-      toastError(message);
+      const batchResults = await executeBatch(transactions);
+      setResults(batchResults);
+      success("Batch executed", `${batchResults.length} transactions processed`);
+    } catch (err) {
+      showError("Batch failed", err instanceof Error ? err.message : "Could not execute batch");
     } finally {
       setExecuting(false);
     }
-  }, [batchCalls, address, toastError, callsStatus]);
+  };
 
-  const handleSendBatch = useCallback(() => handleExecuteBatch(false), [handleExecuteBatch]);
-  const handleAtomicBatch = useCallback(() => handleExecuteBatch(true), [handleExecuteBatch]);
+  const totalValue = transactions.reduce((sum, tx) => sum + parseFloat(tx.value || "0"), 0);
 
-  const handlePreview = useCallback(() => {
-    const calls = batchCalls.map((c) => ({
-      to: c.to as `0x${string}`,
-      value: c.value as `0x${string}`,
-      data: c.data as `0x${string}`,
-    }));
-    const validated = buildBatchTx(calls);
-    if (!validated.valid) {
-      toastError(`Invalid batch: ${validated.error}`);
-      return;
-    }
-    setShowPreview(true);
-  }, [batchCalls, toastError]);
-
-  function toastSuccess(msg: string) {
-    try { success(msg); } catch { /* noop */ }
+  if (!isConnected) {
+    return (
+      <DemoLayout>
+        <div className="max-w-4xl mx-auto px-4 py-12 text-center cc-page-enter">
+          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">BATCH</p>
+          <h1 className="text-display-lg font-semibold tracking-tighter text-[var(--cc-ink)] mb-4">
+            Batch transactions.
+          </h1>
+          <p className="text-[var(--cc-body)]">Connect your wallet to execute multiple transactions at once.</p>
+        </div>
+      </DemoLayout>
+    );
   }
 
   return (
     <DemoLayout>
-      <EIP5792Bridge address={address} chainId={chainId} isConnected={isConnected} />
-
-      <div className="max-w-2xl mx-auto px-4 py-8 space-y-8">
-
-        {/* ── Header ─────────────────────────────────────── */}
-        <div className="text-center space-y-2">
+      <div className="max-w-4xl mx-auto px-4 py-12 cc-page-enter">
+        {/* Header */}
+        <div className="mb-8">
           <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">BATCH</p>
-          <h1 className="text-display-lg font-semibold tracking-tighter bg-gradient-to-r from-[var(--cc-link)]/80 via-[var(--cc-link)] to-[var(--cc-link)]/60 bg-clip-text text-transparent">
-            EIP-5792 Atomic Batch
-          </h1>
-          <p className="text-[var(--cc-muted)] text-body-sm">
-            Send multiple transactions atomically via wallet_sendCalls — with real gas estimation
-          </p>
-        </div>
-
-        {/* ── Wallet Connect ─────────────────────────────── */}
-        <div className="flex items-center justify-end gap-3">
-          {isConnected ? (
-            <div className="flex items-center gap-3">
-              <span className="text-caption text-[var(--cc-muted)]">
-                <span className="text-[var(--cc-ink)] font-semibold">{shortenAddress(account.address ?? '')}</span>
-                {currentChainHex && (
-                  <span className="text-[var(--cc-body)] ml-1">· {chainLabel(currentChainHex)}</span>
-                )}
-              </span>
-              <button
-                onClick={() => disconnect()}
-                className="px-3 py-2 rounded-md text-caption font-semibold bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all"
-              >
-                Disconnect
-              </button>
+          <div className="flex items-end justify-between mb-4">
+            <div>
+              <h1 className="text-display-lg font-semibold tracking-tighter text-[var(--cc-ink)] mb-2">
+                Batch transactions.
+              </h1>
+              <p className="text-[var(--cc-body)] text-body-sm">
+                Execute multiple transactions in a single bundle · {totalValue.toFixed(4)} ETH total
+              </p>
             </div>
-          ) : (
             <button
-              onClick={() => connect(connectors.find((c) => c.id === 'io.metamask')?.id ?? connectors[0]?.id ?? 'io.metamask')}
-              disabled={isConnecting}
-              className="px-4 py-2 rounded-[6px] text-body-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:bg-[var(--cc-primary-hover)] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--cc-link)] transition-all disabled:opacity-50"
+              onClick={addTransaction}
+              className="px-4 py-2 bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:bg-[var(--cc-primary-hover)] rounded-[var(--cc-radius-sm)] font-semibold text-body-sm transition-all shadow-[var(--cc-level2)] hover:shadow-[var(--cc-level3)] active:scale-[0.98] flex items-center gap-2"
             >
-              {isConnecting ? 'Connecting...' : 'Connect Wallet'}
-            </button>
-          )}
-        </div>
-
-        {error && (
-          <div className="text-center text-body-sm text-[var(--cc-error)] bg-[var(--cc-error)]/10 border border-[var(--cc-error)]/20 rounded-md px-4 py-2">
-            {error}
-          </div>
-        )}
-
-        {/* ── Wallet Capabilities ────────────────────────── */}
-        <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 shadow-[var(--cc-level4)] overflow-hidden">
-          <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50 flex items-center justify-between">
-            <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Wallet capabilities.</h2>
-            <button
-              onClick={() => capabilities.refetch()}
-              disabled={!isConnected}
-              className="text-caption text-[var(--cc-muted)] hover:text-[var(--cc-ink)] transition-colors disabled:opacity-40"
-            >
-              ↻ Refresh
+              <Plus className="w-4 h-4" />
+              Add
             </button>
           </div>
+        </div>
 
-          {!isConnected && (
-            <div className="p-6 text-center text-body-sm text-[var(--cc-body)]">
-              Connect a wallet to discover capabilities
-            </div>
-          )}
-
-          {isConnected && capabilities.isLoading && (
-            <div className="p-6 text-center text-body-sm text-[var(--cc-muted)]">
-              <span className="inline-flex items-center gap-2">
-                <Spinner /> Fetching capabilities…
-              </span>
-            </div>
-          )}
-
-          {isConnected && !capabilities.isLoading && (
-            <div className="p-5 space-y-4">
-              {capabilities.supportedChains.length > 0 ? (
-                <div>
-                  <p className="text-caption text-[var(--cc-muted)] tracking-normal mb-2">Supported chains</p>
-                  <div className="flex flex-wrap gap-2">
-                    {capabilities.supportedChains.map((cid) => (
-                      <span
-                        key={cid}
-                        className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline-strong)]/40 text-caption text-[var(--cc-body)] font-[var(--font-mono)]"
-                      >
-                        <span className="size-2 rounded-full bg-[var(--cc-success)]" />
-                        {chainLabel(cid)}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ) : (
-                <div className="flex flex-wrap gap-2">
-                  <CapBadge label="wallet_getCapabilities" supported={false} />
-                  <span className="text-caption text-[var(--cc-body)] self-center">
-                    {capabilities.error
-                      ? `Not supported (${capabilities.error.message.slice(0, 60)}…)`
-                      : 'Method not available on this wallet'}
+        {/* Transaction List */}
+        <div className="space-y-4 cc-stagger">
+          {transactions.map((tx, index) => (
+            <div
+              key={tx.id}
+              className="p-5 border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] bg-[var(--cc-canvas)] cc-animate-slide-up"
+            >
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <span className="w-6 h-6 rounded-full bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] flex items-center justify-center text-caption font-semibold text-[var(--cc-muted)]">
+                    {index + 1}
                   </span>
+                  <p className="font-semibold text-[var(--cc-ink)]">Transaction {index + 1}</p>
                 </div>
-              )}
-
-              <div className="flex flex-wrap gap-2">
-                <CapBadge label="atomicBatch" supported={eip5792Supported === true} />
-                <CapBadge label="paymasterService" supported={capabilities.has(currentChainHex ?? '0x1', 'paymasterService')} />
-                <CapBadge label="sessionKeys" supported={capabilities.has(currentChainHex ?? '0x1', 'sessionKeys')} />
-                <CapBadge label="permissions" supported={capabilities.has(currentChainHex ?? '0x1', 'permissions')} />
+                <button
+                  onClick={() => removeTransaction(tx.id)}
+                  className="p-1.5 hover:bg-[var(--cc-error)]/15 rounded transition-colors group"
+                  title="Remove transaction"
+                >
+                  <Trash2 className="w-4 h-4 text-[var(--cc-muted)] group-hover:text-[var(--cc-error)]" />
+                </button>
               </div>
 
-              {currentChainHex && (
-                <div className="flex items-center gap-2 p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/40">
-                  <span className="text-caption text-[var(--cc-muted)]">Current chain:</span>
-                  <span className="text-caption font-[var(--font-mono)] text-[var(--cc-body)]">{chainLabel(currentChainHex)} ({currentChainHex})</span>
-                  <span className="ml-auto">
-                    {eip5792Supported === true ? (
-                      <CapBadge label="EIP-5792 ✓" supported />
-                    ) : (
-                      <CapBadge label="Sequential fallback" supported={false} />
-                    )}
-                  </span>
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-
-        {/* ── Gas Estimation ─────────────────────────────── */}
-        {isConnected && (
-          <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 shadow-[var(--cc-level4)] overflow-hidden">
-            <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50 flex items-center justify-between">
-              <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Gas estimation.</h2>
-              <button
-                onClick={handleEstimateGas}
-                disabled={estimatingGas || batchCalls.length === 0}
-                className="px-3 py-2 rounded-lg text-caption font-semibold bg-[var(--cc-primary)]/20 text-[var(--cc-link)] border border-[var(--cc-primary)]/30 hover:bg-[var(--cc-primary)]/30 transition-all disabled:opacity-50"
-              >
-                {estimatingGas ? (
-                  <span className="inline-flex items-center gap-2"><Spinner /> Estimating…</span>
-                ) : (
-                  '↻ Estimate Gas'
-                )}
-              </button>
-            </div>
-            <div className="p-5 space-y-3">
-              {gasEstimate ? (
-                <>
-                  <div className="flex items-center justify-between p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/40">
-                    <span className="text-caption text-[var(--cc-muted)]">Total Gas</span>
-                    <span className="text-body-sm font-[var(--font-mono)] text-[var(--cc-success)] font-semibold">
-                      {gasEstimate.totalDecimal.toLocaleString()} gas
-                    </span>
-                  </div>
-                  {gasEstimate.individual.map((g, i) => (
-                    <div key={i} className="flex items-center justify-between px-4 py-2 rounded-lg bg-[var(--cc-canvas)]/30">
-                      <span className="text-caption text-[var(--cc-body)]">Call #{i + 1}</span>
-                      <span className="text-caption font-[var(--font-mono)] text-[var(--cc-muted)]">
-                        {g === '0x0' ? 'N/A (default 21k)' : `${parseInt(g, 16).toLocaleString()} gas`}
-                      </span>
-                    </div>
-                  ))}
-                </>
-              ) : (
-                <p className="text-body-sm text-[var(--cc-body)] text-center py-2">
-                  Click "Estimate Gas" to calculate real gas costs for this batch
-                </p>
-              )}
-            </div>
-          </div>
-        )}
-
-        {/* ── Batch Transaction Builder ──────────────────── */}
-        <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 shadow-[var(--cc-level4)] overflow-hidden">
-          <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
-            <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Batch transaction builder.</h2>
-            <p className="text-caption text-[var(--cc-body)] mt-1">Add multiple calls to send atomically</p>
-          </div>
-
-          <div className="p-5 space-y-3">
-            {batchCalls.map((call, index) => (
-              <div key={index} className="p-4 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/40 space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-caption font-semibold text-[var(--cc-muted)] tracking-normal">Call #{index + 1}</span>
-                  {batchCalls.length > 1 && (
-                    <button
-                      onClick={() => handleRemoveCall(index)}
-                      className="text-caption text-[var(--cc-error)] hover:text-[var(--cc-error-deep)] transition-colors px-2 py-1 rounded bg-[var(--cc-error)]/10 hover:bg-[var(--cc-error)]/20"
-                    >
-                      Remove
-                    </button>
-                  )}
-                </div>
-
+              <div className="space-y-3">
+                {/* Recipient */}
                 <div>
-                  <label htmlFor={`batch-to-${index}`} className="text-caption text-[var(--cc-body)] mb-1 block">To (address)</label>
+                  <label className="text-caption text-[var(--cc-muted)] block mb-1.5">Recipient</label>
                   <input
-                    id={`batch-to-${index}`}
                     type="text"
-                    value={call.to}
-                    onChange={(e) => handleUpdateCall(index, 'to', e.target.value)}
-                    placeholder="0x…"
-                    className="w-full px-3 h-[40px] bg-[var(--cc-canvas-soft-2)]/80 border border-[var(--cc-hairline-strong)]/50 rounded-lg text-body-sm font-[var(--font-mono)] text-[var(--cc-body)] placeholder:text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-success)]/40 focus:border-[var(--cc-success)]/50"
-                    aria-label={`Call ${index + 1} destination address`}
+                    placeholder="0x..."
+                    value={tx.to}
+                    onChange={(e) => updateTransaction(tx.id, { to: e.target.value })}
+                    className="w-full px-3 py-2 bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline)] rounded-[var(--cc-radius-sm)] text-[var(--cc-ink)] placeholder:text-[var(--cc-muted)]/50 focus:outline-none focus:border-[var(--cc-hairline-strong)] transition-all font-mono text-caption"
                   />
                 </div>
 
+                {/* Value & Description */}
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label htmlFor={`batch-value-${index}`} className="text-caption text-[var(--cc-body)] mb-1 block">Value (hex wei)</label>
+                    <label className="text-caption text-[var(--cc-muted)] block mb-1.5">Value (ETH)</label>
                     <input
-                      id={`batch-value-${index}`}
                       type="text"
-                      value={call.value}
-                      onChange={(e) => handleUpdateCall(index, 'value', e.target.value)}
-                      placeholder="0x0"
-                      className="w-full px-3 h-[40px] bg-[var(--cc-canvas-soft-2)]/80 border border-[var(--cc-hairline-strong)]/50 rounded-lg text-body-sm font-[var(--font-mono)] text-[var(--cc-body)] placeholder:text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-success)]/40 focus:border-[var(--cc-success)]/50"
-                      aria-label={`Call ${index + 1} value in hex wei`}
+                      placeholder="0.0"
+                      value={tx.value}
+                      onChange={(e) => updateTransaction(tx.id, { value: e.target.value.replace(/[^0-9.]/g, '') })}
+                      className="w-full px-3 py-2 bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline)] rounded-[var(--cc-radius-sm)] text-[var(--cc-ink)] placeholder:text-[var(--cc-muted)]/50 focus:outline-none focus:border-[var(--cc-hairline-strong)] transition-all cc-tabular-nums"
                     />
                   </div>
                   <div>
-                    <label htmlFor={`batch-data-${index}`} className="text-caption text-[var(--cc-body)] mb-1 block">Data (hex)</label>
+                    <label className="text-caption text-[var(--cc-muted)] block mb-1.5">Description</label>
                     <input
-                      id={`batch-data-${index}`}
                       type="text"
-                      value={call.data}
-                      onChange={(e) => handleUpdateCall(index, 'data', e.target.value)}
-                      placeholder="0x"
-                      className="w-full px-3 h-[40px] bg-[var(--cc-canvas-soft-2)]/80 border border-[var(--cc-hairline-strong)]/50 rounded-lg text-body-sm font-[var(--font-mono)] text-[var(--cc-body)] placeholder:text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-success)]/40 focus:border-[var(--cc-success)]/50"
-                      aria-label={`Call ${index + 1} transaction data`}
+                      placeholder="Optional note..."
+                      value={tx.description}
+                      onChange={(e) => updateTransaction(tx.id, { description: e.target.value })}
+                      className="w-full px-3 py-2 bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline)] rounded-[var(--cc-radius-sm)] text-[var(--cc-ink)] placeholder:text-[var(--cc-muted)]/50 focus:outline-none focus:border-[var(--cc-hairline-strong)] transition-all"
                     />
                   </div>
                 </div>
-              </div>
-            ))}
 
-            <button
-              onClick={handleAddCall}
-              className="w-full py-3 rounded-md text-body-sm font-semibold border border-dashed border-[var(--cc-hairline-strong)] text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all"
-            >
-              + Add Call
-            </button>
-
-            <div className="flex flex-col sm:flex-row gap-3 pt-2">
-              <button
-                onClick={handlePreview}
-                disabled={!isConnected}
-                className="flex-1 px-4 py-3 rounded-md text-body-sm font-semibold bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                Preview Batch
-              </button>
-              <button
-                onClick={handleSendBatch}
-                disabled={!isConnected || executing || callsStatus.isPolling}
-                className="flex-1 px-4 py-3 rounded-[6px] text-body-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:bg-[var(--cc-primary-hover)] shadow-[var(--cc-level3)] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {executing && lastAction === 'send' ? (
-                  <span className="inline-flex items-center gap-2"><Spinner /> Sending…</span>
-                ) : (
-                  'wallet_sendCalls'
-                )}
-              </button>
-              <button
-                onClick={handleAtomicBatch}
-                disabled={!isConnected || executing || callsStatus.isPolling}
-                className="flex-1 px-4 py-3 rounded-[6px] text-body-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:bg-[var(--cc-primary-hover)] shadow-[var(--cc-level3)] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {executing && lastAction === 'batch' ? (
-                  <span className="inline-flex items-center gap-2"><Spinner /> Executing…</span>
-                ) : (
-                  'Execute Atomic Batch'
-                )}
-              </button>
-            </div>
-
-            {batchResult && !batchResult.success && (
-              <div className="p-3 rounded-md bg-[var(--cc-error)]/10 border border-[var(--cc-error)]/20">
-                <p className="text-body-sm text-[var(--cc-error)]">{batchResult.error ?? 'Unknown error'}</p>
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* ── Batch Preview ──────────────────────────────── */}
-        {showPreview && (
-          <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 shadow-[var(--cc-level4)] overflow-hidden">
-            <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50 flex items-center justify-between">
-              <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Batch preview.</h2>
-              <button
-                onClick={() => setShowPreview(false)}
-                className="text-caption text-[var(--cc-muted)] hover:text-[var(--cc-ink)] transition-colors"
-              >
-                ✕
-              </button>
-            </div>
-            <div className="p-5 space-y-3">
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-2">
-                  <span className="text-caption text-[var(--cc-muted)]">Total calls:</span>
-                  <span className="text-caption font-semibold text-[var(--cc-success)]">{batchCalls.length}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-caption text-[var(--cc-muted)]">Atomic:</span>
-                  {eip5792Supported ? (
-                    <span className="text-caption font-semibold text-[var(--cc-success)]">Yes ✓</span>
-                  ) : (
-                    <span className="text-caption font-semibold text-[var(--cc-warning)]">Sequential fallback</span>
-                  )}
-                </div>
-                {gasEstimate && (
-                  <div className="flex items-center gap-2">
-                    <span className="text-caption text-[var(--cc-muted)]">Est. gas:</span>
-                    <span className="text-caption font-[var(--font-mono)] text-[var(--cc-link)]">{gasEstimate.totalDecimal.toLocaleString()}</span>
+                {/* Result */}
+                {results[index] && (
+                  <div className={`p-3 rounded-[var(--cc-radius-sm)] flex items-center gap-2 cc-animate-slide-up ${
+                    results[index].status === "success"
+                      ? 'bg-[var(--cc-success)]/15 border border-[var(--cc-success)]/25'
+                      : 'bg-[var(--cc-error)]/15 border border-[var(--cc-error)]/25'
+                  }`}>
+                    {results[index].status === "success" ? (
+                      <>
+                        <CheckCircle2 className="w-4 h-4 text-[var(--cc-success)]" />
+                        <span className="text-caption text-[var(--cc-success)] font-medium">Success</span>
+                        <span className="text-caption text-[var(--cc-muted)] ml-auto font-mono">
+                          {shortenAddress(results[index].hash)}
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        <AlertCircle className="w-4 h-4 text-[var(--cc-error)]" />
+                        <span className="text-caption text-[var(--cc-error)] font-medium">Failed</span>
+                      </>
+                    )}
                   </div>
                 )}
               </div>
-              {batchCalls.map((call, index) => (
-                <div key={index} className="p-3 rounded-lg bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/40 font-[var(--font-mono)] text-caption text-[var(--cc-muted)] space-y-1">
-                  <div><span className="text-[var(--cc-body)]">to:</span> {call.to || '(empty)'}</div>
-                  <div><span className="text-[var(--cc-body)]">value:</span> {call.value}</div>
-                  <div><span className="text-[var(--cc-body)]">data:</span> {call.data || '0x (empty)'}</div>
-                  {gasEstimate && (
-                    <div><span className="text-[var(--cc-body)]">gas:</span> {gasEstimate.individual[index] === '0x0' ? 'N/A' : `${parseInt(gasEstimate.individual[index], 16).toLocaleString()}`}</div>
-                  )}
-                </div>
-              ))}
             </div>
-          </div>
-        )}
+          ))}
+        </div>
 
-        {/* ── Transaction Status ─────────────────────────── */}
-        {(callsStatus.isPolling || callsStatus.result || batchResult) && (
-          <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 shadow-[var(--cc-level4)] overflow-hidden">
-            <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
-              <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Transaction status.</h2>
-            </div>
-            <div className="p-5 space-y-4">
-              {/* EIP-5792 call ID */}
-              {batchResult?.callId && (
-                <div className="p-3 rounded-md bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/40">
-                  <p className="text-caption text-[var(--cc-body)] mb-1">Batch ID (EIP-5792)</p>
-                  <p className="text-body-sm font-[var(--font-mono)] text-[var(--cc-body)] break-all">{batchResult.callId}</p>
-                </div>
-              )}
+        {/* Execute Button */}
+        <button
+          onClick={handleExecuteBatch}
+          disabled={executing}
+          className="w-full mt-6 px-6 py-3.5 bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:bg-[var(--cc-primary-hover)] disabled:opacity-50 rounded-[var(--cc-radius-sm)] font-semibold transition-all shadow-[var(--cc-level3)] hover:shadow-[var(--cc-level4)] active:scale-[0.99] flex items-center justify-center gap-2"
+        >
+          {executing ? (
+            <>
+              <Loader2 className="w-4 h-4 animate-spin" />
+              Executing batch...
+            </>
+          ) : (
+            <>
+              <Send className="w-4 h-4" />
+              Execute {transactions.length} transaction{transactions.length !== 1 ? 's' : ''}
+            </>
+          )}
+        </button>
 
-              {/* Sequential tx hashes */}
-              {batchResult?.txHashes && batchResult.txHashes.length > 0 && (
-                <div className="space-y-2">
-                  <p className="text-caption text-[var(--cc-muted)] tracking-normal">Transaction hashes</p>
-                  {batchResult.txHashes.map((hash, i) => (
-                    <div key={i} className="p-3 rounded-lg bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/40 font-[var(--font-mono)] text-caption text-[var(--cc-muted)]">
-                      <span className="text-[var(--cc-body)]">#{i + 1}:</span> {hash}
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {callsStatus.isPolling && (
-                <div className="flex items-center gap-2 text-body-sm text-[var(--cc-warning)]">
-                  <Spinner /> Polling status…
-                </div>
-              )}
-
-              {callsStatus.status && (
-                <div className="flex items-center gap-3">
-                  <span className="text-caption text-[var(--cc-muted)]">Status:</span>
-                  <StatusBadge status={callsStatus.status} />
-                </div>
-              )}
-
-              {callsStatus.allSucceeded && (
-                <div className="p-3 rounded-md bg-[var(--cc-success)]/10 border border-[var(--cc-success)]/20">
-                  <p className="text-body-sm text-[var(--cc-success)] font-semibold">✓ All calls succeeded!</p>
-                </div>
-              )}
-
-              {(callsStatus.failedReceipts?.length ?? 0) > 0 && (
-                <div className="p-3 rounded-md bg-[var(--cc-error)]/10 border border-[var(--cc-error)]/20">
-                  <p className="text-body-sm text-[var(--cc-error)] font-semibold mb-1">✗ {callsStatus.failedReceipts?.length} call(s) failed</p>
-                  {callsStatus.failedReceipts?.map((r, i) => (
-                    <p key={i} className="text-caption font-[var(--font-mono)] text-[var(--cc-error)]/80">tx: {r.transactionHash ?? 'pending'}</p>
-                  ))}
-                </div>
-              )}
-
-              {callsStatus.error && (
-                <div className="p-3 rounded-md bg-[var(--cc-error)]/10 border border-[var(--cc-error)]/20">
-                  <p className="text-body-sm text-[var(--cc-error)]">{callsStatus.error.message}</p>
-                </div>
-              )}
-
-              {callsStatus.result?.receipts && callsStatus.result.receipts.length > 0 && (
-                <div className="space-y-2">
-                  <p className="text-caption text-[var(--cc-muted)] tracking-normal">Receipts</p>
-                  {callsStatus.result.receipts.map((r, i) => (
-                    <div key={i} className="p-3 rounded-lg bg-[var(--cc-canvas)]/50 border border-[var(--cc-hairline-strong)]/40 space-y-1">
-                      <div className="flex items-center gap-2">
-                        <span className="text-caption text-[var(--cc-body)]">Call #{i + 1}</span>
-                        <span className={`text-caption px-2 py-1 rounded font-semibold ${r.receipt.status === '0x1' ? 'bg-[var(--cc-success)]/15 text-[var(--cc-success)]' : 'bg-[var(--cc-error)]/15 text-[var(--cc-error)]'}`}>
-                          {r.receipt.status === '0x1' ? 'SUCCESS' : 'FAILED'}
-                        </span>
-                      </div>
-                      {r.transactionHash && (
-                        <p className="text-caption font-[var(--font-mono)] text-[var(--cc-body)] break-all">tx: {r.transactionHash}</p>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {callsStatus.isPolling && (
-                <button
-                  onClick={() => callsStatus.stopPolling()}
-                  className="w-full py-3 rounded-md text-body-sm font-semibold bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all"
-                >
-                  Stop Polling
-                </button>
-              )}
-            </div>
-          </div>
-        )}
-
-        {/* ── Info ───────────────────────────────────────── */}
-        <div className="text-center space-y-2 bg-[var(--cc-link)]/5 border border-[var(--cc-primary)]/20 rounded-md px-6 py-4">
-          <p className="text-body-sm text-[var(--cc-link)] font-semibold">EIP-5792 Wallet Call API</p>
-          <p className="text-caption text-[var(--cc-body)]">
-            This page demonstrates atomic batch transactions using EIP-5792{' '}
-            <code className="text-[var(--cc-muted)] font-[var(--font-mono)]">wallet_sendCalls</code>.
-            Requires a wallet that supports the Wallet Call API (e.g. Coinbase Smart Wallet, Biconomy, Zerodev).
-            Standard EOA wallets fall back to sequential <code className="text-[var(--cc-muted)] font-[var(--font-mono)]">eth_sendTransaction</code> calls.
+        {/* Info note */}
+        <div className="mt-4 flex items-start gap-2 p-3 bg-[var(--cc-canvas-soft-2)]/30 border border-[var(--cc-hairline)]/60 rounded-[var(--cc-radius-sm)]">
+          <AlertCircle className="w-3.5 h-3.5 text-[var(--cc-muted)] mt-0.5 shrink-0" />
+          <p className="text-caption text-[var(--cc-muted)]">
+            Batch transactions are simulated in this demo. Real batch execution requires account abstraction or multi-call contracts.
           </p>
         </div>
       </div>

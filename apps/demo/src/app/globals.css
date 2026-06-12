@@ -1,1 +1,141 @@
 @import url('../shared-design-system.css');
+
+/* ── Animations ──────────────────────────────────────────── */
+@keyframes cc-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes cc-slide-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cc-slide-down {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cc-scale-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes cc-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes cc-pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes cc-chain-switch-flash {
+  0% { box-shadow: 0 0 0 0 rgba(0, 112, 243, 0.3); }
+  50% { box-shadow: 0 0 0 4px rgba(0, 112, 243, 0.15); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 112, 243, 0); }
+}
+
+@keyframes cc-status-transition {
+  from { opacity: 0.7; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ── Animation Utility Classes ──────────────────────────── */
+.cc-animate-fade-in {
+  animation: cc-fade-in 0.3s ease-out both;
+}
+
+.cc-animate-slide-up {
+  animation: cc-slide-up 0.35s ease-out both;
+}
+
+.cc-animate-slide-down {
+  animation: cc-slide-down 0.3s ease-out both;
+}
+
+.cc-animate-scale-in {
+  animation: cc-scale-in 0.25s ease-out both;
+}
+
+/* Staggered children animation */
+.cc-stagger > *:nth-child(1) { animation-delay: 0ms; }
+.cc-stagger > *:nth-child(2) { animation-delay: 40ms; }
+.cc-stagger > *:nth-child(3) { animation-delay: 80ms; }
+.cc-stagger > *:nth-child(4) { animation-delay: 120ms; }
+.cc-stagger > *:nth-child(5) { animation-delay: 160ms; }
+.cc-stagger > *:nth-child(6) { animation-delay: 200ms; }
+.cc-stagger > *:nth-child(7) { animation-delay: 240ms; }
+.cc-stagger > *:nth-child(8) { animation-delay: 280ms; }
+
+/* ── Skeleton Loading ───────────────────────────────────── */
+.cc-skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--cc-canvas-soft-2) 25%,
+    var(--cc-canvas-soft) 50%,
+    var(--cc-canvas-soft-2) 75%
+  );
+  background-size: 200% 100%;
+  animation: cc-shimmer 1.8s ease-in-out infinite;
+  border-radius: var(--cc-radius-sm);
+}
+
+.cc-skeleton-text {
+  height: 14px;
+  border-radius: 4px;
+}
+
+.cc-skeleton-circle {
+  border-radius: 50%;
+}
+
+.cc-skeleton-card {
+  height: 80px;
+  border-radius: var(--cc-radius-md);
+}
+
+/* ── Chain switch animation ─────────────────────────────── */
+.animate-chain-switch-flash {
+  animation: cc-chain-switch-flash 0.6s ease-out;
+}
+
+.animate-status-transition {
+  animation: cc-status-transition 0.3s ease-out;
+}
+
+/* ── Page transition wrapper ────────────────────────────── */
+.cc-page-enter {
+  animation: cc-slide-up 0.4s ease-out both;
+}
+
+/* ── Subtle hover lift ──────────────────────────────────── */
+.cc-hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.cc-hover-lift:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--cc-level3);
+}
+
+/* ── Number formatting helpers ──────────────────────────── */
+.cc-tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Custom scrollbar (subtle) ──────────────────────────── */
+.cc-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.cc-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.cc-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--cc-hairline-strong);
+  border-radius: 3px;
+}
+.cc-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--cc-muted);
+}
