@@ -1,7 +1,7 @@
 'use client';
 
-import React from 'react';
 import Image from 'next/image';
+import React from 'react';
 
 interface FrameRendererProps {
   /** Frame image URL */
@@ -51,7 +51,7 @@ export function FrameRenderer({
             unoptimized
           />
           {title && (
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#171717]/80 to-transparent p-4">
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[var(--cc-canvas)]/80 to-transparent p-4">
               <h3 className="text-[var(--cc-on-primary)] font-semibold text-body-lg">{title}</h3>
             </div>
           )}
@@ -73,9 +73,12 @@ export function FrameRenderer({
 
         {/* Buttons */}
         {buttons.length > 0 && (
-          <div className="p-4 border-t border-[var(--cc-hairline)] grid gap-2" style={{
-            gridTemplateColumns: `repeat(${Math.min(buttons.length, 2)}, minmax(0, 1fr))`,
-          }}>
+          <div
+            className="p-4 border-t border-[var(--cc-hairline)] grid gap-2"
+            style={{
+              gridTemplateColumns: `repeat(${Math.min(buttons.length, 2)}, minmax(0, 1fr))`,
+            }}
+          >
             {buttons.map((button, idx) => (
               <button
                 key={idx}

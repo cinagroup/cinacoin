@@ -20,10 +20,10 @@ export default function ApiKeysPage() {
       <Sidebar isOpen={sidebarOpen} onToggle={() => setSidebarOpen(!sidebarOpen)} />
 
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="bg-canvas border-b border-hairline h-14 flex items-center px-6 sticky top-0 z-40">
+        <header className="bg-[var(--cc-canvas)] border-b border-[var(--cc-hairline)] h-14 flex items-center px-6 sticky top-0 z-40">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="p-2 rounded-sm hover:bg-canvas-soft-2 mr-4 transition-colors duration-fast"
+            className="p-2 rounded-sm hover:bg-[var(--cc-canvas-soft-2)] mr-4 transition-colors duration-fast"
           >
             <Menu className="w-5 h-5 text-body" />
           </button>
@@ -33,8 +33,8 @@ export default function ApiKeysPage() {
         <main className="flex-1 p-6 overflow-auto">
           <div className="mb-6 flex items-center justify-between">
             <div>
-              <p className="font-mono text-xs text-mute mb-2">AUTHENTICATION</p>
-              <h1 className="text-heading-2 text-ink">API keys.</h1>
+              <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">AUTHENTICATION</p>
+              <h1 className="text-heading-2 text-[var(--cc-ink)]">API keys.</h1>
               <p className="text-body-sm text-body mt-1">Manage your API keys for authentication.</p>
             </div>
             <button className="cc-btn-primary px-4 py-2">
@@ -42,16 +42,16 @@ export default function ApiKeysPage() {
             </button>
           </div>
 
-          <div className="bg-canvas border border-hairline rounded-md overflow-hidden">
+          <div className="bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-md overflow-hidden">
             <table className="w-full">
-              <thead className="bg-canvas-soft-2 border-b border-hairline">
+              <thead className="bg-[var(--cc-canvas-soft-2)] border-b border-[var(--cc-hairline)]">
                 <tr>
-                  <th className="text-left px-6 py-3 text-caption font-medium text-mute uppercase">Name</th>
-                  <th className="text-left px-6 py-3 text-caption font-medium text-mute uppercase">Key</th>
-                  <th className="text-left px-6 py-3 text-caption font-medium text-mute uppercase">Created</th>
-                  <th className="text-left px-6 py-3 text-caption font-medium text-mute uppercase">Last Used</th>
-                  <th className="text-left px-6 py-3 text-caption font-medium text-mute uppercase">Status</th>
-                  <th className="text-right px-6 py-3 text-caption font-medium text-mute uppercase">Actions</th>
+                  <th className="text-left px-6 py-3 text-caption font-medium text-[var(--cc-muted)] uppercase">Name</th>
+                  <th className="text-left px-6 py-3 text-caption font-medium text-[var(--cc-muted)] uppercase">Key</th>
+                  <th className="text-left px-6 py-3 text-caption font-medium text-[var(--cc-muted)] uppercase">Created</th>
+                  <th className="text-left px-6 py-3 text-caption font-medium text-[var(--cc-muted)] uppercase">Last Used</th>
+                  <th className="text-left px-6 py-3 text-caption font-medium text-[var(--cc-muted)] uppercase">Status</th>
+                  <th className="text-right px-6 py-3 text-caption font-medium text-[var(--cc-muted)] uppercase">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -59,17 +59,17 @@ export default function ApiKeysPage() {
                   <tr>
                     <td colSpan={6} className="px-6 py-12 text-center">
                       <div className="flex flex-col items-center justify-center">
-                        <KeyRound className="w-8 h-8 text-mute mb-4" />
-                        <h3 className="text-heading-3 text-ink mb-1">No API keys.</h3>
+                        <KeyRound className="w-8 h-8 text-[var(--cc-muted)] mb-4" />
+                        <h3 className="text-heading-3 text-[var(--cc-ink)] mb-1">No API keys.</h3>
                         <p className="text-body-sm text-body max-w-sm">Create your first API key to authenticate your requests.</p>
                       </div>
                     </td>
                   </tr>
                 ) : mockKeys.map((apiKey) => (
-                  <tr key={apiKey.id} className="border-b border-hairline last:border-b-0 hover:bg-canvas-soft transition-colors">
-                    <td className="px-6 py-4 text-body-sm text-ink font-medium">{apiKey.name}</td>
+                  <tr key={apiKey.id} className="border-b border-[var(--cc-hairline)] last:border-b-0 hover:bg-[var(--cc-canvas-soft)] transition-colors">
+                    <td className="px-6 py-4 text-body-sm text-[var(--cc-ink)] font-medium">{apiKey.name}</td>
                     <td className="px-6 py-4">
-                      <code className="text-caption-mono text-mute bg-canvas-soft-2 px-2 py-1 rounded">{apiKey.key}</code>
+                      <code className="text-caption-mono text-[var(--cc-muted)] bg-[var(--cc-canvas-soft-2)] px-2 py-1 rounded">{apiKey.key}</code>
                     </td>
                     <td className="px-6 py-4 text-body-sm text-body">{apiKey.created}</td>
                     <td className="px-6 py-4 text-body-sm text-body">{apiKey.lastUsed}</td>
@@ -79,7 +79,7 @@ export default function ApiKeysPage() {
                       </span>
                     </td>
                     <td className="px-6 py-4 text-right">
-                      <button className="p-2 hover:bg-canvas-soft-2 rounded transition-colors">
+                      <button className="p-2 hover:bg-[var(--cc-canvas-soft-2)] rounded transition-colors">
                         <MoreVertical className="w-4 h-4 text-body" />
                       </button>
                     </td>

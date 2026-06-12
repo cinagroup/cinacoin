@@ -161,7 +161,7 @@ function WalletCard({
           : 'bg-[var(--cc-canvas)]/40 border-[var(--cc-hairline-strong)]/40 hover:border-[var(--cc-hairline-strong)]'
       }`}
       style={{
-        boxShadow: '0px 1px 1px #17171705, 0px 2px 2px #1717170a, inset 0 0 0 1px var(--cc-hairline)'
+        boxShadow: 'var(--cc-level2)'
       }}
     >
       <div className="flex items-center gap-4">
@@ -275,7 +275,7 @@ export default function ProfilePage() {
             <p className="text-[var(--cc-muted)] mt-4 text-body-sm">Connect your wallet to view your profile</p>
             <button
               onClick={handleConnect}
-              className="mt-4 px-6 py-3 rounded-[6px] font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all"
+              className="mt-4 px-6 py-3 rounded-[6px] font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:bg-[var(--cc-primary-hover)] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--cc-link)] transition-all"
             >
               Connect Wallet
             </button>

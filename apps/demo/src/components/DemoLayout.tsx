@@ -89,7 +89,7 @@ export default function DemoLayout({ children }: { children: ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#fafafa] text-[var(--cc-ink)] flex">
+    <div className="min-h-screen bg-[var(--cc-canvas-soft)] text-[var(--cc-ink)] flex">
       <Sidebar links={NAV_ITEMS} mobileOpen={mobileOpen} onClose={() => setMobileOpen(false)} />
 
       <div className="flex-1 flex flex-col min-w-0">

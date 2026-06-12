@@ -222,7 +222,7 @@ export default function ComponentsPage() {
             <div className="space-y-4">
               {/* Variants */}
               <div className="flex flex-wrap gap-3 items-center">
-                <button className="px-5 py-3 rounded-[6px] font-semibold text-body-sm bg-[var(--cc-primary)] text-[var(--cc-on-primary)] shadow-[var(--cc-level3)] hover:shadow-[var(--cc-level4)] transition-all hover:-translate-y-0.5">
+                <button className="px-5 py-3 rounded-[6px] font-semibold text-body-sm bg-[var(--cc-primary)] text-[var(--cc-on-primary)] shadow-[var(--cc-level3)] hover:shadow-[var(--cc-level4)] hover:bg-[var(--cc-primary-hover)] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--cc-link)] transition-all hover:-translate-y-0.5">
                   Primary
                 </button>
                 <button className="px-5 py-3 rounded-md font-semibold text-body-sm bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-body)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)] transition-all">
@@ -244,13 +244,13 @@ export default function ComponentsPage() {
 
               {/* Sizes */}
               <div className="flex flex-wrap gap-3 items-center">
-                <button className="px-3 py-2 rounded-[6px] text-caption font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)]">
+                <button className="px-3 py-2 rounded-[6px] text-caption font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:bg-[var(--cc-primary-hover)] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--cc-link)] transition-all">
                   Small
                 </button>
-                <button className="px-5 py-3 rounded-[6px] text-body-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)]">
+                <button className="px-5 py-3 rounded-[6px] text-body-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:bg-[var(--cc-primary-hover)] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--cc-link)] transition-all">
                   Medium
                 </button>
-                <button className="px-8 py-4 rounded-[6px] text-body-md font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)]">
+                <button className="px-8 py-4 rounded-[6px] text-body-md font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:bg-[var(--cc-primary-hover)] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--cc-link)] transition-all">
                   Large
                 </button>
               </div>

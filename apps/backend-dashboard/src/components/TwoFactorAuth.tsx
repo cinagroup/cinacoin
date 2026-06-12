@@ -76,7 +76,7 @@ export function TwoFactorAuth() {
       // Auto-submit when all digits entered
       if (newCode.every((d) => d !== "") && newCode.join("").length === 6) {
         const code = newCode.join("");
-        handleVerifyCode(code);
+        void handleVerifyCode(code);
       }
     }
   };
@@ -109,14 +109,14 @@ export function TwoFactorAuth() {
   };
 
   const handleCopyCode = (code: string, index: number) => {
-    navigator.clipboard.writeText(code);
+    void navigator.clipboard.writeText(code);
     setCopiedIndex(index);
     setTimeout(() => setCopiedIndex(null), 2000);
   };
 
   const handleCopyAllCodes = () => {
     const codesText = recoveryCodes.map((rc) => rc.code).join("\n");
-    navigator.clipboard.writeText(codesText);
+    void navigator.clipboard.writeText(codesText);
     setAllCopied(true);
     setTimeout(() => setAllCopied(false), 2000);
   };
@@ -211,7 +211,7 @@ export function TwoFactorAuth() {
                   This helps prevent unauthorized access even if your password is compromised.
                 </p>
                 <button
-                  onClick={handleStartSetup}
+                  onClick={() => { void handleStartSetup(); }}
                   disabled={isSubmitting}
                   className="cc-btn-primary disabled:opacity-50"
                 >
@@ -391,7 +391,7 @@ export function TwoFactorAuth() {
                   </p>
                 </div>
                 <button
-                  onClick={handleCopyAllCodes}
+                  onClick={() => { void handleCopyAllCodes(); }}
                   className="cc-btn-secondary-sm flex-shrink-0"
                 >
                   {allCopied ? "✓ Copied" : "Copy All"}
@@ -453,7 +453,7 @@ export function TwoFactorAuth() {
                     Your account is protected with two-factor authentication. You&apos;ll need a verification code from your authenticator app when logging in.
                   </p>
                   <button
-                    onClick={handleDisable}
+                    onClick={() => { void handleDisable(); }}
                     disabled={isSubmitting}
                     className="cc-btn-danger disabled:opacity-50"
                   >

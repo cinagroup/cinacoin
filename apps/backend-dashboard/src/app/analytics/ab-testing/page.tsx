@@ -57,7 +57,7 @@ export default function ABTestingPage() {
               <span className={`px-3 py-1 rounded-full text-caption ${
                 exp.status === 'running' ? 'bg-success/10 text-success' :
                 exp.status === 'paused' ? 'bg-warning/10 text-warning' :
-                'bg-canvas-soft text-mute'
+                'bg-[var(--cc-canvas-soft)] text-[var(--cc-muted)]'
               }`}>
                 {exp.status}
               </span>
@@ -65,10 +65,10 @@ export default function ABTestingPage() {
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {results[exp.id]?.map(stat => (
-                <div key={stat.variantId} className="p-4 bg-canvas-soft rounded-lg">
+                <div key={stat.variantId} className="p-4 bg-[var(--cc-canvas-soft)] rounded-lg">
                   <p className="text-body font-medium mb-2">{stat.variantName}</p>
                   <p className="text-heading-3 text-link mb-1">{stat.conversionRate}%</p>
-                  <p className="text-caption text-mute">
+                  <p className="text-caption text-[var(--cc-muted)]">
                     {stat.conversions} / {stat.assignments} conversions
                   </p>
                 </div>

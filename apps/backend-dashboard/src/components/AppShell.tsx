@@ -38,7 +38,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       {/* Mobile sidebar overlay */}
       {mobileSidebarOpen && (
         <div
-          className="fixed inset-0 bg-[var(--color-ink)]/60 backdrop-blur-sm z-40 lg:hidden"
+          className="fixed inset-0 bg-[var(--cc-ink)]/60 backdrop-blur-sm z-40 lg:hidden"
           onClick={() => setMobileSidebarOpen(false)}
           role="presentation"
           aria-hidden="true"

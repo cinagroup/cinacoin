@@ -555,7 +555,7 @@ export default function BatchPage() {
             <button
               onClick={() => connect(connectors.find((c) => c.id === 'io.metamask')?.id ?? connectors[0]?.id ?? 'io.metamask')}
               disabled={isConnecting}
-              className="px-4 py-2 rounded-[6px] text-body-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all disabled:opacity-50"
+              className="px-4 py-2 rounded-[6px] text-body-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:bg-[var(--cc-primary-hover)] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--cc-link)] transition-all disabled:opacity-50"
             >
               {isConnecting ? 'Connecting...' : 'Connect Wallet'}
             </button>
@@ -773,7 +773,7 @@ export default function BatchPage() {
               <button
                 onClick={handleSendBatch}
                 disabled={!isConnected || executing || callsStatus.isPolling}
-                className="flex-1 px-4 py-3 rounded-[6px] text-body-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 shadow-[var(--cc-level3)] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 px-4 py-3 rounded-[6px] text-body-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:bg-[var(--cc-primary-hover)] shadow-[var(--cc-level3)] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {executing && lastAction === 'send' ? (
                   <span className="inline-flex items-center gap-2"><Spinner /> Sending…</span>
@@ -784,7 +784,7 @@ export default function BatchPage() {
               <button
                 onClick={handleAtomicBatch}
                 disabled={!isConnected || executing || callsStatus.isPolling}
-                className="flex-1 px-4 py-3 rounded-[6px] text-body-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 shadow-[var(--cc-level3)] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 px-4 py-3 rounded-[6px] text-body-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:bg-[var(--cc-primary-hover)] shadow-[var(--cc-level3)] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {executing && lastAction === 'batch' ? (
                   <span className="inline-flex items-center gap-2"><Spinner /> Executing…</span>

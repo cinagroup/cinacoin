@@ -10,8 +10,14 @@
 }
 
 @keyframes cc-fade-in {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* --- Page Titles (sentence case + period) --- */
@@ -96,7 +102,7 @@
   justify-content: center;
   font-weight: var(--cc-weight-semibold);
   font-size: var(--cc-text-body-md);
-  color: white;
+  color: var(--cc-on-primary);
 }
 
 .header-info {
@@ -129,7 +135,7 @@
 .header-address {
   font-size: var(--cc-text-caption);
   font-family: var(--cc-font-mono);
-  background: rgba(108, 99, 255, 0.15);
+  background: color-mix(in srgb, var(--cc-primary) 15%, transparent);
   color: var(--cc-primary-light);
   padding: var(--cc-space-1) var(--cc-space-2);
   border-radius: var(--cc-radius-sm);
@@ -146,7 +152,7 @@
   background: linear-gradient(135deg, var(--cc-primary) 0%, var(--cc-primary-dark) 100%);
   border-radius: var(--cc-radius-xl);
   padding: var(--cc-space-6);
-  color: white;
+  color: var(--cc-on-primary);
   position: relative;
   overflow: hidden;
 }
@@ -159,7 +165,7 @@
   width: 200px;
   height: 200px;
   border-radius: var(--cc-radius-full);
-  background: rgba(255, 255, 255, 0.05);
+  background: color-mix(in srgb, var(--cc-on-primary) 5%, transparent);
 }
 
 .balance-label {
@@ -200,8 +206,8 @@
 
 .balance-refresh {
   margin-top: var(--cc-space-2);
-  background: rgba(255, 255, 255, 0.15);
-  color: white;
+  background: color-mix(in srgb, var(--cc-on-primary) 15%, transparent);
+  color: var(--cc-on-primary);
   padding: var(--cc-space-2) var(--cc-space-3);
   border-radius: var(--cc-radius-sm);
   font-size: var(--cc-text-caption);
@@ -209,7 +215,12 @@
 }
 
 .balance-refresh:hover {
-  background: rgba(255, 255, 255, 0.25);
+  background: color-mix(in srgb, var(--cc-on-primary) 25%, transparent);
+}
+
+.balance-refresh:focus-visible {
+  outline: 2px solid var(--cc-on-primary);
+  outline-offset: 2px;
 }
 
 /* ==========================================================================
@@ -237,7 +248,12 @@
 
 .quick-action-btn:active {
   transform: scale(0.95);
-  background: rgba(108, 99, 255, 0.1);
+  background: color-mix(in srgb, var(--cc-primary) 10%, transparent);
+}
+
+.quick-action-btn:focus-visible {
+  outline: 2px solid var(--cc-primary);
+  outline-offset: 2px;
 }
 
 .quick-action-btn:disabled {
@@ -351,8 +367,8 @@
 .btn-spinner {
   width: 16px;
   height: 16px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-top-color: white;
+  border: 2px solid color-mix(in srgb, var(--cc-on-primary) 30%, transparent);
+  border-top-color: var(--cc-on-primary);
   border-radius: var(--cc-radius-full);
   animation: cc-spin 0.6s linear infinite;
   display: inline-block;
@@ -367,7 +383,7 @@
   height: 48px;
   padding: 0 var(--cc-space-6);
   background-color: var(--cc-primary);
-  color: white;
+  color: var(--cc-on-primary);
   border: none;
   border-radius: var(--cc-radius-pill);
   font-size: var(--cc-text-body-md);
@@ -380,6 +396,15 @@
 
 .cc-btn-primary:hover {
   opacity: 0.85;
+}
+
+.cc-btn-primary:active {
+  transform: scale(0.97);
+}
+
+.cc-btn-primary:focus-visible {
+  outline: 2px solid var(--cc-primary);
+  outline-offset: 2px;
 }
 
 .cc-btn-secondary {
@@ -404,6 +429,15 @@
   border-color: var(--cc-text);
 }
 
+.cc-btn-secondary:active {
+  transform: scale(0.97);
+}
+
+.cc-btn-secondary:focus-visible {
+  outline: 2px solid var(--cc-primary);
+  outline-offset: 2px;
+}
+
 .cc-btn-secondary-sm {
   display: inline-flex;
   align-items: center;
@@ -412,7 +446,7 @@
   padding: 0 var(--cc-space-4);
   background-color: transparent;
   color: var(--cc-text);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid color-mix(in srgb, var(--cc-text) 20%, transparent);
   border-radius: var(--cc-radius-sm);
   font-size: var(--cc-text-body-sm);
   font-weight: var(--cc-weight-medium);
@@ -426,6 +460,15 @@
   border-color: var(--cc-text);
 }
 
+.cc-btn-secondary-sm:active {
+  transform: scale(0.97);
+}
+
+.cc-btn-secondary-sm:focus-visible {
+  outline: 2px solid var(--cc-primary);
+  outline-offset: 2px;
+}
+
 .cc-btn-danger {
   display: inline-flex;
   align-items: center;
@@ -433,7 +476,7 @@
   height: 40px;
   padding: 0 var(--cc-space-5);
   background-color: var(--cc-error);
-  color: white;
+  color: var(--cc-on-primary);
   border: none;
   border-radius: var(--cc-radius-pill);
   font-size: var(--cc-text-body-sm);
@@ -445,6 +488,15 @@
 
 .cc-btn-danger:hover {
   opacity: 0.9;
+}
+
+.cc-btn-danger:active {
+  transform: scale(0.97);
+}
+
+.cc-btn-danger:focus-visible {
+  outline: 2px solid var(--cc-error);
+  outline-offset: 2px;
 }
 
 /* ==========================================================================
@@ -519,7 +571,12 @@
 
 .wallet-option:hover {
   border-color: var(--cc-primary);
-  background: rgba(108, 99, 255, 0.05);
+  background: color-mix(in srgb, var(--cc-primary) 5%, transparent);
+}
+
+.wallet-option:focus-visible {
+  outline: 2px solid var(--cc-primary);
+  outline-offset: 2px;
 }
 
 .wallet-option-icon {
@@ -556,7 +613,7 @@
 
 .status-indicator.connected {
   background: var(--cc-success);
-  box-shadow: 0 0 8px rgba(0, 200, 83, 0.4);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--cc-success) 40%, transparent);
 }
 
 .wallet-info {
@@ -690,8 +747,8 @@
    ========================================================================== */
 .error-message {
   padding: var(--cc-space-2) var(--cc-space-4);
-  background: rgba(255, 82, 82, 0.1);
-  border: 1px solid rgba(255, 82, 82, 0.3);
+  background: color-mix(in srgb, var(--cc-error) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--cc-error) 30%, transparent);
   border-radius: var(--cc-radius-sm);
   color: var(--cc-error);
   font-size: var(--cc-text-body-sm);
@@ -699,8 +756,8 @@
 
 .success-message {
   padding: var(--cc-space-2) var(--cc-space-4);
-  background: rgba(0, 200, 83, 0.1);
-  border: 1px solid rgba(0, 200, 83, 0.3);
+  background: color-mix(in srgb, var(--cc-success) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--cc-success) 30%, transparent);
   border-radius: var(--cc-radius-sm);
   color: var(--cc-success);
   font-size: var(--cc-text-body-sm);

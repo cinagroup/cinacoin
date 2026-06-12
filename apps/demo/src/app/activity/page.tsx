@@ -231,7 +231,7 @@ export default function ActivityPage() {
           ) : (
             <button
               onClick={handleConnect}
-              className="px-5 py-3 rounded-[6px] text-body-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all"
+              className="px-5 py-3 rounded-[6px] text-body-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:bg-[var(--cc-primary-hover)] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--cc-link)] transition-all"
             >
               Connect Wallet
             </button>

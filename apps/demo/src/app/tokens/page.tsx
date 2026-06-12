@@ -72,7 +72,7 @@ function Sparkline({ data, positive }: { data: number[]; positive: boolean }) {
 
   return (
     <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} className="opacity-70">
-      <path d={pathData} fill="none" stroke={positive ? '#34d399' : '#f87171'} strokeWidth="1.5" />
+      <path d={pathData} fill="none" stroke={positive ? 'var(--cc-success)' : 'var(--cc-error)'} strokeWidth="1.5" />
     </svg>
   );
 }
@@ -320,7 +320,7 @@ function SwapWidget({
             className={`w-full py-3 rounded-[6px] font-semibold text-body-sm transition-all ${
               swapState === 'success'
                 ? 'bg-[var(--cc-success)] text-[var(--cc-ink)]'
-                : 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)] disabled:opacity-40 disabled:cursor-not-allowed hover:opacity-90'
+                : 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)] disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[var(--cc-primary-hover)] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--cc-link)]'
             }`}
           >
             {swapState === 'success' ? '✓ Swap Successful!' : 'Swap'}
@@ -328,7 +328,7 @@ function SwapWidget({
         ) : (
           <button
             onClick={() => connect(connectors.find((c) => c.id === 'io.metamask')?.id ?? 'io.metamask')}
-            className="w-full py-3 rounded-[6px] font-semibold text-body-sm bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all"
+            className="w-full py-3 rounded-[6px] font-semibold text-body-sm bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:bg-[var(--cc-primary-hover)] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--cc-link)] transition-all"
           >
             Connect Wallet to Swap
           </button>
@@ -414,7 +414,7 @@ export default function TokensPage() {
             ) : (
               <button
                 onClick={() => connect(connectors.find((c) => c.id === 'io.metamask')?.id ?? 'io.metamask')}
-                className="px-5 py-3 rounded-[6px] text-body-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all"
+                className="px-5 py-3 rounded-[6px] text-body-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:bg-[var(--cc-primary-hover)] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--cc-link)] transition-all"
               >
                 Connect Wallet
               </button>

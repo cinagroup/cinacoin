@@ -169,9 +169,9 @@ export default function Home() {
           <div className="bg-[var(--cc-canvas-soft-2)] rounded-[var(--cc-radius-md)] overflow-hidden">
             {/* Window title bar */}
             <div className="flex items-center gap-2 px-4 py-3 border-b border-white/10">
-              <div className="w-3 h-3 rounded-full bg-[#ff5f57]" />
-              <div className="w-3 h-3 rounded-full bg-[#febc2e]" />
-              <div className="w-3 h-3 rounded-full bg-[#28c840]" />
+              <div className="w-3 h-3 rounded-full bg-[var(--cc-terminal-close)]" />
+              <div className="w-3 h-3 rounded-full bg-[var(--cc-terminal-minimize)]" />
+              <div className="w-3 h-3 rounded-full bg-[var(--cc-terminal-maximize)]" />
               <span className="ml-2 font-mono text-xs text-white/50">terminal</span>
             </div>
             {/* Code content */}
@@ -213,7 +213,7 @@ export default function Home() {
               {/* Product mockup placeholder */}
               <div className="bg-[var(--cc-primary)] rounded-[var(--cc-radius-sm)] p-4 mb-4">
                 <div className="flex items-center gap-2 mb-3">
-                  <div className="w-2 h-2 rounded-full bg-[#28c840]" />
+                  <div className="w-2 h-2 rounded-full bg-[var(--cc-terminal-maximize)]" />
                   <span className="font-mono text-[10px] text-white/50">wallet-dashboard</span>
                 </div>
                 <div className="space-y-2">
@@ -225,7 +225,7 @@ export default function Home() {
                     <span>Staked</span>
                     <span>8,200.00</span>
                   </div>
-                  <div className="flex justify-between font-mono text-xs text-[#28c840]">
+                  <div className="flex justify-between font-mono text-xs text-[var(--cc-terminal-maximize)]">
                     <span>APY</span>
                     <span>+5.2%</span>
                   </div>
@@ -246,13 +246,13 @@ export default function Home() {
               <div className="bg-white/10 rounded-[var(--cc-radius-sm)] p-4 mb-4">
                 <div className="flex items-center justify-between mb-3">
                   <span className="font-mono text-xs text-white/50">CINA/USDT</span>
-                  <span className="font-mono text-xs text-[#28c840]">+2.4%</span>
+                  <span className="font-mono text-xs text-[var(--cc-terminal-maximize)]">+2.4%</span>
                 </div>
                 <div className="space-y-1.5">
                   {[0.0847, 0.0851, 0.0843, 0.0856, 0.0849, 0.0861, 0.0854].map((price, i) => (
                     <div key={i} className="flex items-center gap-2">
                       <div
-                        className="h-1.5 rounded-full bg-[#007cf0]/60"
+                        className="h-1.5 rounded-full bg-[var(--cc-gradient-develop-start)]/60"
                         style={{ width: `${30 + Math.random() * 70}%` }}
                       />
                       <span className="font-mono text-[10px] text-white/40 ml-auto">${price}</span>
@@ -300,9 +300,9 @@ export default function Home() {
               {/* Code snippet mockup */}
               <div className="bg-[var(--cc-primary)] rounded-[var(--cc-radius-sm)] p-5">
                 <div className="flex items-center gap-2 mb-3">
-                  <div className="w-2 h-2 rounded-full bg-[#ff5f57]" />
-                  <div className="w-2 h-2 rounded-full bg-[#febc2e]" />
-                  <div className="w-2 h-2 rounded-full bg-[#28c840]" />
+                  <div className="w-2 h-2 rounded-full bg-[var(--cc-terminal-close)]" />
+                  <div className="w-2 h-2 rounded-full bg-[var(--cc-terminal-minimize)]" />
+                  <div className="w-2 h-2 rounded-full bg-[var(--cc-terminal-maximize)]" />
                   <span className="ml-2 font-mono text-[10px] text-white/40">cinacoin-sdk.ts</span>
                 </div>
                 <pre className="font-mono text-xs leading-5 text-white/80"><code>{`import { CinaCoin } from '@cinacoin/sdk';

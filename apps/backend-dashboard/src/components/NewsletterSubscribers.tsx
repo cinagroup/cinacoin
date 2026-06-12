@@ -50,18 +50,18 @@ export function NewsletterSubscribers() {
   };
 
   return (
-    <div className="bg-canvas border border-hairline rounded-sm p-lg">
+    <div className="bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-sm p-lg">
       <div className="flex items-center justify-between mb-lg">
         <div>
           <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">NEWSLETTER</p>
-          <h2 className="text-heading-2 text-ink">Newsletter subscribers.</h2>
-          <p className="text-body text-body-color mt-1">
+          <h2 className="text-heading-2 text-[var(--cc-ink)]">Newsletter subscribers.</h2>
+          <p className="text-body text-[var(--cc-body)] mt-1">
             Manage newsletter subscriptions
           </p>
         </div>
         <button
           onClick={fetchSubscribers}
-          className="px-4 py-2 bg-canvas-soft-2 hover:bg-canvas-soft text-body-sm font-medium text-ink rounded-sm transition-colors"
+          className="px-4 py-2 bg-[var(--cc-canvas-soft-2)] hover:bg-[var(--cc-canvas-soft)] text-body-sm font-medium text-[var(--cc-ink)] rounded-sm transition-colors"
         >
           Refresh
         </button>
@@ -70,31 +70,31 @@ export function NewsletterSubscribers() {
       {loading ? (
         <div className="text-center py-12">
           <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-ink"></div>
-          <p className="text-body text-body-color mt-4">Loading subscribers...</p>
+          <p className="text-body text-[var(--cc-body)] mt-4">Loading subscribers...</p>
         </div>
       ) : subscribers.length === 0 ? (
         <div className="text-center py-12">
-          <p className="text-body text-body-color">No subscribers yet</p>
+          <p className="text-body text-[var(--cc-body)]">No subscribers yet</p>
         </div>
       ) : (
         <>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-hairline">
-                  <th className="text-left text-caption font-medium text-mute uppercase tracking-wider pb-3">
+                <tr className="border-b border-[var(--cc-hairline)]">
+                  <th className="text-left text-caption font-medium text-[var(--cc-muted)] uppercase tracking-wider pb-3">
                     Email
                   </th>
-                  <th className="text-left text-caption font-medium text-mute uppercase tracking-wider pb-3">
+                  <th className="text-left text-caption font-medium text-[var(--cc-muted)] uppercase tracking-wider pb-3">
                     Name
                   </th>
-                  <th className="text-left text-caption font-medium text-mute uppercase tracking-wider pb-3">
+                  <th className="text-left text-caption font-medium text-[var(--cc-muted)] uppercase tracking-wider pb-3">
                     Source
                   </th>
-                  <th className="text-left text-caption font-medium text-mute uppercase tracking-wider pb-3">
+                  <th className="text-left text-caption font-medium text-[var(--cc-muted)] uppercase tracking-wider pb-3">
                     Status
                   </th>
-                  <th className="text-left text-caption font-medium text-mute uppercase tracking-wider pb-3">
+                  <th className="text-left text-caption font-medium text-[var(--cc-muted)] uppercase tracking-wider pb-3">
                     Subscribed
                   </th>
                 </tr>
@@ -105,23 +105,23 @@ export function NewsletterSubscribers() {
                     <td colSpan={4} className="px-6 py-12 text-center">
                       <div className="flex flex-col items-center justify-center">
                         <Mail className="w-8 h-8 text-[var(--cc-ink)] mb-4" />
-                        <h3 className="text-heading-3 text-ink mb-1">No subscribers yet</h3>
-                        <p className="text-body-sm text-mute max-w-sm">Newsletter subscribers will appear here once people sign up.</p>
+                        <h3 className="text-heading-3 text-[var(--cc-ink)] mb-1">No subscribers yet</h3>
+                        <p className="text-body-sm text-[var(--cc-muted)] max-w-sm">Newsletter subscribers will appear here once people sign up.</p>
                       </div>
                     </td>
                   </tr>
                 ) : subscribers.map((subscriber) => (
                   <tr
                     key={subscriber.id}
-                    className="border-b border-hairline last:border-b-0"
+                    className="border-b border-[var(--cc-hairline)] last:border-b-0"
                   >
-                    <td className="py-4 text-body text-ink">
+                    <td className="py-4 text-body text-[var(--cc-ink)]">
                       {subscriber.email}
                     </td>
-                    <td className="py-4 text-body text-body-color">
+                    <td className="py-4 text-body text-[var(--cc-body)]">
                       {subscriber.name || "—"}
                     </td>
-                    <td className="py-4 text-body text-body-color">
+                    <td className="py-4 text-body text-[var(--cc-body)]">
                       {subscriber.source || "—"}
                     </td>
                     <td className="py-4">
@@ -135,7 +135,7 @@ export function NewsletterSubscribers() {
                         </span>
                       )}
                     </td>
-                    <td className="py-4 text-body text-body-color">
+                    <td className="py-4 text-body text-[var(--cc-body)]">
                       {formatDate(subscriber.created_at)}
                     </td>
                   </tr>
@@ -144,22 +144,22 @@ export function NewsletterSubscribers() {
             </table>
           </div>
 
-          <div className="flex items-center justify-between mt-lg pt-lg border-t border-hairline">
-            <p className="text-caption text-mute">
+          <div className="flex items-center justify-between mt-lg pt-lg border-t border-[var(--cc-hairline)]">
+            <p className="text-caption text-[var(--cc-muted)]">
               Showing {subscribers.length} subscribers
             </p>
             <div className="flex gap-2">
               <button
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
                 disabled={page === 1}
-                className="px-3 py-2 text-caption font-medium text-ink bg-canvas-soft-2 hover:bg-canvas-soft rounded-sm disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="px-3 py-2 text-caption font-medium text-[var(--cc-ink)] bg-[var(--cc-canvas-soft-2)] hover:bg-[var(--cc-canvas-soft)] rounded-sm disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 Previous
               </button>
               <button
                 onClick={() => setPage((p) => p + 1)}
                 disabled={subscribers.length < 20}
-                className="px-3 py-2 text-caption font-medium text-ink bg-canvas-soft-2 hover:bg-canvas-soft rounded-sm disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="px-3 py-2 text-caption font-medium text-[var(--cc-ink)] bg-[var(--cc-canvas-soft-2)] hover:bg-[var(--cc-canvas-soft)] rounded-sm disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 Next
               </button>

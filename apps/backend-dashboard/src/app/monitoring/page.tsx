@@ -52,7 +52,7 @@ export default function MonitoringPage() {
           value={selectedService}
           onChange={(e) => setSelectedService(e.target.value)}
           aria-label="Select service"
-          className="px-4 py-2 bg-canvas border border-hairline rounded-lg"
+          className="px-4 py-2 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-lg"
         >
           <option value="api-gateway">API Gateway</option>
           <option value="auth-service">Auth Service</option>
@@ -87,7 +87,7 @@ export default function MonitoringPage() {
         <h2 className="text-heading-2 mb-4">Recent alerts.</h2>
         <div className="space-y-3">
           {alerts.length === 0 ? (
-            <p className="text-body-color">No alerts</p>
+            <p className="text-[var(--cc-body)]">No alerts</p>
           ) : (
             alerts.map((alert) => (
               <div
@@ -101,7 +101,7 @@ export default function MonitoringPage() {
                 <div className="flex items-start justify-between">
                   <div>
                     <p className="font-medium">{alert.message}</p>
-                    <p className="text-caption text-mute mt-1">
+                    <p className="text-caption text-[var(--cc-muted)] mt-1">
                       {new Date(alert.timestamp).toLocaleString()}
                     </p>
                   </div>

@@ -14,10 +14,10 @@ export default function SettingsPage() {
       <Sidebar isOpen={sidebarOpen} onToggle={() => setSidebarOpen(!sidebarOpen)} />
 
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="bg-canvas border-b border-hairline h-14 flex items-center px-6 sticky top-0 z-40">
+        <header className="bg-[var(--cc-canvas)] border-b border-[var(--cc-hairline)] h-14 flex items-center px-6 sticky top-0 z-40">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="p-2 rounded-sm hover:bg-canvas-soft-2 mr-4 transition-colors duration-fast"
+            className="p-2 rounded-sm hover:bg-[var(--cc-canvas-soft-2)] mr-4 transition-colors duration-fast"
           >
             <Menu className="w-5 h-5 text-body" />
           </button>
@@ -26,13 +26,13 @@ export default function SettingsPage() {
 
         <main className="flex-1 p-6 overflow-auto">
           <div className="mb-6">
-            <p className="font-mono text-xs text-mute mb-2">CONFIGURATION</p>
-            <h1 className="text-heading-2 text-ink">Settings.</h1>
+            <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">CONFIGURATION</p>
+            <h1 className="text-heading-2 text-[var(--cc-ink)]">Settings.</h1>
             <p className="text-body-sm text-body mt-1">Manage your account settings and preferences.</p>
           </div>
 
           {/* Tabs */}
-          <div className="border-b border-hairline mb-6">
+          <div className="border-b border-[var(--cc-hairline)] mb-6">
             <nav className="flex gap-6">
               {["profile", "security", "notifications", "api"].map((tab) => (
                 <button
@@ -40,8 +40,8 @@ export default function SettingsPage() {
                   onClick={() => setActiveTab(tab)}
                   className={`pb-3 text-body-sm font-medium capitalize transition-colors border-b-2 ${
                     activeTab === tab
-                      ? "text-ink border-link"
-                      : "text-body border-transparent hover:text-ink"
+                      ? "text-[var(--cc-ink)] border-link"
+                      : "text-body border-transparent hover:text-[var(--cc-ink)]"
                   }`}
                 >
                   {tab}
@@ -52,13 +52,13 @@ export default function SettingsPage() {
 
           {/* Profile Tab */}
           {activeTab === "profile" && (
-            <div className="bg-canvas border border-hairline rounded-md p-6">
-              <p className="font-mono text-xs text-mute mb-2">PROFILE</p>
-              <h2 className="text-heading-3 text-ink mb-6">Profile information.</h2>
+            <div className="bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-md p-6">
+              <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">PROFILE</p>
+              <h2 className="text-heading-3 text-[var(--cc-ink)] mb-6">Profile information.</h2>
               <form className="space-y-6">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="first-name" className="block text-body-sm font-medium text-ink mb-2">First name.</label>
+                    <label htmlFor="first-name" className="block text-body-sm font-medium text-[var(--cc-ink)] mb-2">First name.</label>
                     <input
                       type="text"
                       defaultValue="Admin"
@@ -66,7 +66,7 @@ export default function SettingsPage() {
                     />
                   </div>
                   <div>
-                    <label htmlFor="last-name" className="block text-body-sm font-medium text-ink mb-2">Last name.</label>
+                    <label htmlFor="last-name" className="block text-body-sm font-medium text-[var(--cc-ink)] mb-2">Last name.</label>
                     <input
                       type="text"
                       defaultValue="User"
@@ -75,7 +75,7 @@ export default function SettingsPage() {
                   </div>
                 </div>
                 <div>
-                  <label htmlFor="email-address" className="block text-body-sm font-medium text-ink mb-2">Email address.</label>
+                  <label htmlFor="email-address" className="block text-body-sm font-medium text-[var(--cc-ink)] mb-2">Email address.</label>
                   <input
                     type="email"
                     defaultValue="admin@cinacoin.com"
@@ -83,14 +83,14 @@ export default function SettingsPage() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="company" className="block text-body-sm font-medium text-ink mb-2">Company.</label>
+                  <label htmlFor="company" className="block text-body-sm font-medium text-[var(--cc-ink)] mb-2">Company.</label>
                   <input
                     type="text"
                     defaultValue="CinaCoin"
                     className="cc-form-input"
                   />
                 </div>
-                <div className="flex justify-end gap-3 pt-4 border-t border-hairline">
+                <div className="flex justify-end gap-3 pt-4 border-t border-[var(--cc-hairline)]">
                   <button type="button" className="cc-btn-secondary px-4 py-2">Cancel</button>
                   <button type="submit" className="cc-btn-primary px-4 py-2">Save Changes</button>
                 </div>
@@ -101,31 +101,31 @@ export default function SettingsPage() {
           {/* Security Tab */}
           {activeTab === "security" && (
             <div className="space-y-6">
-              <div className="bg-canvas border border-hairline rounded-md p-6">
-                <p className="font-mono text-xs text-mute mb-2">SECURITY</p>
-                <h2 className="text-heading-3 text-ink mb-6">Change password.</h2>
+              <div className="bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-md p-6">
+                <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">SECURITY</p>
+                <h2 className="text-heading-3 text-[var(--cc-ink)] mb-6">Change password.</h2>
                 <form className="space-y-4">
                   <div>
-                    <label htmlFor="current-password" className="block text-body-sm font-medium text-ink mb-2">Current password.</label>
+                    <label htmlFor="current-password" className="block text-body-sm font-medium text-[var(--cc-ink)] mb-2">Current password.</label>
                     <input id="current-password" type="password" className="cc-form-input" />
                   </div>
                   <div>
-                    <label htmlFor="new-password" className="block text-body-sm font-medium text-ink mb-2">New password.</label>
+                    <label htmlFor="new-password" className="block text-body-sm font-medium text-[var(--cc-ink)] mb-2">New password.</label>
                     <input id="new-password" type="password" className="cc-form-input" />
                   </div>
                   <div>
-                    <label htmlFor="confirm-new-password" className="block text-body-sm font-medium text-ink mb-2">Confirm new password.</label>
+                    <label htmlFor="confirm-new-password" className="block text-body-sm font-medium text-[var(--cc-ink)] mb-2">Confirm new password.</label>
                     <input id="confirm-new-password" type="password" className="cc-form-input" />
                   </div>
-                  <div className="flex justify-end pt-4 border-t border-hairline">
+                  <div className="flex justify-end pt-4 border-t border-[var(--cc-hairline)]">
                     <button type="submit" className="cc-btn-primary px-4 py-2">Update Password</button>
                   </div>
                 </form>
               </div>
 
-              <div className="bg-canvas border border-hairline rounded-md p-6">
-                <p className="font-mono text-xs text-mute mb-2">2FA</p>
-                <h2 className="text-heading-3 text-ink mb-4">Two-factor authentication.</h2>
+              <div className="bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-md p-6">
+                <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">2FA</p>
+                <h2 className="text-heading-3 text-[var(--cc-ink)] mb-4">Two-factor authentication.</h2>
                 <p className="text-body-sm text-body mb-4">
                   Add an extra layer of security to your account by enabling two-factor authentication.
                 </p>
@@ -136,9 +136,9 @@ export default function SettingsPage() {
 
           {/* Notifications Tab */}
           {activeTab === "notifications" && (
-            <div className="bg-canvas border border-hairline rounded-md p-6">
-              <p className="font-mono text-xs text-mute mb-2">PREFERENCES</p>
-              <h2 className="text-heading-3 text-ink mb-6">Notification preferences.</h2>
+            <div className="bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-md p-6">
+              <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">PREFERENCES</p>
+              <h2 className="text-heading-3 text-[var(--cc-ink)] mb-6">Notification preferences.</h2>
               <div className="space-y-4">
                 {[
                   { label: "Email notifications", desc: "Receive email notifications for important updates" },
@@ -146,14 +146,14 @@ export default function SettingsPage() {
                   { label: "Security alerts", desc: "Receive alerts for security-related events" },
                   { label: "Product updates", desc: "Stay informed about new features and improvements" },
                 ].map((item, idx) => (
-                  <div key={item.label} className="flex items-start justify-between py-4 border-b border-hairline last:border-b-0">
+                  <div key={item.label} className="flex items-start justify-between py-4 border-b border-[var(--cc-hairline)] last:border-b-0">
                     <div>
-                      <p className="text-body-sm font-medium text-ink">{item.label}</p>
-                      <p className="text-caption text-mute mt-1">{item.desc}</p>
+                      <p className="text-body-sm font-medium text-[var(--cc-ink)]">{item.label}</p>
+                      <p className="text-caption text-[var(--cc-muted)] mt-1">{item.desc}</p>
                     </div>
                     <label htmlFor="field-149" className="relative inline-flex items-center cursor-pointer">
                       <input id="field-149" type="checkbox" defaultChecked={idx < 2} className="sr-only peer" />
-                      <div className="w-11 h-6 bg-canvas-soft-2 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-link/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-[var(--color-canvas)] after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-canvas after:border-hairline after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-link"></div>
+                      <div className="w-11 h-6 bg-[var(--cc-canvas-soft-2)] peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-link/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-[var(--color-canvas)] after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-[var(--cc-canvas)] after:border-[var(--cc-hairline)] after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-link"></div>
                     </label>
                   </div>
                 ))}
@@ -163,30 +163,30 @@ export default function SettingsPage() {
 
           {/* API Tab */}
           {activeTab === "api" && (
-            <div className="bg-canvas border border-hairline rounded-md p-6">
-              <p className="font-mono text-xs text-mute mb-2">ENDPOINTS</p>
-              <h2 className="text-heading-3 text-ink mb-6">API configuration.</h2>
+            <div className="bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-md p-6">
+              <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">ENDPOINTS</p>
+              <h2 className="text-heading-3 text-[var(--cc-ink)] mb-6">API configuration.</h2>
               <div className="space-y-4">
                 <div>
-                  <label htmlFor="api-endpoint" className="block text-body-sm font-medium text-ink mb-2">API endpoint.</label>
+                  <label htmlFor="api-endpoint" className="block text-body-sm font-medium text-[var(--cc-ink)] mb-2">API endpoint.</label>
                   <input
                     type="text"
                     value="https://api.cinacoin.com/v1"
                     readOnly
-                    className="cc-form-input bg-canvas-soft-2"
+                    className="cc-form-input bg-[var(--cc-canvas-soft-2)]"
                   />
                 </div>
                 <div>
-                  <label htmlFor="websocket-endpoint" className="block text-body-sm font-medium text-ink mb-2">WebSocket endpoint.</label>
+                  <label htmlFor="websocket-endpoint" className="block text-body-sm font-medium text-[var(--cc-ink)] mb-2">WebSocket endpoint.</label>
                   <input
                     type="text"
                     value="wss://ws.cinacoin.com"
                     readOnly
-                    className="cc-form-input bg-canvas-soft-2"
+                    className="cc-form-input bg-[var(--cc-canvas-soft-2)]"
                   />
                 </div>
-                <div className="pt-4 border-t border-hairline">
-                  <p className="text-caption text-mute">
+                <div className="pt-4 border-t border-[var(--cc-hairline)]">
+                  <p className="text-caption text-[var(--cc-muted)]">
                     For API documentation, visit{" "}
                     <a href="https://docs.cinacoin.com" className="text-link hover:underline">
                       docs.cinacoin.com.

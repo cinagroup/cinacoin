@@ -49,7 +49,7 @@ export default function PerformancePage() {
                 <span>Good</span>
                 <span>{data[metric.name]?.[0]?.good || 0}%</span>
               </div>
-              <div className="h-2 bg-canvas-soft rounded-full overflow-hidden">
+              <div className="h-2 bg-[var(--cc-canvas-soft)] rounded-full overflow-hidden">
                 <div 
                   className="h-full bg-success"
                   style={{ width: `${data[metric.name]?.[0]?.good || 0}%` }}

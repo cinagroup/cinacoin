@@ -22,7 +22,7 @@ const variantClasses: Record<ButtonVariant, string> = {
   ghost:
     'bg-transparent text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft-2)]/50',
   success:
-    'bg-[var(--cc-success)] text-[var(--cc-on-primary)] hover:opacity-85',
+    'bg-[var(--cc-success)] text-[var(--cc-on-primary)] hover:bg-[var(--cc-primary-hover)]',
 };
 
 const sizeClasses: Record<ButtonSize, string> = {

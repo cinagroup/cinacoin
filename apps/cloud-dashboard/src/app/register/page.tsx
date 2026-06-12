@@ -51,11 +51,11 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-canvas-soft px-4">
+    <div className="min-h-screen flex items-center justify-center bg-[var(--cc-canvas-soft)] px-4">
       <div className="w-full max-w-md">
-        <div className="bg-canvas rounded-md shadow-level-2 p-8">
+        <div className="bg-[var(--cc-canvas)] rounded-md shadow-level-2 p-8">
           <div className="mb-8">
-            <h1 className="text-heading-2 text-ink">Create your account.</h1>
+            <h1 className="text-heading-2 text-[var(--cc-ink)]">Create your account.</h1>
             <p className="text-body-sm text-body mt-2">
               Get started with CinaCoin Cloud in minutes.
             </p>
@@ -69,7 +69,7 @@ export default function RegisterPage() {
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label htmlFor="name" className="block text-body-sm font-medium text-ink mb-2">
+              <label htmlFor="name" className="block text-body-sm font-medium text-[var(--cc-ink)] mb-2">
                 Full name.
               </label>
               <input
@@ -89,7 +89,7 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-body-sm font-medium text-ink mb-2">
+              <label htmlFor="email" className="block text-body-sm font-medium text-[var(--cc-ink)] mb-2">
                 Email address.
               </label>
               <input
@@ -108,7 +108,7 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-body-sm font-medium text-ink mb-2">
+              <label htmlFor="password" className="block text-body-sm font-medium text-[var(--cc-ink)] mb-2">
                 Password.
               </label>
               <input
@@ -125,11 +125,11 @@ export default function RegisterPage() {
                 minLength={8}
                 disabled={loading}
               />
-              <p id="password-help" className="text-caption text-mute mt-1">Minimum 8 characters.</p>
+              <p id="password-help" className="text-caption text-[var(--cc-muted)] mt-1">Minimum 8 characters.</p>
             </div>
 
             <div>
-              <label htmlFor="confirmPassword" className="block text-body-sm font-medium text-ink mb-2">
+              <label htmlFor="confirmPassword" className="block text-body-sm font-medium text-[var(--cc-ink)] mb-2">
                 Confirm password.
               </label>
               <input
@@ -155,10 +155,10 @@ export default function RegisterPage() {
           <div className="mt-6">
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-hairline"></div>
+                <div className="w-full border-t border-[var(--cc-hairline)]"></div>
               </div>
               <div className="relative flex justify-center text-body-sm">
-                <span className="px-2 bg-canvas text-body">Or continue with.</span>
+                <span className="px-2 bg-[var(--cc-canvas)] text-body">Or continue with.</span>
               </div>
             </div>
 
@@ -166,7 +166,7 @@ export default function RegisterPage() {
               <button
                 onClick={() => handleOAuthLogin("github")}
                 aria-label="Continue with GitHub"
-                className="flex justify-center items-center p-2 border border-hairline rounded hover:bg-canvas-soft transition-colors"
+                className="flex justify-center items-center p-2 border border-[var(--cc-hairline)] rounded hover:bg-[var(--cc-canvas-soft)] transition-colors"
                 disabled={loading}
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
@@ -176,7 +176,7 @@ export default function RegisterPage() {
               <button
                 onClick={() => handleOAuthLogin("google")}
                 aria-label="Continue with Google"
-                className="flex justify-center items-center p-2 border border-hairline rounded hover:bg-canvas-soft transition-colors"
+                className="flex justify-center items-center p-2 border border-[var(--cc-hairline)] rounded hover:bg-[var(--cc-canvas-soft)] transition-colors"
                 disabled={loading}
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24" aria-hidden="true">
@@ -189,7 +189,7 @@ export default function RegisterPage() {
               <button
                 onClick={() => handleOAuthLogin("discord")}
                 aria-label="Continue with Discord"
-                className="flex justify-center items-center p-2 border border-hairline rounded hover:bg-canvas-soft transition-colors"
+                className="flex justify-center items-center p-2 border border-[var(--cc-hairline)] rounded hover:bg-[var(--cc-canvas-soft)] transition-colors"
                 disabled={loading}
               >
                 <svg className="w-5 h-5" fill="#5865F2" viewBox="0 0 20 20" aria-hidden="true">
@@ -210,7 +210,7 @@ export default function RegisterPage() {
         </div>
 
         <div className="mt-6 text-center">
-          <Link href="/" className="text-body-sm text-mute hover:text-ink transition-colors">
+          <Link href="/" className="text-body-sm text-[var(--cc-muted)] hover:text-[var(--cc-ink)] transition-colors">
             ← Back to dashboard.
           </Link>
         </div>

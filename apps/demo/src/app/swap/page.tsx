@@ -507,7 +507,7 @@ export default function SwapPage() {
           ) : (
             <button
               onClick={() => connect(primaryConnector?.id ?? 'io.metamask')}
-              className="px-4 py-2 rounded-[6px] text-body-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all"
+              className="px-4 py-2 rounded-[6px] text-body-sm font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:bg-[var(--cc-primary-hover)] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--cc-link)] transition-all"
             >
               Connect Wallet
             </button>
@@ -681,7 +681,7 @@ export default function SwapPage() {
                   : swapState === 'quoting'
                   ? 'bg-[var(--cc-link)]/60 text-[var(--cc-on-primary)] cursor-wait'
                   : canSwap
-                  ? 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 shadow-[var(--cc-level3)] hover:shadow-[var(--cc-level4)] active:scale-[0.98]'
+                  ? 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:bg-[var(--cc-primary-hover)] shadow-[var(--cc-level3)] hover:shadow-[var(--cc-level4)] active:scale-[0.98]'
                   : 'bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-body)] cursor-not-allowed'
               }`}
             >

@@ -180,7 +180,7 @@ function ProviderCard({
   return (
     <button
       onClick={() => onSelect(quote.providerId)}
-      className={`w-full text-left p-4 rounded-md border transition-all ${
+      className={`w-full text-left p-4 rounded-md border transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--cc-link)] ${
         quote.isBest
           ? 'border-[var(--cc-success)]/50 bg-[var(--cc-success)]/5 ring-1 ring-[var(--cc-success)]/20'
           : selected
@@ -391,7 +391,7 @@ export default function OnrampPage() {
             disabled={!isValidAmount || loading}
             className={`w-full py-4 rounded-md font-semibold text-body-md transition-all ${
               isValidAmount && !loading
-                ? 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 shadow-[var(--cc-level3)] active:scale-[0.98]'
+                ? 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:bg-[var(--cc-primary-hover)] shadow-[var(--cc-level3)] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--cc-link)]'
                 : 'bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-body)] cursor-not-allowed'
             }`}
           >
@@ -461,7 +461,7 @@ export default function OnrampPage() {
                   </div>
                   <button
                     onClick={handleOpenWidget}
-                    className="px-6 py-3 rounded-[6px] font-semibold text-body-sm bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 shadow-[var(--cc-level3)] transition-all active:scale-[0.98]"
+                    className="px-6 py-3 rounded-[6px] font-semibold text-body-sm bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:bg-[var(--cc-primary-hover)] shadow-[var(--cc-level3)] transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--cc-link)]"
                   >
                     Buy Now
                   </button>

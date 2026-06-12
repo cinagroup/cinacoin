@@ -162,7 +162,7 @@ function ChainCard({ chain, balance, health, isWalletConnected, isCurrentChain, 
         ) : isWalletConnected ? (
           <button
             onClick={onSwitchChain}
-            className="w-full py-3 rounded-md font-semibold text-body-sm bg-[var(--cc-primary)]/20 text-[var(--cc-primary)] border border-[var(--cc-primary)]/30 hover:bg-[var(--cc-primary)]/30 transition-all"
+            className="w-full py-3 rounded-md font-semibold text-body-sm bg-[var(--cc-primary)]/20 text-[var(--cc-primary)] border border-[var(--cc-primary)]/30 hover:bg-[var(--cc-primary)]/30 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--cc-link)] transition-all"
           >
             Switch to {chain.name}
           </button>
@@ -621,7 +621,7 @@ export default function MultiChainPage() {
                 </div>
                 <button
                   onClick={() => disconnect()}
-                  className="ml-2 px-4 py-2 rounded-md text-caption font-semibold bg-[var(--cc-error)]/10 text-[var(--cc-error)] border border-[var(--cc-error)]/20 hover:bg-[var(--cc-error)]/20 transition-all"
+                  className="ml-2 px-4 py-2 rounded-md text-caption font-semibold bg-[var(--cc-error)]/10 text-[var(--cc-error)] border border-[var(--cc-error)]/20 hover:bg-[var(--cc-error)]/20 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--cc-link)] transition-all"
                 >
                   Disconnect
                 </button>
@@ -630,7 +630,7 @@ export default function MultiChainPage() {
           ) : (
             <button
               onClick={() => connect(primaryConnector?.id ?? 'io.metamask')}
-              className="px-6 py-3 rounded-[6px] font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 transition-all shadow-[var(--cc-level3)]"
+              className="px-6 py-3 rounded-[6px] font-semibold bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:bg-[var(--cc-primary-hover)] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--cc-link)] transition-all shadow-[var(--cc-level3)]"
             >
               Connect Wallet
             </button>

@@ -38,8 +38,8 @@ export default function Card({
       } ${className}`}
       style={{
         boxShadow: hovered && hoverLift 
-          ? '0px 2px 2px #1717170a, 0px 8px 8px -8px #1717170a, inset 0 0 0 1px var(--cc-hairline)'
-          : '0px 1px 1px #17171705, 0px 2px 2px #1717170a, inset 0 0 0 1px var(--cc-hairline)'
+          ? 'var(--cc-level4)'
+          : 'var(--cc-level2)'
       }}
     >
       {/* Gradient glow on hover */}

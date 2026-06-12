@@ -39,7 +39,7 @@ export default function Home() {
             <button
               onClick={handleConnect}
               disabled={loading}
-              className="px-8 py-3 bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:opacity-90 disabled:opacity-50 rounded-[6px] font-semibold transition-all"
+              className="px-8 py-3 bg-[var(--cc-primary)] text-[var(--cc-on-primary)] hover:bg-[var(--cc-primary-hover)] disabled:opacity-50 rounded-[6px] font-semibold transition-all"
             >
               {loading ? "Connecting..." : "Connect Wallet"}
             </button>

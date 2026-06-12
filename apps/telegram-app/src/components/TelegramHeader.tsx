@@ -16,9 +16,7 @@ export default function TelegramHeader({ user, account }: TelegramHeaderProps) {
   const avatarUrl = user?.photo_url;
   const isPremium = user?.is_premium;
 
-  const shortAddress = account
-    ? `${account.slice(0, 6)}...${account.slice(-4)}`
-    : null;
+  const shortAddress = account ? `${account.slice(0, 6)}...${account.slice(-4)}` : null;
 
   return (
     <header className="telegram-header" role="banner">
@@ -33,16 +31,23 @@ export default function TelegramHeader({ user, account }: TelegramHeaderProps) {
         <div className="header-info">
           <div className="header-name">
             {displayName}
-            {isPremium && <Star className="w-3 h-3 text-yellow-400 fill-yellow-400" aria-hidden="true" />}
+            {isPremium && (
+              <Star
+                className="w-3 h-3 text-[var(--cc-warning)] fill-[var(--cc-warning)]"
+                aria-hidden="true"
+              />
+            )}
           </div>
-          {user?.username && (
-            <div className="header-username">@{user.username}</div>
-          )}
+          {user?.username && <div className="header-username">@{user.username}</div>}
         </div>
       </div>
       <div className="header-right">
         {shortAddress && (
-          <div className="header-address" title={account ?? undefined} aria-label={`Wallet address: ${account}`}>
+          <div
+            className="header-address"
+            title={account ?? undefined}
+            aria-label={`Wallet address: ${account}`}
+          >
             {shortAddress}
           </div>
         )}

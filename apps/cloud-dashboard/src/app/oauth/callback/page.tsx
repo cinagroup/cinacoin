@@ -77,14 +77,14 @@ function OAuthCallbackContent() {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-canvas-soft px-4">
+      <div className="min-h-screen flex items-center justify-center bg-[var(--cc-canvas-soft)] px-4">
         <div className="w-full max-w-md">
-          <div className="bg-canvas rounded-md shadow-level-2 p-8">
+          <div className="bg-[var(--cc-canvas)] rounded-md shadow-level-2 p-8">
             <div className="text-center">
               <div className="mb-4">
                 <AlertTriangle className="mx-auto h-12 w-12 text-error" />
               </div>
-              <h2 className="text-heading-3 text-ink mb-2">Authentication error.</h2>
+              <h2 className="text-heading-3 text-[var(--cc-ink)] mb-2">Authentication error.</h2>
               <p className="text-body-sm text-body mb-6">{error}</p>
               <button
                 onClick={() => router.push("/login")}
@@ -100,14 +100,14 @@ function OAuthCallbackContent() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-canvas-soft px-4">
+    <div className="min-h-screen flex items-center justify-center bg-[var(--cc-canvas-soft)] px-4">
       <div className="w-full max-w-md">
-        <div className="bg-canvas rounded-md shadow-level-2 p-8">
+        <div className="bg-[var(--cc-canvas)] rounded-md shadow-level-2 p-8">
           <div className="text-center">
             <div className="mb-4">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
             </div>
-            <h2 className="text-heading-3 text-ink mb-2">
+            <h2 className="text-heading-3 text-[var(--cc-ink)] mb-2">
               {isProcessing ? "Completing sign-in..." : "Redirecting..."}
             </h2>
             <p className="text-body-sm text-body">
@@ -124,7 +124,7 @@ export default function OAuthCallbackPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen flex items-center justify-center bg-canvas-soft">
+        <div className="min-h-screen flex items-center justify-center bg-[var(--cc-canvas-soft)]">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
         </div>
       }
