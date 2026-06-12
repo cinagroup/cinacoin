@@ -24,7 +24,7 @@ Self-hosted Wallet Connection Toolkit — Fully independent from Reown/WalletCon
 
 <div className="landing-card">
 
-### 🔗 wallet connection.
+### wallet connection.
 
 Self-hosted Relay Server + RPC Proxy, EIP-6963 multi-wallet discovery, zero third-party dependencies.
 
@@ -32,7 +32,7 @@ Self-hosted Relay Server + RPC Proxy, EIP-6963 multi-wallet discovery, zero thir
 
 <div className="landing-card">
 
-### 🎨 multi-framework UI.
+### multi-framework UI.
 
 React / Vue / Svelte / Next.js / Angular / React Native, white-label customization, WCAG 2.1 AA compliant.
 
@@ -40,7 +40,7 @@ React / Vue / Svelte / Next.js / Angular / React Native, white-label customizati
 
 <div className="landing-card">
 
-### 🔐 smart accounts ERC-4337.
+### smart accounts ERC-4337.
 
 Self-hosted Bundler + Paymaster, session keys, social recovery, gas sponsorship.
 
@@ -48,7 +48,7 @@ Self-hosted Bundler + Paymaster, session keys, social recovery, gas sponsorship.
 
 <div className="landing-card">
 
-### 💰 payments & DeFi.
+### payments & DeFi.
 
 Swap aggregator (1inch/Uniswap/0x), on-ramp aggregation, batch transactions.
 
@@ -56,7 +56,7 @@ Swap aggregator (1inch/Uniswap/0x), on-ramp aggregation, batch transactions.
 
 <div className="landing-card">
 
-### 🌐 Multi-chain support.
+### Multi-chain support.
 
 EVM + Bitcoin + Cosmos + Starknet + Sui + NEAR + Hedera + XRPL.
 
@@ -64,7 +64,7 @@ EVM + Bitcoin + Cosmos + Starknet + Sui + NEAR + Hedera + XRPL.
 
 <div className="landing-card">
 
-### 📲 mini apps.
+### mini apps.
 
 Telegram / Farcaster native integration, rapid user reach.
 
@@ -72,7 +72,7 @@ Telegram / Farcaster native integration, rapid user reach.
 
 <div className="landing-card">
 
-### 🏗️ Self-hosted infrastructure.
+### Self-hosted infrastructure.
 
 Rust Relay Server (NATS), Go RPC Proxy, Keys Server, Notify & Push Server.
 

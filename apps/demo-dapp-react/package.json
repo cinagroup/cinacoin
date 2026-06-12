@@ -11,9 +11,10 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@cinacoin/react": "workspace:*",
     "@cinacoin/core-sdk": "workspace:*",
     "@cinacoin/nft-display": "workspace:*",
+    "@cinacoin/react": "workspace:*",
+    "geist": "^1.7.2",
     "lucide-react": "^1.17.0",
     "next": "14.2.29",
     "react": "^18.3.1",

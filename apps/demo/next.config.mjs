@@ -3,11 +3,10 @@
 const nextConfig = {
   reactStrictMode: true,
   output: 'export',
-  // Served under cinacoin.com/demo via the consolidation router Worker
-  // (Phase 3 Multi-Zone). basePath + assetPrefix keep route + asset URLs
-  // correct under the subpath.
-  basePath: '/demo',
-  assetPrefix: '/demo',
+  // basePath disabled for standalone Cloudflare Pages deployment.
+  // Re-enable when deploying under cinacoin.com/demo (Phase 3 Multi-Zone).
+  // basePath: '/demo',
+  // assetPrefix: '/demo',
   trailingSlash: true,
   transpilePackages: ['@cinacoin/core-sdk', '@cinacoin/core-ui', '@cinacoin/react'],
   images: {
