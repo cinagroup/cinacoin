@@ -4,8 +4,9 @@
  * LP pool list, Stake/Unstake, Token swap
  */
 
-import { useState, useCallback } from 'react';
 import { TrendingUp, CheckCircle2 } from 'lucide-react';
+import { useState, useCallback } from 'react';
+
 import { CodeExample } from '../components/CodeExample';
 
 const POOLS = [
@@ -70,29 +71,26 @@ export function DeFiPage() {
   const mockRate = 1850.42; // ETH/USDC mock rate
   const estimatedReceive = swapAmount ? (parseFloat(swapAmount) * mockRate).toFixed(2) : '';
 
-  const handleStake = useCallback((poolId: number) => {
-    const amount = stakeAmount[poolId] || '0';
-    if (!amount) return;
-    setStakingPool(poolId);
-    setTimeout(() => {
-      setPools((prev) =>
-        prev.map((p) =>
-          p.id === poolId ? { ...p, staked: p.staked + parseFloat(amount) } : p
-        )
-      );
-      setStakeAmount((prev) => ({ ...prev, [poolId]: '' }));
-      setStakingPool(null);
-    }, 1500);
-  }, [stakeAmount]);
+  const handleStake = useCallback(
+    (poolId: number) => {
+      const amount = stakeAmount[poolId] || '0';
+      if (!amount) return;
+      setStakingPool(poolId);
+      setTimeout(() => {
+        setPools((prev) =>
+          prev.map((p) => (p.id === poolId ? { ...p, staked: p.staked + parseFloat(amount) } : p))
+        );
+        setStakeAmount((prev) => ({ ...prev, [poolId]: '' }));
+        setStakingPool(null);
+      }, 1500);
+    },
+    [stakeAmount]
+  );
 
   const handleUnstake = useCallback((poolId: number) => {
     setStakingPool(poolId);
     setTimeout(() => {
-      setPools((prev) =>
-        prev.map((p) =>
-          p.id === poolId ? { ...p, staked: 0 } : p
-        )
-      );
+      setPools((prev) => prev.map((p) => (p.id === poolId ? { ...p, staked: 0 } : p)));
       setStakingPool(null);
     }, 1500);
   }, []);
@@ -115,9 +113,8 @@ export function DeFiPage() {
     <div className="max-w-5xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
       {/* Left: DeFi UI */}
       <div>
-        <p className="cc-caption-mono text-[var(--cc-muted)] mb-2">DEFI</p>
         <h2 className="cc-display-lg mb-2">DeFi interaction.</h2>
-        <p className="cc-body-md text-[var(--cc-muted)] mb-6">LP staking and token swaps.</p>
+        <p className="cc-body-md text-[var(--cc-body)] mb-6">LP staking and token swaps.</p>
 
         {/* Tab switcher */}
         <div className="flex gap-1 mb-5 bg-[var(--cc-canvas-soft-2)] rounded-lg p-1 w-fit border border-[var(--cc-hairline)]">
@@ -126,7 +123,9 @@ export function DeFiPage() {
               key={t}
               onClick={() => setTab(t)}
               className={`px-5 py-2 rounded-md border-none cursor-pointer text-body-sm font-medium transition-all focus-ring ${
-                tab === t ? 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)]' : 'bg-transparent text-[var(--cc-body)] hover:text-[var(--cc-ink)]'
+                tab === t
+                  ? 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)]'
+                  : 'bg-transparent text-[var(--cc-body)] hover:text-[var(--cc-ink)]'
               }`}
             >
               {t === 'pools' ? 'LP Pools' : 'Swap'}
@@ -141,17 +140,25 @@ export function DeFiPage() {
                 <div className="flex justify-between items-center mb-3">
                   <div>
                     <TrendingUp className="w-5 h-5 inline-block mr-2 text-[var(--cc-success)]" />
-                    <span className="text-body-md font-semibold text-[var(--cc-ink)]">{pool.name}</span>
+                    <span className="text-body-md font-semibold text-[var(--cc-ink)]">
+                      {pool.name}
+                    </span>
                   </div>
                   <div className="text-right">
-                    <div className="text-body-lg text-[var(--cc-success)] font-semibold">{pool.apy}% APY</div>
-                    <div className="text-caption text-[var(--cc-muted)]">TVL: {formatTVL(pool.tvl)}</div>
+                    <div className="text-body-lg text-[var(--cc-success)] font-semibold">
+                      {pool.apy}% APY
+                    </div>
+                    <div className="text-caption text-[var(--cc-muted)]">
+                      TVL: {formatTVL(pool.tvl)}
+                    </div>
                   </div>
                 </div>
 
                 {pool.staked > 0 ? (
                   <div className="flex justify-between items-center">
-                    <span className="text-body-sm text-[var(--cc-muted)]">Staked: {pool.staked} LP</span>
+                    <span className="text-body-sm text-[var(--cc-muted)]">
+                      Staked: {pool.staked} LP
+                    </span>
                     <button
                       onClick={() => handleUnstake(pool.id)}
                       disabled={stakingPool === pool.id}
@@ -166,7 +173,9 @@ export function DeFiPage() {
                       type="number"
                       placeholder="LP amount"
                       value={stakeAmount[pool.id] || ''}
-                      onChange={(e) => setStakeAmount((prev) => ({ ...prev, [pool.id]: e.target.value }))}
+                      onChange={(e) =>
+                        setStakeAmount((prev) => ({ ...prev, [pool.id]: e.target.value }))
+                      }
                       className="cc-form-input flex-1"
                     />
                     <button
@@ -195,7 +204,11 @@ export function DeFiPage() {
                   className="cc-form-input"
                   style={{ maxWidth: '120px' }}
                 >
-                  {SWAP_TOKENS.map((t) => <option key={t} value={t}>{t}</option>)}
+                  {SWAP_TOKENS.map((t) => (
+                    <option key={t} value={t}>
+                      {t}
+                    </option>
+                  ))}
                 </select>
                 <input
                   type="number"
@@ -211,7 +224,10 @@ export function DeFiPage() {
             {/* Swap direction */}
             <div className="text-center my-2">
               <button
-                onClick={() => { setSwapFrom(swapTo); setSwapTo(swapFrom); }}
+                onClick={() => {
+                  setSwapFrom(swapTo);
+                  setSwapTo(swapFrom);
+                }}
                 className="w-9 h-9 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-full flex items-center justify-center hover:bg-[var(--cc-canvas-soft-2)] transition-all shadow-[var(--cc-level2)] focus-ring"
                 aria-label="Swap from and to tokens"
               >
@@ -229,9 +245,15 @@ export function DeFiPage() {
                   className="cc-form-input"
                   style={{ maxWidth: '120px' }}
                 >
-                  {SWAP_TOKENS.map((t) => <option key={t} value={t}>{t}</option>)}
+                  {SWAP_TOKENS.map((t) => (
+                    <option key={t} value={t}>
+                      {t}
+                    </option>
+                  ))}
                 </select>
-                <div className={`cc-form-input flex-1 flex items-center ${estimatedReceive ? 'text-[var(--cc-success)] font-medium' : 'text-[var(--cc-muted)]'}`}>
+                <div
+                  className={`cc-form-input flex-1 flex items-center ${estimatedReceive ? 'text-[var(--cc-success)] font-medium' : 'text-[var(--cc-muted)]'}`}
+                >
                   {estimatedReceive || '0.0'}
                 </div>
               </div>

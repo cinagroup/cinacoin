@@ -1,7 +1,13 @@
 'use client';
 
+import {
+  ConnectButton,
+  ConnectModal,
+  useConnect,
+  useDisconnect,
+  useCinacoinContext,
+} from '@cinacoin/react';
 import React, { useState } from 'react';
-import { ConnectButton, ConnectModal, useConnect, useDisconnect, useCinacoinContext } from '@cinacoin/react';
 
 type ConnectorId = 'metamask' | 'walletconnect' | 'coinbase';
 
@@ -15,7 +21,7 @@ export function DemoConnectSection(): JSX.Element {
 
   const handleQuickConnect = (connectorId: ConnectorId) => {
     setSelectedConnector(connectorId);
-    connect(connectorId).catch(() => {
+    void connect(connectorId).catch(() => {
       // Connection rejected or failed — status will update via context
     });
   };
@@ -24,7 +30,16 @@ export function DemoConnectSection(): JSX.Element {
     <section className="cc-card cc-fade-in" aria-labelledby="connect-heading">
       <p className="cc-eyebrow">Connection.</p>
       <h3 id="connect-heading" className="cc-section-title">
-        <svg className="cc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg
+          className="cc-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
           <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
           <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
         </svg>
@@ -35,25 +50,37 @@ export function DemoConnectSection(): JSX.Element {
       </p>
 
       {/* Web Component: ConnectButton (primary variant) */}
-      <div style={{ marginBottom: 'var(--cc-space-md)' }}>
-        <label className="cc-label" id="connect-btn-primary-label">ConnectButton web component.</label>
-        <div style={{ marginTop: 'var(--cc-space-xs)' }}>
-          <ConnectButton label="Connect Wallet" variant="primary" size="md" showAvatar showNetwork />
+      <div className="cc-field">
+        <label className="cc-label" id="connect-btn-primary-label">
+          ConnectButton web component.
+        </label>
+        <div className="cc-field__content">
+          <ConnectButton
+            label="Connect Wallet"
+            variant="primary"
+            size="md"
+            showAvatar
+            showNetwork
+          />
         </div>
       </div>
 
       {/* Web Component: ConnectButton (secondary variant) */}
-      <div style={{ marginBottom: 'var(--cc-space-md)' }}>
-        <label className="cc-label" id="connect-btn-secondary-label">ConnectButton (secondary).</label>
-        <div style={{ marginTop: 'var(--cc-space-xs)' }}>
+      <div className="cc-field">
+        <label className="cc-label" id="connect-btn-secondary-label">
+          ConnectButton (secondary).
+        </label>
+        <div className="cc-field__content">
           <ConnectButton label="Connect" variant="secondary" size="sm" />
         </div>
       </div>
 
       {/* ConnectModal trigger */}
-      <div style={{ marginBottom: 'var(--cc-space-md)' }}>
-        <label className="cc-label" id="connect-modal-label">ConnectModal.</label>
-        <div style={{ marginTop: 'var(--cc-space-xs)' }}>
+      <div className="cc-field">
+        <label className="cc-label" id="connect-modal-label">
+          ConnectModal.
+        </label>
+        <div className="cc-field__content">
           <button
             className="cc-btn cc-btn--primary"
             onClick={() => setModalOpen(true)}
@@ -67,9 +94,11 @@ export function DemoConnectSection(): JSX.Element {
       </div>
 
       {/* Programmatic connect via useConnect hook */}
-      <div style={{ marginBottom: 'var(--cc-space-md)' }}>
-        <label className="cc-label" id="connect-programmatic-label">Programmatic connect (useConnect).</label>
-        <div style={{ display: 'flex', gap: 'var(--cc-space-xs)', marginTop: 'var(--cc-space-xs)', flexWrap: 'wrap' }} role="group" aria-labelledby="connect-programmatic-label">
+      <div className="cc-field">
+        <label className="cc-label" id="connect-programmatic-label">
+          Programmatic connect (useConnect).
+        </label>
+        <div className="cc-button-group" role="group" aria-labelledby="connect-programmatic-label">
           {(['metamask', 'walletconnect', 'coinbase'] as ConnectorId[]).map((id) => (
             <button
               key={id}
@@ -77,12 +106,16 @@ export function DemoConnectSection(): JSX.Element {
               onClick={() => handleQuickConnect(id)}
               aria-label={`Connect with ${id.charAt(0).toUpperCase() + id.slice(1)}`}
             >
-              {id === 'metamask' ? 'MetaMask' : id === 'walletconnect' ? 'WalletConnect' : 'Coinbase'}
+              {id === 'metamask'
+                ? 'MetaMask'
+                : id === 'walletconnect'
+                  ? 'WalletConnect'
+                  : 'Coinbase'}
             </button>
           ))}
         </div>
         {selectedConnector && (
-          <p style={{ fontSize: 'var(--cc-text-xs)', color: 'var(--cc-body)', marginTop: 'var(--cc-space-xxs)' }} aria-live="polite">
+          <p className="cc-field__hint" aria-live="polite">
             Attempting: {selectedConnector}.
           </p>
         )}
@@ -90,11 +123,12 @@ export function DemoConnectSection(): JSX.Element {
 
       {/* Disconnect */}
       {status === 'connected' && (
-        <div>
+        <div className="cc-field">
           <button
-            className="cc-btn"
-            style={{ background: 'var(--cc-danger)', color: 'var(--cc-danger-on)' }}
-            onClick={() => disconnect().catch(() => {})}
+            className="cc-btn cc-btn--danger"
+            onClick={() => {
+              void disconnect().catch(() => {});
+            }}
             aria-label="Disconnect wallet."
           >
             Disconnect.
@@ -103,7 +137,7 @@ export function DemoConnectSection(): JSX.Element {
       )}
 
       {/* Connection status */}
-      <div style={{ marginTop: 'var(--cc-space-md)', padding: 'var(--cc-space-sm)', background: 'var(--cc-surface)', borderRadius: 'var(--cc-radius-md)', fontSize: 'var(--cc-text-sm)' }} aria-label="Connection details.">
+      <div className="cc-status-box" aria-label="Connection details.">
         <strong>Status:</strong> {status}
         {account.address && (
           <>

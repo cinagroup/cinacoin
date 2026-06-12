@@ -1,7 +1,7 @@
 'use client';
 
-import React from 'react';
 import { ChainSwitcher, useSwitchChain, useCinacoinContext } from '@cinacoin/react';
+import React from 'react';
 
 interface ChainInfo {
   id: number;
@@ -17,21 +17,6 @@ const CHAIN_DETAILS: Record<number, ChainInfo> = {
   137: { id: 137, name: 'Polygon', symbol: 'MATIC', color: 'var(--cc-chain-polygon)' },
 };
 
-const infoRowStyle: React.CSSProperties = {
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  padding: 'var(--cc-space-xs) 0',
-  fontSize: 'var(--cc-text-sm)',
-  borderBottom: '1px solid var(--cc-hairline)',
-};
-
-const monoStyle: React.CSSProperties = {
-  fontFamily: 'var(--cc-font-mono)',
-  fontSize: 'var(--cc-text-sm)',
-  color: 'var(--cc-ink-soft)',
-};
-
 /** DemoChainSwitcher — showcase chain switching and info display. */
 export function DemoChainSwitcher(): JSX.Element {
   const { account, config, status } = useCinacoinContext();
@@ -41,19 +26,20 @@ export function DemoChainSwitcher(): JSX.Element {
   const currentChainId = account.chainId;
   const currentInfo = currentChainId != null ? CHAIN_DETAILS[currentChainId] : null;
 
-  const handleSwitch = async (chainId: number) => {
-    try {
-      await switchChain(chainId);
-    } catch {
+  const handleSwitch = (chainId: number) => {
+    switchChain(chainId).catch(() => {
       // error handled by hook
-    }
+    });
   };
 
   if (status !== 'connected') {
     return (
       <section className="cc-card cc-fade-in" aria-labelledby="chain-heading">
         <h3 id="chain-heading" className="cc-section-title">
-          <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '20px', height: '20px', fontSize: 'var(--cc-text-lg)' }} aria-hidden="true">⛓️</span> Chain switcher.
+          <span className="cc-section-title__icon" aria-hidden="true">
+            ⛓️
+          </span>{' '}
+          Chain switcher.
         </h3>
         <p className="cc-section-desc">Connect a wallet to switch between chains.</p>
       </section>
@@ -63,59 +49,60 @@ export function DemoChainSwitcher(): JSX.Element {
   return (
     <section className="cc-card cc-fade-in" aria-labelledby="chain-heading">
       <h3 id="chain-heading" className="cc-section-title">
-        <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '20px', height: '20px', fontSize: 'var(--cc-text-lg)' }} aria-hidden="true">⛓️</span> Chain switcher.
+        <span className="cc-section-title__icon" aria-hidden="true">
+          ⛓️
+        </span>{' '}
+        Chain switcher.
       </h3>
       <p className="cc-section-desc">
         Switch between supported networks and view current chain details.
       </p>
 
       {/* ChainSwitcher Web Component */}
-      <div style={{ marginBottom: 'var(--cc-space-lg)' }}>
-        <label className="cc-label" id="chain-component-label">ChainSwitcher component.</label>
-        <div style={{ marginTop: 'var(--cc-space-xs)' }}>
+      <div className="cc-field">
+        <label className="cc-label" id="chain-component-label">
+          ChainSwitcher component.
+        </label>
+        <div className="cc-field__content">
           <ChainSwitcher />
         </div>
       </div>
 
       {/* Current chain info */}
       {currentInfo && (
-        <div style={{ background: 'var(--cc-surface)', borderRadius: 'var(--cc-radius-md)', padding: 'var(--cc-space-md)', marginTop: 'var(--cc-space-sm)' }} aria-label="Current chain information.">
-          <div style={infoRowStyle}>
-            <span style={{ color: 'var(--cc-body)' }}>Current chain.</span>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--cc-space-xs)' }}>
+        <div className="cc-info-box" aria-label="Current chain information.">
+          <div className="cc-info-row">
+            <span className="cc-info-row__label">Current chain.</span>
+            <div className="cc-info-row__value--accent">
               <span
-                style={{
-                  width: '10px',
-                  height: '10px',
-                  borderRadius: '50%',
-                  display: 'inline-block',
-                  background: currentInfo.color,
-                  boxShadow: `0 0 8px ${currentInfo.color}`,
-                }}
+                className="cc-chain-dot"
+                style={{ background: currentInfo.color, boxShadow: `0 0 8px ${currentInfo.color}` }}
                 aria-hidden="true"
               />
-              <span style={{ fontWeight: 'var(--cc-weight-semibold)', color: 'var(--cc-ink)' }}>{currentInfo.name}</span>
+              <span>{currentInfo.name}</span>
             </div>
           </div>
-          <div style={infoRowStyle}>
-            <span style={{ color: 'var(--cc-body)' }}>Chain ID.</span>
-            <span style={monoStyle}>{currentChainId}</span>
+          <div className="cc-info-row">
+            <span className="cc-info-row__label">Chain ID.</span>
+            <span className="cc-info-row__value">{currentChainId}</span>
           </div>
-          <div style={infoRowStyle}>
-            <span style={{ color: 'var(--cc-body)' }}>Native currency.</span>
-            <span style={{ color: 'var(--cc-ink-soft)' }}>{currentInfo.symbol}</span>
+          <div className="cc-info-row">
+            <span className="cc-info-row__label">Native currency.</span>
+            <span className="cc-info-row__value">{currentInfo.symbol}</span>
           </div>
-          <div style={{ ...infoRowStyle, borderBottom: 'none' }}>
-            <span style={{ color: 'var(--cc-body)' }}>Hex ID.</span>
-            <span style={monoStyle}>0x{(currentChainId ?? 0).toString(16)}</span>
+          <div className="cc-info-row">
+            <span className="cc-info-row__label">Hex ID.</span>
+            <span className="cc-info-row__value">0x{(currentChainId ?? 0).toString(16)}</span>
           </div>
         </div>
       )}
 
       {/* Quick switch buttons */}
-      <div style={{ marginTop: 'var(--cc-space-md)' }}>
-        <label className="cc-label" id="chain-switch-label">Quick switch.</label>
-        <div style={{ display: 'flex', gap: 'var(--cc-space-xs)', marginTop: 'var(--cc-space-xs)', flexWrap: 'wrap' }} role="group" aria-labelledby="chain-switch-label">
+      <div className="cc-field">
+        <label className="cc-label" id="chain-switch-label">
+          Quick switch.
+        </label>
+        <div className="cc-button-group" role="group" aria-labelledby="chain-switch-label">
           {chains.map((chain) => {
             const isCurrent = chain.id === currentChainId;
             return (
@@ -141,7 +128,11 @@ export function DemoChainSwitcher(): JSX.Element {
         </div>
       )}
       {isSwitching && (
-        <p style={{ marginTop: 'var(--cc-space-xs)', fontSize: 'var(--cc-text-sm)', color: 'var(--cc-warning)' }} aria-live="polite">
+        <p
+          className="cc-progress-bar__text"
+          style={{ marginTop: 'var(--cc-space-xs)', color: 'var(--cc-warning)' }}
+          aria-live="polite"
+        >
           Switching chain...
         </p>
       )}

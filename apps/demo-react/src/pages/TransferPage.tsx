@@ -4,15 +4,21 @@
  * Select chain → Select token → Enter address/amount → Confirm → Send
  */
 
-import { useState, useCallback } from 'react';
 import { CheckCircle2 } from 'lucide-react';
+import { useState, useCallback } from 'react';
+
 import { CodeExample } from '../components/CodeExample';
 
 const CHAINS = [
   { id: 'eip155:1', name: 'Ethereum', icon: '⟠', tokens: ['ETH', 'USDC', 'USDT'] },
   { id: 'eip155:137', name: 'Polygon', icon: '⬡', tokens: ['MATIC', 'USDC', 'USDT'] },
   { id: 'eip155:56', name: 'BSC', icon: '◆', tokens: ['BNB', 'BUSD', 'USDT'] },
-  { id: 'solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp', name: 'Solana', icon: '◎', tokens: ['SOL', 'USDC'] },
+  {
+    id: 'solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp',
+    name: 'Solana',
+    icon: '◎',
+    tokens: ['SOL', 'USDC'],
+  },
 ];
 
 const CODE_EXAMPLE = `import { useCoinTransaction, useCoinAccount } from '@cinacoin/core-sdk';
@@ -78,34 +84,48 @@ export function TransferPage() {
     setState((s) => ({ ...s, step: 'sending' }));
     // Simulate transaction
     setTimeout(() => {
-      const hash = '0x' + Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('');
+      const hash =
+        '0x' +
+        Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('');
       setState((s) => ({ ...s, step: 'success', txHash: hash }));
     }, 2000);
   }, []);
 
   const handleReset = useCallback(() => {
-    setState({ step: 'input', chain: CHAINS[0].id, token: CHAINS[0].tokens[0], to: '', amount: '', txHash: '' });
+    setState({
+      step: 'input',
+      chain: CHAINS[0].id,
+      token: CHAINS[0].tokens[0],
+      to: '',
+      amount: '',
+      txHash: '',
+    });
   }, []);
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
       {/* Left: Interactive Demo */}
       <div>
-        <p className="cc-caption-mono text-[var(--cc-muted)] mb-2">TRANSFER</p>
         <h2 className="cc-display-lg mb-2">Token transfer.</h2>
-        <p className="cc-body-md text-[var(--cc-muted)] mb-6">Select chain and token, enter recipient address and amount, complete transfer.</p>
+        <p className="cc-body-md text-[var(--cc-body)] mb-6">
+          Select chain and token, enter recipient address and amount, complete transfer.
+        </p>
 
         <div className="cc-card">
           {state.step === 'input' && (
             <div className="flex flex-col gap-4">
               {/* Chain selector */}
               <div>
-                <label className="cc-caption-mono text-[var(--cc-muted)] mb-2 block">Select chain</label>
+                <label className="cc-caption-mono text-[var(--cc-muted)] mb-2 block">
+                  Select chain
+                </label>
                 <div className="flex gap-2 flex-wrap">
                   {CHAINS.map((chain) => (
                     <button
                       key={chain.id}
-                      onClick={() => setState((s) => ({ ...s, chain: chain.id, token: chain.tokens[0] }))}
+                      onClick={() =>
+                        setState((s) => ({ ...s, chain: chain.id, token: chain.tokens[0] }))
+                      }
                       className={`px-3 py-2 rounded-lg text-caption font-medium transition-all focus-ring ${
                         state.chain === chain.id
                           ? 'bg-[var(--cc-canvas-soft-2)] border-2 border-[var(--cc-link)]'
@@ -120,7 +140,9 @@ export function TransferPage() {
 
               {/* Token selector */}
               <div>
-                <label className="cc-caption-mono text-[var(--cc-muted)] mb-2 block">Select token</label>
+                <label className="cc-caption-mono text-[var(--cc-muted)] mb-2 block">
+                  Select token
+                </label>
                 <div className="flex gap-2">
                   {selectedChain.tokens.map((token) => (
                     <button
@@ -140,7 +162,9 @@ export function TransferPage() {
 
               {/* Recipient */}
               <div>
-                <label className="cc-caption-mono text-[var(--cc-muted)] mb-2 block">Recipient address</label>
+                <label className="cc-caption-mono text-[var(--cc-muted)] mb-2 block">
+                  Recipient address
+                </label>
                 <input
                   type="text"
                   placeholder="0x..."
@@ -177,10 +201,16 @@ export function TransferPage() {
             <div className="text-center p-5">
               <h3 className="cc-display-sm mb-4">Confirm transaction.</h3>
               <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4 mb-4 text-left border border-[var(--cc-hairline)]">
-                <p className="text-body-sm text-[var(--cc-muted)] mb-1">Chain: {selectedChain.name}</p>
+                <p className="text-body-sm text-[var(--cc-muted)] mb-1">
+                  Chain: {selectedChain.name}
+                </p>
                 <p className="text-body-sm text-[var(--cc-muted)] mb-1">Token: {state.token}</p>
-                <p className="text-body-sm text-[var(--cc-muted)] mb-1">Recipient: {state.to.slice(0, 10)}...{state.to.slice(-8)}</p>
-                <p className="text-body-lg text-[var(--cc-ink)] font-semibold mt-2">{state.amount} {state.token}</p>
+                <p className="text-body-sm text-[var(--cc-muted)] mb-1">
+                  Recipient: {state.to.slice(0, 10)}...{state.to.slice(-8)}
+                </p>
+                <p className="text-body-lg text-[var(--cc-ink)] font-semibold mt-2">
+                  {state.amount} {state.token}
+                </p>
               </div>
               <div className="flex gap-3 justify-center">
                 <button
@@ -189,10 +219,7 @@ export function TransferPage() {
                 >
                   Cancel
                 </button>
-                <button
-                  onClick={handleSend}
-                  className="cc-btn-primary"
-                >
+                <button onClick={handleSend} className="cc-btn-primary">
                   Confirm send
                 </button>
               </div>
@@ -215,10 +242,7 @@ export function TransferPage() {
               <p className="text-caption text-[var(--cc-muted)] mb-4 font-[var(--font-mono)]">
                 TX: {state.txHash.slice(0, 16)}...{state.txHash.slice(-8)}
               </p>
-              <button
-                onClick={handleReset}
-                className="cc-btn-primary"
-              >
+              <button onClick={handleReset} className="cc-btn-primary">
                 New transfer
               </button>
             </div>

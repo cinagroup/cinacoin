@@ -14,7 +14,7 @@
   --text-body-md: 16px;
   --text-body-sm: 14px;
   --text-caption: 12px;
-  
+
   /* Font Weights (max 600 per DESIGN.md) */
   --weight-regular: 400;
   --weight-medium: 500;
@@ -103,7 +103,8 @@
 
   /* === Typography === */
   --cc-font-sans: var(--font-geist-sans), 'Inter', system-ui, -apple-system, sans-serif;
-  --cc-font-mono: var(--font-geist-mono), 'ui-monospace', 'SFMono-Regular', Menlo, Monaco, monospace;
+  --cc-font-mono:
+    var(--font-geist-mono), 'ui-monospace', 'SFMono-Regular', Menlo, Monaco, monospace;
 
   --cc-text-xs: 12px;
   --cc-text-sm: 14px;
@@ -140,18 +141,9 @@
   --cc-shadow-medium: 0 8px 8px -8px rgba(0, 0, 0, 0.1);
   --cc-shadow-large: 0 8px 16px -4px rgba(0, 0, 0, 0.1);
   --cc-shadow-inset: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
-  --cc-shadow-sm:
-    var(--cc-shadow-ring),
-    var(--cc-shadow-subtle),
-    0 2px 2px rgba(0, 0, 0, 0.1);
-  --cc-shadow-md:
-    var(--cc-shadow-ring),
-    var(--cc-shadow-soft),
-    var(--cc-shadow-medium);
-  --cc-shadow-lg:
-    var(--cc-shadow-ring),
-    var(--cc-shadow-soft),
-    var(--cc-shadow-large);
+  --cc-shadow-sm: var(--cc-shadow-ring), var(--cc-shadow-subtle), 0 2px 2px rgba(0, 0, 0, 0.1);
+  --cc-shadow-md: var(--cc-shadow-ring), var(--cc-shadow-soft), var(--cc-shadow-medium);
+  --cc-shadow-lg: var(--cc-shadow-ring), var(--cc-shadow-soft), var(--cc-shadow-large);
 
   /* === Touch targets (WCAG AAA ≥ 44px) === */
   --cc-touch-target: 44px;
@@ -226,7 +218,11 @@ a:focus:not(:focus-visible) {
   font-weight: var(--cc-weight-medium);
   line-height: var(--cc-leading-normal);
   cursor: pointer;
-  transition: background-color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease, transform 0.1s ease;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    opacity 0.15s ease,
+    transform 0.1s ease;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -285,7 +281,9 @@ a:focus:not(:focus-visible) {
   font-family: var(--cc-font-mono);
   font-size: var(--cc-text-sm);
   line-height: var(--cc-leading-normal);
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
   box-sizing: border-box;
 }
 
@@ -312,11 +310,16 @@ a:focus:not(:focus-visible) {
   border-radius: var(--cc-radius-md);
   padding: var(--cc-space-lg);
   box-shadow: var(--cc-shadow-subtle), var(--cc-shadow-inset);
-  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+  transition:
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
 }
 
 .cc-card:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), var(--cc-shadow-subtle), var(--cc-shadow-inset);
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.06),
+    var(--cc-shadow-subtle),
+    var(--cc-shadow-inset);
   border-color: var(--cc-hairline-strong);
 }
 
@@ -397,7 +400,10 @@ a:focus:not(:focus-visible) {
 
 /* === Hover transitions for cards === */
 .cc-hover-card {
-  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 .cc-hover-card:hover {
@@ -408,7 +414,9 @@ a:focus:not(:focus-visible) {
 
 /* === Loading spinner (CSS-only) === */
 @keyframes cc-spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .cc-spinner {
@@ -423,8 +431,14 @@ a:focus:not(:focus-visible) {
 
 /* === Fade in animation === */
 @keyframes cc-fade-in {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .cc-fade-in {
@@ -446,6 +460,469 @@ a:focus:not(:focus-visible) {
   width: 20px;
   height: 20px;
   flex-shrink: 0;
+}
+
+/* === DemoHeader === */
+.demo-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--cc-space-sm) var(--cc-space-lg);
+  background: var(--cc-canvas-soft);
+  border-bottom: 1px solid var(--cc-hairline);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  min-height: var(--cc-touch-target);
+  gap: var(--cc-space-sm);
+  flex-wrap: wrap;
+}
+
+.demo-header__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--cc-space-xs);
+  flex-wrap: wrap;
+}
+
+.demo-header__title {
+  font-size: var(--cc-text-lg);
+  font-weight: var(--cc-weight-semibold);
+  letter-spacing: var(--cc-tracking-tight);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.demo-header__icon {
+  width: 20px;
+  height: 20px;
+  color: var(--cc-accent);
+}
+
+.demo-header__accent {
+  color: var(--cc-accent);
+}
+
+.demo-header__subtitle {
+  color: var(--cc-body);
+  font-weight: var(--cc-weight-normal);
+}
+
+.demo-header__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--cc-space-md);
+  flex-wrap: wrap;
+}
+
+.demo-header__address {
+  display: flex;
+  align-items: center;
+  gap: var(--cc-space-xs);
+  background: var(--cc-surface);
+  padding: 8px var(--cc-space-sm);
+  border-radius: var(--cc-radius-md);
+  font-size: var(--cc-text-xs);
+  font-family: var(--cc-font-mono);
+}
+
+.demo-header__status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.demo-header__status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--cc-text-xs);
+  font-weight: var(--cc-weight-medium);
+}
+
+.demo-header__status-text {
+  color: var(--cc-body);
+  text-transform: capitalize;
+}
+
+/* === Form field layout === */
+.cc-field {
+  margin-bottom: var(--cc-space-md);
+}
+
+.cc-field__content {
+  margin-top: var(--cc-space-xs);
+}
+
+.cc-field__hint {
+  font-size: var(--cc-text-xs);
+  color: var(--cc-body);
+  margin-top: var(--cc-space-xxs);
+}
+
+.cc-button-group {
+  display: flex;
+  gap: var(--cc-space-xs);
+  margin-top: var(--cc-space-xs);
+  flex-wrap: wrap;
+}
+
+.cc-status-box {
+  margin-top: var(--cc-space-md);
+  padding: var(--cc-space-sm);
+  background: var(--cc-surface);
+  border-radius: var(--cc-radius-md);
+  font-size: var(--cc-text-sm);
+}
+
+.cc-btn--danger {
+  background: var(--cc-danger);
+  color: var(--cc-danger-on);
+}
+
+.cc-btn--danger:hover:not(:disabled) {
+  filter: brightness(1.1);
+}
+
+/* === Balance display === */
+.cc-balance-card {
+  background: linear-gradient(
+    135deg,
+    var(--cc-balance-gradient-1) 0%,
+    var(--cc-balance-gradient-2) 100%
+  );
+  border: 1px solid var(--cc-balance-border);
+  border-radius: var(--cc-radius-lg);
+  padding: var(--cc-space-lg);
+  text-align: center;
+}
+
+.cc-balance-label {
+  font-size: var(--cc-text-xs);
+  color: var(--cc-body);
+  margin-bottom: var(--cc-space-xxs);
+}
+
+.cc-balance-amount {
+  font-size: var(--cc-text-2xl);
+  font-weight: var(--cc-weight-semibold);
+  letter-spacing: var(--cc-tracking-tight);
+  color: var(--cc-ink);
+  line-height: var(--cc-leading-tight);
+}
+
+.cc-balance-symbol {
+  font-size: var(--cc-text-lg);
+  color: var(--cc-body);
+  font-weight: var(--cc-weight-normal);
+}
+
+.cc-balance-loading {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--cc-space-xs);
+  color: var(--cc-muted);
+}
+
+.cc-balance-error {
+  color: var(--cc-error);
+  font-size: var(--cc-text-md);
+  font-weight: var(--cc-weight-normal);
+}
+
+.cc-balance-empty {
+  color: var(--cc-muted);
+}
+
+.cc-address-mono {
+  font-size: var(--cc-text-xs);
+  font-family: var(--cc-font-mono);
+  color: var(--cc-muted);
+  margin-top: var(--cc-space-xs);
+  word-break: break-all;
+}
+
+.cc-refresh-row {
+  display: flex;
+  align-items: center;
+  gap: var(--cc-space-sm);
+  margin-top: var(--cc-space-md);
+  flex-wrap: wrap;
+}
+
+.cc-refresh-meta {
+  font-size: var(--cc-text-xs);
+  color: var(--cc-muted);
+}
+
+.cc-auto-refresh-note {
+  margin-top: var(--cc-space-sm);
+  font-size: var(--cc-text-xs);
+  color: var(--cc-muted);
+}
+
+/* === Info row (used in chain switcher, etc.) === */
+.cc-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--cc-space-xs) 0;
+  font-size: var(--cc-text-sm);
+  border-bottom: 1px solid var(--cc-hairline);
+}
+
+.cc-info-row:last-child {
+  border-bottom: none;
+}
+
+.cc-info-row__label {
+  color: var(--cc-body);
+}
+
+.cc-info-row__value {
+  font-family: var(--cc-font-mono);
+  font-size: var(--cc-text-sm);
+  color: var(--cc-ink-soft);
+}
+
+.cc-info-row__value--accent {
+  font-weight: var(--cc-weight-semibold);
+  color: var(--cc-ink);
+}
+
+.cc-chain-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.cc-info-box {
+  background: var(--cc-surface);
+  border-radius: var(--cc-radius-md);
+  padding: var(--cc-space-md);
+  margin-top: var(--cc-space-sm);
+}
+
+/* === Batch step list === */
+.cc-batch-step {
+  display: flex;
+  align-items: center;
+  gap: var(--cc-space-sm);
+  padding: var(--cc-space-sm);
+  background: var(--cc-surface);
+  border-radius: var(--cc-radius-md);
+  margin-bottom: var(--cc-space-xs);
+}
+
+.cc-batch-step__number {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--cc-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--cc-text-xs);
+  font-weight: var(--cc-weight-semibold);
+  flex-shrink: 0;
+  color: var(--cc-on-primary);
+}
+
+.cc-batch-step__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.cc-batch-step__label {
+  font-weight: var(--cc-weight-semibold);
+  font-size: var(--cc-text-sm);
+  color: var(--cc-ink);
+}
+
+.cc-batch-step__desc {
+  font-size: var(--cc-text-xs);
+  color: var(--cc-body);
+}
+
+.cc-batch-step__check {
+  width: 20px;
+  height: 20px;
+  color: var(--cc-success);
+  flex-shrink: 0;
+}
+
+.cc-progress-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--cc-space-sm);
+  padding: var(--cc-space-xs) var(--cc-space-sm);
+  background: var(--cc-warning-soft);
+  border-radius: var(--cc-radius-md);
+  margin-bottom: var(--cc-space-md);
+}
+
+.cc-progress-bar__text {
+  font-size: var(--cc-text-sm);
+  color: var(--cc-body);
+}
+
+/* === NFT Gallery === */
+.cc-nft-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--cc-space-md);
+}
+
+.cc-nft-card {
+  background: var(--cc-canvas-soft-2);
+  border: 1px solid var(--cc-hairline);
+  border-radius: var(--cc-radius-lg);
+  overflow: hidden;
+  transition:
+    transform 0.15s ease,
+    border-color 0.15s ease;
+  cursor: default;
+}
+
+.cc-nft-card__image {
+  position: relative;
+  aspect-ratio: 1;
+  background: var(--cc-image-placeholder);
+}
+
+.cc-nft-card__chain-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: var(--cc-overlay-dark);
+  color: var(--cc-overlay-text);
+  font-size: var(--cc-text-xs);
+  font-weight: var(--cc-weight-semibold);
+  padding: 4px 8px;
+  border-radius: 6px;
+  backdrop-filter: blur(8px);
+}
+
+.cc-nft-card__body {
+  padding: var(--cc-space-sm);
+}
+
+.cc-nft-card__name {
+  font-weight: var(--cc-weight-semibold);
+  font-size: var(--cc-text-sm);
+  margin-bottom: var(--cc-space-xxs);
+  color: var(--cc-ink);
+}
+
+.cc-nft-card__collection {
+  font-size: var(--cc-text-xs);
+  color: var(--cc-body);
+}
+
+.cc-nft-count {
+  margin-top: var(--cc-space-md);
+  font-size: var(--cc-text-xs);
+  color: var(--cc-muted);
+}
+
+/* === Signature result === */
+.cc-signature-box {
+  margin-top: var(--cc-space-md);
+}
+
+.cc-signature-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--cc-space-xs);
+  flex-wrap: wrap;
+  gap: var(--cc-space-xs);
+}
+
+.cc-signature-valid {
+  font-size: var(--cc-text-xs);
+  color: var(--cc-success);
+}
+
+.cc-signature-value {
+  background: var(--cc-surface);
+  border: 1px solid var(--cc-hairline);
+  border-radius: var(--cc-radius-md);
+  padding: var(--cc-space-sm);
+  font-family: var(--cc-font-mono);
+  font-size: var(--cc-text-xs);
+  word-break: break-all;
+  line-height: 1.6;
+  color: var(--cc-success);
+}
+
+.cc-info-note {
+  margin-top: var(--cc-space-md);
+  font-size: var(--cc-text-xs);
+  color: var(--cc-muted);
+}
+
+/* === Transaction form === */
+.cc-tx-success {
+  margin-top: var(--cc-space-md);
+  padding: var(--cc-space-sm);
+  background: var(--cc-success-soft);
+  border: 1px solid var(--cc-success-border);
+  border-radius: var(--cc-radius-md);
+}
+
+.cc-tx-success__status {
+  font-size: var(--cc-text-sm);
+  color: var(--cc-success);
+  margin-bottom: var(--cc-space-xs);
+}
+
+.cc-tx-success__hash {
+  font-size: var(--cc-text-xs);
+  font-family: var(--cc-font-mono);
+  word-break: break-all;
+  color: var(--cc-body);
+}
+
+.cc-tx-success__link {
+  display: inline-flex;
+  margin-top: var(--cc-space-xs);
+  font-size: var(--cc-text-sm);
+  color: var(--cc-accent-soft);
+  text-decoration: none;
+}
+
+.cc-tx-success__link:hover {
+  text-decoration: underline;
+}
+
+.cc-btn--full {
+  width: 100%;
+}
+
+.cc-amount-row {
+  display: flex;
+  gap: var(--cc-space-xs);
+}
+
+.cc-amount-row .cc-input {
+  flex: 1;
+}
+
+.cc-available-hint {
+  font-size: var(--cc-text-xs);
+  color: var(--cc-muted);
+  margin-top: var(--cc-space-xxs);
+}
+
+.cc-gas-row {
+  margin-top: var(--cc-space-xs);
+  font-size: var(--cc-text-sm);
+  color: var(--cc-body);
 }
 
 /* ─── Typography Utilities ─── */

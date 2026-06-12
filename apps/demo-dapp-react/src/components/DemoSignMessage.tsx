@@ -1,38 +1,37 @@
 'use client';
 
-import React, { useState } from 'react';
 import { useSignMessage, useCinacoinContext } from '@cinacoin/react';
 import { PenLine } from 'lucide-react';
+import React, { useState } from 'react';
 
 /** DemoSignMessage — sign arbitrary messages with the connected wallet. */
 export function DemoSignMessage(): JSX.Element {
-  const { account, status } = useCinacoinContext();
-  const { signMessage, isPending, error, signature } = useSignMessage();
+  const { status } = useCinacoinContext();
+  const { signMessage, isPending, error } = useSignMessage();
 
   const [message, setMessage] = useState('Welcome to CinaCoin.');
   const [sigResult, setSigResult] = useState<string | null>(null);
   const [sigError, setSigError] = useState<string | null>(null);
 
-  const handleSign = async () => {
+  const handleSign = () => {
     if (!message.trim()) return;
     setSigError(null);
     setSigResult(null);
 
-    try {
-      const sig = await signMessage(message);
-      setSigResult(sig);
-    } catch (err) {
-      setSigError(err instanceof Error ? err.message : String(err));
-    }
+    signMessage(message)
+      .then((sig) => {
+        setSigResult(sig);
+      })
+      .catch((err) => {
+        setSigError(err instanceof Error ? err.message : String(err));
+      });
   };
 
-  const handleCopy = async () => {
+  const handleCopy = () => {
     if (sigResult) {
-      try {
-        await navigator.clipboard.writeText(sigResult);
-      } catch {
+      navigator.clipboard.writeText(sigResult).catch(() => {
         // Clipboard access may fail in some contexts
-      }
+      });
     }
   };
 
@@ -59,8 +58,10 @@ export function DemoSignMessage(): JSX.Element {
       </p>
 
       {/* Message input */}
-      <div style={{ marginBottom: 'var(--cc-space-md)' }}>
-        <label className="cc-label" htmlFor="sign-message-input">Message to sign.</label>
+      <div className="cc-field">
+        <label className="cc-label" htmlFor="sign-message-input">
+          Message to sign.
+        </label>
         <textarea
           id="sign-message-input"
           value={message}
@@ -74,14 +75,13 @@ export function DemoSignMessage(): JSX.Element {
 
       {/* Sign button */}
       <button
-        className="cc-btn cc-btn--primary"
-        style={{ width: '100%' }}
+        className="cc-btn cc-btn--primary cc-btn--full"
         onClick={handleSign}
         disabled={isPending || !message.trim()}
         aria-label="Sign the message with your wallet."
       >
         {isPending ? (
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--cc-space-xs)' }}>
+          <span className="cc-balance-loading">
             <span className="cc-spinner" /> Signing...
           </span>
         ) : (
@@ -98,19 +98,23 @@ export function DemoSignMessage(): JSX.Element {
 
       {/* Signature result */}
       {sigResult && (
-        <div style={{ marginTop: 'var(--cc-space-md)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--cc-space-xs)', flexWrap: 'wrap', gap: 'var(--cc-space-xs)' }}>
-            <span className="cc-label" style={{ marginBottom: 0 }} id="signature-label">Signature.</span>
-            <div style={{ display: 'flex', gap: 'var(--cc-space-xs)', alignItems: 'center' }}>
-              {isValidSignature && (
-                <span style={{ fontSize: 'var(--cc-text-xs)', color: 'var(--cc-success)' }}>✓ Valid format</span>
-              )}
-              <button className="cc-btn cc-btn--ghost" onClick={handleCopy} aria-label="Copy signature to clipboard.">
+        <div className="cc-signature-box">
+          <div className="cc-signature-header">
+            <span className="cc-label" style={{ marginBottom: 0 }} id="signature-label">
+              Signature.
+            </span>
+            <div className="cc-button-group" style={{ gap: 'var(--cc-space-xs)' }}>
+              {isValidSignature && <span className="cc-signature-valid">✓ Valid format</span>}
+              <button
+                className="cc-btn cc-btn--ghost"
+                onClick={handleCopy}
+                aria-label="Copy signature to clipboard."
+              >
                 Copy
               </button>
             </div>
           </div>
-          <div style={{ background: 'var(--cc-surface)', border: '1px solid var(--cc-hairline)', borderRadius: 'var(--cc-radius-md)', padding: 'var(--cc-space-sm)', fontFamily: 'var(--cc-font-mono)', fontSize: 'var(--cc-text-xs)', wordBreak: 'break-all', lineHeight: 1.6, color: 'var(--cc-success)' }} aria-labelledby="signature-label">
+          <div className="cc-signature-value" aria-labelledby="signature-label">
             {sigResult.slice(0, 66)}
             <br />
             ...
@@ -121,8 +125,9 @@ export function DemoSignMessage(): JSX.Element {
       )}
 
       {/* Info */}
-      <p style={{ marginTop: 'var(--cc-space-md)', fontSize: 'var(--cc-text-xs)', color: 'var(--cc-muted)' }}>
-        Uses <code className="cc-code">personal_sign</code>. The wallet will prompt for user confirmation.
+      <p className="cc-info-note">
+        Uses <code className="cc-code">personal_sign</code>. The wallet will prompt for user
+        confirmation.
       </p>
     </section>
   );

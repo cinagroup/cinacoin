@@ -1,6 +1,7 @@
-import React from 'react'
-import { DemoSignMessage, DemoSignTypedData } from '../components/DemoSign'
-import { CodeExample } from '../components/CodeExample'
+import React from 'react';
+
+import { CodeExample } from '../components/CodeExample';
+import { DemoSignMessage, DemoSignTypedData } from '../components/DemoSign';
 
 const CODE = {
   react: `import { useWallet } from '@cinacoin/sdk-react'
@@ -57,7 +58,7 @@ export default function SignMessage() {
     </div>
   )
 }`,
-}
+};
 
 const TYPED_DATA_CODE = {
   react: `import { useWallet } from '@cinacoin/sdk-react'
@@ -128,25 +129,21 @@ export default function SignTypedData() {
 
   return <button onClick={handleSign}>Sign Typed Data</button>
 }`,
-}
+};
 
 export default function SignMessagePage() {
   return (
     <section className="max-w-5xl mx-auto w-full py-12 px-4 space-y-8">
-      <div className="text-center">
+      <div className="max-w-xl">
         <h1 className="cc-display-lg mb-3">Sign messages.</h1>
-        <p className="cc-body-md text-[var(--cc-muted)] max-w-lg mx-auto">
-          Sign plain text messages or EIP-712 typed data for authentication
+        <p className="cc-body-md text-[var(--cc-body)]">
+          Sign plain text messages or EIP-712 typed data for authentication.
         </p>
       </div>
 
       <div className="space-y-6">
         <DemoSignMessage />
-        <CodeExample
-          title="signMessage()"
-          code={CODE}
-          highlightLines={[6, 7]}
-        />
+        <CodeExample title="signMessage()" code={CODE} highlightLines={[6, 7]} />
       </div>
 
       <div className="space-y-6">
@@ -158,5 +155,5 @@ export default function SignMessagePage() {
         />
       </div>
     </section>
-  )
+  );
 }

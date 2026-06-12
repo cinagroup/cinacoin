@@ -4,8 +4,9 @@
  * Source chain → Dest chain → Token + amount → Estimated output → Bridge progress
  */
 
+import { Unlock, Lock, Link2, Coins, CheckCircle2, PartyPopper } from 'lucide-react';
 import { useState, useCallback } from 'react';
-import { Unlock, Lock, Link2, Coins, CheckCircle2, PartyPopper, Circle } from 'lucide-react';
+
 import { CodeExample } from '../components/CodeExample';
 
 const CHAINS = [
@@ -61,7 +62,11 @@ function BridgeForm() {
 type BridgeStep = 'input' | 'bridging' | 'complete';
 type BridgeProgress = 'approving' | 'locking' | 'confirming' | 'minting' | 'complete';
 
-const PROGRESS_STEPS: { key: BridgeProgress; label: string; icon: React.FC<{className?: string}> }[] = [
+const PROGRESS_STEPS: {
+  key: BridgeProgress;
+  label: string;
+  icon: React.FC<{ className?: string }>;
+}[] = [
   { key: 'approving', label: 'Approve token', icon: Unlock },
   { key: 'locking', label: 'Lock source assets', icon: Lock },
   { key: 'confirming', label: 'Cross-chain confirmation', icon: Link2 },
@@ -103,7 +108,10 @@ export function BridgePage() {
       } else {
         clearInterval(interval);
         setStep('complete');
-        setTxHash('0x' + Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join(''));
+        setTxHash(
+          '0x' +
+            Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')
+        );
       }
     }, 1500);
   }, [amount, sourceChain, destChain]);
@@ -119,9 +127,10 @@ export function BridgePage() {
     <div className="max-w-5xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
       {/* Left: Bridge UI */}
       <div>
-        <p className="cc-caption-mono text-[var(--cc-muted)] mb-2">CROSS-CHAIN</p>
         <h2 className="cc-display-lg mb-2">Cross-chain bridge.</h2>
-        <p className="cc-body-md text-[var(--cc-muted)] mb-6">Transfer assets securely between different chains.</p>
+        <p className="cc-body-md text-[var(--cc-body)] mb-6">
+          Transfer assets securely between different chains.
+        </p>
 
         <div className="cc-card">
           {step === 'input' && (
@@ -181,7 +190,9 @@ export function BridgePage() {
 
               {/* Amount */}
               <div>
-                <label className="cc-caption-mono text-[var(--cc-muted)] mb-2 block">Amount (USDC)</label>
+                <label className="cc-caption-mono text-[var(--cc-muted)] mb-2 block">
+                  Amount (USDC)
+                </label>
                 <input
                   type="number"
                   step="0.01"
@@ -197,7 +208,9 @@ export function BridgePage() {
                 <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-3 border border-[var(--cc-hairline)]">
                   <div className="flex justify-between text-body-sm">
                     <span className="text-[var(--cc-muted)]">Estimated receive</span>
-                    <span className="text-[var(--cc-success)] font-semibold">{estimatedOutput} USDC</span>
+                    <span className="text-[var(--cc-success)] font-semibold">
+                      {estimatedOutput} USDC
+                    </span>
                   </div>
                   <div className="flex justify-between text-body-sm mt-1">
                     <span className="text-[var(--cc-muted)]">Fee (0.3%)</span>
@@ -232,17 +245,27 @@ export function BridgePage() {
                         isCurrent
                           ? 'bg-[var(--cc-link-bg-soft)] border-[var(--cc-link)]'
                           : isDone
-                          ? 'bg-[var(--cc-success-bg)] border-transparent'
-                          : 'bg-[var(--cc-canvas-soft)] border-transparent'
+                            ? 'bg-[var(--cc-success-bg)] border-transparent'
+                            : 'bg-[var(--cc-canvas-soft)] border-transparent'
                       }`}
                     >
                       {isDone ? (
                         <CheckCircle2 className="w-5 h-5 text-[var(--cc-success)] shrink-0" />
                       ) : (
-                        <Icon className={`w-5 h-5 shrink-0 ${isCurrent ? 'text-[var(--cc-link)]' : 'text-[var(--cc-muted)]'}`} />
+                        <Icon
+                          className={`w-5 h-5 shrink-0 ${isCurrent ? 'text-[var(--cc-link)]' : 'text-[var(--cc-muted)]'}`}
+                        />
                       )}
-                      <span className={`text-body-sm ${isDone || isCurrent ? 'text-[var(--cc-ink)] font-medium' : 'text-[var(--cc-muted)]'}`}>{s.label}</span>
-                      {isCurrent && <span className="ml-auto text-[var(--cc-link)] text-caption font-medium">Processing...</span>}
+                      <span
+                        className={`text-body-sm ${isDone || isCurrent ? 'text-[var(--cc-ink)] font-medium' : 'text-[var(--cc-muted)]'}`}
+                      >
+                        {s.label}
+                      </span>
+                      {isCurrent && (
+                        <span className="ml-auto text-[var(--cc-link)] text-caption font-medium">
+                          Processing...
+                        </span>
+                      )}
                     </div>
                   );
                 })}
@@ -263,10 +286,7 @@ export function BridgePage() {
               <p className="text-caption text-[var(--cc-muted)] mb-4 font-[var(--font-mono)]">
                 TX: {txHash.slice(0, 16)}...{txHash.slice(-8)}
               </p>
-              <button
-                onClick={handleReset}
-                className="cc-btn-primary"
-              >
+              <button onClick={handleReset} className="cc-btn-primary">
                 New bridge
               </button>
             </div>

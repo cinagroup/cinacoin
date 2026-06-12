@@ -16,7 +16,12 @@
 
           <div v-if="!isConnected" class="connect-prompt">
             <div class="prompt-card">
-              <span class="prompt-icon" aria-hidden="true">🔗</span>
+              <div class="prompt-icon-wrapper" aria-hidden="true">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                </svg>
+              </div>
               <h2>Connect your wallet.</h2>
               <p>Connect a wallet above to explore balance, chain info, signing, and transactions.</p>
             </div>
@@ -153,7 +158,7 @@ body {
   max-width: 480px;
 }
 
-.prompt-icon { font-size: 3rem; display: block; margin-bottom: 1rem; }
+.prompt-icon-wrapper { display: flex; justify-content: center; margin-bottom: 1rem; color: var(--cc-link, #0070f3); }
 
 .prompt-card h2 {
   margin: 0 0 0.5rem;
