@@ -18,7 +18,7 @@ export function DemoWallet() {
 
   return (
     <div className="cc-card p-6">
-      <h3 className="cc-subtitle mb-4">Demo Wallet</h3>
+      <h3 className="cc-subtitle mb-4">Demo wallet.</h3>
 
       {!isConnected ? (
         <div className="text-center py-8">

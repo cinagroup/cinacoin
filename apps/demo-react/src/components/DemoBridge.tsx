@@ -42,7 +42,7 @@ export function DemoBridge() {
 
           <div className="grid grid-cols-2 gap-4 mb-6">
             <div className="space-y-3">
-              <h4 className="cc-body text-[var(--cc-ink)]">Source chain</h4>
+              <h4 className="cc-body text-[var(--cc-ink)]">Source chain.</h4>
               <select className="cc-input w-full">
                 {chains.map((c) => (
                   <option key={c.id} value={c.id}>
@@ -52,7 +52,7 @@ export function DemoBridge() {
               </select>
             </div>
             <div className="space-y-3">
-              <h4 className="cc-body text-[var(--cc-ink)]">Destination chain</h4>
+              <h4 className="cc-body text-[var(--cc-ink)]">Destination chain.</h4>
               <select className="cc-input w-full">
                 {chains.map((c) => (
                   <option key={c.id} value={c.id}>

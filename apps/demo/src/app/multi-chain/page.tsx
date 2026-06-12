@@ -182,7 +182,7 @@ function HealthSummary({ statuses, loading }: { statuses: ChainHealthStatus[]; l
   return (
     <div className="bg-[var(--cc-canvas-soft-2)]/40 backdrop-blur rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 p-6">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">RPC Health Status</h2>
+        <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">RPC health status.</h2>
         {loading && (
           <span className="inline-flex items-center gap-2 text-caption text-[var(--cc-muted)]">
             <Spinner /> Checking…
@@ -251,7 +251,7 @@ function BalanceSummary({ balances }: { balances: ChainBalance[] }) {
 
   return (
     <div className="bg-[var(--cc-canvas-soft-2)]/40 backdrop-blur rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 p-6">
-      <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)] mb-4">Multi-Chain Balances</h2>
+      <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)] mb-4">Multi-chain balances.</h2>
 
       {hasBalance.length === 0 ? (
         <div className="text-center py-4 text-body-sm text-[var(--cc-body)]">
@@ -310,7 +310,7 @@ function CrossChainFlow() {
 
   return (
     <div className="bg-[var(--cc-canvas-soft-2)]/40 backdrop-blur rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 p-8 overflow-hidden">
-      <h2 className="text-display-sm font-semibold tracking-tighter text-[var(--cc-ink)] mb-2">Cross-Chain Flow</h2>
+      <h2 className="text-display-sm font-semibold tracking-tighter text-[var(--cc-ink)] mb-2">Cross-chain flow.</h2>
       <p className="text-body-sm text-[var(--cc-muted)] mb-8">Atomic cross-chain transfers powered by CinaCoin Relay protocol</p>
 
       <div className="relative">

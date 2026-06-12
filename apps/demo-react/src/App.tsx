@@ -46,7 +46,7 @@ class PageErrorBoundary extends Component<
       return (
         <div className="min-h-screen flex items-center justify-center bg-[var(--cc-canvas-soft)] px-4">
           <div className="cc-card text-center max-w-md">
-            <h2 className="cc-display-sm text-[var(--cc-error)] mb-3">Failed to load page</h2>
+            <h2 className="cc-display-sm text-[var(--cc-error)] mb-3">Failed to load page.</h2>
             <p className="cc-body-sm text-[var(--cc-body)] mb-6">
               {this.state.error?.message || 'An unexpected error occurred.'}
             </p>
