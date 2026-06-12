@@ -84,7 +84,7 @@ function OAuthCallbackContent() {
               <div className="mb-4">
                 <AlertTriangle className="mx-auto h-12 w-12 text-error" />
               </div>
-              <h2 className="text-heading-3 text-ink mb-2">Authentication Error</h2>
+              <h2 className="text-heading-3 text-ink mb-2">Authentication error.</h2>
               <p className="text-body-sm text-body mb-6">{error}</p>
               <button
                 onClick={() => router.push("/login")}
