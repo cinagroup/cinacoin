@@ -41,7 +41,7 @@ export default React.memo(function SiteHeader({
   }, []);
 
   return (
-    <header className="bg-canvas/80 backdrop-blur-sm border-b border-hairline sticky top-0 z-50">
+    <header className="bg-canvas/80 backdrop-blur-sm border-b border-[var(--cc-hairline)] sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-lg">
         <div className="flex items-center justify-between h-16">
           {/* Logo + Breadcrumb */}
@@ -87,7 +87,7 @@ export default React.memo(function SiteHeader({
 
             {/* Time Range Selector (Overview only) */}
             {timeRange && onTimeRangeChange && (
-              <div className="flex bg-canvas-soft-2 rounded-md p-xxs" role="group" aria-label="Time range">
+              <div className="flex bg-[var(--cc-canvas-soft-2)] rounded-md p-xxs" role="group" aria-label="Time range">
                 {timeRanges.map((range) => (
                   <button
                     key={range}
@@ -130,7 +130,7 @@ export default React.memo(function SiteHeader({
         {mobileMenuOpen && (
           <div
             id="mobile-nav-menu"
-            className="md:hidden pb-md border-t border-hairline pt-sm"
+            className="md:hidden pb-md border-t border-[var(--cc-hairline)] pt-sm"
             role="navigation"
             aria-label="Mobile navigation"
           >
@@ -154,7 +154,7 @@ export default React.memo(function SiteHeader({
 
             {/* Mobile Time Range */}
             {timeRange && onTimeRangeChange && (
-              <div className="mt-sm pt-sm border-t border-hairline">
+              <div className="mt-sm pt-sm border-t border-[var(--cc-hairline)]">
                 <p className="text-caption text-[var(--cc-muted)] mb-xs px-sm">Time range.</p>
                 <div className="flex bg-[var(--cc-canvas-soft-2)] rounded-md p-xxs mx-sm" role="group" aria-label="Time range">
                   {timeRanges.map((range) => (

@@ -18,7 +18,7 @@ export default function Navbar() {
   return (
     <>
       {/* Desktop top bar */}
-      <header className="hidden md:flex items-center justify-between px-6 py-3 border-b border-hairline bg-canvas">
+      <header className="hidden md:flex items-center justify-between px-6 py-3 border-b border-[var(--cc-hairline)] bg-canvas">
         <div className="text-body-sm text-ink-mute">
           {pathname === "/" ? "Dashboard" : pathname.slice(1).split("/").map(
             (s) => s.charAt(0).toUpperCase() + s.slice(1)
@@ -35,7 +35,7 @@ export default function Navbar() {
       </header>
 
       {/* Mobile bottom nav */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-canvas border-t border-hairline flex justify-around py-2 z-40" aria-label="Mobile navigation">
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-canvas border-t border-[var(--cc-hairline)] flex justify-around py-2 z-40" aria-label="Mobile navigation">
         {mobileNavItems.map((item) => {
           const isActive = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
           const Icon = item.icon;
@@ -44,7 +44,7 @@ export default function Navbar() {
               key={item.href}
               href={item.href}
               className={`flex flex-col items-center gap-1 text-caption ${
-                isActive ? "text-ink font-medium" : "text-ink-mute"
+                isActive ? "text-[var(--cc-ink)] font-medium" : "text-ink-mute"
               }`}
               aria-current={isActive ? "page" : undefined}
             >

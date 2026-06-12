@@ -43,7 +43,7 @@ export default function HomePage() {
       {/* Welcome */}
       <div>
         <p className="font-mono text-xs text-ink-mute mb-2">DASHBOARD</p>
-        <h1 className="text-display-md font-semibold text-ink">Welcome back, developer.</h1>
+        <h1 className="text-display-md font-semibold text-[var(--cc-ink)]">Welcome back, developer.</h1>
         <p className="text-body text-ink-body mt-1">
           Here&apos;s an overview of your CinaCoin projects and usage.
         </p>
@@ -59,7 +59,7 @@ export default function HomePage() {
       {/* Recent Projects */}
       <div>
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-body-lg font-semibold text-ink">Recent projects.</h2>
+          <h2 className="text-body-lg font-semibold text-[var(--cc-ink)]">Recent projects.</h2>
           <Link href="/projects/new" className="cc-btn-primary">
             + New Project
           </Link>
@@ -73,7 +73,7 @@ export default function HomePage() {
 
       {/* Quick Links */}
       <div className="cc-card">
-        <h3 className="text-body-sm font-semibold text-ink mb-3">Quick links.</h3>
+        <h3 className="text-body-sm font-semibold text-[var(--cc-ink)] mb-3">Quick links.</h3>
         <div className="flex flex-wrap gap-3">
           <Link href="/api-keys" className="cc-btn-secondary">
             <Key className="w-4 h-4 mr-2" />

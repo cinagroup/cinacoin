@@ -29,7 +29,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
     <Link href={`/projects/${project.id}`} className="block">
       <article className="cc-card card-hover cursor-pointer transition-all">
         <div className="flex items-start justify-between mb-3">
-          <h3 className="font-semibold text-ink">{project.name}</h3>
+          <h3 className="font-semibold text-[var(--cc-ink)]">{project.name}</h3>
           <StatusBadge status={project.status} />
         </div>
         <dl className="space-y-1 text-body-sm">

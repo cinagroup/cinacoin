@@ -66,10 +66,10 @@ export function ToastProvider({ children }: { children: ReactNode }) {
               role="alert"
             >
               <Icon className="w-5 h-5 text-ink-mute flex-shrink-0" aria-hidden="true" />
-              <p className="text-body-sm text-ink flex-1">{toast.message}</p>
+              <p className="text-body-sm text-[var(--cc-ink)] flex-1">{toast.message}</p>
               <button
                 onClick={() => removeToast(toast.id)}
-                className="text-ink-mute hover:text-ink text-body-lg leading-none"
+                className="text-ink-mute hover:text-[var(--cc-ink)] text-body-lg leading-none"
                 aria-label="Dismiss"
               >
                 ×

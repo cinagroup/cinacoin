@@ -22,7 +22,7 @@ export default function ReceivePage() {
     return (
       <div className="cc-card text-center py-12">
         <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">RECEIVE</p>
-        <h2 className="text-heading-2 text-ink">Receive CINA.</h2>
+        <h2 className="text-heading-2 text-[var(--cc-ink)]">Receive CINA.</h2>
         <p className="mt-2 text-body text-mute">Connect your wallet to view your receive address.</p>
         <button onClick={connect} className="cc-btn-primary mt-6">
           Connect Wallet
@@ -35,13 +35,13 @@ export default function ReceivePage() {
     <div className="space-y-6">
       <div>
         <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">RECEIVE</p>
-        <h1 className="text-heading-2 text-ink">Receive CINA.</h1>
+        <h1 className="text-heading-2 text-[var(--cc-ink)]">Receive CINA.</h1>
         <p className="mt-1 text-body text-mute">Share your address to receive tokens.</p>
       </div>
 
       <div className="cc-card text-center">
         {/* QR Code placeholder */}
-        <div className="mx-auto mb-6 flex h-48 w-48 items-center justify-center rounded-lg bg-canvas-soft-2 border border-hairline">
+        <div className="mx-auto mb-6 flex h-48 w-48 items-center justify-center rounded-lg bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)]">
           <div className="grid grid-cols-5 gap-1 p-4">
             {Array.from({ length: 25 }).map((_, i) => (
               <div
@@ -49,7 +49,7 @@ export default function ReceivePage() {
                 className={`h-6 w-6 rounded-sm ${
                   [0,1,3,5,6,8,10,12,14,16,18,20,21,23,24].includes(i)
                     ? 'bg-primary'
-                    : 'bg-canvas-soft-2'
+                    : 'bg-[var(--cc-canvas-soft-2)]'
                 }`}
               />
             ))}
@@ -58,7 +58,7 @@ export default function ReceivePage() {
 
         <p className="text-caption text-mute mb-3">Your wallet address.</p>
         <div className="flex items-center justify-center gap-3">
-          <code className="rounded-lg bg-canvas-soft-2 px-4 py-3 text-body font-[var(--font-mono)] text-ink break-all">
+          <code className="rounded-lg bg-[var(--cc-canvas-soft-2)] px-4 py-3 text-body font-[var(--font-mono)] text-[var(--cc-ink)] break-all">
             {address}
           </code>
         </div>

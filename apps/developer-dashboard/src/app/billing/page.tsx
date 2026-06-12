@@ -103,7 +103,7 @@ export default function BillingPage() {
     <div className="space-y-6">
       <div>
         <p className="font-mono text-xs text-ink-mute mb-2">BILLING</p>
-        <h1 className="text-display-md font-semibold text-ink">Billing & quotas.</h1>
+        <h1 className="text-display-md font-semibold text-[var(--cc-ink)]">Billing & quotas.</h1>
         <p className="text-ink-body mt-1">
           Manage your subscription and monitor usage limits.
         </p>
@@ -114,11 +114,11 @@ export default function BillingPage() {
         <div className="flex items-start justify-between">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <h2 className="text-body-lg font-semibold text-ink">Current plan.</h2>
+              <h2 className="text-body-lg font-semibold text-[var(--cc-ink)]">Current plan.</h2>
               <span className="badge badge-success">Active</span>
             </div>
             <div className="flex items-baseline gap-1 mb-2">
-              <span className="text-display-lg font-semibold text-ink">{currentPlan.price}</span>
+              <span className="text-display-lg font-semibold text-[var(--cc-ink)]">{currentPlan.price}</span>
               <span className="text-ink-mute">{currentPlan.period}</span>
             </div>
             <p className="text-body-sm text-ink-body mb-3">{currentPlan.description}</p>
@@ -133,7 +133,7 @@ export default function BillingPage() {
           </div>
           <div className="text-right">
             <div className="text-body-sm text-ink-mute mb-2">Next billing date</div>
-            <div className="text-body-sm font-medium text-ink">July 10, 2026</div>
+            <div className="text-body-sm font-medium text-[var(--cc-ink)]">July 10, 2026</div>
             <button
               onClick={() => setShowUpgradeModal(true)}
               className="cc-btn-primary mt-4"
@@ -146,19 +146,19 @@ export default function BillingPage() {
 
       {/* Usage vs Quota */}
       <div>
-        <h2 className="text-body-lg font-semibold text-ink mb-4">Usage vs. quota.</h2>
+        <h2 className="text-body-lg font-semibold text-[var(--cc-ink)] mb-4">Usage vs. quota.</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {usageStats.map((stat) => {
             const percentage = (stat.used / stat.total) * 100;
             return (
               <div key={stat.label} className="cc-card">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-body-sm font-medium text-ink">{stat.label}</span>
+                  <span className="text-body-sm font-medium text-[var(--cc-ink)]">{stat.label}</span>
                   <span className="text-body-sm text-ink-mute">
                     {stat.used.toLocaleString()} / {stat.total.toLocaleString()} {stat.unit}
                   </span>
                 </div>
-                <div className="w-full bg-canvas-soft-2 rounded-full h-2 overflow-hidden">
+                <div className="w-full bg-[var(--cc-canvas-soft-2)] rounded-full h-2 overflow-hidden">
                   <div
                     className={`h-full ${stat.color} transition-all duration-300 ${
                       percentage > 90 ? "bg-danger" : percentage > 70 ? "bg-warning" : ""
@@ -189,7 +189,7 @@ export default function BillingPage() {
 
       {/* Billing History */}
       <div className="cc-card">
-        <h2 className="text-body-lg font-semibold text-ink mb-4">Recent invoices.</h2>
+        <h2 className="text-body-lg font-semibold text-[var(--cc-ink)] mb-4">Recent invoices.</h2>
         <div className="table-container">
           <table>
             <thead>
@@ -202,10 +202,10 @@ export default function BillingPage() {
               </tr>
             </thead>
             <tbody>
-              <tr className="hover:bg-canvas-soft transition-colors">
+              <tr className="hover:bg-[var(--cc-canvas-soft)] transition-colors">
                 <td className="text-ink-mute">June 10, 2026</td>
-                <td className="text-ink">Pro Plan - Monthly</td>
-                <td className="text-ink font-medium">$99.00</td>
+                <td className="text-[var(--cc-ink)]">Pro Plan - Monthly</td>
+                <td className="text-[var(--cc-ink)] font-medium">$99.00</td>
                 <td>
                   <span className="badge badge-success">Paid</span>
                 </td>
@@ -215,10 +215,10 @@ export default function BillingPage() {
                   </button>
                 </td>
               </tr>
-              <tr className="hover:bg-canvas-soft transition-colors">
+              <tr className="hover:bg-[var(--cc-canvas-soft)] transition-colors">
                 <td className="text-ink-mute">May 10, 2026</td>
-                <td className="text-ink">Pro Plan - Monthly</td>
-                <td className="text-ink font-medium">$99.00</td>
+                <td className="text-[var(--cc-ink)]">Pro Plan - Monthly</td>
+                <td className="text-[var(--cc-ink)] font-medium">$99.00</td>
                 <td>
                   <span className="badge badge-success">Paid</span>
                 </td>
@@ -228,10 +228,10 @@ export default function BillingPage() {
                   </button>
                 </td>
               </tr>
-              <tr className="hover:bg-canvas-soft transition-colors">
+              <tr className="hover:bg-[var(--cc-canvas-soft)] transition-colors">
                 <td className="text-ink-mute">April 10, 2026</td>
-                <td className="text-ink">Pro Plan - Monthly</td>
-                <td className="text-ink font-medium">$99.00</td>
+                <td className="text-[var(--cc-ink)]">Pro Plan - Monthly</td>
+                <td className="text-[var(--cc-ink)] font-medium">$99.00</td>
                 <td>
                   <span className="badge badge-success">Paid</span>
                 </td>
@@ -251,10 +251,10 @@ export default function BillingPage() {
         <div className="modal-overlay" onClick={() => setShowUpgradeModal(false)}>
           <div className="modal-content max-w-4xl" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-display-sm font-semibold text-ink">Choose your plan.</h2>
+              <h2 className="text-display-sm font-semibold text-[var(--cc-ink)]">Choose your plan.</h2>
               <button
                 onClick={() => setShowUpgradeModal(false)}
-                className="text-ink-mute hover:text-ink text-display-md leading-none"
+                className="text-ink-mute hover:text-[var(--cc-ink)] text-display-md leading-none"
               >
                 ×
               </button>
@@ -266,16 +266,16 @@ export default function BillingPage() {
                   key={plan.name}
                   className={`border rounded-lg p-4 ${
                     plan.current
-                      ? "border-ink bg-canvas-soft"
-                      : "border-hairline hover:border-hairline-dark"
+                      ? "border-ink bg-[var(--cc-canvas-soft)]"
+                      : "border-[var(--cc-hairline)] hover:border-hairline-dark"
                   }`}
                 >
                   {plan.current && (
-                    <div className="text-caption font-medium text-ink mb-2">Current Plan</div>
+                    <div className="text-caption font-medium text-[var(--cc-ink)] mb-2">Current Plan</div>
                   )}
-                  <h3 className="text-body-lg font-semibold text-ink mb-1">{plan.name}</h3>
+                  <h3 className="text-body-lg font-semibold text-[var(--cc-ink)] mb-1">{plan.name}</h3>
                   <div className="flex items-baseline gap-1 mb-2">
-                    <span className="text-display-md font-semibold text-ink">{plan.price}</span>
+                    <span className="text-display-md font-semibold text-[var(--cc-ink)]">{plan.price}</span>
                     <span className="text-body-sm text-ink-mute">{plan.period}</span>
                   </div>
                   <p className="text-body-sm text-ink-body mb-4">{plan.description}</p>

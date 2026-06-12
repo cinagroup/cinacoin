@@ -23,7 +23,7 @@ const TransactionAnalytics = dynamic(() => import("@/components/TransactionAnaly
 
 export default function BehaviorPage() {
   return (
-    <div className="min-h-screen bg-canvas-soft">
+    <div className="min-h-screen bg-[var(--cc-canvas-soft)]">
       {/* Header */}
       <SiteHeader activePage="behavior" breadcrumb="Behavior" />
 

@@ -11,7 +11,7 @@ const RealtimeDashboard = dynamic(() => import("@/components/RealtimeDashboard")
 
 export default function RealtimePage() {
   return (
-    <div className="min-h-screen bg-canvas-soft">
+    <div className="min-h-screen bg-[var(--cc-canvas-soft)]">
       {/* Header */}
       <SiteHeader activePage="realtime" breadcrumb="Realtime" />
 

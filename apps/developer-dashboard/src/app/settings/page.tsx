@@ -21,15 +21,15 @@ export default function SettingsPage() {
   return (
     <div className="space-y-6 max-w-2xl">
       <div>
-        <h1 className="text-display-md font-semibold text-ink">Account settings.</h1>
+        <h1 className="text-display-md font-semibold text-[var(--cc-ink)]">Account settings.</h1>
         <p className="text-ink-body mt-1">Manage your account preferences and security.</p>
       </div>
 
       {/* Profile */}
       <div className="cc-card space-y-4">
-        <h2 className="text-body-lg font-semibold text-ink">Profile.</h2>
+        <h2 className="text-body-lg font-semibold text-[var(--cc-ink)]">Profile.</h2>
         <div>
-          <label className="block text-body-sm font-medium text-ink mb-1">Display Name</label>
+          <label className="block text-body-sm font-medium text-[var(--cc-ink)] mb-1">Display Name</label>
           <input
             name="name"
             type="text"
@@ -39,7 +39,7 @@ export default function SettingsPage() {
           />
         </div>
         <div>
-          <label className="block text-body-sm font-medium text-ink mb-1">Email</label>
+          <label className="block text-body-sm font-medium text-[var(--cc-ink)] mb-1">Email</label>
           <input
             name="email"
             type="email"
@@ -49,7 +49,7 @@ export default function SettingsPage() {
           />
         </div>
         <div>
-          <label className="block text-body-sm font-medium text-ink mb-1">Company / Organization</label>
+          <label className="block text-body-sm font-medium text-[var(--cc-ink)] mb-1">Company / Organization</label>
           <input
             name="company"
             type="text"
@@ -63,10 +63,10 @@ export default function SettingsPage() {
 
       {/* Security */}
       <div className="cc-card space-y-4">
-        <h2 className="text-body-lg font-semibold text-ink">Security.</h2>
-        <div className="flex items-center justify-between p-4 bg-canvas-soft rounded-lg">
+        <h2 className="text-body-lg font-semibold text-[var(--cc-ink)]">Security.</h2>
+        <div className="flex items-center justify-between p-4 bg-[var(--cc-canvas-soft)] rounded-lg">
           <div>
-            <div className="text-body-sm font-medium text-ink">Two-Factor Authentication</div>
+            <div className="text-body-sm font-medium text-[var(--cc-ink)]">Two-Factor Authentication</div>
             <div className="text-body-sm text-ink-mute">
               {profile.twoFactor ? "Enabled" : "Not enabled — recommended for security"}
             </div>
@@ -83,9 +83,9 @@ export default function SettingsPage() {
           </label>
         </div>
 
-        <div className="flex items-center justify-between p-4 bg-canvas-soft rounded-lg">
+        <div className="flex items-center justify-between p-4 bg-[var(--cc-canvas-soft)] rounded-lg">
           <div>
-            <div className="text-body-sm font-medium text-ink">Email Notifications</div>
+            <div className="text-body-sm font-medium text-[var(--cc-ink)]">Email Notifications</div>
             <div className="text-body-sm text-ink-mute">Receive alerts for key events</div>
           </div>
           <label className="relative inline-flex items-center cursor-pointer">
@@ -105,14 +105,14 @@ export default function SettingsPage() {
 
       {/* Connected Wallets */}
       <div className="cc-card space-y-4">
-        <h2 className="text-body-lg font-semibold text-ink">Connected wallets.</h2>
-        <div className="p-4 bg-canvas-soft rounded-lg flex items-center justify-between">
+        <h2 className="text-body-lg font-semibold text-[var(--cc-ink)]">Connected wallets.</h2>
+        <div className="p-4 bg-[var(--cc-canvas-soft)] rounded-lg flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded bg-warning/20 flex items-center justify-center">
               <Wallet className="w-4 h-4 text-warning" aria-hidden="true" />
             </div>
             <div>
-              <div className="text-body-sm font-medium text-ink">MetaMask</div>
+              <div className="text-body-sm font-medium text-[var(--cc-ink)]">MetaMask</div>
               <div className="text-body-sm text-ink-mute font-mono">0x1234...5678</div>
             </div>
           </div>

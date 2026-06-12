@@ -107,24 +107,24 @@ export default function CommandPalette() {
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-[#171717]/50 flex items-start justify-center pt-[20vh] p-4"
+      className="fixed inset-0 z-50 bg-[var(--cc-ink)]/50 flex items-start justify-center pt-[20vh] p-4"
       onClick={() => setOpen(false)}
       role="dialog"
       aria-modal="true"
       aria-label="Command palette"
     >
       <div
-        className="bg-canvas border border-hairline rounded-lg shadow-2xl w-full max-w-2xl overflow-hidden"
+        className="bg-canvas border border-[var(--cc-hairline)] rounded-lg shadow-2xl w-full max-w-2xl overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center gap-3 px-4 py-3 border-b border-hairline">
+        <div className="flex items-center gap-3 px-4 py-3 border-b border-[var(--cc-hairline)]">
           <Search className="w-5 h-5 text-ink-mute" aria-hidden="true" />
           <input
             ref={inputRef}
             type="text"
             placeholder="Type a command..."
             aria-label="Search commands"
-            className="flex-1 bg-transparent outline-none text-body-md text-ink placeholder:text-ink-mute"
+            className="flex-1 bg-transparent outline-none text-body-md text-[var(--cc-ink)] placeholder:text-ink-mute"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => {
@@ -148,10 +148,10 @@ export default function CommandPalette() {
                         cmd.action();
                         setOpen(false);
                       }}
-                      className="w-full flex items-center gap-3 px-4 py-3 hover:bg-canvas-soft transition-colors text-left"
+                      className="w-full flex items-center gap-3 px-4 py-3 hover:bg-[var(--cc-canvas-soft)] transition-colors text-left"
                     >
                       <Icon className="w-5 h-5 text-ink-mute" />
-                      <span className="text-body-sm text-ink">{cmd.label}</span>
+                      <span className="text-body-sm text-[var(--cc-ink)]">{cmd.label}</span>
                     </button>
                   </li>
                 );

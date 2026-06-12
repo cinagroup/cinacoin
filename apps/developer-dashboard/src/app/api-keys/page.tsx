@@ -93,7 +93,7 @@ export default function ApiKeysPage() {
       <div className="flex items-center justify-between">
         <div>
           <p className="font-mono text-xs text-ink-mute mb-2">SECURITY</p>
-          <h1 className="text-display-md font-semibold text-ink">API keys.</h1>
+          <h1 className="text-display-md font-semibold text-[var(--cc-ink)]">API keys.</h1>
           <p className="text-ink-body mt-1">
             Manage API keys for authenticating with CinaCoin services.
           </p>
@@ -104,7 +104,7 @@ export default function ApiKeysPage() {
       </div>
 
       {/* Info Banner */}
-      <div className="cc-card bg-canvas-soft border-hairline">
+      <div className="cc-card bg-[var(--cc-canvas-soft)] border-[var(--cc-hairline)]">
         <div className="flex items-start gap-3">
           <Shield className="w-5 h-5 text-ink-body mt-0.5" aria-hidden="true" />
           <p className="text-body-sm text-ink-body">
@@ -119,15 +119,15 @@ export default function ApiKeysPage() {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className="cc-card">
           <div className="text-body-sm text-ink-mute">Total Keys</div>
-          <div className="text-display-md font-semibold text-ink mt-1">{keys.length}</div>
+          <div className="text-display-md font-semibold text-[var(--cc-ink)] mt-1">{keys.length}</div>
         </div>
         <div className="cc-card">
           <div className="text-body-sm text-ink-mute">Total Requests (All Keys)</div>
-          <div className="text-display-md font-semibold text-ink mt-1">{totalUsage.toLocaleString()}</div>
+          <div className="text-display-md font-semibold text-[var(--cc-ink)] mt-1">{totalUsage.toLocaleString()}</div>
         </div>
         <div className="cc-card">
           <div className="text-body-sm text-ink-mute">Active Keys</div>
-          <div className="text-display-md font-semibold text-ink mt-1">
+          <div className="text-display-md font-semibold text-[var(--cc-ink)] mt-1">
             {keys.filter((k) => k.status === "active").length}
           </div>
         </div>
@@ -161,7 +161,7 @@ export default function ApiKeysPage() {
               </button>
               <button
                 onClick={() => setShowNewKey(null)}
-                className="text-ink-mute hover:text-ink text-body-lg leading-none"
+                className="text-ink-mute hover:text-[var(--cc-ink)] text-body-lg leading-none"
               >
                 ×
               </button>

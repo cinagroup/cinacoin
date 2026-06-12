@@ -21,7 +21,7 @@ export default function GlobalError({
         <div className="text-4xl" aria-hidden="true">
           ⚠️
         </div>
-        <h1 className="text-display-sm font-semibold text-ink">Something went wrong.</h1>
+        <h1 className="text-display-sm font-semibold text-[var(--cc-ink)]">Something went wrong.</h1>
         <p className="text-body-sm text-ink-body">
           {error.digest
             ? `Error ID: ${error.digest}`
@@ -30,7 +30,7 @@ export default function GlobalError({
         {process.env.NODE_ENV === "development" && (
           <details className="text-left">
             <summary className="text-caption text-ink-mute cursor-pointer">Error details</summary>
-            <pre className="mt-2 p-3 bg-canvas-soft rounded text-caption font-mono text-danger overflow-x-auto">
+            <pre className="mt-2 p-3 bg-[var(--cc-canvas-soft)] rounded text-caption font-mono text-danger overflow-x-auto">
               {error.message}
               {"\n"}
               {error.stack}

@@ -189,12 +189,12 @@ export default function ProjectDetailClient() {
             <>
               <p className="font-mono text-xs text-ink-mute mb-2">PROJECT DETAIL</p>
               <div className="flex items-center gap-3">
-                <h1 className="text-display-md font-semibold text-ink">{project.name}</h1>
+                <h1 className="text-display-md font-semibold text-[var(--cc-ink)]">{project.name}</h1>
                 <span className="badge badge-success">Active</span>
               </div>
               <p className="text-ink-body mt-1">{project.description}</p>
               <div className="flex gap-4 mt-2 text-body-sm text-ink-mute">
-                <span>Project ID: <code className="text-ink font-mono text-caption">{project.projectId}</code></span>
+                <span>Project ID: <code className="text-[var(--cc-ink)] font-mono text-caption">{project.projectId}</code></span>
                 <span>Network: {project.network}</span>
                 <span>SDK: {project.sdkVersion}</span>
               </div>
@@ -210,15 +210,15 @@ export default function ProjectDetailClient() {
       </div>
 
       {/* Tab Navigation */}
-      <div className="flex gap-1 border-b border-hairline">
+      <div className="flex gap-1 border-b border-[var(--cc-hairline)]">
         {(["overview", "sdk", "env"] as const).map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
             className={`flex items-center gap-2 px-4 py-2 text-body-sm font-medium border-b-2 -mb-px transition-colors ${
               activeTab === tab
-                ? "border-ink text-ink"
-                : "border-transparent text-ink-mute hover:text-ink"
+                ? "border-ink text-[var(--cc-ink)]"
+                : "border-transparent text-ink-mute hover:text-[var(--cc-ink)]"
             }`}
           >
             {tab === "overview" && <><BarChart2 className="w-4 h-4" /> Overview</>}
@@ -241,7 +241,7 @@ export default function ProjectDetailClient() {
 
           {/* Usage Chart */}
           <div className="cc-card">
-            <h2 className="text-body-lg font-semibold text-ink mb-4">API requests (last 30 days).</h2>
+            <h2 className="text-body-lg font-semibold text-[var(--cc-ink)] mb-4">API requests (last 30 days).</h2>
             <div className="h-52 flex items-end gap-2 px-2">
               {usageData.map((d) => (
                 <div key={d.date} className="flex-1 flex flex-col items-center gap-1">
@@ -260,7 +260,7 @@ export default function ProjectDetailClient() {
 
           {/* Active Users Chart */}
           <div className="cc-card">
-            <h2 className="text-body-lg font-semibold text-ink mb-4">Active users (last 30 days).</h2>
+            <h2 className="text-body-lg font-semibold text-[var(--cc-ink)] mb-4">Active users (last 30 days).</h2>
             <div className="h-52 flex items-end gap-2 px-2">
               {usageData.map((d) => {
                 const maxUsers = Math.max(...usageData.map((u) => u.users));
@@ -283,7 +283,7 @@ export default function ProjectDetailClient() {
           {/* API Keys */}
           <div>
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-body-lg font-semibold text-ink">API keys.</h2>
+              <h2 className="text-body-lg font-semibold text-[var(--cc-ink)]">API keys.</h2>
               <button className="cc-btn-primary">+ Generate Key</button>
             </div>
             <div className="table-container">
@@ -300,8 +300,8 @@ export default function ProjectDetailClient() {
                 </thead>
                 <tbody>
                   {apiKeys.map((key) => (
-                    <tr key={key.id} className="hover:bg-canvas-soft transition-colors">
-                      <td className="font-medium text-ink">{key.name}</td>
+                    <tr key={key.id} className="hover:bg-[var(--cc-canvas-soft)] transition-colors">
+                      <td className="font-medium text-[var(--cc-ink)]">{key.name}</td>
                       <td className="font-mono text-caption text-ink-body">{key.prefix}</td>
                       <td>
                         <span className="badge badge-neutral">
@@ -327,7 +327,7 @@ export default function ProjectDetailClient() {
       {/* SDK Setup Tab */}
       {activeTab === "sdk" && (
         <div className="cc-card">
-          <h2 className="text-body-lg font-semibold text-ink mb-2">SDK integration.</h2>
+          <h2 className="text-body-lg font-semibold text-[var(--cc-ink)] mb-2">SDK integration.</h2>
           <p className="text-body-sm text-ink-body mb-4">
             Add the CinaCoin SDK to your project. Copy the snippet below for your framework.
           </p>
@@ -341,7 +341,7 @@ export default function ProjectDetailClient() {
                 className={`px-3 py-2 text-body-sm font-medium rounded-full transition-colors ${
                   sdkTab === tab
                     ? "bg-primary text-on-primary"
-                    : "bg-canvas-soft text-ink-body hover:text-ink"
+                    : "bg-[var(--cc-canvas-soft)] text-ink-body hover:text-[var(--cc-ink)]"
                 }`}
               >
                 {tab === "react" && "React"}
@@ -366,9 +366,9 @@ export default function ProjectDetailClient() {
           </div>
 
           {/* Install Command */}
-          <div className="mt-4 p-3 bg-canvas-soft rounded-lg border border-hairline">
+          <div className="mt-4 p-3 bg-[var(--cc-canvas-soft)] rounded-lg border border-[var(--cc-hairline)]">
             <p className="text-caption text-ink-mute mb-1">Install the package:</p>
-            <code className="text-body-sm font-mono text-ink">
+            <code className="text-body-sm font-mono text-[var(--cc-ink)]">
               {sdkTab === "vue"
                 ? "npm install @cinacoin/sdk-vue"
                 : sdkTab === "nextjs"
@@ -385,7 +385,7 @@ export default function ProjectDetailClient() {
           <div className="cc-card">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h2 className="text-body-lg font-semibold text-ink">Environment variables.</h2>
+                <h2 className="text-body-lg font-semibold text-[var(--cc-ink)]">Environment variables.</h2>
                 <p className="text-body-sm text-ink-body mt-1">
                   Configure environment variables for your project. Secret values are masked.
                 </p>
@@ -407,8 +407,8 @@ export default function ProjectDetailClient() {
                 </thead>
                 <tbody>
                   {envVars.map((env) => (
-                    <tr key={env.key} className="hover:bg-canvas-soft transition-colors">
-                      <td className="font-mono text-body-sm font-medium text-ink">{env.key}</td>
+                    <tr key={env.key} className="hover:bg-[var(--cc-canvas-soft)] transition-colors">
+                      <td className="font-mono text-body-sm font-medium text-[var(--cc-ink)]">{env.key}</td>
                       <td className="font-mono text-caption text-ink-body">{env.value}</td>
                       <td>
                         <span className={`badge ${env.secret ? "badge-warning" : "badge-neutral"}`}>
@@ -433,7 +433,7 @@ export default function ProjectDetailClient() {
           {/* Add Env Var Form */}
           {showAddEnv && (
             <div className="cc-card">
-              <h3 className="text-body-sm font-semibold text-ink mb-3">Add environment variable.</h3>
+              <h3 className="text-body-sm font-semibold text-[var(--cc-ink)] mb-3">Add environment variable.</h3>
               <div className="space-y-3">
                 <div>
                   <label className="block text-body-sm text-ink-body mb-1">Key</label>

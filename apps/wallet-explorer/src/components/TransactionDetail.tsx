@@ -16,7 +16,7 @@ export default function TransactionDetail({ tx }: TransactionDetailProps) {
   return (
     <div className="cc-card">
       <div className="flex items-start justify-between">
-        <h2 className="text-heading-3 text-ink">Transaction detail.</h2>
+        <h2 className="text-heading-3 text-[var(--cc-ink)]">Transaction detail.</h2>
         <span className={`badge ${status.badge}`}>
           {status.label}
         </span>
@@ -30,7 +30,7 @@ export default function TransactionDetail({ tx }: TransactionDetailProps) {
           </div>
           <div>
             <p className="text-caption text-mute">Block.</p>
-            <p className="mt-1 text-body font-[var(--font-mono)] text-ink">{tx.block.toLocaleString()}</p>
+            <p className="mt-1 text-body font-[var(--font-mono)] text-[var(--cc-ink)]">{tx.block.toLocaleString()}</p>
           </div>
         </div>
 
@@ -46,39 +46,39 @@ export default function TransactionDetail({ tx }: TransactionDetailProps) {
         </div>
 
         <div className="grid gap-4 sm:grid-cols-3">
-          <div className="bg-canvas-soft-2 rounded-lg p-4">
+          <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4">
             <p className="text-caption text-mute">Value.</p>
-            <p className="mt-1 text-display-sm text-ink">{tx.value} CINA</p>
+            <p className="mt-1 text-display-sm text-[var(--cc-ink)]">{tx.value} CINA</p>
           </div>
-          <div className="bg-canvas-soft-2 rounded-lg p-4">
+          <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4">
             <p className="text-caption text-mute">Transaction fee.</p>
-            <p className="mt-1 text-display-sm text-ink">{tx.fee} CINA</p>
+            <p className="mt-1 text-display-sm text-[var(--cc-ink)]">{tx.fee} CINA</p>
           </div>
-          <div className="bg-canvas-soft-2 rounded-lg p-4">
+          <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4">
             <p className="text-caption text-mute">Confirmations.</p>
-            <p className="mt-1 text-display-sm text-ink">{tx.confirmations.toLocaleString()}</p>
+            <p className="mt-1 text-display-sm text-[var(--cc-ink)]">{tx.confirmations.toLocaleString()}</p>
           </div>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <p className="text-caption text-mute">Gas used.</p>
-            <p className="mt-1 text-body font-[var(--font-mono)] text-ink">{tx.gasUsed}</p>
+            <p className="mt-1 text-body font-[var(--font-mono)] text-[var(--cc-ink)]">{tx.gasUsed}</p>
           </div>
           <div>
             <p className="text-caption text-mute">Gas price.</p>
-            <p className="mt-1 text-body font-[var(--font-mono)] text-ink">{tx.gasPrice} Gwei</p>
+            <p className="mt-1 text-body font-[var(--font-mono)] text-[var(--cc-ink)]">{tx.gasPrice} Gwei</p>
           </div>
         </div>
 
         <div>
           <p className="text-caption text-mute">Timestamp.</p>
-          <p className="mt-1 text-body text-ink">{tx.timestamp}</p>
+          <p className="mt-1 text-body text-[var(--cc-ink)]">{tx.timestamp}</p>
         </div>
 
         <div>
           <p className="text-caption text-mute">Input data.</p>
-          <code className="mt-1 block rounded bg-canvas-soft-2 p-3 text-code text-body break-all">
+          <code className="mt-1 block rounded bg-[var(--cc-canvas-soft-2)] p-3 text-code text-body break-all">
             {tx.input}
           </code>
         </div>

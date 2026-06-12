@@ -30,19 +30,19 @@ interface TransactionListProps {
 export default memo(function TransactionList({ transactions }: TransactionListProps) {
   return (
     <div className="cc-card p-0 overflow-hidden">
-      <div className="border-b border-hairline p-5">
-        <h2 className="text-heading-3 text-ink">Transaction history.</h2>
+      <div className="border-b border-[var(--cc-hairline)] p-5">
+        <h2 className="text-heading-3 text-[var(--cc-ink)]">Transaction history.</h2>
       </div>
       <div>
         {transactions.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
             <div className="mb-4 text-4xl text-mute" aria-hidden="true">∅</div>
-            <h3 className="text-heading-3 text-ink mb-1">No transactions yet.</h3>
+            <h3 className="text-heading-3 text-[var(--cc-ink)] mb-1">No transactions yet.</h3>
             <p className="text-body-sm text-mute max-w-sm">Your transaction history will appear here once you make your first transaction.</p>
           </div>
         ) : (
           transactions.map((tx) => (
-            <div key={tx.hash} className="p-5 border-b border-hairline last:border-b-0 transition-colors hover:bg-canvas-soft">
+            <div key={tx.hash} className="p-5 border-b border-[var(--cc-hairline)] last:border-b-0 transition-colors hover:bg-[var(--cc-canvas-soft)]">
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-3">
                   <div className={`flex h-10 w-10 items-center justify-center rounded-lg ${typeColors[tx.type]}`}>

@@ -31,7 +31,7 @@ export default function AnalyticsPage() {
     <div className="space-y-6">
       <div>
         <p className="font-mono text-xs text-ink-mute mb-2">ANALYTICS</p>
-        <h1 className="text-display-md font-semibold text-ink">API usage and performance.</h1>
+        <h1 className="text-display-md font-semibold text-[var(--cc-ink)]">API usage and performance.</h1>
         <p className="text-ink-body mt-1">
           Monitor your API usage, performance, and error rates.
         </p>
@@ -47,12 +47,12 @@ export default function AnalyticsPage() {
 
       {/* Request Trend */}
       <div className="cc-card">
-        <h2 className="text-body-lg font-semibold text-ink mb-4">Request trend (last 10 days).</h2>
+        <h2 className="text-body-lg font-semibold text-[var(--cc-ink)] mb-4">Request trend (last 10 days).</h2>
         <div className="space-y-2">
           {dailyRequests.map((day) => (
             <div key={day.date} className="flex items-center gap-3">
               <span className="text-caption text-ink-mute w-12 shrink-0">{day.date}</span>
-              <div className="flex-1 h-6 bg-canvas-soft-2 rounded overflow-hidden relative">
+              <div className="flex-1 h-6 bg-[var(--cc-canvas-soft-2)] rounded overflow-hidden relative">
                 <div
                   className="h-full bg-link/20 rounded"
                   style={{ width: `${(day.requests / maxRequests) * 100}%` }}
@@ -80,12 +80,12 @@ export default function AnalyticsPage() {
 
       {/* Top Chains */}
       <div className="cc-card">
-        <h2 className="text-body-lg font-semibold text-ink mb-4">Top chains.</h2>
+        <h2 className="text-body-lg font-semibold text-[var(--cc-ink)] mb-4">Top chains.</h2>
         <div className="space-y-3">
           {topChains.map((chain) => (
             <div key={chain.name} className="flex items-center gap-4">
-              <span className="text-body-sm text-ink w-48 shrink-0">{chain.name}</span>
-              <div className="flex-1 h-3 bg-canvas-soft-2 rounded overflow-hidden">
+              <span className="text-body-sm text-[var(--cc-ink)] w-48 shrink-0">{chain.name}</span>
+              <div className="flex-1 h-3 bg-[var(--cc-canvas-soft-2)] rounded overflow-hidden">
                 <div
                   className="h-full bg-link rounded"
                   style={{ width: `${chain.percentage}%` }}
@@ -101,18 +101,18 @@ export default function AnalyticsPage() {
 
       {/* Error Rate */}
       <div className="cc-card">
-        <h2 className="text-body-lg font-semibold text-ink mb-4">Error rate breakdown.</h2>
+        <h2 className="text-body-lg font-semibold text-[var(--cc-ink)] mb-4">Error rate breakdown.</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="p-4 bg-canvas-soft rounded-lg">
-            <div className="text-display-md font-semibold text-ink">0.08%</div>
+          <div className="p-4 bg-[var(--cc-canvas-soft)] rounded-lg">
+            <div className="text-display-md font-semibold text-[var(--cc-ink)]">0.08%</div>
             <div className="text-body-sm text-ink-mute mt-1">4xx Client Errors</div>
           </div>
-          <div className="p-4 bg-canvas-soft rounded-lg">
-            <div className="text-display-md font-semibold text-ink">0.03%</div>
+          <div className="p-4 bg-[var(--cc-canvas-soft)] rounded-lg">
+            <div className="text-display-md font-semibold text-[var(--cc-ink)]">0.03%</div>
             <div className="text-body-sm text-ink-mute mt-1">5xx Server Errors</div>
           </div>
-          <div className="p-4 bg-canvas-soft rounded-lg">
-            <div className="text-display-md font-semibold text-ink">0.01%</div>
+          <div className="p-4 bg-[var(--cc-canvas-soft)] rounded-lg">
+            <div className="text-display-md font-semibold text-[var(--cc-ink)]">0.01%</div>
             <div className="text-body-sm text-ink-mute mt-1">Timeout Errors</div>
           </div>
         </div>

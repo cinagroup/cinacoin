@@ -29,7 +29,7 @@ export default function NewProjectPage() {
         <Link href="/projects" className="text-body-sm text-link hover:text-link-hover">
           ← Back to Projects
         </Link>
-        <h1 className="text-display-md font-semibold text-ink mt-2">Create new project.</h1>
+        <h1 className="text-display-md font-semibold text-[var(--cc-ink)] mt-2">Create new project.</h1>
         <p className="text-ink-body mt-1">
           Set up a new project to start integrating with CinaCoin.
         </p>
@@ -37,7 +37,7 @@ export default function NewProjectPage() {
 
       <form onSubmit={handleSubmit} className="cc-card space-y-5">
         <div>
-          <label className="block text-body-sm font-medium text-ink mb-1">Project Name</label>
+          <label className="block text-body-sm font-medium text-[var(--cc-ink)] mb-1">Project Name</label>
           <input
             name="name"
             type="text"
@@ -51,7 +51,7 @@ export default function NewProjectPage() {
         </div>
 
         <div>
-          <label className="block text-body-sm font-medium text-ink mb-1">Description</label>
+          <label className="block text-body-sm font-medium text-[var(--cc-ink)] mb-1">Description</label>
           <textarea
             name="description"
             placeholder="Brief description of your project..."
@@ -64,7 +64,7 @@ export default function NewProjectPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-body-sm font-medium text-ink mb-1">Network</label>
+            <label className="block text-body-sm font-medium text-[var(--cc-ink)] mb-1">Network</label>
             <select
               name="network"
               aria-label="Network"
@@ -79,7 +79,7 @@ export default function NewProjectPage() {
           </div>
 
           <div>
-            <label className="block text-body-sm font-medium text-ink mb-1">SDK Version</label>
+            <label className="block text-body-sm font-medium text-[var(--cc-ink)] mb-1">SDK Version</label>
             <select
               name="sdkVersion"
               aria-label="SDK version"

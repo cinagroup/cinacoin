@@ -47,7 +47,7 @@ export default function RootLayout({
             <Sidebar />
             <div className="flex-1 flex flex-col">
               <Navbar />
-              <main id="main-content" className="flex-1 p-6 bg-canvas-soft-2">
+              <main id="main-content" className="flex-1 p-6 bg-[var(--cc-canvas-soft-2)]">
                 {children}
               </main>
             </div>

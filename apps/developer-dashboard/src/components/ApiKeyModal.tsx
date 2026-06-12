@@ -51,10 +51,10 @@ export default function ApiKeyModal({ onCreate, onClose }: ApiKeyModalProps) {
     <div className="modal-overlay" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="modal-title">
       <div className="modal-content" onClick={(e) => e.stopPropagation()} ref={modalRef}>
         <div className="flex items-center justify-between mb-4">
-          <h2 id="modal-title" className="text-body-lg font-semibold text-ink">Generate API key.</h2>
+          <h2 id="modal-title" className="text-body-lg font-semibold text-[var(--cc-ink)]">Generate API key.</h2>
           <button
             onClick={onClose}
-            className="text-ink-mute hover:text-ink text-display-sm leading-none"
+            className="text-ink-mute hover:text-[var(--cc-ink)] text-display-sm leading-none"
             aria-label="Close dialog"
           >
             ×
@@ -63,7 +63,7 @@ export default function ApiKeyModal({ onCreate, onClose }: ApiKeyModalProps) {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-body-sm font-medium text-ink mb-1">Key Name</label>
+            <label className="block text-body-sm font-medium text-[var(--cc-ink)] mb-1">Key Name</label>
             <input
               type="text"
               placeholder="e.g. Production Key"
@@ -76,7 +76,7 @@ export default function ApiKeyModal({ onCreate, onClose }: ApiKeyModalProps) {
           </div>
 
           <div>
-            <label className="block text-body-sm font-medium text-ink mb-2">Permissions</label>
+            <label className="block text-body-sm font-medium text-[var(--cc-ink)] mb-2">Permissions</label>
             <div className="space-y-2">
               {[
                 {
@@ -99,8 +99,8 @@ export default function ApiKeyModal({ onCreate, onClose }: ApiKeyModalProps) {
                   key={option.value}
                   className={`flex items-start gap-3 p-3 rounded-lg border cursor-pointer transition-colors ${
                     permissions === option.value
-                      ? "border-ink bg-canvas-soft"
-                      : "border-hairline hover:border-hairline-dark"
+                      ? "border-ink bg-[var(--cc-canvas-soft)]"
+                      : "border-[var(--cc-hairline)] hover:border-hairline-dark"
                   }`}
                 >
                   <input
@@ -112,7 +112,7 @@ export default function ApiKeyModal({ onCreate, onClose }: ApiKeyModalProps) {
                     className="mt-1"
                   />
                   <div>
-                    <div className="text-body-sm font-medium text-ink">{option.label}</div>
+                    <div className="text-body-sm font-medium text-[var(--cc-ink)]">{option.label}</div>
                     <div className="text-caption text-ink-mute">{option.desc}</div>
                   </div>
                 </label>

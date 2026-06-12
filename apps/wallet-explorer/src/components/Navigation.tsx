@@ -22,11 +22,11 @@ export default memo(function Navigation() {
   const { connected, address, connect, disconnect } = useWallet();
 
   return (
-    <nav className="mb-8 border-b border-hairline pb-4" aria-label="Main navigation">
+    <nav className="mb-8 border-b border-[var(--cc-hairline)] pb-4" aria-label="Main navigation">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <Image src="/logo.png" alt="CinaCoin" width={24} height={24} className="h-6 w-auto" priority />
-          <span className="text-heading-3 text-ink">Wallet Explorer</span>
+          <span className="text-heading-3 text-[var(--cc-ink)]">Wallet Explorer</span>
         </div>
         <div>
           {connected ? (
@@ -56,7 +56,7 @@ export default memo(function Navigation() {
               className={`px-4 py-2 rounded-md text-body-sm font-medium transition-colors whitespace-nowrap ${
                 isActive
                   ? 'bg-primary text-on-primary'
-                  : 'text-body hover:bg-canvas-soft-2'
+                  : 'text-body hover:bg-[var(--cc-canvas-soft-2)]'
               }`}
             >
               {item.label}

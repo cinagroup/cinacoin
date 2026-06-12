@@ -53,7 +53,7 @@ export default function SendPage() {
     return (
       <div className="cc-card text-center py-12">
         <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">SEND</p>
-        <h2 className="text-heading-2 text-ink">Send CINA.</h2>
+        <h2 className="text-heading-2 text-[var(--cc-ink)]">Send CINA.</h2>
         <p className="mt-2 text-body text-mute">Connect your wallet to send tokens.</p>
         <button onClick={connect} className="cc-btn-primary mt-6">
           Connect Wallet
@@ -66,15 +66,15 @@ export default function SendPage() {
     <div className="space-y-6">
       <div>
         <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">SEND</p>
-        <h1 className="text-heading-2 text-ink">Send CINA.</h1>
+        <h1 className="text-heading-2 text-[var(--cc-ink)]">Send CINA.</h1>
         <p className="mt-1 text-body text-mute">Transfer tokens to another address.</p>
       </div>
 
       <div className="cc-card">
-        <div className="mb-6 flex items-center justify-between rounded-lg bg-canvas-soft-2 p-4">
+        <div className="mb-6 flex items-center justify-between rounded-lg bg-[var(--cc-canvas-soft-2)] p-4">
           <div>
             <p className="text-caption text-mute">Available balance.</p>
-            <p className="mt-1 text-display-sm text-ink">{balance} CINA</p>
+            <p className="mt-1 text-display-sm text-[var(--cc-ink)]">{balance} CINA</p>
           </div>
           <code className="text-caption-mono text-mute" title={address || ''}>
             {address ? `${address.slice(0, 6)}...${address.slice(-4)}` : ''}
@@ -145,14 +145,14 @@ export default function SendPage() {
             )}
           </div>
 
-          <div className="rounded-lg bg-canvas-soft-2 p-4 space-y-2">
+          <div className="rounded-lg bg-[var(--cc-canvas-soft-2)] p-4 space-y-2">
             <div className="flex justify-between text-body-sm">
               <span className="text-mute">Network fee (est.).</span>
-              <span className="text-ink font-[var(--font-mono)]">~{NETWORK_FEE_NUMBER} CINA</span>
+              <span className="text-[var(--cc-ink)] font-[var(--font-mono)]">~{NETWORK_FEE_NUMBER} CINA</span>
             </div>
             <div className="flex justify-between text-body-sm">
               <span className="text-mute">Total.</span>
-              <span className="text-ink font-medium font-[var(--font-mono)]">
+              <span className="text-[var(--cc-ink)] font-medium font-[var(--font-mono)]">
                 {amount && isValidAmount(amount)
                   ? `${(parseFloat(amount) + NETWORK_FEE_NUMBER).toFixed(4)}`
                   : '0.00'}{' '}

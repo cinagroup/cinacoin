@@ -9,7 +9,7 @@ const activities = [
     message: "New user registered from San Francisco, US",
     time: "2 minutes ago",
     icon: User,
-    color: "bg-canvas-soft-2 text-ink",
+    color: "bg-[var(--cc-canvas-soft-2)] text-[var(--cc-ink)]",
   },
   {
     id: 2,
@@ -33,7 +33,7 @@ const activities = [
     message: "Analytics engine v2.4.1 deployed successfully",
     time: "32 minutes ago",
     icon: Rocket,
-    color: "bg-canvas-soft-2 text-ink",
+    color: "bg-[var(--cc-canvas-soft-2)] text-[var(--cc-ink)]",
   },
   {
     id: 5,
@@ -41,7 +41,7 @@ const activities = [
     message: "Monthly active users exceeded 125,000 milestone",
     time: "1 hour ago",
     icon: Target,
-    color: "bg-canvas-soft-2 text-ink",
+    color: "bg-[var(--cc-canvas-soft-2)] text-[var(--cc-ink)]",
   },
   {
     id: 6,
@@ -49,7 +49,7 @@ const activities = [
     message: "SSL certificate renewed for api.cinacoin.com",
     time: "2 hours ago",
     icon: Lock,
-    color: "bg-canvas-soft-2 text-ink",
+    color: "bg-[var(--cc-canvas-soft-2)] text-[var(--cc-ink)]",
   },
   {
     id: 7,
@@ -57,7 +57,7 @@ const activities = [
     message: "Batch import: 1,200 users from partner integration",
     time: "3 hours ago",
     icon: Users,
-    color: "bg-canvas-soft-2 text-ink",
+    color: "bg-[var(--cc-canvas-soft-2)] text-[var(--cc-ink)]",
   },
 ];
 

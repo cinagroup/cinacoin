@@ -27,13 +27,13 @@ export default function SettingsPage() {
     <div className="space-y-6">
       <div>
         <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">SETTINGS</p>
-        <h1 className="text-heading-2 text-ink">Settings.</h1>
+        <h1 className="text-heading-2 text-[var(--cc-ink)]">Settings.</h1>
         <p className="mt-1 text-body text-mute">Manage your wallet preferences.</p>
       </div>
 
       {/* Connection Status */}
       <div className="cc-card">
-        <h2 className="text-heading-3 text-ink mb-4">Connection.</h2>
+        <h2 className="text-heading-3 text-[var(--cc-ink)] mb-4">Connection.</h2>
         {connected ? (
           <div className="space-y-3">
             <div className="flex items-center justify-between">
@@ -42,13 +42,13 @@ export default function SettingsPage() {
             </div>
             <div className="flex items-center justify-between">
               <span className="text-body-sm text-mute">Address.</span>
-              <code className="text-caption-mono text-ink" title={address || ''}>
+              <code className="text-caption-mono text-[var(--cc-ink)]" title={address || ''}>
                 {address ? `${address.slice(0, 10)}...${address.slice(-6)}` : ''}
               </code>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-body-sm text-mute">Network.</span>
-              <span className="text-body-sm text-ink capitalize">{chain}</span>
+              <span className="text-body-sm text-[var(--cc-ink)] capitalize">{chain}</span>
             </div>
             <button onClick={disconnect} className="cc-btn-secondary mt-2">
               Disconnect wallet.
@@ -66,7 +66,7 @@ export default function SettingsPage() {
 
       {/* Preferences */}
       <div className="cc-card">
-        <h2 className="text-heading-3 text-ink mb-4">Preferences.</h2>
+        <h2 className="text-heading-3 text-[var(--cc-ink)] mb-4">Preferences.</h2>
         <div className="space-y-5">
           <div>
             <label htmlFor="currency" className="block text-caption text-mute mb-2">Display currency.</label>
@@ -84,7 +84,7 @@ export default function SettingsPage() {
 
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-body-sm text-ink">Notifications</p>
+              <p className="text-body-sm text-[var(--cc-ink)]">Notifications</p>
               <p className="text-caption text-mute">Receive alerts for incoming transactions.</p>
             </div>
             <button
@@ -108,7 +108,7 @@ export default function SettingsPage() {
 
       {/* Actions */}
       <div className="cc-card">
-        <h2 className="text-heading-3 text-ink mb-4">Actions.</h2>
+        <h2 className="text-heading-3 text-[var(--cc-ink)] mb-4">Actions.</h2>
         <div className="space-y-3">
           <button className="cc-btn-secondary w-full justify-start">
             Export transaction history.

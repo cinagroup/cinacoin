@@ -97,7 +97,7 @@ export default function WalletExplorerPage() {
     return (
       <div className="cc-card text-center py-12">
         <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">WALLET EXPLORER</p>
-        <h2 className="text-heading-2 text-ink">Welcome to CinaCoin Wallet Explorer.</h2>
+        <h2 className="text-heading-2 text-[var(--cc-ink)]">Welcome to CinaCoin Wallet Explorer.</h2>
         <p className="mt-2 text-body text-mute">Connect your wallet to get started.</p>
         <button onClick={connect} className="cc-btn-primary mt-6">
           Connect Wallet
@@ -113,7 +113,7 @@ export default function WalletExplorerPage() {
       {/* Header */}
       <div className="text-center">
         <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">WALLET EXPLORER</p>
-        <h1 className="text-heading-2 text-ink">
+        <h1 className="text-heading-2 text-[var(--cc-ink)]">
           CinaCoin Wallet Explorer.
         </h1>
         <p className="mt-2 text-body text-mute">
@@ -140,7 +140,7 @@ export default function WalletExplorerPage() {
       <TransactionList transactions={mockTransactions} />
 
       {/* Footer */}
-      <footer className="border-t border-hairline pt-6 text-center text-body-sm text-mute">
+      <footer className="border-t border-[var(--cc-hairline)] pt-6 text-center text-body-sm text-mute">
         <p>© 2026 CinaCoin. All rights reserved.</p>
         <p className="mt-1">Powered by CinaCoin Blockchain</p>
       </footer>

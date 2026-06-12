@@ -30,7 +30,7 @@ export default function Sidebar() {
           <span className="text-on-primary font-semibold text-body-sm">0</span>
         </div>
         <div>
-          <div className="text-body-sm font-semibold text-ink leading-tight">CinaCoin</div>
+          <div className="text-body-sm font-semibold text-[var(--cc-ink)] leading-tight">CinaCoin</div>
           <div className="text-caption text-ink-mute leading-tight">Developer Portal</div>
         </div>
       </Link>
@@ -51,7 +51,7 @@ export default function Sidebar() {
       </nav>
 
       {/* Footer */}
-      <div className="px-3 pt-4 border-t border-hairline mt-4">
+      <div className="px-3 pt-4 border-t border-[var(--cc-hairline)] mt-4">
         <div className="text-caption text-ink-mute">v2.4.1</div>
         <a
           href="https://docs.cinacoin.com"

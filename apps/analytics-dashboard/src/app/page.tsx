@@ -52,7 +52,7 @@ export default function Home() {
   const kpiData = useMemo(() => kpiDataByRange[timeRange] || kpiDataByRange["7d"], [timeRange]);
 
   return (
-    <div className="min-h-screen bg-canvas-soft">
+    <div className="min-h-screen bg-[var(--cc-canvas-soft)]">
       {/* Header */}
       <SiteHeader activePage="overview" timeRange={timeRange} onTimeRangeChange={setTimeRange} />
 

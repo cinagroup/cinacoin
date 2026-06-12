@@ -55,7 +55,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} font-sans min-h-screen bg-canvas-soft text-ink antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} font-sans min-h-screen bg-[var(--cc-canvas-soft)] text-[var(--cc-ink)] antialiased`}>
         <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-[var(--cc-ink)] focus:rounded">
           Skip to main content
         </a>
