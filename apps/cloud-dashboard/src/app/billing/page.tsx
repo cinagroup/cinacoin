@@ -1,18 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { Menu } from "lucide-react";
+import { Menu, Download, CreditCard } from "lucide-react";
 import Sidebar from "@/components/Sidebar";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { FileText } from "lucide-react";
 
 export default function BillingPage() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
   const mockInvoices = [
-    { id: "INV-2026-001", date: "2026-06-01", amount: "$125.50", status: "paid" },
-    { id: "INV-2026-002", date: "2026-05-01", amount: "$98.75", status: "paid" },
-    { id: "INV-2026-003", date: "2026-04-01", amount: "$142.30", status: "paid" },
+    { id: "INV-2026-001", date: "Jun 1, 2026", amount: "$125.50", status: "paid" },
+    { id: "INV-2026-002", date: "May 1, 2026", amount: "$98.75", status: "paid" },
+    { id: "INV-2026-003", date: "Apr 1, 2026", amount: "$142.30", status: "paid" },
+    { id: "INV-2026-004", date: "Mar 1, 2026", amount: "$110.20", status: "paid" },
   ];
 
   return (
@@ -32,34 +32,32 @@ export default function BillingPage() {
 
         <main className="flex-1 p-6 overflow-auto">
           <div className="mb-6">
-            <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">FINANCE</p>
-            <h1 className="text-heading-2 text-[var(--cc-ink)]">Billing.</h1>
-            <p className="text-body-sm text-body mt-1">Manage your subscription and billing.</p>
+            <h1 className="text-heading-2 text-[var(--cc-ink)]">Billing & usage.</h1>
+            <p className="text-body-sm text-body mt-1">Professional plan · Next billing: July 1, 2026</p>
           </div>
 
           {/* Current Plan */}
           <div className="bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-md p-6 mb-6">
             <div className="flex items-start justify-between mb-4">
               <div>
-                <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">PLAN</p>
-                <h2 className="text-heading-3 text-[var(--cc-ink)] mb-1">Current plan.</h2>
-                <p className="text-body-sm text-body">Professional plan.</p>
+                <h2 className="text-heading-3 text-[var(--cc-ink)] mb-1">Professional plan.</h2>
+                <p className="text-body-sm text-body">$99/month · Billed monthly</p>
               </div>
               <button className="cc-btn-secondary px-4 py-2">
-                Upgrade Plan
+                Upgrade plan
               </button>
             </div>
             <div className="grid grid-cols-3 gap-4 mt-4 pt-4 border-t border-[var(--cc-hairline)]">
               <div>
-                <p className="text-caption text-[var(--cc-muted)] mb-1">Monthly cost.</p>
-                <p className="text-heading-3 text-[var(--cc-ink)]">$99/mo</p>
+                <p className="text-caption text-[var(--cc-muted)] mb-1">Monthly cost</p>
+                <p className="text-heading-3 text-[var(--cc-ink)]">$99</p>
               </div>
               <div>
-                <p className="text-caption text-[var(--cc-muted)] mb-1">Next billing date.</p>
+                <p className="text-caption text-[var(--cc-muted)] mb-1">Next billing date</p>
                 <p className="text-body-sm text-[var(--cc-ink)]">July 1, 2026</p>
               </div>
               <div>
-                <p className="text-caption text-[var(--cc-muted)] mb-1">Payment method.</p>
+                <p className="text-caption text-[var(--cc-muted)] mb-1">Payment method</p>
                 <p className="text-body-sm text-[var(--cc-ink)]">Visa •••• 4242</p>
               </div>
             </div>
@@ -67,17 +65,20 @@ export default function BillingPage() {
 
           {/* Usage */}
           <div className="bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-md p-6 mb-6">
-            <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">USAGE</p>
-            <h2 className="text-heading-3 text-[var(--cc-ink)] mb-4">Current usage.</h2>
-            <div className="space-y-4">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-heading-3 text-[var(--cc-ink)]">Current usage.</h2>
+              <span className="text-caption text-[var(--cc-muted)]">Billing period: Jun 1 - Jun 30, 2026</span>
+            </div>
+            <div className="space-y-6">
               <div>
                 <div className="flex justify-between text-body-sm mb-2">
-                  <span className="text-body">Compute resources.</span>
+                  <span className="text-body">Compute resources</span>
                   <span className="text-[var(--cc-ink)] font-medium">8 / 10 vCPUs</span>
                 </div>
                 <div className="w-full bg-[var(--cc-canvas-soft-2)] rounded-full h-2">
                   <div className="bg-link h-2 rounded-full" style={{ width: '80%' }}></div>
                 </div>
+                <p className="text-caption text-[var(--cc-muted)] mt-1">$48.50 of $99 budget used</p>
               </div>
               <div>
                 <div className="flex justify-between text-body-sm mb-2">
@@ -87,6 +88,7 @@ export default function BillingPage() {
                 <div className="w-full bg-[var(--cc-canvas-soft-2)] rounded-full h-2">
                   <div className="bg-link h-2 rounded-full" style={{ width: '45%' }}></div>
                 </div>
+                <p className="text-caption text-[var(--cc-muted)] mt-1">$22.25 of $99 budget used</p>
               </div>
               <div>
                 <div className="flex justify-between text-body-sm mb-2">
@@ -96,6 +98,13 @@ export default function BillingPage() {
                 <div className="w-full bg-[var(--cc-canvas-soft-2)] rounded-full h-2">
                   <div className="bg-link h-2 rounded-full" style={{ width: '42%' }}></div>
                 </div>
+                <p className="text-caption text-[var(--cc-muted)] mt-1">$15.75 of $99 budget used</p>
+              </div>
+            </div>
+            <div className="mt-6 pt-4 border-t border-[var(--cc-hairline)]">
+              <div className="flex justify-between items-center">
+                <span className="text-body-sm font-medium text-[var(--cc-ink)]">Total usage</span>
+                <span className="text-body-sm font-medium text-[var(--cc-ink)]">$86.50 / $99.00</span>
               </div>
             </div>
           </div>
@@ -103,7 +112,6 @@ export default function BillingPage() {
           {/* Invoices */}
           <div className="bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-md overflow-hidden">
             <div className="px-6 py-4 border-b border-[var(--cc-hairline)]">
-              <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">HISTORY</p>
               <h2 className="text-heading-3 text-[var(--cc-ink)]">Invoice history.</h2>
             </div>
             <table className="w-full">
@@ -117,17 +125,7 @@ export default function BillingPage() {
                 </tr>
               </thead>
               <tbody>
-                {mockInvoices.length === 0 ? (
-                  <tr>
-                    <td colSpan={5} className="px-6 py-12 text-center">
-                      <div className="flex flex-col items-center justify-center">
-                        <FileText className="w-8 h-8 text-[var(--cc-muted)] mb-4" />
-                        <h3 className="text-heading-3 text-[var(--cc-ink)] mb-1">No invoices yet.</h3>
-                        <p className="text-body-sm text-body max-w-sm">Your invoice history will appear here once you have billing activity.</p>
-                      </div>
-                    </td>
-                  </tr>
-                ) : mockInvoices.map((invoice) => (
+                {mockInvoices.map((invoice) => (
                   <tr key={invoice.id} className="border-b border-[var(--cc-hairline)] last:border-b-0 hover:bg-[var(--cc-canvas-soft)] transition-colors">
                     <td className="px-6 py-4 text-body-sm text-[var(--cc-ink)] font-medium">{invoice.id}</td>
                     <td className="px-6 py-4 text-body-sm text-body">{invoice.date}</td>
@@ -136,12 +134,37 @@ export default function BillingPage() {
                       <span className="badge badge-success">{invoice.status}</span>
                     </td>
                     <td className="px-6 py-4 text-right">
-                      <button className="text-body-sm text-link hover:underline">Download</button>
+                      <button className="inline-flex items-center gap-2 text-body-sm text-link hover:underline">
+                        <Download className="w-4 h-4" />
+                        Download
+                      </button>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
+          </div>
+
+          {/* Payment Methods */}
+          <div className="mt-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-md p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-heading-3 text-[var(--cc-ink)]">Payment methods.</h2>
+              <button className="cc-btn-secondary px-4 py-2">
+                + Add method
+              </button>
+            </div>
+            <div className="space-y-3">
+              <div className="flex items-center justify-between p-4 bg-[var(--cc-canvas-soft)] border border-[var(--cc-hairline)] rounded">
+                <div className="flex items-center gap-3">
+                  <CreditCard className="w-5 h-5 text-[var(--cc-ink)]" />
+                  <div>
+                    <p className="text-body-sm font-medium text-[var(--cc-ink)]">Visa •••• 4242</p>
+                    <p className="text-caption text-[var(--cc-muted)]">Expires 12/2028</p>
+                  </div>
+                </div>
+                <span className="badge badge-success">Default</span>
+              </div>
+            </div>
           </div>
         </main>
       </div>

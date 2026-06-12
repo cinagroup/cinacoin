@@ -413,7 +413,7 @@ export class TRONChainAdapter {
         const result = await contract.methods.balanceOf(address).call();
         return String(result);
       } catch (err) {
-        logger.warn(`[core-sdk:getTokenBalance] error:`, err);
+        logger.warn(`[core-sdk:getTokenBalance] error:`, err as Record<string, unknown>);
         // Fallback to API
       }
     }

@@ -9,7 +9,6 @@ import ServiceStatus from "@/components/ServiceStatus";
 import ResourceTable from "@/components/ResourceTable";
 import QuickActions from "@/components/QuickActions";
 
-// Lazy-load heavy chart component (recharts is ~500KB)
 const QuotaUsage = dynamic(() => import("@/components/QuotaUsage"), {
   loading: () => <div className="h-64 flex items-center justify-center text-[var(--cc-muted)]">Loading chart...</div>,
   ssr: false,
@@ -20,12 +19,9 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex">
-      {/* Sidebar */}
       <Sidebar isOpen={sidebarOpen} onToggle={() => setSidebarOpen(!sidebarOpen)} />
 
-      {/* Main Content */}
       <div className="flex-1 flex flex-col min-w-0">
-        {/* Top Bar */}
         <header className="bg-[var(--cc-canvas)] border-b border-[var(--cc-hairline)] h-14 flex items-center px-6 sticky top-0 z-40">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -50,24 +46,23 @@ export default function Home() {
               <Bell className="w-5 h-5 text-[var(--cc-body)]" />
               <span className="absolute top-1 right-1 w-2 h-2 bg-[var(--cc-error)] rounded-full"></span>
             </button>
-            <div className="w-8 h-8 bg-[var(--cc-canvas-soft-2)] rounded-full flex items-center justify-center">
-              <span className="text-[var(--text-body-sm)] font-medium text-[var(--cc-ink)]">C</span>
+            <div className="w-8 h-8 bg-gradient-to-br from-[var(--cc-link)] to-[var(--cc-violet)] rounded-full flex items-center justify-center">
+              <span className="text-[var(--text-body-sm)] font-medium text-white">A</span>
             </div>
           </div>
         </header>
         <Breadcrumbs />
 
-        {/* Page Content */}
         <main className="flex-1 p-6 overflow-auto">
           <div className="mb-6">
-            <p className="cc-caption-mono text-[var(--cc-muted)] mb-2">OVERVIEW</p>
-            <h1 className="cc-display-sm text-[var(--cc-ink)]">Dashboard.</h1>
-            <p className="cc-body-sm text-[var(--cc-body)] mt-1">Overview of your cloud resources and services.</p>
+            <h1 className="cc-display-sm text-[var(--cc-ink)]">Cloud overview.</h1>
+            <p className="cc-body-sm text-[var(--cc-body)] mt-1">
+              6 services running · 12 active resources · $677.75/mo estimated
+            </p>
           </div>
 
           {/* Service Status */}
           <div className="mb-6">
-            <p className="cc-caption-mono text-[var(--cc-muted)] mb-2">SERVICES</p>
             <h2 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Service status.</h2>
             <ServiceStatus />
           </div>

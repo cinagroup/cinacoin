@@ -12,7 +12,7 @@ interface KPICardProps {
 
 export default React.memo(function KPICard({ title, value, change, trend }: KPICardProps) {
   const isPositive = trend === "up";
-  const isGood = title === "Avg Response Time" ? !isPositive : isPositive;
+  const isGood = title.toLowerCase().includes("response time") ? !isPositive : isPositive;
 
   return (
     <div className="cc-card p-lg hover:shadow-cinacoin-3 transition-shadow" role="region" aria-label={`${title} metric`}>

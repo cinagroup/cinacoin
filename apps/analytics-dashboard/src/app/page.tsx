@@ -58,14 +58,7 @@ export default function Home() {
 
       {/* Main Content */}
       <main id="main-content" className="max-w-7xl mx-auto px-lg py-xl">
-        {/* Page Header */}
-        <div className="mb-xl">
-          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">DASHBOARD</p>
-          <h1 className="text-heading-1 text-[var(--cc-ink)]">Analytics overview.</h1>
-          <p className="text-body text-[var(--cc-body)] mt-xxs">Platform metrics and activity monitoring.</p>
-        </div>
-
-        {/* KPI Cards */}
+        {/* KPI Cards — no redundant page header, KPIs speak for themselves */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-lg mb-xl">
           {kpiData.map((kpi) => (
             <KPICard key={kpi.title} {...kpi} />
@@ -75,27 +68,32 @@ export default function Home() {
         {/* Charts Row */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-lg mb-xl">
           <div className="cc-card p-lg">
-            <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">GROWTH</p>
-            <h2 className="text-heading-3 text-[var(--cc-ink)] mb-lg">User growth.</h2>
+            <div className="flex items-baseline justify-between mb-lg">
+              <h2 className="text-heading-3 text-[var(--cc-ink)]">User growth</h2>
+              <span className="text-caption text-[var(--cc-muted)]">Last 12 weeks</span>
+            </div>
             <UserGrowthChart />
           </div>
           <div className="cc-card p-lg">
-            <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">API</p>
-            <h2 className="text-heading-3 text-[var(--cc-ink)] mb-lg">API calls trend.</h2>
+            <div className="flex items-baseline justify-between mb-lg">
+              <h2 className="text-heading-3 text-[var(--cc-ink)]">API calls</h2>
+              <span className="text-caption text-[var(--cc-muted)]">Today by hour (UTC)</span>
+            </div>
             <APICallsChart />
           </div>
         </div>
 
-        {/* Bottom Row */}
+        {/* Bottom Row — asymmetric layout to break grid monotony */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-lg">
           <div className="lg:col-span-1 cc-card p-lg">
-            <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">GEOGRAPHY</p>
-            <h2 className="text-heading-3 text-[var(--cc-ink)] mb-lg">Region distribution.</h2>
+            <h2 className="text-heading-3 text-[var(--cc-ink)] mb-lg">By region</h2>
             <RegionDistribution />
           </div>
           <div className="lg:col-span-2 cc-card p-lg">
-            <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">EVENTS</p>
-            <h2 className="text-heading-3 text-[var(--cc-ink)] mb-lg">Recent activity.</h2>
+            <div className="flex items-baseline justify-between mb-lg">
+              <h2 className="text-heading-3 text-[var(--cc-ink)]">Activity feed</h2>
+              <span className="text-caption text-[var(--cc-muted)]">Auto-refreshing</span>
+            </div>
             <RecentActivity />
           </div>
         </div>

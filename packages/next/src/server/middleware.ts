@@ -318,7 +318,7 @@ async function decodeSessionToken(token: string, secret?: string): Promise<Serve
     
     return null;
   } catch (error) {
-    logger.warn('Session token decode failed:', error);
+    logger.warn('Session token decode failed:', error as Record<string, unknown>);
     return null;
   }
 }

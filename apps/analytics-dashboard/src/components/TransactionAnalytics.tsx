@@ -113,36 +113,40 @@ export default React.memo(function TransactionAnalytics() {
   return (
     <div className="space-y-lg">
       {/* Summary Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-sm">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-sm">
         <div className="cc-card p-md">
-          <p className="text-caption text-[var(--cc-muted)] mb-xxs">Total Volume</p>
-          <p className="text-display-sm text-[var(--cc-ink)]">{`$${(totalVolume / 1000000).toFixed(2)}M`}</p>
+          <p className="text-caption text-[var(--cc-muted)]">Total volume</p>
+          <p className="text-display-sm text-[var(--cc-ink)] mt-1">{`$${(totalVolume / 1000000).toFixed(2)}M`}</p>
         </div>
         <div className="cc-card p-md">
-          <p className="text-caption text-[var(--cc-muted)] mb-xxs">Total Transactions</p>
-          <p className="text-display-sm text-[var(--cc-ink)]">{totalTx.toLocaleString()}</p>
+          <p className="text-caption text-[var(--cc-muted)]">Transactions</p>
+          <p className="text-display-sm text-[var(--cc-ink)] mt-1">{totalTx.toLocaleString()}</p>
         </div>
         <div className="cc-card p-md">
-          <p className="text-caption text-[var(--cc-muted)] mb-xxs">Avg Gas Cost</p>
-          <p className="text-display-sm text-[var(--cc-ink)]">{`$${avgGasCost.toFixed(2)}`}</p>
+          <p className="text-caption text-[var(--cc-muted)]">Avg gas cost</p>
+          <p className="text-display-sm text-[var(--cc-ink)] mt-1">{`$${avgGasCost.toFixed(2)}`}</p>
         </div>
         <div className="cc-card p-md">
-          <p className="text-caption text-[var(--cc-muted)] mb-xxs">Failed Transactions</p>
-          <p className="text-display-sm text-[var(--cc-error)]">{totalFailed.toLocaleString()}</p>
+          <p className="text-caption text-[var(--cc-muted)]">Failed</p>
+          <p className="text-display-sm text-[var(--cc-error)] mt-1">{totalFailed.toLocaleString()}</p>
         </div>
       </div>
 
       {/* Volume Trend Chart */}
       <div className="cc-card p-lg">
-        <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">VOLUME</p>
-        <h3 className="text-heading-3 text-[var(--cc-ink)] mb-md">Transaction volume trend.</h3>
+        <div className="flex items-baseline justify-between mb-md">
+          <h3 className="text-heading-3 text-[var(--cc-ink)]">Transaction volume</h3>
+          <span className="text-caption text-[var(--cc-muted)]">Last 10 days</span>
+        </div>
         <VolumeChart data={transactionData} />
       </div>
 
       {/* Gas Statistics */}
       <div className="cc-card p-lg">
-        <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">GAS</p>
-        <h3 className="text-heading-3 text-[var(--cc-ink)] mb-md">Gas usage statistics.</h3>
+        <div className="flex items-baseline justify-between mb-md">
+          <h3 className="text-heading-3 text-[var(--cc-ink)]">Gas usage</h3>
+          <span className="text-caption text-[var(--cc-muted)]">Recent days</span>
+        </div>
         <div className="space-y-sm">
           {transactionData.slice(-5).map((d) => (
             <div key={d.date} className="flex items-center justify-between p-sm bg-[var(--cc-canvas-soft)] rounded-md">
@@ -167,8 +171,10 @@ export default React.memo(function TransactionAnalytics() {
 
       {/* Failed Transactions Analysis */}
       <div className="cc-card p-lg">
-        <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">FAILURES</p>
-        <h3 className="text-heading-3 text-[var(--cc-ink)] mb-md">Failed transactions by reason.</h3>
+        <div className="flex items-baseline justify-between mb-md">
+          <h3 className="text-heading-3 text-[var(--cc-ink)]">Failed transactions</h3>
+          <span className="text-caption text-[var(--cc-muted)]">By reason</span>
+        </div>
         <div className="space-y-sm">
           {failedTransactions.map((f) => (
             <div key={f.reason}>

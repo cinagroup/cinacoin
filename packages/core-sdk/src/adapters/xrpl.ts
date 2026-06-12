@@ -1131,7 +1131,7 @@ export class XrplChainAdapter {
       const result = await this.provider.connect();
       this._accounts = result.accounts.map((a) => normalizeXrplAddress(a.address));
     } catch (err) {
-      logger.warn(`[core-sdk:connect] error:`, err);
+      logger.warn(`[core-sdk:connect] error:`, err as Record<string, unknown>);
       // Fallback: try getAccounts directly
       const accounts = await this.provider.getAccounts();
       this._accounts = accounts.map((a) => normalizeXrplAddress(a.address));
@@ -1146,7 +1146,7 @@ export class XrplChainAdapter {
       try {
         await this.provider.disconnect();
       } catch (err) {
-        logger.warn(`[core-sdk:disconnect] error:`, err);
+        logger.warn(`[core-sdk:disconnect] error:`, err as Record<string, unknown>);
       }
     }
     this.provider = null;
@@ -1201,7 +1201,7 @@ export class XrplChainAdapter {
         normalizeXrplAddress(address),
       );
     } catch (err) {
-      logger.warn(`[core-sdk:getBalance] error:`, err);
+      logger.warn(`[core-sdk:getBalance] error:`, err as Record<string, unknown>);
       return '0';
     }
   }
@@ -1241,7 +1241,7 @@ export class XrplChainAdapter {
         ledgerIndex: Number(result.ledger_index ?? result.ledger_current_index ?? 0),
       };
     } catch (err) {
-      logger.warn(`[core-sdk:getAccountInfo] error:`, err);
+      logger.warn(`[core-sdk:getAccountInfo] error:`, err as Record<string, unknown>);
       return null;
     }
   }
@@ -1274,7 +1274,7 @@ export class XrplChainAdapter {
         frozen: line.frozen ?? false,
       }));
     } catch (err) {
-      logger.warn(`[core-sdk:getTrustLines] error:`, err);
+      logger.warn(`[core-sdk:getTrustLines] error:`, err as Record<string, unknown>);
       return [];
     }
   }
@@ -1332,7 +1332,7 @@ export class XrplChainAdapter {
         const result = await this.provider.signAndSubmit(txObj);
         return result.hash;
       } catch (err) {
-        logger.warn(`[core-sdk:sendTransaction] error:`, err);
+        logger.warn(`[core-sdk:sendTransaction] error:`, err as Record<string, unknown>);
         // Fall through to manual sign + submit
       }
     }
@@ -1448,7 +1448,7 @@ export class XrplChainAdapter {
         expiration: offer.Expiration,
       }));
     } catch (err) {
-      logger.warn(`[core-sdk:getOffers] error:`, err);
+      logger.warn(`[core-sdk:getOffers] error:`, err as Record<string, unknown>);
       return [];
     }
   }
@@ -1583,7 +1583,7 @@ export class XrplChainAdapter {
         ledgerIndex: result.ledger_index,
       }));
     } catch (err) {
-      logger.warn(`[core-sdk:getNfts] error:`, err);
+      logger.warn(`[core-sdk:getNfts] error:`, err as Record<string, unknown>);
       return [];
     }
   }
@@ -1775,7 +1775,7 @@ export class XrplChainAdapter {
         date: t.date,
       }));
     } catch (err) {
-      logger.warn(`[core-sdk:getTransactions] error:`, err);
+      logger.warn(`[core-sdk:getTransactions] error:`, err as Record<string, unknown>);
       return [];
     }
   }
@@ -1798,7 +1798,7 @@ export class XrplChainAdapter {
         date: result.date,
       };
     } catch (err) {
-      logger.warn(`[core-sdk:getTransaction] error:`, err);
+      logger.warn(`[core-sdk:getTransaction] error:`, err as Record<string, unknown>);
       return null;
     }
   }

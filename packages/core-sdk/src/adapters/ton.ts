@@ -161,7 +161,7 @@ export function parseTONAddress(address: TONAddress): {
       },
     };
   } catch (err) {
-    logger.warn(`[core-sdk:parseTONAddress] error:`, err);
+    logger.warn(`[core-sdk:parseTONAddress] error:`, err as Record<string, unknown>);
     return null;
   }
 }

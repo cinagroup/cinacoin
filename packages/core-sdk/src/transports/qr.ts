@@ -67,7 +67,7 @@ export class QRTransport extends Connector {
         const data = JSON.parse(payload as string);
         this.emit('message', data);
       } catch (err) {
-        logger.warn(`[core-sdk:setupRelayListeners] error:`, err);
+        logger.warn(`[core-sdk:setupRelayListeners] error:`, err as Record<string, unknown>);
         // Encrypted payload — will be decrypted at the session layer
         this.emit('encryptedMessage', payload);
       }
@@ -143,7 +143,7 @@ export class QRTransport extends Connector {
             reject(createError(WALLET_CONNECT.SESSION_PROPOSAL_REJECTED.code, 'Session proposal received — handle approval in UI layer'));
           }
         } catch (err) {
-          logger.warn(`[core-sdk:connect] error:`, err);
+          logger.warn(`[core-sdk:connect] error:`, err as Record<string, unknown>);
           // Encrypted — ignore at transport level
         }
       };

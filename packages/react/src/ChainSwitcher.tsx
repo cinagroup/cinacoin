@@ -40,7 +40,7 @@ export function ChainSwitcher({
     el.activeChainId = activeChainId;
 
     const handleChainChange = (e: Event) => {
-      const detail = (e as CustomEvent).detail;
+      const detail = (e as CustomEvent).detail as { chainId?: number } | undefined;
       if (detail?.chainId) {
         switchChain(detail.chainId).catch((err) => console.error('[ChainSwitcher] switchChain failed:', err));
         onChainChange?.(detail.chainId);
@@ -61,19 +61,4 @@ export function ChainSwitcher({
       style={style}
     />
   );
-}
-
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      'ocx-chain-switcher': React.DetailedHTMLProps<
-        React.HTMLAttributes<HTMLElement> & {
-          'active-chain-id'?: number;
-          className?: string;
-          style?: CSSProperties;
-        },
-        HTMLElement
-      >;
-    }
-  }
 }

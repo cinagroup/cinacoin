@@ -40,7 +40,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-    logger.error('[ErrorBoundary] Caught a React error:', error, errorInfo);
+    logger.error('[ErrorBoundary] Caught a React error:', { error, errorInfo });
   }
 
   resetError = (): void => {

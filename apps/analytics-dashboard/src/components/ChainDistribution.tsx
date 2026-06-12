@@ -116,10 +116,7 @@ export default React.memo(function ChainDistribution() {
     <div className="space-y-lg">
       {/* Period Selector */}
       <div className="flex items-center justify-between">
-        <div>
-          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">NETWORKS</p>
-          <h3 className="text-heading-3 text-[var(--cc-ink)]">Chain distribution.</h3>
-        </div>
+        <h3 className="text-heading-3 text-[var(--cc-ink)]">Chain distribution</h3>
         <div className="flex bg-[var(--cc-canvas-soft-2)] rounded-md p-xxs">
           {(["24h", "7d", "30d"] as const).map((p) => (
             <button
@@ -164,7 +161,7 @@ export default React.memo(function ChainDistribution() {
 
       {/* Bar Comparison */}
       <div>
-        <h4 className="text-body font-medium text-[var(--cc-ink)] mb-sm">Transaction volume.</h4>
+        <h4 className="text-body font-medium text-[var(--cc-ink)] mb-sm">Transaction volume</h4>
         <div className="space-y-xs">
           {data.map((item) => (
             <div key={item.name} className="flex items-center gap-sm">

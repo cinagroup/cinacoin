@@ -50,7 +50,7 @@ function TokenSparkline({ positive }: { positive: boolean }) {
 }
 
 export default function TokensPage() {
-  const { account, status } = useWallet();
+  const { status } = useWallet();
   const { success } = useToast();
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true);

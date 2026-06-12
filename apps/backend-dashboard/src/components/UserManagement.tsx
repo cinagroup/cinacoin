@@ -12,12 +12,14 @@ interface User {
 }
 
 const mockUsers: User[] = [
-  { id: "1", name: "John Doe", email: "john@example.com", role: "Admin", status: "active", createdAt: "2024-01-15" },
-  { id: "2", name: "Jane Smith", email: "jane@example.com", role: "Editor", status: "active", createdAt: "2024-02-20" },
-  { id: "3", name: "Bob Wilson", email: "bob@example.com", role: "User", status: "suspended", createdAt: "2024-03-10" },
-  { id: "4", name: "Alice Brown", email: "alice@example.com", role: "User", status: "active", createdAt: "2024-04-05" },
-  { id: "5", name: "Charlie Davis", email: "charlie@example.com", role: "Moderator", status: "pending", createdAt: "2024-05-12" },
-  { id: "6", name: "Diana Miller", email: "diana@example.com", role: "User", status: "active", createdAt: "2024-06-18" },
+  { id: "1", name: "Sarah Johnson", email: "sarah.johnson@techcorp.io", role: "Admin", status: "active", createdAt: "2024-01-15" },
+  { id: "2", name: "Michael Chen", email: "m.chen@startup.dev", role: "Editor", status: "active", createdAt: "2024-02-20" },
+  { id: "3", name: "Robert Williams", email: "r.williams@enterprise.com", role: "User", status: "suspended", createdAt: "2024-03-10" },
+  { id: "4", name: "Emma Davis", email: "emma.d@agency.co", role: "User", status: "active", createdAt: "2024-04-05" },
+  { id: "5", name: "James Martinez", email: "james.m@freelance.net", role: "Moderator", status: "pending", createdAt: "2024-05-12" },
+  { id: "6", name: "Lisa Anderson", email: "l.anderson@retail.com", role: "User", status: "active", createdAt: "2024-06-18" },
+  { id: "7", name: "David Thompson", email: "d.thompson@finance.io", role: "Editor", status: "active", createdAt: "2024-07-22" },
+  { id: "8", name: "Jennifer Lee", email: "jen.lee@design.studio", role: "User", status: "active", createdAt: "2024-08-30" },
 ];
 
 const statusBadge: Record<string, string> = {
@@ -30,7 +32,6 @@ export function UserManagement() {
   const [users, setUsers] = useState<User[]>(mockUsers);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedUsers, setSelectedUsers] = useState<Set<string>>(new Set());
-  const [showBatchActions, setShowBatchActions] = useState(false);
   const [confirmAction, setConfirmAction] = useState<{ type: "delete" | "disable"; count: number; userIds?: string[] } | null>(null);
   const [editingUser, setEditingUser] = useState<User | null>(null);
   const [showAddUser, setShowAddUser] = useState(false);
@@ -42,7 +43,6 @@ export function UserManagement() {
   );
 
   const allSelected = filteredUsers.length > 0 && selectedUsers.size === filteredUsers.length;
-  const someSelected = selectedUsers.size > 0 && selectedUsers.size < filteredUsers.length;
 
   const handleSelectAll = () => {
     if (allSelected) {
@@ -292,19 +292,22 @@ export function UserManagement() {
 
       <div className="cc-card">
         <div className="p-md border-b border-[var(--cc-hairline)]">
-          <div className="flex items-center justify-between">
-            <h2 className="cc-body-md-strong text-[var(--cc-ink)]">User management.</h2>
+          <div className="flex items-center justify-between mb-3">
+            <div>
+              <h2 className="cc-body-md-strong text-[var(--cc-ink)]">User management.</h2>
+              <p className="cc-caption text-[var(--cc-muted)] mt-1">{users.length} total users · {users.filter(u => u.status === 'active').length} active</p>
+            </div>
             <button className="cc-btn-primary" onClick={handleAddUser}>
-              + Add User
+              + Add user
             </button>
           </div>
-          <div className="mt-md flex items-center gap-3">
+          <div className="flex items-center gap-3">
             <input
               type="text"
-              placeholder="Search users..."
+              placeholder="Search by name or email..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="cc-form-input max-w-md"
+              className="cc-form-input flex-1 max-w-sm"
               aria-label="Search users"
             />
             {filteredUsers.length > 0 && (
@@ -312,7 +315,7 @@ export function UserManagement() {
                 onClick={handleSelectAll}
                 className="cc-btn-secondary cc-caption"
               >
-                {allSelected ? "Deselect All" : "Select All"}
+                {allSelected ? "Deselect all" : "Select all"}
               </button>
             )}
           </div>

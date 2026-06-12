@@ -1175,7 +1175,7 @@ export class SuiChainAdapter {
       });
       this._accounts = result.accounts.map((a) => a.address);
     } catch (err) {
-      logger.warn(`[core-sdk:connect] error:`, err);
+      logger.warn(`[core-sdk:connect] error:`, err as Record<string, unknown>);
       // Fallback: try getAccounts directly
       const accounts = await this.provider.getAccounts();
       this._accounts = accounts.map((a) => a.address);
@@ -1190,7 +1190,7 @@ export class SuiChainAdapter {
       try {
         await this.provider.disconnect();
       } catch (err) {
-        logger.warn(`[core-sdk:disconnect] error:`, err);
+        logger.warn(`[core-sdk:disconnect] error:`, err as Record<string, unknown>);
       }
     }
     this.provider = null;
@@ -1247,7 +1247,7 @@ export class SuiChainAdapter {
       );
       return result.totalBalance;
     } catch (err) {
-      logger.warn(`[core-sdk:getBalance] error:`, err);
+      logger.warn(`[core-sdk:getBalance] error:`, err as Record<string, unknown>);
       // Fallback: query coins and sum
       try {
         const coins = await this._getRpcClient().getCoins(
@@ -1261,7 +1261,7 @@ export class SuiChainAdapter {
         }
         return total.toString();
       } catch (err) {
-        logger.warn(`[core-sdk:getBalance] fallback error:`, err);
+        logger.warn(`[core-sdk:getBalance] fallback error:`, err as Record<string, unknown>);
         return '0';
       }
     }
@@ -1292,7 +1292,7 @@ export class SuiChainAdapter {
         normalizeSuiAddress(address),
       );
     } catch (err) {
-      logger.warn(`[core-sdk:getAllBalances] error:`, err);
+      logger.warn(`[core-sdk:getAllBalances] error:`, err as Record<string, unknown>);
       return [];
     }
   }
@@ -1318,7 +1318,7 @@ export class SuiChainAdapter {
       );
       return result.data;
     } catch (err) {
-      logger.warn(`[core-sdk:getCoins] error:`, err);
+      logger.warn(`[core-sdk:getCoins] error:`, err as Record<string, unknown>);
       return [];
     }
   }
@@ -1364,7 +1364,7 @@ export class SuiChainAdapter {
         const effects = result.effects;
         if (effects?.transactionDigest) return effects.transactionDigest;
       } catch (err) {
-        logger.warn(`[core-sdk:sendTransaction] error:`, err);
+        logger.warn(`[core-sdk:sendTransaction] error:`, err as Record<string, unknown>);
         // Fall through to manual sign + execute
       }
     }
@@ -1506,7 +1506,7 @@ export class SuiChainAdapter {
         previousTransaction: result.data.previousTransaction,
       };
     } catch (err) {
-      logger.warn(`[core-sdk:getObject] error:`, err);
+      logger.warn(`[core-sdk:getObject] error:`, err as Record<string, unknown>);
       return null;
     }
   }
@@ -1529,7 +1529,7 @@ export class SuiChainAdapter {
       );
       return result.data;
     } catch (err) {
-      logger.warn(`[core-sdk:getOwnedObjects] error:`, err);
+      logger.warn(`[core-sdk:getOwnedObjects] error:`, err as Record<string, unknown>);
       return [];
     }
   }

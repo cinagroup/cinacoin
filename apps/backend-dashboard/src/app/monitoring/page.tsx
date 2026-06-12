@@ -60,25 +60,37 @@ export default function MonitoringPage() {
         </select>
       </div>
 
-      {/* 指标图表 */}
+      {/* Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="cc-card p-6">
-          <h3 className="text-body font-medium mb-2">Avg response time.</h3>
-          <p className="text-heading-2 text-link">
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="cc-caption text-[var(--cc-muted)]">Avg response time</h3>
+            <span className="cc-caption text-[var(--cc-success)]">↓ 12%</span>
+          </div>
+          <p className="cc-display-sm text-[var(--cc-ink)]">
             {metrics[metrics.length - 1]?.avgResponseTime || 0} ms
           </p>
+          <p className="cc-caption text-[var(--cc-muted)] mt-1">vs. 142ms yesterday</p>
         </div>
         <div className="cc-card p-6">
-          <h3 className="text-body font-medium mb-2">Error rate.</h3>
-          <p className="text-heading-2 text-link">
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="cc-caption text-[var(--cc-muted)]">Error rate</h3>
+            <span className="cc-caption text-[var(--cc-success)]">↓ 0.3%</span>
+          </div>
+          <p className="cc-display-sm text-[var(--cc-ink)]">
             {metrics[metrics.length - 1]?.errorRate || 0}%
           </p>
+          <p className="cc-caption text-[var(--cc-muted)] mt-1">Target: &lt; 1%</p>
         </div>
         <div className="cc-card p-6">
-          <h3 className="text-body font-medium mb-2">Total requests.</h3>
-          <p className="text-heading-2 text-link">
-            {metrics.reduce((sum, m) => sum + m.requestCount, 0)}
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="cc-caption text-[var(--cc-muted)]">Total requests</h3>
+            <span className="cc-caption text-[var(--cc-success)]">↑ 18%</span>
+          </div>
+          <p className="cc-display-sm text-[var(--cc-ink)]">
+            {metrics.reduce((sum, m) => sum + m.requestCount, 0).toLocaleString()}
           </p>
+          <p className="cc-caption text-[var(--cc-muted)] mt-1">Last 24 hours</p>
         </div>
       </div>
 

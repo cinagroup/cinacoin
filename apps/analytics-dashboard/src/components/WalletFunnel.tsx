@@ -113,18 +113,18 @@ export default React.memo(function WalletFunnel() {
       {/* Overall Conversion Rate */}
       <div className="flex items-center gap-lg">
         <div className="cc-card p-md flex-1">
-          <p className="text-body-sm text-[var(--cc-muted)] mb-xxs">Overall Conversion</p>
-          <p className="text-display-sm text-[var(--cc-success)]">{overallConversion}%</p>
+          <p className="text-body-sm text-[var(--cc-muted)]">Overall conversion</p>
+          <p className="text-display-sm text-[var(--cc-success)] mt-1">{overallConversion}%</p>
         </div>
         <div className="cc-card p-md flex-1">
-          <p className="text-body-sm text-[var(--cc-muted)] mb-xxs">Total Attempts</p>
-          <p className="text-display-sm text-[var(--cc-ink)]">
+          <p className="text-body-sm text-[var(--cc-muted)]">Total attempts</p>
+          <p className="text-display-sm text-[var(--cc-ink)] mt-1">
             {aggregatedSteps[0]?.count.toLocaleString() || 0}
           </p>
         </div>
         <div className="cc-card p-md flex-1">
-          <p className="text-body-sm text-[var(--cc-muted)] mb-xxs">Completed</p>
-          <p className="text-display-sm text-[var(--cc-ink)]">
+          <p className="text-body-sm text-[var(--cc-muted)]">Completed</p>
+          <p className="text-display-sm text-[var(--cc-ink)] mt-1">
             {aggregatedSteps[aggregatedSteps.length - 1]?.count.toLocaleString() || 0}
           </p>
         </div>
@@ -173,7 +173,7 @@ export default React.memo(function WalletFunnel() {
       {/* Per-Wallet Breakdown */}
       {selectedWallet === "all" && (
         <div>
-          <h4 className="text-body font-medium text-[var(--cc-ink)] mb-sm">By wallet type.</h4>
+          <h4 className="text-body font-medium text-[var(--cc-ink)] mb-sm">By wallet type</h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-sm">
             {funnelData.map((w) => {
               const first = w.steps[0].count;

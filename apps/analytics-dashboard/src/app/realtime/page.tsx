@@ -17,10 +17,9 @@ export default function RealtimePage() {
 
       {/* Main Content */}
       <main id="main-content" className="max-w-7xl mx-auto px-lg py-xl">
-        <div className="mb-lg">
-          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">REALTIME</p>
-          <h2 className="text-heading-2 text-[var(--cc-ink)]">Realtime dashboard.</h2>
-          <p className="text-body text-[var(--cc-body)] mt-xxs">Live metrics and transaction stream.</p>
+        <div className="mb-lg flex items-baseline justify-between">
+          <h2 className="text-heading-2 text-[var(--cc-ink)]">Realtime</h2>
+          <span className="text-caption text-[var(--cc-muted)]">Streaming live data</span>
         </div>
         <RealtimeDashboard />
       </main>

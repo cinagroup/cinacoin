@@ -140,7 +140,7 @@ export class SessionManager extends EventEmitter {
         this.emit('stateChange', this.state);
       }
     } catch (err) {
-      logger.warn(`[core-sdk:restore] error:`, err);
+      logger.warn(`[core-sdk:restore] error:`, err as Record<string, unknown>);
       // Corrupted storage — ignore
     }
 
@@ -219,7 +219,7 @@ export class SessionManager extends EventEmitter {
       try {
         await this._connector.disconnect();
       } catch (err) {
-        logger.warn(`[core-sdk:terminate] error:`, err);
+        logger.warn(`[core-sdk:terminate] error:`, err as Record<string, unknown>);
       }
       this._connector = null;
     }

@@ -97,28 +97,3 @@ export function ConnectButton({
     />
   );
 }
-
-// Type declaration for the custom element
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      'ocx-connect-button': React.DetailedHTMLProps<
-        React.HTMLAttributes<HTMLElement> & {
-          variant?: string;
-          size?: string;
-          label?: string;
-          state?: string;
-          address?: string;
-          balance?: string;
-          'chain-symbol'?: string;
-          'show-balance'?: boolean;
-          'show-avatar'?: boolean;
-          'show-network'?: boolean;
-          className?: string;
-          style?: CSSProperties;
-        },
-        HTMLElement
-      >;
-    }
-  }
-}

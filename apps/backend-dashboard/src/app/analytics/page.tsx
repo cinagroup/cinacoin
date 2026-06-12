@@ -72,7 +72,7 @@ export default function AnalyticsPage() {
         <div>
           <h1 className="cc-display-sm text-[var(--cc-ink)]">Analytics.</h1>
           <p className="cc-body-sm text-[var(--cc-muted)] mt-1">
-            AppKit usage metrics and connection analytics
+            Last 90 days · Updated 5 min ago
           </p>
         </div>
         <div className="flex gap-2 flex-wrap" role="group" aria-label="Time range selector">

@@ -37,7 +37,7 @@ export function isValidFelt(value: string): boolean {
     const n = BigInt(value);
     return n >= 0n && n < Felt252_MAX;
   } catch (err) {
-    logger.warn(`[core-sdk:isValidFelt] error:`, err);
+    logger.warn(`[core-sdk:isValidFelt] error:`, err as Record<string, unknown>);
     return false;
   }
 }
@@ -817,7 +817,7 @@ export class StarknetChainAdapter {
       const addresses = await this.provider.enable();
       this._accounts = addresses.map((a) => normalizeStarknetAddress(a));
     } catch (err) {
-      logger.warn(`[core-sdk:connect] error:`, err);
+      logger.warn(`[core-sdk:connect] error:`, err as Record<string, unknown>);
       // Some wallets may throw; try to get account from provider
       if (this.provider.account?.address) {
         this._accounts = [normalizeStarknetAddress(this.provider.account.address)];
@@ -837,7 +837,7 @@ export class StarknetChainAdapter {
       try {
         await this.provider.disconnect();
       } catch (err) {
-        logger.warn(`[core-sdk:disconnect] error:`, err);
+        logger.warn(`[core-sdk:disconnect] error:`, err as Record<string, unknown>);
       }
     }
     this.provider = null;
@@ -887,7 +887,7 @@ export class StarknetChainAdapter {
         normalizeStarknetAddress(address),
       );
     } catch (err) {
-      logger.warn(`[core-sdk:getBalance] error:`, err);
+      logger.warn(`[core-sdk:getBalance] error:`, err as Record<string, unknown>);
       return '0x0';
     }
   }
@@ -937,7 +937,7 @@ export class StarknetChainAdapter {
 
       return result.result?.[0] ?? '0x0';
     } catch (err) {
-      logger.warn(`[core-sdk:getTokenBalance] error:`, err);
+      logger.warn(`[core-sdk:getTokenBalance] error:`, err as Record<string, unknown>);
       return '0x0';
     }
   }
@@ -972,7 +972,7 @@ export class StarknetChainAdapter {
         });
         return (result as { transaction_hash: string }).transaction_hash;
       } catch (err) {
-        logger.warn(`[core-sdk:sendTransaction] error:`, err);
+        logger.warn(`[core-sdk:sendTransaction] error:`, err as Record<string, unknown>);
         // Try alternative method names
         try {
           const result = await this.provider.request({
@@ -1092,7 +1092,7 @@ export class StarknetChainAdapter {
       if (sig.r && sig.s) return JSON.stringify({ r: sig.r, s: sig.s });
       return JSON.stringify(result);
     } catch (err) {
-      logger.warn(`[core-sdk:signMessage] error:`, err);
+      logger.warn(`[core-sdk:signMessage] error:`, err as Record<string, unknown>);
       // Try starknet_signMessage (alternative)
       try {
         const result = await this.provider.request({
@@ -1133,7 +1133,7 @@ export class StarknetChainAdapter {
       if (sig.signature) return sig.signature.map(String);
       return [JSON.stringify(result)];
     } catch (err) {
-      logger.warn(`[core-sdk:signTransaction] error:`, err);
+      logger.warn(`[core-sdk:signTransaction] error:`, err as Record<string, unknown>);
       // Try starknet_signTransaction (alternative)
       try {
         const result = await this.provider.request({
@@ -1242,7 +1242,7 @@ export class StarknetChainAdapter {
       await this._getRpcClient().getClassHashAt(normalizeStarknetAddress(address));
       return true;
     } catch (err) {
-      logger.warn(`[core-sdk:isDeployedAccount] error:`, err);
+      logger.warn(`[core-sdk:isDeployedAccount] error:`, err as Record<string, unknown>);
       return false;
     }
   }
@@ -1258,7 +1258,7 @@ export class StarknetChainAdapter {
         normalizeStarknetAddress(address),
       );
     } catch (err) {
-      logger.warn(`[core-sdk:getAccountClassHash] error:`, err);
+      logger.warn(`[core-sdk:getAccountClassHash] error:`, err as Record<string, unknown>);
       return null;
     }
   }
@@ -1357,7 +1357,7 @@ export class StarknetChainAdapter {
       });
       return result.overall_fee;
     } catch (err) {
-      logger.warn(`[core-sdk:estimateGas] error:`, err);
+      logger.warn(`[core-sdk:estimateGas] error:`, err as Record<string, unknown>);
       // Return a default estimate
       return '0x2386f26fc10000'; // ~0.001 STRK
     }

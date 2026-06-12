@@ -110,7 +110,7 @@ export class ViemChainAdapter implements ChainAdapter {
         const id = parseInt(c.id, 16) || parseInt(c.id, 10);
         return id === chainId;
       } catch (err) {
-        logger.warn(`[core-sdk:findChain] error:`, err);
+        logger.warn(`[core-sdk:findChain] error:`, err as Record<string, unknown>);
         return false;
       }
     });
@@ -202,7 +202,7 @@ export class ViemChainAdapter implements ChainAdapter {
         params: [{ chainId: hexChainId }],
       });
     } catch (err) {
-      logger.warn(`[core-sdk:switchChain] error:`, err);
+      logger.warn(`[core-sdk:switchChain] error:`, err as Record<string, unknown>);
       // Fallback to connector switchChain
       if (this.connector) {
         return this.connector.switchChain(chainId);

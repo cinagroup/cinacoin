@@ -114,21 +114,35 @@ export default function RealtimeDashboard() {
       {/* KPI Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-lg">
         <div className="cc-card p-lg" role="region" aria-label="Active users metric">
-          <p className="text-body-sm text-[var(--cc-muted)] mb-xs">Active users.</p>
+          <div className="flex items-center justify-between mb-xs">
+            <p className="text-body-sm text-[var(--cc-muted)]">Active users</p>
+            <span className="inline-flex items-center gap-xxs text-caption font-medium px-xs py-xxs rounded-full badge-success">
+              <span className="w-1.5 h-1.5 rounded-full bg-[var(--cc-success)] animate-pulse" />
+              Live
+            </span>
+          </div>
           <p className="text-display-lg text-[var(--cc-ink)] text-code tabular-nums">
             {formatNumber(data.activeUsers)}
           </p>
         </div>
         <div className="cc-card p-lg" role="region" aria-label="Transactions per second metric">
-          <p className="text-body-sm text-[var(--cc-muted)] mb-xs">Transactions per second.</p>
+          <div className="flex items-center justify-between mb-xs">
+            <p className="text-body-sm text-[var(--cc-muted)]">Transactions per second</p>
+            <span className="inline-flex items-center gap-xxs text-caption font-medium px-xs py-xxs rounded-full badge-success">
+              <span className="w-1.5 h-1.5 rounded-full bg-[var(--cc-success)] animate-pulse" />
+              Live
+            </span>
+          </div>
           <p className="text-display-lg text-[var(--cc-ink)] text-code tabular-nums">{data.tps}</p>
         </div>
       </div>
 
       {/* Realtime Transaction Stream */}
       <div className="cc-card p-lg">
-        <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">STREAM</p>
-        <h3 className="text-heading-3 text-[var(--cc-ink)] mb-md">Live transaction stream.</h3>
+        <div className="flex items-baseline justify-between mb-md">
+          <h3 className="text-heading-3 text-[var(--cc-ink)]">Live transaction stream</h3>
+          <span className="text-caption text-[var(--cc-muted)]">Last 20 transactions</span>
+        </div>
         <div className="space-y-xs max-h-96 overflow-y-auto" role="log" aria-label="Live transactions">
           {data.transactions.length === 0 ? (
             <p className="text-body text-[var(--cc-muted)] text-center py-lg">Waiting for transactions...</p>
@@ -142,8 +156,10 @@ export default function RealtimeDashboard() {
 
       {/* Global Heatmap */}
       <div className="cc-card p-lg">
-        <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">GEOGRAPHY</p>
-        <h3 className="text-heading-3 text-[var(--cc-ink)] mb-md">Global request distribution.</h3>
+        <div className="flex items-baseline justify-between mb-md">
+          <h3 className="text-heading-3 text-[var(--cc-ink)]">Global request distribution</h3>
+          <span className="text-caption text-[var(--cc-muted)]">By region</span>
+        </div>
         <div className="space-y-sm">
           {data.heatmap.map((item) => (
             <HeatmapRow key={item.region} item={item} maxRequests={maxHeatmapRequests} formatNumber={formatNumber} />

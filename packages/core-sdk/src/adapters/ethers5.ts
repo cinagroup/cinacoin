@@ -359,7 +359,7 @@ export class Ethers5Adapter extends EventEmitter implements Connector {
         const id = parseInt(c.id, 16) || parseInt(c.id, 10);
         return id === chainId;
       } catch (err) {
-        logger.warn(`[core-sdk:findChain] error:`, err);
+        logger.warn(`[core-sdk:findChain] error:`, err as Record<string, unknown>);
         return false;
       }
     });

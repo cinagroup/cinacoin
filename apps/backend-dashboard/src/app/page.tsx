@@ -65,12 +65,19 @@ export default function Home() {
 
         <div className="max-w-7xl mx-auto">
           <header className="mb-lg hidden lg:block">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="cc-caption-mono text-[var(--cc-muted)]">ADMIN</span>
+              <span className="text-[var(--cc-hairline)]">/</span>
+              <span className="cc-caption-mono text-[var(--cc-link)]">{activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}</span>
+            </div>
             <h1 className="cc-display-sm text-[var(--cc-ink)]">
-              Backend administration.
+              {activeTab === "users" && "User management."}
+              {activeTab === "newsletter" && "Newsletter subscribers."}
+              {activeTab === "permissions" && "Permission roles."}
+              {activeTab === "2fa" && "Two-factor authentication."}
+              {activeTab === "audit" && "Audit log."}
+              {activeTab === "config" && "System configuration."}
             </h1>
-            <p className="cc-body-md text-[var(--cc-body)] mt-1">
-              Manage users, permissions, and system configuration.
-            </p>
           </header>
 
           {activeTab === "users" && <UserManagement />}

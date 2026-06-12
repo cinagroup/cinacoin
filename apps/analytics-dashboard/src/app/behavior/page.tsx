@@ -30,15 +30,13 @@ export default function BehaviorPage() {
       {/* Main Content */}
       <main id="main-content" className="max-w-7xl mx-auto px-lg py-xl">
         <div className="mb-lg">
-          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">BEHAVIOR</p>
-          <h2 className="text-heading-2 text-[var(--cc-ink)]">User behavior analytics.</h2>
-          <p className="text-body text-[var(--cc-body)] mt-xxs">Wallet connections, chain usage, retention, and transaction patterns.</p>
+          <h2 className="text-heading-2 text-[var(--cc-ink)]">User behavior</h2>
+          <p className="text-body text-[var(--cc-body)] mt-1">Wallet connections, chain usage, retention, and transaction patterns.</p>
         </div>
 
         {/* Wallet Funnel */}
         <div className="cc-card p-lg mb-xl">
-          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">CONNECTION</p>
-          <h3 className="text-heading-3 text-[var(--cc-ink)] mb-lg">Wallet connection funnel.</h3>
+          <h3 className="text-heading-3 text-[var(--cc-ink)] mb-lg">Wallet connection funnel</h3>
           <WalletFunnel />
         </div>
 
