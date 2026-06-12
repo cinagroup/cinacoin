@@ -15,7 +15,7 @@ export const SiteHeader: React.FC = () => {
       <a href="#main-content" className="skip-link">Skip to main content</a>
       <header className="cc-navbar relative" role="banner">
         <div className="max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          <Link to="/" aria-label="Cinacoin home">
+          <Link to="/" aria-label="CinaCoin home">
             <Brand as="span" />
           </Link>
 

@@ -141,7 +141,7 @@ export default function Home(): JSX.Element {
         >
           CinaCoin SDK v0.2. Self-hosted wallet connection toolkit.{' '}
           <a
-            href="https://github.com/cinagroup/Cinacoin"
+            href="https://github.com/cinagroup/cinacoin"
             style={{ color: 'var(--cc-accent-soft)', textDecoration: 'none' }}
             target="_blank"
             rel="noopener noreferrer"

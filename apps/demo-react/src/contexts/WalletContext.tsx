@@ -215,8 +215,8 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
  methods: ['eth_sendTransaction', 'personal_sign'],
  events: ['chainChanged', 'accountsChanged'],
  metadata: {
- name: 'Cinacoin Demo',
- description: 'Cinacoin Demo Application',
+ name: 'CinaCoin Demo',
+ description: 'CinaCoin Demo Application',
  url: import.meta.env.VITE_APP_URL ?? 'https://react.cinacoin.com',
  icons: ['https://avatars.githubusercontent.com/u/37784886'],
  },
