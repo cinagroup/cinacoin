@@ -33,29 +33,44 @@ export default function AboutContent() {
       <Navbar />
       <Breadcrumbs />
 
-      {/* Hero */}
+      {/* Hero - Left-aligned for variety */}
       <section className="relative pt-32 pb-16 sm:pt-40 sm:pb-20">
         <FadeIn>
-          <div id="main-content" className="cc-container mx-auto max-w-4xl px-6 text-center">
-            <h1 className="cc-display-xl">
-              {t('about-hero-title')}{' '}
-              <span className="text-[var(--cc-link)]">{t('about-hero-title-highlight')}</span>
-              {', '}{t('about-hero-by')}
-            </h1>
-            <p
-              className="mt-6 cc-body-lg text-[var(--cc-body)] max-w-2xl mx-auto"
-              dangerouslySetInnerHTML={{ __html: sanitizeHtml(t('about-hero-subtitle')) }}
-            />
+          <div id="main-content" className="cc-container mx-auto max-w-7xl px-6">
+            <div className="max-w-3xl">
+              <p className="font-mono text-xs text-[var(--cc-muted)] mb-3 tracking-wide">About us</p>
+              <h1 className="cc-display-xl mb-6">
+                {t('about-hero-title')}{' '}
+                <span className="text-[var(--cc-link)]">{t('about-hero-title-highlight')}</span>
+                {', '}{t('about-hero-by')}
+              </h1>
+              <p
+                className="cc-body-lg text-[var(--cc-body)] leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: sanitizeHtml(t('about-hero-subtitle')) }}
+              />
+            </div>
           </div>
         </FadeIn>
       </section>
 
-      {/* Principles */}
+      {/* Principles - Asymmetric layout */}
       <section className="pb-20 sm:pb-28">
         <div className="cc-container mx-auto max-w-7xl px-6">
-          <FadeIn>
-            <h2 className="cc-display-md text-center mb-12">{t('about-principles-title')}</h2>
-          </FadeIn>
+          <div className="grid md:grid-cols-2 gap-12 items-start mb-12">
+            <div>
+              <FadeIn>
+                <p className="font-mono text-xs text-[var(--cc-muted)] mb-3 tracking-wide">Our principles</p>
+                <h2 className="cc-display-lg">{t('about-principles-title')}</h2>
+              </FadeIn>
+            </div>
+            <div className="md:pt-8">
+              <FadeIn delay={100}>
+                <p className="cc-body-lg text-[var(--cc-body)] leading-relaxed">
+                  The ideas that guide everything we build.
+                </p>
+              </FadeIn>
+            </div>
+          </div>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {[
               { iconKey: 'about-p1-icon', titleKey: 'about-p1-title', descKey: 'about-p1-desc' },
@@ -80,11 +95,12 @@ export default function AboutContent() {
         </div>
       </section>
 
-      {/* Timeline */}
+      {/* Timeline - Left-aligned header */}
       <section className="border-t border-[var(--cc-hairline)] py-20 sm:py-28">
         <div className="cc-container mx-auto max-w-3xl px-6">
           <FadeIn>
-            <h2 className="cc-display-md text-center mb-12">{t('about-timeline-title')}</h2>
+            <p className="font-mono text-xs text-[var(--cc-muted)] mb-3 tracking-wide">Our journey</p>
+            <h2 className="cc-display-lg mb-12">{t('about-timeline-title')}</h2>
           </FadeIn>
           <div className="space-y-0">
             {timelineData.map((item, i) => (
@@ -111,8 +127,8 @@ export default function AboutContent() {
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="border-t border-[var(--cc-hairline)] py-16 sm:py-20">
+      {/* Stats - Dark band for variety */}
+      <section className="border-t border-[var(--cc-hairline)] py-16 sm:py-20 bg-[var(--cc-ink)] text-[var(--cc-canvas)]">
         <div className="cc-container mx-auto max-w-5xl px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
@@ -123,10 +139,10 @@ export default function AboutContent() {
             ].map((stat, i) => (
               <FadeIn key={stat.labelKey} delay={i * 100}>
                 <div>
-                  <div className="cc-display-lg text-[var(--cc-link)]">
+                  <div className="cc-display-lg text-[var(--cc-cyan)]">
                     <AnimatedNumber value={stat.value} />
                   </div>
-                  <div className="mt-1 cc-caption text-[var(--cc-muted)]">{t(stat.labelKey)}</div>
+                  <div className="mt-1 cc-caption text-white/60">{t(stat.labelKey)}</div>
                 </div>
               </FadeIn>
             ))}

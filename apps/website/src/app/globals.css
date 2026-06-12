@@ -19,6 +19,12 @@
   --weight-medium: 500;
   --weight-semibold: 600;
 
+  /* ── Mesh Gradient Colors ───────────────────────────── */
+  --cc-mesh-develop: rgba(0, 124, 240, 0.2);
+  --cc-mesh-preview: rgba(121, 40, 202, 0.2);
+  --cc-mesh-highlight: rgba(255, 0, 128, 0.2);
+  --cc-mesh-cyan: rgba(80, 227, 194, 0.2);
+
   /* ── Colors ─────────────────────────────────────────── */
   --color-primary: #171717;
   --color-primary-hover: #2a2a2a;

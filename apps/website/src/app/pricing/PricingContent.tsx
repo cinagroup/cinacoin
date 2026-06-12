@@ -78,14 +78,17 @@ export default function PricingContent() {
       <Navbar />
       <Breadcrumbs />
 
-      {/* Hero */}
+      {/* Hero - Left-aligned for variety */}
       <section className="relative pt-32 pb-16 sm:pt-40 sm:pb-20">
         <FadeIn>
-          <div className="cc-container mx-auto max-w-4xl px-6 text-center">
-            <h1 className="cc-display-xl">{t('pricing-hero-title')}</h1>
-            <p className="mt-6 cc-body-lg text-[var(--cc-body)] max-w-2xl mx-auto">
-              {t('pricing-hero-subtitle')}
-            </p>
+          <div className="cc-container mx-auto max-w-7xl px-6">
+            <div className="max-w-3xl">
+              <p className="font-mono text-xs text-[var(--cc-muted)] mb-3 tracking-wide">Pricing</p>
+              <h1 className="cc-display-xl mb-6">{t('pricing-hero-title')}</h1>
+              <p className="cc-body-lg text-[var(--cc-body)] leading-relaxed">
+                {t('pricing-hero-subtitle')}
+              </p>
+            </div>
           </div>
         </FadeIn>
       </section>
@@ -169,11 +172,12 @@ export default function PricingContent() {
         </div>
       </section>
 
-      {/* FAQ */}
+      {/* FAQ - Left-aligned header */}
       <section className="border-t border-[var(--cc-hairline)] py-20 sm:py-28">
         <div className="cc-container mx-auto max-w-3xl px-6">
           <FadeIn>
-            <h2 className="cc-display-md text-center mb-12">{t('pricing-faq-title')}</h2>
+            <p className="font-mono text-xs text-[var(--cc-muted)] mb-3 tracking-wide">Common questions</p>
+            <h2 className="cc-display-lg mb-12">{t('pricing-faq-title')}</h2>
           </FadeIn>
 
           {faqData.map((faq, i) => (

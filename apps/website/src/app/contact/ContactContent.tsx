@@ -47,14 +47,17 @@ export default function ContactContent() {
       <Navbar />
       <Breadcrumbs />
 
-      {/* Hero */}
+      {/* Hero - Left-aligned for variety */}
       <section className="relative pt-32 pb-16 sm:pt-40 sm:pb-20">
         <FadeIn>
-          <div id="main-content" className="cc-container text-center">
-            <h1 className="cc-display-xl">{t('contact-title')}</h1>
-            <p className="cc-body-lg text-[var(--cc-body)] mt-6 max-w-xl mx-auto">
-              {t('contact-subtitle')}
-            </p>
+          <div id="main-content" className="cc-container">
+            <div className="max-w-3xl">
+              <p className="font-mono text-xs text-[var(--cc-muted)] mb-3 tracking-wide">Get in touch</p>
+              <h1 className="cc-display-xl mb-6">{t('contact-title')}</h1>
+              <p className="cc-body-lg text-[var(--cc-body)] leading-relaxed">
+                {t('contact-subtitle')}
+              </p>
+            </div>
           </div>
         </FadeIn>
       </section>
