@@ -12,7 +12,7 @@ class SignScreen extends StatefulWidget {
 
 class _SignScreenState extends State<SignScreen> {
   final _messageController = TextEditingController(
-    text: 'Hello Cinacoin! Sign this message.',
+    text: 'Hello CinaCoin! Sign this message.',
   );
   final _typedDataController = TextEditingController();
   bool _isSigning = false;
@@ -35,14 +35,14 @@ class _SignScreenState extends State<SignScreen> {
   },
   "primaryType": "Message",
   "domain": {
-    "name": "Cinacoin Demo",
+    "name": "CinaCoin Demo",
     "version": "1",
     "chainId": 1
   },
   "message": {
     "from": "0xCb2C2B8f0CC2F3E2C2A2A2A2A2A2A2A2A2A2A2A2",
     "to": "0xDeadDeadDeadDeadDeadDeadDeadDeadDeadDead",
-    "contents": "Hello from Cinacoin Flutter SDK!"
+    "contents": "Hello from CinaCoin Flutter SDK!"
   }
 }''';
 

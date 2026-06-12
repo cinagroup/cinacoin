@@ -250,7 +250,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             const Divider(height: 24),
-            const InfoRow(label: 'SDK', value: 'Cinacoin Flutter v0.1.0'),
+            const InfoRow(label: 'SDK', value: 'CinaCoin Flutter v0.1.0'),
             const InfoRow(label: 'Initialized', value: 'Yes'),
             InfoRow(
               label: 'Chains Supported',

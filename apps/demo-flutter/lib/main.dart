@@ -10,7 +10,7 @@ import 'screens/transaction_screen.dart';
 
 // ── Global SDK Instance ────────────────────────────────────────────────
 
-/// Shared Cinacoin SDK instance accessible throughout the app.
+/// Shared CinaCoin SDK instance accessible throughout the app.
 final sdk = CinacoinSdk.instance;
 
 // ── Main ───────────────────────────────────────────────────────────────
@@ -18,18 +18,18 @@ final sdk = CinacoinSdk.instance;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Initialize the Cinacoin SDK
+  // Initialize the CinaCoin SDK
   try {
     await sdk.initialize(
       projectId: 'YOUR_PROJECT_ID', // Replace with your WalletConnect project ID
       metadata: const AppMetadata(
-        name: 'Cinacoin Demo',
-        description: 'Cinacoin Flutter SDK Demo App',
+        name: 'CinaCoin Demo',
+        description: 'CinaCoin Flutter SDK Demo App',
         url: 'https://cinacoin.dev',
         icons: [],
       ),
     );
-    debugPrint('[Demo] Cinacoin SDK initialized');
+    debugPrint('[Demo] CinaCoin SDK initialized');
   } catch (e) {
     debugPrint('[Demo] SDK init deferred (no valid project ID): $e');
   }
@@ -60,7 +60,7 @@ class _DemoAppState extends State<DemoApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Cinacoin Demo',
+      title: 'CinaCoin Demo',
       debugShowCheckedModeBanner: false,
       themeMode: _themeMode,
       theme: _buildLightTheme(),
@@ -175,7 +175,7 @@ class _MainScaffoldState extends State<MainScaffold> {
               ),
             ),
             const SizedBox(width: 10),
-            const Text('Cinacoin Demo'),
+            const Text('CinaCoin Demo'),
           ],
         ),
         actions: [
