@@ -39,29 +39,29 @@ export function DemoDeFi() {
 
   return (
     <div className="cc-card p-6">
-      <h3 className="cc-subtitle mb-6">DeFi 交互演示</h3>
+      <h3 className="cc-subtitle mb-6">DeFi demo.</h3>
 
       {!isConnected ? (
         <div className="text-center py-8">
           <p className="cc-body text-[var(--cc-body)] mb-4">
-            连接钱包后可查看 DeFi 池子和收益。
+            Connect wallet to explore DeFi pools.
           </p>
           <button onClick={connect} className="cc-btn-primary">
-            连接钱包
+            Connect wallet
           </button>
         </div>
       ) : (
         <>
           <div className="mb-6 p-4 bg-[var(--cc-canvas-soft)] rounded-lg">
-            <p className="cc-body-xs text-[var(--cc-body)] mb-1">您的地址</p>
+            <p className="cc-body-xs text-[var(--cc-body)] mb-1">Your address</p>
             <AddressDisplay address={address!} />
             <div className="flex gap-4 mt-3">
               <div>
-                <p className="text-[var(--cc-body)] text-caption">总 TVL (模拟)</p>
+                <p className="text-[var(--cc-body)] text-caption">Total TVL (sim)</p>
                 <p className="cc-title-sm">$89.8M</p>
               </div>
               <div>
-                <p className="text-[var(--cc-body)] text-caption">您的收益 (24h)</p>
+                <p className="text-[var(--cc-body)] text-caption">Your yield (24h)</p>
                 <p className="cc-title-sm text-[var(--cc-success)]">+0.12 ETH</p>
               </div>
             </div>
@@ -69,20 +69,20 @@ export function DemoDeFi() {
 
           <div className="grid grid-cols-2 gap-4 mb-6">
             <button
-              onClick={() => alert('模拟：存入资金')}
+              onClick={() => alert('Simulation: deposit funds')}
               className="cc-btn-primary"
             >
-              存入资金
+              Deposit
             </button>
             <button
-              onClick={() => alert('模拟：提取资金')}
+              onClick={() => alert('Simulation: withdraw funds')}
               className="cc-btn-secondary"
             >
-              提取资金
+              Withdraw
             </button>
           </div>
 
-          <h4 className="cc-body mb-3">可用流动性池</h4>
+          <h4 className="cc-body mb-3">Available pools</h4>
           <div className="space-y-3">
             {mockPools.map((pool) => (
               <div key={pool.name} className="cc-card p-4 flex items-center justify-between">
@@ -109,7 +109,7 @@ export function DemoDeFi() {
 
           <div className="mt-6 p-4 bg-[var(--cc-warning)/10] rounded-lg text-center">
             <p className="cc-body-sm text-[var(--cc-body)]">
-              ⚠️ 此 DeFi 数据为演示模拟，实际数据需连接 RPC + Subgraph
+              ⚠️ Demo data. Connect to RPC + Subgraph for live data.
             </p>
           </div>
         </>

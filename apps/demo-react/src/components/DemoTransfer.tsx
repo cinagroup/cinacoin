@@ -27,27 +27,27 @@ export function DemoTransfer() {
 
   return (
     <div className="cc-card p-6 max-w-xl">
-      <h3 className="cc-subtitle mb-4">转账演示</h3>
+      <h3 className="cc-subtitle mb-4">Transfer demo.</h3>
 
       {!isConnected ? (
         <div className="text-center py-8">
           <p className="cc-body text-[var(--cc-body)] mb-4">
-            连接钱包后可进行转账操作。
+            Connect wallet to transfer tokens.
           </p>
           <button onClick={connect} className="cc-btn-primary">
-            连接钱包
+            Connect wallet
           </button>
         </div>
       ) : (
         <>
           <div className="mb-4 p-4 bg-[var(--cc-canvas-soft)] rounded-lg">
-            <p className="cc-body-xs text-[var(--cc-body)] mb-1">发送地址</p>
+            <p className="cc-body-xs text-[var(--cc-body)] mb-1">From address</p>
             <AddressDisplay address={address!} />
           </div>
 
           <div className="space-y-4">
             <div>
-              <label className="cc-label mb-2 block">接收地址</label>
+              <label className="cc-label mb-2 block">To address</label>
               <input
                 type="text"
                 className="cc-input"
@@ -58,7 +58,7 @@ export function DemoTransfer() {
             </div>
 
             <div>
-              <label className="cc-label mb-2 block">金额 (ETH)</label>
+              <label className="cc-label mb-2 block">Amount (ETH)</label>
               <input
                 type="number"
                 step="0.001"
@@ -75,19 +75,19 @@ export function DemoTransfer() {
                 disabled={!to || !amount || isLoading}
                 className="cc-btn-primary w-full"
               >
-                {isLoading ? '转账中...' : '发送交易'}
+                {isLoading ? 'Transferring...' : 'Send transaction'}
               </button>
             </div>
           </div>
 
           {resultHash && (
             <div className="mt-6 p-4 bg-[var(--cc-success)/10] rounded-lg">
-              <p className="cc-body-xs text-[var(--cc-body)] mb-1">交易哈希</p>
+              <p className="cc-body-xs text-[var(--cc-body)] mb-1">Transaction hash</p>
               <div className="cc-mono break-all text-body-sm">
                 {resultHash}
               </div>
               <p className="cc-body-xs text-[var(--cc-body)] mt-2">
-                状态: <span className="text-[var(--cc-success)]">成功</span>
+                Status: <span className="text-[var(--cc-success)]">Success</span>
               </p>
             </div>
           )}

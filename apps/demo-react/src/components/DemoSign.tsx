@@ -18,7 +18,7 @@ export function DemoSignMessage() {
     setIsLoading(true)
     try {
       const sig = await signMessage?.(message)
-      setSignature(sig?.signature ?? '模拟签名: 0x' + Array.from({ length: 130 }, () =>
+      setSignature(sig?.signature ?? 'Mock signature: 0x' + Array.from({ length: 130 }, () =>
         Math.floor(Math.random() * 16).toString(16)
       ).join(''))
     } finally {
@@ -28,29 +28,29 @@ export function DemoSignMessage() {
 
   return (
     <div className="cc-card p-6 max-w-2xl">
-      <h3 className="cc-subtitle mb-4">签名演示</h3>
+      <h3 className="cc-subtitle mb-4">Sign demo.</h3>
 
       {!isConnected ? (
         <div className="text-center py-8">
           <p className="cc-body text-[var(--cc-body)] mb-4">
-            连接钱包后可进行签名操作。
+            Connect wallet to sign messages.
           </p>
           <button onClick={connect} className="cc-btn-primary">
-            连接钱包
+            Connect wallet
           </button>
         </div>
       ) : (
         <>
           <div className="mb-4 p-4 bg-[var(--cc-canvas-soft)] rounded-lg">
-            <p className="cc-body-xs text-[var(--cc-body)] mb-1">您的地址</p>
+            <p className="cc-body-xs text-[var(--cc-body)] mb-1">Your address</p>
             <AddressDisplay address={address!} />
           </div>
 
           <div className="mb-4">
-            <label className="cc-label mb-2 block">消息内容</label>
+            <label className="cc-label mb-2 block">Message</label>
             <textarea
               className="cc-input !min-h-[120px]"
-              placeholder="输入要签名的消息..."
+              placeholder="Enter message to sign..."
               value={message}
               onChange={(e) => setMessage(e.target.value)}
             />
@@ -62,7 +62,7 @@ export function DemoSignMessage() {
               disabled={!message.trim() || isLoading}
               className="cc-btn-primary flex-1"
             >
-              {isLoading ? '签名中...' : '签名消息'}
+              {isLoading ? 'Signing...' : 'Sign message'}
             </button>
             <button
               onClick={() => {
@@ -71,13 +71,13 @@ export function DemoSignMessage() {
               }}
               className="cc-btn-secondary"
             >
-              重置
+              Reset
             </button>
           </div>
 
           {signature && (
             <div className="mt-6 p-4 bg-[var(--cc-success)/10] rounded-lg">
-              <p className="cc-body-xs text-[var(--cc-body)] mb-1">签名结果</p>
+              <p className="cc-body-xs text-[var(--cc-body)] mb-1">Signature result</p>
               <div className="cc-mono break-all text-body-sm">
                 {signature}
               </div>
@@ -127,7 +127,7 @@ export function DemoSignTypedData() {
     try {
       const parsed = JSON.parse(typedData)
       const sig = await signTypedData?.(parsed)
-      setSignature(sig?.signature ?? '模拟签名: 0x' + Array.from({ length: 130 }, () =>
+      setSignature(sig?.signature ?? 'Mock signature: 0x' + Array.from({ length: 130 }, () =>
         Math.floor(Math.random() * 16).toString(16)
       ).join(''))
     } finally {
@@ -137,15 +137,15 @@ export function DemoSignTypedData() {
 
   return (
     <div className="cc-card p-6 max-w-2xl">
-      <h3 className="cc-subtitle mb-4">EIP-712 签名演示</h3>
+      <h3 className="cc-subtitle mb-4">EIP-712 sign demo.</h3>
 
       {!isConnected ? (
         <div className="text-center py-8">
           <p className="cc-body text-[var(--cc-body)] mb-4">
-            连接钱包后可进行 typed 数据签名。
+            Connect wallet to sign typed data.
           </p>
           <button onClick={connect} className="cc-btn-primary">
-            连接钱包
+            Connect wallet
           </button>
         </div>
       ) : (
@@ -165,13 +165,13 @@ export function DemoSignTypedData() {
               disabled={isLoading}
               className="cc-btn-primary flex-1"
             >
-              {isLoading ? '签名中...' : '签名 Typed Data'}
+              {isLoading ? 'Signing...' : 'Sign typed data'}
             </button>
           </div>
 
           {signature && (
             <div className="mt-6 p-4 bg-[var(--cc-success)/10] rounded-lg">
-              <p className="cc-body-xs text-[var(--cc-body)] mb-1">签名结果</p>
+              <p className="cc-body-xs text-[var(--cc-body)] mb-1">Signature result</p>
               <div className="cc-mono break-all text-body-sm">
                 {signature}
               </div>

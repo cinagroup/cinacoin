@@ -10,9 +10,9 @@ export function WalletConnectPage() {
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       <div className="text-center">
-        <h2 className="cc-display-lg mb-2">钱包连接演示</h2>
+        <h2 className="cc-display-lg mb-2">Wallet connect.</h2>
         <p className="cc-body text-[var(--cc-body)]">
-          测试所有钱包适配器的连接功能
+          Test wallet adapter connections
         </p>
       </div>
       <DemoWallet />
@@ -24,9 +24,9 @@ export function SignMessagePage() {
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       <div className="text-center">
-        <h2 className="cc-display-lg mb-2">签名演示</h2>
+        <h2 className="cc-display-lg mb-2">Sign demo.</h2>
         <p className="cc-body text-[var(--cc-body)]">
-          测试普通消息和 EIP-712 类型化数据签名
+          Test message and EIP-712 typed data signing
         </p>
       </div>
       <DemoSignMessage />
@@ -39,9 +39,9 @@ export function TransferPage() {
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       <div className="text-center">
-        <h2 className="cc-display-lg mb-2">转账演示</h2>
+        <h2 className="cc-display-lg mb-2">Transfer.</h2>
         <p className="cc-body text-[var(--cc-body)]">
-          模拟以太坊转账操作（无需真实 Gas）
+          Simulate Ethereum transfers (no real gas)
         </p>
       </div>
       <DemoTransfer />
@@ -53,9 +53,9 @@ export function NFTPage() {
   return (
     <div className="max-w-5xl mx-auto space-y-6">
       <div className="text-center">
-        <h2 className="cc-display-lg mb-2">NFT 展示</h2>
+        <h2 className="cc-display-lg mb-2">NFT gallery.</h2>
         <p className="cc-body text-[var(--cc-body)]">
-          浏览您的 NFT 资产
+          Browse your NFT collection
         </p>
       </div>
       <DemoNFT />
@@ -67,9 +67,9 @@ export function BridgePage() {
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       <div className="text-center">
-        <h2 className="cc-display-lg mb-2">跨链桥接</h2>
+        <h2 className="cc-display-lg mb-2">Bridge.</h2>
         <p className="cc-body text-[var(--cc-body)]">
-          模拟跨链资金转移
+          Simulate cross-chain transfers
         </p>
       </div>
       <DemoBridge />
@@ -81,9 +81,9 @@ export function DeFiPage() {
   return (
     <div className="max-w-5xl mx-auto space-y-6">
       <div className="text-center">
-        <h2 className="cc-display-lg mb-2">DeFi 交互</h2>
+        <h2 className="cc-display-lg mb-2">DeFi.</h2>
         <p className="cc-body text-[var(--cc-body)]">
-          浏览流动性池和收益数据
+          Explore liquidity pools and yield data
         </p>
       </div>
       <DemoDeFi />

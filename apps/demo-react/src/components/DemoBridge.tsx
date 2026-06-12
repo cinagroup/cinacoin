@@ -15,21 +15,21 @@ export function DemoBridge() {
 
   return (
     <div className="cc-card p-6">
-      <h3 className="cc-subtitle mb-6">跨链桥接演示</h3>
+      <h3 className="cc-subtitle mb-6">Bridge demo.</h3>
 
       {!isConnected ? (
         <div className="text-center py-8">
           <p className="cc-body text-[var(--cc-body)] mb-4">
-            连接钱包后可查看跨链桥接功能。
+            Connect wallet to use cross-chain bridge.
           </p>
           <button onClick={connect} className="cc-btn-primary">
-            连接钱包
+            Connect wallet
           </button>
         </div>
       ) : (
         <>
           <div className="mb-6 p-4 bg-[var(--cc-canvas-soft)] rounded-lg">
-            <p className="cc-body-xs text-[var(--cc-body)] mb-1">当前连接地址</p>
+            <p className="cc-body-xs text-[var(--cc-body)] mb-1">Connected address</p>
             <AddressDisplay address={address!} />
             {chain && (
               <div className="mt-2">
@@ -42,7 +42,7 @@ export function DemoBridge() {
 
           <div className="grid grid-cols-2 gap-4 mb-6">
             <div className="space-y-3">
-              <h4 className="cc-body text-[var(--cc-ink)]">源链</h4>
+              <h4 className="cc-body text-[var(--cc-ink)]">Source chain</h4>
               <select className="cc-input w-full">
                 {chains.map((c) => (
                   <option key={c.id} value={c.id}>
@@ -52,7 +52,7 @@ export function DemoBridge() {
               </select>
             </div>
             <div className="space-y-3">
-              <h4 className="cc-body text-[var(--cc-ink)]">目标链</h4>
+              <h4 className="cc-body text-[var(--cc-ink)]">Destination chain</h4>
               <select className="cc-input w-full">
                 {chains.map((c) => (
                   <option key={c.id} value={c.id}>
@@ -65,7 +65,7 @@ export function DemoBridge() {
 
           <div className="space-y-4">
             <div>
-              <label htmlFor="金额" className="cc-label mb-2 block">金额</label>
+              <label htmlFor="amount" className="cc-label mb-2 block">Amount</label>
               <div className="flex gap-2">
                 <input
                   type="number"
@@ -73,7 +73,7 @@ export function DemoBridge() {
                   placeholder="0.00"
                   defaultValue="0.1"
                 />
-                <select id="金额" className="cc-input w-24">
+                <select id="amount" className="cc-input w-24">
                   <option value="ETH">ETH</option>
                   <option value="USDC">USDC</option>
                   <option value="USDT">USDT</option>
@@ -83,15 +83,15 @@ export function DemoBridge() {
 
             <div className="p-4 bg-[var(--cc-warning)/10] rounded-lg text-body-sm">
               <p className="text-[var(--cc-body)]">
-                ⚠️ 模拟功能：实际跨链桥接需配置Bridge adapter
+                ⚠️ Simulation mode: Bridge adapter required for production
               </p>
             </div>
 
             <button
-              onClick={() => alert('跨链桥接功能需实际部署Bridge adapter')}
+              onClick={() => alert('Bridge adapter deployment required')}
               className="cc-btn-primary w-full"
             >
-              模拟桥接
+              Simulate bridge
             </button>
           </div>
         </>
