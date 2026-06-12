@@ -57,7 +57,7 @@ export default function KeysServerPage() {
       <div className="grid md:grid-cols-2 gap-4">
         {/* Storage */}
         <div className="cc-card">
-          <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">D1 Storage Usage</h3>
+          <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">D1 storage usage.</h3>
           <div className="flex items-center justify-center gap-8">
             <ProgressRing
               value={storagePct}
@@ -87,7 +87,7 @@ export default function KeysServerPage() {
 
         {/* Signing operations */}
         <div className="cc-card">
-          <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Signing Operations (24h)</h3>
+          <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Signing operations (24h).</h3>
           <div className="space-y-3">
             {SIGNING_STATS.map((stat) => (
               <div key={stat.label} className="flex items-center gap-3">
@@ -111,7 +111,7 @@ export default function KeysServerPage() {
       {/* Active sessions table */}
       <div className="cc-card-soft overflow-hidden">
         <div className="px-5 py-4 border-b border-[var(--cc-hairline)]">
-          <h3 className="cc-body-md-strong text-[var(--cc-ink)]">Active Sessions</h3>
+          <h3 className="cc-body-md-strong text-[var(--cc-ink)]">Active sessions.</h3>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-body-sm">
@@ -147,7 +147,7 @@ export default function KeysServerPage() {
 
       {/* Session stats */}
       <div className="cc-card">
-        <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Session Statistics (24h)</h3>
+        <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Session statistics (24h).</h3>
         <div className="grid grid-cols-3 gap-4">
           <MetricBox label="New Sessions" value="1,247" trend="up" />
           <MetricBox label="Expired Sessions" value="892" />

@@ -76,7 +76,7 @@ export default function RPCProxyPage() {
       <div className="grid md:grid-cols-3 gap-4">
         {/* KV Cache */}
         <div className="cc-card">
-          <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">KV Cache Status</h3>
+          <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">KV cache status.</h3>
           <div className="space-y-4">
             <div>
               <p className="cc-caption text-[var(--cc-muted)]">Cache Hit Rate</p>
@@ -177,7 +177,7 @@ export default function RPCProxyPage() {
 
       {/* Chain distribution */}
       <div className="cc-card">
-        <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Chain Distribution (24h)</h3>
+        <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Chain distribution (24h).</h3>
         <div className="space-y-3">
           {CHAIN_DATA.map((chain) => {
             const total = CHAIN_DATA.reduce((a, b) => a + b.count, 0);

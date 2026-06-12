@@ -54,7 +54,7 @@ export default function SettingsPage() {
 
       {/* Appearance */}
       <div className="cc-card">
-        <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Appearance</h3>
+        <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Appearance.</h3>
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <div>

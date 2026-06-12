@@ -100,14 +100,14 @@ export default function AnalyticsPage() {
 
       {/* MAU Trend */}
       <div className="cc-card">
-        <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4" id="mau-chart-heading">Monthly Active Users</h3>
+        <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4" id="mau-chart-heading">Monthly active users.</h3>
         <BarChart data={MAU_DATA.map((v) => Math.round(v * multiplier))} labels={MONTHS} color="var(--cc-link)" height={180} ariaLabelledBy="mau-chart-heading" />
       </div>
 
       {/* Charts row */}
       <div className="grid md:grid-cols-2 gap-4">
         <div className="cc-card">
-          <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4" id="connections-chart-heading">Connections Over Time</h3>
+          <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4" id="connections-chart-heading">Connections over time.</h3>
           <BarChart data={CONNECTIONS_DATA.map((v) => Math.round(v * multiplier))} labels={MONTHS} color="var(--cc-success)" height={160} ariaLabelledBy="connections-chart-heading" />
         </div>
         <div className="cc-card">
@@ -118,14 +118,14 @@ export default function AnalyticsPage() {
 
       {/* Hourly activity */}
       <div className="cc-card">
-        <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4" id="hourly-chart-heading">Hourly Activity Distribution (24h)</h3>
+        <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4" id="hourly-chart-heading">Hourly activity distribution (24h).</h3>
         <BarChart data={HOURLY_DATA} labels={HOURLY_LABELS} color="var(--cc-link)" height={140} ariaLabelledBy="hourly-chart-heading" />
       </div>
 
       {/* Chain & Wallet distribution */}
       <div className="grid md:grid-cols-2 gap-4">
         <div className="cc-card">
-          <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Chain Distribution</h3>
+          <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Chain distribution.</h3>
           <div className="space-y-3">
             {CHAIN_DISTRIBUTION.map((chain) => (
               <div key={chain.name} className="flex items-center gap-3">
@@ -140,7 +140,7 @@ export default function AnalyticsPage() {
           </div>
         </div>
         <div className="cc-card">
-          <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4" id="wallet-distribution-heading">Wallet Connectors</h3>
+          <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4" id="wallet-distribution-heading">Wallet connectors.</h3>
           <div className="space-y-3">
             {WALLET_DISTRIBUTION.map((wallet) => (
               <div key={wallet.name} className="flex items-center gap-3">

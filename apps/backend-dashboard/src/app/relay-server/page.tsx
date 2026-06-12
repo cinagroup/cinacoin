@@ -66,7 +66,7 @@ export default function RelayServerPage() {
       <div className="grid md:grid-cols-2 gap-4">
         {/* DO status */}
         <div className="cc-card">
-          <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Durable Objects Status</h3>
+          <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Durable objects status.</h3>
           <div className="grid grid-cols-2 gap-4">
             {DO_STATS.map((s) => (
               <MetricBox key={s.label} label={s.label} value={s.value} />
@@ -76,7 +76,7 @@ export default function RelayServerPage() {
 
         {/* Connection breakdown */}
         <div className="cc-card">
-          <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Connection Breakdown</h3>
+          <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Connection breakdown.</h3>
           <div className="space-y-3">
             {CHAIN_DATA.map((chain) => {
               const total = metrics.activeConnections || 1247;
@@ -107,7 +107,7 @@ export default function RelayServerPage() {
       {/* Event log */}
       <div className="cc-card-soft overflow-hidden">
         <div className="px-5 py-4 border-b border-[var(--cc-hairline)]">
-          <h3 className="cc-body-md-strong text-[var(--cc-ink)]">Live Events</h3>
+          <h3 className="cc-body-md-strong text-[var(--cc-ink)]">Live events.</h3>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-body-sm">

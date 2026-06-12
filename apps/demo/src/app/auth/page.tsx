@@ -810,7 +810,7 @@ export default function AuthPage() {
               </div>
               {/* Passkey */}
               <div>
-                <h4 className="text-body-md font-semibold text-[var(--cc-violet)] mb-3">Passkey (WebAuthn)</h4>
+                <h4 className="text-body-md font-semibold text-[var(--cc-violet)] mb-3">Passkey (WebAuthn).</h4>
                 <div className="space-y-3 text-body-sm text-[var(--cc-muted)]">
                   <p>
                     <strong className="text-[var(--cc-body)]">1. Register</strong> — Create a passkey via <code className="text-[var(--cc-violet)] bg-[var(--cc-canvas-soft-2)] px-2 py-1 rounded text-caption">navigator.credentials.create()</code>.

@@ -68,7 +68,7 @@ export default function ChainsPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="cc-display-sm text-[var(--cc-ink)]">Networks & Chains</h1>
+          <h1 className="cc-display-sm text-[var(--cc-ink)]">Networks >Networks & Chains< chains.</h1>
           <p className="cc-body-sm text-[var(--cc-muted)] mt-1">
             Configure supported blockchain networks — {enabledCount} of {chains.length} enabled
           </p>
@@ -198,7 +198,7 @@ export default function ChainsPage() {
 
       {/* Custom chain add */}
       <div className="cc-card">
-        <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-2">Add Custom Network</h3>
+        <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-2">Add custom network.</h3>
         <p className="cc-body-sm text-[var(--cc-muted)] mb-4">
           Add a custom EVM-compatible chain or non-EVM network for your AppKit configuration.
         </p>

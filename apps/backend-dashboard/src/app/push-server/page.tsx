@@ -54,7 +54,7 @@ export default function PushServerPage() {
       <div className="grid md:grid-cols-2 gap-4">
         {/* Delivery ring */}
         <div className="cc-card">
-          <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Delivery Success Rate</h3>
+          <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Delivery success rate.</h3>
           <div className="flex items-center justify-center gap-8">
             <ProgressRing
               value={Math.round(metrics.deliveryRate || 0)}
@@ -82,7 +82,7 @@ export default function PushServerPage() {
 
         {/* Platform breakdown */}
         <div className="cc-card">
-          <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Platform Breakdown</h3>
+          <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Platform breakdown.</h3>
           <div className="space-y-3">
             {PLATFORMS_DATA.map((platform) => {
               const total = metrics.deviceTokens || 52890;
@@ -113,7 +113,7 @@ export default function PushServerPage() {
       {/* Topics table */}
       <div className="cc-card-soft overflow-hidden">
         <div className="px-5 py-4 border-b border-[var(--cc-hairline)]">
-          <h3 className="cc-body-md-strong text-[var(--cc-ink)]">Push Topics</h3>
+          <h3 className="cc-body-md-strong text-[var(--cc-ink)]">Push topics.</h3>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-body-sm">
@@ -143,7 +143,7 @@ export default function PushServerPage() {
 
       {/* Error breakdown */}
       <div className="cc-card">
-        <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Error Breakdown (24h)</h3>
+        <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Error breakdown (24h).</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <MetricBox label="Invalid Token" value="1,892" color="text-[var(--cc-error)]" />
           <MetricBox label="Expired Token" value="987" color="text-[var(--cc-warning)]" />

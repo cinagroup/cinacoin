@@ -571,7 +571,7 @@ export default function BatchPage() {
         {/* ── Wallet Capabilities ────────────────────────── */}
         <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 shadow-[var(--cc-level4)] overflow-hidden">
           <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50 flex items-center justify-between">
-            <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Wallet Capabilities</h2>
+            <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Wallet capabilities.</h2>
             <button
               onClick={() => capabilities.refetch()}
               disabled={!isConnected}
@@ -651,7 +651,7 @@ export default function BatchPage() {
         {isConnected && (
           <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 shadow-[var(--cc-level4)] overflow-hidden">
             <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50 flex items-center justify-between">
-              <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Gas Estimation</h2>
+              <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Gas estimation.</h2>
               <button
                 onClick={handleEstimateGas}
                 disabled={estimatingGas || batchCalls.length === 0}
@@ -694,7 +694,7 @@ export default function BatchPage() {
         {/* ── Batch Transaction Builder ──────────────────── */}
         <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 shadow-[var(--cc-level4)] overflow-hidden">
           <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
-            <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Batch Transaction Builder</h2>
+            <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Batch transaction builder.</h2>
             <p className="text-caption text-[var(--cc-body)] mt-1">Add multiple calls to send atomically</p>
           </div>
 
@@ -806,7 +806,7 @@ export default function BatchPage() {
         {showPreview && (
           <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 shadow-[var(--cc-level4)] overflow-hidden">
             <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50 flex items-center justify-between">
-              <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Batch Preview</h2>
+              <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Batch preview.</h2>
               <button
                 onClick={() => setShowPreview(false)}
                 className="text-caption text-[var(--cc-muted)] hover:text-[var(--cc-ink)] transition-colors"
@@ -853,7 +853,7 @@ export default function BatchPage() {
         {(callsStatus.isPolling || callsStatus.result || batchResult) && (
           <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 shadow-[var(--cc-level4)] overflow-hidden">
             <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
-              <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Transaction Status</h2>
+              <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Transaction status.</h2>
             </div>
             <div className="p-5 space-y-4">
               {/* EIP-5792 call ID */}

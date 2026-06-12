@@ -47,7 +47,7 @@ export default function ABTestingPage() {
 
   return (
     <div className="p-6 space-y-6">
-      <h1 className="text-heading-1">A/B Testing</h1>
+      <h1 className="text-heading-1">A/B testing.</h1>
       
       <div className="space-y-6">
         {experiments.map(exp => (

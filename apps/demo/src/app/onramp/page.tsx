@@ -304,7 +304,7 @@ export default function OnrampPage() {
 
         {/* ── Input Form ─────────────────────────────────── */}
         <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 p-6 space-y-5">
-          <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Configure Purchase</h2>
+          <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Configure purchase.</h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Amount Input */}

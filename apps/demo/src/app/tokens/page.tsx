@@ -264,7 +264,7 @@ function SwapWidget({
   return (
     <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
       <div className="px-5 py-3 border-b border-[var(--cc-hairline-strong)]/50">
-        <h3 className="text-body-sm font-semibold tracking-tighter text-[var(--cc-ink)]">Quick Swap</h3>
+        <h3 className="text-body-sm font-semibold tracking-tighter text-[var(--cc-ink)]">Quick swap.</h3>
       </div>
       <div className="p-5 space-y-3">
         {/* From */}

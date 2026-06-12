@@ -53,7 +53,7 @@ export default function NotifyServerPage() {
       <div className="grid md:grid-cols-2 gap-4">
         {/* Delivery performance */}
         <div className="cc-card">
-          <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Delivery Performance</h3>
+          <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Delivery performance.</h3>
           <div className="flex items-center justify-center gap-8">
             <ProgressRing
               value={Math.round(metrics.deliveryRate || 0)}
@@ -81,7 +81,7 @@ export default function NotifyServerPage() {
 
         {/* Channel distribution */}
         <div className="cc-card">
-          <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Channel Distribution</h3>
+          <h3 className="cc-body-md-strong text-[var(--cc-ink)] mb-4">Channel distribution.</h3>
           <div className="space-y-3">
             {CHANNELS_DATA.map((ch) => (
               <div key={ch.name} className="flex items-center gap-3">
@@ -105,7 +105,7 @@ export default function NotifyServerPage() {
       {/* Recent notifications */}
       <div className="cc-card-soft overflow-hidden">
         <div className="px-5 py-4 border-b border-[var(--cc-hairline)]">
-          <h3 className="cc-body-md-strong text-[var(--cc-ink)]">Recent Notifications</h3>
+          <h3 className="cc-body-md-strong text-[var(--cc-ink)]">Recent notifications.</h3>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-body-sm">

@@ -65,7 +65,7 @@ export default function ProjectPage() {
 
       {/* Project Identity */}
       <div className="cc-card space-y-4">
-        <h2 className="cc-body-md-strong text-[var(--cc-ink)]">Project Identity</h2>
+        <h2 className="cc-body-md-strong text-[var(--cc-ink)]">Project identity.</h2>
 
         {/* Project ID */}
         <div>
@@ -137,7 +137,7 @@ export default function ProjectPage() {
 
       {/* Feature Flags */}
       <div className="cc-card space-y-4">
-        <h2 className="cc-body-md-strong text-[var(--cc-ink)]">Features</h2>
+        <h2 className="cc-body-md-strong text-[var(--cc-ink)]">Features.</h2>
         <p className="cc-body-sm text-[var(--cc-muted)]">Enable or disable AppKit features for your project.</p>
 
         <div className="space-y-3">
@@ -163,7 +163,7 @@ export default function ProjectPage() {
 
       {/* AppKit Integration Code */}
       <div className="cc-card space-y-4">
-        <h2 className="cc-body-md-strong text-[var(--cc-ink)]">Integration Code</h2>
+        <h2 className="cc-body-md-strong text-[var(--cc-ink)]">Integration code.</h2>
         <p className="cc-body-sm text-[var(--cc-muted)]">Copy this snippet to get started with AppKit in your project.</p>
 
         <div className="cc-code-block">
@@ -201,7 +201,7 @@ createAppKit({
 
       {/* Danger Zone */}
       <div className="cc-card border border-[var(--cc-error)]/20">
-        <h2 className="cc-body-md-strong text-[var(--cc-error)] mb-4">Danger Zone</h2>
+        <h2 className="cc-body-md-strong text-[var(--cc-error)] mb-4">Danger zone.</h2>
         <div className="flex items-center justify-between py-3 border-b border-[var(--cc-hairline)]">
           <div>
             <p className="cc-body-sm-strong text-[var(--cc-ink)]">Regenerate Project ID</p>

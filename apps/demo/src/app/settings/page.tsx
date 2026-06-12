@@ -186,7 +186,7 @@ export default function SettingsPage() {
           <div className="space-y-6">
             <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
               <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
-                <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Theme</h2>
+                <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Theme.</h2>
               </div>
               <div className="p-5 space-y-4">
                 {/* Theme Presets */}
@@ -275,7 +275,7 @@ export default function SettingsPage() {
           <div className="space-y-6">
             <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
               <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
-                <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Language</h2>
+                <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Language.</h2>
               </div>
               <div className="p-5 space-y-2">
                 {LANGUAGES.map((lang) => (
@@ -309,7 +309,7 @@ export default function SettingsPage() {
           <div className="space-y-6">
             <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
               <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
-                <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Network Settings</h2>
+                <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Network settings.</h2>
               </div>
               <div className="p-5 space-y-4">
                 <div className="flex items-center justify-between">
@@ -378,7 +378,7 @@ export default function SettingsPage() {
           <div className="space-y-6">
             <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
               <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
-                <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Privacy & Data</h2>
+                <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Privacy >Privacy & Data< data.</h2>
               </div>
               <div className="p-5 space-y-4">
                 <div className="flex items-center justify-between">
@@ -443,7 +443,7 @@ export default function SettingsPage() {
           <div className="space-y-6">
             <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
               <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
-                <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Connected Apps</h2>
+                <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Connected apps.</h2>
                 <p className="text-caption text-[var(--cc-body)] mt-1">Manage wallet connections to external applications</p>
               </div>
               <div className="p-5 space-y-3">
@@ -484,7 +484,7 @@ export default function SettingsPage() {
           <div className="space-y-6">
             <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
               <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
-                <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Debug Options</h2>
+                <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Debug options.</h2>
               </div>
               <div className="p-5 space-y-4">
                 <div className="flex items-center justify-between">
@@ -525,7 +525,7 @@ export default function SettingsPage() {
           <div className="space-y-6">
             <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
               <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
-                <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Storage Management</h2>
+                <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Storage management.</h2>
               </div>
               <div className="p-5 space-y-4">
                 <div className="p-4 rounded-md bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/40">
@@ -568,7 +568,7 @@ export default function SettingsPage() {
           <div className="space-y-6">
             <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
               <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
-                <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Connection Preferences</h2>
+                <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Connection preferences.</h2>
               </div>
               <div className="p-5 space-y-4">
                 <div className="flex items-center justify-between">

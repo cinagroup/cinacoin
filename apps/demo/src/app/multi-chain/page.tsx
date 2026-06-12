@@ -676,7 +676,7 @@ export default function MultiChainPage() {
 
         {/* Chain Cards Grid */}
         <div>
-          <h2 className="text-body-lg font-semibold text-[var(--cc-ink)] mb-4">Chain Balances</h2>
+          <h2 className="text-body-lg font-semibold text-[var(--cc-ink)] mb-4">Chain balances.</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {CHAINS.map((chain) => {
               const isEvm = !!EVM_CHAINS[chain.id];

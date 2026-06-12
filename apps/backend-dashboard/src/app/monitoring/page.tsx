@@ -63,13 +63,13 @@ export default function MonitoringPage() {
       {/* 指标图表 */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="cc-card p-6">
-          <h3 className="text-body font-medium mb-2">Avg Response Time</h3>
+          <h3 className="text-body font-medium mb-2">Avg response time.</h3>
           <p className="text-heading-2 text-link">
             {metrics[metrics.length - 1]?.avgResponseTime || 0} ms
           </p>
         </div>
         <div className="cc-card p-6">
-          <h3 className="text-body font-medium mb-2">Error Rate</h3>
+          <h3 className="text-body font-medium mb-2">Error rate.</h3>
           <p className="text-heading-2 text-link">
             {metrics[metrics.length - 1]?.errorRate || 0}%
           </p>
@@ -84,7 +84,7 @@ export default function MonitoringPage() {
 
       {/* 告警列表 */}
       <div className="cc-card p-6">
-        <h2 className="text-heading-2 mb-4">Recent Alerts</h2>
+        <h2 className="text-heading-2 mb-4">Recent alerts.</h2>
         <div className="space-y-3">
           {alerts.length === 0 ? (
             <p className="text-body-color">No alerts</p>
