@@ -56,7 +56,7 @@ export function BalanceCard({ balance, chain }: { balance: string; chain?: Chain
 export function TransactionList({ transactions }: { transactions: Transaction[] }) {
   return (
     <div>
-      <h4 className="cc-body-sm-strong text-[var(--cc-ink)] mb-3">Recent transactions</h4>
+      <h4 className="cc-body-sm-strong text-[var(--cc-ink)] mb-3">Recent transactions./h4>
       <div className="space-y-2">
         {transactions.length === 0 ? (
           <div className="text-center py-4 cc-body-sm text-[var(--cc-muted)]">

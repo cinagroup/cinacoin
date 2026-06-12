@@ -355,7 +355,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
  </svg>
  </div>
- <h3 className="cc-display-sm mb-2">Wallet Connected</h3>
+ <h3 className="cc-display-sm mb-2">Wallet connected./h3>
  <p className="text-[var(--cc-muted)] text-body-sm mb-2">
  Connected via injected provider
  </p>
@@ -394,7 +394,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
  </svg>
  </div>
- <h3 className="cc-display-sm mb-2">Connection Failed</h3>
+ <h3 className="cc-display-sm mb-2">Connection failed./h3>
  <p className="text-[var(--cc-muted)] text-body-sm mb-6 text-center max-w-xs">
  {error || 'Something went wrong while connecting your wallet.'}
  </p>

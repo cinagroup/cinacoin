@@ -248,7 +248,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
             <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4 border border-[var(--cc-success)]/20">
               <div className="text-center mb-3">
                 <div className="w-12 h-12 mx-auto rounded-full bg-[var(--cc-success)]/10 border border-[var(--cc-success)]/20 flex items-center justify-center text-display-sm mb-2" aria-hidden="true"><Check className="w-6 h-6 text-[var(--cc-success)]" /></div>
-                <h3 className="text-body-lg font-semibold text-[var(--cc-success)]">Authenticated!</h3>
+                <h3 className="text-body-lg font-semibold text-[var(--cc-success)]">Authenticated./h3>
               </div>
               <div className="space-y-2 text-body-sm">
                 <div className="flex justify-between"><span className="text-[var(--cc-muted)]">Provider</span><span className="font-semibold">{SOCIAL_PROVIDERS.find(s => s.id === selectedSocial)?.name}</span></div>
