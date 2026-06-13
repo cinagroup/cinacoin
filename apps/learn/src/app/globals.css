@@ -1,108 +1,24 @@
+@import '@cinacoin/design-tokens/css/cinacoin.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  /* ─── CinaCoin Design System Tokens ─── */
+  /* Typography Scale (aliases used by cinacoin.css utilities) */
+  --text-display-xl: 48px;
+  --text-display-lg: 32px;
+  --text-display-md: 24px;
+  --text-display-sm: 20px;
+  --text-body-lg: 18px;
+  --text-body-md: 16px;
+  --text-body-sm: 14px;
+  --text-caption: 12px;
 
-  /* Color — Core Palette */
-  --cc-ink: #171717;
-  --cc-on-primary: #ffffff;
-  --cc-canvas: #ffffff;
-  --cc-canvas-soft: #fafafa;
-  --cc-canvas-soft-2: #f5f5f5;
-  --cc-body: #4d4d4d;
-  --cc-mute: #888888;
-  --cc-hairline: rgba(0, 0, 0, 0.08);
-  --cc-hairline-strong: rgba(0, 0, 0, 0.15);
-  --cc-link: #0070f3;
-
-  /* Color — Semantic */
-  --cc-success: #0070f3;
-  --cc-error: #ee0000;
-  --cc-warning: #f5a623;
-
-  /* Color — Accent */
-  --cc-violet: #7928ca;
-  --cc-cyan: #50e3c2;
-  --cc-highlight-pink: #ff0080;
-
-  /* Typography Scale */
-  --cc-text-display-xl: 48px;
-  --cc-text-display-lg: 32px;
-  --cc-text-display-md: 24px;
-  --cc-text-display-sm: 20px;
-  --cc-text-body-lg: 18px;
-  --cc-text-body-md: 16px;
-  --cc-text-body-sm: 14px;
-  --cc-text-caption: 12px;
-
-  /* Font Weights — max 600 per design system */
-  --cc-weight-regular: 400;
-  --cc-weight-medium: 500;
-  --cc-weight-semibold: 600;
-
-  /* Spacing — 4px grid */
-  --cc-space-xxs: 4px;
-  --cc-space-xs: 8px;
-  --cc-space-sm: 12px;
-  --cc-space-md: 16px;
-  --cc-space-lg: 24px;
-  --cc-space-xl: 32px;
-  --cc-space-2xl: 40px;
-  --cc-space-3xl: 48px;
-  --cc-space-4xl: 64px;
-
-  /* Border Radius */
-  --cc-radius-xs: 4px;
-  --cc-radius-sm: 6px;
-  --cc-radius-md: 8px;
-  --cc-radius-lg: 12px;
-  --cc-radius-xl: 16px;
-  --cc-radius-pill-sm: 64px;
-  --cc-radius-pill: 100px;
-  --cc-radius-full: 9999px;
-
-  /* Shadows */
-  --cc-shadow-1: 0 0 0 1px var(--cc-hairline);
-  --cc-shadow-2: 0 1px 2px rgba(0, 0, 0, 0.04), 0 0 0 1px var(--cc-hairline);
-  --cc-shadow-3:
-    0 2px 8px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04), 0 0 0 1px var(--cc-hairline);
-  --cc-shadow-4:
-    0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04), 0 0 0 1px var(--cc-hairline);
-
-  /* Motion */
-  --cc-ease: ease;
-  --cc-duration-fast: 150ms;
-  --cc-duration-normal: 200ms;
-  --cc-duration-slow: 300ms;
-}
-
-/* ─── Dark Theme ─── */
-[data-theme='dark'] {
-  --cc-ink: #f5f5f5;
-  --cc-on-primary: #171717;
-  --cc-canvas: #0a0a0a;
-  --cc-canvas-soft: #141414;
-  --cc-canvas-soft-2: #1e1e1e;
-  --cc-body: #b3b3b3;
-  --cc-mute: #797979;
-  --cc-hairline: rgba(255, 255, 255, 0.08);
-  --cc-hairline-strong: rgba(255, 255, 255, 0.15);
-  --cc-link: #3b82f6;
-  --cc-success: #22c55e;
-  --cc-error: #ef4444;
-  --cc-warning: #f59e0b;
-  --cc-violet: #a78bfa;
-  --cc-cyan: #22d3ee;
-  --cc-highlight-pink: #f472b6;
-
-  --cc-shadow-1: 0 0 0 1px var(--cc-hairline);
-  --cc-shadow-2: 0 1px 2px rgba(0, 0, 0, 0.2), 0 0 0 1px var(--cc-hairline);
-  --cc-shadow-3:
-    0 2px 8px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2), 0 0 0 1px var(--cc-hairline);
-  --cc-shadow-4:
-    0 4px 16px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.3), 0 0 0 1px var(--cc-hairline);
+  /* Font Weights */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
 }
 
 * {
@@ -147,54 +63,54 @@ pre {
 
 /* ─── Typography Utilities ─── */
 .text-caption {
-  font-size: var(--cc-text-caption);
-  font-weight: var(--cc-weight-regular);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-regular);
   line-height: 16px;
 }
 
 .text-body-sm {
-  font-size: var(--cc-text-body-sm);
-  font-weight: var(--cc-weight-regular);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-regular);
   line-height: 1.5;
   letter-spacing: -0.28px;
 }
 
 .text-body-md {
-  font-size: var(--cc-text-body-md);
-  font-weight: var(--cc-weight-regular);
+  font-size: var(--text-body-md);
+  font-weight: var(--weight-regular);
   line-height: 1.6;
 }
 
 .text-body-lg {
-  font-size: var(--cc-text-body-lg);
-  font-weight: var(--cc-weight-regular);
+  font-size: var(--text-body-lg);
+  font-weight: var(--weight-regular);
   line-height: 1.6;
 }
 
 .text-display-sm {
-  font-size: var(--cc-text-display-sm);
-  font-weight: var(--cc-weight-semibold);
+  font-size: var(--text-display-sm);
+  font-weight: var(--weight-semibold);
   line-height: 28px;
   letter-spacing: -0.6px;
 }
 
 .text-display-md {
-  font-size: var(--cc-text-display-md);
-  font-weight: var(--cc-weight-semibold);
+  font-size: var(--text-display-md);
+  font-weight: var(--weight-semibold);
   line-height: 32px;
   letter-spacing: -0.96px;
 }
 
 .text-display-lg {
-  font-size: var(--cc-text-display-lg);
-  font-weight: var(--cc-weight-semibold);
+  font-size: var(--text-display-lg);
+  font-weight: var(--weight-semibold);
   line-height: 40px;
   letter-spacing: -1.28px;
 }
 
 .text-display-xl {
-  font-size: var(--cc-text-display-xl);
-  font-weight: var(--cc-weight-semibold);
+  font-size: var(--text-display-xl);
+  font-weight: var(--weight-semibold);
   line-height: 48px;
   letter-spacing: -2.4px;
 }
@@ -205,14 +121,14 @@ pre {
 .cc-card {
   background: var(--cc-canvas);
   border: 1px solid var(--cc-hairline);
-  border-radius: 8px;
-  padding: var(--cc-space-lg);
+  border-radius: var(--cc-radius-md);
+  padding: var(--cc-lg);
   transition:
-    box-shadow var(--cc-duration-normal) var(--cc-ease),
-    border-color var(--cc-duration-normal) var(--cc-ease);
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
 }
 .cc-card:hover {
-  box-shadow: var(--cc-shadow-2);
+  box-shadow: var(--cc-level2);
 }
 
 .cc-card-interactive {
@@ -227,15 +143,15 @@ pre {
   display: inline-flex;
   align-items: center;
   height: 40px;
-  padding: 0 var(--cc-space-md);
+  padding: 0 var(--cc-md);
   background: var(--cc-ink);
   color: var(--cc-on-primary);
   border: none;
-  border-radius: 100px;
-  font-size: var(--cc-text-body-sm);
-  font-weight: var(--cc-weight-medium);
+  border-radius: var(--cc-radius-pill);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
   cursor: pointer;
-  transition: opacity var(--cc-duration-fast) var(--cc-ease);
+  transition: opacity 150ms ease;
 }
 .cc-btn-primary:hover {
   opacity: 0.85;
@@ -246,15 +162,15 @@ pre {
   display: inline-flex;
   align-items: center;
   height: 40px;
-  padding: 0 var(--cc-space-md);
+  padding: 0 var(--cc-md);
   background: var(--cc-canvas);
   color: var(--cc-ink);
   border: 1px solid var(--cc-hairline);
-  border-radius: 100px;
-  font-size: var(--cc-text-body-sm);
-  font-weight: var(--cc-weight-medium);
+  border-radius: var(--cc-radius-pill);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
   cursor: pointer;
-  transition: border-color var(--cc-duration-fast) var(--cc-ease);
+  transition: border-color 150ms ease;
 }
 .cc-btn-secondary:hover {
   border-color: var(--cc-hairline-strong);
@@ -264,12 +180,12 @@ pre {
 .cc-badge {
   display: inline-flex;
   align-items: center;
-  padding: 2px var(--cc-space-xs);
+  padding: 2px var(--cc-xs);
   background: var(--cc-canvas-soft-2);
   color: var(--cc-body);
-  border-radius: 9999px;
-  font-size: var(--cc-text-caption);
-  font-weight: var(--cc-weight-medium);
+  border-radius: var(--cc-radius-full);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
 }
 
 /* Mono text */
@@ -285,17 +201,10 @@ pre {
 
 /* ─── Hover Utilities ─── */
 .cc-link-hover {
-  transition: color var(--cc-duration-fast) var(--cc-ease);
+  transition: color 150ms ease;
 }
 .cc-link-hover:hover {
   color: var(--cc-link);
-}
-
-.cc-card-interactive {
-  cursor: pointer;
-}
-.cc-card-interactive:hover {
-  border-color: var(--cc-link);
 }
 
 /* ─── Accessibility ─── */

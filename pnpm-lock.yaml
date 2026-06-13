@@ -550,6 +550,9 @@ importers:
 
   apps/learn:
     dependencies:
+      '@cinacoin/design-tokens':
+        specifier: workspace:*
+        version: link:../../packages/design-tokens
       '@cinacoin/logger':
         specifier: workspace:*
         version: link:../../packages/logger
