@@ -1,5 +1,7 @@
 import type { TelegramUser } from '@cinacoin/telegram-miniapp';
 import { Star } from 'lucide-react';
+import ThemeToggle from './ThemeToggle';
+import LanguageToggle from './LanguageToggle';
 
 interface TelegramHeaderProps {
   user: TelegramUser | null;
@@ -41,7 +43,9 @@ export default function TelegramHeader({ user, account }: TelegramHeaderProps) {
           {user?.username && <div className="header-username">@{user.username}</div>}
         </div>
       </div>
-      <div className="header-right">
+      <div className="header-right" style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+        <ThemeToggle />
+        <LanguageToggle />
         {shortAddress && (
           <div
             className="header-address"

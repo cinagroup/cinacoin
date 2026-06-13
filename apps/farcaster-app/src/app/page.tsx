@@ -2,6 +2,8 @@ import { Link, Send, PenLine, User } from 'lucide-react';
 import type { Metadata } from 'next';
 
 import { buildFrameMetadata, getAppUrl } from '@/lib/frame-utils';
+import { ThemeToggle } from '@/components/ThemeToggle';
+import { LanguageToggle } from '@/components/LanguageToggle';
 
 export const metadata: Metadata = {
   title: 'CinaCoin Farcaster App',
@@ -23,10 +25,14 @@ export default function HomePage() {
   return (
     <main className="flex min-h-screen flex-col items-center p-6 sm:p-8">
       {/* Mono eyebrow band */}
-      <div className="w-full max-w-2xl mb-8 pt-6">
+      <div className="w-full max-w-2xl mb-8 pt-6 flex items-center justify-between">
         <span className="font-[family-name:var(--font-geist-mono)] text-xs text-[var(--cc-mute)] tracking-wide uppercase">
           farcaster mini app
         </span>
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <LanguageToggle />
+        </div>
       </div>
 
       {/* Asymmetric hero — left-aligned */}

@@ -1,40 +1,15 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useTheme } from '../providers/ThemeProvider';
 
-/** ThemeToggle — Light/Dark theme switcher with localStorage persistence. */
+/** ThemeToggle — Light/Dark theme switcher backed by ThemeProvider. */
 export function ThemeToggle(): JSX.Element {
-  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
-  const [mounted, setMounted] = useState(false);
-
-  // Load theme from localStorage on mount
-  useEffect(() => {
-    setMounted(true);
-    const stored = localStorage.getItem('theme') as 'light' | 'dark' | null;
-    if (stored) {
-      setTheme(stored);
-      document.documentElement.setAttribute('data-theme', stored);
-    } else {
-      // Default to dark theme
-      document.documentElement.setAttribute('data-theme', 'dark');
-    }
-  }, []);
-
-  const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
-    document.documentElement.setAttribute('data-theme', newTheme);
-  };
-
-  // Don't render until mounted to avoid hydration mismatch
-  if (!mounted) {
-    return <div style={{ width: '44px', height: '44px' }} />;
-  }
+  const { theme, toggle } = useTheme();
 
   return (
     <button
-      onClick={toggleTheme}
+      onClick={toggle}
       aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
       title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
       style={{

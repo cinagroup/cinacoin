@@ -5,6 +5,7 @@ import { Terminal } from 'lucide-react';
 import React from 'react';
 
 import { ThemeToggle } from './ThemeToggle';
+import { LanguageToggle } from './LanguageToggle';
 
 /** Truncate an Ethereum address for display. */
 function truncateAddress(addr: string): string {
@@ -38,6 +39,7 @@ export function DemoHeader(): JSX.Element {
 
       <nav className="demo-header__nav" aria-label="Connection status">
         <ThemeToggle />
+        <LanguageToggle />
 
         {status === 'connected' && account.address && (
           <div className="demo-header__address">

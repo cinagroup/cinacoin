@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
+import { Providers } from '@/providers';
 import './globals.css';
 
 const geistSans = localFont({
@@ -35,9 +36,11 @@ export default function RootLayout({
         <a href="#main-content" className="sr-only focus:not-sr-only" style={{ position: 'fixed', top: 'var(--cc-space-md)', left: 'var(--cc-space-md)', zIndex: 50, padding: 'var(--cc-space-xs) var(--cc-space-md)', background: 'var(--cc-accent)', color: 'var(--cc-on-primary)', borderRadius: 'var(--cc-radius-md)', fontSize: 'var(--cc-text-sm)', fontWeight: 'var(--cc-weight-medium)', textDecoration: 'none' }}>
           Skip to main content.
         </a>
-        <main id="main-content">
-          {children}
-        </main>
+        <Providers>
+          <main id="main-content">
+            {children}
+          </main>
+        </Providers>
       </body>
     </html>
   );
