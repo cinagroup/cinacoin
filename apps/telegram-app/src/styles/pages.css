@@ -151,7 +151,7 @@
 .balance-card-inner {
   background: var(--cc-surface);
   border: 1px solid var(--cc-hairline);
-  border-radius: 4px;
+  border-radius: var(--cc-radius-md);
   padding: var(--cc-space-6);
   color: var(--cc-text);
   position: relative;
@@ -233,7 +233,7 @@
   padding: var(--cc-space-4);
   background: var(--cc-surface);
   border: 1px solid var(--cc-hairline);
-  border-radius: 4px;
+  border-radius: var(--cc-radius-md);
   color: var(--cc-text);
   transition: all 0.2s;
 }
@@ -278,7 +278,7 @@
   gap: var(--cc-space-2);
   padding: var(--cc-space-4);
   background: var(--cc-surface);
-  border-radius: 4px;
+  border-radius: var(--cc-radius-md);
   border: 1px solid var(--cc-hairline);
 }
 
@@ -377,7 +377,7 @@
   background-color: var(--cc-primary);
   color: var(--cc-on-primary);
   border: none;
-  border-radius: 4px;
+  border-radius: var(--cc-radius-pill);
   font-size: var(--cc-text-body-md);
   font-weight: var(--cc-weight-medium);
   cursor: pointer;
@@ -408,7 +408,7 @@
   background-color: transparent;
   color: var(--cc-text);
   border: 1px solid var(--cc-hairline);
-  border-radius: 4px;
+  border-radius: var(--cc-radius-pill);
   font-size: var(--cc-text-body-md);
   font-weight: var(--cc-weight-medium);
   cursor: pointer;
@@ -470,7 +470,7 @@
   background-color: var(--cc-error);
   color: var(--cc-on-primary);
   border: none;
-  border-radius: 4px;
+  border-radius: var(--cc-radius-pill);
   font-size: var(--cc-text-body-sm);
   font-weight: var(--cc-weight-medium);
   cursor: pointer;
@@ -521,7 +521,7 @@
   height: 56px;
   background: var(--cc-surface);
   border: 1px solid var(--cc-hairline);
-  border-radius: 4px;
+  border-radius: var(--cc-radius-full);
 }
 
 .connect-section h2 {
@@ -555,7 +555,7 @@
   padding: var(--cc-space-4);
   background: var(--cc-surface);
   border: 1px solid var(--cc-hairline);
-  border-radius: 4px;
+  border-radius: var(--cc-radius-md);
   font-size: var(--cc-text-body-sm);
   cursor: pointer;
   transition: all 0.2s;
@@ -592,7 +592,7 @@
   gap: var(--cc-space-4);
   padding: var(--cc-space-4);
   background: var(--cc-surface);
-  border-radius: 4px;
+  border-radius: var(--cc-radius-md);
   border: 1px solid var(--cc-hairline);
 }
 
@@ -643,7 +643,7 @@
   padding: var(--cc-space-2) var(--cc-space-4);
   background: var(--cc-surface);
   border: 1px solid var(--cc-hairline);
-  border-radius: 4px;
+  border-radius: var(--cc-radius-full);
   font-size: var(--cc-text-body-sm);
 }
 
@@ -680,7 +680,7 @@
   padding: var(--cc-space-4);
   background: var(--cc-surface);
   border: 1px solid var(--cc-hairline);
-  border-radius: 4px;
+  border-radius: var(--cc-radius-sm);
   color: var(--cc-text);
   font-size: var(--cc-text-body-sm);
   transition: border-color 0.2s;
@@ -700,7 +700,7 @@
   padding: var(--cc-space-4);
   background: var(--cc-surface);
   border: 1px solid var(--cc-hairline);
-  border-radius: 4px;
+  border-radius: var(--cc-radius-sm);
   color: var(--cc-text);
   font-size: var(--cc-text-body-sm);
   resize: vertical;
@@ -772,7 +772,7 @@
   margin-top: var(--cc-space-6);
   background: var(--cc-surface);
   border: 1px solid var(--cc-hairline);
-  border-radius: 4px;
+  border-radius: var(--cc-radius-md);
   padding: var(--cc-space-4);
 }
 
