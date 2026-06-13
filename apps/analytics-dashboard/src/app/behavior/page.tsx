@@ -1,23 +1,36 @@
-"use client";
+'use client';
 
-import dynamic from "next/dynamic";
-import SiteHeader from "@/components/SiteHeader";
+import dynamic from 'next/dynamic';
+
+import SiteHeader from '@/components/SiteHeader';
 
 // Lazy-load heavy behavior analytics components (SVG charts + recharts)
-const WalletFunnel = dynamic(() => import("@/components/WalletFunnel"), {
-  loading: () => <div className="h-48 flex items-center justify-center text-ink-mute">Loading funnel...</div>,
+const WalletFunnel = dynamic(() => import('@/components/WalletFunnel'), {
+  loading: () => (
+    <div className="h-48 flex items-center justify-center text-ink-mute">Loading funnel...</div>
+  ),
   ssr: false,
 });
-const ChainDistribution = dynamic(() => import("@/components/ChainDistribution"), {
-  loading: () => <div className="h-48 flex items-center justify-center text-ink-mute">Loading distribution...</div>,
+const ChainDistribution = dynamic(() => import('@/components/ChainDistribution'), {
+  loading: () => (
+    <div className="h-48 flex items-center justify-center text-ink-mute">
+      Loading distribution...
+    </div>
+  ),
   ssr: false,
 });
-const RetentionCurve = dynamic(() => import("@/components/RetentionCurve"), {
-  loading: () => <div className="h-48 flex items-center justify-center text-ink-mute">Loading retention...</div>,
+const RetentionCurve = dynamic(() => import('@/components/RetentionCurve'), {
+  loading: () => (
+    <div className="h-48 flex items-center justify-center text-ink-mute">Loading retention...</div>
+  ),
   ssr: false,
 });
-const TransactionAnalytics = dynamic(() => import("@/components/TransactionAnalytics"), {
-  loading: () => <div className="h-48 flex items-center justify-center text-ink-mute">Loading transactions...</div>,
+const TransactionAnalytics = dynamic(() => import('@/components/TransactionAnalytics'), {
+  loading: () => (
+    <div className="h-48 flex items-center justify-center text-ink-mute">
+      Loading transactions...
+    </div>
+  ),
   ssr: false,
 });
 
@@ -28,10 +41,12 @@ export default function BehaviorPage() {
       <SiteHeader activePage="behavior" breadcrumb="Behavior" />
 
       {/* Main Content */}
-      <main id="main-content" className="max-w-7xl mx-auto px-lg py-xl">
+      <main id="main-content" className="max-w-7xl mx-auto px-lg py-xl pb-20 lg:pb-xl">
         <div className="mb-lg">
           <h2 className="text-heading-2 text-[var(--cc-ink)]">User behavior</h2>
-          <p className="text-body text-[var(--cc-body)] mt-1">Wallet connections, chain usage, retention, and transaction patterns.</p>
+          <p className="text-body text-[var(--cc-body)] mt-1">
+            Wallet connections, chain usage, retention, and transaction patterns.
+          </p>
         </div>
 
         {/* Wallet Funnel */}

@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import React, { useState, useMemo, useCallback } from "react";
+import React, { useState, useMemo } from 'react';
 
 interface ChainData {
   name: string;
@@ -10,29 +10,29 @@ interface ChainData {
 }
 
 const dataByPeriod: Record<string, ChainData[]> = {
-  "24h": [
-    { name: "Ethereum", value: 32, color: "#627eea", txCount: 45200 },
-    { name: "Polygon", value: 24, color: "#8247e5", txCount: 33960 },
-    { name: "Arbitrum", value: 18, color: "#28a0f0", txCount: 25470 },
-    { name: "Optimism", value: 12, color: "#ff0420", txCount: 16980 },
-    { name: "Base", value: 8, color: "#0052ff", txCount: 11320 },
-    { name: "Others", value: 6, color: "#737373", txCount: 8490 },
+  '24h': [
+    { name: 'Ethereum', value: 32, color: '#627eea', txCount: 45200 },
+    { name: 'Polygon', value: 24, color: '#8247e5', txCount: 33960 },
+    { name: 'Arbitrum', value: 18, color: '#28a0f0', txCount: 25470 },
+    { name: 'Optimism', value: 12, color: '#ff0420', txCount: 16980 },
+    { name: 'Base', value: 8, color: '#0052ff', txCount: 11320 },
+    { name: 'Others', value: 6, color: '#737373', txCount: 8490 },
   ],
-  "7d": [
-    { name: "Ethereum", value: 28, color: "#627eea", txCount: 312500 },
-    { name: "Polygon", value: 26, color: "#8247e5", txCount: 290200 },
-    { name: "Arbitrum", value: 20, color: "#28a0f0", txCount: 222600 },
-    { name: "Optimism", value: 11, color: "#ff0420", txCount: 122700 },
-    { name: "Base", value: 10, color: "#0052ff", txCount: 111300 },
-    { name: "Others", value: 5, color: "#737373", txCount: 55600 },
+  '7d': [
+    { name: 'Ethereum', value: 28, color: '#627eea', txCount: 312500 },
+    { name: 'Polygon', value: 26, color: '#8247e5', txCount: 290200 },
+    { name: 'Arbitrum', value: 20, color: '#28a0f0', txCount: 222600 },
+    { name: 'Optimism', value: 11, color: '#ff0420', txCount: 122700 },
+    { name: 'Base', value: 10, color: '#0052ff', txCount: 111300 },
+    { name: 'Others', value: 5, color: '#737373', txCount: 55600 },
   ],
-  "30d": [
-    { name: "Ethereum", value: 25, color: "#627eea", txCount: 1280000 },
-    { name: "Polygon", value: 28, color: "#8247e5", txCount: 1432000 },
-    { name: "Arbitrum", value: 22, color: "#28a0f0", txCount: 1124000 },
-    { name: "Optimism", value: 10, color: "#ff0420", txCount: 511000 },
-    { name: "Base", value: 11, color: "#0052ff", txCount: 562000 },
-    { name: "Others", value: 4, color: "#737373", txCount: 204400 },
+  '30d': [
+    { name: 'Ethereum', value: 25, color: '#627eea', txCount: 1280000 },
+    { name: 'Polygon', value: 28, color: '#8247e5', txCount: 1432000 },
+    { name: 'Arbitrum', value: 22, color: '#28a0f0', txCount: 1124000 },
+    { name: 'Optimism', value: 10, color: '#ff0420', txCount: 511000 },
+    { name: 'Base', value: 11, color: '#0052ff', txCount: 562000 },
+    { name: 'Others', value: 4, color: '#737373', txCount: 204400 },
   ],
 };
 
@@ -65,15 +65,22 @@ function DonutChart({ data, size = 200 }: { data: ChainData[]; size?: number }) 
         `A ${outerR} ${outerR} 0 ${largeArc} 1 ${x2Outer} ${y2Outer}`,
         `L ${x1Inner} ${y1Inner}`,
         `A ${innerR} ${innerR} 0 ${largeArc} 0 ${x2Inner} ${y2Inner}`,
-        "Z",
-      ].join(" ");
+        'Z',
+      ].join(' ');
 
       return { path, color: d.color, name: d.name, value: d.value };
     });
   }, [data, total, cx, cy, outerR, innerR]);
 
   return (
-    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="mx-auto">
+    <svg
+      width={size}
+      height={size}
+      viewBox={`0 0 ${size} ${size}`}
+      className="mx-auto"
+      role="img"
+      aria-label={`Chain distribution donut chart showing ${data.map((d) => `${d.name} ${d.value}%`).join(', ')}`}
+    >
       {arcs.map((arc) => (
         <path
           key={arc.name}
@@ -91,7 +98,7 @@ function DonutChart({ data, size = 200 }: { data: ChainData[]; size?: number }) 
         y={cy - 6}
         textAnchor="middle"
         className="fill-ink"
-        style={{ fontSize: "var(--cc-text-lg)", fontWeight: "var(--weight-semibold)" }}
+        style={{ fontSize: 'var(--cc-text-lg)', fontWeight: 'var(--weight-semibold)' }}
       >
         {total}%
       </text>
@@ -100,7 +107,7 @@ function DonutChart({ data, size = 200 }: { data: ChainData[]; size?: number }) 
         y={cy + 14}
         textAnchor="middle"
         className="fill-ink-mute"
-        style={{ fontSize: "var(--cc-text-xs)" }}
+        style={{ fontSize: 'var(--cc-text-xs)' }}
       >
         Total Share
       </text>
@@ -109,7 +116,7 @@ function DonutChart({ data, size = 200 }: { data: ChainData[]; size?: number }) 
 }
 
 export default React.memo(function ChainDistribution() {
-  const [period, setPeriod] = useState<"24h" | "7d" | "30d">("7d");
+  const [period, setPeriod] = useState<'24h' | '7d' | '30d'>('7d');
   const data = dataByPeriod[period];
 
   return (
@@ -118,14 +125,14 @@ export default React.memo(function ChainDistribution() {
       <div className="flex items-center justify-between">
         <h3 className="text-heading-3 text-[var(--cc-ink)]">Chain distribution</h3>
         <div className="flex bg-[var(--cc-canvas-soft-2)] rounded-sm p-xxs">
-          {(["24h", "7d", "30d"] as const).map((p) => (
+          {(['24h', '7d', '30d'] as const).map((p) => (
             <button
               key={p}
               onClick={() => setPeriod(p)}
               className={`px-sm py-xxs text-body-sm rounded-sm transition-all ${
                 period === p
-                  ? "bg-[var(--cc-canvas)] text-[var(--cc-ink)] font-medium shadow-cinacoin-2"
-                  : "text-[var(--cc-muted)] hover:text-[var(--cc-ink)]"
+                  ? 'bg-[var(--cc-canvas)] text-[var(--cc-ink)] font-medium shadow-cinacoin-2'
+                  : 'text-[var(--cc-muted)] hover:text-[var(--cc-ink)]'
               }`}
             >
               {p}
@@ -143,7 +150,10 @@ export default React.memo(function ChainDistribution() {
           {data.map((item) => (
             <div key={item.name} className="flex items-center justify-between">
               <div className="flex items-center gap-xs">
-                <div className="w-3 h-3 rounded-full flex-shrink-0" style={{ backgroundColor: item.color }} />
+                <div
+                  className="w-3 h-3 rounded-full flex-shrink-0"
+                  style={{ backgroundColor: item.color }}
+                />
                 <span className="text-body-sm text-[var(--cc-body)]">{item.name}</span>
               </div>
               <div className="flex items-center gap-md">
@@ -165,14 +175,16 @@ export default React.memo(function ChainDistribution() {
         <div className="space-y-xs">
           {data.map((item) => (
             <div key={item.name} className="flex items-center gap-sm">
-              <span className="text-caption text-[var(--cc-muted)] w-20 flex-shrink-0">{item.name}</span>
+              <span className="text-caption text-[var(--cc-muted)] w-20 flex-shrink-0">
+                {item.name}
+              </span>
               <div className="flex-1 h-6 bg-[var(--cc-canvas-soft-2)] rounded-sm overflow-hidden">
                 <div
                   className="h-full rounded-sm flex items-center px-xs transition-all duration-500"
                   style={{
                     width: `${item.value}%`,
                     backgroundColor: item.color,
-                    minWidth: "40px",
+                    minWidth: '40px',
                   }}
                 >
                   <span className="text-caption font-medium text-[var(--cc-on-primary)]">

@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import React, { useState, useCallback } from "react";
-import { BarChart3, Menu, X } from "lucide-react";
+import { BarChart3, Menu, X } from 'lucide-react';
+import React, { useState, useCallback } from 'react';
 
-type NavPage = "overview" | "realtime" | "behavior";
+type NavPage = 'overview' | 'realtime' | 'behavior';
 
 interface SiteHeaderProps {
   /** Currently active page — highlights the corresponding nav link */
@@ -16,12 +16,12 @@ interface SiteHeaderProps {
 }
 
 const navItems: { key: NavPage; label: string; href: string }[] = [
-  { key: "overview", label: "Overview", href: "/" },
-  { key: "realtime", label: "Realtime", href: "/realtime" },
-  { key: "behavior", label: "Behavior", href: "/behavior" },
+  { key: 'overview', label: 'Overview', href: '/' },
+  { key: 'realtime', label: 'Realtime', href: '/realtime' },
+  { key: 'behavior', label: 'Behavior', href: '/behavior' },
 ];
 
-const timeRanges = ["24h", "7d", "30d", "90d"] as const;
+const timeRanges = ['24h', '7d', '30d', '90d'] as const;
 
 /**
  * Shared site header for all Analytics Dashboard pages.
@@ -54,13 +54,17 @@ export default React.memo(function SiteHeader({
               <div className="w-8 h-8 bg-[var(--cc-primary)] rounded-sm flex items-center justify-center">
                 <BarChart3 className="w-5 h-5 text-[var(--cc-on-primary)]" />
               </div>
-              <h1 className="text-heading-3 text-[var(--cc-ink)] hidden sm:block">CinaCoin analytics.</h1>
+              <h1 className="text-heading-3 text-[var(--cc-ink)] hidden sm:block">
+                CinaCoin analytics.
+              </h1>
             </a>
 
             {/* Breadcrumb for sub-pages */}
             {breadcrumb && (
               <div className="flex items-center gap-sm min-w-0">
-                <span className="text-body-sm text-[var(--cc-muted)]" aria-hidden="true">/</span>
+                <span className="text-body-sm text-[var(--cc-muted)]" aria-hidden="true">
+                  /
+                </span>
                 <span className="text-body-sm text-[var(--cc-body)] truncate">{breadcrumb}</span>
               </div>
             )}
@@ -75,10 +79,10 @@ export default React.memo(function SiteHeader({
                   href={item.href}
                   className={`text-body-sm transition-colors ${
                     activePage === item.key
-                      ? "text-[var(--cc-ink)] font-medium"
-                      : "text-[var(--cc-muted)] hover:text-[var(--cc-ink)]"
+                      ? 'text-[var(--cc-ink)] font-medium'
+                      : 'text-[var(--cc-muted)] hover:text-[var(--cc-ink)]'
                   }`}
-                  aria-current={activePage === item.key ? "page" : undefined}
+                  aria-current={activePage === item.key ? 'page' : undefined}
                 >
                   {item.label}
                 </a>
@@ -87,15 +91,19 @@ export default React.memo(function SiteHeader({
 
             {/* Time Range Selector (Overview only) */}
             {timeRange && onTimeRangeChange && (
-              <div className="flex bg-[var(--cc-canvas-soft-2)] rounded-sm p-xxs" role="group" aria-label="Time range">
+              <div
+                className="flex bg-[var(--cc-canvas-soft-2)] rounded-sm p-xxs"
+                role="group"
+                aria-label="Time range"
+              >
                 {timeRanges.map((range) => (
                   <button
                     key={range}
                     onClick={() => onTimeRangeChange(range)}
                     className={`px-sm py-xxs text-body-sm rounded-sm transition-all ${
                       timeRange === range
-                        ? "bg-[var(--cc-canvas)] text-[var(--cc-ink)] font-medium shadow-cinacoin-2"
-                        : "text-[var(--cc-muted)] hover:text-[var(--cc-ink)]"
+                        ? 'bg-[var(--cc-canvas)] text-[var(--cc-ink)] font-medium shadow-cinacoin-2'
+                        : 'text-[var(--cc-muted)] hover:text-[var(--cc-ink)]'
                     }`}
                     aria-pressed={timeRange === range}
                   >
@@ -120,7 +128,7 @@ export default React.memo(function SiteHeader({
             onClick={toggleMobileMenu}
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-nav-menu"
-            aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -141,10 +149,10 @@ export default React.memo(function SiteHeader({
                   href={item.href}
                   className={`text-body-sm px-sm py-xs rounded-sm transition-colors ${
                     activePage === item.key
-                      ? "text-[var(--cc-ink)] font-medium bg-[var(--cc-canvas-soft-2)]"
-                      : "text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft)]"
+                      ? 'text-[var(--cc-ink)] font-medium bg-[var(--cc-canvas-soft-2)]'
+                      : 'text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft)]'
                   }`}
-                  aria-current={activePage === item.key ? "page" : undefined}
+                  aria-current={activePage === item.key ? 'page' : undefined}
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {item.label}
@@ -155,26 +163,34 @@ export default React.memo(function SiteHeader({
             {/* Mobile Time Range */}
             {timeRange && onTimeRangeChange && (
               <div className="mt-sm pt-sm border-t border-[var(--cc-hairline)]">
-                <p className="text-caption text-[var(--cc-muted)] mb-xs px-sm">Time range.</p>
-                <div className="flex bg-[var(--cc-canvas-soft-2)] rounded-sm p-xxs mx-sm" role="group" aria-label="Time range">
+                <label
+                  htmlFor="mobile-time-range-select"
+                  className="text-caption text-[var(--cc-muted)] mb-xs block px-sm"
+                >
+                  Time range.
+                </label>
+                <select
+                  id="mobile-time-range-select"
+                  value={timeRange}
+                  onChange={(e) => {
+                    onTimeRangeChange(e.target.value);
+                    setMobileMenuOpen(false);
+                  }}
+                  className="block w-[calc(100%-1rem)] mx-sm px-sm py-xs text-body-sm bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] rounded-sm text-[var(--cc-ink)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-primary)]"
+                  aria-label="Select time range"
+                >
                   {timeRanges.map((range) => (
-                    <button
-                      key={range}
-                      onClick={() => {
-                        onTimeRangeChange(range);
-                        setMobileMenuOpen(false);
-                      }}
-                      className={`flex-1 px-sm py-xxs text-body-sm rounded-sm transition-all text-center ${
-                        timeRange === range
-                          ? "bg-[var(--cc-canvas)] text-[var(--cc-ink)] font-medium shadow-cinacoin-2"
-                          : "text-[var(--cc-muted)] hover:text-[var(--cc-ink)]"
-                      }`}
-                      aria-pressed={timeRange === range}
-                    >
-                      {range}
-                    </button>
+                    <option key={range} value={range}>
+                      {range === '24h'
+                        ? 'Last 24 hours'
+                        : range === '7d'
+                          ? 'Last 7 days'
+                          : range === '30d'
+                            ? 'Last 30 days'
+                            : 'Last 90 days'}
+                    </option>
                   ))}
-                </div>
+                </select>
               </div>
             )}
           </div>

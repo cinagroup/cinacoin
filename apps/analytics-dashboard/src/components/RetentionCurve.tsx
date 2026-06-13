@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import React, { useState, useMemo, useCallback } from "react";
+import React, { useState, useMemo } from 'react';
 
-type CohortPeriod = "daily" | "weekly" | "monthly";
+type CohortPeriod = 'daily' | 'weekly' | 'monthly';
 
 interface CohortData {
   label: string;
@@ -12,35 +12,35 @@ interface CohortData {
 
 const cohortData: Record<CohortPeriod, CohortData[]> = {
   daily: [
-    { label: "Jun 1", users: 3200, retention: [100, 68, 52, 41, 35, 30, 27] },
-    { label: "Jun 2", users: 3450, retention: [100, 71, 55, 44, 37, 32, -1] },
-    { label: "Jun 3", users: 2980, retention: [100, 65, 50, 39, 33, -1, -1] },
-    { label: "Jun 4", users: 3100, retention: [100, 69, 53, 42, -1, -1, -1] },
-    { label: "Jun 5", users: 3650, retention: [100, 72, 56, -1, -1, -1, -1] },
-    { label: "Jun 6", users: 3800, retention: [100, 70, -1, -1, -1, -1, -1] },
-    { label: "Jun 7", users: 4100, retention: [100, -1, -1, -1, -1, -1, -1] },
+    { label: 'Jun 1', users: 3200, retention: [100, 68, 52, 41, 35, 30, 27] },
+    { label: 'Jun 2', users: 3450, retention: [100, 71, 55, 44, 37, 32, -1] },
+    { label: 'Jun 3', users: 2980, retention: [100, 65, 50, 39, 33, -1, -1] },
+    { label: 'Jun 4', users: 3100, retention: [100, 69, 53, 42, -1, -1, -1] },
+    { label: 'Jun 5', users: 3650, retention: [100, 72, 56, -1, -1, -1, -1] },
+    { label: 'Jun 6', users: 3800, retention: [100, 70, -1, -1, -1, -1, -1] },
+    { label: 'Jun 7', users: 4100, retention: [100, -1, -1, -1, -1, -1, -1] },
   ],
   weekly: [
-    { label: "Week 1", users: 22400, retention: [100, 45, 32, 26, 22, 19, 17, 16] },
-    { label: "Week 2", users: 24100, retention: [100, 48, 35, 28, 24, 21, 18, -1] },
-    { label: "Week 3", users: 21800, retention: [100, 42, 30, 24, 20, 17, -1, -1] },
-    { label: "Week 4", users: 25600, retention: [100, 50, 37, 30, 25, -1, -1, -1] },
-    { label: "Week 5", users: 23900, retention: [100, 46, 33, 27, -1, -1, -1, -1] },
-    { label: "Week 6", users: 26200, retention: [100, 49, 36, -1, -1, -1, -1, -1] },
+    { label: 'Week 1', users: 22400, retention: [100, 45, 32, 26, 22, 19, 17, 16] },
+    { label: 'Week 2', users: 24100, retention: [100, 48, 35, 28, 24, 21, 18, -1] },
+    { label: 'Week 3', users: 21800, retention: [100, 42, 30, 24, 20, 17, -1, -1] },
+    { label: 'Week 4', users: 25600, retention: [100, 50, 37, 30, 25, -1, -1, -1] },
+    { label: 'Week 5', users: 23900, retention: [100, 46, 33, 27, -1, -1, -1, -1] },
+    { label: 'Week 6', users: 26200, retention: [100, 49, 36, -1, -1, -1, -1, -1] },
   ],
   monthly: [
-    { label: "Jan", users: 85000, retention: [100, 42, 35, 30, 27, 25] },
-    { label: "Feb", users: 92000, retention: [100, 44, 37, 32, 29, -1] },
-    { label: "Mar", users: 98500, retention: [100, 46, 39, 34, -1, -1] },
-    { label: "Apr", users: 105000, retention: [100, 48, 41, -1, -1, -1] },
-    { label: "May", users: 112000, retention: [100, 50, -1, -1, -1, -1] },
+    { label: 'Jan', users: 85000, retention: [100, 42, 35, 30, 27, 25] },
+    { label: 'Feb', users: 92000, retention: [100, 44, 37, 32, 29, -1] },
+    { label: 'Mar', users: 98500, retention: [100, 46, 39, 34, -1, -1] },
+    { label: 'Apr', users: 105000, retention: [100, 48, 41, -1, -1, -1] },
+    { label: 'May', users: 112000, retention: [100, 50, -1, -1, -1, -1] },
   ],
 };
 
 const periodLabels: Record<CohortPeriod, string[]> = {
-  daily: ["Day 0", "Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6"],
-  weekly: ["Week 0", "Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Week 7"],
-  monthly: ["Month 0", "Month 1", "Month 2", "Month 3", "Month 4", "Month 5"],
+  daily: ['Day 0', 'Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6'],
+  weekly: ['Week 0', 'Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6', 'Week 7'],
+  monthly: ['Month 0', 'Month 1', 'Month 2', 'Month 3', 'Month 4', 'Month 5'],
 };
 
 function RetentionLineChart({ cohorts, labels }: { cohorts: CohortData[]; labels: string[] }) {
@@ -50,17 +50,35 @@ function RetentionLineChart({ cohorts, labels }: { cohorts: CohortData[]; labels
   const chartW = width - padding.left - padding.right;
   const chartH = height - padding.top - padding.bottom;
 
-  const colors = ["#0070f3", "#7928ca", "#0091ff", "#f5a623", "#059669", "#ee0000", "#737373"];
+  const colors = ['#0070f3', '#7928ca', '#0091ff', '#f5a623', '#059669', '#ee0000', '#737373'];
 
   return (
-    <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-auto">
+    <svg
+      viewBox={`0 0 ${width} ${height}`}
+      className="w-full h-auto"
+      role="img"
+      aria-label={`User retention cohort lines showing decline over time`}
+    >
       {/* Grid lines */}
       {[0, 25, 50, 75, 100].map((pct) => {
         const y = padding.top + chartH - (pct / 100) * chartH;
         return (
           <g key={pct}>
-            <line x1={padding.left} y1={y} x2={width - padding.right} y2={y} stroke="var(--cc-hairline)" strokeDasharray="3 3" />
-            <text x={padding.left - 8} y={y + 4} textAnchor="end" className="fill-ink-mute" style={{ fontSize: "var(--cc-text-xs)" }}>
+            <line
+              x1={padding.left}
+              y1={y}
+              x2={width - padding.right}
+              y2={y}
+              stroke="var(--cc-hairline)"
+              strokeDasharray="3 3"
+            />
+            <text
+              x={padding.left - 8}
+              y={y + 4}
+              textAnchor="end"
+              className="fill-ink-mute"
+              style={{ fontSize: 'var(--cc-text-xs)' }}
+            >
               {pct}%
             </text>
           </g>
@@ -71,7 +89,14 @@ function RetentionLineChart({ cohorts, labels }: { cohorts: CohortData[]; labels
       {labels.map((label, i) => {
         const x = padding.left + (i / (labels.length - 1)) * chartW;
         return (
-          <text key={label} x={x} y={height - 8} textAnchor="middle" className="fill-ink-mute" style={{ fontSize: "var(--cc-text-xs)" }}>
+          <text
+            key={label}
+            x={x}
+            y={height - 8}
+            textAnchor="middle"
+            className="fill-ink-mute"
+            style={{ fontSize: 'var(--cc-text-xs)' }}
+          >
             {label}
           </text>
         );
@@ -90,13 +115,25 @@ function RetentionLineChart({ cohorts, labels }: { cohorts: CohortData[]; labels
 
         if (points.length < 2) return null;
 
-        const pathD = points.map((p, i) => `${i === 0 ? "M" : "L"} ${p.x} ${p.y}`).join(" ");
+        const pathD = points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ');
 
         return (
           <g key={cohort.label}>
-            <path d={pathD} fill="none" stroke={colors[ci % colors.length]} strokeWidth="2" strokeLinecap="round" />
+            <path
+              d={pathD}
+              fill="none"
+              stroke={colors[ci % colors.length]}
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
             {points.map((p, i) => (
-              <circle key={`${cohort.label}-${labels[i]}`} cx={p.x} cy={p.y} r="3" fill={colors[ci % colors.length]}>
+              <circle
+                key={`${cohort.label}-${labels[i]}`}
+                cx={p.x}
+                cy={p.y}
+                r="3"
+                fill={colors[ci % colors.length]}
+              >
                 <title>{`${cohort.label} - ${labels[i]}: ${cohort.retention[i]}%`}</title>
               </circle>
             ))}
@@ -108,7 +145,7 @@ function RetentionLineChart({ cohorts, labels }: { cohorts: CohortData[]; labels
 }
 
 export default React.memo(function RetentionCurve() {
-  const [period, setPeriod] = useState<CohortPeriod>("weekly");
+  const [period, setPeriod] = useState<CohortPeriod>('weekly');
   const cohorts = cohortData[period];
   const labels = periodLabels[period];
 
@@ -119,7 +156,8 @@ export default React.memo(function RetentionCurve() {
     const counts: number[] = new Array(maxLen).fill(0);
     cohorts.forEach((c) => {
       c.retention.forEach((val, i) => {
-        if (val >= 0) { // -1 means no data
+        if (val >= 0) {
+          // -1 means no data
           sums[i] += val;
           counts[i] += 1;
         }
@@ -134,14 +172,14 @@ export default React.memo(function RetentionCurve() {
       <div className="flex items-center justify-between flex-wrap gap-sm">
         <h3 className="text-heading-3 text-[var(--cc-ink)]">User retention</h3>
         <div className="flex bg-[var(--cc-canvas-soft-2)] rounded-sm p-xxs">
-          {(["daily", "weekly", "monthly"] as const).map((p) => (
+          {(['daily', 'weekly', 'monthly'] as const).map((p) => (
             <button
               key={p}
               onClick={() => setPeriod(p)}
               className={`px-sm py-xxs text-body-sm rounded-sm transition-all capitalize ${
                 period === p
-                  ? "bg-[var(--cc-canvas)] text-[var(--cc-ink)] font-medium shadow-cinacoin-2"
-                  : "text-[var(--cc-muted)] hover:text-[var(--cc-ink)]"
+                  ? 'bg-[var(--cc-canvas)] text-[var(--cc-ink)] font-medium shadow-cinacoin-2'
+                  : 'text-[var(--cc-muted)] hover:text-[var(--cc-ink)]'
               }`}
             >
               {p}
@@ -158,13 +196,15 @@ export default React.memo(function RetentionCurve() {
         </div>
         <div className="cc-card p-sm text-center">
           <p className="text-caption text-[var(--cc-muted)]">
-            {period === "daily" ? "Day-3" : period === "weekly" ? "Week-3" : "Month-3"}
+            {period === 'daily' ? 'Day-3' : period === 'weekly' ? 'Week-3' : 'Month-3'}
           </p>
           <p className="text-display-sm text-[var(--cc-ink)] mt-1">{avgRetention[3] || 0}%</p>
         </div>
         <div className="cc-card p-sm text-center">
           <p className="text-caption text-[var(--cc-muted)]">Latest period</p>
-          <p className="text-display-sm text-[var(--cc-ink)] mt-1">{avgRetention[avgRetention.length - 1] || 0}%</p>
+          <p className="text-display-sm text-[var(--cc-ink)] mt-1">
+            {avgRetention[avgRetention.length - 1] || 0}%
+          </p>
         </div>
       </div>
 
@@ -177,7 +217,15 @@ export default React.memo(function RetentionCurve() {
               <div
                 className="w-2.5 h-2.5 rounded-full"
                 style={{
-                  backgroundColor: ["#0070f3", "#7928ca", "#0091ff", "#f5a623", "#059669", "#ee0000", "#737373"][i % 7],
+                  backgroundColor: [
+                    '#0070f3',
+                    '#7928ca',
+                    '#0091ff',
+                    '#f5a623',
+                    '#059669',
+                    '#ee0000',
+                    '#737373',
+                  ][i % 7],
                 }}
               />
               <span className="text-caption text-[var(--cc-muted)]">
@@ -215,8 +263,8 @@ export default React.memo(function RetentionCurve() {
                         <span
                           className="inline-block px-xs py-xxs rounded-sm font-medium"
                           style={{
-                            backgroundColor: `rgba(0, 112, 243, ${val / 100 * 0.3 + 0.05})`,
-                            color: val > 50 ? "var(--cc-ink)" : "var(--cc-body)",
+                            backgroundColor: `rgba(0, 112, 243, ${(val / 100) * 0.3 + 0.05})`,
+                            color: val > 50 ? 'var(--cc-ink)' : 'var(--cc-body)',
                           }}
                         >
                           {val}%
