@@ -1,12 +1,13 @@
-import { useState, useEffect, useCallback, type ReactNode } from 'react';
 import { TelegramProvider } from '@cinacoin/telegram-miniapp';
 import type { TelegramUser } from '@cinacoin/telegram-miniapp';
 import { Home, CreditCard, ArrowRightLeft, Pencil } from 'lucide-react';
+import { useState, useEffect, useCallback, type ReactNode } from 'react';
+
 import TelegramHeader from './components/TelegramHeader';
 import HomePage from './pages/HomePage';
-import WalletPage from './pages/WalletPage';
-import TransferPage from './pages/TransferPage';
 import SignPage from './pages/SignPage';
+import TransferPage from './pages/TransferPage';
+import WalletPage from './pages/WalletPage';
 import './styles/App.css';
 
 type TabId = 'home' | 'wallet' | 'transfer' | 'sign';
@@ -43,13 +44,16 @@ export default function App() {
         setIsReady(true);
       }
     };
-    init();
+    void init();
   }, [provider]);
 
-  const handleConnect = useCallback((addr: string) => {
-    setAccount(addr);
-    provider.connect(addr as `0x${string}`);
-  }, [provider]);
+  const handleConnect = useCallback(
+    (addr: string) => {
+      setAccount(addr);
+      provider.connect(addr as `0x${string}`);
+    },
+    [provider]
+  );
 
   const handleDisconnect = useCallback(() => {
     setAccount(null);
@@ -61,21 +65,19 @@ export default function App() {
     setBalance(bal);
   }, []);
 
-  const handleTabChange = useCallback((tab: TabId) => {
-    setActiveTab(tab);
-    provider.triggerHaptic('light');
-  }, [provider]);
+  const handleTabChange = useCallback(
+    (tab: TabId) => {
+      setActiveTab(tab);
+      provider.triggerHaptic('light');
+    },
+    [provider]
+  );
 
   const renderPage = () => {
     switch (activeTab) {
       case 'home':
         return (
-          <HomePage
-            user={user}
-            account={account}
-            balance={balance}
-            onNavigate={handleTabChange}
-          />
+          <HomePage user={user} account={account} balance={balance} onNavigate={handleTabChange} />
         );
       case 'wallet':
         return (
@@ -88,20 +90,9 @@ export default function App() {
           />
         );
       case 'transfer':
-        return (
-          <TransferPage
-            provider={provider}
-            account={account}
-            balance={balance}
-          />
-        );
+        return <TransferPage provider={provider} account={account} balance={balance} />;
       case 'sign':
-        return (
-          <SignPage
-            provider={provider}
-            account={account}
-          />
-        );
+        return <SignPage provider={provider} account={account} />;
       default:
         return null;
     }
@@ -119,18 +110,28 @@ export default function App() {
   return (
     <div className="app">
       <TelegramHeader user={user} account={account} />
-      <main className="app-content">
+      <main
+        className="app-content"
+        role="tabpanel"
+        id={`panel-${activeTab}`}
+        aria-labelledby={activeTab}
+      >
         {renderPage()}
       </main>
-      <nav className="tab-bar" aria-label="Main navigation">
+      <nav className="tab-bar" role="tablist" aria-label="Main navigation">
         {TABS.map((tab) => (
           <button
             key={tab.id}
+            role="tab"
+            id={tab.id}
             className={`tab-item ${activeTab === tab.id ? 'active' : ''}`}
             onClick={() => handleTabChange(tab.id)}
-            aria-current={activeTab === tab.id ? 'page' : undefined}
+            aria-selected={activeTab === tab.id}
+            aria-controls={`panel-${tab.id}`}
           >
-            <span className="tab-icon" aria-hidden="true">{tab.icon}</span>
+            <span className="tab-icon" aria-hidden="true">
+              {tab.icon}
+            </span>
             <span className="tab-label">{tab.label}</span>
           </button>
         ))}

@@ -1,10 +1,12 @@
-import type { Metadata } from 'next';
-import { buildFrameMetadata, getAppUrl } from '@/lib/frame-utils';
 import { Link, Send, PenLine, User } from 'lucide-react';
+import type { Metadata } from 'next';
+
+import { buildFrameMetadata, getAppUrl } from '@/lib/frame-utils';
 
 export const metadata: Metadata = {
   title: 'CinaCoin Farcaster App',
-  description: 'Welcome to CinaCoin — connect your wallet, transfer tokens, and sign messages on Farcaster.',
+  description:
+    'Welcome to CinaCoin — connect your wallet, transfer tokens, and sign messages on Farcaster.',
   other: buildFrameMetadata({
     image: `${getAppUrl()}/og-default.png`,
     title: 'CinaCoin',
@@ -22,16 +24,18 @@ export default function HomePage() {
     <main className="flex min-h-screen flex-col items-center p-6 sm:p-8">
       {/* Mono eyebrow band */}
       <div className="w-full max-w-2xl mb-8 pt-6">
-        <span className="font-[family-name:var(--font-geist-mono)] text-xs text-[var(--cc-mute)] tracking-wide uppercase">farcaster mini app</span>
+        <span className="font-[family-name:var(--font-geist-mono)] text-xs text-[var(--cc-mute)] tracking-wide uppercase">
+          farcaster mini app
+        </span>
       </div>
 
       {/* Asymmetric hero — left-aligned */}
       <div className="max-w-2xl w-full space-y-8">
         <div className="space-y-3">
-          <h1 className="text-display-xl font-semibold text-[var(--cc-ink)]">
-            CinaCoin.
-          </h1>
-          <p className="text-[var(--cc-body)] text-body-lg max-w-md">Wallet, transfer, sign — from your Farcaster feed.</p>
+          <h1 className="text-display-xl font-semibold text-[var(--cc-ink)]">CinaCoin.</h1>
+          <p className="text-[var(--cc-body)] text-body-lg max-w-md">
+            Wallet, transfer, sign — from your Farcaster feed.
+          </p>
         </div>
 
         {/* Dark band with code mockup */}
@@ -40,47 +44,61 @@ export default function HomePage() {
             <span className="w-3 h-3 rounded-full bg-[var(--cc-hairline-strong)]" />
             <span className="w-3 h-3 rounded-full bg-[var(--cc-hairline-strong)]" />
             <span className="w-3 h-3 rounded-full bg-[var(--cc-hairline-strong)]" />
-            <span className="ml-4 font-[family-name:var(--font-geist-mono)] text-xs text-[var(--cc-mute)]">frame config</span>
+            <span className="ml-4 font-[family-name:var(--font-geist-mono)] text-xs text-[var(--cc-mute)]">
+              frame config
+            </span>
           </div>
-          <pre className="p-6 text-sm font-[family-name:var(--font-geist-mono)] text-[var(--cc-body)] overflow-x-auto"><code>{`{
+          <pre className="p-6 text-sm font-[family-name:var(--font-geist-mono)] text-[var(--cc-body)] overflow-x-auto">
+            <code>{`{
   "title": "CinaCoin",
   "image": "/og-default.png",
   "buttons": ["Connect Wallet", "Profile", "Docs"]
-}`}</code></pre>
+}`}</code>
+          </pre>
         </div>
 
         {/* Action grid — left-aligned */}
         <div className="space-y-4">
-          <p className="text-[var(--cc-body)] text-body-sm">Send CINA, sign messages, and manage your wallet without leaving Warpcast.</p>
+          <p className="text-[var(--cc-body)] text-body-sm">
+            Send CINA, sign messages, and manage your wallet without leaving Warpcast.
+          </p>
           <nav aria-label="Main navigation">
             <div className="grid grid-cols-2 gap-3">
               <a
                 href="/frame/wallet/"
-                aria-label="Open wallet"
+                aria-label="Open wallet application"
                 className="bg-[var(--cc-ink)] hover:bg-[var(--cc-ink)]/90 text-[var(--cc-canvas)] py-3 px-4 rounded-sm font-medium transition-colors"
               >
-                <span className="flex items-center gap-2"><Link className="w-5 h-5" aria-hidden="true" /> Wallet.</span>
+                <span className="flex items-center gap-2">
+                  <Link className="w-5 h-5" aria-hidden="true" /> Wallet.
+                </span>
               </a>
               <a
                 href="/frame/transfer/"
-                aria-label="Open transfer"
+                aria-label="Open transfer page"
                 className="bg-[var(--cc-ink)] hover:bg-[var(--cc-ink)]/90 text-[var(--cc-canvas)] py-3 px-4 rounded-sm font-medium transition-colors"
               >
-                <span className="flex items-center gap-2"><Send className="w-5 h-5" aria-hidden="true" /> Transfer.</span>
+                <span className="flex items-center gap-2">
+                  <Send className="w-5 h-5" aria-hidden="true" /> Transfer.
+                </span>
               </a>
               <a
                 href="/frame/sign/"
-                aria-label="Open sign message"
+                aria-label="Open sign message page"
                 className="bg-[var(--cc-ink)] hover:bg-[var(--cc-ink)]/90 text-[var(--cc-canvas)] py-3 px-4 rounded-sm font-medium transition-colors"
               >
-                <span className="flex items-center gap-2"><PenLine className="w-5 h-5" aria-hidden="true" /> Sign.</span>
+                <span className="flex items-center gap-2">
+                  <PenLine className="w-5 h-5" aria-hidden="true" /> Sign.
+                </span>
               </a>
               <a
                 href="/frame/profile/"
-                aria-label="Open profile"
+                aria-label="Open profile page"
                 className="bg-[var(--cc-canvas-soft-2)] hover:bg-[var(--cc-hairline-strong)] text-[var(--cc-ink)] py-3 px-4 rounded-sm font-medium transition-colors border border-[var(--cc-hairline)]"
               >
-                <span className="flex items-center gap-2"><User className="w-5 h-5" aria-hidden="true" /> Profile.</span>
+                <span className="flex items-center gap-2">
+                  <User className="w-5 h-5" aria-hidden="true" /> Profile.
+                </span>
               </a>
             </div>
           </nav>
