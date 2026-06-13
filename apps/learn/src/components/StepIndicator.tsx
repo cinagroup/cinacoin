@@ -16,7 +16,7 @@ export default function StepIndicator({ currentStep, totalSteps }: StepIndicator
           aria-hidden="true"
         />
       ))}
-      <span className="text-body-sm ml-2" style={{ color: 'var(--cc-mute)' }}>
+      <span className="text-body-sm ml-2" style={{ color: 'var(--cc-muted)' }}>
         Step {currentStep} of {totalSteps}
       </span>
     </div>

@@ -19,21 +19,21 @@ export default function CodeBlock({ code, language = "typescript", title }: Code
   };
 
   return (
-    <div className="rounded-lg overflow-hidden" style={{ marginTop: 'var(--cc-space-lg)', marginBottom: 'var(--cc-space-lg)', border: '1px solid #2e2e2e' }}>
+    <div className="rounded-lg overflow-hidden" style={{ marginTop: 'var(--cc-lg)', marginBottom: 'var(--cc-lg)', border: '1px solid var(--cc-hairline)' }}>
       {title && (
         <div 
           className="flex items-center justify-between"
           style={{ 
-            padding: 'var(--cc-space-sm) var(--cc-space-md)',
-            backgroundColor: '#1e1e1e',
-            borderBottom: '1px solid #2e2e2e'
+            padding: 'var(--cc-sm) var(--cc-md)',
+            backgroundColor: 'var(--cc-canvas-soft-2)',
+            borderBottom: '1px solid var(--cc-hairline)'
           }}
         >
-          <span className="font-mono text-xs" style={{ color: '#888' }}>{title}</span>
+          <span className="font-mono text-xs" style={{ color: 'var(--cc-muted)' }}>{title}</span>
           <button
             onClick={handleCopy}
             className="flex items-center gap-1 text-xs"
-            style={{ color: '#888', background: 'none', border: 'none', cursor: 'pointer', padding: 'var(--cc-space-xs)' }}
+            style={{ color: 'var(--cc-muted)', background: 'none', border: 'none', cursor: 'pointer', padding: 'var(--cc-xs)' }}
             aria-label={copied ? "Code copied" : "Copy code"}
           >
             {copied ? <Check className="h-3.5 w-3.5" aria-hidden="true" /> : <Copy className="h-3.5 w-3.5" aria-hidden="true" />}
@@ -41,8 +41,8 @@ export default function CodeBlock({ code, language = "typescript", title }: Code
           </button>
         </div>
       )}
-      <pre className="overflow-x-auto" style={{ padding: 'var(--cc-space-md)', backgroundColor: '#171717', margin: 0 }}>
-        <code className={`language-${language} font-mono text-sm`} style={{ color: '#b3b3b3' }}>{code}</code>
+      <pre className="overflow-x-auto" style={{ padding: 'var(--cc-md)', backgroundColor: 'var(--cc-canvas-soft-2)', margin: 0 }}>
+        <code className={`language-${language} font-mono text-sm`} style={{ color: 'var(--cc-body)' }}>{code}</code>
       </pre>
     </div>
   );

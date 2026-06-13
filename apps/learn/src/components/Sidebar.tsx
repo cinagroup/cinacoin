@@ -28,8 +28,8 @@ export default function Sidebar() {
       }}
       aria-label="Tutorial navigation"
     >
-      <div style={{ padding: 'var(--cc-space-lg)' }}>
-        <Link href="/" className="block" style={{ marginBottom: 'var(--cc-space-xl)' }}>
+      <div style={{ padding: 'var(--cc-lg)' }}>
+        <Link href="/" className="block" style={{ marginBottom: 'var(--cc-xl)' }}>
           <div className="text-display-md" style={{ color: 'var(--cc-link)' }}>
             CinaCoin
           </div>
@@ -44,8 +44,8 @@ export default function Sidebar() {
               <h3
                 className="text-caption tracking-wider"
                 style={{
-                  color: 'var(--cc-mute)',
-                  marginBottom: 'var(--cc-space-sm)',
+                  color: 'var(--cc-muted)',
+                  marginBottom: 'var(--cc-sm)',
                   fontWeight: 500,
                 }}
               >
@@ -63,9 +63,9 @@ export default function Sidebar() {
                           className={`block text-body-sm transition-colors ${isActive ? 'sidebar-link-active' : 'sidebar-link'}`}
                           aria-current={isActive ? 'page' : undefined}
                           style={{
-                            padding: 'var(--cc-space-xs) var(--cc-space-sm)',
+                            padding: 'var(--cc-xs) var(--cc-sm)',
                             borderRadius: 'var(--cc-radius-md)',
-                            backgroundColor: isActive ? 'rgba(0, 112, 243, 0.1)' : 'transparent',
+                            backgroundColor: isActive ? 'var(--cc-link-bg-soft)' : 'transparent',
                             color: isActive ? 'var(--cc-link)' : 'var(--cc-body)',
                             fontWeight: isActive ? 500 : 400,
                           }}
@@ -97,8 +97,8 @@ export default function Sidebar() {
 
         <div
           style={{
-            marginTop: 'var(--cc-space-xl)',
-            paddingTop: 'var(--cc-space-lg)',
+            marginTop: 'var(--cc-xl)',
+            paddingTop: 'var(--cc-lg)',
             borderTop: '1px solid var(--cc-hairline)',
           }}
         >

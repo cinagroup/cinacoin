@@ -33,7 +33,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" data-theme="dark">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`} style={{ backgroundColor: 'var(--cc-canvas)', color: 'var(--cc-ink)' }}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}>
         <ThemeProvider>
           <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-[var(--cc-ink)] focus:rounded-md">
             Skip to main content

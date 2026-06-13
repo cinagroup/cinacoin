@@ -41,7 +41,7 @@ export default function TutorialCard({
         <p className="text-body-sm mb-4 line-clamp-2" style={{ color: 'var(--cc-body)' }}>
           {description}
         </p>
-        <div className="flex items-center text-caption" style={{ color: 'var(--cc-mute)' }}>
+        <div className="flex items-center text-caption" style={{ color: 'var(--cc-muted)' }}>
           <svg
             className="w-4 h-4 mr-1"
             fill="none"

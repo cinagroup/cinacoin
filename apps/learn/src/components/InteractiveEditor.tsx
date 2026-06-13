@@ -27,11 +27,11 @@ Output:
   };
 
   return (
-    <div className="cc-card" style={{ padding: 0, marginTop: 'var(--cc-space-lg)', marginBottom: 'var(--cc-space-lg)' }}>
+    <div className="cc-card" style={{ padding: 0, marginTop: 'var(--cc-lg)', marginBottom: 'var(--cc-lg)' }}>
       <div 
         className="flex items-center justify-between"
         style={{ 
-          padding: 'var(--cc-space-sm) var(--cc-space-md)',
+          padding: 'var(--cc-sm) var(--cc-md)',
           backgroundColor: 'var(--cc-canvas-soft-2)',
           borderBottom: '1px solid var(--cc-hairline)'
         }}
@@ -40,7 +40,7 @@ Output:
         <button
           onClick={handleRun}
           className="cc-btn-primary"
-          style={{ height: '32px', padding: '0 var(--cc-space-sm)' }}
+          style={{ height: '32px', padding: '0 var(--cc-sm)' }}
           aria-label="Run code"
         >
           Run code
@@ -54,7 +54,7 @@ Output:
         style={{ 
           width: '100%', 
           height: '192px', 
-          padding: 'var(--cc-space-md)',
+          padding: 'var(--cc-md)',
           backgroundColor: 'var(--cc-canvas)',
           color: 'var(--cc-ink)',
           border: 'none',
@@ -64,11 +64,11 @@ Output:
       />
       {output && (
         <div style={{ 
-          padding: 'var(--cc-space-md)',
+          padding: 'var(--cc-md)',
           borderTop: '1px solid var(--cc-hairline)',
           backgroundColor: 'var(--cc-canvas-soft)'
         }}>
-          <div className="text-caption" style={{ color: 'var(--cc-mute)', marginBottom: 'var(--cc-space-xs)' }}>Output:</div>
+          <div className="text-caption" style={{ color: 'var(--cc-muted)', marginBottom: 'var(--cc-xs)' }}>Output:</div>
           <pre className="text-body-sm" style={{ color: 'var(--cc-success)', whiteSpace: 'pre-wrap' }}>{output}</pre>
         </div>
       )}

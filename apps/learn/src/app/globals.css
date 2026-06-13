@@ -30,7 +30,6 @@ html {
 }
 
 body {
-  background-color: var(--cc-canvas);
   color: var(--cc-ink);
   font-family:
     var(--font-geist-sans),
@@ -71,20 +70,20 @@ pre {
 .text-body-sm {
   font-size: var(--text-body-sm);
   font-weight: var(--weight-regular);
-  line-height: 1.5;
+  line-height: 20px;
   letter-spacing: -0.28px;
 }
 
 .text-body-md {
   font-size: var(--text-body-md);
   font-weight: var(--weight-regular);
-  line-height: 1.6;
+  line-height: 24px;
 }
 
 .text-body-lg {
   font-size: var(--text-body-lg);
   font-weight: var(--weight-regular);
-  line-height: 1.6;
+  line-height: 28px;
 }
 
 .text-display-sm {
@@ -138,43 +137,7 @@ pre {
   border-color: var(--cc-link);
 }
 
-/* Button — Primary */
-.cc-btn-primary {
-  display: inline-flex;
-  align-items: center;
-  height: 40px;
-  padding: 0 var(--cc-md);
-  background: var(--cc-ink);
-  color: var(--cc-on-primary);
-  border: none;
-  border-radius: var(--cc-radius-pill);
-  font-size: var(--text-body-sm);
-  font-weight: var(--weight-medium);
-  cursor: pointer;
-  transition: opacity 150ms ease;
-}
-.cc-btn-primary:hover {
-  opacity: 0.85;
-}
 
-/* Button — Secondary */
-.cc-btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  height: 40px;
-  padding: 0 var(--cc-md);
-  background: var(--cc-canvas);
-  color: var(--cc-ink);
-  border: 1px solid var(--cc-hairline);
-  border-radius: var(--cc-radius-pill);
-  font-size: var(--text-body-sm);
-  font-weight: var(--weight-medium);
-  cursor: pointer;
-  transition: border-color 150ms ease;
-}
-.cc-btn-secondary:hover {
-  border-color: var(--cc-hairline-strong);
-}
 
 /* Badge */
 .cc-badge {

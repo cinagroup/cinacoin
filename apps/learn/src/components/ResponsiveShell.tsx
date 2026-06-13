@@ -45,7 +45,7 @@ export default function ResponsiveShell({ children }: { children: React.ReactNod
           backgroundColor: 'var(--cc-canvas)',
           border: '1px solid var(--cc-hairline)',
           borderRadius: 'var(--cc-radius-md)',
-          boxShadow: 'var(--cc-shadow-3)',
+          boxShadow: 'var(--cc-level3)',
         }}
         onClick={() => setSidebarOpen(!sidebarOpen)}
         aria-label={sidebarOpen ? 'Close sidebar' : 'Open sidebar'}
@@ -98,7 +98,7 @@ export default function ResponsiveShell({ children }: { children: React.ReactNod
       )}
 
       {/* Main content */}
-      <main className="flex-1 min-w-0 lg:ml-64" style={{ padding: 'var(--cc-space-lg)' }}>
+      <main className="flex-1 min-w-0 lg:ml-64" style={{ padding: 'var(--cc-lg)' }}>
         {children}
       </main>
     </div>
