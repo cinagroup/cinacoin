@@ -24,7 +24,11 @@ export default function TutorialCard({
   href,
 }: TutorialCardProps) {
   return (
-    <Link href={href} className="block group">
+    <Link 
+      href={href} 
+      className="block group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cc-link)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--cc-canvas)] rounded-lg"
+      aria-label={`${title} - ${difficulty} level, ${duration}`}
+    >
       <div className="cc-card cc-card-interactive">
         <div className="flex items-start justify-between mb-3">
           <h3 className="text-body-lg font-semibold group-hover:text-[var(--cc-link)] transition-colors">
