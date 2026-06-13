@@ -192,12 +192,14 @@ cinacoin.on('disconnect', () => {
           href="/basics"
           className="text-body-sm cc-link-hover"
           style={{ color: 'var(--cc-body)' }}
+          aria-label="Previous: Web3 basics"
         >
           ← Previous: Web3 basics.
         </a>
         <a
           href="/multichain"
           className="cc-btn-primary"
+          aria-label="Next: Multichain development"
         >
           Next: Multichain development. →
         </a>

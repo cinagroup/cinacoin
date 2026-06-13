@@ -42,17 +42,17 @@ export default function HomePage() {
   return (
     <div className="max-w-4xl mx-auto">
       {/* Dark band hero */}
-      <div className="rounded-lg bg-[#171717] px-8 py-12 mb-12">
-        <p className="font-mono text-xs text-[#888] mb-3">learning-hub</p>
-        <h1 className="text-3xl font-semibold text-white tracking-tight mb-4">
-          Welcome to <span className="text-[#0070f3]">CinaCoin Learn</span>.
+      <div className="rounded-lg px-8 py-12 mb-12" style={{ backgroundColor: 'var(--cc-canvas-soft-2)' }}>
+        <p className="cc-mono text-caption mb-3" style={{ color: 'var(--cc-muted)' }}>learning-hub</p>
+        <h1 className="text-display-lg mb-4" style={{ color: 'var(--cc-ink)' }}>
+          Welcome to <span style={{ color: 'var(--cc-link)' }}>CinaCoin Learn</span>.
         </h1>
-        <p className="text-base text-[#b3b3b3] max-w-2xl">
+        <p className="text-body-md max-w-2xl" style={{ color: 'var(--cc-body)' }}>
           Master Web3 development with hands-on tutorials, code examples, and step-by-step guides.
         </p>
         <div className="mt-6 flex gap-3">
           <a href="/basics" className="cc-btn-primary">Start learning</a>
-          <a href="https://cinacoin.com/docs" className="cc-btn-secondary" style={{ background: 'transparent', borderColor: 'rgba(255,255,255,0.2)', color: 'white' }}>View docs</a>
+          <a href="https://cinacoin.com/docs" className="cc-btn-secondary" style={{ background: 'transparent', borderColor: 'var(--cc-hairline)', color: 'var(--cc-ink)' }}>View docs</a>
         </div>
       </div>
 

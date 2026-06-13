@@ -223,12 +223,14 @@ cinacoin.on('chainChanged', (chainId) => {
           href="/wallet-integration"
           className="text-body-sm cc-link-hover"
           style={{ color: 'var(--cc-body)' }}
+          aria-label="Previous: Wallet integration"
         >
           ← Previous: Wallet integration.
         </a>
         <a
           href="/best-practices"
           className="cc-btn-primary"
+          aria-label="Next: Best practices"
         >
           Next: Best practices. →
         </a>

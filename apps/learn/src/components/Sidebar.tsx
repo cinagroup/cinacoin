@@ -61,6 +61,7 @@ export default function Sidebar() {
                         <Link
                           href={tutorial.href}
                           className={`block text-body-sm transition-colors ${isActive ? 'sidebar-link-active' : 'sidebar-link'}`}
+                          aria-current={isActive ? 'page' : undefined}
                           style={{
                             padding: 'var(--cc-space-xs) var(--cc-space-sm)',
                             borderRadius: 'var(--cc-radius-md)',

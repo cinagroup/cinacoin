@@ -240,12 +240,14 @@ describe('Wallet Integration', () => {
           href="/multichain"
           className="text-body-sm cc-link-hover"
           style={{ color: 'var(--cc-body)' }}
+          aria-label="Previous: Multichain development"
         >
           ← Previous: Multichain development.
         </a>
         <a
           href="/"
           className="cc-btn-secondary"
+          aria-label="Back to home"
         >
           Back to home.
         </a>

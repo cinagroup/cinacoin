@@ -122,12 +122,14 @@ contract SimpleStorage {
           href="/"
           className="text-body-sm cc-link-hover"
           style={{ color: 'var(--cc-body)' }}
+          aria-label="Back to home"
         >
           ← Back to home.
         </a>
         <a
           href="/wallet-integration"
           className="cc-btn-primary"
+          aria-label="Next: Wallet integration"
         >
           Next: Wallet integration. →
         </a>
