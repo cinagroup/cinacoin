@@ -374,7 +374,7 @@ export default function SettingsPage() {
           <div className="space-y-6">
             <div className="bg-[var(--cc-canvas-soft-2)]/60 backdrop-blur-xl rounded-[var(--cc-radius-md)] border border-[var(--cc-hairline-strong)]/60 overflow-hidden">
               <div className="px-5 py-4 border-b border-[var(--cc-hairline-strong)]/50">
-                <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Privacy >Privacy & Data< data.</h2>
+                <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Privacy & Data.</h2>
               </div>
               <div className="p-5 space-y-4">
                 <div className="flex items-center justify-between">

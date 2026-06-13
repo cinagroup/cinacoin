@@ -36,7 +36,7 @@ export default function MultiChainPage() {
   const [recentlySwitched, setRecentlySwitched] = useState<string | null>(null);
 
   const handleSwitchChain = async (chainId: string) => {
-    if (chainId === account.chainId) return;
+    if (chainId === String(account.chainId)) return;
     setSwitchingChain(chainId);
     try {
       await switchChain(chainId);
@@ -88,7 +88,7 @@ export default function MultiChainPage() {
         {/* Network Grid */}
         <div className="grid md:grid-cols-2 gap-4 cc-stagger">
           {Object.entries(CHAIN_BALANCES).map(([chainId, data]) => {
-            const isActive = account.chainId === chainId;
+            const isActive = String(account.chainId) === chainId;
             const isSwitching = switchingChain === chainId;
             const wasSwitched = recentlySwitched === chainId;
 

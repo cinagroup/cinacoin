@@ -5,9 +5,9 @@ import { Key, Fingerprint, Shield, Loader2, CheckCircle2, AlertCircle } from "lu
 import DemoLayout from "@/components/DemoLayout";
 import { useWallet, shortenAddress } from "@/lib/useWallet";
 import { useToast } from "@/lib/toast";
-import { signInWithEthereum } from "@/lib/siwe";
-import { createPasskey, authenticateWithPasskey } from "@/lib/passkey";
-import { createSecureSession } from "@/lib/secureAuthSession";
+import { authenticateSiwe as signInWithEthereum } from "@/lib/siwe";
+import { registerPasskey as createPasskey, authenticatePasskey as authenticateWithPasskey } from "@/lib/passkey";
+import { createSiweSession, type SecureAuthSession } from "@/lib/secureAuthSession";
 
 export default function AuthPage() {
   const { account, status } = useWallet();
@@ -27,9 +27,13 @@ export default function AuthPage() {
   });
 
   const handleSIWE = async () => {
+    if (!account.address || !account.chainId) {
+      showError("Wallet not ready", "Please connect your wallet first");
+      return;
+    }
     setLoading("siwe");
     try {
-      const result = await signInWithEthereum();
+      const result = await signInWithEthereum(account.address, account.chainId);
       setAuthState((prev) => ({ ...prev, siwe: true }));
       success("Sign-In with Ethereum", `Authenticated as ${shortenAddress(result.address)}`);
     } catch (err) {
@@ -42,9 +46,10 @@ export default function AuthPage() {
   const handlePasskeyCreate = async () => {
     setLoading("passkey-create");
     try {
-      const result = await createPasskey();
+      const username = account.address ?? "anonymous";
+      const result = await createPasskey(username);
       setAuthState((prev) => ({ ...prev, passkey: true }));
-      success("Passkey created", `Credential ID: ${shortenAddress(result.credentialId)}`);
+      success("Passkey created", `Credential ID: ${shortenAddress(result.credential?.id ?? "")}`);
     } catch (err) {
       showError("Passkey creation failed", err instanceof Error ? err.message : "Could not create passkey");
     } finally {
@@ -57,7 +62,7 @@ export default function AuthPage() {
     try {
       const result = await authenticateWithPasskey();
       setAuthState((prev) => ({ ...prev, passkey: true }));
-      success("Passkey authentication", `Verified with credential ${shortenAddress(result.credentialId)}`);
+      success("Passkey authentication", `Verified with credential ${shortenAddress(result.credentialId ?? '')}`);
     } catch (err) {
       showError("Passkey auth failed", err instanceof Error ? err.message : "Could not authenticate");
     } finally {
@@ -65,12 +70,20 @@ export default function AuthPage() {
     }
   };
 
-  const handleSecureSession = async () => {
+  const handleSecureSession = () => {
     setLoading("secure-session");
     try {
-      const result = await createSecureSession();
+      const address = account.address ?? "0x0";
+      const result: SecureAuthSession = createSiweSession(
+        address,
+        "mock-message",
+        "mock-signature",
+        "mock-nonce",
+        "localhost",
+        new Date().toISOString()
+      );
       setAuthState((prev) => ({ ...prev, secureSession: true }));
-      success("Secure session created", `Session expires: ${new Date(result.expiresAt).toLocaleString()}`);
+      success("Secure session created", `Session expires: ${new Date(result.expiresAt!).toLocaleString()}`);
     } catch (err) {
       showError("Secure session failed", err instanceof Error ? err.message : "Could not create session");
     } finally {

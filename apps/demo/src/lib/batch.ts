@@ -293,3 +293,31 @@ export async function getBatchStatus(
 
   return result;
 }
+
+// ── Demo-friendly types and wrappers ──────────────────────────────────────────
+
+export interface BatchTransaction {
+  id: string;
+  to: string;
+  value: string;
+  data: string;
+  description: string;
+}
+
+/**
+ * Execute a batch of demo transactions.
+ * Returns an array of results with hash and status.
+ */
+export async function executeBatch(
+  transactions: BatchTransaction[]
+): Promise<Array<{ hash: string; status: "success" | "failed" }>> {
+  // Demo simulation: pretend each transaction succeeded
+  const results: Array<{ hash: string; status: "success" | "failed" }> = [];
+  for (const tx of transactions) {
+    // Simulate a small delay
+    await new Promise((r) => setTimeout(r, 300));
+    const fakeHash = `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`;
+    results.push({ hash: fakeHash, status: "success" });
+  }
+  return results;
+}

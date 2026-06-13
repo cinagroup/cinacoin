@@ -284,3 +284,10 @@ export async function getChainStatus(): Promise<ChainHealthStatus[]> {
     };
   });
 }
+
+// Wrapper for chain switching (used by multi-chain page)
+export async function switchChain(chainId: string): Promise<void> {
+  // In a real implementation, this would switch the wallet's active chain
+  // For demo purposes, we just simulate the switch
+  console.log(`Switching to chain ${chainId}`);
+}

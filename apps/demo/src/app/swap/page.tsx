@@ -5,8 +5,8 @@ import { ArrowDownUp, ChevronDown, AlertCircle, RefreshCw, Settings2, Info } fro
 import DemoLayout from "@/components/DemoLayout";
 import { useWallet } from "@/lib/useWallet";
 import { useToast } from "@/lib/toast";
-import { swapTokens, type SwapQuote } from "@/lib/swap";
-import { swapTokens as SWAP_TOKEN_LIST } from "@/lib/swapTokens";
+import { getSwapQuote as swapTokens, type PriceQuote as SwapQuote } from "@/lib/swap";
+import { getTokensForChain, type TokenInfo } from "@/lib/swapTokens";
 
 /* ── Token selector dropdown ── */
 function TokenSelector({
@@ -14,13 +14,16 @@ function TokenSelector({
   onChange,
   label,
   balance,
+  chainId,
 }: {
   value: string;
   onChange: (symbol: string) => void;
   label: string;
   balance?: string;
+  chainId: number;
 }) {
   const [open, setOpen] = useState(false);
+  const SWAP_TOKEN_LIST = getTokensForChain(chainId);
   const selected = SWAP_TOKEN_LIST.find((t) => t.symbol === value);
 
   return (
@@ -32,10 +35,7 @@ function TokenSelector({
           className="flex items-center gap-2 px-3 py-1.5 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-full hover:border-[var(--cc-hairline-strong)] transition-all shrink-0"
         >
           {selected && (
-            <div
-              className="w-5 h-5 rounded-full"
-              style={{ backgroundColor: selected.color }}
-            />
+            <selected.icon className="w-5 h-5 text-[var(--cc-link)]" />
           )}
           <span className="font-semibold text-body-sm text-[var(--cc-ink)]">{value}</span>
           <ChevronDown className="w-3.5 h-3.5 text-[var(--cc-muted)]" />
@@ -70,10 +70,7 @@ function TokenSelector({
                     token.symbol === value ? 'bg-[var(--cc-canvas-soft-2)]/60' : ''
                   }`}
                 >
-                  <div
-                    className="w-7 h-7 rounded-full shrink-0"
-                    style={{ backgroundColor: token.color }}
-                  />
+                  <token.icon className="w-7 h-7 shrink-0 text-[var(--cc-link)]" />
                   <div className="flex-1 min-w-0">
                     <p className="font-semibold text-body-sm text-[var(--cc-ink)]">{token.symbol}</p>
                     <p className="text-caption text-[var(--cc-muted)] truncate">{token.name}</p>
@@ -110,11 +107,12 @@ export default function SwapPage() {
     }
     setLoading(true);
     try {
-      const q = await swapTokens({
-        fromToken,
-        toToken,
-        amount: parseFloat(amount),
-      });
+      const q = await swapTokens(fromToken, toToken, amount, account.chainId || 1, parseFloat(slippage));
+      if ('error' in q) {
+        showError("Quote failed", q.error);
+        setQuote(null);
+        return;
+      }
       setQuote(q);
     } catch (err) {
       showError("Quote failed", err instanceof Error ? err.message : "Could not get quote");
@@ -134,7 +132,7 @@ export default function SwapPage() {
     setLoading(true);
     // Simulate swap execution
     await new Promise((r) => setTimeout(r, 1500));
-    success("Swap executed", `Swapped ${amount} ${fromToken} for ~${quote.expectedOutput} ${toToken}`);
+    success("Swap executed", `Swapped ${amount} ${fromToken} for ~${quote.toTokenAmountFormatted} ${toToken}`);
     setAmount("");
     setQuote(null);
     setLoading(false);
@@ -218,6 +216,7 @@ export default function SwapPage() {
             value={fromToken}
             onChange={setFromToken}
             balance={fromToken === "ETH" ? "2.4521" : fromToken === "USDC" ? "1,250.00" : "0.00"}
+            chainId={account.chainId || 1}
           />
 
           {/* Flip button */}
@@ -236,6 +235,7 @@ export default function SwapPage() {
             value={toToken}
             onChange={setToToken}
             balance={toToken === "ETH" ? "2.4521" : toToken === "USDC" ? "1,250.00" : "0.00"}
+            chainId={account.chainId || 1}
           />
 
           {/* Amount input for From */}
@@ -257,19 +257,19 @@ export default function SwapPage() {
             <div className="flex items-center justify-between">
               <span className="text-caption text-[var(--cc-muted)]">Rate</span>
               <span className="text-caption text-[var(--cc-body)] cc-tabular-nums">
-                1 {fromToken} ≈ {quote.rate.toFixed(4)} {toToken}
+                1 {fromToken} ≈ {parseFloat(quote.rate).toFixed(4)} {toToken}
               </span>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-caption text-[var(--cc-muted)]">Expected output</span>
               <span className="text-caption text-[var(--cc-body)] cc-tabular-nums">
-                ~{quote.expectedOutput} {toToken}
+                ~{quote.toTokenAmountFormatted} {toToken}
               </span>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-caption text-[var(--cc-muted)]">Minimum received</span>
               <span className="text-caption text-[var(--cc-body)] cc-tabular-nums">
-                {quote.minimumReceived} {toToken}
+                {quote.toTokenAmountFormatted} {toToken}
               </span>
             </div>
             <div className="flex items-center justify-between">

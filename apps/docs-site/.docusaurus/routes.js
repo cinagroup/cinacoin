@@ -14,15 +14,15 @@ export default [
   },
   {
     path: '/docs/',
-    component: ComponentCreator('/docs/', 'd7c'),
+    component: ComponentCreator('/docs/', 'cdb'),
     routes: [
       {
         path: '/docs/',
-        component: ComponentCreator('/docs/', 'bcb'),
+        component: ComponentCreator('/docs/', '498'),
         routes: [
           {
             path: '/docs/',
-            component: ComponentCreator('/docs/', '752'),
+            component: ComponentCreator('/docs/', 'bbf'),
             routes: [
               {
                 path: '/docs/api/aa-sdk',
@@ -553,7 +553,7 @@ export default [
               },
               {
                 path: '/docs/',
-                component: ComponentCreator('/docs/', '8e5'),
+                component: ComponentCreator('/docs/', '6f3'),
                 exact: true,
                 sidebar: "guideSidebar"
               }

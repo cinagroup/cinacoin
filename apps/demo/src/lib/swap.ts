@@ -60,6 +60,10 @@ export interface PriceQuote {
   estimatedGas: string;
   /** True if this is a simulated/mock quote (not from real API). */
   isSimulated?: boolean;
+  /** Expected output amount (alias for toTokenAmountFormatted). */
+  expectedOutput?: string;
+  /** Minimum received amount after slippage. */
+  minimumReceived?: string;
 }
 
 export interface SwapTransaction {
