@@ -160,28 +160,28 @@ Call log:
   136 |         ink: styles.getPropertyValue('--cc-ink').trim(),
   137 |         error: styles.getPropertyValue('--cc-error').trim(),
   138 |         link: styles.getPropertyValue('--cc-link').trim(),
-  139 |         roundedPill: styles.getPropertyValue('--cc-rounded-pill').trim(),
-  140 |       };
-  141 |     });
-  142 | 
-  143 |     // Verify design tokens match specification
-  144 |     expect(designTokens.primary).toBe('#171717');
-  145 |     expect(designTokens.canvas).toBe('#ffffff');
-  146 |     expect(designTokens.ink).toBe('#171717');
-  147 |     expect(designTokens.error).toBe('#ee0000');
-  148 |     expect(designTokens.link).toBe('#0070f3');
-  149 |     expect(designTokens.roundedPill).toBe('100px');
-  150 |   });
-  151 | 
-  152 |   test('buttons use pill shape (100px border-radius)', async ({ page }) => {
-  153 |     await page.goto(deployedApps.website);
-  154 |     
-  155 |     const buttonRadius = await page.evaluate(() => {
-  156 |       const buttons = Array.from(document.querySelectorAll('button, a.cc-btn'));
-  157 |       if (buttons.length === 0) return null;
-  158 |       
-  159 |       const firstButton = buttons[0];
-  160 |       return getComputedStyle(firstButton).borderRadius;
-  161 |     });
-  162 | 
+  139 |         // website uses --cc-radius-pill, design-tokens uses --cc-rounded-pill
+  140 |         roundedPill: (styles.getPropertyValue('--cc-radius-pill') || styles.getPropertyValue('--cc-rounded-pill')).trim(),
+  141 |       };
+  142 |     });
+  143 | 
+  144 |     // Verify design tokens match specification
+  145 |     // Note: CSS shorthand normalizes colors (e.g., #ee0000 -> #e00, #ffffff -> #fff)
+  146 |     expect(designTokens.primary).toBe('#171717');
+  147 |     expect(designTokens.canvas.toLowerCase()).toMatch(/^#fff(ffff)?$/);
+  148 |     expect(designTokens.ink).toBe('#171717');
+  149 |     expect(designTokens.error.toLowerCase()).toMatch(/^#(e00|ee0000)$/);
+  150 |     expect(designTokens.link.toLowerCase()).toMatch(/^#0070f3$/);
+  151 |     expect(designTokens.roundedPill).toBe('100px');
+  152 |   });
+  153 | 
+  154 |   test('buttons use pill shape (100px border-radius)', async ({ page }) => {
+  155 |     await page.goto(deployedApps.website);
+  156 |     
+  157 |     const buttonRadius = await page.evaluate(() => {
+  158 |       // Select CTA buttons with cc-btn-primary or cc-btn-secondary classes
+  159 |       const buttons = Array.from(document.querySelectorAll('.cc-btn-primary, .cc-btn-secondary'));
+  160 |       if (buttons.length === 0) return null;
+  161 |       
+  162 |       const firstButton = buttons[0];
 ```
