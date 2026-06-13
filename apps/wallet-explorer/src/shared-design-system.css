@@ -106,7 +106,7 @@
   --color-canvas: #0a0a0a;
   --color-canvas-soft: #141414;
   --color-canvas-soft-2: #1e1e1e;
-  --color-link: #3b82f6;
+  --color-link: #0070f3;
   --color-link-deep: #60a5fa;
   --color-link-bg-soft: #1e3a5f;
   --color-success: #22c55e;
@@ -124,7 +124,7 @@
   --color-cyan-deep: #06b6d4;
   --color-highlight-pink: #f472b6;
   --color-highlight-magenta: #ec4899;
-  --color-gradient-develop-start: #3b82f6;
+  --color-gradient-develop-start: #0070f3;
   --color-gradient-develop-end: #22d3ee;
   --color-gradient-preview-start: #a78bfa;
   --color-gradient-preview-end: #f472b6;
@@ -342,7 +342,7 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 40px;
+  height: 48px;
   padding: 0 20px;
   background-color: var(--cc-primary);
   color: var(--cc-on-primary);
@@ -388,7 +388,7 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 40px;
+  height: 48px;
   padding: 0 20px;
   background-color: transparent;
   color: var(--cc-ink);
@@ -609,7 +609,7 @@ textarea:focus-visible {
 /* ── Search Bar ─────────────────────────────────────────── */
 .search-bar {
   width: 100%;
-  height: 40px;
+  height: 48px;
   padding: 0 12px;
   background-color: var(--cc-canvas-soft-2);
   border: 1px solid var(--cc-hairline);

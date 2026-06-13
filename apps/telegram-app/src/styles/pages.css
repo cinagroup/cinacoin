@@ -287,7 +287,7 @@
   align-items: center;
   justify-content: center;
   width: 40px;
-  height: 40px;
+  height: 48px;
   flex-shrink: 0;
 }
 
@@ -465,7 +465,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 40px;
+  height: 48px;
   padding: 0 var(--cc-space-5);
   background-color: var(--cc-error);
   color: var(--cc-on-primary);
