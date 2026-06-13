@@ -2,6 +2,8 @@
 
 import { BarChart3, Menu, X } from 'lucide-react';
 import React, { useState, useCallback } from 'react';
+import { ThemeToggle } from './ThemeToggle';
+import { LanguageToggle } from './LanguageToggle';
 
 type NavPage = 'overview' | 'realtime' | 'behavior';
 
@@ -112,6 +114,12 @@ export default React.memo(function SiteHeader({
                 ))}
               </div>
             )}
+
+            {/* Theme & Language Toggles */}
+            <div className="flex items-center gap-1">
+              <LanguageToggle />
+              <ThemeToggle />
+            </div>
 
             {/* User Avatar */}
             <div

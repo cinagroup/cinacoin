@@ -3,6 +3,7 @@ import localFont from 'next/font/local';
 
 import './globals.css';
 import MobileBottomNav from '@/components/MobileBottomNav';
+import { Providers } from '@/providers';
 
 const geistSans = localFont({
   src: [
@@ -40,7 +41,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-theme="dark" className="dark">
+    <html lang="en" data-theme="dark" className="dark" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <a
           href="#main-content"
@@ -48,8 +49,10 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
-        {children}
-        <MobileBottomNav />
+        <Providers>
+          {children}
+          <MobileBottomNav />
+        </Providers>
       </body>
     </html>
   );

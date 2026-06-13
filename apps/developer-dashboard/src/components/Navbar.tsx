@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Home, Folder, Key, BarChart3, Settings } from "lucide-react";
+import { ThemeToggle } from "./ThemeToggle";
+import { LanguageToggle } from "./LanguageToggle";
 
 const mobileNavItems = [
   { href: "/", label: "Home", icon: Home },
@@ -25,6 +27,10 @@ export default function Navbar() {
           ).join(" / ")}
         </div>
         <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1">
+            <LanguageToggle />
+            <ThemeToggle />
+          </div>
           <Link href="/projects/new" className="cc-btn-primary-sm">
             + New Project
           </Link>

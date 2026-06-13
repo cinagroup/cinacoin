@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from 'next/font/local';
 import { AuthProvider } from "@/components/AuthProvider";
+import { Providers } from "@/providers";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -38,16 +39,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-theme="dark" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="en" data-theme="dark" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
       <body className="font-sans">
-        <AuthProvider>
-          <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-50 px-4 py-2 bg-[var(--cc-primary)] text-white rounded">
-            Skip to main content
-          </a>
-          <main id="main-content">
-            {children}
-          </main>
-        </AuthProvider>
+        <Providers>
+          <AuthProvider>
+            <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-50 px-4 py-2 bg-[var(--cc-primary)] text-white rounded">
+              Skip to main content
+            </a>
+            <main id="main-content">
+              {children}
+            </main>
+          </AuthProvider>
+        </Providers>
       </body>
     </html>
   );

@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useAuth } from "./AuthProvider";
 import { LayoutDashboard, Users, Plug, Coins, TrendingUp, Settings, Coins as CoinIcon, LogOut, Lock } from 'lucide-react';
+import { ThemeToggle } from "./ThemeToggle";
+import { LanguageToggle } from "./LanguageToggle";
 
 const navItems = [
   { name: "Dashboard", icon: LayoutDashboard, active: true },
@@ -44,6 +46,11 @@ export function Sidebar() {
       </nav>
 
       <div className="p-4 border-t border-[var(--cc-hairline)]" aria-label="User menu">
+        {/* Theme & Language Toggles */}
+        <div className="flex items-center gap-1 mb-3 px-4">
+          <LanguageToggle />
+          <ThemeToggle />
+        </div>
         {isLoading ? (
           <div className="flex items-center gap-3 px-4 py-2">
             <div className="w-8 h-8 rounded-full bg-[var(--cc-canvas)]/20 animate-pulse"></div>
