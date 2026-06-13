@@ -117,6 +117,24 @@
     0px 24px 32px -8px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.08) inset;
 }
 
+/* ── Typography Scale (shared, theme-independent) ── */
+:root {
+  /* Font Sizes */
+  --text-display-xl: 48px;
+  --text-display-lg: 32px;
+  --text-display-md: 24px;
+  --text-display-sm: 20px;
+  --text-body-lg: 18px;
+  --text-body-md: 16px;
+  --text-body-sm: 14px;
+  --text-caption: 12px;
+
+  /* Font Weights */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+}
+
 /* ── Spacing & Radius (shared, theme-independent) ── */
 /* Vercel: marketing pages = 0px, components/dashboards = 4px */
 :root {
