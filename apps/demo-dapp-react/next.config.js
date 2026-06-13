@@ -8,11 +8,6 @@ const nextConfig = {
       { protocol: 'https', hostname: 'picsum.photos' },
     ],
   },
-  transpilePackages: [
-    '@cinacoin/react',
-    '@cinacoin/core-sdk',
-    '@cinacoin/nft-display',
-  ],
 
   async headers() {
     return [

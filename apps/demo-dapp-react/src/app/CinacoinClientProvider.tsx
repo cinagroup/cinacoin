@@ -1,114 +1,105 @@
 'use client';
 
-import React from 'react';
-import type { CinacoinConfig } from '@cinacoin/react';
-import { CinacoinProvider } from '@cinacoin/react';
+import React, { useEffect, useState, type ReactNode } from 'react';
 
-const projectId = process.env.NEXT_PUBLIC_PROJECT_ID ?? 'demo_project_id';
-
-const config: CinacoinConfig = {
-  projectId,
-  metadata: {
-    name: 'CinaCoin Demo dApp',
-    description: 'A comprehensive demo showcasing the full CinaCoin SDK.',
-    url: 'https://cinacoin.dev',
-    icons: ['https://cinacoin.dev/icon.png'],
-  },
-  chains: [
-    {
-      id: 11155111,
-      name: 'Sepolia',
-      rpcUrl: 'https://rpc.sepolia.org',
-      nativeCurrency: { name: 'Sepolia ETH', symbol: 'ETH', decimals: 18 },
-      blockExplorerUrl: 'https://sepolia.etherscan.io',
-      testnet: true,
-    },
-    {
-      id: 80002,
-      name: 'Amoy',
-      rpcUrl: 'https://rpc-amoy.polygon.technology',
-      nativeCurrency: { name: 'Polygon MATIC', symbol: 'MATIC', decimals: 18 },
-      blockExplorerUrl: 'https://amoy.polygonscan.com',
-      testnet: true,
-    },
-    {
-      id: 1,
-      name: 'Ethereum',
-      rpcUrl: 'https://cloudflare-eth.com',
-      nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
-      blockExplorerUrl: 'https://etherscan.io',
-    },
-  ],
-  theme: {
-    mode: 'dark',
-  },
-};
-
-class ProviderErrorBoundary extends React.Component<
-  { children: React.ReactNode },
-  { hasError: boolean; error: Error | null }
-> {
-  constructor(props: { children: React.ReactNode }) {
-    super(props);
-    this.state = { hasError: false, error: null };
-  }
-
-  static getDerivedStateFromError(error: Error) {
-    return { hasError: true, error };
-  }
-
-  componentDidCatch(error: Error, info: React.ErrorInfo) {
-    console.error('[CinacoinClientProvider] runtime error:', error, info);
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return (
-        <div
-          style={{
-            padding: '2rem',
-            margin: '2rem auto',
-            maxWidth: '600px',
-            border: '1px solid var(--cc-hairline, #eaeaea)',
-            borderRadius: '12px',
-            background: 'var(--cc-canvas, #fff)',
-            color: 'var(--cc-ink, #111)',
-            fontFamily: 'system-ui, -apple-system, sans-serif',
-          }}
-        >
-          <h2 style={{ margin: '0 0 0.5rem', fontSize: '1.25rem' }}>
-            CinaCoin SDK unavailable
-          </h2>
-          <p style={{ margin: '0 0 1rem', color: 'var(--cc-muted, #666)' }}>
-            The demo provider failed to initialize. The static demo UI below is still viewable.
-          </p>
-          <pre
-            style={{
-              padding: '0.75rem',
-              background: 'var(--cc-canvas-soft, #f5f5f5)',
-              borderRadius: '8px',
-              fontSize: '0.8rem',
-              overflow: 'auto',
-            }}
-          >
-            {this.state.error?.message ?? 'Unknown error'}
-          </pre>
-          <div style={{ marginTop: '1rem' }}>{this.props.children}</div>
-        </div>
-      );
-    }
-    return this.props.children;
-  }
-}
-
+/**
+ * Lazy CinacoinProvider loader.
+ * - Waits until client-side hydration completes before importing the SDK.
+ * - If SDK fails to load, renders a static fallback with children.
+ */
 export default function CinacoinClientProvider({
   children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
+  const [status, setStatus] = useState<'loading' | 'ready' | 'failed'>('loading');
+
+  useEffect(() => {
+    // Small delay to ensure hydration is complete
+    const timer = setTimeout(() => {
+      import('@cinacoin/react')
+        .then(() => setStatus('ready'))
+        .catch(() => {
+          console.warn('[CinacoinProvider] SDK unavailable — static demo mode');
+          setStatus('failed');
+        });
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (status === 'loading') {
+    return (
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'system-ui, sans-serif' }}>
+        <p style={{ color: '#666' }}>Loading…</p>
+      </div>
+    );
+  }
+
+  if (status === 'failed') {
+    return (
+      <div style={{ minHeight: '100vh' }}>
+        <div style={{ padding: '10px 20px', background: '#fef3c7', color: '#92400e', fontSize: '13px', fontFamily: 'system-ui, sans-serif', borderBottom: '1px solid #fbbf24', textAlign: 'center' }}>
+          ⚠️ CinaCoin SDK unavailable — running in static demo mode
+        </div>
+        {children}
+      </div>
+    );
+  }
+
+  // SDK loaded — wrap with provider
+  return <SdkProvider>{children}</SdkProvider>;
+}
+
+function SdkProvider({ children }: { children: ReactNode }) {
+  const [Provider, setProvider] = useState<any>(null);
+
+  useEffect(() => {
+    import('@cinacoin/react').then((mod) => {
+      setProvider(() => mod.CinacoinProvider);
+    });
+  }, []);
+
+  if (!Provider) return null;
+
   return (
-    <ProviderErrorBoundary>
-      <CinacoinProvider config={config}>{children}</CinacoinProvider>
-    </ProviderErrorBoundary>
+    <Provider
+      config={{
+        projectId: 'demo_project_id',
+        metadata: {
+          name: 'CinaCoin Demo dApp',
+          description: 'A comprehensive demo showcasing the full CinaCoin SDK.',
+          url: 'https://cinacoin.dev',
+          icons: ['https://cinacoin.dev/icon.png'],
+        },
+        chains: [
+          {
+            id: 11155111,
+            name: 'Sepolia',
+            rpcUrl: 'https://rpc.sepolia.org',
+            nativeCurrency: { name: 'Sepolia ETH', symbol: 'ETH', decimals: 18 },
+            blockExplorerUrl: 'https://sepolia.etherscan.io',
+            testnet: true,
+          },
+          {
+            id: 80002,
+            name: 'Amoy',
+            rpcUrl: 'https://rpc-amoy.polygon.technology',
+            nativeCurrency: { name: 'Polygon MATIC', symbol: 'MATIC', decimals: 18 },
+            blockExplorerUrl: 'https://amoy.polygonscan.com',
+            testnet: true,
+          },
+          {
+            id: 1,
+            name: 'Ethereum',
+            rpcUrl: 'https://cloudflare-eth.com',
+            nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
+            blockExplorerUrl: 'https://etherscan.io',
+          },
+        ],
+        theme: { mode: 'dark' as const },
+      }}
+    >
+      {children}
+    </Provider>
   );
 }
