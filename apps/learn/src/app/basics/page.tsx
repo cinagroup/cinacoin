@@ -12,7 +12,7 @@ export default function BasicsPage() {
     <div className="max-w-3xl mx-auto">
       <StepIndicator currentStep={1} totalSteps={4} />
 
-      <h1 className="text-display-lg mb-4">Web3 basics</h1>
+      <h1 className="text-display-lg mb-4">Web3 basics.</h1>
       <p className="text-body-lg mb-8" style={{ color: 'var(--cc-body)' }}>
         Understand the core concepts of Web3 and how CinaCoin fits into the decentralized ecosystem.
       </p>
@@ -39,7 +39,7 @@ export default function BasicsPage() {
 
       {/* Section 2 */}
       <section className="mb-12" aria-labelledby="blockchain-fundamentals">
-        <h2 id="blockchain-fundamentals" className="text-display-md mb-4">Blockchain fundamentals</h2>
+        <h2 id="blockchain-fundamentals" className="text-display-md mb-4">Blockchain fundamentals.</h2>
         <p className="text-body-md mb-4" style={{ color: 'var(--cc-body)' }}>
           A blockchain is a distributed, immutable ledger that records transactions across a network
           of nodes. Each block contains a set of transactions, and once added to the chain, it cannot
@@ -64,7 +64,7 @@ Block #2
 
       {/* Section 3 */}
       <section className="mb-12" aria-labelledby="wallets-identity">
-        <h2 id="wallets-identity" className="text-display-md mb-4">Wallets and identity</h2>
+        <h2 id="wallets-identity" className="text-display-md mb-4">Wallets and identity.</h2>
         <p className="text-body-md mb-4" style={{ color: 'var(--cc-body)' }}>
           In Web3, your wallet is your identity. It consists of a cryptographic key pair:
           a public key (your address) and a private key (your secret). You use the private key
@@ -90,7 +90,7 @@ const isValid = verify(message, signature, address);
 
       {/* Section 4 */}
       <section className="mb-12" aria-labelledby="smart-contracts">
-        <h2 id="smart-contracts" className="text-display-md mb-4">Smart contracts</h2>
+        <h2 id="smart-contracts" className="text-display-md mb-4">Smart contracts.</h2>
         <p className="text-body-md mb-4" style={{ color: 'var(--cc-body)' }}>
           Smart contracts are self-executing programs deployed on the blockchain. They run
           exactly as programmed without downtime, censorship, or third-party interference.

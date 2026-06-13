@@ -12,7 +12,7 @@ export default function MultichainPage() {
     <div className="max-w-3xl mx-auto">
       <StepIndicator currentStep={3} totalSteps={4} />
 
-      <h1 className="text-display-lg mb-4">Multichain development</h1>
+      <h1 className="text-display-lg mb-4">Multichain development.</h1>
       <p className="text-body-lg mb-8" style={{ color: 'var(--cc-body)' }}>
         Build applications that seamlessly work across multiple blockchains using CinaCoin&apos;s
         unified multichain infrastructure.
@@ -34,7 +34,7 @@ export default function MultichainPage() {
 
       {/* Section 2 */}
       <section className="mb-12" aria-labelledby="configure-chains">
-        <h2 id="configure-chains" className="text-display-md mb-4">Configure supported chains</h2>
+        <h2 id="configure-chains" className="text-display-md mb-4">Configure supported chains.</h2>
         <p className="text-body-md mb-4" style={{ color: 'var(--cc-body)' }}>
           Define which chains your application supports. CinaCoin handles RPC management,
           chain switching, and fallback providers automatically.

@@ -42,7 +42,7 @@ export default function Sidebar() {
           {['Fundamentals', 'Advanced'].map((category) => (
             <div key={category}>
               <h3
-                className="text-caption tracking-wider"
+                className="cc-mono text-caption tracking-wider"
                 style={{
                   color: 'var(--cc-muted)',
                   marginBottom: 'var(--cc-sm)',

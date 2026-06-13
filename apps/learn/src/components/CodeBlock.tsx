@@ -19,14 +19,14 @@ export default function CodeBlock({ code, language = "typescript", title }: Code
   };
 
   return (
-    <div className="rounded-lg overflow-hidden" style={{ marginTop: 'var(--cc-lg)', marginBottom: 'var(--cc-lg)', border: '1px solid var(--cc-hairline)' }}>
+    <div className="rounded-lg overflow-hidden" style={{ marginTop: 'var(--cc-lg)', marginBottom: 'var(--cc-lg)', border: '1px solid var(--cc-hairline-strong)' }}>
       {title && (
         <div 
           className="flex items-center justify-between"
           style={{ 
             padding: 'var(--cc-sm) var(--cc-md)',
-            backgroundColor: 'var(--cc-canvas-soft-2)',
-            borderBottom: '1px solid var(--cc-hairline)'
+            backgroundColor: 'var(--cc-primary)',
+            borderBottom: '1px solid var(--cc-hairline-strong)'
           }}
         >
           <span className="font-mono text-xs" style={{ color: 'var(--cc-muted)' }}>{title}</span>
@@ -41,8 +41,8 @@ export default function CodeBlock({ code, language = "typescript", title }: Code
           </button>
         </div>
       )}
-      <pre className="overflow-x-auto" style={{ padding: 'var(--cc-md)', backgroundColor: 'var(--cc-canvas-soft-2)', margin: 0 }}>
-        <code className={`language-${language} font-mono text-sm`} style={{ color: 'var(--cc-body)' }}>{code}</code>
+      <pre className="overflow-x-auto" style={{ padding: 'var(--cc-md)', backgroundColor: 'var(--cc-primary)', margin: 0 }}>
+        <code className={`language-${language} font-mono text-sm`} style={{ color: 'var(--cc-on-primary)' }}>{code}</code>
       </pre>
     </div>
   );

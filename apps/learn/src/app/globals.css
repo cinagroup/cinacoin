@@ -119,15 +119,15 @@ pre {
 /* Card */
 .cc-card {
   background: var(--cc-canvas);
-  border: 1px solid var(--cc-hairline);
+  border: none;
   border-radius: var(--cc-radius-md);
   padding: var(--cc-lg);
+  box-shadow: var(--cc-level3);
   transition:
-    box-shadow 0.3s ease,
-    border-color 0.3s ease;
+    box-shadow 0.3s ease;
 }
 .cc-card:hover {
-  box-shadow: var(--cc-level2);
+  box-shadow: var(--cc-level4);
 }
 
 .cc-card-interactive {
