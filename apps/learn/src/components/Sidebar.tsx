@@ -4,6 +4,7 @@ import { Check } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { LanguageToggle } from '@/providers';
+import { ThemeToggle } from './ThemeToggle';
 
 const tutorials = [
   { href: '/basics', label: 'Web3 basics', category: 'Fundamentals', progress: 100 },
@@ -103,7 +104,8 @@ export default function Sidebar() {
             borderTop: '1px solid var(--cc-hairline)',
           }}
         >
-          <div style={{ marginBottom: 'var(--cc-md)' }}>
+          <div style={{ marginBottom: 'var(--cc-md)', display: 'flex', alignItems: 'center', gap: 'var(--cc-sm)' }}>
+            <ThemeToggle />
             <LanguageToggle />
           </div>
           <a

@@ -3,6 +3,7 @@
 import { useAuth } from "@/lib/AuthProvider";
 import { aggregateStatusLabel, useWorkerHealth } from "@/hooks/useWorkerHealth";
 import { useTheme } from "@/providers/ThemeProvider";
+import { useI18n } from "@/providers/I18nProvider";
 import { Brand } from "@cinacoin/ui";
 import { GlobalSearch } from "./GlobalSearch";
 
@@ -15,6 +16,7 @@ export default function Header({ onMenuToggle, refreshInterval = 15000 }: Header
   const { user, status, doLogout } = useAuth();
   const { allHealthy, degradedCount, downCount, checking } = useWorkerHealth(refreshInterval);
   const { theme, toggle } = useTheme();
+  const { locale, setLocale } = useI18n();
 
   const isAuthenticated = status === "authenticated";
   const displayName = user
@@ -97,6 +99,15 @@ export default function Header({ onMenuToggle, refreshInterval = 15000 }: Header
               <path strokeLinecap="round" d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
             </svg>
           )}
+        </button>
+
+        {/* Language toggle */}
+        <button
+          onClick={() => setLocale(locale === 'en' ? 'zh' : 'en')}
+          aria-label="Switch language"
+          className="px-3 py-2 rounded-full text-body-sm font-medium text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft)] transition-colors min-h-[44px] flex items-center justify-center"
+        >
+          {locale === 'en' ? '中文' : 'EN'}
         </button>
       </div>
     </header>

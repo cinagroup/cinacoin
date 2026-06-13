@@ -3,6 +3,8 @@ import OverallStatus from "@/components/OverallStatus";
 import ServiceCard from "@/components/ServiceCard";
 import StatusBar90Days from "@/components/StatusBar90Days";
 import IncidentTimeline from "@/components/IncidentTimeline";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { LanguageToggle } from "@/components/LanguageToggle";
 
 // Mock data
 const services = [
@@ -77,6 +79,17 @@ const incidents = [
 export default function HealthStatusPage() {
   return (
     <div className="space-y-8">
+      {/* Header with toggles */}
+      <header className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <span className="font-mono text-xs text-[var(--cc-muted)]">health-status</span>
+        </div>
+        <div className="flex items-center gap-1">
+          <ThemeToggle />
+          <LanguageToggle />
+        </div>
+      </header>
+
       {/* Dark band hero */}
       <div className="rounded-lg bg-[#171717] px-8 py-10">
         <p className="font-mono text-xs text-[#888] mb-3">health-status</p>

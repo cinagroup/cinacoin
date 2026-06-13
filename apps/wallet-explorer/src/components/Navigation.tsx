@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation';
 import { useWallet } from '@/hooks/useWallet';
 import { truncateAddress } from '@/lib/utils';
 import { LanguageToggle } from '@/providers';
+import { ThemeToggle } from './ThemeToggle';
 
 const navItems = [
   { href: '/', label: 'Home' },
@@ -30,6 +31,7 @@ export default memo(function Navigation() {
           <span className="text-heading-3 text-[var(--cc-ink)]">Wallet Explorer</span>
         </div>
         <div className="flex items-center gap-3">
+          <ThemeToggle />
           <LanguageToggle />
           {connected ? (
             <div className="flex items-center gap-3">

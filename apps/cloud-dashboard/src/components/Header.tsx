@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "@/providers/ThemeProvider";
+import { useI18n } from "@/providers/I18nProvider";
 import { useState } from "react";
 import { Moon, Sun, Menu, X } from "lucide-react";
 
@@ -23,6 +24,7 @@ const ThemeToggleIcon = ({ theme }: { theme: string }) =>
 export default function Header() {
   const pathname = usePathname();
   const { theme, toggle } = useTheme();
+  const { locale, setLocale } = useI18n();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const themeLabel = `Switch to ${theme === 'light' ? 'dark' : 'light'} theme`;
@@ -62,6 +64,14 @@ export default function Header() {
           >
             <ThemeToggleIcon theme={theme} />
           </button>
+          {/* Language toggle */}
+          <button
+            onClick={() => setLocale(locale === 'en' ? 'zh' : 'en')}
+            aria-label="Switch language"
+            className="px-3 py-2 rounded-full text-body-sm font-medium text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft)] transition-colors min-h-[44px] flex items-center justify-center"
+          >
+            {locale === 'en' ? '中文' : 'EN'}
+          </button>
         </nav>
 
         {/* Mobile controls */}
@@ -72,6 +82,13 @@ export default function Header() {
             className="p-2 rounded-full text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft)] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
           >
             <ThemeToggleIcon theme={theme} />
+          </button>
+          <button
+            onClick={() => setLocale(locale === 'en' ? 'zh' : 'en')}
+            aria-label="Switch language"
+            className="px-3 py-2 rounded-full text-body-sm font-medium text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft)] transition-colors min-h-[44px] flex items-center justify-center"
+          >
+            {locale === 'en' ? '中文' : 'EN'}
           </button>
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
