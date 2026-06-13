@@ -105,16 +105,16 @@
   --color-canvas: #0a0a0a;
   --color-canvas-soft: #141414;
   --color-canvas-soft-2: #1e1e1e;
-  --color-link: #3b82f6;
-  --color-link-deep: #60a5fa;
-  --color-link-bg-soft: #1e3a5f;
-  --color-success: #22c55e;
-  --color-error: #ef4444;
-  --color-error-soft: #7f1d1d;
-  --color-error-deep: #dc2626;
-  --color-warning: #f59e0b;
-  --color-warning-soft: #78350f;
-  --color-warning-deep: #d97706;
+  --color-link: #0070f3;
+  --color-link-deep: #3291ff;
+  --color-link-bg-soft: rgba(0, 112, 243, 0.15);
+  --color-success: #0070f3;
+  --color-error: #ee0000;
+  --color-error-soft: rgba(238, 0, 0, 0.15);
+  --color-error-deep: #ff4d4d;
+  --color-warning: #f5a623;
+  --color-warning-soft: rgba(245, 166, 35, 0.15);
+  --color-warning-deep: #f5a623;
   --color-violet: #a78bfa;
   --color-violet-soft: #4c1d95;
   --color-violet-deep: #8b5cf6;
@@ -135,21 +135,21 @@
   --color-terminal-minimize: #febc2e;
   --color-terminal-maximize: #28c840;
 
-  /* ── Shadows (darker for dark mode) ────────────────── */
+  /* ── Shadows (darker for dark mode, aligned with cinacoin.css) ── */
   --shadow-level-0: none;
-  --shadow-level-1: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  --shadow-level-1: 0 0 0 1px rgba(255, 255, 255, 0.06) inset;
   --shadow-level-2:
-    0px 1px 1px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.3),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+    0px 1px 1px rgba(0, 0, 0, 0.2), 0px 2px 4px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(255, 255, 255, 0.06) inset;
   --shadow-level-3:
-    0px 2px 2px rgba(0, 0, 0, 0.2), 0px 8px 8px -8px rgba(0, 0, 0, 0.3),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+    0px 2px 4px rgba(0, 0, 0, 0.2), 0px 8px 12px -6px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(255, 255, 255, 0.06) inset;
   --shadow-level-4:
-    0px 2px 2px rgba(0, 0, 0, 0.2), 0px 8px 16px -4px rgba(0, 0, 0, 0.3),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+    0px 2px 4px rgba(0, 0, 0, 0.2), 0px 8px 20px -4px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(255, 255, 255, 0.06) inset;
   --shadow-level-5:
-    0px 1px 1px rgba(0, 0, 0, 0.2), 0px 8px 16px -4px rgba(0, 0, 0, 0.3),
-    0px 24px 32px -8px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+    0px 1px 1px rgba(0, 0, 0, 0.2), 0px 8px 20px -4px rgba(0, 0, 0, 0.15),
+    0px 24px 40px -8px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.06) inset;
 }
 
 /* ── Base Styles ──────────────────────────────────────── */
@@ -316,30 +316,21 @@ body {
 /* ── Cards ──────────────────────────────────────────────── */
 .cc-card {
   background-color: var(--cc-canvas);
-  border: 1px solid var(--cc-hairline);
-  border-radius: 8px;
+  border-radius: var(--cc-radius-md, 8px);
   padding: 24px;
-  box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.04),
-    inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--cc-level1);
   transition: box-shadow var(--transition-fast);
 }
 
 .cc-card:hover {
-  box-shadow:
-    0 2px 8px rgba(0, 0, 0, 0.06),
-    0 1px 2px rgba(0, 0, 0, 0.04),
-    inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--cc-level2);
 }
 
 .cc-card-lg {
   background-color: var(--cc-canvas);
-  border: 1px solid var(--cc-hairline);
-  border-radius: 12px;
+  border-radius: var(--cc-radius-lg, 12px);
   padding: 32px;
-  box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.04),
-    inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--cc-level2);
 }
 
 /* ── Buttons ────────────────────────────────────────────── */
