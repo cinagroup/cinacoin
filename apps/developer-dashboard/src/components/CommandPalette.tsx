@@ -114,7 +114,7 @@ export default function CommandPalette() {
       aria-label="Command palette"
     >
       <div
-        className="bg-canvas border border-[var(--cc-hairline)] rounded-lg shadow-2xl w-full max-w-2xl overflow-hidden"
+        className="bg-canvas border border-[var(--cc-hairline)] rounded-sm shadow-2xl w-full max-w-2xl overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center gap-3 px-4 py-3 border-b border-[var(--cc-hairline)]">

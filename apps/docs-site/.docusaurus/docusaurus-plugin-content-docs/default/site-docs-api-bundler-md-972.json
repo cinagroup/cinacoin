@@ -5,7 +5,7 @@
   "source": "@site/docs/api/bundler.md",
   "sourceDirName": "api",
   "slug": "/api/bundler",
-  "permalink": "/docs/api/bundler",
+  "permalink": "/api/bundler",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/bundler.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "Blockchain API.",
-    "permalink": "/docs/api/blockchain-api"
+    "permalink": "/api/blockchain-api"
   },
   "next": {
     "title": "CDN.",
-    "permalink": "/docs/api/cdn"
+    "permalink": "/api/cdn"
   }
 }

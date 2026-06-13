@@ -51,7 +51,7 @@ export default React.memo(function SiteHeader({
               className="flex items-center gap-md hover:opacity-80 transition-opacity flex-shrink-0"
               aria-label="CinaCoin Analytics Home"
             >
-              <div className="w-8 h-8 bg-[var(--cc-primary)] rounded-md flex items-center justify-center">
+              <div className="w-8 h-8 bg-[var(--cc-primary)] rounded-sm flex items-center justify-center">
                 <BarChart3 className="w-5 h-5 text-[var(--cc-on-primary)]" />
               </div>
               <h1 className="text-heading-3 text-[var(--cc-ink)] hidden sm:block">CinaCoin analytics.</h1>
@@ -87,7 +87,7 @@ export default React.memo(function SiteHeader({
 
             {/* Time Range Selector (Overview only) */}
             {timeRange && onTimeRangeChange && (
-              <div className="flex bg-[var(--cc-canvas-soft-2)] rounded-md p-xxs" role="group" aria-label="Time range">
+              <div className="flex bg-[var(--cc-canvas-soft-2)] rounded-sm p-xxs" role="group" aria-label="Time range">
                 {timeRanges.map((range) => (
                   <button
                     key={range}
@@ -139,7 +139,7 @@ export default React.memo(function SiteHeader({
                 <a
                   key={item.key}
                   href={item.href}
-                  className={`text-body-sm px-sm py-xs rounded-md transition-colors ${
+                  className={`text-body-sm px-sm py-xs rounded-sm transition-colors ${
                     activePage === item.key
                       ? "text-[var(--cc-ink)] font-medium bg-[var(--cc-canvas-soft-2)]"
                       : "text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft)]"
@@ -156,7 +156,7 @@ export default React.memo(function SiteHeader({
             {timeRange && onTimeRangeChange && (
               <div className="mt-sm pt-sm border-t border-[var(--cc-hairline)]">
                 <p className="text-caption text-[var(--cc-muted)] mb-xs px-sm">Time range.</p>
-                <div className="flex bg-[var(--cc-canvas-soft-2)] rounded-md p-xxs mx-sm" role="group" aria-label="Time range">
+                <div className="flex bg-[var(--cc-canvas-soft-2)] rounded-sm p-xxs mx-sm" role="group" aria-label="Time range">
                   {timeRanges.map((range) => (
                     <button
                       key={range}

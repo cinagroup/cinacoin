@@ -87,7 +87,7 @@ export function Example() {
           <div className="p-4 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)]">
             <p className="text-caption text-[var(--cc-muted)] mb-1">Status</p>
             <div className="flex items-center gap-2 mt-1">
-              <span className="w-2 h-2 bg-[var(--cc-success)] rounded-full animate-pulse" />
+              <span className="w-2 h-2 bg-[var(--cc-success)] rounded-sm animate-pulse" />
               <span className="text-body-sm font-medium text-[var(--cc-success)]">Stable</span>
             </div>
           </div>
@@ -102,7 +102,7 @@ export function Example() {
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-full bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-sm bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] flex items-center justify-center shrink-0">
                     <Code2 className="w-5 h-5 text-[var(--cc-muted)]" />
                   </div>
                   <div>
@@ -110,7 +110,7 @@ export function Example() {
                     <p className="text-caption text-[var(--cc-body)]">{component.description}</p>
                   </div>
                 </div>
-                <span className="px-2 py-0.5 bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] rounded-full text-caption text-[var(--cc-muted)] font-medium">
+                <span className="px-2 py-0.5 bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] rounded-sm text-caption text-[var(--cc-muted)] font-medium">
                   {component.category}
                 </span>
               </div>
@@ -136,21 +136,21 @@ export function Example() {
                 )}
                 {component.name === "Badge" && (
                   <div className="flex gap-2">
-                    <span className="px-2 py-0.5 bg-[var(--cc-success)]/15 text-[var(--cc-success)] text-caption rounded-full font-medium border border-[var(--cc-success)]/25">
+                    <span className="px-2 py-0.5 bg-[var(--cc-success)]/15 text-[var(--cc-success)] text-caption rounded-sm font-medium border border-[var(--cc-success)]/25">
                       Success
                     </span>
-                    <span className="px-2 py-0.5 bg-[var(--cc-error)]/15 text-[var(--cc-error)] text-caption rounded-full font-medium border border-[var(--cc-error)]/25">
+                    <span className="px-2 py-0.5 bg-[var(--cc-error)]/15 text-[var(--cc-error)] text-caption rounded-sm font-medium border border-[var(--cc-error)]/25">
                       Error
                     </span>
                   </div>
                 )}
                 {component.name === "Toggle" && (
                   <button
-                    className="relative w-11 h-6 rounded-full bg-[var(--cc-primary)]"
+                    className="relative w-11 h-6 rounded-sm bg-[var(--cc-primary)]"
                     role="switch"
                     aria-checked={true}
                   >
-                    <span className="absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-[var(--cc-canvas)] shadow-[var(--cc-level1)] translate-x-5" />
+                    <span className="absolute top-0.5 left-0.5 w-5 h-5 rounded-sm bg-[var(--cc-canvas)] shadow-[var(--cc-level1)] translate-x-5" />
                   </button>
                 )}
                 {component.name === "Toast" && (

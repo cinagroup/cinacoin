@@ -40,7 +40,7 @@ export function FrameRenderer({
   return (
     <div className="w-full max-w-[600px] mx-auto">
       {/* Frame Container */}
-      <div className="bg-[var(--cc-canvas-soft-2)] rounded-2xl overflow-hidden border border-[var(--cc-hairline)] shadow-2xl">
+      <div className="bg-[var(--cc-canvas-soft-2)] rounded-sm overflow-hidden border border-[var(--cc-hairline)] shadow-2xl">
         {/* Frame Image */}
         <div className={`relative ${aspectClass} bg-[var(--cc-canvas-soft-2)]`}>
           <Image
@@ -66,7 +66,7 @@ export function FrameRenderer({
               onChange={(e) => setInputValue(e.target.value)}
               placeholder={inputPlaceholder}
               aria-label={inputPlaceholder}
-              className="w-full bg-[var(--cc-canvas-soft-2)] text-[var(--cc-on-primary)] px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--cc-violet)]"
+              className="w-full bg-[var(--cc-canvas-soft-2)] text-[var(--cc-on-primary)] px-4 py-2 rounded-sm focus:outline-none focus:ring-2 focus:ring-[var(--cc-violet)]"
             />
           </div>
         )}
@@ -83,7 +83,7 @@ export function FrameRenderer({
               <button
                 key={idx}
                 onClick={button.onClick}
-                className="bg-[var(--cc-canvas-soft-2)] hover:bg-[var(--cc-hairline-strong)] text-[var(--cc-on-primary)] px-4 py-3 rounded-xl font-medium transition-colors text-body-sm"
+                className="bg-[var(--cc-canvas-soft-2)] hover:bg-[var(--cc-hairline-strong)] text-[var(--cc-on-primary)] px-4 py-3 rounded-sm font-medium transition-colors text-body-sm"
                 aria-label={button.label}
               >
                 {button.label}

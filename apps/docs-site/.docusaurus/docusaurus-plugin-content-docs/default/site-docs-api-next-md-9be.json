@@ -5,7 +5,7 @@
   "source": "@site/docs/api/next.md",
   "sourceDirName": "api",
   "slug": "/api/next",
-  "permalink": "/docs/api/next",
+  "permalink": "/api/next",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/next.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "Multiwallet.",
-    "permalink": "/docs/api/multiwallet"
+    "permalink": "/api/multiwallet"
   },
   "next": {
     "title": "Notify server.",
-    "permalink": "/docs/api/notify-server"
+    "permalink": "/api/notify-server"
   }
 }

@@ -22,7 +22,7 @@ const usageStats = [
     used: 842_301,
     total: 1_000_000,
     unit: "requests",
-    color: "bg-link",
+    color: "bg-[var(--cc-link)]",
     warning: false,
   },
   {
@@ -30,7 +30,7 @@ const usageStats = [
     used: 3,
     total: 10,
     unit: "keys",
-    color: "bg-success",
+    color: "bg-[var(--cc-success)]",
     warning: false,
   },
   {
@@ -38,7 +38,7 @@ const usageStats = [
     used: 4,
     total: 5,
     unit: "projects",
-    color: "bg-warning",
+    color: "bg-[var(--cc-warning)]",
     warning: true,
   },
   {
@@ -46,7 +46,7 @@ const usageStats = [
     used: 2.4,
     total: 10,
     unit: "GB",
-    color: "bg-success",
+    color: "bg-[var(--cc-success)]",
     warning: false,
   },
 ];
@@ -157,7 +157,7 @@ export default function BillingPage() {
                     {stat.used.toLocaleString()} / {stat.total.toLocaleString()} {stat.unit}
                   </span>
                 </div>
-                <div className="w-full bg-[var(--cc-canvas-soft-2)] rounded-full h-2 overflow-hidden">
+                <div className="w-full bg-[var(--cc-canvas-soft-2)] rounded-sm h-2 overflow-hidden">
                   <div
                     className={`h-full ${stat.color} transition-all duration-300 ${
                       percentage > 90 ? "bg-danger" : percentage > 70 ? "bg-warning" : ""
@@ -263,7 +263,7 @@ export default function BillingPage() {
               {availablePlans.map((plan) => (
                 <div
                   key={plan.name}
-                  className={`border rounded-lg p-4 ${
+                  className={`border rounded-sm p-4 ${
                     plan.current
                       ? "border-ink bg-[var(--cc-canvas-soft)]"
                       : "border-[var(--cc-hairline)] hover:border-hairline-dark"

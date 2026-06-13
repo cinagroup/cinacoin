@@ -5,7 +5,7 @@
   "source": "@site/docs/api/wallet-recovery.md",
   "sourceDirName": "api",
   "slug": "/api/wallet-recovery",
-  "permalink": "/docs/api/wallet-recovery",
+  "permalink": "/api/wallet-recovery",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/wallet-recovery.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "Wallet recommender.",
-    "permalink": "/docs/api/wallet-recommender"
+    "permalink": "/api/wallet-recommender"
   },
   "next": {
     "title": "WalletConnect v2.",
-    "permalink": "/docs/api/walletconnect-v2"
+    "permalink": "/api/walletconnect-v2"
   }
 }

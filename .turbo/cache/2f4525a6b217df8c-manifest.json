@@ -1,0 +1,43 @@
+{
+  "files": {
+    "packages/react/.turbo/turbo-build.log": {
+      "size": 487,
+      "mtime_nanos": 1781333224326114660,
+      "mode": 436,
+      "is_dir": false
+    },
+    "packages/react/dist": { "size": 0, "mtime_nanos": 0, "mode": 0, "is_dir": true },
+    "packages/react/dist/index.js": {
+      "size": 36192,
+      "mtime_nanos": 1781333221285447168,
+      "mode": 436,
+      "is_dir": false
+    },
+    "packages/react/dist/index.cjs": {
+      "size": 38950,
+      "mtime_nanos": 1781333221285447168,
+      "mode": 436,
+      "is_dir": false
+    },
+    "packages/react/dist/index.d.cts": {
+      "size": 22706,
+      "mtime_nanos": 1781333224232124938,
+      "mode": 436,
+      "is_dir": false
+    },
+    "packages/react/dist/index.d.ts": {
+      "size": 22706,
+      "mtime_nanos": 1781333224232124938,
+      "mode": 436,
+      "is_dir": false
+    }
+  },
+  "order": [
+    "packages/react/.turbo/turbo-build.log",
+    "packages/react/dist",
+    "packages/react/dist/index.cjs",
+    "packages/react/dist/index.d.cts",
+    "packages/react/dist/index.d.ts",
+    "packages/react/dist/index.js"
+  ]
+}

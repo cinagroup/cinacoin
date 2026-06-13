@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="theme-color" content="#1a1a2e" />
+    <meta name="theme-color" content="#0a0a0a" />
     <title>CinaCoin Mini App</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
@@ -21,8 +21,8 @@
       
       body {
         font-family: 'Geist Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-        background-color: var(--tg-theme-bg-color, #1a1a2e);
-        color: var(--tg-theme-text-color, #ffffff);
+        background-color: var(--tg-theme-bg-color, var(--cc-canvas));
+        color: var(--tg-theme-text-color, var(--cc-ink));
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         -webkit-tap-highlight-color: transparent;
@@ -32,7 +32,7 @@
       
       /* Focus visible for keyboard navigation */
       :focus-visible {
-        outline: 2px solid var(--tg-theme-button-color, #6c63ff);
+        outline: 2px solid var(--tg-theme-button-color, var(--cc-link, #3b82f6));
         outline-offset: 2px;
       }
     </style>

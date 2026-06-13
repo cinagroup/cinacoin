@@ -30,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="dark">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <a href="#main-content" className="sr-only focus:not-sr-only" style={{ position: 'fixed', top: 'var(--cc-space-md)', left: 'var(--cc-space-md)', zIndex: 50, padding: 'var(--cc-space-xs) var(--cc-space-md)', background: 'var(--cc-accent)', color: 'var(--cc-on-primary)', borderRadius: 'var(--cc-radius-md)', fontSize: 'var(--cc-text-sm)', fontWeight: 'var(--cc-weight-medium)', textDecoration: 'none' }}>
           Skip to main content.

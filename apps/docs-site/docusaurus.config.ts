@@ -7,7 +7,7 @@ const config: Config = {
   tagline: 'Onchain access, simplified.',
   favicon: 'img/logo.svg',
   url: 'https://cinacoin.com',
-  baseUrl: '/docs/',
+  baseUrl: '/',
   trailingSlash: false,
   organizationName: 'cinagroup',
   projectName: 'cinacoin',
@@ -23,7 +23,7 @@ const config: Config = {
   headTags: [
     {
       tagName: 'meta',
-      attributes: { name: 'theme-color', content: '#ffffff' },
+      attributes: { name: 'theme-color', content: '#000000' },
     },
     {
       tagName: 'meta',
@@ -52,11 +52,11 @@ const config: Config = {
     },
     {
       tagName: 'meta',
-      attributes: { property: 'og:url', content: 'https://cinacoin.com/docs/' },
+      attributes: { property: 'og:url', content: 'https://cinacoin.com/' },
     },
     {
       tagName: 'meta',
-      attributes: { property: 'og:image', content: 'https://cinacoin.com/docs/img/og-image.png' },
+      attributes: { property: 'og:image', content: 'https://cinacoin.com/img/og-image.png' },
     },
     {
       tagName: 'meta',
@@ -80,7 +80,7 @@ const config: Config = {
     },
     {
       tagName: 'meta',
-      attributes: { name: 'twitter:image', content: 'https://cinacoin.com/docs/img/og-image.png' },
+      attributes: { name: 'twitter:image', content: 'https://cinacoin.com/img/og-image.png' },
     },
     {
       tagName: 'meta',
@@ -92,7 +92,7 @@ const config: Config = {
     },
     {
       tagName: 'meta',
-      attributes: { name: 'msapplication-TileColor', content: '#171717' },
+      attributes: { name: 'msapplication-TileColor', content: '#000000' },
     },
     // ── Geist font loaded via @fontsource packages (see package.json) ──
     // Fonts are imported in custom.css to ensure Geist is used per design system
@@ -155,21 +155,21 @@ const config: Config = {
             tagName: 'link',
             attributes: {
               rel: 'icon',
-              href: '/docs/img/logo.svg',
+              href: '/img/logo.svg',
             },
           },
           {
             tagName: 'link',
             attributes: {
               rel: 'manifest',
-              href: '/docs/manifest.json',
+              href: '/manifest.json',
             },
           },
           {
             tagName: 'meta',
             attributes: {
               name: 'theme-color',
-              content: '#171717',
+              content: '#000000',
             },
           },
           {
@@ -183,14 +183,14 @@ const config: Config = {
             tagName: 'meta',
             attributes: {
               name: 'apple-mobile-web-app-status-bar-style',
-              content: '#171717',
+              content: '#000000',
             },
           },
           {
             tagName: 'link',
             attributes: {
               rel: 'apple-touch-icon',
-              href: '/docs/img/logo.svg',
+              href: '/img/logo.svg',
             },
           },
         ],
@@ -201,9 +201,9 @@ const config: Config = {
   themeConfig: {
     image: 'img/logo.svg',
     colorMode: {
-      defaultMode: 'light',
+      defaultMode: 'dark',
       disableSwitch: false,
-      respectPrefersColorScheme: true,
+      respectPrefersColorScheme: false,
     },
     navbar: {
       title: 'CinaCoin',
@@ -216,7 +216,7 @@ const config: Config = {
       ],
     },
     footer: {
-      style: 'light',
+      style: 'dark',
       links: [
         {
           title: 'Product',
@@ -282,8 +282,9 @@ const config: Config = {
 </div>`,
     },
     prism: {
-      theme: prismThemes.github,
-      darkTheme: prismThemes.dracula,
+      theme: prismThemes.nightOwl,
+      darkTheme: prismThemes.nightOwl,
+      additionalLanguages: ['bash', 'json', 'typescript', 'javascript', 'tsx'],
     },
   } satisfies Preset.ThemeConfig,
 };

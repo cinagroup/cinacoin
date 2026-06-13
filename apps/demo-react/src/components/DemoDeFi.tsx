@@ -52,7 +52,7 @@ export function DemoDeFi() {
         </div>
       ) : (
         <>
-          <div className="mb-6 p-4 bg-[var(--cc-canvas-soft)] rounded-lg">
+          <div className="mb-6 p-4 bg-[var(--cc-canvas-soft)] rounded-sm">
             <p className="cc-body-xs text-[var(--cc-body)] mb-1">Your address</p>
             <AddressDisplay address={address!} />
             <div className="flex gap-4 mt-3">
@@ -107,7 +107,7 @@ export function DemoDeFi() {
             ))}
           </div>
 
-          <div className="mt-6 p-4 bg-[var(--cc-warning)/10] rounded-lg text-center">
+          <div className="mt-6 p-4 bg-[var(--cc-warning)/10] rounded-sm text-center">
             <p className="cc-body-sm text-[var(--cc-body)]">
               ⚠️ Demo data. Connect to RPC + Subgraph for live data.
             </p>

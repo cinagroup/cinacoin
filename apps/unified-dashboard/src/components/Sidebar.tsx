@@ -18,8 +18,8 @@ export function Sidebar() {
   const { session, logout, isLoading } = useAuth();
 
   return (
-    <aside className="sidebar hidden md:flex fixed left-0 top-0 h-full w-64 flex-col" aria-label="CinaCoin sidebar navigation">
-      <div className="p-6 border-b border-[var(--cc-on-primary)]/10">
+    <aside className="sidebar hidden md:flex fixed left-0 top-0 h-full w-64 flex-col bg-[var(--cc-canvas-soft-2)] border-r border-[var(--cc-hairline)]" aria-label="CinaCoin sidebar navigation">
+      <div className="p-6 border-b border-[var(--cc-hairline)]">
         <h2 className="cc-display-sm flex items-center gap-2">
           <span className="cc-display-md"><CoinIcon className="w-6 h-6" /></span>
           CinaCoin
@@ -43,7 +43,7 @@ export function Sidebar() {
         ))}
       </nav>
 
-      <div className="p-4 border-t border-[var(--cc-on-primary)]/10" aria-label="User menu">
+      <div className="p-4 border-t border-[var(--cc-hairline)]" aria-label="User menu">
         {isLoading ? (
           <div className="flex items-center gap-3 px-4 py-2">
             <div className="w-8 h-8 rounded-full bg-[var(--cc-canvas)]/20 animate-pulse"></div>

@@ -69,7 +69,7 @@ export default function SendPage() {
       </div>
 
       <div className="cc-card">
-        <div className="mb-6 flex items-center justify-between rounded-lg bg-[var(--cc-canvas-soft-2)] p-4">
+        <div className="mb-6 flex items-center justify-between rounded-sm bg-[var(--cc-canvas-soft-2)] p-4">
           <div>
             <p className="text-caption text-mute">Available balance</p>
             <p className="mt-1 text-display-sm text-[var(--cc-ink)]">{balance} CINA</p>
@@ -80,7 +80,7 @@ export default function SendPage() {
         </div>
 
         {sent && (
-          <div className="mb-6 rounded-lg bg-success-light p-4 text-body-sm" role="alert" style={{ color: 'var(--color-success)' }}>
+          <div className="mb-6 rounded-sm bg-success-light p-4 text-body-sm" role="alert" style={{ color: 'var(--color-success)' }}>
             ✓ Transaction submitted successfully!
           </div>
         )}
@@ -143,7 +143,7 @@ export default function SendPage() {
             )}
           </div>
 
-          <div className="rounded-lg bg-[var(--cc-canvas-soft-2)] p-4 space-y-2">
+          <div className="rounded-sm bg-[var(--cc-canvas-soft-2)] p-4 space-y-2">
             <div className="flex justify-between text-body-sm">
               <span className="text-mute">Network fee (est.)</span>
               <span className="text-[var(--cc-ink)] font-[var(--font-mono)]">~{NETWORK_FEE_NUMBER} CINA</span>

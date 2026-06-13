@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Check } from "lucide-react";
 
 const tutorials = [
   { href: "/basics", label: "Web3 basics", category: "Fundamentals", progress: 100 },
@@ -24,7 +25,7 @@ export default function Sidebar() {
     >
       <div style={{ padding: 'var(--cc-space-lg)' }}>
         <Link href="/" className="block" style={{ marginBottom: 'var(--cc-space-xl)' }}>
-          <h1 className="text-display-md" style={{ color: 'var(--cc-link)' }}>CinaCoin</h1>
+          <div className="text-display-md" style={{ color: 'var(--cc-link)' }}>CinaCoin</div>
           <p className="text-body-sm" style={{ color: 'var(--cc-body)' }}>Learn platform</p>
         </Link>
 
@@ -64,7 +65,7 @@ export default function Sidebar() {
                             <span className="ml-auto text-xs font-mono" style={{ color: 'var(--cc-link)' }}>{tutorial.progress}%</span>
                           )}
                           {tutorial.progress === 100 && (
-                            <span className="ml-auto text-xs" style={{ color: 'var(--cc-success)' }}>✓</span>
+                            <Check className="ml-auto h-3.5 w-3.5" style={{ color: 'var(--cc-success)' }} aria-hidden="true" />
                           )}
                         </Link>
                       </li>

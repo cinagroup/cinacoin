@@ -147,7 +147,7 @@ export default function TokensPage() {
           </div>
         ) : filteredTokens.length === 0 ? (
           <div className="text-center py-16">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[var(--cc-canvas-soft-2)] mb-4">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-sm bg-[var(--cc-canvas-soft-2)] mb-4">
               <Search className="h-8 w-8 text-[var(--cc-muted)]" />
             </div>
             <p className="text-[var(--cc-body)] mb-2">No tokens found</p>
@@ -163,7 +163,7 @@ export default function TokensPage() {
                 <div className="flex items-center gap-4">
                   {/* Token Icon */}
                   <div
-                    className="w-10 h-10 rounded-full flex items-center justify-center text-[var(--cc-on-primary)] font-semibold text-body-sm shadow-[var(--cc-level1)]"
+                    className="w-10 h-10 rounded-sm flex items-center justify-center text-[var(--cc-on-primary)] font-semibold text-body-sm shadow-[var(--cc-level1)]"
                     style={{ backgroundColor: token.color }}
                   >
                     {token.symbol.slice(0, 2)}

@@ -1,3 +1,4 @@
+import { Terminal } from "lucide-react";
 import OverallStatus from "@/components/OverallStatus";
 import ServiceCard from "@/components/ServiceCard";
 import StatusBar90Days from "@/components/StatusBar90Days";
@@ -76,19 +77,43 @@ const incidents = [
 export default function HealthStatusPage() {
   return (
     <div className="space-y-8">
-      {/* Header */}
-      <header className="text-center">
-        <p className="cc-caption-mono text-[var(--cc-muted)] mb-2" aria-label="Page section label">System status</p>
-        <h1 className="cc-display-lg">
-          CinaCoin status.
-        </h1>
-        <p className="mt-2 cc-body-sm text-[var(--cc-body)]">
-          Real-time system health and incident reports.
-        </p>
-      </header>
+      {/* Dark band hero */}
+      <div className="rounded-lg bg-[#171717] px-8 py-10">
+        <p className="font-mono text-xs text-[#888] mb-3">health-status</p>
+        <h1 className="text-2xl font-semibold text-white tracking-tight">CinaCoin status.</h1>
+        <p className="mt-2 text-sm text-[#b3b3b3]">Real-time system health and incident reports.</p>
+        <div className="mt-6 flex items-center gap-3">
+          <div className="flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5">
+            <span className="h-2 w-2 rounded-full bg-[#f5a623]" aria-hidden="true"></span>
+            <span className="text-xs font-medium text-white">Partial outage</span>
+          </div>
+          <span className="text-xs font-mono text-[#888]">Last updated: just now</span>
+        </div>
+      </div>
 
       {/* Overall Status */}
       <OverallStatus status="partial-outage" />
+
+      {/* Code mockup */}
+      <div className="rounded-lg border border-[var(--cc-hairline)] bg-[var(--cc-canvas)] overflow-hidden">
+        <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--cc-hairline)] bg-[var(--cc-canvas-soft-2)]">
+          <Terminal className="h-4 w-4 text-[var(--cc-muted)]" aria-hidden="true" />
+          <span className="font-mono text-xs text-[var(--cc-muted)]">API health check</span>
+        </div>
+        <pre className="p-4 font-mono text-sm text-[var(--cc-body)] overflow-x-auto"><code>{`curl -X GET https://api.cinacoin.com/health
+
+{
+  "status": "partial-outage",
+  "services": {
+    "blockchain-node": "operational",
+    "api-gateway": "operational",
+    "wallet-service": "degraded",
+    "explorer-service": "operational"
+  },
+  "uptime": "99.95%",
+  "lastIncident": "2026-06-07T16:00:00Z"
+}`}</code></pre>
+      </div>
 
       {/* Services */}
       <section aria-labelledby="services-heading">
@@ -126,10 +151,10 @@ export default function HealthStatusPage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-[var(--cc-hairline)] pt-6 text-center cc-caption text-[var(--cc-muted)]">
-        <p>&copy; 2026 CinaCoin. All rights reserved.</p>
-        <p className="mt-1">
-          Powered by <a href="https://cinacoin.com" className="hover:text-[var(--cc-ink)] transition-colors" aria-label="CinaCoin Infrastructure">CinaCoin Infrastructure</a>.
+      <footer className="border-t border-[var(--cc-hairline)] pt-6 flex items-center justify-between text-xs text-[var(--cc-muted)]">
+        <p>&copy; 2026 CinaCoin.</p>
+        <p className="font-mono">
+          Powered by <a href="https://cinacoin.com" className="hover:text-[var(--cc-ink)] transition-colors">CinaCoin Infrastructure</a>
         </p>
       </footer>
     </div>

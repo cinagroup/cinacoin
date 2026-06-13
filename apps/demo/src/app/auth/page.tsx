@@ -124,7 +124,7 @@ export default function AuthPage() {
           {/* Sign-In with Ethereum */}
           <div className="p-5 border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] bg-[var(--cc-canvas)] cc-animate-slide-up">
             <div className="flex items-start gap-4 mb-4">
-              <div className="w-10 h-10 rounded-full bg-[var(--cc-link)]/15 border border-[var(--cc-primary)]/25 flex items-center justify-center shrink-0">
+              <div className="w-10 h-10 rounded-sm bg-[var(--cc-link)]/15 border border-[var(--cc-primary)]/25 flex items-center justify-center shrink-0">
                 <Key className="w-5 h-5 text-[var(--cc-link)]" />
               </div>
               <div className="flex-1">
@@ -163,7 +163,7 @@ export default function AuthPage() {
           {/* Passkey */}
           <div className="p-5 border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] bg-[var(--cc-canvas)] cc-animate-slide-up">
             <div className="flex items-start gap-4 mb-4">
-              <div className="w-10 h-10 rounded-full bg-[var(--cc-violet)]/15 border border-[var(--cc-violet)]/25 flex items-center justify-center shrink-0">
+              <div className="w-10 h-10 rounded-sm bg-[var(--cc-violet)]/15 border border-[var(--cc-violet)]/25 flex items-center justify-center shrink-0">
                 <Fingerprint className="w-5 h-5 text-[var(--cc-violet)]" />
               </div>
               <div className="flex-1">
@@ -213,7 +213,7 @@ export default function AuthPage() {
           {/* Secure Session */}
           <div className="p-5 border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] bg-[var(--cc-canvas)] cc-animate-slide-up">
             <div className="flex items-start gap-4 mb-4">
-              <div className="w-10 h-10 rounded-full bg-[var(--cc-success)]/15 border border-[var(--cc-success)]/25 flex items-center justify-center shrink-0">
+              <div className="w-10 h-10 rounded-sm bg-[var(--cc-success)]/15 border border-[var(--cc-success)]/25 flex items-center justify-center shrink-0">
                 <Shield className="w-5 h-5 text-[var(--cc-success)]" />
               </div>
               <div className="flex-1">

@@ -97,7 +97,7 @@ export default function ApiKeyModal({ onCreate, onClose }: ApiKeyModalProps) {
               ].map((option) => (
                 <label
                   key={option.value}
-                  className={`flex items-start gap-3 p-3 rounded-lg border cursor-pointer transition-colors ${
+                  className={`flex items-start gap-3 p-3 rounded-sm border cursor-pointer transition-colors ${
                     permissions === option.value
                       ? "border-ink bg-[var(--cc-canvas-soft)]"
                       : "border-[var(--cc-hairline)] hover:border-hairline-dark"

@@ -42,10 +42,12 @@ export default React.memo(function OverallStatus({ status }: OverallStatusProps)
   const c = config[status];
   const Icon = c.icon;
   return (
-    <div className={`rounded-[8px] border ${c.border} ${c.bg} p-6 text-center`} role="status" aria-live="polite">
-      <Icon className={`mx-auto mb-3 w-12 h-12 ${c.color}`} aria-hidden="true" />
-      <h2 className={`cc-display-sm ${c.color}`}>{c.label}</h2>
-      <p className="mt-1 cc-body-sm text-[var(--cc-body)]">Last updated: just now</p>
+    <div className={`rounded-[8px] border ${c.border} ${c.bg} p-6 flex items-center gap-4`} role="status" aria-live="polite">
+      <Icon className={`shrink-0 w-8 h-8 ${c.color}`} aria-hidden="true" />
+      <div>
+        <h2 className={`cc-body-sm-strong ${c.color}`}>{c.label}</h2>
+        <p className="mt-0.5 cc-caption text-[var(--cc-body)]">Last updated: just now</p>
+      </div>
     </div>
   );
 });

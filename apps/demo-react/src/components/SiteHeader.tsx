@@ -48,15 +48,15 @@ export const SiteHeader: React.FC = () => {
           <div className="hidden sm:block">
             {isConnected ? (
               <div className="flex items-center gap-2 sm:gap-3">
-                <span className="hidden sm:inline-flex items-center gap-2 text-caption px-3 py-1 rounded-full bg-[var(--cc-success)]/10 text-[var(--cc-success)] font-medium border border-[var(--cc-success)]/20" role="status">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[var(--cc-success)] animate-pulse" />
+                <span className="hidden sm:inline-flex items-center gap-2 text-caption px-3 py-1 rounded-sm bg-[var(--cc-success)]/10 text-[var(--cc-success)] font-medium border border-[var(--cc-success)]/20" role="status">
+                  <span className="w-1.5 h-1.5 rounded-sm bg-[var(--cc-success)] animate-pulse" />
                   Connected
                 </span>
-                <span className="text-body-sm font-[var(--font-mono)] text-[var(--cc-body)] bg-[var(--cc-canvas-soft-2)] px-3 py-1 rounded-md border border-[var(--cc-hairline)]">{formatAddress(address)}</span>
+                <span className="text-body-sm font-[var(--font-mono)] text-[var(--cc-body)] bg-[var(--cc-canvas-soft-2)] px-3 py-1 rounded-sm border border-[var(--cc-hairline)]">{formatAddress(address)}</span>
                 <button
                   onClick={disconnect}
                   onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); disconnect(); } }}
-                  className="cc-btn-secondary-sm text-caption px-2 py-1 rounded-lg focus-ring"
+                  className="cc-btn-secondary-sm text-caption px-2 py-1 rounded-sm focus-ring"
                   aria-label="Disconnect wallet"
                 >
                   Disconnect
@@ -77,12 +77,12 @@ export const SiteHeader: React.FC = () => {
           {/* Mobile controls */}
           <div className="flex items-center gap-1 sm:hidden">
             {isConnected ? (
-              <span className="text-caption font-[var(--font-mono)] text-[var(--cc-body)] bg-[var(--cc-canvas-soft-2)] px-2 py-1 rounded-md border border-[var(--cc-hairline)]" aria-label="Wallet connected">{formatAddress(address)}</span>
+              <span className="text-caption font-[var(--font-mono)] text-[var(--cc-body)] bg-[var(--cc-canvas-soft-2)] px-2 py-1 rounded-sm border border-[var(--cc-hairline)]" aria-label="Wallet connected">{formatAddress(address)}</span>
             ) : null}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Toggle navigation menu"
-              className="p-2 rounded-lg min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft)] transition-colors"
+              className="p-2 rounded-sm min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--cc-muted)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft)] transition-colors"
               aria-expanded={mobileOpen}
             >
               <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

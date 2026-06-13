@@ -114,7 +114,7 @@ export default function Products() {
                 <div className="relative">
                   <div className="mb-4 flex items-center gap-2">
                     <div
-                      className="h-8 w-8 rounded-md flex items-center justify-center transition-transform duration-200 group-hover:scale-110 bg-[var(--cc-canvas-soft-2)]"
+                      className="h-8 w-8 rounded-sm flex items-center justify-center transition-transform duration-200 group-hover:scale-110 bg-[var(--cc-canvas-soft-2)]"
                       style={{ color: p.iconColor }}
                     >
                       {productIcons[p.iconIndex]}

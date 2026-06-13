@@ -5,7 +5,7 @@
   "source": "@site/docs/api/analytics.md",
   "sourceDirName": "api",
   "slug": "/api/analytics",
-  "permalink": "/docs/api/analytics",
+  "permalink": "/api/analytics",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/analytics.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "XRPL adapter.",
-    "permalink": "/docs/api/adapter-xrpl"
+    "permalink": "/api/adapter-xrpl"
   },
   "next": {
     "title": "Android Kotlin.",
-    "permalink": "/docs/api/android-kotlin"
+    "permalink": "/api/android-kotlin"
   }
 }

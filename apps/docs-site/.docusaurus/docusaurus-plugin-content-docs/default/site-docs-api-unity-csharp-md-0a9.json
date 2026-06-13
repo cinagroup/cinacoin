@@ -5,7 +5,7 @@
   "source": "@site/docs/api/unity-csharp.md",
   "sourceDirName": "api",
   "slug": "/api/unity-csharp",
-  "permalink": "/docs/api/unity-csharp",
+  "permalink": "/api/unity-csharp",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/unity-csharp.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "UI theme.",
-    "permalink": "/docs/api/ui-theme"
+    "permalink": "/api/ui-theme"
   },
   "next": {
     "title": "Vue.",
-    "permalink": "/docs/api/vue"
+    "permalink": "/api/vue"
   }
 }

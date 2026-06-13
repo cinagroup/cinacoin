@@ -337,7 +337,7 @@ export default function ProjectDetailClient() {
               <button
                 key={tab}
                 onClick={() => setSdkTab(tab)}
-                className={`px-3 py-2 text-body-sm font-medium rounded-full transition-colors ${
+                className={`px-3 py-2 text-body-sm font-medium rounded-sm transition-colors ${
                   sdkTab === tab
                     ? "bg-primary text-on-primary"
                     : "bg-[var(--cc-canvas-soft)] text-ink-body hover:text-[var(--cc-ink)]"
@@ -365,7 +365,7 @@ export default function ProjectDetailClient() {
           </div>
 
           {/* Install Command */}
-          <div className="mt-4 p-3 bg-[var(--cc-canvas-soft)] rounded-lg border border-[var(--cc-hairline)]">
+          <div className="mt-4 p-3 bg-[var(--cc-canvas-soft)] rounded-sm border border-[var(--cc-hairline)]">
             <p className="text-caption text-ink-mute mb-1">Install the package:</p>
             <code className="text-body-sm font-mono text-[var(--cc-ink)]">
               {sdkTab === "vue"

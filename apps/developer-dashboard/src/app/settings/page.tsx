@@ -64,7 +64,7 @@ export default function SettingsPage() {
       {/* Security */}
       <div className="cc-card space-y-4">
         <h2 className="text-body-lg font-semibold text-[var(--cc-ink)]">Security</h2>
-        <div className="flex items-center justify-between p-4 bg-[var(--cc-canvas-soft)] rounded-lg">
+        <div className="flex items-center justify-between p-4 bg-[var(--cc-canvas-soft)] rounded-sm">
           <div>
             <div className="text-body-sm font-medium text-[var(--cc-ink)]">Two-Factor Authentication</div>
             <div className="text-body-sm text-ink-mute">
@@ -79,11 +79,11 @@ export default function SettingsPage() {
               checked={profile.twoFactor}
               onChange={handleChange}
             />
-            <div className="w-11 h-6 bg-hairline-strong peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content[''] after:absolute after:top-[2px] after:left-[2px] after:bg-canvas after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-success"></div>
+            <div className="w-11 h-6 bg-hairline-strong peer-focus:outline-none rounded-sm peer peer-checked:after:translate-x-full after:content[''] after:absolute after:top-[2px] after:left-[2px] after:bg-canvas after:rounded-sm after:h-5 after:w-5 after:transition-all peer-checked:bg-success"></div>
           </label>
         </div>
 
-        <div className="flex items-center justify-between p-4 bg-[var(--cc-canvas-soft)] rounded-lg">
+        <div className="flex items-center justify-between p-4 bg-[var(--cc-canvas-soft)] rounded-sm">
           <div>
             <div className="text-body-sm font-medium text-[var(--cc-ink)]">Email Notifications</div>
             <div className="text-body-sm text-ink-mute">Receive alerts for key events</div>
@@ -96,7 +96,7 @@ export default function SettingsPage() {
               checked={profile.notifications}
               onChange={handleChange}
             />
-            <div className="w-11 h-6 bg-hairline-strong peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content[''] after:absolute after:top-[2px] after:left-[2px] after:bg-canvas after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-success"></div>
+            <div className="w-11 h-6 bg-hairline-strong peer-focus:outline-none rounded-sm peer peer-checked:after:translate-x-full after:content[''] after:absolute after:top-[2px] after:left-[2px] after:bg-canvas after:rounded-sm after:h-5 after:w-5 after:transition-all peer-checked:bg-success"></div>
           </label>
         </div>
 
@@ -106,7 +106,7 @@ export default function SettingsPage() {
       {/* Connected Wallets */}
       <div className="cc-card space-y-4">
         <h2 className="text-body-lg font-semibold text-[var(--cc-ink)]">Connected wallets</h2>
-        <div className="p-4 bg-[var(--cc-canvas-soft)] rounded-lg flex items-center justify-between">
+        <div className="p-4 bg-[var(--cc-canvas-soft)] rounded-sm flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded bg-warning/20 flex items-center justify-center">
               <Wallet className="w-4 h-4 text-warning" aria-hidden="true" />

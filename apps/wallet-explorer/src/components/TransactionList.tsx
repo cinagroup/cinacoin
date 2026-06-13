@@ -45,7 +45,7 @@ export default memo(function TransactionList({ transactions }: TransactionListPr
             <div key={tx.hash} className="p-5 border-b border-[var(--cc-hairline)] last:border-b-0 transition-colors hover:bg-[var(--cc-canvas-soft)]">
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-3">
-                  <div className={`flex h-10 w-10 items-center justify-center rounded-lg ${typeColors[tx.type]}`}>
+                  <div className={`flex h-10 w-10 items-center justify-center rounded-sm ${typeColors[tx.type]}`}>
                     {(() => {
                       const Icon = typeIcons[tx.type];
                       return Icon ? <Icon className="h-5 w-5" /> : null;

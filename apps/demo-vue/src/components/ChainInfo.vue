@@ -115,17 +115,17 @@ async function handleSwitchChain(chainId: number) {
 
 <style scoped>
 .chain-info { display: flex; flex-direction: column; gap: 1.25rem; }
-.section-title { margin: 0; font-size: 1.5rem; font-weight: 600; color: var(--cc-ink, #171717); letter-spacing: -0.5px; }
+.section-title { margin: 0; font-size: 1.5rem; font-weight: 600; color: var(--cc-ink, #f5f5f5); letter-spacing: -0.5px; }
 .card {
-  background: var(--cc-canvas, #ffffff);
-  border: 1px solid var(--cc-hairline, #ebebeb);
-  border-radius: 8px;
+  background: var(--cc-canvas-soft, #141414);
+  border: 1px solid var(--cc-hairline, rgba(255, 255, 255, 0.08));
+  border-radius: 4px;
   padding: 1.25rem;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), inset 0 0 0 1px rgba(0, 0, 0, 0.08);
 }
-.card-title { margin: 0 0 0.25rem; font-size: 1rem; font-weight: 600; color: var(--cc-ink, #171717); }
-.card-desc { margin: 0 0 1rem; font-size: 0.875rem; color: var(--cc-body, #4d4d4d); line-height: 1.6; }
-.card-desc code { background: var(--cc-canvas-soft-2, #f5f5f5); padding: 0.125rem 0.375rem; border-radius: 4px; font-size: 0.75rem; color: var(--cc-link, #0070f3); font-family: var(--font-mono, 'Geist Mono'), monospace; }
+.card-title { margin: 0 0 0.25rem; font-size: 1rem; font-weight: 600; color: var(--cc-ink, #f5f5f5); }
+.card-desc { margin: 0 0 1rem; font-size: 0.875rem; color: var(--cc-body, #a3a3a3); line-height: 1.6; }
+.card-desc code { background: var(--cc-canvas-soft-2, #1e1e1e); padding: 0.125rem 0.375rem; border-radius: 4px; font-size: 0.75rem; color: var(--cc-link, #3b82f6); font-family: var(--font-mono, 'Geist Mono'), monospace; }
 .demo-area { min-height: 40px; }
 .chain-display { display: flex; align-items: center; gap: 1rem; }
 .chain-icon { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; }
@@ -134,9 +134,9 @@ async function handleSwitchChain(chainId: number) {
   font-family: var(--font-mono, 'Geist Mono'), monospace;
   font-size: 0.75rem;
   font-weight: 600;
-  color: var(--cc-muted, #888888);
-  background: var(--cc-canvas-soft-2, #f5f5f5);
-  border: 1px solid var(--cc-hairline, #ebebeb);
+  color: var(--cc-muted, #737373);
+  background: var(--cc-canvas-soft-2, #1e1e1e);
+  border: 1px solid var(--cc-hairline, rgba(255, 255, 255, 0.08));
   border-radius: 50%;
   width: 48px;
   height: 48px;
@@ -145,30 +145,30 @@ async function handleSwitchChain(chainId: number) {
   justify-content: center;
 }
 .chain-details { display: flex; flex-direction: column; gap: 0.25rem; }
-.chain-name { font-size: 1.125rem; font-weight: 600; color: var(--cc-ink, #171717); }
-.chain-id { font-family: var(--font-mono, 'Geist Mono'), monospace; font-size: 0.875rem; color: var(--cc-body, #4d4d4d); }
-.chain-currency { font-size: 0.875rem; color: var(--cc-body, #4d4d4d); }
-.currency-full { color: var(--cc-muted, #888888); }
-.badge { padding: 0.125rem 0.5rem; border-radius: 100px; font-size: 0.7rem; font-weight: 500; display: inline-block; }
+.chain-name { font-size: 1.125rem; font-weight: 600; color: var(--cc-ink, #f5f5f5); }
+.chain-id { font-family: var(--font-mono, 'Geist Mono'), monospace; font-size: 0.875rem; color: var(--cc-body, #a3a3a3); }
+.chain-currency { font-size: 0.875rem; color: var(--cc-body, #a3a3a3); }
+.currency-full { color: var(--cc-muted, #737373); }
+.badge { padding: 0.125rem 0.5rem; border-radius: 4px; font-size: 0.7rem; font-weight: 500; display: inline-block; }
 .badge-warning { background: var(--cc-warning-bg, rgba(245, 166, 35, 0.1)); color: var(--cc-warning, #f5a623); }
-.empty-state { color: var(--cc-muted, #888888); font-size: 0.875rem; }
+.empty-state { color: var(--cc-muted, #737373); font-size: 0.875rem; }
 .switcher-area { margin-bottom: 1rem; }
-.sub-title { margin: 0.75rem 0 0.5rem; font-size: 0.875rem; font-weight: 600; color: var(--cc-body, #4d4d4d); letter-spacing: 0.02em; }
+.sub-title { margin: 0.75rem 0 0.5rem; font-size: 0.875rem; font-weight: 600; color: var(--cc-body, #a3a3a3); letter-spacing: 0.02em; }
 .chain-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.375rem; }
 .chain-items { list-style: none; padding: 0; margin: 0; }
 .chain-item {
   display: flex; align-items: center; gap: 0.75rem;
-  padding: 0.5rem 0.75rem; border-radius: 6px;
-  background: var(--cc-canvas-soft-2, #f5f5f5); cursor: pointer; transition: background 0.15s;
-  border: 1px solid var(--cc-hairline, #ebebeb);
+  padding: 0.5rem 0.75rem; border-radius: 4px;
+  background: var(--cc-canvas-soft-2, #1e1e1e); cursor: pointer; transition: background 0.15s;
+  border: 1px solid var(--cc-hairline, rgba(255, 255, 255, 0.08));
 }
-.chain-item:hover { background: var(--cc-canvas-soft, #fafafa); border-color: var(--cc-hairline-strong, #a1a1a1); }
-.chain-item:focus-visible { outline: 2px solid var(--cc-link, #0070f3); outline-offset: 2px; }
-.chain-item.active { background: var(--cc-link-bg-soft, #d3e5ff); border-color: var(--cc-link, #0070f3); }
-.chain-item-name { flex: 1; color: var(--cc-ink, #171717); font-weight: 500; }
-.chain-item-id { color: var(--cc-muted, #888888); font-family: var(--font-mono, 'Geist Mono'), monospace; font-size: 0.75rem; }
-.chain-item-check { color: var(--cc-success, #0070f3); font-weight: 600; }
-.switching-indicator { margin-top: 0.75rem; color: var(--cc-link, #0070f3); font-size: 0.875rem; display: flex; align-items: center; gap: 0.5rem; }
+.chain-item:hover { background: var(--cc-canvas-soft, #141414); border-color: var(--cc-hairline-strong, rgba(255, 255, 255, 0.15)); }
+.chain-item:focus-visible { outline: 2px solid var(--cc-link, #3b82f6); outline-offset: 2px; }
+.chain-item.active { background: var(--cc-link-bg-soft, #1e3a5f); border-color: var(--cc-link, #3b82f6); }
+.chain-item-name { flex: 1; color: var(--cc-ink, #f5f5f5); font-weight: 500; }
+.chain-item-id { color: var(--cc-muted, #737373); font-family: var(--font-mono, 'Geist Mono'), monospace; font-size: 0.75rem; }
+.chain-item-check { color: var(--cc-success, #22c55e); font-weight: 600; }
+.switching-indicator { margin-top: 0.75rem; color: var(--cc-link, #3b82f6); font-size: 0.875rem; display: flex; align-items: center; gap: 0.5rem; }
 .spinner {
   width: 14px; height: 14px; border: 2px solid var(--cc-link, #0070f3);
   border-top-color: transparent; border-radius: 50%;

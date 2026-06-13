@@ -128,7 +128,7 @@ export default function BatchPage() {
             >
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
-                  <span className="w-6 h-6 rounded-full bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] flex items-center justify-center text-caption font-semibold text-[var(--cc-muted)]">
+                  <span className="w-6 h-6 rounded-sm bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] flex items-center justify-center text-caption font-semibold text-[var(--cc-muted)]">
                     {index + 1}
                   </span>
                   <p className="font-semibold text-[var(--cc-ink)]">Transaction {index + 1}</p>

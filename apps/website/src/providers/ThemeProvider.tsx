@@ -10,7 +10,7 @@ interface ThemeContextValue {
 }
 
 const ThemeContext = createContext<ThemeContextValue>({
-  theme: 'light',
+  theme: 'dark',
   toggle: () => {},
 })
 
@@ -24,11 +24,11 @@ function getInitialTheme(): Theme {
     if (stored === 'light' || stored === 'dark') return stored
     if (window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark'
   }
-  return 'light'
+  return 'dark'
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('light')
+  const [theme, setTheme] = useState<Theme>('dark')
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {

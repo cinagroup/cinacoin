@@ -24,12 +24,12 @@ export default function GlobalRootError({
         <div
           style={{
             border: "1px solid var(--cc-hairline)",
-            borderRadius: "12px",
+            borderRadius: "var(--cc-radius-sm)",
             padding: "2rem",
             maxWidth: "28rem",
             textAlign: "center",
-            background: "#ffffff",
-            boxShadow: "0px 1px 1px rgba(0,0,0,0.02), 0px 2px 2px rgba(0,0,0,0.04), inset 0 0 0 1px var(--cc-hairline)",
+            background: "var(--cc-canvas)",
+            boxShadow: "var(--cc-level2)",
           }}
         >
           <div style={{ fontSize: "2rem", marginBottom: "1rem" }}>⚠️</div>
@@ -62,7 +62,7 @@ export default function GlobalRootError({
               background: "var(--cc-primary)",
               color: "white",
               border: "none",
-              borderRadius: "100px",
+              borderRadius: "var(--cc-radius-sm)",
               cursor: "pointer",
               fontSize: "14px",
               fontWeight: 500,

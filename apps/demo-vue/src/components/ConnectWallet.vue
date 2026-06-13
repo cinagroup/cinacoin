@@ -163,21 +163,21 @@ async function handleDisconnect() {
 
 <style scoped>
 .connect-wallet { display: flex; flex-direction: column; gap: 1.25rem; }
-.section-title { margin: 0; font-size: 1.5rem; font-weight: 600; color: var(--cc-ink, #171717); letter-spacing: -0.5px; }
+.section-title { margin: 0; font-size: 1.5rem; font-weight: 600; color: var(--cc-ink, #ededed); letter-spacing: -0.5px; }
 .card {
-  background: var(--cc-canvas, #ffffff);
-  border: 1px solid var(--cc-hairline, #ebebeb);
-  border-radius: 8px;
+  background: var(--cc-canvas-soft, #0a0a0a);
+  border: 1px solid var(--cc-hairline, rgba(255, 255, 255, 0.08));
+  border-radius: 4px;
   padding: 1.25rem;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), inset 0 0 0 1px rgba(0, 0, 0, 0.08);
 }
-.card-title { margin: 0 0 0.25rem; font-size: 1rem; font-weight: 600; color: var(--cc-ink, #171717); }
-.card-desc { margin: 0 0 1rem; font-size: 0.875rem; color: var(--cc-body, #4d4d4d); line-height: 1.6; }
-.card-desc code { background: var(--cc-canvas-soft-2, #f5f5f5); padding: 0.125rem 0.375rem; border-radius: 4px; font-size: 0.75rem; color: var(--cc-link, #0070f3); font-family: var(--font-mono, 'Geist Mono'), monospace; }
+.card-title { margin: 0 0 0.25rem; font-size: 1rem; font-weight: 600; color: var(--cc-ink, #ededed); }
+.card-desc { margin: 0 0 1rem; font-size: 0.875rem; color: var(--cc-body, #a3a3a3); line-height: 1.6; }
+.card-desc code { background: var(--cc-canvas-soft-2, #111111); padding: 0.125rem 0.375rem; border-radius: 4px; font-size: 0.75rem; color: var(--cc-link, #0070f3); font-family: var(--font-mono, 'Geist Mono'), monospace; }
 .demo-area { min-height: 40px; }
 .btn {
   padding: 0.5rem 1rem;
-  border-radius: 100px;
+  border-radius: 4px;
   border: none;
   font-weight: 500;
   cursor: pointer;
@@ -188,36 +188,36 @@ async function handleDisconnect() {
 .btn:hover { opacity: 0.85; }
 .btn-outline {
   background: transparent;
-  border: 1px solid var(--cc-hairline, #ebebeb);
-  color: var(--cc-ink, #171717);
+  border: 1px solid var(--cc-hairline, rgba(255, 255, 255, 0.08));
+  color: var(--cc-ink, #ededed);
 }
-.btn-outline:hover { background: var(--cc-canvas-soft-2, #f5f5f5); opacity: 1; }
-.btn-sm { padding: 0.25rem 0.75rem; font-size: 0.8rem; background: var(--cc-primary, #171717); color: var(--cc-on-primary, #ffffff); border-radius: 100px; }
-.btn-error { background: var(--cc-error, #ee0000); color: #ffffff; border-radius: 100px; }
+.btn-outline:hover { background: var(--cc-canvas-soft-2, #111111); opacity: 1; }
+.btn-sm { padding: 0.25rem 0.75rem; font-size: 0.8rem; background: var(--cc-primary); color: var(--cc-on-primary); border-radius: 4px; }
+.btn-error { background: var(--cc-error); color: var(--cc-on-primary); border-radius: 4px; }
 .wallet-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
 .wallet-item {
   display: flex; align-items: center; gap: 0.5rem;
-  background: var(--cc-canvas-soft-2, #f5f5f5); padding: 0.5rem 0.75rem; border-radius: 6px;
-  border: 1px solid var(--cc-hairline, #ebebeb);
+  background: var(--cc-canvas-soft-2, #111111); padding: 0.5rem 0.75rem; border-radius: 4px;
+  border: 1px solid var(--cc-hairline, rgba(255, 255, 255, 0.08));
 }
 .wallet-icon {
   font-family: var(--font-mono, 'Geist Mono'), monospace;
   font-size: 0.75rem;
   font-weight: 600;
-  color: var(--cc-muted, #888888);
+  color: var(--cc-muted, #737373);
   width: 1.5rem;
   text-align: center;
 }
-.wallet-name { flex: 1; color: var(--cc-ink, #171717); font-weight: 500; }
-.wallet-type { color: var(--cc-muted, #888888); font-size: 0.75rem; letter-spacing: 0.02em; }
-.wallet-badge { padding: 0.125rem 0.5rem; border-radius: 100px; font-size: 0.7rem; font-weight: 500; }
-.badge-blue { background: var(--cc-success-bg, rgba(0, 112, 243, 0.1)); color: var(--cc-success, #0070f3); }
-.badge-gray { background: var(--cc-canvas-soft-2, #f5f5f5); color: var(--cc-muted, #888888); border: 1px solid var(--cc-hairline, #ebebeb); }
-.empty-state { color: var(--cc-muted, #888888); font-size: 0.875rem; }
+.wallet-name { flex: 1; color: var(--cc-ink, #ededed); font-weight: 500; }
+.wallet-type { color: var(--cc-muted, #737373); font-size: 0.75rem; letter-spacing: 0.02em; }
+.wallet-badge { padding: 0.125rem 0.5rem; border-radius: 4px; font-size: 0.7rem; font-weight: 500; }
+.badge-blue { background: var(--cc-success-bg, rgba(34, 197, 94, 0.1)); color: var(--cc-success, #22c55e); }
+.badge-gray { background: var(--cc-canvas-soft-2, #111111); color: var(--cc-muted, #737373); border: 1px solid var(--cc-hairline, rgba(255, 255, 255, 0.08)); }
+.empty-state { color: var(--cc-muted, #737373); font-size: 0.875rem; }
 .state-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.75rem; }
 .state-item { display: flex; flex-direction: column; gap: 0.25rem; }
-.state-label { font-size: 0.75rem; color: var(--cc-muted, #888888); letter-spacing: 0.02em; }
-.state-value { color: var(--cc-ink, #171717); font-size: 0.9rem; }
+.state-label { font-size: 0.75rem; color: var(--cc-muted, #737373); letter-spacing: 0.02em; }
+.state-value { color: var(--cc-ink, #ededed); font-size: 0.9rem; }
 .mono { font-family: var(--font-mono, 'Geist Mono'), monospace; }
 
 /* ── Responsive ───────────────────────────────────────────────────── */

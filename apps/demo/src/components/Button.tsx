@@ -26,16 +26,16 @@ const variantClasses: Record<ButtonVariant, string> = {
 };
 
 const sizeClasses: Record<ButtonSize, string> = {
-  sm: 'px-[var(--cc-xs)] text-[var(--cc-button-md)] rounded-[6px] h-[32px] min-h-[44px]',
-  md: 'px-[var(--cc-sm)] text-[var(--cc-button-lg)] rounded-[6px] h-[40px] min-h-[44px]',
-  lg: 'px-[var(--cc-sm)] text-[var(--cc-button-lg)] rounded-[6px] h-[48px] min-h-[48px]',
+  sm: 'px-[var(--cc-xs)] text-[var(--cc-button-md)] rounded-sm h-[32px] min-h-[44px]',
+  md: 'px-[var(--cc-sm)] text-[var(--cc-button-lg)] rounded-sm h-[40px] min-h-[44px]',
+  lg: 'px-[var(--cc-sm)] text-[var(--cc-button-lg)] rounded-sm h-[48px] min-h-[48px]',
 };
 
 /** Ripple effect on click */
 function Ripple({ x, y }: { x: number; y: number }) {
   return (
     <span
-      className="absolute rounded-full bg-[var(--cc-canvas)]/30 pointer-events-none animate-ripple"
+      className="absolute rounded-sm bg-[var(--cc-canvas)]/30 pointer-events-none animate-ripple"
       style={{ left: x - 40, top: y - 40, width: 80, height: 80 }}
     />
   );

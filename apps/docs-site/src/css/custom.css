@@ -10,30 +10,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400&display=swap');
 
 /* ──────────────────────────────────────────────
-   Light Theme (default)
+   Dark Theme (default — dark-first)
    ────────────────────────────────────────────── */
 :root {
   /* ── CinaCoin design-system tokens (aligned with main site) ── */
-  --cc-ink: #171717;
-  --cc-body: #4d4d4d;
-  --cc-muted: #888888;
-  --cc-hairline: #ebebeb;
-  --cc-hairline-strong: #a1a1a1;
-  --cc-canvas: #ffffff;
-  --cc-canvas-soft: #fafafa;
-  --cc-canvas-soft-2: #f5f5f5;
+  --cc-ink: #ededed;
+  --cc-body: #a3a3a3;
+  --cc-muted: #737373;
+  --cc-hairline: rgba(255, 255, 255, 0.08);
+  --cc-hairline-strong: rgba(255, 255, 255, 0.15);
+  --cc-canvas: #000000;
+  --cc-canvas-soft: #0a0a0a;
+  --cc-canvas-soft-2: #111111;
   --cc-link: #0070f3;
-  --cc-link-deep: #0761d1;
-  --cc-link-bg-soft: #d3e5ff;
+  --cc-link-deep: #3291ff;
+  --cc-link-bg-soft: rgba(0, 112, 243, 0.15);
 
   /* ── IFM color tokens → cc tokens ── */
   --ifm-color-primary: var(--cc-ink);
-  --ifm-color-primary-dark: #151515;
-  --ifm-color-primary-darker: #141414;
-  --ifm-color-primary-darkest: #111111;
-  --ifm-color-primary-light: #1a1a1a;
-  --ifm-color-primary-lighter: #1c1c1c;
-  --ifm-color-primary-lightest: #222222;
+  --ifm-color-primary-dark: #e6e6e6;
+  --ifm-color-primary-darker: #d9d9d9;
+  --ifm-color-primary-darkest: #b3b3b3;
+  --ifm-color-primary-light: #ffffff;
+  --ifm-color-primary-lighter: #ffffff;
+  --ifm-color-primary-lightest: #ffffff;
 
   --ifm-background-color: var(--cc-canvas);
   --ifm-background-surface-color: var(--cc-canvas-soft);
@@ -52,7 +52,7 @@
   --ifm-color-emphasis-700: var(--cc-body);
   --ifm-color-emphasis-800: var(--cc-ink);
   --ifm-color-emphasis-900: var(--cc-ink);
-  --ifm-color-emphasis-1000: var(--cc-ink);
+  --ifm-color-emphasis-1000: #ffffff;
 
   --ifm-link-color: var(--cc-link);
   --ifm-link-hover-color: var(--cc-link-deep);
@@ -86,12 +86,12 @@
 
   /* ── Code ── */
   --ifm-code-font-size: 90%;
-  --ifm-code-border-radius: 6px;
+  --ifm-code-border-radius: 4px;
   --ifm-code-padding-horizontal: 0.3rem;
   --ifm-code-padding-vertical: 0.15rem;
 
   /* ── Global shape ── */
-  --ifm-global-radius: 8px;
+  --ifm-global-radius: 4px;
   --ifm-global-shadow-lw: 0 1px 1px rgba(0, 0, 0, 0.03), 0 2px 2px rgba(0, 0, 0, 0.06);
   --ifm-global-shadow-md: 0 2px 2px rgba(0, 0, 0, 0.06), 0 8px 8px rgba(0, 0, 0, 0.06);
   --ifm-global-shadow-tl: 0 2px 2px rgba(0, 0, 0, 0.06), 0 8px 16px rgba(0, 0, 0, 0.06);
@@ -114,6 +114,20 @@
   --ifm-container-width: 1200px;
   --ifm-global-spacing: 1rem;
   --ifm-paragraph-margin-bottom: 1rem;
+
+  /* ── Table of contents ── */
+  --ifm-toc-link-color: var(--cc-body);
+
+  /* ── Tabs ── */
+  --ifm-tabs-color: var(--cc-body);
+  --ifm-tabs-color-active: var(--cc-ink);
+
+  /* ── Alert / Admonition ── */
+  --ifm-alert-background-color-highlight: var(--cc-link-bg-soft);
+  --ifm-alert-border-color: var(--cc-link);
+  --ifm-alert-foreground-color: var(--cc-ink);
+  --ifm-alert-padding-horizontal: 1rem;
+  --ifm-alert-padding-vertical: 1rem;
 }
 
 /* ──────────────────────────────────────────────
@@ -269,46 +283,31 @@ video {
 
 :root {
   --ifm-line-height-base: 1.6;
-
-  /* ── Table of contents ── */
-  --ifm-toc-link-color: var(--cc-body);
-
-  /* ── Tabs ── */
-  --ifm-tabs-color: var(--cc-body);
-  --ifm-tabs-color-active: var(--cc-ink);
-
-  /* ── Alert / Admonition ── */
-  --ifm-alert-background-color-highlight: var(--cc-link-bg-soft);
-  --ifm-alert-border-color: var(--cc-link);
-  --ifm-alert-foreground-color: var(--cc-ink);
-  --ifm-alert-padding-horizontal: 1rem;
-  --ifm-alert-padding-vertical: 1rem;
 }
 
 /* ──────────────────────────────────────────────
-   Dark Theme
+   Light Theme (optional toggle)
    ────────────────────────────────────────────── */
-html[data-theme='dark'] {
-  /* ── CinaCoin dark tokens (aligned with main site) ── */
-  --cc-ink: #f5f5f5;
-  --cc-body: #a3a3a3;
-  --cc-muted: #737373;
-  --cc-hairline: #2e2e2e;
-  --cc-hairline-strong: #404040;
-  --cc-canvas: #0a0a0a;
-  --cc-canvas-soft: #141414;
-  --cc-canvas-soft-2: #1e1e1e;
-  --cc-link: #3b82f6;
-  --cc-link-deep: #60a5fa;
-  --cc-link-bg-soft: #1e3a5f;
+html[data-theme='light'] {
+  --cc-ink: #171717;
+  --cc-body: #4d4d4d;
+  --cc-muted: #888888;
+  --cc-hairline: rgba(0, 0, 0, 0.08);
+  --cc-hairline-strong: rgba(0, 0, 0, 0.15);
+  --cc-canvas: #ffffff;
+  --cc-canvas-soft: #fafafa;
+  --cc-canvas-soft-2: #f5f5f5;
+  --cc-link: #0070f3;
+  --cc-link-deep: #0761d1;
+  --cc-link-bg-soft: #d3e5ff;
 
   --ifm-color-primary: var(--cc-ink);
-  --ifm-color-primary-dark: #e6e6e6;
-  --ifm-color-primary-darker: #d9d9d9;
-  --ifm-color-primary-darkest: #b3b3b3;
-  --ifm-color-primary-light: #ffffff;
-  --ifm-color-primary-lighter: #ffffff;
-  --ifm-color-primary-lightest: #ffffff;
+  --ifm-color-primary-dark: #151515;
+  --ifm-color-primary-darker: #141414;
+  --ifm-color-primary-darkest: #111111;
+  --ifm-color-primary-light: #1a1a1a;
+  --ifm-color-primary-lighter: #1c1c1c;
+  --ifm-color-primary-lightest: #222222;
 
   --ifm-background-color: var(--cc-canvas);
   --ifm-background-surface-color: var(--cc-canvas-soft);
@@ -326,7 +325,7 @@ html[data-theme='dark'] {
   --ifm-color-emphasis-700: var(--cc-body);
   --ifm-color-emphasis-800: var(--cc-ink);
   --ifm-color-emphasis-900: var(--cc-ink);
-  --ifm-color-emphasis-1000: #ffffff;
+  --ifm-color-emphasis-1000: var(--cc-ink);
 
   --ifm-link-color: var(--cc-link);
   --ifm-link-hover-color: var(--cc-link-deep);
@@ -378,7 +377,7 @@ html[data-theme='dark'] {
   justify-content: center;
   width: 32px;
   height: 32px;
-  border-radius: 6px;
+  border-radius: 4px;
   border: 1px solid var(--cc-hairline);
   background-color: var(--cc-canvas-soft);
   color: var(--cc-body);
@@ -414,12 +413,17 @@ html[data-theme='dark'] [class*='colorModeToggle'] .clean-btn:hover {
   border-bottom: 1px solid var(--cc-hairline);
   box-shadow: none;
   backdrop-filter: blur(8px);
+  background-color: rgba(0, 0, 0, 0.85) !important;
+}
+
+html[data-theme='light'] .navbar {
+  border-bottom: 1px solid var(--cc-hairline);
   background-color: rgba(255, 255, 255, 0.85) !important;
 }
 
 html[data-theme='dark'] .navbar {
   border-bottom: 1px solid var(--cc-hairline);
-  background-color: rgba(10, 10, 10, 0.85) !important;
+  background-color: rgba(0, 0, 0, 0.85) !important;
 }
 
 .navbar__title {
@@ -431,7 +435,7 @@ html[data-theme='dark'] .navbar {
 .navbar__item {
   font-size: var(--text-body-sm);
   font-weight: var(--weight-regular);
-  border-radius: 9999px;
+  border-radius: 4px;
   transition:
     background-color 0.15s ease,
     color 0.15s ease;
@@ -458,7 +462,7 @@ html[data-theme='dark'] .navbar__item:hover {
   font-size: var(--text-body-sm);
   line-height: 20px;
   padding: 4px 12px;
-  border-radius: 6px;
+  border-radius: 4px;
   height: 28px;
   display: inline-flex;
   align-items: center;
@@ -489,7 +493,7 @@ html[data-theme='dark'] .theme-doc-sidebar-container {
 .menu__link {
   font-size: var(--text-body-sm);
   line-height: 1.4;
-  border-radius: 6px;
+  border-radius: 4px;
   padding: 8px 12px;
   color: var(--cc-body);
   transition:
@@ -527,7 +531,7 @@ html[data-theme='dark'] .menu__link--active {
 }
 
 .menu__caret {
-  border-radius: 6px;
+  border-radius: 4px;
   padding: 8px;
 }
 
@@ -549,7 +553,7 @@ html[data-theme='dark'] .menu__caret:hover {
 .table-of-contents__link {
   font-size: var(--text-body-sm);
   color: var(--cc-muted);
-  border-radius: 6px;
+  border-radius: 4px;
   padding: 4px 8px;
   transition:
     background-color 0.12s ease,
@@ -616,7 +620,7 @@ html[data-theme='dark'] .markdown a:hover {
 .markdown code {
   background-color: var(--cc-canvas-soft-2);
   border: 1px solid var(--cc-hairline);
-  border-radius: 6px;
+  border-radius: 4px;
   font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
   font-size: var(--text-body-sm);
   line-height: 1.5;
@@ -631,13 +635,38 @@ html[data-theme='dark'] .markdown code {
 }
 
 /* ──────────────────────────────────────────────
-   Code blocks
+   Code blocks — Vercel dark theme
    ────────────────────────────────────────────── */
 .prism-code {
   font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace !important;
   font-size: var(--text-body-sm) !important;
   line-height: 1.6 !important;
-  border-radius: 8px !important;
+  border-radius: 4px !important;
+  background: #1e1e1e !important;
+}
+
+.prism-code .token-line {
+  color: #e0e0e0 !important;
+}
+
+.prism-code .token.comment {
+  color: #6a737d !important;
+}
+
+.prism-code .token.keyword {
+  color: #ff7b72 !important;
+}
+
+.prism-code .token.string {
+  color: #a5d6ff !important;
+}
+
+.prism-code .token.function {
+  color: #d2a8ff !important;
+}
+
+.prism-code .token.number {
+  color: #79c0ff !important;
 }
 
 /* ──────────────────────────────────────────────
@@ -646,7 +675,7 @@ html[data-theme='dark'] .markdown code {
 .card {
   background-color: var(--cc-canvas);
   border: 1px solid var(--cc-hairline);
-  border-radius: 8px;
+  border-radius: 4px;
   padding: 24px;
   box-shadow:
     0px 1px 1px rgba(0, 0, 0, 0.03),
@@ -679,7 +708,7 @@ html[data-theme='dark'] .card:hover {
    ────────────────────────────────────────────── */
 table {
   border: 1px solid var(--cc-hairline);
-  border-radius: 8px;
+  border-radius: 4px;
   overflow: hidden;
 }
 
@@ -719,7 +748,7 @@ html[data-theme='dark'] table td {
    ────────────────────────────────────────────── */
 .pagination-nav__link {
   border: 1px solid var(--cc-hairline);
-  border-radius: 8px;
+  border-radius: 4px;
   transition:
     border-color 0.15s ease,
     box-shadow 0.15s ease;
@@ -763,7 +792,7 @@ html[data-theme='dark'] .pagination-nav__label {
 .breadcrumbs__link {
   font-size: var(--text-body-sm);
   color: var(--cc-body);
-  border-radius: 6px;
+  border-radius: 4px;
   padding: 4px 8px;
   transition:
     background-color 0.12s ease,
@@ -798,7 +827,7 @@ html[data-theme='dark'] .breadcrumbs__item--active .breadcrumbs__link {
    Search bar (DocSearch / Algolia)
    ────────────────────────────────────────────── */
 .DocSearch-Button {
-  border-radius: 8px !important;
+  border-radius: 4px !important;
   border: 1px solid var(--cc-hairline) !important;
   background-color: var(--cc-canvas-soft) !important;
   transition:
@@ -906,7 +935,7 @@ html[data-theme='dark'] .footer__link-item:hover {
   padding: 8px 12px;
   font-size: var(--text-body-sm);
   border: 1px solid var(--cc-hairline);
-  border-radius: 6px;
+  border-radius: 4px;
   background-color: var(--cc-canvas);
   color: var(--cc-ink);
   outline: none;
@@ -934,7 +963,7 @@ html[data-theme='dark'] .footer-newsletter-form input[type='email']:focus {
   background-color: var(--cc-ink);
   color: var(--cc-canvas);
   border: none;
-  border-radius: 6px;
+  border-radius: 4px;
   cursor: pointer;
   transition: opacity 0.15s ease;
 }
@@ -1003,7 +1032,7 @@ html[data-theme='dark'] .footer-newsletter-form button {
    Back to top button
    ────────────────────────────────────────────── */
 .clean-btn.theme-back-to-top-button {
-  border-radius: 8px !important;
+  border-radius: 4px !important;
   border: 1px solid var(--cc-hairline) !important;
   box-shadow:
     0 1px 1px rgba(0, 0, 0, 0.03),
@@ -1025,7 +1054,7 @@ html[data-theme='dark'] .clean-btn.theme-back-to-top-button {
 .tabs__item {
   font-size: var(--text-body-sm);
   font-weight: var(--weight-regular);
-  border-radius: 64px;
+  border-radius: 4px;
   padding: 8px 16px;
   color: var(--cc-body);
   border-bottom: none;
@@ -1063,7 +1092,7 @@ html[data-theme='dark'] .tabs__item--active {
    Admonitions / Callouts
    ────────────────────────────────────────────── */
 .theme-admonition {
-  border-radius: 8px;
+  border-radius: 4px;
   border: 1px solid var(--cc-hairline);
   box-shadow: none;
 }
@@ -1106,7 +1135,7 @@ html[data-theme='dark'] ::-webkit-scrollbar-thumb:hover {
    ────────────────────────────────────────────── */
 .badge {
   font-size: var(--text-caption);
-  border-radius: 9999px;
+  border-radius: 4px;
   padding: 4px 12px;
   font-weight: var(--weight-regular);
 }
@@ -1169,7 +1198,7 @@ html[data-theme='dark'] .landing-hero p {
   line-height: 40px;
   font-size: var(--text-body-sm);
   font-weight: var(--weight-medium);
-  border-radius: 100px;
+  border-radius: 4px;
   text-decoration: none;
   transition:
     opacity 0.15s ease,
@@ -1237,7 +1266,7 @@ html[data-theme='dark'] .landing-btn--secondary:hover {
 .landing-card {
   background-color: var(--cc-canvas);
   border: 1px solid var(--cc-hairline);
-  border-radius: 8px;
+  border-radius: 4px;
   padding: 24px;
   box-shadow:
     0px 1px 1px rgba(0, 0, 0, 0.03),

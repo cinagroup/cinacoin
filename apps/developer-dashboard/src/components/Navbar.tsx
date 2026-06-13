@@ -28,7 +28,7 @@ export default function Navbar() {
           <Link href="/projects/new" className="cc-btn-primary-sm">
             + New Project
           </Link>
-          <div className="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center text-body-sm font-medium">
+          <div className="w-8 h-8 rounded-sm bg-primary text-on-primary flex items-center justify-center text-body-sm font-medium">
             D
           </div>
         </div>

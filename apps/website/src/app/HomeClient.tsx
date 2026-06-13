@@ -55,13 +55,13 @@ export default function Home() {
               <Link
                 href="/products"
                 onClick={handleCTAClick}
-                className="inline-flex items-center justify-center px-8 py-3 bg-[var(--cc-ink)] hover:bg-[var(--cc-primary-hover)] text-[var(--cc-canvas)] rounded-full font-medium text-body-sm transition-colors duration-200"
+                className="inline-flex items-center justify-center px-8 py-3 bg-[var(--cc-ink)] hover:bg-[var(--cc-primary-hover)] text-[var(--cc-canvas)] rounded-sm font-medium text-body-sm transition-colors duration-200"
               >
                 {ctaText}
               </Link>
               <Link
                 href="/developers"
-                className="inline-flex items-center justify-center px-8 py-3 border border-[var(--cc-hairline)] hover:border-[var(--cc-hairline-strong)] rounded-full font-medium text-body-sm transition-colors duration-200 text-[var(--cc-ink)] bg-[var(--cc-canvas)]"
+                className="inline-flex items-center justify-center px-8 py-3 border border-[var(--cc-hairline)] hover:border-[var(--cc-hairline-strong)] rounded-sm font-medium text-body-sm transition-colors duration-200 text-[var(--cc-ink)] bg-[var(--cc-canvas)]"
               >
                 Read the docs →
               </Link>
@@ -109,7 +109,7 @@ export default function Home() {
           
           <div className="grid md:grid-cols-12 gap-6">
             {/* Performance - spans 7 cols */}
-            <Link href="/solutions#performance" className="group md:col-span-7 p-8 bg-[var(--cc-canvas-soft)] border border-[var(--cc-hairline)] rounded-lg hover:border-[var(--cc-hairline-strong)] transition-all duration-200">
+            <Link href="/solutions#performance" className="group md:col-span-7 p-8 bg-[var(--cc-canvas-soft)] border border-[var(--cc-hairline)] rounded-sm hover:border-[var(--cc-hairline-strong)] transition-all duration-200">
               <Zap className="w-5 h-5 mb-4 text-[var(--cc-link)]" />
               <h3 className="text-display-sm font-semibold mb-2 text-[var(--cc-ink)]">{t('home-f1-title')}</h3>
               <p className="text-[var(--cc-body)] text-body-sm leading-relaxed mb-4">
@@ -121,11 +121,11 @@ export default function Home() {
             </Link>
             
             {/* Live Market Data - spans 5 cols, dark card */}
-            <div className="md:col-span-5 p-8 bg-[var(--cc-ink)] text-[var(--cc-canvas)] rounded-lg">
+            <div className="md:col-span-5 p-8 bg-[var(--cc-ink)] text-[var(--cc-canvas)] rounded-sm">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-display-sm font-semibold">Market data</h3>
                 <span className="flex items-center gap-1.5 text-xs text-[var(--cc-muted)]">
-                  <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                  <span className="w-1.5 h-1.5 rounded-sm bg-green-400 animate-pulse" />
                   Live
                 </span>
               </div>
@@ -153,7 +153,7 @@ export default function Home() {
             </div>
             
             {/* Security - spans 4 cols */}
-            <Link href="/solutions#security" className="group md:col-span-4 p-8 bg-[var(--cc-canvas-soft)] border border-[var(--cc-hairline)] rounded-lg hover:border-[var(--cc-hairline-strong)] transition-all duration-200">
+            <Link href="/solutions#security" className="group md:col-span-4 p-8 bg-[var(--cc-canvas-soft)] border border-[var(--cc-hairline)] rounded-sm hover:border-[var(--cc-hairline-strong)] transition-all duration-200">
               <Shield className="w-5 h-5 mb-4 text-[var(--cc-link)]" />
               <h3 className="text-display-sm font-semibold mb-2 text-[var(--cc-ink)]">{t('home-f2-title')}</h3>
               <p className="text-[var(--cc-body)] text-body-sm leading-relaxed mb-4">
@@ -165,7 +165,7 @@ export default function Home() {
             </Link>
             
             {/* Global - spans 8 cols */}
-            <Link href="/solutions#scale" className="group md:col-span-8 p-8 bg-[var(--cc-canvas-soft)] border border-[var(--cc-hairline)] rounded-lg hover:border-[var(--cc-hairline-strong)] transition-all duration-200">
+            <Link href="/solutions#scale" className="group md:col-span-8 p-8 bg-[var(--cc-canvas-soft)] border border-[var(--cc-hairline)] rounded-sm hover:border-[var(--cc-hairline-strong)] transition-all duration-200">
               <Globe className="w-5 h-5 mb-4 text-[var(--cc-link)]" />
               <h3 className="text-display-sm font-semibold mb-2 text-[var(--cc-ink)]">{t('home-f3-title')}</h3>
               <p className="text-[var(--cc-body)] text-body-sm leading-relaxed mb-4">
@@ -195,13 +195,13 @@ export default function Home() {
           </div>
           
           {/* Terminal Mockup with proper styling */}
-          <div className="bg-[#1a1a1a] rounded-lg border border-white/10 overflow-hidden">
+          <div className="bg-[var(--cc-canvas-soft-2)] rounded-sm border border-[var(--cc-hairline)] overflow-hidden">
             {/* Window chrome */}
-            <div className="flex items-center gap-2 px-4 py-2.5 border-b border-white/5 bg-white/[0.02]">
+            <div className="flex items-center gap-2 px-4 py-2.5 border-b border-white/5 bg-[var(--cc-canvas)]/[0.02]">
               <div className="flex gap-1.5">
-                <div className="w-3 h-3 rounded-full bg-[#ff5f57]" />
-                <div className="w-3 h-3 rounded-full bg-[#febc2e]" />
-                <div className="w-3 h-3 rounded-full bg-[#28c840]" />
+                <div className="w-3 h-3 rounded-sm bg-[#ff5f57]" />
+                <div className="w-3 h-3 rounded-sm bg-[#febc2e]" />
+                <div className="w-3 h-3 rounded-sm bg-[#28c840]" />
               </div>
               <span className="ml-2 font-mono text-xs text-white/40">~/projects/my-dapp</span>
             </div>
@@ -237,7 +237,7 @@ export default function Home() {
             {/* Product List */}
             <div className="space-y-6">
               {/* Wallet */}
-              <Link href="/products#wallet" className="group block p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-lg hover:border-[var(--cc-hairline-strong)] transition-all duration-200">
+              <Link href="/products#wallet" className="group block p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-sm hover:border-[var(--cc-hairline-strong)] transition-all duration-200">
                 <h3 className="text-display-md font-semibold mb-2 text-[var(--cc-ink)]">{t('home-p1-title')}</h3>
                 <p className="text-[var(--cc-body)] text-body-sm leading-relaxed mb-4">
                   {t('home-p1-desc')}
@@ -248,7 +248,7 @@ export default function Home() {
               </Link>
 
               {/* Exchange */}
-              <Link href="/products#exchange" className="group block p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-lg hover:border-[var(--cc-hairline-strong)] transition-all duration-200">
+              <Link href="/products#exchange" className="group block p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-sm hover:border-[var(--cc-hairline-strong)] transition-all duration-200">
                 <h3 className="text-display-md font-semibold mb-2 text-[var(--cc-ink)]">{t('home-p2-title')}</h3>
                 <p className="text-[var(--cc-body)] text-body-sm leading-relaxed mb-4">
                   {t('home-p2-desc')}
@@ -259,7 +259,7 @@ export default function Home() {
               </Link>
 
               {/* Staking */}
-              <Link href="/products#staking" className="group block p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-lg hover:border-[var(--cc-hairline-strong)] transition-all duration-200">
+              <Link href="/products#staking" className="group block p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-sm hover:border-[var(--cc-hairline-strong)] transition-all duration-200">
                 <h3 className="text-display-md font-semibold mb-2 text-[var(--cc-ink)]">{t('home-p3-title')}</h3>
                 <p className="text-[var(--cc-body)] text-body-sm leading-relaxed mb-4">
                   {t('home-p3-desc')}
@@ -272,11 +272,11 @@ export default function Home() {
 
             {/* Product Visual - Sticky */}
             <div className="md:sticky md:top-24">
-              <div className="bg-[var(--cc-ink)] rounded-lg p-6">
+              <div className="bg-[var(--cc-ink)] rounded-sm p-6">
                 <div className="flex items-center justify-between mb-4">
                   <span className="font-mono text-xs text-white/40">Wallet</span>
                   <span className="flex items-center gap-1.5 text-xs text-[var(--cc-muted)]">
-                    <span className="w-1.5 h-1.5 rounded-full bg-green-400" />
+                    <span className="w-1.5 h-1.5 rounded-sm bg-green-400" />
                     Connected
                   </span>
                 </div>
@@ -299,7 +299,7 @@ export default function Home() {
           </div>
 
           {/* Developer Tools - Full Width */}
-          <Link href="/developers" className="group block mt-8 p-8 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-lg hover:border-[var(--cc-hairline-strong)] transition-all duration-200">
+          <Link href="/developers" className="group block mt-8 p-8 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-sm hover:border-[var(--cc-hairline-strong)] transition-all duration-200">
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
                 <Code className="w-5 h-5 mb-3 text-[var(--cc-link)]" />
@@ -312,12 +312,12 @@ export default function Home() {
                 </span>
               </div>
               {/* Code snippet with syntax highlighting */}
-              <div className="bg-[#1a1a1a] rounded-lg p-5 border border-white/10">
+              <div className="bg-[var(--cc-canvas-soft-2)] rounded-sm p-5 border border-[var(--cc-hairline)]">
                 <div className="flex items-center gap-2 mb-3">
                   <div className="flex gap-1.5">
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
+                    <div className="w-2.5 h-2.5 rounded-sm bg-[#ff5f57]" />
+                    <div className="w-2.5 h-2.5 rounded-sm bg-[#febc2e]" />
+                    <div className="w-2.5 h-2.5 rounded-sm bg-[#28c840]" />
                   </div>
                   <span className="ml-2 font-mono text-[10px] text-white/40">cinacoin-sdk.ts</span>
                 </div>
@@ -359,13 +359,13 @@ export default function Home() {
             <div className="flex gap-3 flex-shrink-0">
               <Link
                 href="/products"
-                className="inline-flex items-center justify-center px-6 py-2.5 bg-[var(--cc-ink)] hover:bg-[var(--cc-primary-hover)] text-[var(--cc-canvas)] rounded-full font-medium text-body-sm transition-colors duration-200"
+                className="inline-flex items-center justify-center px-6 py-2.5 bg-[var(--cc-ink)] hover:bg-[var(--cc-primary-hover)] text-[var(--cc-canvas)] rounded-sm font-medium text-body-sm transition-colors duration-200"
               >
                 {t('home-cta-primary')}
               </Link>
               <Link
                 href="/developers"
-                className="inline-flex items-center justify-center px-6 py-2.5 border border-[var(--cc-hairline)] hover:border-[var(--cc-hairline-strong)] rounded-full font-medium text-body-sm transition-colors duration-200 text-[var(--cc-ink)] bg-[var(--cc-canvas)]"
+                className="inline-flex items-center justify-center px-6 py-2.5 border border-[var(--cc-hairline)] hover:border-[var(--cc-hairline-strong)] rounded-sm font-medium text-body-sm transition-colors duration-200 text-[var(--cc-ink)] bg-[var(--cc-canvas)]"
               >
                 {t('home-cta-secondary')}
               </Link>

@@ -38,7 +38,7 @@
 
 /* Canonical Cinacoin design system — tokens + .cc-* primitives.
    Single source of truth: packages/design-tokens/css/cinacoin.css */
-@import "@cinacoin/design-tokens/css/cinacoin.css";
+@import '@cinacoin/design-tokens/css/cinacoin.css';
 
 @tailwind base;
 @tailwind components;
@@ -56,9 +56,14 @@
   }
 
   body {
-    font-family: var(--font-geist-sans), Geist, system-ui, -apple-system, sans-serif;
-    background-color: var(--cc-canvas-soft, #fafafa);
-    color: var(--cc-ink, #171717);
+    font-family:
+      var(--font-geist-sans),
+      Geist,
+      system-ui,
+      -apple-system,
+      sans-serif;
+    background-color: var(--cc-canvas-soft, #0a0a0a);
+    color: var(--cc-ink, #ededed);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -76,8 +81,8 @@
     top: -100px;
     left: 50%;
     transform: translateX(-50%);
-    background: var(--cc-primary, #171717);
-    color: var(--cc-on-primary, #ffffff);
+    background: var(--cc-primary, #ffffff);
+    color: var(--cc-on-primary, #000000);
     padding: 8px 16px;
     border-radius: 0 0 var(--cc-radius-sm, 6px) var(--cc-radius-sm, 6px);
     font-size: var(--text-body-sm);
@@ -127,22 +132,27 @@
 
   /* Cards — stacked shadows per DESIGN.md */
   .cc-card {
-    background: var(--cc-canvas, #ffffff);
-    border: 1px solid var(--cc-hairline, #ebebeb);
-    border-radius: 8px;
+    background: var(--cc-canvas, #000000);
+    border: 1px solid var(--cc-hairline, rgba(255, 255, 255, 0.08));
+    border-radius: 4px;
     padding: 24px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.04),
+      inset 0 0 0 1px rgba(0, 0, 0, 0.08);
     transition: box-shadow 0.2s ease;
   }
 
   .cc-card:hover {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04), inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+    box-shadow:
+      0 2px 8px rgba(0, 0, 0, 0.06),
+      0 1px 2px rgba(0, 0, 0, 0.04),
+      inset 0 0 0 1px rgba(0, 0, 0, 0.08);
   }
 
   /* Buttons — pill shape per DESIGN.md */
   .btn-primary {
-    background: var(--cc-primary, #171717);
-    color: var(--cc-on-primary, #ffffff);
+    background: var(--cc-primary, #ffffff);
+    color: var(--cc-on-primary, #000000);
     border-radius: var(--cc-radius-pill, 100px);
     padding: 0 var(--cc-sm, 12px);
     height: 40px;
@@ -159,8 +169,8 @@
   }
 
   .btn-primary-sm {
-    background: var(--cc-primary, #171717);
-    color: var(--cc-on-primary, #ffffff);
+    background: var(--cc-primary, #ffffff);
+    color: var(--cc-on-primary, #000000);
     border-radius: var(--cc-radius-pill, 100px);
     padding: 0 var(--cc-xs, 8px);
     height: 32px;
@@ -177,9 +187,9 @@
   }
 
   .btn-secondary {
-    background: var(--cc-canvas, #ffffff);
-    color: var(--cc-ink, #171717);
-    border: 1px solid var(--cc-hairline, #ebebeb);
+    background: var(--cc-canvas, #000000);
+    color: var(--cc-ink, #ededed);
+    border: 1px solid var(--cc-hairline, rgba(255, 255, 255, 0.08));
     border-radius: var(--cc-radius-pill, 100px);
     padding: 0 var(--cc-sm, 12px);
     height: 40px;
@@ -196,9 +206,9 @@
 
   /* Form inputs */
   .cc-form-input {
-    background: var(--cc-canvas, #ffffff);
-    color: var(--cc-ink, #171717);
-    border: 1px solid var(--cc-hairline, #ebebeb);
+    background: var(--cc-canvas, #000000);
+    color: var(--cc-ink, #ededed);
+    border: 1px solid var(--cc-hairline, rgba(255, 255, 255, 0.08));
     border-radius: var(--cc-radius-sm, 6px);
     padding: 0 var(--cc-sm, 12px);
     height: 40px;
@@ -209,16 +219,28 @@
   }
 
   .cc-form-input:focus {
-    border-color: var(--cc-primary, #171717);
+    border-color: var(--cc-primary, #ffffff);
   }
 
   /* Stagger animation */
-  .stagger-1 { animation-delay: 0.05s; }
-  .stagger-2 { animation-delay: 0.1s; }
-  .stagger-3 { animation-delay: 0.15s; }
-  .stagger-4 { animation-delay: 0.2s; }
-  .stagger-5 { animation-delay: 0.25s; }
-  .stagger-6 { animation-delay: 0.3s; }
+  .stagger-1 {
+    animation-delay: 0.05s;
+  }
+  .stagger-2 {
+    animation-delay: 0.1s;
+  }
+  .stagger-3 {
+    animation-delay: 0.15s;
+  }
+  .stagger-4 {
+    animation-delay: 0.2s;
+  }
+  .stagger-5 {
+    animation-delay: 0.25s;
+  }
+  .stagger-6 {
+    animation-delay: 0.3s;
+  }
 }
 
 /* Scrollbar styling */
@@ -227,16 +249,16 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--cc-canvas-soft, #fafafa);
+  background: var(--cc-canvas-soft, #0a0a0a);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--cc-hairline-strong, #a1a1a1);
+  background: var(--cc-hairline-strong, #404040);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--cc-body, #4d4d4d);
+  background: var(--cc-body, #b3b3b3);
 }
 
 /* ─── Typography Utilities ─── */
@@ -303,31 +325,31 @@
   --cc-demo-accent: #6366f1;
   --cc-demo-success: #4ade80;
   --cc-demo-error: #f87171;
-  --cc-demo-chain-ethereum: #627EEA;
-  --cc-demo-chain-polygon: #8247E5;
-  --cc-demo-chain-arbitrum: #28A0F0;
-  --cc-demo-chain-base: #0052FF;
-  --cc-demo-chain-optimism: #FF0420;
-  --cc-demo-chain-bnb: #F0B90B;
-  --cc-demo-chain-avalanche: #E84142;
-  --cc-demo-chain-solana: #9945FF;
-  --cc-demo-chain-bitcoin: #F7931A;
-  --cc-demo-chain-ton: #0098EA;
-  --cc-demo-chain-tron: #FF0013;
-  --cc-demo-chain-cosmos: #2E3148;
-  --cc-demo-chain-sui: #4DA2FF;
-  --cc-demo-chain-starknet: #EF6D39;
-  --cc-demo-chain-near: #00C08B;
-  --cc-demo-chain-hedera: #161E3B;
-  --cc-demo-chain-xrpl: #23292F;
-  --cc-demo-token-usdc: #2775CA;
-  --cc-demo-wallet-metamask: #F6851B;
-  --cc-demo-wallet-walletconnect: #3B99FC;
-  --cc-demo-wallet-coinbase: #0052FF;
-  --cc-demo-wallet-rainbow: #8B5CF6;
-  --cc-demo-wallet-phantom: #AB9FF2;
-  --cc-demo-wallet-trust: #3375BB;
+  --cc-demo-chain-ethereum: #627eea;
+  --cc-demo-chain-polygon: #8247e5;
+  --cc-demo-chain-arbitrum: #28a0f0;
+  --cc-demo-chain-base: #0052ff;
+  --cc-demo-chain-optimism: #ff0420;
+  --cc-demo-chain-bnb: #f0b90b;
+  --cc-demo-chain-avalanche: #e84142;
+  --cc-demo-chain-solana: #9945ff;
+  --cc-demo-chain-bitcoin: #f7931a;
+  --cc-demo-chain-ton: #0098ea;
+  --cc-demo-chain-tron: #ff0013;
+  --cc-demo-chain-cosmos: #2e3148;
+  --cc-demo-chain-sui: #4da2ff;
+  --cc-demo-chain-starknet: #ef6d39;
+  --cc-demo-chain-near: #00c08b;
+  --cc-demo-chain-hedera: #161e3b;
+  --cc-demo-chain-xrpl: #23292f;
+  --cc-demo-token-usdc: #2775ca;
+  --cc-demo-wallet-metamask: #f6851b;
+  --cc-demo-wallet-walletconnect: #3b99fc;
+  --cc-demo-wallet-coinbase: #0052ff;
+  --cc-demo-wallet-rainbow: #8b5cf6;
+  --cc-demo-wallet-phantom: #ab9ff2;
+  --cc-demo-wallet-trust: #3375bb;
   --cc-demo-wallet-ledger: var(--cc-ink);
-  --cc-demo-wallet-zerion: #2C60F5;
-  --cc-demo-bridge-bsc: #F3BA2F;
+  --cc-demo-wallet-zerion: #2c60f5;
+  --cc-demo-bridge-bsc: #f3ba2f;
 }

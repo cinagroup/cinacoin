@@ -66,7 +66,7 @@ export const ActionButtons = React.memo(function ActionButtons({
         const classes = `
           ${variantClasses[variant]}
           ${sizeClasses[size]}
-          rounded-xl font-medium transition-colors
+          rounded-sm font-medium transition-colors
           flex items-center justify-center space-x-2
           disabled:opacity-50 disabled:cursor-not-allowed
         `.trim();

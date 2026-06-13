@@ -5,7 +5,7 @@
   "source": "@site/docs/api/gas-sponsorship.md",
   "sourceDirName": "api",
   "slug": "/api/gas-sponsorship",
-  "permalink": "/docs/api/gas-sponsorship",
+  "permalink": "/api/gas-sponsorship",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/gas-sponsorship.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "Gas estimator.",
-    "permalink": "/docs/api/gas-estimator"
+    "permalink": "/api/gas-estimator"
   },
   "next": {
     "title": "i18n.",
-    "permalink": "/docs/api/i18n"
+    "permalink": "/api/i18n"
   }
 }

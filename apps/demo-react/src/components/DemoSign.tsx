@@ -41,7 +41,7 @@ export function DemoSignMessage() {
         </div>
       ) : (
         <>
-          <div className="mb-4 p-4 bg-[var(--cc-canvas-soft)] rounded-lg">
+          <div className="mb-4 p-4 bg-[var(--cc-canvas-soft)] rounded-sm">
             <p className="cc-body-xs text-[var(--cc-body)] mb-1">Your address</p>
             <AddressDisplay address={address!} />
           </div>
@@ -76,7 +76,7 @@ export function DemoSignMessage() {
           </div>
 
           {signature && (
-            <div className="mt-6 p-4 bg-[var(--cc-success)/10] rounded-lg">
+            <div className="mt-6 p-4 bg-[var(--cc-success)/10] rounded-sm">
               <p className="cc-body-xs text-[var(--cc-body)] mb-1">Signature result</p>
               <div className="cc-mono break-all text-body-sm">
                 {signature}
@@ -170,7 +170,7 @@ export function DemoSignTypedData() {
           </div>
 
           {signature && (
-            <div className="mt-6 p-4 bg-[var(--cc-success)/10] rounded-lg">
+            <div className="mt-6 p-4 bg-[var(--cc-success)/10] rounded-sm">
               <p className="cc-body-xs text-[var(--cc-body)] mb-1">Signature result</p>
               <div className="cc-mono break-all text-body-sm">
                 {signature}

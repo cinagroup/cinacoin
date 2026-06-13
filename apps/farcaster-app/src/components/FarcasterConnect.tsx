@@ -145,7 +145,7 @@ export function FarcasterConnect({
       <button
         onClick={handleConnect}
         disabled={loading}
-        className="w-full bg-[var(--cc-violet)] hover:bg-[var(--cc-violet-deep)] disabled:bg-[var(--cc-hairline-strong)] disabled:cursor-not-allowed text-[var(--cc-on-primary)] px-6 py-3 rounded-xl font-medium transition-colors flex items-center justify-center space-x-2"
+        className="w-full bg-[var(--cc-violet)] hover:bg-[var(--cc-violet-deep)] disabled:bg-[var(--cc-hairline-strong)] disabled:cursor-not-allowed text-[var(--cc-on-primary)] px-6 py-3 rounded-sm font-medium transition-colors flex items-center justify-center space-x-2"
         aria-label="Sign in with Farcaster"
       >
         {loading ? (

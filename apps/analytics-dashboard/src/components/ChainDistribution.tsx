@@ -117,7 +117,7 @@ export default React.memo(function ChainDistribution() {
       {/* Period Selector */}
       <div className="flex items-center justify-between">
         <h3 className="text-heading-3 text-[var(--cc-ink)]">Chain distribution</h3>
-        <div className="flex bg-[var(--cc-canvas-soft-2)] rounded-md p-xxs">
+        <div className="flex bg-[var(--cc-canvas-soft-2)] rounded-sm p-xxs">
           {(["24h", "7d", "30d"] as const).map((p) => (
             <button
               key={p}
@@ -166,9 +166,9 @@ export default React.memo(function ChainDistribution() {
           {data.map((item) => (
             <div key={item.name} className="flex items-center gap-sm">
               <span className="text-caption text-[var(--cc-muted)] w-20 flex-shrink-0">{item.name}</span>
-              <div className="flex-1 h-6 bg-[var(--cc-canvas-soft-2)] rounded-md overflow-hidden">
+              <div className="flex-1 h-6 bg-[var(--cc-canvas-soft-2)] rounded-sm overflow-hidden">
                 <div
-                  className="h-full rounded-md flex items-center px-xs transition-all duration-500"
+                  className="h-full rounded-sm flex items-center px-xs transition-all duration-500"
                   style={{
                     width: `${item.value}%`,
                     backgroundColor: item.color,

@@ -81,7 +81,7 @@ export default function ChangelogContent() {
                   <span className="cc-code text-[var(--cc-link)]">{release.version}</span>
                   <span className="cc-caption text-[var(--cc-muted)]">{release.date}</span>
                   <span
-                    className="cc-caption rounded-full px-2 py-1"
+                    className="cc-caption rounded-sm px-2 py-1"
                     style={{
                       background: release.type === 'major'
                         ? 'var(--cc-link-bg-soft)'

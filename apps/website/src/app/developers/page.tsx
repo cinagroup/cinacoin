@@ -37,12 +37,12 @@ export default function DevelopersPage() {
               {t('dev-quickstart-desc')}
             </p>
           </div>
-          <div className="bg-[#1a1a1a] rounded-lg border border-white/10 overflow-hidden">
-            <div className="flex items-center gap-2 px-4 py-2.5 border-b border-white/5 bg-white/[0.02]">
+          <div className="bg-[var(--cc-canvas-soft-2)] rounded-sm border border-[var(--cc-hairline)] overflow-hidden">
+            <div className="flex items-center gap-2 px-4 py-2.5 border-b border-white/5 bg-[var(--cc-canvas)]/[0.02]">
               <div className="flex gap-1.5">
-                <div className="w-3 h-3 rounded-full bg-[#ff5f57]" />
-                <div className="w-3 h-3 rounded-full bg-[#febc2e]" />
-                <div className="w-3 h-3 rounded-full bg-[#28c840]" />
+                <div className="w-3 h-3 rounded-sm bg-[#ff5f57]" />
+                <div className="w-3 h-3 rounded-sm bg-[#febc2e]" />
+                <div className="w-3 h-3 rounded-sm bg-[#28c840]" />
               </div>
               <span className="ml-2 font-mono text-xs text-white/40">terminal</span>
             </div>
@@ -68,7 +68,7 @@ export default function DevelopersPage() {
         <p className="font-mono text-xs text-[var(--cc-muted)] mb-6 tracking-wide">Resources</p>
         <div className="grid md:grid-cols-12 gap-6">
           {/* API Reference - Large card */}
-          <div id="api" className="md:col-span-7 p-8 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-lg">
+          <div id="api" className="md:col-span-7 p-8 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-sm">
             <h3 className="text-display-md font-semibold mb-2 text-[var(--cc-ink)]">{t('dev-api-title')}</h3>
             <p className="text-[var(--cc-body)] text-body-lg leading-relaxed mb-6">
               {t('dev-api-desc')}
@@ -79,7 +79,7 @@ export default function DevelopersPage() {
           </div>
 
           {/* SDKs - Dark card */}
-          <div id="sdks" className="md:col-span-5 p-8 bg-[var(--cc-ink)] text-[var(--cc-canvas)] rounded-lg">
+          <div id="sdks" className="md:col-span-5 p-8 bg-[var(--cc-ink)] text-[var(--cc-canvas)] rounded-sm">
             <h3 className="text-display-md font-semibold mb-2">{t('dev-sdks-title')}</h3>
             <p className="text-white/60 text-body-lg leading-relaxed mb-6">
               {t('dev-sdks-desc')}
@@ -90,7 +90,7 @@ export default function DevelopersPage() {
           </div>
 
           {/* GitHub */}
-          <div id="github" className="md:col-span-4 p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-lg">
+          <div id="github" className="md:col-span-4 p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-sm">
             <h3 className="text-display-sm font-semibold mb-2 text-[var(--cc-ink)]">{t('dev-github-title')}</h3>
             <p className="text-[var(--cc-body)] text-body-sm leading-relaxed mb-4">
               {t('dev-github-desc')}
@@ -101,7 +101,7 @@ export default function DevelopersPage() {
           </div>
 
           {/* Tutorials */}
-          <div className="md:col-span-4 p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-lg">
+          <div className="md:col-span-4 p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-sm">
             <h3 className="text-display-sm font-semibold mb-2 text-[var(--cc-ink)]">{t('dev-tutorials-title')}</h3>
             <p className="text-[var(--cc-body)] text-body-sm leading-relaxed mb-4">
               {t('dev-tutorials-desc')}
@@ -112,7 +112,7 @@ export default function DevelopersPage() {
           </div>
 
           {/* Smart Contracts */}
-          <div className="md:col-span-4 p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-lg">
+          <div className="md:col-span-4 p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-sm">
             <h3 className="text-display-sm font-semibold mb-2 text-[var(--cc-ink)]">{t('dev-contracts-title')}</h3>
             <p className="text-[var(--cc-body)] text-body-sm leading-relaxed mb-4">
               {t('dev-contracts-desc')}
@@ -123,14 +123,14 @@ export default function DevelopersPage() {
           </div>
 
           {/* Testnet - Full width */}
-          <div className="md:col-span-12 p-8 bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] rounded-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div className="md:col-span-12 p-8 bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] rounded-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div>
               <h3 className="text-display-sm font-semibold mb-1 text-[var(--cc-ink)]">{t('dev-testnet-title')}</h3>
               <p className="text-[var(--cc-body)] text-body-sm leading-relaxed">
                 {t('dev-testnet-desc')}
               </p>
             </div>
-            <Link href="/developers#testnet" className="inline-flex items-center justify-center px-5 py-2.5 bg-[var(--cc-ink)] hover:bg-[var(--cc-primary-hover)] text-[var(--cc-canvas)] rounded-full font-medium text-body-sm transition-colors duration-200 flex-shrink-0">
+            <Link href="/developers#testnet" className="inline-flex items-center justify-center px-5 py-2.5 bg-[var(--cc-ink)] hover:bg-[var(--cc-primary-hover)] text-[var(--cc-canvas)] rounded-sm font-medium text-body-sm transition-colors duration-200 flex-shrink-0">
               {t('dev-testnet-cta')}
             </Link>
           </div>

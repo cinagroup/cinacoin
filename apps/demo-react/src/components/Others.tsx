@@ -37,7 +37,7 @@ export function ChainBadge({ chain }: { chain?: ChainInfo }) {
 
 export function BalanceCard({ balance, chain }: { balance: string; chain?: ChainInfo }) {
   return (
-    <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4 border border-[var(--cc-hairline)]">
+    <div className="bg-[var(--cc-canvas-soft-2)] rounded-sm p-4 border border-[var(--cc-hairline)]">
       <p className="text-caption text-[var(--cc-muted)] mb-1">Current balance</p>
       <div className="flex items-baseline gap-2">
         <span className="cc-display-sm">{balance}</span>
@@ -69,7 +69,7 @@ export function TransactionList({ transactions }: { transactions: Transaction[] 
               className="cc-card !p-3 flex items-center justify-between text-body-sm"
             >
               <div className="flex items-center gap-3">
-                <div className={`w-2 h-2 rounded-full
+                <div className={`w-2 h-2 rounded-sm
                   ${tx.status === 'success' ? 'bg-[var(--cc-success)]' :
                     tx.status === 'pending' ? 'bg-[var(--cc-warning)]' :
                     'bg-[var(--cc-error)]'}`} />

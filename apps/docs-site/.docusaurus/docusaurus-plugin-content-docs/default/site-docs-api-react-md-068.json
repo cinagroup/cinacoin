@@ -5,7 +5,7 @@
   "source": "@site/docs/api/react.md",
   "sourceDirName": "api",
   "slug": "/api/react",
-  "permalink": "/docs/api/react",
+  "permalink": "/api/react",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/react.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "React Native.",
-    "permalink": "/docs/api/react-native"
+    "permalink": "/api/react-native"
   },
   "next": {
     "title": "Relay server.",
-    "permalink": "/docs/api/relay-server"
+    "permalink": "/api/relay-server"
   }
 }

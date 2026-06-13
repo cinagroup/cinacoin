@@ -4,7 +4,7 @@ import React from 'react';
 
 export default function Home(): JSX.Element {
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', fontFamily: 'system-ui, -apple-system, sans-serif', background: 'var(--cc-canvas)', color: 'var(--cc-ink-soft)' }}>
       {/* Header */}
       <header style={{
         padding: '0 24px',
@@ -12,35 +12,35 @@ export default function Home(): JSX.Element {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        borderBottom: '1px solid #e5e7eb',
-        background: '#fff',
+        borderBottom: '1px solid var(--cc-hairline)',
+        background: 'var(--cc-canvas-soft)',
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <div style={{ width: 28, height: 28, borderRadius: 6, background: '#171717', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 600, fontSize: 14 }}>C</div>
-          <span style={{ fontWeight: 600, fontSize: 15, letterSpacing: -0.3 }}>CinaCoin SDK Demo</span>
+          <div style={{ width: 28, height: 28, borderRadius: 4, background: 'var(--cc-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--cc-on-primary)', fontWeight: 600, fontSize: 14 }}>C</div>
+          <span style={{ fontWeight: 600, fontSize: 15, letterSpacing: -0.3, color: 'var(--cc-ink)' }}>CinaCoin SDK Demo</span>
         </div>
-        <a href="https://docs.cinacoin.com" style={{ fontSize: 13, color: '#6366f1', textDecoration: 'none' }}>Docs ↗</a>
+        <a href="https://docs.cinacoin.com" style={{ fontSize: 13, color: 'var(--cc-accent-soft)', textDecoration: 'none' }}>Docs ↗</a>
       </header>
 
       {/* Hero */}
-      <main style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '80px 24px 60px', textAlign: 'center', background: 'linear-gradient(180deg, #fafafa 0%, #fff 100%)' }}>
+      <main style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '80px 24px 60px', textAlign: 'center', background: 'var(--cc-canvas)' }}>
         <div style={{
           padding: '8px 16px',
-          background: '#f0f0ff',
-          borderRadius: 999,
+          background: 'var(--cc-accent-bg)',
+          borderRadius: 'var(--cc-radius-pill)',
           fontSize: 13,
-          color: '#6366f1',
+          color: 'var(--cc-accent-soft)',
           fontWeight: 500,
           marginBottom: 24,
         }}>
           CinaCoin React SDK
         </div>
 
-        <h1 style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 600, letterSpacing: -0.5, lineHeight: 1.2, margin: '0 0 16px', color: '#171717' }}>
+        <h1 style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 600, letterSpacing: -0.5, lineHeight: 1.2, margin: '0 0 16px', color: 'var(--cc-ink)' }}>
           Multi-chain wallet toolkit.
         </h1>
 
-        <p style={{ fontSize: 17, color: '#525252', maxWidth: 540, lineHeight: 1.6, margin: '0 0 40px' }}>
+        <p style={{ fontSize: 17, color: 'var(--cc-body)', maxWidth: 540, lineHeight: 1.6, margin: '0 0 40px' }}>
           The CinaCoin SDK provides a unified interface for wallet connections, transaction signing, chain switching, batch operations, and NFT management across 16+ blockchains.
         </p>
 
@@ -66,13 +66,13 @@ export default function Home(): JSX.Element {
           ].map((f) => (
             <div key={f.title} style={{
               padding: 20,
-              borderRadius: 12,
-              border: '1px solid #e5e7eb',
-              background: '#fff',
+              borderRadius: 4,
+              border: '1px solid var(--cc-hairline)',
+              background: 'var(--cc-canvas-soft)',
             }}>
               <div style={{ fontSize: 22, marginBottom: 8 }}>{f.icon}</div>
-              <h3 style={{ fontSize: 15, fontWeight: 600, margin: '0 0 6px', color: '#171717' }}>{f.title}</h3>
-              <p style={{ fontSize: 13, color: '#737373', margin: 0, lineHeight: 1.5 }}>{f.desc}</p>
+              <h3 style={{ fontSize: 15, fontWeight: 600, margin: '0 0 6px', color: 'var(--cc-ink)' }}>{f.title}</h3>
+              <p style={{ fontSize: 13, color: 'var(--cc-muted)', margin: 0, lineHeight: 1.5 }}>{f.desc}</p>
             </div>
           ))}
         </div>
@@ -81,14 +81,14 @@ export default function Home(): JSX.Element {
         <div style={{
           maxWidth: 700,
           width: '100%',
-          background: '#1a1a2e',
-          borderRadius: 12,
+          background: 'var(--cc-canvas-soft-2)',
+          borderRadius: 4,
           padding: 24,
           textAlign: 'left',
           marginBottom: 40,
         }}>
-          <div style={{ fontSize: 12, color: '#888', marginBottom: 12, fontFamily: 'monospace' }}>Quick Start</div>
-          <pre style={{ margin: 0, fontSize: 13, lineHeight: 1.6, color: '#e2e8f0', fontFamily: "'Geist Mono', 'Fira Code', monospace", overflow: 'auto' }}>
+          <div style={{ fontSize: 12, color: 'var(--cc-muted)', marginBottom: 12, fontFamily: 'monospace' }}>Quick Start</div>
+          <pre style={{ margin: 0, fontSize: 13, lineHeight: 1.6, color: 'var(--cc-ink-soft)', fontFamily: "'Geist Mono', 'Fira Code', monospace", overflow: 'auto' }}>
 {`import { CinacoinProvider, ConnectButton } from '@cinacoin/react'
 
 function App() {
@@ -103,7 +103,7 @@ function App() {
 
         {/* Installation */}
         <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center' }}>
-          <code style={{ padding: '10px 20px', background: '#f5f5f5', borderRadius: 8, fontSize: 14, fontFamily: 'monospace', color: '#333' }}>
+          <code style={{ padding: '10px 20px', background: 'var(--cc-canvas-soft-2)', borderRadius: 4, fontSize: 14, fontFamily: 'monospace', color: 'var(--cc-ink-soft)' }}>
             npm install @cinacoin/react @cinacoin/core-sdk
           </code>
         </div>
@@ -112,13 +112,13 @@ function App() {
       {/* Footer */}
       <footer style={{
         padding: '24px',
-        borderTop: '1px solid #e5e7eb',
+        borderTop: '1px solid var(--cc-hairline)',
         textAlign: 'center',
         fontSize: 13,
-        color: '#999',
+        color: 'var(--cc-muted)',
       }}>
         CinaCoin SDK v0.2 — Self-hosted wallet connection toolkit.{' '}
-        <a href="https://github.com/cinagroup/cinacoin" style={{ color: '#6366f1', textDecoration: 'none' }}>GitHub</a>
+        <a href="https://github.com/cinagroup/cinacoin" style={{ color: 'var(--cc-accent-soft)', textDecoration: 'none' }}>GitHub</a>
       </footer>
     </div>
   );

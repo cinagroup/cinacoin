@@ -5,7 +5,7 @@
   "source": "@site/docs/api/ui-theme.md",
   "sourceDirName": "api",
   "slug": "/api/ui-theme",
-  "permalink": "/docs/api/ui-theme",
+  "permalink": "/api/ui-theme",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/ui-theme.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "Travel rule demo.",
-    "permalink": "/docs/api/travel-rule-demo"
+    "permalink": "/api/travel-rule-demo"
   },
   "next": {
     "title": "Unity C#.",
-    "permalink": "/docs/api/unity-csharp"
+    "permalink": "/api/unity-csharp"
   }
 }

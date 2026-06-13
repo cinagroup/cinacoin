@@ -66,7 +66,7 @@ export default function Features() {
           {featureKeys.map((f, i) => (
             <FadeIn key={i} delay={i * 100} direction="up" duration={600}>
               <article className="cc-card">
-                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-md bg-[var(--cc-canvas-soft-2)] text-[var(--cc-ink)]" aria-hidden="true">
+                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-sm bg-[var(--cc-canvas-soft-2)] text-[var(--cc-ink)]" aria-hidden="true">
                   {featureIcons[f.icon]}
                 </div>
                 <h3 className="cc-display-sm text-[var(--cc-ink)]">{t(f.titleKey)}</h3>

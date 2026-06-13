@@ -18,6 +18,13 @@ module.exports = {
         'wide': {'min': '1200px', 'max': '1399px'},
         'ultra-wide': {'min': '1400px'},
       },
+      borderRadius: {
+        'sm': '4px',
+        'md': '4px',
+        'lg': '4px',
+        'xl': '4px',
+        '2xl': '4px',
+      },
     },
   },
   plugins: [],

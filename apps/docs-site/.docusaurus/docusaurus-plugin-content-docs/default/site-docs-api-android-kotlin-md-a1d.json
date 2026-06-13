@@ -5,7 +5,7 @@
   "source": "@site/docs/api/android-kotlin.md",
   "sourceDirName": "api",
   "slug": "/api/android-kotlin",
-  "permalink": "/docs/api/android-kotlin",
+  "permalink": "/api/android-kotlin",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/android-kotlin.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "Analytics.",
-    "permalink": "/docs/api/analytics"
+    "permalink": "/api/analytics"
   },
   "next": {
     "title": "Angular.",
-    "permalink": "/docs/api/angular"
+    "permalink": "/api/angular"
   }
 }

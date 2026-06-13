@@ -48,7 +48,7 @@ export function DemoNFT() {
         </div>
       ) : (
         <>
-          <div className="mb-6 p-4 bg-[var(--cc-canvas-soft)] rounded-lg">
+          <div className="mb-6 p-4 bg-[var(--cc-canvas-soft)] rounded-sm">
             <p className="cc-body-xs text-[var(--cc-body)] mb-1">Your address</p>
             <AddressDisplay address={address!} />
           </div>
@@ -56,7 +56,7 @@ export function DemoNFT() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {mockNFTs.map((nft) => (
               <div key={nft.id} className="cc-card p-4 hover:shadow-lg transition-shadow">
-                <div className="aspect-square mb-4 rounded-lg overflow-hidden bg-[var(--cc-canvas-soft)]">
+                <div className="aspect-square mb-4 rounded-sm overflow-hidden bg-[var(--cc-canvas-soft)]">
                   <img
                     src={nft.image}
                     alt={nft.name}
@@ -81,7 +81,7 @@ export function DemoNFT() {
             ))}
           </div>
 
-          <div className="mt-6 p-4 bg-[var(--cc-warning)/10] rounded-lg text-center">
+          <div className="mt-6 p-4 bg-[var(--cc-warning)/10] rounded-sm text-center">
             <p className="cc-body-sm text-[var(--cc-body)]">
               ⚠️ Demo NFT data. Connect to RPC for live data.
             </p>

@@ -5,7 +5,7 @@
   "source": "@site/docs/api/rate-limiting.md",
   "sourceDirName": "api",
   "slug": "/api/rate-limiting",
-  "permalink": "/docs/api/rate-limiting",
+  "permalink": "/api/rate-limiting",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/rate-limiting.md",
@@ -21,10 +21,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "Authentication",
-    "permalink": "/docs/api/authentication"
+    "permalink": "/api/authentication"
   },
   "next": {
     "title": "AA SDK.",
-    "permalink": "/docs/api/aa-sdk"
+    "permalink": "/api/aa-sdk"
   }
 }

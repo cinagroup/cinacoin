@@ -103,7 +103,7 @@ export default function MultiChainPage() {
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
-                    <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                    <div className={`w-10 h-10 rounded-sm flex items-center justify-center ${
                       isActive ? 'bg-[var(--cc-primary)]' : 'bg-[var(--cc-canvas-soft-2)]'
                     } transition-colors`}>
                       <Globe className={`w-5 h-5 ${isActive ? 'text-[var(--cc-on-primary)]' : 'text-[var(--cc-muted)]'}`} />
@@ -119,7 +119,7 @@ export default function MultiChainPage() {
                            chainId === "43114" ? "Avalanche" : `Chain ${chainId}`}
                         </p>
                         {isActive && (
-                          <span className="px-2 py-0.5 bg-[var(--cc-success)]/15 text-[var(--cc-success)] text-caption rounded-full font-medium">
+                          <span className="px-2 py-0.5 bg-[var(--cc-success)]/15 text-[var(--cc-success)] text-caption rounded-sm font-medium">
                             Active
                           </span>
                         )}

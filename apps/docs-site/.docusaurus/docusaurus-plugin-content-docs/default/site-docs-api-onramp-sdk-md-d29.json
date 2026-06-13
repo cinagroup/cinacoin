@@ -5,7 +5,7 @@
   "source": "@site/docs/api/onramp-sdk.md",
   "sourceDirName": "api",
   "slug": "/api/onramp-sdk",
-  "permalink": "/docs/api/onramp-sdk",
+  "permalink": "/api/onramp-sdk",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/onramp-sdk.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "Nuxt.",
-    "permalink": "/docs/api/nuxt"
+    "permalink": "/api/nuxt"
   },
   "next": {
     "title": "Passkey auth.",
-    "permalink": "/docs/api/passkey-auth"
+    "permalink": "/api/passkey-auth"
   }
 }

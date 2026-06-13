@@ -5,7 +5,7 @@
   "source": "@site/docs/api/relay-server.md",
   "sourceDirName": "api",
   "slug": "/api/relay-server",
-  "permalink": "/docs/api/relay-server",
+  "permalink": "/api/relay-server",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/relay-server.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "React.",
-    "permalink": "/docs/api/react"
+    "permalink": "/api/react"
   },
   "next": {
     "title": "Relay.",
-    "permalink": "/docs/api/relay"
+    "permalink": "/api/relay"
   }
 }

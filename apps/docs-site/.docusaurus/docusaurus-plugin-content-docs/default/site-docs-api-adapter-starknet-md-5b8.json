@@ -5,7 +5,7 @@
   "source": "@site/docs/api/adapter-starknet.md",
   "sourceDirName": "api",
   "slug": "/api/adapter-starknet",
-  "permalink": "/docs/api/adapter-starknet",
+  "permalink": "/api/adapter-starknet",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/adapter-starknet.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "NEAR adapter.",
-    "permalink": "/docs/api/adapter-near"
+    "permalink": "/api/adapter-near"
   },
   "next": {
     "title": "Sui adapter.",
-    "permalink": "/docs/api/adapter-sui"
+    "permalink": "/api/adapter-sui"
   }
 }

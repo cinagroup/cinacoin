@@ -5,7 +5,7 @@
   "source": "@site/docs/api/notify-server.md",
   "sourceDirName": "api",
   "slug": "/api/notify-server",
-  "permalink": "/docs/api/notify-server",
+  "permalink": "/api/notify-server",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/notify-server.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "Next.js.",
-    "permalink": "/docs/api/next"
+    "permalink": "/api/next"
   },
   "next": {
     "title": "Nuxt.",
-    "permalink": "/docs/api/nuxt"
+    "permalink": "/api/nuxt"
   }
 }

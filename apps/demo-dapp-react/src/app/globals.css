@@ -1,11 +1,13 @@
+@import '@cinacoin/design-tokens/css/cinacoin.css';
+
 /*
- * Design tokens for Cinacoin Demo dApp
- * Mapped from DESIGN.md (Vercel-inspired system), adapted for dark theme.
- * All spacing, typography, radius, and color tokens derive from the design spec.
+ * Demo dApp — App-specific tokens and utilities
+ * Core tokens come from @cinacoin/design-tokens/css/cinacoin.css
+ * This file only adds app-specific extensions.
  */
 
 :root {
-  /* Typography Scale */
+  /* Typography Scale (app-specific sizing) */
   --text-display-xl: 48px;
   --text-display-lg: 32px;
   --text-display-md: 24px;
@@ -20,77 +22,26 @@
   --weight-medium: 500;
   --weight-semibold: 600;
 
-  /* === Colors (dark theme mapping) === */
-  --cc-ink: #ffffff;
-  --cc-ink-soft: #e0e0e0;
-  --cc-body: #a1a1aa;
-  --cc-muted: #64748b;
-  --cc-hairline: rgba(255, 255, 255, 0.08);
-  --cc-hairline-strong: rgba(255, 255, 255, 0.15);
-  --cc-canvas: #0f0f14;
-  --cc-canvas-soft: #18181f;
-  --cc-canvas-soft-2: #1e1e28;
-  --cc-surface: rgba(255, 255, 255, 0.03);
-  --cc-on-primary: #ffffff;
-  --cc-primary-cta: var(--cc-ink, #171717);
+  /* App-specific: status colors mapped to canonical tokens */
+  --cc-status-disconnected: var(--cc-error);
+  --cc-status-connecting: var(--cc-warning);
+  --cc-status-connected: var(--cc-success);
+  --cc-status-error: var(--cc-error);
+  --cc-status-default: var(--cc-muted);
 
-  /* Accent colors */
-  --cc-accent: #6366f1;
-  --cc-accent-soft: #818cf8;
-  --cc-accent-bg: rgba(99, 102, 241, 0.15);
-  --cc-accent-border: rgba(99, 102, 241, 0.3);
-  --cc-gradient-start: #6366f1;
-  --cc-gradient-end: #8b5cf6;
-
-  /* Semantic */
-  --cc-success: #34d399;
-  --cc-success-soft: rgba(52, 211, 153, 0.08);
-  --cc-success-border: rgba(52, 211, 153, 0.2);
-  --cc-error: #f87171;
-  --cc-error-soft: rgba(239, 68, 68, 0.1);
-  --cc-error-border: rgba(239, 68, 68, 0.3);
-  --cc-warning: #facc15;
-  --cc-warning-soft: rgba(250, 204, 21, 0.08);
-
-  /* Status colors */
-  --cc-status-disconnected: #f87171;
-  --cc-status-connecting: #facc15;
-  --cc-status-connected: #34d399;
-  --cc-status-error: #f87171;
-  --cc-status-default: #64748b;
-
-  /* Chain brand colors */
-  --cc-chain-ethereum: #627eea;
-  --cc-chain-polygon: #8247e5;
-
-  /* Action colors */
-  --cc-danger: #dc2626;
-  --cc-danger-on: #ffffff;
-
-  /* Overlay colors */
+  /* App-specific: overlay colors */
   --cc-overlay-dark: rgba(0, 0, 0, 0.7);
-  --cc-overlay-text: #e0e0e0;
+  --cc-overlay-text: var(--cc-ink);
   --cc-image-placeholder: #111111;
 
-  /* Hero gradient colors */
-  --cc-hero-gradient-1: rgba(99, 102, 241, 0.1);
-  --cc-hero-gradient-2: rgba(139, 92, 246, 0.08);
-  --cc-hero-gradient-3: rgba(236, 72, 153, 0.05);
-  --cc-hero-border: rgba(99, 102, 241, 0.15);
-
-  /* Balance gradient colors */
-  --cc-balance-gradient-1: rgba(99, 102, 241, 0.1);
-  --cc-balance-gradient-2: rgba(99, 102, 241, 0.02);
-  --cc-balance-border: rgba(99, 102, 241, 0.2);
-
-  /* Surface overlay colors */
+  /* App-specific: surface overlays */
   --cc-surface-ghost: rgba(255, 255, 255, 0.03);
   --cc-surface-hover: rgba(255, 255, 255, 0.06);
   --cc-surface-active: rgba(255, 255, 255, 0.1);
   --cc-surface-input: rgba(255, 255, 255, 0.05);
   --cc-surface-code: rgba(255, 255, 255, 0.08);
 
-  /* === Spacing (DESIGN.md base unit: 4px) === */
+  /* === Spacing (4px base) === */
   --cc-space-xxs: 4px;
   --cc-space-xs: 8px;
   --cc-space-sm: 12px;
@@ -124,17 +75,16 @@
   --cc-tracking-tight: -0.02em;
   --cc-tracking-tighter: -0.04em;
 
-  /* === Rounded (DESIGN.md scale) === */
-  --cc-radius-none: 0px;
+  /* === Rounded (all 4px per design system) === */
   --cc-radius-xs: 4px;
-  --cc-radius-sm: 6px;
-  --cc-radius-md: 8px;
-  --cc-radius-lg: 12px;
-  --cc-radius-xl: 16px;
+  --cc-radius-sm: 4px;
+  --cc-radius-md: 4px;
+  --cc-radius-lg: 4px;
+  --cc-radius-xl: 4px;
   --cc-radius-pill: 100px;
   --cc-radius-full: 9999px;
 
-  /* === Elevation (DESIGN.md stacked shadows) === */
+  /* === Elevation (stacked shadows) === */
   --cc-shadow-ring: 0 0 0 1px rgba(0, 0, 0, 0.15);
   --cc-shadow-subtle: 0 1px 2px rgba(0, 0, 0, 0.04);
   --cc-shadow-soft: 0 2px 2px rgba(0, 0, 0, 0.05);
@@ -168,7 +118,7 @@ html {
 body {
   margin: 0;
   background: var(--cc-canvas);
-  color: var(--cc-ink-soft);
+  color: var(--cc-ink);
   font-family: var(--cc-font-sans);
   font-size: var(--cc-text-md);
   font-weight: var(--cc-weight-normal);
@@ -179,7 +129,7 @@ body {
 
 /* === Accessibility: focus ring === */
 :focus-visible {
-  outline: 2px solid var(--cc-accent-soft);
+  outline: 2px solid var(--cc-link);
   outline-offset: 2px;
   border-radius: var(--cc-radius-sm);
 }
@@ -219,10 +169,10 @@ a:focus:not(:focus-visible) {
   line-height: var(--cc-leading-normal);
   cursor: pointer;
   transition:
-    background-color 0.15s ease,
-    border-color 0.15s ease,
-    opacity 0.15s ease,
-    transform 0.1s ease;
+    background-color 0.3s ease-out,
+    border-color 0.3s ease-out,
+    opacity 0.3s ease-out,
+    transform 0.3s ease-out;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -238,7 +188,7 @@ a:focus:not(:focus-visible) {
 
 /* Primary button */
 .cc-btn--primary {
-  background: linear-gradient(90deg, var(--cc-gradient-start), var(--cc-gradient-end));
+  background: var(--cc-primary);
   color: var(--cc-on-primary);
 }
 
@@ -249,7 +199,7 @@ a:focus:not(:focus-visible) {
 /* Secondary / ghost button */
 .cc-btn--ghost {
   background: var(--cc-surface-hover);
-  color: var(--cc-ink-soft);
+  color: var(--cc-ink);
   border-color: var(--cc-hairline);
 }
 
@@ -261,7 +211,7 @@ a:focus:not(:focus-visible) {
 /* Outline button */
 .cc-btn--outline {
   background: transparent;
-  color: var(--cc-ink-soft);
+  color: var(--cc-ink);
   border-color: var(--cc-hairline-strong);
 }
 
@@ -277,13 +227,13 @@ a:focus:not(:focus-visible) {
   background: var(--cc-surface-input);
   border: 1px solid var(--cc-hairline);
   border-radius: var(--cc-radius-md);
-  color: var(--cc-ink-soft);
+  color: var(--cc-ink);
   font-family: var(--cc-font-mono);
   font-size: var(--cc-text-sm);
   line-height: var(--cc-leading-normal);
   transition:
-    border-color 0.15s ease,
-    box-shadow 0.15s ease;
+    border-color 0.3s ease-out,
+    box-shadow 0.3s ease-out;
   box-sizing: border-box;
 }
 
@@ -292,8 +242,8 @@ a:focus:not(:focus-visible) {
 }
 
 .cc-input:focus {
-  border-color: var(--cc-accent);
-  box-shadow: 0 0 0 3px var(--cc-accent-bg);
+  border-color: var(--cc-link);
+  box-shadow: 0 0 0 3px var(--cc-link-bg-soft);
   outline: none;
 }
 
@@ -311,8 +261,8 @@ a:focus:not(:focus-visible) {
   padding: var(--cc-space-lg);
   box-shadow: var(--cc-shadow-subtle), var(--cc-shadow-inset);
   transition:
-    box-shadow 0.15s ease,
-    border-color 0.15s ease;
+    box-shadow 0.3s ease-out,
+    border-color 0.3s ease-out;
 }
 
 .cc-card:hover {
@@ -328,7 +278,7 @@ a:focus:not(:focus-visible) {
   display: block;
   font-size: var(--cc-text-xs);
   font-weight: var(--cc-weight-semibold);
-  color: var(--cc-accent-soft);
+  color: var(--cc-link);
   letter-spacing: 0.05em;
   margin-bottom: var(--cc-space-xs);
 }
@@ -362,16 +312,16 @@ a:focus:not(:focus-visible) {
 }
 
 .cc-badge--accent {
-  background: var(--cc-accent-bg);
-  color: var(--cc-accent-soft);
+  background: var(--cc-link-bg-soft);
+  color: var(--cc-link);
 }
 
 /* === Error state === */
 .cc-error {
   margin-top: var(--cc-space-sm);
   padding: var(--cc-space-xs) var(--cc-space-md);
-  background: var(--cc-error-soft);
-  border: 1px solid var(--cc-error-border);
+  background: var(--cc-error-bg);
+  border: 1px solid var(--cc-error);
   border-radius: var(--cc-radius-md);
   color: var(--cc-error);
   font-size: var(--cc-text-sm);
@@ -381,8 +331,8 @@ a:focus:not(:focus-visible) {
 .cc-success {
   margin-top: var(--cc-space-sm);
   padding: var(--cc-space-md);
-  background: var(--cc-success-soft);
-  border: 1px solid var(--cc-success-border);
+  background: var(--cc-success-bg);
+  border: 1px solid var(--cc-success);
   border-radius: var(--cc-radius-md);
   color: var(--cc-success);
   font-size: var(--cc-text-sm);
@@ -401,9 +351,9 @@ a:focus:not(:focus-visible) {
 /* === Hover transitions for cards === */
 .cc-hover-card {
   transition:
-    transform 0.15s ease,
-    border-color 0.15s ease,
-    box-shadow 0.15s ease;
+    transform 0.3s ease-out,
+    border-color 0.3s ease-out,
+    box-shadow 0.3s ease-out;
 }
 
 .cc-hover-card:hover {
@@ -498,11 +448,11 @@ a:focus:not(:focus-visible) {
 .demo-header__icon {
   width: 20px;
   height: 20px;
-  color: var(--cc-accent);
+  color: var(--cc-link);
 }
 
 .demo-header__accent {
-  color: var(--cc-accent);
+  color: var(--cc-link);
 }
 
 .demo-header__subtitle {
@@ -521,7 +471,7 @@ a:focus:not(:focus-visible) {
   display: flex;
   align-items: center;
   gap: var(--cc-space-xs);
-  background: var(--cc-surface);
+  background: var(--cc-surface-ghost);
   padding: 8px var(--cc-space-sm);
   border-radius: var(--cc-radius-md);
   font-size: var(--cc-text-xs);
@@ -573,14 +523,14 @@ a:focus:not(:focus-visible) {
 .cc-status-box {
   margin-top: var(--cc-space-md);
   padding: var(--cc-space-sm);
-  background: var(--cc-surface);
+  background: var(--cc-surface-ghost);
   border-radius: var(--cc-radius-md);
   font-size: var(--cc-text-sm);
 }
 
 .cc-btn--danger {
-  background: var(--cc-danger);
-  color: var(--cc-danger-on);
+  background: var(--cc-error);
+  color: var(--cc-on-primary);
 }
 
 .cc-btn--danger:hover:not(:disabled) {
@@ -589,12 +539,8 @@ a:focus:not(:focus-visible) {
 
 /* === Balance display === */
 .cc-balance-card {
-  background: linear-gradient(
-    135deg,
-    var(--cc-balance-gradient-1) 0%,
-    var(--cc-balance-gradient-2) 100%
-  );
-  border: 1px solid var(--cc-balance-border);
+  background: var(--cc-canvas-soft);
+  border: 1px solid var(--cc-hairline);
   border-radius: var(--cc-radius-lg);
   padding: var(--cc-space-lg);
   text-align: center;
@@ -685,7 +631,7 @@ a:focus:not(:focus-visible) {
 .cc-info-row__value {
   font-family: var(--cc-font-mono);
   font-size: var(--cc-text-sm);
-  color: var(--cc-ink-soft);
+  color: var(--cc-ink);
 }
 
 .cc-info-row__value--accent {
@@ -701,7 +647,7 @@ a:focus:not(:focus-visible) {
 }
 
 .cc-info-box {
-  background: var(--cc-surface);
+  background: var(--cc-surface-ghost);
   border-radius: var(--cc-radius-md);
   padding: var(--cc-space-md);
   margin-top: var(--cc-space-sm);
@@ -713,7 +659,7 @@ a:focus:not(:focus-visible) {
   align-items: center;
   gap: var(--cc-space-sm);
   padding: var(--cc-space-sm);
-  background: var(--cc-surface);
+  background: var(--cc-surface-ghost);
   border-radius: var(--cc-radius-md);
   margin-bottom: var(--cc-space-xs);
 }
@@ -722,7 +668,7 @@ a:focus:not(:focus-visible) {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: var(--cc-accent);
+  background: var(--cc-link);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -760,7 +706,7 @@ a:focus:not(:focus-visible) {
   align-items: center;
   gap: var(--cc-space-sm);
   padding: var(--cc-space-xs) var(--cc-space-sm);
-  background: var(--cc-warning-soft);
+  background: var(--cc-warning-bg);
   border-radius: var(--cc-radius-md);
   margin-bottom: var(--cc-space-md);
 }
@@ -783,8 +729,8 @@ a:focus:not(:focus-visible) {
   border-radius: var(--cc-radius-lg);
   overflow: hidden;
   transition:
-    transform 0.15s ease,
-    border-color 0.15s ease;
+    transform 0.3s ease-out,
+    border-color 0.3s ease-out;
   cursor: default;
 }
 
@@ -803,7 +749,7 @@ a:focus:not(:focus-visible) {
   font-size: var(--cc-text-xs);
   font-weight: var(--cc-weight-semibold);
   padding: 4px 8px;
-  border-radius: 6px;
+  border-radius: var(--cc-radius-md);
   backdrop-filter: blur(8px);
 }
 
@@ -849,7 +795,7 @@ a:focus:not(:focus-visible) {
 }
 
 .cc-signature-value {
-  background: var(--cc-surface);
+  background: var(--cc-surface-ghost);
   border: 1px solid var(--cc-hairline);
   border-radius: var(--cc-radius-md);
   padding: var(--cc-space-sm);
@@ -870,8 +816,8 @@ a:focus:not(:focus-visible) {
 .cc-tx-success {
   margin-top: var(--cc-space-md);
   padding: var(--cc-space-sm);
-  background: var(--cc-success-soft);
-  border: 1px solid var(--cc-success-border);
+  background: var(--cc-success-bg);
+  border: 1px solid var(--cc-success);
   border-radius: var(--cc-radius-md);
 }
 
@@ -892,7 +838,7 @@ a:focus:not(:focus-visible) {
   display: inline-flex;
   margin-top: var(--cc-space-xs);
   font-size: var(--cc-text-sm);
-  color: var(--cc-accent-soft);
+  color: var(--cc-link);
   text-decoration: none;
 }
 

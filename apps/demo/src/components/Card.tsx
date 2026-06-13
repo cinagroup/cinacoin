@@ -33,7 +33,7 @@ export default function Card({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onMouseMove={handleMouseMove}
-      className={`relative bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[8px] overflow-hidden transition-all duration-300 ${
+      className={`relative bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-sm overflow-hidden transition-all duration-300 ${
         hoverLift ? 'hover:-translate-y-0.5' : ''
       } ${className}`}
       style={{

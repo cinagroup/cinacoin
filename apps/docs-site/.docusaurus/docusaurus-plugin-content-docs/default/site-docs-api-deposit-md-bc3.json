@@ -5,7 +5,7 @@
   "source": "@site/docs/api/deposit.md",
   "sourceDirName": "api",
   "slug": "/api/deposit",
-  "permalink": "/docs/api/deposit",
+  "permalink": "/api/deposit",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/deposit.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "Custom connectors.",
-    "permalink": "/docs/api/custom-connectors"
+    "permalink": "/api/custom-connectors"
   },
   "next": {
     "title": "Design tokens.",
-    "permalink": "/docs/api/design-tokens"
+    "permalink": "/api/design-tokens"
   }
 }

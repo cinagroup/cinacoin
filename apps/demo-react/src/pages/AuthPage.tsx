@@ -184,7 +184,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
 
       {/* Auth Method Tabs */}
       <div
-        className="flex gap-2 mb-8 bg-[var(--cc-canvas-soft-2)] p-1 rounded-full border border-[var(--cc-hairline)] max-w-xs mx-auto"
+        className="flex gap-2 mb-8 bg-[var(--cc-canvas-soft-2)] p-1 rounded-sm border border-[var(--cc-hairline)] max-w-xs mx-auto"
         role="tablist"
         aria-label="Authentication method"
       >
@@ -200,7 +200,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
               setStep(1);
             }
           }}
-          className="cc-tab-ghost flex-1 !h-9 text-body-sm rounded-full focus-ring"
+          className="cc-tab-ghost flex-1 !h-9 text-body-sm rounded-sm focus-ring"
           role="tab"
           aria-selected={authMethod === 'wallet'}
           id="tab-wallet"
@@ -219,7 +219,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
               setStep(1);
             }
           }}
-          className="cc-tab-ghost flex-1 !h-9 text-body-sm rounded-full focus-ring"
+          className="cc-tab-ghost flex-1 !h-9 text-body-sm rounded-sm focus-ring"
           role="tab"
           aria-selected={authMethod === 'social'}
           id="tab-social"
@@ -243,7 +243,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
             {['Connect', 'Sign', 'Verify', 'Profile'].map((label, i) => (
               <div key={label} className="flex items-center gap-2">
                 <div
-                  className={`flex items-center justify-center w-7 h-7 rounded-full cc-caption-mono transition-all ${
+                  className={`flex items-center justify-center w-7 h-7 rounded-sm cc-caption-mono transition-all ${
                     step > i + 1
                       ? 'bg-[var(--cc-success)]/10 text-[var(--cc-success)] border border-[var(--cc-success)]/20'
                       : step === i + 1
@@ -300,7 +300,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
                         handleConnect();
                       }
                     }}
-                    className="w-full flex items-center gap-4 p-4 rounded-lg bg-[var(--cc-canvas-soft-2)] hover:bg-[var(--cc-canvas-soft)] border border-[var(--cc-hairline)] transition-all text-left group focus-ring"
+                    className="w-full flex items-center gap-4 p-4 rounded-sm bg-[var(--cc-canvas-soft-2)] hover:bg-[var(--cc-canvas-soft)] border border-[var(--cc-hairline)] transition-all text-left group focus-ring"
                   >
                     <w.icon className="w-6 h-6 text-[var(--cc-ink)]" aria-hidden="true" />
                     <div className="flex-1">
@@ -326,7 +326,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
             <div className="cc-card space-y-4" role="tabpanel" aria-labelledby="tab-wallet">
               <h2 className="cc-display-sm text-center">Sign message.</h2>
               <div
-                className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4 font-[var(--font-mono)] text-caption text-[var(--cc-body)] whitespace-pre-wrap border border-[var(--cc-hairline)] max-h-48 overflow-y-auto"
+                className="bg-[var(--cc-canvas-soft-2)] rounded-sm p-4 font-[var(--font-mono)] text-caption text-[var(--cc-body)] whitespace-pre-wrap border border-[var(--cc-hairline)] max-h-48 overflow-y-auto"
                 role="region"
                 aria-label="SIWE message to sign"
                 tabIndex={0}
@@ -348,7 +348,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
                 {signing ? (
                   <span className="flex items-center justify-center gap-2">
                     <span
-                      className="w-5 h-5 border-2 border-[var(--cc-hairline-strong)] border-t-[var(--cc-ink)] rounded-full animate-spin"
+                      className="w-5 h-5 border-2 border-[var(--cc-hairline-strong)] border-t-[var(--cc-ink)] rounded-sm animate-spin"
                       aria-hidden="true"
                     />
                     Signing...
@@ -364,7 +364,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
           {step === 3 && (
             <div className="cc-card space-y-4" role="tabpanel" aria-labelledby="tab-wallet">
               <h2 className="cc-display-sm text-center">Verify signature.</h2>
-              <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4 border border-[var(--cc-hairline)] text-body-sm space-y-2">
+              <div className="bg-[var(--cc-canvas-soft-2)] rounded-sm p-4 border border-[var(--cc-hairline)] text-body-sm space-y-2">
                 <div className="flex justify-between">
                   <span className="text-[var(--cc-muted)]">Address</span>
                   <span className="font-[var(--font-mono)] text-caption text-[var(--cc-body)]">
@@ -428,7 +428,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
                   }
                 }}
                 disabled={socialLoading}
-                className={`flex items-center gap-3 p-4 rounded-lg border transition-all focus-ring ${
+                className={`flex items-center gap-3 p-4 rounded-sm border transition-all focus-ring ${
                   selectedSocial === p.id
                     ? 'border-[var(--cc-link)] ring-2 ring-[var(--cc-link)]/10 bg-[var(--cc-canvas-soft-2)]'
                     : 'border-[var(--cc-hairline)] bg-[var(--cc-canvas)] hover:border-[var(--cc-muted)]'
@@ -444,7 +444,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
           {socialLoading && (
             <div className="flex flex-col items-center gap-3 py-6" role="status" aria-live="polite">
               <div
-                className="w-10 h-10 border-2 border-[var(--cc-hairline)] border-t-[var(--cc-link)] rounded-full animate-spin"
+                className="w-10 h-10 border-2 border-[var(--cc-hairline)] border-t-[var(--cc-link)] rounded-sm animate-spin"
                 aria-hidden="true"
               />
               <p className="text-body-sm text-[var(--cc-muted)]">
@@ -454,10 +454,10 @@ Issued At: 2026-05-17T13:45:00.000Z`;
           )}
 
           {selectedSocial && !socialLoading && step === 4 && (
-            <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4 border border-[var(--cc-success)]/20">
+            <div className="bg-[var(--cc-canvas-soft-2)] rounded-sm p-4 border border-[var(--cc-success)]/20">
               <div className="text-center mb-3">
                 <div
-                  className="w-12 h-12 mx-auto rounded-full bg-[var(--cc-success)]/10 border border-[var(--cc-success)]/20 flex items-center justify-center text-display-sm mb-2"
+                  className="w-12 h-12 mx-auto rounded-sm bg-[var(--cc-success)]/10 border border-[var(--cc-success)]/20 flex items-center justify-center text-display-sm mb-2"
                   aria-hidden="true"
                 >
                   <Check className="w-6 h-6 text-[var(--cc-success)]" />
@@ -507,7 +507,7 @@ Issued At: 2026-05-17T13:45:00.000Z`;
         <div className="cc-card mt-6 border-t-2 border-t-[var(--cc-success)]">
           <div className="flex items-center gap-4 mb-4">
             <div
-              className="w-12 h-12 rounded-full bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] flex items-center justify-center text-body-lg font-semibold text-[var(--cc-ink)]"
+              className="w-12 h-12 rounded-sm bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] flex items-center justify-center text-body-lg font-semibold text-[var(--cc-ink)]"
               aria-hidden="true"
             >
               0x

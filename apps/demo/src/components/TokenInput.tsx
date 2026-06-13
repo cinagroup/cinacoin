@@ -43,7 +43,7 @@ export default function TokenInput({
   const selectedToken = tokens.find((t) => t.symbol === token) ?? tokens[0];
 
   return (
-    <div className={`bg-[var(--cc-canvas)] rounded-[6px] p-4 border border-[var(--cc-hairline)] focus-within:border-[var(--cc-ink)] transition-colors ${className}`}>
+    <div className={`bg-[var(--cc-canvas)] rounded-sm p-4 border border-[var(--cc-hairline)] focus-within:border-[var(--cc-ink)] transition-colors ${className}`}>
       <div className="flex justify-between items-center mb-2">
         <span className="text-body-sm font-medium text-[var(--cc-muted)]">{label}</span>
         <div className="flex items-center gap-2">
@@ -69,7 +69,7 @@ export default function TokenInput({
           <select
             value={token}
             onChange={(e) => onTokenChange(e.target.value)}
-            className="appearance-none bg-[var(--cc-canvas-soft-2)] hover:bg-[var(--cc-muted)]/80 rounded-[6px] px-3 py-2 transition-colors border border-[var(--cc-hairline)] text-body-sm text-[var(--cc-ink)] font-semibold cursor-pointer pr-8 h-[40px]"
+            className="appearance-none bg-[var(--cc-canvas-soft-2)] hover:bg-[var(--cc-muted)]/80 rounded-sm px-3 py-2 transition-colors border border-[var(--cc-hairline)] text-body-sm text-[var(--cc-ink)] font-semibold cursor-pointer pr-8 h-[40px]"
           >
             {tokens.map((t) => (
               <option key={t.symbol} value={t.symbol}>

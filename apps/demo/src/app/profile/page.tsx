@@ -55,7 +55,7 @@ export default function ProfilePage() {
         <div className="p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] shadow-[var(--cc-level1)] mb-6">
           <div className="flex items-start gap-4 mb-6">
             {/* Avatar */}
-            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[var(--cc-link)] to-[var(--cc-violet)] flex items-center justify-center text-[var(--cc-on-primary)] shadow-[var(--cc-level2)]">
+            <div className="w-16 h-16 rounded-sm bg-gradient-to-br from-[var(--cc-link)] to-[var(--cc-violet)] flex items-center justify-center text-[var(--cc-on-primary)] shadow-[var(--cc-level2)]">
               <User className="w-8 h-8" />
             </div>
             <div className="flex-1 min-w-0">
@@ -84,7 +84,7 @@ export default function ProfilePage() {
                 </a>
               </div>
               <div className="flex items-center gap-2 mt-2">
-                <span className="w-2 h-2 bg-[var(--cc-success)] rounded-full animate-pulse" />
+                <span className="w-2 h-2 bg-[var(--cc-success)] rounded-sm animate-pulse" />
                 <span className="text-caption text-[var(--cc-success)] font-medium">Connected</span>
                 <span className="text-caption text-[var(--cc-muted)]">· {account.chainName}</span>
               </div>
@@ -115,7 +115,7 @@ export default function ProfilePage() {
           {/* Preferences */}
           <div className="p-5 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] cc-animate-slide-up">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-9 h-9 rounded-full bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] flex items-center justify-center">
+              <div className="w-9 h-9 rounded-sm bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] flex items-center justify-center">
                 <Settings className="w-4 h-4 text-[var(--cc-muted)]" />
               </div>
               <h3 className="font-semibold text-[var(--cc-ink)]">Preferences</h3>
@@ -128,14 +128,14 @@ export default function ProfilePage() {
                 </div>
                 <button
                   onClick={() => setDarkMode(!darkMode)}
-                  className={`relative w-11 h-6 rounded-full transition-colors ${
+                  className={`relative w-11 h-6 rounded-sm transition-colors ${
                     darkMode ? 'bg-[var(--cc-primary)]' : 'bg-[var(--cc-canvas-soft-2)]'
                   }`}
                   role="switch"
                   aria-checked={darkMode}
                 >
                   <span
-                    className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-[var(--cc-canvas)] shadow-[var(--cc-level1)] transition-transform ${
+                    className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-sm bg-[var(--cc-canvas)] shadow-[var(--cc-level1)] transition-transform ${
                       darkMode ? 'translate-x-5' : 'translate-x-0'
                     }`}
                   />
@@ -147,7 +147,7 @@ export default function ProfilePage() {
           {/* Notifications */}
           <div className="p-5 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] cc-animate-slide-up">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-9 h-9 rounded-full bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] flex items-center justify-center">
+              <div className="w-9 h-9 rounded-sm bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] flex items-center justify-center">
                 <Bell className="w-4 h-4 text-[var(--cc-muted)]" />
               </div>
               <h3 className="font-semibold text-[var(--cc-ink)]">Notifications</h3>
@@ -160,14 +160,14 @@ export default function ProfilePage() {
                 </div>
                 <button
                   onClick={() => setNotifications(!notifications)}
-                  className={`relative w-11 h-6 rounded-full transition-colors ${
+                  className={`relative w-11 h-6 rounded-sm transition-colors ${
                     notifications ? 'bg-[var(--cc-primary)]' : 'bg-[var(--cc-canvas-soft-2)]'
                   }`}
                   role="switch"
                   aria-checked={notifications}
                 >
                   <span
-                    className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-[var(--cc-canvas)] shadow-[var(--cc-level1)] transition-transform ${
+                    className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-sm bg-[var(--cc-canvas)] shadow-[var(--cc-level1)] transition-transform ${
                       notifications ? 'translate-x-5' : 'translate-x-0'
                     }`}
                   />
@@ -179,7 +179,7 @@ export default function ProfilePage() {
           {/* Security */}
           <div className="p-5 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] cc-animate-slide-up">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-9 h-9 rounded-full bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] flex items-center justify-center">
+              <div className="w-9 h-9 rounded-sm bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] flex items-center justify-center">
                 <Shield className="w-4 h-4 text-[var(--cc-muted)]" />
               </div>
               <h3 className="font-semibold text-[var(--cc-ink)]">Security</h3>
@@ -192,14 +192,14 @@ export default function ProfilePage() {
                 </div>
                 <button
                   onClick={() => setTwoFactor(!twoFactor)}
-                  className={`relative w-11 h-6 rounded-full transition-colors ${
+                  className={`relative w-11 h-6 rounded-sm transition-colors ${
                     twoFactor ? 'bg-[var(--cc-primary)]' : 'bg-[var(--cc-canvas-soft-2)]'
                   }`}
                   role="switch"
                   aria-checked={twoFactor}
                 >
                   <span
-                    className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-[var(--cc-canvas)] shadow-[var(--cc-level1)] transition-transform ${
+                    className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-sm bg-[var(--cc-canvas)] shadow-[var(--cc-level1)] transition-transform ${
                       twoFactor ? 'translate-x-5' : 'translate-x-0'
                     }`}
                   />

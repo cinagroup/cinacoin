@@ -97,8 +97,8 @@ html {
 
 body {
   margin: 0;
-  background: var(--cc-canvas-soft, #fafafa);
-  color: var(--cc-ink, #171717);
+  background: var(--cc-canvas, #000000);
+  color: var(--cc-ink, #ededed);
   min-height: 100vh;
 }
 
@@ -150,9 +150,9 @@ body {
 }
 
 .prompt-card {
-  background: var(--cc-canvas, #1e293b);
-  border: 1px dashed var(--cc-hairline, #334155);
-  border-radius: 0.75rem;
+  background: var(--cc-canvas-soft, #141414);
+  border: 1px dashed var(--cc-hairline, rgba(255, 255, 255, 0.08));
+  border-radius: 4px;
   padding: 2.5rem;
   text-align: center;
   max-width: 480px;

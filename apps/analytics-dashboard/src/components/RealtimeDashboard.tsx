@@ -116,7 +116,7 @@ export default function RealtimeDashboard() {
         <div className="cc-card p-lg" role="region" aria-label="Active users metric">
           <div className="flex items-center justify-between mb-xs">
             <p className="text-body-sm text-[var(--cc-muted)]">Active users</p>
-            <span className="inline-flex items-center gap-xxs text-caption font-medium px-xs py-xxs rounded-full badge-success">
+            <span className="inline-flex items-center gap-xxs text-caption font-medium px-xs py-xxs rounded-sm badge-success">
               <span className="w-1.5 h-1.5 rounded-full bg-[var(--cc-success)] animate-pulse" />
               Live
             </span>
@@ -128,7 +128,7 @@ export default function RealtimeDashboard() {
         <div className="cc-card p-lg" role="region" aria-label="Transactions per second metric">
           <div className="flex items-center justify-between mb-xs">
             <p className="text-body-sm text-[var(--cc-muted)]">Transactions per second</p>
-            <span className="inline-flex items-center gap-xxs text-caption font-medium px-xs py-xxs rounded-full badge-success">
+            <span className="inline-flex items-center gap-xxs text-caption font-medium px-xs py-xxs rounded-sm badge-success">
               <span className="w-1.5 h-1.5 rounded-full bg-[var(--cc-success)] animate-pulse" />
               Live
             </span>
@@ -173,10 +173,10 @@ export default function RealtimeDashboard() {
 const TransactionRow = React.memo(function TransactionRow({ tx }: { tx: Transaction }) {
   return (
     <div
-      className="flex items-center justify-between p-sm bg-[var(--cc-canvas-soft)] rounded-md hover:bg-[var(--cc-canvas-soft-2)] transition-colors"
+      className="flex items-center justify-between p-sm bg-[var(--cc-canvas-soft)] rounded-sm hover:bg-[var(--cc-canvas-soft-2)] transition-colors"
     >
       <div className="flex items-center gap-sm">
-        <div className="w-8 h-8 bg-[var(--cc-primary)]/10 rounded-full flex items-center justify-center">
+        <div className="w-8 h-8 bg-[var(--cc-primary)]/10 rounded-sm flex items-center justify-center">
           <TrendingUp className="w-4 h-4 text-[var(--cc-primary)]" />
         </div>
         <div>
@@ -205,9 +205,9 @@ const HeatmapRow = React.memo(function HeatmapRow({ item, maxRequests, formatNum
           {formatNumber(item.requests)} req
         </span>
       </div>
-      <div className="h-2 bg-[var(--cc-canvas-soft-2)] rounded-full overflow-hidden">
+      <div className="h-2 bg-[var(--cc-canvas-soft-2)] rounded-sm overflow-hidden">
         <div
-          className="h-full bg-gradient-to-r from-[var(--cc-primary)] to-[var(--cc-primary)]/60 transition-all duration-500"
+          className="h-full bg-[var(--cc-primary)] transition-all duration-500"
           style={{
             width: `${(item.requests / maxRequests) * 100}%`,
           }}

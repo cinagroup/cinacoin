@@ -5,7 +5,7 @@
   "source": "@site/docs/api/codemod.md",
   "sourceDirName": "api",
   "slug": "/api/codemod",
-  "permalink": "/docs/api/codemod",
+  "permalink": "/api/codemod",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/codemod.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "CLI.",
-    "permalink": "/docs/api/cli"
+    "permalink": "/api/cli"
   },
   "next": {
     "title": "Config.",
-    "permalink": "/docs/api/config"
+    "permalink": "/api/config"
   }
 }

@@ -85,7 +85,7 @@ export default function Navbar() {
             type="button"
             onClick={toggle}
             aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-            className="flex h-10 w-10 items-center justify-center rounded-full text-[var(--cc-body)] transition-colors hover:text-[var(--cc-ink)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cc-link)] focus-visible:ring-offset-2"
+            className="flex h-10 w-10 items-center justify-center rounded-sm text-[var(--cc-body)] transition-colors hover:text-[var(--cc-ink)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cc-link)] focus-visible:ring-offset-2"
           >
             {theme === 'dark' ? (
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -110,7 +110,7 @@ export default function Navbar() {
               aria-haspopup="listbox"
               aria-expanded={langOpen}
               aria-label="Select language"
-              className="flex h-10 items-center gap-1 rounded-md px-2 text-[var(--cc-body)] transition-colors hover:text-[var(--cc-ink)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cc-link)] focus-visible:ring-offset-2 cc-body-sm"
+              className="flex h-10 items-center gap-1 rounded-sm px-2 text-[var(--cc-body)] transition-colors hover:text-[var(--cc-ink)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cc-link)] focus-visible:ring-offset-2 cc-body-sm"
             >
               {locale === 'zh' ? '中文' : 'EN'}
               <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -119,7 +119,7 @@ export default function Navbar() {
             </button>
 
             {langOpen && (
-              <div className="absolute right-0 top-full mt-2 w-36 rounded-md border border-[var(--cc-hairline)] bg-[var(--cc-canvas)] py-1 shadow-[var(--cc-level5)]" role="listbox">
+              <div className="absolute right-0 top-full mt-2 w-36 rounded-sm border border-[var(--cc-hairline)] bg-[var(--cc-canvas)] py-1 shadow-[var(--cc-level5)]" role="listbox">
                 {locales.map((l) => (
                   <button
                     key={l.code}
@@ -162,7 +162,7 @@ export default function Navbar() {
             type="button"
             onClick={toggle}
             aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-            className="flex h-10 w-10 items-center justify-center rounded-full text-[var(--cc-body)] transition-colors hover:text-[var(--cc-ink)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cc-link)] focus-visible:ring-offset-2"
+            className="flex h-10 w-10 items-center justify-center rounded-sm text-[var(--cc-body)] transition-colors hover:text-[var(--cc-ink)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cc-link)] focus-visible:ring-offset-2"
           >
             {theme === 'dark' ? (
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -182,7 +182,7 @@ export default function Navbar() {
             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={mobileOpen}
             aria-controls="mobile-menu"
-            className="rounded-full p-3 text-[var(--cc-body)] transition-colors hover:text-[var(--cc-ink)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cc-link)] focus-visible:ring-offset-2 md:hidden"
+            className="rounded-sm p-3 text-[var(--cc-body)] transition-colors hover:text-[var(--cc-ink)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cc-link)] focus-visible:ring-offset-2 md:hidden"
             onClick={() => setMobileOpen((v) => !v)}
           >
             {mobileOpen ? (
@@ -236,7 +236,7 @@ export default function Navbar() {
                 <button
                   key={l.code}
                   onClick={() => { setLocale(l.code); closeMobile() }}
-                  className={`rounded-full px-3 py-1 text-caption transition-colors ${
+                  className={`rounded-sm px-3 py-1 text-caption transition-colors ${
                     locale === l.code
                       ? 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)]'
                       : 'bg-[var(--cc-canvas-soft-2)] text-[var(--cc-body)] hover:text-[var(--cc-ink)]'

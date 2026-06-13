@@ -1,1 +1,6 @@
+@import '@cinacoin/design-tokens/css/cinacoin.css';
 @import url('../shared-design-system.css');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

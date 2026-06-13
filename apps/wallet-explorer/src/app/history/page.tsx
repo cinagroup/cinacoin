@@ -64,7 +64,7 @@ export default function HistoryPage() {
             >
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--cc-canvas-soft-2)]">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-sm bg-[var(--cc-canvas-soft-2)]">
                     {(() => {
                       const Icon = typeIcons[tx.type];
                       return Icon ? <Icon className="h-5 w-5" /> : null;

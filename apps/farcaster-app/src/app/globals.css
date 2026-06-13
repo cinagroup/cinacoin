@@ -30,15 +30,15 @@
   --cc-link-deep: #0041cc;
 
   /* ─── Surfaces ─── */
-  --cc-canvas: #0a0a0a;
-  --cc-canvas-soft: #141414;
-  --cc-canvas-soft-2: #1e1e1e;
-  --cc-on-primary: #ffffff;
-  --cc-ink: #f5f5f5;
+  --cc-canvas: #000000;
+  --cc-canvas-soft: #0a0a0a;
+  --cc-canvas-soft-2: #111111;
+  --cc-on-primary: #000000;
+  --cc-ink: #ededed;
   --cc-body: #a3a3a3;
   --cc-mute: #737373;
-  --cc-hairline: #2e2e2e;
-  --cc-hairline-strong: #404040;
+  --cc-hairline: rgba(255, 255, 255, 0.08);
+  --cc-hairline-strong: rgba(255, 255, 255, 0.15);
 }
 
 body {

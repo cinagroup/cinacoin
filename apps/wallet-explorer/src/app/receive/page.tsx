@@ -39,7 +39,7 @@ export default function ReceivePage() {
 
       <div className="cc-card text-center">
         {/* QR Code placeholder */}
-        <div className="mx-auto mb-6 flex h-48 w-48 items-center justify-center rounded-lg bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)]">
+        <div className="mx-auto mb-6 flex h-48 w-48 items-center justify-center rounded-sm bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)]">
           <div className="grid grid-cols-5 gap-1 p-4">
             {Array.from({ length: 25 }).map((_, i) => (
               <div
@@ -56,7 +56,7 @@ export default function ReceivePage() {
 
         <p className="text-caption text-mute mb-3">Your wallet address.</p>
         <div className="flex items-center justify-center gap-3">
-          <code className="rounded-lg bg-[var(--cc-canvas-soft-2)] px-4 py-3 text-body font-[var(--font-mono)] text-[var(--cc-ink)] break-all">
+          <code className="rounded-sm bg-[var(--cc-canvas-soft-2)] px-4 py-3 text-body font-[var(--font-mono)] text-[var(--cc-ink)] break-all">
             {address}
           </code>
         </div>

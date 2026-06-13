@@ -101,7 +101,7 @@ export function LiveDemo({
         {/* Left: Live demo */}
         <div className="p-5 min-h-[200px]">
           <div className="flex items-center gap-2 mb-3">
-            <span className="w-2 h-2 rounded-full bg-[var(--cc-success)] animate-pulse" />
+            <span className="w-2 h-2 rounded-sm bg-[var(--cc-success)] animate-pulse" />
             <span className="cc-caption-mono text-[var(--cc-muted)] tracking-wider">Live demo</span>
           </div>
           {children}
@@ -113,7 +113,7 @@ export function LiveDemo({
             <span className="cc-caption-mono text-[var(--cc-muted)] tracking-wider">Code</span>
             <button
               onClick={handleCopy}
-              className="p-2 rounded-md hover:bg-[var(--cc-canvas-soft)] transition-colors text-[var(--cc-muted)] hover:text-[var(--cc-ink)] focus-ring"
+              className="p-2 rounded-sm hover:bg-[var(--cc-canvas-soft)] transition-colors text-[var(--cc-muted)] hover:text-[var(--cc-ink)] focus-ring"
               aria-label={copied ? 'Copied!' : 'Copy code'}
               title={copied ? 'Copied!' : 'Copy code'}
             >

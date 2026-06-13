@@ -20,7 +20,7 @@ export default function Hero() {
       <FadeIn delay={100}>
         <a
           href="https://docs.cinacoin.com"
-          className="cc-badge inline-flex items-center gap-2 rounded-full px-4 py-2 no-underline transition-colors hover:text-[var(--cc-ink)]"
+          className="cc-badge inline-flex items-center gap-2 rounded-sm px-4 py-2 no-underline transition-colors hover:text-[var(--cc-ink)]"
         >
           <span
             className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--cc-success)]"

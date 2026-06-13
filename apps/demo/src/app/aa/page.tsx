@@ -86,14 +86,14 @@ export default function AAPage() {
         {/* Deploy Card */}
         <div className="p-6 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-[var(--cc-radius-md)] shadow-[var(--cc-level1)] mb-6">
           <div className="flex items-start gap-4 mb-4">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[var(--cc-link)] to-[var(--cc-violet)] flex items-center justify-center shadow-[var(--cc-level2)]">
+            <div className="w-12 h-12 rounded-sm bg-gradient-to-br from-[var(--cc-link)] to-[var(--cc-violet)] flex items-center justify-center shadow-[var(--cc-level2)]">
               <Layers className="w-6 h-6 text-[var(--cc-on-primary)]" />
             </div>
             <div className="flex-1">
               <h2 className="font-semibold text-display-sm text-[var(--cc-ink)] mb-1">Smart Account</h2>
               {deployed && smartAccountAddress ? (
                 <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 bg-[var(--cc-success)] rounded-full" />
+                  <span className="w-2 h-2 bg-[var(--cc-success)] rounded-sm" />
                   <p className="text-caption text-[var(--cc-success)] font-medium">Deployed</p>
                   <span className="text-caption text-[var(--cc-muted)] font-mono ml-1">
                     {shortenAddress(smartAccountAddress)}
@@ -149,7 +149,7 @@ export default function AAPage() {
                 } transition-all`}
               >
                 <div className="flex items-start gap-4">
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${
+                  <div className={`w-10 h-10 rounded-sm flex items-center justify-center shrink-0 ${
                     isAvailable
                       ? 'bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)]'
                       : 'bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline)]/60'
@@ -160,11 +160,11 @@ export default function AAPage() {
                     <div className="flex items-center gap-2 mb-1">
                       <p className="font-semibold text-[var(--cc-ink)]">{feature.title}</p>
                       {isAvailable ? (
-                        <span className="px-2 py-0.5 bg-[var(--cc-success)]/15 text-[var(--cc-success)] text-caption rounded-full font-medium border border-[var(--cc-success)]/25">
+                        <span className="px-2 py-0.5 bg-[var(--cc-success)]/15 text-[var(--cc-success)] text-caption rounded-sm font-medium border border-[var(--cc-success)]/25">
                           Available
                         </span>
                       ) : (
-                        <span className="px-2 py-0.5 bg-[var(--cc-canvas-soft-2)] text-[var(--cc-muted)] text-caption rounded-full font-medium border border-[var(--cc-hairline)]">
+                        <span className="px-2 py-0.5 bg-[var(--cc-canvas-soft-2)] text-[var(--cc-muted)] text-caption rounded-sm font-medium border border-[var(--cc-hairline)]">
                           Coming soon
                         </span>
                       )}

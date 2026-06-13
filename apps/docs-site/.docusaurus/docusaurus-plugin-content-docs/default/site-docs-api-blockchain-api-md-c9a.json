@@ -5,7 +5,7 @@
   "source": "@site/docs/api/blockchain-api.md",
   "sourceDirName": "api",
   "slug": "/api/blockchain-api",
-  "permalink": "/docs/api/blockchain-api",
+  "permalink": "/api/blockchain-api",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/blockchain-api.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "Batch transaction.",
-    "permalink": "/docs/api/batch-transaction"
+    "permalink": "/api/batch-transaction"
   },
   "next": {
     "title": "Bundler.",
-    "permalink": "/docs/api/bundler"
+    "permalink": "/api/bundler"
   }
 }

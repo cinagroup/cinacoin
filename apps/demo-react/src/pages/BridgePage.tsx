@@ -144,7 +144,7 @@ export function BridgePage() {
                       key={chain.id}
                       onClick={() => setSourceChain(chain.id)}
                       disabled={chain.id === destChain}
-                      className={`px-3 py-2 rounded-lg text-caption font-medium transition-all focus-ring ${
+                      className={`px-3 py-2 rounded-sm text-caption font-medium transition-all focus-ring ${
                         sourceChain === chain.id
                           ? 'bg-[var(--cc-canvas-soft-2)] border-2 border-[var(--cc-link)]'
                           : 'bg-[var(--cc-canvas-soft)] border border-[var(--cc-hairline)] hover:border-[var(--cc-muted)]'
@@ -160,7 +160,7 @@ export function BridgePage() {
               <div className="text-center">
                 <button
                   onClick={handleSwapChains}
-                  className="w-9 h-9 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-full flex items-center justify-center hover:bg-[var(--cc-canvas-soft-2)] transition-all shadow-[var(--cc-level2)] focus-ring"
+                  className="w-9 h-9 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-sm flex items-center justify-center hover:bg-[var(--cc-canvas-soft-2)] transition-all shadow-[var(--cc-level2)] focus-ring"
                   aria-label="Swap source and destination chains"
                 >
                   ⇅
@@ -176,7 +176,7 @@ export function BridgePage() {
                       key={chain.id}
                       onClick={() => setDestChain(chain.id)}
                       disabled={chain.id === sourceChain}
-                      className={`px-3 py-2 rounded-lg text-caption font-medium transition-all focus-ring ${
+                      className={`px-3 py-2 rounded-sm text-caption font-medium transition-all focus-ring ${
                         destChain === chain.id
                           ? 'bg-[var(--cc-canvas-soft-2)] border-2 border-[var(--cc-link)]'
                           : 'bg-[var(--cc-canvas-soft)] border border-[var(--cc-hairline)] hover:border-[var(--cc-muted)]'
@@ -205,7 +205,7 @@ export function BridgePage() {
 
               {/* Estimate */}
               {amount && (
-                <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-3 border border-[var(--cc-hairline)]">
+                <div className="bg-[var(--cc-canvas-soft-2)] rounded-sm p-3 border border-[var(--cc-hairline)]">
                   <div className="flex justify-between text-body-sm">
                     <span className="text-[var(--cc-muted)]">Estimated receive</span>
                     <span className="text-[var(--cc-success)] font-semibold">
@@ -241,7 +241,7 @@ export function BridgePage() {
                   return (
                     <div
                       key={s.key}
-                      className={`flex items-center gap-3 p-3 px-4 rounded-lg border transition-all ${
+                      className={`flex items-center gap-3 p-3 px-4 rounded-sm border transition-all ${
                         isCurrent
                           ? 'bg-[var(--cc-link-bg-soft)] border-[var(--cc-link)]'
                           : isDone

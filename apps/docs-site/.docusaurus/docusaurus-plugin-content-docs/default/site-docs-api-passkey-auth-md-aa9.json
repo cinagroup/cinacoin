@@ -5,7 +5,7 @@
   "source": "@site/docs/api/passkey-auth.md",
   "sourceDirName": "api",
   "slug": "/api/passkey-auth",
-  "permalink": "/docs/api/passkey-auth",
+  "permalink": "/api/passkey-auth",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/passkey-auth.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "On-ramp SDK.",
-    "permalink": "/docs/api/onramp-sdk"
+    "permalink": "/api/onramp-sdk"
   },
   "next": {
     "title": "Pay UI.",
-    "permalink": "/docs/api/pay-ui"
+    "permalink": "/api/pay-ui"
   }
 }

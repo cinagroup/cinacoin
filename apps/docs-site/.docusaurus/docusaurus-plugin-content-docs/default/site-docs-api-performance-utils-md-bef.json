@@ -5,7 +5,7 @@
   "source": "@site/docs/api/performance-utils.md",
   "sourceDirName": "api",
   "slug": "/api/performance-utils",
-  "permalink": "/docs/api/performance-utils",
+  "permalink": "/api/performance-utils",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/performance-utils.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "Payment flow.",
-    "permalink": "/docs/api/payment-flow"
+    "permalink": "/api/payment-flow"
   },
   "next": {
     "title": "Push server.",
-    "permalink": "/docs/api/push-server"
+    "permalink": "/api/push-server"
   }
 }

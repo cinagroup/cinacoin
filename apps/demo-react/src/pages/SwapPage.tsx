@@ -76,11 +76,11 @@ function TokenSelector({ show, onClose, onSelect, label }: TokenSelectorProps) {
               key={t.symbol}
               onClick={() => { onSelect(i); onClose(); }}
               onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onSelect(i); onClose(); } }}
-              className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-[var(--cc-canvas-soft-2)] transition-colors text-left focus-ring"
+              className="w-full flex items-center gap-3 p-3 rounded-sm hover:bg-[var(--cc-canvas-soft-2)] transition-colors text-left focus-ring"
               role="option"
               aria-selected={false}
             >
-              <span className="w-8 h-8 rounded-full flex items-center justify-center text-body-sm font-medium text-[var(--cc-ink)]" style={{ backgroundColor: t.color + '20' }} aria-hidden="true">{t.icon}</span>
+              <span className="w-8 h-8 rounded-sm flex items-center justify-center text-body-sm font-medium text-[var(--cc-ink)]" style={{ backgroundColor: t.color + '20' }} aria-hidden="true">{t.icon}</span>
               <div className="flex-1">
                 <p className="font-medium text-body-sm text-[var(--cc-ink)]">{t.symbol}</p>
                 <p className="text-caption text-[var(--cc-muted)]">{t.name}</p>
@@ -135,7 +135,7 @@ export default function SwapPage() {
 
       <div className="cc-card space-y-4">
         {/* FROM */}
-        <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4 border border-[var(--cc-hairline)]">
+        <div className="bg-[var(--cc-canvas-soft-2)] rounded-sm p-4 border border-[var(--cc-hairline)]">
           <div className="flex justify-between mb-2">
             <span className="cc-caption text-[var(--cc-muted)]">From</span>
             <span className="cc-caption text-[var(--cc-muted)]">Balance: {from.balance} {from.symbol}</span>
@@ -144,10 +144,10 @@ export default function SwapPage() {
             <button
               onClick={() => setShowFromSelector(true)}
               onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setShowFromSelector(true); } }}
-              className="flex items-center gap-2 px-3 py-2 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-full hover:bg-[var(--cc-canvas-soft-2)] transition-colors shrink-0 focus-ring"
+              className="flex items-center gap-2 px-3 py-2 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-sm hover:bg-[var(--cc-canvas-soft-2)] transition-colors shrink-0 focus-ring"
               aria-label={`Select token to swap from, currently ${from.symbol}`}
             >
-              <span className="w-5 h-5 rounded-full flex items-center justify-center text-caption font-medium text-[var(--cc-ink)]" style={{ backgroundColor: from.color + '20' }} aria-hidden="true">{from.icon}</span>
+              <span className="w-5 h-5 rounded-sm flex items-center justify-center text-caption font-medium text-[var(--cc-ink)]" style={{ backgroundColor: from.color + '20' }} aria-hidden="true">{from.icon}</span>
               <span className="font-medium text-body-sm text-[var(--cc-ink)]">{from.symbol}</span>
               <span className="text-[var(--cc-muted)] text-caption" aria-hidden="true">▾</span>
             </button>
@@ -171,7 +171,7 @@ export default function SwapPage() {
           <button
             onClick={handleFlip}
             onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleFlip(); } }}
-            className={`w-9 h-9 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-full flex items-center justify-center hover:bg-[var(--cc-canvas-soft-2)] transition-all duration-300 shadow-[var(--cc-level2)] ${flipped ? 'rotate-180' : ''} focus-ring`}
+            className={`w-9 h-9 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-sm flex items-center justify-center hover:bg-[var(--cc-canvas-soft-2)] transition-all duration-300 shadow-[var(--cc-level2)] ${flipped ? 'rotate-180' : ''} focus-ring`}
             aria-label="Switch from and to tokens"
           >
             ⇅
@@ -179,7 +179,7 @@ export default function SwapPage() {
         </div>
 
         {/* TO */}
-        <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4 border border-[var(--cc-hairline)]">
+        <div className="bg-[var(--cc-canvas-soft-2)] rounded-sm p-4 border border-[var(--cc-hairline)]">
           <div className="flex justify-between mb-2">
             <span className="cc-caption text-[var(--cc-muted)]">To</span>
             <span className="cc-caption text-[var(--cc-muted)]">Balance: {to.balance} {to.symbol}</span>
@@ -188,10 +188,10 @@ export default function SwapPage() {
             <button
               onClick={() => setShowToSelector(true)}
               onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setShowToSelector(true); } }}
-              className="flex items-center gap-2 px-3 py-2 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-full hover:bg-[var(--cc-canvas-soft-2)] transition-colors shrink-0 focus-ring"
+              className="flex items-center gap-2 px-3 py-2 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-sm hover:bg-[var(--cc-canvas-soft-2)] transition-colors shrink-0 focus-ring"
               aria-label={`Select token to swap to, currently ${to.symbol}`}
             >
-              <span className="w-5 h-5 rounded-full flex items-center justify-center text-caption font-medium text-[var(--cc-ink)]" style={{ backgroundColor: to.color + '20' }} aria-hidden="true">{to.icon}</span>
+              <span className="w-5 h-5 rounded-sm flex items-center justify-center text-caption font-medium text-[var(--cc-ink)]" style={{ backgroundColor: to.color + '20' }} aria-hidden="true">{to.icon}</span>
               <span className="font-medium text-body-sm text-[var(--cc-ink)]">{to.symbol}</span>
               <span className="text-[var(--cc-muted)] text-caption" aria-hidden="true">▾</span>
             </button>
@@ -221,7 +221,7 @@ export default function SwapPage() {
       {amount > 0 && (
         <div className="cc-card-soft mt-4 space-y-3">
           <div className="flex items-center gap-2 mb-2">
-            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[var(--cc-warning)]/10 border border-[var(--cc-warning)]/20 text-[var(--cc-warning)] text-caption font-medium" role="alert">
+            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-sm bg-[var(--cc-warning)]/10 border border-[var(--cc-warning)]/20 text-[var(--cc-warning)] text-caption font-medium" role="alert">
               ⚠️ Mock prices — not live data
             </span>
           </div>
@@ -229,13 +229,13 @@ export default function SwapPage() {
           <div className="flex justify-between text-body-sm"><span className="text-[var(--cc-muted)] cc-body-sm">Network fee</span><span className="text-[var(--cc-success)] font-medium">~$2.34</span></div>
           <div className="flex justify-between items-center text-body-sm">
             <span className="text-[var(--cc-muted)] cc-body-sm">Slippage</span>
-            <div className="flex gap-1 bg-[var(--cc-canvas)] p-1 rounded-md border border-[var(--cc-hairline)]">
+            <div className="flex gap-1 bg-[var(--cc-canvas)] p-1 rounded-sm border border-[var(--cc-hairline)]">
               {['0.1', '0.5', '1.0'].map(s => (
                 <button
                   key={s}
                   onClick={() => setSlippage(s)}
                   onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSlippage(s); } }}
-                  className="cc-tab-ghost !h-6 !px-3 text-caption rounded-md focus-ring"
+                  className="cc-tab-ghost !h-6 !px-3 text-caption rounded-sm focus-ring"
                   data-active={slippage === s}
                   role="radio"
                   aria-checked={slippage === s}
@@ -278,8 +278,8 @@ export default function SwapPage() {
                     <td className="p-4 text-[var(--cc-ink)]"><span className="font-medium">{s.from}</span><span className="text-[var(--cc-muted)] mx-1">→</span><span className="font-medium">{s.to}</span></td>
                     <td className="p-4 text-[var(--cc-body)] font-medium text-caption">{s.route}</td>
                     <td className="p-4">
-                      <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-caption font-medium ${s.status === 'completed' ? 'bg-[var(--cc-success)]/10 text-[var(--cc-success)]' : 'bg-[var(--cc-warning)]/10 text-[var(--cc-warning)]'}`}>
-                        <span className={`w-1.5 h-1.5 rounded-full ${s.status === 'completed' ? 'bg-[var(--cc-success)] animate-pulse' : 'bg-[var(--cc-warning)]'}`} />
+                      <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-sm text-caption font-medium ${s.status === 'completed' ? 'bg-[var(--cc-success)]/10 text-[var(--cc-success)]' : 'bg-[var(--cc-warning)]/10 text-[var(--cc-warning)]'}`}>
+                        <span className={`w-1.5 h-1.5 rounded-sm ${s.status === 'completed' ? 'bg-[var(--cc-success)] animate-pulse' : 'bg-[var(--cc-warning)]'}`} />
                         {s.status}
                       </span>
                     </td>

@@ -1,4 +1,5 @@
 import React from 'react'
+import { AlertTriangle } from 'lucide-react'
 import { useDemo } from '../hooks/useDemo'
 import { AddressDisplay } from './Others'
 
@@ -28,7 +29,7 @@ export function DemoBridge() {
         </div>
       ) : (
         <>
-          <div className="mb-6 p-4 bg-[var(--cc-canvas-soft)] rounded-lg">
+          <div className="mb-6 p-4 bg-[var(--cc-canvas-soft)] rounded-sm">
             <p className="cc-body-xs text-[var(--cc-body)] mb-1">Connected address</p>
             <AddressDisplay address={address!} />
             {chain && (
@@ -81,9 +82,10 @@ export function DemoBridge() {
               </div>
             </div>
 
-            <div className="p-4 bg-[var(--cc-warning)/10] rounded-lg text-body-sm">
+            <div className="p-4 bg-[var(--cc-warning-soft)] rounded-sm text-body-sm flex items-start gap-2">
+              <AlertTriangle className="w-4 h-4 text-[var(--cc-warning)] mt-0.5 flex-shrink-0" />
               <p className="text-[var(--cc-body)]">
-                ⚠️ Simulation mode: Bridge adapter required for production
+                Simulation mode: Bridge adapter required for production
               </p>
             </div>
 

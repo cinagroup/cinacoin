@@ -1,74 +1,68 @@
 /**
- * Cinacoin Tailwind CSS Preset
- * 
- * Vercel-style semantic palette with 4px base spacing.
- * Shared with backend-dashboard for consistency.
+ * Cinacoin × Vercel Design System — Tailwind CSS Preset
+ *
+ * Aligned with Vercel design guidelines:
+ * - Dark mode first (pure black #000000 backgrounds)
+ * - White + black + gray scale, minimal accent (#0070F3)
+ * - Geist Sans + Geist Mono fonts
+ * - 4px border-radius for components, 0px for marketing pages
+ * - Semi-transparent borders (1px)
+ * - 300ms eased transitions
  */
 
 import type { Config } from "tailwindcss";
 
 const cinacoinPreset: Config = {
   content: [],
+  darkMode: "class",
   theme: {
     extend: {
       // ═══════════════════════════════════════════════════════════════
-      // COLORS - Vercel-style semantic palette
+      // COLORS - Vercel-style semantic palette (dark-first)
       // ═══════════════════════════════════════════════════════════════
       colors: {
-        primary: {
-          DEFAULT: '#171717',
-          foreground: '#ffffff',
-        },
-        canvas: {
-          DEFAULT: '#ffffff',
-          soft: '#fafafa',
-          'soft-2': '#f5f5f5',
-        },
-        ink: {
-          DEFAULT: '#171717',
-          body: '#4d4d4d',
-          mute: '#888888',
-        },
-        mute: '#888888',
-        hairline: {
-          DEFAULT: '#ebebeb',
-          dark: '#d4d4d4',
-        },
-        link: {
-          DEFAULT: '#0070f3',
-          hover: '#0051a8',
-        },
-        error: {
-          DEFAULT: '#ee0000',
-          light: '#fee2e2',
-        },
-        success: {
-          DEFAULT: '#059669',
-          light: '#ecfdf5',
-        },
-        warning: {
-          DEFAULT: '#f5a623',
-          light: '#fffbeb',
-        },
-        chart: {
-          1: '#0070f3',
-          2: '#7928ca',
-          3: '#0091ff',
-          4: '#f5a623',
-          5: '#737373',
-        },
         gray: {
-          50: '#fafafa',
-          100: '#f5f5f5',
-          200: '#e5e5e5',
-          300: '#d4d4d4',
-          400: '#a3a3a3',
-          500: '#737373',
-          600: '#525252',
-          700: '#404040',
-          800: '#262626',
-          900: '#171717',
-          950: '#0a0a0a',
+          100: "#F7F7F7",
+          200: "#E5E5E5",
+          300: "#D4D4D4",
+          400: "#A3A3A3",
+          500: "#737373",
+          600: "#525252",
+          700: "#404040",
+          800: "#262626",
+          900: "#171717",
+        },
+        // Semantic tokens mapping to CSS variables (dark-first)
+        ink: "var(--cc-ink)",
+        body: "var(--cc-body)",
+        muted: "var(--cc-muted)",
+        canvas: {
+          DEFAULT: "var(--cc-canvas)",
+          soft: "var(--cc-canvas-soft)",
+          soft2: "var(--cc-canvas-soft-2)",
+        },
+        hairline: {
+          DEFAULT: "var(--cc-hairline)",
+          strong: "var(--cc-hairline-strong)",
+        },
+        // Link / accent color — the ONE allowed accent
+        link: { DEFAULT: "#0070f3", deep: "#0761d1", bgSoft: "var(--cc-link-bg-soft)" },
+        // Semantic status colors
+        success: { DEFAULT: "#0070f3", bg: "var(--cc-success-bg)" },
+        warning: { DEFAULT: "#f5a623", bg: "var(--cc-warning-bg)" },
+        danger: { DEFAULT: "#ee0000", bg: "var(--cc-error-bg)" },
+        error: { DEFAULT: "#ee0000", bg: "var(--cc-error-bg)", light: "var(--cc-error-bg)" },
+        info: { DEFAULT: "#0070f3", bg: "var(--cc-info-bg)" },
+        // Selection
+        selection: { bg: "var(--cc-selection-bg)", fg: "var(--cc-selection-fg)" },
+        // Gradient stops (hero mesh gradient — use sparingly)
+        gradient: {
+          developStart: "#007cf0",
+          developEnd: "#00dfd8",
+          previewStart: "#7928ca",
+          previewEnd: "#ff0080",
+          shipStart: "#ff4d4d",
+          shipEnd: "#f9cb28",
         },
       },
 
@@ -89,12 +83,18 @@ const cinacoinPreset: Config = {
       },
 
       // ═══════════════════════════════════════════════════════════════
-      // BORDER RADIUS
+      // BORDER RADIUS - 4px for components
       // ═══════════════════════════════════════════════════════════════
       borderRadius: {
-        sm: '6px',
-        md: '8px',
-        lg: '12px',
+        none: '0px',
+        xs: '2px',
+        sm: '4px',
+        md: '4px',
+        lg: '4px',
+        xl: '4px',
+        '2xl': '4px',
+        '3xl': '4px',
+        full: '9999px',
       },
 
       // ═══════════════════════════════════════════════════════════════
@@ -111,8 +111,8 @@ const cinacoinPreset: Config = {
       // TYPOGRAPHY
       // ═══════════════════════════════════════════════════════════════
       fontFamily: {
-        sans: ['Geist', 'Inter', 'system-ui', 'sans-serif'],
-        mono: ['Geist Mono', 'ui-monospace', 'monospace'],
+        sans: ['var(--font-geist-sans)', 'Geist Sans', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-geist-mono)', 'Geist Mono', 'ui-monospace', 'monospace'],
       },
 
       fontWeight: {
@@ -148,15 +148,17 @@ const cinacoinPreset: Config = {
       },
 
       // ═══════════════════════════════════════════════════════════════
-      // TRANSITIONS
+      // TRANSITIONS - 300ms ease-out
       // ═══════════════════════════════════════════════════════════════
       transitionDuration: {
+        DEFAULT: '300ms',
         fast: '150ms',
         normal: '200ms',
         slow: '300ms',
       },
 
       transitionTimingFunction: {
+        DEFAULT: 'ease-out',
         'cinacoin': 'cubic-bezier(0.4, 0, 0.2, 1)',
       },
     },

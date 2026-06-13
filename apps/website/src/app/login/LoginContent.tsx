@@ -77,7 +77,7 @@ export default function LoginContent() {
             </p>
 
             {error && (
-              <div className="mb-4 p-3 rounded-lg border border-[var(--cc-error)]/30 bg-[var(--cc-error)]/10 cc-body-sm text-[var(--cc-error)]" role="alert">
+              <div className="mb-4 p-3 rounded-sm border border-[var(--cc-error)]/30 bg-[var(--cc-error)]/10 cc-body-sm text-[var(--cc-error)]" role="alert">
                 ✗ {error}
               </div>
             )}

@@ -149,7 +149,7 @@ export default React.memo(function TransactionAnalytics() {
         </div>
         <div className="space-y-sm">
           {transactionData.slice(-5).map((d) => (
-            <div key={d.date} className="flex items-center justify-between p-sm bg-[var(--cc-canvas-soft)] rounded-md">
+            <div key={d.date} className="flex items-center justify-between p-sm bg-[var(--cc-canvas-soft)] rounded-sm">
               <div>
                 <p className="text-body-sm font-medium text-[var(--cc-ink)]">{d.date}</p>
                 <p className="text-caption text-[var(--cc-muted)]">{d.count.toLocaleString()} transactions</p>
@@ -185,7 +185,7 @@ export default React.memo(function TransactionAnalytics() {
                   <span className="text-body-sm font-medium text-[var(--cc-ink)] w-12 text-right">{f.percentage}%</span>
                 </div>
               </div>
-              <div className="h-2 bg-[var(--cc-canvas-soft-2)] rounded-full overflow-hidden">
+              <div className="h-2 bg-[var(--cc-canvas-soft-2)] rounded-sm overflow-hidden">
                 <div
                   className="h-full bg-[var(--cc-error)] transition-all duration-500"
                   style={{ width: `${f.percentage}%` }}
@@ -196,7 +196,7 @@ export default React.memo(function TransactionAnalytics() {
         </div>
 
         {/* Failure Rate */}
-        <div className="mt-lg p-md bg-[var(--cc-error-light)] rounded-md">
+        <div className="mt-lg p-md bg-[var(--cc-error-light)] rounded-sm">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-body-sm font-medium text-[var(--cc-error)]">Overall Failure Rate</p>

@@ -5,7 +5,7 @@
   "source": "@site/docs/api/custom-connectors.md",
   "sourceDirName": "api",
   "slug": "/api/custom-connectors",
-  "permalink": "/docs/api/custom-connectors",
+  "permalink": "/api/custom-connectors",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/custom-connectors.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "Cross-chain sync.",
-    "permalink": "/docs/api/cross-chain-sync"
+    "permalink": "/api/cross-chain-sync"
   },
   "next": {
     "title": "Deposit.",
-    "permalink": "/docs/api/deposit"
+    "permalink": "/api/deposit"
   }
 }

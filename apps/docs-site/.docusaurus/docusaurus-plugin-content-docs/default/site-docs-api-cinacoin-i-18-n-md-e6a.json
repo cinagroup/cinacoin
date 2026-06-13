@@ -5,7 +5,7 @@
   "source": "@site/docs/api/cinacoin-i18n.md",
   "sourceDirName": "api",
   "slug": "/api/cinacoin-i18n",
-  "permalink": "/docs/api/cinacoin-i18n",
+  "permalink": "/api/cinacoin-i18n",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/cinacoin-i18n.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "CDN.",
-    "permalink": "/docs/api/cdn"
+    "permalink": "/api/cdn"
   },
   "next": {
     "title": "CinaCoin UI theme.",
-    "permalink": "/docs/api/cinacoin-ui-theme"
+    "permalink": "/api/cinacoin-ui-theme"
   }
 }

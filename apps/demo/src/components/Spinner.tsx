@@ -19,9 +19,9 @@ export function SpinnerRing({ size = 'md', color = 'text-[var(--cc-link)]' }: { 
 export function SpinnerDots({ color = 'text-[var(--cc-link)]' }: { color?: string }) {
   return (
     <span className={`inline-flex items-center gap-1 ${color}`} role="status" aria-label="Loading">
-      <span className="w-2 h-2 rounded-full bg-current animate-[dot-bounce_1.2s_ease-in-out_infinite]" />
-      <span className="w-2 h-2 rounded-full bg-current animate-[dot-bounce_1.2s_ease-in-out_infinite_0.15s]" />
-      <span className="w-2 h-2 rounded-full bg-current animate-[dot-bounce_1.2s_ease-in-out_infinite_0.3s]" />
+      <span className="w-2 h-2 rounded-sm bg-current animate-[dot-bounce_1.2s_ease-in-out_infinite]" />
+      <span className="w-2 h-2 rounded-sm bg-current animate-[dot-bounce_1.2s_ease-in-out_infinite_0.15s]" />
+      <span className="w-2 h-2 rounded-sm bg-current animate-[dot-bounce_1.2s_ease-in-out_infinite_0.3s]" />
     </span>
   );
 }
@@ -34,9 +34,9 @@ export function SpinnerPulse({ size = 'md', color = 'text-[var(--cc-link)]' }: {
   };
   return (
     <div className={`relative ${sizeClasses[size]}`} role="status" aria-label="Loading">
-      <div className={`absolute inset-0 rounded-full border-2 border-t-current ${color} animate-spin`} />
-      <div className={`absolute inset-1 rounded-full border-2 border-b-current opacity-40 ${color} animate-spin`} style={{ animationDirection: 'reverse', animationDuration: '1.5s' }} />
-      <div className={`absolute inset-2 rounded-full border-2 border-r-current opacity-20 ${color} animate-spin`} style={{ animationDuration: '2s' }} />
+      <div className={`absolute inset-0 rounded-sm border-2 border-t-current ${color} animate-spin`} />
+      <div className={`absolute inset-1 rounded-sm border-2 border-b-current opacity-40 ${color} animate-spin`} style={{ animationDirection: 'reverse', animationDuration: '1.5s' }} />
+      <div className={`absolute inset-2 rounded-sm border-2 border-r-current opacity-20 ${color} animate-spin`} style={{ animationDuration: '2s' }} />
     </div>
   );
 }

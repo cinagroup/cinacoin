@@ -10,6 +10,7 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@cinacoin/design-tokens": "workspace:*",
     "@cinacoin/logger": "workspace:*",
     "@cinacoin/next": "workspace:^",
     "lucide-react": "^1.17.0",

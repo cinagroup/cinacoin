@@ -73,12 +73,12 @@ export default function ContactContent() {
                 <form className="space-y-5" onSubmit={handleSubmit}>
                   {/* Success / Error feedback */}
                   {status === 'success' && (
-                    <div className="rounded-lg border border-[var(--cc-success)]/30 bg-[var(--cc-success)]/10 px-4 py-3 cc-body-sm text-[var(--cc-success)]" role="status">
+                    <div className="rounded-sm border border-[var(--cc-success)]/30 bg-[var(--cc-success)]/10 px-4 py-3 cc-body-sm text-[var(--cc-success)]" role="status">
                       ✓ {t('contact-form-success') || 'Message sent successfully!'}
                     </div>
                   )}
                   {status === 'error' && (
-                    <div className="rounded-lg border border-[var(--cc-error)]/30 bg-[var(--cc-error)]/10 px-4 py-3 cc-body-sm text-[var(--cc-error)]" role="alert">
+                    <div className="rounded-sm border border-[var(--cc-error)]/30 bg-[var(--cc-error)]/10 px-4 py-3 cc-body-sm text-[var(--cc-error)]" role="alert">
                       ✗ {errorMsg}
                     </div>
                   )}

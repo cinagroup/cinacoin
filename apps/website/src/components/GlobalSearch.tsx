@@ -92,7 +92,7 @@ export function GlobalSearch() {
       <button
         onClick={() => setIsOpen(true)}
         aria-label="Open search (Cmd+K)"
-        className="flex items-center gap-2 px-3 py-2 text-body-sm text-[var(--cc-body)] bg-[var(--cc-canvas-soft)] border border-[var(--cc-hairline)] rounded-lg hover:border-[var(--cc-link)] transition-colors"
+        className="flex items-center gap-2 px-3 py-2 text-body-sm text-[var(--cc-body)] bg-[var(--cc-canvas-soft)] border border-[var(--cc-hairline)] rounded-sm hover:border-[var(--cc-link)] transition-colors"
       >
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -106,7 +106,7 @@ export function GlobalSearch() {
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 bg-[var(--cc-ink)]/50" onClick={() => setIsOpen(false)}>
       <div 
-        className="w-full max-w-2xl bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-xl shadow-2xl"
+        className="w-full max-w-2xl bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-sm shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* 搜索输入 */}
@@ -151,11 +151,11 @@ export function GlobalSearch() {
                 <li key={result.id}>
                   <button
                     onClick={() => navigateTo(result.url)}
-                    className={`w-full flex items-start gap-3 px-3 py-2 rounded-lg text-left transition-colors ${
+                    className={`w-full flex items-start gap-3 px-3 py-2 rounded-sm text-left transition-colors ${
                       index === selectedIndex ? 'bg-[var(--cc-link)]/10' : 'hover:bg-[var(--cc-canvas-soft)]'
                     }`}
                   >
-                    <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-[var(--cc-canvas-soft-2)] flex items-center justify-center text-caption">
+                    <span className="flex-shrink-0 w-8 h-8 rounded-sm bg-[var(--cc-canvas-soft-2)] flex items-center justify-center text-caption">
                       {result.type === 'page' && <File className="h-4 w-4" />}
                       {result.type === 'doc' && <BookOpen className="h-4 w-4" />}
                       {result.type === 'product' && <Package className="h-4 w-4" />}

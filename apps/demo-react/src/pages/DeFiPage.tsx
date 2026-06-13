@@ -117,12 +117,12 @@ export function DeFiPage() {
         <p className="cc-body-md text-[var(--cc-body)] mb-6">LP staking and token swaps.</p>
 
         {/* Tab switcher */}
-        <div className="flex gap-1 mb-5 bg-[var(--cc-canvas-soft-2)] rounded-lg p-1 w-fit border border-[var(--cc-hairline)]">
+        <div className="flex gap-1 mb-5 bg-[var(--cc-canvas-soft-2)] rounded-sm p-1 w-fit border border-[var(--cc-hairline)]">
           {(['pools', 'swap'] as Tab[]).map((t) => (
             <button
               key={t}
               onClick={() => setTab(t)}
-              className={`px-5 py-2 rounded-md border-none cursor-pointer text-body-sm font-medium transition-all focus-ring ${
+              className={`px-5 py-2 rounded-sm border-none cursor-pointer text-body-sm font-medium transition-all focus-ring ${
                 tab === t
                   ? 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)]'
                   : 'bg-transparent text-[var(--cc-body)] hover:text-[var(--cc-ink)]'
@@ -228,7 +228,7 @@ export function DeFiPage() {
                   setSwapFrom(swapTo);
                   setSwapTo(swapFrom);
                 }}
-                className="w-9 h-9 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-full flex items-center justify-center hover:bg-[var(--cc-canvas-soft-2)] transition-all shadow-[var(--cc-level2)] focus-ring"
+                className="w-9 h-9 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-sm flex items-center justify-center hover:bg-[var(--cc-canvas-soft-2)] transition-all shadow-[var(--cc-level2)] focus-ring"
                 aria-label="Swap from and to tokens"
               >
                 ⇅
@@ -261,7 +261,7 @@ export function DeFiPage() {
 
             {/* Rate info */}
             {swapAmount && (
-              <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-3 mb-4 text-caption text-[var(--cc-muted)] border border-[var(--cc-hairline)]">
+              <div className="bg-[var(--cc-canvas-soft-2)] rounded-sm p-3 mb-4 text-caption text-[var(--cc-muted)] border border-[var(--cc-hairline)]">
                 1 {swapFrom} = {mockRate} {swapTo} · Slippage 0.5%
               </div>
             )}
@@ -275,7 +275,7 @@ export function DeFiPage() {
             </button>
 
             {swapResult && (
-              <div className="mt-4 p-3 bg-[var(--cc-success-bg)] rounded-lg text-[var(--cc-success)] text-body-sm text-center flex items-center justify-center gap-2 border border-[var(--cc-success)]/20">
+              <div className="mt-4 p-3 bg-[var(--cc-success-bg)] rounded-sm text-[var(--cc-success)] text-body-sm text-center flex items-center justify-center gap-2 border border-[var(--cc-success)]/20">
                 <CheckCircle2 className="w-4 h-4" /> {swapResult}
               </div>
             )}

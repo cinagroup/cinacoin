@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { CreditCard, ArrowRight, Loader2, CheckCircle2, AlertCircle, RefreshCw } from "lucide-react";
+import { CreditCard, ArrowRight, Loader2, CheckCircle2, AlertCircle, RefreshCw, Moon, Zap, Diamond } from "lucide-react";
 import DemoLayout from "@/components/DemoLayout";
 import { useWallet, shortenAddress } from "@/lib/useWallet";
 import { useToast } from "@/lib/toast";
@@ -11,7 +11,7 @@ const PROVIDERS = [
   {
     id: "moonpay",
     name: "MoonPay",
-    logo: "🌙",
+    icon: Moon,
     amount: 100,
     receiveAmount: "0.0263",
     fee: "2.99",
@@ -21,7 +21,7 @@ const PROVIDERS = [
   {
     id: "transak",
     name: "Transak",
-    logo: "⚡",
+    icon: Zap,
     amount: 100,
     receiveAmount: "0.0261",
     fee: "3.49",
@@ -31,7 +31,7 @@ const PROVIDERS = [
   {
     id: "ramp",
     name: "Ramp Network",
-    logo: "🔷",
+    icon: Diamond,
     amount: 100,
     receiveAmount: "0.0259",
     fee: "1.50",
@@ -98,7 +98,7 @@ export default function OnRampPage() {
       <DemoLayout>
         <div className="max-w-md mx-auto px-4 py-12 text-center cc-page-enter">
           <div className="mb-6 flex justify-center">
-            <div className="w-16 h-16 rounded-full bg-[var(--cc-success)]/15 border border-[var(--cc-success)]/25 flex items-center justify-center">
+            <div className="w-16 h-16 rounded-sm bg-[var(--cc-success)]/15 border border-[var(--cc-success)]/25 flex items-center justify-center">
               <CheckCircle2 className="w-8 h-8 text-[var(--cc-success)]" />
             </div>
           </div>
@@ -170,7 +170,7 @@ export default function OnRampPage() {
               <button
                 key={preset}
                 onClick={() => setAmount(preset)}
-                className={`flex-1 py-1.5 text-caption font-medium rounded-full transition-all ${
+                className={`flex-1 py-1.5 text-caption font-medium rounded-sm transition-all ${
                   amount === preset
                     ? 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)]'
                     : 'bg-[var(--cc-canvas-soft-2)] text-[var(--cc-muted)] hover:text-[var(--cc-ink)] border border-[var(--cc-hairline)]'
@@ -217,8 +217,8 @@ export default function OnRampPage() {
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] flex items-center justify-center text-body-lg">
-                      {provider.logo}
+                    <div className="w-10 h-10 rounded-sm bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] flex items-center justify-center">
+                      <provider.icon className="w-5 h-5 text-[var(--cc-ink)]" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">

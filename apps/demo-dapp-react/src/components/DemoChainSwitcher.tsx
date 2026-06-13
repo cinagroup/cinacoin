@@ -11,10 +11,10 @@ interface ChainInfo {
 }
 
 const CHAIN_DETAILS: Record<number, ChainInfo> = {
-  11155111: { id: 11155111, name: 'Sepolia', symbol: 'ETH', color: 'var(--cc-chain-ethereum)' },
-  80002: { id: 80002, name: 'Amoy (Polygon)', symbol: 'MATIC', color: 'var(--cc-chain-polygon)' },
-  1: { id: 1, name: 'Ethereum Mainnet', symbol: 'ETH', color: 'var(--cc-chain-ethereum)' },
-  137: { id: 137, name: 'Polygon', symbol: 'MATIC', color: 'var(--cc-chain-polygon)' },
+  11155111: { id: 11155111, name: 'Sepolia', symbol: 'ETH', color: 'var(--cc-muted)' },
+  80002: { id: 80002, name: 'Amoy (Polygon)', symbol: 'MATIC', color: 'var(--cc-body)' },
+  1: { id: 1, name: 'Ethereum Mainnet', symbol: 'ETH', color: 'var(--cc-ink)' },
+  137: { id: 137, name: 'Polygon', symbol: 'MATIC', color: 'var(--cc-body)' },
 };
 
 /** DemoChainSwitcher — showcase chain switching and info display. */

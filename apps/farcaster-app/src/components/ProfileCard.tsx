@@ -26,7 +26,7 @@ export const ProfileCard = React.memo(function ProfileCard({
 }: ProfileCardProps) {
   if (loading) {
     return (
-      <div className="bg-[var(--cc-canvas-soft-2)] rounded-2xl p-6 border border-[var(--cc-hairline)] animate-pulse">
+      <div className="bg-[var(--cc-canvas-soft-2)] rounded-sm p-6 border border-[var(--cc-hairline)] animate-pulse">
         <div className="flex items-center space-x-4">
           <div className="w-16 h-16 bg-[var(--cc-canvas-soft-2)] rounded-full" />
           <div className="space-y-2">
@@ -40,7 +40,7 @@ export const ProfileCard = React.memo(function ProfileCard({
 
   if (!user) {
     return (
-      <div className="bg-[var(--cc-canvas-soft-2)] rounded-2xl p-6 border border-[var(--cc-hairline)] text-center">
+      <div className="bg-[var(--cc-canvas-soft-2)] rounded-sm p-6 border border-[var(--cc-hairline)] text-center">
         <div className="w-16 h-16 mx-auto bg-[var(--cc-canvas-soft-2)] rounded-full flex items-center justify-center mb-4">
           <User className="w-8 h-8 text-[var(--cc-mute)]" aria-hidden="true" />
         </div>
@@ -54,7 +54,7 @@ export const ProfileCard = React.memo(function ProfileCard({
   const displayName = user.display_name ?? user.username;
 
   return (
-    <div className="bg-[var(--cc-canvas-soft-2)] rounded-2xl p-6 border border-[var(--cc-hairline)] space-y-4">
+    <div className="bg-[var(--cc-canvas-soft-2)] rounded-sm p-6 border border-[var(--cc-hairline)] space-y-4">
       {/* Header */}
       <div className="flex items-center space-x-4">
         {user.pfp_url ? (
@@ -90,11 +90,11 @@ export const ProfileCard = React.memo(function ProfileCard({
 
       {/* Stats Grid */}
       <div className="grid grid-cols-2 gap-3">
-        <div className="bg-[var(--cc-canvas-soft-2)] rounded-xl p-3">
+        <div className="bg-[var(--cc-canvas-soft-2)] rounded-sm p-3">
           <p className="text-caption text-[var(--cc-mute)] mb-1">Farcaster FID</p>
           <p className="text-[var(--cc-ink)] font-[family-name:var(--font-geist-mono)]">{user.fid}</p>
         </div>
-        <div className="bg-[var(--cc-canvas-soft-2)] rounded-xl p-3">
+        <div className="bg-[var(--cc-canvas-soft-2)] rounded-sm p-3">
           <p className="text-caption text-[var(--cc-mute)] mb-1">Wallet</p>
           <p className="text-[var(--cc-ink)] font-[family-name:var(--font-geist-mono)] text-caption truncate">
             {walletAddress
@@ -106,7 +106,7 @@ export const ProfileCard = React.memo(function ProfileCard({
 
       {/* Verified Addresses */}
       {(verifiedAddress || user.custody_address) && (
-        <div className="bg-[var(--cc-canvas-soft-2)] rounded-xl p-3 space-y-2">
+        <div className="bg-[var(--cc-canvas-soft-2)] rounded-sm p-3 space-y-2">
           <p className="text-caption text-[var(--cc-mute)]">Verified Addresses</p>
           {verifiedAddress && (
             <p className="text-body-sm text-[var(--cc-success)] font-[family-name:var(--font-geist-mono)] truncate">

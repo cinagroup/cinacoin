@@ -43,7 +43,7 @@ function Sidebar({ links, mobileOpen, onClose }: { links: NavLink[]; mobileOpen:
               key={item.href}
               href={item.href}
               onClick={onClose}
-              className={`relative flex items-center px-3 py-2 rounded-[6px] text-[14px] font-[400] leading-[20px] tracking-[-0.28px] transition-colors ${
+              className={`relative flex items-center px-3 py-2 rounded-sm text-[14px] font-[400] leading-[20px] tracking-[-0.28px] transition-colors ${
                 isActive
                   ? 'text-[var(--cc-ink)] font-[500] bg-[var(--cc-canvas-soft-2)]'
                   : 'text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft-2)]/60'
@@ -97,7 +97,7 @@ export default function DemoLayout({ children }: { children: ReactNode }) {
         <div className="lg:hidden sticky top-0 z-40 bg-[var(--cc-canvas)] border-b border-[var(--cc-hairline)] h-14 flex items-center px-4">
           <button
             onClick={() => setMobileOpen(true)}
-            className="p-2 -ml-2 rounded-[6px] text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft-2)] transition-colors"
+            className="p-2 -ml-2 rounded-sm text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft-2)] transition-colors"
             aria-label="Open menu"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

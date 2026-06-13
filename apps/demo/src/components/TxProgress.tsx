@@ -30,7 +30,7 @@ export default function TxProgress({ steps }: { steps: TxStep[] }) {
   const errorIdx = steps.findIndex((s) => s.status === 'error');
 
   return (
-    <div className="mx-5 mb-5 p-4 bg-[var(--cc-canvas)]/60 rounded-md border border-[var(--cc-hairline-strong)]/30 animate-slide-up">
+    <div className="mx-5 mb-5 p-4 bg-[var(--cc-canvas)]/60 rounded-sm border border-[var(--cc-hairline-strong)]/30 animate-slide-up">
       <div className="space-y-3">
         {steps.map((step, i) => {
           const isDone = step.status === 'done';
@@ -43,7 +43,7 @@ export default function TxProgress({ steps }: { steps: TxStep[] }) {
               {/* Step indicator */}
               <div className="flex flex-col items-center">
                 <div
-                  className={`flex items-center justify-center w-8 h-8 rounded-full border-2 transition-all duration-300 ${
+                  className={`flex items-center justify-center w-8 h-8 rounded-sm border-2 transition-all duration-300 ${
                     isDone
                       ? 'bg-[var(--cc-success)]/20 border-[var(--cc-success)]/60 text-[var(--cc-success)]'
                       : isActive
@@ -92,9 +92,9 @@ export default function TxProgress({ steps }: { steps: TxStep[] }) {
 
       {/* Overall progress bar */}
       <div className="mt-3 pt-3 border-t border-[var(--cc-hairline-strong)]/30">
-        <div className="h-2 bg-[var(--cc-canvas-soft-2)] rounded-full overflow-hidden">
+        <div className="h-2 bg-[var(--cc-canvas-soft-2)] rounded-sm overflow-hidden">
           <div
-            className={`h-full rounded-full transition-all duration-500 ease-out ${
+            className={`h-full rounded-sm transition-all duration-500 ease-out ${
               errorIdx >= 0
                 ? 'bg-[var(--cc-error)]'
                 : steps.every((s) => s.status === 'done')

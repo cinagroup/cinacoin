@@ -70,7 +70,7 @@ export default function SwapPage() {
       </div>
 
       <div className="cc-card">
-        <div className="mb-6 flex items-center justify-between rounded-lg bg-[var(--cc-canvas-soft-2)] p-4">
+        <div className="mb-6 flex items-center justify-between rounded-sm bg-[var(--cc-canvas-soft-2)] p-4">
           <div>
             <p className="text-caption text-mute">Available balance</p>
             <p className="mt-1 text-display-sm text-[var(--cc-ink)]">{balance} CINA</p>
@@ -81,7 +81,7 @@ export default function SwapPage() {
         </div>
 
         {swapped && (
-          <div className="mb-6 rounded-lg bg-success-light p-4 text-body-sm" role="alert" style={{ color: 'var(--color-success)' }}>
+          <div className="mb-6 rounded-sm bg-success-light p-4 text-body-sm" role="alert" style={{ color: 'var(--color-success)' }}>
             ✓ Swap submitted successfully.
           </div>
         )}
@@ -121,7 +121,7 @@ export default function SwapPage() {
             <button
               type="button"
               onClick={handleReverseTokens}
-              className="p-2 rounded-lg bg-[var(--cc-canvas-soft-2)] hover:bg-[var(--cc-canvas-soft)] transition-colors"
+              className="p-2 rounded-sm bg-[var(--cc-canvas-soft-2)] hover:bg-[var(--cc-canvas-soft)] transition-colors"
               aria-label="Reverse token direction"
             >
               <svg className="w-5 h-5 text-body" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -158,7 +158,7 @@ export default function SwapPage() {
 
           {/* Exchange Rate Info */}
           {fromAmount && toAmount && rate && (
-            <div className="rounded-lg bg-[var(--cc-canvas-soft-2)] p-4 space-y-2">
+            <div className="rounded-sm bg-[var(--cc-canvas-soft-2)] p-4 space-y-2">
               <div className="flex justify-between text-body-sm">
                 <span className="text-mute">Exchange rate</span>
                 <span className="text-[var(--cc-ink)] font-[var(--font-mono)]">

@@ -122,7 +122,7 @@ export default function SettingsPage() {
       </div>
 
       {saved && (
-        <div className="rounded-lg bg-success-light p-4 text-body-sm text-center" role="alert" style={{ color: 'var(--color-success)' }}>
+        <div className="rounded-sm bg-success-light p-4 text-body-sm text-center" role="alert" style={{ color: 'var(--color-success)' }}>
           ✓ Settings saved successfully.
         </div>
       )}

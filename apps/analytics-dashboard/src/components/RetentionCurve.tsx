@@ -133,7 +133,7 @@ export default React.memo(function RetentionCurve() {
       {/* Period Selector */}
       <div className="flex items-center justify-between flex-wrap gap-sm">
         <h3 className="text-heading-3 text-[var(--cc-ink)]">User retention</h3>
-        <div className="flex bg-[var(--cc-canvas-soft-2)] rounded-md p-xxs">
+        <div className="flex bg-[var(--cc-canvas-soft-2)] rounded-sm p-xxs">
           {(["daily", "weekly", "monthly"] as const).map((p) => (
             <button
               key={p}

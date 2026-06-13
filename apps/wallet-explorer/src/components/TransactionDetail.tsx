@@ -46,15 +46,15 @@ export default function TransactionDetail({ tx }: TransactionDetailProps) {
         </div>
 
         <div className="grid gap-4 sm:grid-cols-3">
-          <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4">
+          <div className="bg-[var(--cc-canvas-soft-2)] rounded-sm p-4">
             <p className="text-caption text-mute">Value.</p>
             <p className="mt-1 text-display-sm text-[var(--cc-ink)]">{tx.value} CINA</p>
           </div>
-          <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4">
+          <div className="bg-[var(--cc-canvas-soft-2)] rounded-sm p-4">
             <p className="text-caption text-mute">Transaction fee.</p>
             <p className="mt-1 text-display-sm text-[var(--cc-ink)]">{tx.fee} CINA</p>
           </div>
-          <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4">
+          <div className="bg-[var(--cc-canvas-soft-2)] rounded-sm p-4">
             <p className="text-caption text-mute">Confirmations.</p>
             <p className="mt-1 text-display-sm text-[var(--cc-ink)]">{tx.confirmations.toLocaleString()}</p>
           </div>

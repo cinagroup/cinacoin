@@ -138,7 +138,7 @@ export function NFTPage() {
                 }`}
                 aria-label={`View ${nft.name} details`}
               >
-                <div className="text-4xl text-center mb-3 bg-[var(--cc-canvas-soft-2)] rounded-lg p-4 font-[var(--font-mono)] text-[var(--cc-muted)]">
+                <div className="text-4xl text-center mb-3 bg-[var(--cc-canvas-soft-2)] rounded-sm p-4 font-[var(--font-mono)] text-[var(--cc-muted)]">
                   {nft.image}
                 </div>
                 <h3 className="text-body-sm font-semibold text-[var(--cc-ink)] mb-1 truncate">
@@ -160,13 +160,13 @@ export function NFTPage() {
             aria-label={`${selectedNFT.name} details`}
           >
             <div onClick={(e) => e.stopPropagation()} className="cc-card-lg max-w-[400px] w-full">
-              <div className="text-7xl text-center mb-4 bg-[var(--cc-canvas-soft-2)] rounded-lg p-6 font-[var(--font-mono)] text-[var(--cc-muted)]">
+              <div className="text-7xl text-center mb-4 bg-[var(--cc-canvas-soft-2)] rounded-sm p-6 font-[var(--font-mono)] text-[var(--cc-muted)]">
                 {selectedNFT.image}
               </div>
               <h3 className="cc-display-sm mb-1">{selectedNFT.name}</h3>
               <p className="cc-body-sm text-[var(--cc-muted)] mb-4">{selectedNFT.collection}</p>
 
-              <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4 border border-[var(--cc-hairline)]">
+              <div className="bg-[var(--cc-canvas-soft-2)] rounded-sm p-4 border border-[var(--cc-hairline)]">
                 <h4 className="cc-caption-mono text-[var(--cc-muted)] mb-2">Traits</h4>
                 {selectedNFT.traits.map((trait) => (
                   <div key={trait.key} className="flex justify-between mb-2 last:mb-0">

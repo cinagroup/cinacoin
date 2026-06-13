@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@cinacoin/core-sdk": "workspace:*",
+    "@cinacoin/design-tokens": "workspace:*",
     "@cinacoin/nft-display": "workspace:*",
     "@cinacoin/react": "workspace:*",
     "geist": "^1.7.2",

@@ -69,7 +69,7 @@ export default function Header({
             href="/"
             className="flex items-center gap-2 text-display-sm font-semibold text-[var(--cc-ink)] shrink-0"
           >
-            <Image src="/demo/logo.png" alt="CinaCoin" width={32} height={32} className="h-8 w-8 rounded-md" />
+            <Image src="/demo/logo.png" alt="CinaCoin" width={32} height={32} className="h-8 w-8 rounded-sm" />
             CinaCoin
           </Link>
 
@@ -84,7 +84,7 @@ export default function Header({
                   key={item.href}
                   href={item.href}
                   aria-current={isActive ? 'page' : undefined}
-                  className={`relative px-3 py-2 rounded-[6px] text-body-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cc-link)] focus-visible:ring-offset-2 ${
+                  className={`relative px-3 py-2 rounded-sm text-body-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cc-link)] focus-visible:ring-offset-2 ${
                     isActive
                       ? 'text-[var(--cc-ink)]'
                       : 'text-[var(--cc-body)] hover:text-[var(--cc-ink)]'
@@ -104,7 +104,7 @@ export default function Header({
             {/* Theme toggle */}
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-full text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-hairline)]/50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cc-link)] focus-visible:ring-offset-2"
+              className="p-2 rounded-sm text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-hairline)]/50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cc-link)] focus-visible:ring-offset-2"
               aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
               title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
             >
@@ -158,7 +158,7 @@ export default function Header({
             {onConnectWallet && (
               <button
                 onClick={onConnectWallet}
-                className="hidden sm:inline-flex px-4 py-2 rounded-[6px] text-body-sm font-semibold bg-[var(--cc-primary)] hover:bg-[var(--cc-primary)]/80 text-[var(--cc-on-primary)] transition-all"
+                className="hidden sm:inline-flex px-4 py-2 rounded-sm text-body-sm font-semibold bg-[var(--cc-primary)] hover:bg-[var(--cc-primary)]/80 text-[var(--cc-on-primary)] transition-all"
               >
                 {walletLabel}
               </button>
@@ -167,7 +167,7 @@ export default function Header({
             {/* Mobile Hamburger */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="lg:hidden p-2 rounded-full text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-hairline)]/50 transition-colors"
+              className="lg:hidden p-2 rounded-sm text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-hairline)]/50 transition-colors"
               aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={mobileOpen}
             >
@@ -197,7 +197,7 @@ export default function Header({
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-md text-body-sm font-medium transition-colors ${
+                  className={`flex items-center gap-3 px-4 py-3 rounded-sm text-body-sm font-medium transition-colors ${
                     pathname === item.href
                       ? 'bg-[var(--cc-hairline)] text-[var(--cc-ink)]'
                       : 'text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-hairline)]/50'
@@ -205,7 +205,7 @@ export default function Header({
                 >
                   {label}
                   {pathname === item.href && (
-                    <span className="ml-auto w-2 h-2 rounded-full bg-[var(--cc-link)]" />
+                    <span className="ml-auto w-2 h-2 rounded-sm bg-[var(--cc-link)]" />
                   )}
                 </Link>
               );
@@ -216,7 +216,7 @@ export default function Header({
                   onConnectWallet();
                   setMobileOpen(false);
                 }}
-                className="w-full mt-2 px-4 py-3 rounded-[6px] text-body-sm font-semibold bg-[var(--cc-primary)] hover:bg-[var(--cc-primary)]/80 text-[var(--cc-on-primary)] transition-all"
+                className="w-full mt-2 px-4 py-3 rounded-sm text-body-sm font-semibold bg-[var(--cc-primary)] hover:bg-[var(--cc-primary)]/80 text-[var(--cc-on-primary)] transition-all"
               >
                 {walletLabel}
               </button>

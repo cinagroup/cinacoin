@@ -41,7 +41,7 @@ function ToggleSwitch({ checked, onChange, label }: { checked: boolean; onChange
   return (
     <button
       onClick={() => onChange(!checked)}
-      className={`relative w-12 h-6 rounded-full transition-colors duration-200 min-w-[44px] min-h-[44px] flex items-center ${
+      className={`relative w-12 h-6 rounded-sm transition-colors duration-200 min-w-[44px] min-h-[44px] flex items-center ${
         checked ? 'bg-[var(--cc-link)]' : 'bg-[var(--cc-canvas-soft-2)]'
       }`}
       role="switch"
@@ -49,7 +49,7 @@ function ToggleSwitch({ checked, onChange, label }: { checked: boolean; onChange
       aria-label={label}
     >
       <span
-        className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-[var(--cc-canvas)] shadow-md transition-transform duration-200 ${
+        className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-sm bg-[var(--cc-canvas)] shadow-md transition-transform duration-200 ${
           checked ? 'translate-x-6' : 'translate-x-0'
         }`}
       />
@@ -110,8 +110,8 @@ export default function SettingsPage() {
   useEffect(() => {
     if (theme === 'light') {
       document.documentElement.classList.remove('dark');
-      document.body.style.backgroundColor = 'var(--cc-canvas-soft, #f5f5f5)';
-      document.body.style.color = 'var(--cc-ink, #1a1a1a)';
+      document.body.style.backgroundColor = 'var(--cc-canvas-soft, #0a0a0a)';
+      document.body.style.color = 'var(--cc-ink, #ededed)';
     } else {
       document.documentElement.classList.add('dark');
       document.body.style.backgroundColor = '';
@@ -165,7 +165,7 @@ export default function SettingsPage() {
             <button
               key={s.id}
               onClick={() => setActiveSection(s.id)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-md text-body-sm font-medium transition-all ${
+              className={`flex items-center gap-2 px-4 py-2 rounded-sm text-body-sm font-medium transition-all ${
                 activeSection === s.id
                   ? 'bg-[var(--cc-link)]/15 text-[var(--cc-link)] border border-[var(--cc-primary)]/30'
                   : 'bg-[var(--cc-canvas-soft-2)]/40 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)] hover:border-[var(--cc-hairline-strong)]'
@@ -202,7 +202,7 @@ export default function SettingsPage() {
                       <button
                         key={preset.key}
                         onClick={() => { setTheme(preset.key as 'dark' | 'light' | 'minimal'); success('Theme Updated', preset.label); }}
-                        className={`p-3 rounded-md border text-center transition-all ${
+                        className={`p-3 rounded-sm border text-center transition-all ${
                           theme === preset.key
                             ? 'bg-[var(--cc-link)]/15 border-[var(--cc-primary)]/30 text-[var(--cc-link)]'
                             : 'bg-[var(--cc-canvas-soft-2)]/40 border-[var(--cc-hairline-strong)]/40 hover:border-[var(--cc-hairline-strong)] text-[var(--cc-body)]'
@@ -223,7 +223,7 @@ export default function SettingsPage() {
                   <div className="flex gap-2">
                     <button
                       onClick={() => { setTheme('dark'); success('Theme Updated', 'Switched to dark mode'); }}
-                      className={`px-4 py-2 rounded-md text-body-sm font-medium transition-all flex items-center gap-2 ${
+                      className={`px-4 py-2 rounded-sm text-body-sm font-medium transition-all flex items-center gap-2 ${
                         theme === 'dark'
                           ? 'bg-[var(--cc-link)]/20 text-[var(--cc-link)] border border-[var(--cc-primary)]/30'
                           : 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)]'
@@ -233,7 +233,7 @@ export default function SettingsPage() {
                     </button>
                     <button
                       onClick={() => { setTheme('light'); success('Theme Updated', 'Switched to light mode'); }}
-                      className={`px-4 py-2 rounded-md text-body-sm font-medium transition-all flex items-center gap-2 ${
+                      className={`px-4 py-2 rounded-sm text-body-sm font-medium transition-all flex items-center gap-2 ${
                         theme === 'light'
                           ? 'bg-[var(--cc-link)]/20 text-[var(--cc-link)] border border-[var(--cc-primary)]/30'
                           : 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)]'
@@ -243,7 +243,7 @@ export default function SettingsPage() {
                     </button>
                     <button
                       onClick={() => { setTheme('minimal'); success('Theme Updated', 'Switched to minimal mode'); }}
-                      className={`px-4 py-2 rounded-md text-body-sm font-medium transition-all flex items-center gap-2 ${
+                      className={`px-4 py-2 rounded-sm text-body-sm font-medium transition-all flex items-center gap-2 ${
                         theme === 'minimal'
                           ? 'bg-[var(--cc-link)]/20 text-[var(--cc-link)] border border-[var(--cc-primary)]/30'
                           : 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)]'
@@ -278,7 +278,7 @@ export default function SettingsPage() {
                   <button
                     key={lang.code}
                     onClick={() => { setLanguage(lang.code); success('Language Updated', lang.label); }}
-                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-md transition-all ${
+                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-sm transition-all ${
                       language === lang.code
                         ? 'bg-[var(--cc-link)]/15 border border-[var(--cc-primary)]/30'
                         : 'bg-[var(--cc-canvas-soft-2)]/40 border border-[var(--cc-hairline-strong)]/40 hover:border-[var(--cc-hairline-strong)]'
@@ -323,7 +323,7 @@ export default function SettingsPage() {
                       <button
                         key={chain}
                         onClick={() => { setPreferredChain(chain); success('Network Changed', chain); }}
-                        className={`px-3 py-2 rounded-lg text-caption font-medium transition-all ${
+                        className={`px-3 py-2 rounded-sm text-caption font-medium transition-all ${
                           preferredChain === chain
                             ? 'bg-[var(--cc-link)]/20 text-[var(--cc-link)] border border-[var(--cc-primary)]/30'
                             : 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)]'
@@ -335,7 +335,7 @@ export default function SettingsPage() {
                   </div>
                 </div>
 
-                <div className="p-4 rounded-md bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/40 space-y-3">
+                <div className="p-4 rounded-sm bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/40 space-y-3">
                   <p className="text-body-sm font-medium text-[var(--cc-body)]">Custom RPC Endpoint</p>
                   <div className="flex gap-2">
                     <input
@@ -343,24 +343,24 @@ export default function SettingsPage() {
                       placeholder="https://your-rpc-endpoint.com"
                       value={rpcEndpoint}
                       onChange={(e) => setRpcEndpoint(e.target.value)}
-                      className="flex-1 px-3 py-2 bg-[var(--cc-canvas-soft-2)]/80 border border-[var(--cc-hairline-strong)]/50 rounded-lg text-body-sm text-[var(--cc-body)] placeholder:text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-primary)]/40 font-[var(--font-mono)]"
+                      className="flex-1 px-3 py-2 bg-[var(--cc-canvas-soft-2)]/80 border border-[var(--cc-hairline-strong)]/50 rounded-sm text-body-sm text-[var(--cc-body)] placeholder:text-[var(--cc-body)] focus:outline-none focus:ring-2 focus:ring-[var(--cc-primary)]/40 font-[var(--font-mono)]"
                     />
                     <button
                       onClick={() => { if (rpcEndpoint) success('RPC Updated', rpcEndpoint.slice(0, 30) + '...'); }}
                       disabled={!rpcEndpoint}
-                      className="px-4 py-2 rounded-lg text-body-sm font-semibold bg-[var(--cc-primary)] hover:bg-[var(--cc-link)] text-[var(--cc-ink)] disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+                      className="px-4 py-2 rounded-sm text-body-sm font-semibold bg-[var(--cc-primary)] hover:bg-[var(--cc-link)] text-[var(--cc-ink)] disabled:opacity-40 disabled:cursor-not-allowed transition-all"
                     >
                       Save
                     </button>
                   </div>
                 </div>
 
-                <div className="p-4 rounded-md bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/40">
+                <div className="p-4 rounded-sm bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/40">
                   <p className="text-caption text-[var(--cc-body)] mb-2">Supported RPC Networks</p>
                   {['Ethereum Mainnet', 'Polygon', 'Arbitrum One', 'Base', 'Optimism', 'BNB Chain'].map((rpc) => (
                     <div key={rpc} className="flex items-center justify-between py-2 border-b border-[var(--cc-hairline)]/30 last:border-0">
                       <span className="text-body-sm text-[var(--cc-body)]">{rpc}</span>
-                      <span className="text-caption px-2 py-1 rounded-full bg-[var(--cc-success)]/10 text-[var(--cc-success)] border border-[var(--cc-success)]/20">Active</span>
+                      <span className="text-caption px-2 py-1 rounded-sm bg-[var(--cc-success)]/10 text-[var(--cc-success)] border border-[var(--cc-success)]/20">Active</span>
                     </div>
                   ))}
                 </div>
@@ -409,7 +409,7 @@ export default function SettingsPage() {
                   <ToggleSwitch checked={personalizedOffers} onChange={(v) => { setPersonalizedOffers(v); info('Personalized Offers', v ? 'Enabled' : 'Disabled'); }} />
                 </div>
 
-                <div className="p-4 rounded-md bg-[var(--cc-link)]/10 border border-[var(--cc-primary)]/20">
+                <div className="p-4 rounded-sm bg-[var(--cc-link)]/10 border border-[var(--cc-primary)]/20">
                   <p className="text-body-sm font-medium text-[var(--cc-link)]">Your Data Rights</p>
                   <p className="text-caption text-[var(--cc-muted)] mt-1">
                     You can export or delete your data at any time. All data is stored locally and never sent to third-party servers without your consent.
@@ -417,13 +417,13 @@ export default function SettingsPage() {
                   <div className="flex gap-2 mt-3">
                     <button
                       onClick={() => info('Export', 'Data export started...')}
-                      className="px-3 py-2 rounded-lg text-caption font-medium bg-[var(--cc-link)]/15 text-[var(--cc-link)] border border-[var(--cc-primary)]/30 hover:bg-[var(--cc-link)]/25 transition-all"
+                      className="px-3 py-2 rounded-sm text-caption font-medium bg-[var(--cc-link)]/15 text-[var(--cc-link)] border border-[var(--cc-primary)]/30 hover:bg-[var(--cc-link)]/25 transition-all"
                     >
                       Export Data
                     </button>
                     <button
                       onClick={() => { clearConnectionHistory(); setHistoryCount(0); success('Data Deleted', 'Local data cleared'); }}
-                      className="px-3 py-2 rounded-lg text-caption font-medium bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-[var(--cc-error)]/25 hover:bg-[var(--cc-error)]/25 transition-all"
+                      className="px-3 py-2 rounded-sm text-caption font-medium bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-[var(--cc-error)]/25 hover:bg-[var(--cc-error)]/25 transition-all"
                     >
                       Delete All Data
                     </button>
@@ -444,7 +444,7 @@ export default function SettingsPage() {
               </div>
               <div className="p-5 space-y-3">
                 {connectedApps.map((app) => (
-                  <div key={app.name} className="p-4 rounded-md bg-[var(--cc-canvas)]/40 border border-[var(--cc-hairline)]/40">
+                  <div key={app.name} className="p-4 rounded-sm bg-[var(--cc-canvas)]/40 border border-[var(--cc-hairline)]/40">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <app.icon className="w-6 h-6 text-[var(--cc-body)]" />
@@ -455,7 +455,7 @@ export default function SettingsPage() {
                       </div>
                       <button
                         onClick={() => info('Disconnected', `${app.name} disconnected`)}
-                        className="px-3 py-2 rounded-lg text-caption font-medium bg-[var(--cc-error)]/10 text-[var(--cc-error)] border border-[var(--cc-error)]/20 hover:bg-[var(--cc-error)]/20 transition-all"
+                        className="px-3 py-2 rounded-sm text-caption font-medium bg-[var(--cc-error)]/10 text-[var(--cc-error)] border border-[var(--cc-error)]/20 hover:bg-[var(--cc-error)]/20 transition-all"
                       >
                         Disconnect
                       </button>
@@ -500,7 +500,7 @@ export default function SettingsPage() {
                 </div>
 
                 {debugMode && (
-                  <div className="p-4 rounded-md bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/40">
+                  <div className="p-4 rounded-sm bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/40">
                     <p className="text-caption text-[var(--cc-muted)] font-[var(--font-mono)]">
                       {/* Simulated debug info */}
                       Debug: ON — Verbose logging enabled<br />
@@ -524,7 +524,7 @@ export default function SettingsPage() {
                 <h2 className="text-body-lg font-semibold tracking-tighter text-[var(--cc-ink)]">Storage management.</h2>
               </div>
               <div className="p-5 space-y-4">
-                <div className="p-4 rounded-md bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/40">
+                <div className="p-4 rounded-sm bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/40">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-body-sm font-medium text-[var(--cc-body)]">Connection History</p>
@@ -533,14 +533,14 @@ export default function SettingsPage() {
                     <button
                       onClick={handleClearHistory}
                       disabled={historyCount === 0}
-                      className="px-4 py-2 rounded-md text-body-sm font-medium bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-[var(--cc-error)]/25 hover:bg-[var(--cc-error)]/25 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                      className="px-4 py-2 rounded-sm text-body-sm font-medium bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-[var(--cc-error)]/25 hover:bg-[var(--cc-error)]/25 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
                     >
                       Clear History
                     </button>
                   </div>
                 </div>
 
-                <div className="p-4 rounded-md bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/40">
+                <div className="p-4 rounded-sm bg-[var(--cc-canvas)]/60 border border-[var(--cc-hairline-strong)]/40">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-body-sm font-medium text-[var(--cc-body)]">All App Data</p>
@@ -548,7 +548,7 @@ export default function SettingsPage() {
                     </div>
                     <button
                       onClick={handleClearStorage}
-                      className="px-4 py-2 rounded-md text-body-sm font-medium bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-[var(--cc-error)]/25 hover:bg-[var(--cc-error)]/25 transition-all"
+                      className="px-4 py-2 rounded-sm text-body-sm font-medium bg-[var(--cc-error)]/15 text-[var(--cc-error)] border border-[var(--cc-error)]/25 hover:bg-[var(--cc-error)]/25 transition-all"
                     >
                       Clear All Data
                     </button>
@@ -582,7 +582,7 @@ export default function SettingsPage() {
                       <button
                         key={chain}
                         onClick={() => { setPreferredChain(chain); success('Preferred Chain', chain); }}
-                        className={`px-3 py-2 rounded-lg text-caption font-medium transition-all ${
+                        className={`px-3 py-2 rounded-sm text-caption font-medium transition-all ${
                           preferredChain === chain
                             ? 'bg-[var(--cc-link)]/20 text-[var(--cc-link)] border border-[var(--cc-primary)]/30'
                             : 'bg-[var(--cc-canvas-soft-2)]/50 text-[var(--cc-muted)] border border-[var(--cc-hairline-strong)]/40 hover:text-[var(--cc-ink)]'

@@ -77,7 +77,7 @@ function TransactionIcon({ type }: { type: "send" | "receive" | "swap" }) {
   
   if (type === "send") {
     return (
-      <div className="w-9 h-9 rounded-full bg-[var(--cc-error)]/15 border border-[var(--cc-error)]/25 flex items-center justify-center">
+      <div className="w-9 h-9 rounded-sm bg-[var(--cc-error)]/15 border border-[var(--cc-error)]/25 flex items-center justify-center">
         <ArrowUpRight className={`${iconClass} text-[var(--cc-error)]`} />
       </div>
     );
@@ -85,14 +85,14 @@ function TransactionIcon({ type }: { type: "send" | "receive" | "swap" }) {
   
   if (type === "receive") {
     return (
-      <div className="w-9 h-9 rounded-full bg-[var(--cc-success)]/15 border border-[var(--cc-success)]/25 flex items-center justify-center">
+      <div className="w-9 h-9 rounded-sm bg-[var(--cc-success)]/15 border border-[var(--cc-success)]/25 flex items-center justify-center">
         <ArrowDownLeft className={`${iconClass} text-[var(--cc-success)]`} />
       </div>
     );
   }
   
   return (
-    <div className="w-9 h-9 rounded-full bg-[var(--cc-link)]/15 border border-[var(--cc-primary)]/25 flex items-center justify-center">
+    <div className="w-9 h-9 rounded-sm bg-[var(--cc-link)]/15 border border-[var(--cc-primary)]/25 flex items-center justify-center">
       <ArrowRightLeft className={`${iconClass} text-[var(--cc-link)]`} />
     </div>
   );
@@ -144,12 +144,12 @@ export default function ActivityPage() {
         </div>
 
         {/* Filters */}
-        <div className="flex items-center gap-2 mb-6 p-1 bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline)] rounded-full w-fit">
+        <div className="flex items-center gap-2 mb-6 p-1 bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline)] rounded-sm w-fit">
           {(["all", "send", "receive", "swap"] as const).map((type) => (
             <button
               key={type}
               onClick={() => setFilter(type)}
-              className={`px-4 py-1.5 text-caption font-medium rounded-full transition-all ${
+              className={`px-4 py-1.5 text-caption font-medium rounded-sm transition-all ${
                 filter === type
                   ? 'bg-[var(--cc-canvas)] text-[var(--cc-ink)] shadow-[var(--cc-level1)]'
                   : 'text-[var(--cc-muted)] hover:text-[var(--cc-body)]'
@@ -181,7 +181,7 @@ export default function ActivityPage() {
           </div>
         ) : filteredTransactions.length === 0 ? (
           <div className="text-center py-16">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[var(--cc-canvas-soft-2)] mb-4">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-sm bg-[var(--cc-canvas-soft-2)] mb-4">
               <Filter className="h-8 w-8 text-[var(--cc-muted)]" />
             </div>
             <p className="text-[var(--cc-body)] mb-2">No transactions found</p>

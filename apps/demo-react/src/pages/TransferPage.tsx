@@ -126,7 +126,7 @@ export function TransferPage() {
                       onClick={() =>
                         setState((s) => ({ ...s, chain: chain.id, token: chain.tokens[0] }))
                       }
-                      className={`px-3 py-2 rounded-lg text-caption font-medium transition-all focus-ring ${
+                      className={`px-3 py-2 rounded-sm text-caption font-medium transition-all focus-ring ${
                         state.chain === chain.id
                           ? 'bg-[var(--cc-canvas-soft-2)] border-2 border-[var(--cc-link)]'
                           : 'bg-[var(--cc-canvas-soft)] border border-[var(--cc-hairline)] hover:border-[var(--cc-muted)]'
@@ -148,7 +148,7 @@ export function TransferPage() {
                     <button
                       key={token}
                       onClick={() => setState((s) => ({ ...s, token }))}
-                      className={`px-3 py-2 rounded-lg text-caption font-medium transition-all focus-ring ${
+                      className={`px-3 py-2 rounded-sm text-caption font-medium transition-all focus-ring ${
                         state.token === token
                           ? 'bg-[var(--cc-canvas-soft-2)] border-2 border-[var(--cc-link)]'
                           : 'bg-[var(--cc-canvas-soft)] border border-[var(--cc-hairline)] hover:border-[var(--cc-muted)]'
@@ -200,7 +200,7 @@ export function TransferPage() {
           {state.step === 'confirm' && (
             <div className="text-center p-5">
               <h3 className="cc-display-sm mb-4">Confirm transaction.</h3>
-              <div className="bg-[var(--cc-canvas-soft-2)] rounded-lg p-4 mb-4 text-left border border-[var(--cc-hairline)]">
+              <div className="bg-[var(--cc-canvas-soft-2)] rounded-sm p-4 mb-4 text-left border border-[var(--cc-hairline)]">
                 <p className="text-body-sm text-[var(--cc-muted)] mb-1">
                   Chain: {selectedChain.name}
                 </p>
@@ -228,14 +228,14 @@ export function TransferPage() {
 
           {state.step === 'sending' && (
             <div className="text-center p-10">
-              <div className="w-12 h-12 mx-auto mb-4 border-2 border-[var(--cc-hairline)] border-t-[var(--cc-link)] rounded-full animate-spin" />
+              <div className="w-12 h-12 mx-auto mb-4 border-2 border-[var(--cc-hairline)] border-t-[var(--cc-link)] rounded-sm animate-spin" />
               <p className="cc-body-md text-[var(--cc-muted)]">Transaction sending...</p>
             </div>
           )}
 
           {state.step === 'success' && (
             <div className="text-center p-5">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[var(--cc-success-bg)] flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-sm bg-[var(--cc-success-bg)] flex items-center justify-center">
                 <CheckCircle2 className="w-8 h-8 text-[var(--cc-success)]" />
               </div>
               <h3 className="cc-display-sm mb-2">Transaction successful.</h3>

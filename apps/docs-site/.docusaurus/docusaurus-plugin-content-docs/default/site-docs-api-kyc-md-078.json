@@ -5,7 +5,7 @@
   "source": "@site/docs/api/kyc.md",
   "sourceDirName": "api",
   "slug": "/api/kyc",
-  "permalink": "/docs/api/kyc",
+  "permalink": "/api/kyc",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/kyc.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "Keys.",
-    "permalink": "/docs/api/keys"
+    "permalink": "/api/keys"
   },
   "next": {
     "title": "Multiwallet.",
-    "permalink": "/docs/api/multiwallet"
+    "permalink": "/api/multiwallet"
   }
 }

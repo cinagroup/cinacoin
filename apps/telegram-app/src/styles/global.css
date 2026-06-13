@@ -76,11 +76,11 @@
 
   /* Radius */
   --cc-radius-xs: 4px;
-  --cc-radius-sm: 6px;
-  --cc-radius-md: 8px;
-  --cc-radius-lg: 12px;
-  --cc-radius-xl: 16px;
-  --cc-radius-pill: 100px;
+  --cc-radius-sm: 4px;
+  --cc-radius-md: 4px;
+  --cc-radius-lg: 4px;
+  --cc-radius-xl: 4px;
+  --cc-radius-pill: 4px;
   --cc-radius-full: 9999px;
 
   /* Brand / accent (Telegram-themed) */
@@ -94,11 +94,11 @@
   --cc-error: #ff5252;
 
   /* Surfaces (Telegram theme mapped) */
-  --cc-bg: var(--tg-theme-bg-color, #1a1a2e);
-  --cc-surface: var(--tg-theme-secondary-bg-color, #16213e);
-  --cc-text: var(--tg-theme-text-color, #ffffff);
-  --cc-muted: var(--tg-theme-hint-color, #8a8a9e);
-  --cc-link: var(--tg-theme-link-color, #6c63ff);
+  --cc-bg: var(--tg-theme-bg-color, var(--cc-canvas, #000000));
+  --cc-surface: var(--tg-theme-secondary-bg-color, var(--cc-canvas-soft));
+  --cc-text: var(--tg-theme-text-color, var(--cc-ink, #ededed));
+  --cc-muted: var(--tg-theme-hint-color, var(--cc-muted, #737373));
+  --cc-link: var(--tg-theme-link-color, var(--cc-link, #0070f3));
   --cc-border: rgba(255, 255, 255, 0.08);
 
   /* Legacy aliases (backward compat) */
@@ -143,7 +143,7 @@
   --tg-hint: var(--cc-muted);
   --tg-link: var(--cc-link);
   --tg-button: var(--cc-primary);
-  --tg-button-text: var(--tg-theme-button-text-color, #ffffff);
+  --tg-button-text: var(--tg-theme-button-text-color, var(--cc-on-primary));
   --tg-secondary-bg: var(--cc-surface);
   --tg-header-bg: var(--cc-surface);
 }

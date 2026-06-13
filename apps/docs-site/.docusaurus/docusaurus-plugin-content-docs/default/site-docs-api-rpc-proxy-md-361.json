@@ -5,7 +5,7 @@
   "source": "@site/docs/api/rpc-proxy.md",
   "sourceDirName": "api",
   "slug": "/api/rpc-proxy",
-  "permalink": "/docs/api/rpc-proxy",
+  "permalink": "/api/rpc-proxy",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/rpc-proxy.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "Relay.",
-    "permalink": "/docs/api/relay"
+    "permalink": "/api/relay"
   },
   "next": {
     "title": "RPC proxy.",
-    "permalink": "/docs/api/rpc"
+    "permalink": "/api/rpc"
   }
 }

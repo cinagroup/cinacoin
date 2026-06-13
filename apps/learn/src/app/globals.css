@@ -13,8 +13,8 @@
   --cc-canvas-soft-2: #f5f5f5;
   --cc-body: #4d4d4d;
   --cc-mute: #888888;
-  --cc-hairline: #ebebeb;
-  --cc-hairline-strong: #a1a1a1;
+  --cc-hairline: rgba(0, 0, 0, 0.08);
+  --cc-hairline-strong: rgba(0, 0, 0, 0.15);
   --cc-link: #0070f3;
 
   /* Color — Semantic */
@@ -55,23 +55,52 @@
 
   /* Border Radius */
   --cc-radius-xs: 4px;
-  --cc-radius-sm: 6px;
-  --cc-radius-md: 8px;
-  --cc-radius-lg: 12px;
-  --cc-radius-xl: 16px;
-  --cc-radius-pill: 100px;
+  --cc-radius-sm: 4px;
+  --cc-radius-md: 4px;
+  --cc-radius-lg: 4px;
+  --cc-radius-xl: 4px;
+  --cc-radius-pill: 4px;
 
   /* Shadows */
   --cc-shadow-1: 0 0 0 1px var(--cc-hairline);
   --cc-shadow-2: 0 1px 2px rgba(0, 0, 0, 0.04), 0 0 0 1px var(--cc-hairline);
-  --cc-shadow-3: 0 2px 8px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04), 0 0 0 1px var(--cc-hairline);
-  --cc-shadow-4: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04), 0 0 0 1px var(--cc-hairline);
+  --cc-shadow-3:
+    0 2px 8px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04), 0 0 0 1px var(--cc-hairline);
+  --cc-shadow-4:
+    0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04), 0 0 0 1px var(--cc-hairline);
 
   /* Motion */
   --cc-ease: ease;
   --cc-duration-fast: 150ms;
   --cc-duration-normal: 200ms;
   --cc-duration-slow: 300ms;
+}
+
+/* ─── Dark Theme ─── */
+[data-theme='dark'] {
+  --cc-ink: #f5f5f5;
+  --cc-on-primary: #171717;
+  --cc-canvas: #0a0a0a;
+  --cc-canvas-soft: #141414;
+  --cc-canvas-soft-2: #1e1e1e;
+  --cc-body: #b3b3b3;
+  --cc-mute: #797979;
+  --cc-hairline: rgba(255, 255, 255, 0.08);
+  --cc-hairline-strong: rgba(255, 255, 255, 0.15);
+  --cc-link: #3b82f6;
+  --cc-success: #22c55e;
+  --cc-error: #ef4444;
+  --cc-warning: #f59e0b;
+  --cc-violet: #a78bfa;
+  --cc-cyan: #22d3ee;
+  --cc-highlight-pink: #f472b6;
+
+  --cc-shadow-1: 0 0 0 1px var(--cc-hairline);
+  --cc-shadow-2: 0 1px 2px rgba(0, 0, 0, 0.2), 0 0 0 1px var(--cc-hairline);
+  --cc-shadow-3:
+    0 2px 8px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2), 0 0 0 1px var(--cc-hairline);
+  --cc-shadow-4:
+    0 4px 16px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.3), 0 0 0 1px var(--cc-hairline);
 }
 
 * {
@@ -85,7 +114,13 @@ html {
 body {
   background-color: var(--cc-canvas);
   color: var(--cc-ink);
-  font-family: var(--font-geist-sans), Geist, Inter, system-ui, -apple-system, sans-serif;
+  font-family:
+    var(--font-geist-sans),
+    Geist,
+    Inter,
+    system-ui,
+    -apple-system,
+    sans-serif;
 }
 
 /* ─── Scrollbar ─── */
@@ -168,10 +203,11 @@ pre {
 .cc-card {
   background: var(--cc-canvas);
   border: 1px solid var(--cc-hairline);
-  border-radius: var(--cc-radius-md);
+  border-radius: 4px;
   padding: var(--cc-space-lg);
-  transition: box-shadow var(--cc-duration-normal) var(--cc-ease),
-              border-color var(--cc-duration-normal) var(--cc-ease);
+  transition:
+    box-shadow var(--cc-duration-normal) var(--cc-ease),
+    border-color var(--cc-duration-normal) var(--cc-ease);
 }
 .cc-card:hover {
   box-shadow: var(--cc-shadow-2);
@@ -193,7 +229,7 @@ pre {
   background: var(--cc-ink);
   color: var(--cc-on-primary);
   border: none;
-  border-radius: var(--cc-radius-sm);
+  border-radius: 4px;
   font-size: var(--cc-text-body-sm);
   font-weight: var(--cc-weight-medium);
   cursor: pointer;
@@ -212,7 +248,7 @@ pre {
   background: var(--cc-canvas);
   color: var(--cc-ink);
   border: 1px solid var(--cc-hairline);
-  border-radius: var(--cc-radius-sm);
+  border-radius: 4px;
   font-size: var(--cc-text-body-sm);
   font-weight: var(--cc-weight-medium);
   cursor: pointer;
@@ -229,14 +265,20 @@ pre {
   padding: 2px var(--cc-space-xs);
   background: var(--cc-canvas-soft-2);
   color: var(--cc-body);
-  border-radius: var(--cc-radius-xs);
+  border-radius: 4px;
   font-size: var(--cc-text-caption);
   font-weight: var(--cc-weight-medium);
 }
 
 /* Mono text */
 .cc-mono {
-  font-family: var(--font-geist-mono), Geist Mono, ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-family:
+    var(--font-geist-mono),
+    Geist Mono,
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    monospace;
 }
 
 /* ─── Hover Utilities ─── */

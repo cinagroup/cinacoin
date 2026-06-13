@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
+import { ThemeProvider } from "@/providers";
 
 const geistSans = localFont({
   src: [
@@ -54,17 +55,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="dark">
       <body className={`${geistSans.variable} ${geistMono.variable} font-sans min-h-screen bg-[var(--cc-canvas-soft)] text-[var(--cc-ink)] antialiased`}>
-        <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-[var(--cc-ink)] focus:rounded">
-          Skip to main content
-        </a>
-        <div className="mx-auto max-w-6xl px-4 py-8">
-          <Navigation />
-          <main id="main-content">
-            {children}
-          </main>
-        </div>
+        <ThemeProvider>
+          <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-[var(--cc-ink)] focus:rounded">
+            Skip to main content
+          </a>
+          <div className="mx-auto max-w-6xl px-4 py-8">
+            <Navigation />
+            <main id="main-content">
+              {children}
+            </main>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -1,0 +1,43 @@
+{
+  "files": {
+    "packages/caip/dist": { "size": 0, "mtime_nanos": 0, "mode": 0, "is_dir": true },
+    "packages/caip/dist/index.js": {
+      "size": 3292,
+      "mtime_nanos": 1781333178651109358,
+      "mode": 436,
+      "is_dir": false
+    },
+    "packages/caip/dist/index.d.ts": {
+      "size": 6050,
+      "mtime_nanos": 1781333180948858093,
+      "mode": 436,
+      "is_dir": false
+    },
+    "packages/caip/.turbo/turbo-build.log": {
+      "size": 481,
+      "mtime_nanos": 1781333181057846174,
+      "mode": 436,
+      "is_dir": false
+    },
+    "packages/caip/dist/index.d.cts": {
+      "size": 6050,
+      "mtime_nanos": 1781333180948858093,
+      "mode": 436,
+      "is_dir": false
+    },
+    "packages/caip/dist/index.cjs": {
+      "size": 4701,
+      "mtime_nanos": 1781333178652109249,
+      "mode": 436,
+      "is_dir": false
+    }
+  },
+  "order": [
+    "packages/caip/.turbo/turbo-build.log",
+    "packages/caip/dist",
+    "packages/caip/dist/index.cjs",
+    "packages/caip/dist/index.d.cts",
+    "packages/caip/dist/index.d.ts",
+    "packages/caip/dist/index.js"
+  ]
+}

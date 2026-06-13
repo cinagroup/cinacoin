@@ -81,7 +81,7 @@ export default function ChainSelector({
         type="button"
         onClick={() => setOpen((o) => !o)}
         onKeyDown={handleKeyDown}
-        className={`w-full flex items-center  gap-3 px-4 py-3 bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-ink)] text-body-sm rounded-md border border-[var(--cc-hairline-strong)]/40 outline-none cursor-pointer appearance-none transition-all duration-200 ${
+        className={`w-full flex items-center  gap-3 px-4 py-3 bg-[var(--cc-canvas-soft-2)]/60 text-[var(--cc-ink)] text-body-sm rounded-sm border border-[var(--cc-hairline-strong)]/40 outline-none cursor-pointer appearance-none transition-all duration-200 ${
           open
             ? 'ring-2 ring-[var(--cc-link)]/40 border-[var(--cc-link)]/50'
             : 'hover:border-[var(--cc-hairline-strong)]/60 hover:bg-[var(--cc-canvas-soft-2)]/80'
@@ -92,7 +92,7 @@ export default function ChainSelector({
         {/* Active chain dot indicator */}
         {selected.color && (
           <span
-            className="w-3 h-3 rounded-full transition-all duration-300"
+            className="w-3 h-3 rounded-sm transition-all duration-300"
             style={{
               backgroundColor: selected.color,
               boxShadow: open ? `0 0 8px 2px ${selected.color}60` : 'none',
@@ -114,7 +114,7 @@ export default function ChainSelector({
       {/* Dropdown */}
       {open && (
         <div
-          className="absolute z-50 top-full mt-2 left-0 w-full min-w-[240px] bg-[var(--cc-canvas-soft-2)]/95 backdrop-blur-xl border border-[var(--cc-hairline-strong)]/50 rounded-md shadow-[var(--cc-level5)] overflow-hidden animate-dropdown-in"
+          className="absolute z-50 top-full mt-2 left-0 w-full min-w-[240px] bg-[var(--cc-canvas-soft-2)]/95 backdrop-blur-xl border border-[var(--cc-hairline-strong)]/50 rounded-sm shadow-[var(--cc-level5)] overflow-hidden animate-dropdown-in"
           role="listbox"
         >
           {/* Dropdown header */}
@@ -138,7 +138,7 @@ export default function ChainSelector({
                   onClick={() => handleSelect(chain.id)}
                   onMouseEnter={() => setHovered(chain.id)}
                   onMouseLeave={() => setHovered(null)}
-                  className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg text-left transition-all duration-150 ${
+                  className={`w-full flex items-center gap-3 px-3 py-3 rounded-sm text-left transition-all duration-150 ${
                     isSelected
                       ? 'bg-[var(--cc-link)]/15 border border-[var(--cc-link)]/30'
                       : isHovered
@@ -152,7 +152,7 @@ export default function ChainSelector({
                     <span className="text-body-lg leading-none">{chain.icon}</span>
                     {chain.color && (
                       <span
-                        className="absolute -inset-0.5 rounded-full opacity-0 transition-opacity duration-300"
+                        className="absolute -inset-0.5 rounded-sm opacity-0 transition-opacity duration-300"
                         style={{
                           opacity: isSelected || isHovered ? 0.4 : 0,
                           boxShadow: `0 0 6px 2px ${chain.color}60`,

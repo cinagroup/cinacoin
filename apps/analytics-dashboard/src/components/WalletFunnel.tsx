@@ -87,7 +87,7 @@ export default React.memo(function WalletFunnel() {
         <span className="text-body-sm text-[var(--cc-muted)]">Filter:</span>
         <button
           onClick={() => setSelectedWallet("all")}
-          className={`px-sm py-xxs text-body-sm rounded-md transition-all ${
+          className={`px-sm py-xxs text-body-sm rounded-sm transition-all ${
             selectedWallet === "all"
               ? "bg-[var(--cc-primary)] text-[var(--cc-on-primary)] font-medium"
               : "bg-[var(--cc-canvas-soft-2)] text-[var(--cc-body)] hover:bg-[var(--cc-canvas-soft)]"
@@ -99,7 +99,7 @@ export default React.memo(function WalletFunnel() {
           <button
             key={w.wallet}
             onClick={() => setSelectedWallet(w.wallet)}
-            className={`px-sm py-xxs text-body-sm rounded-md transition-all ${
+            className={`px-sm py-xxs text-body-sm rounded-sm transition-all ${
               selectedWallet === w.wallet
                 ? "bg-[var(--cc-primary)] text-[var(--cc-on-primary)] font-medium"
                 : "bg-[var(--cc-canvas-soft-2)] text-[var(--cc-body)] hover:bg-[var(--cc-canvas-soft)]"
@@ -147,9 +147,9 @@ export default React.memo(function WalletFunnel() {
               )}
               <div className="flex items-center gap-sm">
                 <span className="text-body-sm text-[var(--cc-body)] w-40 flex-shrink-0">{step.label}</span>
-                <div className="flex-1 h-8 bg-[var(--cc-canvas-soft-2)] rounded-md overflow-hidden relative">
+                <div className="flex-1 h-8 bg-[var(--cc-canvas-soft-2)] rounded-sm overflow-hidden relative">
                   <div
-                    className="h-full rounded-md transition-all duration-700 flex items-center px-sm"
+                    className="h-full rounded-sm transition-all duration-700 flex items-center px-sm"
                     style={{
                       width: `${widthPct}%`,
                       backgroundColor: step.color,
@@ -187,9 +187,9 @@ export default React.memo(function WalletFunnel() {
                       {rate}%
                     </span>
                   </div>
-                  <div className="mt-xs h-1.5 bg-[var(--cc-canvas-soft-2)] rounded-full overflow-hidden">
+                  <div className="mt-xs h-1.5 bg-[var(--cc-canvas-soft-2)] rounded-sm overflow-hidden">
                     <div
-                      className="h-full rounded-full"
+                      className="h-full rounded-sm"
                       style={{
                         width: `${rate}%`,
                         backgroundColor: w.steps[0].color,

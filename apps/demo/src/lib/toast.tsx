@@ -101,7 +101,7 @@ function ToastContainer() {
         return (
           <div
             key={toast.id}
-            className={`pointer-events-auto ${s.bg} ${s.border} border rounded-md p-4 shadow-[var(--cc-level5)] backdrop-blur-sm animate-slide-in}`}
+            className={`pointer-events-auto ${s.bg} ${s.border} border rounded-sm p-4 shadow-[var(--cc-level5)] backdrop-blur-sm animate-slide-in}`}
           >
             <div className="flex items-start gap-3">
               <span className={`text-body-lg font-semibold flex-shrink-0 ${
@@ -126,9 +126,9 @@ function ToastContainer() {
             </div>
             {/* Progress bar */}
             {toast.duration && toast.duration > 0 && (
-              <div className="mt-2 h-0.5 bg-[var(--cc-canvas-soft-2)] rounded-full overflow-hidden">
+              <div className="mt-2 h-0.5 bg-[var(--cc-canvas-soft-2)] rounded-sm overflow-hidden">
                 <div
-                  className={`h-full ${s.progress} rounded-full animate-shrink`}
+                  className={`h-full ${s.progress} rounded-sm animate-shrink`}
                   style={{ animationDuration: `${toast.duration}ms` }}
                 />
               </div>

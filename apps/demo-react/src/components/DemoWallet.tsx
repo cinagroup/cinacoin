@@ -30,7 +30,7 @@ export function DemoWallet() {
       ) : (
         <div className="space-y-6">
           {/* Connection Info */}
-          <div className="flex flex-wrap items-center gap-4 p-4 bg-[var(--cc-canvas-soft)] rounded-lg">
+          <div className="flex flex-wrap items-center gap-4 p-4 bg-[var(--cc-canvas-soft)] rounded-sm">
             <ChainBadge chain={chain} />
             <div className="flex-1 min-w-0">
               <p className="cc-body-xs text-[var(--cc-body)] mb-1">Your Address</p>

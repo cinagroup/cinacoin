@@ -75,10 +75,10 @@ export default function RecentActivity() {
         return (
           <div
             key={activity.id}
-            className="flex items-start gap-sm p-sm rounded-md hover:bg-[var(--cc-canvas-soft)] transition-colors"
+            className="flex items-start gap-sm p-sm rounded-sm hover:bg-[var(--cc-canvas-soft)] transition-colors"
           >
             <div
-              className={`w-8 h-8 rounded-md flex items-center justify-center text-body-sm flex-shrink-0 ${activity.color}`}
+              className={`w-8 h-8 rounded-sm flex items-center justify-center text-body-sm flex-shrink-0 ${activity.color}`}
             >
               <Icon className="w-4 h-4" />
             </div>

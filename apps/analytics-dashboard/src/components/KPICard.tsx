@@ -19,7 +19,7 @@ export default React.memo(function KPICard({ title, value, change, trend }: KPIC
       <div className="flex items-center justify-between mb-xs">
         <span className="text-body font-medium text-[var(--cc-body)]">{title}</span>
         <span
-          className={`inline-flex items-center gap-xxs text-body-sm font-medium px-xs py-xxs rounded-full ${
+          className={`inline-flex items-center gap-xxs text-body-sm font-medium px-xs py-xxs rounded-sm ${
             isGood
               ? "badge-success"
               : "badge-error"

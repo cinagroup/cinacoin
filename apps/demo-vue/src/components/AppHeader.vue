@@ -46,8 +46,8 @@ const statusDotClass = computed(() => {
 
 <style scoped>
 .app-header {
-  background: var(--cc-canvas, #ffffff);
-  border-bottom: 1px solid var(--cc-hairline, #ebebeb);
+  background: var(--cc-canvas, #000000);
+  border-bottom: 1px solid var(--cc-hairline, rgba(255, 255, 255, 0.08));
   padding: 0.75rem 1.5rem;
   position: sticky;
   top: 0;
@@ -72,10 +72,10 @@ const statusDotClass = computed(() => {
   font-family: var(--font-mono, 'Geist Mono'), monospace;
   font-size: 0.75rem;
   font-weight: 500;
-  color: var(--cc-muted, #888888);
+  color: var(--cc-muted, #737373);
   letter-spacing: 0.05em;
   padding: 0.25rem 0.5rem;
-  border: 1px solid var(--cc-hairline, #ebebeb);
+  border: 1px solid var(--cc-hairline, rgba(255, 255, 255, 0.08));
   border-radius: 4px;
 }
 
@@ -83,7 +83,7 @@ const statusDotClass = computed(() => {
   margin: 0;
   font-size: 1.25rem;
   font-weight: 600;
-  color: var(--cc-ink, #171717);
+  color: var(--cc-ink, #ededed);
   line-height: 1.2;
   letter-spacing: -0.5px;
 }
@@ -91,7 +91,7 @@ const statusDotClass = computed(() => {
 .subtitle {
   margin: 0;
   font-size: 0.75rem;
-  color: var(--cc-muted, #888888);
+  color: var(--cc-muted, #737373);
   letter-spacing: 0.02em;
 }
 
@@ -99,12 +99,12 @@ const statusDotClass = computed(() => {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: var(--cc-canvas-soft-2, #f5f5f5);
+  background: var(--cc-canvas-soft-2, #111111);
   padding: 0.375rem 0.75rem;
-  border-radius: 100px;
+  border-radius: 4px;
   font-size: 0.875rem;
-  color: var(--cc-body, #4d4d4d);
-  border: 1px solid var(--cc-hairline, #ebebeb);
+  color: var(--cc-body, #a3a3a3);
+  border: 1px solid var(--cc-hairline, rgba(255, 255, 255, 0.08));
 }
 
 .status-dot {
@@ -114,10 +114,10 @@ const statusDotClass = computed(() => {
   display: inline-block;
 }
 
-.dot-gray { background: var(--cc-muted, #888888); }
+.dot-gray { background: var(--cc-muted, #737373); }
 .dot-yellow { background: var(--cc-warning, #f5a623); animation: pulse 1.5s infinite; }
-.dot-blue { background: var(--cc-success, #0070f3); }
-.dot-red { background: var(--cc-error, #ee0000); }
+.dot-blue { background: var(--cc-success, #22c55e); }
+.dot-red { background: var(--cc-error, #ef4444); }
 
 @keyframes pulse {
   0%, 100% { opacity: 1; }

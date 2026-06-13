@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback } from "react";
+import { Search, Terminal } from "lucide-react";
 import SearchBar from "@/components/SearchBar";
 import WalletInfo from "@/components/WalletInfo";
 import TransactionList from "@/components/TransactionList";
@@ -95,12 +96,30 @@ export default function WalletExplorerPage() {
 
   if (!connected) {
     return (
-      <div className="cc-card text-center py-12">
-        <h2 className="text-heading-2 text-[var(--cc-ink)]">Welcome to CinaCoin Wallet Explorer.</h2>
-        <p className="mt-2 text-body text-mute">Connect your wallet to get started.</p>
-        <button onClick={connect} className="cc-btn-primary mt-6">
-          Connect Wallet
-        </button>
+      <div className="space-y-8">
+        {/* Dark band hero */}
+        <div className="rounded-sm bg-[#171717] px-8 py-12">
+          <p className="font-mono text-xs text-[#888] mb-3">wallet-explorer</p>
+          <h1 className="text-2xl font-semibold text-white tracking-tight">CinaCoin Wallet Explorer.</h1>
+          <p className="mt-2 text-sm text-[#b3b3b3] max-w-lg">Search addresses, view balances, and explore transactions on the CinaCoin blockchain.</p>
+          <button onClick={connect} className="cc-btn-primary mt-6">
+            Connect wallet
+          </button>
+        </div>
+        {/* Code mockup */}
+        <div className="rounded-sm border border-[var(--cc-hairline)] bg-[var(--cc-canvas)] overflow-hidden">
+          <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--cc-hairline)] bg-[var(--cc-canvas-soft-2)]">
+            <Terminal className="h-4 w-4 text-[var(--cc-muted)]" aria-hidden="true" />
+            <span className="font-mono text-xs text-[var(--cc-muted)]">Quick start</span>
+          </div>
+          <pre className="p-4 font-mono text-sm text-[var(--cc-body)] overflow-x-auto"><code>{`import { CinaCoin } from "@cinacoin/sdk";
+
+const client = new CinaCoin({ network: "mainnet" });
+const wallet = await client.wallet.connect();
+
+const balance = await wallet.getBalance();
+console.log(balance); // "1,234,567.89 CINA"`}</code></pre>
+        </div>
       </div>
     );
   }
@@ -109,14 +128,21 @@ export default function WalletExplorerPage() {
 
   return (
     <div className="space-y-8">
-      {/* Header */}
-      <div className="text-center">
-        <h1 className="text-heading-2 text-[var(--cc-ink)]">
-          CinaCoin Wallet Explorer.
-        </h1>
-        <p className="mt-2 text-body text-mute">
-          Search addresses, view balances, and explore transactions.
-        </p>
+      {/* Header — split layout */}
+      <div className="flex items-end justify-between gap-6">
+        <div>
+          <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">wallet-explorer</p>
+          <h1 className="text-2xl font-semibold text-[var(--cc-ink)] tracking-tight">
+            CinaCoin Wallet Explorer.
+          </h1>
+          <p className="mt-1 text-sm text-[var(--cc-body)]">
+            Search addresses, view balances, and explore transactions.
+          </p>
+        </div>
+        <div className="hidden sm:flex items-center gap-2 text-xs font-mono text-[var(--cc-muted)]">
+          <Search className="h-3.5 w-3.5" aria-hidden="true" />
+          <span>cmd+k</span>
+        </div>
       </div>
 
       {/* Search Bar */}
@@ -138,9 +164,9 @@ export default function WalletExplorerPage() {
       <TransactionList transactions={mockTransactions} />
 
       {/* Footer */}
-      <footer className="border-t border-[var(--cc-hairline)] pt-6 text-center text-body-sm text-mute">
-        <p>© 2026 CinaCoin. All rights reserved.</p>
-        <p className="mt-1">Powered by CinaCoin Blockchain</p>
+      <footer className="border-t border-[var(--cc-hairline)] pt-6 flex items-center justify-between text-xs text-[var(--cc-muted)]">
+        <p>&copy; 2026 CinaCoin.</p>
+        <p className="font-mono">Powered by CinaCoin Blockchain</p>
       </footer>
     </div>
   );

@@ -32,7 +32,7 @@ function TokenSelector({
       <div className="flex items-center gap-3 p-3 bg-[var(--cc-canvas-soft-2)]/60 border border-[var(--cc-hairline)] rounded-[var(--cc-radius-sm)]">
         <button
           onClick={() => setOpen(!open)}
-          className="flex items-center gap-2 px-3 py-1.5 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-full hover:border-[var(--cc-hairline-strong)] transition-all shrink-0"
+          className="flex items-center gap-2 px-3 py-1.5 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-sm hover:border-[var(--cc-hairline-strong)] transition-all shrink-0"
         >
           {selected && (
             <selected.icon className="w-5 h-5 text-[var(--cc-link)]" />
@@ -194,7 +194,7 @@ export default function SwapPage() {
                   <button
                     key={val}
                     onClick={() => setSlippage(val)}
-                    className={`px-2.5 py-1 text-caption rounded-full font-medium transition-all ${
+                    className={`px-2.5 py-1 text-caption rounded-sm font-medium transition-all ${
                       slippage === val
                         ? 'bg-[var(--cc-primary)] text-[var(--cc-on-primary)]'
                         : 'bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] text-[var(--cc-body)] hover:border-[var(--cc-hairline-strong)]'
@@ -223,7 +223,7 @@ export default function SwapPage() {
           <div className="flex justify-center -my-2 relative z-10">
             <button
               onClick={handleFlip}
-              className="p-2 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-full hover:border-[var(--cc-hairline-strong)] hover:shadow-[var(--cc-level2)] transition-all active:scale-95"
+              className="p-2 bg-[var(--cc-canvas)] border border-[var(--cc-hairline)] rounded-sm hover:border-[var(--cc-hairline-strong)] hover:shadow-[var(--cc-level2)] transition-all active:scale-95"
             >
               <ArrowDownUp className="w-4 h-4 text-[var(--cc-muted)]" />
             </button>

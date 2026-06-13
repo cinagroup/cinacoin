@@ -40,7 +40,7 @@ export function DemoTransfer() {
         </div>
       ) : (
         <>
-          <div className="mb-4 p-4 bg-[var(--cc-canvas-soft)] rounded-lg">
+          <div className="mb-4 p-4 bg-[var(--cc-canvas-soft)] rounded-sm">
             <p className="cc-body-xs text-[var(--cc-body)] mb-1">From address</p>
             <AddressDisplay address={address!} />
           </div>
@@ -81,7 +81,7 @@ export function DemoTransfer() {
           </div>
 
           {resultHash && (
-            <div className="mt-6 p-4 bg-[var(--cc-success)/10] rounded-lg">
+            <div className="mt-6 p-4 bg-[var(--cc-success)/10] rounded-sm">
               <p className="cc-body-xs text-[var(--cc-body)] mb-1">Transaction hash</p>
               <div className="cc-mono break-all text-body-sm">
                 {resultHash}

@@ -29,8 +29,8 @@ export default function CinacoinClientProvider({
 
   if (status === 'loading') {
     return (
-      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'system-ui, sans-serif' }}>
-        <p style={{ color: '#666' }}>Loading…</p>
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <p style={{ color: 'var(--cc-muted)' }}>Loading…</p>
       </div>
     );
   }
@@ -38,7 +38,7 @@ export default function CinacoinClientProvider({
   if (status === 'failed') {
     return (
       <div style={{ minHeight: '100vh' }}>
-        <div style={{ padding: '10px 20px', background: '#fef3c7', color: '#92400e', fontSize: '13px', fontFamily: 'system-ui, sans-serif', borderBottom: '1px solid #fbbf24', textAlign: 'center' }}>
+        <div style={{ padding: '10px 20px', background: 'var(--cc-warning-bg)', color: 'var(--cc-warning)', fontSize: '13px', borderBottom: '1px solid var(--cc-warning)', textAlign: 'center' }}>
           ⚠️ CinaCoin SDK unavailable — running in static demo mode
         </div>
         {children}

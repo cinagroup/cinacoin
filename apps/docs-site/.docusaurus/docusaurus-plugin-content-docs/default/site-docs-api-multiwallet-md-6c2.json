@@ -5,7 +5,7 @@
   "source": "@site/docs/api/multiwallet.md",
   "sourceDirName": "api",
   "slug": "/api/multiwallet",
-  "permalink": "/docs/api/multiwallet",
+  "permalink": "/api/multiwallet",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/multiwallet.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "KYC.",
-    "permalink": "/docs/api/kyc"
+    "permalink": "/api/kyc"
   },
   "next": {
     "title": "Next.js.",
-    "permalink": "/docs/api/next"
+    "permalink": "/api/next"
   }
 }

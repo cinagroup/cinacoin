@@ -5,7 +5,7 @@
   "source": "@site/docs/api/session-keys.md",
   "sourceDirName": "api",
   "slug": "/api/session-keys",
-  "permalink": "/docs/api/session-keys",
+  "permalink": "/api/session-keys",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/session-keys.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "Safe decoder.",
-    "permalink": "/docs/api/safe-decoder"
+    "permalink": "/api/safe-decoder"
   },
   "next": {
     "title": "SIWE.",
-    "permalink": "/docs/api/siwe"
+    "permalink": "/api/siwe"
   }
 }

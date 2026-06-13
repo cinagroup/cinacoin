@@ -1,456 +1,456 @@
 {
   "docusaurus-plugin-content-docs": {
     "default": {
-      "path": "/docs/",
+      "path": "/",
       "versions": [
         {
           "name": "current",
           "label": "Next",
           "isLast": true,
-          "path": "/docs/",
+          "path": "/",
           "mainDocId": "index",
           "docs": [
             {
               "id": "api/aa-sdk",
-              "path": "/docs/api/aa-sdk",
+              "path": "/api/aa-sdk",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/adapter-bitcoin",
-              "path": "/docs/api/adapter-bitcoin",
+              "path": "/api/adapter-bitcoin",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/adapter-cosmos",
-              "path": "/docs/api/adapter-cosmos",
+              "path": "/api/adapter-cosmos",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/adapter-hedera",
-              "path": "/docs/api/adapter-hedera",
+              "path": "/api/adapter-hedera",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/adapter-near",
-              "path": "/docs/api/adapter-near",
+              "path": "/api/adapter-near",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/adapter-starknet",
-              "path": "/docs/api/adapter-starknet",
+              "path": "/api/adapter-starknet",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/adapter-sui",
-              "path": "/docs/api/adapter-sui",
+              "path": "/api/adapter-sui",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/adapter-xrpl",
-              "path": "/docs/api/adapter-xrpl",
+              "path": "/api/adapter-xrpl",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/analytics",
-              "path": "/docs/api/analytics",
+              "path": "/api/analytics",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/android-kotlin",
-              "path": "/docs/api/android-kotlin",
+              "path": "/api/android-kotlin",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/angular",
-              "path": "/docs/api/angular",
+              "path": "/api/angular",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/appkit",
-              "path": "/docs/api/appkit",
+              "path": "/api/appkit",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/auth",
-              "path": "/docs/api/auth",
+              "path": "/api/auth",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/authentication",
-              "path": "/docs/api/authentication",
+              "path": "/api/authentication",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/batch-transaction",
-              "path": "/docs/api/batch-transaction",
+              "path": "/api/batch-transaction",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/blockchain-api",
-              "path": "/docs/api/blockchain-api",
+              "path": "/api/blockchain-api",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/bundler",
-              "path": "/docs/api/bundler",
+              "path": "/api/bundler",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/cdn",
-              "path": "/docs/api/cdn",
+              "path": "/api/cdn",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/cinacoin-i18n",
-              "path": "/docs/api/cinacoin-i18n",
+              "path": "/api/cinacoin-i18n",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/cinacoin-ui-theme",
-              "path": "/docs/api/cinacoin-ui-theme",
+              "path": "/api/cinacoin-ui-theme",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/cli",
-              "path": "/docs/api/cli",
+              "path": "/api/cli",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/codemod",
-              "path": "/docs/api/codemod",
+              "path": "/api/codemod",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/config",
-              "path": "/docs/api/config",
+              "path": "/api/config",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/core-sdk",
-              "path": "/docs/api/core-sdk",
+              "path": "/api/core-sdk",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/core-ui",
-              "path": "/docs/api/core-ui",
+              "path": "/api/core-ui",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/cross-chain-sync",
-              "path": "/docs/api/cross-chain-sync",
+              "path": "/api/cross-chain-sync",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/custom-connectors",
-              "path": "/docs/api/custom-connectors",
+              "path": "/api/custom-connectors",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/deposit",
-              "path": "/docs/api/deposit",
+              "path": "/api/deposit",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/design-tokens",
-              "path": "/docs/api/design-tokens",
+              "path": "/api/design-tokens",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/dotnet",
-              "path": "/docs/api/dotnet",
+              "path": "/api/dotnet",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/embedded-wallet",
-              "path": "/docs/api/embedded-wallet",
+              "path": "/api/embedded-wallet",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/ens-resolver",
-              "path": "/docs/api/ens-resolver",
+              "path": "/api/ens-resolver",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/erc6492",
-              "path": "/docs/api/erc6492",
+              "path": "/api/erc6492",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/errors",
-              "path": "/docs/api/errors",
+              "path": "/api/errors",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/explorer",
-              "path": "/docs/api/explorer",
+              "path": "/api/explorer",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/farcaster-miniapp",
-              "path": "/docs/api/farcaster-miniapp",
+              "path": "/api/farcaster-miniapp",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/flutter-dart",
-              "path": "/docs/api/flutter-dart",
+              "path": "/api/flutter-dart",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/gas-estimator",
-              "path": "/docs/api/gas-estimator",
+              "path": "/api/gas-estimator",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/gas-sponsorship",
-              "path": "/docs/api/gas-sponsorship",
+              "path": "/api/gas-sponsorship",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/i18n",
-              "path": "/docs/api/i18n",
+              "path": "/api/i18n",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/ios-swift",
-              "path": "/docs/api/ios-swift",
+              "path": "/api/ios-swift",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/keys",
-              "path": "/docs/api/keys",
+              "path": "/api/keys",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/keys-server",
-              "path": "/docs/api/keys-server",
+              "path": "/api/keys-server",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/kyc",
-              "path": "/docs/api/kyc",
+              "path": "/api/kyc",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/multiwallet",
-              "path": "/docs/api/multiwallet",
+              "path": "/api/multiwallet",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/next",
-              "path": "/docs/api/next",
+              "path": "/api/next",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/notify-server",
-              "path": "/docs/api/notify-server",
+              "path": "/api/notify-server",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/nuxt",
-              "path": "/docs/api/nuxt",
+              "path": "/api/nuxt",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/onramp-sdk",
-              "path": "/docs/api/onramp-sdk",
+              "path": "/api/onramp-sdk",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/overview",
-              "path": "/docs/api/overview",
+              "path": "/api/overview",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/passkey-auth",
-              "path": "/docs/api/passkey-auth",
+              "path": "/api/passkey-auth",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/pay-ui",
-              "path": "/docs/api/pay-ui",
+              "path": "/api/pay-ui",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/paymaster",
-              "path": "/docs/api/paymaster",
+              "path": "/api/paymaster",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/payment-flow",
-              "path": "/docs/api/payment-flow",
+              "path": "/api/payment-flow",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/performance-utils",
-              "path": "/docs/api/performance-utils",
+              "path": "/api/performance-utils",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/push",
-              "path": "/docs/api/push",
+              "path": "/api/push",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/push-server",
-              "path": "/docs/api/push-server",
+              "path": "/api/push-server",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/rate-limiting",
-              "path": "/docs/api/rate-limiting",
+              "path": "/api/rate-limiting",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/react",
-              "path": "/docs/api/react",
+              "path": "/api/react",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/react-native",
-              "path": "/docs/api/react-native",
+              "path": "/api/react-native",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/relay",
-              "path": "/docs/api/relay",
+              "path": "/api/relay",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/relay-server",
-              "path": "/docs/api/relay-server",
+              "path": "/api/relay-server",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/rpc",
-              "path": "/docs/api/rpc",
+              "path": "/api/rpc",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/rpc-proxy",
-              "path": "/docs/api/rpc-proxy",
+              "path": "/api/rpc-proxy",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/safe-decoder",
-              "path": "/docs/api/safe-decoder",
+              "path": "/api/safe-decoder",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/session-keys",
-              "path": "/docs/api/session-keys",
+              "path": "/api/session-keys",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/siwe",
-              "path": "/docs/api/siwe",
+              "path": "/api/siwe",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/siwx",
-              "path": "/docs/api/siwx",
+              "path": "/api/siwx",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/social-login",
-              "path": "/docs/api/social-login",
+              "path": "/api/social-login",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/svelte",
-              "path": "/docs/api/svelte",
+              "path": "/api/svelte",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/swap-sdk",
-              "path": "/docs/api/swap-sdk",
+              "path": "/api/swap-sdk",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/telegram-miniapp",
-              "path": "/docs/api/telegram-miniapp",
+              "path": "/api/telegram-miniapp",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/testing",
-              "path": "/docs/api/testing",
+              "path": "/api/testing",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/token-list",
-              "path": "/docs/api/token-list",
+              "path": "/api/token-list",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/travel-rule-demo",
-              "path": "/docs/api/travel-rule-demo",
+              "path": "/api/travel-rule-demo",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/ui-theme",
-              "path": "/docs/api/ui-theme",
+              "path": "/api/ui-theme",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/unity-csharp",
-              "path": "/docs/api/unity-csharp",
+              "path": "/api/unity-csharp",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/vue",
-              "path": "/docs/api/vue",
+              "path": "/api/vue",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/wallet-buttons",
-              "path": "/docs/api/wallet-buttons",
+              "path": "/api/wallet-buttons",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/wallet-recommender",
-              "path": "/docs/api/wallet-recommender",
+              "path": "/api/wallet-recommender",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/wallet-recovery",
-              "path": "/docs/api/wallet-recovery",
+              "path": "/api/wallet-recovery",
               "sidebar": "apiSidebar"
             },
             {
               "id": "api/walletconnect-v2",
-              "path": "/docs/api/walletconnect-v2",
+              "path": "/api/walletconnect-v2",
               "sidebar": "apiSidebar"
             },
             {
               "id": "framework/react",
-              "path": "/docs/framework/react"
+              "path": "/framework/react"
             },
             {
               "id": "guide/configuration",
-              "path": "/docs/guide/configuration"
+              "path": "/guide/configuration"
             },
             {
               "id": "guide/index",
-              "path": "/docs/guide/"
+              "path": "/guide/"
             },
             {
               "id": "guide/installation",
-              "path": "/docs/guide/installation"
+              "path": "/guide/installation"
             },
             {
               "id": "guide/migrate-from-reown",
-              "path": "/docs/guide/migrate-from-reown"
+              "path": "/guide/migrate-from-reown"
             },
             {
               "id": "guide/quick-start",
-              "path": "/docs/guide/quick-start"
+              "path": "/guide/quick-start"
             },
             {
               "id": "guide/troubleshooting",
-              "path": "/docs/guide/troubleshooting"
+              "path": "/guide/troubleshooting"
             },
             {
               "id": "index",
-              "path": "/docs/",
+              "path": "/",
               "sidebar": "guideSidebar"
             }
           ],
@@ -458,13 +458,13 @@
           "sidebars": {
             "guideSidebar": {
               "link": {
-                "path": "/docs/",
+                "path": "/",
                 "label": "Home"
               }
             },
             "apiSidebar": {
               "link": {
-                "path": "/docs/api/overview",
+                "path": "/api/overview",
                 "label": "api/overview"
               }
             }

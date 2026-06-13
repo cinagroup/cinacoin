@@ -41,7 +41,7 @@ function ErrorFallback({ error, onRetry }: { error: Error; onRetry: () => void }
         padding: '2rem',
         textAlign: 'center',
         border: '1px solid var(--cc-hairline)',
-        borderRadius: '8px',
+        borderRadius: '4px',
         background: 'var(--cc-canvas-soft)',
       }}
     >
@@ -184,7 +184,7 @@ function SwaggerViewer() {
             onMouseEnter={() => handleSpecHover(key as keyof typeof SPECS)}
             aria-pressed={activeSpec === key}
             aria-label={`Switch to ${label}`}
-            className={`px-4 py-1.5 rounded-md cursor-pointer text-sm ${
+            className={`px-4 py-1.5 rounded-sm cursor-pointer text-sm ${
               activeSpec === key
                 ? 'border-2 border-[var(--cc-ink)] bg-[var(--cc-canvas-soft-2)] text-[var(--cc-ink)] font-semibold'
                 : 'border border-[var(--cc-hairline)] bg-transparent text-inherit font-normal'

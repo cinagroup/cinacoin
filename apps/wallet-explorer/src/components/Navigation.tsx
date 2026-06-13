@@ -53,7 +53,7 @@ export default memo(function Navigation() {
               key={item.href}
               href={item.href}
               aria-current={isActive ? 'page' : undefined}
-              className={`px-4 py-2 rounded-md text-body-sm font-medium transition-colors whitespace-nowrap ${
+              className={`px-4 py-2 rounded-sm text-body-sm font-medium transition-colors whitespace-nowrap ${
                 isActive
                   ? 'bg-primary text-on-primary'
                   : 'text-body hover:bg-[var(--cc-canvas-soft-2)]'
