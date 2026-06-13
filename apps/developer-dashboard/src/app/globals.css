@@ -140,7 +140,7 @@ tr:last-child td {
 /* Card hover effect */
 .card-hover:hover {
   border-color: var(--cc-hairline-strong);
-  box-shadow: var(--cc-level2);
+  box-shadow: var(--cc-level3);
 }
 
 /* Button danger */

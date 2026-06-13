@@ -31,7 +31,7 @@ html {
 }
 
 body {
-  background-color: var(--cc-canvas);
+  background-color: var(--cc-canvas-soft);
   color: var(--cc-ink);
   font-family:
     var(--font-geist-sans),
@@ -129,7 +129,7 @@ pre {
     border-color 0.3s ease;
 }
 .cc-card:hover {
-  box-shadow: var(--cc-level2);
+  box-shadow: var(--cc-level3);
 }
 
 .cc-card-interactive {

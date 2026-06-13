@@ -76,8 +76,8 @@ function VolumeChart({ data }: { data: TransactionData[] }) {
     >
       <defs>
         <linearGradient id="volumeGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#0070f3" stopOpacity="0.3" />
-          <stop offset="100%" stopColor="#0070f3" stopOpacity="0" />
+          <stop offset="0%" stopColor="var(--cc-link)" stopOpacity="0.3" />
+          <stop offset="100%" stopColor="var(--cc-link)" stopOpacity="0" />
         </linearGradient>
       </defs>
 
@@ -129,11 +129,11 @@ function VolumeChart({ data }: { data: TransactionData[] }) {
 
       {/* Area + Line */}
       <path d={areaD} fill="url(#volumeGradient)" />
-      <path d={pathD} fill="none" stroke="#0070f3" strokeWidth="2" strokeLinecap="round" />
+      <path d={pathD} fill="none" stroke="var(--cc-link)" strokeWidth="2" strokeLinecap="round" />
 
       {/* Points */}
       {points.map((p) => (
-        <circle key={p.date} cx={p.x} cy={p.y} r="4" fill="#0070f3" stroke="white" strokeWidth="2">
+        <circle key={p.date} cx={p.x} cy={p.y} r="4" fill="var(--cc-link)" stroke="white" strokeWidth="2">
           <title>{`${p.date}: $${(p.volume / 1000000).toFixed(2)}M`}</title>
         </circle>
       ))}

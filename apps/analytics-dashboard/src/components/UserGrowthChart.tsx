@@ -37,8 +37,8 @@ export default React.memo(function UserGrowthChart() {
           <AreaChart data={data} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
             <defs>
               <linearGradient id="colorUsers" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#0070f3" stopOpacity={0.15} />
-                <stop offset="95%" stopColor="#0070f3" stopOpacity={0} />
+                <stop offset="5%" stopColor="var(--cc-link)" stopOpacity={0.15} />
+                <stop offset="95%" stopColor="var(--cc-link)" stopOpacity={0} />
               </linearGradient>
             </defs>
             <CartesianGrid strokeDasharray="3 3" stroke="var(--cc-hairline)" />
@@ -55,7 +55,7 @@ export default React.memo(function UserGrowthChart() {
             <Area
               type="monotone"
               dataKey="users"
-              stroke="#0070f3"
+              stroke="var(--cc-link)"
               strokeWidth={2}
               fill="url(#colorUsers)"
               name="Total Users"
