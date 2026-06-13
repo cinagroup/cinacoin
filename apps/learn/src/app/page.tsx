@@ -57,7 +57,7 @@ export default function HomePage() {
       </div>
 
       <section className="mb-12" aria-labelledby="tutorials-heading">
-        <p className="cc-mono text-caption mb-2" style={{ color: 'var(--cc-mute)' }}>Tutorials</p>
+        <p className="cc-mono text-caption mb-2" style={{ color: 'var(--cc-muted)' }}>Tutorials</p>
         <h2 id="tutorials-heading" className="text-display-md mb-6">Tutorials</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {tutorials.map((tutorial) => (
@@ -67,7 +67,7 @@ export default function HomePage() {
       </section>
 
       <section className="cc-card" aria-labelledby="quick-start-heading">
-        <p className="cc-mono text-caption mb-2" style={{ color: 'var(--cc-mute)' }}>Quick start</p>
+        <p className="cc-mono text-caption mb-2" style={{ color: 'var(--cc-muted)' }}>Quick start</p>
         <h2 id="quick-start-heading" className="text-display-sm mb-4 flex items-center gap-2">
           <Rocket className="w-5 h-5" aria-hidden="true" /> Getting started.
         </h2>
