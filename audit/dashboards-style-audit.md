@@ -38,10 +38,10 @@
 **严重程度**: 中  
 **影响范围**: Unified, Backend, Cloud
 
-这三个应用在 `globals.css` 中重新定义了完整的颜色系统：
+这三个应用在 `shared-design-system.css` 中重新定义了完整的颜色系统：
 
 ```css
-/* Unified/Backend/Cloud globals.css */
+/* Unified/Backend/Cloud shared-design-system.css */
 :root {
   --color-primary: #171717;
   --color-ink: #171717;
@@ -94,7 +94,7 @@
 
 ### 1.3 修复建议
 
-**文件**: `apps/unified-dashboard/src/app/globals.css`  
+**文件**: `apps/unified-dashboard/src/shared-design-system.css`  
 **操作**: 删除重复的颜色定义，直接使用规范 Token
 
 ```css
@@ -123,7 +123,9 @@
 <html lang="en" data-theme="dark" className={`${geistSans.variable} ${geistMono.variable}`}>
 ```
 
-**对 Backend Dashboard 和 Cloud Dashboard 执行相同修复**
+**文件**: `apps/backend-dashboard/src/shared-design-system.css`  
+**文件**: `apps/cloud-dashboard/src/shared-design-system.css`  
+**操作**: 同上 — 删除重复的颜色定义，直接使用规范 Token
 
 ---
 
@@ -567,9 +569,9 @@
 
 ## 10. 具体修复代码
 
-### 10.1 修复 Unified Dashboard globals.css
+### 10.1 修复 Unified Dashboard shared-design-system.css
 
-**文件**: `apps/unified-dashboard/src/app/globals.css`
+**文件**: `apps/unified-dashboard/src/shared-design-system.css`
 
 ```css
 /* 删除以下代码块（约 150 行） */
@@ -651,7 +653,7 @@
 
 ### 10.5 统一卡片阴影
 
-**文件**: `apps/cloud-dashboard/src/shared-design-system.css`
+**文件**: `apps/cloud-dashboard/src/shared-design-system.css` (第 ~380-400 行)
 
 ```css
 /* 修改前 */
@@ -679,7 +681,7 @@
 
 | 维度 | 评分 | 说明 |
 |------|------|------|
-| 颜色系统 | 6/10 | 3 个应用重复定义，暗色模式值不一致 |
+| 颜色系统 | 6/10 | 3 个应用 shared-design-system.css 重复定义，暗色模式值不一致 |
 | 布局一致性 | 7/10 | 导航模式不统一，侧边栏宽度硬编码 |
 | 组件风格 | 7/10 | 按钮高度、卡片阴影、徽章/Tab 圆角不一致 |
 | 排版 | 8/10 | 基本符合，行高定义方式不统一 |
