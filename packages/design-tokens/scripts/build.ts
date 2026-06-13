@@ -12,6 +12,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+
 import { logger } from '@cinacoin/logger';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -29,7 +30,15 @@ function readJson(path: string): unknown {
 
 function flattenTheme(theme: Record<string, unknown>): Record<string, string> {
   const flat: Record<string, string> = {};
-  const groups = ['colors', 'radii', 'shadows', 'typography', 'spacing', 'animations', 'zIndex'] as const;
+  const groups = [
+    'colors',
+    'radii',
+    'shadows',
+    'typography',
+    'spacing',
+    'animations',
+    'zIndex',
+  ] as const;
   for (const g of groups) {
     const obj = (theme as Record<string, Record<string, unknown>>)[g] ?? {};
     for (const [key, value] of Object.entries(obj)) {
@@ -57,9 +66,15 @@ function build() {
   }
 
   // Load themes
-  const defaultTheme = readJson(join(root, 'tokens/themes/default.json')) as Record<string, unknown>;
+  const defaultTheme = readJson(join(root, 'tokens/themes/default.json')) as Record<
+    string,
+    unknown
+  >;
   const lightTheme = readJson(join(root, 'tokens/themes/light.json')) as Record<string, unknown>;
-  const minimalTheme = readJson(join(root, 'tokens/themes/minimal.json')) as Record<string, unknown>;
+  const minimalTheme = readJson(join(root, 'tokens/themes/minimal.json')) as Record<
+    string,
+    unknown
+  >;
 
   const defaultMap = flattenTheme(defaultTheme.theme as Record<string, unknown>);
   const lightMap = flattenTheme(lightTheme.theme as Record<string, unknown>);
@@ -74,9 +89,9 @@ function build() {
     '',
     toCssBlock(':root', defaultMap),
     '',
-    toCssBlock('.ocx-theme-light', lightMap),
+    toCssBlock('.cc-theme-light', lightMap),
     '',
-    toCssBlock('.ocx-theme-minimal', minimalMap),
+    toCssBlock('.cc-theme-minimal', minimalMap),
     '',
   ].join('\n');
 

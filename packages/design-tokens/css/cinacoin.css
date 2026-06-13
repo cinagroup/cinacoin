@@ -133,13 +133,13 @@
   --cc-6xl: 128px;
   --cc-section: 192px;
   --cc-radius-none: 0px;
-  --cc-radius-xs: 2px;
-  --cc-radius-sm: 4px;
-  --cc-radius-md: 4px;
-  --cc-radius-lg: 4px;
-  --cc-radius-xl: 4px;
-  --cc-radius-pill-sm: 4px;
-  --cc-radius-pill: 4px;
+  --cc-radius-xs: 4px;
+  --cc-radius-sm: 6px;
+  --cc-radius-md: 8px;
+  --cc-radius-lg: 12px;
+  --cc-radius-xl: 16px;
+  --cc-radius-pill-sm: 64px;
+  --cc-radius-pill: 100px;
   --cc-radius-full: 9999px;
 }
 
@@ -374,7 +374,7 @@ a:hover {
 }
 
 /* ── Component primitives ── */
-/* Vercel-style buttons: 4px radius, no pill shapes */
+/* Buttons: pill shape (100px) for marketing CTAs per DESIGN.md */
 .cc-btn-primary {
   display: inline-flex;
   align-items: center;
@@ -382,7 +382,7 @@ a:hover {
   background: var(--cc-primary);
   color: var(--cc-on-primary);
   border: none;
-  border-radius: var(--cc-radius-sm);
+  border-radius: var(--cc-radius-pill);
   padding: 0 var(--cc-lg);
   height: 48px;
   font-size: var(--text-body-md);
@@ -407,7 +407,7 @@ a:hover {
   background: var(--cc-primary);
   color: var(--cc-on-primary);
   border: none;
-  border-radius: var(--cc-radius-sm);
+  border-radius: var(--cc-radius-pill);
   padding: 0 var(--cc-xs);
   height: 32px;
   font-size: var(--text-body-sm);
@@ -432,7 +432,7 @@ a:hover {
   background: var(--cc-canvas);
   color: var(--cc-ink);
   border: 1px solid var(--cc-hairline);
-  border-radius: var(--cc-radius-sm);
+  border-radius: var(--cc-radius-pill);
   padding: 0 var(--cc-lg);
   height: 48px;
   font-size: var(--text-body-md);
@@ -457,7 +457,7 @@ a:hover {
   background: var(--cc-canvas);
   color: var(--cc-ink);
   border: 1px solid var(--cc-hairline-strong);
-  border-radius: var(--cc-radius-sm);
+  border-radius: var(--cc-radius-pill);
   padding: 0 var(--cc-xs);
   height: 32px;
   font-size: var(--text-body-sm);
@@ -475,10 +475,10 @@ a:hover {
   outline: 2px solid var(--cc-link);
   outline-offset: 2px;
 }
-/* Cards: 4px radius, semi-transparent inset borders */
+/* Cards: md radius (8px), semi-transparent inset borders per DESIGN.md */
 .cc-card {
   background: var(--cc-canvas);
-  border-radius: var(--cc-radius-sm);
+  border-radius: var(--cc-radius-md);
   padding: var(--cc-lg);
   box-shadow: var(--cc-level1);
   transition: box-shadow 0.3s ease;
@@ -492,7 +492,7 @@ a:hover {
 }
 .cc-card-lg {
   background: var(--cc-canvas);
-  border-radius: var(--cc-radius-sm);
+  border-radius: var(--cc-radius-lg);
   padding: var(--cc-xl);
   box-shadow: var(--cc-level2);
   transition: box-shadow 0.3s ease;
@@ -507,14 +507,14 @@ a:hover {
 .cc-card-soft {
   background: var(--cc-canvas-soft-2);
   border: 1px solid var(--cc-hairline);
-  border-radius: var(--cc-radius-sm);
+  border-radius: var(--cc-radius-md);
   padding: var(--cc-lg);
 }
 .cc-card-featured {
   background: var(--cc-primary);
   color: var(--cc-on-primary);
   border: 1px solid var(--cc-on-primary-hairline-soft);
-  border-radius: var(--cc-radius-sm);
+  border-radius: var(--cc-radius-lg);
   padding: var(--cc-xl);
   box-shadow: var(--cc-level4);
   transition: box-shadow 0.3s ease;
@@ -536,7 +536,7 @@ a:hover {
   font-size: var(--text-caption);
   font-weight: var(--weight-regular);
   line-height: 16px;
-  border-radius: var(--cc-radius-sm);
+  border-radius: var(--cc-radius-full);
   padding: 0 var(--cc-xs);
 }
 .cc-badge:focus-visible {
@@ -549,7 +549,7 @@ a:hover {
   justify-content: center;
   background: var(--cc-canvas);
   color: var(--cc-ink);
-  border-radius: var(--cc-radius-sm);
+  border-radius: var(--cc-radius-pill-sm);
   padding: 0 var(--cc-md);
   font-size: var(--text-body-sm);
   font-weight: var(--weight-regular);
@@ -672,7 +672,7 @@ select.cc-form-input option {
   line-height: 20px;
   letter-spacing: -0.28px;
   padding: var(--cc-xs) var(--cc-sm);
-  border-radius: var(--cc-radius-sm);
+  border-radius: var(--cc-radius-full);
   text-decoration: none;
   transition: color 0.3s ease;
 }
@@ -846,7 +846,7 @@ select.cc-form-input option {
 .cc-code-block {
   background: var(--cc-primary);
   color: var(--cc-on-primary);
-  border-radius: var(--cc-radius-sm);
+  border-radius: var(--cc-radius-md);
   padding: var(--cc-lg);
   font-family:
     var(--font-geist-mono),

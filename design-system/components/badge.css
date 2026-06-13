@@ -15,7 +15,7 @@
   line-height: var(--leading-caption);
   color: var(--color-body);
   background-color: var(--color-canvas-soft-2);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-full);
   white-space: nowrap;
   text-decoration: none;
 }
@@ -116,8 +116,9 @@
   border-radius: var(--radius-full);
   padding: 0;
   margin-left: var(--space-xxs);
-  transition: color var(--duration-color) var(--ease-default),
-              background-color var(--duration-color) var(--ease-default);
+  transition:
+    color var(--duration-color) var(--ease-default),
+    background-color var(--duration-color) var(--ease-default);
 }
 
 .badge-remove:hover {

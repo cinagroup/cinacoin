@@ -1,4 +1,3 @@
-import { logger } from '@cinacoin/logger';
 /**
  * @cinacoin/design-system — Design tokens and theme system.
  *
@@ -10,7 +9,7 @@ import { logger } from '@cinacoin/logger';
  * import { designTokens, darkTheme, lightTheme } from '@cinacoin/design-system';
  *
  * const theme = darkTheme;
- * logger.info(theme.colors.primary); // '#58a6ff'
+ * console.log(theme.colors.primary); // '#171717'
  * ```
  */
 

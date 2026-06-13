@@ -273,7 +273,7 @@ body {
 .btn-primary {
   background-color: var(--color-primary);
   color: var(--color-on-primary);
-  border-radius: 4px;
+  border-radius: 100px;
   font-weight: var(--weight-medium);
   transition: background-color var(--transition-fast);
 }
@@ -286,7 +286,7 @@ body {
   background-color: transparent;
   color: var(--color-ink);
   border: 1px solid var(--color-hairline-strong);
-  border-radius: 4px;
+  border-radius: 100px;
   font-weight: var(--weight-medium);
   transition: border-color var(--transition-fast);
 }
@@ -297,10 +297,10 @@ body {
 
 /* Button utilities */
 .btn-pill {
-  border-radius: 4px;
+  border-radius: 100px;
 }
 .btn-sm {
-  border-radius: 4px;
+  border-radius: 100px;
 }
 
 /* ── Card Utilities ───────────────────────────────────── */
@@ -308,7 +308,7 @@ body {
 .card {
   background-color: var(--color-canvas);
   border: 1px solid var(--color-hairline);
-  border-radius: 4px;
+  border-radius: 8px;
   padding: 24px;
   box-shadow: var(--shadow-level-1);
 }
@@ -317,7 +317,7 @@ body {
 .card-standard {
   background-color: var(--color-canvas);
   border: 1px solid var(--color-hairline);
-  border-radius: 4px;
+  border-radius: 8px;
   padding: 24px;
   box-shadow: var(--shadow-level-1);
 }
@@ -396,10 +396,14 @@ body {
   --cc-level5: var(--shadow-level-5);
 
   /* Radius aliases */
-  --cc-radius-sm: 4px;
-  --cc-radius-md: 4px;
-  --cc-radius-lg: 4px;
-  --cc-radius-pill: 4px;
+  --cc-radius-xs: 4px;
+  --cc-radius-sm: 6px;
+  --cc-radius-md: 8px;
+  --cc-radius-lg: 12px;
+  --cc-radius-xl: 16px;
+  --cc-radius-pill-sm: 64px;
+  --cc-radius-pill: 100px;
+  --cc-radius-full: 9999px;
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -501,7 +505,7 @@ body {
 .cc-card {
   background-color: var(--cc-canvas);
   border: 1px solid var(--cc-hairline);
-  border-radius: 4px;
+  border-radius: 8px;
   padding: 24px;
   box-shadow:
     0 1px 2px rgba(0, 0, 0, 0.04),
@@ -519,7 +523,7 @@ body {
 .cc-card-lg {
   background-color: var(--cc-canvas);
   border: 1px solid var(--cc-hairline);
-  border-radius: 4px;
+  border-radius: 12px;
   padding: 32px;
   box-shadow:
     0 1px 2px rgba(0, 0, 0, 0.04),
@@ -536,7 +540,7 @@ body {
   background-color: var(--cc-primary);
   color: var(--cc-on-primary);
   border: none;
-  border-radius: 4px;
+  border-radius: 100px;
   font-size: var(--text-body-sm);
   font-weight: var(--weight-medium);
   cursor: pointer;
@@ -559,7 +563,7 @@ body {
   background-color: var(--cc-primary);
   color: var(--cc-on-primary);
   border: none;
-  border-radius: 4px;
+  border-radius: 100px;
   font-size: var(--text-body-sm);
   font-weight: var(--weight-medium);
   cursor: pointer;
@@ -582,7 +586,7 @@ body {
   background-color: transparent;
   color: var(--cc-ink);
   border: 1px solid var(--cc-hairline-strong);
-  border-radius: 4px;
+  border-radius: 100px;
   font-size: var(--text-body-sm);
   font-weight: var(--weight-medium);
   cursor: pointer;
@@ -605,7 +609,7 @@ body {
   background-color: transparent;
   color: var(--cc-ink);
   border: 1px solid var(--cc-hairline-strong);
-  border-radius: 4px;
+  border-radius: 100px;
   font-size: var(--text-body-sm);
   font-weight: var(--weight-medium);
   cursor: pointer;
@@ -627,7 +631,7 @@ body {
   font-size: var(--text-body-sm);
   font-weight: var(--weight-regular);
   color: var(--cc-body);
-  border-radius: 4px;
+  border-radius: 9999px;
   transition:
     color var(--transition-fast),
     background-color var(--transition-fast);
@@ -649,7 +653,7 @@ body {
   font-size: var(--text-body-sm);
   font-weight: var(--weight-medium);
   color: var(--cc-ink);
-  border-radius: 4px;
+  border-radius: 6px;
   transition: background-color var(--transition-fast);
   text-decoration: none;
 }
@@ -669,7 +673,7 @@ body {
   font-weight: var(--weight-medium);
   background-color: var(--cc-primary);
   color: var(--cc-on-primary);
-  border-radius: 4px;
+  border-radius: 6px;
   transition: background-color var(--transition-fast);
   text-decoration: none;
 }
@@ -687,7 +691,7 @@ body {
   padding: 4px 12px;
   font-size: var(--text-caption);
   font-weight: var(--weight-semibold);
-  border-radius: 4px;
+  border-radius: 9999px;
   line-height: 1;
 }
 
@@ -698,7 +702,7 @@ body {
   padding: 0 12px;
   background-color: var(--cc-canvas);
   border: 1px solid var(--cc-hairline);
-  border-radius: 4px;
+  border-radius: 6px;
   font-size: var(--text-body-sm);
   color: var(--cc-ink);
   transition:
@@ -720,7 +724,7 @@ body {
 .input-standard {
   height: 40px;
   border: 1px solid var(--color-hairline);
-  border-radius: 4px;
+  border-radius: 6px;
   padding: 0 12px;
 }
 .input-standard:focus {
@@ -744,7 +748,7 @@ textarea:focus {
   font-size: var(--text-body-sm);
   padding: 4px 8px;
   background-color: var(--cc-canvas-soft-2);
-  border-radius: 4px;
+  border-radius: 4px; /* inline code stays xs */
   color: var(--cc-ink);
 }
 
@@ -754,7 +758,7 @@ textarea:focus {
   padding: 16px;
   background-color: var(--color-canvas-soft-2);
   color: var(--color-body);
-  border-radius: 4px;
+  border-radius: 8px;
   overflow-x: auto;
   line-height: 1.6;
 }

@@ -18,7 +18,6 @@
   --weight-regular: 400;
   --weight-medium: 500;
   --weight-semibold: 600;
-  --weight-bold: 700;
 
   /* ── Colors ─────────────────────────────────────────── */
   --color-primary: #171717;
@@ -205,10 +204,14 @@ body {
   --cc-level5: var(--shadow-level-5);
 
   /* Radius aliases */
-  --cc-radius-sm: 4px;
-  --cc-radius-md: 4px;
-  --cc-radius-lg: 4px;
-  --cc-radius-pill: 4px;
+  --cc-radius-xs: 4px;
+  --cc-radius-sm: 6px;
+  --cc-radius-md: 8px;
+  --cc-radius-lg: 12px;
+  --cc-radius-xl: 16px;
+  --cc-radius-pill-sm: 64px;
+  --cc-radius-pill: 100px;
+  --cc-radius-full: 9999px;
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -338,7 +341,7 @@ body {
   background-color: var(--cc-primary);
   color: var(--cc-on-primary);
   border: none;
-  border-radius: var(--cc-radius-sm);
+  border-radius: var(--cc-radius-pill);
   font-size: var(--text-body-sm);
   font-weight: var(--weight-medium);
   cursor: pointer;
@@ -361,7 +364,7 @@ body {
   background-color: var(--cc-primary);
   color: var(--cc-on-primary);
   border: none;
-  border-radius: var(--cc-radius-sm);
+  border-radius: var(--cc-radius-pill);
   font-size: var(--text-body-sm);
   font-weight: var(--weight-medium);
   cursor: pointer;
@@ -384,7 +387,7 @@ body {
   background-color: transparent;
   color: var(--cc-ink);
   border: 1px solid var(--cc-hairline-strong);
-  border-radius: var(--cc-radius-sm);
+  border-radius: var(--cc-radius-pill);
   font-size: var(--text-body-sm);
   font-weight: var(--weight-medium);
   cursor: pointer;
@@ -407,7 +410,7 @@ body {
   background-color: transparent;
   color: var(--cc-ink);
   border: 1px solid var(--cc-hairline-strong);
-  border-radius: var(--cc-radius-sm);
+  border-radius: var(--cc-radius-pill);
   font-size: var(--text-body-sm);
   font-weight: var(--weight-medium);
   cursor: pointer;

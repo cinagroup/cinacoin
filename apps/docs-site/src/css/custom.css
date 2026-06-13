@@ -19,9 +19,9 @@
   --cc-muted: #737373;
   --cc-hairline: rgba(255, 255, 255, 0.08);
   --cc-hairline-strong: rgba(255, 255, 255, 0.15);
-  --cc-canvas: #000000;
-  --cc-canvas-soft: #0a0a0a;
-  --cc-canvas-soft-2: #111111;
+  --cc-canvas: #0a0a0a;
+  --cc-canvas-soft: #141414;
+  --cc-canvas-soft-2: #1e1e1e;
   --cc-link: #0070f3;
   --cc-link-deep: #3291ff;
   --cc-link-bg-soft: rgba(0, 112, 243, 0.15);
@@ -69,13 +69,23 @@
   --text-heading-md: 1.5rem;
   --text-heading-lg: 2rem;
 
+  /* ── Border Radius Tokens ── */
+  --cc-radius-xs: 4px;
+  --cc-radius-sm: 6px;
+  --cc-radius-md: 8px;
+  --cc-radius-lg: 12px;
+  --cc-radius-xl: 16px;
+  --cc-radius-pill-sm: 64px;
+  --cc-radius-pill: 100px;
+  --cc-radius-full: 9999px;
+
   /* ── Typography ── */
   --ifm-font-family-base: 'Geist', 'Inter', system-ui, -apple-system, sans-serif;
   --ifm-font-family-monospace: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
   --ifm-heading-font-family: var(--ifm-font-family-base);
 
   --ifm-heading-font-weight: var(--weight-semibold);
-  --ifm-font-weight-semibold: 500;
+  --ifm-font-weight-semibold: 600;
 
   --ifm-h1-font-size: 2.5rem;
   --ifm-h2-font-size: 1.75rem;
@@ -91,7 +101,7 @@
   --ifm-code-padding-vertical: 0.15rem;
 
   /* ── Global shape ── */
-  --ifm-global-radius: 4px;
+  --ifm-global-radius: 6px;
   --ifm-global-shadow-lw: 0 1px 1px rgba(0, 0, 0, 0.03), 0 2px 2px rgba(0, 0, 0, 0.06);
   --ifm-global-shadow-md: 0 2px 2px rgba(0, 0, 0, 0.06), 0 8px 8px rgba(0, 0, 0, 0.06);
   --ifm-global-shadow-tl: 0 2px 2px rgba(0, 0, 0, 0.06), 0 8px 16px rgba(0, 0, 0, 0.06);
@@ -377,7 +387,7 @@ html[data-theme='light'] {
   justify-content: center;
   width: 32px;
   height: 32px;
-  border-radius: 4px;
+  border-radius: 9999px;
   border: 1px solid var(--cc-hairline);
   background-color: var(--cc-canvas-soft);
   color: var(--cc-body);
@@ -435,7 +445,7 @@ html[data-theme='dark'] .navbar {
 .navbar__item {
   font-size: var(--text-body-sm);
   font-weight: var(--weight-regular);
-  border-radius: 4px;
+  border-radius: 9999px;
   transition:
     background-color 0.15s ease,
     color 0.15s ease;
@@ -462,7 +472,7 @@ html[data-theme='dark'] .navbar__item:hover {
   font-size: var(--text-body-sm);
   line-height: 20px;
   padding: 4px 12px;
-  border-radius: 4px;
+  border-radius: 6px;
   height: 28px;
   display: inline-flex;
   align-items: center;
@@ -493,7 +503,7 @@ html[data-theme='dark'] .theme-doc-sidebar-container {
 .menu__link {
   font-size: var(--text-body-sm);
   line-height: 1.4;
-  border-radius: 4px;
+  border-radius: 6px;
   padding: 8px 12px;
   color: var(--cc-body);
   transition:
@@ -531,7 +541,7 @@ html[data-theme='dark'] .menu__link--active {
 }
 
 .menu__caret {
-  border-radius: 4px;
+  border-radius: 9999px;
   padding: 8px;
 }
 
@@ -553,7 +563,7 @@ html[data-theme='dark'] .menu__caret:hover {
 .table-of-contents__link {
   font-size: var(--text-body-sm);
   color: var(--cc-muted);
-  border-radius: 4px;
+  border-radius: 6px;
   padding: 4px 8px;
   transition:
     background-color 0.12s ease,
@@ -641,7 +651,7 @@ html[data-theme='dark'] .markdown code {
   font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace !important;
   font-size: var(--text-body-sm) !important;
   line-height: 1.6 !important;
-  border-radius: 4px !important;
+  border-radius: 8px !important;
   background: #1e1e1e !important;
 }
 
@@ -675,7 +685,7 @@ html[data-theme='dark'] .markdown code {
 .card {
   background-color: var(--cc-canvas);
   border: 1px solid var(--cc-hairline);
-  border-radius: 4px;
+  border-radius: 8px;
   padding: 24px;
   box-shadow:
     0px 1px 1px rgba(0, 0, 0, 0.03),
@@ -708,7 +718,7 @@ html[data-theme='dark'] .card:hover {
    ────────────────────────────────────────────── */
 table {
   border: 1px solid var(--cc-hairline);
-  border-radius: 4px;
+  border-radius: 8px;
   overflow: hidden;
 }
 
@@ -748,7 +758,7 @@ html[data-theme='dark'] table td {
    ────────────────────────────────────────────── */
 .pagination-nav__link {
   border: 1px solid var(--cc-hairline);
-  border-radius: 4px;
+  border-radius: 8px;
   transition:
     border-color 0.15s ease,
     box-shadow 0.15s ease;
@@ -792,7 +802,7 @@ html[data-theme='dark'] .pagination-nav__label {
 .breadcrumbs__link {
   font-size: var(--text-body-sm);
   color: var(--cc-body);
-  border-radius: 4px;
+  border-radius: 9999px;
   padding: 4px 8px;
   transition:
     background-color 0.12s ease,
@@ -827,7 +837,7 @@ html[data-theme='dark'] .breadcrumbs__item--active .breadcrumbs__link {
    Search bar (DocSearch / Algolia)
    ────────────────────────────────────────────── */
 .DocSearch-Button {
-  border-radius: 4px !important;
+  border-radius: 6px !important;
   border: 1px solid var(--cc-hairline) !important;
   background-color: var(--cc-canvas-soft) !important;
   transition:
@@ -935,7 +945,7 @@ html[data-theme='dark'] .footer__link-item:hover {
   padding: 8px 12px;
   font-size: var(--text-body-sm);
   border: 1px solid var(--cc-hairline);
-  border-radius: 4px;
+  border-radius: 6px;
   background-color: var(--cc-canvas);
   color: var(--cc-ink);
   outline: none;
@@ -963,7 +973,7 @@ html[data-theme='dark'] .footer-newsletter-form input[type='email']:focus {
   background-color: var(--cc-ink);
   color: var(--cc-canvas);
   border: none;
-  border-radius: 4px;
+  border-radius: 100px;
   cursor: pointer;
   transition: opacity 0.15s ease;
 }
@@ -1032,7 +1042,7 @@ html[data-theme='dark'] .footer-newsletter-form button {
    Back to top button
    ────────────────────────────────────────────── */
 .clean-btn.theme-back-to-top-button {
-  border-radius: 4px !important;
+  border-radius: 9999px !important;
   border: 1px solid var(--cc-hairline) !important;
   box-shadow:
     0 1px 1px rgba(0, 0, 0, 0.03),
@@ -1054,7 +1064,7 @@ html[data-theme='dark'] .clean-btn.theme-back-to-top-button {
 .tabs__item {
   font-size: var(--text-body-sm);
   font-weight: var(--weight-regular);
-  border-radius: 4px;
+  border-radius: 64px;
   padding: 8px 16px;
   color: var(--cc-body);
   border-bottom: none;
@@ -1092,7 +1102,7 @@ html[data-theme='dark'] .tabs__item--active {
    Admonitions / Callouts
    ────────────────────────────────────────────── */
 .theme-admonition {
-  border-radius: 4px;
+  border-radius: 8px;
   border: 1px solid var(--cc-hairline);
   box-shadow: none;
 }
@@ -1135,7 +1145,7 @@ html[data-theme='dark'] ::-webkit-scrollbar-thumb:hover {
    ────────────────────────────────────────────── */
 .badge {
   font-size: var(--text-caption);
-  border-radius: 4px;
+  border-radius: 9999px;
   padding: 4px 12px;
   font-weight: var(--weight-regular);
 }
@@ -1198,7 +1208,7 @@ html[data-theme='dark'] .landing-hero p {
   line-height: 40px;
   font-size: var(--text-body-sm);
   font-weight: var(--weight-medium);
-  border-radius: 4px;
+  border-radius: 100px;
   text-decoration: none;
   transition:
     opacity 0.15s ease,
@@ -1266,7 +1276,7 @@ html[data-theme='dark'] .landing-btn--secondary:hover {
 .landing-card {
   background-color: var(--cc-canvas);
   border: 1px solid var(--cc-hairline);
-  border-radius: 4px;
+  border-radius: 8px;
   padding: 24px;
   box-shadow:
     0px 1px 1px rgba(0, 0, 0, 0.03),

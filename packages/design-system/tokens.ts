@@ -3,6 +3,8 @@
  *
  * Core design tokens for colors, typography, spacing, and more.
  * These tokens are framework-agnostic and can be used with any CSS-in-JS solution.
+ *
+ * Color values follow the CINAcoin design system (DESIGN.md).
  */
 
 // ============================================================================
@@ -12,6 +14,8 @@
 export interface ColorTokens {
   /** Primary brand color */
   primary: string;
+  /** On-primary (text on primary bg) */
+  onPrimary: string;
   /** Secondary accent color */
   accent: string;
   /** Success state */
@@ -20,16 +24,16 @@ export interface ColorTokens {
   warning: string;
   /** Error state */
   error: string;
-  /** Info state */
+  /** Info / link state */
   info: string;
-  
+
   /** Background colors */
   background: {
     primary: string;
     secondary: string;
     tertiary: string;
   };
-  
+
   /** Text colors */
   text: {
     primary: string;
@@ -37,14 +41,14 @@ export interface ColorTokens {
     muted: string;
     inverse: string;
   };
-  
+
   /** Border colors */
   border: {
     primary: string;
     secondary: string;
     focus: string;
   };
-  
+
   /** Surface colors (cards, modals) */
   surface: {
     primary: string;
@@ -54,69 +58,71 @@ export interface ColorTokens {
 }
 
 export const lightColors: ColorTokens = {
-  primary: '#58a6ff',
-  accent: '#3fb950',
-  success: '#22c55e',
-  warning: '#f59e0b',
-  error: '#ef4444',
-  info: '#3b82f6',
-  
+  primary: '#171717',
+  onPrimary: '#ffffff',
+  accent: '#0070f3',
+  success: '#0070f3',
+  warning: '#f5a623',
+  error: '#ee0000',
+  info: '#0070f3',
+
   background: {
     primary: '#ffffff',
-    secondary: '#f6f8fa',
-    tertiary: '#eaeef2',
+    secondary: '#fafafa',
+    tertiary: '#f5f5f5',
   },
-  
+
   text: {
-    primary: '#1f2328',
-    secondary: '#656d76',
-    muted: '#8b949e',
+    primary: '#171717',
+    secondary: '#4d4d4d',
+    muted: '#888888',
     inverse: '#ffffff',
   },
-  
+
   border: {
-    primary: '#d0d7de',
-    secondary: '#eaeef2',
-    focus: '#58a6ff',
+    primary: '#ebebeb',
+    secondary: '#f5f5f5',
+    focus: '#0070f3',
   },
-  
+
   surface: {
     primary: '#ffffff',
-    secondary: '#f6f8fa',
+    secondary: '#fafafa',
     overlay: 'rgba(0, 0, 0, 0.5)',
   },
 };
 
 export const darkColors: ColorTokens = {
-  primary: '#58a6ff',
-  accent: '#3fb950',
-  success: '#22c55e',
-  warning: '#f59e0b',
-  error: '#ef4444',
-  info: '#3b82f6',
-  
+  primary: '#ffffff',
+  onPrimary: '#000000',
+  accent: '#0070f3',
+  success: '#0070f3',
+  warning: '#f5a623',
+  error: '#ee0000',
+  info: '#0070f3',
+
   background: {
-    primary: '#0d1117',
-    secondary: '#161b22',
-    tertiary: '#21262d',
+    primary: '#000000',
+    secondary: '#0a0a0a',
+    tertiary: '#111111',
   },
-  
+
   text: {
-    primary: '#e6edf3',
-    secondary: '#8b949e',
-    muted: '#6e7681',
-    inverse: '#0d1117',
+    primary: '#ededed',
+    secondary: '#a3a3a3',
+    muted: '#737373',
+    inverse: '#000000',
   },
-  
+
   border: {
-    primary: '#30363d',
-    secondary: '#21262d',
-    focus: '#58a6ff',
+    primary: 'rgba(255, 255, 255, 0.08)',
+    secondary: 'rgba(255, 255, 255, 0.15)',
+    focus: '#0070f3',
   },
-  
+
   surface: {
-    primary: '#161b22',
-    secondary: '#21262d',
+    primary: '#000000',
+    secondary: '#0a0a0a',
     overlay: 'rgba(0, 0, 0, 0.7)',
   },
 };
@@ -154,17 +160,17 @@ export interface TypographyTokens {
 
 export const typography: TypographyTokens = {
   fontFamily: {
-    sans: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-    mono: 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
+    sans: "'Geist', 'Inter', system-ui, -apple-system, sans-serif",
+    mono: "'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace",
   },
   fontSize: {
-    xs: '0.75rem',    // 12px
-    sm: '0.875rem',   // 14px
-    base: '1rem',     // 16px
-    lg: '1.125rem',   // 18px
-    xl: '1.25rem',    // 20px
-    '2xl': '1.5rem',  // 24px
-    '3xl': '1.875rem', // 30px
+    xs: '12px',
+    sm: '14px',
+    base: '16px',
+    lg: '18px',
+    xl: '24px',
+    '2xl': '32px',
+    '3xl': '48px',
   },
   fontWeight: {
     normal: 400,
@@ -184,41 +190,33 @@ export const typography: TypographyTokens = {
 // ============================================================================
 
 export interface SpacingTokens {
-  px: string;
-  0.5: string;
-  1: string;
-  1.5: string;
-  2: string;
-  2.5: string;
-  3: string;
-  4: string;
-  5: string;
-  6: string;
-  8: string;
-  10: string;
-  12: string;
-  16: string;
-  20: string;
-  24: string;
+  xxs: string;
+  xs: string;
+  sm: string;
+  md: string;
+  lg: string;
+  xl: string;
+  '2xl': string;
+  '3xl': string;
+  '4xl': string;
+  '5xl': string;
+  '6xl': string;
+  section: string;
 }
 
 export const spacing: SpacingTokens = {
-  px: '1px',
-  0.5: '0.125rem',  // 2px
-  1: '0.25rem',     // 4px
-  1.5: '0.375rem',  // 6px
-  2: '0.5rem',      // 8px
-  2.5: '0.625rem',  // 10px
-  3: '0.75rem',     // 12px
-  4: '1rem',        // 16px
-  5: '1.25rem',     // 20px
-  6: '1.5rem',      // 24px
-  8: '2rem',        // 32px
-  10: '2.5rem',     // 40px
-  12: '3rem',       // 48px
-  16: '4rem',       // 64px
-  20: '5rem',       // 80px
-  24: '6rem',       // 96px
+  xxs: '4px',
+  xs: '8px',
+  sm: '12px',
+  md: '16px',
+  lg: '24px',
+  xl: '32px',
+  '2xl': '40px',
+  '3xl': '48px',
+  '4xl': '64px',
+  '5xl': '96px',
+  '6xl': '128px',
+  section: '192px',
 };
 
 // ============================================================================
@@ -227,23 +225,25 @@ export const spacing: SpacingTokens = {
 
 export interface BorderRadiusTokens {
   none: string;
+  xs: string;
   sm: string;
-  base: string;
   md: string;
   lg: string;
   xl: string;
-  '2xl': string;
+  pillSm: string;
+  pill: string;
   full: string;
 }
 
 export const borderRadius: BorderRadiusTokens = {
-  none: '0',
-  sm: '0.125rem',   // 2px
-  base: '0.25rem',  // 4px
-  md: '0.375rem',   // 6px
-  lg: '0.5rem',     // 8px
-  xl: '0.75rem',    // 12px
-  '2xl': '1rem',    // 16px
+  none: '0px',
+  xs: '4px',
+  sm: '6px',
+  md: '8px',
+  lg: '12px',
+  xl: '16px',
+  pillSm: '64px',
+  pill: '100px',
   full: '9999px',
 };
 
@@ -252,21 +252,25 @@ export const borderRadius: BorderRadiusTokens = {
 // ============================================================================
 
 export interface ShadowTokens {
-  sm: string;
-  base: string;
-  md: string;
-  lg: string;
-  xl: string;
-  '2xl': string;
+  level0: string;
+  level1: string;
+  level2: string;
+  level3: string;
+  level4: string;
+  level5: string;
 }
 
 export const shadows: ShadowTokens = {
-  sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
-  base: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)',
-  md: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)',
-  lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)',
-  xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
-  '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+  level0: 'none',
+  level1: '0 0 0 1px rgba(0, 0, 0, 0.08) inset',
+  level2:
+    '0px 1px 1px rgba(0, 0, 0, 0.03), 0px 2px 2px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.08) inset',
+  level3:
+    '0px 2px 2px rgba(0, 0, 0, 0.06), 0px 8px 8px -8px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.08) inset',
+  level4:
+    '0px 2px 2px rgba(0, 0, 0, 0.06), 0px 8px 16px -4px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.08) inset',
+  level5:
+    '0px 1px 1px rgba(0, 0, 0, 0.03), 0px 8px 16px -4px rgba(0, 0, 0, 0.06), 0px 24px 32px -8px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.08) inset',
 };
 
 // ============================================================================
@@ -281,8 +285,8 @@ export interface TransitionTokens {
 
 export const transitions: TransitionTokens = {
   fast: '150ms cubic-bezier(0.4, 0, 0.2, 1)',
-  base: '200ms cubic-bezier(0.4, 0, 0.2, 1)',
-  slow: '300ms cubic-bezier(0.4, 0, 0.2, 1)',
+  base: '250ms cubic-bezier(0.4, 0, 0.2, 1)',
+  slow: '400ms cubic-bezier(0.4, 0, 0.2, 1)',
 };
 
 // ============================================================================

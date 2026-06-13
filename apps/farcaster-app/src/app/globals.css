@@ -18,27 +18,29 @@
   --cc-weight-medium: 500;
   --cc-weight-semibold: 600;
 
-  /* ─── Color Palette (dark theme) ─── */
-  --cc-violet: #855dcd;
-  --cc-violet-deep: #6b4db8;
+  /* ─── Color Palette (dark theme — CINAcoin brand) ─── */
+  --cc-primary: #ffffff;
+  --cc-primary-hover: #e0e0e0;
+  --cc-on-primary: #171717;
+  --cc-violet: #a78bfa;
+  --cc-violet-deep: #8b5cf6;
   --cc-success: #22c55e;
   --cc-success-deep: #16a34a;
   --cc-error: #ef4444;
   --cc-error-deep: #dc2626;
   --cc-warning: #f5a623;
-  --cc-link: #0052ff;
-  --cc-link-deep: #0041cc;
+  --cc-link: #3b82f6;
+  --cc-link-deep: #60a5fa;
 
   /* ─── Surfaces ─── */
-  --cc-canvas: #000000;
-  --cc-canvas-soft: #0a0a0a;
-  --cc-canvas-soft-2: #111111;
-  --cc-on-primary: #000000;
-  --cc-ink: #ededed;
-  --cc-body: #a3a3a3;
-  --cc-mute: #737373;
-  --cc-hairline: rgba(255, 255, 255, 0.08);
-  --cc-hairline-strong: rgba(255, 255, 255, 0.15);
+  --cc-canvas: #0a0a0a;
+  --cc-canvas-soft: #141414;
+  --cc-canvas-soft-2: #1e1e1e;
+  --cc-ink: #f5f5f5;
+  --cc-body: #b3b3b3;
+  --cc-mute: #797979;
+  --cc-hairline: #2e2e2e;
+  --cc-hairline-strong: #404040;
 }
 
 body {
@@ -138,10 +140,11 @@ a,
   border: 0;
 }
 
-/* ── Button States ────────────────────────────────────── */
+/* ── Button States (pill shape per DESIGN.md) ───────── */
 .cc-btn-violet {
   background-color: var(--cc-violet);
-  color: var(--cc-on-primary);
+  color: #ffffff;
+  border-radius: 100px;
   transition: background-color 0.15s ease;
 }
 
@@ -160,7 +163,8 @@ a,
 
 .cc-btn-link {
   background-color: var(--cc-link);
-  color: var(--cc-on-primary);
+  color: #ffffff;
+  border-radius: 100px;
   transition: background-color 0.15s ease;
 }
 
@@ -179,7 +183,8 @@ a,
 
 .cc-btn-success {
   background-color: var(--cc-success);
-  color: var(--cc-on-primary);
+  color: #ffffff;
+  border-radius: 100px;
   transition: background-color 0.15s ease;
 }
 
@@ -197,13 +202,15 @@ a,
 }
 
 .cc-btn-secondary {
-  background-color: var(--cc-hairline-strong);
-  color: var(--cc-on-primary);
-  transition: background-color 0.15s ease;
+  background-color: transparent;
+  color: var(--cc-ink);
+  border: 1px solid var(--cc-hairline-strong);
+  border-radius: 100px;
+  transition: border-color 0.15s ease;
 }
 
 .cc-btn-secondary:hover {
-  background-color: var(--cc-mute);
+  border-color: var(--cc-ink);
 }
 
 .cc-btn-secondary:active {

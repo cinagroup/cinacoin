@@ -55,11 +55,13 @@
 
   /* Border Radius */
   --cc-radius-xs: 4px;
-  --cc-radius-sm: 4px;
-  --cc-radius-md: 4px;
-  --cc-radius-lg: 4px;
-  --cc-radius-xl: 4px;
-  --cc-radius-pill: 4px;
+  --cc-radius-sm: 6px;
+  --cc-radius-md: 8px;
+  --cc-radius-lg: 12px;
+  --cc-radius-xl: 16px;
+  --cc-radius-pill-sm: 64px;
+  --cc-radius-pill: 100px;
+  --cc-radius-full: 9999px;
 
   /* Shadows */
   --cc-shadow-1: 0 0 0 1px var(--cc-hairline);
@@ -146,8 +148,8 @@ pre {
 /* ─── Typography Utilities ─── */
 .text-caption {
   font-size: var(--cc-text-caption);
-  font-weight: var(--cc-weight-medium);
-  line-height: 1.4;
+  font-weight: var(--cc-weight-regular);
+  line-height: 16px;
 }
 
 .text-body-sm {
@@ -172,28 +174,28 @@ pre {
 .text-display-sm {
   font-size: var(--cc-text-display-sm);
   font-weight: var(--cc-weight-semibold);
-  line-height: 1.25;
-  letter-spacing: -0.4px;
+  line-height: 28px;
+  letter-spacing: -0.6px;
 }
 
 .text-display-md {
   font-size: var(--cc-text-display-md);
   font-weight: var(--cc-weight-semibold);
-  line-height: 1.2;
-  letter-spacing: -0.72px;
+  line-height: 32px;
+  letter-spacing: -0.96px;
 }
 
 .text-display-lg {
   font-size: var(--cc-text-display-lg);
   font-weight: var(--cc-weight-semibold);
-  line-height: 1.15;
+  line-height: 40px;
   letter-spacing: -1.28px;
 }
 
 .text-display-xl {
   font-size: var(--cc-text-display-xl);
   font-weight: var(--cc-weight-semibold);
-  line-height: 1.1;
+  line-height: 48px;
   letter-spacing: -2.4px;
 }
 
@@ -203,7 +205,7 @@ pre {
 .cc-card {
   background: var(--cc-canvas);
   border: 1px solid var(--cc-hairline);
-  border-radius: 4px;
+  border-radius: 8px;
   padding: var(--cc-space-lg);
   transition:
     box-shadow var(--cc-duration-normal) var(--cc-ease),
@@ -229,7 +231,7 @@ pre {
   background: var(--cc-ink);
   color: var(--cc-on-primary);
   border: none;
-  border-radius: 4px;
+  border-radius: 100px;
   font-size: var(--cc-text-body-sm);
   font-weight: var(--cc-weight-medium);
   cursor: pointer;
@@ -248,7 +250,7 @@ pre {
   background: var(--cc-canvas);
   color: var(--cc-ink);
   border: 1px solid var(--cc-hairline);
-  border-radius: 4px;
+  border-radius: 100px;
   font-size: var(--cc-text-body-sm);
   font-weight: var(--cc-weight-medium);
   cursor: pointer;
@@ -265,7 +267,7 @@ pre {
   padding: 2px var(--cc-space-xs);
   background: var(--cc-canvas-soft-2);
   color: var(--cc-body);
-  border-radius: 4px;
+  border-radius: 9999px;
   font-size: var(--cc-text-caption);
   font-weight: var(--cc-weight-medium);
 }
