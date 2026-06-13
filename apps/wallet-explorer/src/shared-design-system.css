@@ -564,7 +564,7 @@ textarea:focus-visible {
 .cc-btn-secondary,
 .cc-btn-primary-sm,
 .cc-btn-secondary-sm {
-  min-height: 32px;
+  min-height: 44px;
 }
 
 /* ── Accessibility: Screen Reader Only ────────────────── */

@@ -76,15 +76,15 @@
 
   /* Radius */
   --cc-radius-xs: 4px;
-  --cc-radius-sm: 4px;
-  --cc-radius-md: 4px;
-  --cc-radius-lg: 4px;
-  --cc-radius-xl: 4px;
-  --cc-radius-pill: 4px;
+  --cc-radius-sm: 6px;
+  --cc-radius-md: 8px;
+  --cc-radius-lg: 12px;
+  --cc-radius-xl: 16px;
+  --cc-radius-pill: 100px;
   --cc-radius-full: 9999px;
 
   /* Brand / accent (Telegram-themed) */
-  --cc-primary: var(--tg-theme-button-color, #6c63ff);
+  --tg-button-color: var(--tg-theme-button-color, #6c63ff);
   --cc-primary-light: #8b83ff;
   --cc-primary-dark: #4834d4;
 
@@ -142,7 +142,7 @@
   --tg-text: var(--cc-text);
   --tg-hint: var(--cc-muted);
   --tg-link: var(--cc-link);
-  --tg-button: var(--cc-primary);
+  --tg-button: var(--tg-button-color);
   --tg-button-text: var(--tg-theme-button-text-color, var(--cc-on-primary));
   --tg-secondary-bg: var(--cc-surface);
   --tg-header-bg: var(--cc-surface);

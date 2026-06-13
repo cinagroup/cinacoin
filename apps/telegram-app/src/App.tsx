@@ -109,11 +109,14 @@ export default function App() {
 
   return (
     <div className="app">
+      <a href="#main-content" className="skip-link">
+        Skip to main content
+      </a>
       <TelegramHeader user={user} account={account} />
       <main
         className="app-content"
         role="tabpanel"
-        id={`panel-${activeTab}`}
+        id="main-content"
         aria-labelledby={activeTab}
       >
         {renderPage()}
