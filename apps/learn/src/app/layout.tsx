@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import ResponsiveShell from "@/components/ResponsiveShell";
-import { ThemeProvider } from "@/providers";
+import { ThemeProvider, I18nProvider } from "@/providers";
 
 const geistSans = localFont({
   src: [
@@ -35,12 +35,14 @@ export default function RootLayout({
     <html lang="en" data-theme="dark">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}>
         <ThemeProvider>
-          <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-[var(--cc-ink)] focus:rounded-md">
-            Skip to main content
-          </a>
-          <main id="main-content">
-            <ResponsiveShell>{children}</ResponsiveShell>
-          </main>
+          <I18nProvider>
+            <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-[var(--cc-ink)] focus:rounded-md">
+              Skip to main content
+            </a>
+            <main id="main-content">
+              <ResponsiveShell>{children}</ResponsiveShell>
+            </main>
+          </I18nProvider>
         </ThemeProvider>
       </body>
     </html>

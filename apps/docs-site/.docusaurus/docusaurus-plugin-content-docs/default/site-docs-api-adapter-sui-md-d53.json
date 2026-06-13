@@ -5,7 +5,7 @@
   "source": "@site/docs/api/adapter-sui.md",
   "sourceDirName": "api",
   "slug": "/api/adapter-sui",
-  "permalink": "/api/adapter-sui",
+  "permalink": "/ja/api/adapter-sui",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/adapter-sui.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "Starknet adapter.",
-    "permalink": "/api/adapter-starknet"
+    "permalink": "/ja/api/adapter-starknet"
   },
   "next": {
     "title": "XRPL adapter.",
-    "permalink": "/api/adapter-xrpl"
+    "permalink": "/ja/api/adapter-xrpl"
   }
 }

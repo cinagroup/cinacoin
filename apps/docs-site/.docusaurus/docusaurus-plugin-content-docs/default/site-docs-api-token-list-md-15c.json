@@ -5,7 +5,7 @@
   "source": "@site/docs/api/token-list.md",
   "sourceDirName": "api",
   "slug": "/api/token-list",
-  "permalink": "/api/token-list",
+  "permalink": "/ja/api/token-list",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/token-list.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "Testing.",
-    "permalink": "/api/testing"
+    "permalink": "/ja/api/testing"
   },
   "next": {
     "title": "Travel rule demo.",
-    "permalink": "/api/travel-rule-demo"
+    "permalink": "/ja/api/travel-rule-demo"
   }
 }

@@ -5,7 +5,7 @@
   "source": "@site/docs/api/i18n.md",
   "sourceDirName": "api",
   "slug": "/api/i18n",
-  "permalink": "/api/i18n",
+  "permalink": "/ja/api/i18n",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/i18n.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "Gas sponsorship.",
-    "permalink": "/api/gas-sponsorship"
+    "permalink": "/ja/api/gas-sponsorship"
   },
   "next": {
     "title": "iOS Swift.",
-    "permalink": "/api/ios-swift"
+    "permalink": "/ja/api/ios-swift"
   }
 }

@@ -5,7 +5,7 @@
   "source": "@site/docs/api/telegram-miniapp.md",
   "sourceDirName": "api",
   "slug": "/api/telegram-miniapp",
-  "permalink": "/api/telegram-miniapp",
+  "permalink": "/ja/api/telegram-miniapp",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/telegram-miniapp.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "Swap SDK.",
-    "permalink": "/api/swap-sdk"
+    "permalink": "/ja/api/swap-sdk"
   },
   "next": {
     "title": "Testing.",
-    "permalink": "/api/testing"
+    "permalink": "/ja/api/testing"
   }
 }

@@ -1,387 +1,387 @@
 {
-  "/api-reference-a8b": {
+  "/ja/api-reference-a33": {
     "__comp": "c0726e5d",
     "__context": {
       "plugin": "a7456010"
     },
     "config": "5e9f5e1a"
   },
-  "/search-822": {
+  "/ja/search-a50": {
     "__comp": "1a4e3797",
     "__context": {
       "plugin": "138e0e15"
     }
   },
-  "/-847": {
+  "/ja/-c11": {
     "__comp": "5e95c892",
     "__context": {
       "plugin": "aba21aa0"
     }
   },
-  "/-d0d": {
+  "/ja/-2d1": {
     "__comp": "a7bd4aaa",
-    "__props": "22dd74f7"
+    "__props": "3a48dd49"
   },
-  "/-52f": {
+  "/ja/-dad": {
     "__comp": "a94703ab"
   },
-  "/api/aa-sdk-708": {
+  "/ja/api/aa-sdk-1d0": {
     "__comp": "17896441",
     "content": "812697b3"
   },
-  "/api/adapter-bitcoin-d1a": {
+  "/ja/api/adapter-bitcoin-a46": {
     "__comp": "17896441",
     "content": "7635cf38"
   },
-  "/api/adapter-cosmos-a4c": {
+  "/ja/api/adapter-cosmos-c41": {
     "__comp": "17896441",
     "content": "62286d22"
   },
-  "/api/adapter-hedera-417": {
+  "/ja/api/adapter-hedera-ced": {
     "__comp": "17896441",
     "content": "86bcdf85"
   },
-  "/api/adapter-near-59d": {
+  "/ja/api/adapter-near-41b": {
     "__comp": "17896441",
     "content": "a0c11535"
   },
-  "/api/adapter-starknet-862": {
+  "/ja/api/adapter-starknet-f36": {
     "__comp": "17896441",
     "content": "5b8cc9f0"
   },
-  "/api/adapter-sui-490": {
+  "/ja/api/adapter-sui-93e": {
     "__comp": "17896441",
     "content": "d53662c4"
   },
-  "/api/adapter-xrpl-da3": {
+  "/ja/api/adapter-xrpl-a58": {
     "__comp": "17896441",
     "content": "bf62e291"
   },
-  "/api/analytics-7f3": {
+  "/ja/api/analytics-760": {
     "__comp": "17896441",
     "content": "595c0c6e"
   },
-  "/api/android-kotlin-397": {
+  "/ja/api/android-kotlin-001": {
     "__comp": "17896441",
     "content": "a1d7452e"
   },
-  "/api/angular-222": {
+  "/ja/api/angular-04e": {
     "__comp": "17896441",
     "content": "faa1f4ed"
   },
-  "/api/appkit-36f": {
+  "/ja/api/appkit-8c1": {
     "__comp": "17896441",
     "content": "150a4422"
   },
-  "/api/auth-ced": {
+  "/ja/api/auth-e6f": {
     "__comp": "17896441",
     "content": "e5088ceb"
   },
-  "/api/authentication-07a": {
+  "/ja/api/authentication-f4b": {
     "__comp": "17896441",
     "content": "baeff1df"
   },
-  "/api/batch-transaction-055": {
+  "/ja/api/batch-transaction-58a": {
     "__comp": "17896441",
     "content": "4dad5569"
   },
-  "/api/blockchain-api-4c1": {
+  "/ja/api/blockchain-api-c55": {
     "__comp": "17896441",
     "content": "c9a34719"
   },
-  "/api/bundler-8c5": {
+  "/ja/api/bundler-842": {
     "__comp": "17896441",
     "content": "9727095d"
   },
-  "/api/cdn-7c3": {
+  "/ja/api/cdn-c07": {
     "__comp": "17896441",
     "content": "76641df0"
   },
-  "/api/cinacoin-i18n-645": {
+  "/ja/api/cinacoin-i18n-ecb": {
     "__comp": "17896441",
     "content": "e6aa03c8"
   },
-  "/api/cinacoin-ui-theme-217": {
+  "/ja/api/cinacoin-ui-theme-959": {
     "__comp": "17896441",
     "content": "65056a16"
   },
-  "/api/cli-3e2": {
+  "/ja/api/cli-1ab": {
     "__comp": "17896441",
     "content": "26a8c297"
   },
-  "/api/codemod-451": {
+  "/ja/api/codemod-9a3": {
     "__comp": "17896441",
     "content": "7d15b1c5"
   },
-  "/api/config-2a6": {
+  "/ja/api/config-a63": {
     "__comp": "17896441",
     "content": "c41413dd"
   },
-  "/api/core-sdk-3bd": {
+  "/ja/api/core-sdk-0c7": {
     "__comp": "17896441",
     "content": "1a1f4f4c"
   },
-  "/api/core-ui-f0f": {
+  "/ja/api/core-ui-3d5": {
     "__comp": "17896441",
     "content": "cb7aa81e"
   },
-  "/api/cross-chain-sync-ab1": {
+  "/ja/api/cross-chain-sync-f96": {
     "__comp": "17896441",
     "content": "f8730abf"
   },
-  "/api/custom-connectors-729": {
+  "/ja/api/custom-connectors-44e": {
     "__comp": "17896441",
     "content": "df1732bd"
   },
-  "/api/deposit-07f": {
+  "/ja/api/deposit-97f": {
     "__comp": "17896441",
     "content": "bc38591d"
   },
-  "/api/design-tokens-2dc": {
+  "/ja/api/design-tokens-740": {
     "__comp": "17896441",
     "content": "86d2f634"
   },
-  "/api/dotnet-1ab": {
+  "/ja/api/dotnet-d19": {
     "__comp": "17896441",
     "content": "e2bd9355"
   },
-  "/api/embedded-wallet-496": {
+  "/ja/api/embedded-wallet-152": {
     "__comp": "17896441",
     "content": "8a47a70f"
   },
-  "/api/ens-resolver-646": {
+  "/ja/api/ens-resolver-53b": {
     "__comp": "17896441",
     "content": "67636cea"
   },
-  "/api/erc6492-954": {
+  "/ja/api/erc6492-b61": {
     "__comp": "17896441",
     "content": "c9b17c9b"
   },
-  "/api/errors-947": {
+  "/ja/api/errors-d21": {
     "__comp": "17896441",
     "content": "807786b3"
   },
-  "/api/explorer-152": {
+  "/ja/api/explorer-439": {
     "__comp": "17896441",
     "content": "4de1b2c6"
   },
-  "/api/farcaster-miniapp-93e": {
+  "/ja/api/farcaster-miniapp-289": {
     "__comp": "17896441",
     "content": "a2860b9c"
   },
-  "/api/flutter-dart-86d": {
+  "/ja/api/flutter-dart-48a": {
     "__comp": "17896441",
     "content": "9b132af8"
   },
-  "/api/gas-estimator-c2c": {
+  "/ja/api/gas-estimator-3cc": {
     "__comp": "17896441",
     "content": "41583e30"
   },
-  "/api/gas-sponsorship-2e8": {
+  "/ja/api/gas-sponsorship-430": {
     "__comp": "17896441",
     "content": "a47a601b"
   },
-  "/api/i18n-f08": {
+  "/ja/api/i18n-24f": {
     "__comp": "17896441",
     "content": "bb881519"
   },
-  "/api/ios-swift-768": {
+  "/ja/api/ios-swift-cd7": {
     "__comp": "17896441",
     "content": "3adcbdd7"
   },
-  "/api/keys-22e": {
+  "/ja/api/keys-0bd": {
     "__comp": "17896441",
     "content": "501228f6"
   },
-  "/api/keys-server-e00": {
+  "/ja/api/keys-server-968": {
     "__comp": "17896441",
     "content": "531d6ac0"
   },
-  "/api/kyc-a54": {
+  "/ja/api/kyc-b23": {
     "__comp": "17896441",
     "content": "0780e749"
   },
-  "/api/multiwallet-eca": {
+  "/ja/api/multiwallet-dca": {
     "__comp": "17896441",
     "content": "6c258233"
   },
-  "/api/next-318": {
+  "/ja/api/next-1d4": {
     "__comp": "17896441",
     "content": "9be2f7b5"
   },
-  "/api/notify-server-488": {
+  "/ja/api/notify-server-077": {
     "__comp": "17896441",
     "content": "e12a1a7c"
   },
-  "/api/nuxt-1ab": {
+  "/ja/api/nuxt-54e": {
     "__comp": "17896441",
     "content": "2494c29a"
   },
-  "/api/onramp-sdk-fac": {
+  "/ja/api/onramp-sdk-492": {
     "__comp": "17896441",
     "content": "d29281b2"
   },
-  "/api/overview-0ef": {
+  "/ja/api/overview-dff": {
     "__comp": "17896441",
     "content": "65df3d35"
   },
-  "/api/passkey-auth-28e": {
+  "/ja/api/passkey-auth-508": {
     "__comp": "17896441",
     "content": "aa9e8c84"
   },
-  "/api/pay-ui-c4a": {
+  "/ja/api/pay-ui-48b": {
     "__comp": "17896441",
     "content": "7d9f02be"
   },
-  "/api/paymaster-154": {
+  "/ja/api/paymaster-ad8": {
     "__comp": "17896441",
     "content": "4c94321a"
   },
-  "/api/payment-flow-b6a": {
+  "/ja/api/payment-flow-aa9": {
     "__comp": "17896441",
     "content": "2520e5e3"
   },
-  "/api/performance-utils-c75": {
+  "/ja/api/performance-utils-868": {
     "__comp": "17896441",
     "content": "bef9aeea"
   },
-  "/api/push-457": {
+  "/ja/api/push-dee": {
     "__comp": "17896441",
     "content": "b138fac9"
   },
-  "/api/push-server-ace": {
+  "/ja/api/push-server-3f7": {
     "__comp": "17896441",
     "content": "12865fc8"
   },
-  "/api/rate-limiting-e27": {
+  "/ja/api/rate-limiting-a11": {
     "__comp": "17896441",
     "content": "d4a6f58a"
   },
-  "/api/react-c22": {
+  "/ja/api/react-7f7": {
     "__comp": "17896441",
     "content": "06882b49"
   },
-  "/api/react-native-eda": {
+  "/ja/api/react-native-0b6": {
     "__comp": "17896441",
     "content": "ceada91c"
   },
-  "/api/relay-fe6": {
+  "/ja/api/relay-0c0": {
     "__comp": "17896441",
     "content": "7013806e"
   },
-  "/api/relay-server-46d": {
+  "/ja/api/relay-server-81e": {
     "__comp": "17896441",
     "content": "f9b35396"
   },
-  "/api/rpc-b2f": {
+  "/ja/api/rpc-e0a": {
     "__comp": "17896441",
     "content": "b433cf55"
   },
-  "/api/rpc-proxy-e84": {
+  "/ja/api/rpc-proxy-eb9": {
     "__comp": "17896441",
     "content": "361dfabe"
   },
-  "/api/safe-decoder-3e6": {
+  "/ja/api/safe-decoder-5c5": {
     "__comp": "17896441",
     "content": "83f8814c"
   },
-  "/api/session-keys-994": {
+  "/ja/api/session-keys-4cd": {
     "__comp": "17896441",
     "content": "4d75b0e1"
   },
-  "/api/siwe-f71": {
+  "/ja/api/siwe-57d": {
     "__comp": "17896441",
     "content": "bd9acf3c"
   },
-  "/api/siwx-b14": {
+  "/ja/api/siwx-dc8": {
     "__comp": "17896441",
     "content": "ca448c5f"
   },
-  "/api/social-login-0d2": {
+  "/ja/api/social-login-1ac": {
     "__comp": "17896441",
     "content": "1d43fc68"
   },
-  "/api/svelte-7ad": {
+  "/ja/api/svelte-b90": {
     "__comp": "17896441",
     "content": "9e7d18dc"
   },
-  "/api/swap-sdk-f65": {
+  "/ja/api/swap-sdk-dc4": {
     "__comp": "17896441",
     "content": "e67178bf"
   },
-  "/api/telegram-miniapp-bde": {
+  "/ja/api/telegram-miniapp-6e8": {
     "__comp": "17896441",
     "content": "81ce1bdf"
   },
-  "/api/testing-9b1": {
+  "/ja/api/testing-ed4": {
     "__comp": "17896441",
     "content": "0f3ec505"
   },
-  "/api/token-list-071": {
+  "/ja/api/token-list-d6a": {
     "__comp": "17896441",
     "content": "15c44315"
   },
-  "/api/travel-rule-demo-af4": {
+  "/ja/api/travel-rule-demo-806": {
     "__comp": "17896441",
     "content": "b1093438"
   },
-  "/api/ui-theme-b7b": {
+  "/ja/api/ui-theme-1ec": {
     "__comp": "17896441",
     "content": "8a1df617"
   },
-  "/api/unity-csharp-6fc": {
+  "/ja/api/unity-csharp-d0f": {
     "__comp": "17896441",
     "content": "0a9a371b"
   },
-  "/api/vue-dc8": {
+  "/ja/api/vue-c79": {
     "__comp": "17896441",
     "content": "f4ee0e94"
   },
-  "/api/wallet-buttons-2b5": {
+  "/ja/api/wallet-buttons-3f4": {
     "__comp": "17896441",
     "content": "e8c3e19b"
   },
-  "/api/wallet-recommender-eb5": {
+  "/ja/api/wallet-recommender-9b3": {
     "__comp": "17896441",
     "content": "fcf3a950"
   },
-  "/api/wallet-recovery-f13": {
+  "/ja/api/wallet-recovery-28f": {
     "__comp": "17896441",
     "content": "4fc16df1"
   },
-  "/api/walletconnect-v2-4f5": {
+  "/ja/api/walletconnect-v2-5a1": {
     "__comp": "17896441",
     "content": "2b47f810"
   },
-  "/framework/react-92e": {
+  "/ja/framework/react-893": {
     "__comp": "17896441",
     "content": "b9675d6b"
   },
-  "/guide-1e5": {
+  "/ja/guide-6da": {
     "__comp": "17896441",
     "content": "7d4685ea"
   },
-  "/guide/configuration-036": {
+  "/ja/guide/configuration-f0d": {
     "__comp": "17896441",
     "content": "d1b06a5a"
   },
-  "/guide/installation-788": {
+  "/ja/guide/installation-2a5": {
     "__comp": "17896441",
     "content": "2de9ff66"
   },
-  "/guide/migrate-from-reown-033": {
+  "/ja/guide/migrate-from-reown-5b0": {
     "__comp": "17896441",
     "content": "629612db"
   },
-  "/guide/quick-start-a3d": {
+  "/ja/guide/quick-start-506": {
     "__comp": "17896441",
     "content": "1d8eb2cd"
   },
-  "/guide/troubleshooting-b5e": {
+  "/ja/guide/troubleshooting-f5e": {
     "__comp": "17896441",
     "content": "7737828c"
   },
-  "/-921": {
+  "/ja/-f8c": {
     "__comp": "17896441",
     "content": "c377a04b"
   }

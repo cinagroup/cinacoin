@@ -5,7 +5,7 @@
   "source": "@site/docs/api/rpc.md",
   "sourceDirName": "api",
   "slug": "/api/rpc",
-  "permalink": "/api/rpc",
+  "permalink": "/ja/api/rpc",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/rpc.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "RPC proxy.",
-    "permalink": "/api/rpc-proxy"
+    "permalink": "/ja/api/rpc-proxy"
   },
   "next": {
     "title": "Safe decoder.",
-    "permalink": "/api/safe-decoder"
+    "permalink": "/ja/api/safe-decoder"
   }
 }

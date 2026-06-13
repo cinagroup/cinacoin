@@ -8,7 +8,7 @@ export default {
   "tagline": "Onchain access, simplified.",
   "favicon": "img/logo.svg",
   "url": "https://cinacoin.com",
-  "baseUrl": "/",
+  "baseUrl": "/ja/",
   "trailingSlash": false,
   "organizationName": "cinagroup",
   "projectName": "cinacoin",
@@ -33,7 +33,9 @@ export default {
   "i18n": {
     "defaultLocale": "en",
     "locales": [
-      "en"
+      "en",
+      "zh",
+      "ja"
     ],
     "path": "i18n",
     "localeConfigs": {}
@@ -321,6 +323,12 @@ export default {
           "sidebarId": "apiSidebar",
           "position": "left",
           "label": "API"
+        },
+        {
+          "type": "localeDropdown",
+          "position": "right",
+          "dropdownItemsBefore": [],
+          "dropdownItemsAfter": []
         },
         {
           "href": "https://github.com/cinagroup/cinacoin",

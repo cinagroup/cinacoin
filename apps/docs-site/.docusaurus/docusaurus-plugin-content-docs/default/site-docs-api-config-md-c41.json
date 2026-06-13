@@ -5,7 +5,7 @@
   "source": "@site/docs/api/config.md",
   "sourceDirName": "api",
   "slug": "/api/config",
-  "permalink": "/api/config",
+  "permalink": "/ja/api/config",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/config.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "Codemod.",
-    "permalink": "/api/codemod"
+    "permalink": "/ja/api/codemod"
   },
   "next": {
     "title": "Core SDK.",
-    "permalink": "/api/core-sdk"
+    "permalink": "/ja/api/core-sdk"
   }
 }

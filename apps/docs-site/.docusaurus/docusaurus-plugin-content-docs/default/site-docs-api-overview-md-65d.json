@@ -5,7 +5,7 @@
   "source": "@site/docs/api/overview.md",
   "sourceDirName": "api",
   "slug": "/api/overview",
-  "permalink": "/api/overview",
+  "permalink": "/ja/api/overview",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/overview.md",
@@ -21,6 +21,6 @@
   "sidebar": "apiSidebar",
   "next": {
     "title": "Authentication",
-    "permalink": "/api/authentication"
+    "permalink": "/ja/api/authentication"
   }
 }

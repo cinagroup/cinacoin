@@ -5,7 +5,7 @@
   "source": "@site/docs/api/cdn.md",
   "sourceDirName": "api",
   "slug": "/api/cdn",
-  "permalink": "/api/cdn",
+  "permalink": "/ja/api/cdn",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/cdn.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "Bundler.",
-    "permalink": "/api/bundler"
+    "permalink": "/ja/api/bundler"
   },
   "next": {
     "title": "i18n React.",
-    "permalink": "/api/cinacoin-i18n"
+    "permalink": "/ja/api/cinacoin-i18n"
   }
 }

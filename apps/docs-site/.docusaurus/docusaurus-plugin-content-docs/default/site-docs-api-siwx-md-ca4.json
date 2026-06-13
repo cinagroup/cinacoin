@@ -5,7 +5,7 @@
   "source": "@site/docs/api/siwx.md",
   "sourceDirName": "api",
   "slug": "/api/siwx",
-  "permalink": "/api/siwx",
+  "permalink": "/ja/api/siwx",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/siwx.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "SIWE.",
-    "permalink": "/api/siwe"
+    "permalink": "/ja/api/siwe"
   },
   "next": {
     "title": "Social login.",
-    "permalink": "/api/social-login"
+    "permalink": "/ja/api/social-login"
   }
 }

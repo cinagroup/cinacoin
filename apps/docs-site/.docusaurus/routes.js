@@ -3,557 +3,557 @@ import ComponentCreator from '@docusaurus/ComponentCreator';
 
 export default [
   {
-    path: '/api-reference',
-    component: ComponentCreator('/api-reference', 'a8b'),
+    path: '/ja/api-reference',
+    component: ComponentCreator('/ja/api-reference', 'a33'),
     exact: true
   },
   {
-    path: '/search',
-    component: ComponentCreator('/search', '822'),
+    path: '/ja/search',
+    component: ComponentCreator('/ja/search', 'a50'),
     exact: true
   },
   {
-    path: '/',
-    component: ComponentCreator('/', '847'),
+    path: '/ja/',
+    component: ComponentCreator('/ja/', 'c11'),
     routes: [
       {
-        path: '/',
-        component: ComponentCreator('/', 'd0d'),
+        path: '/ja/',
+        component: ComponentCreator('/ja/', '2d1'),
         routes: [
           {
-            path: '/',
-            component: ComponentCreator('/', '52f'),
+            path: '/ja/',
+            component: ComponentCreator('/ja/', 'dad'),
             routes: [
               {
-                path: '/api/aa-sdk',
-                component: ComponentCreator('/api/aa-sdk', '708'),
+                path: '/ja/api/aa-sdk',
+                component: ComponentCreator('/ja/api/aa-sdk', '1d0'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/adapter-bitcoin',
-                component: ComponentCreator('/api/adapter-bitcoin', 'd1a'),
+                path: '/ja/api/adapter-bitcoin',
+                component: ComponentCreator('/ja/api/adapter-bitcoin', 'a46'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/adapter-cosmos',
-                component: ComponentCreator('/api/adapter-cosmos', 'a4c'),
+                path: '/ja/api/adapter-cosmos',
+                component: ComponentCreator('/ja/api/adapter-cosmos', 'c41'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/adapter-hedera',
-                component: ComponentCreator('/api/adapter-hedera', '417'),
+                path: '/ja/api/adapter-hedera',
+                component: ComponentCreator('/ja/api/adapter-hedera', 'ced'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/adapter-near',
-                component: ComponentCreator('/api/adapter-near', '59d'),
+                path: '/ja/api/adapter-near',
+                component: ComponentCreator('/ja/api/adapter-near', '41b'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/adapter-starknet',
-                component: ComponentCreator('/api/adapter-starknet', '862'),
+                path: '/ja/api/adapter-starknet',
+                component: ComponentCreator('/ja/api/adapter-starknet', 'f36'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/adapter-sui',
-                component: ComponentCreator('/api/adapter-sui', '490'),
+                path: '/ja/api/adapter-sui',
+                component: ComponentCreator('/ja/api/adapter-sui', '93e'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/adapter-xrpl',
-                component: ComponentCreator('/api/adapter-xrpl', 'da3'),
+                path: '/ja/api/adapter-xrpl',
+                component: ComponentCreator('/ja/api/adapter-xrpl', 'a58'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/analytics',
-                component: ComponentCreator('/api/analytics', '7f3'),
+                path: '/ja/api/analytics',
+                component: ComponentCreator('/ja/api/analytics', '760'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/android-kotlin',
-                component: ComponentCreator('/api/android-kotlin', '397'),
+                path: '/ja/api/android-kotlin',
+                component: ComponentCreator('/ja/api/android-kotlin', '001'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/angular',
-                component: ComponentCreator('/api/angular', '222'),
+                path: '/ja/api/angular',
+                component: ComponentCreator('/ja/api/angular', '04e'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/appkit',
-                component: ComponentCreator('/api/appkit', '36f'),
+                path: '/ja/api/appkit',
+                component: ComponentCreator('/ja/api/appkit', '8c1'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/auth',
-                component: ComponentCreator('/api/auth', 'ced'),
+                path: '/ja/api/auth',
+                component: ComponentCreator('/ja/api/auth', 'e6f'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/authentication',
-                component: ComponentCreator('/api/authentication', '07a'),
+                path: '/ja/api/authentication',
+                component: ComponentCreator('/ja/api/authentication', 'f4b'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/batch-transaction',
-                component: ComponentCreator('/api/batch-transaction', '055'),
+                path: '/ja/api/batch-transaction',
+                component: ComponentCreator('/ja/api/batch-transaction', '58a'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/blockchain-api',
-                component: ComponentCreator('/api/blockchain-api', '4c1'),
+                path: '/ja/api/blockchain-api',
+                component: ComponentCreator('/ja/api/blockchain-api', 'c55'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/bundler',
-                component: ComponentCreator('/api/bundler', '8c5'),
+                path: '/ja/api/bundler',
+                component: ComponentCreator('/ja/api/bundler', '842'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/cdn',
-                component: ComponentCreator('/api/cdn', '7c3'),
+                path: '/ja/api/cdn',
+                component: ComponentCreator('/ja/api/cdn', 'c07'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/cinacoin-i18n',
-                component: ComponentCreator('/api/cinacoin-i18n', '645'),
+                path: '/ja/api/cinacoin-i18n',
+                component: ComponentCreator('/ja/api/cinacoin-i18n', 'ecb'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/cinacoin-ui-theme',
-                component: ComponentCreator('/api/cinacoin-ui-theme', '217'),
+                path: '/ja/api/cinacoin-ui-theme',
+                component: ComponentCreator('/ja/api/cinacoin-ui-theme', '959'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/cli',
-                component: ComponentCreator('/api/cli', '3e2'),
+                path: '/ja/api/cli',
+                component: ComponentCreator('/ja/api/cli', '1ab'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/codemod',
-                component: ComponentCreator('/api/codemod', '451'),
+                path: '/ja/api/codemod',
+                component: ComponentCreator('/ja/api/codemod', '9a3'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/config',
-                component: ComponentCreator('/api/config', '2a6'),
+                path: '/ja/api/config',
+                component: ComponentCreator('/ja/api/config', 'a63'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/core-sdk',
-                component: ComponentCreator('/api/core-sdk', '3bd'),
+                path: '/ja/api/core-sdk',
+                component: ComponentCreator('/ja/api/core-sdk', '0c7'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/core-ui',
-                component: ComponentCreator('/api/core-ui', 'f0f'),
+                path: '/ja/api/core-ui',
+                component: ComponentCreator('/ja/api/core-ui', '3d5'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/cross-chain-sync',
-                component: ComponentCreator('/api/cross-chain-sync', 'ab1'),
+                path: '/ja/api/cross-chain-sync',
+                component: ComponentCreator('/ja/api/cross-chain-sync', 'f96'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/custom-connectors',
-                component: ComponentCreator('/api/custom-connectors', '729'),
+                path: '/ja/api/custom-connectors',
+                component: ComponentCreator('/ja/api/custom-connectors', '44e'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/deposit',
-                component: ComponentCreator('/api/deposit', '07f'),
+                path: '/ja/api/deposit',
+                component: ComponentCreator('/ja/api/deposit', '97f'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/design-tokens',
-                component: ComponentCreator('/api/design-tokens', '2dc'),
+                path: '/ja/api/design-tokens',
+                component: ComponentCreator('/ja/api/design-tokens', '740'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/dotnet',
-                component: ComponentCreator('/api/dotnet', '1ab'),
+                path: '/ja/api/dotnet',
+                component: ComponentCreator('/ja/api/dotnet', 'd19'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/embedded-wallet',
-                component: ComponentCreator('/api/embedded-wallet', '496'),
+                path: '/ja/api/embedded-wallet',
+                component: ComponentCreator('/ja/api/embedded-wallet', '152'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/ens-resolver',
-                component: ComponentCreator('/api/ens-resolver', '646'),
+                path: '/ja/api/ens-resolver',
+                component: ComponentCreator('/ja/api/ens-resolver', '53b'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/erc6492',
-                component: ComponentCreator('/api/erc6492', '954'),
+                path: '/ja/api/erc6492',
+                component: ComponentCreator('/ja/api/erc6492', 'b61'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/errors',
-                component: ComponentCreator('/api/errors', '947'),
+                path: '/ja/api/errors',
+                component: ComponentCreator('/ja/api/errors', 'd21'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/explorer',
-                component: ComponentCreator('/api/explorer', '152'),
+                path: '/ja/api/explorer',
+                component: ComponentCreator('/ja/api/explorer', '439'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/farcaster-miniapp',
-                component: ComponentCreator('/api/farcaster-miniapp', '93e'),
+                path: '/ja/api/farcaster-miniapp',
+                component: ComponentCreator('/ja/api/farcaster-miniapp', '289'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/flutter-dart',
-                component: ComponentCreator('/api/flutter-dart', '86d'),
+                path: '/ja/api/flutter-dart',
+                component: ComponentCreator('/ja/api/flutter-dart', '48a'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/gas-estimator',
-                component: ComponentCreator('/api/gas-estimator', 'c2c'),
+                path: '/ja/api/gas-estimator',
+                component: ComponentCreator('/ja/api/gas-estimator', '3cc'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/gas-sponsorship',
-                component: ComponentCreator('/api/gas-sponsorship', '2e8'),
+                path: '/ja/api/gas-sponsorship',
+                component: ComponentCreator('/ja/api/gas-sponsorship', '430'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/i18n',
-                component: ComponentCreator('/api/i18n', 'f08'),
+                path: '/ja/api/i18n',
+                component: ComponentCreator('/ja/api/i18n', '24f'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/ios-swift',
-                component: ComponentCreator('/api/ios-swift', '768'),
+                path: '/ja/api/ios-swift',
+                component: ComponentCreator('/ja/api/ios-swift', 'cd7'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/keys',
-                component: ComponentCreator('/api/keys', '22e'),
+                path: '/ja/api/keys',
+                component: ComponentCreator('/ja/api/keys', '0bd'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/keys-server',
-                component: ComponentCreator('/api/keys-server', 'e00'),
+                path: '/ja/api/keys-server',
+                component: ComponentCreator('/ja/api/keys-server', '968'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/kyc',
-                component: ComponentCreator('/api/kyc', 'a54'),
+                path: '/ja/api/kyc',
+                component: ComponentCreator('/ja/api/kyc', 'b23'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/multiwallet',
-                component: ComponentCreator('/api/multiwallet', 'eca'),
+                path: '/ja/api/multiwallet',
+                component: ComponentCreator('/ja/api/multiwallet', 'dca'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/next',
-                component: ComponentCreator('/api/next', '318'),
+                path: '/ja/api/next',
+                component: ComponentCreator('/ja/api/next', '1d4'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/notify-server',
-                component: ComponentCreator('/api/notify-server', '488'),
+                path: '/ja/api/notify-server',
+                component: ComponentCreator('/ja/api/notify-server', '077'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/nuxt',
-                component: ComponentCreator('/api/nuxt', '1ab'),
+                path: '/ja/api/nuxt',
+                component: ComponentCreator('/ja/api/nuxt', '54e'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/onramp-sdk',
-                component: ComponentCreator('/api/onramp-sdk', 'fac'),
+                path: '/ja/api/onramp-sdk',
+                component: ComponentCreator('/ja/api/onramp-sdk', '492'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/overview',
-                component: ComponentCreator('/api/overview', '0ef'),
+                path: '/ja/api/overview',
+                component: ComponentCreator('/ja/api/overview', 'dff'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/passkey-auth',
-                component: ComponentCreator('/api/passkey-auth', '28e'),
+                path: '/ja/api/passkey-auth',
+                component: ComponentCreator('/ja/api/passkey-auth', '508'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/pay-ui',
-                component: ComponentCreator('/api/pay-ui', 'c4a'),
+                path: '/ja/api/pay-ui',
+                component: ComponentCreator('/ja/api/pay-ui', '48b'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/paymaster',
-                component: ComponentCreator('/api/paymaster', '154'),
+                path: '/ja/api/paymaster',
+                component: ComponentCreator('/ja/api/paymaster', 'ad8'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/payment-flow',
-                component: ComponentCreator('/api/payment-flow', 'b6a'),
+                path: '/ja/api/payment-flow',
+                component: ComponentCreator('/ja/api/payment-flow', 'aa9'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/performance-utils',
-                component: ComponentCreator('/api/performance-utils', 'c75'),
+                path: '/ja/api/performance-utils',
+                component: ComponentCreator('/ja/api/performance-utils', '868'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/push',
-                component: ComponentCreator('/api/push', '457'),
+                path: '/ja/api/push',
+                component: ComponentCreator('/ja/api/push', 'dee'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/push-server',
-                component: ComponentCreator('/api/push-server', 'ace'),
+                path: '/ja/api/push-server',
+                component: ComponentCreator('/ja/api/push-server', '3f7'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/rate-limiting',
-                component: ComponentCreator('/api/rate-limiting', 'e27'),
+                path: '/ja/api/rate-limiting',
+                component: ComponentCreator('/ja/api/rate-limiting', 'a11'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/react',
-                component: ComponentCreator('/api/react', 'c22'),
+                path: '/ja/api/react',
+                component: ComponentCreator('/ja/api/react', '7f7'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/react-native',
-                component: ComponentCreator('/api/react-native', 'eda'),
+                path: '/ja/api/react-native',
+                component: ComponentCreator('/ja/api/react-native', '0b6'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/relay',
-                component: ComponentCreator('/api/relay', 'fe6'),
+                path: '/ja/api/relay',
+                component: ComponentCreator('/ja/api/relay', '0c0'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/relay-server',
-                component: ComponentCreator('/api/relay-server', '46d'),
+                path: '/ja/api/relay-server',
+                component: ComponentCreator('/ja/api/relay-server', '81e'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/rpc',
-                component: ComponentCreator('/api/rpc', 'b2f'),
+                path: '/ja/api/rpc',
+                component: ComponentCreator('/ja/api/rpc', 'e0a'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/rpc-proxy',
-                component: ComponentCreator('/api/rpc-proxy', 'e84'),
+                path: '/ja/api/rpc-proxy',
+                component: ComponentCreator('/ja/api/rpc-proxy', 'eb9'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/safe-decoder',
-                component: ComponentCreator('/api/safe-decoder', '3e6'),
+                path: '/ja/api/safe-decoder',
+                component: ComponentCreator('/ja/api/safe-decoder', '5c5'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/session-keys',
-                component: ComponentCreator('/api/session-keys', '994'),
+                path: '/ja/api/session-keys',
+                component: ComponentCreator('/ja/api/session-keys', '4cd'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/siwe',
-                component: ComponentCreator('/api/siwe', 'f71'),
+                path: '/ja/api/siwe',
+                component: ComponentCreator('/ja/api/siwe', '57d'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/siwx',
-                component: ComponentCreator('/api/siwx', 'b14'),
+                path: '/ja/api/siwx',
+                component: ComponentCreator('/ja/api/siwx', 'dc8'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/social-login',
-                component: ComponentCreator('/api/social-login', '0d2'),
+                path: '/ja/api/social-login',
+                component: ComponentCreator('/ja/api/social-login', '1ac'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/svelte',
-                component: ComponentCreator('/api/svelte', '7ad'),
+                path: '/ja/api/svelte',
+                component: ComponentCreator('/ja/api/svelte', 'b90'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/swap-sdk',
-                component: ComponentCreator('/api/swap-sdk', 'f65'),
+                path: '/ja/api/swap-sdk',
+                component: ComponentCreator('/ja/api/swap-sdk', 'dc4'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/telegram-miniapp',
-                component: ComponentCreator('/api/telegram-miniapp', 'bde'),
+                path: '/ja/api/telegram-miniapp',
+                component: ComponentCreator('/ja/api/telegram-miniapp', '6e8'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/testing',
-                component: ComponentCreator('/api/testing', '9b1'),
+                path: '/ja/api/testing',
+                component: ComponentCreator('/ja/api/testing', 'ed4'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/token-list',
-                component: ComponentCreator('/api/token-list', '071'),
+                path: '/ja/api/token-list',
+                component: ComponentCreator('/ja/api/token-list', 'd6a'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/travel-rule-demo',
-                component: ComponentCreator('/api/travel-rule-demo', 'af4'),
+                path: '/ja/api/travel-rule-demo',
+                component: ComponentCreator('/ja/api/travel-rule-demo', '806'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/ui-theme',
-                component: ComponentCreator('/api/ui-theme', 'b7b'),
+                path: '/ja/api/ui-theme',
+                component: ComponentCreator('/ja/api/ui-theme', '1ec'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/unity-csharp',
-                component: ComponentCreator('/api/unity-csharp', '6fc'),
+                path: '/ja/api/unity-csharp',
+                component: ComponentCreator('/ja/api/unity-csharp', 'd0f'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/vue',
-                component: ComponentCreator('/api/vue', 'dc8'),
+                path: '/ja/api/vue',
+                component: ComponentCreator('/ja/api/vue', 'c79'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/wallet-buttons',
-                component: ComponentCreator('/api/wallet-buttons', '2b5'),
+                path: '/ja/api/wallet-buttons',
+                component: ComponentCreator('/ja/api/wallet-buttons', '3f4'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/wallet-recommender',
-                component: ComponentCreator('/api/wallet-recommender', 'eb5'),
+                path: '/ja/api/wallet-recommender',
+                component: ComponentCreator('/ja/api/wallet-recommender', '9b3'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/wallet-recovery',
-                component: ComponentCreator('/api/wallet-recovery', 'f13'),
+                path: '/ja/api/wallet-recovery',
+                component: ComponentCreator('/ja/api/wallet-recovery', '28f'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/api/walletconnect-v2',
-                component: ComponentCreator('/api/walletconnect-v2', '4f5'),
+                path: '/ja/api/walletconnect-v2',
+                component: ComponentCreator('/ja/api/walletconnect-v2', '5a1'),
                 exact: true,
                 sidebar: "apiSidebar"
               },
               {
-                path: '/framework/react',
-                component: ComponentCreator('/framework/react', '92e'),
+                path: '/ja/framework/react',
+                component: ComponentCreator('/ja/framework/react', '893'),
                 exact: true
               },
               {
-                path: '/guide',
-                component: ComponentCreator('/guide', '1e5'),
+                path: '/ja/guide',
+                component: ComponentCreator('/ja/guide', '6da'),
                 exact: true
               },
               {
-                path: '/guide/configuration',
-                component: ComponentCreator('/guide/configuration', '036'),
+                path: '/ja/guide/configuration',
+                component: ComponentCreator('/ja/guide/configuration', 'f0d'),
                 exact: true
               },
               {
-                path: '/guide/installation',
-                component: ComponentCreator('/guide/installation', '788'),
+                path: '/ja/guide/installation',
+                component: ComponentCreator('/ja/guide/installation', '2a5'),
                 exact: true
               },
               {
-                path: '/guide/migrate-from-reown',
-                component: ComponentCreator('/guide/migrate-from-reown', '033'),
+                path: '/ja/guide/migrate-from-reown',
+                component: ComponentCreator('/ja/guide/migrate-from-reown', '5b0'),
                 exact: true
               },
               {
-                path: '/guide/quick-start',
-                component: ComponentCreator('/guide/quick-start', 'a3d'),
+                path: '/ja/guide/quick-start',
+                component: ComponentCreator('/ja/guide/quick-start', '506'),
                 exact: true
               },
               {
-                path: '/guide/troubleshooting',
-                component: ComponentCreator('/guide/troubleshooting', 'b5e'),
+                path: '/ja/guide/troubleshooting',
+                component: ComponentCreator('/ja/guide/troubleshooting', 'f5e'),
                 exact: true
               },
               {
-                path: '/',
-                component: ComponentCreator('/', '921'),
+                path: '/ja/',
+                component: ComponentCreator('/ja/', 'f8c'),
                 exact: true,
                 sidebar: "guideSidebar"
               }

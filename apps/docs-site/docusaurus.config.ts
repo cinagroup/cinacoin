@@ -17,7 +17,7 @@ const config: Config = {
       onBrokenMarkdownLinks: 'throw',
     },
   },
-  i18n: { defaultLocale: 'en', locales: ['en'] },
+  i18n: { defaultLocale: 'en', locales: ['en', 'zh', 'ja'] },
 
   // Meta tags + font loading
   headTags: [
@@ -212,6 +212,7 @@ const config: Config = {
         { href: 'https://cinacoin.com', label: 'Home', position: 'left', target: '_self' },
         { type: 'docSidebar', sidebarId: 'guideSidebar', position: 'left', label: 'Docs' },
         { type: 'docSidebar', sidebarId: 'apiSidebar', position: 'left', label: 'API' },
+        { type: 'localeDropdown', position: 'right' },
         { href: 'https://github.com/cinagroup/cinacoin', label: 'GitHub', position: 'right', className: 'navbar-github-link' },
       ],
     },

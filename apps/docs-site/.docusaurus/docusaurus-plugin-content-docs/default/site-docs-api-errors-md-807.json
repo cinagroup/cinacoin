@@ -5,7 +5,7 @@
   "source": "@site/docs/api/errors.md",
   "sourceDirName": "api",
   "slug": "/api/errors",
-  "permalink": "/api/errors",
+  "permalink": "/ja/api/errors",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/errors.md",
@@ -19,10 +19,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "ERC-6492.",
-    "permalink": "/api/erc6492"
+    "permalink": "/ja/api/erc6492"
   },
   "next": {
     "title": "Explorer.",
-    "permalink": "/api/explorer"
+    "permalink": "/ja/api/explorer"
   }
 }

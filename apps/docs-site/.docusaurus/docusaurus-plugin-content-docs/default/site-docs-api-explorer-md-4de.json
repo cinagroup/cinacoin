@@ -5,7 +5,7 @@
   "source": "@site/docs/api/explorer.md",
   "sourceDirName": "api",
   "slug": "/api/explorer",
-  "permalink": "/api/explorer",
+  "permalink": "/ja/api/explorer",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/explorer.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "Error Codes",
-    "permalink": "/api/errors"
+    "permalink": "/ja/api/errors"
   },
   "next": {
     "title": "Farcaster mini app.",
-    "permalink": "/api/farcaster-miniapp"
+    "permalink": "/ja/api/farcaster-miniapp"
   }
 }

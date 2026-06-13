@@ -5,7 +5,7 @@
   "source": "@site/docs/api/react-native.md",
   "sourceDirName": "api",
   "slug": "/api/react-native",
-  "permalink": "/api/react-native",
+  "permalink": "/ja/api/react-native",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/react-native.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "Push.",
-    "permalink": "/api/push"
+    "permalink": "/ja/api/push"
   },
   "next": {
     "title": "React.",
-    "permalink": "/api/react"
+    "permalink": "/ja/api/react"
   }
 }

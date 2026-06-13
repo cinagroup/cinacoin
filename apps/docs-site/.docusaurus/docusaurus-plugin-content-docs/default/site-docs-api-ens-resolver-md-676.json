@@ -5,7 +5,7 @@
   "source": "@site/docs/api/ens-resolver.md",
   "sourceDirName": "api",
   "slug": "/api/ens-resolver",
-  "permalink": "/api/ens-resolver",
+  "permalink": "/ja/api/ens-resolver",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/ens-resolver.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "Embedded wallet.",
-    "permalink": "/api/embedded-wallet"
+    "permalink": "/ja/api/embedded-wallet"
   },
   "next": {
     "title": "ERC-6492.",
-    "permalink": "/api/erc6492"
+    "permalink": "/ja/api/erc6492"
   }
 }

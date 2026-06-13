@@ -5,7 +5,7 @@
   "source": "@site/docs/api/embedded-wallet.md",
   "sourceDirName": "api",
   "slug": "/api/embedded-wallet",
-  "permalink": "/api/embedded-wallet",
+  "permalink": "/ja/api/embedded-wallet",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/embedded-wallet.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": ".NET C#.",
-    "permalink": "/api/dotnet"
+    "permalink": "/ja/api/dotnet"
   },
   "next": {
     "title": "ENS resolver.",
-    "permalink": "/api/ens-resolver"
+    "permalink": "/ja/api/ens-resolver"
   }
 }

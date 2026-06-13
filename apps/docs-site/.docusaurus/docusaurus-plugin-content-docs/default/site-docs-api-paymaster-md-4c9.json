@@ -5,7 +5,7 @@
   "source": "@site/docs/api/paymaster.md",
   "sourceDirName": "api",
   "slug": "/api/paymaster",
-  "permalink": "/api/paymaster",
+  "permalink": "/ja/api/paymaster",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/paymaster.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "Pay UI.",
-    "permalink": "/api/pay-ui"
+    "permalink": "/ja/api/pay-ui"
   },
   "next": {
     "title": "Payment flow.",
-    "permalink": "/api/payment-flow"
+    "permalink": "/ja/api/payment-flow"
   }
 }

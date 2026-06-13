@@ -5,7 +5,7 @@
   "source": "@site/docs/api/core-ui.md",
   "sourceDirName": "api",
   "slug": "/api/core-ui",
-  "permalink": "/api/core-ui",
+  "permalink": "/ja/api/core-ui",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/core-ui.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "Core SDK.",
-    "permalink": "/api/core-sdk"
+    "permalink": "/ja/api/core-sdk"
   },
   "next": {
     "title": "Cross-chain sync.",
-    "permalink": "/api/cross-chain-sync"
+    "permalink": "/ja/api/cross-chain-sync"
   }
 }

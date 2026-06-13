@@ -5,7 +5,7 @@
   "source": "@site/docs/api/push-server.md",
   "sourceDirName": "api",
   "slug": "/api/push-server",
-  "permalink": "/api/push-server",
+  "permalink": "/ja/api/push-server",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/push-server.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "Performance utils.",
-    "permalink": "/api/performance-utils"
+    "permalink": "/ja/api/performance-utils"
   },
   "next": {
     "title": "Push.",
-    "permalink": "/api/push"
+    "permalink": "/ja/api/push"
   }
 }

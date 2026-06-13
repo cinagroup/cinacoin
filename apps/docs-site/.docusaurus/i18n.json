@@ -1,8 +1,12 @@
 {
   "defaultLocale": "en",
-  "locales": ["en"],
+  "locales": [
+    "en",
+    "zh",
+    "ja"
+  ],
   "path": "i18n",
-  "currentLocale": "en",
+  "currentLocale": "ja",
   "localeConfigs": {
     "en": {
       "label": "English",
@@ -13,6 +17,26 @@
       "translate": false,
       "url": "https://cinacoin.com",
       "baseUrl": "/"
+    },
+    "zh": {
+      "label": "中文",
+      "direction": "ltr",
+      "htmlLang": "zh",
+      "calendar": "gregory",
+      "path": "zh",
+      "translate": true,
+      "url": "https://cinacoin.com",
+      "baseUrl": "/zh/"
+    },
+    "ja": {
+      "label": "日本語",
+      "direction": "ltr",
+      "htmlLang": "ja",
+      "calendar": "gregory",
+      "path": "ja",
+      "translate": true,
+      "url": "https://cinacoin.com",
+      "baseUrl": "/ja/"
     }
   }
 }

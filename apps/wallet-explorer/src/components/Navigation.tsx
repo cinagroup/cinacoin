@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useWallet } from '@/hooks/useWallet';
 import { truncateAddress } from '@/lib/utils';
+import { LanguageToggle } from '@/providers';
 
 const navItems = [
   { href: '/', label: 'Home' },
@@ -28,7 +29,8 @@ export default memo(function Navigation() {
           <Image src="/logo.png" alt="CinaCoin" width={24} height={24} className="h-6 w-auto" priority />
           <span className="text-heading-3 text-[var(--cc-ink)]">Wallet Explorer</span>
         </div>
-        <div>
+        <div className="flex items-center gap-3">
+          <LanguageToggle />
           {connected ? (
             <div className="flex items-center gap-3">
               <code className="text-caption-mono text-mute" title={address || ''}>

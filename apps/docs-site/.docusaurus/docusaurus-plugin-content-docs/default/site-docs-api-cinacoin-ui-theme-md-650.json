@@ -5,7 +5,7 @@
   "source": "@site/docs/api/cinacoin-ui-theme.md",
   "sourceDirName": "api",
   "slug": "/api/cinacoin-ui-theme",
-  "permalink": "/api/cinacoin-ui-theme",
+  "permalink": "/ja/api/cinacoin-ui-theme",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/cinacoin-ui-theme.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "i18n React.",
-    "permalink": "/api/cinacoin-i18n"
+    "permalink": "/ja/api/cinacoin-i18n"
   },
   "next": {
     "title": "CLI.",
-    "permalink": "/api/cli"
+    "permalink": "/ja/api/cli"
   }
 }

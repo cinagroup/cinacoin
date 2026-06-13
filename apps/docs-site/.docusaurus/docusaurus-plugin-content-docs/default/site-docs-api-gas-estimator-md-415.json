@@ -5,7 +5,7 @@
   "source": "@site/docs/api/gas-estimator.md",
   "sourceDirName": "api",
   "slug": "/api/gas-estimator",
-  "permalink": "/api/gas-estimator",
+  "permalink": "/ja/api/gas-estimator",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/gas-estimator.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "Flutter Dart.",
-    "permalink": "/api/flutter-dart"
+    "permalink": "/ja/api/flutter-dart"
   },
   "next": {
     "title": "Gas sponsorship.",
-    "permalink": "/api/gas-sponsorship"
+    "permalink": "/ja/api/gas-sponsorship"
   }
 }

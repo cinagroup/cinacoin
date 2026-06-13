@@ -3,6 +3,7 @@
 import { Check } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { LanguageToggle } from '@/providers';
 
 const tutorials = [
   { href: '/basics', label: 'Web3 basics', category: 'Fundamentals', progress: 100 },
@@ -102,6 +103,9 @@ export default function Sidebar() {
             borderTop: '1px solid var(--cc-hairline)',
           }}
         >
+          <div style={{ marginBottom: 'var(--cc-md)' }}>
+            <LanguageToggle />
+          </div>
           <a
             href="https://cinacoin.com"
             className="text-body-sm cc-link-hover"

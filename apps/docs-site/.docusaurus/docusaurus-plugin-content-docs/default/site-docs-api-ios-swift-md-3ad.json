@@ -5,7 +5,7 @@
   "source": "@site/docs/api/ios-swift.md",
   "sourceDirName": "api",
   "slug": "/api/ios-swift",
-  "permalink": "/api/ios-swift",
+  "permalink": "/ja/api/ios-swift",
   "draft": false,
   "unlisted": false,
   "editUrl": "https://github.com/cinagroup/cinacoin/tree/main/docs-site/docs/docs/api/ios-swift.md",
@@ -16,10 +16,10 @@
   "sidebar": "apiSidebar",
   "previous": {
     "title": "i18n.",
-    "permalink": "/api/i18n"
+    "permalink": "/ja/api/i18n"
   },
   "next": {
     "title": "Keys server.",
-    "permalink": "/api/keys-server"
+    "permalink": "/ja/api/keys-server"
   }
 }
