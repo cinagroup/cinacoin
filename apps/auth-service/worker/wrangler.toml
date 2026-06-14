@@ -6,6 +6,16 @@ main = "src/index.ts"
 JWT_SECRET = "b1Kg7W1Ui6KFWv0xxtpjsLQlCrxw8j7Nd8Bj29NtGFc="
 JWT_REFRESH_SECRET = "OFt/v5pHT6ugrOUf/ftd8WwkGeZ4cfumqKrBhh6HuW8="
 
+# OAuth credentials are stored in system_settings table via admin API
+# These env vars are optional fallbacks
+GOOGLE_CLIENT_ID = ""
+GOOGLE_REDIRECT_URI = "https://auth.cinacoin.com/api/auth/google/callback"
+DISCORD_CLIENT_ID = ""
+DISCORD_REDIRECT_URI = "https://auth.cinacoin.com/api/auth/discord/callback"
+APPLE_CLIENT_ID = ""
+APPLE_REDIRECT_URI = "https://auth.cinacoin.com/api/auth/apple/callback"
+APPLE_CLIENT_SECRET = ""
+
 [[d1_databases]]
 binding = "DB"
 database_name = "cinacoin-auth-db"

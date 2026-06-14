@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { SwapWidget } from '../components/SwapWidget';
 
 /**
  * MOCK PRICES — These are illustrative only, not live data.
@@ -257,6 +258,12 @@ export default function SwapPage() {
         Powered by <span className="font-medium text-[var(--cc-body)]">Cinacoin Swap SDK</span>
         {' · '}<span className="text-[var(--cc-warning)]/70">Demo mode — prices are illustrative</span>
       </p>
+
+      {/* Quick Swap Widget (Reown AppKit) */}
+      <div className="mt-12">
+        <h2 className="cc-display-sm mb-4">Quick swap.</h2>
+        <SwapWidget />
+      </div>
 
       {/* Recent Swaps */}
       <div className="mt-12">

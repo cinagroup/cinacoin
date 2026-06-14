@@ -20,6 +20,7 @@ const BridgePage = lazy(() =>
   import('./pages/BridgePage').then((m) => ({ default: m.BridgePage }))
 );
 const DeFiPage = lazy(() => import('./pages/DeFiPage').then((m) => ({ default: m.DeFiPage })));
+const OnRampPage = lazy(() => import('./pages/OnRampPage'));
 
 /* ── Lazy route fallback with loading spinner ── */
 const RouteFallback = () => (
@@ -116,6 +117,7 @@ function App() {
                 <Route path="/nft" element={<NFTPage />} />
                 <Route path="/bridge" element={<BridgePage />} />
                 <Route path="/defi" element={<DeFiPage />} />
+                <Route path="/onramp" element={<OnRampPage />} />
                 <Route path="*" element={<NotFoundFallback />} />
               </Routes>
             </Suspense>

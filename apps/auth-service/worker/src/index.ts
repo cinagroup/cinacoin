@@ -293,9 +293,17 @@ app.get('/api/auth/oauth/providers', async (c) => {
     const githubClientId = await getSystemSetting(db, 'oauth_github_client_id');
     providers.push({ name: 'github', enabled: !!githubClientId });
     
-    // Check Google (future)
+    // Check Google
     const googleClientId = await getSystemSetting(db, 'oauth_google_client_id');
     providers.push({ name: 'google', enabled: !!googleClientId });
+    
+    // Check Discord
+    const discordClientId = await getSystemSetting(db, 'oauth_discord_client_id');
+    providers.push({ name: 'discord', enabled: !!discordClientId });
+    
+    // Check Apple
+    const appleClientId = await getSystemSetting(db, 'oauth_apple_client_id');
+    providers.push({ name: 'apple', enabled: !!appleClientId });
     
     return c.json({ providers });
   } catch (error) {
@@ -310,21 +318,90 @@ app.get('/api/auth/oauth/:provider', async (c) => {
     const redirectUri = c.req.query('redirect_uri') || '';
     const db = c.env.DB;
     
+    const state = crypto.randomUUID();
+    // Store state for CSRF protection
+    await db.prepare('INSERT INTO system_settings (key, value, updated_at, updated_by) VALUES (?, ?, ?, ?)')
+      .bind(`oauth_state_${state}`, JSON.stringify({ provider, redirectUri, createdAt: Date.now() }), Date.now(), 'system').run();
+    
     if (provider === 'github') {
       const clientId = await getSystemSetting(db, 'oauth_github_client_id');
       if (!clientId) {
         return c.json({ error: 'GitHub OAuth not configured' }, 400);
       }
       
-      const state = crypto.randomUUID();
-      // Store state for CSRF protection
-      await db.prepare('INSERT INTO system_settings (key, value, updated_at, updated_by) VALUES (?, ?, ?, ?)')
-        .bind(`oauth_state_${state}`, JSON.stringify({ provider, redirectUri, createdAt: Date.now() }), Date.now(), 'system').run();
-      
       const scope = 'read:user user:email';
       const url = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scope)}&state=${state}`;
       
       return c.json({ url, state });
+    }
+    
+    if (provider === 'google') {
+      const clientId = await getSystemSetting(db, 'oauth_google_client_id');
+      if (!clientId) {
+        return c.json({ error: 'Google OAuth not configured' }, 400);
+      }
+      
+      const callbackUrl = redirectUri || 'https://auth.cinacoin.com/api/auth/google/callback';
+      const scope = 'openid email profile';
+      const params = new URLSearchParams({
+        client_id: clientId,
+        redirect_uri: callbackUrl,
+        response_type: 'code',
+        scope,
+        state,
+        access_type: 'offline',
+        prompt: 'consent',
+      });
+      
+      const url = `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;
+      return c.json({ url, state });
+    }
+    
+    if (provider === 'discord') {
+      const clientId = await getSystemSetting(db, 'oauth_discord_client_id');
+      if (!clientId) {
+        return c.json({ error: 'Discord OAuth not configured' }, 400);
+      }
+      
+      const callbackUrl = redirectUri || 'https://auth.cinacoin.com/api/auth/discord/callback';
+      const scope = 'identify email';
+      const params = new URLSearchParams({
+        client_id: clientId,
+        redirect_uri: callbackUrl,
+        response_type: 'code',
+        scope,
+        state,
+      });
+      
+      const url = `https://discord.com/api/oauth2/authorize?${params.toString()}`;
+      return c.json({ url, state });
+    }
+    
+    if (provider === 'apple') {
+      const clientId = await getSystemSetting(db, 'oauth_apple_client_id');
+      if (!clientId) {
+        return c.json({ error: 'Apple OAuth not configured' }, 400);
+      }
+      
+      const callbackUrl = redirectUri || 'https://auth.cinacoin.com/api/auth/apple/callback';
+      const nonce = crypto.randomUUID();
+      const scope = 'name email';
+      const params = new URLSearchParams({
+        client_id: clientId,
+        redirect_uri: callbackUrl,
+        response_type: 'code id_token',
+        scope,
+        state,
+        nonce,
+        response_mode: 'form_post',
+      });
+      
+      // Store nonce for Apple
+      await db.prepare('INSERT INTO system_settings (key, value, updated_at, updated_by) VALUES (?, ?, ?, ?)')
+        .bind(`oauth_nonce_${state}`, nonce, Date.now(), 'system').run();
+      
+      const url = `https://appleid.apple.com/auth/authorize?${params.toString()}`;
+      return c.json({ url, state, nonce });
     }
     
     return c.json({ error: 'Unsupported provider' }, 400);
@@ -337,12 +414,8 @@ app.get('/api/auth/oauth/:provider', async (c) => {
 app.post('/api/auth/oauth/callback', async (c) => {
   try {
     const body = await c.req.json();
-    const { provider, code, state, redirectUri } = body;
+    const { provider, code, state, redirectUri, idToken } = body;
     const db = c.env.DB;
-    
-    if (provider !== 'github') {
-      return c.json({ error: 'Unsupported provider' }, 400);
-    }
     
     // Verify state
     const stateRow = await db.prepare('SELECT value FROM system_settings WHERE key = ?').bind(`oauth_state_${state}`).first() as any;
@@ -352,44 +425,207 @@ app.post('/api/auth/oauth/callback', async (c) => {
     // Clean up state
     await db.prepare('DELETE FROM system_settings WHERE key = ?').bind(`oauth_state_${state}`).run();
     
-    // Exchange code for token
-    const clientId = await getSystemSetting(db, 'oauth_github_client_id');
-    const clientSecret = await getSystemSetting(db, 'oauth_github_client_secret');
+    let providerUserId: string;
+    let email: string | null;
+    let name: string | null;
+    let avatarUrl: string | null;
+    let accessToken: string;
+    let refreshToken: string | null = null;
     
-    if (!clientId || !clientSecret) {
-      return c.json({ error: 'OAuth not configured' }, 500);
-    }
-    
-    const tokenRes = await fetch('https://github.com/login/oauth/access_token', {
-      method: 'POST',
-      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-      body: JSON.stringify({ client_id: clientId, client_secret: clientSecret, code, state }),
-    });
-    const tokenData = await tokenRes.json() as any;
-    
-    if (tokenData.error) {
-      return c.json({ error: tokenData.error_description || 'OAuth failed' }, 400);
-    }
-    
-    // Get user info from GitHub
-    const userRes = await fetch('https://api.github.com/user', {
-      headers: { 'Authorization': `Bearer ${tokenData.access_token}`, 'Accept': 'application/json' },
-    });
-    const githubUser = await userRes.json() as any;
-    
-    // Get email if not public
-    let email = githubUser.email;
-    if (!email) {
-      const emailsRes = await fetch('https://api.github.com/user/emails', {
-        headers: { 'Authorization': `Bearer ${tokenData.access_token}` },
+    if (provider === 'github') {
+      // Exchange code for token
+      const clientId = await getSystemSetting(db, 'oauth_github_client_id');
+      const clientSecret = await getSystemSetting(db, 'oauth_github_client_secret');
+      
+      if (!clientId || !clientSecret) {
+        return c.json({ error: 'OAuth not configured' }, 500);
+      }
+      
+      const tokenRes = await fetch('https://github.com/login/oauth/access_token', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ client_id: clientId, client_secret: clientSecret, code, state }),
       });
-      const emails = await emailsRes.json() as any[];
-      const primary = emails.find((e: any) => e.primary && e.verified);
-      email = primary?.email;
-    }
-    
-    if (!email) {
-      return c.json({ error: 'Could not get email from GitHub' }, 400);
+      const tokenData = await tokenRes.json() as any;
+      
+      if (tokenData.error) {
+        return c.json({ error: tokenData.error_description || 'OAuth failed' }, 400);
+      }
+      
+      accessToken = tokenData.access_token;
+      refreshToken = tokenData.refresh_token || null;
+      
+      // Get user info from GitHub
+      const userRes = await fetch('https://api.github.com/user', {
+        headers: { 'Authorization': `Bearer ${accessToken}`, 'Accept': 'application/json' },
+      });
+      const githubUser = await userRes.json() as any;
+      
+      providerUserId = String(githubUser.id);
+      name = githubUser.name || githubUser.login;
+      avatarUrl = githubUser.avatar_url;
+      
+      // Get email if not public
+      email = githubUser.email;
+      if (!email) {
+        const emailsRes = await fetch('https://api.github.com/user/emails', {
+          headers: { 'Authorization': `Bearer ${accessToken}` },
+        });
+        const emails = await emailsRes.json() as any[];
+        const primary = emails.find((e: any) => e.primary && e.verified);
+        email = primary?.email;
+      }
+      
+      if (!email) {
+        return c.json({ error: 'Could not get email from GitHub' }, 400);
+      }
+    } else if (provider === 'google') {
+      const clientId = await getSystemSetting(db, 'oauth_google_client_id');
+      const clientSecret = await getSystemSetting(db, 'oauth_google_client_secret');
+      
+      if (!clientId || !clientSecret) {
+        return c.json({ error: 'Google OAuth not configured' }, 500);
+      }
+      
+      const callbackUrl = redirectUri || 'https://auth.cinacoin.com/api/auth/google/callback';
+      
+      // Exchange code for tokens
+      const tokenRes = await fetch('https://oauth2.googleapis.com/token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          client_id: clientId,
+          client_secret: clientSecret,
+          code,
+          grant_type: 'authorization_code',
+          redirect_uri: callbackUrl,
+        }),
+      });
+      
+      const tokens = await tokenRes.json() as any;
+      
+      if (tokens.error) {
+        return c.json({ error: tokens.error_description || 'Google OAuth failed' }, 400);
+      }
+      
+      accessToken = tokens.access_token;
+      refreshToken = tokens.refresh_token || null;
+      
+      // Get user info
+      const userRes = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
+        headers: { 'Authorization': `Bearer ${accessToken}` },
+      });
+      const userInfo = await userRes.json() as any;
+      
+      providerUserId = userInfo.id;
+      email = userInfo.email;
+      name = userInfo.name;
+      avatarUrl = userInfo.picture;
+      
+      if (!email) {
+        return c.json({ error: 'Could not get email from Google' }, 400);
+      }
+    } else if (provider === 'discord') {
+      const clientId = await getSystemSetting(db, 'oauth_discord_client_id');
+      const clientSecret = await getSystemSetting(db, 'oauth_discord_client_secret');
+      
+      if (!clientId || !clientSecret) {
+        return c.json({ error: 'Discord OAuth not configured' }, 500);
+      }
+      
+      const callbackUrl = redirectUri || 'https://auth.cinacoin.com/api/auth/discord/callback';
+      
+      // Exchange code for tokens
+      const tokenRes = await fetch('https://discord.com/api/oauth2/token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          client_id: clientId,
+          client_secret: clientSecret,
+          code,
+          grant_type: 'authorization_code',
+          redirect_uri: callbackUrl,
+        }),
+      });
+      
+      const tokens = await tokenRes.json() as any;
+      
+      if (tokens.error) {
+        return c.json({ error: tokens.error_description || 'Discord OAuth failed' }, 400);
+      }
+      
+      accessToken = tokens.access_token;
+      refreshToken = tokens.refresh_token || null;
+      
+      // Get user info
+      const userRes = await fetch('https://discord.com/api/users/@me', {
+        headers: { 'Authorization': `Bearer ${accessToken}` },
+      });
+      const userInfo = await userRes.json() as any;
+      
+      providerUserId = userInfo.id;
+      email = userInfo.email;
+      name = userInfo.username;
+      avatarUrl = userInfo.avatar
+        ? `https://cdn.discordapp.com/avatars/${userInfo.id}/${userInfo.avatar}.png`
+        : null;
+      
+      if (!email) {
+        return c.json({ error: 'Could not get email from Discord' }, 400);
+      }
+    } else if (provider === 'apple') {
+      const clientId = await getSystemSetting(db, 'oauth_apple_client_id');
+      const clientSecret = await getSystemSetting(db, 'oauth_apple_client_secret');
+      
+      if (!clientId || !clientSecret) {
+        return c.json({ error: 'Apple OAuth not configured' }, 500);
+      }
+      
+      const callbackUrl = redirectUri || 'https://auth.cinacoin.com/api/auth/apple/callback';
+      
+      // Clean up nonce
+      await db.prepare('DELETE FROM system_settings WHERE key = ?').bind(`oauth_nonce_${state}`).run();
+      
+      // Exchange code for tokens
+      const tokenRes = await fetch('https://appleid.apple.com/auth/token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          client_id: clientId,
+          client_secret: clientSecret,
+          code,
+          grant_type: 'authorization_code',
+          redirect_uri: callbackUrl,
+        }),
+      });
+      
+      const tokens = await tokenRes.json() as any;
+      
+      if (tokens.error) {
+        return c.json({ error: tokens.error_description || 'Apple OAuth failed' }, 400);
+      }
+      
+      accessToken = tokens.access_token;
+      refreshToken = tokens.refresh_token || null;
+      
+      // Decode Apple's id_token to get user info
+      const idTokenToDecode = idToken || tokens.id_token;
+      if (!idTokenToDecode) {
+        return c.json({ error: 'No id_token received from Apple' }, 400);
+      }
+      
+      const payload = JSON.parse(atob(idTokenToDecode.split('.')[1])) as any;
+      
+      providerUserId = payload.sub;
+      email = payload.email;
+      name = null; // Apple doesn't provide name in token after first auth
+      avatarUrl = null;
+      
+      if (!email) {
+        return c.json({ error: 'Could not get email from Apple' }, 400);
+      }
+    } else {
+      return c.json({ error: 'Unsupported provider' }, 400);
     }
     
     // Check if user exists
@@ -403,35 +639,35 @@ app.post('/api/auth/oauth/callback', async (c) => {
       const now = Date.now();
       
       await db.prepare('INSERT INTO users (id, email, name, avatar_url, role, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)')
-        .bind(userId, email, githubUser.name || githubUser.login, githubUser.avatar_url, 'user', now, now).run();
+        .bind(userId, email, name, avatarUrl, 'user', now, now).run();
       await db.prepare('INSERT INTO user_settings (user_id) VALUES (?)').bind(userId).run();
       
-      user = { id: userId, email, name: githubUser.name || githubUser.login, avatar_url: githubUser.avatar_url, role: 'user' };
+      user = { id: userId, email, name, avatar_url: avatarUrl, role: 'user' };
     }
     
     // Link OAuth account
     const existingOAuth = await db.prepare('SELECT id FROM oauth_accounts WHERE provider = ? AND provider_user_id = ?')
-      .bind('github', String(githubUser.id)).first();
+      .bind(provider, providerUserId).first();
     
     if (!existingOAuth) {
-      await db.prepare('INSERT INTO oauth_accounts (id, user_id, provider, provider_user_id, access_token, created_at) VALUES (?, ?, ?, ?, ?, ?)')
-        .bind(crypto.randomUUID(), user.id, 'github', String(githubUser.id), tokenData.access_token, Date.now()).run();
+      await db.prepare('INSERT INTO oauth_accounts (id, user_id, provider, provider_user_id, access_token, refresh_token, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)')
+        .bind(crypto.randomUUID(), user.id, provider, providerUserId, accessToken, refreshToken, Date.now()).run();
     }
     
     // Generate tokens
-    const accessToken = await createAccessToken(user.id, user.email, c.env.JWT_SECRET);
-    const refreshToken = await createRefreshToken(user.id, c.env.JWT_REFRESH_SECRET);
+    const jwtAccessToken = await createAccessToken(user.id, user.email, c.env.JWT_SECRET);
+    const jwtRefreshToken = await createRefreshToken(user.id, c.env.JWT_REFRESH_SECRET);
     
     const sessionId = crypto.randomUUID();
     const now = Date.now();
     await db.prepare('INSERT INTO sessions (id, user_id, refresh_token, expires_at, created_at) VALUES (?, ?, ?, ?, ?)')
-      .bind(sessionId, user.id, refreshToken, now + 7 * 86400000, now).run();
+      .bind(sessionId, user.id, jwtRefreshToken, now + 7 * 86400000, now).run();
     
-    c.header('Set-Cookie', `refresh_token=${refreshToken}; HttpOnly; Secure; SameSite=Lax; Max-Age=${7 * 86400}; Path=/`, { append: true });
+    c.header('Set-Cookie', `refresh_token=${jwtRefreshToken}; HttpOnly; Secure; SameSite=Lax; Max-Age=${7 * 86400}; Path=/`, { append: true });
     
     return c.json({
       user: { id: user.id, email: user.email, name: user.name, avatar_url: user.avatar_url, role: user.role },
-      accessToken,
+      accessToken: jwtAccessToken,
       isNewUser,
     });
   } catch (error) {
@@ -487,6 +723,10 @@ app.put('/api/admin/settings', async (c) => {
       'oauth_github_client_secret',
       'oauth_google_client_id',
       'oauth_google_client_secret',
+      'oauth_discord_client_id',
+      'oauth_discord_client_secret',
+      'oauth_apple_client_id',
+      'oauth_apple_client_secret',
       'resend_api_key',
       'app_base_url',
     ];

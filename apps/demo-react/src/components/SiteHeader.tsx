@@ -42,6 +42,13 @@ export const SiteHeader: React.FC = () => {
             >
               Auth
             </Link>
+            <Link
+              to="/onramp"
+              className={`cc-navbar-link focus-ring ${location.pathname === '/onramp' ? 'bg-[var(--cc-canvas-soft-2)] text-[var(--cc-ink)] font-medium' : ''}`}
+              aria-current={location.pathname === '/onramp' ? 'page' : undefined}
+            >
+              On-Ramp
+            </Link>
           </nav>
 
           {/* Desktop actions */}
@@ -140,6 +147,18 @@ export const SiteHeader: React.FC = () => {
                 aria-current={location.pathname === '/auth' ? 'page' : undefined}
               >
                 Auth
+              </Link>
+              <Link
+                to="/onramp"
+                onClick={() => setMobileOpen(false)}
+                className={`block px-4 py-3 rounded-[var(--cc-radius-sm)] text-body-sm font-medium transition-colors min-h-[44px] flex items-center ${
+                  location.pathname === '/onramp'
+                    ? "text-[var(--cc-ink)] bg-[var(--cc-canvas-soft-2)]"
+                    : "text-[var(--cc-body)] hover:text-[var(--cc-ink)] hover:bg-[var(--cc-canvas-soft)]"
+                }`}
+                aria-current={location.pathname === '/onramp' ? 'page' : undefined}
+              >
+                On-Ramp
               </Link>
               <div className="border-t border-[var(--cc-hairline)] my-1" />
               {isConnected ? (

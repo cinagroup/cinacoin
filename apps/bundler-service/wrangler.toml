@@ -1,0 +1,19 @@
+name = "cinacoin-bundler"
+main = "src/index.ts"
+compatibility_date = "2024-12-01"
+
+[vars]
+ENTRY_POINT_V07 = "0x0000000071727De22E5E9d8BAf0edAc6f37da032"
+BUNDLER_PRIVATE_KEY_VAR = "BUNDLER_PK"
+
+[[d1_databases]]
+binding = "BUNDLER_DB"
+database_name = "cinacoin-bundler-db"
+database_id = "PLACEHOLDER"
+
+[durable_objects]
+bindings = [{ name = "MEMPOOL", class_name = "MempoolDO" }]
+
+[[migrations]]
+tag = "v1"
+new_classes = ["MempoolDO"]
