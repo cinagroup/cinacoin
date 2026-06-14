@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import '../main.dart';
-import '../widgets/chain_tile.dart';
+import 'package:cinacoin/appkit_config.dart';
 import '../widgets/status_card.dart';
 
-/// Chain screen with list of supported chains, chain switching, and info display.
+/// Chain screen using AppKit ChainRegistry for chain display and selection.
 class ChainScreen extends StatefulWidget {
   const ChainScreen({super.key});
 
@@ -12,160 +11,97 @@ class ChainScreen extends StatefulWidget {
 }
 
 class _ChainScreenState extends State<ChainScreen> {
-  String _currentChain = 'eip155:1';
-  List<String> _allChains = [];
-
-  @override
-  void initState() {
-    super.initState();
-    _loadChains();
-  }
-
-  Future<void> _loadChains() async {
-    final chains = sdk.getSupportedChains();
-    final lastChain = await sdk.getLastChainId();
-    setState(() {
-      _allChains = chains;
-      _currentChain = lastChain != null ? 'eip155:$lastChain' : 'eip155:1';
-    });
-  }
-
-  Future<void> _switchChain(String chainId) async {
-    if (!sdk.isConnected) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Connect a wallet first to switch chains'),
-        ),
-      );
-      return;
-    }
-
-    try {
-      await sdk.switchChain(chainId);
-      setState(() => _currentChain = chainId);
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Switched to ${_getChainName(chainId)}'),
-            duration: const Duration(seconds: 2),
-          ),
-        );
-      }
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Chain switch failed: $e')),
-        );
-      }
-    }
-  }
-
-  String _getChainName(String chainId) {
-    final config = sdk.getChainConfig(chainId);
-    return config?.name ?? chainId;
-  }
-
-  String _getChainSymbol(String chainId) {
-    final config = sdk.getChainConfig(chainId);
-    return config?.symbol ?? '';
-  }
-
-  String _getChainExplorer(String chainId) {
-    final config = sdk.getChainConfig(chainId);
-    return config?.explorerUrl ?? '—';
-  }
-
-  String _getChainType(String chainId) {
-    final config = sdk.getChainConfig(chainId);
-    if (config == null) return '';
-    return config.id.startsWith('eip155') ? 'EVM' : 'Non-EVM';
-  }
+  int _selectedChainId = 1;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
-    // Group chains by type
-    final evmChains = _allChains.where((c) => c.startsWith('eip155')).toList();
-    final nonEvmChains =
-        _allChains.where((c) => !c.startsWith('eip155')).toList();
+    final selectedChain = ChainRegistry.getChain(_selectedChainId);
 
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
         // Current Chain Status
         StatusCard(
-          isConnected: sdk.isConnected,
+          isConnected: true,
           statusText: 'Current Chain',
-          subtitle: '${_getChainName(_currentChain)} ($_currentChain)',
+          subtitle: selectedChain != null
+              ? '${selectedChain.name} (Chain ID: ${selectedChain.chainId})'
+              : 'No chain selected',
         ),
         const SizedBox(height: 16),
 
         // Current Chain Details
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Icon(Icons.info_outline,
-                        color: theme.colorScheme.primary),
-                    const SizedBox(width: 8),
-                    Text(
-                      'Chain Details',
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w600,
+        if (selectedChain != null)
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Icon(Icons.info_outline,
+                          color: theme.colorScheme.primary),
+                      const SizedBox(width: 8),
+                      Text(
+                        'Chain Details',
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                const Divider(height: 24),
-                _infoItem('Chain ID', _currentChain),
-                _infoItem('Name', _getChainName(_currentChain)),
-                _infoItem('Symbol', _getChainSymbol(_currentChain)),
-                _infoItem('Type', _getChainType(_currentChain)),
-                _infoItem('Explorer', _getChainExplorer(_currentChain)),
-              ],
+                    ],
+                  ),
+                  const Divider(height: 24),
+                  _infoItem('Chain ID', '${selectedChain.chainId}'),
+                  _infoItem('Name', selectedChain.name),
+                  _infoItem('Symbol', selectedChain.symbol),
+                  _infoItem('Short Name', selectedChain.shortName.toUpperCase()),
+                  _infoItem('RPC URL', selectedChain.rpcUrl),
+                  _infoItem('Explorer', selectedChain.explorerUrl),
+                ],
+              ),
             ),
           ),
-        ),
         const SizedBox(height: 24),
 
-        // EVM Chains
+        // All Supported Chains
         Text(
-          'EVM Chains',
+          'Supported Chains',
           style: theme.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.w600,
           ),
         ),
         const SizedBox(height: 8),
-        ...evmChains.map((chain) => ChainTile(
-              chainId: chain,
-              name: _getChainName(chain),
-              symbol: _getChainSymbol(chain),
-              isActive: chain == _currentChain,
-              onTap: () => _switchChain(chain),
-            )),
-
-        const SizedBox(height: 24),
-
-        // Non-EVM Chains
-        Text(
-          'Non-EVM Chains',
-          style: theme.textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.w600,
+        ...ChainRegistry.allEVMChains.map((chain) => Card(
+          margin: const EdgeInsets.only(bottom: 8),
+          child: ListTile(
+            leading: CircleAvatar(
+              backgroundImage: chain.iconUrl != null ? NetworkImage(chain.iconUrl!) : null,
+              child: chain.iconUrl == null ? Text(chain.shortName[0].toUpperCase()) : null,
+            ),
+            title: Text(chain.name),
+            subtitle: Text('Chain ID: ${chain.chainId}'),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(chain.symbol, style: const TextStyle(fontWeight: FontWeight.w500)),
+                const SizedBox(width: 8),
+                if (chain.chainId == _selectedChainId)
+                  Icon(Icons.check_circle, color: theme.colorScheme.primary, size: 20),
+              ],
+            ),
+            onTap: () {
+              setState(() => _selectedChainId = chain.chainId);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Switched to ${chain.name}'),
+                  duration: const Duration(seconds: 2),
+                ),
+              );
+            },
           ),
-        ),
-        const SizedBox(height: 8),
-        ...nonEvmChains.map((chain) => ChainTile(
-              chainId: chain,
-              name: _getChainName(chain),
-              symbol: _getChainSymbol(chain),
-              isActive: chain == _currentChain,
-              onTap: () => _switchChain(chain),
-            )),
+        )),
       ],
     );
   }
@@ -177,7 +113,7 @@ class _ChainScreenState extends State<ChainScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            width: 80,
+            width: 90,
             child: Text(
               label,
               style: const TextStyle(

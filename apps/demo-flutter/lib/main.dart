@@ -1,47 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:cinacoin/cinacoin.dart';
+import 'package:cinacoin/appkit_config.dart' hide ThemeMode;
+import 'package:cinacoin/appkit_config.dart' as appkit;
+import 'package:cinacoin/appkit_auth.dart';
+import 'package:cinacoin/appkit_ui/theme/cinacoin_theme_data.dart';
 
 import 'screens/home_screen.dart';
 import 'screens/connect_screen.dart';
+import 'screens/auth_screen.dart';
+import 'screens/smart_account_screen.dart';
 import 'screens/chain_screen.dart';
-import 'screens/sign_screen.dart';
-import 'screens/transaction_screen.dart';
 
-// ── Global SDK Instance ────────────────────────────────────────────────
-
-/// Shared CinaCoin SDK instance accessible throughout the app.
-final sdk = CinacoinSdk.instance;
-
-// ── Main ───────────────────────────────────────────────────────────────
-
-Future<void> main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Initialize the CinaCoin SDK
-  try {
-    await sdk.initialize(
-      projectId: 'YOUR_PROJECT_ID', // Replace with your WalletConnect project ID
-      metadata: const AppMetadata(
-        name: 'CinaCoin Demo',
-        description: 'CinaCoin Flutter SDK Demo App',
-        url: 'https://cinacoin.dev',
-        icons: [],
-      ),
-    );
-    debugPrint('[Demo] CinaCoin SDK initialized');
-  } catch (e) {
-    debugPrint('[Demo] SDK init deferred (no valid project ID): $e');
-  }
+  // Configure Cinacoin AppKit
+  CinacoinAppKit.configure(const AppKitConfig(
+    projectId: 'YOUR_PROJECT_ID',
+    metadata: AppMetadata(
+      name: 'Cinacoin Demo',
+      description: 'Cinacoin AppKit Flutter Demo',
+      url: 'https://demo.cinacoin.com',
+      icons: ['https://cinacoin.com/icon.png'],
+    ),
+    themeMode: appkit.ThemeMode.dark,
+  ));
+
+  // Configure Auth
+  AuthManager().configure(projectId: 'YOUR_PROJECT_ID');
 
   runApp(const DemoApp());
 }
 
-// ── App Widget ─────────────────────────────────────────────────────────
-
 class DemoApp extends StatefulWidget {
   const DemoApp({super.key});
-
   @override
   State<DemoApp> createState() => _DemoAppState();
 }
@@ -51,76 +42,22 @@ class _DemoAppState extends State<DemoApp> {
 
   void toggleTheme() {
     setState(() {
-      _themeMode = _themeMode == ThemeMode.dark
-          ? ThemeMode.light
-          : ThemeMode.dark;
+      _themeMode = _themeMode == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'CinaCoin Demo',
+      title: 'Cinacoin Demo',
       debugShowCheckedModeBanner: false,
       themeMode: _themeMode,
-      theme: _buildLightTheme(),
-      darkTheme: _buildDarkTheme(),
+      theme: cinacoinThemeData(darkMode: false),
+      darkTheme: cinacoinThemeData(darkMode: true),
       home: MainScaffold(onToggleTheme: toggleTheme),
     );
   }
-
-  ThemeData _buildDarkTheme() {
-    final base = ThemeData.dark();
-    return base.copyWith(
-      primaryColor: const Color(0xFF6C5CE7),
-      scaffoldBackgroundColor: const Color(0xFF0D0D1A),
-      cardColor: const Color(0xFF1A1A2E),
-      colorScheme: const ColorScheme.dark(
-        primary: Color(0xFF6C5CE7),
-        secondary: Color(0xFF00CEC9),
-        surface: Color(0xFF1A1A2E),
-        onSurface: Color(0xFFE2E2F0),
-      ),
-      appBarTheme: const AppBarTheme(
-        backgroundColor: Color(0xFF0D0D1A),
-        elevation: 0,
-      ),
-      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        backgroundColor: Color(0xFF0D0D1A),
-        selectedItemColor: Color(0xFF6C5CE7),
-        unselectedItemColor: Color(0xFF666680),
-      ),
-      textTheme: GoogleFonts.interTextTheme(base.textTheme),
-    );
-  }
-
-  ThemeData _buildLightTheme() {
-    final base = ThemeData.light();
-    return base.copyWith(
-      primaryColor: const Color(0xFF6C5CE7),
-      scaffoldBackgroundColor: const Color(0xFFF5F5FA),
-      cardColor: Colors.white,
-      colorScheme: const ColorScheme.light(
-        primary: Color(0xFF6C5CE7),
-        secondary: Color(0xFF00B894),
-        surface: Colors.white,
-        onSurface: Color(0xFF2D2D3A),
-      ),
-      appBarTheme: const AppBarTheme(
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
-      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        backgroundColor: Colors.white,
-        selectedItemColor: Color(0xFF6C5CE7),
-        unselectedItemColor: Color(0xFF9999AA),
-      ),
-      textTheme: GoogleFonts.interTextTheme(base.textTheme),
-    );
-  }
 }
-
-// ── Main Scaffold with Bottom Navigation ───────────────────────────────
 
 class MainScaffold extends StatefulWidget {
   final VoidCallback onToggleTheme;
@@ -142,9 +79,9 @@ class _MainScaffoldState extends State<MainScaffold> {
     _screens = [
       const HomeScreen(),
       const ConnectScreen(),
+      const AuthScreen(),
+      const SmartAccountScreen(),
       const ChainScreen(),
-      const SignScreen(),
-      const TransactionScreen(),
     ];
   }
 
@@ -152,32 +89,7 @@ class _MainScaffoldState extends State<MainScaffold> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          children: [
-            Container(
-              width: 28,
-              height: 28,
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Color(0xFF6C5CE7), Color(0xFF00CEC9)],
-                ),
-                borderRadius: BorderRadius.circular(6),
-              ),
-              child: const Center(
-                child: Text(
-                  'C',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(width: 10),
-            const Text('CinaCoin Demo'),
-          ],
-        ),
+        title: const Text('Cinacoin Demo'),
         actions: [
           IconButton(
             icon: Icon(
@@ -210,19 +122,19 @@ class _MainScaffoldState extends State<MainScaffold> {
             label: 'Connect',
           ),
           BottomNavigationBarItem(
+            icon: Icon(Icons.person_outline),
+            activeIcon: Icon(Icons.person),
+            label: 'Auth',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_box_outlined),
+            activeIcon: Icon(Icons.account_box),
+            label: 'Smart Acct',
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.shuffle_outlined),
             activeIcon: Icon(Icons.shuffle),
             label: 'Chains',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.draw_outlined),
-            activeIcon: Icon(Icons.draw),
-            label: 'Sign',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.send_outlined),
-            activeIcon: Icon(Icons.send),
-            label: 'Send',
           ),
         ],
       ),

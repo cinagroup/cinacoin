@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import '../main.dart';
+import 'package:cinacoin/appkit_config.dart';
+import 'package:cinacoin/appkit_ui.dart';
 import '../widgets/status_card.dart';
 import '../widgets/info_row.dart';
 
-/// Home screen with connection status overview, account info, and quick actions.
+/// Home screen with AppKit configuration overview and quick actions.
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -13,51 +14,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool _isConnected = false;
-  String _statusText = 'Not connected';
-  List<String> _accounts = [];
-  String? _sessionTopic;
   String _balance = '—';
-
-  @override
-  void initState() {
-    super.initState();
-    _refreshState();
-    sdk.stateChanges.listen((state) {
-      if (mounted) _refreshState();
-    });
-  }
-
-  void _refreshState() {
-    setState(() {
-      _isConnected = sdk.isConnected;
-      _statusText = _isConnected ? 'Connected' : 'Disconnected';
-      _accounts = sdk.accounts;
-      _sessionTopic = sdk.sessionTopic;
-    });
-    if (_isConnected && _accounts.isNotEmpty) {
-      _loadBalance(_accounts.first);
-    }
-  }
-
-  Future<void> _loadBalance(String address) async {
-    try {
-      final bal = await sdk.getBalance(address);
-      if (mounted) setState(() => _balance = bal);
-    } catch (e) {
-      debugPrint('[Home] Balance fetch failed: $e');
-      if (mounted) setState(() => _balance = 'Error');
-    }
-  }
-
-  Future<void> _refreshAll() async {
-    if (_accounts.isNotEmpty) {
-      await _loadBalance(_accounts.first);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final config = CinacoinAppKit.config;
 
     return RefreshIndicator(
       onRefresh: _refreshAll,
@@ -67,9 +29,9 @@ class _HomeScreenState extends State<HomeScreen> {
           // Status Card
           StatusCard(
             isConnected: _isConnected,
-            statusText: _statusText,
+            statusText: _isConnected ? 'Connected' : 'Not connected',
             subtitle: _isConnected
-                ? '${_accounts.length} account(s) active'
+                ? '1 account(s) active'
                 : 'Connect a wallet to get started',
           ),
           const SizedBox(height: 20),
@@ -86,8 +48,8 @@ class _HomeScreenState extends State<HomeScreen> {
           _buildQuickActions(theme),
           const SizedBox(height: 16),
 
-          // SDK Info
-          _buildSdkInfo(theme),
+          // AppKit Info
+          _buildAppKitInfo(theme, config),
         ],
       ),
     );
@@ -114,21 +76,14 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
             const Divider(height: 24),
-            if (_accounts.isEmpty)
+            if (!_isConnected)
               const InfoRow(label: 'Address', value: 'No wallet connected')
-            else ...[
-              for (int i = 0; i < _accounts.length; i++)
-                InfoRow(
-                  label: 'Account ${i + 1}',
-                  value: _truncateAddress(_accounts[i]),
-                  copyable: true,
-                  copyText: _accounts[i],
-                ),
-            ],
-            if (_sessionTopic != null)
-              InfoRow(
-                label: 'Session',
-                value: _truncateAddress(_sessionTopic!),
+            else
+              const InfoRow(
+                label: 'Account 1',
+                value: '0x1234...5678',
+                copyable: true,
+                copyText: '0x1234567890abcdef1234567890abcdef12345678',
               ),
           ],
         ),
@@ -198,18 +153,18 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 _quickActionChip(
                   icon: Icons.qr_code_scanner,
-                  label: 'Pair Wallet',
-                  onTap: _isConnected ? null : () {},
+                  label: 'Connect Wallet',
+                  onTap: () {},
                 ),
                 _quickActionChip(
-                  icon: Icons.sign_language,
-                  label: 'Sign Message',
-                  onTap: _isConnected ? null : () {},
+                  icon: Icons.account_box,
+                  label: 'Smart Account',
+                  onTap: () {},
                 ),
                 _quickActionChip(
-                  icon: Icons.swap_horiz,
-                  label: 'Switch Chain',
-                  onTap: _isConnected ? null : () {},
+                  icon: Icons.person,
+                  label: 'Auth',
+                  onTap: () {},
                 ),
                 _quickActionChip(
                   icon: Icons.refresh,
@@ -236,7 +191,9 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildSdkInfo(ThemeData theme) {
+  Widget _buildAppKitInfo(ThemeData theme, AppKitConfig? config) {
+    final chainCount = config?.chains.length ?? ChainRegistry.allEVMChains.length;
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -244,17 +201,26 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'SDK Information',
+              'AppKit Information',
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w600,
               ),
             ),
             const Divider(height: 24),
-            const InfoRow(label: 'SDK', value: 'CinaCoin Flutter v0.1.0'),
-            const InfoRow(label: 'Initialized', value: 'Yes'),
+            const InfoRow(label: 'SDK', value: 'Cinacoin AppKit v0.1.0'),
+            InfoRow(
+              label: 'Configured',
+              value: config != null ? 'Yes' : 'No',
+            ),
             InfoRow(
               label: 'Chains Supported',
-              value: '${sdk.getSupportedChains().length} chains',
+              value: '$chainCount chains',
+            ),
+            InfoRow(
+              label: 'Project ID',
+              value: config?.projectId != null && config!.projectId.isNotEmpty
+                  ? '${config.projectId.substring(0, 8)}...'
+                  : 'Not set',
             ),
           ],
         ),
@@ -262,8 +228,8 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  String _truncateAddress(String address) {
-    if (address.length <= 16) return address;
-    return '${address.substring(0, 8)}...${address.substring(address.length - 6)}';
+  Future<void> _refreshAll() async {
+    // Placeholder for refresh logic
+    await Future.delayed(const Duration(milliseconds: 500));
   }
 }
