@@ -487,6 +487,8 @@ app.put('/api/admin/settings', async (c) => {
       'oauth_github_client_secret',
       'oauth_google_client_id',
       'oauth_google_client_secret',
+      'resend_api_key',
+      'app_base_url',
     ];
     
     if (!allowedKeys.includes(key)) {
@@ -558,14 +560,223 @@ app.put('/api/admin/users/:id/role', async (c) => {
   }
 });
 
+// ============ Email Verification Endpoints ============
+
+// POST /api/auth/email/verify - Send verification email
+app.post('/api/auth/email/verify', async (c) => {
+  try {
+    const authHeader = c.req.header('Authorization');
+    if (!authHeader?.startsWith('Bearer ')) return c.json({ error: 'Unauthorized' }, 401);
+    
+    const payload = await verifyAccessToken(authHeader.split(' ')[1], c.env.JWT_SECRET);
+    if (!payload) return c.json({ error: 'Invalid token' }, 401);
+    
+    const db = c.env.DB;
+    const user = await db.prepare('SELECT id, email, email_verified FROM users WHERE id = ?').bind(payload.userId).first() as any;
+    if (!user) return c.json({ error: 'User not found' }, 404);
+    if (user.email_verified) return c.json({ error: 'Email already verified' }, 400);
+    
+    // Generate verification token
+    const token = crypto.randomUUID();
+    const now = Date.now();
+    const expiresAt = now + 24 * 60 * 60 * 1000; // 24 hours
+    
+    // Delete any existing verification tokens
+    await db.prepare('DELETE FROM email_verifications WHERE user_id = ?').bind(user.id).run();
+    
+    // Create new verification token
+    await db.prepare('INSERT INTO email_verifications (id, user_id, token, expires_at, created_at) VALUES (?, ?, ?, ?, ?)')
+      .bind(crypto.randomUUID(), user.id, token, expiresAt, now).run();
+    
+    // Get Resend API key
+    const resendApiKey = await getSystemSetting(db, 'resend_api_key');
+    const appBaseUrl = await getSystemSetting(db, 'app_base_url') || 'https://cinacoin-auth.pages.dev';
+    
+    if (resendApiKey) {
+      // Send email via Resend
+      const verifyUrl = `${appBaseUrl}/verify-email?token=${token}`;
+      await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${resendApiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          from: 'CinaCoin <noreply@cinacoin.com>',
+          to: user.email,
+          subject: 'Verify your email address',
+          html: `
+            <h1>Welcome to CinaCoin!</h1>
+            <p>Please verify your email address by clicking the link below:</p>
+            <p><a href="${verifyUrl}">Verify Email Address</a></p>
+            <p>This link will expire in 24 hours.</p>
+            <p>If you did not create an account, please ignore this email.</p>
+          `,
+        }),
+      });
+    }
+    
+    // Return token for development/testing (when Resend is not configured)
+    return c.json({ 
+      success: true, 
+      message: resendApiKey ? 'Verification email sent' : 'Email verification configured. Token generated.',
+      token: resendApiKey ? undefined : token,
+      verifyUrl: resendApiKey ? undefined : `${appBaseUrl}/verify-email?token=${token}`,
+    });
+  } catch (error) {
+    console.error('Email verify error:', error);
+    return c.json({ error: 'Failed to send verification email' }, 500);
+  }
+});
+
+// POST /api/auth/email/confirm - Confirm verification token
+app.post('/api/auth/email/confirm', async (c) => {
+  try {
+    const body = await c.req.json();
+    const { token } = body;
+    if (!token) return c.json({ error: 'Token required' }, 400);
+    
+    const db = c.env.DB;
+    const verification = await db.prepare(
+      'SELECT * FROM email_verifications WHERE token = ? AND verified = 0'
+    ).bind(token).first() as any;
+    
+    if (!verification) return c.json({ error: 'Invalid or expired token' }, 400);
+    if (verification.expires_at < Date.now()) {
+      return c.json({ error: 'Token expired' }, 400);
+    }
+    
+    // Mark as verified
+    await db.prepare('UPDATE email_verifications SET verified = 1 WHERE id = ?').bind(verification.id).run();
+    await db.prepare('UPDATE users SET email_verified = 1, updated_at = ? WHERE id = ?')
+      .bind(Date.now(), verification.user_id).run();
+    
+    return c.json({ success: true, message: 'Email verified successfully' });
+  } catch (error) {
+    console.error('Email confirm error:', error);
+    return c.json({ error: 'Failed to verify email' }, 500);
+  }
+});
+
+// ============ Password Reset Endpoints ============
+
+// POST /api/auth/password/reset - Request password reset
+app.post('/api/auth/password/reset', async (c) => {
+  try {
+    const body = await c.req.json();
+    const { email } = body;
+    if (!email) return c.json({ error: 'Email required' }, 400);
+    
+    const db = c.env.DB;
+    const user = await db.prepare('SELECT id, email FROM users WHERE email = ?').bind(email).first() as any;
+    
+    // Always return success to prevent email enumeration
+    if (!user) {
+      return c.json({ success: true, message: 'If the email exists, a reset link will be sent' });
+    }
+    
+    // Generate reset token
+    const token = crypto.randomUUID();
+    const now = Date.now();
+    const expiresAt = now + 60 * 60 * 1000; // 1 hour
+    
+    // Delete any existing reset tokens
+    await db.prepare('DELETE FROM password_resets WHERE user_id = ? AND used = 0').bind(user.id).run();
+    
+    // Create new reset token
+    await db.prepare('INSERT INTO password_resets (id, user_id, token, expires_at, created_at) VALUES (?, ?, ?, ?, ?)')
+      .bind(crypto.randomUUID(), user.id, token, expiresAt, now).run();
+    
+    // Get Resend API key
+    const resendApiKey = await getSystemSetting(db, 'resend_api_key');
+    const appBaseUrl = await getSystemSetting(db, 'app_base_url') || 'https://cinacoin-auth.pages.dev';
+    
+    if (resendApiKey) {
+      // Send email via Resend
+      const resetUrl = `${appBaseUrl}/reset-password?token=${token}`;
+      await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${resendApiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          from: 'CinaCoin <noreply@cinacoin.com>',
+          to: user.email,
+          subject: 'Reset your password',
+          html: `
+            <h1>Password Reset Request</h1>
+            <p>You requested to reset your password. Click the link below:</p>
+            <p><a href="${resetUrl}">Reset Password</a></p>
+            <p>This link will expire in 1 hour.</p>
+            <p>If you did not request this, please ignore this email.</p>
+          `,
+        }),
+      });
+    }
+    
+    return c.json({ 
+      success: true, 
+      message: resendApiKey ? 'Reset email sent' : 'Password reset configured. Token generated.',
+      token: resendApiKey ? undefined : token,
+      resetUrl: resendApiKey ? undefined : `${appBaseUrl}/reset-password?token=${token}`,
+    });
+  } catch (error) {
+    console.error('Password reset error:', error);
+    return c.json({ error: 'Failed to process password reset' }, 500);
+  }
+});
+
+// POST /api/auth/password/confirm - Confirm reset token and set new password
+app.post('/api/auth/password/confirm', async (c) => {
+  try {
+    const body = await c.req.json();
+    const { token, password } = body;
+    if (!token || !password) return c.json({ error: 'Token and password required' }, 400);
+    
+    // Validate password strength
+    if (password.length < 8) return c.json({ error: 'Password must be at least 8 characters' }, 400);
+    
+    const db = c.env.DB;
+    const reset = await db.prepare(
+      'SELECT * FROM password_resets WHERE token = ? AND used = 0'
+    ).bind(token).first() as any;
+    
+    if (!reset) return c.json({ error: 'Invalid or expired token' }, 400);
+    if (reset.expires_at < Date.now()) {
+      return c.json({ error: 'Token expired' }, 400);
+    }
+    
+    // Hash new password and update user
+    const passwordHash = await hashPassword(password);
+    await db.prepare('UPDATE users SET password_hash = ?, updated_at = ? WHERE id = ?')
+      .bind(passwordHash, Date.now(), reset.user_id).run();
+    
+    // Mark token as used
+    await db.prepare('UPDATE password_resets SET used = 1 WHERE id = ?').bind(reset.id).run();
+    
+    // Delete all sessions for this user (force re-login)
+    await db.prepare('DELETE FROM sessions WHERE user_id = ?').bind(reset.user_id).run();
+    
+    return c.json({ success: true, message: 'Password reset successfully' });
+  } catch (error) {
+    console.error('Password confirm error:', error);
+    return c.json({ error: 'Failed to reset password' }, 500);
+  }
+});
+
 export default {
   fetch: app.fetch,
   async scheduled(_event: ScheduledEvent, env: Env) {
-    // Cleanup expired sessions daily
     const now = Date.now();
+    // Cleanup expired sessions
     await env.DB.prepare('DELETE FROM sessions WHERE expires_at < ?').bind(now).run();
     // Cleanup expired OAuth states
     await env.DB.prepare("DELETE FROM system_settings WHERE key LIKE 'oauth_state_%' AND value LIKE '%createdAt%' AND json_extract(value, '$.createdAt') < ?")
       .bind(now - 3600000).run();
+    // Cleanup expired verification tokens
+    await env.DB.prepare('DELETE FROM email_verifications WHERE expires_at < ?').bind(now).run();
+    // Cleanup expired password reset tokens
+    await env.DB.prepare('DELETE FROM password_resets WHERE expires_at < ?').bind(now).run();
   },
 };
