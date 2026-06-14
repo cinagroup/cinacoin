@@ -9,4 +9,4 @@ JWT_REFRESH_SECRET = "change-me-in-production-refresh"
 [[d1_databases]]
 binding = "DB"
 database_name = "cinacoin-auth-db"
-database_id = "placeholder-replace-after-creation"
+database_id = "7da0bdfd-cbdd-4bde-a4f2-dd410b4970e0"
