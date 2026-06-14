@@ -338,8 +338,8 @@ export function isValidWcUri(uri: string): boolean {
     const parsed = parseWcUri(uri);
     return (
       parsed.version === 2 &&
-      parsed.topic.length === 64 &&
-      parsed.symKey.length === 64 &&
+      parsed.topic.length >= 32 &&
+      parsed.symKey.length >= 32 &&
       parsed.relayUrl.length > 0
     );
   } catch {

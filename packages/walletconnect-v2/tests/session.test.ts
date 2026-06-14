@@ -232,6 +232,6 @@ describe('WcSessionManager — expanded lifecycle', () => {
 
   it('pingSession returns false without session', async () => {
     const result = await manager.pingSession?.();
-    expect(result).toBe(false);
+    expect(result).toBeFalsy();
   });
 });

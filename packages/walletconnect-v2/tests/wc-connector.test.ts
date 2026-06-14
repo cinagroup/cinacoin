@@ -37,39 +37,36 @@ const defaultConfig: WcConnectorConfig = {
 
 // Mock MultiSessionManager
 vi.mock('../src/multi-session-manager.js', () => {
-  const mockSessions = new Map<string, any>();
-  let activeTopic: string | null = null;
-  let connected = false;
-
+  const { EventEmitter } = require('events');
+  
+  class MockMultiSessionManager extends EventEmitter {
+    init = vi.fn().mockResolvedValue(undefined);
+    connectUri = vi.fn().mockResolvedValue({
+      topic: 'session-123',
+      accounts: ['eip155:1:0x1234567890123456789012345678901234567890'],
+      expiry: Date.now() + 86400000,
+    });
+    createPairing = vi.fn().mockResolvedValue('wc:topic123@2?relay-protocol=irn&relay-url=wss://relay.walletconnect.com&symKey=abc123');
+    disconnect = vi.fn().mockResolvedValue(undefined);
+    restore = vi.fn().mockResolvedValue([]);
+    getSessions = vi.fn().mockReturnValue([]);
+    getActiveSession = vi.fn().mockReturnValue(null);
+    setActiveSession = vi.fn().mockReturnValue(false);
+    isConnected = vi.fn().mockReturnValue(false);
+    request = vi.fn().mockResolvedValue('0xsignature');
+    requestTo = vi.fn().mockResolvedValue('0xsignature');
+    requestForChain = vi.fn().mockResolvedValue('0xsignature');
+    getSessionByChain = vi.fn().mockReturnValue(null);
+    waitForSession = vi.fn().mockResolvedValue({
+      topic: 'session-123',
+      accounts: ['eip155:1:0x1234567890123456789012345678901234567890'],
+      expiry: Date.now() + 86400000,
+    });
+    cleanupExpiredSessions = vi.fn();
+  }
+  
   return {
-    MultiSessionManager: vi.fn().mockImplementation(() => ({
-      init: vi.fn().mockResolvedValue(undefined),
-      connectUri: vi.fn().mockResolvedValue({
-        topic: 'session-123',
-        accounts: ['eip155:1:0x1234567890123456789012345678901234567890'],
-        expiry: Date.now() + 86400000,
-      }),
-      createPairing: vi.fn().mockResolvedValue('wc:topic123@2?relay-protocol=irn&relay-url=wss://relay.walletconnect.com&symKey=abc123'),
-      disconnect: vi.fn().mockResolvedValue(undefined),
-      restore: vi.fn().mockResolvedValue([]),
-      getSessions: vi.fn().mockReturnValue([]),
-      getActiveSession: vi.fn().mockReturnValue(null),
-      setActiveSession: vi.fn().mockReturnValue(false),
-      isConnected: vi.fn().mockReturnValue(false),
-      request: vi.fn().mockResolvedValue('0xsignature'),
-      requestTo: vi.fn().mockResolvedValue('0xsignature'),
-      requestForChain: vi.fn().mockResolvedValue('0xsignature'),
-      getSessionByChain: vi.fn().mockReturnValue(null),
-      waitForSession: vi.fn().mockResolvedValue({
-        topic: 'session-123',
-        accounts: ['eip155:1:0x1234567890123456789012345678901234567890'],
-        expiry: Date.now() + 86400000,
-      }),
-      cleanupExpiredSessions: vi.fn(),
-      on: vi.fn(),
-      off: vi.fn(),
-      emit: vi.fn(),
-    })),
+    MultiSessionManager: MockMultiSessionManager,
   };
 });
 
@@ -122,10 +119,6 @@ vi.mock('../src/pairing.js', () => {
 describe('WcConnector constructor', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-  });
-
-  afterEach(() => {
-    vi.restoreAllMocks();
   });
 
   it('creates connector with required config', () => {
@@ -195,10 +188,6 @@ describe('WcConnector connect', () => {
     connector = new WcConnector(defaultConfig);
   });
 
-  afterEach(() => {
-    vi.restoreAllMocks();
-  });
-
   it('connect without URI creates pairing and returns result', async () => {
     const result = await connector.connect();
     expect(result).toBeDefined();
@@ -229,10 +218,6 @@ describe('WcConnector disconnect', () => {
     connector = new WcConnector(defaultConfig);
   });
 
-  afterEach(() => {
-    vi.restoreAllMocks();
-  });
-
   it('disconnect resolves without error', async () => {
     await expect(connector.disconnect()).resolves.not.toThrow();
   });
@@ -253,10 +238,6 @@ describe('WcConnector getAccounts', () => {
     connector = new WcConnector(defaultConfig);
   });
 
-  afterEach(() => {
-    vi.restoreAllMocks();
-  });
-
   it('returns empty array when no active session', async () => {
     const accounts = await connector.getAccounts();
     expect(accounts).toEqual([]);
@@ -271,10 +252,6 @@ describe('WcConnector getChainId', () => {
     connector = new WcConnector(defaultConfig);
   });
 
-  afterEach(() => {
-    vi.restoreAllMocks();
-  });
-
   it('throws when no active session', async () => {
     await expect(connector.getChainId()).rejects.toThrow('No active session');
   });
@@ -286,10 +263,6 @@ describe('WcConnector switchChain', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     connector = new WcConnector(defaultConfig);
-  });
-
-  afterEach(() => {
-    vi.restoreAllMocks();
   });
 
   it('throws when no active session', async () => {
@@ -309,10 +282,6 @@ describe('WcConnector signMessage', () => {
     connector = new WcConnector(defaultConfig);
   });
 
-  afterEach(() => {
-    vi.restoreAllMocks();
-  });
-
   it('throws when no connected account', async () => {
     await expect(connector.signMessage('Hello')).rejects.toThrow('No connected account');
   });
@@ -328,10 +297,6 @@ describe('WcConnector signTransaction', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     connector = new WcConnector(defaultConfig);
-  });
-
-  afterEach(() => {
-    vi.restoreAllMocks();
   });
 
   it('throws when no connected account', async () => {
@@ -354,10 +319,6 @@ describe('WcConnector session management', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     connector = new WcConnector(defaultConfig);
-  });
-
-  afterEach(() => {
-    vi.restoreAllMocks();
   });
 
   it('restore returns null when no sessions', async () => {
@@ -397,10 +358,6 @@ describe('WcConnector request methods', () => {
     connector = new WcConnector(defaultConfig);
   });
 
-  afterEach(() => {
-    vi.restoreAllMocks();
-  });
-
   it('request returns signature', async () => {
     const result = await connector.request('personal_sign', ['0x1234', '0xaddress']);
     expect(result).toBe('0xsignature');
@@ -434,10 +391,6 @@ describe('WcConnector waitForSession', () => {
     connector = new WcConnector(defaultConfig);
   });
 
-  afterEach(() => {
-    vi.restoreAllMocks();
-  });
-
   it('waitForSession returns connection result', async () => {
     const result = await connector.waitForSession();
     expect(result).toBeDefined();
@@ -456,10 +409,6 @@ describe('WcConnector utility methods', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     connector = new WcConnector(defaultConfig);
-  });
-
-  afterEach(() => {
-    vi.restoreAllMocks();
   });
 
   it('getPairingUri returns URI string', async () => {
@@ -503,10 +452,6 @@ describe('WcConnector generateAuthChallenge', () => {
     connector = new WcConnector(defaultConfig);
   });
 
-  afterEach(() => {
-    vi.restoreAllMocks();
-  });
-
   it('returns null when no active session and no address', () => {
     const challenge = connector.generateAuthChallenge();
     expect(challenge).toBeNull();
@@ -531,10 +476,6 @@ describe('WcConnector event forwarding', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     connector = new WcConnector(defaultConfig);
-  });
-
-  afterEach(() => {
-    vi.restoreAllMocks();
   });
 
   it('forwards stateChange events from manager', () => {

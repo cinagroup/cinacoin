@@ -316,7 +316,9 @@ export class CloudRelay extends EventEmitter {
       }) as Promise<number>;
     }
 
-    return this.sendSubscribe(topic);
+    const subId = await this.sendSubscribe(topic);
+    this.activeTopicIds.set(topic, subId);
+    return subId;
   }
 
   /**

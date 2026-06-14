@@ -196,6 +196,9 @@ describe('WcRelay connection lifecycle', () => {
     const relay = new WcRelay({ url: 'wss://test.example.com', connectionTimeout: 100 });
     const connectPromise = relay.connect();
 
+    // Catch the rejection to prevent unhandled rejection
+    connectPromise.catch(() => {});
+
     // Advance time past timeout
     await vi.advanceTimersByTimeAsync(150);
 

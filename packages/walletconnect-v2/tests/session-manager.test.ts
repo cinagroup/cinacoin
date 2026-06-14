@@ -138,7 +138,6 @@ describe('MultiSessionManager constructor', () => {
   });
 
   afterEach(() => {
-    vi.restoreAllMocks();
   });
 
   it('creates manager with required config', () => {
@@ -188,7 +187,6 @@ describe('MultiSessionManager state', () => {
   });
 
   afterEach(() => {
-    vi.restoreAllMocks();
   });
 
   it('getState returns current state', () => {
@@ -216,7 +214,6 @@ describe('MultiSessionManager relay', () => {
   });
 
   afterEach(() => {
-    vi.restoreAllMocks();
   });
 
   it('init connects to relay', async () => {
@@ -251,7 +248,6 @@ describe('MultiSessionManager restore', () => {
   });
 
   afterEach(() => {
-    vi.restoreAllMocks();
   });
 
   it('restore returns empty array when no sessions', async () => {
@@ -273,7 +269,6 @@ describe('MultiSessionManager createPairing', () => {
   });
 
   afterEach(() => {
-    vi.restoreAllMocks();
   });
 
   it('createPairing returns URI string', async () => {
@@ -298,12 +293,14 @@ describe('MultiSessionManager waitForSession', () => {
   });
 
   afterEach(() => {
-    vi.restoreAllMocks();
   });
 
   it('waitForSession times out', async () => {
     vi.useFakeTimers();
     const sessionPromise = manager.waitForSession(1000);
+    
+    // Catch the rejection to prevent unhandled rejection
+    sessionPromise.catch(() => {});
     
     await vi.advanceTimersByTimeAsync(1100);
     
@@ -321,14 +318,13 @@ describe('MultiSessionManager connectUri', () => {
   });
 
   afterEach(() => {
-    vi.restoreAllMocks();
   });
 
   it('connectUri throws on invalid URI', async () => {
     const { isValidWcUri } = await import('../src/pairing.js');
     (isValidWcUri as any).mockReturnValueOnce(false);
     
-    await expect(manager.connectUri('invalid-uri')).rejects.toThrow('Invalid WalletConnect URI');
+    await expect(manager.connectUri('invalid-uri')).rejects.toThrow('Invalid Cinacoin URI');
   });
 });
 
@@ -345,7 +341,6 @@ describe('MultiSessionManager session management', () => {
   });
 
   afterEach(() => {
-    vi.restoreAllMocks();
   });
 
   it('getSessions returns empty array initially', () => {
@@ -386,7 +381,6 @@ describe('MultiSessionManager requests', () => {
   });
 
   afterEach(() => {
-    vi.restoreAllMocks();
   });
 
   it('request throws when no active session', async () => {
@@ -415,7 +409,6 @@ describe('MultiSessionManager session operations', () => {
   });
 
   afterEach(() => {
-    vi.restoreAllMocks();
   });
 
   it('extendSession throws for unknown topic', async () => {
@@ -444,7 +437,6 @@ describe('MultiSessionManager expiry', () => {
   });
 
   afterEach(() => {
-    vi.restoreAllMocks();
   });
 
   it('isSessionExpired returns true for expired session', () => {
@@ -497,7 +489,6 @@ describe('MultiSessionManager events', () => {
   });
 
   afterEach(() => {
-    vi.restoreAllMocks();
   });
 
   it('emits stateChange events', () => {

@@ -7,6 +7,7 @@ import { defineWorkspace } from 'vitest/config';
 export default defineWorkspace([
   // Core packages
   'packages/core-sdk',
+  'packages/walletconnect-v2',
   'packages/siwe',
   'packages/next',
   'packages/tx-indexer',
