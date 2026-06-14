@@ -1,0 +1,22 @@
+{
+  "name": "cinacoin-auth-worker",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "build": "echo 'No build step needed for workers'"
+  },
+  "dependencies": {
+    "hono": "^4.0.0",
+    "jose": "^5.2.0",
+    "bcryptjs": "^2.4.3",
+    "zod": "^3.22.0",
+    "otplib": "^12.0.1"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240512.0",
+    "typescript": "^5.4.0",
+    "wrangler": "^3.60.0"
+  }
+}
