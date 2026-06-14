@@ -26,6 +26,14 @@ let package = Package(
         .library(
             name: "CinacoinAppKitUI",
             targets: ["CinacoinAppKitUI"]),
+        // MARK: - CinacoinAppKitAuth (Social login, email login, session management)
+        .library(
+            name: "CinacoinAppKitAuth",
+            targets: ["CinacoinAppKitAuth"]),
+        // MARK: - CinacoinAppKitSmartAccount (ERC-4337 smart accounts)
+        .library(
+            name: "CinacoinAppKitSmartAccount",
+            targets: ["CinacoinAppKitSmartAccount"]),
     ],
     dependencies: [
         .package(url: "https://github.com/WalletConnect/WalletConnectSwiftV2.git", exact: "1.13.0"),
@@ -73,6 +81,20 @@ let package = Package(
             name: "CinacoinAppKitUI",
             dependencies: ["CinacoinAppKitConfig"],
             path: "Sources/CinacoinAppKitUI"
+        ),
+
+        // MARK: - CinacoinAppKitAuth
+        .target(
+            name: "CinacoinAppKitAuth",
+            dependencies: ["CinacoinAppKitConfig"],
+            path: "Sources/CinacoinAppKitAuth"
+        ),
+
+        // MARK: - CinacoinAppKitSmartAccount
+        .target(
+            name: "CinacoinAppKitSmartAccount",
+            dependencies: ["CinacoinAppKitConfig"],
+            path: "Sources/CinacoinAppKitSmartAccount"
         ),
     ]
 )
