@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-06-14T05:02:43.933Z",
+  "updatedAt": "2026-06-14T06:02:46.727Z",
   "entries": {
     "memory:memory/2026-04-03.md:1:40": {
       "key": "memory:memory/2026-04-03.md:1:40",
@@ -1063,13 +1063,13 @@
       "endLine": 605,
       "source": "memory",
       "snippet": "- ⏳ 前端集成测试 # 2026-06-09 Daily Notes ## Cloudflare 部署完成 (01:30 UTC) ### 任务完成状态 ✅ **任务 1: 配置自定义域名** - 完成 ✅ **任务 3: 验证部署** - 完成 ✅ **任务 4: 集成测试** - 完成 --- ## 基础设施部署 ### D1 数据库 | 数据库 | ID | 表数量 | 状态 | |--------|-----|--------|------| | cinacoin-auth | dbb6063f-86ca-4ac2-b960-25bbb752b73d | 12 | ✅ | | cinacoin-users | 1772bf0d-5e3b-4a18-b143-1bb2c3d29b62 | 5 | ✅ | ### KV 命名空间 | 名称 | ID | 用途 | |------|-----|------| | RATE_LIMIT_KV | dceb86e5cb4c4a008013c8cf21d7181c | API 限流 | | SESSION_KV | 4a9aca26d37c4f9babb340b3865219c0 | 会话存储 | ### R2 存储桶 | 名称 | 用途 | 状态 | |------|------|------| | cinacoin-avatars | 用户头像 | ✅ | | cinacoin-backups | 数据备份 | ✅ | --- ## Workers 部署 ### 服务列表 | 服务 | 自定义域名 |",
-      "recallCount": 3,
+      "recallCount": 4,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 3,
+      "totalScore": 4,
       "maxScore": 1,
       "firstRecalledAt": "2026-06-13T05:02:42.050Z",
-      "lastRecalledAt": "2026-06-14T05:02:43.933Z",
+      "lastRecalledAt": "2026-06-14T06:02:46.727Z",
       "queryHashes": [
         "5456ab8ab88e",
         "2e89b8cf740b",
@@ -1097,13 +1097,13 @@
       "endLine": 1369,
       "source": "memory",
       "snippet": "### 🔴 发现问题 1. **登录接口 500 错误** — 已修复 ✅ 2. **Wallet Explorer 重定向循环** — 已修复，需部署 ⚠️ --- ## 下一步行动 1. **执行 Wallet Explorer 部署命令** 2. **验证登录流程完整可用** 3. **配置 RESEND_API_KEY**（如需要邮件功能） # 2026-06-09 Daily Notes ## Cloudflare 部署完成 (01:30 UTC) ### 任务完成状态 ✅ **任务 1: 配置自定义域名** - 完成 ✅ **任务 3: 验证部署** - 完成 ✅ **任务 4: 集成测试** - 完成 --- ## 基础设施部署 ### D1 数据库 | 数据库 | ID | 表数量 | 状态 | |--------|-----|--------|------| | cinacoin-auth | dbb6063f-86ca-4ac2-b960-25bbb752b73d | 12 | ✅ | | cinacoin-users | 1772bf0d-5e3b-4a18-b143-1bb2c3d29b62 | 5 | ✅ | ### KV 命名空间 | 名称 | ID | 用途 | |------|-----|------| | RATE_LIMIT_KV | dceb86e5cb4c4a008013c8cf21d7181c | API 限流 | | SESSION_KV | 4a9aca26d37c4f9babb340b3865219c0",
-      "recallCount": 3,
+      "recallCount": 4,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 3,
+      "totalScore": 4,
       "maxScore": 1,
       "firstRecalledAt": "2026-06-13T05:02:42.050Z",
-      "lastRecalledAt": "2026-06-14T05:02:43.933Z",
+      "lastRecalledAt": "2026-06-14T06:02:46.727Z",
       "queryHashes": [
         "5456ab8ab88e",
         "2e89b8cf740b",
@@ -1415,13 +1415,13 @@
       "endLine": 568,
       "source": "memory",
       "snippet": "tokenHash, issuedAt, // ISO 字符串 expiresAt, // ISO 字符串 metadata?.ipAddress || null, metadata?.userAgent || null, Date.now() // created_at 时间戳 ); ``` #### token-rotation.ts - hashToken 异步调用 ```typescript // 修复前 const oldTokenHash = hashToken(oldToken); // 修复后 const oldTokenHash = await hashToken(oldToken); ``` ### 经验教训 1. **Cloudflare Workers 限制**: Web Crypto API 的 PBKDF2 迭代次数上限是 100,000，不是 OWASP 推荐的 600,000 2. **数据库迁移**: 代码和数据库表结构必须严格同步，缺少字段会导致运行时错误 3. **异步函数**: 必须检查函数签名，确保异步函数使用 `await` 调用 4. **日志调试**: `wrangler tail` 是调试 Cloudflare Workers 的关键工具 5. **限流清理**: 测试时频繁触发限流，需要定期清理 KV 中的限流记录 ### 下一步 - ✅ Auth Service 注册登录流程已完成 - ⏳ 测试 OAuth 登录流程（需要配置 Google/GitHub/Disc",
-      "recallCount": 2,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 2,
+      "totalScore": 3,
       "maxScore": 1,
       "firstRecalledAt": "2026-06-14T04:12:50.486Z",
-      "lastRecalledAt": "2026-06-14T05:02:43.933Z",
+      "lastRecalledAt": "2026-06-14T06:02:46.727Z",
       "queryHashes": [
         "2e89b8cf740b",
         "751a2c96080d"
