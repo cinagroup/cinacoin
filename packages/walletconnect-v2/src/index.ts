@@ -201,6 +201,25 @@ export {
 } from './wallets.js';
 export type { FetchWalletsOptions } from './wallets.js';
 
+// QR Code Generation
+export {
+  generateQrCode,
+  generateQrCodeSvg,
+} from './qr-code.js';
+export type { QrCodeOptions } from './qr-code.js';
+
+// Deep Links
+export {
+  buildWalletDeepLinks,
+  buildUniversalLink,
+  detectInstalledWallets,
+} from './deep-links.js';
+export type { WalletDeepLink } from './deep-links.js';
+
+// Multi-Wallet Manager
+export { MultiWalletManager } from './multi-wallet.js';
+export type { MultiWalletConfig, WalletOption, ConnectionMethod } from './multi-wallet.js';
+
 /**
  * SDK version.
  */
