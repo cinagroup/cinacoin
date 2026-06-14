@@ -18,6 +18,10 @@ let package = Package(
         .library(
             name: "CinacoinSDK",
             targets: ["CinacoinSDK"]),
+        // MARK: - CinacoinAppKitConfig (AppKit configuration module)
+        .library(
+            name: "CinacoinAppKitConfig",
+            targets: ["CinacoinAppKitConfig"]),
     ],
     dependencies: [
         .package(url: "https://github.com/WalletConnect/WalletConnectSwiftV2.git", exact: "1.13.0"),
@@ -51,6 +55,13 @@ let package = Package(
         .testTarget(
             name: "CinacoinSDKTests",
             dependencies: ["CinacoinSDK"],
-            path: "Tests/CinacoinSDKTests")
+            path: "Tests/CinacoinSDKTests"),
+
+        // MARK: - CinacoinAppKitConfig
+        .target(
+            name: "CinacoinAppKitConfig",
+            dependencies: [],
+            path: "Sources/CinacoinAppKitConfig"
+        ),
     ]
 )

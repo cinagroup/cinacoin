@@ -1,0 +1,100 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-06-14T11:24:00Z",
+  "chains": {
+    "evm": {
+      "1": {
+        "chainId": 1,
+        "name": "Ethereum",
+        "shortName": "eth",
+        "symbol": "ETH",
+        "decimals": 18,
+        "rpcUrl": "https://eth.llamarpc.com",
+        "explorerUrl": "https://etherscan.io",
+        "iconUrl": "https://icons.llamao.fi/icons/chains/rsz_ethereum.jpg",
+        "testnet": false
+      },
+      "137": {
+        "chainId": 137,
+        "name": "Polygon",
+        "shortName": "matic",
+        "symbol": "MATIC",
+        "decimals": 18,
+        "rpcUrl": "https://polygon-rpc.com",
+        "explorerUrl": "https://polygonscan.com",
+        "iconUrl": "https://icons.llamao.fi/icons/chains/rsz_polygon.jpg",
+        "testnet": false
+      },
+      "42161": {
+        "chainId": 42161,
+        "name": "Arbitrum One",
+        "shortName": "arb",
+        "symbol": "ETH",
+        "decimals": 18,
+        "rpcUrl": "https://arb1.arbitrum.io/rpc",
+        "explorerUrl": "https://arbiscan.io",
+        "iconUrl": "https://icons.llamao.fi/icons/chains/rsz_arbitrum.jpg",
+        "testnet": false
+      },
+      "10": {
+        "chainId": 10,
+        "name": "Optimism",
+        "shortName": "op",
+        "symbol": "ETH",
+        "decimals": 18,
+        "rpcUrl": "https://mainnet.optimism.io",
+        "explorerUrl": "https://optimistic.etherscan.io",
+        "iconUrl": "https://icons.llamao.fi/icons/chains/rsz_optimism.jpg",
+        "testnet": false
+      },
+      "8453": {
+        "chainId": 8453,
+        "name": "Base",
+        "shortName": "base",
+        "symbol": "ETH",
+        "decimals": 18,
+        "rpcUrl": "https://mainnet.base.org",
+        "explorerUrl": "https://basescan.org",
+        "iconUrl": "https://icons.llamao.fi/icons/chains/rsz_base.jpg",
+        "testnet": false
+      },
+      "56": {
+        "chainId": 56,
+        "name": "BNB Smart Chain",
+        "shortName": "bsc",
+        "symbol": "BNB",
+        "decimals": 18,
+        "rpcUrl": "https://bsc-dataseed.binance.org",
+        "explorerUrl": "https://bscscan.com",
+        "iconUrl": "https://icons.llamao.fi/icons/chains/rsz_bsc.jpg",
+        "testnet": false
+      },
+      "43114": {
+        "chainId": 43114,
+        "name": "Avalanche C-Chain",
+        "shortName": "avax",
+        "symbol": "AVAX",
+        "decimals": 18,
+        "rpcUrl": "https://api.avax.network/ext/bc/C/rpc",
+        "explorerUrl": "https://snowtrace.io",
+        "iconUrl": "https://icons.llamao.fi/icons/chains/rsz_avalanche.jpg",
+        "testnet": false
+      },
+      "11155111": {
+        "chainId": 11155111,
+        "name": "Sepolia",
+        "shortName": "sepolia",
+        "symbol": "ETH",
+        "decimals": 18,
+        "rpcUrl": "https://rpc.sepolia.org",
+        "explorerUrl": "https://sepolia.etherscan.io",
+        "iconUrl": "https://icons.llamao.fi/icons/chains/rsz_ethereum.jpg",
+        "testnet": true
+      }
+    }
+  },
+  "defaultChain": {
+    "namespace": "evm",
+    "chainId": 1
+  }
+}
