@@ -2,9 +2,8 @@ name = "cinacoin-auth"
 compatibility_date = "2024-12-01"
 pages_build_output_dir = "out"
 
-[vars]
-JWT_SECRET = "change-me-in-production"
-JWT_REFRESH_SECRET = "change-me-in-production-refresh"
+# JWT keys are only needed by the Worker API (see worker/wrangler.toml)
+# Pages is a static frontend and does not use these variables
 
 [[d1_databases]]
 binding = "DB"
