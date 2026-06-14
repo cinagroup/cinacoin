@@ -2,82 +2,32 @@
   <div class="connect-wallet">
     <h2 class="section-title">Connect wallet.</h2>
 
-    <!-- ConnectButton demo -->
+    <!-- Connect Button -->
     <div class="card">
-      <h3 class="card-title">ConnectButton (Web component).</h3>
+      <h3 class="card-title">Connect with Reown AppKit.</h3>
       <p class="card-desc">
-        Using <code>OcxConnectButton</code> — the built-in Vue wrapper for the Cinacoin connect button web component.
+        Click the button below to open the wallet connection modal powered by Reown AppKit.
       </p>
       <div class="demo-area">
-        <OcxConnectButton
-          label="Connect with Cinacoin"
-          variant="primary"
-          size="lg"
-          :show-balance="true"
-          :show-avatar="true"
-          :show-network="true"
-          aria-label="Connect wallet with Cinacoin"
-        />
-      </div>
-    </div>
-
-    <!-- ConnectModal demo -->
-    <div class="card">
-      <h3 class="card-title">ConnectModal with custom config.</h3>
-      <p class="card-desc">
-        Open the modal programmatically and configure recommended wallets.
-      </p>
-      <div class="demo-area">
-        <button class="btn btn-outline" @click="modalOpen = true" aria-label="Open connect modal">
-          Open ConnectModal
+        <button
+          v-if="!isConnected"
+          class="btn btn-primary"
+          @click="openConnectModal"
+          aria-label="Connect wallet"
+        >
+          Connect Wallet
         </button>
-        <ConnectModal
-          :is-open="modalOpen"
-          default-view="wallets"
-          :recommended-wallet-ids="['metamask', 'walletconnect', 'coinbase']"
-          @close="modalOpen = false"
-          @wallet-select="onWalletSelect"
-        />
-      </div>
-    </div>
-
-    <!-- EIP-6963 Wallet Detection -->
-    <div class="card">
-      <h3 class="card-title">Detected wallets (EIP-6963).</h3>
-      <p class="card-desc">
-        Wallets detected via EIP-6963 Multi-Provider Discovery.
-      </p>
-      <div class="demo-area">
-        <div v-if="connectors.length === 0" class="empty-state" role="status">
-          No wallets detected yet.
-        </div>
-        <ul v-else class="wallet-list" role="list">
-          <li
-            v-for="c in connectors"
-            :key="c.id"
-            class="wallet-item"
-            :class="{ installed: c.installed }"
+        <div v-else class="connected-state">
+          <span class="status-indicator"></span>
+          <span class="address mono">{{ shortAddress }}</span>
+          <button
+            class="btn btn-sm btn-error"
+            @click="handleDisconnect"
+            aria-label="Disconnect wallet"
           >
-            <span class="wallet-icon" aria-hidden="true">{{ walletIcon(c.id) }}</span>
-            <span class="wallet-name">{{ c.name }}</span>
-            <span class="wallet-type">{{ c.type }}</span>
-            <span
-              class="wallet-badge"
-              :class="c.installed ? 'badge-blue' : 'badge-gray'"
-              role="status"
-            >
-              {{ c.installed ? 'Installed' : 'Not installed' }}
-            </span>
-            <button
-              v-if="c.installed && status === 'disconnected'"
-              class="btn btn-sm"
-              @click="handleConnect(c.id)"
-              :aria-label="`Connect to ${c.name}`"
-            >
-              Connect
-            </button>
-          </li>
-        </ul>
+            Disconnect
+          </button>
+        </div>
       </div>
     </div>
 
@@ -98,11 +48,6 @@
             <span class="state-label">Chain ID</span>
             <span class="state-value mono">{{ chainIdDisplay }}</span>
           </div>
-          <div class="state-item" v-if="status === 'connected'" role="listitem">
-            <button class="btn btn-sm btn-error" @click="handleDisconnect" aria-label="Disconnect wallet">
-              Disconnect
-            </button>
-          </div>
         </div>
       </div>
     </div>
@@ -110,47 +55,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import {
-  useCinacoin,
-  OcxConnectButton,
-  ConnectModal,
-} from '@cinacoin/vue'
+import { computed } from 'vue'
+import { useCinacoinWallet } from '@cinacoin/appkit-config/vue'
 
-const { status, account, connectors, connect, disconnect } = useCinacoin()
-
-const modalOpen = ref(false)
+const { address, isConnected, chainId, status, openConnectModal, disconnect } = useCinacoinWallet()
 
 const shortAddress = computed(() => {
-  const addr = account.value.address
-  if (!addr) return '—'
-  return `${addr.slice(0, 6)}…${addr.slice(-4)}`
+  if (!address.value) return '—'
+  return `${address.value.slice(0, 6)}…${address.value.slice(-4)}`
 })
 
-const chainIdDisplay = computed(() => account.value.chainId ?? '—')
-
-function walletIcon(id: string): string {
-  // Use text abbreviations instead of emojis per UI.md anti-patterns
-  const icons: Record<string, string> = {
-    metamask: 'MM',
-    walletconnect: 'WC',
-    coinbase: 'CB',
-  }
-  return icons[id] ?? '?'
-}
-
-function onWalletSelect(detail: any) {
-  console.log('Wallet selected:', detail)
-  modalOpen.value = false
-}
-
-async function handleConnect(id: string) {
-  try {
-    await connect(id)
-  } catch (err) {
-    console.error('Connect failed:', err)
-  }
-}
+const chainIdDisplay = computed(() => chainId.value ?? '—')
 
 async function handleDisconnect() {
   try {
@@ -186,39 +101,34 @@ async function handleDisconnect() {
   transition: opacity 0.15s;
 }
 .btn:hover { opacity: 0.85; }
-.btn-outline {
-  background: transparent;
-  border: 1px solid var(--cc-hairline, rgba(255, 255, 255, 0.08));
-  color: var(--cc-ink, #ededed);
-}
-.btn-outline:hover { background: var(--cc-canvas-soft-2, #111111); opacity: 1; }
-.btn-sm { padding: 0.25rem 0.75rem; font-size: 0.8rem; background: var(--cc-primary); color: var(--cc-on-primary); border-radius: 4px; }
+.btn-primary { background: var(--cc-primary); color: var(--cc-on-primary); }
+.btn-sm { padding: 0.25rem 0.75rem; font-size: 0.8rem; }
 .btn-error { background: var(--cc-error); color: var(--cc-on-primary); border-radius: 4px; }
-.wallet-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
-.wallet-item {
-  display: flex; align-items: center; gap: 0.5rem;
-  background: var(--cc-canvas-soft-2, #111111); padding: 0.5rem 0.75rem; border-radius: 4px;
+.connected-state {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--cc-canvas-soft-2, #111111);
   border: 1px solid var(--cc-hairline, rgba(255, 255, 255, 0.08));
+  border-radius: 4px;
 }
-.wallet-icon {
-  font-family: var(--font-mono, 'Geist Mono'), monospace;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--cc-muted, #737373);
-  width: 1.5rem;
-  text-align: center;
+.status-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--cc-success, #22c55e);
 }
-.wallet-name { flex: 1; color: var(--cc-ink, #ededed); font-weight: 500; }
-.wallet-type { color: var(--cc-muted, #737373); font-size: 0.75rem; letter-spacing: 0.02em; }
-.wallet-badge { padding: 0.125rem 0.5rem; border-radius: 4px; font-size: 0.7rem; font-weight: 500; }
-.badge-blue { background: var(--cc-success-bg, rgba(34, 197, 94, 0.1)); color: var(--cc-success, #22c55e); }
-.badge-gray { background: var(--cc-canvas-soft-2, #111111); color: var(--cc-muted, #737373); border: 1px solid var(--cc-hairline, rgba(255, 255, 255, 0.08)); }
-.empty-state { color: var(--cc-muted, #737373); font-size: 0.875rem; }
+.address {
+  flex: 1;
+  color: var(--cc-ink, #ededed);
+  font-size: 0.875rem;
+}
+.mono { font-family: var(--font-mono, 'Geist Mono'), monospace; }
 .state-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.75rem; }
 .state-item { display: flex; flex-direction: column; gap: 0.25rem; }
 .state-label { font-size: 0.75rem; color: var(--cc-muted, #737373); letter-spacing: 0.02em; }
 .state-value { color: var(--cc-ink, #ededed); font-size: 0.9rem; }
-.mono { font-family: var(--font-mono, 'Geist Mono'), monospace; }
 
 /* ── Responsive ───────────────────────────────────────────────────── */
 @media (max-width: 640px) {
@@ -230,13 +140,8 @@ async function handleDisconnect() {
     grid-template-columns: 1fr;
   }
 
-  .wallet-item {
+  .connected-state {
     flex-wrap: wrap;
-  }
-
-  .wallet-type {
-    width: 100%;
-    margin-top: 0.25rem;
   }
 }
 </style>

@@ -9,13 +9,13 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useCinacoin } from '@cinacoin/vue'
+import { useCinacoinWallet } from '@cinacoin/appkit-config/vue'
 import AccountBalance from './AccountBalance.vue'
 import ChainInfo from './ChainInfo.vue'
 import SignMessage from './SignMessage.vue'
 import SendTransaction from './SendTransaction.vue'
 
-const { status } = useCinacoin()
+const { status } = useCinacoinWallet()
 const isConnected = computed(() => status.value === 'connected')
 </script>
 

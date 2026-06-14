@@ -1,87 +1,47 @@
 <template>
-  <CinacoinProvider
-    :config="cinacoinConfig"
-    :chains="chains"
-  >
-    <div class="app-shell">
-      <AppHeader />
+  <div class="app-shell">
+    <AppHeader />
 
-      <main id="main-content" class="main-content" role="main">
-        <div class="container">
-          <!-- Wallet Connection (always visible) -->
-          <ConnectWallet />
+    <main id="main-content" class="main-content" role="main">
+      <div class="container">
+        <!-- Wallet Connection (always visible) -->
+        <ConnectWallet />
 
-          <!-- Connected-only features -->
-          <ConnectedFeatures />
+        <!-- Connected-only features -->
+        <ConnectedFeatures />
 
-          <div v-if="!isConnected" class="connect-prompt">
-            <div class="prompt-card">
-              <div class="prompt-icon-wrapper" aria-hidden="true">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
-                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
-                </svg>
-              </div>
-              <h2>Connect your wallet.</h2>
-              <p>Connect a wallet above to explore balance, chain info, signing, and transactions.</p>
+        <div v-if="!isConnected" class="connect-prompt">
+          <div class="prompt-card">
+            <div class="prompt-icon-wrapper" aria-hidden="true">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+              </svg>
             </div>
+            <h2>Connect your wallet.</h2>
+            <p>Connect a wallet above to explore balance, chain info, signing, and transactions.</p>
           </div>
         </div>
-      </main>
+      </div>
+    </main>
 
-      <footer class="app-footer" role="contentinfo">
-        <div class="container">
-          <p>Built with <code>@cinacoin/vue</code> — Vue 3 + Vite + TypeScript.</p>
-        </div>
-      </footer>
-    </div>
-  </CinacoinProvider>
+    <footer class="app-footer" role="contentinfo">
+      <div class="container">
+        <p>Built with <code>@cinacoin/appkit-config</code> — Vue 3 + Vite + TypeScript.</p>
+      </div>
+    </footer>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { CinacoinProvider, type CinacoinConfig, type ChainConfig, useCinacoin } from '@cinacoin/vue'
+import { useCinacoinWallet } from '@cinacoin/appkit-config/vue'
 import AppHeader from './components/AppHeader.vue'
 import ConnectWallet from './components/ConnectWallet.vue'
 import ConnectedFeatures from './components/ConnectedFeatures.vue'
 
-// ── Chain Configuration ──────────────────────────────────────────────────
-const chains: ChainConfig[] = [
-  {
-    id: 1,
-    name: 'Ethereum Mainnet',
-    rpcUrl: 'https://eth.llamarpc.com',
-    nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
-    blockExplorerUrl: 'https://etherscan.io',
-    iconUrl: 'https://icons.llamao.fi/icons/chains/rsz_ethereum.jpg',
-  },
-  {
-    id: 11155111,
-    name: 'Sepolia',
-    rpcUrl: 'https://rpc.sepolia.org',
-    nativeCurrency: { name: 'Sepolia Ether', symbol: 'ETH', decimals: 18 },
-    blockExplorerUrl: 'https://sepolia.etherscan.io',
-    testnet: true,
-  },
-]
-
-// ── Cinacoin Configuration ───────────────────────────────────────────────
-const projectId = import.meta.env.VITE_PROJECT_ID ?? ''
-
-const cinacoinConfig: CinacoinConfig = {
-  projectId,
-  metadata: {
-    name: 'Cinacoin Vue SDK demo.',
-    description: 'A comprehensive demo showcasing the Cinacoin Vue 3 SDK.',
-    url: 'https://cinacoin.dev',
-  },
-  theme: {
-    mode: 'dark',
-  },
-}
-
-// ── Connection state (inside provider context) ───────────────────────────
-const { status } = useCinacoin()
+// ── Connection state ───────────────────────────────────────────────────
+const { status } = useCinacoinWallet()
 const isConnected = computed(() => status.value === 'connected')
 </script>
 

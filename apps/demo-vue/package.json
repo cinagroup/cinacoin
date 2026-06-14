@@ -13,7 +13,8 @@
   },
   "dependencies": {
     "vue": "^3.5.0",
-    "@cinacoin/vue": "workspace:*"
+    "@cinacoin/vue": "workspace:*",
+    "@cinacoin/appkit-config": "workspace:*"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.1.0",

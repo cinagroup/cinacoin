@@ -4,23 +4,16 @@
 
     <div class="card">
       <h3 class="card-title">
-        {{ account.value.ensName ?? shortAddress }}
+        {{ shortAddress }}
       </h3>
       <div class="demo-area">
         <div class="balance-display" v-if="status === 'connected'">
           <div class="balance-main">
-            <span class="balance-amount">{{ formattedBalance }}</span>
-            <span class="balance-symbol">{{ account.value.chainSymbol }}</span>
+            <span class="balance-amount">—</span>
+            <span class="balance-symbol">ETH</span>
           </div>
           <div class="balance-actions">
-            <button
-              class="btn btn-sm"
-              @click="refetch"
-              :disabled="isLoading"
-              aria-label="Refresh balance"
-            >
-              {{ isLoading ? 'Refreshing...' : '↻ Refresh' }}
-            </button>
+            <span class="balance-note">Balance via AppKit</span>
           </div>
         </div>
         <div v-else class="empty-state" role="status">
@@ -29,22 +22,18 @@
       </div>
     </div>
 
-    <!-- ENS Name -->
+    <!-- Address Display -->
     <div class="card" v-if="status === 'connected'">
-      <h3 class="card-title">ENS lookup.</h3>
+      <h3 class="card-title">Wallet details.</h3>
       <div class="demo-area">
         <div class="ens-display">
           <span class="ens-label">Address:</span>
-          <span class="ens-value mono">{{ account.value.address }}</span>
+          <span class="ens-value mono">{{ address }}</span>
         </div>
         <div class="ens-display">
-          <span class="ens-label">ENS name:</span>
-          <span class="ens-value" :class="{ 'has-name': ensName }">
-            {{ ensName ?? 'Not found.' }}
-          </span>
+          <span class="ens-label">Chain ID:</span>
+          <span class="ens-value mono">{{ chainId ?? '—' }}</span>
         </div>
-        <div v-if="ensIsLoading" class="loading-text" role="status">Resolving ENS...</div>
-        <div v-if="ensError" class="error-text" role="alert">{{ ensError.message }}</div>
       </div>
     </div>
   </div>
@@ -52,22 +41,13 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useCinacoin, useBalance, useEnsName } from '@cinacoin/vue'
+import { useCinacoinWallet } from '@cinacoin/appkit-config/vue'
 
-const { status, account } = useCinacoin()
-const { balance, isLoading, refetch } = useBalance()
-const { ensName, isLoading: ensIsLoading, error: ensError } = useEnsName()
+const { address, chainId, status } = useCinacoinWallet()
 
 const shortAddress = computed(() => {
-  const addr = account.value.address
-  if (!addr) return '—'
-  return `${addr.slice(0, 6)}…${addr.slice(-4)}`
-})
-
-const formattedBalance = computed(() => {
-  const b = balance.value
-  if (!b || b === '0.00') return '0.0000'
-  return Number(b).toFixed(4)
+  if (!address.value) return '—'
+  return `${address.value.slice(0, 6)}…${address.value.slice(-4)}`
 })
 </script>
 
@@ -87,22 +67,12 @@ const formattedBalance = computed(() => {
 .balance-main { display: flex; align-items: baseline; gap: 0.5rem; }
 .balance-amount { font-size: 2rem; font-weight: 600; color: var(--cc-success, #22c55e); font-family: var(--font-mono, 'Geist Mono'), monospace; }
 .balance-symbol { font-size: 1rem; color: var(--cc-body, #a3a3a3); font-weight: 500; }
-.btn {
-  padding: 0.5rem 1rem; border-radius: 4px; border: none;
-  font-weight: 500; cursor: pointer; font-size: 0.875rem; transition: opacity 0.15s;
-  font-family: var(--font-geist-sans, 'Geist'), sans-serif;
-}
-.btn:hover:not(:disabled) { opacity: 0.85; }
-.btn-sm { padding: 0.25rem 0.75rem; font-size: 0.8rem; background: var(--cc-primary); color: var(--cc-on-primary); }
-.btn-sm:disabled { opacity: 0.5; cursor: not-allowed; }
+.balance-note { font-size: 0.75rem; color: var(--cc-muted, #737373); }
 .empty-state { color: var(--cc-muted, #737373); font-size: 0.875rem; }
 .ens-display { display: flex; align-items: baseline; gap: 0.5rem; margin-bottom: 0.5rem; }
 .ens-label { font-size: 0.75rem; color: var(--cc-muted, #737373); min-width: 90px; letter-spacing: 0.02em; }
 .ens-value { color: var(--cc-ink, #ededed); font-size: 0.875rem; }
-.has-name { color: var(--cc-link, #0070f3); font-weight: 500; }
 .mono { font-family: var(--font-mono, 'Geist Mono'), monospace; }
-.loading-text { color: var(--cc-link, #0070f3); font-size: 0.75rem; margin-top: 0.5rem; }
-.error-text { color: var(--cc-error, #ef4444); font-size: 0.75rem; margin-top: 0.5rem; }
 
 /* ── Responsive ───────────────────────────────────────────────────── */
 @media (max-width: 640px) {

@@ -1,5 +1,6 @@
-import React from 'react';
 import Head from '@docusaurus/Head';
+import WalletProvider from '@site/src/components/WalletProvider';
+import React from 'react';
 
 /**
  * Root component that wraps the entire app.
@@ -18,10 +19,7 @@ export default function Root({ children }: { children: React.ReactNode }) {
             url: 'https://cinacoin.com',
             logo: 'https://cinacoin.com/img/logo.svg',
             description: 'Onchain UX toolkit - Self-hosted wallet connection toolkit',
-            sameAs: [
-              'https://github.com/cinagroup/cinacoin',
-              'https://twitter.com/cinacoin',
-            ],
+            sameAs: ['https://github.com/cinagroup/cinacoin', 'https://twitter.com/cinacoin'],
           })}
         </script>
 
@@ -71,7 +69,7 @@ export default function Root({ children }: { children: React.ReactNode }) {
           })}
         </script>
       </Head>
-      {children}
+      <WalletProvider>{children}</WalletProvider>
     </>
   );
 }
