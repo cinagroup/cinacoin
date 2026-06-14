@@ -106,6 +106,10 @@ export type { SessionManagerConfig } from './session.js';
 export { MultiSessionManager } from './multi-session-manager.js';
 export type { MultiSessionManagerConfig, ManagedSession, MultiSessionState } from './multi-session-manager.js';
 
+// Session Manager (Enhanced)
+export { SessionManager } from './session-manager.js';
+export type { EnhancedSessionManagerConfig, SessionManagerState, SessionManagerEvent } from './session-manager.js';
+
 // Session Store
 export { SessionStore, CURRENT_SCHEMA_VERSION } from './session-store.js';
 export type {
