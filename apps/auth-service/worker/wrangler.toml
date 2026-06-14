@@ -3,8 +3,8 @@ compatibility_date = "2024-12-01"
 main = "src/index.ts"
 
 [vars]
-JWT_SECRET = "cinacoin-auth-jwt-secret-2026"
-JWT_REFRESH_SECRET = "cinacoin-auth-refresh-secret-2026"
+JWT_SECRET = "b1Kg7W1Ui6KFWv0xxtpjsLQlCrxw8j7Nd8Bj29NtGFc="
+JWT_REFRESH_SECRET = "OFt/v5pHT6ugrOUf/ftd8WwkGeZ4cfumqKrBhh6HuW8="
 
 [[d1_databases]]
 binding = "DB"
