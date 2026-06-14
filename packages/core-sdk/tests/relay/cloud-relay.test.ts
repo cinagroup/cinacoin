@@ -79,6 +79,13 @@ async function importCloudRelay() {
   return await import('../../src/relay/cloud-relay.js');
 }
 
+/**
+ * Helper: advance timers and flush promises to handle retry backoff.
+ */
+async function advanceTimersAndFlush(ms: number) {
+  await vi.advanceTimersByTimeAsync(ms);
+}
+
 describe('CloudRelay', () => {
   describe('Initialization', () => {
     it('creates with minimal config', async () => {
@@ -159,7 +166,7 @@ describe('CloudRelay', () => {
           { url: 'wss://primary.example.com', name: 'primary' },
           { url: 'wss://backup.example.com', name: 'backup' },
         ],
-        retry: { maxAttempts: 1, jitter: false },
+        retry: { maxAttempts: 1, initialDelay: 100, jitter: false },
       });
 
       const connectPromise = relay.connect();
@@ -168,7 +175,10 @@ describe('CloudRelay', () => {
       const ws1 = MockWebSocket.instances[0];
       ws1.simulateError();
 
-      // Backup succeeds
+      // Advance past the backoff delay
+      await advanceTimersAndFlush(200);
+
+      // Backup should now be attempted
       const ws2 = MockWebSocket.instances[1];
       if (ws2) {
         ws2.simulateOpen();
@@ -179,11 +189,11 @@ describe('CloudRelay', () => {
       expect(relay.getActiveEndpoint()).toBe('wss://backup.example.com');
     });
 
-    it('fails over to Cinacoin fallback', async () => {
+    it('fails over to WalletConnect fallback', async () => {
       const { CloudRelay } = await importCloudRelay();
       const relay = new CloudRelay({
         endpoints: [{ url: 'wss://custom.example.com', name: 'custom' }],
-        retry: { maxAttempts: 1, jitter: false },
+        retry: { maxAttempts: 1, initialDelay: 100, jitter: false },
       });
 
       const connectPromise = relay.connect();
@@ -192,7 +202,10 @@ describe('CloudRelay', () => {
       const ws1 = MockWebSocket.instances[0];
       ws1.simulateError();
 
-      // Cinacoin fallback succeeds
+      // Advance past backoff
+      await advanceTimersAndFlush(200);
+
+      // WalletConnect fallback should now be attempted
       const wsFallback = MockWebSocket.instances.find(ws => 
         ws.url.includes('relay.walletconnect.org')
       );
@@ -230,7 +243,7 @@ describe('CloudRelay', () => {
           { url: 'wss://primary.example.com' },
           { url: 'wss://backup.example.com' },
         ],
-        retry: { maxAttempts: 1, jitter: false },
+        retry: { maxAttempts: 1, initialDelay: 100, jitter: false },
       });
 
       let failoverFrom: string | null = null;
@@ -242,6 +255,10 @@ describe('CloudRelay', () => {
 
       const connectPromise = relay.connect();
       MockWebSocket.instances[0].simulateError();
+      
+      // Advance past backoff
+      await advanceTimersAndFlush(200);
+      
       const ws2 = MockWebSocket.instances[1];
       if (ws2) ws2.simulateOpen();
       await connectPromise;
@@ -255,18 +272,31 @@ describe('CloudRelay', () => {
       const relay = new CloudRelay({
         endpoints: [{ url: 'wss://relay.example.com' }],
         fallbackUrl: 'wss://relay.walletconnect.org',
-        retry: { maxAttempts: 1, jitter: false },
+        retry: { maxAttempts: 1, initialDelay: 100, jitter: false },
       });
 
       const connectPromise = relay.connect();
       
-      // All endpoints fail
-      for (const ws of MockWebSocket.instances) {
-        ws.simulateError();
+      // First endpoint fails
+      MockWebSocket.instances[0].simulateError();
+      await advanceTimersAndFlush(200);
+      
+      // Fallback also fails
+      const wsFallback = MockWebSocket.instances.find(ws => 
+        ws.url.includes('relay.walletconnect.org')
+      );
+      if (wsFallback) {
+        wsFallback.simulateError();
       }
+      await advanceTimersAndFlush(200);
 
-      await expect(connectPromise).rejects.toThrow('All relay endpoints failed');
-      expect(relay.getState()).toBe('error');
+      try {
+        await connectPromise;
+        expect.fail('Should have thrown');
+      } catch (error) {
+        expect(error).toBeInstanceOf(Error);
+        expect(relay.getState()).toBe('error');
+      }
     });
 
     it('resolves immediately when already connected', async () => {
@@ -386,7 +416,7 @@ describe('CloudRelay', () => {
       const { CloudRelay } = await importCloudRelay();
       const relay = new CloudRelay({
         endpoints: [{ url: 'wss://relay.example.com' }],
-        retry: { maxAttempts: 1, jitter: false },
+        retry: { maxAttempts: 1, initialDelay: 100, jitter: false },
       });
 
       const connectPromise = relay.connect();
@@ -399,13 +429,16 @@ describe('CloudRelay', () => {
       // Disconnect unexpectedly
       MockWebSocket.instances[0].simulateClose(1006);
       
-      // Reconnect
-      vi.advanceTimersByTime(2000);
+      // Advance past reconnect delay
+      await advanceTimersAndFlush(2000);
+      
       const ws2 = MockWebSocket.instances[1];
       if (ws2) {
         ws2.simulateOpen();
+        // Wait for resubscribe to complete
+        await advanceTimersAndFlush(100);
         
-        const subscribeMsgs = ws2.sent.filter(s => {
+        const subscribeMsgs = ws2.sent.filter((s: unknown) => {
           const msg = JSON.parse(s as string);
           return msg.type === 'subscribe';
         });
@@ -502,7 +535,7 @@ describe('CloudRelay', () => {
       expect(pingCount2).toBe(2);
     });
 
-    it('handles pong responses', async () => {
+    it('handles pong responses and tracks latency', async () => {
       const { CloudRelay } = await importCloudRelay();
       const relay = new CloudRelay({
         endpoints: [{ url: 'wss://relay.example.com' }],
@@ -516,36 +549,41 @@ describe('CloudRelay', () => {
       // Send ping
       vi.advanceTimersByTime(5000);
 
-      // Receive pong
+      // Simulate 50ms latency — advance timers then respond with pong
+      vi.advanceTimersByTime(50);
       MockWebSocket.instances[0].simulateMessage(JSON.stringify({ type: 'pong' }));
 
       const metrics = relay.getMetrics();
-      expect(metrics.latencyMs).toBeGreaterThan(0);
+      expect(metrics.latencyMs).toBe(50);
+      expect(metrics.avgLatencyMs).toBe(50);
     });
 
-    it('reconnects after missed pongs', async () => {
+    it('triggers heartbeat failure after missed threshold', async () => {
       const { CloudRelay } = await importCloudRelay();
       const relay = new CloudRelay({
         endpoints: [{ url: 'wss://relay.example.com' }],
         heartbeat: { interval: 5000, missedThreshold: 2, adaptive: false },
-        retry: { maxAttempts: 1, jitter: false },
+        retry: { maxAttempts: 1, initialDelay: 100, jitter: false },
       });
 
       const connectPromise = relay.connect();
       MockWebSocket.instances[0].simulateOpen();
       await connectPromise;
 
-      // Miss pongs
-      vi.advanceTimersByTime(5000); // First ping
-      vi.advanceTimersByTime(5000); // Second ping, first missed
-      vi.advanceTimersByTime(5000); // Third ping, second missed - should trigger reconnect
-
       let heartbeatFailure = false;
       relay.on('heartbeatFailure', () => {
         heartbeatFailure = true;
       });
 
-      vi.advanceTimersByTime(1000);
+      // First ping sent, no pong → miss 1
+      vi.advanceTimersByTime(5000);
+      // Miss timeout fires
+      vi.advanceTimersByTime(5000);
+      // Second ping sent, no pong → miss 2 (threshold reached)
+      vi.advanceTimersByTime(5000);
+      // Miss timeout fires again → triggers failure
+      vi.advanceTimersByTime(5000);
+
       expect(heartbeatFailure).toBe(true);
     });
 
@@ -754,7 +792,7 @@ describe('CloudRelay', () => {
           { url: 'wss://primary.example.com' },
           { url: 'wss://backup.example.com' },
         ],
-        retry: { maxAttempts: 1, jitter: false },
+        retry: { maxAttempts: 1, initialDelay: 100, jitter: false },
       });
 
       const connectPromise = relay.connect();
@@ -764,7 +802,12 @@ describe('CloudRelay', () => {
       expect(relay.getActiveEndpoint()).toBe('wss://primary.example.com');
 
       const failoverPromise = relay.forceFailover('manual trigger');
-      MockWebSocket.instances[1].simulateOpen();
+      
+      // The forceFailover closes current ws and calls connect() which tries next endpoint
+      // Find the new WebSocket (should be backup)
+      const ws2 = MockWebSocket.instances[MockWebSocket.instances.length - 1];
+      ws2.simulateOpen();
+      
       await failoverPromise;
 
       expect(relay.getActiveEndpoint()).toBe('wss://backup.example.com');

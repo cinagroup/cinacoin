@@ -311,8 +311,12 @@ export class CloudRelay extends EventEmitter {
       attempt: this.metrics.connectionAttempts,
     });
 
-    // Try each endpoint in order
-    for (let i = 0; i < this.sortedEndpoints.length; i++) {
+    // Try each endpoint starting from the current index (supports failover ordering)
+    const startIndex = this.activeEndpointIndex >= 0 ? this.activeEndpointIndex : 0;
+    const total = this.sortedEndpoints.length;
+
+    for (let offset = 0; offset < total; offset++) {
+      const i = (startIndex + offset) % total;
       const endpoint = this.sortedEndpoints[i];
 
       // Check circuit breaker
@@ -331,6 +335,13 @@ export class CloudRelay extends EventEmitter {
           endpointIndex: i,
         });
         this.emit('endpointFailed', endpoint.url, error);
+
+        // Emit failover event when moving to next endpoint
+        if (offset < total - 1) {
+          const nextI = (startIndex + offset + 1) % total;
+          this.metrics.failoverCount++;
+          this.emit('failover', endpoint.url, this.sortedEndpoints[nextI]?.url);
+        }
       }
     }
 
@@ -447,6 +458,10 @@ export class CloudRelay extends EventEmitter {
   async forceFailover(reason?: string): Promise<void> {
     this.log('warn', `Forced failover triggered${reason ? `: ${reason}` : ''}`);
     this.stopHeartbeat();
+    this.clearReconnectTimer();
+
+    // Prevent the close handler from scheduling a competing reconnect
+    this.intentionalDisconnect = true;
 
     if (this.ws) {
       this.ws.close(4000, 'Forced failover');
@@ -465,6 +480,8 @@ export class CloudRelay extends EventEmitter {
     this.metrics.failoverCount++;
     this.emit('failover', this.sortedEndpoints[previousIndex]?.url, this.sortedEndpoints[this.activeEndpointIndex]?.url);
 
+    // Reset intentional disconnect so connect() works normally
+    this.intentionalDisconnect = false;
     await this.connect();
   }
 
@@ -512,7 +529,8 @@ export class CloudRelay extends EventEmitter {
         if (attempt < maxAttempts) {
           const delay = this.calculateBackoff(attempt);
           this.log('debug', `Waiting ${delay}ms before retry...`);
-          await this.sleep(delay);
+          // Use Promise-based delay that works with both real and fake timers
+          await new Promise(resolve => setTimeout(resolve, delay));
         }
       }
     }
