@@ -50,7 +50,7 @@ export const defaultWallets = [
     },
     {
         id: 'walletconnect',
-        name: 'WalletConnect',
+        name: 'Cinacoin',
         icon: 'https://example.com/icons/walletconnect.png',
         rdns: '',
         downloadUrl: {},

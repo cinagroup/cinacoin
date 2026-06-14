@@ -34,7 +34,7 @@ const WALLET_REGISTRY: Array<{
   brandColor?: string;
 }> = [
   { walletId: 'metamask', name: 'MetaMask', brandColor: 'F6851B' },
-  { walletId: 'walletconnect', name: 'WalletConnect', brandColor: '3B99FC' },
+  { walletId: 'walletconnect', name: 'Cinacoin', brandColor: '3B99FC' },
   { walletId: 'coinbase', name: 'Coinbase Wallet', brandColor: '0052FF' },
   { walletId: 'rainbow', name: 'Rainbow', brandColor: '001E59' },
   { walletId: 'trust', name: 'Trust Wallet', brandColor: '3375BB' },

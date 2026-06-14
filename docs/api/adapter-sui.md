@@ -12,7 +12,7 @@ npm install @cinacoin/adapter-sui
 
 ```typescript
 import { SuiChainAdapter, SUI_CHAINS, SUI_WALLETS } from '@cinacoin/adapter-sui'
-import { SuiWalletConnector } from '@cinacoin/adapter-sui'
+import { SuiCinacoinor } from '@cinacoin/adapter-sui'
 
 const adapter = new SuiChainAdapter()
 adapter.registerChains(SUI_CHAINS)
@@ -31,7 +31,7 @@ const obj = await adapter.getObject('0x2::sui::SUI')
 
 | Connector | Wallet |
 |-----------|--------|
-| `SuiWalletConnector` | Sui Wallet |
+| `SuiCinacoinor` | Sui Wallet |
 | `SuietConnector` | Suiet |
 | `EthosConnector` | Ethos |
 | `MartianConnector` | Martian |

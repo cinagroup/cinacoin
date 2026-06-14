@@ -119,7 +119,7 @@ const provider = new RemoteProvider({
 const tracker = new EventTracker();
 tracker.addProvider(provider);
 
-await tracker.trackWalletConnected('metamask', 1);
+await tracker.trackCinacoined('metamask', 1);
 ```
 
 ## Tests

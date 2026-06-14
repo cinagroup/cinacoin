@@ -44,8 +44,8 @@ export type { SolanaWalletInfo } from './SolanaAdapter.js';
 /*  Connectors                                                         */
 /* ------------------------------------------------------------------ */
 
-export { PhantomWalletConnector } from './connectors/phantom.js';
-export { SolflareWalletConnector } from './connectors/solflare.js';
+export { PhantomCinacoinor } from './connectors/phantom.js';
+export { SolflareCinacoinor } from './connectors/solflare.js';
 export { WalletStandardConnector } from './connectors/wallet-standard.js';
 
 /* ------------------------------------------------------------------ */

@@ -1,14 +1,14 @@
 /**
  * Leap wallet connector for Cosmos SDK chains.
  *
- * Detects `window.leap` and provides the same `CosmosWalletConnector`
+ * Detects `window.leap` and provides the same `CosmosCinacoinor`
  * interface as the Keplr connector. Leap supports a subset of Cosmos
  * chains plus additional networks like Terra and Neutron.
  *
  * @see https://docs.leapwallet.io/cosmos/leap-extension/api
  */
 
-import type { CosmosWalletConnector, SignDoc } from '../types.js';
+import type { CosmosCinacoinor, SignDoc } from '../types.js';
 
 /** Minimal type declarations for the Leap browser extension API. */
 interface LeapAccount {
@@ -94,12 +94,12 @@ interface LeapProvider {
 /* ------------------------------------------------------------------ */
 
 /**
- * Leap wallet connector implementing `CosmosWalletConnector`.
+ * Leap wallet connector implementing `CosmosCinacoinor`.
  *
  * API surface is identical to KeplrConnector, making it trivially
  * swappable in user code.
  */
-export class LeapConnector implements CosmosWalletConnector {
+export class LeapConnector implements CosmosCinacoinor {
   /** @inheritdoc */
   readonly id = 'leap';
 

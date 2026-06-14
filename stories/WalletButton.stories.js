@@ -8,7 +8,7 @@ const WALLET_DATA = {
         brandColor: 'f6851b',
     },
     walletconnect: {
-        name: 'WalletConnect',
+        name: 'Cinacoin',
         icon: 'https://avatars.githubusercontent.com/u/37784886?s=200&v=4',
         brandColor: '3b99fc',
     },
@@ -115,7 +115,7 @@ const meta = {
 export default meta;
 /* ── Individual wallet stories ────────────────────────────────────── */
 export const MetaMask = { args: { walletId: 'metamask' } };
-export const WalletConnect = { args: { walletId: 'walletconnect' } };
+export const Cinacoin = { args: { walletId: 'walletconnect' } };
 export const Coinbase = { args: { walletId: 'coinbase' } };
 export const Rainbow = { args: { walletId: 'rainbow' } };
 export const Phantom = { args: { walletId: 'phantom' } };

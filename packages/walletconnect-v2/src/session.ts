@@ -1,5 +1,5 @@
 /**
- * Session management for WalletConnect v2.
+ * Session management for Cinacoin v2.
  *
  * Handles the full session lifecycle: propose, approve, reject, update,
  * extend, delete, emit (notifications). Uses X25519 key exchange for
@@ -131,7 +131,7 @@ export class WcSessionManager extends EventEmitter {
   /**
    * Connect using an existing WC URI (e.g., scanned from QR).
    *
-   * @param uri - WalletConnect v2 URI.
+   * @param uri - Cinacoin v2 URI.
    * @returns The established session.
    */
   async connectWithUri(uri: string): Promise<Session> {

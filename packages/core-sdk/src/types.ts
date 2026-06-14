@@ -81,7 +81,7 @@ export interface ConnectParams {
   topic?: string;
   /** Optional relay URL override. */
   relayUrl?: string;
-  /** Optional pairing URI (WalletConnect format). */
+  /** Optional pairing URI (Cinacoin format). */
   uri?: string;
   /** Chain IDs the dApp supports. */
   chains?: number[];
@@ -140,7 +140,7 @@ export type EventHandler = (...args: unknown[]) => void;
 export interface PairingData {
   /** Pairing topic. */
   topic: string;
-  /** Pairing URI (WalletConnect format). */
+  /** Pairing URI (Cinacoin format). */
   uri: string;
   /** Peer metadata. */
   peerMetadata?: AppMetadata;
@@ -210,7 +210,7 @@ export {
   AuthenticationError,
   ChainError,
   TransactionError,
-  WalletConnectError,
+  CinacoinError,
   SigningError,
   NetworkError,
   SdkError,
@@ -225,7 +225,7 @@ export {
   isAuthenticationError,
   isChainError,
   isTransactionError,
-  isWalletConnectError,
+  isCinacoinError,
   isSigningError,
   isNetworkError,
   isSdkError,

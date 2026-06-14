@@ -1,6 +1,6 @@
 # Vue.
 
-> `@cinacoin/vue` — Vue 3 composition API adapter for CinaCoin.
+> `@cinacoin/vue` — Vue 3 composition API adapter for Cinacoin.
 
 ## Installation.
 
@@ -12,9 +12,9 @@ npm install @cinacoin/vue @cinacoin/core-sdk
 
 ```vue
 <script setup>
-import { useCinaCoin } from '@cinacoin/vue'
+import { useCinacoin } from '@cinacoin/vue'
 
-const { connect, disconnect, account } = useCinaCoin()
+const { connect, disconnect, account } = useCinacoin()
 </script>
 
 <template>
@@ -25,7 +25,7 @@ const { connect, disconnect, account } = useCinaCoin()
 
 ## Composables.
 
-- `useCinaCoin()` — Core SDK instance
+- `useCinacoin()` — Core SDK instance
 - `useAccount()` — Current account
 - `useConnect()` — Connect helper
 - `useDisconnect()` — Disconnect helper

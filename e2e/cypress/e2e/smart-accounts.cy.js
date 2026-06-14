@@ -7,7 +7,7 @@
 describe('Smart Accounts', () => {
     beforeEach(() => {
         cy.visit('/');
-        cy.connectWallet('WalletConnect');
+        cy.connectWallet('Cinacoin');
     });
     describe('Smart Account Detection', () => {
         it('should detect smart account capability', () => {

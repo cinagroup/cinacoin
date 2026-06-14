@@ -1,14 +1,14 @@
 /**
- * Direct WalletConnect button component.
+ * Direct Cinacoin button component.
  *
- * Renders a branded WalletConnect button that triggers a QR-code
+ * Renders a branded Cinacoin button that triggers a QR-code
  * connection flow via @cinacoin/core-sdk.
  *
  * @example
  * ```tsx
- * import { WalletConnectButton } from '@cinacoin/wallet-buttons';
+ * import { CinacoinButton } from '@cinacoin/wallet-buttons';
  *
- * <WalletConnectButton size="lg" label="Connect with QR" />
+ * <CinacoinButton size="lg" label="Connect with QR" />
  * ```
  */
 
@@ -17,11 +17,11 @@ import { WalletButtonSize } from './types';
 
 const WALLETCONNECT_BRAND = '3B99FC';
 
-interface WalletConnectButtonProps {
+interface CinacoinButtonProps {
   /** Button size. Default: `'md'`. */
   size?: WalletButtonSize;
 
-  /** Optional label override. Default: `'WalletConnect'`. */
+  /** Optional label override. Default: `'Cinacoin'`. */
   label?: string;
 
   /** Optional class name. */
@@ -36,11 +36,11 @@ interface WalletConnectButtonProps {
   /** Called when the user clicks the button. */
   onClick?: () => void;
 
-  /** WalletConnect project ID (optional if connector is pre-configured). */
+  /** Cinacoin project ID (optional if connector is pre-configured). */
   projectId?: string;
 }
 
-/** WalletConnect QR icon (inline SVG). */
+/** Cinacoin QR icon (inline SVG). */
 const QR_ICON = (
   <svg
     width="24"
@@ -75,9 +75,9 @@ const SIZE_MAP: Record<
   lg: { padding: '12px 24px', icon: '24px', fontSize: 'var(--text-body-md)', gap: '8px', borderRadius: '12px' },
 };
 
-export const WalletConnectButton: React.FC<WalletConnectButtonProps> = ({
+export const CinacoinButton: React.FC<CinacoinButtonProps> = ({
   size = 'md',
-  label = 'WalletConnect',
+  label = 'Cinacoin',
   className = '',
   isLoading = false,
   disabled = false,

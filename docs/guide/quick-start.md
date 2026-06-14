@@ -148,17 +148,17 @@ function MetaMaskConnect() {
 }
 ```
 
-### 连接 WalletConnect (扫码)
+### 连接 Cinacoin (扫码)
 
 ```tsx
 import { useConnect } from '@cinacoin/react'
 
-function WalletConnectButton() {
+function CinacoinButton() {
   const { connect } = useConnect()
 
   return (
     <button onClick={() => connect('walletconnect')}>
-      📱 WalletConnect (QR Code)
+      📱 Cinacoin (QR Code)
     </button>
   )
 }
@@ -253,7 +253,7 @@ async function connectWallet() {
 
 ## 完整示例文档
 
-- [Ethereum 连接](/examples/ethereum) — MetaMask、WalletConnect、Coinbase 完整示例
+- [Ethereum 连接](/examples/ethereum) — MetaMask、Cinacoin、Coinbase 完整示例
 - [Solana 连接](/examples/solana) — Phantom、Solflare 钱包连接
 - [Bitcoin 连接](/examples/bitcoin) — Unisat、Xverse、Leather 钱包连接
 - [多链切换](/examples/multi-chain) — EVM / Solana / Bitcoin 多链支持

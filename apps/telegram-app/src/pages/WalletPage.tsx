@@ -133,7 +133,7 @@ export default function WalletPage({
             </div>
             <div className="wallet-option">
               <span className="wallet-option-icon"><Link2 className="w-5 h-5" /></span>
-              <span>WalletConnect</span>
+              <span>Cinacoin</span>
             </div>
           </div>
         </div>

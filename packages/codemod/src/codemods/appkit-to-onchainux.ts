@@ -2,7 +2,7 @@
  * appkit-to-cinacoin codemod
  *
  * Transforms:
- *   - @reown/appkit*     → @cinacoin/*
+ *   - @cinacoin/appkit*     → @cinacoin/*
  *   - @web3modal/*       → @cinacoin/*
  *   - Web3Modal           → Cinacoin
  *   - createWeb3Modal     → createCinacoin
@@ -23,8 +23,8 @@ export interface CodemodResult {
 // ── Import / require path rewrites ──────────────────────────────────────────
 
 const PACKAGE_RENAMES: [RegExp, string][] = [
-  [/@reown\/appkit-([a-z0-9-]+)/g, "@cinacoin/$1"],
-  [/@reown\/appkit/g, "@cinacoin/core-sdk"],
+  [/@cinacoin\/appkit-([a-z0-9-]+)/g, "@cinacoin/$1"],
+  [/@cinacoin\/appkit/g, "@cinacoin/core-sdk"],
   [/@web3modal\/([a-z0-9-]+)/g, "@cinacoin/$1"],
   [/@web3modal\/ethereum/g, "@cinacoin/ethereum"],
   [/@web3modal\/wagmi/g, "@cinacoin/wagmi"],

@@ -1,6 +1,6 @@
 # On-ramp SDK.
 
-> `@cinacoin/onramp-sdk` — Fiat on-ramp aggregation SDK for CinaCoin.
+> `@cinacoin/onramp-sdk` — Fiat on-ramp aggregation SDK for Cinacoin.
 
 ## Installation.
 

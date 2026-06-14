@@ -1,11 +1,11 @@
 /**
- * WalletConnect adapter utilities.
+ * Cinacoin adapter utilities.
  */
 
-import type { WalletConnectConfig, WalletConnectProvider, WalletConnectSession } from './types.js';
+import type { CinacoinConfig, CinacoinProvider, CinacoinSession } from './types.js';
 
 /**
- * Default WalletConnect relay URL.
+ * Default Cinacoin relay URL.
  */
 export const DEFAULT_RELAY_URL = 'wss://relay.walletconnect.com';
 
@@ -32,9 +32,9 @@ export const DEFAULT_EVM_EVENTS = [
 ];
 
 /**
- * Build required namespaces for WalletConnect session.
+ * Build required namespaces for Cinacoin session.
  */
-export function buildRequiredNamespaces(config: WalletConnectConfig): Record<string, {
+export function buildRequiredNamespaces(config: CinacoinConfig): Record<string, {
   chains: string[];
   methods: string[];
   events: string[];
@@ -64,9 +64,9 @@ export function buildRequiredNamespaces(config: WalletConnectConfig): Record<str
 }
 
 /**
- * Parse accounts from WalletConnect session namespaces.
+ * Parse accounts from Cinacoin session namespaces.
  */
-export function parseSessionAccounts(session: WalletConnectSession): string[] {
+export function parseSessionAccounts(session: CinacoinSession): string[] {
   const accounts: string[] = [];
   for (const namespace of Object.values(session.namespaces)) {
     for (const account of namespace.accounts) {
@@ -81,9 +81,9 @@ export function parseSessionAccounts(session: WalletConnectSession): string[] {
 }
 
 /**
- * Parse chain ID from WalletConnect session.
+ * Parse chain ID from Cinacoin session.
  */
-export function parseSessionChainId(session: WalletConnectSession): number {
+export function parseSessionChainId(session: CinacoinSession): number {
   for (const namespace of Object.values(session.namespaces)) {
     if (namespace.chains && namespace.chains.length > 0) {
       const chainId = namespace.chains[0].split(':')[1];
@@ -103,14 +103,14 @@ export function parseSessionChainId(session: WalletConnectSession): number {
 /**
  * Check if session is expired.
  */
-export function isSessionExpired(session: WalletConnectSession): boolean {
+export function isSessionExpired(session: CinacoinSession): boolean {
   return Date.now() >= session.expiry * 1000;
 }
 
 /**
  * Format session for display.
  */
-export function formatSessionInfo(session: WalletConnectSession): {
+export function formatSessionInfo(session: CinacoinSession): {
   peerName: string;
   peerUrl: string;
   peerIcons: string[];

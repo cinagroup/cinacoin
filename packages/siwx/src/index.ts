@@ -55,7 +55,7 @@ export type {
   RegisterVerifierOptions,
 } from './verifier-registry.js';
 
-// Cloud Authentication (Reown Dashboard compatible)
+// Cloud Authentication (Cinacoin Dashboard compatible)
 export { CloudAuth, useCloudAuth } from './cloud-auth.js';
 
 export type {

@@ -1,6 +1,6 @@
 # Migrating from Web3Modal / AppKit to Cinacoin
 
-> A comprehensive guide for developers migrating from Reown AppKit (formerly Web3Modal) to Cinacoin.
+> A comprehensive guide for developers migrating from Cinacoin AppKit (formerly Web3Modal) to Cinacoin.
 
 ---
 
@@ -201,7 +201,7 @@ const cinacoin = createCinacoin({
 |---------|-----------|----------|
 | Non-EVM chains | ❌ | ✅ `solana, bitcoin, ton, ...` |
 | SIWX auth | ❌ | ✅ `siwx: { enabled: true }` |
-| Embedded wallet | ⚠️ Reown only | ✅ `embeddedWallet: { enabled: true }` |
+| Embedded wallet | ⚠️ Cinacoin only | ✅ `embeddedWallet: { enabled: true }` |
 | Passkey auth | ❌ | ✅ `passkeyAuth: { enabled: true }` |
 | Gas sponsorship | ❌ | ✅ `gasSponsorship: { enabled: true }` |
 | Self-hosted | ❌ | ✅ Runs on your infrastructure |
@@ -425,7 +425,7 @@ A: No. Cinacoin is fully compatible with existing wagmi/viem setups. The codemod
 
 ### Q: Will my existing wallet connections work?
 
-A: Yes. Cinacoin uses the same WalletConnect v2 protocol under the hood. Users won't notice any difference.
+A: Yes. Cinacoin uses the same Cinacoin v2 protocol under the hood. Users won't notice any difference.
 
 ### Q: Do I need to change my Project ID?
 

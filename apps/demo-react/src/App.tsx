@@ -9,7 +9,7 @@ const HomePage = lazy(() => import('./pages/HomePage').then(m => ({ default: m.H
 const SwapPage = lazy(() => import('./pages/SwapPage'))
 const MultiChainPage = lazy(() => import('./pages/MultiChainPage'))
 const AuthPage = lazy(() => import('./pages/AuthPage'))
-const WalletConnectPage = lazy(() => import('./pages/WalletConnectPage'))
+const CinacoinPage = lazy(() => import('./pages/CinacoinPage'))
 const SignMessagePage = lazy(() => import('./pages/SignMessagePage'))
 const TransferPage = lazy(() => import('./pages/TransferPage').then(m => ({ default: m.TransferPage })))
 const NFTPage = lazy(() => import('./pages/NFTPage').then(m => ({ default: m.NFTPage })))
@@ -105,7 +105,7 @@ function App() {
               <Route path="/swap" element={<SwapPage />} />
               <Route path="/multichain" element={<MultiChainPage />} />
               <Route path="/auth" element={<AuthPage />} />
-              <Route path="/wallet-connect" element={<WalletConnectPage />} />
+              <Route path="/wallet-connect" element={<CinacoinPage />} />
               <Route path="/sign-message" element={<SignMessagePage />} />
               <Route path="/transfer" element={<TransferPage />} />
               <Route path="/nft" element={<NFTPage />} />

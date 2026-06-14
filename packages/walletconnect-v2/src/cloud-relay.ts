@@ -1,7 +1,7 @@
 /**
- * WalletConnect Cloud Relay Transport.
+ * Cinacoin Cloud Relay Transport.
  *
- * Connects to the official WalletConnect Cloud relay (relay.walletconnect.com)
+ * Connects to the official Cinacoin Cloud relay (relay.walletconnect.com)
  * using the IRN (Inter-Relay Network) protocol over WebSocket. Provides
  * publish/subscribe messaging with JSON-RPC envelope support.
  *
@@ -25,7 +25,7 @@ import { logger } from '@cinacoin/logger';
 // Constants
 // ============================================================
 
-/** Default WalletConnect Cloud relay URL. */
+/** Default Cinacoin Cloud relay URL. */
 export const WC_CLOUD_RELAY_URL = 'wss://relay.walletconnect.com';
 
 /** Fallback relay URLs when the primary Cloud relay is unreachable. */
@@ -65,7 +65,7 @@ export type CloudRelayState = 'disconnected' | 'connecting' | 'connected' | 'rec
 
 /** Configuration for CloudRelay. */
 export interface CloudRelayConfig extends RelayConfig {
-  /** Project ID for WalletConnect Cloud (required for IRN). */
+  /** Project ID for Cinacoin Cloud (required for IRN). */
   projectId?: string;
   /** Fallback relay URLs if the primary relay fails. */
   fallbackUrls?: string[];
@@ -88,7 +88,7 @@ interface PendingSubscribe {
 // ============================================================
 
 /**
- * WalletConnect Cloud relay transport.
+ * Cinacoin Cloud relay transport.
  *
  * Implements the IRN protocol over WebSocket:
  * 1. Connect to relay.walletconnect.com (or configured URL)
@@ -268,7 +268,7 @@ export class CloudRelay extends EventEmitter {
 
   /**
    * Build the WebSocket URL, optionally appending the project ID
-   * for WalletConnect Cloud relay authentication.
+   * for Cinacoin Cloud relay authentication.
    */
   private buildWebSocketUrl(url: string): string {
     if (this.config.projectId && url.includes('walletconnect.com')) {

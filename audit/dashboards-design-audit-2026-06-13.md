@@ -102,7 +102,7 @@
 
 | 应用 | 合规 | 详情 |
 |------|------|------|
-| analytics-dashboard | ✅ | `"CinaCoin analytics."` — sentence-case + period |
+| analytics-dashboard | ✅ | `"Cinacoin analytics."` — sentence-case + period |
 | developer-dashboard | ✅ | 标题均为 sentence-case |
 | backend-dashboard | ✅ | `"Backend dashboard."` — sentence-case + period |
 | cloud-dashboard | ✅ | 标题均为 sentence-case |

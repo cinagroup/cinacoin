@@ -62,7 +62,7 @@ export default function ConnectButton() {
 }`,
 };
 
-export default function WalletConnectPage() {
+export default function CinacoinPage() {
   return (
     <section className="max-w-5xl mx-auto w-full pt-12 pb-24 px-4 space-y-8">
       <div className="max-w-xl">

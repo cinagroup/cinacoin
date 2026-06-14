@@ -1,5 +1,5 @@
 /**
- * CinaCoin Developer Dashboard — Production API Client
+ * Cinacoin Developer Dashboard — Production API Client
  *
  * Features:
  * - Automatic retry with exponential backoff

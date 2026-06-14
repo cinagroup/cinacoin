@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { useCinaCoin, ChainSwitcher } from '@cinacoin/react'
+import { useCinacoin, ChainSwitcher } from '@cinacoin/react'
 import { ethers } from 'ethers'
 
 /**
@@ -61,7 +61,7 @@ interface ChainBalance {
 }
 
 export function MultiChainDemo() {
-  const { account, chainId, switchChain } = useCinaCoin()
+  const { account, chainId, switchChain } = useCinacoin()
   const [selectedChain, setSelectedChain] = useState(1)
   const [balances, setBalances] = useState<ChainBalance[]>([])
   const [loading, setLoading] = useState(false)

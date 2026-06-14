@@ -1,7 +1,7 @@
 import { ConnectorConfig, ConnectorEvents, ConnectionResult } from '../types';
 
 /**
- * Minimal WalletConnect session shape used by QRConnector.
+ * Minimal Cinacoin session shape used by QRConnector.
  */
 interface WCSession {
   topic: string;
@@ -34,16 +34,16 @@ interface SignClientInstance {
 
 /** Parameters accepted by QRConnector.connect(). */
 interface QRConnectParams {
-  /** WalletConnect URI (from QR scan or manual paste) */
+  /** Cinacoin URI (from QR scan or manual paste) */
   uri?: string;
-  /** Project ID for WalletConnect Cloud relay */
+  /** Project ID for Cinacoin Cloud relay */
   projectId?: string;
 }
 
 /**
  * QR code wallet connector.
  *
- * Generates a WalletConnect URI and renders a QR code for mobile wallet pairing.
+ * Generates a Cinacoin URI and renders a QR code for mobile wallet pairing.
  * Falls back to a deep link URL for mobile browsers where QR scanning isn't possible.
  */
 export class QRConnector implements ConnectorConfig {
@@ -54,13 +54,13 @@ export class QRConnector implements ConnectorConfig {
 
   /** Internal event handlers */
   private _handlers: Map<string, Set<(...args: unknown[]) => void>> = new Map();
-  /** Current WalletConnect URI */
+  /** Current Cinacoin URI */
   private _uri: string | null = null;
   /** Cached accounts */
   private _accounts: string[] = [];
   /** Cached chain ID */
   private _chainId = '0x1';
-  /** WalletConnect relay project ID */
+  /** Cinacoin relay project ID */
   private _projectId: string;
   /** Core SDK SignClient (lazily initialized) */
   private _signClient: SignClientInstance | null = null;
@@ -93,7 +93,7 @@ export class QRConnector implements ConnectorConfig {
   }
 
   /**
-   * Start a WalletConnect pairing session.
+   * Start a Cinacoin pairing session.
    *
    * If a URI is provided (e.g. from a QR scan), it pairs directly.
    * Otherwise a new connection URI is generated for display as a QR code.
@@ -149,7 +149,7 @@ export class QRConnector implements ConnectorConfig {
   }
 
   /**
-   * Disconnect the active WalletConnect session.
+   * Disconnect the active Cinacoin session.
    */
   async disconnect(): Promise<void> {
     if (this._sessionTopic && this._signClient) {
@@ -176,11 +176,11 @@ export class QRConnector implements ConnectorConfig {
   // ─── Provider interaction ───────────────────────────────────────
 
   /**
-   * Forward a JSON-RPC request through the WalletConnect session.
+   * Forward a JSON-RPC request through the Cinacoin session.
    */
   async request(args: { method: string; params?: unknown[] }): Promise<unknown> {
     if (!this._sessionTopic || !this._signClient) {
-      throw new Error('No active WalletConnect session. Call connect() first.');
+      throw new Error('No active Cinacoin session. Call connect() first.');
     }
 
     return this._signClient.request({
@@ -212,7 +212,7 @@ export class QRConnector implements ConnectorConfig {
   // ─── Accessors ──────────────────────────────────────────────────
 
   /**
-   * Get the current WalletConnect URI for QR code rendering.
+   * Get the current Cinacoin URI for QR code rendering.
    * Returns null if no URI has been generated yet.
    */
   getURI(): string | null {

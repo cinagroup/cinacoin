@@ -47,7 +47,7 @@ const sampleConnections = {
         },
         {
             walletId: 'walletconnect',
-            walletName: 'WalletConnect',
+            walletName: 'Cinacoin',
             address: '0xabcdefabcdefabcdefabcdefabcdefabcdefabcd',
             isActive: false,
         },

@@ -1,5 +1,5 @@
 /**
- * CloudAuth — Reown Dashboard-compatible cloud authentication for Cinacoin SIWX.
+ * CloudAuth — Cinacoin Dashboard-compatible cloud authentication for Cinacoin SIWX.
  *
  * Provides session management, JWT token handling, and multi-device session sync
  * via the Cinacoin Dashboard API. Designed to integrate with the SIWX plugin system.

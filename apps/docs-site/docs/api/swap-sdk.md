@@ -1,6 +1,6 @@
 # Swap SDK.
 
-> `@cinacoin/swap-sdk` — Swap aggregator SDK for CinaCoin.
+> `@cinacoin/swap-sdk` — Swap aggregator SDK for Cinacoin.
 
 ## Installation.
 

@@ -15,14 +15,14 @@ import { logger } from '@cinacoin/logger';
  *
  * @example
  * ```ts
- * const connector = new SuiWalletConnector();
+ * const connector = new SuiCinacoinor();
  * if (connector.isAvailable()) {
  *   const { accounts } = await connector.connect();
  *   logger.info('Connected:', accounts[0]);
  * }
  * ```
  */
-export class SuiWalletConnector implements SuiConnector {
+export class SuiCinacoinor implements SuiConnector {
   readonly id = 'sui-wallet';
   readonly name = 'Sui Wallet';
   readonly icon = 'https://sui.io/favicon.svg';

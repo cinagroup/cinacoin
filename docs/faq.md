@@ -4,14 +4,14 @@
 
 ## 入门
 
-### Cinacoin 和 Reown/WalletConnect 有什么区别？
+### Cinacoin 和 Cinacoin/Cinacoin 有什么区别？
 
-Cinacoin 是**完全自建**的链上 UX 工具包，不依赖 Reown/WalletConnect 的任何基础设施。核心区别：
+Cinacoin 是**完全自建**的链上 UX 工具包，不依赖 Cinacoin/Cinacoin 的任何基础设施。核心区别：
 
-| | Reown/WalletConnect | Cinacoin |
+| | Cinacoin/Cinacoin | Cinacoin |
 |--|---------------------|-----------|
 | 基础设施 | 第三方托管 | 自建 Relay + RPC Proxy |
-| 品牌 | Reown 品牌露出 | 白标，零第三方痕迹 |
+| 品牌 | Cinacoin 品牌露出 | 白标，零第三方痕迹 |
 | 费用 | $500-5,000/月 | 仅基础设施成本 |
 | MAU 限制 | 500 (免费层) | 无限制 |
 | 可控性 | 依赖第三方 | 完全自主 |
@@ -72,12 +72,12 @@ npm install @cinacoin/core @cinacoin/vue
 
 ## 功能
 
-### 是否支持 WalletConnect 协议？
+### 是否支持 Cinacoin 协议？
 
-Cinacoin 实现了与 WalletConnect v2 协议**兼容**的 WebSocket 中继和加密协议，但使用自建基础设施。这意味着：
+Cinacoin 实现了与 Cinacoin v2 协议**兼容**的 WebSocket 中继和加密协议，但使用自建基础设施。这意味着：
 
 - ✅ 兼容现有钱包 App 的连接协议
-- ❌ 不依赖 Reown 的 Relay 服务
+- ❌ 不依赖 Cinacoin 的 Relay 服务
 
 ### 社交登录怎么工作？
 

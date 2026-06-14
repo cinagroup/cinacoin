@@ -20,7 +20,7 @@
 | 7   | 负字距          | display 层级全部使用正确的负 letter-spacing                                                                                                                                                                                      |
 | 8   | 4px 间距基准    | 容器 padding 24px、card padding 24px/32px 均为 4 的倍数                                                                                                                                                                          |
 | 9   | 无障碍          | focus-visible 2px link-blue outline、skip-link、sr-only、min touch target 44px                                                                                                                                                   |
-| 10  | 品牌展示        | CinaCoin logo + 品牌名在 Header/Sidebar 正确展示                                                                                                                                                                                 |
+| 10  | 品牌展示        | Cinacoin logo + 品牌名在 Header/Sidebar 正确展示                                                                                                                                                                                 |
 
 ### 违规项 ❌
 
@@ -103,7 +103,7 @@
 | 8   | Sentence-case + 句号        | 标题使用句号终止                                                |
 | 9   | CodeExample 组件            | 使用 mono 字体，带行号和语法高亮                                |
 | 10  | 无障碍                      | skip-link、focus-visible、sr-only、aria-label                   |
-| 11  | 品牌展示                    | `<Brand>` 组件 + "CinaCoin" 品牌名                              |
+| 11  | 品牌展示                    | `<Brand>` 组件 + "Cinacoin" 品牌名                              |
 | 12  | 代码示例区域                | `CodeExample.tsx` 使用 mono 字体 + 规范色彩                     |
 
 ### 违规项 ❌
@@ -133,12 +133,12 @@
 | #   | 合规点                      | 说明                                                 |
 | --- | --------------------------- | ---------------------------------------------------- |
 | 1   | Geist + Geist Mono 本地加载 | 完整 @font-face (400/500/600 + Mono 400)             |
-| 2   | 使用 @cinacoin/vue SDK      | CinaCoinProvider、OcxConnectButton、ConnectModal     |
+| 2   | 使用 @cinacoin/vue SDK      | CinacoinProvider、OcxConnectButton、ConnectModal     |
 | 3   | Mono 用于技术标签           | `.brand-mark`、`.mono`、`card-desc code` 使用 mono   |
-| 4   | Sentence-case + 句号        | "Connect your wallet."、"CinaCoin."、"Vue SDK demo." |
+| 4   | Sentence-case + 句号        | "Connect your wallet."、"Cinacoin."、"Vue SDK demo." |
 | 5   | 堆叠式阴影                  | `.card` box-shadow 使用多层 + inset                  |
 | 6   | 字重上限 600                | 全部 400/500/600                                     |
-| 7   | 品牌展示                    | "000" brand-mark (mono) + "CinaCoin." 标题           |
+| 7   | 品牌展示                    | "000" brand-mark (mono) + "Cinacoin." 标题           |
 | 8   | 无障碍                      | role 属性、aria-label                                |
 
 ### 违规项 ❌

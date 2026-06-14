@@ -1,5 +1,5 @@
 /**
- * WalletConnect v2 type definitions.
+ * Cinacoin v2 type definitions.
  *
  * Covers pairing, session, proposal, JSON-RPC, relay, notifications,
  * error codes, and envelope types — fully compatible with the WC v2
@@ -132,7 +132,7 @@ export interface Pairing {
   symKey?: string;
 }
 
-/** Parsed WalletConnect URI components. */
+/** Parsed Cinacoin URI components. */
 export interface ParsedWcUri {
   /** Protocol version (always 2 for WC v2). */
   version: 2;
@@ -308,7 +308,7 @@ export interface WalletRegistryEntry {
   playStoreUrl?: string;
   /** Wallet image URL. */
   imageUrl?: string;
-  /** Whether the wallet supports WalletConnect v2. */
+  /** Whether the wallet supports Cinacoin v2. */
   supportsWcV2: boolean;
   /** Supported chains (CAIP-2). */
   chains?: string[];

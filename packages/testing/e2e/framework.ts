@@ -51,7 +51,7 @@ export class E2ETestHelper {
   /**
    * Test wallet connection flow
    */
-  async testWalletConnection(providerId: string): Promise<{
+  async testCinacoinion(providerId: string): Promise<{
     connected: boolean;
     address: string;
     chainId: number;

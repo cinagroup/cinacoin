@@ -2,7 +2,7 @@
  * ConnectButton — Native React Native button with real WC v2 connection state.
  *
  * Uses native RN components and reads real connection state from
- * both CinaCoinProvider and WalletConnectProvider for accurate
+ * both CinacoinProvider and CinacoinProvider for accurate
  * account display, balance fetching, and disconnect handling.
  */
 
@@ -16,7 +16,7 @@ import {
   type ViewStyle,
   type TextStyle,
 } from 'react-native';
-import { useCinaCoinContext } from './CinaCoinProvider.js';
+import { useCinacoinContext } from './CinacoinProvider.js';
 
 
 /** Props for the native ConnectButton. */
@@ -70,8 +70,8 @@ function chainName(chainId: number): string {
 /**
  * Native ConnectButton for React Native with real WC v2 state.
  *
- * Reads connection state from WalletConnectProvider (if available) and
- * CinaCoinProvider. Supports balance fetching, network badge, avatar,
+ * Reads connection state from CinacoinProvider (if available) and
+ * CinacoinProvider. Supports balance fetching, network badge, avatar,
  * and real disconnect via WC session cleanup.
  */
 export function ConnectButton({
@@ -86,7 +86,7 @@ export function ConnectButton({
   onPress,
   onDisconnect,
 }: ConnectButtonProps): JSX.Element {
-  const { account, status, connect, disconnect, themeColors } = useCinaCoinContext();
+  const { account, status, connect, disconnect, themeColors } = useCinacoinContext();
 
   // Derive effective connected state
   const isConnected = status === 'connected';
@@ -107,7 +107,7 @@ export function ConnectButton({
       .catch(() => {});
   }, [isConnected, isConnecting, connect, disconnect, onPress, onDisconnect]);
 
-  // Use CinaCoinProvider balance
+  // Use CinacoinProvider balance
   const displayBalance = account?.balance ?? '0.00';
   const displaySymbol = account?.chainSymbol ?? '';
   const displayAddress = account?.address ?? '';

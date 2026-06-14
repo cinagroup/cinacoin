@@ -1,6 +1,6 @@
 # Cinacoin Flutter SDK
 
-Self-hosted wallet connection toolkit for Flutter apps. A complete replacement for Reown/WalletConnect infrastructure.
+Self-hosted wallet connection toolkit for Flutter apps. A complete replacement for Cinacoin/Cinacoin infrastructure.
 
 ## Installation
 
@@ -154,7 +154,7 @@ await handler.openDeepLink(DeepLinkParams(
 | OKX Wallet | ✅ | ✅ | Multi |
 | Bitget Wallet | ✅ | ✅ | Multi |
 | Uniswap Wallet | ✅ | ✅ | EVM |
-| WalletConnect | ✅ | ✅ | Multi |
+| Cinacoin | ✅ | ✅ | Multi |
 
 ## Architecture
 

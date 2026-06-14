@@ -35,10 +35,10 @@ test('wallet connection flow', async ({ page }) => {
   
   // Check available wallets
   const walletOptions = page.locator('[data-testid="wallet-option"]');
-  await expect(walletOptions).toHaveCount(3); // MetaMask, WalletConnect, Coinbase
+  await expect(walletOptions).toHaveCount(3); // MetaMask, Cinacoin, Coinbase
   
-  // Select WalletConnect
-  const walletConnectOption = page.getByText('WalletConnect');
+  // Select Cinacoin
+  const walletConnectOption = page.getByText('Cinacoin');
   await walletConnectOption.click();
   
   // Check QR code appears

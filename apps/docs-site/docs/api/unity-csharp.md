@@ -1,6 +1,6 @@
 # Unity C#.
 
-> `@cinacoin/unity-types` — Unity game engine integration for CinaCoin.
+> `@cinacoin/unity-types` — Unity game engine integration for Cinacoin.
 
 ## Installation.
 
@@ -9,9 +9,9 @@ Install via Unity Package Manager or download the `.unitypackage` from the relea
 ## Usage.
 
 ```csharp
-using CinaCoin.Unity;
+using Cinacoin.Unity;
 
-var cinaConnect = new CinaCoinManager(projectId: "your-project-id");
+var cinaConnect = new CinacoinManager(projectId: "your-project-id");
 await cinaConnect.ConnectAsync();
 ```
 

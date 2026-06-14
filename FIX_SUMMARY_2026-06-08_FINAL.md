@@ -34,7 +34,7 @@
 | ID | 问题 | 修复 |
 |----|------|------|
 | K-001~003 | 跨链使用非密码学哈希 (djb2) | 替换为 SHA-256 (`@noble/hashes`) |
-| K-004 | WalletConnect EIP-191 签名前缀错误 | 修正为 `\x19Ethereum Signed Message:\n` |
+| K-004 | Cinacoin EIP-191 签名前缀错误 | 修正为 `\x19Ethereum Signed Message:\n` |
 | K-005 | QR Code 组件 XSS (innerHTML) | 改用 `DOMParser` + `appendChild()` |
 | S-003 | 社交登录钱包派生使用非标准实现 | 改用 secp256k1 + keccak256 |
 

@@ -142,7 +142,7 @@ export class StarknetAdapter extends BaseAdapter {
         Message: [{ name: 'message', type: 'felt' }],
       },
       primaryType: 'Message',
-      domain: { name: 'CinaCoin', version: '1', chainId: this._activeChainId! },
+      domain: { name: 'Cinacoin', version: '1', chainId: this._activeChainId! },
       message: { message: this.stringToFelt(message) },
     };
 

@@ -13,7 +13,7 @@ const sampleWallets = [
     },
     {
         id: "walletconnect",
-        name: "WalletConnect",
+        name: "Cinacoin",
         chains: ["evm", "solana", "ethereum", "polygon"],
         platforms: ["mobile", "browser"],
         popularity: 2,

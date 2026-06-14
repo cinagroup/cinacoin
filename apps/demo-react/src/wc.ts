@@ -1,8 +1,8 @@
 /**
- * WalletConnect SDK wrapper module.
+ * Cinacoin SDK wrapper module.
  *
- * This module provides a lazy-loaded barrier that defers the WalletConnect SDK
- * import until a user actually attempts a WalletConnect connection.
+ * This module provides a lazy-loaded barrier that defers the Cinacoin SDK
+ * import until a user actually attempts a Cinacoin connection.
  * This keeps the initial bundle small.
  */
 

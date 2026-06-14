@@ -93,7 +93,7 @@ vi.mock('@cinacoin/walletconnect-v2', () => ({
         },
         {
             id: 'walletconnect',
-            name: 'WalletConnect',
+            name: 'Cinacoin',
             homepage: 'https://walletconnect.com',
             deepLink: 'wc://',
             universalLink: 'https://walletconnect.com',
@@ -141,7 +141,7 @@ describe('ConnectModal', () => {
         });
         it('should accept custom wallets prop', () => {
             const customWallets = [
-                { id: 'custom', name: 'Custom Wallet', supportsWalletConnect: true },
+                { id: 'custom', name: 'Custom Wallet', supportsCinacoin: true },
             ];
             const props = {
                 visible: true,

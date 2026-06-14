@@ -41,7 +41,7 @@ CDN bundle for Cinacoin — use ConnectButton and ConnectModal via `<script>` ta
     Cinacoin.renderConnectModal('#connect-modal', {
       wallets: [
         { id: 'metamask', name: 'MetaMask', installed: true },
-        { id: 'walletconnect', name: 'WalletConnect' },
+        { id: 'walletconnect', name: 'Cinacoin' },
       ],
       onConnect: (address) => console.log('Connected:', address),
     });
@@ -61,7 +61,7 @@ Set `window.Cinacoin` before loading the script:
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| `projectId` | `string` | — | WalletConnect Project ID (required) |
+| `projectId` | `string` | — | Cinacoin Project ID (required) |
 | `theme` | `'light' \| 'dark'` | `'light'` | Theme mode |
 | `primaryColor` | `string` | `'#6366F1'` | Custom primary color |
 | `chains` | `number[]` | `[1]` | Supported chain IDs |
@@ -76,7 +76,7 @@ Cinacoin.renderConnectButton(selector: string, options?: ConnectButtonOptions): 
 ```
 
 Options:
-- `projectId` — WalletConnect Project ID
+- `projectId` — Cinacoin Project ID
 - `theme` — `'light' | 'dark'`
 - `primaryColor` — Custom color
 - `size` — `'sm' | 'md' | 'lg'`
@@ -92,7 +92,7 @@ Cinacoin.renderConnectModal(selector: string, options?: ConnectModalOptions): vo
 ```
 
 Options:
-- `projectId` — WalletConnect Project ID
+- `projectId` — Cinacoin Project ID
 - `theme` — `'light' | 'dark'`
 - `primaryColor` — Custom color
 - `defaultView` — `'connect' | 'connecting' | 'connected' | 'networks'`

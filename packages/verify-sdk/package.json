@@ -1,7 +1,7 @@
 {
   "name": "@cinacoin/verify-sdk",
   "version": "0.1.0",
-  "description": "Contract safety scoring and phishing detection SDK — inspired by Reown Verify",
+  "description": "Contract safety scoring and phishing detection SDK — inspired by Cinacoin Verify",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",

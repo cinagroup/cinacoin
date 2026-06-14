@@ -3,17 +3,17 @@
   import type { Chain } from '@cinacoin/core-sdk';
 
   /**
-   * CinaCoinNetworkButton — Network/chain selector button.
+   * CinacoinNetworkButton — Network/chain selector button.
    *
    * Displays the current chain and allows switching between configured chains.
    *
    * @example
    * ```svelte
    * <script lang="ts">
-   *   import { CinaCoinNetworkButton } from '@cinacoin/svelte';
+   *   import { CinacoinNetworkButton } from '@cinacoin/svelte';
    * </script>
    *
-   * <CinaCoinNetworkButton size="md" />
+   * <CinacoinNetworkButton size="md" />
    * ```
    */
 
@@ -52,7 +52,7 @@
         await switchChain(numericChainId);
       }
     } catch (err: unknown) {
-      console.error(`[CinaCoin] Failed to switch to chain ${chain.name}:`, err);
+      console.error(`[Cinacoin] Failed to switch to chain ${chain.name}:`, err);
     }
     closeDropdown();
   }

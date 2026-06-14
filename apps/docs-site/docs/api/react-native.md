@@ -1,6 +1,6 @@
 # React Native.
 
-> `@cinacoin/react-native` — React Native adapter for CinaCoin.
+> `@cinacoin/react-native` — React Native adapter for Cinacoin.
 
 ## Installation.
 
@@ -11,13 +11,13 @@ npm install @cinacoin/react-native @cinacoin/core-sdk
 ## Usage.
 
 ```tsx
-import { CinaCoinProvider, ConnectButton } from '@cinacoin/react-native'
+import { CinacoinProvider, ConnectButton } from '@cinacoin/react-native'
 
 function App() {
   return (
-    <CinaCoinProvider config={{ projectId: 'your-project-id' }}>
+    <CinacoinProvider config={{ projectId: 'your-project-id' }}>
       <ConnectButton />
-    </CinaCoinProvider>
+    </CinacoinProvider>
   )
 }
 ```

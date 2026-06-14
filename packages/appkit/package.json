@@ -1,7 +1,7 @@
 {
   "name": "@cinacoin/appkit",
   "version": "0.1.0",
-  "description": "Cinacoin AppKit — Unified wallet connection modal component (Reown AppKit alternative)",
+  "description": "Cinacoin AppKit — Unified wallet connection modal component (Cinacoin AppKit alternative)",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

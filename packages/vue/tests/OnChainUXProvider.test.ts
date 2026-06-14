@@ -71,7 +71,7 @@ describe('CinacoinProvider', () => {
     it('should have default connectors', () => {
       const defaultConnectors = [
         { id: 'metamask', name: 'MetaMask', type: 'injected' },
-        { id: 'walletconnect', name: 'WalletConnect', type: 'walletconnect' },
+        { id: 'walletconnect', name: 'Cinacoin', type: 'walletconnect' },
         { id: 'coinbase', name: 'Coinbase Wallet', type: 'coinbase' },
         { id: 'rabby', name: 'Rabby', type: 'injected' },
         { id: 'email', name: 'Email', type: 'email' },
@@ -84,7 +84,7 @@ describe('CinacoinProvider', () => {
     it('should have unique connector IDs', () => {
       const defaultConnectors = [
         { id: 'metamask', name: 'MetaMask', type: 'injected' },
-        { id: 'walletconnect', name: 'WalletConnect', type: 'walletconnect' },
+        { id: 'walletconnect', name: 'Cinacoin', type: 'walletconnect' },
         { id: 'coinbase', name: 'Coinbase Wallet', type: 'coinbase' },
       ];
 

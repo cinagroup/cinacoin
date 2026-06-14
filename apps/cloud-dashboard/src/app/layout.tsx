@@ -21,11 +21,11 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: "CinaCoin Cloud Console",
-    template: "%s | CinaCoin Cloud",
+    default: "Cinacoin Cloud Console",
+    template: "%s | Cinacoin Cloud",
   },
-  description: "Cloud management console for CinaCoin platform. Manage projects, resources, quotas, and cloud infrastructure in one place.",
-  keywords: ["CinaCoin", "cloud", "console", "infrastructure", "resources", "projects"],
+  description: "Cloud management console for Cinacoin platform. Manage projects, resources, quotas, and cloud infrastructure in one place.",
+  keywords: ["Cinacoin", "cloud", "console", "infrastructure", "resources", "projects"],
   robots: {
     index: false,
     follow: false,

@@ -27,7 +27,7 @@ interface WalletOption {
 
 const DEFAULT_WALLETS: WalletOption[] = [
   { id: 'metamask', name: 'MetaMask', installed: false },
-  { id: 'walletconnect', name: 'WalletConnect', installed: false },
+  { id: 'walletconnect', name: 'Cinacoin', installed: false },
   { id: 'coinbase', name: 'Coinbase Wallet', installed: false },
   { id: 'rainbow', name: 'Rainbow', installed: false },
   { id: 'trust', name: 'Trust Wallet', installed: false },
@@ -68,7 +68,7 @@ const DEFAULT_WALLETS: WalletOption[] = [
         </div>
         <div class="cina-modal-footer">
           <p class="cina-footer-text">
-            Connecting via WalletConnect v2 · Encrypted & secure
+            Connecting via Cinacoin v2 · Encrypted & secure
           </p>
         </div>
       </div>

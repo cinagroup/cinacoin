@@ -1,6 +1,6 @@
 ---
 id: index
-title: CinaCoin — Onchain UX Toolkit
+title: Cinacoin — Onchain UX Toolkit
 slug: /
 sidebar_label: Home
 ---
@@ -9,7 +9,7 @@ sidebar_label: Home
 
 # Onchain UX toolkit.
 
-Self-hosted Wallet Connection Toolkit — Fully independent from Reown/WalletConnect.
+Self-hosted Wallet Connection Toolkit — Fully independent from Cinacoin/Cinacoin.
 
 </div>
 

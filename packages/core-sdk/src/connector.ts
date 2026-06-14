@@ -25,7 +25,7 @@ export class RedirectHandler {
    * Uses the smart redirect strategy: deep link → timeout → universal link → QR code.
    *
    * @param walletId - Wallet identifier (e.g., 'metamask', 'rainbow').
-   * @param uri - URI to pass to the wallet (e.g., WalletConnect URI).
+   * @param uri - URI to pass to the wallet (e.g., Cinacoin URI).
    * @param params - Additional deep link parameters.
    * @returns Promise resolving with the redirect result.
    */
@@ -156,7 +156,7 @@ export abstract class Connector extends EventEmitter {
    * with automatic fallback to universal links and QR codes.
    *
    * @param walletId - Wallet identifier (e.g., 'metamask', 'rainbow').
-   * @param uri - URI to pass to the wallet (e.g., WalletConnect URI).
+   * @param uri - URI to pass to the wallet (e.g., Cinacoin URI).
    * @param params - Additional parameters for the deep link.
    * @returns Promise resolving with the redirect result.
    */

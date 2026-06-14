@@ -1,7 +1,7 @@
 import { defineNuxtModule, addPlugin, addImportsDir, addComponent, addTemplate, createResolver } from '@nuxt/kit'
 
 /**
- * Metadata options for the WalletConnect connection.
+ * Metadata options for the Cinacoin connection.
  * (core-sdk does not export this type; defined here for Nuxt module options.)
  */
 export interface MetaOptions {
@@ -36,7 +36,7 @@ export interface CinacoinModuleOptions {
   networks?: CinacoinNetwork[]
 
   /**
-   * WalletConnect metadata for the connection.
+   * Cinacoin metadata for the connection.
    */
   metadata?: MetaOptions
 

@@ -1,12 +1,12 @@
 ---
 sidebar_position: 1
 title: API Overview
-description: Overview of the CinaCoin REST API architecture and services
+description: Overview of the Cinacoin REST API architecture and services
 ---
 
 # API overview.
 
-CinaCoin provides a comprehensive REST API for integrating with our platform. The API is organized into three main services:
+Cinacoin provides a comprehensive REST API for integrating with our platform. The API is organized into three main services:
 
 ## Architecture.
 

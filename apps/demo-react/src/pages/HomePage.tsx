@@ -18,7 +18,7 @@ const FEATURES = [
     href: '/wallet-connect',
     icon: Link2,
     title: 'Wallet connection.',
-    desc: 'MetaMask, WalletConnect, Coinbase.',
+    desc: 'MetaMask, Cinacoin, Coinbase.',
   },
   {
     href: '/sign-message',
@@ -65,10 +65,10 @@ export function HomePage() {
       {/* Hero Section - left-aligned for variety */}
       <div className="max-w-2xl">
         <h1 className="cc-display-xl mb-4">
-          CinaCoin <span className="text-[var(--cc-link)]">Demo</span>.
+          Cinacoin <span className="text-[var(--cc-link)]">Demo</span>.
         </h1>
         <p className="cc-body-lg text-[var(--cc-body)]">
-          Full-featured demo showcasing the CinaCoin SDK capabilities.
+          Full-featured demo showcasing the Cinacoin SDK capabilities.
         </p>
       </div>
 

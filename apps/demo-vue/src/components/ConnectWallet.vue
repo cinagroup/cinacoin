@@ -6,17 +6,17 @@
     <div class="card">
       <h3 class="card-title">ConnectButton (Web component).</h3>
       <p class="card-desc">
-        Using <code>OcxConnectButton</code> — the built-in Vue wrapper for the CinaCoin connect button web component.
+        Using <code>OcxConnectButton</code> — the built-in Vue wrapper for the Cinacoin connect button web component.
       </p>
       <div class="demo-area">
         <OcxConnectButton
-          label="Connect with CinaCoin"
+          label="Connect with Cinacoin"
           variant="primary"
           size="lg"
           :show-balance="true"
           :show-avatar="true"
           :show-network="true"
-          aria-label="Connect wallet with CinaCoin"
+          aria-label="Connect wallet with Cinacoin"
         />
       </div>
     </div>

@@ -34,7 +34,7 @@ export interface UseConnectionReturn extends ConnectionState, ConnectionActions 
   isConnecting: boolean;
   /** Currently connecting wallet ID */
   connectingWalletId: string | null;
-  /** WalletConnect URI (for QR code) */
+  /** Cinacoin URI (for QR code) */
   wcUri: string | null;
   /** Set the WC URI (called internally) */
   setWcUri: (uri: string | null) => void;
@@ -151,7 +151,7 @@ export function useConnection(options: UseConnectionOptions): UseConnectionRetur
   // Disconnect
   const disconnect = useCallback(async (): Promise<void> => {
     try {
-      // In real implementation, this would close the WalletConnect session
+      // In real implementation, this would close the Cinacoin session
       await new Promise(resolve => setTimeout(resolve, 300));
 
       setAccount(null);
@@ -214,7 +214,7 @@ export function useConnection(options: UseConnectionOptions): UseConnectionRetur
           
           // In production, this would re-establish the actual wallet connection
           // For EVM: check if provider is still available and accounts match
-          // For WalletConnect: restore the session from persisted storage
+          // For Cinacoin: restore the session from persisted storage
           await new Promise(resolve => setTimeout(resolve, 500));
           
           // Verify the stored account is still valid

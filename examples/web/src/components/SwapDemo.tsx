@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useCinaCoin } from '@cinacoin/react'
+import { useCinacoin } from '@cinacoin/react'
 import {
   SwapQuoter,
   SwapRouter,
@@ -57,7 +57,7 @@ const ETH_RPC = 'https://eth.llamarpc.com'
  * - Transaction hash display and Etherscan link
  */
 export function SwapDemo() {
-  const { account, signTransaction, chainId, getProvider } = useCinaCoin()
+  const { account, signTransaction, chainId, getProvider } = useCinacoin()
   const [fromToken, setFromToken] = useState<TokenInfo>(SUPPORTED_TOKENS[0])
   const [toToken, setToToken] = useState<TokenInfo>(SUPPORTED_TOKENS[1])
   const [fromAmount, setFromAmount] = useState('')

@@ -1,7 +1,7 @@
-# FINAL Detailed Infrastructure Comparison: CinaAuth/Cinacoin vs Reown
+# FINAL Detailed Infrastructure Comparison: CinaAuth/Cinacoin vs Cinacoin
 
 > **Generated:** 2026-05-16 UTC  
-> **Scope:** Source-level code review of all CinaAuth packages vs Reown public repositories  
+> **Scope:** Source-level code review of all CinaAuth packages vs Cinacoin public repositories  
 > **Method:** Read every source file in push-server, keys-server, relay-server, rpc-proxy, bundler, and deploy/ directory
 
 ---
@@ -12,18 +12,18 @@ The previous analysis (02-infrastructure.md) assessed CinaAuth/Cinacoin based on
 
 **Key discovery:** push-server, keys-server, relay-server, rpc-proxy, and bundler all exist as source packages. However, keys-server handlers are **stubs** (return hardcoded values with `TODO: Persist to PostgreSQL`), push-server FCM OAuth2 is **placeholder** (JWT signing not implemented), and the relay-server has a **critical architectural flaw** (message routing logs but doesn't deliver).
 
-| Dimension | CinaAuth/Cinacoin | Reown | Verdict |
+| Dimension | CinaAuth/Cinacoin | Cinacoin | Verdict |
 |-----------|-------------------|-------|---------|
 | push-server (APNs+FCM) | Implemented, but FCM signing is placeholder | Production (a2 + fcm-rust + push-server) | **Partial** |
 | keys-server | Implemented as stub (no DB persistence) | Production (HCL/Terraform, real key management) | **Gap** |
-| relay-server | Full WebSocket relay, but delivery is logged-not-sent | Production WalletConnect relay | **Partial** |
+| relay-server | Full WebSocket relay, but delivery is logged-not-sent | Production Cinacoin relay | **Partial** |
 | rpc-proxy (Go) | Multi-provider, cache, dedup, rate limiting | Managed (not open-sourced) | **Advantage** |
 | bundler (ERC-4337) | Full implementation (mempool, reputation, gas oracle) | yttrium library (separate concern) | **Comparable** |
 | Deploy/K8s | Complete Helm + monitoring + runbooks | Terraform (keys-server), proprietary | **Advantage** |
 | Monitoring | Full Prometheus+Grafana+Jaeger+FluentBit+OTel stack | Proprietary | **Advantage** |
 | Cost Management | KEDA + spot + budget alerts + cost rules | SaaS pricing (opaque) | **Advantage** |
 
-**Bottom Line:** CinaAuth has a **broader and more transparent infrastructure** than what Reown exposes publicly. The relay-server, rpc-proxy, bundler, and push-server are genuine implementations. However, **keys-server is 90% stub**, push-server FCM has a **critical JWT signing gap**, and the relay-server has a **delivery routing gap**. These are fixable but represent real production-readiness risks.
+**Bottom Line:** CinaAuth has a **broader and more transparent infrastructure** than what Cinacoin exposes publicly. The relay-server, rpc-proxy, bundler, and push-server are genuine implementations. However, **keys-server is 90% stub**, push-server FCM has a **critical JWT signing gap**, and the relay-server has a **delivery routing gap**. These are fixable but represent real production-readiness risks.
 
 ---
 
@@ -58,7 +58,7 @@ The previous analysis (02-infrastructure.md) assessed CinaAuth/Cinacoin based on
 - Response parsing extracts `apns-id` header for message tracking
 - Error types: `ApnsError` with KeyRead, KeyParse, Time, Jwt variants
 
-**Gaps vs Reown's a2:**
+**Gaps vs Cinacoin's a2:**
 - No HTTP/2 connection pooling — creates new `reqwest::Client` per instance
 - No token caching — regenerates JWT on every send (Apple tokens valid for 60 min)
 - No connection retry on HTTP/2 stream errors
@@ -243,7 +243,7 @@ pub async fn redeem_invite(...) -> impl IntoResponse {
 
 ### 2.6 keys-server Overall Score: 3/10
 
-The **scaffolding** is production-quality (routing, middleware, metrics, migrations, config). The **business logic** is entirely stubbed. Compared to Reown's keys-server (HCL/Terraform, real identity key management), this is a skeleton that needs flesh.
+The **scaffolding** is production-quality (routing, middleware, metrics, migrations, config). The **business logic** is entirely stubbed. Compared to Cinacoin's keys-server (HCL/Terraform, real identity key management), this is a skeleton that needs flesh.
 
 ---
 
@@ -274,7 +274,7 @@ pub struct KeyPair {
 // 4 unit tests including wrong-key-fails-decryption
 ```
 
-**Assessment:** Correct WalletConnect v2 crypto primitives. Tests pass. No gaps.
+**Assessment:** Correct Cinacoin v2 crypto primitives. Tests pass. No gaps.
 
 ### 3.3 CRITICAL: Message Delivery Gap
 
@@ -328,7 +328,7 @@ async fn do_publish(...) {
 
 ### 3.6 relay-server Overall Score: 7.5/10
 
-Crypto is solid. Architecture is sound. The **local delivery gap** is the only major functional issue, and it's fixable. Compared to Reown's proprietary relay, this is a clean-room implementation with better transparency and observability.
+Crypto is solid. Architecture is sound. The **local delivery gap** is the only major functional issue, and it's fixable. Compared to Cinacoin's proprietary relay, this is a clean-room implementation with better transparency and observability.
 
 ---
 
@@ -381,7 +381,7 @@ This is a solid cost-optimization pattern: try free local node first, fall back 
 
 ### 4.7 rpc-proxy Overall Score: 7/10
 
-Solid architecture for an RPC proxy. Cache + dedup + provider chain is well-designed. Metrics and method-level rate limiting need completion. No equivalent exists in Reown's open-source repos (they use managed infrastructure).
+Solid architecture for an RPC proxy. Cache + dedup + provider chain is well-designed. Metrics and method-level rate limiting need completion. No equivalent exists in Cinacoin's open-source repos (they use managed infrastructure).
 
 ---
 
@@ -527,7 +527,7 @@ deploy/helm/cinacoin/
 | Budget alerts | `deploy/cost/budget-alerts.yaml` | AWS + GCP budget templates |
 | Chain configs | `deploy/cost/chain-configs/chains.yaml` | Per-chain gas configs, cost tracking |
 
-**This is a significant advantage over Reown** — cost visibility is built into the infrastructure.
+**This is a significant advantage over Cinacoin** — cost visibility is built into the infrastructure.
 
 ### 6.5 Runbooks
 
@@ -549,33 +549,33 @@ Excellent Helm chart, comprehensive monitoring, strong cost management, solid ru
 
 ---
 
-## 7. Reown Comparison — What We Know
+## 7. Cinacoin Comparison — What We Know
 
-Reown's (formerly WalletConnect) backend services are partially open-source:
+Cinacoin's (formerly Cinacoin) backend services are partially open-source:
 
-### 7.1 Reown push-server (Rust)
+### 7.1 Cinacoin push-server (Rust)
 - APNs2 client via their `a2` crate (170 GitHub stars — their most popular utility)
 - FCM via their `fcm-rust` crate
 - Production-tested at scale (millions of wallet connections)
 - Device registration, token management, message queuing
 
-### 7.2 Reown notify-server (Rust)
+### 7.2 Cinacoin notify-server (Rust)
 - notify.walletconnect.com public endpoint
-- Notification routing for WalletConnect dApps
+- Notification routing for Cinacoin dApps
 - Integration with push-server
 
-### 7.3 Reown keys-server (HCL/Terraform)
+### 7.3 Cinacoin keys-server (HCL/Terraform)
 - Identity key management for Chat SDK
 - Invite key distribution
 - Terraform-managed infrastructure
 
-### 7.4 Reown a2 (Rust)
+### 7.4 Cinacoin a2 (Rust)
 - Async APNs2 client with HTTP/2 connection pooling
 - Token caching (60-min validity)
 - 170 GitHub stars — battle-tested
 - MIT licensed
 
-### 7.5 What Reown Doesn't Open-Source
+### 7.5 What Cinacoin Doesn't Open-Source
 - Relay server implementation (proprietary SaaS)
 - RPC infrastructure (managed)
 - Monitoring stack (proprietary)
@@ -587,12 +587,12 @@ Reown's (formerly WalletConnect) backend services are partially open-source:
 
 ### 8.1 push-server
 
-| Feature | CinaAuth push-server | Reown push-server + a2 | Winner |
+| Feature | CinaAuth push-server | Cinacoin push-server + a2 | Winner |
 |---------|---------------------|----------------------|--------|
 | APNs JWT generation | ✅ ES256, token-based | ✅ ES256, token-based | **Parity** |
-| APNs token caching | ❌ Regenerates every send | ✅ Cached (60 min) | **Reown** |
-| APNs HTTP/2 pooling | ❌ New client per instance | ✅ Connection pooling (a2) | **Reown** |
-| FCM OAuth2 | ⚠️ Placeholder signing | ✅ Full implementation | **Reown** |
+| APNs token caching | ❌ Regenerates every send | ✅ Cached (60 min) | **Cinacoin** |
+| APNs HTTP/2 pooling | ❌ New client per instance | ✅ Connection pooling (a2) | **Cinacoin** |
+| FCM OAuth2 | ⚠️ Placeholder signing | ✅ Full implementation | **Cinacoin** |
 | FCM v1 API | ✅ Correct endpoint | ✅ Correct endpoint | **Parity** |
 | Rate limiting | ✅ Per-device + per-app (Moka) | ✅ Built-in | **CinaAuth** (more transparent) |
 | Retry with backoff | ✅ Exponential, configurable | ✅ Production-tested | **Parity** |
@@ -600,40 +600,40 @@ Reown's (formerly WalletConnect) backend services are partially open-source:
 | Batch push | ✅ Endpoint exists | ✅ Supported | **Parity** |
 | Device registration | ✅ Redis-backed | ✅ Supported | **Parity** |
 | Prometheus metrics | ✅ 11 metrics | ✅ Internal metrics | **CinaAuth** (standard) |
-| Production-ready | ⚠️ APNs yes, FCM no | ✅ Yes | **Reown** |
+| Production-ready | ⚠️ APNs yes, FCM no | ✅ Yes | **Cinacoin** |
 
 ### 8.2 keys-server
 
-| Feature | CinaAuth keys-server | Reown keys-server | Winner |
+| Feature | CinaAuth keys-server | Cinacoin keys-server | Winner |
 |---------|---------------------|-------------------|--------|
 | Architecture | ✅ Axum, sqlx, Redis | ✅ HCL/Terraform | **CinaAuth** (better framework) |
-| Identity keys | ❌ Stub (hardcoded returns) | ✅ Production | **Reown** |
+| Identity keys | ❌ Stub (hardcoded returns) | ✅ Production | **Cinacoin** |
 | Wallet keys | ❌ Stub ("0x..." returns) | ✅ N/A (different scope) | **N/A** |
-| Invite keys | ❌ Stub (always succeeds) | ✅ Production | **Reown** |
-| Auth middleware | ❌ Accepts any token | ✅ JWT validation | **Reown** |
+| Invite keys | ❌ Stub (always succeeds) | ✅ Production | **Cinacoin** |
+| Auth middleware | ❌ Accepts any token | ✅ JWT validation | **Cinacoin** |
 | Database migrations | ✅ 3 migration pairs | ✅ Terraform-managed | **Parity** |
-| Redis caching | ✅ Implemented but unused | ✅ Used | **Reown** |
+| Redis caching | ✅ Implemented but unused | ✅ Used | **Cinacoin** |
 | Metrics | ✅ 9 Prometheus metrics | ✅ Internal | **CinaAuth** (standard) |
-| Production-ready | ❌ No | ✅ Yes | **Reown** |
+| Production-ready | ❌ No | ✅ Yes | **Cinacoin** |
 
 ### 8.3 relay-server
 
-| Feature | CinaAuth relay-server | Reown relay | Winner |
+| Feature | CinaAuth relay-server | Cinacoin relay | Winner |
 |---------|----------------------|-------------|--------|
 | WebSocket transport | ✅ Actix-web actors | ✅ Proprietary | **Parity** |
 | Crypto | ✅ X25519 + ChaCha20-Poly1305, tested | ✅ Proprietary | **Parity** |
 | Topic subscription | ✅ HashMap + Redis | ✅ Proprietary | **Parity** |
-| Message delivery | ⚠️ Redis Pub/Sub only, local broken | ✅ Working | **Reown** |
+| Message delivery | ⚠️ Redis Pub/Sub only, local broken | ✅ Working | **Cinacoin** |
 | Topic expiration | ✅ Configurable TTL, cleanup | ✅ Proprietary | **Parity** |
 | NATS integration | ✅ Config, not used | ✅ Proprietary | **N/A** |
 | Rate limiting | ✅ Per-IP (in-memory) | ✅ Proprietary | **Parity** |
 | Health/readiness | ✅ Full dependency checks | ✅ Proprietary | **Parity** |
 | Observability | ✅ Prometheus, Grafana, runbooks | ❌ Not exposed | **CinaAuth** |
-| Production-ready | ⚠️ Delivery gap | ✅ Yes | **Reown** |
+| Production-ready | ⚠️ Delivery gap | ✅ Yes | **Cinacoin** |
 
 ### 8.4 rpc-proxy
 
-| Feature | CinaAuth rpc-proxy | Reown | Winner |
+| Feature | CinaAuth rpc-proxy | Cinacoin | Winner |
 |---------|-------------------|-------|--------|
 | Provider chain | ✅ Local → primary → fallback | ✅ Managed routing | **Parity** |
 | Multi-level cache | ✅ L1 (sync.Map) + L2 (Redis) | ✅ Managed cache | **Parity** |
@@ -712,28 +712,28 @@ Reown's (formerly WalletConnect) backend services are partially open-source:
 
 ### 11.1 Per-Service Scores
 
-| Service | CinaAuth Score | Reown Score | Notes |
+| Service | CinaAuth Score | Cinacoin Score | Notes |
 |---------|:-------------:|:-----------:|-------|
 | push-server | **6.5/10** | 9/10 | APNs solid, FCM broken |
 | keys-server | **3/10** | 8/10 | Skeleton with no business logic |
 | relay-server | **7.5/10** | 9/10 | Local delivery gap |
-| rpc-proxy | **7/10** | N/A | No public Reown equivalent |
-| bundler | **7.5/10** | N/A | No public Reown equivalent |
-| Deploy/K8s | **8.5/10** | 6/10 | Reown uses proprietary infra |
+| rpc-proxy | **7/10** | N/A | No public Cinacoin equivalent |
+| bundler | **7.5/10** | N/A | No public Cinacoin equivalent |
+| Deploy/K8s | **8.5/10** | 6/10 | Cinacoin uses proprietary infra |
 | Monitoring | **9/10** | 5/10 | Full stack vs black box |
 | Cost Management | **9/10** | 3/10 | Transparent vs opaque |
 | **Overall** | **6.9/10** | **7.2/10** | Strong foundation, fixable gaps |
 
-### 11.2 What CinaAuth Does Better Than Reown
+### 11.2 What CinaAuth Does Better Than Cinacoin
 
-1. **Full observability stack** — Prometheus + Grafana + Jaeger + FluentBit + OTel (Reown: proprietary)
-2. **Cost management** — KEDA scalers, spot instances, budget alerts, per-chain cost tracking (Reown: SaaS pricing)
-3. **RPC proxy** — Multi-provider chain with cache + dedup + rate limiting (Reown: managed, not comparable)
-4. **ERC-4337 bundler** — Complete implementation with reputation system (Reown: yttrium library, different scope)
-5. **Deployment transparency** — Full Helm chart + runbooks + monitoring manifests (Reown: proprietary)
-6. **Blockchain node management** — Erigon StatefulSets with metrics and alerts (Reown: managed)
+1. **Full observability stack** — Prometheus + Grafana + Jaeger + FluentBit + OTel (Cinacoin: proprietary)
+2. **Cost management** — KEDA scalers, spot instances, budget alerts, per-chain cost tracking (Cinacoin: SaaS pricing)
+3. **RPC proxy** — Multi-provider chain with cache + dedup + rate limiting (Cinacoin: managed, not comparable)
+4. **ERC-4337 bundler** — Complete implementation with reputation system (Cinacoin: yttrium library, different scope)
+5. **Deployment transparency** — Full Helm chart + runbooks + monitoring manifests (Cinacoin: proprietary)
+6. **Blockchain node management** — Erigon StatefulSets with metrics and alerts (Cinacoin: managed)
 
-### 11.3 What Reown Does Better Than CinaAuth
+### 11.3 What Cinacoin Does Better Than CinaAuth
 
 1. **Production maturity** — All services tested at scale with millions of connections
 2. **FCM implementation** — Working OAuth2 + JWT signing (CinaAuth: placeholder)
@@ -771,7 +771,7 @@ Reown's (formerly WalletConnect) backend services are partially open-source:
 
 14. **Jaeger persistence** — Move from memory to Elasticsearch/Cassandra
 15. **NATS integration** — Use NATS for relay cross-instance delivery (replace Redis Pub/Sub)
-16. **Terraform** — Add Terraform for cloud resource provisioning (Reown's keys-server pattern)
+16. **Terraform** — Add Terraform for cloud resource provisioning (Cinacoin's keys-server pattern)
 
 ---
 

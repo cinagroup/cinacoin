@@ -1,6 +1,6 @@
-# CinaCoin UI theme.
+# Cinacoin UI theme.
 
-> `@cinacoin/cinacoin-ui-theme` — Default theme presets for CinaCoin.
+> `@cinacoin/cinacoin-ui-theme` — Default theme presets for Cinacoin.
 
 ## Installation.
 

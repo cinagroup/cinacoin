@@ -17,7 +17,7 @@ export default function Home(): JSX.Element {
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <div style={{ width: 28, height: 28, borderRadius: 4, background: 'var(--cc-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--cc-on-primary)', fontWeight: 600, fontSize: 14 }}>C</div>
-          <span style={{ fontWeight: 600, fontSize: 15, letterSpacing: -0.3, color: 'var(--cc-ink)' }}>CinaCoin SDK Demo</span>
+          <span style={{ fontWeight: 600, fontSize: 15, letterSpacing: -0.3, color: 'var(--cc-ink)' }}>Cinacoin SDK Demo</span>
         </div>
         <a href="https://docs.cinacoin.com" style={{ fontSize: 13, color: 'var(--cc-accent-soft)', textDecoration: 'none' }}>Docs ↗</a>
       </header>
@@ -33,7 +33,7 @@ export default function Home(): JSX.Element {
           fontWeight: 500,
           marginBottom: 24,
         }}>
-          CinaCoin React SDK
+          Cinacoin React SDK
         </div>
 
         <h1 style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 600, letterSpacing: -0.5, lineHeight: 1.2, margin: '0 0 16px', color: 'var(--cc-ink)' }}>
@@ -41,7 +41,7 @@ export default function Home(): JSX.Element {
         </h1>
 
         <p style={{ fontSize: 17, color: 'var(--cc-body)', maxWidth: 540, lineHeight: 1.6, margin: '0 0 40px' }}>
-          The CinaCoin SDK provides a unified interface for wallet connections, transaction signing, chain switching, batch operations, and NFT management across 16+ blockchains.
+          The Cinacoin SDK provides a unified interface for wallet connections, transaction signing, chain switching, batch operations, and NFT management across 16+ blockchains.
         </p>
 
         {/* SDK Features Grid */}
@@ -55,7 +55,7 @@ export default function Home(): JSX.Element {
           marginBottom: 48,
         }}>
           {[
-            { title: 'Connect Wallet', desc: 'MetaMask, WalletConnect, Coinbase, Rabby, and email-based auth.', icon: '🔗' },
+            { title: 'Connect Wallet', desc: 'MetaMask, Cinacoin, Coinbase, Rabby, and email-based auth.', icon: '🔗' },
             { title: 'Multi-chain', desc: 'EVM, Solana, Sui, TON, Cosmos, Polkadot, Hedera, NEAR, XRPL adapters.', icon: '⛓️' },
             { title: 'Sign & Send', desc: 'Message signing, transaction building, gas estimation, and batch sends.', icon: '✍️' },
             { title: 'EIP-5792', desc: 'Atomic batch transactions, capabilities detection, and status polling.', icon: '📦' },
@@ -117,7 +117,7 @@ function App() {
         fontSize: 13,
         color: 'var(--cc-muted)',
       }}>
-        CinaCoin SDK v0.2 — Self-hosted wallet connection toolkit.{' '}
+        Cinacoin SDK v0.2 — Self-hosted wallet connection toolkit.{' '}
         <a href="https://github.com/cinagroup/cinacoin" style={{ color: 'var(--cc-accent-soft)', textDecoration: 'none' }}>GitHub</a>
       </footer>
     </div>

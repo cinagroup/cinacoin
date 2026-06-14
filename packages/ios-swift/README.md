@@ -1,12 +1,12 @@
 # @cinacoin/ios-swift — Cinacoin iOS SDK
 
-Native iOS Swift SDK for Cinacoin Wallet integration. Provides WalletConnect v2 pairing, session management, EVM chain support, message signing, and transaction sending — all via modern Swift Concurrency (`async/await`) and Combine reactive streams.
+Native iOS Swift SDK for Cinacoin Wallet integration. Provides Cinacoin v2 pairing, session management, EVM chain support, message signing, and transaction sending — all via modern Swift Concurrency (`async/await`) and Combine reactive streams.
 
 ## Features
 
 | Feature | Status |
 |---------|--------|
-| WalletConnect v2 pairing & session | ✅ |
+| Cinacoin v2 pairing & session | ✅ |
 | EVM chains (ETH, Polygon, Arbitrum, Base, Optimism, BSC) | ✅ |
 | `personal_sign` (EIP-191) | ✅ |
 | `signTypedData` (EIP-712) | ✅ |
@@ -139,7 +139,7 @@ struct WalletView: View {
 | Method | Description |
 |--------|-------------|
 | `configure(projectId:metadata:relayUrl:namespace:)` | Initialize the SDK. Call once before anything else. |
-| `connect(walletId:chains:)` → `ConnectionResult` | Connect to a wallet via WalletConnect. |
+| `connect(walletId:chains:)` → `ConnectionResult` | Connect to a wallet via Cinacoin. |
 | `disconnect()` | Disconnect the active session. |
 | `switchChain(chainId:)` | Switch the active EVM chain. |
 | `signMessage(_ message:)` → `SignatureResult` | EIP-191 `personal_sign`. |
@@ -166,7 +166,7 @@ struct WalletView: View {
 
 | Manager | Access | Description |
 |---------|--------|-------------|
-| `walletConnect` | `sdk.walletConnect` | Direct WalletConnect v2 operations |
+| `walletConnect` | `sdk.walletConnect` | Direct Cinacoin v2 operations |
 | `chainManager` | `sdk.chainManager` | EVM chain registry & switching |
 | `signer` | `sdk.signer` | Low-level signing operations |
 | `transactions` | `sdk.transactions` | Transaction building & sending |
@@ -192,7 +192,7 @@ packages/ios-swift/
 │   ├── CinacoinSDK/
 │   │   ├── CinacoinSDK.swift       # Main singleton entry point
 │   │   ├── Types.swift              # Core types, errors, enums
-│   │   ├── WalletConnectManager.swift  # WC v2 pairing & session
+│   │   ├── CinacoinManager.swift  # WC v2 pairing & session
 │   │   ├── ChainManager.swift       # EVM chain registry
 │   │   ├── SignerManager.swift      # Message signing
 │   │   ├── TransactionManager.swift # Transaction building/sending

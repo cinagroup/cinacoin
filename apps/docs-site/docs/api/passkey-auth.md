@@ -1,6 +1,6 @@
 # Passkey auth.
 
-> `@cinacoin/passkey-auth` — Passkey-based authentication for CinaCoin.
+> `@cinacoin/passkey-auth` — Passkey-based authentication for Cinacoin.
 
 ## Installation.
 

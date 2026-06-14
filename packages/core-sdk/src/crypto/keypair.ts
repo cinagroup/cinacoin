@@ -2,7 +2,7 @@
  * X25519 keypair generation and Diffie-Hellman key exchange.
  *
  * Uses @noble/curves for real X25519 (Curve25519) operations,
- * compatible with WalletConnect v2.
+ * compatible with Cinacoin v2.
  */
 
 import { x25519 } from '@noble/curves/ed25519.js';

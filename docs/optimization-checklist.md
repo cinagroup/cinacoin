@@ -1,14 +1,14 @@
-# 🚀 Cinacoin vs Reown — 全面优化方案 Checklist
+# 🚀 Cinacoin vs Cinacoin — 全面优化方案 Checklist
 
-> **基准**: Reown.com (原 WalletConnect) 产品矩阵
-> **目标**: 对标 Reown 全部核心能力，完善 Cinacoin 平台
+> **基准**: Cinacoin.com (原 Cinacoin) 产品矩阵
+> **目标**: 对标 Cinacoin 全部核心能力，完善 Cinacoin 平台
 > **日期**: 2026-06-10
 
 ---
 
 ## 📊 功能对标总览
 
-| 产品域 | Reown 有 | Cinacoin 已有 | 差距 | 优先级 |
+| 产品域 | Cinacoin 有 | Cinacoin 已有 | 差距 | 优先级 |
 |--------|----------|--------------|------|--------|
 | 认证体系 | ✅ | ✅ 基础版 | 需增强 | P0 |
 | 支付方案 | ✅ | ✅ 基础版 | 需完善 | P0 |
@@ -32,7 +32,7 @@
 
 ### 1.1 🎨 Cinacoin AppKit — 统一 UI Widget
 
-**对标**: Reown AppKit 的钱包连接弹窗 UI
+**对标**: Cinacoin AppKit 的钱包连接弹窗 UI
 **现状**: Cinacoin 有 `@cinacoin/ui` 设计系统和 `core-ui`，但缺少类似 AppKit 的一体化钱包连接组件
 
 **Checklist**:
@@ -57,7 +57,7 @@
 
 ### 1.2 🏦 开发者 Dashboard
 
-**对标**: Reown Dashboard (项目管理、API Key、Analytics 概览)
+**对标**: Cinacoin Dashboard (项目管理、API Key、Analytics 概览)
 **现状**: 有 `cloud-dashboard` (基础设施管理) 和 `backend-dashboard` (后端管理)，但缺少面向开发者的项目管理门户
 
 **Checklist**:
@@ -77,7 +77,7 @@
 
 ### 1.3 📊 Analytics 增强
 
-**对标**: Reown Analytics (sessions, drop-offs, wallets, chains, user behavior)
+**对标**: Cinacoin Analytics (sessions, drop-offs, wallets, chains, user behavior)
 **现状**: 有 `analytics-dashboard` 和 `analytics-server`，但功能基础
 
 **Checklist**:
@@ -97,7 +97,7 @@
 
 ### 1.4 🌐 多链整合 — Universal Connector
 
-**对标**: Reown Universal Connector (一次集成，所有链)
+**对标**: Cinacoin Universal Connector (一次集成，所有链)
 **现状**: 有 12 个 adapter 包，但缺少统一的 connector 抽象层
 
 **Checklist**:
@@ -127,7 +127,7 @@
 
 ### 2.1 🧠 Smart Accounts (ERC-4337 / Account Abstraction)
 
-**对标**: Reown Smart Accounts
+**对标**: Cinacoin Smart Accounts
 **现状**: 有 `aa-sdk` 和 `session-keys` 包，但缺少端到端集成
 
 **Checklist**:
@@ -146,7 +146,7 @@
 
 ### 2.2 🔗 Multiwallet Linking
 
-**对标**: Reown Multiwallet Linking
+**对标**: Cinacoin Multiwallet Linking
 **现状**: 有 `multiwallet` 包，但缺少 UI 和完整流程
 
 **Checklist**:
@@ -162,7 +162,7 @@
 
 ### 2.3 🛡️ Security Screening
 
-**对标**: Reown Transaction Screening + Domain Verification
+**对标**: Cinacoin Transaction Screening + Domain Verification
 **现状**: 有 `verify-service`，但缺少实时交易筛查
 
 **Checklist**:
@@ -181,7 +181,7 @@
 
 ### 2.4 🤖 Developer CLI 增强
 
-**对标**: Reown CLI (`npx @reown/appkit-cli`)
+**对标**: Cinacoin CLI (`npx @cinacoin/appkit-cli`)
 **现状**: 有 `cli` 包，但功能基础
 
 **Checklist**:
@@ -200,7 +200,7 @@
 
 ### 2.5 📱 Demo dApp 增强
 
-**对标**: Reown Demo (demo.reown.com)
+**对标**: Cinacoin Demo (demo.cinacoin.com)
 **现状**: 有 `demo`, `demo-react`, `demo-vue`, `demo-flutter`，但功能简单
 
 **Checklist**:
@@ -222,7 +222,7 @@
 
 ### 3.1 🎓 Learn/Education 平台
 
-**对标**: Reown Learn (reown.com/learn)
+**对标**: Cinacoin Learn (cinacoin.com/learn)
 **现状**: 缺失
 
 **Checklist**:
@@ -240,7 +240,7 @@
 
 ### 3.2 📲 Telegram Mini App 完善
 
-**对标**: Reown Telegram Mini Apps
+**对标**: Cinacoin Telegram Mini Apps
 **现状**: 有 `telegram-miniapp` SDK，但缺少完整应用
 
 **Checklist**:
@@ -256,7 +256,7 @@
 
 ### 3.3 🌟 Farcaster Mini App 完善
 
-**对标**: Reown Farcaster Mini Apps
+**对标**: Cinacoin Farcaster Mini Apps
 **现状**: 有 `farcaster-miniapp` SDK
 
 **Checklist**:
@@ -268,7 +268,7 @@
 
 ### 3.4 💳 支付方案增强
 
-**对标**: Reown Payments (Onramp + Swap + Self-Custodial + Exchange Deposit)
+**对标**: Cinacoin Payments (Onramp + Swap + Self-Custodial + Exchange Deposit)
 **现状**: 有 `onramp-sdk`, `swap-sdk`, `payment-flow`, `pay-ui`, `deposit`
 
 **Checklist**:
@@ -344,7 +344,7 @@
 ### Agent 1: AppKit React 组件 (1.1)
 - 创建 `@cinacoin/appkit` + `@cinacoin/appkit-react`
 - 实现钱包连接弹窗 UI
-- 集成 WalletConnect v2
+- 集成 Cinacoin v2
 
 ### Agent 2: Developer Dashboard (1.2)
 - 创建 `apps/developer-dashboard`

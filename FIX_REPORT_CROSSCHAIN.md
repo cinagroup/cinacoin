@@ -2,7 +2,7 @@
 
 **Date**: 2026-06-08  
 **Project**: Cinacoin (onux)  
-**Scope**: Cross-chain sync, WalletConnect v2, QR Code UI, Social Login
+**Scope**: Cross-chain sync, Cinacoin v2, QR Code UI, Social Login
 
 ---
 
@@ -10,7 +10,7 @@
 
 Fixed 4 critical security vulnerabilities across the Cinacoin codebase:
 - **K-001~K-003**: Non-cryptographic hash in cross-chain message validation
-- **K-004**: EIP-191 signature format inconsistency in WalletConnect
+- **K-004**: EIP-191 signature format inconsistency in Cinacoin
 - **K-005**: XSS vulnerability in QR Code component
 - **S-003**: Non-standard cryptographic implementation in social login wallet derivation
 
@@ -68,7 +68,7 @@ export function computeMessageHash(message: Omit<CrossChainMessage, ...>): strin
 
 ---
 
-### 2. [K-004] WalletConnect EIP-191 Signature Format
+### 2. [K-004] Cinacoin EIP-191 Signature Format
 
 **Severity**: High  
 **Files Modified**:
@@ -303,7 +303,7 @@ const msg3 = {...msg1, nonce: msg1.nonce + 1};
 assert(computeMessageHash(msg1) !== computeMessageHash(msg3));
 ```
 
-### 2. WalletConnect EIP-191 (K-004)
+### 2. Cinacoin EIP-191 (K-004)
 ```typescript
 // Test signature verification
 const message = "Hello, World!";
@@ -366,7 +366,7 @@ assert(wallet.address === wallet1.address);
 
 ### Non-Breaking Changes
 
-1. **WalletConnect EIP-191**: The fix clarifies the encoding but maintains compatibility with existing wallets.
+1. **Cinacoin EIP-191**: The fix clarifies the encoding but maintains compatibility with existing wallets.
 
 2. **QR Code XSS**: Internal implementation change; no API changes.
 
@@ -386,7 +386,7 @@ assert(wallet.address === wallet1.address);
 ## Verification Checklist
 
 - [x] K-001~K-003: Cross-chain message hash uses SHA-256
-- [x] K-004: WalletConnect EIP-191 signature format is correct
+- [x] K-004: Cinacoin EIP-191 signature format is correct
 - [x] K-005: QR Code uses DOMParser + DOM API (no innerHTML injection)
 - [x] S-003: Social login uses secp256k1 + keccak256 for Ethereum addresses
 - [x] All fixes use `@noble/hashes` and `@noble/curves` (audited, secure libraries)

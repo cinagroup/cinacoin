@@ -87,7 +87,7 @@ execSync(config.buildCommand, { cwd, stdio: 'pipe' });
 
 ---
 
-### H3 — WalletConnect 适配器使用 Math.random() 生成对称密钥
+### H3 — Cinacoin 适配器使用 Math.random() 生成对称密钥
 
 | 属性 | 值 |
 |------|-----|
@@ -95,7 +95,7 @@ execSync(config.buildCommand, { cwd, stdio: 'pipe' });
 | **CWE** | CWE-330, CWE-326 |
 | **OWASP** | A02 - 加密机制失效 |
 | **影响文件** | `packages/adapters/walletconnect/adapter.ts:70` |
-| **描述** | `symKey` 使用 `Math.random().toString(36).slice(2)` 生成，密钥空间极小（约 36^34 ≈ 2^176 理论值，但实际熵远低于此因为 Math.random 是 PRNG）。攻击者可暴力破解会话密钥，拦截 WalletConnect 通信。 |
+| **描述** | `symKey` 使用 `Math.random().toString(36).slice(2)` 生成，密钥空间极小（约 36^34 ≈ 2^176 理论值，但实际熵远低于此因为 Math.random 是 PRNG）。攻击者可暴力破解会话密钥，拦截 Cinacoin 通信。 |
 
 **代码：**
 ```typescript
@@ -378,7 +378,7 @@ if (!apiKey) return true; // skip in dev ← 生产环境也可能触发
 
 | 优先级 | 编号 | 描述 | 建议时限 |
 |--------|------|------|----------|
-| **P0** | H3 | WalletConnect symKey 使用 Math.random() | 立即 |
+| **P0** | H3 | Cinacoin symKey 使用 Math.random() | 立即 |
 | **P0** | H1 | Math.random() 用于安全敏感 ID（全量修复） | 24h |
 | **P1** | H2 | CLI 命令注入风险 | 1 周 |
 | **P1** | H4 | StructuredData XSS 转义 | 1 周 |

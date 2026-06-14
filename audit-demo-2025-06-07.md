@@ -141,7 +141,7 @@
 - Stats in card format
 - 6 feature cards
 - 16-chain showcase in grid
-- Auth page with comparison table (Cinacoin vs Reown)
+- Auth page with comparison table (Cinacoin vs Cinacoin)
 - Code examples
 
 ### 2.2 Navigation UX
@@ -213,7 +213,7 @@
 **⚠️ demo-react (Vite) — Bundle size issues**
 - **CRITICAL**: `core-Bx3tr7mm.js` at **617 kB** (177 kB gzipped) — exceeds 500 kB warning
 - `index-CdOD3--D.js` at **473 kB** (144 kB gzipped) — near the limit
-- `w3m-modal-OpdQNWaw.js` at **169 kB** (35 kB gzipped) — WalletConnect modal is large
+- `w3m-modal-OpdQNWaw.js` at **169 kB** (35 kB gzipped) — Cinacoin modal is large
 - Vite explicitly warns: "Some chunks are larger than 500 kB after minification"
 
 **Root cause of large bundles:**

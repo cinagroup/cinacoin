@@ -1,4 +1,4 @@
-# 📊 Cinacoin vs Reown — 完整深度分析报告 (v3 Master Summary)
+# 📊 Cinacoin vs Cinacoin — 完整深度分析报告 (v3 Master Summary)
 
 > **日期**: 2026-05-25  
 > **分析师**: 5个子agent并行审计  
@@ -8,7 +8,7 @@
 
 ## 🎯 执行摘要
 
-| 维度 | Cinacoin | Reown AppKit | 评估 |
+| 维度 | Cinacoin | Cinacoin AppKit | 评估 |
 |------|-------------|-------------|------|
 | **总包数** | 72 | ~30 | Cinacoin +42 |
 | **SDK核心得分** | **80/100** | 90/100 | 坚实基础，缺6条链适配器 |
@@ -111,7 +111,7 @@
 
 ## 🏆 Cinacoin 十大竞争优势
 
-| # | 优势 | 包 | Reown状态 |
+| # | 优势 | 包 | Cinacoin状态 |
 |---|------|-----|----------|
 | 1 | **交易所入金** — 5大交易所深度链接 | `deposit` | ❌ 无 |
 | 2 | **Telegram Mini App** — 完整WebApp SDK | `telegram-miniapp` | ❌ 无 |
@@ -122,7 +122,7 @@
 | 7 | **钱包推荐引擎** — 智能评分 | `wallet-recommender` | ❌ 无 |
 | 8 | **Safe解码器** — Gnosis Safe交易解析 | `safe-decoder` | ❌ 无 |
 | 9 | **性能工具包** — bundle分析+内存检测 | `performance-utils` | ❌ 无 |
-| 10 | **自托管哲学** — 全部基础设施自主可控 | relay/RPC/keys/push | ❌ 依赖Reown云 |
+| 10 | **自托管哲学** — 全部基础设施自主可控 | relay/RPC/keys/push | ❌ 依赖Cinacoin云 |
 
 ---
 
@@ -146,7 +146,7 @@
 ## 📐 架构对比
 
 ```
-Reown AppKit架构:                    Cinacoin架构:
+Cinacoin AppKit架构:                    Cinacoin架构:
 ┌─ Controllers (10+)                  ┌─ Connector (抽象基类)
 ├─ ProxyController (快照状态)          ├─ SessionManager (状态机)
 ├─ Cloud Infrastructure               ├─ Zustand Store (轻量)
@@ -218,7 +218,7 @@ Reown AppKit架构:                    Cinacoin架构:
 
 ## 💡 战略建议
 
-**Cinacoin已具备与Reown竞争的实力（78-82%完成度），且有10项独特优势。**
+**Cinacoin已具备与Cinacoin竞争的实力（78-82%完成度），且有10项独特优势。**
 
 短期聚焦：
 - **修复部署阻断问题**（deploy-all.sh、iOS构建、bundler stub）
@@ -231,7 +231,7 @@ Reown AppKit架构:                    Cinacoin架构:
 - **完善AA生态**（paymaster、gas estimator生产化）
 
 差异化战略：
-- **强调自托管** — 不依赖Reown云基础设施
+- **强调自托管** — 不依赖Cinacoin云基础设施
 - **突出合规优势** — KYC/AML、GDPR分析
 - **打造Mini App生态** — Telegram + Farcaster
 - **强化开发者工具** — CLI + Codemod + CDN

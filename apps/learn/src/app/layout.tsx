@@ -21,9 +21,9 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "CinaCoin Learn — Web3 Education Platform.",
+  title: "Cinacoin Learn — Web3 Education Platform.",
   description:
-    "Learn Web3 development with CinaCoin. Tutorials on wallet integration, multichain development, and best practices.",
+    "Learn Web3 development with Cinacoin. Tutorials on wallet integration, multichain development, and best practices.",
 };
 
 export default function RootLayout({

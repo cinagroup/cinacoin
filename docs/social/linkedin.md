@@ -16,7 +16,7 @@ I'm excited to announce the release of Cinacoin v0.2.0 — the most comprehensiv
 ✅ EIP-5792 Wallet Call API with React hooks for batch & atomic transactions
 ✅ Full Account Abstraction stack (ERC-4337 bundler + ERC-7677 paymaster)
 ✅ SIWX multi-chain authentication (CAIP-122)
-✅ Automated migration tool from Reown/AppKit
+✅ Automated migration tool from Cinacoin/AppKit
 ✅ 2 infrastructure services live on Cloudflare Workers
 ✅ Demo app with 6 pages and real wallet connection logic
 

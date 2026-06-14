@@ -70,7 +70,7 @@ export function Example() {
             Component library.
           </h1>
           <p className="text-[var(--cc-body)] text-body-sm">
-            Pre-built UI components following the CinaCoin design system
+            Pre-built UI components following the Cinacoin design system
           </p>
         </div>
 
@@ -197,7 +197,7 @@ export function Example() {
           <div>
             <p className="text-body-sm font-medium text-[var(--cc-ink)] mb-1">Design system</p>
             <p className="text-caption text-[var(--cc-body)]">
-              All components follow the CinaCoin design guidelines with consistent spacing, typography, and color tokens. Built for accessibility and performance.
+              All components follow the Cinacoin design guidelines with consistent spacing, typography, and color tokens. Built for accessibility and performance.
             </p>
           </div>
         </div>

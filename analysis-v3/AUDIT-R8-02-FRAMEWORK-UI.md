@@ -194,7 +194,7 @@ Full implementation of all 4 hooks:
 | Test File | Status |
 |-----------|--------|
 | `tests/ConnectModal.test.tsx` | ✅ |
-| `tests/WalletConnectProvider.test.tsx` | ✅ |
+| `tests/CinacoinProvider.test.tsx` | ✅ |
 | `tests/deepLinks.test.ts` | ✅ |
 | `tests/eip5792-ens-biometric-push.test.ts` | ✅ |
 
@@ -687,9 +687,9 @@ Auto-generated `cinacoin-theme.css` with:
 | `I18nMixin` | `i18n/` | Translation + RTL auto-detection | ✅ `tests/i18n/translator.test.ts` |
 | `defaultStyles` | `styles/default.ts` | Shared CSS-in-JS styles | — |
 
-### 3.3 vs Reown scaffold-ui
+### 3.3 vs Cinacoin scaffold-ui
 
-| Aspect | Cinacoin | Reown AppKit | Gap |
+| Aspect | Cinacoin | Cinacoin AppKit | Gap |
 |--------|-------------|--------------|-----|
 | Core connect flow | ✅ 8 Lit elements | ✅ ~20+ elements | ⚠️ Cinacoin has fewer but covers essentials |
 | View router | ❌ Manual view management | ✅ `<w3m-router>` view stack | 🔴 |
@@ -727,7 +727,7 @@ Auto-generated `cinacoin-theme.css` with:
 
 ### 4.3 White-Label Comparison
 
-| Capability | Cinacoin | Reown AppKit | Verdict |
+| Capability | Cinacoin | Cinacoin AppKit | Verdict |
 |------------|-------------|--------------|---------|
 | CSS variable overrides | ✅ | ✅ | Equal |
 | Preset themes | 6 | ~4 | ✅ Cinacoin more |
@@ -736,7 +736,7 @@ Auto-generated `cinacoin-theme.css` with:
 | Dark/light auto-detect | ✅ | ✅ | Equal |
 | Animation control | ✅ | ✅ | Equal |
 
-**Verdict:** Theme system is **comparable or superior** to Reown.
+**Verdict:** Theme system is **comparable or superior** to Cinacoin.
 
 ---
 
@@ -772,7 +772,7 @@ Auto-generated `cinacoin-theme.css` with:
 
 ### 5.3 Missing Locales
 
-| Missing | Priority | Reown Has |
+| Missing | Priority | Cinacoin Has |
 |---------|----------|-----------|
 | Hindi (hi) | Medium | ✅ |
 | Turkish (tr) | Low | ✅ |

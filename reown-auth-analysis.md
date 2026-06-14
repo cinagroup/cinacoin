@@ -1,6 +1,6 @@
-# Reown AppKit AUTHENTICATION Layer 深度分析与 OnchainUX 实现指南
+# Cinacoin AppKit AUTHENTICATION Layer 深度分析与 OnchainUX 实现指南
 
-> 分析日期: 2026-05-17 | 基于 Reown AppKit 官方文档 14 个页面
+> 分析日期: 2026-05-17 | 基于 Cinacoin AppKit 官方文档 14 个页面
 
 ---
 
@@ -9,7 +9,7 @@
 ### 1. One-Click Auth (authentication/one-click-auth.md)
 
 **核心概念:**
-- 一键认证是 WalletConnect v2 内的关键增强，连接钱包 + 签署 SIWE 消息只需一次点击
+- 一键认证是 Cinacoin v2 内的关键增强，连接钱包 + 签署 SIWE 消息只需一次点击
 - 支持 EIP-1271（智能账户签名验证）和 EIP-6492（未部署合约的签名验证）
 - 使用 ReCaps (EIP-5573) 编码权限实现一次性认证
 - 支持多链多账户同时签名
@@ -27,7 +27,7 @@
 - SIWX (Sign In With X) 是 SIWE 的多链升级版，符合 CAIP-122 标准
 - 链无关：支持 Ethereum、Solana、Bitcoin 等
 - 三种实现方式：
-  1. Reown Authentication（云端管理）
+  1. Cinacoin Authentication（云端管理）
   2. DefaultSIWX 类（快速集成）
   3. 自定义 SIWXConfig 接口
 
@@ -50,7 +50,7 @@
 - Solana、Solana Devnet、Solana Testnet
 
 **Magic.link 依赖:**
-- Reown AppKit 使用 Magic.link 提供 Universal Wallets
+- Cinacoin AppKit 使用 Magic.link 提供 Universal Wallets
 - 私钥管理由 Magic 的专利密钥管理系统处理
 - 参考: https://magic.link/docs/home/security/product-security#patented-key-management
 
@@ -67,7 +67,7 @@
 - 智能账户地址在所有支持的链上相同（跨链一致性）
 
 **ENS 账户名:**
-- 使用 ENS Resolvers 分配可读名称（如 johnsmith.reown.id）
+- 使用 ENS Resolvers 分配可读名称（如 johnsmith.cinacoin.id）
 - 跨链通用
 
 ### 5. Smart Accounts Interaction (features/smart-accounts-interaction.md)
@@ -93,13 +93,13 @@
 
 **SIWE React 集成:**
 ```ts
-import { useAppKit, useAppKitAccount, useAppKitNetwork } from '@reown/appkit/react'
-import { useSession, signIn, signOut } from '@reown/appkit-siwe/react'
+import { useAppKit, useAppKitAccount, useAppKitNetwork } from '@cinacoin/appkit/react'
+import { useSession, signIn, signOut } from '@cinacoin/appkit-siwe/react'
 ```
 
 **SIWX React 集成:**
 ```ts
-import { DefaultSIWX } from '@reown/appkit-siwx'
+import { DefaultSIWX } from '@cinacoin/appkit-siwx'
 const appkit = createAppKit({ siwx: new DefaultSIWX() })
 ```
 
@@ -302,7 +302,7 @@ export function createSIWEConfig(params: {
 }
 ```
 
-#### SIWXConfig 接口 (完全兼容 Reown)
+#### SIWXConfig 接口 (完全兼容 Cinacoin)
 ```typescript
 export interface SIWXConfig {
   createMessage: (input: SIWXMessage.Input) => Promise<SIWXMessage>;
@@ -474,7 +474,7 @@ export interface SIWXStorage {
 
 #### Magic.link 集成细节
 
-**Magic.link 在 Reown 中的角色:**
+**Magic.link 在 Cinacoin 中的角色:**
 - 提供 Universal Wallets（嵌入式钱包）
 - 密钥由 Magic 专利密钥管理系统管理
 - 支持 EVM 和 Solana
@@ -575,7 +575,7 @@ Email/Social 登录:
 8. → 触发 onSignIn
 
 钱包直连登录:
-1. 用户连接外部钱包 (WalletConnect, MetaMask等)
+1. 用户连接外部钱包 (Cinacoin, MetaMask等)
 2. → SIWX createMessage() 生成认证消息
 3. → wallet.signMessage() 签名
 4. → 对应 Verifier 验证签名
@@ -801,7 +801,7 @@ export interface State {
 
 | 风险 | 影响 | 缓解 |
 |---|---|---|
-| **供应商锁定** | Magic.link 是专有服务，迁移成本高 | 抽象 AuthProvider 接口，保留替换能力；同时支持 WalletConnect 直连 |
+| **供应商锁定** | Magic.link 是专有服务，迁移成本高 | 抽象 AuthProvider 接口，保留替换能力；同时支持 Cinacoin 直连 |
 | **私钥不可导出** | Smart Account 无法导出，用户资产受限 | 保留 EOA 升级通道，用户可从 EOA 提取资产 |
 | **服务中断** | Magic 宕机导致所有社交登录不可用 | 实现降级：Magic 失败时回退到钱包直连 |
 | **成本** | Magic 按 MAU 收费，成本不可控 | 监控用量，设置阈值告警 |

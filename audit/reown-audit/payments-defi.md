@@ -1,7 +1,7 @@
 # Cinacoin 支付与 DeFi 审计报告
 
 **审计日期**: 2026-06-09  
-**审计范围**: 支付与交易功能 vs Reown/AppKit  
+**审计范围**: 支付与交易功能 vs Cinacoin/AppKit  
 **审计员**: Web3 支付与 DeFi 审计专家（子代理）
 
 ---
@@ -31,11 +31,11 @@
 
 ## 二、功能对比矩阵
 
-| # | Reown 功能 | Cinacoin 状态 | 差距程度 | 说明 |
+| # | Cinacoin 功能 | Cinacoin 状态 | 差距程度 | 说明 |
 |---|-----------|-------------|---------|------|
 | 1 | **In-platform Swap** (代币交换) | ❌ 完全缺失 | 🔴 严重 | 无任何 swap 代码、无 DEX 聚合器集成、无代币兑换 UI |
 | 2 | **In-platform On-Ramp** (法币入金) | ❌ 完全缺失 | 🔴 严重 | 无 Transak/MoonPay/Wyre 或任何法币→加密通道 |
-| 3 | **Pay with Self-Custodial Wallets** (自有钱包支付) | ❌ 完全缺失 | 🔴 严重 | 无 WalletConnect、无 MetaMask 集成、无钱包连接 UI |
+| 3 | **Pay with Self-Custodial Wallets** (自有钱包支付) | ❌ 完全缺失 | 🔴 严重 | 无 Cinacoin、无 MetaMask 集成、无钱包连接 UI |
 | 4 | **Deposit with Exchange** (交易所充值) | ❌ 完全缺失 | 🔴 严重 | 无交易所充值地址生成、无充值状态追踪 |
 | 5 | **Transaction Screening** (交易安全筛查) | ❌ 完全缺失 | 🟡 中等 | 无 Chainalysis/Elliptic/TRM Labs 集成 |
 | 6 | **Gas Estimation** (Gas 费预估) | ⚠️ 仅展示层 | 🔴 严重 | TransactionDetail 组件有 gasUsed/gasPrice 字段，但为静态 mock 数据，无实时预估 API |
@@ -70,7 +70,7 @@
 ### 3.3 交易签名和广播机制
 **状态**: ❌ 不存在
 
-- 无钱包连接（WalletConnect v2、MetaMask、Coinbase Wallet）
+- 无钱包连接（Cinacoin v2、MetaMask、Coinbase Wallet）
 - 无交易构建/签名逻辑
 - 无 RPC 节点连接配置
 - 无交易 nonce 管理
@@ -140,7 +140,7 @@ gasPrice: "25",         // 硬编码
 | 优先级 | 任务 | 预估工期 | 依赖 |
 |-------|------|---------|------|
 | P0.1 | 集成 Web3 库（viem/wagmi） | 1 周 | 无 |
-| P0.2 | 钱包连接（WalletConnect v2 + MetaMask） | 2 周 | P0.1 |
+| P0.2 | 钱包连接（Cinacoin v2 + MetaMask） | 2 周 | P0.1 |
 | P0.3 | RPC 节点基础设施（Alchemy/Infura/自建） | 1 周 | 无 |
 | P0.4 | 交易签名与广播服务 | 3 周 | P0.1, P0.3 |
 | P0.5 | Gas 预估 API（实时） | 1 周 | P0.3 |
@@ -206,7 +206,7 @@ gasPrice: "25",         // 硬编码
 ┌─────────────────────────────────────────────────┐
 │                  Frontend (apps/)                │
 │  wagmi + viem + @tanstack/react-query           │
-│  WalletConnect v2 Modal / AppKit                │
+│  Cinacoin v2 Modal / AppKit                │
 │  Swap UI + On-ramp Widget                       │
 └─────────────────────┬───────────────────────────┘
                       │
@@ -257,7 +257,7 @@ gasPrice: "25",         // 硬编码
 
 ## 八、结论
 
-Cinacoin 当前的支付与 DeFi 功能**完全空白**。现有的 wallet-explorer 是一个纯展示层的 mock UI，没有任何真实的区块链交互能力。与 Reown/AppKit 对比，7 项核心支付功能中 0 项已实现。
+Cinacoin 当前的支付与 DeFi 功能**完全空白**。现有的 wallet-explorer 是一个纯展示层的 mock UI，没有任何真实的区块链交互能力。与 Cinacoin/AppKit 对比，7 项核心支付功能中 0 项已实现。
 
 **最紧迫的三件事**：
 1. **集成 Web3 基础设施**（钱包连接 + RPC + 交易签名）— 这是一切的基础

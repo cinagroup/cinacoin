@@ -1,7 +1,7 @@
 /**
  * useCoinConnect — Custom Hook for wallet connection operations.
  *
- * 对标 wagmi's useConnect/useDisconnect + Reown's useAppKit.
+ * 对标 wagmi's useConnect/useDisconnect + Cinacoin's useAppKit.
  *
  * @example
  * ```tsx

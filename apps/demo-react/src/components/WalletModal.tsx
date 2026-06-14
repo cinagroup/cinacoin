@@ -12,7 +12,7 @@ interface WalletOption {
 
 const WALLETS: WalletOption[] = [
  { id: 'metamask', name: 'MetaMask', icon: CircleDot, color: 'var(--cc-demo-wallet-metamask)', popular: true },
- { id: 'walletconnect', name: 'WalletConnect', icon: Link2, color: 'var(--cc-demo-wallet-walletconnect)', popular: true },
+ { id: 'walletconnect', name: 'Cinacoin', icon: Link2, color: 'var(--cc-demo-wallet-walletconnect)', popular: true },
  { id: 'coinbase', name: 'Coinbase Wallet', icon: CircleDot, color: 'var(--cc-demo-wallet-coinbase)', popular: true },
  { id: 'rainbow', name: 'Rainbow', icon: Palette, color: 'var(--cc-demo-wallet-rainbow)', popular: true },
  { id: 'phantom', name: 'Phantom', icon: Ghost, color: 'var(--cc-demo-wallet-phantom)', popular: true },
@@ -29,7 +29,7 @@ interface WalletModalProps {
 }
 
 const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
- const { connected, address, walletId, connectMetaMask, connectWalletConnect, disconnect, error: ctxError, clearError } = useWallet()
+ const { connected, address, walletId, connectMetaMask, connectCinacoin, disconnect, error: ctxError, clearError } = useWallet()
  const modalRef = useRef<HTMLDivElement>(null)
 
  const [modalState, setModalState] = useState<ModalState>(isOpen ? 'open' : 'closed')
@@ -118,7 +118,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  } else if (wallet.id === 'walletconnect') {
  setModalState('connecting')
  try {
- await connectWalletConnect()
+ await connectCinacoin()
  } catch {
  // error handled by context
  }
@@ -133,7 +133,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  // Wallet not installed — show"no wallet" state
  setModalState('no-wallet')
  }
- }, [connectMetaMask, connectWalletConnect, clearError, isCoinbaseInstalled])
+ }, [connectMetaMask, connectCinacoin, clearError, isCoinbaseInstalled])
 
  const handleClose = useCallback(() => {
  setModalState('closed')
@@ -155,14 +155,14 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  setModalState('connecting')
  try {
  if (selectedWallet.id === 'walletconnect') {
- await connectWalletConnect()
+ await connectCinacoin()
  } else {
  await connectMetaMask()
  }
  } catch {
  // error handled by context
  }
- }, [selectedWallet, connectMetaMask, connectWalletConnect, clearError])
+ }, [selectedWallet, connectMetaMask, connectCinacoin, clearError])
 
  const handleDisconnect = useCallback(() => {
  disconnect()
@@ -416,12 +416,12 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
  </div>
  <h3 className="cc-display-sm mb-2">
  {selectedWallet.id === 'walletconnect'
- ? 'WalletConnect — QR Code Not Available'
+ ? 'Cinacoin — QR Code Not Available'
  : `${selectedWallet.name} Not Installed`}
  </h3>
  <p className="text-[var(--cc-muted)] text-body-sm mb-6 text-center max-w-xs">
  {selectedWallet.id === 'walletconnect'
- ? 'WalletConnect QR scanning requires a real provider setup. For now, try MetaMask or another injected wallet.'
+ ? 'Cinacoin QR scanning requires a real provider setup. For now, try MetaMask or another injected wallet.'
  : `You don't have ${selectedWallet.name} installed. Install it to connect your wallet.`}
  </p>
  <div className="flex flex-col gap-3 w-full max-w-xs">

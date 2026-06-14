@@ -15,7 +15,7 @@ export default function GlobalError({
         <div style={{ maxWidth: 600, margin: '4rem auto', textAlign: 'center' }}>
           <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Something went wrong</h2>
           <p style={{ color: 'var(--cc-body)', marginBottom: '1.5rem' }}>
-            The CinaCoin SDK demo encountered an error. This is expected in static-hosted environments.
+            The Cinacoin SDK demo encountered an error. This is expected in static-hosted environments.
           </p>
           <button
             onClick={reset}

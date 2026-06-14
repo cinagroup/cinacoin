@@ -1,6 +1,6 @@
 # Config.
 
-> `@cinacoin/config` — Configuration management for CinaCoin.
+> `@cinacoin/config` — Configuration management for Cinacoin.
 
 ## Installation.
 

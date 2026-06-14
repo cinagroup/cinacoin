@@ -4,7 +4,7 @@ Real-time push notifications for wallet activity.
 
 ## Overview.
 
-Get notified about transactions, approvals, transfers, and chain events in real-time. The CinaCoin Push system delivers notifications to iOS (via APNs) and Android (via FCM) devices, with support for batch delivery, retry logic, rate limiting, and detailed delivery tracking.
+Get notified about transactions, approvals, transfers, and chain events in real-time. The Cinacoin Push system delivers notifications to iOS (via APNs) and Android (via FCM) devices, with support for batch delivery, retry logic, rate limiting, and detailed delivery tracking.
 
 **Key capabilities:**
 

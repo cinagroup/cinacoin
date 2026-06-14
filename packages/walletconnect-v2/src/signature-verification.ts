@@ -1,5 +1,5 @@
 /**
- * Signature Verification & Nonce Management for WalletConnect v2.
+ * Signature Verification & Nonce Management for Cinacoin v2.
  *
  * Provides:
  * - EIP-191 personal signature verification (personal_sign)

@@ -1,6 +1,6 @@
 # Safe decoder.
 
-> `@cinacoin/safe-decoder` — Safe (Gnosis) transaction decoder for CinaCoin.
+> `@cinacoin/safe-decoder` — Safe (Gnosis) transaction decoder for Cinacoin.
 
 ## Installation.
 

@@ -1,6 +1,6 @@
 import { logger } from '@cinacoin/logger';
 /**
- * WalletConnect v2 Heartbeat & Reconnection Manager
+ * Cinacoin v2 Heartbeat & Reconnection Manager
  *
  * Provides:
  *   - Automatic ping/pong health checks (default: every 30s)
@@ -100,7 +100,7 @@ export interface HeartbeatConnector {
 // ============================================================
 
 /**
- * Manages the heartbeat lifecycle for WalletConnect v2 connections.
+ * Manages the heartbeat lifecycle for Cinacoin v2 connections.
  *
  * Monitors connection health via periodic pings, detects disconnections,
  * and performs automatic reconnection with exponential backoff.

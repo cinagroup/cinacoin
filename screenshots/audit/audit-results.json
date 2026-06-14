@@ -22,7 +22,7 @@
           "Failed to load resource: net::ERR_BLOCKED_BY_RESPONSE.NotSameOrigin",
           "Failed to load resource: net::ERR_BLOCKED_BY_RESPONSE.NotSameOrigin"
         ],
-        "bodyText": "Cinacoin\n\nService Status\n\nEN\n中文\nAuto-refresh\nRefresh\nSystem Outage\n\nLast checked at 11:15:54 PM\n\nServices\nMain Website\n\nCinaCoin official website — product overview and documentation\n\nstatusHealthy\nResponse Time\n\n701ms\n\nUptime (7d)\n\n100.00%\n\nLast Check\n\n11:15:54 PM\n\nDemo App\n\nInteractive demo — wall",
+        "bodyText": "Cinacoin\n\nService Status\n\nEN\n中文\nAuto-refresh\nRefresh\nSystem Outage\n\nLast checked at 11:15:54 PM\n\nServices\nMain Website\n\nCinacoin official website — product overview and documentation\n\nstatusHealthy\nResponse Time\n\n701ms\n\nUptime (7d)\n\n100.00%\n\nLast Check\n\n11:15:54 PM\n\nDemo App\n\nInteractive demo — wall",
         "screenshot": "/home/cina/.openclaw/workspace/screenshots/audit/status-desktop.png"
       },
       {
@@ -43,7 +43,7 @@
           "Failed to load resource: net::ERR_BLOCKED_BY_RESPONSE.NotSameOrigin",
           "Failed to load resource: net::ERR_BLOCKED_BY_RESPONSE.NotSameOrigin"
         ],
-        "bodyText": "Cinacoin\n\nService Status\n\nEN\n中文\nAuto-refresh\nRefresh\nSystem Outage\n\nLast checked at 11:15:58 PM\n\nServices\nMain Website\n\nCinaCoin official website — product overview and documentation\n\nstatusHealthy\nResponse Time\n\n692ms\n\nUptime (7d)\n\n100.00%\n\nLast Check\n\n11:15:58 PM\n\nDemo App\n\nInteractive demo — wall",
+        "bodyText": "Cinacoin\n\nService Status\n\nEN\n中文\nAuto-refresh\nRefresh\nSystem Outage\n\nLast checked at 11:15:58 PM\n\nServices\nMain Website\n\nCinacoin official website — product overview and documentation\n\nstatusHealthy\nResponse Time\n\n692ms\n\nUptime (7d)\n\n100.00%\n\nLast Check\n\n11:15:58 PM\n\nDemo App\n\nInteractive demo — wall",
         "screenshot": "/home/cina/.openclaw/workspace/screenshots/audit/status-mobile.png"
       },
       {
@@ -64,7 +64,7 @@
           "Failed to load resource: net::ERR_BLOCKED_BY_RESPONSE.NotSameOrigin",
           "Failed to load resource: net::ERR_BLOCKED_BY_RESPONSE.NotSameOrigin"
         ],
-        "bodyText": "Cinacoin\n\nService Status\n\nEN\n中文\nAuto-refresh\nRefresh\nSystem Outage\n\nLast checked at 11:16:03 PM\n\nServices\nMain Website\n\nCinaCoin official website — product overview and documentation\n\nstatusHealthy\nResponse Time\n\n867ms\n\nUptime (7d)\n\n100.00%\n\nLast Check\n\n11:16:02 PM\n\nDemo App\n\nInteractive demo — wall",
+        "bodyText": "Cinacoin\n\nService Status\n\nEN\n中文\nAuto-refresh\nRefresh\nSystem Outage\n\nLast checked at 11:16:03 PM\n\nServices\nMain Website\n\nCinacoin official website — product overview and documentation\n\nstatusHealthy\nResponse Time\n\n867ms\n\nUptime (7d)\n\n100.00%\n\nLast Check\n\n11:16:02 PM\n\nDemo App\n\nInteractive demo — wall",
         "screenshot": "/home/cina/.openclaw/workspace/screenshots/audit/status-dark.png"
       }
     ]

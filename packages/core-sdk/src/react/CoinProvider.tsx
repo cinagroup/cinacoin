@@ -1,7 +1,7 @@
 /**
  * CoinProvider — React Context for wallet state management.
  *
- *对标 Reown AppKit's WagmiProvider + Coinbase OnchainKit Provider.
+ *对标 Cinacoin AppKit's WagmiProvider + Coinbase OnchainKit Provider.
  * Provides wallet connection state, chain info, and actions to all child components.
  *
  * @example

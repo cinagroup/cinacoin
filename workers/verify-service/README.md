@@ -9,7 +9,7 @@ The Verify API provides a mechanism for:
 - **Wallets** to verify that a connecting dApp is legitimate
 - **Users** to see visual confirmation that a dApp is verified
 
-Similar to Reown (WalletConnect) Verify API, but self-hosted on Cloudflare Workers for the CINAcoin ecosystem.
+Similar to Cinacoin (Cinacoin) Verify API, but self-hosted on Cloudflare Workers for the CINAcoin ecosystem.
 
 ## Architecture
 
@@ -142,7 +142,7 @@ import { CINAcoinVerifyClient } from '@cinacoin/verify-sdk';
 
 const client = new CINAcoinVerifyClient();
 
-async function onWalletConnect(dappDomain: string) {
+async function onCinacoin(dappDomain: string) {
   const result = await client.checkDomain(dappDomain);
   
   if (result.verified) {
@@ -163,7 +163,7 @@ import React from 'react';
 
 const useDomainVerification = createUseDomainVerification(React);
 
-function WalletConnectModal({ dappDomain }: { dappDomain: string }) {
+function CinacoinModal({ dappDomain }: { dappDomain: string }) {
   const { verified, status, appName, loading } = useDomainVerification(dappDomain);
 
   return (

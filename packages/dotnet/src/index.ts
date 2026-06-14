@@ -131,7 +131,7 @@ export interface Network {
 export interface PairingData {
   /** Pairing topic. */
   topic: string;
-  /** Pairing URI (WalletConnect format). */
+  /** Pairing URI (Cinacoin format). */
   uri: string;
   /** Peer metadata, if available. */
   peerMetadata?: AppMetadata;
@@ -200,7 +200,7 @@ export interface SessionProposal {
 export interface SessionResult {
   /** Session identifier. */
   sessionId: string;
-  /** WalletConnect URI for pairing. */
+  /** Cinacoin URI for pairing. */
   uri: string;
 }
 
@@ -213,7 +213,7 @@ export interface ConnectParams {
   topic?: string;
   /** Optional relay URL override. */
   relayUrl?: string;
-  /** Optional pairing URI (WalletConnect format). */
+  /** Optional pairing URI (Cinacoin format). */
   uri?: string;
   /** Chain IDs the dApp supports. */
   chains?: readonly number[];

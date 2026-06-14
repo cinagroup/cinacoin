@@ -4,8 +4,8 @@
  * React Native adapter for Cinacoin — native UI components, not Web Components.
  */
 
-export { CinaCoinProvider, useCinaCoinContext } from './CinaCoinProvider.js';
-export type { CinaCoinConfig, CinaCoinContextValue, ThemeMode, ChainConfig } from './CinaCoinProvider.js';
+export { CinacoinProvider, useCinacoinContext } from './CinacoinProvider.js';
+export type { CinacoinConfig, CinacoinContextValue, ThemeMode, ChainConfig } from './CinacoinProvider.js';
 
 export { ConnectButton } from './ConnectButton.js';
 export type { ConnectButtonProps } from './ConnectButton.js';

@@ -17,7 +17,7 @@ const tracker = new EventTracker()
 tracker.addProvider(new InMemoryProvider())
 
 // Track events
-await tracker.trackWalletConnected('metamask', 1)
+await tracker.trackCinacoined('metamask', 1)
 await tracker.trackTransactionAttempted('0x123', 1, 'metamask')
 await tracker.trackTransactionCompleted('0x123', 1, 'metamask')
 await tracker.trackChainSwitched(1, 137)
@@ -92,7 +92,7 @@ tracker.addProvider(remote)
 
 ```typescript
 try {
-  await tracker.trackWalletConnected('metamask', 1)
+  await tracker.trackCinacoined('metamask', 1)
 } catch (err) {
   if (err.code === 'PROVIDER_ERROR') { /* analytics provider failed */ }
 }

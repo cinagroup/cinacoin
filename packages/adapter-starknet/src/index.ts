@@ -22,7 +22,7 @@ export {
   type StarknetCall,
   type StarknetTransaction,
   type StarknetTransactionResult,
-  type StarknetWalletConnector,
+  type StarknetCinacoinor,
   type StarknetConnectParams,
 } from './types.js';
 

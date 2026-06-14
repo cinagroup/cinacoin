@@ -67,7 +67,7 @@ import { newFeature } from '@cinacoin/...';
 
 ## Related Work
 
-<!-- Are there similar features in other libraries (Reown, RainbowKit, web3modal, etc.)? Link to relevant docs or code. -->
+<!-- Are there similar features in other libraries (Cinacoin, RainbowKit, web3modal, etc.)? Link to relevant docs or code. -->
 
 ## Implementation Notes
 

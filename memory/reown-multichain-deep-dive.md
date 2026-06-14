@@ -1,11 +1,11 @@
-# Reown AppKit 多链适配层 Deep-Dive 报告
+# Cinacoin AppKit 多链适配层 Deep-Dive 报告
 
 > 生成时间: 2026-05-17T04:51 UTC
-> 数据来源: Reown 官方文档 (docs.reown.com)
+> 数据来源: Cinacoin 官方文档 (docs.cinacoin.com)
 
 ---
 
-## 一、Reown AppKit 多链架构概述
+## 一、Cinacoin AppKit 多链架构概述
 
 ### 核心组件
 
@@ -14,11 +14,11 @@
 | **Ethereum Provider** | `@walletconnect/ethereum-provider` | EIP-1193 兼容的 EVM Provider |
 | **Solana Adapter** | `@walletconnect/solana-adapter` | 与 `@solana/wallet-adapter` 集成 |
 | **Universal Provider** | `@walletconnect/universal-provider` | 多链通用 Provider，支持所有命名空间 |
-| **AppKit Core** | `@reown/appkit` | 钱包连接 UI + 多链编排 |
+| **AppKit Core** | `@cinacoin/appkit` | 钱包连接 UI + 多链编排 |
 
 ### 多链支持模式
 
-Reown AppKit 使用 **CAIP-2 命名空间** 格式识别链:
+Cinacoin AppKit 使用 **CAIP-2 命名空间** 格式识别链:
 
 ```
 <namespace>:<chainId>
@@ -52,7 +52,7 @@ Reown AppKit 使用 **CAIP-2 命名空间** 格式识别链:
 - `chainChanged` - 链切换
 - `accountsChanged` - 账户切换
 - `connect` / `disconnect` - 连接状态
-- `display_uri` - WalletConnect URI
+- `display_uri` - Cinacoin URI
 - `session_event` - 会话事件
 
 **网络配置:** 通过 Viem `chains/index.ts` 自动支持，或使用 `defineChain()` 自定义
@@ -133,7 +133,7 @@ Reown AppKit 使用 **CAIP-2 命名空间** 格式识别链:
 ### defineChain API (统一方式)
 
 ```typescript
-import { defineChain } from '@reown/appkit/networks';
+import { defineChain } from '@cinacoin/appkit/networks';
 
 const customNetwork = defineChain({
   id: 123456789,                    // 链 ID
@@ -332,7 +332,7 @@ import {
   AdapterMetadata,
 } from '@onchainux/core';
 import { EthereumProvider } from '@walletconnect/ethereum-provider';
-// 或直接使用 @reown/appkit 的 createAppKit
+// 或直接使用 @cinacoin/appkit 的 createAppKit
 import type { Provider as Eip1193Provider } from 'eip1193-provider';
 
 export class EthereumAdapter implements ChainAdapter<Eip1193Provider> {
@@ -505,7 +505,7 @@ export class EthereumAdapter implements ChainAdapter<Eip1193Provider> {
 ├── src/
 │   ├── index.ts
 │   ├── solana-adapter.ts        # 主适配器实现
-│   ├── wallet-connect-adapter.ts # WalletConnect Solana Adapter 包装
+│   ├── wallet-connect-adapter.ts # Cinacoin Solana Adapter 包装
 │   └── types.ts
 ├── package.json
 └── tsconfig.json
@@ -1456,7 +1456,7 @@ await provider.request({
 
 | 适配器 | 估算工时 | 复杂度 | 说明 |
 |--------|----------|--------|------|
-| `adapter-ethereum` | 3-5 天 | 中 | EIP-1193 成熟，Reown 提供完善 Provider |
+| `adapter-ethereum` | 3-5 天 | 中 | EIP-1193 成熟，Cinacoin 提供完善 Provider |
 | `adapter-solana` | 4-6 天 | 中高 | 需要处理 base64 序列化、versioned transactions |
 | `adapter-bitcoin` | 5-7 天 | 高 | PSBT 复杂、UTXO 模型、需要外部索引器 |
 | `adapter-ton` | 4-6 天 | 中高 | BoC 编码、TEP-123 地址格式 |
@@ -1484,7 +1484,7 @@ await provider.request({
 
 ## 十、关键设计决策
 
-1. **统一使用 Universal Provider 作为非 EVM 链基础** - Reown 官方模式，减少适配成本
+1. **统一使用 Universal Provider 作为非 EVM 链基础** - Cinacoin 官方模式，减少适配成本
 2. **EVM 专用 Ethereum Provider** - EIP-1193 完整兼容，生态工具链支持好
 3. **CAIP-2 作为统一链标识** - 跨适配器一致
 4. **适配器按需注册，惰性初始化** - 减少 bundle size
@@ -1492,4 +1492,4 @@ await provider.request({
 
 ---
 
-*报告完成。所有数据来自 Reown 官方文档，截至 2026-05-17。*
+*报告完成。所有数据来自 Cinacoin 官方文档，截至 2026-05-17。*

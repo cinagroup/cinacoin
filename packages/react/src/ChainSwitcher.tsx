@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, type CSSProperties } from 'react';
-import { useCinaCoinContext } from './CinacoinProvider.js';
+import { useCinacoinContext } from './CinacoinProvider.js';
 
 /** Props for the React ChainSwitcher wrapper. */
 export interface ChainSwitcherProps {
@@ -26,7 +26,7 @@ export function ChainSwitcher({
   onChainChange,
 }: ChainSwitcherProps): JSX.Element {
   const ref = useRef<HTMLElement>(null);
-  const { config, account, switchChain } = useCinaCoinContext();
+  const { config, account, switchChain } = useCinacoinContext();
 
   const chains = config.chains ?? [];
   const activeChainId = account.chainId ?? chains[0]?.id ?? 1;

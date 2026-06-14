@@ -1,9 +1,9 @@
 /**
- * WalletConnect v2 Client.
+ * Cinacoin v2 Client.
  *
  * Full client implementation that unifies pairing, session management,
  * relay connection, and request/response handling into a single
- * easy-to-use API. Compatible with the Reown/WalletConnect v2 API surface.
+ * easy-to-use API. Compatible with the Cinacoin/Cinacoin v2 API surface.
  */
 
 import { EventEmitter } from '@cinacoin/core-sdk';
@@ -30,8 +30,8 @@ import { logger } from '@cinacoin/logger';
 // Client Configuration
 // ============================================================
 
-/** Configuration for WalletConnectClient. */
-export interface WalletConnectClientConfig {
+/** Configuration for CinacoinClient. */
+export interface CinacoinClientConfig {
   /** Relay server URL. */
   relayUrl: string;
   /** dApp metadata (name, description, url, icons). */
@@ -68,11 +68,11 @@ export class WcClientError extends Error {
 }
 
 // ============================================================
-// WalletConnectClient
+// CinacoinClient
 // ============================================================
 
 /**
- * WalletConnect v2 client — the main entry point for dApps.
+ * Cinacoin v2 client — the main entry point for dApps.
  *
  * Provides a unified API for:
  * - Initializing the client
@@ -84,7 +84,7 @@ export class WcClientError extends Error {
  *
  * @example
  * ```ts
- * const client = new WalletConnectClient({
+ * const client = new CinacoinClient({
  *   relayUrl: 'wss://relay.example.com',
  *   metadata: {
  *     name: 'My dApp',
@@ -110,18 +110,18 @@ export class WcClientError extends Error {
  * client.on('connected', (session) => { ... });
  * ```
  */
-export class WalletConnectClient extends EventEmitter {
+export class CinacoinClient extends EventEmitter {
   /** SDK version. */
   static readonly VERSION = '0.1.0';
 
-  private config: WalletConnectClientConfig;
+  private config: CinacoinClientConfig;
   private sessionManager: WcSessionManager | null = null;
   private relay: WcRelay | null = null;
   private initialized = false;
   private pairings: Map<string, Pairing> = new Map();
   private eventListeners: Map<string, Set<(...args: unknown[]) => void>> = new Map();
 
-  constructor(config: WalletConnectClientConfig) {
+  constructor(config: CinacoinClientConfig) {
     super();
     this.config = config;
   }
@@ -178,7 +178,7 @@ export class WalletConnectClient extends EventEmitter {
     if (options?.uri) {
       // Connect via existing URI
       if (!isValidWcUri(options.uri)) {
-        throw new WcClientError(1000, 'Invalid WalletConnect URI');
+        throw new WcClientError(1000, 'Invalid Cinacoin URI');
       }
 
       this.sessionManager = new WcSessionManager({
@@ -476,14 +476,14 @@ export class WalletConnectClient extends EventEmitter {
   // ============================================================
 
   /**
-   * Validate a WalletConnect v2 URI.
+   * Validate a Cinacoin v2 URI.
    */
   static isValidUri(uri: string): boolean {
     return isValidWcUri(uri);
   }
 
   /**
-   * Parse a WalletConnect v2 URI into its components.
+   * Parse a Cinacoin v2 URI into its components.
    */
   static parseUri(uri: string) {
     return parseWcUri(uri);

@@ -1,10 +1,10 @@
-# 从 WalletConnect 迁移到 Cinacoin
+# 从 Cinacoin 迁移到 Cinacoin
 
 > 逐步迁移指南，从 `@walletconnect/` 迁移到 `@cinacoin/`。
 
 ## 概述
 
-本指南提供从 WalletConnect 生态完整迁移到 Cinacoin 的逐步说明，包括：
+本指南提供从 Cinacoin 生态完整迁移到 Cinacoin 的逐步说明，包括：
 
 - ✅ 依赖替换对照表
 - ✅ 代码迁移：Before / After 对比
@@ -18,12 +18,12 @@
 
 ## 为什么迁移？
 
-| 对比项 | WalletConnect / Reown | Cinacoin |
+| 对比项 | Cinacoin / Cinacoin | Cinacoin |
 |--------|----------------------|----------|
 | 月费 | $500–$5,000+ | $0（仅需自建基础设施成本） |
 | MAU 限制 | 免费版 500 MAU | 无限制 |
-| 品牌露出 | Reown 品牌不可控 | 完全白标 |
-| 数据隐私 | Reown 可见连接数据 | 数据完全自有 |
+| 品牌露出 | Cinacoin 品牌不可控 | 完全白标 |
+| 数据隐私 | Cinacoin 可见连接数据 | 数据完全自有 |
 | 可靠性 | 单点故障风险 | 多 Region 自建部署 |
 | 可定制性 | 有限 | 完全开源可控 |
 
@@ -37,8 +37,8 @@
 npm uninstall @walletconnect/ethereum-provider \
   @walletconnect/modal \
   @walletconnect/sign-client \
-  @reown/appkit \
-  @reown/appkit-adapter-wagmi
+  @cinacoin/appkit \
+  @cinacoin/appkit-adapter-wagmi
 ```
 
 ### 安装 Cinacoin
@@ -61,12 +61,12 @@ npm install @cinacoin/react-native
 
 ### 2.1 初始化
 
-#### Before (WalletConnect v2)
+#### Before (Cinacoin v2)
 
 ```typescript
-import { createWeb3Modal, defaultConfig } from '@reown/appkit/react'
-import { WagmiAdapter } from '@reown/appkit-adapter-wagmi'
-import { mainnet, polygon } from '@reown/appkit/networks'
+import { createWeb3Modal, defaultConfig } from '@cinacoin/appkit/react'
+import { WagmiAdapter } from '@cinacoin/appkit-adapter-wagmi'
+import { mainnet, polygon } from '@cinacoin/appkit/networks'
 
 const wagmiAdapter = new WagmiAdapter({
   ssr: true,
@@ -127,7 +127,7 @@ import { CinacoinProvider } from '@cinacoin/react'
 #### Before
 
 ```typescript
-import { useWeb3Modal } from '@reown/appkit/react'
+import { useWeb3Modal } from '@cinacoin/appkit/react'
 
 const { open } = useWeb3Modal()
 
@@ -161,7 +161,7 @@ const handleConnect = () => {
 #### Before
 
 ```typescript
-import { useAppKitAccount, useAppKitProvider } from '@reown/appkit/react'
+import { useAppKitAccount, useAppKitProvider } from '@cinacoin/appkit/react'
 import { useAccount } from 'wagmi'
 
 const { address, isConnected } = useAppKitAccount()
@@ -191,7 +191,7 @@ import { useSignMessage } from 'wagmi'
 
 const { signMessage, data, isSuccess } = useSignMessage()
 
-signMessage({ message: 'Hello WalletConnect!' })
+signMessage({ message: 'Hello Cinacoin!' })
 ```
 
 #### After
@@ -244,7 +244,7 @@ sendTransaction({
 
 ```typescript
 import { useSwitchChain } from 'wagmi'
-import { useAppKitProvider } from '@reown/appkit/react'
+import { useAppKitProvider } from '@cinacoin/appkit/react'
 
 const { switchChain } = useSwitchChain()
 
@@ -265,18 +265,18 @@ switchChain({ chainId: 137 })
 
 ## 3. API 映射表
 
-| WalletConnect / Reown API | Cinacoin 替代 | 说明 |
+| Cinacoin / Cinacoin API | Cinacoin 替代 | 说明 |
 |---------------------------|---------------|------|
 | `@walletconnect/sign-client` | `@cinacoin/core-sdk` | 核心连接管理 |
 | `@walletconnect/ethereum-provider` | `@cinacoin/core-sdk` (InjectedProvider) | EVM Provider |
 | `@walletconnect/modal` | `@cinacoin/react` (ConnectButton) | 连接弹窗 |
-| `@reown/appkit` | `@cinacoin/react` | React 适配器 |
-| `@reown/appkit-adapter-wagmi` | `@cinacoin/react` (内置 wagmi 适配) | Wagmi 适配 |
+| `@cinacoin/appkit` | `@cinacoin/react` | React 适配器 |
+| `@cinacoin/appkit-adapter-wagmi` | `@cinacoin/react` (内置 wagmi 适配) | Wagmi 适配 |
 | `createWeb3Modal()` | `<CinacoinProvider>` | 初始化方式 |
 | `useAppKitAccount()` | `useAccount()` | 账户状态 |
 | `useAppKitProvider()` | `useCinacoin()` | Provider 实例 |
 | `Web3Modal.open()` | `ConnectButton` / `useConnect()` | 连接触发 |
-| `WalletConnectProvider` | `Cinacoin + RelayTransport` | 底层传输 |
+| `CinacoinProvider` | `Cinacoin + RelayTransport` | 底层传输 |
 | `projectId` (WC) | `projectId` (Cinacoin) + `relayUrl` | 配置参数 |
 | `showQrModal: true` | 内置 QR 码扫描 | 扫码连接 |
 | `themeVariables` | `theme` 配置对象 | 主题定制 |
@@ -292,9 +292,9 @@ switchChain({ chainId: 137 })
 ### 钱包连接
 
 - [ ] MetaMask / 注入钱包连接
-- [ ] WalletConnect QR 扫码连接
+- [ ] Cinacoin QR 扫码连接
 - [ ] Coinbase Wallet 连接
-- [ ] WalletConnect Deep Link（移动端）
+- [ ] Cinacoin Deep Link（移动端）
 - [ ] EIP-6963 钱包自动发现
 - [ ] 自定义钱包列表配置
 
@@ -357,7 +357,7 @@ switchChain({ chainId: 137 })
 
 ### Phase 1：并行运行（1-2 天）
 
-- 安装 Cinacoin 依赖，与 WalletConnect 并行运行
+- 安装 Cinacoin 依赖，与 Cinacoin 并行运行
 - 使用 feature flag 控制新旧连接方式
 - 在测试环境验证
 
@@ -381,7 +381,7 @@ switchChain({ chainId: 137 })
 
 ### Phase 5：清理（0.5 天）
 
-- 移除 WalletConnect 依赖
+- 移除 Cinacoin 依赖
 - 清理旧代码
 - 更新 CI/CD 配置
 
@@ -389,9 +389,9 @@ switchChain({ chainId: 137 })
 
 ## 7. 常见迁移问题
 
-### Q: 需要同时支持 WalletConnect 和 Cinacoin 吗？
+### Q: 需要同时支持 Cinacoin 和 Cinacoin 吗？
 
-过渡期可以，但建议尽快完全迁移。Cinacoin 支持标准的 WalletConnect 协议作为传输层。
+过渡期可以，但建议尽快完全迁移。Cinacoin 支持标准的 Cinacoin 协议作为传输层。
 
 ### Q: 用户需要重新连接钱包吗？
 
@@ -409,4 +409,4 @@ Cinacoin 支持 `preferredWallets` 和 `excludedWallets` 配置，功能完全�
 - [Core SDK API](/api/core-sdk) — 核心 SDK 参考
 - [React Hooks API](/api/react-hooks) — Hooks 参考
 - [配置选项](/guide/configuration) — 完整配置参考
-- [Reown 迁移指南](/guide/migrate-from-reown) — 更详细的 Reown 迁移说明
+- [Cinacoin 迁移指南](/guide/migrate-from-cinacoin) — 更详细的 Cinacoin 迁移说明

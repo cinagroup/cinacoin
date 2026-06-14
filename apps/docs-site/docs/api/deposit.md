@@ -1,6 +1,6 @@
 # Deposit.
 
-> `@cinacoin/deposit` — Deposit tracking and management for CinaCoin.
+> `@cinacoin/deposit` — Deposit tracking and management for Cinacoin.
 
 ## Installation.
 

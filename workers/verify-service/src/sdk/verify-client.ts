@@ -112,7 +112,7 @@ export const verifyClient = new CINAcoinVerifyClient();
  * ```tsx
  * import { useDomainVerification } from '@cinacoin/verify-sdk';
  * 
- * function WalletConnectButton() {
+ * function CinacoinButton() {
  *   const { verified, status, loading } = useDomainVerification(window.location.hostname);
  *   
  *   return (
@@ -168,10 +168,10 @@ export function createUseDomainVerification(React: { useState: any; useEffect: a
 }
 
 /**
- * Web3Modal / WalletConnect integration helper.
+ * Web3Modal / Cinacoin integration helper.
  * Call this in your wallet connection callback to verify the dApp domain.
  */
-export async function verifyWalletConnection(): Promise<{
+export async function verifyCinacoinion(): Promise<{
   verified: boolean;
   domain: string;
   status: VerificationStatus;

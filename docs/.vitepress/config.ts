@@ -35,7 +35,7 @@ export default defineConfig({
       { text: '指南', link: '/guide/quick-start' },
       { text: '快速开始 (图文)', link: '/guide/quick-start-visual' },
       { text: 'API', link: '/api/core-sdk' },
-      { text: '迁移指南', link: '/guide/migrate-from-reown' },
+      { text: '迁移指南', link: '/guide/migrate-from-cinacoin' },
       { text: '故障排除', link: '/guide/troubleshooting' },
       { text: '示例', link: '/examples/web' },
       { text: '部署', link: '/deployment/environment-variables' },
@@ -57,7 +57,7 @@ export default defineConfig({
         {
           text: '迁移',
           items: [
-            { text: '从 Reown/WalletConnect 迁移', link: '/guide/migrate-from-reown' },
+            { text: '从 Cinacoin/Cinacoin 迁移', link: '/guide/migrate-from-cinacoin' },
           ],
         },
         {

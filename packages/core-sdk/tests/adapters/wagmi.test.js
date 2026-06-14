@@ -129,7 +129,7 @@ describe('MultiChainConnector', () => {
             },
             connectors: [
                 createMockWagmiConnector({ id: 'injected', name: 'MetaMask' }),
-                createMockWagmiConnector({ id: 'walletconnect', name: 'WalletConnect' }),
+                createMockWagmiConnector({ id: 'walletconnect', name: 'Cinacoin' }),
             ],
         };
         connector = new MultiChainConnector(config);

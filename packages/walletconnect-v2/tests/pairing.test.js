@@ -32,7 +32,7 @@ describe('parseWcUri', () => {
     });
     it('throws on unsupported version', () => {
         const uri = 'wc:abc123def456789012345678901234567890123456789012345678901234@1?relay-protocol=waku&relay-url=wss%3A%2F%2Frelay.example.com&symKey=deadbeef00000000deadbeef00000000deadbeef00000000deadbeef00000000';
-        expect(() => parseWcUri(uri)).toThrow('Unsupported WalletConnect version: 1');
+        expect(() => parseWcUri(uri)).toThrow('Unsupported Cinacoin version: 1');
     });
     it('throws on missing symKey', () => {
         const uri = 'wc:abc123def456789012345678901234567890123456789012345678901234@2?relay-protocol=waku&relay-url=wss%3A%2F%2Frelay.example.com';

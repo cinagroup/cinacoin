@@ -1,18 +1,18 @@
-# Reown (WalletConnect) 完整复刻实现方案
+# Cinacoin (Cinacoin) 完整复刻实现方案
 
-> **项目**: CinaCoin - Reown 完整复刻  
+> **项目**: Cinacoin - Cinacoin 完整复刻  
 > **目标**: 使用自有品牌和 Logo，继续使用官方中继 relay.walletconnect.com  
 > **日期**: 2026-06-14  
 > **状态**: 90% 完成
 
 ---
 
-## 一、Reown 项目架构分析
+## 一、Cinacoin 项目架构分析
 
 ### 1.1 核心仓库结构
 
 ```
-reown-com/
+cinacoin-com/
 ├── appkit/                    # 主 SDK（dApp 端）
 │   ├── packages/
 │   │   ├── core/              # 核心功能
@@ -22,7 +22,7 @@ reown-com/
 │   │   └── providers/         # 钱包提供商
 │   └── apps/                  # 示例应用
 │
-├── reown-walletkit-js/        # 钱包端 SDK
+├── cinacoin-walletkit-js/        # 钱包端 SDK
 │   └── packages/
 │       ├── core/              # 钱包核心
 │       └── ui/                # 钱包 UI
@@ -61,7 +61,7 @@ reown-com/
 
 ---
 
-## 二、CinaCoin 当前实现状态
+## 二、Cinacoin 当前实现状态
 
 ### 2.1 已完成的核心包
 
@@ -91,9 +91,9 @@ packages/
     └── siwx/                  ✅ SIWX 实现
 ```
 
-### 2.2 与 Reown 的对比
+### 2.2 与 Cinacoin 的对比
 
-| 功能 | Reown | CinaCoin | 状态 |
+| 功能 | Cinacoin | Cinacoin | 状态 |
 |------|-------|----------|------|
 | 钱包连接 | ✅ | ✅ | 完成 |
 | 多链支持 | ✅ | ✅ | 完成 |
@@ -115,7 +115,7 @@ packages/
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    CinaCoin SDK 架构                         │
+│                    Cinacoin SDK 架构                         │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
 │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐      │
@@ -156,7 +156,7 @@ packages/
 
 ```typescript
 /**
- * WalletConnect Cloud Relay 实现
+ * Cinacoin Cloud Relay 实现
  * 
  * 连接到 relay.walletconnect.com
  * 实现 IRN (Inter-Relay Network) 协议
@@ -270,13 +270,13 @@ export class CloudRelay extends EventEmitter {
 }
 ```
 
-#### 3.2.2 WcConnector - WalletConnect 连接器
+#### 3.2.2 WcConnector - Cinacoin 连接器
 
 **文件**: `packages/walletconnect-v2/src/wc-connector.ts`
 
 ```typescript
 /**
- * WalletConnect v2 连接器
+ * Cinacoin v2 连接器
  * 
  * 实现 Connector 接口
  * 支持 QR 码、深度链接、官方中继
@@ -421,7 +421,7 @@ export class WcConnector extends Connector {
 /**
  * 会话管理器
  * 
- * 管理 WalletConnect 会话的生命周期
+ * 管理 Cinacoin 会话的生命周期
  * 支持持久化和恢复
  */
 
@@ -522,33 +522,33 @@ export class SessionManager {
 
 ```bash
 # 1. 替换包名
-find packages -name "package.json" -exec sed -i 's/@reown\//@cinacoin\//g' {} \;
+find packages -name "package.json" -exec sed -i 's/@cinacoin\//@cinacoin\//g' {} \;
 
 # 2. 替换导入语句
-find packages -name "*.ts" -exec sed -i 's/from "@reown/from "@cinacoin\//g' {} \;
+find packages -name "*.ts" -exec sed -i 's/from "@cinacoin/from "@cinacoin\//g' {} \;
 
 # 3. 替换品牌名称
-find packages -name "*.ts" -exec sed -i 's/Reown/CinaCoin/g' {} \;
-find packages -name "*.ts" -exec sed -i 's/WalletConnect/CinaCoin/g' {} \;
+find packages -name "*.ts" -exec sed -i 's/Cinacoin/Cinacoin/g' {} \;
+find packages -name "*.ts" -exec sed -i 's/Cinacoin/Cinacoin/g' {} \;
 ```
 
 #### 3.3.2 UI 层面
 
-| 元素 | Reown | CinaCoin |
+| 元素 | Cinacoin | Cinacoin |
 |------|-------|----------|
-| Logo | Reown Logo | CinaCoin Logo |
+| Logo | Cinacoin Logo | Cinacoin Logo |
 | 主色 | #3396FF | #00D4AA |
 | 字体 | Inter | Inter |
-| 名称 | Reown AppKit | CinaCoin SDK |
+| 名称 | Cinacoin AppKit | Cinacoin SDK |
 
 #### 3.3.3 文档层面
 
 ```markdown
 # 替换前
-Welcome to Reown AppKit documentation.
+Welcome to Cinacoin AppKit documentation.
 
 # 替换后
-Welcome to CinaCoin SDK documentation.
+Welcome to Cinacoin SDK documentation.
 ```
 
 ### 3.4 基础设施配置
@@ -632,7 +632,7 @@ describe('CloudRelay', () => {
 ```typescript
 // packages/walletconnect-v2/tests/integration.test.ts
 
-describe('WalletConnect Integration', () => {
+describe('Cinacoin Integration', () => {
   it('should establish session with MetaMask', async () => {
     const connector = new WcConnector({
       projectId: process.env.PROJECT_ID,
@@ -707,7 +707,7 @@ test('should connect wallet via QR code', async ({ page }) => {
 
 ### 5.2 配置迁移
 
-- [x] 申请 WalletConnect Project ID
+- [x] 申请 Cinacoin Project ID
 - [x] 配置 Cloudflare Workers
 - [x] 配置 D1 数据库
 - [x] 配置 KV 命名空间
@@ -718,7 +718,7 @@ test('should connect wallet via QR code', async ({ page }) => {
 - [ ] 单元测试通过
 - [ ] 集成测试通过
 - [ ] 与 MetaMask 测试连接
-- [ ] 与 WalletConnect 钱包测试
+- [ ] 与 Cinacoin 钱包测试
 - [ ] 性能测试通过
 - [ ] 安全审计通过
 
@@ -750,7 +750,7 @@ test('should connect wallet via QR code', async ({ page }) => {
 
 | 风险 | 影响 | 缓解措施 |
 |------|------|----------|
-| WalletConnect API 变更 | 中 | 抽象适配层，便于更新 |
+| Cinacoin API 变更 | 中 | 抽象适配层，便于更新 |
 | 中继服务不稳定 | 高 | 实现故障转移和重试机制 |
 | 性能瓶颈 | 中 | 使用 KV 缓存，优化查询 |
 | 安全漏洞 | 高 | 定期审计，使用成熟加密库 |
@@ -760,10 +760,10 @@ test('should connect wallet via QR code', async ({ page }) => {
 
 ## 八、总结
 
-CinaCoin 已经完成了对 Reown (WalletConnect) 的核心功能复刻：
+Cinacoin 已经完成了对 Cinacoin (Cinacoin) 的核心功能复刻：
 
 ✅ **已完成**:
-- 完整的 WalletConnect v2 协议实现
+- 完整的 Cinacoin v2 协议实现
 - 官方中继 relay.walletconnect.com 集成
 - 多链支持（EVM、Solana、Bitcoin 等）
 - 会话管理和持久化
@@ -785,4 +785,4 @@ CinaCoin 已经完成了对 Reown (WalletConnect) 的核心功能复刻：
 
 *文档版本: v1.0*  
 *最后更新: 2026-06-14*  
-*维护者: CinaCoin Team*
+*维护者: Cinacoin Team*

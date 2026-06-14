@@ -1,6 +1,6 @@
 # Nuxt.
 
-> `@cinacoin/nuxt` — Nuxt 3 module for CinaCoin.
+> `@cinacoin/nuxt` — Nuxt 3 module for Cinacoin.
 
 ## Installation.
 

@@ -21,14 +21,14 @@ import { logger } from '@cinacoin/logger';
  *
  * @example
  * ```ts
- * const connector = new SolflareWalletConnector();
+ * const connector = new SolflareCinacoinor();
  * if (connector.isAvailable()) {
  *   const { publicKey } = await connector.connect();
  *   logger.info('Connected:', publicKey);
  * }
  * ```
  */
-export class SolflareWalletConnector implements SolanaConnector {
+export class SolflareCinacoinor implements SolanaConnector {
   readonly id = 'solflare';
   readonly name = 'Solflare';
   readonly icon = 'https://solflare.com/icon.svg';

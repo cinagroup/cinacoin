@@ -76,7 +76,7 @@ export function filterWallets(filter: WalletFilter): WalletRegistryEntry[] {
 
   if (filter.walletConnectV2 !== undefined) {
     results = results.filter(
-      (w) => (w.supportsWalletConnectV2 ?? false) === filter.walletConnectV2
+      (w) => (w.supportsCinacoinV2 ?? false) === filter.walletConnectV2
     );
   }
 
@@ -162,9 +162,9 @@ export function getWalletsForChain(caip2: string): WalletRegistryEntry[] {
   );
 }
 
-/** Get wallets that support WalletConnect v2. */
+/** Get wallets that support Cinacoin v2. */
 export function getWcV2Wallets(): WalletRegistryEntry[] {
-  return WALLET_REGISTRY.filter((w) => w.supportsWalletConnectV2 ?? false);
+  return WALLET_REGISTRY.filter((w) => w.supportsCinacoinV2 ?? false);
 }
 
 /** Get wallets that support EIP-6963. */
@@ -175,7 +175,7 @@ export function getEIP6963Wallets(): WalletRegistryEntry[] {
 /** Get recommended wallet order (WC v2, sorted by popularity desc). */
 export function getRecommendedWalletOrder(): WalletRegistryEntry[] {
   return sortWallets(
-    WALLET_REGISTRY.filter((w) => w.supportsWalletConnectV2 ?? false),
+    WALLET_REGISTRY.filter((w) => w.supportsCinacoinV2 ?? false),
     { field: "popularity", direction: "desc" }
   );
 }

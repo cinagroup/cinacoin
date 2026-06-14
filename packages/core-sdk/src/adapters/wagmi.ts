@@ -278,7 +278,7 @@ export class WagmiConnector extends EventEmitter implements Connector {
  * instances and exposes the Cinacoin Connector API.
  *
  * Use this when you need to support multiple wallet types (injected,
- * WalletConnect, Coinbase, etc.) through a single connector.
+ * Cinacoin, Coinbase, etc.) through a single connector.
  */
 export class MultiChainConnector extends EventEmitter implements Connector {
   readonly id = 'wagmi-multi';

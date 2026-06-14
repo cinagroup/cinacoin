@@ -1,13 +1,13 @@
 /**
  * Universal Link tests.
  *
- * Tests cover generateUniversalLink and generateWalletConnectUniversalLink.
+ * Tests cover generateUniversalLink and generateCinacoinUniversalLink.
  */
 
 import { describe, it, expect } from 'vitest';
 import {
   generateUniversalLink,
-  generateWalletConnectUniversalLink,
+  generateCinacoinUniversalLink,
 } from '../../src/links/universal-link.js';
 
 /* ------------------------------------------------------------------ */
@@ -74,12 +74,12 @@ describe('generateUniversalLink', () => {
 });
 
 /* ------------------------------------------------------------------ */
-/*  generateWalletConnectUniversalLink                                 */
+/*  generateCinacoinUniversalLink                                 */
 /* ------------------------------------------------------------------ */
 
-describe('generateWalletConnectUniversalLink', () => {
+describe('generateCinacoinUniversalLink', () => {
   it('generates a link for MetaMask', () => {
-    const url = generateWalletConnectUniversalLink(
+    const url = generateCinacoinUniversalLink(
       'metamask',
       'wc:abc@2?relay-protocol=irn&symKey=xyz',
     );
@@ -88,7 +88,7 @@ describe('generateWalletConnectUniversalLink', () => {
   });
 
   it('generates a link for Rainbow', () => {
-    const url = generateWalletConnectUniversalLink(
+    const url = generateCinacoinUniversalLink(
       'rainbow',
       'wc:abc@2',
     );
@@ -96,7 +96,7 @@ describe('generateWalletConnectUniversalLink', () => {
   });
 
   it('generates a link for Coinbase', () => {
-    const url = generateWalletConnectUniversalLink(
+    const url = generateCinacoinUniversalLink(
       'coinbase',
       'wc:abc@2',
     );
@@ -104,7 +104,7 @@ describe('generateWalletConnectUniversalLink', () => {
   });
 
   it('generates a link for Phantom', () => {
-    const url = generateWalletConnectUniversalLink(
+    const url = generateCinacoinUniversalLink(
       'phantom',
       'wc:abc@2',
     );
@@ -112,7 +112,7 @@ describe('generateWalletConnectUniversalLink', () => {
   });
 
   it('generates a link for Trust Wallet', () => {
-    const url = generateWalletConnectUniversalLink(
+    const url = generateCinacoinUniversalLink(
       'trust',
       'wc:abc@2',
     );
@@ -120,7 +120,7 @@ describe('generateWalletConnectUniversalLink', () => {
   });
 
   it('generates a link for Zerion', () => {
-    const url = generateWalletConnectUniversalLink(
+    const url = generateCinacoinUniversalLink(
       'zerion',
       'wc:abc@2',
     );
@@ -128,7 +128,7 @@ describe('generateWalletConnectUniversalLink', () => {
   });
 
   it('defaults to walletconnect.com for unknown wallets', () => {
-    const url = generateWalletConnectUniversalLink(
+    const url = generateCinacoinUniversalLink(
       'unknown-wallet',
       'wc:abc@2',
     );
@@ -136,7 +136,7 @@ describe('generateWalletConnectUniversalLink', () => {
   });
 
   it('includes fallback URL when provided', () => {
-    const url = generateWalletConnectUniversalLink(
+    const url = generateCinacoinUniversalLink(
       'metamask',
       'wc:abc@2',
       'https://metamask.io/download/',
@@ -146,7 +146,7 @@ describe('generateWalletConnectUniversalLink', () => {
 
   it('includes the wc URI in the params', () => {
     const wcUri = 'wc:my-session-id@2?relay-protocol=irn&symKey=my-key';
-    const url = generateWalletConnectUniversalLink('metamask', wcUri);
+    const url = generateCinacoinUniversalLink('metamask', wcUri);
     expect(url).toContain(encodeURIComponent(wcUri));
   });
 });

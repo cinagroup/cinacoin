@@ -1,14 +1,14 @@
-# CinaAuth/Cinacoin vs Reown — 综合差距分析报告
+# CinaAuth/Cinacoin vs Cinacoin — 综合差距分析报告
 
 > **生成时间**: 2026-05-16  
 > **方法**: 5 个子 agent 并行深度对比分析  
-> **数据源**: Reown 29 个公开仓库 + CinaAuth 全部源代码与设计文档
+> **数据源**: Cinacoin 29 个公开仓库 + CinaAuth 全部源代码与设计文档
 
 ---
 
 ## 📊 总评分
 
-| 维度 | Cinacoin | Reown | 差距 |
+| 维度 | Cinacoin | Cinacoin | 差距 |
 |------|:---------:|:-----:|:----:|
 | SDK 架构与核心功能 | 3.0/10 | 8.5/10 | 🔴 大 |
 | 基础设施与后端服务 | 6.2/10 | 6.8/10 | 🟡 中 |
@@ -17,7 +17,7 @@
 | 智能账户与认证安全 | 5.5/10 | 7.0/10 | 🟡 中 |
 | **综合评分** | **3.6/10** | **7.8/10** | **🔴 大** |
 
-> **功能覆盖率约 25-30%** — 设计架构优秀但实现严重不足。Cinacoin 在基础设施广度和智能账户深度上有超越 Reown 的潜力，但需要先填补核心 SDK 和开发者生态的缺口。
+> **功能覆盖率约 25-30%** — 设计架构优秀但实现严重不足。Cinacoin 在基础设施广度和智能账户深度上有超越 Cinacoin 的潜力，但需要先填补核心 SDK 和开发者生态的缺口。
 
 ---
 
@@ -27,7 +27,7 @@
 |---|------|------|--------|
 | **P0-1** | **LICENSE 缺失** | 代码法律上不可用，任何第三方无法使用 | 1h |
 | **P0-2** | **加密模块占位符** | X25519 共享密钥是 XOR 模拟，非功能性 | 2d |
-| **P0-3** | **SIWE/SIWX 零实现** | 无认证能力，Reown 完整支持 | 1w |
+| **P0-3** | **SIWE/SIWX 零实现** | 无认证能力，Cinacoin 完整支持 | 1w |
 | **P0-4** | **零 TypeScript 测试** | 10 个包共 0 个测试，无法保证质量 | 2w |
 | **P0-5** | **无文档站点** | 仅原始 MD 文件，开发者无法查找信息 | 1w |
 | **P0-6** | **安全审计缺失** | 所有合约和 SDK 未审计，不能上生产 | 4w（外包） |
@@ -43,7 +43,7 @@
 | P1-1 | 无 CONTRIBUTING/SECURITY/CODE_OF_CONDUCT | 无法接受社区贡献 | 2d |
 | P1-2 | 无示例应用（web/RN/Flutter） | 开发者无参考实现 | 2w |
 | P1-3 | RN SDK 全为 mock，无真实功能 | 移动端不可用 | 1w |
-| P1-4 | 无 iOS/Android 原生 SDK | 覆盖 Reown 的 8 个平台中仅 3 个 | 4w |
+| P1-4 | 无 iOS/Android 原生 SDK | 覆盖 Cinacoin 的 8 个平台中仅 3 个 | 4w |
 | P1-5 | 无 Deep Linking/Universal Links | 移动端钱包连接不可用 | 3d |
 | P1-6 | 无 i18n/a11y 支持 | 非英语用户不可用 | 1w |
 | P1-7 | 无 CI 质量门禁（renovate/changesets/size-limit） | 依赖/版本/bundle 失控 | 3d |
@@ -69,11 +69,11 @@
 
 ---
 
-## ✅ Cinacoin 领先 Reown 的领域
+## ✅ Cinacoin 领先 Cinacoin 的领域
 
-| 领域 | Cinacoin | Reown | 说明 |
+| 领域 | Cinacoin | Cinacoin | 说明 |
 |------|:---------:|:-----:|------|
-| 自建 Relay 服务器 | ✅ 完整设计 | ❌ 依赖 Reown 专有 Relay | 消除中心化依赖 |
+| 自建 Relay 服务器 | ✅ 完整设计 | ❌ 依赖 Cinacoin 专有 Relay | 消除中心化依赖 |
 | 自建 RPC 代理 | ✅ 智能路由+缓存+去重 | ❌ 使用第三方 RPC | 降低成本和延迟 |
 | 自建 Bundler | ✅ Rust + 内存池 + Gas 预测 | ❌ 依赖 Pimlico 等第三方 | 自主 ERC-4337 |
 | Paymaster 合约 | ✅ 4 种赞助模式 + Verifying + Token | ⚠️ 基础 | 更灵活的 Gas 赞助 |

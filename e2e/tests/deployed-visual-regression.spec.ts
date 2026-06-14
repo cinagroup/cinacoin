@@ -118,7 +118,7 @@ test.describe('Deployed Applications Visual Regression', () => {
     expect(response?.status()).toBe(200);
     
     const title = await page.title();
-    expect(title).toMatch(/Demo|CINAcoin|CinaCoin/i);
+    expect(title).toMatch(/Demo|CINAcoin|Cinacoin/i);
   });
 });
 

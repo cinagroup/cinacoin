@@ -4,11 +4,11 @@
 
 ## Overview
 
-The Core SDK is the foundation of the Cinacoin ecosystem. It provides a complete, self-hosted wallet connection toolkit — a drop-in replacement for Reown/WalletConnect infrastructure — with unified chain adapter interfaces, session management, event handling, EIP-6963 wallet discovery, deep linking, EIP-5792 atomic batch transactions, and first-class adapters for 14+ chains.
+The Core SDK is the foundation of the Cinacoin ecosystem. It provides a complete, self-hosted wallet connection toolkit — a drop-in replacement for Cinacoin/Cinacoin infrastructure — with unified chain adapter interfaces, session management, event handling, EIP-6963 wallet discovery, deep linking, EIP-5792 atomic batch transactions, and first-class adapters for 14+ chains.
 
 **Key capabilities:**
 
-- **Connector abstraction** — uniform API across injected, QR, relay/WalletConnect wallets
+- **Connector abstraction** — uniform API across injected, QR, relay/Cinacoin wallets
 - **Session management** — state machine with persistence, expiry, and integrity checks
 - **Multi-chain adapters** — viem, wagmi, ethers v5/v6, Solana, Bitcoin, TON, TRON, Polkadot, Cosmos, Hedera, Sui, Starknet, NEAR, XRPL
 - **EIP-5792 Wallet Call API** — atomic batch transactions, capability detection
@@ -185,7 +185,7 @@ unsubscribe()
 ```typescript
 import { Connector } from '@cinacoin/core-sdk'
 
-class MyWalletConnector extends Connector {
+class MyCinacoinor extends Connector {
   readonly id = 'my-wallet'
   readonly name = 'My Wallet'
   readonly icon = 'https://mywallet.com/icon.png'

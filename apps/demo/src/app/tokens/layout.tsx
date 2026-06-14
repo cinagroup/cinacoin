@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Tokens — CinaCoin',
+  title: 'Tokens — Cinacoin',
   description: 'Search tokens, view details, and swap in one place.',
 };
 

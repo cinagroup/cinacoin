@@ -8,7 +8,7 @@
 import type { ChainAdapter } from '@cinacoin/core-sdk';
 import type { Connector } from '@cinacoin/core-sdk';
 import type { Chain } from '@cinacoin/core-sdk';
-import type { StarknetWalletConnector } from './types.js';
+import type { StarknetCinacoinor } from './types.js';
 import { STARKNET_CHAINS, STARKNET_WALLETS, type StarknetCall } from './types.js';
 import { ArgentXConnector } from './connectors/argent-x.js';
 import { BraavosConnector } from './connectors/braavos.js';
@@ -63,7 +63,7 @@ export class StarknetChainAdapter implements ChainAdapter {
   readonly name = 'Starknet Adapter';
 
   private chains: Chain[] = [...STARKNET_CHAINS];
-  private activeConnector: StarknetWalletConnector | null = null;
+  private activeConnector: StarknetCinacoinor | null = null;
   private connectorInstance: Connector | null = null;
   private rpcUrl: string = STARKNET_CHAINS[0].rpcUrl;
 
@@ -94,7 +94,7 @@ export class StarknetChainAdapter implements ChainAdapter {
   }
 
   /** Get the active wallet connector. */
-  getActiveConnector(): StarknetWalletConnector | null {
+  getActiveConnector(): StarknetCinacoinor | null {
     return this.activeConnector;
   }
 
@@ -421,7 +421,7 @@ export class StarknetChainAdapter implements ChainAdapter {
     return /^[0-9a-fA-F]+$/.test(hex);
   }
 
-  private _resolveConnector(walletId?: string): StarknetWalletConnector | null {
+  private _resolveConnector(walletId?: string): StarknetCinacoinor | null {
     if (walletId) {
       return this._getConnector(walletId);
     }
@@ -436,7 +436,7 @@ export class StarknetChainAdapter implements ChainAdapter {
     return null;
   }
 
-  private _getConnector(walletId: string): StarknetWalletConnector | null {
+  private _getConnector(walletId: string): StarknetCinacoinor | null {
     switch (walletId) {
       case 'argent-x':
         if (!this._argentX) this._argentX = new ArgentXConnector();

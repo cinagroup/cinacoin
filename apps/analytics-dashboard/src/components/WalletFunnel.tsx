@@ -25,7 +25,7 @@ const funnelData: WalletFunnelData[] = [
     ],
   },
   {
-    wallet: "WalletConnect",
+    wallet: "Cinacoin",
     steps: [
       { label: "Click Connect", count: 28300, color: "#3b99fc" },
       { label: "Select Wallet", count: 22640, color: "#3b99fc" },

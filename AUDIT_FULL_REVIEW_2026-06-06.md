@@ -77,8 +77,8 @@ The auth middleware only checked for the *presence* of an `Authorization` header
 `apps/demo-react/src/pages/SwapPage.tsx:161` had no `onClick` — clicking did nothing.
 **Fix:** Added a `handleSwap` demo simulation with `swapStatus` state (Swap → Swapping… → ✓ complete) and proper disabled handling.
 
-### P1 — Broken WalletConnect init (react demo)
-`apps/demo-react/src/contexts/WalletContext.tsx:207` used a hardcoded fake project ID `c8e4e0f2…` fallback, causing live `403 Forbidden` on WalletConnect API calls. Metadata URL was a stale `cinacoin-demo.pages.dev`.
+### P1 — Broken Cinacoin init (react demo)
+`apps/demo-react/src/contexts/WalletContext.tsx:207` used a hardcoded fake project ID `c8e4e0f2…` fallback, causing live `403 Forbidden` on Cinacoin API calls. Metadata URL was a stale `cinacoin-demo.pages.dev`.
 **Fix:** Throw a clear configuration error when `VITE_WC_PROJECT_ID` is missing (no broken fallback); metadata URL → `https://react.cinacoin.com`. Also fixed the SIWE message domain in `AuthPage.tsx`.
 
 ### P1 — API key never appears after generation (cloud-dashboard)
@@ -91,7 +91,7 @@ The auth middleware only checked for the *presence* of an `Authorization` header
 
 ### P1 — 104 broken wallet logos (wallet-explorer)
 Logos are loaded from `https://registry.walletconnect.com/api/v2/logo/md/<id>` (a competitor host that returns `ERR_CONNECTION_REFUSED`); the old `onError` just hid the image, leaving empty grey boxes. Source data: `packages/wallet-registry/src/registry.ts`.
-**Fix:** Card now degrades gracefully to a branded first-letter avatar on image error (state-driven), with lazy loading. **Recommendation:** self-host the logos at `assets.cinacoin.com` and update the registry, both for resilience and to match the "self-hosted WalletConnect replacement" narrative.
+**Fix:** Card now degrades gracefully to a branded first-letter avatar on image error (state-driven), with lazy loading. **Recommendation:** self-host the logos at `assets.cinacoin.com` and update the registry, both for resilience and to match the "self-hosted Cinacoin replacement" narrative.
 
 ### P1 — "Back to Cinacoin" loops on itself (wallet-explorer)
 `apps/wallet-explorer/src/app/page.tsx:476` used `href="/"`, which stays on `wallet.cinacoin.com`.

@@ -260,7 +260,7 @@ function decompressData(compressed: Buffer): Promise<string> {
 const allInstances: RelayServer[] = [];
 
 /**
- * RelayServer — HTTP/WebSocket relay for WalletConnect bridge messaging.
+ * RelayServer — HTTP/WebSocket relay for Cinacoin bridge messaging.
  * Handles topic-based message routing between connected clients.
  * 
  * Performance features:

@@ -28,7 +28,7 @@
   - [ ] Reserved instance opportunities
   - [ ] Unused resources to decommission
   - [ ] Storage tiering (hot vs. cold data)
-- [ ] Calculate ROI vs. Reown commercial licensing
+- [ ] Calculate ROI vs. Cinacoin commercial licensing
 
 ### [ ] Disaster Recovery Drill
 - [ ] Test failover to secondary region

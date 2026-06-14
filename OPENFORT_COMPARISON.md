@@ -49,7 +49,7 @@
 |------|----------|-------------|
 | **嵌入式钱包** | ✅ **核心功能** (Openfort managed) | ❌ 无嵌入式钱包 |
 | **外部钱包连接** | ✅ ConnectWithInjector (MetaMask 等) | ✅ 30+ 钱包（MetaMask, Phantom, Xverse...） |
-| **WalletConnect** | ✅ useWalletConnectModal | ✅ WalletConnect v2 SDK |
+| **Cinacoin** | ✅ useCinacoinModal | ✅ Cinacoin v2 SDK |
 | **QR 码连接** | ✅ ConnectWithQRCode | ❌ 需要 projectId 配置 |
 | **链支持** | **EVM + Solana** (Bridge + Embedded) | **16 条链** (EVM + Solana + Bitcoin + TON + TRON + Cosmos + Sui + Starknet + NEAR + Hedera + XRPL) |
 | **桥接钱包** | ✅ EthereumBridgeStrategy | ❌ 无桥接钱包 |

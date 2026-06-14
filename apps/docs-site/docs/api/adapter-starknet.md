@@ -1,6 +1,6 @@
 # Starknet adapter.
 
-> `@cinacoin/adapter-starknet` — Starknet L2 adapter for CinaCoin.
+> `@cinacoin/adapter-starknet` — Starknet L2 adapter for Cinacoin.
 
 ## Installation.
 

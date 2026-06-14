@@ -2,14 +2,14 @@
 
 **日期:** 2026-05-26
 **优先级:** P0
-**文件:** `packages/ios-swift/Sources/OnChainUX/WalletConnect/WCUtils.swift`
-**测试:** `packages/ios-swift/Tests/OnChainUXTests/WalletConnectTests.swift`
+**文件:** `packages/ios-swift/Sources/OnChainUX/Cinacoin/WCUtils.swift`
+**测试:** `packages/ios-swift/Tests/OnChainUXTests/CinacoinTests.swift`
 
 ---
 
 ## 概述
 
-本轮修复 iOS SDK 加密实现中的 **3 个 P0 问题**，全部集中在 `WCUtils.swift` 的加密/解密函数中。修复后与 WalletConnect v2 规范完全一致，并与 Kotlin SDK 行为匹配。
+本轮修复 iOS SDK 加密实现中的 **3 个 P0 问题**，全部集中在 `WCUtils.swift` 的加密/解密函数中。修复后与 Cinacoin v2 规范完全一致，并与 Kotlin SDK 行为匹配。
 
 ---
 
@@ -32,7 +32,7 @@ public static func encrypt(symKey: String, json: Any) -> String? {
 
 **三个根本问题：**
 1. 声明了 `ChaCha20.Nonce()` 却调用 `AES.GCM.seal()` — 类型不匹配，代码根本不应该编译
-2. WalletConnect v2 规范明确要求 ChaCha20-Poly1305，不是 AES-GCM
+2. Cinacoin v2 规范明确要求 ChaCha20-Poly1305，不是 AES-GCM
 3. 与 Kotlin SDK 的加密算法不一致
 
 ### 修复后
@@ -202,7 +202,7 @@ public static func encryptUsingSessionKey(topic: String, data: Data) -> String? 
 
 ## 测试覆盖
 
-在 `WalletConnectTests.swift` 中新增/更新以下测试：
+在 `CinacoinTests.swift` 中新增/更新以下测试：
 
 | 测试用例 | 验证内容 |
 |---------|---------|
@@ -251,7 +251,7 @@ func testEncryptUsingSessionKeyNotUsingTopicAsKey() {
 
 ---
 
-## WalletConnect v2 规范一致性
+## Cinacoin v2 规范一致性
 
 | 规范要求 | 修复后状态 |
 |---------|-----------|
@@ -267,8 +267,8 @@ func testEncryptUsingSessionKeyNotUsingTopicAsKey() {
 
 | 文件 | 修改类型 | 说明 |
 |------|---------|------|
-| `packages/ios-swift/Sources/OnChainUX/WalletConnect/WCUtils.swift` | 核心修复 | 4 个函数的加密/解密算法替换 + key 派生修复 |
-| `packages/ios-swift/Tests/OnChainUXTests/WalletConnectTests.swift` | 测试新增 | 新增 11 个测试用例覆盖所有修复点 |
+| `packages/ios-swift/Sources/OnChainUX/Cinacoin/WCUtils.swift` | 核心修复 | 4 个函数的加密/解密算法替换 + key 派生修复 |
+| `packages/ios-swift/Tests/OnChainUXTests/CinacoinTests.swift` | 测试新增 | 新增 11 个测试用例覆盖所有修复点 |
 
 ---
 

@@ -1,5 +1,5 @@
 /**
- * CinaCoinProvider — React Native context provider with real WalletConnect v2 integration.
+ * CinacoinProvider — React Native context provider with real Cinacoin v2 integration.
  *
  * Wraps the app and provides chain state, connection methods, and theming.
  * Uses @cinacoin/walletconnect-v2 for real WC v2 protocol communication.
@@ -69,7 +69,7 @@ export interface WalletInfo {
   universalLink?: string;
   appStoreUrl?: string;
   playStoreUrl?: string;
-  supportsWalletConnect: boolean;
+  supportsCinacoin: boolean;
 }
 
 /** Account state. */
@@ -82,7 +82,7 @@ export interface AccountState {
 }
 
 /** Configuration passed to provider. */
-export interface CinaCoinConfig {
+export interface CinacoinConfig {
   /** Relay server URL. */
   relayUrl?: string;
   /** Project ID. */
@@ -97,8 +97,8 @@ export interface CinaCoinConfig {
 }
 
 /** Context value. */
-export interface CinaCoinContextValue {
-  config: CinaCoinConfig;
+export interface CinacoinContextValue {
+  config: CinacoinConfig;
   connectors: Connector[];
   wallets: WalletInfo[];
   account: AccountState;
@@ -188,20 +188,20 @@ const THEME_COLORS: Record<ThemeMode, ThemeColors> = {
   },
 };
 
-const CinaCoinContext = createContext<CinaCoinContextValue | null>(null);
+const CinacoinContext = createContext<CinacoinContextValue | null>(null);
 
-/** Hook to access CinaCoin context. Throws if used outside provider. */
-export function useCinaCoinContext(): CinaCoinContextValue {
-  const ctx = useContext(CinaCoinContext);
+/** Hook to access Cinacoin context. Throws if used outside provider. */
+export function useCinacoinContext(): CinacoinContextValue {
+  const ctx = useContext(CinacoinContext);
   if (!ctx) {
-    throw new Error('useCinaCoinContext must be used within <CinaCoinProvider>');
+    throw new Error('useCinacoinContext must be used within <CinacoinProvider>');
   }
   return ctx;
 }
 
 /** Provider props. */
-export interface CinaCoinProviderProps {
-  config: CinaCoinConfig;
+export interface CinacoinProviderProps {
+  config: CinacoinConfig;
   children: ReactNode;
 }
 
@@ -218,7 +218,7 @@ function buildWalletList(recommendedIds?: string[]): WalletInfo[] {
     universalLink: w.universalLink,
     appStoreUrl: w.appStoreUrl,
     playStoreUrl: w.playStoreUrl,
-    supportsWalletConnect: w.supportsWcV2,
+    supportsCinacoin: w.supportsWcV2,
   }));
 
   // Sort: recommended first
@@ -252,9 +252,9 @@ function extractChainId(caip2: string): number {
 }
 
 /**
- * CinaCoinProvider for React Native with real WC v2 support.
+ * CinacoinProvider for React Native with real WC v2 support.
  */
-export function CinaCoinProvider({ config, children }: CinaCoinProviderProps): JSX.Element {
+export function CinacoinProvider({ config, children }: CinacoinProviderProps): JSX.Element {
   const [status, setStatus] = useState<'disconnected' | 'connecting' | 'connected' | 'error'>('disconnected');
   const [account, setAccount] = useState<AccountState>({
     address: null,
@@ -276,7 +276,7 @@ export function CinaCoinProvider({ config, children }: CinaCoinProviderProps): J
   const connectors = useMemo<Connector[]>(
     () => [
       { id: 'metamask', name: 'MetaMask', icon: 'https://registry.walletconnect.com/api/v2/logo/md/metamask', type: 'walletconnect' },
-      { id: 'walletconnect', name: 'WalletConnect', icon: 'https://registry.walletconnect.com/api/v2/logo/md/walletconnect', type: 'walletconnect' },
+      { id: 'walletconnect', name: 'Cinacoin', icon: 'https://registry.walletconnect.com/api/v2/logo/md/walletconnect', type: 'walletconnect' },
       { id: 'rainbow', name: 'Rainbow', icon: 'https://registry.walletconnect.com/api/v2/logo/md/rainbow', type: 'walletconnect' },
       { id: 'coinbase', name: 'Coinbase Wallet', icon: 'https://registry.walletconnect.com/api/v2/logo/md/coinbase', type: 'coinbase' },
       { id: 'trust', name: 'Trust Wallet', icon: 'https://registry.walletconnect.com/api/v2/logo/md/trust', type: 'walletconnect' },
@@ -336,7 +336,7 @@ export function CinaCoinProvider({ config, children }: CinaCoinProviderProps): J
   /** Create a new pairing and return the WC v2 URI. */
   const createPairingUri = useCallback(async (): Promise<string> => {
     if (!sessionManagerRef.current) {
-      throw new Error('CinaCoin not configured with relayUrl and metadata');
+      throw new Error('Cinacoin not configured with relayUrl and metadata');
     }
     const uri = await sessionManagerRef.current.initiatePairing();
     setWcUri(uri);
@@ -346,7 +346,7 @@ export function CinaCoinProvider({ config, children }: CinaCoinProviderProps): J
   /** Connect using a WC v2 URI. */
   const connectWithUri = useCallback(async (uri: string): Promise<void> => {
     if (!sessionManagerRef.current) {
-      throw new Error('CinaCoin not configured with relayUrl and metadata');
+      throw new Error('Cinacoin not configured with relayUrl and metadata');
     }
     setStatus('connecting');
     try {
@@ -491,7 +491,7 @@ export function CinaCoinProvider({ config, children }: CinaCoinProviderProps): J
     [],
   );
 
-  const value = useMemo<CinaCoinContextValue>(
+  const value = useMemo<CinacoinContextValue>(
     () => ({
       config,
       connectors,
@@ -533,6 +533,6 @@ export function CinaCoinProvider({ config, children }: CinaCoinProviderProps): J
   );
 
   return (
-    <CinaCoinContext.Provider value={value}>{children}</CinaCoinContext.Provider>
+    <CinacoinContext.Provider value={value}>{children}</CinacoinContext.Provider>
   );
 }

@@ -176,7 +176,7 @@ Full implementation of all 4 hooks (verified line-by-line):
 | Test File | Status | Coverage |
 |-----------|--------|----------|
 | `tests/ConnectModal.test.tsx` | ✅ | |
-| `tests/WalletConnectProvider.test.tsx` | ✅ | |
+| `tests/CinacoinProvider.test.tsx` | ✅ | |
 | `tests/deepLinks.test.ts` | ✅ | |
 | `tests/eip5792-ens-biometric-push.test.ts` | ✅ | 425 lines — combined EIP-5792 + ENS + biometric + push |
 
@@ -679,7 +679,7 @@ export function useCinacoinAccount() {
 
 ### 4.4 Missing Locales
 
-| Missing | Priority | Reown Has |
+| Missing | Priority | Cinacoin Has |
 |---------|----------|-----------|
 | Hindi (hi) | Medium | ✅ |
 | Turkish (tr) | Low | ✅ |

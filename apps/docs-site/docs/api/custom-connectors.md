@@ -1,6 +1,6 @@
 # Custom connectors.
 
-> `@cinacoin/custom-connectors` — Custom wallet connector framework for CinaCoin.
+> `@cinacoin/custom-connectors` — Custom wallet connector framework for Cinacoin.
 
 ## Installation.
 

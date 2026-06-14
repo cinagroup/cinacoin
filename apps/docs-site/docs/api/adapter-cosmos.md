@@ -1,6 +1,6 @@
 # Cosmos adapter.
 
-> `@cinacoin/adapter-cosmos` — Cosmos blockchain adapter for CinaCoin.
+> `@cinacoin/adapter-cosmos` — Cosmos blockchain adapter for Cinacoin.
 
 ## Installation.
 

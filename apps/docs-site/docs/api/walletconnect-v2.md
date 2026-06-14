@@ -1,6 +1,6 @@
-# WalletConnect v2.
+# Cinacoin v2.
 
-> `@cinacoin/walletconnect-v2` — WalletConnect V2 protocol integration for CinaCoin.
+> `@cinacoin/walletconnect-v2` — WalletConnect V2 protocol integration for Cinacoin.
 
 ## Installation.
 
@@ -10,7 +10,7 @@ npm install @cinacoin/walletconnect-v2
 
 ## Overview.
 
-Integrate with WalletConnect V2 protocol for QR code and deep-link wallet connections, while maintaining self-hosted infrastructure.
+Integrate with Cinacoin V2 protocol for QR code and deep-link wallet connections, while maintaining self-hosted infrastructure.
 
 ## Related.
 

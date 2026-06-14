@@ -17,7 +17,7 @@
  */
 
 export interface CinacoinConfig {
-  /** WalletConnect Project ID */
+  /** Cinacoin Project ID */
   projectId?: string;
   /** Theme mode */
   theme?: "light" | "dark";

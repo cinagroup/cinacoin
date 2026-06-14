@@ -2,7 +2,7 @@
  * @cinacoin/appkit — 统一钱包连接弹窗组件
  * Main component: createCinacoinAppKit
  *
- *对标 Reown AppKit，提供一键式钱包连接弹窗 UI
+ *对标 Cinacoin AppKit，提供一键式钱包连接弹窗 UI
  */
 
 import React, { createContext, useContext, useState, useCallback, useEffect, useMemo, type ReactNode } from 'react';

@@ -1,6 +1,6 @@
 # Installation.
 
-> Install CinaCoin packages for your framework.
+> Install Cinacoin packages for your framework.
 
 ## Core SDK (required).
 
@@ -57,7 +57,7 @@ npm install @cinacoin/react-native
 ### iOS (Swift).
 
 ```ruby
-pod 'CinaCoin', '~> 1.0'
+pod 'Cinacoin', '~> 1.0'
 ```
 
 ### Android (Kotlin).

@@ -1,6 +1,6 @@
 # Phase 1: 自建 Relay + RPC 代理 — 详细技术设计
 
-> **目标**: 构建完全自主的消息中继和 RPC 代理层，消除对 Reown 专有基础设施的依赖  
+> **目标**: 构建完全自主的消息中继和 RPC 代理层，消除对 Cinacoin 专有基础设施的依赖  
 > **时间**: M1-M2  
 > **产出物**: `relay-server`, `rpc-proxy`, `core-sdk` 三个核心组件
 
@@ -88,7 +88,7 @@ enum MessageType {
 }
 ```
 
-#### 1.3.2 加密流程（兼容 WalletConnect v2）
+#### 1.3.2 加密流程（兼容 Cinacoin v2）
 
 ```
 dApp                          Relay                          钱包

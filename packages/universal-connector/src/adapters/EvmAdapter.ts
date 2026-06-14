@@ -2,7 +2,7 @@
  * @cinacoin/universal-connector — EVM chain adapter.
  *
  * Supports Ethereum, Polygon, BSC, Arbitrum, Optimism, and all EVM-compatible chains.
- * Integrates with window.ethereum (EIP-6963) and WalletConnect v2.
+ * Integrates with window.ethereum (EIP-6963) and Cinacoin v2.
  *
  * @example
  * ```ts
@@ -34,7 +34,7 @@ interface EvmProvider {
 }
 
 /**
- * EvmAdapter — connects to EVM-compatible chains via injected providers or WalletConnect.
+ * EvmAdapter — connects to EVM-compatible chains via injected providers or Cinacoin.
  */
 export class EvmAdapter extends BaseAdapter {
   private provider: EvmProvider | null = null;

@@ -1,5 +1,5 @@
 /**
- * Alert Configuration for Cinacoin WalletConnect Relay.
+ * Alert Configuration for Cinacoin Cinacoin Relay.
  *
  * Defines alerting rules, thresholds, severity levels,
  * and notification channels for the relay infrastructure.

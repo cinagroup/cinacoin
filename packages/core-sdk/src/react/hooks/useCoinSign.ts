@@ -1,7 +1,7 @@
 /**
  * useCoinSign — Hook for signing messages (SIWE/SIWX).
  *
- * 对标 wagmi's useSignMessage + Reown's SIWE integration.
+ * 对标 wagmi's useSignMessage + Cinacoin's SIWE integration.
  *
  * @example
  * ```tsx

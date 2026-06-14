@@ -1,5 +1,5 @@
 /**
- * Multi-Session Manager for WalletConnect v2.
+ * Multi-Session Manager for Cinacoin v2.
  *
  * Manages multiple concurrent WC v2 sessions with full lifecycle
  * support: creation, restoration, expiry detection, selection,
@@ -35,7 +35,7 @@ import { sha256 } from '@noble/hashes/sha2.js';
 export interface MultiSessionManagerConfig {
   /** Relay server URL (or use CloudRelay default). */
   relayUrl?: string;
-  /** Project ID for WalletConnect Cloud relay. */
+  /** Project ID for Cinacoin Cloud relay. */
   projectId?: string;
   /** dApp metadata. */
   metadata: AppMetadata;
@@ -393,12 +393,12 @@ export class MultiSessionManager extends EventEmitter {
   /**
    * Connect using an existing WC URI.
    *
-   * @param uri - WalletConnect v2 URI.
+   * @param uri - Cinacoin v2 URI.
    * @returns The established session.
    */
   async connectUri(uri: string): Promise<Session> {
     if (!isValidWcUri(uri)) {
-      throw new Error('Invalid WalletConnect URI');
+      throw new Error('Invalid Cinacoin URI');
     }
 
     await this.init();

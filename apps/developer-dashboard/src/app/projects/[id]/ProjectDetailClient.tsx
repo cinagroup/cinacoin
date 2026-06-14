@@ -8,8 +8,8 @@ import { BarChart3, Zap, AlertTriangle, Key, BarChart2, Code2, Settings2, Copy, 
 // Mock project detail
 const initialProject = {
   id: "proj-1",
-  name: "CinaCoin Wallet",
-  description: "Official CinaCoin wallet application with multi-chain support",
+  name: "Cinacoin Wallet",
+  description: "Official Cinacoin wallet application with multi-chain support",
   status: "active",
   network: "Mainnet",
   sdkVersion: "v2.4.1",
@@ -328,7 +328,7 @@ export default function ProjectDetailClient() {
         <div className="cc-card">
           <h2 className="text-body-lg font-semibold text-[var(--cc-ink)] mb-2">SDK integration</h2>
           <p className="text-body-sm text-ink-body mb-4">
-            Add the CinaCoin SDK to your project. Copy the snippet below for your framework.
+            Add the Cinacoin SDK to your project. Copy the snippet below for your framework.
           </p>
 
           {/* Framework Tabs */}

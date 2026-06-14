@@ -75,10 +75,10 @@ export default function Footer() {
               <rect width="32" height="32" rx="6" fill="currentColor"/>
               <text x="16" y="22" fontFamily="Inter,system-ui,sans-serif" fontSize="18" fontWeight="600" fill="var(--cc-canvas)" textAnchor="middle">C</text>
             </svg>
-            CinaCoin
+            Cinacoin
           </div>
           <p className="text-caption text-[var(--cc-muted)]">
-            &copy; {new Date().getFullYear()} CinaCoin. All rights reserved.
+            &copy; {new Date().getFullYear()} Cinacoin. All rights reserved.
           </p>
         </div>
       </div>

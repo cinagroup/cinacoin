@@ -40,7 +40,7 @@ export function generateFrameMeta(meta: FrameMeta): Record<string, string> {
       version: meta.version ?? 'vNext',
       image: meta.image,
       imageAspectRatio: meta.imageAspectRatio ?? '1.91:1',
-      title: meta.title ?? 'CinaCoin',
+      title: meta.title ?? 'Cinacoin',
       buttons: (meta.buttons ?? []).map((btn, i) => ({
         action: btn.action ?? 'post',
         label: btn.label,
@@ -50,8 +50,8 @@ export function generateFrameMeta(meta: FrameMeta): Record<string, string> {
       postUrl: meta.postUrl,
     }),
     'og:image': meta.image,
-    'og:title': meta.title ?? 'CinaCoin Farcaster App',
-    'og:description': 'CinaCoin Farcaster Mini App — wallet, transfer, sign & more',
+    'og:title': meta.title ?? 'Cinacoin Farcaster App',
+    'og:description': 'Cinacoin Farcaster Mini App — wallet, transfer, sign & more',
   };
 
   return tags;
@@ -68,7 +68,7 @@ export function buildFrameMetadata(meta: FrameMeta) {
     version: meta.version ?? 'vNext',
     image: meta.image,
     imageAspectRatio: meta.imageAspectRatio ?? '1.91:1',
-    title: meta.title ?? 'CinaCoin',
+    title: meta.title ?? 'Cinacoin',
     buttons: (meta.buttons ?? []).map((btn) => ({
       action: btn.action ?? 'post',
       label: btn.label,

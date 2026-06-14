@@ -16,7 +16,7 @@
     ],
     "errors": [],
     "warnings": [],
-    "title": "CinaCoin Backend Dashboard",
+    "title": "Cinacoin Backend Dashboard",
     "bodyText": "Cinacoin\n\nBackend Dashboard\n\nSign in with Wallet\n\nConnect your Ethereum wallet to access the Cinacoin Backend Dashboard. A signature will be requested — no gas fees required.\n\nCheck your wallet to sign the message...\n\nApprove the signature request in your wallet popup.\n\nSigning...\n\nYou will be asked to sign a message to prove wallet ownership.\n\nNo gas fees — this is an off-chain signature.\n\nSession expires after 24 hours.\n\nNeed help with MetaMask? →",
     "navItems": [],
     "uiElements": {
@@ -43,8 +43,8 @@
     "links": [],
     "errors": [],
     "warnings": [],
-    "title": "CinaCoin Backend Dashboard",
-    "bodyText": "🪙\nCinaCoin\n\nBackend Admin Panel\n\n👥\nUser Management\n📧\nNewsletter\n🔐\nPermissions\n🛡️\nTwo-Factor Auth\n📋\nAudit Log\n⚙️\nSystem Config\nS\n\nSuper Admin\n\nroot@cinacoin.com\n\nBackend Administration\n\nManage users, permissions, and system configuration\n\nUser Management\n+ Add User\nSelect All\n\tUSER\tROLE\tSTATUS\tCREATED\tACTIONS\n\t\nJ\n\nJohn Doe\n\njohn@example.com\n\n\tAdmin\tactive\t2024-01-15\tEditDelete\n\t\nJ\n\nJane Smith\n\njane@example.com\n\n\tEditor\tactive\t2024-02-20\tEditDelete\n\t\nB\n\nBob Wilson\n\nbob@example.com\n\n\tUser\tsus",
+    "title": "Cinacoin Backend Dashboard",
+    "bodyText": "🪙\nCinacoin\n\nBackend Admin Panel\n\n👥\nUser Management\n📧\nNewsletter\n🔐\nPermissions\n🛡️\nTwo-Factor Auth\n📋\nAudit Log\n⚙️\nSystem Config\nS\n\nSuper Admin\n\nroot@cinacoin.com\n\nBackend Administration\n\nManage users, permissions, and system configuration\n\nUser Management\n+ Add User\nSelect All\n\tUSER\tROLE\tSTATUS\tCREATED\tACTIONS\n\t\nJ\n\nJohn Doe\n\njohn@example.com\n\n\tAdmin\tactive\t2024-01-15\tEditDelete\n\t\nJ\n\nJane Smith\n\njane@example.com\n\n\tEditor\tactive\t2024-02-20\tEditDelete\n\t\nB\n\nBob Wilson\n\nbob@example.com\n\n\tUser\tsus",
     "navItems": [],
     "uiElements": {
       "hasHeader": true,
@@ -70,7 +70,7 @@
     "links": [],
     "errors": [],
     "warnings": [],
-    "title": "CinaCoin Backend Dashboard",
+    "title": "Cinacoin Backend Dashboard",
     "bodyText": "Analytics\n\nAppKit usage metrics and connection analytics\n\n7d\n30d\n90d\n1y\nMonthly Active Users: 71.0K\nMonthly Active Users\n71.0K\n↑\nTotal Connections: 189.0K\nTotal Connections\n189.0K\n↑\nAuth Sessions: 29.0K\nAuth Sessions\n29.0K\n↑\nActive Sessions: 6.4K\nActive Sessions\n6.4K\n↑\nMonthly Active Users\n21,000\n24,000\n27,500\n30,500\n36,500\n41,000\n44,500\n47,500\n51,000\n57,500\n64,000\n71,000\nJan\nFeb\nMar\nApr\nMay\nJun\nJul\nAug\nSep\nOct\nNov\nDec\nConnections Over Time\n60,000\n69,000\n77,500\n86,000\n99,000\n110,500\n122,500\n134,",
     "navItems": [],
     "uiElements": {
@@ -146,7 +146,7 @@
     ],
     "errors": [],
     "warnings": [],
-    "title": "CinaCoin Backend Dashboard",
+    "title": "Cinacoin Backend Dashboard",
     "bodyText": "Networks & Chains\n\nConfigure supported blockchain networks — 7 of 12 enabled\n\nSave Changes\n\nTotal Networks\n\n12\n\nEnabled\n\n7\n\nEVM Chains\n\n7\n\nNon-EVM\n\n5\n\nAll\nEVM\nSolana\nBitcoin\nTON\nTRON\nCosmos\nNetwork\tChain ID\tRPC URL\tExplorer\tStatus\n\nEthereum\nevm\n\t1\t\nhttps://eth.llamarpc.com\n\tetherscan.io\t\n\n\nPolygon\nevm\n\t137\t\nhttps://polygon-rpc.com\n\tpolygonscan.com\t\n\n\nBNB Smart Chain\nevm\n\t56\t\nhttps://bsc-dataseed.binance.org\n\tbscscan.com\t\n\n\nArbitrum One\nevm\n\t42161\t\nhttps://arb1.arbitrum.io/rpc\n\tarbiscan.io\t\n\n\nOpt",
     "navItems": [],
     "uiElements": {
@@ -176,7 +176,7 @@
       "Failed to load resource: net::ERR_FAILED"
     ],
     "warnings": [],
-    "title": "CinaCoin Backend Dashboard",
+    "title": "Cinacoin Backend Dashboard",
     "bodyText": "Keys Server\n\nSession key management with D1 storage\n\nD1 • Cloudflare Workers\nActive Sessions: 3.8K\nActive Sessions\n3.8K\n↑\nTotal Requests: 892.3K\nTotal Requests\n892.3K\nAvg Latency: 12ms\nAvg Latency\n12ms\n→\nError Rate: 0.11%\nError Rate\n0.11%\nD1 Storage Usage\n24%\nUsed\n\nUsed Space\n\n2.4 GB\n\nTotal Capacity\n\n10.0 GB\n\nAvailable\n\n7.6 GB\n\nSigning Operations (24h)\nMessage Signatures\n892.5K\nTransaction Signing\n654.3K\nAuth Requests\n312.0K\nToken Refresh\n245.7K\n2,800\n3,200\n3,500\n3,100\n3,800\n4,100\n3,900\nMon\nTue",
     "navItems": [],
     "uiElements": {
@@ -236,8 +236,8 @@
       "Refused to execute script from 'https://cinacoin.com/_next/static/chunks/app/page-b5b2a78b68ea947c.js' because its MIME type ('text/html') is not executable, and strict MIME type checking is enabled."
     ],
     "warnings": [],
-    "title": "CinaCoin Wallet Explorer",
-    "bodyText": "Wallet Explorer\nConnect Wallet\nHomeSendReceiveTokensHistorySettings\nWelcome to CinaCoin Wallet Explorer\n\nConnect your wallet to get started.\n\nConnect Wallet",
+    "title": "Cinacoin Wallet Explorer",
+    "bodyText": "Wallet Explorer\nConnect Wallet\nHomeSendReceiveTokensHistorySettings\nWelcome to Cinacoin Wallet Explorer\n\nConnect your wallet to get started.\n\nConnect Wallet",
     "navItems": [
       {
         "href": "https://cinacoin.com/",
@@ -372,7 +372,7 @@
     ],
     "warnings": [],
     "title": "Page Not Found — Cinacoin | CINAcoin",
-    "bodyText": "Cinacoin\nHome\nPricing\nAbout\nDocs\nSearch...\n⌘K\nEN\nLog In\nSign Up\n\n404\n\nPage not found.\n\nThe page you are looking for does not exist, or has been moved.\n\nGo Home\nView Docs\nPRODUCT\nOverview\nWallet\nExchange\nStaking\nSOLUTIONS\nEnterprise\nDeFi\nPayments\nDEVELOPERS\nDocumentation\nAPI Reference\nSDKs\nGitHub\nRESOURCES\nBlog\nWhitepaper\nCommunity\nSupport\nCOMPANY\nAbout\nCareers\nContact\nStay Updated\n\nGet the latest news and updates\n\nSubscribe\nC\nCinaCoin\n\n© 2026 CinaCoin. All rights reserved.",
+    "bodyText": "Cinacoin\nHome\nPricing\nAbout\nDocs\nSearch...\n⌘K\nEN\nLog In\nSign Up\n\n404\n\nPage not found.\n\nThe page you are looking for does not exist, or has been moved.\n\nGo Home\nView Docs\nPRODUCT\nOverview\nWallet\nExchange\nStaking\nSOLUTIONS\nEnterprise\nDeFi\nPayments\nDEVELOPERS\nDocumentation\nAPI Reference\nSDKs\nGitHub\nRESOURCES\nBlog\nWhitepaper\nCommunity\nSupport\nCOMPANY\nAbout\nCareers\nContact\nStay Updated\n\nGet the latest news and updates\n\nSubscribe\nC\nCinacoin\n\n© 2026 Cinacoin. All rights reserved.",
     "navItems": [
       {
         "href": "https://cinacoin.com/",
@@ -511,7 +511,7 @@
     ],
     "warnings": [],
     "title": "Page Not Found — Cinacoin | CINAcoin",
-    "bodyText": "Cinacoin\nHome\nPricing\nAbout\nDocs\nSearch...\n⌘K\nEN\nLog In\nSign Up\n\n404\n\nPage not found.\n\nThe page you are looking for does not exist, or has been moved.\n\nGo Home\nView Docs\nPRODUCT\nOverview\nWallet\nExchange\nStaking\nSOLUTIONS\nEnterprise\nDeFi\nPayments\nDEVELOPERS\nDocumentation\nAPI Reference\nSDKs\nGitHub\nRESOURCES\nBlog\nWhitepaper\nCommunity\nSupport\nCOMPANY\nAbout\nCareers\nContact\nStay Updated\n\nGet the latest news and updates\n\nSubscribe\nC\nCinaCoin\n\n© 2026 CinaCoin. All rights reserved.",
+    "bodyText": "Cinacoin\nHome\nPricing\nAbout\nDocs\nSearch...\n⌘K\nEN\nLog In\nSign Up\n\n404\n\nPage not found.\n\nThe page you are looking for does not exist, or has been moved.\n\nGo Home\nView Docs\nPRODUCT\nOverview\nWallet\nExchange\nStaking\nSOLUTIONS\nEnterprise\nDeFi\nPayments\nDEVELOPERS\nDocumentation\nAPI Reference\nSDKs\nGitHub\nRESOURCES\nBlog\nWhitepaper\nCommunity\nSupport\nCOMPANY\nAbout\nCareers\nContact\nStay Updated\n\nGet the latest news and updates\n\nSubscribe\nC\nCinacoin\n\n© 2026 Cinacoin. All rights reserved.",
     "navItems": [
       {
         "href": "https://cinacoin.com/",
@@ -685,7 +685,7 @@
     ],
     "warnings": [],
     "title": "Page Not Found — Cinacoin | CINAcoin",
-    "bodyText": "Cinacoin\nHome\nPricing\nAbout\nDocs\nSearch...\n⌘K\nEN\nLog In\nSign Up\n\n404\n\nPage not found.\n\nThe page you are looking for does not exist, or has been moved.\n\nGo Home\nView Docs\nPRODUCT\nOverview\nWallet\nExchange\nStaking\nSOLUTIONS\nEnterprise\nDeFi\nPayments\nDEVELOPERS\nDocumentation\nAPI Reference\nSDKs\nGitHub\nRESOURCES\nBlog\nWhitepaper\nCommunity\nSupport\nCOMPANY\nAbout\nCareers\nContact\nStay Updated\n\nGet the latest news and updates\n\nSubscribe\nC\nCinaCoin\n\n© 2026 CinaCoin. All rights reserved.",
+    "bodyText": "Cinacoin\nHome\nPricing\nAbout\nDocs\nSearch...\n⌘K\nEN\nLog In\nSign Up\n\n404\n\nPage not found.\n\nThe page you are looking for does not exist, or has been moved.\n\nGo Home\nView Docs\nPRODUCT\nOverview\nWallet\nExchange\nStaking\nSOLUTIONS\nEnterprise\nDeFi\nPayments\nDEVELOPERS\nDocumentation\nAPI Reference\nSDKs\nGitHub\nRESOURCES\nBlog\nWhitepaper\nCommunity\nSupport\nCOMPANY\nAbout\nCareers\nContact\nStay Updated\n\nGet the latest news and updates\n\nSubscribe\nC\nCinacoin\n\n© 2026 Cinacoin. All rights reserved.",
     "navItems": [
       {
         "href": "https://cinacoin.com/",

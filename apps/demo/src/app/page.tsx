@@ -94,7 +94,7 @@ export default function Home() {
               </div>
             </div>
             <h2 className="text-display-lg font-semibold tracking-tighter text-[var(--cc-ink)] mb-4">
-              Welcome to the CinaCoin demo.
+              Welcome to the Cinacoin demo.
             </h2>
             <p className="text-[var(--cc-body)] mb-8 max-w-md mx-auto">
               Connect your wallet to explore wallet management, transactions, and more.

@@ -1,6 +1,6 @@
 # Svelte.
 
-> `@cinacoin/svelte` — Svelte adapter for CinaCoin.
+> `@cinacoin/svelte` — Svelte adapter for Cinacoin.
 
 ## Installation.
 
@@ -12,9 +12,9 @@ npm install @cinacoin/svelte @cinacoin/core-sdk
 
 ```svelte
 <script>
-import { useCinaCoin } from '@cinacoin/svelte'
+import { useCinacoin } from '@cinacoin/svelte'
 
-const { connect, account } = useCinaCoin()
+const { connect, account } = useCinacoin()
 </script>
 
 <button on:click={connect}>Connect</button>

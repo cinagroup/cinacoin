@@ -22,7 +22,7 @@ const mockConfig: ConfigSection[] = [
     id: "general",
     title: "General Settings",
     fields: [
-      { key: "siteName", label: "Site Name", type: "text", value: "CinaCoin", description: "The name displayed across the platform" },
+      { key: "siteName", label: "Site Name", type: "text", value: "Cinacoin", description: "The name displayed across the platform" },
       { key: "supportEmail", label: "Support Email", type: "text", value: "support@cinacoin.com", description: "Contact email for user support" },
       { key: "maintenanceMode", label: "Maintenance Mode", type: "toggle", value: false, description: "Enable to show maintenance page to users" },
     ],

@@ -1,5 +1,5 @@
 /**
- * WalletConnect v2 adapter tests for core-sdk.
+ * Cinacoin v2 adapter tests for core-sdk.
  *
  * Tests the adapter interface that bridges @cinacoin/walletconnect-v2
  * to the core-sdk Connector API (EIP-1193 / Connector interface).
@@ -8,10 +8,10 @@ import { describe, it, expect, beforeEach } from 'vitest';
 // ============================================================
 // Mock WCv2 connector — tests the adapter contract
 // ============================================================
-class MockWalletConnectAdapter {
+class MockCinacoinAdapter {
     constructor() {
         this.id = 'walletconnect-v2';
-        this.name = 'WalletConnect';
+        this.name = 'Cinacoin';
         this.icon = 'data:image/svg+xml;base64,wcv2';
         this.installed = true;
         this.type = 'relay';
@@ -71,14 +71,14 @@ class MockWalletConnectAdapter {
 // ============================================================
 // Tests
 // ============================================================
-describe('WalletConnect v2 Adapter', () => {
+describe('Cinacoin v2 Adapter', () => {
     let adapter;
     beforeEach(() => {
-        adapter = new MockWalletConnectAdapter();
+        adapter = new MockCinacoinAdapter();
     });
     it('has correct static identity', () => {
         expect(adapter.id).toBe('walletconnect-v2');
-        expect(adapter.name).toBe('WalletConnect');
+        expect(adapter.name).toBe('Cinacoin');
         expect(adapter.installed).toBe(true);
         expect(adapter.type).toBe('relay');
     });

@@ -116,7 +116,7 @@
 1. 访问 https://backend.cinacoin.com/admin/oauth
 2. 使用 admin@cinacoin.com 登录
 3. 在 [GitHub Developer Settings](https://github.com/settings/developers) 创建 OAuth App
-   - **Application name**: CinaCoin
+   - **Application name**: Cinacoin
    - **Homepage URL**: https://cinacoin.com
    - **Authorization callback URL**: https://backend.cinacoin.com/oauth/callback
 4. 复制 Client ID 和 Client Secret

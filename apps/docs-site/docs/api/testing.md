@@ -1,6 +1,6 @@
 # Testing.
 
-> `@cinacoin/testing` — Testing utilities for CinaCoin.
+> `@cinacoin/testing` — Testing utilities for Cinacoin.
 
 ## Installation.
 
@@ -10,7 +10,7 @@ npm install @cinacoin/testing --save-dev
 
 ## Overview.
 
-Mock providers, test wallets, and simulation utilities for testing CinaCoin integrations.
+Mock providers, test wallets, and simulation utilities for testing Cinacoin integrations.
 
 ## Related.
 

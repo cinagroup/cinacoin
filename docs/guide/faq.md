@@ -8,25 +8,25 @@
 
 ### What is Cinacoin?
 
-Cinacoin is a **full-stack, white-label Web3 SDK** by CinaGroup that enables wallet connections, multi-chain authentication, payments, smart accounts, and developer tools across web, mobile, and game engines. It is fully open-source (MIT License) and does **not** depend on any Reown/WalletConnect infrastructure.
+Cinacoin is a **full-stack, white-label Web3 SDK** by CinaGroup that enables wallet connections, multi-chain authentication, payments, smart accounts, and developer tools across web, mobile, and game engines. It is fully open-source (MIT License) and does **not** depend on any Cinacoin/Cinacoin infrastructure.
 
 Key capabilities:
 
-- 🔗 **600+ wallets** via WalletConnect-compatible network (EVM, Solana, Bitcoin, TON, TRON)
+- 🔗 **600+ wallets** via Cinacoin-compatible network (EVM, Solana, Bitcoin, TON, TRON)
 - 💳 **Payments** — in-app swaps, fiat-to-crypto on-ramp, self-custodial payments
 - 🔐 **Authentication** — SIWE, SIWX (multi-chain), social login, passkey/biometric
 - 🏦 **Smart Accounts** — ERC-4337 gasless transactions, session keys, batch calls
 - 📱 **Cross-platform** — React, Next.js, Vue, Svelte, React Native, Flutter, Android, iOS, Unity, Telegram, Farcaster
 
-### How does Cinacoin compare to Reown/WalletConnect?
+### How does Cinacoin compare to Cinacoin/Cinacoin?
 
-| Feature | Reown/WalletConnect | Cinacoin |
+| Feature | Cinacoin/Cinacoin | Cinacoin |
 |---------|---------------------|-------------|
-| **Infrastructure** | Third-party hosted (Reown Relay) | Self-hosted (your own Relay + RPC Proxy) |
-| **Branding** | Reown branding in UI | Fully white-label, zero third-party traces |
+| **Infrastructure** | Third-party hosted (Cinacoin Relay) | Self-hosted (your own Relay + RPC Proxy) |
+| **Branding** | Cinacoin branding in UI | Fully white-label, zero third-party traces |
 | **Pricing** | $500–$5,000/month (beyond free tier) | Only your infrastructure cost |
 | **MAU limits** | 500 on free tier | Unlimited |
-| **Control** | Dependent on Reown's infrastructure | Fully autonomous |
+| **Control** | Dependent on Cinacoin's infrastructure | Fully autonomous |
 | **License** | Community License (restrictive) | MIT License (permissive) |
 | **Chains** | EVM + Solana | EVM + Solana + Bitcoin + TON + TRON |
 | **Smart Accounts** | Limited | Full ERC-4337 (Bundler + Paymaster) |
@@ -91,7 +91,7 @@ function ConnectButton() {
 
 **QR code not scanning:**
 
-- Verify the URI follows WalletConnect v2 format: `wc:<topic>@<version>?relay-protocol=irn&...`
+- Verify the URI follows Cinacoin v2 format: `wc:<topic>@<version>?relay-protocol=irn&...`
 - Check that the relay server is running and accessible
 - Ensure the QR code has not expired (default TTL: 300 seconds)
 - For mobile wallets, confirm deep links are properly configured

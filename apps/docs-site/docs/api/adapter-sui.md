@@ -1,6 +1,6 @@
 # Sui adapter.
 
-> `@cinacoin/adapter-sui` — Sui blockchain adapter for CinaCoin.
+> `@cinacoin/adapter-sui` — Sui blockchain adapter for Cinacoin.
 
 ## Installation.
 

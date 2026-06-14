@@ -12,7 +12,7 @@ export interface WalletState {
 
 interface WalletContextValue extends WalletState {
  connectMetaMask: () => Promise<void>
- connectWalletConnect: () => Promise<void>
+ connectCinacoin: () => Promise<void>
  disconnect: () => void
  clearError: () => void
 }
@@ -29,7 +29,7 @@ export function formatAddress(addr: string): string {
  return `${addr.slice(0, 6)}...${addr.slice(-4)}`
 }
 
-// WalletConnect provider singleton
+// Cinacoin provider singleton
 let wcProvider: any = null
 
 export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -93,7 +93,7 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
  }
  }
 
- // Check WalletConnect
+ // Check Cinacoin
  if (wcProvider && wcProvider.session) {
  try {
  const accounts = wcProvider.accounts
@@ -192,15 +192,15 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
  }
  }, [])
 
- const connectWalletConnect = useCallback(async () => {
+ const connectCinacoin = useCallback(async () => {
  setState(prev => ({ ...prev, connecting: true, error: null, walletId: 'walletconnect' }))
 
   try {
  const projectId = import.meta.env.VITE_WC_PROJECT_ID
  if (!projectId) {
  throw new Error(
- 'WalletConnect is not configured: set VITE_WC_PROJECT_ID to a valid project ID. ' +
- 'Get one at https://cloud.reown.com (or your self-hosted relay project).'
+ 'Cinacoin is not configured: set VITE_WC_PROJECT_ID to a valid project ID. ' +
+ 'Get one at https://cloud.cinacoin.com (or your self-hosted relay project).'
  )
  }
  if (!wcProvider) {
@@ -215,8 +215,8 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
  methods: ['eth_sendTransaction', 'personal_sign'],
  events: ['chainChanged', 'accountsChanged'],
  metadata: {
- name: 'CinaCoin Demo',
- description: 'CinaCoin Demo Application',
+ name: 'Cinacoin Demo',
+ description: 'Cinacoin Demo Application',
  url: import.meta.env.VITE_APP_URL ?? 'https://react.cinacoin.com',
  icons: ['https://avatars.githubusercontent.com/u/37784886'],
  },
@@ -241,13 +241,13 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
  } else {
  setState(prev => ({
  ...prev,
- error: 'No accounts returned from WalletConnect',
+ error: 'No accounts returned from Cinacoin',
  connecting: false,
  }))
  }
  } catch (err: unknown) {
  const error = err as { message?: string }
- let message = 'Failed to connect WalletConnect'
+ let message = 'Failed to connect Cinacoin'
  if (error.message?.includes('rejected') || error.message?.includes('User rejected')) {
  message = 'User rejected the connection request'
  } else if (error.message) {
@@ -286,7 +286,7 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
  <WalletContext.Provider value={{
  ...state,
  connectMetaMask,
- connectWalletConnect,
+ connectCinacoin,
  disconnect,
  clearError,
  }}>

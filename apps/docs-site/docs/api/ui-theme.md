@@ -1,6 +1,6 @@
 # UI theme.
 
-> `@cinacoin/ui-theme` — Theme system for CinaCoin UI components.
+> `@cinacoin/ui-theme` — Theme system for Cinacoin UI components.
 
 ## Installation.
 
@@ -27,4 +27,4 @@ const theme = createTheme({
 
 - [Core UI](/api/core-ui)
 - [Design Tokens](/api/design-tokens)
-- [CinaCoin UI Theme](/api/cinacoin-ui-theme)
+- [Cinacoin UI Theme](/api/cinacoin-ui-theme)

@@ -1,6 +1,6 @@
 # Gas sponsorship.
 
-> `@cinacoin/gas-sponsorship` — Gas sponsorship management for CinaCoin.
+> `@cinacoin/gas-sponsorship` — Gas sponsorship management for Cinacoin.
 
 ## Installation.
 

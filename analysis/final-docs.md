@@ -1,4 +1,4 @@
-# CinaAuth/Cinacoin vs Reown — Documentation & Developer Experience Final Comparison
+# CinaAuth/Cinacoin vs Cinacoin — Documentation & Developer Experience Final Comparison
 
 > **Date:** 2026-05-16
 > **Scope:** Documentation completeness, example quality, getting-started experience, API reference, community support, AI-assisted development configuration
@@ -7,9 +7,9 @@
 
 ## Executive Summary
 
-Cinacoin (CinaAuth) has a **solid, well-structured documentation foundation** but is at roughly **30-40% of Reown's maturity** in terms of documentation depth, breadth, and example ecosystem. The docs are cleanly organized, technically accurate, and include AI-agent configuration files (AGENTS.md, CLAUDE.md), which is a unique advantage. However, significant gaps exist in API completeness, production examples, framework-specific guides, troubleshooting content, and community infrastructure.
+Cinacoin (CinaAuth) has a **solid, well-structured documentation foundation** but is at roughly **30-40% of Cinacoin's maturity** in terms of documentation depth, breadth, and example ecosystem. The docs are cleanly organized, technically accurate, and include AI-agent configuration files (AGENTS.md, CLAUDE.md), which is a unique advantage. However, significant gaps exist in API completeness, production examples, framework-specific guides, troubleshooting content, and community infrastructure.
 
-**Verdict:** Good bones. Needs substantial content expansion, more real-world examples, typedocs auto-generation, framework-specific deep-dives, and community channels before it can compete with Reown's docs experience.
+**Verdict:** Good bones. Needs substantial content expansion, more real-world examples, typedocs auto-generation, framework-specific deep-dives, and community channels before it can compete with Cinacoin's docs experience.
 
 ---
 
@@ -17,7 +17,7 @@ Cinacoin (CinaAuth) has a **solid, well-structured documentation foundation** bu
 
 ### 1.1 Structure & Organization
 
-| Aspect | Cinacoin (CinaAuth) | Reown (WalletConnect) |
+| Aspect | Cinacoin (CinaAuth) | Cinacoin (Cinacoin) |
 |--------|----------------------|------------------------|
 | Framework | VitePress (lightweight, fast) | Custom Next.js/MDX (776MB) |
 | Total doc files | 15 Markdown files | Hundreds of MDX pages |
@@ -29,7 +29,7 @@ Cinacoin (CinaAuth) has a **solid, well-structured documentation foundation** bu
 | Last updated | ✅ Enabled in VitePress config | Enabled |
 | Language | zh-CN (Chinese primary) | English (primary) |
 
-**Assessment:** Cinacoin has a well-designed document skeleton. The VitePress configuration is clean with proper sidebar grouping, search, and edit links. However, the content volume is a fraction of Reown's.
+**Assessment:** Cinacoin has a well-designed document skeleton. The VitePress configuration is clean with proper sidebar grouping, search, and edit links. However, the content volume is a fraction of Cinacoin's.
 
 ### 1.2 Getting Started (Guide Section) — 3 pages
 
@@ -39,11 +39,11 @@ Cinacoin (CinaAuth) has a **solid, well-structured documentation foundation** bu
 | installation.md | 99 | ⭐⭐⭐⭐ — Good. Covers npm/yarn/pnpm, CDN, monorepo workspace, dependency requirements, verification step. |
 | configuration.md | 162 | ⭐⭐⭐⭐ — Strong. Complete config table with TypeScript interfaces, full working example, env var injection, multi-environment config pattern. |
 
-**Reown comparison:** Reown has dedicated pages for each framework (React, Vue, Next.js, Nuxt, Svelte, React Native, iOS, Android, Flutter, Unity), with migration guides from Wagmi/viem and ethers.js. Cinacoin combines all platforms into 3 pages — concise but thin.
+**Cinacoin comparison:** Cinacoin has dedicated pages for each framework (React, Vue, Next.js, Nuxt, Svelte, React Native, iOS, Android, Flutter, Unity), with migration guides from Wagmi/viem and ethers.js. Cinacoin combines all platforms into 3 pages — concise but thin.
 
 **Gaps in Cinacoin:**
 - ❌ No framework-specific deep-dive guides (React hooks guide, Vue composables guide, Next.js SSR/SSG guide)
-- ❌ No migration guide from Reown/WalletConnect
+- ❌ No migration guide from Cinacoin/Cinacoin
 - ❌ No "What's new" or changelog
 - ❌ No versioned documentation
 - ❌ No tutorial series (e.g., "Build a DeFi dApp in 30 minutes")
@@ -57,7 +57,7 @@ Cinacoin (CinaAuth) has a **solid, well-structured documentation foundation** bu
 | siwe.md | 257 | ⭐⭐⭐⭐⭐ — Best page. Complete EIP-4361 flow: generate, sign, verify, backend validation, NextAuth integration, security section. |
 | mobile.md | 220 | ⭐⭐⭐ — Decent but thin. Covers ConnectButton, ConnectModal, WalletList, ChainSwitcher, hooks, deep links, push notifications. Missing component lifecycle, error states. |
 
-**Reown comparison:** Reown's API reference is auto-generated from source code (Typedoc/JSDoc) with full type signatures, parameter descriptions, return types, error types, and cross-references. Cinacoin's docs are manually written — good for readability but harder to maintain and likely to drift from source.
+**Cinacoin comparison:** Cinacoin's API reference is auto-generated from source code (Typedoc/JSDoc) with full type signatures, parameter descriptions, return types, error types, and cross-references. Cinacoin's docs are manually written — good for readability but harder to maintain and likely to drift from source.
 
 **Gaps in Cinacoin:**
 - ❌ No auto-generated API docs (Typedoc, TypeDoc, JSDoc)
@@ -75,18 +75,18 @@ Cinacoin (CinaAuth) has a **solid, well-structured documentation foundation** bu
 | best-practices.md | 232 | ⭐⭐⭐⭐⭐ — Excellent. Covers E2E encryption, key management, EIP-191/712, SIWE security, session keys, smart contract security (Solidity examples), RPC security, network security, emergency response. |
 | audit-report.md | 147 | ⭐⭐⭐ — Template only. Well-structured but has no actual audit data. Placeholder fields throughout. |
 
-**This is a strength.** The security best practices page is genuinely comprehensive — arguably better than Reown's equivalent. However, the audit report being a template with no real data is a concern.
+**This is a strength.** The security best practices page is genuinely comprehensive — arguably better than Cinacoin's equivalent. However, the audit report being a template with no real data is a concern.
 
 ### 1.5 FAQ — 1 page, 167 lines
 
 | Topic | Coverage |
 |-------|----------|
-| Difference from Reown | ✅ Detailed comparison table |
+| Difference from Cinacoin | ✅ Detailed comparison table |
 | Supported chains | ✅ EVM + roadmap for Solana/BTC/Tron |
 | Rust requirement | ✅ Clarified |
 | Next.js support | ✅ With code example |
 | React 19 / Vue 3 | ✅ |
-| WalletConnect protocol compatibility | ✅ Explained |
+| Cinacoin protocol compatibility | ✅ Explained |
 | Social login | ✅ Web3Auth + MPC roadmap |
 | Gas sponsorship | ✅ Paymaster modes |
 | Self-hosted relay | ✅ Docker + cargo commands |
@@ -107,7 +107,7 @@ Cinacoin (CinaAuth) has a **solid, well-structured documentation foundation** bu
 
 ### 2.1 Overview
 
-| Platform | Cinacoin Files | Lines | Reown Equivalents |
+| Platform | Cinacoin Files | Lines | Cinacoin Equivalents |
 |----------|-----------------|-------|-------------------|
 | Web | 7 files (4 .tsx + package.json + README + index.html) | ~400 lines of code | web-examples (510 ⭐) — Multiple complete dApps |
 | React Native | 7 files | ~200 lines of code | react-native-examples (130 ⭐) |
@@ -140,7 +140,7 @@ Cinacoin (CinaAuth) has a **solid, well-structured documentation foundation** bu
 - ❌ No TypeScript configuration in example (package.json references tsc but no tsconfig shown)
 - ❌ No end-to-end integration test examples
 
-**Reown comparison:** Reown's web-examples repo has 510 stars and includes multiple complete, production-grade dApps (NFT marketplace, DeFi dashboard, Social login demo) with real on-chain interactions, proper error handling, and full styling.
+**Cinacoin comparison:** Cinacoin's web-examples repo has 510 stars and includes multiple complete, production-grade dApps (NFT marketplace, DeFi dashboard, Social login demo) with real on-chain interactions, proper error handling, and full styling.
 
 ### 2.3 React Native Example — 7 files
 
@@ -215,7 +215,7 @@ Cinacoin (CinaAuth) has a **solid, well-structured documentation foundation** bu
 - ❌ No troubleshooting for common first-run errors
 - ❌ No "what if I don't have a relay server yet?" quick path
 
-**Reown comparison:** Reown provides sandbox environments, video tutorials, interactive docs with live code editors, and framework-specific quick-start wizards.
+**Cinacoin comparison:** Cinacoin provides sandbox environments, video tutorials, interactive docs with live code editors, and framework-specific quick-start wizards.
 
 ---
 
@@ -238,7 +238,7 @@ Cinacoin (CinaAuth) has a **solid, well-structured documentation foundation** bu
 - ❌ No TypeScript utility types documented
 - ❌ No SDK initialization performance characteristics
 
-**Reown comparison:** Reown uses TypeDoc + custom generation for a complete, searchable API reference with cross-references, version history, and parameter descriptions for every public method.
+**Cinacoin comparison:** Cinacoin uses TypeDoc + custom generation for a complete, searchable API reference with cross-references, version history, and parameter descriptions for every public method.
 
 ---
 
@@ -274,7 +274,7 @@ Covers competitive positioning well. Answers the most common questions. Missing 
 
 ### AGENTS.md + CLAUDE.md Rating: ⭐⭐⭐⭐⭐ (5/5) — **Unique Competitive Advantage**
 
-This is where Cinacoin **significantly outpaces** Reown.
+This is where Cinacoin **significantly outpaces** Cinacoin.
 
 **What Cinacoin has:**
 - ✅ **AGENTS.md** — Comprehensive AI agent instructions including:
@@ -295,7 +295,7 @@ This is where Cinacoin **significantly outpaces** Reown.
 
 **What this means:** AI coding assistants (Claude Code, Cursor, Copilot) working on the Cinacoin repo will have immediate, precise context about the crypto implementation, testing requirements, and project structure. This reduces hallucination risk and improves AI-generated code quality significantly.
 
-**Reown comparison:** Reown has no equivalent AGENTS.md or CLAUDE.md files. AI agents working on Reown's codebase would need to infer architecture from source code alone.
+**Cinacoin comparison:** Cinacoin has no equivalent AGENTS.md or CLAUDE.md files. AI agents working on Cinacoin's codebase would need to infer architecture from source code alone.
 
 ---
 
@@ -316,7 +316,7 @@ This is where Cinacoin **significantly outpaces** Reown.
 | Gap | Priority | Effort | Impact |
 |-----|----------|--------|--------|
 | No framework-specific deep-dive guides | 🟠 High | Medium | Medium |
-| No migration guide from Reown/WalletConnect | 🟠 High | Medium | High — lowers switching friction |
+| No migration guide from Cinacoin/Cinacoin | 🟠 High | Medium | High — lowers switching friction |
 | No Next.js example | 🟠 High | Low | Medium |
 | No Vue example code | 🟠 High | Low | Medium |
 | No live demo / CodeSandbox | 🟠 High | Low | Medium |
@@ -339,7 +339,7 @@ This is where Cinacoin **significantly outpaces** Reown.
 
 ## 8. Scoring Summary
 
-| Category | Cinacoin | Reown | Notes |
+| Category | Cinacoin | Cinacoin | Notes |
 |----------|-----------|-------|-------|
 | **Documentation Structure** | 8/10 | 9/10 | Good skeleton, needs more content |
 | **Getting Started** | 7/10 | 9/10 | Solid 5-min guide, missing sandboxes/tutorials |
@@ -352,7 +352,7 @@ This is where Cinacoin **significantly outpaces** Reown.
 | **AI Agent Configuration** | 10/10 | 2/10 | Unique advantage — AGENTS.md + CLAUDE.md |
 | **FAQ/Troubleshooting** | 6/10 | 8/10 | Good FAQ, no troubleshooting |
 
-**Overall: Cinacoin 6.7/10 vs Reown 7.7/10**
+**Overall: Cinacoin 6.7/10 vs Cinacoin 7.7/10**
 
 ---
 
@@ -367,7 +367,7 @@ This is where Cinacoin **significantly outpaces** Reown.
 ### Short-term (Month 1)
 5. **Write real integration examples** — replace mock data with actual viem/ethers interactions
 6. **Add Next.js example** (most requested framework)
-7. **Create migration guide** from Reown/WalletConnect (key selling point)
+7. **Create migration guide** from Cinacoin/Cinacoin (key selling point)
 8. **Add changelog** and version tracking to docs
 9. **Complete Android/iOS example source** files that are referenced but missing
 10. **Translate key pages to English** (at minimum: quick-start, core-sdk API)
@@ -384,9 +384,9 @@ This is where Cinacoin **significantly outpaces** Reown.
 
 ## 10. Conclusion
 
-Cinacoin/CinaAuth documentation has a **strong foundation with excellent structure** and a **unique competitive advantage in AI-agent configuration**. The AGENTS.md and CLAUDE.md files are genuinely ahead of Reown's approach. The security documentation is also notably comprehensive.
+Cinacoin/CinaAuth documentation has a **strong foundation with excellent structure** and a **unique competitive advantage in AI-agent configuration**. The AGENTS.md and CLAUDE.md files are genuinely ahead of Cinacoin's approach. The security documentation is also notably comprehensive.
 
-However, the **content depth is insufficient** for production adoption. The documentation is roughly 1/3 the volume of Reown's, with significant gaps in auto-generated API docs, real-world examples, troubleshooting content, and community infrastructure. The example applications demonstrate API usage but don't teach real integration patterns (all mock data).
+However, the **content depth is insufficient** for production adoption. The documentation is roughly 1/3 the volume of Cinacoin's, with significant gaps in auto-generated API docs, real-world examples, troubleshooting content, and community infrastructure. The example applications demonstrate API usage but don't teach real integration patterns (all mock data).
 
 **The docs are ready for alpha/beta developers but not production teams.** With 2-3 months of focused documentation effort (especially auto-generation, real examples, and English translation), Cinacoin can close the gap significantly.
 

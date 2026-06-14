@@ -4,7 +4,7 @@ This file provides context and instructions for Claude Code working on the Cinac
 
 ## Project Overview
 
-Cinacoin is a self-hosted wallet connection toolkit — a complete replacement for Reown/WalletConnect infrastructure. It's a monorepo with:
+Cinacoin is a self-hosted wallet connection toolkit — a complete replacement for Cinacoin/Cinacoin infrastructure. It's a monorepo with:
 
 - **packages/core-sdk/** — TypeScript SDK (EVM, Solana, Bitcoin adapters)
 - **packages/relay-server/** — Rust WebSocket relay server
@@ -62,7 +62,7 @@ cargo run         # run server
 
 1. **TypeScript uses ESM** — import paths must include `.js` extension (e.g., `'@noble/curves/ed25519.js'`)
 2. **@noble/ciphers cipher instances are single-use** — create a new instance for each encrypt/decrypt operation
-3. **Wire format is base64(nonce || ciphertext || tag)** — compatible with WalletConnect v2
+3. **Wire format is base64(nonce || ciphertext || tag)** — compatible with Cinacoin v2
 4. **Never use placeholder crypto** — all implementations must be real and functional
 5. **Encryption functions are synchronous** — no `async/await` needed for @noble operations
 

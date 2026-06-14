@@ -1,11 +1,11 @@
 /**
  * QrCode Web Component
  *
- * Renders a WalletConnect QR code using the `qrcode` library.
+ * Renders a Cinacoin QR code using the `qrcode` library.
  * Supports custom sizing, colors, URI copying to clipboard, and loading states.
  *
  * Properties:
- *   - uri: WalletConnect URI to encode
+ *   - uri: Cinacoin URI to encode
  *   - size: QR canvas size in pixels (default 200)
  *   - fgColor: Foreground color (default "#f8fafc")
  *   - bgColor: Background color (default "#1E293B")

@@ -11,7 +11,7 @@ test('complete user journey: website to wallet explorer', async ({ page }) => {
   await page.goto('https://e4d421eb.cinacoin-demo.pages.dev');
   
   // Verify demo loads by checking title
-  await expect(page).toHaveTitle("CinaCoin Demo");
+  await expect(page).toHaveTitle("Cinacoin Demo");
   
   // Step 3: Check connect wallet button exists
   const connectButton = page.getByRole('button', { name: /Connect Wallet/i });

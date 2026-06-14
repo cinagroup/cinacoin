@@ -1,6 +1,6 @@
 # Angular.
 
-> `@cinacoin/angular` — Angular adapter for CinaCoin.
+> `@cinacoin/angular` — Angular adapter for Cinacoin.
 
 ## Installation.
 
@@ -11,11 +11,11 @@ npm install @cinacoin/angular @cinacoin/core-sdk
 ## Usage.
 
 ```typescript
-import { CinaCoinModule } from '@cinacoin/angular'
+import { CinacoinModule } from '@cinacoin/angular'
 
 @NgModule({
   imports: [
-    CinaCoinModule.forRoot({
+    CinacoinModule.forRoot({
       projectId: 'your-project-id',
     }),
   ],

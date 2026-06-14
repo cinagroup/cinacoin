@@ -12,7 +12,7 @@ RainbowKit is a popular React wallet connector that sits on top of wagmi. Cinaco
 |-------|-----------------|-------------|
 | UI Components | `@rainbow-me/rainbowkit` | `@cinacoin/react` (ConnectButton, ConnectModal, ChainSwitcher) |
 | Hooks & Logic | `wagmi` | `@cinacoin/react` (useCinacoin, useAccount, useConnect) |
-| Transport | WalletConnect Cloud | Self-hosted Cinacoin Relay |
+| Transport | Cinacoin Cloud | Self-hosted Cinacoin Relay |
 | RPC | Alchemy/Infura/etc. | Self-hosted RPC Proxy with intelligent routing |
 | Chain Config | `wagmi` chains | `@cinacoin/core-sdk` ChainConfig |
 | SIWE Auth | `siwe` + custom | `@cinacoin/siwe` built-in |
@@ -229,7 +229,7 @@ RainbowKit uses wagmi's connector objects. Cinacoin uses wallet ID strings.
 |--------------------|-------------|
 | `connect({ connector: injected() })` | `connect('metamask')` |
 | `connect({ connector: walletConnectConnector })` | `connect('walletconnect')` |
-| `connect({ connector: coinbaseWalletConnector })` | `connect('coinbase')` |
+| `connect({ connector: coinbaseCinacoinor })` | `connect('coinbase')` |
 
 ### 2. Chain ID Format
 
@@ -441,11 +441,11 @@ function ChainManager() {
 
 ### Relay & RPC
 
-If you were using WalletConnect Cloud relay with RainbowKit:
+If you were using Cinacoin Cloud relay with RainbowKit:
 
 | Component | RainbowKit | Cinacoin |
 |-----------|-----------|-------------|
-| WalletConnect Relay | `projectId` → Reown Cloud | Your Relay Server (`wss://relay.yourdomain.com/v1`) |
+| Cinacoin Relay | `projectId` → Cinacoin Cloud | Your Relay Server (`wss://relay.yourdomain.com/v1`) |
 | RPC Provider | Alchemy/Infura configured in wagmi | Cinacoin RPC Proxy with intelligent routing |
 
 Deploy self-hosted infrastructure:
@@ -504,7 +504,7 @@ npx cinacoin-codemod --src-dir ./src --transform rainbowkit-to-cinacoin --dry-ru
 
 ### Testing
 
-- [ ] Test MetaMask, WalletConnect QR, Coinbase Wallet connections
+- [ ] Test MetaMask, Cinacoin QR, Coinbase Wallet connections
 - [ ] Test chain switching
 - [ ] Test disconnect / reconnect
 - [ ] Test on mobile browsers
@@ -523,4 +523,4 @@ npx cinacoin-codemod --src-dir ./src --transform rainbowkit-to-cinacoin --dry-ru
 - See [Cinacoin Quick Start](/guide/quick-start) for a full walkthrough
 - See [React API Reference](/api/react) for detailed hook documentation
 - See [Multi-Chain Example](/examples/multi-chain) for advanced multi-chain setups
-- See [Migrate from Reown](/guide/migrate-from-reown) for full infrastructure migration details
+- See [Migrate from Cinacoin](/guide/migrate-from-cinacoin) for full infrastructure migration details

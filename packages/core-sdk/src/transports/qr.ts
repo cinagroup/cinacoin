@@ -1,7 +1,7 @@
 /**
  * QR Code connection transport.
  *
- * Generates QR codes for WalletConnect-style pairing URIs and
+ * Generates QR codes for Cinacoin-style pairing URIs and
  * manages the connection lifecycle for wallet scanning.
  */
 
@@ -96,7 +96,7 @@ export class QRTransport extends Connector {
     const pairingTopic = this.generateTopic();
     const symKey = this.generateSymKey();
 
-    // Construct WalletConnect-compatible URI
+    // Construct Cinacoin-compatible URI
     const uri = `wc:${pairingTopic}@2?relay-protocol=ws&relay-url=${encodeURIComponent(this.config.relayUrl)}&symKey=${symKey}`;
     this.currentUri = uri;
 

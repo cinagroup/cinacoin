@@ -45,7 +45,7 @@
 # 2. 手动配置外部服务密钥
 # - CF_API_TOKEN (Cloudflare)
 # - NEXT_PUBLIC_MOONPAY_API_KEY (MoonPay)
-# - NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID (WalletConnect)
+# - NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID (Cinacoin)
 
 # 3. 上传到密钥管理系统
 # AWS Secrets Manager:

@@ -1,14 +1,14 @@
 /**
- * WalletConnect v2 Adapter.
+ * Cinacoin v2 Adapter.
  *
- * Connects to wallets via WalletConnect protocol v2.
+ * Connects to wallets via Cinacoin protocol v2.
  * Supports QR code pairing and deep link connections.
  *
  * @example
  * ```ts
- * import { WalletConnectAdapter } from '@cinacoin/adapters/walletconnect';
+ * import { CinacoinAdapter } from '@cinacoin/adapters/walletconnect';
  *
- * const adapter = new WalletConnectAdapter({
+ * const adapter = new CinacoinAdapter({
  *   projectId: 'your-project-id',
  *   requiredChains: ['eip155:1', 'eip155:137'],
  *   metadata: {
@@ -26,7 +26,7 @@
 
 import type { ConnectParams, ConnectionResult, TransactionRequest } from '@cinacoin/core-sdk';
 import { Connector } from '@cinacoin/core-sdk';
-import type { WalletConnectConfig, WalletConnectSession } from './types.js';
+import type { CinacoinConfig, CinacoinSession } from './types.js';
 import { logger } from '@cinacoin/logger';
 import {
   DEFAULT_RELAY_URL,
@@ -36,32 +36,32 @@ import {
   isSessionExpired,
 } from './utils.js';
 
-export class WalletConnectAdapter extends Connector {
+export class CinacoinAdapter extends Connector {
   readonly id = 'walletconnect';
-  readonly name = 'WalletConnect';
+  readonly name = 'Cinacoin';
   readonly icon = '🔗';
   readonly type = 'walletconnect';
 
-  private config: WalletConnectConfig;
-  private session: WalletConnectSession | null = null;
+  private config: CinacoinConfig;
+  private session: CinacoinSession | null = null;
   private provider: unknown = null;
   private uri: string | null = null;
 
-  constructor(config: WalletConnectConfig) {
+  constructor(config: CinacoinConfig) {
     super();
     this.config = config;
   }
 
   get installed(): boolean {
-    return true; // WalletConnect is always available
+    return true; // Cinacoin is always available
   }
 
   async connect(params?: ConnectParams): Promise<ConnectionResult> {
     if (!this.config.projectId) {
-      throw new Error('WalletConnect projectId is required. Get one from https://cloud.walletconnect.com');
+      throw new Error('Cinacoin projectId is required. Get one from https://cloud.walletconnect.com');
     }
 
-    // In production, this would initialize the WalletConnect Sign client
+    // In production, this would initialize the Cinacoin Sign client
     // For now, we simulate the connection flow
 
     const requiredNamespaces = buildRequiredNamespaces(this.config);
@@ -78,7 +78,7 @@ export class WalletConnectAdapter extends Connector {
 
     // In production, this would wait for wallet approval
     // For demonstration, we'll simulate a successful connection
-    const mockSession: WalletConnectSession = {
+    const mockSession: CinacoinSession = {
       topic: `session-${Date.now()}`,
       pairingTopic: `pairing-${Date.now()}`,
       relay: { protocol: 'irn' },
@@ -169,7 +169,7 @@ export class WalletConnectAdapter extends Connector {
     const chainId = parseSessionChainId(this.session);
     const chain = `eip155:${chainId}`;
 
-    // In production, this would send a JSON-RPC request via WalletConnect
+    // In production, this would send a JSON-RPC request via Cinacoin
     // For now, we simulate a signature
     const mockSignature = '0x' + 'f'.repeat(130);
     
@@ -183,7 +183,7 @@ export class WalletConnectAdapter extends Connector {
     const chainId = tx.chainId || parseSessionChainId(this.session);
     const chain = `eip155:${chainId}`;
 
-    // In production, this would send eth_signTransaction via WalletConnect
+    // In production, this would send eth_signTransaction via Cinacoin
     // For now, we simulate a signed transaction
     const mockSignedTx = '0x' + 'a'.repeat(200);
     
@@ -200,7 +200,7 @@ export class WalletConnectAdapter extends Connector {
   /**
    * Get the current session.
    */
-  getSession(): WalletConnectSession | null {
+  getSession(): CinacoinSession | null {
     return this.session;
   }
 

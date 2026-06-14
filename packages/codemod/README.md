@@ -1,6 +1,6 @@
 # @cinacoin/codemod
 
-Automated codemods for migrating from **Reown/AppKit**, **RainbowKit**, **ConnectKit**, and **WalletConnect v1** to **Cinacoin**.
+Automated codemods for migrating from **Cinacoin/AppKit**, **RainbowKit**, **ConnectKit**, and **Cinacoin v1** to **Cinacoin**.
 
 ## Installation
 
@@ -66,7 +66,7 @@ Migrates Web3Modal / AppKit code to Cinacoin:
 
 | Before | After |
 |--------|-------|
-| `@reown/appkit` | `@cinacoin/core-sdk` |
+| `@cinacoin/appkit` | `@cinacoin/core-sdk` |
 | `@web3modal/react` | `@cinacoin/react` |
 | `Web3Modal` | `Cinacoin` |
 | `createWeb3Modal` | `createCinacoin` |
@@ -110,7 +110,7 @@ Migrates Web3Modal / AppKit code to Cinacoin:
 
 | Before | After |
 |--------|-------|
-| `@reown/appkit` | `@cinacoin/core` |
+| `@cinacoin/appkit` | `@cinacoin/core` |
 | `@web3modal/react` | `@cinacoin/react` |
 | `@web3modal/ethereum` | `@cinacoin/ethereum` |
 | `Web3Modal` | `Cinacoin` |
@@ -122,7 +122,7 @@ Migrates Web3Modal / AppKit code to Cinacoin:
 
 ### `wc-v1-to-v2`
 
-Migrates WalletConnect v1 patterns to v2:
+Migrates Cinacoin v1 patterns to v2:
 
 | Before | After |
 |--------|-------|
@@ -139,7 +139,7 @@ Migrates WalletConnect v1 patterns to v2:
 
 1. **Commit your code** before running codemods
 2. Run `appkit-to-cinacoin` (package/identifier renames)
-3. Run `wc-v1-to-v2` if using WalletConnect v1 patterns
+3. Run `wc-v1-to-v2` if using Cinacoin v1 patterns
 4. Review changes with `git diff`
 5. Fix any manual migration steps
 6. Run tests

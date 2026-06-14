@@ -16,7 +16,7 @@ const stats = {
 const recentProjects = [
   {
     id: "proj-1",
-    name: "CinaCoin Wallet",
+    name: "Cinacoin Wallet",
     status: "active" as const,
     network: "Mainnet",
     requests: 842_301,

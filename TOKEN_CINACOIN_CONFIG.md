@@ -1,7 +1,7 @@
 # 🪙 CINACOIN 代币配置详情
 
 **更新时间**: 2026-03-27 06:56 UTC  
-**代币名称**: CinaCoin  
+**代币名称**: Cinacoin  
 **符号**: CINACOIN
 
 ---
@@ -10,7 +10,7 @@
 
 | 属性 | 值 |
 |------|-----|
-| **名称** | CinaCoin |
+| **名称** | Cinacoin |
 | **符号** | CINACOIN |
 | **基础单位** | cinacoin |
 | **显示单位** | CINACOIN |

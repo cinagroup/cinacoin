@@ -1,5 +1,5 @@
 /**
- * Pairing protocol for WalletConnect v2.
+ * Pairing protocol for Cinacoin v2.
  *
  * Handles pairing URI generation, parsing, and the full pairing lifecycle:
  * create, approve, reject, delete, ping. A pairing is the first step before
@@ -27,11 +27,11 @@ export interface PairingConfig {
 // ============================================================
 
 /**
- * Parse a WalletConnect v2 URI into its components.
+ * Parse a Cinacoin v2 URI into its components.
  *
  * Format: `wc:<topic>@<version>?relay-protocol=<protocol>&relay-url=<url>&symKey=<key>&methods=<methods>`
  *
- * @param uri - WalletConnect URI string.
+ * @param uri - Cinacoin URI string.
  * @returns Parsed components.
  */
 export function parseWcUri(uri: string): ParsedWcUri {
@@ -44,7 +44,7 @@ export function parseWcUri(uri: string): ParsedWcUri {
 
   const version = parseInt(versionStr, 10);
   if (version !== 2) {
-    throw new Error(`Unsupported WalletConnect version: ${version}. Expected 2.`);
+    throw new Error(`Unsupported Cinacoin version: ${version}. Expected 2.`);
   }
 
   // Parse query params
@@ -70,7 +70,7 @@ export function parseWcUri(uri: string): ParsedWcUri {
 }
 
 /**
- * Format a WalletConnect v2 URI from parsed components.
+ * Format a Cinacoin v2 URI from parsed components.
  *
  * @param params - Parsed WC URI components.
  * @returns Formatted WC URI string.
@@ -139,7 +139,7 @@ export async function createPairing(config: PairingConfig): Promise<{
  * This parses the URI, connects to the relay, and subscribes to the
  * pairing topic to receive session proposals.
  *
- * @param uri - WalletConnect v2 URI.
+ * @param uri - Cinacoin v2 URI.
  * @param config - Optional relay configuration override.
  * @returns The approved pairing.
  */

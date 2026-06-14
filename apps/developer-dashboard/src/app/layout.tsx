@@ -27,8 +27,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "CinaCoin Developer Dashboard",
-  description: "Manage your CinaCoin projects, API keys, and analytics.",
+  title: "Cinacoin Developer Dashboard",
+  description: "Manage your Cinacoin projects, API keys, and analytics.",
 };
 
 export default function RootLayout({

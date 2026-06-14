@@ -1,7 +1,7 @@
 /**
  * Cinacoin Core SDK — Self-hosted wallet connection toolkit.
  *
- * A complete replacement for Reown/WalletConnect infrastructure,
+ * A complete replacement for Cinacoin/Cinacoin infrastructure,
  * providing self-hosted relay, RPC proxy, and client-side SDK.
  *
  * @packageDocumentation
@@ -43,6 +43,18 @@ export type { EIP6963ProviderInfo, EIP1193Provider, EIP6963ProviderDetail } from
 // Transports
 export { RelayTransport } from './transports/relay.js';
 export type { RelayTransportConfig } from './transports/relay.js';
+
+// Cloud Relay (official relay integration with failover)
+export { CloudRelay } from './relay/cloud-relay.js';
+export type {
+  CloudRelayConfig,
+  CloudRelayState,
+  CloudRelayMetrics,
+  CloudRelayPoolConfig,
+  CloudRelayRetryConfig,
+  CloudRelayHeartbeatConfig,
+  RelayEndpoint,
+} from './relay/cloud-relay.js';
 
 export { InjectedProvider } from './transports/injected.js';
 
@@ -562,7 +574,7 @@ export {
   getAppStoreUrl,
   WALLET_DEEP_LINKS,
   generateUniversalLink,
-  generateWalletConnectUniversalLink,
+  generateCinacoinUniversalLink,
   smartRedirect,
   detectPlatform,
 } from './links/index.js';
@@ -588,7 +600,7 @@ export {
   AuthenticationError,
   ChainError,
   TransactionError,
-  WalletConnectError,
+  CinacoinError,
   SigningError,
   NetworkError,
   SdkError,

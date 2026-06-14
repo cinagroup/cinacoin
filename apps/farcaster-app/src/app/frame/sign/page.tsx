@@ -3,8 +3,8 @@ import { buildFrameMetadata, getAppUrl } from '@/lib/frame-utils';
 import { PenLine } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'CinaCoin — Sign',
-  description: 'Sign messages with your wallet in the CinaCoin Farcaster Mini App.',
+  title: 'Cinacoin — Sign',
+  description: 'Sign messages with your wallet in the Cinacoin Farcaster Mini App.',
   other: buildFrameMetadata({
     image: `${getAppUrl()}/og-sign.png`,
     title: 'Sign Message',

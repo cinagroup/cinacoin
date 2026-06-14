@@ -23,7 +23,7 @@ Phase 2 Core SDK enhancement completed successfully. All deliverables implemente
 - Auto-connect from localStorage
 - Multi-chain support (EVM/Solana/Bitcoin)
 - TypeScript types for all APIs
--对标 Reown AppKit + Coinbase OnchainKit
+-对标 Cinacoin AppKit + Coinbase OnchainKit
 
 ### 2. Chain Registry (1 file)
 **Location:** `packages/core-sdk/src/chains.ts`
@@ -69,8 +69,8 @@ Phase 2 Core SDK enhancement completed successfully. All deliverables implemente
 - Chain switching
 - Installation detection
 
-**WalletConnect Adapter (4 files):**
-- WalletConnect v2 protocol
+**Cinacoin Adapter (4 files):**
+- Cinacoin v2 protocol
 - QR code pairing
 - Session management
 - Multi-chain namespaces
@@ -184,8 +184,8 @@ Updated `packages/core-sdk/tsconfig.json`:
 
 ## API Compatibility
 
-###对标 Reown AppKit
-| Reown API | Cinacoin Equivalent |
+###对标 Cinacoin AppKit
+| Cinacoin API | Cinacoin Equivalent |
 |-----------|---------------------|
 | `<w3m-connect-button />` | `<ConnectButton />` |
 | `useAppKit()` | `useCoinConnect()` |
@@ -222,7 +222,7 @@ function App() {
 ```tsx
 import { CoinProvider } from '@cinacoin/core-sdk/react';
 import { MetaMaskAdapter } from '@cinacoin/adapters/metamask';
-import { WalletConnectAdapter } from '@cinacoin/adapters/walletconnect';
+import { CinacoinAdapter } from '@cinacoin/adapters/walletconnect';
 
 const connectors = [
   {
@@ -234,10 +234,10 @@ const connectors = [
   },
   {
     id: 'walletconnect',
-    name: 'WalletConnect',
+    name: 'Cinacoin',
     icon: '🔗',
     type: 'walletconnect' as const,
-    create: () => new WalletConnectAdapter({ projectId: 'xxx' }),
+    create: () => new CinacoinAdapter({ projectId: 'xxx' }),
   },
 ];
 
@@ -310,7 +310,7 @@ async function signIn() {
 
 3. **E2E Tests:**
    - MetaMask connection
-   - WalletConnect QR flow
+   - Cinacoin QR flow
    - Transaction signing
    - Chain switching
 
@@ -342,10 +342,10 @@ async function signIn() {
 Phase 2 successfully delivers a complete, production-ready Core SDK with:
 - ✅ React integration layer (Provider + 5 hooks + 2 components)
 - ✅ Multi-chain support (EVM + Solana + Bitcoin)
-- ✅ 5 wallet adapters (MetaMask, WalletConnect, Coinbase, Phantom, Bitcoin)
+- ✅ 5 wallet adapters (MetaMask, Cinacoin, Coinbase, Phantom, Bitcoin)
 - ✅ Design system with light/dark themes
 - ✅ CLI enhancements (3 new component templates)
 - ✅ Full TypeScript types
-- ✅对标 Reown AppKit API compatibility
+- ✅对标 Cinacoin AppKit API compatibility
 
 Total: **42 new files** across 6 packages, ready for Phase 3.

@@ -1,12 +1,12 @@
 # Cinacoin — 自有品牌链上 UX 工具包
 
-> **完全独立于 Reown/WalletConnect**，构建自有品牌的链上连接与交互工具包。
+> **完全独立于 Cinacoin/Cinacoin**，构建自有品牌的链上连接与交互工具包。
 
 ## 为什么选择 Cinacoin？
 
 | 痛点 | Cinacoin 解决方案 |
 |------|-------------------|
-| Reown 商业授权费 $500-5,000/月 | 零授权费，完全自建 |
+| Cinacoin 商业授权费 $500-5,000/月 | 零授权费，完全自建 |
 | MAU 500 上限 | 无限制 |
 | 品牌露出不可控 | 白标输出，零第三方痕迹 |
 | 单点故障风险 | 多 Region 部署，99.95% SLA |
@@ -174,5 +174,5 @@ function App() {
 
 | 文档 | 说明 |
 |------|------|
-| [🆚 Cinacoin vs Reown: The Complete Comparison](/blog/cinacoin-vs-reown-comparison) | 全面技术对比：架构、特性、性能 |
+| [🆚 Cinacoin vs Cinacoin: The Complete Comparison](/blog/cinacoin-vs-cinacoin-comparison) | 全面技术对比：架构、特性、性能 |
 | [🚀 Cinacoin v0.2.0 — Connect Everything On-Chain](/blog/release-v0.2.0) | v0.2.0 发布：72 个包，全平台支持 |

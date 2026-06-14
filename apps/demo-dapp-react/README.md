@@ -8,7 +8,7 @@ This demo covers the complete wallet lifecycle across **8 components**:
 
 | Component | Feature | SDK Hooks / Components Used |
 |---|---|---|
-| `DemoHeader` | App branding + connection status | `useCinaCoinContext` |
+| `DemoHeader` | App branding + connection status | `useCinacoinContext` |
 | `DemoConnectSection` | Connect button, modal, programmatic connect | `ConnectButton`, `ConnectModal`, `useConnect`, `useDisconnect` |
 | `DemoChainSwitcher` | Chain switching + current chain info | `ChainSwitcher`, `useSwitchChain` |
 | `DemoBalance` | Real-time native token balance | `useBalance` |

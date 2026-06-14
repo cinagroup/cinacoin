@@ -1,7 +1,7 @@
 /**
  * wc-v1-to-v2 codemod
  *
- * Transforms WalletConnect v1 patterns → WalletConnect v2 / Cinacoin patterns:
+ * Transforms Cinacoin v1 patterns → Cinacoin v2 / Cinacoin patterns:
  *   - bridge URL      → projectId
  *   - v1 provider init → v2 Web3Modal / Cinacoin init
  *   - v1 events       → v2 event names
@@ -31,11 +31,11 @@ const PATTERN_REPLACEMENTS: PatternRule[] = [
     replacement: "projectId: 'YOUR_PROJECT_ID'",
   },
 
-  // WalletConnect v1 constructor
+  // Cinacoin v1 constructor
   {
-    pattern: /new\s+WalletConnect\s*\(\s*\{[\s\S]*?bridge[\s\S]*?\}\s*\)/g,
-    description: "WalletConnect v1 constructor",
-    replacement: () => "new WalletConnect({ projectId: 'YOUR_PROJECT_ID', metadata: { ... } })",
+    pattern: /new\s+Cinacoin\s*\(\s*\{[\s\S]*?bridge[\s\S]*?\}\s*\)/g,
+    description: "Cinacoin v1 constructor",
+    replacement: () => "new Cinacoin({ projectId: 'YOUR_PROJECT_ID', metadata: { ... } })",
   },
 
   // @walletconnect/client v1 imports
@@ -50,11 +50,11 @@ const PATTERN_REPLACEMENTS: PatternRule[] = [
     replacement: "@walletconnect/sign-client",
   },
 
-  // Provider init: WalletConnectProvider v1
+  // Provider init: CinacoinProvider v1
   {
-    pattern: /new\s+WalletConnectProvider\s*\(\s*\{[\s\S]*?rpc[\s\S]*?\}\s*\)/g,
-    description: "WalletConnectProvider v1 init",
-    replacement: () => "new WalletConnectProvider({ projectId: 'YOUR_PROJECT_ID', chains: [...] })",
+    pattern: /new\s+CinacoinProvider\s*\(\s*\{[\s\S]*?rpc[\s\S]*?\}\s*\)/g,
+    description: "CinacoinProvider v1 init",
+    replacement: () => "new CinacoinProvider({ projectId: 'YOUR_PROJECT_ID', chains: [...] })",
   },
 
   // v1 event names → v2
@@ -106,9 +106,9 @@ const LINE_TRANSFORMS: [RegExp, string][] = [
     "$1'YOUR_PROJECT_ID'",
   ],
 
-  // v1: WalletConnect({ bridge: '...', ... })
+  // v1: Cinacoin({ bridge: '...', ... })
   [
-    /(WalletConnect\s*\(\s*\{[^}]*?)bridge\s*:\s*['"`][^'"`]*['"`]/gi,
+    /(Cinacoin\s*\(\s*\{[^}]*?)bridge\s*:\s*['"`][^'"`]*['"`]/gi,
     "$1projectId: 'YOUR_PROJECT_ID'",
   ],
 
@@ -150,7 +150,7 @@ const LINE_TRANSFORMS: [RegExp, string][] = [
 // ── Main transform ──────────────────────────────────────────────────────────
 
 /**
- * Apply WalletConnect v1 → v2 transformation.
+ * Apply Cinacoin v1 → v2 transformation.
  */
 export function transformWcV1ToV2(source: string): CodemodResult {
   let output = source;

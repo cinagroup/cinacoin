@@ -255,7 +255,7 @@ const config: CinacoinConfig = {
 
 Available wallet IDs:
 - `metamask` - MetaMask
-- `walletconnect` - WalletConnect
+- `walletconnect` - Cinacoin
 - `coinbase` - Coinbase Wallet
 - `rabby` - Rabby Wallet
 - `email` - Email-based authentication

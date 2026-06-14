@@ -291,7 +291,7 @@ function validateDeepLink(url: string): { protocol: string; params: URLSearchPar
   if (parsed.protocol === 'wc:') {
     const match = url.match(/^wc:([a-f0-9]{64})@([0-9]+)/)
     if (!match) {
-      throw new Error('Invalid WalletConnect URI format')
+      throw new Error('Invalid Cinacoin URI format')
     }
   }
 

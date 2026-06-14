@@ -84,7 +84,7 @@ describe('MultiwalletStore', () => {
 
   it('promotes next connection to active when active is removed', () => {
     store.addConnection('metamask', 'MetaMask', 'eip155', '0xabc', {}, null);
-    store.addConnection('walletconnect', 'WalletConnect', 'eip155', '0xdef', {}, null);
+    store.addConnection('walletconnect', 'Cinacoin', 'eip155', '0xdef', {}, null);
 
     // First is active
     expect(store.getActiveConnection('eip155')?.walletId).toBe('metamask');
@@ -101,7 +101,7 @@ describe('MultiwalletStore', () => {
 
   it('activates a specific wallet in a namespace', () => {
     store.addConnection('metamask', 'MetaMask', 'eip155', '0xabc', {}, null);
-    store.addConnection('walletconnect', 'WalletConnect', 'eip155', '0xdef', {}, null);
+    store.addConnection('walletconnect', 'Cinacoin', 'eip155', '0xdef', {}, null);
 
     const activated = store.setActiveConnection('walletconnect', 'eip155');
     expect(activated?.walletId).toBe('walletconnect');
@@ -117,7 +117,7 @@ describe('MultiwalletStore', () => {
 
   it('deactivates previous active connection when switching', () => {
     store.addConnection('metamask', 'MetaMask', 'eip155', '0xabc', {}, null);
-    store.addConnection('walletconnect', 'WalletConnect', 'eip155', '0xdef', {}, null);
+    store.addConnection('walletconnect', 'Cinacoin', 'eip155', '0xdef', {}, null);
 
     store.setActiveConnection('walletconnect', 'eip155');
 
@@ -130,7 +130,7 @@ describe('MultiwalletStore', () => {
 
   it('swaps active connection from one wallet to another', () => {
     store.addConnection('metamask', 'MetaMask', 'eip155', '0xabc', {}, null);
-    store.addConnection('walletconnect', 'WalletConnect', 'eip155', '0xdef', {}, null);
+    store.addConnection('walletconnect', 'Cinacoin', 'eip155', '0xdef', {}, null);
 
     const swapped = store.swapConnection('eip155', 'metamask', 'walletconnect');
     expect(swapped).toBe(true);
@@ -139,7 +139,7 @@ describe('MultiwalletStore', () => {
 
   it('returns false when from wallet is not active', () => {
     store.addConnection('metamask', 'MetaMask', 'eip155', '0xabc', {}, null);
-    store.addConnection('walletconnect', 'WalletConnect', 'eip155', '0xdef', {}, null);
+    store.addConnection('walletconnect', 'Cinacoin', 'eip155', '0xdef', {}, null);
 
     // walletconnect is NOT active (metamask is)
     const swapped = store.swapConnection('eip155', 'walletconnect', 'metamask');
@@ -181,7 +181,7 @@ describe('MultiwalletStore', () => {
 
     unsubscribe();
 
-    store.addConnection('walletconnect', 'WalletConnect', 'eip155', '0xdef', {}, null);
+    store.addConnection('walletconnect', 'Cinacoin', 'eip155', '0xdef', {}, null);
     expect(listener).toHaveBeenCalledTimes(1); // Still 1
   });
 

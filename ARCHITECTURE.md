@@ -8,7 +8,7 @@
 
 ## 1. System Overview
 
-Cinacoin is a **self-hosted, open-source Web3 SDK** — a full replacement for Reown AppKit (formerly WalletConnect/Web3Modal). It provides wallet connections, multi-chain authentication, payments, smart accounts, and developer tools across web, mobile, and game engines.
+Cinacoin is a **self-hosted, open-source Web3 SDK** — a full replacement for Cinacoin AppKit (formerly Cinacoin/Web3Modal). It provides wallet connections, multi-chain authentication, payments, smart accounts, and developer tools across web, mobile, and game engines.
 
 ```
 ┌──────────────────────────────────────────────────────────────────────┐
@@ -43,7 +43,7 @@ Cinacoin is a **self-hosted, open-source Web3 SDK** — a full replacement for R
 │  └─────┬──────┘ └─────┬─────┘ └─────┬──────┘ └──────┬────────┘    │
 ├───────┴──────────────┴──────────────┴───────────────┴──────────────┤
 │                     External Services                               │
-│  Blockchain Nodes │ WalletConnect Network │ DEX APIs │ On-Ramp APIs│
+│  Blockchain Nodes │ Cinacoin Network │ DEX APIs │ On-Ramp APIs│
 └──────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -153,7 +153,7 @@ cinacoin/                          # Root: pnpm workspace
 │   │
 │   │── devtools/ (8)
 │   │   ├── cli/                   # CLI scaffolding tool
-│   │   ├── codemod/               # Migration from Reown/AppKit
+│   │   ├── codemod/               # Migration from Cinacoin/AppKit
 │   │   ├── analytics/             # Connection event analytics
 │   │   ├── analytics-server/      # Analytics backend
 │   │   ├── config/                # Shared config & types + CSRF
@@ -284,7 +284,7 @@ Request → CORS check → API Key auth → CSRF token → Size limit → JSON p
                               ┌─────────────────────────┤
                               │                         │
                     ┌─────────▼──────────┐   ┌──────────▼──────────┐
-                    │  EIP-6963          │   │  WalletConnect v2    │
+                    │  EIP-6963          │   │  Cinacoin v2    │
                     │  Multi-Injected    │   │  Pairing Protocol     │
                     │  Provider Discovery│   │  X25519 + ChaCha20    │
                     └─────────┬──────────┘   └──────────┬──────────┘

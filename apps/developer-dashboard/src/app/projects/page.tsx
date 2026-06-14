@@ -4,7 +4,7 @@ import { Folder } from "lucide-react";
 const projects = [
   {
     id: "proj-1",
-    name: "CinaCoin Wallet",
+    name: "Cinacoin Wallet",
     status: "active" as const,
     network: "Mainnet",
     requests: 842_301,
@@ -89,7 +89,7 @@ export default function ProjectsPage() {
                   <div className="flex flex-col items-center justify-center">
                     <Folder className="w-12 h-12 mb-4 text-ink-mute" aria-hidden="true" />
                     <h3 className="text-heading-3 text-[var(--cc-ink)] mb-1">No projects created.</h3>
-                    <p className="text-body-sm text-ink-body max-w-sm">Create your first project to start building with CinaCoin.</p>
+                    <p className="text-body-sm text-ink-body max-w-sm">Create your first project to start building with Cinacoin.</p>
                   </div>
                 </td>
               </tr>

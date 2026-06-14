@@ -58,7 +58,7 @@
 - [x] Skip navigation（`layout.tsx` L40-42）
 - [x] `prefers-reduced-motion` 支持（`globals.css` L228-237）
 - [x] 触摸目标全局 44px（`globals.css` L128-129）
-- [x] Sentence-case + period-terminated 标题（"CinaCoin."）
+- [x] Sentence-case + period-terminated 标题（"Cinacoin."）
 
 ### ❌ 问题项
 

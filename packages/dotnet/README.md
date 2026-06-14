@@ -8,7 +8,7 @@ Official .NET SDK for the Cinacoin wallet connectivity platform. Provides client
 
 > **⚠️ Important: Current Architecture**
 >
-> This .NET SDK is an **HTTP API client** — it communicates with the Cinacoin relay/proxy server over REST + WebSocket. It does **not** implement the native WalletConnect v2 protocol directly.
+> This .NET SDK is an **HTTP API client** — it communicates with the Cinacoin relay/proxy server over REST + WebSocket. It does **not** implement the native Cinacoin v2 protocol directly.
 >
 > - ✅ Account management, balance queries, transaction signing (via relay API)
 > - ✅ WC v2 pairing URI generation and parsing (format utilities only)
@@ -19,8 +19,8 @@ Official .NET SDK for the Cinacoin wallet connectivity platform. Provides client
 > For comparison:
 > | Platform | Protocol Implementation | Encryption |
 > |----------|------------------------|------------|
-> | iOS (Swift) | Native WC v2 via WalletConnectSwiftV2 SDK | ✅ ChaCha20-Poly1305 (CryptoKit) |
-> | Android (Kotlin) | Native WC v2 via WalletConnectKotlin SDK | ✅ Handled by SDK |
+> | iOS (Swift) | Native WC v2 via CinacoinSwiftV2 SDK | ✅ ChaCha20-Poly1305 (CryptoKit) |
+> | Android (Kotlin) | Native WC v2 via CinacoinKotlin SDK | ✅ Handled by SDK |
 > | Flutter (Dart) | HTTP relay API (with deep link integration) | ✅ Via relay server |
 > | .NET (C#) | **HTTP relay API client** | ❌ Not encrypted (see limitations below) |
 >
@@ -245,9 +245,9 @@ dotnet run
 | Microsoft.Extensions.Http           | 8.0.1   |
 | Microsoft.Extensions.Logging.Abstractions | 8.0.2   |
 
-## WalletConnect v2 Handshake
+## Cinacoin v2 Handshake
 
-The SDK includes `WalletConnectV2Handshake` in `Cinacoin.Services` for
+The SDK includes `CinacoinV2Handshake` in `Cinacoin.Services` for
 WC v2 pairing URI generation, parsing, topic derivation, and session
 approval construction. These are **format-level utilities** — they produce
 correct WC v2 URIs and payloads but do **not** implement the full protocol
@@ -256,7 +256,7 @@ correct WC v2 URIs and payloads but do **not** implement the full protocol
 ```csharp
 using Cinacoin.Services;
 
-await using var handshake = new WalletConnectV2Handshake(
+await using var handshake = new CinacoinV2Handshake(
     projectId: "YOUR_PROJECT_ID",
     metadata: new AppMetadata
     {
@@ -271,11 +271,11 @@ var pairingUri = await handshake.CreatePairingAsync();
 Console.WriteLine($"Scan this URI: {pairingUri}");
 
 // Parse an incoming WC v2 URI
-var components = WalletConnectV2Handshake.ParsePairingUri(pairingUri);
+var components = CinacoinV2Handshake.ParsePairingUri(pairingUri);
 Console.WriteLine($"Topic: {components.Topic}");
 
 // Derive a session topic from two public keys (SHA-256, not full DH)
-var sessionTopic = WalletConnectV2Handshake.DeriveSessionTopic(
+var sessionTopic = CinacoinV2Handshake.DeriveSessionTopic(
     myPublicKey: "aa...aa",    // our 64-char hex public key
     peerPublicKey: "bb...bb"  // peer's 64-char hex public key
 );
@@ -283,7 +283,7 @@ var sessionTopic = WalletConnectV2Handshake.DeriveSessionTopic(
 
 ### Limitations
 
-The .NET SDK is an **HTTP API client**, not a native WalletConnect v2 protocol implementation. Key limitations:
+The .NET SDK is an **HTTP API client**, not a native Cinacoin v2 protocol implementation. Key limitations:
 
 | Feature | Status | Detail |
 |---------|--------|--------|
@@ -302,9 +302,9 @@ The .NET SDK is an **HTTP API client**, not a native WalletConnect v2 protocol i
 1. **The SDK works** for account management, balance queries, and transaction signing through the Cinacoin relay API.
 2. **Messages are not encrypted** on the wire in this release. The relay server handles the connection, but confidentiality relies on HTTPS/WSS transport-layer security only.
 3. **For a full native WC v2 implementation** in .NET, consider:
-   - Integrating the [`WalletConnectNet`](https://github.com/WalletConnect/WalletConnectNet) community library
+   - Integrating the [`CinacoinNet`](https://github.com/Cinacoin/CinacoinNet) community library
    - Adding `BouncyCastle.Cryptography` for X25519 + ChaCha20-Poly1305
-   - Waiting for an official WalletConnect .NET SDK release
+   - Waiting for an official Cinacoin .NET SDK release
 
 **Production readiness checklist:**
 
@@ -332,7 +332,7 @@ The .NET SDK is an **HTTP API client**, not a native WalletConnect v2 protocol i
 | `SignMessageAsync(addr, msg)`| Sign a message (EIP-191)                     |
 | `SignTypedDataAsync(addr, d)`| Sign typed data (EIP-712)                    |
 
-### `WalletConnectV2Handshake`
+### `CinacoinV2Handshake`
 
 | Method                         | Description                                    |
 | ------------------------------ | ---------------------------------------------- |

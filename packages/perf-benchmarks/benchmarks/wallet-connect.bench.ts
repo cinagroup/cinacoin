@@ -1,14 +1,14 @@
 import { logger } from '@cinacoin/logger';
 /**
- * WalletConnect v2 Benchmark
+ * Cinacoin v2 Benchmark
  *
- * Measures WalletConnect v2 pairing, session proposal, and session approval times.
+ * Measures Cinacoin v2 pairing, session proposal, and session approval times.
  * 50 iterations per operation.
- * Compares with Reown AppKit baseline (target: < 1s total connection).
+ * Compares with Cinacoin AppKit baseline (target: < 1s total connection).
  * Reports P50/P95/P99 for each operation.
  */
 
-// ── Simulated WalletConnect operations ──────────────────────────────────
+// ── Simulated Cinacoin operations ──────────────────────────────────
 
 interface WcConfig {
   /** Simulate relay server latency (ms) */
@@ -26,7 +26,7 @@ const DEFAULT_CONFIG: WcConfig = {
 };
 
 /**
- * Simulate WalletConnect v2 pairing.
+ * Simulate Cinacoin v2 pairing.
  * Steps: initialize relay, establish WebSocket, pair via URI.
  */
 async function simulatePairing(config: WcConfig): Promise<number> {
@@ -116,8 +116,8 @@ interface BenchmarkResult {
 }
 
 export default {
-  name: "WalletConnect",
-  description: "Measures WalletConnect v2 pairing, session proposal, and approval latency (target: <1s total)",
+  name: "Cinacoin",
+  description: "Measures Cinacoin v2 pairing, session proposal, and approval latency (target: <1s total)",
 
   async run(): Promise<BenchmarkResult[]> {
     const samples: BenchmarkResult[] = [];

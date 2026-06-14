@@ -1,6 +1,6 @@
 # Cinacoin Unity SDK
 
-Self-hosted wallet connection toolkit for Unity games and apps. Complete replacement for Reown/WalletConnect infrastructure.
+Self-hosted wallet connection toolkit for Unity games and apps. Complete replacement for Cinacoin/Cinacoin infrastructure.
 
 ## Installation
 
@@ -62,7 +62,7 @@ CinacoinManager.Instance.IsConnected  // bool
 
 // Events
 CinacoinManager.Instance.OnStateChanged += (state) => { ... };
-CinacoinManager.Instance.OnWalletConnected += (result) => { ... };
+CinacoinManager.Instance.OnCinacoined += (result) => { ... };
 CinacoinManager.Instance.OnWalletDisconnected += () => { ... };
 CinacoinManager.Instance.OnChainChangedEvent += (chainId) => { ... };
 CinacoinManager.Instance.OnErrorEvent += (error) => { ... };
@@ -153,7 +153,7 @@ WalletRegistry.Register(customWallet);
 | OKX Wallet | ✅ | ✅ | Multi |
 | Bitget Wallet | ✅ | ✅ | Multi |
 | Uniswap Wallet | ✅ | ✅ | EVM |
-| WalletConnect | ✅ | ✅ | Multi |
+| Cinacoin | ✅ | ✅ | Multi |
 
 ## Architecture
 

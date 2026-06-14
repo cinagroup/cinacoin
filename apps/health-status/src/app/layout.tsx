@@ -21,25 +21,25 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: "CinaCoin Health Status",
-    template: "%s | CinaCoin Status",
+    default: "Cinacoin Health Status",
+    template: "%s | Cinacoin Status",
   },
-  description: "Real-time system health status and uptime monitoring for CinaCoin services. Check operational status of all platform components.",
-  keywords: ["CinaCoin", "status", "health", "uptime", "monitoring", "service status"],
+  description: "Real-time system health status and uptime monitoring for Cinacoin services. Check operational status of all platform components.",
+  keywords: ["Cinacoin", "status", "health", "uptime", "monitoring", "service status"],
   robots: {
     index: true,
     follow: true,
   },
   openGraph: {
     type: "website",
-    siteName: "CinaCoin",
-    title: "CinaCoin Health Status",
-    description: "Real-time system health status for CinaCoin services",
+    siteName: "Cinacoin",
+    title: "Cinacoin Health Status",
+    description: "Real-time system health status for Cinacoin services",
   },
   twitter: {
     card: "summary",
-    title: "CinaCoin Health Status",
-    description: "Real-time system health status for CinaCoin services",
+    title: "Cinacoin Health Status",
+    description: "Real-time system health status for Cinacoin services",
   },
 };
 

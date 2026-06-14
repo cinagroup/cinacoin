@@ -20,7 +20,7 @@ npx wrangler pages deploy docs/.vitepress/dist --project-name=cinacoin-docs --br
 
 ## Step 3: Deploy Cloudflare Workers
 
-### Relay Service (WalletConnect)
+### Relay Service (Cinacoin)
 ```bash
 cd infra/relay
 ./scripts/deploy.sh

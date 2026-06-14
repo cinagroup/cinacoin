@@ -33,7 +33,7 @@ provider.connect('0x...', 1);
 const modal = new TelegramModal({
   wallets: [
     { id: 'mm', name: 'MetaMask', icon: '🦊' },
-    { id: 'wc', name: 'WalletConnect', icon: '🔗' },
+    { id: 'wc', name: 'Cinacoin', icon: '🔗' },
   ],
 });
 const selected = await modal.show();

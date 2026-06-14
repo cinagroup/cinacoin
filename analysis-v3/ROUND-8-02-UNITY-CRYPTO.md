@@ -8,12 +8,12 @@
 
 ## Executive Summary
 
-Three critical cryptographic vulnerabilities were found and fixed in the Unity C# WalletConnect v2 SDK implementation:
+Three critical cryptographic vulnerabilities were found and fixed in the Unity C# Cinacoin v2 SDK implementation:
 
 | # | Issue | Severity | Status |
 |---|-------|----------|--------|
 | P0-1 | X25519 ScalarMult — no public key validation, vulnerable to small-order point attacks | Critical | ✅ Fixed |
-| P0-2 | AES-256-CBC+HMAC used instead of ChaCha20-Poly1305 AEAD (WalletConnect v2 spec violation) | Critical | ✅ Fixed |
+| P0-2 | AES-256-CBC+HMAC used instead of ChaCha20-Poly1305 AEAD (Cinacoin v2 spec violation) | Critical | ✅ Fixed |
 | P0-3 | Type-1 envelope: `EncodeType1` uses `peerPublicKey` directly as encryption key (NOT DH-derived); `DecodeType1` uses `sharedSecret` for MAC — asymmetric and broken | Critical | ✅ Fixed |
 
 All fixes maintain the same public API (with one additive change to `EncodeType1` which now requires `selfPrivateKey` as the first argument for proper DH key derivation).
@@ -76,13 +76,13 @@ if (!ValidatePublicKey(peerPublicKey))
 
 ### Problem
 
-The implementation used AES-256-CBC with a separate HMAC-SHA256 for integrity. This violates the WalletConnect v2 specification which requires **ChaCha20-Poly1305 AEAD** (RFC 8439).
+The implementation used AES-256-CBC with a separate HMAC-SHA256 for integrity. This violates the Cinacoin v2 specification which requires **ChaCha20-Poly1305 AEAD** (RFC 8439).
 
 Specific issues with the old implementation:
 
-1. **Wrong cipher:** WalletConnect v2 spec mandates ChaCha20-Poly1305, not AES-CBC
+1. **Wrong cipher:** Cinacoin v2 spec mandates ChaCha20-Poly1305, not AES-CBC
 2. **Encrypt-then-MAC composition risk:** Manual composition of AES-CBC + HMAC-SHA256 is error-prone
-3. **Interoperability failure:** Other WalletConnect v2 SDKs use ChaCha20-Poly1305; our AES-CBC implementation cannot interoperate
+3. **Interoperability failure:** Other Cinacoin v2 SDKs use ChaCha20-Poly1305; our AES-CBC implementation cannot interoperate
 
 ### Envelope Format Change
 
@@ -276,6 +276,6 @@ This is a **breaking wire format change** — old and new implementations cannot
 
 - [RFC 7748 — Elliptic Curves for Security (X25519)](https://www.rfc-editor.org/rfc/rfc7748)
 - [RFC 8439 — ChaCha20 and Poly1305](https://www.rfc-editor.org/rfc/rfc8439)
-- [WalletConnect v2 Spec — Encryption](https://specs.walletconnect.com/2.0/specs/clients/encryption)
+- [Cinacoin v2 Spec — Encryption](https://specs.walletconnect.com/2.0/specs/clients/encryption)
 - [Daniel J. Bernstein — Curve25519 paper](https://cr.yp.to/curve25519/curve25519-20060209.pdf)
 - [Adam Langley — Small-subgroup attacks on Curve25519](https://www.imperialviolet.org/2013/05/10/fakecurve25519.html)

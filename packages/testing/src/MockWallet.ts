@@ -2,7 +2,7 @@
  * MockWallet — Simulated wallet connector for testing.
  *
  * Mimics the lifecycle of a wallet connector (connect, disconnect, switch chain)
- * without requiring a real browser extension or WalletConnect session.
+ * without requiring a real browser extension or Cinacoin session.
  */
 
 import { MockProvider } from "./MockProvider.js";

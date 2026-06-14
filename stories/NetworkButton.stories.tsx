@@ -85,7 +85,7 @@ function NetworkButton({
 }
 
 const meta: Meta<typeof NetworkButton> = {
-  title: 'CinaCoin/NetworkButton',
+  title: 'Cinacoin/NetworkButton',
   component: NetworkButton,
   argTypes: {
     network: {

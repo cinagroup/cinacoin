@@ -179,7 +179,7 @@ interface Chain {
 interface ConnectParams {
   topic?: string             // 已有会话的 topic
   relayUrl?: string          // Relay URL 覆盖
-  uri?: string               // WalletConnect 配对 URI
+  uri?: string               // Cinacoin 配对 URI
   chains?: number[]          // 支持的链 ID
   metadata?: AppMetadata     // dApp 元数据
 }
@@ -424,7 +424,7 @@ import {
   registerWalletDeepLink,
   getAppStoreUrl,
   generateUniversalLink,
-  generateWalletConnectUniversalLink,
+  generateCinacoinUniversalLink,
   smartRedirect,
   detectPlatform,
   WALLET_DEEP_LINKS,
@@ -435,7 +435,7 @@ import {
 |----------|-------------|
 | `generateDeepLink` | Generate a deep link URL for a wallet |
 | `generateUniversalLink` | Generate an Apple universal link |
-| `generateWalletConnectUniversalLink` | Generate a WalletConnect universal link |
+| `generateCinacoinUniversalLink` | Generate a Cinacoin universal link |
 | `smartRedirect` | Smart redirect with fallback chain |
 | `detectPlatform` | Detect current platform (iOS/Android/Desktop) |
 | `getAppStoreUrl` | Get App Store or Play Store URL for a wallet |

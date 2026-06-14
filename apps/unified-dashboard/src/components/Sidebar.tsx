@@ -20,11 +20,11 @@ export function Sidebar() {
   const { session, logout, isLoading } = useAuth();
 
   return (
-    <aside className="sidebar hidden md:flex fixed left-0 top-0 h-full w-64 flex-col bg-[var(--cc-canvas-soft-2)] border-r border-[var(--cc-hairline)]" aria-label="CinaCoin sidebar navigation">
+    <aside className="sidebar hidden md:flex fixed left-0 top-0 h-full w-64 flex-col bg-[var(--cc-canvas-soft-2)] border-r border-[var(--cc-hairline)]" aria-label="Cinacoin sidebar navigation">
       <div className="p-6 border-b border-[var(--cc-hairline)]">
         <h2 className="cc-display-sm flex items-center gap-2">
           <span className="cc-display-md"><CoinIcon className="w-6 h-6" /></span>
-          CinaCoin
+          Cinacoin
         </h2>
         <p className="cc-caption text-[var(--cc-on-primary)]/60 mt-1">Unified dashboard.</p>
       </div>

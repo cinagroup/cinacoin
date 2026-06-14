@@ -1,5 +1,5 @@
 /**
- * QRScanner — Real QR code scanner for WalletConnect URI scanning.
+ * QRScanner — Real QR code scanner for Cinacoin URI scanning.
  *
  * Uses react-native-vision-camera + vision-camera-code-scanner for native
  * QR detection. Falls back to a dev-mode simulated scanner when the camera
@@ -37,7 +37,7 @@ import {
   Animated,
   Dimensions,
 } from 'react-native';
-import { useCinaCoinContext } from './CinaCoinProvider.js';
+import { useCinacoinContext } from './CinacoinProvider.js';
 
 /** Props for the QRScanner component. */
 export interface QRScannerProps {
@@ -73,7 +73,7 @@ export function QRScanner({
   scanFrameColor,
   devMode = __DEV__,
 }: QRScannerProps): JSX.Element {
-  const { connectWithUri, themeColors, wcUri } = useCinaCoinContext();
+  const { connectWithUri, themeColors, wcUri } = useCinacoinContext();
   const [scanning, setScanning] = useState(false);
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -134,8 +134,8 @@ export function QRScanner({
 
       // Validate it looks like a WC URI
       if (!uri.startsWith('wc:')) {
-        setError('Invalid QR code — not a WalletConnect URI');
-        onError?.(new Error('Invalid WalletConnect URI'));
+        setError('Invalid QR code — not a Cinacoin URI');
+        onError?.(new Error('Invalid Cinacoin URI'));
         return;
       }
 
@@ -270,7 +270,7 @@ export function QRScanner({
             Align the QR code within the frame
           </Text>
           <Text style={[styles.instructionsSubtext, { color: themeColors.textTertiary }]}>
-            Open your wallet app and scan the WalletConnect QR code
+            Open your wallet app and scan the Cinacoin QR code
           </Text>
         </View>
 

@@ -1,4 +1,4 @@
-# Gap Analysis: CinaAuth/Cinacoin vs Reown — Smart Accounts, Authentication & Security
+# Gap Analysis: CinaAuth/Cinacoin vs Cinacoin — Smart Accounts, Authentication & Security
 
 > **Date**: 2026-05-16  
 > **Analyst**: Subagent (automated comparison)  
@@ -8,15 +8,15 @@
 
 ## Executive Summary
 
-CinaAuth/Cinacoin has built a **solid ERC-4337 foundation** with a production-grade Rust Bundler, three distinct Paymaster contracts, session key management with social recovery, and EIP-6963 wallet discovery. However, compared to the Reown ecosystem, **significant gaps exist** in authentication (SIWE/SIWX, social login, email login, passkeys), signature verification standards (ERC-6492, ERC-7811), identity management (Keys Server, invite system), and compliance features.
+CinaAuth/Cinacoin has built a **solid ERC-4337 foundation** with a production-grade Rust Bundler, three distinct Paymaster contracts, session key management with social recovery, and EIP-6963 wallet discovery. However, compared to the Cinacoin ecosystem, **significant gaps exist** in authentication (SIWE/SIWX, social login, email login, passkeys), signature verification standards (ERC-6492, ERC-7811), identity management (Keys Server, invite system), and compliance features.
 
-The bundler and paymaster implementations are **structurally more mature** than Reown's thin client-side libraries — CinaAuth runs actual infrastructure. But Reown wins on **developer ergonomics** (adapters for wagmi/ethers/ethers5), **authentication breadth**, and **identity infrastructure**.
+The bundler and paymaster implementations are **structurally more mature** than Cinacoin's thin client-side libraries — CinaAuth runs actual infrastructure. But Cinacoin wins on **developer ergonomics** (adapters for wagmi/ethers/ethers5), **authentication breadth**, and **identity infrastructure**.
 
 ---
 
 ## 1. Smart Account Implementation (ERC-4337)
 
-| Feature | Reown | CinaAuth/Cinacoin | Gap |
+| Feature | Cinacoin | CinaAuth/Cinacoin | Gap |
 |---------|-------|--------------------|------|
 | ERC-4337 Support | ✅ (AppKit Smart Accounts) | ✅ Full v0.7 implementation | — |
 | Bundler (server-side) | Uses third-party (Pimlico, etc.) | ✅ Self-built Rust Bundler | **CinaAuth leads** |
@@ -37,7 +37,7 @@ The bundler and paymaster implementations are **structurally more mature** than 
 | EntryPoint v0.6 | ❌ | ❌ | — |
 
 ### Verdict: ERC-4337
-**CinaAuth/Cinacoin is ahead** in infrastructure depth. The bundler, paymaster, and gas oracle are real implementations. Reown's approach is client-side integration with third-party bundlers.
+**CinaAuth/Cinacoin is ahead** in infrastructure depth. The bundler, paymaster, and gas oracle are real implementations. Cinacoin's approach is client-side integration with third-party bundlers.
 
 ### Key Gaps in CinaAuth
 - The bundler's `_extractSender` in `CinacoinPaymaster.sol` is a **placeholder** that incorrectly derives sender from the hash bytes — this must be fixed before production
@@ -50,7 +50,7 @@ The bundler and paymaster implementations are **structurally more mature** than 
 
 ## 2. Authentication Mechanisms
 
-| Feature | Reown | CinaAuth/Cinacoin | Gap |
+| Feature | Cinacoin | CinaAuth/Cinacoin | Gap |
 |---------|-------|--------------------|------|
 | SIWE (Sign-In with Ethereum) | ✅ | ❌ | **P0 — Critical** |
 | SIWX (Sign-In with X — Farcaster, etc.) | ✅ | ❌ | **P0 — Critical** |
@@ -68,16 +68,16 @@ The bundler and paymaster implementations are **structurally more mature** than 
 | Adapter for ethers v5 | ✅ | ❌ | **P2 — Medium** |
 
 ### Verdict: Authentication
-**Reown dominates** in authentication. CinaAuth has zero user-facing auth mechanisms — no SIWE, no social login, no email login, no passkeys. The session key system is excellent for dApp delegation but doesn't solve user authentication.
+**Cinacoin dominates** in authentication. CinaAuth has zero user-facing auth mechanisms — no SIWE, no social login, no email login, no passkeys. The session key system is excellent for dApp delegation but doesn't solve user authentication.
 
 ### Critical Gap
-Without SIWE/SIWX, CinaAuth cannot support dApps that need to authenticate users. This is a **show-stopper** for competing with Reown AppKit.
+Without SIWE/SIWX, CinaAuth cannot support dApps that need to authenticate users. This is a **show-stopper** for competing with Cinacoin AppKit.
 
 ---
 
 ## 3. Signature Verification & Security
 
-| Feature | Reown | CinaAuth/Cinacoin | Gap |
+| Feature | Cinacoin | CinaAuth/Cinacoin | Gap |
 |---------|-------|--------------------|------|
 | ERC-6492 (predeploy signature verification) | ✅ (erc6492 Rust library) | ❌ | **P0 — Critical** |
 | ERC-7811 (wallet identity protocol) | ✅ (whitepaper published) | ❌ | **P0 — Critical** |
@@ -95,13 +95,13 @@ Without SIWE/SIWX, CinaAuth cannot support dApps that need to authenticate users
 | Time Lock for Large Transactions | ❌ | ✅ Planned (24h) | Planned |
 
 ### Verdict: Signature & Security
-**Mixed picture.** CinaAuth's session key + social recovery system is genuinely well-designed and goes beyond what Reown offers. However, the lack of ERC-6492 and ERC-7811 support means CinaAuth cannot verify contract wallet signatures or participate in the emerging wallet identity standard.
+**Mixed picture.** CinaAuth's session key + social recovery system is genuinely well-designed and goes beyond what Cinacoin offers. However, the lack of ERC-6492 and ERC-7811 support means CinaAuth cannot verify contract wallet signatures or participate in the emerging wallet identity standard.
 
 ---
 
 ## 4. Identity Management
 
-| Feature | Reown | CinaAuth/Cinacoin | Gap |
+| Feature | Cinacoin | CinaAuth/Cinacoin | Gap |
 |---------|-------|--------------------|------|
 | Keys Server (identity keys) | ✅ | ❌ | **P0 — Critical** |
 | Invite Keys (onboarding) | ✅ | ❌ | **P1 — High** |
@@ -109,18 +109,18 @@ Without SIWE/SIWX, CinaAuth cannot support dApps that need to authenticate users
 | Cross-chain Identity | 🟡 (partial) | 🟡 (planned via CCIP) | Planned |
 | CAIP-2 Chain References | ✅ | ✅ | — |
 | Multi-namespace Support | ✅ (eip155, solana, bip122, tron) | ✅ (same in types) | — |
-| Pairing System | ✅ (WalletConnect protocol) | ✅ (RelayTransport + QRTransport) | Comparable |
+| Pairing System | ✅ (Cinacoin protocol) | ✅ (RelayTransport + QRTransport) | Comparable |
 | Session Persistence | ✅ | ✅ (localStorage) | — |
 | Copyright/IP Protection | ✅ (CTA framework) | ❌ | **P2 — Low** |
 
 ### Verdict: Identity
-**Reown leads significantly.** The Keys Server is a core infrastructure piece that CinaAuth has no equivalent for. Without it, there's no way to manage identity keys, distribute invite keys, or build a social onboarding flow.
+**Cinacoin leads significantly.** The Keys Server is a core infrastructure piece that CinaAuth has no equivalent for. Without it, there's no way to manage identity keys, distribute invite keys, or build a social onboarding flow.
 
 ---
 
 ## 5. Account Abstraction Features
 
-| Feature | Reown | CinaAuth/Cinacoin | Gap |
+| Feature | Cinacoin | CinaAuth/Cinacoin | Gap |
 |---------|-------|--------------------|------|
 | Gas Sponsorship | ✅ (via third-party) | ✅ (4 Paymaster modes) | **CinaAuth leads** |
 | ERC-20 Gas Payment | 🟡 (limited) | ✅ (TokenPaymaster) | **CinaAuth leads** |
@@ -139,7 +139,7 @@ Without SIWE/SIWX, CinaAuth cannot support dApps that need to authenticate users
 
 ## 6. Cross-Chain Account Support
 
-| Feature | Reown | CinaAuth/Cinacoin | Gap |
+| Feature | Cinacoin | CinaAuth/Cinacoin | Gap |
 |---------|-------|--------------------|------|
 | Multi-chain Wallet Connection | ✅ (500+ chains via AppKit) | ✅ (types support eip155/solana/bip122/tron) | — |
 | Cross-chain Session Sync | ❌ | 🟡 Planned (CCIP architecture) | Planned |
@@ -148,15 +148,15 @@ Without SIWE/SIWX, CinaAuth cannot support dApps that need to authenticate users
 | CAIP-2 Compliance | ✅ | ✅ | — |
 
 ### Verdict: Cross-chain
-**Reown leads** in deployed multi-chain support (500+ chains). CinaAuth has the type system ready but no actual chain configurations or cross-chain sync implementation.
+**Cinacoin leads** in deployed multi-chain support (500+ chains). CinaAuth has the type system ready but no actual chain configurations or cross-chain sync implementation.
 
 ---
 
 ## 7. Privacy & Data Protection
 
-| Feature | Reown | CinaAuth/Cinacoin | Gap |
+| Feature | Cinacoin | CinaAuth/Cinacoin | Gap |
 |---------|-------|--------------------|------|
-| End-to-End Encryption | ✅ (WalletConnect relay) | ✅ (X25519 keypair + encryption in core-sdk) | — |
+| End-to-End Encryption | ✅ (Cinacoin relay) | ✅ (X25519 keypair + encryption in core-sdk) | — |
 | Self-hosted Infrastructure | 🟡 (hybrid) | ✅ (full self-hosted design) | **CinaAuth leads** |
 | Data Minimization | ✅ | ✅ (no PII in smart accounts) | — |
 | Encrypted Relay Transport | ✅ | ✅ (RelayTransport with encryption) | — |
@@ -166,13 +166,13 @@ Without SIWE/SIWX, CinaAuth cannot support dApps that need to authenticate users
 | Data Retention Policy | ✅ | ❌ | **P2 — Medium** |
 
 ### Verdict: Privacy
-**Comparable.** Both have good encryption foundations. CinaAuth's self-hosted architecture actually provides better privacy guarantees than Reown's cloud-hybrid model.
+**Comparable.** Both have good encryption foundations. CinaAuth's self-hosted architecture actually provides better privacy guarantees than Cinacoin's cloud-hybrid model.
 
 ---
 
 ## 8. Compliance Features
 
-| Feature | Reown | CinaAuth/Cinacoin | Gap |
+| Feature | Cinacoin | CinaAuth/Cinacoin | Gap |
 |---------|-------|--------------------|------|
 | Travel Rule Support | ❌ | ❌ | — |
 | KYC Integration | ❌ | ❌ | **P2 — Medium** |
@@ -192,8 +192,8 @@ Both are weak here. CinaAuth's bundler blacklist is a start but not a full compl
 
 | # | Recommendation | Rationale | Effort |
 |---|----------------|-----------|--------|
-| P0-1 | **Implement SIWE (EIP-4338)** | Without SIWE, dApps cannot authenticate users. This is the single most critical gap. Reown's AppKit provides this out of the box. | Medium (2-3 weeks) |
-| P0-2 | **Implement ERC-6492 signature verification** | Contract wallet signatures (Safe, Kernel) cannot be verified off-chain without ERC-6492. Reown has a Rust library for this. | Small (1 week) |
+| P0-1 | **Implement SIWE (EIP-4338)** | Without SIWE, dApps cannot authenticate users. This is the single most critical gap. Cinacoin's AppKit provides this out of the box. | Medium (2-3 weeks) |
+| P0-2 | **Implement ERC-6492 signature verification** | Contract wallet signatures (Safe, Kernel) cannot be verified off-chain without ERC-6492. Cinacoin has a Rust library for this. | Small (1 week) |
 | P0-3 | **Study and implement ERC-7811** | This is the emerging standard for wallet identity. Without it, CinaAuth cannot interoperate with the WalletKit ecosystem. | Medium (2-3 weeks) |
 | P0-4 | **Fix VerifyingPaymaster signature verification** | Current implementation has placeholder signature recovery that doesn't actually verify signatures. Production blocker. | Small (2-3 days) |
 | P0-5 | **Fix CinacoinPaymaster _extractSender** | Currently derives sender from hash bytes — this is wrong. Must decode from actual UserOp calldata. Production blocker. | Small (1-2 days) |
@@ -202,12 +202,12 @@ Both are weak here. CinaAuth's bundler blacklist is a start but not a full compl
 
 | # | Recommendation | Rationale | Effort |
 |---|----------------|-----------|--------|
-| P1-1 | **Build SIWX (Sign-In with X)** | Farcaster, Lens, and other social protocols are growing fast. Reown supports this; CinaAuth needs parity. | Medium (2-3 weeks) |
-| P1-2 | **Implement Email & Social Login** | Magic link (email), Google, Apple login are standard for Web2→Web3 onboarding. Reown provides this; it's a key competitive differentiator. | Large (4-6 weeks) |
+| P1-1 | **Build SIWX (Sign-In with X)** | Farcaster, Lens, and other social protocols are growing fast. Cinacoin supports this; CinaAuth needs parity. | Medium (2-3 weeks) |
+| P1-2 | **Implement Email & Social Login** | Magic link (email), Google, Apple login are standard for Web2→Web3 onboarding. Cinacoin provides this; it's a key competitive differentiator. | Large (4-6 weeks) |
 | P1-3 | **Build wagmi adapter** | wagmi is the dominant React/EVM SDK. Without a wagmi adapter, CinaAuth cannot reach the largest developer audience. | Medium (2-3 weeks) |
-| P1-4 | **Build ethers v6 adapter** | ethers.js v6 is the second most popular EVM SDK. Reown supports it. | Medium (2-3 weeks) |
+| P1-4 | **Build ethers v6 adapter** | ethers.js v6 is the second most popular EVM SDK. Cinacoin supports it. | Medium (2-3 weeks) |
 | P1-5 | **Build Keys Server equivalent** | Identity key management and invite key distribution are essential for social onboarding and referral flows. | Large (4-6 weeks) |
-| P1-6 | **Implement passkey / WebAuthn support** | Passkeys are the future of Web3 auth. Reown is building this; CinaAuth should not fall behind. | Large (4-6 weeks) |
+| P1-6 | **Implement passkey / WebAuthn support** | Passkeys are the future of Web3 auth. Cinacoin is building this; CinaAuth should not fall behind. | Large (4-6 weeks) |
 | P1-7 | **Complete Redis mempool persistence** | Current bundler mempool falls back to in-memory. For production bundler, Redis persistence is essential for crash recovery. | Small (1 week) |
 | P1-8 | **Implement ERC-4337 Aggregator support** | Enables signature aggregation for batched UserOps, improving throughput and reducing costs. | Medium (2-3 weeks) |
 
@@ -235,26 +235,26 @@ Both are weak here. CinaAuth's bundler blacklist is a start but not a full compl
 
 ## Summary Scorecard
 
-| Dimension | Reown | CinaAuth/Cinacoin | Winner |
+| Dimension | Cinacoin | CinaAuth/Cinacoin | Winner |
 |-----------|-------|--------------------|--------|
 | ERC-4337 Infrastructure | 6/10 | 8/10 | **CinaAuth** |
-| Authentication | 9/10 | 2/10 | **Reown** |
-| Signature Verification | 8/10 | 4/10 | **Reown** |
+| Authentication | 9/10 | 2/10 | **Cinacoin** |
+| Signature Verification | 8/10 | 4/10 | **Cinacoin** |
 | Session Keys & Policies | 3/10 | 9/10 | **CinaAuth** |
 | Social Recovery | 2/10 | 9/10 | **CinaAuth** |
-| Identity Management | 9/10 | 2/10 | **Reown** |
+| Identity Management | 9/10 | 2/10 | **Cinacoin** |
 | Paymaster Flexibility | 5/10 | 9/10 | **CinaAuth** |
-| Developer Ecosystem | 9/10 | 3/10 | **Reown** |
-| Cross-chain Support | 8/10 | 4/10 | **Reown** |
+| Developer Ecosystem | 9/10 | 3/10 | **Cinacoin** |
+| Cross-chain Support | 8/10 | 4/10 | **Cinacoin** |
 | Privacy & Self-hosting | 6/10 | 8/10 | **CinaAuth** |
 | Compliance | 4/10 | 4/10 | Tie |
-| **Overall** | **6.3/10** | **5.6/10** | **Reown** (marginally) |
+| **Overall** | **6.3/10** | **5.6/10** | **Cinacoin** (marginally) |
 
 ### Key Insight
 
-CinaAuth/Cinacoin has built **superior infrastructure** (bundler, paymasters, session keys, social recovery) but is **missing the user-facing layer** (authentication, identity, developer adapters). Reown has the opposite profile — excellent developer-facing APIs and auth, but relies on third-party infrastructure.
+CinaAuth/Cinacoin has built **superior infrastructure** (bundler, paymasters, session keys, social recovery) but is **missing the user-facing layer** (authentication, identity, developer adapters). Cinacoin has the opposite profile — excellent developer-facing APIs and auth, but relies on third-party infrastructure.
 
-**Strategic recommendation**: CinaAuth should double down on its infrastructure advantage (self-hosted bundler, paymaster, session keys) while rapidly building the authentication layer (SIWE → SIWX → Social Login → Passkeys) and developer adapters (wagmi → ethers v6). This creates a unique value proposition: **Reown's developer experience + self-hosted infrastructure + superior account abstraction**.
+**Strategic recommendation**: CinaAuth should double down on its infrastructure advantage (self-hosted bundler, paymaster, session keys) while rapidly building the authentication layer (SIWE → SIWX → Social Login → Passkeys) and developer adapters (wagmi → ethers v6). This creates a unique value proposition: **Cinacoin's developer experience + self-hosted infrastructure + superior account abstraction**.
 
 ---
 

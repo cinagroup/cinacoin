@@ -55,4 +55,4 @@ services:
 ## Next Steps
 
 - [Quick Start](/guide/quick-start)
-- [Migration Guide](/guide/migrate-from-reown)
+- [Migration Guide](/guide/migrate-from-cinacoin)

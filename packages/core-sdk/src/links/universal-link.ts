@@ -49,16 +49,16 @@ export function generateUniversalLink(params: UniversalLinkParams): string {
 }
 
 /**
- * Generate a WalletConnect v2 universal link.
+ * Generate a Cinacoin v2 universal link.
  *
  * This is a convenience wrapper for the most common use case.
  *
  * @param walletId - Wallet identifier (e.g., 'metamask', 'rainbow').
- * @param wcUri - WalletConnect URI (wc:...).
+ * @param wcUri - Cinacoin URI (wc:...).
  * @param fallbackUrl - URL to open if wallet app is not installed.
  * @returns Universal link URL.
  */
-export function generateWalletConnectUniversalLink(
+export function generateCinacoinUniversalLink(
   walletId: string,
   wcUri: string,
   fallbackUrl?: string,

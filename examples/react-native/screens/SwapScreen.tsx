@@ -8,7 +8,7 @@ import {
   ScrollView,
   Alert,
 } from 'react-native';
-import { useCinaCoinContext } from '@cinacoin/react-native';
+import { useCinacoinContext } from '@cinacoin/react-native';
 
 const TOKENS = [
   { symbol: 'WETH', icon: '🔷' },
@@ -18,7 +18,7 @@ const TOKENS = [
 ];
 
 export function SwapScreen() {
-  const { account } = useCinaCoinContext();
+  const { account } = useCinacoinContext();
   const [fromToken, setFromToken] = useState(0);
   const [toToken, setToToken] = useState(1);
   const [amount, setAmount] = useState('');

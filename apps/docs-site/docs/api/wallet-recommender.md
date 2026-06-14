@@ -1,6 +1,6 @@
 # Wallet recommender.
 
-> `@cinacoin/wallet-recommender` — Intelligent wallet recommendation for CinaCoin.
+> `@cinacoin/wallet-recommender` — Intelligent wallet recommendation for Cinacoin.
 
 ## Installation.
 

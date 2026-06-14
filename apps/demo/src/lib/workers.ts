@@ -1,5 +1,5 @@
 /**
- * CinaCoin — Worker API Client
+ * Cinacoin — Worker API Client
  *
  * Calls the 5 deployed Cloudflare Workers.
  * All endpoints are CORS-enabled on the Workers side.

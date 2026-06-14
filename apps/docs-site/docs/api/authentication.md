@@ -1,12 +1,12 @@
 ---
 sidebar_position: 2
 title: Authentication
-description: Complete guide to authenticating with the CinaCoin API
+description: Complete guide to authenticating with the Cinacoin API
 ---
 
 # Authentication guide.
 
-The CinaCoin API uses JWT (JSON Web Tokens) for authentication. This guide covers the complete authentication flow, including registration, login, 2FA, and token management.
+The Cinacoin API uses JWT (JSON Web Tokens) for authentication. This guide covers the complete authentication flow, including registration, login, 2FA, and token management.
 
 ## Authentication flow.
 
@@ -97,7 +97,7 @@ curl -X POST https://api.cinacoin.com/auth/mfa/enable \
   "data": {
     "methodId": "mfa_xyz789",
     "secret": "JBSWY3DPEHPK3PXP",
-    "uri": "otpauth://totp/CinaCoin:alice@example.com?secret=JBSWY3DPEHPK3PXP&issuer=CinaCoin",
+    "uri": "otpauth://totp/Cinacoin:alice@example.com?secret=JBSWY3DPEHPK3PXP&issuer=Cinacoin",
     "recoveryCodes": [
       "abcd-1234-efgh",
       "ijkl-5678-mnop",
@@ -318,7 +318,7 @@ The token is added to a blacklist in KV storage and cannot be used again.
 
 ## OAuth authentication.
 
-CinaCoin supports OAuth 2.0 with PKCE for third-party authentication:
+Cinacoin supports OAuth 2.0 with PKCE for third-party authentication:
 
 **Supported Providers:**
 - Google

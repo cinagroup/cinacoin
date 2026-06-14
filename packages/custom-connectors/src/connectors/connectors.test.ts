@@ -6,7 +6,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { ConnectorFactory } from '../ConnectorFactory.js';
 import { InjectedConnector } from '../connectors/injected.js';
 import { QRConnector } from '../connectors/qr.js';
-import { WalletConnectConnector } from '../connectors/walletconnect.js';
+import { CinacoinConnector } from '../connectors/walletconnect.js';
 import type { ConnectorConfig, ConnectionResult, ConnectorEvents } from '../types.js';
 
 describe('InjectedConnector', () => {
@@ -89,17 +89,17 @@ describe('QRConnector', () => {
   });
 });
 
-describe('WalletConnectConnector', () => {
+describe('CinacoinConnector', () => {
   it('should have correct metadata', () => {
-    const connector = new WalletConnectConnector();
+    const connector = new CinacoinConnector();
     expect(connector.id).toBe('walletconnect');
-    expect(connector.name).toBe('WalletConnect');
+    expect(connector.name).toBe('Cinacoin');
     expect(connector.type).toBe('walletconnect');
     expect(connector.icon).toContain('data:image/svg+xml');
   });
 
   it('should implement ConnectorConfig interface', () => {
-    const connector = new WalletConnectConnector();
+    const connector = new CinacoinConnector();
     expect(typeof connector.init).toBe('function');
     expect(typeof connector.connect).toBe('function');
     expect(typeof connector.disconnect).toBe('function');
@@ -112,7 +112,7 @@ describe('WalletConnectConnector', () => {
   });
 
   it('should throw when connecting without session', async () => {
-    const connector = new WalletConnectConnector();
+    const connector = new CinacoinConnector();
     await expect(connector.connect()).rejects.toThrow();
   });
 });
@@ -185,12 +185,12 @@ describe('ConnectorFactory integration with connectors', () => {
     expect(retrieved!.name).toBe('Scan QR Code');
   });
 
-  it('should register WalletConnectConnector', () => {
-    const connector = new WalletConnectConnector();
+  it('should register CinacoinConnector', () => {
+    const connector = new CinacoinConnector();
     ConnectorFactory.registerConnector(connector);
     const retrieved = ConnectorFactory.getConnector('walletconnect');
     expect(retrieved).toBeDefined();
-    expect(retrieved!.name).toBe('WalletConnect');
+    expect(retrieved!.name).toBe('Cinacoin');
   });
 
   it('should list all registered connectors', () => {

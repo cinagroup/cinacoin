@@ -2,13 +2,13 @@
 
 > **时间**: 2026-05-17 03:15 UTC  
 > **方法**: 从头开始全面扫描，不依赖前轮结论  
-> **对比基准**: Reown AppKit 完整包列表 (28 个包)  
+> **对比基准**: Cinacoin AppKit 完整包列表 (28 个包)  
 
 ---
 
 ## 📊 总体评分
 
-| 维度 | Cinacoin | Reown | 状态 |
+| 维度 | Cinacoin | Cinacoin | 状态 |
 |------|:---------:|:-----:|:----:|
 | Core SDK | **8.5/10** | 8.5/10 | ✅ 持平 |
 | 链适配器 | **9.5/10** | 7.0/10 | 🟢 领先 (+3 适配器) |
@@ -19,13 +19,13 @@
 | 开发者体验 | **8.3/10** | 7.5/10 | 🟢 领先 |
 | **综合** | **~8.8/10** | **~7.6/10** | **🟢 反超** |
 
-> **功能覆盖率 ~98%**。Cinacoin 在基础设施、高级功能和链覆盖上大幅领先 Reown。
+> **功能覆盖率 ~98%**。Cinacoin 在基础设施、高级功能和链覆盖上大幅领先 Cinacoin。
 
 ---
 
-## 📦 包对等映射 (28 Reown → Cinacoin)
+## 📦 包对等映射 (28 Cinacoin → Cinacoin)
 
-| # | Reown 包 | Cinacoin 等价物 | 状态 | 备注 |
+| # | Cinacoin 包 | Cinacoin 等价物 | 状态 | 备注 |
 |---|---------|-----------------|------|------|
 | 1 | `appkit` (core) | `core-sdk` | ✅ | 8,605 LOC, 11 适配器 |
 | 2 | `appkit-utils` | `core-sdk` (吸收) | ✅ | 内部集成 |
@@ -56,11 +56,11 @@
 | 27 | `polyfills` | — | ⚠️ 次要 | 构建工具可替代 |
 | 28 | iOS/Android/Flutter/Unity SDK | 对应平台包 | ✅ | 全平台覆盖 |
 
-**28 Reown 包中：22 已覆盖 + 1 有意跳过 + 5 缺失 = 覆盖率 79% → 但考虑到核心功能 100% 覆盖，实际功能覆盖率 ~98%**
+**28 Cinacoin 包中：22 已覆盖 + 1 有意跳过 + 5 缺失 = 覆盖率 79% → 但考虑到核心功能 100% 覆盖，实际功能覆盖率 ~98%**
 
 ---
 
-## 🆕 Cinacoin 独占包 (无 Reown 等价物)
+## 🆕 Cinacoin 独占包 (无 Cinacoin 等价物)
 
 ### JS/TS 客户端 (18 个)
 | 包 | LOC (src) | 用途 |
@@ -121,7 +121,7 @@
 
 | # | 问题 | 影响 | 工作量 |
 |---|------|------|--------|
-| P1-1 | 无 `codemod` 包 | 从 Web3Modal/Reown 迁移困难 | 1w |
+| P1-1 | 无 `codemod` 包 | 从 Web3Modal/Cinacoin 迁移困难 | 1w |
 | P1-2 | 无 `testing` 工具包 | 下游开发者无 mock provider | 3d |
 | P1-3 | `safe-decoder` 仅 CLI 框架，无解码逻辑 | Safe 交易解码不可用 | 2d |
 | P1-4 | `travel-rule-demo` 仅演示数据，无 VASP 集成 | 合规演示不完整 | 1w |
@@ -204,26 +204,26 @@
 
 ---
 
-## 📈 与 Reown 完整 29 仓库对比
+## 📈 与 Cinacoin 完整 29 仓库对比
 
-Reown 组织下实际仓库远超 29 个，核心产品相关仓库约 28 个包。Cinacoin 在 **核心功能** 上达到 ~98% 覆盖率。
+Cinacoin 组织下实际仓库远超 29 个，核心产品相关仓库约 28 个包。Cinacoin 在 **核心功能** 上达到 ~98% 覆盖率。
 
 ### Cinacoin 领先领域
-1. **自建基础设施**: 6 个 Rust 服务器 + 1 个 Go 代理，Reown 纯云服务
-2. **链覆盖**: 11 个适配器 vs Reown 8 个 (多 ethers6, viem, 通用 EVM)
+1. **自建基础设施**: 6 个 Rust 服务器 + 1 个 Go 代理，Cinacoin 纯云服务
+2. **链覆盖**: 11 个适配器 vs Cinacoin 8 个 (多 ethers6, viem, 通用 EVM)
 3. **高级功能**: session-keys, social-login, passkey-auth 均为独家
 4. **支付聚合**: swap-sdk (3 DEX) + onramp-sdk (3 供应商) + pay-ui
-5. **跨链同步**: 6 链身份同步，Reown 无此功能
-6. **分析**: GDPR 合规分析，Reown 无
-7. **无障碍**: WCAG AA 完整测试，Reown 基础
+5. **跨链同步**: 6 链身份同步，Cinacoin 无此功能
+6. **分析**: GDPR 合规分析，Cinacoin 无
+7. **无障碍**: WCAG AA 完整测试，Cinacoin 基础
 8. **CI/CD**: 7 条流水线 + Canary 回滚
 
 ### Cinacoin 落后领域
-1. **codemod 迁移工具**: Reown 有，Cinacoin 无
-2. **testing 工具包**: Reown 有，Cinacoin 无
-3. **社区**: Reown 5400+ stars，Cinacoin 0
-4. **Svelte/Nuxt 绑定**: Reown 有，Cinacoin 无
-5. **生产验证**: Reown 已用于生产多年，Cinacoin 架构阶段
+1. **codemod 迁移工具**: Cinacoin 有，Cinacoin 无
+2. **testing 工具包**: Cinacoin 有，Cinacoin 无
+3. **社区**: Cinacoin 5400+ stars，Cinacoin 0
+4. **Svelte/Nuxt 绑定**: Cinacoin 有，Cinacoin 无
+5. **生产验证**: Cinacoin 已用于生产多年，Cinacoin 架构阶段
 
 ---
 

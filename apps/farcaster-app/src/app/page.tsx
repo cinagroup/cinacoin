@@ -6,12 +6,12 @@ import { ThemeToggle } from '@/components/ThemeToggle';
 import { LanguageToggle } from '@/components/LanguageToggle';
 
 export const metadata: Metadata = {
-  title: 'CinaCoin Farcaster App',
+  title: 'Cinacoin Farcaster App',
   description:
-    'Welcome to CinaCoin — connect your wallet, transfer tokens, and sign messages on Farcaster.',
+    'Welcome to Cinacoin — connect your wallet, transfer tokens, and sign messages on Farcaster.',
   other: buildFrameMetadata({
     image: `${getAppUrl()}/og-default.png`,
-    title: 'CinaCoin',
+    title: 'Cinacoin',
     buttons: [
       { label: 'Connect Wallet', action: 'post' },
       { label: 'Profile', action: 'post' },
@@ -38,7 +38,7 @@ export default function HomePage() {
       {/* Asymmetric hero — left-aligned */}
       <div className="max-w-2xl w-full space-y-8">
         <div className="space-y-3">
-          <h1 className="text-display-xl font-semibold text-[var(--cc-ink)]">CinaCoin.</h1>
+          <h1 className="text-display-xl font-semibold text-[var(--cc-ink)]">Cinacoin.</h1>
           <p className="text-[var(--cc-body)] text-body-lg max-w-md">
             Wallet, transfer, sign — from your Farcaster feed.
           </p>
@@ -56,7 +56,7 @@ export default function HomePage() {
           </div>
           <pre className="p-6 text-sm font-[family-name:var(--font-geist-mono)] text-[var(--cc-body)] overflow-x-auto">
             <code>{`{
-  "title": "CinaCoin",
+  "title": "Cinacoin",
   "image": "/og-default.png",
   "buttons": ["Connect Wallet", "Profile", "Docs"]
 }`}</code>

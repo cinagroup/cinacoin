@@ -1,10 +1,10 @@
 /**
  * @cinacoin/walletconnect-v2
  *
- * WalletConnect v2 protocol implementation for Cinacoin.
+ * Cinacoin v2 protocol implementation for Cinacoin.
  * Provides pairing, session management, crypto utilities,
  * relay client, JSON-RPC methods, wallet registry, and
- * a unified WalletConnectClient.
+ * a unified CinacoinClient.
  *
  * @packageDocumentation
  */
@@ -145,8 +145,8 @@ export type {
 } from './signature-verification.js';
 
 // Client
-export { WalletConnectClient, WcClientError } from './client.js';
-export type { WalletConnectClientConfig } from './client.js';
+export { CinacoinClient, WcClientError } from './client.js';
+export type { CinacoinClientConfig } from './client.js';
 
 // WC Connector
 export { WcConnector } from './wc-connector.js';

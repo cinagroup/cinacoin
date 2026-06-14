@@ -380,7 +380,7 @@ export const WalletRegistry = {
 
 // ─── WalletManager ────────────────────────────────────────────────────
 
-/** Session info for WalletConnect. */
+/** Session info for Cinacoin. */
 export interface SessionInfo {
   topic: string;
   accounts: string[];
@@ -391,7 +391,7 @@ export interface SessionInfo {
   state: string;
 }
 
-/** Wallet manager with WalletConnect v2 protocol support. */
+/** Wallet manager with Cinacoin v2 protocol support. */
 export class WalletManager {
   constructor(_projectId: string, _metadata: AppMetadata, _relayUrl?: string) {
     void _projectId; void _metadata; void _relayUrl;
@@ -431,7 +431,7 @@ export class CinacoinManager {
   get sessionId(): string { return ''; }
 
   onStateChanged: OnStateChange | null = null;
-  onWalletConnected: OnConnected | null = null;
+  onCinacoined: OnConnected | null = null;
   onWalletDisconnected: OnDisconnected | null = null;
   onChainChangedEvent: OnChainChanged | null = null;
   onErrorEvent: OnError | null = null;
@@ -485,16 +485,16 @@ export class ConnectButton {
   onConnectedClick: (() => void) | null = null;
 }
 
-// ─── WalletConnect Protocol Types ─────────────────────────────────────
+// ─── Cinacoin Protocol Types ─────────────────────────────────────
 
-/** Namespace for WalletConnect session. */
+/** Namespace for Cinacoin session. */
 export interface Namespace {
   chainId: string;
   methods: string[];
   events: string[];
 }
 
-/** Crypto constants for WalletConnect v2. */
+/** Crypto constants for Cinacoin v2. */
 export const WCCryptoConstants = {
   KEY_SIZE: 32,
   IV_SIZE: 16,

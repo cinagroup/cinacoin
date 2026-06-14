@@ -189,7 +189,7 @@ export interface CosmosFee {
  * Each connector implementation wraps the wallet's browser extension
  * API and exposes a uniform interface to the CosmosAdapter.
  */
-export interface CosmosWalletConnector {
+export interface CosmosCinacoinor {
   /** Unique connector identifier (e.g. "keplr", "leap"). */
   readonly id: string;
   /** Human-readable connector name. */

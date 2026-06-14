@@ -22,8 +22,8 @@ await adapter.connect({ connectorId: 'near-wallet' });
 | Export | Type | Description |
 |--------|------|-------------|
 | `NearChainAdapter` | class | Main NEAR chain adapter |
-| `NearWalletConnector` | class | NEAR Wallet connector |
-| `HereWalletConnector` | class | Here Wallet connector |
+| `NearCinacoinor` | class | NEAR Wallet connector |
+| `HereCinacoinor` | class | Here Wallet connector |
 | `NEAR_CHAINS` | const | Available NEAR chain presets |
 | `NEAR_WALLETS` | const | Available NEAR wallets list |
 | `NearWalletInfo` | type | Wallet metadata type |

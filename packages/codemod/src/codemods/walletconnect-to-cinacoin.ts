@@ -41,11 +41,11 @@ const PACKAGE_RENAMES: [RegExp, string][] = [
 // ── API surface renames ────────────────────────────────────────────────────
 
 const IDENTIFIER_RENAMES: [RegExp, string][] = [
-  // WalletConnect class names
-  [/WalletConnect\b/g, "CinacoinWallet"],
-  [/WalletConnectModal\b/g, "CinacoinModal"],
-  [/WalletConnectProvider\b/g, "CinacoinProvider"],
-  [/WalletConnectClient\b/g, "CinacoinClient"],
+  // Cinacoin class names
+  [/Cinacoin\b/g, "CinacoinWallet"],
+  [/CinacoinModal\b/g, "CinacoinModal"],
+  [/CinacoinProvider\b/g, "CinacoinProvider"],
+  [/CinacoinClient\b/g, "CinacoinClient"],
 
   // Method names
   [/formatUri\b/g, "formatUri"],
@@ -56,7 +56,7 @@ const IDENTIFIER_RENAMES: [RegExp, string][] = [
 
 // ── Main transform ──────────────────────────────────────────────────────────
 
-export function transformWalletConnectToCinacoin(source: string): CodemodResult {
+export function transformCinacoinToCinacoin(source: string): CodemodResult {
   let output = source;
   const changes: string[] = [];
 

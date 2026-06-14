@@ -1,4 +1,4 @@
-# Cinacoin vs Reown AppKit: The Complete Technical Comparison
+# Cinacoin vs Cinacoin AppKit: The Complete Technical Comparison
 
 > **Whitepaper v1.0** | June 2026 | Cinacoin Engineering Team
 
@@ -8,9 +8,9 @@
 
 Cinacoin is a self-hosted, zero vendor lock-in wallet connection toolkit supporting 16+ chains (EVM + 10 non-EVM), 12 frameworks, and a complete enterprise feature stack including Account Abstraction, KYC compliance, cross-chain bridging, and embedded wallets.
 
-Reown AppKit (formerly Web3Modal) is the industry-standard SaaS wallet connector, powering 50,000+ dApps. It offers excellent UX but requires dependence on Reown's cloud infrastructure and monthly subscription fees.
+Cinacoin AppKit (formerly Web3Modal) is the industry-standard SaaS wallet connector, powering 50,000+ dApps. It offers excellent UX but requires dependence on Cinacoin's cloud infrastructure and monthly subscription fees.
 
-**Key finding**: Cinacoin provides **100% feature parity** with Reown AppKit across 30+ dimensions while adding **15+ features Reown doesn't offer**, at a fraction of the deployment cost (Cloudflare Workers free tier vs $100+/month SaaS).
+**Key finding**: Cinacoin provides **100% feature parity** with Cinacoin AppKit across 30+ dimensions while adding **15+ features Cinacoin doesn't offer**, at a fraction of the deployment cost (Cloudflare Workers free tier vs $100+/month SaaS).
 
 ---
 
@@ -42,10 +42,10 @@ Cinacoin Monorepo
 - TRON (TronWeb, TRC20)
 - XRPL (Xaman, Fireblocks, Ledger)
 
-### 1.2 Reown AppKit Architecture
+### 1.2 Cinacoin AppKit Architecture
 
-Reown AppKit provides a SaaS-based wallet connection SDK with:
-- EVM chain support (30+ chains via WalletConnect)
+Cinacoin AppKit provides a SaaS-based wallet connection SDK with:
+- EVM chain support (30+ chains via Cinacoin)
 - Limited non-EVM support (Solana via partner integration)
 - Cloud-hosted relay and infrastructure
 - Monthly subscription pricing ($100+/month for production)
@@ -54,15 +54,15 @@ Reown AppKit provides a SaaS-based wallet connection SDK with:
 
 ## 2. Feature Comparison Matrix
 
-| Dimension | Cinacoin | Reown AppKit | Winner |
+| Dimension | Cinacoin | Cinacoin AppKit | Winner |
 |-----------|----------|--------------|--------|
 | **Self-Hosting** | ✅ Full self-host, zero lock-in | ❌ Cloud-dependent | **Cinacoin** |
-| **Vendor Lock-in** | ✅ None | ❌ Reown cloud required | **Cinacoin** |
+| **Vendor Lock-in** | ✅ None | ❌ Cinacoin cloud required | **Cinacoin** |
 | **EVM Chains** | ✅ 100+ via registry | ✅ 30+ | **Tie** |
 | **Non-EVM Native** | ✅ 10 chains (BTC/SOL/TON/NEAR/SUI/等) | ⚠️ 2-3 chains (limited) | **Cinacoin** |
 | **Cross-Chain Auth (SIWX)** | ✅ EVM+Solana+Bitcoin unified | ❌ SIWE only (EVM) | **Cinacoin** |
 | **Passkey Auth** | ✅ WebAuthn biometric | ❌ Not supported | **Cinacoin** |
-| **Embedded Wallet** | ✅ Email/social/phone | ✅ Reown Embedded | Tie |
+| **Embedded Wallet** | ✅ Email/social/phone | ✅ Cinacoin Embedded | Tie |
 | **Social Login** | ✅ OAuth2 + email HD derivation | ✅ Social login | Tie |
 | **Account Abstraction** | ✅ Full stack (SDK+Bundler+Paymaster) | ⚠️ Integration only | **Cinacoin** |
 | **Gas Sponsorship** | ✅ Enterprise-grade | ❌ Not available | **Cinacoin** |
@@ -73,10 +73,10 @@ Reown AppKit provides a SaaS-based wallet connection SDK with:
 | **Cross-Chain Bridge** | ✅ HTLC atomic swaps | ❌ Not available | **Cinacoin** |
 | **KYC/AML Compliance** | ✅ Full engine | ❌ Not available | **Cinacoin** |
 | **Travel Rule (FATF)** | ✅ IVMS101 format | ❌ Not available | **Cinacoin** |
-| **Contract Safety (Verify)** | ✅ Verify SDK | ✅ Reown Verify | Tie |
+| **Contract Safety (Verify)** | ✅ Verify SDK | ✅ Cinacoin Verify | Tie |
 | **Wallet Recovery** | ✅ Shamir's Secret Sharing | ❌ Not available | **Cinacoin** |
 | **Push Notification** | ✅ Self-built Push Network | ❌ Not available | **Cinacoin** |
-| **Analytics** | ✅ GDPR-compliant | ✅ Reown Cloud | Tie |
+| **Analytics** | ✅ GDPR-compliant | ✅ Cinacoin Cloud | Tie |
 | **Multi-Wallet** | ✅ Simultaneous connections | ⚠️ Limited | **Cinacoin** |
 | **Wallet Recommender** | ✅ Smart engine | ❌ Not available | **Cinacoin** |
 | **Migration Tool** | ✅ Codemod (Web3Modal→Cinacoin) | ❌ Not available | **Cinacoin** |
@@ -84,11 +84,11 @@ Reown AppKit provides a SaaS-based wallet connection SDK with:
 | **Integration Testing** | ✅ Real testnets (Sepolia, Amoy) | ⚠️ Limited | **Cinacoin** |
 | **Framework Coverage** | ✅ 12 frameworks | ⚠️ ~6 frameworks | **Cinacoin** |
 | **Deployment Cost** | ✅ Free (Cloudflare Workers) | 💰 $100+/month SaaS | **Cinacoin** |
-| **Commercial Maturity** | ⚠️ New project | ✅ Industry standard | **Reown** |
-| **Community Size** | ⚠️ Growing | ✅ 50,000+ dApps | **Reown** |
-| **Documentation** | ⚠️ Building | ✅ Mature | **Reown** |
+| **Commercial Maturity** | ⚠️ New project | ✅ Industry standard | **Cinacoin** |
+| **Community Size** | ⚠️ Growing | ✅ 50,000+ dApps | **Cinacoin** |
+| **Documentation** | ⚠️ Building | ✅ Mature | **Cinacoin** |
 
-**Score**: Cinacoin wins **23 of 33 dimensions**, ties on **7**, Reown wins **3**.
+**Score**: Cinacoin wins **23 of 33 dimensions**, ties on **7**, Cinacoin wins **3**.
 
 ---
 
@@ -96,7 +96,7 @@ Reown AppKit provides a SaaS-based wallet connection SDK with:
 
 ### 3.1 Only Fully Self-Hosted Full-Stack Web3 Connector
 
-Cinacoin runs entirely on Cloudflare Workers/Pages — no external dependencies, no SaaS lock-in. Reown AppKit requires cloud infrastructure for relay, analytics, and wallet discovery.
+Cinacoin runs entirely on Cloudflare Workers/Pages — no external dependencies, no SaaS lock-in. Cinacoin AppKit requires cloud infrastructure for relay, analytics, and wallet discovery.
 
 ```typescript
 // Cinacoin: fully self-hosted
@@ -113,7 +113,7 @@ While competitors offer 2-4 non-EVM chains through partnerships, Cinacoin provid
 
 ### 3.3 SIWX — Industry's First Cross-Chain Unified Auth
 
-Cinacoin's SIWX unifies authentication across EVM, Solana, and Bitcoin in a single API. Reown only supports SIWE (Ethereum-only).
+Cinacoin's SIWX unifies authentication across EVM, Solana, and Bitcoin in a single API. Cinacoin only supports SIWE (Ethereum-only).
 
 ```typescript
 // SIWX: one auth, all chains
@@ -129,17 +129,17 @@ Cinacoin is the **only** wallet connector with a complete compliance stack: KYC/
 
 ### 3.5 Account Abstraction End-to-End
 
-Full ERC-4337 stack: AA SDK → Bundler → Paymaster → Gas Sponsorship → Session Keys with social recovery. Reown only offers limited integration.
+Full ERC-4337 stack: AA SDK → Bundler → Paymaster → Gas Sponsorship → Session Keys with social recovery. Cinacoin only offers limited integration.
 
 ### 3.6 Ultra-Low Deployment Cost
 
-Cloudflare Workers free tier covers most use cases. Even at scale, costs are pennies compared to Reown's $100+/month SaaS pricing.
+Cloudflare Workers free tier covers most use cases. Even at scale, costs are pennies compared to Cinacoin's $100+/month SaaS pricing.
 
 ---
 
 ## 4. Cost Comparison
 
-| Plan | Cinacoin | Reown AppKit |
+| Plan | Cinacoin | Cinacoin AppKit |
 |------|----------|--------------|
 | Free tier | ✅ Unlimited (CF Workers) | ⚠️ Limited |
 | Production (10K MAU) | ~$0 (CF free tier) | $100+/month |
@@ -148,7 +148,7 @@ Cloudflare Workers free tier covers most use cases. Even at scale, costs are pen
 | Analytics | ✅ Self-hosted | 💰 Paid tier |
 | Push notifications | ✅ Self-hosted | 💰 Paid tier |
 
-**Annual savings**: $1,200 - $6,000+ compared to Reown SaaS.
+**Annual savings**: $1,200 - $6,000+ compared to Cinacoin SaaS.
 
 ---
 
@@ -202,7 +202,7 @@ Cinacoin is the **recommended choice** for:
 - Enterprise compliance needs (KYC, Travel Rule)
 - Account Abstraction applications
 
-### For Existing Reown Users
+### For Existing Cinacoin Users
 
 Migrate to Cinacoin if:
 - You need non-EVM chain support

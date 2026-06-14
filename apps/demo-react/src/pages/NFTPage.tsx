@@ -13,8 +13,8 @@ import { CodeExample } from '../components/CodeExample';
 const MOCK_NFTS = [
   {
     id: 1,
-    name: 'CinaCoin Genesis #001',
-    collection: 'CinaCoin Genesis',
+    name: 'Cinacoin Genesis #001',
+    collection: 'Cinacoin Genesis',
     image: 'ART',
     traits: [
       { key: 'Rarity', value: 'Legendary' },

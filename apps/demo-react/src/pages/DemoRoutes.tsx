@@ -6,7 +6,7 @@ import { DemoNFT } from '../components/DemoNFT'
 import { DemoBridge } from '../components/DemoBridge'
 import { DemoDeFi } from '../components/DemoDeFi'
 
-export function WalletConnectPage() {
+export function CinacoinPage() {
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       <div className="text-center">

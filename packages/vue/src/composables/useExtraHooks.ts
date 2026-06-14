@@ -367,7 +367,7 @@ export function useSendTransaction(): UseSendTransactionReturn {
       const provider = (window as unknown as Window & typeof globalThis).ethereum;
       if (!provider) {
         throw new Error(
-          'No EIP-1193 provider found. Use an injected wallet or WalletConnect.',
+          'No EIP-1193 provider found. Use an injected wallet or Cinacoin.',
         );
       }
 
@@ -445,7 +445,7 @@ export function useSignMessage(): UseSignMessageReturn {
       const provider = (window as unknown as Window & typeof globalThis).ethereum;
       if (!provider) {
         throw new Error(
-          'No EIP-1193 provider found. Use an injected wallet or WalletConnect.',
+          'No EIP-1193 provider found. Use an injected wallet or Cinacoin.',
         );
       }
 

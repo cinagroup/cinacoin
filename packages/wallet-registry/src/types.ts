@@ -79,8 +79,8 @@ export interface WalletRegistryEntry {
   playStoreUrl?: string;
   /** Extension store URL (Chrome Web Store, Firefox Add-ons). */
   extensionUrl?: string;
-  /** Whether it supports WalletConnect v2. */
-  supportsWalletConnectV2?: boolean;
+  /** Whether it supports Cinacoin v2. */
+  supportsCinacoinV2?: boolean;
   /** Whether it supports EIP-6963 multi-provider discovery. */
   supportsEIP6963?: boolean;
   /** RDNS identifier for EIP-6963. */
@@ -122,7 +122,7 @@ export interface WalletFilter {
   platform?: WalletPlatform;
   /** Filter by wallet type. */
   walletType?: WalletRegistryEntry['walletType'];
-  /** Filter by WalletConnect v2 support. */
+  /** Filter by Cinacoin v2 support. */
   walletConnectV2?: boolean;
   /** Filter by EIP-6963 support. */
   eip6963?: boolean;

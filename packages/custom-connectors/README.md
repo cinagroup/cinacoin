@@ -24,7 +24,7 @@ const connector = factory.create('injected');
 | `ConnectorFactory` | class | Factory for creating connectors |
 | `InjectedConnector` | class | Injected wallet connector |
 | `QRConnector` | class | QR code connector |
-| `WalletConnectConnector` | class | WalletConnect connector |
+| `CinacoinConnector` | class | Cinacoin connector |
 | `useConnectors` | hook | React hook for connectors |
 | `ConnectorPicker` | component | Connector picker UI component |
 | `ConnectorConfig` | type | Connector configuration |

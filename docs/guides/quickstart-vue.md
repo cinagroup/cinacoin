@@ -6,7 +6,7 @@
 
 本指南帮助你在 Vue 3 应用中快速集成 Cinacoin SDK，实现：
 
-- ✅ 钱包连接（MetaMask、WalletConnect、Coinbase 等）
+- ✅ 钱包连接（MetaMask、Cinacoin、Coinbase 等）
 - ✅ 响应式账户状态
 - ✅ 消息签名与链切换
 - ✅ 使用 Composition API 或 Options API
@@ -119,7 +119,7 @@ npm run dev
 ### 基本连接示例
 
 ```vue
-<!-- src/components/WalletConnect.vue -->
+<!-- src/components/Cinacoin.vue -->
 <script setup lang="ts">
 import { useCinacoin, useConnect } from '@cinacoin/vue'
 

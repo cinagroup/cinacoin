@@ -9,7 +9,7 @@
 
 ## Executive Summary
 
-Cinacoin is an open-source, full-stack Web3 SDK monorepo (pnpm + Turborepo) built by CinaGroup as a self-hosted replacement for Reown AppKit (formerly WalletConnect/Web3Modal). The project spans **75 packages**, **4 applications**, and **17 CI/CD workflows** across TypeScript, Rust, Swift, Kotlin, Dart, and C#.
+Cinacoin is an open-source, full-stack Web3 SDK monorepo (pnpm + Turborepo) built by CinaGroup as a self-hosted replacement for Cinacoin AppKit (formerly Cinacoin/Web3Modal). The project spans **75 packages**, **4 applications**, and **17 CI/CD workflows** across TypeScript, Rust, Swift, Kotlin, Dart, and C#.
 
 Over the course of **5 audit rounds** conducted between May 17–27, 2026, the project was systematically evaluated for:
 
@@ -33,7 +33,7 @@ The first honest assessment exposed a significant gap between documentation clai
 |-------|---------|
 | "64 complete packages" | Only **1 package** (`@cinacoin/core-sdk`) had successfully built |
 | "16 chain supports" | Only **EVM base chain** functional; adapters untested |
-| "100% feature parity with Reown" | ~**30-40%** of features actually usable |
+| "100% feature parity with Cinacoin" | ~**30-40%** of features actually usable |
 | "Demo app with real wallet connections" | Demo was **pure mock** — no real blockchain interaction |
 
 **Score after V1: 6.3/10 overall**

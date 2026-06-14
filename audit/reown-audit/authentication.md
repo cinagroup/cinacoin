@@ -1,15 +1,15 @@
-# Authentication Audit: Cinacoin vs Reown
+# Authentication Audit: Cinacoin vs Cinacoin
 
 > **审计日期**: 2026-06-09
 > **审计范围**: `/workers/auth-service/src/` 全部认证相关代码
 > **审计人**: 000 (Web3 基础设施安全审计)
-> **对标**: Reown/AppKit Authentication System
+> **对标**: Cinacoin/AppKit Authentication System
 
 ---
 
 ## 一、功能对比矩阵
 
-| # | 功能 | Reown | Cinacoin | 差距 | 优先级 |
+| # | 功能 | Cinacoin | Cinacoin | 差距 | 优先级 |
 |---|------|-------|----------|------|--------|
 | 1 | Email/Password 登录 | ✅ (Email Magic Link) | ✅ PBKDF2-SHA256 | 中等 — 缺 Magic Link | P2 |
 | 2 | Social Login — Google | ✅ | ✅ | 无 | — |
@@ -26,8 +26,8 @@
 | 13 | Session Management | ✅ 自动续期 + 多设备 | ⚠️ 部分 — Token Rotation + Reuse Detection，无多设备管理 API | 中等 | P1 |
 | 14 | Transaction Screening | ✅ | ❌ 缺失 | 中等 | P2 |
 | 15 | Domain Verification | ✅ | ❌ 缺失 | 中等 | P2 |
-| 16 | MFA (TOTP) | ❌ (Reown 不含) | ✅ 完整实现 | **Cinacoin 领先** | — |
-| 17 | Recovery Codes | ❌ (Reown 不含) | ✅ 10 码生成 | **Cinacoin 领先** | — |
+| 16 | MFA (TOTP) | ❌ (Cinacoin 不含) | ✅ 完整实现 | **Cinacoin 领先** | — |
+| 17 | Recovery Codes | ❌ (Cinacoin 不含) | ✅ 10 码生成 | **Cinacoin 领先** | — |
 | 18 | Password Reset | ✅ (Email) | ❌ 无路由 | 严重 | P0 |
 | 19 | Email Verification | ✅ | ❌ 字段存在但无流程 | 严重 | P0 |
 
@@ -197,7 +197,7 @@ const challenge = base64url(sha256(codeVerifier));
 | SIWX 跨链认证框架 | 抽象 SIWE 为 generic chain-agnostic 签名验证（Solana, Cosmos 等） | 12h |
 | Multiwallet Linking | `POST /auth/wallets/link`, `DELETE /auth/wallets/:id`，一个用户关联多链多钱包 | 8h |
 | Transaction Screening | 集成 Blockaid / GoPlus 等交易安全 API | 8h |
-| Domain Verification | 类似 Reown 的域名所有权验证，防钓鱼 | 6h |
+| Domain Verification | 类似 Cinacoin 的域名所有权验证，防钓鱼 | 6h |
 | Email Magic Link | 无密码登录选项 | 4h |
 | 安全事件实时告警 | Token reuse / 异常登录 → Webhook/Email 通知 | 4h |
 
@@ -283,11 +283,11 @@ DELETE /auth/sessions          → 撤销所有其他会话
 | Session 管理 | 5/10 | 后端 rotation 好，但无多设备管理 API |
 | 整体安全 | 6/10 | 多处中等漏洞需修复 |
 
-### 与 Reown 差距总结
+### 与 Cinacoin 差距总结
 
-- **功能覆盖率**: ~35%（Reown 15 项核心功能中 Cinacoin 完整实现约 5 项）
+- **功能覆盖率**: ~35%（Cinacoin 15 项核心功能中 Cinacoin 完整实现约 5 项）
 - **最大差距**: Web3 认证完全缺失（SIWE / Passkey / Farcaster / SIWX）
-- **最大优势**: MFA 系统比 Reown 更完整（Reown 不含 TOTP/Recovery）
+- **最大优势**: MFA 系统比 Cinacoin 更完整（Cinacoin 不含 TOTP/Recovery）
 - **安全隐患**: 6 个严重/中等问题需优先修复
 
 ### 建议

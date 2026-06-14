@@ -1,5 +1,5 @@
 /**
- * Relay client for WalletConnect v2.
+ * Relay client for Cinacoin v2.
  *
  * Connects to the Cinacoin self-hosted relay server via WebSocket,
  * manages subscriptions to topics, and publishes encrypted payloads.

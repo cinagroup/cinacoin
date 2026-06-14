@@ -4,7 +4,7 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'Page Not Found — CinaCoin',
+  title: 'Page Not Found — Cinacoin',
   description: 'The page you are looking for does not exist.',
 }
 

@@ -6,7 +6,7 @@ Complete, copy-paste runnable examples for every major use case.
 
 | Example | What It Covers |
 |---------|---------------|
-| [Ethereum](./ethereum.md) | MetaMask, WalletConnect, Coinbase Wallet connection |
+| [Ethereum](./ethereum.md) | MetaMask, Cinacoin, Coinbase Wallet connection |
 | [Solana](./solana.md) | Phantom, Solflare wallet connection |
 | [Bitcoin](./bitcoin.md) | Unisat, Xverse, Leather, OKX wallet connection |
 | [Multi-Chain](./multi-chain.md) | Switching between EVM, Solana, Bitcoin chains |

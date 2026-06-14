@@ -1,7 +1,7 @@
 /**
  * E2E Test — Full Wallet Connection Lifecycle
  *
- * Mocks a complete WalletConnect v2 wallet connection flow:
+ * Mocks a complete Cinacoin v2 wallet connection flow:
  *   pairing → session proposal → session approval → connected → disconnect
  *
  * 20+ tests covering the full connection lifecycle without real network calls.
@@ -61,7 +61,7 @@ const dAppMetadata: AppMetadata = {
 
 class MockWCV2Connector extends Connector {
   readonly id = 'walletconnect-v2-e2e';
-  readonly name = 'WalletConnect v2';
+  readonly name = 'Cinacoin v2';
   readonly icon = 'data:image/svg+xml;base64,mock-wc-e2e';
   readonly installed = true;
   readonly type = 'relay';

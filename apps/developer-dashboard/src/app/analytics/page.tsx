@@ -18,8 +18,8 @@ const dailyRequests = [
 ];
 
 const topChains = [
-  { name: "CinaCoin Mainnet", requests: 684_200, percentage: 53.3 },
-  { name: "CinaCoin Testnet", requests: 312_455, percentage: 24.3 },
+  { name: "Cinacoin Mainnet", requests: 684_200, percentage: 53.3 },
+  { name: "Cinacoin Testnet", requests: 312_455, percentage: 24.3 },
   { name: "Ethereum (via bridge)", requests: 186_100, percentage: 14.5 },
   { name: "Polygon (via bridge)", requests: 101_637, percentage: 7.9 },
 ];

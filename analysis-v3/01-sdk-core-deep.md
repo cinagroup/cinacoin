@@ -1,6 +1,6 @@
-# 01 — SDK Core Deep Analysis: Cinacoin vs Reown AppKit
+# 01 — SDK Core Deep Analysis: Cinacoin vs Cinacoin AppKit
 
-> **Cinacoin Core SDK** vs **Reown AppKit (core-sdk)** — architecture completeness, chain adapter depth, cryptography audit, EIP-6963 support, session management, and gap analysis.
+> **Cinacoin Core SDK** vs **Cinacoin AppKit (core-sdk)** — architecture completeness, chain adapter depth, cryptography audit, EIP-6963 support, session management, and gap analysis.
 >
 > Date: 2026-05-25 | Scope: `core-sdk`, `walletconnect-v2`, adapters, config, cryptography
 
@@ -8,12 +8,12 @@
 
 ## Executive Summary
 
-| Dimension | Cinacoin Core SDK | Reown AppKit (reference) | Assessment |
+| Dimension | Cinacoin Core SDK | Cinacoin AppKit (reference) | Assessment |
 |---|---|---|---|
-| **core-sdk source** | 8,928 LOC across 35 files | ~30k LOC across 40+ packages | Reown is 3-4x larger in scope |
+| **core-sdk source** | 8,928 LOC across 35 files | ~30k LOC across 40+ packages | Cinacoin is 3-4x larger in scope |
 | **walletconnect-v2** | 3,372 LOC (src 2,369 + tests 1,003) | ~5k LOC (part of core) | Comparable |
 | **Chain adapters** | 11 adapters (EVM×5 + Solana + BTC + TON + TRON + Polkadot) | 8 adapters (EVM, Solana, BTC, TON, TRON, Polkadot + others) | Parity |
-| **Missing adapters** | Cosmos, Hedera, NEAR, Starknet, Sui, XRPL ❌ | Some of these exist in Reown | **Gap** |
+| **Missing adapters** | Cosmos, Hedera, NEAR, Starknet, Sui, XRPL ❌ | Some of these exist in Cinacoin | **Gap** |
 | **Cryptography** | X25519 + ChaCha20-Poly1305 + HMAC-SHA256 (real) | X25519 + ChaCha20-Poly1305 (real) | **Parity** |
 | **EIP-6963** | Full implementation ✅ | Full implementation ✅ | Parity |
 | **State management** | Zustand (lightweight) | Custom Proxy/ProxyController | Parity |
@@ -45,9 +45,9 @@
 
 ### 1.2 Architectural Comparison
 
-**Reown AppKit Architecture:**
+**Cinacoin AppKit Architecture:**
 ```
-@reown/appkit
+@cinacoin/appkit
 ├── controllers (ConnectorCtrl, RouterCtrl, ModalCtrl, SnackCtrl, ThemeCtrl, etc.)
 ├── stores (useSnapshot proxy pattern — reactive state)
 ├── core (CoreController — pairing, session, relay, crypto)
@@ -59,9 +59,9 @@
 **Cinacoin Architecture:**
 ```
 @cinacoin/core-sdk
-├── connector.ts — abstract base (like Reown's ConnectorCtrl)
+├── connector.ts — abstract base (like Cinacoin's ConnectorCtrl)
 ├── session.ts — SessionManager (state machine, simpler)
-├── store.ts — Zustand store (simpler than Reown's proxy pattern)
+├── store.ts — Zustand store (simpler than Cinacoin's proxy pattern)
 ├── transports/ — Relay, Injected, QR (explicit transport layer)
 ├── adapters/ — 11 chain adapters
 ├── crypto/ — X25519 + ChaCha20-Poly1305
@@ -73,7 +73,7 @@
 
 **Key architectural differences:**
 
-| Aspect | Reown | Cinacoin | Gap |
+| Aspect | Cinacoin | Cinacoin | Gap |
 |---|---|---|---|
 | State management | Custom ProxyController + useSnapshot (reactive snapshot) | Zustand (simple, proven) | No functional gap |
 | Controller pattern | 10+ specialized controllers | Single Connector abstract + SessionManager | Simpler but less modular |
@@ -112,14 +112,14 @@
 
 The task mentions checking for: **cosmos, hedera, near, starknet, sui, xrpl**
 
-| Adapter | Present? | Reown Equivalent? |
+| Adapter | Present? | Cinacoin Equivalent? |
 |---|---|---|
-| Cosmos/CosmWasm | ❌ Not found | ✅ `@reown/appkit-adapter-cosmos` |
+| Cosmos/CosmWasm | ❌ Not found | ✅ `@cinacoin/appkit-adapter-cosmos` |
 | Hedera | ❌ Not found | ✅ (via community) |
-| NEAR | ❌ Not found | ✅ `@reown/appkit-adapter-near` |
-| Starknet | ❌ Not found | ✅ `@reown/appkit-adapter-starknet` |
-| Sui | ❌ Not found | ✅ `@reown/appkit-adapter-sui` |
-| XRPL | ❌ Not found | ✅ `@reown/appkit-adapter-xrpl` |
+| NEAR | ❌ Not found | ✅ `@cinacoin/appkit-adapter-near` |
+| Starknet | ❌ Not found | ✅ `@cinacoin/appkit-adapter-starknet` |
+| Sui | ❌ Not found | ✅ `@cinacoin/appkit-adapter-sui` |
+| XRPL | ❌ Not found | ✅ `@cinacoin/appkit-adapter-xrpl` |
 
 **Gap impact:** These 6 chains represent ~15% of the DeFi ecosystem. Adding them would require 500-800 LOC each (based on Polkadot/Solana patterns). Estimated effort: 3-6 weeks for a single developer.
 
@@ -171,7 +171,7 @@ The task mentions checking for: **cosmos, hedera, near, starknet, sui, xrpl**
 **✅ VERDICT: PRODUCTION-GRADE CRYPTOGRAPHY**
 
 - All cryptographic primitives are from `@noble/*` — modern, audited, zero-dependency libraries by Paul Miller
-- X25519 key exchange matches WalletConnect v2 specification exactly
+- X25519 key exchange matches Cinacoin v2 specification exactly
 - ChaCha20-Poly1305 uses the IETF variant (12-byte nonce) as required by WC v2
 - HMAC verification uses constant-time comparison (prevents timing attacks)
 - Nonce generation uses `crypto.getRandomValues` (CSPRNG)
@@ -209,7 +209,7 @@ All three libraries are actively maintained by the same author and widely used i
 
 - **Correct event names:** Matches EIP-6963 spec exactly
 - **De-duplication:** Uses `Set<string>` on `rdns` to avoid duplicates
-- **300ms discovery window:** Reasonable default (Reown uses similar)
+- **300ms discovery window:** Reasonable default (Cinacoin uses similar)
 - **Type safety:** Full TypeScript types for `EIP6963AnnounceEvent extends CustomEvent`
 - **Missing:** No `watchWallets` debounce option, no timeout configuration
 
@@ -269,31 +269,31 @@ connected → error → disconnected
 8. disconnect() → wc_sessionDelete → cleanup
 ```
 
-**Verdict:** ✅ Full WC v2 session implementation. Matches Reown's session management capabilities.
+**Verdict:** ✅ Full WC v2 session implementation. Matches Cinacoin's session management capabilities.
 
 ---
 
-## 6. Gap Analysis vs Reown
+## 6. Gap Analysis vs Cinacoin
 
-### 6.1 What Reown Has That Cinacoin Lacks
+### 6.1 What Cinacoin Has That Cinacoin Lacks
 
-| Gap | Priority | Reown LOC (est.) | Effort to Fix |
+| Gap | Priority | Cinacoin LOC (est.) | Effort to Fix |
 |---|---|---|---|
 | **Cosmos/NEAR/Starknet/Sui/Hedera/XRPL adapters** | Medium | ~500 LOC each | 3-6 weeks |
 | **Cloud wallet registry** (wallet explorer API) | Medium | ~2k LOC | 2-3 weeks |
 | **Modular controller architecture** (10+ specialized controllers) | Low | ~8k LOC | Architectural refactor |
 | **Proxy-based reactive state** (useSnapshot) | Low | ~3k LOC | Replace Zustand or add proxy layer |
 | **Pay component** (UI for onramp) | High | ~2k LOC | 2-3 weeks |
-| **Codemod** (migration from WC/Reown) | Medium | ~1.5k LOC | 1-2 weeks |
+| **Codemod** (migration from WC/Cinacoin) | Medium | ~1.5k LOC | 1-2 weeks |
 | **CDN distribution** | Low | ~500 LOC | 1 week |
 | **Browser extension** | Low | ~1k LOC | 1-2 weeks |
 | **Component gallery/demo app** | Low | ~3k LOC | 2 weeks |
-| **`@reown/appkit-scaffold-ui`** (full wallet list UI) | Low | ~4k LOC | Already in core-ui package |
-| **`@reown/appkit-common`** (utility functions) | Low | ~2k LOC | Could be extracted |
+| **`@cinacoin/appkit-scaffold-ui`** (full wallet list UI) | Low | ~4k LOC | Already in core-ui package |
+| **`@cinacoin/appkit-common`** (utility functions) | Low | ~2k LOC | Could be extracted |
 | **Email/social login in core** | Low | ~3k LOC | Already separate package |
 | **Smart accounts (ERC-4337) in core** | Low | ~2k LOC | Already separate `aa-sdk` |
 
-### 6.2 What Cinacoin Has That Reown Lacks
+### 6.2 What Cinacoin Has That Cinacoin Lacks
 
 | Advantage | Value |
 |---|---|
@@ -359,12 +359,12 @@ connected → error → disconnected
 ### Score Breakdown Justification
 
 - **Architecture (80):** Clean, explicit, well-separated. Loses points for lack of modular controller pattern and cloud wallet registry.
-- **Adapter coverage (65):** Has all 6 chains Reown has plus 5 EVM adapters. Loses 35 points for missing 6 chains (Cosmos, NEAR, Starknet, Sui, Hedera, XRPL).
+- **Adapter coverage (65):** Has all 6 chains Cinacoin has plus 5 EVM adapters. Loses 35 points for missing 6 chains (Cosmos, NEAR, Starknet, Sui, Hedera, XRPL).
 - **Adapter depth (78):** Most adapters are production-ready. Polkadot's missing SCALE codec and TON's simplified cell encoding drag the average.
 - **Cryptography (95):** Best-in-class. Uses `@noble/*` libraries. Full WC v2 compliance. Constant-time HMAC comparison.
 - **EIP-6963 (95):** Full spec compliance. Minor points off for no timeout configuration.
 - **Session management (90):** Full WC v2 lifecycle. Minor point off for missing relay-based stale session detection.
-- **State management (75):** Zustand is lightweight and effective. Loses points vs Reown's more sophisticated proxy pattern with snapshot reactivity.
+- **State management (75):** Zustand is lightweight and effective. Loses points vs Cinacoin's more sophisticated proxy pattern with snapshot reactivity.
 - **Transport layer (85):** Three explicit transport types (Relay/Injected/QR) with full lifecycle management. Good separation of concerns.
 
 ---

@@ -64,12 +64,12 @@ export default function Hero() {
             <pre className="cc-code">
               <code>
                 <span className="text-[var(--cc-violet)]">import</span>{' '}
-                <span className="text-[var(--cc-cyan)]">{'{ CinaCoinProvider }'}</span>{' '}
+                <span className="text-[var(--cc-cyan)]">{'{ CinacoinProvider }'}</span>{' '}
                 <span className="text-[var(--cc-violet)]">from</span>{' '}
                 <span className="text-[var(--cc-highlight-pink)]">&apos;@cinacoin/react&apos;</span>
                 {'\n\n'}
                 <span className="text-[var(--cc-muted)]">{'<'}</span>
-                <span className="text-[var(--cc-highlight-pink)]">CinaCoinProvider</span>
+                <span className="text-[var(--cc-highlight-pink)]">CinacoinProvider</span>
                 {'\n'}
                 {'  '}<span className="text-[var(--cc-cyan)]">projectId</span>{' '}
                 <span className="text-[var(--cc-muted)]">=</span>{' '}
@@ -86,7 +86,7 @@ export default function Hero() {
                 <span className="text-[var(--cc-muted)]">{'/>'}</span>
                 {'\n'}
                 <span className="text-[var(--cc-muted)]">{'</'}</span>
-                <span className="text-[var(--cc-highlight-pink)]">CinaCoinProvider</span>
+                <span className="text-[var(--cc-highlight-pink)]">CinacoinProvider</span>
                 <span className="text-[var(--cc-muted)]">{'>'}</span>
               </code>
             </pre>

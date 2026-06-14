@@ -34,8 +34,8 @@ export {
 } from './HederaAdapter.js';
 
 export { HashPackConnector, announceHashPackEIP6963 } from './connectors/hashpack.js';
-export { BladeWalletConnector, announceBladeEIP6963 } from './connectors/blade-wallet.js';
-export { KantaraWalletConnector, announceKantaraEIP6963 } from './connectors/kantara-wallet.js';
+export { BladeCinacoinor, announceBladeEIP6963 } from './connectors/blade-wallet.js';
+export { KantaraCinacoinor, announceKantaraEIP6963 } from './connectors/kantara-wallet.js';
 
 export type {
   HederaNetwork,

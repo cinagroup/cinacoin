@@ -78,7 +78,7 @@ This document defines the formal acceptance criteria for the Cinacoin v1.0 relea
 ### 1.8 Developer Tools & Utilities (18/18)
 - [x] `@cinacoin/cli` — CLI scaffolding tool
 - [x] `@cinacoin/testing` — Mock providers & test utilities
-- [x] `@cinacoin/codemod` — Migration tool (Reown/AppKit → Cinacoin)
+- [x] `@cinacoin/codemod` — Migration tool (Cinacoin/AppKit → Cinacoin)
 - [x] `@cinacoin/wallet-recommender` — Wallet recommendation engine
 - [x] `@cinacoin/gas-estimator` — Gas estimation utilities
 - [x] `@cinacoin/token-list` — Curated token registry
@@ -180,7 +180,7 @@ This document defines the formal acceptance criteria for the Cinacoin v1.0 relea
 - [x] Architecture diagram
 - [x] Package status tables
 - [x] Troubleshooting guide
-- [x] Migration guide (Reown/AppKit → Cinacoin)
+- [x] Migration guide (Cinacoin/AppKit → Cinacoin)
 - [ ] **Pending:** SDK reference for each platform (Android, iOS, Unity, .NET)
 
 ---
@@ -205,7 +205,7 @@ This document defines the formal acceptance criteria for the Cinacoin v1.0 relea
 ### 5.3 Demo Application
 - [x] 6 pages implemented with real wallet connection logic
 - [x] Next.js app at `apps/demo/`
-- [ ] **Pending:** Verify wallet connections work end-to-end (MetaMask, WalletConnect)
+- [ ] **Pending:** Verify wallet connections work end-to-end (MetaMask, Cinacoin)
 - [ ] **Pending:** Deploy demo to production URL
 
 ### 5.4 Docker

@@ -3,8 +3,8 @@ import StepIndicator from "@/components/StepIndicator";
 
 
 export const metadata = {
-  title: "Multichain development. — CinaCoin Learn",
-  description: "Build applications that work across multiple blockchains with CinaCoin's unified API.",
+  title: "Multichain development. — Cinacoin Learn",
+  description: "Build applications that work across multiple blockchains with Cinacoin's unified API.",
 };
 
 export default function MultichainPage() {
@@ -14,7 +14,7 @@ export default function MultichainPage() {
 
       <h1 className="text-display-lg mb-4">Multichain development.</h1>
       <p className="text-body-lg mb-8" style={{ color: 'var(--cc-body)' }}>
-        Build applications that seamlessly work across multiple blockchains using CinaCoin&apos;s
+        Build applications that seamlessly work across multiple blockchains using Cinacoin&apos;s
         unified multichain infrastructure.
       </p>
 
@@ -27,7 +27,7 @@ export default function MultichainPage() {
           users where they are — not force them onto a single network.
         </p>
         <p className="text-body-md mb-4" style={{ color: 'var(--cc-body)' }}>
-          CinaCoin provides a unified API that abstracts away chain-specific differences,
+          Cinacoin provides a unified API that abstracts away chain-specific differences,
           letting you write code once and deploy everywhere.
         </p>
       </section>
@@ -36,7 +36,7 @@ export default function MultichainPage() {
       <section className="mb-12" aria-labelledby="configure-chains">
         <h2 id="configure-chains" className="text-display-md mb-4">Configure supported chains.</h2>
         <p className="text-body-md mb-4" style={{ color: 'var(--cc-body)' }}>
-          Define which chains your application supports. CinaCoin handles RPC management,
+          Define which chains your application supports. Cinacoin handles RPC management,
           chain switching, and fallback providers automatically.
         </p>
         <CodeBlock
@@ -131,7 +131,7 @@ const bscBalance = await getBalance(address, 56);`}
       <section className="mb-12" aria-labelledby="cross-chain-state">
         <h2 id="cross-chain-state" className="text-display-md mb-4">Cross-chain state.</h2>
         <p className="text-body-md mb-4" style={{ color: 'var(--cc-body)' }}>
-          Track user state across chains with CinaCoin&apos;s unified state management.
+          Track user state across chains with Cinacoin&apos;s unified state management.
           This is essential for dashboards, portfolio trackers, and multichain DeFi apps.
         </p>
         <CodeBlock

@@ -1,7 +1,7 @@
 {
   "name": "cinacoin-auth-service",
   "version": "1.0.0",
-  "description": "CinaCoin Unified Authentication Service",
+  "description": "Cinacoin Unified Authentication Service",
   
   "scripts": {
     "dev": "next dev",

@@ -519,7 +519,7 @@ Pages Apps:
 ```
 9dd1d47c chore: 合并 master 到 main - 生产环境代码与 SDK 整合
 d92837e8 fix(verify-service): 添加 KV 命名空间 ID
-8694bff4 feat: 全站修复与增强 - Reown 对比审计后完善
+8694bff4 feat: 全站修复与增强 - Cinacoin 对比审计后完善
 1807b7e0 feat(cloud-dashboard): add missing pages and fix navigation
 a99ce4fc fix(cloud-dashboard): fix navigation links, add missing pages
 ... (main 历史 373 个提交)

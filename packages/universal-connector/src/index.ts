@@ -1,6 +1,6 @@
 /**
  * @cinacoin/universal-connector — 统一多链连接器
- *对标 Reown Universal Connector，一次集成，所有链
+ *对标 Cinacoin Universal Connector，一次集成，所有链
  *
  * @example
  * ```typescript

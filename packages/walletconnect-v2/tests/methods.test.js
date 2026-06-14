@@ -1,5 +1,5 @@
 /**
- * JSON-RPC method handling tests for WalletConnect v2.
+ * JSON-RPC method handling tests for Cinacoin v2.
  *
  * Tests the methods module:
  * - WC_METHODS / WC_EVENTS constants

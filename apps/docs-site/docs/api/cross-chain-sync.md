@@ -1,6 +1,6 @@
 # Cross-chain sync.
 
-> `@cinacoin/cross-chain-sync` — Cross-chain synchronization for CinaCoin.
+> `@cinacoin/cross-chain-sync` — Cross-chain synchronization for Cinacoin.
 
 ## Installation.
 

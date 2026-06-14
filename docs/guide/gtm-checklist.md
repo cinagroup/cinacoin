@@ -47,7 +47,7 @@
 | Item | Description | Status |
 |------|-------------|--------|
 | E2E tests passing | All Playwright/Maestro E2E tests pass | ☐ |
-| Wallet compatibility | Tested across MetaMask, Rabby, WalletConnect, Coinbase Wallet | ☐ |
+| Wallet compatibility | Tested across MetaMask, Rabby, Cinacoin, Coinbase Wallet | ☐ |
 | Chain coverage | Tested on all target chains (mainnet + testnets) | ☐ |
 | Mobile deep links | iOS Universal Links + Android App Links verified | ☐ |
 | Social login | Google, email, and other providers tested end-to-end | ☐ |
@@ -61,7 +61,7 @@
 |------|-------------|--------|
 | Documentation complete | Quick start, API reference, guides published | ☐ |
 | Code examples | Working examples for React, Next.js, vanilla JS | ☐ |
-| Migration guide | Guide for migrating from Reown/WalletConnect | ☐ |
+| Migration guide | Guide for migrating from Cinacoin/Cinacoin | ☐ |
 | SDK published | All packages published to npm/registry | ☐ |
 | Version pinning | `package.json` uses specific versions (not `*`) | ☐ |
 | TypeScript support | All packages ship with `.d.ts` type declarations | ☐ |

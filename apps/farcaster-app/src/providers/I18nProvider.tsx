@@ -24,7 +24,7 @@ const translations: Record<Locale, Record<string, string>> = {
     'connect-wallet': 'Connect Wallet',
     'disconnect': 'Disconnect',
     'loading': 'Loading...',
-    'hero-title': 'CinaCoin.',
+    'hero-title': 'Cinacoin.',
     'hero-subtitle': 'Wallet, transfer, sign — from your Farcaster feed.',
   },
   zh: {
@@ -40,7 +40,7 @@ const translations: Record<Locale, Record<string, string>> = {
     'connect-wallet': '连接钱包',
     'disconnect': '断开',
     'loading': '加载中...',
-    'hero-title': 'CinaCoin.',
+    'hero-title': 'Cinacoin.',
     'hero-subtitle': '钱包、转账、签名 — 从 Farcaster 信息流中使用。',
   },
 };

@@ -16,10 +16,10 @@
 | 站点 | Title | 状态 |
 |------|-------|------|
 | cinacoin.com | Cinacoin — Onchain Access, Simplified | ✅ 正确 |
-| demo.cinacoin.com | CinaCoin — Wallet Connection Toolkit | ⏳ 等待部署 |
-| dash.cinacoin.com | CinaCoin — Backend Dashboard | ⏳ 等待部署 |
+| demo.cinacoin.com | Cinacoin — Wallet Connection Toolkit | ⏳ 等待部署 |
+| dash.cinacoin.com | Cinacoin — Backend Dashboard | ⏳ 等待部署 |
 | docs.cinacoin.com | Cinacoin | ✅ 正确 |
-| status.cinacoin.com | CinaCoin — Service Status | ⏳ 等待部署 |
+| status.cinacoin.com | Cinacoin — Service Status | ⏳ 等待部署 |
 
 ## 预计部署时间
 - Vercel: ~2-3 分钟

@@ -593,7 +593,7 @@ app.post('/api/auth/email/verify', async (c) => {
     const verifyUrl = `${appBaseUrl}/verify-email?token=${token}`;
     
     const emailSent = await sendEmail(c, user.email, 'Verify your email address', `
-      <h1>Welcome to CinaCoin!</h1>
+      <h1>Welcome to Cinacoin!</h1>
       <p>Please verify your email address by clicking the link below:</p>
       <p><a href="${verifyUrl}">Verify Email Address</a></p>
       <p>This link will expire in 24 hours.</p>

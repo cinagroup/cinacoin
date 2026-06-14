@@ -141,7 +141,7 @@ Cinacoin is a monorepo with **72 packages** organized into:
 | **Core** | 3 | SDK, UI, configuration |
 | **Blockchain Adapters** | 7 | Bitcoin, Cosmos, Hedera, NEAR, Starknet, Sui, XRPL |
 | **Frameworks** | 6 | React, Angular, Next.js, React Native, Flutter, .NET |
-| **Features** | 20+ | WalletConnect, SIWE/SIWX, ENS, gas sponsorship, analytics, etc. |
+| **Features** | 20+ | Cinacoin, SIWE/SIWX, ENS, gas sponsorship, analytics, etc. |
 | **Infrastructure** | 10+ | CLI, bundler, keys server, push server, CDN, config |
 | **Mobile** | 2 | Android (Kotlin), iOS (Swift) |
 | **Enterprise** | 5+ | KYC, embedded wallet, deposit, onramp, batch transactions |

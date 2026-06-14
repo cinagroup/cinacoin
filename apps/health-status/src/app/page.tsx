@@ -93,7 +93,7 @@ export default function HealthStatusPage() {
       {/* Dark band hero */}
       <div className="rounded-lg bg-[#171717] px-8 py-10">
         <p className="font-mono text-xs text-[#888] mb-3">health-status</p>
-        <h1 className="text-2xl font-semibold text-white tracking-tight">CinaCoin status.</h1>
+        <h1 className="text-2xl font-semibold text-white tracking-tight">Cinacoin status.</h1>
         <p className="mt-2 text-sm text-[#b3b3b3]">Real-time system health and incident reports.</p>
         <div className="mt-6 flex items-center gap-3">
           <div className="flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5">
@@ -165,9 +165,9 @@ export default function HealthStatusPage() {
 
       {/* Footer */}
       <footer className="border-t border-[var(--cc-hairline)] pt-6 flex items-center justify-between text-xs text-[var(--cc-muted)]">
-        <p>&copy; 2026 CinaCoin.</p>
+        <p>&copy; 2026 Cinacoin.</p>
         <p className="font-mono">
-          Powered by <a href="https://cinacoin.com" className="hover:text-[var(--cc-ink)] transition-colors">CinaCoin Infrastructure</a>
+          Powered by <a href="https://cinacoin.com" className="hover:text-[var(--cc-ink)] transition-colors">Cinacoin Infrastructure</a>
         </p>
       </footer>
     </div>

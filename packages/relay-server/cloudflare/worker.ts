@@ -2,7 +2,7 @@ import { logger } from '@cinacoin/logger';
 /**
  * Cinacoin Relay Server — Cloudflare Worker + Durable Objects
  *
- * Handles WalletConnect relay signaling via Durable Objects
+ * Handles Cinacoin relay signaling via Durable Objects
  * for WebSocket session management.
  */
 

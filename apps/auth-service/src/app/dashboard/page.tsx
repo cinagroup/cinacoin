@@ -60,7 +60,7 @@ export default function DashboardPage() {
     <div className="auth-container">
       <div className="auth-card">
         <div className="auth-logo">
-          <h1>CinaCoin Auth</h1>
+          <h1>Cinacoin Auth</h1>
           <p>统一认证中心</p>
         </div>
 

@@ -1,6 +1,6 @@
 # Hedera adapter.
 
-> `@cinacoin/adapter-hedera` — Hedera Hashgraph adapter for CinaCoin.
+> `@cinacoin/adapter-hedera` — Hedera Hashgraph adapter for Cinacoin.
 
 ## Installation.
 

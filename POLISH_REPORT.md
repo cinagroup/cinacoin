@@ -1,4 +1,4 @@
-# CinaCoin Small Apps Polish Report
+# Cinacoin Small Apps Polish Report
 
 **Date:** 2026-06-12
 **Apps Polished:** health-status, telegram-app, farcaster-app, demo-dapp-react
@@ -7,14 +7,14 @@
 
 ## Summary
 
-All four CinaCoin small applications have been polished according to the design system guidelines in DESIGN.md, DESIGN_SYSTEM.md, and UI.md. The improvements focus on brand consistency, design system compliance, accessibility, and platform-specific optimizations.
+All four Cinacoin small applications have been polished according to the design system guidelines in DESIGN.md, DESIGN_SYSTEM.md, and UI.md. The improvements focus on brand consistency, design system compliance, accessibility, and platform-specific optimizations.
 
 ---
 
 ## 1. Brand Consistency
 
-### ✅ CinaCoin Branding
-- **All apps:** Consistent "CinaCoin" branding throughout
+### ✅ Cinacoin Branding
+- **All apps:** Consistent "Cinacoin" branding throughout
 - **Sentence case:** All titles and headings follow sentence case convention
 - **Period-terminated:** Headlines end with periods per Vercel design language
 - **Mono eyebrows:** Technical labels use monospace font (Geist Mono)
@@ -46,7 +46,7 @@ All apps use the `--cc-*` CSS variable namespace:
 
 ### ✅ Colors
 - **Primary:** `#171717` (ink) for CTAs
-- **Success:** `#0070f3` (blue, not green) per CinaCoin spec
+- **Success:** `#0070f3` (blue, not green) per Cinacoin spec
 - **Error:** `#ee0000`
 - **Warning:** `#f5a623`
 - **Surfaces:** Canvas (`#ffffff`), Canvas Soft (`#fafafa`), Canvas Soft 2 (`#f5f5f5`)
@@ -124,7 +124,7 @@ All apps use the `--cc-*` CSS variable namespace:
 ✅ **Status indicators:** Clear color-coded badges (green/blue/red/yellow)
 ✅ **90-day history:** Visual timeline with hover tooltips
 ✅ **Incident timeline:** Accessible feed with proper ARIA roles
-✅ **Footer:** Added link to CinaCoin Infrastructure
+✅ **Footer:** Added link to Cinacoin Infrastructure
 ✅ **Metadata:** Proper SEO meta tags and Open Graph
 
 ### Telegram App (`apps/telegram-app`)
@@ -251,7 +251,7 @@ polish(health-status,telegram-app,farcaster-app,demo-dapp-react): brand consiste
 
 ## Conclusion
 
-All four CinaCoin small applications now fully comply with the design system guidelines. The improvements ensure:
+All four Cinacoin small applications now fully comply with the design system guidelines. The improvements ensure:
 
 1. **Brand consistency** across all platforms
 2. **Design system compliance** with proper tokens and components

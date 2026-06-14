@@ -21,8 +21,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: 'CinaCoin SDK demo. Multi-chain wallet integration.',
-  description: 'Interactive demo showcasing CinaCoin SDK: connect wallets, sign messages, send transactions, batch operations, and NFT gallery across 16+ chains.',
+  title: 'Cinacoin SDK demo. Multi-chain wallet integration.',
+  description: 'Interactive demo showcasing Cinacoin SDK: connect wallets, sign messages, send transactions, batch operations, and NFT gallery across 16+ chains.',
 };
 
 export default function RootLayout({

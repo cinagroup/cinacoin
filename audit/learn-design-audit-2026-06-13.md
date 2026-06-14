@@ -92,7 +92,7 @@ DESIGN.md 明确要求:
 | `app/best-practices/page.tsx` | L13 | `Best practices` | `Best practices.` |
 
 **已正确添加句号的标题** (作为参考):
-- `page.tsx`: "Welcome to CinaCoin Learn." ✅, "Getting started." ✅
+- `page.tsx`: "Welcome to Cinacoin Learn." ✅, "Getting started." ✅
 - `wallet-integration`: "1. Install the SDK." ✅, "2. Initialize the client." ✅, "3. Connect a wallet." ✅, "4. Sign a message." ✅, "5. Send a transaction." ✅, "6. Listen for events." ✅
 - `multichain`: "Chain-agnostic interactions." ✅, "Cross-chain state." ✅, "Chain switching." ✅
 - `best-practices`: "1. Security first." ✅ ~ "5. Testing your integration." ✅

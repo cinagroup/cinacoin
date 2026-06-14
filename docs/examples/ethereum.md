@@ -1,6 +1,6 @@
 # Ethereum Wallet Connection
 
-> Full Ethereum (EVM) wallet connection example — MetaMask, WalletConnect, Coinbase Wallet, and low-level SDK.
+> Full Ethereum (EVM) wallet connection example — MetaMask, Cinacoin, Coinbase Wallet, and low-level SDK.
 
 ## Prerequisites
 
@@ -106,7 +106,7 @@ function App() {
       <p>Status: {status}</p>
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
         <button onClick={() => connect('metamask')}>MetaMask</button>
-        <button onClick={() => connect('walletconnect')}>WalletConnect</button>
+        <button onClick={() => connect('walletconnect')}>Cinacoin</button>
         <button onClick={() => connect('coinbase')}>Coinbase Wallet</button>
       </div>
     </div>

@@ -12,7 +12,7 @@ describe('Analytics Event Tracking', () => {
         expect(state.eventCount).toBe(0);
     });
     it('should track a wallet connect event', () => {
-        analytics.trackWalletConnect({
+        analytics.trackCinacoin({
             walletId: 'metamask',
             chainId: 1,
             address: '0xabc',
@@ -67,28 +67,28 @@ describe('Analytics Event Tracking', () => {
     });
     it('should not track when disabled', () => {
         analytics.disable();
-        analytics.trackWalletConnect({
+        analytics.trackCinacoin({
             walletId: 'test', chainId: 1, address: '0x0', connectorType: 'injected', success: true,
         });
         expect(analytics.getEvents().length).toBe(0);
     });
     it('should clear all events', () => {
-        analytics.trackWalletConnect({
+        analytics.trackCinacoin({
             walletId: 'test', chainId: 1, address: '0x0', connectorType: 'injected', success: true,
         });
         analytics.clear();
         expect(analytics.getEvents().length).toBe(0);
     });
     it('should compute metrics from events', () => {
-        analytics.trackWalletConnect({
+        analytics.trackCinacoin({
             walletId: 'metamask', chainId: 1, address: '0x1', connectorType: 'injected',
             duration: 1000, success: true,
         });
-        analytics.trackWalletConnect({
+        analytics.trackCinacoin({
             walletId: 'walletconnect', chainId: 1, address: '0x2', connectorType: 'wc',
             duration: 2000, success: true,
         });
-        analytics.trackWalletConnect({
+        analytics.trackCinacoin({
             walletId: 'metamask', chainId: 137, address: '0x3', connectorType: 'injected',
             duration: 500, success: false,
         });

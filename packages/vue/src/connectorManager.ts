@@ -77,11 +77,11 @@ export class ConnectorManager {
       new InjectedProvider('io.rabby', 'Rabby', WALLET_ICONS.rabby ?? ''),
     );
 
-    // WalletConnect connector — will be created when needed via createWalletConnectConnector
+    // Cinacoin connector — will be created when needed via createCinacoinConnector
     // For now we register placeholder metadata
     this.registerConnectorMetadata({
       id: 'walletconnect',
-      name: 'WalletConnect',
+      name: 'Cinacoin',
       type: 'walletconnect',
     });
 
@@ -107,7 +107,7 @@ export class ConnectorManager {
     metadata: Pick<ConnectorType, 'id' | 'name' | 'type'>,
   ): void {
     // Store metadata for connectors that need async initialization
-    // (WalletConnect, Email, Social, etc.)
+    // (Cinacoin, Email, Social, etc.)
   }
 
   /**
@@ -217,17 +217,17 @@ export class ConnectorManager {
   }
 
   /**
-   * Create a connector for WalletConnect.
-   * This is a placeholder — the full WalletConnect implementation
+   * Create a connector for Cinacoin.
+   * This is a placeholder — the full Cinacoin implementation
    * would use the RelayTransport + session management.
    */
-  createWalletConnectConnector(): void {
+  createCinacoinConnector(): void {
     // Full implementation would use RelayTransport + SessionManager
     // from @cinacoin/core-sdk to establish WC v2 connections.
     // For now, this logs the intent and the injected provider path
     // handles the common browser wallet case.
     logger.warn(
-      '[Cinacoin] WalletConnect relay connector requires @cinacoin/core-sdk ' +
+      '[Cinacoin] Cinacoin relay connector requires @cinacoin/core-sdk ' +
         'RelayTransport configuration. Configure relayUrl and projectId in config.',
     );
   }

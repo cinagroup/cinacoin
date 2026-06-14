@@ -3,7 +3,7 @@ import ContactContent from './ContactContent'
 
 export const metadata: Metadata = {
   title: 'Contact',
-  description: 'Get in touch with the CinaCoin team. Sales, support, partnerships, or just say hello.',
+  description: 'Get in touch with the Cinacoin team. Sales, support, partnerships, or just say hello.',
   alternates: {
     canonical: '/contact',
   },

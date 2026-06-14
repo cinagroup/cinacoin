@@ -74,12 +74,12 @@ function MyComponent() {
         ↓
 弹出 ConnectModal
         ↓
-用户选择钱包 (MetaMask / WalletConnect / Rabby...)
+用户选择钱包 (MetaMask / Cinacoin / Rabby...)
         ↓
 ┌─────────────────────┐
 │  Injected Wallet?    │──是──→ 直接请求签名 (window.ethereum)
-│  WalletConnect?      │──是──→ 生成 QR 码 / Deep Link
-│  WalletConnect?      │──是──→ 生成 QR 码 / Deep Link
+│  Cinacoin?      │──是──→ 生成 QR 码 / Deep Link
+│  Cinacoin?      │──是──→ 生成 QR 码 / Deep Link
 └─────────────────────┘
         ↓
 用户确认连接 (钱包弹窗)
@@ -94,9 +94,9 @@ onConnected 事件触发
 | 方式 | 适用场景 | 说明 |
 |------|---------|------|
 | **Injected** | 桌面浏览器 + 钱包插件 | 检测 `window.ethereum`，EIP-6963 自动发现 |
-| **WalletConnect QR** | 移动端钱包扫描 | 生成 WC v2 URI，用户用钱包 App 扫描 |
-| **WalletConnect Deep Link** | 移动端 | 自动跳转钱包 App (iOS/Android) |
-| **WalletConnect 弹窗** | 桌面端扫码 | 在网页上显示 QR 码，用户用手机钱包扫描 |
+| **Cinacoin QR** | 移动端钱包扫描 | 生成 WC v2 URI，用户用钱包 App 扫描 |
+| **Cinacoin Deep Link** | 移动端 | 自动跳转钱包 App (iOS/Android) |
+| **Cinacoin 弹窗** | 桌面端扫码 | 在网页上显示 QR 码，用户用手机钱包扫描 |
 
 ---
 
@@ -105,7 +105,7 @@ onConnected 事件触发
 ### 1. 钱包连接 (ConnectDemo)
 
 - **ConnectButton**: 一键连接/断开，显示余额和网络
-- **ConnectModal**: 弹窗选择钱包，支持 QR 码和 WalletConnect
+- **ConnectModal**: 弹窗选择钱包，支持 QR 码和 Cinacoin
 - **EIP-6963**: 自动发现所有已安装的浏览器钱包插件
 
 ```
@@ -158,14 +158,14 @@ onConnected 事件触发
 **解决方案**:
 1. 确认已安装 MetaMask 或其他 Web3 钱包插件
 2. 检查浏览器控制台是否有错误
-3. 尝试使用 WalletConnect QR 码连接
+3. 尝试使用 Cinacoin QR 码连接
 
-### Q2: WalletConnect 连接失败
+### Q2: Cinacoin 连接失败
 
 **原因**: Project ID 无效或网络问题
 
 **解决方案**:
-1. 前往 [WalletConnect Cloud](https://cloud.walletconnect.com) 创建项目并获取 Project ID
+1. 前往 [Cinacoin Cloud](https://cloud.walletconnect.com) 创建项目并获取 Project ID
 2. 在配置中设置正确的 `projectId`:
    ```tsx
    const config = {

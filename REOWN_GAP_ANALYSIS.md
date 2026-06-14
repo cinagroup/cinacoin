@@ -1,7 +1,7 @@
-# Reown AppKit → Cinacoin Gap Analysis
+# Cinacoin AppKit → Cinacoin Gap Analysis
 
 **Date:** 2026-05-17
-**Scope:** Compare all Reown (reown-com) organization features against Cinacoin's 42 packages
+**Scope:** Compare all Cinacoin (cinacoin-com) organization features against Cinacoin's 42 packages
 
 ---
 
@@ -62,7 +62,7 @@
 
 ---
 
-## Part 2: Reown Organization Repositories (30 repos)
+## Part 2: Cinacoin Organization Repositories (30 repos)
 
 | Repo | Description |
 |------|-------------|
@@ -71,13 +71,13 @@
 | `appkit-web-examples` | Web examples |
 | `react-native-examples` | RN examples |
 | `web-examples` | Web examples for WC v2 |
-| `reown-docs` | Documentation |
-| `reown-dotnet` | Unity + NuGet packages for AppKit/WalletKit |
-| `reown_flutter` | Flutter SDK |
-| `reown-kotlin` | Android/Kotlin SDK |
-| `reown-swift` | iOS/Swift SDK (WalletKit + AppKit) |
-| `reown-walletkit-js` | JS wallet SDK |
-| `reown-rust` | Rust SDK (relay client + RPC) |
+| `cinacoin-docs` | Documentation |
+| `cinacoin-dotnet` | Unity + NuGet packages for AppKit/WalletKit |
+| `cinacoin_flutter` | Flutter SDK |
+| `cinacoin-kotlin` | Android/Kotlin SDK |
+| `cinacoin-swift` | iOS/Swift SDK (WalletKit + AppKit) |
+| `cinacoin-walletkit-js` | JS wallet SDK |
+| `cinacoin-rust` | Rust SDK (relay client + RPC) |
 | `keys-server` | Keys server |
 | `notify-server` | Notify server |
 | `push-server` | Push server |
@@ -103,7 +103,7 @@
 
 ### Core Features
 
-| Feature | Reown Implementation | Cinacoin Equivalent | Gap Severity | Notes |
+| Feature | Cinacoin Implementation | Cinacoin Equivalent | Gap Severity | Notes |
 |---------|---------------------|----------------------|-------------|-------|
 | **Wallet Connection Modal** | AppKit scaffold-ui with w3m-modal, account view, connect view, network views, SIWX views | `core-ui` (Lit web components) + `core-sdk` | ✅ PRESENT | Cinacoin has modal components via core-ui/Lit |
 | **Multi-Chain Modal** | ModalController with chain switching views | `cross-chain-sync` + `core-sdk` | ✅ PRESENT | Cinacoin supports EVM/Solana/BTC/TON/TRON/Polkadot |
@@ -129,19 +129,19 @@
 | **Keys Server** | keys-server repo | `keys-server` package | ✅ PRESENT | Direct equivalent |
 | **Safe Decoder** | safe-decoder repo | `safe-decoder` package | ✅ PRESENT | Direct equivalent |
 | **Travel Rule** | travel-rule-demo repo | `travel-rule-demo` package | ✅ PRESENT | Direct equivalent |
-| **ERC-6492 Verification** | erc6492 Rust crate (eth_call verification) | `erc6492` (implied via aa-sdk?) | ⚠️ NEEDS VERIFICATION | Reown has dedicated Rust crate; check if Cinacoin has ERC-6492 support |
+| **ERC-6492 Verification** | erc6492 Rust crate (eth_call verification) | `erc6492` (implied via aa-sdk?) | ⚠️ NEEDS VERIFICATION | Cinacoin has dedicated Rust crate; check if Cinacoin has ERC-6492 support |
 | **Codemods** | Migration guides | `codemod` package (Web3Modal/AppKit/WCv1) | ✅ PRESENT | Cinacoin actually has automated codemods |
 | **CLI** | No CLI tool | `cli` package | ✅ Cinacoin ONLY | Cinacoin has advantage here |
 | **Gas Estimator** | Gas estimation in AppKit | `gas-estimator` (EIP-1559 + Solana) | ✅ PRESENT | Cinacoin also covers Solana |
 | **KYC/AML** | No built-in KYC | `kyc` package | ✅ Cinacoin ONLY | Cinacoin advantage |
 | **Passkey Auth** | No passkey support | `passkey-auth` (WebAuthn) | ✅ Cinacoin ONLY | Cinacoin advantage |
-| **RPC Proxy** | Reown uses own relay infrastructure | `rpc-proxy` package | ✅ Cinacoin ONLY | Cinacoin advantage |
+| **RPC Proxy** | Cinacoin uses own relay infrastructure | `rpc-proxy` package | ✅ Cinacoin ONLY | Cinacoin advantage |
 | **Wallet Recommender** | Wallet ranking in Explorer API | `wallet-recommender` (intelligent suggestions) | ✅ PRESENT | Cinacoin has dedicated recommender engine |
 | **CDN/Script Tag** | No CDN script tag distribution | `cdn` package | ✅ Cinacoin ONLY | Cinacoin advantage |
 
 ### Framework Support
 
-| Framework | Reown | Cinacoin | Gap Severity | Notes |
+| Framework | Cinacoin | Cinacoin | Gap Severity | Notes |
 |-----------|-------|-------------|-------------|-------|
 | **React** | ✅ Full | ✅ `react` | ✅ PRESENT | |
 | **Vue** | ✅ Full | ✅ `vue` | ✅ PRESENT | |
@@ -154,11 +154,11 @@
 | **Unity** | ✅ Full (Web + Native) | ✅ `unity-csharp` | ✅ PRESENT | |
 | **Svelte** | ✅ Full | ❌ MISSING | 🔴 Critical | Cinacoin has no Svelte adapter |
 | **Next.js** | ✅ Full (SSR optimized) | ❌ MISSING (uses React) | 🟡 Important | No dedicated Next.js package |
-| **.NET/NuGet** | ✅ via reown-dotnet | ❌ MISSING | 🟡 Nice-to-have | |
+| **.NET/NuGet** | ✅ via cinacoin-dotnet | ❌ MISSING | 🟡 Nice-to-have | |
 
 ### Network Support
 
-| Network | Reown | Cinacoin | Gap Severity | Notes |
+| Network | Cinacoin | Cinacoin | Gap Severity | Notes |
 |---------|-------|-------------|-------------|-------|
 | **EVM Chains** | ✅ All major | ✅ (implied by viem usage) | ✅ PRESENT | |
 | **Solana** | ✅ Full adapter | ✅ (cross-chain-sync + swap-sdk) | ✅ PRESENT | |
@@ -177,23 +177,23 @@
 
 ### Architecture & DX Features
 
-| Feature | Reown | Cinacoin | Gap Severity | Notes |
+| Feature | Cinacoin | Cinacoin | Gap Severity | Notes |
 |---------|-------|-------------|-------------|-------|
 | **Controller Pattern** | Centralized controllers (ModalController, ConnectionController, EnsController, SwapController, etc.) | Uses zustand (core-sdk deps) | 🟢 Equivalent | Different patterns, both valid |
 | **Adapter Blueprint** | AdapterBlueprint pattern for chain adapters | `custom-connectors` interface | 🟢 Equivalent | |
-| **Remote Features** | ConfigUtil.fetchRemoteFeatures() for feature flags | ❌ No remote feature flags | 🟡 Important | Reown can toggle features remotely |
+| **Remote Features** | ConfigUtil.fetchRemoteFeatures() for feature flags | ❌ No remote feature flags | 🟡 Important | Cinacoin can toggle features remotely |
 | **Headless Mode** | AppKit headless mode (no UI) | ❌ No headless mode documented | 🟡 Nice-to-have | For developers who want full control |
 | **Library Mode** | createAppKit() with library/react, library/vue exports | React/Vue adapters exist | 🟢 Equivalent | |
 | **Auth Provider** | W3MFrameProviderSingleton for embedded wallets | `social-login` with HD derivation | 🟢 Equivalent | |
 | **Link Mode (Mobile)** | React Native & Flutter link mode for native wallet apps | ❌ Not documented | 🟡 Important | Deep linking to native wallets |
 | **Virtual TestNets** | Tenderly virtual testnet integration | ❌ No testnet tooling | 🟡 Nice-to-have | |
-| **Send Calls (EIP-5792)** | Switching to Send Calls recipe | `batch-transaction` + `aa-sdk` | 🟢 Equivalent | Cinacoin may exceed Reown here |
+| **Send Calls (EIP-5792)** | Switching to Send Calls recipe | `batch-transaction` + `aa-sdk` | 🟢 Equivalent | Cinacoin may exceed Cinacoin here |
 | **CSP Security** | Content Security Policy docs | ❌ No CSP documentation | 🟡 Nice-to-have | |
 | **GDPR Compliance** | PostHog (not GDPR-focused) | `analytics` explicitly GDPR-compliant | ✅ Cinacoin BETTER | |
 
-### Reown-Exclusive Features (Cinacoin Gaps)
+### Cinacoin-Exclusive Features (Cinacoin Gaps)
 
-| Feature | Reown Implementation | Cinacoin Status | Gap Severity | Recommendation |
+| Feature | Cinacoin Implementation | Cinacoin Status | Gap Severity | Recommendation |
 |---------|---------------------|-------------------|-------------|----------------|
 | **Svelte Adapter** | Full Svelte support with actions, components, theming | ❌ MISSING | 🔴 Critical | Create @cinacoin/svelte package |
 | **Dedicated Next.js Package** | SSR-optimized Next.js with hooks, components, smart accounts | ❌ MISSING (uses React adapter) | 🟡 Important | Create @cinacoin/next package with SSR optimization |
@@ -202,30 +202,30 @@
 | **Link Mode for Mobile** | Deep linking to native wallet apps (React Native + Flutter) | ❌ Not documented | 🟡 Important | Implement link-mode for RN and Flutter |
 | **Sponsored Transactions (Gas)** | Built-in paymaster sponsorship in UI | `gas-sponsorship` exists | ✅ PRESENT | Verify UI integration |
 | **Universal Provider (WC)** | @walletconnect/universal-provider integration | `walletconnect-v2` reimplemented | 🟢 Equivalent | Cinacoin has own WCv2 impl |
-| **Bitcoin Native Connectors** | Unisat, Leather, OKX, SatsConnect, WalletStandard, BitcoinWalletConnect | ❌ Need verification | 🟡 Important | Ensure Bitcoin adapter has all major wallet connectors |
+| **Bitcoin Native Connectors** | Unisat, Leather, OKX, SatsConnect, WalletStandard, BitcoinCinacoin | ❌ Need verification | 🟡 Important | Ensure Bitcoin adapter has all major wallet connectors |
 
-### Cinacoin Advantages (Features Reown Lacks)
+### Cinacoin Advantages (Features Cinacoin Lacks)
 
-| Feature | Cinacoin Package | Reown Status | Impact |
+| Feature | Cinacoin Package | Cinacoin Status | Impact |
 |---------|--------------------|-------------|--------|
 | **CLI Tool** | `cli` (init, add, build, test) | ❌ No CLI | High DX advantage |
 | **Codemods** | `codemod` (automated migration) | ❌ Manual migration guides | High migration advantage |
 | **KYC/AML** | `kyc` compliance screening | ❌ No KYC | Enterprise compliance advantage |
 | **Passkey Auth** | `passkey-auth` (WebAuthn) | ❌ No passkey | Security/UX advantage |
-| **Self-Hosted RPC** | `rpc-proxy` | ❌ Uses Reown cloud relay | Infrastructure independence |
+| **Self-Hosted RPC** | `rpc-proxy` | ❌ Uses Cinacoin cloud relay | Infrastructure independence |
 | **CDN Script Tag** | `cdn` package | ❌ npm-only distribution | Accessibility advantage |
 | **GDPR Analytics** | `analytics` GDPR-compliant | PostHog (US-based) | Compliance advantage |
 | **Wallet Recommender** | `wallet-recommender` engine | Wallet ranking only | Better UX for wallet selection |
 | **Bundler** | `bundler` package | ❌ No bundler | AA ecosystem advantage |
-| **Self-Hosted Philosophy** | All packages designed for self-hosting | Requires Reown cloud infrastructure | Major strategic advantage |
+| **Self-Hosted Philosophy** | All packages designed for self-hosting | Requires Cinacoin cloud infrastructure | Major strategic advantage |
 
 ---
 
 ## Part 4: Optimization Recommendations for Cinacoin
 
 ### Critical (Must Fix)
-1. **Svelte Adapter** — Create `@cinacoin/svelte` with SvelteKit integration. Reown has it, developers expect it.
-2. **Bitcoin Native Connectors** — Ensure Bitcoin support includes Unisat, Leather, OKX, SatsConnect connectors like Reown's adapter.
+1. **Svelte Adapter** — Create `@cinacoin/svelte` with SvelteKit integration. Cinacoin has it, developers expect it.
+2. **Bitcoin Native Connectors** — Ensure Bitcoin support includes Unisat, Leather, OKX, SatsConnect connectors like Cinacoin's adapter.
 
 ### Important
 3. **Next.js SSR Package** — Create `@cinacoin/next` with SSR-optimized hooks, server components support, and app router integration.
@@ -240,19 +240,19 @@
 10. **.NET/NuGet Package** — Expand `unity-csharp` to include NuGet packages for non-Unity .NET apps.
 
 ### Architecture Observations
-- **Cinacoin's self-hosted philosophy is a major competitive advantage** over Reown's cloud-dependent infrastructure
+- **Cinacoin's self-hosted philosophy is a major competitive advantage** over Cinacoin's cloud-dependent infrastructure
 - **Cinacoin has broader compliance features** (KYC, GDPR analytics, Travel Rule) making it more enterprise-ready
-- **Reown's controller pattern is more centralized** while Cinacoin uses zustand — both valid, but Cinacoin could benefit from a more explicit controller layer for complex state
-- **Reown has better framework coverage** (Svelte, Next.js dedicated packages)
+- **Cinacoin's controller pattern is more centralized** while Cinacoin uses zustand — both valid, but Cinacoin could benefit from a more explicit controller layer for complex state
+- **Cinacoin has better framework coverage** (Svelte, Next.js dedicated packages)
 - **Cinacoin's codemod system is a strong migration tool** — leverage this in marketing
 
 ---
 
 ## Summary
 
-**Cinacoin Coverage: ~85% of Reown features matched or exceeded**
+**Cinacoin Coverage: ~85% of Cinacoin features matched or exceeded**
 
 **Gaps to Close:** Svelte adapter, Next.js SSR, Bitcoin connectors, remote feature flags, link mode
 **Cinacoin Advantages:** Self-hosted, CLI, codemods, KYC, passkey auth, GDPR, CDN distribution, bundler, rpc-proxy
 
-**Overall Assessment:** Cinacoin is highly competitive and in many areas surpasses Reown (self-hosted, compliance tools, developer tooling). The remaining gaps are mostly framework adapters and mobile deep-linking, which are straightforward to implement.
+**Overall Assessment:** Cinacoin is highly competitive and in many areas surpasses Cinacoin (self-hosted, compliance tools, developer tooling). The remaining gaps are mostly framework adapters and mobile deep-linking, which are straightforward to implement.

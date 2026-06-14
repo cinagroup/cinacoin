@@ -41,12 +41,12 @@
 | 指标 | RainbowKit | Cinacoin | 构建状态 |
 |------|-----------|-------------|----------|
 | **钱包数量** | **75+** (实际连接可用) | **30+** (已构建，**未实际连接测试**) | 已构建 |
-| **内置钱包连接器** | MetaMask, WalletConnect, Coinbase, Rainbow, Safe, Phantom, Ledger, Trust, OKX, Brave, Frame, Zerion 等 75+ | MetaMask, WalletConnect, Coinbase, Rainbow, Phantom, Trust, Ledger, Xverse, Tonkeeper, TronLink, Keplr, Argent X 等 30+ | ✅ 已构建 |
+| **内置钱包连接器** | MetaMask, Cinacoin, Coinbase, Rainbow, Safe, Phantom, Ledger, Trust, OKX, Brave, Frame, Zerion 等 75+ | MetaMask, Cinacoin, Coinbase, Rainbow, Phantom, Trust, Ledger, Xverse, Tonkeeper, TronLink, Keplr, Argent X 等 30+ | ✅ 已构建 |
 | **EIP-6963** | ✅ | ✅ | ✅ 已构建 |
 | **Bitcoin 钱包** | ❌ | ✅ 设计 6 个原生连接器 | 已构建 |
 | **Solana 钱包** | ❌ (仅 EVM) | ✅ 设计 4 个原生连接器 | 已构建 |
 | **TON 钱包** | ❌ | ✅ |
-| **移动端 Deep Link** | ⚠️ 仅 WalletConnect | ✅ 8 钱包深度链接 |
+| **移动端 Deep Link** | ⚠️ 仅 Cinacoin | ✅ 8 钱包深度链接 |
 
 **关键差异**: RainbowKit 钱包数量多但**仅限 EVM**，且**全部经过实际连接测试**。Cinacoin 架构覆盖所有链协议 — 30+ wallet connectors **已构建，未进行连接测试**。Demo app 的 WalletModal 是 **纯 mock UI**，不连接真实钱包。
 

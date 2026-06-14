@@ -1,4 +1,4 @@
-# Cinacoin vs Reown AppKit — 深度对比审查报告
+# Cinacoin vs Cinacoin AppKit — 深度对比审查报告
 
 **审查日期:** 2026-06-02  
 **项目根目录:** `/home/cina/.openclaw/workspace/onux`  
@@ -12,16 +12,16 @@
 
 ### 1. 协议与连接
 
-| 功能 | Reown | Cinacoin | 差距 | 优先级 |
+| 功能 | Cinacoin | Cinacoin | 差距 | 优先级 |
 |---|---|---|---|---|
-| WalletConnect v2 | ✅ 生产级 | ✅ 8,545 行完整实现 | 无明显差距 | — |
+| Cinacoin v2 | ✅ 生产级 | ✅ 8,545 行完整实现 | 无明显差距 | — |
 | 通用链适配器 | ✅ | ✅ 13 条链适配器 | Solana/TON 适配器在 core-sdk 而非独立包 | 低 |
 | RPC 代理 | ✅ | ✅ 多链路由+缓存+限流 | 生产验证不足 | 低 |
 | Relay 基础设施 | ✅ Cloudflare | ✅ WebSocket + CF Worker 部署 | 规模验证不足 | 低 |
 
 ### 2. UI 层
 
-| 功能 | Reown | Cinacoin | 差距 | 优先级 |
+| 功能 | Cinacoin | Cinacoin | 差距 | 优先级 |
 |---|---|---|---|---|
 | 连接模态框 | ✅ | ✅ Web Components (Lit) | React 包装器薄 (1,004 行) | 中 |
 | 钱包列表/卡片 | ✅ | ✅ wallet-list, wallet-card | 深度集成不足 | 低 |
@@ -35,7 +35,7 @@
 
 ### 3. 认证与身份
 
-| 功能 | Reown | Cinacoin | 差距 | 优先级 |
+| 功能 | Cinacoin | Cinacoin | 差距 | 优先级 |
 |---|---|---|---|---|
 | Email 登录 | ✅ | ✅ OTP + 魔术链接 | 功能完整 | — |
 | 社交登录 (Google) | ✅ | ✅ OAuth2 + 钱包派生 | 功能完整 | — |
@@ -52,7 +52,7 @@
 
 ### 4. 智能账户与 Gas
 
-| 功能 | Reown | Cinacoin | 差距 | 优先级 |
+| 功能 | Cinacoin | Cinacoin | 差距 | 优先级 |
 |---|---|---|---|---|
 | ERC-4337 智能账户 | ✅ | ✅ smartAccount + factory (1,192 行) | Paymaster 客户端薄 (434 行) | 高 |
 | Session Keys | ✅ | ✅ 策略+批量+跨链+社交恢复 | 功能完整 | — |
@@ -63,7 +63,7 @@
 
 ### 5. DeFi 与支付
 
-| 功能 | Reown | Cinown | Cinacoin | 差距 | 优先级 |
+| 功能 | Cinacoin | Cinown | Cinacoin | 差距 | 优先级 |
 |---|---|---|---|---|
 | Swap (多 DEX) | ✅ | ✅ 6 聚合器 + 跨链 (5,802 行) | 功能完整 | — |
 | Onramp (法币入金) | ✅ | ✅ 5 提供商 + 组件 | 功能完整 | — |
@@ -74,7 +74,7 @@
 
 ### 6. 平台 SDK
 
-| 功能 | Reown | Cinacoin | 差距 | 优先级 |
+| 功能 | Cinacoin | Cinacoin | 差距 | 优先级 |
 |---|---|---|---|---|
 | React | ✅ | ✅ Provider + Hooks + Components | React hooks 偏薄 (88 行 hooks.ts) | 高 |
 | Vue | ✅ | ✅ Composables + Components (866 行) | 组件覆盖有限 | 高 |
@@ -92,7 +92,7 @@
 
 ### 7. 基础设施
 
-| 功能 | Reown | Cinacoin | 差距 | 优先级 |
+| 功能 | Cinacoin | Cinacoin | 差距 | 优先级 |
 |---|---|---|---|---|
 | 分析 (客户端) | ✅ | ✅ Tracker + Privacy + Metrics | 功能完整 | — |
 | 分析 (服务端) | ✅ | ✅ Anonymizer + Batcher + Dedup | 功能完整 | — |
@@ -108,17 +108,17 @@
 
 ### 8. 合规与安全
 
-| 功能 | Reown | Cinacoin | 差距 | 优先级 |
+| 功能 | Cinacoin | Cinacoin | 差距 | 优先级 |
 |---|---|---|---|---|
 | KYC | ✅ | ✅ KYC Manager + Screening + 提供商 (2,037 行) | 功能完整 | — |
 | Travel Rule | ✅ | ✅ FATF Rec 16 + VASP Registry | Demo 版本存在 | 中 |
-| ERC-6492 | N/A | ✅ 签名验证 (151 行) | 超出 Reown 范围 | — |
-| Safe 解码器 | N/A | ✅ Safe multisig 解码 (185 行) | 超出 Reown 范围 | — |
+| ERC-6492 | N/A | ✅ 签名验证 (151 行) | 超出 Cinacoin 范围 | — |
+| Safe 解码器 | N/A | ✅ Safe multisig 解码 (185 行) | 超出 Cinacoin 范围 | — |
 | CSRF 保护 | ✅ | ✅ ConfigManager 内置 | 功能完整 | — |
 
 ### 9. 开发者工具
 
-| 功能 | Reown | Cinacoin | 差距 | 优先级 |
+| 功能 | Cinacoin | Cinacoin | 差距 | 优先级 |
 |---|---|---|---|---|
 | CLI | ✅ | ✅ (66 行) | 功能偏薄 | 中 |
 | Codemod | ✅ | ✅ 迁移工具 (210 行) | 功能偏薄 | 中 |
@@ -128,7 +128,7 @@
 
 ### 10. 游戏与小程序
 
-| 功能 | Reown | Cinacoin | 差距 | 优先级 |
+| 功能 | Cinacoin | Cinacoin | 差距 | 优先级 |
 |---|---|---|---|---|
 | Telegram MiniApp | ✅ | ✅ Provider + Auth + Modal (1,523 行) | 功能完整 | — |
 | Farcaster MiniApp | ✅ | ✅ Provider + Auth (727 行) | 功能完整 | — |
@@ -141,7 +141,7 @@
 
 #### 1. 移动 SDK 只有类型定义，无原生实现
 **受影响包:** `flutter-dart` (95 行), `ios-swift` (118 行), `android-kotlin` (131 行)  
-**问题:** 这三个包仅包含 TypeScript 类型定义作为"桥接"，完全没有对应的 Swift/Kotlin/Dart 原生实现。Reown 的 iOS/Android/Flutter SDK 是真正的原生代码。  
+**问题:** 这三个包仅包含 TypeScript 类型定义作为"桥接"，完全没有对应的 Swift/Kotlin/Dart 原生实现。Cinacoin 的 iOS/Android/Flutter SDK 是真正的原生代码。  
 **影响:** 无法在 iOS/Android/Flutter 原生应用中使用 Cinacoin 连接钱包。  
 **建议:** 需要为每个平台编写原生 SDK，这是工作量最大的补齐项目。
 
@@ -153,7 +153,7 @@
 
 #### 3. React Hooks 偏薄
 **受影响包:** `react` — `hooks.ts` 仅 88 行，`useEIP5792.ts` 577 行  
-**问题:** React 包缺少完整的 hooks 体系。对比 Reown 的 `@reown/appkit/react`，缺少 `useAccount`, `useBalance`, `useDisconnect`, `useSendTransaction`, `useSignMessage`, `useSwitchChain` 等核心 hooks。  
+**问题:** React 包缺少完整的 hooks 体系。对比 Cinacoin 的 `@cinacoin/appkit/react`，缺少 `useAccount`, `useBalance`, `useDisconnect`, `useSendTransaction`, `useSignMessage`, `useSwitchChain` 等核心 hooks。  
 **影响:** React 开发者体验差，需要手动处理状态。  
 **建议:** 补充完整的 React hooks 体系。
 
@@ -222,9 +222,9 @@
 
 ## 总体评价
 
-### Cinacoin 优势（超越 Reown 的功能）
-1. **更完整的链覆盖** — 内置 Bitcoin, Solana, Tron, TON, Polkadot, Cosmos, Hedera, Starknet, Sui, XRPL, NEAR 适配器（Reown 需要额外配置）
-2. **SIWX 多链认证** — 超越 Reown 仅支持 EIP-4361
+### Cinacoin 优势（超越 Cinacoin 的功能）
+1. **更完整的链覆盖** — 内置 Bitcoin, Solana, Tron, TON, Polkadot, Cosmos, Hedera, Starknet, Sui, XRPL, NEAR 适配器（Cinacoin 需要额外配置）
+2. **SIWX 多链认证** — 超越 Cinacoin 仅支持 EIP-4361
 3. **SSS 钱包恢复** — Shamir's Secret Sharing 完整实现
 4. **Travel Rule 合规** — FATF Recommendation 16 完整引擎
 5. **Safe 解码器** — Safe multisig 交易解码
@@ -238,4 +238,4 @@
 4. **跨链桥接偏理论** — 无实际流动性管理
 
 ### 结论
-Cinacoin 在**协议层、认证层、DeFi 层**的实现完整度极高（75-100%），但在**平台 SDK 层**（移动/游戏原生代码）和**React/Vue 开发者体验层**存在显著差距。如果补齐 P0 级差距（React hooks、Paymaster、Vue 组件），Cinacoin 将成为真正可与 Reown AppKit 竞争的全栈 Web3 SDK。移动 SDK 原生实现是工作量最大的项目，但对于移动优先的市场至关重要。
+Cinacoin 在**协议层、认证层、DeFi 层**的实现完整度极高（75-100%），但在**平台 SDK 层**（移动/游戏原生代码）和**React/Vue 开发者体验层**存在显著差距。如果补齐 P0 级差距（React hooks、Paymaster、Vue 组件），Cinacoin 将成为真正可与 Cinacoin AppKit 竞争的全栈 Web3 SDK。移动 SDK 原生实现是工作量最大的项目，但对于移动优先的市场至关重要。

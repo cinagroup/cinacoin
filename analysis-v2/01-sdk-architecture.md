@@ -1,6 +1,6 @@
 # 01 — SDK Architecture & Core Package Comparison
 
-> **CinaAuth/Cinacoin** vs **Reown AppKit** — deep dive into SDK architecture, package structure, code quality, and feature parity.
+> **CinaAuth/Cinacoin** vs **Cinacoin AppKit** — deep dive into SDK architecture, package structure, code quality, and feature parity.
 >
 > Date: 2026-05-17 | Scope: Packages, source files, adapters, server-side components, test coverage
 
@@ -8,7 +8,7 @@
 
 ## Executive Summary
 
-| Dimension | Reown AppKit | CinaAuth Cinacoin | Assessment |
+| Dimension | Cinacoin AppKit | CinaAuth Cinacoin | Assessment |
 |---|---|---|---|
 | **Core SDK packages** | 20 packages + 8 adapters | 34 packages | CinaAuth is 1.7x larger in scope |
 | **Languages** | TypeScript (mono-repo) | TS + Rust + Go + Kotlin + Swift + Dart + C# + Solidity | CinaAuth is multi-language |
@@ -19,7 +19,7 @@
 | **Test coverage** | ~19k+ test lines (est.) | ~31k+ test lines across 57 test files | CinaAuth has more tests |
 | **Source volume** | ~50-60k lines (est.) | ~40k+ lines across all packages | Comparable depth |
 
-**Bottom line:** CinaAuth Cinacoin is structurally more ambitious — it targets a full replacement of Reown's SaaS infrastructure with self-hosted server components, while also expanding into mobile and gaming platforms that Reown does not cover natively.
+**Bottom line:** CinaAuth Cinacoin is structurally more ambitious — it targets a full replacement of Cinacoin's SaaS infrastructure with self-hosted server components, while also expanding into mobile and gaming platforms that Cinacoin does not cover natively.
 
 ---
 
@@ -27,16 +27,16 @@
 
 ### 1.1 Direct Parity (CinaAuth has an equivalent)
 
-| Reown Package | CinaAuth Package | Notes |
+| Cinacoin Package | CinaAuth Package | Notes |
 |---|---|---|
-| `packages/appkit` (core UI modal) | `core-ui` + `core-sdk` | Reown splits into appkit (UI) + controllers. CinaAuth has `core-ui` (Lit web components) + `core-sdk` (8k LOC). **Parity: ✅ Strong** |
+| `packages/appkit` (core UI modal) | `core-ui` + `core-sdk` | Cinacoin splits into appkit (UI) + controllers. CinaAuth has `core-ui` (Lit web components) + `core-sdk` (8k LOC). **Parity: ✅ Strong** |
 | `packages/core-legacy` | `core-sdk` | CinaAuth's `core-sdk` is the full replacement — includes connector, session, state, events, crypto, adapters. **Parity: ✅ Strong** |
 | `packages/controllers` | `core-sdk` (connector, session, store) | State management (zustand), connector interface, session manager all present. **Parity: ✅** |
 | `packages/ui` | `core-ui` + `design-tokens` | CinaAuth has 17 UI source files (3.1k LOC) with web components, i18n, animation engine, design tokens. **Parity: ✅ Strong** |
 | `packages/siwe` | `siwe` | Both implement EIP-4361. CinaAuth has 5 source files + 3 test files (772 LOC + 928 test LOC). **Parity: ✅** |
 | `packages/siwx` | `siwx` | Both implement Sign-In With X for cross-chain. CinaAuth has EVM, Solana, Bitcoin chain implementations. **Parity: ✅** |
 | `packages/wagmi` adapter | `core-sdk/src/adapters/wagmi.ts` | CinaAuth has 428 LOC with multi-chain connector support. **Parity: ✅** |
-| `packages/ethers` adapter | `core-sdk/src/adapters/ethers5.ts` + `ethers6.ts` | CinaAuth supports BOTH ethers v5 and v6 (370 + 381 LOC). Reown has separate packages. **Parity: ✅ Strong** |
+| `packages/ethers` adapter | `core-sdk/src/adapters/ethers5.ts` + `ethers6.ts` | CinaAuth supports BOTH ethers v5 and v6 (370 + 381 LOC). Cinacoin has separate packages. **Parity: ✅ Strong** |
 | `packages/solana` adapter | `core-sdk/src/adapters/solana.ts` | 599 LOC with Phantom, Solflare, Backpack wallet support, EIP-1193 provider layer. **Parity: ✅** |
 | `packages/bitcoin` adapter | `core-sdk/src/adapters/bitcoin.ts` | 514 LOC with address validation, wallet registry. **Parity: ✅** |
 | `packages/ton` adapter | `core-sdk/src/adapters/ton.ts` | 599 LOC with TON Connect integration, hex/base64url conversion. **Parity: ✅** |
@@ -47,49 +47,49 @@
 | `packages/wallet-button` | `core-ui` (ConnectButton component) | Web Component + React/Vue wrappers. **Parity: ✅** |
 | `packages/testing` | *(implicit via vitest)* | CinaAuth packages have vitest configs and test files throughout. **Partial** — no dedicated testing package |
 
-### 1.2 Reown Has, CinaAuth Doesn't (Gaps)
+### 1.2 Cinacoin Has, CinaAuth Doesn't (Gaps)
 
-| Reown Package | CinaAuth Equivalent | Gap Assessment |
+| Cinacoin Package | CinaAuth Equivalent | Gap Assessment |
 |---|---|---|
-| `packages/cdn` | None | Reown provides CDN distribution. CinaAuth packages are npm/workspace only. **Low priority** — can add CDN build later. |
-| `packages/cli` (codemod) | `cli` + `codemod` (missing) | CinaAuth has a CLI (`@cinacoin/cli`) but no codemod for migration from WalletConnect/Reown. **Medium gap** — useful for onboarding. |
-| `packages/universal-connector` | None | Reown's abstraction for non-EVM connectors. CinaAuth handles this via `core-sdk` adapter pattern. **Low gap** — functionally covered. |
-| `packages/experimental` | None | Reown's bleeding-edge features. CinaAuth has no experimental bucket. **None** — expected at v0.1.0. |
-| `apps/gallery` | None | Reown has component gallery. CinaAuth has no visual demo app. **Low gap** — useful for DX. |
-| `apps/laboratory` | None | Reown's test/demos app. CinaAuth has CLI test commands but no full demo app. **Low gap**. |
+| `packages/cdn` | None | Cinacoin provides CDN distribution. CinaAuth packages are npm/workspace only. **Low priority** — can add CDN build later. |
+| `packages/cli` (codemod) | `cli` + `codemod` (missing) | CinaAuth has a CLI (`@cinacoin/cli`) but no codemod for migration from Cinacoin/Cinacoin. **Medium gap** — useful for onboarding. |
+| `packages/universal-connector` | None | Cinacoin's abstraction for non-EVM connectors. CinaAuth handles this via `core-sdk` adapter pattern. **Low gap** — functionally covered. |
+| `packages/experimental` | None | Cinacoin's bleeding-edge features. CinaAuth has no experimental bucket. **None** — expected at v0.1.0. |
+| `apps/gallery` | None | Cinacoin has component gallery. CinaAuth has no visual demo app. **Low gap** — useful for DX. |
+| `apps/laboratory` | None | Cinacoin's test/demos app. CinaAuth has CLI test commands but no full demo app. **Low gap**. |
 
-### 1.3 CinaAuth Has, Reown Doesn't (Advantages)
+### 1.3 CinaAuth Has, Cinacoin Doesn't (Advantages)
 
 | CinaAuth Package | Description | Advantage |
 |---|---|---|
-| **`bundler`** (Rust, 3.5k LOC) | Full ERC-4337 bundler with mempool, reputation, gas oracle, metrics | Reown uses third-party bundlers. CinaAuth has self-hosted. **Major advantage** |
-| **`paymaster`** (Solidity + Foundry) | 6 Solidity contracts with 4 test files (Verifying, Token, Upgradeable) | Reown has no paymaster contracts. **Major advantage** |
-| **`relay-server`** (Rust, 2.1k LOC) | Self-hosted WebSocket relay with crypto, health checks, metrics | Reown's relay is SaaS-only. **Major advantage** |
-| **`rpc-proxy`** (Go, 12 files) | Self-hosted RPC proxy with dedup, cache, rate limiting, router | Reown has no self-hosted RPC proxy. **Major advantage** |
-| **`keys-server`** (Rust, 1.6k LOC) | Key management server with Redis, auth middleware, metrics | Reown has no equivalent. **Major advantage** |
-| **`push-server`** (Rust, 2.2k LOC) | Push notification server (FCM + APNs) with retry, rate limiting | Reown has push but cloud-only. **Advantage** |
-| **`aa-sdk`** (TS, 486 LOC) | Account Abstraction SDK — smart accounts, bundler client, paymaster | Reown has no dedicated AA SDK. **Advantage** |
-| **`session-keys`** (TS, 1.8k LOC) | ERC-4337 session keys with policies, batch ops, social recovery | Reown has no equivalent. **Advantage** |
-| **`swap-sdk`** (TS, 1.2k LOC) | Multi-DEX swap aggregator (1inch, Uniswap, 0x) with slippage | Reown has no swap SDK. **Advantage** |
-| **`batch-transaction`** (TS, 481 LOC) | Atomic multi-operation builder with approve/swap/transfer/custom | Reown has no equivalent. **Advantage** |
-| **`gas-estimator`** (TS, 409 LOC) | EIP-1559 + Solana compute budget estimation with caching | Reown has no equivalent. **Advantage** |
-| **`cross-chain-sync`** (TS, 735 LOC) | Unified state/identity across EVM/Solana/BTC/TON/TRON/Polkadot | Reown has no cross-chain identity sync. **Advantage** |
-| **`analytics`** (TS, 885 LOC) | GDPR-compliant event tracking with privacy, remote/local providers | Reown has analytics but cloud-only. CinaAuth is self-hostable. **Advantage** |
-| **`social-login`** (TS, 1.1k LOC) | OAuth2 + email wallet auth (Google, Apple, Twitter) with HD derivation | Reown has social login but cloud-dependent. **Advantage** |
-| **`passkey-auth`** (TS, 645 LOC) | WebAuthn passkey auth with WebAuthn API, crypto, storage | Reown has no equivalent. **Advantage** |
-| **`erc6492`** (Rust, 435 LOC) | ERC-6492 signature verification in Rust | Reown has no equivalent. **Advantage** |
-| **`wallet-recommender`** (TS, 373 LOC) | Intelligent wallet suggestions by chain/platform/behavior | Reown has wallet registry but no recommender engine. **Advantage** |
-| **`token-list`** (TS, 569 LOC) | Token discovery from TrustWallet, CoinGecko, local with caching | Reown has no token list package. **Advantage** |
-| **`ens-resolver`** (TS, 102 LOC) | ENS name resolution, reverse lookup, avatar retrieval | Reown has this inside core. CinaAuth has separate package. **Parity** |
-| **`design-tokens`** (TS, 170 LOC) | Design token system for white-label UI | Reown has theming but no token package. **Advantage** |
-| **`vue`** adapter | Vue 3 composables and components | Reown has no Vue support. **Advantage** |
-| **`flutter-dart`** (12 files) | Flutter/Dart SDK with wallet manager, adapters, UI components | Reown has no Flutter support. **Advantage** |
-| **`ios-swift`** (11 files) | Native iOS SDK with WC client, chain adapters, SIWE auth | Reown has iOS SDK. **Parity** |
-| **`android-kotlin`** (13 files, 3k LOC) | Native Android SDK with WC client, UI, deep links, push, FCM | Reown has Android SDK. **Parity** |
-| **`react-native`** (6 files, 2.3k LOC) | React Native SDK with WC provider, QR scanner, deep linking | Reown has React Native via wagmi/react-native-dapp. **Parity** |
-| **`unity-csharp`** (15+ files) | Unity game SDK with UI, chain adapters, wallet manager, tests | Reown has no Unity support. **Major advantage** |
-| **`walletconnect-v2`** (TS, 3.4k LOC) | Full WC v2 protocol: crypto, session, pairing, relay, RPC | Reown *is* WalletConnect. CinaAuth re-implements the protocol. **Parity** |
-| **`cli`** (TS, 628 LOC) | CLI tool with init/add/build/test commands | Reown has CLI + codemod. CinaAuth has CLI but no codemod. **Partial parity** |
+| **`bundler`** (Rust, 3.5k LOC) | Full ERC-4337 bundler with mempool, reputation, gas oracle, metrics | Cinacoin uses third-party bundlers. CinaAuth has self-hosted. **Major advantage** |
+| **`paymaster`** (Solidity + Foundry) | 6 Solidity contracts with 4 test files (Verifying, Token, Upgradeable) | Cinacoin has no paymaster contracts. **Major advantage** |
+| **`relay-server`** (Rust, 2.1k LOC) | Self-hosted WebSocket relay with crypto, health checks, metrics | Cinacoin's relay is SaaS-only. **Major advantage** |
+| **`rpc-proxy`** (Go, 12 files) | Self-hosted RPC proxy with dedup, cache, rate limiting, router | Cinacoin has no self-hosted RPC proxy. **Major advantage** |
+| **`keys-server`** (Rust, 1.6k LOC) | Key management server with Redis, auth middleware, metrics | Cinacoin has no equivalent. **Major advantage** |
+| **`push-server`** (Rust, 2.2k LOC) | Push notification server (FCM + APNs) with retry, rate limiting | Cinacoin has push but cloud-only. **Advantage** |
+| **`aa-sdk`** (TS, 486 LOC) | Account Abstraction SDK — smart accounts, bundler client, paymaster | Cinacoin has no dedicated AA SDK. **Advantage** |
+| **`session-keys`** (TS, 1.8k LOC) | ERC-4337 session keys with policies, batch ops, social recovery | Cinacoin has no equivalent. **Advantage** |
+| **`swap-sdk`** (TS, 1.2k LOC) | Multi-DEX swap aggregator (1inch, Uniswap, 0x) with slippage | Cinacoin has no swap SDK. **Advantage** |
+| **`batch-transaction`** (TS, 481 LOC) | Atomic multi-operation builder with approve/swap/transfer/custom | Cinacoin has no equivalent. **Advantage** |
+| **`gas-estimator`** (TS, 409 LOC) | EIP-1559 + Solana compute budget estimation with caching | Cinacoin has no equivalent. **Advantage** |
+| **`cross-chain-sync`** (TS, 735 LOC) | Unified state/identity across EVM/Solana/BTC/TON/TRON/Polkadot | Cinacoin has no cross-chain identity sync. **Advantage** |
+| **`analytics`** (TS, 885 LOC) | GDPR-compliant event tracking with privacy, remote/local providers | Cinacoin has analytics but cloud-only. CinaAuth is self-hostable. **Advantage** |
+| **`social-login`** (TS, 1.1k LOC) | OAuth2 + email wallet auth (Google, Apple, Twitter) with HD derivation | Cinacoin has social login but cloud-dependent. **Advantage** |
+| **`passkey-auth`** (TS, 645 LOC) | WebAuthn passkey auth with WebAuthn API, crypto, storage | Cinacoin has no equivalent. **Advantage** |
+| **`erc6492`** (Rust, 435 LOC) | ERC-6492 signature verification in Rust | Cinacoin has no equivalent. **Advantage** |
+| **`wallet-recommender`** (TS, 373 LOC) | Intelligent wallet suggestions by chain/platform/behavior | Cinacoin has wallet registry but no recommender engine. **Advantage** |
+| **`token-list`** (TS, 569 LOC) | Token discovery from TrustWallet, CoinGecko, local with caching | Cinacoin has no token list package. **Advantage** |
+| **`ens-resolver`** (TS, 102 LOC) | ENS name resolution, reverse lookup, avatar retrieval | Cinacoin has this inside core. CinaAuth has separate package. **Parity** |
+| **`design-tokens`** (TS, 170 LOC) | Design token system for white-label UI | Cinacoin has theming but no token package. **Advantage** |
+| **`vue`** adapter | Vue 3 composables and components | Cinacoin has no Vue support. **Advantage** |
+| **`flutter-dart`** (12 files) | Flutter/Dart SDK with wallet manager, adapters, UI components | Cinacoin has no Flutter support. **Advantage** |
+| **`ios-swift`** (11 files) | Native iOS SDK with WC client, chain adapters, SIWE auth | Cinacoin has iOS SDK. **Parity** |
+| **`android-kotlin`** (13 files, 3k LOC) | Native Android SDK with WC client, UI, deep links, push, FCM | Cinacoin has Android SDK. **Parity** |
+| **`react-native`** (6 files, 2.3k LOC) | React Native SDK with WC provider, QR scanner, deep linking | Cinacoin has React Native via wagmi/react-native-dapp. **Parity** |
+| **`unity-csharp`** (15+ files) | Unity game SDK with UI, chain adapters, wallet manager, tests | Cinacoin has no Unity support. **Major advantage** |
+| **`walletconnect-v2`** (TS, 3.4k LOC) | Full WC v2 protocol: crypto, session, pairing, relay, RPC | Cinacoin *is* WalletConnect. CinaAuth re-implements the protocol. **Parity** |
+| **`cli`** (TS, 628 LOC) | CLI tool with init/add/build/test commands | Cinacoin has CLI + codemod. CinaAuth has CLI but no codemod. **Partial parity** |
 
 ---
 
@@ -132,7 +132,7 @@
 | `keys-server` | 13 | 1,560 | Actix-based with middleware, auth, Redis, SQLite/Postgres migrations |
 | `push-server` | 13 | 2,235 | FCM + APNs, retry logic, rate limiter, metrics |
 
-**Verdict:** Professional-grade Rust servers. Dockerfiles included for all. This is where CinaAuth significantly exceeds Reown — these are production infrastructure components.
+**Verdict:** Professional-grade Rust servers. Dockerfiles included for all. This is where CinaAuth significantly exceeds Cinacoin — these are production infrastructure components.
 
 ### 2.4 Server Components (Go)
 
@@ -181,7 +181,7 @@ Best-tested packages:
 
 ## 3. Feature Parity Matrix
 
-| Feature Area | Reown | CinaAuth | Gap |
+| Feature Area | Cinacoin | CinaAuth | Gap |
 |---|---|---|---|
 | Wallet Connect Modal | ✅ (AppKit) | ✅ (core-ui) | Parity |
 | Multi-chain (EVM) | ✅ | ✅ (EVM + viem + ethers5/6 + wagmi) | CinaAuth has more adapters |
@@ -234,7 +234,7 @@ Best-tested packages:
 
 ## 4. Architecture Comparison
 
-### Reown Architecture
+### Cinacoin Architecture
 
 ```
 ┌─────────────────────────────────────┐
@@ -252,7 +252,7 @@ Best-tested packages:
      ┌───────────┼───────────┐
      ▼           ▼           ▼
 ┌─────────┐ ┌─────────┐ ┌─────────┐
-│ Reown   │ │ Reown   │ │ Reown   │
+│ Cinacoin   │ │ Cinacoin   │ │ Cinacoin   │
 │ Relay   │ │ Explorer│ │ Cloud   │
 │ (SaaS)  │ │ (SaaS)  │ │ (SaaS)  │
 └─────────┘ └─────────┘ └─────────┘
@@ -342,8 +342,8 @@ Best-tested packages:
 
 | # | Gap | Priority | Effort |
 |---|---|---|---|
-| 1 | **`pay` UI component** — Onramp SDK exists but no `@cinacoin/pay` UI package like Reown's `packages/pay` | High | 2-3 weeks |
-| 2 | **Codemod** — Migration tool from Reown/WC → Cinacoin | High | 1-2 weeks |
+| 1 | **`pay` UI component** — Onramp SDK exists but no `@cinacoin/pay` UI package like Cinacoin's `packages/pay` | High | 2-3 weeks |
+| 2 | **Codemod** — Migration tool from Cinacoin/WC → Cinacoin | High | 1-2 weeks |
 
 ### 6.2 Important Gaps
 
@@ -359,27 +359,27 @@ Best-tested packages:
 
 | # | Gap | Priority | Effort |
 |---|---|---|---|
-| 8 | **Browser extension** package — Reown has `apps/browser-extension` | Low | 2-3 weeks |
-| 9 | **`pay-test-exchange`** — Reown has a test exchange app | Low | 1 week |
+| 8 | **Browser extension** package — Cinacoin has `apps/browser-extension` | Low | 2-3 weeks |
+| 9 | **`pay-test-exchange`** — Cinacoin has a test exchange app | Low | 1 week |
 | 10 | **More analytics test coverage** — Only 1 test file | Low | 3 days |
 
 ---
 
 ## 7. Verdict
 
-**CinaAuth Cinacoin is structurally superior to Reown AppKit in scope and ambition.**
+**CinaAuth Cinacoin is structurally superior to Cinacoin AppKit in scope and ambition.**
 
-- **34 packages** vs Reown's 20+8 = 70% more packages
-- **Multi-language** (TS + Rust + Go + Kotlin + Swift + Dart + C# + Solidity) vs Reown's TypeScript-only
-- **Full self-hosting** (relay, RPC, keys, push, bundler) vs Reown's SaaS lock-in
-- **5 additional platforms** (Flutter, Unity, Vue, Web Components, React Native as first-class) vs Reown's React + mobile
-- **14 unique packages** that Reown doesn't have at all (AA SDK, session keys, swap, batch tx, gas estimator, cross-chain sync, analytics, passkey auth, ERC-6492, wallet recommender, token list, design tokens, bundler, RPC proxy)
+- **34 packages** vs Cinacoin's 20+8 = 70% more packages
+- **Multi-language** (TS + Rust + Go + Kotlin + Swift + Dart + C# + Solidity) vs Cinacoin's TypeScript-only
+- **Full self-hosting** (relay, RPC, keys, push, bundler) vs Cinacoin's SaaS lock-in
+- **5 additional platforms** (Flutter, Unity, Vue, Web Components, React Native as first-class) vs Cinacoin's React + mobile
+- **14 unique packages** that Cinacoin doesn't have at all (AA SDK, session keys, swap, batch tx, gas estimator, cross-chain sync, analytics, passkey auth, ERC-6492, wallet recommender, token list, design tokens, bundler, RPC proxy)
 
-The main gaps are **polish-level** (CDN, codemod, demo app, more mobile tests) rather than **capability gaps**. At v0.1.0, CinaAuth already exceeds Reown's feature set significantly.
+The main gaps are **polish-level** (CDN, codemod, demo app, more mobile tests) rather than **capability gaps**. At v0.1.0, CinaAuth already exceeds Cinacoin's feature set significantly.
 
 **The critical path to v1.0:**
 1. Add Pay UI component (complete the onramp → pay flow)
-2. Build codemod for Reown migration
+2. Build codemod for Cinacoin migration
 3. Add Flutter/iOS test coverage
 4. CDN build pipeline
 5. Component gallery for DX

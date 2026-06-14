@@ -8,7 +8,7 @@ export default function LoginPage() {
           <div className="w-12 h-12 mx-auto mb-3 rounded bg-primary flex items-center justify-center">
             <Hash className="w-6 h-6 text-on-primary" aria-hidden="true" />
           </div>
-          <h1 className="text-display-md font-semibold text-[var(--cc-ink)]">Sign in to CinaCoin.</h1>
+          <h1 className="text-display-md font-semibold text-[var(--cc-ink)]">Sign in to Cinacoin.</h1>
           <p className="text-ink-body mt-1">Manage your projects and API keys.</p>
         </div>
 

@@ -13,7 +13,7 @@ function escapeHtml(s: string): string {
 }
 
 export default function ProjectPage() {
-  const [projectName, setProjectName] = useState("CinaCoin");
+  const [projectName, setProjectName] = useState("Cinacoin");
   const [projectId, setProjectId] = useState("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6");
   const [projectDescription, setProjectDescription] = useState("Full-stack Web3 SDK — Connect Everything On-Chain");
   const [projectUrl, setProjectUrl] = useState("https://cinacoin.com");
@@ -169,12 +169,12 @@ export default function ProjectPage() {
         <div className="cc-code-block">
           <pre className="cc-code whitespace-pre text-[var(--cc-on-primary)]">
 {`// Install
-npm install @reown/appkit @reown/appkit-adapter-wagmi wagmi viem
+npm install @cinacoin/appkit @cinacoin/appkit-adapter-wagmi wagmi viem
 
 // Initialize
-import { createAppKit } from '@reown/appkit/react'
+import { createAppKit } from '@cinacoin/appkit/react'
 import { WagmiProvider } from 'wagmi'
-import { mainnet, polygon } from '@reown/appkit/networks'
+import { mainnet, polygon } from '@cinacoin/appkit/networks'
 
 createAppKit({
   adapters: [

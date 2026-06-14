@@ -1,7 +1,7 @@
 {
   "name": "@cinacoin/relay-server",
   "version": "0.2.0",
-  "description": "WalletConnect relay server for Cinacoin — HTTP/WebSocket relay interface",
+  "description": "Cinacoin relay server for Cinacoin — HTTP/WebSocket relay interface",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",

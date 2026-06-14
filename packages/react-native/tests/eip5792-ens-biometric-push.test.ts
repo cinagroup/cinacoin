@@ -234,7 +234,7 @@ describe('PushNotificationManager — parsePayload', () => {
     expect(notification.data).toEqual({});
   });
 
-  it('should extract WalletConnect-specific fields', async () => {
+  it('should extract Cinacoin-specific fields', async () => {
     const mod = await import('../src/push.js');
     const PushNotificationManager = mod.PushNotificationManager as unknown;
 

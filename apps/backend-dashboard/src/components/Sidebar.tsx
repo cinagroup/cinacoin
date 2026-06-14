@@ -46,7 +46,7 @@ const navGroups: NavGroup[] = [
 
 export function Sidebar({ activeTab = "users", onTabChange = () => {} }: SidebarProps) {
   return (
-    <aside className="fixed left-0 top-0 h-full w-60 bg-[var(--cc-canvas)] border-r border-[var(--cc-hairline)] flex flex-col" aria-label="CinaCoin backend navigation">
+    <aside className="fixed left-0 top-0 h-full w-60 bg-[var(--cc-canvas)] border-r border-[var(--cc-hairline)] flex flex-col" aria-label="Cinacoin backend navigation">
       <div className="px-5 py-4 border-b border-[var(--cc-hairline)]">
         <div className="flex items-center gap-2.5">
           <div className="w-7 h-7 rounded-[var(--cc-radius-sm)] bg-[var(--cc-primary)] flex items-center justify-center">

@@ -1,7 +1,7 @@
-# Cinacoin — Production Gap TODO (vs Reown / AppKit)
+# Cinacoin — Production Gap TODO (vs Cinacoin / AppKit)
 
-> Generated 2026-06-06. Method: cataloged the full Reown/AppKit feature surface from
-> docs.reown.com (llms.txt index + relay, smart-accounts, blockchain-api, payments pages),
+> Generated 2026-06-06. Method: cataloged the full Cinacoin/AppKit feature surface from
+> docs.cinacoin.com (llms.txt index + relay, smart-accounts, blockchain-api, payments pages),
 > then audited all ~90 packages and 13 apps in this monorepo for FULL / PARTIAL / MISSING
 > against that surface, with file-path evidence. Each gap below cites the exact file and an
 > acceptance criterion.
@@ -10,7 +10,7 @@
 
 ## TL;DR
 
-Cinacoin is **substantially feature-complete** versus Reown. The protocol core, crypto,
+Cinacoin is **substantially feature-complete** versus Cinacoin. The protocol core, crypto,
 relay, framework SDKs (web + all native), auth (SIWE/SIWX/passkey/social/embedded),
 account-abstraction stack, payments (swap/onramp/deposit/pay), blockchain API, notifications,
 and registries are **real, production-grade implementations** — not stubs. Crypto is correct
@@ -49,7 +49,7 @@ documented "coming soon" items.
 ## P0 — Ship blockers (mock data shown to users / correctness bugs)
 
 ### P0-1 — Cloud dashboard usage stats are `Math.random()`, not real
-- **Reown parity:** Cloud Dashboard shows real per-project request/error/latency analytics.
+- **Cinacoin parity:** Cloud Dashboard shows real per-project request/error/latency analytics.
 - **Cinacoin state:** PARTIAL. Project CRUD is real (`project-registry-api` D1 backend), but
   usage charts are fabricated client-side.
 - **Evidence:** `apps/cloud-dashboard/src/lib/api.ts:124-138` — `getUsageStats()` returns
@@ -63,7 +63,7 @@ documented "coming soon" items.
   zeros (not random); no `Math.random` remains in `cloud-dashboard/src/lib/api.ts`.
 
 ### P0-2 — Cloud dashboard API-key manager is React-state only (keys not persisted)
-- **Reown parity:** API keys/projectIds are persisted server-side and enforced by the relay/RPC.
+- **Cinacoin parity:** API keys/projectIds are persisted server-side and enforced by the relay/RPC.
 - **Cinacoin state:** PARTIAL. Keys are generated and mutated only in component state; they are
   lost on reload and never written to the backend.
 - **Evidence:** `apps/cloud-dashboard/src/components/ApiKeyManager.tsx:14-21` (local random
@@ -75,7 +75,7 @@ documented "coming soon" items.
   reject requests with unknown/revoked keys (verify against `rpc-proxy` origin/key check).
 
 ### P0-3 — Analytics dashboard front page shows hardcoded demo KPIs/series
-- **Reown parity:** Analytics surfaces real on-ramp volume, active wallets, tx counts, conversion.
+- **Cinacoin parity:** Analytics surfaces real on-ramp volume, active wallets, tx counts, conversion.
 - **Cinacoin state:** PARTIAL. The ingestion server (`analytics-server`) and query route exist
   and are real, but the dashboard home renders static constants and is labelled "DEMO DATA".
 - **Evidence:** `apps/analytics-dashboard/src/app/page.tsx:5-25` (`KPIS`, `VOLUME` constants),
@@ -92,7 +92,7 @@ documented "coming soon" items.
 ## P1 — Correctness & integration gaps (functional but wrong/incomplete)
 
 ### P1-1 — Starknet adapter uses a fake hash instead of Pedersen
-- **Reown parity:** Starknet support computes correct Pedersen-based addresses/hashes.
+- **Cinacoin parity:** Starknet support computes correct Pedersen-based addresses/hashes.
 - **Cinacoin state:** PARTIAL — connects to Argent-X/Braavos but address/tx hashing is a toy
   ASCII-sum, so derived addresses and hashes are wrong on mainnet.
 - **Evidence:** `packages/adapter-starknet/src/services/starknet-ops.ts:328` —
@@ -103,7 +103,7 @@ documented "coming soon" items.
   test vector matches `starknet.js`; demonstration comment removed.
 
 ### P1-2 — Sui adapter delegates tx assembly to wallet instead of building TransactionBlock
-- **Reown parity:** Native Sui transaction construction (Move calls, coin splits) under SDK control.
+- **Cinacoin parity:** Native Sui transaction construction (Move calls, coin splits) under SDK control.
 - **Cinacoin state:** PARTIAL — works via wallet `signAndExecuteTransaction`, but the SDK does
   not build a proper Mysten `TransactionBlock`, limiting programmable/sponsored flows; a deprecated
   shim is a no-op.
@@ -115,7 +115,7 @@ documented "coming soon" items.
   on Sui testnet; no "for now"/no-op comments remain in the adapter's hot path.
 
 ### P1-3 — Blockchain-API stale compiled `.js` carries pre-integration TODOs
-- **Reown parity:** Blockchain API resolves balances/history/NFTs via indexers.
+- **Cinacoin parity:** Blockchain API resolves balances/history/NFTs via indexers.
 - **Cinacoin state:** FULL in TypeScript source (`client.ts` uses viem + Alchemy/Covalent +
   on-chain fallback + NFT scans), but **stale compiled artifacts** still contain old TODOs and
   can shadow fresh builds (a recurring bug class in this repo).
@@ -127,10 +127,10 @@ documented "coming soon" items.
   TODOs returns nothing; blockchain-api builds clean from source.
 
 ### P1-4 — Migration codemods advertised as "coming soon" in docs (ConnectKit/RainbowKit)
-- **Reown parity:** Documented migration paths from Web3Modal/W3M/RainbowKit/ConnectKit/Privy.
+- **Cinacoin parity:** Documented migration paths from Web3Modal/W3M/RainbowKit/ConnectKit/Privy.
 - **Cinacoin state:** PARTIAL/inconsistent — the `codemod` package *does* ship
   ConnectKit/RainbowKit transforms, but the docs still say "coming soon".
-- **Evidence:** docs say coming soon at `docs-site/docs/guide/migrate-from-reown.md:39-40`;
+- **Evidence:** docs say coming soon at `docs-site/docs/guide/migrate-from-cinacoin.md:39-40`;
   actual codemods exist: `packages/codemod/src/codemods/connectkit-to-cinacoin.ts`,
   `…/appkit-to-onchainux.ts`.
 - **Scope:** Either finish + verify the codemods end-to-end and update docs to "supported", or

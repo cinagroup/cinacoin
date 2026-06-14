@@ -11,7 +11,7 @@ export const tronWallets = [
     appStoreUrl: "https://apps.apple.com/app/tronlink/id1439361739",
     playStoreUrl: "https://play.google.com/store/apps/details?id=com.tronlink.wallet",
     extensionUrl: "https://chromewebstore.google.com/detail/tronlink- wallet/ibnejdfjmmkpcnlpebklmnkoeoihofec",
-    supportsWalletConnectV2: true,
+    supportsCinacoinV2: true,
     walletType: "hot",
     popularity: 47,
     description: "Official Tron blockchain wallet.",

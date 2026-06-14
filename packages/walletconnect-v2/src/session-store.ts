@@ -1,5 +1,5 @@
 /**
- * Persistent session store for WalletConnect v2.
+ * Persistent session store for Cinacoin v2.
  *
  * Persists pairings, sessions, and cryptographic key material to
  * localStorage (browser) or an in-memory fallback (Node.js / SSR).

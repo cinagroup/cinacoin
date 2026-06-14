@@ -1,4 +1,4 @@
-# Developer Experience, Ecosystem & Quality — CinaAuth/Cinacoin vs Reown Gap Analysis
+# Developer Experience, Ecosystem & Quality — CinaAuth/Cinacoin vs Cinacoin Gap Analysis
 
 > **Date**: 2026-05-16  
 > **Scope**: Developer ecosystem, documentation, tooling, community, and quality infrastructure  
@@ -10,9 +10,9 @@
 
 Cinacoin has **six well-structured architecture design documents** (Master + Phase 1-5) covering infrastructure, UI, smart accounts, deployment, and optimization. The code skeleton spans 15 packages across Rust, Go, TypeScript, Solidity, and Vue.
 
-**However, the project is a "design-phase monorepo" — it has architecture docs but lacks virtually every element of a modern developer ecosystem.** Reown (formerly WalletConnect) has invested years in building a developer-facing platform with documentation sites, example apps, AI agent configs, automated quality tooling, and community infrastructure.
+**However, the project is a "design-phase monorepo" — it has architecture docs but lacks virtually every element of a modern developer ecosystem.** Cinacoin (formerly Cinacoin) has invested years in building a developer-facing platform with documentation sites, example apps, AI agent configs, automated quality tooling, and community infrastructure.
 
-| Dimension | CinaAuth/Cinacoin | Reown | Gap |
+| Dimension | CinaAuth/Cinacoin | Cinacoin | Gap |
 |-----------|:---:|:---:|:---:|
 | Documentation Site | ❌ None | ✅ MDX docs site (111 ⭐) | Critical |
 | Example Apps | ❌ None | ✅ 3 example repos (726 ⭐) | Critical |
@@ -31,8 +31,8 @@ Cinacoin has **six well-structured architecture design documents** (Master + Pha
 
 ## 1. Documentation Quality and Completeness
 
-### Reown
-- **reown-docs** — Dedicated MDX documentation site (docs.reown.com) with:
+### Cinacoin
+- **cinacoin-docs** — Dedicated MDX documentation site (docs.cinacoin.com) with:
   - Interactive code examples
   - API reference for every SDK method
   - Framework-specific guides (React, Vue, React Native, Flutter, iOS, Android)
@@ -52,7 +52,7 @@ Cinacoin has **six well-structured architecture design documents** (Master + Pha
 - **No searchable documentation** — developer must read files manually
 
 ### Gap Assessment
-| Aspect | Reown | Cinacoin | Gap |
+| Aspect | Cinacoin | Cinacoin | Gap |
 |--------|-------|-----------|-----|
 | Hosted docs site | ✅ Yes | ❌ None | 🔴 Critical |
 | API reference | ✅ Auto-generated | ❌ None | 🔴 Critical |
@@ -75,11 +75,11 @@ Cinacoin has **six well-structured architecture design documents** (Master + Pha
 
 ## 2. Example Applications and Starter Templates
 
-### Reown
+### Cinacoin
 - **web-examples** (TypeScript, 510 ⭐, 386 forks) — Production-ready Wallet and dApp examples for web
 - **react-native-examples** (TypeScript, 130 ⭐, 57 forks) — Mobile dApp and wallet examples
 - **appkit-web-examples** (TypeScript, 86 ⭐, 54 forks) — Specific AppKit integration examples
-- **skills** — Reusable skill set for developing with Reown products
+- **skills** — Reusable skill set for developing with Cinacoin products
 - Each example is a standalone, runnable project
 
 ### Cinacoin
@@ -91,7 +91,7 @@ Cinacoin has **six well-structured architecture design documents** (Master + Pha
 - No "quick start" template repository
 
 ### Gap Assessment
-| Asset | Reown | Cinacoin | Gap |
+| Asset | Cinacoin | Cinacoin | Gap |
 |-------|-------|-----------|-----|
 | Web examples | ✅ 3 repos, 726 ⭐ | ❌ None | 🔴 Critical |
 | RN examples | ✅ 130 ⭐ | ❌ None | 🔴 Critical |
@@ -114,7 +114,7 @@ Cinacoin has **six well-structured architecture design documents** (Master + Pha
 
 ## 3. Contribution Guidelines and Code of Conduct
 
-### Reown
+### Cinacoin
 - **appkit** repository includes:
   - `CONTRIBUTING.md` — Detailed contribution process
   - `CLAUDE.md` — AI assistant instructions for Claude
@@ -135,7 +135,7 @@ Cinacoin has **six well-structured architecture design documents** (Master + Pha
 - Has `.github/workflows/` with build, release, deploy, and security workflows — but no contribution guidelines
 
 ### Gap Assessment
-| File | Reown appkit | Cinacoin | Gap |
+| File | Cinacoin appkit | Cinacoin | Gap |
 |------|:---:|:---:|:---:|
 | CONTRIBUTING.md | ✅ | ❌ | 🟡 High |
 | CODE_OF_CONDUCT.md | ✅ | ❌ | 🟡 High |
@@ -164,7 +164,7 @@ Cinacoin has **six well-structured architecture design documents** (Master + Pha
 
 ## 4. AI-Assisted Development Support
 
-### Reown
+### Cinacoin
 - **AGENTS.md** — Instructions for AI coding agents working in the repo
 - **CLAUDE.md** — Specific instructions for Claude Code
 - **.cursor/** — Cursor IDE rules and context files
@@ -236,7 +236,7 @@ This is a significant gap for a multi-language monorepo. Without AI agent config
 
 ## 5. Automated Quality Tools
 
-### Reown
+### Cinacoin
 - **renovate.json** — Automated dependency updates
 - **@changeset** — Semantic versioning with auto-generated changelogs
 - **vite-size-action** — Bundle size tracking in PRs (prevents bundle bloat)
@@ -261,7 +261,7 @@ This is a significant gap for a multi-language monorepo. Without AI agent config
   - ❌ No performance regression testing
 
 ### Gap Assessment
-| Tool | Reown | Cinacoin | Gap |
+| Tool | Cinacoin | Cinacoin | Gap |
 |------|:---:|:---:|:---:|
 | renovate | ✅ | ❌ | 🟡 High |
 | changesets | ✅ | ❌ | 🟡 High |
@@ -286,7 +286,7 @@ This is a significant gap for a multi-language monorepo. Without AI agent config
 
 ## 6. Security Practices
 
-### Reown
+### Cinacoin
 - **Public audit reports** from third-party security firms
 - **Bug bounty program** (typically via Immunefi or HackerOne)
 - **SECURITY.md** with responsible disclosure process
@@ -305,7 +305,7 @@ This is a significant gap for a multi-language monorepo. Without AI agent config
 - Phase 3 design doc lists third-party contracts (EntryPoint, Safe, Kernel) with audit status — but Cinacoin's own code has zero audits
 
 ### Gap Assessment
-| Practice | Reown | Cinacoin | Gap |
+| Practice | Cinacoin | Cinacoin | Gap |
 |----------|:---:|:---:|:---:|
 | Third-party audit | ✅ | ❌ | 🔴 Critical |
 | Bug bounty | ✅ | ❌ | 🟡 High |
@@ -327,12 +327,12 @@ This is a significant gap for a multi-language monorepo. Without AI agent config
 
 ---
 
-## 7. Migration Tools (from WalletConnect/Web3Modal)
+## 7. Migration Tools (from Cinacoin/Web3Modal)
 
-### Reown
+### Cinacoin
 - **Official codemod** for migrating from Web3Modal to AppKit
 - **Migration documentation** with step-by-step guides
-- **Compatibility layer** — AppKit can work alongside existing WalletConnect implementations during transition
+- **Compatibility layer** — AppKit can work alongside existing Cinacoin implementations during transition
 - API mapping documentation
 
 ### Cinacoin
@@ -343,7 +343,7 @@ This is a significant gap for a multi-language monorepo. Without AI agent config
 - **No mapping documentation** between AppKit and Cinacoin APIs
 
 ### Gap Assessment
-This is a critical gap because the entire project's value proposition is replacing Reown. Without migration tools, developers must manually rewrite their integration code — a significant adoption barrier.
+This is a critical gap because the entire project's value proposition is replacing Cinacoin. Without migration tools, developers must manually rewrite their integration code — a significant adoption barrier.
 
 ### Recommendations
 
@@ -358,7 +358,7 @@ This is a critical gap because the entire project's value proposition is replaci
 
 ## 8. Developer Community Building
 
-### Reown
+### Cinacoin
 - **Discord server** — Active community support
 - **GitHub Discussions** — Q&A, feature requests, announcements
 - **Developer events** — Conference presence, workshops
@@ -391,15 +391,15 @@ This is expected for a pre-launch project, but must be addressed before any publ
 
 ## 9. Ecosystem Completeness
 
-### Reown Ecosystem Inventory
+### Cinacoin Ecosystem Inventory
 | Repository | Language | Stars | Purpose |
 |-----------|----------|-------|---------|
 | appkit | TypeScript | ~10K | Core AppKit SDK |
-| reown-docs | MDX | 111 | Documentation site |
+| cinacoin-docs | MDX | 111 | Documentation site |
 | web-examples | TypeScript | 510 | Web dApp examples |
 | react-native-examples | TypeScript | 130 | RN examples |
 | appkit-web-examples | TypeScript | 86 | AppKit integration examples |
-| skills | — | — | Reown development skills |
+| skills | — | — | Cinacoin development skills |
 | whitepaper-walletkit-erc7811 | — | — | Whitepaper + ERC-7811 |
 | travel-rule-demo | — | — | Compliance demo |
 | safe-decoder | — | — | Safe Core TX decoder CLI |
@@ -470,7 +470,7 @@ This is expected for a pre-launch project, but must be addressed before any publ
 
 Cinacoin has **strong technical architecture** — the Phase docs are comprehensive, multi-language, and production-oriented. However, it is currently an **internal design repository**, not a **developer platform**.
 
-The gap between design docs and a usable developer platform is enormous. Reown didn't start with docs and examples — they accumulated them over years of public development. Cinacoin can accelerate by:
+The gap between design docs and a usable developer platform is enormous. Cinacoin didn't start with docs and examples — they accumulated them over years of public development. Cinacoin can accelerate by:
 
 1. **Immediate**: Add LICENSE, SECURITY.md, CONTRIBUTING.md (P0 items 1-3 — less than 1 day total)
 2. **Week 1-2**: Build docs site + Getting Started + demo dApp (P0 items 4-6)

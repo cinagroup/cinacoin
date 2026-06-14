@@ -4,8 +4,8 @@
  * Vue 3 adapter for Cinacoin white-label UI toolkit.
  */
 
-export { default as CinaCoinProvider } from './CinaCoinProvider.vue';
-export type { CinaCoinProviderProps } from './CinaCoinProvider.vue';
+export { default as CinacoinProvider } from './CinacoinProvider.vue';
+export type { CinacoinProviderProps } from './CinacoinProvider.vue';
 
 export { ONCHAINUX_KEY } from './types.js';
 export type { CinacoinConfig, CinacoinContext, AccountState, Connector, ChainConfig, ThemeMode } from './types.js';

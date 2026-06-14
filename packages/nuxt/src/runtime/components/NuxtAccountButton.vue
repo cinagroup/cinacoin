@@ -33,7 +33,7 @@
  */
 import { computed, ref } from 'vue'
 
-const { cinaConnect } = useCinaCoin()
+const { cinaConnect } = useCinacoin()
 
 const connecting = ref(false)
 

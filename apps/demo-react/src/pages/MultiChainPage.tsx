@@ -8,7 +8,7 @@ const CHAINS = [
     symbol: 'ETH',
     color: 'var(--cc-demo-chain-ethereum)',
     icon: 'Ξ',
-    wallets: ['MetaMask', 'WalletConnect', 'Coinbase'],
+    wallets: ['MetaMask', 'Cinacoin', 'Coinbase'],
     txs: '1.2M',
     tvl: '$45B',
   },
@@ -38,7 +38,7 @@ const CHAINS = [
     symbol: 'POL',
     color: 'var(--cc-demo-chain-polygon)',
     icon: '⬡',
-    wallets: ['MetaMask', 'WalletConnect'],
+    wallets: ['MetaMask', 'Cinacoin'],
     txs: '4.2M',
     tvl: '$5B',
   },
@@ -281,7 +281,7 @@ export default function MultiChainPage() {
               <ArrowLeftRight className="w-6 h-6 inline" />
             </span>
             <p className="cc-body-sm-strong mt-1">Relay</p>
-            <p className="text-caption text-[var(--cc-muted)] cc-caption">CinaCoin</p>
+            <p className="text-caption text-[var(--cc-muted)] cc-caption">Cinacoin</p>
           </div>
           <span className="text-display-md text-[var(--cc-muted)]">→</span>
           <div className="bg-[var(--cc-canvas-soft-2)] border border-[var(--cc-hairline)] rounded-sm px-6 py-4 text-center min-w-[120px]">
@@ -300,9 +300,9 @@ export default function MultiChainPage() {
       <div className="cc-card mb-8">
         <h2 className="cc-display-sm mb-4">Unified API.</h2>
         <pre className="cc-code-block">
-          {`import { CinaCoin } from '@cinacoin/core-sdk';
+          {`import { Cinacoin } from '@cinacoin/core-sdk';
 
-const cc = new CinaCoin({ projectId: 'YOUR_PROJECT_ID' });
+const cc = new Cinacoin({ projectId: 'YOUR_PROJECT_ID' });
 
 // Connect to any chain with the same API
 const eth = await cc.connect('ethereum', 'metamask');

@@ -126,7 +126,7 @@ interface ConnectModalProps {
 
 const WALLET_OPTIONS = [
   { id: 'injected', name: 'Browser Wallet', icon: '🦊', description: 'MetaMask, Rabby, etc.' },
-  { id: 'walletconnect', name: 'WalletConnect', icon: '🔗', description: 'Scan with mobile wallet' },
+  { id: 'walletconnect', name: 'Cinacoin', icon: '🔗', description: 'Scan with mobile wallet' },
   { id: 'coinbase', name: 'Coinbase Wallet', icon: '🔵', description: 'Coinbase Smart Wallet' },
   { id: 'phantom', name: 'Phantom', icon: '👻', description: 'Phantom wallet' },
 ];
@@ -350,7 +350,7 @@ interface WalletModalProps {
 
 const WALLETS = [
   { id: 'metamask', name: 'MetaMask', icon: '🦊', description: 'Connect using MetaMask wallet' },
-  { id: 'walletconnect', name: 'WalletConnect', icon: '🔗', description: 'Scan with your mobile wallet' },
+  { id: 'walletconnect', name: 'Cinacoin', icon: '🔗', description: 'Scan with your mobile wallet' },
   { id: 'coinbase', name: 'Coinbase Wallet', icon: '🔵', description: 'Connect with Coinbase' },
   { id: 'phantom', name: 'Phantom', icon: '👻', description: 'Solana & multi-chain wallet' },
   { id: 'bitcoin', name: 'Bitcoin', icon: '₿', description: 'BTC wallet (Leather, Xverse)' },

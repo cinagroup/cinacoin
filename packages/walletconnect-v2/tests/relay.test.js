@@ -1,5 +1,5 @@
 /**
- * WalletConnect v2 Relay (WcRelay) tests.
+ * Cinacoin v2 Relay (WcRelay) tests.
  *
  * Tests the WcRelay WebSocket relay client implementation.
  */

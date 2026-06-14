@@ -39,7 +39,7 @@ export default function CinacoinClientProvider({
     return (
       <div style={{ minHeight: '100vh' }}>
         <div style={{ padding: '10px 20px', background: 'var(--cc-warning-bg)', color: 'var(--cc-warning)', fontSize: '13px', borderBottom: '1px solid var(--cc-warning)', textAlign: 'center' }}>
-          ⚠️ CinaCoin SDK unavailable — running in static demo mode
+          ⚠️ Cinacoin SDK unavailable — running in static demo mode
         </div>
         {children}
       </div>
@@ -66,8 +66,8 @@ function SdkProvider({ children }: { children: ReactNode }) {
       config={{
         projectId: 'demo_project_id',
         metadata: {
-          name: 'CinaCoin Demo dApp',
-          description: 'A comprehensive demo showcasing the full CinaCoin SDK.',
+          name: 'Cinacoin Demo dApp',
+          description: 'A comprehensive demo showcasing the full Cinacoin SDK.',
           url: 'https://cinacoin.dev',
           icons: ['https://cinacoin.dev/icon.png'],
         },

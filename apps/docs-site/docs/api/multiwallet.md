@@ -1,6 +1,6 @@
 # Multiwallet.
 
-> `@cinacoin/multiwallet` — Multi-wallet management for CinaCoin.
+> `@cinacoin/multiwallet` — Multi-wallet management for Cinacoin.
 
 ## Installation.
 

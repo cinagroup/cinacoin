@@ -100,8 +100,8 @@ export default function WalletExplorerPage() {
         {/* Dark band hero */}
         <div className="rounded-sm bg-[#171717] px-8 py-12">
           <p className="font-mono text-xs text-[#888] mb-3">wallet-explorer</p>
-          <h1 className="text-2xl font-semibold text-white tracking-tight">CinaCoin Wallet Explorer.</h1>
-          <p className="mt-2 text-sm text-[#b3b3b3] max-w-lg">Search addresses, view balances, and explore transactions on the CinaCoin blockchain.</p>
+          <h1 className="text-2xl font-semibold text-white tracking-tight">Cinacoin Wallet Explorer.</h1>
+          <p className="mt-2 text-sm text-[#b3b3b3] max-w-lg">Search addresses, view balances, and explore transactions on the Cinacoin blockchain.</p>
           <button onClick={connect} className="cc-btn-primary mt-6">
             Connect wallet
           </button>
@@ -112,9 +112,9 @@ export default function WalletExplorerPage() {
             <Terminal className="h-4 w-4 text-[var(--cc-muted)]" aria-hidden="true" />
             <span className="font-mono text-xs text-[var(--cc-muted)]">Quick start</span>
           </div>
-          <pre className="p-4 font-mono text-sm text-[var(--cc-body)] overflow-x-auto"><code>{`import { CinaCoin } from "@cinacoin/sdk";
+          <pre className="p-4 font-mono text-sm text-[var(--cc-body)] overflow-x-auto"><code>{`import { Cinacoin } from "@cinacoin/sdk";
 
-const client = new CinaCoin({ network: "mainnet" });
+const client = new Cinacoin({ network: "mainnet" });
 const wallet = await client.wallet.connect();
 
 const balance = await wallet.getBalance();
@@ -133,7 +133,7 @@ console.log(balance); // "1,234,567.89 CINA"`}</code></pre>
         <div>
           <p className="font-mono text-xs text-[var(--cc-muted)] mb-2">wallet-explorer</p>
           <h1 className="text-2xl font-semibold text-[var(--cc-ink)] tracking-tight">
-            CinaCoin Wallet Explorer.
+            Cinacoin Wallet Explorer.
           </h1>
           <p className="mt-1 text-sm text-[var(--cc-body)]">
             Search addresses, view balances, and explore transactions.
@@ -165,8 +165,8 @@ console.log(balance); // "1,234,567.89 CINA"`}</code></pre>
 
       {/* Footer */}
       <footer className="border-t border-[var(--cc-hairline)] pt-6 flex items-center justify-between text-xs text-[var(--cc-muted)]">
-        <p>&copy; 2026 CinaCoin.</p>
-        <p className="font-mono">Powered by CinaCoin Blockchain</p>
+        <p>&copy; 2026 Cinacoin.</p>
+        <p className="font-mono">Powered by Cinacoin Blockchain</p>
       </footer>
     </div>
   );

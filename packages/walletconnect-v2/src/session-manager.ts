@@ -1,5 +1,5 @@
 /**
- * Enhanced Session Manager for WalletConnect v2.
+ * Enhanced Session Manager for Cinacoin v2.
  *
  * Unified session management layer that integrates:
  * - Persistent storage (localStorage + IndexedDB fallback)
@@ -84,7 +84,7 @@ export interface EnhancedSessionManagerConfig {
   events?: string[];
   /** Session TTL in seconds (default: 7 days). */
   sessionTtl?: number;
-  /** Project ID for WalletConnect Cloud relay. */
+  /** Project ID for Cinacoin Cloud relay. */
   projectId?: string;
   /** Relay server URL (defaults to WC Cloud relay). */
   relayUrl?: string;
@@ -259,7 +259,7 @@ interface StorageBackend {
 // ============================================================
 
 /**
- * Enhanced Session Manager for WalletConnect v2.
+ * Enhanced Session Manager for Cinacoin v2.
  *
  * Provides a unified, production-ready API for managing WC v2 sessions
  * with persistence, multi-session support, auto-reconnection, and
@@ -496,9 +496,9 @@ export class SessionManager extends EventEmitter {
   }
 
   /**
-   * Connect using an existing WalletConnect URI.
+   * Connect using an existing Cinacoin URI.
    *
-   * @param uri - WalletConnect v2 URI.
+   * @param uri - Cinacoin v2 URI.
    * @returns The established session.
    */
   async connectWithUri(uri: string): Promise<Session> {

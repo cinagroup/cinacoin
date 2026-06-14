@@ -98,7 +98,7 @@ export interface StarknetTransactionResult {
 }
 
 /** Starknet wallet connector interface. */
-export interface StarknetWalletConnector {
+export interface StarknetCinacoinor {
   /** Unique connector id (matches wallet id). */
   readonly id: string;
   /** Human-readable name. */

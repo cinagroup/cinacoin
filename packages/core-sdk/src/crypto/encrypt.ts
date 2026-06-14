@@ -1,7 +1,7 @@
 /**
  * ChaCha20-Poly1305 AEAD encryption/decryption.
  *
- * Implements the encryption scheme used by WalletConnect v2:
+ * Implements the encryption scheme used by Cinacoin v2:
  * - Cipher: ChaCha20-Poly1305 (IETF variant, RFC 8439)
  * - Nonce: 12 bytes (96 bits)
  * - Key: 32 bytes (256 bits) from X25519 shared secret

@@ -1,5 +1,5 @@
 /**
- * Tests for @cinacoin/react-native WalletConnectProvider.
+ * Tests for @cinacoin/react-native CinacoinProvider.
  * Tests WC v2 provider initialization, pairing, deep linking, session management, and RPC methods.
  */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
@@ -44,44 +44,44 @@ vi.mock('@cinacoin/walletconnect-v2', () => ({
 // ─── Mock core package ───────────────────────────────────────────────────────
 vi.mock('@cinacoin/core-sdk', () => ({}));
 // ─── Tests ───────────────────────────────────────────────────────────────────
-describe('WalletConnectProvider', () => {
+describe('CinacoinProvider', () => {
     beforeEach(() => {
         vi.clearAllMocks();
     });
     describe('WALLET_DEEP_LINKS', () => {
         it('should export deep links for MetaMask', async () => {
-            const { WALLET_DEEP_LINKS } = await import('../src/WalletConnectProvider.jsx');
+            const { WALLET_DEEP_LINKS } = await import('../src/CinacoinProvider.jsx');
             expect(WALLET_DEEP_LINKS.metamask).toBeDefined();
             expect(WALLET_DEEP_LINKS.metamask.walletId).toBe('metamask');
             expect(WALLET_DEEP_LINKS.metamask.scheme).toBe('metamask://');
         });
         it('should export deep links for Rainbow', async () => {
-            const { WALLET_DEEP_LINKS } = await import('../src/WalletConnectProvider.jsx');
+            const { WALLET_DEEP_LINKS } = await import('../src/CinacoinProvider.jsx');
             expect(WALLET_DEEP_LINKS.rainbow).toBeDefined();
             expect(WALLET_DEEP_LINKS.rainbow.walletId).toBe('rainbow');
         });
         it('should export deep links for Trust', async () => {
-            const { WALLET_DEEP_LINKS } = await import('../src/WalletConnectProvider.jsx');
+            const { WALLET_DEEP_LINKS } = await import('../src/CinacoinProvider.jsx');
             expect(WALLET_DEEP_LINKS.trust).toBeDefined();
             expect(WALLET_DEEP_LINKS.trust.packageName).toBe('com.wallet.crypto.trustapp');
         });
         it('should export deep links for Coinbase', async () => {
-            const { WALLET_DEEP_LINKS } = await import('../src/WalletConnectProvider.jsx');
+            const { WALLET_DEEP_LINKS } = await import('../src/CinacoinProvider.jsx');
             expect(WALLET_DEEP_LINKS.coinbase).toBeDefined();
             expect(WALLET_DEEP_LINKS.coinbase.scheme).toBe('cbwallet://');
         });
         it('should export deep links for Phantom', async () => {
-            const { WALLET_DEEP_LINKS } = await import('../src/WalletConnectProvider.jsx');
+            const { WALLET_DEEP_LINKS } = await import('../src/CinacoinProvider.jsx');
             expect(WALLET_DEEP_LINKS.phantom).toBeDefined();
             expect(WALLET_DEEP_LINKS.phantom.walletId).toBe('phantom');
         });
         it('should export deep links for Zerion', async () => {
-            const { WALLET_DEEP_LINKS } = await import('../src/WalletConnectProvider.jsx');
+            const { WALLET_DEEP_LINKS } = await import('../src/CinacoinProvider.jsx');
             expect(WALLET_DEEP_LINKS.zerion).toBeDefined();
             expect(WALLET_DEEP_LINKS.zerion.walletId).toBe('zerion');
         });
     });
-    describe('useWalletConnect hook', () => {
+    describe('useCinacoin hook', () => {
         it('should throw when used outside provider', async () => {
             // Mock createContext to return null
             vi.mock('react', async (importOriginal) => {
@@ -94,8 +94,8 @@ describe('WalletConnectProvider', () => {
                     useContext: () => null,
                 };
             });
-            const { useWalletConnect } = await import('../src/WalletConnectProvider.jsx');
-            expect(() => useWalletConnect()).toThrow('useWalletConnect must be used within <WalletConnectProvider>');
+            const { useCinacoin } = await import('../src/CinacoinProvider.jsx');
+            expect(() => useCinacoin()).toThrow('useCinacoin must be used within <CinacoinProvider>');
         });
     });
     describe('Provider config', () => {
@@ -128,4 +128,4 @@ describe('WalletConnectProvider', () => {
         });
     });
 });
-//# sourceMappingURL=WalletConnectProvider.test.js.map
+//# sourceMappingURL=CinacoinProvider.test.js.map

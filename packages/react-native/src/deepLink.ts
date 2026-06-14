@@ -10,7 +10,7 @@
  *   - Rainbow    (rainbow://)
  *   - Trust      (trust://)
  *   - Coinbase   (cbwallet://)
- *   - WalletConnect (wc:)
+ *   - Cinacoin (wc:)
  */
 
 import { Linking, Platform } from 'react-native';
@@ -25,7 +25,7 @@ export interface WalletSchemeConfig {
   name: string;
   /** Custom URI scheme prefix (e.g. 'metamask://'). */
   scheme: string;
-  /** WalletConnect sub-path inside the scheme (e.g. '/wc?uri='). */
+  /** Cinacoin sub-path inside the scheme (e.g. '/wc?uri='). */
   wcPath?: string;
   /** Universal-link domain for fallback (e.g. 'metamask.app.link'). */
   universalLinkDomain?: string;
@@ -55,7 +55,7 @@ export interface ParsedDeepLink {
   walletId?: string;
   /** Action if extracted (e.g. 'wc', 'dapp', 'wc?uri='). */
   action?: string;
-  /** URI parameter (WalletConnect pairing URI). */
+  /** URI parameter (Cinacoin pairing URI). */
   uri?: string;
   /** Return URL embedded by the calling dApp. */
   returnUrl?: string;
@@ -108,7 +108,7 @@ const WALLET_SCHEMES: Record<string, WalletSchemeConfig> = {
   },
   walletconnect: {
     walletId: 'walletconnect',
-    name: 'WalletConnect',
+    name: 'Cinacoin',
     scheme: 'wc:',
     wcPath: '',
     universalLinkDomain: 'walletconnect.com',
@@ -236,7 +236,7 @@ export class DeepLinkManager {
    * Parse an incoming deep-link URL into structured data.
    *
    * Recognises common patterns:
-   *   - `wc:<pairing_uri>` → WalletConnect URI
+   *   - `wc:<pairing_uri>` → Cinacoin URI
    *   - `<scheme>://wc?uri=<encoded_wc_uri>` → Wallet app redirect
    *   - `<scheme>://dapp?...` → Generic dApp action
    */
@@ -247,7 +247,7 @@ export class DeepLinkManager {
     };
 
     try {
-      // WalletConnect bare URI: wc:abc123...
+      // Cinacoin bare URI: wc:abc123...
       if (url.startsWith('wc:')) {
         parsed.action = 'wc';
         parsed.uri = url;
@@ -267,7 +267,7 @@ export class DeepLinkManager {
         }
       }
 
-      // Extract `uri` query parameter (standard WalletConnect relay)
+      // Extract `uri` query parameter (standard Cinacoin relay)
       const uriParam = u.searchParams.get('uri');
       if (uriParam) {
         parsed.uri = uriParam;
@@ -384,7 +384,7 @@ export class DeepLinkManager {
     const scheme = cfg.scheme; // e.g. "metamask://"
     const wcPath = cfg.wcPath ?? `/${action}?`;
 
-    // For WalletConnect bare scheme, it's simply "wc:<uri>"
+    // For Cinacoin bare scheme, it's simply "wc:<uri>"
     if (walletId === 'walletconnect' && params?.uri) {
       return params.uri.startsWith('wc:') ? params.uri : `wc:${params.uri}`;
     }
@@ -392,7 +392,7 @@ export class DeepLinkManager {
     let url = scheme;
 
     if (action === 'wc' && params?.uri) {
-      // Standard WalletConnect pattern: metamask://wc?uri=<wc_uri>
+      // Standard Cinacoin pattern: metamask://wc?uri=<wc_uri>
       url += `wc?uri=${encodeURIComponent(params.uri)}`;
     } else {
       url += `${action}`;

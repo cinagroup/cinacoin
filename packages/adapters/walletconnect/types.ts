@@ -1,9 +1,9 @@
 /**
- * WalletConnect types.
+ * Cinacoin types.
  */
 
-export interface WalletConnectConfig {
-  /** WalletConnect Project ID from cloud.walletconnect.com */
+export interface CinacoinConfig {
+  /** Cinacoin Project ID from cloud.walletconnect.com */
   projectId: string;
   /** Relay URL (default: wss://relay.walletconnect.com) */
   relayUrl?: string;
@@ -28,7 +28,7 @@ export interface WalletConnectConfig {
   };
 }
 
-export interface WalletConnectSession {
+export interface CinacoinSession {
   topic: string;
   pairingTopic: string;
   relay: {
@@ -58,14 +58,14 @@ export interface WalletConnectSession {
   };
 }
 
-export interface WalletConnectProvider {
+export interface CinacoinProvider {
   connect: (params: {
     requiredNamespaces?: Record<string, {
       chains: string[];
       methods: string[];
       events: string[];
     }>;
-  }) => Promise<{ uri?: string; approval: () => Promise<WalletConnectSession> }>;
+  }) => Promise<{ uri?: string; approval: () => Promise<CinacoinSession> }>;
   disconnect: (params: { topic: string; reason: { code: number; message: string } }) => Promise<void>;
   request: (params: {
     topic: string;
@@ -77,5 +77,5 @@ export interface WalletConnectProvider {
   }) => Promise<unknown>;
   on: (event: string, handler: (...args: unknown[]) => void) => void;
   removeListener: (event: string, handler: (...args: unknown[]) => void) => void;
-  session: WalletConnectSession | null;
+  session: CinacoinSession | null;
 }

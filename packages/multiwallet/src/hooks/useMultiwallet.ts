@@ -49,19 +49,19 @@ export function useMultiwallet() {
   }, [store]);
 
   /** All connections grouped by namespace. */
-  const connections: Record<string, WalletConnection[]> = useMemo(() => {
-    const result: Record<string, WalletConnection[]> = {};
+  const connections: Record<string, Cinacoinion[]> = useMemo(() => {
+    const result: Record<string, Cinacoinion[]> = {};
     for (const [ns, records] of Object.entries(state.connections)) {
-      result[ns] = records.map(toWalletConnection);
+      result[ns] = records.map(toCinacoinion);
     }
     return result;
   }, [state.connections]);
 
   /** Active connection across all namespaces (from the first namespace with an active connection). */
-  const activeConnection: WalletConnection | null = useMemo(() => {
+  const activeConnection: Cinacoinion | null = useMemo(() => {
     for (const ns of ["eip155", "solana", "bip122"] as Namespace[]) {
       const active = state.activeConnections[ns];
-      if (active) return toWalletConnection(active);
+      if (active) return toCinacoinion(active);
     }
     return null;
   }, [state.activeConnections]);
@@ -132,7 +132,7 @@ export function useMultiwallet() {
  * Flattened view of a `ConnectionRecord` for React components.
  * Uses string namespace to avoid enum serialization issues.
  */
-export interface WalletConnection {
+export interface Cinacoinion {
   walletId: string;
   walletName: string;
   namespace: string;
@@ -143,7 +143,7 @@ export interface WalletConnection {
   icon?: string;
 }
 
-function toWalletConnection(record: ConnectionRecord): WalletConnection {
+function toCinacoinion(record: ConnectionRecord): Cinacoinion {
   return {
     walletId: record.walletId,
     walletName: record.walletName,

@@ -3,7 +3,7 @@ import LoginContent from './LoginContent'
 
 export const metadata: Metadata = {
   title: 'Log In',
-  description: 'Sign in to your CinaCoin account',
+  description: 'Sign in to your Cinacoin account',
 }
 
 export default function LoginPage() {

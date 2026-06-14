@@ -1,6 +1,6 @@
 # Notify server.
 
-> `@cinacoin/notify-server` — Notification server for CinaCoin.
+> `@cinacoin/notify-server` — Notification server for Cinacoin.
 
 ## Overview.
 

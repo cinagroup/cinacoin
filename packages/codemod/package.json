@@ -1,7 +1,7 @@
 {
   "name": "@cinacoin/codemod",
   "version": "0.2.0",
-  "description": "Codemods for migrating from Web3Modal/AppKit and WalletConnect v1 to Cinacoin",
+  "description": "Codemods for migrating from Web3Modal/AppKit and Cinacoin v1 to Cinacoin",
   "bin": {
     "cinacoin-codemod": "./dist/cli.js"
   },

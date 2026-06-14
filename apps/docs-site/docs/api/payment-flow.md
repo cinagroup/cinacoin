@@ -1,6 +1,6 @@
 # Payment flow.
 
-> `@cinacoin/payment-flow` — Payment flow management for CinaCoin.
+> `@cinacoin/payment-flow` — Payment flow management for Cinacoin.
 
 ## Installation.
 

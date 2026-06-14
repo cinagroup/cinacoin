@@ -9,11 +9,11 @@
 
 Cinacoin is an open-source, all-in-one SDK for building seamless on-chain experiences. It provides wallet connections, multi-chain authentication, payments, smart accounts, and developer tools across web, mobile, and game engines.
 
-The project was designed as a **complete replacement for Reown AppKit** (formerly WalletConnect/Web3Modal), eliminating licensing restrictions, MAU caps, and infrastructure dependencies while providing equivalent — and in many areas superior — functionality.
+The project was designed as a **complete replacement for Cinacoin AppKit** (formerly Cinacoin/Web3Modal), eliminating licensing restrictions, MAU caps, and infrastructure dependencies while providing equivalent — and in many areas superior — functionality.
 
 ### Key Differentiators
 
-- **Self-hosted infrastructure** — No dependency on Reown Relay; deploy your own
+- **Self-hosted infrastructure** — No dependency on Cinacoin Relay; deploy your own
 - **MIT Licensed** — No commercial restrictions or MAU caps
 - **72 packages** — Comprehensive SDK covering every platform and use case
 - **17 chain adapters** — EVM×5 (evm, viem, ethers5, ethers6, wagmi) + Solana + BTC + TON + TRON + Polkadot + Cosmos + Hedera + NEAR + Starknet + Sui + XRPL
@@ -164,7 +164,7 @@ The project was designed as a **complete replacement for Reown AppKit** (formerl
 | **Chain Adapters** | **17** in core-sdk + **8** standalone packages (EVM×5 + Solana + BTC + TON + TRON + Polkadot + **Cosmos + Hedera + NEAR + Starknet + Sui + XRPL**) |
 | **Platform SDKs** | 10+ (Web, React, Vue, Svelte, Angular, Next.js, Nuxt, React Native, iOS, Android, Flutter, Unity, .NET) |
 | **EIP-5792 Support** | React ✅ | Vue ✅ | Svelte ✅ | Angular ✅ | RN ✅ | Next.js ✅ (server utils) |
-| **Supported Wallets** | 600+ via WalletConnect Network |
+| **Supported Wallets** | 600+ via Cinacoin Network |
 | **Demo Pages** | 6 |
 | **Infrastructure Services** | 5 configurable (RPC Proxy, Keys, Relay, Push, Notify on Cloudflare Workers) |
 | **Deploy Scripts** | 7 (deploy-all + 5 service-specific + check-health) |

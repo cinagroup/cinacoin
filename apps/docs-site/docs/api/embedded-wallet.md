@@ -1,6 +1,6 @@
 # Embedded wallet.
 
-> `@cinacoin/embedded-wallet` — Embedded wallet creation for CinaCoin.
+> `@cinacoin/embedded-wallet` — Embedded wallet creation for Cinacoin.
 
 ## Installation.
 

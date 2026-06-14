@@ -166,7 +166,7 @@ export type SuiFeature =
  *
  * @example
  * ```ts
- * const connector = new SuiWalletConnector();
+ * const connector = new SuiCinacoinor();
  * if (connector.isAvailable()) {
  *   await connector.connect();
  *   const address = connector.getAddress();

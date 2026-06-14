@@ -1,6 +1,6 @@
 # Travel rule demo.
 
-> `@cinacoin/travel-rule-demo` — Travel Rule compliance demo for CinaCoin.
+> `@cinacoin/travel-rule-demo` — Travel Rule compliance demo for Cinacoin.
 
 ## Installation.
 
@@ -10,7 +10,7 @@ npm install @cinacoin/travel-rule-demo
 
 ## Overview.
 
-Demo implementation of FATF Travel Rule compliance for VASPs (Virtual Asset Service Providers), integrated with CinaCoin payment flows.
+Demo implementation of FATF Travel Rule compliance for VASPs (Virtual Asset Service Providers), integrated with Cinacoin payment flows.
 
 ## Related.
 

@@ -7,7 +7,7 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { Connector } from '../src/connector.js';
 import type { ConnectParams, ConnectionResult, TransactionRequest } from '../src/types.js';
 
-class MockWalletConnector extends Connector {
+class MockCinacoinor extends Connector {
   readonly id = 'mock-wallet';
   readonly name = 'Mock Wallet';
   readonly icon = 'data:image/svg+xml;base64,mock';
@@ -112,10 +112,10 @@ class MockWalletConnector extends Connector {
 }
 
 describe('Wallet Connection', () => {
-  let wallet: MockWalletConnector;
+  let wallet: MockCinacoinor;
 
   beforeEach(() => {
-    wallet = new MockWalletConnector();
+    wallet = new MockCinacoinor();
     wallet.resetReconnectAttempts();
   });
 

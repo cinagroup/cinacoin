@@ -112,7 +112,7 @@ export interface NearTransactionResult {
 }
 
 /** NEAR wallet connector interface. */
-export interface NearWalletConnector {
+export interface NearCinacoinor {
   /** Unique connector id (matches wallet id). */
   readonly id: string;
   /** Human-readable name. */

@@ -1,6 +1,6 @@
 # Final Test Coverage & Quality Assessment
 
-> CinaAuth/Cinacoin vs Reown — Testing Infrastructure Comparison
+> CinaAuth/Cinacoin vs Cinacoin — Testing Infrastructure Comparison
 > Generated: 2026-05-16
 
 ---
@@ -17,9 +17,9 @@
 | **Coverage include** | `packages/**/src/**/*.ts` | Only TypeScript source files |
 | **Coverage exclude** | executors/, transports/, node_modules/, dist/ | Strategic exclusions |
 
-### Reown (AppKit)
+### Cinacoin (AppKit)
 
-Reown AppKit (formerly WalletConnect Web3Modal) uses a **monorepo with vitest** across packages. Per their public GitHub:
+Cinacoin AppKit (formerly Cinacoin Web3Modal) uses a **monorepo with vitest** across packages. Per their public GitHub:
 - `vitest.config.ts` exists at monorepo root
 - `vitest.workspace.ts` for multi-package test orchestration
 - **Comprehensive test suites** across core packages (wallet, utils, adapters, controllers, etc.)
@@ -208,7 +208,7 @@ This is the **most critical gap** in the CI pipeline. The test infrastructure ex
 2. **No E2E tests** — Zero Playwright/Cypress/Playwright-based browser tests.
 3. **No React/React Native tests** — The framework adapter packages have zero coverage despite being the primary integration points.
 4. **No visual/snapshot tests** — UI components test properties but not rendered output structure.
-5. **No network-level mocking** — No testing with actual wallet provider mocks (injected providers, WalletConnect relay).
+5. **No network-level mocking** — No testing with actual wallet provider mocks (injected providers, Cinacoin relay).
 6. **Missing concurrency tests** — No testing of race conditions in session management or key operations.
 7. **No performance tests** — Swap quoter timeout, bulk key generation performance not tested.
 
@@ -242,9 +242,9 @@ This is the **most critical gap** in the CI pipeline. The test infrastructure ex
 
 ## 7. Comparison with Industry Standards
 
-### What Reown (AppKit) does that CinaAuth should emulate:
+### What Cinacoin (AppKit) does that CinaAuth should emulate:
 
-| Practice | CinaAuth | Reown |
+| Practice | CinaAuth | Cinacoin |
 |----------|----------|-------|
 | vitest workspace config | ✅ Yes | ✅ Yes |
 | Per-package tests | ⚠️ 5/21 packages | ✅ Most packages |

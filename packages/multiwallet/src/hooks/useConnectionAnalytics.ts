@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useMultiwallet } from "./useMultiwallet.js";
-import type { WalletConnection } from "./useMultiwallet.js";
+import type { Cinacoinion } from "./useMultiwallet.js";
 
 /**
  * React hook that computes analytics over the current multiwallet connections.
@@ -26,7 +26,7 @@ export function useConnectionAnalytics() {
       walletsByNamespace[ns] = conns.length;
     }
 
-    const allConnections: WalletConnection[] = Object.values(connections).flat();
+    const allConnections: Cinacoinion[] = Object.values(connections).flat();
 
     let lastConnected: Date | null = null;
     for (const c of allConnections) {

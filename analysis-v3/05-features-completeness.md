@@ -2,7 +2,7 @@
 
 > **Generated:** 2026-05-25  
 > **Scope:** Payments, Authentication, Account Abstraction, Advanced Features  
-> **Comparator:** Reown (formerly WalletConnect) v2 ecosystem
+> **Comparator:** Cinacoin (formerly Cinacoin) v2 ecosystem
 
 ---
 
@@ -277,20 +277,20 @@
 #### `walletconnect-v2` — WalletConnect v2 Protocol
 **Classification:** 🟢 **Real Implementation**
 
-- Full WalletConnect v2 client: pairing, session management, relay
+- Full Cinacoin v2 client: pairing, session management, relay
 - `WcRelay` for relay server communication
 - `WcSessionManager` for session lifecycle
 - Crypto: X25519 keypairs, shared secrets, Type-0/Type-1 envelope encoding/decoding
 - JSON-RPC method registry with EVM and Solana methods
 - Wallet registry with deep link/universal link building
-- `WalletConnectClient` unified API
+- `CinacoinClient` unified API
 - ~1,000+ lines across 7 source files
 
 #### `custom-connectors` — Custom Wallet Connectors
 **Classification:** 🟢 **Real Implementation**
 
 - `ConnectorFactory` for connector creation
-- Connectors: Injected, QR, WalletConnect
+- Connectors: Injected, QR, Cinacoin
 - `useConnectors` React hook
 - `ConnectorPicker` UI component
 
@@ -390,11 +390,11 @@
 
 ---
 
-## 4. Feature Parity vs Reown
+## 4. Feature Parity vs Cinacoin
 
 ### 4.1 Payments
 
-| Feature | Cinacoin | Reown | Gap |
+| Feature | Cinacoin | Cinacoin | Gap |
 |---|---|---|---|
 | Swap Aggregation | ✅ (1inch + 0x + Uniswap) | ✅ (via integrations) | No gap — both aggregator-based |
 | On-Ramp Aggregation | ✅ (MoonPay + Transak + Ramp) | ✅ (via integrations) | No gap |
@@ -407,7 +407,7 @@
 
 ### 4.2 Authentication
 
-| Feature | Cinacoin | Reown | Gap |
+| Feature | Cinacoin | Cinacoin | Gap |
 |---|---|---|---|
 | SIWE (EIP-4361) | ✅ Full | ✅ | No gap |
 | Cross-chain Auth (SIWX) | ✅ (EVM + Solana + BTC) | ✅ | Comparable |
@@ -421,7 +421,7 @@
 
 ### 4.3 Account Abstraction
 
-| Feature | Cinacoin | Reown | Gap |
+| Feature | Cinacoin | Cinacoin | Gap |
 |---|---|---|---|
 | ERC-4337 Smart Account | ✅ (structure, not deployed) | ✅ (via partners) | Cinacoin lacks deployment |
 | Bundler Client | ✅ (standalone + aa-sdk) | ✅ | No gap |
@@ -435,9 +435,9 @@
 
 ### 4.4 Advanced Features
 
-| Feature | Cinacoin | Reown | Gap |
+| Feature | Cinacoin | Cinacoin | Gap |
 |---|---|---|---|
-| WalletConnect v2 | ✅ Full client | ✅ (originator) | No gap |
+| Cinacoin v2 | ✅ Full client | ✅ (originator) | No gap |
 | Multiwallet | ✅ | ✅ | No gap |
 | Cross-Chain Sync | ✅ (EVM + Solana + BTC) | ❌ | **Cinacoin advantage** |
 | Telegram Mini App | ✅ | ❌ | **Cinacoin advantage** |
@@ -454,22 +454,22 @@
 
 ---
 
-## 5. Reown-Exclusive Features (Cinacoin Lacks)
+## 5. Cinacoin-Exclusive Features (Cinacoin Lacks)
 
-1. **MEV Protection** — Reown offers MEV-resistant swap routing; Cinacoin swap-sdk has no MEV protection
-2. **Limit Orders** — Reown supports limit order creation; Cinacoin only has market swaps
-3. **Multi-hop Swap Routing** — Reown handles complex multi-hop routes; Cinacoin executors are single-hop
-4. **TON/Tron Authentication** — Reown SIWX covers TON and Tron chains; Cinacoin SIWX has EVM + Solana + BTC only
-5. **Wallet Recovery (production)** — Reown has full wallet recovery; Cinacoin has scaffold but no actual Shamir's Secret Sharing implementation
-6. **Travel Rule Compliance** — Reown integrates Travel Rule for regulated jurisdictions; Cinacoin has no Travel Rule module
-7. **Bundler as a Service** — Reown operates its own bundler infrastructure; Cinacoin only has client-side bundler communication
-8. **Gas Estimation (production)** — Reown has full gas estimation; Cinacoin gas-estimator is scaffold-level
-9. **Batch Transaction Execution** — Reown executes atomic batches on-chain; Cinacoin only structures them
-10. **Real-time Notifications** — Reown has push notification service; Cinacoin has no notification package
+1. **MEV Protection** — Cinacoin offers MEV-resistant swap routing; Cinacoin swap-sdk has no MEV protection
+2. **Limit Orders** — Cinacoin supports limit order creation; Cinacoin only has market swaps
+3. **Multi-hop Swap Routing** — Cinacoin handles complex multi-hop routes; Cinacoin executors are single-hop
+4. **TON/Tron Authentication** — Cinacoin SIWX covers TON and Tron chains; Cinacoin SIWX has EVM + Solana + BTC only
+5. **Wallet Recovery (production)** — Cinacoin has full wallet recovery; Cinacoin has scaffold but no actual Shamir's Secret Sharing implementation
+6. **Travel Rule Compliance** — Cinacoin integrates Travel Rule for regulated jurisdictions; Cinacoin has no Travel Rule module
+7. **Bundler as a Service** — Cinacoin operates its own bundler infrastructure; Cinacoin only has client-side bundler communication
+8. **Gas Estimation (production)** — Cinacoin has full gas estimation; Cinacoin gas-estimator is scaffold-level
+9. **Batch Transaction Execution** — Cinacoin executes atomic batches on-chain; Cinacoin only structures them
+10. **Real-time Notifications** — Cinacoin has push notification service; Cinacoin has no notification package
 
 ---
 
-## 6. Cinacoin-Exclusive Features (Reown Lacks)
+## 6. Cinacoin-Exclusive Features (Cinacoin Lacks)
 
 1. **Exchange Deposit Integration** — Direct deposit via Binance, OKX, Bybit, KuCoin, Coinbase with deep-link redirects and status tracking
 2. **Telegram Mini App SDK** — Full Telegram WebApp integration with EIP-1193, haptic feedback, theme management, and auth
@@ -505,16 +505,16 @@
 
 | Priority | Advantage | Differentiation | Package |
 |---|---|---|---|
-| 1 | **Exchange Deposit Integration** — 5 major exchanges with deep-link redirects and automated status tracking | Reown has no deposit feature at all | `deposit` |
-| 2 | **Telegram Mini App** — Full Telegram WebApp SDK with wallet connectivity, haptic feedback, and auth | Zero competition from Reown | `telegram-miniapp` |
-| 3 | **Farcaster Mini App** — Native Farcaster integration with SIWF | Zero competition from Reown | `farcaster-miniapp` |
-| 4 | **KYC/AML Engine** — Built-in compliance screening with sanctions lists, risk scoring, and compliance reports | Reown relies on third-party compliance | `kyc` |
-| 5 | **ENS Resolver** — Full ENS resolution with multi-chain support and anti-spoofing | Reown has no ENS package | `ens-resolver` |
-| 6 | **Cross-Chain Sync** — Identity and state synchronization across EVM, Solana, Bitcoin | Reown has no cross-chain sync | `cross-chain-sync` |
-| 7 | **Wallet Recommender** — Intelligent wallet suggestions with behavior-based scoring | Reown has no wallet recommendation | `wallet-recommender` |
-| 8 | **Safe Decoder** — Gnosis Safe transaction decoding and encoding | Reown has no Safe-specific tooling | `safe-decoder` |
-| 9 | **Performance Utils** — Dev tooling for render monitoring, bundle analysis, memory leak detection | Reown has no performance tooling | `performance-utils` |
-| 10 | **Token Discovery** — Multi-source token aggregation with caching | Reown relies on external token lists | `token-list` |
+| 1 | **Exchange Deposit Integration** — 5 major exchanges with deep-link redirects and automated status tracking | Cinacoin has no deposit feature at all | `deposit` |
+| 2 | **Telegram Mini App** — Full Telegram WebApp SDK with wallet connectivity, haptic feedback, and auth | Zero competition from Cinacoin | `telegram-miniapp` |
+| 3 | **Farcaster Mini App** — Native Farcaster integration with SIWF | Zero competition from Cinacoin | `farcaster-miniapp` |
+| 4 | **KYC/AML Engine** — Built-in compliance screening with sanctions lists, risk scoring, and compliance reports | Cinacoin relies on third-party compliance | `kyc` |
+| 5 | **ENS Resolver** — Full ENS resolution with multi-chain support and anti-spoofing | Cinacoin has no ENS package | `ens-resolver` |
+| 6 | **Cross-Chain Sync** — Identity and state synchronization across EVM, Solana, Bitcoin | Cinacoin has no cross-chain sync | `cross-chain-sync` |
+| 7 | **Wallet Recommender** — Intelligent wallet suggestions with behavior-based scoring | Cinacoin has no wallet recommendation | `wallet-recommender` |
+| 8 | **Safe Decoder** — Gnosis Safe transaction decoding and encoding | Cinacoin has no Safe-specific tooling | `safe-decoder` |
+| 9 | **Performance Utils** — Dev tooling for render monitoring, bundle analysis, memory leak detection | Cinacoin has no performance tooling | `performance-utils` |
+| 10 | **Token Discovery** — Multi-source token aggregation with caching | Cinacoin relies on external token lists | `token-list` |
 
 ---
 
@@ -528,6 +528,6 @@
 
 **AA (62%):** Weakest category. Structure and types are solid, but `aa-sdk` lacks real bundler integration and factory deployment. Standalone `bundler` and `paymaster` packages are production-ready. Gas sponsorship is the strongest AA component.
 
-**Advanced (77%):** Strongest differentiator. 11 of 14 packages are real implementations. Exchange deposits, Telegram/Farcaster mini apps, KYC screening, ENS resolution, and cross-chain sync are unique advantages that Reown cannot match.
+**Advanced (77%):** Strongest differentiator. 11 of 14 packages are real implementations. Exchange deposits, Telegram/Farcaster mini apps, KYC screening, ENS resolution, and cross-chain sync are unique advantages that Cinacoin cannot match.
 
-**Strategic recommendation:** Prioritize closing the AA execution gap (swap execution, AA deployment, batch execution) to match Reown's core competency, while leveraging Cinacoin's unique advantages (mini apps, exchange deposits, KYC, ENS) as competitive differentiators.
+**Strategic recommendation:** Prioritize closing the AA execution gap (swap execution, AA deployment, batch execution) to match Cinacoin's core competency, while leveraging Cinacoin's unique advantages (mini apps, exchange deposits, KYC, ENS) as competitive differentiators.

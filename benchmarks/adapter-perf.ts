@@ -8,7 +8,7 @@
  *   - Chain switching
  *   - Transaction signing
  *
- * Adapters tested: MetaMask, WalletConnect, Coinbase, Phantom,
+ * Adapters tested: MetaMask, Cinacoin, Coinbase, Phantom,
  *                  Solana, Bitcoin, TON, Tron, XRPL, Near, Cosmos,
  *                  Sui, Starknet, Hedera
  */

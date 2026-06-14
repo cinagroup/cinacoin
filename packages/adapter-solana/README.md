@@ -67,8 +67,8 @@ console.log('Latest blockhash:', blockhash.blockhash);
 
 | Export | Type | Description |
 |--------|------|-------------|
-| `PhantomWalletConnector` | class | Phantom wallet connector |
-| `SolflareWalletConnector` | class | Solflare wallet connector |
+| `PhantomCinacoinor` | class | Phantom wallet connector |
+| `SolflareCinacoinor` | class | Solflare wallet connector |
 | `WalletStandardConnector` | class | Wallet Standard auto-discovery connector |
 
 ### Constants

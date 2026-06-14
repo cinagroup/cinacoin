@@ -41,9 +41,9 @@ Total suite time: **17.82s**
 | vue-composable | 100 | 56.4ms | 40.3ms | 54.7ms | 71.5ms | 73.7ms | 106.5ms |
 | vue-composable-warm | 100 | 11.8ms | 8.2ms | 11.3ms | 16.9ms | 19.4ms | 21.1ms |
 
-## WalletConnect
+## Cinacoin
 
-> Measures WalletConnect v2 pairing, session proposal, and approval latency (target: <1s total)
+> Measures Cinacoin v2 pairing, session proposal, and approval latency (target: <1s total)
 
 Total suite time: **47.28s**
 

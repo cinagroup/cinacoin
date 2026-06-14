@@ -575,15 +575,15 @@ console.log('One-click complete:', { address, nonce, signature });
 - [ ] Add CSRF protection for web applications
 - [ ] Set up error tracking (Sentry, etc.)
 - [ ] Configure proper SSL/TLS certificates
-- [ ] Test with multiple wallet providers (MetaMask, WalletConnect, etc.)
+- [ ] Test with multiple wallet providers (MetaMask, Cinacoin, etc.)
 - [ ] Add loading states and error handling in UI
 - [ ] Implement proper session management
 - [ ] Add logout functionality
 - [ ] Document API for frontend developers
 
-## Comparison with Reown
+## Comparison with Cinacoin
 
-| Feature | CINAcoin One-Click Auth | Reown |
+| Feature | CINAcoin One-Click Auth | Cinacoin |
 |---------|------------------------|-------|
 | Self-hosted | ✅ Yes | ❌ No |
 | One-click flow | ✅ Yes | ✅ Yes |

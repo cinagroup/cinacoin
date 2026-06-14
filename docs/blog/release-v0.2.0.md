@@ -74,7 +74,7 @@ Every major blockchain ecosystem, now with a dedicated adapter:
 
 | Category | Packages | Description |
 |----------|----------|-------------|
-| **Core** | 3 | SDK, WalletConnect v2, chain registry |
+| **Core** | 3 | SDK, Cinacoin v2, chain registry |
 | **Chain Adapters** | 11 | Multi-chain connectivity across all major ecosystems |
 | **Framework SDKs** | 12 | React, Next.js, Vue, Svelte, Angular, Nuxt, React Native, Flutter, Android, iOS, Unity, .NET |
 | **Authentication** | 4 | SIWE, SIWX, social login, passkey/biometric |
@@ -91,7 +91,7 @@ Every major blockchain ecosystem, now with a dedicated adapter:
 - **104+ test files** across the codebase
 - **53+ commits** in active development
 - **300+ chains** defined in the chain registry
-- **600+ wallets** supported via WalletConnect Network
+- **600+ wallets** supported via Cinacoin Network
 
 ---
 
@@ -180,15 +180,15 @@ The demo includes **6 pages**: Home, Swap, Multi-Chain, Auth, and Batch — all 
 
 ## 🔄 Migration
 
-### From Reown / AppKit
+### From Cinacoin / AppKit
 
 We provide an automated migration tool:
 
 ```bash
-npx @cinacoin/codemod migrate-from-reown ./src
+npx @cinacoin/codemod migrate-from-cinacoin ./src
 ```
 
-See the [full migration guide](../guide/migrate-from-reown.md) for step-by-step instructions.
+See the [full migration guide](../guide/migrate-from-cinacoin.md) for step-by-step instructions.
 
 ### From v0.1.0
 

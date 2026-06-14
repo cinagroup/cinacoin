@@ -56,7 +56,7 @@ export default function RegisterPage() {
     <div className="auth-container">
       <div className="auth-card">
         <div className="auth-logo">
-          <h1>CinaCoin</h1>
+          <h1>Cinacoin</h1>
           <p>创建新账户</p>
         </div>
 

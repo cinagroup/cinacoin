@@ -125,7 +125,7 @@
 | 排版   | 字号体系完全匹配规范 (shared-design-system.css)                                                                      |
 | 排版   | cc-display-xl/lg/md/sm 类正确实现                                                                                    |
 | 排版   | cc-caption-mono 用于 section eyebrow ("health-status", "Monitored services", "Historical uptime", "Incident log") ✅ |
-| 排版   | 标题 sentence-case + 句号 ("CinaCoin status.", "Services", "90-day history") ✅                                      |
+| 排版   | 标题 sentence-case + 句号 ("Cinacoin status.", "Services", "90-day history") ✅                                      |
 | 排版   | 字重上限 600 ✅                                                                                                      |
 | 排版   | mono 仅用于技术内容 (code mockup, uptime values, response times) ✅                                                  |
 | 间距   | 4px 基准间距 ✅                                                                                                      |

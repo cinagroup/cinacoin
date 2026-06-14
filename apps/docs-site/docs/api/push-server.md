@@ -1,6 +1,6 @@
 # Push server.
 
-> `@cinacoin/push-server` — Push notification delivery server for CinaCoin.
+> `@cinacoin/push-server` — Push notification delivery server for Cinacoin.
 
 ## Overview.
 

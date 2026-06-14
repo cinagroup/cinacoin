@@ -25,7 +25,7 @@ interface FarcasterConnectProps {
 export function FarcasterConnect({
   onConnect,
   onError,
-  appName = 'CinaCoin',
+  appName = 'Cinacoin',
   chains = [1, 10, 8453],
 }: FarcasterConnectProps) {
   const [provider, setProvider] = useState<FarcasterProvider | null>(null);
@@ -86,7 +86,7 @@ export function FarcasterConnect({
       const message = FarcasterAuth.createSignInMessage(fcUser, {
         domain: typeof window !== 'undefined' ? window.location.hostname : 'localhost',
         nonce,
-        statement: 'Sign in with Farcaster to CinaCoin.',
+        statement: 'Sign in with Farcaster to Cinacoin.',
       });
 
       // In production, request signature from Farcaster client

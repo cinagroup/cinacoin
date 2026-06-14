@@ -13,7 +13,7 @@ import {
  */
 export interface AppKitProviderProps {
   /**
-   * CinaCoin project ID (from https://cloud.cinacoin.com).
+   * Cinacoin project ID (from https://cloud.cinacoin.com).
    */
   projectId: string;
 
@@ -73,12 +73,12 @@ const defaultChain: ChainConfig = {
 /**
  * AppKitProvider — App Router compatible provider for Next.js 13+.
  *
- * This is a `'use client'` component that wraps the CinaCoin React provider
+ * This is a `'use client'` component that wraps the Cinacoin React provider
  * with Next.js-specific considerations:
  *
  * - Hydration-safe initialization (avoids SSR/CSR mismatch on address, chainId, etc.)
  * - Defers provider rendering until mounted on the client
- * - Passes project ID through to the underlying CinaCoinConfig
+ * - Passes project ID through to the underlying CinacoinConfig
  *
  * Usage:
  * ```tsx
@@ -124,7 +124,7 @@ export function AppKitProvider({
     recommendedWallets,
   };
 
-  // During SSR, render children without the CinaCoin provider to avoid
+  // During SSR, render children without the Cinacoin provider to avoid
   // hydration mismatch. The provider activates on first client render.
   if (!mounted) {
     return <>{children}</>;

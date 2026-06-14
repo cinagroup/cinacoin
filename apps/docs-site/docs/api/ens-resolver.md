@@ -1,6 +1,6 @@
 # ENS resolver.
 
-> `@cinacoin/ens-resolver` — ENS (Ethereum Name Service) resolver for CinaCoin.
+> `@cinacoin/ens-resolver` — ENS (Ethereum Name Service) resolver for Cinacoin.
 
 ## Installation.
 

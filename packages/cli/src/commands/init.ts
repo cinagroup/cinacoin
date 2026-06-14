@@ -426,7 +426,7 @@ function generateEnvTemplate(): string {
     'VITE_CINACOIN_PROJECT_DESCRIPTION=A decentralized application built with Cinacoin',
     'VITE_CINACOIN_PROJECT_URL=https://example.com',
     '',
-    '# Optional: WalletConnect Project ID (https://cloud.walletconnect.com)',
+    '# Optional: Cinacoin Project ID (https://cloud.walletconnect.com)',
     'VITE_WALLETCONNECT_PROJECT_ID=',
     '',
     '# Optional: Custom RPC endpoints',

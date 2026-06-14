@@ -84,7 +84,7 @@ export default function SettingsPage() {
                   <label htmlFor="company" className="block text-body-sm font-medium text-[var(--cc-ink)] mb-2">Company</label>
                   <input
                     type="text"
-                    defaultValue="CinaCoin Technologies"
+                    defaultValue="Cinacoin Technologies"
                     className="cc-form-input"
                   />
                 </div>

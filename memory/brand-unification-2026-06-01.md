@@ -3,10 +3,10 @@
 ## ✅ 完成情况
 
 ### 1. 品牌名统一
-- ❌ `CinaCoin` → ✅ `Cinacoin` (首字母大写)
+- ❌ `Cinacoin` → ✅ `Cinacoin` (首字母大写)
 - Dashboard: cinacoin — Backend Dashboard → Cinacoin — Backend Dashboard
 - 所有 metadata title、og:title、twitter:title 已统一
-- 源代码中剩余 `CinaCoin`: **0**
+- 源代码中剩余 `Cinacoin`: **0**
 
 ### 2. Logo/Favicon 统一
 - 5 个项目全部使用同一套文件

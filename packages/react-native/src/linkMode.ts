@@ -140,7 +140,7 @@ export class LinkModeManager {
    *
    * @param walletId — Wallet identifier (e.g. `'metamask'`, `'rainbow'`).
    * @param namespace — CAIP-2 namespace (e.g. `'eip155'`, `'solana'`).
-   * @param wcUri — WalletConnect pairing URI (from WC v2).
+   * @param wcUri — Cinacoin pairing URI (from WC v2).
    * @returns Result of the connection attempt.
    */
   async connectWithLink(
@@ -263,7 +263,7 @@ export class LinkModeManager {
   private _handleDeepLink(url: string): void {
     const parsed = this._deepLinkManager.handleUrl(url);
 
-    // If this URL contains a WalletConnect URI, it's likely a return payload
+    // If this URL contains a Cinacoin URI, it's likely a return payload
     if (parsed.uri && parsed.uri.startsWith('wc:')) {
       this._resumingFromWallet = true;
     }

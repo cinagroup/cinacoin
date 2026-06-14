@@ -1,16 +1,16 @@
 ---
 sidebar_position: 3
 title: Rate Limiting
-description: Understanding CinaCoin API rate limits and best practices
+description: Understanding Cinacoin API rate limits and best practices
 ---
 
 # Rate limiting.
 
-The CinaCoin API enforces rate limits to ensure fair usage and protect against abuse. This document explains the rate limiting strategy, limits per endpoint, and how to handle rate limit responses.
+The Cinacoin API enforces rate limits to ensure fair usage and protect against abuse. This document explains the rate limiting strategy, limits per endpoint, and how to handle rate limit responses.
 
 ## Rate limit strategy.
 
-CinaCoin uses a **sliding window** rate limiting algorithm implemented via Cloudflare KV storage. Limits are enforced at multiple levels:
+Cinacoin uses a **sliding window** rate limiting algorithm implemented via Cloudflare KV storage. Limits are enforced at multiple levels:
 
 1. **Global** — Per-IP address across all endpoints
 2. **Endpoint-specific** — Stricter limits on sensitive operations

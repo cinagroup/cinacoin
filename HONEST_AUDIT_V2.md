@@ -37,7 +37,7 @@
 | Swap 页面 | ⚠️ | UI 完整，计算为 mock，**不执行真实交易** |
 | Multi-Chain | ⚠️ | 16 链展示，**不连接真实链** |
 | Auth 页面 | ⚠️ | 4 步引导，**mock 签名/验证** |
-| WalletConnect QR | ❌ | 需要 projectId 配置 |
+| Cinacoin QR | ❌ | 需要 projectId 配置 |
 
 **Demo 真实可用部分**: MetaMask 钱包连接（显示真实地址、链 ID、断开连接）  
 **Demo 不可用部分**: 交易执行、真实 swap、真实 onramp、真实 SIWE 签名
@@ -105,7 +105,7 @@
 | unity-csharp 包 | ❌ | 需要 Unity C# 开发 |
 | notify-server | ❌ | 需要 WebSocket 逻辑 |
 | safe-decoder | ❌ | 需要 Safe decoder 逻辑 |
-| WalletConnect QR | ❌ | 需要 projectId |
+| Cinacoin QR | ❌ | 需要 projectId |
 | 测试覆盖 | ⚠️ | < 10% |
 
 ---
@@ -117,7 +117,7 @@
 | 包架构设计 | **100%** | 64 个模块全部设计完成 |
 | 源码编写 | **93.8%** | 60/64 个包有源码 |
 | 构建成功 | **90.6%** | 58/64 个包有 dist |
-| Demo 钱包连接 | **50%** | MetaMask 真实可用，WalletConnect 未配置 |
+| Demo 钱包连接 | **50%** | MetaMask 真实可用，Cinacoin 未配置 |
 | Demo 交易功能 | **15%** | 只有 UI，无真实交易 |
 | Workers 功能 | **80%** | RPC + Keys 在线，但 Demo 未调用 |
 | 测试覆盖 | **<10%** | 大部分包无测试 |
@@ -135,7 +135,7 @@
 3. **补充单元测试** — 核心功能至少 50% 测试覆盖
 
 ### 中优先级
-4. **WalletConnect QR** — 配置 projectId
+4. **Cinacoin QR** — 配置 projectId
 5. **Demo 真实 SIWE** — 后端签名验证
 6. **测试覆盖** — CI pipeline 中运行测试
 

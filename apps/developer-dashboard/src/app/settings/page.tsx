@@ -7,7 +7,7 @@ export default function SettingsPage() {
   const [profile, setProfile] = useState({
     name: "Developer",
     email: "dev@example.com",
-    company: "CinaCoin Labs",
+    company: "Cinacoin Labs",
     notifications: true,
     twoFactor: false,
   });

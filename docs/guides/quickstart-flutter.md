@@ -6,7 +6,7 @@
 
 本指南帮助你在 Flutter 应用中快速集成 Cinacoin SDK，实现：
 
-- ✅ 钱包连接（通过 WalletConnect 协议）
+- ✅ 钱包连接（通过 Cinacoin 协议）
 - ✅ 账户状态管理
 - ✅ 消息签名
 - ✅ QR 码扫码连接
@@ -216,7 +216,7 @@ class _WalletScreenState extends State<WalletScreen> {
               ),
               ListTile(
                 leading: const Icon(Icons.qr_code_scanner),
-                title: const Text('扫码连接 (WalletConnect)'),
+                title: const Text('扫码连接 (Cinacoin)'),
                 trailing: const Icon(Icons.chevron_right),
                 onTap: () => _openQRScanner(),
               ),

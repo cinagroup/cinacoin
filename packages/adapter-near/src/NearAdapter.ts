@@ -9,10 +9,10 @@ import { logger } from '@cinacoin/logger';
 import type { ChainAdapter } from '@cinacoin/core-sdk';
 import type { Connector } from '@cinacoin/core-sdk';
 import type { Chain } from '@cinacoin/core-sdk';
-import type { NearWalletConnector } from './types.js';
+import type { NearCinacoinor } from './types.js';
 import { NEAR_CHAINS, NEAR_WALLETS, type NearTransaction, type NearFunctionCall, type NearTransferAction } from './types.js';
-import { NearWalletConnector as NearWalletConn } from './connectors/near-wallet.js';
-import { HereWalletConnector } from './connectors/here-wallet.js';
+import { NearCinacoinor as NearWalletConn } from './connectors/near-wallet.js';
+import { HereCinacoinor } from './connectors/here-wallet.js';
 
 /* ------------------------------------------------------------------ */
 /*  Minimal NEAR RPC types                                             */
@@ -51,7 +51,7 @@ declare global {
  * Meteor Wallet connector for NEAR.
  * A lightweight, extension-based NEAR wallet.
  */
-class MeteorWalletConnector implements NearWalletConnector {
+class MeteorCinacoinor implements NearCinacoinor {
   readonly id = 'meteor-wallet';
   readonly name = 'Meteor Wallet';
 
@@ -181,14 +181,14 @@ export class NearChainAdapter implements ChainAdapter {
   readonly name = 'NEAR Adapter';
 
   private chains: Chain[] = [...NEAR_CHAINS];
-  private activeConnector: NearWalletConnector | null = null;
+  private activeConnector: NearCinacoinor | null = null;
   private connectorInstance: Connector | null = null;
   private rpcUrl: string = NEAR_CHAINS[0].rpcUrl;
 
   // Wallet connector instances (lazy-created)
   private _nearWallet: NearWalletConn | null = null;
-  private _hereWallet: HereWalletConnector | null = null;
-  private _meteorWallet: MeteorWalletConnector | null = null;
+  private _hereWallet: HereCinacoinor | null = null;
+  private _meteorWallet: MeteorCinacoinor | null = null;
 
   /* ---- Configuration ---- */
 
@@ -213,7 +213,7 @@ export class NearChainAdapter implements ChainAdapter {
   }
 
   /** Get the active wallet connector. */
-  getActiveConnector(): NearWalletConnector | null {
+  getActiveConnector(): NearCinacoinor | null {
     return this.activeConnector;
   }
 
@@ -404,7 +404,7 @@ export class NearChainAdapter implements ChainAdapter {
 
   /* ---- Private helpers ---- */
 
-  private _resolveConnector(walletId?: string): NearWalletConnector | null {
+  private _resolveConnector(walletId?: string): NearCinacoinor | null {
     if (walletId) {
       return this._getConnector(walletId);
     }
@@ -422,16 +422,16 @@ export class NearChainAdapter implements ChainAdapter {
     return null;
   }
 
-  private _getConnector(walletId: string): NearWalletConnector | null {
+  private _getConnector(walletId: string): NearCinacoinor | null {
     switch (walletId) {
       case 'near-wallet':
         if (!this._nearWallet) this._nearWallet = new NearWalletConn();
         return this._nearWallet.isAvailable() ? this._nearWallet : null;
       case 'here-wallet':
-        if (!this._hereWallet) this._hereWallet = new HereWalletConnector();
+        if (!this._hereWallet) this._hereWallet = new HereCinacoinor();
         return this._hereWallet.isAvailable() ? this._hereWallet : null;
       case 'meteor-wallet':
-        if (!this._meteorWallet) this._meteorWallet = new MeteorWalletConnector();
+        if (!this._meteorWallet) this._meteorWallet = new MeteorCinacoinor();
         return this._meteorWallet.isAvailable() ? this._meteorWallet : null;
       default:
         return null;

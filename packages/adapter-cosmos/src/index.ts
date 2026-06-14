@@ -88,7 +88,7 @@ export type {
   TransferParams,
   CosmosTransaction,
   SignDoc,
-  CosmosWalletConnector,
+  CosmosCinacoinor,
   CosmosMsg,
   CosmosFee,
 } from './types.js';

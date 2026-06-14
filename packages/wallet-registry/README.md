@@ -2,7 +2,7 @@
 
 Cinacoin Wallet Registry — standardized wallet metadata for 100+ wallets with type-safe query APIs.
 
-Sources: WalletConnect Registry, EIP-6963, official wallet documentation.
+Sources: Cinacoin Registry, EIP-6963, official wallet documentation.
 
 ## Installation
 
@@ -59,7 +59,7 @@ const ethWallets = getWalletsForChain('eip155:1');
 const solWallets = getWalletsForChain('solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp');
 ```
 
-### Get WalletConnect v2 Wallets
+### Get Cinacoin v2 Wallets
 
 ```ts
 import { getWcV2Wallets } from '@cinacoin/wallet-registry';
@@ -114,7 +114,7 @@ const platformCounts = getPlatformCounts();
 | `sortWallets(sort)` | Sort wallets by popularity, name, or year |
 | `getWalletsForChainFamily(chainFamily)` | Get wallets supporting a chain family |
 | `getWalletsForChain(chain)` | Get wallets supporting a specific CAIP-2 chain |
-| `getWcV2Wallets()` | Get wallets with WalletConnect v2 support |
+| `getWcV2Wallets()` | Get wallets with Cinacoin v2 support |
 | `getEIP6963Wallets()` | Get wallets with EIP-6963 support |
 | `getRecommendedWalletOrder()` | Get wallets in recommended display order |
 | `getWalletsByPlatform(platform)` | Get wallets for a specific platform |
@@ -154,7 +154,7 @@ Each `WalletRegistryEntry` includes:
 - `platforms` — browser_extension, mobile, desktop, hardware, web, cli
 - `deepLink` / `universalLink` — mobile deep linking
 - `appStoreUrl` / `playStoreUrl` / `extensionUrl` — store links
-- `supportsWalletConnectV2` — WC v2 compatibility
+- `supportsCinacoinV2` — WC v2 compatibility
 - `supportsEIP6963` — EIP-6963 multi-provider discovery
 - `rdns` — EIP-6963 reverse domain name identifier
 - `openSource` — whether the wallet is open source

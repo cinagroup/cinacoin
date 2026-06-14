@@ -6,7 +6,7 @@
  *
  * Adapters:
  * - metamask: MetaMask via EIP-6963 / window.ethereum
- * - walletconnect: WalletConnect v2 QR code / deep link
+ * - walletconnect: Cinacoin v2 QR code / deep link
  * - coinbase: Coinbase Wallet SDK
  * - phantom: Phantom (Solana + Ethereum)
  * - btc: Bitcoin wallets (Leather, Xverse, Unisat)

@@ -10,7 +10,7 @@
 
 ## 📋 Executive Summary
 
-Cinacoin is a **complete, self-hosted, open-source Web3 SDK** designed as a full replacement for Reown AppKit (formerly WalletConnect/Web3Modal). It eliminates licensing restrictions, MAU caps, and infrastructure dependencies while providing equivalent — and in many areas superior — functionality.
+Cinacoin is a **complete, self-hosted, open-source Web3 SDK** designed as a full replacement for Cinacoin AppKit (formerly Cinacoin/Web3Modal). It eliminates licensing restrictions, MAU caps, and infrastructure dependencies while providing equivalent — and in many areas superior — functionality.
 
 ### What Was Delivered
 
@@ -246,7 +246,7 @@ The remaining 1.5% covers: publishing remaining 62 packages to npm, enabling com
 | # | Issue | Severity | Workaround | Status |
 |---|-------|----------|------------|--------|
 | 1 | 62 packages not yet published to npm | Medium | Install via workspace links or build locally; use `pnpm install` in monorepo | Changesets ready |
-| 2 | WalletConnect v2 adapter exports partially commented | Low | Adapter code written; uncomment exports in `core-sdk/src/adapters/index.ts` to enable | Code review needed |
+| 2 | Cinacoin v2 adapter exports partially commented | Low | Adapter code written; uncomment exports in `core-sdk/src/adapters/index.ts` to enable | Code review needed |
 | 3 | .NET package requires `dotnet build` step | Low | Source complete (22 C# files); run `dotnet build` in `packages/dotnet/` | Build pending |
 | 4 | Swap SDK requires external DEX aggregator API key | Info | Provide your own 1inch/0x API key; SDK provides integration layer | By design |
 | 5 | On-Ramp SDK requires external provider API key | Info | Provide your own Meld/Coinbase Pay API key; SDK provides integration layer | By design |

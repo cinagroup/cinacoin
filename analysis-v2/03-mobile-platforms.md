@@ -1,18 +1,18 @@
 # 03 — Mobile SDK & Multi-Platform Comparison
 
 **Date:** 2026-05-17
-**Scope:** CinaAuth/Cinacoin vs Reown — all 5 mobile SDKs
+**Scope:** CinaAuth/Cinacoin vs Cinacoin — all 5 mobile SDKs
 
 ---
 
 ## 1. Platform Coverage
 
-| Platform | CinaAuth SDK | Language | LOC (src+test) | Reown SDK | Language | Notes |
+| Platform | CinaAuth SDK | Language | LOC (src+test) | Cinacoin SDK | Language | Notes |
 |----------|-------------|----------|----------------|-----------|----------|-------|
-| iOS | `packages/ios-swift/` | Swift 5.9 | ~6,931 (5,537+1,394) | reown-swift | Swift | Both use WalletConnectSwiftV2 SPM |
-| Android | `packages/android-kotlin/` | Kotlin | ~3,629 (3,081+548) | reown-kotlin | Kotlin | Both use WalletConnectKotlin SDK |
-| Flutter | `packages/flutter-dart/` | Dart 3.2+ | ~3,886 (2,938+948) | reown_flutter | Dart | CinaAuth: walletconnect_flutter_v2 dep |
-| Unity | `packages/unity-csharp/` | C# | ~2,609 (1,963+646) | reown-dotnet | C# | Reown Unity = Web only, no native |
+| iOS | `packages/ios-swift/` | Swift 5.9 | ~6,931 (5,537+1,394) | cinacoin-swift | Swift | Both use CinacoinSwiftV2 SPM |
+| Android | `packages/android-kotlin/` | Kotlin | ~3,629 (3,081+548) | cinacoin-kotlin | Kotlin | Both use CinacoinKotlin SDK |
+| Flutter | `packages/flutter-dart/` | Dart 3.2+ | ~3,886 (2,938+948) | cinacoin_flutter | Dart | CinaAuth: walletconnect_flutter_v2 dep |
+| Unity | `packages/unity-csharp/` | C# | ~2,609 (1,963+646) | cinacoin-dotnet | C# | Cinacoin Unity = Web only, no native |
 | React Native | `packages/react-native/` | TypeScript | ~2,929 (2,314+615) | appkit-react-native | TypeScript | Both native RN components |
 
 **CinaAuth total mobile LOC:** ~20,000 (source + tests)
@@ -76,7 +76,7 @@
 **iOS Swift — ⭐⭐⭐⭐ (Excellent)**
 - Clean singleton pattern (`Cinacoin.shared`)
 - Combine-based reactive state (`@Published`)
-- Full WC v2 via WalletConnectSwiftV2 SPM dependency
+- Full WC v2 via CinacoinSwiftV2 SPM dependency
 - Proper SwiftUI architecture with `@EnvironmentObject`
 - Dedicated `WCClient` wrapping SDK with event-driven design
 - `DeepLinkHandler` with 7 wallet configs + fallback chain
@@ -91,7 +91,7 @@
 **Android Kotlin — ⭐⭐⭐⭐ (Excellent)**
 - Thread-safe singleton (`@Volatile` + `synchronized`)
 - Kotlin Flow-based reactive state (`MutableStateFlow`)
-- Real WalletConnectKotlin SDK integration (`com.walletconnect:sign`)
+- Real CinacoinKotlin SDK integration (`com.walletconnect:sign`)
 - Jetpack Compose UI (ConnectButton, ConnectModal)
 - `WCClient` with full SDK event subscription
 - `DeepLinkHandler` with Intent-based deep linking + 7 wallet configs
@@ -133,7 +133,7 @@
 **React Native TypeScript — ⭐⭐⭐⭐ (Very Good)**
 - Context-based architecture (`CinacoinProvider` + `useCinacoinContext`)
 - Real WC v2 via `@cinacoin/walletconnect-v2` package
-- `WalletConnectProvider` with balance state, session management
+- `CinacoinProvider` with balance state, session management
 - `ConnectModal` with deep linking, fallback timers, app store alerts
 - `ConnectButton` with real WC v2 connection state reading
 - `QRScanner` component (exists, needs camera permission handling)
@@ -148,7 +148,7 @@
 
 ### iOS Swift
 ```
-Dependency: WalletConnectSwiftV2 via SPM (exact: 1.13.0)
+Dependency: CinacoinSwiftV2 via SPM (exact: 1.13.0)
 WCClient.initializeSDK → NetworkingInteractor + Pair + Sign
 - Pairing create/uri ✅
 - Session proposal/approve ✅
@@ -164,7 +164,7 @@ WCClient.initializeSDK → NetworkingInteractor + Pair + Sign
 
 ### Android Kotlin
 ```
-Dependency: com.walletconnect:sign (WalletConnectKotlin SDK)
+Dependency: com.walletconnect:sign (CinacoinKotlin SDK)
 WCClient.initialize → CoreClient + SignClient
 - Pairing create ✅
 - Session settle listener ✅
@@ -181,7 +181,7 @@ WCClient.initialize → CoreClient + SignClient
 ### Flutter Dart
 ```
 Dependency: walletconnect_flutter_v2 ^2.2.0
-WalletManager.init → WalletConnectClient.connect
+WalletManager.init → CinacoinClient.connect
 - Pairing create ✅
 - Session proposal/approve ✅
 - Session delete ✅
@@ -195,7 +195,7 @@ WalletManager.init → WalletConnectClient.connect
 
 ### Unity C#
 ```
-Dependency: None (TODO: WalletConnectUnity or similar)
+Dependency: None (TODO: CinacoinUnity or similar)
 WalletManager: ALL METHODS ARE MOCK
 - ConnectAsync → returns fake 0x000... address
 - DisconnectAsync → Task.CompletedTask
@@ -278,9 +278,9 @@ CinacoinProvider → WcSessionManager
 
 ---
 
-## 6. Reown Comparison
+## 6. Cinacoin Comparison
 
-### Reown Mobile SDK Feature Matrix (from docs.reown.com)
+### Cinacoin Mobile SDK Feature Matrix (from docs.cinacoin.com)
 
 | Feature | React Native | Flutter | Android | iOS | Unity (Web) | Unity (Native) |
 |---------|-------------|---------|---------|-----|-------------|---------------|
@@ -295,9 +295,9 @@ CinacoinProvider → WcSessionManager
 | SIWE | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ |
 | SIWX | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
 
-### Key Differences: CinaAuth vs Reown
+### Key Differences: CinaAuth vs Cinacoin
 
-| Aspect | CinaAuth Advantage | Reown Advantage |
+| Aspect | CinaAuth Advantage | Cinacoin Advantage |
 |--------|-------------------|-----------------|
 | **Solana on iOS/Android** | ✅ Has SolanaChainAdapter (iOS), ✅ planned (Android) | ❌ No Solana on native iOS/Android |
 | **SIWE on all platforms** | ✅ Full EIP-4361 on iOS, Android, Flutter, Unity | ❌ No SIWE on Unity (Web), ❌ no SIWX on mobile |
@@ -305,7 +305,7 @@ CinacoinProvider → WcSessionManager
 | **Deep linking** | ✅ Full handler with fallback chains on all platforms | ✅ Similar but more fragmented |
 | **Theme system** | ✅ 3 modes (dark/light/minimal) consistent | ✅ Via CSS variables |
 | **Code transparency** | ✅ 100% readable, no black box | ⚠️ Many features are closed-source cloud |
-| **Self-hosted** | ✅ No dependency on Reown cloud | ❌ Requires Reown Dashboard + projectId |
+| **Self-hosted** | ✅ No dependency on Cinacoin cloud | ❌ Requires Cinacoin Dashboard + projectId |
 | **On-Ramp/Swaps** | ❌ Not implemented | ✅ Available on React Native |
 | **Smart Accounts** | ❌ Not implemented | ✅ ERC-4337 on RN |
 | **Email/Social login** | ❌ Mock only | ✅ Real on RN + Flutter |
@@ -324,14 +324,14 @@ CinacoinProvider → WcSessionManager
 | Android Kotlin | 6 | 548 | Theme colors, connect button rendering, deep link generation, EVM adapter errors, SIWE message, Solana adapter |
 | Flutter Dart | 9 | 948 | Most comprehensive: adapters, SIWE, deep links, push handler, wallet manager, connect button, cinacoin core, solana adapter |
 | Unity C# | 7 | 646 | Deep links, EVM adapter, editor tests, core manager, SIWE, Solana adapter, wallet manager |
-| React Native TS | 3 | 615 | Connect modal rendering, deep links, WalletConnectProvider |
+| React Native TS | 3 | 615 | Connect modal rendering, deep links, CinacoinProvider |
 
 ---
 
 ## 8. Recommendations
 
 ### Immediate (P0)
-1. **Unity C# — Implement real WC v2**: The WalletManager is entirely mock. Integrate with WalletConnectUnity or build a native bridge. This is the single biggest quality gap.
+1. **Unity C# — Implement real WC v2**: The WalletManager is entirely mock. Integrate with CinacoinUnity or build a native bridge. This is the single biggest quality gap.
 
 ### Short-term (P1)
 2. **Android — Add Solana adapter**: The test file exists (`SolanaAdapterTest.kt`) but there's no `SolanaChainAdapter.kt` source. Port from iOS or Flutter implementation.
@@ -339,12 +339,12 @@ CinacoinProvider → WcSessionManager
 4. **All platforms — Add QR scanning**: Currently placeholder on iOS, Android, RN. Implement real camera-based QR scanning.
 
 ### Medium-term (P2)
-5. **All platforms — Email/Social login**: Currently mock on iOS, Android, RN. Missing on Flutter/Unity. Implement real auth (similar to Reown's approach).
+5. **All platforms — Email/Social login**: Currently mock on iOS, Android, RN. Missing on Flutter/Unity. Implement real auth (similar to Cinacoin's approach).
 6. **All platforms — ENS resolution**: Add ENS name lookup for connected addresses.
 7. **iOS — Solana message signing**: Complete the `signMessage` implementation (currently throws `notImplemented`).
 
 ### Long-term (P3)
-8. **On-Ramp / Swap integration**: Match Reown's feature set for React Native.
+8. **On-Ramp / Swap integration**: Match Cinacoin's feature set for React Native.
 9. **Bitcoin adapter**: Add Bitcoin wallet support across platforms.
 10. **Smart Accounts (ERC-4337)**: Account abstraction support.
 
@@ -356,4 +356,4 @@ CinacoinProvider → WcSessionManager
 
 **The critical gap is Unity C#** — it's a well-structured shell with zero real WC integration. Fixing this would bring all 5 platforms to parity.
 
-**vs Reown**: CinaAuth wins on transparency, self-hosting, Solana support on native platforms, and built-in push notifications. Reown wins on ecosystem features (on-ramp, swaps, smart accounts, email/social auth), maturity, and multi-chain modal UI. For a dApp that needs core wallet connectivity without cloud dependency, CinaAuth is competitive. For a full-featured consumer app needing on-ramp/swaps, Reown has more out-of-the-box features.
+**vs Cinacoin**: CinaAuth wins on transparency, self-hosting, Solana support on native platforms, and built-in push notifications. Cinacoin wins on ecosystem features (on-ramp, swaps, smart accounts, email/social auth), maturity, and multi-chain modal UI. For a dApp that needs core wallet connectivity without cloud dependency, CinaAuth is competitive. For a full-featured consumer app needing on-ramp/swaps, Cinacoin has more out-of-the-box features.

@@ -7,7 +7,7 @@ export const socialEmbeddedWallets = [
     supportedChainFamilies: ["evm", "solana", "aptos"],
     supportedChains: ["eip155:1", "eip155:137", "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp"],
     platforms: ["web"],
-    supportsWalletConnectV2: true,
+    supportsCinacoinV2: true,
     walletType: "embedded",
     supportsAccountAbstraction: true,
     popularity: 36,

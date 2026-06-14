@@ -1,6 +1,6 @@
 # Cinacoin Mobile & Game Engine SDK Analysis
 
-> Report: `03-mobile-game.md` — Native SDK completeness vs Reown equivalents
+> Report: `03-mobile-game.md` — Native SDK completeness vs Cinacoin equivalents
 > Generated: 2026-05-25
 > Scope: android-kotlin, ios-swift, flutter-dart, unity-csharp, dotnet, react-native (reference)
 
@@ -25,7 +25,7 @@
 
 | Feature | Status | Notes |
 |---|---|---|
-| **Core wallet connection** | ✅ Complete | `OnChainUX.kt` + `WalletManager.kt` — real WalletConnectKotlin SDK integration |
+| **Core wallet connection** | ✅ Complete | `OnChainUX.kt` + `WalletManager.kt` — real CinacoinKotlin SDK integration |
 | **WC protocol support** | ✅ Complete | `WCClient.kt` — full v2: pairing, sessions, JSON-RPC, X25519 via SDK |
 | **Deep linking** | ✅ Complete | `DeepLinkHandler.kt` — Intent-based, universal links, Play Store fallback |
 | **Push notifications** | ✅ Complete | `FcmHandler.kt` — FCM token, notification routing, channels |
@@ -52,8 +52,8 @@
 
 | Feature | Status | Notes |
 |---|---|---|
-| **Core wallet connection** | ✅ Complete | `OnChainUX.swift` + `WalletManager.swift` — real WalletConnectSwiftV2 SDK |
-| **WC protocol support** | ✅ Complete | `WCClient.swift` — full v2 via SPM dependency `WalletConnectSwiftV2 1.13.0` |
+| **Core wallet connection** | ✅ Complete | `OnChainUX.swift` + `WalletManager.swift` — real CinacoinSwiftV2 SDK |
+| **WC protocol support** | ✅ Complete | `WCClient.swift` — full v2 via SPM dependency `CinacoinSwiftV2 1.13.0` |
 | **Deep linking** | ✅ Complete | `DeepLinkHandler.swift` — URL scheme, universal links, App Store fallback |
 | **Push notifications** | ✅ Complete | `PushNotificationHandler.swift` — APNs registration, token management |
 | **UI components** | ✅ Complete | `ConnectButton.swift` (SwiftUI) + `ConnectModal.swift` (4 tabs) |
@@ -68,11 +68,11 @@
 4. `DeepLinkHandlerTests.swift`
 5. `SIWETests.swift`
 6. `ConnectButtonTests.swift`
-7. `WalletConnectTests.swift`
+7. `CinacoinTests.swift`
 8. `SolanaAdapterTests.swift`
 9. `EVMAdapterTests.swift`
 
-**Build readiness:** ✅ `Package.swift` (Swift 5.9). SPM package with WalletConnectSwiftV2 1.13.0 dependency. Targets iOS 15+ and macOS 12+. Note: Package.swift path references `Sources/Cinacoin/` but actual source is in `Sources/OnChainUX/` — **this is a build-blocking mismatch** unless the directory is aliased or renamed.
+**Build readiness:** ✅ `Package.swift` (Swift 5.9). SPM package with CinacoinSwiftV2 1.13.0 dependency. Targets iOS 15+ and macOS 12+. Note: Package.swift path references `Sources/Cinacoin/` but actual source is in `Sources/OnChainUX/` — **this is a build-blocking mismatch** unless the directory is aliased or renamed.
 
 ---
 
@@ -171,17 +171,17 @@
 **Test files (3):**
 1. `ConnectModal.test.tsx`
 2. `deepLinks.test.ts`
-3. `WalletConnectProvider.test.tsx`
+3. `CinacoinProvider.test.tsx`
 
 **Build readiness:** ✅ npm package with TypeScript. Full build pipeline.
 
 ---
 
-## 3. Feature Parity Table — All SDKs vs Reown Equivalents
+## 3. Feature Parity Table — All SDKs vs Cinacoin Equivalents
 
-Reown's official SDKs (formerly WalletConnect) cover: `@web3modal/wagmi`, `@web3modal/ethers`, `@web3modal/solana`, `@walletconnect/modal-react-native`, `walletconnect_flutter_v2` (community), WalletConnectSwiftV2 (community), WalletConnectKotlin (official).
+Cinacoin's official SDKs (formerly WalletConnect) cover: `@web3modal/wagmi`, `@web3modal/ethers`, `@web3modal/solana`, `@walletconnect/modal-react-native`, `walletconnect_flutter_v2` (community), WalletConnectSwiftV2 (community), WalletConnectKotlin (official).
 
-| Feature | Reown Official | android-kotlin | ios-swift | flutter-dart | unity-csharp | dotnet |
+| Feature | Cinacoin Official | android-kotlin | ios-swift | flutter-dart | unity-csharp | dotnet |
 |---|---|---|---|---|---|---|
 | **WC v2 Protocol** | ✅ Native | ✅ (SDK) | ✅ (SDK) | ✅ (SDK) | ✅ (from scratch) | ❌ HTTP only |
 | **Pairing URI / QR** | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
@@ -245,7 +245,7 @@ Reown's official SDKs (formerly WalletConnect) cover: `@web3modal/wagmi`, `@web3
 |---|---|---|
 | `ConnectModal.cs` | 175-194 | QR generation fallback to placeholder texture |
 | `ConnectModal.cs` | 359 | QR format info "placeholder structure" |
-| `EvmAdapter.cs` | 74 | "Return unsigned tx hash placeholder for WalletConnect flow" |
+| `EvmAdapter.cs` | 74 | "Return unsigned tx hash placeholder for Cinacoin flow" |
 | `EvmAdapter.cs` | 250-268 | Two `NotImplementedException` throws (specific EVM methods) |
 
 ### dotnet
@@ -279,8 +279,8 @@ Reown's official SDKs (formerly WalletConnect) cover: `@web3modal/wagmi`, `@web3
 
 | SDK | Build System | Dependencies Resolved | Can Build? | Notes |
 |---|---|---|---|---|
-| **android-kotlin** | Gradle (`.gradle.kts`) | ✅ WalletConnectKotlin SDK pinned | ✅ Yes | Needs Android SDK 34, Kotlin 1.9+ |
-| **ios-swift** | SPM (`Package.swift`) | ✅ WalletConnectSwiftV2 1.13.0 | ⚠️ Path mismatch | `Package.swift` sources point to `Sources/Cinacoin/` but files are in `Sources/OnChainUX/` |
+| **android-kotlin** | Gradle (`.gradle.kts`) | ✅ CinacoinKotlin SDK pinned | ✅ Yes | Needs Android SDK 34, Kotlin 1.9+ |
+| **ios-swift** | SPM (`Package.swift`) | ✅ CinacoinSwiftV2 1.13.0 | ⚠️ Path mismatch | `Package.swift` sources point to `Sources/Cinacoin/` but files are in `Sources/OnChainUX/` |
 | **flutter-dart** | pub (`pubspec.yaml`) | ✅ All deps specified | ✅ Yes | Flutter 3.16+, Dart 3.2+ |
 | **unity-csharp** | Unity Editor | ⚠️ Missing `.asmdef` | ⚠️ Partial | Works in-editor, but no UPM packaging. Needs Assembly Definitions for proper compilation |
 | **dotnet** | dotnet CLI (`.csproj`) | ✅ Standard .NET deps | ✅ Yes | `dotnet build` should work. Needs Newtonsoft.Json NuGet |
@@ -288,11 +288,11 @@ Reown's official SDKs (formerly WalletConnect) cover: `@web3modal/wagmi`, `@web3
 
 ---
 
-## 7. Specific Gaps vs Reown Mobile SDKs
+## 7. Specific Gaps vs Cinacoin Mobile SDKs
 
 ### High-Priority Gaps (all SDKs)
-1. **Social Login** — Only stub UI in Android/iOS. No OAuth backends. Reown supports Google, Apple, X login via embedded wallets.
-2. **Email Login** — Stub UI in Android/iOS. Reown has email-based embedded wallet creation.
+1. **Social Login** — Only stub UI in Android/iOS. No OAuth backends. Cinacoin supports Google, Apple, X login via embedded wallets.
+2. **Email Login** — Stub UI in Android/iOS. Cinacoin has email-based embedded wallet creation.
 3. **Session Persistence** — Android and iOS rely on the WC SDK's internal storage. Flutter has encrypted storage. Unity uses PlayerPrefs (plaintext).
 4. **QR Scanner** — React Native has a component. Android/iOS/Flutter lack native QR scanning (delegate to wallet apps).
 

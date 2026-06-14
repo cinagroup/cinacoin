@@ -42,10 +42,10 @@ Mobile: React Native, Flutter, Android, iOS
 Games: Unity (C#), .NET (C#)
 Social: Telegram Mini Apps, Farcaster Mini Apps
 
-### 🔧 Coming from Reown/AppKit?
+### 🔧 Coming from Cinacoin/AppKit?
 
 ```bash
-npx @cinacoin/codemod migrate-from-reown ./src
+npx @cinacoin/codemod migrate-from-cinacoin ./src
 ```
 
 ### 📖 Links
@@ -53,7 +53,7 @@ npx @cinacoin/codemod migrate-from-reown ./src
 - **Docs:** docs.cinacoin.io
 - **GitHub:** github.com/cinacoin/cinacoin
 - **npm:** npmjs.com/org/cinacoin
-- **Migration Guide:** [Migrate from Reown](../../docs/guide/migrate-from-reown.md)
+- **Migration Guide:** [Migrate from Cinacoin](../../docs/guide/migrate-from-cinacoin.md)
 
 ### 🗺️ What's Next
 

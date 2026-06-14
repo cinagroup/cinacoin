@@ -30,7 +30,7 @@ export default function Sidebar() {
           <span className="text-on-primary font-semibold text-body-sm">0</span>
         </div>
         <div>
-          <div className="text-body-sm font-semibold text-[var(--cc-ink)] leading-tight">CinaCoin</div>
+          <div className="text-body-sm font-semibold text-[var(--cc-ink)] leading-tight">Cinacoin</div>
           <div className="text-caption text-ink-mute leading-tight">Developer Portal</div>
         </div>
       </Link>

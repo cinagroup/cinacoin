@@ -1,6 +1,6 @@
 # @cinacoin/adapters
 
-Cinacoin wallet adapters — unified interface for MetaMask, WalletConnect, Coinbase, Phantom, Bitcoin, and more.
+Cinacoin wallet adapters — unified interface for MetaMask, Cinacoin, Coinbase, Phantom, Bitcoin, and more.
 
 ## Installation
 

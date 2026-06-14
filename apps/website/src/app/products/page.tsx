@@ -5,11 +5,11 @@ export default function ProductsPage() {
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    'name': 'CinaCoin Products',
+    'name': 'Cinacoin Products',
     'description': 'Complete Web3 infrastructure suite',
     'brand': {
       '@type': 'Brand',
-      'name': 'CinaCoin',
+      'name': 'Cinacoin',
     },
     'offers': {
       '@type': 'AggregateOffer',

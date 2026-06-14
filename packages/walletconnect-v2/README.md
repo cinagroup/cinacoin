@@ -1,6 +1,6 @@
 # @cinacoin/walletconnect-v2
 
-WalletConnect v2 adapter for Cinacoin.
+Cinacoin v2 adapter for Cinacoin.
 
 ## Installation
 
@@ -13,7 +13,7 @@ npm install @cinacoin/walletconnect-v2
 ```ts
 import { WalletConnectAdapter } from '@cinacoin/walletconnect-v2';
 
-const adapter = new WalletConnectAdapter({
+const adapter = new CinacoinAdapter({
   projectId: 'YOUR_PROJECT_ID',
 });
 ```
@@ -22,8 +22,8 @@ const adapter = new WalletConnectAdapter({
 
 | Export | Type | Description |
 |--------|------|-------------|
-| `WalletConnectAdapter` | class | WC v2 adapter |
-| `WalletConnectConnector` | class | WC connector class |
+| `CinacoinAdapter` | class | WC v2 adapter |
+| `CinacoinConnector` | class | WC connector class |
 | `createWCSession` | function | Create WC session |
 | `WCConfig` | type | Configuration type |
 | `WCSessionData` | type | Session data type |

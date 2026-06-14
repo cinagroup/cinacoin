@@ -1,6 +1,6 @@
 # Cinacoin Flutter Demo
 
-A comprehensive Flutter demo app showcasing the **Cinacoin Flutter SDK** — a self-hosted wallet connection toolkit and Reown/WalletConnect replacement for Flutter apps.
+A comprehensive Flutter demo app showcasing the **Cinacoin Flutter SDK** — a self-hosted wallet connection toolkit and Cinacoin/Cinacoin replacement for Flutter apps.
 
 ## Features Demonstrated
 
@@ -12,7 +12,7 @@ A comprehensive Flutter demo app showcasing the **Cinacoin Flutter SDK** — a s
 - SDK version and chain support info
 
 ### 🔗 Connect Screen
-- Full WalletConnect v2 pairing flow
+- Full Cinacoin v2 pairing flow
 - QR code display for wallet scanning
 - Wallet list with 16+ supported wallets (MetaMask, Rainbow, Phantom, etc.)
 - Connect/disconnect lifecycle management
@@ -35,7 +35,7 @@ A comprehensive Flutter demo app showcasing the **Cinacoin Flutter SDK** — a s
 - ETH/token transfer form with recipient and amount
 - Multi-chain target selection dropdown
 - Gas fee estimation via RPC (`eth_gasPrice`, `eth_estimateGas`)
-- Transaction submission via WalletConnect (`eth_sendTransaction`)
+- Transaction submission via Cinacoin (`eth_sendTransaction`)
 - Transaction polling for confirmation status
 - Block explorer link (auto-generated per chain)
 
@@ -47,7 +47,7 @@ apps/demo-flutter/
 │   ├── main.dart                 # App entry, SDK init, MaterialApp, bottom nav
 │   ├── screens/
 │   │   ├── home_screen.dart      # Dashboard with status, accounts, balance
-│   │   ├── connect_screen.dart   # WalletConnect pairing & session management
+│   │   ├── connect_screen.dart   # Cinacoin pairing & session management
 │   │   ├── chain_screen.dart     # Chain registry & switching
 │   │   ├── sign_screen.dart      # EIP-191 & EIP-712 signing
 │   │   └── transaction_screen.dart # TX form, estimation, polling
@@ -73,7 +73,7 @@ apps/demo-flutter/
 | Personal Sign | `sdk.personalSign()` |
 | Typed Sign | `sdk.signTypedDataV4()` |
 | Estimate Fee | `sdk.estimateFee()` |
-| Send TX | `sdk.sendViaWalletConnect()` |
+| Send TX | `sdk.sendViaCinacoin()` |
 | Poll TX | `sdk.pollTransaction()` |
 | Chain Registry | `sdk.getSupportedChains()` / `sdk.getChainConfig()` |
 
@@ -83,7 +83,7 @@ apps/demo-flutter/
 
 - **Flutter 3.16+** (`flutter --version`)
 - **Dart 3.2+** (`dart --version`)
-- A **WalletConnect v2 project ID** (free at https://cloud.walletconnect.com)
+- A **Cinacoin v2 project ID** (free at https://cloud.walletconnect.com)
 
 ### Installation
 
@@ -100,7 +100,7 @@ flutter run
 
 ### Configuration
 
-Open `lib/main.dart` and replace `YOUR_PROJECT_ID` with your actual WalletConnect project ID:
+Open `lib/main.dart` and replace `YOUR_PROJECT_ID` with your actual Cinacoin project ID:
 
 ```dart
 await sdk.initialize(

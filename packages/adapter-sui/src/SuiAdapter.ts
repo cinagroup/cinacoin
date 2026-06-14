@@ -38,7 +38,7 @@ import {
   type SuiChainPreset,
 } from './types.js';
 
-import { SuiWalletConnector } from './connectors/sui-wallet.js';
+import { SuiCinacoinor } from './connectors/sui-wallet.js';
 import { EthosConnector } from './connectors/ethos.js';
 import { SuietConnector } from './connectors/suiet.js';
 import { MartianConnector } from './connectors/martian.js';
@@ -195,7 +195,7 @@ export class SuiChainAdapter implements ChainAdapter {
 
   constructor() {
     // Register default connectors
-    this.registerConnector(new SuiWalletConnector());
+    this.registerConnector(new SuiCinacoinor());
     this.registerConnector(new SuietConnector());
     this.registerConnector(new EthosConnector());
     this.registerConnector(new MartianConnector());

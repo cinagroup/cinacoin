@@ -4,7 +4,7 @@
 
 ## Overview.
 
-The Relay Server handles real-time WebSocket communication between dApps and wallets using NATS as the message broker. It replaces WalletConnect's hosted relay with your own infrastructure.
+The Relay Server handles real-time WebSocket communication between dApps and wallets using NATS as the message broker. It replaces Cinacoin's hosted relay with your own infrastructure.
 
 ## Architecture.
 

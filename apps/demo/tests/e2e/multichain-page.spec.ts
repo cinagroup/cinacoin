@@ -43,7 +43,7 @@ test.describe('Multi-Chain Page', () => {
   test('chain cards show wallet support information', async ({ page }) => {
     await expect(page.getByText('Wallets').first()).toBeVisible();
     await expect(page.locator('text="MetaMask"').first()).toBeVisible();
-    await expect(page.locator('text="WalletConnect"').first()).toBeVisible();
+    await expect(page.locator('text="Cinacoin"').first()).toBeVisible();
   });
 
   test('chain cards show status indicators', async ({ page }) => {

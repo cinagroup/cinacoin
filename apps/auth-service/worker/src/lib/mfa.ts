@@ -93,7 +93,7 @@ export async function verifyTOTP(code: string, secret: string): Promise<boolean>
 }
 
 export function generateTOTPUri(email: string, secret: string): string {
-  return `otpauth://totp/CinaCoin:${encodeURIComponent(email)}?secret=${secret}&issuer=CinaCoin&algorithm=SHA1&digits=6&period=30`;
+  return `otpauth://totp/Cinacoin:${encodeURIComponent(email)}?secret=${secret}&issuer=Cinacoin&algorithm=SHA1&digits=6&period=30`;
 }
 
 export async function generateQRCodeBase64(uri: string): Promise<string> {

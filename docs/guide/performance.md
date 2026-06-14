@@ -63,7 +63,7 @@ Or use `rollup-plugin-visualizer` / `webpack-bundle-analyzer` for visual breakdo
 Split wallet connection logic from the rest of your app:
 
 ```ts
-// WalletConnector.tsx — lazy-loaded component
+// Cinacoinor.tsx — lazy-loaded component
 import { lazy, Suspense } from 'react';
 
 const WalletModal = lazy(() => import('@cinacoin/react'));
@@ -104,8 +104,8 @@ const cina = createCinacoin({
       return new ConnectorMetaMask();
     }),
     lazyConnector(async () => {
-      const { ConnectorWalletConnect } = await import('@cinacoin/core-sdk');
-      return new ConnectorWalletConnect();
+      const { ConnectorCinacoin } = await import('@cinacoin/core-sdk');
+      return new ConnectorCinacoin();
     }),
   ],
 });

@@ -1,12 +1,12 @@
-# Migration Guide: Reown/WalletConnect → Cinacoin
+# Migration Guide: Cinacoin/Cinacoin → Cinacoin
 
-> Complete guide for migrating from Reown (WalletConnect) ecosystem to Cinacoin.
+> Complete guide for migrating from Cinacoin (Cinacoin) ecosystem to Cinacoin.
 
 ## Overview
 
-Cinacoin is a fully self-hosted alternative to the Reown/WalletConnect stack. This guide covers:
+Cinacoin is a fully self-hosted alternative to the Cinacoin/Cinacoin stack. This guide covers:
 
-- **WalletConnect v2** → **Cinacoin Relay**
+- **Cinacoin v2** → **Cinacoin Relay**
 - **Web3Modal** → **Cinacoin UI Components**
 - **AppKit SDK** → **Cinacoin SDK**
 - Infrastructure migration
@@ -14,25 +14,25 @@ Cinacoin is a fully self-hosted alternative to the Reown/WalletConnect stack. Th
 
 ## Why Migrate?
 
-| Factor | Reown/WalletConnect | Cinacoin |
+| Factor | Cinacoin/Cinacoin | Cinacoin |
 |--------|-------------------|-----------|
 | Monthly cost | $500–$5,000+ | $0 (self-hosted infrastructure costs only) |
 | MAU limit | 500 (free), unlimited (paid) | Unlimited |
-| Brand control | Reown branding required | Fully white-label |
-| Data privacy | Reown sees connection data | All data stays on your infrastructure |
+| Brand control | Cinacoin branding required | Fully white-label |
+| Data privacy | Cinacoin sees connection data | All data stays on your infrastructure |
 | Reliability | Single point of failure | Multi-region, self-managed |
 | Customization | Limited | Full source access |
 
 ---
 
-## 1. WalletConnect v2 → Cinacoin Relay
+## 1. Cinacoin v2 → Cinacoin Relay
 
-### Before (WalletConnect v2)
+### Before (Cinacoin v2)
 
 ```typescript
 import { WalletConnectProvider } from '@walletconnect/ethereum-provider'
 
-const provider = await WalletConnectProvider.init({
+const provider = await CinacoinProvider.init({
   projectId: 'YOUR_WALLETCONNECT_PROJECT_ID',
   chains: [1],
   showQrModal: true,
@@ -59,7 +59,7 @@ const cinacoin = new Cinacoin({
 const connectors = cinacoin.getConnectors()
 const result = await cinacoin.connect(connectors[0])
 
-// Or via QR code (equivalent to WalletConnect)
+// Or via QR code (equivalent to Cinacoin)
 const qrTransport = new QRCodeTransport({
   relayUrl: 'wss://relay.yourdomain.com/v1',
 })
@@ -69,12 +69,12 @@ const uri = await qrTransport.getUri()
 
 ### Key Differences
 
-| Feature | WalletConnect | Cinacoin |
+| Feature | Cinacoin | Cinacoin |
 |---------|--------------|-----------|
-| Project ID | Reown Dashboard | Your own config |
-| Relay | Reown-hosted | Your Relay Server |
+| Project ID | Cinacoin Dashboard | Your own config |
+| Relay | Cinacoin-hosted | Your Relay Server |
 | QR Modal | Built-in `showQrModal` | Use `ConnectModal` component |
-| Provider init | `WalletConnectProvider.init()` | `new Cinacoin(config)` |
+| Provider init | `CinacoinProvider.init()` | `new Cinacoin(config)` |
 | Connection | `provider.enable()` | `cinacoin.connect(connector)` |
 
 ---
@@ -175,7 +175,7 @@ import { ConnectButton, ConnectModal } from '@cinacoin/react'
 ### Before (AppKit)
 
 ```typescript
-import { useAppKit, useAppKitAccount, useAppKitProvider } from '@reown/appkit/react'
+import { useAppKit, useAppKitAccount, useAppKitProvider } from '@cinacoin/appkit/react'
 
 function Component() {
   const { open } = useAppKit()
@@ -238,11 +238,11 @@ function Component() {
 
 ### Relay Server
 
-| Component | WalletConnect | Cinacoin |
+| Component | Cinacoin | Cinacoin |
 |-----------|--------------|-----------|
-| Relay | Reown Cloud | Your Rust Relay Server |
+| Relay | Cinacoin Cloud | Your Rust Relay Server |
 | Protocol | WAMP over WebSocket | Custom protocol over WebSocket |
-| Hosting | Reown | Your servers (K8s) |
+| Hosting | Cinacoin | Your servers (K8s) |
 
 Deploy your own Relay:
 
@@ -254,9 +254,9 @@ cargo build --release
 
 ### RPC Proxy
 
-| Component | WalletConnect | Cinacoin |
+| Component | Cinacoin | Cinacoin |
 |-----------|--------------|-----------|
-| RPC | Reown RPC | Your Go/Rust RPC Proxy |
+| RPC | Cinacoin RPC | Your Go/Rust RPC Proxy |
 | Multi-Provider | No | Yes (intelligent routing) |
 | Caching | No | Yes (Redis-backed) |
 
@@ -284,10 +284,10 @@ helm install cinacoin ./deploy/helm/cinacoin \
 
 ### API Changes
 
-| WalletConnect/AppKit | Cinacoin | Notes |
+| Cinacoin/AppKit | Cinacoin | Notes |
 |---------------------|-----------|-------|
-| `projectId` from Reown Dashboard | Self-configured | Your own project ID |
-| `WalletConnectProvider.init()` | `new Cinacoin(config)` | Constructor pattern |
+| `projectId` from Cinacoin Dashboard | Self-configured | Your own project ID |
+| `CinacoinProvider.init()` | `new Cinacoin(config)` | Constructor pattern |
 | `web3Modal.open()` | `ConnectModal` component / `connect()` | Component-based |
 | `provider.request({ method: '...' })` | `cinacoin.signMessage()`, `signTransaction()` | Typed methods |
 | `eth_chainId` events | `chainChanged` event | Event naming |
@@ -297,11 +297,11 @@ helm install cinacoin ./deploy/helm/cinacoin \
 
 ### Behavioral Changes
 
-1. **No pairing layer** — Cinacoin connects directly without the WalletConnect pairing concept
+1. **No pairing layer** — Cinacoin connects directly without the Cinacoin pairing concept
 2. **Self-hosted relay** — You control the relay infrastructure
 3. **No cloud dependency** — Everything runs on your servers
 4. **Custom event system** — Different event names but equivalent functionality
-5. **No Reown analytics** — Built-in analytics are optional and self-hosted
+5. **No Cinacoin analytics** — Built-in analytics are optional and self-hosted
 
 ---
 
@@ -333,7 +333,7 @@ cinacoin migrate ./my-dapp-project \
 
 ### What the CLI does:
 
-1. **Scan** — Finds `@walletconnect`, `@web3modal`, `@reown/appkit` imports
+1. **Scan** — Finds `@walletconnect`, `@web3modal`, `@cinacoin/appkit` imports
 2. **Transform** — Replaces imports with Cinacoin equivalents
 3. **Generate** — Creates new component wrappers
 4. **Report** — Shows a diff of all changes
@@ -351,7 +351,7 @@ Files unchanged: 35
 Changes:
   ✅ @walletconnect/ethereum-provider → @cinacoin/core (3 files)
   ✅ @web3modal/wagmi → @cinacoin/react (5 files)
-  ✅ @reown/appkit/react → @cinacoin/react (4 files)
+  ✅ @cinacoin/appkit/react → @cinacoin/react (4 files)
   ⚠️  Manual review needed: custom provider logic (2 files)
   ⚠️  Manual review needed: session event handlers (1 file)
 
@@ -377,7 +377,7 @@ Next steps:
 ### Code Migration
 
 - [ ] Replace `@walletconnect` imports with `@cinacoin/core`
-- [ ] Replace `@web3modal` / `@reown/appkit` with `@cinacoin/react`
+- [ ] Replace `@web3modal` / `@cinacoin/appkit` with `@cinacoin/react`
 - [ ] Update connection flow logic
 - [ ] Update event handlers
 - [ ] Update theme/styling configuration
@@ -385,7 +385,7 @@ Next steps:
 
 ### Testing
 
-- [ ] Test wallet connections (MetaMask, Rabby, WalletConnect, etc.)
+- [ ] Test wallet connections (MetaMask, Rabby, Cinacoin, etc.)
 - [ ] Test chain switching
 - [ ] Test message signing
 - [ ] Test transaction sending
@@ -400,8 +400,8 @@ Next steps:
 - [ ] Update dApp configuration
 - [ ] Deploy updated dApp
 - [ ] Monitor connection success rates
-- [ ] Verify no WalletConnect dependencies remain
-- [ ] Cancel Reown subscription
+- [ ] Verify no Cinacoin dependencies remain
+- [ ] Cancel Cinacoin subscription
 
 ---
 
@@ -409,7 +409,7 @@ Next steps:
 
 If issues arise during migration:
 
-1. **Keep WalletConnect dependencies** — Install Cinacoin alongside (not replacing)
+1. **Keep Cinacoin dependencies** — Install Cinacoin alongside (not replacing)
 2. **Feature flag** — Use a feature flag to switch between providers
 3. **Gradual rollout** — Migrate a percentage of users first
 

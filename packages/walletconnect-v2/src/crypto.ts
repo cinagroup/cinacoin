@@ -1,5 +1,5 @@
 /**
- * Crypto utilities for WalletConnect v2.
+ * Crypto utilities for Cinacoin v2.
  *
  * Re-exports core SDK's X25519 + ChaCha20-Poly1305 implementations
  * and adds WC v2–specific helpers: Type-0/Type-1 envelopes, HMAC

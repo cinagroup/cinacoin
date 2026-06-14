@@ -114,7 +114,7 @@
 |---------|--------|-------|
 | `@cinacoin/cli` | ✅ | Built — CLI scaffolding tool |
 | `@cinacoin/testing` | ✅ | Built — Mock providers & test utilities |
-| `@cinacoin/codemod` | ✅ | Built — Migration tool (Reown/AppKit → Cinacoin) |
+| `@cinacoin/codemod` | ✅ | Built — Migration tool (Cinacoin/AppKit → Cinacoin) |
 | `@cinacoin/wallet-recommender` | ✅ | Built — Wallet recommendation engine |
 | `@cinacoin/gas-estimator` | ✅ | Built — Gas estimation utilities |
 | `@cinacoin/token-list` | ✅ | Built — Curated token registry |

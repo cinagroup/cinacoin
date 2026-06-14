@@ -366,7 +366,7 @@ function SignInPanel() {
 | SIWE | `SiweMessage` from siwe package | `generateMessage` from @cinacoin/siwe |
 | Dependencies | 6+ packages | 3 packages |
 | QueryClient | Required | Not needed |
-| Infrastructure | Reown Cloud | Self-hosted Relay + RPC Proxy |
+| Infrastructure | Cinacoin Cloud | Self-hosted Relay + RPC Proxy |
 
 ## Automated Migration
 

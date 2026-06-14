@@ -13,7 +13,7 @@
 /**
  * Nuxt-specific connect button component.
  *
- * Triggers the CinaCoin wallet modal and updates its label
+ * Triggers the Cinacoin wallet modal and updates its label
  * based on connection state. When already connected, clicking
  * disconnects.
  *
@@ -24,7 +24,7 @@
  */
 import { computed, ref } from 'vue'
 
-const { cinaConnect } = useCinaCoin()
+const { cinaConnect } = useCinacoin()
 
 const connecting = ref(false)
 

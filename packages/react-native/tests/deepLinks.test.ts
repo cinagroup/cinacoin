@@ -216,7 +216,7 @@ describe('Deep Links', () => {
   });
 
   describe('WC URI format', () => {
-    it('should follow WalletConnect v2 URI format', () => {
+    it('should follow Cinacoin v2 URI format', () => {
       const wcUri = 'wc:abc123@2?relay-protocol=irn&symKey=def456';
       const parts = wcUri.split('@');
       const topic = parts[0].replace('wc:', '');

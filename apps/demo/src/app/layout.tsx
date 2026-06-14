@@ -21,25 +21,25 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: "CinaCoin Demo",
-    template: "%s | CinaCoin Demo",
+    default: "Cinacoin Demo",
+    template: "%s | Cinacoin Demo",
   },
-  description: "Interactive demo showcasing CinaCoin wallet features, transactions, multi-chain support, and DeFi capabilities. Experience the platform risk-free.",
-  keywords: ["CinaCoin", "demo", "wallet", "transactions", "multi-chain", "DeFi", "blockchain demo"],
+  description: "Interactive demo showcasing Cinacoin wallet features, transactions, multi-chain support, and DeFi capabilities. Experience the platform risk-free.",
+  keywords: ["Cinacoin", "demo", "wallet", "transactions", "multi-chain", "DeFi", "blockchain demo"],
   robots: {
     index: true,
     follow: true,
   },
   openGraph: {
     type: "website",
-    siteName: "CinaCoin",
-    title: "CinaCoin Demo",
-    description: "Interactive demo for CinaCoin wallet and transactions",
+    siteName: "Cinacoin",
+    title: "Cinacoin Demo",
+    description: "Interactive demo for Cinacoin wallet and transactions",
   },
   twitter: {
     card: "summary",
-    title: "CinaCoin Demo",
-    description: "Interactive demo for CinaCoin wallet and transactions",
+    title: "Cinacoin Demo",
+    description: "Interactive demo for Cinacoin wallet and transactions",
   },
 };
 

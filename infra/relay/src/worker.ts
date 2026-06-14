@@ -1,7 +1,7 @@
 /**
- * Cinacoin WalletConnect Relay Worker
+ * Cinacoin Cinacoin Relay Worker
  *
- * Edge relay proxy for WalletConnect v2 that provides:
+ * Edge relay proxy for Cinacoin v2 that provides:
  * - WebSocket relay for WC v2 protocol
  * - Session state management via D1
  * - Hot session caching via KV

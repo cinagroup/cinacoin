@@ -1,5 +1,5 @@
 <template>
-  <CinaCoinProvider
+  <CinacoinProvider
     :config="cinacoinConfig"
     :chains="chains"
   >
@@ -35,12 +35,12 @@
         </div>
       </footer>
     </div>
-  </CinaCoinProvider>
+  </CinacoinProvider>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { CinaCoinProvider, type CinacoinConfig, type ChainConfig, useCinacoin } from '@cinacoin/vue'
+import { CinacoinProvider, type CinacoinConfig, type ChainConfig, useCinacoin } from '@cinacoin/vue'
 import AppHeader from './components/AppHeader.vue'
 import ConnectWallet from './components/ConnectWallet.vue'
 import ConnectedFeatures from './components/ConnectedFeatures.vue'
@@ -65,14 +65,14 @@ const chains: ChainConfig[] = [
   },
 ]
 
-// ── CinaCoin Configuration ───────────────────────────────────────────────
+// ── Cinacoin Configuration ───────────────────────────────────────────────
 const projectId = import.meta.env.VITE_PROJECT_ID ?? ''
 
 const cinacoinConfig: CinacoinConfig = {
   projectId,
   metadata: {
-    name: 'CinaCoin Vue SDK demo.',
-    description: 'A comprehensive demo showcasing the CinaCoin Vue 3 SDK.',
+    name: 'Cinacoin Vue SDK demo.',
+    description: 'A comprehensive demo showcasing the Cinacoin Vue 3 SDK.',
     url: 'https://cinacoin.dev',
   },
   theme: {

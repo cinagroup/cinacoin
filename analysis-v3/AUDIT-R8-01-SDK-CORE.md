@@ -221,7 +221,7 @@ Total test files: **47** `.test.ts` files, **~20,968 lines** of test code.
 - Adapter-specific documentation (17 adapters, only Connector/SessionManager shown)
 - Chain adapter API reference
 - TypeScript configuration notes
-- Migration guide from WalletConnect/Reown
+- Migration guide from Cinacoin/Cinacoin
 - Security considerations
 
 ---

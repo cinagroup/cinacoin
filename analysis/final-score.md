@@ -1,14 +1,14 @@
-# Cinacoin vs Reown — Final Feature Completeness Score Report
+# Cinacoin vs Cinacoin — Final Feature Completeness Score Report
 
 > **Generated**: 2026-05-16  
 > **Scope**: Full codebase audit across all 21 packages, deploy configs, examples, docs  
-> **Method**: Source-level analysis of every file + comparison with Reown's public ecosystem
+> **Method**: Source-level analysis of every file + comparison with Cinacoin's public ecosystem
 
 ---
 
 ## 1. Overall Completeness Score: 42%
 
-| Dimension | Cinacoin | Reown | Score |
+| Dimension | Cinacoin | Cinacoin | Score |
 |-----------|:---------:|:-----:|:-----:|
 | SDK Core & Connection | 45% | 95% | 🔴 |
 | UI Components & Theming | 60% | 90% | 🟡 |
@@ -30,9 +30,9 @@
 
 ### 2.1 Core SDK & Connection
 
-| Feature | Reown | Cinacoin | Status |
+| Feature | Cinacoin | Cinacoin | Status |
 |---------|-------|-----------|--------|
-| WalletConnect v2 pairing | ✅ Production | ✅ Design complete, crypto module has `@noble/ciphers` implementation | 🟡 Partial — ChaCha20-Poly1305 encrypt/decrypt is implemented with `@noble/ciphers`, but keypair shared secret may still need verification |
+| Cinacoin v2 pairing | ✅ Production | ✅ Design complete, crypto module has `@noble/ciphers` implementation | 🟡 Partial — ChaCha20-Poly1305 encrypt/decrypt is implemented with `@noble/ciphers`, but keypair shared secret may still need verification |
 | EIP-6963 multi-wallet discovery | ✅ | ✅ Implemented | ✅ Parity |
 | Injected provider detection | ✅ | ✅ | ✅ Parity |
 | QR code pairing | ✅ | ✅ URI generation + QR transport | ✅ Parity |
@@ -40,7 +40,7 @@
 | Session management | ✅ Relay-synced | ✅ Zustand + localStorage | 🟡 No relay sync yet |
 | Chain adapters (EVM) | ✅ wagmi/ethers adapters | ✅ EvmAdapter, SolanaAdapter, BitcoinAdapter | 🟡 Raw EIP-1193 only |
 | Multi-chain session | ✅ | ✅ Designed in session-keys | 🟡 Partial |
-| Relay transport | Reown proprietary | ✅ Rust relay-server with NATS+Redis | 🟢 **Cinacoin leads** |
+| Relay transport | Cinacoin proprietary | ✅ Rust relay-server with NATS+Redis | 🟢 **Cinacoin leads** |
 | RPC proxy | ❌ Third-party | ✅ Go rpc-proxy with cache+dedup+router | 🟢 **Cinacoin leads** |
 | viem/ethers integration | ✅ Full | ❌ Not implemented | 🔴 Gap |
 | wagmi adapter | ✅ | ❌ | 🔴 Gap |
@@ -48,7 +48,7 @@
 
 ### 2.2 UI Components & Theming
 
-| Feature | Reown | Cinacoin | Status |
+| Feature | Cinacoin | Cinacoin | Status |
 |---------|-------|-----------|--------|
 | ConnectButton | ✅ Production | ✅ Lit Web Component + React + Vue + RN | 🟡 Needs polish |
 | ConnectModal | ✅ Production | ✅ Multi-view (wallets/social/email/scan) | 🟡 Needs polish |
@@ -69,20 +69,20 @@
 
 ### 2.3 Mobile SDKs
 
-| Feature | Reown | Cinacoin | Status |
+| Feature | Cinacoin | Cinacoin | Status |
 |---------|-------|-----------|--------|
-| iOS Swift SDK | ✅ reown-swift (108⭐) | ✅ Cinacoin/Sources (10 files, 456 lines) | 🟡 Real code, needs testing |
-| Android Kotlin SDK | ✅ reown-kotlin (56⭐) | ✅ Cinacoin/core (6 files, 360 lines) | 🟡 Real code, needs testing |
+| iOS Swift SDK | ✅ cinacoin-swift (108⭐) | ✅ Cinacoin/Sources (10 files, 456 lines) | 🟡 Real code, needs testing |
+| Android Kotlin SDK | ✅ cinacoin-kotlin (56⭐) | ✅ Cinacoin/core (6 files, 360 lines) | 🟡 Real code, needs testing |
 | React Native | ✅ appkit-react-native | ✅ Provider + Button + Modal + QRScanner | 🟡 Needs e2e testing |
 | Deep linking | ✅ | ✅ DeepLinkHandler (iOS+Android) | 🟡 Needs testing |
 | Push notifications (APNs) | ✅ push-server | ✅ PushNotificationHandler (iOS) + Push server (Rust) | 🟡 Server-side needs deployment |
 | Push notifications (FCM) | ✅ | ✅ FcmHandler (Android) + push-server | 🟡 Server-side needs deployment |
-| Flutter | ✅ reown_flutter | ❌ | 🔴 Gap |
-| Unity/.NET | ✅ reown-dotnet | ❌ | 🔴 Gap |
+| Flutter | ✅ cinacoin_flutter | ❌ | 🔴 Gap |
+| Unity/.NET | ✅ cinacoin-dotnet | ❌ | 🔴 Gap |
 
 ### 2.4 Infrastructure & Backend
 
-| Feature | Reown | Cinacoin | Status |
+| Feature | Cinacoin | Cinacoin | Status |
 |---------|-------|-----------|--------|
 | Relay Server | ✅ Proprietary SaaS | ✅ Rust (relay.rs + crypto + health + config) | 🟢 **Cinacoin leads** |
 | RPC Proxy | ❌ | ✅ Go (proxy + router + cache + dedup + ratelimit) | 🟢 **Cinacoin leads** |
@@ -98,7 +98,7 @@
 
 ### 2.5 Smart Accounts & Authentication
 
-| Feature | Reown | Cinacoin | Status |
+| Feature | Cinacoin | Cinacoin | Status |
 |---------|-------|-----------|--------|
 | ERC-4337 Support | ✅ Client-side | ✅ Full v0.7 (Bundler + Paymaster) | 🟢 **Cinacoin leads** |
 | Bundler RPC | N/A | ✅ All 5 ERC-4337 RPC methods | 🟢 **Cinacoin leads** |
@@ -115,7 +115,7 @@
 
 ### 2.6 Swap & On-Ramp
 
-| Feature | Reown | Cinacoin | Status |
+| Feature | Cinacoin | Cinacoin | Status |
 |---------|-------|-----------|--------|
 | Swap SDK | ❌ | ✅ Aggregator (Uniswap + 1inch + 0x) | 🟢 **Cinacoin leads** |
 | Swap quoter | ❌ | ✅ Price comparison + slippage protection | 🟢 **Cinacoin leads** |
@@ -125,9 +125,9 @@
 
 ### 2.7 Developer Ecosystem
 
-| Feature | Reown | Cinacoin | Status |
+| Feature | Cinacoin | Cinacoin | Status |
 |---------|-------|-----------|--------|
-| Documentation site | ✅ docs.reown.com (111⭐) | ❌ Raw MD files only (15 doc files) | 🔴 Critical gap |
+| Documentation site | ✅ docs.cinacoin.com (111⭐) | ❌ Raw MD files only (15 doc files) | 🔴 Critical gap |
 | Example apps | ✅ web-examples (510⭐) | ✅ 23 files (web/RN/iOS/Android examples) | 🟡 Good start, needs hosting |
 | Demo dApp | ✅ | ✅ apps/demo exists | 🟡 Needs deployment |
 | CLI tool | ✅ @web3modal/cli | ❌ | 🔴 Gap |
@@ -143,7 +143,7 @@
 
 ### 2.8 Testing & Quality
 
-| Feature | Reown | Cinacoin | Status |
+| Feature | Cinacoin | Cinacoin | Status |
 |---------|-------|-----------|--------|
 | TypeScript unit tests | ✅ vitest (comprehensive) | ⚠️ ~45 test files (core-sdk: 25, core-ui: 3, session-keys: 3, swap-sdk: 3, siwe: 2) | 🟡 Improving but gaps |
 | Solidity tests | ✅ | ✅ Paymaster.t.sol | 🟡 Partial |
@@ -200,14 +200,14 @@
 
 | # | Gap | Impact | Effort |
 |---|-----|--------|--------|
-| P1-1 | **No Flutter SDK** | Reown covers Flutter; game developers and cross-platform teams will need it | 3-4w |
+| P1-1 | **No Flutter SDK** | Cinacoin covers Flutter; game developers and cross-platform teams will need it | 3-4w |
 | P1-2 | **iOS/Android SDKs need unit tests** | 4,860 lines of Swift+Kotlin code with zero tests is a quality risk | 2-3w |
 | P1-3 | **No E2E test infrastructure** | Connection flows require real wallet testing (Playwright + mobile emulators) | 2w |
 | P1-4 | **Bundle size not tracked or optimized** | Frontend SDKs must be small; no tree-shaking or size-limit configured | 1w |
 | P1-5 | **Social login needs OAuth2 backend** | Providers are implemented but need a real OAuth2 flow server | 1-2w |
 | P1-6 | **ERC-6492 needs SDK integration** | Rust library exists but isn't wired into the core SDK for use | 3-5d |
 | P1-7 | **No CLI tool** | Developer onboarding is harder without `npx @cinacoin/init` | 1-2w |
-| P1-8 | **No codemod for AppKit migration** | Migration from Reown AppKit is a key selling point | 1w |
+| P1-8 | **No codemod for AppKit migration** | Migration from Cinacoin AppKit is a key selling point | 1w |
 
 ### P2 — Medium Priority (90 Days)
 
@@ -263,19 +263,19 @@
 
 ## 6. Summary
 
-### Where Cinacoin Leads Reown
+### Where Cinacoin Leads Cinacoin
 
 | Area | Advantage |
 |------|-----------|
 | **Self-hosted infrastructure** | Relay server, RPC proxy, Bundler, Push server — all custom Rust/Go implementations |
 | **Smart account depth** | Full ERC-4337 bundler with mempool, gas oracle, reputation system, and multiple paymaster modes |
 | **Cost transparency** | Built-in cost management with KEDA autoscaling, Spot instances, budget alerts |
-| **Observability** | Complete Prometheus + Grafana + Jaeger + Loki + OTel stack vs. Reown's black-box SaaS |
-| **Swap & On-Ramp** | Full aggregation SDKs vs. Reown's lack of these features |
-| **Session keys** | Policy engine + social recovery + batch transactions — Reown has none of this |
-| **Design token system** | 3-layer token architecture with 4 presets vs. Reown's simpler theming |
+| **Observability** | Complete Prometheus + Grafana + Jaeger + Loki + OTel stack vs. Cinacoin's black-box SaaS |
+| **Swap & On-Ramp** | Full aggregation SDKs vs. Cinacoin's lack of these features |
+| **Session keys** | Policy engine + social recovery + batch transactions — Cinacoin has none of this |
+| **Design token system** | 3-layer token architecture with 4 presets vs. Cinacoin's simpler theming |
 
-### Where Reown Leads Cinacoin
+### Where Cinacoin Leads Cinacoin
 
 | Area | Gap |
 |------|-----|
@@ -284,13 +284,13 @@
 | **Framework adapters** | wagmi/ethers/ethers5 integrations vs. raw EIP-1193 |
 | **Testing infrastructure** | Comprehensive test suites across all packages vs. 45 test files (concentrated in core-sdk) |
 | **Flutter/Unity coverage** | 6 mobile/game platforms vs. 3 (iOS/Android/RN) |
-| **Brand recognition** | WalletConnect → Reown brand is the industry standard |
+| **Brand recognition** | Cinacoin → Cinacoin brand is the industry standard |
 
 ### Bottom Line
 
-Cinacoin at **42% completeness** has transitioned from a "design-only" project to one with **real implementations across all 21 packages**. The architecture is superior to Reown in infrastructure depth and smart account capabilities. However, the **developer experience gap** (docs, examples, CLI, codemod) and **testing gaps** on server-side packages remain the largest blockers to production adoption.
+Cinacoin at **42% completeness** has transitioned from a "design-only" project to one with **real implementations across all 21 packages**. The architecture is superior to Cinacoin in infrastructure depth and smart account capabilities. However, the **developer experience gap** (docs, examples, CLI, codemod) and **testing gaps** on server-side packages remain the largest blockers to production adoption.
 
-**Path to 70%**: Focus on the P0 items (LICENSE, docs, crypto verification, server-side tests, viem integration) and the top P1 items (Flutter SDK, E2E tests, bundle optimization). This would bring Cinacoin to feature parity with Reown's core capabilities while maintaining its infrastructure advantages.
+**Path to 70%**: Focus on the P0 items (LICENSE, docs, crypto verification, server-side tests, viem integration) and the top P1 items (Flutter SDK, E2E tests, bundle optimization). This would bring Cinacoin to feature parity with Cinacoin's core capabilities while maintaining its infrastructure advantages.
 
 ---
 

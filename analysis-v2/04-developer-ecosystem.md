@@ -1,6 +1,6 @@
 # 04 — Developer Ecosystem, Testing & DX Comparison
 
-> CinaAuth/Cinacoin vs Reown — Developer Experience, Testing Quality, CI/CD, and Ecosystem Tooling.
+> CinaAuth/Cinacoin vs Cinacoin — Developer Experience, Testing Quality, CI/CD, and Ecosystem Tooling.
 
 ---
 
@@ -17,16 +17,16 @@
 | **Languages** | Bilingual — Chinese index/guide + English migration guide |
 | **Navigation** | Sidebar with categories: Guide, API (hand-written + auto-generated), Examples (4 platforms), Security, FAQ |
 | **Quality** | Code examples are production-grade with full config objects, TypeScript types, and real RPC endpoints |
-| **Migration guide** | Comprehensive 8-section Reown→Cinacoin migration guide with component/hook mapping tables, breaking changes, automated CLI tool, and checklist |
+| **Migration guide** | Comprehensive 8-section Cinacoin→Cinacoin migration guide with component/hook mapping tables, breaking changes, automated CLI tool, and checklist |
 
 **Notable docs:**
 - `guide/quick-start.md` — 5-minute onboarding with full working example
-- `guide/migrate-from-reown.md` — Side-by-side before/after code comparisons
+- `guide/migrate-from-cinacoin.md` — Side-by-side before/after code comparisons
 - `security/best-practices.md` — E2E encryption, SIWE, session keys, smart contract security, RPC security
 - `security/audit-report.md` — Full audit framework template with checklists for crypto, deployment, compliance
 - `api/generated/` — 7 auto-generated TypeDoc pages (analytics, swap-sdk, core-sdk, aa-sdk, mobile, infra, onramp-sdk, session-keys)
 
-### Reown
+### Cinacoin
 
 | Dimension | Detail |
 |-----------|--------|
@@ -40,11 +40,11 @@
 | Aspect | Winner | Notes |
 |--------|--------|-------|
 | Structure | **Tie** | Both well-organized, different scales |
-| Migration support | **Cinacoin** ✅ | Dedicated migration guide from Reown — no Reown equivalent |
-| Auto-generated API | **Tie** | Cinacoin: TypeDoc → VitePress; Reown: custom tooling |
+| Migration support | **Cinacoin** ✅ | Dedicated migration guide from Cinacoin — no Cinacoin equivalent |
+| Auto-generated API | **Tie** | Cinacoin: TypeDoc → VitePress; Cinacoin: custom tooling |
 | Security docs | **Cinacoin** ✅ | Full audit template, crypto review checklist, deployment checklist |
 | Bilingual | **Cinacoin** ✅ | Chinese + English |
-| Scale | **Reown** ✅ | 776MB of docs vs Cinacoin's compact but complete set |
+| Scale | **Cinacoin** ✅ | 776MB of docs vs Cinacoin's compact but complete set |
 | Custom domain | **Cinacoin** ✅ | Built into CI/CD pipeline |
 
 ---
@@ -68,7 +68,7 @@
 - Balance fetching via ethers.js with CoinGecko price integration
 - TypeScript throughout with proper types
 
-### Reown Examples
+### Cinacoin Examples
 
 | Repository | Stars | Language | Coverage |
 |------------|-------|----------|----------|
@@ -80,9 +80,9 @@
 
 | Aspect | Winner | Notes |
 |--------|--------|-------|
-| Platform coverage | **Cinacoin** ✅ | 6 platforms (Web, RN, iOS, Android, Flutter, Unity) vs Reown's 3 |
+| Platform coverage | **Cinacoin** ✅ | 6 platforms (Web, RN, iOS, Android, Flutter, Unity) vs Cinacoin's 3 |
 | Code quality | **Tie** | Both production-quality examples |
-| Community validation | **Reown** ✅ | Real GitHub stars (510+130+86) vs Cinacoin's private examples |
+| Community validation | **Cinacoin** ✅ | Real GitHub stars (510+130+86) vs Cinacoin's private examples |
 | Depth | **Cinacoin** ✅ | Includes Swap, MultiChain, Auth, Deep Linking, Push Notifications |
 | Real integrations | **Cinacoin** ✅ | Examples show real RPC, EIP-6963, CoinGecko |
 
@@ -111,28 +111,28 @@
 - **Coverage merging**: Unifies Vitest + cargo-llvm-cov + Go coverage into single report
 - **Bundle size regression**: Prevents accidental bloat on PRs
 
-### Reown CI/CD (inferred from repos)
+### Cinacoin CI/CD (inferred from repos)
 
 | Repo | CI Indicators |
 |------|---------------|
-| reown-swift | fastlane/, scripts/, Tests/ |
-| reown-kotlin | .maestro/ (UI testing), buildSrc/, scripts/, sample/ |
+| cinacoin-swift | fastlane/, scripts/, Tests/ |
+| cinacoin-kotlin | .maestro/ (UI testing), buildSrc/, scripts/, sample/ |
 | yttrium | test/, canary/, docs/, scripts/, build scripts |
-| reown-dotnet | AGENTS.md, CLAUDE.md, .claude/, playground/, sample/ |
+| cinacoin-dotnet | AGENTS.md, CLAUDE.md, .claude/, playground/, sample/ |
 | AppKit | .changeset/, .cursor/, renovate.json, vitest.config.ts, dangerfile.ts |
 
 ### Verdict
 
 | Aspect | Winner | Notes |
 |--------|--------|-------|
-| Pipeline count | **Cinacoin** ✅ | 7 dedicated workflows vs Reown's distributed setup |
+| Pipeline count | **Cinacoin** ✅ | 7 dedicated workflows vs Cinacoin's distributed setup |
 | Canary deployment | **Cinacoin** ✅ | Automated canary with Prometheus checks and auto-rollback |
 | Security scanning | **Cinacoin** ✅ | Semgrep + Trivy + cargo-audit + gosec + govulncheck + npm audit + weekly cron |
 | Multi-language CI | **Cinacoin** ✅ | Single pipeline orchestrating Rust, Go, TS in parallel |
 | License compliance | **Cinacoin** ✅ | Automated GPL/AGPL blocking |
 | Container scanning | **Cinacoin** ✅ | Trivy + SARIF → CodeQL for all services |
-| Bundle size | **Tie** | Both use size-checking (Cinacoin: preactjs; Reown: dangerfile.ts) |
-| Maturity | **Reown** | Larger repos, more commits, more real-world CI runs |
+| Bundle size | **Tie** | Both use size-checking (Cinacoin: preactjs; Cinacoin: dangerfile.ts) |
+| Maturity | **Cinacoin** | Larger repos, more commits, more real-world CI runs |
 
 ---
 
@@ -144,7 +144,7 @@
 |---------|-----------|----------------|
 | **core-sdk** | 18 test files | Crypto (encrypt, keypair), session, auth/SIWE, transports (relay, QR, injected), EIP-6963, adapters (viem, wagmi, ethers5/6, tron, evm, ton, polkadot, WC-v2), connector, store, **7 integration tests** (cross-chain-sync, multi-chain, siwe-flow, swap-flow, wc-v2-flows, batch-transaction, analytics, error-handling, full-flow) |
 | **react** | 1 | ConnectButton |
-| **react-native** | 3 | deepLinks, ConnectModal, WalletConnectProvider |
+| **react-native** | 3 | deepLinks, ConnectModal, CinacoinProvider |
 | **siwe** | 3 | validator, utils, siwe |
 | **siwx** | 4 | siwx + 3 chain tests (bitcoin, evm, solana) |
 | **walletconnect-v2** | 6 | session, client, relay, pairing, crypto, methods |
@@ -197,10 +197,10 @@
 - Integration tests: cross-package flow tests (full flow: connect → sign → send → disconnect)
 - E2E covers real browser interactions with mock wallet providers
 
-**Areas where Reown may lead:**
-- Reown's `.maestro/` directory suggests mobile UI testing (Maestro framework) — Cinacoin lacks native mobile UI testing
-- Reown Swift/Kotlin repos have dedicated `Tests/` directories with platform-native testing
-- Reown's community-driven test suite has more real-world usage patterns
+**Areas where Cinacoin may lead:**
+- Cinacoin's `.maestro/` directory suggests mobile UI testing (Maestro framework) — Cinacoin lacks native mobile UI testing
+- Cinacoin Swift/Kotlin repos have dedicated `Tests/` directories with platform-native testing
+- Cinacoin's community-driven test suite has more real-world usage patterns
 
 ### Verdict
 
@@ -209,10 +209,10 @@
 | Unit test count | **Cinacoin** ✅ | ~58+ test files across 20 packages |
 | Integration tests | **Cinacoin** ✅ | 7 full integration flow tests |
 | E2E test coverage | **Cinacoin** ✅ | 7 E2E suites, 5 browser targets, mobile included |
-| Mobile UI testing | **Reown** ✅ | Maestro framework for native mobile testing |
+| Mobile UI testing | **Cinacoin** ✅ | Maestro framework for native mobile testing |
 | Test framework | **Cinacoin** ✅ | Vitest workspace with per-project env config |
 | Coverage reporting | **Cinacoin** ✅ | Unified TS+Rust+Go coverage, uploaded as artifacts |
-| Real-world validation | **Reown** ✅ | Community contributions, production usage |
+| Real-world validation | **Cinacoin** ✅ | Community contributions, production usage |
 
 ---
 
@@ -227,14 +227,14 @@
 
 **Quality:** Highly specific to cryptographic correctness. Defines exact library paths, algorithm parameters (nonce=12 bytes, key=32 bytes), wire format, and hard constraints on what NOT to do. This is production-grade AI agent guidance.
 
-### Reown
+### Cinacoin
 
 | Repo | AI Config |
 |------|-----------|
-| reown-dotnet | AGENTS.md, CLAUDE.md, .claude/ |
+| cinacoin-dotnet | AGENTS.md, CLAUDE.md, .claude/ |
 | AppKit | .cursor/ (Cursor editor config) |
 
-**Quality:** Reown has AI configs primarily in the .NET repo, suggesting focused AI agent setup for that product line.
+**Quality:** Cinacoin has AI configs primarily in the .NET repo, suggesting focused AI agent setup for that product line.
 
 ### Verdict
 
@@ -243,7 +243,7 @@
 | Cryptographic specificity | **Cinacoin** ✅ | Exact algorithms, libraries, parameters, and constraints |
 | Multi-language support | **Cinacoin** ✅ | TS + Rust guidance |
 | Safety constraints | **Cinacoin** ✅ | Explicit "never do X" rules |
-| Reown coverage | **Reown** | AI configs only in .NET repo |
+| Cinacoin coverage | **Cinacoin** | AI configs only in .NET repo |
 
 ---
 
@@ -263,7 +263,7 @@
 | **TypeDoc** | 9 entry points | Auto-generated API documentation |
 | **Bundle size check** | `preactjs/compressed-size-action` | PR-level bundle regression prevention |
 
-### Reown
+### Cinacoin
 
 | Tool | Implementation |
 |------|---------------|
@@ -272,8 +272,8 @@
 | **Vitest** | `vitest.config.ts` in AppKit |
 | **Danger** | `dangerfile.ts` in AppKit |
 | **Cursor** | `.cursor/` in AppKit |
-| **Fastlane** | `fastlane/` in reown-swift |
-| **Maestro** | `.maestro/` in reown-kotlin |
+| **Fastlane** | `fastlane/` in cinacoin-swift |
+| **Maestro** | `.maestro/` in cinacoin-kotlin |
 
 ### Verdict
 
@@ -285,8 +285,8 @@
 | Monorepo tooling | **Cinacoin** ✅ | Turbo + pnpm workspace (24 packages) |
 | TypeDoc | **Cinacoin** ✅ | 9 entry points, integrated into docs CI |
 | Bundle size | **Tie** | Both have size checking |
-| Mobile tooling | **Reown** ✅ | Fastlane + Maestro for native mobile |
-| AI editor config | **Reown** ✅ | Cursor configuration |
+| Mobile tooling | **Cinacoin** ✅ | Fastlane + Maestro for native mobile |
+| AI editor config | **Cinacoin** ✅ | Cursor configuration |
 
 ---
 
@@ -317,14 +317,14 @@
 
 ## 8. Overall Developer Experience Scorecard
 
-| Category | Cinacoin | Reown | Winner |
+| Category | Cinacoin | Cinacoin | Winner |
 |----------|-----------|-------|--------|
 | Documentation | 9/10 | 9/10 | Tie |
 | Examples (coverage) | 9/10 | 7/10 | **Cinacoin** |
-| Examples (validation) | 6/10 | 9/10 | **Reown** |
+| Examples (validation) | 6/10 | 9/10 | **Cinacoin** |
 | CI/CD maturity | 10/10 | 7/10 | **Cinacoin** |
 | Test coverage (quantity) | 9/10 | 7/10 | **Cinacoin** |
-| Test coverage (real-world) | 7/10 | 9/10 | **Reown** |
+| Test coverage (real-world) | 7/10 | 9/10 | **Cinacoin** |
 | E2E testing | 9/10 | 7/10 | **Cinacoin** |
 | AI agent config | 9/10 | 6/10 | **Cinacoin** |
 | CLI tooling | 9/10 | 6/10 | **Cinacoin** |
@@ -338,12 +338,12 @@
 ### Cinacoin Advantages
 1. **CI/CD is enterprise-grade**: 7 workflows covering build, quality, release, security (with weekly cron), docs, deployment (with canary + auto-rollback), and bundle size
 2. **Test depth**: 58+ unit tests + 7 E2E suites across 5 browsers/mobile targets
-3. **Migration ready**: Dedicated migration guide and CLI tool for Reown users
+3. **Migration ready**: Dedicated migration guide and CLI tool for Cinacoin users
 4. **Security-first**: Semgrep SAST, Trivy container scanning, cargo-audit, gosec, govulncheck, npm audit, license compliance — all automated
 5. **Documentation quality**: Bilingual, auto-generated API docs, security audit framework
 6. **AI agent friendly**: Detailed AGENTS.md + CLAUDE.md with crypto-specific guidance
 
-### Reown Advantages
+### Cinacoin Advantages
 1. **Community validation**: Real GitHub stars, community-contributed examples
 2. **Native mobile testing**: Maestro + Fastlane for iOS/Android
 3. **Production maturity**: More CI runs, real-world battle-testing
@@ -353,4 +353,4 @@
 1. **No community validation yet**: All examples are internal — needs open-source community feedback
 2. **No native mobile UI testing**: Missing Maestro or equivalent for RN/iOS/Android UI tests
 3. **AI configs could expand**: Only AGENTS.md + CLAUDE.md — could add `.cursor/`, `.github/copilot-instructions.md`
-4. **Migration CLI needs validation**: The `cinacoin migrate` command needs real-world testing against actual Reown projects
+4. **Migration CLI needs validation**: The `cinacoin migrate` command needs real-world testing against actual Cinacoin projects

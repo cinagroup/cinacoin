@@ -1,7 +1,7 @@
 import { ConnectorConfig, ConnectorEvents, ConnectionResult } from '../types';
 
 /**
- * Minimal WalletConnect session shape used by WalletConnectConnector.
+ * Minimal Cinacoin session shape used by CinacoinConnector.
  */
 interface WCSession {
   topic: string;
@@ -32,9 +32,9 @@ interface SignClientInstance {
   session: { getAll: () => WCSession[] };
 }
 
-/** Configuration for WalletConnectConnector. */
+/** Configuration for CinacoinConnector. */
 interface WCConnectorOptions {
-  /** WalletConnect Cloud relay project ID */
+  /** Cinacoin Cloud relay project ID */
   projectId: string;
   /** App metadata displayed in the wallet */
   metadata?: {
@@ -61,19 +61,19 @@ const DEFAULT_METHODS = [
 const DEFAULT_EVENTS = ['chainChanged', 'accountsChanged'];
 
 /**
- * Full WalletConnect v2 connector using @cinacoin/core-sdk SignClient.
+ * Full Cinacoin v2 connector using @cinacoin/core-sdk SignClient.
  *
  * Supports pairing via QR code URI, deep links, and direct session management.
  */
-export class WalletConnectConnector implements ConnectorConfig {
+export class CinacoinConnector implements ConnectorConfig {
   readonly id = 'walletconnect';
-  readonly name = 'WalletConnect';
+  readonly name = 'Cinacoin';
   readonly icon = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%233B99FC" d="M16.275 5.366a.64.64 0 0 0-.913-.022l-3.139 2.78-3.139-2.78a.64.64 0 0 0-.914.022.683.683 0 0 0 .022.944l3.565 3.158-3.565 3.157a.683.683 0 0 0-.022.944c.237.257.643.272.913.022l3.14-2.78 3.139 2.78c.27.25.676.235.913-.022a.683.683 0 0 0-.022-.944L12.69 11.466l3.564-3.157a.683.683 0 0 0 .022-.944z"/></svg>';
   readonly type = 'walletconnect' as const;
 
   /** Internal event handlers */
   private _handlers: Map<string, Set<(...args: unknown[]) => void>> = new Map();
-  /** WalletConnect SignClient instance */
+  /** Cinacoin SignClient instance */
   private _signClient: SignClientInstance | null = null;
   /** Active session topic */
   private _sessionTopic: string | null = null;
@@ -94,7 +94,7 @@ export class WalletConnectConnector implements ConnectorConfig {
   // ─── Lifecycle ──────────────────────────────────────────────────
 
   /**
-   * Initialize the WalletConnect SignClient.
+   * Initialize the Cinacoin SignClient.
    *
    * Must be called before any connection attempt.
    */
@@ -121,7 +121,7 @@ export class WalletConnectConnector implements ConnectorConfig {
   }
 
   /**
-   * Connect via WalletConnect.
+   * Connect via Cinacoin.
    *
    * Generates a new pairing URI and waits for the remote wallet to approve.
    * Call getURI() after connect() to retrieve the QR code URI.
@@ -172,7 +172,7 @@ export class WalletConnectConnector implements ConnectorConfig {
   }
 
   /**
-   * Disconnect the active WalletConnect session.
+   * Disconnect the active Cinacoin session.
    */
   async disconnect(): Promise<void> {
     if (this._sessionTopic && this._signClient) {
@@ -199,11 +199,11 @@ export class WalletConnectConnector implements ConnectorConfig {
   // ─── Provider interaction ───────────────────────────────────────
 
   /**
-   * Send a JSON-RPC request through the active WalletConnect session.
+   * Send a JSON-RPC request through the active Cinacoin session.
    */
   async request(args: { method: string; params?: unknown[] }): Promise<unknown> {
     if (!this._sessionTopic || !this._signClient) {
-      throw new Error('No active WalletConnect session. Call connect() first.');
+      throw new Error('No active Cinacoin session. Call connect() first.');
     }
 
     const chainIdNum = parseInt(this._chainId, 16);
@@ -227,7 +227,7 @@ export class WalletConnectConnector implements ConnectorConfig {
   }
 
   /**
-   * WalletConnect is always available as long as the browser has network access.
+   * Cinacoin is always available as long as the browser has network access.
    */
   isAvailable(): boolean {
     return true;

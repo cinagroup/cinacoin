@@ -71,7 +71,7 @@ export interface BitcoinConnectionResult {
 /**
  * Core interface every Bitcoin wallet connector must implement.
  *
- * Modeled after the EIP-6963 / WalletConnect discovery pattern, extended
+ * Modeled after the EIP-6963 / Cinacoin discovery pattern, extended
  * with Bitcoin-native methods (signPsbt, sendBitcoin, etc.).
  *
  * @example

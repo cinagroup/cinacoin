@@ -117,7 +117,7 @@ keys-server:
 **文件修改:**
 - `docker-compose.yml`
 
-### 2.4 docker-compose 使用 WalletConnect 上游 relay 镜像
+### 2.4 docker-compose 使用 Cinacoin 上游 relay 镜像
 
 **问题:** `docker-compose.yml` 中 relay 服务直接使用 `ghcr.io/walletconnect/walletconnect-relay:latest` 上游镜像，而非项目自构建的 relay-server。
 
@@ -134,7 +134,7 @@ relay:
     - NATS_URL=nats://nats-cluster:4222
 ```
 
-同时更新注释从 "WalletConnect Relay Server" 为 "Cinacoin Relay Server (self-built)"。
+同时更新注释从 "Cinacoin Relay Server" 为 "Cinacoin Relay Server (self-built)"。
 
 **文件修改:**
 - `docker-compose.yml`

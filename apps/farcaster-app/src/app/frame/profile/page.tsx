@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import { buildFrameMetadata, getAppUrl } from '@/lib/frame-utils';
 
 export const metadata: Metadata = {
-  title: 'CinaCoin — Profile',
+  title: 'Cinacoin — Profile',
   description: 'View your Farcaster profile and wallet connections.',
   other: buildFrameMetadata({
     image: `${getAppUrl()}/og-profile.png`,

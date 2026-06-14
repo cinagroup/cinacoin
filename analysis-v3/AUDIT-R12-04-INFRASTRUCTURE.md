@@ -19,7 +19,7 @@ Since R8, the codebase has seen **significant improvements** in handler implemen
 | KV namespace collision | ✅ FIXED | Each service now has unique KV namespace IDs |
 | Dockerfiles missing | ✅ PARTIALLY FIXED | keys-server and push-server Dockerfiles now exist at package level |
 | Cargo.toml dependencies | ❌ REGRESSION | relay-server, push-server, notify-server, and rpc-proxy have NO [dependencies] sections |
-| docker-compose still | ❌ UNCHANGED | Still uses WalletConnect upstream relay image; still has default DB creds |
+| docker-compose still | ❌ UNCHANGED | Still uses Cinacoin upstream relay image; still has default DB creds |
 | Helm chart name mismatch | ❌ UNCHANGED | deploy.yaml references `onchainux` helm chart but only `cinacoin` exists |
 | build.yaml paths | ❌ UNCHANGED | Still references `./relay-server` instead of `./packages/relay-server` |
 

@@ -21,7 +21,7 @@ const translations: Record<Locale, Record<string, string>> = {
     'theme.toggle': 'Toggle theme',
     'sidebar.fundamentals': 'Fundamentals',
     'sidebar.advanced': 'Advanced',
-    'sidebar.back': '← Back to CinaCoin',
+    'sidebar.back': '← Back to Cinacoin',
   },
   zh: {
     'nav.home': '首页',
@@ -33,7 +33,7 @@ const translations: Record<Locale, Record<string, string>> = {
     'theme.toggle': '切换主题',
     'sidebar.fundamentals': '基础',
     'sidebar.advanced': '进阶',
-    'sidebar.back': '← 返回 CinaCoin',
+    'sidebar.back': '← 返回 Cinacoin',
   },
   ja: {
     'nav.home': 'ホーム',
@@ -45,7 +45,7 @@ const translations: Record<Locale, Record<string, string>> = {
     'theme.toggle': 'テーマ切替',
     'sidebar.fundamentals': '基礎',
     'sidebar.advanced': '応用',
-    'sidebar.back': '← CinaCoin に戻る',
+    'sidebar.back': '← Cinacoin に戻る',
   },
 };
 

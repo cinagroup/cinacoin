@@ -111,15 +111,15 @@ function handleWalletSelect(wallet: WalletInfo) {
     // 打开相机扫码
     launchCamera({
       onScan: (uri: string) => {
-        connectViaWalletConnect(uri)
+        connectViaCinacoin(uri)
       },
     })
   } else if (wallet.type === 'injected') {
     // 使用注入的钱包（如 MetaMask Mobile Browser）
     connectInjected(wallet)
   } else if (wallet.type === 'walletconnect') {
-    // 通过 WalletConnect 连接
-    connectWalletConnect(wallet)
+    // 通过 Cinacoin 连接
+    connectCinacoin(wallet)
   }
 }
 ```

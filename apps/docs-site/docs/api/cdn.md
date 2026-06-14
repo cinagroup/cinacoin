@@ -1,10 +1,10 @@
 # CDN.
 
-> `@cinacoin/cdn` — CDN distribution for CinaCoin SDK assets.
+> `@cinacoin/cdn` — CDN distribution for Cinacoin SDK assets.
 
 ## Overview.
 
-Configure and manage CDN distribution of CinaCoin SDK builds for edge caching and fast global delivery.
+Configure and manage CDN distribution of Cinacoin SDK builds for edge caching and fast global delivery.
 
 ## Related.
 

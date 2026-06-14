@@ -254,7 +254,7 @@ export default function SwapPage() {
 
       {/* Powered by */}
       <p className="text-center text-caption text-[var(--cc-muted)] cc-caption mt-4">
-        Powered by <span className="font-medium text-[var(--cc-body)]">CinaCoin Swap SDK</span>
+        Powered by <span className="font-medium text-[var(--cc-body)]">Cinacoin Swap SDK</span>
         {' · '}<span className="text-[var(--cc-warning)]/70">Demo mode — prices are illustrative</span>
       </p>
 

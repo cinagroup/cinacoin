@@ -1091,13 +1091,13 @@ pages_build_output_dir = "out"
 
 [vars]
 NEXT_PUBLIC_API_URL = "https://api.cinacoin.com"
-NEXT_PUBLIC_APP_NAME = "CinaCoin Cloud"
+NEXT_PUBLIC_APP_NAME = "Cinacoin Cloud"
 
 [env.staging]
 name = "cinacoin-cloud-dashboard-staging"
 [env.staging.vars]
 NEXT_PUBLIC_API_URL = "https://api-staging.cinacoin.com"
-NEXT_PUBLIC_APP_NAME = "CinaCoin Cloud (Staging)"
+NEXT_PUBLIC_APP_NAME = "Cinacoin Cloud (Staging)"
 ```
 
 ---

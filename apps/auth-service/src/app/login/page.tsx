@@ -81,7 +81,7 @@ export default function LoginPage() {
     <div className="auth-container">
       <div className="auth-card">
         <div className="auth-logo">
-          <h1>CinaCoin</h1>
+          <h1>Cinacoin</h1>
           <p>{mfaRequired ? '双因素认证' : '登录到您的账户'}</p>
         </div>
 

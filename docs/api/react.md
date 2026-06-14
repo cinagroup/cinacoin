@@ -185,7 +185,7 @@ function ConnectWallet() {
       {status === 'connecting' && <p>Connecting...</p>}
       {isSwitchingChain && <p>Switching chain...</p>}
       <button onClick={() => handleConnect('metamask')}>MetaMask</button>
-      <button onClick={() => handleConnect('walletconnect')}>WalletConnect</button>
+      <button onClick={() => handleConnect('walletconnect')}>Cinacoin</button>
       <button onClick={() => handleConnect('coinbase')}>Coinbase Wallet</button>
     </div>
   )

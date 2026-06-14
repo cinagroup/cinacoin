@@ -1,6 +1,6 @@
 # Batch transaction.
 
-> `@cinacoin/batch-transaction` — Batch transaction construction for CinaCoin.
+> `@cinacoin/batch-transaction` — Batch transaction construction for Cinacoin.
 
 ## Installation.
 

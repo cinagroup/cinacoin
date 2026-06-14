@@ -1,4 +1,4 @@
-# WalletConnect v2 API
+# Cinacoin v2 API
 
 > `@cinacoin/walletconnect-v2` — WalletConnect v2 协议实现。
 
@@ -13,12 +13,12 @@ npm install @cinacoin/walletconnect-v2
 ```typescript
 import { WalletConnectClient } from '@cinacoin/walletconnect-v2'
 
-const client = new WalletConnectClient({
+const client = new CinacoinClient({
   projectId: 'your-project-id',
   relayUrl: 'wss://relay.walletconnect.com',
   metadata: {
     name: 'My dApp',
-    description: 'WalletConnect v2 dApp',
+    description: 'Cinacoin v2 dApp',
     url: 'https://mydapp.com',
     icons: ['https://mydapp.com/icon.png'],
   },

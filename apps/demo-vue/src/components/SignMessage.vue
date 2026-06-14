@@ -86,9 +86,9 @@ const { signMessage, isSigning, error: signError, signature } = useSignMessage()
 const message = ref('')
 
 const presets = [
-  'Hello, CinaCoin!',
+  'Hello, Cinacoin!',
   'I own this wallet.',
-  'Sign in to CinaCoin.',
+  'Sign in to Cinacoin.',
   'Agree to terms of service.',
 ]
 

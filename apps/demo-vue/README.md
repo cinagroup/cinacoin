@@ -34,13 +34,13 @@ pnpm install
 
 ### 2. Configure environment variables
 
-Copy the example env file and add your WalletConnect Project ID:
+Copy the example env file and add your Cinacoin Project ID:
 
 ```bash
 cp .env.example .env
 ```
 
-Edit `.env` and set `VITE_PROJECT_ID` with your [WalletConnect Cloud](https://cloud.walletconnect.com) project ID.
+Edit `.env` and set `VITE_PROJECT_ID` with your [Cinacoin Cloud](https://cloud.walletconnect.com) project ID.
 
 ### 3. Run the dev server
 
@@ -62,7 +62,7 @@ pnpm --filter @cinacoin/demo-vue build
 apps/demo-vue/
 ├── src/
 │   ├── main.ts                    # App entry point
-│   ├── App.vue                    # Root: CinaCoinProvider + layout
+│   ├── App.vue                    # Root: CinacoinProvider + layout
 │   ├── env.d.ts                   # Vite env type declarations
 │   └── components/
 │       ├── AppHeader.vue          # Header with status indicator
@@ -120,7 +120,7 @@ The most comprehensive component:
 
 | API Category | Composables/Components | Used In |
 |-------------|----------------------|---------|
-| Provider | `CinaCoinProvider` | App.vue |
+| Provider | `CinacoinProvider` | App.vue |
 | Account | `useCinacoin`, `useAccount` | All components |
 | Connection | `connect`, `disconnect` | ConnectWallet |
 | Wallets | `OcxConnectButton`, `ConnectModal` | ConnectWallet |

@@ -44,7 +44,7 @@ use sha2::Sha256;
 
 **评级**: 生产级实现，无明显安全缺陷。
 
-### 1.3 Vue Mock Connect → 真实 WalletConnect ✅ PARTIAL
+### 1.3 Vue Mock Connect → 真实 Cinacoin ✅ PARTIAL
 
 **文件**: `packages/vue/src/CinacoinProvider.vue`, `packages/vue/src/connectorManager.ts`
 
@@ -59,18 +59,18 @@ import {
 } from '@cinacoin/core-sdk';
 ```
 
-**但是**，WalletConnect 本身仍是 placeholder：
+**但是**，Cinacoin 本身仍是 placeholder：
 
 ```typescript
-createWalletConnectConnector(): void {
+createCinacoinConnector(): void {
     console.warn(
-      '[Cinacoin] WalletConnect relay connector requires @cinacoin/core-sdk ' +
+      '[Cinacoin] Cinacoin relay connector requires @cinacoin/core-sdk ' +
         'RelayTransport configuration...',
     );
 }
 ```
 
-**结论**: Injected providers (MetaMask, Rabby) 已真实实现。WalletConnect 连接本身仍是空壳 — 仅有元数据注册，无实际 WC v2 relay/session 实现。
+**结论**: Injected providers (MetaMask, Rabby) 已真实实现。Cinacoin 连接本身仍是空壳 — 仅有元数据注册，无实际 WC v2 relay/session 实现。
 
 ### 1.4 Vue 事件泄漏修复 ✅ PASS
 
@@ -189,7 +189,7 @@ dependencies {
 - ❌ 无 Compose Compiler
 - ❌ 无 material/material3
 
-仅包含 WalletConnect SDK 和 coroutines。作为一个 "library" module 可以接受，但如果目标是完整 Android SDK 则缺失严重。
+仅包含 Cinacoin SDK 和 coroutines。作为一个 "library" module 可以接受，但如果目标是完整 Android SDK 则缺失严重。
 
 ### 2.4 Polkadot SCALE 未经测试 ⚠️ 部分通过
 
@@ -271,7 +271,7 @@ Vue 测试文件存在 (`OnChainUXProvider.test.ts`, `eventListenerLeak.test.ts`
 |--------|------|------|
 | Rust 服务器依赖补全 | ⚠️ 4/5 | rpc-proxy 完全缺失 deps |
 | keys-server XOR 替换 | ✅ | 生产级 ChaCha20-Poly1305 |
-| Vue mock connect | ⚠️ | Injected providers 真实，WalletConnect 仍为空壳 |
+| Vue mock connect | ⚠️ | Injected providers 真实，Cinacoin 仍为空壳 |
 | Vue 事件泄漏 | ✅ | 全部使用存储引用 |
 | .NET Keccak-256 | ✅ | BouncyCastle 正确实现 |
 
@@ -294,5 +294,5 @@ Vue 测试文件存在 (`OnChainUXProvider.test.ts`, `eventListenerLeak.test.ts`
 3. **P1**: check_nats 实现真实 NATS 连接检查（假健康报告误导运维）
 4. **P2**: docker-compose 凭据改为环境变量默认值 + 警告注释
 5. **P2**: solana/bitcoin 适配器添加基础 try/catch 错误处理
-6. **P3**: Vue WalletConnect 真实 relay 实现（目前仅 placeholder）
+6. **P3**: Vue Cinacoin 真实 relay 实现（目前仅 placeholder）
 7. **P3**: Android 添加 Compose 和测试依赖（如果需要完整 SDK）

@@ -11,7 +11,7 @@ import {
  */
 export interface AppKitPagesRouterProps {
   /**
-   * CinaCoin project ID (from https://cloud.cinacoin.com).
+   * Cinacoin project ID (from https://cloud.cinacoin.com).
    */
   projectId: string;
 
@@ -72,7 +72,7 @@ const defaultChain: ChainConfig = {
  * AppKitPagesRouter — SSR-safe provider for Next.js Pages Router (legacy `_app.tsx`).
  *
  * Unlike the App Router provider, this component renders during SSR as well,
- * but initializes the CinaCoin context in a hydration-safe way.
+ * but initializes the Cinacoin context in a hydration-safe way.
  *
  * Usage:
  * ```tsx
@@ -119,7 +119,7 @@ export function AppKitPagesRouter({
 
   // For Pages Router, we always render the provider, but the inner state
   // (address, balance, etc.) won't hydrate until client-side activation.
-  // This is safe because CinaCoinProvider initializes with null/default values.
+  // This is safe because CinacoinProvider initializes with null/default values.
   if (!mounted) {
     return <CinacoinProvider config={{ ...config }}>{children}</CinacoinProvider>;
   }

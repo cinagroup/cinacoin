@@ -1,9 +1,9 @@
-# Cinacoin 诚实审计 Round 5 — Reown 功能对标
+# Cinacoin 诚实审计 Round 5 — Cinacoin 功能对标
 
 > **日期**: 2026-05-27 06:52 UTC  
 > **审计员**: 000  
 > **范围**: 75 packages, 180K LOC (source), 74 built, 5 Cloudflare Workers  
-> **对标**: docs.reown.com 完整功能列表  
+> **对标**: docs.cinacoin.com 完整功能列表  
 
 ---
 
@@ -20,11 +20,11 @@
 
 ---
 
-## 🔄 Reown 功能对标矩阵
+## 🔄 Cinacoin 功能对标矩阵
 
 ### AppKit — 钱包连接 (核心)
 
-| Reown 功能 | Cinacoin 包 | 状态 | 说明 |
+| Cinacoin 功能 | Cinacoin 包 | 状态 | 说明 |
 |------------|-------------|------|------|
 | Connect Wallet Modal | `@cinacoin/core-sdk` + `@cinacoin/core-ui` | ✅ 完整 | `Connector` + `CinacoinUI` 组件 |
 | Wallet List (100+ wallets) | `@cinacoin/walletconnect-v2` + `@cinacoin/wallet-buttons` | ✅ 完整 | WalletConnect v2 协议实现 |
@@ -40,7 +40,7 @@
 
 ### Authentication (身份认证)
 
-| Reown 功能 | Cinacoin 包 | 状态 | 说明 |
+| Cinacoin 功能 | Cinacoin 包 | 状态 | 说明 |
 |------------|-------------|------|------|
 | SIWE (Sign-In With Ethereum) | `@cinacoin/siwe` | ✅ 完整 | 签名+验证全链路 |
 | SIWX (Sign-In With X) | `@cinacoin/siwx` | ✅ 完整 | 跨链签名 |
@@ -54,7 +54,7 @@
 
 ### Smart Accounts (智能账户 / ERC-4337)
 
-| Reown 功能 | Cinacoin 包 | 状态 | 说明 |
+| Cinacoin 功能 | Cinacoin 包 | 状态 | 说明 |
 |------------|-------------|------|------|
 | Account Abstraction SDK | `@cinacoin/aa-sdk` | ✅ 完整 | UserOperation 封装 |
 | Bundler Client | `@cinacoin/bundler` | ✅ 完整 | TypeScript + Rust 双实现 |
@@ -67,7 +67,7 @@
 
 ### Swap (代币兑换)
 
-| Reown 功能 | Cinacoin 包 | 状态 | 说明 |
+| Cinacoin 功能 | Cinacoin 包 | 状态 | 说明 |
 |------------|-------------|------|------|
 | Swap SDK | `@cinacoin/swap-sdk` | ✅ 完整 | Router + Approve + MEV 保护 |
 | Swap Aggregator | `@cinacoin/swap-sdk` | ✅ 完整 | 多路由聚合 |
@@ -77,7 +77,7 @@
 
 ### Onramp (法币入金)
 
-| Reown 功能 | Cinacoin 包 | 状态 | 说明 |
+| Cinacoin 功能 | Cinacoin 包 | 状态 | 说明 |
 |------------|-------------|------|------|
 | Onramp Aggregator | `@cinacoin/onramp-sdk` | ✅ 完整 | MoonPay + Ramp + Transak |
 | Onramp Widget | `@cinacoin/onramp-sdk` (widget.ts) | ✅ 完整 | iframe 嵌入 |
@@ -86,7 +86,7 @@
 
 ### Notifications & Analytics
 
-| Reown 功能 | Cinacoin 包 | 状态 | 说明 |
+| Cinacoin 功能 | Cinacoin 包 | 状态 | 说明 |
 |------------|-------------|------|------|
 | Push Notifications | `@cinacoin/push-server` | ✅ 完整 | APNs + FCM |
 | Notify Server | `@cinacoin/notify-server` | ✅ 完整 | push/email/webhook/sms |
@@ -95,7 +95,7 @@
 
 ### Infrastructure (基础设施)
 
-| Reown 功能 | Cinacoin 包 | 状态 | 说明 |
+| Cinacoin 功能 | Cinacoin 包 | 状态 | 说明 |
 |------------|-------------|------|------|
 | Relay Server | `@cinacoin/relay-server` | ✅ 完整 | WebSocket + Durable Objects |
 | RPC Proxy | `@cinacoin/rpc-proxy` | ✅ 完整 | 6 条链 + KV 缓存 |
@@ -107,7 +107,7 @@
 
 ### Compliance & Security
 
-| Reown 功能 | Cinacoin 包 | 状态 | 说明 |
+| Cinacoin 功能 | Cinacoin 包 | 状态 | 说明 |
 |------------|-------------|------|------|
 | KYC Screening | `@cinacoin/kyc` | ✅ 完整 | 制裁名单 + 风险评级 |
 | Travel Rule | `@cinacoin/travel-rule-demo` | ⚠️ 演示 | 仅 demo，未生产化 |
@@ -118,7 +118,7 @@
 
 ### Platform Support
 
-| Reown 功能 | Cinacoin 包 | 状态 | 说明 |
+| Cinacoin 功能 | Cinacoin 包 | 状态 | 说明 |
 |------------|-------------|------|------|
 | React | `@cinacoin/react` | ✅ 完整 | 14 hooks + EIP-5792 |
 | Vue | `@cinacoin/vue` | ✅ 完整 | 10 composables |
@@ -141,7 +141,7 @@
 
 ## 🔴 诚实差距 — 声明 vs 现实
 
-### 1. "100% Feature Parity with Reown"
+### 1. "100% Feature Parity with Cinacoin"
 
 | 声明 | 现实 |
 |------|------|
@@ -222,9 +222,9 @@
 
 ---
 
-## 📈 与 Reown 功能差距量化
+## 📈 与 Cinacoin 功能差距量化
 
-| 类别 | Reown 功能数 | Cinacoin 已实现 | 完成度 |
+| 类别 | Cinacoin 功能数 | Cinacoin 已实现 | 完成度 |
 |------|-------------|----------------|--------|
 | 钱包连接 | 10 | 10 | **100%** |
 | 身份认证 | 8 | 8 | **100%** |
@@ -244,7 +244,7 @@
 **Cinacoin 不是空壳项目。** 75 个包中 74 个已构建，180K LOC 真实源码，核心功能（钱包连接、认证、智能账户、Swap、基础设施）已完整实现。
 
 **诚实评价**:
-- ✅ 核心 SDK 与 Reown AppKit 功能对标 **~89%**
+- ✅ 核心 SDK 与 Cinacoin AppKit 功能对标 **~89%**
 - ✅ 基础设施（Workers）完全自建，$0 成本
 - ⚠️ 移动 SDK (6 个包) 和 Travel Rule 待完善
 - ⚠️ Demo App 大部分为模拟交互（但 SDK 层面真实可用）

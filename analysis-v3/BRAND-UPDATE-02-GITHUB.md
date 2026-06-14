@@ -7,7 +7,7 @@
 
 ## 概述
 
-将 GitHub 项目名称从 `CinaCoin` / `onux` 更新为 `Cinacoin`。
+将 GitHub 项目名称从 `Cinacoin` / `onux` 更新为 `Cinacoin`。
 
 ---
 
@@ -110,7 +110,7 @@ git remote -v  # 验证
 
 - `package.json` 中的 `"name": "cinacoin"` — 这是 npm 包名，修改会影响已发布的包
 - 所有 `@cinacoin/*` scoped package names — 这些是 npm 包命名空间
-- 源代码中的 `CinaCoin` 品牌引用（README 标题、文档等）
+- 源代码中的 `Cinacoin` 品牌引用（README 标题、文档等）
 - 代码中的 `cinacoin` 模块导入路径
 
 这些是品牌层面的修改，如果需要同时修改，应该单独执行。

@@ -23,7 +23,7 @@ const DEFAULT_WALLETS: WalletInfo[] = [
   },
   {
     id: 'walletconnect',
-    name: 'WalletConnect',
+    name: 'Cinacoin',
     icon: 'https://explorer-api.walletconnect.com/v3/logo/lg/3c3e4620-9c65-48de-bb0d-76540d0a8a22?projectId=x',
     platforms: ['mobile', 'desktop'],
     rdns: 'com.walletconnect',

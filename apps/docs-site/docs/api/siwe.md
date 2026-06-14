@@ -1,6 +1,6 @@
 # SIWE.
 
-> `@cinacoin/siwe` — Sign-In with Ethereum integration for CinaCoin.
+> `@cinacoin/siwe` — Sign-In with Ethereum integration for Cinacoin.
 
 ## Installation.
 
@@ -16,7 +16,7 @@ import { SIWE } from '@cinacoin/siwe'
 const siwe = new SIWE({
   domain: 'cinacoin.com',
   uri: 'https://cinacoin.com',
-  statement: 'Sign in to CinaCoin',
+  statement: 'Sign in to Cinacoin',
 })
 ```
 

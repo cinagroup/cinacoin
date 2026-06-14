@@ -39,14 +39,14 @@ declare global {
  *
  * @example
  * ```ts
- * const kantara = new KantaraWalletConnector();
+ * const kantara = new KantaraCinacoinor();
  * if (kantara.isAvailable()) {
  *   const result = await kantara.connect();
  *   logger.info(result.accounts); // ["0.0.12345"]
  * }
  * ```
  */
-export class KantaraWalletConnector implements HederaConnector {
+export class KantaraCinacoinor implements HederaConnector {
   readonly id = 'kantara';
   readonly name = 'Kantara Wallet';
   readonly icon =

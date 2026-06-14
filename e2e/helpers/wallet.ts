@@ -106,7 +106,7 @@ export async function assertDisconnected(page: Page): Promise<void> {
 }
 
 /**
- * Inject a mock WalletConnect provider into the page (for testing without a real wallet).
+ * Inject a mock Cinacoin provider into the page (for testing without a real wallet).
  */
 export async function injectMockProvider(page: Page): Promise<void> {
   await page.evaluate(() => {

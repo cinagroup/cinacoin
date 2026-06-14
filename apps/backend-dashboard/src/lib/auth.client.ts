@@ -42,7 +42,7 @@ export function createSiweMessage(address: string, nonce: string): string {
     `${domain} wants you to sign in with your Ethereum account:`,
     address,
     "",
-    "Sign in to the CinaCoin Backend Dashboard.",
+    "Sign in to the Cinacoin Backend Dashboard.",
     "",
     `URI: ${uri}`,
     `Version: 1`,

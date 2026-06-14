@@ -55,8 +55,8 @@ vi.mock('react-native', () => ({
 }));
 
 // Mock the context provider
-vi.mock('../src/CinaCoinProvider', () => ({
-  useCinaCoinContext: vi.fn(() => ({
+vi.mock('../src/CinacoinProvider', () => ({
+  useCinacoinContext: vi.fn(() => ({
     connect: vi.fn().mockResolvedValue(undefined),
     connectWithUri: vi.fn().mockResolvedValue(undefined),
     createPairing: vi.fn().mockResolvedValue('wc:mock@2?relay-protocol=irn&symKey=mock'),
@@ -98,7 +98,7 @@ vi.mock('@cinacoin/walletconnect-v2', () => ({
     },
     {
       id: 'walletconnect',
-      name: 'WalletConnect',
+      name: 'Cinacoin',
       homepage: 'https://walletconnect.com',
       deepLink: 'wc://',
       universalLink: 'https://walletconnect.com',
@@ -151,7 +151,7 @@ describe('ConnectModal', () => {
 
     it('should accept custom wallets prop', () => {
       const customWallets = [
-        { id: 'custom', name: 'Custom Wallet', supportsWalletConnect: true },
+        { id: 'custom', name: 'Custom Wallet', supportsCinacoin: true },
       ];
       const props = {
         visible: true,
@@ -206,8 +206,8 @@ describe('ConnectModal', () => {
   describe('wallet selection', () => {
     it('should call onClose after successful connection', async () => {
       const onClose = vi.fn();
-      const { useCinaCoinContext } = require('../src/CinaCoinProvider');
-      const { connect } = useCinaCoinContext();
+      const { useCinacoinContext } = require('../src/CinacoinProvider');
+      const { connect } = useCinacoinContext();
 
       await connect('email');
       expect(connect).toHaveBeenCalledWith('email');

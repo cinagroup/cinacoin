@@ -5,10 +5,10 @@ import { Coins } from 'lucide-react';
 import type { Token } from '@/types';
 
 const mockTokens: Token[] = [
-  { symbol: 'CINA', name: 'CinaCoin', balance: '1,234,567.89', value: '$2,469,135.78', change24h: '+3.2%', changePositive: true },
+  { symbol: 'CINA', name: 'Cinacoin', balance: '1,234,567.89', value: '$2,469,135.78', change24h: '+3.2%', changePositive: true },
   { symbol: 'USDC', name: 'USD Coin', balance: '50,000.00', value: '$50,000.00', change24h: '+0.01%', changePositive: true },
   { symbol: 'WETH', name: 'Wrapped Ether', balance: '12.5', value: '$46,875.00', change24h: '-1.4%', changePositive: false },
-  { symbol: 'CINA-LP', name: 'CinaCoin LP Token', balance: '1,250.00', value: '$6,250.00', change24h: '+2.1%', changePositive: true },
+  { symbol: 'CINA-LP', name: 'Cinacoin LP Token', balance: '1,250.00', value: '$6,250.00', change24h: '+2.1%', changePositive: true },
 ];
 
 export default function TokensPage() {

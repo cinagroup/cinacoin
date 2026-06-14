@@ -1,6 +1,6 @@
 # Android Kotlin.
 
-> `@cinacoin/android-kotlin` — Android native SDK for CinaCoin.
+> `@cinacoin/android-kotlin` — Android native SDK for Cinacoin.
 
 ## Installation.
 
@@ -12,8 +12,8 @@ implementation 'com.cinacoin:sdk:1.0.0'
 ## Usage.
 
 ```kotlin
-val config = CinaCoinConfig(projectId = "your-project-id")
-val cinaConnect = CinaCoin(context, config)
+val config = CinacoinConfig(projectId = "your-project-id")
+val cinaConnect = Cinacoin(context, config)
 ```
 
 ## Related.

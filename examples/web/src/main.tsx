@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { CinaCoinProvider } from '@cinacoin/react'
+import { CinacoinProvider } from '@cinacoin/react'
 import { ConnectDemo } from './components/ConnectDemo'
 import { SwapDemo } from './components/SwapDemo'
 import { MultiChainDemo } from './components/MultiChainDemo'
@@ -31,8 +31,8 @@ const config = {
     },
   ],
   metadata: {
-    name: 'CinaCoin Demo',
-    description: 'CinaCoin Web Example — 完整功能演示',
+    name: 'Cinacoin Demo',
+    description: 'Cinacoin Web Example — 完整功能演示',
     url: window.location.origin,
     icons: [],
   },
@@ -45,10 +45,10 @@ const config = {
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <CinaCoinProvider config={config}>
+    <CinacoinProvider config={config}>
       <div className="app">
         <header className="app-header">
-          <h1>🔢 CinaCoin Web Demo</h1>
+          <h1>🔢 Cinacoin Web Demo</h1>
           <p>自有品牌链上 UX 工具包 — 完整功能演示</p>
         </header>
 
@@ -75,9 +75,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         </main>
 
         <footer className="app-footer">
-          <p>CinaCoin v0.1.0 — MIT License</p>
+          <p>Cinacoin v0.1.0 — MIT License</p>
         </footer>
       </div>
-    </CinaCoinProvider>
+    </CinacoinProvider>
   </React.StrictMode>,
 )

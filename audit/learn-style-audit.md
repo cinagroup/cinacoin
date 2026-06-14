@@ -307,7 +307,7 @@ backgroundColor: isActive ? 'var(--cc-link-bg-soft)' : 'transparent',
 | wallet-integration | "Wallet integration" | ❌ |
 | multichain | "Multichain development" | ❌ |
 | best-practices | "Best practices" | ❌ |
-| 首页 h1 | "Welcome to CinaCoin Learn." | ✅ |
+| 首页 h1 | "Welcome to Cinacoin Learn." | ✅ |
 
 **修复**: 统一为 "Web3 basics.", "Wallet integration.", "Multichain development.", "Best practices."
 

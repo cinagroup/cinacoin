@@ -9,7 +9,7 @@ Welcome to the Cinacoin documentation. This guide will help you integrate wallet
 - [Quick Start](/guide/quick-start) — Get up and running in 5 minutes
 - [Installation](/guide/installation) — Detailed setup for every framework
 - [Configuration](/guide/configuration) — Full configuration reference
-- [Migrate from Reown](/guide/migrate-from-reown) — Migration guide for Reown users
+- [Migrate from Cinacoin](/guide/migrate-from-cinacoin) — Migration guide for Cinacoin users
 - [Troubleshooting](/guide/troubleshooting) — Common issues and solutions
 
 ## What is Cinacoin?

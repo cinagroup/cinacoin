@@ -7,7 +7,7 @@
  * @packageDocumentation
  * @example
  * ```tsx
- * import { WalletButton, WalletButtonGroup, WalletConnectButton } from '@cinacoin/wallet-buttons';
+ * import { WalletButton, WalletButtonGroup, CinacoinButton } from '@cinacoin/wallet-buttons';
  * import { useWalletButtons } from '@cinacoin/wallet-buttons';
  *
  * function App() {
@@ -15,7 +15,7 @@
  *     <div>
  *       <WalletButton walletId="metamask" variant="brand" size="lg" />
  *       <WalletButtonGroup walletIds={['metamask', 'walletconnect', 'coinbase']} layout="grid" />
- *       <WalletConnectButton size="md" />
+ *       <CinacoinButton size="md" />
  *     </div>
  *   );
  * }
@@ -24,7 +24,7 @@
 
 export { WalletButton } from './WalletButton';
 export { WalletButtonGroup } from './WalletButtonGroup';
-export { WalletConnectButton } from './WalletConnectButton';
+export { CinacoinButton } from './CinacoinButton';
 export { useWalletButtons } from './hooks/useWalletButtons';
 
 export type {

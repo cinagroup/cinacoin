@@ -1,14 +1,14 @@
-# 📊 Cinacoin vs Reown AppKit — Detailed Feature Comparison
+# 📊 Cinacoin vs Cinacoin AppKit — Detailed Feature Comparison
 
 > **Date**: 2026-05-26 03:14 UTC  
-> **Scope**: Feature-by-feature comparison of Cinacoin v3 vs latest Reown AppKit  
+> **Scope**: Feature-by-feature comparison of Cinacoin v3 vs latest Cinacoin AppKit  
 > **Based on**: Filesystem-verified audit of 74 packages, 589 tests, 17 chain adapters, EIP-5792 across 6 frameworks
 
 ---
 
 ## 🎯 Executive Comparison
 
-| Dimension | Cinacoin | Reown AppKit | Verdict |
+| Dimension | Cinacoin | Cinacoin AppKit | Verdict |
 |-----------|-------------|-------------|---------|
 | **Total Packages** | **74** | ~30 repos | 🏆 Cinacoin 2.5x more packages |
 | **Chain Adapters** | **17** (core) + 8 standalone | ~8 core + community | 🏆 Cinacoin 2x chain coverage |
@@ -26,15 +26,15 @@
 
 ### 1.1 Core Wallet Connection
 
-| Feature | Cinacoin | Reown | Notes |
+| Feature | Cinacoin | Cinacoin | Notes |
 |---------|-------------|-------|-------|
 | Wallet Connect Modal | ✅ Lit web components (`core-ui`) | ✅ Scaffold UI web components | Both use Lit |
-| WalletConnect v2 Protocol | ✅ Full client (7 source files, ~1,000 LOC) | ✅ Originator | Cinacoin re-implemented WC v2 |
+| Cinacoin v2 Protocol | ✅ Full client (7 source files, ~1,000 LOC) | ✅ Originator | Cinacoin re-implemented WC v2 |
 | EIP-6963 Wallet Discovery | ✅ Full spec compliance | ✅ Full spec compliance | Parity |
 | QR Code Connection | ✅ Built-in QR scanner | ✅ QR code support | Parity |
 | Deep Linking | ✅ Platform-aware (mobile SDKs) | ✅ Deep linking | Parity |
 | Universal Links | ✅ iOS + Android | ✅ iOS + Android | Parity |
-| Wallet Registry | ✅ 600+ wallets via WC Network | ✅ Cloud-hosted registry | Reown has cloud advantage |
+| Wallet Registry | ✅ 600+ wallets via WC Network | ✅ Cloud-hosted registry | Cinacoin has cloud advantage |
 | Wallet Recommender | ✅ Intelligent scoring engine | ❌ No dedicated recommender | 🏆 Cinacoin exclusive |
 | Custom Connectors | ✅ `custom-connectors` package | ✅ Custom connector interface | Parity |
 | Multi-Wallet Linking | ✅ `multiwallet` package | ✅ Multi-wallet feature | Parity |
@@ -43,21 +43,21 @@
 
 ### 1.2 Authentication Methods
 
-| Feature | Cinacoin | Reown | Notes |
+| Feature | Cinacoin | Cinacoin | Notes |
 |---------|-------------|-------|-------|
 | SIWE (EIP-4361) | ✅ Full (5 files, ~1,000 LOC) | ✅ SIWE integration | Parity |
-| SIWX Cross-Chain Auth | ✅ EVM + Solana + Bitcoin | ✅ EVM + Solana + Bitcoin + TON + Tron | ⚠️ Reown wider chain coverage |
+| SIWX Cross-Chain Auth | ✅ EVM + Solana + Bitcoin | ✅ EVM + Solana + Bitcoin + TON + Tron | ⚠️ Cinacoin wider chain coverage |
 | Email Login | ✅ OTP + magic links + HD wallet | ✅ Email embedded wallet | Parity |
 | Social Login (Google/Apple/X) | ✅ OAuth2 + PKCE + token verification | ✅ Social OAuth | Parity |
 | Phone OTP | ✅ Multi-provider SMS (Twilio, etc.) | ✅ Phone OTP | Parity |
 | Passkey/WebAuthn | ✅ Full (registration, auth, management) | ✅ Passkey support | Parity |
 | Embedded Wallet | ✅ PBKDF2 key derivation + encrypted backup | ✅ Embedded wallet (W3MFrame) | Parity |
 | Session Keys | ✅ Policy-based + social recovery | ✅ Session management | Parity |
-| **TON/Tron SIWX** | ❌ Not implemented | ✅ Available | ⚠️ Reown advantage |
+| **TON/Tron SIWX** | ❌ Not implemented | ✅ Available | ⚠️ Cinacoin advantage |
 
 ### 1.3 Social Login Depth
 
-| Feature | Cinacoin | Reown | Notes |
+| Feature | Cinacoin | Cinacoin | Notes |
 |---------|-------------|-------|-------|
 | Google OAuth2/OIDC | ✅ Full flow | ✅ | Parity |
 | Apple Sign-In | ✅ JWT client secret | ✅ | Parity |
@@ -74,7 +74,7 @@
 
 ### 2.1 Complete Adapter Comparison
 
-| Chain | Cinacoin | Reown | Cinacoin LOC | Notes |
+| Chain | Cinacoin | Cinacoin | Cinacoin LOC | Notes |
 |-------|-------------|-------|-----------------|-------|
 | **Ethereum/EVM** | ✅ (evm + viem + ethers5 + ethers6 + wagmi) | ✅ | 2,175 LOC | 🏆 Cinacoin 5 EVM variants |
 | **Solana** | ✅ | ✅ | 599 LOC | Parity |
@@ -117,7 +117,7 @@
 
 ### 3.1 Framework Coverage
 
-| Framework | Cinacoin | Reown | Cinacoin Score | Notes |
+| Framework | Cinacoin | Cinacoin | Cinacoin Score | Notes |
 |-----------|-------------|-------|-------------------|-------|
 | **React** | ✅ Full + EIP-5792 | ✅ Full + EIP-5792 | 88% | 🏆 EIP-5792 strongest feature |
 | **Vue** | ✅ Full + EIP-5792 | ✅ Full | 88% | 🏆 EIP-5792 composables |
@@ -129,7 +129,7 @@
 
 ### 3.2 EIP-5792 (Wallet Call API) — Deep Comparison
 
-| Feature | Cinacoin | Reown | Notes |
+| Feature | Cinacoin | Cinacoin | Notes |
 |---------|-------------|-------|-------|
 | `useWalletCapabilities` | ✅ Full (auto-fetch, per-chain check) | ⚠️ Partial | 🏆 Cinacoin has `has()`, `filterBy()` |
 | `useSendCalls` | ✅ Full (batch send with options) | ⚠️ Partial | 🏆 Cinacoin options override |
@@ -148,30 +148,30 @@
 
 ### 4.1 Swap
 
-| Feature | Cinacoin | Reown | Notes |
+| Feature | Cinacoin | Cinacoin | Notes |
 |---------|-------------|-------|-------|
 | DEX Aggregation | ✅ 1inch + 0x + Uniswap V3/V4 | ✅ Multiple integrations | Parity |
 | Slippage Calculation | ✅ Volatility-aware | ✅ | Parity |
 | Price Impact | ✅ Classification system | ✅ | Parity |
 | ERC-20 Approval | ✅ EIP-2612 permit support | ✅ | Parity |
 | MEV Protection | ✅ Flashbots-style routing | ✅ MEV-resistant routing | Parity |
-| Multi-hop Routing | ❌ Single-hop only | ✅ Multi-path optimization | ⚠️ Reown advantage |
-| Limit Orders | ❌ Not implemented | ✅ Limit order creation | ⚠️ Reown advantage |
-| On-Chain Execution | ⚠️ Router ready, needs broadcast | ✅ Full execution | ⚠️ Reown advantage |
+| Multi-hop Routing | ❌ Single-hop only | ✅ Multi-path optimization | ⚠️ Cinacoin advantage |
+| Limit Orders | ❌ Not implemented | ✅ Limit order creation | ⚠️ Cinacoin advantage |
+| On-Chain Execution | ⚠️ Router ready, needs broadcast | ✅ Full execution | ⚠️ Cinacoin advantage |
 | Swap Widget UI | ✅ `pay-ui` React components | ✅ Swap UI | Parity |
 
 ### 4.2 On-Ramp
 
-| Feature | Cinacoin | Reown | Notes |
+| Feature | Cinacoin | Cinacoin | Notes |
 |---------|-------------|-------|-------|
 | Providers | ✅ MoonPay + Transak + Ramp | ✅ Multiple integrations | Parity |
 | Widget UI | ✅ `pay-ui` iframe/popup | ✅ OnRamp UI | Parity |
 | Quote Comparison | ✅ Concurrent fetch + sort | ✅ | Parity |
-| Webhook Integration | ❌ Not implemented | ✅ | ⚠️ Reown advantage |
+| Webhook Integration | ❌ Not implemented | ✅ | ⚠️ Cinacoin advantage |
 
 ### 4.3 Exchange Deposits
 
-| Feature | Cinacoin | Reown | Notes |
+| Feature | Cinacoin | Cinacoin | Notes |
 |---------|-------------|-------|-------|
 | Exchange Support | ✅ **5 exchanges** (Binance, OKX, Bybit, KuCoin, Coinbase) | ❌ No deposit feature | 🏆 **Cinacoin exclusive** |
 | Deep-Link Redirects | ✅ Per-exchange URL builders | ❌ | 🏆 Cinacoin exclusive |
@@ -182,44 +182,44 @@
 
 ## 5. Account Abstraction (ERC-4337)
 
-| Feature | Cinacoin | Reown | Notes |
+| Feature | Cinacoin | Cinacoin | Notes |
 |---------|-------------|-------|-------|
 | Smart Account SDK | ✅ `aa-sdk` (UserOp building, signing) | ✅ Via partners | Parity |
 | Bundler Client | ✅ Standalone + RPC client | ✅ Via partners | Parity |
-| Bundler Server | ✅ Rust bundler (tx send is stub) | ✅ Bundler-as-a-Service | ⚠️ Reown has production infra |
+| Bundler Server | ✅ Rust bundler (tx send is stub) | ✅ Bundler-as-a-Service | ⚠️ Cinacoin has production infra |
 | Paymaster Client | ✅ Standalone JSON-RPC client | ✅ Via partners | Parity |
 | Gas Sponsorship | ✅ Pimlico + Alchemy + Candle | ✅ Built-in | Parity |
 | Session Keys | ✅ Policy-based + social recovery | ✅ Session management | Parity |
 | Batch Transactions | ✅ Executor + MultiSend + hooks | ✅ Atomic batch | Parity |
-| Gas Estimation | ⚠️ Scaffold (partial) | ✅ Full gas estimation | ⚠️ Reown advantage |
+| Gas Estimation | ⚠️ Scaffold (partial) | ✅ Full gas estimation | ⚠️ Cinacoin advantage |
 | EntryPoint v0.7 | ✅ Types defined | ✅ | Parity |
 | Factory Contract | ✅ `SmartAccountFactory` | ✅ | Parity |
 
 ### AA Gap Assessment
 
-| Aspect | Cinacoin | Reown | Gap |
+| Aspect | Cinacoin | Cinacoin | Gap |
 |--------|-------------|-------|-----|
-| UserOperation submission | ⚠️ Placeholder data | ✅ Real RPC calls | Reown advantage |
-| Factory deployment | ❌ Not deployed | ✅ Deployed | Reown advantage |
-| Bundler transaction sending | ❌ `B256::ZERO` stub | ✅ Real eth_sendRawTransaction | Reown advantage |
-| Paymaster server | ❌ No server | ✅ Paymaster infrastructure | Reown advantage |
+| UserOperation submission | ⚠️ Placeholder data | ✅ Real RPC calls | Cinacoin advantage |
+| Factory deployment | ❌ Not deployed | ✅ Deployed | Cinacoin advantage |
+| Bundler transaction sending | ❌ `B256::ZERO` stub | ✅ Real eth_sendRawTransaction | Cinacoin advantage |
+| Paymaster server | ❌ No server | ✅ Paymaster infrastructure | Cinacoin advantage |
 
 ---
 
 ## 6. Mobile & Game Engine SDKs
 
-| SDK | Cinacoin | Reown | Cinacoin Score | Notes |
+| SDK | Cinacoin | Cinacoin | Cinacoin Score | Notes |
 |-----|-------------|-------|-------------------|-------|
 | **iOS Swift** | ✅ Full WC v2 (SwiftUI) | ✅ WalletKit | 88% | ⚠️ Package.swift path mismatch |
 | **Android Kotlin** | ✅ Full WC v2 (Compose) | ✅ WalletKit | 85% | Production-ready |
 | **Flutter Dart** | ✅ Full WC v2 + encrypted storage | ✅ Community SDK | 82% | 🏆 Encrypted session storage |
-| **Unity C#** | ✅ Full WC v2 from scratch (Curve25519, AES-256) | ✅ reown-dotnet | 80% | 🏆 Built from scratch in C# |
+| **Unity C#** | ✅ Full WC v2 from scratch (Curve25519, AES-256) | ✅ cinacoin-dotnet | 80% | 🏆 Built from scratch in C# |
 | **.NET** | ⚠️ HTTP API client | ✅ NuGet package | 65% | ⚠️ Not native WC protocol |
 | **React Native** | ✅ Full WC v2 + EIP-5792 | ✅ Full AppKit RN | 88% | 🏆 EIP-5792 hooks |
 
 ### Mobile SDK Feature Parity
 
-| Feature | Cinacoin | Reown |
+| Feature | Cinacoin | Cinacoin |
 |---------|-------------|-------|
 | WC v2 Protocol | ✅ Native (all SDKs except .NET) | ✅ Native |
 | Pairing URI / QR | ✅ All native SDKs | ✅ |
@@ -243,14 +243,14 @@
 
 ### 7.1 Server Comparison
 
-| Service | Cinacoin | Reown | Notes |
+| Service | Cinacoin | Cinacoin | Notes |
 |---------|-------------|-------|-------|
 | **Relay Server** | ✅ Rust (actix-web) + Cloudflare Workers | ✅ Cloud-hosted relay | 🏆 Cinacoin self-hosted |
 | **RPC Proxy** | ✅ TypeScript + Go + Cloudflare Workers | ❌ Cloud relay only | 🏆 Cinacoin exclusive |
 | **Keys Server** | ✅ Rust (axum) + Cloudflare Workers | ✅ Keys server repo | Parity |
 | **Push Server** | ✅ Rust (axum) + Cloudflare Workers | ✅ Push server repo | Parity |
 | **Notify Server** | ✅ Rust (axum) + Cloudflare Workers | ✅ Notify server repo | Parity |
-| **Bundler** | ✅ Rust (tokio) + TypeScript client | ✅ Bundler-as-a-Service | ⚠️ Reown has production infra |
+| **Bundler** | ✅ Rust (tokio) + TypeScript client | ✅ Bundler-as-a-Service | ⚠️ Cinacoin has production infra |
 | **ERC-6492** | ✅ Rust + TypeScript library | ✅ Rust crate | Parity |
 | **Blockchain API** | ✅ TypeScript SDK (client-side) | ✅ BlockchainApiController | Parity |
 | **Explorer** | ✅ React component library | ✅ WalletGuide | Parity |
@@ -261,7 +261,7 @@
 
 ### 7.2 Deployment Infrastructure
 
-| Aspect | Cinacoin | Reown | Notes |
+| Aspect | Cinacoin | Cinacoin | Notes |
 |--------|-------------|-------|-------|
 | Cloudflare Workers | ✅ 5 services configured | ✅ Workers deployed | Parity |
 | wrangler.toml | ✅ 7 configs | ✅ | Parity |
@@ -277,7 +277,7 @@
 
 ## 8. Advanced Features — Cinacoin Exclusives
 
-These features have **NO Reown equivalent**:
+These features have **NO Cinacoin equivalent**:
 
 | Feature | Package | Description |
 |---------|---------|-------------|
@@ -297,13 +297,13 @@ These features have **NO Reown equivalent**:
 | **RPC Proxy** | `rpc-proxy` | Self-hosted RPC routing with caching (TypeScript + Go) |
 | **Travel Rule Demo** | `travel-rule-demo` | VASP compliance demonstration |
 
-**Cinacoin has 15 exclusive features that Reown does not offer.**
+**Cinacoin has 15 exclusive features that Cinacoin does not offer.**
 
 ---
 
-## 9. Reown Exclusives — Cinacoin Gaps
+## 9. Cinacoin Exclusives — Cinacoin Gaps
 
-| Feature | Reown Implementation | Cinacoin Status | Priority |
+| Feature | Cinacoin Implementation | Cinacoin Status | Priority |
 |---------|---------------------|-------------------|----------|
 | **Multi-hop Swap Routing** | Complex multi-path optimization | ❌ Single-hop only | Medium |
 | **Limit Orders** | Limit order creation + tracking | ❌ Not implemented | Low |
@@ -315,13 +315,13 @@ These features have **NO Reown equivalent**:
 | **Headless Mode** | `features.headless` option | ❌ Not documented | Low |
 | **Virtual TestNets** | Tenderly integration | ❌ No testnet tooling | Low |
 
-**Reown has 9 features that Cinacoin lacks, most are integration-level not architectural.**
+**Cinacoin has 9 features that Cinacoin lacks, most are integration-level not architectural.**
 
 ---
 
 ## 10. Developer Experience
 
-| Feature | Cinacoin | Reown | Notes |
+| Feature | Cinacoin | Cinacoin | Notes |
 |---------|-------------|-------|-------|
 | CLI Tool | ✅ `@cinacoin/cli` | ❌ | 🏆 Cinacoin |
 | Codemods | ✅ 4 automated transforms | ❌ Manual guides | 🏆 Cinacoin |
@@ -340,7 +340,7 @@ These features have **NO Reown equivalent**:
 
 ## 11. Security & Compliance
 
-| Aspect | Cinacoin | Reown | Notes |
+| Aspect | Cinacoin | Cinacoin | Notes |
 |--------|-------------|-------|-------|
 | Cryptography | ✅ @noble/* (X25519, ChaCha20-Poly1305) | ✅ Native | Parity |
 | HMAC Verification | ✅ Constant-time comparison | ✅ | Parity |
@@ -355,7 +355,7 @@ These features have **NO Reown equivalent**:
 
 ## 12. Scoring Summary
 
-| Category | Cinacoin | Reown | Delta |
+| Category | Cinacoin | Cinacoin | Delta |
 |----------|-------------|-------|-------|
 | **Wallet Connection** | 92/100 | 95/100 | -3 |
 | **Authentication** | 90/100 | 90/100 | 0 |
@@ -378,30 +378,30 @@ These features have **NO Reown equivalent**:
 ### Where Cinacoin Wins
 
 1. **Chain Coverage** — 17 adapters vs ~8; 2x chain coverage
-2. **EIP-5792** — Implemented across ALL 6 frameworks vs Reown's partial implementation
+2. **EIP-5792** — Implemented across ALL 6 frameworks vs Cinacoin's partial implementation
 3. **Self-Hosting** — Full infrastructure independence vs cloud lock-in
-4. **Developer Tooling** — CLI, codemods, CDN bundle — Reown has none
-5. **Compliance** — KYC/AML, GDPR analytics, Travel Rule — Reown lacks
-6. **Mini App Ecosystem** — Telegram + Farcaster — Reown lacks
-7. **Exchange Deposits** — 5 exchanges integrated — Reown lacks
-8. **No MAU Caps** — Unlimited usage vs Reown's tiered limits
-9. **15 Exclusive Features** — Features Reown doesn't offer
+4. **Developer Tooling** — CLI, codemods, CDN bundle — Cinacoin has none
+5. **Compliance** — KYC/AML, GDPR analytics, Travel Rule — Cinacoin lacks
+6. **Mini App Ecosystem** — Telegram + Farcaster — Cinacoin lacks
+7. **Exchange Deposits** — 5 exchanges integrated — Cinacoin lacks
+8. **No MAU Caps** — Unlimited usage vs Cinacoin's tiered limits
+9. **15 Exclusive Features** — Features Cinacoin doesn't offer
 
-### Where Reown Wins
+### Where Cinacoin Wins
 
 1. **Production Infrastructure** — Bundler-as-a-Service, paymaster server
 2. **Swap Execution** — Multi-hop routing, limit orders, on-chain broadcast
 3. **TON/Tron Authentication** — SIWX covers more chains
-4. **Brand Recognition** — Formerly WalletConnect, established trust
+4. **Brand Recognition** — Formerly Cinacoin, established trust
 5. **Cloud Registry** — Dynamic wallet discovery vs static lists
 
 ### Bottom Line
 
-**Cinacoin has surpassed Reown in chain coverage, framework support, developer tooling, compliance features, and self-hosting capability.** The remaining gaps (AA production deployment, swap execution paths, bundler transaction sending) are primarily operational integration work, not architectural deficiencies.
+**Cinacoin has surpassed Cinacoin in chain coverage, framework support, developer tooling, compliance features, and self-hosting capability.** The remaining gaps (AA production deployment, swap execution paths, bundler transaction sending) are primarily operational integration work, not architectural deficiencies.
 
-**For teams that value self-hosting, compliance, and broad chain coverage, Cinacoin is the superior choice. For teams that need turnkey AA infrastructure and advanced swap routing, Reown still has an edge.**
+**For teams that value self-hosting, compliance, and broad chain coverage, Cinacoin is the superior choice. For teams that need turnkey AA infrastructure and advanced swap routing, Cinacoin still has an edge.**
 
 ---
 
-*Cinacoin vs Reown AppKit — Detailed Comparison — 2026-05-26 03:14 UTC*  
+*Cinacoin vs Cinacoin AppKit — Detailed Comparison — 2026-05-26 03:14 UTC*  
 *74 packages verified • 589 tests confirmed • 17 chain adapters • EIP-5792 across 6 frameworks*

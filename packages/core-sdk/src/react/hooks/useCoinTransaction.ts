@@ -1,7 +1,7 @@
 /**
  * useCoinTransaction — Hook for sending transactions.
  *
- * 对标 wagmi's useSendTransaction + Reown's transaction flow.
+ * 对标 wagmi's useSendTransaction + Cinacoin's transaction flow.
  *
  * @example
  * ```tsx

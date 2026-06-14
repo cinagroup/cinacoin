@@ -1,12 +1,12 @@
 /**
- * WalletConnect adapter exports.
+ * Cinacoin adapter exports.
  */
 
-export { WalletConnectAdapter } from './adapter.js';
+export { CinacoinAdapter } from './adapter.js';
 export type {
-  WalletConnectConfig,
-  WalletConnectSession,
-  WalletConnectProvider,
+  CinacoinConfig,
+  CinacoinSession,
+  CinacoinProvider,
 } from './types.js';
 export {
   DEFAULT_RELAY_URL,

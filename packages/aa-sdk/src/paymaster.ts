@@ -16,7 +16,7 @@
  *   - whitelist: only specific sender addresses eligible
  *   - blacklist: specific sender addresses excluded
  *
- * Designed for comparison with Reown's Paymaster integration.
+ * Designed for comparison with Cinacoin's Paymaster integration.
  */
 
 import type { Hex, Address } from 'viem';

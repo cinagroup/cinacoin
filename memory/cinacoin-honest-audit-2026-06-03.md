@@ -25,7 +25,7 @@
 
 ### 1. EVM 链覆盖太窄
 
-**问题**: core-sdk 中只配置了 `chainId: 1` (Ethereum Mainnet) 作为默认值，没有完整的 EVM 链列表。Reown 支持 500+ 链。
+**问题**: core-sdk 中只配置了 `chainId: 1` (Ethereum Mainnet) 作为默认值，没有完整的 EVM 链列表。Cinacoin 支持 500+ 链。
 
 **证据**:
 ```
@@ -97,7 +97,7 @@ packages/siwx/src/siwx.ts:112:
 
 ### 6. ⚠️ CAIP-2 标准未实现
 
-**问题**: Reown 使用 CAIP-2（`namespace:reference:account`）作为跨链标准。Cinacoin 没有实现 CAIP-2 namespace 解析。
+**问题**: Cinacoin 使用 CAIP-2（`namespace:reference:account`）作为跨链标准。Cinacoin 没有实现 CAIP-2 namespace 解析。
 
 **影响**: 无法与使用 CAIP-2 的 dApp/钱包互操作。
 

@@ -2,7 +2,7 @@
   import { isConnected, isConnecting, address, open } from '../lib/stores.js';
 
   /**
-   * CinaCoinButton — Primary wallet connection button.
+   * CinacoinButton — Primary wallet connection button.
    *
    * Shows "Connect Wallet" when disconnected, loading state while
    * connecting, and the connected address when connected.
@@ -10,10 +10,10 @@
    * @example
    * ```svelte
    * <script lang="ts">
-   *   import { CinaCoinButton } from '@cinacoin/svelte';
+   *   import { CinacoinButton } from '@cinacoin/svelte';
    * </script>
    *
-   * <CinaCoinButton size="md" label="Connect" />
+   * <CinacoinButton size="md" label="Connect" />
    * ```
    */
 
@@ -42,7 +42,7 @@
   function handleClick() {
     if (!disabled && !$isConnected && !$isConnecting) {
       open().catch((err: unknown) => {
-        console.error('[CinaCoin] Connection failed:', err);
+        console.error('[Cinacoin] Connection failed:', err);
       });
     }
   }

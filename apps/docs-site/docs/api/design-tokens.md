@@ -1,6 +1,6 @@
 # Design tokens.
 
-> `@cinacoin/design-tokens` — Design token system for CinaCoin white-label theming.
+> `@cinacoin/design-tokens` — Design token system for Cinacoin white-label theming.
 
 ## Installation.
 

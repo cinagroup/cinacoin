@@ -1,6 +1,6 @@
 # Blockchain API.
 
-> `@cinacoin/blockchain-api` — Unified blockchain data API for CinaCoin.
+> `@cinacoin/blockchain-api` — Unified blockchain data API for Cinacoin.
 
 ## Installation.
 

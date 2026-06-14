@@ -1,6 +1,6 @@
 # XRPL adapter.
 
-> `@cinacoin/adapter-xrpl` — XRP Ledger adapter for CinaCoin.
+> `@cinacoin/adapter-xrpl` — XRP Ledger adapter for Cinacoin.
 
 ## Installation.
 

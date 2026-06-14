@@ -14,9 +14,9 @@ export const test = base.extend({
         await use(page);
     },
     /**
-     * Generate a mock WalletConnect URI (used by tests that simulate WC pairing).
+     * Generate a mock Cinacoin URI (used by tests that simulate WC pairing).
      */
-    mockWalletConnectUri: async ({ page }, use) => {
+    mockCinacoinUri: async ({ page }, use) => {
         await use(async () => {
             const uri = `wc:a1b2c3d4@2?relay-protocol=irn&symKey=test-sym-key-${Date.now()}`;
             await page.evaluate((u) => {

@@ -29,7 +29,7 @@ describe('a11y — ConnectModal', () => {
         await new Promise(r => setTimeout(r, 50));
         const wallets = [
             { id: 'metamask', name: 'MetaMask', icon: '' },
-            { id: 'walletconnect', name: 'WalletConnect', icon: '' },
+            { id: 'walletconnect', name: 'Cinacoin', icon: '' },
             { id: 'coinbase', name: 'Coinbase', icon: '' },
         ];
         render(html `<ocx-connect-modal .wallets=${wallets} is-open></ocx-connect-modal>`, container);

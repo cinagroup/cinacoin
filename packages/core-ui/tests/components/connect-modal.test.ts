@@ -27,7 +27,7 @@ describe('ConnectModal component', () => {
     modal.defaultView = 'social';
     modal.wallets = [
       { id: 'metamask', name: 'MetaMask', icon: '' },
-      { id: 'walletconnect', name: 'WalletConnect', icon: '' },
+      { id: 'walletconnect', name: 'Cinacoin', icon: '' },
     ];
     modal.recommendedWalletIds = ['metamask'];
 

@@ -175,7 +175,7 @@
   - 在文档中明确要求用户处理 error 状态
   - 考虑提供 `useErrorBoundary` 集成
 
-### [Z-005] WalletConnect 签名验证未验证 domain
+### [Z-005] Cinacoin 签名验证未验证 domain
 - **文件:** `packages/walletconnect-v2/src/signature-verification.ts`
 - **行号:** L355-385
 - **描述:** `verifySiweSignature()` 只提取地址并验证签名，但不验证 SIWE 消息中的 domain、URI、nonce 等字段。攻击者可以使用其他域的合法签名。

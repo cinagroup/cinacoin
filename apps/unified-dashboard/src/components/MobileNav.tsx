@@ -22,7 +22,7 @@ export function MobileNav() {
       <div className="flex items-center justify-between px-4 py-3 bg-[var(--cc-canvas)] border-b border-[var(--cc-hairline)]">
         <div className="flex items-center gap-2">
           <CoinIcon className="w-5 h-5 text-[var(--cc-ink)]" />
-          <span className="cc-body-sm-strong text-[var(--cc-ink)]">CinaCoin</span>
+          <span className="cc-body-sm-strong text-[var(--cc-ink)]">Cinacoin</span>
         </div>
         <button
           onClick={() => setOpen(!open)}

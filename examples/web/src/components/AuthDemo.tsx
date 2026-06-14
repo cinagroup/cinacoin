@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useCinaCoin } from '@cinacoin/react'
+import { useCinacoin } from '@cinacoin/react'
 import { SiweMessage } from 'siwe'
 
 /**
@@ -22,7 +22,7 @@ interface Session {
 }
 
 export function AuthDemo() {
-  const { account, signMessage, chainId } = useCinaCoin()
+  const { account, signMessage, chainId } = useCinacoin()
   const [authStatus, setAuthStatus] = useState<
     'idle' | 'signing' | 'verifying' | 'success' | 'error'
   >('idle')
@@ -40,7 +40,7 @@ export function AuthDemo() {
     const message = new SiweMessage({
       domain,
       address: account || '',
-      statement: 'Sign in to CinaCoin Demo',
+      statement: 'Sign in to Cinacoin Demo',
       uri: window.location.origin,
       version: '1',
       chainId: chainId || 1,

@@ -1,10 +1,10 @@
 # Migration guide.
 
-> Migrate from Reown/WalletConnect to CinaCoin.
+> Migrate from Cinacoin/Cinacoin to Cinacoin.
 
 ## Why migrate?
 
-| Reown/WalletConnect | CinaCoin |
+| Cinacoin/Cinacoin | Cinacoin |
 |---|---|
 | $500-5,000/month license | Free, open source (MIT) |
 | MAU limits | Unlimited |
@@ -14,7 +14,7 @@
 
 ## Quick migration.
 
-### 1. Install CinaCoin.
+### 1. Install Cinacoin.
 
 ```bash
 npm install @cinacoin/core-sdk @cinacoin/react
@@ -25,7 +25,7 @@ npm install @cinacoin/core-sdk @cinacoin/react
 Run the transform that matches the library you are migrating from:
 
 ```bash
-# Reown AppKit / Web3Modal v2.
+# Cinacoin AppKit / Web3Modal v2.
 npx @cinacoin/codemod appkit-to-cinacoin
 
 # Other supported sources.
@@ -39,7 +39,7 @@ npx @cinacoin/codemod ethers-v5-to-viem
 
 ### 3. Update configuration.
 
-Replace your `@reown/appkit` or `@walletconnect` configuration with CinaCoin's `CinaCoinProvider`.
+Replace your `@cinacoin/appkit` or `@walletconnect` configuration with Cinacoin's `CinacoinProvider`.
 
 ### 4. Test.
 
@@ -49,12 +49,12 @@ Verify wallet connections, chain switching, and signing work as expected.
 
 All of the following codemods ship today (see `npx @cinacoin/codemod --list`):
 
-- Reown AppKit / Web3Modal v2 → `appkit-to-cinacoin`
+- Cinacoin AppKit / Web3Modal v2 → `appkit-to-cinacoin`
 - Web3Modal → `web3modal-to-cinacoin`
 - RainbowKit → `rainbowkit-to-cinacoin`
 - ConnectKit → `connectkit-to-cinacoin`
 - wagmi → `wagmi-to-cinacoin`
-- WalletConnect v1 → v2 → `wc-v1-to-v2`
+- Cinacoin v1 → v2 → `wc-v1-to-v2`
 - ethers v5 → viem → `ethers-v5-to-viem`
 
 ## Related.

@@ -242,17 +242,17 @@ images: {
 export const metadata: Metadata = {
   title: {
     default: "Page Title",
-    template: "%s | CinaCoin",
+    template: "%s | Cinacoin",
   },
   description: "Detailed description with keywords...",
-  keywords: ["CinaCoin", "keyword1", "keyword2"],
+  keywords: ["Cinacoin", "keyword1", "keyword2"],
   robots: {
     index: true/false,
     follow: true/false,
   },
   openGraph: {
     type: "website",
-    siteName: "CinaCoin",
+    siteName: "Cinacoin",
     title: "Page Title",
     description: "Description",
   },

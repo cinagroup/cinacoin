@@ -12,10 +12,10 @@ const Tab = createBottomTabNavigator();
 /**
  * Real Cinacoin React Native app configuration.
  *
- * - Uses real WalletConnect v2 relay
+ * - Uses real Cinacoin v2 relay
  * - Registers for push notifications
  * - Deep link handling for wallet redirects
- * - Replace projectId with your WalletConnect Cloud project ID
+ * - Replace projectId with your Cinacoin Cloud project ID
  *   → https://cloud.walletconnect.com
  */
 const config = {
@@ -48,7 +48,7 @@ const config = {
         },
     ],
     walletConnectOptions: {
-        // Real WalletConnect v2 pairing
+        // Real Cinacoin v2 pairing
         projectId: 'YOUR_WALLETCONNECT_PROJECT_ID',
         relayUrl: 'wss://relay.walletconnect.com',
     },

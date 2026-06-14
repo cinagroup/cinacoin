@@ -195,7 +195,7 @@ export async function registerPasskey(
       {
         challenge: crypto.getRandomValues(new Uint8Array(32)),
         rp: {
-          name: 'CinaCoin Demo',
+          name: 'Cinacoin Demo',
           id: rpId,
         },
         user: {

@@ -52,8 +52,8 @@ import {
   deserializeTransaction,
 } from './utils.js';
 
-import { PhantomWalletConnector } from './connectors/phantom.js';
-import { SolflareWalletConnector } from './connectors/solflare.js';
+import { PhantomCinacoinor } from './connectors/phantom.js';
+import { SolflareCinacoinor } from './connectors/solflare.js';
 import { WalletStandardConnector } from './connectors/wallet-standard.js';
 import { logger } from '@cinacoin/logger';
 
@@ -159,8 +159,8 @@ export class SolanaChainAdapter implements ChainAdapter {
 
   constructor() {
     // Register default connectors
-    this.registerConnector(new PhantomWalletConnector());
-    this.registerConnector(new SolflareWalletConnector());
+    this.registerConnector(new PhantomCinacoinor());
+    this.registerConnector(new SolflareCinacoinor());
     this.registerConnector(new WalletStandardConnector());
 
     // Register default chains

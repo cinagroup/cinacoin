@@ -10,7 +10,7 @@
 
 本轮修复解决 Vue 适配器中的两个 P0 问题：
 
-1. **P0-1: mock `connect()` 替换为真实 WalletConnect 连接逻辑**
+1. **P0-1: mock `connect()` 替换为真实 Cinacoin 连接逻辑**
 2. **P0-2: `addEventListener` / `removeEventListener` 事件监听器泄漏**
 
 ---
@@ -62,7 +62,7 @@ export class ConnectorManager {
     this.addConnector(
       new InjectedProvider('io.rabby', 'Rabby', WALLET_ICONS.rabby)
     );
-    // WalletConnect、Coinbase、Email 注册为元数据占位符
+    // Cinacoin、Coinbase、Email 注册为元数据占位符
   }
 
   async connect(connectorId: string): Promise<ConnectionResult> {
@@ -81,7 +81,7 @@ export class ConnectorManager {
 关键设计决策：
 
 1. **InjectedProvider 实例化**：MetaMask 和 Rabby 在构造时创建 `InjectedProvider` 实例，自动检测 `window.ethereum`
-2. **WalletConnect 占位符**：完整实现需要 `RelayTransport` + `SessionManager`，当前注册元数据并输出配置警告
+2. **Cinacoin 占位符**：完整实现需要 `RelayTransport` + `SessionManager`，当前注册元数据并输出配置警告
 3. **事件系统**：通过 `EventEmitter` 发布 `connected` / `disconnected` 事件
 4. **EvmAdapter 集成**：连接后自动注册到 `EvmAdapter` 用于链上操作
 
@@ -335,7 +335,7 @@ cd packages/vue && npx tsc --noEmit
 
 ## 已知限制
 
-1. **WalletConnect 完整实现**：当前 `WalletConnect` connector 是元数据占位符。完整实现需要配置 `RelayTransport`（WebSocket relay URL）和 `SessionManager`。当用户提供 `projectId` 和 `relayUrl` 后，可以通过 `connectorManager.createWalletConnectConnector()` 启用。
+1. **Cinacoin 完整实现**：当前 `Cinacoin` connector 是元数据占位符。完整实现需要配置 `RelayTransport`（WebSocket relay URL）和 `SessionManager`。当用户提供 `projectId` 和 `relayUrl` 后，可以通过 `connectorManager.createCinacoinConnector()` 启用。
 
 2. **InjectedProvider 浏览器环境**：MetaMask/Rabby 连接依赖 `window.ethereum`，在 SSR 环境下会检测为 `installed: false`。这是预期行为，SSR 时应仅显示 UI 元数据。
 

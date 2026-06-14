@@ -698,8 +698,8 @@
       ]
     },
     {
-      "suiteName": "WalletConnect",
-      "description": "Measures WalletConnect v2 pairing, session proposal, and approval latency (target: <1s total)",
+      "suiteName": "Cinacoin",
+      "description": "Measures Cinacoin v2 pairing, session proposal, and approval latency (target: <1s total)",
       "startedAt": "2026-06-03T16:21:27.054Z",
       "finishedAt": "2026-06-03T16:22:14.334Z",
       "totalDurationMs": 47280.150869000005,
@@ -2488,7 +2488,7 @@
   "comparisons": [
     {
       "label": "core-sdk",
-      "metric": "p50 vs reown target",
+      "metric": "p50 vs cinacoin target",
       "baseline": 100,
       "current": 34.72082399999999,
       "delta": -65.279176,
@@ -2497,7 +2497,7 @@
     },
     {
       "label": "react-provider",
-      "metric": "p50 vs reown target",
+      "metric": "p50 vs cinacoin target",
       "baseline": 150,
       "current": 50.54678049999984,
       "delta": -99.45321950000016,
@@ -2506,7 +2506,7 @@
     },
     {
       "label": "vue-composable",
-      "metric": "p50 vs reown target",
+      "metric": "p50 vs cinacoin target",
       "baseline": 150,
       "current": 54.65754150000157,
       "delta": -95.34245849999843,
@@ -2515,7 +2515,7 @@
     },
     {
       "label": "core-sdk-warm",
-      "metric": "p50 vs reown target",
+      "metric": "p50 vs cinacoin target",
       "baseline": 50,
       "current": 8.79265799999962,
       "delta": -41.20734200000038,
@@ -2524,7 +2524,7 @@
     },
     {
       "label": "pairing",
-      "metric": "p50 vs reown target",
+      "metric": "p50 vs cinacoin target",
       "baseline": 400,
       "current": 30.36371600000166,
       "delta": -369.63628399999834,
@@ -2533,7 +2533,7 @@
     },
     {
       "label": "session-proposal",
-      "metric": "p50 vs reown target",
+      "metric": "p50 vs cinacoin target",
       "baseline": 300,
       "current": 36.583285500000784,
       "delta": -263.4167144999992,
@@ -2542,7 +2542,7 @@
     },
     {
       "label": "session-approval",
-      "metric": "p50 vs reown target",
+      "metric": "p50 vs cinacoin target",
       "baseline": 300,
       "current": 68.99959800000033,
       "delta": -231.00040199999967,
@@ -2551,7 +2551,7 @@
     },
     {
       "label": "total-connect",
-      "metric": "p50 vs reown target",
+      "metric": "p50 vs cinacoin target",
       "baseline": 1000,
       "current": 151.78755549999914,
       "delta": -848.2124445000009,
@@ -2560,7 +2560,7 @@
     },
     {
       "label": "switch",
-      "metric": "p50 vs reown target",
+      "metric": "p50 vs cinacoin target",
       "baseline": 50,
       "current": 13.23508800000127,
       "delta": -36.76491199999873,
@@ -2569,7 +2569,7 @@
     },
     {
       "label": "rapid-switch",
-      "metric": "p50 vs reown target",
+      "metric": "p50 vs cinacoin target",
       "baseline": 80,
       "current": 155.7594590000008,
       "delta": 75.75945900000079,
@@ -2578,7 +2578,7 @@
     },
     {
       "label": "rpc-response",
-      "metric": "p50 vs reown target",
+      "metric": "p50 vs cinacoin target",
       "baseline": 200,
       "current": 17.5872995000027,
       "delta": -182.4127004999973,
@@ -2587,7 +2587,7 @@
     },
     {
       "label": "build",
-      "metric": "p50 vs reown target",
+      "metric": "p50 vs cinacoin target",
       "baseline": 50,
       "current": 8.73154500000237,
       "delta": -41.26845499999763,
@@ -2596,7 +2596,7 @@
     },
     {
       "label": "gas-estimate",
-      "metric": "p50 vs reown target",
+      "metric": "p50 vs cinacoin target",
       "baseline": 100,
       "current": 81.47146149999753,
       "delta": -18.52853850000247,
@@ -2605,7 +2605,7 @@
     },
     {
       "label": "sign",
-      "metric": "p50 vs reown target",
+      "metric": "p50 vs cinacoin target",
       "baseline": 50,
       "current": 12.286174499997287,
       "delta": -37.71382550000271,

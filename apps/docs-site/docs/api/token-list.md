@@ -1,6 +1,6 @@
 # Token list.
 
-> `@cinacoin/token-list` — Token registry and management for CinaCoin.
+> `@cinacoin/token-list` — Token registry and management for Cinacoin.
 
 ## Installation.
 

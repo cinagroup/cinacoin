@@ -32,7 +32,7 @@ function escapeHtml(str: string | null | undefined): string {
 }
 
 export interface ConnectModalOptions {
-  /** WalletConnect Project ID */
+  /** Cinacoin Project ID */
   projectId?: string;
   /** Theme mode */
   theme?: "light" | "dark";
@@ -385,7 +385,7 @@ function renderConnectView(
 function defaultWallets() {
   return [
     { id: "metamask", name: "MetaMask", installed: true },
-    { id: "walletconnect", name: "WalletConnect", installed: false },
+    { id: "walletconnect", name: "Cinacoin", installed: false },
     { id: "coinbase", name: "Coinbase Wallet", installed: false },
     { id: "rainbow", name: "Rainbow", installed: false },
   ];

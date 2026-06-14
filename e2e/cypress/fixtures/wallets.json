@@ -14,13 +14,13 @@
     "capabilities": ["eth_sign", "personal_sign", "eth_signTypedData_v4"]
   },
   "walletConnect": {
-    "name": "WalletConnect",
+    "name": "Cinacoin",
     "type": "walletconnect",
     "chainId": 1,
     "accounts": [
       "0x742d35Cc6634C0532925a3b844Bc9e7595f2bD18"
     ],
-    "shortName": "WalletConnect",
+    "shortName": "Cinacoin",
     "iconUrl": "/wallets/walletconnect.svg",
     "rdns": "com.walletconnect",
     "supportedChains": [1, 5, 11155111, 10, 137, 42161, 8453, 56, 43114],

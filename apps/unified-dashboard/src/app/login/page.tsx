@@ -41,7 +41,7 @@ export default function LoginPage() {
             Log in to your account.
           </h1>
           <p className="cc-body-sm text-[var(--cc-body)] mb-6">
-            Welcome back to CinaCoin.
+            Welcome back to Cinacoin.
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-4">

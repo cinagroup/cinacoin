@@ -4,7 +4,7 @@ Cross-chain message relay infrastructure.
 
 ## Overview.
 
-The CinaCoin Relay is a self-hosted WebSocket message relay that enables real-time communication between wallets and dApps. It replaces centralized relay infrastructure with a fully controllable, open-source alternative. The relay supports topic-based subscriptions, message encryption, heartbeats, and automatic reconnection.
+The Cinacoin Relay is a self-hosted WebSocket message relay that enables real-time communication between wallets and dApps. It replaces centralized relay infrastructure with a fully controllable, open-source alternative. The relay supports topic-based subscriptions, message encryption, heartbeats, and automatic reconnection.
 
 **Key capabilities:**
 
@@ -28,7 +28,7 @@ npm install @cinacoin/core-sdk
 ### Self-hosted relay server.
 
 ```bash
-# The relay server is bundled with the CinaCoin infrastructure packages.
+# The relay server is bundled with the Cinacoin infrastructure packages.
 cd packages/relay-server
 npm install
 ```

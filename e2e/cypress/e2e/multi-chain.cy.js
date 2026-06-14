@@ -6,7 +6,7 @@
 describe('Multi-Chain Support', () => {
     beforeEach(() => {
         cy.visit('/');
-        cy.connectWallet('WalletConnect');
+        cy.connectWallet('Cinacoin');
     });
     describe('Network Switching', () => {
         it('should switch between Ethereum mainnet and testnets', () => {

@@ -1,7 +1,7 @@
 {
   "name": "cinacoin-email-sender-worker",
   "version": "1.0.0",
-  "description": "CinaCoin Email Sender Worker using MailChannels",
+  "description": "Cinacoin Email Sender Worker using MailChannels",
   "main": "src/index.ts",
   "scripts": {
     "dev": "wrangler dev",

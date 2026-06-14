@@ -10,8 +10,8 @@ test('homepage loads correctly', async ({ page }) => {
   const nav = page.locator('nav[aria-label="Main navigation"]');
   await expect(nav).toBeVisible();
   
-  // Check hero section (h1 with CinaCoin text)
-  const heroHeading = page.locator('h1:has-text("CinaCoin")');
+  // Check hero section (h1 with Cinacoin text)
+  const heroHeading = page.locator('h1:has-text("Cinacoin")');
   await expect(heroHeading).toBeVisible();
   
   // Check CTA buttons

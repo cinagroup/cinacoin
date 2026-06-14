@@ -126,7 +126,7 @@ function ConnectButtons() {
 
   const wallets = [
     { id: 'metamask', name: 'MetaMask' },
-    { id: 'walletconnect', name: 'WalletConnect' },
+    { id: 'walletconnect', name: 'Cinacoin' },
     { id: 'coinbase', name: 'Coinbase Wallet' },
     { id: 'rainbow', name: 'Rainbow' },
   ]
@@ -289,7 +289,7 @@ function ConnectButtons() {
   const { connect } = useConnect()
   const wallets = [
     { id: 'metamask', name: 'MetaMask' },
-    { id: 'walletconnect', name: 'WalletConnect' },
+    { id: 'walletconnect', name: 'Cinacoin' },
     { id: 'coinbase', name: 'Coinbase' },
   ]
 

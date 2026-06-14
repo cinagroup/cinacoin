@@ -11,7 +11,7 @@ const WALLET_DATA: Record<string, { name: string; icon: string; brandColor: stri
     brandColor: 'f6851b',
   },
   walletconnect: {
-    name: 'WalletConnect',
+    name: 'Cinacoin',
     icon: 'https://avatars.githubusercontent.com/u/37784886?s=200&v=4',
     brandColor: '3b99fc',
   },
@@ -136,7 +136,7 @@ function MockWalletButton({
 /* ── Meta ─────────────────────────────────────────────────────────── */
 
 const meta: Meta<typeof MockWalletButton> = {
-  title: 'CinaCoin/WalletButton',
+  title: 'Cinacoin/WalletButton',
   component: MockWalletButton,
   argTypes: {
     walletId: {
@@ -171,7 +171,7 @@ type Story = StoryObj<typeof MockWalletButton>;
 /* ── Individual wallet stories ────────────────────────────────────── */
 
 export const MetaMask: Story = { args: { walletId: 'metamask' } };
-export const WalletConnect: Story = { args: { walletId: 'walletconnect' } };
+export const Cinacoin: Story = { args: { walletId: 'walletconnect' } };
 export const Coinbase: Story = { args: { walletId: 'coinbase' } };
 export const Rainbow: Story = { args: { walletId: 'rainbow' } };
 export const Phantom: Story = { args: { walletId: 'phantom' } };

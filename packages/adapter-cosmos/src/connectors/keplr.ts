@@ -1,14 +1,14 @@
 /**
  * Keplr wallet connector for Cosmos SDK chains.
  *
- * Detects `window.keplr` and provides a uniform `CosmosWalletConnector`
+ * Detects `window.keplr` and provides a uniform `CosmosCinacoinor`
  * interface for signing transactions, querying accounts, and sending
  * token transfers across all Cosmos SDK chains supported by Keplr.
  *
  * @see https://docs.keplr.app/api/
  */
 
-import type { CosmosWalletConnector, SignDoc } from '../types.js';
+import type { CosmosCinacoinor, SignDoc } from '../types.js';
 
 /** Minimal type declarations for the Keplr browser extension API. */
 interface KeplrChainInfo {
@@ -131,12 +131,12 @@ interface KeplrProvider {
 /* ------------------------------------------------------------------ */
 
 /**
- * Keplr wallet connector implementing `CosmosWalletConnector`.
+ * Keplr wallet connector implementing `CosmosCinacoinor`.
  *
  * Wraps the Keplr browser extension API to provide chain-agnostic
  * signing, transfer, and account querying capabilities.
  */
-export class KeplrConnector implements CosmosWalletConnector {
+export class KeplrConnector implements CosmosCinacoinor {
   /** @inheritdoc */
   readonly id = 'keplr';
 

@@ -26,7 +26,7 @@ export const hederaWallets = [
     appStoreUrl: "https://apps.apple.com/app/hashpack/id6443840635",
     playStoreUrl: "https://play.google.com/store/apps/details?id=com/hashpack/app",
     extensionUrl: "https://chromewebstore.google.com/detail/hashpack/gjagmgiddbbiigjhllhcfpglbgphicgj",
-    supportsWalletConnectV2: true,
+    supportsCinacoinV2: true,
     walletType: "hot",
     popularity: 30,
     description: "Most popular Hedera wallet with token management.",

@@ -15,7 +15,7 @@ test.describe('Connect Wallet Flow', () => {
         await expect(demoPage.getByText(/connect wallet/i)).toBeVisible();
         // Verify modal shows wallet options
         await expect(demoPage.getByText('MetaMask')).toBeVisible();
-        await expect(demoPage.getByText('WalletConnect')).toBeVisible();
+        await expect(demoPage.getByText('Cinacoin')).toBeVisible();
     });
     test('should connect with mock injected provider', async ({ page }) => {
         await injectMockProvider(page);
@@ -26,7 +26,7 @@ test.describe('Connect Wallet Flow', () => {
     });
     test('should show wallet list with expected wallets', async ({ demoPage }) => {
         await openConnectModal(demoPage);
-        const wallets = ['MetaMask', 'WalletConnect', 'Coinbase'];
+        const wallets = ['MetaMask', 'Cinacoin', 'Coinbase'];
         for (const wallet of wallets) {
             await expect(demoPage.getByText(wallet)).toBeVisible();
         }

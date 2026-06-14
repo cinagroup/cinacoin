@@ -6,11 +6,11 @@
 
 ## What's New
 
-Cinacoin v1.0.0 represents the culmination of extensive development, delivering a **complete alternative to Reown AppKit** with no licensing restrictions, no MAU caps, and full infrastructure autonomy.
+Cinacoin v1.0.0 represents the culmination of extensive development, delivering a **complete alternative to Cinacoin AppKit** with no licensing restrictions, no MAU caps, and full infrastructure autonomy.
 
 ### ✨ Key Features
 
-- **🔗 600+ Wallets** — Connect via WalletConnect Network (EVM, Solana, Bitcoin, TON, TRON)
+- **🔗 600+ Wallets** — Connect via Cinacoin Network (EVM, Solana, Bitcoin, TON, TRON)
 - **🌐 7 Chain Adapters** — Bitcoin, Cosmos, Hedera, NEAR, Starknet, Sui, XRPL (+ EVM)
 - **📱 10+ Platform SDKs** — React, Vue, Svelte, Angular, Next.js, Nuxt, React Native, iOS, Android, Flutter, Unity, .NET
 - **🔐 Real Cryptography** — X25519 key exchange + ChaCha20-Poly1305 AEAD (no placeholders)
@@ -96,17 +96,17 @@ function ConnectButton() {
 
 ---
 
-## Migration from Reown AppKit
+## Migration from Cinacoin AppKit
 
 See our [migration guide](https://cinacoin.dev/docs/migration/from-appkit) for step-by-step instructions. Key differences:
 
-| Feature | Reown AppKit | Cinacoin |
+| Feature | Cinacoin AppKit | Cinacoin |
 |---------|-------------|-------------|
 | License | Community License (MAU cap) | **MIT** (no restrictions) |
-| Infrastructure | Mandatory Reown Relay | **Self-hosted** (your relay) |
+| Infrastructure | Mandatory Cinacoin Relay | **Self-hosted** (your relay) |
 | MAU Limit | 500 | **Unlimited** |
 | RPC Calls | 2.5M/month | **Unlimited** |
-| IP Ownership | Reown owns modifications | **You own everything** |
+| IP Ownership | Cinacoin owns modifications | **You own everything** |
 
 ---
 

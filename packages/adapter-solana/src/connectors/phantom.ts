@@ -21,14 +21,14 @@ import { logger } from '@cinacoin/logger';
  *
  * @example
  * ```ts
- * const connector = new PhantomWalletConnector();
+ * const connector = new PhantomCinacoinor();
  * if (connector.isAvailable()) {
  *   const { publicKey } = await connector.connect();
  *   logger.info('Connected:', publicKey);
  * }
  * ```
  */
-export class PhantomWalletConnector implements SolanaConnector {
+export class PhantomCinacoinor implements SolanaConnector {
   readonly id = 'phantom';
   readonly name = 'Phantom';
   readonly icon = 'https://phantom.app/img/phantom-icon.svg';

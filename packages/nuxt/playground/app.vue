@@ -1,6 +1,6 @@
 <template>
   <div class="playground">
-    <h1>CinaCoin Nuxt Playground</h1>
+    <h1>Cinacoin Nuxt Playground</h1>
 
     <section class="buttons">
       <NuxtConnectButton />
@@ -17,8 +17,8 @@
 </template>
 
 <script setup lang="ts">
-const { isConnected } = useCinaCoinAccount()
-const { address, balance, chain } = useCinaCoinAccount()
+const { isConnected } = useCinacoinAccount()
+const { address, balance, chain } = useCinacoinAccount()
 </script>
 
 <style scoped>

@@ -3,7 +3,7 @@ import StepIndicator from "@/components/StepIndicator";
 
 
 export const metadata = {
-  title: "Best practices. — CinaCoin Learn",
+  title: "Best practices. — Cinacoin Learn",
   description: "Production-ready patterns for security, performance, error handling, and UX in Web3 apps.",
 };
 
@@ -64,7 +64,7 @@ const tx = await cinacoin.sendTransaction({
         <CodeBlock
           language="typescript"
           title="Robust error handling."
-          code={`import { CinaCoinError, ErrorCode } from '@cinacoin/sdk';
+          code={`import { CinacoinError, ErrorCode } from '@cinacoin/sdk';
 
 async function handleTransaction() {
   try {
@@ -72,7 +72,7 @@ async function handleTransaction() {
     const receipt = await tx.wait();
     return { success: true, receipt };
   } catch (error) {
-    if (error instanceof CinaCoinError) {
+    if (error instanceof CinacoinError) {
       switch (error.code) {
         case ErrorCode.USER_REJECTED:
           return { success: false, message: 'Transaction rejected by user' };

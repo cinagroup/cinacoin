@@ -79,7 +79,7 @@ export class EventTracker {
     );
   }
 
-  async trackWalletConnected(wallet: WalletProvider, chainId?: number): Promise<void> {
+  async trackCinacoined(wallet: WalletProvider, chainId?: number): Promise<void> {
     await this.track("wallet_connected", { wallet, chainId });
   }
 
@@ -145,7 +145,7 @@ export interface AnalyticsState {
   eventCount: number;
 }
 
-export interface WalletConnectParams {
+export interface CinacoinParams {
   walletId: string;
   chainId?: number;
   address?: string;
@@ -214,7 +214,7 @@ export class Analytics {
     };
   }
 
-  trackWalletConnect(params: WalletConnectParams): void {
+  trackCinacoin(params: CinacoinParams): void {
     if (!this.tracking) return;
     this.events.push({
       type: "wallet_connect",

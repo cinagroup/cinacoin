@@ -33,7 +33,7 @@
     {
       "name": "Relay Server",
       "url": "https://relay.cinacoin.com/health",
-      "description": "WalletConnect relay server"
+      "description": "Cinacoin relay server"
     },
     {
       "name": "Notify Server",

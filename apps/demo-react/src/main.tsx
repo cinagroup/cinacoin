@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 import './index.css'
 
-// WalletConnect SDK is lazy-loaded on-demand in WalletContext.
+// Cinacoin SDK is lazy-loaded on-demand in WalletContext.
 // No static import here — keeps the initial bundle small.
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

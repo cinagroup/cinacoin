@@ -274,7 +274,7 @@ export const WALLET_CONNECT = {
     code: 5000,
     identifier: 'PAIRING_FAILED',
     severity: 'error' as ErrorSeverity,
-    description: 'WalletConnect pairing could not be established.',
+    description: 'Cinacoin pairing could not be established.',
   },
   SESSION_PROPOSAL_REJECTED: {
     code: 5001,
@@ -286,7 +286,7 @@ export const WALLET_CONNECT = {
     code: 5002,
     identifier: 'SESSION_EXPIRED',
     severity: 'warning' as ErrorSeverity,
-    description: 'The WalletConnect session has expired.',
+    description: 'The Cinacoin session has expired.',
   },
   INVALID_PAIRING_URI: {
     code: 5003,
@@ -310,19 +310,19 @@ export const WALLET_CONNECT = {
     code: 5006,
     identifier: 'PROTOCOL_ERROR',
     severity: 'error' as ErrorSeverity,
-    description: 'A WalletConnect protocol-level error occurred.',
+    description: 'A Cinacoin protocol-level error occurred.',
   },
   RELAY_DISCONNECTED: {
     code: 5007,
     identifier: 'RELAY_DISCONNECTED',
     severity: 'warning' as ErrorSeverity,
-    description: 'The WalletConnect relay connection was lost.',
+    description: 'The Cinacoin relay connection was lost.',
   },
   REQUEST_TIMEOUT: {
     code: 5008,
     identifier: 'REQUEST_TIMEOUT',
     severity: 'warning' as ErrorSeverity,
-    description: 'WalletConnect request timed out.',
+    description: 'Cinacoin request timed out.',
   },
 } as const;
 

@@ -26,7 +26,7 @@ await adapter.connect({ connectorId: 'suiet' });
 | `SUI_WALLETS` | const | Available Sui wallets list |
 | `mistToSui` | function | Convert MIST to SUI |
 | `suiToMist` | function | Convert SUI to MIST |
-| `SuiWalletConnector` | class | Sui Wallet connector |
+| `SuiCinacoinor` | class | Sui Wallet connector |
 | `SuietConnector` | class | Suiet wallet connector |
 | `EthosConnector` | class | Ethos wallet connector |
 | `MartianConnector` | class | Martian wallet connector |

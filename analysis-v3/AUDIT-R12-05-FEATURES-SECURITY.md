@@ -21,7 +21,7 @@
 
 ## 1. Feature Completeness Audit
 
-### 1.1 WalletConnect v2 Protocol Compliance
+### 1.1 Cinacoin v2 Protocol Compliance
 
 | Item | Status | Evidence |
 |------|--------|----------|
@@ -361,7 +361,7 @@ tx-indexer (`packages/tx-indexer/`): Full implementation with `TxIndexer` (458 L
 | Quick start | ✅ |
 | Installation | ✅ |
 | Configuration | ✅ |
-| Migration guides | ✅ (ConnectKit, RainbowKit, Reown) |
+| Migration guides | ✅ (ConnectKit, RainbowKit, Cinacoin) |
 | Security guide | ✅ |
 | Performance | ✅ |
 | Troubleshooting | ✅ |
@@ -401,7 +401,7 @@ tx-indexer (`packages/tx-indexer/`): Full implementation with `TxIndexer` (458 L
 
 | Feature Area | R8 Score | R12 Score | Change | Notes |
 |-------------|----------|-----------|--------|-------|
-| WalletConnect v2 | 90% | **90%** | — | Verified full client implementation |
+| Cinacoin v2 | 90% | **90%** | — | Verified full client implementation |
 | EIP-5792 | 100% | **100%** | — | All 6 frameworks + core SDK |
 | EIP-6963 | 95% | **97%** | +2% | Test file now exists |
 | SIWE/SIWX | 92% | **92%** | — | All 5 adapters confirmed |

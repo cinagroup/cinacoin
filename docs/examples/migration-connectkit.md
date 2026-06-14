@@ -265,7 +265,7 @@ function Dashboard() {
 | Theming | `customTheme` CSS variables | `@cinacoin/design-tokens` |
 | Dependencies | 6+ packages | 3 packages |
 | QueryClient | Required | Not needed |
-| Infrastructure | Reown Cloud for WC | Self-hosted Relay |
+| Infrastructure | Cinacoin Cloud for WC | Self-hosted Relay |
 
 ## Automated Migration
 

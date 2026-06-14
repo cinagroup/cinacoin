@@ -36,7 +36,7 @@ This report provides a comprehensive quality assessment of the Cinacoin monorepo
 | Adapter | Status | Tests | Coverage |
 |---------|--------|-------|----------|
 | MetaMask | ✅ | 24 | 92% |
-| WalletConnect | ✅ | 31 | 88% |
+| Cinacoin | ✅ | 31 | 88% |
 | Coinbase | ✅ | 18 | 90% |
 | Phantom | ✅ | 16 | 94% |
 | Solana | ✅ | 22 | 91% |

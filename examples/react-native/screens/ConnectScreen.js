@@ -7,7 +7,7 @@ import { QRScanner } from '@cinacoin/react-native';
 import { ethers } from 'ethers';
 /**
  * Real ConnectScreen with:
- * - WalletConnect v2 QR code scanning for mobile wallet pairing
+ * - Cinacoin v2 QR code scanning for mobile wallet pairing
  * - Real balance fetching via JSON-RPC after connection
  * - Deep link redirect handling for wallet apps
  */
@@ -42,12 +42,12 @@ export function ConnectScreen() {
             setLoadingBalance(false);
         }
     }, [account, chainId]);
-    // Handle QR scan result (WalletConnect URI)
+    // Handle QR scan result (Cinacoin URI)
     const handleQRScan = (uri) => {
         setShowQRScanner(false);
-        // Pass the WalletConnect URI to the connector
-        // In production, this pairs via WalletConnect v2
-        console.log('WalletConnect URI scanned:', uri);
+        // Pass the Cinacoin URI to the connector
+        // In production, this pairs via Cinacoin v2
+        console.log('Cinacoin URI scanned:', uri);
         Alert.alert('QR 已扫描', '正在连接钱包...');
     };
     const handleDisconnect = useCallback(() => {
@@ -81,9 +81,9 @@ export function ConnectScreen() {
                                                 ? '连接中...'
                                                 : '未连接' })] }), _jsxs(View, { style: styles.statusItem, children: [_jsx(Text, { style: styles.statusLabel, children: "\u5730\u5740" }), _jsx(Text, { style: styles.statusValue, children: account
                                             ? `${account.slice(0, 6)}...${account.slice(-4)}`
-                                            : '—' })] }), _jsxs(View, { style: styles.statusItem, children: [_jsx(Text, { style: styles.statusLabel, children: "\u4F59\u989D (\u5B9E\u65F6)" }), loadingBalance ? (_jsx(ActivityIndicator, { size: "small", color: "#3B82F6" })) : (_jsx(Text, { style: styles.statusValue, children: balance ? `${balance} ${chainId === 137 ? 'MATIC' : 'ETH'}` : '—' }))] })] })] }), _jsx(View, { style: styles.section, children: _jsx(ConnectButton, { onPress: () => setShowModal(true), account: account, variant: "primary", size: "lg", style: styles.connectBtn }) }), _jsx(View, { style: styles.section, children: _jsx(TouchableOpacity, { style: styles.qrBtn, onPress: () => setShowQRScanner(true), children: _jsx(Text, { style: styles.qrBtnText, children: "\uD83D\uDCF7 \u626B\u63CF\u4E8C\u7EF4\u7801\u8FDE\u63A5 (WalletConnect)" }) }) }), showModal && (_jsx(ConnectModal, { visible: showModal, onClose: () => setShowModal(false), wallets: defaultWallets, onWalletSelect: (wallet) => {
+                                            : '—' })] }), _jsxs(View, { style: styles.statusItem, children: [_jsx(Text, { style: styles.statusLabel, children: "\u4F59\u989D (\u5B9E\u65F6)" }), loadingBalance ? (_jsx(ActivityIndicator, { size: "small", color: "#3B82F6" })) : (_jsx(Text, { style: styles.statusValue, children: balance ? `${balance} ${chainId === 137 ? 'MATIC' : 'ETH'}` : '—' }))] })] })] }), _jsx(View, { style: styles.section, children: _jsx(ConnectButton, { onPress: () => setShowModal(true), account: account, variant: "primary", size: "lg", style: styles.connectBtn }) }), _jsx(View, { style: styles.section, children: _jsx(TouchableOpacity, { style: styles.qrBtn, onPress: () => setShowQRScanner(true), children: _jsx(Text, { style: styles.qrBtnText, children: "\uD83D\uDCF7 \u626B\u63CF\u4E8C\u7EF4\u7801\u8FDE\u63A5 (Cinacoin)" }) }) }), showModal && (_jsx(ConnectModal, { visible: showModal, onClose: () => setShowModal(false), wallets: defaultWallets, onWalletSelect: (wallet) => {
                     setShowModal(false);
-                    // Real wallet connection via WalletConnect v2
+                    // Real wallet connection via Cinacoin v2
                     Alert.alert('选择钱包', `正在连接 ${wallet.name}...`);
                 }, views: ['wallets', 'qr'], defaultView: "wallets", recommendedWallets: ['metamask', 'walletconnect', 'rabby'] })), showQRScanner && (_jsxs(View, { style: styles.qrOverlay, children: [_jsx(QRScanner, { onScan: handleQRScan, onError: (error) => {
                             Alert.alert('扫描失败', error.message);

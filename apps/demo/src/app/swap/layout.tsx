@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Swap — CinaCoin',
+  title: 'Swap — Cinacoin',
   description: 'Swap tokens with real DEX aggregator rates across 16 chains.',
 };
 

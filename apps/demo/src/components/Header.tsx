@@ -69,8 +69,8 @@ export default function Header({
             href="/"
             className="flex items-center gap-2 text-display-sm font-semibold text-[var(--cc-ink)] shrink-0"
           >
-            <Image src="/demo/logo.png" alt="CinaCoin" width={32} height={32} className="h-8 w-8 rounded-sm" />
-            CinaCoin
+            <Image src="/demo/logo.png" alt="Cinacoin" width={32} height={32} className="h-8 w-8 rounded-sm" />
+            Cinacoin
           </Link>
 
           {/* Desktop Nav */}

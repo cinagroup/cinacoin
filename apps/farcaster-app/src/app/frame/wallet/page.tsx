@@ -3,11 +3,11 @@ import { buildFrameMetadata, getAppUrl } from '@/lib/frame-utils';
 import { Wallet } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'CinaCoin — Wallet',
-  description: 'Connect and manage your wallet in the CinaCoin Farcaster Mini App.',
+  title: 'Cinacoin — Wallet',
+  description: 'Connect and manage your wallet in the Cinacoin Farcaster Mini App.',
   other: buildFrameMetadata({
     image: `${getAppUrl()}/og-wallet.png`,
-    title: 'CinaCoin Wallet',
+    title: 'Cinacoin Wallet',
     buttons: [
       { label: 'View Balance', action: 'post' },
       { label: 'Transfer', action: 'post' },

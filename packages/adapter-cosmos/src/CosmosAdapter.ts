@@ -51,7 +51,7 @@ import {
   type TxHistoryQuery,
   type Pagination,
 } from './services/ibc-staking.js';
-import type { CosmosWalletConnector, CosmosChainId, Coin, TxResult, TransferParams, CosmosMsg, CosmosFee } from './types.js';
+import type { CosmosCinacoinor, CosmosChainId, Coin, TxResult, TransferParams, CosmosMsg, CosmosFee } from './types.js';
 
 /* ------------------------------------------------------------------ */
 /*  Cosmos chain presets                                                */
@@ -201,7 +201,7 @@ export class CosmosAdapter {
   private _chainId: CosmosChainId;
   private _rpcUrl: string;
   private _restUrl: string;
-  private _connector: CosmosWalletConnector | null = null;
+  private _connector: CosmosCinacoinor | null = null;
   private _address: string | null = null;
   private _chains: Chain[] = [];
   private _preferredWallet: 'keplr' | 'leap' = 'keplr';
@@ -253,7 +253,7 @@ export class CosmosAdapter {
   }
 
   /** Get the current wallet connector. */
-  getConnector(): CosmosWalletConnector | null {
+  getConnector(): CosmosCinacoinor | null {
     return this._connector;
   }
 
@@ -268,7 +268,7 @@ export class CosmosAdapter {
    * @param walletId - Override the preferred wallet ("keplr" or "leap").
    * @returns The resolved connector, or null if neither is available.
    */
-  resolveWallet(walletId?: 'keplr' | 'leap'): CosmosWalletConnector | null {
+  resolveWallet(walletId?: 'keplr' | 'leap'): CosmosCinacoinor | null {
     const target = walletId ?? this._preferredWallet;
 
     if (target === 'keplr') {
@@ -829,7 +829,7 @@ export class CosmosAdapter {
         accountNumber: 0, // Will be populated by wallet
       };
 
-      const signer = (this._connector as import('./types.js').CosmosWalletConnector);
+      const signer = (this._connector as import('./types.js').CosmosCinacoinor);
       // Use connector's signDirect via the wallet
       const txHash = await this._connector.sendTransfer(
         this._chainId,

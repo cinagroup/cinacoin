@@ -1,5 +1,5 @@
 /**
- * Cloudflare Email Worker for CinaCoin
+ * Cloudflare Email Worker for Cinacoin
  * 
  * 处理发送到 cinacoin.com 的邮件：
  * - noreply@cinacoin.com - 系统通知（不接收回复）

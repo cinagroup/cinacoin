@@ -6,7 +6,7 @@
  */
 
 export { generateDeepLink, registerWalletDeepLink, getAppStoreUrl, WALLET_DEEP_LINKS } from './deep-link.js';
-export { generateUniversalLink, generateWalletConnectUniversalLink } from './universal-link.js';
+export { generateUniversalLink, generateCinacoinUniversalLink } from './universal-link.js';
 export { smartRedirect, detectPlatform } from './redirect.js';
 export type {
   DeepLinkParams,

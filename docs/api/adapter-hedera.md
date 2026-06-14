@@ -32,8 +32,8 @@ const { transactionId } = await adapter.transferHbar({
 | Connector | Wallet |
 |-----------|--------|
 | `HashPackConnector` | HashPack |
-| `BladeWalletConnector` | Blade Wallet |
-| `KantaraWalletConnector` | Kantara Wallet |
+| `BladeCinacoinor` | Blade Wallet |
+| `KantaraCinacoinor` | Kantara Wallet |
 
 ## Features
 

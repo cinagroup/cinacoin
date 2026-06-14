@@ -4,7 +4,7 @@ Unified RPC endpoint with automatic routing.
 
 ## Overview.
 
-Single endpoint for all chains with rate limiting, failover, and intelligent routing. The CinaCoin RPC Proxy is a lightweight HTTP proxy that forwards JSON-RPC requests to the appropriate chain backend, with built-in response caching for read-only methods, IP-based rate limiting, origin-based access control, and graceful shutdown handling.
+Single endpoint for all chains with rate limiting, failover, and intelligent routing. The Cinacoin RPC Proxy is a lightweight HTTP proxy that forwards JSON-RPC requests to the appropriate chain backend, with built-in response caching for read-only methods, IP-based rate limiting, origin-based access control, and graceful shutdown handling.
 
 **Key capabilities:**
 

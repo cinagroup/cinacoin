@@ -1,5 +1,5 @@
 /**
- * Cloudflare Email Sender Worker for CinaCoin
+ * Cloudflare Email Sender Worker for Cinacoin
  * 
  * 使用 MailChannels 集成发送邮件
  * 免费额度：每天 100 封邮件
@@ -97,7 +97,7 @@ async function sendEmailViaMailChannels(
         ],
         from: {
           email: 'noreply@cinacoin.com',
-          name: 'CinaCoin',
+          name: 'Cinacoin',
         },
         subject: subject,
         content: [

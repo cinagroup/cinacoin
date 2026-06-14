@@ -1,6 +1,6 @@
-# infra/relay — WalletConnect Relay Infrastructure
+# infra/relay — Cinacoin Relay Infrastructure
 
-Multi-region Cloudflare Workers deployment for WalletConnect v2 relay proxy and session management.
+Multi-region Cloudflare Workers deployment for Cinacoin v2 relay proxy and session management.
 
 ## Architecture
 

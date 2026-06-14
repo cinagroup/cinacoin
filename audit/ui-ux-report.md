@@ -84,7 +84,7 @@
 |---|---------|------|------|---------|
 | W-11 | Minor | Navbar 中 "Log In" 和 "Sign Up" 硬编码英文 | `Navbar.tsx:119-123` | 使用 `t('nav-login')` 和 `t('nav-signup')` |
 | W-12 | Minor | Footer 中 "Stay Updated" 等文本硬编码 | `Footer.tsx:53-55` | 添加到 i18n 翻译表 |
-| W-13 | Minor | Footer 品牌名 "CinaCoin" 大小写不一致 | `Footer.tsx:67` | 统一为 "Cinacoin" |
+| W-13 | Minor | Footer 品牌名 "Cinacoin" 大小写不一致 | `Footer.tsx:67` | 统一为 "Cinacoin" |
 
 ### 1.6 动画与过渡
 

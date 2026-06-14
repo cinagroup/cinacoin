@@ -6,7 +6,7 @@
  */
 
 import { logger } from '@cinacoin/logger';
-import type { StarknetCall, StarknetTransactionResult, StarknetWalletConnector } from '../types.js';
+import type { StarknetCall, StarknetTransactionResult, StarknetCinacoinor } from '../types.js';
 
 /** Minimal Braavos provider type declarations. */
 interface BraavosProvider {
@@ -46,7 +46,7 @@ declare global {
  * leveraging Starknet's native account abstraction through the Braavos account
  * contract with hardware-enclave security.
  */
-export class BraavosConnector implements StarknetWalletConnector {
+export class BraavosConnector implements StarknetCinacoinor {
   readonly id = 'braavos';
   readonly name = 'Braavos';
 

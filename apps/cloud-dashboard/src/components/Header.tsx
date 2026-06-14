@@ -32,9 +32,9 @@ export default function Header() {
   return (
     <header className="cc-navbar relative">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-2 cc-body-md-strong text-[var(--cc-ink)]" aria-label="CinaCoin Cloud home">
-          <Image src="/logo.png" alt="CinaCoin logo" width={28} height={28} className="h-7 w-7 rounded-md" unoptimized />
-          <span>CinaCoin <span className="text-[var(--cc-muted)] font-normal">Cloud</span></span>
+        <Link href="/" className="flex items-center gap-2 cc-body-md-strong text-[var(--cc-ink)]" aria-label="Cinacoin Cloud home">
+          <Image src="/logo.png" alt="Cinacoin logo" width={28} height={28} className="h-7 w-7 rounded-md" unoptimized />
+          <span>Cinacoin <span className="text-[var(--cc-muted)] font-normal">Cloud</span></span>
         </Link>
 
         {/* Desktop nav */}

@@ -42,84 +42,84 @@
     "p99": 19.39053382000141
   },
   {
-    "suiteName": "WalletConnect",
+    "suiteName": "Cinacoin",
     "label": "pairing",
     "p50": 30.36371600000166,
     "p95": 39.93745959999906,
     "p99": 50.582779619999265
   },
   {
-    "suiteName": "WalletConnect",
+    "suiteName": "Cinacoin",
     "label": "pairing-good-network",
     "p50": 21.705958000000464,
     "p95": 27.60295070000175,
     "p99": 58.55330330000116
   },
   {
-    "suiteName": "WalletConnect",
+    "suiteName": "Cinacoin",
     "label": "pairing-poor-network",
     "p50": 57.571255000002566,
     "p95": 79.09003374999884,
     "p99": 104.62182869000301
   },
   {
-    "suiteName": "WalletConnect",
+    "suiteName": "Cinacoin",
     "label": "session-approval",
     "p50": 68.99959800000033,
     "p95": 137.4045433000021,
     "p99": 179.9363208700003
   },
   {
-    "suiteName": "WalletConnect",
+    "suiteName": "Cinacoin",
     "label": "session-approval-good-network",
     "p50": 41.93198349999875,
     "p95": 61.327174549999654,
     "p99": 69.59340953000044
   },
   {
-    "suiteName": "WalletConnect",
+    "suiteName": "Cinacoin",
     "label": "session-approval-poor-network",
     "p50": 86.30186099999992,
     "p95": 156.88980669999728,
     "p99": 184.42485219999804
   },
   {
-    "suiteName": "WalletConnect",
+    "suiteName": "Cinacoin",
     "label": "session-proposal",
     "p50": 36.583285500000784,
     "p95": 52.54753649999875,
     "p99": 54.64667766999973
   },
   {
-    "suiteName": "WalletConnect",
+    "suiteName": "Cinacoin",
     "label": "session-proposal-good-network",
     "p50": 30.905360999999175,
     "p95": 41.08740339999986,
     "p99": 62.61401535000012
   },
   {
-    "suiteName": "WalletConnect",
+    "suiteName": "Cinacoin",
     "label": "session-proposal-poor-network",
     "p50": 57.70158550000269,
     "p95": 89.99479365000295,
     "p99": 107.67682157999818
   },
   {
-    "suiteName": "WalletConnect",
+    "suiteName": "Cinacoin",
     "label": "total-connect",
     "p50": 151.78755549999914,
     "p95": 232.16355944999995,
     "p99": 249.388605600002
   },
   {
-    "suiteName": "WalletConnect",
+    "suiteName": "Cinacoin",
     "label": "total-connect-good-network",
     "p50": 92.13132000000223,
     "p95": 123.0745579500006,
     "p99": 127.27934350999884
   },
   {
-    "suiteName": "WalletConnect",
+    "suiteName": "Cinacoin",
     "label": "total-connect-poor-network",
     "p50": 222.37001899999814,
     "p95": 294.33834379999826,

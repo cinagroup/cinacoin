@@ -1,6 +1,6 @@
 # @cinacoin/appkit
 
-Cinacoin AppKit — Unified wallet connection modal component (Reown AppKit alternative).
+Cinacoin AppKit — Unified wallet connection modal component (Cinacoin AppKit alternative).
 
 ## Installation
 

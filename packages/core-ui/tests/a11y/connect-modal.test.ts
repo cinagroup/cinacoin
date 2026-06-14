@@ -34,7 +34,7 @@ describe('a11y — ConnectModal', () => {
 
     const wallets = [
       { id: 'metamask', name: 'MetaMask', icon: '' },
-      { id: 'walletconnect', name: 'WalletConnect', icon: '' },
+      { id: 'walletconnect', name: 'Cinacoin', icon: '' },
       { id: 'coinbase', name: 'Coinbase', icon: '' },
     ];
 

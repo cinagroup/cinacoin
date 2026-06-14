@@ -159,40 +159,40 @@ describe('WalletButton', () => {
   });
 });
 
-/* ── WalletConnectButton ────────────────────────────────────────── */
+/* ── CinacoinButton ────────────────────────────────────────── */
 
-describe('WalletConnectButton', () => {
+describe('CinacoinButton', () => {
   it('is a React function component (exports from .tsx source)', () => {
-    const source = readSource('WalletConnectButton.tsx');
-    expect(source).toContain('export const WalletConnectButton');
+    const source = readSource('CinacoinButton.tsx');
+    expect(source).toContain('export const CinacoinButton');
     expect(source).toContain('React.FC');
   });
 
-  it('has WalletConnect brand color', () => {
-    const source = readSource('WalletConnectButton.tsx');
+  it('has Cinacoin brand color', () => {
+    const source = readSource('CinacoinButton.tsx');
     expect(source).toContain('3B99FC');
   });
 
   it('has QR icon SVG', () => {
-    const source = readSource('WalletConnectButton.tsx');
+    const source = readSource('CinacoinButton.tsx');
     expect(source).toContain('QR_ICON');
     expect(source).toContain('<svg');
   });
 
   it('toggles QR overlay on click', () => {
-    const source = readSource('WalletConnectButton.tsx');
+    const source = readSource('CinacoinButton.tsx');
     expect(source).toContain('showingQR');
     expect(source).toContain('setShowingQR');
     expect(source).toContain('cc-wc-qr-overlay');
   });
 
   it('supports custom label override', () => {
-    const source = readSource('WalletConnectButton.tsx');
-    expect(source).toContain("label = 'WalletConnect'");
+    const source = readSource('CinacoinButton.tsx');
+    expect(source).toContain("label = 'Cinacoin'");
   });
 
   it('supports disabled and loading states', () => {
-    const source = readSource('WalletConnectButton.tsx');
+    const source = readSource('CinacoinButton.tsx');
     expect(source).toContain('disabled');
     expect(source).toContain('isLoading');
   });

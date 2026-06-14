@@ -113,7 +113,7 @@ const SOCIAL_PROVIDERS = [
 
 const WALLET_PROVIDERS = [
   { id: 'metamask', name: 'MetaMask', icon: Link2 },
-  { id: 'walletconnect', name: 'WalletConnect', icon: Link2 },
+  { id: 'walletconnect', name: 'Cinacoin', icon: Link2 },
   { id: 'coinbase', name: 'Coinbase Wallet', icon: Link2 },
 ];
 
@@ -541,12 +541,12 @@ Issued At: 2026-05-17T13:45:00.000Z`;
 
       {/* Comparison */}
       <div className="cc-card mt-8">
-        <h2 className="cc-display-sm mb-4">CinaCoin vs Reown.</h2>
+        <h2 className="cc-display-sm mb-4">Cinacoin vs Cinacoin.</h2>
         <div className="overflow-x-auto">
           <table
             className="w-full text-body-sm"
             role="table"
-            aria-label="Feature comparison between CinaCoin and Reown"
+            aria-label="Feature comparison between Cinacoin and Cinacoin"
           >
             <thead>
               <tr className="border-b border-[var(--cc-hairline)] text-[var(--cc-muted)] text-caption bg-[var(--cc-canvas-soft-2)]">
@@ -554,10 +554,10 @@ Issued At: 2026-05-17T13:45:00.000Z`;
                   Feature
                 </th>
                 <th scope="col" className="text-center p-3 font-semibold cc-caption-mono">
-                  CinaCoin
+                  Cinacoin
                 </th>
                 <th scope="col" className="text-center p-3 font-semibold cc-caption-mono">
-                  Reown
+                  Cinacoin
                 </th>
               </tr>
             </thead>

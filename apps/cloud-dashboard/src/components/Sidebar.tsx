@@ -91,7 +91,7 @@ export default function Sidebar({ isOpen }: SidebarProps) {
           <div className="w-8 h-8 bg-[var(--cc-primary)] rounded-[var(--cc-radius-sm)] flex items-center justify-center">
             <Cloud className="w-5 h-5 text-[var(--cc-on-primary)]" />
           </div>
-          <span className="ml-3 font-semibold text-[var(--cc-ink)]">CinaCoin Cloud</span>
+          <span className="ml-3 font-semibold text-[var(--cc-ink)]">Cinacoin Cloud</span>
         </Link>
       </div>
 

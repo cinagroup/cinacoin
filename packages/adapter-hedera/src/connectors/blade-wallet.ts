@@ -39,14 +39,14 @@ declare global {
  *
  * @example
  * ```ts
- * const blade = new BladeWalletConnector();
+ * const blade = new BladeCinacoinor();
  * if (blade.isAvailable()) {
  *   const result = await blade.connect();
  *   logger.info(result.accounts); // ["0.0.12345"]
  * }
  * ```
  */
-export class BladeWalletConnector implements HederaConnector {
+export class BladeCinacoinor implements HederaConnector {
   readonly id = 'blade';
   readonly name = 'Blade Wallet';
   readonly icon =

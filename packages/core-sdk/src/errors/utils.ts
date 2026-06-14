@@ -7,7 +7,7 @@
 
 import type { ErrorSeverity, ErrorCodeDefinition } from './codes.js';
 import { getErrorCode } from './codes.js';
-import { CinacoinError, ConnectionError, AuthenticationError, ChainError, TransactionError, WalletConnectError, SigningError, NetworkError, SdkError, SecurityError } from './classes.js';
+import { CinacoinError, ConnectionError, AuthenticationError, ChainError, TransactionError, CinacoinError, SigningError, NetworkError, SdkError, SecurityError } from './classes.js';
 import { getMessage } from './i18n.js';
 
 // ============================================================================
@@ -50,10 +50,10 @@ export function isTransactionError(value: unknown): value is TransactionError {
 }
 
 /**
- * Check whether an error is a {@link WalletConnectError}.
+ * Check whether an error is a {@link CinacoinError}.
  */
-export function isWalletConnectError(value: unknown): value is WalletConnectError {
-  return value instanceof WalletConnectError;
+export function isCinacoinError(value: unknown): value is CinacoinError {
+  return value instanceof CinacoinError;
 }
 
 /**
@@ -211,7 +211,7 @@ export function errorFromJSON(json: Record<string, unknown>): CinacoinError {
     code >= 8000 ? SdkError :
     code >= 7000 ? NetworkError :
     code >= 6000 ? SigningError :
-    code >= 5000 ? WalletConnectError :
+    code >= 5000 ? CinacoinError :
     code >= 4000 ? TransactionError :
     code >= 3000 ? ChainError :
     code >= 2000 ? AuthenticationError :

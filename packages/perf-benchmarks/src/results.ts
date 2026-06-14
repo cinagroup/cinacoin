@@ -233,23 +233,23 @@ export function allResultsToMarkdown(all: AllResults): string {
   return lines.join("\n");
 }
 
-// ── Reown target comparison ────────────────────────────────────────────
+// ── Cinacoin target comparison ────────────────────────────────────────────
 
-export interface ReownTarget {
+export interface CinacoinTarget {
   suiteName: string;
   label: string;
   targetMs: number;
 }
 
-export const REOWN_TARGETS: ReownTarget[] = [
+export const REOWN_TARGETS: CinacoinTarget[] = [
   { suiteName: "SDK Init", label: "core-sdk", targetMs: 100 },
   { suiteName: "SDK Init", label: "react-provider", targetMs: 150 },
   { suiteName: "SDK Init", label: "vue-composable", targetMs: 150 },
   { suiteName: "SDK Init", label: "core-sdk-warm", targetMs: 50 },
-  { suiteName: "WalletConnect", label: "pairing", targetMs: 400 },
-  { suiteName: "WalletConnect", label: "session-proposal", targetMs: 300 },
-  { suiteName: "WalletConnect", label: "session-approval", targetMs: 300 },
-  { suiteName: "WalletConnect", label: "total-connect", targetMs: 1000 },
+  { suiteName: "Cinacoin", label: "pairing", targetMs: 400 },
+  { suiteName: "Cinacoin", label: "session-proposal", targetMs: 300 },
+  { suiteName: "Cinacoin", label: "session-approval", targetMs: 300 },
+  { suiteName: "Cinacoin", label: "total-connect", targetMs: 1000 },
   { suiteName: "Chain Switch", label: "switch", targetMs: 50 },
   { suiteName: "Chain Switch", label: "rapid-switch", targetMs: 80 },
   { suiteName: "Chain Switch", label: "rpc-response", targetMs: 200 },
@@ -258,7 +258,7 @@ export const REOWN_TARGETS: ReownTarget[] = [
   { suiteName: "Transaction Build", label: "sign", targetMs: 50 },
 ];
 
-export function compareAgainstReown(results: SuiteResult[]): BaselineComparison[] {
+export function compareAgainstCinacoin(results: SuiteResult[]): BaselineComparison[] {
   const comparisons: BaselineComparison[] = [];
   for (const target of REOWN_TARGETS) {
     const suite = results.find((r) => r.suiteName === target.suiteName);
@@ -270,7 +270,7 @@ export function compareAgainstReown(results: SuiteResult[]): BaselineComparison[
     const deltaPct = target.targetMs > 0 ? (delta / target.targetMs) * 100 : 0;
     comparisons.push({
       label: target.label,
-      metric: "p50 vs reown target",
+      metric: "p50 vs cinacoin target",
       baseline: target.targetMs,
       current,
       delta,

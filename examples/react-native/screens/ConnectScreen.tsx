@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from 'react-native';
-import { useCinaCoinContext, ConnectButton, ConnectModal, QRScanner } from '@cinacoin/react-native';
+import { useCinacoinContext, ConnectButton, ConnectModal, QRScanner } from '@cinacoin/react-native';
 import { WalletList } from '../components/WalletList';
 import { defaultWallets } from '../utils/walletConfig';
 
@@ -19,7 +19,7 @@ const RPC_ENDPOINTS: Record<number, string> = {
 };
 
 export function ConnectScreen() {
-  const { account, status, connectors, disconnect, switchChain } = useCinaCoinContext();
+  const { account, status, connectors, disconnect, switchChain } = useCinacoinContext();
   const [showModal, setShowModal] = useState(false);
   const [showQRScanner, setShowQRScanner] = useState(false);
   const [balance, setBalance] = useState<string | null>(null);
@@ -57,10 +57,10 @@ export function ConnectScreen() {
     }
   }, [account?.address, account?.chainId]);
 
-  // Handle QR scan result (WalletConnect URI)
+  // Handle QR scan result (Cinacoin URI)
   const handleQRScan = (uri: string) => {
     setShowQRScanner(false);
-    console.log('WalletConnect URI scanned:', uri);
+    console.log('Cinacoin URI scanned:', uri);
     Alert.alert('QR 已扫描', '正在连接钱包...');
   };
 
@@ -148,7 +148,7 @@ export function ConnectScreen() {
         />
       </View>
 
-      {/* QR Scanner for WalletConnect */}
+      {/* QR Scanner for Cinacoin */}
       <View style={styles.section}>
         <TouchableOpacity
           style={styles.qrBtn}
@@ -157,7 +157,7 @@ export function ConnectScreen() {
           accessibilityRole="button"
           accessibilityLabel="Scan QR code to connect"
         >
-          <Text style={styles.qrBtnText}>📷 扫描二维码连接 (WalletConnect)</Text>
+          <Text style={styles.qrBtnText}>📷 扫描二维码连接 (Cinacoin)</Text>
         </TouchableOpacity>
       </View>
 
@@ -172,7 +172,7 @@ export function ConnectScreen() {
             icon: w.icon,
             description: '',
             deepLink: '',
-            supportsWalletConnect: true,
+            supportsCinacoin: true,
           }))}
           views={['wallets', 'scan']}
           defaultView="wallets"

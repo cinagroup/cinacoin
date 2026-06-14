@@ -9,7 +9,7 @@ export type Platform = 'ios' | 'android' | 'web';
 export interface DeepLinkParams {
   /** Wallet identifier (e.g., 'metamask', 'walletconnect', 'rainbow'). */
   walletId: string;
-  /** URI to pass to the wallet (e.g., WalletConnect URI, transaction request). */
+  /** URI to pass to the wallet (e.g., Cinacoin URI, transaction request). */
   uri: string;
   /** Additional query parameters to append to the deep link. */
   params?: Record<string, string>;

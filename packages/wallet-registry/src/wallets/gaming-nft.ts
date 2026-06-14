@@ -12,7 +12,7 @@ export const gamingNftWallets = [
     appStoreUrl: "https://apps.apple.com/app/gamestop-wallet/id1618139316",
     playStoreUrl: "https://play.google.com/store/apps/details?id=com.gamestop.wallet",
     extensionUrl: "https://chromewebstore.google.com/detail/gamestop-wallet/annmjhdbfhjbkdmhjhdbkdmhjhdbkdmh",
-    supportsWalletConnectV2: true,
+    supportsCinacoinV2: true,
     walletType: "hot",
     popularity: 26,
     description: "NFT-focused wallet by GameStop.",

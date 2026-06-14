@@ -1,5 +1,5 @@
 /**
- * CinaCoin Farcaster App - Components
+ * Cinacoin Farcaster App - Components
  */
 
 export { FrameRenderer } from './FrameRenderer';

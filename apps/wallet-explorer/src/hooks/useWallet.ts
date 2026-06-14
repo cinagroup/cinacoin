@@ -17,7 +17,7 @@ export function useWallet() {
   const [state, setState] = useState<WalletState>(initialState);
 
   const connect = useCallback(async () => {
-    // TODO: 集成真实钱包连接（WalletConnect / MetaMask）
+    // TODO: 集成真实钱包连接（Cinacoin / MetaMask）
     // 暂时使用模拟连接
     setState({
       connected: true,

@@ -20,7 +20,7 @@
 
 ## 1. Feature Completeness Audit
 
-### 1.1 WalletConnect v2 Protocol Compliance
+### 1.1 Cinacoin v2 Protocol Compliance
 
 | Item | Status | Evidence |
 |------|--------|----------|
@@ -372,7 +372,7 @@ As of May 2026, **20 packages published** on npm under `@cinacoin/`:
 | Quick start | ✅ | `docs/guide/quick-start.md` |
 | Installation | ✅ | `docs/guide/installation.md` |
 | Configuration | ✅ | `docs/guide/configuration.md` |
-| Migration guides | ✅ | `docs/guide/migrate-from-connectkit.md`, `migrate-from-rainbowkit.md`, `migrate-from-reown.md` |
+| Migration guides | ✅ | `docs/guide/migrate-from-connectkit.md`, `migrate-from-rainbowkit.md`, `migrate-from-cinacoin.md` |
 | Security guide | ✅ | `docs/guide/security.md` |
 | Performance | ✅ | `docs/guide/performance.md` |
 | Troubleshooting | ✅ | `docs/guide/troubleshooting.md` |
@@ -412,7 +412,7 @@ As of May 2026, **20 packages published** on npm under `@cinacoin/`:
 
 | Feature Area | Previous Score | Current Score | Change | Notes |
 |-------------|---------------|---------------|--------|-------|
-| WalletConnect v2 | 85% | **90%** | +5% | Verified full client implementation |
+| Cinacoin v2 | 85% | **90%** | +5% | Verified full client implementation |
 | EIP-5792 | — | **100%** | New | All 6 frameworks confirmed |
 | EIP-6963 | 95% | **95%** | — | Full spec compliance verified |
 | SIWE/SIWX | 90% | **92%** | +2% | TON+Tron adapters confirmed present |

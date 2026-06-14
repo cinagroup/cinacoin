@@ -1,6 +1,6 @@
 # Social login.
 
-> `@cinacoin/social-login` — Social login integration for CinaCoin.
+> `@cinacoin/social-login` — Social login integration for Cinacoin.
 
 ## Installation.
 

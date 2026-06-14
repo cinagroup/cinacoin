@@ -23,12 +23,12 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: 'CinaCoin Analytics Dashboard',
-    template: '%s | CinaCoin Analytics',
+    default: 'Cinacoin Analytics Dashboard',
+    template: '%s | Cinacoin Analytics',
   },
   description:
-    'Data analytics dashboard for CinaCoin platform. Track user growth, API calls, regional distribution, and real-time activity metrics.',
-  keywords: ['CinaCoin', 'analytics', 'dashboard', 'user growth', 'API metrics'],
+    'Data analytics dashboard for Cinacoin platform. Track user growth, API calls, regional distribution, and real-time activity metrics.',
+  keywords: ['Cinacoin', 'analytics', 'dashboard', 'user growth', 'API metrics'],
   robots: {
     index: false,
     follow: false,

@@ -1,6 +1,6 @@
 /**
  * @cinacoin/appkit — 统一钱包连接弹窗组件
- *对标 Reown AppKit，一键式钱包连接 UI
+ *对标 Cinacoin AppKit，一键式钱包连接 UI
  *
  * @example
  * ```typescript

@@ -37,7 +37,7 @@ const releases = [
     type: 'major' as const,
     changes: [
       'Initial release of @cinacoin/core-sdk',
-      'EVM wallet connection (MetaMask, WalletConnect, Coinbase)',
+      'EVM wallet connection (MetaMask, Cinacoin, Coinbase)',
       'React adapter with ConnectButton component',
       'Basic analytics dashboard',
     ],

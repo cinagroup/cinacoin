@@ -53,8 +53,8 @@ export default function DevelopersPage() {
                   <span className="text-white/40">$</span> <span className="text-[#79c0ff]">npm</span> <span className="text-white">install</span> <span className="text-[#a5d6ff]">@cinacoin/sdk</span>{'\n'}
                   {'\n'}
                   <span className="text-[#8b949e]"># Import and initialize</span>{'\n'}
-                  <span className="text-[#ff7b72]">import</span> <span className="text-white">{'{ CinaCoin }'}</span> <span className="text-[#ff7b72]">from</span> <span className="text-[#a5d6ff]">'@cinacoin/sdk'</span>{'\n'}
-                  <span className="text-[#ff7b72]">const</span> <span className="text-white">client</span> = <span className="text-[#ff7b72]">new</span> <span className="text-[#79c0ff]">CinaCoin</span>({'{'} <span className="text-white">network:</span> <span className="text-[#a5d6ff]">'mainnet'</span> {'}'}){'\n'}
+                  <span className="text-[#ff7b72]">import</span> <span className="text-white">{'{ Cinacoin }'}</span> <span className="text-[#ff7b72]">from</span> <span className="text-[#a5d6ff]">'@cinacoin/sdk'</span>{'\n'}
+                  <span className="text-[#ff7b72]">const</span> <span className="text-white">client</span> = <span className="text-[#ff7b72]">new</span> <span className="text-[#79c0ff]">Cinacoin</span>({'{'} <span className="text-white">network:</span> <span className="text-[#a5d6ff]">'mainnet'</span> {'}'}){'\n'}
                   <span className="text-[#ff7b72]">const</span> <span className="text-white">balance</span> = <span className="text-[#ff7b72]">await</span> <span className="text-white">client.</span><span className="text-[#d2a8ff]">getBalance</span><span className="text-white">(address)</span>
                 </code>
               </pre>

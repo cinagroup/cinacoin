@@ -48,7 +48,7 @@ Your users are everywhere. Cinacoin meets them there.
 • Real X25519 + ChaCha20-Poly1305 crypto
 • SIWX multi-chain auth
 • Account Abstraction (ERC-4337) stack
-• Automated migration from Reown/AppKit
+• Automated migration from Cinacoin/AppKit
 
 **Tweet 5/5** 🧵
 🚀 Try it:
@@ -83,11 +83,11 @@ useAtomicBatch() → one approval, many calls.
 No more signing 5 separate transactions. 🔢
 
 **Tweet C:**
-Migrating from Reown / AppKit?
+Migrating from Cinacoin / AppKit?
 
 We built a codemod for that.
 
-npx @cinacoin/codemod migrate-from-reown ./src
+npx @cinacoin/codemod migrate-from-cinacoin ./src
 
 Run it. Done. 🔢
 
@@ -107,7 +107,7 @@ v0.2.0 by the numbers:
 64+ built with dist/
 104+ test files
 300+ chain definitions
-600+ wallets via WalletConnect
+600+ wallets via Cinacoin
 6 demo pages with real logic
 
 The most complete Web3 SDK, open source.
@@ -125,5 +125,5 @@ EVM, Solana, Bitcoin, TON, TRON, Cosmos, Sui, Starknet, NEAR, Hedera, and XRPL. 
 Yes — full React SDK with EIP-5792 hooks: useAtomicBatch, useSendCalls, useWalletCapabilities, useCallsStatus. 🔢
 
 **"How do I migrate?"**
-Run our codemod: npx @cinacoin/codemod migrate-from-reown ./src
+Run our codemod: npx @cinacoin/codemod migrate-from-cinacoin ./src
 Or follow the full guide: docs.cinacoin.io 🔢

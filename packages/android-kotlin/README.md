@@ -1,10 +1,10 @@
 # @cinacoin/android-kotlin
 
-Cinacoin Wallet SDK for Android — a native Kotlin library with WalletConnect v2, EVM chain support, transaction management, and secure storage.
+Cinacoin Wallet SDK for Android — a native Kotlin library with Cinacoin v2, EVM chain support, transaction management, and secure storage.
 
 ## Features
 
-- **WalletConnect v2** — Pair, connect, sign, and send transactions via WC v2 protocol
+- **Cinacoin v2** — Pair, connect, sign, and send transactions via WC v2 protocol
 - **EVM Chain Support** — Ethereum, Polygon, Arbitrum, Base, Optimism, BSC (+ Sepolia testnet)
 - **Kotlin Coroutines** — All async operations use `suspend` functions
 - **Kotlin Flow** — Reactive state via `StateFlow` for connection, chain, network, and events
@@ -135,7 +135,7 @@ lifecycleScope.launch {
 // Observe all SDK events
 CinacoinSDK.instance.events.collect { event ->
     when (event) {
-        is SdkEvent.WalletConnected -> println("Connected: ${event.result.address}")
+        is SdkEvent.Cinacoined -> println("Connected: ${event.result.address}")
         is SdkEvent.WalletDisconnected -> println("Disconnected")
         is SdkEvent.ChainChanged -> println("Chain: ${event.chainId}")
         is SdkEvent.SessionExpired -> println("Session expired")
@@ -217,7 +217,7 @@ try {
     sdk.connect("walletconnect")
 } catch (e: CinacoinError.NotInitialized) {
     // SDK not initialized
-} catch (e: CinacoinError.WalletConnectError) {
+} catch (e: CinacoinError.CinacoinError) {
     // WC protocol error
 } catch (e: CinacoinError.UserRejected) {
     // User declined in wallet

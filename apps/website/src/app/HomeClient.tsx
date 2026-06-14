@@ -95,7 +95,7 @@ export default function Home() {
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-12 items-start mb-16">
             <div>
-              <p className="font-mono text-xs text-[var(--cc-muted)] mb-3 tracking-wide">Why CinaCoin</p>
+              <p className="font-mono text-xs text-[var(--cc-muted)] mb-3 tracking-wide">Why Cinacoin</p>
               <h2 className="text-display-lg md:text-display-xl font-semibold tracking-tight text-[var(--cc-ink)] leading-[1.1]">
                 {t('home-features-title')}
               </h2>
@@ -323,9 +323,9 @@ export default function Home() {
                 </div>
                 <pre className="font-mono text-xs leading-5 overflow-x-auto">
                   <code>
-                    <span className="text-[#ff7b72]">import</span> <span className="text-white">{'{ CinaCoin }'}</span> <span className="text-[#ff7b72]">from</span> <span className="text-[#a5d6ff]">'@cinacoin/sdk'</span>;{'\n'}
+                    <span className="text-[#ff7b72]">import</span> <span className="text-white">{'{ Cinacoin }'}</span> <span className="text-[#ff7b72]">from</span> <span className="text-[#a5d6ff]">'@cinacoin/sdk'</span>;{'\n'}
                     {'\n'}
-                    <span className="text-[#ff7b72]">const</span> <span className="text-white">cc</span> = <span className="text-[#ff7b72]">new</span> <span className="text-[#79c0ff]">CinaCoin</span>({'{'}{'\n'}
+                    <span className="text-[#ff7b72]">const</span> <span className="text-white">cc</span> = <span className="text-[#ff7b72]">new</span> <span className="text-[#79c0ff]">Cinacoin</span>({'{'}{'\n'}
                     {'  '}<span className="text-white">network:</span> <span className="text-[#a5d6ff]">'mainnet'</span>,{'\n'}
                     {'  '}<span className="text-white">apiKey:</span> <span className="text-white">process.env.</span><span className="text-[#79c0ff]">CC_API_KEY</span>,{'\n'}
                     {'}'});{'\n'}

@@ -70,7 +70,7 @@ export interface KotlinChainConfig {
 }
 
 /**
- * Kotlin-compatible WalletConnect parameters.
+ * Kotlin-compatible Cinacoin parameters.
  */
 export interface KotlinWCParams {
   projectId: string;
@@ -102,7 +102,7 @@ export interface KotlinCinacoinSDK {
   /** Initialize the SDK with project configuration */
   initialize(params: KotlinWCParams): Promise<void>;
 
-  /** Connect to a wallet via WalletConnect or injected provider */
+  /** Connect to a wallet via Cinacoin or injected provider */
   connect(): Promise<KotlinConnectionResult>;
 
   /** Disconnect from wallet */

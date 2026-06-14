@@ -31,7 +31,7 @@ export default function NewProjectPage() {
         </Link>
         <h1 className="text-display-md font-semibold text-[var(--cc-ink)] mt-2">New project</h1>
         <p className="text-ink-body mt-1">
-          Set up a new project to start integrating with CinaCoin.
+          Set up a new project to start integrating with Cinacoin.
         </p>
       </div>
 

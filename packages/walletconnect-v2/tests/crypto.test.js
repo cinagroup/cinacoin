@@ -77,10 +77,10 @@ describe('encrypt / decrypt', () => {
         const kp1 = generateKeypair();
         const kp2 = generateKeypair();
         const sharedKey = sharedSecret(kp1.privateKey, kp2.publicKey);
-        const plaintext = new TextEncoder().encode('Hello, WalletConnect!');
+        const plaintext = new TextEncoder().encode('Hello, Cinacoin!');
         const encrypted = encrypt(sharedKey, plaintext);
         const decrypted = decrypt(sharedKey, encrypted);
-        expect(new TextDecoder().decode(decrypted)).toBe('Hello, WalletConnect!');
+        expect(new TextDecoder().decode(decrypted)).toBe('Hello, Cinacoin!');
     });
     it('uses random nonce when not provided', () => {
         const kp = generateKeypair();

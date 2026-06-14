@@ -56,7 +56,7 @@ export interface WalletButtonProps {
 export interface WalletButtonGroupProps {
   /**
    * Array of wallet IDs to display.
-   * Default: popular wallets (MetaMask, WalletConnect, Coinbase, Rainbow, Trust, Phantom).
+   * Default: popular wallets (MetaMask, Cinacoin, Coinbase, Rainbow, Trust, Phantom).
    */
   walletIds?: string[];
 

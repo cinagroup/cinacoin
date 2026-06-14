@@ -1,6 +1,6 @@
 # CLI.
 
-> `@cinacoin/cli` — Command-line interface for CinaCoin.
+> `@cinacoin/cli` — Command-line interface for Cinacoin.
 
 ## Installation.
 

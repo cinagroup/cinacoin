@@ -2,7 +2,7 @@
  * Push Notification Manager for React Native.
  *
  * Handles FCM (Android) and APNs (iOS) registration, and processes
- * incoming WalletConnect relay notifications.
+ * incoming Cinacoin relay notifications.
  *
  * ## Setup
  *
@@ -27,7 +27,7 @@
  * await pushManager.init({
  *   projectId: process.env.FIREBASE_PROJECT_ID,
  *   onNotification: (notification) => {
- *     handleWalletConnectNotification(notification);
+ *     handleCinacoinNotification(notification);
  *   },
  * });
  *
@@ -46,7 +46,7 @@ import { Platform, AppState, type AppStateStatus } from 'react-native';
 /** Push notification provider. */
 export type PushProvider = 'fcm' | 'apns' | 'unknown';
 
-/** Push notification payload from WalletConnect relay. */
+/** Push notification payload from Cinacoin relay. */
 export interface WCRelayNotification {
   /** Notification title. */
   title?: string;
@@ -54,7 +54,7 @@ export interface WCRelayNotification {
   body?: string;
   /** Notification type. */
   type?: 'session_proposal' | 'session_request' | 'session_delete' | 'session_event' | 'unknown';
-  /** WalletConnect topic (for routing). */
+  /** Cinacoin topic (for routing). */
   topic?: string;
   /** Raw notification data. */
   data?: Record<string, string>;
@@ -104,7 +104,7 @@ export interface UsePushNotificationReturn {
   registerToken: () => Promise<string | null>;
   /** Unregister from push notifications. */
   unregisterToken: () => Promise<void>;
-  /** Handle a WalletConnect relay notification. */
+  /** Handle a Cinacoin relay notification. */
   handleNotification: (notification: WCRelayNotification) => void;
 }
 
@@ -221,7 +221,7 @@ export class PushNotificationManager {
    * Register for push notifications and retrieve the device token.
    *
    * This token should be sent to your backend server to subscribe
-   * the device to WalletConnect relay notifications.
+   * the device to Cinacoin relay notifications.
    *
    * @returns The push notification token (FCM or APNs), or null.
    */
@@ -273,7 +273,7 @@ export class PushNotificationManager {
   // -----------------------------------------------------------------------
 
   /**
-   * Handle an incoming WalletConnect relay notification.
+   * Handle an incoming Cinacoin relay notification.
    *
    * Parses the notification payload and calls the configured handler.
    *
@@ -316,7 +316,7 @@ export class PushNotificationManager {
       data: {},
     };
 
-    // Extract WalletConnect-specific fields
+    // Extract Cinacoin-specific fields
     if (payload.topic) {
       notification.topic = payload.topic as string;
     }

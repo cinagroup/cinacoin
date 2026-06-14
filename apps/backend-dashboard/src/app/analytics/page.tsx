@@ -31,7 +31,7 @@ const CHAIN_DISTRIBUTION = [
 
 const WALLET_DISTRIBUTION = [
   { name: "MetaMask", pct: 38 },
-  { name: "WalletConnect", pct: 25 },
+  { name: "Cinacoin", pct: 25 },
   { name: "Coinbase Wallet", pct: 12 },
   { name: "Rainbow", pct: 8 },
   { name: "Trust Wallet", pct: 7 },
@@ -46,7 +46,7 @@ const AUTH_METHODS = [
 ];
 
 const TOP_DAPPS = [
-  { name: "CinaCoin Demo", users: 28500, growth: 12.4 },
+  { name: "Cinacoin Demo", users: 28500, growth: 12.4 },
   { name: "Hainai DeFi Portal", users: 15200, growth: 8.7 },
   { name: "CinaSwap", users: 12800, growth: 15.2 },
   { name: "Telegram Mini App", users: 9400, growth: 22.1 },

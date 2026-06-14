@@ -1,5 +1,5 @@
 /**
- * CinaCoin Design System Tailwind CSS Preset
+ * Cinacoin Design System Tailwind CSS Preset
  * Copied from design-system/tailwind-preset.ts for local use
  */
 

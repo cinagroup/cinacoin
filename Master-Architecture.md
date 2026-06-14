@@ -1,7 +1,7 @@
 # 自有品牌链上 UX 工具包 — 总体架构设计
 
 > **项目代号**: Cinacoin  
-> **目标**: 完全独立于 Reown/WalletConnect 基础设施，构建自有品牌的链上连接与交互工具包  
+> **目标**: 完全独立于 Cinacoin/Cinacoin 基础设施，构建自有品牌的链上连接与交互工具包  
 > **日期**: 2026-05-16  
 > **版本**: v1.0
 
@@ -11,19 +11,19 @@
 
 ### 1.1 问题陈述
 
-Reown AppKit（原 WalletConnect/Web3Modal）是当前最主流的 Web3 连接工具包，但其 Community License 存在以下约束：
+Cinacoin AppKit（原 Cinacoin/Web3Modal）是当前最主流的 Web3 连接工具包，但其 Community License 存在以下约束：
 
 | 约束项 | 限制值 | 商业影响 |
 |--------|--------|---------|
 | 月活用户 (MAU) | ≤ 500 | 无法支撑商业产品 |
 | 月 RPC 调用 | ≤ 2,500,000 | 高活跃 dApp 必然超限 |
-| 强制连接 Reown Relay | 不可绕过 | 存在单点依赖和停服风险 |
-| 修改 IP 归属 Reown | §1(c) | 无法拥有自有代码 IP |
+| 强制连接 Cinacoin Relay | 不可绕过 | 存在单点依赖和停服风险 |
+| 修改 IP 归属 Cinacoin | §1(c) | 无法拥有自有代码 IP |
 
 ### 1.2 设计原则
 
 1. **法律合规**：仅使用公开标准（EIP 系列）和 MIT/Apache 开源组件
-2. **完全自主**：不依赖 Reown 任何专有基础设施
+2. **完全自主**：不依赖 Cinacoin 任何专有基础设施
 3. **多链优先**：架构从第一天起支持多链
 4. **渐进迁移**：允许从 AppKit 平滑迁移，而非一刀切
 5. **成本可控**：自建基础设施成本远低于商业授权费用
@@ -67,7 +67,7 @@ Reown AppKit（原 WalletConnect/Web3Modal）是当前最主流的 Web3 连接�
 │  ┌──────────────────┐  ┌──────────────────┐                     │
 │  │  钱包客户端        │  │ 智能账户层        │                     │
 │  │ MetaMask/Rabby  │  │ ERC-4337 Bundler │                       │
-│  │ WalletConnect   │  │ Paymaster        │                       │
+│  │ Cinacoin   │  │ Paymaster        │                       │
 │  └──────────────────┘  └──────────────────┘                     │
 └─────────────────────────────────────────────────────────────────┘
 ```
@@ -123,14 +123,14 @@ Reown AppKit（原 WalletConnect/Web3Modal）是当前最主流的 Web3 连接�
 | EIP-712 | Typed Structured Data Hashing | 签名格式化 |
 | EIP-155 | Replay-Protected Transactions | 链 ID 标准 |
 
-### 5.2 WalletConnect v2 协议理解
+### 5.2 Cinacoin v2 协议理解
 
-WalletConnect v2 核心协议是**开放的**，其关键组件：
+Cinacoin v2 核心协议是**开放的**，其关键组件：
 
 | 组件 | 开放性 | 说明 |
 |------|--------|------|
 | Pairing Protocol | ✅ 开放 | 基于 BIP-341 的密钥协商 |
-| Relay Protocol | ⚠️ 受控 | 协议公开，但官方 Relay 由 Reown 运营 |
+| Relay Protocol | ⚠️ 受控 | 协议公开，但官方 Relay 由 Cinacoin 运营 |
 | JSON-RPC Methods | ✅ 开放 | eth_sendTransaction 等标准方法 |
 | Crypto Primitives | ✅ 开放 | X25519 密钥交换、ChaCha20-Poly1305 加密 |
 
@@ -142,7 +142,7 @@ WalletConnect v2 核心协议是**开放的**，其关键组件：
 
 | 风险 | 影响 | 概率 | 缓解措施 |
 |------|------|------|---------|
-| Reown 法律行动 | 高 | 低 | 完全独立实现，不使用任何 Reown 专有代码 |
+| Cinacoin 法律行动 | 高 | 低 | 完全独立实现，不使用任何 Cinacoin 专有代码 |
 | 自建 Relay 延迟 | 中 | 中 | 多 Region 部署 + WebSocket 优化 |
 | RPC 成本超预算 | 中 | 中 | 缓存层 + 自建节点 + 免费额度优化 |
 | 钱包兼容性问题 | 高 | 中 | 全面 EIP-1193 兼容测试 + 降级策略 |

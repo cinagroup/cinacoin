@@ -64,7 +64,7 @@ const MOCK_CHAINS: Record<number, MockChainState> = {
 
 const MOCK_WALLETS = [
   { id: 'metamask', name: 'MetaMask', rdns: 'io.metamask', icon: '🦊' },
-  { id: 'walletconnect', name: 'WalletConnect', rdns: 'com.walletconnect', icon: '🔗' },
+  { id: 'walletconnect', name: 'Cinacoin', rdns: 'com.walletconnect', icon: '🔗' },
   { id: 'coinbase', name: 'Coinbase Wallet', rdns: 'com.coinbase.wallet', icon: '🔵' },
   { id: 'phantom', name: 'Phantom', rdns: 'app.phantom', icon: '👻' },
 ];

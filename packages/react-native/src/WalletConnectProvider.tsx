@@ -1,5 +1,5 @@
 /**
- * WalletConnectProvider — Real WalletConnect v2 session management for React Native.
+ * CinacoinProvider — Real Cinacoin v2 session management for React Native.
  *
  * Wraps @walletconnect/react-native-dapp (or the cinacoin core wrapper) to provide:
  * - Real pairing URI creation and QR display
@@ -8,7 +8,7 @@
  * - Balance fetching via on-chain RPC
  * - Transaction signing via WC v2 personal_sign / eth_sendTransaction
  *
- * This provider bridges the low-level WC v2 SDK with CinaCoin React Native components.
+ * This provider bridges the low-level WC v2 SDK with Cinacoin React Native components.
  */
 
 import React, {
@@ -42,7 +42,7 @@ import type { AppMetadata } from '@cinacoin/core-sdk';
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
-export interface WalletConnectConfig {
+export interface CinacoinConfig {
   projectId: string;
   relayUrl?: string;
   metadata: AppMetadata;
@@ -68,7 +68,7 @@ export interface BalanceState {
   raw: string | null;
 }
 
-export interface WalletConnectState {
+export interface CinacoinState {
   /** Raw WC v2 session, null when disconnected. */
   session: Session | null;
   /** Pairing URI for QR display or deep linking. */
@@ -81,9 +81,9 @@ export interface WalletConnectState {
   balance: BalanceState | null;
 }
 
-export interface WalletConnectContextValue extends WalletConnectState {
+export interface CinacoinContextValue extends CinacoinState {
   /** Initialize / re-init the WC session manager. */
-  initialize: (config: WalletConnectConfig) => Promise<void>;
+  initialize: (config: CinacoinConfig) => Promise<void>;
   /** Create a new pairing and return the WC URI. */
   createPairingUri: () => Promise<string>;
   /** Connect using a pre-existing WC URI (from QR scan). */
@@ -164,36 +164,36 @@ export const WALLET_DEEP_LINKS: Record<string, WalletDeepLink> = {
 
 // ─── Context ────────────────────────────────────────────────────────────────
 
-const WalletConnectContext = createContext<WalletConnectContextValue | null>(null);
+const CinacoinContext = createContext<CinacoinContextValue | null>(null);
 
-/** Hook to access the WalletConnect context. Throws if used outside provider. */
-export function useWalletConnect(): WalletConnectContextValue {
-  const ctx = useContext(WalletConnectContext);
+/** Hook to access the Cinacoin context. Throws if used outside provider. */
+export function useCinacoin(): CinacoinContextValue {
+  const ctx = useContext(CinacoinContext);
   if (!ctx) {
-    throw new Error('useWalletConnect must be used within <WalletConnectProvider>');
+    throw new Error('useCinacoin must be used within <CinacoinProvider>');
   }
   return ctx;
 }
 
 // ─── Provider ───────────────────────────────────────────────────────────────
 
-export interface WalletConnectProviderProps {
-  config: WalletConnectConfig;
+export interface CinacoinProviderProps {
+  config: CinacoinConfig;
   children: ReactNode;
 }
 
 /**
- * WalletConnectProvider — real WC v2 session manager for React Native.
+ * CinacoinProvider — real WC v2 session manager for React Native.
  *
  * Usage:
  * ```tsx
- * <WalletConnectProvider config={{ projectId, metadata, chains: ['eip155:1'] }}>
+ * <CinacoinProvider config={{ projectId, metadata, chains: ['eip155:1'] }}>
  *   <App />
- * </WalletConnectProvider>
+ * </CinacoinProvider>
  * ```
  */
-export function WalletConnectProvider({ config, children }: WalletConnectProviderProps) {
-  const [state, setState] = useState<WalletConnectState>({
+export function CinacoinProvider({ config, children }: CinacoinProviderProps) {
+  const [state, setState] = useState<CinacoinState>({
     session: null,
     pairingUri: null,
     connecting: false,
@@ -202,11 +202,11 @@ export function WalletConnectProvider({ config, children }: WalletConnectProvide
   });
 
   const sessionManagerRef = useRef<WcSessionManager | null>(null);
-  const currentConfigRef = useRef<WalletConnectConfig>(config);
+  const currentConfigRef = useRef<CinacoinConfig>(config);
 
   // ── Initialize ────────────────────────────────────────────────────────────
 
-  const initialize = useCallback(async (cfg: WalletConnectConfig) => {
+  const initialize = useCallback(async (cfg: CinacoinConfig) => {
     currentConfigRef.current = cfg;
 
     // Destroy previous session manager
@@ -261,7 +261,7 @@ export function WalletConnectProvider({ config, children }: WalletConnectProvide
 
   const createPairingUri = useCallback(async (): Promise<string> => {
     if (!sessionManagerRef.current) {
-      throw new Error('WalletConnectProvider not initialized — call initialize() first');
+      throw new Error('CinacoinProvider not initialized — call initialize() first');
     }
     const uri = await sessionManagerRef.current.initiatePairing();
     setState(prev => ({ ...prev, pairingUri: uri, error: null }));
@@ -270,7 +270,7 @@ export function WalletConnectProvider({ config, children }: WalletConnectProvide
 
   const connectWithUri = useCallback(async (uri: string): Promise<void> => {
     if (!sessionManagerRef.current) {
-      throw new Error('WalletConnectProvider not initialized');
+      throw new Error('CinacoinProvider not initialized');
     }
     setState(prev => ({ ...prev, connecting: true, error: null }));
     try {
@@ -426,7 +426,7 @@ export function WalletConnectProvider({ config, children }: WalletConnectProvide
 
   // ── Context Value ─────────────────────────────────────────────────────────
 
-  const value = useMemo<WalletConnectContextValue>(
+  const value = useMemo<CinacoinContextValue>(
     () => ({
       ...state,
       initialize,
@@ -456,10 +456,10 @@ export function WalletConnectProvider({ config, children }: WalletConnectProvide
   );
 
   return (
-    <WalletConnectContext.Provider value={value}>
+    <CinacoinContext.Provider value={value}>
       {children}
-    </WalletConnectContext.Provider>
+    </CinacoinContext.Provider>
   );
 }
 
-export default WalletConnectProvider;
+export default CinacoinProvider;

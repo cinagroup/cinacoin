@@ -1,5 +1,5 @@
 /**
- * CinaCoinProvider — Re-export from OnChainUXProvider for backward compatibility.
+ * CinacoinProvider — Re-export from OnChainUXProvider for backward compatibility.
  *
  * The actual implementation lives in OnChainUXProvider.tsx. This barrel
  * preserves existing import paths used by ConnectButton, ConnectModal,
@@ -7,18 +7,18 @@
  */
 
 export {
-  CinaCoinProvider,
-  useCinaCoinContext,
+  CinacoinProvider,
+  useCinacoinContext,
 } from './OnChainUXProvider.js';
 
 export type {
-  CinaCoinConfig,
-  CinaCoinContextValue,
+  CinacoinConfig,
+  CinacoinContextValue,
   ThemeMode,
   ChainConfig,
   Connector,
   WalletInfo,
   AccountState,
   ThemeColors,
-  CinaCoinProviderProps,
+  CinacoinProviderProps,
 } from './OnChainUXProvider.js';

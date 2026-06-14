@@ -2,7 +2,7 @@
 
 **Date:** 2026-05-26
 **Scope:** npm package names + root docs + i18n + source files
-**Brand change:** `@cinacoin/*` / `Cinacoin` → `@cinacoin/*` / `CinaCoin`
+**Brand change:** `@cinacoin/*` / `Cinacoin` → `@cinacoin/*` / `Cinacoin`
 
 ---
 
@@ -99,7 +99,7 @@ All `package.json` files under `packages/` have been updated:
 
 ### README.md
 - **101 occurrences** of brand references updated
-- `Cinacoin` → `CinaCoin`, `cinacoin` → `cinacoin`
+- `Cinacoin` → `Cinacoin`, `cinacoin` → `cinacoin`
 - Package references in install commands, tables, links all updated
 
 ### CHANGELOG.md

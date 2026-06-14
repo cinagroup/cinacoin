@@ -69,7 +69,7 @@ export default function LoginPage() {
         <div className="bg-[var(--cc-canvas)] rounded-md shadow-level-2 p-8">
           <div className="mb-8">
             <h1 className="text-heading-2 text-[var(--cc-ink)]">
-              {showTwoFactor ? "Two-factor authentication." : "Sign in to CinaCoin Cloud."}
+              {showTwoFactor ? "Two-factor authentication." : "Sign in to Cinacoin Cloud."}
             </h1>
             <p className="text-body-sm text-body mt-2">
               {showTwoFactor

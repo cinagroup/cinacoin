@@ -4,7 +4,7 @@ Universal wallet connection kit. 300+ wallets, 50+ chains.
 
 ## Overview.
 
-CinaCoin AppKit provides a seamless wallet connection experience across EVM, Solana, Bitcoin, Cosmos, and more. It's the UI layer that powers CinaCoin's ConnectButton, ConnectModal, and ChainSwitcher components, backed by the Core SDK's multi-chain adapter system.
+Cinacoin AppKit provides a seamless wallet connection experience across EVM, Solana, Bitcoin, Cosmos, and more. It's the UI layer that powers Cinacoin's ConnectButton, ConnectModal, and ChainSwitcher components, backed by the Core SDK's multi-chain adapter system.
 
 **Key capabilities:**
 
@@ -25,18 +25,18 @@ npm install @cinacoin/appkit @cinacoin/react
 ### React provider setup.
 
 ```tsx
-import { CinaCoinProvider } from '@cinacoin/react'
+import { CinacoinProvider } from '@cinacoin/react'
 import { mainnet, polygon, arbitrum } from '@cinacoin/core-sdk'
 
 function App() {
   return (
-    <CinaCoinProvider
+    <CinacoinProvider
       projectId="your-project-id"
       networks={[mainnet, polygon, arbitrum]}
       theme="dark"
     >
       <YourApp />
-    </CinaCoinProvider>
+    </CinacoinProvider>
   )
 }
 ```
@@ -84,17 +84,17 @@ function Dashboard() {
 
 | Component | Description |
 |---|---|
-| `CinaCoinProvider` | React context provider — wraps your app, manages wallet state |
+| `CinacoinProvider` | React context provider — wraps your app, manages wallet state |
 | `ConnectButton` | Smart button that shows connect/disconnect/account states |
 | `ConnectModal` | Full wallet selection modal with 300+ wallets |
 | `ChainSwitcher` | Network switching dropdown |
 | `ErrorBoundary` | Catches and displays SDK errors gracefully |
 
-### CinaCoinProvider props.
+### CinacoinProvider props.
 
 | Prop | Type | Default | Description |
 |---|---|---|---|
-| `projectId` | `string` | — | Your CinaCoin project ID |
+| `projectId` | `string` | — | Your Cinacoin project ID |
 | `networks` | `Chain[]` | `[mainnet]` | Supported chains |
 | `theme` | `'light' \| 'dark' \| 'auto'` | `'light'` | Theme mode |
 | `metadata` | `AppMetadata` | — | App metadata (name, description, icons) |
@@ -126,7 +126,7 @@ function Dashboard() {
 
 | Hook | Returns | Description |
 |---|---|---|
-| `useCinaCoin()` | `CinaCoinContextValue` | Full context: connect, disconnect, account, status |
+| `useCinacoin()` | `CinacoinContextValue` | Full context: connect, disconnect, account, status |
 | `useAccount()` | `{ address, balance, chainSymbol, chainId }` | Current account info |
 | `useChainId()` | `number \| null` | Active chain ID |
 | `useConnect()` | `{ connect, status, isSwitchingChain }` | Wallet connection |
@@ -162,7 +162,7 @@ function Dashboard() {
 ### Custom theme.
 
 ```tsx
-<CinaCoinProvider
+<CinacoinProvider
   projectId="your-project-id"
   theme={{
     '--w3m-accent': '#6366f1',

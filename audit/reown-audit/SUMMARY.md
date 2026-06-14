@@ -1,9 +1,9 @@
-# Cinacoin vs Reown/AppKit — 综合审计报告
+# Cinacoin vs Cinacoin/AppKit — 综合审计报告
 
 > **审计日期**: 2026-06-09
 > **审计范围**: 5 大领域全面对比
 > **审计方法**: 源码级审查 + 功能矩阵对比
-> **报告位置**: `/audit/reown-audit/`
+> **报告位置**: `/audit/cinacoin-audit/`
 
 ---
 
@@ -21,19 +21,19 @@
 
 ---
 
-## ✅ Cinacoin 超越 Reown 的领域
+## ✅ Cinacoin 超越 Cinacoin 的领域
 
 | 领域 | Cinacoin 优势 |
 |------|-------------|
 | **自托管** | 完全自托管基础设施，无 MAU 限制、无供应商锁定 |
-| **Paymaster** | 4 种合约 + Router + BalanceManager，超越 Reown 单一 Paymaster |
-| **密钥恢复** | Shamir SSS + Guardian 双模式 > Reown 云端 MPC |
-| **Session Keys** | 完整预授权机制，Reown 无此功能 |
-| **MFA** | TOTP + Recovery Codes 完整实现，Reown 不含 |
-| **Svelte / .NET SDK** | 额外框架支持，Reown 无 |
-| **链覆盖** | 110 EVM + 11 非 EVM 链族 vs Reown 5 个链族 |
+| **Paymaster** | 4 种合约 + Router + BalanceManager，超越 Cinacoin 单一 Paymaster |
+| **密钥恢复** | Shamir SSS + Guardian 双模式 > Cinacoin 云端 MPC |
+| **Session Keys** | 完整预授权机制，Cinacoin 无此功能 |
+| **MFA** | TOTP + Recovery Codes 完整实现，Cinacoin 不含 |
+| **Svelte / .NET SDK** | 额外框架支持，Cinacoin 无 |
+| **链覆盖** | 110 EVM + 11 非 EVM 链族 vs Cinacoin 5 个链族 |
 | **迁移工具** | 8 个 codemod (RainbowKit/ConnectKit/Web3Modal/wagmi/ethers) |
-| **跨链桥接** | 原子交换 + 桥引擎 + IBC，Reown 无原生支持 |
+| **跨链桥接** | 原子交换 + 桥引擎 + IBC，Cinacoin 无原生支持 |
 | **边缘部署** | Cloudflare Workers 全球部署，延迟极低 |
 
 ---
@@ -52,7 +52,7 @@
 
 | # | 差距 | 领域 | 影响 |
 |---|------|------|------|
-| 4 | AI 辅助开发缺失 | sdk-developer | Reown 差异化功能 |
+| 4 | AI 辅助开发缺失 | sdk-developer | Cinacoin 差异化功能 |
 | 5 | Analytics Dashboard UI 缺失 | sdk-developer | 开发者无法查看使用数据 |
 | 6 | Social Login 不全 (Apple/X) | authentication | 缺失主流登录方式 |
 | 7 | 多签 (Multi-sig) 未集成 | infrastructure | 企业客户必备 |
@@ -66,7 +66,7 @@
 | 10 | 静态钱包注册表 104 vs 600+ | wallet-multichain | 非 WC 钱包缺失 |
 | 11 | 文档站点未部署 | sdk-developer | 开发者上手门槛高 |
 | 12 | 密码重置/邮箱验证缺失 | authentication | 基础用户体验 |
-| 13 | 去中心化不足 (单 CF 依赖) | infrastructure | 对比 Reown 20+ 节点 |
+| 13 | 去中心化不足 (单 CF 依赖) | infrastructure | 对比 Cinacoin 20+ 节点 |
 | 14 | EntryPoint v0.7 未升级 | infrastructure | 最新标准支持 |
 
 ---
@@ -116,7 +116,7 @@
 
 ## 🎯 结论
 
-Cinacoin 在 **SDK 成熟度** 和 **钱包/多链基础设施** 方面已达到甚至超越 Reown/AppKit。核心优势在于完全自托管、多链覆盖广、Paymaster 和密钥恢复机制更优。
+Cinacoin 在 **SDK 成熟度** 和 **钱包/多链基础设施** 方面已达到甚至超越 Cinacoin/AppKit。核心优势在于完全自托管、多链覆盖广、Paymaster 和密钥恢复机制更优。
 
 **最大短板**是支付/DeFi 完全空白（前端 Mock 无真实链上交互）和 Web3 认证仅有类型定义无实现。这两个领域是 Web3 产品的核心，需要优先补齐。
 

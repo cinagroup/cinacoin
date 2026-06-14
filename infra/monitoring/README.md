@@ -1,4 +1,4 @@
-# infra/monitoring — Cinacoin WalletConnect Relay Alerting
+# infra/monitoring — Cinacoin Cinacoin Relay Alerting
 
 Centralized monitoring and alerting for the WC relay infrastructure.
 

@@ -3,7 +3,7 @@ import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
-  title: 'CinaCoin',
+  title: 'Cinacoin',
   tagline: 'Onchain access, simplified.',
   favicon: 'img/logo.svg',
   url: 'https://cinacoin.com',
@@ -35,7 +35,7 @@ const config: Config = {
     },
     {
       tagName: 'meta',
-      attributes: { property: 'og:site_name', content: 'CinaCoin Docs' },
+      attributes: { property: 'og:site_name', content: 'Cinacoin Docs' },
     },
     {
       tagName: 'meta',
@@ -44,7 +44,7 @@ const config: Config = {
     // ── SEO: Open Graph & Twitter ──
     {
       tagName: 'meta',
-      attributes: { property: 'og:title', content: 'CinaCoin — Onchain UX Toolkit Documentation' },
+      attributes: { property: 'og:title', content: 'Cinacoin — Onchain UX Toolkit Documentation' },
     },
     {
       tagName: 'meta',
@@ -72,7 +72,7 @@ const config: Config = {
     },
     {
       tagName: 'meta',
-      attributes: { name: 'twitter:title', content: 'CinaCoin — Onchain UX Toolkit Documentation' },
+      attributes: { name: 'twitter:title', content: 'Cinacoin — Onchain UX Toolkit Documentation' },
     },
     {
       tagName: 'meta',
@@ -88,7 +88,7 @@ const config: Config = {
     },
     {
       tagName: 'meta',
-      attributes: { name: 'author', content: 'CinaCoin Team' },
+      attributes: { name: 'author', content: 'Cinacoin Team' },
     },
     {
       tagName: 'meta',
@@ -206,8 +206,8 @@ const config: Config = {
       respectPrefersColorScheme: false,
     },
     navbar: {
-      title: 'CinaCoin',
-      logo: { alt: 'CinaCoin', src: 'img/logo.svg', width: 24, height: 24 },
+      title: 'Cinacoin',
+      logo: { alt: 'Cinacoin', src: 'img/logo.svg', width: 24, height: 24 },
       items: [
         { href: 'https://cinacoin.com', label: 'Home', position: 'left', target: '_self' },
         { type: 'docSidebar', sidebarId: 'guideSidebar', position: 'left', label: 'Docs' },
@@ -277,9 +277,9 @@ const config: Config = {
       <rect width="32" height="32" rx="6" fill="currentColor"/>
       <text x="16" y="22" font-family="Inter,system-ui,sans-serif" font-size="18" font-weight="600" fill="var(--ifm-background-color)" text-anchor="middle">C</text>
     </svg>
-    <span>CinaCoin</span>
+    <span>Cinacoin</span>
   </div>
-  <span class="footer-bottom-copyright">&copy; ${new Date().getFullYear()} CinaCoin. All rights reserved.</span>
+  <span class="footer-bottom-copyright">&copy; ${new Date().getFullYear()} Cinacoin. All rights reserved.</span>
 </div>`,
     },
     prism: {

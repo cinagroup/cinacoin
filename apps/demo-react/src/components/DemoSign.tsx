@@ -66,7 +66,7 @@ export function DemoSignMessage() {
             </button>
             <button
               onClick={() => {
-                setMessage('Hello from CinaCoin Demos!')
+                setMessage('Hello from Cinacoin Demos!')
                 setSignature(null)
               }}
               className="cc-btn-secondary"
@@ -104,7 +104,7 @@ export function DemoSignTypedData() {
       ],
     },
     domain: {
-      name: 'CinaCoin Demo',
+      name: 'Cinacoin Demo',
       version: '1.0.0',
       chainId: 1,
       verifyingContract: '0x0000000000000000000000000000000000000001',

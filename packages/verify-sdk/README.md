@@ -1,6 +1,6 @@
 # @cinacoin/verify-sdk
 
-**Contract safety scoring and phishing detection SDK** — inspired by Reown Verify.
+**Contract safety scoring and phishing detection SDK** — inspired by Cinacoin Verify.
 
 Protect users by scanning smart contracts for dangerous patterns, scoring risk, and detecting phishing websites.
 

@@ -6,7 +6,7 @@
 describe('Payment Flow', () => {
   beforeEach(() => {
     cy.visit('/');
-    cy.connectWallet('WalletConnect');
+    cy.connectWallet('Cinacoin');
   });
 
   describe('Swap Modal', () => {

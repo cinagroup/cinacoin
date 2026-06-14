@@ -3,7 +3,7 @@ layout: home
 hero:
   name: Cinacoin
   text: 自有品牌链上 UX 工具包
-  tagline: Self-hosted Wallet Connection Toolkit — Fully independent from Reown/WalletConnect
+  tagline: Self-hosted Wallet Connection Toolkit — Fully independent from Cinacoin/Cinacoin
   actions:
     - theme: brand
       text: 快速开始

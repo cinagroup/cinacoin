@@ -1,7 +1,7 @@
 /**
  * Deep link URL generation for wallet apps.
  *
- * Supports MetaMask, WalletConnect, Rainbow, Coinbase Wallet, and custom schemes.
+ * Supports MetaMask, Cinacoin, Rainbow, Coinbase Wallet, and custom schemes.
  */
 
 import type { DeepLinkParams, WalletDeepLinkConfig } from './types.js';

@@ -21,7 +21,7 @@
 
 ### 2. 代码分割 — ✅ 良好
 - `apps/demo-dapp-react` 使用 **Next.js `dynamic()` 动态导入** 8 个组件（DemoHeader, DemoConnectSection, DemoChainSwitcher, DemoBalance, DemoSignMessage, DemoSendTransaction, DemoBatchTransactions, DemoNFTGallery）。
-- `apps/demo-react` 使用 **React `lazy()` + `Suspense`** 分割 7 个页面路由（HomePage, SwapPage, MultiChainPage, AuthPage, WalletConnectPage, SignMessagePage, TransferPage）。
+- `apps/demo-react` 使用 **React `lazy()` + `Suspense`** 分割 7 个页面路由（HomePage, SwapPage, MultiChainPage, AuthPage, CinacoinPage, SignMessagePage, TransferPage）。
 - 路由级代码分割已正确实施。
 
 ### 3. Next.js 构建优化 — ✅ 部分应用

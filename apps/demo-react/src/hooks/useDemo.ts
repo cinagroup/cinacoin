@@ -18,7 +18,7 @@ export interface Transaction {
 }
 
 export interface DemoState {
-  isWalletConnected: boolean
+  isCinacoined: boolean
   address: string | null
   balance: string
   chain: Chain | null

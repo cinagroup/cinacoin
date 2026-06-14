@@ -28,7 +28,7 @@ export class WalletRegistry {
   private _seedWallets() {
     const popular: WalletInfo[] = [
       { id: 'metamask', name: 'MetaMask', icon: 'https://registry.walletconnect.com/data/v2/logo/metamask.png', platforms: ['browser', 'mobile', 'extension'], supportedChains: ['eip155'], rdns: 'io.metamask', popular: true },
-      { id: 'walletconnect', name: 'WalletConnect', icon: 'https://registry.walletconnect.com/data/v2/logo/walletconnect.png', platforms: ['mobile'], supportedChains: ['eip155', 'solana', 'bip122'], popular: true },
+      { id: 'walletconnect', name: 'Cinacoin', icon: 'https://registry.walletconnect.com/data/v2/logo/walletconnect.png', platforms: ['mobile'], supportedChains: ['eip155', 'solana', 'bip122'], popular: true },
       { id: 'coinbase', name: 'Coinbase Wallet', icon: 'https://registry.walletconnect.com/data/v2/logo/coinbase.png', platforms: ['browser', 'mobile', 'extension'], supportedChains: ['eip155'], rdns: 'com.coinbase.wallet', popular: true },
       { id: 'rainbow', name: 'Rainbow', icon: 'https://registry.walletconnect.com/data/v2/logo/rainbow.png', platforms: ['browser', 'mobile'], supportedChains: ['eip155'], rdns: 'me.rainbow', popular: true },
       { id: 'trust', name: 'Trust Wallet', icon: 'https://registry.walletconnect.com/data/v2/logo/trust.png', platforms: ['mobile'], supportedChains: ['eip155'], popular: true },

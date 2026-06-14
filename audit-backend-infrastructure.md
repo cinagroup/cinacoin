@@ -181,7 +181,7 @@
 ### [B-024] RelayServer WebSocket 认证缺失
 - **文件:** `packages/relay-server/src/RelayServer.ts`
 - **行号:** L287–L348
-- **描述:** WebSocket 连接没有认证机制，任何客户端都可以连接并收发任意 topic 的消息。对于 WalletConnect relay 这可能可接受，但缺少 topic 级别的访问控制。
+- **描述:** WebSocket 连接没有认证机制，任何客户端都可以连接并收发任意 topic 的消息。对于 Cinacoin relay 这可能可接受，但缺少 topic 级别的访问控制。
 - **风险:** 任何用户可以向任何 topic 发布消息。
 - **修复建议:** 如果需要 topic 隔离，实现基于令牌的 topic 访问控制。
 

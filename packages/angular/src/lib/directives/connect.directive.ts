@@ -9,7 +9,7 @@ import { CinacoinService } from '../cinacoin.service.js';
  *
  * ```html
  * <button cinaConnect>Connect Wallet</button>
- * <div cinaConnect [connectorId]="'walletconnect'">Connect via WalletConnect</div>
+ * <div cinaConnect [connectorId]="'walletconnect'">Connect via Cinacoin</div>
  * ```
  */
 @Directive({

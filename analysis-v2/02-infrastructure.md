@@ -1,15 +1,15 @@
 # Infrastructure & Backend Services Comparison
 
-> CinaAuth/Cinacoin vs Reown — Infrastructure Deep Dive
+> CinaAuth/Cinacoin vs Cinacoin — Infrastructure Deep Dive
 > Generated: 2026-05-17
 
 ---
 
 ## 1. Service-by-Service Mapping
 
-| CinaAuth/Cinacoin | Reown Equivalent | Language | Status |
+| CinaAuth/Cinacoin | Cinacoin Equivalent | Language | Status |
 |---|---|---|---|
-| **relay-server** | WalletConnect Relay (TypeScript) + reown-rust (relay_client) | Rust vs TS/Rust | ⚡ Different architecture |
+| **relay-server** | Cinacoin Relay (TypeScript) + cinacoin-rust (relay_client) | Rust vs TS/Rust | ⚡ Different architecture |
 | **push-server** | push-server-2 (Rust, archived/preview) + a2 (Rust, APNs2 client) | Rust | ✅ Equivalent |
 | **keys-server** | keys-server (HCL/Terraform) — identity keys | Rust vs HCL | ⚡ Different approach |
 | **bundler** | yttrium (Rust, smart account library) | Rust | ⚡ Different scope |
@@ -26,31 +26,31 @@
 - **Language**: Rust with Actix-web for WebSocket handling
 - **Message broker**: NATS JetStream (self-hosted, cluster)
 - **Encryption**: X25519 + ChaCha20-Poly1305 (end-to-end)
-- **Protocol**: WalletConnect v2 relay protocol
+- **Protocol**: Cinacoin v2 relay protocol
 - **Architecture**: Stateless service → NATS pub/sub → Push Server
 - **Docker**: Distroless cc-debian12 runtime, <50MB images
 - **K8s**: 3 replicas, HPA 3-20, multi-zone topology spread, pod anti-affinity
 - **Ingress**: Dedicated WSS ingress with 3600s timeout
 
-### Reown: Relay (TypeScript) + reown-rust (relay_client / relay_rpc)
+### Cinacoin: Relay (TypeScript) + cinacoin-rust (relay_client / relay_rpc)
 
-- **Server**: TypeScript implementation (WalletConnect/relay — 37 stars, last updated 2023)
-- **Client SDK**: reown-rust provides `relay_client` (HTTP + WebSocket clients) and `relay_rpc` (domain types, auth tokens)
+- **Server**: TypeScript implementation (Cinacoin/relay — 37 stars, last updated 2023)
+- **Client SDK**: cinacoin-rust provides `relay_client` (HTTP + WebSocket clients) and `relay_rpc` (domain types, auth tokens)
 - **Infrastructure**: **Cloud-hosted only** — users connect to relay.walletconnect.com
 - **No self-hosted option**: The relay is a managed service; no Kubernetes deployment provided
-- **reown-rust scope**: Client library (41 stars) — relay_client, relay_rpc, blockchain_api. Not a server.
+- **cinacoin-rust scope**: Client library (41 stars) — relay_client, relay_rpc, blockchain_api. Not a server.
 
 ### Analysis
 
-| Dimension | CinaAuth | Reown | Winner |
+| Dimension | CinaAuth | Cinacoin | Winner |
 |---|---|---|---|
 | Self-hostable | ✅ Full Helm chart, Docker | ❌ Cloud-only | CinaAuth |
 | Message broker | NATS JetStream (persistent, replayable) | Proprietary cloud infra | CinaAuth (transparency) |
-| Client SDK | Built-in protocol | reown-rust (relay_client + relay_rpc) | Reown (client-side maturity) |
+| Client SDK | Built-in protocol | cinacoin-rust (relay_client + relay_rpc) | Cinacoin (client-side maturity) |
 | Language | Rust (Actix-web) | TypeScript (server), Rust (client) | CinaAuth (consistency) |
-| Production readiness | Full K8s, SLOs, DR, monitoring | Production at scale (millions of users) | Reown (battle-tested) |
+| Production readiness | Full K8s, SLOs, DR, monitoring | Production at scale (millions of users) | Cinacoin (battle-tested) |
 
-**Key insight**: CinaAuth implements the relay as a **self-hosted infrastructure service** with NATS as the message backbone. Reown's relay is a **managed cloud service** with a Rust client SDK. These are fundamentally different models — CinaAuth targets white-label/enterprise self-hosting; Reown targets cloud-first developer consumption.
+**Key insight**: CinaAuth implements the relay as a **self-hosted infrastructure service** with NATS as the message backbone. Cinacoin's relay is a **managed cloud service** with a Rust client SDK. These are fundamentally different models — CinaAuth targets white-label/enterprise self-hosting; Cinacoin targets cloud-first developer consumption.
 
 ---
 
@@ -67,15 +67,15 @@
 - **Docker**: Multi-stage build, distroless runtime
 - **K8s**: 2 replicas, health probes, secret injection
 
-### Reown: push-server-2 (Rust) + a2 (Rust, APNs2 async client)
+### Cinacoin: push-server-2 (Rust) + a2 (Rust, APNs2 async client)
 
 - **push-server-2**: Rust implementation — **not production-ready** (explicit "not intended for production use" warning in README). Last updated Sep 2023. Apache 2.0.
 - **a2**: Standalone async APNs2 client library — popular (170 stars), useful for Rust APNs integration
-- **Current state**: Reown's push notifications appear to be primarily cloud-managed; self-hosted push-server-2 is in preview
+- **Current state**: Cinacoin's push notifications appear to be primarily cloud-managed; self-hosted push-server-2 is in preview
 
 ### Analysis
 
-| Dimension | CinaAuth | Reown | Winner |
+| Dimension | CinaAuth | Cinacoin | Winner |
 |---|---|---|---|
 | Production readiness | ✅ Full implementation with docs | ⚠️ Preview/archived | CinaAuth |
 | Push providers | APNs + FCM + WebPush (planned) | APNs (a2) + cloud FCM | Tie |
@@ -83,7 +83,7 @@
 | Deduplication | Redis-based | Not specified | CinaAuth |
 | Device-wallet binding | ✅ Explicit API | ✅ Cloud-managed | Tie |
 
-**Key insight**: CinaAuth's push-server is **production-ready and self-hosted**, while Reown's push-server-2 explicitly warns it's not for production use. However, Reown's `a2` library (APNs2 async client) is a well-established open-source component that could be reused.
+**Key insight**: CinaAuth's push-server is **production-ready and self-hosted**, while Cinacoin's push-server-2 explicitly warns it's not for production use. However, Cinacoin's `a2` library (APNs2 async client) is a well-established open-source component that could be reused.
 
 ---
 
@@ -99,7 +99,7 @@
 - **Security**: Memory zeroing, TLS database connections, bearer token auth, audit logging
 - **K8s**: 2 replicas, secret injection (DB URL, master key), health probes
 
-### Reown: keys-server (HCL/Terraform)
+### Cinacoin: keys-server (HCL/Terraform)
 
 - **Purpose**: Infrastructure-as-code for managing identity keys
 - **Format**: HCL/Terraform — **not a runtime service**
@@ -108,15 +108,15 @@
 
 ### Analysis
 
-| Dimension | CinaAuth | Reown | Winner |
+| Dimension | CinaAuth | Cinacoin | Winner |
 |---|---|---|---|
 | Type | Runtime key management API | IaC provisioning tool | Different purposes |
 | Key operations | Store/retrieve/rotate/revoke via REST API | Terraform apply/destroy | CinaAuth (runtime) |
-| Encryption at rest | HKDF + ring, master key in K8s Secrets | Cloud KMS (inferred) | Reown (KMS) |
+| Encryption at rest | HKDF + ring, master key in K8s Secrets | Cloud KMS (inferred) | Cinacoin (KMS) |
 | Audit logging | ✅ Built-in | Terraform state (limited) | CinaAuth |
 | Self-hosted | ✅ PostgreSQL + Rust binary | Cloud provider dependent | CinaAuth |
 
-**Key insight**: These serve different purposes. CinaAuth's keys-server is a **runtime key management service** with a REST API — closer to a Vault-like service. Reown's keys-server is **infrastructure-as-code** for provisioning identity keys. CinaAuth's approach is more comprehensive for self-hosted deployments.
+**Key insight**: These serve different purposes. CinaAuth's keys-server is a **runtime key management service** with a REST API — closer to a Vault-like service. Cinacoin's keys-server is **infrastructure-as-code** for provisioning identity keys. CinaAuth's approach is more comprehensive for self-hosted deployments.
 
 ---
 
@@ -138,7 +138,7 @@
 - **Entry point**: Supports EntryPoint v0.7 (`0x0000000071727De22E5E9d8BAf0edAc6f37da032`)
 - **K8s**: 2 replicas, connects to rpc-proxy internally
 
-### Reown: yttrium (Rust, cross-platform smart account library)
+### Cinacoin: yttrium (Rust, cross-platform smart account library)
 
 - **Language**: Rust
 - **Scope**: Smart account library — **not a standalone bundler service**
@@ -148,7 +148,7 @@
 
 ### Analysis
 
-| Dimension | CinaAuth | Reown | Winner |
+| Dimension | CinaAuth | Cinacoin | Winner |
 |---|---|---|---|
 | Type | Server-side bundler service | Client-side smart account library | Different layers |
 | Mempool management | ✅ Local + Redis | N/A (client-side) | CinaAuth |
@@ -157,7 +157,7 @@
 | EntryPoint support | v0.7 | Client-side (flexible) | Tie |
 | Production K8s | ✅ Full Helm deployment | SDK integration | CinaAuth (for bundler) |
 
-**Key insight**: These are complementary, not competing. yttrium is the **client-side** smart account SDK; CinaAuth's bundler is the **server-side** bundling service. A complete system would use both (or equivalent). CinaAuth has built the server-side bundler infrastructure that Reown would typically provide as a managed cloud service.
+**Key insight**: These are complementary, not competing. yttrium is the **client-side** smart account SDK; CinaAuth's bundler is the **server-side** bundling service. A complete system would use both (or equivalent). CinaAuth has built the server-side bundler infrastructure that Cinacoin would typically provide as a managed cloud service.
 
 ---
 
@@ -176,21 +176,21 @@
 - **Counterfactual verification**: Checks if contract is deployed; if not, uses factory for simulation
 - **Address prediction**: CREATE2 address calculation (placeholder implementation)
 
-### Reown: erc6492 (Rust)
+### Cinacoin: erc6492 (Rust)
 
-- Part of the WalletConnect/Rust ecosystem
+- Part of the Cinacoin/Rust ecosystem
 - Handles ERC-6492 signature verification for pre-deployed contract accounts
 
 ### Analysis
 
-| Dimension | CinaAuth | Reown | Winner |
+| Dimension | CinaAuth | Cinacoin | Winner |
 |---|---|---|---|
-| Library | Alloy-based | WalletConnect Rust ecosystem | Both viable |
+| Library | Alloy-based | Cinacoin Rust ecosystem | Both viable |
 | EIP-191 support | ✅ ECDSA recovery | ✅ | Tie |
 | EIP-1271 support | ✅ Contract call verification | ✅ | Tie |
 | ERC-6492 support | ✅ Full decode + verify | ✅ | Tie |
 | Known factories | Safe, Kernel, Biconomy | Similar set | Tie |
-| Code maturity | Placeholder factory calldata | Production-tested | Reown (if deployed) |
+| Code maturity | Placeholder factory calldata | Production-tested | Cinacoin (if deployed) |
 
 **Key insight**: Functionally equivalent. Both support the three signature formats. CinaAuth's implementation is well-structured with clear module separation. The factory calldata builders are simplified placeholders — production hardening needed.
 
@@ -215,10 +215,10 @@
 - **Metrics**: Prometheus + detailed status endpoint (provider latency, cache hit rates)
 - **K8s**: 3 replicas, HPA 3-15, KEDA Prometheus scaling
 
-### Reown: _No equivalent_
+### Cinacoin: _No equivalent_
 
-- Reown relies on WalletConnect Cloud for blockchain API access
-- Uses `blockchain_api` in reown-rust (client-side API wrapper)
+- Cinacoin relies on Cinacoin Cloud for blockchain API access
+- Uses `blockchain_api` in cinacoin-rust (client-side API wrapper)
 - No self-hosted RPC proxy or multi-provider routing
 
 ### Analysis
@@ -231,7 +231,7 @@
 4. **Local node support** — Can use self-hosted Erigon nodes as primary
 5. **Rate limiting** — Prevents quota exhaustion
 
-Reown has nothing equivalent at the infrastructure level.
+Cinacoin has nothing equivalent at the infrastructure level.
 
 ---
 
@@ -286,23 +286,23 @@ CinaAuth provides a **complete production-grade deployment infrastructure**:
 - RPC provider outage, relay latency spike, node desync, memory leak
 - Daily/weekly/monthly checklists
 
-### Reown: _Cloud-only_
+### Cinacoin: _Cloud-only_
 
-- Reown provides a **managed cloud platform** (cloud.walletconnect.com → cloud.reown.com)
+- Cinacoin provides a **managed cloud platform** (cloud.walletconnect.com → cloud.cinacoin.com)
 - **No self-hosted deployment option** for the relay or core infrastructure
 - Users consume APIs; they don't deploy infrastructure
 - Enterprise customers may have dedicated instances, but no public Helm charts
 
 ### Analysis
 
-**This is the most significant differentiator.** CinaAuth provides a **complete, self-hosted, production-grade infrastructure** that Reown does not offer.
+**This is the most significant differentiator.** CinaAuth provides a **complete, self-hosted, production-grade infrastructure** that Cinacoin does not offer.
 
-| Dimension | CinaAuth | Reown |
+| Dimension | CinaAuth | Cinacoin |
 |---|---|---|
 | Deployment model | Self-hosted K8s (Helm) | Managed cloud |
 | Monitoring | Full Prometheus/Grafana/Jaeger/Loki | Cloud dashboard |
 | SLOs/Error budgets | Google SRE methodology | SLA (contract-based) |
-| Disaster recovery | Multi-region, documented runbooks | Reown-managed |
+| Disaster recovery | Multi-region, documented runbooks | Cinacoin-managed |
 | Security | Network policies, pod security, ingress hardening | Cloud-managed |
 | Cost control | Spot instances, KEDA time-based scaling | Pay-per-use |
 | Vendor lock-in | None (fully self-hosted) | High (cloud-only) |
@@ -337,14 +337,14 @@ CinaAuth provides a **complete production-grade deployment infrastructure**:
 └──────────────────────────────────────────────────────────────┘
 ```
 
-### Reown: "Connect to Our Cloud"
+### Cinacoin: "Connect to Our Cloud"
 
 ```
 ┌──────────┐     HTTPS/WSS     ┌───────────────────────────┐
-│  Your    │ ◀────────────────▶│  Reown Cloud Platform     │
+│  Your    │ ◀────────────────▶│  Cinacoin Cloud Platform     │
 │  App/SDK │                    │                           │
 │          │                    │  ┌─────────┐ ┌─────────┐ │
-│  (reown- │                    │  │ Relay   │ │ Notify  │ │
+│  (cinacoin- │                    │  │ Relay   │ │ Notify  │ │
 │   rust/  │                    │  │ Cluster │ │ Server  │ │
 │   AppKit)│                    │  └─────────┘ └─────────┘ │
 │          │                    │  ┌─────────┐ ┌─────────┐ │
@@ -370,7 +370,7 @@ CinaAuth provides a **complete production-grade deployment infrastructure**:
 | erc6492 | Rust | Library (Alloy) | N/A (library) |
 | deploy/ | Helm/K8s | Full SRE stack | — |
 
-### Reown Infrastructure Stack
+### Cinacoin Infrastructure Stack
 
 | Component | Language | Framework | Notes |
 |---|---|---|---|
@@ -380,7 +380,7 @@ CinaAuth provides a **complete production-grade deployment infrastructure**:
 | keys-server | HCL/Terraform | — | IaC provisioning |
 | yttrium | Rust | — | Client-side smart account SDK |
 | erc6492 | Rust | — | Signature verification |
-| reown-rust | Rust | — | Relay client + RPC types |
+| cinacoin-rust | Rust | — | Relay client + RPC types |
 | AppKit | TypeScript | — | Frontend SDK |
 
 ---
@@ -391,11 +391,11 @@ CinaAuth provides a **complete production-grade deployment infrastructure**:
 
 1. **Full self-hosting** — Complete Helm chart with every service
 2. **Production SRE stack** — SLOs, error budgets, DR, runbooks, monitoring
-3. **RPC Proxy** — Unique multi-provider routing with caching (no Reown equivalent)
+3. **RPC Proxy** — Unique multi-provider routing with caching (no Cinacoin equivalent)
 4. **Unified Rust backend** — 5 of 6 services in Rust (consistency)
 5. **Security-first** — Network policies, pod security, distroless containers
 6. **Cost control** — Spot instances, KEDA time-based scaling, cache deduplication
-7. **Blockchain nodes** — Self-hosted Erigon nodes in Helm (Reown has none)
+7. **Blockchain nodes** — Self-hosted Erigon nodes in Helm (Cinacoin has none)
 8. **Vendor independence** — Zero cloud lock-in
 
 ### CinaAuth Weaknesses
@@ -404,17 +404,17 @@ CinaAuth provides a **complete production-grade deployment infrastructure**:
 2. **Factory calldata placeholders** — ERC-6492 factory helpers need implementation
 3. **Go/Rust language split** — RPC proxy in Go (minor consistency issue)
 4. **Source code depth** — Only READMEs and configs visible (no implementation source)
-5. **No client SDKs** — No TypeScript/Swift/Kotlin SDKs (Reown has AppKit, reown-rust, reown-kotlin, reown-flutter, reown-dotnet)
+5. **No client SDKs** — No TypeScript/Swift/Kotlin SDKs (Cinacoin has AppKit, cinacoin-rust, cinacoin-kotlin, cinacoin-flutter, cinacoin-dotnet)
 
-### Reown Strengths
+### Cinacoin Strengths
 
-1. **Battle-tested** — Powers millions of WalletConnect connections daily
+1. **Battle-tested** — Powers millions of Cinacoin connections daily
 2. **Rich client SDKs** — TypeScript, Rust, Kotlin, Swift, Flutter, .NET
 3. **Cloud simplicity** — No infrastructure to manage
-4. **Brand recognition** — WalletConnect → Reown is the standard
-5. **Open-source libraries** — a2 (APNs2), reown-rust are reusable
+4. **Brand recognition** — Cinacoin → Cinacoin is the standard
+5. **Open-source libraries** — a2 (APNs2), cinacoin-rust are reusable
 
-### Reown Weaknesses
+### Cinacoin Weaknesses
 
 1. **Cloud lock-in** — No self-hosted option for core relay
 2. **No RPC proxy** — No multi-provider routing/caching
@@ -427,9 +427,9 @@ CinaAuth provides a **complete production-grade deployment infrastructure**:
 
 ## 12. Verdict
 
-**CinaAuth/Cinacoin is fundamentally an infrastructure platform; Reown is fundamentally a cloud service.**
+**CinaAuth/Cinacoin is fundamentally an infrastructure platform; Cinacoin is fundamentally a cloud service.**
 
-| Criteria | CinaAuth | Reown |
+| Criteria | CinaAuth | Cinacoin |
 |---|---|---|
 | Self-hosted relay | ✅ | ❌ |
 | Self-hosted push | ✅ Production-ready | ⚠️ Preview only |
@@ -440,6 +440,6 @@ CinaAuth provides a **complete production-grade deployment infrastructure**:
 | Production scale | ⚠️ Unproven | ✅ Battle-tested |
 | Vendor independence | ✅ | ❌ |
 
-**Strategic positioning**: CinaAuth wins for enterprises that need **full control, self-hosting, and vendor independence**. Reown wins for teams that want **fast integration and cloud simplicity**.
+**Strategic positioning**: CinaAuth wins for enterprises that need **full control, self-hosting, and vendor independence**. Cinacoin wins for teams that want **fast integration and cloud simplicity**.
 
-The RPC Proxy and complete Helm deployment infrastructure are CinaAuth's killer differentiators — they represent infrastructure depth that Reown simply does not provide or intend to provide.
+The RPC Proxy and complete Helm deployment infrastructure are CinaAuth's killer differentiators — they represent infrastructure depth that Cinacoin simply does not provide or intend to provide.

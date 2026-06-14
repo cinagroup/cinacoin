@@ -7,7 +7,7 @@
 
 import type { DeepLinkParams, Platform, RedirectOptions, RedirectResult } from './types.js';
 import { generateDeepLink } from './deep-link.js';
-import { generateUniversalLink, generateWalletConnectUniversalLink } from './universal-link.js';
+import { generateUniversalLink, generateCinacoinUniversalLink } from './universal-link.js';
 
 /**
  * Detect the current platform.
@@ -74,7 +74,7 @@ export function smartRedirect(
 
     // On web platform, just open the universal link directly.
     if (platform === 'web') {
-      const universalUrl = generateWalletConnectUniversalLink(
+      const universalUrl = generateCinacoinUniversalLink(
         params.walletId,
         params.uri,
         getAppStoreFallback(params.walletId),
@@ -95,7 +95,7 @@ export function smartRedirect(
       deepLinkUrl = generateDeepLink(params);
     } catch (e) {
       // If deep link generation fails, go straight to universal link.
-      const universalUrl = generateWalletConnectUniversalLink(
+      const universalUrl = generateCinacoinUniversalLink(
         params.walletId,
         params.uri,
         getAppStoreFallback(params.walletId),
@@ -119,7 +119,7 @@ export function smartRedirect(
       fallbackTriggered = true;
 
       // Step 3: Try universal link as fallback.
-      const universalUrl = generateWalletConnectUniversalLink(
+      const universalUrl = generateCinacoinUniversalLink(
         params.walletId,
         params.uri,
         getAppStoreFallback(params.walletId),

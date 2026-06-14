@@ -31,10 +31,10 @@
 | `angular/src/lib/cinacoin.tokens.ts` | `cinacoin.tokens.ts` | ✅ |
 | `codemod/src/codemods/connectkit-to-cinacoin.ts` | `connectkit-to-cinacoin.ts` | ✅ |
 | `codemod/src/codemods/rainbowkit-to-cinacoin.ts` | `rainbowkit-to-cinacoin.ts` | ✅ |
-| `svelte/src/components/CinacoinAccountButton.svelte` | `CinaCoinAccountButton.svelte` | ✅ |
-| `svelte/src/components/CinacoinButton.svelte` | `CinaCoinButton.svelte` | ✅ |
-| `svelte/src/components/CinacoinNetworkButton.svelte` | `CinaCoinNetworkButton.svelte` | ✅ |
-| `vue/src/CinacoinProvider.vue` | `CinaCoinProvider.vue` | ✅ (mv，非git跟踪) |
+| `svelte/src/components/CinacoinAccountButton.svelte` | `CinacoinAccountButton.svelte` | ✅ |
+| `svelte/src/components/CinacoinButton.svelte` | `CinacoinButton.svelte` | ✅ |
+| `svelte/src/components/CinacoinNetworkButton.svelte` | `CinacoinNetworkButton.svelte` | ✅ |
+| `vue/src/CinacoinProvider.vue` | `CinacoinProvider.vue` | ✅ (mv，非git跟踪) |
 
 ### 构建产物文件 (angular/src/lib)
 
@@ -69,7 +69,7 @@
 |---------|---------|------|
 | `cinacoin-i18n` | `cinacoin-i18n` | 包名 |
 | `cinacoin-ui-theme` | `cinacoin-ui-theme` | 包名 |
-| `Cinacoin` | `CinaCoin` | 组件/类名 (PascalCase) |
+| `Cinacoin` | `Cinacoin` | 组件/类名 (PascalCase) |
 | `cinacoin` | `cinacoin` | 通用引用 (kebab-case/camelCase) |
 | `cinacoin.dev` | `cinacoin.dev` | CDN 域名 |
 | `@cinacoin` | `@cinacoin` | npm scope |
@@ -77,7 +77,7 @@
 ### 特别处理
 
 - `packages/cdn/demo/index.html` 和 `packages/cdn/index.html`: CDN URL 和包名更新
-- `packages/vue/src/index.ts`: 修复了 `CinaCoinProvider.vue.js` 的 import 路径
+- `packages/vue/src/index.ts`: 修复了 `CinacoinProvider.vue.js` 的 import 路径
 - `deploy/helm/cinacoin/`: Helm chart 目录内所有模板中的 `cinacoin` 替换为 `cinacoin`
 
 ---
@@ -116,7 +116,7 @@ deploy/helm/ 目录下包含 "cinacoin" 的目录: 0 ✅
 | `cinacoin-ui-theme` | ✅ 无新增错误 | |
 | `angular` | ⚠️ 预存错误 | `@cinacoin/core-sdk` 未安装（node_modules），非重命名引起 |
 | `svelte` | ⚠️ 预存错误 | 依赖未安装 + 预存类型错误，非重命名引起 |
-| `vue` | ⚠️ 已修复 import | 修复了 `CinaCoinProvider.vue.js` 的 import 路径 |
+| `vue` | ⚠️ 已修复 import | 修复了 `CinacoinProvider.vue.js` 的 import 路径 |
 
 TypeScript 编译中出现的错误 **全部是预存的依赖问题**（`@cinacoin/core-sdk` 等包在 node_modules 中不存在），与本次品牌重命名无关。
 

@@ -1,13 +1,13 @@
 # Configuration.
 
-> Full configuration options for CinaCoin.
+> Full configuration options for Cinacoin.
 
 ## Core configuration.
 
 ```typescript
-import { CinaCoin } from '@cinacoin/core-sdk'
+import { Cinacoin } from '@cinacoin/core-sdk'
 
-const cinacoin = new CinaCoin({
+const cinacoin = new Cinacoin({
   // Required
   projectId: 'your-project-id',
   relayUrl: 'wss://relay.cinacoin.com/v1',
@@ -55,4 +55,4 @@ services:
 ## Next steps.
 
 - [Quick Start](/guide/quick-start)
-- [Migration Guide](/guide/migrate-from-reown)
+- [Migration Guide](/guide/migrate-from-cinacoin)

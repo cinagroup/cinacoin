@@ -201,7 +201,7 @@ This checklist is used to verify delivery readiness before customer handoff or p
 - [ ] Quick Start guide accurate
 - [ ] Installation guide accurate
 - [ ] Configuration guide accurate
-- [ ] Migration guide (Reown → Cinacoin) accurate
+- [ ] Migration guide (Cinacoin → Cinacoin) accurate
 - [ ] FAQ complete
 - [ ] Security best practices documented
 
@@ -213,7 +213,7 @@ This checklist is used to verify delivery readiness before customer handoff or p
 - [ ] `pnpm audit` — no critical vulnerabilities
 - [ ] `npm audit` — cross-check for missed issues
 - [ ] No known-vulnerable versions of `@noble/curves`, `@noble/hashes`
-- [ ] WalletConnect dependencies up to date
+- [ ] Cinacoin dependencies up to date
 - [ ] No pinned versions with known CVEs
 
 ### 5.2 Code Security

@@ -2,15 +2,15 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Products',
-  description: "Explore CinaCoin's complete suite of Web3 products: Wallet, Exchange, Staking, and Explorer.",
+  description: "Explore Cinacoin's complete suite of Web3 products: Wallet, Exchange, Staking, and Explorer.",
   openGraph: {
-    title: 'CinaCoin Products',
-    description: "Explore CinaCoin's complete suite of Web3 products.",
+    title: 'Cinacoin Products',
+    description: "Explore Cinacoin's complete suite of Web3 products.",
     url: 'https://cinacoin.com/products',
   },
   twitter: {
-    title: 'CinaCoin Products',
-    description: "Explore CinaCoin's complete suite of Web3 products.",
+    title: 'Cinacoin Products',
+    description: "Explore Cinacoin's complete suite of Web3 products.",
   },
 };
 

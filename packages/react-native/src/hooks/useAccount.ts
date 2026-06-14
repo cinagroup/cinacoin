@@ -14,7 +14,7 @@
  */
 
 import { useState, useEffect, useCallback } from 'react';
-import { useCinaCoinContext } from '../CinaCoinProvider.js';
+import { useCinacoinContext } from '../CinacoinProvider.js';
 
 // ---------------------------------------------------------------------------
 // useBalance
@@ -47,7 +47,7 @@ export function useBalance(
   address?: string,
   chainId?: number,
 ): UseBalanceReturn {
-  const { account, request: ctxRequest } = useCinaCoinContext();
+  const { account, request: ctxRequest } = useCinacoinContext();
   const [balance, setBalance] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
@@ -111,7 +111,7 @@ export interface UseDisconnectReturn {
  * ```
  */
 export function useDisconnect(): UseDisconnectReturn {
-  const { disconnect } = useCinaCoinContext();
+  const { disconnect } = useCinacoinContext();
   return { disconnect };
 }
 
@@ -141,7 +141,7 @@ export interface UseSwitchChainReturn {
  * ```
  */
 export function useSwitchChain(): UseSwitchChainReturn {
-  const { switchChain: ctxSwitch, isSwitchingChain } = useCinaCoinContext();
+  const { switchChain: ctxSwitch, isSwitchingChain } = useCinacoinContext();
   const [error, setError] = useState<Error | null>(null);
 
   const doSwitch = useCallback(
@@ -213,7 +213,7 @@ export interface UseSendTransactionReturn {
  * ```
  */
 export function useSendTransaction(): UseSendTransactionReturn {
-  const { account, request: ctxRequest } = useCinaCoinContext();
+  const { account, request: ctxRequest } = useCinacoinContext();
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   const [txHash, setTxHash] = useState<string | null>(null);
@@ -287,7 +287,7 @@ export interface UseSignMessageReturn {
  * ```
  */
 export function useSignMessage(): UseSignMessageReturn {
-  const { account, request: ctxRequest } = useCinaCoinContext();
+  const { account, request: ctxRequest } = useCinacoinContext();
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   const [signature, setSignature] = useState<string | null>(null);

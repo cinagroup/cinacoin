@@ -10,7 +10,7 @@ function SignMessage() {
   const { signMessage, address } = useWallet()
 
   const handleSign = async () => {
-    const message = 'Hello from CinaCoin!'
+    const message = 'Hello from Cinacoin!'
     const signature = await signMessage(message)
     
     // Verify on backend: ethers.verifyMessage(message, signature)
@@ -29,7 +29,7 @@ import { useWallet } from '@cinacoin/sdk-vue'
 const { signMessage, address } = useWallet()
 
 const handleSign = async () => {
-  const message = 'Hello from CinaCoin!'
+  const message = 'Hello from Cinacoin!'
   const signature = await signMessage(message)
 }
 </script>
@@ -47,7 +47,7 @@ export default function SignMessage() {
   const { signMessage, address } = useWallet()
 
   const handleSign = async () => {
-    const message = 'Hello from CinaCoin!'
+    const message = 'Hello from Cinacoin!'
     const signature = await signMessage(message)
   }
 
@@ -77,7 +77,7 @@ const typedData = {
   },
   primaryType: 'Person',
   domain: {
-    name: 'CinaCoin Demo',
+    name: 'Cinacoin Demo',
     version: '1',
     chainId: 1,
   },

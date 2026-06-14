@@ -1,7 +1,7 @@
 # Cinacoin Framework Bindings & UI Completeness Analysis
 
 **Date:** 2026-05-25
-**Scope:** Framework SDKs + UI components — comparison vs Reown AppKit
+**Scope:** Framework SDKs + UI components — comparison vs Cinacoin AppKit
 
 ---
 
@@ -18,7 +18,7 @@
 | SSR Support | ⚠️ | Provider has no SSR-specific guards (relies on `window.__ocx_eip5792_context`); EIP-5792 hooks assume browser environment |
 | Typing | ✅ | Full TypeScript — `.d.ts` for all exports, typed props and return values |
 | Tests | ✅ | Vitest setup, ConnectButton test present |
-| Missing vs Reown | | No `useAppKit` own implementation (re-exports from Next), no `useBalance`, no `useWalletInfo`, no `useEnsName`, no `useEnsAvatar` |
+| Missing vs Cinacoin | | No `useAppKit` own implementation (re-exports from Next), no `useBalance`, no `useWalletInfo`, no `useEnsName`, no `useEnsAvatar` |
 
 ### Vue (`@cinacoin/vue`) — Score: 80%
 
@@ -31,7 +31,7 @@
 | SSR Support | ⚠️ | No explicit SSR guards; `onMounted`/`onBeforeUnmount` lifecycle only |
 | Typing | ✅ | Full TypeScript — types exported, context typed with Vue `Ref<T>` |
 | Tests | ✅ | Component and composable tests present |
-| Missing vs Reown | | No EIP-5792, no balance/ENS composables, no wallet-info composable, no `useAppKit` |
+| Missing vs Cinacoin | | No EIP-5792, no balance/ENS composables, no wallet-info composable, no `useAppKit` |
 
 ### Svelte (`@cinacoin/svelte`) — Score: 75%
 
@@ -47,7 +47,7 @@
 | Typing | ✅ | Full TypeScript exports |
 | Tests | ✅ | Vitest test present |
 | Svelte 5 | ⚠️ | Supports runes pattern (`$effect.teardown` via `onDestroy`) but store syntax is Svelte 4; migration needed |
-| Missing vs Reown | | No EIP-5792, no dedicated SvelteKit plugin (manual integration), no `<ConnectModal>` component (only via store methods) |
+| Missing vs Cinacoin | | No EIP-5792, no dedicated SvelteKit plugin (manual integration), no `<ConnectModal>` component (only via store methods) |
 
 ### Angular (`@cinacoin/angular`) — Score: 72%
 
@@ -62,7 +62,7 @@
 | SSR Support | ⚠️ | No Angular Universal/SSR guards |
 | Typing | ✅ | Full TypeScript with Angular DI generics |
 | Tests | ✅ | Vitest test present |
-| Missing vs Reown | | No EIP-5792, no modal component (manual `open()`/`close()`), no standalone component support (NgModule only), no `useAppKit` equivalent |
+| Missing vs Cinacoin | | No EIP-5792, no modal component (manual `open()`/`close()`), no standalone component support (NgModule only), no `useAppKit` equivalent |
 
 ### Next.js (`@cinacoin/next`) — Score: 82%
 
@@ -77,7 +77,7 @@
 | EIP-5792 | ⚠️ | Indirectly available via React re-exports, but no Next.js-specific EIP-5792 server utilities |
 | Typing | ✅ | Full TypeScript |
 | Tests | ✅ | Vitest test present |
-| Missing vs Reown | | No Next.js-specific EIP-5792, no `useAppKitState` with SSR-safe initial values, no Edge Runtime support, no ISR-specific hooks |
+| Missing vs Cinacoin | | No Next.js-specific EIP-5792, no `useAppKitState` with SSR-safe initial values, no Edge Runtime support, no ISR-specific hooks |
 
 ### Nuxt (`@cinacoin/nuxt`) — Score: 70%
 
@@ -92,7 +92,7 @@
 | SSR Support | ⚠️ | Plugin uses `defineNuxtPlugin` but composables use `get`-ters (non-reactive in SSR context) |
 | Typing | ✅ | TypeScript augmentation via `prepare:types` hook |
 | Tests | ✅ | Vitest test present, playground app included |
-| Missing vs Reown | | No EIP-5792, no server-side session verification, no Nitro route handlers, no auto-detection of `prefers-color-scheme` in composables (only in CSS) |
+| Missing vs Cinacoin | | No EIP-5792, no server-side session verification, no Nitro route handlers, no auto-detection of `prefers-color-scheme` in composables (only in CSS) |
 
 ### React Native (`@cinacoin/react-native`) — Score: 85%
 
@@ -106,8 +106,8 @@
 | EIP-5792 | ❌ | **No EIP-5792 hooks** — but full `request<T>()` method for arbitrary JSON-RPC |
 | Theme | ✅ | `ThemeMode` (dark/light/minimal) with full `ThemeColors` token map |
 | Typing | ✅ | Full TypeScript |
-| Tests | ✅ | ConnectModal, WalletConnectProvider, and deepLink tests |
-| Missing vs Reown | | No EIP-5792, no native ENS support, no biometric auth integration, no `useSendCalls`/`useAtomicBatch` equivalents |
+| Tests | ✅ | ConnectModal, CinacoinProvider, and deepLink tests |
+| Missing vs Cinacoin | | No EIP-5792, no native ENS support, no biometric auth integration, no `useSendCalls`/`useAtomicBatch` equivalents |
 
 ---
 
@@ -115,7 +115,7 @@
 
 ### Registered Custom Elements
 
-| Component | Lit Element | Purpose | Reown AppKit Equivalent |
+| Component | Lit Element | Purpose | Cinacoin AppKit Equivalent |
 |-----------|-------------|---------|------------------------|
 | `<ocx-connect-button>` | `ConnectButton` | Connect/disconnect with balance/avatar/network display | `<w3m-button>` ✅ |
 | `<ocx-connect-modal>` | `ConnectModal` | Full modal with wallet list, QR, social, email | `<w3m-modal>` ✅ |
@@ -134,9 +134,9 @@
 - **`I18nMixin`** — Lit mixin for translation access (`this.t(key)`) + auto RTL direction
 - **`defaultStyles`** — shared CSS-in-JS styles, `truncateAddress`, `formatNumber`, `addressAvatarGradient`
 
-### vs Reown scaffold-ui
+### vs Cinacoin scaffold-ui
 
-| Aspect | Cinacoin | Reown AppKit |
+| Aspect | Cinacoin | Cinacoin AppKit |
 |--------|-------------|--------------|
 | Component count | 8 Lit elements | ~20+ Lit elements |
 | Router/Navigation | Manual view management | `<w3m-router>` with view stack |
@@ -148,7 +148,7 @@
 | Search | Wallet list search | Global search across wallets + tokens |
 | Toast system | `TransactionToast` | Toast + snackbar system |
 
-**Verdict:** Cinacoin covers the core connect/disconnect/chain-switch flow well, but lacks the extended scaffold components (settings, activity, profile, search, router navigation) that Reown provides out of the box.
+**Verdict:** Cinacoin covers the core connect/disconnect/chain-switch flow well, but lacks the extended scaffold components (settings, activity, profile, search, router navigation) that Cinacoin provides out of the box.
 
 ---
 
@@ -186,7 +186,7 @@
 
 ### White-Label Comparison
 
-| Capability | Cinacoin | Reown AppKit |
+| Capability | Cinacoin | Cinacoin AppKit |
 |------------|-------------|--------------|
 | CSS variable overrides | ✅ via `theme.variables` | ✅ via `themeVariables` |
 | Preset themes | 6 built-in | ~4 built-in |
@@ -197,7 +197,7 @@
 | Border radius scale | ✅ Via radii tokens | ✅ |
 | Animation control | ✅ Animation presets | ✅ Motion config |
 
-**Verdict:** Cinacoin's theme system is **comparable or superior** to Reown in terms of customization depth. The 3-layer token architecture (global → semantic → component) is well-structured. The branded theme (`cinacoin-ui-theme`) can be fully white-labeled via CSS variable overrides.
+**Verdict:** Cinacoin's theme system is **comparable or superior** to Cinacoin in terms of customization depth. The 3-layer token architecture (global → semantic → component) is well-structured. The branded theme (`cinacoin-ui-theme`) can be fully white-labeled via CSS variable overrides.
 
 ---
 
@@ -236,9 +236,9 @@
 
 **Total namespace depth:** ~55 keys per locale × 5 namespaces = ~55 keys (structured)
 
-### vs Reown AppKit
+### vs Cinacoin AppKit
 
-| Aspect | Cinacoin | Reown AppKit |
+| Aspect | Cinacoin | Cinacoin AppKit |
 |--------|-------------|--------------|
 | Core UI locales | 10 | ~12 |
 | Framework-level locales | 5 | ~5 |
@@ -247,7 +247,7 @@
 | Namespace depth | 154 keys (flat) + 55 (nested) | ~200 keys |
 | Missing locales | `hi`, `tr`, `vi`, `th` | Similar |
 
-**Verdict:** Strong coverage for core UI (154 keys × 10 locales). React i18n package covers fewer locales (5) but with richer namespace structure (auth, payment, errors). Missing `hi`, `tr`, `vi`, `th` vs Reown.
+**Verdict:** Strong coverage for core UI (154 keys × 10 locales). React i18n package covers fewer locales (5) but with richer namespace structure (auth, payment, errors). Missing `hi`, `tr`, `vi`, `th` vs Cinacoin.
 
 ---
 
@@ -300,13 +300,13 @@
 | Failure tracking | ✅ `failedReceipts` helper |
 | Polling state | ✅ `isPolling` boolean |
 
-**Verdict:** All 4 hooks are **fully implemented and production-ready**. This is the strongest framework-specific feature of Cinacoin vs Reown. The hooks include extensive helper methods (`has`, `filterBy`, `allSucceeded`, `failedReceipts`) that Reown's equivalent hooks lack.
+**Verdict:** All 4 hooks are **fully implemented and production-ready**. This is the strongest framework-specific feature of Cinacoin vs Cinacoin. The hooks include extensive helper methods (`has`, `filterBy`, `allSucceeded`, `failedReceipts`) that Cinacoin's equivalent hooks lack.
 
 **Gap:** EIP-5792 is **React-only**. Vue, Svelte, Angular, Nuxt, and React Native have no equivalent support.
 
 ---
 
-## 6. Gap Analysis vs Reown AppKit
+## 6. Gap Analysis vs Cinacoin AppKit
 
 ### Framework-Specific Gaps
 
@@ -321,7 +321,7 @@
 
 ### Component Gaps
 
-| Component | Status | Reown Has |
+| Component | Status | Cinacoin Has |
 |-----------|--------|-----------|
 | `<w3m-router>` view stack | ❌ Missing | ✅ |
 | `<w3m-settings>` settings panel | ❌ Missing | ✅ |
@@ -335,7 +335,7 @@
 
 ### Feature Gaps
 
-| Feature | Cinacoin | Reown AppKit |
+| Feature | Cinacoin | Cinacoin AppKit |
 |---------|-------------|--------------|
 | EIP-5792 (React) | ✅ Full implementation | ⚠️ Partial |
 | EIP-5792 (other frameworks) | ❌ None | ❌ None |

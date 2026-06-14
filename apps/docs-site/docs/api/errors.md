@@ -1,6 +1,6 @@
 ---
 title: Error Codes
-description: Complete error reference for CinaCoin APIs
+description: Complete error reference for Cinacoin APIs
 ---
 
 # Error codes.

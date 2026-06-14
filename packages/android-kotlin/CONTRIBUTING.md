@@ -56,7 +56,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/):
 
 ```
 feat: add multi-chain wallet support
-fix: resolve WalletConnect reconnection issue
+fix: resolve Cinacoin reconnection issue
 docs: update API documentation for v1.0
 build: update Kotlin version to 1.9.24
 ```

@@ -6,8 +6,8 @@
 
 <script setup lang="ts">
 /**
- * CinaCoinProvider — Vue provider component.
- * Wraps the app and provides CinaCoin state via Vue's provide/inject.
+ * CinacoinProvider — Vue provider component.
+ * Wraps the app and provides Cinacoin state via Vue's provide/inject.
  *
  * Uses @cinacoin/core-sdk ConnectorManager for real wallet connections.
  */
@@ -19,14 +19,14 @@ import {
   type CSSProperties,
 } from 'vue';
 import { ONCHAINUX_KEY } from './types';
-import type { CinaCoinConfig, AccountState, Connector } from './types';
+import type { CinacoinConfig, AccountState, Connector } from './types';
 import { ConnectorManager } from './connectorManager';
 
-export interface CinaCoinProviderProps {
-  config: CinaCoinConfig;
+export interface CinacoinProviderProps {
+  config: CinacoinConfig;
 }
 
-const props = defineProps<CinaCoinProviderProps>();
+const props = defineProps<CinacoinProviderProps>();
 
 const themeMode = computed(() => props.config.theme?.mode ?? 'dark');
 
@@ -79,7 +79,7 @@ function buildConnectorMetadata(manager: ConnectorManager): Connector[] {
   // Add any additional configured connectors not yet in the list
   const defaultConnectors: Connector[] = [
     { id: 'metamask', name: 'MetaMask', type: 'injected' },
-    { id: 'walletconnect', name: 'WalletConnect', type: 'walletconnect' },
+    { id: 'walletconnect', name: 'Cinacoin', type: 'walletconnect' },
     { id: 'coinbase', name: 'Coinbase Wallet', type: 'coinbase' },
     { id: 'rabby', name: 'Rabby', type: 'injected' },
     { id: 'email', name: 'Email', type: 'email' },
@@ -139,7 +139,7 @@ async function _refreshAccount(): Promise<void> {
       };
     }
   } catch (err) {
-    console.error('[CinaCoin] Failed to refresh account:', err);
+    console.error('[Cinacoin] Failed to refresh account:', err);
   }
 }
 
@@ -163,7 +163,7 @@ async function connect(connectorId: string): Promise<void> {
     // Update installed status of connectors after connection
     connectors.value = buildConnectorMetadata(connectorManager);
   } catch (err) {
-    console.error('[CinaCoin] Connection failed:', err);
+    console.error('[Cinacoin] Connection failed:', err);
     status.value = 'error';
     throw err;
   }
@@ -184,7 +184,7 @@ async function disconnect(): Promise<void> {
     status.value = 'disconnected';
     connectors.value = buildConnectorMetadata(connectorManager);
   } catch (err) {
-    console.error('[CinaCoin] Disconnect failed:', err);
+    console.error('[Cinacoin] Disconnect failed:', err);
     throw err;
   }
 }
@@ -205,7 +205,7 @@ async function switchChain(chainId: number): Promise<void> {
       };
     }
   } catch (err) {
-    console.error('[CinaCoin] Chain switch failed:', err);
+    console.error('[Cinacoin] Chain switch failed:', err);
     throw err;
   } finally {
     isSwitchingChain.value = false;

@@ -21,11 +21,11 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://cinacoin-farcaster-app.pages.dev'),
-  title: 'CinaCoin Farcaster App',
-  description: 'CinaCoin Farcaster Mini App — wallet, transfer, sign & more',
+  title: 'Cinacoin Farcaster App',
+  description: 'Cinacoin Farcaster Mini App — wallet, transfer, sign & more',
   openGraph: {
-    title: 'CinaCoin Farcaster App',
-    description: 'CinaCoin Farcaster Mini App',
+    title: 'Cinacoin Farcaster App',
+    description: 'Cinacoin Farcaster Mini App',
     images: ['/og-default.png'],
   },
 };

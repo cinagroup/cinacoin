@@ -10,7 +10,7 @@ export default function GlobalError({
   reset: () => void;
 }) {
   useEffect(() => {
-    console.error("[CinaCoin Dashboard Error]", error);
+    console.error("[Cinacoin Dashboard Error]", error);
     // In production, report to error tracking service
     // Sentry.captureException(error);
   }, [error]);

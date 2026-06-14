@@ -109,7 +109,7 @@ export function DemoConnectSection(): JSX.Element {
               {id === 'metamask'
                 ? 'MetaMask'
                 : id === 'walletconnect'
-                  ? 'WalletConnect'
+                  ? 'Cinacoin'
                   : 'Coinbase'}
             </button>
           ))}

@@ -104,7 +104,7 @@ class ConnectButton extends MockComponent {
 
 // WalletModal Component
 class WalletModal extends MockComponent {
-  private _wallets: string[] = ['MetaMask', 'WalletConnect', 'Coinbase'];
+  private _wallets: string[] = ['MetaMask', 'Cinacoin', 'Coinbase'];
   private _selectedWallet: string | null = null;
   private _isOpen = false;
 
@@ -392,7 +392,7 @@ describe('UI Components', () => {
 
     it('should display available wallets', () => {
       expect(modal.availableWallets).toContain('MetaMask');
-      expect(modal.availableWallets).toContain('WalletConnect');
+      expect(modal.availableWallets).toContain('Cinacoin');
       expect(modal.availableWallets).toContain('Coinbase');
     });
 
@@ -406,8 +406,8 @@ describe('UI Components', () => {
     it('should emit walletSelect event', () => {
       const handler = vi.fn();
       modal.on('walletSelect', handler);
-      modal.selectWallet('WalletConnect');
-      expect(handler).toHaveBeenCalledWith('WalletConnect');
+      modal.selectWallet('Cinacoin');
+      expect(handler).toHaveBeenCalledWith('Cinacoin');
     });
 
     it('should complete connection', () => {

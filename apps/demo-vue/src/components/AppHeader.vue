@@ -4,7 +4,7 @@
       <div class="brand">
         <span class="brand-mark" aria-hidden="true">000</span>
         <div>
-          <h1 class="title">CinaCoin.</h1>
+          <h1 class="title">Cinacoin.</h1>
           <p class="subtitle">Vue SDK demo.</p>
         </div>
       </div>

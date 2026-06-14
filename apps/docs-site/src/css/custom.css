@@ -1,6 +1,6 @@
 /**
  * custom.css — Vercel-inspired design system for docs.cinacoin.com
- * Color tokens aligned to CinaCoin main-site design system (--cc-* tokens).
+ * Color tokens aligned to Cinacoin main-site design system (--cc-* tokens).
  */
 
 /* ──────────────────────────────────────────────
@@ -13,7 +13,7 @@
    Dark Theme (default — dark-first)
    ────────────────────────────────────────────── */
 :root {
-  /* ── CinaCoin design-system tokens (aligned with main site) ── */
+  /* ── Cinacoin design-system tokens (aligned with main site) ── */
   --cc-ink: #ededed;
   --cc-body: #a3a3a3;
   --cc-muted: #737373;
@@ -856,7 +856,7 @@ html[data-theme='dark'] .DocSearch-Button {
 }
 
 /* ──────────────────────────────────────────────
-   Footer — CinaCoin style (matches main site)
+   Footer — Cinacoin style (matches main site)
    ────────────────────────────────────────────── */
 .footer {
   background-color: var(--cc-canvas-soft);

@@ -11,7 +11,7 @@ test.describe('Wallet Explorer', () => {
   });
 
   test('shows welcome message when not connected', async ({ page }) => {
-    await expect(page.getByText('Welcome to CinaCoin Wallet Explorer')).toBeVisible();
+    await expect(page.getByText('Welcome to Cinacoin Wallet Explorer')).toBeVisible();
   });
 
   test('connects wallet and displays wallet info', async ({ page }) => {

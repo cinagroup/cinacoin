@@ -2,17 +2,17 @@
   import { isConnected, address, close } from '../lib/stores.js';
 
   /**
-   * CinaCoinAccountButton — Displays the connected account with a disconnect option.
+   * CinacoinAccountButton — Displays the connected account with a disconnect option.
    *
    * Shows the truncated address when connected, and a "Connect" fallback when not.
    *
    * @example
    * ```svelte
    * <script lang="ts">
-   *   import { CinaCoinAccountButton } from '@cinacoin/svelte';
+   *   import { CinacoinAccountButton } from '@cinacoin/svelte';
    * </script>
    *
-   * <CinaCoinAccountButton size="sm" on:disconnect={handleDisconnect} />
+   * <CinacoinAccountButton size="sm" on:disconnect={handleDisconnect} />
    * ```
    */
 
@@ -52,7 +52,7 @@
         onDisconnect();
       }
     } catch (err: unknown) {
-      console.error('[CinaCoin] Disconnect failed:', err);
+      console.error('[Cinacoin] Disconnect failed:', err);
     }
   }
 

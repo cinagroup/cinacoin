@@ -1,6 +1,6 @@
 # Wallet recovery.
 
-> `@cinacoin/wallet-recovery` — Wallet recovery mechanisms for CinaCoin.
+> `@cinacoin/wallet-recovery` — Wallet recovery mechanisms for Cinacoin.
 
 ## Installation.
 

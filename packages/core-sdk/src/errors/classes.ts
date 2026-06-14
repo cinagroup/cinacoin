@@ -162,17 +162,17 @@ export class TransactionError extends CinacoinError {
 }
 
 /** Wallet Connect protocol errors (5000-5099). */
-export class WalletConnectError extends CinacoinError {
+export class CinacoinError extends CinacoinError {
   constructor(
     codeOrDef: number | ErrorCodeDefinition,
     message?: string,
     options?: { cause?: Error; locale?: string },
   ) {
     super(codeOrDef, message, options);
-    this.name = 'WalletConnectError';
+    this.name = 'CinacoinError';
   }
 
-  [Symbol.toStringTag] = 'WalletConnectError';
+  [Symbol.toStringTag] = 'CinacoinError';
 }
 
 /** Signing-related errors (6000-6099). */
@@ -252,7 +252,7 @@ export function createError(
   if (code >= 2000 && code < 3000) return new AuthenticationError(codeOrDef, message, options);
   if (code >= 3000 && code < 4000) return new ChainError(codeOrDef, message, options);
   if (code >= 4000 && code < 5000) return new TransactionError(codeOrDef, message, options);
-  if (code >= 5000 && code < 6000) return new WalletConnectError(codeOrDef, message, options);
+  if (code >= 5000 && code < 6000) return new CinacoinError(codeOrDef, message, options);
   if (code >= 6000 && code < 7000) return new SigningError(codeOrDef, message, options);
   if (code >= 7000 && code < 8000) return new NetworkError(codeOrDef, message, options);
   if (code >= 8000 && code < 9000) return new SdkError(codeOrDef, message, options);

@@ -16,20 +16,20 @@ import { TRANSFORMS, listTransforms, applyTransform, applyTransforms, hasTransfo
 
 describe("appkit-to-cinacoin codemod", () => {
   describe("package renames", () => {
-    test("renames @reown/appkit to @cinacoin/core-sdk", () => {
-      const result = transformAppKitToCinacoin(`import { createAppKit } from "@reown/appkit";`);
+    test("renames @cinacoin/appkit to @cinacoin/core-sdk", () => {
+      const result = transformAppKitToCinacoin(`import { createAppKit } from "@cinacoin/appkit";`);
       expect(result.transformed).toBe(true);
       expect(result.output).toContain("@cinacoin/core-sdk");
-      expect(result.output).not.toContain("@reown/appkit");
+      expect(result.output).not.toContain("@cinacoin/appkit");
     });
 
-    test("renames @reown/appkit-react to @cinacoin/react", () => {
-      const result = transformAppKitToCinacoin(`import { useAppKit } from "@reown/appkit-react";`);
+    test("renames @cinacoin/appkit-react to @cinacoin/react", () => {
+      const result = transformAppKitToCinacoin(`import { useAppKit } from "@cinacoin/appkit-react";`);
       expect(result.output).toContain("@cinacoin/react");
     });
 
-    test("renames @reown/appkit-wagmi to @cinacoin/wagmi", () => {
-      const result = transformAppKitToCinacoin(`import { wagmiAdapter } from "@reown/appkit-wagmi";`);
+    test("renames @cinacoin/appkit-wagmi to @cinacoin/wagmi", () => {
+      const result = transformAppKitToCinacoin(`import { wagmiAdapter } from "@cinacoin/appkit-wagmi";`);
       expect(result.output).toContain("@cinacoin/wagmi");
     });
 
@@ -505,7 +505,7 @@ describe("wc-v1-to-v2 codemod", () => {
 
   describe("bridge URL replacement", () => {
     test("replaces bridge URL with projectId", () => {
-      const result = transformWcV1ToV2(`const wc = new WalletConnect({ bridge: 'https://bridge.walletconnect.org' });`);
+      const result = transformWcV1ToV2(`const wc = new Cinacoin({ bridge: 'https://bridge.walletconnect.org' });`);
       expect(result.output).toContain("projectId");
     });
 
@@ -530,7 +530,7 @@ describe("wc-v1-to-v2 codemod", () => {
       const input = `
 import WalletConnect from "@walletconnect/client";
 
-const wc = new WalletConnect({
+const wc = new Cinacoin({
   bridge: 'https://bridge.walletconnect.org',
   rpc: { 1: 'https://mainnet.infura.io' }
 });

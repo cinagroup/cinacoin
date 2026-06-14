@@ -6,7 +6,7 @@
  */
 
 import { logger } from '@cinacoin/logger';
-import type { NearFunctionCall, NearTransferAction, NearTransaction, NearTransactionResult, NearWalletConnector } from '../types.js';
+import type { NearFunctionCall, NearTransferAction, NearTransaction, NearTransactionResult, NearCinacoinor } from '../types.js';
 
 /** Minimal Here Wallet provider declarations. */
 interface HereWalletProvider {
@@ -57,7 +57,7 @@ declare global {
  * a mobile-first NEAR wallet that supports both mobile and browser
  * environments via MPC key management.
  */
-export class HereWalletConnector implements NearWalletConnector {
+export class HereCinacoinor implements NearCinacoinor {
   readonly id = 'here-wallet';
   readonly name = 'Here Wallet';
 

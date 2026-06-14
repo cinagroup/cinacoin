@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { useCinaCoin, ConnectButton, ConnectModal } from '@cinacoin/react'
+import { useCinacoin, ConnectButton, ConnectModal } from '@cinacoin/react'
 import { ethers } from 'ethers'
 
 /**
@@ -26,7 +26,7 @@ interface BalanceInfo {
 
 export function ConnectDemo() {
   const [showModal, setShowModal] = useState(false)
-  const { account, status, balance, connectors, disconnect, chainId } = useCinaCoin()
+  const { account, status, balance, connectors, disconnect, chainId } = useCinacoin()
   const [balanceInfo, setBalanceInfo] = useState<BalanceInfo | null>(null)
   const [loadingBalance, setLoadingBalance] = useState(false)
   const [eip6963Wallets, setEip6963Wallets] = useState<

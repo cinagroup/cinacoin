@@ -3,7 +3,7 @@ import StepIndicator from "@/components/StepIndicator";
 
 
 export const metadata = {
-  title: "Wallet integration. — CinaCoin Learn",
+  title: "Wallet integration. — Cinacoin Learn",
   description: "Learn how to connect wallets, sign transactions, and interact with smart contracts.",
 };
 
@@ -14,14 +14,14 @@ export default function WalletIntegrationPage() {
 
       <h1 className="text-display-lg mb-4">Wallet integration.</h1>
       <p className="text-body-lg mb-8" style={{ color: 'var(--cc-body)' }}>
-        Connect wallets, sign messages, and interact with smart contracts using the CinaCoin SDK.
+        Connect wallets, sign messages, and interact with smart contracts using the Cinacoin SDK.
       </p>
 
       {/* Step 1 */}
       <section className="mb-12" aria-labelledby="install-sdk">
         <h2 id="install-sdk" className="text-display-md mb-4">1. Install the SDK.</h2>
         <p className="text-body-md mb-4" style={{ color: 'var(--cc-body)' }}>
-          Start by installing the CinaCoin SDK in your project. It provides a unified interface
+          Start by installing the Cinacoin SDK in your project. It provides a unified interface
           for connecting to multiple wallets and chains.
         </p>
         <CodeBlock
@@ -35,15 +35,15 @@ export default function WalletIntegrationPage() {
       <section className="mb-12" aria-labelledby="initialize-client">
         <h2 id="initialize-client" className="text-display-md mb-4">2. Initialize the client.</h2>
         <p className="text-body-md mb-4" style={{ color: 'var(--cc-body)' }}>
-          Create a CinaCoin client instance with your project configuration. You can get your
-          project ID from the CinaCoin dashboard.
+          Create a Cinacoin client instance with your project configuration. You can get your
+          project ID from the Cinacoin dashboard.
         </p>
         <CodeBlock
           language="typescript"
           title="src/lib/cinacoin.ts"
-          code={`import { CinaCoin } from '@cinacoin/sdk';
+          code={`import { Cinacoin } from '@cinacoin/sdk';
 
-export const cinacoin = new CinaCoin({
+export const cinacoin = new Cinacoin({
   projectId: process.env.NEXT_PUBLIC_CINACOIN_PROJECT_ID!,
   chains: ['ethereum', 'polygon', 'bsc'],
   metadata: {
@@ -60,7 +60,7 @@ export const cinacoin = new CinaCoin({
       <section className="mb-12" aria-labelledby="connect-wallet">
         <h2 id="connect-wallet" className="text-display-md mb-4">3. Connect a wallet.</h2>
         <p className="text-body-md mb-4" style={{ color: 'var(--cc-body)' }}>
-          Use the SDK to connect a user's wallet. The SDK handles WalletConnect, MetaMask,
+          Use the SDK to connect a user's wallet. The SDK handles Cinacoin, MetaMask,
           and other popular wallets automatically.
         </p>
         <CodeBlock

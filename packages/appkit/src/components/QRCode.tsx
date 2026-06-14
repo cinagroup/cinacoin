@@ -1,5 +1,5 @@
 /**
- * QRCode component — generates and displays a QR code for WalletConnect URIs
+ * QRCode component — generates and displays a QR code for Cinacoin URIs
  */
 
 import { logger } from '@cinacoin/logger';
@@ -105,7 +105,7 @@ async function generateQRMatrix(data: string): Promise<boolean[][]> {
 // ============================================================================
 
 /**
- * QR Code display component for WalletConnect pairing
+ * QR Code display component for Cinacoin pairing
  */
 export function QRCode({
   uri,

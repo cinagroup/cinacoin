@@ -1,7 +1,7 @@
 /**
  * Dynamic Wallet Registry Fetcher.
  *
- * Fetches wallet data from the WalletConnect public registry API,
+ * Fetches wallet data from the Cinacoin public registry API,
  * caches results in localStorage with a configurable TTL, and
  * falls back to hardcoded wallets when the fetch fails.
  *
@@ -13,7 +13,7 @@ import type { WalletRegistryEntry } from './types.js';
 
 // ─── Constants ──────────────────────────────────────────────────
 
-/** Base URL of the WalletConnect public registry. */
+/** Base URL of the Cinacoin public registry. */
 const REGISTRY_BASE_URL = 'https://registry.walletconnect.com/api/v2';
 
 /** Endpoint for listing all wallets. */
@@ -166,7 +166,7 @@ function mapRegistryEntry(raw: RegistryWallet): WalletRegistryEntry {
 }
 
 /**
- * Fetch wallets from the WalletConnect registry API.
+ * Fetch wallets from the Cinacoin registry API.
  *
  * Returns an array of WalletRegistryEntry objects.
  * Throws on network errors — caller should handle fallback.
@@ -199,7 +199,7 @@ export interface FetchWalletsOptions {
   forceRefresh?: boolean;
   /** Filter results by chain (CAIP-2). If omitted, returns all wallets. */
   chainFilter?: string;
-  /** Only return wallets supporting WalletConnect v2 (always true for registry). */
+  /** Only return wallets supporting Cinacoin v2 (always true for registry). */
   wcV2Only?: boolean;
 }
 

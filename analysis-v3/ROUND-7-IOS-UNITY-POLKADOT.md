@@ -51,7 +51,7 @@
 +         //   ConnectModal.swift, DeepLinkHandler.swift, PushNotificationHandler.swift,
 +         //   Auth/SIWE.swift,
 +         //   ChainAdapter/SolanaAdapter.swift, ChainAdapter/EVMAdapter.swift,
-+         //   WalletConnect/WCClient.swift, WalletConnect/WCUtils.swift
++         //   Cinacoin/WCClient.swift, Cinacoin/WCUtils.swift
 +     ),
       .testTarget(
 -         name: "CinacoinTests",

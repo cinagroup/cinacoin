@@ -258,7 +258,7 @@ export const WALLET_REGISTRY: ReadonlyArray<WalletRegistryEntry> = [
   },
   {
     id: 'walletconnect',
-    name: 'WalletConnect',
+    name: 'Cinacoin',
     homepage: 'https://walletconnect.com',
     deepLink: 'wc://',
     universalLink: 'https://walletconnect.com',
@@ -273,7 +273,7 @@ export const WALLET_REGISTRY: ReadonlyArray<WalletRegistryEntry> = [
 // ============================================================
 
 /**
- * Get wallet entries dynamically from the WalletConnect registry API.
+ * Get wallet entries dynamically from the Cinacoin registry API.
  *
  * Strategy:
  * 1. Try localStorage cache (TTL: 1 hour)
@@ -363,7 +363,7 @@ export function getWalletsForChain(chain: string): WalletRegistryEntry[] {
 }
 
 /**
- * Get wallets that support WalletConnect v2 (from hardcoded fallback).
+ * Get wallets that support Cinacoin v2 (from hardcoded fallback).
  */
 export function getWcV2Wallets(): WalletRegistryEntry[] {
   return WALLET_REGISTRY.filter((w) => w.supportsWcV2);

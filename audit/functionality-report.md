@@ -17,7 +17,7 @@
 | 功能点 | 状态 | 问题 |
 |--------|------|------|
 | MetaMask 连接 (EIP-6963) | ✅ | EvmAdapter 支持多 provider 检测和选择 |
-| WalletConnect v2 (Relay) | ✅ | RelayTransport 实现完整 WebSocket 协议 |
+| Cinacoin v2 (Relay) | ✅ | RelayTransport 实现完整 WebSocket 协议 |
 | 连接状态管理 | ✅ | SessionManager 状态机完整 (disconnected→connecting→connected) |
 | 会话持久化 | ✅ | localStorage 持久化，含过期时间和完整性校验 |
 | 自动重连 | ✅ | RelayTransport 支持指数退避重连 (最多 5 次) |

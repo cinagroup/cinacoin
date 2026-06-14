@@ -1,6 +1,6 @@
 # NEAR adapter.
 
-> `@cinacoin/adapter-near` — NEAR Protocol adapter for CinaCoin.
+> `@cinacoin/adapter-near` — NEAR Protocol adapter for Cinacoin.
 
 ## Installation.
 

@@ -27,7 +27,7 @@ export default memo(function Navigation() {
     <nav className="mb-8 border-b border-[var(--cc-hairline)] pb-4" aria-label="Main navigation">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <Image src="/logo.png" alt="CinaCoin" width={24} height={24} className="h-6 w-auto" priority />
+          <Image src="/logo.png" alt="Cinacoin" width={24} height={24} className="h-6 w-auto" priority />
           <span className="text-heading-3 text-[var(--cc-ink)]">Wallet Explorer</span>
         </div>
         <div className="flex items-center gap-3">

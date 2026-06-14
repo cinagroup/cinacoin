@@ -1,6 +1,6 @@
 # Gas estimator.
 
-> `@cinacoin/gas-estimator` — Gas estimation utilities for CinaCoin.
+> `@cinacoin/gas-estimator` — Gas estimation utilities for Cinacoin.
 
 ## Installation.
 

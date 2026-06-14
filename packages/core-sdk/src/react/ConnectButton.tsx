@@ -1,7 +1,7 @@
 /**
  * ConnectButton — Unified wallet connection button component.
  *
- * 对标 Reown <w3m-connect-button /> 和 Coinbase OnchainKit <ConnectButton />.
+ * 对标 Cinacoin <w3m-connect-button /> 和 Coinbase OnchainKit <ConnectButton />.
  * Renders a button that opens the wallet modal or shows the connected account.
  *
  * @example

@@ -10,7 +10,7 @@
 
 export { SuiChainAdapter, SUI_CHAINS, SUI_WALLETS, mistToSui, suiToMist } from './SuiAdapter.js';
 
-export { SuiWalletConnector } from './connectors/sui-wallet.js';
+export { SuiCinacoinor } from './connectors/sui-wallet.js';
 export { SuietConnector } from './connectors/suiet.js';
 export { EthosConnector } from './connectors/ethos.js';
 export { MartianConnector } from './connectors/martian.js';

@@ -18,7 +18,7 @@ export const enTranslations = {
   'nav-cookies': 'Cookies',
   // Login
   'login-title': 'Welcome back.',
-  'login-subtitle': 'Sign in to your CinaCoin account.',
+  'login-subtitle': 'Sign in to your Cinacoin account.',
   'login-google': 'Continue with Google',
   'login-github': 'Continue with GitHub',
   'login-or': 'or',
@@ -29,7 +29,7 @@ export const enTranslations = {
   'login-signup': 'Create one',
   // Register
   'register-title': 'Create your account.',
-  'register-subtitle': 'Start building with CinaCoin today.',
+  'register-subtitle': 'Start building with Cinacoin today.',
   'register-google': 'Sign up with Google',
   'register-github': 'Sign up with GitHub',
   'register-or': 'or',
@@ -45,13 +45,13 @@ export const enTranslations = {
   'register-has-account': 'Already have an account?',
   'register-login': 'Sign in',
   // Homepage
-  'home-hero-title': 'CinaCoin',
+  'home-hero-title': 'Cinacoin',
   'home-hero-subtitle': 'The future of digital currency.',
   'home-hero-desc':
     'Built for speed, security, and scalability. Experience the next generation of blockchain technology.',
   'home-hero-cta': 'Get Started',
   'home-hero-secondary': 'Learn More',
-  'home-features-title': 'Why choose CinaCoin?',
+  'home-features-title': 'Why choose Cinacoin?',
   'home-features-subtitle':
     'Built with proven, production-ready technology to deliver the best blockchain experience.',
   'home-f1-title': 'Lightning fast.',
@@ -62,24 +62,24 @@ export const enTranslations = {
   'home-f3-desc': 'Designed to handle millions of transactions per second worldwide.',
   'home-learn-more': 'Learn more →',
   'home-products-title': 'Our products.',
-  'home-products-subtitle': 'Everything you need to build on the CinaCoin network.',
-  'home-p1-title': 'CinaCoin wallet.',
-  'home-p1-desc': 'Secure, fast, and easy-to-use digital wallet for managing your CinaCoin assets.',
+  'home-products-subtitle': 'Everything you need to build on the Cinacoin network.',
+  'home-p1-title': 'Cinacoin wallet.',
+  'home-p1-desc': 'Secure, fast, and easy-to-use digital wallet for managing your Cinacoin assets.',
   'home-p1-cta': 'Explore Wallet →',
-  'home-p2-title': 'CinaCoin exchange.',
-  'home-p2-desc': 'Trade CinaCoin and other digital assets with low fees and high liquidity.',
+  'home-p2-title': 'Cinacoin exchange.',
+  'home-p2-desc': 'Trade Cinacoin and other digital assets with low fees and high liquidity.',
   'home-p2-cta': 'Explore Exchange →',
   'home-p3-title': 'Staking.',
-  'home-p3-desc': 'Earn rewards by staking your CinaCoin and securing the network.',
+  'home-p3-desc': 'Earn rewards by staking your Cinacoin and securing the network.',
   'home-p3-cta': 'Start Staking →',
   'home-p4-title': 'Developer tools.',
-  'home-p4-desc': 'Build powerful applications on the CinaCoin blockchain with our SDKs and APIs.',
+  'home-p4-desc': 'Build powerful applications on the Cinacoin blockchain with our SDKs and APIs.',
   'home-p4-cta': 'View Docs →',
   'home-cta-title': 'Ready to join the revolution?',
-  'home-cta-subtitle': 'Start using CinaCoin today and be part of the financial future.',
+  'home-cta-subtitle': 'Start using Cinacoin today and be part of the financial future.',
   'home-cta-primary': 'Create Your Wallet',
   'home-cta-secondary': 'Read the Docs',
-  'hero-badge': 'Introducing CinaCoin SDK v2.0.',
+  'hero-badge': 'Introducing Cinacoin SDK v2.0.',
   'hero-title': 'Connect any wallet, to any chain.',
   'hero-subtitle':
     'The onchain infrastructure for seamless cross-chain experiences. One SDK for authentication, transactions, and wallet connectivity.',
@@ -92,7 +92,7 @@ export const enTranslations = {
     'A complete suite of tools and infrastructure for seamless cross-chain experiences.',
   'f1-title': 'Universal wallet connection.',
   'f1-desc':
-    'Connect MetaMask, WalletConnect, Coinbase, and 50+ more wallets across 16+ chains with a single SDK.',
+    'Connect MetaMask, Cinacoin, Coinbase, and 50+ more wallets across 16+ chains with a single SDK.',
   'f2-title': 'Chain abstraction.',
   'f2-desc':
     'Let users interact with your app across EVM, Solana, Bitcoin, Cosmos, and more — without worrying about which chain.',
@@ -138,7 +138,7 @@ export const enTranslations = {
   'dev-docs': 'Read Docs →',
   'cta-title': 'Ready to build onchain?',
   'cta-subtitle':
-    'Join thousands of developers building seamless cross-chain experiences with CinaCoin.',
+    'Join thousands of developers building seamless cross-chain experiences with Cinacoin.',
   'cta-start': 'Start Building →',
   'cta-github': 'View on GitHub',
   'footer-brand': 'Onchain access, simplified.',
@@ -155,18 +155,18 @@ export const enTranslations = {
   'footer-cookies': 'Cookie Policy',
   // Products page
   'products-hero-title': 'Products.',
-  'products-hero-subtitle': 'Everything you need to use, trade, and build on the CinaCoin network.',
-  'products-wallet-title': 'CinaCoin wallet.',
+  'products-hero-subtitle': 'Everything you need to use, trade, and build on the Cinacoin network.',
+  'products-wallet-title': 'Cinacoin wallet.',
   'products-wallet-desc':
-    'A secure, fast, and intuitive digital wallet for managing your CinaCoin assets. Available on iOS, Android, and desktop.',
+    'A secure, fast, and intuitive digital wallet for managing your Cinacoin assets. Available on iOS, Android, and desktop.',
   'products-wallet-f1': 'Biometric authentication',
   'products-wallet-f2': 'Multi-currency support',
   'products-wallet-f3': 'Hardware wallet integration',
   'products-wallet-f4': 'Instant transaction notifications',
   'products-wallet-cta': 'Download Wallet',
-  'products-exchange-title': 'CinaCoin exchange.',
+  'products-exchange-title': 'Cinacoin exchange.',
   'products-exchange-desc':
-    'Trade CinaCoin and other digital assets with low fees, deep liquidity, and advanced charting tools.',
+    'Trade Cinacoin and other digital assets with low fees, deep liquidity, and advanced charting tools.',
   'products-exchange-f1': 'Spot and margin trading',
   'products-exchange-f2': 'Advanced order types',
   'products-exchange-f3': 'Real-time market data',
@@ -174,7 +174,7 @@ export const enTranslations = {
   'products-exchange-cta': 'Start Trading',
   'products-staking-title': 'Staking.',
   'products-staking-desc':
-    'Earn rewards by staking your CinaCoin. Help secure the network while growing your holdings.',
+    'Earn rewards by staking your Cinacoin. Help secure the network while growing your holdings.',
   'products-staking-f1': 'Up to 8% annual yield',
   'products-staking-f2': 'Flexible lock-up periods',
   'products-staking-f3': 'Automatic reward compounding',
@@ -182,7 +182,7 @@ export const enTranslations = {
   'products-staking-cta': 'Start Staking',
   'products-explorer-title': 'Block explorer.',
   'products-explorer-desc':
-    'Browse transactions, blocks, and addresses on the CinaCoin blockchain in real-time.',
+    'Browse transactions, blocks, and addresses on the Cinacoin blockchain in real-time.',
   'products-explorer-f1': 'Real-time transaction tracking',
   'products-explorer-f2': 'Address analytics',
   'products-explorer-f3': 'Token transfer history',
@@ -201,14 +201,14 @@ export const enTranslations = {
   'solutions-enterprise-f4': 'Dedicated account manager',
   'solutions-defi-title': 'DeFi.',
   'solutions-defi-desc':
-    'Build decentralized financial applications on CinaCoin with our comprehensive DeFi toolkit.',
+    'Build decentralized financial applications on Cinacoin with our comprehensive DeFi toolkit.',
   'solutions-defi-f1': 'AMM protocol',
   'solutions-defi-f2': 'Lending & borrowing',
   'solutions-defi-f3': 'Yield optimization',
   'solutions-defi-f4': 'Cross-chain bridges',
   'solutions-payments-title': 'Payments.',
   'solutions-payments-desc':
-    'Accept CinaCoin payments in your business with our merchant solutions.',
+    'Accept Cinacoin payments in your business with our merchant solutions.',
   'solutions-payments-f1': 'Point-of-sale integration',
   'solutions-payments-f2': 'E-commerce plugins',
   'solutions-payments-f3': 'Instant settlement',
@@ -243,12 +243,12 @@ export const enTranslations = {
     'Build the future of finance. Tools, docs, and resources to get you started.',
   'dev-quickstart-title': 'Quick start.',
   'dev-quickstart-desc':
-    'Get up and running with CinaCoin in minutes. Install the SDK and make your first API call.',
-  'dev-quickstart-comment1': '# Install the CinaCoin SDK',
+    'Get up and running with Cinacoin in minutes. Install the SDK and make your first API call.',
+  'dev-quickstart-comment1': '# Install the Cinacoin SDK',
   'dev-quickstart-comment2': '# Initialize and connect',
   'dev-api-title': 'API reference.',
   'dev-api-desc':
-    'Complete reference for all CinaCoin API endpoints, parameters, and response formats.',
+    'Complete reference for all Cinacoin API endpoints, parameters, and response formats.',
   'dev-api-cta': 'View API Docs →',
   'dev-sdks-title': 'SDKs & libraries.',
   'dev-sdks-desc': 'Official SDKs for JavaScript, Python, Go, Rust, and more.',
@@ -260,7 +260,7 @@ export const enTranslations = {
   'dev-tutorials-desc': 'Step-by-step guides for common development tasks and integrations.',
   'dev-tutorials-cta': 'Start Learning →',
   'dev-contracts-title': 'Smart contracts.',
-  'dev-contracts-desc': 'Write, test, and deploy smart contracts on the CinaCoin network.',
+  'dev-contracts-desc': 'Write, test, and deploy smart contracts on the Cinacoin network.',
   'dev-contracts-cta': 'Learn Solidity →',
   'dev-testnet-title': 'Testnet.',
   'dev-testnet-desc': 'Free testnet tokens and sandbox environment for development and testing.',
@@ -268,27 +268,27 @@ export const enTranslations = {
   // Resources page
   'resources-hero-title': 'Resources.',
   'resources-hero-subtitle':
-    'Learn about CinaCoin, stay up to date, and connect with the community.',
+    'Learn about Cinacoin, stay up to date, and connect with the community.',
   'resources-whitepaper-title': 'Whitepaper.',
   'resources-whitepaper-desc':
-    "Read the technical whitepaper detailing CinaCoin's consensus mechanism, tokenomics, and roadmap.",
+    "Read the technical whitepaper detailing Cinacoin's consensus mechanism, tokenomics, and roadmap.",
   'resources-whitepaper-cta': 'Download PDF →',
   'resources-blog-title': 'Blog.',
-  'resources-blog-desc': 'Latest news, updates, and insights from the CinaCoin team.',
+  'resources-blog-desc': 'Latest news, updates, and insights from the Cinacoin team.',
   'resources-blog-cta': 'Read Blog →',
   'resources-community-title': 'Community.',
   'resources-community-desc':
     'Join the conversation. Connect with developers, traders, and enthusiasts worldwide.',
   'resources-support-title': 'Support.',
   'resources-support-desc':
-    'Get help with your CinaCoin wallet, transactions, or technical questions.',
+    'Get help with your Cinacoin wallet, transactions, or technical questions.',
   'resources-support-cta': 'Contact Support →',
   // About
   'about-hero-title': 'Built for',
   'about-hero-title-highlight': 'developers',
   'about-hero-by': 'by developers',
   'about-hero-subtitle':
-    'CinaCoin is an open-source onchain access layer created by <strong>CINA Group</strong>. We believe infrastructure should be transparent, self-hostable, and free from vendor lock-in.',
+    'Cinacoin is an open-source onchain access layer created by <strong>CINA Group</strong>. We believe infrastructure should be transparent, self-hostable, and free from vendor lock-in.',
   'about-principles-title': 'Our principles.',
   'about-timeline-title': 'Timeline.',
   'about-p1-icon': 'unlock',
@@ -332,14 +332,14 @@ export const enTranslations = {
   'pricing-faq-title': 'Frequently asked questions.',
   'pricing-faq1-q': 'What counts as an API call?',
   'pricing-faq1-a':
-    'Each request to CinaCoin infrastructure — wallet connections, transactions, authentication, push notifications — counts as one API call. SDK initialization and local operations are free.',
+    'Each request to Cinacoin infrastructure — wallet connections, transactions, authentication, push notifications — counts as one API call. SDK initialization and local operations are free.',
   'pricing-faq2-q': 'Can I switch plans at any time?',
   'pricing-faq2-a':
     'Yes. Upgrade or downgrade anytime. When upgrading, you get immediate access to new features. When downgrading, changes take effect at the next billing cycle.',
   'pricing-faq3-q': 'What happens if I exceed my API limit?',
   'pricing-faq3-a':
     "We'll never cut off your app. You'll receive a notification at 80% and 100% usage. Beyond your limit, requests continue at a reduced rate until the next cycle or until you upgrade.",
-  'pricing-faq4-q': 'Is CinaCoin really open source?',
+  'pricing-faq4-q': 'Is Cinacoin really open source?',
   'pricing-faq4-a':
     'Yes. All SDKs, adapters, and core infrastructure are MIT licensed on GitHub. You can self-host everything. Paid plans add managed infrastructure, analytics, and support.',
   'pricing-faq5-q': 'Do you offer discounts for open source projects?',
@@ -347,7 +347,7 @@ export const enTranslations = {
     'Absolutely. Active open source projects can apply for a free Pro tier. Contact us with your project details.',
   // Changelog
   'changelog-hero-title': 'Changelog.',
-  'changelog-hero-subtitle': 'Release history for CinaCoin SDK and infrastructure.',
+  'changelog-hero-subtitle': 'Release history for Cinacoin SDK and infrastructure.',
   'changelog-type-major': 'major',
   'changelog-type-minor': 'minor',
   // Contact
@@ -385,7 +385,7 @@ export const enTranslations = {
   'privacy-updated': 'Last updated: June 1, 2026',
   'privacy-s1-title': '1. Introduction.',
   'privacy-s1-p':
-    'CinaCoin ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our services, SDKs, and related infrastructure (collectively, the "Services").',
+    'Cinacoin ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our services, SDKs, and related infrastructure (collectively, the "Services").',
   'privacy-s2-title': '2. Information we collect.',
   'privacy-s2-p':
     'We collect information that you provide directly to us and information collected automatically:',
@@ -406,13 +406,13 @@ export const enTranslations = {
   'privacy-s3-l5': 'Complying with legal obligations',
   'privacy-s4-title': '4. Self-hosted deployments.',
   'privacy-s4-p':
-    'If you self-host CinaCoin infrastructure on your own servers, we do not collect or have access to data processed through your self-hosted instances. You are solely responsible for the data processed in your self-hosted environment.',
+    'If you self-host Cinacoin infrastructure on your own servers, we do not collect or have access to data processed through your self-hosted instances. You are solely responsible for the data processed in your self-hosted environment.',
   'privacy-s5-title': '5. Data sharing and disclosure.',
   'privacy-s5-p':
     'We do not sell your personal information. We may share information in the following circumstances:',
   'privacy-s5-l1': 'With service providers who assist in operating our Services',
   'privacy-s5-l2': 'To comply with applicable laws, regulations, or legal processes',
-  'privacy-s5-l3': 'To protect the rights, property, or safety of CinaCoin or others',
+  'privacy-s5-l3': 'To protect the rights, property, or safety of Cinacoin or others',
   'privacy-s5-l4': 'In connection with a merger, acquisition, or sale of assets',
   'privacy-s6-title': '6. Data security.',
   'privacy-s6-p':
@@ -447,9 +447,9 @@ export const enTranslations = {
   'terms-updated': 'Last updated: June 1, 2026',
   'terms-s1-title': '1. Agreement to terms.',
   'terms-s1-p':
-    'These Terms of Service ("Terms") constitute a legally binding agreement between you and CinaCoin ("we," "our," or "us") governing your use of our services, SDKs, APIs, and related infrastructure (collectively, the "Services"). By accessing or using the Services, you agree to be bound by these Terms.',
+    'These Terms of Service ("Terms") constitute a legally binding agreement between you and Cinacoin ("we," "our," or "us") governing your use of our services, SDKs, APIs, and related infrastructure (collectively, the "Services"). By accessing or using the Services, you agree to be bound by these Terms.',
   'terms-s2-title': '2. Description of services.',
-  'terms-s2-p': 'CinaCoin provides:',
+  'terms-s2-p': 'Cinacoin provides:',
   'terms-s2-l1': 'SDKs and APIs for wallet connectivity and blockchain interaction',
   'terms-s2-l2': 'Authentication services (SIWE, SIWX, passkey auth)',
   'terms-s2-l3': 'Cross-chain routing and transaction infrastructure',
@@ -457,7 +457,7 @@ export const enTranslations = {
   'terms-s2-l5': 'Self-hosted infrastructure components',
   'terms-s3-title': '3. Open source software.',
   'terms-s3-p':
-    'CinaCoin SDKs and tools are provided under the MIT License. You are free to use, modify, and distribute the open source components in accordance with the license terms. Contributions to our open source projects are governed by our Contributor License Agreement.',
+    'Cinacoin SDKs and tools are provided under the MIT License. You are free to use, modify, and distribute the open source components in accordance with the license terms. Contributions to our open source projects are governed by our Contributor License Agreement.',
   'terms-s4-title': '4. Acceptable use.',
   'terms-s4-p': 'You agree not to use the Services to:',
   'terms-s4-l1': 'Violate any applicable laws or regulations',
@@ -471,7 +471,7 @@ export const enTranslations = {
     'We may impose rate limits and usage quotas on API access. Free tier users are limited to 10,000 API calls per month. Exceeding these limits may result in throttling or suspension. Paid tiers offer higher limits as described in our <a href="/pricing">Pricing page</a>.',
   'terms-s6-title': '6. Intellectual property.',
   'terms-s6-p':
-    'CinaCoin retains all rights to its trademarks, logos, and branding. The open source components are licensed under the MIT License. You may not use our trademarks without prior written consent.',
+    'Cinacoin retains all rights to its trademarks, logos, and branding. The open source components are licensed under the MIT License. You may not use our trademarks without prior written consent.',
   'terms-s7-title': '7. Disclaimer of warranties.',
   'terms-s7-p':
     'THE SERVICES ARE PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. WE DO NOT WARRANT THAT THE SERVICES WILL BE UNINTERRUPTED, ERROR-FREE, OR SECURE.',
@@ -480,16 +480,16 @@ export const enTranslations = {
     'TO THE MAXIMUM EXTENT PERMITTED BY LAW, CINACOIN SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING LOSS OF PROFITS, DATA, OR GOODWILL, ARISING OUT OF OR IN CONNECTION WITH YOUR USE OF THE SERVICES.',
   'terms-s9-title': '9. Blockchain risk acknowledgment.',
   'terms-s9-p':
-    'You acknowledge that blockchain technology and cryptocurrency transactions involve inherent risks, including but not limited to smart contract vulnerabilities, network congestion, and price volatility. CinaCoin provides infrastructure tools but is not responsible for losses arising from blockchain operations.',
+    'You acknowledge that blockchain technology and cryptocurrency transactions involve inherent risks, including but not limited to smart contract vulnerabilities, network congestion, and price volatility. Cinacoin provides infrastructure tools but is not responsible for losses arising from blockchain operations.',
   'terms-s10-title': '10. Self-hosted deployments.',
   'terms-s10-p':
-    'If you choose to self-host CinaCoin infrastructure, you are solely responsible for the operation, security, and compliance of your self-hosted instances. We provide the software but do not guarantee its performance in your environment.',
+    'If you choose to self-host Cinacoin infrastructure, you are solely responsible for the operation, security, and compliance of your self-hosted instances. We provide the software but do not guarantee its performance in your environment.',
   'terms-s11-title': '11. Termination.',
   'terms-s11-p':
     'We may suspend or terminate your access to the Services at any time, with or without cause, including for violation of these Terms. Upon termination, your right to use the Services will immediately cease.',
   'terms-s12-title': '12. Governing law.',
   'terms-s12-p':
-    'These Terms shall be governed by and construed in accordance with the laws of the jurisdiction in which CinaCoin operates, without regard to conflict of law principles.',
+    'These Terms shall be governed by and construed in accordance with the laws of the jurisdiction in which Cinacoin operates, without regard to conflict of law principles.',
   'terms-s13-title': '13. Changes to terms.',
   'terms-s13-p':
     'We reserve the right to modify these Terms at any time. We will notify you of material changes by posting the updated Terms on this page. Continued use of the Services after such changes constitutes acceptance.',
@@ -531,7 +531,7 @@ export const enTranslations = {
     '<strong>Analytics providers:</strong> Usage statistics and performance monitoring',
   'cookies-s4-title': '4. Self-hosted deployments.',
   'cookies-s4-p':
-    'If you self-host CinaCoin infrastructure, cookies are set by your own instance and are subject to your own cookie policy. We do not collect or process cookies from self-hosted deployments.',
+    'If you self-host Cinacoin infrastructure, cookies are set by your own instance and are subject to your own cookie policy. We do not collect or process cookies from self-hosted deployments.',
   'cookies-s5-title': '5. Managing cookies.',
   'cookies-s5-p':
     'You can control cookies through your browser settings. Most browsers allow you to:',
@@ -563,7 +563,7 @@ export const enTranslations = {
   // Newsletter
   'newsletter.title': 'Stay in the loop.',
   'newsletter.subtitle':
-    'Get the latest CinaCoin news, product updates, and insights delivered to your inbox.',
+    'Get the latest Cinacoin news, product updates, and insights delivered to your inbox.',
   'newsletter.subscribe': 'Subscribe',
   'newsletter.subscribing': 'Subscribing...',
   'newsletter.name_placeholder': 'Name (optional)',

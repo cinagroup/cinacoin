@@ -52,7 +52,7 @@ describe('MultiwalletManager', () => {
 
   it('should switch active wallet in a namespace', async () => {
     await manager.connect('metamask', 'eip155', 'MetaMask', '0xabc');
-    await manager.connect('walletconnect', 'eip155', 'WalletConnect', '0xdef');
+    await manager.connect('walletconnect', 'eip155', 'Cinacoin', '0xdef');
 
     const state1 = manager.getStore().getState();
     expect(state1.activeConnections.eip155?.walletId).toBe('metamask');
@@ -92,7 +92,7 @@ describe('MultiwalletManager', () => {
 
     unsubscribe();
 
-    await manager.connect('walletconnect', 'eip155', 'WalletConnect', '0xdef');
+    await manager.connect('walletconnect', 'eip155', 'Cinacoin', '0xdef');
     expect(callback).toHaveBeenCalledTimes(1); // Still 1, not called again
   });
 

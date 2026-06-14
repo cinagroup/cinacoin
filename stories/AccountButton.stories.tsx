@@ -97,7 +97,7 @@ function AccountButton({
 }
 
 const meta: Meta<typeof AccountButton> = {
-  title: 'CinaCoin/AccountButton',
+  title: 'Cinacoin/AccountButton',
   component: AccountButton,
   argTypes: {
     address: { control: 'text' },

@@ -234,7 +234,7 @@
    - 命令: `pnpm --filter @cinacoin/perf-benchmarks bench:ci`
 
 8. **appkit 懒加载**
-   - 使用 core-sdk 的 `createLazyLoader` 延迟加载 QRCode / WalletConnect modal
+   - 使用 core-sdk 的 `createLazyLoader` 延迟加载 QRCode / Cinacoin modal
    - 动态 import 非首屏组件
 
 9. **固定 appkit 依赖版本**

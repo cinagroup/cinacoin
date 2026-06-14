@@ -7,9 +7,9 @@ declare global {
     interface Chainable<Subject = any> {
       /**
        * Connect a wallet by name.
-       * Supports: MetaMask, WalletConnect, Coinbase Wallet, etc.
+       * Supports: MetaMask, Cinacoin, Coinbase Wallet, etc.
        * @example cy.connectWallet('MetaMask')
-       * @example cy.connectWallet('WalletConnect')
+       * @example cy.connectWallet('Cinacoin')
        */
       connectWallet(walletName: string): Chainable<void>;
 

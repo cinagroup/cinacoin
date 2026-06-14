@@ -30,7 +30,7 @@ import { logger } from '@cinacoin/logger';
  * Configuration for the UniversalConnector instance.
  */
 export interface UniversalConnectorConfig {
-  /** WalletConnect / infrastructure project ID. */
+  /** Cinacoin / infrastructure project ID. */
   projectId?: string;
   /** CAIP-2 chain IDs to pre-register (e.g. "eip155:1"). */
   chains?: string[];

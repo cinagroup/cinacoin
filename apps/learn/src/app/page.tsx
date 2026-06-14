@@ -15,7 +15,7 @@ const tutorials = [
   {
     title: "Wallet integration.",
     description:
-      "Learn how to connect wallets, sign transactions, and interact with smart contracts using the CinaCoin SDK.",
+      "Learn how to connect wallets, sign transactions, and interact with smart contracts using the Cinacoin SDK.",
     difficulty: "Intermediate" as const,
     duration: "25 min read",
     href: "/wallet-integration",
@@ -23,7 +23,7 @@ const tutorials = [
   {
     title: "Multichain development.",
     description:
-      "Build applications that work across multiple blockchains with CinaCoin's unified multichain API.",
+      "Build applications that work across multiple blockchains with Cinacoin's unified multichain API.",
     difficulty: "Advanced" as const,
     duration: "30 min read",
     href: "/multichain",
@@ -45,7 +45,7 @@ export default function HomePage() {
       <div className="rounded-lg px-8 py-12 mb-12" style={{ backgroundColor: 'var(--cc-canvas-soft-2)' }}>
         <p className="cc-mono text-caption mb-3" style={{ color: 'var(--cc-muted)' }}>learning-hub</p>
         <h1 className="text-display-lg mb-4" style={{ color: 'var(--cc-ink)' }}>
-          Welcome to <span style={{ color: 'var(--cc-link)' }}>CinaCoin Learn</span>.
+          Welcome to <span style={{ color: 'var(--cc-link)' }}>Cinacoin Learn</span>.
         </h1>
         <p className="text-body-md max-w-2xl" style={{ color: 'var(--cc-body)' }}>
           Master Web3 development with hands-on tutorials, code examples, and step-by-step guides.

@@ -1,6 +1,6 @@
 # KYC.
 
-> `@cinacoin/kyc` — KYC (Know Your Customer) integration for CinaCoin.
+> `@cinacoin/kyc` — KYC (Know Your Customer) integration for Cinacoin.
 
 ## Installation.
 

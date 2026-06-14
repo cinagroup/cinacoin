@@ -10,7 +10,7 @@
  * const tracker = new EventTracker();
  * tracker.addProvider(new InMemoryProvider());
  *
- * await tracker.trackWalletConnected('metamask', 1);
+ * await tracker.trackCinacoined('metamask', 1);
  * await tracker.trackTransactionAttempted('0x123', 1, 'metamask');
  * ```
  */

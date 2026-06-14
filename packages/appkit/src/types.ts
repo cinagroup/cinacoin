@@ -43,7 +43,7 @@ export interface ThemeVariables {
 }
 
 /**
- * DApp metadata for WalletConnect
+ * DApp metadata for Cinacoin
  */
 export interface AppMetadata {
   /** Application name */
@@ -103,7 +103,7 @@ export interface ChainConnectionStatus {
  * Main configuration for createCinacoinAppKit
  */
 export interface CinacoinAppKitConfig {
-  /** WalletConnect Cloud Project ID */
+  /** Cinacoin Cloud Project ID */
   projectId: string;
   /** Supported chains */
   chains: ChainConfig[];
@@ -154,7 +154,7 @@ export interface WalletInfo {
   icon: string;
   /** Supported platforms */
   platforms: WalletPlatform[];
-  /** WalletConnect RDNS (e.g., 'io.metamask') */
+  /** Cinacoin RDNS (e.g., 'io.metamask') */
   rdns?: string;
   /** Deep link URL template (for mobile) */
   deepLink?: string;

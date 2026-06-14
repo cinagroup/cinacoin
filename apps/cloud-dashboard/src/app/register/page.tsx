@@ -57,7 +57,7 @@ export default function RegisterPage() {
           <div className="mb-8">
             <h1 className="text-heading-2 text-[var(--cc-ink)]">Create your account.</h1>
             <p className="text-body-sm text-body mt-2">
-              Get started with CinaCoin Cloud in minutes.
+              Get started with Cinacoin Cloud in minutes.
             </p>
           </div>
 

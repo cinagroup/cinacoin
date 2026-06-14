@@ -15,7 +15,7 @@ Cinacoin v0.2.0 is our largest release to date — **72 packages published to np
 - **Production-grade crypto** — real X25519 key exchange (`@noble/curves`) + ChaCha20-Poly1305 (`@noble/ciphers`)
 - **Account Abstraction** — complete ERC-4337 + ERC-7677 stack
 - **SIWX** — chain-agnostic multi-chain authentication (CAIP-122)
-- **Codemod** — automated migration from Reown/AppKit
+- **Codemod** — automated migration from Cinacoin/AppKit
 
 ### 📦 Full Package List
 
@@ -81,7 +81,7 @@ Cinacoin v0.2.0 is our largest release to date — **72 packages published to np
 #### Developer Tools (20)
 - `@cinacoin/cli` — CLI scaffolding
 - `@cinacoin/testing` — Mock providers
-- `@cinacoin/codemod` — Reown/AppKit migration
+- `@cinacoin/codemod` — Cinacoin/AppKit migration
 - `@cinacoin/wallet-recommender` — Wallet recommendation
 - `@cinacoin/gas-estimator` — Gas estimation
 - `@cinacoin/token-list` — Token registry
@@ -135,7 +135,7 @@ pnpm run dev --filter=demo
 - [Quick Start Guide](./docs/guide/quick-start.md)
 - [Installation Guide](./docs/guide/installation.md)
 - [Configuration Guide](./docs/guide/configuration.md)
-- [Migration from Reown](./docs/guide/migrate-from-reown.md)
+- [Migration from Cinacoin](./docs/guide/migrate-from-cinacoin.md)
 - [Security Best Practices](./docs/security/best-practices.md)
 - [FAQ](./docs/faq.md)
 - [Full API Reference](https://docs.cinacoin.io)

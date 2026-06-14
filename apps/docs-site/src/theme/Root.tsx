@@ -14,7 +14,7 @@ export default function Root({ children }: { children: React.ReactNode }) {
           {JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'Organization',
-            name: 'CinaCoin',
+            name: 'Cinacoin',
             url: 'https://cinacoin.com',
             logo: 'https://cinacoin.com/img/logo.svg',
             description: 'Onchain UX toolkit - Self-hosted wallet connection toolkit',
@@ -30,7 +30,7 @@ export default function Root({ children }: { children: React.ReactNode }) {
           {JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'SoftwareApplication',
-            name: 'CinaCoin',
+            name: 'Cinacoin',
             applicationCategory: 'DeveloperApplication',
             operatingSystem: 'Web',
             offers: {
@@ -56,13 +56,13 @@ export default function Root({ children }: { children: React.ReactNode }) {
           {JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'WebSite',
-            name: 'CinaCoin Documentation',
+            name: 'Cinacoin Documentation',
             url: 'https://cinacoin.com/docs/',
             description:
-              'Complete documentation for CinaCoin Onchain UX Toolkit. API reference, guides, and SDK documentation.',
+              'Complete documentation for Cinacoin Onchain UX Toolkit. API reference, guides, and SDK documentation.',
             publisher: {
               '@type': 'Organization',
-              name: 'CinaCoin',
+              name: 'Cinacoin',
               logo: {
                 '@type': 'ImageObject',
                 url: 'https://cinacoin.com/img/logo.svg',

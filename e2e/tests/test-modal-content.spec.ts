@@ -15,7 +15,7 @@ test('test modal content', async ({ page }) => {
   console.log('Modal content length:', content.length);
   
   // Look for wallet-related text in the entire content
-  const walletMatches = content.match(/(MetaMask|WalletConnect|Coinbase)/g);
+  const walletMatches = content.match(/(MetaMask|Cinacoin|Coinbase)/g);
   console.log('Wallet matches found:', walletMatches);
   
   if (walletMatches) {

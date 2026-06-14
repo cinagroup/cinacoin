@@ -88,15 +88,15 @@
 
 | Code | Identifier              | Severity  | Description                                        |
 |------|-------------------------|-----------|----------------------------------------------------|
-| 5000 | PAIRING_FAILED          | error     | WalletConnect pairing could not be established     |
+| 5000 | PAIRING_FAILED          | error     | Cinacoin pairing could not be established     |
 | 5001 | SESSION_PROPOSAL_REJECTED| error    | Wallet rejected the session proposal               |
-| 5002 | SESSION_EXPIRED         | warning   | WalletConnect session has expired                  |
+| 5002 | SESSION_EXPIRED         | warning   | Cinacoin session has expired                  |
 | 5003 | INVALID_PAIRING_URI     | error     | Pairing URI is malformed                           |
 | 5004 | SESSION_NOT_FOUND       | error     | No active session for the given topic              |
 | 5005 | UNSUPPORTED_METHODS     | error     | Requested methods not supported by peer            |
-| 5006 | PROTOCOL_ERROR          | error     | WalletConnect protocol-level error                 |
-| 5007 | RELAY_DISCONNECTED      | warning   | WalletConnect relay connection lost                |
-| 5008 | REQUEST_TIMEOUT         | warning   | WalletConnect request timed out                    |
+| 5006 | PROTOCOL_ERROR          | error     | Cinacoin protocol-level error                 |
+| 5007 | RELAY_DISCONNECTED      | warning   | Cinacoin relay connection lost                |
+| 5008 | REQUEST_TIMEOUT         | warning   | Cinacoin request timed out                    |
 
 ---
 
@@ -168,7 +168,7 @@ Each error code maps to a category-specific error class:
 | 2000-2099  | `AuthenticationError` |
 | 3000-3099  | `ChainError`          |
 | 4000-4099  | `TransactionError`    |
-| 5000-5099  | `WalletConnectError`  |
+| 5000-5099  | `CinacoinError`  |
 | 6000-6099  | `SigningError`        |
 | 7000-7099  | `NetworkError`        |
 | 8000-8099  | `SdkError`            |

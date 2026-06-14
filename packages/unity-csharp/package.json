@@ -3,7 +3,7 @@
   "displayName": "Cinacoin Unity SDK",
   "version": "0.2.0",
   "unity": "2021.3",
-  "description": "Web3 wallet connection SDK for Unity. Supports WalletConnect v2, EVM chains (Ethereum, Polygon, Arbitrum, Optimism, BSC), Solana, SIWE authentication, and push notifications for mobile builds.",
+  "description": "Web3 wallet connection SDK for Unity. Supports Cinacoin v2, EVM chains (Ethereum, Polygon, Arbitrum, Optimism, BSC), Solana, SIWE authentication, and push notifications for mobile builds.",
   "keywords": [
     "web3",
     "wallet",

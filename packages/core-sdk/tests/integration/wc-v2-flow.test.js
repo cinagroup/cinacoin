@@ -1,5 +1,5 @@
 /**
- * Integration Test — Full WalletConnect v2 Connection Flow
+ * Integration Test — Full Cinacoin v2 Connection Flow
  *
  * Tests the complete WC v2 lifecycle: pair → connect → sign → disconnect.
  * Uses mock transports to simulate relay-server communication without
@@ -50,7 +50,7 @@ class MockWCV2Connector extends Connector {
     constructor() {
         super(...arguments);
         this.id = 'walletconnect-v2';
-        this.name = 'WalletConnect v2';
+        this.name = 'Cinacoin v2';
         this.icon = 'data:image/svg+xml;base64,mock-wc';
         this.installed = true;
         this.type = 'relay';

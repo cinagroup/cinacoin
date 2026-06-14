@@ -6,7 +6,7 @@
  */
 
 import { logger } from '@cinacoin/logger';
-import type { NearFunctionCall, NearTransferAction, NearTransaction, NearTransactionResult, NearWalletConnector as NearWalletConnectorInterface } from '../types.js';
+import type { NearFunctionCall, NearTransferAction, NearTransaction, NearTransactionResult, NearCinacoinor as NearCinacoinorInterface } from '../types.js';
 
 /** Minimal NEAR Wallet provider declarations. */
 interface NearWalletProvider {
@@ -62,7 +62,7 @@ declare global {
  * Connects to wallet.near.org using the browser redirect flow or
  * Wallet Selector integration.
  */
-export class NearWalletConnector implements NearWalletConnectorInterface {
+export class NearCinacoinor implements NearCinacoinorInterface {
   readonly id = 'near-wallet';
   readonly name = 'NEAR Wallet';
 

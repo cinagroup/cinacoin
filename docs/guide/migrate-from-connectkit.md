@@ -12,7 +12,7 @@ ConnectKit by Family.co is a lightweight wallet connection UI built on wagmi. Ci
 |-------|-----------------|-------------|
 | UI Components | `connectkit` | `@cinacoin/react` (ConnectButton, ConnectModal) |
 | Hooks & Logic | `wagmi` + `viem` | `@cinacoin/react` (useCinacoin, useAccount) |
-| Transport | WalletConnect Cloud (for WC connector) | Self-hosted Cinacoin Relay |
+| Transport | Cinacoin Cloud (for WC connector) | Self-hosted Cinacoin Relay |
 | RPC | Configured in wagmi | Self-hosted RPC Proxy |
 | Theming | `ConnectKitProvider` theme props | Component `theme` prop + design tokens |
 | SIWE Auth | Custom integration | `@cinacoin/siwe` built-in |
@@ -22,7 +22,7 @@ ConnectKit by Family.co is a lightweight wallet connection UI built on wagmi. Ci
 | Factor | ConnectKit | Cinacoin |
 |--------|-----------|-------------|
 | Underlying dependency | wagmi + viem | Self-contained SDK |
-| WalletConnect relay | Reown Cloud | Self-hosted Relay Server |
+| Cinacoin relay | Cinacoin Cloud | Self-hosted Relay Server |
 | Customization | Limited theme options | Full design token system |
 | Brand control | "Powered by Family.co" badge | Fully white-label |
 | Cost | Free tier, then depends on WC costs | $0 (self-hosted infra costs only) |
@@ -476,11 +476,11 @@ function SignIn() {
 
 ### Relay & RPC
 
-If your ConnectKit project used WalletConnect for any connectors:
+If your ConnectKit project used Cinacoin for any connectors:
 
 | Component | ConnectKit | Cinacoin |
 |-----------|-----------|-------------|
-| WC Relay | Reown Cloud (via projectId) | Your Relay Server |
+| WC Relay | Cinacoin Cloud (via projectId) | Your Relay Server |
 | RPC | Alchemy/Infura in wagmi config | Cinacoin RPC Proxy |
 
 Deploy self-hosted infrastructure:
@@ -528,7 +528,7 @@ npx cinacoin-codemod --src-dir ./src --transform connectkit-to-cinacoin --dry-ru
 ### Testing
 
 - [ ] Test injected wallet connections (MetaMask, Rabby)
-- [ ] Test WalletConnect QR code flow
+- [ ] Test Cinacoin QR code flow
 - [ ] Test Coinbase Wallet
 - [ ] Test chain switching
 - [ ] Test disconnect/reconnect
@@ -547,4 +547,4 @@ npx cinacoin-codemod --src-dir ./src --transform connectkit-to-cinacoin --dry-ru
 - See [Cinacoin Quick Start](/guide/quick-start) for a full walkthrough
 - See [React API Reference](/api/react) for detailed hook documentation
 - See [SIWE Auth Example](/examples/siwe-auth) for authentication setup
-- See [Migrate from Reown](/guide/migrate-from-reown) for full infrastructure details
+- See [Migrate from Cinacoin](/guide/migrate-from-cinacoin) for full infrastructure details

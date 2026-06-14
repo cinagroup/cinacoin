@@ -17,7 +17,7 @@ import { logger } from '@cinacoin/logger';
   aggregateSuite,
   allResultsToMarkdown,
   compareAgainstBaseline,
-  compareAgainstReown,
+  compareAgainstCinacoin,
   serializeResults,
 } from "./results.ts";
 
@@ -164,14 +164,14 @@ async function runAll(cli: CliArgs): Promise<AllResults> {
     }
   }
 
-  // Reown target comparison
-  const reownComparisons = compareAgainstReown(allResults.suites);
-  allResults.comparisons.push(...reownComparisons);
+  // Cinacoin target comparison
+  const cinacoinComparisons = compareAgainstCinacoin(allResults.suites);
+  allResults.comparisons.push(...cinacoinComparisons);
 
-  // Print Reown comparison
-  if (reownComparisons.length > 0) {
-    logger.info("\n📊 vs Reown AppKit targets:");
-    for (const c of reownComparisons) {
+  // Print Cinacoin comparison
+  if (cinacoinComparisons.length > 0) {
+    logger.info("\n📊 vs Cinacoin AppKit targets:");
+    for (const c of cinacoinComparisons) {
       const flag = c.regression ? "🔴" : "✅";
       logger.info(
         `   ${c.label} P50: ${c.current.toFixed(1)}ms / ${c.baseline}ms target ${flag}`,

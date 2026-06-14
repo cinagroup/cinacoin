@@ -2,7 +2,7 @@
  * Vue 3 components for Cinacoin wallet connections.
  *
  * All components use Composition API, TypeScript, and Tailwind CSS.
- * They require being nested inside <CinaCoinProvider>.
+ * They require being nested inside <CinacoinProvider>.
  */
 
 export { default as ConnectModal } from './ConnectModal.vue.js'

@@ -12,7 +12,7 @@
 **路径:** `packages/ios-swift/Package.swift`
 
 **依赖:**
-- WalletConnectSwiftV2 v1.13.0 (exact)
+- CinacoinSwiftV2 v1.13.0 (exact)
 - CryptoKit (Apple built-in, iOS 13+)
 
 **Products:**
@@ -33,7 +33,7 @@
 | WC v2 URI 解析/格式化 | 纯 Swift 实现 | ✅ |
 
 **编译验证:** Swift 编译器未安装 (macOS 环境),但源码检查确认:
-- 所有 import 语句有效 (Foundation, CryptoKit, Combine, WalletConnect)
+- 所有 import 语句有效 (Foundation, CryptoKit, Combine, Cinacoin)
 - 无语法错误
 - WCUtils.encrypt/decrypt 使用正确的 12-byte ChaCha20-Poly1305 nonce
 - HKDF 密钥派生正确实现 (不是简单使用 topic 作为 key)
@@ -42,7 +42,7 @@
 
 ### iOS 测试覆盖
 
-`WalletConnectTests.swift` 包含 28 个测试:
+`CinacoinTests.swift` 包含 28 个测试:
 - WCClient 配置和初始状态
 - WC v2 URI 解析 (有效/无效)
 - URI 格式化与往返
@@ -91,7 +91,7 @@
 **测试特点:**
 - 纯 Kotlin 逻辑,无 Android 框架依赖
 - 使用 `java.security.SecureRandom` 和 `MessageDigest` 进行加密验证
-- 与 iOS `WalletConnectTests` 测试模式对齐
+- 与 iOS `CinacoinTests` 测试模式对齐
 - 独立的工具函数模拟 iOS WCUtils 行为
 
 ### 现有 Android 测试 (8个文件)
@@ -191,15 +191,15 @@ LinkModeManager 现在与 DeepLinkHandler 互补:
 
 This .NET SDK is an HTTP API client — it communicates with the 
 Cinacoin relay/proxy server over REST + WebSocket. It does NOT 
-implement the native WalletConnect v2 protocol directly.
+implement the native Cinacoin v2 protocol directly.
 ```
 
 **2. 平台对比表:**
 
 | Platform | Protocol Implementation | Encryption |
 |----------|------------------------|------------|
-| iOS (Swift) | Native WC v2 via WalletConnectSwiftV2 SDK | ✅ ChaCha20-Poly1305 (CryptoKit) |
-| Android (Kotlin) | Native WC v2 via WalletConnectKotlin SDK | ✅ Handled by SDK |
+| iOS (Swift) | Native WC v2 via CinacoinSwiftV2 SDK | ✅ ChaCha20-Poly1305 (CryptoKit) |
+| Android (Kotlin) | Native WC v2 via CinacoinKotlin SDK | ✅ Handled by SDK |
 | Flutter (Dart) | HTTP relay API (with deep link integration) | ✅ Via relay server |
 | .NET (C#) | HTTP relay API client | ❌ Not encrypted |
 
@@ -227,9 +227,9 @@ implement the native WalletConnect v2 protocol directly.
 ```
 
 **5. 迁移建议:**
-- `WalletConnectNet` community library
+- `CinacoinNet` community library
 - `BouncyCastle.Cryptography` for X25519 + ChaCha20-Poly1305
-- 等待官方 WalletConnect .NET SDK
+- 等待官方 Cinacoin .NET SDK
 
 ---
 
@@ -252,7 +252,7 @@ implement the native WalletConnect v2 protocol directly.
 │              │ (Kotlin)     │ (Dart)       │ (C#)                  │
 ├──────────────┼──────────────┼──────────────┼───────────────────────┤
 │ WC v2 Native │ WC v2 Native │ HTTP Relay   │ HTTP Relay            │
-│ WalletConnect│ WalletConnect│ + Deep Links │ API Client            │
+│ Cinacoin│ Cinacoin│ + Deep Links │ API Client            │
 │ SwiftV2 SDK  │ Kotlin SDK   │              │                       │
 ├──────────────┼──────────────┼──────────────┼───────────────────────┤
 │ CryptoKit    │ SDK handles  │ Via relay    │ ⚠️ Not encrypted      │

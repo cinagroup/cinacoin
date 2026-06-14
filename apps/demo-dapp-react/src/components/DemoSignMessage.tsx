@@ -9,7 +9,7 @@ export function DemoSignMessage(): JSX.Element {
   const { status } = useCinacoinContext();
   const { signMessage, isPending, error } = useSignMessage();
 
-  const [message, setMessage] = useState('Welcome to CinaCoin.');
+  const [message, setMessage] = useState('Welcome to Cinacoin.');
   const [sigResult, setSigResult] = useState<string | null>(null);
   const [sigError, setSigError] = useState<string | null>(null);
 

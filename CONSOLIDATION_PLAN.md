@@ -197,7 +197,7 @@ This is where prior audits found the most drift. Vercel's consistency comes from
 
 Because everything is on `cinacoin.com`, use **one root-domain HTTP-only secure cookie** (no cross-subdomain handoff).
 
-- `/login` is the single entry: **wallet auth (SIWE/SIWX, MetaMask, WalletConnect)** as the primary CTA + **GitHub/Google OAuth** + **Passkey** (you already have `packages/siwe`, `siwx`, `passkey-auth`, `social-login`).
+- `/login` is the single entry: **wallet auth (SIWE/SIWX, MetaMask, Cinacoin)** as the primary CTA + **GitHub/Google OAuth** + **Passkey** (you already have `packages/siwe`, `siwx`, `passkey-auth`, `social-login`).
 - Any unauthenticated hit to `/dashboard` or `/admin` → 302 to `/login?next=...` (Vercel's exact behavior).
 - Role-gate `/admin` (the infra console) separately from `/dashboard` (dev console).
 - **Payoff** (Vercel's trick): a logged-in dev reading `/docs` can see their real API keys inlined in code samples, and "Deploy this template" from `/templates` provisions a project in their session with no redirect loop.

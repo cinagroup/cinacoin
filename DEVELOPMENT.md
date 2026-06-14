@@ -469,7 +469,7 @@ pnpm run dev --filter=demo
 #### Network Debugging
 
 ```bash
-# Enable WalletConnect debug logging
+# Enable Cinacoin debug logging
 # In your app code:
 import { Core } from '@walletconnect/core';
 const core = new Core({
@@ -505,7 +505,7 @@ Key environment variables:
 
 | Variable | Description | Required |
 |----------|-------------|----------|
-| `PROJECT_ID` | WalletConnect Cloud project ID | Yes (for demo) |
+| `PROJECT_ID` | Cinacoin Cloud project ID | Yes (for demo) |
 | `RPC_URL_*` | Custom RPC endpoints | No (fallbacks provided) |
 | `RELAY_URL` | Self-hosted relay server URL | No |
 | `CLOUDFLARE_ACCOUNT_ID` | For Cloudflare Workers deployment | No |

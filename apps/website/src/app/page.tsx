@@ -5,7 +5,7 @@ export default function HomePage() {
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    'name': 'CinaCoin',
+    'name': 'Cinacoin',
     'url': 'https://cinacoin.com',
     'logo': 'https://cinacoin.com/logo.png',
     'description': 'The Future of Decentralized Finance',

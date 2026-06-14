@@ -1,5 +1,5 @@
 /**
- * WalletConnectClient integration tests.
+ * CinacoinClient integration tests.
  *
  * Tests:
  * - Client creation
@@ -15,7 +15,7 @@
  * - Static helpers (isValidUri, parseUri, getDefaultNamespaces)
  */
 import { describe, it, expect, beforeEach } from 'vitest';
-import { WalletConnectClient, WcClientError, } from '../src/client.js';
+import { CinacoinClient, WcClientError, } from '../src/client.js';
 const mockConfig = {
     relayUrl: 'wss://relay.test.example.com',
     metadata: {
@@ -26,17 +26,17 @@ const mockConfig = {
     },
     chains: ['eip155:1'],
 };
-describe('WalletConnectClient', () => {
+describe('CinacoinClient', () => {
     let client;
     beforeEach(() => {
-        client = new WalletConnectClient(mockConfig);
+        client = new CinacoinClient(mockConfig);
     });
     it('creates a client instance', () => {
         expect(client).toBeDefined();
-        expect(client).toBeInstanceOf(WalletConnectClient);
+        expect(client).toBeInstanceOf(CinacoinClient);
     });
     it('reports VERSION', () => {
-        expect(WalletConnectClient.VERSION).toBe('0.1.0');
+        expect(CinacoinClient.VERSION).toBe('0.1.0');
     });
     it('is not initialized by default', () => {
         expect(client.isInitialized()).toBe(false);
@@ -82,10 +82,10 @@ describe('WalletConnectClient', () => {
 // ============================================================
 // Event handling
 // ============================================================
-describe('WalletConnectClient events', () => {
+describe('CinacoinClient events', () => {
     let client;
     beforeEach(() => {
-        client = new WalletConnectClient(mockConfig);
+        client = new CinacoinClient(mockConfig);
     });
     it('registers and fires event listeners', () => {
         let fired = false;
@@ -129,26 +129,26 @@ describe('WalletConnectClient events', () => {
 // ============================================================
 // Static helpers
 // ============================================================
-describe('WalletConnectClient static helpers', () => {
+describe('CinacoinClient static helpers', () => {
     it('isValidUri returns true for valid WC v2 URI', () => {
         const uri = 'wc:abc123def456789012345678901234567890123456789012345678901234@2?relay-protocol=waku&relay-url=wss%3A%2F%2Frelay.example.com&symKey=deadbeef00000000deadbeef00000000deadbeef00000000deadbeef00000000';
-        expect(WalletConnectClient.isValidUri(uri)).toBe(true);
+        expect(CinacoinClient.isValidUri(uri)).toBe(true);
     });
     it('isValidUri returns false for invalid URI', () => {
-        expect(WalletConnectClient.isValidUri('not-a-uri')).toBe(false);
+        expect(CinacoinClient.isValidUri('not-a-uri')).toBe(false);
     });
     it('parseUri returns parsed components', () => {
         const uri = 'wc:abc123def456789012345678901234567890123456789012345678901234@2?relay-protocol=waku&relay-url=wss%3A%2F%2Frelay.example.com&symKey=deadbeef00000000deadbeef00000000deadbeef00000000deadbeef00000000';
-        const parsed = WalletConnectClient.parseUri(uri);
+        const parsed = CinacoinClient.parseUri(uri);
         expect(parsed.version).toBe(2);
         expect(parsed.topic.length).toBeGreaterThan(0);
     });
     it('getDefaultNamespaces returns EIP-155 by default', () => {
-        const namespaces = WalletConnectClient.getDefaultNamespaces();
+        const namespaces = CinacoinClient.getDefaultNamespaces();
         expect(namespaces.eip155).toBeDefined();
     });
     it('getDefaultNamespaces includes Solana when requested', () => {
-        const namespaces = WalletConnectClient.getDefaultNamespaces({
+        const namespaces = CinacoinClient.getDefaultNamespaces({
             chains: ['eip155:1', 'solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp'],
         });
         expect(namespaces.eip155).toBeDefined();

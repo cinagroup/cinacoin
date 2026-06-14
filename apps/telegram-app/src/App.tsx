@@ -27,7 +27,7 @@ const TABS: TabConfig[] = [
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<TabId>('home');
-  const [provider] = useState(() => new TelegramProvider({ appName: 'CinaCoin Mini App' }));
+  const [provider] = useState(() => new TelegramProvider({ appName: 'Cinacoin Mini App' }));
   const [user, setUser] = useState<TelegramUser | null>(null);
   const [isReady, setIsReady] = useState(false);
   const [account, setAccount] = useState<string | null>(null);

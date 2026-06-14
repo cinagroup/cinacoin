@@ -10,8 +10,8 @@ import { test as base, expect, type Page } from '@playwright/test';
 export const test = base.extend<{
   /** The page navigated to the demo app. */
   demoPage: Page;
-  /** Mock a WalletConnect pairing URI. */
-  mockWalletConnectUri: () => Promise<string>;
+  /** Mock a Cinacoin pairing URI. */
+  mockCinacoinUri: () => Promise<string>;
   /** Connect a mock wallet via the UI. */
   connectMockWallet: (walletName?: string) => Promise<void>;
 }>({
@@ -24,9 +24,9 @@ export const test = base.extend<{
   },
 
   /**
-   * Generate a mock WalletConnect URI (used by tests that simulate WC pairing).
+   * Generate a mock Cinacoin URI (used by tests that simulate WC pairing).
    */
-  mockWalletConnectUri: async ({ page }, use) => {
+  mockCinacoinUri: async ({ page }, use) => {
     await use(async () => {
       const uri = `wc:a1b2c3d4@2?relay-protocol=irn&symKey=test-sym-key-${Date.now()}`;
       await page.evaluate((u) => {

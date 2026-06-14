@@ -1,4 +1,4 @@
-# CinaCoin Wallet Explorer — Audit Completion Summary
+# Cinacoin Wallet Explorer — Audit Completion Summary
 
 **Date:** 2026-06-11  
 **Status:** ✅ **COMPLETE**  
@@ -37,7 +37,7 @@
 ### 3. Security Hardening
 - ✅ Fixed CSP configuration in `public/_headers`
 - ✅ Removed external CDN sources from CSP
-- ✅ Restricted `connect-src` to CinaCoin domains only
+- ✅ Restricted `connect-src` to Cinacoin domains only
 - ✅ Added input validation for Send form (address, amount, balance)
 - ✅ Added form accessibility (labels, ARIA attributes, error messages)
 - ✅ Added security headers (HSTS, Permissions-Policy)
@@ -145,7 +145,7 @@ Route (app)                              Size     First Load JS
 ## Next Steps
 
 ### Immediate (High Priority)
-1. Integrate real wallet connection (WalletConnect/MetaMask)
+1. Integrate real wallet connection (Cinacoin/MetaMask)
 2. Connect to real API (`api.cinacoin.com`)
 3. Implement WebSocket for real-time updates
 4. Add error boundaries
@@ -191,7 +191,7 @@ npm test
 
 ## Conclusion
 
-The CinaCoin Wallet Explorer has been successfully audited and optimized. All critical issues have been resolved, and the application is now:
+The Cinacoin Wallet Explorer has been successfully audited and optimized. All critical issues have been resolved, and the application is now:
 
 - ✅ **Performant** — Optimized re-renders, efficient configs
 - ✅ **Secure** — Hardened CSP, input validation, security headers

@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Initial release of the Cinacoin Wallet SDK for Android
-- WalletConnect v2 integration (`com.walletconnect:android-core`, `com.walletconnect:sign`)
+- Cinacoin v2 integration (`com.walletconnect:android-core`, `com.walletconnect:sign`)
 - EVM chain support for wallet operations
 - EncryptedSharedPreferences for secure key storage (`androidx.security:security-crypto`)
 - Jetpack Compose UI components (Material3)
@@ -30,8 +30,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Dependencies
 | Dependency | Version |
 |---|---|
-| WalletConnect Android Core | 1.19.2 |
-| WalletConnect Sign | 1.19.2 |
+| Cinacoin Android Core | 1.19.2 |
+| Cinacoin Sign | 1.19.2 |
 | kotlinx-coroutines | 1.8.1 |
 | kotlinx-serialization-json | 1.6.3 |
 | security-crypto | 1.1.0-alpha06 |

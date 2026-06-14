@@ -7,7 +7,7 @@ Performance benchmark suite for Cinacoin SDK. Measures P50/P95/P99 latency for c
 | Benchmark | Metric | Target |
 |-----------|--------|--------|
 | SDK Init | P50 | < 100ms |
-| WalletConnect Connect | Total | < 1s |
+| Cinacoin Connect | Total | < 1s |
 | Chain Switch | P50 | < 50ms |
 | Transaction Build | P50 | < 200ms |
 

@@ -6,7 +6,7 @@
  */
 
 import { logger } from '@cinacoin/logger';
-import type { StarknetCall, StarknetTransactionResult, StarknetWalletConnector } from '../types.js';
+import type { StarknetCall, StarknetTransactionResult, StarknetCinacoinor } from '../types.js';
 
 /** Minimal Argent X provider type declarations. */
 interface ArgentXProvider {
@@ -46,7 +46,7 @@ declare global {
  * leveraging Starknet's native account abstraction through the Argent
  * account contract.
  */
-export class ArgentXConnector implements StarknetWalletConnector {
+export class ArgentXConnector implements StarknetCinacoinor {
   readonly id = 'argent-x';
   readonly name = 'Argent X';
 

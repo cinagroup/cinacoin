@@ -9,7 +9,7 @@
  * - Modal open/close
  * - Wallet selection flow
  * - Injected provider connection
- * - WalletConnect QR flow
+ * - Cinacoin QR flow
  * - Mobile deep link redirect
  * - Connection state persistence
  * - Disconnect flow
@@ -29,7 +29,7 @@ test.describe('Wallet Connection E2E', () => {
         await openConnectModal(demoPage);
         await expect(demoPage.getByRole('dialog')).toBeVisible();
         await expect(demoPage.getByText('MetaMask')).toBeVisible();
-        await expect(demoPage.getByText('WalletConnect')).toBeVisible();
+        await expect(demoPage.getByText('Cinacoin')).toBeVisible();
     });
     test('should connect via injected provider and show address', async ({ page }) => {
         await injectMockProvider(page);
@@ -38,7 +38,7 @@ test.describe('Wallet Connection E2E', () => {
         await selectWallet(page, 'MetaMask');
         await waitForConnected(page);
     });
-    test('should show WalletConnect QR code when selecting QR wallet', async ({ demoPage }) => {
+    test('should show Cinacoin QR code when selecting QR wallet', async ({ demoPage }) => {
         await openConnectModal(demoPage);
         // Switch to scan/QR tab
         const scanTab = demoPage.getByRole('tab', { name: /scan/i });
@@ -89,7 +89,7 @@ test.describe('Wallet Connection E2E', () => {
     });
     test('should show recommended wallets first in the wallet list', async ({ demoPage }) => {
         await openConnectModal(demoPage);
-        const walletCards = demoPage.locator('[role="button"]').filter({ hasText: /MetaMask|WalletConnect|Coinbase/ });
+        const walletCards = demoPage.locator('[role="button"]').filter({ hasText: /MetaMask|Cinacoin|Coinbase/ });
         const count = await walletCards.count();
         expect(count).toBeGreaterThanOrEqual(1);
         // First wallet should be MetaMask (recommended)

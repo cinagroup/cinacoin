@@ -1,4 +1,4 @@
-# FINAL: CinaAuth Cinacoin vs Reown — Mobile SDK Quality Assessment
+# FINAL: CinaAuth Cinacoin vs Cinacoin — Mobile SDK Quality Assessment
 
 **Date:** 2026-05-16
 **Scope:** iOS Swift, Android Kotlin, React Native
@@ -7,9 +7,9 @@
 
 ## Executive Summary
 
-Cinacoin provides a **UI-first, white-label wallet connection toolkit** with native components across iOS, Android, and React Native. It has solid UI scaffolding, consistent theming, and deep-link infrastructure. However, it is **fundamentally a thin UI shell** — the core protocol layer (WalletConnect 2.0 signing, session management, relay communication) is stubbed out with simulated connections. Reown's SDKs implement the full WalletConnect protocol stack natively.
+Cinacoin provides a **UI-first, white-label wallet connection toolkit** with native components across iOS, Android, and React Native. It has solid UI scaffolding, consistent theming, and deep-link infrastructure. However, it is **fundamentally a thin UI shell** — the core protocol layer (Cinacoin 2.0 signing, session management, relay communication) is stubbed out with simulated connections. Cinacoin's SDKs implement the full Cinacoin protocol stack natively.
 
-**Verdict:** Cinacoin is a well-architected UI layer ready for protocol integration. It is approximately **20-30% of the feature depth** of Reown's corresponding SDKs in terms of production-ready functionality.
+**Verdict:** Cinacoin is a well-architected UI layer ready for protocol integration. It is approximately **20-30% of the feature depth** of Cinacoin's corresponding SDKs in terms of production-ready functionality.
 
 ---
 
@@ -35,18 +35,18 @@ Tests/CinacoinTests/
 └── CinacoinTests.swift       # ~25 unit tests
 ```
 
-**Reown Swift (`reown-swift`):**
+**Cinacoin Swift (`cinacoin-swift`):**
 ```
 Sources/
-├── WalletConnect/             # Full WC 2.0 protocol implementation
+├── Cinacoin/             # Full WC 2.0 protocol implementation
 │   ├── Sign/                  # Sign API (session management, methods)
 │   ├── Auth/                  # Auth API (SIWE, CAIP-74)
 │   ├── Chat/                  # Chat API (CAIP-171)
 │   ├── Push/                  # Push API (native, no APNs proxy needed)
 │   ├── Core/                  # Relay, crypto, networking
 │   └── Pairing/               # Pairing protocol
-├── WalletConnectRouter/       # Wallet-side routing
-├── WalletConnectUI/           # Reusable UI primitives
+├── CinacoinRouter/       # Wallet-side routing
+├── CinacoinUI/           # Reusable UI primitives
 ├── Web3Inbox/                 # Inbox SDK
 ├── Web3Modal/                 # AppKit (App-side modal)
 └── ...
@@ -54,9 +54,9 @@ Sources/
 
 ### 1.1 API Completeness (iOS)
 
-| Feature | Cinacoin | Reown Swift |
+| Feature | Cinacoin | Cinacoin Swift |
 |---------|-----------|-------------|
-| WalletConnect 2.0 protocol | ❌ Stubbed | ✅ Full implementation |
+| Cinacoin 2.0 protocol | ❌ Stubbed | ✅ Full implementation |
 | Session management | ❌ Simulated UUID | ✅ Real session lifecycle |
 | Pairing | ❌ None | ✅ CAIP-25 pairing |
 | Sign API (sign transactions) | ❌ None | ✅ All EVM/Solana methods |
@@ -85,17 +85,17 @@ Sources/
 - ThemeColors system is clean and consistent
 
 **Weaknesses:**
-- `WalletManager.connect()` returns **hardcoded simulated data** — no real WalletConnect SDK integration
+- `WalletManager.connect()` returns **hardcoded simulated data** — no real Cinacoin SDK integration
 - SIWE `signIn()` uses placeholder address `"0x000...0"` instead of resolving from connected wallet
 - `EVMChainAdapter.rpcCall` uses `[String: Any]` — loses type safety on JSON responses
 - `SolanaChainAdapter.signMessage()` throws `notImplemented` — no signing path
 - No dependency injection — `UIApplication.shared` is hardcoded, hard to test deep links
-- Missing SPM dependency on WalletConnectSwiftV2 (the `dependencies: []` in Package.swift is empty)
+- Missing SPM dependency on CinacoinSwiftV2 (the `dependencies: []` in Package.swift is empty)
 - `PushNotificationHandler` only wraps APNs — no server-side push relay integration
 
 ### 1.3 Platform-Specific Optimizations (iOS)
 
-| Area | Cinacoin | Reown Swift |
+| Area | Cinacoin | Cinacoin Swift |
 |------|-----------|-------------|
 | iOS deployment target | iOS 15+ | iOS 13+ |
 | SwiftUI integration | ✅ Full (ConnectButton, ConnectModal) | ✅ Full (Web3Modal) |
@@ -129,9 +129,9 @@ src/main/kotlin/com/cinacoin/
     └── FcmHandler.kt          # Firebase Cloud Messaging
 ```
 
-**Reown Kotlin (`reown-kotlin`):**
+**Cinacoin Kotlin (`cinacoin-kotlin`):**
 ```
-core/                          # WalletConnect 2.0 protocol core
+core/                          # Cinacoin 2.0 protocol core
 sign/                          # Sign API implementation
 auth/                          # Auth API (SIWE)
 chat/                          # Chat API
@@ -141,9 +141,9 @@ web3modal/                     # AppKit Compose components
 
 ### 2.1 API Completeness (Android)
 
-| Feature | Cinacoin | Reown Kotlin |
+| Feature | Cinacoin | Cinacoin Kotlin |
 |---------|-----------|--------------|
-| WalletConnect 2.0 protocol | ❌ Stubbed | ✅ Full implementation |
+| Cinacoin 2.0 protocol | ❌ Stubbed | ✅ Full implementation |
 | Session management | ❌ Simulated | ✅ Real lifecycle |
 | Sign API | ❌ None | ✅ Full |
 | Auth API (SIWE) | ❌ None | ✅ Full |
@@ -178,7 +178,7 @@ web3modal/                     # AppKit Compose components
 
 ### 2.3 Platform-Specific Optimizations (Android)
 
-| Area | Cinacoin | Reown Kotlin |
+| Area | Cinacoin | Cinacoin Kotlin |
 |------|-----------|--------------|
 | Min SDK | 26 (Android 8.0) | 21 (Android 5.0) |
 | Compose BOM | 2024.01.00 | Latest |
@@ -206,11 +206,11 @@ src/
 └── QRScanner.tsx             # QR scanner placeholder
 ```
 
-**Reown RN (`@reown/appkit-wagmi-react-native` or `@walletconnect/react-native-dapp`):**
+**Cinacoin RN (`@cinacoin/appkit-wagmi-react-native` or `@walletconnect/react-native-dapp`):**
 ```
-@reown/appkit-wagmi-react-native/
+@cinacoin/appkit-wagmi-react-native/
 ├── AppKit provider (wagmi v2 integration)
-├── WalletConnect 2.0 native module
+├── Cinacoin 2.0 native module
 ├── Deep linking (react-native-linking)
 ├── Native QR scanning
 └── Full session management
@@ -218,9 +218,9 @@ src/
 
 ### 3.1 API Completeness (React Native)
 
-| Feature | Cinacoin | Reown React Native |
+| Feature | Cinacoin | Cinacoin React Native |
 |---------|-----------|---------------------|
-| WalletConnect 2.0 protocol | ❌ None | ✅ Full via native module |
+| Cinacoin 2.0 protocol | ❌ None | ✅ Full via native module |
 | Session management | ❌ Simulated timeout | ✅ Real lifecycle |
 | wagmi integration | ❌ None | ✅ Full wagmi v2 |
 | viem/ethers integration | ❌ None | ✅ Via wagmi |
@@ -246,15 +246,15 @@ src/
 - `connect('metamask')` is hardcoded — no connector selection logic
 - `AccountState.address` initialized as `null` but used as `account.address ?? ''` — works but awkward
 - QRScanner is **purely a dev placeholder** — no camera integration at all
-- No native module for WalletConnect — can't actually sign anything
+- No native module for Cinacoin — can't actually sign anything
 - No EIP-1193 provider bridge
-- No wallet install detection beyond simplified `supportsWalletConnect` check
+- No wallet install detection beyond simplified `supportsCinacoin` check
 - No React Native New Architecture / Fabric support
 - `peerDependencies` require RN 0.73+ — excludes older projects
 
 ### 3.3 Platform-Specific Optimizations (React Native)
 
-| Area | Cinacoin | Reown React Native |
+| Area | Cinacoin | Cinacoin React Native |
 |------|-----------|---------------------|
 | Deep linking | ✅ Both platforms | ✅ Both platforms |
 | QR scanner | ❌ Simulated only | ✅ Native camera |
@@ -270,14 +270,14 @@ src/
 
 ### Connect (Wallet Discovery + Connection)
 
-| Capability | Cinacoin iOS | Cinacoin Android | Cinacoin RN | Reown (all) |
+| Capability | Cinacoin iOS | Cinacoin Android | Cinacoin RN | Cinacoin (all) |
 |---|---|---|---|---|
 | Wallet list UI | ✅ | ✅ | ✅ | ✅ |
 | QR code scanning | ⚠️ UI only | ❌ | ⚠️ Dev only | ✅ |
 | Deep link open | ✅ | ✅ | ✅ | ✅ |
 | Universal link fallback | ✅ | ✅ | ✅ | ✅ |
 | App store fallback | ✅ | ✅ | ✅ | ✅ |
-| WalletConnect URI handling | ⚠️ Stubbed | ⚠️ Stubbed | ⚠️ Stubbed | ✅ |
+| Cinacoin URI handling | ⚠️ Stubbed | ⚠️ Stubbed | ⚠️ Stubbed | ✅ |
 | Recommended wallets | ✅ | ✅ | ✅ | ✅ |
 | Wallet installed check | ⚠️ URL scheme only | ✅ PackageManager | ⚠️ Simplified | ✅ |
 | Email login | ✅ UI | ✅ UI | ✅ UI | ✅ |
@@ -285,7 +285,7 @@ src/
 
 ### Sign (Transaction + Message Signing)
 
-| Capability | Cinacoin iOS | Cinacoin Android | Cinacoin RN | Reown (all) |
+| Capability | Cinacoin iOS | Cinacoin Android | Cinacoin RN | Cinacoin (all) |
 |---|---|---|---|---|
 | EVM transaction signing | ❌ None | ❌ None | ❌ None | ✅ |
 | Solana transaction signing | ⚠️ Stubbed | ❌ None | ❌ None | ✅ |
@@ -297,7 +297,7 @@ src/
 
 ### Send (Transaction Dispatch)
 
-| Capability | Cinacoin iOS | Cinacoin Android | Cinacoin RN | Reown (all) |
+| Capability | Cinacoin iOS | Cinacoin Android | Cinacoin RN | Cinacoin (all) |
 |---|---|---|---|---|
 | Send signed transaction | ❌ None | ❌ None | ❌ None | ✅ |
 | Solana send | ⚠️ Stubbed | ❌ None | ❌ None | ✅ |
@@ -305,7 +305,7 @@ src/
 
 ### Deep Link
 
-| Capability | Cinacoin iOS | Cinacoin Android | Cinacoin RN | Reown (all) |
+| Capability | Cinacoin iOS | Cinacoin Android | Cinacoin RN | Cinacoin (all) |
 |---|---|---|---|---|
 | Scheme-based | ✅ 7 wallets | ✅ 7 wallets | ✅ 6 wallets | ✅ |
 | Universal/App Links | ✅ | ✅ | ✅ | ✅ |
@@ -315,7 +315,7 @@ src/
 
 ### Push
 
-| Capability | Cinacoin iOS | Cinacoin Android | Cinacoin RN | Reown (all) |
+| Capability | Cinacoin iOS | Cinacoin Android | Cinacoin RN | Cinacoin (all) |
 |---|---|---|---|---|
 | APNs | ✅ UserNotifications | ❌ | ❌ | N/A |
 | FCM | ❌ | ✅ Full | ❌ | N/A |
@@ -326,7 +326,7 @@ src/
 
 ### SIWE / Auth
 
-| Capability | Cinacoin iOS | Cinacoin Android | Cinacoin RN | Reown (all) |
+| Capability | Cinacoin iOS | Cinacoin Android | Cinacoin RN | Cinacoin (all) |
 |---|---|---|---|---|
 | Message generation | ✅ Full EIP-4361 | ❌ | ❌ | ✅ |
 | Message parsing | ✅ | ❌ | ❌ | ✅ |
@@ -340,10 +340,10 @@ src/
 
 ### Across All Platforms
 
-1. **No WalletConnect 2.0 protocol implementation** — The single most critical gap. Cinacoin has no actual WC SDK dependency. All connections are simulated.
+1. **No Cinacoin 2.0 protocol implementation** — The single most critical gap. Cinacoin has no actual WC SDK dependency. All connections are simulated.
 2. **No real session management** — No pairing, session proposals, session deletion, session expiry handling.
 3. **No cryptographic operations** — No key generation, no encryption/decryption, no signature verification.
-4. **No relay communication** — No connection to WalletConnect relay servers.
+4. **No relay communication** — No connection to Cinacoin relay servers.
 5. **No Solana support on Android/RN** — iOS has a SolanaAdapter; Android and RN don't.
 6. **No SIWE on Android/RN** — iOS has a SIWE module; Android and RN don't.
 7. **No EVM adapter on Android/RN** — iOS has read-only RPC calls; Android and RN don't.
@@ -354,7 +354,7 @@ src/
 ### Platform-Specific Gaps
 
 **iOS:**
-- No WalletConnectSwiftV2 SPM dependency
+- No CinacoinSwiftV2 SPM dependency
 - No Keychain persistence for sessions
 - `EVMChainAdapter` and `SolanaChainAdapter` are not exposed through the main `Cinacoin` API
 
@@ -391,13 +391,13 @@ Despite the gaps, Cinacoin has genuine strengths:
 ## 7. Recommendations
 
 ### Priority 1: Protocol Integration
-Add WalletConnect 2.0 SDK as a dependency on each platform:
-- iOS: Add `WalletConnectSwiftV2` as SPM dependency
+Add Cinacoin 2.0 SDK as a dependency on each platform:
+- iOS: Add `CinacoinSwiftV2` as SPM dependency
 - Android: Add `io.walletconnect:core`, `io.walletconnect:sign`, `io.walletconnect:auth`
 - RN: Use `@walletconnect/react-native-compat` + native WC modules
 
 ### Priority 2: Wire Up Real Connections
-Replace simulated `connect()` with actual WalletConnect session management. This unlocks everything else.
+Replace simulated `connect()` with actual Cinacoin session management. This unlocks everything else.
 
 ### Priority 3: Cross-Platform Parity
 - Port iOS `SIWEAuth` → Android Kotlin + RN
@@ -424,7 +424,7 @@ Replace simulated `connect()` with actual WalletConnect session management. This
 
 ## 8. Summary Scores
 
-| Dimension | Cinacoin iOS | Cinacoin Android | Cinacoin RN | Reown Swift | Reown Kotlin | Reown RN |
+| Dimension | Cinacoin iOS | Cinacoin Android | Cinacoin RN | Cinacoin Swift | Cinacoin Kotlin | Cinacoin RN |
 |---|---|---|---|---|---|---|
 | **Protocol** | 1/10 | 1/10 | 1/10 | 10/10 | 10/10 | 10/10 |
 | **UI Components** | 8/10 | 8/10 | 7/10 | 9/10 | 9/10 | 8/10 |
@@ -439,4 +439,4 @@ Replace simulated `connect()` with actual WalletConnect session management. This
 
 ---
 
-*Report generated from source analysis of Cinacoin mobile packages and comparative knowledge of Reown SDKs.*
+*Report generated from source analysis of Cinacoin mobile packages and comparative knowledge of Cinacoin SDKs.*

@@ -273,7 +273,7 @@
 
 ---
 
-## 4. Missing Infrastructure (vs Reown/AppKit)
+## 4. Missing Infrastructure (vs Cinacoin/AppKit)
 
 ### 4.1 What Cinacoin Has
 
@@ -294,9 +294,9 @@
 | Disaster recovery | ✅ DR plan with RTO/RPO |
 | Health check scripts | ✅ Partial (2 of 5 services) |
 
-### 4.2 What's Missing vs Reown
+### 4.2 What's Missing vs Cinacoin
 
-| Component | Reown Has | Cinacoin Status | Gap |
+| Component | Cinacoin Has | Cinacoin Status | Gap |
 |-----------|-----------|-------------------|-----|
 | **Explorer/Block Explorer** | Blockchain explorer UI | ✅ Component library exists | No standalone explorer app |
 | **Paymaster** | Gas sponsorship | ❌ No server (only `paymaster` package directory) | Missing gas sponsorship server |
@@ -304,7 +304,7 @@
 | **In-app purchase** | IAP support | ❌ No server | Missing |
 | **Email wallet** | Email-based wallet | ❌ No server | Missing |
 | **Verifier** | Identity verification | ❌ No server | Missing |
-| **Reown Name** | ENS-like naming | ❌ No server | Missing |
+| **Cinacoin Name** | ENS-like naming | ❌ No server | Missing |
 | **Analytics ingestion** | Data collection server | ❌ Only SDK, no server | Missing collection endpoint |
 | **Multi-chain indexer** | Indexing service | ❌ No indexer | Missing — blockchain-api is client-only |
 | **Transaction simulation** | Pre-execution simulation | ⚠️ Bundler has placeholder | Simulation code is stub |
@@ -323,7 +323,7 @@
 | **P0** | Bundler transaction sending is stub | Cannot actually submit UserOps to chain |
 | **P1** | No analytics ingestion server | Analytics SDK has nowhere to send data |
 | **P1** | No paymaster server | Cannot sponsor gas for users |
-| **P1** | No indexer / block explorer app | Missing Reown ecosystem parity |
+| **P1** | No indexer / block explorer app | Missing Cinacoin ecosystem parity |
 | **P2** | Health check only covers 2 services | Monitoring gap for push/notify/relay |
 | **P2** | No secret rotation automation | Manual security process |
 | **P2** | Relay TLS is TODO | Production security gap |
@@ -434,7 +434,7 @@
 
 ### Medium-term (P2)
 
-9. **Implement paymaster server** — Gas sponsorship is a Reown core feature
+9. **Implement paymaster server** — Gas sponsorship is a Cinacoin core feature
 10. **Add secret rotation automation** — At minimum, script the rotation checklist
 11. **Create DR runbook for Workers** — The DR plan is K8s-focused; Workers need their own procedures
 12. **Build indexer service** — blockchain-api needs a backend indexer to be competitive

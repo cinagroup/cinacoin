@@ -142,7 +142,7 @@ docs/
 │   ├── installation.md
 │   ├── configuration.md
 │   ├── troubleshooting.md
-│   └── migrate-from-reown.md
+│   └── migrate-from-cinacoin.md
 ├── api/                     → API 文档（~30 篇）
 │   ├── analytics.md
 │   ├── config.md

@@ -1,21 +1,21 @@
 # iOS Swift.
 
-> `@cinacoin/ios-swift` — iOS native SDK for CinaCoin.
+> `@cinacoin/ios-swift` — iOS native SDK for Cinacoin.
 
 ## Installation.
 
 ```ruby
 # Podfile.
-pod 'CinaCoin', '~> 1.0'
+pod 'Cinacoin', '~> 1.0'
 ```
 
 ## Usage.
 
 ```swift
-import CinaCoin
+import Cinacoin
 
-let config = CinaCoinConfig(projectId: "your-project-id")
-let cinaConnect = CinaCoin.shared(config: config)
+let config = CinacoinConfig(projectId: "your-project-id")
+let cinaConnect = Cinacoin.shared(config: config)
 ```
 
 ## Related.

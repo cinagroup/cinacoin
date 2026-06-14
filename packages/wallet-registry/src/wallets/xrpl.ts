@@ -10,7 +10,7 @@ export const xrplWallets = [
     universalLink: "https://xaman.app",
     appStoreUrl: "https://apps.apple.com/app/xumm/id1470248019",
     playStoreUrl: "https://play.google.com/store/apps/details?id=com.xrplfoundation.xumm",
-    supportsWalletConnectV2: true,
+    supportsCinacoinV2: true,
     walletType: "hot",
     popularity: 36,
     description: "The premier XRPL wallet for signing transactions.",

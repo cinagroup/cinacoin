@@ -24,8 +24,8 @@ await adapter.connect({ connectorId: 'hashpack' });
 | `HederaAdapter` | class | Main Hedera chain adapter |
 | `announceHederaProviders` | function | Announce Hedera providers via EIP-6963 |
 | `HashPackConnector` | class | HashPack wallet connector |
-| `BladeWalletConnector` | class | Blade Wallet connector |
-| `KantaraWalletConnector` | class | Kantara Wallet connector |
+| `BladeCinacoinor` | class | Blade Wallet connector |
+| `KantaraCinacoinor` | class | Kantara Wallet connector |
 | `HederaNetwork` | type | Network type |
 | `HederaConnector` | type | Connector interface |
 | `HbarTransferParams` | type | HBAR transfer parameters |

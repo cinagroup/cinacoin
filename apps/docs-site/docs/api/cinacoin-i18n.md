@@ -1,6 +1,6 @@
 # i18n React.
 
-> `@cinacoin/cinacoin-i18n` — React i18n integration for CinaCoin.
+> `@cinacoin/cinacoin-i18n` — React i18n integration for Cinacoin.
 
 ## Installation.
 
@@ -10,7 +10,7 @@ npm install @cinacoin/cinacoin-i18n
 
 ## Overview.
 
-React hooks and providers for internationalizing CinaCoin UI components in React applications.
+React hooks and providers for internationalizing Cinacoin UI components in React applications.
 
 ## Related.
 

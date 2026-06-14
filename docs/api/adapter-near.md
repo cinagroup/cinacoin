@@ -12,7 +12,7 @@ npm install @cinacoin/adapter-near
 
 ```typescript
 import { NearChainAdapter, NEAR_CHAINS, NEAR_WALLETS } from '@cinacoin/adapter-near'
-import { NearWalletConnector } from '@cinacoin/adapter-near'
+import { NearCinacoinor } from '@cinacoin/adapter-near'
 
 const adapter = new NearChainAdapter()
 adapter.registerChains(NEAR_CHAINS)
@@ -33,8 +33,8 @@ const tx = await adapter.executeFunctionCall({
 
 | Connector | Wallet |
 |-----------|--------|
-| `NearWalletConnector` | NEAR Wallet |
-| `HereWalletConnector` | Here Wallet (Mobile) |
+| `NearCinacoinor` | NEAR Wallet |
+| `HereCinacoinor` | Here Wallet (Mobile) |
 
 ## Features
 

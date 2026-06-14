@@ -33,7 +33,7 @@ export default function Sidebar() {
       <div style={{ padding: 'var(--cc-lg)' }}>
         <Link href="/" className="block" style={{ marginBottom: 'var(--cc-xl)' }}>
           <div className="text-display-md" style={{ color: 'var(--cc-link)' }}>
-            CinaCoin
+            Cinacoin
           </div>
           <p className="text-body-sm" style={{ color: 'var(--cc-body)' }}>
             Learn platform
@@ -113,7 +113,7 @@ export default function Sidebar() {
             className="text-body-sm cc-link-hover"
             style={{ color: 'var(--cc-body)' }}
           >
-            ← Back to CinaCoin
+            ← Back to Cinacoin
           </a>
         </div>
       </div>

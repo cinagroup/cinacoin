@@ -249,12 +249,12 @@ export default function ApiReferencePage() {
   return (
     <Layout
       title="API Reference"
-      description="Interactive API reference for CinaCoin services — API Gateway, Auth Service, and User Service."
+      description="Interactive API reference for Cinacoin services — API Gateway, Auth Service, and User Service."
     >
       <main className="max-w-screen-xl mx-auto py-8 px-4">
         <h1>API reference.</h1>
         <p className="text-lg text-[var(--cc-body)] mb-6">
-          Interactive documentation for all CinaCoin REST APIs. Select a service above to explore endpoints,
+          Interactive documentation for all Cinacoin REST APIs. Select a service above to explore endpoints,
           view request/response schemas, and try requests directly from your browser.
         </p>
         <BrowserOnly fallback={<div className="text-center py-12">Loading API Reference…</div>}>

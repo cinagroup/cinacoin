@@ -1,6 +1,6 @@
 # Pay UI.
 
-> `@cinacoin/pay-ui` — Payment UI components for CinaCoin.
+> `@cinacoin/pay-ui` — Payment UI components for Cinacoin.
 
 ## Installation.
 

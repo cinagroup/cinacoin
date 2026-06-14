@@ -14,7 +14,7 @@ Comprehensive performance benchmark suite measuring P50/P95/P99 latency for crit
 | | core-sdk (warm) | 8.8ms | 13.7ms | 16.4ms | < 50ms | ✅ |
 | | react-provider | 50.5ms | 70.0ms | 90.2ms | < 150ms | ✅ |
 | | vue-composable | 54.7ms | 71.5ms | 73.7ms | < 150ms | ✅ |
-| **WalletConnect** | pairing | 30.4ms | 39.9ms | 50.6ms | < 400ms | ✅ |
+| **Cinacoin** | pairing | 30.4ms | 39.9ms | 50.6ms | < 400ms | ✅ |
 | | session-proposal | 36.6ms | 52.5ms | 54.6ms | < 300ms | ✅ |
 | | session-approval | 69.0ms | 137.4ms | 179.9ms | < 300ms | ✅ |
 | | total-connect | 151.8ms | 232.2ms | 249.4ms | < 1s | ✅ |
@@ -42,7 +42,7 @@ Comprehensive performance benchmark suite measuring P50/P95/P99 latency for crit
 | vue-composable | 100 | 56.4ms | 40.3ms | 54.7ms | 71.5ms | 73.7ms | 106.5ms |
 | vue-composable-warm | 100 | 11.8ms | 8.2ms | 11.3ms | 16.9ms | 19.4ms | 21.1ms |
 
-### WalletConnect
+### Cinacoin
 
 > 50 iterations per operation, 3 network conditions
 
@@ -114,10 +114,10 @@ npx tsx src/run.ts --save-baseline results/baseline.json
 
 ## Architecture
 
-These benchmarks use **simulated timing** to measure algorithmic complexity and overhead patterns. For production benchmarks with real RPC calls and actual WalletConnect connections:
+These benchmarks use **simulated timing** to measure algorithmic complexity and overhead patterns. For production benchmarks with real RPC calls and actual Cinacoin connections:
 
 1. Replace `simulateStep()` / `simulateWork()` with actual SDK calls
-2. Set up mock relay servers for WalletConnect tests
+2. Set up mock relay servers for Cinacoin tests
 3. Use testnet RPC endpoints for chain switch and transaction tests
 4. Consider using `@walletconnect/testing` utilities
 

@@ -21,7 +21,7 @@ export type ButtonSize = "sm" | "md" | "lg";
 export type ButtonVariant = "primary" | "outline";
 
 export interface ConnectButtonOptions {
-  /** WalletConnect Project ID */
+  /** Cinacoin Project ID */
   projectId?: string;
   /** Theme mode */
   theme?: "light" | "dark";

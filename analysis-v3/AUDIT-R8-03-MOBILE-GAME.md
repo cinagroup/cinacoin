@@ -37,8 +37,8 @@
 |---|---|---|---|
 | 核心 | `Sources/OnChainUX/OnChainUX.swift` | ✅ | `Cinacoin` singleton, `ObservableObject`, `@Published` 状态管理 |
 | 钱包管理 | `Sources/OnChainUX/WalletManager.swift` | ✅ | 7 个 connector, 深度链接集成, SIWE 签名 |
-| WC 客户端 | `Sources/OnChainUX/WalletConnect/WCClient.swift` | ✅ | 封装 `WalletConnectSwiftV2` SDK, 配对/会话/JSON-RPC |
-| WC 工具 | `Sources/OnChainUX/WalletConnect/WCUtils.swift` | ⚠️ | **加密合规问题** — 见 1.3 |
+| WC 客户端 | `Sources/OnChainUX/Cinacoin/WCClient.swift` | ✅ | 封装 `CinacoinSwiftV2` SDK, 配对/会话/JSON-RPC |
+| WC 工具 | `Sources/OnChainUX/Cinacoin/WCUtils.swift` | ⚠️ | **加密合规问题** — 见 1.3 |
 | 深度链接 | `Sources/OnChainUX/DeepLinkHandler.swift` | ✅ | URL scheme + Universal Links + App Store fallback |
 | 推送通知 | `Sources/OnChainUX/PushNotificationHandler.swift` | ✅ | APNs 注册, token 管理, 通知路由 |
 | 链适配 | `Sources/OnChainUX/ChainAdapter/EVMAdapter.swift` | ✅ | RPC 调用, 余额查询, gas 估算 |
@@ -54,7 +54,7 @@
 ```
 swift-tools-version: 5.9
 平台: iOS 15+, macOS 12+
-依赖: WalletConnectSwiftV2 1.13.0 (exact)
+依赖: CinacoinSwiftV2 1.13.0 (exact)
 目标: OnChainUX → OnChainUXTests
 路径: Sources/OnChainUX ✅ (与目录一致)
 ```
@@ -62,12 +62,12 @@ swift-tools-version: 5.9
 **✅ R7 修复确认**: Package name / product name / target name 全部为 `"OnChainUX"`, testTarget 为 `"OnChainUXTests"`, 已移除冗余 `sources:` 手动列表, 使用 SPM 自动发现。
 
 **剩余问题**:
-- ⚠️ `WalletConnectNetworking` 产品依赖可能不存在于 WalletConnectSwiftV2 1.13.0 (需验证)
+- ⚠️ `CinacoinNetworking` 产品依赖可能不存在于 CinacoinSwiftV2 1.13.0 (需验证)
 - ⚠️ `swift-tools-version: 5.9` 是最低要求, 但未指定 `platforms` 中的 macOS 版本是否实际支持
 
 ### 1.3 加密实现审查 — WC v2 协议合规性 🔴 严重
 
-**文件**: `Sources/OnChainUX/WalletConnect/WCUtils.swift`
+**文件**: `Sources/OnChainUX/Cinacoin/WCUtils.swift`
 
 #### 问题 1: AES-GCM 替代 ChaCha20-Poly1305 🔴 P0
 
@@ -105,9 +105,9 @@ let nonce = ChaCha20.Nonce(data: Data(combined.prefix(16)))
 
 CryptoKit 的 `ChaCha20.Nonce` 构造函数期望 12 字节 (ChaCha20 nonce 标准大小), 但代码传入了 16 字节。如果这段代码实际执行, 会崩溃。
 
-#### 问题 4: `WCClient.swift` 直接依赖 WalletConnectSwiftV2 SDK 🟡 P2
+#### 问题 4: `WCClient.swift` 直接依赖 CinacoinSwiftV2 SDK 🟡 P2
 
-WCClient 直接 `import WalletConnect` 并调用 SDK 的 `NetworkingInteractor.configure()`, `Sign.configure()` 等。这意味着 WCClient 大部分功能委托给 SDK, `WCUtils.swift` 的加密实现实际上 **未被 WCClient 使用**。这是一个架构矛盾：WCUtils 存在但未被调用的代码路径, 增加了维护负担。
+WCClient 直接 `import Cinacoin` 并调用 SDK 的 `NetworkingInteractor.configure()`, `Sign.configure()` 等。这意味着 WCClient 大部分功能委托给 SDK, `WCUtils.swift` 的加密实现实际上 **未被 WCClient 使用**。这是一个架构矛盾：WCUtils 存在但未被调用的代码路径, 增加了维护负担。
 
 ### 1.4 测试覆盖 (9 个测试文件)
 
@@ -119,7 +119,7 @@ WCClient 直接 `import WalletConnect` 并调用 SDK 的 `NetworkingInteractor.c
 | `ThemeManagerTests.swift` | 主题系统 | ✅ |
 | `DeepLinkHandlerTests.swift` | 深度链接 | ✅ |
 | `ConnectButtonTests.swift` | UI 按钮 | ✅ |
-| `WalletConnectTests.swift` | WC 客户端 | ✅ |
+| `CinacoinTests.swift` | WC 客户端 | ✅ |
 | `SolanaAdapterTests.swift` | Solana 适配器 | ✅ |
 | `EVMAdapterTests.swift` | EVM 适配器 | ✅ |
 
@@ -144,7 +144,7 @@ WCClient 直接 `import WalletConnect` 并调用 SDK 的 `NetworkingInteractor.c
 | 组件 | 文件 | 状态 | 备注 |
 |---|---|---|---|
 | 核心 | `core/OnChainUX.kt` | ✅ | `Cinacoin` singleton, StateFlow 状态管理, 主题系统 |
-| WC 客户端 | `walletconnect/WCClient.kt` | ✅ | 封装 `WalletConnectKotlin` SDK, Flow-based 事件 |
+| WC 客户端 | `walletconnect/WCClient.kt` | ✅ | 封装 `CinacoinKotlin` SDK, Flow-based 事件 |
 | 钱包管理 | `wallet/WalletManager.kt` | ✅ | 连接/断开/SIWE/余额/链切换 |
 | 深度链接 | `deeplink/DeepLinkHandler.kt` | ✅ | Intent-based, Play Store fallback |
 | 推送通知 | `push/FcmHandler.kt` | ✅ | FCM token, notification channels, 路由 |
@@ -469,7 +469,7 @@ public static byte[] Keccak256(byte[] data) {
 | 组件 | 文件 | 状态 | 备注 |
 |---|---|---|---|
 | Provider | `src/CinacoinProvider.tsx` | ✅ | Context provider, 主题, 钱包列表 |
-| WC Provider | `src/WalletConnectProvider.tsx` | ✅ | WC v2 会话管理, deep link |
+| WC Provider | `src/CinacoinProvider.tsx` | ✅ | WC v2 会话管理, deep link |
 | UI 模态 | `src/ConnectModal.tsx` | ✅ | 4 views (wallets/social/email/scan) |
 | UI 按钮 | `src/ConnectButton.tsx` | ✅ | RN 按钮 |
 | QR 扫描 | `src/QRScanner.tsx` | ✅ | react-native-vision-camera |
@@ -514,7 +514,7 @@ React Native SDK 使用 `@cinacoin/walletconnect-v2` workspace 包进行 WC v2 �
 | 测试文件 | 覆盖模块 | 评估 |
 |---|---|---|
 | `ConnectModal.test.tsx` | UI 模态 | ✅ props/views 测试 |
-| `WalletConnectProvider.test.tsx` | WC Provider | ✅ deep links, config, hooks |
+| `CinacoinProvider.test.tsx` | WC Provider | ✅ deep links, config, hooks |
 | `deepLinks.test.ts` | 深度链接 | ✅ URL 构建, Linking API |
 | `eip5792-ens-biometric-push.test.ts` | Hooks + Biometric | ✅ |
 
@@ -568,7 +568,7 @@ React Native SDK 使用 `@cinacoin/walletconnect-v2` workspace 包进行 WC v2 �
 | 钱包 | iOS | Android | Flutter | Unity | React Native |
 |---|---|---|---|---|---|
 | MetaMask | ✅ | ✅ | ✅ | ✅ | ✅ |
-| WalletConnect | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Cinacoin | ✅ | ✅ | ✅ | ✅ | ✅ |
 | Rainbow | ✅ | ✅ | ✅ | ✅ | ✅ |
 | Coinbase | ✅ | ✅ | ✅ | ✅ | ✅ |
 | Trust | ✅ | ✅ | ✅ | ✅ | ✅ |
@@ -591,12 +591,12 @@ React Native SDK 使用 `@cinacoin/walletconnect-v2` workspace 包进行 WC v2 �
 
 ## 8. 后端服务集成
 
-### 8.1 WalletConnect Relay
+### 8.1 Cinacoin Relay
 
 | SDK | Relay 连接方式 | 状态 |
 |---|---|---|
-| iOS | WalletConnectSwiftV2 SDK → `wss://relay.walletconnect.com` | ✅ 原生 |
-| Android | WalletConnectKotlin SDK → `wss://relay.walletconnect.com` | ✅ 原生 |
+| iOS | CinacoinSwiftV2 SDK → `wss://relay.walletconnect.com` | ✅ 原生 |
+| Android | CinacoinKotlin SDK → `wss://relay.walletconnect.com` | ✅ 原生 |
 | Flutter | walletconnect_flutter_v2 → `wss://relay.walletconnect.com` | ✅ 原生 |
 | Unity | 自定义 WebSocket 客户端 → `wss://relay.walletconnect.com` | ⚠️ 自实现 |
 | .NET | HTTP → `api.cinacoin.com` | ❌ 非 WC relay |

@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'CinaCoin Auth - 统一认证中心',
-  description: 'CinaCoin 平台统一登录和注册服务',
+  title: 'Cinacoin Auth - 统一认证中心',
+  description: 'Cinacoin 平台统一登录和注册服务',
 };
 
 export default function RootLayout({

@@ -13,8 +13,8 @@ import type {
 } from './types';
 import { ConnectorRegistry } from './types';
 import { HashPackConnector, announceHashPackEIP6963 } from './connectors/hashpack';
-import { BladeWalletConnector, announceBladeEIP6963 } from './connectors/blade-wallet';
-import { KantaraWalletConnector, announceKantaraEIP6963 } from './connectors/kantara-wallet';
+import { BladeCinacoinor, announceBladeEIP6963 } from './connectors/blade-wallet';
+import { KantaraCinacoinor, announceKantaraEIP6963 } from './connectors/kantara-wallet';
 
 /**
  * Hedera Hashgraph chain adapter for Cinacoin.
@@ -29,8 +29,8 @@ import { KantaraWalletConnector, announceKantaraEIP6963 } from './connectors/kan
  *
  * const adapter = new HederaAdapter();
  * adapter.registerConnector(new HashPackConnector());
- * adapter.registerConnector(new BladeWalletConnector());
- * adapter.registerConnector(new KantaraWalletConnector());
+ * adapter.registerConnector(new BladeCinacoinor());
+ * adapter.registerConnector(new KantaraCinacoinor());
  *
  * await adapter.connect();
  * const balance = await adapter.getBalance();
@@ -60,8 +60,8 @@ export class HederaAdapter implements HederaConnector {
 
   private _registerBuiltInConnectors(): void {
     this.registerConnector(new HashPackConnector());
-    this.registerConnector(new BladeWalletConnector());
-    this.registerConnector(new KantaraWalletConnector());
+    this.registerConnector(new BladeCinacoinor());
+    this.registerConnector(new KantaraCinacoinor());
   }
 
   /**

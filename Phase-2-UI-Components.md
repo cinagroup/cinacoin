@@ -10,7 +10,7 @@
 
 ### 1.1 品牌独立性
 
-- **零 Reown 痕迹**：不包含任何 Reown/WalletConnect logo、品牌色、文案
+- **零 Cinacoin 痕迹**：不包含任何 Cinacoin/Cinacoin logo、品牌色、文案
 - **可定制主题**：提供完整 Design Token 系统，支持一键换肤
 - **白标输出**：支持第三方产品完全替换品牌标识
 
@@ -157,7 +157,7 @@ interface ConnectModalProps {
   │  │   Connect your wallet                       │  │
   │  │                                            │  │
   │  │  ┌────────────┐  ┌────────────┐            │  │
-  │  │  │  MetaMask  │  │  WalletConnect│           │  │
+  │  │  │  MetaMask  │  │  Cinacoin│           │  │
   │  │  │  [图标]    │  │  [图标]     │           │  │
   │  │  │  Browser   │  │  QR Code    │           │  │
   │  │  └────────────┘  └────────────┘            │  │
@@ -570,7 +570,7 @@ function App() {
 function handleWalletSelect(wallet) {
   if (wallet.type === 'qr') {
     launchCamera({
-      onScan: (uri) => connectViaWalletConnect(uri),
+      onScan: (uri) => connectViaCinacoin(uri),
     });
   } else if (wallet.type === 'injected') {
     connectInjected(wallet);

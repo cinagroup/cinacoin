@@ -43,7 +43,7 @@ type TranslationKey =
 
 const translations: Record<Locale, Record<TranslationKey, string>> = {
   en: {
-    siteName: 'CinaCoin',
+    siteName: 'Cinacoin',
     pageTitle: 'Service status.',
     allOperational: 'All systems operational.',
     someDegraded: 'Some systems degraded.',
@@ -68,7 +68,7 @@ const translations: Record<Locale, Record<TranslationKey, string>> = {
     affected: 'Affected.',
     healthChecksInfo: 'Health checks run client-side every 5 minutes.',
     incidentsApi: 'Incidents API.',
-    poweredBy: 'Powered by CinaCoin.',
+    poweredBy: 'Powered by Cinacoin.',
     never: 'Never',
     sev_critical: 'Critical.',
     sev_major: 'Major.',
@@ -80,7 +80,7 @@ const translations: Record<Locale, Record<TranslationKey, string>> = {
     inc_resolved: 'Resolved.',
   },
   zh: {
-    siteName: 'CinaCoin',
+    siteName: 'Cinacoin',
     pageTitle: '服务状态。',
     allOperational: '所有系统正常运行。',
     someDegraded: '部分系统降级。',
@@ -105,7 +105,7 @@ const translations: Record<Locale, Record<TranslationKey, string>> = {
     affected: '受影响。',
     healthChecksInfo: '健康检查每5分钟在客户端运行。',
     incidentsApi: '事件 API。',
-    poweredBy: '由 CinaCoin 提供支持。',
+    poweredBy: '由 Cinacoin 提供支持。',
     never: '从未',
     sev_critical: '严重。',
     sev_major: '重要。',

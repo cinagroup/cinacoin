@@ -1,7 +1,7 @@
 /** Application-wide constants */
 
-export const APP_NAME = 'CinaCoin Wallet Explorer';
-export const APP_DESCRIPTION = 'Explore wallets, transactions, and balances on the CinaCoin blockchain';
+export const APP_NAME = 'Cinacoin Wallet Explorer';
+export const APP_DESCRIPTION = 'Explore wallets, transactions, and balances on the Cinacoin blockchain';
 
 /** Network fee estimate (CINA) */
 export const NETWORK_FEE_ESTIMATE = '0.0021';

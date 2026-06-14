@@ -1,8 +1,8 @@
 /**
- * ConnectModal — Native React Native modal with real WalletConnect v2 deep linking.
+ * ConnectModal — Native React Native modal with real Cinacoin v2 deep linking.
  *
- * Integrates real WC v2 pairing via WalletConnectProvider, deep linking via
- * react-native Linking API, and the CinaCoin wallet registry for a real
+ * Integrates real WC v2 pairing via CinacoinProvider, deep linking via
+ * react-native Linking API, and the Cinacoin wallet registry for a real
  * connection flow with actual wallet apps.
  */
 
@@ -20,8 +20,8 @@ import {
   Alert,
   Platform,
 } from 'react-native';
-import { useCinaCoinContext } from './CinaCoinProvider.js';
-import { useWalletConnect, WALLET_DEEP_LINKS } from './WalletConnectProvider.js';
+import { useCinacoinContext } from './CinacoinProvider.js';
+import { useCinacoin, WALLET_DEEP_LINKS } from './CinacoinProvider.js';
 import { WALLET_REGISTRY, getWalletById, buildWalletDeepLink, buildWalletUniversalLink } from '@cinacoin/walletconnect-v2';
 
 /** Wallet info for modal display. */
@@ -37,7 +37,7 @@ export interface WalletInfo {
   universalLink?: string;
   appStoreUrl?: string;
   playStoreUrl?: string;
-  supportsWalletConnect: boolean;
+  supportsCinacoin: boolean;
 }
 
 /** Props for the native ConnectModal. */
@@ -59,37 +59,37 @@ const DEFAULT_WALLETS: WalletInfo[] = [
     deepLink: 'metamask://', universalLink: 'https://metamask.app.link',
     appStoreUrl: 'https://apps.apple.com/app/metamask/id1438668043',
     playStoreUrl: 'https://play.google.com/store/apps/details?id=io.metamask',
-    supportsWalletConnect: true },
-  { id: 'walletconnect', name: 'WalletConnect', description: 'QR Code',
+    supportsCinacoin: true },
+  { id: 'walletconnect', name: 'Cinacoin', description: 'QR Code',
     deepLink: 'wc://', universalLink: 'https://walletconnect.com',
-    supportsWalletConnect: true },
+    supportsCinacoin: true },
   { id: 'coinbase', name: 'Coinbase Wallet', description: 'Wallet',
     deepLink: 'cbwallet://', universalLink: 'https://go.cb-w.com',
     appStoreUrl: 'https://apps.apple.com/app/coinbase-wallet/id1278383455',
     playStoreUrl: 'https://play.google.com/store/apps/details?id=org.toshi',
-    supportsWalletConnect: true },
+    supportsCinacoin: true },
   { id: 'rainbow', name: 'Rainbow', description: 'Ethereum wallet',
     deepLink: 'rainbow://', universalLink: 'https://rnbwapp.com',
     appStoreUrl: 'https://apps.apple.com/app/rainbow-ethereum-wallet/id1457119021',
     playStoreUrl: 'https://play.google.com/store/apps/details?id=me.rainbow',
-    supportsWalletConnect: true },
+    supportsCinacoin: true },
   { id: 'trust', name: 'Trust Wallet', description: 'Multi-chain wallet',
     deepLink: 'trust://', universalLink: 'https://link.trustwallet.com',
     appStoreUrl: 'https://apps.apple.com/app/trust-crypto-bitcoin-wallet/id1288339409',
     playStoreUrl: 'https://play.google.com/store/apps/details?id=com.wallet.crypto.trustapp',
-    supportsWalletConnect: true },
+    supportsCinacoin: true },
   { id: 'phantom', name: 'Phantom', description: 'Multi-chain wallet',
     deepLink: 'phantom://', universalLink: 'https://phantom.app',
     appStoreUrl: 'https://apps.apple.com/app/phantom-crypto-wallet/id1598432977',
     playStoreUrl: 'https://play.google.com/store/apps/details?id=com.phantom.app',
-    supportsWalletConnect: true },
+    supportsCinacoin: true },
   { id: 'zerion', name: 'Zerion', description: 'DeFi wallet',
     deepLink: 'zerion://', universalLink: 'https://zerion.io',
     appStoreUrl: 'https://apps.apple.com/app/zerion-defi-wallet/id1456732032',
     playStoreUrl: 'https://play.google.com/store/apps/details?id=io.zerion.android',
-    supportsWalletConnect: true },
+    supportsCinacoin: true },
   { id: 'rabby', name: 'Rabby', description: 'Multi-chain wallet',
-    deepLink: 'rabby://', supportsWalletConnect: false },
+    deepLink: 'rabby://', supportsCinacoin: false },
 ];
 
 /**
@@ -97,7 +97,7 @@ const DEFAULT_WALLETS: WalletInfo[] = [
  *
  * Flow:
  * 1. User selects a wallet
- * 2. Create pairing URI via WalletConnectProvider
+ * 2. Create pairing URI via CinacoinProvider
  * 3. Open wallet app via deep link with WC URI
  * 4. Wait for session establishment via relay
  */
@@ -110,7 +110,7 @@ export function ConnectModal({
   fallbackTimeoutMs = 1500,
 }: ConnectModalProps): JSX.Element {
   const [currentView, setCurrentView] = useState<ModalView>(defaultView as ModalView);
-  const { connect, themeColors, wcUri: ctxWcUri, createPairing: createPairingUri, connectWithUri: connectWithUriProvider } = useCinaCoinContext();
+  const { connect, themeColors, wcUri: ctxWcUri, createPairing: createPairingUri, connectWithUri: connectWithUriProvider } = useCinacoinContext();
 
   // Real WC v2 provider (may not be available)
   let wcOpenWalletDeepLink: ((walletId: string) => Promise<void>) | null = null;
@@ -118,12 +118,12 @@ export function ConnectModal({
   let wcConnecting = false;
 
   try {
-    const wc = useWalletConnect();
+    const wc = useCinacoin();
     wcOpenWalletDeepLink = wc.openWalletDeepLink;
     activePairingUri = wc.pairingUri;
     wcConnecting = wc.connecting;
   } catch {
-    // WalletConnectProvider not in tree — use CinaCoinProvider fallback
+    // CinacoinProvider not in tree — use CinacoinProvider fallback
   }
 
   const [email, setEmail] = useState('');
@@ -152,7 +152,7 @@ export function ConnectModal({
       }
 
       try {
-        if (wallet.supportsWalletConnect && createPairingUri && (wcOpenWalletDeepLink || connectWithUriProvider)) {
+        if (wallet.supportsCinacoin && createPairingUri && (wcOpenWalletDeepLink || connectWithUriProvider)) {
           // Real WC v2 flow: create pairing → deep link → wait for session
           const uri = await createPairingUri();
 
@@ -184,8 +184,8 @@ export function ConnectModal({
           fallbackTimers.current.set(wallet.id, timer);
 
           setDeepLinkStatus(prev => ({ ...prev, [wallet.id]: 'success' }));
-        } else if (wallet.supportsWalletConnect && ctxWcUri) {
-          // Fallback to CinaCoinProvider wcUri
+        } else if (wallet.supportsCinacoin && ctxWcUri) {
+          // Fallback to CinacoinProvider wcUri
           const deepLink = buildWalletDeepLink(wallet.id, ctxWcUri);
           if (deepLink) {
             const canOpen = await Linking.canOpenURL(deepLink);
@@ -304,7 +304,7 @@ export function ConnectModal({
                 Recommended
               </Text>
             )}
-            {wallet.supportsWalletConnect && (
+            {wallet.supportsCinacoin && (
               <Text style={[styles.installedBadge, { color: themeColors.textTertiary }]}>
                 WC v2
               </Text>
@@ -449,7 +449,7 @@ export function ConnectModal({
           {/* Footer */}
           <View style={styles.footer}>
             <Text style={[styles.footerText, { color: themeColors.textTertiary }]}>
-              Powered by CinaCoin
+              Powered by Cinacoin
             </Text>
           </View>
         </View>

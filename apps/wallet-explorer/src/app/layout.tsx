@@ -22,25 +22,25 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: "CinaCoin Wallet Explorer",
-    template: "%s | CinaCoin Explorer",
+    default: "Cinacoin Wallet Explorer",
+    template: "%s | Cinacoin Explorer",
   },
-  description: "Explore wallets, transactions, and balances on the CinaCoin blockchain. Search addresses, view transaction history, and track token holdings.",
-  keywords: ["CinaCoin", "wallet explorer", "blockchain explorer", "transactions", "addresses", "balances"],
+  description: "Explore wallets, transactions, and balances on the Cinacoin blockchain. Search addresses, view transaction history, and track token holdings.",
+  keywords: ["Cinacoin", "wallet explorer", "blockchain explorer", "transactions", "addresses", "balances"],
   robots: {
     index: true,
     follow: true,
   },
   openGraph: {
     type: "website",
-    siteName: "CinaCoin",
-    title: "CinaCoin Wallet Explorer",
-    description: "Explore wallets, transactions, and balances on the CinaCoin blockchain",
+    siteName: "Cinacoin",
+    title: "Cinacoin Wallet Explorer",
+    description: "Explore wallets, transactions, and balances on the Cinacoin blockchain",
   },
   twitter: {
     card: "summary",
-    title: "CinaCoin Wallet Explorer",
-    description: "Explore wallets, transactions, and balances on the CinaCoin blockchain",
+    title: "Cinacoin Wallet Explorer",
+    description: "Explore wallets, transactions, and balances on the Cinacoin blockchain",
   },
   icons: {
     icon: [

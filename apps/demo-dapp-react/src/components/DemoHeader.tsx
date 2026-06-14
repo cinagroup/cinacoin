@@ -19,7 +19,7 @@ const STATUS_COLORS: Record<string, string> = {
   error: 'var(--cc-status-error)',
 };
 
-/** DemoHeader — App header with CinaCoin branding and connection status. */
+/** DemoHeader — App header with Cinacoin branding and connection status. */
 export function DemoHeader(): JSX.Element {
   const { account, status } = useCinacoinContext();
   const dotColor = STATUS_COLORS[status] ?? 'var(--cc-status-default)';
@@ -29,7 +29,7 @@ export function DemoHeader(): JSX.Element {
       <div className="demo-header__brand">
         <h1 className="demo-header__title">
           <Terminal className="demo-header__icon" aria-hidden="true" />
-          <span className="demo-header__accent">CinaCoin</span>
+          <span className="demo-header__accent">Cinacoin</span>
           <span className="demo-header__subtitle">Demo.</span>
         </h1>
         <span className="cc-badge cc-badge--accent" aria-label="SDK version 0.2">

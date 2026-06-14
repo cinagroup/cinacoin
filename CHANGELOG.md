@@ -150,7 +150,7 @@ These packages reached stable v1.0.0, signifying production-ready APIs.
 
 - React SPA demo app using Vite (replacing broken Next.js static export)
 - Real MetaMask connection support
-- Inspired by Reown demo.reown.com design
+- Inspired by Cinacoin demo.cinacoin.com design
 - Cloudflare Pages deployment ready
 
 ---
@@ -229,7 +229,7 @@ The **v0.2.0 release** is the main feature release covering 64 packages. This re
 
 #### 🛠 Infrastructure
 
-- `@cinacoin/relay-server` — WalletConnect relay server (HTTP/WebSocket relay interface)
+- `@cinacoin/relay-server` — Cinacoin relay server (HTTP/WebSocket relay interface)
 - `@cinacoin/rpc-proxy` — RPC proxy server with chain routing, caching, rate limiting
 - `@cinacoin/keys-server` — Key management server for key storage, encryption, session management
 - `@cinacoin/walletconnect-v2` — WalletConnect v2 protocol implementation (pairing, session, crypto, relay, RPC methods)
@@ -237,7 +237,7 @@ The **v0.2.0 release** is the main feature release covering 64 packages. This re
 #### 🔧 Developer Experience
 
 - `@cinacoin/cli` — CLI tool for init, add, build, test
-- `@cinacoin/codemod` — Codemods for migrating from Web3Modal/AppKit and WalletConnect v1
+- `@cinacoin/codemod` — Codemods for migrating from Web3Modal/AppKit and Cinacoin v1
 - `@cinacoin/testing` — Testing utilities with mock providers, wallets, chains, and transactions
 - `@cinacoin/config` — Remote feature flags, headless mode, and virtual testnets
 - `@cinacoin/safe-decoder` — Safe (Gnosis Safe) transaction decoder
@@ -304,7 +304,7 @@ In addition to the v1.0.0 adapters listed above:
 
 #### @cinacoin/codemod (0.2.0)
 - **Added**: Migration codemods from Web3Modal/AppKit
-- **Added**: Migration codemods from WalletConnect v1
+- **Added**: Migration codemods from Cinacoin v1
 
 </details>
 
@@ -523,7 +523,7 @@ In addition to the v1.0.0 adapters listed above:
 <summary><strong>Infrastructure</strong></summary>
 
 #### @cinacoin/relay-server (0.2.0)
-- **Added**: WalletConnect relay server
+- **Added**: Cinacoin relay server
 - **Added**: HTTP relay interface
 - **Added**: WebSocket relay interface
 
@@ -540,7 +540,7 @@ In addition to the v1.0.0 adapters listed above:
 - **Added**: Session management
 
 #### @cinacoin/walletconnect-v2 (0.2.0)
-- **Added**: WalletConnect v2 protocol implementation
+- **Added**: Cinacoin v2 protocol implementation
 - **Added**: Pairing management
 - **Added**: Session management
 - **Added**: Crypto primitives
@@ -695,7 +695,7 @@ pnpm add @cinacoin/android-kotlin @cinacoin/ios-swift
 + const decrypted = core.decrypt(encrypted, privateKey);
 ```
 
-#### From Web3Modal / WalletConnect v1
+#### From Web3Modal / Cinacoin v1
 
 Use the codemod package to migrate:
 

@@ -21,11 +21,11 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: "CinaCoin Backend Dashboard",
-    template: "%s | CinaCoin Backend",
+    default: "Cinacoin Backend Dashboard",
+    template: "%s | Cinacoin Backend",
   },
-  description: "Backend administration panel for CinaCoin platform. Manage users, projects, chains, analytics, and system configuration.",
-  keywords: ["CinaCoin", "backend", "admin", "dashboard", "management"],
+  description: "Backend administration panel for Cinacoin platform. Manage users, projects, chains, analytics, and system configuration.",
+  keywords: ["Cinacoin", "backend", "admin", "dashboard", "management"],
   robots: {
     index: false,
     follow: false,

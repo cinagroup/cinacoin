@@ -10,7 +10,7 @@
 
 Cinacoin is a **full-stack, white-label Web3 SDK** for building seamless on-chain experiences. It provides wallet connections, multi-chain authentication, payments, smart accounts, and developer tools — across web, mobile, and game engines.
 
-- **600+ wallets** supported via the WalletConnect Network
+- **600+ wallets** supported via the Cinacoin Network
 - **11 chain adapters** (EVM, Solana, Bitcoin, TON, TRON, Cosmos, Sui, Starknet, NEAR, Hedera, XRPL)
 - **12 platform SDKs** (React, Vue, Next.js, Svelte, Angular, Nuxt, React Native, Flutter, Android, iOS, Unity, .NET)
 - **Self-hosted** — run your own RPC proxy, key management, and relay infrastructure
@@ -77,7 +77,7 @@ pnpm run ci
 
 | Feature | Status |
 |---------|--------|
-| Wallet connection (WalletConnect v2) | ✅ Working |
+| Wallet connection (Cinacoin v2) | ✅ Working |
 | Multi-chain authentication (SIWE/SIWX) | ✅ Working |
 | EIP-5792 batch transactions | ✅ Working |
 | EIP-6963 multi-wallet discovery | ✅ Working |
@@ -133,7 +133,7 @@ pnpm run ci
 - **Documentation:** [docs.cinacoin.io](https://docs.cinacoin.io)
 - **GitHub:** [github.com/cinacoin/cinacoin](https://github.com/cinacoin/cinacoin)
 - **Issues:** Open on GitHub with appropriate labels
-- **Migration:** Coming from Reown/AppKit? See the [Migration Guide](./docs/guide/migrate-from-reown.md)
+- **Migration:** Coming from Cinacoin/AppKit? See the [Migration Guide](./docs/guide/migrate-from-cinacoin.md)
 
 ---
 

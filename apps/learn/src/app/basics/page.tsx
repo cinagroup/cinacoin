@@ -3,7 +3,7 @@ import StepIndicator from "@/components/StepIndicator";
 
 
 export const metadata = {
-  title: "Web3 basics. — CinaCoin Learn",
+  title: "Web3 basics. — Cinacoin Learn",
   description: "Learn the fundamentals of Web3, blockchain, wallets, and decentralized applications.",
 };
 
@@ -14,7 +14,7 @@ export default function BasicsPage() {
 
       <h1 className="text-display-lg mb-4">Web3 basics.</h1>
       <p className="text-body-lg mb-8" style={{ color: 'var(--cc-body)' }}>
-        Understand the core concepts of Web3 and how CinaCoin fits into the decentralized ecosystem.
+        Understand the core concepts of Web3 and how Cinacoin fits into the decentralized ecosystem.
       </p>
 
       {/* Section 1 */}
@@ -94,7 +94,7 @@ const isValid = verify(message, signature, address);
         <p className="text-body-md mb-4" style={{ color: 'var(--cc-body)' }}>
           Smart contracts are self-executing programs deployed on the blockchain. They run
           exactly as programmed without downtime, censorship, or third-party interference.
-          CinaCoin supports smart contracts across multiple chains.
+          Cinacoin supports smart contracts across multiple chains.
         </p>
         <CodeBlock
           language="solidity"

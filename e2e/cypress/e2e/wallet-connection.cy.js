@@ -29,7 +29,7 @@ describe('Wallet Connection', () => {
             // Verify common wallet options are listed
             cy.get('[data-testid="wallet-list"]').within(() => {
                 cy.contains('MetaMask').should('exist');
-                cy.contains('WalletConnect').should('exist');
+                cy.contains('Cinacoin').should('exist');
                 cy.contains('Coinbase Wallet').should('exist');
             });
         });
@@ -46,9 +46,9 @@ describe('Wallet Connection', () => {
             cy.get('[data-testid="wallet-modal"]').should('not.exist');
         });
     });
-    describe('WalletConnect Connection (Mocked)', () => {
+    describe('Cinacoin Connection (Mocked)', () => {
         beforeEach(() => {
-            // Mock WalletConnect RPC calls
+            // Mock Cinacoin RPC calls
             cy.intercept('POST', '**/rpc**', {
                 statusCode: 200,
                 body: {
@@ -57,7 +57,7 @@ describe('Wallet Connection', () => {
                     result: '0x0000000000000000000000000000000000000000000000000000000000000001',
                 },
             }).as('walletConnectRpc');
-            // Mock WalletConnect session proposal
+            // Mock Cinacoin session proposal
             cy.intercept('**/wc**', {
                 statusCode: 200,
                 body: {
@@ -75,8 +75,8 @@ describe('Wallet Connection', () => {
                 },
             }).as('wcSession');
         });
-        it('should connect to WalletConnect (mocked)', () => {
-            cy.connectWallet('WalletConnect');
+        it('should connect to Cinacoin (mocked)', () => {
+            cy.connectWallet('Cinacoin');
             // Verify QR code or connection UI appeared during flow
             // After connection, verify account button is shown
             cy.get('[data-testid="account-btn"]')
@@ -84,11 +84,11 @@ describe('Wallet Connection', () => {
                 .and('contain.text', '0x742d');
         });
         it('should show account button when connected', () => {
-            cy.connectWallet('WalletConnect');
+            cy.connectWallet('Cinacoin');
             cy.get('[data-testid="account-btn"]').should('be.visible');
         });
         it('should display connected address in account menu', () => {
-            cy.connectWallet('WalletConnect');
+            cy.connectWallet('Cinacoin');
             cy.get('[data-testid="account-btn"]').click();
             cy.get('[data-testid="account-dropdown"]').should('be.visible');
             cy.get('[data-testid="wallet-address"]').should('contain.text', '0x742d35Cc6634C0532925a3b844Bc9e7595f2bD18');
@@ -96,7 +96,7 @@ describe('Wallet Connection', () => {
     });
     describe('Disconnect', () => {
         beforeEach(() => {
-            cy.connectWallet('WalletConnect');
+            cy.connectWallet('Cinacoin');
         });
         it('should disconnect wallet', () => {
             cy.disconnectWallet();
@@ -185,7 +185,7 @@ describe('Wallet Connection', () => {
             }).as('timeoutRequest');
             cy.get('[data-testid="connect-wallet-btn"]').click();
             cy.get('[data-testid="wallet-list"]').within(() => {
-                cy.contains('WalletConnect').click();
+                cy.contains('Cinacoin').click();
             });
             // Should timeout and show loading/error state
             cy.contains(/loading|connecting|timeout/i, { timeout: 15000 }).should('exist');

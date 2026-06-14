@@ -36,7 +36,7 @@ function MockMultiwalletProvider({
 /* ── Storybook meta ───────────────────────────────────────────────── */
 
 const meta: Meta<typeof MultiwalletSwitcher> = {
-  title: 'CinaCoin/MultiwalletSwitcher',
+  title: 'Cinacoin/MultiwalletSwitcher',
   component: MultiwalletSwitcher,
   argTypes: {
     className: { control: 'text' },
@@ -63,7 +63,7 @@ const sampleConnections = {
     },
     {
       walletId: 'walletconnect',
-      walletName: 'WalletConnect',
+      walletName: 'Cinacoin',
       address: '0xabcdefabcdefabcdefabcdefabcdefabcdefabcd',
       isActive: false,
     },

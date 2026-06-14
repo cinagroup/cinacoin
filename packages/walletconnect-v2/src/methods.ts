@@ -1,5 +1,5 @@
 /**
- * WalletConnect v2 JSON-RPC methods.
+ * Cinacoin v2 JSON-RPC methods.
  *
  * Defines the standard methods for session management, transaction signing,
  * message signing, and chain operations. Compatible with EIP-155 (EVM)

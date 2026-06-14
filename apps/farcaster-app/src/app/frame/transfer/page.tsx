@@ -3,11 +3,11 @@ import { buildFrameMetadata, getAppUrl } from '@/lib/frame-utils';
 import { Send } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'CinaCoin — Transfer',
-  description: 'Transfer CinaCoin tokens to any address from Farcaster.',
+  title: 'Cinacoin — Transfer',
+  description: 'Transfer Cinacoin tokens to any address from Farcaster.',
   other: buildFrameMetadata({
     image: `${getAppUrl()}/og-transfer.png`,
-    title: 'Transfer CinaCoin',
+    title: 'Transfer Cinacoin',
     input: 'Recipient address (0x...)',
     buttons: [
       { label: 'Send', action: 'post' },

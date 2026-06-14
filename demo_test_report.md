@@ -107,7 +107,7 @@
 1. **🔴 Multi-Chain 页面 404** — 导航链接 `/demo/multichain` 返回 404，页面不存在
 2. **🔴 AA Demo 页面 404** — 导航链接 `/demo/aa` 返回 404，页面不存在
 3. **🟡 首页加载缓慢** — `networkidle` 超时（30s），可能因基础设施监控器持续轮询导致永远无法达到 idle 状态
-4. **🟡 钱包连接无 fallback** — 无 WalletConnect QR 码或模拟连接选项，纯 headless 环境完全无法测试
+4. **🟡 钱包连接无 fallback** — 无 Cinacoin QR 码或模拟连接选项，纯 headless 环境完全无法测试
 5. **🟡 Demo 横幅可关闭但无持久化** — 关闭 ⚠️ Demo Environment 横幅后刷新会重新出现
 6. **🟡 基础设施监控延迟偏高** — 所有 5 个 worker 响应 548-643ms，对于 edge 服务偏慢
 7. **🟢 页面标题不一致** — demo home 标题是 "Cinacoin — Wallet Connection Toolkit"，但 swap 是 "Swap — Cinacoin | Cinacoin"（重复 "Cinacoin"）
@@ -144,7 +144,7 @@ Footer：DEMO (Swap, Multi-Chain, Auth) | DEVELOPERS (Docs, GitHub) | COMPANY (B
 - [x] "Connect Wallet" 按钮在导航栏和 hero 区域均存在
 - [x] 点击后弹出钱包选择模态框
 - [x] 模态框显示：Popular / All wallets 标签
-- [x] 钱包列表：MetaMask 🦊, WalletConnect 🔗, Coinbase Wallet 🔵, Rainbow 🌈, Phantom 👻, Trust Wallet 🛡️
+- [x] 钱包列表：MetaMask 🦊, Cinacoin 🔗, Coinbase Wallet 🔵, Rainbow 🌈, Phantom 👻, Trust Wallet 🛡️
 - [x] "New to wallets? Learn more →" 链接
 - [ ] **无法完成实际连接**（无钱包扩展）
 
@@ -161,10 +161,10 @@ Footer：DEMO (Swap, Multi-Chain, Auth) | DEVELOPERS (Docs, GitHub) | COMPANY (B
 #### Multi-Chain
 - [x] Multi-Chain 页面正常加载（/multichain）
 - [x] 显示 16 条链及对应钱包：
-  - Ethereum (MetaMask, WalletConnect, Coinbase)
+  - Ethereum (MetaMask, Cinacoin, Coinbase)
   - Arbitrum (MetaMask, Rabby)
   - Base (Coinbase, MetaMask)
-  - Polygon (MetaMask, WalletConnect)
+  - Polygon (MetaMask, Cinacoin)
   - Optimism (MetaMask, Coinbase)
   - BNB Chain (MetaMask, Trust Wallet)
   - Solana (Phantom, Solflare, Backpack)
@@ -185,8 +185,8 @@ Footer：DEMO (Swap, Multi-Chain, Auth) | DEVELOPERS (Docs, GitHub) | COMPANY (B
 - [x] Auth 页面正常加载（/auth）
 - [x] 两步标签：Wallet / Social
 - [x] 链选择：Ethereum, Polygon, Arbitrum, Base
-- [x] 钱包选项：MetaMask, WalletConnect, Coinbase Wallet
-- [x] "Cinacoin vs Reown" 对比表（8 项特性对比）
+- [x] 钱包选项：MetaMask, Cinacoin, Coinbase Wallet
+- [x] "Cinacoin vs Cinacoin" 对比表（8 项特性对比）
 - [x] 代码示例（3 行实现 auth）
 
 #### 签名
@@ -209,7 +209,7 @@ Footer：DEMO (Swap, Multi-Chain, Auth) | DEVELOPERS (Docs, GitHub) | COMPANY (B
 ### 问题
 1. **🟡 CSR 渲染依赖 JS** — 页面完全依赖客户端渲染，禁用 JS 则完全空白（SEO 不友好）
 2. **🟡 Swap 页面仅一个输入框** — 只有 "From" 输入框可输入，"To" 侧无独立输入（无法反向输入金额）
-3. **🟡 钱包连接无 WalletConnect QR** — 点击 WalletConnect 后的行为未测试（可能弹出 QR 但无法在 headless 环境验证）
+3. **🟡 钱包连接无 Cinacoin QR** — 点击 Cinacoin 后的行为未测试（可能弹出 QR 但无法在 headless 环境验证）
 4. **🟡 Footer 链接 "Back to Cinacoin" 出现两次** — 在 COMPANY 分类下
 5. **🟡 React Demo 与 Main Demo 功能重叠** — 两个 demo 站点功能定位不清晰
 6. **🟢 外部链接** — docs.cinacoin.com 和 github.com/cinagroup 链接正常

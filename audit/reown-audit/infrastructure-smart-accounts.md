@@ -2,7 +2,7 @@
 
 > **审计日期**: 2026-06-09
 > **审计范围**: 智能账户 (ERC-4337)、EIP-5792、基础设施、Cloud Dashboard
-> **对标对象**: Reown/AppKit Smart Accounts & Infrastructure
+> **对标对象**: Cinacoin/AppKit Smart Accounts & Infrastructure
 > **审计方法**: 源码级审查 + 功能矩阵对比
 
 ---
@@ -11,7 +11,7 @@
 
 ### 1. Smart Accounts (ERC-4337)
 
-| 功能 | Reown | Cinacoin | 状态 | 差距 |
+| 功能 | Cinacoin | Cinacoin | 状态 | 差距 |
 |------|-------|----------|------|------|
 | **智能合约钱包** | ✅ Safe{Wallet} 集成 | ✅ `aa-sdk/SmartAccount` 类 | 已有 | 轻微 |
 | **UserOperation 构建** | ✅ 完整 | ✅ `buildUserOperation()` 完整实现 | 已有 | 无 |
@@ -32,7 +32,7 @@
 
 ### 2. EIP-5792 (Wallet API)
 
-| 功能 | Reown | Cinacoin | 状态 | 差距 |
+| 功能 | Cinacoin | Cinacoin | 状态 | 差距 |
 |------|-------|----------|------|------|
 | **wallet_sendCalls** | ✅ 完整 | ✅ `useEIP5792` hook | 已有 | 无 |
 | **wallet_getCallsStatus** | ✅ | ✅ 状态轮询 | 已有 | 无 |
@@ -45,7 +45,7 @@
 
 ### 3. Blockchain API
 
-| 功能 | Reown | Cinacoin | 状态 | 差距 |
+| 功能 | Cinacoin | Cinacoin | 状态 | 差距 |
 |------|-------|----------|------|------|
 | **余额查询** | ✅ | ✅ `blockchain-api` 包 | 已有 | 无 |
 | **代币组合** | ✅ | ✅ `useTokenPortfolio` hook | 已有 | 无 |
@@ -57,7 +57,7 @@
 
 ### 4. Cloud Dashboard
 
-| 功能 | Reown | Cinacoin | 状态 | 差距 |
+| 功能 | Cinacoin | Cinacoin | 状态 | 差距 |
 |------|-------|----------|------|------|
 | **项目管理** | ✅ | ✅ `cloud-dashboard` 应用 | 已有 | 无 |
 | **API 密钥管理** | ✅ | ✅ `user-service/api-keys` | 已有 | 无 |
@@ -70,9 +70,9 @@
 
 ### 5. Infrastructure
 
-| 功能 | Reown | Cinacoin | 状态 | 差距 |
+| 功能 | Cinacoin | Cinacoin | 状态 | 差距 |
 |------|-------|----------|------|------|
-| **中继服务器** | ✅ WalletConnect Network | ✅ `relay-server` (Rust + CF Workers) | 已有 | 无 |
+| **中继服务器** | ✅ Cinacoin Network | ✅ `relay-server` (Rust + CF Workers) | 已有 | 无 |
 | **加密通信** | ✅ X25519 + ChaCha20 | ✅ 相同算法实现 | 已有 | 无 |
 | **RPC 代理** | ✅ 内置 | ✅ `rpc-proxy` (Rust + Go + CF Workers) | 超越 | — |
 | **密钥管理** | ✅ 云端 | ✅ `keys-server` (Rust + CF Workers) | 已有 | 无 |
@@ -89,9 +89,9 @@
 
 ## 二、基础设施架构对比
 
-### Reown 架构
+### Cinacoin 架构
 ```
-dApp → AppKit SDK → WalletConnect Relay (20+ 节点) → 钱包
+dApp → AppKit SDK → Cinacoin Relay (20+ 节点) → 钱包
                          ↓
               Blockchain API (集中式)
                          ↓
@@ -125,14 +125,14 @@ dApp → @cinacoin/* SDK → Relay Server (Cloudflare Workers) → 钱包
 
 ### 架构评估
 
-| 维度 | Reown | Cinacoin | 评价 |
+| 维度 | Cinacoin | Cinacoin | 评价 |
 |------|-------|----------|------|
 | **边缘计算** | 部分 (Cloudflare) | ✅ 全面 (Workers 全球部署) | Cinacoin 更优 |
-| **去中心化** | ✅ 20+ 节点运营商 | ❌ 单 Cloudflare 依赖 | Reown 更优 |
+| **去中心化** | ✅ 20+ 节点运营商 | ❌ 单 Cloudflare 依赖 | Cinacoin 更优 |
 | **延迟** | ~50-100ms | ~10-30ms (边缘) | Cinacoin 更优 |
 | **可扩展性** | ✅ 水平扩展 | ✅ CF 自动扩展 | 持平 |
-| **自托管** | ❌ 依赖 Reown | ✅ 完全自主 | Cinacoin 更优 |
-| **容灾** | ✅ 多区域冗余 | ⚠️ 依赖 CF 单一供应商 | Reown 更优 |
+| **自托管** | ❌ 依赖 Cinacoin | ✅ 完全自主 | Cinacoin 更优 |
+| **容灾** | ✅ 多区域冗余 | ⚠️ 依赖 CF 单一供应商 | Cinacoin 更优 |
 | **成本** | MAU 计费 | 固定 CF 费用 | Cinacoin 更优 |
 
 ---
@@ -195,31 +195,31 @@ dApp → @cinacoin/* SDK → Relay Server (Cloudflare Workers) → 钱包
 
 #### ❌ Multi-sig 授权 (严重)
 - **现状**: SmartAccount 仅支持单签名者 (owner key)
-- **Reown**: 支持 Safe{Wallet} 多签 (M-of-N)
+- **Cinacoin**: 支持 Safe{Wallet} 多签 (M-of-N)
 - **影响**: 企业级用例受限
 - **修复**: 需实现 Safe{Wallet} 集成或自建多签模块
 
 #### ❌ Multi-node Relay Network (严重)
 - **现状**: 单一 Cloudflare Workers 部署
-- **Reown**: 20+ 独立节点运营商
+- **Cinacoin**: 20+ 独立节点运营商
 - **影响**: 单点故障风险、去中心化程度不足
 - **修复**: 需要建立节点运营商网络或混合架构
 
 #### ❌ wallet_grantPermissions (中等)
 - **现状**: EIP-5792 中未实现权限授予
-- **Reown**: 完整 dApp 发起的权限管理
+- **Cinacoin**: 完整 dApp 发起的权限管理
 - **影响**: dApp 无法程序化获取交易权限
 - **修复**: 在 `useEIP5792` 中添加 `grantPermissions` 方法
 
 #### ❌ 交易历史 API (中等)
 - **现状**: 依赖外部 RPC 节点查询
-- **Reown**: 统一 Blockchain API 提供交易历史
+- **Cinacoin**: 统一 Blockchain API 提供交易历史
 - **影响**: 用户体验不完整
 - **修复**: 增强 `tx-indexer` 或集成第三方索引器
 
 #### ❌ 代币价格 API (中等)
 - **现状**: 无价格数据源
-- **Reown**: 内置价格聚合
+- **Cinacoin**: 内置价格聚合
 - **影响**: DeFi 用例受限
 - **修复**: 集成 CoinGecko/Chainlink 价格源
 
@@ -231,7 +231,7 @@ dApp → @cinacoin/* SDK → Relay Server (Cloudflare Workers) → 钱包
 
 #### ❌ 自动交易工作流 (中等)
 - **现状**: 无条件触发/自动化交易
-- **Reown**: 支持条件执行、自动化工作流
+- **Cinacoin**: 支持条件执行、自动化工作流
 - **影响**: 高级自动化用例缺失
 - **修复**: 基于 Session Keys 扩展自动化引擎
 
@@ -347,19 +347,19 @@ Phase 4: 完全去中心化中继 (类似 libp2p)
 | **智能账户 (ERC-4337)** | **85/100** | 核心功能完整，缺多签和 v0.7 |
 | **EIP-5792** | **75/100** | sendCalls 完整，缺 grantPermissions |
 | **Blockchain API** | **65/100** | 基础功能有，缺统一聚合层 |
-| **Cloud Dashboard** | **90/100** | 功能完整，接近 Reown |
+| **Cloud Dashboard** | **90/100** | 功能完整，接近 Cinacoin |
 | **基础设施** | **80/100** | 技术先进但去中心化不足 |
-| **总体** | **79/100** | 功能覆盖广，深度略逊于 Reown |
+| **总体** | **79/100** | 功能覆盖广，深度略逊于 Cinacoin |
 
 ### 核心优势
 1. **完全自托管**: 无 MAU 限制、无第三方依赖
 2. **边缘优先**: Cloudflare Workers 全球部署，延迟极低
-3. **Paymaster 超越**: 4 种合约 + 路由 + 余额管理，超过 Reown
+3. **Paymaster 超越**: 4 种合约 + 路由 + 余额管理，超过 Cinacoin
 4. **恢复机制超越**: Shamir SSS + Guardian 双模式
 5. **全栈覆盖**: 从 SDK 到链到基础设施全链路
 
 ### 核心差距
-1. **去中心化**: 单 Cloudflare 依赖 vs Reown 20+ 节点
+1. **去中心化**: 单 Cloudflare 依赖 vs Cinacoin 20+ 节点
 2. **多签**: 无 Safe{Wallet} 集成
 3. **数据聚合**: 缺统一 Blockchain API 聚合层
 4. **集成测试**: 端到端 UserOp 流程测试不足

@@ -1,7 +1,7 @@
 /**
- * WalletConnect v2 Connector for Cinacoin Core SDK.
+ * Cinacoin v2 Connector for Cinacoin Core SDK.
  *
- * Bridges the WalletConnect v2 protocol to the core-sdk Connector
+ * Bridges the Cinacoin v2 protocol to the core-sdk Connector
  * interface, allowing the WC v2 client to be used interchangeably
  * with other connectors (injected, QR, etc.).
  *
@@ -39,7 +39,7 @@ import { logger } from '@cinacoin/logger';
 export interface WcConnectorConfig extends Partial<MultiSessionManagerConfig> {
   /** dApp metadata (required). */
   metadata: AppMetadata;
-  /** Project ID for WalletConnect Cloud relay. */
+  /** Project ID for Cinacoin Cloud relay. */
   projectId?: string;
   /** Chains to request (CAIP-2 format). */
   chains?: string[];
@@ -62,10 +62,10 @@ export interface WcConnectorConfig extends Partial<MultiSessionManagerConfig> {
 // ============================================================
 
 /**
- * WalletConnect v2 connector for the Cinacoin Core SDK.
+ * Cinacoin v2 connector for the Cinacoin Core SDK.
  *
  * Implements the Connector interface, providing a unified API
- * for wallet connection via WalletConnect v2.
+ * for wallet connection via Cinacoin v2.
  *
  * Features:
  * - QR code / URI-based pairing
@@ -102,7 +102,7 @@ export class WcConnector extends Connector {
   readonly id = 'walletconnect-v2';
 
   /** Human-readable name. */
-  readonly name = 'WalletConnect v2';
+  readonly name = 'Cinacoin v2';
 
   /** Connector icon. */
   readonly icon = 'https://walletconnect.com/walletconnect-icon.png';
@@ -186,7 +186,7 @@ export class WcConnector extends Connector {
   // ============================================================
 
   /**
-   * Connect to a wallet via WalletConnect v2.
+   * Connect to a wallet via Cinacoin v2.
    *
    * If no URI is provided, creates a new pairing and returns
    * the WC URI (for QR code display). The session will be
