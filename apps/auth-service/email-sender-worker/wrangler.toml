@@ -1,0 +1,11 @@
+name = "cinacoin-email-sender"
+main = "src/index.ts"
+compatibility_date = "2024-12-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "cinacoin-auth-db"
+database_id = "7da0bdfd-cbdd-4bde-a4f2-dd410b4970e0"
+
+[triggers]
+# HTTP 触发器，由认证服务调用

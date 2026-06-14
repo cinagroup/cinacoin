@@ -588,40 +588,23 @@ app.post('/api/auth/email/verify', async (c) => {
     await db.prepare('INSERT INTO email_verifications (id, user_id, token, expires_at, created_at) VALUES (?, ?, ?, ?, ?)')
       .bind(crypto.randomUUID(), user.id, token, expiresAt, now).run();
     
-    // Get Resend API key
-    const resendApiKey = await getSystemSetting(db, 'resend_api_key');
+    // Send email via Email Sender Worker
     const appBaseUrl = await getSystemSetting(db, 'app_base_url') || 'https://cinacoin-auth.pages.dev';
+    const verifyUrl = `${appBaseUrl}/verify-email?token=${token}`;
     
-    if (resendApiKey) {
-      // Send email via Resend
-      const verifyUrl = `${appBaseUrl}/verify-email?token=${token}`;
-      await fetch('https://api.resend.com/emails', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${resendApiKey}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          from: 'CinaCoin <noreply@cinacoin.com>',
-          to: user.email,
-          subject: 'Verify your email address',
-          html: `
-            <h1>Welcome to CinaCoin!</h1>
-            <p>Please verify your email address by clicking the link below:</p>
-            <p><a href="${verifyUrl}">Verify Email Address</a></p>
-            <p>This link will expire in 24 hours.</p>
-            <p>If you did not create an account, please ignore this email.</p>
-          `,
-        }),
-      });
-    }
+    const emailSent = await sendEmail(c, user.email, 'Verify your email address', `
+      <h1>Welcome to CinaCoin!</h1>
+      <p>Please verify your email address by clicking the link below:</p>
+      <p><a href="${verifyUrl}">Verify Email Address</a></p>
+      <p>This link will expire in 24 hours.</p>
+      <p>If you did not create an account, please ignore this email.</p>
+    `);
     
-    // Return token for development/testing (when Resend is not configured)
     return c.json({ 
       success: true, 
-      message: resendApiKey ? 'Verification email sent' : 'Email verification configured. Token generated.',
-      token: resendApiKey ? undefined : token,
-      verifyUrl: resendApiKey ? undefined : `${appBaseUrl}/verify-email?token=${token}`,
+      message: emailSent ? 'Verification email sent' : 'Email service unavailable. Token generated.',
+      token: emailSent ? undefined : token,
+      verifyUrl: emailSent ? undefined : verifyUrl,
     });
   } catch (error) {
     console.error('Email verify error:', error);
@@ -687,39 +670,23 @@ app.post('/api/auth/password/reset', async (c) => {
     await db.prepare('INSERT INTO password_resets (id, user_id, token, expires_at, created_at) VALUES (?, ?, ?, ?, ?)')
       .bind(crypto.randomUUID(), user.id, token, expiresAt, now).run();
     
-    // Get Resend API key
-    const resendApiKey = await getSystemSetting(db, 'resend_api_key');
+    // Send email via Email Sender Worker
     const appBaseUrl = await getSystemSetting(db, 'app_base_url') || 'https://cinacoin-auth.pages.dev';
+    const resetUrl = `${appBaseUrl}/reset-password?token=${token}`;
     
-    if (resendApiKey) {
-      // Send email via Resend
-      const resetUrl = `${appBaseUrl}/reset-password?token=${token}`;
-      await fetch('https://api.resend.com/emails', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${resendApiKey}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          from: 'CinaCoin <noreply@cinacoin.com>',
-          to: user.email,
-          subject: 'Reset your password',
-          html: `
-            <h1>Password Reset Request</h1>
-            <p>You requested to reset your password. Click the link below:</p>
-            <p><a href="${resetUrl}">Reset Password</a></p>
-            <p>This link will expire in 1 hour.</p>
-            <p>If you did not request this, please ignore this email.</p>
-          `,
-        }),
-      });
-    }
+    const emailSent = await sendEmail(c, user.email, 'Reset your password', `
+      <h1>Password Reset Request</h1>
+      <p>You requested to reset your password. Click the link below:</p>
+      <p><a href="${resetUrl}">Reset Password</a></p>
+      <p>This link will expire in 1 hour.</p>
+      <p>If you did not request this, please ignore this email.</p>
+    `);
     
     return c.json({ 
       success: true, 
-      message: resendApiKey ? 'Reset email sent' : 'Password reset configured. Token generated.',
-      token: resendApiKey ? undefined : token,
-      resetUrl: resendApiKey ? undefined : `${appBaseUrl}/reset-password?token=${token}`,
+      message: emailSent ? 'Reset email sent' : 'Email service unavailable. Token generated.',
+      token: emailSent ? undefined : token,
+      resetUrl: emailSent ? undefined : resetUrl,
     });
   } catch (error) {
     console.error('Password reset error:', error);
@@ -764,6 +731,34 @@ app.post('/api/auth/password/confirm', async (c) => {
     return c.json({ error: 'Failed to reset password' }, 500);
   }
 });
+
+// ============ Email Helper Function ============
+
+async function sendEmail(c: any, to: string, subject: string, html: string): Promise<boolean> {
+  try {
+    const emailWorkerUrl = 'https://cinacoin-email-sender.cinagroup.workers.dev';
+    
+    const response = await fetch(emailWorkerUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ to, subject, html }),
+    });
+    
+    if (response.ok) {
+      console.log(`Email sent successfully to ${to}`);
+      return true;
+    } else {
+      const error = await response.text();
+      console.error(`Failed to send email to ${to}:`, error);
+      return false;
+    }
+  } catch (error) {
+    console.error('Email send error:', error);
+    return false;
+  }
+}
 
 export default {
   fetch: app.fetch,
