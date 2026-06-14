@@ -39,6 +39,7 @@
 /* Canonical Cinacoin design system — tokens + .cc-* primitives.
    Single source of truth: packages/design-tokens/css/cinacoin.css */
 @import '@cinacoin/design-tokens/css/cinacoin.css';
+@import './components/widgets.css';
 
 @tailwind base;
 @tailwind components;

@@ -1,11 +1,11 @@
-import { Env } from './types';
 import { handleRpcRequest } from './rpc/handler';
 import { MempoolDO } from './services/mempool';
+import type { Env } from './types';
 
 export { MempoolDO };
 
 export default {
-  async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+  async fetch(request: Request, env: Env, _ctx: ExecutionContext): Promise<Response> {
     // CORS
     if (request.method === 'OPTIONS') {
       return new Response(null, {
@@ -22,7 +22,7 @@ export default {
     }
 
     try {
-      const body = await request.json() as import('./types').JsonRpcRequest;
+      const body = await request.json();
       const result = await handleRpcRequest(body, env);
 
       return new Response(JSON.stringify(result), {

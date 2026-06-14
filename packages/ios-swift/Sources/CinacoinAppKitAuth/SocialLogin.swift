@@ -9,10 +9,16 @@ public final class SocialLoginManager: NSObject, ObservableObject, @unchecked Se
     
     private let authUrl: String
     private let projectId: String
+    private let callbackScheme: String
     
-    public init(authUrl: String = "https://auth.cinacoin.com", projectId: String) {
+    public init(
+        authUrl: String = "https://auth.cinacoin.com",
+        projectId: String,
+        callbackScheme: String = "cinacoin"
+    ) {
         self.authUrl = authUrl
         self.projectId = projectId
+        self.callbackScheme = callbackScheme
         super.init()
     }
     
@@ -40,14 +46,14 @@ public final class SocialLoginManager: NSObject, ObservableObject, @unchecked Se
         isLoading = true
         defer { isLoading = false }
         
-        let callbackURL = "\(authUrl)/api/auth/google/callback"
+        let callbackURL = "\(callbackScheme)://auth/google/callback"
         let authURL = "\(authUrl)/api/auth/google?redirect_uri=\(callbackURL)&project_id=\(projectId)"
         
         guard let url = URL(string: authURL) else {
             throw AuthError.invalidURL
         }
         
-        return try await performWebAuth(url: url, callbackScheme: "cinacoin")
+        return try await performWebAuth(url: url, provider: .google)
     }
     
     /// Sign in with GitHub
@@ -55,14 +61,14 @@ public final class SocialLoginManager: NSObject, ObservableObject, @unchecked Se
         isLoading = true
         defer { isLoading = false }
         
-        let callbackURL = "\(authUrl)/api/auth/github/callback"
+        let callbackURL = "\(callbackScheme)://auth/github/callback"
         let authURL = "\(authUrl)/api/auth/github?redirect_uri=\(callbackURL)&project_id=\(projectId)"
         
         guard let url = URL(string: authURL) else {
             throw AuthError.invalidURL
         }
         
-        return try await performWebAuth(url: url, callbackScheme: "cinacoin")
+        return try await performWebAuth(url: url, provider: .github)
     }
     
     /// Sign in with Discord
@@ -70,45 +76,173 @@ public final class SocialLoginManager: NSObject, ObservableObject, @unchecked Se
         isLoading = true
         defer { isLoading = false }
         
-        let callbackURL = "\(authUrl)/api/auth/discord/callback"
+        let callbackURL = "\(callbackScheme)://auth/discord/callback"
         let authURL = "\(authUrl)/api/auth/discord?redirect_uri=\(callbackURL)&project_id=\(projectId)"
         
         guard let url = URL(string: authURL) else {
             throw AuthError.invalidURL
         }
         
-        return try await performWebAuth(url: url, callbackScheme: "cinacoin")
+        return try await performWebAuth(url: url, provider: .discord)
     }
     
     // MARK: - Private
     
-    private func performWebAuth(url: URL, callbackScheme: String) async throws -> AuthResult {
-        // Web authentication session
+    private func performWebAuth(url: URL, provider: AuthProvider) async throws -> AuthResult {
+        // Perform ASWebAuthenticationSession and get callback URL
+        let callbackURL = try await startWebAuthSession(url: url)
+        
+        // Parse authorization code from callback URL
+        guard let code = parseAuthorizationCode(from: callbackURL) else {
+            throw AuthError.invalidCallback("Missing authorization code in callback URL")
+        }
+        
+        // Exchange authorization code for tokens
+        let authResult = try await exchangeCodeForTokens(code: code, provider: provider)
+        
+        // Store tokens securely in Keychain
+        try storeTokensInKeychain(authResult: authResult)
+        
+        return authResult
+    }
+    
+    /// Start ASWebAuthenticationSession and wait for callback
+    private func startWebAuthSession(url: URL) async throws -> URL {
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<URL, Error>) in
             let session = ASWebAuthenticationSession(
                 url: url,
                 callbackURLScheme: callbackScheme
             ) { callbackURL, error in
                 if let error = error {
-                    continuation.resume(throwing: error)
+                    // Check if user cancelled
+                    if let authError = error as? ASWebAuthenticationSessionError,
+                       authError.code == .canceledLogin {
+                        continuation.resume(throwing: AuthError.cancelled)
+                    } else {
+                        continuation.resume(throwing: error)
+                    }
                 } else if let callbackURL = callbackURL {
                     continuation.resume(returning: callbackURL)
                 } else {
                     continuation.resume(throwing: AuthError.cancelled)
                 }
             }
-            session.presentationContextProvider = nil
+            
+            // Set presentation context for iOS 13+
+            if #available(iOS 13.0, *) {
+                session.presentationContextProvider = WebAuthPresentationAnchor()
+            }
             session.prefersEphemeralWebBrowserSession = true
             session.start()
         }
+    }
+    
+    /// Parse authorization code from callback URL
+    private func parseAuthorizationCode(from callbackURL: URL) -> String? {
+        guard let components = URLComponents(url: callbackURL, resolvingAgainstBaseURL: false),
+              let queryItems = components.queryItems else {
+            return nil
+        }
         
-        // Parse callback URL for auth result
-        // In production, exchange code for tokens
-        throw AuthError.notImplemented("Token exchange not yet implemented")
+        // Check for authorization code
+        if let code = queryItems.first(where: { $0.name == "code" })?.value {
+            return code
+        }
+        
+        // Check for error in callback
+        if let error = queryItems.first(where: { $0.name == "error" })?.value {
+            let errorDescription = queryItems.first(where: { $0.name == "error_description" })?.value ?? error
+            print("[SocialLogin] OAuth error: \(errorDescription)")
+        }
+        
+        return nil
+    }
+    
+    /// Exchange authorization code for tokens via Auth Service API
+    private func exchangeCodeForTokens(code: String, provider: AuthProvider) async throws -> AuthResult {
+        let url = URL(string: "\(authUrl)/api/auth/oauth/callback")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let body: [String: Any] = [
+            "code": code,
+            "provider": provider.rawValue,
+            "project_id": projectId
+        ]
+        
+        request.httpBody = try JSONSerialization.data(withJSONObject: body)
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw AuthError.networkError("Invalid response from auth service")
+        }
+        
+        guard (200...299).contains(httpResponse.statusCode) else {
+            let errorBody = String(data: data, encoding: .utf8) ?? "Unknown error"
+            throw AuthError.networkError("Token exchange failed: \(httpResponse.statusCode) - \(errorBody)")
+        }
+        
+        // Parse response
+        guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+              let accessToken = json["access_token"] as? String,
+              let userId = json["user_id"] as? String,
+              let expiresAt = json["expires_at"] as? TimeInterval else {
+            throw AuthError.networkError("Invalid response format from auth service")
+        }
+        
+        let refreshToken = json["refresh_token"] as? String
+        let email = json["email"] as? String
+        
+        return AuthResult(
+            userId: userId,
+            email: email,
+            provider: provider,
+            accessToken: accessToken,
+            refreshToken: refreshToken,
+            expiresAt: Date(timeIntervalSince1970: expiresAt)
+        )
+    }
+    
+    /// Store tokens securely in Keychain
+    private func storeTokensInKeychain(authResult: AuthResult) throws {
+        // Store access token
+        if let tokenData = authResult.accessToken.data(using: .utf8) {
+            try KeychainHelper.save(key: AuthKeychainKeys.accessToken, data: tokenData)
+        }
+        
+        // Store refresh token if available
+        if let refreshToken = authResult.refreshToken,
+           let refreshData = refreshToken.data(using: .utf8) {
+            try KeychainHelper.save(key: AuthKeychainKeys.refreshToken, data: refreshData)
+        }
+        
+        // Store user ID
+        if let userIdData = authResult.userId.data(using: .utf8) {
+            try KeychainHelper.save(key: AuthKeychainKeys.userId, data: userIdData)
+        }
+        
+        // Store expiration time
+        let expiresAtTimestamp = String(authResult.expiresAt.timeIntervalSince1970)
+        if let expiresData = expiresAtTimestamp.data(using: .utf8) {
+            try KeychainHelper.save(key: AuthKeychainKeys.expiresAt, data: expiresData)
+        }
     }
 }
 
-/// Auth errors
+// MARK: - Web Auth Presentation Anchor
+@available(iOS 13.0, *)
+private final class WebAuthPresentationAnchor: NSObject, ASWebAuthenticationPresentationContextProviding {
+    func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
+        // Find the key window
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first as? UIWindowScene
+        return windowScene?.windows.first ?? ASPresentationAnchor()
+    }
+}
+
+// MARK: - Auth Errors
 public enum AuthError: Error, LocalizedError {
     case invalidURL
     case cancelled
@@ -116,6 +250,8 @@ public enum AuthError: Error, LocalizedError {
     case networkError(String)
     case invalidCredentials
     case tokenExpired
+    case invalidCallback(String)
+    case refreshFailed(String)
     
     public var errorDescription: String? {
         switch self {
@@ -125,6 +261,8 @@ public enum AuthError: Error, LocalizedError {
         case .networkError(let msg): return "Network error: \(msg)"
         case .invalidCredentials: return "Invalid credentials"
         case .tokenExpired: return "Token expired"
+        case .invalidCallback(let msg): return "Invalid callback: \(msg)"
+        case .refreshFailed(let msg): return "Token refresh failed: \(msg)"
         }
     }
 }

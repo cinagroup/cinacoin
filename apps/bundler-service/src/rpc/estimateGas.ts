@@ -1,18 +1,20 @@
-import { Env, UserOperation } from '../types';
+import type { Env, UserOperation } from '../types';
 
 /**
  * eth_estimateUserOperationGas
  * Estimates gas values for a UserOperation.
  */
-export async function estimateUserOperationGas(
-  userOp: UserOperation,
-  entryPoint: string,
-  env: Env
-): Promise<{
+interface GasEstimateResult {
   callGasLimit: string;
   verificationGasLimit: string;
   preVerificationGas: string;
-}> {
+}
+
+export function estimateUserOperationGas(
+  userOp: UserOperation,
+  _entryPoint: string,
+  _env: Env
+): GasEstimateResult {
   if (!userOp.sender) throw new Error('Missing sender');
 
   // Base gas estimates (conservative)

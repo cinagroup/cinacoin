@@ -1,13 +1,11 @@
-import { Env, JsonRpcRequest, JsonRpcResponse, UserOperation } from '../types';
-import { sendUserOperation } from './sendUserOperation';
+import type { Env, JsonRpcRequest, JsonRpcResponse, UserOperation } from '../types';
+
 import { estimateUserOperationGas } from './estimateGas';
 import { getUserOperationReceipt } from './getReceipt';
+import { sendUserOperation } from './sendUserOperation';
 import { getSupportedEntryPoints } from './supportedEntryPoints';
 
-export async function handleRpcRequest(
-  req: JsonRpcRequest,
-  env: Env
-): Promise<JsonRpcResponse> {
+export async function handleRpcRequest(req: JsonRpcRequest, env: Env): Promise<JsonRpcResponse> {
   const { id, method, params } = req;
 
   try {
@@ -15,19 +13,11 @@ export async function handleRpcRequest(
 
     switch (method) {
       case 'eth_sendUserOperation':
-        result = await sendUserOperation(
-          params[0] as UserOperation,
-          params[1] as string,
-          env
-        );
+        result = await sendUserOperation(params[0] as UserOperation, params[1] as string, env);
         break;
 
       case 'eth_estimateUserOperationGas':
-        result = await estimateUserOperationGas(
-          params[0] as UserOperation,
-          params[1] as string,
-          env
-        );
+        result = estimateUserOperationGas(params[0] as UserOperation, params[1] as string, env);
         break;
 
       case 'eth_getUserOperationReceipt':

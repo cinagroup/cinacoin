@@ -1,0 +1,96 @@
+/* ── Widget-specific styles ──
+   Supplementary to the cc-* design system classes.
+   Used by SwapWidget and OnRampWidget for layout tweaks. */
+
+.swap-widget,
+.onramp-widget {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 24px;
+  background: var(--cc-surface);
+  border-radius: 16px;
+  border: 1px solid var(--cc-border);
+}
+
+.swap-field,
+.onramp-field {
+  margin-bottom: 16px;
+}
+
+.swap-input-row,
+.onramp-input-row {
+  display: flex;
+  gap: 8px;
+}
+
+.swap-input,
+.onramp-input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--cc-border);
+  background: var(--cc-background);
+  color: var(--cc-text);
+  font-size: 18px;
+}
+
+.swap-select,
+.onramp-select {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--cc-border);
+  background: var(--cc-surface);
+  color: var(--cc-text);
+}
+
+.swap-button {
+  width: 100%;
+  padding: 16px;
+  border-radius: 12px;
+  border: none;
+  background: var(--cc-primary);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.swap-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.swap-arrow {
+  text-align: center;
+  font-size: 24px;
+  color: var(--cc-text-secondary);
+  margin: 8px 0;
+}
+
+.provider-row {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border-radius: 8px;
+  background: var(--cc-surface);
+  margin-bottom: 8px;
+}
+
+.provider-name {
+  flex: 1;
+  font-weight: 500;
+}
+
+.provider-fee {
+  color: var(--cc-text-secondary);
+  margin-right: 12px;
+}
+
+.provider-buy-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  background: var(--cc-primary);
+  color: white;
+  cursor: pointer;
+}

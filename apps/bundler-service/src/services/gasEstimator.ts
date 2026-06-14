@@ -41,8 +41,9 @@ export async function getGasPrices(
       }),
     });
 
-    const json = await response.json() as { result?: string };
-    const gasPrice = BigInt(json.result || '0x0');
+    const json = await response.json();
+    const resultStr: string = json.result ?? '0x0';
+    const gasPrice = BigInt(resultStr);
 
     return {
       maxFeePerGas: gasPrice * 2n, // 2x for safety

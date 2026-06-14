@@ -9,7 +9,7 @@ BUNDLER_PRIVATE_KEY_VAR = "BUNDLER_PK"
 [[d1_databases]]
 binding = "BUNDLER_DB"
 database_name = "cinacoin-bundler-db"
-database_id = "PLACEHOLDER"
+# database_id = "<your-d1-database-id>" — run `wrangler d1 create cinacoin-bundler-db` and paste the ID here
 
 [durable_objects]
 bindings = [{ name = "MEMPOOL", class_name = "MempoolDO" }]

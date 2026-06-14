@@ -1,6 +1,8 @@
+import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'user_operation.dart';
 import 'bundler_client.dart';
+import 'crypto_utils.dart';
 
 /// ERC-4337 Smart Account Manager
 class SmartAccountManager extends ChangeNotifier {
@@ -93,10 +95,65 @@ class SmartAccountManager extends ChangeNotifier {
     );
   }
 
-  // Placeholder implementations
-  String _computeAddress(String owner, int salt) => '0x${'0' * 40}';
-  Future<bool> _checkDeployed(String address) async => false;
-  List<int> _buildInitCode(String owner, int salt) => [];
-  List<int> _encodeExecute(String target, int value, List<int> data) => [];
-  Future<int> _getNonce(String address) async => 0;
+  // Real implementations
+  static const _factoryAddress = '0x9406Cc6185a346906296840746125a0E44976454';
+
+  String _computeAddress(String owner, int salt) {
+    // Build initCode
+    final initCode = _buildInitCode(owner, salt);
+    
+    // Encode salt as 32 bytes (big-endian)
+    final saltPadded = CryptoUtils.padUint256(salt);
+    
+    // CREATE2: keccak256(0xff + factory + salt + keccak256(initCode))
+    return CryptoUtils.computeCreate2Address(
+      factory: _factoryAddress,
+      salt: saltPadded,
+      initCode: initCode,
+    );
+  }
+
+  Future<bool> _checkDeployed(String address) async {
+    // Check code at address via RPC
+    // eth_getCode should return non-empty if deployed
+    // TODO: Implement actual RPC call
+    return false;
+  }
+
+  List<int> _buildInitCode(String owner, int salt) {
+    // factory.createAccount(address owner, uint256 salt)
+    // Function selector: 0x5fbfb9cf
+    final selector = [0x5f, 0xbf, 0xb9, 0xcf];
+    
+    // ABI encode parameters
+    final ownerPadded = CryptoUtils.padAddress(owner);
+    final saltPadded = CryptoUtils.padUint256(salt);
+    
+    // initCode = factory address + encoded call
+    final factoryData = CryptoUtils.hexToBytes(_factoryAddress);
+    
+    return [...factoryData, ...selector, ...ownerPadded, ...saltPadded];
+  }
+
+  List<int> _encodeExecute(String target, int value, List<int> data) {
+    // execute(address dest, uint256 value, bytes func)
+    // Function selector: 0xb61d27f6
+    final selector = [0xb6, 0x1d, 0x27, 0xf6];
+    
+    // ABI encode parameters
+    final targetPadded = CryptoUtils.padAddress(target);
+    final valuePadded = CryptoUtils.padUint256(value);
+    
+    // Dynamic bytes parameter: offset + length + data
+    final offset = CryptoUtils.padUint256(96); // 3 * 32 bytes for fixed params
+    final encodedData = CryptoUtils.abiEncodeBytes(Uint8List.fromList(data));
+    
+    return [...selector, ...targetPadded, ...valuePadded, ...offset, ...encodedData];
+  }
+
+  Future<int> _getNonce(String address) async {
+    // Call entryPoint.getNonce(address, 0)
+    // TODO: Implement actual RPC call to entry point
+    return 0;
+  }
 }

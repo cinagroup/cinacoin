@@ -77,15 +77,55 @@ class SmartAccountManager(
         return BundlerClient.sendUserOperation(userOp, entryPointAddress, bundlerUrl)
     }
 
-    // Placeholder implementations
-    private fun computeAddress(owner: String, salt: Long): String =
-        "0x${"0".repeat(40)}"
+    // ---- Real implementations ----------------------------------------------
 
-    private suspend fun checkDeployed(address: String): Boolean = false
+    private val factoryAddress = "0x9406Cc6185a346906296840746125a0E44976454"
 
-    private fun buildInitCode(owner: String, salt: Long): ByteArray = ByteArray(0)
+    /** CREATE2 address: keccak256(0xff ++ factory ++ salt ++ keccak256(initCode))[12..] */
+    private fun computeAddress(owner: String, salt: Long): String {
+        val initCode = buildInitCode(owner, salt)
+        val saltPadded = CryptoUtils.padUint256(salt) // 32 bytes
+        return CryptoUtils.computeCreate2Address(
+            factory = factoryAddress,
+            salt = saltPadded,
+            initCode = initCode,
+        )
+    }
 
-    private fun encodeExecute(target: String, value: Long, data: ByteArray): ByteArray = ByteArray(0)
+    private suspend fun checkDeployed(address: String): Boolean {
+        // TODO: eth_getCode via RPC; non-empty means deployed
+        return false
+    }
 
-    private suspend fun getNonce(address: String): Long = 0
+    /**
+     * initCode = factory (20 bytes) ++ createAccount(address owner, uint256 salt)
+     * Function selector: 0x5fbfb9cf
+     */
+    private fun buildInitCode(owner: String, salt: Long): ByteArray {
+        // createAccount(address owner, uint256 salt) selector: 0x5fbfb9cf
+        val selector = byteArrayOf(0x5f, 0xbf.toByte(), 0xb9.toByte(), 0xcf.toByte())
+        val ownerPadded = CryptoUtils.padAddress(owner)
+        val saltPadded = CryptoUtils.padUint256(salt)
+        val factoryBytes = CryptoUtils.hexToBytes(factoryAddress)
+        return factoryBytes + selector + ownerPadded + saltPadded
+    }
+
+    /**
+     * execute(address dest, uint256 value, bytes func)
+     * Function selector: 0xb61d27f6
+     */
+    private fun encodeExecute(target: String, value: Long, data: ByteArray): ByteArray {
+        val selector = byteArrayOf(0xb6.toByte(), 0x1d, 0x27, 0xf6)
+        val targetPadded = CryptoUtils.padAddress(target)
+        val valuePadded = CryptoUtils.padUint256(value)
+        // Offset to dynamic bytes data: 3 * 32 = 96
+        val offset = CryptoUtils.padUint256(96)
+        val encodedData = CryptoUtils.abiEncodeBytes(data)
+        return selector + targetPadded + valuePadded + offset + encodedData
+    }
+
+    private suspend fun getNonce(address: String): Long {
+        // TODO: call entryPoint.getNonce(address, 0) via RPC
+        return 0
+    }
 }

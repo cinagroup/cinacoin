@@ -1,4 +1,5 @@
-import { Env, UserOperation } from '../types';
+import type { Env, UserOperation } from '../types';
+
 import { getGasPrices, calcRequiredPrefund } from './gasEstimator';
 
 /**
@@ -14,10 +15,7 @@ export class Bundler {
   /**
    * Validate a UserOperation before adding to mempool.
    */
-  async validateUserOp(
-    userOp: UserOperation,
-    entryPoint: string
-  ): Promise<{ valid: boolean; reason?: string }> {
+  validateUserOp(userOp: UserOperation, entryPoint: string): { valid: boolean; reason?: string } {
     // Check entry point
     if (entryPoint.toLowerCase() !== this.env.ENTRY_POINT_V07.toLowerCase()) {
       return { valid: false, reason: 'Unsupported entry point' };

@@ -28,7 +28,7 @@ public final class SmartAccountManager: ObservableObject, @unchecked Sendable {
     
     /// Deploy the smart account
     public func deploy(ownerAddress: String, salt: UInt64 = 0) async throws -> String {
-        let initCode = try buildInitCode(owner: ownerAddress, salt: salt)
+        let initCode = buildInitCode(owner: ownerAddress, salt: salt)
         
         let userOp = UserOperation(
             sender: try await computeAddress(owner: ownerAddress, salt: salt),
@@ -128,34 +128,82 @@ public final class SmartAccountManager: ObservableObject, @unchecked Sendable {
     
     // MARK: - Private
     
+    private let factoryAddress = "0x9406Cc6185a346906296840746125a0E44976454"
+    
     private func computeAddress(owner: String, salt: UInt64) async throws -> String {
-        // In production: compute CREATE2 address from factory + init code
-        return "0x\(String(repeating: "0", count: 40))" // Placeholder
+        // Build initCode
+        let initCode = buildInitCode(owner: owner, salt: salt)
+        
+        // Encode salt as 32 bytes (big-endian)
+        var saltBytes = withUnsafeBytes(of: salt.bigEndian) { Data($0) }
+        let saltPadded = Data(repeating: 0, count: 32 - saltBytes.count) + saltBytes
+        
+        // CREATE2: keccak256(0xff + factory + salt + keccak256(initCode))
+        return CryptoUtils.computeCreate2Address(
+            factory: factoryAddress,
+            salt: saltPadded,
+            initCode: initCode
+        )
     }
     
     private func checkDeployed(address: String) async throws -> Bool {
         // Check code at address via RPC
-        return false // Placeholder
+        // eth_getCode should return non-empty if deployed
+        // TODO: Implement actual RPC call
+        return false
     }
     
-    private func buildInitCode(owner: String, salt: UInt64) throws -> Data {
-        // Factory address + createAccount call
-        return Data() // Placeholder
+    private func buildInitCode(owner: String, salt: UInt64) -> Data {
+        // factory.createAccount(address owner, uint256 salt)
+        // Function selector: 0x5fbfb9cf
+        let selector = Data([0x5f, 0xbf, 0xb9, 0xcf])
+        
+        // ABI encode parameters
+        let ownerPadded = CryptoUtils.padAddress(owner)
+        
+        // Salt as uint256 (32 bytes)
+        var saltBytes = withUnsafeBytes(of: salt.bigEndian) { Data($0) }
+        let saltPadded = Data(repeating: 0, count: 32 - saltBytes.count) + saltBytes
+        
+        // initCode = factory address + encoded call
+        let factoryData = CryptoUtils.hexToData(factoryAddress)
+        
+        return factoryData + selector + ownerPadded + saltPadded
     }
     
     private func encodeExecute(target: String, value: UInt256, data: Data) throws -> Data {
-        // encode function execute(address dest, uint256 value, bytes func)
-        return Data() // Placeholder
+        // execute(address dest, uint256 value, bytes func)
+        // Function selector: 0xb61d27f6
+        let selector = Data([0xb6, 0x1d, 0x27, 0xf6])
+        
+        // ABI encode parameters
+        let targetPadded = CryptoUtils.padAddress(target)
+        let valuePadded = CryptoUtils.padUint256(value)
+        
+        // Dynamic bytes parameter: offset + length + data
+        let offset = CryptoUtils.padUint256(UInt64(96)) // 3 * 32 bytes for fixed params
+        let encodedData = CryptoUtils.abiEncodeBytes(data)
+        
+        return selector + targetPadded + valuePadded + offset + encodedData
     }
     
     private func encodeExecuteBatch(targets: [String], values: [UInt256], datas: [Data]) throws -> Data {
-        // encode function executeBatch(address[] dest, uint256[] value, bytes[] func)
-        return Data() // Placeholder
+        // executeBatch(address[] dest, uint256[] value, bytes[] func)
+        // Function selector: 0x47e1da2a
+        let selector = Data([0x47, 0xe1, 0xda, 0x2a])
+        
+        // For batch, we need to encode arrays
+        // This is simplified - full implementation would handle dynamic arrays properly
+        // TODO: Implement full batch encoding with proper offset handling
+        
+        // Placeholder for now
+        return selector
     }
     
     private func getNonce(address: String) async throws -> UInt64 {
         // Call entryPoint.getNonce(address, 0)
-        return 0 // Placeholder
+        // TODO: Implement actual RPC call to entry point
+        return 0
     }
 }
 

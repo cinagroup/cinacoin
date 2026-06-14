@@ -7,6 +7,7 @@ import {
   Landmark,
   RefreshCw,
   Globe,
+  CreditCard,
 } from 'lucide-react';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -50,6 +51,12 @@ const FEATURES = [
     icon: RefreshCw,
     title: 'Token swap.',
     desc: 'Decentralized exchange aggregator.',
+  },
+  {
+    href: '/onramp',
+    icon: CreditCard,
+    title: 'Buy crypto.',
+    desc: 'Fiat on-ramp with multiple providers.',
   },
   {
     href: '/multichain',
