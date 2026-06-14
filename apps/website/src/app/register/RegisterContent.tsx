@@ -18,7 +18,7 @@ export default function RegisterContent() {
   const [loading, setLoading] = useState(false)
 
   const handleOAuthLogin = (provider: string) => {
-    const baseUrl = process.env.NEXT_PUBLIC_AUTH_URL || 'https://auth.cinacoin.com'
+    const baseUrl = process.env.NEXT_PUBLIC_AUTH_URL || 'https://cinacoin-auth.cinagroup.workers.dev'
     window.location.href = `${baseUrl}/auth/oauth/${provider}?redirect_uri=${encodeURIComponent(window.location.origin + '/auth/callback')}`
   }
 
@@ -39,7 +39,7 @@ export default function RegisterContent() {
     setLoading(true)
 
     try {
-      const authUrl = process.env.NEXT_PUBLIC_AUTH_URL || 'https://auth.cinacoin.com'
+      const authUrl = process.env.NEXT_PUBLIC_AUTH_URL || 'https://cinacoin-auth.cinagroup.workers.dev'
       const res = await fetch(`${authUrl}/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

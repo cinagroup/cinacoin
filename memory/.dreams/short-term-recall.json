@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-06-13T12:16:02.477Z",
+  "updatedAt": "2026-06-14T04:14:55.912Z",
   "entries": {
     "memory:memory/2026-04-03.md:1:40": {
       "key": "memory:memory/2026-04-03.md:1:40",
@@ -623,18 +623,20 @@
       "endLine": 219,
       "source": "memory",
       "snippet": "| 01:02 | Pages 部署完成 (8 个应用) | | 01:14 | 基础设施部署完成 | | 01:19 | 自定义域名配置完成 | | 01:25 | 路由修复完成 | | 01:30 | 集成测试完成 | **总耗时**: ~52 分钟 --- ## 架构优势 | 特性 | K8s 部署 | Cloudflare 原生 | |------|----------|-----------------| | 延迟 | 50-200ms | <10ms (边缘计算) | | 扩展性 | 手动 HPA | 自动扩展 (0→∞) | | 成本 | $500+/月 | $0-50/月 | | 运维 | 复杂 | 零运维 | | 全球分发 | 需 CDN | 内置 (300+ 节点) | --- ## 状态总结 ✅ **部署完成度**: 95% - Workers: 3/3 ✅ - Pages: 8/8 ✅ - D1: 2/2 ✅ - KV: 2/2 ✅ - R2: 2/2 ✅ - 自定义域名: 11/13 ✅ (2 个 DNS 验证中) ⚠️ **待配置**: OAuth 凭证、JWT 密钥 # 2026-06-09 Daily Notes ## Cloudflare 部署完成 (01:30 UTC) ### 任务完成状态 ✅ **任务 1: 配置自定义域名** - 完成 ✅ **任务 3: 验证部署** - 完成 ✅ **任务 4: 集成测试** - 完成 --- ## 基础设施部署 ### D1 数据库 | 数据库 | ID | 表数量",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 1,
+      "totalScore": 2,
       "maxScore": 1,
       "firstRecalledAt": "2026-06-09T04:16:49.269Z",
-      "lastRecalledAt": "2026-06-09T04:16:49.269Z",
+      "lastRecalledAt": "2026-06-14T04:12:55.596Z",
       "queryHashes": [
-        "84fef1d16bbf"
+        "84fef1d16bbf",
+        "2ac2b78e6e3d"
       ],
       "recallDays": [
-        "2026-06-09"
+        "2026-06-09",
+        "2026-06-14"
       ],
       "conceptTags": [
         "50-200ms",
@@ -751,23 +753,25 @@
       "endLine": 174,
       "source": "memory",
       "snippet": "--- ## 待办事项 ### 高优先级 1. **配置 OAuth 凭证** - Google/GitHub/Discord Client ID & Secret 2. **配置 JWT 密钥** - 生成 RSA 2048 密钥对并设置环境变量 3. **等待 DNS 验证** - app.cinacoin.com 和 data.cinacoin.com 域名验证 ### 中优先级 4. **前端环境变量** - 更新所有 Pages 应用的 API 端点配置 5. **SSL 证书** - 确认所有自定义域名的 SSL 证书自动签发 ### 低优先级 6. **监控告警** - 配置 Cloudflare 监控和告警规则 7. **性能优化** - 配置缓存策略和 CDN 优化 --- ## 技术栈 ### 前端 - Next.js 14 (静态导出) - React 18 + Tailwind CSS + TypeScript - Recharts (数据可视化) ### 后端 - Hono 框架 - Web Crypto API - jose (JWT) + Zod (验证) ### 数据库 - Cloudflare D1 (SQLite) - 17 个表，22 个索引 ### 存储 - Cloudflare KV (缓存/会话) - Cloudflare R2 (对象存储) --- ## 部署时间线 | 时间 | 事件 | |------|------| | 00:38 | 开始 Cloudflare 迁移 | | 00:51 | Work",
-      "recallCount": 4,
+      "recallCount": 5,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 4,
+      "totalScore": 5,
       "maxScore": 1,
       "firstRecalledAt": "2026-06-09T04:30:02.906Z",
-      "lastRecalledAt": "2026-06-13T12:14:53.819Z",
+      "lastRecalledAt": "2026-06-14T04:14:55.912Z",
       "queryHashes": [
         "54025a0068a8",
         "6599855d74f1",
         "891f6b199a92",
-        "4c38e3170647"
+        "4c38e3170647",
+        "278534101ddb"
       ],
       "recallDays": [
         "2026-06-09",
         "2026-06-12",
-        "2026-06-13"
+        "2026-06-13",
+        "2026-06-14"
       ],
       "conceptTags": [
         "google/github/discord",
@@ -787,23 +791,25 @@
       "endLine": 385,
       "source": "memory",
       "snippet": "5. **SSL 证书** - 确认所有自定义域名的 SSL 证书自动签发 ### 低优先级 6. **监控告警** - 配置 Cloudflare 监控和告警规则 7. **性能优化** - 配置缓存策略和 CDN 优化 --- ## 技术栈 ### 前端 - Next.js 14 (静态导出) - React 18 + Tailwind CSS + TypeScript - Recharts (数据可视化) ### 后端 - Hono 框架 - Web Crypto API - jose (JWT) + Zod (验证) ### 数据库 - Cloudflare D1 (SQLite) - 17 个表，22 个索引 ### 存储 - Cloudflare KV (缓存/会话) - Cloudflare R2 (对象存储) --- ## 部署时间线 | 时间 | 事件 | |------|------| | 00:38 | 开始 Cloudflare 迁移 | | 00:51 | Workers 部署完成 | | 01:02 | Pages 部署完成 (8 个应用) | | 01:14 | 基础设施部署完成 | | 01:19 | 自定义域名配置完成 | | 01:25 | 路由修复完成 | | 01:30 | 集成测试完成 | **总耗时**: ~52 分钟 --- ## 架构优势 | 特性 | K8s 部署 | Cloudflare 原生 | |------|----------|-----------------| | 延迟 | 50-200",
-      "recallCount": 4,
+      "recallCount": 5,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 4,
+      "totalScore": 5,
       "maxScore": 1,
       "firstRecalledAt": "2026-06-09T04:30:02.906Z",
-      "lastRecalledAt": "2026-06-13T12:14:53.819Z",
+      "lastRecalledAt": "2026-06-14T04:14:55.912Z",
       "queryHashes": [
         "54025a0068a8",
         "6599855d74f1",
         "891f6b199a92",
-        "4c38e3170647"
+        "4c38e3170647",
+        "278534101ddb"
       ],
       "recallDays": [
         "2026-06-09",
         "2026-06-12",
-        "2026-06-13"
+        "2026-06-13",
+        "2026-06-14"
       ],
       "conceptTags": [
         "next.js",
@@ -952,20 +958,22 @@
       "endLine": 727,
       "source": "memory",
       "snippet": "--- ## 待办事项 ### 高优先级 1. **配置 OAuth 凭证** - Google/GitHub/Discord Client ID & Secret 2. **配置 JWT 密钥** - 生成 RSA 2048 密钥对并设置环境变量 3. **等待 DNS 验证** - app.cinacoin.com 和 data.cinacoin.com 域名验证 ### 中优先级 4. **前端环境变量** - 更新所有 Pages 应用的 API 端点配置 5. **SSL 证书** - 确认所有自定义域名的 SSL 证书自动签发 ### 低优先级 6. **监控告警** - 配置 Cloudflare 监控和告警规则 7. **性能优化** - 配置缓存策略和 CDN 优化 --- ## 技术栈 ### 前端 - Next.js 14 (静态导出) - React 18 + Tailwind CSS + TypeScript - Recharts (数据可视化) ### 后端 - Hono 框架 - Web Crypto API - jose (JWT) + Zod (验证) ### 数据库 - Cloudflare D1 (SQLite) - 17 个表，22 个索引 ### 存储 - Cloudflare KV (缓存/会话) - Cloudflare R2 (对象存储) --- ## 部署时间线 | 时间 | 事件 | |------|------| | 00:38 | 开始 Cloudflare 迁移 | | 00:51 | Work",
-      "recallCount": 2,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 2,
+      "totalScore": 3,
       "maxScore": 1,
       "firstRecalledAt": "2026-06-12T02:28:18.484Z",
-      "lastRecalledAt": "2026-06-13T12:14:53.819Z",
+      "lastRecalledAt": "2026-06-14T04:14:55.912Z",
       "queryHashes": [
         "891f6b199a92",
-        "4c38e3170647"
+        "4c38e3170647",
+        "278534101ddb"
       ],
       "recallDays": [
         "2026-06-12",
-        "2026-06-13"
+        "2026-06-13",
+        "2026-06-14"
       ],
       "conceptTags": [
         "google/github/discord",
@@ -985,20 +993,22 @@
       "endLine": 1695,
       "source": "memory",
       "snippet": "2. **配置 JWT 密钥** - 生成 RSA 2048 密钥对并设置环境变量 3. **等待 DNS 验证** - app.cinacoin.com 和 data.cinacoin.com 域名验证 ### 中优先级 4. **前端环境变量** - 更新所有 Pages 应用的 API 端点配置 5. **SSL 证书** - 确认所有自定义域名的 SSL 证书自动签发 ### 低优先级 6. **监控告警** - 配置 Cloudflare 监控和告警规则 7. **性能优化** - 配置缓存策略和 CDN 优化 --- ## 技术栈 ### 前端 - Next.js 14 (静态导出) - React 18 + Tailwind CSS + TypeScript - Recharts (数据可视化) ### 后端 - Hono 框架 - Web Crypto API - jose (JWT) + Zod (验证) ### 数据库 - Cloudflare D1 (SQLite) - 17 个表，22 个索引 ### 存储 - Cloudflare KV (缓存/会话) - Cloudflare R2 (对象存储) --- ## 部署时间线 | 时间 | 事件 | |------|------| | 00:38 | 开始 Cloudflare 迁移 | | 00:51 | Workers 部署完成 | | 01:02 | Pages 部署完成 (8 个应用) | | 01:14 | 基础设施部署完成 | | 01:19 | 自定义域名配置完成 |",
-      "recallCount": 2,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 2,
+      "totalScore": 3,
       "maxScore": 1,
       "firstRecalledAt": "2026-06-12T02:28:18.484Z",
-      "lastRecalledAt": "2026-06-13T12:14:53.819Z",
+      "lastRecalledAt": "2026-06-14T04:14:55.912Z",
       "queryHashes": [
         "891f6b199a92",
-        "4c38e3170647"
+        "4c38e3170647",
+        "278534101ddb"
       ],
       "recallDays": [
         "2026-06-12",
-        "2026-06-13"
+        "2026-06-13",
+        "2026-06-14"
       ],
       "conceptTags": [
         "app.cinacoin.com",
@@ -1018,20 +1028,22 @@
       "endLine": 938,
       "source": "memory",
       "snippet": "5. **SSL 证书** - 确认所有自定义域名的 SSL 证书自动签发 ### 低优先级 6. **监控告警** - 配置 Cloudflare 监控和告警规则 7. **性能优化** - 配置缓存策略和 CDN 优化 --- ## 技术栈 ### 前端 - Next.js 14 (静态导出) - React 18 + Tailwind CSS + TypeScript - Recharts (数据可视化) ### 后端 - Hono 框架 - Web Crypto API - jose (JWT) + Zod (验证) ### 数据库 - Cloudflare D1 (SQLite) - 17 个表，22 个索引 ### 存储 - Cloudflare KV (缓存/会话) - Cloudflare R2 (对象存储) --- ## 部署时间线 | 时间 | 事件 | |------|------| | 00:38 | 开始 Cloudflare 迁移 | | 00:51 | Workers 部署完成 | | 01:02 | Pages 部署完成 (8 个应用) | | 01:14 | 基础设施部署完成 | | 01:19 | 自定义域名配置完成 | | 01:25 | 路由修复完成 | | 01:30 | 集成测试完成 | **总耗时**: ~52 分钟 --- ## 架构优势 | 特性 | K8s 部署 | Cloudflare 原生 | |------|----------|-----------------| | 延迟 | 50-200",
-      "recallCount": 2,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 2,
+      "totalScore": 3,
       "maxScore": 1,
       "firstRecalledAt": "2026-06-12T02:28:18.484Z",
-      "lastRecalledAt": "2026-06-13T12:14:53.819Z",
+      "lastRecalledAt": "2026-06-14T04:14:55.912Z",
       "queryHashes": [
         "891f6b199a92",
-        "4c38e3170647"
+        "4c38e3170647",
+        "278534101ddb"
       ],
       "recallDays": [
         "2026-06-12",
-        "2026-06-13"
+        "2026-06-13",
+        "2026-06-14"
       ],
       "conceptTags": [
         "next.js",
@@ -1051,18 +1063,20 @@
       "endLine": 605,
       "source": "memory",
       "snippet": "- ⏳ 前端集成测试 # 2026-06-09 Daily Notes ## Cloudflare 部署完成 (01:30 UTC) ### 任务完成状态 ✅ **任务 1: 配置自定义域名** - 完成 ✅ **任务 3: 验证部署** - 完成 ✅ **任务 4: 集成测试** - 完成 --- ## 基础设施部署 ### D1 数据库 | 数据库 | ID | 表数量 | 状态 | |--------|-----|--------|------| | cinacoin-auth | dbb6063f-86ca-4ac2-b960-25bbb752b73d | 12 | ✅ | | cinacoin-users | 1772bf0d-5e3b-4a18-b143-1bb2c3d29b62 | 5 | ✅ | ### KV 命名空间 | 名称 | ID | 用途 | |------|-----|------| | RATE_LIMIT_KV | dceb86e5cb4c4a008013c8cf21d7181c | API 限流 | | SESSION_KV | 4a9aca26d37c4f9babb340b3865219c0 | 会话存储 | ### R2 存储桶 | 名称 | 用途 | 状态 | |------|------|------| | cinacoin-avatars | 用户头像 | ✅ | | cinacoin-backups | 数据备份 | ✅ | --- ## Workers 部署 ### 服务列表 | 服务 | 自定义域名 |",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 1,
+      "totalScore": 2,
       "maxScore": 1,
       "firstRecalledAt": "2026-06-13T05:02:42.050Z",
-      "lastRecalledAt": "2026-06-13T05:02:42.050Z",
+      "lastRecalledAt": "2026-06-14T04:12:50.486Z",
       "queryHashes": [
-        "5456ab8ab88e"
+        "5456ab8ab88e",
+        "2e89b8cf740b"
       ],
       "recallDays": [
-        "2026-06-13"
+        "2026-06-13",
+        "2026-06-14"
       ],
       "conceptTags": [
         "backup",
@@ -1082,18 +1096,20 @@
       "endLine": 1369,
       "source": "memory",
       "snippet": "### 🔴 发现问题 1. **登录接口 500 错误** — 已修复 ✅ 2. **Wallet Explorer 重定向循环** — 已修复，需部署 ⚠️ --- ## 下一步行动 1. **执行 Wallet Explorer 部署命令** 2. **验证登录流程完整可用** 3. **配置 RESEND_API_KEY**（如需要邮件功能） # 2026-06-09 Daily Notes ## Cloudflare 部署完成 (01:30 UTC) ### 任务完成状态 ✅ **任务 1: 配置自定义域名** - 完成 ✅ **任务 3: 验证部署** - 完成 ✅ **任务 4: 集成测试** - 完成 --- ## 基础设施部署 ### D1 数据库 | 数据库 | ID | 表数量 | 状态 | |--------|-----|--------|------| | cinacoin-auth | dbb6063f-86ca-4ac2-b960-25bbb752b73d | 12 | ✅ | | cinacoin-users | 1772bf0d-5e3b-4a18-b143-1bb2c3d29b62 | 5 | ✅ | ### KV 命名空间 | 名称 | ID | 用途 | |------|-----|------| | RATE_LIMIT_KV | dceb86e5cb4c4a008013c8cf21d7181c | API 限流 | | SESSION_KV | 4a9aca26d37c4f9babb340b3865219c0",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 1,
+      "totalScore": 2,
       "maxScore": 1,
       "firstRecalledAt": "2026-06-13T05:02:42.050Z",
-      "lastRecalledAt": "2026-06-13T05:02:42.050Z",
+      "lastRecalledAt": "2026-06-14T04:12:50.486Z",
       "queryHashes": [
-        "5456ab8ab88e"
+        "5456ab8ab88e",
+        "2e89b8cf740b"
       ],
       "recallDays": [
-        "2026-06-13"
+        "2026-06-13",
+        "2026-06-14"
       ],
       "conceptTags": [
         "resend-api-key",
@@ -1388,6 +1404,130 @@
         "applications",
         "consistent",
         "typography"
+      ]
+    },
+    "memory:memory/2026-06-09.md:521:568": {
+      "key": "memory:memory/2026-06-09.md:521:568",
+      "path": "memory/2026-06-09.md",
+      "startLine": 521,
+      "endLine": 568,
+      "source": "memory",
+      "snippet": "tokenHash, issuedAt, // ISO 字符串 expiresAt, // ISO 字符串 metadata?.ipAddress || null, metadata?.userAgent || null, Date.now() // created_at 时间戳 ); ``` #### token-rotation.ts - hashToken 异步调用 ```typescript // 修复前 const oldTokenHash = hashToken(oldToken); // 修复后 const oldTokenHash = await hashToken(oldToken); ``` ### 经验教训 1. **Cloudflare Workers 限制**: Web Crypto API 的 PBKDF2 迭代次数上限是 100,000，不是 OWASP 推荐的 600,000 2. **数据库迁移**: 代码和数据库表结构必须严格同步，缺少字段会导致运行时错误 3. **异步函数**: 必须检查函数签名，确保异步函数使用 `await` 调用 4. **日志调试**: `wrangler tail` 是调试 Cloudflare Workers 的关键工具 5. **限流清理**: 测试时频繁触发限流，需要定期清理 KV 中的限流记录 ### 下一步 - ✅ Auth Service 注册登录流程已完成 - ⏳ 测试 OAuth 登录流程（需要配置 Google/GitHub/Disc",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-06-14T04:12:50.486Z",
+      "lastRecalledAt": "2026-06-14T04:12:50.486Z",
+      "queryHashes": [
+        "2e89b8cf740b"
+      ],
+      "recallDays": [
+        "2026-06-14"
+      ],
+      "conceptTags": [
+        "date.now",
+        "created-at",
+        "token-rotation.ts",
+        "google/github/disc",
+        "tokenhash",
+        "issuedat",
+        "iso",
+        "字符"
+      ]
+    },
+    "memory:memory/2026-06-09.md:1474:1536": {
+      "key": "memory:memory/2026-06-09.md:1474:1536",
+      "path": "memory/2026-06-09.md",
+      "startLine": 1474,
+      "endLine": 1536,
+      "source": "memory",
+      "snippet": "### 存储 - Cloudflare KV (缓存/会话) - Cloudflare R2 (对象存储) --- ## 部署时间线 | 时间 | 事件 | |------|------| | 00:38 | 开始 Cloudflare 迁移 | | 00:51 | Workers 部署完成 | | 01:02 | Pages 部署完成 (8 个应用) | | 01:14 | 基础设施部署完成 | | 01:19 | 自定义域名配置完成 | | 01:25 | 路由修复完成 | | 01:30 | 集成测试完成 | **总耗时**: ~52 分钟 --- ## 架构优势 | 特性 | K8s 部署 | Cloudflare 原生 | |------|----------|-----------------| | 延迟 | 50-200ms | <10ms (边缘计算) | | 扩展性 | 手动 HPA | 自动扩展 (0→∞) | | 成本 | $500+/月 | $0-50/月 | | 运维 | 复杂 | 零运维 | | 全球分发 | 需 CDN | 内置 (300+ 节点) | --- ## 状态总结 ✅ **部署完成度**: 95% - Workers: 3/3 ✅ - Pages: 8/8 ✅ - D1: 2/2 ✅ - KV: 2/2 ✅ - R2: 2/2 ✅ - 自定义域名: 11/13 ✅ (2 个 DNS 验证中) ⚠️ **待配置**: OAuth 凭证、JWT 密钥 # 2026-06-09 Daily Notes ## Cloud",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-06-14T04:12:55.596Z",
+      "lastRecalledAt": "2026-06-14T04:12:55.596Z",
+      "queryHashes": [
+        "2ac2b78e6e3d"
+      ],
+      "recallDays": [
+        "2026-06-14"
+      ],
+      "conceptTags": [
+        "缓存/会话",
+        "50-200ms",
+        "0-50/月",
+        "3/3",
+        "8/8",
+        "2/2",
+        "11/13",
+        "存储"
+      ]
+    },
+    "memory:memory/2026-06-09.md:714:772": {
+      "key": "memory:memory/2026-06-09.md:714:772",
+      "path": "memory/2026-06-09.md",
+      "startLine": 714,
+      "endLine": 772,
+      "source": "memory",
+      "snippet": "| 01:02 | Pages 部署完成 (8 个应用) | | 01:14 | 基础设施部署完成 | | 01:19 | 自定义域名配置完成 | | 01:25 | 路由修复完成 | | 01:30 | 集成测试完成 | **总耗时**: ~52 分钟 --- ## 架构优势 | 特性 | K8s 部署 | Cloudflare 原生 | |------|----------|-----------------| | 延迟 | 50-200ms | <10ms (边缘计算) | | 扩展性 | 手动 HPA | 自动扩展 (0→∞) | | 成本 | $500+/月 | $0-50/月 | | 运维 | 复杂 | 零运维 | | 全球分发 | 需 CDN | 内置 (300+ 节点) | --- ## 状态总结 ✅ **部署完成度**: 95% - Workers: 3/3 ✅ - Pages: 8/8 ✅ - D1: 2/2 ✅ - KV: 2/2 ✅ - R2: 2/2 ✅ - 自定义域名: 11/13 ✅ (2 个 DNS 验证中) ⚠️ **待配置**: OAuth 凭证、JWT 密钥 # 2026-06-09 Daily Notes ## Cloudflare 部署完成 (01:30 UTC) ### 任务完成状态 ✅ **任务 1: 配置自定义域名** - 完成 ✅ **任务 3: 验证部署** - 完成 ✅ **任务 4: 集成测试** - 完成 --- ## 基础设施部署 ### D1 数据库 | 数据库 | ID | 表数量",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-06-14T04:12:55.596Z",
+      "lastRecalledAt": "2026-06-14T04:12:55.596Z",
+      "queryHashes": [
+        "2ac2b78e6e3d"
+      ],
+      "recallDays": [
+        "2026-06-14"
+      ],
+      "conceptTags": [
+        "50-200ms",
+        "0-50/月",
+        "3/3",
+        "8/8",
+        "2/2",
+        "11/13",
+        "pages",
+        "部署"
+      ]
+    },
+    "memory:memory/2026-06-04.md:1:39": {
+      "key": "memory:memory/2026-06-04.md:1:39",
+      "path": "memory/2026-06-04.md",
+      "startLine": 1,
+      "endLine": 39,
+      "source": "memory",
+      "snippet": "# Cinacoin 完整审计报告 (2026-06-04) ## 一、项目概览 | 维度 | 数据 | |------|------| | 总代码行数 | 60,418+ 行 | | Packages 数量 | 80+ 个独立包 | | Apps 数量 | 12 个应用 | | 支持链 | EVM + 10 条非 EVM 链（BTC/SOL/TON/NEAR/SUI/Starknet/Cosmos/Hedera/TRON/XRPL） | | 支持框架 | React, Vue, Angular, Svelte, Next.js, Nuxt, React Native, Flutter, iOS, Android, Unity, .NET | | 钱包覆盖 | 100+ 钱包元数据 | | EVM 链注册 | 100+ 链 | | 自定义域名 | demo/dash/status/docs.cinacoin.com | ## 二、功能模块全景 ### 2.1 核心连接层 - **Core SDK** — 自托管钱包连接核心工具包 - **Core UI** — Lit 构建的 Web Components - **WalletConnect v2** — 完整协议实现（pairing/session/crypto） - **Custom Connectors** — 自定义钱包连接器接口 - **Wallet Buttons** — 独立连接按钮（无模态框） - **Wallet Recommender** — 智能钱包推荐引擎 - **Multiwallet** —",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-06-14T04:13:07.900Z",
+      "lastRecalledAt": "2026-06-14T04:13:07.900Z",
+      "queryHashes": [
+        "44a3e5f07d7d"
+      ],
+      "recallDays": [
+        "2026-06-14"
+      ],
+      "conceptTags": [
+        "next.js",
+        "2.1",
+        "pairing/session/crypto",
+        "cinacoin",
+        "完整",
+        "审计",
+        "报告",
+        "项目"
       ]
     }
   }

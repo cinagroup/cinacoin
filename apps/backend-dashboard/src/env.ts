@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 const serverEnv = z.object({
   NEXT_PUBLIC_API_URL: z.string().url('NEXT_PUBLIC_API_URL must be a valid URL').default('https://api.cinacoin.com'),
-  NEXT_PUBLIC_AUTH_URL: z.string().url('NEXT_PUBLIC_AUTH_URL must be a valid URL').default('https://auth.cinacoin.com'),
+  NEXT_PUBLIC_AUTH_URL: z.string().url('NEXT_PUBLIC_AUTH_URL must be a valid URL').default('https://cinacoin-auth.cinagroup.workers.dev'),
   DASHBOARD_SERVICE_BASE_URL: z.string().optional(),
 });
 

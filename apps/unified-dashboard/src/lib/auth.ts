@@ -3,7 +3,7 @@
  * Calls auth.cinacoin.com directly since Cloudflare Pages doesn't support API routes
  */
 
-const AUTH_BASE_URL = process.env.NEXT_PUBLIC_AUTH_URL || 'https://auth.cinacoin.com';
+const AUTH_BASE_URL = process.env.NEXT_PUBLIC_AUTH_URL || 'https://cinacoin-auth.cinagroup.workers.dev';
 
 export interface AuthSession {
   authenticated: boolean;
