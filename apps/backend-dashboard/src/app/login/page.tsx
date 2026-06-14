@@ -26,7 +26,7 @@ export default function LoginPage() {
     const loadProviders = async () => {
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_AUTH_URL || "https://cinacoin-auth.cinagroup.workers.dev"}/auth/oauth/providers`
+          `${process.env.NEXT_PUBLIC_AUTH_URL || "https://auth.cinacoin.com"}/auth/oauth/providers`
         );
         if (response.ok) {
           const providers = await response.json();

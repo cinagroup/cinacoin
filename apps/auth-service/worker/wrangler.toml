@@ -10,3 +10,7 @@ JWT_REFRESH_SECRET = "OFt/v5pHT6ugrOUf/ftd8WwkGeZ4cfumqKrBhh6HuW8="
 binding = "DB"
 database_name = "cinacoin-auth-db"
 database_id = "7da0bdfd-cbdd-4bde-a4f2-dd410b4970e0"
+
+[[routes]]
+pattern = "auth.cinacoin.com/*"
+zone_name = "cinacoin.com"

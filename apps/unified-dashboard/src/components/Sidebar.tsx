@@ -85,7 +85,7 @@ export function Sidebar() {
           </div>
         ) : (
           <button
-            onClick={() => window.location.href = 'https://cinacoin-auth.cinagroup.workers.dev'}
+            onClick={() => window.location.href = 'https://auth.cinacoin.com'}
             className="w-full px-4 py-2 cc-body-sm font-medium text-center bg-[var(--cc-canvas)]/20 hover:bg-[var(--cc-canvas)]/30 rounded transition-colors"
           >
             <Lock className="w-4 h-4 inline-block mr-1" /> Login

@@ -20,7 +20,7 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const res = await fetch('https://cinacoin-auth.cinagroup.workers.dev/api/auth/login', {
+      const res = await fetch('https://auth.cinacoin.com/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -55,7 +55,7 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const res = await fetch('https://cinacoin-auth.cinagroup.workers.dev/api/auth/mfa/verify', {
+      const res = await fetch('https://auth.cinacoin.com/api/auth/mfa/verify', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ code: mfaCode, userId: mfaUserId }),
