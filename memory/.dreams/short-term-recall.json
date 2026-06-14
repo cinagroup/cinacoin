@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-06-14T06:02:46.727Z",
+  "updatedAt": "2026-06-14T11:00:49.655Z",
   "entries": {
     "memory:memory/2026-04-03.md:1:40": {
       "key": "memory:memory/2026-04-03.md:1:40",
@@ -16,14 +16,8 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-05-17T04:04:27.204Z",
       "lastRecalledAt": "2026-05-27T08:01:49.156Z",
-      "queryHashes": [
-        "9472379e4577",
-        "91cdc239335f"
-      ],
-      "recallDays": [
-        "2026-05-17",
-        "2026-05-27"
-      ],
+      "queryHashes": ["9472379e4577", "91cdc239335f"],
+      "recallDays": ["2026-05-17", "2026-05-27"],
       "conceptTags": [
         "backup",
         "github.com/cinagroup/cinaskill",
@@ -49,16 +43,8 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-05-18T04:19:11.284Z",
       "lastRecalledAt": "2026-05-27T08:01:49.156Z",
-      "queryHashes": [
-        "88aedc001e7e",
-        "052786d16d06",
-        "91cdc239335f"
-      ],
-      "recallDays": [
-        "2026-05-18",
-        "2026-05-21",
-        "2026-05-27"
-      ],
+      "queryHashes": ["88aedc001e7e", "052786d16d06", "91cdc239335f"],
+      "recallDays": ["2026-05-18", "2026-05-21", "2026-05-27"],
       "conceptTags": [
         "备份",
         "v3.1.0",
@@ -84,16 +70,8 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-05-21T12:48:01.831Z",
       "lastRecalledAt": "2026-06-03T12:00:44.892Z",
-      "queryHashes": [
-        "052786d16d06",
-        "999057a7d9e2",
-        "653f0343b46c"
-      ],
-      "recallDays": [
-        "2026-05-21",
-        "2026-05-31",
-        "2026-06-03"
-      ],
+      "queryHashes": ["052786d16d06", "999057a7d9e2", "653f0343b46c"],
+      "recallDays": ["2026-05-21", "2026-05-31", "2026-06-03"],
       "conceptTags": [
         "5/5",
         "4/4",
@@ -119,12 +97,8 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-05-21T12:48:01.831Z",
       "lastRecalledAt": "2026-05-21T12:48:01.831Z",
-      "queryHashes": [
-        "052786d16d06"
-      ],
-      "recallDays": [
-        "2026-05-21"
-      ],
+      "queryHashes": ["052786d16d06"],
+      "recallDays": ["2026-05-21"],
       "conceptTags": [
         "backup",
         "time-based",
@@ -150,16 +124,8 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-05-21T12:48:01.831Z",
       "lastRecalledAt": "2026-06-08T12:48:55.493Z",
-      "queryHashes": [
-        "052786d16d06",
-        "6066c6715161",
-        "e51bf811591f"
-      ],
-      "recallDays": [
-        "2026-05-21",
-        "2026-06-01",
-        "2026-06-08"
-      ],
+      "queryHashes": ["052786d16d06", "6066c6715161", "e51bf811591f"],
+      "recallDays": ["2026-05-21", "2026-06-01", "2026-06-08"],
       "conceptTags": [
         "final-summary.md",
         "functional-test-report.md",
@@ -185,16 +151,8 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-05-27T03:29:17.893Z",
       "lastRecalledAt": "2026-05-31T04:05:37.590Z",
-      "queryHashes": [
-        "9dc7827c5993",
-        "946f06c5374f",
-        "28d9afbea855"
-      ],
-      "recallDays": [
-        "2026-05-27",
-        "2026-05-29",
-        "2026-05-31"
-      ],
+      "queryHashes": ["9dc7827c5993", "946f06c5374f", "28d9afbea855"],
+      "recallDays": ["2026-05-27", "2026-05-29", "2026-05-31"],
       "conceptTags": [
         "tx-indexer",
         "cinacoin.com",
@@ -220,14 +178,8 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-05-27T03:29:17.893Z",
       "lastRecalledAt": "2026-06-05T04:02:51.117Z",
-      "queryHashes": [
-        "9dc7827c5993",
-        "e627dcce9a32"
-      ],
-      "recallDays": [
-        "2026-05-27",
-        "2026-06-05"
-      ],
+      "queryHashes": ["9dc7827c5993", "e627dcce9a32"],
+      "recallDays": ["2026-05-27", "2026-06-05"],
       "conceptTags": [
         "batch-transaction",
         "core-sdk",
@@ -253,17 +205,8 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-05-27T08:01:49.156Z",
       "lastRecalledAt": "2026-06-13T08:19:04.174Z",
-      "queryHashes": [
-        "91cdc239335f",
-        "d5fc33d59f87",
-        "e574edac368d",
-        "a9dd13ed2417"
-      ],
-      "recallDays": [
-        "2026-05-27",
-        "2026-05-31",
-        "2026-06-13"
-      ],
+      "queryHashes": ["91cdc239335f", "d5fc33d59f87", "e574edac368d", "a9dd13ed2417"],
+      "recallDays": ["2026-05-27", "2026-05-31", "2026-06-13"],
       "conceptTags": [
         "97.2",
         "70/72",
@@ -289,13 +232,8 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-05-31T04:02:46.132Z",
       "lastRecalledAt": "2026-05-31T04:05:37.590Z",
-      "queryHashes": [
-        "999057a7d9e2",
-        "28d9afbea855"
-      ],
-      "recallDays": [
-        "2026-05-31"
-      ],
+      "queryHashes": ["999057a7d9e2", "28d9afbea855"],
+      "recallDays": ["2026-05-31"],
       "conceptTags": [
         "cinaconnect-docs.pages.dev",
         "创建/查询计数",
@@ -321,14 +259,8 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-06-01T04:17:53.079Z",
       "lastRecalledAt": "2026-06-08T12:48:55.493Z",
-      "queryHashes": [
-        "6066c6715161",
-        "e51bf811591f"
-      ],
-      "recallDays": [
-        "2026-06-01",
-        "2026-06-08"
-      ],
+      "queryHashes": ["6066c6715161", "e51bf811591f"],
+      "recallDays": ["2026-06-01", "2026-06-08"],
       "conceptTags": [
         "v28.11.2",
         "rpc.cinachain.com",
@@ -354,14 +286,8 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-06-02T04:04:40.751Z",
       "lastRecalledAt": "2026-06-03T04:08:58.269Z",
-      "queryHashes": [
-        "a3874bf1bacf",
-        "bf03c417e2bf"
-      ],
-      "recallDays": [
-        "2026-06-02",
-        "2026-06-03"
-      ],
+      "queryHashes": ["a3874bf1bacf", "bf03c417e2bf"],
+      "recallDays": ["2026-06-02", "2026-06-03"],
       "conceptTags": [
         "incidents.json",
         "critical/major/minor/maintenance",
@@ -387,16 +313,8 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-06-02T07:14:21.517Z",
       "lastRecalledAt": "2026-06-03T12:00:38.137Z",
-      "queryHashes": [
-        "06579bd4320f",
-        "e06512233839",
-        "0ae81cb20504",
-        "db9b1d624285"
-      ],
-      "recallDays": [
-        "2026-06-02",
-        "2026-06-03"
-      ],
+      "queryHashes": ["06579bd4320f", "e06512233839", "0ae81cb20504", "db9b1d624285"],
+      "recallDays": ["2026-06-02", "2026-06-03"],
       "conceptTags": [
         "next.js",
         "next/image",
@@ -435,10 +353,7 @@
         "59371370554b",
         "037836a4410d"
       ],
-      "recallDays": [
-        "2026-06-08",
-        "2026-06-09"
-      ],
+      "recallDays": ["2026-06-08", "2026-06-09"],
       "conceptTags": [
         "network",
         "邮箱/社交/手机",
@@ -477,10 +392,7 @@
         "59371370554b",
         "00976df4b4e2"
       ],
-      "recallDays": [
-        "2026-06-08",
-        "2026-06-10"
-      ],
+      "recallDays": ["2026-06-08", "2026-06-10"],
       "conceptTags": [
         "production-level",
         "cloud.cinacoin.com",
@@ -506,12 +418,8 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-06-08T02:41:30.421Z",
       "lastRecalledAt": "2026-06-08T02:41:30.421Z",
-      "queryHashes": [
-        "19b20c7e336e"
-      ],
-      "recallDays": [
-        "2026-06-08"
-      ],
+      "queryHashes": ["19b20c7e336e"],
+      "recallDays": ["2026-06-08"],
       "conceptTags": [
         "cinacoin.com",
         "3.5",
@@ -537,12 +445,8 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-06-08T02:41:30.421Z",
       "lastRecalledAt": "2026-06-08T02:41:30.421Z",
-      "queryHashes": [
-        "19b20c7e336e"
-      ],
-      "recallDays": [
-        "2026-06-08"
-      ],
+      "queryHashes": ["19b20c7e336e"],
+      "recallDays": ["2026-06-08"],
       "conceptTags": [
         "开源/零锁定",
         "p50/p95/p99",
@@ -568,22 +472,9 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-06-08T12:48:55.493Z",
       "lastRecalledAt": "2026-06-08T12:48:55.493Z",
-      "queryHashes": [
-        "e51bf811591f"
-      ],
-      "recallDays": [
-        "2026-06-08"
-      ],
-      "conceptTags": [
-        "5/5",
-        "工作",
-        "日志",
-        "时间",
-        "utc",
-        "cloudflare",
-        "部署",
-        "完成"
-      ]
+      "queryHashes": ["e51bf811591f"],
+      "recallDays": ["2026-06-08"],
+      "conceptTags": ["5/5", "工作", "日志", "时间", "utc", "cloudflare", "部署", "完成"]
     },
     "memory:memory/2026-06-09.md:1:53": {
       "key": "memory:memory/2026-06-09.md:1:53",
@@ -599,12 +490,8 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-06-09T04:16:49.269Z",
       "lastRecalledAt": "2026-06-09T04:16:49.269Z",
-      "queryHashes": [
-        "84fef1d16bbf"
-      ],
-      "recallDays": [
-        "2026-06-09"
-      ],
+      "queryHashes": ["84fef1d16bbf"],
+      "recallDays": ["2026-06-09"],
       "conceptTags": [
         "backup",
         "backups",
@@ -630,24 +517,9 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-06-09T04:16:49.269Z",
       "lastRecalledAt": "2026-06-14T04:12:55.596Z",
-      "queryHashes": [
-        "84fef1d16bbf",
-        "2ac2b78e6e3d"
-      ],
-      "recallDays": [
-        "2026-06-09",
-        "2026-06-14"
-      ],
-      "conceptTags": [
-        "50-200ms",
-        "0-50/月",
-        "3/3",
-        "8/8",
-        "2/2",
-        "11/13",
-        "pages",
-        "部署"
-      ]
+      "queryHashes": ["84fef1d16bbf", "2ac2b78e6e3d"],
+      "recallDays": ["2026-06-09", "2026-06-14"],
+      "conceptTags": ["50-200ms", "0-50/月", "3/3", "8/8", "2/2", "11/13", "pages", "部署"]
     },
     "memory:memory/2026-06-08.md:157:183": {
       "key": "memory:memory/2026-06-08.md:157:183",
@@ -663,16 +535,8 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-06-09T04:16:49.269Z",
       "lastRecalledAt": "2026-06-10T03:26:06.986Z",
-      "queryHashes": [
-        "84fef1d16bbf",
-        "47be5fe024a5",
-        "19c10d3fc079",
-        "5b5e29a75bad"
-      ],
-      "recallDays": [
-        "2026-06-09",
-        "2026-06-10"
-      ],
+      "queryHashes": ["84fef1d16bbf", "47be5fe024a5", "19c10d3fc079", "5b5e29a75bad"],
+      "recallDays": ["2026-06-09", "2026-06-10"],
       "conceptTags": [
         "网关",
         "监控/安全/性能/测试",
@@ -698,12 +562,8 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-06-09T04:19:08.591Z",
       "lastRecalledAt": "2026-06-09T04:19:08.591Z",
-      "queryHashes": [
-        "037836a4410d"
-      ],
-      "recallDays": [
-        "2026-06-09"
-      ],
+      "queryHashes": ["037836a4410d"],
+      "recallDays": ["2026-06-09"],
       "conceptTags": [
         "auth.cinacoin.com/health",
         "cinacoin-auth",
@@ -729,12 +589,8 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-06-09T04:19:08.591Z",
       "lastRecalledAt": "2026-06-09T04:19:08.591Z",
-      "queryHashes": [
-        "037836a4410d"
-      ],
-      "recallDays": [
-        "2026-06-09"
-      ],
+      "queryHashes": ["037836a4410d"],
+      "recallDays": ["2026-06-09"],
       "conceptTags": [
         "gateway",
         "api/users",
@@ -767,12 +623,7 @@
         "4c38e3170647",
         "278534101ddb"
       ],
-      "recallDays": [
-        "2026-06-09",
-        "2026-06-12",
-        "2026-06-13",
-        "2026-06-14"
-      ],
+      "recallDays": ["2026-06-09", "2026-06-12", "2026-06-13", "2026-06-14"],
       "conceptTags": [
         "google/github/discord",
         "app.cinacoin.com",
@@ -805,22 +656,8 @@
         "4c38e3170647",
         "278534101ddb"
       ],
-      "recallDays": [
-        "2026-06-09",
-        "2026-06-12",
-        "2026-06-13",
-        "2026-06-14"
-      ],
-      "conceptTags": [
-        "next.js",
-        "缓存/会话",
-        "50-200",
-        "ssl",
-        "证书",
-        "确认",
-        "所有",
-        "定义"
-      ]
+      "recallDays": ["2026-06-09", "2026-06-12", "2026-06-13", "2026-06-14"],
+      "conceptTags": ["next.js", "缓存/会话", "50-200", "ssl", "证书", "确认", "所有", "定义"]
     },
     "memory:memory/2026-06-08.md:92:131": {
       "key": "memory:memory/2026-06-08.md:92:131",
@@ -836,14 +673,8 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-06-10T01:23:58.974Z",
       "lastRecalledAt": "2026-06-10T03:26:06.986Z",
-      "queryHashes": [
-        "47be5fe024a5",
-        "19c10d3fc079",
-        "5b5e29a75bad"
-      ],
-      "recallDays": [
-        "2026-06-10"
-      ],
+      "queryHashes": ["47be5fe024a5", "19c10d3fc079", "5b5e29a75bad"],
+      "recallDays": ["2026-06-10"],
       "conceptTags": [
         "网关",
         "p0/p1/p2",
@@ -869,14 +700,8 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-06-10T01:23:58.974Z",
       "lastRecalledAt": "2026-06-10T03:26:06.986Z",
-      "queryHashes": [
-        "47be5fe024a5",
-        "19c10d3fc079",
-        "5b5e29a75bad"
-      ],
-      "recallDays": [
-        "2026-06-10"
-      ],
+      "queryHashes": ["47be5fe024a5", "19c10d3fc079", "5b5e29a75bad"],
+      "recallDays": ["2026-06-10"],
       "conceptTags": [
         "password-hash",
         "auth-type",
@@ -902,13 +727,8 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-06-10T01:23:58.974Z",
       "lastRecalledAt": "2026-06-10T03:26:06.986Z",
-      "queryHashes": [
-        "47be5fe024a5",
-        "5b5e29a75bad"
-      ],
-      "recallDays": [
-        "2026-06-10"
-      ],
+      "queryHashes": ["47be5fe024a5", "5b5e29a75bad"],
+      "recallDays": ["2026-06-10"],
       "conceptTags": [
         "gateway",
         "apps/api-gateway",
@@ -934,12 +754,8 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-06-10T03:26:06.986Z",
       "lastRecalledAt": "2026-06-10T03:26:06.986Z",
-      "queryHashes": [
-        "5b5e29a75bad"
-      ],
-      "recallDays": [
-        "2026-06-10"
-      ],
+      "queryHashes": ["5b5e29a75bad"],
+      "recallDays": ["2026-06-10"],
       "conceptTags": [
         "coinprovider.tsx",
         "connectbutton.tsx",
@@ -965,16 +781,8 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-06-12T02:28:18.484Z",
       "lastRecalledAt": "2026-06-14T04:14:55.912Z",
-      "queryHashes": [
-        "891f6b199a92",
-        "4c38e3170647",
-        "278534101ddb"
-      ],
-      "recallDays": [
-        "2026-06-12",
-        "2026-06-13",
-        "2026-06-14"
-      ],
+      "queryHashes": ["891f6b199a92", "4c38e3170647", "278534101ddb"],
+      "recallDays": ["2026-06-12", "2026-06-13", "2026-06-14"],
       "conceptTags": [
         "google/github/discord",
         "app.cinacoin.com",
@@ -1000,16 +808,8 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-06-12T02:28:18.484Z",
       "lastRecalledAt": "2026-06-14T04:14:55.912Z",
-      "queryHashes": [
-        "891f6b199a92",
-        "4c38e3170647",
-        "278534101ddb"
-      ],
-      "recallDays": [
-        "2026-06-12",
-        "2026-06-13",
-        "2026-06-14"
-      ],
+      "queryHashes": ["891f6b199a92", "4c38e3170647", "278534101ddb"],
+      "recallDays": ["2026-06-12", "2026-06-13", "2026-06-14"],
       "conceptTags": [
         "app.cinacoin.com",
         "data.cinacoin.com",
@@ -1035,26 +835,9 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-06-12T02:28:18.484Z",
       "lastRecalledAt": "2026-06-14T04:14:55.912Z",
-      "queryHashes": [
-        "891f6b199a92",
-        "4c38e3170647",
-        "278534101ddb"
-      ],
-      "recallDays": [
-        "2026-06-12",
-        "2026-06-13",
-        "2026-06-14"
-      ],
-      "conceptTags": [
-        "next.js",
-        "缓存/会话",
-        "50-200",
-        "ssl",
-        "证书",
-        "确认",
-        "所有",
-        "定义"
-      ]
+      "queryHashes": ["891f6b199a92", "4c38e3170647", "278534101ddb"],
+      "recallDays": ["2026-06-12", "2026-06-13", "2026-06-14"],
+      "conceptTags": ["next.js", "缓存/会话", "50-200", "ssl", "证书", "确认", "所有", "定义"]
     },
     "memory:memory/2026-06-09.md:553:605": {
       "key": "memory:memory/2026-06-09.md:553:605",
@@ -1063,22 +846,15 @@
       "endLine": 605,
       "source": "memory",
       "snippet": "- ⏳ 前端集成测试 # 2026-06-09 Daily Notes ## Cloudflare 部署完成 (01:30 UTC) ### 任务完成状态 ✅ **任务 1: 配置自定义域名** - 完成 ✅ **任务 3: 验证部署** - 完成 ✅ **任务 4: 集成测试** - 完成 --- ## 基础设施部署 ### D1 数据库 | 数据库 | ID | 表数量 | 状态 | |--------|-----|--------|------| | cinacoin-auth | dbb6063f-86ca-4ac2-b960-25bbb752b73d | 12 | ✅ | | cinacoin-users | 1772bf0d-5e3b-4a18-b143-1bb2c3d29b62 | 5 | ✅ | ### KV 命名空间 | 名称 | ID | 用途 | |------|-----|------| | RATE_LIMIT_KV | dceb86e5cb4c4a008013c8cf21d7181c | API 限流 | | SESSION_KV | 4a9aca26d37c4f9babb340b3865219c0 | 会话存储 | ### R2 存储桶 | 名称 | 用途 | 状态 | |------|------|------| | cinacoin-avatars | 用户头像 | ✅ | | cinacoin-backups | 数据备份 | ✅ | --- ## Workers 部署 ### 服务列表 | 服务 | 自定义域名 |",
-      "recallCount": 4,
+      "recallCount": 5,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 4,
+      "totalScore": 5,
       "maxScore": 1,
       "firstRecalledAt": "2026-06-13T05:02:42.050Z",
-      "lastRecalledAt": "2026-06-14T06:02:46.727Z",
-      "queryHashes": [
-        "5456ab8ab88e",
-        "2e89b8cf740b",
-        "751a2c96080d"
-      ],
-      "recallDays": [
-        "2026-06-13",
-        "2026-06-14"
-      ],
+      "lastRecalledAt": "2026-06-14T11:00:49.655Z",
+      "queryHashes": ["5456ab8ab88e", "2e89b8cf740b", "751a2c96080d", "596d94bd9010"],
+      "recallDays": ["2026-06-13", "2026-06-14"],
       "conceptTags": [
         "backup",
         "backups",
@@ -1097,22 +873,15 @@
       "endLine": 1369,
       "source": "memory",
       "snippet": "### 🔴 发现问题 1. **登录接口 500 错误** — 已修复 ✅ 2. **Wallet Explorer 重定向循环** — 已修复，需部署 ⚠️ --- ## 下一步行动 1. **执行 Wallet Explorer 部署命令** 2. **验证登录流程完整可用** 3. **配置 RESEND_API_KEY**（如需要邮件功能） # 2026-06-09 Daily Notes ## Cloudflare 部署完成 (01:30 UTC) ### 任务完成状态 ✅ **任务 1: 配置自定义域名** - 完成 ✅ **任务 3: 验证部署** - 完成 ✅ **任务 4: 集成测试** - 完成 --- ## 基础设施部署 ### D1 数据库 | 数据库 | ID | 表数量 | 状态 | |--------|-----|--------|------| | cinacoin-auth | dbb6063f-86ca-4ac2-b960-25bbb752b73d | 12 | ✅ | | cinacoin-users | 1772bf0d-5e3b-4a18-b143-1bb2c3d29b62 | 5 | ✅ | ### KV 命名空间 | 名称 | ID | 用途 | |------|-----|------| | RATE_LIMIT_KV | dceb86e5cb4c4a008013c8cf21d7181c | API 限流 | | SESSION_KV | 4a9aca26d37c4f9babb340b3865219c0",
-      "recallCount": 4,
+      "recallCount": 5,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 4,
+      "totalScore": 5,
       "maxScore": 1,
       "firstRecalledAt": "2026-06-13T05:02:42.050Z",
-      "lastRecalledAt": "2026-06-14T06:02:46.727Z",
-      "queryHashes": [
-        "5456ab8ab88e",
-        "2e89b8cf740b",
-        "751a2c96080d"
-      ],
-      "recallDays": [
-        "2026-06-13",
-        "2026-06-14"
-      ],
+      "lastRecalledAt": "2026-06-14T11:00:49.655Z",
+      "queryHashes": ["5456ab8ab88e", "2e89b8cf740b", "751a2c96080d", "596d94bd9010"],
+      "recallDays": ["2026-06-13", "2026-06-14"],
       "conceptTags": [
         "resend-api-key",
         "cinacoin-auth",
@@ -1138,13 +907,8 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-06-13T08:19:00.201Z",
       "lastRecalledAt": "2026-06-13T08:19:04.174Z",
-      "queryHashes": [
-        "e574edac368d",
-        "a9dd13ed2417"
-      ],
-      "recallDays": [
-        "2026-06-13"
-      ],
+      "queryHashes": ["e574edac368d", "a9dd13ed2417"],
+      "recallDays": ["2026-06-13"],
       "conceptTags": [
         "two-factor",
         "wallet-explorer/public",
@@ -1170,13 +934,8 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-06-13T08:19:00.201Z",
       "lastRecalledAt": "2026-06-13T08:19:04.174Z",
-      "queryHashes": [
-        "e574edac368d",
-        "a9dd13ed2417"
-      ],
-      "recallDays": [
-        "2026-06-13"
-      ],
+      "queryHashes": ["e574edac368d", "a9dd13ed2417"],
+      "recallDays": ["2026-06-13"],
       "conceptTags": [
         "backup",
         "backups",
@@ -1202,13 +961,8 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-06-13T08:19:00.201Z",
       "lastRecalledAt": "2026-06-13T08:19:04.174Z",
-      "queryHashes": [
-        "e574edac368d",
-        "a9dd13ed2417"
-      ],
-      "recallDays": [
-        "2026-06-13"
-      ],
+      "queryHashes": ["e574edac368d", "a9dd13ed2417"],
+      "recallDays": ["2026-06-13"],
       "conceptTags": [
         "backup",
         "backups",
@@ -1234,13 +988,8 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-06-13T08:19:00.201Z",
       "lastRecalledAt": "2026-06-13T08:19:04.174Z",
-      "queryHashes": [
-        "e574edac368d",
-        "a9dd13ed2417"
-      ],
-      "recallDays": [
-        "2026-06-13"
-      ],
+      "queryHashes": ["e574edac368d", "a9dd13ed2417"],
+      "recallDays": ["2026-06-13"],
       "conceptTags": [
         "login/register",
         "cc-ink",
@@ -1266,13 +1015,8 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-06-13T11:46:42.457Z",
       "lastRecalledAt": "2026-06-13T12:16:02.477Z",
-      "queryHashes": [
-        "503cfb668307",
-        "44e40a72cd12"
-      ],
-      "recallDays": [
-        "2026-06-13"
-      ],
+      "queryHashes": ["503cfb668307", "44e40a72cd12"],
+      "recallDays": ["2026-06-13"],
       "conceptTags": [
         "gateway",
         "workers/api-gateway/src/index.ts",
@@ -1298,12 +1042,8 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-06-13T11:46:42.457Z",
       "lastRecalledAt": "2026-06-13T11:46:42.457Z",
-      "queryHashes": [
-        "503cfb668307"
-      ],
-      "recallDays": [
-        "2026-06-13"
-      ],
+      "queryHashes": ["503cfb668307"],
+      "recallDays": ["2026-06-13"],
       "conceptTags": [
         "font-family",
         "font-sans",
@@ -1329,12 +1069,8 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-06-13T11:46:42.457Z",
       "lastRecalledAt": "2026-06-13T11:46:42.457Z",
-      "queryHashes": [
-        "503cfb668307"
-      ],
-      "recallDays": [
-        "2026-06-13"
-      ],
+      "queryHashes": ["503cfb668307"],
+      "recallDays": ["2026-06-13"],
       "conceptTags": [
         "fix-titles",
         "dashboard/system/user/api",
@@ -1360,12 +1096,8 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-06-13T11:46:42.457Z",
       "lastRecalledAt": "2026-06-13T11:46:42.457Z",
-      "queryHashes": [
-        "503cfb668307"
-      ],
-      "recallDays": [
-        "2026-06-13"
-      ],
+      "queryHashes": ["503cfb668307"],
+      "recallDays": ["2026-06-13"],
       "conceptTags": [
         "font-family",
         "e175b0c3.cinacoin-demo.pages.dev",
@@ -1391,12 +1123,8 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-06-13T11:46:42.457Z",
       "lastRecalledAt": "2026-06-13T11:46:42.457Z",
-      "queryHashes": [
-        "503cfb668307"
-      ],
-      "recallDays": [
-        "2026-06-13"
-      ],
+      "queryHashes": ["503cfb668307"],
+      "recallDays": ["2026-06-13"],
       "conceptTags": [
         "font-family",
         "e175b0c3.cinacoin-demo.pages.dev",
@@ -1415,20 +1143,15 @@
       "endLine": 568,
       "source": "memory",
       "snippet": "tokenHash, issuedAt, // ISO 字符串 expiresAt, // ISO 字符串 metadata?.ipAddress || null, metadata?.userAgent || null, Date.now() // created_at 时间戳 ); ``` #### token-rotation.ts - hashToken 异步调用 ```typescript // 修复前 const oldTokenHash = hashToken(oldToken); // 修复后 const oldTokenHash = await hashToken(oldToken); ``` ### 经验教训 1. **Cloudflare Workers 限制**: Web Crypto API 的 PBKDF2 迭代次数上限是 100,000，不是 OWASP 推荐的 600,000 2. **数据库迁移**: 代码和数据库表结构必须严格同步，缺少字段会导致运行时错误 3. **异步函数**: 必须检查函数签名，确保异步函数使用 `await` 调用 4. **日志调试**: `wrangler tail` 是调试 Cloudflare Workers 的关键工具 5. **限流清理**: 测试时频繁触发限流，需要定期清理 KV 中的限流记录 ### 下一步 - ✅ Auth Service 注册登录流程已完成 - ⏳ 测试 OAuth 登录流程（需要配置 Google/GitHub/Disc",
-      "recallCount": 3,
+      "recallCount": 4,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 3,
+      "totalScore": 4,
       "maxScore": 1,
       "firstRecalledAt": "2026-06-14T04:12:50.486Z",
-      "lastRecalledAt": "2026-06-14T06:02:46.727Z",
-      "queryHashes": [
-        "2e89b8cf740b",
-        "751a2c96080d"
-      ],
-      "recallDays": [
-        "2026-06-14"
-      ],
+      "lastRecalledAt": "2026-06-14T11:00:49.655Z",
+      "queryHashes": ["2e89b8cf740b", "751a2c96080d", "596d94bd9010"],
+      "recallDays": ["2026-06-14"],
       "conceptTags": [
         "date.now",
         "created-at",
@@ -1454,22 +1177,9 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-06-14T04:12:55.596Z",
       "lastRecalledAt": "2026-06-14T04:12:55.596Z",
-      "queryHashes": [
-        "2ac2b78e6e3d"
-      ],
-      "recallDays": [
-        "2026-06-14"
-      ],
-      "conceptTags": [
-        "缓存/会话",
-        "50-200ms",
-        "0-50/月",
-        "3/3",
-        "8/8",
-        "2/2",
-        "11/13",
-        "存储"
-      ]
+      "queryHashes": ["2ac2b78e6e3d"],
+      "recallDays": ["2026-06-14"],
+      "conceptTags": ["缓存/会话", "50-200ms", "0-50/月", "3/3", "8/8", "2/2", "11/13", "存储"]
     },
     "memory:memory/2026-06-09.md:714:772": {
       "key": "memory:memory/2026-06-09.md:714:772",
@@ -1485,22 +1195,9 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-06-14T04:12:55.596Z",
       "lastRecalledAt": "2026-06-14T04:12:55.596Z",
-      "queryHashes": [
-        "2ac2b78e6e3d"
-      ],
-      "recallDays": [
-        "2026-06-14"
-      ],
-      "conceptTags": [
-        "50-200ms",
-        "0-50/月",
-        "3/3",
-        "8/8",
-        "2/2",
-        "11/13",
-        "pages",
-        "部署"
-      ]
+      "queryHashes": ["2ac2b78e6e3d"],
+      "recallDays": ["2026-06-14"],
+      "conceptTags": ["50-200ms", "0-50/月", "3/3", "8/8", "2/2", "11/13", "pages", "部署"]
     },
     "memory:memory/2026-06-04.md:1:39": {
       "key": "memory:memory/2026-06-04.md:1:39",
@@ -1516,12 +1213,8 @@
       "maxScore": 1,
       "firstRecalledAt": "2026-06-14T04:13:07.900Z",
       "lastRecalledAt": "2026-06-14T04:13:07.900Z",
-      "queryHashes": [
-        "44a3e5f07d7d"
-      ],
-      "recallDays": [
-        "2026-06-14"
-      ],
+      "queryHashes": ["44a3e5f07d7d"],
+      "recallDays": ["2026-06-14"],
       "conceptTags": [
         "next.js",
         "2.1",
