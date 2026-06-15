@@ -26,6 +26,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { BaseLitElement } from '../foundation/base-element.js';
 import { animate } from '../foundation/animation-engine.js';
 import { t, isRTL } from '../i18n/index.js';
+import { addDocumentListener, removeDocumentListener, isBrowser } from '../dom-utils.js';
 
 export interface WalletInfo {
   id: string;
@@ -353,13 +354,13 @@ export class ConnectModal extends BaseLitElement {
   override connectedCallback() {
     super.connectedCallback();
     this._currentView = this.defaultView;
-    document.addEventListener('keydown', this._onKeydown);
-    if (isRTL()) this.setAttribute('dir', 'rtl');
+    addDocumentListener('keydown', this._onKeydown);
+    if (isBrowser() && isRTL()) this.setAttribute('dir', 'rtl');
   }
 
   override disconnectedCallback() {
     super.disconnectedCallback();
-    document.removeEventListener('keydown', this._onKeydown);
+    removeDocumentListener('keydown', this._onKeydown);
   }
 
   private _onKeydown = (e: KeyboardEvent) => {

@@ -16,6 +16,56 @@
         "types": "./dist/index.d.cts",
         "default": "./dist/index.cjs"
       }
+    },
+    "./modal": {
+      "import": {
+        "types": "./dist/Modal.d.ts",
+        "default": "./dist/Modal.js"
+      },
+      "require": {
+        "types": "./dist/Modal.d.cts",
+        "default": "./dist/Modal.cjs"
+      }
+    },
+    "./brand": {
+      "import": {
+        "types": "./dist/Brand.d.ts",
+        "default": "./dist/Brand.js"
+      },
+      "require": {
+        "types": "./dist/Brand.d.cts",
+        "default": "./dist/Brand.cjs"
+      }
+    },
+    "./site-header": {
+      "import": {
+        "types": "./dist/SiteHeader.d.ts",
+        "default": "./dist/SiteHeader.js"
+      },
+      "require": {
+        "types": "./dist/SiteHeader.d.cts",
+        "default": "./dist/SiteHeader.cjs"
+      }
+    },
+    "./site-footer": {
+      "import": {
+        "types": "./dist/SiteFooter.d.ts",
+        "default": "./dist/SiteFooter.js"
+      },
+      "require": {
+        "types": "./dist/SiteFooter.d.cts",
+        "default": "./dist/SiteFooter.cjs"
+      }
+    },
+    "./empty-state": {
+      "import": {
+        "types": "./dist/EmptyState.d.ts",
+        "default": "./dist/EmptyState.js"
+      },
+      "require": {
+        "types": "./dist/EmptyState.d.cts",
+        "default": "./dist/EmptyState.cjs"
+      }
     }
   },
   "files": [

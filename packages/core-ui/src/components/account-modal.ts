@@ -20,6 +20,7 @@ import { html, css, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { BaseLitElement } from '../foundation/base-element.js';
 import { t, isRTL } from '../i18n/index.js';
+import { addDocumentListener, removeDocumentListener, isBrowser, copyToClipboard } from '../dom-utils.js';
 
 export interface AccountInfo {
   address: string;
@@ -229,13 +230,13 @@ export class AccountModal extends BaseLitElement {
 
   override connectedCallback() {
     super.connectedCallback();
-    document.addEventListener('keydown', this._onKeydown);
-    if (isRTL()) this.setAttribute('dir', 'rtl');
+    addDocumentListener('keydown', this._onKeydown);
+    if (isBrowser() && isRTL()) this.setAttribute('dir', 'rtl');
   }
 
   override disconnectedCallback() {
     super.disconnectedCallback();
-    document.removeEventListener('keydown', this._onKeydown);
+    removeDocumentListener('keydown', this._onKeydown);
   }
 
   private _onKeydown = (e: KeyboardEvent) => {
@@ -248,7 +249,7 @@ export class AccountModal extends BaseLitElement {
   }
 
   private _copyAddress() {
-    navigator.clipboard?.writeText(this.address).catch(() => {});
+    copyToClipboard(this.address).catch(() => {});
     this.dispatchEvent(new CustomEvent('ocx-copy-address', { bubbles: true, composed: true }));
   }
 

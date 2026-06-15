@@ -350,6 +350,20 @@ export function CinacoinProvider({ config, children }: CinacoinProviderProps): J
     };
   }, []);
 
+  // Cleanup: disconnect active connector on unmount to prevent memory leaks
+  useEffect(() => {
+    return () => {
+      if (activeConnectorRef.current) {
+        try {
+          activeConnectorRef.current.disconnect();
+        } catch {
+          // Ignore disconnect errors during cleanup
+        }
+        activeConnectorRef.current = null;
+      }
+    };
+  }, []);
+
   // JSON-RPC request helper
   const request = useCallback(
     async <T = unknown>(method: string, params: unknown): Promise<T> => {
