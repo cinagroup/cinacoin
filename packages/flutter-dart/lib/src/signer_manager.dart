@@ -6,11 +6,13 @@ library signer_manager;
 
 import 'dart:convert';
 import 'dart:math';
+import 'dart:typed_data';
 import 'package:crypto/crypto.dart';
 import 'package:convert/convert.dart';
 
 import 'types.dart';
 import 'walletconnect_manager.dart';
+import '../appkit_smart_account/crypto_utils.dart';
 
 /// Signature result with metadata.
 class SignatureResult {
@@ -326,10 +328,14 @@ class SignerManager {
   }
 
   /// Compute the EIP-191 message hash.
+  ///
+  /// Uses Keccak-256 (Ethereum's standard hash function) rather than SHA-256.
+  /// The EIP-191 prefix is: "\x19Ethereum Signed Message:\n" + message.length + message.
   String hashMessage(String message) {
     final prefix = '\x19Ethereum Signed Message:\n${message.length}';
     final prefixed = utf8.encode(prefix) + utf8.encode(message);
-    final hash = sha256.convert(prefixed);
+    // Use Keccak-256 (Ethereum standard) instead of SHA-256
+    final hash = keccak256.convert(Uint8List.fromList(prefixed));
     return '0x${hex.encode(hash.bytes)}';
   }
 
