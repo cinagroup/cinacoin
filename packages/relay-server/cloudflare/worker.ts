@@ -100,8 +100,10 @@ const CORS_ALLOWED_ORIGINS = [
 
 const RATE_LIMIT_PER_MINUTE = 100;
 const MAX_MESSAGE_SIZE = 1_048_576; // 1 MB
-const MAX_CONNECTIONS_PER_TOPIC = 200;
+const MAX_CONNECTIONS_PER_TOPIC = 500; // Increased from 200 to handle higher concurrency
 const WS_IDLE_TIMEOUT_MS = 300_000; // 5 minutes
+const MAX_BROADCAST_BUFFER = 4096; // Per-connection outgoing message buffer (was implicit 1024)
+const MAX_TOPIC_HISTORY = 200; // In-memory message history per topic (was 50)
 
 // ---------------------------------------------------------------------------
 // Utility Functions
@@ -728,7 +730,7 @@ export class RelayTopic {
   private env: Env;
   private subscribers: Set<string> = new Set(); // connectionIds
   private messageHistory: ServerMessage[] = [];
-  private readonly MAX_HISTORY = 50;
+  private readonly MAX_HISTORY = MAX_TOPIC_HISTORY; // Use the global constant (200)
   private readonly MAX_SUBSCRIBERS = MAX_CONNECTIONS_PER_TOPIC;
 
   constructor(state: DurableObjectState, env: Env) {

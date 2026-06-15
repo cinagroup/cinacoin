@@ -303,6 +303,61 @@ interface Env {
 }
 
 // ---------------------------------------------------------------------------
+// Circuit Breaker (stale-while-revalidate)
+// ---------------------------------------------------------------------------
+
+interface CircuitState {
+  failures: number;
+  lastFailure: number;
+  state: 'closed' | 'open' | 'half-open';
+}
+
+const circuitBreakers = new Map<string, CircuitState>();
+const CIRCUIT_FAILURE_THRESHOLD = 5;
+const CIRCUIT_RESET_TIMEOUT = 60_000; // 1 minute
+
+function getCircuitState(url: string): CircuitState {
+  const existing = circuitBreakers.get(url);
+  if (!existing) {
+    const newState: CircuitState = { failures: 0, lastFailure: 0, state: 'closed' };
+    circuitBreakers.set(url, newState);
+    return newState;
+  }
+
+  // Check if open circuit should transition to half-open
+  if (existing.state === 'open' && Date.now() - existing.lastFailure > CIRCUIT_RESET_TIMEOUT) {
+    existing.state = 'half-open';
+  }
+
+  return existing;
+}
+
+function recordSuccess(url: string): void {
+  const state = circuitBreakers.get(url);
+  if (state) {
+    state.failures = 0;
+    state.state = 'closed';
+  }
+}
+
+function recordFailure(url: string): void {
+  const state = circuitBreakers.get(url);
+  if (!state) return;
+
+  state.failures++;
+  state.lastFailure = Date.now();
+
+  if (state.failures >= CIRCUIT_FAILURE_THRESHOLD) {
+    state.state = 'open';
+  }
+}
+
+function isCircuitOpen(url: string): boolean {
+  const state = getCircuitState(url);
+  return state.state === 'open';
+}
+
+// ---------------------------------------------------------------------------
 // Security Configuration
 // ---------------------------------------------------------------------------
 
@@ -528,39 +583,72 @@ async function handleRpc(
     metrics.cacheMisses++;
   }
 
-  // Forward to upstream with fallback support
+  // Forward to upstream with fallback support and circuit breaker
   const urls = [config.url, ...(config.fallbacks ?? [])];
 
   for (let i = 0; i < urls.length; i++) {
     const rpcUrl = urls[i];
+
+    // Circuit breaker: skip open circuits (unless half-open, which allows one probe)
+    if (isCircuitOpen(rpcUrl) && getCircuitState(rpcUrl).state === 'open') {
+      const requestId = extractRequestId(request);
+      logger.warn('Circuit open, skipping upstream', { requestId, url: rpcUrl });
+      continue;
+    }
+
     try {
       const result = await forwardToUpstream(rpcUrl, body);
 
-      // Cache successful read-only responses
-      if (readOnly && env.RPC_CACHE && result.ok) {
-        const key = cacheKey(chainId, body);
-        await env.RPC_CACHE.put(key, result.text, { expirationTtl: ttl });
+      if (result.ok) {
+        recordSuccess(rpcUrl);
+
+        // Cache successful read-only responses
+        if (readOnly && env.RPC_CACHE) {
+          const key = cacheKey(chainId, body);
+          // Store with normal TTL + a stale TTL for stale-while-revalidate
+          await env.RPC_CACHE.put(key, result.text, { expirationTtl: ttl });
+          // Also store a stale copy with longer TTL for circuit breaker fallback
+          if (readOnly) {
+            const staleKey = `stale:${cacheKey(chainId, body)}`;
+            await env.RPC_CACHE.put(staleKey, result.text, { expirationTtl: ttl * 10 });
+          }
+        }
+
+        return new Response(result.text, {
+          status: result.status,
+          headers,
+        });
       }
 
-      return new Response(result.text, {
-        status: result.status,
-        headers,
-      });
+      // Non-OK response — count as failure
+      recordFailure(rpcUrl);
     } catch (err) {
+      recordFailure(rpcUrl);
       const requestId = extractRequestId(request);
       logger.warn('Upstream failed, trying fallback', { requestId, chainId, method: body.method, url: rpcUrl, error: String(err) });
-      if (i === urls.length - 1) {
-        metrics.errorCount++;
-        logger.error('All upstreams failed', { requestId, chainId, method: body.method });
-        return new Response(
-          JSON.stringify({ jsonrpc: "2.0", error: { code: -32603, message: "Upstream request failed" }, id: body.id ?? null } as JsonRpcResponse),
-          { status: 502, headers }
-        );
-      }
+    }
+  }
+
+  // All upstreams failed — try stale cache (stale-while-revalidate)
+  if (readOnly && env.RPC_CACHE) {
+    const staleKey = `stale:${cacheKey(chainId, body)}`;
+    const staleCached = await env.RPC_CACHE.get(staleKey);
+    if (staleCached) {
+      const requestId = extractRequestId(request);
+      logger.warn('All upstreams failed, serving stale cache', { requestId, chainId, method: body.method });
+      return new Response(staleCached, {
+        headers: {
+          ...headers,
+          'X-Stale-Cache': 'true',
+          'Cache-Control': 'no-cache', // Don't let clients cache the stale response
+        },
+      });
     }
   }
 
   metrics.errorCount++;
+  const requestId = extractRequestId(request);
+  logger.error('All upstreams failed and no stale cache available', { requestId, chainId, method: body.method });
   return new Response(
     JSON.stringify({ jsonrpc: "2.0", error: { code: -32603, message: "Upstream request failed" }, id: body.id ?? null } as JsonRpcResponse),
     { status: 502, headers }

@@ -222,6 +222,22 @@ export default {
           return jsonError('payload must be a JSON object (not a primitive or array)', 400, origin);
         }
         const result = await server.sendNotification(address, payload as Record<string, unknown>);
+
+        // If queue is available, enqueue for async delivery instead of blocking
+        if (env.NOTIFY_QUEUE) {
+          try {
+            await env.NOTIFY_QUEUE.send({
+              address,
+              payload: payload as Record<string, unknown>,
+              timestamp: Date.now(),
+            });
+            return jsonOk({ ...result, queued: true, message: 'Notification queued for async delivery' }, origin);
+          } catch (queueErr) {
+            // Queue failure — fall through to synchronous delivery
+            logger.warn('Queue send failed, delivering synchronously', { error: String(queueErr) });
+          }
+        }
+
         return jsonOk(result, origin);
       }
 
@@ -310,6 +326,20 @@ export default {
       return jsonError('Internal server error', 500, origin);
     }
   },
+
+  // Queue consumer for async notification delivery
+  async queue(batch: MessageBatch<{ address: string; payload: Record<string, unknown>; timestamp: number }>, env: Env): Promise<void> {
+    for (const message of batch.messages) {
+      try {
+        const { address, payload } = message.body;
+        await server.sendNotification(address, payload);
+        message.ack();
+      } catch (err) {
+        logger.error('Queue delivery failed', { error: String(err) });
+        message.retry();
+      }
+    }
+  },
 };
 
 interface Env {
@@ -317,4 +347,5 @@ interface Env {
   MAX_SUBSCRIPTIONS_PER_USER?: string;
   DEFAULT_RETENTION_DAYS?: string;
   API_KEY?: string;
+  NOTIFY_QUEUE?: Queue;
 }

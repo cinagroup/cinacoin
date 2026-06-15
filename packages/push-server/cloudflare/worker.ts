@@ -573,6 +573,9 @@ async function handlePushBatch(request: Request, env: Env, origin: string | null
   const allResults: DeliveryResult[] = [];
 
   try {
+    // Build all delivery tasks first, then execute in parallel
+    const deliveryTasks: Promise<void>[] = [];
+
     for (const item of notifications) {
       const title = item.title as string;
       const msgBody = item.body as string;
@@ -600,30 +603,38 @@ async function handlePushBatch(request: Request, env: Env, origin: string | null
         continue;
       }
 
+      // Create parallel delivery tasks for all resolved devices
       for (const device of devices) {
-        const delivery = await deliverToToken(
-          device.platform as 'fcm' | 'apns',
-          device.token,
-          title,
-          msgBody || '',
-          data,
-          env,
+        deliveryTasks.push(
+          (async () => {
+            const delivery = await deliverToToken(
+              device.platform as 'fcm' | 'apns',
+              device.token,
+              title,
+              msgBody || '',
+              data,
+              env,
+            );
+
+            if (delivery.success) {
+              successDeliveryCount++;
+            } else {
+              failedDeliveryCount++;
+            }
+
+            allResults.push({
+              deviceId: device.id,
+              success: delivery.success,
+              message: delivery.message,
+              timestamp: Date.now(),
+            });
+          })()
         );
-
-        if (delivery.success) {
-          successDeliveryCount++;
-        } else {
-          failedDeliveryCount++;
-        }
-
-        allResults.push({
-          deviceId: device.id,
-          success: delivery.success,
-          message: delivery.message,
-          timestamp: Date.now(),
-        });
       }
     }
+
+    // Execute all deliveries in parallel
+    await Promise.all(deliveryTasks);
 
     const succeeded = allResults.filter((r) => r.success).length;
     return jsonOk(
