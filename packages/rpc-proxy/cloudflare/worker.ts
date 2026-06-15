@@ -23,11 +23,14 @@ function extractRequestId(request: Request): string {
 const logger = createLogger('rpc-proxy');
 
 // ---------------------------------------------------------------------------
-// Rate Limiting
+// Rate Limiting (KV-persisted across worker instances)
 // ---------------------------------------------------------------------------
 
 interface RateEntry { count: number; resetAt: number }
-const rateLimits = new Map<string, RateEntry>();
+
+// In-memory LRU cache for hot path (avoids KV read on every request)
+const rateLimitCache = new Map<string, RateEntry>();
+const RATE_LIMIT_CACHE_SIZE = 10000;
 
 function getClientIp(request: Request): string {
   return request.headers.get('cf-connecting-ip')
@@ -35,15 +38,56 @@ function getClientIp(request: Request): string {
     ?? 'unknown';
 }
 
-function checkRate(ip: string, limit: number): boolean {
+async function checkRate(env: Env, ip: string, limit: number): Promise<boolean> {
   const now = Date.now();
-  const entry = rateLimits.get(ip);
-  if (!entry || now > entry.resetAt) {
-    rateLimits.set(ip, { count: 1, resetAt: now + 60000 });
+  const cacheKey = `rl:${ip}`;
+
+  // Check in-memory cache first
+  const cached = rateLimitCache.get(ip);
+  if (cached && now < cached.resetAt) {
+    if (cached.count >= limit) return false;
+    cached.count++;
     return true;
   }
-  if (entry.count >= limit) return false;
-  entry.count++;
+
+  // Fallback to KV for cross-instance persistence
+  if (env.RPC_CACHE) {
+    try {
+      const stored = await env.RPC_CACHE.get(cacheKey, 'json') as RateEntry | null;
+      if (stored && now < stored.resetAt) {
+        if (stored.count >= limit) {
+          rateLimitCache.set(ip, stored);
+          return false;
+        }
+        stored.count++;
+        const ttlSec = Math.ceil((stored.resetAt - now) / 1000);
+        await env.RPC_CACHE.put(cacheKey, JSON.stringify(stored), { expirationTtl: ttlSec });
+        rateLimitCache.set(ip, stored);
+        return true;
+      }
+    } catch {
+      // KV failure — fall through to in-memory only
+    }
+  }
+
+  // New window
+  const entry: RateEntry = { count: 1, resetAt: now + 60000 };
+  rateLimitCache.set(ip, entry);
+
+  // Evict old entries if cache too large
+  if (rateLimitCache.size > RATE_LIMIT_CACHE_SIZE) {
+    const firstKey = rateLimitCache.keys().next().value;
+    if (firstKey) rateLimitCache.delete(firstKey);
+  }
+
+  // Persist to KV
+  if (env.RPC_CACHE) {
+    try {
+      await env.RPC_CACHE.put(cacheKey, JSON.stringify(entry), { expirationTtl: 60 });
+    } catch {
+      // Non-critical
+    }
+  }
   return true;
 }
 
@@ -56,7 +100,7 @@ const DEFAULT_RATE_LIMIT = 100; // requests per minute
 
 interface ChainConfig {
   url: string;
-  fallback?: string;
+  fallbacks?: string[];
   readOnlyMethods?: Set<string>;  // chain-specific (union with EVM set for EVM chains)
 }
 
@@ -71,17 +115,18 @@ const CHAIN_RPC_URLS: Record<string, string> = {
 
 const CHAIN_CONFIG: Record<string, ChainConfig> = {
   // --- EVM chains (reuse READ_ONLY_METHODS) ---
-  "1":      { url: "https://ethereum.publicnode.com",    fallback: "https://rpc.mevblocker.io" },
-  "42161":  { url: "https://arb1.arbitrum.io/rpc",        fallback: "https://arbitrum-one.publicnode.com" },
-  "8453":   { url: "https://mainnet.base.org",            fallback: "https://base.publicnode.com" },
-  "137":    { url: "https://polygon-bor.publicnode.com",             fallback: "https://polygon-mainnet.public.blastapi.io" },
-  "10":     { url: "https://mainnet.optimism.io",         fallback: "https://optimism-mainnet.public.blastapi.io" },
-  "56":     { url: "https://bsc-dataseed1.binance.org",   fallback: "https://bsc-dataseed2.binance.org" },
+  "1":      { url: "https://cloudflare-eth.com",           fallbacks: ["https://ethereum.publicnode.com", "https://rpc.mevblocker.io"] },
+  "42161":  { url: "https://arb1.arbitrum.io/rpc",        fallbacks: ["https://arbitrum-one.publicnode.com"] },
+  "8453":   { url: "https://mainnet.base.org",            fallbacks: ["https://base.publicnode.com"] },
+  "137":    { url: "https://polygon-bor.publicnode.com",             fallbacks: ["https://polygon-mainnet.public.blastapi.io"] },
+  "10":     { url: "https://mainnet.optimism.io",         fallbacks: ["https://optimism-mainnet.public.blastapi.io"] },
+  "56":     { url: "https://bsc-dataseed1.binance.org",   fallbacks: ["https://bsc-dataseed2.binance.org"] },
+  "43114":  { url: "https://api.avax.network/ext/bc/C/rpc", fallbacks: ["https://avalanche-c-chain.publicnode.com", "https://avalanche-mainnet.public.blastapi.io"] },
 
   // --- Solana ---
   "solana": {
     url: "https://api.mainnet-beta.solana.com",
-    fallback: "https://solana-rpc.publicnode.com",
+    fallbacks: ["https://solana-rpc.publicnode.com"],
     readOnlyMethods: new Set([
       "getAccountInfo", "getBalance", "getBlockHeight", "getBlockProduction",
       "getBlockCommitment", "getBlocks", "getBlocksWithLimit", "getBlockTime",
@@ -103,7 +148,7 @@ const CHAIN_CONFIG: Record<string, ChainConfig> = {
   // --- TRON ---
   "tron": {
     url: "https://api.trongrid.io",
-    fallback: "https://tron-rpc.publicnode.com",
+    fallbacks: ["https://tron-rpc.publicnode.com"],
     readOnlyMethods: new Set([
       "wallet/getaccount", "wallet/getbalance", "wallet/getblock",
       "wallet/getblockbyid", "wallet/getblockbylimitnext", "wallet/getblockbylatestnum",
@@ -119,7 +164,7 @@ const CHAIN_CONFIG: Record<string, ChainConfig> = {
   // --- TON ---
   "ton": {
     url: "https://toncenter.com/api/v2/jsonRPC",
-    fallback: "https://ton.api.onfinality.io/public",
+    fallbacks: ["https://ton.api.onfinality.io/public"],
     readOnlyMethods: new Set([
       "getAddressBalance", "getTransactions", "getAddressInformation",
       "getExtendedAddressInformation", "getWalletInformation", "getAddressBook",
@@ -133,7 +178,7 @@ const CHAIN_CONFIG: Record<string, ChainConfig> = {
   // --- Sui ---
   "sui": {
     url: "https://fullnode.mainnet.sui.io",
-    fallback: "https://sui-mainnet.public.blastapi.io",
+    fallbacks: ["https://sui-mainnet.public.blastapi.io"],
     readOnlyMethods: new Set([
       "suix_getBalance", "suix_getAllBalances", "suix_getCoinMetadata",
       "suix_getCoins", "suix_getAllCoins", "suix_getTotalSupply",
@@ -152,7 +197,7 @@ const CHAIN_CONFIG: Record<string, ChainConfig> = {
   // --- Cosmos (REST API) ---
   "cosmos": {
     url: "https://rest.cosmos.directory/cosmoshub",
-    fallback: "https://cosmos-rest.publicnode.com",
+    fallbacks: ["https://cosmos-rest.publicnode.com"],
     // Cosmos uses REST endpoints; for proxy compatibility we pass through
     // The proxy will forward GET requests and POST with JSON-RPC-like bodies
     readOnlyMethods: new Set(["_all_readonly"]), // all Cosmos queries are read-only
@@ -161,7 +206,7 @@ const CHAIN_CONFIG: Record<string, ChainConfig> = {
   // --- NEAR ---
   "near": {
     url: "https://rpc.mainnet.near.org",
-    fallback: "https://near.lava.build",
+    fallbacks: ["https://near.lava.build"],
     readOnlyMethods: new Set([
       "query", "block", "chunk", "gas_price", "status", "health",
       "network_info", "validators", "block_by_id", "light_client_proof",
@@ -189,6 +234,33 @@ const READ_ONLY_METHODS = new Set([
   "net_version",
   "web3_clientVersion",
 ]);
+
+// Per-method cache TTL (seconds) — fine-grained control
+const METHOD_CACHE_TTL: Record<string, number> = {
+  eth_blockNumber: 12,        // ~1 block
+  eth_getBalance: 60,         // 1 minute
+  eth_call: 60,               // 1 minute
+  eth_chainId: 3600,          // never changes
+  net_version: 3600,          // never changes
+  eth_getCode: 300,           // 5 minutes
+  eth_getStorageAt: 300,      // 5 minutes
+  eth_getTransactionCount: 30, // 30 seconds (nonce changes often)
+  eth_gasPrice: 15,           // 15 seconds (volatile)
+  eth_estimateGas: 30,        // 30 seconds
+  eth_feeHistory: 30,         // 30 seconds
+  eth_getBlockByHash: 3600,   // immutable by hash
+  eth_getBlockByNumber: 300,  // depends on finality
+  eth_getTransactionByHash: 300,
+  eth_getTransactionReceipt: 300,
+  eth_getLogs: 300,
+  web3_clientVersion: 86400,  // 24 hours
+};
+
+const DEFAULT_CACHE_TTL = 300; // fallback 5 minutes
+
+function getCacheTtl(method: string): number {
+  return METHOD_CACHE_TTL[method] ?? DEFAULT_CACHE_TTL;
+}
 
 interface JsonRpcRequest {
   jsonrpc: string;
@@ -443,7 +515,7 @@ async function handleRpc(
   // They are never cached regardless of read-only status.
 
   const readOnly = isReadOnly(body.method);
-  const ttl = Number(env.CACHE_TTL) || 300;
+  const ttl = getCacheTtl(body.method);
 
   // Try cache for read-only methods
   if (readOnly && env.RPC_CACHE) {
@@ -457,8 +529,7 @@ async function handleRpc(
   }
 
   // Forward to upstream with fallback support
-  const urls = [config.url];
-  if (config.fallback) urls.push(config.fallback);
+  const urls = [config.url, ...(config.fallbacks ?? [])];
 
   for (let i = 0; i < urls.length; i++) {
     const rpcUrl = urls[i];
@@ -518,7 +589,7 @@ export default {
     // Rate limiting (skip health check)
     if (url.pathname !== "/health") {
       const ip = getClientIp(request);
-      if (!checkRate(ip, DEFAULT_RATE_LIMIT)) {
+      if (!await checkRate(env, ip, DEFAULT_RATE_LIMIT)) {
         return new Response(JSON.stringify({ error: "rate_limit_exceeded" }), {
           status: 429,
           headers: { "Content-Type": "application/json", ...makeCorsHeaders(origin) },
