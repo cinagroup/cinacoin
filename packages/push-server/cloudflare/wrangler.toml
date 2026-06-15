@@ -1,39 +1,39 @@
 name = "cinacoin-push-server"
 main = "worker.ts"
 compatibility_date = "2024-01-01"
+node_compat = true
 
 [vars]
 LOG_LEVEL = "info"
-MAX_QUEUE_SIZE = "1000"
-DEFAULT_RETRY_ATTEMPTS = "3"
-DEFAULT_TIMEOUT_MS = "5000"
+APNS_PRODUCTION = "false"
 
 # Secrets (set with: wrangler secret put <name>)
-# FCM_API_KEY - Firebase Cloud Messaging API key
+# API_KEY - Bearer token for API authentication
 # FCM_PROJECT_ID - Firebase project ID
+# FCM_SERVICE_ACCOUNT_KEY - FCM service account JSON key
 # APNS_KEY_ID - Apple Push Notification Service key ID
 # APNS_TEAM_ID - Apple developer team ID
-# APNS_P8_KEY - Apple P8 private key
-# APNS_PRODUCTION - boolean (true for production, false for sandbox)
+# APNS_BUNDLE_ID - App bundle ID for APNs
+# APNS_PRIVATE_KEY - Apple P8 private key content
+# CORS_ORIGINS - Comma-separated list of allowed CORS origins
 
+# D1 database for device storage
+[[d1_databases]]
+binding = "PUSH_DB"
+database_name = "cinacoin-push-devices"
+database_id = "4c889c2b-91d5-4ef5-9cd6-6c5d7799bf64"
 
-# KV namespace for device tokens
-[[kv_namespaces]]
-binding = "DEVICE_TOKENS"
-id = "10680718388843678a48f5f2ed045cc0"
-
-# KV namespace for rate limiting (distributed, replaces in-memory store)
+# KV namespace for rate limiting
 [[kv_namespaces]]
 binding = "RATE_LIMITS"
 id = "10680718388843678a48f5f2ed045cc0"
 
-# D1 database for push log (optional)
-[[d1_databases]]
-binding = "PUSH_LOG_DB"
-database_name = "cinacoin-push"
-database_id = "4c889c2b-91d5-4ef5-9cd6-6c5d7799bf64"
-
-# Queues for background processing (optional)
+# Queue for background push processing (optional)
 [[queues.producers]]
 binding = "PUSH_QUEUE"
 queue = "cinacoin-push-queue"
+
+[[queues.consumers]]
+queue = "cinacoin-push-queue"
+max_batch_size = 50
+max_batch_timeout = 5
