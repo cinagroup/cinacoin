@@ -1,23 +1,49 @@
 name = "cinacoin-relay-server"
 main = "worker.ts"
-compatibility_date = "2024-01-01"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
 
+# Production route
 routes = [
   { pattern = "relay.cinacoin.com/*", zone_name = "cinacoin.com" }
 ]
 
+# Durable Objects
 [durable_objects]
 bindings = [
-  { name = "RELAY_SESSION", class_name = "RelaySession" }
+  { name = "RELAY_CONNECTION", class_name = "RelayConnection" },
+  { name = "RELAY_TOPIC", class_name = "RelayTopic" }
 ]
 
+# Durable Objects migrations
 [[migrations]]
 tag = "v1"
-new_sqlite_classes = ["RelaySession"]
+new_sqlite_classes = ["RelayConnection", "RelayTopic"]
 
+# KV namespace for offline message persistence
 [[kv_namespaces]]
 binding = "RELAY_CACHE"
 id = "1a8dc90cb91c423695be43ce74028c88"
 
+# Environment variables
 [vars]
 RELAY_URL = "wss://relay.walletconnect.com"
+
+# Production environment overrides
+[env.production]
+name = "cinacoin-relay-server-prod"
+routes = [
+  { pattern = "relay.cinacoin.com/*", zone_name = "cinacoin.com" }
+]
+
+# Staging environment
+[env.staging]
+name = "cinacoin-relay-server-staging"
+routes = [
+  { pattern = "relay-staging.cinacoin.com/*", zone_name = "cinacoin.com" }
+]
+
+# Development environment
+[env.dev]
+name = "cinacoin-relay-server-dev"
+# Dev uses `wrangler dev` directly, no routes
