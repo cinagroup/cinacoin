@@ -661,6 +661,7 @@ public enum RelayHealth: Equatable {
     case connecting
     case disconnected
     case reconnecting
+    case degraded
 }
 
 /// WC client connection status.

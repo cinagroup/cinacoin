@@ -1,0 +1,44 @@
+# Complete user journey: connect → sign → send → disconnect
+appId: com.cinacoin.demo
+---
+- runFlow: subflows/launch.yaml
+
+# Step 1: Connect wallet
+- tapOn: { id: "connect_button" }
+- assertVisible: { id: "wallet_list" }
+- tapOn: { text: "MetaMask" }
+- assertVisible: { id: "qr_code" }
+- tapOn: { id: "simulate_connection" }
+- assertVisible: { id: "connected_address" }
+
+# Step 2: Verify chain selector
+- tapOn: { id: "chain_selector" }
+- assertVisible: { id: "chain_list" }
+- tapOn: { text: "Ethereum" }
+- assertVisible: { id: "chain_badge", text: "ETH" }
+
+# Step 3: Sign a message
+- tapOn: { id: "sign_button" }
+- assertVisible: { id: "sign_modal" }
+- inputText: { id: "message_input", text: "Hello, Cinacoin!" }
+- tapOn: { id: "confirm_sign" }
+- assertVisible: { text: "Signature:" }
+- tapOn: { id: "close_modal" }
+
+# Step 4: Send transaction
+- tapOn: { id: "send_button" }
+- assertVisible: { id: "send_modal" }
+- inputText: { id: "recipient", text: "0x742d35Cc6634C0532925a3b844Bc9e7595f2bD18" }
+- inputText: { id: "amount", text: "0.01" }
+- tapOn: { id: "confirm_send" }
+- assertVisible: { text: "Transaction sent" }
+- tapOn: { id: "close_modal" }
+
+# Step 5: Switch chain
+- tapOn: { id: "chain_selector" }
+- tapOn: { text: "Polygon" }
+- assertVisible: { id: "chain_badge", text: "POL" }
+
+# Step 6: Disconnect
+- tapOn: { id: "disconnect_button" }
+- assertVisible: { id: "connect_button" }

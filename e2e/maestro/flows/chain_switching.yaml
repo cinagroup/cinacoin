@@ -1,0 +1,41 @@
+# Chain switching across multiple networks
+appId: com.cinacoin.demo
+---
+- runFlow: subflows/launch.yaml
+
+# Connect wallet first
+- tapOn: { id: "connect_button" }
+- tapOn: { text: "MetaMask" }
+- tapOn: { id: "simulate_connection" }
+- assertVisible: { id: "connected_address" }
+
+# Switch to Ethereum
+- tapOn: { id: "chain_selector" }
+- tapOn: { text: "Ethereum" }
+- assertVisible: { id: "chain_badge", text: "ETH" }
+- assertVisible: { id: "balance_display" }
+
+# Switch to Polygon
+- tapOn: { id: "chain_selector" }
+- tapOn: { text: "Polygon" }
+- assertVisible: { id: "chain_badge", text: "POL" }
+
+# Switch to Arbitrum
+- tapOn: { id: "chain_selector" }
+- tapOn: { text: "Arbitrum" }
+- assertVisible: { id: "chain_badge", text: "ETH" }
+
+# Switch to Optimism
+- tapOn: { id: "chain_selector" }
+- tapOn: { text: "Optimism" }
+- assertVisible: { id: "chain_badge", text: "ETH" }
+
+# Switch to BSC
+- tapOn: { id: "chain_selector" }
+- tapOn: { text: "BSC" }
+- assertVisible: { id: "chain_badge", text: "BNB" }
+
+# Switch to Avalanche
+- tapOn: { id: "chain_selector" }
+- tapOn: { text: "Avalanche" }
+- assertVisible: { id: "chain_badge", text: "AVAX" }

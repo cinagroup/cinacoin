@@ -1,0 +1,35 @@
+# Different signing methods
+appId: com.cinacoin.demo
+---
+- runFlow: subflows/launch.yaml
+
+# Connect wallet
+- tapOn: { id: "connect_button" }
+- tapOn: { text: "MetaMask" }
+- tapOn: { id: "simulate_connection" }
+- assertVisible: { id: "connected_address" }
+
+# Test personal_sign
+- tapOn: { id: "sign_button" }
+- assertVisible: { id: "sign_modal" }
+- inputText: { id: "message_input", text: "Test personal_sign" }
+- tapOn: { id: "confirm_sign" }
+- assertVisible: { text: "Signature:" }
+- tapOn: { id: "close_modal" }
+
+# Test eth_sign
+- tapOn: { id: "sign_button" }
+- tapOn: { id: "sign_method_selector" }
+- tapOn: { text: "eth_sign" }
+- inputText: { id: "message_input", text: "0x1234" }
+- tapOn: { id: "confirm_sign" }
+- assertVisible: { text: "Signature:" }
+- tapOn: { id: "close_modal" }
+
+# Test signTypedData_v4
+- tapOn: { id: "sign_button" }
+- tapOn: { id: "sign_method_selector" }
+- tapOn: { text: "signTypedData_v4" }
+- inputText: { id: "typed_data_input", text: "{\"types\":{},\"primaryType\":\"Test\",\"domain\":{},\"message\":{}}" }
+- tapOn: { id: "confirm_sign" }
+- assertVisible: { text: "Signature:" }

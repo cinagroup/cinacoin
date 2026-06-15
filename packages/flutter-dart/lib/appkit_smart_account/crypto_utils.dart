@@ -1,21 +1,18 @@
 import 'dart:typed_data';
-import 'package:crypto/crypto.dart';
+import 'package:pointycastle/pointycastle.dart';
 
 /// Cryptographic utilities for ERC-4337 smart account operations.
 ///
-/// Production note: uses SHA3-256 as a stand-in for keccak256.
-/// Replace with `pointycastle` Keccak/256 or web3dart's keccak256
-/// for real keccak256 semantics.
+/// Uses pointycastle's Keccak/256 for real Ethereum keccak256 semantics.
 class CryptoUtils {
   CryptoUtils._();
 
   // ---- keccak256 -----------------------------------------------------------
 
-  /// Compute keccak256 hash (placeholder: SHA3-256).
+  /// Compute keccak256 hash using pointycastle Keccak/256.
   static Uint8List keccak256(Uint8List data) {
-    // TODO: Replace with actual keccak256 (pointycastle Keccak/256)
-    final digest = sha3_256.convert(data);
-    return Uint8List.fromList(digest.bytes);
+    final digest = Digest('Keccak/256');
+    return digest.process(data);
   }
 
   static Uint8List keccak256String(String s) =>

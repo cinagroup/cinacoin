@@ -1,0 +1,10 @@
+# Reusable subflow: connect wallet and verify
+appId: com.cinacoin.demo
+---
+- tapOn: { id: "connect_button" }
+- assertVisible: { id: "wallet_list" }
+- tapOn: { text: "MetaMask" }
+- assertVisible: { id: "qr_code" }
+- tapOn: { id: "simulate_connection" }
+- assertVisible: { id: "connected_address" }
+- assertVisible: { id: "disconnect_button" }

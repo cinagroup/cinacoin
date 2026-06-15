@@ -42,6 +42,19 @@ android {
             }
         }
     }
+
+    // Fabric / New Architecture configuration
+    if (isNewArchitectureEnabled()) {
+        buildFeatures {
+            buildConfig true
+        }
+        
+        externalNativeBuild {
+            ndkBuild {
+                path "src/main/jni/Android.mk"
+            }
+        }
+    }
 }
 
 repositories {
@@ -59,7 +72,10 @@ if (isNewArchitectureEnabled()) {
         jsRootDir = file("../src/")
         libraryName = "CinacoinReactNative"
         codegenConfig = [
-            javaPackageName: "com.cinacoin.reactnative"
+            javaPackageName: "com.cinacoin.reactnative",
+            libraries: [
+                "CinacoinReactNativeSpec"
+            ]
         ]
     }
 }

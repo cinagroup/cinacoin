@@ -7,7 +7,6 @@ library signer_manager;
 import 'dart:convert';
 import 'dart:math';
 import 'dart:typed_data';
-import 'package:crypto/crypto.dart';
 import 'package:convert/convert.dart';
 
 import 'types.dart';

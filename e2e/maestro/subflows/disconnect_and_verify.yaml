@@ -1,0 +1,7 @@
+# Reusable subflow: disconnect and verify
+appId: com.cinacoin.demo
+---
+- tapOn: { id: "disconnect_button" }
+- assertVisible: { id: "connect_button" }
+- assertNotVisible: { id: "connected_address" }
+- assertNotVisible: { id: "disconnect_button" }

@@ -65,6 +65,9 @@ dependencies {
     implementation("com.walletconnect:android-core:1.19.2")
     implementation("com.walletconnect:sign:1.19.2")
 
+    // ─── Web3j (ECDSA signature recovery) ─────────────────────────────────
+    implementation("org.web3j:core:4.10.3")
+
     // ─── Kotlin Coroutines ─────────────────────────────────────────────────
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")

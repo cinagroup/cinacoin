@@ -1,0 +1,25 @@
+# Session persistence and auto-reconnect
+appId: com.cinacoin.demo
+---
+# Initial connection
+- runFlow: subflows/launch.yaml
+- tapOn: { id: "connect_button" }
+- tapOn: { text: "MetaMask" }
+- tapOn: { id: "simulate_connection" }
+- assertVisible: { id: "connected_address" }
+
+# Background the app
+- pressKey: HOME
+- waitToVisible: { id: "home_screen", timeout: 5000 }
+
+# Return to app
+- launchApp
+- assertVisible: { id: "connected_address" }
+- assertVisible: { id: "disconnect_button" }
+
+# Verify session is still active
+- tapOn: { id: "sign_button" }
+- assertVisible: { id: "sign_modal" }
+- inputText: { id: "message_input", text: "Session test" }
+- tapOn: { id: "confirm_sign" }
+- assertVisible: { text: "Signature:" }

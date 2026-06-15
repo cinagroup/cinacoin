@@ -1,0 +1,38 @@
+# Multi-wallet connection testing
+appId: com.cinacoin.demo
+---
+- runFlow: subflows/launch.yaml
+
+# Test MetaMask
+- tapOn: { id: "connect_button" }
+- tapOn: { text: "MetaMask" }
+- tapOn: { id: "simulate_connection" }
+- assertVisible: { id: "connected_address" }
+- tapOn: { id: "disconnect_button" }
+
+# Test WalletConnect
+- tapOn: { id: "connect_button" }
+- tapOn: { text: "WalletConnect" }
+- tapOn: { id: "simulate_connection" }
+- assertVisible: { id: "connected_address" }
+- tapOn: { id: "disconnect_button" }
+
+# Test Coinbase Wallet
+- tapOn: { id: "connect_button" }
+- tapOn: { text: "Coinbase Wallet" }
+- tapOn: { id: "simulate_connection" }
+- assertVisible: { id: "connected_address" }
+- tapOn: { id: "disconnect_button" }
+
+# Test Rainbow
+- tapOn: { id: "connect_button" }
+- tapOn: { text: "Rainbow" }
+- tapOn: { id: "simulate_connection" }
+- assertVisible: { id: "connected_address" }
+- tapOn: { id: "disconnect_button" }
+
+# Test Trust Wallet
+- tapOn: { id: "connect_button" }
+- tapOn: { text: "Trust Wallet" }
+- tapOn: { id: "simulate_connection" }
+- assertVisible: { id: "connected_address" }
