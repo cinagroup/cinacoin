@@ -4,6 +4,9 @@ name = "cinacoin-notify-server"
 main = "cloudflare/worker.ts"
 compatibility_date = "2024-01-01"
 
+# Multi-region smart placement (INF-12)
+placement = { mode = "smart" }
+
 routes = [
   { pattern = "notify.cinacoin.com", custom_domain = true }
 ]

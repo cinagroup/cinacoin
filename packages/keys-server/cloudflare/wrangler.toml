@@ -6,6 +6,9 @@ main = "worker.ts"
 compatibility_date = "2024-12-05"
 compatibility_flags = ["nodejs_compat"]
 
+# Multi-region smart placement (INF-12)
+placement = { mode = "smart" }
+
 # KV Namespace bindings
 # Create these KV namespaces in Cloudflare dashboard or via wrangler:
 #   wrangler kv:namespace create KEYS_KV

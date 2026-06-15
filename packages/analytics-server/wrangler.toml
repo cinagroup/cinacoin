@@ -3,9 +3,13 @@ main = "src/index.ts"
 compatibility_date = "2024-12-01"
 compatibility_flags = ["nodejs_compat"]
 
+# Multi-region smart placement (INF-12)
+placement = { mode = "smart" }
+
 # Production environment
 [env.production]
 name = "cinacoin-analytics-prod"
+placement = { mode = "smart" }
 
 # D1 Database
 [[d1_databases]]

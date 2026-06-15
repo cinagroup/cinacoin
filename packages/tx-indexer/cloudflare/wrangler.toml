@@ -1,0 +1,66 @@
+name = "cinacoin-tx-indexer"
+main = "worker.ts"
+compatibility_date = "2024-12-01"
+account_id = "7ea8e46d8210bad342fa7595f7935fea"
+
+routes = [
+  { pattern = "indexer.cinacoin.com/*", zone_name = "cinacoin.com" }
+]
+
+# D1 Database for indexed events and chain state
+[[d1_databases]]
+binding = "DB"
+database_name = "cinacoin-tx-indexer"
+database_id = ""  # ← Run `wrangler d1 create cinacoin-tx-indexer` then paste the ID here
+
+# KV namespace for block timestamp caching
+[[kv_namespaces]]
+binding = "BLOCK_CACHE"
+id = ""  # ← Run `wrangler kv:namespace create BLOCK_CACHE` then paste the ID here
+
+# Environment variables
+[vars]
+ENVIRONMENT = "production"
+# RPC_URLS = '{"1":"https://eth-mainnet.g.alchemy.com/v2/YOUR_KEY","137":"https://polygon-mainnet.g.alchemy.com/v2/YOUR_KEY","56":"https://bsc-dataseed.binance.org"}'
+# API_KEY = "your-secret-api-key"
+
+# Cron triggers — index chains every 2 minutes
+[triggers]
+crons = ["*/2 * * * *"]
+
+# Smart placement for multi-region low-latency (INF-12)
+placement = { mode = "smart" }
+
+# Production environment
+[env.production]
+name = "cinacoin-tx-indexer-prod"
+routes = [
+  { pattern = "indexer.cinacoin.com/*", zone_name = "cinacoin.com" }
+]
+placement = { mode = "smart" }
+
+[[env.production.d1_databases]]
+binding = "DB"
+database_name = "cinacoin-tx-indexer-prod"
+database_id = ""  # ← Production D1 database ID
+
+[[env.production.kv_namespaces]]
+binding = "BLOCK_CACHE"
+id = ""  # ← Production KV namespace ID
+
+# Staging environment
+[env.staging]
+name = "cinacoin-tx-indexer-staging"
+routes = [
+  { pattern = "indexer-staging.cinacoin.com/*", zone_name = "cinacoin.com" }
+]
+placement = { mode = "smart" }
+
+[[env.staging.d1_databases]]
+binding = "DB"
+database_name = "cinacoin-tx-indexer-staging"
+database_id = ""  # ← Staging D1 database ID
+
+[[env.staging.kv_namespaces]]
+binding = "BLOCK_CACHE"
+id = ""  # ← Staging KV namespace ID

@@ -3,6 +3,9 @@ main = "worker.ts"
 compatibility_date = "2024-12-01"
 compatibility_flags = ["nodejs_compat"]
 
+# Multi-region smart placement (INF-12)
+placement = { mode = "smart" }
+
 # Production route
 routes = [
   { pattern = "relay.cinacoin.com/*", zone_name = "cinacoin.com" }
@@ -32,6 +35,7 @@ RELAY_URL = "wss://relay.walletconnect.com"
 # Production environment overrides
 [env.production]
 name = "cinacoin-relay-server-prod"
+placement = { mode = "smart" }
 routes = [
   { pattern = "relay.cinacoin.com/*", zone_name = "cinacoin.com" }
 ]

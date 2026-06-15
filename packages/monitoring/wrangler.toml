@@ -3,6 +3,9 @@ main = "src/index.ts"
 compatibility_date = "2024-01-01"
 workers_dev = true
 
+# Multi-region smart placement (INF-12)
+placement = { mode = "smart" }
+
 routes = [
   { pattern = "monitor.cinacoin.com", custom_domain = true }
 ]

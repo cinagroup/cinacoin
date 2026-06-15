@@ -13,6 +13,11 @@ binding = "DB"
 database_name = "cinacoin-auth"
 database_id = ""  # ← Run `wrangler d1 create cinacoin-auth` then paste the ID here
 
+# ── Multi-region Smart Placement (INF-12) ──────────────────────────────
+# Automatically routes requests to the nearest Cloudflare region.
+# Provides low-latency responses and automatic failover across regions.
+placement = { mode = "smart" }
+
 # ── Performance: Cache Rules ────────────────────────────────────────
 # These rules apply to the Worker itself. For Pages/Assets, see pages rules below.
 
@@ -106,6 +111,7 @@ ENVIRONMENT = "production"
 # ── Environment: Production ─────────────────────────────────────────
 [env.production]
 name = "cinacoin-auth-production"
+placement = { mode = "smart" }
 
 [[env.production.d1_databases]]
 binding = "DB"
