@@ -1,25 +1,47 @@
-name = "cinacoin-keys-server"
-main = "worker.ts"
-compatibility_date = "2024-01-01"
+# Cloudflare Worker configuration for Keys Server
+# Documentation: https://developers.cloudflare.com/workers/wrangler/configuration/
 
-routes = [
-  { pattern = "keys.cinacoin.com/*", zone_name = "cinacoin.com" }
-]
+name = "keys-server"
+main = "worker.ts"
+compatibility_date = "2024-12-05"
+compatibility_flags = ["nodejs_compat"]
+
+# KV Namespace bindings
+# Create these KV namespaces in Cloudflare dashboard or via wrangler:
+#   wrangler kv:namespace create KEYS_KV
+#   wrangler kv:namespace create RATELIMIT_KV
+# Then replace the IDs below with your actual namespace IDs
+
+[[kv_namespaces]]
+binding = "KEYS_KV"
+id = "YOUR_KEYS_KV_NAMESPACE_ID"
+preview_id = "YOUR_KEYS_KV_PREVIEW_ID"
+
+[[kv_namespaces]]
+binding = "RATELIMIT_KV"
+id = "YOUR_RATELIMIT_KV_NAMESPACE_ID"
+preview_id = "YOUR_RATELIMIT_KV_PREVIEW_ID"
+
+# Environment variables (set via wrangler secret for production)
+# wrangler secret put ENCRYPTION_KEY
+# wrangler secret put JWT_SECRET
 
 [vars]
-LOG_LEVEL = "info"
-SESSION_TTL = "86400"
-MAX_KEYS_PER_USER = "100"
+# CORS_ORIGINS = "https://example.com,https://app.example.com"
+# RATE_LIMIT_MAX = "100"
+# RATE_LIMIT_WINDOW = "60"
 
-[[d1_databases]]
-binding = "DB"
-database_name = "cinacoin-keys"
-database_id = "67d98935-9d34-4e3d-b357-af745fa47596"
+# Production environment overrides
+[env.production]
+name = "keys-server-prod"
+# routes = [
+#   { pattern = "keys.example.com/*", zone_name = "example.com" }
+# ]
 
-[[kv_namespaces]]
-binding = "SESSIONS"
-id = "b60edcfb4052452780701cbf7a06aeb9"
+# Staging environment
+[env.staging]
+name = "keys-server-staging"
 
-[[kv_namespaces]]
-binding = "RATE_LIMITS"
-id = "b60edcfb4052452780701cbf7a06aeb9"
+# Development environment
+[env.dev]
+name = "keys-server-dev"

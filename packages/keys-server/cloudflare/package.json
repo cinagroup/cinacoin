@@ -1,0 +1,19 @@
+{
+  "name": "@cinacoin/keys-server-cloudflare",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Keys Server — Cloudflare Workers implementation with KV storage",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "deploy:staging": "wrangler deploy --env staging",
+    "deploy:prod": "wrangler deploy --env production",
+    "tail": "wrangler tail",
+    "kv:create": "wrangler kv:namespace create KEYS_KV && wrangler kv:namespace create RATELIMIT_KV"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241205.0",
+    "typescript": "^5.7.0",
+    "wrangler": "^3.95.0"
+  }
+}

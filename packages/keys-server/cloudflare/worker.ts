@@ -1,718 +1,568 @@
-import { logger } from '@cinacoin/logger';
 /**
- * Cinacoin Keys Server — Cloudflare Worker
+ * Keys Server — Cloudflare Workers implementation
  *
- * Manages encrypted key pairs and sessions using D1 (SQLite) + KV.
- * Replaces the PostgreSQL + Redis architecture.
+ * Migrated from the Node.js/Rust keys-server to run on Cloudflare Workers
+ * with KV storage. Uses Web Crypto API for AES-256-GCM encryption and
+ * PBKDF2 key derivation (Workers-native equivalent of scrypt).
  */
 
-// --- Inlined from @cinacoin/config ---
-function createLogger(serviceName: string) {
-  return {
-    debug: (msg: string, ctx?: Record<string, unknown>) => console.debug(`[${serviceName}] ${msg}`, ctx ? JSON.stringify(ctx) : ''),
-    info: (msg: string, ctx?: Record<string, unknown>) => logger.info(`[${serviceName}] ${msg}`, ctx ? JSON.stringify(ctx) : ''),
-    warn: (msg: string, ctx?: Record<string, unknown>) => logger.warn(`[${serviceName}] ${msg}`, ctx ? JSON.stringify(ctx) : ''),
-    error: (msg: string, ctx?: Record<string, unknown>) => logger.error(`[${serviceName}] ${msg}`, ctx ? JSON.stringify(ctx) : ''),
-  };
-}
-function extractRequestId(request: Request): string {
-  return request.headers.get('x-request-id') || request.headers.get('x-correlation-id') || request.headers.get('cf-ray') || crypto.randomUUID();
-}
-const CSRF_ALLOWED_ORIGINS: string[] = [];
-function validateCsrf(request: Request): boolean {
-  if (request.method === 'GET' || request.method === 'HEAD' || request.method === 'OPTIONS') return true;
-  if (CSRF_ALLOWED_ORIGINS.length === 0) return true;
-  const origin = request.headers.get('origin');
-  return origin ? CSRF_ALLOWED_ORIGINS.includes(origin) : false;
-}
-// ------------------------------------
+// ─── Types ───────────────────────────────────────────────────────────────────
 
-const logger = createLogger('keys-server');
-const START_TIME = Date.now();
-
-// ---------------------------------------------------------------------------
-// Rate Limiting
-// ---------------------------------------------------------------------------
-
-interface RateEntry { count: number; resetAt: number }
-const rateLimits = new Map<string, RateEntry>();
-
-function getClientIp(request: Request): string {
-  return request.headers.get('cf-connecting-ip')
-    ?? request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
-    ?? 'unknown';
+export interface Env {
+  /** KV namespace for encrypted key storage */
+  KEYS_KV: KVNamespace;
+  /** KV namespace for rate-limit counters */
+  RATELIMIT_KV: KVNamespace;
+  /** Encryption key for at-rest key storage (min 64 hex chars / 32 bytes) */
+  ENCRYPTION_KEY: string;
+  /** JWT secret for token validation (min 32 chars) */
+  JWT_SECRET: string;
+  /** Comma-separated CORS allowed origins (use "*" for allow-all) */
+  CORS_ORIGINS?: string;
+  /** Rate limit: max requests per window (default 100) */
+  RATE_LIMIT_MAX?: string;
+  /** Rate limit: window size in seconds (default 60) */
+  RATE_LIMIT_WINDOW?: string;
 }
 
-function checkRate(ip: string, limit: number): boolean {
-  const now = Date.now();
-  const entry = rateLimits.get(ip);
-  if (!entry || now > entry.resetAt) {
-    rateLimits.set(ip, { count: 1, resetAt: now + 60000 });
-    return true;
-  }
-  if (entry.count >= limit) return false;
-  entry.count++;
-  return true;
-}
-
-const DEFAULT_RATE_LIMIT = 100; // requests per minute
-
-// ---------------------------------------------------------------------------
-// Security Utilities
-// ---------------------------------------------------------------------------
-
-/** Constant-time string comparison to prevent timing attacks on API key validation. */
-function constantTimeCompare(a: string, b: string): boolean {
-  if (a.length !== b.length) return false;
-  const aBuf = new TextEncoder().encode(a);
-  const bBuf = new TextEncoder().encode(b);
-  let result = 0;
-  for (let i = 0; i < aBuf.length; i++) {
-    result |= aBuf[i] ^ bBuf[i];
-  }
-  return result === 0;
-}
-
-interface Env {
-  DB: D1Database;
-  SESSIONS: KVNamespace;
-  ENCRYPTION_KEY?: string;
-  API_KEY?: string;
-}
-
-interface Metrics {
-  requestCount: number;
-  errorCount: number;
-  keypairCreateCount: number;
-  keypairListCount: number;
-  sessionCreateCount: number;
-  startTime: number;
-}
-
-// Global metrics storage
-let metrics: Metrics = {
-  requestCount: 0,
-  errorCount: 0,
-  keypairCreateCount: 0,
-  keypairListCount: 0,
-  sessionCreateCount: 0,
-  startTime: Date.now(),
-};
-
-function formatUptime(ms: number): string {
-  const seconds = Math.floor(ms / 1000);
-  const minutes = Math.floor(seconds / 60);
-  const hours = Math.floor(minutes / 60);
-  const days = Math.floor(hours / 24);
-
-  if (days > 0) return `${days}d ${hours % 24}h`;
-  if (hours > 0) return `${hours}h ${minutes % 60}m`;
-  if (minutes > 0) return `${minutes}m ${seconds % 60}s`;
-  return `${seconds}s`;
-}
-
-function handleMetrics(): Response {
-  const uptime = Date.now() - metrics.startTime;
-  const errorRate = metrics.requestCount > 0
-    ? ((metrics.errorCount / metrics.requestCount) * 100).toFixed(2)
-    : "0.00";
-
-  return jsonResponse({
-    service: "cinacoin-keys-server",
-    uptime_ms: uptime,
-    uptime_readable: formatUptime(uptime),
-    request_count: metrics.requestCount,
-    error_count: metrics.errorCount,
-    error_rate_percent: parseFloat(errorRate),
-    keypair_create_count: metrics.keypairCreateCount,
-    keypair_list_count: metrics.keypairListCount,
-    session_create_count: metrics.sessionCreateCount,
-    timestamp: new Date().toISOString(),
-  });
-}
-
-function handlePrometheusMetrics(): Response {
-  const uptime = Date.now() - metrics.startTime;
-  const errorRate = metrics.requestCount > 0
-    ? ((metrics.errorCount / metrics.requestCount) * 100).toFixed(2)
-    : "0.00";
-
-  const lines: string[] = [
-    '# HELP keys_server_request_count_total Total requests processed',
-    '# TYPE keys_server_request_count_total counter',
-    `keys_server_request_count_total ${metrics.requestCount}`,
-    '',
-    '# HELP keys_server_error_count_total Total errors',
-    '# TYPE keys_server_error_count_total counter',
-    `keys_server_error_count_total ${metrics.errorCount}`,
-    '',
-    '# HELP keys_server_error_rate Error rate as percentage',
-    '# TYPE keys_server_error_rate gauge',
-    `keys_server_error_rate ${errorRate}`,
-    '',
-    '# HELP keys_server_keypair_create_total Keypair creations',
-    '# TYPE keys_server_keypair_create_total counter',
-    `keys_server_keypair_create_total ${metrics.keypairCreateCount}`,
-    '',
-    '# HELP keys_server_keypair_list_total Keypair list requests',
-    '# TYPE keys_server_keypair_list_total counter',
-    `keys_server_keypair_list_total ${metrics.keypairListCount}`,
-    '',
-    '# HELP keys_server_session_create_total Session creations',
-    '# TYPE keys_server_session_create_total counter',
-    `keys_server_session_create_total ${metrics.sessionCreateCount}`,
-    '',
-    '# HELP keys_server_uptime_ms Uptime in milliseconds',
-    '# TYPE keys_server_uptime_ms gauge',
-    `keys_server_uptime_ms ${uptime}`,
-    '',
-    '# HELP keys_server_up Whether the service is alive',
-    '# TYPE keys_server_up gauge',
-    'keys_server_up 1',
-  ];
-
-  return new Response(lines.join('\n') + '\n', {
-    headers: { 'Content-Type': 'text/plain; version=0.0.4' },
-  });
-}
-
-// ---------------------------------------------------------------------------
-// Session Validation
-// ---------------------------------------------------------------------------
-
-interface SessionRecord {
+interface StoredKey {
   id: string;
-  address: string;
-  nonce: string;
-  expires_at: number;
+  label: string;
+  encrypted: string; // base64(iv + authTag + ciphertext)
+  algorithm: string;
+  salt: string; // hex-encoded salt used for PBKDF2
+  createdAt: number;
 }
+
+interface JwtClaims {
+  sub: string;
+  iss: string;
+  exp: number;
+  iat: number;
+}
+
+interface RateLimitEntry {
+  count: number;
+  windowStart: number;
+}
+
+interface MetricsData {
+  requestsTotal: number;
+  keysCreated: number;
+  keysRetrieved: number;
+  keysDeleted: number;
+  keysRotated: number;
+  authFailures: number;
+  rateLimitHits: number;
+}
+
+// ─── Constants ───────────────────────────────────────────────────────────────
+
+const PBKDF2_ITERATIONS = 100_000;
+const SALT_LENGTH = 16; // bytes
+const IV_LENGTH = 16; // bytes
+const AUTH_TAG_LENGTH = 16; // bytes (128 bits)
+const TOKEN_LEEWAY_SECONDS = 10;
+
+// ─── Crypto Helpers (Web Crypto API) ────────────────────────────────────────
 
 /**
- * Validate a session by ID: check existence and expiry.
- * Returns the session record if valid, null if expired, or throws on error.
+ * Derive an AES-256-GCM key from a passphrase + salt using PBKDF2.
+ * This replaces scrypt from the Node.js implementation, as PBKDF2
+ * is natively supported in Workers' Web Crypto API.
  */
-export async function validateSession(
-  sessionId: string,
-  env: Env
-): Promise<SessionRecord | null> {
-  const result = await env.DB.prepare(
-    'SELECT id, address, nonce, expires_at FROM sessions WHERE id = ?'
-  ).bind(sessionId).first<SessionRecord>();
-
-  if (!result) {
-    return null;
-  }
-
-  // Check expiry
-  if (result.expires_at < Date.now()) {
-    return null; // expired
-  }
-
-  return result;
-}
-
-/**
- * Extract session token from Authorization header.
- * Supports "Bearer <token>" or bare "<token>".
- */
-function extractSessionToken(request: Request): string | null {
-  const auth = request.headers.get('Authorization');
-  if (!auth) return null;
-  if (auth.startsWith('Bearer ')) {
-    return auth.slice(7).trim();
-  }
-  return auth.trim();
-}
-
-/**
- * Middleware: require a valid, non-expired session.
- * Returns null if session is valid, or a 401 Response if not.
- */
-async function requireValidSession(
-  request: Request,
-  env: Env,
-  origin: string | null
-): Promise<Response | null> {
-  const token = extractSessionToken(request);
-  if (!token) {
-    return jsonResponse({ error: 'Unauthorized: missing session token' }, 401, origin);
-  }
-
-  const session = await validateSession(token, env);
-  if (!session) {
-    return jsonResponse({ error: 'Unauthorized: invalid or expired session' }, 401, origin);
-  }
-
-  return null;
-}
-
-// ---------------------------------------------------------------------------
-// Cron: Cleanup expired sessions
-// ---------------------------------------------------------------------------
-
-/**
- * Delete all expired sessions from the D1 database.
- * Call this on a cron schedule (e.g. every hour).
- */
-export async function cleanupExpiredSessions(env: Env): Promise<number> {
-  const now = Date.now();
-  const result = await env.DB.prepare(
-    'DELETE FROM sessions WHERE expires_at < ?'
-  ).bind(now).run();
-  return result.meta?.changes ?? 0;
-}
-
-// ---------------------------------------------------------------------------
-// Request Handler
-// ---------------------------------------------------------------------------
-
-export default {
-  async fetch(request: Request, env: Env): Promise<Response> {
-    const url = new URL(request.url);
-    metrics.requestCount++;
-
-    const origin = getCorsOrigin(request);
-
-    // CORS preflight (before rate limiting)
-    if (request.method === 'OPTIONS') {
-      return new Response(null, { headers: corsHeaders(origin) });
-    }
-
-    // Rate limiting (skip health check)
-    if (url.pathname !== '/health') {
-      const ip = getClientIp(request);
-      if (!checkRate(ip, DEFAULT_RATE_LIMIT)) {
-        return jsonResponse({ error: 'rate_limit_exceeded' }, 429, origin);
-      }
-    }
-
-    // CSRF protection for state-changing requests
-    if (!validateCsrf(request)) {
-      return jsonResponse({ error: 'CSRF validation failed' }, 403, origin);
-    }
-
-    try {
-      switch (url.pathname) {
-        case '/health': {
-          const uptimeSec = Math.floor((Date.now() - START_TIME) / 1000);
-          return jsonResponse({ status: 'ok', uptime: uptimeSec, version: '1.0.0', timestamp: new Date().toISOString() }, 200, origin);
-        }
-
-        case '/metrics': {
-          const accept = request.headers.get('Accept') || '';
-          if (accept.includes('text/plain') || accept.includes('application/openmetrics')) {
-            return handlePrometheusMetrics();
-          }
-          return handleMetrics();
-        }
-
-        case '/api/v1/keypairs': {
-          // Session required for both read and write
-          const sessionError = await requireValidSession(request, env, origin);
-          if (sessionError) return sessionError;
-
-          if (request.method === 'GET') return listKeypairs(request, env, origin);
-          if (request.method === 'POST') return createKeypair(request, env, origin);
-          return methodNotAllowed(origin);
-        }
-
-        case '/api/v1/sessions': {
-          // API key required for session creation
-          if (request.method === 'POST' && !verifyApiKey(request, env)) {
-            return jsonResponse({ error: 'Unauthorized' }, 401, origin);
-          }
-          if (request.method === 'POST') return createSession(request, env, origin);
-          return methodNotAllowed(origin);
-        }
-
-        case '/api/keys': {
-          const sessionError = await requireValidSession(request, env, origin);
-          if (sessionError) return sessionError;
-          if (request.method === 'GET') return listApiKeys(request, env, origin);
-          if (request.method === 'POST') return createApiKey(request, env, origin);
-          return methodNotAllowed(origin);
-        }
-
-        default: {
-          // Handle /api/keys/:id routes
-          const apiKeyMatch = url.pathname.match(/^\/api\/keys\/([^/]+)$/);
-          if (apiKeyMatch) {
-            const sessionError = await requireValidSession(request, env, origin);
-            if (sessionError) return sessionError;
-            const keyId = decodeURIComponent(apiKeyMatch[1]);
-            if (request.method === 'GET') return getApiKey(request, env, origin, keyId);
-            if (request.method === 'DELETE') return deleteApiKey(request, env, origin, keyId);
-            if (request.method === 'PATCH') return updateApiKey(request, env, origin, keyId);
-            return methodNotAllowed(origin);
-          }
-          return notFound(origin);
-        }
-      }
-    } catch (err) {
-      metrics.errorCount++;
-      // Security: never expose internal error details to clients
-      const requestId = extractRequestId(request);
-      logger.error('Internal error', { requestId, error: String(err) });
-      return jsonResponse({ error: 'Internal server error' }, 500, origin);
-    }
-  },
-
-  // Cron handler for expired session cleanup
-  async scheduled(event: ScheduledEvent, env: Env): Promise<void> {
-    const deleted = await cleanupExpiredSessions(env);
-    logger.info('Cron: cleaned up expired sessions', { count: deleted });
-  },
-};
-
-async function listKeypairs(request: Request, env: Env, origin: string | null): Promise<Response> {
-  metrics.keypairListCount++;
-
-  const url = new URL(request.url);
-  const address = url.searchParams.get('address');
-
-  // Validate address format if provided
-  if (address && !/^0x[a-fA-F0-9]{40}$/.test(address)) {
-    return jsonResponse({ error: 'Invalid address format' }, 400, origin);
-  }
-
-  let query = 'SELECT id, address, chain_id, public_key, created_at, updated_at FROM keypairs';
-  const params: string[] = [];
-
-  if (address) {
-    query += ' WHERE address = ?';
-    params.push(address);
-  }
-
-  const result = await env.DB.prepare(query).bind(...params).all();
-  return jsonResponse({ keypairs: result.results }, 200, origin);
-}
-
-async function createKeypair(request: Request, env: Env, origin: string | null): Promise<Response> {
-  metrics.keypairCreateCount++;
-
-  // Validate request size (limit to 64KB)
-  const contentLength = request.headers.get('Content-Length');
-  if (contentLength && parseInt(contentLength) > 65536) {
-    return jsonResponse({ error: 'Request too large' }, 413, origin);
-  }
-
-  let body: unknown;
-  try {
-    body = await request.json();
-  } catch {
-    return jsonResponse({ error: 'Invalid JSON' }, 400, origin);
-  }
-
-  const raw = body as Record<string, unknown>;
-  const address = raw.address;
-  const chainId = raw.chainId;
-  const encryptedKey = raw.encryptedKey;
-  const publicKey = raw.publicKey;
-
-  if (typeof address !== 'string' || !address) {
-    return jsonResponse({ error: 'Missing or invalid field: address' }, 400, origin);
-  }
-  if (typeof chainId !== 'string' || !chainId) {
-    return jsonResponse({ error: 'Missing or invalid field: chainId' }, 400, origin);
-  }
-  if (typeof encryptedKey !== 'string' || !encryptedKey) {
-    return jsonResponse({ error: 'Missing or invalid field: encryptedKey' }, 400, origin);
-  }
-  if (typeof publicKey !== 'string' || !publicKey) {
-    return jsonResponse({ error: 'Missing or invalid field: publicKey' }, 400, origin);
-  }
-
-  // Validate address format
-  if (!/^0x[a-fA-F0-9]{40}$/.test(address)) {
-    return jsonResponse({ error: 'Invalid address format' }, 400, origin);
-  }
-
-  // Validate chainId (numeric string, max 10 digits)
-  if (!/^\d{1,10}$/.test(chainId)) {
-    return jsonResponse({ error: 'Invalid chainId: must be a numeric string' }, 400, origin);
-  }
-
-  // Validate encryptedKey size (limit to 4KB)
-  if (encryptedKey.length > 4096) {
-    return jsonResponse({ error: 'encryptedKey too large (max 4096)' }, 400, origin);
-  }
-
-  // Validate publicKey size (limit to 1KB)
-  if (publicKey.length > 1024) {
-    return jsonResponse({ error: 'publicKey too large (max 1024)' }, 400, origin);
-  }
-
-  const id = crypto.randomUUID();
-  const now = Date.now();
-
-  await env.DB.prepare(
-    'INSERT INTO keypairs (id, address, chain_id, encrypted_key, public_key, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)'
-  ).bind(id, address, chainId, encryptedKey, publicKey, now, now).run();
-
-  return jsonResponse({ id, address, chainId, publicKey, createdAt: now }, 201, origin);
-}
-
-async function createSession(request: Request, env: Env, origin: string | null): Promise<Response> {
-  metrics.sessionCreateCount++;
-
-  // Validate request size
-  const contentLength = request.headers.get('Content-Length');
-  if (contentLength && parseInt(contentLength) > 65536) {
-    return jsonResponse({ error: 'Request too large' }, 413, origin);
-  }
-
-  let body: unknown;
-  try {
-    body = await request.json();
-  } catch {
-    return jsonResponse({ error: 'Invalid JSON' }, 400, origin);
-  }
-
-  const raw = body as Record<string, unknown>;
-  const address = raw.address;
-  const nonce = raw.nonce;
-  const expiresIn = raw.expiresIn;
-
-  if (typeof address !== 'string' || !address) {
-    return jsonResponse({ error: 'Missing or invalid field: address' }, 400, origin);
-  }
-  if (typeof nonce !== 'string' || !nonce) {
-    return jsonResponse({ error: 'Missing or invalid field: nonce' }, 400, origin);
-  }
-  // Limit nonce size
-  if (nonce.length > 1024) {
-    return jsonResponse({ error: 'nonce too large (max 1024)' }, 400, origin);
-  }
-
-  // Validate address format
-  if (!/^0x[a-fA-F0-9]{40}$/.test(address)) {
-    return jsonResponse({ error: 'Invalid address format' }, 400, origin);
-  }
-
-  // Clamp expiry to max 7 days
-  const expiresInSec = typeof expiresIn === 'number' ? Math.min(expiresIn, 604800) : 86400;
-  const expiresAt = Date.now() + expiresInSec * 1000;
-
-  const id = crypto.randomUUID();
-
-  await env.DB.prepare(
-    'INSERT INTO sessions (id, address, nonce, expires_at) VALUES (?, ?, ?, ?)'
-  ).bind(id, address, nonce, expiresAt).run();
-
-  return jsonResponse({ id, address, expiresAt }, 201, origin);
-}
-
-// ---------------------------------------------------------------------------
-// API Keys Management
-// ---------------------------------------------------------------------------
-
-async function listApiKeys(request: Request, env: Env, origin: string | null): Promise<Response> {
-  const token = extractSessionToken(request);
-  const session = await validateSession(token!, env);
-  if (!session) {
-    return jsonResponse({ error: 'Unauthorized' }, 401, origin);
-  }
-
-  const result = await env.DB.prepare(
-    'SELECT id, name, key_prefix, permissions, expires_at, last_used_at, created_at, updated_at FROM api_keys WHERE user_id = ?'
-  ).bind(session.address).all();
-
-  return jsonResponse({ keys: result.results }, 200, origin);
-}
-
-async function getApiKey(request: Request, env: Env, origin: string | null, keyId: string): Promise<Response> {
-  const token = extractSessionToken(request);
-  const session = await validateSession(token!, env);
-  if (!session) {
-    return jsonResponse({ error: 'Unauthorized' }, 401, origin);
-  }
-
-  const result = await env.DB.prepare(
-    'SELECT id, name, key_prefix, permissions, expires_at, last_used_at, created_at, updated_at FROM api_keys WHERE id = ? AND user_id = ?'
-  ).bind(keyId, session.address).first();
-
-  if (!result) {
-    return jsonResponse({ error: 'API key not found' }, 404, origin);
-  }
-
-  return jsonResponse({ key: result }, 200, origin);
-}
-
-async function createApiKey(request: Request, env: Env, origin: string | null): Promise<Response> {
-  const token = extractSessionToken(request);
-  const session = await validateSession(token!, env);
-  if (!session) {
-    return jsonResponse({ error: 'Unauthorized' }, 401, origin);
-  }
-
-  let body: unknown;
-  try {
-    body = await request.json();
-  } catch {
-    return jsonResponse({ error: 'Invalid JSON' }, 400, origin);
-  }
-
-  const raw = body as Record<string, unknown>;
-  const name = raw.name;
-  const permissions = raw.permissions;
-
-  if (typeof name !== 'string' || !name || name.length > 100) {
-    return jsonResponse({ error: 'Missing or invalid field: name (max 100 chars)' }, 400, origin);
-  }
-
-  // Generate a new API key
-  const apiKey = 'ck_' + crypto.randomUUID().replace(/-/g, '') + crypto.randomUUID().replace(/-/g, '');
-  const keyHash = await hashApiKey(apiKey);
-  const keyPrefix = apiKey.substring(0, 12);
-
-  const id = crypto.randomUUID();
-  const now = Date.now();
-  const permissionsStr = typeof permissions === 'object' && permissions !== null
-    ? JSON.stringify(permissions)
-    : '{}';
-
-  await env.DB.prepare(
-    'INSERT INTO api_keys (id, user_id, name, key_hash, key_prefix, permissions, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
-  ).bind(id, session.address, name, keyHash, keyPrefix, permissionsStr, now, now).run();
-
-  // Return the full key only on creation
-  return jsonResponse({ id, name, key: apiKey, keyPrefix, permissions: permissionsStr, createdAt: now }, 201, origin);
-}
-
-async function deleteApiKey(request: Request, env: Env, origin: string | null, keyId: string): Promise<Response> {
-  const token = extractSessionToken(request);
-  const session = await validateSession(token!, env);
-  if (!session) {
-    return jsonResponse({ error: 'Unauthorized' }, 401, origin);
-  }
-
-  const result = await env.DB.prepare(
-    'DELETE FROM api_keys WHERE id = ? AND user_id = ?'
-  ).bind(keyId, session.address).run();
-
-  if (!result.meta?.changes || result.meta.changes === 0) {
-    return jsonResponse({ error: 'API key not found' }, 404, origin);
-  }
-
-  return jsonResponse({ success: true, id: keyId }, 200, origin);
-}
-
-async function updateApiKey(request: Request, env: Env, origin: string | null, keyId: string): Promise<Response> {
-  const token = extractSessionToken(request);
-  const session = await validateSession(token!, env);
-  if (!session) {
-    return jsonResponse({ error: 'Unauthorized' }, 401, origin);
-  }
-
-  let body: unknown;
-  try {
-    body = await request.json();
-  } catch {
-    return jsonResponse({ error: 'Invalid JSON' }, 400, origin);
-  }
-
-  const raw = body as Record<string, unknown>;
-  const permissions = raw.permissions;
-  const name = raw.name;
-
-  if (permissions === undefined && name === undefined) {
-    return jsonResponse({ error: 'No fields to update (name or permissions)' }, 400, origin);
-  }
-
-  const now = Date.now();
-  let query = 'UPDATE api_keys SET updated_at = ?';
-  const params: (string | number)[] = [now];
-
-  if (typeof name === 'string' && name.length > 0 && name.length <= 100) {
-    query += ', name = ?';
-    params.push(name);
-  }
-
-  if (typeof permissions === 'object' && permissions !== null) {
-    query += ', permissions = ?';
-    params.push(JSON.stringify(permissions));
-  }
-
-  query += ' WHERE id = ? AND user_id = ?';
-  params.push(keyId, session.address);
-
-  const result = await env.DB.prepare(query).bind(...params).run();
-
-  if (!result.meta?.changes || result.meta.changes === 0) {
-    return jsonResponse({ error: 'API key not found' }, 404, origin);
-  }
-
-  return jsonResponse({ success: true, id: keyId }, 200, origin);
-}
-
-async function hashApiKey(apiKey: string): Promise<string> {
+async function deriveKey(passphrase: string, salt: Uint8Array): Promise<CryptoKey> {
   const encoder = new TextEncoder();
-  const data = encoder.encode(apiKey);
-  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  const keyMaterial = await crypto.subtle.importKey(
+    'raw',
+    encoder.encode(passphrase),
+    'PBKDF2',
+    false,
+    ['deriveKey']
+  );
+
+  return crypto.subtle.deriveKey(
+    {
+      name: 'PBKDF2',
+      salt,
+      iterations: PBKDF2_ITERATIONS,
+      hash: 'SHA-256',
+    },
+    keyMaterial,
+    { name: 'AES-GCM', length: 256 },
+    false,
+    ['encrypt', 'decrypt']
+  );
 }
 
-function jsonResponse(data: unknown, status = 200, origin: string | null = null): Response {
-  const headers: Record<string, string> = {
-    ...corsHeaders(origin),
-    'Content-Type': 'application/json',
-    'X-Content-Type-Options': 'nosniff',
-    'X-Frame-Options': 'DENY',
-  };
-  return new Response(JSON.stringify(data), { status, headers });
+/**
+ * Encrypt data using AES-256-GCM.
+ * Returns base64-encoded: iv (16) || authTag (16) || ciphertext
+ */
+async function encryptData(
+  data: Uint8Array,
+  passphrase: string,
+  salt: Uint8Array
+): Promise<string> {
+  const key = await deriveKey(passphrase, salt);
+  const iv = crypto.getRandomValues(new Uint8Array(IV_LENGTH));
+
+  const encrypted = await crypto.subtle.encrypt(
+    { name: 'AES-GCM', iv, tagLength: AUTH_TAG_LENGTH * 8 },
+    key,
+    data
+  );
+
+  // Web Crypto AES-GCM appends the auth tag to the ciphertext
+  const encryptedBuf = new Uint8Array(encrypted);
+  // Layout: iv || authTag || ciphertext
+  // Web Crypto output = ciphertext || authTag (last 16 bytes)
+  const ciphertext = encryptedBuf.slice(0, encryptedBuf.length - AUTH_TAG_LENGTH);
+  const authTag = encryptedBuf.slice(encryptedBuf.length - AUTH_TAG_LENGTH);
+
+  const combined = new Uint8Array(IV_LENGTH + AUTH_TAG_LENGTH + ciphertext.length);
+  combined.set(iv, 0);
+  combined.set(authTag, IV_LENGTH);
+  combined.set(ciphertext, IV_LENGTH + AUTH_TAG_LENGTH);
+
+  return btoa(String.fromCharCode(...combined));
 }
 
-function methodNotAllowed(origin: string | null): Response {
-  return jsonResponse({ error: 'Method not allowed' }, 405, origin);
+/**
+ * Decrypt base64-encoded data: iv (16) || authTag (16) || ciphertext
+ */
+async function decryptData(
+  encryptedB64: string,
+  passphrase: string,
+  salt: Uint8Array
+): Promise<Uint8Array> {
+  const combined = Uint8Array.from(atob(encryptedB64), (c) => c.charCodeAt(0));
+  const iv = combined.slice(0, IV_LENGTH);
+  const authTag = combined.slice(IV_LENGTH, IV_LENGTH + AUTH_TAG_LENGTH);
+  const ciphertext = combined.slice(IV_LENGTH + AUTH_TAG_LENGTH);
+
+  // Web Crypto expects ciphertext || authTag concatenated
+  const webCryptoInput = new Uint8Array(ciphertext.length + authTag.length);
+  webCryptoInput.set(ciphertext, 0);
+  webCryptoInput.set(authTag, ciphertext.length);
+
+  const key = await deriveKey(passphrase, salt);
+
+  const decrypted = await crypto.subtle.decrypt(
+    { name: 'AES-GCM', iv, tagLength: AUTH_TAG_LENGTH * 8 },
+    key,
+    webCryptoInput
+  );
+
+  return new Uint8Array(decrypted);
 }
 
-function notFound(origin: string | null): Response {
-  return jsonResponse({ error: 'Not found' }, 404, origin);
+// ─── JWT Validation ──────────────────────────────────────────────────────────
+
+/**
+ * Validate a JWT token (HS256). Returns claims or throws.
+ */
+async function validateJwt(token: string, secret: string): Promise<JwtClaims> {
+  const parts = token.split('.');
+  if (parts.length !== 3) {
+    throw new Error('Invalid token format');
+  }
+
+  const [headerB64, payloadB64, signatureB64] = parts;
+
+  // Verify signature using HMAC-SHA256
+  const encoder = new TextEncoder();
+  const key = await crypto.subtle.importKey(
+    'raw',
+    encoder.encode(secret),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['verify']
+  );
+
+  const signature = Uint8Array.from(atob(signatureB64.replace(/-/g, '+').replace(/_/g, '/')), (c) =>
+    c.charCodeAt(0)
+  );
+
+  const data = encoder.encode(`${headerB64}.${payloadB64}`);
+  const valid = await crypto.subtle.verify('HMAC', key, signature, data);
+
+  if (!valid) {
+    throw new Error('Invalid token signature');
+  }
+
+  // Decode payload
+  const payloadJson = atob(payloadB64.replace(/-/g, '+').replace(/_/g, '/'));
+  const claims: JwtClaims = JSON.parse(payloadJson);
+
+  // Check expiry with leeway
+  const now = Math.floor(Date.now() / 1000);
+  if (claims.exp < now - TOKEN_LEEWAY_SECONDS) {
+    throw new Error('Token has expired');
+  }
+
+  // Check issuer
+  if (claims.iss !== 'keys-server') {
+    throw new Error('Invalid token issuer');
+  }
+
+  return claims;
 }
 
-// ---------------------------------------------------------------------------
-// Security Configuration
-// ---------------------------------------------------------------------------
+// ─── Rate Limiting ───────────────────────────────────────────────────────────
 
-const ALLOWED_ORIGINS = [
-  'https://cinacoin.com',
-  'https://dash.cinacoin.com',
-  'https://demo.cinacoin.com',
-  'https://docs.cinacoin.com',
-  'https://status.cinacoin.com',
-  // 'http://localhost:3000', // dev only
-  // 'http://localhost:5173', // dev only
-];
+async function checkRateLimit(
+  env: Env,
+  ip: string
+): Promise<{ allowed: boolean; remaining: number; resetAt: number }> {
+  const maxRequests = parseInt(env.RATE_LIMIT_MAX || '100', 10);
+  const windowSecs = parseInt(env.RATE_LIMIT_WINDOW || '60', 10);
+  const now = Math.floor(Date.now() / 1000);
+  const key = `ratelimit:${ip}`;
 
-function isAllowedOrigin(origin: string | null): boolean {
-  if (!origin) return false;
-  return ALLOWED_ORIGINS.includes(origin);
+  const raw = await env.RATELIMIT_KV.get(key, 'json');
+  const entry = raw as RateLimitEntry | null;
+
+  if (!entry || now - entry.windowStart >= windowSecs) {
+    // New window
+    const newEntry: RateLimitEntry = { count: 1, windowStart: now };
+    await env.RATELIMIT_KV.put(key, JSON.stringify(newEntry), {
+      expirationTtl: windowSecs + 10,
+    });
+    return { allowed: true, remaining: maxRequests - 1, resetAt: now + windowSecs };
+  }
+
+  if (entry.count >= maxRequests) {
+    return { allowed: false, remaining: 0, resetAt: entry.windowStart + windowSecs };
+  }
+
+  entry.count++;
+  await env.RATELIMIT_KV.put(key, JSON.stringify(entry), {
+    expirationTtl: windowSecs + 10,
+  });
+  return { allowed: true, remaining: maxRequests - entry.count, resetAt: entry.windowStart + windowSecs };
 }
 
-function corsHeaders(origin: string | null): Record<string, string> {
-  const allowed = isAllowedOrigin(origin) ? origin : ALLOWED_ORIGINS[0];
+// ─── CORS ────────────────────────────────────────────────────────────────────
+
+function getCorsHeaders(env: Env, origin?: string | null): Record<string, string> {
+  const allowedOrigins = env.CORS_ORIGINS || '*';
+  let allowOrigin = '*';
+
+  if (allowedOrigins !== '*' && origin) {
+    const origins = allowedOrigins.split(',').map((o) => o.trim());
+    if (origins.includes(origin)) {
+      allowOrigin = origin;
+    } else {
+      allowOrigin = origins[0] || 'none';
+    }
+  }
+
   return {
-    'Access-Control-Allow-Origin': allowed,
-    'Access-Control-Allow-Methods': 'GET, POST, PATCH, DELETE, OPTIONS',
+    'Access-Control-Allow-Origin': allowOrigin,
+    'Access-Control-Allow-Methods': 'GET, POST, DELETE, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     'Access-Control-Max-Age': '86400',
-    'Vary': 'Origin',
-    'Content-Security-Policy': "default-src 'none'; frame-ancestors 'none'",
   };
 }
 
-/** Verify API key from Authorization header */
-function verifyApiKey(request: Request, env: Env): boolean {
-  const apiKey = env.API_KEY;
-  if (!apiKey) return true; // skip if not configured
-  const auth = request.headers.get('Authorization');
-  if (!auth) return false;
-  const expected = `Bearer ${apiKey}`;
-  return constantTimeCompare(auth, expected) || constantTimeCompare(auth, apiKey);
+// ─── Metrics ─────────────────────────────────────────────────────────────────
+
+async function getMetrics(env: Env): Promise<MetricsData> {
+  const raw = await env.KEYS_KV.get('metrics:global', 'json');
+  return (raw as MetricsData) || {
+    requestsTotal: 0,
+    keysCreated: 0,
+    keysRetrieved: 0,
+    keysDeleted: 0,
+    keysRotated: 0,
+    authFailures: 0,
+    rateLimitHits: 0,
+  };
 }
 
-/** Check and return CORS origin */
-function getCorsOrigin(request: Request): string | null {
-  return request.headers.get('Origin');
+async function incrementMetric(env: Env, field: keyof MetricsData): Promise<void> {
+  const metrics = await getMetrics(env);
+  metrics[field]++;
+  metrics.requestsTotal++;
+  await env.KEYS_KV.put('metrics:global', JSON.stringify(metrics));
 }
+
+// ─── Auth Middleware ──────────────────────────────────────────────────────────
+
+const PUBLIC_PATHS = ['/health', '/v1/health', '/metrics'];
+
+async function authenticate(
+  request: Request,
+  env: Env
+): Promise<{ ok: true; claims: JwtClaims } | { ok: false; status: number; body: object }> {
+  const url = new URL(request.url);
+  if (PUBLIC_PATHS.includes(url.pathname)) {
+    return { ok: true, claims: { sub: '', iss: '', exp: 0, iat: 0 } };
+  }
+
+  const authHeader = request.headers.get('Authorization');
+  if (!authHeader) {
+    return { ok: false, status: 401, body: { error: 'unauthorized', message: 'Missing authorization header' } };
+  }
+
+  if (!authHeader.startsWith('Bearer ')) {
+    return { ok: false, status: 401, body: { error: 'unauthorized', message: 'Invalid authorization header format' } };
+  }
+
+  const token = authHeader.slice(7);
+  try {
+    const claims = await validateJwt(token, env.JWT_SECRET);
+    return { ok: true, claims };
+  } catch (e: any) {
+    await incrementMetric(env, 'authFailures');
+    return { ok: false, status: 401, body: { error: 'unauthorized', message: e.message || 'Invalid token' } };
+  }
+}
+
+// ─── Route Handlers ──────────────────────────────────────────────────────────
+
+async function handleHealth(env: Env): Promise<Response> {
+  return new Response(
+    JSON.stringify({
+      status: 'ok',
+      service: 'keys-server',
+      platform: 'cloudflare-workers',
+      timestamp: new Date().toISOString(),
+    }),
+    { headers: { 'Content-Type': 'application/json' } }
+  );
+}
+
+async function handleMetrics(env: Env): Promise<Response> {
+  const metrics = await getMetrics(env);
+  return new Response(JSON.stringify(metrics), {
+    headers: { 'Content-Type': 'application/json' },
+  });
+}
+
+async function handleCreateKey(
+  request: Request,
+  env: Env,
+  claims: JwtClaims
+): Promise<Response> {
+  let body: { label?: string; keyData?: string };
+  try {
+    body = await request.json();
+  } catch {
+    return jsonResponse({ error: 'bad_request', message: 'Invalid JSON body' }, 400);
+  }
+
+  const label = body.label || 'unnamed';
+  const id = crypto.randomUUID();
+
+  // Generate random 32-byte key if not provided
+  const rawKey = body.keyData
+    ? Uint8Array.from(atob(body.keyData), (c) => c.charCodeAt(0))
+    : crypto.getRandomValues(new Uint8Array(32));
+
+  const salt = crypto.getRandomValues(new Uint8Array(SALT_LENGTH));
+  const encrypted = await encryptData(rawKey, env.ENCRYPTION_KEY, salt);
+
+  const stored: StoredKey = {
+    id,
+    label,
+    encrypted,
+    algorithm: 'aes-256-gcm',
+    salt: Array.from(salt)
+      .map((b) => b.toString(16).padStart(2, '0'))
+      .join(''),
+    createdAt: Date.now(),
+  };
+
+  await env.KEYS_KV.put(`key:${id}`, JSON.stringify(stored));
+  await incrementMetric(env, 'keysCreated');
+
+  // Return metadata only (no encrypted material)
+  const { encrypted: _, ...metadata } = stored;
+  return jsonResponse(metadata, 201);
+}
+
+async function handleGetKey(request: Request, env: Env, keyId: string): Promise<Response> {
+  const raw = await env.KEYS_KV.get(`key:${keyId}`, 'json');
+  if (!raw) {
+    return jsonResponse({ error: 'not_found', message: 'Key not found' }, 404);
+  }
+
+  await incrementMetric(env, 'keysRetrieved');
+  // Return metadata only (no encrypted material)
+  const stored = raw as StoredKey;
+  const { encrypted: _, ...metadata } = stored;
+  return jsonResponse(metadata);
+}
+
+async function handleDeleteKey(request: Request, env: Env, keyId: string): Promise<Response> {
+  const raw = await env.KEYS_KV.get(`key:${keyId}`);
+  if (!raw) {
+    return jsonResponse({ error: 'not_found', message: 'Key not found' }, 404);
+  }
+
+  await env.KEYS_KV.delete(`key:${keyId}`);
+  await incrementMetric(env, 'keysDeleted');
+  return jsonResponse({ deleted: true, id: keyId });
+}
+
+async function handleRotateKey(
+  request: Request,
+  env: Env,
+  keyId: string,
+  claims: JwtClaims
+): Promise<Response> {
+  const raw = await env.KEYS_KV.get(`key:${keyId}`, 'json');
+  if (!raw) {
+    return jsonResponse({ error: 'not_found', message: 'Key not found' }, 404);
+  }
+
+  const existing = raw as StoredKey;
+
+  // Decrypt with old salt
+  const oldSalt = Uint8Array.from(existing.salt.match(/.{2}/g)!.map((b) => parseInt(b, 16)));
+  const decrypted = await decryptData(existing.encrypted, env.ENCRYPTION_KEY, oldSalt);
+
+  // Re-encrypt with new salt
+  const newSalt = crypto.getRandomValues(new Uint8Array(SALT_LENGTH));
+  const newEncrypted = await encryptData(decrypted, env.ENCRYPTION_KEY, newSalt);
+
+  const rotated: StoredKey = {
+    ...existing,
+    encrypted: newEncrypted,
+    salt: Array.from(newSalt)
+      .map((b) => b.toString(16).padStart(2, '0'))
+      .join(''),
+    createdAt: Date.now(),
+  };
+
+  await env.KEYS_KV.put(`key:${keyId}`, JSON.stringify(rotated));
+  await incrementMetric(env, 'keysRotated');
+
+  const { encrypted: _, ...metadata } = rotated;
+  return jsonResponse(metadata);
+}
+
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+
+function jsonResponse(body: object, status = 200): Response {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { 'Content-Type': 'application/json' },
+  });
+}
+
+function getClientIp(request: Request): string {
+  return (
+    request.headers.get('CF-Connecting-IP') ||
+    request.headers.get('X-Forwarded-For')?.split(',')[0]?.trim() ||
+    'unknown'
+  );
+}
+
+// ─── Router ──────────────────────────────────────────────────────────────────
+
+export default {
+  async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+    const url = new URL(request.url);
+    const path = url.pathname;
+    const method = request.method;
+    const origin = request.headers.get('Origin');
+    const corsHeaders = getCorsHeaders(env, origin);
+
+    // Handle CORS preflight
+    if (method === 'OPTIONS') {
+      return new Response(null, { status: 204, headers: corsHeaders });
+    }
+
+    // Rate limiting
+    const clientIp = getClientIp(request);
+    const rateLimit = await checkRateLimit(env, clientIp);
+    if (!rateLimit.allowed) {
+      await incrementMetric(env, 'rateLimitHits');
+      return new Response(
+        JSON.stringify({
+          error: 'rate_limit_exceeded',
+          message: 'Too many requests. Please try again later.',
+          retryAfter: rateLimit.resetAt - Math.floor(Date.now() / 1000),
+        }),
+        {
+          status: 429,
+          headers: {
+            'Content-Type': 'application/json',
+            'Retry-After': String(rateLimit.resetAt - Math.floor(Date.now() / 1000)),
+            'X-RateLimit-Limit': env.RATE_LIMIT_MAX || '100',
+            'X-RateLimit-Remaining': '0',
+            'X-RateLimit-Reset': String(rateLimit.resetAt),
+            ...corsHeaders,
+          },
+        }
+      );
+    }
+
+    // Authentication
+    const authResult = await authenticate(request, env);
+    if (!authResult.ok) {
+      return new Response(JSON.stringify(authResult.body), {
+        status: authResult.status,
+        headers: {
+          'Content-Type': 'application/json',
+          'X-RateLimit-Remaining': String(rateLimit.remaining),
+          ...corsHeaders,
+        },
+      });
+    }
+
+    // Route matching
+    let response: Response;
+
+    try {
+      // Public routes
+      if (path === '/health' || path === '/v1/health') {
+        response = await handleHealth(env);
+      } else if (path === '/metrics') {
+        if (method !== 'GET') {
+          response = jsonResponse({ error: 'method_not_allowed' }, 405);
+        } else {
+          response = await handleMetrics(env);
+        }
+      }
+      // Key routes
+      else if (path === '/keys' && method === 'POST') {
+        response = await handleCreateKey(request, env, authResult.claims);
+      } else if (path.match(/^\/keys\/[^/]+$/) && method === 'GET') {
+        const keyId = path.split('/')[2];
+        response = await handleGetKey(request, env, keyId);
+      } else if (path.match(/^\/keys\/[^/]+$/) && method === 'DELETE') {
+        const keyId = path.split('/')[2];
+        response = await handleDeleteKey(request, env, keyId);
+      } else if (path.match(/^\/keys\/[^/]+\/rotate$/) && method === 'POST') {
+        const keyId = path.split('/')[2];
+        response = await handleRotateKey(request, env, keyId, authResult.claims);
+      } else {
+        response = jsonResponse({ error: 'not_found', message: 'Route not found' }, 404);
+      }
+    } catch (err: any) {
+      console.error('Handler error:', err);
+      response = jsonResponse(
+        { error: 'internal_error', message: err.message || 'Internal server error' },
+        500
+      );
+    }
+
+    // Add standard headers
+    const finalHeaders = new Headers(response.headers);
+    finalHeaders.set('X-RateLimit-Limit', env.RATE_LIMIT_MAX || '100');
+    finalHeaders.set('X-RateLimit-Remaining', String(rateLimit.remaining));
+    finalHeaders.set('X-RateLimit-Reset', String(rateLimit.resetAt));
+    for (const [k, v] of Object.entries(corsHeaders)) {
+      finalHeaders.set(k, v);
+    }
+
+    return new Response(response.body, {
+      status: response.status,
+      headers: finalHeaders,
+    });
+  },
+};
