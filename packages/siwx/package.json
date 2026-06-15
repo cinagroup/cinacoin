@@ -21,7 +21,10 @@
   "license": "MIT",
   "dependencies": {
     "@cinacoin/siwe": "workspace:*",
-    "@cinacoin/logger": "workspace:*"
+    "@cinacoin/logger": "workspace:*",
+    "@noble/curves": "^1.4.0",
+    "@noble/hashes": "^1.4.0",
+    "viem": "^2.10.0"
   },
   "devDependencies": {
     "@types/node": "^20.11.0",

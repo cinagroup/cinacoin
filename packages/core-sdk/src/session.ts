@@ -58,16 +58,16 @@ const SESSION_TTL_MS = 24 * 60 * 60 * 1000;
 /**
  * Create an integrity hash of the session state.
  * Used to detect tampering with persisted session data.
+ * 
+ * Uses SHA-256 via the Web Crypto API (crypto.subtle) for cryptographic
+ * security, replacing the previous djb2 non-cryptographic hash.
  */
-function computeIntegrity(state: object): string {
+async function computeIntegrity(state: object): Promise<string> {
   const data = JSON.stringify(state);
-  let hash = 0;
-  for (let i = 0; i < data.length; i++) {
-    const char = data.charCodeAt(i);
-    hash = ((hash << 5) - hash) + char;
-    hash = hash & hash; // Convert to 32bit integer
-  }
-  return hash.toString(36);
+  const encoder = new TextEncoder();
+  const hashBuffer = await crypto.subtle.digest('SHA-256', encoder.encode(data));
+  const hashArray = new Uint8Array(hashBuffer);
+  return Array.from(hashArray, b => b.toString(16).padStart(2, '0')).join('');
 }
 
 /**
@@ -122,7 +122,7 @@ export class SessionManager extends EventEmitter {
 
       // Verify integrity hash
       const { expiresAt, _integrity: integrityHash, ...stateForHash } = persisted;
-      const expectedHash = computeIntegrity(stateForHash);
+      const expectedHash = await computeIntegrity(stateForHash);
       if (integrityHash && integrityHash !== expectedHash) {
         // Tampered data — clear and return disconnected
         localStorage.removeItem(SESSION_STORAGE_KEY);
@@ -247,13 +247,14 @@ export class SessionManager extends EventEmitter {
   }
 
   /** Persist current connected state to localStorage with expiry and integrity. */
-  private persist(): void {
+  private async persist(): Promise<void> {
     if (this.state.status === 'connected') {
       // State doesn't have expiresAt, just use the full state for hashing
+      const integrityHash = await computeIntegrity(this.state);
       const payload = {
         ...this.state,
         expiresAt: Date.now() + SESSION_TTL_MS,
-        _integrity: computeIntegrity(this.state),
+        _integrity: integrityHash,
       };
       localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(payload));
     }

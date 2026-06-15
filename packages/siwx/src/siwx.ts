@@ -12,16 +12,20 @@ import { createBitcoinSignInMessage, verifyBitcoinSignature } from './chains/bit
 import { createTonSignInMessage, verifyTonSignature } from './chains/ton.js';
 import { createTronSignInMessage, verifyTronSignature } from './chains/tron.js';
 import { generateTimestamp } from '@cinacoin/siwe';
-import { randomBytes } from 'crypto';
 
 /**
  * Generate a cross-chain sign-in nonce.
+ *
+ * Uses the Web Crypto API (globalThis.crypto.getRandomValues) for
+ * browser compatibility, replacing the Node.js-specific `crypto.randomBytes`.
  *
  * @param byteLength - Number of random bytes (default: 16).
  * @returns Hex-encoded nonce.
  */
 function generateNonce(byteLength: number = 16): string {
-  return randomBytes(byteLength).toString('hex');
+  const bytes = new Uint8Array(byteLength);
+  globalThis.crypto.getRandomValues(bytes);
+  return Array.from(bytes, b => b.toString(16).padStart(2, '0')).join('');
 }
 
 /**

@@ -22,20 +22,28 @@ import { randomBytes } from '@noble/hashes/utils';
  * Uses HKDF (HMAC-based Key Derivation Function) to derive
  * a 32-byte seed from the provider ID and email/username.
  *
+ * SECURITY: serverSecret is now required to prevent predictable key derivation.
+ * The server secret should be stored securely (e.g., in a hardware security module)
+ * and never exposed to clients.
+ *
  * @param providerId - Provider-specific user ID (e.g., Google sub).
  * @param identifier - Additional identifier (email, username).
- * @param derivationKey - Optional master key for additional security.
+ * @param serverSecret - Required server-side secret for HKDF info parameter.
  * @returns 32-byte seed for HD wallet derivation.
  */
 export function deriveSeedFromIdentity(
   providerId: string,
   identifier: string,
-  derivationKey?: string
+  serverSecret: string
 ): Uint8Array {
+  if (!serverSecret) {
+    throw new Error('serverSecret is required for secure key derivation');
+  }
+
   // Create a unique seed using standard HKDF
   const salt = new TextEncoder().encode('cinacoin-social-login-v1');
   const ikm = new TextEncoder().encode(`${providerId}:${identifier}`);
-  const info = new TextEncoder().encode(derivationKey || 'cinacoin-default');
+  const info = new TextEncoder().encode(serverSecret);
 
   // Use standard HKDF with SHA-256
   return hkdf(sha256, ikm, salt, info, 32);
@@ -83,21 +91,23 @@ export function deriveAddressFromEmail(
  * @param provider - Provider name (google, apple, twitter, email).
  * @param userId - Provider-specific user ID.
  * @param email - Optional email for additional entropy.
+ * @param serverSecret - Required server-side secret for secure key derivation.
  * @returns Object with address and public key.
  *
  * @example
  * ```ts
- * const wallet = await deriveAddressFromProvider('google', '12345', 'user@gmail.com');
+ * const wallet = await deriveAddressFromProvider('google', '12345', 'user@gmail.com', 'your-server-secret');
  * // wallet.address → "0x..."
  * ```
  */
 export function deriveAddressFromProvider(
   provider: string,
   userId: string,
-  email?: string
+  email: string | undefined,
+  serverSecret: string
 ): { address: string; publicKey: string } {
   const identifier = email ? `${userId}:${email}` : userId;
-  const seed = deriveSeedFromIdentity(userId, identifier, `cinacoin-${provider}`);
+  const seed = deriveSeedFromIdentity(userId, identifier, serverSecret);
   return deriveAddressFromSeed(seed);
 }
 

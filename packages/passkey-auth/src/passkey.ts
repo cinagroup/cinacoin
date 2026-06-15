@@ -14,6 +14,23 @@ import {
 } from './webauthn.js';
 
 /**
+ * Encode an ArrayBuffer to base64url format.
+ * Used for extracting signature data from WebAuthn credentials.
+ */
+function arrayBufferToBase64Url(buffer: ArrayBuffer): string {
+  const bytes = new Uint8Array(buffer);
+  let binary = '';
+  for (let i = 0; i < bytes.length; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  // Convert to base64, then to base64url
+  const base64 = typeof btoa !== 'undefined'
+    ? btoa(binary)
+    : Buffer.from(bytes).toString('base64');
+  return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+}
+
+/**
  * Passkey — High-level passkey authentication manager.
  * Handles registration, authentication, listing, and removal of passkeys.
  */
@@ -147,12 +164,15 @@ export class PasskeyManager {
         await this.storage.save(stored);
       }
 
+      // Extract signature data from the credential response
+      const response = credential.response as AuthenticatorAssertionResponse;
+      
       return {
         success: true,
         credentialId: credential.id,
-        signature: '',
-        authenticatorData: '',
-        clientDataJSON: '',
+        signature: arrayBufferToBase64Url(response.signature),
+        authenticatorData: arrayBufferToBase64Url(response.authenticatorData),
+        clientDataJSON: arrayBufferToBase64Url(response.clientDataJSON),
         userHandle: credential.id,
       };
     } catch (error) {
