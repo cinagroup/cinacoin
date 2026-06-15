@@ -1,4 +1,4 @@
-import { defineNuxtModule, addPlugin, addImportsDir, addComponent, addTemplate, createResolver } from '@nuxt/kit'
+import { defineNuxtModule, addPlugin, addImportsDir, addComponent, addTemplate, addServerHandler, createResolver } from '@nuxt/kit'
 
 /**
  * Metadata options for the Cinacoin connection.
@@ -160,5 +160,38 @@ export default defineNuxtModule<CinacoinModuleOptions>({
     nuxt.hook('prepare:types', ({ references }) => {
       references.push({ path: resolve('./runtime/types') })
     })
+
+    // ── Nitro server routes (server-side API) ─────────────────────
+    // Only register if server-side features are enabled
+    const enableServer = (options as any).enableServer !== false
+    if (enableServer) {
+      // SIWE login endpoint
+      addServerHandler({
+        route: '/api/cinacoin/login',
+        method: 'post',
+        handler: resolve('./server/nitro-login'),
+      })
+
+      // Session check endpoint
+      addServerHandler({
+        route: '/api/cinacoin/session',
+        method: 'get',
+        handler: resolve('./server/nitro-session'),
+      })
+
+      // Logout endpoint
+      addServerHandler({
+        route: '/api/cinacoin/logout',
+        method: 'post',
+        handler: resolve('./server/nitro-logout'),
+      })
+
+      // Nonce generation endpoint
+      addServerHandler({
+        route: '/api/cinacoin/nonce',
+        method: 'get',
+        handler: resolve('./server/nitro-nonce'),
+      })
+    }
   },
 })

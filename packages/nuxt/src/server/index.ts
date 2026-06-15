@@ -32,7 +32,6 @@
 
 import type { H3Event, EventHandlerRequest } from 'h3';
 import {
-import { logger } from '@cinacoin/logger';
   defineEventHandler,
   getHeader as getRequestHeader,
   getRequestURL,
@@ -40,6 +39,7 @@ import { logger } from '@cinacoin/logger';
   sendError,
   createError,
 } from 'h3';
+import { logger } from '@cinacoin/logger';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -591,3 +591,29 @@ export {
   type EventHandlerRequest,
   type H3Event,
 } from 'h3';
+
+// Re-export Nitro server route handlers
+export {
+  createSiweLoginHandler,
+  createLogoutHandler,
+  createSessionHandler,
+  createNonceHandler,
+  createRpcHandler,
+  storeNonce,
+  verifyNonce,
+  createSessionToken,
+  decodeSessionToken,
+  setSessionCookie,
+  getSessionFromCookie,
+  clearSessionCookie,
+  getNitroConfigFromEnv,
+  DEFAULT_ROUTES,
+} from './nitro.js';
+
+export type {
+  NitroCinacoinConfig,
+  NitroSession,
+  NitroCinacoinHandler,
+  SiweVerifyRequest,
+  NitroPluginConfig,
+} from './nitro.js';
