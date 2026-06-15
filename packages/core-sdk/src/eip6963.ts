@@ -47,11 +47,18 @@ interface EIP6963AnnounceEvent extends CustomEvent {
  * Discover all EIP-6963 compatible wallet providers.
  *
  * Returns a promise that resolves with all discovered wallets
- * after a 300ms discovery window.
+ * after a configurable discovery window.
  *
+ * L-001: Discovery window is now configurable (default 300ms, min 100ms, max 2000ms).
+ *
+ * @param options - Discovery options
+ * @param options.timeoutMs - Discovery window in milliseconds (default: 300, min: 100, max: 2000)
  * @returns Promise resolving to array of discovered providers.
  */
-export function discoverWallets(): Promise<EIP6963ProviderDetail[]> {
+export function discoverWallets(options?: { timeoutMs?: number }): Promise<EIP6963ProviderDetail[]> {
+  // L-001: Clamp timeout to valid range
+  const timeoutMs = Math.min(2000, Math.max(100, options?.timeoutMs ?? 300));
+
   return new Promise((resolve) => {
     const wallets: EIP6963ProviderDetail[] = [];
     const seen = new Set<string>();
@@ -70,11 +77,11 @@ export function discoverWallets(): Promise<EIP6963ProviderDetail[]> {
     // Trigger discovery
     window.dispatchEvent(new Event('eip6963:requestProvider'));
 
-    // Resolve after 300ms discovery window
+    // Resolve after configurable discovery window
     setTimeout(() => {
       window.removeEventListener('eip6963:announceProvider', handleAnnounce);
       resolve(wallets);
-    }, 300);
+    }, timeoutMs);
   });
 }
 

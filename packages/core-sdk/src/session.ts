@@ -39,6 +39,30 @@ if (typeof process !== 'undefined' && process.env?.NODE_ENV === 'production') {
   }
 }
 
+/**
+ * Validate SESSION_SECRET at runtime.
+ * M-001: Check validity on each use, not just at module load.
+ * @throws Error if SESSION_SECRET is invalid or missing in production
+ */
+function validateSessionSecret(): void {
+  if (typeof process !== 'undefined' && process.env?.NODE_ENV === 'production') {
+    const secret = process.env.SESSION_SECRET;
+    if (!secret) {
+      throw new Error(
+        'SESSION_SECRET environment variable is required in production. ' +
+        'Generate a secure secret with: openssl rand -hex 32'
+      );
+    }
+    // Check minimum length (32 bytes = 64 hex chars)
+    if (secret.length < 32) {
+      throw new Error(
+        'SESSION_SECRET must be at least 32 characters long. ' +
+        'Generate a secure secret with: openssl rand -hex 32'
+      );
+    }
+  }
+}
+
 /** Session state discriminator. */
 export type SessionState =
   | { status: 'disconnected' }
@@ -106,6 +130,9 @@ export class SessionManager extends EventEmitter {
    * If validation fails, returns disconnected state.
    */
   async restore(): Promise<SessionState> {
+    // M-001: Validate SESSION_SECRET at runtime
+    validateSessionSecret();
+
     try {
       const raw = localStorage.getItem(SESSION_STORAGE_KEY);
       if (!raw) {
@@ -189,6 +216,9 @@ export class SessionManager extends EventEmitter {
     accounts: string[],
     chainId: number,
   ): Promise<void> {
+    // M-001: Validate SESSION_SECRET at runtime
+    validateSessionSecret();
+
     if (!this._connector) {
       throw createError(SDK.NOT_INITIALIZED.code, 'No connector set — call initiate() first');
     }
@@ -249,6 +279,9 @@ export class SessionManager extends EventEmitter {
   /** Persist current connected state to localStorage with expiry and integrity. */
   private async persist(): Promise<void> {
     if (this.state.status === 'connected') {
+      // M-001: Validate SESSION_SECRET at runtime
+      validateSessionSecret();
+
       // State doesn't have expiresAt, just use the full state for hashing
       const integrityHash = await computeIntegrity(this.state);
       const payload = {

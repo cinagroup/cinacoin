@@ -3,6 +3,10 @@
  */
 
 import type { CoinbaseWalletProvider } from './types.js';
+import { toHexChainId, fromHexChainId } from '@cinacoin/core-sdk/utils/chain';
+
+// L-005: Re-export shared utilities for backward compatibility
+export { toHexChainId, fromHexChainId };
 
 declare global {
   interface Window {
@@ -62,16 +66,5 @@ export function getCoinbaseWalletInstallLink(): string {
   return 'https://chrome.google.com/webstore/detail/coinbase-wallet-extension/hnfanknocfeofbddgcijnmhnfnkdnaad';
 }
 
-/**
- * Convert chain ID to hex string for Coinbase Wallet.
- */
-export function toHexChainId(chainId: number): string {
-  return `0x${chainId.toString(16)}`;
-}
-
-/**
- * Parse hex chain ID to number.
- */
-export function fromHexChainId(hex: string): number {
-  return parseInt(hex, 16);
-}
+// L-005: toHexChainId and fromHexChainId are now imported from @cinacoin/core-sdk/utils/chain
+// and re-exported above for backward compatibility

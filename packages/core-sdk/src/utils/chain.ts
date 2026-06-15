@@ -57,6 +57,32 @@ export function toNumericChainId(chainId: string | number): number {
   return parseInt(parts[parts.length - 1], 10);
 }
 
+/**
+ * Convert a numeric chain ID to hex string (e.g., 1 → '0x1').
+ * Used by wallet providers (MetaMask, Coinbase, etc.) for chain switching.
+ *
+ * L-005: Extracted from adapter-specific utils to shared location.
+ *
+ * @param chainId - Numeric chain ID
+ * @returns Hex-encoded chain ID string
+ */
+export function toHexChainId(chainId: number): string {
+  return `0x${chainId.toString(16)}`;
+}
+
+/**
+ * Parse a hex chain ID string to numeric (e.g., '0x1' → 1).
+ * Used by wallet providers (MetaMask, Coinbase, etc.) for reading chain state.
+ *
+ * L-005: Extracted from adapter-specific utils to shared location.
+ *
+ * @param hex - Hex-encoded chain ID string
+ * @returns Numeric chain ID
+ */
+export function fromHexChainId(hex: string): number {
+  return parseInt(hex, 16);
+}
+
 // ============================================================================
 // Chain Name Resolution
 // ============================================================================

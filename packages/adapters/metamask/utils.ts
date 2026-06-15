@@ -3,6 +3,10 @@
  */
 
 import type { MetaMaskProvider, EIP6963ProviderDetail } from './types.js';
+import { toHexChainId, fromHexChainId } from '@cinacoin/core-sdk/utils/chain';
+
+// L-005: Re-export shared utilities for backward compatibility
+export { toHexChainId, fromHexChainId };
 
 declare global {
   interface Window {
@@ -76,16 +80,5 @@ export function getMetaMaskInstallLink(): string {
   return 'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn';
 }
 
-/**
- * Format chain ID for MetaMask (hex string).
- */
-export function toHexChainId(chainId: number): string {
-  return `0x${chainId.toString(16)}`;
-}
-
-/**
- * Parse chain ID from MetaMask hex format.
- */
-export function fromHexChainId(hex: string): number {
-  return parseInt(hex, 16);
-}
+// L-005: toHexChainId and fromHexChainId are now imported from @cinacoin/core-sdk/utils/chain
+// and re-exported above for backward compatibility

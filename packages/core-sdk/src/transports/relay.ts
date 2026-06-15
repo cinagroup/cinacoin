@@ -212,12 +212,17 @@ export class RelayTransport extends EventEmitter {
     }
   }
 
-  /** Attempt reconnection with exponential backoff. */
+  /** Attempt reconnection with exponential backoff and jitter. */
   private reconnect(): void {
     this.reconnectAttempts++;
-    const delay = Math.min(1000 * 2 ** this.reconnectAttempts, 30_000);
+    const baseDelay = Math.min(1000 * 2 ** this.reconnectAttempts, 30_000);
+    
+    // L-002: Add random jitter (0-25% of base delay) to prevent thundering herd
+    const jitter = Math.random() * 0.25 * baseDelay;
+    const delay = baseDelay + jitter;
+    
     logger.info(
-      `[Cinacoin] Reconnecting in ${delay}ms (attempt ${this.reconnectAttempts}/${this.config.maxReconnectAttempts})`,
+      `[Cinacoin] Reconnecting in ${Math.round(delay)}ms (attempt ${this.reconnectAttempts}/${this.config.maxReconnectAttempts})`,
     );
     setTimeout(() => {
       this.connect().catch(() => {

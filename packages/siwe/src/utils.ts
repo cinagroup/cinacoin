@@ -2,6 +2,8 @@
  * Utility functions for SIWE message generation and parsing.
  */
 
+import { keccak_256 } from '@noble/hashes/keccak';
+
 /**
  * Generate a cryptographically secure random nonce.
  * Default length is 8 bytes (16 hex characters).
@@ -83,13 +85,37 @@ export function isValidUri(uri: string): boolean {
 }
 
 /**
- * Normalize an Ethereum address to lowercase checksummed form.
+ * Normalize an Ethereum address to EIP-55 checksummed form.
+ *
+ * M-002: Implements EIP-55 mixed-case checksum encoding.
  *
  * @param address - Ethereum address string.
- * @returns Normalized address.
+ * @returns EIP-55 checksummed address.
  */
 export function normalizeAddress(address: string): string {
-  return address.toLowerCase();
+  // Remove 0x prefix and lowercase
+  const addr = address.toLowerCase().replace('0x', '');
+
+  // Validate format
+  if (!/^[0-9a-f]{40}$/.test(addr)) {
+    throw new Error(`Invalid Ethereum address format: ${address}`);
+  }
+
+  // Compute EIP-55 checksum using keccak256
+  const hashBytes = keccak_256(new TextEncoder().encode(addr));
+  const hashHex = Array.from(hashBytes, b => b.toString(16).padStart(2, '0')).join('');
+
+  let checksummed = '0x';
+  for (let i = 0; i < 40; i++) {
+    // If the corresponding character in the hash is >= 8, uppercase it
+    if (parseInt(hashHex[i], 16) >= 8) {
+      checksummed += addr[i].toUpperCase();
+    } else {
+      checksummed += addr[i];
+    }
+  }
+
+  return checksummed;
 }
 
 /**
