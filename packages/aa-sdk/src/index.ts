@@ -29,3 +29,16 @@ export type {
   BundlerSendResult,
   AASDKConfig,
 } from './types.js';
+
+// ============================================================
+// DEFI-15: EIP-5792 Support (wallet_sendCalls, wallet_getCallsStatus)
+// ============================================================
+
+export { EIP5792Client, createEIP5792Client } from './eip5792.js';
+export type {
+  EIP5792Call,
+  EIP5792SendCallsParams,
+  EIP5792SendCallsResult,
+  EIP5792CallsStatus,
+  EIP5792GetCallsStatusParams,
+} from './eip5792.js';

@@ -4,21 +4,95 @@ import type { Env } from './types';
 
 export { MempoolDO };
 
+// ============================================================
+// DEFI-08 FIX: Rate Limiter using Cloudflare cf-connecting-ip
+// ============================================================
+
+interface RateLimitEntry {
+  count: number;
+  resetAt: number;
+}
+
+const rateLimitStore = new Map<string, RateLimitEntry>();
+
+const RATE_LIMIT_WINDOW_MS = 60_000; // 1 minute
+const RATE_LIMIT_MAX_REQUESTS = 100; // 100 requests per minute per IP
+
 /**
- * SEC-06 FIX: Verify API key from request headers.
- * In production, BUNDLER_SKIP_AUTH is disabled and API keys are required.
+ * DEFI-08 FIX: Extract client IP safely.
+ * Uses cf-connecting-ip (set by Cloudflare) instead of X-Forwarded-For
+ * which can be spoofed by clients.
+ */
+function getClientIp(request: Request): string {
+  // Cloudflare sets this header and it cannot be spoofed by clients
+  const cfIp = request.headers.get('cf-connecting-ip');
+  if (cfIp) return cfIp;
+
+  // Fallback: use a fixed identifier when no trusted proxy header is present
+  // This is safe because without a trusted proxy header, we treat all requests
+  // as coming from the same source (conservative approach)
+  return 'unknown-proxy';
+}
+
+/**
+ * DEFI-08 FIX: Simple in-memory rate limiter.
+ * Returns true if the request should be allowed, false if rate-limited.
+ */
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now();
+  const entry = rateLimitStore.get(ip);
+
+  if (!entry || now >= entry.resetAt) {
+    rateLimitStore.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
+    return true;
+  }
+
+  if (entry.count >= RATE_LIMIT_MAX_REQUESTS) {
+    return false;
+  }
+
+  entry.count++;
+  return true;
+}
+
+// ============================================================
+// DEFI-06 FIX: Authentication (production-hardened)
+// ============================================================
+
+/**
+ * DEFI-06 FIX: Verify API key from request headers.
+ * 
+ * PRODUCTION HARDENING:
+ * - BUNDLER_SKIP_AUTH is COMPLETELY DISABLED in production (NODE_ENV=production)
+ * - No environment variable or header can bypass authentication in production
+ * - If no API keys are configured, ALL requests are rejected (fail-secure)
  */
 function verifyApiKey(request: Request, env: Env): boolean {
-  // SEC-06: In production, never allow skipping authentication
   const nodeEnv = env.NODE_ENV || 'production';
+
+  // DEFI-06: In production, SKIP_AUTH is FORBIDDEN regardless of any config
+  // No BUNDLER_SKIP_AUTH env var, no X-Bundler-Skip-Auth header — nothing bypasses auth
+  if (nodeEnv === 'production') {
+    // Production: strict API key validation only, no exceptions
+    return validateApiKey(request, env);
+  }
+
+  // Non-production: allow skip only if explicitly configured and no keys are set
   if (nodeEnv !== 'production') {
-    // Only allow skip in non-production environments
     const skipAuth = request.headers.get('X-Bundler-Skip-Auth');
     if (skipAuth === 'true' && !env.BUNDLER_API_KEYS) {
       return true;
     }
   }
 
+  return validateApiKey(request, env);
+}
+
+/**
+ * Validate API key against configured allowed keys.
+ * Fail-secure: if no keys configured, reject all requests.
+ */
+function validateApiKey(request: Request, env: Env): boolean {
   const apiKeysEnv = env.BUNDLER_API_KEYS;
   if (!apiKeysEnv) {
     // No keys configured = reject all (fail secure)
@@ -68,7 +142,30 @@ export default {
       return new Response('Method not allowed', { status: 405 });
     }
 
-    // SEC-06: Verify API key before processing request
+    // DEFI-08: Rate limiting before authentication
+    const clientIp = getClientIp(request);
+    if (!checkRateLimit(clientIp)) {
+      return new Response(
+        JSON.stringify({
+          jsonrpc: '2.0',
+          id: null,
+          error: {
+            code: -32005,
+            message: 'Rate limit exceeded. Please try again later.',
+          },
+        }),
+        {
+          status: 429,
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Retry-After': '60',
+          },
+        }
+      );
+    }
+
+    // DEFI-06: Verify API key before processing request
     if (!verifyApiKey(request, env)) {
       return new Response(
         JSON.stringify({
