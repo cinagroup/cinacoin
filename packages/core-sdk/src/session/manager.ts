@@ -23,11 +23,13 @@
  */
 
 import { logger } from '@cinacoin/logger';
-import type { ConnectParams, ConnectionResult } from './types.js';
-import type { Connector } from './connector.js';
-import type { EventHandler } from './types.js';
-import { EventEmitter } from './events.js';
-import { createError, WALLET_CONNECT, SDK } from './errors/index.js';
+import type { ConnectParams } from '../types.js';
+import type { Connector } from '../connector.js';
+import type { EventHandler } from '../types.js';
+import { EventEmitter } from '../events.js';
+import { createError, WALLET_CONNECT, SDK } from '../errors/index.js';
+import type { SessionState } from './types.js';
+import { persistSession, restoreSession, clearSession } from './store.js';
 
 // [H-004] Fix: Enforce SESSION_SECRET in production
 if (typeof process !== 'undefined' && process.env?.NODE_ENV === 'production') {
@@ -61,37 +63,6 @@ function validateSessionSecret(): void {
       );
     }
   }
-}
-
-/** Session state discriminator. */
-export type SessionState =
-  | { status: 'disconnected' }
-  | { status: 'connecting'; connectorId: string }
-  | { status: 'connected'; accounts: string[]; chainId: number; sessionId: string; connectorId: string }
-  | { status: 'error'; error: Error };
-
-/** Session storage key for persistence. */
-const SESSION_STORAGE_KEY = 'cinacoin_session';
-
-/**
- * Session expiry TTL in milliseconds (24 hours).
- * Persisted sessions older than this are considered expired.
- */
-const SESSION_TTL_MS = 24 * 60 * 60 * 1000;
-
-/**
- * Create an integrity hash of the session state.
- * Used to detect tampering with persisted session data.
- * 
- * Uses SHA-256 via the Web Crypto API (crypto.subtle) for cryptographic
- * security, replacing the previous djb2 non-cryptographic hash.
- */
-async function computeIntegrity(state: object): Promise<string> {
-  const data = JSON.stringify(state);
-  const encoder = new TextEncoder();
-  const hashBuffer = await crypto.subtle.digest('SHA-256', encoder.encode(data));
-  const hashArray = new Uint8Array(hashBuffer);
-  return Array.from(hashArray, b => b.toString(16).padStart(2, '0')).join('');
 }
 
 /**
@@ -134,36 +105,9 @@ export class SessionManager extends EventEmitter {
     validateSessionSecret();
 
     try {
-      const raw = localStorage.getItem(SESSION_STORAGE_KEY);
-      if (!raw) {
-        return this.state;
-      }
-
-      const persisted = JSON.parse(raw);
-
-      // Check expiry
-      if (persisted.expiresAt && Date.now() > persisted.expiresAt) {
-        localStorage.removeItem(SESSION_STORAGE_KEY);
-        return { status: 'disconnected' };
-      }
-
-      // Verify integrity hash
-      const { expiresAt, _integrity: integrityHash, ...stateForHash } = persisted;
-      const expectedHash = await computeIntegrity(stateForHash);
-      if (integrityHash && integrityHash !== expectedHash) {
-        // Tampered data — clear and return disconnected
-        localStorage.removeItem(SESSION_STORAGE_KEY);
-        return { status: 'disconnected' };
-      }
-
-      if (persisted?.status === 'connected') {
-        this.state = {
-          status: 'connected',
-          accounts: persisted.accounts,
-          chainId: persisted.chainId,
-          sessionId: persisted.sessionId,
-          connectorId: persisted.connectorId,
-        };
+      const restored = await restoreSession();
+      if (restored && restored.status === 'connected') {
+        this.state = restored;
         this.emit('stateChange', this.state);
       }
     } catch (err) {
@@ -255,7 +199,7 @@ export class SessionManager extends EventEmitter {
     }
 
     // Clear persisted session
-    localStorage.removeItem(SESSION_STORAGE_KEY);
+    clearSession();
     this.transition({ status: 'disconnected' });
   }
 
@@ -281,15 +225,7 @@ export class SessionManager extends EventEmitter {
     if (this.state.status === 'connected') {
       // M-001: Validate SESSION_SECRET at runtime
       validateSessionSecret();
-
-      // State doesn't have expiresAt, just use the full state for hashing
-      const integrityHash = await computeIntegrity(this.state);
-      const payload = {
-        ...this.state,
-        expiresAt: Date.now() + SESSION_TTL_MS,
-        _integrity: integrityHash,
-      };
-      localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(payload));
+      await persistSession(this.state);
     }
   }
 }

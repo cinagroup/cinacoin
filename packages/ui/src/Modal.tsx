@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, type ReactNode, type CSSProperties, type JSX } from 'react';
+import React, { useEffect, useRef, useState, type ReactNode, type CSSProperties, type JSX } from 'react';
 
 /** Props for the Modal component. */
 export interface ModalProps {
@@ -49,10 +49,16 @@ export function Modal({
 }: ModalProps): JSX.Element | null {
   const modalRef = useRef<HTMLDivElement>(null);
   const titleId = title ? `modal-title-${Math.random().toString(36).slice(2, 9)}` : undefined;
+  
+  // SSR hydration fix: delay rendering until client-side
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // Handle Escape key
   useEffect(() => {
-    if (!isOpen || !closeOnEscape) return;
+    if (!isOpen || !closeOnEscape || !isMounted) return;
 
     const handleKeydown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -64,16 +70,17 @@ export function Modal({
     return () => {
       document.removeEventListener('keydown', handleKeydown);
     };
-  }, [isOpen, onClose, closeOnEscape]);
+  }, [isOpen, onClose, closeOnEscape, isMounted]);
 
   // Focus management: focus the modal when it opens
   useEffect(() => {
-    if (isOpen && modalRef.current) {
+    if (isOpen && modalRef.current && isMounted) {
       modalRef.current.focus();
     }
-  }, [isOpen]);
+  }, [isOpen, isMounted]);
 
-  if (!isOpen) return null;
+  // Don't render during SSR or if not open
+  if (!isMounted || !isOpen) return null;
 
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (closeOnOverlayClick && e.target === e.currentTarget) {

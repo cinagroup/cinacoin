@@ -36,17 +36,34 @@ export type { UseEnsNameReturn, UseEnsAddressReturn } from './hooks/useEns.js';
 // Re-export the Cinacoin base hooks (defined in this file for backwards compat)
 // useCinacoin, useChainId
 
+import { useEffect } from 'react';
 import { useCinacoinContext, type CinacoinContextValue } from './CinacoinProvider.js';
 
 /**
  * useCinacoin — access the full Cinacoin context.
+ *
+ * Automatically cleans up WebSocket/provider connections on unmount
+ * to prevent memory leaks.
  *
  * ```tsx
  * const { connect, disconnect, account, status } = useCinacoin();
  * ```
  */
 export function useCinacoin(): CinacoinContextValue {
-  return useCinacoinContext();
+  const ctx = useCinacoinContext();
+
+  // Cleanup: disconnect WebSocket/provider connections on unmount
+  useEffect(() => {
+    return () => {
+      if (ctx.status === 'connected') {
+        ctx.disconnect().catch(() => {
+          // Ignore disconnect errors during cleanup
+        });
+      }
+    };
+  }, [ctx.status, ctx.disconnect]);
+
+  return ctx;
 }
 
 /**

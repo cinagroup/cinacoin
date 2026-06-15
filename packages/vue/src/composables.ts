@@ -4,11 +4,14 @@
  * All composables require being used within <CinacoinProvider>.
  */
 
-import { inject } from 'vue';
+import { inject, onUnmounted } from 'vue';
 import { ONCHAINUX_KEY, type CinacoinContext } from './types.js';
 
 /**
  * useCinacoin — access the full Cinacoin context.
+ *
+ * Automatically cleans up WebSocket/provider connections on unmount
+ * to prevent memory leaks.
  *
  * ```vue
  * <script setup>
@@ -21,6 +24,16 @@ export function useCinacoin(): CinacoinContext {
   if (!ctx) {
     throw new Error('useCinacoin must be used within <CinacoinProvider>');
   }
+
+  // Cleanup: disconnect WebSocket/provider connections on unmount
+  onUnmounted(() => {
+    if (ctx.status.value === 'connected') {
+      ctx.disconnect().catch(() => {
+        // Ignore disconnect errors during cleanup
+      });
+    }
+  });
+
   return ctx;
 }
 

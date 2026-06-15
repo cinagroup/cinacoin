@@ -210,7 +210,7 @@ export {
   AuthenticationError,
   ChainError,
   TransactionError,
-  CinacoinError,
+  WalletConnectError,
   SigningError,
   NetworkError,
   SdkError,

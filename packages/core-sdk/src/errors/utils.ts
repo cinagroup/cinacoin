@@ -7,7 +7,7 @@
 
 import type { ErrorSeverity, ErrorCodeDefinition } from './codes.js';
 import { getErrorCode } from './codes.js';
-import { CinacoinError, ConnectionError, AuthenticationError, ChainError, TransactionError, CinacoinError, SigningError, NetworkError, SdkError, SecurityError } from './classes.js';
+import { CinacoinError, ConnectionError, AuthenticationError, ChainError, TransactionError, WalletConnectError, SigningError, NetworkError, SdkError, SecurityError } from './classes.js';
 import { getMessage } from './i18n.js';
 
 // ============================================================================

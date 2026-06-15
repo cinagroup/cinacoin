@@ -45,7 +45,7 @@ export interface ChainCapabilities {
 
 /** Wallet capabilities keyed by chain ID (hex string). */
 export interface WalletCapabilities {
-  [chainId: Hex]: ChainCapabilities;
+  [chainId: string]: ChainCapabilities;
 }
 
 // ---------------------------------------------------------------------------
