@@ -26,7 +26,7 @@ const mockSessionManager = {
     request: vi.fn().mockResolvedValue('0x1000000000000000'),
     on: vi.fn(),
 };
-vi.mock('@cinacoin/walletconnect-v2', () => ({
+vi.mock('../src/walletRegistry', () => ({
     WcSessionManager: vi.fn(() => mockSessionManager),
     createPairing: vi.fn(),
     parseWcUri: vi.fn().mockReturnValue({ topic: 'abc123', version: 2 }),

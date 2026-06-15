@@ -1,0 +1,7 @@
+name = "cinacoin-demo"
+compatibility_date = "2024-12-01"
+pages_build_output_dir = "dist"
+
+[vars]
+VITE_WC_PROJECT_ID = "YOUR_PROJECT_ID"
+VITE_APP_URL = "https://demo.cinacoin.com"

@@ -2,19 +2,11 @@
  * Reown AppKit + Wagmi initialization for Cinacoin website
  *
  * - WagmiAdapter provides the wagmi config for WagmiProvider
- * - createCinacoinAppKit creates the wallet-connect modal with Cinacoin branding
+ * - createAppKit creates the wallet-connect modal with Cinacoin branding
  */
-import {
-  mainnet,
-  polygon,
-  arbitrum,
-  optimism,
-  base,
-  bsc,
-  avalanche,
-  createCinacoinAppKit,
-} from '@cinacoin/appkit-config';
+import { createAppKit } from '@reown/appkit';
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
+import { mainnet, polygon, arbitrum, optimism, base, bsc, avalanche } from '@reown/appkit/networks';
 
 const projectId = process.env.NEXT_PUBLIC_WC_PROJECT_ID ?? '';
 
@@ -36,11 +28,20 @@ export const queryClient = wagmiAdapter.queryClient;
  * Called once on the client side (imported from a 'use client' module).
  */
 export function initAppKit() {
-  return createCinacoinAppKit({
+  return createAppKit({
+    adapters: [wagmiAdapter],
+    networks,
     projectId,
     themeMode: 'dark',
-    enableAnalytics: false,
-    enableEmail: false,
-    enableSocials: false,
+    themeVariables: {
+      '--w3m-accent': '#0066FF',
+      '--w3m-color-mix': '#0066FF',
+      '--w3m-color-mix-strength': 20,
+    },
+    features: {
+      analytics: false,
+      email: false,
+      socials: [],
+    },
   });
 }

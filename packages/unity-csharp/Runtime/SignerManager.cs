@@ -181,10 +181,7 @@ namespace Cinacoin
         // ═══════════════════════════════════════════════════════════════
 
         /// Verify a signature matches the expected address.
-        /// Uses secp256k1 public key recovery.
-        /// NOTE: Full recovery requires a crypto library.
-        /// This method validates structural format and delegates to
-        /// the WCProtocol for verification when possible.
+        /// Uses secp256k1 public key recovery via Nethereum or BouncyCastle.
         public bool VerifySignature(string message, string signature, string expectedAddress)
         {
             if (string.IsNullOrEmpty(signature))
@@ -202,10 +199,31 @@ namespace Cinacoin
             if (!normalizedExpected.StartsWith("0x"))
                 normalizedExpected = "0x" + normalizedExpected;
 
-            // In production, recover the address from the signature using
-            // secp256k1 public key recovery. This requires a crypto library.
-            // For now, we trust the wallet (WalletConnect handles verification).
-            return true;
+            try
+            {
+                // Use Nethereum.Sign for ECDSA recovery
+                var messageHash = ComputeMessageHash(message);
+                var signatureBytes = HexToBytes(signature);
+                
+                var ecDSASignature = new Nethereum.Signer.ECDSASignature(
+                    new Org.BouncyCastle.Math.BigInteger(1, signatureBytes, 0, 32),
+                    new Org.BouncyCastle.Math.BigInteger(1, signatureBytes, 32, 32),
+                    signatureBytes[64]
+                );
+
+                var recoveredKey = Nethereum.Signer.ECKey.RecoverFromSignature(
+                    ecDSASignature,
+                    messageHash
+                );
+
+                var recoveredAddress = "0x" + Nethereum.Util.Util.GenerateAddress(recoveredKey.GetPubKey(false)).ToLowerInvariant();
+                return recoveredAddress == normalizedExpected;
+            }
+            catch
+            {
+                // If recovery fails, signature is invalid
+                return false;
+            }
         }
 
         /// Verify a typed data signature (EIP-712).

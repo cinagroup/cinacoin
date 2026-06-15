@@ -32,7 +32,8 @@ const mockSessionManager = {
   on: vi.fn(),
 };
 
-vi.mock('@cinacoin/walletconnect-v2', () => ({
+// TODO: Update to use @reown/react-native when migrating
+vi.mock('../src/walletRegistry', () => ({
   WcSessionManager: vi.fn(() => mockSessionManager),
   createPairing: vi.fn(),
   parseWcUri: vi.fn().mockReturnValue({ topic: 'abc123', version: 2 }),

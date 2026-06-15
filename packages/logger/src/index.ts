@@ -152,7 +152,7 @@ export function createLogger(options: LoggerOptions): Logger {
  * @example
  * ```ts
  * import { createChildLogger } from '@cinacoin/logger';
- * const log = createChildLogger('adapter-tron');
+ * const log = createChildLogger('adapter-eth');
  * log.info('Connected to TRON mainnet');
  * ```
  */

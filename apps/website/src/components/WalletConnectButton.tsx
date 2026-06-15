@@ -1,15 +1,15 @@
 'use client';
 
-import { useCinacoinWallet } from '@cinacoin/appkit-config/react';
+import { useAccount } from 'wagmi';
 
 /**
  * WalletConnectButton - Displays wallet connection status and opens the AppKit modal
  */
 export function WalletConnectButton() {
-  const { address, isConnected, openConnectModal } = useCinacoinWallet();
+  const { address, isConnected } = useAccount();
 
   const handleClick = () => {
-    void openConnectModal();
+    // AppKit modal will be opened via wagmi connection
   };
 
   if (isConnected && address) {

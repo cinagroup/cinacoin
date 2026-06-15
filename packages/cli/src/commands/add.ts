@@ -33,7 +33,6 @@ const ADDONS: Record<string, { pkg: string; description: string }> = {
   '@cinacoin/swap-sdk': { pkg: '@cinacoin/swap-sdk', description: 'DEX swap aggregator' },
   '@cinacoin/siwe': { pkg: '@cinacoin/siwe', description: 'Sign-In With Ethereum' },
   '@cinacoin/onramp-sdk': { pkg: '@cinacoin/onramp-sdk', description: 'Fiat on-ramp aggregator' },
-  '@cinacoin/walletconnect-v2': { pkg: '@cinacoin/walletconnect-v2', description: 'WalletConnect v2' },
   '@cinacoin/session-keys': { pkg: '@cinacoin/session-keys', description: 'ERC-4337 session keys' },
   '@cinacoin/social-login': { pkg: '@cinacoin/social-login', description: 'Social login providers' },
 };

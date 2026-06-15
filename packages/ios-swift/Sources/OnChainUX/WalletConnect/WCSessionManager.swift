@@ -202,10 +202,4 @@ public final class WCSessionManager: ObservableObject {
 
 // MARK: - Relay Health
 
-/// Relay connection quality indicator.
-public enum RelayHealth: Equatable {
-    case connected
-    case degraded
-    case disconnected
-    case reconnecting
-}
+// RelayHealth is defined in WCClient.swift to avoid duplicate definition

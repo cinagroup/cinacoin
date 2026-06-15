@@ -6,7 +6,7 @@
  * 2. Links multiple social providers to the same wallet
  * 3. Supports wallet recovery via any linked social provider
  *
- * Depends on `@cinacoin/embedded-wallet`.
+ * Depends on `./embedded-wallet-shim`.
  *
  * @packageDocumentation
  */
@@ -78,7 +78,7 @@ export interface SocialWalletManagerConfig {
 
 /**
  * Re-exports from embedded-wallet for downstream use.
- * In production, import directly from `@cinacoin/embedded-wallet`.
+ * In production, import directly from `./embedded-wallet-shim`.
  * These are re-exported here to avoid a hard peer dependency at build time.
  */
 export {

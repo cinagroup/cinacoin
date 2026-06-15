@@ -14,38 +14,37 @@ import {
 describe('Wallet Derivation', () => {
   describe('deriveSeedFromIdentity', () => {
     it('should derive a 32-byte seed from provider ID and identifier', () => {
-      const seed = deriveSeedFromIdentity('google:12345', 'user@example.com');
+      const seed = deriveSeedFromIdentity('google:12345', 'user@example.com', 'test-server-secret');
       expect(Buffer.isBuffer(seed)).toBe(true);
       expect(seed.length).toBe(32);
     });
 
     it('should produce deterministic seeds for the same input', () => {
-      const seed1 = deriveSeedFromIdentity('google:12345', 'user@example.com');
-      const seed2 = deriveSeedFromIdentity('google:12345', 'user@example.com');
+      const seed1 = deriveSeedFromIdentity('google:12345', 'user@example.com', 'test-server-secret');
+      const seed2 = deriveSeedFromIdentity('google:12345', 'user@example.com', 'test-server-secret');
       expect(seed1.toString('hex')).toBe(seed2.toString('hex'));
     });
 
     it('should produce different seeds for different provider IDs', () => {
-      const seed1 = deriveSeedFromIdentity('google:12345', 'user@example.com');
-      const seed2 = deriveSeedFromIdentity('apple:67890', 'user@example.com');
+      const seed1 = deriveSeedFromIdentity('google:12345', 'user@example.com', 'test-server-secret');
+      const seed2 = deriveSeedFromIdentity('apple:67890', 'user@example.com', 'test-server-secret');
       expect(seed1.toString('hex')).not.toBe(seed2.toString('hex'));
     });
 
     it('should produce different seeds for different identifiers', () => {
-      const seed1 = deriveSeedFromIdentity('google:12345', 'user1@example.com');
-      const seed2 = deriveSeedFromIdentity('google:12345', 'user2@example.com');
+      const seed1 = deriveSeedFromIdentity('google:12345', 'user1@example.com', 'test-server-secret');
+      const seed2 = deriveSeedFromIdentity('google:12345', 'user2@example.com', 'test-server-secret');
       expect(seed1.toString('hex')).not.toBe(seed2.toString('hex'));
     });
 
-    it('should use custom derivation key when provided', () => {
+    it('should use custom server secret when provided', () => {
       const seed1 = deriveSeedFromIdentity('google:12345', 'user@example.com', 'custom-key');
       const seed2 = deriveSeedFromIdentity('google:12345', 'user@example.com', 'another-key');
       expect(seed1.toString('hex')).not.toBe(seed2.toString('hex'));
     });
 
-    it('should use default salt when no derivation key is provided', () => {
-      const seed = deriveSeedFromIdentity('google:12345', 'user@example.com');
-      expect(Buffer.isBuffer(seed)).toBe(true);
+    it('should throw when serverSecret is missing', () => {
+      expect(() => deriveSeedFromIdentity('google:12345', 'user@example.com', '')).toThrow();
     });
   });
 
@@ -130,30 +129,30 @@ describe('Wallet Derivation', () => {
 
   describe('deriveAddressFromProvider', () => {
     it('should derive an address from provider identity', () => {
-      const result = deriveAddressFromProvider('google', '12345');
+      const result = deriveAddressFromProvider('google', '12345', undefined, 'test-server-secret');
       expect(result.address).toMatch(/^0x[0-9a-f]{40}$/);
     });
 
     it('should produce deterministic addresses for same identity', () => {
-      const result1 = deriveAddressFromProvider('google', '12345');
-      const result2 = deriveAddressFromProvider('google', '12345');
+      const result1 = deriveAddressFromProvider('google', '12345', undefined, 'test-server-secret');
+      const result2 = deriveAddressFromProvider('google', '12345', undefined, 'test-server-secret');
       expect(result1.address).toBe(result2.address);
     });
 
     it('should produce different addresses for different providers', () => {
-      const result1 = deriveAddressFromProvider('google', '12345');
-      const result2 = deriveAddressFromProvider('apple', '12345');
+      const result1 = deriveAddressFromProvider('google', '12345', undefined, 'test-server-secret');
+      const result2 = deriveAddressFromProvider('apple', '12345', undefined, 'test-server-secret');
       expect(result1.address).not.toBe(result2.address);
     });
 
     it('should produce different addresses when email is included', () => {
-      const result1 = deriveAddressFromProvider('google', '12345');
-      const result2 = deriveAddressFromProvider('google', '12345', 'user@example.com');
+      const result1 = deriveAddressFromProvider('google', '12345', undefined, 'test-server-secret');
+      const result2 = deriveAddressFromProvider('google', '12345', 'user@example.com', 'test-server-secret');
       expect(result1.address).not.toBe(result2.address);
     });
 
     it('should work without email parameter', () => {
-      const result = deriveAddressFromProvider('twitter', 'user:67890');
+      const result = deriveAddressFromProvider('twitter', 'user:67890', undefined, 'test-server-secret');
       expect(result.address).toMatch(/^0x[0-9a-f]{40}$/);
     });
   });

@@ -113,12 +113,34 @@ class SignerManager {
     }
 
     /**
-     * Recover address from a personal_sign signature.
-     * Simplified — real implementation uses ECDSA secp256k1 recovery.
+     * Recover address from a personal_sign signature using ECDSA secp256k1 recovery.
+     * Uses web3j library for proper cryptographic recovery.
      */
     private fun recoverAddress(message: String, signature: String): String {
-        // Real implementation: hash message → recover pubkey from v/r/s → derive address
-        // This is a placeholder. In production, use a crypto library like Web3j or BouncyCastle.
-        return "0x0000000000000000000000000000000000000000"
+        // Parse signature components (r, s, v)
+        val sigBytes = hexToBytes(signature)
+        require(sigBytes.size == 65) { "Invalid signature length: expected 65 bytes, got ${sigBytes.size}" }
+
+        val r = sigBytes.sliceArray(0 until 32)
+        val s = sigBytes.sliceArray(32 until 64)
+        val v = (sigBytes[64].toInt() and 0xFF).let { if (it < 27) it + 27 else it }
+
+        val signatureData = org.web3j.crypto.Sign.SignatureData(
+            v.toByte(), r, s
+        )
+
+        // web3j handles EIP-191 prefix + keccak256 hashing internally
+        val messageBytes = message.toByteArray()
+        val recoveredKey = org.web3j.crypto.Sign.signedMessageToKey(messageBytes, signatureData)
+
+        val address = org.web3j.crypto.Keys.getAddress(recoveredKey)
+        return "0x$address"
+    }
+
+    private fun hexToBytes(hex: String): ByteArray {
+        val cleanHex = if (hex.startsWith("0x")) hex.substring(2) else hex
+        return ByteArray(cleanHex.length / 2) { i ->
+            cleanHex.substring(i * 2, i * 2 + 2).toInt(16).toByte()
+        }
     }
 }

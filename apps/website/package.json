@@ -10,7 +10,6 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@cinacoin/appkit-config": "workspace:*",
     "@cinacoin/logger": "workspace:*",
     "@cinacoin/next": "workspace:^",
     "@cinacoin/ui": "workspace:*",

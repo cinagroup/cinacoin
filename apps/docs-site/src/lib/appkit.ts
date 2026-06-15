@@ -3,17 +3,9 @@
  *
  * Initializes Reown AppKit + Wagmi for the Docusaurus docs site.
  */
-import {
-  createCinacoinAppKit,
-  mainnet,
-  polygon,
-  arbitrum,
-  optimism,
-  base,
-  bsc,
-  avalanche,
-} from '@cinacoin/appkit-config';
+import { createAppKit } from '@reown/appkit';
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
+import { mainnet, polygon, arbitrum, optimism, base, bsc, avalanche } from '@reown/appkit/networks';
 
 const PROJECT_ID = process.env.DOCS_WC_PROJECT_ID ?? '';
 
@@ -32,7 +24,9 @@ let appKitInitialized = false;
 export function initDocsAppKit() {
   if (appKitInitialized) return;
   appKitInitialized = true;
-  return createCinacoinAppKit({
+  return createAppKit({
+    adapters: [wagmiAdapter],
+    networks,
     projectId: PROJECT_ID,
     metadata: {
       name: 'Cinacoin Docs',
@@ -41,5 +35,10 @@ export function initDocsAppKit() {
       icons: ['https://cinacoin.com/favicon.svg'],
     },
     themeMode: 'dark',
+    themeVariables: {
+      '--w3m-accent': '#0066FF',
+      '--w3m-color-mix': '#0066FF',
+      '--w3m-color-mix-strength': 20,
+    },
   });
 }

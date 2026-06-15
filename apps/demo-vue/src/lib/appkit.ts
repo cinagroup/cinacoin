@@ -1,18 +1,12 @@
-import {
-  createCinacoinAppKitVue,
-  mainnet,
-  polygon,
-  arbitrum,
-  optimism,
-  base,
-  bsc,
-  avalanche,
-} from '@cinacoin/appkit-config/vue';
+import { createAppKit } from '@reown/appkit';
+import { mainnet, polygon, arbitrum, optimism, base, bsc, avalanche } from '@reown/appkit/networks';
 
 const PROJECT_ID = import.meta.env.VITE_WC_PROJECT_ID || 'YOUR_PROJECT_ID';
 const networks = [mainnet, polygon, arbitrum, optimism, base, bsc, avalanche];
 
-const appkit = createCinacoinAppKitVue({
+const appkit = createAppKit({
+  adapters: [],
+  networks,
   projectId: PROJECT_ID,
   metadata: {
     name: 'Cinacoin Vue Demo',
@@ -21,7 +15,11 @@ const appkit = createCinacoinAppKitVue({
     icons: ['https://avatars.githubusercontent.com/u/37784886'],
   },
   themeMode: 'dark',
-  chains: networks,
+  themeVariables: {
+    '--w3m-accent': '#0066FF',
+    '--w3m-color-mix': '#0066FF',
+    '--w3m-color-mix-strength': 20,
+  },
 });
 
 export { appkit, networks };

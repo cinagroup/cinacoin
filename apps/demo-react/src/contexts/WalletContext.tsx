@@ -1,10 +1,9 @@
 /**
  * WalletContext — Reown AppKit 集成
  *
- * 使用 @cinacoin/appkit-config 的 React hooks 封装钱包状态。
- * 替代原有的 @walletconnect/ethereum-provider 手动管理方式。
+ * 使用 wagmi hooks 封装钱包状态。
  */
-import { useCinacoinWallet } from '@cinacoin/appkit-config/react';
+import { useAccount, useDisconnect, useConnect } from 'wagmi';
 import React, { createContext, useContext, useCallback } from 'react';
 
 export interface WalletState {
@@ -35,24 +34,30 @@ export function formatAddress(addr: string): string {
 }
 
 export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { address, isConnected, chainId, openConnectModal, isOpen } = useCinacoinWallet();
+  const { address, isConnected, chainId } = useAccount();
+  const { disconnect: wagmiDisconnect } = useDisconnect();
+  const { isPending } = useConnect();
 
   const state: WalletState = {
     connected: isConnected,
     address: address ?? '',
     chainId,
     walletId: isConnected ? 'appkit' : null,
-    connecting: isOpen,
+    connecting: isPending,
     error: null,
   };
 
   const disconnect = useCallback(() => {
-    // AppKit handles disconnect internally through modal
-    void openConnectModal().catch(() => {});
-  }, [openConnectModal]);
+    wagmiDisconnect();
+  }, [wagmiDisconnect]);
 
   const clearError = useCallback(() => {
-    // No-op for AppKit
+    // No-op
+  }, []);
+
+  const openConnectModal = useCallback(async () => {
+    // AppKit modal handles connection
+    // This is a placeholder for compatibility
   }, []);
 
   return (

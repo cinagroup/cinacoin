@@ -23,22 +23,26 @@ import React, {
 } from 'react';
 import { Linking, Platform } from 'react-native';
 
-// Core WC v2 types (from the cinacoin walletconnect-v2 package)
-import type { Session, WcClientEvent } from '@cinacoin/walletconnect-v2';
-import {
-  WcSessionManager,
-  createPairing,
-  parseWcUri,
-  getDefaultRequiredNamespaces,
-  buildSendTransaction,
-  buildPersonalSign,
-  getWalletById,
-  WALLET_REGISTRY,
-  buildWalletDeepLink,
-  buildWalletUniversalLink,
-  WC_METHODS,
-} from '@cinacoin/walletconnect-v2';
+// TODO: Replace with @reown/react-native when migrating React Native to Reown
+// import type { Session } from '@reown/react-native';
 import type { AppMetadata } from '@cinacoin/core-sdk';
+
+// Temporary types until Reown migration
+type Session = any;
+type WcClientEvent = any;
+
+// Stub implementations - TODO: Replace with @reown/react-native
+const WcSessionManager = class {};
+const createPairing = async () => '';
+const parseWcUri = (uri: string) => ({});
+const getDefaultRequiredNamespaces = () => ({});
+const buildSendTransaction = (params: any) => [];
+const buildPersonalSign = (message: string, address: string) => [message, address];
+const getWalletById = (id: string) => null;
+const WALLET_REGISTRY: any[] = [];
+const buildWalletDeepLink = (walletId: string, uri: string) => '';
+const buildWalletUniversalLink = (walletId: string, uri: string) => '';
+const WC_METHODS = {};
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 

@@ -1,14 +1,14 @@
 'use client'
 
 import { useState } from 'react'
-import { useCinacoinWallet } from '@cinacoin/appkit-config/react'
+import { useAccount } from 'wagmi'
 
 /**
  * On-Ramp Widget — demonstrates fiat-to-crypto purchase
  * Uses Reown AppKit's built-in on-ramp providers
  */
 export function OnRampWidget() {
-  const { isConnected, address } = useCinacoinWallet()
+  const { isConnected, address } = useAccount()
   const [fiatAmount, setFiatAmount] = useState('100')
   const [fiatCurrency, setFiatCurrency] = useState('USD')
   const [cryptoToken, setCryptoToken] = useState('ETH')

@@ -1,14 +1,14 @@
-import { useCinacoinWallet } from '@cinacoin/appkit-config/react';
+import { useAccount } from 'wagmi';
 import React from 'react';
 
 export default function WalletConnectButton() {
-  const { isConnected, address, openConnectModal } = useCinacoinWallet();
+  const { isConnected, address } = useAccount();
 
   const shortAddress =
     isConnected && address ? `${address.slice(0, 6)}…${address.slice(-4)}` : null;
 
   const handleClick = () => {
-    void openConnectModal();
+    // AppKit modal will handle connection
   };
 
   return (

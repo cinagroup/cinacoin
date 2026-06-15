@@ -67,6 +67,8 @@ class WalletConnectManager {
      * Supported IDs: walletconnect, metamask, rainbow, trust, coinbase, phantom, zerion.
      * For "walletconnect" or any WC-based wallet, creates a pairing URI and launches
      * the wallet app via deep-link / browser.
+     *
+     * @throws CinacoinError.WalletConnectError if connection times out or fails.
      */
     suspend fun connect(connectorId: String): ConnectionResult = withTimeoutOrNull(30.seconds) {
         val ctx = context ?: throw CinacoinError.NotInitialized()
@@ -93,14 +95,8 @@ class WalletConnectManager {
                 sessionId = s.topic,
                 connectorId = connectorId
             )
-        } ?: run {
-            // Fallback: create a mock connection for demo/testing
-            createFallbackConnection(connectorId)
-        }
-    } ?: run {
-        // Timeout fallback
-        createFallbackConnection(connectorId)
-    }
+        } ?: throw CinacoinError.WalletConnectError("Failed to establish wallet connection")
+    } ?: throw CinacoinError.WalletConnectError("Connection timed out after 30 seconds")
 
     /** Create a WalletConnect pairing URI. */
     suspend fun createPairing(): String {
@@ -111,7 +107,7 @@ class WalletConnectManager {
         val topic = UUID.randomUUID().toString()
         val bridge = config.relayUrl ?: "wss://relay.walletconnect.com"
         val relay = "waku"
-        return "wc:$topic@$2?bridge=${Uri.encode(bridge)}&relay-protocol=$relay"
+        return "wc:$topic@2?bridge=${Uri.encode(bridge)}&relay-protocol=$relay"
     }
 
     /** Launch the wallet app with a WC URI via deep-link. */

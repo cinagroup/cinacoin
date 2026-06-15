@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "@cinacoin/core-sdk": "workspace:*",
-    "@cinacoin/walletconnect-v2": "workspace:*",
     "react": "^18.3.0",
     "react-native": "^0.76.0",
     "@cinacoin/logger": "workspace:*"

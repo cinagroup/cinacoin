@@ -1,14 +1,14 @@
 'use client'
 
 import { useState } from 'react'
-import { useCinacoinWallet } from '@cinacoin/appkit-config/react'
+import { useAccount } from 'wagmi'
 
 /**
  * Swap Widget — demonstrates token swap functionality
  * Uses Reown AppKit's built-in swap modal
  */
 export function SwapWidget() {
-  const { isConnected, address } = useCinacoinWallet()
+  const { isConnected, address } = useAccount()
   const [fromToken, setFromToken] = useState('ETH')
   const [toToken, setToToken] = useState('USDC')
   const [amount, setAmount] = useState('')

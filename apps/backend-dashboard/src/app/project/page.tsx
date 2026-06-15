@@ -169,12 +169,12 @@ export default function ProjectPage() {
         <div className="cc-code-block">
           <pre className="cc-code whitespace-pre text-[var(--cc-on-primary)]">
 {`// Install
-npm install @cinacoin/appkit @cinacoin/appkit-adapter-wagmi wagmi viem
+npm install @reown/appkit @reown/appkit-adapter-wagmi wagmi viem
 
 // Initialize
-import { createAppKit } from '@cinacoin/appkit/react'
+import { createAppKit } from '@reown/appkit'
 import { WagmiProvider } from 'wagmi'
-import { mainnet, polygon } from '@cinacoin/appkit/networks'
+import { mainnet, polygon } from '@reown/appkit/networks'
 
 createAppKit({
   adapters: [

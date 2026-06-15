@@ -76,7 +76,7 @@ vi.mock('../src/CinacoinProvider', () => ({
     })),
 }));
 // Mock walletconnect-v2
-vi.mock('@cinacoin/walletconnect-v2', () => ({
+vi.mock('../src/walletRegistry', () => ({
     WALLET_REGISTRY: [
         {
             id: 'metamask',
@@ -172,14 +172,14 @@ describe('ConnectModal', () => {
     });
     describe('deep linking', () => {
         it('should build deep link with WC URI', () => {
-            const { buildWalletDeepLink } = require('@cinacoin/walletconnect-v2');
+            const { buildWalletDeepLink } = require('../src/walletRegistry');
             const uri = 'wc:test@2?relay-protocol=irn&symKey=test';
             const link = buildWalletDeepLink('metamask', uri);
             expect(link).toContain('metamask://');
             expect(link).toContain('wc?uri=');
         });
         it('should build universal link as fallback', () => {
-            const { buildWalletUniversalLink } = require('@cinacoin/walletconnect-v2');
+            const { buildWalletUniversalLink } = require('../src/walletRegistry');
             const uri = 'wc:test@2?relay-protocol=irn&symKey=test';
             const link = buildWalletUniversalLink('metamask', uri);
             expect(link).toContain('https://');

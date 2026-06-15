@@ -1,7 +1,7 @@
 {
   "name": "@cinacoin/adapters",
   "version": "0.2.0",
-  "description": "Cinacoin wallet adapters — MetaMask, Cinacoin, Coinbase, Phantom, Bitcoin",
+  "description": "Cinacoin wallet adapters — MetaMask, Cinacoin, Coinbase, Phantom",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -25,10 +25,6 @@
     "./phantom": {
       "import": "./dist/phantom/index.js",
       "types": "./dist/phantom/index.d.ts"
-    },
-    "./btc": {
-      "import": "./dist/btc/index.js",
-      "types": "./dist/btc/index.d.ts"
     }
   },
   "scripts": {

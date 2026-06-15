@@ -26,7 +26,6 @@
   "license": "MIT",
   "dependencies": {
     "@cinacoin/core-sdk": "workspace:*",
-    "@cinacoin/walletconnect-v2": "workspace:*",
     "@cinacoin/logger": "workspace:*"
   },
   "devDependencies": {

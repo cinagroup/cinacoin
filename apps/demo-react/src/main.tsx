@@ -1,7 +1,7 @@
 /**
  * Cinacoin Demo React — Entry Point
  *
- * Integrates Reown AppKit (via @cinacoin/appkit-config) with:
+ * Integrates Reown AppKit with:
  * - WagmiProvider (wagmi v3) for EVM chain interactions
  * - QueryClientProvider for data fetching
  */

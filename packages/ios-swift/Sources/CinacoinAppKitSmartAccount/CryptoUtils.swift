@@ -1,20 +1,14 @@
 import Foundation
-import CryptoKit
 
 /// Cryptographic utilities for ERC-4337 smart account operations
 public enum CryptoUtils {
     
     // MARK: - Keccak256
     
-    /// Compute keccak256 hash
-    /// Note: CryptoKit's SHA3 is SHA3-256, not keccak256. For production, use a proper keccak256 library.
-    /// This implementation uses SHA3-256 as a placeholder. Replace with actual keccak256 for production.
+    /// Compute keccak256 hash using pure Swift implementation
+    /// Keccak-256 (original) differs from SHA3-256 (FIPS 202) in padding
     public static func keccak256(_ data: Data) -> Data {
-        // TODO: Replace with actual keccak256 implementation
-        // For production, use a library like CryptoSwift or Web3.swift
-        // CryptoKit.SHA3 is SHA3-256 (FIPS 202), NOT keccak256 (original Keccak)
-        let hash = SHA3_256.hash(data: data)
-        return Data(hash)
+        return Data(Keccak256.hash(data))
     }
     
     /// Compute keccak256 hash of a string
