@@ -219,6 +219,9 @@ contract BridgeRouter is ReentrancyGuard, Ownable {
         if (recipient == address(0)) revert ZeroRecipient();
         if (amount == 0) revert ZeroAmount();
 
+        // SEC-04 FIX: Check nonce replay protection on destination chain
+        if (nonceUsed[sourceChain][sender][nonce]) revert NonceAlreadyUsed();
+
         bytes32 messageHash = _hashTransfer(
             sourceChain,
             block.chainid,
@@ -230,6 +233,9 @@ contract BridgeRouter is ReentrancyGuard, Ownable {
 
         uint256 validSignatures = _countValidSignatures(messageHash, signatures);
         if (validSignatures < signatureThreshold) revert InsufficientSignatures();
+
+        // SEC-04 FIX: Mark nonce as used to prevent replay
+        nonceUsed[sourceChain][sender][nonce] = true;
 
         // Record completion
         uint256 completionId = transferCount;

@@ -171,8 +171,8 @@ function setCorsHeaders(res: ServerResponse, req: IncomingMessage): void {
  */
 function verifyApiKey(req: IncomingMessage): boolean {
   const env = getEnv();
-  // Skip auth in development mode
-  if (env.BUNDLER_SKIP_AUTH === 'true') {
+  // SEC-06 FIX: BUNDLER_SKIP_AUTH is only allowed in non-production environments
+  if (env.NODE_ENV !== 'production' && env.BUNDLER_SKIP_AUTH === 'true') {
     return true;
   }
 
@@ -314,9 +314,12 @@ export class BundlerServer {
   // ── HTTP Request Router ───────────────────────────────────────────
 
   // SECURITY: Rate limiting (in-memory, per-process)
+  // SEC-08 FIX: Added TTL cleanup and real IP validation
   private rateLimits = new Map<string, { count: number; resetAt: number }>();
   private readonly RATE_LIMIT_WINDOW_MS = 60_000; // 1 minute
   private readonly RATE_LIMIT_MAX_REQUESTS = 60; // 60 requests per minute
+  private readonly RATE_LIMIT_CLEANUP_INTERVAL_MS = 300_000; // 5 minutes
+  private rateLimitCleanupInterval: ReturnType<typeof setInterval> | null = null;
 
   private checkRateLimit(clientIp: string): boolean {
     const env = getEnv();
@@ -339,6 +342,29 @@ export class BundlerServer {
     
     entry.count++;
     return true;
+  }
+
+  // SEC-08 FIX: Periodic cleanup of expired rate limit entries to prevent memory leak
+  private cleanupRateLimits(): void {
+    const now = Date.now();
+    for (const [ip, entry] of this.rateLimits.entries()) {
+      if (now > entry.resetAt) {
+        this.rateLimits.delete(ip);
+      }
+    }
+  }
+
+  // SEC-08 FIX: Validate and extract real client IP, ignoring spoofed X-Forwarded-For
+  private getClientIp(req: IncomingMessage): string {
+    // Only trust X-Real-IP if behind a trusted proxy (not implemented here)
+    // For now, prefer socket remoteAddress as the source of truth
+    const socketIp = req.socket.remoteAddress;
+    
+    // If you're behind a trusted reverse proxy, you can use X-Forwarded-For
+    // but must validate it comes from the proxy IP
+    // For security, we ignore X-Forwarded-For by default
+    
+    return socketIp || 'unknown';
   }
 
   private async handleRequest(req: IncomingMessage, res: ServerResponse): Promise<void> {
@@ -365,17 +391,8 @@ export class BundlerServer {
 
     // JSON-RPC POST requires API key authentication
     if (req.method === 'POST' && (req.url === '/' || req.url === '/rpc')) {
-      // SECURITY: Rate limiting
-      const fwdFor = req.headers['x-forwarded-for'];
-      const realIp = req.headers['x-real-ip'];
-      const clientIp = (typeof fwdFor === 'string'
-        ? fwdFor.split(',')[0].trim()
-        : Array.isArray(fwdFor)
-          ? fwdFor[0]?.split(',')[0].trim()
-          : undefined)
-        || (typeof realIp === 'string' ? realIp : (Array.isArray(realIp) ? realIp[0] : undefined))
-        || req.socket.remoteAddress
-        || 'unknown';
+      // SEC-08 FIX: Use getClientIp to get real IP from socket, not spoofable headers
+      const clientIp = this.getClientIp(req);
       if (!this.checkRateLimit(clientIp)) {
         res.writeHead(429, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({

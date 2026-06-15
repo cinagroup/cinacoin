@@ -4,6 +4,7 @@ pragma solidity ^0.8.24;
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
 /**
  * @title HTLC
@@ -15,7 +16,8 @@ import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
  *   2. Bob learns the preimage secret and calls `claim()`.
  *   3. If timelock expires without a claim, Alice calls `refund()`.
  */
-contract HTLC is ReentrancyGuard {
+contract HTLC is ReentrancyGuard, Ownable {
+
     using SafeERC20 for IERC20;
 
     // ── Structs ──────────────────────────────────────────────────────────
@@ -66,7 +68,7 @@ contract HTLC is ReentrancyGuard {
     error Unauthorized();
 
     // ── Constructor ──────────────────────────────────────────────────────
-    constructor() {
+    constructor() Ownable(msg.sender) {
         lockCount = 0;
     }
 
@@ -233,10 +235,11 @@ contract HTLC is ReentrancyGuard {
     }
 
     /**
-     * @notice Withdraw stuck native ETH (emergency, only if balance > 0).
-     *         Intended as safety valve — in production, restrict to owner.
+     * @notice Withdraw stuck native ETH (emergency, only owner).
+     *         Safety valve for recovering funds sent outside the normal HTLC flow.
+     *         Only the contract owner can call this function.
      */
-    function emergencyWithdraw() external {
+    function emergencyWithdraw() external onlyOwner {
         if (address(this).balance > 0) {
             (bool success, ) = msg.sender.call{value: address(this).balance}("");
             if (!success) revert TransferFailed();

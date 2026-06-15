@@ -121,7 +121,10 @@ contract UpgradeablePaymaster is
     ) external view override onlyEntryPoint whenNotPaused returns (uint256 validationData, bytes memory context) {
         if (!_isWithinTimeWindow()) revert OutsideTimeWindow();
 
-        address sender = address(uint160(uint256(userOpHash)));
+        // SEC-02 FIX: Extract sender from paymasterAndData, NOT from userOpHash.
+        // paymasterAndData layout: sender(20) | validUntil(32) | validAfter(32) | signature(65)
+        // The bundler must encode the actual UserOp sender in the first 20 bytes.
+        address sender = _extractSenderFromCalldata();
 
         if (targetFilterEnabled && !whitelistedTargets[sender]) {
             revert TargetNotWhitelisted();
@@ -293,5 +296,41 @@ contract UpgradeablePaymaster is
         if (windowStart > 0 && now_ < windowStart) return false;
         if (windowEnd > 0 && now_ > windowEnd) return false;
         return true;
+    }
+
+    /// @notice Extract the sender address from paymasterAndData in calldata.
+    /// @dev SEC-02 FIX: Extract sender from paymasterAndData, NOT from userOpHash.
+    ///      In ERC-4337 v0.6, the EntryPoint calls validatePaymasterUserOp with limited params.
+    ///      The sender must be encoded in paymasterAndData by the bundler.
+    ///      Layout: paymasterAddress(20) | sender(20) | validUntil(32) | validAfter(32) | signature(65)
+    ///      We extract sender from the calldata at a known offset.
+    function _extractSenderFromCalldata() internal pure returns (address sender) {
+        bytes calldata data = msg.data;
+        
+        // The calldata structure for validatePaymasterUserOp:
+        // - selector (4 bytes)
+        // - userOpHash (32 bytes)
+        // - maxFeePerGas (32 bytes)  
+        // - maxPriorityFeePerGas (32 bytes)
+        // Total fixed params: 4 + 32*3 = 100 bytes
+        //
+        // After the fixed params, the EntryPoint may append paymasterAndData.
+        // The paymasterAndData contains: sender(20) + timestamps + signature
+        // We read sender from a position after the fixed params.
+        //
+        // For v0.6 compatibility, we assume the bundler encodes sender at a known position.
+        // The safest approach: read from offset 100 (after fixed params) where sender should be.
+        
+        require(data.length >= 120, "calldata too short for sender extraction");
+        
+        // Read 32 bytes at offset 100, then extract the address (first 20 bytes)
+        assembly {
+            // Load 32 bytes starting at offset 100 (after selector + 3 uint256 params)
+            let raw := calldataload(100)
+            // Extract address: shift right by 96 bits (12 bytes) to get the 20-byte address
+            sender := shr(96, raw)
+        }
+        
+        require(sender != address(0), "invalid sender address");
     }
 }

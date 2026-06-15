@@ -109,7 +109,6 @@ contract VerifyingPaymaster is EIP712, IPaymaster {
         uint256 maxPriorityFeePerGas
     )
         external
-        view
         override
         onlyEntryPoint
         returns (uint256 validationData, bytes memory context)
@@ -151,6 +150,11 @@ contract VerifyingPaymaster is EIP712, IPaymaster {
             revert InvalidSignature();
         }
 
+        // ── SEC-03 FIX: Mark signature as used immediately to prevent replay ──
+        // Previously marked in postOp, allowing same signature in multiple UserOps
+        // within the same bundle. Now marked here (function is no longer view).
+        usedSignatures[userOpHash] = true;
+
         // ── Success: return validation data and context for postOp ───────
         return (0, abi.encode(userOpHash, estimatedCost));
     }
@@ -167,9 +171,10 @@ contract VerifyingPaymaster is EIP712, IPaymaster {
         uint256 /* actualUserOpFeePerGas */
     ) external override onlyEntryPoint {
         // Only track sponsorship on successful execution
+        // SEC-03 FIX: Signature replay marking moved to validatePaymasterUserOp
         if (mode == 0) {
             (bytes32 userOpHash, ) = abi.decode(context, (bytes32, uint256));
-            usedSignatures[userOpHash] = true;
+            // usedSignatures[userOpHash] = true;  // Now done in validatePaymasterUserOp
             totalSponsored += actualGasCost;
             emit UserOperationSponsored(msg.sender, actualGasCost);
         }

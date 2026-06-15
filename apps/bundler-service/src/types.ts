@@ -3,6 +3,10 @@ export interface Env {
   BUNDLER_PRIVATE_KEY_VAR: string;
   BUNDLER_DB: D1Database;
   MEMPOOL: DurableObjectNamespace;
+  /** SEC-06: API keys for authentication (comma-separated) */
+  BUNDLER_API_KEYS?: string;
+  /** SEC-06: Environment (production/development) */
+  NODE_ENV?: string;
 }
 
 export interface UserOperation {
