@@ -47,3 +47,35 @@ export * as de from './locales/de';
 export * as ru from './locales/ru';
 export * as ptBR from './locales/pt-BR';
 export * as ar from './locales/ar';
+
+/* ---- RTL Support ---- */
+export {
+  isRTLLocale,
+  getDirectionForLocale,
+  applyDirection,
+  getLocaleDirectionInfo,
+  enableAutoDirection,
+} from './rtl';
+export type { LocaleDirectionInfo } from './rtl';
+
+/* ---- Intl Formatting ---- */
+export {
+  formatDate,
+  formatNumber,
+  formatCurrency,
+  formatPercent,
+  formatRelativeTime,
+  formatList,
+  formatDateTimeRange,
+  getLocaleFromDirection,
+  createFormatter,
+} from './intl';
+export type {
+  DateFormatOptions,
+  NumberFormatOptions,
+  CurrencyFormatOptions,
+  RelativeTimeFormatOptions,
+  ListFormatOptions,
+  DateTimeRangeFormatOptions,
+  CinacoinFormatter,
+} from './intl';

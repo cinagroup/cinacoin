@@ -348,6 +348,8 @@ export class TelegramProvider {
         this.switchChain(parseInt(chain, 16));
         return null;
       }
+      case 'personal_sign':
+        return this._handlePersonalSign(params);
       case 'eth_sendTransaction':
         throw new Error('eth_sendTransaction not supported in Telegram Mini App mode');
       default:
@@ -498,6 +500,39 @@ export class TelegramProvider {
 
   private _handleAccounts(): Promise<string[]> {
     return Promise.resolve(this._account ? [this._account] : []);
+  }
+
+  /**
+   * Handle personal_sign requests.
+   * In Telegram Mini App context, this delegates to an external wallet signer
+   * or a connected wallet bridge.
+   *
+   * @param params - [message: string, address: string] (EIP-1193 order)
+   */
+  private async _handlePersonalSign(params?: unknown[]): Promise<string> {
+    if (!params || params.length < 2) {
+      throw new Error('personal_sign requires [message, address] parameters');
+    }
+
+    const message = params[0] as string;
+    const address = params[1] as string;
+
+    if (!this._account) {
+      throw new Error('No wallet connected. Use connect() or setAccount() first.');
+    }
+
+    if (address.toLowerCase() !== this._account.toLowerCase()) {
+      throw new Error(`Address ${address} does not match connected account ${this._account}`);
+    }
+
+    // In production: delegate to Telegram Wallet or an external signer bridge
+    // For example, integrate with @tonconnect/ui or a custom wallet bridge
+    // that relays signing requests to the user's connected wallet.
+
+    throw new Error(
+      'personal_sign requires an external wallet signer. ' +
+      'Connect a wallet with signing capabilities (e.g., via TonConnect or WalletConnect bridge).'
+    );
   }
 
   private _emit(event: string, args: unknown[]): void {

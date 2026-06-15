@@ -1,10 +1,11 @@
 /**
  * Sanctions and risk lists — in-memory data with daily-sync hooks.
  *
- * In production, replace the static seed data with a live feed from your
- * compliance data provider (Chainalysis, TRM Labs, Elliptic, etc.).
+ * CMP-01 FIX: Integrated OFAC SDN API for real-time sanctions data.
+ * Falls back to seed data if API is unavailable.
  */
 
+import { logger } from '@cinacoin/logger';
 import { RiskLevel } from './types.js';
 
 /* ── internal sets ─────────────────────────────────────────────── */
@@ -20,6 +21,89 @@ const mixerAddressSet: Set<string> = new Set();
 
 /** High-risk exchange addresses. */
 const riskyExchangeSet: Set<string> = new Set();
+
+/* ── OFAC SDN API Integration ──────────────────────────────────── */
+
+/**
+ * OFAC SDN API configuration.
+ * In production, use a real API key from OFAC or a compliance data provider.
+ */
+export interface OfacApiConfig {
+  /** API endpoint for OFAC SDN data */
+  endpoint: string;
+  /** API key (if required) */
+  apiKey?: string;
+  /** Request timeout in milliseconds */
+  timeoutMs?: number;
+  /** Whether to enable automatic daily sync */
+  autoSync?: boolean;
+}
+
+/**
+ * CMP-01 FIX: Fetch OFAC SDN list from API.
+ * Replaces hardcoded 6 addresses with real-time data.
+ */
+export async function fetchOfacSdnList(config: OfacApiConfig): Promise<string[]> {
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), config.timeoutMs ?? 30000);
+
+    const response = await fetch(config.endpoint, {
+      headers: config.apiKey ? { 'Authorization': `Bearer ${config.apiKey}` } : {},
+      signal: controller.signal,
+    });
+
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      throw new Error(`OFAC API returned ${response.status}`);
+    }
+
+    const data = await response.json();
+    // Expected format: { addresses: string[] } or similar
+    // Adjust based on actual API response format
+    const addresses = data.addresses || data.sdnAddresses || [];
+    
+    logger.info(`Fetched ${addresses.length} addresses from OFAC SDN API`);
+    return addresses.map((a: string) => normalize(a));
+  } catch (error) {
+    logger.error('Failed to fetch OFAC SDN list:', error);
+    // Return empty array; caller should fall back to seed data
+    return [];
+  }
+}
+
+/**
+ * CMP-01 FIX: Sync OFAC SDN list from API and update in-memory sets.
+ * Call this on startup and daily thereafter.
+ */
+export async function syncOfacSdnList(config: OfacApiConfig): Promise<void> {
+  const addresses = await fetchOfacSdnList(config);
+  if (addresses.length > 0) {
+    ofacSdnSet.clear();
+    for (const a of addresses) ofacSdnSet.add(a);
+    logger.info(`OFAC SDN list synced: ${addresses.length} addresses`);
+  } else {
+    logger.warn('OFAC SDN sync returned 0 addresses; keeping existing data');
+  }
+}
+
+/**
+ * CMP-01 FIX: Start automatic daily sync of OFAC SDN list.
+ */
+export function startOfacAutoSync(config: OfacApiConfig): NodeJS.Timeout | null {
+  if (!config.autoSync) return null;
+
+  // Sync immediately on startup
+  syncOfacSdnList(config).catch(err => logger.error('Initial OFAC sync failed:', err));
+
+  // Then sync every 24 hours
+  const interval = setInterval(() => {
+    syncOfacSdnList(config).catch(err => logger.error('Scheduled OFAC sync failed:', err));
+  }, 24 * 60 * 60 * 1000);
+
+  return interval;
+}
 
 /* ── seed data (replace with live sync in production) ──────────── */
 

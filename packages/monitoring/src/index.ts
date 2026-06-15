@@ -25,3 +25,6 @@ export * from './alerts.js';
 
 // Dashboard utilities
 export * from './dashboard.js';
+
+// Cloudflare Workers Analytics Engine integration
+export * from './analytics-engine.js';

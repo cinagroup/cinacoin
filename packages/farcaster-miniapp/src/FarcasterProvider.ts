@@ -151,6 +151,9 @@ export class FarcasterProvider {
         this.switchChain(parseInt(chain, 16));
         return null;
       }
+      case 'personal_sign': {
+        return this._handlePersonalSign(params);
+      }
       default:
         throw new Error(`Method ${method} not supported by FarcasterProvider`);
     }
@@ -191,6 +194,44 @@ export class FarcasterProvider {
 
   private _handleAccounts(): Promise<string[]> {
     return Promise.resolve(this._account ? [this._account] : []);
+  }
+
+  /**
+   * Handle personal_sign requests.
+   * In Farcaster Mini App context, this delegates to the Farcaster signer
+   * or an external wallet connection.
+   *
+   * @param params - [message: string, address: string] (EIP-1193 order)
+   */
+  private async _handlePersonalSign(params?: unknown[]): Promise<string> {
+    if (!params || params.length < 2) {
+      throw new Error('personal_sign requires [message, address] parameters');
+    }
+
+    const message = params[0] as string;
+    const address = params[1] as string;
+
+    if (!this._account) {
+      throw new Error('No wallet connected. Use setAccount() first.');
+    }
+
+    if (address.toLowerCase() !== this._account.toLowerCase()) {
+      throw new Error(`Address ${address} does not match connected account ${this._account}`);
+    }
+
+    // In production: delegate to Farcaster Mini App SDK signer
+    // const farcasterSdk = await import('@farcaster/miniapp-sdk');
+    // return farcasterSdk.sdk.signMessage({ message });
+
+    // For now, attempt to use the Farcaster context signer if available
+    const fcContext = this._context as unknown as { signer?: { signMessage: (msg: string) => Promise<string> } };
+    if (fcContext?.signer?.signMessage) {
+      return fcContext.signer.signMessage(message);
+    }
+
+    throw new Error(
+      'personal_sign is not available. Connect a wallet with signing capabilities via @farcaster/miniapp-sdk.'
+    );
   }
 
   private _emit(event: string, args: unknown[]): void {

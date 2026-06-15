@@ -107,3 +107,22 @@ export type {
   PushManagerState,
   UsePushNotificationReturn,
 } from './push.js';
+
+// Expo Integration
+export {
+  ExpoCinacoinProvider,
+  useExpoCinacoin,
+  navigateToConnect,
+  getWcUriFromParams,
+  getRandomBytes,
+  generateNonce,
+  sha256,
+  isExpoEnvironment,
+  getExpoConfig,
+  buildDeepLink,
+} from './expo.js';
+export type {
+  ExpoConfig,
+  ExpoCinacoinContextValue,
+  ExpoCinacoinProviderProps,
+} from './expo.js';

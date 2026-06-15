@@ -112,6 +112,29 @@ jobs:
             fi
           fi
 
+      - name: Save current version for rollback
+        if: steps.check.outputs.deploy == 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          SERVICE="${{ matrix.service }}"
+          ENVIRONMENT="${{ github.event_name == 'workflow_dispatch' && github.event.inputs.environment || 'staging' }}"
+          
+          cd packages/${SERVICE}
+          
+          # Determine config file
+          if [[ "$ENVIRONMENT" == "production" ]] && [[ -f "wrangler.production.toml" ]]; then
+            CONFIG="wrangler.production.toml"
+          else
+            CONFIG="wrangler.toml"
+          fi
+          
+          # Save current version ID for rollback
+          CURRENT_VERSION=$(wrangler versions list --config "$CONFIG" --json 2>/dev/null | jq -r '.[0].version_id // "unknown"' 2>/dev/null || echo "unknown")
+          echo "PREVIOUS_VERSION=${CURRENT_VERSION}" >> $GITHUB_ENV
+          echo "📝 Current version: ${CURRENT_VERSION}"
+
       - name: Deploy to Cloudflare Workers
         if: steps.check.outputs.deploy == 'true'
         env:
@@ -181,23 +204,51 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
-          echo "⚠️ Deployment failed, attempting rollback..."
-          cd packages/${{ matrix.service }}
+          echo "⚠️ Deployment failed, attempting automatic rollback..."
           
+          SERVICE="${{ matrix.service }}"
           ENVIRONMENT="${{ github.event_name == 'workflow_dispatch' && github.event.inputs.environment || 'staging' }}"
           
-          if [[ "$ENVIRONMENT" == "production" ]]; then
-            CONFIG="wrangler.production.toml"
-            if [[ -f "$CONFIG" ]]; then
-              wrangler versions rollback --config "$CONFIG" --auto || echo "Rollback failed or no previous version"
-            else
-              wrangler versions rollback --auto || echo "Rollback failed or no previous version"
-            fi
+          # Use the rollback script for robust rollback
+          chmod +x deploy/scripts/rollback.sh
+          if deploy/scripts/rollback.sh "$SERVICE" "$ENVIRONMENT"; then
+            echo "✅ Automatic rollback completed successfully"
           else
-            wrangler versions rollback --env staging --auto || echo "Rollback failed or no previous version"
+            echo "❌ Automatic rollback failed, manual intervention required"
+            echo "Run: deploy/scripts/rollback.sh ${SERVICE} ${ENVIRONMENT}"
+            exit 1
+          fi
+
+      - name: Post-deployment verification
+        if: steps.check.outputs.deploy == 'true' && success()
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          SERVICE="${{ matrix.service }}"
+          ENVIRONMENT="${{ github.event_name == 'workflow_dispatch' && github.event.inputs.environment || 'staging' }}"
+          
+          echo "🔍 Running post-deployment verification for ${SERVICE}..."
+          
+          # Wait for deployment to propagate
+          sleep 10
+          
+          # Verify the new version is active
+          cd packages/${SERVICE}
+          if [[ "$ENVIRONMENT" == "production" ]] && [[ -f "wrangler.production.toml" ]]; then
+            CONFIG="wrangler.production.toml"
+          else
+            CONFIG="wrangler.toml"
           fi
           
-          echo "✅ Rollback completed"
+          NEW_VERSION=$(wrangler versions list --config "$CONFIG" --json 2>/dev/null | jq -r '.[0].version_id // "unknown"' 2>/dev/null || echo "unknown")
+          echo "📝 New active version: ${NEW_VERSION}"
+          
+          if [[ "${NEW_VERSION}" == "unknown" ]]; then
+            echo "⚠️ Could not verify deployment version"
+          else
+            echo "✅ Deployment verified: ${SERVICE} is running version ${NEW_VERSION}"
+          fi
 
   # ─── Summary ────────────────────────────────────────────────────────────────
   summary:

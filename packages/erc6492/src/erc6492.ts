@@ -1,4 +1,4 @@
-import { concat, hexToBytes, bytesToHex, isAddress } from 'viem';
+import { concat, hexToBytes, bytesToHex, isAddress, encodeAbiParameters, decodeAbiParameters, parseAbiParameters } from 'viem';
 import type { ERC6492Signature, ValidationResult, ValidationInput } from './types';
 
 // ERC-6492 magic suffix that identifies an encoded signature
@@ -14,63 +14,55 @@ export function isERC6492Signature(signature: string): boolean {
 }
 
 /**
- * Encode a signature, deployer address, and factory data into ERC-6492 format.
+ * ERC-01 FIX: Encode a signature, deployer address, and factory data into ERC-6492 format.
+ * Uses proper ABI encoding: abi.encode(deployer, factoryCalldata, signature) + magic_suffix
  */
 export function encodeValidation(sig: ERC6492Signature): string {
-  // Pad deployer address to 32 bytes
-  const deployerPadded = sig.deployer.padEnd(66, '0') as `0x${string}`;
-  // Remove 0x prefix from factoryData for concatenation
-  const factoryDataHex = sig.factoryData.slice(2);
-  // Remove 0x prefix from signature for concatenation
-  const signatureHex = sig.signature.slice(2);
-  // Remove 0x prefix from deployer for concatenation
-  const deployerHex = deployerPadded.slice(2);
+  // ABI encode the three parameters
+  const encoded = encodeAbiParameters(
+    [
+      { name: 'deployer', type: 'address' },
+      { name: 'factoryCalldata', type: 'bytes' },
+      { name: 'signature', type: 'bytes' },
+    ],
+    [
+      sig.deployer as `0x${string}`,
+      sig.factoryData as `0x${string}`,
+      sig.signature as `0x${string}`,
+    ]
+  );
 
-  // Format: signature + deployer(32 bytes) + factoryData + magic_suffix
-  const encoded = concat([
-    hexToBytes(`0x${signatureHex}` as `0x${string}`),
-    hexToBytes(`0x${deployerHex}` as `0x${string}`),
-    hexToBytes(`0x${factoryDataHex}` as `0x${string}`),
-    hexToBytes(ERC6492_DETECTION_SUFFIX),
-  ]);
-  return bytesToHex(encoded);
+  // Append magic suffix
+  return concat([encoded, ERC6492_DETECTION_SUFFIX as `0x${string}`]);
 }
 
 /**
- * Decode an ERC-6492 signature back into its components.
+ * ERC-01 FIX: Decode an ERC-6492 signature back into its components.
+ * Properly handles ABI-encoded data with length prefixes.
  */
 export function decodeValidation(signature: string): ERC6492Signature {
   if (!isERC6492Signature(signature)) {
     throw new Error('Not a valid ERC-6492 encoded signature');
   }
 
-  // Remove the magic suffix
-  const withoutSuffix = signature.slice(0, -ERC6492_DETECTION_SUFFIX.length + 2);
-  const data = withoutSuffix.slice(2); // Remove 0x
+  // Remove the magic suffix (32 bytes = 64 hex chars + 0x prefix)
+  const withoutSuffix = signature.slice(0, -66) as `0x${string}`;
 
-  // Last 32 bytes = deployer address
-  const deployerHex = data.slice(-64);
-  const deployer = `0x${deployerHex.slice(24)}` as `0x${string}`;
+  // ABI decode the three parameters
+  const decoded = decodeAbiParameters(
+    [
+      { name: 'deployer', type: 'address' },
+      { name: 'factoryCalldata', type: 'bytes' },
+      { name: 'signature', type: 'bytes' },
+    ],
+    withoutSuffix
+  );
 
-  // Remaining after deployer = signature + factoryData
-  // The boundary between signature and factoryData is not fixed in the raw encoding.
-  // In practice, we parse from the validateSignature implementation.
-  // For this implementation, we use the standard format:
-  // signature (variable) || deployer (32 bytes) || factoryData (variable)
-  // We need to determine where the signature ends. This is typically done
-  // by knowing the signature length (65 bytes for EOA, variable for contracts).
-  // For a proper implementation, the factoryData is ABI-encoded with deploy function.
-
-  // Simplified: assume standard layout where factoryData starts after deployer
-  // In real usage, the factoryData is known from the deployment process
-  const beforeDeployer = data.slice(0, -64);
-
-  // Parse: first 65 bytes (130 hex chars) = standard signature
-  // The rest = factoryData
-  const extractedSignature = `0x${beforeDeployer.slice(0, 130)}` as `0x${string}`;
-  const factoryData = `0x${beforeDeployer.slice(130)}` as `0x${string}`;
-
-  return { signature: extractedSignature, deployer, factoryData };
+  return {
+    deployer: decoded[0],
+    factoryData: decoded[1],
+    signature: decoded[2],
+  };
 }
 
 /**

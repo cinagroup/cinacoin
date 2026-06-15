@@ -224,5 +224,4 @@ public enum SmartAccountError: Error, LocalizedError {
     }
 }
 
-/// Placeholder for UInt256
-public typealias UInt256 = UInt64
+/// UInt256 is now defined in WCClient.swift as a proper 256-bit type

@@ -499,8 +499,8 @@ public final class WCClient: ObservableObject {
         
         // Convert hex wei to decimal ETH
         let cleaned = balanceHex.replacingOccurrences(of: "0x", with: "")
-        if let wei = BigInt(cleaned, radix: 16) {
-            let ethWei = Decimal(wei.magnitude)
+        if let wei = UInt256(cleaned, radix: 16) {
+            let ethWei = wei.decimalValue
             let eth = ethWei / Decimal(10).power(18)
             return String(format: "%.4f", (eth as NSDecimalNumber).doubleValue)
         }
@@ -834,16 +834,115 @@ public enum WCEvents {
     public static let standardEvmEvents: [String] = [chainChanged, accountsChanged]
 }
 
-// MARK: - BigInt Helper
+// MARK: - UInt256 Implementation
 
-struct BigInt: Equatable {
-    let magnitude: UInt64
+/// 256-bit unsigned integer for handling large blockchain values (wei, balances, etc.)
+public struct UInt256: Equatable, Comparable, CustomStringConvertible {
+    private let high: UInt128
+    private let low: UInt128
     
-    init?(_ string: String, radix: Int) {
+    public init(high: UInt128, low: UInt128) {
+        self.high = high
+        self.low = low
+    }
+    
+    /// Initialize from hex string (with or without 0x prefix)
+    public init?(_ hexString: String, radix: Int = 16) {
         guard radix == 16 else { return nil }
-        let cleaned = string.replacingOccurrences(of: "0x", with: "")
-        guard let val = UInt64(cleaned, radix: 16) else { return nil }
-        self.magnitude = val
+        let cleaned = hexString.replacingOccurrences(of: "0x", with: "")
+        guard !cleaned.isEmpty else { return nil }
+        
+        // Pad to 64 characters (256 bits)
+        let padded = String(repeating: "0", count: max(0, 64 - cleaned.count)) + cleaned
+        guard padded.count == 64 else { return nil }
+        
+        let highHex = String(padded.prefix(32))
+        let lowHex = String(padded.suffix(32))
+        
+        guard let highVal = UInt128(highHex, radix: 16),
+              let lowVal = UInt128(lowHex, radix: 16) else {
+            return nil
+        }
+        
+        self.high = highVal
+        self.low = lowVal
+    }
+    
+    /// Initialize from UInt64
+    public init(_ value: UInt64) {
+        self.high = UInt128(0)
+        self.low = UInt128(value)
+    }
+    
+    public var description: String {
+        "0x" + high.hexString + low.hexString
+    }
+    
+    public static func < (lhs: UInt256, rhs: UInt256) -> Bool {
+        if lhs.high != rhs.high { return lhs.high < rhs.high }
+        return lhs.low < rhs.low
+    }
+    
+    /// Convert to Decimal for arithmetic operations
+    public var decimalValue: Decimal {
+        let highDecimal = high.decimalValue * Decimal(340282366920938463463374607431768211456) // 2^128
+        return highDecimal + low.decimalValue
+    }
+}
+
+/// 128-bit unsigned integer helper
+public struct UInt128: Equatable, Comparable, CustomStringConvertible {
+    private let high: UInt64
+    private let low: UInt64
+    
+    public init(high: UInt64, low: UInt64) {
+        self.high = high
+        self.low = low
+    }
+    
+    public init(_ value: UInt64) {
+        self.high = 0
+        self.low = value
+    }
+    
+    /// Initialize from hex string
+    public init?(_ hexString: String, radix: Int = 16) {
+        guard radix == 16 else { return nil }
+        let cleaned = hexString.replacingOccurrences(of: "0x", with: "")
+        guard !cleaned.isEmpty else { return nil }
+        
+        // Pad to 32 characters (128 bits)
+        let padded = String(repeating: "0", count: max(0, 32 - cleaned.count)) + cleaned
+        guard padded.count == 32 else { return nil }
+        
+        let highHex = String(padded.prefix(16))
+        let lowHex = String(padded.suffix(16))
+        
+        guard let highVal = UInt64(highHex, radix: 16),
+              let lowVal = UInt64(lowHex, radix: 16) else {
+            return nil
+        }
+        
+        self.high = highVal
+        self.low = lowVal
+    }
+    
+    public var hexString: String {
+        String(format: "%016llx%016llx", high, low)
+    }
+    
+    public var description: String {
+        "0x" + hexString
+    }
+    
+    public var decimalValue: Decimal {
+        let highDecimal = Decimal(high) * Decimal(18446744073709551616) // 2^64
+        return highDecimal + Decimal(low)
+    }
+    
+    public static func < (lhs: UInt128, rhs: UInt128) -> Bool {
+        if lhs.high != rhs.high { return lhs.high < rhs.high }
+        return lhs.low < rhs.low
     }
 }
 

@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.26;
 
-import "@account-abstraction/contracts/interfaces/IPaymaster.sol";
-import "@account-abstraction/contracts/interfaces/IEntryPoint.sol";
+import "./interfaces/IPaymaster.sol";
 import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 import "@openzeppelin/contracts/utils/cryptography/EIP712.sol";
 import "./libraries/PaymasterLib.sol";
@@ -15,6 +14,10 @@ import "./libraries/PaymasterLib.sol";
 ///
 ///      paymasterAndData layout:
 ///        paymaster address (20) | validUntil (32) | validAfter (32) | signature (65)
+///
+///      AA-01 FIX: Updated to ERC-4337 v0.7 interface (PackedUserOperation parameter)
+///      GAS-01 FIX: Uses maxCost from EntryPoint instead of hardcoded 21,000
+///      SEC-03 FIX: Signature replay marking in validatePaymasterUserOp (not postOp)
 contract VerifyingPaymaster is EIP712, IPaymaster {
     using ECDSA for bytes32;
 
@@ -40,7 +43,7 @@ contract VerifyingPaymaster is EIP712, IPaymaster {
 
     // === State ===
 
-    IEntryPoint public immutable entryPoint;
+    address public immutable entryPoint;
 
     /// @notice The trusted signer address (off-chain approval authority).
     address public trustedSigner;
@@ -53,6 +56,10 @@ contract VerifyingPaymaster is EIP712, IPaymaster {
 
     /// @notice Total amount sponsored (wei). Resets when owner calls resetBudget.
     uint256 public totalSponsored;
+
+    /// @notice Default gas limit for UserOp estimation (replaces fixed 21,000).
+    /// @dev Typical UserOp gas is 100k-300k. Default: 200,000.
+    uint256 public defaultUserOpGasLimit = 200_000;
 
     // === Errors ===
 
@@ -68,9 +75,10 @@ contract VerifyingPaymaster is EIP712, IPaymaster {
     event UserOperationSponsored(address indexed sender, uint256 gasCost);
     event GasBudgetCapChanged(uint256 oldCap, uint256 newCap);
     event BudgetReset(uint256 resetAmount);
+    event DefaultGasLimitChanged(uint256 oldLimit, uint256 newLimit);
 
     modifier onlyEntryPoint() {
-        if (msg.sender != address(entryPoint)) revert NotEntryPoint();
+        if (msg.sender != entryPoint) revert NotEntryPoint();
         _;
     }
 
@@ -87,63 +95,77 @@ contract VerifyingPaymaster is EIP712, IPaymaster {
         address _trustedSigner,
         uint256 _gasBudgetCap
     ) EIP712("CinaConnect VerifyingPaymaster", "1") {
-        entryPoint = IEntryPoint(_entryPoint);
+        entryPoint = _entryPoint;
         trustedSigner = _trustedSigner;
         gasBudgetCap = _gasBudgetCap;
     }
 
+    /// @notice Set the default UserOp gas limit for cost estimation.
+    /// @param newLimit New gas limit (typical range: 100,000 - 300,000).
+    function setDefaultUserOpGasLimit(uint256 newLimit) external onlyTrustedSigner {
+        require(newLimit >= 50_000, "Gas limit too low");
+        emit DefaultGasLimitChanged(defaultUserOpGasLimit, newLimit);
+        defaultUserOpGasLimit = newLimit;
+    }
+
     // ─────────────────────────────────────────────────────────────────────────
-    // IPaymaster Implementation
+    // IPaymaster Implementation (ERC-4337 v0.7)
     // ─────────────────────────────────────────────────────────────────────────
 
-    /// @notice Validate a UserOp using the signature from paymasterData.
-    /// @dev paymasterAndData must encode: validUntil (32) | validAfter (32) | signature (65)
+    /// @notice Validate a UserOp using the signature from paymasterAndData.
+    /// @dev AA-01 FIX: Updated to v0.7 interface — receives full PackedUserOperation.
+    ///      paymasterAndData layout: paymaster(20) | validUntil(32) | validAfter(32) | signature(65)
+    ///      GAS-01 FIX: Uses maxCost from EntryPoint (based on actual gas estimation)
+    ///      instead of hardcoded 21,000 base gas.
+    ///      SEC-03 FIX: Marks signature as used immediately in this function.
+    /// @param userOp             The full PackedUserOperation (v0.7).
     /// @param userOpHash         Hash of the UserOp.
-    /// @param maxFeePerGas       Maximum fee per gas.
-    /// @param maxPriorityFeePerGas Maximum priority fee per gas.
-    /// @return validationData    0 for success, or packed validation data.
-    /// @return context           Context for postOp (abi.encode(userOpHash, estimatedCost)).
+    /// @param maxCost            Maximum cost the EntryPoint will charge.
+    /// @return validationData    0 for success, or packed validation data (v0.7 format).
+    /// @return context           Context for postOp (abi.encode(userOpHash, maxCost)).
     function validatePaymasterUserOp(
+        PackedUserOperation calldata userOp,
         bytes32 userOpHash,
-        uint256 maxFeePerGas,
-        uint256 maxPriorityFeePerGas
+        uint256 maxCost
     )
         external
         override
         onlyEntryPoint
         returns (uint256 validationData, bytes memory context)
     {
-        // Extract validUntil, validAfter, and signature from the calldata
-        // The signature is appended after the standard paymaster fields.
-        (uint256 validUntil, uint256 validAfter, bytes calldata signature) = _extractPaymasterContext();
+        // ── Extract paymasterAndData fields ──────────────────────────────────
+        // AA-02 FIX: Parse from userOp.paymasterAndData directly, not msg.data
+        (uint256 validUntil, uint256 validAfter, bytes memory signature) = _extractPaymasterData(userOp.paymasterAndData);
 
-        // ── Check validity period ────────────────────────────────────────
+        // ── Check validity period ────────────────────────────────────────────
         if (validUntil != 0 && block.timestamp > validUntil) {
             return (
-                _packValidationData(true, validUntil, validAfter),
+                _packValidationDataV07(true, validUntil, validAfter),
                 bytes("")
             );
         }
         if (validAfter != 0 && block.timestamp < validAfter) {
             return (
-                _packValidationData(true, validUntil, validAfter),
+                _packValidationDataV07(true, validUntil, validAfter),
                 bytes("")
             );
         }
 
-        // ── Check replay ─────────────────────────────────────────────────
+        // ── Check replay ─────────────────────────────────────────────────────
         if (usedSignatures[userOpHash]) {
             revert SignatureUsed();
         }
 
-        // ── Check gas budget cap ─────────────────────────────────────────
-        uint256 estimatedCost = maxFeePerGas * 21_000; // base gas estimate
-        if (gasBudgetCap > 0 && estimatedCost > gasBudgetCap) {
+        // ── Check maxCost against gas budget cap ─────────────────────────────
+        // GAS-01 FIX: Use maxCost from EntryPoint (based on actual gas estimation)
+        // maxCost = (preVerificationGas + callGasLimit + verificationGasLimit) * maxFeePerGas
+        // This replaces the old hardcoded: maxFeePerGas * 21_000
+        if (gasBudgetCap > 0 && maxCost > gasBudgetCap) {
             revert GasBudgetExceeded();
         }
 
-        // ── Verify EIP-712 signature ─────────────────────────────────────
-        bytes32 digest = _hashPaymasterData(userOpHash, validUntil, validAfter, estimatedCost);
+        // ── Verify EIP-712 signature ─────────────────────────────────────────
+        bytes32 digest = _hashPaymasterData(userOpHash, validUntil, validAfter, maxCost);
 
         address signer = digest.recover(signature);
         if (signer != trustedSigner) {
@@ -155,12 +177,12 @@ contract VerifyingPaymaster is EIP712, IPaymaster {
         // within the same bundle. Now marked here (function is no longer view).
         usedSignatures[userOpHash] = true;
 
-        // ── Success: return validation data and context for postOp ───────
-        return (0, abi.encode(userOpHash, estimatedCost));
+        // ── Success: return validation data and context for postOp ───────────
+        return (0, abi.encode(userOpHash, maxCost));
     }
 
     /// @notice Post-operation callback.
-    /// @param mode                PostOpMode (0 = normal, 1 = reverted, 2 = out-of-gas).
+    /// @param mode                PostOpMode (0 = normal, 1 = op reverted, 2 = postOp reverted).
     /// @param context             Context from validatePaymasterUserOp.
     /// @param actualGasCost       Actual gas cost in wei.
     /// @param actualUserOpFeePerGas Actual gas price.
@@ -173,8 +195,6 @@ contract VerifyingPaymaster is EIP712, IPaymaster {
         // Only track sponsorship on successful execution
         // SEC-03 FIX: Signature replay marking moved to validatePaymasterUserOp
         if (mode == 0) {
-            (bytes32 userOpHash, ) = abi.decode(context, (bytes32, uint256));
-            // usedSignatures[userOpHash] = true;  // Now done in validatePaymasterUserOp
             totalSponsored += actualGasCost;
             emit UserOperationSponsored(msg.sender, actualGasCost);
         }
@@ -207,19 +227,30 @@ contract VerifyingPaymaster is EIP712, IPaymaster {
 
     /// @notice Deposit funds into the EntryPoint.
     function deposit() external payable {
-        entryPoint.depositTo{ value: msg.value }(address(this));
+        // Low-level call to EntryPoint depositTo
+        (bool success, ) = entryPoint.call{value: msg.value}(
+            abi.encodeWithSignature("depositTo(address)", address(this))
+        );
+        require(success, "Deposit failed");
     }
 
     /// @notice Withdraw funds from the EntryPoint.
     /// @param withdrawAddress Address to withdraw to.
     /// @param amount          Amount to withdraw.
     function withdrawTo(address payable withdrawAddress, uint256 amount) external onlyTrustedSigner {
-        entryPoint.withdrawTo(withdrawAddress, amount);
+        (bool success, ) = entryPoint.call(
+            abi.encodeWithSignature("withdrawTo(address,uint256)", withdrawAddress, amount)
+        );
+        require(success, "Withdrawal failed");
     }
 
     /// @notice Query the EntryPoint balance of this paymaster.
     function getDeposit() external view returns (uint256) {
-        return entryPoint.balanceOf(address(this));
+        (bool success, bytes memory data) = entryPoint.staticcall(
+            abi.encodeWithSignature("balanceOf(address)", address(this))
+        );
+        require(success && data.length >= 32, "GetDeposit failed");
+        return abi.decode(data, (uint256));
     }
 
     receive() external payable {}
@@ -228,34 +259,28 @@ contract VerifyingPaymaster is EIP712, IPaymaster {
     // Internal helpers
     // ─────────────────────────────────────────────────────────────────────────
 
-    /// @notice Extract validUntil, validAfter, and signature from calldata.
-    /// @dev Reads from the calldata after the paymaster address (bytes 20..).
-    ///      Layout: validUntil[32] | validAfter[32] | signature[65]
-    function _extractPaymasterContext()
+    /// @notice Extract validUntil, validAfter, and signature from paymasterAndData.
+    /// @dev AA-02 FIX: Parse from userOp.paymasterAndData directly instead of msg.data.
+    ///      Layout: paymaster(20) | validUntil(32) | validAfter(32) | signature(65)
+    /// @param paymasterAndData The paymasterAndData bytes from the UserOperation.
+    function _extractPaymasterData(bytes calldata paymasterAndData)
         internal
         pure
-        returns (uint256 validUntil, uint256 validAfter, bytes calldata signature)
+        returns (uint256 validUntil, uint256 validAfter, bytes memory signature)
     {
-        // Skip the paymaster address (first 20 bytes of paymasterAndData)
-        bytes calldata pmData = msg.data;
+        // Minimum length: paymaster(20) + validUntil(32) + validAfter(32) + signature(65) = 149
+        require(paymasterAndData.length >= 20 + 32 + 32 + SIGNATURE_LENGTH, "paymasterAndData too short");
 
-        // The paymasterAndData starts after:
-        // - selector (4 bytes) + userOp fields — we read from the pm-specific section
-        // In practice, the signature is passed as extra data after the entry point
-        // validates the call. We parse it from the trailing bytes of calldata.
-        //
-        // For the actual implementation, the bundler appends signature to paymasterAndData:
-        //   paymasterAndData = abi.encodePacked(address(pm), validUntil, validAfter, signature)
-        //
-        // We read from the end of the calldata: last 65 bytes = signature,
-        // preceding 32 bytes = validAfter, preceding 32 bytes = validUntil.
+        // Skip paymaster address (first 20 bytes)
+        uint256 offset = 20;
 
-        uint256 len = pmData.length;
-        require(len >= 20 + 32 + 32 + SIGNATURE_LENGTH, "paymasterAndData too short");
+        validUntil = uint256(bytes32(paymasterAndData[offset:offset + 32]));
+        offset += 32;
 
-        validUntil = uint256(bytes32(pmData[len - 32 - 32 - SIGNATURE_LENGTH : len - 32 - SIGNATURE_LENGTH]));
-        validAfter = uint256(bytes32(pmData[len - 32 - SIGNATURE_LENGTH : len - SIGNATURE_LENGTH]));
-        signature = pmData[len - SIGNATURE_LENGTH : len];
+        validAfter = uint256(bytes32(paymasterAndData[offset:offset + 32]));
+        offset += 32;
+
+        signature = paymasterAndData[offset:offset + SIGNATURE_LENGTH];
     }
 
     /// @notice Hash the PaymasterData for EIP-712 signing.
@@ -283,16 +308,20 @@ contract VerifyingPaymaster is EIP712, IPaymaster {
         );
     }
 
-    /// @notice Pack validation data per ERC-4337 spec.
-    /// @param failed       Whether validation failed.
-    /// @param validUntil   Valid-unil timestamp.
-    /// @param validAfter   Valid-after timestamp.
+    /// @notice Pack validation data per ERC-4337 v0.7 spec.
+    /// @dev AA-01 FIX: v0.7 format: sigFailed(1) | validUntil(48) | validAfter(48) | aggregator(160)
+    ///      Aggregator in high bits, not validAfter in low bits.
+    /// @param failed       Whether validation failed (sigFailed bit).
+    /// @param validUntil   Valid-until timestamp (48 bits).
+    /// @param validAfter   Valid-after timestamp (48 bits).
     /// @return Packed uint256.
-    function _packValidationData(
+    function _packValidationDataV07(
         bool failed,
         uint256 validUntil,
         uint256 validAfter
     ) internal pure returns (uint256) {
-        return uint256(uint160(validAfter)) | (failed ? 1 : 0) | (uint256(validUntil) << 160);
+        // v0.7 layout: sigFailed(1 bit) | validUntil(48 bits) | validAfter(48 bits) | aggregator(160 bits)
+        // aggregator = address(0) for no aggregator
+        return (failed ? 1 : 0) | (validUntil << 192) | (validAfter << 144);
     }
 }

@@ -1,5 +1,6 @@
 export { CinacoinModule, CinacoinOptions } from './lib/cinacoin.module';
 export { CinacoinService } from './lib/cinacoin.service';
+export { CinacoinSignalService } from './lib/cinacoin-signal.service';
 export { CINA_CONNECT_OPTIONS, CINA_CONNECT_INSTANCE } from './lib/cinacoin.tokens';
 
 // Components
@@ -24,3 +25,6 @@ export {
   type GetCallsStatusOptions,
   type CallsStatusObs,
 } from './lib/eip5792/eip5792.service';
+
+// Signals
+export type { SignalAccount, SignalNetwork } from './lib/cinacoin-signal.service';

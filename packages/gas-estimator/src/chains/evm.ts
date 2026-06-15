@@ -216,6 +216,70 @@ export class EVMEstimator {
   }
 
   // ============================================================
+  // UserOp Gas Estimation (GAS-01 FIX)
+  // ============================================================
+
+  /**
+   * Estimate gas for a UserOperation using eth_estimateGas.
+   * GAS-01 FIX: Replaces hardcoded 21,000 with actual estimation.
+   *
+   * @param rpcUrl RPC endpoint URL
+   * @param from Sender address (smart account)
+   * @param to Target contract address
+   * @param data Calldata to estimate
+   * @param value Value to send (optional)
+   * @returns Estimated gas limit for the UserOp
+   */
+  async estimateUserOpGas(
+    rpcUrl: string,
+    from: string,
+    to: string,
+    data: string,
+    value?: string,
+  ): Promise<bigint> {
+    try {
+      const txParams: Record<string, string> = { from, to, data };
+      if (value) txParams.value = value;
+
+      const estimatedGas = await this.rpcCall<string>(
+        rpcUrl,
+        'eth_estimateGas',
+        [txParams],
+      );
+
+      // Add 20% buffer for safety
+      const gasWithBuffer = (BigInt(estimatedGas) * 120n) / 100n;
+      return gasWithBuffer;
+    } catch (err) {
+      logger.warn('eth_estimateGas failed, using default 200,000:', err);
+      // Fallback to reasonable default for UserOps (100k-300k typical)
+      return 200_000n;
+    }
+  }
+
+  /**
+   * Estimate gas for L2 chains with adaptation factor.
+   * L2s (Optimism, Arbitrum, Base) have different gas models.
+   *
+   * @param chainId Chain ID
+   * @param baseGas Base gas from eth_estimateGas
+   * @returns Adjusted gas for L2
+   */
+  adaptGasForL2(chainId: number, baseGas: bigint): bigint {
+    // L2 chains may have different gas models
+    // Optimism/Arbitrum/Base: L1 data fee is separate, L2 gas is cheaper
+    const L2_CHAINS = new Set([10, 42161, 8453]); // Optimism, Arbitrum, Base
+
+    if (L2_CHAINS.has(chainId)) {
+      // L2 execution gas is typically lower, but add buffer for L1 data fee
+      // This is a simplification; production should query L1 gas oracle
+      return (baseGas * 110n) / 100n; // 10% buffer for L2
+    }
+
+    return baseGas;
+  }
+
+  // ============================================================
   // Raw RPC Calls
   // ============================================================
 

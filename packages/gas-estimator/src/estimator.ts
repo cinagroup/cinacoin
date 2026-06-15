@@ -58,6 +58,33 @@ export class GasEstimator {
   }
 
   /**
+   * GAS-01 FIX: Estimate gas for a UserOperation using eth_estimateGas.
+   * Replaces the hardcoded 21,000 base gas with actual on-chain estimation.
+   *
+   * @param rpcUrl RPC endpoint URL
+   * @param from Sender address (smart account)
+   * @param to Target contract address
+   * @param data Calldata to estimate
+   * @param value Value to send (optional)
+   * @param chainId Chain ID for L2 adaptation (optional)
+   * @returns Estimated gas limit for the UserOp
+   */
+  async estimateUserOpGas(
+    rpcUrl: string,
+    from: string,
+    to: string,
+    data: string,
+    value?: string,
+    chainId?: number,
+  ): Promise<bigint> {
+    const baseGas = await this.evm.estimateUserOpGas(rpcUrl, from, to, data, value);
+    if (chainId) {
+      return this.evm.adaptGasForL2(chainId, baseGas);
+    }
+    return baseGas;
+  }
+
+  /**
    * Estimate Solana compute budget.
    */
   async estimateSolana(

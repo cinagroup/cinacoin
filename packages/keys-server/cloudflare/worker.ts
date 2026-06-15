@@ -13,6 +13,8 @@ export interface Env {
   KEYS_KV: KVNamespace;
   /** KV namespace for rate-limit counters */
   RATELIMIT_KV: KVNamespace;
+  /** D1 database for audit logging */
+  AUDIT_DB: D1Database;
   /** Encryption key for at-rest key storage (min 64 hex chars / 32 bytes) */
   ENCRYPTION_KEY: string;
   /** JWT secret for token validation (min 32 chars) */
@@ -56,6 +58,9 @@ interface MetricsData {
   rateLimitHits: number;
 }
 
+/** Track whether the audit table has been initialized in this isolate. */
+let auditTableReady = false;
+
 // ─── Constants ───────────────────────────────────────────────────────────────
 
 // Reduced from 100k to 10k to stay within Workers CPU limits (10ms/30ms).
@@ -65,6 +70,94 @@ const SALT_LENGTH = 16; // bytes
 const IV_LENGTH = 16; // bytes
 const AUTH_TAG_LENGTH = 16; // bytes (128 bits)
 const TOKEN_LEEWAY_SECONDS = 10;
+
+// ─── Audit Logging ───────────────────────────────────────────────────────────
+
+interface AuditLogEntry {
+  id: string;
+  timestamp: number;
+  action: 'key.create' | 'key.read' | 'key.delete' | 'key.rotate' | 'auth.failure' | 'ratelimit.hit';
+  actor: string;       // JWT subject (user ID) or IP
+  keyId?: string;      // affected key ID (if applicable)
+  ipAddress: string;
+  userAgent?: string;
+  success: boolean;
+  details?: string;    // JSON-encoded extra context
+}
+
+/**
+ * Ensure the audit log table exists. Called lazily on first write.
+ * Uses CREATE TABLE IF NOT EXISTS so it is safe to call on every request.
+ */
+async function ensureAuditTable(env: Env): Promise<void> {
+  await env.AUDIT_DB.exec(`
+    CREATE TABLE IF NOT EXISTS audit_log (
+      id TEXT PRIMARY KEY,
+      timestamp INTEGER NOT NULL,
+      action TEXT NOT NULL,
+      actor TEXT NOT NULL,
+      key_id TEXT,
+      ip_address TEXT NOT NULL,
+      user_agent TEXT,
+      success INTEGER NOT NULL,
+      details TEXT
+    )
+  `);
+  // Index for querying by action + timestamp
+  await env.AUDIT_DB.exec(`
+    CREATE INDEX IF NOT EXISTS idx_audit_action_ts ON audit_log(action, timestamp DESC)
+  `);
+  // Index for querying by actor
+  await env.AUDIT_DB.exec(`
+    CREATE INDEX IF NOT EXISTS idx_audit_actor ON audit_log(actor, timestamp DESC)
+  `);
+}
+
+/**
+ * Write an audit log entry to D1. Fire-and-forget (errors are logged but don't fail the request).
+ */
+async function writeAuditLog(
+  env: Env,
+  entry: Omit<AuditLogEntry, 'id' | 'timestamp'>
+): Promise<void> {
+  try {
+    const id = crypto.randomUUID();
+    const timestamp = Date.now();
+
+    await env.AUDIT_DB.prepare(
+      `INSERT INTO audit_log (id, timestamp, action, actor, key_id, ip_address, user_agent, success, details)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
+    ).bind(
+      id,
+      timestamp,
+      entry.action,
+      entry.actor,
+      entry.keyId ?? null,
+      entry.ipAddress,
+      entry.userAgent ?? null,
+      entry.success ? 1 : 0,
+      entry.details ?? null
+    ).run();
+  } catch (err: any) {
+    // Audit log failures should not break the main request
+    console.error('Audit log write failed:', err.message);
+  }
+}
+
+/**
+ * Helper to build audit context from request + claims.
+ */
+function auditContext(
+  request: Request,
+  claims: JwtClaims,
+  clientIp: string
+): { actor: string; ipAddress: string; userAgent: string } {
+  return {
+    actor: claims.sub || 'anonymous',
+    ipAddress: clientIp,
+    userAgent: request.headers.get('User-Agent') || '',
+  };
+}
 
 // ─── Crypto Helpers (Web Crypto API) ────────────────────────────────────────
 
@@ -425,6 +518,17 @@ async function handleCreateKey(
   await env.KEYS_KV.put(`key:${id}`, JSON.stringify(stored));
   await incrementMetric(env, 'keysCreated');
 
+  // Audit log
+  const clientIp = getClientIp(request);
+  const actx = auditContext(request, claims, clientIp);
+  await writeAuditLog(env, {
+    action: 'key.create',
+    ...actx,
+    keyId: id,
+    success: true,
+    details: JSON.stringify({ label, algorithm: 'aes-256-gcm' }),
+  });
+
   // Return metadata only (no encrypted material)
   const { encrypted: _, ...metadata } = stored;
   return jsonResponse(metadata, 201);
@@ -437,6 +541,17 @@ async function handleGetKey(request: Request, env: Env, keyId: string): Promise<
   }
 
   await incrementMetric(env, 'keysRetrieved');
+
+  // Audit log
+  const clientIp = getClientIp(request);
+  const actx = auditContext(request, { sub: 'authenticated', iss: '', exp: 0, iat: 0 }, clientIp);
+  await writeAuditLog(env, {
+    action: 'key.read',
+    ...actx,
+    keyId,
+    success: true,
+  });
+
   // Return metadata only (no encrypted material)
   const stored = raw as StoredKey;
   const { encrypted: _, ...metadata } = stored;
@@ -451,6 +566,17 @@ async function handleDeleteKey(request: Request, env: Env, keyId: string): Promi
 
   await env.KEYS_KV.delete(`key:${keyId}`);
   await incrementMetric(env, 'keysDeleted');
+
+  // Audit log
+  const clientIp = getClientIp(request);
+  const actx = auditContext(request, { sub: 'authenticated', iss: '', exp: 0, iat: 0 }, clientIp);
+  await writeAuditLog(env, {
+    action: 'key.delete',
+    ...actx,
+    keyId,
+    success: true,
+  });
+
   return jsonResponse({ deleted: true, id: keyId });
 }
 
@@ -487,6 +613,17 @@ async function handleRotateKey(
   await env.KEYS_KV.put(`key:${keyId}`, JSON.stringify(rotated));
   await incrementMetric(env, 'keysRotated');
 
+  // Audit log
+  const clientIp = getClientIp(request);
+  const actx = auditContext(request, claims, clientIp);
+  await writeAuditLog(env, {
+    action: 'key.rotate',
+    ...actx,
+    keyId,
+    success: true,
+    details: JSON.stringify({ previousSalt: existing.salt.slice(0, 8) + '...' }),
+  });
+
   const { encrypted: _, ...metadata } = rotated;
   return jsonResponse(metadata);
 }
@@ -517,6 +654,12 @@ export default {
     const method = request.method;
     const origin = request.headers.get('Origin');
     const corsHeaders = getCorsHeaders(env, origin);
+
+    // Lazily ensure audit table exists (runs once per isolate lifetime)
+    if (!auditTableReady) {
+      await ensureAuditTable(env);
+      auditTableReady = true;
+    }
 
     // Handle CORS preflight
     if (method === 'OPTIONS') {

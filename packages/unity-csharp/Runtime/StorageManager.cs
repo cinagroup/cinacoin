@@ -1,16 +1,19 @@
 using System;
+using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 using UnityEngine;
 using Newtonsoft.Json;
 
 namespace Cinacoin
 {
     /// <summary>
-    /// StorageManager — handles session and preference persistence.
+    /// StorageManager — handles session and preference persistence with AES encryption.
     ///
     /// Features:
-    /// - PlayerPrefs for simple string/int/float persistence
+    /// - AES-256-CBC encrypted storage (replaces plaintext PlayerPrefs)
     /// - JSON serialization for complex objects
-    /// - Secure storage integration (Keychain on iOS, Keystore on Android)
+    /// - Platform secure storage integration (Keychain on iOS, Keystore on Android)
     /// - Automatic session restoration on app launch
     ///
     /// Usage:
@@ -23,49 +26,151 @@ namespace Cinacoin
     public static class StorageManager
     {
         private const string Prefix = "cinacoin_";
+        private const string EncryptionKeyPref = "cinacoin_enc_key";
+        private const string EncryptionIVPref = "cinacoin_enc_iv";
+
+        // ─── Encryption Helpers ─────────────────────────────────────────
+
+        private static byte[] GetOrCreateEncryptionKey()
+        {
+            var keyStr = PlayerPrefs.GetString(EncryptionKeyPref, null);
+            if (string.IsNullOrEmpty(keyStr))
+            {
+                var key = new byte[32];
+                using (var rng = new RNGCryptoServiceProvider())
+                {
+                    rng.GetBytes(key);
+                }
+                keyStr = Convert.ToBase64String(key);
+                PlayerPrefs.SetString(EncryptionKeyPref, keyStr);
+                PlayerPrefs.Save();
+            }
+            return Convert.FromBase64String(keyStr);
+        }
+
+        private static byte[] GetOrCreateEncryptionIV()
+        {
+            var ivStr = PlayerPrefs.GetString(EncryptionIVPref, null);
+            if (string.IsNullOrEmpty(ivStr))
+            {
+                var iv = new byte[16];
+                using (var rng = new RNGCryptoServiceProvider())
+                {
+                    rng.GetBytes(iv);
+                }
+                ivStr = Convert.ToBase64String(iv);
+                PlayerPrefs.SetString(EncryptionIVPref, ivStr);
+                PlayerPrefs.Save();
+            }
+            return Convert.FromBase64String(ivStr);
+        }
+
+        private static string Encrypt(string plainText)
+        {
+            if (string.IsNullOrEmpty(plainText)) return plainText;
+            
+            var key = GetOrCreateEncryptionKey();
+            var iv = GetOrCreateEncryptionIV();
+            
+            using (var aes = Aes.Create())
+            {
+                aes.Key = key;
+                aes.IV = iv;
+                aes.Mode = CipherMode.CBC;
+                aes.Padding = PaddingMode.PKCS7;
+                
+                using (var encryptor = aes.CreateEncryptor())
+                using (var ms = new MemoryStream())
+                {
+                    var plainBytes = Encoding.UTF8.GetBytes(plainText);
+                    using (var cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Write))
+                    {
+                        cs.Write(plainBytes, 0, plainBytes.Length);
+                    }
+                    return Convert.ToBase64String(ms.ToArray());
+                }
+            }
+        }
+
+        private static string Decrypt(string cipherText)
+        {
+            if (string.IsNullOrEmpty(cipherText)) return cipherText;
+            
+            var key = GetOrCreateEncryptionKey();
+            var iv = GetOrCreateEncryptionIV();
+            
+            try
+            {
+                using (var aes = Aes.Create())
+                {
+                    aes.Key = key;
+                    aes.IV = iv;
+                    aes.Mode = CipherMode.CBC;
+                    aes.Padding = PaddingMode.PKCS7;
+                    
+                    using (var decryptor = aes.CreateDecryptor())
+                    using (var ms = new MemoryStream(Convert.FromBase64String(cipherText)))
+                    using (var cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read))
+                    using (var reader = new StreamReader(cs, Encoding.UTF8))
+                    {
+                        return reader.ReadToEnd();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogWarning($"[Cinacoin:Storage] Decryption failed: {ex.Message}");
+                return null;
+            }
+        }
 
         // ─── Simple Type Methods ───────────────────────────────────────
 
-        /// Save a string value.
+        /// Save a string value (encrypted).
         public static void SaveString(string key, string value)
         {
-            PlayerPrefs.SetString(Prefix + key, value ?? string.Empty);
+            var encrypted = Encrypt(value ?? string.Empty);
+            PlayerPrefs.SetString(Prefix + key, encrypted);
             PlayerPrefs.Save();
         }
 
-        /// Load a string value with optional default.
+        /// Load a string value with optional default (decrypted).
         public static string LoadString(string key, string defaultValue = null)
         {
             var fullKey = Prefix + key;
-            return PlayerPrefs.HasKey(fullKey) ? PlayerPrefs.GetString(fullKey) : defaultValue;
+            if (!PlayerPrefs.HasKey(fullKey)) return defaultValue;
+            
+            var encrypted = PlayerPrefs.GetString(fullKey);
+            var decrypted = Decrypt(encrypted);
+            return decrypted ?? defaultValue;
         }
 
-        /// Save an integer value.
+        /// Save an integer value (encrypted).
         public static void SaveInt(string key, int value)
         {
-            PlayerPrefs.SetInt(Prefix + key, value);
-            PlayerPrefs.Save();
+            SaveString(key, value.ToString());
         }
 
-        /// Load an integer value with optional default.
+        /// Load an integer value with optional default (decrypted).
         public static int LoadInt(string key, int defaultValue = 0)
         {
-            var fullKey = Prefix + key;
-            return PlayerPrefs.HasKey(fullKey) ? PlayerPrefs.GetInt(fullKey) : defaultValue;
+            var str = LoadString(key, null);
+            if (string.IsNullOrEmpty(str)) return defaultValue;
+            return int.TryParse(str, out var result) ? result : defaultValue;
         }
 
-        /// Save a float value.
+        /// Save a float value (encrypted).
         public static void SaveFloat(string key, float value)
         {
-            PlayerPrefs.SetFloat(Prefix + key, value);
-            PlayerPrefs.Save();
+            SaveString(key, value.ToString("R"));
         }
 
-        /// Load a float value with optional default.
+        /// Load a float value with optional default (decrypted).
         public static float LoadFloat(string key, float defaultValue = 0f)
         {
-            var fullKey = Prefix + key;
-            return PlayerPrefs.HasKey(fullKey) ? PlayerPrefs.GetFloat(fullKey) : defaultValue;
+            var str = LoadString(key, null);
+            if (string.IsNullOrEmpty(str)) return defaultValue;
+            return float.TryParse(str, out var result) ? result : defaultValue;
         }
 
         // ─── JSON Object Methods ───────────────────────────────────────

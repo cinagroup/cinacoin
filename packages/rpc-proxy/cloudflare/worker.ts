@@ -405,7 +405,7 @@ function cacheKey(chainId: string, body: JsonRpcRequest): string {
   return `rpc:${btoa(unescape(encodeURIComponent(payload)))}`;
 }
 
-function handleMetrics(origin: string | null): Response {
+function handleMetrics(origin: string | null, traceHeaders: Record<string, string> = {}): Response {
   const uptime = Date.now() - metrics.startTime;
   const errorRate = metrics.requestCount > 0
     ? ((metrics.errorCount / metrics.requestCount) * 100).toFixed(2)
@@ -429,7 +429,7 @@ function handleMetrics(origin: string | null): Response {
   };
 
   return new Response(JSON.stringify(jsonBody), {
-    headers: { "Content-Type": "application/json", ...makeCorsHeaders(origin), "X-Frame-Options": "DENY" },
+    headers: { "Content-Type": "application/json", ...makeCorsHeaders(origin), "X-Frame-Options": "DENY", ...traceHeaders },
   });
 }
 
@@ -524,10 +524,11 @@ async function forwardToUpstream(
 async function handleRpc(
   request: Request,
   env: Env,
-  chainId: string
+  chainId: string,
+  traceHeaders: Record<string, string>
 ): Promise<Response> {
   const origin = request.headers.get("Origin");
-  const headers = { "Content-Type": "application/json", ...makeCorsHeaders(origin) };
+  const headers = { "Content-Type": "application/json", ...makeCorsHeaders(origin), ...traceHeaders };
 
   // Update metrics
   metrics.requestCount++;
@@ -655,10 +656,10 @@ async function handleRpc(
   );
 }
 
-function handleHealth(origin: string | null): Response {
+function handleHealth(origin: string | null, traceHeaders: Record<string, string> = {}): Response {
   const supportedChains = Object.keys(CHAIN_CONFIG);
   return new Response(JSON.stringify({ status: "ok", timestamp: new Date().toISOString(), supported_chains: supportedChains }), {
-    headers: { "Content-Type": "application/json", ...makeCorsHeaders(origin), "X-Frame-Options": "DENY" },
+    headers: { "Content-Type": "application/json", ...makeCorsHeaders(origin), "X-Frame-Options": "DENY", ...traceHeaders },
   });
 }
 
@@ -667,10 +668,17 @@ export default {
     const url = new URL(request.url);
     const origin = request.headers.get("Origin");
 
+    // Generate or extract trace ID for distributed tracing
+    const traceId = request.headers.get('x-trace-id') || crypto.randomUUID();
+    const traceHeaders = {
+      'X-Trace-Id': traceId,
+      'X-Trace-Start': Date.now().toString(),
+    };
+
     // CORS preflight (before rate limiting)
     if (request.method === "OPTIONS") {
       return new Response(null, {
-        headers: { "Content-Length": "0", ...makeCorsHeaders(origin) },
+        headers: { "Content-Length": "0", ...makeCorsHeaders(origin), ...traceHeaders },
       });
     }
 
@@ -680,14 +688,14 @@ export default {
       if (!await checkRate(env, ip, DEFAULT_RATE_LIMIT)) {
         return new Response(JSON.stringify({ error: "rate_limit_exceeded" }), {
           status: 429,
-          headers: { "Content-Type": "application/json", ...makeCorsHeaders(origin) },
+          headers: { "Content-Type": "application/json", ...makeCorsHeaders(origin), ...traceHeaders },
         });
       }
     }
 
     // Health check
     if (url.pathname === "/health" && request.method === "GET") {
-      return handleHealth(origin);
+      return handleHealth(origin, traceHeaders);
     }
 
     // Metrics endpoint
@@ -696,7 +704,7 @@ export default {
       if (accept.includes("text/plain") || accept.includes("application/openmetrics")) {
         return handlePrometheusMetrics();
       }
-      return handleMetrics(origin);
+      return handleMetrics(origin, traceHeaders);
     }
 
     // RPC proxy: POST / or POST /rpc/:chainId
@@ -719,16 +727,16 @@ export default {
         if (!resolved) {
           return new Response(
             JSON.stringify({ jsonrpc: "2.0", error: { code: -32601, message: `Unsupported chain: ${chainId}` }, id: null } as JsonRpcResponse),
-            { status: 400, headers: { "Content-Type": "application/json", ...makeCorsHeaders(origin) } }
+            { status: 400, headers: { "Content-Type": "application/json", ...makeCorsHeaders(origin), ...traceHeaders } }
           );
         }
-        return handleRpc(request, env, chainId);
+        return handleRpc(request, env, chainId, traceHeaders);
       }
     }
 
     return new Response(JSON.stringify({ error: "Not found" }), {
       status: 404,
-      headers: { "Content-Type": "application/json", ...makeCorsHeaders(origin) },
+      headers: { "Content-Type": "application/json", ...makeCorsHeaders(origin), ...traceHeaders },
     });
   },
 };
