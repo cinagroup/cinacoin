@@ -1,3 +1,10 @@
+// TODO: Split this God File into smaller modules:
+// - cache.ts: Transaction history cache (_txHistoryCache, _txCacheKey, _getTxCached, _setTxCached, clearTxCached)
+// - chains.ts: Chain registry and client builder (chainsByChainId, buildClient)
+// - ens.ts: ENS constants and helpers (_ENS_REGISTRY, _ENS_RESOLVER)
+// - nft.ts: NFT ABIs and metadata helpers (erc721MetadataAbi, erc1155MetadataAbi, erc165Abi, _metadataCache, fetchMetadata, resolveImageUrl)
+// - client.ts: BlockchainApiClient class (keep this file)
+
 import { logger } from '@cinacoin/logger';
 import {
   createPublicClient,
