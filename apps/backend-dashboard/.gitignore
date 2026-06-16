@@ -1,9 +1,0 @@
-# Build artifacts — never commit (they shadow fresh CI builds and serve stale UI)
-/.next/
-/out/
-/out_deploy/
-node_modules/
-# Stale compiled output that must never live next to .tsx source
-src/**/*.js
-src/**/*.d.ts
-src/**/*.js.map

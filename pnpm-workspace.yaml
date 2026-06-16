@@ -3,6 +3,7 @@ packages:
   - "!packages/unity-csharp"
   - "apps/*"
   - "infra/*"
+  - "workers/*"
 
 allowBuilds:
   sharp: true
