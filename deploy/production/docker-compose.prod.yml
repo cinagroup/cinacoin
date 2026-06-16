@@ -232,6 +232,61 @@ services:
       db-primary:
         condition: service_healthy
 
+  # WAL Archiving (pgBackRest) - Continuous archiving for 1-hour RPO
+  pgbackrest:
+    image: pgbackrest/pgbackrest:2.58
+    container_name: cinacoin-pgbackrest
+    restart: always
+    environment:
+      - PGBACKREST_STANZA=cinacoin
+      - PGBACKREST_PG1_HOST=db-primary
+      - PGBACKREST_PG1_PORT=5432
+      - PGBACKREST_PG1_DATABASE=cinacoin_auth
+      - PGBACKREST_PG1_USER=cinacoin
+      - PGBACKREST_PG1_PASSWORD_FILE=/run/secrets/db_password
+      - PGBACKREST_REPO1_PATH=/backup
+      - PGBACKREST_REPO1_RETENTION_FULL=4
+      - PGBACKREST_REPO1_RETENTION_DIFF=7
+      - PGBACKREST_LOG_LEVEL=info
+    volumes:
+      - ./deploy/production/backups/wal:/backup
+      - ./deploy/production/config/pgbackrest.conf:/etc/pgbackrest.conf:ro
+    secrets:
+      - db_password
+    networks:
+      - cinacoin-backend
+    depends_on:
+      db-primary:
+        condition: service_healthy
+    command: >
+      sh -c "pgbackrest stanza-create --stanza=cinacoin &&
+             pgbackrest archive-push --stanza=cinacoin"
+
+  # S3 Remote Backup Sync - Syncs local backups to S3 for off-site redundancy
+  backup-s3-sync:
+    image: amazon/aws-cli:2.15.0
+    container_name: cinacoin-backup-s3-sync
+    restart: always
+    environment:
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_DEFAULT_REGION=${AWS_REGION:-us-east-1}
+    volumes:
+      - ./deploy/production/backups:/backups:ro
+    networks:
+      - cinacoin-backend
+    depends_on:
+      backup:
+        condition: service_started
+    entrypoint: /bin/sh
+    command: >
+      -c 'while true; do
+        echo "[$(date -u)] Starting S3 sync...";
+        aws s3 sync /backups s3://${S3_BACKUP_BUCKET:-cinacoin-backups}/production --storage-class STANDARD_IA --delete;
+        echo "[$(date -u)] S3 sync completed";
+        sleep 21600;
+      done'
+
   # Monitoring (Prometheus)
   prometheus:
     image: prom/prometheus:v2.45.0

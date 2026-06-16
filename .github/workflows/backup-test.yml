@@ -1,0 +1,84 @@
+name: Backup Verification Test
+
+on:
+  schedule:
+    # Weekly on Sunday at 02:00 UTC
+    - cron: '0 2 * * 0'
+  workflow_dispatch:
+    inputs:
+      restore_type:
+        description: 'Restore type to test'
+        required: false
+        default: 'partial'
+        type: choice
+        options:
+          - full
+          - partial
+
+jobs:
+  backup-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup test database
+        run: |
+          docker-compose -f deploy/backup/docker-compose.test.yml up -d test-postgres
+          sleep 10
+          docker exec test-postgres pg_isready -U test -d testdb
+
+      - name: Download latest backup
+        run: |
+          LATEST_BACKUP=$(ls -t deploy/production/backups/*.sql.gz 2>/dev/null | head -1)
+          if [ -z "$LATEST_BACKUP" ]; then
+            echo "No backup files found"
+            exit 1
+          fi
+          echo "Using backup: $LATEST_BACKUP"
+          cp "$LATEST_BACKUP" /tmp/test-backup.sql.gz
+
+      - name: Restore to test database
+        run: |
+          gunzip -c /tmp/test-backup.sql.gz | docker exec -i test-postgres psql -U test -d testdb
+          echo "Restore completed successfully"
+
+      - name: Verify table structure
+        run: |
+          EXPECTED_TABLES="users sessions oauth_accounts mfa_methods api_keys"
+          for table in $EXPECTED_TABLES; do
+            COUNT=$(docker exec test-postgres psql -U test -d testdb -t -c "SELECT COUNT(*) FROM information_schema.tables WHERE table_name='$table'" | tr -d ' ')
+            if [ "$COUNT" -eq 0 ]; then
+              echo "ERROR: Table $table not found after restore"
+              exit 1
+            fi
+            echo "✓ Table $table exists"
+          done
+
+      - name: Verify data integrity
+        run: |
+          USER_COUNT=$(docker exec test-postgres psql -U test -d testdb -t -c "SELECT COUNT(*) FROM users" | tr -d ' ')
+          echo "Restored $USER_COUNT user records"
+          
+          if [ "$USER_COUNT" -lt 1 ]; then
+            echo "ERROR: No user data found after restore"
+            exit 1
+          fi
+          echo "✓ Data integrity check passed"
+
+      - name: Cleanup test database
+        if: always()
+        run: |
+          docker-compose -f deploy/backup/docker-compose.test.yml down -v
+          rm -f /tmp/test-backup.sql.gz
+
+      - name: Update runbook test date
+        if: success()
+        run: |
+          TODAY=$(date +%Y-%m-%d)
+          sed -i "s/Last Run | .*/Last Run | $TODAY |/" deploy/backup/runbook.md
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add deploy/backup/runbook.md
+          git commit -m "docs: update backup test date to $TODAY [skip ci]" || exit 0
+          git push

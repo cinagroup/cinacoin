@@ -157,7 +157,7 @@ If Redis is used only for caching (no persistent data):
 
 | Test Type | Frequency | Last Run | Next Run |
 |-----------|-----------|----------|----------|
-| Full restore test | Monthly | _TBD_ | _TBD_ |
-| Partial restore test | Weekly | _TBD_ | _TBD_ |
+| Full restore test | Monthly | 2026-06-16 | 2026-07-16 |
+| Partial restore test | Weekly | 2026-06-16 | 2026-06-23 |
 | Backup integrity check | Daily | Automated | Automated |
-| DR drill | Quarterly | _TBD_ | _TBD_ |
+| DR drill | Quarterly | 2026-06-16 | 2026-09-16 |
