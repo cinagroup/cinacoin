@@ -175,7 +175,7 @@ oauth.get('/:provider/callback', async (c) => {
     const clientId = c.env[`${provider.toUpperCase()}_CLIENT_ID`];
     const redirectUri = `${new URL(c.req.url).origin}/auth/oauth/${provider}/callback`;
 
-    let tokenResponse: any;
+    let tokenResponse: Response;
 
     switch (provider) {
       case 'google':
@@ -259,7 +259,7 @@ oauth.get('/:provider/callback', async (c) => {
             },
           });
           const emails = await emailsRes.json();
-          const primary = emails.find((e: any) => e.primary && e.verified);
+          const primary = emails.find((e: { primary: boolean; verified: boolean }) => e.primary && e.verified);
           email = primary?.email;
         }
         profile = { id: ghProfile.id.toString(), email, name: ghProfile.name || ghProfile.login };
@@ -425,6 +425,15 @@ oauth.post('/token', withRateLimit('oauth'), async (c) => {
 /**
  * GET /oauth/accounts - Get linked OAuth accounts
  */
+interface OAuthAccountRecord {
+  id: string;
+  provider: string;
+  provider_user_id: string;
+  provider_email: string;
+  scope: string;
+  created_at: string;
+}
+
 oauth.get('/accounts', requireAuth, async (c: AuthContext) => {
   try {
     const user = c.get('user');
@@ -436,14 +445,17 @@ oauth.get('/accounts', requireAuth, async (c: AuthContext) => {
 
     return c.json({
       success: true,
-      data: accounts.results.map((acc: any) => ({
-        id: acc.id,
-        provider: acc.provider,
-        providerUserId: acc.provider_user_id,
-        providerEmail: acc.provider_email,
-        scope: acc.scope,
-        createdAt: acc.created_at,
-      })),
+      data: accounts.results.map((acc) => {
+        const a = acc as OAuthAccountRecord;
+        return {
+          id: a.id,
+          provider: a.provider,
+          providerUserId: a.provider_user_id,
+          providerEmail: a.provider_email,
+          scope: a.scope,
+          createdAt: a.created_at,
+        };
+      }),
     });
   } catch (error) {
     console.error('OAuth accounts error:', error);

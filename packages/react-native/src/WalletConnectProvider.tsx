@@ -28,21 +28,59 @@ import { Linking, Platform } from 'react-native';
 import type { AppMetadata } from '@cinacoin/core-sdk';
 
 // Temporary types until Reown migration
-type Session = any;
-type WcClientEvent = any;
+interface Session {
+  topic?: string;
+  pairingTopic?: string;
+  peerMetadata?: {
+    name?: string;
+    description?: string;
+    url?: string;
+    icons?: string[];
+  };
+}
+
+interface WcClientEvent {
+  id?: number;
+  pairingTopic?: string;
+  proposer?: {
+    metadata?: {
+      name?: string;
+      description?: string;
+      url?: string;
+      icons?: string[];
+    };
+  };
+  params?: {
+    requiredNamespaces?: Record<string, unknown>;
+    optionalNamespaces?: Record<string, unknown>;
+  };
+}
 
 // Stub implementations - TODO: Replace with @reown/react-native
 const WcSessionManager = class {};
-const createPairing = async () => '';
-const parseWcUri = (uri: string) => ({});
-const getDefaultRequiredNamespaces = () => ({});
-const buildSendTransaction = (params: any) => [];
-const buildPersonalSign = (message: string, address: string) => [message, address];
-const getWalletById = (id: string) => null;
-const WALLET_REGISTRY: any[] = [];
-const buildWalletDeepLink = (walletId: string, uri: string) => '';
-const buildWalletUniversalLink = (walletId: string, uri: string) => '';
-const WC_METHODS = {};
+const createPairing = async (): Promise<string> => '';
+const parseWcUri = (uri: string): Record<string, unknown> => ({});
+const getDefaultRequiredNamespaces = (): Record<string, unknown> => ({});
+const buildSendTransaction = (params: TransactionRequest): unknown[] => [];
+const buildPersonalSign = (message: string, address: string): unknown[] => [message, address];
+
+interface WalletRegistryEntry {
+  id: string;
+  name: string;
+  icon?: string;
+  description?: string;
+  rdns?: string;
+  deepLink?: string;
+  universalLink?: string;
+  appStoreUrl?: string;
+  playStoreUrl?: string;
+}
+
+const getWalletById = (id: string): WalletRegistryEntry | null => null;
+const WALLET_REGISTRY: WalletRegistryEntry[] = [];
+const buildWalletDeepLink = (walletId: string, uri: string): string => '';
+const buildWalletUniversalLink = (walletId: string, uri: string): string => '';
+const WC_METHODS: Record<string, unknown> = {};
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 

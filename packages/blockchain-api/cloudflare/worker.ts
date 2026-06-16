@@ -161,7 +161,7 @@ async function getMetrics(env: Env): Promise<MetricsData> {
 
 async function incrementMetric(env: Env, field: keyof MetricsData): Promise<void> {
   const metrics = await getMetrics(env);
-  (metrics as any)[field]++;
+  metrics[field]++;
   metrics.requestsTotal++;
   await env.BLOCKCHAIN_CACHE.put('metrics:global', JSON.stringify(metrics));
 }
@@ -460,11 +460,12 @@ export default {
       } else {
         response = jsonResponse({ error: 'not_found', message: 'Route not found' }, 404);
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Handler error:', err);
       await incrementMetric(env, 'errors');
+      const message = err instanceof Error ? err.message : 'Internal server error';
       response = jsonResponse(
-        { error: 'internal_error', message: err.message || 'Internal server error' },
+        { error: 'internal_error', message },
         500
       );
     }

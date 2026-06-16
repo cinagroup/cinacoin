@@ -93,8 +93,9 @@ auth.post('/refresh', async (c) => {
       );
       newRefreshToken = rotationResult.newToken;
       familyId = rotationResult.familyId;
-    } catch (error: any) {
-      if (error.code === 'TOKEN_NOT_FOUND') {
+    } catch (error: unknown) {
+      const err = error as { code?: string; userId?: string; familyId?: string };
+      if (err.code === 'TOKEN_NOT_FOUND') {
         await logSecurityEvent({
           db: c.env.DB,
           userId: payload.sub,
@@ -109,9 +110,9 @@ auth.post('/refresh', async (c) => {
         return c.json({ error: 'Unauthorized', message: 'Invalid refresh token' }, 401);
       }
 
-      if (error.code === 'TOKEN_REUSE_DETECTED') {
-        const userId = error.userId || payload.sub;
-        const familyId = error.familyId;
+      if (err.code === 'TOKEN_REUSE_DETECTED') {
+        const userId = err.userId || payload.sub;
+        const familyId = err.familyId;
 
         await revokeAllUserTokens(c.env.DB, userId, 'Token reuse detected during rotation');
 

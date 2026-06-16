@@ -1,10 +1,26 @@
-import { Hono } from 'hono';
+import { Hono, Context } from 'hono';
 
 type Env = {
   Bindings: {
     ANALYTICS_KV: KVNamespace;
   };
 };
+
+interface WebVitalData {
+  name: string;
+  value: number;
+  rating: string;
+  url: string;
+  timestamp: number;
+}
+
+interface AlertData {
+  metric: string;
+  value: number;
+  threshold: number;
+  url: string;
+  severity: 'critical' | 'warning';
+}
 
 const webVitals = new Hono<Env>();
 
@@ -91,7 +107,7 @@ webVitals.get('/analytics/performance', async (c) => {
 });
 
 // 检查告警条件
-async function checkAlerts(c: any, data: any) {
+async function checkAlerts(c: Context<Env>, data: WebVitalData) {
   const thresholds: Record<string, number> = {
     CLS: 0.1,
     INP: 200,
@@ -115,7 +131,7 @@ async function checkAlerts(c: any, data: any) {
   }
 }
 
-async function sendAlert(c: any, alert: any) {
+async function sendAlert(c: Context<Env>, alert: AlertData) {
   // 发送到 Slack/邮件等
   console.error('Performance Alert:', alert);
   

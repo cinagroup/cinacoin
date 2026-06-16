@@ -40,12 +40,22 @@ export async function requireAdminAuth(c: Context, next: Next) {
   return c.json({ error: 'Unauthorized', message: 'Admin authentication required' }, 401);
 }
 
-async function verifyAdminJWT(token: string, env: any): Promise<any> {
+interface AdminEnv {
+  JWT_SECRET: string;
+}
+
+interface AdminPayload {
+  sub: string;
+  role?: string;
+  [key: string]: unknown;
+}
+
+async function verifyAdminJWT(token: string, env: AdminEnv): Promise<AdminPayload> {
   // Use jose library like other auth middleware
   const { jwtVerify } = await import('jose');
   const secret = new TextEncoder().encode(env.JWT_SECRET);
   const { payload } = await jwtVerify(token, secret);
-  return payload;
+  return payload as AdminPayload;
 }
 
 /**

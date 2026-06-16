@@ -26,10 +26,22 @@ import { useCinacoin, WALLET_DEEP_LINKS } from './CinacoinProvider.js';
 // import { WALLET_REGISTRY, getWalletById, buildWalletDeepLink, buildWalletUniversalLink } from '@reown/react-native';
 
 // Temporary stubs until Reown migration
-const WALLET_REGISTRY: any[] = [];
-const getWalletById = (id: string) => null;
-const buildWalletDeepLink = (walletId: string, uri: string) => '';
-const buildWalletUniversalLink = (walletId: string, uri: string) => '';
+interface WalletRegistryEntry {
+  id: string;
+  name: string;
+  icon?: string;
+  description?: string;
+  rdns?: string;
+  deepLink?: string;
+  universalLink?: string;
+  appStoreUrl?: string;
+  playStoreUrl?: string;
+}
+
+const WALLET_REGISTRY: WalletRegistryEntry[] = [];
+const getWalletById = (id: string): WalletRegistryEntry | null => null;
+const buildWalletDeepLink = (walletId: string, uri: string): string => '';
+const buildWalletUniversalLink = (walletId: string, uri: string): string => '';
 
 /** Wallet info for modal display. */
 export interface WalletInfo {

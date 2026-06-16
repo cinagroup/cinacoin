@@ -1,6 +1,38 @@
-import { Hono } from 'hono';
+import { Hono, Context } from 'hono';
 
-const monitoring = new Hono();
+type Env = {
+  Bindings: {
+    ANALYTICS_KV: KVNamespace;
+    ALERT_WEBHOOK_URL?: string;
+  };
+};
+
+interface MetricRecord {
+  endpoint: string;
+  statusCode: number;
+  responseTime: number;
+  error: string | null;
+  timestamp: number;
+}
+
+interface MetricData {
+  serviceName: string;
+  endpoint: string;
+  statusCode: number;
+  responseTime: number;
+  error?: string;
+}
+
+interface AlertRecord {
+  type: string;
+  severity: 'critical' | 'warning';
+  message: string;
+  serviceName: string;
+  endpoint?: string;
+  timestamp: number;
+}
+
+const monitoring = new Hono<Env>();
 
 // 记录请求指标
 monitoring.post('/monitoring/metrics', async (c) => {
@@ -55,15 +87,15 @@ monitoring.get('/monitoring/metrics/:serviceName', async (c) => {
     
     const data = await c.env.ANALYTICS_KV.get(key);
     if (data) {
-      const metrics = JSON.parse(data);
-      const hourMetrics = metrics.filter((m: any) => {
+      const metrics: MetricRecord[] = JSON.parse(data);
+      const hourMetrics = metrics.filter((m: MetricRecord) => {
         const metricHour = new Date(m.timestamp).getHours();
         return metricHour === new Date(timestamp).getHours();
       });
       
       if (hourMetrics.length > 0) {
-        const avgResponseTime = hourMetrics.reduce((sum: number, m: any) => sum + m.responseTime, 0) / hourMetrics.length;
-        const errorCount = hourMetrics.filter((m: any) => m.statusCode >= 400).length;
+        const avgResponseTime = hourMetrics.reduce((sum: number, m: MetricRecord) => sum + m.responseTime, 0) / hourMetrics.length;
+        const errorCount = hourMetrics.filter((m: MetricRecord) => m.statusCode >= 400).length;
         const errorRate = (errorCount / hourMetrics.length) * 100;
         
         results.push({
@@ -92,8 +124,8 @@ monitoring.get('/monitoring/alerts', async (c) => {
 });
 
 // 检查告警条件
-async function checkAlerts(c: any, data: any) {
-  const alerts: any[] = [];
+async function checkAlerts(c: Context<Env>, data: MetricData) {
+  const alerts: AlertRecord[] = [];
   
   // 错误率告警（> 5%）
   if (data.statusCode >= 500) {
@@ -102,9 +134,9 @@ async function checkAlerts(c: any, data: any) {
     const metricsData = await c.env.ANALYTICS_KV.get(key);
     
     if (metricsData) {
-      const metrics = JSON.parse(metricsData);
-      const recentMetrics = metrics.filter((m: any) => Date.now() - m.timestamp < 5 * 60 * 1000);
-      const errorCount = recentMetrics.filter((m: any) => m.statusCode >= 500).length;
+      const metrics: MetricRecord[] = JSON.parse(metricsData);
+      const recentMetrics = metrics.filter((m: MetricRecord) => Date.now() - m.timestamp < 5 * 60 * 1000);
+      const errorCount = recentMetrics.filter((m: MetricRecord) => m.statusCode >= 500).length;
       const errorRate = (errorCount / recentMetrics.length) * 100;
       
       if (errorRate > 5) {
@@ -137,7 +169,7 @@ async function checkAlerts(c: any, data: any) {
   }
 }
 
-async function sendAlert(c: any, alert: any) {
+async function sendAlert(c: Context<Env>, alert: AlertRecord) {
   // 存储告警记录
   const alertsKey = 'alerts:history';
   const data = await c.env.ANALYTICS_KV.get(alertsKey);

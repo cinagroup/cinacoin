@@ -1,4 +1,4 @@
-import { Hono } from 'hono';
+import { Hono, Context } from 'hono';
 
 interface Env {
   ANALYTICS_KV: KVNamespace;
@@ -20,7 +20,7 @@ interface Experiment {
 interface Variant {
   id: string;
   name: string;
-  value: any;
+  value: unknown;
 }
 
 // 获取用户的实验分配
@@ -33,7 +33,7 @@ abTesting.get('/ab/experiments', async (c) => {
   
   const runningExperiments = experiments.filter(exp => exp.status === 'running');
   
-  const assignments: Record<string, any> = {};
+  const assignments: Record<string, unknown> = {};
   
   for (const exp of runningExperiments) {
     // 检查用户是否已分配
@@ -180,7 +180,7 @@ function hashCode(str: string): number {
   return hash;
 }
 
-async function trackEvent(c: any, event: any) {
+async function trackEvent(c: Context<{ Bindings: Env }>, event: Record<string, unknown>) {
   const date = new Date().toISOString().split('T')[0];
   const key = `ab:events:${date}`;
   

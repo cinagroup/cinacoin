@@ -1,7 +1,7 @@
 /**
  * MFA routes - enable, disable, verify, verify-login, status
  */
-import { Hono } from 'hono';
+import { Hono, Context } from 'hono';
 import { z } from 'zod';
 import type { Env } from '../../lib/types.js';
 import { toPublicUser } from '../../lib/types.js';
@@ -298,7 +298,7 @@ mfa.get('/status', requireAuth, async (c: AuthContext) => {
  * Handle MFA verification during login flow (internal helper)
  */
 async function handleMfaLoginVerification(
-  c: any,
+  c: Context<{ Bindings: Env }>,
   sessionToken: string,
   code: string,
   method?: string

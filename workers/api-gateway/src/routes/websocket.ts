@@ -18,6 +18,14 @@ const app = new Hono<Env>()
 // In production, use Durable Objects or KV for distributed state
 const channelSubscriptions = new Map<string, Set<WebSocket>>()
 
+// WebSocket message types
+interface WsMessage {
+  type?: string
+  channel?: string
+  clientId?: string
+  [key: string]: unknown
+}
+
 // WebSocket endpoint
 app.get(
   '/ws',
@@ -31,9 +39,9 @@ app.get(
           const data = typeof event.data === 'string' ? event.data : ''
 
           // Parse message
-          let message: any
+          let message: WsMessage
           try {
-            message = JSON.parse(data)
+            message = JSON.parse(data) as WsMessage
           } catch {
             // Plain text message - treat as echo test
             ws.send(JSON.stringify({
