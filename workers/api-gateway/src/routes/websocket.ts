@@ -29,7 +29,6 @@ app.get(
       onMessage(event, ws) {
         try {
           const data = typeof event.data === 'string' ? event.data : ''
-          console.log('[WebSocket] Received:', data)
 
           // Parse message
           let message: any
@@ -64,8 +63,6 @@ app.get(
                   channel: channel,
                   timestamp: new Date().toISOString()
                 }))
-                
-                console.log(`[WebSocket] Client subscribed to: ${channel}`)
               } else {
                 ws.send(JSON.stringify({
                   type: 'error',
@@ -96,8 +93,6 @@ app.get(
                   channel: channel,
                   timestamp: new Date().toISOString()
                 }))
-                
-                console.log(`[WebSocket] Client unsubscribed from: ${channel}`)
               }
               break
             }
@@ -120,7 +115,6 @@ app.get(
                   clientId: clientId,
                   timestamp: new Date().toISOString()
                 }))
-                console.log(`[WebSocket] Client identified: ${clientId}`)
               }
               break
             }
@@ -145,8 +139,6 @@ app.get(
       },
 
       onClose(event, ws) {
-        console.log('[WebSocket] Connection closed:', event.code, event.reason)
-        
         // Clean up channel subscriptions
         for (const channel of channels) {
           const subscribers = channelSubscriptions.get(channel)
@@ -158,10 +150,6 @@ app.get(
           }
         }
         channels.clear()
-        
-        if (clientId) {
-          console.log(`[WebSocket] Client disconnected: ${clientId}`)
-        }
       },
 
       onError(error, ws) {

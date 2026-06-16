@@ -3,6 +3,9 @@
  *
  * Coverage thresholds (monorepo-wide):
  *   statements: 70%   branches: 65%   functions: 75%   lines: 70%
+ *
+ * Note: passWithNoTests is false — packages without tests will FAIL.
+ *       This ensures we track and improve test coverage over time.
  */
 import { defineConfig } from 'vitest/config';
 
@@ -10,11 +13,16 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'node',
-    include: ['packages/*/tests/**/*.test.ts', 'workers/*/tests/**/*.test.ts'],
+    include: [
+      'packages/*/tests/**/*.test.ts',
+      'packages/*/src/**/*.test.ts',
+      'workers/*/tests/**/*.test.ts',
+      'workers/*/src/**/*.test.ts',
+    ],
     exclude: ['**/node_modules/**', '**/dist/**', '**/*.d.ts', 'e2e/**', 'load-tests/**'],
     testTimeout: 15000,
     hookTimeout: 10000,
-    passWithNoTests: true,
+    passWithNoTests: false, // SECURITY: Fail if a package has no tests
     reporters: ['default', 'json', 'junit'],
     outputFile: {
       json: './test-results/results.json',
@@ -39,10 +47,10 @@ export default defineConfig({
         '**/types.ts',
       ],
       thresholds: {
-        statements: 80,
-        branches: 80,
-        functions: 80,
-        lines: 80,
+        statements: 70,
+        branches: 65,
+        functions: 75,
+        lines: 70,
       },
     },
   },

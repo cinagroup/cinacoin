@@ -82,7 +82,7 @@ export const requireAuth = createMiddleware<{ Bindings: Env; Variables: AuthVari
         return;
       } catch (jwtError) {
         // JWT verification failed, fall through to API key check
-        console.log('JWT verification failed, trying API key:', jwtError.message);
+        // SECURITY: Don't log JWT error details — may leak token info
       }
     }
 
