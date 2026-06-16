@@ -1,20 +1,25 @@
-// TODO: Split this God File into smaller modules:
-// - cache.ts: Transaction history cache (_txHistoryCache, _txCacheKey, _getTxCached, _setTxCached, clearTxCached)
-// - chains.ts: Chain registry and client builder (chainsByChainId, buildClient)
-// - ens.ts: ENS constants and helpers (_ENS_REGISTRY, _ENS_RESOLVER)
-// - nft.ts: NFT ABIs and metadata helpers (erc721MetadataAbi, erc1155MetadataAbi, erc165Abi, _metadataCache, fetchMetadata, resolveImageUrl)
-// - client.ts: BlockchainApiClient class (keep this file)
+/**
+ * `BlockchainApiClient` — a thin, typed wrapper around viem
+ * for reading on-chain data (balances, transactions, ENS, tokens, NFTs).
+ *
+ * ```ts
+ * const client = new BlockchainApiClient({ defaultChainId: 1 });
+ * const balance = await client.getBalance("0x…", 1);
+ * ```
+ *
+ * This file contains the main client class. Supporting modules:
+ * - cache.ts: Transaction history cache
+ * - chains.ts: Chain registry and client builder
+ * - nft.ts: NFT ABIs, metadata helpers, scanning utilities
+ */
 
-import { logger } from '@cinacoin/logger';
+import { logger } from "@cinacoin/logger";
 import {
-  createPublicClient,
-  http,
   type Address,
   type Hex,
   type PublicClient,
   formatUnits,
 } from "viem";
-import { mainnet, polygon, bsc, arbitrum, optimism, base, avalanche, type Chain } from "viem/chains";
 import type {
   Balance,
   BlockchainApiConfig,
@@ -23,274 +28,18 @@ import type {
   TokenMetadata,
   Transaction,
   TransactionHistoryQuery,
-  TransactionCacheEntry,
 } from "./types.js";
+import { txCacheKey, getTxCached, setTxCached } from "./cache.js";
+import { buildClient } from "./chains.js";
+import {
+  erc20ReadAbi,
+  scanErc721,
+  scanErc1155,
+} from "./nft.js";
 
 // ---------------------------------------------------------------------------
-// Transaction history cache
+// ERC-20 ABI (kept here — used by getBalance/getTokenBalances/getTokenMetadata)
 // ---------------------------------------------------------------------------
-
-/** In-memory cache for transaction history results. */
-const _txHistoryCache = new Map<string, TransactionCacheEntry>();
-const _TX_CACHE_TTL_MS = 30_000; // 30 seconds — transactions are relatively static
-
-/** Generate a cache key from query parameters. */
-function _txCacheKey(
-  address: string,
-  chainId: number,
-  cursor?: string,
-  type?: string,
-  timeFrom?: number,
-  timeTo?: number
-): string {
-  return `${address}:${chainId}:${cursor || ""}:${type || ""}:${timeFrom || 0}:${timeTo || 0}`;
-}
-
-/** Get a cached transaction history result. */
-function _getTxCached(key: string): TransactionCacheEntry | null {
-  const entry = _txHistoryCache.get(key);
-  if (entry && Date.now() - entry.cachedAt < _TX_CACHE_TTL_MS) {
-    return entry;
-  }
-  if (entry) {
-    _txHistoryCache.delete(key);
-  }
-  return null;
-}
-
-/** Cache a transaction history result. */
-function _setTxCached(
-  key: string,
-  transactions: Transaction[],
-  nextCursor?: string,
-  hasMore: boolean = false
-): void {
-  _txHistoryCache.set(key, {
-    transactions,
-    cachedAt: Date.now(),
-    nextCursor,
-    hasMore,
-  });
-}
-
-/** Clear the transaction history cache. */
-export function clearTxCached(): void {
-  _txHistoryCache.clear();
-}
-
-// ---------------------------------------------------------------------------
-// Helpers
-// ---------------------------------------------------------------------------
-
-/** Build a viem PublicClient for a given chain id. */
-function buildClient(chainId: number, rpcUrl?: string): PublicClient {
-  const chain = Object.values(chainsByChainId).find(
-    (c) => c.id === chainId
-  ) as Chain | undefined;
-
-  return createPublicClient({
-    chain: chain ?? ({ id: chainId, name: `Chain ${chainId}` } as Chain),
-    transport: http(rpcUrl),
-  });
-}
-
-/** Minimal chain registry for quick lookup. Extend as needed. */
-const chainsByChainId: Record<number, Chain> = {
-  1: mainnet,
-  137: polygon,
-  56: bsc,
-  42161: arbitrum,
-  10: optimism,
-  8453: base,
-  43114: avalanche,
-};
-
-const _ENS_REGISTRY = "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e" as const;
-const _ENS_RESOLVER = "0x233389C23a0E6A03b62944849c3E6b29A1D7f62E" as const; // ENS Universal Resolver
-
-/**
- * ERC-721 ABI subset for NFT metadata reads.
- */
-const erc721MetadataAbi = [
-  {
-    name: "name",
-    type: "function",
-    stateMutability: "view",
-    inputs: [],
-    outputs: [{ type: "string" }],
-  },
-  {
-    name: "symbol",
-    type: "function",
-    stateMutability: "view",
-    inputs: [],
-    outputs: [{ type: "string" }],
-  },
-  {
-    name: "tokenURI",
-    type: "function",
-    stateMutability: "view",
-    inputs: [{ name: "tokenId", type: "uint256" }],
-    outputs: [{ type: "string" }],
-  },
-  {
-    name: "balanceOf",
-    type: "function",
-    stateMutability: "view",
-    inputs: [{ name: "owner", type: "address" }],
-    outputs: [{ type: "uint256" }],
-  },
-  {
-    name: "ownerOf",
-    type: "function",
-    stateMutability: "view",
-    inputs: [{ name: "tokenId", type: "uint256" }],
-    outputs: [{ type: "address" }],
-  },
-] as const;
-
-/**
- * ERC-1155 ABI subset for NFT metadata + balance reads.
- */
-const erc1155MetadataAbi = [
-  {
-    name: "uri",
-    type: "function",
-    stateMutability: "view",
-    inputs: [{ name: "id", type: "uint256" }],
-    outputs: [{ type: "string" }],
-  },
-  {
-    name: "balanceOf",
-    type: "function",
-    stateMutability: "view",
-    inputs: [
-      { name: "account", type: "address" },
-      { name: "id", type: "uint256" },
-    ],
-    outputs: [{ type: "uint256" }],
-  },
-  {
-    name: "name",
-    type: "function",
-    stateMutability: "view",
-    inputs: [],
-    outputs: [{ type: "string" }],
-  },
-  {
-    name: "symbol",
-    type: "function",
-    stateMutability: "view",
-    inputs: [],
-    outputs: [{ type: "string" }],
-  },
-] as const;
-
-/**
- * ERC-165 interface detection — checks if a contract implements ERC-721.
- */
-const erc165Abi = [
-  {
-    name: "supportsInterface",
-    type: "function",
-    stateMutability: "view",
-    inputs: [{ name: "interfaceId", type: "bytes4" }],
-    outputs: [{ type: "bool" }],
-  },
-] as const;
-
-// ERC-721 interface ID per ERC-165
-const ERC721_INTERFACE_ID = "0x80ac58cd" as const;
-// ERC-1155 interface ID per ERC-165
-const ERC1155_INTERFACE_ID = "0xd9b67a26" as const;
-
-// ---------------------------------------------------------------------------
-// NFT metadata helpers
-// ---------------------------------------------------------------------------
-
-/** In-memory metadata cache to avoid repeated RPC + IPFS fetches. */
-const _metadataCache = new Map<string, { data: Record<string, unknown>; ts: number }>();
-const _CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
-
-/** Well-known public IPFS gateways for multi-gateway fallback. */
-const IPFS_GATEWAYS = [
-  // Cloudflare — fast, reliable, no rate limits for reasonable usage
-  "https://cloudflare-ipfs.com/ipfs/",
-  // Pinata — dedicated IPFS infrastructure provider
-  "https://gateway.pinata.cloud/ipfs/",
-  // IPFS.io — official public gateway (fallback)
-  "https://ipfs.io/ipfs/",
-  // NFT.Storage — optimized for NFT metadata
-  "https://nftstorage.link/ipfs/",
-  // Dweb.link — maintained by Protocol Labs
-  "https://dweb.link/ipfs/",
-  // 4everland — decentralized gateway network
-  "https://gateway.4everland.net/ipfs/",
-] as const;
-
-/** Resolve an IPFS URI to an HTTP URL using the given gateway. */
-function ipfsToHttp(uri: string, gateway: string): string {
-  if (uri.startsWith("ipfs://")) {
-    const cid = uri.slice(7);
-    return `${gateway}${cid}`;
-  }
-  // Already an HTTP URL or unrecognized format
-  return uri;
-}
-
-/** Fetch JSON from an IPFS or HTTP URI with multi-gateway fallback and cache. */
-async function fetchMetadata(uri: string): Promise<Record<string, unknown> | null> {
-  const cached = _metadataCache.get(uri);
-  if (cached && Date.now() - cached.ts < _CACHE_TTL_MS) {
-    return cached.data;
-  }
-
-  // Non-IPFS URIs: fetch directly
-  if (!uri.startsWith("ipfs://")) {
-    try {
-      const res = await fetch(uri, { signal: AbortSignal.timeout(8000) });
-      if (!res.ok) return null;
-      const data = (await res.json()) as Record<string, unknown>;
-      _metadataCache.set(uri, { data, ts: Date.now() });
-      return data;
-    } catch (err) {
-      logger.warn(`[blockchain-api:fetchMetadata] error:`, err);
-      return null;
-    }
-  }
-
-  // IPFS URIs: try each gateway in priority order
-  const cid = uri.slice(7); // strip "ipfs://"
-  for (const gateway of IPFS_GATEWAYS) {
-    try {
-      const url = `${gateway}${cid}`;
-      const res = await fetch(url, { signal: AbortSignal.timeout(8000) });
-      if (!res.ok) continue; // try next gateway
-      const data = (await res.json()) as Record<string, unknown>;
-      _metadataCache.set(uri, { data, ts: Date.now() });
-      return data;
-    } catch (err) {
-      logger.warn(`[blockchain-api:fetchMetadata] gateway error:`, err);
-      // Gateway unreachable — try the next one
-      continue;
-    }
-  }
-
-  // All gateways failed
-  return null;
-}
-
-/** Resolve IPFS gateway URL from a URI string, trying multiple gateways. */
-function resolveImageUrl(uri: string | undefined): string | undefined {
-  if (!uri) return undefined;
-  if (uri.startsWith("ipfs://")) {
-    // Return the primary (Cloudflare) gateway URL; fetchMetadata handles fallback
-    const cid = uri.slice(7);
-    return `https://cloudflare-ipfs.com/ipfs/${cid}`;
-  }
-  if (uri.startsWith("http://") || uri.startsWith("https://")) return uri;
-  return undefined;
-}
 
 /**
  * ERC-20 ABI subset for read operations.
@@ -489,8 +238,8 @@ export class BlockchainApiClient {
     const cid = chainId ?? this.config.defaultChainId;
 
     // Check cache first
-    const cacheKey = _txCacheKey(address, cid, cursor);
-    const cached = _getTxCached(cacheKey);
+    const cacheKey = txCacheKey(address, cid, cursor);
+    const cached = getTxCached(cacheKey);
     if (cached) {
       return { items: cached.transactions, nextCursor: cached.nextCursor, hasMore: cached.hasMore };
     }
@@ -501,7 +250,6 @@ export class BlockchainApiClient {
         return await this._getTxsViaAlchemy(address, cid, limit, cursor);
       } catch (err) {
         logger.warn(`[blockchain-api:getTransactionHistory] Alchemy error:`, err);
-        // Fall through to on-chain scan
       }
     }
 
@@ -511,7 +259,6 @@ export class BlockchainApiClient {
         return await this._getTxsViaCovalent(address, cid, limit, cursor);
       } catch (err) {
         logger.warn(`[blockchain-api:getTransactionHistory] Covalent error:`, err);
-        // Fall through to on-chain scan
       }
     }
 
@@ -535,12 +282,11 @@ export class BlockchainApiClient {
     const chains = chainIds ?? [1, 137, 56]; // ETH, Polygon, BSC default
     const perChainLimit = Math.max(1, Math.ceil(limit / chains.length));
 
-    // If cursor is provided, decode it to determine which chain to continue from
     const allTransactions: Transaction[] = [];
     let nextCursor: string | undefined;
     let hasMore = false;
 
-    // Parse cursor: format is "chainId:blockNumber" or "chainId:blockHash"
+    // Parse cursor: format is "chainId:blockNumber"
     let startChainIdx = 0;
     if (cursor) {
       const parts = cursor.split(":");
@@ -595,11 +341,11 @@ export class BlockchainApiClient {
       nextCursor = `${lastTx.chainId}:${lastTx.blockNumber || 0}`;
     }
 
-    // Cache the result for the first chain
+    // Cache the result
     if (limited.length > 0) {
       const firstChain = limited[0].chainId ?? chains[0];
-      const cacheKey = _txCacheKey(address, firstChain, undefined, type, timeFrom, timeTo);
-      _setTxCached(cacheKey, limited, nextCursor, hasMore);
+      const cacheKey = txCacheKey(address, firstChain, undefined, type, timeFrom, timeTo);
+      setTxCached(cacheKey, limited, nextCursor, hasMore);
     }
 
     return {
@@ -610,8 +356,167 @@ export class BlockchainApiClient {
   }
 
   /**
-   * Fetch transactions for a single chain with filtering.
+   * Get full details for a single transaction.
    */
+  async getTransaction(
+    txHash: string,
+    chainId?: number
+  ): Promise<Transaction | null> {
+    const cid = chainId ?? this.config.defaultChainId;
+    const client = this._getClient(cid);
+
+    const tx = await client.getTransaction({
+      hash: txHash as Hex,
+    });
+
+    if (!tx) return null;
+
+    const receipt = await client.getTransactionReceipt({
+      hash: txHash as Hex,
+    });
+
+    const block = tx.blockNumber
+      ? await client.getBlock({ blockNumber: tx.blockNumber })
+      : undefined;
+
+    return {
+      hash: tx.hash,
+      from: tx.from,
+      to: tx.to ?? undefined,
+      value: tx.value,
+      status: receipt
+        ? receipt.status === "success"
+          ? "success"
+          : "failed"
+        : "pending",
+      blockNumber: tx.blockNumber != null ? Number(tx.blockNumber) : undefined,
+      timestamp: block ? Number(block.timestamp) : undefined,
+      gasUsed: receipt?.gasUsed,
+    };
+  }
+
+  /**
+   * Resolve an ENS name to an Ethereum address.
+   */
+  async resolveENS(name: string): Promise<string | null> {
+    const client = this._getClient(1); // ENS lives on mainnet
+    try {
+      const address = await client.getEnsAddress({ name });
+      return address ?? null;
+    } catch (err) {
+      logger.warn(`[blockchain-api:resolveENS] error:`, err);
+      return null;
+    }
+  }
+
+  /**
+   * Reverse ENS lookup — get the ENS name for an address.
+   */
+  async reverseENS(
+    address: string,
+    _chainId?: number
+  ): Promise<string | null> {
+    const client = this._getClient(1);
+    try {
+      const name = await client.getEnsName({ address: address as Address });
+      return name ?? null;
+    } catch (err) {
+      logger.warn(`[blockchain-api:reverseENS] error:`, err);
+      return null;
+    }
+  }
+
+  /**
+   * Fetch metadata for an ERC-20 token.
+   */
+  async getTokenMetadata(
+    tokenAddress: string,
+    chainId?: number
+  ): Promise<TokenMetadata> {
+    const cid = chainId ?? this.config.defaultChainId;
+    const client = this._getClient(cid);
+    const addr = tokenAddress as Address;
+
+    const [symbol, name, decimals, totalSupply] = await Promise.all([
+      client.readContract({
+        address: addr,
+        abi: erc20ReadAbi,
+        functionName: "symbol",
+      }) as Promise<string>,
+      client.readContract({
+        address: addr,
+        abi: erc20ReadAbi,
+        functionName: "name",
+      }) as Promise<string>,
+      client.readContract({
+        address: addr,
+        abi: erc20ReadAbi,
+        functionName: "decimals",
+      }) as Promise<number>,
+      client.readContract({
+        address: addr,
+        abi: erc20ReadAbi,
+        functionName: "totalSupply",
+      }) as Promise<bigint>,
+    ]);
+
+    return {
+      address: tokenAddress,
+      symbol,
+      name,
+      decimals,
+      totalSupply,
+    };
+  }
+
+  /**
+   * Fetch NFTs owned by an address.
+   */
+  async getNFTs(
+    address: string,
+    chainId?: number,
+    limit = 20,
+    _cursor?: string
+  ): Promise<PaginatedResult<NFTItem>> {
+    const cid = chainId ?? this.config.defaultChainId;
+    const client = this._getClient(cid);
+    const owner = address as Address;
+    const items: NFTItem[] = [];
+
+    const knownNftContracts = this._knownNftContracts(cid);
+
+    for (const { contractAddress, tokenIds } of knownNftContracts) {
+      if (items.length >= limit) break;
+
+      const nfts721 = await scanErc721(
+        client, contractAddress as Address, owner, tokenIds, limit - items.length
+      );
+      items.push(...nfts721);
+
+      if (items.length >= limit) break;
+
+      const nfts1155 = await scanErc1155(
+        client, contractAddress as Address, owner, tokenIds, limit - items.length
+      );
+      items.push(...nfts1155);
+    }
+
+    if (items.length === 0) {
+      const fallback = await this._scanNftsByEnumeration(
+        client, cid, owner, limit
+      );
+      items.push(...fallback);
+    }
+
+    return {
+      items: items.slice(0, limit),
+      hasMore: items.length > limit,
+      nextCursor: items.length > limit ? items[limit - 1]?.tokenId : undefined,
+    };
+  }
+
+  // -- private: transaction fetching ----------------------------------------
+
   private async _getSingleChainTransactions(
     address: string,
     chainId: number,
@@ -626,19 +531,17 @@ export class BlockchainApiClient {
       sortOrder?: string;
     }
   ): Promise<PaginatedResult<Transaction>> {
-    const cacheKey = _txCacheKey(address, chainId, cursor, filters?.type, filters?.timeFrom, filters?.timeTo);
-    const cached = _getTxCached(cacheKey);
+    const cacheKey = txCacheKey(address, chainId, cursor, filters?.type, filters?.timeFrom, filters?.timeTo);
+    const cached = getTxCached(cacheKey);
     if (cached) {
       return { items: cached.transactions, nextCursor: cached.nextCursor, hasMore: cached.hasMore };
     }
 
-    // Try indexer APIs first
     if (this.config.alchemyApiKey) {
       try {
         return await this._getTxsViaAlchemy(address, chainId, limit, cursor, filters);
       } catch (err) {
         logger.warn(`[blockchain-api:_getSingleChainTransactions] Alchemy error:`, err);
-        // Fall through
       }
     }
 
@@ -647,17 +550,12 @@ export class BlockchainApiClient {
         return await this._getTxsViaCovalent(address, chainId, limit, cursor, filters);
       } catch (err) {
         logger.warn(`[blockchain-api:_getSingleChainTransactions] Covalent error:`, err);
-        // Fall through
       }
     }
 
-    // Fallback: on-chain scan
     return this._getTxsOnChain(address, chainId, limit, cursor, filters);
   }
 
-  /**
-   * Fetch transactions via Alchemy API.
-   */
   private async _getTxsViaAlchemy(
     address: string,
     chainId: number,
@@ -682,7 +580,6 @@ export class BlockchainApiClient {
     const alchemyUrl = `https://${network}.g.alchemy.com/v2/${this.config.alchemyApiKey}`;
     const pageKey = cursor ? JSON.parse(cursor).pageKey : undefined;
 
-    // Get regular transactions
     const txsResponse = await fetch(alchemyUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -732,7 +629,6 @@ export class BlockchainApiClient {
     const transactions: Transaction[] = transfers
       .map((tx) => {
         const timestamp = tx.timestamp ? parseInt(tx.timestamp, 16) : undefined;
-        // Apply time filters
         if (filters?.timeFrom && timestamp && timestamp < filters.timeFrom) return null;
         if (filters?.timeTo && timestamp && timestamp > filters.timeTo) return null;
 
@@ -760,16 +656,12 @@ export class BlockchainApiClient {
       hasMore: !!txsData.result?.pageKey,
     };
 
-    // Cache the result
-    const cacheKey = _txCacheKey(address, chainId, undefined, filters?.type, filters?.timeFrom, filters?.timeTo);
-    _setTxCached(cacheKey, result.items, nextCursor, result.hasMore);
+    const cacheKey = txCacheKey(address, chainId, undefined, filters?.type, filters?.timeFrom, filters?.timeTo);
+    setTxCached(cacheKey, result.items, nextCursor, result.hasMore);
 
     return result;
   }
 
-  /**
-   * Fetch transactions via Covalent / GoldRush API.
-   */
   private async _getTxsViaCovalent(
     address: string,
     chainId: number,
@@ -777,7 +669,6 @@ export class BlockchainApiClient {
     cursor?: string,
     filters?: { type?: string; tokenAddress?: string; timeFrom?: number; timeTo?: number; status?: string }
   ): Promise<PaginatedResult<Transaction>> {
-    // Covalent chain name mapping
     const chainNameMap: Record<number, string> = {
       1: "eth-mainnet",
       137: "polygon-mainnet",
@@ -794,7 +685,6 @@ export class BlockchainApiClient {
 
     let url = `https://api.covalenthq.com/v1/${chainName}/address/${address}/transactions_v2/?limit=${limit}`;
 
-    // Add optional filters
     if (cursor) url += `&page-token=${encodeURIComponent(cursor)}`;
     if (filters?.tokenAddress) url += `&contract-address=${filters.tokenAddress}`;
     if (filters?.timeFrom) url += `&start-time=${filters.timeFrom}`;
@@ -861,19 +751,12 @@ export class BlockchainApiClient {
       hasMore: pagination?.has_more ?? false,
     };
 
-    // Cache the result
-    const cacheKey = _txCacheKey(address, chainId, undefined, filters?.type, filters?.timeFrom, filters?.timeTo);
-    _setTxCached(cacheKey, result.items, result.nextCursor, result.hasMore);
+    const cacheKey = txCacheKey(address, chainId, undefined, filters?.type, filters?.timeFrom, filters?.timeTo);
+    setTxCached(cacheKey, result.items, result.nextCursor, result.hasMore);
 
     return result;
   }
 
-  /**
-   * Fallback: scan recent blocks on-chain to find transactions.
-   *
-   * NOTE: This is limited to transactions in recent blocks and is not
-   * suitable for full transaction history. Use an indexer for complete results.
-   */
   private async _getTxsOnChain(
     address: string,
     chainId: number,
@@ -884,7 +767,6 @@ export class BlockchainApiClient {
     const client = this._getClient(chainId);
     const lowerAddress = address.toLowerCase();
 
-    // Start from the latest block or a cached cursor
     let startBlock: number;
     try {
       const block = await client.getBlockNumber();
@@ -902,14 +784,13 @@ export class BlockchainApiClient {
     }
 
     const transactions: Transaction[] = [];
-    const scanLimit = Math.min(limit * 10, 100); // Scan up to 100 blocks
+    const scanLimit = Math.min(limit * 10, 100);
 
     for (let blockNum = startBlock; blockNum > startBlock - scanLimit && transactions.length < limit; blockNum--) {
       try {
         const block = await client.getBlock({ blockNumber: BigInt(blockNum), includeTransactions: true });
         const timestamp = Number(block.timestamp);
 
-        // Apply time filters
         if (filters?.timeFrom && timestamp < filters.timeFrom) continue;
         if (filters?.timeTo && timestamp > filters.timeTo) continue;
 
@@ -929,7 +810,6 @@ export class BlockchainApiClient {
               logger.warn(`[blockchain-api:_getTxsOnChain] receipt error:`, err);
             }
 
-            // Apply status filter
             if (filters?.status && status !== filters.status) continue;
 
             transactions.push({
@@ -959,440 +839,28 @@ export class BlockchainApiClient {
       hasMore: transactions.length >= limit,
     };
 
-    // Cache the result
-    const cacheKey = _txCacheKey(address, chainId, undefined, filters?.type, filters?.timeFrom, filters?.timeTo);
-    _setTxCached(cacheKey, result.items, result.nextCursor, result.hasMore);
+    const cacheKey = txCacheKey(address, chainId, undefined, filters?.type, filters?.timeFrom, filters?.timeTo);
+    setTxCached(cacheKey, result.items, result.nextCursor, result.hasMore);
 
     return result;
   }
 
-  /**
-   * Get full details for a single transaction.
-   *
-   * @param txHash — transaction hash.
-   * @param chainId — EVM chain id.
-   * @returns Transaction object with on-chain details.
-   */
-  async getTransaction(
-    txHash: string,
-    chainId?: number
-  ): Promise<Transaction | null> {
-    const cid = chainId ?? this.config.defaultChainId;
-    const client = this._getClient(cid);
+  // -- private: NFT helpers -------------------------------------------------
 
-    const tx = await client.getTransaction({
-      hash: txHash as Hex,
-    });
-
-    if (!tx) return null;
-
-    const receipt = await client.getTransactionReceipt({
-      hash: txHash as Hex,
-    });
-
-    const block = tx.blockNumber
-      ? await client.getBlock({ blockNumber: tx.blockNumber })
-      : undefined;
-
-    return {
-      hash: tx.hash,
-      from: tx.from,
-      to: tx.to ?? undefined,
-      value: tx.value,
-      status: receipt
-        ? receipt.status === "success"
-          ? "success"
-          : "failed"
-        : "pending",
-      blockNumber: tx.blockNumber != null ? Number(tx.blockNumber) : undefined,
-      timestamp: block ? Number(block.timestamp) : undefined,
-      gasUsed: receipt?.gasUsed,
-    };
-  }
-
-  /**
-   * Resolve an ENS name to an Ethereum address.
-   *
-   * @param name — ENS domain name (e.g. `vitalik.eth`).
-   * @returns Ethereum address or null if not found.
-   */
-  async resolveENS(name: string): Promise<string | null> {
-    const client = this._getClient(1); // ENS lives on mainnet
-    try {
-      const address = await client.getEnsAddress({ name });
-      return address ?? null;
-    } catch (err) {
-      logger.warn(`[blockchain-api:resolveENS] error:`, err);
-      return null;
-    }
-  }
-
-  /**
-   * Reverse ENS lookup — get the ENS name for an address.
-   *
-   * @param address — Ethereum address.
-   * @param chainId — EVM chain id (ENS uses mainnet regardless).
-   * @returns ENS name or null.
-   */
-  async reverseENS(
-    address: string,
-    _chainId?: number
-  ): Promise<string | null> {
-    const client = this._getClient(1); // ENS on mainnet
-    try {
-      const name = await client.getEnsName({ address: address as Address });
-      return name ?? null;
-    } catch (err) {
-      logger.warn(`[blockchain-api:reverseENS] error:`, err);
-      return null;
-    }
-  }
-
-  /**
-   * Fetch metadata for an ERC-20 token.
-   *
-   * @param tokenAddress — contract address.
-   * @param chainId — EVM chain id.
-   * @returns TokenMetadata object.
-   */
-  async getTokenMetadata(
-    tokenAddress: string,
-    chainId?: number
-  ): Promise<TokenMetadata> {
-    const cid = chainId ?? this.config.defaultChainId;
-    const client = this._getClient(cid);
-    const addr = tokenAddress as Address;
-
-    const [symbol, name, decimals, totalSupply] = await Promise.all([
-      client.readContract({
-        address: addr,
-        abi: erc20ReadAbi,
-        functionName: "symbol",
-      }) as Promise<string>,
-      client.readContract({
-        address: addr,
-        abi: erc20ReadAbi,
-        functionName: "name",
-      }) as Promise<string>,
-      client.readContract({
-        address: addr,
-        abi: erc20ReadAbi,
-        functionName: "decimals",
-      }) as Promise<number>,
-      client.readContract({
-        address: addr,
-        abi: erc20ReadAbi,
-        functionName: "totalSupply",
-      }) as Promise<bigint>,
-    ]);
-
-    return {
-      address: tokenAddress,
-      symbol,
-      name,
-      decimals,
-      totalSupply,
-    };
-  }
-
-  /**
-   * Fetch NFTs owned by an address.
-   *
-   * NOTE: Like `getTransactionHistory`, NFT enumeration requires an indexer.
-   * This method returns an empty result by default.
-   *
-   * @param address — wallet address.
-   * @param chainId — EVM chain id.
-   * @param limit — max number of NFTs (default 20).
-   * @param cursor — pagination cursor.
-   * @returns Paginated list of NFTItem objects.
-   */
-  async getNFTs(
-    address: string,
-    chainId?: number,
-    limit = 20,
-    _cursor?: string
-  ): Promise<PaginatedResult<NFTItem>> {
-    const cid = chainId ?? this.config.defaultChainId;
-    const client = this._getClient(cid);
-    const owner = address as Address;
-    const items: NFTItem[] = [];
-
-    // ----------------------------------------------------------------
-    // Strategy: scan well-known NFT contracts on the target chain.
-    // In production, wire to an indexer (Alchemy NFT API, SimpleHash,
-    // Moralis, etc.) for full enumeration. Here we do on-chain reads
-    // for a curated set of contracts per chain.
-    // ----------------------------------------------------------------
-    const knownNftContracts = this._knownNftContracts(cid);
-
-    for (const { contractAddress, tokenIds } of knownNftContracts) {
-      if (items.length >= limit) break;
-
-      // Try ERC-721 first
-      const nfts721 = await this._scanErc721(
-        client, contractAddress as Address, owner, tokenIds, limit - items.length
-      );
-      items.push(...nfts721);
-
-      if (items.length >= limit) break;
-
-      // Try ERC-1155 for same contract (some contracts are hybrid)
-      const nfts1155 = await this._scanErc1155(
-        client, contractAddress as Address, owner, tokenIds, limit - items.length
-      );
-      items.push(...nfts1155);
-    }
-
-    // If no known contracts found, try scanning by token enumeration
-    // (fallback for custom wallets)
-    if (items.length === 0) {
-      const fallback = await this._scanNftsByEnumeration(
-        client, cid, owner, limit
-      );
-      items.push(...fallback);
-    }
-
-    return {
-      items: items.slice(0, limit),
-      hasMore: items.length > limit,
-      nextCursor: items.length > limit ? items[limit - 1]?.tokenId : undefined,
-    };
-  }
-
-  // -- NFT internal helpers ------------------------------------------------
-
-  /** Scan an ERC-721 contract for tokens owned by `owner`. */
-  private async _scanErc721(
-    client: PublicClient,
-    contract: Address,
-    owner: Address,
-    tokenIds: string[],
-    limit: number
-  ): Promise<NFTItem[]> {
-    const items: NFTItem[] = [];
-    try {
-      // Check if contract implements ERC-721
-      const supportsErc721 = await this._supportsInterface(
-        client, contract, ERC721_INTERFACE_ID
-      );
-      if (!supportsErc721) return items;
-
-      // Check owner's balance
-      const balance = await client.readContract({
-        address: contract,
-        abi: erc721MetadataAbi,
-        functionName: "balanceOf",
-        args: [owner],
-      }) as bigint;
-
-      if (balance === 0n) return items;
-
-      if (tokenIds.length > 0) {
-        // Scan specific token IDs
-        for (const tid of tokenIds.slice(0, limit)) {
-          if (items.length >= limit) break;
-          try {
-            const tokenOwner = await client.readContract({
-              address: contract,
-              abi: erc721MetadataAbi,
-              functionName: "ownerOf",
-              args: [BigInt(tid)],
-            }) as Address;
-
-            if (tokenOwner.toLowerCase() === owner.toLowerCase()) {
-              const meta = await this._fetchNftMetadata(
-                client, contract, tid, "ERC721"
-              );
-              items.push({ ...meta, contractAddress: contract, tokenId: tid, tokenType: "ERC721" });
-            }
-          } catch (err) {
-            logger.warn(`[blockchain-api:_scanErc721] ownerOf error:`, err);
-          }
-        }
-      } else {
-        // If we know balance > 0 but no token IDs, try range 0..balance+1
-        const maxScan = Math.min(Number(balance) + 1, limit);
-        for (let tid = 0; tid < maxScan; tid++) {
-          if (items.length >= limit) break;
-          try {
-            const tokenOwner = await client.readContract({
-              address: contract,
-              abi: erc721MetadataAbi,
-              functionName: "ownerOf",
-              args: [BigInt(tid)],
-            }) as Address;
-
-            if (tokenOwner.toLowerCase() === owner.toLowerCase()) {
-              const meta = await this._fetchNftMetadata(
-                client, contract, String(tid), "ERC721"
-              );
-              items.push({ ...meta, contractAddress: contract, tokenId: String(tid), tokenType: "ERC721" });
-            }
-          } catch (err) {
-            logger.warn(`[blockchain-api:_scanErc721] scan error:`, err);
-          }
-        }
-      }
-    } catch (err) {
-      logger.warn(`[blockchain-api:_scanErc721] contract error:`, err);
-    }
-    return items;
-  }
-
-  /** Scan an ERC-1155 contract for tokens owned by `owner`. */
-  private async _scanErc1155(
-    client: PublicClient,
-    contract: Address,
-    owner: Address,
-    tokenIds: string[],
-    limit: number
-  ): Promise<NFTItem[]> {
-    const items: NFTItem[] = [];
-    try {
-      const supportsErc1155 = await this._supportsInterface(
-        client, contract, ERC1155_INTERFACE_ID
-      );
-      if (!supportsErc1155) return items;
-
-      const idsToCheck = tokenIds.length > 0 ? tokenIds.slice(0, limit) : ["0", "1"];
-      for (const tid of idsToCheck) {
-        if (items.length >= limit) break;
-        try {
-          const bal = await client.readContract({
-            address: contract,
-            abi: erc1155MetadataAbi,
-            functionName: "balanceOf",
-            args: [owner, BigInt(tid)],
-          }) as bigint;
-
-          if (bal > 0n) {
-            const meta = await this._fetchNftMetadata(
-              client, contract, tid, "ERC1155"
-            );
-            items.push({
-              ...meta,
-              contractAddress: contract,
-              tokenId: tid,
-              tokenType: "ERC1155",
-              balance: bal,
-            });
-          }
-        } catch (err) {
-          logger.warn(`[blockchain-api:_scanErc1155] balanceOf error:`, err);
-        }
-      }
-    } catch (err) {
-      logger.warn(`[blockchain-api:_scanErc1155] contract error:`, err);
-    }
-    return items;
-  }
-
-  /** Check if a contract supports a given interface via ERC-165. */
-  private async _supportsInterface(
-    client: PublicClient,
-    contract: Address,
-    interfaceId: string
-  ): Promise<boolean> {
-    try {
-      const result = await client.readContract({
-        address: contract,
-        abi: erc165Abi,
-        functionName: "supportsInterface",
-        args: [interfaceId as `0x${string}`],
-      });
-      return result as boolean;
-    } catch (err) {
-      logger.warn(`[blockchain-api:_supportsInterface] error:`, err);
-      return false;
-    }
-  }
-
-  /** Fetch metadata for a specific NFT token. */
-  private async _fetchNftMetadata(
-    client: PublicClient,
-    contract: Address,
-    tokenId: string,
-    tokenType: "ERC721" | "ERC1155"
-  ): Promise<{ name?: string; description?: string; imageUrl?: string }> {
-    let uri: string | undefined;
-
-    try {
-      if (tokenType === "ERC721") {
-        uri = await client.readContract({
-          address: contract,
-          abi: erc721MetadataAbi,
-          functionName: "tokenURI",
-          args: [BigInt(tokenId)],
-        }) as string;
-      } else {
-        uri = await client.readContract({
-          address: contract,
-          abi: erc1155MetadataAbi,
-          functionName: "uri",
-          args: [BigInt(tokenId)],
-        }) as string;
-      }
-    } catch (err) {
-      logger.warn(`[blockchain-api:_fetchNftMetadata] URI error:`, err);
-    }
-
-    if (!uri) {
-      // Fallback: try to get collection name
-      try {
-        const name = await client.readContract({
-          address: contract,
-          abi: erc721MetadataAbi,
-          functionName: "name",
-        }) as string;
-        return { name };
-      } catch (err) {
-        logger.warn(`[blockchain-api:_fetchNftMetadata] name error:`, err);
-        return {};
-      }
-    }
-
-    // Handle {id} placeholder in ERC-1155 URIs
-    const resolvedUri = uri.replace("{id}", BigInt(tokenId).toString(16).padStart(64, "0"));
-
-    const metadata = await fetchMetadata(resolvedUri);
-    if (!metadata) {
-      return { imageUrl: resolveImageUrl(resolvedUri) };
-    }
-
-    return {
-      name: metadata.name as string | undefined,
-      description: metadata.description as string | undefined,
-      imageUrl: resolveImageUrl(metadata.image as string | undefined) ??
-                resolveImageUrl(metadata.image_url as string | undefined),
-    };
-  }
-
-  /** Fallback: scan for NFTs by trying common contracts on the chain. */
   private async _scanNftsByEnumeration(
     _client: PublicClient,
     _chainId: number,
     _owner: Address,
     _limit: number
   ): Promise<NFTItem[]> {
-    // Without an indexer, full enumeration is not feasible.
-    // Return empty — callers should wire to an indexer for complete results.
     return [];
   }
 
-  /** Known NFT contracts per chain for targeted scanning. */
   private _knownNftContracts(_chainId: number): { contractAddress: string; tokenIds: string[] }[] {
-    // In production, this would be a large registry.
-    // For now return empty — the scanning still works for any contracts
-    // passed by the caller via configuration.
     return [];
   }
 
-  // -- internal helpers ---------------------------------------------------
-
-  /** Default token list per chain (extendable). */
   private _defaultTokens(_chainId: number): string[] {
-    // Return a minimal set; wire to @cinacoin/token-list in production.
     return [];
   }
 }

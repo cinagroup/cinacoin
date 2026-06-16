@@ -18,4 +18,4 @@ export type {
 } from "./types.js";
 
 export { BlockchainApiClient, createBlockchainApi } from "./client.js";
-export { clearTxCached } from "./client.js";
+export { clearTxCached } from "./cache.js";
