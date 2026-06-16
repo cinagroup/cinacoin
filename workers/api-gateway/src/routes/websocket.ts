@@ -1,10 +1,14 @@
 import { Hono } from 'hono'
 import { upgradeWebSocket } from 'hono/cloudflare-workers'
+import { requireAdminAuth } from '../middleware/admin-auth'
+import { z } from 'zod'
 
 type Env = {
   Bindings: {
     ENVIRONMENT: string
     API_VERSION: string
+    ADMIN_API_KEY: string
+    JWT_SECRET: string
   }
 }
 
@@ -184,17 +188,28 @@ app.get('/ws/status', (c) => {
   })
 })
 
-// Broadcast to channel (HTTP endpoint for testing/admin)
-app.post('/ws/broadcast', async (c) => {
+// Broadcast schema validation
+const BroadcastMessageSchema = z.object({
+  channel: z.string().max(100),
+  message: z.unknown(),
+})
+
+// Broadcast to channel (HTTP endpoint for admin/testing)
+// SECURITY: Requires admin authentication
+app.post('/ws/broadcast', requireAdminAuth, async (c) => {
   try {
     const body = await c.req.json()
-    const { channel, message } = body
-
-    if (!channel || !message) {
+    
+    // Validate message structure
+    const parsed = BroadcastMessageSchema.safeParse(body)
+    if (!parsed.success) {
       return c.json({
-        error: 'Missing channel or message'
+        error: 'Invalid request',
+        details: parsed.error.issues
       }, 400)
     }
+    
+    const { channel, message } = parsed.data
 
     const subscribers = channelSubscriptions.get(channel)
     if (!subscribers || subscribers.size === 0) {

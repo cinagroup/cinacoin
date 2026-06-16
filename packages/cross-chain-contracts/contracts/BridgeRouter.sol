@@ -43,7 +43,10 @@ contract BridgeRouter is ReentrancyGuard, Ownable {
     // Relayer governance
     mapping(address => bool) public isRelayer;
     uint256 public relayerCount;
-    uint256 public signatureThreshold = 1;
+    uint256 public signatureThreshold;
+
+    // SECURITY: Minimum threshold to prevent single relayer compromise
+    uint256 constant MIN_THRESHOLD = 2;
 
     // Nonce tracking: chain → sender → nonce → used
     mapping(uint256 => mapping(address => mapping(uint256 => bool))) public nonceUsed;
@@ -105,10 +108,19 @@ contract BridgeRouter is ReentrancyGuard, Ownable {
     error InvalidSignatureLength();
 
     // ── Constructor ──────────────────────────────────────────────────────
-    constructor() Ownable(msg.sender) {
-        // Deployer is initial relayer
-        _addRelayer(msg.sender);
-        signatureThreshold = 1;
+    /**
+     * @param _relayers   Initial set of relayer addresses (must be >= MIN_THRESHOLD).
+     * @param _threshold  Minimum signatures required (must be >= MIN_THRESHOLD).
+     */
+    constructor(address[] memory _relayers, uint256 _threshold) Ownable(msg.sender) {
+        if (_threshold < MIN_THRESHOLD) revert InvalidThreshold();
+        if (_relayers.length < _threshold) revert InvalidThreshold();
+
+        for (uint256 i = 0; i < _relayers.length; i++) {
+            _addRelayer(_relayers[i]);
+        }
+
+        signatureThreshold = _threshold;
     }
 
     // ── Core Functions ───────────────────────────────────────────────────
@@ -306,7 +318,9 @@ contract BridgeRouter is ReentrancyGuard, Ownable {
     }
 
     function setSignatureThreshold(uint256 threshold) external onlyOwner {
-        if (threshold == 0 || threshold > relayerCount) revert InvalidThreshold();
+        // SECURITY: Enforce minimum threshold to prevent single relayer compromise
+        if (threshold < MIN_THRESHOLD) revert InvalidThreshold();
+        if (threshold > relayerCount) revert InvalidThreshold();
         signatureThreshold = threshold;
         emit ThresholdUpdated(threshold);
     }
@@ -354,7 +368,10 @@ contract BridgeRouter is ReentrancyGuard, Ownable {
         if (!isRelayer[relayer]) revert();
         isRelayer[relayer] = false;
         relayerCount--;
-        if (relayerCount < signatureThreshold) {
+        // SECURITY: Don't let threshold drop below MIN_THRESHOLD
+        if (relayerCount < MIN_THRESHOLD) {
+            signatureThreshold = MIN_THRESHOLD;
+        } else if (relayerCount < signatureThreshold) {
             signatureThreshold = relayerCount;
         }
         emit RelayerRemoved(relayer);

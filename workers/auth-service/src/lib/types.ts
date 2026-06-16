@@ -11,6 +11,7 @@ export interface Env {
   JWT_AUDIENCE: string;
   JWT_EXPIRES_IN: string;
   JWT_REFRESH_EXPIRES_IN: string;
+  ENCRYPTION_KEY: string; // Base64-encoded AES-256 key for encrypting sensitive data
   CORS_ORIGIN: string;
   ENVIRONMENT: string;
   GOOGLE_CLIENT_ID?: string;

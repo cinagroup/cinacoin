@@ -5,7 +5,6 @@
 import { Hono } from 'hono';
 import type { Env } from '../../lib/types.js';
 import { registerSchema, validate } from '../../lib/validation.js';
-import { generateTokenPair } from '../../lib/jwt.js';
 import { hashPassword } from '../../lib/password.js';
 import { createUser, emailExists, usernameExists } from '../../db/users.js';
 import { withRateLimit } from '../../middleware/rate-limit.js';
@@ -49,19 +48,17 @@ auth.post('/register', withRateLimit('register'), async (c) => {
       displayName,
     });
 
-    // Generate tokens
-    const tokens = await generateTokenPair(
-      { sub: user.id, email: user.email, role: user.role },
-      c.env
-    );
-
+    // SECURITY FIX: Do not issue tokens directly after registration.
+    // User must complete 2FA setup first to prevent 2FA bypass.
     return c.json(
       {
         success: true,
         data: {
-          ...tokens,
-          tokenType: 'Bearer' as const,
+          userId: user.id,
           user: toPublicUser(user),
+          mfaSetupRequired: true,
+          mfaSetupUrl: `/auth/mfa/setup`,
+          message: 'Registration successful. Please complete 2FA setup to receive access tokens.',
         },
       },
       201

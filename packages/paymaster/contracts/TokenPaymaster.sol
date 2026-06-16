@@ -61,6 +61,11 @@ contract TokenPaymaster is Ownable2Step, Pausable {
     mapping(IERC20 => uint256) public tokenDailyWithdrawLimit;
     mapping(IERC20 => mapping(uint256 => uint256)) public tokenDailyWithdrawn;
 
+    /// @notice Maximum gas estimate for daily limit pre-check (conservative upper bound)
+    /// @dev Set to 300,000 to cover typical AA transactions (100k-200k).
+    ///      Using a conservative estimate prevents daily limit bypass via underestimation.
+    uint256 public maxGasEstimate = 300_000;
+
     // === Errors ===
 
     error NotEntryPoint();
@@ -131,7 +136,10 @@ contract TokenPaymaster is Ownable2Step, Pausable {
         UserConfig memory config = userConfigs[sender];
         if (!config.enabled) revert UserNotConfigured();
 
-        uint256 estimatedCost = maxFeePerGas * 21_000;
+        // SECURITY FIX: Use configurable gas estimate instead of hardcoded 21,000.
+        // The hardcoded value was too low for AA transactions (typically 100k-200k gas),
+        // allowing daily limit bypass via underestimation.
+        uint256 estimatedCost = maxFeePerGas * maxGasEstimate;
         uint256 day = PaymasterLib.currentDay();
 
         if (config.dailySpendLimit > 0) {
@@ -257,6 +265,14 @@ contract TokenPaymaster is Ownable2Step, Pausable {
     /// @notice Set per-token daily withdraw limit (0 = unlimited)
     function setTokenDailyWithdrawLimit(IERC20 token, uint256 limit) external onlyOwner {
         tokenDailyWithdrawLimit[token] = limit;
+    }
+
+    /// @notice Set maximum gas estimate for daily limit pre-check
+    /// @dev Should be set conservatively high to prevent daily limit bypass
+    function setMaxGasEstimate(uint256 _maxGasEstimate) external onlyOwner {
+        require(_maxGasEstimate >= 21_000, "Too low");
+        require(_maxGasEstimate <= 1_000_000, "Too high");
+        maxGasEstimate = _maxGasEstimate;
     }
 
     // === Funding ===

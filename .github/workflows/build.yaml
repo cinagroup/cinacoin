@@ -439,7 +439,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: npm audit
-        run: pnpm audit --audit-level=moderate || true
+        run: pnpm audit --audit-level=moderate
 
       # ── cargo audit ──
       - name: Install Rust
@@ -450,16 +450,16 @@ jobs:
 
       - name: Audit relay-server
         working-directory: ./relay-server
-        run: cargo audit || true
+        run: cargo audit
 
       - name: Audit bundler
         working-directory: ./packages/bundler
-        run: cargo audit || true
+        run: cargo audit
 
       - name: Audit push-server
         working-directory: ./packages/push-server
-        run: cargo audit || true
+        run: cargo audit
 
       - name: Audit keys-server
         working-directory: ./packages/keys-server
-        run: cargo audit || true
+        run: cargo audit

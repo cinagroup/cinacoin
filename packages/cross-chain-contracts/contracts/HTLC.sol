@@ -33,6 +33,7 @@ contract HTLC is ReentrancyGuard, Ownable {
 
     // ── State ────────────────────────────────────────────────────────────
     uint256 public lockCount;
+    uint256 public totalLockedETH; // Track total ETH locked to prevent emergencyWithdraw of user funds
     mapping(uint256 => Lock) public locks;
     // Track exposed secrets to prevent reuse across chains
     mapping(bytes32 => bool) public revealedSecrets;
@@ -100,6 +101,7 @@ contract HTLC is ReentrancyGuard, Ownable {
         if (token == address(0)) {
             // Native ETH lock
             if (msg.value != amount) revert InsufficientFunds();
+            totalLockedETH += amount; // Track locked ETH
         } else {
             if (msg.value != 0) revert InsufficientFunds();
             IERC20(token).safeTransferFrom(msg.sender, address(this), amount);
@@ -147,6 +149,11 @@ contract HTLC is ReentrancyGuard, Ownable {
         lock.claimed = true;
         revealedSecrets[lock.hashlock] = true;
 
+        // Reduce tracked locked ETH if this was an ETH lock
+        if (lock.token == address(0)) {
+            totalLockedETH -= lock.amount;
+        }
+
         _transferFunds(lock.token, msg.sender, lock.amount);
 
         emit Claimed(lockId, secret, msg.sender);
@@ -166,6 +173,11 @@ contract HTLC is ReentrancyGuard, Ownable {
         if (block.timestamp < lock.timelock) revert TimelockNotExpired();
 
         lock.claimed = true; // Mark as resolved to prevent double-refund
+
+        // Reduce tracked locked ETH if this was an ETH lock
+        if (lock.token == address(0)) {
+            totalLockedETH -= lock.amount;
+        }
 
         _transferFunds(lock.token, lock.sender, lock.amount);
 
@@ -235,13 +247,14 @@ contract HTLC is ReentrancyGuard, Ownable {
     }
 
     /**
-     * @notice Withdraw stuck native ETH (emergency, only owner).
-     *         Safety valve for recovering funds sent outside the normal HTLC flow.
-     *         Only the contract owner can call this function.
+     * @notice Withdraw excess ETH (emergency, only owner).
+     *         SECURITY: Only withdraws ETH NOT locked in HTLCs (excess funds).
+     *         Locked user funds (tracked by totalLockedETH) cannot be withdrawn.
      */
     function emergencyWithdraw() external onlyOwner {
-        if (address(this).balance > 0) {
-            (bool success, ) = msg.sender.call{value: address(this).balance}("");
+        uint256 excess = address(this).balance - totalLockedETH;
+        if (excess > 0) {
+            (bool success, ) = msg.sender.call{value: excess}("");
             if (!success) revert TransferFailed();
         }
     }

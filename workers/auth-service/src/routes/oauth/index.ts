@@ -11,6 +11,7 @@ import { uuidv4, now, addMinutes, sha256 } from '../../lib/utils.js';
 import { findUserByEmail, createUser } from '../../db/users.js';
 import { generateTokenPair } from '../../lib/jwt.js';
 import { toPublicUser } from '../../lib/types.js';
+import { encrypt } from '../../lib/encryption.js';
 
 /** Allowed redirect origins – set via ALLOWED_REDIRECT_ORIGINS env var (comma-separated). */
 function getAllowedOrigins(env: Env): string[] {
@@ -309,6 +310,8 @@ oauth.get('/:provider/callback', async (c) => {
     }
 
     // Store OAuth account link
+    // SECURITY: Encrypt access_token before storing (AES-256-GCM)
+    const encryptedToken = await encrypt(tokenData.access_token, c.env.ENCRYPTION_KEY);
     await c.env.DB
       .prepare(
         `INSERT OR REPLACE INTO oauth_accounts
@@ -321,7 +324,7 @@ oauth.get('/:provider/callback', async (c) => {
         provider,
         profile.id,
         profile.email,
-        tokenData.access_token,
+        encryptedToken,
         now(),
         now()
       )

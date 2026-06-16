@@ -124,7 +124,8 @@ app.notFound((c) => {
 // Error handler
 app.onError((err, c) => {
   console.error('API Gateway Error:', err)
-  return c.json({ error: 'Internal Server Error', message: err.message }, 500)
+  // SECURITY: Do not expose internal error details to clients
+  return c.json({ error: 'Internal Server Error' }, 500)
 })
 
 export default app

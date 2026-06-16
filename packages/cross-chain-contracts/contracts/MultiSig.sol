@@ -71,6 +71,18 @@ contract MultiSig {
     error TimeLockNotExpired();
     error NoSignersLeft();
     error CallerNotSigner();
+    error OnlySelf(); // Only callable by the contract itself via proposal
+
+    // ── Modifiers ────────────────────────────────────────────────────────
+    
+    /**
+     * @dev Restricts function access to the contract itself (via proposal execution).
+     *      Governance functions must go through propose→approve→execute flow.
+     */
+    modifier onlySelf() {
+        if (msg.sender != address(this)) revert OnlySelf();
+        _;
+    }
 
     // ── Constructor ──────────────────────────────────────────────────────
     /**
@@ -228,11 +240,10 @@ contract MultiSig {
     // ── Governance Functions ─────────────────────────────────────────────
 
     /**
-     * @notice Add a new signer. Requires existing threshold approval.
+     * @notice Add a new signer. SECURITY: Must be called via proposal (onlySelf).
      * @param signer Address to add as signer.
      */
-    function addSigner(address signer) external {
-        if (!isSigner[msg.sender]) revert NotSigner();
+    function addSigner(address signer) external onlySelf {
         if (isSigner[signer]) revert();
         if (signer == address(0)) revert InvalidTarget();
 
@@ -244,11 +255,10 @@ contract MultiSig {
     }
 
     /**
-     * @notice Remove a signer. Cannot go below threshold.
+     * @notice Remove a signer. SECURITY: Must be called via proposal (onlySelf).
      * @param signer Address to remove.
      */
-    function removeSigner(address signer) external {
-        if (!isSigner[msg.sender]) revert NotSigner();
+    function removeSigner(address signer) external onlySelf {
         if (!isSigner[signer]) revert();
         if (signerCount - 1 < threshold) revert NoSignersLeft();
 
@@ -268,11 +278,10 @@ contract MultiSig {
     }
 
     /**
-     * @notice Update the approval threshold.
+     * @notice Update the approval threshold. SECURITY: Must be called via proposal (onlySelf).
      * @param newThreshold New minimum approvals required.
      */
-    function updateThreshold(uint256 newThreshold) external {
-        if (!isSigner[msg.sender]) revert NotSigner();
+    function updateThreshold(uint256 newThreshold) external onlySelf {
         if (newThreshold == 0 || newThreshold > signerCount) revert InvalidThreshold();
 
         threshold = newThreshold;
@@ -280,12 +289,10 @@ contract MultiSig {
     }
 
     /**
-     * @notice Update the time lock delay.
+     * @notice Update the time lock delay. SECURITY: Must be called via proposal (onlySelf).
      * @param newDelay New delay in seconds before execution.
      */
-    function updateTimeDelay(uint256 newDelay) external {
-        if (!isSigner[msg.sender]) revert NotSigner();
-
+    function updateTimeDelay(uint256 newDelay) external onlySelf {
         timeDelay = newDelay;
         emit TimeDelayUpdated(newDelay);
     }

@@ -72,3 +72,7 @@ cinad
 
 # Lock files (too large)
 pnpm-lock.yaml
+
+# FRP tunnel configurations (contain sensitive tokens and server IPs)
+frp*
+*.ini
