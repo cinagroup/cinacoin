@@ -16,18 +16,19 @@ function getJwtSecret(): Uint8Array {
   // DEFI-07: In production, refuse to operate without a proper secret
   if (!secret) {
     const nodeEnv = process.env.NODE_ENV || 'production';
-    if (nodeEnv === 'production') {
-      throw new Error(
-        'DEFI-07: JWT_SECRET environment variable is required in production. ' +
-        'Refusing to start with insecure fallback.'
+    // Only allow dev fallback in explicitly development/test environments
+    if (nodeEnv === 'development' || nodeEnv === 'test') {
+      console.warn(
+        'DEFI-07 WARNING: JWT_SECRET not set. Using insecure dev-only secret. ' +
+        'This MUST be configured before deploying to production.'
       );
+      return new TextEncoder().encode('dev-only-insecure-secret-do-not-use-in-production');
     }
-    // Non-production: use a dev-only placeholder (logged as warning)
-    console.warn(
-      'DEFI-07 WARNING: JWT_SECRET not set. Using insecure dev-only secret. ' +
-      'This MUST be configured before deploying to production.'
+    // All other environments (production, staging, etc.) — fail closed
+    throw new Error(
+      'DEFI-07: JWT_SECRET environment variable is required. ' +
+      'Refusing to start with insecure fallback. NODE_ENV=' + nodeEnv
     );
-    return new TextEncoder().encode('dev-only-insecure-secret-do-not-use-in-production');
   }
 
   // DEFI-07: Reject known-weak secrets

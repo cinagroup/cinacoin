@@ -5,6 +5,14 @@ import type { Env } from './env';
 import { hashPassword, verifyPassword } from './lib/password';
 import { createAccessToken, createRefreshToken, verifyAccessToken, verifyRefreshToken } from './lib/jwt';
 import { registerSchema, loginSchema, mfaVerifySchema, updateUserSchema } from './lib/validation';
+import {
+  oauthCallbackSchema,
+  emailConfirmSchema,
+  passwordResetRequestSchema,
+  passwordResetConfirmSchema,
+  adminSettingsSchema,
+  adminUsersListSchema,
+} from './lib/validation';
 import { generateMFASecret, verifyTOTP, generateTOTPUri } from './lib/mfa';
 
 const app = new Hono<{ Bindings: Env }>();
@@ -154,7 +162,7 @@ app.post('/api/auth/logout', async (c) => {
     return c.json({ success: true });
   } catch (error) {
     console.error('Logout error:', error);
-    return c.json({ error: `Logout failed: ${error instanceof Error ? error.message : 'unknown'}` }, 500);
+    return c.json({ error: 'Logout failed' }, 500);
   }
 });
 
@@ -180,7 +188,7 @@ app.post('/api/auth/refresh', async (c) => {
     return c.json({ accessToken });
   } catch (error) {
     console.error('Refresh error:', error);
-    return c.json({ error: `Refresh failed: ${error instanceof Error ? error.message : 'unknown'}` }, 500);
+    return c.json({ error: 'Refresh failed' }, 500);
   }
 });
 
@@ -351,10 +359,22 @@ app.get('/api/auth/oauth/:provider', async (c) => {
     const redirectUri = c.req.query('redirect_uri') || '';
     const db = c.env.DB;
 
+    // SECURITY: Validate redirect_uri against allowlist to prevent open redirect
+    const allowedRedirectUris = (await getSystemSetting(db, 'oauth_allowed_redirect_uris')) ||
+      'https://cinacoin.com,https://app.cinacoin.com,https://cinacoin-auth.pages.dev';
+    const allowedList = allowedRedirectUris.split(',').map(uri => uri.trim());
+
+    if (redirectUri && !allowedList.includes(redirectUri)) {
+      return c.json({ error: 'Invalid redirect_uri' }, 400);
+    }
+
+    // Use first allowed URI as default if none provided
+    const safeRedirectUri = redirectUri || allowedList[0];
+
     const state = crypto.randomUUID();
     // Store state for CSRF protection
     await db.prepare('INSERT INTO system_settings (key, value, updated_at, updated_by) VALUES (?, ?, ?, ?)')
-      .bind(`oauth_state_${state}`, JSON.stringify({ provider, redirectUri, createdAt: Date.now() }), Date.now(), 'system').run();
+      .bind(`oauth_state_${state}`, JSON.stringify({ provider, redirectUri: safeRedirectUri, createdAt: Date.now() }), Date.now(), 'system').run();
 
     if (provider === 'github') {
       const clientId = await getSystemSetting(db, 'oauth_github_client_id');
@@ -363,7 +383,7 @@ app.get('/api/auth/oauth/:provider', async (c) => {
       }
 
       const scope = 'read:user user:email';
-      const url = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scope)}&state=${state}`;
+      const url = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(safeRedirectUri)}&scope=${encodeURIComponent(scope)}&state=${state}`;
 
       return c.json({ url, state });
     }
@@ -374,7 +394,7 @@ app.get('/api/auth/oauth/:provider', async (c) => {
         return c.json({ error: 'Google OAuth not configured' }, 400);
       }
 
-      const callbackUrl = redirectUri || 'https://auth.cinacoin.com/api/auth/google/callback';
+      const callbackUrl = safeRedirectUri || 'https://auth.cinacoin.com/api/auth/google/callback';
       const scope = 'openid email profile';
       const params = new URLSearchParams({
         client_id: clientId,
@@ -447,7 +467,11 @@ app.get('/api/auth/oauth/:provider', async (c) => {
 app.post('/api/auth/oauth/callback', async (c) => {
   try {
     const body = await c.req.json();
-    const { provider, code, state, redirectUri, idToken } = body;
+    const parsed = oauthCallbackSchema.safeParse(body);
+    if (!parsed.success) {
+      return c.json({ error: 'Invalid request', details: parsed.error.flatten().fieldErrors }, 400);
+    }
+    const { provider, code, state, idToken } = parsed.data;
     const db = c.env.DB;
 
     // Verify state
@@ -744,29 +768,11 @@ app.put('/api/admin/settings', async (c) => {
 
   try {
     const body = await c.req.json();
-    const { key, value, description } = body;
-
-    if (!key || !value) {
-      return c.json({ error: 'Key and value required' }, 400);
+    const parsed = adminSettingsSchema.safeParse(body);
+    if (!parsed.success) {
+      return c.json({ error: 'Invalid request', details: parsed.error.flatten().fieldErrors }, 400);
     }
-
-    // Validate key format
-    const allowedKeys = [
-      'oauth_github_client_id',
-      'oauth_github_client_secret',
-      'oauth_google_client_id',
-      'oauth_google_client_secret',
-      'oauth_discord_client_id',
-      'oauth_discord_client_secret',
-      'oauth_apple_client_id',
-      'oauth_apple_client_secret',
-      'resend_api_key',
-      'app_base_url',
-    ];
-
-    if (!allowedKeys.includes(key)) {
-      return c.json({ error: 'Invalid setting key' }, 400);
-    }
+    const { key, value, description } = parsed.data;
 
     await setSystemSetting(c.env.DB, key, value, description || '', adminId);
 
@@ -796,8 +802,11 @@ app.get('/api/admin/users', async (c) => {
   if (!adminId) return;
 
   try {
-    const limit = parseInt(c.req.query('limit') || '50');
-    const offset = parseInt(c.req.query('offset') || '0');
+    const parsed = adminUsersListSchema.safeParse(c.req.query());
+    if (!parsed.success) {
+      return c.json({ error: 'Invalid query parameters', details: parsed.error.flatten().fieldErrors }, 400);
+    }
+    const { limit, offset } = parsed.data;
 
     const rows = await c.env.DB.prepare('SELECT id, email, name, role, mfa_enabled, created_at FROM users ORDER BY created_at DESC LIMIT ? OFFSET ?')
       .bind(limit, offset).all() as any;
@@ -873,11 +882,16 @@ app.post('/api/auth/email/verify', async (c) => {
       <p>If you did not create an account, please ignore this email.</p>
     `);
 
+    // SECURITY: Never expose token or verifyUrl to client — even if email fails.
+    // The token is stored in DB and only delivered via email.
+    // If email fails, ops can retrieve it from DB for debugging.
+    if (!emailSent) {
+      console.error('Email verification send failed for user:', user.id);
+    }
+
     return c.json({
       success: true,
-      message: emailSent ? 'Verification email sent' : 'Email service unavailable. Token generated.',
-      token: emailSent ? undefined : token,
-      verifyUrl: emailSent ? undefined : verifyUrl,
+      message: 'Verification email sent. Please check your inbox.',
     });
   } catch (error) {
     console.error('Email verify error:', error);
@@ -889,8 +903,11 @@ app.post('/api/auth/email/verify', async (c) => {
 app.post('/api/auth/email/confirm', async (c) => {
   try {
     const body = await c.req.json();
-    const { token } = body;
-    if (!token) return c.json({ error: 'Token required' }, 400);
+    const parsed = emailConfirmSchema.safeParse(body);
+    if (!parsed.success) {
+      return c.json({ error: 'Invalid request', details: parsed.error.flatten().fieldErrors }, 400);
+    }
+    const { token } = parsed.data;
 
     const db = c.env.DB;
     const verification = await db.prepare(
@@ -920,8 +937,11 @@ app.post('/api/auth/email/confirm', async (c) => {
 app.post('/api/auth/password/reset', async (c) => {
   try {
     const body = await c.req.json();
-    const { email } = body;
-    if (!email) return c.json({ error: 'Email required' }, 400);
+    const parsed = passwordResetRequestSchema.safeParse(body);
+    if (!parsed.success) {
+      return c.json({ error: 'Invalid request', details: parsed.error.flatten().fieldErrors }, 400);
+    }
+    const { email } = parsed.data;
 
     const db = c.env.DB;
     const user = await db.prepare('SELECT id, email FROM users WHERE email = ?').bind(email).first() as any;
@@ -955,11 +975,15 @@ app.post('/api/auth/password/reset', async (c) => {
       <p>If you did not request this, please ignore this email.</p>
     `);
 
+    // SECURITY: Never expose token or resetUrl to client — even if email fails.
+    // The token is stored in DB and only delivered via email.
+    if (!emailSent) {
+      console.error('Password reset email send failed for user:', user.id);
+    }
+
     return c.json({
       success: true,
-      message: emailSent ? 'Reset email sent' : 'Email service unavailable. Token generated.',
-      token: emailSent ? undefined : token,
-      resetUrl: emailSent ? undefined : resetUrl,
+      message: 'If your email is registered, you will receive a password reset link shortly.',
     });
   } catch (error) {
     console.error('Password reset error:', error);
@@ -971,11 +995,11 @@ app.post('/api/auth/password/reset', async (c) => {
 app.post('/api/auth/password/confirm', async (c) => {
   try {
     const body = await c.req.json();
-    const { token, password } = body;
-    if (!token || !password) return c.json({ error: 'Token and password required' }, 400);
-
-    // Validate password strength
-    if (password.length < 8) return c.json({ error: 'Password must be at least 8 characters' }, 400);
+    const parsed = passwordResetConfirmSchema.safeParse(body);
+    if (!parsed.success) {
+      return c.json({ error: 'Invalid request', details: parsed.error.flatten().fieldErrors }, 400);
+    }
+    const { token, password } = parsed.data;
 
     const db = c.env.DB;
     const reset = await db.prepare(
