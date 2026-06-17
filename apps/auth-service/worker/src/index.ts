@@ -17,9 +17,28 @@ import { generateMFASecret, verifyTOTP, generateTOTPUri } from './lib/mfa';
 
 const app = new Hono<{ Bindings: Env }>();
 
-// CORS
+// CORS - environment-aware configuration
 app.use('*', cors({
-  origin: ['https://auth.cinacoin.com', 'https://cinacoin.com', 'https://cinacoin-auth.pages.dev', 'http://localhost:3000'],
+  origin: (origin, env) => {
+    // Allow configured origins from environment variable
+    const configuredOrigins = env.CORS_ORIGINS?.split(',').map(o => o.trim()) || [];
+    
+    // In development, allow localhost
+    const isDev = env.NODE_ENV === 'development' || env.NODE_ENV === 'test';
+    const devOrigins = isDev ? ['http://localhost:3000', 'http://localhost:5173'] : [];
+    
+    // Default production origins
+    const productionOrigins = [
+      'https://auth.cinacoin.com',
+      'https://cinacoin.com',
+      'https://cinacoin-auth.pages.dev',
+    ];
+    
+    const allowedOrigins = [...configuredOrigins, ...productionOrigins, ...devOrigins];
+    
+    // Return origin if allowed, otherwise return first allowed origin
+    return allowedOrigins.includes(origin) ? origin : allowedOrigins[0];
+  },
   credentials: true,
 }));
 
@@ -93,7 +112,7 @@ app.post('/api/auth/register', async (c) => {
     setCookie(c, 'refresh_token', refreshToken, {
       httpOnly: true,
       secure: true,
-      sameSite: 'Lax',
+      sameSite: 'Strict',
       maxAge: 7 * 86400,
       path: '/',
     });
@@ -133,7 +152,7 @@ app.post('/api/auth/login', async (c) => {
     setCookie(c, 'refresh_token', refreshToken, {
       httpOnly: true,
       secure: true,
-      sameSite: 'Lax',
+      sameSite: 'Strict',
       maxAge: 7 * 86400,
       path: '/',
     });
@@ -155,7 +174,7 @@ app.post('/api/auth/logout', async (c) => {
     setCookie(c, 'refresh_token', '', {
       httpOnly: true,
       secure: true,
-      sameSite: 'Lax',
+      sameSite: 'Strict',
       maxAge: 0,
       path: '/',
     });
@@ -239,7 +258,7 @@ app.post('/api/auth/mfa/verify', async (c) => {
     setCookie(c, 'refresh_token', refreshToken, {
       httpOnly: true,
       secure: true,
-      sameSite: 'Lax',
+      sameSite: 'Strict',
       maxAge: 7 * 86400,
       path: '/',
     });

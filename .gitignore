@@ -76,3 +76,10 @@ pnpm-lock.yaml
 # FRP tunnel configurations (contain sensitive tokens and server IPs)
 frp*
 *.ini
+
+# E2E compiled output (Playwright compiles .ts → .js)
+e2e/**/*.js
+e2e/**/*.d.ts
+e2e/**/*.js.map
+e2e/playwright-report/
+e2e/test-results/

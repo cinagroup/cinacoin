@@ -1,8 +1,16 @@
 import { z } from 'zod';
 
+// Password strength: min 8, max 128, must contain uppercase, lowercase, and digit
+export const passwordSchema = z.string()
+  .min(8, 'Password must be at least 8 characters')
+  .max(128, 'Password must not exceed 128 characters')
+  .regex(/[a-z]/, 'Password must contain at least one lowercase letter')
+  .regex(/[A-Z]/, 'Password must contain at least one uppercase letter')
+  .regex(/[0-9]/, 'Password must contain at least one digit');
+
 export const registerSchema = z.object({
   email: z.string().email().max(255),
-  password: z.string().min(8).max(128),
+  password: passwordSchema,
   name: z.string().max(100).optional(),
 });
 
@@ -59,7 +67,7 @@ export const passwordResetRequestSchema = z.object({
 
 export const passwordResetConfirmSchema = z.object({
   token: z.string().min(1).max(255),
-  password: z.string().min(8).max(128),
+  password: passwordSchema, // Same strength as registration
 });
 
 // ── Admin ──────────────────────────────────────────────

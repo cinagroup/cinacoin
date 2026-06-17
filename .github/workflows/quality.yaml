@@ -138,7 +138,6 @@ jobs:
 
       - name: Vitest — TypeScript packages
         run: pnpm vitest run --coverage
-        continue-on-error: true
 
       # ── Rust ──
       - name: Setup Rust

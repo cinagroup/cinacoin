@@ -1,0 +1,119 @@
+# Repository settings managed by Settings App
+# https://github.com/apps/settings
+#
+# To apply changes: merge to main, then the settings action will auto-apply.
+# Manual changes to GitHub UI will be overwritten on next sync.
+
+repository:
+  name: cinacoin
+  description: Cinacoin Web3 SDK - Crypto-first authentication and account abstraction
+  homepage: https://cinacoin.com
+  topics: web3, crypto, sdk, account-abstraction, webauthn, siwe
+  
+  # Branch protection
+  default_branch: main
+  
+  # Features
+  has_issues: true
+  has_projects: true
+  has_wiki: false
+  has_downloads: true
+  
+  # Security
+  allow_squash_merge: true
+  allow_merge_commit: false
+  allow_rebase_merge: true
+  
+  # Auto-merge
+  allow_auto_merge: true
+  delete_branch_on_merge: true
+
+# Branch protection rules
+branches:
+  - name: main
+    protection:
+      required_pull_request_reviews:
+        required_approving_review_count: 1
+        dismiss_stale_reviews: true
+        require_code_owner_reviews: true
+        dismissal_restrictions:
+          users: []
+          teams: []
+      
+      required_status_checks:
+        strict: true
+        contexts:
+          - "TypeScript Compilation"
+          - "ESLint"
+          - "Unit Tests + Coverage"
+          - "E2E Tests"
+          - "Build Validation"
+          - "Security Audit"
+      
+      enforce_admins: true
+      
+      required_linear_history: true
+      
+      restrictions:
+        users: []
+        teams: []
+        apps:
+          - cinagroup-bot
+
+  - name: develop
+    protection:
+      required_pull_request_reviews:
+        required_approving_review_count: 1
+        dismiss_stale_reviews: true
+      
+      required_status_checks:
+        strict: true
+        contexts:
+          - "TypeScript Compilation"
+          - "ESLint"
+          - "Unit Tests + Coverage"
+
+# Labels
+labels:
+  - name: "bug"
+    color: "d73a4a"
+    description: "Something isn't working"
+  
+  - name: "feature"
+    color: "a2eeef"
+    description: "New feature or request"
+  
+  - name: "security"
+    color: "ee0000"
+    description: "Security related issues"
+  
+  - name: "breaking-change"
+    color: "b60205"
+    description: "Breaking API changes"
+  
+  - name: "documentation"
+    color: "0075ca"
+    description: "Improvements or additions to documentation"
+  
+  - name: "dependencies"
+    color: "0366d6"
+    description: "Pull requests that update a dependency file"
+  
+  - name: "performance"
+    color: "fbca04"
+    description: "Performance improvements"
+  
+  - name: "test"
+    color: "e4e669"
+    description: "Adding or improving tests"
+
+# Teams
+teams:
+  - name: maintainers
+    permission: admin
+  
+  - name: developers
+    permission: push
+  
+  - name: reviewers
+    permission: pull

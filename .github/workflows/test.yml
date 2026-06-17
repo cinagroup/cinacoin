@@ -36,14 +36,12 @@ jobs:
 
       - name: Run Vitest with coverage
         run: npx vitest run --coverage
-        continue-on-error: true
 
       - name: Run on-chain integration tests
         run: |-
           cd packages/integration-tests
           pnpm install
           pnpm exec vitest run --reporter=verbose
-        continue-on-error: true
         env:
           SEPOLIA_RPC_URL: ${{ secrets.SEPOLIA_RPC_URL }}
           AMOY_RPC_URL: ${{ secrets.AMOY_RPC_URL }}
