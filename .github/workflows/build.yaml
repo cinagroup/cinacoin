@@ -21,7 +21,7 @@ jobs:
     name: Rust — Relay Server
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
@@ -29,7 +29,7 @@ jobs:
           components: clippy, rustfmt
 
       - name: Cache cargo registry
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             ~/.cargo/registry
@@ -38,7 +38,7 @@ jobs:
           restore-keys: ${{ runner.os }}-cargo-relay-
 
       - name: Cache build target
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: relay-server/target
           key: ${{ runner.os }}-target-relay-${{ hashFiles('relay-server/Cargo.lock') }}
@@ -64,7 +64,7 @@ jobs:
     name: Rust — Bundler
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
@@ -72,7 +72,7 @@ jobs:
           components: clippy, rustfmt
 
       - name: Cache cargo registry
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             ~/.cargo/registry
@@ -81,7 +81,7 @@ jobs:
           restore-keys: ${{ runner.os }}-cargo-bundler-
 
       - name: Cache build target
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: packages/bundler/target
           key: ${{ runner.os }}-target-bundler-${{ hashFiles('packages/bundler/Cargo.lock') }}
@@ -107,7 +107,7 @@ jobs:
     name: Rust — Push Server
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
@@ -115,7 +115,7 @@ jobs:
           components: clippy, rustfmt
 
       - name: Cache cargo registry
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             ~/.cargo/registry
@@ -124,7 +124,7 @@ jobs:
           restore-keys: ${{ runner.os }}-cargo-push-
 
       - name: Cache build target
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: packages/push-server/target
           key: ${{ runner.os }}-target-push-${{ hashFiles('packages/push-server/Cargo.lock') }}
@@ -150,7 +150,7 @@ jobs:
     name: Rust — Keys Server
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
@@ -158,7 +158,7 @@ jobs:
           components: clippy, rustfmt
 
       - name: Cache cargo registry
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             ~/.cargo/registry
@@ -167,7 +167,7 @@ jobs:
           restore-keys: ${{ runner.os }}-cargo-keys-
 
       - name: Cache build target
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: packages/keys-server/target
           key: ${{ runner.os }}-target-keys-${{ hashFiles('packages/keys-server/Cargo.lock') }}
@@ -193,7 +193,7 @@ jobs:
     name: Rust — ERC-6492
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
@@ -201,7 +201,7 @@ jobs:
           components: clippy, rustfmt
 
       - name: Cache cargo registry
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             ~/.cargo/registry
@@ -210,7 +210,7 @@ jobs:
           restore-keys: ${{ runner.os }}-cargo-erc6492-
 
       - name: Cache build target
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: packages/erc6492/target
           key: ${{ runner.os }}-target-erc6492-${{ hashFiles('packages/erc6492/Cargo.lock') }}
@@ -236,10 +236,10 @@ jobs:
     name: Go — RPC Proxy
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Set up Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
           go-version: "1.22"
           cache-dependency-path: ./rpc-proxy/go.sum
@@ -257,7 +257,7 @@ jobs:
         run: go test -race -coverprofile=coverage.out ./...
 
       - name: Upload coverage
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v7
         with:
           files: ./rpc-proxy/coverage.out
 
@@ -270,15 +270,15 @@ jobs:
     name: TypeScript — SDK + UI
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: "22"
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
         with:
           version: 9
           run_install: false
@@ -289,14 +289,14 @@ jobs:
         run: echo "STORE_PATH=$(pnpm store path)" >> "$GITHUB_OUTPUT"
 
       - name: Cache pnpm store
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
           key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: ${{ runner.os }}-pnpm-
 
       - name: Cache node_modules
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             **/node_modules
@@ -318,7 +318,7 @@ jobs:
         run: pnpm vitest run --coverage
 
       - name: Upload coverage
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v7
         with:
           files: coverage/lcov.info
 
@@ -350,13 +350,13 @@ jobs:
             context: packages/keys-server
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@v4
 
       - name: Log in to GHCR
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
@@ -364,7 +364,7 @@ jobs:
 
       - name: Extract metadata
         id: meta
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v6
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAMESPACE }}/${{ matrix.service.name }}
           tags: |
@@ -373,7 +373,7 @@ jobs:
             type=semver,pattern={{version}}
 
       - name: Build and push
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v7
         id: build
         with:
           context: ${{ matrix.service.context }}
@@ -411,7 +411,7 @@ jobs:
 
       - name: Upload SARIF to GitHub
         if: always() && github.event_name == 'pull_request'
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: trivy-results-${{ matrix.service.name }}.sarif
 
@@ -420,17 +420,17 @@ jobs:
     name: Security Scan — npm audit + cargo audit
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # ── npm audit ──
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
         with:
           version: 9
           run_install: false
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: "22"
           cache: pnpm
